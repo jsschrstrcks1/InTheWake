@@ -69,6 +69,90 @@ Soli Deo Gloria
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -148,7 +232,7 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <div style="grid-column: 1;">
+    <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
       <!-- Port Hero with gradient background -->
       <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #003580 0%, #4a90d9 35%, #ffffff 70%, #f0f8ff 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
@@ -159,16 +243,26 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>Helsinki is the underrated gem that keeps climbing the rankings — 4.8 average lately because it's clean, friendly, and packed with design. My perfect day: 10-minute tram to Senate Square and Helsinki Cathedral, then the ferry to Suomenlinna sea fortress (UNESCO, gorgeous island walks). Market Square for salmon soup in a bread bowl, then the Löyly public sauna right on the Baltic (sauna — cold plunge — beer on the terrace is life-changing).</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/helsinki/helsinki-1.webp" alt="Helsinki harbor view" loading="lazy">
+        <figcaption>Helsinki — <a href="https://commons.wikimedia.org/w/index.php?search=Helsinki&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
         <p>Oodi Library (the coolest modern library ever), Temppeliaukio rock church, and Sibelius Monument round it out.</p>
 
         <div class="poignant-highlight">
-          <strong>The Moment That Stays With Me:</strong> Emerging from the 80°C heat of Löyly sauna, walking across the wooden deck, and lowering myself into the Baltic Sea. The cold hit like electricity, and then — pure calm. I sat on the terrace afterward with a Lapin Kulta beer watching the sun hang low over the water, understanding for the first time why Finns are the happiest people on earth.
+          <strong>The Moment That Stays With Me:</strong> Emerging from the 80°C heat of Löyly sauna, walking across the wooden deck, and lowering myself into the Baltic Sea. The cold hit like electricity, and then — pure calm. I sat on the terrace afterward watching the sun hang low over the water, understanding for the first time why Finns are the happiest people on earth. Many visitors enjoy the local Lapin Kulta beer here.
         </div>
       </div>
 
       <section class="port-section">
         <h3>Getting Around Helsinki</h3>
         <p>Ships dock at Hernesaari or West Harbour — free shuttle or 15–20 minute scenic walk/tram to center.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/helsinki/helsinki-2.webp" alt="Helsinki waterfront" loading="lazy">
+        <figcaption>Helsinki scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Helsinki&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
         <ul>
           <li><strong>Senate Square/Cathedral:</strong> Tram or 15 min walk <span class="distance-fun">approximately 13 football fields, 48 blue whales in a row, or 1,056 emperor penguins stacked skyward</span></li>
           <li><strong>Suomenlinna:</strong> Ferry from Market Square (15 min, €5 round trip)</li>
@@ -180,7 +274,52 @@ Soli Deo Gloria
         <h3>Positively Framed Word of Warning</h3>
         <p>The famous Finnish quiet is pure bliss — embrace the peaceful pace and you'll leave feeling completely recharged.</p>
       </section>
-    </article>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/helsinki/helsinki-1.webp" alt="Harbor view of Helsinki, Finland" loading="lazy">
+          <figcaption>
+            Harbor view of Helsinki, Finland
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/helsinki/helsinki-2.webp" alt="Waterfront scenery of Helsinki, Finland" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Helsinki, Finland
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/helsinki/helsinki-3.webp" alt="Port panorama of Helsinki, Finland" loading="lazy">
+          <figcaption>
+            Port panorama of Helsinki, Finland
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/helsinki/helsinki-4.webp" alt="Coastal landscape of Helsinki, Finland" loading="lazy">
+          <figcaption>
+            Coastal landscape of Helsinki, Finland
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>helsinki-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>helsinki-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>helsinki-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>helsinki-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -198,10 +337,6 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -223,6 +358,11 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -340,8 +480,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];
@@ -400,5 +539,9 @@ Soli Deo Gloria
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

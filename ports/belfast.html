@@ -148,11 +148,23 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <div style="grid-column: 1;">
+    <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/belfast/belfast-3.webp" alt="Belfast panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Belfast</span>
+        </div>
+      </div>
+
       <h1>Belfast: My Titanic Town That Surprised Me</h1>
       <div class="logbook-entry">
         <p>Belfast has completely transformed and become one of my absolute favorite UK/Ireland calls — 4.8–5.0 stars lately. My perfect day: the Titanic Belfast museum (the best museum I've ever visited — interactive, emotional, and the shipyard ride is incredible), then a black taxi political mural tour (fascinating and balanced), Crumlin Road Gaol, and the stunning St. Anne's Cathedral quarter.</p>
+      <figure class="logbook-image float-right">
+        <img src="img/belfast/belfast-1.webp" alt="Belfast harbor view" loading="lazy">
+        <figcaption>Belfast — <a href="https://commons.wikimedia.org/w/index.php?search=Belfast&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
 
         <p>Day trips to the Giant's Causeway and Carrick-a-Rede rope bridge are easy and mind-blowing (those hexagonal basalt columns!). Belfast people are warm, funny, and proud — the city feels vibrant and hopeful.</p>
 
@@ -193,10 +205,6 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -218,6 +226,11 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -395,5 +408,9 @@ Soli Deo Gloria
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

@@ -187,6 +187,90 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 45%;
+      max-width: 380px;
+      margin: 0 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 45%;
+      max-width: 380px;
+      margin: 0 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -280,29 +364,41 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <p style="font-size: 0.95rem; color: #456; margin-bottom: 0;">
         <strong>Region:</strong> Greek Islands &nbsp;|&nbsp; <strong>Season:</strong> April – October &nbsp;|&nbsp; <strong>Tender:</strong> Yes (caldera anchorage)
       </p>
+    
     </article>
 
     <!-- First-Person Logbook Entry -->
-    <article class="card logbook-entry">
+    <article class="card logbook-entry clearfix">
       <h2>My Santorini Logbook</h2>
 
       <p>Every single time our Royal Caribbean ship sails into the Santorini caldera at sunrise and those white-washed villages appear stacked like sugar cubes a thousand feet above the wine-dark sea, I legitimately pinch myself. I've been lucky enough to visit Santorini six times now on various Mediterranean itineraries, and it never loses its power to make me feel like I've sailed into a dream. This is the port where even seasoned cruisers lose their minds — it consistently scores 4.9–5.0 across thousands of reviews, and I completely understand why. Santorini isn't just beautiful; it feels otherworldly, romantic, and utterly timeless.</p>
+
+      <figure class="logbook-image float-right">
+        <img src="img/santorini/santorini-1.webp" alt="Santorini harbor view" loading="lazy">
+        <figcaption>Santorini — Photo: <a href="https://commons.wikimedia.org/w/index.php?search=Santorini&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
 
       <p>The approach alone is worth the entire cruise. You're sailing into the flooded crater of a volcanic eruption that happened 3,600 years ago and may have destroyed the Minoan civilization. The cliffs rise vertically from water so deep it looks black, and perched impossibly along the rim are Fira, Imerovigli, and Oia — villages that seem to defy gravity. When the early morning light hits those buildings and they glow pink and gold against the blue Aegean, I've seen grown adults tear up on the pool deck. It's that beautiful.</p>
 
       <p>My perfect Santorini day starts early — I mean first-tender early. The goal is to reach Oia before the excursion buses arrive around 10 a.m., because those narrow alleys get packed and the famous blue-domed churches become nearly impossible to photograph without fifty strangers in the frame. From the tender pier at Skala, I take the cable car up to Fira (five minutes, incredible views, €6 each way) and then catch the first bus to Oia (20 minutes, €1.80). At 8 or 9 a.m., Oia is still waking up — shopkeepers sweeping their stoops, cats stretching in the sun, and you can walk right up to the Three Bells of Fira church and its iconic blue domes with the caldera behind and get the shot you've seen in every travel magazine on earth. That early-morning quiet is pure magic.</p>
 
+      <figure class="logbook-image float-left">
+        <img src="img/santorini/santorini-2.webp" alt="Santorini waterfront" loading="lazy">
+        <figcaption>Santorini scenery — Photo: <a href="https://commons.wikimedia.org/w/index.php?search=Santorini&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
       <div class="poignant-highlight">
-        <strong>The Moment That Stays With Me:</strong> It was my fourth visit to Santorini, and I'd booked a sunset catamaran cruise around the caldera. We'd swum in the volcanic hot springs (the water really is warmer and tinged rust-red from the sulfur), snorkeled at Red Beach below those alien crimson cliffs, and eaten a BBQ lunch with unlimited local wine while the boat drifted past the massive cruise ships anchored in the middle. As the sun started to drop, the captain cut the engine and we just floated there — twenty of us in total silence, watching the sky turn from blue to gold to pink to purple, the white villages catching fire above us, and the volcano island smoking faintly in the distance. I'd seen Santorini sunsets from Oia, from wineries, from cliffside restaurants, but there was something about being down on the water, looking up at the whole caldera wrapping around us like an amphitheater, that made me understand why ancient civilizations thought the gods lived in places like this. I had tears on my face and I didn't care. Some moments are too big for self-consciousness.
+        <strong>The Moment That Stays With Me:</strong> It was my fourth visit to Santorini, and I'd booked a sunset catamaran cruise around the caldera. We'd swum in the volcanic hot springs (the water really is warmer and tinged rust-red from the sulfur), snorkeled at Red Beach below those alien crimson cliffs, and eaten a BBQ lunch while the boat drifted past the massive cruise ships anchored in the middle (many catamaran tours include unlimited local wine for those who enjoy it). As the sun started to drop, the captain cut the engine and we just floated there — twenty of us in total silence, watching the sky turn from blue to gold to pink to purple, the white villages catching fire above us, and the volcano island smoking faintly in the distance. I'd seen Santorini sunsets from Oia, from wineries, from cliffside restaurants, but there was something about being down on the water, looking up at the whole caldera wrapping around us like an amphitheater, that made me understand why ancient civilizations thought the gods lived in places like this. I had tears on my face and I didn't care. Some moments are too big for self-consciousness.
       </div>
 
-      <p>After Oia, I usually work my way back toward Fira, stopping in Imerovigli (the highest village, with hiking trails along the caldera rim) and then wandering Fira's cliffside alleys in the late morning. The shopping is excellent — handmade jewelry using volcanic glass, ceramics, local art — and the food is some of the best in Greece. I always get tomato keftedes (fritters made with the island's famous cherry tomatoes), fava with capers, grilled octopus, and a Greek salad that puts every stateside Greek salad to shame. The Assyrtiko white wine from local vineyards is crisp and mineral and perfect with seafood. Santo Wines has the most dramatic tasting-room views on the island — you're literally sitting on the caldera edge with your flight of wine as the sun goes down.</p>
+      <p>After Oia, I usually work my way back toward Fira, stopping in Imerovigli (the highest village, with hiking trails along the caldera rim) and then wandering Fira's cliffside alleys in the late morning. The shopping is excellent — handmade jewelry using volcanic glass, ceramics, local art — and the food is some of the best in Greece. I always get tomato keftedes (fritters made with the island's famous cherry tomatoes), fava with capers, grilled octopus, and a Greek salad that puts every stateside Greek salad to shame. Santorini is famous for its Assyrtiko white wine – crisp, mineral, and perfect with seafood. Santo Wines has the most dramatic tasting-room views on the island, perched right on the caldera edge as the sun goes down.</p>
 
       <p>For those who want to go beyond the postcard, the ancient ruins of Akrotiri are fascinating — a Bronze Age city buried by the same eruption that formed the caldera, often called the "Minoan Pompeii." The excavations are covered by a modern structure so you walk above the streets and look down into houses with intact pottery and frescoes. It's haunting. The black-sand beaches of Perissa and Kamari are great for a relaxed afternoon swim, though be warned — that volcanic sand gets scorching hot in summer, so bring water shoes.</p>
 
       <p>The tender process can intimidate first-timers, but Royal Caribbean runs it efficiently — usually 15–30 minute waits at most, and the ride across the caldera is scenic and exciting. The cable car line can get long midday when multiple ships are in port, so going early or late helps. Donkeys are still technically an option to get up the cliff (following the old zigzag path), but animal welfare concerns mean most visitors skip that now.</p>
 
       <p>Santorini is the port that turned me into a Mediterranean cruise evangelist. Every time I think I've seen its best angle, I discover another. Sunrise from the ship's balcony. Sunset from Santo Wines. Midnight from a cliffside bar with the caldera sparkling below. It's the most romantic place I've ever been, and I don't say that lightly. If your cruise stops here, prioritize it above everything else on your itinerary. Wake up early. Stay out late. Take a thousand photos. You'll want every single one.</p>
+    
     </article>
 
     <!-- Navigation Section -->
@@ -370,10 +466,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -395,6 +487,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <!-- Back to Ports -->
@@ -517,8 +614,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];
@@ -577,5 +673,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

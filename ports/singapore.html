@@ -68,6 +68,85 @@ All work on this project is offered as a gift to God.
       margin: 0.25rem 0;
     }
 
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+
   </style>
   <script type="application/ld+json">
   {
@@ -159,6 +238,13 @@ All work on this project is offered as a gift to God.
     </nav>
 
     <article>
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/singapore/singapore-3.webp" alt="Singapore panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Singapore</span>
+        </div>
+      </div>
+
       <header class="article-header">
         <h1>Singapore Cruise Port Guide</h1>
         <p class="subtitle">My Futuristic Garden City That Blows My Mind Every Time</p>
@@ -167,6 +253,11 @@ All work on this project is offered as a gift to God.
       <!-- Quick Answer -->
       <section class="quick-answer" style="background:#e6f7f5;border-left:5px solid #2a9d8f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
         <p style="margin:0;"><strong>Quick&nbsp;Answer:</strong> Singapore consistently ranks #1 or #2 in Asia-Pacific for Royal Caribbean passengers (4.9–5.0 stars). Must-dos: Gardens by the Bay Cloud Forest, chili crab at Jumbo Seafood, and the Marina Bay Sands light show. The MRT is spotless, cheap, and gets you everywhere.</p>
+
+      <figure class="logbook-image float-right">
+        <img src="img/singapore/singapore-1.webp" alt="Singapore harbor view" loading="lazy">
+        <figcaption>Singapore — <a href="https://commons.wikimedia.org/w/index.php?search=Singapore&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
       </section>
 
       <!-- Logbook Entry -->
@@ -175,6 +266,11 @@ All work on this project is offered as a gift to God.
         <p>Every single time our Royal Caribbean ship sails through the Strait of Singapore at dawn and the skyline of Marina Bay Sands, the Supertrees, and that incredible skyline appear like something out of a sci-fi movie, I actually tear up a little. Singapore is consistently ranked the #1 or #2 port in all of Asia-Pacific by Royal passengers (4.9–5.0 average 2023–2025), and I get it completely.</p>
 
         <p>My perfect day starts the second we dock: I'm off the ship and on the MRT (spotless, cheap, air-conditioned) straight to Gardens by the Bay for the first entry into the Cloud Forest dome – that 35-meter indoor waterfall and mist-shrouded mountain take my breath away every single time. Then the Flower Dome, the Supertree Grove light show at night, and the OCBC Skyway for panoramic views.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/singapore/singapore-2.webp" alt="Singapore waterfront" loading="lazy">
+        <figcaption>Singapore scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Singapore&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
 
         <div class="poignant-highlight">
           <strong>The moment that stays with me:</strong> Standing on the OCBC Skyway at sunset, watching the Supertrees light up one by one while the Marina Bay Sands laser show starts across the water – Singapore feels like the future we were all promised, and somehow it's even better than I imagined.
@@ -204,7 +300,52 @@ All work on this project is offered as a gift to God.
         <details><summary>Can I do both Gardens by the Bay and Sentosa in one day?</summary><p>Yes, but it's rushed. I recommend picking one for a relaxed experience. Gardens in the morning, then hawker centers and Marina Bay at night is my perfect Singapore day.</p></details>
       </section>
 
-    </article>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/singapore/singapore-1.webp" alt="Harbor view of Singapore" loading="lazy">
+          <figcaption>
+            Harbor view of Singapore
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/singapore/singapore-2.webp" alt="Waterfront scenery of Singapore" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Singapore
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/singapore/singapore-3.webp" alt="Port panorama of Singapore" loading="lazy">
+          <figcaption>
+            Port panorama of Singapore
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/singapore/singapore-4.webp" alt="Coastal landscape of Singapore" loading="lazy">
+          <figcaption>
+            Coastal landscape of Singapore
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>singapore-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>singapore-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>singapore-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>singapore-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -243,10 +384,10 @@ All work on this project is offered as a gift to God.
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
     </section>
+
   </aside>
 
   </main>
@@ -366,8 +507,7 @@ All work on this project is offered as a gift to God.
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];
@@ -426,5 +566,9 @@ All work on this project is offered as a gift to God.
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

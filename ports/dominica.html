@@ -80,6 +80,95 @@ Soli Deo Gloria
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -159,7 +248,7 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <div style="grid-column: 1;">
+    <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
       <!-- Port Hero with gradient background -->
       <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #2d5a27 0%, #3a7d32 30%, #52b788 70%, #40916c 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
@@ -170,7 +259,12 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>Sailing into Roseau with mountains dropping straight into the sea feels like entering Jurassic Park. Dominica is the nature island and I go full adventure: Trafalgar Falls first (short taxi), then the Ti Tou Gorge swim through the narrow canyon to the waterfall (cold but incredible).</p>
 
-        <p>Lunch is fresh callaloo soup and fried plantains at a roadside stand (you might see 'mountain chicken' on old menus, but this local frog is now protected). Afternoon is the Champagne Reef snorkel – bubbles rising from volcanic vents like you're swimming in champagne. Sunset at Mero Beach with a Kubuli beer.</p>
+      <figure class="logbook-image float-right">
+        <img src="img/dominica/dominica-1.webp" alt="Dominica harbor view" loading="lazy">
+        <figcaption>Dominica — <a href="https://commons.wikimedia.org/w/index.php?search=Dominica&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
+        <p>Lunch is fresh callaloo soup and fried plantains at a roadside stand (you might see 'mountain chicken' on old menus, but this local frog is now protected). Afternoon is the Champagne Reef snorkel – bubbles rising from volcanic vents like you're swimming in champagne. Sunset at Mero Beach is magical – many visitors enjoy the local Kubuli beer while watching the colors change.</p>
 
         <div class="poignant-highlight">
           <strong>The Moment That Stays With Me:</strong> Floating in Ti Tou Gorge with sunlight piercing the canyon walls – felt like Avatar in real life.
@@ -180,6 +274,11 @@ Soli Deo Gloria
       <section class="port-section">
         <h3>Getting Around Dominica</h3>
         <p>Roseau pier – 5-min walk to town. Taxis offer affordable shared rates for full-day tours.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/dominica/dominica-2.webp" alt="Dominica waterfront" loading="lazy">
+        <figcaption>Dominica scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Dominica&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
         <ul>
           <li><strong>Trafalgar Falls:</strong> 20-min taxi from pier</li>
           <li><strong>Ti Tou Gorge:</strong> Near Trafalgar, combine them</li>
@@ -199,7 +298,87 @@ Soli Deo Gloria
         <p><strong>Q: Bring water shoes?</strong><br/>A: Absolutely – river rocks are slippery.</p>
         <p><strong>Q: Crowds?</strong><br/>A: Almost none – pure paradise.</p>
       </section>
-    </article>
+    
+      <!-- Photo Gallery -->
+      <section class="port-section" style="background: transparent; border: none; padding: 0;">
+        <h3>Dominica Gallery</h3>
+        <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="/ports/img/dominica/dominica-1.webp" alt="Soufrière Bay view" loading="lazy"/>
+          <figcaption>
+            Soufrière Bay view
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/dominica/dominica-2.webp" alt="Soufrière Bay coastline" loading="lazy"/>
+          <figcaption>
+            Soufrière Bay coastline
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/dominica/dominica-3.webp" alt="Dominica rainforest" loading="lazy"/>
+          <figcaption>
+            Dominica rainforest
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/dominica/dominica-4.webp" alt="Dominica island scene" loading="lazy"/>
+          <figcaption>
+            Dominica island scene
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div>
+          </figcaption>
+        </figure>
+        </div>
+      </section>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/dominica/dominica-1.webp" alt="Harbor view of Dominica" loading="lazy">
+          <figcaption>
+            Harbor view of Dominica
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/dominica/dominica-2.webp" alt="Waterfront of Dominica" loading="lazy">
+          <figcaption>
+            Waterfront of Dominica
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/dominica/dominica-3.webp" alt="Port panorama of Dominica" loading="lazy">
+          <figcaption>
+            Port panorama of Dominica
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/dominica/dominica-4.webp" alt="Coastal landscape of Dominica" loading="lazy">
+          <figcaption>
+            Coastal landscape of Dominica
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>dominica-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>dominica-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>dominica-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>dominica-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -217,10 +396,6 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -242,9 +417,26 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+
+    <!-- Image Attribution Section -->
+    <section class="card" style="margin-top: 2rem; background: #f7fdff;">
+      <h3>Image Credits</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem;">Images from Wikimedia Commons, used under Creative Commons licenses:</p>
+      <ul class="tiny" style="line-height: 1.8; padding-left: 1.25rem;">
+        <li><strong>Soufrière Bay view:</strong> Photo by Postdlf, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</li>
+        <li><strong>Soufrière Bay coastline:</strong> Photo by Postdlf, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</li>
+        <li><strong>Dominica rainforest:</strong> Photo by Paul Harrison, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</li>
+        <li><strong>Dominica island scene:</strong> Photo by Mehranvary, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</li>
+      </ul>
+    </section>
   </main>
     <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
@@ -419,5 +611,9 @@ Soli Deo Gloria
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

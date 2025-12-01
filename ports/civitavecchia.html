@@ -136,6 +136,90 @@ All work on this project is offered as a gift to God.
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -207,7 +291,15 @@ All work on this project is offered as a gift to God.
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <!-- Breadcrumb -->
+    <!-- ICP-Lite Quick Answer -->
+    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin-bottom: 1.5rem;">
+      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+        <strong>Quick Answer:</strong> Civitavecchia is Rome's cruise port, located 80 km (1–1.5 hours) from the city center. You can realistically see the Vatican OR the Colosseum/Forum area in a port day — not both thoroughly. Book Vatican tickets months ahead. Ship excursions guarantee return; independent travel saves money but requires discipline.
+      </p>
+    </section>
+
+    <div style="grid-column: 1; grid-row: 1;">
+    <article<!-- Breadcrumb -->
     <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;">
       <ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;">
         <li style="display: inline;"><a href="/">Home</a> &rsaquo; </li>
@@ -216,15 +308,7 @@ All work on this project is offered as a gift to God.
       </ol>
     </nav>
 
-    <!-- ICP-Lite Quick Answer -->
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin-bottom: 1.5rem;">
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Civitavecchia is Rome's cruise port, located 80 km (1–1.5 hours) from the city center. You can realistically see the Vatican OR the Colosseum/Forum area in a port day — not both thoroughly. Book Vatican tickets months ahead. Ship excursions guarantee return; independent travel saves money but requires discipline.
-      </p>
-    </section>
-
-    <div style="grid-column: 1;">
-    <article class="card">
+     class="card">
       <!-- Port Hero with gradient background -->
       <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #8b4513 0%, #cd853f 35%, #daa520 70%, #f4a460 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
         <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 8vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Civitavecchia</div>
@@ -235,9 +319,19 @@ All work on this project is offered as a gift to God.
       <div class="logbook-entry">
         <p>Rome from a cruise ship is an exercise in time management and acceptable compromise. The Eternal City deserves weeks; you'll have hours. Civitavecchia is 80 kilometers north of Rome, and by the time you've docked, shuttled to the port gate, trained or driven into the city, and navigated to your first sight, half your morning is gone. This isn't to discourage you — Rome is worth every logistical hassle — but to set realistic expectations. You will not see everything. You will not see most things. You will see a few things well, and they will be extraordinary.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/civitavecchia/civitavecchia-1.webp" alt="Civitavecchia harbor view" loading="lazy">
+        <figcaption>Civitavecchia — <a href="https://commons.wikimedia.org/w/index.php?search=Civitavecchia&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
         <p>I've done Rome from Civitavecchia twice. The first time, I booked a ship excursion and let someone else handle the logistics. We drove to the Vatican first thing, walked through the museums with a guide (skip-the-line tickets are essential), gaped at the Sistine Chapel, and emerged into St. Peter's Square feeling appropriately overwhelmed. Then we drove across the city to see the Colosseum and Forum from the outside — there wasn't time to go in — and made a quick stop at the Trevi Fountain before the long drive back. It was a greatest-hits tour, and I was exhausted and grateful in equal measure.</p>
 
         <p>The second time, I went independent and made different choices. I took the train from Civitavecchia to Roma San Pietro station (€5, 80 minutes), which put me a short walk from the Vatican. I'd bought timed tickets to the Vatican Museums online three months earlier — this is not optional; walk-up lines can be 3–4 hours. I spent the entire morning in the Vatican: the Raphael Rooms, the Gallery of Maps, the Sistine Chapel (smaller than you expect, more overwhelming than you can imagine), and then St. Peter's Basilica, which is free and doesn't require advance tickets. I climbed to the dome for views over Rome that justified every one of the 551 steps.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/civitavecchia/civitavecchia-2.webp" alt="Civitavecchia waterfront" loading="lazy">
+        <figcaption>Civitavecchia scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Civitavecchia&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
 
         <p>After the Vatican, I walked to Trastevere for lunch — a neighborhood that feels more Roman than the tourist center, with trattorias where locals actually eat. I had cacio e pepe, that simple pasta with pecorino and black pepper that Rome does better than anywhere, and a glass of house wine, and I watched the city go about its afternoon. Then I walked back to the station, knowing I wouldn't see the Colosseum this trip. And that was okay. The Colosseum will still be there.</p>
 
@@ -270,7 +364,52 @@ All work on this project is offered as a gift to God.
         <h3>Positively Framed Word of Warning</h3>
         <p>The biggest risk in Rome from Civitavecchia is running out of time. Build in buffers — trains can be delayed, Roman traffic is legendary, and the Vatican security line alone can take 30+ minutes even with skip-the-line tickets. Don't schedule yourself so tightly that a small delay becomes a disaster. Leave Rome with time to spare. The peace of mind is worth missing one more gelato. Also: book Vatican tickets at the official website (museivaticani.va) months ahead. Third-party resellers charge double and sometimes don't deliver.</p>
       </section>
-    </article>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/civitavecchia/civitavecchia-1.webp" alt="Harbor view of Civitavecchia, Italy" loading="lazy">
+          <figcaption>
+            Harbor view of Civitavecchia, Italy
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/civitavecchia/civitavecchia-2.webp" alt="Waterfront scenery of Civitavecchia, Italy" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Civitavecchia, Italy
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/civitavecchia/civitavecchia-3.webp" alt="Port panorama of Civitavecchia, Italy" loading="lazy">
+          <figcaption>
+            Port panorama of Civitavecchia, Italy
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/civitavecchia/civitavecchia-4.webp" alt="Coastal landscape of Civitavecchia, Italy" loading="lazy">
+          <figcaption>
+            Coastal landscape of Civitavecchia, Italy
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>civitavecchia-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>civitavecchia-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>civitavecchia-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>civitavecchia-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
 
     <!-- FAQ Section -->
     <section class="card" id="faq" style="margin-top: 2rem;">
@@ -356,10 +495,6 @@ All work on this project is offered as a gift to God.
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -381,6 +516,11 @@ All work on this project is offered as a gift to God.
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -499,8 +639,7 @@ All work on this project is offered as a gift to God.
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];
@@ -559,5 +698,9 @@ All work on this project is offered as a gift to God.
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

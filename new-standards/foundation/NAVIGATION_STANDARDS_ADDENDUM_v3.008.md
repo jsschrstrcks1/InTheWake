@@ -22,26 +22,26 @@ Every public page **MUST** include a `<header>` with the following pattern (Only
 <header class="site-header">
   <div class="navbar">
     <div class="brand">
-      <a href="https://www.cruisinginthewake.com/index.html">
-        <img src="https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.008"
+      <a href="https://cruisinginthewake.com/index.html">
+        <img src="https://cruisinginthewake.com/assets/logo_wake.png?v=3.008"
              alt="In the Wake" width="256" height="64">
       </a>
       <span class="version-badge" aria-label="Site version">v3.008</span>
     </div>
 
     <nav class="pill-nav pills" aria-label="Primary">
-      <a href="https://www.cruisinginthewake.com/index.html">Home</a>
-      <a href="https://www.cruisinginthewake.com/ships/index.html">Ships</a>
-      <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
-      <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
-      <a href="https://www.cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
-      <a href="https://www.cruisinginthewake.com/drink-packages.html">Drink Packages</a>
-      <a href="https://www.cruisinginthewake.com/packing-lists.html">Packing Lists</a>
-      <a href="https://www.cruisinginthewake.com/planning.html">Planning</a>
-      <a href="https://www.cruisinginthewake.com/solo.html">Solo</a>
-      <a href="https://www.cruisinginthewake.com/travel.html">Travel</a>
-      <a href="https://www.cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
-      <a href="https://www.cruisinginthewake.com/about-us.html">About Us</a>
+      <a href="https://cruisinginthewake.com/index.html">Home</a>
+      <a href="https://cruisinginthewake.com/ships/index.html">Ships</a>
+      <a href="https://cruisinginthewake.com/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="https://cruisinginthewake.com/ports.html">Ports</a>
+      <a href="https://cruisinginthewake.com/disability-at-sea.html">Disability at Sea</a>
+      <a href="https://cruisinginthewake.com/drink-packages.html">Drink Packages</a>
+      <a href="https://cruisinginthewake.com/packing-lists.html">Packing Lists</a>
+      <a href="https://cruisinginthewake.com/planning.html">Planning</a>
+      <a href="https://cruisinginthewake.com/solo.html">Solo</a>
+      <a href="https://cruisinginthewake.com/travel.html">Travel</a>
+      <a href="https://cruisinginthewake.com/cruise-lines.html">Cruise Lines</a>
+      <a href="https://cruisinginthewake.com/about-us.html">About Us</a>
     </nav>
   </div>
 </header>
@@ -55,7 +55,7 @@ Every public page **MUST** include a `<header>` with the following pattern (Only
 
 | Rule | Description |
 |------|--------------|
-| **Absolute URLs** | All links must use `https://www.cruisinginthewake.com/...` (normalized by `_abs()` in staging/CDN). |
+| **Absolute URLs** | All links must use `https://cruisinginthewake.com/...` (normalized by `_abs()` in staging/CDN). |
 | **Class Contract** | `.navbar > .brand + .pill-nav.pills` (no exceptions). |
 | **Brand Section** | Always includes the logo + `.version-badge`. |
 | **ARIA Label** | `aria-label="Primary"` required on `<nav>`. |
@@ -132,7 +132,7 @@ If global search is added:
 
 ## 7️⃣ Integration with URL Normalizer
 - Pages may safely call `_abs()` to rewrite URLs to current origin in staging/CDN.
-- Production pages **must** render full `https://www.cruisinginthewake.com/...` URLs on initial load.
+- Production pages **must** render full `https://cruisinginthewake.com/...` URLs on initial load.
 
 ---
 

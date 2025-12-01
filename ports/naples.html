@@ -136,6 +136,90 @@ All work on this project is offered as a gift to God.
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -207,7 +291,15 @@ All work on this project is offered as a gift to God.
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <!-- Breadcrumb -->
+    <!-- ICP-Lite Quick Answer -->
+    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin-bottom: 1.5rem;">
+      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+        <strong>Quick Answer:</strong> Naples is the gateway to Pompeii (30 min), the Amalfi Coast, and Sorrento. The city itself offers world-class pizza, the National Archaeological Museum, and authentic Italian chaos. Ships dock at Stazione Marittima, near the historic center.
+      </p>
+    </section>
+
+    <div style="grid-column: 1; grid-row: 1;">
+    <article<!-- Breadcrumb -->
     <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;">
       <ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;">
         <li style="display: inline;"><a href="/">Home</a> &rsaquo; </li>
@@ -216,15 +308,7 @@ All work on this project is offered as a gift to God.
       </ol>
     </nav>
 
-    <!-- ICP-Lite Quick Answer -->
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin-bottom: 1.5rem;">
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Naples is the gateway to Pompeii (30 min), the Amalfi Coast, and Sorrento. The city itself offers world-class pizza, the National Archaeological Museum, and authentic Italian chaos. Ships dock at Stazione Marittima, near the historic center.
-      </p>
-    </section>
-
-    <div style="grid-column: 1;">
-    <article class="card">
+     class="card">
       <!-- Port Hero with gradient background -->
       <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #b22222 0%, #cd853f 35%, #4169e1 70%, #00b4d8 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
         <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Naples</div>
@@ -235,9 +319,19 @@ All work on this project is offered as a gift to God.
       <div class="logbook-entry">
         <p>Naples will assault your senses. That's not a warning — it's a promise. Within minutes of stepping off the ship, you'll be surrounded by Vespas weaving through pedestrians, shop owners calling out, the smell of pizza dough and diesel, laundry hanging between baroque churches, and a general glorious mayhem that feels more genuine than anywhere else in Italy. Naples is loud, gritty, overwhelming, and absolutely magnificent.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/naples/naples-1.webp" alt="Naples harbor view" loading="lazy">
+        <figcaption>Naples — <a href="https://commons.wikimedia.org/w/index.php?search=Naples&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
         <p>I've been to Naples twice on Mediterranean itineraries, and both times I faced the same dilemma every cruiser faces: Pompeii, Amalfi Coast, or Naples itself? The answer, frustratingly, is that they're all unmissable. You can't do all three properly in one port day. So you choose, and you promise yourself you'll come back for the rest.</p>
 
         <p>My first visit, I chose Pompeii. The Circumvesuviana train from Naples Central Station is the cheapest way there — €3.90 each way, 35 minutes — though it's notoriously rough around the edges (watch your belongings). The ruins, when I arrived, silenced every criticism. Here was a Roman city frozen in time by Vesuvius in 79 CE: streets with stepping stones for pedestrians to cross without stepping in waste, taverns with painted menus on the walls, a brothel with explicit frescoes to help patrons select services, a bakery with mills and oven intact. I walked the main streets, peered into homes where families died huddled together, and stood in the amphitheater imagining gladiatorial combat. It's enormous — plan at least 3–4 hours and bring water, because there's little shade.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/naples/naples-2.webp" alt="Naples waterfront" loading="lazy">
+        <figcaption>Naples scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Naples&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
 
         <p>My second visit, I did a ship excursion to the Amalfi Coast and Sorrento. The drive along that coastline — hairpin turns carved into cliffs above a turquoise sea — was worth it alone. We stopped in Positano, that famous cascade of pastel houses, and I understood why artists have been coming here for centuries. Sorrento was more refined, with its lemon groves and views across the Bay of Naples to Vesuvius. But the excursion was rushed, as ship excursions to the Amalfi Coast always are. You get a taste, not a meal. To really experience it, you'd need to stay overnight.</p>
 
@@ -271,7 +365,52 @@ All work on this project is offered as a gift to God.
         <h3>Positively Framed Word of Warning</h3>
         <p>Naples rewards travelers who embrace its energy and stay alert. The city is famously chaotic — traffic, crowds, and enthusiastic vendors are part of the experience. Keep valuables secured (money belt, zipped bags) and don't leave belongings in rental cars. That said, violent crime against tourists is rare; most issues are opportunistic pickpocketing in crowded areas. Stay aware, don't flash expensive items, and you'll be fine. The overwhelming majority of Neapolitans are warm, proud people who want you to love their city — and you will.</p>
       </section>
-    </article>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/naples/naples-1.webp" alt="Harbor view of Naples, Italy" loading="lazy">
+          <figcaption>
+            Harbor view of Naples, Italy
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/naples/naples-2.webp" alt="Waterfront scenery of Naples, Italy" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Naples, Italy
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/naples/naples-3.webp" alt="Port panorama of Naples, Italy" loading="lazy">
+          <figcaption>
+            Port panorama of Naples, Italy
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/naples/naples-4.webp" alt="Coastal landscape of Naples, Italy" loading="lazy">
+          <figcaption>
+            Coastal landscape of Naples, Italy
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>naples-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>naples-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>naples-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>naples-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
 
     <!-- FAQ Section -->
     <section class="card" id="faq" style="margin-top: 2rem;">
@@ -357,10 +496,6 @@ All work on this project is offered as a gift to God.
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -382,6 +517,11 @@ All work on this project is offered as a gift to God.
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -500,8 +640,7 @@ All work on this project is offered as a gift to God.
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];
@@ -560,5 +699,9 @@ All work on this project is offered as a gift to God.
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

@@ -159,15 +159,32 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <div style="grid-column: 1;">
+    <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/quebec-city/quebec-city-3.webp" alt="Quebec City panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Quebec City</span>
+        </div>
+      </div>
+
       <h1>Quebec City: My French-Canadian Fairytale</h1>
       <div class="logbook-entry">
         <p>We tied up right below the old city, so close that we could look straight up at the Château Frontenac from the lower town funicular. The second we stepped off the ship the air smelled like wood smoke and maple — fall in Quebec City hits different. We took the funicular up to Dufferin Terrace and spent the whole morning just wandering the old walled city like kids in a storybook.</p>
+      <figure class="logbook-image float-right">
+        <img src="img/quebec-city/quebec-city-1.webp" alt="Quebec City harbor view" loading="lazy">
+        <figcaption>Quebec City — <a href="https://commons.wikimedia.org/w/index.php?search=Quebec%20City&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
 
         <p>Petit-Champlain is stupidly cute — cobblestone streets, murals, street musicians playing accordion, shop windows full of ice wine and wool sweaters. We ducked into Au Petit Coin Breton for crepes that were still bubbling when they hit the table — ham, cheese, egg, perfectly crisp edges. Then we walked the fortifications at a leisurely pace, stopping every few minutes because another vista of the St. Lawrence turning gold with autumn leaves demanded a photo.</p>
 
         <p>Afternoon was the Plains of Abraham — now a massive park with buskers and people throwing frisbees — but you can still feel the history of the 1759 battle that changed everything. Ended with a self-guided food crawl: poutine at Chez Ashton (gravy so good it should be illegal), tourtière meat pie at Cochon Dingue, and a beaver tail pastry dripping in cinnamon sugar while watching the sun set behind the château.</p>
+      <figure class="logbook-image float-left">
+        <img src="img/quebec-city/quebec-city-2.webp" alt="Quebec City scenery" loading="lazy">
+        <figcaption>Quebec City scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Quebec%20City&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
 
         <p>The pros: feels like you've portaled to France without the jet lag, incredibly walkable, and locals are genuinely warm once you try a little French.</p>
         <p>The cons: hills and cobblestones will destroy your calves and your shoes.</p>
@@ -215,10 +232,6 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -240,6 +253,11 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -417,5 +435,9 @@ Soli Deo Gloria
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

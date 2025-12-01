@@ -158,11 +158,23 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <div style="grid-column: 1;">
+    <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/portland/portland-3.webp" alt="Portland panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Portland</span>
+        </div>
+      </div>
+
       <h1>Portland: My Jurassic Adventure</h1>
       <div class="logbook-entry">
         <p>We walked off onto the Isle of Portland – tied to the mainland by Chesil Beach like a giant's necklace. The views from the Olympic Rings viewpoint are insane – Weymouth Bay one side, the English Channel the other. Portland Bill lighthouse at noon – waves exploding on the rocks while guillemots wheeled overhead.</p>
+      <figure class="logbook-image float-right">
+        <img src="img/portland/portland-1.webp" alt="Portland harbor view" loading="lazy">
+        <figcaption>Portland — <a href="https://commons.wikimedia.org/w/index.php?search=Portland&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
 
         <p>We went fossil hunting on the beach – found ammonites and belemnites just lying there from 180 million years ago. We had lunch at the Crab House Café – whole Portland crab cracked tableside, so fresh it tasted like the sea waved goodbye. The pros: feels like the edge of England in the best way. The cons: windy (always), but that's why the views exist.</p>
 
@@ -180,6 +192,11 @@ Soli Deo Gloria
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
         <p>Portland is exposed and beautiful – a windproof jacket makes the dramatic coastline even more enjoyable.</p>
+      <figure class="logbook-image float-left">
+        <img src="img/portland/portland-2.webp" alt="Portland scenery" loading="lazy">
+        <figcaption>Portland scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Portland&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
       </section>
 
       <section class="port-section">
@@ -207,10 +224,6 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -232,6 +245,11 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -409,5 +427,9 @@ Soli Deo Gloria
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

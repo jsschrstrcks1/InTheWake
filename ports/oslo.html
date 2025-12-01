@@ -69,6 +69,90 @@ Soli Deo Gloria
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -148,7 +232,7 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <div style="grid-column: 1;">
+    <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
       <!-- Port Hero with gradient background -->
       <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #ba0c2f 0%, #ef3340 35%, #ffffff 65%, #00205b 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
@@ -159,9 +243,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>Every single time our Royal Caribbean ship sails up the stunning Oslofjord past tiny islands, red wooden cabins, and the occasional sauna on a rock, I feel like I'm entering the most beautiful capital city approach on earth. Oslo has become a regular on Northern Europe and Norway-intensive itineraries, and cruisers consistently rank it in the top 3 Scandinavian ports (4.8–5.0 average 2023–2025).</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/oslo/oslo-1.webp" alt="Oslo harbor view" loading="lazy">
+        <figcaption>Oslo — <a href="https://commons.wikimedia.org/w/index.php?search=Oslo&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
         <p>My perfect day starts the second we dock: I'm off the ship and on the 8-minute ferry across to Bygdøy peninsula for the Viking Ship Museum (those 1,200-year-old longships are perfectly preserved and absolutely breathtaking), then the Fram polar ship and Kon-Tiki raft at the same museum complex. Back in town, the new Munch Museum with The Scream and the Opera House roof walk (you can literally walk on the marble roof over the fjord) are non-negotiable.</p>
 
         <p>Lunch is always salmon and brown cheese waffles at the Mathallen food hall, followed by a stroll through Vigeland Sculpture Park — 212 giant granite naked people in every pose imaginable, weirdly fascinating and oddly moving. Aker Brygge waterfront for craft beer and people-watching, then the Akershus Fortress at golden hour.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/oslo/oslo-2.webp" alt="Oslo waterfront" loading="lazy">
+        <figcaption>Oslo scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Oslo&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
 
         <div class="poignant-highlight">
           <strong>The Moment That Stays With Me:</strong> Standing before the Oseberg ship in the Viking Ship Museum — a 1,200-year-old vessel so beautifully carved and perfectly preserved it looks like it could sail tomorrow. The Vikings who built this ship traveled to Constantinople and Newfoundland in boats like this. The craftsmanship is humbling.
@@ -184,7 +278,52 @@ Soli Deo Gloria
         <h3>Positively Framed Word of Warning</h3>
         <p>The clean air and wide-open spaces are Oslo's gift to you — breathe deep and let the famous Norwegian calm wash over you for one of the most rejuvenating port days of your cruise.</p>
       </section>
-    </article>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/oslo/oslo-1.webp" alt="Harbor view of Oslo, Norway" loading="lazy">
+          <figcaption>
+            Harbor view of Oslo, Norway
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/oslo/oslo-2.webp" alt="Waterfront scenery of Oslo, Norway" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Oslo, Norway
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/oslo/oslo-3.webp" alt="Port panorama of Oslo, Norway" loading="lazy">
+          <figcaption>
+            Port panorama of Oslo, Norway
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/oslo/oslo-4.webp" alt="Coastal landscape of Oslo, Norway" loading="lazy">
+          <figcaption>
+            Coastal landscape of Oslo, Norway
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>oslo-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>oslo-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>oslo-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>oslo-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -202,10 +341,6 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -227,6 +362,11 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -344,8 +484,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];
@@ -404,5 +543,9 @@ Soli Deo Gloria
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

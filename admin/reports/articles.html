@@ -32,10 +32,10 @@ Page: /admin/reports/articles.html · v3.008 · Built: 2025-10-17T00:00:00Z
   <title>Articles Consistency Report (v3.008) — In the Wake</title>
 
   <!-- Canonical -->
-  <link rel="canonical" href="https://www.cruisinginthewake.com/admin/reports/articles.html"/>
+  <link rel="canonical" href="https://cruisinginthewake.com/admin/reports/articles.html"/>
 
   <!-- CSS (versioned) -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.008"/>
+  <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=3.008"/>
   <style>
     .scroll{max-height:48vh; overflow:auto}
     .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace}
@@ -95,10 +95,10 @@ Page: /admin/reports/articles.html · v3.008 · Built: 2025-10-17T00:00:00Z
     window._abs=function(p){ p=String(p||''); if(!p.startsWith('/')) p='/'+p; return ORIGIN+p; };
     function normalize(){
       const sel=[
-        'a[href^="https://www.cruisinginthewake.com/"]',
-        'img[src^="https://www.cruisinginthewake.com/"]',
-        'link[href^="https://www.cruisinginthewake.com/"]',
-        'script[src^="https://www.cruisinginthewake.com/"]'
+        'a[href^="https://cruisinginthewake.com/"]',
+        'img[src^="https://cruisinginthewake.com/"]',
+        'link[href^="https://cruisinginthewake.com/"]',
+        'script[src^="https://cruisinginthewake.com/"]'
       ].join(',');
       document.querySelectorAll(sel).forEach(el=>{
         const attr=el.hasAttribute('href')?'href':'src';
@@ -397,7 +397,7 @@ Page: /admin/reports/articles.html · v3.008 · Built: 2025-10-17T00:00:00Z
       const now = new Date().toISOString().slice(0,10);
       const lines = Array.from(slugs).sort().map(s=>[
         '  <url>',
-        `    <loc>https://www.cruisinginthewake.com/solo/${s}.html</loc>`,
+        `    <loc>https://cruisinginthewake.com/solo/${s}.html</loc>`,
         `    <lastmod>${now}</lastmod>`,
         '    <changefreq>weekly</changefreq>',
         '    <priority>0.5</priority>',

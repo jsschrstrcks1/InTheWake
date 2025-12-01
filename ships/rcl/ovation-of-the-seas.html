@@ -262,16 +262,16 @@ updated: 2025-11-18
     const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
     window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
 
-    // Normalize any hard-coded https://www.cruisinginthewake.com/* URLs to current origin (prevents redirects/CORS)
+    // Normalize any hard-coded https://cruisinginthewake.com/* URLs to current origin (prevents redirects/CORS)
     document.addEventListener('DOMContentLoaded', function(){
       const sel=[
-        'a[href^="https://www.cruisinginthewake.com/"]',
         'a[href^="https://cruisinginthewake.com/"]',
-        'img[src^="https://www.cruisinginthewake.com/"]',
+        'a[href^="https://cruisinginthewake.com/"]',
         'img[src^="https://cruisinginthewake.com/"]',
-        'link[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://cruisinginthewake.com/"]',
         'link[href^="https://cruisinginthewake.com/"]',
-        'script[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://cruisinginthewake.com/"]',
+        'script[src^="https://cruisinginthewake.com/"]',
         'script[src^="https://cruisinginthewake.com/"]'
       ].join(',');
       document.querySelectorAll(sel).forEach(el=>{
@@ -616,7 +616,12 @@ updated: 2025-11-18
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles...</p>
       </section>
-    </aside>
+    
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
+  </aside>
 
     <!-- Main Content Column -->
     <div style="grid-column: 1; grid-row: 1;">
@@ -1334,6 +1339,10 @@ updated: 2025-11-18
     })();
   })();
   </script>
+
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
 
 </body>
 </html>

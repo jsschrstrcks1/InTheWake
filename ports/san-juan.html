@@ -195,6 +195,90 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -271,7 +355,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <main class="wrap page-grid" id="main-content" role="main">
     <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">San Juan</li></ol></nav>
 
-    <div style="grid-column: 1;">
+    <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
       <!-- Hero Image with Port Name Overlay (placeholder until FOM images available) -->
       <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #cc0000 0%, #ffffff 50%, #0033a0 100%); border-radius: 12px; height: 300px; display: flex; align-items: center; justify-content: center;">
@@ -282,6 +366,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <p style="font-size: 0.95rem; color: #456; margin-bottom: 0;">
         <strong>Region:</strong> Puerto Rico (US Territory) &nbsp;|&nbsp; <strong>Port:</strong> Old San Juan &nbsp;|&nbsp; <strong>Currency:</strong> USD
       </p>
+
+      <figure class="logbook-image float-right">
+        <img src="img/san-juan/san-juan-1.webp" alt="San Juan, Puerto Rico harbor view" loading="lazy">
+        <figcaption>San Juan, Puerto Rico — <a href="https://commons.wikimedia.org/w/index.php?search=San%20Juan&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
     </article>
 
     <!-- First-Person Logbook Entry -->
@@ -330,6 +419,41 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <p>The cobblestones and hills are Old San Juan's way of giving you a free history workout with million-dollar views! Wear comfortable shoes (those pretty sandals will betray you on the adoquines). The fortress tours are mostly outdoors with little shade — bring sunscreen, water, and a hat. Everything accepts USD, English is widely spoken, and your cell phone works normally. It's Puerto Rico — it's America, but with better food.</p>
     </section>
 
+    
+    <!-- Photo Gallery -->
+    <section class="port-section" style="background: transparent; border: none; padding: 0;">
+      <h3>San Juan Gallery</h3>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="/ports/img/san-juan/san-juan-1.webp" alt="Old San Juan historic buildings" loading="lazy"/>
+          <figcaption>
+            Old San Juan historic buildings
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (Public domain)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/san-juan/san-juan-2.webp" alt="Christopher Columbus monument" loading="lazy"/>
+          <figcaption>
+            Christopher Columbus monument
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (Public domain)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/san-juan/san-juan-3.webp" alt="Cobblestone streets of Old San Juan" loading="lazy"/>
+          <figcaption>
+            Cobblestone streets of Old San Juan
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/san-juan/san-juan-4.webp" alt="Castillo San Felipe del Morro" loading="lazy"/>
+          <figcaption>
+            Castillo San Felipe del Morro
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
     <!-- FAQ Section -->
     <section class="card faq" style="margin-top: 2rem;">
       <h2>Frequently Asked Questions</h2>
@@ -406,9 +530,26 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </div>
     </details>
 
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+
+    <!-- Image Attribution Section -->
+    <section class="card" style="margin-top: 2rem; background: #f7fdff;">
+      <h3>Image Credits</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem;">Images from Wikimedia Commons, used under Creative Commons licenses:</p>
+      <ul class="tiny" style="line-height: 1.8; padding-left: 1.25rem;">
+        <li><strong>Old San Juan historic buildings:</strong> Photo by Daderot, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (Public domain)</li>
+        <li><strong>Christopher Columbus monument:</strong> Photo by Daderot, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (Public domain)</li>
+        <li><strong>Cobblestone streets of Old San Juan:</strong> Photo by P. Hughes, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</li>
+        <li><strong>Castillo San Felipe del Morro:</strong> Photo by Godot13, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</li>
+      </ul>
+    </section>
   </main>
 
   <!-- FOOTER -->
@@ -512,5 +653,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'san-juan';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

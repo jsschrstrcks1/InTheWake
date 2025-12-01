@@ -158,11 +158,23 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <div style="grid-column: 1;">
+    <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/kirkwall/kirkwall-3.webp" alt="Kirkwall panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Kirkwall</span>
+        </div>
+      </div>
+
       <h1>Kirkwall: My 5,000-Year Journey</h1>
       <div class="logbook-entry">
         <p>We walked off into a town built by Vikings – St. Magnus Cathedral glowing red sandstone, founded 1137 and still perfect. Ten minutes by bus to Skara Brae – a 5,000-year-old village uncovered by a storm in 1850, complete with stone dressers, beds, and hearths. Walking through houses older than Stonehenge while Atlantic waves crashed behind felt like time travel.</p>
+      <figure class="logbook-image float-right">
+        <img src="img/kirkwall/kirkwall-1.webp" alt="Kirkwall harbor view" loading="lazy">
+        <figcaption>Kirkwall — <a href="https://commons.wikimedia.org/w/index.php?search=Kirkwall&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
 
         <p>The Ring of Brodgar at noon – 27 standing stones in a perfect circle on a windswept isthmus between two lochs, older than anything we know why. We had lunch at the Standing Stones Hotel – Orkney crab sandwiches and Highland Park 12-year whisky that tastes like peat smoke and honey. The pros: history density that blows the mind. The cons: wind (always wind), but it makes the stones feel alive.</p>
 
@@ -180,6 +192,11 @@ Soli Deo Gloria
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
         <p>Orkney wind is legendary – a warm hat and windproof jacket make the ancient sites even more atmospheric.</p>
+      <figure class="logbook-image float-left">
+        <img src="img/kirkwall/kirkwall-2.webp" alt="Kirkwall scenery" loading="lazy">
+        <figcaption>Kirkwall scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Kirkwall&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
       </section>
 
       <section class="port-section">
@@ -207,10 +224,6 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -232,6 +245,11 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -461,5 +479,9 @@ Soli Deo Gloria
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'kirkwall';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

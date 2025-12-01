@@ -539,25 +539,25 @@ Standard CSS classes for Level 2 implementation:
   "@type": "Article",
   "headline": "In the Wake of Grief: When Loss Needs Water",
   "description": "A comprehensive guide to cruise travel after loss—widowhood, anticipatory grief, and first holidays without loved ones.",
-  "image": "https://www.cruisinginthewake.com/assets/solo/grief-travel-hero.webp",
+  "image": "https://cruisinginthewake.com/assets/solo/grief-travel-hero.webp",
   "author": {
     "@type": "Person",
     "name": "Justin Scherstka",
-    "url": "https://www.cruisinginthewake.com/authors/justin-scherstka.html"
+    "url": "https://cruisinginthewake.com/authors/justin-scherstka.html"
   },
   "publisher": {
     "@type": "Organization",
     "name": "In the Wake",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://www.cruisinginthewake.com/assets/logo_wake.png"
+      "url": "https://cruisinginthewake.com/assets/logo_wake.png"
     }
   },
   "datePublished": "2025-11-17",
   "dateModified": "2025-11-23",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://www.cruisinginthewake.com/solo/in-the-wake-of-grief.html"
+    "@id": "https://cruisinginthewake.com/solo/in-the-wake-of-grief.html"
   }
 }
 </script>
@@ -604,19 +604,19 @@ Standard CSS classes for Level 2 implementation:
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://www.cruisinginthewake.com/index.html"
+      "item": "https://cruisinginthewake.com/index.html"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Ships",
-      "item": "https://www.cruisinginthewake.com/ships/index.html"
+      "item": "https://cruisinginthewake.com/ships/index.html"
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": "Radiance of the Seas",
-      "item": "https://www.cruisinginthewake.com/ships/rcl/radiance-of-the-seas.html"
+      "item": "https://cruisinginthewake.com/ships/rcl/radiance-of-the-seas.html"
     }
   ]
 }

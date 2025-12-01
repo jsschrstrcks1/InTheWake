@@ -182,6 +182,95 @@ All work on this project is offered as a gift to God.
     }
     .rail details.card[open] summary::after { transform: rotate(180deg); }
     .rail details.card .card-content { padding: 1rem; }
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 </head>
 <body class="page">
@@ -247,7 +336,7 @@ All work on this project is offered as a gift to God.
       </ol>
     </nav>
 
-    <div style="grid-column: 1;">
+    <div style="grid-column: 1; grid-row: 1;">
       <div class="port-hero">
         <div class="port-hero-overlay">
           <h1 class="port-hero-title">St. Maarten</h1>
@@ -264,6 +353,11 @@ All work on this project is offered as a gift to God.
         <div class="logbook-entry">
           <p>The approach to St. Maarten is pure Caribbean theater. Our ship threads between green volcanic hills while, on the Dutch side, a 747 descends so low over Maho Beach that I can practically read the tail number. Passengers line the rails pointing and gasping. It doesn't matter how many times I've sailed here — that first glimpse of a jumbo jet skimming the sand never gets old.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/st-maarten/st-maarten-1.webp" alt="St. Maarten harbor view" loading="lazy">
+        <figcaption>St. Maarten — <a href="https://commons.wikimedia.org/w/index.php?search=St%20Maarten&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
           <p>We dock at the <strong>Dr. A.C. Wathey Pier</strong> in Philipsburg, the Dutch capital. Within two minutes of walking off the gangway, I'm through the modest terminal and onto the boardwalk. Philipsburg stretches along a narrow strip of land between the harbor and Great Bay, and Front Street is already buzzing with jewelry shops, electronics dealers, and rum cake vendors calling out samples. It's touristy, sure, but in that cheerful, duty-free kind of way.</p>
 
           <div class="poignant-highlight">
@@ -273,6 +367,11 @@ All work on this project is offered as a gift to God.
           <p>My morning ritual is simple: water taxi to the east end of Philipsburg (all-day pass is a steal), then a shared taxi to <strong>Maho Beach</strong>. This is where Princess Juliana International Airport's runway ends literally at the sand. The iconic Sunset Beach Bar anchors the scene, and by 10 a.m., the crowd is already building. Someone checks the flight tracker app. "KLM 747 in twenty minutes!" The anticipation builds until that massive aircraft appears over the water, engines roaring, gear down, close enough that you instinctively duck. The jet blast from takeoffs is even more intense — signs warn of injuries, and they mean it. I've seen tourists blow across the sand like tumbleweeds.</p>
 
           <p>But St. Maarten isn't just about planes. By noon, I'm in a taxi crossing the invisible border to the French side — <strong>Saint Martin</strong> (yes, the spelling changes). The vibe shifts immediately. Suddenly it's rosé with lunch, pain au chocolat from proper patisseries, and topless sunbathing at <strong>Orient Beach</strong>. I rent a lounger at Kakao Beach Club, order grilled lobster and a carafe of chilled rosé, and spend hours floating in that impossible turquoise water. The French waitstaff bring Ti' punch (rum, lime, cane sugar) and I lose all track of time.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/st-maarten/st-maarten-2.webp" alt="St. Maarten waterfront" loading="lazy">
+        <figcaption>St. Maarten scenery — <a href="https://commons.wikimedia.org/w/index.php?search=St%20Maarten&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
 
           <p>Late afternoon, I catch a taxi to <strong>Marigot</strong>, the French capital. The market is winding down but the waterfront is coming alive. I browse duty-free boutiques (French perfumes and liquors are notably cheaper here), grab an espresso, and watch the fishing boats return. It's all very Mediterranean-on-the-Caribbean.</p>
 
@@ -317,7 +416,87 @@ All work on this project is offered as a gift to God.
           <p><strong>Q: Is Maho Beach safe during plane landings?</strong><br/>
           A: While watching is a major attraction, you need to exercise caution. The jet blast from departing large aircraft is extremely powerful and has caused injuries. Stay behind the fence during takeoffs and never hold onto it.</p>
         </section>
-      </article>
+      
+      <!-- Photo Gallery -->
+      <section class="port-section" style="background: transparent; border: none; padding: 0;">
+        <h3>St. Maarten Gallery</h3>
+        <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="/ports/img/st-maarten/st-maarten-1.webp" alt="Cruise ship in Philipsburg harbor" loading="lazy"/>
+          <figcaption>
+            Cruise ship in Philipsburg harbor
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/st-maarten/st-maarten-2.webp" alt="Giant cruise ship arriving" loading="lazy"/>
+          <figcaption>
+            Giant cruise ship arriving
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 2.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/st-maarten/st-maarten-3.webp" alt="Harmony of the Seas in port" loading="lazy"/>
+          <figcaption>
+            Harmony of the Seas in port
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/st-maarten/st-maarten-4.webp" alt="Philipsburg waterfront" loading="lazy"/>
+          <figcaption>
+            Philipsburg waterfront
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 3.0)</div>
+          </figcaption>
+        </figure>
+        </div>
+      </section>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/st-maarten/st-maarten-1.webp" alt="Harbor view of St. Maarten" loading="lazy">
+          <figcaption>
+            Harbor view of St. Maarten
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/st-maarten/st-maarten-2.webp" alt="Waterfront of St. Maarten" loading="lazy">
+          <figcaption>
+            Waterfront of St. Maarten
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/st-maarten/st-maarten-3.webp" alt="Port panorama of St. Maarten" loading="lazy">
+          <figcaption>
+            Port panorama of St. Maarten
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/st-maarten/st-maarten-4.webp" alt="Coastal landscape of St. Maarten" loading="lazy">
+          <figcaption>
+            Coastal landscape of St. Maarten
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>st-maarten-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>st-maarten-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>st-maarten-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>st-maarten-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
 
       <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
     </div>
@@ -391,7 +570,24 @@ All work on this project is offered as a gift to God.
           <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
         </div>
       </details>
-    </aside>
+    
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
+  </aside>
+
+    <!-- Image Attribution Section -->
+    <section class="card" style="margin-top: 2rem; background: #f7fdff;">
+      <h3>Image Credits</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem;">Images from Wikimedia Commons, used under Creative Commons licenses:</p>
+      <ul class="tiny" style="line-height: 1.8; padding-left: 1.25rem;">
+        <li><strong>Cruise ship in Philipsburg harbor:</strong> Photo by MDCXLVI, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</li>
+        <li><strong>Giant cruise ship arriving:</strong> Photo by Richie Diesterheft, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 2.0)</li>
+        <li><strong>Harmony of the Seas in port:</strong> Photo by Kiwi05, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</li>
+        <li><strong>Philipsburg waterfront:</strong> Photo by MARELBU, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 3.0)</li>
+      </ul>
+    </section>
   </main>
 
   <footer class="wrap" role="contentinfo">
@@ -428,5 +624,9 @@ All work on this project is offered as a gift to God.
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

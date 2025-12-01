@@ -321,7 +321,7 @@ This is a reusable scaffold you can use for ships, planning pages, ports, etc. I
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "{PAGE_TITLE}",
-  "url": "https://www.cruisinginthewake.com{PAGE_PATH}",
+  "url": "https://cruisinginthewake.com{PAGE_PATH}",
   "description": "{ONE_SENTENCE_SUMMARY_OF_PAGE}"
 }
 </script>

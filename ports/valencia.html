@@ -113,6 +113,90 @@ Soli Deo Gloria
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -198,12 +282,24 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <div style="grid-column: 1;">
+    <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/valencia/valencia-3.webp" alt="Valencia panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Valencia</span>
+        </div>
+      </div>
+
       <h1>Valencia: My Futuristic Yet Historic Love</h1>
 
       <div class="logbook-entry">
         <p>Valencia has completely won me over the past few seasons — what used to be a "sleepy" port is now one of the hottest calls in the western Mediterranean, averaging 4.7–4.9 stars. My perfect day: 10-minute tram from the ship straight to the jaw-dropping City of Arts and Sciences — the architecture alone (Santiago Calatrava's futuristic whale-skeleton buildings) is worth the visit, but the Oceanogràfic (Europe's largest aquarium) with its shark tunnel and dolphin show is mind-blowing.</p>
+
+      <figure class="logbook-image float-right">
+        <img src="img/valencia/valencia-1.webp" alt="Valencia harbor view" loading="lazy">
+        <figcaption>Valencia — <a href="https://commons.wikimedia.org/w/index.php?search=Valencia&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
 
         <p>Then I rent a bike and cruise the 9 km of gardens in the old Turia riverbed straight into the historic center for the Central Market (best orange juice on earth and fresh oysters), the Silk Exchange (UNESCO Gothic masterpiece), and climbing the Miguelete tower for panoramic views. Lunch is authentic paella valenciana (rabbit & chicken, never seafood!) at La Pepica on the beach. Horchata and fartons in Alboraya or a sunset catamaran are perfect endings.</p>
 
@@ -212,6 +308,11 @@ Soli Deo Gloria
         </div>
 
         <p>Valencia feels young, innovative, and delicious — easily one of the most underrated cities in Europe. The blend of futuristic architecture and medieval old town shouldn't work, but it absolutely does, creating a city that honors its past while racing toward its future.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/valencia/valencia-2.webp" alt="Valencia waterfront" loading="lazy">
+        <figcaption>Valencia scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Valencia&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
       </div>
 
       <section class="port-section">
@@ -229,7 +330,52 @@ Soli Deo Gloria
         <h3>Positively Framed Word of Warning</h3>
         <p>The futuristic architecture and wide-open spaces are designed for lingering — embrace the extra walking or biking as your personal invitation to discover hidden orange-tree courtyards and street musicians around every corner.</p>
       </section>
-    </article>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/valencia/valencia-1.webp" alt="Harbor view of Valencia, Spain" loading="lazy">
+          <figcaption>
+            Harbor view of Valencia, Spain
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/valencia/valencia-2.webp" alt="Waterfront scenery of Valencia, Spain" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Valencia, Spain
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/valencia/valencia-3.webp" alt="Port panorama of Valencia, Spain" loading="lazy">
+          <figcaption>
+            Port panorama of Valencia, Spain
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/valencia/valencia-4.webp" alt="Coastal landscape of Valencia, Spain" loading="lazy">
+          <figcaption>
+            Coastal landscape of Valencia, Spain
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>valencia-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>valencia-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>valencia-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>valencia-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
   </div>
 
     <section class="card" id="faq" style="margin-top: 2rem;">
@@ -263,10 +409,6 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -288,6 +430,11 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -406,8 +553,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];
@@ -466,5 +612,9 @@ Soli Deo Gloria
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

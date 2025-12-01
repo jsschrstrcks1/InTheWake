@@ -43,11 +43,11 @@
   // Data sources (venues-v2.json first; legacy files as fallbacks)
   const SOURCES = [
     abs('/assets/data/venues-v2.json'),
-    'https://www.cruisinginthewake.com/assets/data/venues-v2.json',
+    'https://cruisinginthewake.com/assets/data/venues-v2.json',
     abs('/assets/data/venues.json'),
-    'https://www.cruisinginthewake.com/assets/data/venues.json',
-    'https://www.cruisinginthewake.com/assets/data/rc-restaurants.json',
-    'https://www.cruisinginthewake.com/assets/data/msc-restaurants.json',
+    'https://cruisinginthewake.com/assets/data/venues.json',
+    'https://cruisinginthewake.com/assets/data/rc-restaurants.json',
+    'https://cruisinginthewake.com/assets/data/msc-restaurants.json',
     abs('/assets/data/rc-restaurants.json'),
     abs('/assets/data/ccl-restaurants.json'),
     abs('/assets/data/msc-restaurants.json')

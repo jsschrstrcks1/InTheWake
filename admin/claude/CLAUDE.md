@@ -165,7 +165,7 @@ These guardrails override all optimization concerns. A technically imperfect pag
 ## 🏗️ Site Architecture
 
 ### Canonical Domain
-**Production:** `https://www.cruisinginthewake.com`
+**Production:** `https://cruisinginthewake.com`
 
 **CRITICAL RULES:**
 - ✅ ALWAYS use absolute URLs in production files
@@ -178,7 +178,7 @@ These guardrails override all optimization concerns. A technically imperfect pag
 /
 ├── index.html                  # Homepage
 ├── ships/
-│   ├── index.html             # Ships hub (/ships/index.html NOT /ships/ships.html)
+│   ├── index.html             # Ships hub (/ships/index.html NOT /ships.html)
 │   ├── rcl/                   # Royal Caribbean ships
 │   ├── carnival-cruise-line/  # Carnival fleet
 │   ├── celebrity-cruises/     # Celebrity fleet
@@ -206,7 +206,7 @@ These guardrails override all optimization concerns. A technically imperfect pag
 ### Key Paths
 
 **Ships:**
-- Hub: `/ships/index.html` (NOT `/ships/ships.html`)
+- Hub: `/ships/index.html` (NOT `/ships.html`)
 - Detail: `/ships/<line>/<slug>.html` (e.g., `/ships/rcl/radiance-of-the-seas.html`)
 
 **Data Files:**
@@ -379,8 +379,8 @@ When a ship, port, or venue is missing an image, follow this order of operations
 ```html
 <meta property="og:title" content="[Page Title]">
 <meta property="og:description" content="[Description]">
-<meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/[ship].webp">
-<meta property="og:url" content="https://www.cruisinginthewake.com/[path]">
+<meta property="og:image" content="https://cruisinginthewake.com/assets/ships/[ship].webp">
+<meta property="og:url" content="https://cruisinginthewake.com/[path]">
 <meta name="twitter:card" content="summary_large_image">
 ```
 
@@ -544,7 +544,7 @@ AI-first content protocol that helps AI assistants understand and cite content c
 - ❌ NEVER reference GitHub URLs in production files
 
 ### Navigation
-- ❌ NEVER use `/ships/ships.html` (correct path: `/ships/index.html`)
+- ❌ NEVER use `/ships.html` (correct path: `/ships/index.html`)
 - ❌ NEVER break the pill navigation structure
 - ❌ NEVER remove the "Cruise Lines" link from primary nav
 
@@ -722,7 +722,7 @@ Before marking any task complete, verify:
 
 **HTML Files:**
 - [ ] DOCTYPE present
-- [ ] Absolute URLs used (https://www.cruisinginthewake.com/...)
+- [ ] Absolute URLs used (https://cruisinginthewake.com/...)
 - [ ] Meta tags complete (version, content-protocol, ai:summary)
 - [ ] No console statements left in inline JavaScript
 - [ ] No lorem ipsum or placeholder text

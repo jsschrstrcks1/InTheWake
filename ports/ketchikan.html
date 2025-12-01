@@ -80,6 +80,90 @@ Soli Deo Gloria
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -158,7 +242,7 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <div style="grid-column: 1;">
+    <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
       <!-- Port Hero with gradient background -->
       <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #2d6a4f 0%, #40916c 30%, #74c69d 60%, #b7e4c7 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
@@ -169,9 +253,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We sailed in through thick morning mist and suddenly houses on stilts appeared like something from a fairy tale. The smell hit first — low tide, smoked salmon, and wet cedar. Ketchikan gets 162 inches of rain a year and wears it proudly; everything is green, mossy, dripping.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/ketchikan/ketchikan-1.webp" alt="Ketchikan harbor view" loading="lazy">
+        <figcaption>Ketchikan — <a href="https://commons.wikimedia.org/w/index.php?search=Ketchikan&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
         <p>We started at Totem Bight State Historical Park. The totems are massive — some 50 ft tall, carved from single cedar logs, colors faded to that perfect weathered red-black-teal that only decades of rain can paint. The clan house smelled of cedar smoke and salt; the ranger sang a Tlingit song inside and the acoustics raised every hair on my arms. Then we walked Saxman Native Village — the carving shed was active, cedar chips flying, master carvers working on new poles while ravens watched from the rafters.</p>
 
         <p>The absolute highlight was the Misty Fjords floatplane. The takeoff from the harbor was exhilarating, then we flew low over endless forest and waterfalls before landing on a mountain lake so remote the silence rang in my ears. The pilot cut the engine and we just drifted between 3,000-ft granite walls while a lone harbor seal watched us. Saw mountain goats like white specks on cliffs and a black bear fishing far below.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/ketchikan/ketchikan-2.webp" alt="Ketchikan waterfront" loading="lazy">
+        <figcaption>Ketchikan scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Ketchikan&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
 
         <p>Back in town we wandered Creek Street at high tide (the water literally laps under the boardwalks), visited Dolly's House (yes, it was exactly what you think), and had the best king salmon of the trip at Alaska Fish House — grilled simply with lemon and eaten on the dock while sea lions barked for scraps underneath us.</p>
 
@@ -203,7 +297,52 @@ Soli Deo Gloria
         <p><strong>Q: How long is flightseeing?</strong><br/>A: 2–2.5 hours with water landing.</p>
         <p><strong>Q: Can you walk from port?</strong><br/>A: Yes — step off into downtown.</p>
       </section>
-    </article>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/ketchikan/ketchikan-1.webp" alt="Scenic harbor view of Ketchikan, Alaska" loading="lazy">
+          <figcaption>
+            Scenic harbor view of Ketchikan, Alaska
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/ketchikan/ketchikan-2.webp" alt="Waterfront scenery of Ketchikan, Alaska" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Ketchikan, Alaska
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/ketchikan/ketchikan-3.webp" alt="Port panorama of Ketchikan, Alaska" loading="lazy">
+          <figcaption>
+            Port panorama of Ketchikan, Alaska
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/ketchikan/ketchikan-4.webp" alt="Coastal landscape of Ketchikan, Alaska" loading="lazy">
+          <figcaption>
+            Coastal landscape of Ketchikan, Alaska
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>ketchikan-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>ketchikan-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>ketchikan-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>ketchikan-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -221,10 +360,6 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -246,6 +381,11 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -363,8 +503,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];
@@ -475,5 +614,9 @@ Soli Deo Gloria
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'ketchikan';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

@@ -80,6 +80,95 @@ Soli Deo Gloria
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -159,7 +248,7 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <div style="grid-column: 1;">
+    <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
       <!-- Port Hero with gradient background -->
       <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #2d6a4f 0%, #40916c 30%, #ffd166 70%, #f4a261 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
@@ -168,9 +257,14 @@ Soli Deo Gloria
 
       <h1>St. Kitts: My Fortress & Beach Paradise</h1>
       <div class="logbook-entry">
-        <p>Sailing into Basseterre with Brimstone Hill Fortress looming on the hill feels like entering a pirate movie. My perfect day: shared taxi straight to Cockleshell Beach (great value) – two miles of golden sand, Carambola Beach Club, and the best grilled mahi tacos with Killer Bee rum punch at Reggae Beach Bar.</p>
+        <p>Sailing into Basseterre with Brimstone Hill Fortress looming on the hill feels like entering a pirate movie. My perfect day: shared taxi straight to Cockleshell Beach (great value) – two miles of golden sand, Carambola Beach Club, and the best grilled mahi tacos at Reggae Beach Bar (their Killer Bee rum punch is famous among visitors).</p>
 
-        <p>After lunch we do the scenic train ride around the island (the "last railway in the West Indies") with unlimited rum punch and choir singing. Then Brimstone Hill Fortress at golden hour – UNESCO site with insane views. Sunset back at the Port Zante bars with Carib beers watching the ship lights come on.</p>
+      <figure class="logbook-image float-right">
+        <img src="img/st-kitts/st-kitts-1.webp" alt="St. Kitts harbor view" loading="lazy">
+        <figcaption>St. Kitts — <a href="https://commons.wikimedia.org/w/index.php?search=St%20Kitts&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
+        <p>After lunch we do the scenic train ride around the island (the "last railway in the West Indies") with complimentary refreshments and choir singing. Then Brimstone Hill Fortress at golden hour – UNESCO site with insane views. Sunset back at the Port Zante waterfront watching the ship lights come on – the local bars serve Carib beer and Caribbean cocktails for those who enjoy them.</p>
 
         <div class="poignant-highlight">
           <strong>The Moment That Stays With Me:</strong> Standing on top of Brimstone Hill as the sun set over Nevis with a handful of other sunset chasers, feeling like I owned the entire Caribbean.
@@ -180,6 +274,11 @@ Soli Deo Gloria
       <section class="port-section">
         <h3>Getting Around St. Kitts</h3>
         <p>Port Zante – literally walk off into town. Shared taxis everywhere to beaches (great value).</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/st-kitts/st-kitts-2.webp" alt="St. Kitts waterfront" loading="lazy">
+        <figcaption>St. Kitts scenery — <a href="https://commons.wikimedia.org/w/index.php?search=St%20Kitts&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
         <ul>
           <li><strong>Cockleshell Beach:</strong> Shared taxi (won't break the bank)</li>
           <li><strong>Brimstone Hill Fortress:</strong> Taxi or tour (worth every penny)</li>
@@ -199,7 +298,87 @@ Soli Deo Gloria
         <p><strong>Q: Killer Bee danger level?</strong><br/>A: Two and you're buzzing, four and you're dancing.</p>
         <p><strong>Q: Train worth it?</strong><br/>A: 100% – best money you'll spend on the island.</p>
       </section>
-    </article>
+    
+      <!-- Photo Gallery -->
+      <section class="port-section" style="background: transparent; border: none; padding: 0;">
+        <h3>St. Kitts Gallery</h3>
+        <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="/ports/img/st-kitts/st-kitts-1.webp" alt="Historic Basseterre" loading="lazy"/>
+          <figcaption>
+            Historic Basseterre
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (Public domain)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/st-kitts/st-kitts-2.webp" alt="Basseterre cruise terminal" loading="lazy"/>
+          <figcaption>
+            Basseterre cruise terminal
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/st-kitts/st-kitts-3.webp" alt="St. Kitts cruise port" loading="lazy"/>
+          <figcaption>
+            St. Kitts cruise port
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/st-kitts/st-kitts-4.webp" alt="Berkeley Memorial Fountain" loading="lazy"/>
+          <figcaption>
+            Berkeley Memorial Fountain
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (Public domain)</div>
+          </figcaption>
+        </figure>
+        </div>
+      </section>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/st-kitts/st-kitts-1.webp" alt="Harbor view of St. Kitts" loading="lazy">
+          <figcaption>
+            Harbor view of St. Kitts
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/st-kitts/st-kitts-2.webp" alt="Waterfront of St. Kitts" loading="lazy">
+          <figcaption>
+            Waterfront of St. Kitts
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/st-kitts/st-kitts-3.webp" alt="Port panorama of St. Kitts" loading="lazy">
+          <figcaption>
+            Port panorama of St. Kitts
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/st-kitts/st-kitts-4.webp" alt="Coastal landscape of St. Kitts" loading="lazy">
+          <figcaption>
+            Coastal landscape of St. Kitts
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>st-kitts-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>st-kitts-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>st-kitts-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>st-kitts-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -217,10 +396,6 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -242,9 +417,26 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+
+    <!-- Image Attribution Section -->
+    <section class="card" style="margin-top: 2rem; background: #f7fdff;">
+      <h3>Image Credits</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem;">Images from Wikimedia Commons, used under Creative Commons licenses:</p>
+      <ul class="tiny" style="line-height: 1.8; padding-left: 1.25rem;">
+        <li><strong>Historic Basseterre:</strong> Photo by Unknown, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (Public domain)</li>
+        <li><strong>Basseterre cruise terminal:</strong> Photo by David Stanley, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</li>
+        <li><strong>St. Kitts cruise port:</strong> Photo by Balou46, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</li>
+        <li><strong>Berkeley Memorial Fountain:</strong> Photo by Unknown, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (Public domain)</li>
+      </ul>
+    </section>
   </main>
     <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
@@ -419,5 +611,9 @@ Soli Deo Gloria
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

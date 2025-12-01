@@ -353,6 +353,67 @@
           "lighthouse.*?(score|audit)"
         ]
       }
+    },
+
+    "ship-page-validator": {
+      "enabled": true,
+      "type": "guardrail",
+      "enforcement": "warn",
+      "priority": "high",
+      "description": "Auto-validates ship pages against SHIP_PAGE_CHECKLIST_v3.010 standards after creation or modification. Checks theological foundation, AI-breadcrumbs, ICP-Lite, JSON-LD, WCAG accessibility, and all required content sections.",
+      "fileTriggers": {
+        "pathPatterns": [
+          "ships/**/*.html",
+          "ships/*/*.html"
+        ],
+        "exclude": [
+          "ships/index.html",
+          "ships.html"
+        ]
+      },
+      "toolTriggers": [
+        "Write",
+        "Edit",
+        "MultiEdit"
+      ],
+      "promptTriggers": {
+        "keywords": [
+          "ship page",
+          "create ship",
+          "new ship",
+          "validate ship",
+          "ship checklist",
+          "ship compliance"
+        ],
+        "intentPatterns": [
+          "(create|add|make|build).*?ship.*?page",
+          "(validate|check|verify).*?ship.*?page",
+          "ship.*?(template|checklist|standards)"
+        ]
+      },
+      "postWriteAction": {
+        "script": ".claude/hooks/ship-page-validator.sh",
+        "runAutomatically": true,
+        "description": "Auto-validate ship page against v3.010 checklist"
+      },
+      "autoLoad": {
+        "mainFile": "new-standards/v3.010/SHIP_PAGE_CHECKLIST_v3.010.md",
+        "maxLines": 800,
+        "loadOnFirstFileEdit": true
+      },
+      "activationMessage": "🚢 Ship page validator activated. Will auto-check compliance after modifications.",
+      "guardrails": {
+        "must_have": [
+          "Soli Deo Gloria invocation (IMMUTABLE)",
+          "AI-breadcrumbs with entity, type, parent, category",
+          "ICP-Lite v1.0 meta tags (ai-summary, last-reviewed, content-protocol)",
+          "7 JSON-LD blocks (Organization, WebSite, BreadcrumbList, Review, Person, WebPage, FAQPage)",
+          "WCAG accessibility (skip link, ARIA live regions, landmark roles)",
+          "All required content sections (First Look, Stats, Dining, Logbook, Videos, Deck Plans, Live Tracker, FAQ, Attribution)"
+        ],
+        "validation_script": "./admin/validate-ship-page.sh",
+        "checklist_reference": "new-standards/v3.010/SHIP_PAGE_CHECKLIST_v3.010.md"
+      }
     }
   },
 
@@ -366,9 +427,9 @@
   "notes": {
     "project": "In the Wake - Cruise planning site (merged with FOM enhancements)",
     "protocol": "ITW-Lite v3.010 (adapted from FOM-Lite v1.0)",
-    "total_skills": 7,
+    "total_skills": 8,
     "skill_sources": {
-      "citw_original": ["standards"],
+      "citw_original": ["standards", "ship-page-validator"],
       "fom_adapted": [
         "skill-developer",
         "frontend-dev-guidelines",

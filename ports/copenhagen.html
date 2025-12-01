@@ -194,6 +194,53 @@ Soli Deo Gloria
       display: table;
       clear: both;
     }
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -279,10 +326,15 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <div style="grid-column: 1;">
+    <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
       <!-- Port Hero Image -->
-      <img class="port-hero" src="/ports/img/copenhagen/copenhagen-1.webp" alt="Colorful Nyhavn harbor in Copenhagen with historic buildings and boats" fetchpriority="high"/>
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/copenhagen/copenhagen-1.webp" alt="Colorful Nyhavn harbor in Copenhagen with historic buildings and boats" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Copenhagen</span>
+        </div>
+      </div>
 
       <h1>Copenhagen: My Scandinavian Dream Come True</h1>
 
@@ -290,10 +342,20 @@ Soli Deo Gloria
         <img class="inline-image" src="/ports/img/copenhagen/copenhagen-4.webp" alt="Nyhavn waterfront with colorful buildings" loading="lazy"/>
         <p>Every single time our Royal Caribbean ship sails up the Øresund and Tivoli's rollercoasters appear on the horizon next to pastel-colored Nyhavn, I feel like I've entered a real-life fairy tale. Copenhagen is consistently voted the #1 or #2 Northern Europe port by Royal passengers (4.9–5.0 average on 2023–2025 reviews), and I completely understand why.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/copenhagen/copenhagen-1.webp" alt="Copenhagen harbor view" loading="lazy">
+        <figcaption>Copenhagen — <a href="https://commons.wikimedia.org/w/index.php?search=Copenhagen&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
         <p>My perfect day starts the moment we dock: I'm off the ship and on a free bike from the port (or just a 15-minute walk) straight to Nyhavn for that iconic colorful photo with a morning pastry and coffee canal-side. Then I rent a GoBoat (electric picnic boat — no license needed) and cruise the canals myself, waving at the Little Mermaid and passing under the low bridges. The Tivoli Gardens at opening time is pure magic — rides, flowers, peacocks strutting around, and the best people-watching on earth.</p>
 
         <img class="inline-image-left" src="/ports/img/copenhagen/copenhagen-3.webp" alt="Copenhagen harbor in summer sunshine" loading="lazy"/>
         <p>Lunch is always smørrebrød (open-faced sandwiches) at Aamanns or the Torvehallerne food market — pickled herring, roast pork, and aquavit shots. In the afternoon I do the Rundetårn (Round Tower) for panoramic views, then Freetown Christiania for its quirky vibe and street art (respect the "no photos" in Green Light District rule). A canal tour with Hey Captain (small boats, live guide) or visiting the Design Museum if it's rainy are both fantastic. Sunset at the King's Garden or a craft beer at Mikkeller rounds it out perfectly.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/copenhagen/copenhagen-2.webp" alt="Copenhagen waterfront" loading="lazy">
+        <figcaption>Copenhagen scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Copenhagen&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
 
         <div class="poignant-highlight">
           <strong>The Moment That Stays With Me:</strong> Piloting my own GoBoat through Copenhagen's canals, passing under bridges where locals sat with their feet dangling, wine bottles open, laughing in the summer sun. Everyone waved. Everyone smiled. I understood in that moment why Copenhagen is called the happiest city on earth — it's not a marketing slogan, it's the actual vibe.
@@ -353,7 +415,80 @@ Soli Deo Gloria
           </figure>
         </div>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/copenhagen/copenhagen-1.webp" alt="Harbor view of Copenhagen" loading="lazy">
+          <figcaption>
+            Harbor view of Copenhagen
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/copenhagen/copenhagen-2.webp" alt="Waterfront of Copenhagen" loading="lazy">
+          <figcaption>
+            Waterfront of Copenhagen
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/copenhagen/copenhagen-3.webp" alt="Port panorama of Copenhagen" loading="lazy">
+          <figcaption>
+            Port panorama of Copenhagen
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/copenhagen/copenhagen-4.webp" alt="Coastal landscape of Copenhagen" loading="lazy">
+          <figcaption>
+            Coastal landscape of Copenhagen
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/copenhagen/copenhagen-5.webp" alt="Harbor view of Copenhagen" loading="lazy">
+          <figcaption>
+            Harbor view of Copenhagen
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/copenhagen/copenhagen-6.webp" alt="Waterfront of Copenhagen" loading="lazy">
+          <figcaption>
+            Waterfront of Copenhagen
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/copenhagen/copenhagen-7.webp" alt="Port panorama of Copenhagen" loading="lazy">
+          <figcaption>
+            Port panorama of Copenhagen
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/copenhagen/copenhagen-8.webp" alt="Coastal landscape of Copenhagen" loading="lazy">
+          <figcaption>
+            Coastal landscape of Copenhagen
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>copenhagen-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>copenhagen-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>copenhagen-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>copenhagen-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>copenhagen-5.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>copenhagen-6.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>copenhagen-7.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>copenhagen-8.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
 
     <section class="card" id="faq" style="margin-top: 2rem;">
@@ -387,10 +522,6 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -412,6 +543,11 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -606,5 +742,9 @@ Soli Deo Gloria
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

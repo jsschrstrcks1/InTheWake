@@ -446,7 +446,7 @@ app.use(cors({ origin: '*' }));
 // ✅ Whitelist specific origins
 const allowedOrigins = [
   'https://cruisinginthewake.com',
-  'https://www.cruisinginthewake.com'
+  'https://cruisinginthewake.com'
 ];
 
 app.use(cors({

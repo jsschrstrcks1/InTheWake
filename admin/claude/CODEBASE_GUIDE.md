@@ -533,9 +533,9 @@ const randomImage = shipImages['radiance-of-the-seas'][
 
 ```html
 <!-- ✅ CORRECT -->
-<a href="https://www.cruisinginthewake.com/ships/index.html">Ships</a>
-<img src="https://www.cruisinginthewake.com/assets/ships/radiance.webp" alt="...">
-<link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=3.0">
+<a href="https://cruisinginthewake.com/ships/index.html">Ships</a>
+<img src="https://cruisinginthewake.com/assets/ships/radiance.webp" alt="...">
+<link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=3.0">
 
 <!-- ❌ WRONG -->
 <a href="/ships/index.html">Ships</a>
@@ -547,7 +547,7 @@ const randomImage = shipImages['radiance-of-the-seas'][
 
 **Hero images (LCP optimization):**
 ```html
-<img src="https://www.cruisinginthewake.com/assets/ships/radiance-of-the-seas.webp"
+<img src="https://cruisinginthewake.com/assets/ships/radiance-of-the-seas.webp"
      alt="Radiance of the Seas cruise ship"
      loading="eager"
      fetchpriority="high"
@@ -557,7 +557,7 @@ const randomImage = shipImages['radiance-of-the-seas'][
 
 **Non-hero images (lazy loading):**
 ```html
-<img src="https://www.cruisinginthewake.com/assets/ships/radiance-of-the-seas1.webp"
+<img src="https://cruisinginthewake.com/assets/ships/radiance-of-the-seas1.webp"
      alt="Radiance of the Seas deck view"
      loading="lazy"
      width="800"
@@ -567,10 +567,10 @@ const randomImage = shipImages['radiance-of-the-seas'][
 **Responsive logo pattern:**
 ```html
 <img
-  src="https://www.cruisinginthewake.com/assets/logo_wake.png"
+  src="https://cruisinginthewake.com/assets/logo_wake.png"
   srcset="
-    https://www.cruisinginthewake.com/assets/logo_wake.png 150w,
-    https://www.cruisinginthewake.com/assets/logo_wake.png 200w
+    https://cruisinginthewake.com/assets/logo_wake.png 150w,
+    https://cruisinginthewake.com/assets/logo_wake.png 200w
   "
   sizes="(max-width: 768px) 100px, 150px"
   alt="In the Wake logo"
@@ -585,10 +585,10 @@ const randomImage = shipImages['radiance-of-the-seas'][
 **Primary navigation (pill-nav):**
 ```html
 <nav class="pill-nav pills" aria-label="Main navigation">
-  <a href="https://www.cruisinginthewake.com/index.html">Home</a>
-  <a href="https://www.cruisinginthewake.com/ships/index.html">Ships</a>
-  <a href="https://www.cruisinginthewake.com/restaurants.html">Restaurants</a>
-  <a href="https://www.cruisinginthewake.com/ports.html">Ports</a>
+  <a href="https://cruisinginthewake.com/index.html">Home</a>
+  <a href="https://cruisinginthewake.com/ships/index.html">Ships</a>
+  <a href="https://cruisinginthewake.com/restaurants.html">Restaurants</a>
+  <a href="https://cruisinginthewake.com/ports.html">Ports</a>
   <!-- More nav items -->
 </nav>
 ```
@@ -625,8 +625,8 @@ dropdownToggle.addEventListener('mouseleave', () => {
 ```html
 <nav aria-label="Breadcrumb" class="breadcrumb">
   <ol>
-    <li><a href="https://www.cruisinginthewake.com/index.html">Home</a></li>
-    <li><a href="https://www.cruisinginthewake.com/ships/index.html">Ships</a></li>
+    <li><a href="https://cruisinginthewake.com/index.html">Home</a></li>
+    <li><a href="https://cruisinginthewake.com/ships/index.html">Ships</a></li>
     <li aria-current="page">Radiance of the Seas</li>
   </ol>
 </nav>
@@ -643,19 +643,19 @@ dropdownToggle.addEventListener('mouseleave', () => {
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://www.cruisinginthewake.com/index.html"
+      "item": "https://cruisinginthewake.com/index.html"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Ships",
-      "item": "https://www.cruisinginthewake.com/ships/index.html"
+      "item": "https://cruisinginthewake.com/ships/index.html"
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": "Radiance of the Seas",
-      "item": "https://www.cruisinginthewake.com/ships/rcl/radiance-of-the-seas.html"
+      "item": "https://cruisinginthewake.com/ships/rcl/radiance-of-the-seas.html"
     }
   ]
 }
@@ -1057,7 +1057,7 @@ python3 comprehensive_site_audit.py
 
 **Check:**
 1. Is image WebP format? (except logo_wake.png)
-2. Is path absolute? (`https://www.cruisinginthewake.com/...`)
+2. Is path absolute? (`https://cruisinginthewake.com/...`)
 3. Does file exist in `/assets/ships/`?
 4. Is filename lowercase with hyphens?
 5. Is alt attribute present?
@@ -1145,7 +1145,7 @@ python3 comprehensive_site_audit.py
 `v3.010.300`
 
 **Canonical domain:**
-`https://www.cruisinginthewake.com`
+`https://cruisinginthewake.com`
 
 ---
 

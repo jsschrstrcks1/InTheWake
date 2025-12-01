@@ -148,15 +148,32 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <div style="grid-column: 1;">
+    <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/norwegian-fjords/norwegian-fjords-3.webp" alt="Norwegian Fjords panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Norwegian Fjords</span>
+        </div>
+      </div>
+
       <h1>Geiranger & the Norwegian Fjords: My Jaw-On-The-Floor Scenic Heaven</h1>
       <div class="logbook-entry">
         <p>Sailing into Geirangerfjord at 5 a.m. with waterfalls cascading thousands of feet straight into the sea is hands-down the most spectacular cruising moment I've ever experienced — the entire ship goes silent on deck as Seven Sisters and The Suitor waterfalls thunder down. All the fjords ports score perfect 5.0 for scenery.</p>
+      <figure class="logbook-image float-right">
+        <img src="img/norwegian-fjords/norwegian-fjords-1.webp" alt="Norwegian Fjords harbor view" loading="lazy">
+        <figcaption>Norwegian Fjords — <a href="https://commons.wikimedia.org/w/index.php?search=Norwegian%20Fjords&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
 
         <p>In Geiranger my perfect day is the first tender off and straight up to Flydalsjuvet or Dalsnibba viewpoint (book the ship tour or taxi early) for those postcard shots you've seen a million times but are even better in person. Then a RIB boat tour weaving under waterfalls so close you can drink from them.</p>
 
         <p>In Flam the Flåm Railway is the world's most beautiful train ride — 20 km, 900 m climb, waterfalls, tunnels, and Kjosfossen stop where a huldra dancer appears. Olden has the jaw-dropping Briksdal Glacier arm you can practically touch, and Ålesund's Art Nouveau architecture after the 1904 fire is pure fairy-tale. Norway fjords days are the ones I live for.</p>
+      <figure class="logbook-image float-left">
+        <img src="img/norwegian-fjords/norwegian-fjords-2.webp" alt="Norwegian Fjords scenery" loading="lazy">
+        <figcaption>Norwegian Fjords scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Norwegian%20Fjords&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
 
         <div class="poignant-highlight">
           <strong>The Moment That Stays With Me:</strong> Standing on deck at 5 a.m. as we sailed into Geirangerfjord, the entire ship silent except for cameras clicking. Waterfalls poured thousands of feet down cliffs so steep they seemed impossible. Someone near me whispered "this can't be real" — and it does feel like CGI, except it's actual earth, shaped by millions of years of ice. Nothing prepares you for it.
@@ -195,10 +212,6 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -220,6 +233,11 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -397,5 +415,9 @@ Soli Deo Gloria
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

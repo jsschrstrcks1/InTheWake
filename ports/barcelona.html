@@ -223,6 +223,53 @@ All work on this project is offered as a gift to God.
       display: table;
       clear: both;
     }
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -294,6 +341,14 @@ All work on this project is offered as a gift to God.
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
+    <!-- ICP-Lite Quick Answer -->
+    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin-bottom: 1.5rem;">
+      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+        <strong>Quick Answer:</strong> Barcelona is a major embarkation port and port of call. La Sagrada Familia and Park Güell are must-sees (book tickets in advance). La Rambla, Gothic Quarter, and La Boqueria market are walkable from port. Ships dock at terminals near the bottom of La Rambla.
+      </p>
+    </section>
+
+    <div style="grid-column: 1; grid-row: 1;">
     <!-- Breadcrumb -->
     <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;">
       <ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;">
@@ -303,17 +358,14 @@ All work on this project is offered as a gift to God.
       </ol>
     </nav>
 
-    <!-- ICP-Lite Quick Answer -->
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin-bottom: 1.5rem;">
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Barcelona is a major embarkation port and port of call. La Sagrada Familia and Park Güell are must-sees (book tickets in advance). La Rambla, Gothic Quarter, and La Boqueria market are walkable from port. Ships dock at terminals near the bottom of La Rambla.
-      </p>
-    </section>
-
-    <div style="grid-column: 1;">
     <article class="card">
-      <!-- Port Hero Image -->
-      <img class="port-hero" src="/ports/img/barcelona/barcelona-4.webp" alt="Panoramic view of Barcelona from Montjuïc Castle with the city skyline and Collserola mountains" fetchpriority="high"/>
+      <!-- Port Hero with name overlay -->
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/barcelona/barcelona-4.webp" alt="Panoramic view of Barcelona from Montjuïc Castle" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Barcelona</span>
+        </div>
+      </div>
 
       <h1>Barcelona: Where Gaudí Meets the Mediterranean</h1>
 
@@ -321,9 +373,19 @@ All work on this project is offered as a gift to God.
         <img class="inline-image" src="/ports/img/barcelona/barcelona-1.webp" alt="Barcelona port waterfront with Mediterranean waters" loading="lazy"/>
         <p>Barcelona is one of those cities that could easily consume a week, yet we often try to see it in a day. I've visited on three cruises — once as an embarkation port where I arrived two days early, once as a port of call with only seven hours, and once as a quick transit where I barely left the port area. Each visit taught me something different about this city, but they all confirmed one thing: Barcelona deserves your time.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/barcelona/barcelona-1.webp" alt="Barcelona harbor view" loading="lazy">
+        <figcaption>Barcelona — <a href="https://commons.wikimedia.org/w/index.php?search=Barcelona&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
         <p>The cruise port sits at the base of La Rambla, Barcelona's famous tree-lined pedestrian boulevard that runs from the waterfront up to Plaça de Catalunya. From the World Trade Center terminal, you can walk onto La Rambla in ten minutes. This is both a blessing and a trap — La Rambla is crowded, touristy, and has unfortunately become known for pickpockets. But it's also still charming: the flower stalls, the human statues, the energy of a city that lives outdoors. Just keep your wallet secure and don't linger too long. The real Barcelona waits elsewhere.</p>
 
         <p>On my longest visit, I went straight to La Sagrada Familia, and I'll tell you now: book your tickets online weeks in advance. Gaudí's unfinished basilica is Barcelona's most visited site, and the timed-entry tickets sell out fast. But this is not just tourist hype — La Sagrada Familia is genuinely one of the most astonishing buildings on Earth. Construction began in 1882 and won't be complete until 2026 (maybe), and every surface is a prayer in stone. The interior is a forest of columns that branch like trees, light streaming through stained glass in impossible colors, the whole space designed to make you look up. I'm not Catholic, and I wept.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/barcelona/barcelona-2.webp" alt="Barcelona waterfront" loading="lazy">
+        <figcaption>Barcelona scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Barcelona&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
 
         <img class="inline-image-left" src="/ports/img/barcelona/barcelona-3.webp" alt="Cruise ship docked at Port of Barcelona" loading="lazy"/>
         <p>Park Güell is Gaudí's other essential work in Barcelona — a public park originally planned as an exclusive residential development, now filled with mosaic sculptures, undulating benches, and views over the city to the sea. The famous terrace with the serpentine bench requires a timed ticket, but even the free areas of the park are beautiful. Casa Batlló and Casa Milà (La Pedrera) on Passeig de Gràcia are two more Gaudí masterpieces; I'd recommend picking one if time is short. Casa Batlló has the better interior; La Pedrera has the better rooftop.</p>
@@ -394,7 +456,80 @@ All work on this project is offered as a gift to God.
           </figure>
         </div>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/barcelona/barcelona-1.webp" alt="Harbor view of Barcelona" loading="lazy">
+          <figcaption>
+            Harbor view of Barcelona
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/barcelona/barcelona-2.webp" alt="Waterfront of Barcelona" loading="lazy">
+          <figcaption>
+            Waterfront of Barcelona
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/barcelona/barcelona-3.webp" alt="Port panorama of Barcelona" loading="lazy">
+          <figcaption>
+            Port panorama of Barcelona
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/barcelona/barcelona-4.webp" alt="Coastal landscape of Barcelona" loading="lazy">
+          <figcaption>
+            Coastal landscape of Barcelona
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/barcelona/barcelona-5.webp" alt="Harbor view of Barcelona" loading="lazy">
+          <figcaption>
+            Harbor view of Barcelona
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/barcelona/barcelona-6.webp" alt="Waterfront of Barcelona" loading="lazy">
+          <figcaption>
+            Waterfront of Barcelona
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/barcelona/barcelona-7.webp" alt="Port panorama of Barcelona" loading="lazy">
+          <figcaption>
+            Port panorama of Barcelona
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/barcelona/barcelona-8.webp" alt="Coastal landscape of Barcelona" loading="lazy">
+          <figcaption>
+            Coastal landscape of Barcelona
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>barcelona-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>barcelona-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>barcelona-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>barcelona-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>barcelona-5.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>barcelona-6.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>barcelona-7.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>barcelona-8.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
 
     <!-- FAQ Section -->
     <section class="card" id="faq" style="margin-top: 2rem;">
@@ -480,10 +615,6 @@ All work on this project is offered as a gift to God.
       </p>
     </section>
 
-    <section class="card">
-      <h3>Recent Articles</h3>
-      <div id="recent-rail"></div>
-    </section>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -505,6 +636,11 @@ All work on this project is offered as a gift to God.
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -699,5 +835,9 @@ All work on this project is offered as a gift to God.
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>
