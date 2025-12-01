@@ -247,7 +247,7 @@
 {
   "version": "3.007",
   "assets": [
-    "/", "/solo.html", "/ships/ships.html",
+    "/", "/solo.html", "/ships.html",
     "/assets/styles.css?v=3.007",
     "/assets/index_hero.jpg?v=3.007"
   ],
