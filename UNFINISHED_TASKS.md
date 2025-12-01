@@ -1,12 +1,12 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2025-11-29
+**Last Updated:** 2025-12-01
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
 
-## 📊 Audit Summary (2025-11-29)
+## 📊 Audit Summary (2025-12-01)
 
 **MAJOR COMPLETION - Site-Wide Grid Layout Fix:**
 - ✅ **764 grid layout bugs eliminated** across 571 files (PR #283)
@@ -14,9 +14,14 @@
   - Removed 144 instances of `grid-row: 2` (gap bug)
   - Automated fix via sed commands on ports/, ships/, restaurants/, solo/, tools/
   - Manual fixes on 19 complex pages with duplicates
-- ✅ Verified: 0 remaining instances site-wide
+- ✅ Verified: 0 remaining instances site-wide (re-verified 2025-12-01)
 
-**Completed this session:**
+**Completed 2025-12-01:**
+- ✅ Fixed article fragment location issues (solo/ vs solo/articles/)
+- ✅ Added visiting-the-united-states article to solo.html RAW_ARTICLES
+- ✅ Added 14 missing homeport pages (baltimore, cape-liberty, galveston, los-angeles, melbourne, mobile, new-orleans, port-canaveral, port-everglades, port-miami, san-diego, seattle, tampa, vancouver)
+
+**Completed 2025-11-29:**
 - ✅ Star of the Seas swiper (4 images now)
 - ✅ Port tracker comparison grid (5 cards in 1 row)
 - ✅ Port tracker HTML structure (ports now render)
@@ -34,19 +39,25 @@
 - ✅ solo.html infinite scroll (fixed - verified 2025-11-29)
 - ✅ packing-lists.html infinite scroll (fixed - verified 2025-11-29)
 
-**ICP-Lite Coverage - 100% COMPLETE (2025-11-29):**
+**ICP-Lite Coverage (2025-12-01 - COMPLETE):**
 - ✅ **ALL 13 major hub pages** have Quick Answer, Best For, Key Facts
-- ✅ All 147 port pages have ICP-Lite
+- ✅ **ALL 161 port pages have ICP-Lite** (100%) - 14 new homeports added 2025-12-01
 - ✅ **ALL 50 ship pages have ICP-Lite** (added final 8 TBN ships)
 - ✅ **ALL 2 tool pages have ICP-Lite** (ship-tracker, port-tracker)
-- **TOTAL: 212/212 pages (100% site-wide coverage)**
+- **TOTAL: 226/226 pages (100% site-wide coverage)**
 
 **Still TODO:**
 - Articles: Healing Relationships, Wounded Healers
 - Protocol documentation
-- Individual page pattern standardization (author/article cards across 212 pages)
+- Individual page pattern standardization (author/article cards across 226 pages)
+- Duplicate pages to consolidate: legend-of-the-seas-1995-built.html, star-of-the-seas-aug-2025-debut.html
 
-**Realistic remaining task count: ~15-20 items** (revised down after re-audit)
+**Current counts (2025-12-01):**
+- Total HTML pages: 530
+- Port pages: 161 (up from 147)
+- Ship pages: 50
+
+**Realistic remaining task count: ~20-25 items** (increased after adding 14 homeports)
 
 ---
 
@@ -555,8 +566,25 @@ This archive is maintained additively - tasks are never removed from this sectio
 
 ### P0 - Individual Port Pages (ports/*.html)
 
-#### All 147 Port Pages
-- [x] ✅ All 147 pages have ICP-Lite elements (Quick Answer, Best For, Key Facts) - verified 2025-11-29
+#### ✅ DONE: 14 NEW Homeport Pages - ICP-Lite Complete (2025-12-01)
+**Status:** COMPLETE - All 14 homeport pages have Quick Answer
+- [x] ✅ baltimore.html
+- [x] ✅ cape-liberty.html
+- [x] ✅ galveston.html
+- [x] ✅ los-angeles.html
+- [x] ✅ melbourne.html
+- [x] ✅ mobile.html
+- [x] ✅ new-orleans.html
+- [x] ✅ port-canaveral.html
+- [x] ✅ port-everglades.html
+- [x] ✅ port-miami.html
+- [x] ✅ san-diego.html
+- [x] ✅ seattle.html
+- [x] ✅ tampa.html
+- [x] ✅ vancouver.html
+
+#### All 161 Port Pages
+- [x] ✅ **ALL 161 pages have ICP-Lite elements (Quick Answer)** - verified 2025-12-01
 - [ ] Add Author and Article cards (index.html pattern) to all pages
 - [ ] Change "A Positively Worded Word of Warning" to better heading
 - [ ] Give "Getting Around" its own card (honor design language)
