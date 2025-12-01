@@ -195,7 +195,7 @@ For Reviews: **exactly one** block; `ratingValue` **number**, not string.
   "@context":"https://schema.org","@type":"BreadcrumbList","name":"Site Breadcrumbs",
   "itemListElement":[
     {"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},
-    {"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships/ships.html"},
+    {"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},
     {"@type":"ListItem","position":3,"name":"Grandeur of the Seas","item":"https://cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html"}
   ]
 }</script>

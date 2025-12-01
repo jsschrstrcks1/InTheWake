@@ -178,7 +178,7 @@ These guardrails override all optimization concerns. A technically imperfect pag
 /
 ├── index.html                  # Homepage
 ├── ships/
-│   ├── index.html             # Ships hub (/ships/index.html NOT /ships/ships.html)
+│   ├── index.html             # Ships hub (/ships/index.html NOT /ships.html)
 │   ├── rcl/                   # Royal Caribbean ships
 │   ├── carnival-cruise-line/  # Carnival fleet
 │   ├── celebrity-cruises/     # Celebrity fleet
@@ -206,7 +206,7 @@ These guardrails override all optimization concerns. A technically imperfect pag
 ### Key Paths
 
 **Ships:**
-- Hub: `/ships/index.html` (NOT `/ships/ships.html`)
+- Hub: `/ships/index.html` (NOT `/ships.html`)
 - Detail: `/ships/<line>/<slug>.html` (e.g., `/ships/rcl/radiance-of-the-seas.html`)
 
 **Data Files:**
@@ -544,7 +544,7 @@ AI-first content protocol that helps AI assistants understand and cite content c
 - ❌ NEVER reference GitHub URLs in production files
 
 ### Navigation
-- ❌ NEVER use `/ships/ships.html` (correct path: `/ships/index.html`)
+- ❌ NEVER use `/ships.html` (correct path: `/ships/index.html`)
 - ❌ NEVER break the pill navigation structure
 - ❌ NEVER remove the "Cruise Lines" link from primary nav
 

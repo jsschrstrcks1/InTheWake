@@ -394,7 +394,7 @@ All work on this project is offered as a gift to God.
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
       </div>
-      <p><a href="https://cruisinginthewake.com/ships/ships.html" class="btn">See All Ships</a></p>
+      <p><a href="https://cruisinginthewake.com/ships.html" class="btn">See All Ships</a></p>
     </div>
 
     <!-- ===== NEW: Explore by Class (canon) ===== -->
@@ -625,7 +625,7 @@ All work on this project is offered as a gift to God.
         classes.forEach(cn=>{
           const slide = document.createElement('div'); slide.className='swiper-slide';
           const clsSlug = cn.toLowerCase().replace(/[^a-z0-9]+/g,'-');
-          slide.innerHTML = `<a href="/ships/ships.html#rcl-${clsSlug}">${cn || 'Other Class'}</a>`;
+          slide.innerHTML = `<a href="/ships.html#rcl-${clsSlug}">${cn || 'Other Class'}</a>`;
           classWrap.appendChild(slide);
         });
         new Swiper('.related-classes .swiper-container', {
