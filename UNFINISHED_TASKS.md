@@ -1,12 +1,12 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2025-11-29
+**Last Updated:** 2025-12-01
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
 
-## 📊 Audit Summary (2025-11-29)
+## 📊 Audit Summary (2025-12-01)
 
 **MAJOR COMPLETION - Site-Wide Grid Layout Fix:**
 - ✅ **764 grid layout bugs eliminated** across 571 files (PR #283)
@@ -14,9 +14,14 @@
   - Removed 144 instances of `grid-row: 2` (gap bug)
   - Automated fix via sed commands on ports/, ships/, restaurants/, solo/, tools/
   - Manual fixes on 19 complex pages with duplicates
-- ✅ Verified: 0 remaining instances site-wide
+- ✅ Verified: 0 remaining instances site-wide (re-verified 2025-12-01)
 
-**Completed this session:**
+**Completed 2025-12-01:**
+- ✅ Fixed article fragment location issues (solo/ vs solo/articles/)
+- ✅ Added visiting-the-united-states article to solo.html RAW_ARTICLES
+- ✅ Added 14 missing homeport pages (baltimore, cape-liberty, galveston, los-angeles, melbourne, mobile, new-orleans, port-canaveral, port-everglades, port-miami, san-diego, seattle, tampa, vancouver)
+
+**Completed 2025-11-29:**
 - ✅ Star of the Seas swiper (4 images now)
 - ✅ Port tracker comparison grid (5 cards in 1 row)
 - ✅ Port tracker HTML structure (ports now render)
@@ -34,19 +39,30 @@
 - ✅ solo.html infinite scroll (fixed - verified 2025-11-29)
 - ✅ packing-lists.html infinite scroll (fixed - verified 2025-11-29)
 
-**ICP-Lite Coverage - 100% COMPLETE (2025-11-29):**
+**ICP-Lite Coverage (2025-12-01 Audit):**
 - ✅ **ALL 13 major hub pages** have Quick Answer, Best For, Key Facts
-- ✅ All 147 port pages have ICP-Lite
+- ✅ 147/161 port pages have ICP-Lite (91%)
+- ❌ **14 NEW homeport pages MISSING ICP-Lite** (need Quick Answer added):
+  - baltimore, cape-liberty, galveston, los-angeles, melbourne, mobile
+  - new-orleans, port-canaveral, port-everglades, port-miami
+  - san-diego, seattle, tampa, vancouver
 - ✅ **ALL 50 ship pages have ICP-Lite** (added final 8 TBN ships)
 - ✅ **ALL 2 tool pages have ICP-Lite** (ship-tracker, port-tracker)
-- **TOTAL: 212/212 pages (100% site-wide coverage)**
+- **TOTAL: 212/226 pages (94% coverage) - was 100%, now need to update 14 new pages**
 
 **Still TODO:**
+- ⚠️ Add ICP-Lite Quick Answer to 14 new homeport pages
 - Articles: Healing Relationships, Wounded Healers
 - Protocol documentation
-- Individual page pattern standardization (author/article cards across 212 pages)
+- Individual page pattern standardization (author/article cards across 226 pages)
+- Duplicate pages to consolidate: legend-of-the-seas-1995-built.html, star-of-the-seas-aug-2025-debut.html
 
-**Realistic remaining task count: ~15-20 items** (revised down after re-audit)
+**Current counts (2025-12-01):**
+- Total HTML pages: 530
+- Port pages: 161 (up from 147)
+- Ship pages: 50
+
+**Realistic remaining task count: ~20-25 items** (increased after adding 14 homeports)
 
 ---
 
@@ -555,8 +571,26 @@ This archive is maintained additively - tasks are never removed from this sectio
 
 ### P0 - Individual Port Pages (ports/*.html)
 
-#### All 147 Port Pages
-- [x] ✅ All 147 pages have ICP-Lite elements (Quick Answer, Best For, Key Facts) - verified 2025-11-29
+#### 14 NEW Homeport Pages - NEED ICP-Lite (2025-12-01)
+**Status:** Created but missing Quick Answer in At a Glance section
+- [ ] baltimore.html - Add Quick Answer
+- [ ] cape-liberty.html - Add Quick Answer
+- [ ] galveston.html - Add Quick Answer
+- [ ] los-angeles.html - Add Quick Answer
+- [ ] melbourne.html - Add Quick Answer
+- [ ] mobile.html - Add Quick Answer
+- [ ] new-orleans.html - Add Quick Answer
+- [ ] port-canaveral.html - Add Quick Answer
+- [ ] port-everglades.html - Add Quick Answer
+- [ ] port-miami.html - Add Quick Answer
+- [ ] san-diego.html - Add Quick Answer
+- [ ] seattle.html - Add Quick Answer
+- [ ] tampa.html - Add Quick Answer
+- [ ] vancouver.html - Add Quick Answer
+
+#### All 161 Port Pages (was 147)
+- [x] ✅ 147/161 pages have ICP-Lite elements (Quick Answer) - verified 2025-12-01
+- [ ] Add ICP-Lite to 14 new homeport pages (see above)
 - [ ] Add Author and Article cards (index.html pattern) to all pages
 - [ ] Change "A Positively Worded Word of Warning" to better heading
 - [ ] Give "Getting Around" its own card (honor design language)
