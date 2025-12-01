@@ -80,6 +80,95 @@ Soli Deo Gloria
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -170,9 +259,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We stepped off the ship and immediately kicked off our flip-flops — the cruise center opens straight onto a flawless crescent beach. Margaritaville is right there if you want it, but we turned left and walked 10 minutes to Governor's Beach instead. Zero crowds, powder sand, and water in seven impossible shades of blue.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/grand-turk/grand-turk-1.webp" alt="Grand Turk harbor view" loading="lazy">
+        <figcaption>Grand Turk — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>Rented snorkel gear and swam out to the drop-off. The wall starts at just 25–40 ft and plunges to 7,000 ft — I floated above it feeling deliciously small while a spotted eagle ray (wingspan at least 5 ft) glided past like a stealth bomber. Schools of horse-eye jacks swirled around us in silver tornadoes. Even saw a reef shark (4–5 ft) cruising the blue — far below and totally uninterested in humans.</p>
 
         <p>Afternoon was spent doing absolutely nothing except floating on noodles and eating conch two ways: cracked (fried) and ceviche-style with orange slices. The conch salad was so fresh it practically jumped back into the sea. Washed it down with Turk's Head beer while a cruise ship (not ours) sailed past on the horizon looking like a toy.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/grand-turk/grand-turk-2.webp" alt="Grand Turk waterfront" loading="lazy">
+        <figcaption>Grand Turk scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <p>The pros: you can have a perfect beach day without spending a dime or leaving sight of the ship.</p>
         <p>The cons: the cruise center itself is very "built for cruisers" — escape it and you're golden.</p>
@@ -200,7 +299,87 @@ Soli Deo Gloria
         <p><strong>Q: How long to snorkel the wall?</strong><br/>A: 45–90 minutes from shore.</p>
         <p><strong>Q: Can you walk from port?</strong><br/>A: Yes — beach is literally 2 minutes away.</p>
       </section>
-    </article>
+    
+      <!-- Photo Gallery -->
+      <section class="port-section" style="background: transparent; border: none; padding: 0;">
+        <h3>Grand Turk Gallery</h3>
+        <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="/ports/img/grand-turk/grand-turk-1.webp" alt="Carnival Glory at night" loading="lazy"/>
+          <figcaption>
+            Carnival Glory at night
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/grand-turk/grand-turk-2.webp" alt="Cruise ship at port" loading="lazy"/>
+          <figcaption>
+            Cruise ship at port
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/grand-turk/grand-turk-3.webp" alt="Grand Turk port view" loading="lazy"/>
+          <figcaption>
+            Grand Turk port view
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/grand-turk/grand-turk-4.webp" alt="Grand Turk scene" loading="lazy"/>
+          <figcaption>
+            Grand Turk scene
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 2.0)</div>
+          </figcaption>
+        </figure>
+        </div>
+      </section>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/grand-turk/grand-turk-1.webp" alt="Harbor view of Grand Turk" loading="lazy">
+          <figcaption>
+            Harbor view of Grand Turk
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/grand-turk/grand-turk-2.webp" alt="Waterfront of Grand Turk" loading="lazy">
+          <figcaption>
+            Waterfront of Grand Turk
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/grand-turk/grand-turk-3.webp" alt="Port panorama of Grand Turk" loading="lazy">
+          <figcaption>
+            Port panorama of Grand Turk
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/grand-turk/grand-turk-4.webp" alt="Coastal landscape of Grand Turk" loading="lazy">
+          <figcaption>
+            Coastal landscape of Grand Turk
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>grand-turk-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>grand-turk-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>grand-turk-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>grand-turk-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -246,6 +425,18 @@ Soli Deo Gloria
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+
+    <!-- Image Attribution Section -->
+    <section class="card" style="margin-top: 2rem; background: #f7fdff;">
+      <h3>Image Credits</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem;">Images from Wikimedia Commons, used under Creative Commons licenses:</p>
+      <ul class="tiny" style="line-height: 1.8; padding-left: 1.25rem;">
+        <li><strong>Carnival Glory at night:</strong> Photo by Hollyanne Brooks, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</li>
+        <li><strong>Cruise ship at port:</strong> Photo by Hollyanne Brooks, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</li>
+        <li><strong>Grand Turk port view:</strong> Photo by Hollyanne Brooks, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</li>
+        <li><strong>Grand Turk scene:</strong> Photo by Vassil, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 2.0)</li>
+      </ul>
+    </section>
   </main>
     <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>

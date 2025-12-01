@@ -187,6 +187,53 @@ Soli Deo Gloria
       color: #678;
       margin-top: 0.5rem;
     }
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -280,6 +327,11 @@ Soli Deo Gloria
         <img class="inline-image" src="/ports/img/amsterdam/amsterdam-2.webp" alt="Amsterdam cityscape panorama" loading="lazy"/>
         <p>Gliding into the Passenger Terminal Amsterdam right in the heart of the city is one of cruising's great thrills — you're literally docked behind Centraal Station with canal views everywhere. Cruisers give it a perfect 4.9–5.0 because you step off and you're instantly in one of the most beautiful cities on earth.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/amsterdam/amsterdam-1.webp" alt="Amsterdam harbor view" loading="lazy">
+        <figcaption>Amsterdam — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <img class="inline-image-left" src="/ports/img/amsterdam/amsterdam-3.webp" alt="Port of Amsterdam harbor facilities" loading="lazy"/>
         <p>My perfect day: Anne Frank House first thing (book months ahead), then the Van Gogh Museum and Rijksmuseum (the Night Watch is overwhelming in person), a canal cruise (the smaller open boats are best), and biking like a local through Vondelpark. Stroopwafels from the Albert Cuyp market, herring from a street stand, and bitterballen with mustard are non-negotiable. The Jordaan neighborhood's cute cafés and houseboats feel like real Amsterdam life.</p>
 
@@ -288,6 +340,11 @@ Soli Deo Gloria
         </div>
 
         <p>Amsterdam is compact, bike-friendly, and endlessly charming. Every canal view looks like a painting, every café invites you to linger, and the Dutch directness is refreshing after more formal cultures.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/amsterdam/amsterdam-2.webp" alt="Amsterdam waterfront" loading="lazy">
+        <figcaption>Amsterdam scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
       </div>
 
       <section class="port-section">
@@ -341,7 +398,80 @@ Soli Deo Gloria
           </figure>
         </div>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/amsterdam/amsterdam-1.webp" alt="Harbor view of Amsterdam" loading="lazy">
+          <figcaption>
+            Harbor view of Amsterdam
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/amsterdam/amsterdam-2.webp" alt="Waterfront of Amsterdam" loading="lazy">
+          <figcaption>
+            Waterfront of Amsterdam
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/amsterdam/amsterdam-3.webp" alt="Port panorama of Amsterdam" loading="lazy">
+          <figcaption>
+            Port panorama of Amsterdam
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/amsterdam/amsterdam-4.webp" alt="Coastal landscape of Amsterdam" loading="lazy">
+          <figcaption>
+            Coastal landscape of Amsterdam
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/amsterdam/amsterdam-5.webp" alt="Harbor view of Amsterdam" loading="lazy">
+          <figcaption>
+            Harbor view of Amsterdam
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/amsterdam/amsterdam-6.webp" alt="Waterfront of Amsterdam" loading="lazy">
+          <figcaption>
+            Waterfront of Amsterdam
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/amsterdam/amsterdam-7.webp" alt="Port panorama of Amsterdam" loading="lazy">
+          <figcaption>
+            Port panorama of Amsterdam
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/amsterdam/amsterdam-8.webp" alt="Coastal landscape of Amsterdam" loading="lazy">
+          <figcaption>
+            Coastal landscape of Amsterdam
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>amsterdam-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>amsterdam-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>amsterdam-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>amsterdam-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>amsterdam-5.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>amsterdam-6.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>amsterdam-7.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>amsterdam-8.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
 
     <section class="card" id="faq" style="margin-top: 2rem;">

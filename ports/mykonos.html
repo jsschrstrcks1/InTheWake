@@ -80,6 +80,90 @@ Soli Deo Gloria
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -169,9 +253,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We tendered into the old port and the wind hit us first — that famous meltemi whipping prayer flags and women's dresses like sails. Little Venice was already buzzing with photographers, but we turned left instead of right and found empty alleys where grandmas swept their doorsteps and cats slept in flowerpots. Breakfast was Greek yogurt with thyme honey so thick it stood up on the spoon, eaten on a balcony overlooking the sea.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/mykonos/mykonos-1.webp" alt="Mykonos harbor view" loading="lazy">
+        <figcaption>Mykonos — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>We rented a quad bike (best decision) and escaped to Agios Sostis beach — no umbrellas, no music, just golden sand and water the color of a swimming pool. We swam for hours. We had lunch at Kiki's Tavern (no sign, no electricity, just perfection) — grilled octopus and pork chops straight from the fire, cold Alpha beer, zero phone signal. Heaven.</p>
 
         <p>Back in town at golden hour the light turned everything peach and rose. The windmills looked like they were posing just for us. Yes, Mykonos is touristy and expensive and crowded by 11 a.m., but the beauty is so pure it almost hurts, and there are still secret corners if you look.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/mykonos/mykonos-2.webp" alt="Mykonos waterfront" loading="lazy">
+        <figcaption>Mykonos scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <div class="poignant-highlight">
           <strong>The Moment That Stays With Me:</strong> Swimming alone at Agios Sostis while a fishing boat chugged past, the only sound the wind and my own breathing, realizing this is exactly how the postcards look — but better, because it's real.
@@ -196,7 +290,52 @@ Soli Deo Gloria
         <p><strong>Q: How long at Kiki's Tavern?</strong><br/>A: Queue starts at noon — arrive 11:30 or after 3 p.m.</p>
         <p><strong>Q: Can you walk from tender?</strong><br/>A: Yes — right into town.</p>
       </section>
-    </article>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/mykonos/mykonos-1.webp" alt="Harbor view of Mykonos, Greece" loading="lazy">
+          <figcaption>
+            Harbor view of Mykonos, Greece
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/mykonos/mykonos-2.webp" alt="Waterfront scenery of Mykonos, Greece" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Mykonos, Greece
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/mykonos/mykonos-3.webp" alt="Port panorama of Mykonos, Greece" loading="lazy">
+          <figcaption>
+            Port panorama of Mykonos, Greece
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/mykonos/mykonos-4.webp" alt="Coastal landscape of Mykonos, Greece" loading="lazy">
+          <figcaption>
+            Coastal landscape of Mykonos, Greece
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>mykonos-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>mykonos-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>mykonos-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>mykonos-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -356,8 +495,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

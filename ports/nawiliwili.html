@@ -80,6 +80,90 @@ Soli Deo Gloria
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 </head>
 <body class="page">
@@ -168,6 +252,11 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We docked and rented a car (again, the only practical way). Waimea Canyon by 9 a.m. – the red dirt and layered cliffs really do look like a mini Grand Canyon with tropical vegetation. The main lookout is an easy 5-minute walk from parking – we had it almost to ourselves. Afternoon Na Pali catamaran from Port Allen (30-minute drive) – the boats are permitted and regulated, and the cliffs rising 4,000 ft from the sea with waterfalls every few minutes are worth every penny.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/nawiliwili/nawiliwili-1.webp" alt="Nawiliwili harbor view" loading="lazy">
+        <figcaption>Nawiliwili — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>Spinning dolphins, sea caves you can enter, and snorkeling in water warm enough for comfort. Back by 4:30 with zero rush. The pros: the most dramatically beautiful island. The cons: everything requires driving, but the roads are good and traffic almost nonexistent.</p>
 
         <div class="poignant-highlight">
@@ -178,6 +267,11 @@ Soli Deo Gloria
       <section class="port-section">
         <h3>Getting Around Nawiliwili</h3>
         <p>Nawiliwili Harbor – car rental desks 5-minute walk from ship. Car is mandatory.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/nawiliwili/nawiliwili-2.webp" alt="Nawiliwili waterfront" loading="lazy">
+        <figcaption>Nawiliwili scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
       </section>
 
       <section class="port-section">
@@ -193,7 +287,52 @@ Soli Deo Gloria
         <p><strong>Q: How long for Na Pali boat?</strong><br/>A: 5–6 hours round-trip including drive.</p>
         <p><strong>Q: Walk from port?</strong><br/>A: To harbor shops yes; island requires car.</p>
       </section>
-    </article>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/nawiliwili/nawiliwili-1.webp" alt="Harbor view of Nawiliwili, Kauai" loading="lazy">
+          <figcaption>
+            Harbor view of Nawiliwili, Kauai
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/nawiliwili/nawiliwili-2.webp" alt="Waterfront scenery of Nawiliwili, Kauai" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Nawiliwili, Kauai
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/nawiliwili/nawiliwili-3.webp" alt="Port panorama of Nawiliwili, Kauai" loading="lazy">
+          <figcaption>
+            Port panorama of Nawiliwili, Kauai
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/nawiliwili/nawiliwili-4.webp" alt="Coastal landscape of Nawiliwili, Kauai" loading="lazy">
+          <figcaption>
+            Coastal landscape of Nawiliwili, Kauai
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>nawiliwili-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>nawiliwili-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>nawiliwili-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>nawiliwili-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -384,8 +523,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

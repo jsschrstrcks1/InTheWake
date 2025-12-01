@@ -68,6 +68,85 @@ All work on this project is offered as a gift to God.
       margin: 0.25rem 0;
     }
 
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+
   </style>
   <script type="application/ld+json">
   {
@@ -167,6 +246,11 @@ All work on this project is offered as a gift to God.
       <!-- Quick Answer -->
       <section class="quick-answer" style="background:#e6f7f5;border-left:5px solid #2a9d8f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
         <p style="margin:0;"><strong>Quick&nbsp;Answer:</strong> Sydney is Australia's highest-rated port (4.9–5.0 stars) with the most spectacular harbour entrance on earth. Must-dos: Opera House tour, Manly Ferry, Bondi-to-Bronte coastal walk, and sunset drinks at Opera Bar.</p>
+
+      <figure class="logbook-image float-right">
+        <img src="img/sydney/sydney-1.webp" alt="Sydney, Australia harbor view" loading="lazy">
+        <figcaption>Sydney, Australia — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
       </section>
 
       <!-- Logbook Entry -->
@@ -175,6 +259,11 @@ All work on this project is offered as a gift to God.
         <p>Sailing under the Sydney Harbour Bridge at sunrise with the Opera House glowing pink is one of cruising's all-time greatest moments – hands down the most spectacular port entrance on earth. Sydney is the highest-rated Australian port (4.9–5.0 stars).</p>
 
         <p>My perfect day: off the ship at Circular Quay or White Bay and straight onto the first ferry to Manly for the beach and that iconic harbour crossing. Then the Opera House guided tour (book ahead), climbing the Harbour Bridge if I'm feeling brave, Bondi Beach for the coastal walk to Bronte (best views ever), and lunch at Icebergs or just fish & chips on the sand.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/sydney/sydney-2.webp" alt="Sydney, Australia waterfront" loading="lazy">
+        <figcaption>Sydney, Australia scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <div class="poignant-highlight">
           <strong>The moment that stays with me:</strong> Sailing under the Harbour Bridge at dawn, watching the Opera House sails turn from grey to pink to gold as the sun rises – in that moment, Sydney isn't just a port, it's a promise that some places really are as beautiful as the postcards say.
@@ -202,7 +291,52 @@ All work on this project is offered as a gift to God.
         <details><summary>How do I get to Bondi Beach from the cruise terminal?</summary><p>From Circular Quay, take a bus (30–40 minutes) or taxi/Uber ($30–40). The Bondi to Bronte coastal walk is free and absolutely stunning.</p></details>
       </section>
 
-    </article>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/sydney/sydney-1.webp" alt="Harbor view of Sydney, Australia" loading="lazy">
+          <figcaption>
+            Harbor view of Sydney, Australia
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/sydney/sydney-2.webp" alt="Waterfront scenery of Sydney, Australia" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Sydney, Australia
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/sydney/sydney-3.webp" alt="Port panorama of Sydney, Australia" loading="lazy">
+          <figcaption>
+            Port panorama of Sydney, Australia
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/sydney/sydney-4.webp" alt="Coastal landscape of Sydney, Australia" loading="lazy">
+          <figcaption>
+            Coastal landscape of Sydney, Australia
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>sydney-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>sydney-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>sydney-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>sydney-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
     <!-- Nearby Ports Rail -->
     <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
       <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
@@ -364,8 +498,7 @@ All work on this project is offered as a gift to God.
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

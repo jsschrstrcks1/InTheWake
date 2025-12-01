@@ -187,6 +187,85 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -275,7 +354,57 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <p style="font-size: 0.95rem; color: #456; margin-bottom: 0;">
         <strong>Region:</strong> Eastern Mediterranean &nbsp;|&nbsp; <strong>Type:</strong> Direct dock &nbsp;|&nbsp; <strong>Currency:</strong> Turkish Lira (USD/EUR widely accepted)
       </p>
-    </article>
+
+      <figure class="logbook-image float-right">
+        <img src="img/kusadasi/kusadasi-1.webp" alt="Kuşadası, Turkey harbor view" loading="lazy">
+        <figcaption>Kuşadası, Turkey — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/kusadasi/kusadasi-1.webp" alt="Harbor view of Kuşadası, Turkey" loading="lazy">
+          <figcaption>
+            Harbor view of Kuşadası, Turkey
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/kusadasi/kusadasi-2.webp" alt="Waterfront scenery of Kuşadası, Turkey" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Kuşadası, Turkey
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/kusadasi/kusadasi-3.webp" alt="Port panorama of Kuşadası, Turkey" loading="lazy">
+          <figcaption>
+            Port panorama of Kuşadası, Turkey
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/kusadasi/kusadasi-4.webp" alt="Coastal landscape of Kuşadası, Turkey" loading="lazy">
+          <figcaption>
+            Coastal landscape of Kuşadası, Turkey
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>kusadasi-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>kusadasi-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>kusadasi-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>kusadasi-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
 
     <!-- First-Person Logbook Entry -->
     <article class="card logbook-entry">
@@ -298,7 +427,52 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <p>Kusadasi is also famous for its carpet demonstrations, and while some people avoid these as aggressive sales pitches, I actually enjoy them — the stories behind the weaving traditions, the way they identify each knot style and dye source, the literal cup of tea and Turkish hospitality that come with the experience. You don't have to buy, but if you do, you're getting something handmade and centuries-old in design. Just know your budget going in.</p>
 
       <p>Ephesus isn't just ruins. It's a living connection to the ancient world that leaves me speechless every single visit. If your Mediterranean cruise stops in Kusadasi, this is the port to prioritize above everything else. Get off the ship early. Take your time. Let the marble and the mosaics and the weight of two millennia settle into you. You won't regret it.</p>
-    </article>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/kusadasi/kusadasi-1.webp" alt="Harbor view of Kuşadası, Turkey" loading="lazy">
+          <figcaption>
+            Harbor view of Kuşadası, Turkey
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/kusadasi/kusadasi-2.webp" alt="Waterfront scenery of Kuşadası, Turkey" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Kuşadası, Turkey
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/kusadasi/kusadasi-3.webp" alt="Port panorama of Kuşadası, Turkey" loading="lazy">
+          <figcaption>
+            Port panorama of Kuşadası, Turkey
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/kusadasi/kusadasi-4.webp" alt="Coastal landscape of Kuşadası, Turkey" loading="lazy">
+          <figcaption>
+            Coastal landscape of Kuşadası, Turkey
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>kusadasi-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>kusadasi-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>kusadasi-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>kusadasi-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
 
     <!-- Navigation Section -->
     <section class="port-section">
@@ -508,8 +682,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

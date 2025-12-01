@@ -183,6 +183,53 @@ Soli Deo Gloria
       display: table;
       clear: both;
     }
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -271,9 +318,19 @@ Soli Deo Gloria
 
         <p>The sail-in to Nassau always gives me butterflies – our ship glides past Atlantis's pink towers like we're entering a giant playground while steel drums echo from the pier. By 8 a.m. the sun is already glittering off those ridiculous turquoise waters, and I'm on the first water taxi (surprisingly affordable all-day pass) to Paradise Island before the crowds wake up.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/nassau/cruise-ships-harbor.webp" alt="Nassau harbor view" loading="lazy">
+        <figcaption>Nassau — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>That lighthouse you see as you sail in? It's been guiding ships into Nassau Harbor since 1817. There's something magical about watching it grow larger as your ship approaches – a silent sentinel that's witnessed over two centuries of travelers arriving to these shores.</p>
 
         <p>My perfect Nassau day: straight to Atlantis Aquaventure (I buy the day pass online the night before – totally worth it for the Leap of Faith slide that shoots you through a shark tank). After three hours of adrenaline, I sneak out the side gate to Cabbage Beach for free loungers and that powdery sand everyone dreams about.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/nassau/nassau-fom-1.webp" alt="Nassau waterfront" loading="lazy">
+        <figcaption>Nassau scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <div class="poignant-highlight">
           <strong>The Moment That Stays With Me:</strong> Standing alone on the Atlantis beach at 10 a.m. while a stingray glided right under my feet in crystal water – I actually teared up realizing this is real life.
@@ -404,7 +461,94 @@ Soli Deo Gloria
         <p><strong>Q: Best conch?</strong><br/>A: Potter's Cay under the bridge for cracked conch and conch salad made right in front of you – surprisingly affordable and life-changing.</p>
         <p><strong>Q: Is the Straw Market worth visiting?</strong><br/>A: Yes! Even if you don't buy anything, the atmosphere is pure Nassau. Great for souvenirs, straw bags, and handmade crafts. Remember to bargain!</p>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/nassau/cruise-ships-harbor.webp" alt="Harbor view of Nassau" loading="lazy">
+          <figcaption>
+            Harbor view of Nassau
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/nassau/nassau-fom-1.webp" alt="Waterfront of Nassau" loading="lazy">
+          <figcaption>
+            Waterfront of Nassau
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/nassau/nassau-fom-2.webp" alt="Port panorama of Nassau" loading="lazy">
+          <figcaption>
+            Port panorama of Nassau
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/nassau/nassau-fom-3.webp" alt="Coastal landscape of Nassau" loading="lazy">
+          <figcaption>
+            Coastal landscape of Nassau
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/nassau/nassau-fom-4.webp" alt="Harbor view of Nassau" loading="lazy">
+          <figcaption>
+            Harbor view of Nassau
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/nassau/nassau-fom-5.webp" alt="Waterfront of Nassau" loading="lazy">
+          <figcaption>
+            Waterfront of Nassau
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/nassau/nassau-fom-6.webp" alt="Port panorama of Nassau" loading="lazy">
+          <figcaption>
+            Port panorama of Nassau
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/nassau/nassau-fom-7.webp" alt="Coastal landscape of Nassau" loading="lazy">
+          <figcaption>
+            Coastal landscape of Nassau
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/nassau/nassau-fom-8.webp" alt="Harbor view of Nassau" loading="lazy">
+          <figcaption>
+            Harbor view of Nassau
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/nassau/welcome-gateway.webp" alt="Waterfront of Nassau" loading="lazy">
+          <figcaption>
+            Waterfront of Nassau
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>cruise-ships-harbor.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>nassau-fom-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>nassau-fom-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>nassau-fom-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>nassau-fom-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>nassau-fom-5.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>nassau-fom-6.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>nassau-fom-7.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>nassau-fom-8.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>welcome-gateway.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2; align-self: start;">
     <!-- At a Glance (collapsible) -->

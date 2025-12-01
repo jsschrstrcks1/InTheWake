@@ -80,6 +80,90 @@ Soli Deo Gloria
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -164,6 +248,11 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We walked off the ship into the Marina quarter – bougainvillea everywhere, gelato at 9 a.m. felt mandatory. We climbed to the old Castello district via ancient stone stairs and suddenly the entire Gulf of Angels spread below us – turquoise water, salt marshes with pink flamingos, and the city glowing white. Poetto beach is an 8-km strip of powder sand reachable by 5-minute bus – we swam in water so warm and clear it felt like the Caribbean landed in the Mediterranean.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/cagliari/cagliari-1.webp" alt="Cagliari harbor view" loading="lazy">
+        <figcaption>Cagliari — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>We had lunch — malloreddus with sausage ragù and a bottle of Cannonau that tasted like Sardinian sunshine. In the afternoon we went to Nora archaeological site – Phoenician, Carthaginian, and Roman ruins right on the sea with mosaics still in perfect condition.</p>
 
         <div class="poignant-highlight">
@@ -174,6 +263,11 @@ Soli Deo Gloria
       <section class="port-section">
         <h3>Getting Around Cagliari</h3>
         <p>Everything is walkable or cheap city bus – Poetto line runs every 10 minutes from center.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/cagliari/cagliari-2.webp" alt="Cagliari waterfront" loading="lazy">
+        <figcaption>Cagliari scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
       </section>
 
       <section class="port-section">
@@ -189,7 +283,52 @@ Soli Deo Gloria
         <p><strong>Q: How long for Poetto?</strong><br/>A: Half day is heaven.</p>
         <p><strong>Q: Walk from port?</strong><br/>A: Yes – right into the action.</p>
       </section>
-    </article>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/cagliari/cagliari-1.webp" alt="Cagliari harbor, Sardinia" loading="lazy">
+          <figcaption>
+            Cagliari harbor, Sardinia
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/cagliari/cagliari-2.webp" alt="Port of Cagliari" loading="lazy">
+          <figcaption>
+            Port of Cagliari
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/cagliari/cagliari-3.webp" alt="Cagliari waterfront" loading="lazy">
+          <figcaption>
+            Cagliari waterfront
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/cagliari/cagliari-4.webp" alt="Cagliari coastal view" loading="lazy">
+          <figcaption>
+            Cagliari coastal view
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>cagliari-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>cagliari-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>cagliari-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>cagliari-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -349,8 +488,7 @@ Soli Deo Gloria
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

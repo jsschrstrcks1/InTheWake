@@ -136,6 +136,90 @@ All work on this project is offered as a gift to God.
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -235,9 +319,19 @@ All work on this project is offered as a gift to God.
       <div class="logbook-entry">
         <p>Marseille isn't pretty in the way Nice is pretty. It doesn't polish itself for tourists the way Paris does. It's rough at the edges, honest in its contradictions, and completely authentic — which is exactly why I've come to love it. France's oldest city wears its 2,600 years of history not as a museum piece but as a living, working port where fishermen still sell their catch at the Quai des Belges every morning and where the narrow streets of Le Panier still feel more North African than European.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/marseille/marseille-1.webp" alt="Marseille harbor view" loading="lazy">
+        <figcaption>Marseille — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>My ship docked at one of the modern cruise terminals, and I could see Notre-Dame de la Garde immediately — that golden Madonna atop the basilica stands 500 feet above the city, watching over Marseille like she has since 1864. I knew I'd end up there eventually, but first I walked down to the Old Port. The Vieux-Port isn't old in its buildings anymore — the Nazis destroyed most of the original harbor in 1943 — but the layout remains what it's been for millennia: a rectangular inlet of blue water surrounded by cafés, boats, and life.</p>
 
         <p>The morning fish market at the eastern end of the port was winding down when I arrived, but the stalls still overflowed with the morning's catch: rascasse, Saint-Pierre, congre, and a dozen fish I couldn't name. This is where bouillabaisse begins — that legendary Provençal fish stew that Marseille guards jealously. There's even a charter signed by the city's restaurants promising to make it only the traditional way. I had mine later at a place near the Fort Saint-Jean, and it arrived in two courses: the saffron-colored broth first with croutons and rouille (that garlicky, rust-colored spread), then the fish separately. Rich, aromatic, absolutely worth the €50 it cost.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/marseille/marseille-2.webp" alt="Marseille waterfront" loading="lazy">
+        <figcaption>Marseille scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <p>From the port I walked up through Le Panier, Marseille's oldest neighborhood. The streets are a jumble — stairs, alleys, laundry lines, street art on every surface, North African spices drifting from windows. This was the neighborhood that the Germans razed in 1943, calling it a haven for resistance fighters and "undesirables." It was rebuilt but kept its soul. I found the Centre de la Vieille Charité, a 17th-century almshouse now converted into museums, and sat in its baroque chapel courtyard in silence. Outside, everything was chaos; inside, perfect calm.</p>
 
@@ -271,7 +365,52 @@ All work on this project is offered as a gift to God.
         <h3>Positively Framed Word of Warning</h3>
         <p>Marseille rewards the street-smart traveler who stays aware of their surroundings. Like any large port city, it has areas with petty crime — watch bags in crowds and on the Metro. That said, the main tourist areas (Old Port, Le Panier, Notre-Dame de la Garde) are generally safe during the day. The city's grittiness is part of its authenticity; approach it with open eyes and appropriate caution, and you'll find an experience that the polished Riviera ports simply cannot offer.</p>
       </section>
-    </article>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/marseille/marseille-1.webp" alt="Harbor view of Marseille, France" loading="lazy">
+          <figcaption>
+            Harbor view of Marseille, France
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/marseille/marseille-2.webp" alt="Waterfront scenery of Marseille, France" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Marseille, France
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/marseille/marseille-3.webp" alt="Port panorama of Marseille, France" loading="lazy">
+          <figcaption>
+            Port panorama of Marseille, France
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/marseille/marseille-4.webp" alt="Coastal landscape of Marseille, France" loading="lazy">
+          <figcaption>
+            Coastal landscape of Marseille, France
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>marseille-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>marseille-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>marseille-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>marseille-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
 
     <!-- FAQ Section -->
     <section class="card" id="faq" style="margin-top: 2rem;">
@@ -500,8 +639,7 @@ All work on this project is offered as a gift to God.
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

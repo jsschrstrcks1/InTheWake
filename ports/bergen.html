@@ -160,6 +160,53 @@ Soli Deo Gloria
       color: #678;
       margin-top: 0.5rem;
     }
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -248,6 +295,11 @@ Soli Deo Gloria
         <img class="inline-image" src="/ports/img/bergen/bergen-2.webp" alt="View over Store Lungegårdsvann in Bergen" loading="lazy"/>
         <p>We sailed into the harbor at dawn with Bryggen's crooked wooden façades glowing like gingerbread against the mist. The funicular up Mount Fløyen was waiting – ten minutes later we stood above the cloud layer watching the city sparkle below while goats grazed on the roof of the station restaurant. Back down we wandered the UNESCO-listed Bryggen alleys – timber beams creaking, the smell of tar and salt, tiny galleries tucked between 300-year-old warehouses.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/bergen/bergen-1.webp" alt="Bergen harbor view" loading="lazy">
+        <figcaption>Bergen — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <img class="inline-image-left" src="/ports/img/bergen/bergen-3.webp" alt="Bergen panorama from the mountains" loading="lazy"/>
         <p>We had lunch at the fish market – the freshest salmon sashimi of my life eaten standing up, washed down with Aquavit that tasted like Christmas. In the afternoon we went back to the Fløibanen because we couldn't resist, this time hiking the ridge trail through pine forest that smelled like gin. Bergen rains a lot (it did, three times), but every shower left rainbows over the fjord and made the colors pop even more. The pros: compact, ridiculously pretty, and genuinely Norwegian. The cons: that rain is real, but Norwegians just smile and keep walking.</p>
 
@@ -265,6 +317,11 @@ Soli Deo Gloria
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
         <p>Bergen's weather changes every ten minutes – a light rain jacket lives in my day bag and has never once been unnecessary.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/bergen/bergen-2.webp" alt="Bergen waterfront" loading="lazy">
+        <figcaption>Bergen scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
       </section>
 
       <section class="port-section">
@@ -309,7 +366,80 @@ Soli Deo Gloria
           </figure>
         </div>
       </section>
-    </article>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/bergen/bergen-1.webp" alt="Harbor view of Bergen" loading="lazy">
+          <figcaption>
+            Harbor view of Bergen
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/bergen/bergen-2.webp" alt="Waterfront of Bergen" loading="lazy">
+          <figcaption>
+            Waterfront of Bergen
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/bergen/bergen-3.webp" alt="Port panorama of Bergen" loading="lazy">
+          <figcaption>
+            Port panorama of Bergen
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/bergen/bergen-4.webp" alt="Coastal landscape of Bergen" loading="lazy">
+          <figcaption>
+            Coastal landscape of Bergen
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/bergen/bergen-5.webp" alt="Harbor view of Bergen" loading="lazy">
+          <figcaption>
+            Harbor view of Bergen
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/bergen/bergen-6.webp" alt="Waterfront of Bergen" loading="lazy">
+          <figcaption>
+            Waterfront of Bergen
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/bergen/bergen-7.webp" alt="Port panorama of Bergen" loading="lazy">
+          <figcaption>
+            Port panorama of Bergen
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/bergen/bergen-8.webp" alt="Coastal landscape of Bergen" loading="lazy">
+          <figcaption>
+            Coastal landscape of Bergen
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>bergen-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>bergen-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>bergen-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>bergen-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>bergen-5.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>bergen-6.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>bergen-7.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>bergen-8.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">

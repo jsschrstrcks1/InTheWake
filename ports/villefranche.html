@@ -136,6 +136,90 @@ All work on this project is offered as a gift to God.
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+  
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -230,9 +314,19 @@ All work on this project is offered as a gift to God.
       <div class="logbook-entry">
         <p>The first thing I noticed when our tender rounded the breakwater into Villefranche-sur-Mer was the color of the water — a shade of turquoise I'd only seen in tropical postcards, here cradled between steep hillsides dotted with terracotta roofs and umbrella pines. The old town's pastel facades tumbled down to the harbor like a painter's imagination, and I understood immediately why this little bay has been captivating visitors since the Greeks founded it over two thousand years ago.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/villefranche/villefranche-1.webp" alt="Villefranche harbor view" loading="lazy">
+        <figcaption>Villefranche — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>Villefranche isn't Monaco's glitz or Nice's urban bustle — it's something gentler. The tender deposits you at the end of a small pier, and within steps you're wandering through the Rue Obscure, a covered medieval street that feels like a secret passage through time. Dim and cool even on the hottest days, it was built in the 13th century to protect residents from Saracen attacks. Now it just protects you from the Mediterranean sun as you make your way to the Citadelle or the waterfront cafés.</p>
 
         <p>I've been fortunate to visit Villefranche on three different Mediterranean itineraries, and each time I've made different choices. My first visit, I jumped on a ship excursion to Monaco and Monte Carlo, needing to see the Casino Square, the Prince's Palace, and the famous hairpin turns where Formula 1 cars race through city streets. Standing at the same railing where Grace Kelly once stood, looking down over the harbor filled with yachts worth more than I'd earn in multiple lifetimes — it was surreal. We stopped at the Exotic Garden for its cacti and cave, then descended to the old town for a quick walk before the drive back. It was lovely, but rushed.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/villefranche/villefranche-2.webp" alt="Villefranche waterfront" loading="lazy">
+        <figcaption>Villefranche scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <p>My second visit, I took the local bus to Nice — a €1.50 revelation. The Promenade des Anglais stretched before me, that famous walkway along the sea where Victorian aristocrats once promenaded and where today joggers, cyclists, and strollers share the space. I wandered through the Old Town (Vieux Nice), lost myself in the Cours Saleya flower market bursting with sunflowers and lavender, and climbed Castle Hill for panoramic views over the Baie des Anges. I ate socca — that chickpea crêpe that's Nice's signature street food — standing at a counter because that's how the locals do it. It was hot, crispy, and perfect with a squeeze of lemon.</p>
 
@@ -265,7 +359,52 @@ All work on this project is offered as a gift to God.
         <h3>Positively Framed Word of Warning</h3>
         <p>The Côte d'Azur rewards those with sun protection and comfortable shoes. Nice's Old Town has narrow streets without much shade, Monaco involves hills, and Eze is basically a vertical climb. The midday sun can be intense June through September. Start early, hydrate often, and embrace the French tradition of a long, shaded lunch during the hottest hours. A €15 seafood lunch with a glass of local wine is a more authentic Riviera experience than trying to see everything while overheated and exhausted.</p>
       </section>
-    </article>
+    
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/villefranche/villefranche-1.webp" alt="Harbor view of Villefranche-sur-Mer, France" loading="lazy">
+          <figcaption>
+            Harbor view of Villefranche-sur-Mer, France
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/villefranche/villefranche-2.webp" alt="Waterfront scenery of Villefranche-sur-Mer, France" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Villefranche-sur-Mer, France
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/villefranche/villefranche-3.webp" alt="Port panorama of Villefranche-sur-Mer, France" loading="lazy">
+          <figcaption>
+            Port panorama of Villefranche-sur-Mer, France
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/villefranche/villefranche-4.webp" alt="Coastal landscape of Villefranche-sur-Mer, France" loading="lazy">
+          <figcaption>
+            Coastal landscape of Villefranche-sur-Mer, France
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>villefranche-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>villefranche-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>villefranche-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>villefranche-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
 
     <!-- FAQ Section -->
     <section class="card" id="faq" style="margin-top: 2rem;">
@@ -494,8 +633,7 @@ All work on this project is offered as a gift to God.
                 \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];

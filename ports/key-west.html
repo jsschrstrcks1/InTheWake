@@ -80,6 +80,95 @@ Soli Deo Gloria
     .author-card-vertical p {
       margin: 0.25rem 0;
     }
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .gallery-item {
+      margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7fdff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-item figcaption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #345;
+      line-height: 1.5;
+    }
+
+    .gallery-item .photo-credit {
+      font-size: 0.75rem;
+      color: #678;
+      margin-top: 0.5rem;
+    }
+
+  
+    /* Inline floated images for logbook narrative */
+    .logbook-image {
+      margin: 1rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .logbook-image.float-right {
+      float: right;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 0 1.25rem 1.5rem;
+    }
+    .logbook-image.float-left {
+      float: left;
+      width: 42%;
+      max-width: 360px;
+      margin: 0.25rem 1.5rem 1.25rem 0;
+    }
+    .logbook-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logbook-image figcaption {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #456;
+      background: #f8fafb;
+      border-top: 1px solid #e8f0f4;
+    }
+    @media (max-width: 768px) {
+      .logbook-image.float-right,
+      .logbook-image.float-left {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+    }
+    .article-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
   </style>
 
   <!-- LCP Optimization: Preload critical hero images -->
@@ -170,9 +259,19 @@ Soli Deo Gloria
       <div class="logbook-entry">
         <p>We walked off the ship straight into conch-town chaos — pastel houses, drag queens on bikes, and the smell of Cuban coffee everywhere. Rented bikes (best decision) and pedaled to the Hemingway House first. The polydactyl cats are as advertised (currently 59 of them), lounging on Papa's bed like they pay rent. The writing studio upstairs still has his typewriter — you can feel the ghosts of rum and genius.</p>
 
+      <figure class="logbook-image float-right">
+        <img src="img/key-west/key-west-1.webp" alt="Key West harbor view" loading="lazy">
+        <figcaption>Key West — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
+
         <p>Then we biked down Duval Street, stopping at historic spots: Sloppy Joe's for their famous original sloppy sandwich (a Hemingway favorite), and caught some live music at Irish Kevin's. Stopped at Kermit's for key lime pie on a stick dipped in dark chocolate — tart, cold, life-changing.</p>
 
         <p>Southernmost Point buoy photo at 3 p.m. was predictably packed, but we waited 45 seconds and got our turn — worth it for the silly picture. Ended the day at Mallory Square for sunset: fire jugglers, sword swallowers, and that famous green flash as the sun dropped. The whole crowd cheered like we'd won something.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/key-west/key-west-2.webp" alt="Key West waterfront" loading="lazy">
+        <figcaption>Key West scenery — WikiMedia Commons (CC BY-SA)</figcaption>
+      </figure>
 
         <p>Food highlight: Cuban mixto sandwich at Sandy's Café — pressed roast pork, ham, Swiss, pickles, mustard — eaten on a stoop while a rooster judged us.</p>
 
@@ -202,7 +301,87 @@ Soli Deo Gloria
         <p><strong>Q: How long for Duval bar hop?</strong><br/>A: As long as your liver allows.</p>
         <p><strong>Q: Can you walk from port?</strong><br/>A: Yes — everything is 5–30 minutes away.</p>
       </section>
-    </article>
+    
+      <!-- Photo Gallery -->
+      <section class="port-section" style="background: transparent; border: none; padding: 0;">
+        <h3>Key West Gallery</h3>
+        <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="/ports/img/key-west/key-west-1.webp" alt="Lighthouse and harbor" loading="lazy"/>
+          <figcaption>
+            Lighthouse and harbor
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/key-west/key-west-2.webp" alt="Historic Custom House" loading="lazy"/>
+          <figcaption>
+            Historic Custom House
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (Public domain)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/key-west/key-west-3.webp" alt="Harbor view" loading="lazy"/>
+          <figcaption>
+            Harbor view
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (Public Domain)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="/ports/img/key-west/key-west-4.webp" alt="Key West harbor boats" loading="lazy"/>
+          <figcaption>
+            Key West harbor boats
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 2.0)</div>
+          </figcaption>
+        </figure>
+        </div>
+      </section>
+    
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/key-west/key-west-1.webp" alt="Harbor view of Key West" loading="lazy">
+          <figcaption>
+            Harbor view of Key West
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/key-west/key-west-2.webp" alt="Waterfront of Key West" loading="lazy">
+          <figcaption>
+            Waterfront of Key West
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/key-west/key-west-3.webp" alt="Port panorama of Key West" loading="lazy">
+          <figcaption>
+            Port panorama of Key West
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/key-west/key-west-4.webp" alt="Coastal landscape of Key West" loading="lazy">
+          <figcaption>
+            Coastal landscape of Key West
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>key-west-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>key-west-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>key-west-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>key-west-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2;">
         <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -248,6 +427,18 @@ Soli Deo Gloria
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+
+    <!-- Image Attribution Section -->
+    <section class="card" style="margin-top: 2rem; background: #f7fdff;">
+      <h3>Image Credits</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem;">Images from Wikimedia Commons, used under Creative Commons licenses:</p>
+      <ul class="tiny" style="line-height: 1.8; padding-left: 1.25rem;">
+        <li><strong>Lighthouse and harbor:</strong> Photo by Florida Keys Libraries, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</li>
+        <li><strong>Historic Custom House:</strong> Photo by Detroit Publishing Co., <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (Public domain)</li>
+        <li><strong>Harbor view:</strong> Photo by Yinan Chen, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (Public Domain)</li>
+        <li><strong>Key West harbor boats:</strong> Photo by Roger W, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 2.0)</li>
+      </ul>
+    </section>
   </main>
     <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
