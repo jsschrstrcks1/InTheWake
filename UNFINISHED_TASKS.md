@@ -39,19 +39,14 @@
 - ✅ solo.html infinite scroll (fixed - verified 2025-11-29)
 - ✅ packing-lists.html infinite scroll (fixed - verified 2025-11-29)
 
-**ICP-Lite Coverage (2025-12-01 Audit):**
+**ICP-Lite Coverage (2025-12-01 - COMPLETE):**
 - ✅ **ALL 13 major hub pages** have Quick Answer, Best For, Key Facts
-- ✅ 147/161 port pages have ICP-Lite (91%)
-- ❌ **14 NEW homeport pages MISSING ICP-Lite** (need Quick Answer added):
-  - baltimore, cape-liberty, galveston, los-angeles, melbourne, mobile
-  - new-orleans, port-canaveral, port-everglades, port-miami
-  - san-diego, seattle, tampa, vancouver
+- ✅ **ALL 161 port pages have ICP-Lite** (100%) - 14 new homeports added 2025-12-01
 - ✅ **ALL 50 ship pages have ICP-Lite** (added final 8 TBN ships)
 - ✅ **ALL 2 tool pages have ICP-Lite** (ship-tracker, port-tracker)
-- **TOTAL: 212/226 pages (94% coverage) - was 100%, now need to update 14 new pages**
+- **TOTAL: 226/226 pages (100% site-wide coverage)**
 
 **Still TODO:**
-- ⚠️ Add ICP-Lite Quick Answer to 14 new homeport pages
 - Articles: Healing Relationships, Wounded Healers
 - Protocol documentation
 - Individual page pattern standardization (author/article cards across 226 pages)
@@ -571,26 +566,25 @@ This archive is maintained additively - tasks are never removed from this sectio
 
 ### P0 - Individual Port Pages (ports/*.html)
 
-#### 14 NEW Homeport Pages - NEED ICP-Lite (2025-12-01)
-**Status:** Created but missing Quick Answer in At a Glance section
-- [ ] baltimore.html - Add Quick Answer
-- [ ] cape-liberty.html - Add Quick Answer
-- [ ] galveston.html - Add Quick Answer
-- [ ] los-angeles.html - Add Quick Answer
-- [ ] melbourne.html - Add Quick Answer
-- [ ] mobile.html - Add Quick Answer
-- [ ] new-orleans.html - Add Quick Answer
-- [ ] port-canaveral.html - Add Quick Answer
-- [ ] port-everglades.html - Add Quick Answer
-- [ ] port-miami.html - Add Quick Answer
-- [ ] san-diego.html - Add Quick Answer
-- [ ] seattle.html - Add Quick Answer
-- [ ] tampa.html - Add Quick Answer
-- [ ] vancouver.html - Add Quick Answer
+#### ✅ DONE: 14 NEW Homeport Pages - ICP-Lite Complete (2025-12-01)
+**Status:** COMPLETE - All 14 homeport pages have Quick Answer
+- [x] ✅ baltimore.html
+- [x] ✅ cape-liberty.html
+- [x] ✅ galveston.html
+- [x] ✅ los-angeles.html
+- [x] ✅ melbourne.html
+- [x] ✅ mobile.html
+- [x] ✅ new-orleans.html
+- [x] ✅ port-canaveral.html
+- [x] ✅ port-everglades.html
+- [x] ✅ port-miami.html
+- [x] ✅ san-diego.html
+- [x] ✅ seattle.html
+- [x] ✅ tampa.html
+- [x] ✅ vancouver.html
 
-#### All 161 Port Pages (was 147)
-- [x] ✅ 147/161 pages have ICP-Lite elements (Quick Answer) - verified 2025-12-01
-- [ ] Add ICP-Lite to 14 new homeport pages (see above)
+#### All 161 Port Pages
+- [x] ✅ **ALL 161 pages have ICP-Lite elements (Quick Answer)** - verified 2025-12-01
 - [ ] Add Author and Article cards (index.html pattern) to all pages
 - [ ] Change "A Positively Worded Word of Warning" to better heading
 - [ ] Give "Getting Around" its own card (honor design language)
