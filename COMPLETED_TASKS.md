@@ -1,7 +1,7 @@
 # Completed Tasks
 
 **Purpose:** Historical archive of all completed work. Tasks are added here when marked complete by user confirmation.
-**Last Updated:** 2025-11-29
+**Last Updated:** 2025-12-01
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -12,6 +12,55 @@ When a task is completed:
 1. User confirms the task is done
 2. Task is removed from IN_PROGRESS_TASKS.md
 3. Task is added to this file with completion date
+
+---
+
+## December 2025 Completions
+
+### ICP-Lite 100% Site Coverage - COMPLETE (2025-12-01)
+**Status:** COMPLETE - All 226 pages have ICP-Lite elements
+- [x] 13 hub pages with Quick Answer, Best For, Key Facts
+- [x] 161 port pages (up from 147 after adding 14 homeports)
+- [x] 50 ship pages
+- [x] 2 tool pages (ship-tracker, port-tracker)
+
+### Protocol Documentation - COMPLETE (2025-12-01)
+**Status:** VERIFIED COMPLETE - All files exist at admin/claude/
+- [x] ITW-LITE_PROTOCOL.md (844 lines, comprehensive v3.010 protocol)
+- [x] STANDARDS_INDEX.md (master index)
+- [x] CLAUDE.md (AI wiring and guidance)
+
+### Whimsical Distance Units - COMPLETE (2025-12-01)
+**Status:** COMPLETE - Added to all ship and port pages
+- [x] All 50 RCL ship pages display 3 random whimsical distance units
+- [x] All 161 port pages display whimsical distance units
+- [x] Uses shared whimsical-port-units.js component
+- [x] No duplicates on same page, refreshes on each load
+
+### 14 New Homeport Pages - COMPLETE (2025-12-01)
+**Status:** COMPLETE - All have ICP-Lite Quick Answer
+- [x] baltimore.html, cape-liberty.html, galveston.html, los-angeles.html
+- [x] melbourne.html, mobile.html, new-orleans.html, port-canaveral.html
+- [x] port-everglades.html, port-miami.html, san-diego.html
+- [x] seattle.html, tampa.html, vancouver.html
+
+### Onboarding Documentation Review - COMPLETE (2025-12-01)
+**Status:** COMPLETE - Fixed skill directory vs skill rule distinction
+- [x] Updated .claude/ONBOARDING.md to clarify 3 skill directories + 4 rule-based triggers
+- [x] Updated .claude/INSTALLATION.md with same clarifications
+- [x] Bumped version to v1.1.1
+
+### Google Search Console Schema Fix - COMPLETE (2025-12-01)
+**Status:** COMPLETE - ships.html Product→Thing schema change
+- [x] Changed 28 ship entries from Product to Thing schema type
+- [x] Fixes "Either 'offers', 'review', or 'aggregateRating' should be specified" error
+- [x] Ships aren't products for sale, so Thing is more appropriate
+
+### Grid Layout Bugs - COMPLETE (2025-11-29)
+**Status:** COMPLETE - 764 instances eliminated across 571 files (PR #283)
+- [x] Removed 614 instances of `grid-row: 1 / span 999` (infinite scroll bug)
+- [x] Removed 144 instances of `grid-row: 2` (gap bug)
+- [x] Affected: ports/, ships/, restaurants/, solo/, tools/
 
 ---
 
@@ -229,8 +278,9 @@ Improvements implemented:
 - [x] maxData: 100
 - [x] Precache Manifest v13.0.0 (52 resources)
 
-### ICP-Lite Meta Tags - 97% COMPLETE
-- [x] 544/561 pages have ICP-Lite meta tags
+### ICP-Lite Meta Tags - 100% COMPLETE (Updated 2025-12-01)
+- [x] 226/226 tracked pages have ICP-Lite elements (Quick Answer, Best For, Key Facts)
+- [x] 13 hub pages, 161 port pages, 50 ship pages, 2 tool pages
 
 ### Performance Optimizations - COMPLETE
 - [x] Cache headers configured (1-year asset caching)
