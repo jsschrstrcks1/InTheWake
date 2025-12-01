@@ -160,13 +160,21 @@ Soli Deo Gloria
 
     <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #264653 0%, #2a9d8f 35%, #8ab4aa 70%, #f4f4f4 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
-        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Kiel</div>
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/kiel/kiel-3.webp" alt="Kiel panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Kiel</span>
+        </div>
       </div>
 
       <h1>Kiel: My Sailing Capital</h1>
       <div class="logbook-entry">
         <p>We watched the ship squeeze through the Kiel Canal locks from the top deck – inches from the walls, engineers waving like it was normal. The maritime quarter is pure sailing porn – German frigates, classic tall ships, and the Olympic rings still painted on the harbor from 1936/1972. Laboe Naval Memorial 20 minutes away – the U-boat museum inside is claustrophobic and humbling.</p>
+      <figure class="logbook-image float-right">
+        <img src="img/kiel/kiel-1.webp" alt="Kiel harbor view" loading="lazy">
+        <figcaption>Kiel — <a href="https://commons.wikimedia.org/w/index.php?search=Kiel&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
 
         <p>We had lunch at the fish market – rollmops and Labskaus (corned beef mash that tastes better than it sounds) while watching sailing teams practice in the fjord. In the afternoon we walked the Kiellinie promenade – 4 km of parks, beaches, and views of million-dollar yachts. The pros: genuine working maritime city with almost no cruise crowds. The cons: industrial in parts, but that's authentic Kiel.</p>
 
@@ -184,6 +192,11 @@ Soli Deo Gloria
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
         <p>The maritime museums have lots of stairs and ladders – curiosity and careful steps make the history come alive.</p>
+      <figure class="logbook-image float-left">
+        <img src="img/kiel/kiel-2.webp" alt="Kiel scenery" loading="lazy">
+        <figcaption>Kiel scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Kiel&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
       </section>
 
       <section class="port-section">
@@ -236,6 +249,11 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -465,5 +483,9 @@ Soli Deo Gloria
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'kiel';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

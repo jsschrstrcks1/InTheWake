@@ -160,13 +160,21 @@ Soli Deo Gloria
 
     <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #003049 0%, #008cb4 40%, #77b5c9 70%, #eef6f8 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
-        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Warnemunde</div>
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/warnemunde/warnemunde-3.webp" alt="Warnemunde panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Warnemunde</span>
+        </div>
       </div>
 
       <h1>Warnemünde: My Gateway to Berlin</h1>
       <div class="logbook-entry">
         <p>We took the first train to Berlin at 7:30 a.m. and were at Brandenburg Gate by 10:15 – the city still quiet enough to feel intimate. Walked Unter den Linden to Museum Island, cried at the Pergamon Altar (even reconstructed), then Checkpoint Charlie and the East Side Gallery where the Wall still stands covered in murals. We had currywurst at Curry 36 that tasted exactly like freedom and mustard.</p>
+      <figure class="logbook-image float-right">
+        <img src="img/warnemunde/warnemunde-1.webp" alt="Warnemunde harbor view" loading="lazy">
+        <figcaption>Warnemunde — <a href="https://commons.wikimedia.org/w/index.php?search=Warnemunde&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
 
         <p>We arrived back in Warnemünde at golden hour – the beach was full of locals in strandkorb chairs drinking Astra beer while the sun set over the Baltic. The pros: you actually get Berlin in a day. The cons: six hours on trains, but the German rail system makes it painless.</p>
 
@@ -184,6 +192,11 @@ Soli Deo Gloria
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
         <p>The Berlin day is long but perfectly doable – an early start and comfortable train seat make it one of the best port days possible.</p>
+      <figure class="logbook-image float-left">
+        <img src="img/warnemunde/warnemunde-2.webp" alt="Warnemunde scenery" loading="lazy">
+        <figcaption>Warnemunde scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Warnemunde&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
       </section>
 
       <section class="port-section">
@@ -236,6 +249,11 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -465,5 +483,9 @@ Soli Deo Gloria
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'warnemunde';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

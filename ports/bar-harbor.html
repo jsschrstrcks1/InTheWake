@@ -161,17 +161,30 @@ Soli Deo Gloria
 
     <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #1a535c 0%, #4ecdc4 30%, #a8e6cf 60%, #f1faee 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
-        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Bar Harbor</div>
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/bar-harbor/bar-harbor-3.webp" alt="Bar Harbor panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Bar Harbor</span>
+        </div>
       </div>
 
       <h1>Bar Harbor: My Acadia Adventure</h1>
       <div class="logbook-entry">
         <p>Tender port, but the ride into town is pretty. We booked the earliest bus to Acadia (pro move) and watched the sun rise from Cadillac Mountain — first place the sun touches the U.S. from October to March. The whole horizon turned pink and orange over the Porcupine Islands and the fall foliage was on fire.</p>
+      <figure class="logbook-image float-right">
+        <img src="img/bar-harbor/bar-harbor-1.webp" alt="Bar Harbor harbor view" loading="lazy">
+        <figcaption>Bar Harbor — <a href="https://commons.wikimedia.org/w/index.php?search=Bar%20Harbor&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
 
         <p>Then Oli's Trolley tour around the Park Loop Road — stopped at Thunder Hole (waves crash like artillery), Sand Beach (cold but beautiful), Jordan Pond House for popovers with strawberry jam that are basically clouds. Saw a moose! Just standing there in the woods like a tank with antlers.</p>
 
         <p>Back in town we demolished twin lobster specials at Stewman's Lobster Pound on the water — drawn butter everywhere, zero regrets. Walked it off along Shore Path with the mansions on one side and the bay on the other.</p>
+      <figure class="logbook-image float-left">
+        <img src="img/bar-harbor/bar-harbor-2.webp" alt="Bar Harbor scenery" loading="lazy">
+        <figcaption>Bar Harbor scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Bar%20Harbor&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
 
         <p>The pros: Acadia is world-class, and the town is cute without being precious.</p>
         <p>The cons: as a tender port with high popularity, expect crowds by noon.</p>
@@ -244,6 +257,11 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -421,5 +439,9 @@ Soli Deo Gloria
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

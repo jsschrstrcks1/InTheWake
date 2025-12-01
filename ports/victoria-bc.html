@@ -161,13 +161,21 @@ Soli Deo Gloria
     <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
       <!-- Port Hero with gradient background -->
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #9d4edd 0%, #c77dff 30%, #e0aaff 60%, #f8bbd9 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
-        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Victoria</div>
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/victoria-bc/victoria-bc-3.webp" alt="Victoria panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Victoria</span>
+        </div>
       </div>
 
       <h1>Victoria: My Elegant Alaska Finish</h1>
       <div class="logbook-entry">
         <p>We arrived at 6 p.m. and Victoria was pure magic in evening light. Shuttle to Butchart Gardens — the sunken garden, rose garden, Japanese garden all lit with fairy lights, the air thick with flowers and woodsmoke. Then high tea at the Fairmont Empress — scones with clotted cream, tiny sandwiches, 15 teas to choose. Felt like royalty.</p>
+      <figure class="logbook-image float-right">
+        <img src="img/victoria-bc/victoria-bc-1.webp" alt="Victoria harbor view" loading="lazy">
+        <figcaption>Victoria — <a href="https://commons.wikimedia.org/w/index.php?search=Victoria%20Bc&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
 
         <p>Walked Inner Harbour at night with Parliament glowing gold and buskers playing bagpipes.</p>
 
@@ -185,6 +193,11 @@ Soli Deo Gloria
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
         <p>High tea reservations fill months ahead — book the second your cruise is confirmed.</p>
+      <figure class="logbook-image float-left">
+        <img src="img/victoria-bc/victoria-bc-2.webp" alt="Victoria scenery" loading="lazy">
+        <figcaption>Victoria scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Victoria%20Bc&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
       </section>
 
       <section class="port-section">
@@ -237,6 +250,11 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -466,5 +484,9 @@ Soli Deo Gloria
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'victoria-bc';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>

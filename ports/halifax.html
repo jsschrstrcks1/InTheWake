@@ -161,17 +161,30 @@ Soli Deo Gloria
 
     <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #264653 0%, #2a9d8f 35%, #8ab4aa 70%, #f4f4f4 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
-        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Halifax</div>
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/halifax/halifax-3.webp" alt="Halifax panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Halifax</span>
+        </div>
       </div>
 
       <h1>Halifax: My Maritime Marvel</h1>
       <div class="logbook-entry">
         <p>We docked right downtown and walked the entire harbor boardwalk before 9 a.m. — past fishing boats, bagpipers, and people commuting on scooters like it was normal. The air smelled like salt and donuts (Tim Hortons is religion here).</p>
+      <figure class="logbook-image float-right">
+        <img src="img/halifax/halifax-1.webp" alt="Halifax harbor view" loading="lazy">
+        <figcaption>Halifax — <a href="https://commons.wikimedia.org/w/index.php?search=Halifax&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
 
         <p>First stop: Citadel Hill. The noon gun still fires every day — we timed it perfectly and the boom rattled our ribcages. The young guides in period uniforms are hilarious and actually know their stuff. Then down to the Maritime Museum — the Titanic exhibit is sobering; they have the only surviving deck chair and little kid shoes that make you tear up.</p>
 
         <p>Lunch was the famous Halifax donair at King of Donair — spiced meat, sweet garlic sauce, tomatoes, onions wrapped in pita. Messy, glorious, and better than any late-night kebab I've ever had. Afternoon was a lazy wander through the Public Gardens (peak Victorian charm) and a pint at Alexander Keith's brewery tour — the "historical characters" are actors who sing sea shanties and pour you beer like it's 1863.</p>
+      <figure class="logbook-image float-left">
+        <img src="img/halifax/halifax-2.webp" alt="Halifax scenery" loading="lazy">
+        <figcaption>Halifax scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Halifax&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
 
         <p>The pros: super walkable, genuinely friendly people, and great seafood.</p>
         <p>The cons: weather can turn in ten minutes — we went from sun to sideways rain in one afternoon.</p>
@@ -244,6 +257,11 @@ Soli Deo Gloria
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
     
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
   </aside>
 
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -421,5 +439,9 @@ Soli Deo Gloria
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
 </body>
 </html>
