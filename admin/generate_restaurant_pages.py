@@ -78,7 +78,7 @@ def generate_page(slug, venue):
 
   <!-- Canonical & SEO -->
   <meta name="description" content="{name} on Royal Caribbean cruise ships. {description}">
-  <link rel="canonical" href="https://www.cruisinginthewake.com/restaurants/{slug}.html">
+  <link rel="canonical" href="https://cruisinginthewake.com/restaurants/{slug}.html">
   <meta name="referrer" content="no-referrer">
   <meta name="ai-summary" content="{name} — {description}">
   <meta name="last-reviewed" content="{today}">
@@ -88,11 +88,11 @@ def generate_page(slug, venue):
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="In the Wake">
   <meta property="og:title" content="{name} — Royal Caribbean">
-  <meta property="og:url" content="https://www.cruisinginthewake.com/restaurants/{slug}.html">
+  <meta property="og:url" content="https://cruisinginthewake.com/restaurants/{slug}.html">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Site CSS -->
-  <link rel="stylesheet" href="https://www.cruisinginthewake.com/assets/styles.css?v=2.257">
+  <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=2.257">
 
   <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
@@ -117,13 +117,13 @@ def generate_page(slug, venue):
   "@type": "WebPage",
   "name": "{name} — Royal Caribbean",
   "description": "{description}",
-  "url": "https://www.cruisinginthewake.com/restaurants/{slug}.html",
+  "url": "https://cruisinginthewake.com/restaurants/{slug}.html",
   "breadcrumb": {{
     "@type": "BreadcrumbList",
     "itemListElement": [
-      {{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.cruisinginthewake.com/"}},
-      {{"@type": "ListItem", "position": 2, "name": "Restaurants", "item": "https://www.cruisinginthewake.com/restaurants.html"}},
-      {{"@type": "ListItem", "position": 3, "name": "{name}", "item": "https://www.cruisinginthewake.com/restaurants/{slug}.html"}}
+      {{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"}},
+      {{"@type": "ListItem", "position": 2, "name": "Restaurants", "item": "https://cruisinginthewake.com/restaurants.html"}},
+      {{"@type": "ListItem", "position": 3, "name": "{name}", "item": "https://cruisinginthewake.com/restaurants/{slug}.html"}}
     ]
   }}
 }}
@@ -159,7 +159,7 @@ def generate_page(slug, venue):
 <main class="wrap">
   <!-- Overview -->
   <section class="card" id="overview">
-    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <img src="https://cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
     <div class="card__content">
       <h1 class="page-title">{name}</h1>
       <p class="subtitle">Royal Caribbean — {cat_info['category_display']}</p>
@@ -184,7 +184,7 @@ def generate_page(slug, venue):
 
   <!-- Special Accommodations -->
   <section class="card" id="accommodations">
-    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <img src="https://cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
     <div class="card__content">
       <h2>Special Accommodations</h2>
       <div class="allergen-micro" role="note" aria-label="Allergen and dietary information">
@@ -195,7 +195,7 @@ def generate_page(slug, venue):
 
   <!-- Where You'll Find It -->
   <section class="card" id="availability">
-    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <img src="https://cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
     <div class="card__content">
       <h2>Where You'll Find It</h2>
       <p>{name} is available on select Royal Caribbean ships. Check your ship's deck plan for exact location.</p>
@@ -204,7 +204,7 @@ def generate_page(slug, venue):
 
   <!-- The Logbook — Real Guest Soundings -->
   <section class="card note-kens-logbook" id="logbook">
-    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <img src="https://cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
     <div class="card__content prose">
       <h2>The Logbook — Real Guest Soundings</h2>
 
@@ -247,7 +247,7 @@ def generate_page(slug, venue):
         "reviewBody": "Composite review from multiple guest experiences across Royal Caribbean fleet sailings in 2024-2025.",
         "reviewRating": {{ "@type": "Rating", "ratingValue": "4", "bestRating": "5", "worstRating": "1" }},
         "author": {{ "@type": "Person", "name": "Guest Soundings (Multiple Sailings)" }},
-        "isPartOf": {{ "@type": "WebPage", "url": "https://www.cruisinginthewake.com/restaurants/{slug}.html" }}
+        "isPartOf": {{ "@type": "WebPage", "url": "https://cruisinginthewake.com/restaurants/{slug}.html" }}
       }}
       </script>
     </div>
@@ -255,7 +255,7 @@ def generate_page(slug, venue):
 
   <!-- Sources -->
   <section class="card" id="sources">
-    <img src="https://www.cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
+    <img src="https://cruisinginthewake.com/assets/watermark.png" alt="" aria-hidden="true">
     <div class="card__content">
       <h2>Sources &amp; Attribution</h2>
       <ul>

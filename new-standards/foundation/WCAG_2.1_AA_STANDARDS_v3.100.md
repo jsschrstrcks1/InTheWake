@@ -158,10 +158,10 @@ npm i -D pa11y-ci axe-core playwright
     "timeout": 60000
   },
   "urls": [
-    "https://www.cruisinginthewake.com/index.html",
-    "https://www.cruisinginthewake.com/restaurants.html",
-    "https://www.cruisinginthewake.com/ports.html",
-    "https://www.cruisinginthewake.com/disability-at-sea.html"
+    "https://cruisinginthewake.com/index.html",
+    "https://cruisinginthewake.com/restaurants.html",
+    "https://cruisinginthewake.com/ports.html",
+    "https://cruisinginthewake.com/disability-at-sea.html"
   ]
 }
 ```

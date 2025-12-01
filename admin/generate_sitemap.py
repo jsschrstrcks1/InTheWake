@@ -10,7 +10,7 @@ from pathlib import Path
 from datetime import date
 
 # Base URL
-BASE_URL = "https://www.cruisinginthewake.com"
+BASE_URL = "https://cruisinginthewake.com"
 
 # Directories to exclude
 EXCLUDE_PATTERNS = [

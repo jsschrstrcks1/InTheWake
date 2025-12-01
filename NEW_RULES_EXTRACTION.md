@@ -48,7 +48,7 @@
 **Technical Requirements:**
 - HTML Structure: `.navbar > .brand + .pill-nav.pills`
 - Brand section includes logo + `.version-badge`
-- All links absolute: `https://www.cruisinginthewake.com/...`
+- All links absolute: `https://cruisinginthewake.com/...`
 - `aria-label="Primary"` required on `<nav>`
 - Exactly one `aria-current="page"` per page
 - Skip link before header: `<a class="skip-link" href="#content">`
@@ -947,7 +947,7 @@ v2.233 → v2.245 → v2.256(.003/.022) → v2.4 → v2.257 → **v3.001**
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.cruisinginthewake.com/[page].html">
+<link rel="canonical" href="https://cruisinginthewake.com/[page].html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="In the Wake">
 <meta name="twitter:card" content="summary_large_image">
@@ -1084,7 +1084,7 @@ All work on this project is offered as a gift to God.
 ```
 
 **Canonical URLs (No GitHub in Production):**
-- MUST use absolute `https://www.cruisinginthewake.com/...`
+- MUST use absolute `https://cruisinginthewake.com/...`
 - MUST NOT use GitHub links except in separate "staging" profile
 
 **Top Navigation Style:**
@@ -1217,10 +1217,10 @@ document.querySelectorAll('[aria-controls]').forEach(btn=>{
     "timeout": 60000
   },
   "urls": [
-    "https://www.cruisinginthewake.com/index.html",
-    "https://www.cruisinginthewake.com/restaurants.html",
-    "https://www.cruisinginthewake.com/ports.html",
-    "https://www.cruisinginthewake.com/disability-at-sea.html"
+    "https://cruisinginthewake.com/index.html",
+    "https://cruisinginthewake.com/restaurants.html",
+    "https://cruisinginthewake.com/ports.html",
+    "https://cruisinginthewake.com/disability-at-sea.html"
   ]
 }
 ```

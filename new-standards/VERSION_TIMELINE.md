@@ -283,7 +283,7 @@ examples/             → Minimal HTML scaffolds
 **Major Features:**
 - **Canonical 12-link navigation** (immutable order)
   - Home, Ships, Restaurants & Menus, Ports, Disability at Sea, Drink Packages, Packing Lists, Planning, Solo, Travel, Cruise Lines, About Us
-- **Absolute URLs only** (`https://www.cruisinginthewake.com/...`)
+- **Absolute URLs only** (`https://cruisinginthewake.com/...`)
 - **Class contract** (`.navbar > .brand + .pill-nav.pills`)
 - **ARIA label** (`aria-label="Primary"` required on `<nav>`)
 - **Active state** (exactly one `aria-current="page"`)
