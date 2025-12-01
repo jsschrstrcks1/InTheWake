@@ -364,7 +364,7 @@ All work on this project is offered as a gift to God.
   (function(){
     const norm=(u)=>{try{return new URL(u,location.origin).pathname.replace(/\/index\.html$/i,'/').replace(/\/+$/,'/').toLowerCase()||'/';}catch(e){return'/';}};
     const here=norm(location.pathname);
-    const ALIASES=new Map([['/ships/ships.html','/ships/'],['/ships/index.html','/ships/'],['/packing.html','/packing-lists.html'],['/about.html','/about-us.html'],['/','/']]);
+    const ALIASES=new Map([['/ships.html','/ships/'],['/ships/index.html','/ships/'],['/packing.html','/packing-lists.html'],['/about.html','/about-us.html'],['/','/']]);
     const canon=(p)=>ALIASES.get(p)||p;
     document.querySelectorAll('.navbar a[href]').forEach(a=>{
       const t=norm(a.getAttribute('href'));
