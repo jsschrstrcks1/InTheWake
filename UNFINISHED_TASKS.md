@@ -560,9 +560,13 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [ ] FIX: Live tracker works, but apply all Icon page fixes here too
 - [ ] FIX: Some videos marked "private," others NOT for Star of the Seas
 
-#### All Ship Pages - Distance Feature
-- [ ] Integrate fun-distance-units.json feature on ships pages
-- [ ] Review documentation for this feature
+#### ✅ DONE: All Ship Pages - Distance Feature
+**Status:** COMPLETE - Whimsical distance units added to all 50 ship pages (2025-12-01)
+- [x] Integrate fun-distance-units.json feature on ships pages
+- [x] Review documentation for this feature
+- All 50 RCL ship pages now display 3 random whimsical units
+- No duplicates on same page, refreshes on each page load
+- Uses shared whimsical-port-units.js component
 
 ### P0 - Individual Port Pages (ports/*.html)
 
@@ -585,6 +589,7 @@ This archive is maintained additively - tasks are never removed from this sectio
 
 #### All 161 Port Pages
 - [x] ✅ **ALL 161 pages have ICP-Lite elements (Quick Answer)** - verified 2025-12-01
+- [x] ✅ Whimsical distance units added to all 161 port pages (2025-12-01)
 - [ ] Add Author and Article cards (index.html pattern) to all pages
 - [ ] Change "A Positively Worded Word of Warning" to better heading
 - [ ] Give "Getting Around" its own card (honor design language)
