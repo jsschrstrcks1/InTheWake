@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2025-12-01
+**Last Updated:** 2025-12-01 (Audit)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -20,6 +20,9 @@
 - ✅ Fixed article fragment location issues (solo/ vs solo/articles/)
 - ✅ Added visiting-the-united-states article to solo.html RAW_ARTICLES
 - ✅ Added 14 missing homeport pages (baltimore, cape-liberty, galveston, los-angeles, melbourne, mobile, new-orleans, port-canaveral, port-everglades, port-miami, san-diego, seattle, tampa, vancouver)
+- ✅ Protocol documentation verified complete (admin/claude/ITW-LITE_PROTOCOL.md, STANDARDS_INDEX.md, CLAUDE.md)
+- ✅ Onboarding documentation reviewed and fixed (skill directory vs rule distinction)
+- ✅ ships.html Product→Thing schema fix (28 items, Google Search Console error)
 
 **Completed 2025-11-29:**
 - ✅ Star of the Seas swiper (4 images now)
@@ -163,10 +166,11 @@
 - [ ] Topics: pastoral burnout, caregiver fatigue, single parent burnout
 - [ ] Sabbath theology section, guilt management, Scripture integration
 
-### Protocol Documentation (Missing)
-- [ ] Create standards/ITW-LITE_PROTOCOL_v3.010.lite.md
-- [ ] Create STANDARDS_INDEX_33.md master index
-- [ ] Create/update root CLAUDE.md with AI wiring
+### ✅ DONE: Protocol Documentation
+**Status:** COMPLETE - All files exist at admin/claude/ (verified 2025-12-01)
+- [x] ITW-LITE_PROTOCOL.md (844 lines, comprehensive v3.010 protocol)
+- [x] STANDARDS_INDEX.md (master index)
+- [x] CLAUDE.md (AI wiring and guidance)
 
 ### Complete Placeholder Content Pages
 - [x] /ports.html - ✅ Has content and right rail
@@ -658,13 +662,15 @@ Soli Deo Gloria
 
 ---
 
-**Task Count:** ~25-35 discrete tasks remaining (down from 80+) **[UPDATED 2025-11-29]**
-**Completed Since Last Update:**
-- 764 grid layout bugs eliminated (PR #283)
-- **ICP-Lite: 100% complete** - all 212 pages ✅
-  - 13 hub pages, 147 port pages, 50 ship pages, 2 tool pages
-**Estimated Effort:** 15-25 hours for complete standardization (down from 60-80 hours)
+**Task Count:** ~20-30 discrete tasks remaining (down from 80+) **[UPDATED 2025-12-01]**
+**Completed Since Last Update (2025-12-01):**
+- Protocol documentation verified complete (was listed as missing)
+- Onboarding documentation reviewed and fixed
+- ships.html Product→Thing schema fix (Google Search Console)
+- **ICP-Lite: 100% complete** - all 226 pages ✅
+  - 13 hub pages, 161 port pages, 50 ship pages, 2 tool pages
+**Estimated Effort:** 12-20 hours for complete standardization (down from 60-80 hours)
 **Priority:** Pattern standardization (author/article cards) across all pages
 
-**Note:** This list created from comprehensive user audit on 2025-11-25, updated and re-audited 2025-11-29. Discovered most hub page ICP-Lite work already complete. All tasks require matching reference pattern from index.html.
+**Note:** This list created from comprehensive user audit on 2025-11-25, re-audited 2025-11-29 and 2025-12-01. Discovered most hub page ICP-Lite work already complete. Protocol documentation also exists. All tasks require matching reference pattern from index.html.
 
