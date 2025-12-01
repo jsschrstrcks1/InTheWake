@@ -57,7 +57,7 @@ def extract_page_info(content, filepath):
 
     # URL
     rel_path = str(filepath.relative_to(ROOT))
-    info['url'] = f"https://www.cruisinginthewake.com/{rel_path}"
+    info['url'] = f"https://cruisinginthewake.com/{rel_path}"
 
     # Page type detection
     if 'port' in str(filepath).lower() or 'port' in info['name'].lower():

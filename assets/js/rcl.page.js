@@ -1,6 +1,6 @@
 
 (function(){'use strict';
-  const ORIGIN='https://www.cruisinginthewake.com';
+  const ORIGIN='https://cruisinginthewake.com';
   const EL=s=>document.querySelector(s), ELS=s=>Array.from(document.querySelectorAll(s));
   let SHOW_UNFINISHED=false, VENUE_FILTER='all', EXP_FILTER='all';
   const norm = s => String(s||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'').trim();
@@ -43,7 +43,7 @@
     panel.innerHTML='';
     list.forEach(vn=>{
       const a=document.createElement('a'); a.href=ORIGIN+'/restaurants/'+vn.slug+'.html'; a.className='ship-card';
-      a.innerHTML=`<span class="thumb"><img loading="lazy" decoding="async" alt="${vn.name}" src="https://www.cruisinginthewake.com/assets/ships/placeholder-ship.jpg"></span>
+      a.innerHTML=`<span class="thumb"><img loading="lazy" decoding="async" alt="${vn.name}" src="https://cruisinginthewake.com/assets/ships/placeholder-ship.jpg"></span>
                  <span class="body"><strong>${vn.name}</strong><span class="badge">${vn.premium?'Premium':'Included'}</span></span>`;
       panel.appendChild(a);
     });
@@ -57,8 +57,8 @@
     const expHits=EXPS.filter(x=>(EXP_FILTER==='all'||(EXP_FILTER==='premium'?x.premium:!x.premium))&&norm(x.name).includes(v));
 
     const shipCard=s=>`<a class="ship-card" href="${shipUrl(s.slug)}"><span class="thumb"><img loading="lazy" decoding="async" alt="${s.name}" src="${shipThumb(s.slug)}"></span><span class="body"><strong>${s.name}</strong><span class="badge">${s.class}</span></span></a>`;
-    const venueCard=v=>`<a class="ship-card" href="${ORIGIN}/restaurants/${v.slug}.html"><span class="thumb"><img loading="lazy" decoding="async" alt="${v.name}" src="https://www.cruisinginthewake.com/assets/ships/placeholder-ship.jpg"></span><span class="body"><strong>${v.name}</strong><span class="badge">${v.premium?'Premium':'Included'}</span></span></a>`;
-    const expCard=e=>`<div class="ship-card"><span class="thumb"><img loading="lazy" decoding="async" alt="${e.name}" src="https://www.cruisinginthewake.com/assets/ships/placeholder-ship.jpg"></span><span class="body"><strong>${e.name}</strong><span class="badge">${e.premium?'Premium':'Included'}</span></span></div>`;
+    const venueCard=v=>`<a class="ship-card" href="${ORIGIN}/restaurants/${v.slug}.html"><span class="thumb"><img loading="lazy" decoding="async" alt="${v.name}" src="https://cruisinginthewake.com/assets/ships/placeholder-ship.jpg"></span><span class="body"><strong>${v.name}</strong><span class="badge">${v.premium?'Premium':'Included'}</span></span></a>`;
+    const expCard=e=>`<div class="ship-card"><span class="thumb"><img loading="lazy" decoding="async" alt="${e.name}" src="https://cruisinginthewake.com/assets/ships/placeholder-ship.jpg"></span><span class="body"><strong>${e.name}</strong><span class="badge">${e.premium?'Premium':'Included'}</span></span></div>`;
     const block=(t,items)=> items.length ? `<div class="search-block"><h3>${t}</h3><div class="grid cols-3">${items.join('')}</div></div>` : '';
     out.innerHTML=[block('Ships', shipHits.slice(0,12).map(shipCard)), block('Venues', venueHits.slice(0,9).map(venueCard)), block('Experiences', expHits.slice(0,6).map(expCard))].join('');
   }
@@ -78,9 +78,9 @@
   (async function init(){
     try {
       const [A,B,C]=await Promise.all([
-        loadJSON('https://www.cruisinginthewake.com/assets/data/ships.json'),
-        loadJSON('https://www.cruisinginthewake.com/assets/data/venues-v2.json'),
-        loadJSON('https://www.cruisinginthewake.com/assets/data/experiences.json')
+        loadJSON('https://cruisinginthewake.com/assets/data/ships.json'),
+        loadJSON('https://cruisinginthewake.com/assets/data/venues-v2.json'),
+        loadJSON('https://cruisinginthewake.com/assets/data/experiences.json')
       ]);
       SHIPS=A; VENUES=B; EXPS=C;
     } catch {

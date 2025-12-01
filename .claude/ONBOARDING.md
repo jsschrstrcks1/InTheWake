@@ -15,7 +15,7 @@ You're working on **In the Wake**, a cruise planning website with an enhanced Cl
 1. **Skills auto-activate** based on what you're doing (editing HTML triggers SEO/accessibility skills)
 2. **ITW-Lite v3.010 philosophy**: AI-first, Human-first, Google second
 3. **Theological foundation is IMMUTABLE**: Soli Deo Gloria invocation required on all pages
-4. **7 skills total**: standards (CITW) + 6 from FOM (skill-developer, frontend-dev, SEO, accessibility, content-strategy, performance)
+4. **7 skill rules total**: 3 with dedicated directories (standards, skill-developer, frontend-dev-guidelines) + 4 rule-based triggers in skill-rules.json (seo-optimizer, accessibility-auditor, content-strategy, performance-analyzer)
 5. **Read this first**: `.claude/skill-rules.json` (skill activation rules) and `new-standards/README.md` (site standards)
 
 ---
@@ -67,25 +67,33 @@ new-standards/foundation/WCAG_2.1_AA_STANDARDS_v3.100.md  # Accessibility
 
 ---
 
-## 🛠️ The 7 Skills
+## 🛠️ The 7 Skill Rules
 
-### 1. **standards** (CITW Original - High Priority)
+The system includes 7 skill rules defined in `.claude/skill-rules.json`. Three have dedicated skill directories with documentation; four are rule-based triggers only.
+
+### Skills with Dedicated Directories (3)
+
+#### 1. **standards** (CITW Original - High Priority)
 **Triggers:** Editing HTML, CSS, JS, JSON, MD files
 **Purpose:** Standards enforcement with theological foundation
 **Resources:** `.claude/skills/standards/STANDARDS.md`
 
-### 2. **skill-developer** (FOM - High Priority)
+#### 2. **skill-developer** (FOM - High Priority)
 **Triggers:** Keywords like "skill system", "create skill", "skill rules"
 **Purpose:** Meta-skill for managing Claude Code skills
 **Resources:** `.claude/skills/skill-developer/SKILL.md`
 
-### 3. **frontend-dev-guidelines** (FOM - High Priority)
+#### 3. **frontend-dev-guidelines** (FOM - High Priority)
 **Triggers:** HTML, CSS, JavaScript, accessibility, WCAG keywords
 **Triggers Files:** *.html, *.css, *.js
 **Purpose:** HTML/CSS/JS best practices for static sites
 **Resources:** `.claude/skills/frontend-dev-guidelines/SKILL.md`
 
-### 4. **seo-optimizer** (FOM→ITW - High Priority) ⚠️ **WITH GUARDRAILS**
+### Rule-Based Triggers (4)
+
+These skills are defined as activation rules in `skill-rules.json` with guardrails and triggers, but don't have dedicated SKILL.md directories. They influence behavior through their rule definitions.
+
+#### 4. **seo-optimizer** (FOM→ITW - High Priority) ⚠️ **WITH GUARDRAILS**
 **Triggers:** SEO, meta tags, schema.org, structured data, ICP-Lite, ITW-Lite
 **Triggers Files:** *.html, ships/**, ports/**, restaurants/**
 **Purpose:** Technical SEO that benefits AI + humans + search engines
@@ -93,12 +101,12 @@ new-standards/foundation/WCAG_2.1_AA_STANDARDS_v3.100.md  # Accessibility
 - ❌ REJECT: Keyword stuffing, removing AI-first meta tags, sacrificing readability
 - ✅ ACCEPT: schema.org, semantic HTML, ICP-Lite compliance, natural descriptions
 
-### 5. **accessibility-auditor** (FOM→ITW - High Priority)
+#### 5. **accessibility-auditor** (FOM→ITW - High Priority)
 **Triggers:** accessibility, a11y, WCAG, aria, screen reader
 **Triggers Files:** *.html
 **Purpose:** WCAG AA compliance for cruise planning site
 
-### 6. **content-strategy** (FOM→ITW - High Priority) ⚠️ **WITH GUARDRAILS**
+#### 6. **content-strategy** (FOM→ITW - High Priority) ⚠️ **WITH GUARDRAILS**
 **Triggers:** content, description, cruise, ship, port, storytelling
 **Triggers Files:** ships/**, ports/**, restaurants/**, solo/**
 **Purpose:** Travel storytelling aligned with ITW-Lite philosophy
@@ -106,7 +114,7 @@ new-standards/foundation/WCAG_2.1_AA_STANDARDS_v3.100.md  # Accessibility
 - ❌ REJECT: Keyword-stuffed descriptions, robotic SEO copy, removing planning guidance
 - ✅ ACCEPT: Natural descriptions, travel storytelling, faith-scented reflections
 
-### 7. **performance-analyzer** (FOM→ITW - Medium Priority)
+#### 7. **performance-analyzer** (FOM→ITW - Medium Priority)
 **Triggers:** performance, optimize, lighthouse, Core Web Vitals, LCP, FID, CLS
 **Purpose:** Web performance optimization
 
@@ -152,9 +160,9 @@ InTheWake/
 ├── .claude/                    # Claude Code system (YOU ARE HERE)
 │   ├── INSTALLATION.md         # Full installation guide
 │   ├── ONBOARDING.md          # This file
-│   ├── skill-rules.json       # Skill activation rules (7 skills)
+│   ├── skill-rules.json       # Skill activation rules (7 rule definitions)
 │   ├── settings.json          # Hook configuration
-│   ├── skills/                # 7 skills (standards, skill-developer, frontend-dev, etc.)
+│   ├── skills/                # 3 skills with directories (standards, skill-developer, frontend-dev-guidelines)
 │   ├── plugins/               # 5 plugins (SEO, accessibility, performance)
 │   ├── commands/              # 4 commands (/commit, /create-pr, etc.)
 │   ├── hooks/                 # 2 hooks (auto-activation)
@@ -358,7 +366,7 @@ Ship, port, and restaurant pages should have structured context comments:
 
 ## 🎯 TL;DR — What You Need to Know
 
-1. **7 skills** auto-activate based on context (standards + 6 FOM-adapted)
+1. **7 skill rules** auto-activate based on context: 3 with skill directories + 4 rule-based triggers
 2. **ITW-Lite v3.010**: AI-first, Human-first, Google second
 3. **Theological foundation is immutable**: Soli Deo Gloria on every page
 4. **ICP-Lite protocol required**: ai-summary, last-reviewed, content-protocol meta tags

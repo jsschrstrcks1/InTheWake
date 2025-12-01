@@ -13,7 +13,9 @@ This document details the enhanced Claude Code system installed on this reposito
 
 ### Installed Components
 
-**Total Skills:** 7 (1 CITW original + 6 FOM adapted)
+**Total Skill Rules:** 7 (defined in skill-rules.json)
+- 3 with dedicated skill directories (standards, skill-developer, frontend-dev-guidelines)
+- 4 rule-based triggers only (seo-optimizer, accessibility-auditor, content-strategy, performance-analyzer)
 **Total Plugins:** 5 (cruise-relevant only)
 **Total Commands:** 4 (workflow utilities)
 **Total Hooks:** 2 (auto-activation system)
@@ -42,12 +44,16 @@ This document details the enhanced Claude Code system installed on this reposito
 
 ### Layer 2: Domain Skills
 
-**Skills Installed:**
+**Skills with Dedicated Directories (3):**
 
 1. **standards** (CITW Original)
    - Standards enforcement system with theological foundation
-   - YAML-based standards (css.yml, html.yml, javascript.yml, theological.yml)
+   - Resources in `.claude/skills/standards/`
    - ICP-Lite / ITW-Lite protocol compliance
+
+**Rule-Based Skill Triggers (4):**
+
+These are defined in `skill-rules.json` as activation triggers with guardrails, but don't have dedicated SKILL.md directories:
 
 2. **seo-optimizer** (FOM Adapted → ITW-Lite)
    - SEO optimization with ITW-Lite guardrails
@@ -132,21 +138,28 @@ This document details the enhanced Claude Code system installed on this reposito
 
 The `.claude/skill-rules.json` has been customized for cruise planning with **ITW-Lite v3.010 guardrails**:
 
-### Active Skills (7 Total):
+### Active Skill Rules (7 Total):
+
+**Skills with Directories (3):**
 
 1. **standards** (Critical Priority) - CITW Original
    - Triggers: Code file modifications, HTML/CSS/JS editing
    - Files: *.html, *.css, *.js, *.json, *.md
    - Purpose: Standards enforcement with theological foundation
+   - Resources: `.claude/skills/standards/`
 
 2. **skill-developer** (High Priority) - FOM Adapted
    - Triggers: "skill system", "create skill", "skill rules"
    - Purpose: Meta-skill for managing Claude Code skills
+   - Resources: `.claude/skills/skill-developer/`
 
 3. **frontend-dev-guidelines** (High Priority) - FOM Adapted
    - Triggers: HTML, CSS, JavaScript, accessibility, WCAG
    - Files: *.html, *.css, *.js
    - Purpose: HTML/CSS/JS best practices
+   - Resources: `.claude/skills/frontend-dev-guidelines/`
+
+**Rule-Based Triggers (4):**
 
 4. **seo-optimizer** (High Priority) ⚠️ **WITH ITW-LITE GUARDRAILS**
    - Triggers: SEO, meta tags, schema.org, structured data
@@ -285,23 +298,25 @@ Agent: "accessibility-validator"
 To verify installation:
 
 ```bash
-# Check skills
+# Check skill directories (3 expected)
 ls -la .claude/skills/
 
-# Check plugins
+# Check plugins (5 expected)
 ls -la .claude/plugins/
 
-# Check commands
+# Check commands (4 expected)
 ls -la .claude/commands/
 
-# Check hooks
+# Check hooks (2 expected)
 ls -la .claude/hooks/
 
-# Verify configuration
+# Verify skill rules in configuration (7 expected)
 cat .claude/skill-rules.json | jq '.skills | keys'
 ```
 
-Expected output: 7 skills (standards, skill-developer, frontend-dev-guidelines, seo-optimizer, accessibility-auditor, content-strategy, performance-analyzer)
+**Expected output:**
+- Skill directories: 3 (standards, skill-developer, frontend-dev-guidelines)
+- Skill rules in JSON: 7 (standards, skill-developer, frontend-dev-guidelines, seo-optimizer, accessibility-auditor, content-strategy, performance-analyzer)
 
 ---
 
@@ -341,9 +356,13 @@ Expected output: 7 skills (standards, skill-developer, frontend-dev-guidelines, 
 
 ## Version History
 
+**v1.1.1** (2025-12-01)
+- Documentation clarification: Distinguish between skill directories (3) and skill rules (7)
+- Updated onboarding and installation docs for accuracy
+
 **v1.1.0** (2025-11-24)
 - Initial merge of FOM enhancements into CITW
-- 7 skills total (1 CITW + 6 FOM adapted)
+- 7 skill rules total: 3 with directories (standards, skill-developer, frontend-dev-guidelines) + 4 rule-based triggers
 - ITW-Lite v3.010 philosophy implemented
 - Cruise-specific path and schema adaptations
 

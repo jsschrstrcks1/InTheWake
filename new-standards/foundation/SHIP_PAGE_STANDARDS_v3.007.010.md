@@ -70,13 +70,13 @@ Required:
 - Recommended OG image size: 1200×630.
 
 ```html
-<link rel="canonical" href="https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html">
+<link rel="canonical" href="https://cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="In the Wake">
-<meta property="og:url" content="https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html">
+<meta property="og:url" content="https://cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html">
 <meta property="og:title" content="Grandeur of the Seas — Deck Plans, Live Tracker, Dining & Videos">
 <meta property="og:description" content="All the essentials for Grandeur of the Seas: live map (auto-refresh), dining, stats, and videos.">
-<meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.010">
+<meta property="og:image" content="https://cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.010">
 <meta name="twitter:card" content="summary_large_image">
 ```
 
@@ -95,7 +95,7 @@ Use only what the page actually needs.
 <link rel="preconnect" href="https://cdn.consentmanager.net" crossorigin>
 
 <!-- LCP image -->
-<link rel="preload" as="image" href="https://www.cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.010" fetchpriority="high">
+<link rel="preload" as="image" href="https://cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.010" fetchpriority="high">
 ```
 
 **Images**: Provide `width`/`height` and default to `loading="lazy"` and `decoding="async"`, except LCP.
@@ -131,10 +131,10 @@ Convert hard-coded production URLs to current origin on DOMContentLoaded; expose
   window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
   document.addEventListener('DOMContentLoaded', function(){
     const sel=[
-      'a[href^="https://www.cruisinginthewake.com/"]',
-      'img[src^="https://www.cruisinginthewake.com/"]',
-      'link[href^="https://www.cruisinginthewake.com/"]',
-      'script[src^="https://www.cruisinginthewake.com/"]'
+      'a[href^="https://cruisinginthewake.com/"]',
+      'img[src^="https://cruisinginthewake.com/"]',
+      'link[href^="https://cruisinginthewake.com/"]',
+      'script[src^="https://cruisinginthewake.com/"]'
     ].join(',');
     document.querySelectorAll(sel).forEach(el=>{
       const attr=el.hasAttribute('href')?'href':'src';
@@ -161,8 +161,8 @@ For Reviews: **exactly one** block; `ratingValue` **number**, not string.
 ```html
 <script type="application/ld+json">{
   "@context":"https://schema.org","@type":"Organization",
-  "name":"In the Wake","url":"https://www.cruisinginthewake.com/",
-  "logo":"https://www.cruisinginthewake.com/assets/logo_wake.png?v=3.007.010",
+  "name":"In the Wake","url":"https://cruisinginthewake.com/",
+  "logo":"https://cruisinginthewake.com/assets/logo_wake.png?v=3.007.010",
   "sameAs":["https://www.instagram.com/flickersofmajesty/","https://www.youtube.com/@cruisinginthewake"]
 }</script>
 ```
@@ -171,9 +171,9 @@ For Reviews: **exactly one** block; `ratingValue` **number**, not string.
 ```html
 <script type="application/ld+json">{
   "@context":"https://schema.org","@type":"WebSite",
-  "name":"In the Wake","url":"https://www.cruisinginthewake.com/",
+  "name":"In the Wake","url":"https://cruisinginthewake.com/",
   "potentialAction":{"@type":"SearchAction",
-    "target":"https://www.cruisinginthewake.com/search.html?q={query}",
+    "target":"https://cruisinginthewake.com/search.html?q={query}",
     "query-input":"required name=query"}
 }</script>
 ```
@@ -183,9 +183,9 @@ For Reviews: **exactly one** block; `ratingValue` **number**, not string.
 <script type="application/ld+json">{
   "@context":"https://schema.org","@type":"WebPage",
   "name":"Grandeur of the Seas — Deck Plans, Live Tracker, Dining & Videos",
-  "url":"https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html",
-  "primaryImageOfPage":"https://www.cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.010",
-  "isPartOf":{"@type":"WebSite","name":"In the Wake","url":"https://www.cruisinginthewake.com/"}
+  "url":"https://cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html",
+  "primaryImageOfPage":"https://cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.010",
+  "isPartOf":{"@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com/"}
 }</script>
 ```
 
@@ -194,9 +194,9 @@ For Reviews: **exactly one** block; `ratingValue` **number**, not string.
 <script type="application/ld+json">{
   "@context":"https://schema.org","@type":"BreadcrumbList","name":"Site Breadcrumbs",
   "itemListElement":[
-    {"@type":"ListItem","position":1,"name":"Home","item":"https://www.cruisinginthewake.com/"},
-    {"@type":"ListItem","position":2,"name":"Ships","item":"https://www.cruisinginthewake.com/ships/ships.html"},
-    {"@type":"ListItem","position":3,"name":"Grandeur of the Seas","item":"https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html"}
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},
+    {"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},
+    {"@type":"ListItem","position":3,"name":"Grandeur of the Seas","item":"https://cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html"}
   ]
 }</script>
 ```
@@ -211,8 +211,8 @@ For Reviews: **exactly one** block; `ratingValue` **number**, not string.
   "reviewRating":{"@type":"Rating","ratingValue":4.4,"bestRating":5,"worstRating":1},
   "itemReviewed":{"@type":"Cruise","name":"Grandeur of the Seas",
     "provider":{"@type":"Organization","name":"Royal Caribbean International","url":"https://www.royalcaribbean.com"},
-    "url":"https://www.cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html",
-    "image":"https://www.cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.010",
+    "url":"https://cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html",
+    "image":"https://cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.010",
     "description":"Vision-class cruise operated by Royal Caribbean International."}}
 </script>
 ```

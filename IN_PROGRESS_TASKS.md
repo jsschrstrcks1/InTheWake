@@ -1,7 +1,7 @@
 # In-Progress Tasks
 
 **Purpose:** Thread coordination file to prevent conflicts between concurrent Claude threads.
-**Last Updated:** 2025-11-29
+**Last Updated:** 2025-12-01
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -36,12 +36,7 @@ FORMAT:
 **Notes:** Any blockers or important context
 -->
 
-### Dropdown Menu Duplicate JavaScript Fix
-**Thread:** `claude/fix-dropdown-menu-01XJq5FhAaie7QptqwRY7wfd`
-**Started:** 2025-11-25
-**Files:** 15 HTML files with duplicate dropdown JavaScript
-**Status:** Identifying and removing duplicate `const dropdownGroups = Array.from` blocks
-**Notes:** Files affected: about-us.html, accessibility.html, cruise-lines.html, offline.html, packing-lists.html, planning.html, admin/reports/articles.html, cruise-lines/*.html (8 files)
+*No tasks currently in progress*
 
 ---
 
@@ -65,7 +60,8 @@ FORMAT:
 
 | Thread ID | Task | Status | Date |
 |-----------|------|--------|------|
-| claude/fix-dropdown-menu-01XJq5FhAaie7QptqwRY7wfd | Dropdown menu fix | IN PROGRESS | 2025-11-25 |
+| claude/review-onboarding-setup-01JpVFgKzWRBKvXaxcS1pC9N | Onboarding review, schema fix | COMPLETE | 2025-12-01 |
+| claude/fix-dropdown-menu-01XJq5FhAaie7QptqwRY7wfd | Dropdown menu fix | COMPLETE | 2025-11-28 |
 
 ---
 

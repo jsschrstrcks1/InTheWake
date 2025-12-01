@@ -2,7 +2,7 @@ In the Wake — Unified Modular Standards (Superset v3.001)
 Version lineage: v2.233 → v2.245 → v2.256(.003/.022) → v2.4 → v2.257 → v3.001
 Merge policy: Newer wins. All prior modules are retained in appendices for reference.
 Maintainer: In the Wake Project
-Canonical Host: https://www.cruisinginthewake.com/
+Canonical Host: https://cruisinginthewake.com/
 
 This superset consolidates and harmonizes all current standards and templates across the In the Wake project.
 It is the single source of truth for structure, assets, JSON contracts, accessibility, caching, and CI compliance.
