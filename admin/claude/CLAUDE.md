@@ -165,7 +165,7 @@ These guardrails override all optimization concerns. A technically imperfect pag
 ## 🏗️ Site Architecture
 
 ### Canonical Domain
-**Production:** `https://www.cruisinginthewake.com`
+**Production:** `https://cruisinginthewake.com`
 
 **CRITICAL RULES:**
 - ✅ ALWAYS use absolute URLs in production files
@@ -379,8 +379,8 @@ When a ship, port, or venue is missing an image, follow this order of operations
 ```html
 <meta property="og:title" content="[Page Title]">
 <meta property="og:description" content="[Description]">
-<meta property="og:image" content="https://www.cruisinginthewake.com/assets/ships/[ship].webp">
-<meta property="og:url" content="https://www.cruisinginthewake.com/[path]">
+<meta property="og:image" content="https://cruisinginthewake.com/assets/ships/[ship].webp">
+<meta property="og:url" content="https://cruisinginthewake.com/[path]">
 <meta name="twitter:card" content="summary_large_image">
 ```
 
@@ -722,7 +722,7 @@ Before marking any task complete, verify:
 
 **HTML Files:**
 - [ ] DOCTYPE present
-- [ ] Absolute URLs used (https://www.cruisinginthewake.com/...)
+- [ ] Absolute URLs used (https://cruisinginthewake.com/...)
 - [ ] Meta tags complete (version, content-protocol, ai:summary)
 - [ ] No console statements left in inline JavaScript
 - [ ] No lorem ipsum or placeholder text

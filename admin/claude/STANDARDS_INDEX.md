@@ -69,7 +69,7 @@ These standards apply to **every page** on the site.
 **Scope:** Global site requirements
 
 **Key Topics:**
-- ✅ Canonical domain (https://www.cruisinginthewake.com)
+- ✅ Canonical domain (https://cruisinginthewake.com)
 - ✅ Absolute URLs only (no relatives)
 - ✅ Primary navigation structure
 - ✅ Global data files (fleet_index.json, venues.json, personas.json)
@@ -625,7 +625,7 @@ XX. **Fix broken image links in 5 port pages** - Discovered during audit (2025-1
 Before marking any work complete, verify compliance with these standards:
 
 ### Every Page Must Have:
-- [ ] Absolute URLs (https://www.cruisinginthewake.com/...)
+- [ ] Absolute URLs (https://cruisinginthewake.com/...)
 - [ ] DOCTYPE declaration
 - [ ] Meta tags (charset, viewport, description, version)
 - [ ] ICP-Lite meta tags (content-protocol, ai:summary, last-reviewed)

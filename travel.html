@@ -114,13 +114,13 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     window._abs=function(p){p=String(p||''); if(!p.startsWith('/')) p='/'+p; return ORIGIN+p;};
     function normalize(){
       const sel=[
-        'a[href^="https://www.cruisinginthewake.com/"]',
         'a[href^="https://cruisinginthewake.com/"]',
-        'img[src^="https://www.cruisinginthewake.com/"]',
+        'a[href^="https://cruisinginthewake.com/"]',
         'img[src^="https://cruisinginthewake.com/"]',
-        'link[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://cruisinginthewake.com/"]',
         'link[href^="https://cruisinginthewake.com/"]',
-        'script[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://cruisinginthewake.com/"]',
+        'script[src^="https://cruisinginthewake.com/"]',
         'script[src^="https://cruisinginthewake.com/"]'
       ].join(',');
       document.querySelectorAll(sel).forEach(el=>{

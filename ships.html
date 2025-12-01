@@ -626,7 +626,7 @@
     const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
     window._abs=function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
     function normalize(){
-      const sel=['a[href^="https://www.cruisinginthewake.com/"]','a[href^="https://cruisinginthewake.com/"]','img[src^="https://www.cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://www.cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://www.cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+      const sel=['a[href^="https://cruisinginthewake.com/"]','a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
       document.querySelectorAll(sel).forEach(el=>{
         const attr=el.hasAttribute('href')?'href':'src';
         try{const u=new URL(el.getAttribute(attr));el.setAttribute(attr,ORIGIN+u.pathname+u.search+u.hash);}catch(_){}

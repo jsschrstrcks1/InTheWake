@@ -3,7 +3,7 @@
 
 > **Version Lineage:** v2.233 → v2.245 → v2.256(.003/.022) → v2.4 → v2.257 → v3.001 → v3.002 → v3.003 → **v3.007.010**  
 > **Merge Policy (Golden Merge):** Newer wins · Additive only · No regressions · Explicit supersession notes  
-> **Canonical Host:** https://www.cruisinginthewake.com/
+> **Canonical Host:** https://cruisinginthewake.com/
 
 This superset integrates the modular taxonomy, the historical v2.4 bundle, and the **Frontend Standards v3.007.010 (Grandeur template baseline)**. It is the single source of truth for structure, contracts, accessibility, performance, PWA, JSON-LD, content, and CI.
 

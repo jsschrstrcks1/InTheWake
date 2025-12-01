@@ -238,16 +238,16 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
     window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
 
-    // Normalize any hard-coded https://www.cruisinginthewake.com/* URLs to current origin (prevents redirects/CORS)
+    // Normalize any hard-coded https://cruisinginthewake.com/* URLs to current origin (prevents redirects/CORS)
     document.addEventListener('DOMContentLoaded', function(){
       const sel=[
-        'a[href^="https://www.cruisinginthewake.com/"]',
         'a[href^="https://cruisinginthewake.com/"]',
-        'img[src^="https://www.cruisinginthewake.com/"]',
+        'a[href^="https://cruisinginthewake.com/"]',
         'img[src^="https://cruisinginthewake.com/"]',
-        'link[href^="https://www.cruisinginthewake.com/"]',
+        'img[src^="https://cruisinginthewake.com/"]',
         'link[href^="https://cruisinginthewake.com/"]',
-        'script[src^="https://www.cruisinginthewake.com/"]',
+        'link[href^="https://cruisinginthewake.com/"]',
+        'script[src^="https://cruisinginthewake.com/"]',
         'script[src^="https://cruisinginthewake.com/"]'
       ].join(',');
       document.querySelectorAll(sel).forEach(el=>{

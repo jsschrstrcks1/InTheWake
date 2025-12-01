@@ -61,7 +61,7 @@ def extract_ship_info(content, filepath):
 
     # URL
     rel_path = str(filepath.relative_to(ROOT))
-    info['url'] = f"https://www.cruisinginthewake.com/{rel_path}"
+    info['url'] = f"https://cruisinginthewake.com/{rel_path}"
 
     return info
 
