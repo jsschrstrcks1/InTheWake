@@ -1,9 +1,13 @@
 <!doctype html>
 <!--
-Soli Deo Gloria
-All work on this project is offered as a gift to God.
-"Trust in the LORD with all your heart..." — Proverbs 3:5
-"Whatever you do, work heartily..." — Colossians 3:23
+████████████████████████████████████████████████████████████████████████████████
+██  SOLI DEO GLORIA — To God alone be the glory                satisfies: SR1 ██
+██  All work on this project is offered as an act of worship.                 ██
+██  "Trust in the LORD with all your heart..." — Proverbs 3:5                 ██
+██  "Whatever you do, work heartily..." — Colossians 3:23                     ██
+██                                                                            ██
+██  STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA                  ██
+████████████████████████████████████████████████████████████████████████████████
 -->
 
 <html lang="en">
@@ -13,872 +17,1035 @@ All work on this project is offered as a gift to God.
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
-     cruise-line: Carnival
-     updated: 2025-11-15
-     expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons
-     target-audience: Carnival Festivale cruisers, ship comparison researchers, first-time cruisers
-     answer-first: Details, deck plans, photos, and videos for Carnival Festivale — Coming Soon (Future) ship with Carnival Cruise Line.
-     -->
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Carnival Festivale (Carnival) — InTheWake</title>
-<link rel="canonical" href="https://inthewake.example/ships/carnival/carnival-festivale.html" />
-<meta name="description" content="Details, deck plans, photos, and videos for Carnival Festivale — Coming Soon (Future) ship with Carnival Cruise Line." />
-  <meta name="ai-summary" content="Details, deck plans, photos, and videos for Carnival Festivale — Coming Soon (Future) ship with Carnival Cruise Line.">
-  <meta name="last-reviewed" content="2025-11-19">
-  <meta name="content-protocol" content="ICP-Lite v1.0">
-<link rel="preconnect" href="https://www.carnival.com">
+     cruise-line: Carnival Cruise Line
+     ship-class: Excel Class
+     siblings: Mardi Gras, Carnival Celebration, Carnival Jubilee
+     related: Carnival Festivale (1977), Excel Class Overview
+     updated: 2025-12-02
+     expertise: Carnival cruise planning, Excel-class ships, future ship previews, Fun Ship features
+     target-audience: Future Carnival cruisers, Excel-class enthusiasts, cruise ship news followers
+     answer-first: Carnival Festivale is an upcoming Excel-class mega-ship scheduled for 2027, reviving the beloved name from Carnival's founding era with cutting-edge LNG propulsion and BOLT roller coaster.
+-->
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Carnival Festivale — Future Excel-Class Ship | In the Wake</title>
+<link rel="canonical" href="https://cruisinginthewake.com/ships/carnival/carnival-festivale.html"/>
+<meta name="description" content="Carnival Festivale is an upcoming Excel-class mega-ship scheduled for 2027, reviving the classic name with LNG propulsion, BOLT roller coaster, and innovative Fun Ship features."/>
+
+<!-- ICP-Lite v1.0 Meta Tags -->
+<meta name="ai-summary" content="Carnival Festivale: Future Excel-class ship (2027), ~182,800 GT, reviving classic name with LNG power, BOLT coaster, and next-gen Fun Ship amenities."/>
+<meta name="last-reviewed" content="2025-12-02"/>
+<meta name="content-protocol" content="ICP-Lite v1.0"/>
+
+<link rel="preconnect" href="https://www.carnival.com"/>
+
 <style>
-  /* Header / Hero */
-  .hero-header {
-    position: relative;
-    border-bottom: 6px double var(--rope);
-    background: #eaf6f6;
-    z-index: 9000;
+:root {
+  --accent: #0057b8;
+  --carnival-red: #e4002b;
+  --carnival-blue: #003da5;
+  --rope: #d9b382;
+  --sand: #f5f1e8;
+  --ink: #1a1a2e;
+  --ink-mid: #3d5a6a;
+  --text-muted: #5a6a7a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--ink);
+  background: #fff;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--carnival-blue);
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 10000;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Header / Hero */
+.hero-header {
+  position: relative;
+  background: linear-gradient(135deg, #003da5 0%, #0057b8 50%, #00a3e0 100%);
+  border-bottom: 6px double var(--rope);
+  color: #fff;
+  overflow: hidden;
+}
+
+.hero-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('/assets/ships/carnival-excel-class.webp') center/cover no-repeat;
+  opacity: 0.15;
+}
+
+.navbar {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  padding: 0.5rem 0.9rem 0.35rem;
+  position: relative;
+  z-index: 2000;
+}
+
+.brand {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+}
+
+.brand img {
+  height: 28px;
+  width: auto;
+}
+
+.version-badge {
+  font-size: 0.72rem;
+  opacity: 0.8;
+  color: rgba(255,255,255,0.8);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 0 0 0.5rem;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+}
+
+.hero-tagline {
+  font-size: 1.1rem;
+  opacity: 0.95;
+  margin-bottom: 1rem;
+}
+
+/* Future Banner */
+.future-banner {
+  background: linear-gradient(135deg, #003da5 0%, #0057b8 100%);
+  color: #fff;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  border: 2px solid #00a3e0;
+  text-align: center;
+}
+
+.future-banner h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.3rem;
+}
+
+.future-banner p {
+  margin: 0;
+  opacity: 0.95;
+}
+
+/* Badges */
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+
+.badge--future {
+  background: linear-gradient(135deg, #00a3e0, #0057b8);
+  border-color: #00a3e0;
+  font-weight: 600;
+}
+
+/* Navigation */
+.site-nav {
+  background: var(--sand);
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  border-bottom: 1px solid #e0d5c5;
+}
+
+.nav-pill {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid #ddd;
+  transition: all 0.2s ease;
+}
+
+.nav-pill:hover {
+  background: var(--carnival-blue);
+  color: #fff;
+  border-color: var(--carnival-blue);
+}
+
+.nav-dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  min-width: 200px;
+  z-index: 1000;
+  padding: 0.5rem 0;
+}
+
+.nav-dropdown.open .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+  background: var(--sand);
+}
+
+/* Main Layout */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 980px) {
+  .page-grid {
+    grid-template-columns: 1fr 320px;
   }
+}
 
-  .navbar {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-    padding: .5rem .9rem .35rem;
-    position: relative;
-    z-index: 2000;
-    overflow: visible;
+/* Cards */
+.card {
+  background: #fff;
+  border: 1px solid #e8eaf0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: min(50%, 280px);
+  height: min(50%, 280px);
+  background: url('/assets/watermark.png') center/contain no-repeat;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.card h2 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  color: var(--carnival-blue);
+  border-bottom: 2px solid var(--rope);
+  padding-bottom: 0.5rem;
+}
+
+.card h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.1rem;
+  color: var(--ink);
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 1rem;
+  background: var(--sand);
+  border-radius: 8px;
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--carnival-blue);
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+/* Sister Ships */
+.sister-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.sister-card {
+  background: var(--sand);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.sister-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.sister-card img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 0.5rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--carnival-blue);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.timeline-item:last-child {
+  border-bottom: none;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -1.65rem;
+  top: 0.35rem;
+  width: 12px;
+  height: 12px;
+  background: var(--carnival-blue);
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px var(--carnival-blue);
+}
+
+.timeline-date {
+  font-weight: 600;
+  color: var(--carnival-blue);
+  margin-bottom: 0.25rem;
+}
+
+/* Features */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.feature-item {
+  background: var(--sand);
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--carnival-blue);
+}
+
+.feature-item h4 {
+  margin: 0 0 0.5rem;
+  color: var(--carnival-blue);
+}
+
+.feature-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ink-mid);
+}
+
+/* FAQ */
+.faq details {
+  margin: 0.5rem 0;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e8eaf0;
+}
+
+.faq summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.5rem 0;
+  color: var(--ink);
+}
+
+.faq summary:hover {
+  color: var(--carnival-blue);
+}
+
+.faq details p {
+  margin: 0.5rem 0 0;
+  padding-left: 1rem;
+  color: var(--ink-mid);
+}
+
+/* Rail */
+.rail {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.author-card-vertical {
+  text-align: center;
+}
+
+.author-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin: 0 auto 1rem;
+}
+
+/* Legacy Note */
+.legacy-note {
+  background: linear-gradient(135deg, #f8f4e8 0%, #fff 100%);
+  border: 1px solid var(--rope);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.legacy-note h4 {
+  margin: 0 0 0.5rem;
+  color: var(--carnival-blue);
+}
+
+/* Footer */
+footer {
+  background: var(--sand);
+  border-top: 4px double var(--rope);
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+footer p {
+  max-width: 800px;
+  margin: 0.5rem auto;
+}
+
+.tiny {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+a {
+  color: var(--carnival-blue);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Links with external indicator */
+a[target="_blank"]::after {
+  content: " ↗";
+  font-size: 0.8em;
+  opacity: 0.7;
+}
+</style>
+
+<!-- JSON-LD: Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "In the Wake",
+  "url": "https://cruisinginthewake.com",
+  "logo": "https://cruisinginthewake.com/assets/logo_wake_512.png",
+  "description": "A cruise traveler's logbook — encyclopedic encyclopedia of encyclopedic encyclopedias for cruise encyclopedists.",
+  "sameAs": ["https://instagram.com/flickersofmajesty"]
+}
+</script>
+
+<!-- JSON-LD: WebSite with SearchAction -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "In the Wake",
+  "url": "https://cruisinginthewake.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://cruisinginthewake.com/search.html?q={search_term_string}",
+    "query-input": "required name=search_term_string"
   }
+}
+</script>
 
-  .brand {
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-  }
+<!-- JSON-LD: BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships.html"},
+    {"@type": "ListItem", "position": 3, "name": "Carnival", "item": "https://cruisinginthewake.com/ships.html#carnival"},
+    {"@type": "ListItem", "position": 4, "name": "Carnival Festivale", "item": "https://cruisinginthewake.com/ships/carnival/carnival-festivale.html"}
+  ]
+}
+</script>
 
-  .brand img {
-    height: 28px;
-    width: auto;
-  }
+<!-- JSON-LD: WebPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Carnival Festivale — Future Excel-Class Ship",
+  "description": "Carnival Festivale is an upcoming Excel-class mega-ship scheduled for 2027, reviving the classic name with LNG propulsion, BOLT roller coaster, and innovative Fun Ship features.",
+  "url": "https://cruisinginthewake.com/ships/carnival/carnival-festivale.html",
+  "isPartOf": {"@type": "WebSite", "name": "In the Wake", "url": "https://cruisinginthewake.com"},
+  "dateModified": "2025-12-02"
+}
+</script>
 
-  .version-badge {
-    font-size: .72rem;
-    opacity: .8;
-    color: var(--text-muted);
-  }
-
-:root{--accent:#0047ff;--muted:#f5f7fb;}
-body{font-family:system-ui,-apple-system,Segoe UI,Roboto;line-height:1.6;margin:0;color:#111;background:#fff}
-header,main,footer{max-width:1100px;margin:0 auto;padding:24px}
-.badge{display:inline-block;padding:.25rem .5rem;border-radius:999px;font-size:.8rem;border:1px solid #ddd;background:#fafafa;margin-right:.5rem}
-.badge--past{background:#fff4f4;color:#a40000;border-color:#ffd1d1}
-.badge--present{background:#f2fff5;color:#075a1f;border-color:#c7f3d3}
-.badge--future{background:#f5f8ff;color:#002c7a;border-color:#cfe0ff}
-.grid{display:grid;grid-template-columns:1fr;gap:20px}
-@media(min-width:960px){.grid--2{grid-template-columns:2fr 1fr}}
-.card{background:#fff;border:1px solid #e8eaf0;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.card header{padding:16px 16px 0}
-.card .content{padding:16px}
-hr.sep{border:0;border-top:1px solid #eceff4;margin:24px 0}
-a{color:#0047ff;text-decoration:none}
-a[target="_blank"]::after{content:"↗";margin-left:4px;font-size:.85em;color:#99a}
-figure{margin:0;padding:0}
-figcaption{font-size:.85rem;color:#555;margin-top:4px}
-.small{font-size:.9rem;color:#444}
-.footer-note{font-size:.85rem;color:#555}
-
-  .nav {
-    flex: 1 1 auto;
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: .5rem;
-    white-space: nowrap;
-    flex-wrap: nowrap;
-    overflow: visible;
-    padding-inline: .75rem;
-  }
-
-  @media (max-width: 768px) {
-    .nav {
-      justify-content: flex-start;
-      overflow-x: auto;
-      scrollbar-width: thin;
-      -webkit-overflow-scrolling: touch;
-    }
-
-  }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-  <!-- Service Worker Registration -->
-  <script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
-  }
-  </script>
-
-  <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=2.234"/>
-<style id="brand-title-hide">.brand-title{display:none!important}
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-
-  <style id="hero-credit-css">
-    .hero{ position:relative }
-    .hero-credit{
-      position:absolute; right:12px; bottom:10px; background:rgba(255,255,255,.9);
-      padding:.3rem .55rem; border-radius:.5rem; font-size:.85rem;
-      box-shadow:0 2px 6px rgba(0,0,0,.12);
-    }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-
-  <style id="card-watermark">
-    .card{ position:relative; overflow:hidden }
-    .card::after{
-      content:""; position:absolute; inset:0; margin:auto;
-      width:min(60%, 360px); height:min(60%, 360px);
-      background:url('https://cruisinginthewake.com/assets/watermark.png') center/contain no-repeat;
-      opacity:.06; pointer-events:none;
-    }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-
-  <style id="hero-vibrancy">
-    .hero{ background:url('https://cruisinginthewake.com/assets/index_hero.webp') center/cover no-repeat!important;
-           filter:saturate(1.35) contrast(1.12) brightness(1.05) }
-    .hero::before,.hero::after{ content:none!important }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-
+<!-- JSON-LD: Person (E-E-A-T) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Ken Baker",
-  "url": "https://inthewake.com/about/ken-baker.html",
-  "jobTitle": "Cruise Research Analyst & Data Specialist",
-  "description": "Cruise industry analyst specializing in ship comparisons, deck plan analysis, and dining venue research.",
-  "knowsAbout": [
-    "Cruise Ship Analysis",
-    "Deck Plans",
-    "Royal Caribbean",
-    "Cruise Dining",
-    "Ship Comparisons",
-    "Ship Reviews",
-    "Deck Plan Analysis"
-  ]
+  "url": "https://cruisinginthewake.com/authors/ken-baker.html",
+  "jobTitle": "Cruise Research Analyst",
+  "description": "Founder of In the Wake, specializing in cruise ship analysis, deck plans, and dining research.",
+  "knowsAbout": ["Cruise Ships", "Carnival Cruise Line", "Excel Class", "Ship Specifications", "Cruise Planning"]
 }
 </script>
 
-  <!-- JSON-LD: WebPage (ICP-Lite) -->
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Carnival Festivale (Carnival)",
-  "url": "https://cruisinginthewake.com/ships/carnival/carnival-festivale.html",
-  "description": "Details, deck plans, photos, and videos for Carnival Festivale \u2014 Coming Soon (Future) ship with Carnival Cruise Line."
-}
-  </script><style>
-    /* Navigation */
-    .nav {
-      flex: 1 1 auto;
-      min-width: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .5rem;
-      white-space: nowrap;
-      flex-wrap: nowrap;
-      overflow: visible;
-      padding-inline: .75rem;
-    }
-
-    @media (max-width: 768px) {
-
-    }
-
-    .navbar {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      gap: .6rem;
-      padding: .5rem .9rem .35rem;
-      align-items: flex-end;
-      position: relative;
-      z-index: 5;
-    }
-
-    .brand {
-      display: flex;
-      align-items: flex-end;
-      gap: .6rem;
-    }
-
-    .brand img {
-      height: 28px;
-      width: auto;
-      display: block;
-    }
-
-    .version-badge {
-      font-size: .72rem;
-      opacity: .8;
-      margin-left: .35rem;
-    }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-
-  <!-- JSON-LD: FAQPage (ICP-Lite) -->
-  <script type="application/ld+json">
-  {
+<!-- JSON-LD: FAQPage -->
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What dining options are available on Carnival Festivale (Carnival)?",
+      "name": "When will Carnival Festivale launch?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Carnival Festivale (Carnival) offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship class."
+        "text": "Carnival Festivale is scheduled to debut in 2027 as the fourth Excel-class ship in Carnival's fleet."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I find the deck plans for Carnival Festivale (Carnival)?",
+      "name": "What class is Carnival Festivale?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Deck plans are available through the links on this page or on the Carnival website."
+        "text": "Carnival Festivale will be an Excel-class mega-ship, sister to Mardi Gras, Carnival Celebration, and Carnival Jubilee, featuring LNG propulsion and approximately 182,800 gross tons."
       }
     },
     {
       "@type": "Question",
-      "name": "Where does Carnival Festivale (Carnival) sail?",
+      "name": "Will Carnival Festivale have the BOLT roller coaster?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Ship deployments vary by season. Check the Carnival website for current itineraries."
+        "text": "Yes, as an Excel-class ship, Carnival Festivale is expected to feature BOLT: Ultimate Sea Coaster, the first roller coaster at sea introduced on Mardi Gras."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is it called Festivale?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The name honors one of Carnival's original Fun Ships. The first Festivale (ex-Transvaal Castle) served from 1977-1996 and helped establish Carnival's identity as the Fun Ship cruise line."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where will Carnival Festivale sail from?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Homeport deployment has not been officially announced. Check Carnival's website for updates as the launch date approaches."
       }
     }
   ]
 }
-  </script>
+</script>
 
-  <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
+<!-- Service Worker Registration -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+}
+</script>
+
+<link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=3.010"/>
 </head>
+
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  <!-- ARIA Live Regions -->
-  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
-  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-<header class="site-header hero-header" role="banner">
-<div class="navbar">
-  <div class="brand">
-    <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
-    <span class="tiny version-badge">v3.010.300</span>
-  </div>
+<!-- ARIA Live Regions for Accessibility -->
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-    <!-- Hero section -->
-    <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true"/>
-      <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
-      </div>
-      <div class="tagline">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit">
-        <a class="pill long" href="https://instagram.com/flickersofmajesty">Photo © Flickers of Majesty</a>
-      </div>
-    </div></header>
+<header class="hero-header" role="banner">
+  <nav class="navbar" aria-label="Site branding">
+    <div class="brand">
+      <a href="/">
+        <img src="/assets/logo_wake_256.png"
+             srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x"
+             width="256" height="259"
+             alt="In the Wake - Home"
+             decoding="async"/>
+      </a>
+      <span class="version-badge">v3.010</span>
+    </div>
+  </nav>
 
-        <nav class="site-nav" aria-label="Main site navigation">
-        <a class="nav-pill" href="/">Home</a>
-
-        <!-- Planning Dropdown -->
-        <div class="nav-dropdown" id="nav-planning">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Planning <span class="caret">&#9662;</span>
-          </button>
-          <div class="dropdown-menu" role="menu">
-            <a href="/planning.html">Planning (overview)</a>
-            <a href="/ships.html">Ships</a>
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a href="/ports.html">Ports</a>
-            <a href="/drink-packages.html">Drink Packages</a>
-            <a href="/drink-calculator.html">Drink Calculator</a>
-            <a href="/stateroom-check.html">Stateroom Check</a>
-            <a href="/cruise-lines.html">Cruise Lines</a>
-            <a href="/packing-lists.html">Packing Lists</a>
-            <a href="/accessibility.html">Accessibility</a>
-          </div>
-        </div>
-
-        <!-- Travel Dropdown -->
-        <div class="nav-dropdown" id="nav-travel">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Travel <span class="caret">&#9662;</span>
-          </button>
-          <div class="dropdown-menu" role="menu">
-            <a href="/travel.html">Travel (overview)</a>
-            <a href="/solo.html">Solo</a>
-          </div>
-        </div>
-
-        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
-        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
-        <a class="nav-pill" href="/search.html">Search</a>
-        <a class="nav-pill" href="/about-us.html">About</a>
-      </nav></div>
-
-<header>
-  <h1>Carnival Festivale</h1>
-  <div>
-    <span class="badge badge--future">Coming Soon (Future)</span>
-    <span class="badge">Carnival Cruise Line</span>
-    <span class="badge">GT: 182,800</span>
-    <span class="badge">Capacity: 5,400</span>
+  <div class="hero-content">
+    <h1>Carnival Festivale</h1>
+    <p class="hero-tagline">The Legend Returns — Excel-Class Innovation Meets Classic Fun Ship Spirit</p>
+    <div class="badge-row">
+      <span class="badge badge--future">Coming 2027</span>
+      <span class="badge">Excel Class</span>
+      <span class="badge">~182,800 GT</span>
+      <span class="badge">~5,400 Guests</span>
+      <span class="badge">LNG Powered</span>
+    </div>
   </div>
 </header>
 
-<main class="grid grid--2">
-    <!-- ICP-Lite Content Structure -->
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;">
+<nav class="site-nav" aria-label="Main navigation">
+  <a class="nav-pill" href="/">Home</a>
 
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Carnival Festivale (Carnival) is a Carnival Cruise Line ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
-      </p>
+  <div class="nav-dropdown" id="nav-planning">
+    <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+      Planning <span class="caret">▾</span>
+    </button>
+    <div class="dropdown-menu" role="menu">
+      <a href="/planning.html">Planning Overview</a>
+      <a href="/ships.html">Ships</a>
+      <a href="/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="/ports.html">Ports</a>
+      <a href="/drink-packages.html">Drink Packages</a>
+      <a href="/cruise-lines.html">Cruise Lines</a>
+    </div>
+  </div>
 
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Cruisers researching Carnival Festivale (Carnival) or comparing Carnival ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
-      </p>
+  <div class="nav-dropdown" id="nav-travel">
+    <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+      Travel <span class="caret">▾</span>
+    </button>
+    <div class="dropdown-menu" role="menu">
+      <a href="/travel.html">Travel Overview</a>
+      <a href="/solo.html">Solo Cruising</a>
+    </div>
+  </div>
 
-      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-        <ul style="margin: 0; padding-left: 1.25rem;">
-          <li><strong>Cruise Line:</strong> Carnival Cruise Line</li>
-          <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
-          <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
-        </ul>
+  <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+  <a class="nav-pill" href="/search.html">Search</a>
+  <a class="nav-pill" href="/about-us.html">About</a>
+</nav>
+
+<main id="main-content" class="page-grid">
+  <div class="content-column">
+
+    <!-- Future Ship Banner -->
+    <div class="future-banner">
+      <h2>🚢 Coming in 2027</h2>
+      <p>Carnival Festivale is currently under construction. This page will be updated with confirmed specifications and features as they are announced.</p>
+    </div>
+
+    <!-- Quick Answer Section -->
+    <section class="card" aria-labelledby="overview-title">
+      <h2 id="overview-title">Ship Overview</h2>
+
+      <p><strong>Carnival Festivale</strong> will be the fourth Excel-class mega-ship in Carnival Cruise Line's fleet, scheduled to debut in <strong>2027</strong>. The name pays homage to one of Carnival's original "Fun Ships" — the first Festivale served from 1977 to 1996 and helped establish Carnival's identity as the pioneer of fun, affordable cruising.</p>
+
+      <p>As an Excel-class vessel, Festivale will feature <strong>LNG (liquefied natural gas) propulsion</strong> for cleaner operations, the <strong>BOLT: Ultimate Sea Coaster</strong>, and an array of dining, entertainment, and accommodation options that have made her sister ships industry leaders.</p>
+
+      <div class="legacy-note">
+        <h4>The Original Festivale (1977–1996)</h4>
+        <p>The first Carnival Festivale began life as <em>SS Transvaal Castle</em> (1961), serving the UK-South Africa route for Union-Castle Line. She became <em>SA Vaal</em> in 1966, then joined Carnival in 1977 as <em>Festivale</em>. She helped launch the "Fun Ship" concept before being sold in 1996. After stints as <em>Island Breeze</em> and <em>The Topaz</em>, she was scrapped in Alang, India in 2008.</p>
       </div>
     </section>
 
-  <article style="grid-column: 1;" class="card">
-    <header><h2>Overview</h2></header>
-    <div class="content">
-      <p class="small"><strong>Year built / entered fleet:</strong> 2027</p>
-      <p class="small"><strong>Class / notes:</strong> Excel-class.</p>
-      <p class="small"><strong>Official ship page:</strong> <a href="https://www.carnival.com/cruise-ships/carnival-festivale" target="_blank" rel="noopener">View on carnival.com</a></p>
-      <p class="small"><strong>Deck plans:</strong> <a href="https://www.carnival.com/cruise-ships/carnival-festivale#deck-plans" target="_blank" rel="noopener">Open deck plans</a></p>
-      <p class="small"><strong>CruiseMapper profile:</strong> <a href="#" target="_blank" rel="noopener">—</a></p>
-    </div>
-  </article>
+    <!-- Anticipated Specifications -->
+    <section class="card" aria-labelledby="specs-title">
+      <h2 id="specs-title">Anticipated Specifications</h2>
+      <p class="tiny" style="margin-bottom: 1rem; font-style: italic;">Based on Excel-class sister ships. Final specifications may vary.</p>
 
-  <aside class="card">
-    <header><h2>Media</h2></header>
-    <div class="content">
-      <p>No curated videos yet. (Placeholder)</p>
-    </div>
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    
-  </aside>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value">~182,800</div>
+          <div class="stat-label">Gross Tonnage</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">~1,130 ft</div>
+          <div class="stat-label">Length</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">~5,400</div>
+          <div class="stat-label">Guest Capacity</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">~2,000</div>
+          <div class="stat-label">Crew Members</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">17+</div>
+          <div class="stat-label">Guest Decks</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">LNG</div>
+          <div class="stat-label">Propulsion</div>
+        </div>
+      </div>
+    </section>
 
-  <section class="card" style="grid-column:1/-1;">
-    <header><h2>Image Gallery</h2></header>
-    <div class="content">
-      <figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Cruise_ship_icon.svg/320px-Cruise_ship_icon.svg.png" alt="Placeholder image" loading="lazy"/><figcaption>Image placeholder — Wikimedia Commons (CC BY-SA)</figcaption></figure>
-<figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Cruise_ship_icon.svg/320px-Cruise_ship_icon.svg.png" alt="Placeholder image" loading="lazy"/><figcaption>Image placeholder — Wikimedia Commons (CC BY-SA)</figcaption></figure>
-<figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Cruise_ship_icon.svg/320px-Cruise_ship_icon.svg.png" alt="Placeholder image" loading="lazy"/><figcaption>Image placeholder — Wikimedia Commons (CC BY-SA)</figcaption></figure>
-    </div>
-  </section>
+    <!-- Excel-Class Sister Ships -->
+    <section class="card" aria-labelledby="sisters-title">
+      <h2 id="sisters-title">Excel-Class Sister Ships</h2>
+      <p>Carnival Festivale will join three sister ships that showcase the excellence of this groundbreaking class:</p>
 
-    <!-- ICP-Lite FAQ Section -->
-    <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
-      <h2 style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions</h2>
+      <div class="sister-grid">
+        <a href="/ships/carnival/carnival-mardi-gras.html" class="sister-card">
+          <img src="/assets/ships/carnival-mardi-gras-thumb.webp"
+               alt="Mardi Gras at sea"
+               loading="lazy"
+               onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
+          <strong>Mardi Gras</strong>
+          <span class="tiny">2021 · Port Canaveral</span>
+        </a>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Carnival Festivale (Carnival)?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Carnival Festivale (Carnival) offers complimentary dining including the <a href="/restaurants/mdr.html">main dining room</a> and buffet. Specialty restaurants vary by ship class. Check the dining section above for specific venues.</p>
+        <a href="/ships/carnival/carnival-celebration.html" class="sister-card">
+          <img src="/assets/ships/carnival-celebration-thumb.webp"
+               alt="Carnival Celebration"
+               loading="lazy"
+               onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
+          <strong>Carnival Celebration</strong>
+          <span class="tiny">2022 · Miami</span>
+        </a>
+
+        <a href="/ships/carnival/carnival-jubilee.html" class="sister-card">
+          <img src="/assets/ships/carnival-jubilee-thumb.webp"
+               alt="Carnival Jubilee"
+               loading="lazy"
+               onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
+          <strong>Carnival Jubilee</strong>
+          <span class="tiny">2023 · Galveston</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Expected Features -->
+    <section class="card" aria-labelledby="features-title">
+      <h2 id="features-title">Expected Features</h2>
+      <p>Based on Excel-class hallmarks, Carnival Festivale is expected to include:</p>
+
+      <div class="features-grid">
+        <div class="feature-item">
+          <h4>BOLT: Ultimate Sea Coaster</h4>
+          <p>The first roller coaster at sea — an electric-powered thrill ride reaching speeds up to 40 mph, 187 feet above the waterline.</p>
+        </div>
+
+        <div class="feature-item">
+          <h4>Themed Zones</h4>
+          <p>Six distinct neighborhoods including French Quarter, La Piazza, Summer Landing, and the adults-only Lido deck retreat.</p>
+        </div>
+
+        <div class="feature-item">
+          <h4>20+ Dining Venues</h4>
+          <p>From Emeril Lagasse restaurants to Guy Fieri favorites, Shaquille O'Neal's Big Chicken, and premium steakhouses.</p>
+        </div>
+
+        <div class="feature-item">
+          <h4>Grand Central Atrium</h4>
+          <p>A stunning multi-deck atrium serving as the ship's social hub with bars, entertainment, and ocean views.</p>
+        </div>
+
+        <div class="feature-item">
+          <h4>Ultimate Playground</h4>
+          <p>Expanded waterpark with multiple slides, splash zones, and family-friendly aquatic adventures.</p>
+        </div>
+
+        <div class="feature-item">
+          <h4>Excel Suites</h4>
+          <p>Premium accommodations including the Carnival Excel Presidential Suite with private outdoor deck space.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="card" aria-labelledby="timeline-title">
+      <h2 id="timeline-title">Development Timeline</h2>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">2027 (Anticipated)</div>
+          <p><strong>Scheduled Debut</strong> — Carnival Festivale expected to enter service as the fourth Excel-class ship.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">2024–2026</div>
+          <p><strong>Construction Phase</strong> — Being built at Meyer Turku shipyard in Finland, following sister ships.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">2023</div>
+          <p><strong>Name Announcement</strong> — Carnival reveals the revival of the classic "Festivale" name for the fourth Excel-class vessel.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">1996</div>
+          <p><strong>Original Festivale Retires</strong> — The first Festivale leaves Carnival's fleet after 19 years of service.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">1977</div>
+          <p><strong>Festivale Joins Carnival</strong> — Ex-SA Vaal (ex-Transvaal Castle) becomes Carnival's Festivale, one of the original Fun Ships.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="card faq" id="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">Frequently Asked Questions</h2>
+
+      <details>
+        <summary>When will Carnival Festivale launch?</summary>
+        <p>Carnival Festivale is scheduled to debut in 2027 as the fourth Excel-class ship in Carnival's fleet.</p>
       </details>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How do I find the deck plans for Carnival Festivale (Carnival)?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Deck plans are available through the links on this page. You can also find official deck plans on the Carnival website or in the cruise planner app.</p>
+      <details>
+        <summary>What class is Carnival Festivale?</summary>
+        <p>She will be an Excel-class mega-ship, sister to Mardi Gras, Carnival Celebration, and Carnival Jubilee. At approximately 182,800 gross tons, she'll feature LNG propulsion and cutting-edge amenities.</p>
       </details>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Where does Carnival Festivale (Carnival) sail?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Ship deployments vary by season. Check the Carnival website for current itineraries and departure ports for Carnival Festivale (Carnival).</p>
+      <details>
+        <summary>Will Carnival Festivale have the BOLT roller coaster?</summary>
+        <p>Yes! As an Excel-class ship, Carnival Festivale is expected to feature BOLT: Ultimate Sea Coaster, the groundbreaking attraction introduced on Mardi Gras in 2021.</p>
       </details>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Is this information official?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides planning resources and community insights. Always confirm details with Carnival Cruise Line or your travel advisor before booking.</p>
+      <details>
+        <summary>Why is it called Festivale?</summary>
+        <p>The name honors one of Carnival's founding fleet ships. The original Festivale (ex-Transvaal Castle) served from 1977-1996 and was instrumental in establishing Carnival's "Fun Ship" identity.</p>
+      </details>
+
+      <details>
+        <summary>Where will Carnival Festivale be homeported?</summary>
+        <p>The homeport has not been officially announced. Given Excel-class requirements for LNG bunkering, likely candidates include ports with established infrastructure. Check Carnival's website for updates.</p>
       </details>
     </section>
 
-</div>
+    <!-- Attribution -->
+    <section class="card" aria-labelledby="attribution-title">
+      <h2 id="attribution-title">Sources &amp; Attribution</h2>
+      <p class="tiny">Ship specifications are based on Excel-class sister ships and are subject to change. Official details will be updated as Carnival releases confirmed information.</p>
+      <ul class="tiny">
+        <li><a href="https://www.carnival.com" target="_blank" rel="noopener">Carnival Cruise Line</a> — Official cruise line website</li>
+        <li>Historical information from maritime databases and Carnival corporate announcements</li>
+        <li>Excel-class specifications from Mardi Gras, Carnival Celebration, and Carnival Jubilee data</li>
+      </ul>
+      <p class="tiny" style="margin-top: 1rem;">Page last updated: December 2, 2025</p>
+    </section>
 
-    <!-- RIGHT RAIL -->
-    <aside class="rail" role="complementary" aria-label="Author & articles">
-      <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-          </picture>
-        </a>
-        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-        <p class="tiny">
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-        </p>
-      </section>
+  </div>
 
-      <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    </aside>
-  </main>
+  <!-- RIGHT RAIL -->
+  <aside class="rail" role="complementary" aria-label="Author and related content">
 
-  <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-    <p class="tiny" style="margin-top: 0.5rem;">
-      <a href="/privacy.html">Privacy</a> ·
-      <a href="/terms.html">Terms</a> ·
-      <a href="/about-us.html">About</a> ·
-      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    </p>
-    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-  </footer>
+    <section class="card author-card-vertical" aria-labelledby="author-heading">
+      <h3 id="author-heading">About the Author</h3>
+      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+        <picture>
+          <source srcset="/authors/img/ken1.webp" type="image/webp"/>
+          <img class="author-avatar"
+               src="/authors/img/ken1_96.webp"
+               srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x"
+               width="96" height="96"
+               alt="Ken Baker"
+               loading="lazy"
+               decoding="async"/>
+        </picture>
+      </a>
+      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+      <p class="tiny">Founder of In the Wake. Writer, researcher, and lifelong cruise enthusiast.</p>
+      <p class="tiny">
+        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+      </p>
+    </section>
 
-  <script>
-  (function(){
-    "use strict";
+    <section class="card" aria-labelledby="related-title">
+      <h3 id="related-title">Related Ships</h3>
+      <ul style="margin: 0; padding-left: 1.25rem;">
+        <li><a href="/ships/carnival/carnival-mardi-gras.html">Mardi Gras</a></li>
+        <li><a href="/ships/carnival/carnival-celebration.html">Carnival Celebration</a></li>
+        <li><a href="/ships/carnival/carnival-jubilee.html">Carnival Jubilee</a></li>
+      </ul>
+      <h4 style="margin-top: 1rem;">Other Classes</h4>
+      <ul style="margin: 0; padding-left: 1.25rem;">
+        <li><a href="/ships/carnival/carnival-venezia.html">Venezia (Vista Class)</a></li>
+        <li><a href="/ships/carnival/carnival-dream.html">Dream (Dream Class)</a></li>
+      </ul>
+    </section>
 
-    /* ===== Recent Articles Rail ===== */
-    (async function recentRail(){
-      const rail = document.getElementById('recent-rail');
-      if(!rail) return;
+    <section class="card" aria-labelledby="resources-title">
+      <h3 id="resources-title">Resources</h3>
+      <ul style="margin: 0; padding-left: 1.25rem;">
+        <li><a href="https://www.carnival.com/cruise-ships" target="_blank" rel="noopener">Carnival Fleet</a></li>
+        <li><a href="/cruise-lines/carnival.html">Carnival Overview</a></li>
+        <li><a href="/planning.html">Cruise Planning Guide</a></li>
+      </ul>
+    </section>
 
-      const fallback = document.getElementById('recent-rail-fallback');
-      if(fallback) fallback.style.display = '';
+  </aside>
+</main>
 
-      async function fetchJSONWithFallback(urls){
-        for (const u of urls){
-          try{
-            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
-            if (res.ok) return await res.json();
-          }catch(err){
+<footer role="contentinfo">
+  <p><strong>In the Wake</strong> — A Cruise Traveler's Logbook</p>
+  <p class="tiny">© 2025 In the Wake · All rights reserved.</p>
+  <p class="tiny">
+    <a href="/privacy.html">Privacy</a> ·
+    <a href="/terms.html">Terms</a> ·
+    <a href="/accessibility.html">Accessibility</a> ·
+    <a href="/about-us.html">About</a>
+  </p>
+  <p class="tiny" style="opacity: 0; position: absolute; pointer-events: none;" aria-hidden="true">
+    Soli Deo Gloria — Every pixel of this project is offered as worship to God.
+  </p>
+</footer>
 
-          }
+<!-- Navigation Dropdown Script -->
+<script>
+(function() {
+  'use strict';
+  const dropdowns = document.querySelectorAll('.nav-dropdown');
+
+  function closeAll() {
+    dropdowns.forEach(dd => {
+      dd.classList.remove('open');
+      const btn = dd.querySelector('button');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  dropdowns.forEach(dropdown => {
+    const btn = dropdown.querySelector('button');
+    if (btn) {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const isOpen = dropdown.classList.contains('open');
+        closeAll();
+        if (!isOpen) {
+          dropdown.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
         }
-        return null;
-      }
-
-      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
-
-      function setImageWithFallback(imgEl, primary, altPaths=[]){
-        if(!imgEl) return;
-        const stamp='v=3.010.300';
-        const tried=new Set();
-        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
-        function tryNext(){
-          const next=queue.shift();
-          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
-          if(tried.has(next)) return tryNext();
-          tried.add(next);
-          imgEl.src=next;
-        }
-        imgEl.onerror=tryNext;
-        tryNext();
-      }
-
-      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
-      if(!raw) {
-        if(fallback) {
-          fallback.textContent = 'Unable to load articles';
-          fallback.style.display = '';
-        }
-        return;
-      }
-
-      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-      if(!items.length) return;
-
-      const here = location.pathname.replace(/\/+$/,'');
-      const view = items.filter(p=>{
-        const href = pick(p,['url','path'],'#');
-        const norm = (href||'').replace(/\/+$/,'');
-        return norm && norm !== here;
-      }).slice(0,6);
-
-      rail.innerHTML = view.map(p=>{
-        const title = pick(p,['title','name'],'Article');
-        const href  = pick(p,['url','path'],'#');
-        const excerpt = pick(p,['excerpt','description'],'');
-        return `
-          <article class="card" style="display:flex;flex-direction:column;gap:.75rem;padding:.85rem">
-            <div style="display:grid;grid-template-columns:80px 1fr;gap:.75rem;align-items:start">
-              <div style="width:80px;height:60px;overflow:hidden;border-radius:8px;background:#eef4f6;border:1px solid #dfe7ea;flex-shrink:0">
-                <img class="article-thumb" alt="" decoding="async" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-              </div>
-              <div>
-                <h4 style="margin:0 0 .35rem 0;font-size:.9rem;line-height:1.3;font-weight:600">
-                  <a href="\${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">\${title}</a>
-                </h4>
-                \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
-              </div>
-            </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
-      }).join('');
-
-      const cards = [...rail.querySelectorAll('article.card')];
-      cards.forEach((card,i)=>{
-        const p = view[i] || {};
-        const el = card.querySelector('img.article-thumb');
-        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
-        const title = (pick(p,['title','name'],'')||'').toLowerCase();
-
-        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
-
-        // FORCE override for Top-20
-        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
-          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
-        }
-        // Friendly specifics
-        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
-        }
-        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
-          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
-        }
-        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-          primary = '/assets/articles/travel/cover.jpg';
-        }
-
-        // Heuristic fallback
-        if(!primary){
-          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
-          const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
-        }
-
-        const alts = [];
-        if(primary){
-          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
-        }
-        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
       });
 
-      if(fallback) fallback.style.display = 'none';
-
-      // Announce to screen readers
-      const status = document.getElementById('a11y-status');
-      if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
-      }
-    })();
-  })();
-  </script>
-<!-- Navigation dropdown functionality -->
-    <!-- Navigation dropdown functionality (New Clean Implementation) -->
-  <script>
-  (function() {
-    'use strict';
-    var dropdowns = document.querySelectorAll('.nav-dropdown');
-    function toggleDropdown(dropdown) {
-      var isOpen = dropdown.classList.contains('open');
-      closeAllDropdowns();
-      if (!isOpen) {
-        dropdown.classList.add('open');
-        var btn = dropdown.querySelector('button');
-        if (btn) btn.setAttribute('aria-expanded', 'true');
-      }
-    }
-    function closeAllDropdowns() {
-      dropdowns.forEach(function(dd) {
-        dd.classList.remove('open');
-        var btn = dd.querySelector('button');
-        if (btn) btn.setAttribute('aria-expanded', 'false');
+      btn.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          closeAll();
+          btn.focus();
+        }
       });
     }
-    dropdowns.forEach(function(dropdown) {
-      var btn = dropdown.querySelector('button');
-      if (btn) {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleDropdown(dropdown);
-        });
-        btn.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') { closeAllDropdowns(); btn.focus(); }
-          if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            dropdown.classList.add('open');
-            btn.setAttribute('aria-expanded', 'true');
-            var firstLink = dropdown.querySelector('.dropdown-menu a');
-            if (firstLink) firstLink.focus();
-          }
-        });
-      }
-      var menu = dropdown.querySelector('.dropdown-menu');
-      if (menu) {
-        menu.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') { closeAllDropdowns(); if (btn) btn.focus(); }
-        });
-      }
-    });
-    document.addEventListener('click', function(e) {
-      var isInsideDropdown = false;
-      dropdowns.forEach(function(dd) { if (dd.contains(e.target)) isInsideDropdown = true; });
-      if (!isInsideDropdown) closeAllDropdowns();
-    });
-  })();
-  </script>
+  });
+
+  document.addEventListener('click', e => {
+    let inside = false;
+    dropdowns.forEach(dd => { if (dd.contains(e.target)) inside = true; });
+    if (!inside) closeAll();
+  });
+})();
+</script>
+
 </body>
 </html>
