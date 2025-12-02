@@ -1,884 +1,986 @@
-<!doctype html>
+<!DOCTYPE html>
 <!--
 Soli Deo Gloria
 All work on this project is offered as a gift to God.
 "Trust in the LORD with all your heart..." — Proverbs 3:5
 "Whatever you do, work heartily..." — Colossians 3:23
+STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 -->
 
 <html lang="en">
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Fantasy
-     type: Ship Information Page
+     type: Ship Information Page (Historical)
      parent: /ships.html
-     category: Carnival Fleet
-     cruise-line: Carnival
-     updated: 2025-11-15
-     expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons
-     target-audience: Carnival Fantasy cruisers, ship comparison researchers, first-time cruisers
-     answer-first: Details, deck plans, photos, and videos for Carnival Fantasy — Historical (Past) ship with Carnival Cruise Line.
-     -->
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Carnival Fantasy (Carnival) — InTheWake</title>
-<link rel="canonical" href="https://inthewake.example/ships/carnival/carnival-fantasy.html" />
-<meta name="description" content="Details, deck plans, photos, and videos for Carnival Fantasy — Historical (Past) ship with Carnival Cruise Line." />
-  <meta name="ai-summary" content="Details, deck plans, photos, and videos for Carnival Fantasy — Historical (Past) ship with Carnival Cruise Line.">
-  <meta name="last-reviewed" content="2025-11-19">
-  <meta name="content-protocol" content="ICP-Lite v1.0">
-<link rel="preconnect" href="https://www.carnival.com">
+     category: Carnival Fleet (Retired)
+     cruise-line: Carnival Cruise Line
+     ship-class: Fantasy Class
+     siblings: Carnival Ecstasy, Carnival Sensation, Carnival Fascination, Carnival Imagination, Carnival Inspiration, Carnival Elation, Carnival Paradise
+     related: /ships/carnival/, /cruise-lines/carnival.html
+     updated: 2025-12-01
+     expertise: Carnival cruise ship history, Fantasy Class ships, retired cruise ships
+     target-audience: Cruise historians, nostalgic cruisers, Fantasy Class researchers
+     answer-first: Carnival Fantasy was the lead Fantasy Class ship (1990-2020). First cruise ship with glass-topped atrium. 70,367 GT, 2,044 guests. Scrapped in Turkey July 2020.
+-->
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Carnival Fantasy — Fantasy Class Pioneer (1990-2020) | In The Wake</title>
+<link rel="canonical" href="https://cruisinginthewake.com/ships/carnival/carnival-fantasy.html"/>
+<meta name="description" content="Carnival Fantasy historical tribute: The revolutionary lead ship of Carnival's Fantasy Class (1990-2020). First cruise ship with glass-topped atrium. Scrapped in Turkey."/>
+
+<!-- ICP-Lite v1.0 Meta Tags -->
+<meta name="ai-summary" content="Carnival Fantasy: Lead Fantasy Class ship 1990-2020. First cruise ship with glass-topped atrium. 70,367 GT, 2,044 guests. Scrapped Aliaga, Turkey July 2020."/>
+<meta name="last-reviewed" content="2025-12-01"/>
+<meta name="content-protocol" content="ICP-Lite v1.0"/>
+<meta name="inthewake:standard" content="inthewake_standardsv3.010"/>
+
+<!-- Preconnect & Preload -->
+<link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
+<link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010" fetchpriority="high"/>
+
+<!-- Stylesheet -->
+<link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
+
 <style>
-  /* Header / Hero */
-  .hero-header {
-    position: relative;
-    border-bottom: 6px double var(--rope);
-    background: #eaf6f6;
-    z-index: 9000;
+:root {
+  --accent: #0047ff;
+  --rope: #d9b382;
+  --ink-mid: #3d5a6a;
+  --ink-dark: #134;
+}
+
+.hero-header {
+  position: relative;
+  border-bottom: 6px double var(--rope);
+  background: linear-gradient(135deg, #eaf6f6 0%, #d4ecec 100%);
+}
+
+.navbar {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  padding: 0.5rem 0.9rem 0.35rem;
+}
+
+.brand {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+}
+
+.brand img {
+  height: 28px;
+  width: auto;
+}
+
+.version-badge {
+  font-size: 0.72rem;
+  opacity: 0.8;
+  color: var(--ink-mid);
+}
+
+/* Historical Ship Hero */
+.ship-hero {
+  position: relative;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+  color: #f0f0f0;
+  padding: 2rem 1.5rem;
+  border-radius: 16px;
+  margin: 1.5rem auto;
+  max-width: 1100px;
+  overflow: hidden;
+}
+
+.ship-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  background: url('/assets/ships/carnival-fantasy1.webp') center/cover no-repeat;
+  opacity: 0.2;
+  mask-image: linear-gradient(to left, rgba(0,0,0,0.3), transparent);
+  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.3), transparent);
+  filter: grayscale(50%);
+}
+
+.ship-hero h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+.ship-hero .tagline {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.badge--retired {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+.badge--historic {
+  background: rgba(251, 191, 36, 0.2);
+  border-color: rgba(251, 191, 36, 0.4);
+  color: #fde68a;
+}
+
+/* Retired Banner */
+.retired-banner {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #f0f0f0;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #4a4a6a;
+}
+
+.retired-banner h3 {
+  margin: 0 0 0.5rem;
+  color: #fca5a5;
+}
+
+.retired-banner p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem 2rem;
+}
+
+@media (min-width: 980px) {
+  .page-grid {
+    grid-template-columns: 1fr 320px;
   }
+}
 
-  .navbar {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-    padding: .5rem .9rem .35rem;
-    position: relative;
-    z-index: 2000;
-    overflow: visible;
+.card {
+  background: #fff;
+  border: 1px solid #e8eaf0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+
+.card header {
+  padding: 1rem 1.25rem 0;
+}
+
+.card header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ink-dark);
+}
+
+.card .content {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 1rem;
+  background: #f7fdff;
+  border-radius: 8px;
+  border: 1px solid #e0f0f5;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--ink-mid);
+  margin-top: 0.25rem;
+}
+
+.sister-ships {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sister-chip {
+  padding: 0.4rem 0.8rem;
+  background: #f0f7ff;
+  border: 1px solid #cfe0ff;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #002c7a;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.sister-chip:hover {
+  background: #e0efff;
+  border-color: #a0c4ff;
+}
+
+.sister-chip.current {
+  background: #6b7280;
+  color: #fff;
+  border-color: #6b7280;
+}
+
+.sister-chip.retired {
+  background: #f5f5f5;
+  color: #666;
+  border-color: #ddd;
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.carousel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.carousel figure {
+  margin: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f0f7ff;
+}
+
+.carousel img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel figcaption {
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--ink-mid);
+  background: #fafcfd;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 0.5rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--rope), #e8eaf0);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -1.65rem;
+  top: 0.35rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--rope);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px var(--rope);
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item:last-child::before {
+  background: #ef4444;
+  box-shadow: 0 0 0 2px #ef4444;
+}
+
+.timeline-year {
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+.timeline-text {
+  margin: 0.25rem 0 0;
+  color: var(--ink-mid);
+  line-height: 1.6;
+}
+
+.faq details {
+  border-bottom: 1px solid #e8eaf0;
+  padding: 0.75rem 0;
+}
+
+.faq details:last-child {
+  border-bottom: none;
+}
+
+.faq summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.5rem 0;
+  list-style: none;
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq summary::before {
+  content: "+";
+  margin-right: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.faq details[open] summary::before {
+  content: "−";
+}
+
+.faq details p {
+  margin: 0.5rem 0 0.5rem 1.5rem;
+  color: var(--ink-mid);
+  line-height: 1.6;
+}
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.author-card {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.author-card img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.author-card h4 {
+  margin: 0 0 0.25rem;
+}
+
+.author-card p {
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
+  color: var(--ink-mid);
+}
+
+.quick-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.quick-links a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #f7fdff;
+  border: 1px solid #e0f0f5;
+  border-radius: 8px;
+  color: var(--ink-dark);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.quick-links a:hover {
+  background: #e8f4f8;
+  border-color: #b8d4e3;
+}
+
+footer.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  text-align: center;
+  border-top: 1px solid #e8eaf0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--accent);
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 10000;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+</style>
+
+<!-- JSON-LD: Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "In The Wake",
+  "url": "https://cruisinginthewake.com",
+  "logo": "https://cruisinginthewake.com/assets/logo_wake_560.png",
+  "description": "A Cruise Traveler's Logbook — AI-first cruise encyclopedia"
+}
+</script>
+
+<!-- JSON-LD: WebSite with SearchAction -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "In The Wake",
+  "url": "https://cruisinginthewake.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://cruisinginthewake.com/search.html?q={search_term_string}",
+    "query-input": "required name=search_term_string"
   }
+}
+</script>
 
-  .brand {
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-  }
+<!-- JSON-LD: BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships.html"},
+    {"@type": "ListItem", "position": 3, "name": "Carnival Cruise Line", "item": "https://cruisinginthewake.com/ships/carnival/"},
+    {"@type": "ListItem", "position": 4, "name": "Carnival Fantasy", "item": "https://cruisinginthewake.com/ships/carnival/carnival-fantasy.html"}
+  ]
+}
+</script>
 
-  .brand img {
-    height: 28px;
-    width: auto;
-  }
+<!-- JSON-LD: Review -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "itemReviewed": {
+    "@type": "Product",
+    "name": "Carnival Fantasy",
+    "brand": {"@type": "Brand", "name": "Carnival Cruise Line"},
+    "category": "Cruise Ship (Historical)"
+  },
+  "author": {"@type": "Person", "name": "Ken Baker"},
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": 4.0,
+    "bestRating": 5,
+    "worstRating": 1
+  },
+  "reviewBody": "Carnival Fantasy was a revolutionary ship that defined modern cruising. As the first cruise ship with a glass-topped atrium, she set the standard for the Fantasy Class and changed expectations for cruise ship interiors."
+}
+</script>
 
-  .version-badge {
-    font-size: .72rem;
-    opacity: .8;
-    color: var(--text-muted);
-  }
-
-:root{--accent:#0047ff;--muted:#f5f7fb;}
-body{font-family:system-ui,-apple-system,Segoe UI,Roboto;line-height:1.6;margin:0;color:#111;background:#fff}
-header,main,footer{max-width:1100px;margin:0 auto;padding:24px}
-.badge{display:inline-block;padding:.25rem .5rem;border-radius:999px;font-size:.8rem;border:1px solid #ddd;background:#fafafa;margin-right:.5rem}
-.badge--past{background:#fff4f4;color:#a40000;border-color:#ffd1d1}
-.badge--present{background:#f2fff5;color:#075a1f;border-color:#c7f3d3}
-.badge--future{background:#f5f8ff;color:#002c7a;border-color:#cfe0ff}
-.grid{display:grid;grid-template-columns:1fr;gap:20px}
-@media(min-width:960px){.grid--2{grid-template-columns:2fr 1fr}}
-.card{background:#fff;border:1px solid #e8eaf0;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.card header{padding:16px 16px 0}
-.card .content{padding:16px}
-hr.sep{border:0;border-top:1px solid #eceff4;margin:24px 0}
-a{color:#0047ff;text-decoration:none}
-a[target="_blank"]::after{content:"↗";margin-left:4px;font-size:.85em;color:#99a}
-figure{margin:0;padding:0}
-figcaption{font-size:.85rem;color:#555;margin-top:4px}
-.small{font-size:.9rem;color:#444}
-.footer-note{font-size:.85rem;color:#555}
-
-  .nav {
-    flex: 1 1 auto;
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: .5rem;
-    white-space: nowrap;
-    flex-wrap: nowrap;
-    overflow: visible;
-    padding-inline: .75rem;
-  }
-
-  @media (max-width: 768px) {
-    .nav {
-      justify-content: flex-start;
-      overflow-x: auto;
-      scrollbar-width: thin;
-      -webkit-overflow-scrolling: touch;
-    }
-
-  }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-  <!-- Service Worker Registration -->
-  <script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
-  }
-  </script>
-
-  <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=2.234"/>
-<style id="brand-title-hide">.brand-title{display:none!important}
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-
-  <style id="hero-credit-css">
-    .hero{ position:relative }
-    .hero-credit{
-      position:absolute; right:12px; bottom:10px; background:rgba(255,255,255,.9);
-      padding:.3rem .55rem; border-radius:.5rem; font-size:.85rem;
-      box-shadow:0 2px 6px rgba(0,0,0,.12);
-    }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-
-  <style id="card-watermark">
-    .card{ position:relative; overflow:hidden }
-    .card::after{
-      content:""; position:absolute; inset:0; margin:auto;
-      width:min(60%, 360px); height:min(60%, 360px);
-      background:url('https://cruisinginthewake.com/assets/watermark.png') center/contain no-repeat;
-      opacity:.06; pointer-events:none;
-    }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-
-  <style id="hero-vibrancy">
-    .hero{ background:url('https://cruisinginthewake.com/assets/index_hero.webp') center/cover no-repeat!important;
-           filter:saturate(1.35) contrast(1.12) brightness(1.05) }
-    .hero::before,.hero::after{ content:none!important }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-
+<!-- JSON-LD: Person (E-E-A-T) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Ken Baker",
-  "url": "https://inthewake.com/about/ken-baker.html",
-  "jobTitle": "Cruise Research Analyst & Data Specialist",
-  "description": "Cruise industry analyst specializing in ship comparisons, deck plan analysis, and dining venue research.",
-  "knowsAbout": [
-    "Cruise Ship Analysis",
-    "Deck Plans",
-    "Royal Caribbean",
-    "Cruise Dining",
-    "Ship Comparisons",
-    "Ship Reviews",
-    "Deck Plan Analysis"
-  ]
+  "url": "https://cruisinginthewake.com/authors/ken-baker.html",
+  "jobTitle": "Cruise Research Analyst",
+  "description": "Cruise industry analyst and historian specializing in Carnival ship reviews, Fantasy Class history, and cruise industry evolution.",
+  "knowsAbout": ["Cruise Ships", "Carnival Cruise Line", "Fantasy Class", "Cruise History", "Ship Comparisons"]
 }
 </script>
 
-  <!-- JSON-LD: WebPage (ICP-Lite) -->
-  <script type="application/ld+json">
-  {
+<!-- JSON-LD: WebPage -->
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "Carnival Fantasy (Carnival)",
+  "name": "Carnival Fantasy — Fantasy Class Pioneer (1990-2020) | In The Wake",
   "url": "https://cruisinginthewake.com/ships/carnival/carnival-fantasy.html",
-  "description": "Details, deck plans, photos, and videos for Carnival Fantasy \u2014 Historical (Past) ship with Carnival Cruise Line."
+  "description": "Historical tribute to Carnival Fantasy: The revolutionary lead ship of Carnival's Fantasy Class that pioneered modern cruise ship design.",
+  "dateModified": "2025-12-01",
+  "isPartOf": {"@type": "WebSite", "name": "In The Wake", "url": "https://cruisinginthewake.com"}
 }
-  </script><style>
-    /* Navigation */
-    .nav {
-      flex: 1 1 auto;
-      min-width: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .5rem;
-      white-space: nowrap;
-      flex-wrap: nowrap;
-      overflow: visible;
-      padding-inline: .75rem;
-    }
+</script>
 
-    @media (max-width: 768px) {
-
-    }
-
-    .navbar {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      gap: .6rem;
-      padding: .5rem .9rem .35rem;
-      align-items: flex-end;
-      position: relative;
-      z-index: 5;
-    }
-
-    .brand {
-      display: flex;
-      align-items: flex-end;
-      gap: .6rem;
-    }
-
-    .brand img {
-      height: 28px;
-      width: auto;
-      display: block;
-    }
-
-    .version-badge {
-      font-size: .72rem;
-      opacity: .8;
-      margin-left: .35rem;
-    }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-
-  <!-- JSON-LD: FAQPage (ICP-Lite) -->
-  <script type="application/ld+json">
-  {
+<!-- JSON-LD: FAQPage -->
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What dining options are available on Carnival Fantasy (Carnival)?",
+      "name": "When was Carnival Fantasy scrapped?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Carnival Fantasy (Carnival) offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship class."
+        "text": "Carnival Fantasy was scrapped in July 2020. She left Miami on July 15, 2020, arrived at the Aliaga Ship Recycling Facility in Turkey on July 29, 2020, and scrapping began in late August 2020."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I find the deck plans for Carnival Fantasy (Carnival)?",
+      "name": "Why was Carnival Fantasy special?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Deck plans are available through the links on this page or on the Carnival website."
+        "text": "Carnival Fantasy was the first cruise ship to feature a tall glass-topped atrium, revolutionizing cruise ship interior design. As the lead ship of the Fantasy Class, she set the template for eight successful sister ships."
       }
     },
     {
       "@type": "Question",
-      "name": "Where does Carnival Fantasy (Carnival) sail?",
+      "name": "How long did Carnival Fantasy operate?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Ship deployments vary by season. Check the Carnival website for current itineraries."
+        "text": "Carnival Fantasy operated for 30 years, from her maiden voyage on March 1, 1990 to her final voyage in March 2020 when cruise operations were suspended due to COVID-19."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What class was Carnival Fantasy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Carnival Fantasy was the lead ship of Carnival's Fantasy Class, which included eight ships total. She established the template that her seven sister ships followed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who christened Carnival Fantasy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Carnival Fantasy was christened on March 1, 1990 by Tellervo Koivisto, wife of Finnish President Mauno Koivisto, honoring the ship's Finnish construction heritage."
       }
     }
   ]
 }
-  </script>
+</script>
 
-  <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
+<!-- Service Worker Registration -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+}
+</script>
 </head>
+
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  <!-- ARIA Live Regions -->
-  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
-  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-<header class="site-header hero-header" role="banner">
-<div class="navbar">
-  <div class="brand">
-    <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
-    <span class="tiny version-badge">v3.010.300</span>
-  </div>
+<!-- ARIA Live Regions -->
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-    <!-- Hero section -->
-    <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true"/>
-      <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
-      </div>
-      <div class="tagline">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit">
-        <a class="pill long" href="https://instagram.com/flickersofmajesty">Photo © Flickers of Majesty</a>
-      </div>
-    </div></header>
-
-        <nav class="site-nav" aria-label="Main site navigation">
-        <a class="nav-pill" href="/">Home</a>
-
-        <!-- Planning Dropdown -->
-        <div class="nav-dropdown" id="nav-planning">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Planning <span class="caret">&#9662;</span>
-          </button>
-          <div class="dropdown-menu" role="menu">
-            <a href="/planning.html">Planning (overview)</a>
-            <a href="/ships.html">Ships</a>
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a href="/ports.html">Ports</a>
-            <a href="/drink-packages.html">Drink Packages</a>
-            <a href="/drink-calculator.html">Drink Calculator</a>
-            <a href="/stateroom-check.html">Stateroom Check</a>
-            <a href="/cruise-lines.html">Cruise Lines</a>
-            <a href="/packing-lists.html">Packing Lists</a>
-            <a href="/accessibility.html">Accessibility</a>
-          </div>
-        </div>
-
-        <!-- Travel Dropdown -->
-        <div class="nav-dropdown" id="nav-travel">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Travel <span class="caret">&#9662;</span>
-          </button>
-          <div class="dropdown-menu" role="menu">
-            <a href="/travel.html">Travel (overview)</a>
-            <a href="/solo.html">Solo</a>
-          </div>
-        </div>
-
-        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
-        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
-        <a class="nav-pill" href="/search.html">Search</a>
-        <a class="nav-pill" href="/about-us.html">About</a>
-      </nav></div>
-
-<header>
-  <h1>Carnival Fantasy</h1>
-  <div>
-    <span class="badge badge--past">Historical (Past)</span>
-    <span class="badge">Carnival Cruise Line</span>
-    <span class="badge">GT: 70,367</span>
-    <span class="badge">Capacity: 2,040</span>
-  </div>
+<!-- Header -->
+<header class="hero-header" role="banner">
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="brand">
+      <a href="/">
+        <img src="/assets/logo_wake_256.png"
+             srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x"
+             width="128" height="130"
+             alt="In the Wake - Home"
+             decoding="async"/>
+      </a>
+      <span class="version-badge">v3.010</span>
+    </div>
+  </nav>
 </header>
 
-<main class="grid grid--2">
-    <!-- ICP-Lite Content Structure -->
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;">
+<!-- Ship Hero Section -->
+<section class="ship-hero" aria-labelledby="ship-title">
+  <h1 id="ship-title">Carnival Fantasy</h1>
+  <p class="tagline">Fantasy Class Pioneer — The Ship That Changed Cruising</p>
+  <div class="badge-row">
+    <span class="badge badge--retired">Retired 2020</span>
+    <span class="badge badge--historic">Historic</span>
+    <span class="badge">Fantasy Class</span>
+    <span class="badge">70,367 GT</span>
+    <span class="badge">2,044 Guests</span>
+    <span class="badge">1990-2020</span>
+  </div>
+</section>
 
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Carnival Fantasy (Carnival) is a Carnival Cruise Line ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
-      </p>
+<!-- Main Content -->
+<main id="main-content" class="page-grid">
+  <div class="main-column">
 
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Cruisers researching Carnival Fantasy (Carnival) or comparing Carnival ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
-      </p>
+    <!-- Retired Banner -->
+    <div class="retired-banner">
+      <h3>Historical Tribute</h3>
+      <p>Carnival Fantasy served Carnival Cruise Line for 30 years (1990-2020). She was sold and scrapped at Aliaga, Turkey in July 2020 following the COVID-19 pandemic suspension. This page honors her legacy as a revolutionary vessel.</p>
+    </div>
 
-      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-        <ul style="margin: 0; padding-left: 1.25rem;">
-          <li><strong>Cruise Line:</strong> Carnival Cruise Line</li>
-          <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
-          <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
+    <!-- First Look Carousel -->
+    <section class="card" aria-labelledby="first-look-title">
+      <header><h2 id="first-look-title">Remembering Carnival Fantasy</h2></header>
+      <div class="content">
+        <div class="carousel">
+          <figure>
+            <img src="/assets/ships/carnival-fantasy1.webp"
+                 alt="Carnival Fantasy at sea"
+                 loading="eager"
+                 width="400" height="200"/>
+            <figcaption>Carnival Fantasy — the ship that launched a class and changed cruising</figcaption>
+          </figure>
+          <figure>
+            <img src="/assets/ships/carnival-fantasy2.webp"
+                 alt="Carnival Fantasy atrium"
+                 loading="lazy"
+                 width="400" height="200"/>
+            <figcaption>The revolutionary glass-topped atrium — first of its kind</figcaption>
+          </figure>
+          <figure>
+            <img src="/assets/ships/carnival-fantasy3.webp"
+                 alt="Carnival Fantasy pool deck"
+                 loading="lazy"
+                 width="400" height="200"/>
+            <figcaption>Classic Fantasy Class pool deck design</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ship Stats -->
+    <section class="card" aria-labelledby="stats-title">
+      <header><h2 id="stats-title">Ship Statistics</h2></header>
+      <div class="content">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-value">70,367</span>
+            <span class="stat-label">Gross Tonnage</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">2,044</span>
+            <span class="stat-label">Guest Capacity</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">920</span>
+            <span class="stat-label">Crew Members</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">10</span>
+            <span class="stat-label">Passenger Decks</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">855 ft</span>
+            <span class="stat-label">Length (260m)</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">21 kn</span>
+            <span class="stat-label">Cruising Speed</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">1990</span>
+            <span class="stat-label">Year Built</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">Finland</span>
+            <span class="stat-label">Helsinki Shipyard</span>
+          </div>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--ink-mid);">
+          <strong>IMO:</strong> 8700773 · <strong>Build Cost:</strong> $225 million · <strong>Godmother:</strong> Tellervo Koivisto
+        </p>
+      </div>
+    </section>
+
+    <!-- Sister Ships -->
+    <section class="card" aria-labelledby="sisters-title">
+      <header><h2 id="sisters-title">Fantasy Class Fleet</h2></header>
+      <div class="content">
+        <p style="margin: 0 0 1rem; font-size: 0.9rem; color: var(--ink-mid);">
+          Carnival Fantasy was the pioneering lead ship of eight Fantasy Class vessels. She established the template that defined Carnival's fleet expansion in the 1990s.
+        </p>
+        <div class="sister-ships">
+          <span class="sister-chip current">Carnival Fantasy ✝</span>
+          <a href="carnival-ecstasy.html" class="sister-chip retired" title="Scrapped 2022">Carnival Ecstasy ✝</a>
+          <a href="carnival-sensation.html" class="sister-chip">Carnival Sensation</a>
+          <a href="carnival-fascination.html" class="sister-chip">Carnival Fascination</a>
+          <a href="carnival-imagination.html" class="sister-chip">Carnival Imagination</a>
+          <a href="carnival-inspiration.html" class="sister-chip retired" title="Scrapped 2020">Carnival Inspiration ✝</a>
+          <a href="carnival-elation.html" class="sister-chip">Carnival Elation</a>
+          <a href="carnival-paradise.html" class="sister-chip">Carnival Paradise</a>
+        </div>
+        <p style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--ink-mid);">✝ indicates ships that have been retired and scrapped</p>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="card" aria-labelledby="timeline-title">
+      <header><h2 id="timeline-title">Complete Timeline</h2></header>
+      <div class="content">
+        <div class="timeline">
+          <div class="timeline-item">
+            <span class="timeline-year">December 1988</span>
+            <p class="timeline-text">Floated out at Kværner Masa-Yards Helsinki New Shipyard, Finland</p>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-year">January 27, 1990</span>
+            <p class="timeline-text">Construction completed — first cruise ship with glass-topped atrium</p>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-year">March 1, 1990</span>
+            <p class="timeline-text">Christened by Tellervo Koivisto (wife of Finnish President) as "Fantasy"</p>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-year">1990-2006</span>
+            <p class="timeline-text">Operated as "Fantasy" — pioneered the Fun Ship experience</p>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-year">2007</span>
+            <p class="timeline-text">Renamed "Carnival Fantasy" to align with fleet branding</p>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-year">2016</span>
+            <p class="timeline-text">Major refurbishment including Guy's Burger Joint and BlueIguana Cantina</p>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-year">March 14, 2020</span>
+            <p class="timeline-text">Final cruise suspended due to COVID-19 pandemic</p>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-year">July 15, 2020</span>
+            <p class="timeline-text">Departed Miami for final voyage to Turkey</p>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-year">July 29, 2020</span>
+            <p class="timeline-text">Beached at Aliaga Ship Recycling Facility, Turkey — end of service after 30 years</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Legacy -->
+    <section class="card" aria-labelledby="legacy-title">
+      <header><h2 id="legacy-title">Her Legacy</h2></header>
+      <div class="content">
+        <p style="margin: 0 0 1rem; line-height: 1.7;">
+          <strong>Carnival Fantasy wasn't just a cruise ship — she was a revolution.</strong> When she debuted in 1990, her soaring glass-topped atrium changed expectations for cruise ship interiors forever. That single design innovation influenced every cruise ship built since.
+        </p>
+        <p style="margin: 0 0 1rem; line-height: 1.7;">
+          As the lead ship of the Fantasy Class, she proved that mid-sized ships could deliver big experiences. Her success led to seven sister ships and established the template for Carnival's "Fun Ship" philosophy that continues today.
+        </p>
+        <p style="margin: 0; line-height: 1.7;">
+          For 30 years, Carnival Fantasy introduced hundreds of thousands of first-time cruisers to the joy of cruising. Her final departure from Miami on July 15, 2020 marked the end of an era — but her influence on modern cruise ship design lives on.
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="card faq" aria-labelledby="faq-title">
+      <header><h2 id="faq-title">Frequently Asked Questions</h2></header>
+      <div class="content">
+        <details>
+          <summary>When was Carnival Fantasy scrapped?</summary>
+          <p>Carnival Fantasy was scrapped in July 2020. She left Miami on July 15, 2020, arrived at the Aliaga Ship Recycling Facility in Turkey on July 29, 2020, and dismantling began in late August 2020.</p>
+        </details>
+        <details>
+          <summary>Why was Carnival Fantasy special?</summary>
+          <p>Carnival Fantasy was the first cruise ship to feature a tall glass-topped atrium, revolutionizing cruise ship interior design. As the lead ship of the Fantasy Class, she set the template for eight successful sister ships and defined the "Fun Ship" concept.</p>
+        </details>
+        <details>
+          <summary>How long did Carnival Fantasy operate?</summary>
+          <p>Carnival Fantasy operated for exactly 30 years, from her maiden voyage on March 1, 1990 to her final voyage in March 2020 when cruise operations were suspended due to COVID-19.</p>
+        </details>
+        <details>
+          <summary>Why was she sold for scrap?</summary>
+          <p>The COVID-19 pandemic accelerated Carnival Corporation's fleet modernization plans. As the oldest ship in the fleet at 30 years, Carnival Fantasy was prioritized for retirement along with Carnival Inspiration to reduce costs during the industry shutdown.</p>
+        </details>
+        <details>
+          <summary>Where was Carnival Fantasy built?</summary>
+          <p>Carnival Fantasy was built at Kværner Masa-Yards Helsinki New Shipyard in Helsinki, Finland. She was christened by Tellervo Koivisto, wife of Finnish President Mauno Koivisto, honoring her Finnish heritage.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- Attribution -->
+    <section class="card" aria-labelledby="attribution-title">
+      <header><h2 id="attribution-title">Sources & Attribution</h2></header>
+      <div class="content">
+        <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.8;">
+          <li><a href="https://en.wikipedia.org/wiki/Carnival_Fantasy" target="_blank" rel="noopener">Wikipedia — Carnival Fantasy</a></li>
+          <li><a href="https://www.cruisemapper.com/ships/Carnival-Fantasy-588" target="_blank" rel="noopener">CruiseMapper — Carnival Fantasy Profile</a></li>
+          <li><a href="https://cruiseindustrynews.com/cruise-news/2022/12/heres-happened-to-carnivals-retired-fantasy-class-ships/" target="_blank" rel="noopener">Cruise Industry News — Fantasy Class Ships</a></li>
+          <li><a href="https://www.cruisehive.com/looking-back-at-the-carnival-fantasy-cruise-ship/40974" target="_blank" rel="noopener">Cruise Hive — Looking Back at Carnival Fantasy</a></li>
         </ul>
       </div>
     </section>
 
-  <article style="grid-column: 1;" class="card">
-    <header><h2>Overview</h2></header>
-    <div class="content">
-      <p class="small"><strong>Year built / entered fleet:</strong> 1990 (1990–2020)</p>
-      <p class="small"><strong>Class / notes:</strong> Fantasy-class, scrapped.</p>
-      <p class="small"><strong>Official ship page:</strong> <a href="https://www.carnival.com/cruise-ships/carnival-fantasy" target="_blank" rel="noopener">View on carnival.com</a></p>
-      <p class="small"><strong>Deck plans:</strong> <a href="https://www.carnival.com/cruise-ships/carnival-fantasy#deck-plans" target="_blank" rel="noopener">Open deck plans</a></p>
-      <p class="small"><strong>CruiseMapper profile:</strong> <a href="#" target="_blank" rel="noopener">—</a></p>
-    </div>
-  </article>
+  </div>
 
-  <aside class="card">
-    <header><h2>Media</h2></header>
-    <div class="content">
-      <p>No curated videos yet. (Placeholder)</p>
-    </div>
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    
-  </aside>
+  <!-- Right Rail -->
+  <aside class="rail" role="complementary" aria-label="Author and quick links">
 
-  <section class="card" style="grid-column:1/-1;">
-    <header><h2>Image Gallery</h2></header>
-    <div class="content">
-      <figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Cruise_ship_icon.svg/320px-Cruise_ship_icon.svg.png" alt="Placeholder image" loading="lazy"/><figcaption>Image placeholder — Wikimedia Commons (CC BY-SA)</figcaption></figure>
-<figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Cruise_ship_icon.svg/320px-Cruise_ship_icon.svg.png" alt="Placeholder image" loading="lazy"/><figcaption>Image placeholder — Wikimedia Commons (CC BY-SA)</figcaption></figure>
-<figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Cruise_ship_icon.svg/320px-Cruise_ship_icon.svg.png" alt="Placeholder image" loading="lazy"/><figcaption>Image placeholder — Wikimedia Commons (CC BY-SA)</figcaption></figure>
-    </div>
-  </section>
-
-    <!-- ICP-Lite FAQ Section -->
-    <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
-      <h2 style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions</h2>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Carnival Fantasy (Carnival)?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Carnival Fantasy (Carnival) offers complimentary dining including the <a href="/restaurants/mdr.html">main dining room</a> and buffet. Specialty restaurants vary by ship class. Check the dining section above for specific venues.</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How do I find the deck plans for Carnival Fantasy (Carnival)?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Deck plans are available through the links on this page. You can also find official deck plans on the Carnival website or in the cruise planner app.</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Where does Carnival Fantasy (Carnival) sail?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Ship deployments vary by season. Check the Carnival website for current itineraries and departure ports for Carnival Fantasy (Carnival).</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Is this information official?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides planning resources and community insights. Always confirm details with Carnival Cruise Line or your travel advisor before booking.</p>
-      </details>
+    <!-- Author Card -->
+    <section class="card author-card" aria-labelledby="author-heading">
+      <h3 id="author-heading" class="sr-only">About the Author</h3>
+      <a href="/authors/ken-baker.html">
+        <img src="/authors/img/ken1_96.webp"
+             srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x"
+             width="96" height="96"
+             alt="Ken Baker"
+             loading="lazy"
+             decoding="async"/>
+      </a>
+      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+      <p>Founder of In the Wake</p>
+      <p>Cruise historian & researcher</p>
     </section>
 
-</div>
+    <!-- Quick Links -->
+    <section class="card" aria-labelledby="quick-links-title">
+      <header><h3 id="quick-links-title">Quick Links</h3></header>
+      <div class="content">
+        <div class="quick-links">
+          <a href="https://en.wikipedia.org/wiki/Carnival_Fantasy" target="_blank" rel="noopener">
+            📚 Wikipedia Article
+          </a>
+          <a href="https://www.cruisemapper.com/ships/Carnival-Fantasy-588" target="_blank" rel="noopener">
+            🗺️ CruiseMapper Profile
+          </a>
+          <a href="/ships/carnival/">
+            🎭 All Carnival Ships
+          </a>
+        </div>
+      </div>
+    </section>
 
-    <!-- RIGHT RAIL -->
-    <aside class="rail" role="complementary" aria-label="Author & articles">
-      <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-          </picture>
-        </a>
-        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-        <p class="tiny">
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-        </p>
-      </section>
+    <!-- Ship Facts -->
+    <section class="card" aria-labelledby="facts-title">
+      <header><h3 id="facts-title">Quick Facts</h3></header>
+      <div class="content" style="font-size: 0.9rem;">
+        <p><strong>Ship Class:</strong> Fantasy Class (Lead)</p>
+        <p><strong>Original Name:</strong> Fantasy</p>
+        <p><strong>Service:</strong> 1990-2020 (30 yrs)</p>
+        <p><strong>Maiden Voyage:</strong> March 1, 1990</p>
+        <p><strong>Final Voyage:</strong> July 15, 2020</p>
+        <p><strong>Builder:</strong> Helsinki Shipyard</p>
+        <p><strong>Build Cost:</strong> $225 million</p>
+        <p><strong>Fate:</strong> Scrapped, Turkey</p>
+      </div>
+    </section>
 
-      <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    </aside>
-  </main>
+  </aside>
+</main>
 
-  <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-    <p class="tiny" style="margin-top: 0.5rem;">
-      <a href="/privacy.html">Privacy</a> ·
-      <a href="/terms.html">Terms</a> ·
-      <a href="/about-us.html">About</a> ·
-      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    </p>
-    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-  </footer>
+<!-- Footer -->
+<footer class="wrap" role="contentinfo">
+  <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+  <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+    <a href="/privacy.html">Privacy</a> ·
+    <a href="/terms.html">Terms</a> ·
+    <a href="/about-us.html">About</a> ·
+    <a href="/accessibility.html">Accessibility</a>
+  </p>
+  <p class="sr-only" aria-hidden="true">Soli Deo Gloria</p>
+</footer>
 
-  <script>
-  (function(){
-    "use strict";
+<!-- Navigation Dropdown Script -->
+<script>
+(function() {
+  'use strict';
+  const dropdowns = document.querySelectorAll('.nav-dropdown');
 
-    /* ===== Recent Articles Rail ===== */
-    (async function recentRail(){
-      const rail = document.getElementById('recent-rail');
-      if(!rail) return;
+  function closeAll() {
+    dropdowns.forEach(dd => {
+      dd.classList.remove('open');
+      const btn = dd.querySelector('button');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    });
+  }
 
-      const fallback = document.getElementById('recent-rail-fallback');
-      if(fallback) fallback.style.display = '';
-
-      async function fetchJSONWithFallback(urls){
-        for (const u of urls){
-          try{
-            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
-            if (res.ok) return await res.json();
-          }catch(err){
-
-          }
+  dropdowns.forEach(dropdown => {
+    const btn = dropdown.querySelector('button');
+    if (btn) {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const isOpen = dropdown.classList.contains('open');
+        closeAll();
+        if (!isOpen) {
+          dropdown.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
         }
-        return null;
-      }
-
-      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
-
-      function setImageWithFallback(imgEl, primary, altPaths=[]){
-        if(!imgEl) return;
-        const stamp='v=3.010.300';
-        const tried=new Set();
-        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
-        function tryNext(){
-          const next=queue.shift();
-          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
-          if(tried.has(next)) return tryNext();
-          tried.add(next);
-          imgEl.src=next;
-        }
-        imgEl.onerror=tryNext;
-        tryNext();
-      }
-
-      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
-      if(!raw) {
-        if(fallback) {
-          fallback.textContent = 'Unable to load articles';
-          fallback.style.display = '';
-        }
-        return;
-      }
-
-      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-      if(!items.length) return;
-
-      const here = location.pathname.replace(/\/+$/,'');
-      const view = items.filter(p=>{
-        const href = pick(p,['url','path'],'#');
-        const norm = (href||'').replace(/\/+$/,'');
-        return norm && norm !== here;
-      }).slice(0,6);
-
-      rail.innerHTML = view.map(p=>{
-        const title = pick(p,['title','name'],'Article');
-        const href  = pick(p,['url','path'],'#');
-        const excerpt = pick(p,['excerpt','description'],'');
-        return `
-          <article class="card" style="display:flex;flex-direction:column;gap:.75rem;padding:.85rem">
-            <div style="display:grid;grid-template-columns:80px 1fr;gap:.75rem;align-items:start">
-              <div style="width:80px;height:60px;overflow:hidden;border-radius:8px;background:#eef4f6;border:1px solid #dfe7ea;flex-shrink:0">
-                <img class="article-thumb" alt="" decoding="async" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-              </div>
-              <div>
-                <h4 style="margin:0 0 .35rem 0;font-size:.9rem;line-height:1.3;font-weight:600">
-                  <a href="\${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">\${title}</a>
-                </h4>
-                \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
-              </div>
-            </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
-      }).join('');
-
-      const cards = [...rail.querySelectorAll('article.card')];
-      cards.forEach((card,i)=>{
-        const p = view[i] || {};
-        const el = card.querySelector('img.article-thumb');
-        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
-        const title = (pick(p,['title','name'],'')||'').toLowerCase();
-
-        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
-
-        // FORCE override for Top-20
-        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
-          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
-        }
-        // Friendly specifics
-        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
-        }
-        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
-          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
-        }
-        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-          primary = '/assets/articles/travel/cover.jpg';
-        }
-
-        // Heuristic fallback
-        if(!primary){
-          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
-          const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
-        }
-
-        const alts = [];
-        if(primary){
-          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
-        }
-        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
-      });
-
-      if(fallback) fallback.style.display = 'none';
-
-      // Announce to screen readers
-      const status = document.getElementById('a11y-status');
-      if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
-      }
-    })();
-  })();
-  </script>
-<!-- Navigation dropdown functionality -->
-    <!-- Navigation dropdown functionality (New Clean Implementation) -->
-  <script>
-  (function() {
-    'use strict';
-    var dropdowns = document.querySelectorAll('.nav-dropdown');
-    function toggleDropdown(dropdown) {
-      var isOpen = dropdown.classList.contains('open');
-      closeAllDropdowns();
-      if (!isOpen) {
-        dropdown.classList.add('open');
-        var btn = dropdown.querySelector('button');
-        if (btn) btn.setAttribute('aria-expanded', 'true');
-      }
-    }
-    function closeAllDropdowns() {
-      dropdowns.forEach(function(dd) {
-        dd.classList.remove('open');
-        var btn = dd.querySelector('button');
-        if (btn) btn.setAttribute('aria-expanded', 'false');
       });
     }
-    dropdowns.forEach(function(dropdown) {
-      var btn = dropdown.querySelector('button');
-      if (btn) {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleDropdown(dropdown);
-        });
-        btn.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') { closeAllDropdowns(); btn.focus(); }
-          if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            dropdown.classList.add('open');
-            btn.setAttribute('aria-expanded', 'true');
-            var firstLink = dropdown.querySelector('.dropdown-menu a');
-            if (firstLink) firstLink.focus();
-          }
-        });
-      }
-      var menu = dropdown.querySelector('.dropdown-menu');
-      if (menu) {
-        menu.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') { closeAllDropdowns(); if (btn) btn.focus(); }
-        });
-      }
-    });
-    document.addEventListener('click', function(e) {
-      var isInsideDropdown = false;
-      dropdowns.forEach(function(dd) { if (dd.contains(e.target)) isInsideDropdown = true; });
-      if (!isInsideDropdown) closeAllDropdowns();
-    });
-  })();
-  </script>
+  });
+
+  document.addEventListener('click', e => {
+    let inside = false;
+    dropdowns.forEach(dd => { if (dd.contains(e.target)) inside = true; });
+    if (!inside) closeAll();
+  });
+})();
+</script>
+
 </body>
 </html>
