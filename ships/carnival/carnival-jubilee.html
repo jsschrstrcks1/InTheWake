@@ -373,54 +373,114 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1" style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start;">
     <style>
       @media (min-width: 980px) {
         .page-grid {
           grid-template-columns: 1fr 360px !important;
         }
       }
+
+      .author-card-vertical {
+        text-align: center;
+      }
+
+      .author-card-vertical .author-avatar {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 1rem;
+      }
+
+      .author-card-vertical h4 {
+        margin: 0.5rem 0 0.25rem;
+      }
+
+      .author-card-vertical p {
+        margin: 0.25rem 0;
+      }
+
+      .rail-list {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .grid-2 {
+        display: grid;
+        gap: 1rem;
+        align-items: stretch;
+      }
+
+      .grid-2 > .card {
+        display: flex;
+        flex-direction: column;
+      }
+
+      @media (min-width: 980px) {
+        .grid-2 {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .ship-stats.card.mini {
+        margin-top: 0.6rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.4rem 0.8rem;
+        font-size: 0.95rem;
+      }
+
+      .stat-line {
+        display: flex;
+        gap: 0.35rem;
+        justify-content: space-between;
+        border-bottom: 1px dashed #e4e9ec;
+        padding: 0.2rem 0;
+      }
+
+      .stat-key {
+        color: #355;
+        font-weight: 600;
+      }
+
+      .stat-val {
+        color: #024;
+      }
     </style>
 
-    <!-- RIGHT RAIL -->
+    <!-- Right Rail -->
     <aside class="rail" role="complementary" aria-label="Key facts, author & articles" style="grid-column: 2; grid-row: 1;">
-      <!-- Ship Stats Rail Card -->
-      <section class="ship-stats card mini" aria-labelledby="statsHeading">
-        <h3 id="statsHeading">Key Facts About Carnival Jubilee</h3>
-        <div id="ship-stats" class="stats-grid" data-slug="carnival-jubilee"></div>
-        <script type="application/json" id="ship-stats-fallback">
-        {
-          "slug": "carnival-jubilee",
-          "name": "Carnival Jubilee",
-          "class": "Excel Class",
-          "entered_service": 2023,
-          "gt": "183,521 GT",
-          "guests": "5,362 (double) ~6,630 (max)",
-          "crew": "1,735",
-          "length": "1,130 ft (344 m)",
-          "beam": "137 ft (42 m)",
-          "registry": "Bahamas"
-        }
-        </script>
-      </section>
+      <!-- Quick Answer / Best For / Key Facts -->
+      <section class="page-intro" style="grid-column: 1 / -1; max-width: 1100px; margin: 1rem auto 1.5rem;">
+        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+          <strong>Quick Answer:</strong> Carnival Jubilee is a Carnival ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
+        </p>
 
-      <!-- Sister Ships -->
-      <section class="card mini carousel related-ships" aria-labelledby="related-ships">
-        <h3 id="related-ships" class="card-title">Excel Class — Sister Ships</h3>
-        <div class="related-pills" aria-label="Excel Class ships">
-          <a class="pill" href="/ships/carnival/carnival-mardi-gras.html">Carnival Mardi Gras</a>
-          <a class="pill" href="/ships/carnival/carnival-celebration.html">Carnival Celebration</a>
+        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+          <strong>Best For:</strong> Cruisers researching Carnival Jubilee or comparing Carnival ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
+        </p>
+
+        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li><strong>Cruise Line:</strong> Carnival Cruise Line</li>
+            <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
+            <li><strong>Home Port:</strong> Galveston, Texas (year-round)</li>
+          </ul>
         </div>
-        <p style="text-align:center"><a href="/ships.html" class="btn">See All Ships</a></p>
       </section>
 
-      <!-- Author Card -->
+      <!-- Author card (Vertical Layout) -->
       <section class="card author-card-vertical" aria-labelledby="author-heading">
         <h3 id="author-heading">About the Author</h3>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
           </picture>
         </a>
         <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
@@ -430,194 +490,236 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         </p>
       </section>
 
-      <!-- Explore Carnival Classes -->
-      <section class="card mini carousel related-classes" aria-labelledby="related-classes">
-        <h3 id="related-classes" class="card-title">Explore Carnival Classes</h3>
-        <p class="small">Hop between ship classes to compare size, venues, and vibes.</p>
-        <div class="class-pills">
-          <a class="pill" href="/cruise-lines/carnival.html#excel-class">Excel Class</a>
-          <a class="pill" href="/cruise-lines/carnival.html#vista-class">Vista Class</a>
-          <a class="pill" href="/cruise-lines/carnival.html#dream-class">Dream Class</a>
-          <a class="pill" href="/cruise-lines/carnival.html#conquest-class">Conquest Class</a>
-          <a class="pill" href="/cruise-lines/carnival.html#spirit-class">Spirit Class</a>
-        </div>
-      </section>
-
-      <!-- Recent Articles -->
+      <!-- Recent Stories rail -->
       <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
         <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections.
+          Real cruising experiences, practical guides, and heartfelt reflections from our community.
         </p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
+
+      <!-- Whimsical Distance Units -->
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+      </section>
     </aside>
 
-    <!-- MAIN CONTENT COLUMN -->
+    <!-- Main Content Column -->
     <div style="grid-column: 1;">
-      <!-- Page Intro -->
-      <section class="page-intro" aria-label="Carnival Jubilee overview">
+
+      <!-- ICP-Lite: Page Intro -->
+      <section class="page-intro" style="max-width: 1100px; margin: 1rem auto 1.5rem;" aria-label="Carnival Jubilee overview">
         <h1 style="font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--sea); margin: 0.75rem 0 0.5rem;">Carnival Jubilee — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
 
-        <p style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-          <strong style="color: var(--sea, #0e6e8e);">Looking for Carnival Jubilee planning info?</strong>
-          <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Carnival cruise.</span>
+        <p style="margin: 0.5rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope); background: #f7fdff; border-radius: 8px; font-size: 0.95rem; color: #134;">
+          <strong style="display: block; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: #567; margin-bottom: 0.15rem;">Looking for Carnival Jubilee planning info?</strong>
+          <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Carnival cruise aboard Carnival Jubilee.</span>
         </p>
 
-        <p>
+        <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
           Carnival Jubilee tends to suit travelers who prefer Carnival's signature "Fun Ship" atmosphere with mega-ship amenities.
           It's ideal if you want the BOLT roller coaster, Texas-themed entertainment zones, and year-round sailings from Galveston.
           If you're looking for a smaller or more intimate experience, you may want to explore Carnival's Spirit or Conquest class ships.
         </p>
-      </section>
 
-      <!-- First Look Photo Carousel -->
-      <section class="card" aria-labelledby="first-look">
-        <h2 id="first-look">A First Look</h2>
+      <!-- Row 1: First Look + Dining -->
+      <section class="grid-2">
+        <!-- First Look + Stats -->
+        <section class="card" aria-labelledby="first-look">
+          <h2 id="first-look">A First Look</h2>
 
-        <div class="swiper firstlook" aria-label="Carnival Jubilee photo carousel">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <figure>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Carnival_Jubilee_1760.jpg/1280px-Carnival_Jubilee_1760.jpg"
-                     alt="Carnival Jubilee docked at Galveston"
-                     loading="lazy">
-                <figcaption class="tiny">Carnival Jubilee at port. Photo: Wikimedia Commons (CC BY-SA 4.0)</figcaption>
-              </figure>
+          <div class="swiper firstlook" aria-label="Carnival Jubilee photo carousel">
+            <div class="swiper-wrapper">
+              <!-- 1 -->
+              <div class="swiper-slide">
+                <figure>
+                  <img
+                    src="/assets/ships/carnival-jubilee1.webp?v=3.010.300"
+                    alt="Carnival Jubilee at port"
+                    loading="lazy"
+                    onerror="(function(i){var fb=['/assets/ships/carnival/carnival-jubilee/carnival-jubilee1.webp','/assets/ships/carnival-jubilee1.jpg'];i._fbi=(i._fbi||0);if(i._fbi<fb.length){i.src=fb[i._fbi++];}})(this)">
+                  <figcaption class="tiny">Photo served locally (attribution in page footer).</figcaption>
+                </figure>
+              </div>
+              <!-- 2 -->
+              <div class="swiper-slide">
+                <figure>
+                  <img
+                    src="/assets/ships/carnival-jubilee2.webp?v=3.010.300"
+                    alt="Carnival Jubilee at sea"
+                    loading="lazy"
+                    onerror="(function(i){var fb=['/assets/ships/carnival/carnival-jubilee/carnival-jubilee2.webp','/assets/ships/carnival-jubilee2.jpg'];i._fbi=(i._fbi||0);if(i._fbi<fb.length){i.src=fb[i._fbi++];}})(this)">
+                  <figcaption class="tiny">Photo served locally (attribution in page footer).</figcaption>
+                </figure>
+              </div>
+              <!-- 3 -->
+              <div class="swiper-slide">
+                <figure>
+                  <img
+                    src="/assets/ships/carnival-jubilee3.webp?v=3.010.300"
+                    alt="Carnival Jubilee stern view"
+                    loading="lazy"
+                    onerror="(function(i){var fb=['/assets/ships/carnival/carnival-jubilee/carnival-jubilee3.webp','/assets/ships/carnival-jubilee3.jpg'];i._fbi=(i._fbi||0);if(i._fbi<fb.length){i.src=fb[i._fbi++];}})(this)">
+                  <figcaption class="tiny">Photo served locally (attribution in page footer).</figcaption>
+                </figure>
+              </div>
             </div>
-            <div class="swiper-slide">
-              <figure>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Carnival_Jubilee_at_Meyer_Werft_17.jpg/1280px-Carnival_Jubilee_at_Meyer_Werft_17.jpg"
-                     alt="Carnival Jubilee under construction at Meyer Werft"
-                     loading="lazy">
-                <figcaption class="tiny">Under construction at Meyer Werft, Germany. Photo: Wikimedia Commons (CC BY-SA 4.0)</figcaption>
-              </figure>
-            </div>
-            <div class="swiper-slide">
-              <figure>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Carnival_Jubilee_News_Years_Departure.jpg/1280px-Carnival_Jubilee_News_Years_Departure.jpg"
-                     alt="Carnival Jubilee New Year's departure from Galveston"
-                     loading="lazy">
-                <figcaption class="tiny">New Year's departure from Galveston. Photo: Wikimedia Commons (CC BY-SA 4.0)</figcaption>
-              </figure>
-            </div>
+            <div class="swiper-pagination" aria-hidden="true"></div>
+            <div class="swiper-button-prev" aria-label="Previous image"></div>
+            <div class="swiper-button-next" aria-label="Next image"></div>
           </div>
-          <div class="swiper-pagination" aria-hidden="true"></div>
-          <div class="swiper-button-prev" aria-label="Previous image"></div>
-          <div class="swiper-button-next" aria-label="Next image"></div>
-        </div>
+
+          <!-- Stats -->
+          <section class="ship-stats card mini" aria-labelledby="statsHeading">
+            <h3 id="statsHeading">Key Facts About Carnival Jubilee</h3>
+            <div id="ship-stats" class="stats-grid" data-slug="carnival-jubilee"></div>
+            <script type="application/json" id="ship-stats-fallback">
+            {
+              "slug": "carnival-jubilee",
+              "name": "Carnival Jubilee",
+              "class": "Excel Class",
+              "entered_service": 2023,
+              "gt": "183,521 GT",
+              "guests": "5,362 (double) ~6,630 (max)",
+              "crew": "1,735",
+              "length": "1,130 ft (344 m)",
+              "beam": "137 ft (42 m)",
+              "registry": "Bahamas"
+            }
+            </script>
+          </section>
+
+          <!-- Sister Ships -->
+          <section class="card mini carousel related-ships" aria-labelledby="related-ships">
+            <h3 id="related-ships" class="card-title">Excel Class — Sister Ships</h3>
+            <div class="related-pills" aria-label="Excel Class ships">
+              <a class="pill" href="/ships/carnival/carnival-mardi-gras.html">Carnival Mardi Gras</a>
+              <a class="pill" href="/ships/carnival/carnival-celebration.html">Carnival Celebration</a>
+            </div>
+            <p style="text-align:center"><a href="/ships.html" class="btn">See All Ships</a></p>
+          </section>
+
+          <!-- Ship Classes -->
+          <section class="card mini carousel related-classes" aria-labelledby="related-classes">
+            <h3 id="related-classes" class="card-title">Explore Carnival Classes</h3>
+            <p class="small">Hop between ship classes to compare size, venues, and vibes.</p>
+            <div class="class-pills">
+              <a class="pill" href="/cruise-lines/carnival.html#excel-class">Excel Class</a>
+              <a class="pill" href="/cruise-lines/carnival.html#vista-class">Vista Class</a>
+              <a class="pill" href="/cruise-lines/carnival.html#dream-class">Dream Class</a>
+              <a class="pill" href="/cruise-lines/carnival.html#conquest-class">Conquest Class</a>
+              <a class="pill" href="/cruise-lines/carnival.html#spirit-class">Spirit Class</a>
+            </div>
+            <p style="text-align:center"><a href="/ships.html" class="btn">Browse All Ships</a></p>
+          </section>
+        </section>
+
+        <!-- Dining -->
+        <section id="dining-card" class="card" data-ship="Carnival Jubilee" aria-labelledby="diningHeading">
+          <h2 id="diningHeading">Dining Venues on Carnival Jubilee <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+
+          <img id="dining-hero" class="card-hero"
+               src="/assets/ships/carnival/carnival-jubilee/dining-hero.jpg?v=3.010.300"
+               alt="Carnival Jubilee dining venue" loading="lazy"
+               onerror="(function(img){var fb=['/assets/ships/carnival-jubilee-dining.webp','/assets/img/Cordelia_Empress_Food_Court.webp'];img._fbi=(img._fbi||0);if(img._fbi<fb.length){img.src=fb[img._fbi++];}})(this)"/>
+
+          <div class="dining-content" id="dining-content" aria-live="polite">
+            <h3>Complimentary Dining</h3>
+            <ul>
+              <li><strong>Main Dining Room (Sapphire/Sunrise)</strong> — Traditional multi-course dinners</li>
+              <li><strong>Lido Marketplace</strong> — Buffet-style breakfast, lunch, and dinner</li>
+              <li><strong>Guy's Burger Joint</strong> — Guy Fieri's famous burgers</li>
+              <li><strong>BlueIguana Cantina</strong> — Fresh Mexican fare, tacos & burritos</li>
+              <li><strong>Pizzeria del Capitano</strong> — 24-hour pizza</li>
+            </ul>
+
+            <h3>Specialty Dining (Additional Cost)</h3>
+            <ul>
+              <li><strong>Fahrenheit 555 Steakhouse</strong> — Premium steaks and seafood</li>
+              <li><strong>Bonsai Sushi</strong> — Fresh sushi and Japanese cuisine</li>
+              <li><strong>Cucina del Capitano</strong> — Italian family-style dining</li>
+              <li><strong>Emeril's Bistro 1396</strong> — Emeril Lagasse's Creole-inspired cuisine</li>
+              <li><strong>Rudi's Seagrill</strong> — Fresh seafood</li>
+              <li><strong>The Brass Magnolia</strong> — Texas BBQ and comfort food</li>
+            </ul>
+          </div>
+
+          <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-jubilee","aliases":["Carnival Jubilee"]}</script>
+
+          <p class="tiny">Prices can change at any time. These reflect the last sailing captured.</p>
+        </section>
       </section>
 
-      <!-- Dining Section -->
-      <section id="dining-card" class="card" data-ship="Carnival Jubilee" aria-labelledby="diningHeading">
-        <h2 id="diningHeading">Dining Venues on Carnival Jubilee</h2>
-
-        <p>Carnival Jubilee features an extensive array of dining options, from complimentary venues to specialty restaurants:</p>
-
-        <div class="dining-content" id="dining-content" aria-live="polite">
-          <h3>Complimentary Dining</h3>
-          <ul>
-            <li><strong>Main Dining Room (Sapphire/Sunrise)</strong> — Traditional multi-course dinners</li>
-            <li><strong>Lido Marketplace</strong> — Buffet-style breakfast, lunch, and dinner</li>
-            <li><strong>Guy's Burger Joint</strong> — Guy Fieri's famous burgers</li>
-            <li><strong>BlueIguana Cantina</strong> — Fresh Mexican fare, tacos & burritos</li>
-            <li><strong>Pizzeria del Capitano</strong> — 24-hour pizza</li>
-            <li><strong>Deli</strong> — Sandwiches and deli favorites</li>
-          </ul>
-
-          <h3>Specialty Dining (Additional Cost)</h3>
-          <ul>
-            <li><strong>Fahrenheit 555 Steakhouse</strong> — Premium steaks and seafood</li>
-            <li><strong>Bonsai Sushi</strong> — Fresh sushi and Japanese cuisine</li>
-            <li><strong>Cucina del Capitano</strong> — Italian family-style dining</li>
-            <li><strong>Emeril's Bistro 1396</strong> — Emeril Lagasse's Creole-inspired cuisine</li>
-            <li><strong>Rudi's Seagrill</strong> — Fresh seafood</li>
-            <li><strong>Bonsai Teppanyaki</strong> — Hibachi-style cooking</li>
-            <li><strong>Shaq's Big Chicken</strong> — Shaquille O'Neal's fried chicken</li>
-            <li><strong>The Brass Magnolia</strong> — Texas BBQ and comfort food</li>
-          </ul>
-        </div>
-
-        <script type="application/json" id="dining-data-source">
-        {"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-jubilee","aliases":["Carnival Jubilee"]}
-        </script>
-
-        <p class="tiny">Prices can change at any time.</p>
-      </section>
-
-      <!-- Logbook Section -->
+      <!-- Logbook -->
       <section class="card note-kens-logbook" aria-labelledby="logbook">
         <h2 id="logbook">The Logbook — Tales From the Wake</h2>
-        <div id="logbook-stories" class="prose">
-          <p>Carnival Jubilee represents Carnival's most ambitious ship yet — the first Excel-class vessel built at Meyer Werft in Germany. Christened by Grammy-winning artist Gwen Stefani in December 2023, she's become the crown jewel of Carnival's Galveston operations.</p>
-          <p>What makes Jubilee special is her Texas soul. While sharing the Excel-class DNA with Mardi Gras and Celebration, she features unique zones like The Shores (a Gulf Coast-inspired area) and maintains the signature BOLT roller coaster that loops above the top deck — the first roller coaster at sea on any cruise ship.</p>
-        </div>
+        <div id="logbook-stories" class="prose"></div>
       </section>
 
-      <!-- Video Section -->
+      <!-- Videos -->
       <section class="card" aria-labelledby="video-highlights">
         <h2 id="video-highlights">Watch: Carnival Jubilee Highlights</h2>
-        <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
+        <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours (including accessible where available).</p>
         <div class="swiper videos" aria-label="Featured video carousel">
           <div class="swiper-wrapper" id="featuredVideos"></div>
           <div class="swiper-pagination" aria-hidden="true"></div>
           <div class="swiper-button-prev" aria-label="Previous slide"></div>
           <div class="swiper-button-next" aria-label="Next slide"></div>
         </div>
-        <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync.</div>
+        <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
       </section>
 
-      <!-- Deck Plans Section -->
-      <section class="card" aria-labelledby="deck-plans">
-        <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
-        <p>Carnival Jubilee has 15 passenger decks. Access the official deck plans to find your stateroom, dining venues, pools, and entertainment areas.</p>
-        <p><a class="btn" href="https://www.carnival.com/cruise-ships/carnival-jubilee#deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
-        <figure>
-          <img src="/assets/ship-map.png" alt="Carnival Jubilee simplified deck plan preview" loading="lazy"/>
-        </figure>
+      <!-- Row: Deck Plans + Live Tracker -->
+      <section class="grid-2">
+        <section class="card" aria-labelledby="deck-plans">
+          <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
+          <p><a class="btn" href="https://www.carnival.com/cruise-ships/carnival-jubilee#deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
+          <figure>
+            <img src="/assets/ship-map.png" alt="Carnival Jubilee simplified deck plan preview" loading="lazy"/>
+          </figure>
+        </section>
+
+        <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9851737" data-name="CARNIVAL-JUBILEE">
+          <h2 id="liveTrackHeading">Where Is Jubilee Right Now?</h2>
+          <p>See the ship's current position, speed, and next port on a live tracker.</p>
+
+          <div id="vf-tracker-container" style="width:100%;height:500px;position:relative;"></div>
+          <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
+        </section>
       </section>
 
-      <!-- Live Tracker Section -->
-      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9851737" data-name="CARNIVAL-JUBILEE">
-        <h2 id="liveTrackHeading">Where Is Jubilee Right Now?</h2>
-        <p>See the ship's current position, speed, and next port on a live tracker.</p>
-
-        <div id="vf-tracker-container" style="width:100%;height:500px;position:relative;"></div>
-        <p class="tiny">See <a href="/ports.html">ports</a> for more information.</p>
-      </section>
-
-      <!-- FAQ Section -->
+      <!-- FAQ Section (ICP-Lite) -->
       <section class="card faq" aria-labelledby="faq-heading">
         <h2 id="faq-heading">Frequently Asked Questions</h2>
 
-        <details>
-          <summary>What makes Carnival Jubilee unique compared to other Carnival ships?</summary>
-          <p>Carnival Jubilee is an Excel-class ship featuring the <strong>BOLT roller coaster</strong> at sea, LNG-powered propulsion for cleaner operations, and Texas-themed entertainment zones including a Currents underwater zone. At 183,521 GT with 5,362 guests, it's one of Carnival's largest ships.</p>
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
+          <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What makes Carnival Jubilee unique compared to other Carnival ships?</summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">Carnival Jubilee is an Excel-class ship featuring the BOLT roller coaster at sea, LNG-powered propulsion for cleaner operations, and Texas-themed entertainment zones including a Currents underwater zone. At 183,521 GT with 5,362 guests, it's one of Carnival's largest ships.</p>
         </details>
 
-        <details>
-          <summary>Which ships are in the same class as Carnival Jubilee?</summary>
-          <p>Carnival Jubilee is part of the <strong>Excel Class</strong> (also called XL-Class or Excellence), which includes <a href="/ships/carnival/carnival-mardi-gras.html">Carnival Mardi Gras</a> (2020) and <a href="/ships/carnival/carnival-celebration.html">Carnival Celebration</a> (2022). A fourth Excel-class ship is planned for 2027.</p>
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
+          <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Which ships are in the same class as Carnival Jubilee?</summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">Carnival Jubilee is part of the <a href="/cruise-lines/carnival.html#excel-class">Excel Class</a>, which includes <a href="/ships/carnival/carnival-mardi-gras.html">Carnival Mardi Gras</a> (2020) and <a href="/ships/carnival/carnival-celebration.html">Carnival Celebration</a> (2022). A fourth Excel-class ship is planned for 2027.</p>
         </details>
 
-        <details>
-          <summary>What dining options are available on Carnival Jubilee?</summary>
-          <p>Carnival Jubilee offers multiple dining venues including the main dining room, Lido Marketplace buffet, Guy's Burger Joint, BlueIguana Cantina, Cucina del Capitano, Fahrenheit 555 steakhouse, Bonsai Sushi, <a href="/restaurants.html">Emeril's Bistro 1396</a>, and Rudi's Seagrill.</p>
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
+          <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Carnival Jubilee?</summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">Carnival Jubilee offers multiple dining venues including the main dining room, Lido Marketplace buffet, Guy's Burger Joint, BlueIguana Cantina, Cucina del Capitano, Fahrenheit 555 steakhouse, Bonsai Sushi, and Emeril's Bistro 1396. See the <a href="#dining-card">Dining Venues section</a> above for current pricing and full details.</p>
         </details>
 
-        <details>
-          <summary>Where does Carnival Jubilee typically sail?</summary>
-          <p>Carnival Jubilee sails year-round from <a href="/ports.html">Galveston, Texas</a>, primarily offering 7-day Western Caribbean itineraries to destinations including Cozumel, Costa Maya, Roatán, and Mahogany Bay.</p>
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
+          <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Where does Carnival Jubilee typically sail?</summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">Carnival Jubilee sails year-round from Galveston, Texas, primarily offering 7-day Western Caribbean itineraries to destinations including Cozumel, Costa Maya, Roatán, and Mahogany Bay.</p>
         </details>
 
-        <details>
-          <summary>How can I see Carnival Jubilee's current location?</summary>
-          <p>Use the <a href="#liveTrackHeading">live ship tracker</a> on this page to see the ship's current position, speed, and next port in real-time.</p>
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0;">
+          <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How can I see Carnival Jubilee's current location?</summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">Use the <a href="#liveTrackHeading">live ship tracker</a> on this page (in the "Where Is Jubilee Right Now?" section) to see the ship's current position, speed, and next port in real-time.</p>
         </details>
       </section>
 
-      <!-- Attribution Section -->
+      <!-- Attribution -->
       <section class="card attributions">
         <h2>Image Attributions</h2>
         <ul>
@@ -627,7 +729,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           </li>
         </ul>
       </section>
-    </div>
+    </div><!-- End main content column -->
   </main>
 
   <!-- FOOTER -->
@@ -660,115 +762,144 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   })();
   </script>
 
-  <!-- ===== Logbook Loader ===== -->
+  <!-- ===== Logbook loader (safe absolute fetch + a11y carousel) ===== -->
   <script>
   (function initShipLogbook(){
-    const container = document.getElementById('logbook-stories');
-    if(!container) return;
-    // Logbook stories are inline for this ship
+    const mount=document.getElementById('logbook-stories'); if(!mount) return;
+    function norm(s){return String(s||'').toLowerCase().replace(/'/g,"'").trim();}
+    function abs(p){return (window._abs?_abs(p):p);}
+    function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
+    function getShipContext(){
+      const stats=document.getElementById('ship-stats');
+      const attrSlug=(stats&&stats.getAttribute('data-slug'))||'';
+      const m=location.pathname.match(/\/ships\/([^/]+)\/([^/.]+)/i);
+      const line=(m&&m[1])||'carnival'; const inferred=(m&&m[2])||'';
+      return {line:line.toLowerCase(),slug:(attrSlug||inferred||'carnival-jubilee').toLowerCase()};
+    }
+    const ctx=getShipContext();
+    const shortSlug=ctx.slug.replace('carnival-',''); const SOURCES=[abs('/ships/'+ctx.line+'/assets/'+ctx.slug+'.json'),abs('/ships/'+ctx.line+'/assets/'+shortSlug+'.json'),abs('/assets/data/logbook/'+ctx.line+'/'+ctx.slug+'.json'),abs('/assets/data/ships/'+ctx.line+'/'+ctx.slug+'.json')];
+    function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+      return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
+    function mdToHtml(src){let html=String(src||'').trim(); if(!html) return '';
+      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
+      html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html.replace(/^<p>\s*<\/p>/,'');}
+    const state={i:0,items:[]};
+    function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');
+      const body=String(p.markdown||p.body||p.content||p.html||p.text||p.story||p.notes||'').trim(); if(!body) return '';
+      return '<article class="story" aria-live="polite"><h3 tabindex="0">'+title+'</h3><div class="story-body">'+mdToHtml(body)+'</div></article>';}
+    function ensureNav(){
+      if(document.getElementById('logbook-nav')) return;
+      const nav=document.createElement('nav'); nav.id='logbook-nav'; nav.className='logbook-nav'; nav.setAttribute('aria-label','Logbook navigation');
+      const prev=document.createElement('button'); prev.type='button'; prev.className='logbook-btn logbook-prev'; prev.textContent='‹ Previous'; prev.setAttribute('aria-label','Previous story');
+      const next=document.createElement('button'); next.type='button'; next.className='logbook-btn logbook-next'; next.textContent='Next ›'; next.setAttribute('aria-label','Next story');
+      nav.append(prev,next); mount.before(nav);
+      prev.onclick=()=>{ state.i=clamp(state.i-1,0,state.items.length-1); renderCurrent(); };
+      next.onclick=()=>{ state.i=clamp(state.i+1,0,state.items.length-1); renderCurrent(); };
+    }
+    function renderCurrent(){
+      const i=state.i,arr=state.items; if(!arr.length){mount.innerHTML='<p class="tiny">No logbook entries yet.</p>'; return;}
+      const html=renderOne(arr[i]); mount.innerHTML=html;
+      const nav=document.getElementById('logbook-nav'); if(!nav) return;
+      nav.querySelector('.logbook-prev').disabled=(i===0);
+      nav.querySelector('.logbook-next').disabled=(i===arr.length-1);
+    }
+    fetchFirst().then(data=>{
+      if(!data) {
+        // Fallback inline content if no JSON found
+        mount.innerHTML='<article class="story"><h3>Carnival Jubilee — Texas Soul</h3><div class="story-body"><p>Carnival Jubilee represents Carnival\'s most ambitious ship yet — the first Excel-class vessel built at Meyer Werft in Germany. Christened by Grammy-winning artist Gwen Stefani in December 2023, she\'s become the crown jewel of Carnival\'s Galveston operations.</p><p>What makes Jubilee special is her Texas soul. While sharing the Excel-class DNA with Mardi Gras and Celebration, she features unique zones like The Shores (a Gulf Coast-inspired area) and maintains the signature BOLT roller coaster that loops above the top deck — the first roller coaster at sea on any cruise ship.</p></div></article>';
+        return;
+      }
+      const arr=data.personas||data.personas||data.perspectives||data.logbook||data.stories||data.entries||[];
+      if(!arr.length) return;
+      state.items=arr; state.i=0; ensureNav(); renderCurrent();
+    });
   })();
   </script>
 
-  <!-- ===== Video Carousel Loader ===== -->
+  <!-- ===== Video carousel loader ===== -->
   <script>
   (function initVideos(){
-    const abs = window._abs || function(p){ return p; };
-    const container = document.getElementById('featuredVideos');
-    const fallback = document.getElementById('videoFallback');
-    if(!container) return;
-
-    const SOURCES=[abs('/assets/data/videos/carnival-jubilee.json'),abs('/ships/carnival/assets/carnival-jubilee-videos.json')];
-
-    async function loadVideos(){
-      for(const url of SOURCES){
-        try{
-          const res = await fetch(url, {credentials:'omit'});
-          if(!res.ok) continue;
-          const data = await res.json();
-          const videos = Array.isArray(data) ? data : (data.videos || []);
-          if(videos.length){
-            renderVideos(videos);
-            return;
-          }
-        }catch(_){}
-      }
-      if(fallback) fallback.classList.remove('hidden');
+    const mount=document.getElementById('featuredVideos'); if(!mount) return;
+    const fallback=document.getElementById('videoFallback');
+    function abs(p){return (window._abs?_abs(p):p);}
+    function getVideoURL(videoId,provider){
+      if(!videoId) return null;
+      if(provider==='youtube'||!provider) return 'https://www.youtube-nocookie.com/embed/'+videoId+'?rel=0&modestbranding=1';
+      if(provider==='vimeo') return 'https://player.vimeo.com/video/'+videoId+'?title=0&byline=0&portrait=0';
+      return null;
     }
-
-    function renderVideos(videos){
-      container.innerHTML = videos.slice(0,8).map(v=>`
-        <div class="swiper-slide">
-          <div class="video-card">
-            <a href="${v.url||'#'}" target="_blank" rel="noopener" aria-label="Watch: ${v.title||'Video'}">
-              <img src="${v.thumbnail||'/assets/video-placeholder.jpg'}" alt="${v.title||'Video thumbnail'}" loading="lazy"/>
-              <span class="video-title">${v.title||'Video'}</span>
-            </a>
-          </div>
-        </div>
-      `).join('');
-
-      if(window.__swiperReady && window.Swiper){
-        new Swiper('.swiper.videos',{
-          slidesPerView:1,spaceBetween:16,
-          breakpoints:{640:{slidesPerView:2},960:{slidesPerView:3}},
-          pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
-          navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
-          a11y:{enabled:true}
-        });
+    function renderVideos(arr){
+      if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
+      mount.innerHTML=arr.map(v=>{
+        const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
+        const title=String(v.title||'Carnival Jubilee').replace(/</g,'&lt;');
+        return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
+      }).join('');
+      if(mount.children.length&&window.__swiperReady&&window.Swiper){
+        setTimeout(()=>{
+          try{
+            new Swiper('.swiper.videos',{
+              loop:false,lazy:true,watchOverflow:true,
+              pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
+              navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
+              a11y:{enabled:true}
+            });
+          }catch(_){}
+        },150);
       }
     }
-
-    loadVideos();
+    function fetchVideoData(){
+      const SOURCES=[abs('/assets/data/videos/carnival/carnival-jubilee.json'),abs('/ships/carnival/assets/carnival-jubilee-videos.json')];
+      function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+        return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+      return tryFetch();
+    }
+    fetchVideoData().then(data=>{ if(data) renderVideos(data.videos||data); });
   })();
   </script>
 
-  <!-- ===== Ship Stats Loader ===== -->
+  <!-- ===== Ship stats loader ===== -->
   <script>
   (function initStats(){
-    const abs = window._abs || function(p){ return p; };
-    const container = document.getElementById('ship-stats');
-    const fallbackEl = document.getElementById('ship-stats-fallback');
-    if(!container) return;
+    const mount=document.getElementById('ship-stats'); if(!mount) return;
+    const fallbackEl=document.getElementById('ship-stats-fallback');
+    function abs(p){return (window._abs?_abs(p):p);}
+    function renderStats(obj){
+      if(!obj) return;
+      const keys=['class','entered_service','gt','guests','crew','length','beam','registry'];
+      const labels={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests',crew:'Crew',length:'Length',beam:'Beam',registry:'Registry'};
+      mount.innerHTML=keys.map(k=>{
+        const val=obj[k]; if(!val) return '';
+        let statHtml = '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;')+'</span>';
 
-    const SOURCES=[abs('/assets/data/ships/carnival-jubilee.json'),abs('/ships/carnival/assets/carnival-jubilee.json')];
+        // Add fun distance conversions for length and beam
+        if((k==='length'||k==='beam') && window.funDistance){
+          const feetMatch = String(val).match(/(\d+(?:,\d+)?)\s*(?:ft|feet)/i);
+          if(feetMatch){
+            const feet = parseInt(feetMatch[1].replace(/,/g,''));
+            const conversion = k==='length' ? window.funDistance.shipLength(feet) : window.funDistance.shipBeam(feet);
+            if(conversion && (conversion.practical || conversion.absurd)){
+              const parts = [];
+              if(conversion.practical) parts.push(conversion.practical);
+              if(conversion.absurd) parts.push(conversion.absurd);
+              if(parts.length > 0){
+                statHtml += '<span class="stat-fun">'+parts.join(', or ')+'</span>';
+              }
+            }
+          }
+        }
 
-    async function loadStats(){
-      for(const url of SOURCES){
-        try{
-          const res = await fetch(url, {credentials:'omit'});
-          if(!res.ok) continue;
-          const data = await res.json();
-          renderStats(data);
-          return;
-        }catch(_){}
-      }
-      // Use fallback JSON
-      if(fallbackEl){
-        try{
-          const data = JSON.parse(fallbackEl.textContent);
-          renderStats(data);
-        }catch(_){}
-      }
-    }
-
-    function renderStats(data){
-      const fields = [
-        {key:'class', label:'Class'},
-        {key:'entered_service', label:'Entered Service'},
-        {key:'gt', label:'Gross Tonnage'},
-        {key:'guests', label:'Guests'},
-        {key:'crew', label:'Crew'},
-        {key:'length', label:'Length'},
-        {key:'beam', label:'Beam'},
-        {key:'registry', label:'Registry'}
-      ];
-      container.innerHTML = fields.map(f=>{
-        const val = data[f.key];
-        return val ? `<div class="stat"><span class="stat-label">${f.label}</span><span class="stat-value">${val}</span></div>` : '';
+        statHtml += '</div>';
+        return statHtml;
       }).join('');
     }
-
-    loadStats();
+    if(fallbackEl){
+      try{ const fb=JSON.parse(fallbackEl.textContent||'{}'); if(fb) renderStats(fb); }catch(_){}
+    }
+    const SOURCES=[abs('/assets/data/ships/carnival-jubilee.json'),abs('/ships/carnival/assets/carnival-jubilee.json')];
+    function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+      return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+    tryFetch().then(data=>{ if(data) renderStats(data); });
   })();
   </script>
 
