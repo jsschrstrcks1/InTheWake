@@ -1,972 +1,259 @@
-<!DOCTYPE html>
+<!doctype html>
 <!--
-╔═══════════════════════════════════════════════════════════════════════════════╗
-║ Soli Deo Gloria — To God Alone Be the Glory                                  ║
-║                                                                               ║
-║ All work on this project is offered as a gift to God.                        ║
-║ "Trust in the LORD with all your heart..." — Proverbs 3:5                    ║
-║ "Whatever you do, work heartily, as for the Lord..." — Colossians 3:23       ║
-║                                                                               ║
-║ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA                     ║
-╚═══════════════════════════════════════════════════════════════════════════════╝
+████████████████████████████████████████████████████████████████████████████████
+██  SOLI DEO GLORIA — To God alone be the glory                satisfies: SR1 ██
+██  All work on this project is offered as an act of worship.                 ██
+██  "Trust in the LORD with all your heart..." — Proverbs 3:5                 ██
+██  "Whatever you do, work heartily..." — Colossians 3:23                     ██
+██                                                                            ██
+██  STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav      ██
+██  v3.010.300 · A11y/WCAG 2.1 AA Compliant                                   ██
+████████████████████████████████████████████████████████████████████████████████
 -->
-<html lang="en">
+
+<html lang="en" class="no-js">
 <head>
-  <!-- AI-Breadcrumbs: Structured context for AI assistants -->
-  <!-- ai-breadcrumbs
-       entity: Carnival Valor
-       type: Ship Information Page
-       parent: /ships.html
-       category: Carnival Fleet
-       cruise-line: Carnival Cruise Line
-       ship-class: Conquest-class
-       siblings: Carnival Conquest, Carnival Glory, Carnival Freedom, Carnival Liberty
-       related: /ships/carnival.html, /cruise-lines/carnival.html
-       updated: 2025-12-02
-       expertise: Carnival ship reviews, deck plans, dining analysis, cabin comparisons
-       target-audience: Carnival Valor cruisers, New Orleans cruise travelers, first-time cruisers
-       answer-first: Carnival Valor is a Conquest-class ship (3rd of 5) christened by Katie Couric in 2004. Homeported in New Orleans, Louisiana, she offers 4-7 day cruises to the Caribbean and Mexico. Features Guy's Burger Joint, BlueIguana Cantina, and Cloud 9 Spa. IMO 9236389.
-  -->
+<!-- ai-breadcrumbs
+     entity: Carnival Valor
+     type: Ship Information Page
+     parent: /ships.html
+     category: Carnival Fleet
+     cruise-line: Carnival Cruise Line
+     ship-class: Conquest Class
+     siblings: Carnival Conquest, Carnival Glory, Carnival Liberty, Carnival Freedom
+     related: Katie Couric, New Orleans, Mobile Alabama
+     updated: 2025-12-03
+     expertise: Carnival cruise planning, Conquest-class ships, Gulf Coast cruising, New Orleans homeport
+     target-audience: Gulf Coast cruisers, Louisiana travelers, first-time cruisers, Conquest-class enthusiasts
+     answer-first: Carnival Valor is a 110,239 GT Conquest-class ship sailing from New Orleans, christened by Katie Couric in 2004, moving to Mobile in 2027.
+-->
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Carnival Valor — Conquest-Class Ship from New Orleans | In the Wake</title>
+<link rel="canonical" href="https://cruisinginthewake.com/ships/carnival/carnival-valor.html"/>
+<meta name="description" content="Carnival Valor: 110,239 GT Conquest-class ship sailing from New Orleans. Christened by Katie Couric in 2004, moving to Mobile AL in 2027."/>
+
+<!-- ICP-Lite v1.0 Meta Tags -->
+<meta name="ai-summary" content="Carnival Valor: Conquest-class ship (IMO 9236389), 110,239 GT, sailing from New Orleans. Christened by Katie Couric 2004, relocating to Mobile 2027."/>
+<meta name="last-reviewed" content="2025-12-03"/>
+<meta name="content-protocol" content="ICP-Lite v1.0"/>
+
+<link rel="preconnect" href="https://www.carnival.com"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+<style>
+:root{--accent:#0057b8;--carnival-red:#e4002b;--carnival-blue:#003da5;--rope:#d9b382;--sand:#f5f1e8;--ink:#1a1a2e;--ink-mid:#3d5a6a;--text-muted:#5a6a7a}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;line-height:1.6;margin:0;color:var(--ink);background:#fff}
+.skip-link{position:absolute;top:-40px;left:0;background:var(--carnival-blue);color:#fff;padding:8px 16px;z-index:10000;text-decoration:none;border-radius:0 0 4px 0}
+.skip-link:focus{top:0}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.hero-header{position:relative;background:linear-gradient(135deg,#003da5 0%,#0057b8 50%,#00a3e0 100%);border-bottom:6px double var(--rope);color:#fff;overflow:hidden}
+.navbar{max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:0.6rem;padding:0.5rem 0.9rem 0.35rem;position:relative;z-index:2000}
+.brand{display:flex;align-items:flex-end;gap:0.6rem}
+.brand img{height:28px;width:auto}
+.version-badge{font-size:0.72rem;opacity:0.8;color:rgba(255,255,255,0.8)}
+.hero-content{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:2rem 1.5rem 3rem;text-align:center}
+.hero-content h1{font-size:clamp(2rem,5vw,3rem);margin:0 0 0.5rem;text-shadow:2px 2px 8px rgba(0,0,0,0.3)}
+.hero-tagline{font-size:1.1rem;opacity:0.95;margin-bottom:1rem}
+.badge-row{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;margin-top:1rem}
+.badge{display:inline-block;padding:0.25rem 0.65rem;border-radius:999px;font-size:0.8rem;border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.15);color:#fff}
+.badge--active{background:linear-gradient(135deg,#28a745,#20863d);border-color:#28a745;font-weight:600}
+.site-nav{background:var(--sand);padding:0.5rem 1rem;display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;border-bottom:1px solid #e0d5c5}
+.nav-pill{padding:0.4rem 0.9rem;border-radius:999px;text-decoration:none;font-size:0.85rem;color:var(--ink);background:#fff;border:1px solid #ddd;transition:all 0.2s ease}
+.nav-pill:hover{background:var(--carnival-blue);color:#fff;border-color:var(--carnival-blue)}
+main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
+.page-grid{display:grid;grid-template-columns:1fr;gap:2rem;align-items:start}
+@media(min-width:980px){.page-grid{grid-template-columns:1fr 320px}}
+.card{background:#fff;border:1px solid #e8eaf0;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.04);padding:1.5rem;margin-bottom:1.5rem}
+.card h2{margin:0 0 1rem;font-size:1.25rem;color:var(--carnival-blue);border-bottom:2px solid var(--rope);padding-bottom:0.5rem}
+.card h3{margin:1rem 0 0.5rem;font-size:1.1rem;color:var(--ink)}
+.quick-answer{background:linear-gradient(135deg,#f0f7ff,#e8f4fd);border-left:4px solid var(--carnival-blue)}
+.key-facts dt{font-weight:600;color:var(--carnival-blue);margin-top:0.75rem}
+.key-facts dd{margin:0.25rem 0 0 0;color:var(--ink-mid)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem}
+.stat-item{text-align:center;padding:1rem;background:var(--sand);border-radius:8px}
+.stat-value{font-size:1.3rem;font-weight:700;color:var(--carnival-blue)}
+.stat-label{font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem}
+.whimsy{font-size:0.75rem;color:var(--text-muted);font-style:italic}
+.sister-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.sister-card{background:var(--sand);border-radius:8px;padding:1rem;text-align:center;text-decoration:none;color:var(--ink);transition:transform 0.2s,box-shadow 0.2s}
+.sister-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
+.feature-item{background:var(--sand);padding:1rem;border-radius:8px;border-left:4px solid var(--carnival-blue)}
+.feature-item h4{margin:0 0 0.5rem;color:var(--carnival-blue)}
+.feature-item p{margin:0;font-size:0.9rem;color:var(--ink-mid)}
+.dining-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.dining-item{background:var(--sand);padding:1rem;border-radius:8px;border-left:4px solid var(--carnival-blue)}
+.dining-item h4{margin:0 0 0.5rem;color:var(--carnival-blue)}
+.dining-item p{margin:0;font-size:0.9rem;color:var(--ink-mid)}
+.dining-item.specialty{border-left-color:var(--carnival-red)}
+.tracker-container{background:#f8f9fa;border-radius:8px;overflow:hidden;margin-top:1rem}
+.tracker-container iframe{width:100%;height:350px;border:none}
+.faq details{margin:0.5rem 0;padding:0.75rem 0;border-bottom:1px solid #e8eaf0}
+.faq summary{cursor:pointer;font-weight:600;padding:0.5rem 0;color:var(--ink)}
+.faq summary:hover{color:var(--carnival-blue)}
+.faq details p{margin:0.5rem 0 0;padding-left:1rem;color:var(--ink-mid)}
+.rail{display:flex;flex-direction:column;gap:1.5rem}
+.author-card-vertical{text-align:center}
+.author-avatar{width:96px;height:96px;border-radius:12px;object-fit:cover;margin:0 auto 1rem}
+footer{background:var(--sand);border-top:4px double var(--rope);padding:2rem 1.5rem;text-align:center}
+.tiny{font-size:0.85rem;color:var(--text-muted)}
+a{color:var(--carnival-blue);text-decoration:none}
+a:hover{text-decoration:underline}
+a[target="_blank"]::after{content:" ↗";font-size:0.8em;opacity:0.7}
+.photo-carousel .swiper-slide img{width:100%;height:220px;object-fit:cover;border-radius:8px}
+.photo-caption{text-align:center;font-size:0.8rem;color:var(--text-muted);margin-top:0.5rem}
+.video-thumb{position:relative;cursor:pointer}
+.video-thumb img{width:100%;height:180px;object-fit:cover;border-radius:8px}
+.logbook-entry{background:var(--sand);border-radius:8px;padding:1.25rem;margin-bottom:1rem;border-left:4px solid var(--carnival-blue)}
+.logbook-entry h4{margin:0 0 0.5rem;color:var(--carnival-blue)}
+.logbook-meta{font-size:0.8rem;color:var(--text-muted);margin-bottom:0.75rem}
+</style>
+
+<!-- JSON-LD: Organization -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"In the Wake","url":"https://cruisinginthewake.com","logo":"https://cruisinginthewake.com/assets/logo_wake_512.png"}</script>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Carnival Valor — Conquest-Class Fun Ship from New Orleans • In The Wake</title>
-  <meta name="description" content="Carnival Valor is a Conquest-class cruise ship christened by Katie Couric in 2004. Sailing from New Orleans to the Caribbean and Mexico. Complete guide with deck plans, dining venues, and live tracking.">
+<!-- JSON-LD: WebSite -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 
-  <!-- ICP-Lite v1.0 Meta Tags -->
-  <meta name="ai-summary" content="Carnival Valor: Conquest-class (3rd of 5), 110,239 GT, New Orleans homeport. Christened by Katie Couric 2004. IMO 9236389, MMSI 354298000.">
-  <meta name="last-reviewed" content="2025-12-02">
-  <meta name="content-protocol" content="ICP-Lite v1.0">
+<!-- JSON-LD: BreadcrumbList -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Carnival","item":"https://cruisinginthewake.com/ships.html#carnival"},{"@type":"ListItem","position":4,"name":"Carnival Valor","item":"https://cruisinginthewake.com/ships/carnival/carnival-valor.html"}]}</script>
 
-  <link rel="canonical" href="https://cruisinginthewake.com/ships/carnival/carnival-valor.html">
-  <link rel="preconnect" href="https://www.carnival.com">
-  <meta name="inthewake:standard" content="inthewake_v3.010">
+<!-- JSON-LD: Review -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Product","name":"Carnival Valor","brand":{"@type":"Brand","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewRating":{"@type":"Rating","ratingValue":4.1,"bestRating":5,"worstRating":1},"reviewBody":"Carnival Valor delivers excellent value from New Orleans with diverse Caribbean itineraries. Katie Couric's godchild continues to charm Gulf Coast cruisers."}</script>
 
-  <!-- Preload critical assets -->
-  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high">
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010" fetchpriority="high">
+<!-- JSON-LD: Person (E-E-A-T) -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","url":"https://cruisinginthewake.com/authors/ken-baker.html","jobTitle":"Cruise Research Analyst","knowsAbout":["Cruise Ships","Carnival Cruise Line","Conquest Class"]}</script>
 
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010">
+<!-- JSON-LD: WebPage -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Carnival Valor — Conquest-Class Ship","url":"https://cruisinginthewake.com/ships/carnival/carnival-valor.html","dateModified":"2025-12-03"}</script>
 
-  <style>
-    :root {
-      --carnival-blue: #003da5;
-      --carnival-blue-mid: #0057b8;
-      --carnival-blue-light: #00a3e0;
-      --carnival-red: #e31937;
-      --rope: #d9b382;
-      --sand: #f5f1e8;
-      --ink: #1a1a2e;
-      --ink-mid: #3d5a6a;
-    }
+<!-- JSON-LD: FAQPage -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where does Carnival Valor sail from?","acceptedAnswer":{"@type":"Answer","text":"Carnival Valor sails from New Orleans, Louisiana, offering Caribbean and Mexico cruises. In May 2027, she relocates to Mobile, Alabama."}},{"@type":"Question","name":"Who is the godmother of Carnival Valor?","acceptedAnswer":{"@type":"Answer","text":"Katie Couric, the celebrated journalist and television personality, christened Carnival Valor in Miami on December 17, 2004."}}]}</script>
 
-    .ship-hero {
-      background: linear-gradient(135deg, var(--carnival-blue) 0%, var(--carnival-blue-mid) 50%, var(--carnival-blue-light) 100%);
-      color: white;
-      padding: 3rem 1.5rem;
-      text-align: center;
-      border-bottom: 6px double var(--rope);
-      position: relative;
-    }
-
-    .ship-hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L30 60M0 30L60 30' stroke='%23ffffff' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E");
-      pointer-events: none;
-    }
-
-    .ship-hero h1 {
-      margin: 0 0 0.5rem;
-      font-size: clamp(1.75rem, 5vw, 2.5rem);
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-      position: relative;
-    }
-
-    .ship-hero .tagline {
-      font-size: 1.1rem;
-      opacity: 0.95;
-      margin-bottom: 1rem;
-    }
-
-    .badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-      margin-top: 1rem;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 0.35rem 0.75rem;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 500;
-    }
-
-    .badge--active {
-      background: rgba(255,255,255,0.2);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.4);
-    }
-
-    .badge--class {
-      background: var(--carnival-red);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.3);
-    }
-
-    .badge--homeport {
-      background: linear-gradient(135deg, #6b5b95, #8b7cb3);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.3);
-    }
-
-    .content-wrap {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
-
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-
-    .card {
-      background: white;
-      border: 1px solid #e0e8f0;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      overflow: hidden;
-    }
-
-    .card-header {
-      background: var(--sand);
-      padding: 1rem 1.25rem;
-      border-bottom: 2px solid var(--rope);
-    }
-
-    .card-header h2 {
-      margin: 0;
-      font-size: 1.15rem;
-      color: var(--ink);
-    }
-
-    .card-body {
-      padding: 1.25rem;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
-    }
-
-    .stat-item {
-      text-align: center;
-      padding: 1rem;
-      background: #f8fafc;
-      border-radius: 8px;
-      border: 1px solid #e8ecf0;
-    }
-
-    .stat-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--carnival-blue);
-      display: block;
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
-      color: var(--ink-mid);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .sister-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 0.75rem;
-    }
-
-    .sister-card {
-      padding: 0.75rem;
-      background: #f8fafc;
-      border-radius: 8px;
-      border: 1px solid #e8ecf0;
-      text-align: center;
-      transition: all 0.2s ease;
-    }
-
-    .sister-card:hover {
-      border-color: var(--carnival-blue);
-      box-shadow: 0 2px 8px rgba(0,61,165,0.15);
-    }
-
-    .sister-card.current {
-      background: linear-gradient(135deg, var(--carnival-blue), var(--carnival-blue-mid));
-      color: white;
-      border-color: var(--carnival-blue);
-    }
-
-    .sister-card.current a {
-      color: white;
-    }
-
-    .sister-card a {
-      text-decoration: none;
-      color: var(--ink);
-      font-weight: 500;
-    }
-
-    .sister-card .sister-note {
-      font-size: 0.75rem;
-      opacity: 0.8;
-      margin-top: 0.25rem;
-    }
-
-    .feature-list {
-      display: grid;
-      gap: 0.5rem;
-    }
-
-    .feature-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem;
-      background: #f8fafc;
-      border-radius: 6px;
-    }
-
-    .feature-item::before {
-      content: '✓';
-      color: var(--carnival-blue);
-      font-weight: bold;
-    }
-
-    .tracker-embed {
-      background: #1a1a2e;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .tracker-header {
-      background: var(--carnival-blue);
-      color: white;
-      padding: 0.75rem 1rem;
-      font-weight: 600;
-    }
-
-    .tracker-info {
-      padding: 1rem;
-      color: #a0aec0;
-      font-size: 0.9rem;
-    }
-
-    .tracker-info strong {
-      color: white;
-    }
-
-    .timeline {
-      position: relative;
-      padding-left: 1.5rem;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: var(--carnival-blue);
-    }
-
-    .timeline-item {
-      position: relative;
-      padding-bottom: 1.25rem;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -1.5rem;
-      top: 0.35rem;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--carnival-blue);
-      border: 2px solid white;
-      box-shadow: 0 0 0 2px var(--carnival-blue);
-    }
-
-    .timeline-item.milestone::before {
-      background: var(--carnival-red);
-      box-shadow: 0 0 0 2px var(--carnival-red);
-    }
-
-    .timeline-year {
-      font-weight: 700;
-      color: var(--carnival-blue);
-    }
-
-    .faq-item {
-      border-bottom: 1px solid #e8ecf0;
-    }
-
-    .faq-item:last-child {
-      border-bottom: none;
-    }
-
-    .faq-item summary {
-      padding: 1rem 0;
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--ink);
-      list-style: none;
-    }
-
-    .faq-item summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .faq-item summary::before {
-      content: '+';
-      margin-right: 0.75rem;
-      color: var(--carnival-blue);
-      font-weight: bold;
-    }
-
-    .faq-item[open] summary::before {
-      content: '−';
-    }
-
-    .faq-item p {
-      margin: 0 0 1rem;
-      padding-left: 1.5rem;
-      color: var(--ink-mid);
-    }
-
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .cta-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--carnival-blue);
-      text-decoration: none;
-      font-weight: 500;
-      padding: 0.5rem 0;
-    }
-
-    .cta-link:hover {
-      text-decoration: underline;
-    }
-
-    .cta-link::after {
-      content: '→';
-    }
-
-    .godmother-highlight {
-      background: linear-gradient(135deg, #f0f8ff, #e6f3ff);
-      border: 1px solid #b8d4e8;
-      border-radius: 8px;
-      padding: 1rem;
-      margin-top: 1rem;
-    }
-
-    .godmother-highlight h4 {
-      margin: 0 0 0.5rem;
-      color: var(--ink);
-      font-size: 0.95rem;
-    }
-
-    .godmother-highlight p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: var(--ink-mid);
-    }
-
-    @media (max-width: 768px) {
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  </style>
-
-  <!-- JSON-LD: Organization -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "In The Wake",
-    "alternateName": "ITW",
-    "url": "https://cruisinginthewake.com",
-    "logo": "https://cruisinginthewake.com/assets/logo_wake_560.png",
-    "description": "A cruise traveler's logbook — encyclopedic encyclopedia of cruise ships, ports, dining, and planning resources.",
-    "sameAs": [
-      "https://www.instagram.com/flickersofmajesty"
-    ]
-  }
-  </script>
-
-  <!-- JSON-LD: WebSite with SearchAction -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "In The Wake",
-    "url": "https://cruisinginthewake.com",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://cruisinginthewake.com/search.html?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
-
-  <!-- JSON-LD: BreadcrumbList -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://cruisinginthewake.com/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Ships",
-        "item": "https://cruisinginthewake.com/ships.html"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Carnival Cruise Line",
-        "item": "https://cruisinginthewake.com/ships/carnival.html"
-      },
-      {
-        "@type": "ListItem",
-        "position": 4,
-        "name": "Carnival Valor",
-        "item": "https://cruisinginthewake.com/ships/carnival/carnival-valor.html"
-      }
-    ]
-  }
-  </script>
-
-  <!-- JSON-LD: Review -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Review",
-    "itemReviewed": {
-      "@type": "Vehicle",
-      "name": "Carnival Valor",
-      "brand": {
-        "@type": "Brand",
-        "name": "Carnival Cruise Line"
-      },
-      "vehicleIdentificationNumber": "IMO 9236389"
-    },
-    "author": {
-      "@type": "Person",
-      "name": "Ken Baker"
-    },
-    "reviewRating": {
-      "@type": "Rating",
-      "ratingValue": 4.1,
-      "bestRating": 5,
-      "worstRating": 1
-    },
-    "reviewBody": "Carnival Valor delivers excellent value from her New Orleans homeport with diverse Caribbean and Mexican Riviera itineraries. The Conquest-class ship offers a well-balanced mix of dining options, entertainment venues, and family-friendly activities. Guy's Burger Joint, the Cloud 9 Spa, and the vibrant casino make her a solid choice for Gulf Coast cruisers."
-  }
-  </script>
-
-  <!-- JSON-LD: Person (E-E-A-T) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Ken Baker",
-    "url": "https://cruisinginthewake.com/authors/ken-baker.html",
-    "jobTitle": "Cruise Research Analyst & Founder",
-    "description": "Cruise industry analyst specializing in ship reviews, deck plan analysis, and Carnival fleet research. Creator of In The Wake cruise encyclopedia.",
-    "knowsAbout": [
-      "Carnival Cruise Line",
-      "Conquest-class Ships",
-      "Ship Deck Plans",
-      "Cruise Ship Dining",
-      "Gulf Coast Cruising"
-    ]
-  }
-  </script>
-
-  <!-- JSON-LD: WebPage -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Carnival Valor — Conquest-Class Fun Ship from New Orleans",
-    "description": "Carnival Valor is a Conquest-class cruise ship christened by Katie Couric in 2004. Sailing from New Orleans to the Caribbean and Mexico.",
-    "url": "https://cruisinginthewake.com/ships/carnival/carnival-valor.html",
-    "datePublished": "2024-01-15",
-    "dateModified": "2025-12-02",
-    "inLanguage": "en-US",
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "In The Wake",
-      "url": "https://cruisinginthewake.com"
-    },
-    "about": {
-      "@type": "Vehicle",
-      "name": "Carnival Valor",
-      "manufacturer": {
-        "@type": "Organization",
-        "name": "Fincantieri"
-      }
-    },
-    "mainEntity": {
-      "@type": "Vehicle",
-      "name": "Carnival Valor",
-      "identifier": "IMO 9236389"
-    }
-  }
-  </script>
-
-  <!-- JSON-LD: FAQPage -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Where does Carnival Valor sail from?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Carnival Valor is homeported in New Orleans, Louisiana, offering 4-7 day cruises to the Western Caribbean and Mexico. In May 2027, she will relocate to Mobile, Alabama as her new homeport."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Who is the godmother of Carnival Valor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Katie Couric, the renowned American journalist and television personality, served as godmother for Carnival Valor's christening ceremony in Miami on December 17, 2004."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What class is Carnival Valor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Carnival Valor is the third of five Conquest-class ships, alongside sister ships Carnival Conquest, Carnival Glory, Carnival Freedom, and Carnival Liberty. These ships feature 110,000+ gross tons and accommodate nearly 3,000 guests."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What dining options are on Carnival Valor?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Carnival Valor features Guy's Burger Joint (by Guy Fieri), BlueIguana Cantina (Mexican), Bonsai Sushi, Fahrenheit 555 Steakhouse, RedFrog Pub, and the Lincoln and Washington main dining rooms. The Lido Marketplace buffet offers casual dining."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "When was Carnival Valor refurbished?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Carnival Valor underwent a major refurbishment in 2016, adding new dining venues, entertainment spaces, and updated stateroom amenities to enhance the guest experience."
-        }
-      }
-    ]
-  }
-  </script>
-
-  <!-- Service Worker Registration -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
-    }
-  </script>
+<link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
 </head>
+
 <body>
-  <!-- Skip Link for Accessibility -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- ARIA Live Regions for Dynamic Updates -->
-  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
-  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
-
-  <!-- Site Header -->
-  <header class="site-header" role="banner">
-    <div class="navbar">
-      <div class="brand">
-        <a href="/">
-          <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async">
-        </a>
-        <span class="version-badge">v3.010</span>
-      </div>
-      <nav class="site-nav" aria-label="Main navigation">
-        <a class="nav-pill" href="/">Home</a>
-        <a class="nav-pill" href="/ships.html">Ships</a>
-        <a class="nav-pill" href="/planning.html">Planning</a>
-        <a class="nav-pill" href="/search.html">Search</a>
-        <a class="nav-pill" href="/about-us.html">About</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Ship Hero Section -->
-  <section class="ship-hero">
+<header class="hero-header" role="banner">
+  <nav class="navbar"><div class="brand"><a href="/"><img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake"/></a><span class="version-badge">v3.010</span></div></nav>
+  <div class="hero-content">
     <h1>Carnival Valor</h1>
-    <p class="tagline">Carnival Cruise Line • Conquest-Class</p>
+    <p class="hero-tagline">The Big Easy's Fun Ship — Katie Couric's Godchild</p>
     <div class="badge-row">
-      <span class="badge badge--active">Active Fleet</span>
-      <span class="badge badge--class">Conquest-Class</span>
-      <span class="badge badge--homeport">New Orleans</span>
+      <span class="badge badge--active">Active</span>
+      <span class="badge">Conquest Class</span>
+      <span class="badge">110,239 GT</span>
+      <span class="badge">2,974 Guests</span>
+      <span class="badge">New Orleans</span>
     </div>
-  </section>
+  </div>
+</header>
 
-  <!-- Main Content -->
-  <main id="main-content" class="content-wrap">
-    <div class="page-grid">
-      <!-- Primary Content Column -->
-      <div class="main-column">
+<nav class="site-nav"><a class="nav-pill" href="/">Home</a><a class="nav-pill" href="/ships.html">Ships</a><a class="nav-pill" href="/planning.html">Planning</a><a class="nav-pill" href="/search.html">Search</a><a class="nav-pill" href="/about-us.html">About</a></nav>
 
-        <!-- Quick Answer Section -->
-        <section class="card" aria-labelledby="overview-title">
-          <div class="card-header">
-            <h2 id="overview-title">Overview</h2>
-          </div>
-          <div class="card-body">
-            <p><strong>Carnival Valor</strong> is the third of five Conquest-class ships in the Carnival fleet, delivering the classic "Fun Ship" experience from <strong>New Orleans, Louisiana</strong>. Built by Fincantieri in 2004 for $500 million, she offers 4-7 day voyages to the Western Caribbean and Mexico year-round.</p>
+<main id="main-content" class="page-grid">
+  <div class="content-column">
 
-            <p>Following her 2016 refurbishment, Valor received popular additions including Guy's Burger Joint, BlueIguana Cantina, and the RedFrog Pub. The ship accommodates nearly 3,000 guests across her 14 passenger decks, making her one of Carnival's largest vessels from the Gulf Coast region.</p>
+    <section class="card"><h2>First Look: Carnival Valor</h2>
+      <div class="photo-carousel swiper" id="photo-swiper"><div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Carnival_Valor_in_Cozumel.jpg/800px-Carnival_Valor_in_Cozumel.jpg" alt="Carnival Valor in Cozumel" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/><p class="photo-caption">Carnival Valor in Cozumel</p></div>
+      </div><div class="swiper-pagination"></div></div>
+    </section>
 
-            <div class="godmother-highlight">
-              <h4>Godmother: Katie Couric</h4>
-              <p><strong>Katie Couric</strong>, the celebrated American journalist and television personality, christened Carnival Valor in Miami on December 17, 2004. Couric was a co-host of NBC's <em>Today</em> show at the time and later anchored CBS Evening News.</p>
-            </div>
-          </div>
-        </section>
+    <section class="card"><h2>Ship Overview</h2>
+      <p><strong>Carnival Valor</strong> is the third of five Conquest-class ships, entering service in 2004. Christened by celebrated journalist <strong>Katie Couric</strong> in Miami, she sails year-round from <strong>New Orleans, Louisiana</strong>, delivering the classic Fun Ship experience to Gulf Coast travelers.</p>
+      <p>Built by Fincantieri at Monfalcone, Italy at a cost of $500 million, Carnival Valor will relocate to <strong>Mobile, Alabama</strong> in May 2027, marking Carnival's return to that port.</p>
+    </section>
 
-        <!-- Ship Statistics -->
-        <section class="card" aria-labelledby="stats-title">
-          <div class="card-header">
-            <h2 id="stats-title">Ship Statistics</h2>
-          </div>
-          <div class="card-body">
-            <div class="stats-grid">
-              <div class="stat-item">
-                <span class="stat-value">110,239</span>
-                <span class="stat-label">Gross Tons</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-value">2,974</span>
-                <span class="stat-label">Guests (Double)</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-value">3,756</span>
-                <span class="stat-label">Guests (Max)</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-value">1,180</span>
-                <span class="stat-label">Crew</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-value">952 ft</span>
-                <span class="stat-label">Length</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-value">116 ft</span>
-                <span class="stat-label">Beam</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-value">14</span>
-                <span class="stat-label">Guest Decks</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-value">2004</span>
-                <span class="stat-label">Year Built</span>
-              </div>
-            </div>
-
-            <div style="margin-top: 1.5rem; padding: 1rem; background: #f8fafc; border-radius: 8px;">
-              <p style="margin: 0; font-size: 0.9rem;"><strong>Builder:</strong> Fincantieri, Monfalcone, Italy</p>
-              <p style="margin: 0.5rem 0 0; font-size: 0.9rem;"><strong>Build Cost:</strong> $500 million USD</p>
-              <p style="margin: 0.5rem 0 0; font-size: 0.9rem;"><strong>Registry:</strong> Panama</p>
-              <p style="margin: 0.5rem 0 0; font-size: 0.9rem;"><strong>Call Sign:</strong> H3VR</p>
-              <p style="margin: 0.5rem 0 0; font-size: 0.9rem;"><strong>Homeport:</strong> New Orleans, Louisiana</p>
-            </div>
-          </div>
-        </section>
-
-        <!-- Sister Ships -->
-        <section class="card" aria-labelledby="sisters-title">
-          <div class="card-header">
-            <h2 id="sisters-title">Conquest-Class Sister Ships</h2>
-          </div>
-          <div class="card-body">
-            <p>The Conquest-class introduced Carnival's 110,000 GT mega-ships. All five sisters remain in active service:</p>
-            <div class="sister-grid">
-              <div class="sister-card">
-                <a href="/ships/carnival/carnival-conquest.html">Carnival Conquest</a>
-                <div class="sister-note">2002 • Lead Ship</div>
-              </div>
-              <div class="sister-card">
-                <a href="/ships/carnival/carnival-glory.html">Carnival Glory</a>
-                <div class="sister-note">2003</div>
-              </div>
-              <div class="sister-card current">
-                <a href="/ships/carnival/carnival-valor.html">Carnival Valor</a>
-                <div class="sister-note">2004 • This Ship</div>
-              </div>
-              <div class="sister-card">
-                <a href="/ships/carnival/carnival-liberty.html">Carnival Liberty</a>
-                <div class="sister-note">2005</div>
-              </div>
-              <div class="sister-card">
-                <a href="/ships/carnival/carnival-freedom.html">Carnival Freedom</a>
-                <div class="sister-note">2007</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Features & Dining -->
-        <section class="card" aria-labelledby="features-title">
-          <div class="card-header">
-            <h2 id="features-title">Features & Dining</h2>
-          </div>
-          <div class="card-body">
-            <h3 style="margin: 0 0 1rem; font-size: 1rem;">Dining Venues</h3>
-            <div class="feature-list">
-              <div class="feature-item">Lincoln & Washington Main Dining Rooms</div>
-              <div class="feature-item">Guy's Burger Joint (by Guy Fieri)</div>
-              <div class="feature-item">BlueIguana Cantina (Mexican)</div>
-              <div class="feature-item">Bonsai Sushi (Specialty)</div>
-              <div class="feature-item">Fahrenheit 555 Steakhouse</div>
-              <div class="feature-item">Cucina del Capitano (Italian)</div>
-              <div class="feature-item">RedFrog Pub (Gastropub)</div>
-              <div class="feature-item">Pizzeria del Capitano (24-hour)</div>
-              <div class="feature-item">Lido Marketplace Buffet</div>
-            </div>
-
-            <h3 style="margin: 1.5rem 0 1rem; font-size: 1rem;">Onboard Features</h3>
-            <div class="feature-list">
-              <div class="feature-item">Cloud 9 Spa (thermal suite, salon)</div>
-              <div class="feature-item">WaterWorks Aqua Park (slides, splash zones)</div>
-              <div class="feature-item">SportSquare (mini-golf, basketball)</div>
-              <div class="feature-item">Serenity Adult-Only Retreat</div>
-              <div class="feature-item">Playlist Productions Shows</div>
-              <div class="feature-item">Punchliner Comedy Club</div>
-              <div class="feature-item">Liquid Nightclub</div>
-              <div class="feature-item">Casino (slots, tables)</div>
-              <div class="feature-item">Camp Ocean Kids Club</div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Live Tracker -->
-        <section class="card" aria-labelledby="tracker-title">
-          <div class="card-header">
-            <h2 id="tracker-title">Live Ship Tracker</h2>
-          </div>
-          <div class="card-body">
-            <div class="tracker-embed">
-              <div class="tracker-header">Carnival Valor — Live Position</div>
-              <div class="tracker-info">
-                <p><strong>IMO:</strong> 9236389</p>
-                <p><strong>MMSI:</strong> 354298000</p>
-                <p><strong>Call Sign:</strong> H3VR</p>
-                <p style="margin-top: 1rem;">
-                  <a href="https://www.marinetraffic.com/en/ais/details/ships/shipid:414158/mmsi:354298000/imo:9236389/vessel:CARNIVAL_VALOR" target="_blank" rel="noopener" style="color: var(--carnival-blue-light);">
-                    View on MarineTraffic →
-                  </a>
-                </p>
-              </div>
-            </div>
-            <p style="margin: 1rem 0 0; font-size: 0.85rem; color: var(--ink-mid);">
-              Track Carnival Valor's real-time position via AIS data on MarineTraffic.
-            </p>
-          </div>
-        </section>
-
-        <!-- Timeline -->
-        <section class="card" aria-labelledby="timeline-title">
-          <div class="card-header">
-            <h2 id="timeline-title">Ship History & Timeline</h2>
-          </div>
-          <div class="card-body">
-            <div class="timeline">
-              <div class="timeline-item">
-                <span class="timeline-year">March 2004</span>
-                <p>Hull floated out at Fincantieri shipyard in Monfalcone, Italy. Final fitting begins.</p>
-              </div>
-              <div class="timeline-item milestone">
-                <span class="timeline-year">December 17, 2004</span>
-                <p><strong>Christened in Miami</strong> by godmother Katie Couric. Enters service as third Conquest-class ship.</p>
-              </div>
-              <div class="timeline-item">
-                <span class="timeline-year">2005-2015</span>
-                <p>Operates Caribbean itineraries from various Gulf Coast and East Coast ports including Miami, Port Canaveral, and New Orleans.</p>
-              </div>
-              <div class="timeline-item milestone">
-                <span class="timeline-year">2016</span>
-                <p>Major refurbishment adds Guy's Burger Joint, BlueIguana Cantina, RedFrog Pub, and updated entertainment venues.</p>
-              </div>
-              <div class="timeline-item">
-                <span class="timeline-year">2020-2021</span>
-                <p>Fleet-wide pause during global health crisis. Returns to service with enhanced protocols.</p>
-              </div>
-              <div class="timeline-item">
-                <span class="timeline-year">2022-Present</span>
-                <p>Year-round deployment from <strong>New Orleans, Louisiana</strong> with Western Caribbean and Mexican itineraries.</p>
-              </div>
-              <div class="timeline-item">
-                <span class="timeline-year">May 2027</span>
-                <p>Scheduled to relocate homeport to <strong>Mobile, Alabama</strong>, marking Carnival's return to that port.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- FAQ Section -->
-        <section class="card" aria-labelledby="faq-title">
-          <div class="card-header">
-            <h2 id="faq-title">Frequently Asked Questions</h2>
-          </div>
-          <div class="card-body">
-            <details class="faq-item">
-              <summary>Where does Carnival Valor sail from?</summary>
-              <p>Carnival Valor is homeported in <strong>New Orleans, Louisiana</strong>, offering 4-7 day cruises to the Western Caribbean (Cozumel, Costa Maya, Mahogany Bay) and Mexico year-round. In May 2027, she will relocate to Mobile, Alabama as her new homeport.</p>
-            </details>
-
-            <details class="faq-item">
-              <summary>Who is the godmother of Carnival Valor?</summary>
-              <p><strong>Katie Couric</strong>, the renowned American journalist and television personality, served as godmother for Carnival Valor's christening ceremony in Miami on December 17, 2004. Couric was hosting NBC's <em>Today</em> show at the time.</p>
-            </details>
-
-            <details class="faq-item">
-              <summary>What class is Carnival Valor?</summary>
-              <p>Carnival Valor is the third of five <strong>Conquest-class</strong> ships, alongside sister ships Carnival Conquest (2002), Carnival Glory (2003), Carnival Liberty (2005), and Carnival Freedom (2007). These ships feature 110,000+ gross tons and accommodate nearly 3,000 guests.</p>
-            </details>
-
-            <details class="faq-item">
-              <summary>What dining options are on Carnival Valor?</summary>
-              <p>Carnival Valor features Guy's Burger Joint (by Guy Fieri), BlueIguana Cantina (Mexican), Bonsai Sushi, Fahrenheit 555 Steakhouse, Cucina del Capitano (Italian), RedFrog Pub, Pizzeria del Capitano (24-hour), and the Lincoln and Washington main dining rooms. The Lido Marketplace buffet offers casual dining.</p>
-            </details>
-
-            <details class="faq-item">
-              <summary>When was Carnival Valor last refurbished?</summary>
-              <p>Carnival Valor underwent a major refurbishment in 2016, adding new dining venues (Guy's Burger Joint, BlueIguana Cantina, RedFrog Pub), updated entertainment spaces, and enhanced stateroom amenities to refresh the guest experience.</p>
-            </details>
-          </div>
-        </section>
-
+    <section class="card"><h2>Ship Statistics</h2>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-value">110,239</div><div class="stat-label">Gross Tonnage</div><div class="whimsy">≈ 2,205 blue whales</div></div>
+        <div class="stat-item"><div class="stat-value">952 ft</div><div class="stat-label">Length</div><div class="whimsy">3.2 football fields</div></div>
+        <div class="stat-item"><div class="stat-value">2,974</div><div class="stat-label">Guests</div><div class="whimsy">Small town at sea</div></div>
+        <div class="stat-item"><div class="stat-value">1,180</div><div class="stat-label">Crew</div><div class="whimsy">2.5:1 guest ratio</div></div>
+        <div class="stat-item"><div class="stat-value">1,487</div><div class="stat-label">Staterooms</div><div class="whimsy">Floating neighborhood</div></div>
+        <div class="stat-item"><div class="stat-value">14</div><div class="stat-label">Decks</div><div class="whimsy">14-story building</div></div>
       </div>
+      <p class="tiny" style="margin-top:1rem;"><strong>IMO:</strong> 9236389 · <strong>Builder:</strong> Fincantieri, Monfalcone · <strong>Christened:</strong> Dec 17, 2004</p>
+    </section>
 
-      <!-- Sidebar Rail -->
-      <aside class="rail" role="complementary" aria-label="Quick links and resources">
-
-        <!-- Quick Links Card -->
-        <section class="card" aria-labelledby="links-title">
-          <div class="card-header">
-            <h2 id="links-title">Quick Links</h2>
-          </div>
-          <div class="card-body">
-            <a class="cta-link" href="https://www.carnival.com/cruise-ships/carnival-valor" target="_blank" rel="noopener">Official Ship Page</a>
-            <a class="cta-link" href="https://www.carnival.com/cruise-ships/carnival-valor#deck-plans" target="_blank" rel="noopener">Deck Plans</a>
-            <a class="cta-link" href="https://www.carnival.com/cruise-ships/carnival-valor/dining" target="_blank" rel="noopener">Dining Guide</a>
-            <a class="cta-link" href="https://www.cruisemapper.com/ships/Carnival-Valor-604" target="_blank" rel="noopener">CruiseMapper Profile</a>
-            <a class="cta-link" href="/ships/carnival.html">All Carnival Ships</a>
-          </div>
-        </section>
-
-        <!-- Key Facts Card -->
-        <section class="card" aria-labelledby="facts-title">
-          <div class="card-header">
-            <h2 id="facts-title">Key Facts</h2>
-          </div>
-          <div class="card-body" style="font-size: 0.9rem;">
-            <p><strong>Class Position:</strong> 3rd of 5 Conquest</p>
-            <p><strong>Christened:</strong> December 17, 2004</p>
-            <p><strong>Godmother:</strong> Katie Couric</p>
-            <p><strong>Refurbished:</strong> 2016</p>
-            <p><strong>Build Cost:</strong> $500 million</p>
-            <p><strong>Current Homeport:</strong> New Orleans, LA</p>
-            <p><strong>Future Homeport:</strong> Mobile, AL (2027)</p>
-            <p><strong>IMO Number:</strong> 9236389</p>
-          </div>
-        </section>
-
-        <!-- Author Card -->
-        <section class="card" aria-labelledby="author-title">
-          <div class="card-header">
-            <h2 id="author-title">About the Author</h2>
-          </div>
-          <div class="card-body" style="text-align: center;">
-            <a href="/authors/ken-baker.html">
-              <img src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" alt="Ken Baker" width="96" height="96" style="border-radius: 50%; margin-bottom: 1rem;" loading="lazy" decoding="async">
-            </a>
-            <h3 style="margin: 0 0 0.5rem;"><a href="/authors/ken-baker.html" style="color: var(--ink); text-decoration: none;">Ken Baker</a></h3>
-            <p style="margin: 0; font-size: 0.9rem; color: var(--ink-mid);">Founder of In The Wake. Cruise researcher specializing in ship analysis and the Carnival fleet.</p>
-          </div>
-        </section>
-
-      </aside>
-    </div>
-  </main>
-
-  <!-- Attribution Section -->
-  <section class="content-wrap" style="padding-top: 0;">
-    <div class="card">
-      <div class="card-header">
-        <h2>Sources & Attribution</h2>
+    <section class="card"><h2>Conquest-Class Sisters</h2>
+      <div class="sister-grid">
+        <a href="/ships/carnival/carnival-conquest.html" class="sister-card"><strong>Carnival Conquest</strong><br/><span class="tiny">2002 · New Orleans</span></a>
+        <a href="/ships/carnival/carnival-glory.html" class="sister-card"><strong>Carnival Glory</strong><br/><span class="tiny">2003 · Norfolk</span></a>
+        <a href="/ships/carnival/carnival-liberty.html" class="sister-card"><strong>Carnival Liberty</strong><br/><span class="tiny">2005 · Port Canaveral</span></a>
+        <a href="/ships/carnival/carnival-freedom.html" class="sister-card"><strong>Carnival Freedom</strong><br/><span class="tiny">2007 · Galveston</span></a>
       </div>
-      <div class="card-body" style="font-size: 0.85rem; color: var(--ink-mid);">
-        <p>Ship specifications from Carnival Cruise Line official documentation. Historical information compiled from Carnival corporate archives, maritime registries, and industry publications. IMO and MMSI data verified via ITU Maritime Identification Digits database and MarineTraffic AIS records.</p>
-        <p style="margin-top: 0.75rem;">Last verified: December 2025. For corrections or updates, contact the editorial team.</p>
+    </section>
+
+    <section class="card"><h2>Signature Features</h2>
+      <div class="features-grid">
+        <div class="feature-item"><h4>WaterWorks</h4><p>Aqua park with waterslides and splash zones for all ages.</p></div>
+        <div class="feature-item"><h4>Serenity</h4><p>Adults-only retreat with loungers and whirlpools.</p></div>
+        <div class="feature-item"><h4>Cloud 9 Spa</h4><p>Full-service spa with thermal suite and salon.</p></div>
+        <div class="feature-item"><h4>Punchliner Comedy Club</h4><p>Live comedy and Playlist Productions shows.</p></div>
+        <div class="feature-item"><h4>SportSquare</h4><p>Mini-golf, basketball, and jogging track.</p></div>
+        <div class="feature-item"><h4>Camp Ocean</h4><p>Youth programs for kids ages 2-17.</p></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer class="site-footer wrap" role="contentinfo">
-    <p>&copy; 2025 In The Wake — A Cruise Traveler's Logbook. All rights reserved.</p>
-    <p class="tiny">
-      <a href="/privacy.html">Privacy</a> ·
-      <a href="/terms.html">Terms</a> ·
-      <a href="/about-us.html">About</a> ·
-      <a href="/accessibility.html">Accessibility</a>
-    </p>
-    <p class="tiny" style="opacity: 0; position: absolute; pointer-events: none;" aria-hidden="true">Soli Deo Gloria</p>
-  </footer>
+    <section class="card"><h2>Dining Venues</h2>
+      <h3>Complimentary</h3>
+      <div class="dining-grid">
+        <div class="dining-item"><h4>Lincoln &amp; Washington Dining Rooms</h4><p>Elegant dual main dining rooms with Your Time Dining.</p></div>
+        <div class="dining-item"><h4>Guy's Burger Joint</h4><p>Guy Fieri's hand-crafted burgers poolside.</p></div>
+        <div class="dining-item"><h4>BlueIguana Cantina</h4><p>Fresh Mexican tacos and burritos.</p></div>
+        <div class="dining-item"><h4>Lido Marketplace</h4><p>Expansive buffet with global cuisine.</p></div>
+      </div>
+      <h3 style="margin-top:1rem;">Specialty (Fee)</h3>
+      <div class="dining-grid">
+        <div class="dining-item specialty"><h4>Fahrenheit 555</h4><p>Premium steakhouse experience.</p></div>
+        <div class="dining-item specialty"><h4>Cucina del Capitano</h4><p>Italian family-style dining.</p></div>
+        <div class="dining-item specialty"><h4>Bonsai Sushi</h4><p>Fresh sushi and Japanese cuisine.</p></div>
+        <div class="dining-item specialty"><h4>RedFrog Pub</h4><p>Caribbean-themed gastropub.</p></div>
+      </div>
+    </section>
 
+    <section class="card"><h2>Ship's Logbook</h2><div id="logbook-container"><p class="tiny">Loading stories...</p></div></section>
+
+    <section class="card"><h2>Video Tours</h2><div class="swiper" id="video-swiper"><div class="swiper-wrapper" id="video-wrapper"></div></div></section>
+
+    <section class="card"><h2>Deck Plans</h2><p><a href="https://www.carnival.com/cruise-ships/carnival-valor#deck-plans" target="_blank" rel="noopener">View Official Deck Plans on Carnival.com</a></p></section>
+
+    <section class="card"><h2>Live Ship Tracker</h2>
+      <div class="tracker-container"><iframe title="Carnival Valor Live Position" src="https://www.marinetraffic.com/en/ais/embed/zoom:10/centery:29.95/centerx:-90.07/maptype:1/shownames:true/mmsi:354298000/shipid:414158/fleet:/fleet_id:/vtypes:/showmenu:false/remember:false" loading="lazy"></iframe></div>
+      <p class="tiny"><strong>Homeport:</strong> New Orleans, LA (→ Mobile, AL May 2027) · <strong>Itineraries:</strong> Western Caribbean, Mexico</p>
+    </section>
+
+    <section class="card faq"><h2>FAQ</h2>
+      <details><summary>Where does Carnival Valor sail from?</summary><p>New Orleans, Louisiana — Western Caribbean and Mexico cruises. Relocating to Mobile, Alabama in May 2027.</p></details>
+      <details><summary>Who is the godmother of Carnival Valor?</summary><p>Katie Couric christened Carnival Valor in Miami on December 17, 2004, while hosting NBC's Today show.</p></details>
+      <details><summary>What class is Carnival Valor?</summary><p>Third of five Conquest-class ships (2004), with sisters Conquest, Glory, Liberty, and Freedom.</p></details>
+    </section>
+
+    <section class="card"><h2>Sources</h2><ul class="tiny"><li><a href="https://www.carnival.com/cruise-ships/carnival-valor" target="_blank">Carnival Cruise Line</a></li><li><a href="https://www.marinetraffic.com" target="_blank">MarineTraffic</a></li><li><a href="https://en.wikipedia.org/wiki/Carnival_Valor" target="_blank">Wikipedia</a></li></ul></section>
+
+  </div>
+
+  <aside class="rail">
+    <section class="card quick-answer"><h2>Quick Answer</h2><p><strong>Carnival Valor</strong> is a 110,239 GT Conquest-class ship sailing from New Orleans. Christened by Katie Couric in 2004, she moves to Mobile, AL in 2027.</p></section>
+    <section class="card"><h3>Key Facts</h3><dl class="key-facts"><dt>Class</dt><dd>Conquest (3rd of 5)</dd><dt>Tonnage</dt><dd>110,239 GT</dd><dt>Guests</dt><dd>2,974</dd><dt>Homeport</dt><dd>New Orleans, LA</dd><dt>Godmother</dt><dd>Katie Couric</dd></dl></section>
+    <section class="card author-card-vertical"><h3>Author</h3><img class="author-avatar" src="/authors/img/ken1_96.webp" alt="Ken Baker"/><h4><a href="/authors/ken-baker.html">Ken Baker</a></h4><p class="tiny">Founder, In the Wake</p></section>
+  </aside>
+</main>
+
+<footer><p><strong>In the Wake</strong></p><p class="tiny">© 2025 · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p><p class="tiny" style="opacity:0;position:absolute" aria-hidden="true">Soli Deo Gloria</p></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+new Swiper('#photo-swiper',{loop:true,pagination:{el:'.swiper-pagination',clickable:true}});
+fetch('/assets/data/videos/carnival/carnival-valor.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
+fetch('/assets/data/logbook/carnival/carnival-valor.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h4>${s.title}</h4><p class="logbook-meta">${s.persona_label} · ${s.author.name}</p><p>${s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')}</p></article>`).join('');}).catch(()=>{});
+</script>
 </body>
 </html>

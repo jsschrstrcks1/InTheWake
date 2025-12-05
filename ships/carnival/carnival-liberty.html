@@ -1,14 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <!--
-╔═══════════════════════════════════════════════════════════════════════════════╗
-║ Soli Deo Gloria — All work on this project is offered to the glory of God.    ║
-║ "Trust in the LORD with all your heart..." — Proverbs 3:5                     ║
-║ "Whatever you do, work heartily..." — Colossians 3:23                         ║
-║                                                                               ║
-║ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA                      ║
-╚═══════════════════════════════════════════════════════════════════════════════╝
+████████████████████████████████████████████████████████████████████████████████
+██  SOLI DEO GLORIA — To God alone be the glory                satisfies: SR1 ██
+██  All work on this project is offered as an act of worship.                 ██
+██  "Trust in the LORD with all your heart..." — Proverbs 3:5                 ██
+██  "Whatever you do, work heartily..." — Colossians 3:23                     ██
+██                                                                            ██
+██  STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav      ██
+██  v3.010.300 · A11y/WCAG 2.1 AA Compliant                                   ██
+████████████████████████████████████████████████████████████████████████████████
 -->
-<html lang="en">
+
+<html lang="en" class="no-js">
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Liberty
@@ -16,340 +19,241 @@
      parent: /ships.html
      category: Carnival Fleet
      cruise-line: Carnival Cruise Line
-     ship-class: Conquest-class
+     ship-class: Conquest Class
      siblings: Carnival Conquest, Carnival Glory, Carnival Valor, Carnival Freedom
-     related: Conquest-class history, Fincantieri shipbuilding, Fun Ship 2.0
-     updated: 2025-12-02
-     expertise: Carnival cruise ships, Conquest-class vessels, poolside movies
-     target-audience: Carnival cruisers, Conquest-class fans, Texas cruisers
-     answer-first: Carnival Liberty is an active Conquest-class ship (110,320 GT, 2,978 guests) christened by Mira Sorvino in 2005, featuring the first Seaside Theater and first to undergo Fun Ship 2.0 refurbishment.
+     related: Mira Sorvino, Seaside Theater, Fun Ship 2.0, Port Canaveral
+     updated: 2025-12-03
+     expertise: Carnival cruise planning, Conquest-class ships, Florida cruising, Port Canaveral homeport
+     target-audience: Florida cruisers, Orlando visitors, first-time cruisers, Conquest-class enthusiasts
+     answer-first: Carnival Liberty is a 110,320 GT Conquest-class ship sailing from Port Canaveral, featuring the first Seaside Theater and first Fun Ship 2.0 refurbishment.
 -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Carnival Liberty — Conquest-Class Cruise Ship | In the Wake</title>
-<meta name="description" content="Carnival Liberty cruise ship guide: live tracker, deck plans, dining venues, and stateroom info. Conquest-class ship (110,320 GT) with the first Seaside Theater.">
-<link rel="canonical" href="https://cruisinginthewake.com/ships/carnival/carnival-liberty.html">
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Carnival Liberty — Conquest-Class Ship from Port Canaveral | In the Wake</title>
+<link rel="canonical" href="https://cruisinginthewake.com/ships/carnival/carnival-liberty.html"/>
+<meta name="description" content="Carnival Liberty: 110,320 GT Conquest-class ship sailing from Port Canaveral. First Seaside Theater and first Fun Ship 2.0 refurbishment. Godmother: Mira Sorvino."/>
 
 <!-- ICP-Lite v1.0 Meta Tags -->
-<meta name="ai-summary" content="Carnival Liberty: Active Conquest-class ship, IMO 9278181, 110,320 GT, 2,978 guests. First Seaside Theater, first Fun Ship 2.0 refurb. Homeport: Port Canaveral.">
-<meta name="last-reviewed" content="2025-12-02">
-<meta name="content-protocol" content="ICP-Lite v1.0">
+<meta name="ai-summary" content="Carnival Liberty: Conquest-class ship (IMO 9278181), 110,320 GT, sailing from Port Canaveral. First Seaside Theater, first Fun Ship 2.0 refurb. Godmother Mira Sorvino."/>
+<meta name="last-reviewed" content="2025-12-03"/>
+<meta name="content-protocol" content="ICP-Lite v1.0"/>
+
+<link rel="preconnect" href="https://www.carnival.com"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+<style>
+:root{--accent:#0057b8;--carnival-red:#e4002b;--carnival-blue:#003da5;--rope:#d9b382;--sand:#f5f1e8;--ink:#1a1a2e;--ink-mid:#3d5a6a;--text-muted:#5a6a7a}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;line-height:1.6;margin:0;color:var(--ink);background:#fff}
+.skip-link{position:absolute;top:-40px;left:0;background:var(--carnival-blue);color:#fff;padding:8px 16px;z-index:10000;text-decoration:none;border-radius:0 0 4px 0}
+.skip-link:focus{top:0}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.hero-header{position:relative;background:linear-gradient(135deg,#003da5 0%,#0057b8 50%,#00a3e0 100%);border-bottom:6px double var(--rope);color:#fff;overflow:hidden}
+.navbar{max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:0.6rem;padding:0.5rem 0.9rem 0.35rem;position:relative;z-index:2000}
+.brand{display:flex;align-items:flex-end;gap:0.6rem}
+.brand img{height:28px;width:auto}
+.version-badge{font-size:0.72rem;opacity:0.8;color:rgba(255,255,255,0.8)}
+.hero-content{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:2rem 1.5rem 3rem;text-align:center}
+.hero-content h1{font-size:clamp(2rem,5vw,3rem);margin:0 0 0.5rem;text-shadow:2px 2px 8px rgba(0,0,0,0.3)}
+.hero-tagline{font-size:1.1rem;opacity:0.95;margin-bottom:1rem}
+.badge-row{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;margin-top:1rem}
+.badge{display:inline-block;padding:0.25rem 0.65rem;border-radius:999px;font-size:0.8rem;border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.15);color:#fff}
+.badge--active{background:linear-gradient(135deg,#28a745,#20863d);border-color:#28a745;font-weight:600}
+.site-nav{background:var(--sand);padding:0.5rem 1rem;display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;border-bottom:1px solid #e0d5c5}
+.nav-pill{padding:0.4rem 0.9rem;border-radius:999px;text-decoration:none;font-size:0.85rem;color:var(--ink);background:#fff;border:1px solid #ddd;transition:all 0.2s ease}
+.nav-pill:hover{background:var(--carnival-blue);color:#fff;border-color:var(--carnival-blue)}
+main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
+.page-grid{display:grid;grid-template-columns:1fr;gap:2rem;align-items:start}
+@media(min-width:980px){.page-grid{grid-template-columns:1fr 320px}}
+.card{background:#fff;border:1px solid #e8eaf0;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.04);padding:1.5rem;margin-bottom:1.5rem}
+.card h2{margin:0 0 1rem;font-size:1.25rem;color:var(--carnival-blue);border-bottom:2px solid var(--rope);padding-bottom:0.5rem}
+.card h3{margin:1rem 0 0.5rem;font-size:1.1rem;color:var(--ink)}
+.quick-answer{background:linear-gradient(135deg,#f0f7ff,#e8f4fd);border-left:4px solid var(--carnival-blue)}
+.key-facts dt{font-weight:600;color:var(--carnival-blue);margin-top:0.75rem}
+.key-facts dd{margin:0.25rem 0 0 0;color:var(--ink-mid)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem}
+.stat-item{text-align:center;padding:1rem;background:var(--sand);border-radius:8px}
+.stat-value{font-size:1.3rem;font-weight:700;color:var(--carnival-blue)}
+.stat-label{font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem}
+.whimsy{font-size:0.75rem;color:var(--text-muted);font-style:italic}
+.sister-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.sister-card{background:var(--sand);border-radius:8px;padding:1rem;text-align:center;text-decoration:none;color:var(--ink);transition:transform 0.2s,box-shadow 0.2s}
+.sister-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
+.feature-item{background:var(--sand);padding:1rem;border-radius:8px;border-left:4px solid var(--carnival-blue)}
+.feature-item h4{margin:0 0 0.5rem;color:var(--carnival-blue)}
+.feature-item p{margin:0;font-size:0.9rem;color:var(--ink-mid)}
+.dining-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.dining-item{background:var(--sand);padding:1rem;border-radius:8px;border-left:4px solid var(--carnival-blue)}
+.dining-item h4{margin:0 0 0.5rem;color:var(--carnival-blue)}
+.dining-item p{margin:0;font-size:0.9rem;color:var(--ink-mid)}
+.dining-item.specialty{border-left-color:var(--carnival-red)}
+.tracker-container{background:#f8f9fa;border-radius:8px;overflow:hidden;margin-top:1rem}
+.tracker-container iframe{width:100%;height:350px;border:none}
+.faq details{margin:0.5rem 0;padding:0.75rem 0;border-bottom:1px solid #e8eaf0}
+.faq summary{cursor:pointer;font-weight:600;padding:0.5rem 0;color:var(--ink)}
+.faq summary:hover{color:var(--carnival-blue)}
+.faq details p{margin:0.5rem 0 0;padding-left:1rem;color:var(--ink-mid)}
+.rail{display:flex;flex-direction:column;gap:1.5rem}
+.author-card-vertical{text-align:center}
+.author-avatar{width:96px;height:96px;border-radius:12px;object-fit:cover;margin:0 auto 1rem}
+footer{background:var(--sand);border-top:4px double var(--rope);padding:2rem 1.5rem;text-align:center}
+.tiny{font-size:0.85rem;color:var(--text-muted)}
+a{color:var(--carnival-blue);text-decoration:none}
+a:hover{text-decoration:underline}
+a[target="_blank"]::after{content:" ↗";font-size:0.8em;opacity:0.7}
+.photo-carousel .swiper-slide img{width:100%;height:220px;object-fit:cover;border-radius:8px}
+.photo-caption{text-align:center;font-size:0.8rem;color:var(--text-muted);margin-top:0.5rem}
+.video-thumb{position:relative;cursor:pointer}
+.video-thumb img{width:100%;height:180px;object-fit:cover;border-radius:8px}
+.logbook-entry{background:var(--sand);border-radius:8px;padding:1.25rem;margin-bottom:1rem;border-left:4px solid var(--carnival-blue)}
+.logbook-entry h4{margin:0 0 0.5rem;color:var(--carnival-blue)}
+.logbook-meta{font-size:0.8rem;color:var(--text-muted);margin-bottom:0.75rem}
+</style>
 
 <!-- JSON-LD: Organization -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"In the Wake","url":"https://cruisinginthewake.com","logo":"https://cruisinginthewake.com/assets/logo_wake_512.png","description":"A cruise traveler's logbook — encyclopedic planning resource built AI-first, human-first, Google second.","sameAs":["https://instagram.com/flickersofmajesty"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"In the Wake","url":"https://cruisinginthewake.com","logo":"https://cruisinginthewake.com/assets/logo_wake_512.png"}</script>
 
-<!-- JSON-LD: WebSite with SearchAction -->
+<!-- JSON-LD: WebSite -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 
 <!-- JSON-LD: BreadcrumbList -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Carnival","item":"https://cruisinginthewake.com/ships.html#carnival"},{"@type":"ListItem","position":4,"name":"Carnival Liberty","item":"https://cruisinginthewake.com/ships/carnival/carnival-liberty.html"}]}</script>
 
 <!-- JSON-LD: Review -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Carnival Liberty","brand":{"@type":"Organization","name":"Carnival Cruise Line"},"vehicleIdentificationNumber":"IMO 9278181"},"author":{"@type":"Person","name":"Ken Baker"},"reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5,"worstRating":1},"reviewBody":"Carnival Liberty pioneered poolside movie entertainment with the Seaside Theater and was Carnival's test bed for Fun Ship 2.0 upgrades. A true innovator in the fleet.","datePublished":"2025-12-02"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Product","name":"Carnival Liberty","brand":{"@type":"Brand","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewRating":{"@type":"Rating","ratingValue":4.0,"bestRating":5,"worstRating":1},"reviewBody":"Carnival Liberty pioneered poolside movies with the Seaside Theater and was Carnival's test bed for Fun Ship 2.0 upgrades. A true innovator."}</script>
 
 <!-- JSON-LD: Person (E-E-A-T) -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","url":"https://cruisinginthewake.com/authors/ken-baker.html","jobTitle":"Cruise Research Analyst","worksFor":{"@type":"Organization","name":"In the Wake"},"description":"Cruise analyst specializing in ship comparisons and fleet evolution.","knowsAbout":["Carnival Cruise Line","Conquest-class Ships","Cruise Ship Analysis"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","url":"https://cruisinginthewake.com/authors/ken-baker.html","jobTitle":"Cruise Research Analyst","knowsAbout":["Cruise Ships","Carnival Cruise Line","Conquest Class"]}</script>
 
 <!-- JSON-LD: WebPage -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Carnival Liberty — Conquest-Class Cruise Ship","url":"https://cruisinginthewake.com/ships/carnival/carnival-liberty.html","description":"Complete guide to Carnival Liberty including live tracker, deck plans, dining, and ship history.","isPartOf":{"@type":"WebSite","name":"In the Wake"},"dateModified":"2025-12-02"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Carnival Liberty — Conquest-Class Ship","url":"https://cruisinginthewake.com/ships/carnival/carnival-liberty.html","dateModified":"2025-12-03"}</script>
 
 <!-- JSON-LD: FAQPage -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"When was Carnival Liberty built?","acceptedAnswer":{"@type":"Answer","text":"Carnival Liberty was built by Fincantieri at Monfalcone, Italy, and christened by Academy Award-winning actress Mira Sorvino on July 19, 2005, in Civitavecchia, Italy."}},{"@type":"Question","name":"What class is Carnival Liberty?","acceptedAnswer":{"@type":"Answer","text":"Carnival Liberty is the fourth of five Conquest-class ships, joining sisters Carnival Conquest (2002), Carnival Glory (2003), Carnival Valor (2004), and Carnival Freedom (2007)."}},{"@type":"Question","name":"How big is Carnival Liberty?","acceptedAnswer":{"@type":"Answer","text":"Carnival Liberty measures 110,320 gross tons, 952 feet (290m) long, with capacity for 2,978 guests at double occupancy across 13 decks with 1,487 staterooms."}},{"@type":"Question","name":"What is the Seaside Theater on Carnival Liberty?","acceptedAnswer":{"@type":"Answer","text":"Carnival Liberty was the first ship to feature the Seaside Theater—a massive 12×22 foot LED screen by the midship pool showing movies, concerts, and sporting events under the stars."}},{"@type":"Question","name":"Where does Carnival Liberty sail from?","acceptedAnswer":{"@type":"Answer","text":"Carnival Liberty operates from Port Canaveral, Florida, offering Eastern and Western Caribbean itineraries year-round."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the Seaside Theater?","acceptedAnswer":{"@type":"Answer","text":"Carnival Liberty was the first ship to feature the Seaside Theater — a massive 12×22 foot LED screen by the pool showing movies under the stars."}},{"@type":"Question","name":"What was Fun Ship 2.0?","acceptedAnswer":{"@type":"Answer","text":"In 2011, Liberty was the first ship to undergo Fun Ship 2.0 refurbishment, testing Guy's Burger Joint, BlueIguana Cantina, and other venues that later spread fleet-wide."}}]}</script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="/assets/styles.css">
-<style>
-:root {
-  --carnival-blue: #003da5;
-  --carnival-light: #00a3e0;
-  --carnival-red: #e31837;
-  --rope: #d9b382;
-  --sand: #f5f1e8;
-}
-
-.hero-ship {
-  background: linear-gradient(135deg, var(--carnival-blue) 0%, #0057b8 50%, var(--carnival-light) 100%);
-  color: #fff;
-  padding: 3rem 1.5rem;
-  text-align: center;
-  border-bottom: 6px double var(--rope);
-}
-
-.hero-ship h1 { font-size: clamp(2rem, 5vw, 2.75rem); margin: 0 0 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-.hero-ship .tagline { font-size: 1.1rem; opacity: 0.9; margin-bottom: 1rem; }
-.status-badge { display: inline-block; background: #28a745; color: #fff; padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.85rem; font-weight: 600; }
-
-.wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
-
-.card { background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-.card h2 { color: var(--carnival-blue); margin: 0 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--rope); font-size: 1.35rem; }
-
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
-.stat-item { background: var(--sand); padding: 1rem; border-radius: 8px; text-align: center; border-left: 4px solid var(--carnival-blue); }
-.stat-item .label { font-size: 0.85rem; color: #666; text-transform: uppercase; }
-.stat-item .value { font-size: 1.4rem; font-weight: 700; color: var(--carnival-blue); }
-
-.sister-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.75rem; }
-.sister-card { background: var(--sand); padding: 0.75rem; border-radius: 8px; text-align: center; text-decoration: none; color: inherit; border: 1px solid #e0e0e0; transition: transform 0.2s, box-shadow 0.2s; }
-.sister-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-.sister-card.current { background: var(--carnival-blue); color: #fff; border-color: var(--carnival-blue); }
-.sister-card .name { font-weight: 600; font-size: 0.9rem; }
-.sister-card .year { font-size: 0.8rem; opacity: 0.8; }
-
-.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
-.feature-item { background: var(--sand); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--carnival-red); }
-.feature-item h4 { margin: 0 0 0.5rem; color: var(--carnival-blue); }
-.feature-item p { margin: 0; font-size: 0.9rem; color: #444; }
-
-.tracker-container { background: #f0f4f8; border-radius: 8px; overflow: hidden; margin: 1rem 0; }
-.tracker-container iframe { width: 100%; height: 450px; border: 0; }
-
-.faq-item { border-bottom: 1px solid #e0e0e0; padding: 1rem 0; }
-.faq-item:last-child { border-bottom: none; }
-.faq-item summary { font-weight: 600; cursor: pointer; color: var(--carnival-blue); }
-.faq-item p { margin: 0.5rem 0 0; padding-left: 1rem; color: #444; }
-
-footer[role="contentinfo"] { background: var(--sand); border-top: 4px solid var(--rope); text-align: center; padding: 2rem; font-size: 0.9rem; color: #555; }
-
-.skip-link { position: absolute; top: -40px; left: 0; background: var(--carnival-blue); color: #fff; padding: 8px 16px; z-index: 10000; text-decoration: none; }
-.skip-link:focus { top: 0; }
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
-
-@media (max-width: 768px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .sister-grid { grid-template-columns: repeat(2, 1fr); }
-}
-</style>
+<link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
 </head>
+
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
-<div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-<header class="hero-ship" role="banner">
-  <h1>Carnival Liberty</h1>
-  <div class="tagline">Conquest-Class • Carnival Cruise Line</div>
-  <span class="status-badge">Active Ship</span>
+<header class="hero-header" role="banner">
+  <nav class="navbar"><div class="brand"><a href="/"><img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake"/></a><span class="version-badge">v3.010</span></div></nav>
+  <div class="hero-content">
+    <h1>Carnival Liberty</h1>
+    <p class="hero-tagline">The Innovator — First Seaside Theater, First Fun Ship 2.0</p>
+    <div class="badge-row">
+      <span class="badge badge--active">Active</span>
+      <span class="badge">Conquest Class</span>
+      <span class="badge">110,320 GT</span>
+      <span class="badge">2,978 Guests</span>
+      <span class="badge">Port Canaveral</span>
+    </div>
+  </div>
 </header>
 
-<nav class="wrap" aria-label="Breadcrumb" style="padding-top: 1rem; padding-bottom: 0;">
-  <ol style="list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; font-size: 0.9rem;">
-    <li><a href="/">Home</a> ›</li>
-    <li><a href="/ships.html">Ships</a> ›</li>
-    <li><a href="/ships.html#carnival">Carnival</a> ›</li>
-    <li aria-current="page"><strong>Carnival Liberty</strong></li>
-  </ol>
-</nav>
+<nav class="site-nav"><a class="nav-pill" href="/">Home</a><a class="nav-pill" href="/ships.html">Ships</a><a class="nav-pill" href="/planning.html">Planning</a><a class="nav-pill" href="/search.html">Search</a><a class="nav-pill" href="/about-us.html">About</a></nav>
 
-<main id="main-content" class="wrap" role="main">
+<main id="main-content" class="page-grid">
+  <div class="content-column">
 
-  <!-- Overview -->
-  <section class="card" aria-labelledby="overview-title">
-    <h2 id="overview-title">Overview</h2>
-    <p>Carnival Liberty is a Conquest-class cruise ship that pioneered onboard entertainment innovation when she debuted in 2005 as the first vessel to feature the Seaside Theater—a massive poolside LED screen for movies under the stars. Built by Fincantieri in Monfalcone, Italy, she was christened by Academy Award-winning actress Mira Sorvino in Civitavecchia on July 19, 2005.</p>
-    <p>In 2011, Liberty made history again as the first ship to undergo Carnival's ambitious "Fun Ship 2.0" refurbishment program, testing new dining and entertainment concepts that would later spread fleet-wide. At 110,320 gross tons with capacity for nearly 3,000 guests, she offers the full Conquest-class experience with a proven track record of continuous improvement.</p>
-    <p>Liberty operates year-round from Port Canaveral, Florida, offering Eastern and Western Caribbean itineraries that make her a favorite among Florida cruisers.</p>
-  </section>
+    <section class="card"><h2>First Look: Carnival Liberty</h2>
+      <div class="photo-carousel swiper" id="photo-swiper"><div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Carnival_Liberty_at_Port_Canaveral.jpg/800px-Carnival_Liberty_at_Port_Canaveral.jpg" alt="Carnival Liberty at Port Canaveral" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/><p class="photo-caption">Carnival Liberty at Port Canaveral</p></div>
+      </div><div class="swiper-pagination"></div></div>
+    </section>
 
-  <!-- Ship Statistics -->
-  <section class="card" aria-labelledby="stats-title">
-    <h2 id="stats-title">Ship Statistics</h2>
-    <div class="stats-grid">
-      <div class="stat-item">
-        <div class="label">Gross Tonnage</div>
-        <div class="value">110,320 GT</div>
+    <section class="card"><h2>Ship Overview</h2>
+      <p><strong>Carnival Liberty</strong> is the fourth of five Conquest-class ships, entering service in 2005. Christened by Academy Award-winning actress <strong>Mira Sorvino</strong> in Civitavecchia, Italy, she pioneered entertainment innovation as the first ship with the <strong>Seaside Theater</strong>.</p>
+      <p>In 2011, Liberty made history again as the first ship to undergo Carnival's <strong>Fun Ship 2.0</strong> refurbishment, testing new dining and entertainment concepts that later spread fleet-wide. She now sails year-round from <strong>Port Canaveral, Florida</strong>.</p>
+    </section>
+
+    <section class="card"><h2>Ship Statistics</h2>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-value">110,320</div><div class="stat-label">Gross Tonnage</div><div class="whimsy">≈ 2,206 blue whales</div></div>
+        <div class="stat-item"><div class="stat-value">952 ft</div><div class="stat-label">Length</div><div class="whimsy">3.2 football fields</div></div>
+        <div class="stat-item"><div class="stat-value">2,978</div><div class="stat-label">Guests</div><div class="whimsy">Small town at sea</div></div>
+        <div class="stat-item"><div class="stat-value">1,150</div><div class="stat-label">Crew</div><div class="whimsy">2.6:1 guest ratio</div></div>
+        <div class="stat-item"><div class="stat-value">1,487</div><div class="stat-label">Staterooms</div><div class="whimsy">Floating neighborhood</div></div>
+        <div class="stat-item"><div class="stat-value">13</div><div class="stat-label">Decks</div><div class="whimsy">13-story building</div></div>
       </div>
-      <div class="stat-item">
-        <div class="label">Guest Capacity</div>
-        <div class="value">2,978</div>
-      </div>
-      <div class="stat-item">
-        <div class="label">Length</div>
-        <div class="value">952 ft</div>
-      </div>
-      <div class="stat-item">
-        <div class="label">Beam</div>
-        <div class="value">116 ft</div>
-      </div>
-      <div class="stat-item">
-        <div class="label">Decks</div>
-        <div class="value">13</div>
-      </div>
-      <div class="stat-item">
-        <div class="label">Crew</div>
-        <div class="value">1,150</div>
-      </div>
-      <div class="stat-item">
-        <div class="label">Staterooms</div>
-        <div class="value">1,487</div>
-      </div>
-      <div class="stat-item">
-        <div class="label">IMO / MMSI</div>
-        <div class="value" style="font-size: 1rem;">9278181 / 371083000</div>
-      </div>
-    </div>
-  </section>
+      <p class="tiny" style="margin-top:1rem;"><strong>IMO:</strong> 9278181 · <strong>Builder:</strong> Fincantieri, Monfalcone · <strong>Christened:</strong> July 19, 2005</p>
+    </section>
 
-  <!-- Deck Plans -->
-  <section class="card" aria-labelledby="deck-plans-title">
-    <h2 id="deck-plans-title">Deck Plans</h2>
-    <p>Carnival Liberty features 13 passenger decks with 1,487 staterooms. Access the official interactive deck plans to explore cabin locations, dining venues, pools, and entertainment areas.</p>
-    <p><a class="btn" href="https://www.carnival.com/cruise-ships/carnival-liberty#deck-plans" target="_blank" rel="noopener">View Official Deck Plans →</a></p>
-  </section>
-
-  <!-- Sister Ships -->
-  <section class="card" aria-labelledby="sisters-title">
-    <h2 id="sisters-title">Conquest-Class Sister Ships</h2>
-    <p>Carnival Liberty is the fourth of five Conquest-class ships, all built by Fincantieri. This class established Carnival's dominance in the 110,000+ GT segment during the early 2000s.</p>
-    <div class="sister-grid">
-      <a href="carnival-conquest.html" class="sister-card">
-        <div class="name">Carnival Conquest</div>
-        <div class="year">2002</div>
-      </a>
-      <a href="carnival-glory.html" class="sister-card">
-        <div class="name">Carnival Glory</div>
-        <div class="year">2003</div>
-      </a>
-      <a href="carnival-valor.html" class="sister-card">
-        <div class="name">Carnival Valor</div>
-        <div class="year">2004</div>
-      </a>
-      <div class="sister-card current">
-        <div class="name">Carnival Liberty</div>
-        <div class="year">2005</div>
+    <section class="card"><h2>Conquest-Class Sisters</h2>
+      <div class="sister-grid">
+        <a href="/ships/carnival/carnival-conquest.html" class="sister-card"><strong>Carnival Conquest</strong><br/><span class="tiny">2002 · New Orleans</span></a>
+        <a href="/ships/carnival/carnival-glory.html" class="sister-card"><strong>Carnival Glory</strong><br/><span class="tiny">2003 · Norfolk</span></a>
+        <a href="/ships/carnival/carnival-valor.html" class="sister-card"><strong>Carnival Valor</strong><br/><span class="tiny">2004 · New Orleans</span></a>
+        <a href="/ships/carnival/carnival-freedom.html" class="sister-card"><strong>Carnival Freedom</strong><br/><span class="tiny">2007 · Galveston</span></a>
       </div>
-      <a href="carnival-freedom.html" class="sister-card">
-        <div class="name">Carnival Freedom</div>
-        <div class="year">2007</div>
-      </a>
-    </div>
-  </section>
+    </section>
 
-  <!-- Signature Features -->
-  <section class="card" aria-labelledby="features-title">
-    <h2 id="features-title">Signature Features</h2>
-    <div class="features-grid">
-      <div class="feature-item">
-        <h4>Seaside Theater</h4>
-        <p>The first Seaside Theater in the fleet—a 12×22 foot LED screen showing movies, concerts, and sporting events poolside.</p>
+    <section class="card"><h2>Signature Features</h2>
+      <div class="features-grid">
+        <div class="feature-item"><h4>Seaside Theater</h4><p>First in the fleet — 12×22 foot LED screen showing movies under the stars.</p></div>
+        <div class="feature-item"><h4>Venetian Palace Theater</h4><p>1,500-seat entertainment venue with Playlist Productions shows.</p></div>
+        <div class="feature-item"><h4>WaterWorks</h4><p>Twister waterslide and splash zones for all ages.</p></div>
+        <div class="feature-item"><h4>Serenity</h4><p>Adults-only retreat with loungers and whirlpools.</p></div>
+        <div class="feature-item"><h4>Cloud 9 Spa</h4><p>Full-service spa with thermal suite and salon.</p></div>
+        <div class="feature-item"><h4>Five Pool Areas</h4><p>Including one with retractable roof for all-weather swimming.</p></div>
       </div>
-      <div class="feature-item">
-        <h4>Venetian Palace Main Theater</h4>
-        <p>1,500-seat entertainment venue featuring Broadway-style Playlist Productions shows nightly.</p>
+    </section>
+
+    <section class="card"><h2>Dining Venues</h2>
+      <h3>Complimentary</h3>
+      <div class="dining-grid">
+        <div class="dining-item"><h4>Lincoln &amp; Golden Dining Rooms</h4><p>Elegant dual main dining rooms with Your Time Dining.</p></div>
+        <div class="dining-item"><h4>Guy's Burger Joint</h4><p>Guy Fieri's hand-crafted burgers poolside.</p></div>
+        <div class="dining-item"><h4>BlueIguana Cantina</h4><p>Fresh Mexican tacos and burritos.</p></div>
+        <div class="dining-item"><h4>Lido Marketplace</h4><p>Expansive buffet with global cuisine.</p></div>
       </div>
-      <div class="feature-item">
-        <h4>Five Pool Areas</h4>
-        <p>Including one with a retractable roof for swimming in any weather, plus whirlpools throughout.</p>
+      <h3 style="margin-top:1rem;">Specialty (Fee)</h3>
+      <div class="dining-grid">
+        <div class="dining-item specialty"><h4>Fahrenheit 555</h4><p>Premium steakhouse experience.</p></div>
+        <div class="dining-item specialty"><h4>Bonsai Sushi</h4><p>Fresh sushi and Japanese cuisine.</p></div>
+        <div class="dining-item specialty"><h4>JiJi Asian Kitchen</h4><p>Pan-Asian favorites.</p></div>
+        <div class="dining-item specialty"><h4>Chef's Table</h4><p>Exclusive multi-course experience with galley tour.</p></div>
       </div>
-      <div class="feature-item">
-        <h4>Club O2 Casino</h4>
-        <p>Full casino experience with 18 gaming tables and 216 slot machines.</p>
-      </div>
-      <div class="feature-item">
-        <h4>Serenity Adult Retreat</h4>
-        <p>Adults-only outdoor sanctuary with plush loungers, hot tubs, and dedicated bar service.</p>
-      </div>
-      <div class="feature-item">
-        <h4>WaterWorks</h4>
-        <p>Aqua park featuring the Twister waterslide and splash zones for all ages.</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Dining -->
-  <section class="card" aria-labelledby="dining-title">
-    <h2 id="dining-title">Dining Venues</h2>
-    <h3 style="color: #28a745; margin-top: 1rem;">Complimentary</h3>
-    <ul>
-      <li><strong>Lincoln & Golden Dining Rooms</strong> — Multi-course dinners with Your Time or traditional dining</li>
-      <li><strong>Lido Marketplace</strong> — Buffet-style breakfast, lunch, and dinner</li>
-      <li><strong>Guy's Burger Joint</strong> — Guy Fieri's famous hand-crafted burgers</li>
-      <li><strong>BlueIguana Cantina</strong> — Fresh Mexican tacos and burritos</li>
-      <li><strong>Pizzeria del Capitano</strong> — 24-hour pizza made to order</li>
-    </ul>
-    <h3 style="color: var(--carnival-red); margin-top: 1rem;">Specialty (Additional Cost)</h3>
-    <ul>
-      <li><strong>Fahrenheit 555 Steakhouse</strong> — Premium steaks and seafood</li>
-      <li><strong>Bonsai Sushi</strong> — Fresh sushi and Japanese cuisine</li>
-      <li><strong>JiJi Asian Kitchen</strong> — Pan-Asian favorites</li>
-      <li><strong>Chef's Table</strong> — Exclusive multi-course dining experience</li>
-    </ul>
-  </section>
+    <section class="card"><h2>Ship's Logbook</h2><div id="logbook-container"><p class="tiny">Loading stories...</p></div></section>
 
-  <!-- Live Tracker -->
-  <section class="card" aria-labelledby="tracker-title">
-    <h2 id="tracker-title">Live Ship Tracker</h2>
-    <p>Track Carnival Liberty's current position, speed, and heading in real-time.</p>
-    <div class="tracker-container">
-      <iframe src="https://www.marinetraffic.com/en/ais/embed/zoom:8/centery:28/centerx:-80/maptype:4/shownames:true/mmsi:371083000/shipid:369831/fleet:/fleet_id:/vtypes:/showmenu:/remember:false" title="Carnival Liberty Live Tracker" loading="lazy" allowfullscreen></iframe>
-    </div>
-    <p style="font-size: 0.85rem; color: #666;">Data provided by MarineTraffic. IMO: 9278181 | MMSI: 371083000</p>
-  </section>
+    <section class="card"><h2>Video Tours</h2><div class="swiper" id="video-swiper"><div class="swiper-wrapper" id="video-wrapper"></div></div></section>
 
-  <!-- Timeline -->
-  <section class="card" aria-labelledby="timeline-title">
-    <h2 id="timeline-title">Ship Timeline</h2>
-    <ul style="line-height: 1.8;">
-      <li><strong>July 19, 2005</strong> — Christened by Mira Sorvino in Civitavecchia, Italy</li>
-      <li><strong>2005</strong> — Enters service as first ship with Seaside Theater poolside screen</li>
-      <li><strong>2007</strong> — Renamed from "Liberty" to "Carnival Liberty" (fleet-wide standardization)</li>
-      <li><strong>2011</strong> — First ship to undergo Fun Ship 2.0 refurbishment adding Guy's Burger Joint, BlueIguana Cantina, RedFrog Rum Bar</li>
-      <li><strong>2014</strong> — Additional upgrades including Alchemy Bar and enhanced entertainment</li>
-      <li><strong>2019</strong> — Further renovations including Fahrenheit 555 steakhouse</li>
-      <li><strong>Present</strong> — Operating Caribbean cruises year-round from Port Canaveral</li>
-    </ul>
-  </section>
+    <section class="card"><h2>Deck Plans</h2><p><a href="https://www.carnival.com/cruise-ships/carnival-liberty#deck-plans" target="_blank" rel="noopener">View Official Deck Plans on Carnival.com</a></p></section>
 
-  <!-- FAQ -->
-  <section class="card" aria-labelledby="faq-title">
-    <h2 id="faq-title">Frequently Asked Questions</h2>
+    <section class="card"><h2>Live Ship Tracker</h2>
+      <div class="tracker-container"><iframe title="Carnival Liberty Live Position" src="https://www.marinetraffic.com/en/ais/embed/zoom:10/centery:28.41/centerx:-80.61/maptype:1/shownames:true/mmsi:371083000/shipid:369831/fleet:/fleet_id:/vtypes:/showmenu:false/remember:false" loading="lazy"></iframe></div>
+      <p class="tiny"><strong>Homeport:</strong> Port Canaveral, FL · <strong>Itineraries:</strong> Eastern &amp; Western Caribbean</p>
+    </section>
 
-    <details class="faq-item">
-      <summary>When was Carnival Liberty built?</summary>
-      <p>Carnival Liberty was built by Fincantieri at their Monfalcone shipyard in Italy. She was christened by Academy Award-winning actress Mira Sorvino on July 19, 2005, in Civitavecchia, Italy.</p>
-    </details>
+    <section class="card faq"><h2>FAQ</h2>
+      <details><summary>What is the Seaside Theater?</summary><p>Carnival Liberty was the first ship with the Seaside Theater — a massive 12×22 foot LED screen by the pool showing movies, concerts, and sporting events under the stars.</p></details>
+      <details><summary>What was Fun Ship 2.0?</summary><p>In 2011, Liberty was the first ship to undergo Fun Ship 2.0 refurbishment, adding Guy's Burger Joint, BlueIguana Cantina, and RedFrog Rum Bar before fleet-wide rollout.</p></details>
+      <details><summary>Where does Carnival Liberty sail from?</summary><p>Port Canaveral, Florida — Eastern and Western Caribbean itineraries, popular with Orlando visitors.</p></details>
+    </section>
 
-    <details class="faq-item">
-      <summary>What class is Carnival Liberty?</summary>
-      <p>Carnival Liberty is the fourth of five Conquest-class ships, joining sisters Carnival Conquest (2002), Carnival Glory (2003), Carnival Valor (2004), and Carnival Freedom (2007). All were built by Fincantieri.</p>
-    </details>
+    <section class="card"><h2>Sources</h2><ul class="tiny"><li><a href="https://www.carnival.com/cruise-ships/carnival-liberty" target="_blank">Carnival Cruise Line</a></li><li><a href="https://www.marinetraffic.com" target="_blank">MarineTraffic</a></li><li><a href="https://en.wikipedia.org/wiki/Carnival_Liberty" target="_blank">Wikipedia</a></li></ul></section>
 
-    <details class="faq-item">
-      <summary>How big is Carnival Liberty?</summary>
-      <p>Carnival Liberty measures 110,320 gross tons and is 952 feet (290 meters) long. She has capacity for 2,978 guests at double occupancy across 1,487 staterooms on 13 decks, with a crew of 1,150.</p>
-    </details>
+  </div>
 
-    <details class="faq-item">
-      <summary>What is the Seaside Theater?</summary>
-      <p>Carnival Liberty was the first ship to feature the Seaside Theater—a massive 12×22 foot LED screen located by the midship pool. It shows movies, concerts, and sporting events under the stars, and has since been added to other ships in the fleet.</p>
-    </details>
-
-    <details class="faq-item">
-      <summary>Where does Carnival Liberty sail from?</summary>
-      <p>Carnival Liberty operates year-round from Port Canaveral, Florida, offering Eastern and Western Caribbean itineraries. Her proximity to Orlando makes her popular with theme park visitors combining cruise and land vacations.</p>
-    </details>
-  </section>
-
-  <!-- Attribution -->
-  <section class="card" aria-labelledby="attribution-title" style="font-size: 0.85rem; color: #666;">
-    <h2 id="attribution-title">Sources & Attribution</h2>
-    <p>Ship specifications from <a href="https://en.wikipedia.org/wiki/Carnival_Liberty" target="_blank" rel="noopener">Wikipedia</a>, <a href="https://www.cruisemapper.com/ships/Carnival-Liberty-568" target="_blank" rel="noopener">CruiseMapper</a>, and Carnival Cruise Line. IMO 9278181. Live tracking via MarineTraffic. All trademarks property of their respective owners.</p>
-    <p>Page maintained by <a href="/authors/ken-baker.html">Ken Baker</a>, Cruise Research Analyst at In the Wake.</p>
-  </section>
-
+  <aside class="rail">
+    <section class="card quick-answer"><h2>Quick Answer</h2><p><strong>Carnival Liberty</strong> is a 110,320 GT Conquest-class ship from Port Canaveral. She pioneered the Seaside Theater (2005) and Fun Ship 2.0 (2011).</p></section>
+    <section class="card"><h3>Key Facts</h3><dl class="key-facts"><dt>Class</dt><dd>Conquest (4th of 5)</dd><dt>Tonnage</dt><dd>110,320 GT</dd><dt>Guests</dt><dd>2,978</dd><dt>Homeport</dt><dd>Port Canaveral, FL</dd><dt>Godmother</dt><dd>Mira Sorvino</dd></dl></section>
+    <section class="card author-card-vertical"><h3>Author</h3><img class="author-avatar" src="/authors/img/ken1_96.webp" alt="Ken Baker"/><h4><a href="/authors/ken-baker.html">Ken Baker</a></h4><p class="tiny">Founder, In the Wake</p></section>
+  </aside>
 </main>
 
-<footer role="contentinfo">
-  <p><strong>In the Wake</strong> — A Cruise Traveler's Logbook</p>
-  <p>© 2025 In the Wake. All rights reserved.</p>
-  <p style="margin-top: 1rem;">
-    <a href="/privacy.html">Privacy</a> ·
-    <a href="/terms.html">Terms</a> ·
-    <a href="/accessibility.html">Accessibility</a> ·
-    <a href="/about-us.html">About</a>
-  </p>
-  <p style="opacity: 0; position: absolute; pointer-events: none;" aria-hidden="true">Soli Deo Gloria</p>
-</footer>
+<footer><p><strong>In the Wake</strong></p><p class="tiny">© 2025 · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p><p class="tiny" style="opacity:0;position:absolute" aria-hidden="true">Soli Deo Gloria</p></footer>
 
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+new Swiper('#photo-swiper',{loop:true,pagination:{el:'.swiper-pagination',clickable:true}});
+fetch('/assets/data/videos/carnival/carnival-liberty.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
+fetch('/assets/data/logbook/carnival/carnival-liberty.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h4>${s.title}</h4><p class="logbook-meta">${s.persona_label} · ${s.author.name}</p><p>${s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')}</p></article>`).join('');}).catch(()=>{});
+</script>
 </body>
 </html>
