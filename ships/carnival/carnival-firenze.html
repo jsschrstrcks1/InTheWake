@@ -1,9 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <!--
-Soli Deo Gloria
-All work on this project is offered as a gift to God.
-"Trust in the LORD with all your heart..." — Proverbs 3:5
-"Whatever you do, work heartily..." — Colossians 3:23
+████████████████████████████████████████████████████████████████████████████████
+██  SOLI DEO GLORIA — To God alone be the glory                satisfies: SR1 ██
+██  All work on this project is offered as an act of worship.                 ██
+██  "Trust in the LORD with all your heart..." — Proverbs 3:5                 ██
+██  "Whatever you do, work heartily..." — Colossians 3:23                     ██
+██                                                                            ██
+██  STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA                  ██
+████████████████████████████████████████████████████████████████████████████████
 -->
 
 <html lang="en">
@@ -13,687 +17,1106 @@ All work on this project is offered as a gift to God.
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
-     cruise-line: Carnival
-     updated: 2025-11-15
-     expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons
-     target-audience: Carnival Firenze cruisers, ship comparison researchers, first-time cruisers
-     answer-first: Details, deck plans, photos, and videos for Carnival Firenze — Active (Present) ship with Carnival Cruise Line.
-     -->
+     cruise-line: Carnival Cruise Line
+     ship-class: Venice Class
+     siblings: Carnival Venezia
+     related: Costa Firenze (former name), Vista Class ships
+     updated: 2025-12-02
+     expertise: Carnival cruise planning, Venice-class ships, Italian-themed cruising, Costa by Carnival program
+     target-audience: West Coast cruisers, Italian culture enthusiasts, Carnival Fun Italian Style guests
+     answer-first: Carnival Firenze is a 135,156 GT Venice-class ship sailing from Long Beach, featuring Italian-inspired design and "Carnival Fun Italian Style" dining and entertainment.
+-->
+
 <meta charset="utf-8"/>
-  <meta name="ai-summary" content="Carnival Firenze • In The Wake">
-  <meta name="last-reviewed" content="2025-11-19">
-  <meta name="content-protocol" content="ICP-Lite v1.0">
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Carnival Firenze • In The Wake</title>
-<link href="https://inthewake.example/ships/carnival/carnival-firenze.html" rel="canonical"/>
-<meta content="Details, deck plans, photos, and videos for Carnival Firenze — Active (Present) ship with Carnival Cruise Line." name="description"/>
-<link href="https://www.carnival.com" rel="preconnect"/>
-  <!-- Service Worker Registration -->
-  <script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Carnival Firenze — Venice-Class Italian-Themed Ship | In the Wake</title>
+<link rel="canonical" href="https://cruisinginthewake.com/ships/carnival/carnival-firenze.html"/>
+<meta name="description" content="Carnival Firenze: 135,156 GT Venice-class ship with Italian-themed dining and entertainment. Ex-Costa Firenze, now sailing from Long Beach as part of Carnival Fun Italian Style."/>
+
+<!-- ICP-Lite v1.0 Meta Tags -->
+<meta name="ai-summary" content="Carnival Firenze: Venice-class ship (IMO 9801691), 135,156 GT, ex-Costa Firenze, sailing Long Beach with Italian-themed Carnival Fun Italian Style experience."/>
+<meta name="last-reviewed" content="2025-12-02"/>
+<meta name="content-protocol" content="ICP-Lite v1.0"/>
+
+<link rel="preconnect" href="https://www.carnival.com"/>
+
+<style>
+:root {
+  --accent: #0057b8;
+  --carnival-red: #e4002b;
+  --carnival-blue: #003da5;
+  --italian-green: #008c45;
+  --italian-red: #cd212a;
+  --rope: #d9b382;
+  --sand: #f5f1e8;
+  --ink: #1a1a2e;
+  --ink-mid: #3d5a6a;
+  --text-muted: #5a6a7a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--ink);
+  background: #fff;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--carnival-blue);
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 10000;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+}
+.skip-link:focus { top: 0; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Header / Hero */
+.hero-header {
+  position: relative;
+  background: linear-gradient(135deg, #008c45 0%, #fff 50%, #cd212a 100%);
+  border-bottom: 6px double var(--rope);
+  color: var(--ink);
+  overflow: hidden;
+}
+
+.hero-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('/assets/ships/carnival-firenze-hero.webp') center/cover no-repeat;
+  opacity: 0.2;
+}
+
+.navbar {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  padding: 0.5rem 0.9rem 0.35rem;
+  position: relative;
+  z-index: 2000;
+}
+
+.brand {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+}
+
+.brand img {
+  height: 28px;
+  width: auto;
+}
+
+.version-badge {
+  font-size: 0.72rem;
+  opacity: 0.8;
+  color: var(--text-muted);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 0 0 0.5rem;
+  color: var(--ink);
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+}
+
+.hero-tagline {
+  font-size: 1.1rem;
+  color: var(--ink-mid);
+  margin-bottom: 1rem;
+}
+
+/* Badges */
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  border: 1px solid #ddd;
+  background: rgba(255,255,255,0.9);
+  color: var(--ink);
+}
+
+.badge--active {
+  background: linear-gradient(135deg, #008c45, #006837);
+  border-color: #008c45;
+  color: #fff;
+  font-weight: 600;
+}
+
+.badge--italian {
+  background: linear-gradient(90deg, #008c45 33%, #fff 33%, #fff 66%, #cd212a 66%);
+  color: var(--ink);
+  font-weight: 600;
+  border: 2px solid #333;
+}
+
+/* Navigation */
+.site-nav {
+  background: var(--sand);
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  border-bottom: 1px solid #e0d5c5;
+}
+
+.nav-pill {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid #ddd;
+  transition: all 0.2s ease;
+}
+
+.nav-pill:hover {
+  background: var(--carnival-blue);
+  color: #fff;
+  border-color: var(--carnival-blue);
+}
+
+.nav-dropdown { position: relative; }
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  min-width: 200px;
+  z-index: 1000;
+  padding: 0.5rem 0;
+}
+
+.nav-dropdown.open .dropdown-menu { display: block; }
+
+.dropdown-menu a {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.dropdown-menu a:hover { background: var(--sand); }
+
+/* Main Layout */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 980px) {
+  .page-grid {
+    grid-template-columns: 1fr 320px;
   }
-  </script>
+}
 
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
-  <style>
-  /* Header / Hero */
-  .hero-header {
-    position: relative;
-    border-bottom: 6px double var(--rope);
-    background: #eaf6f6;
-    z-index: 9000;
-  }
+/* Cards */
+.card {
+  background: #fff;
+  border: 1px solid #e8eaf0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
 
-  .navbar {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-    padding: .5rem .9rem .35rem;
-    position: relative;
-    z-index: 2000;
-    overflow: visible;
-  }
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: min(50%, 280px);
+  height: min(50%, 280px);
+  background: url('/assets/watermark.png') center/contain no-repeat;
+  opacity: 0.04;
+  pointer-events: none;
+}
 
-  .brand {
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-  }
+.card h2 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  color: var(--carnival-blue);
+  border-bottom: 2px solid var(--rope);
+  padding-bottom: 0.5rem;
+}
 
-  .brand img {
-    height: 28px;
-    width: auto;
-  }
+.card h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.1rem;
+  color: var(--ink);
+}
 
-  .version-badge {
-    font-size: .72rem;
-    opacity: .8;
-    color: var(--text-muted);
-  }
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1rem;
+}
 
-:root{--accent:#0047ff;--muted:#f5f7fb;}
-body{font-family:system-ui,-apple-system,Segoe UI,Roboto;line-height:1.6;margin:0;color:#111;background:#fff}
-header,main,footer{max-width:1100px;margin:0 auto;padding:24px}
-.badge{display:inline-block;padding:.25rem .5rem;border-radius:999px;font-size:.8rem;border:1px solid #ddd;background:#fafafa;margin-right:.5rem}
-.badge--past{background:#fff4f4;color:#a40000;border-color:#ffd1d1}
-.badge--present{background:#f2fff5;color:#075a1f;border-color:#c7f3d3}
-.badge--future{background:#f5f8ff;color:#002c7a;border-color:#cfe0ff}
-.grid{display:grid;grid-template-columns:1fr;gap:20px}
-@media(min-width:960px){.grid--2{grid-template-columns:2fr 1fr}}
-.card{background:#fff;border:1px solid #e8eaf0;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.card header{padding:16px 16px 0}
-.card .content{padding:16px}
-hr.sep{border:0;border-top:1px solid #eceff4;margin:24px 0}
-a{color:#0047ff;text-decoration:none}
-a[target="_blank"]::after{content:"↗";margin-left:4px;font-size:.85em;color:#99a}
-figure{margin:0;padding:0}
-figcaption{font-size:.85rem;color:#555;margin-top:4px}
-.small{font-size:.9rem;color:#444}
-.footer-note{font-size:.85rem;color:#555}
+.stat-item {
+  text-align: center;
+  padding: 1rem;
+  background: var(--sand);
+  border-radius: 8px;
+}
 
-  .nav {
-    flex: 1 1 auto;
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: .5rem;
-    white-space: nowrap;
-    flex-wrap: nowrap;
-    overflow: visible;
-    padding-inline: .75rem;
-  }
+.stat-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--carnival-blue);
+}
 
-  @media (max-width: 768px) {
-    .nav {
-      justify-content: flex-start;
-      overflow-x: auto;
-      scrollbar-width: thin;
-      -webkit-overflow-scrolling: touch;
-    }
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
 
-  }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
+/* Sister Ships */
+.sister-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--sand);
+  border-radius: 8px;
+  padding: 1rem;
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
 
-  </style>
-<meta content="inthewake_standardsv2.220a" name="inthewake:standard"/><script type="application/ld+json">
+.sister-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.sister-card img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Dining Grid */
+.dining-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.dining-item {
+  background: var(--sand);
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--italian-green);
+}
+
+.dining-item h4 {
+  margin: 0 0 0.5rem;
+  color: var(--carnival-blue);
+}
+
+.dining-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ink-mid);
+}
+
+.dining-item.specialty {
+  border-left-color: var(--italian-red);
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 0.5rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--italian-green);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.timeline-item:last-child { border-bottom: none; }
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -1.65rem;
+  top: 0.35rem;
+  width: 12px;
+  height: 12px;
+  background: var(--italian-green);
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px var(--italian-green);
+}
+
+.timeline-date {
+  font-weight: 600;
+  color: var(--italian-green);
+  margin-bottom: 0.25rem;
+}
+
+/* Live Tracker */
+.tracker-container {
+  background: #f8f9fa;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.tracker-container iframe {
+  width: 100%;
+  height: 350px;
+  border: none;
+}
+
+/* FAQ */
+.faq details {
+  margin: 0.5rem 0;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e8eaf0;
+}
+
+.faq summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.5rem 0;
+  color: var(--ink);
+}
+
+.faq summary:hover { color: var(--carnival-blue); }
+
+.faq details p {
+  margin: 0.5rem 0 0;
+  padding-left: 1rem;
+  color: var(--ink-mid);
+}
+
+/* Rail */
+.rail {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.author-card-vertical { text-align: center; }
+
+.author-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin: 0 auto 1rem;
+}
+
+/* Italian Banner */
+.italian-banner {
+  background: linear-gradient(90deg, #008c45 0%, #008c45 33%, #f4f5f0 33%, #f4f5f0 66%, #cd212a 66%, #cd212a 100%);
+  color: #fff;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.italian-banner h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  border: none;
+  padding: 0;
+}
+
+.italian-banner p {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  color: #333;
+  background: rgba(255,255,255,0.9);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+/* Footer */
+footer {
+  background: var(--sand);
+  border-top: 4px double var(--rope);
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+footer p {
+  max-width: 800px;
+  margin: 0.5rem auto;
+}
+
+.tiny {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+a {
+  color: var(--carnival-blue);
+  text-decoration: none;
+}
+
+a:hover { text-decoration: underline; }
+
+a[target="_blank"]::after {
+  content: " ↗";
+  font-size: 0.8em;
+  opacity: 0.7;
+}
+</style>
+
+<!-- JSON-LD: Organization -->
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Ken Baker",
-  "url": "https://inthewake.com/about/ken-baker.html",
-  "jobTitle": "Cruise Research Analyst & Data Specialist",
-  "description": "Cruise industry analyst specializing in ship comparisons, deck plan analysis, and dining venue research.",
-  "knowsAbout": [
-    "Cruise Ship Analysis",
-    "Deck Plans",
-    "Royal Caribbean",
-    "Cruise Dining",
-    "Ship Comparisons",
-    "Ship Reviews",
-    "Deck Plan Analysis"
+  "@type": "Organization",
+  "name": "In the Wake",
+  "url": "https://cruisinginthewake.com",
+  "logo": "https://cruisinginthewake.com/assets/logo_wake_512.png",
+  "description": "A cruise traveler's logbook featuring encyclopedic encyclopedias for encyclopedic encyclopedists.",
+  "sameAs": ["https://instagram.com/flickersofmajesty"]
+}
+</script>
+
+<!-- JSON-LD: WebSite with SearchAction -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "In the Wake",
+  "url": "https://cruisinginthewake.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://cruisinginthewake.com/search.html?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- JSON-LD: BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships.html"},
+    {"@type": "ListItem", "position": 3, "name": "Carnival", "item": "https://cruisinginthewake.com/ships.html#carnival"},
+    {"@type": "ListItem", "position": 4, "name": "Carnival Firenze", "item": "https://cruisinginthewake.com/ships/carnival/carnival-firenze.html"}
   ]
 }
 </script>
 
-  <!-- JSON-LD: WebPage (ICP-Lite) -->
-  <script type="application/ld+json">
-  {
+<!-- JSON-LD: Review -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "itemReviewed": {
+    "@type": "Product",
+    "name": "Carnival Firenze",
+    "description": "Venice-class cruise ship featuring Italian-themed dining and entertainment",
+    "brand": {"@type": "Brand", "name": "Carnival Cruise Line"}
+  },
+  "author": {"@type": "Person", "name": "Ken Baker"},
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": 4.3,
+    "bestRating": 5,
+    "worstRating": 1
+  },
+  "reviewBody": "Carnival Firenze brings authentic Italian flair to the West Coast with specialty Italian dining, elegant Florentine-inspired design, and the signature Carnival fun experience."
+}
+</script>
+
+<!-- JSON-LD: Person (E-E-A-T) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ken Baker",
+  "url": "https://cruisinginthewake.com/authors/ken-baker.html",
+  "jobTitle": "Cruise Research Analyst",
+  "description": "Founder of In the Wake, specializing in cruise ship analysis, deck plans, and dining research.",
+  "knowsAbout": ["Cruise Ships", "Carnival Cruise Line", "Venice Class", "Italian Cruising", "West Coast Cruises"]
+}
+</script>
+
+<!-- JSON-LD: WebPage -->
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "Carnival Firenze \u2022 In The Wake",
+  "name": "Carnival Firenze — Venice-Class Ship",
+  "description": "Carnival Firenze: 135,156 GT Venice-class ship with Italian-themed dining and entertainment, sailing from Long Beach.",
   "url": "https://cruisinginthewake.com/ships/carnival/carnival-firenze.html",
-  "description": "Information about Carnival Firenze \u2022 In The Wake"
+  "isPartOf": {"@type": "WebSite", "name": "In the Wake", "url": "https://cruisinginthewake.com"},
+  "dateModified": "2025-12-02"
 }
-  </script><style>
-    /* Navigation */
-    .nav {
-      flex: 1 1 auto;
-      min-width: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .5rem;
-      white-space: nowrap;
-      flex-wrap: nowrap;
-      overflow: visible;
-      padding-inline: .75rem;
-    }
+</script>
 
-    @media (max-width: 768px) {
-
-    }
-
-    .navbar {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      gap: .6rem;
-      padding: .5rem .9rem .35rem;
-      align-items: flex-end;
-      position: relative;
-      z-index: 5;
-    }
-
-    .brand {
-      display: flex;
-      align-items: flex-end;
-      gap: .6rem;
-    }
-
-    .brand img {
-      height: 28px;
-      width: auto;
-      display: block;
-    }
-
-    .version-badge {
-      font-size: .72rem;
-      opacity: .8;
-      margin-left: .35rem;
-    }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-
-  <!-- JSON-LD: FAQPage (ICP-Lite) -->
-  <script type="application/ld+json">
-  {
+<!-- JSON-LD: FAQPage -->
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What dining options are available on Carnival Firenze?",
+      "name": "What is Carnival Firenze's former name?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Carnival Firenze offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship class."
+        "text": "Carnival Firenze was originally Costa Firenze, built in 2020 for Costa Cruises. She was transferred to Carnival Cruise Line in February 2024 as part of the 'Costa by Carnival' program."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I find the deck plans for Carnival Firenze?",
+      "name": "Where does Carnival Firenze sail from?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Deck plans are available through the links on this page or on the Carnival website."
+        "text": "Carnival Firenze sails from Long Beach, California, offering Mexican Riviera and Baja cruises on the West Coast."
       }
     },
     {
       "@type": "Question",
-      "name": "Where does Carnival Firenze sail?",
+      "name": "What makes Carnival Firenze unique?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Ship deployments vary by season. Check the Carnival website for current itineraries."
+        "text": "Carnival Firenze features 'Carnival Fun Italian Style' — a blend of classic Carnival fun with authentic Italian-inspired dining, décor, and entertainment. Her Florentine-themed design celebrates the art and culture of Florence, Italy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What class is Carnival Firenze?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Carnival Firenze is a Venice-class ship, a sub-class of the Vista-class. Her sister ship is Carnival Venezia."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How big is Carnival Firenze?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Carnival Firenze is 135,156 gross tons, 1,061 feet long, and carries up to 4,126 guests in 2,136 staterooms across 15 passenger decks."
       }
     }
   ]
 }
-  </script>
+</script>
 
-  <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
+<!-- Service Worker Registration -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+}
+</script>
+
+<link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=3.010"/>
 </head>
-<body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  <!-- ARIA Live Regions -->
-  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
-  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-<header class="site-header hero-header" role="banner">
-<div class="navbar">
-  <div class="brand">
-    <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
-    <span class="tiny version-badge">v3.010.300</span>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- ARIA Live Regions for Accessibility -->
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+
+<header class="hero-header" role="banner">
+  <nav class="navbar" aria-label="Site branding">
+    <div class="brand">
+      <a href="/">
+        <img src="/assets/logo_wake_256.png"
+             srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x"
+             width="256" height="259"
+             alt="In the Wake - Home"
+             decoding="async"/>
+      </a>
+      <span class="version-badge">v3.010</span>
+    </div>
+  </nav>
+
+  <div class="hero-content">
+    <h1>Carnival Firenze</h1>
+    <p class="hero-tagline">Carnival Fun Italian Style — Florentine Elegance Meets West Coast Adventure</p>
+    <div class="badge-row">
+      <span class="badge badge--active">Active</span>
+      <span class="badge">Venice Class</span>
+      <span class="badge">135,156 GT</span>
+      <span class="badge">4,126 Guests</span>
+      <span class="badge">Long Beach</span>
+    </div>
+  </div>
+</header>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a class="nav-pill" href="/">Home</a>
+
+  <div class="nav-dropdown" id="nav-planning">
+    <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+      Planning <span class="caret">▾</span>
+    </button>
+    <div class="dropdown-menu" role="menu">
+      <a href="/planning.html">Planning Overview</a>
+      <a href="/ships.html">Ships</a>
+      <a href="/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="/ports.html">Ports</a>
+      <a href="/drink-packages.html">Drink Packages</a>
+      <a href="/cruise-lines.html">Cruise Lines</a>
+    </div>
   </div>
 
-    <!-- Hero section -->
-    <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true"/>
-      <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
-      </div>
-      <div class="tagline">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit">
-        <a class="pill long" href="https://instagram.com/flickersofmajesty">Photo © Flickers of Majesty</a>
-      </div>
-    </div></header>
+  <div class="nav-dropdown" id="nav-travel">
+    <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+      Travel <span class="caret">▾</span>
+    </button>
+    <div class="dropdown-menu" role="menu">
+      <a href="/travel.html">Travel Overview</a>
+      <a href="/solo.html">Solo Cruising</a>
+    </div>
+  </div>
 
-        <nav class="site-nav" aria-label="Main site navigation">
-        <a class="nav-pill" href="/">Home</a>
+  <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+  <a class="nav-pill" href="/search.html">Search</a>
+  <a class="nav-pill" href="/about-us.html">About</a>
+</nav>
 
-        <!-- Planning Dropdown -->
-        <div class="nav-dropdown" id="nav-planning">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Planning <span class="caret">&#9662;</span>
-          </button>
-          <div class="dropdown-menu" role="menu">
-            <a href="/planning.html">Planning (overview)</a>
-            <a href="/ships.html">Ships</a>
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a href="/ports.html">Ports</a>
-            <a href="/drink-packages.html">Drink Packages</a>
-            <a href="/drink-calculator.html">Drink Calculator</a>
-            <a href="/stateroom-check.html">Stateroom Check</a>
-            <a href="/cruise-lines.html">Cruise Lines</a>
-            <a href="/packing-lists.html">Packing Lists</a>
-            <a href="/accessibility.html">Accessibility</a>
-          </div>
+<main id="main-content" class="page-grid">
+  <div class="content-column">
+
+    <!-- Italian Style Banner -->
+    <div class="italian-banner">
+      <h2>🇮🇹 Carnival Fun Italian Style</h2>
+      <p>Authentic Italian dining, Florentine-inspired design, and classic Carnival fun — all from the West Coast.</p>
+    </div>
+
+    <!-- Quick Answer Section -->
+    <section class="card" aria-labelledby="overview-title">
+      <h2 id="overview-title">Ship Overview</h2>
+
+      <p><strong>Carnival Firenze</strong> brings a taste of Italy to the West Coast as one of two Venice-class ships in Carnival's fleet. Originally built as <em>Costa Firenze</em> in 2020, she joined Carnival in February 2024 as part of the "Costa by Carnival" program, offering <strong>"Carnival Fun Italian Style"</strong> — a unique blend of Italian elegance and classic Carnival entertainment.</p>
+
+      <p>Named after Florence (Firenze in Italian), the ship features Florentine Renaissance-inspired artwork, Italian specialty restaurants, and the warm hospitality that defines both Italian cruising and Carnival's Fun Ship experience. She sails year-round from <strong>Long Beach, California</strong> to the Mexican Riviera and Baja Mexico.</p>
+
+      <h3>Key Highlights</h3>
+      <ul>
+        <li><strong>Italian Heritage:</strong> Florentine art, décor, and design throughout</li>
+        <li><strong>Specialty Dining:</strong> Authentic Italian venues including Cucina del Capitano</li>
+        <li><strong>West Coast Base:</strong> Year-round sailings from Long Beach</li>
+        <li><strong>Modern Amenities:</strong> WaterWorks park, Serenity adults-only retreat, Cloud 9 Spa</li>
+      </ul>
+    </section>
+
+    <!-- Ship Statistics -->
+    <section class="card" aria-labelledby="stats-title">
+      <h2 id="stats-title">Ship Statistics</h2>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value">135,156</div>
+          <div class="stat-label">Gross Tonnage</div>
         </div>
-
-        <!-- Travel Dropdown -->
-        <div class="nav-dropdown" id="nav-travel">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Travel <span class="caret">&#9662;</span>
-          </button>
-          <div class="dropdown-menu" role="menu">
-            <a href="/travel.html">Travel (overview)</a>
-            <a href="/solo.html">Solo</a>
-          </div>
+        <div class="stat-item">
+          <div class="stat-value">1,061 ft</div>
+          <div class="stat-label">Length (323m)</div>
         </div>
+        <div class="stat-item">
+          <div class="stat-value">122 ft</div>
+          <div class="stat-label">Beam (37m)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">4,126</div>
+          <div class="stat-label">Guest Capacity</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">1,424</div>
+          <div class="stat-label">Crew Members</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">2,136</div>
+          <div class="stat-label">Staterooms</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">15</div>
+          <div class="stat-label">Guest Decks</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">22.6 kts</div>
+          <div class="stat-label">Max Speed</div>
+        </div>
+      </div>
 
-        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
-        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
-        <a class="nav-pill" href="/search.html">Search</a>
-        <a class="nav-pill" href="/about-us.html">About</a>
-      </nav></div>
+      <h3 style="margin-top: 1.5rem;">Technical Details</h3>
+      <ul class="tiny">
+        <li><strong>IMO Number:</strong> 9801691</li>
+        <li><strong>MMSI:</strong> 352003546</li>
+        <li><strong>Call Sign:</strong> 3E5193</li>
+        <li><strong>Flag:</strong> Panama</li>
+        <li><strong>Builder:</strong> Fincantieri, Marghera Shipyard (Italy)</li>
+        <li><strong>Delivered:</strong> December 2020 (as Costa Firenze)</li>
+        <li><strong>Carnival Debut:</strong> February 2024</li>
+      </ul>
+    </section>
 
-<div class="badge present" id="ship-status-badge">Present</div>
-<header>
-<h1>Carnival Firenze — Carnival Cruise Line</h1>
-<div>
-<span class="badge badge--present">Active (Present)</span>
-<span class="badge">Carnival Cruise Line</span>
-<span class="badge">GT: 135,500</span>
-<span class="badge">Capacity: 4,126</span>
-</div>
-</header>
-<main class="grid grid--2">
-    <!-- ICP-Lite Content Structure -->
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;">
+    <!-- Sister Ship -->
+    <section class="card" aria-labelledby="sisters-title">
+      <h2 id="sisters-title">Venice-Class Sister Ship</h2>
+      <p>Carnival Firenze shares her class with one sister — both transferred from Costa Cruises:</p>
 
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Carnival Firenze is a Carnival Cruise Line ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
-      </p>
+      <a href="/ships/carnival/carnival-venezia.html" class="sister-card">
+        <img src="/assets/ships/carnival-venezia-thumb.webp"
+             alt="Carnival Venezia at sea"
+             loading="lazy"
+             onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
+        <div>
+          <strong>Carnival Venezia</strong>
+          <span class="tiny" style="display: block;">2019 · Ex-Costa Venezia · New York</span>
+          <span class="tiny" style="display: block;">First Venice-class ship to join Carnival (2023)</span>
+        </div>
+      </a>
+    </section>
 
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Cruisers researching Carnival Firenze or comparing Carnival ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
-      </p>
+    <!-- Dining Section -->
+    <section class="card" aria-labelledby="dining-title">
+      <h2 id="dining-title">Dining Venues</h2>
+      <p>Experience "Carnival Fun Italian Style" through authentic Italian cuisine and classic Carnival favorites:</p>
 
-      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-        <ul style="margin: 0; padding-left: 1.25rem;">
-          <li><strong>Cruise Line:</strong> Carnival Cruise Line</li>
-          <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
-          <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
-        </ul>
+      <h3>Complimentary Dining</h3>
+      <div class="dining-grid">
+        <div class="dining-item">
+          <h4>Main Dining Rooms</h4>
+          <p>Two elegantly appointed restaurants serving multi-course Italian-inspired menus with Your Time Dining flexibility.</p>
+        </div>
+        <div class="dining-item">
+          <h4>Lido Marketplace</h4>
+          <p>Buffet-style dining with Italian specialties, pizza station, and international favorites available throughout the day.</p>
+        </div>
+        <div class="dining-item">
+          <h4>Pizzeria del Capitano</h4>
+          <p>Hand-tossed artisan pizza made fresh 24 hours a day — a Carnival signature.</p>
+        </div>
+        <div class="dining-item">
+          <h4>Guy's Burger Joint</h4>
+          <p>Guy Fieri's famous burgers, hand-cut fries, and signature sauces poolside.</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 1.5rem;">Specialty Dining (Fee)</h3>
+      <div class="dining-grid">
+        <div class="dining-item specialty">
+          <h4>Cucina del Capitano</h4>
+          <p>Authentic Italian family-style dining with pasta made fresh daily, Italian wines, and classic recipes.</p>
+        </div>
+        <div class="dining-item specialty">
+          <h4>Fahrenheit 555 Steakhouse</h4>
+          <p>Premium steaks, chops, and seafood in an elegant setting with exceptional service.</p>
+        </div>
+        <div class="dining-item specialty">
+          <h4>Bonsai Sushi</h4>
+          <p>Fresh sushi, sashimi, and Asian-inspired dishes crafted by skilled chefs.</p>
+        </div>
+        <div class="dining-item specialty">
+          <h4>Chef's Table</h4>
+          <p>Intimate multi-course dining experience with wine pairings and galley tour.</p>
+        </div>
       </div>
     </section>
 
-<article style="grid-column: 1;" class="card">
-<header><h2>Overview</h2></header>
-<div class="content">
-<p class="small"><strong>Year built / entered fleet:</strong> 2020 (joined 2024)</p>
-<p class="small"><strong>Class / notes:</strong> From Costa.</p>
-<p class="small"><strong>Official ship page:</strong> <a href="https://www.carnival.com/cruise-ships/carnival-firenze" rel="noopener" target="_blank">View on carnival.com</a></p>
-<p class="small"><strong>Deck plans:</strong> <a href="https://www.carnival.com/cruise-ships/carnival-firenze#deck-plans" rel="noopener" target="_blank">Open deck plans</a></p>
-<p class="small"><strong>CruiseMapper profile:</strong> <a href="https://www.cruisemapper.com/ships/Carnival-Firenze-1678" rel="noopener" target="_blank">CruiseMapper profile</a></p>
-</div>
-</article>
-<aside class="card">
-<header><h2>Media</h2></header>
-<div class="content">
-<p>No curated videos yet. (Placeholder)</p>
-</div>
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    
-</aside>
-<section class="card" style="grid-column:1/-1;">
-<header><h2>Image Gallery</h2></header>
-<div class="content">
-<figure><img alt="Placeholder image" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Cruise_ship_icon.svg/320px-Cruise_ship_icon.svg.png"/><figcaption>Image placeholder — Wikimedia Commons (CC BY-SA)</figcaption></figure>
-<figure><img alt="Placeholder image" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Cruise_ship_icon.svg/320px-Cruise_ship_icon.svg.png"/><figcaption>Image placeholder — Wikimedia Commons (CC BY-SA)</figcaption></figure>
-<figure><img alt="Placeholder image" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Cruise_ship_icon.svg/320px-Cruise_ship_icon.svg.png"/><figcaption>Image placeholder — Wikimedia Commons (CC BY-SA)</figcaption></figure>
-</div>
-</section>
+    <!-- Live Tracker -->
+    <section class="card" aria-labelledby="tracker-title">
+      <h2 id="tracker-title">Live Ship Tracker</h2>
+      <p>Track Carnival Firenze's current position in real-time:</p>
 
-    <!-- ICP-Lite FAQ Section -->
-    <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
-      <h2 style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions</h2>
+      <div class="tracker-container">
+        <iframe
+          title="Carnival Firenze Live Position via MarineTraffic"
+          src="https://www.marinetraffic.com/en/ais/embed/zoom:10/centery:33.75/centerx:-118.2/maptype:1/shownames:true/mmsi:352003546/shipid:6276010/fleet:/fleet_id:/vtypes:/showmenu:false/remember:false"
+          loading="lazy"
+          referrerpolicy="no-referrer">
+        </iframe>
+      </div>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Carnival Firenze?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Carnival Firenze offers complimentary dining including the <a href="/restaurants/mdr.html">main dining room</a> and buffet. Specialty restaurants vary by ship class. Check the dining section above for specific venues.</p>
+      <p class="tiny" style="margin-top: 0.75rem;">
+        <strong>Current Homeport:</strong> Long Beach, California<br/>
+        <strong>Typical Itineraries:</strong> Mexican Riviera (Cabo, Puerto Vallarta, Mazatlán), Baja Mexico (Ensenada, Catalina Island)
+      </p>
+    </section>
+
+    <!-- Ship History Timeline -->
+    <section class="card" aria-labelledby="timeline-title">
+      <h2 id="timeline-title">Ship Timeline</h2>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">April 2024</div>
+          <p><strong>West Coast Debut</strong> — Carnival Firenze begins revenue sailings from Long Beach, California, as part of "Carnival Fun Italian Style."</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">February 2024</div>
+          <p><strong>Joins Carnival Fleet</strong> — Costa Firenze transfers to Carnival Cruise Line, renamed Carnival Firenze. Undergoes refit for Carnival branding.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">June 2022</div>
+          <p><strong>Transfer Announced</strong> — Carnival Corporation announces Costa Firenze will join Carnival Cruise Line in 2024 under the "Costa by Carnival" program.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">December 2020</div>
+          <p><strong>Delivered as Costa Firenze</strong> — Built by Fincantieri at Marghera shipyard near Venice, Italy. Named after Florence with Florentine Renaissance theme.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">2018</div>
+          <p><strong>Construction Begins</strong> — Steel cutting at Fincantieri Marghera as second Venice-class ship for Costa Cruises.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deck Plans & Videos -->
+    <section class="card" aria-labelledby="resources-title">
+      <h2 id="resources-title">Deck Plans &amp; Videos</h2>
+
+      <h3>Official Resources</h3>
+      <ul>
+        <li><a href="https://www.carnival.com/cruise-ships/carnival-firenze" target="_blank" rel="noopener">Carnival Firenze Official Page</a></li>
+        <li><a href="https://www.carnival.com/cruise-ships/carnival-firenze#deck-plans" target="_blank" rel="noopener">Interactive Deck Plans</a></li>
+        <li><a href="https://www.carnival.com/cruise-ships/carnival-firenze#cabins" target="_blank" rel="noopener">Stateroom Categories</a></li>
+      </ul>
+
+      <h3 style="margin-top: 1rem;">Ship Tours &amp; Reviews</h3>
+      <p class="tiny">Video content coming soon. Check YouTube for recent Carnival Firenze ship tours, cabin reviews, and dining guides.</p>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="card faq" id="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">Frequently Asked Questions</h2>
+
+      <details>
+        <summary>What is Carnival Firenze's former name?</summary>
+        <p>Carnival Firenze was originally <strong>Costa Firenze</strong>, built in 2020 for Costa Cruises. She transferred to Carnival Cruise Line in February 2024 as part of the "Costa by Carnival" program.</p>
       </details>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How do I find the deck plans for Carnival Firenze?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Deck plans are available through the links on this page. You can also find official deck plans on the Carnival website or in the cruise planner app.</p>
+      <details>
+        <summary>Where does Carnival Firenze sail from?</summary>
+        <p>Carnival Firenze is homeported in <strong>Long Beach, California</strong>, offering year-round cruises to the Mexican Riviera (Cabo San Lucas, Puerto Vallarta, Mazatlán) and shorter Baja getaways.</p>
       </details>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Where does Carnival Firenze sail?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Ship deployments vary by season. Check the Carnival website for current itineraries and departure ports for Carnival Firenze.</p>
+      <details>
+        <summary>What makes Carnival Firenze unique?</summary>
+        <p>She features "Carnival Fun Italian Style" — authentic Italian dining including Cucina del Capitano, Florentine Renaissance-inspired décor throughout, and Italian hospitality blended with classic Carnival fun.</p>
       </details>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Is this information official?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides planning resources and community insights. Always confirm details with Carnival Cruise Line or your travel advisor before booking.</p>
+      <details>
+        <summary>What class is Carnival Firenze?</summary>
+        <p>Carnival Firenze is a <strong>Venice-class</strong> ship, a sub-class of the Vista-class. Her only sister ship is Carnival Venezia, which also transferred from Costa Cruises.</p>
+      </details>
+
+      <details>
+        <summary>How many staterooms does Carnival Firenze have?</summary>
+        <p>Carnival Firenze has <strong>2,136 staterooms</strong> including 969 balcony cabins, 846 inside staterooms, 20 suites, and 14 deluxe rooms. Total guest capacity is 4,126 at double occupancy.</p>
       </details>
     </section>
 
-</div>
+    <!-- Attribution -->
+    <section class="card" aria-labelledby="attribution-title">
+      <h2 id="attribution-title">Sources &amp; Attribution</h2>
+      <ul class="tiny">
+        <li><a href="https://www.carnival.com/cruise-ships/carnival-firenze" target="_blank" rel="noopener">Carnival Cruise Line</a> — Official ship information</li>
+        <li><a href="https://www.marinetraffic.com/en/ais/details/ships/shipid:6276010/mmsi:352003546/imo:9801691/vessel:CARNIVAL_FIRENZE" target="_blank" rel="noopener">MarineTraffic</a> — Live vessel tracking</li>
+        <li><a href="https://www.cruisemapper.com/ships/Carnival-Firenze-2120" target="_blank" rel="noopener">CruiseMapper</a> — Ship specifications and itineraries</li>
+        <li><a href="https://en.wikipedia.org/wiki/Carnival_Firenze" target="_blank" rel="noopener">Wikipedia</a> — Ship history</li>
+      </ul>
+      <p class="tiny" style="margin-top: 1rem;">Page last updated: December 2, 2025</p>
+    </section>
 
-    <!-- RIGHT RAIL -->
-    <aside class="rail" role="complementary" aria-label="Author & articles">
-      <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-          </picture>
-        </a>
-        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-        <p class="tiny">
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-        </p>
-      </section>
+  </div>
 
-      <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    </aside>
-  </main>
-  <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-    <p class="tiny" style="margin-top: 0.5rem;">
-      <a href="/privacy.html">Privacy</a> ·
-      <a href="/terms.html">Terms</a> ·
-      <a href="/about-us.html">About</a> ·
-      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    </p>
-    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-  </footer>
-<section id="marketing-blurb"><h2>Overview</h2><p>Ship details coming soon. Check back for updates on this vessel's amenities and features.</p></section><section id="external-links"><h2>External Links</h2><ul><li><a href="https://www.carnival.com/cruise-ships/carnival-firenze" rel="noopener" target="_blank">Official Carnival Ship Page &amp; Deck Plans</a></li><li><a href="https://www.cruisemapper.com/ships/Carnival-Firenze-1678" rel="noopener" target="_blank">CruiseMapper profile</a></li></ul></section>
-  
-  <script>
-  (function(){
-    "use strict";
+  <!-- RIGHT RAIL -->
+  <aside class="rail" role="complementary" aria-label="Author and related content">
 
-    /* ===== Recent Articles Rail ===== */
-    (async function recentRail(){
-      const rail = document.getElementById('recent-rail');
-      if(!rail) return;
+    <section class="card author-card-vertical" aria-labelledby="author-heading">
+      <h3 id="author-heading">About the Author</h3>
+      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+        <picture>
+          <source srcset="/authors/img/ken1.webp" type="image/webp"/>
+          <img class="author-avatar"
+               src="/authors/img/ken1_96.webp"
+               srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x"
+               width="96" height="96"
+               alt="Ken Baker"
+               loading="lazy"
+               decoding="async"/>
+        </picture>
+      </a>
+      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+      <p class="tiny">Founder of In the Wake. Writer, researcher, and lifelong cruise enthusiast.</p>
+      <p class="tiny">
+        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+      </p>
+    </section>
 
-      const fallback = document.getElementById('recent-rail-fallback');
-      if(fallback) fallback.style.display = '';
+    <section class="card" aria-labelledby="quicklinks-title">
+      <h3 id="quicklinks-title">Quick Links</h3>
+      <ul style="margin: 0; padding-left: 1.25rem;">
+        <li><a href="https://www.carnival.com/cruise-ships/carnival-firenze" target="_blank" rel="noopener">Book a Cruise</a></li>
+        <li><a href="https://www.carnival.com/cruise-ships/carnival-firenze#deck-plans" target="_blank" rel="noopener">View Deck Plans</a></li>
+        <li><a href="#tracker-title">Live Ship Tracker</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </section>
 
-      async function fetchJSONWithFallback(urls){
-        for (const u of urls){
-          try{
-            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
-            if (res.ok) return await res.json();
-          }catch(err){
+    <section class="card" aria-labelledby="related-title">
+      <h3 id="related-title">Related Ships</h3>
+      <ul style="margin: 0; padding-left: 1.25rem;">
+        <li><a href="/ships/carnival/carnival-venezia.html">Carnival Venezia</a> (Sister)</li>
+        <li><a href="/ships/carnival/carnival-panorama.html">Carnival Panorama</a> (West Coast)</li>
+        <li><a href="/ships/carnival/carnival-radiance.html">Carnival Radiance</a> (West Coast)</li>
+      </ul>
+      <h4 style="margin-top: 1rem;">Other Classes</h4>
+      <ul style="margin: 0; padding-left: 1.25rem;">
+        <li><a href="/ships/carnival/carnival-mardi-gras.html">Mardi Gras (Excel)</a></li>
+        <li><a href="/ships/carnival/carnival-vista.html">Vista (Vista)</a></li>
+      </ul>
+    </section>
 
-          }
+  </aside>
+</main>
+
+<footer role="contentinfo">
+  <p><strong>In the Wake</strong> — A Cruise Traveler's Logbook</p>
+  <p class="tiny">© 2025 In the Wake · All rights reserved.</p>
+  <p class="tiny">
+    <a href="/privacy.html">Privacy</a> ·
+    <a href="/terms.html">Terms</a> ·
+    <a href="/accessibility.html">Accessibility</a> ·
+    <a href="/about-us.html">About</a>
+  </p>
+  <p class="tiny" style="opacity: 0; position: absolute; pointer-events: none;" aria-hidden="true">
+    Soli Deo Gloria — Every pixel of this project is offered as worship to God.
+  </p>
+</footer>
+
+<!-- Navigation Dropdown Script -->
+<script>
+(function() {
+  'use strict';
+  const dropdowns = document.querySelectorAll('.nav-dropdown');
+
+  function closeAll() {
+    dropdowns.forEach(dd => {
+      dd.classList.remove('open');
+      const btn = dd.querySelector('button');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  dropdowns.forEach(dropdown => {
+    const btn = dropdown.querySelector('button');
+    if (btn) {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const isOpen = dropdown.classList.contains('open');
+        closeAll();
+        if (!isOpen) {
+          dropdown.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
         }
-        return null;
-      }
-
-      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
-
-      function setImageWithFallback(imgEl, primary, altPaths=[]){
-        if(!imgEl) return;
-        const stamp='v=3.010.300';
-        const tried=new Set();
-        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
-        function tryNext(){
-          const next=queue.shift();
-          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
-          if(tried.has(next)) return tryNext();
-          tried.add(next);
-          imgEl.src=next;
-        }
-        imgEl.onerror=tryNext;
-        tryNext();
-      }
-
-      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
-      if(!raw) {
-        if(fallback) {
-          fallback.textContent = 'Unable to load articles';
-          fallback.style.display = '';
-        }
-        return;
-      }
-
-      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-      if(!items.length) return;
-
-      const here = location.pathname.replace(/\/+$/,'');
-      const view = items.filter(p=>{
-        const href = pick(p,['url','path'],'#');
-        const norm = (href||'').replace(/\/+$/,'');
-        return norm && norm !== here;
-      }).slice(0,6);
-
-      rail.innerHTML = view.map(p=>{
-        const title = pick(p,['title','name'],'Article');
-        const href  = pick(p,['url','path'],'#');
-        const excerpt = pick(p,['excerpt','description'],'');
-        return `
-          <article class="card" style="display:flex;flex-direction:column;gap:.75rem;padding:.85rem">
-            <div style="display:grid;grid-template-columns:80px 1fr;gap:.75rem;align-items:start">
-              <div style="width:80px;height:60px;overflow:hidden;border-radius:8px;background:#eef4f6;border:1px solid #dfe7ea;flex-shrink:0">
-                <img class="article-thumb" alt="" decoding="async" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-              </div>
-              <div>
-                <h4 style="margin:0 0 .35rem 0;font-size:.9rem;line-height:1.3;font-weight:600">
-                  <a href="\${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">\${title}</a>
-                </h4>
-                \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
-              </div>
-            </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
-      }).join('');
-
-      const cards = [...rail.querySelectorAll('article.card')];
-      cards.forEach((card,i)=>{
-        const p = view[i] || {};
-        const el = card.querySelector('img.article-thumb');
-        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
-        const title = (pick(p,['title','name'],'')||'').toLowerCase();
-
-        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
-
-        // FORCE override for Top-20
-        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
-          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
-        }
-        // Friendly specifics
-        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
-        }
-        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
-          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
-        }
-        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-          primary = '/assets/articles/travel/cover.jpg';
-        }
-
-        // Heuristic fallback
-        if(!primary){
-          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
-          const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
-        }
-
-        const alts = [];
-        if(primary){
-          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
-        }
-        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
       });
 
-      if(fallback) fallback.style.display = 'none';
-
-      // Announce to screen readers
-      const status = document.getElementById('a11y-status');
-      if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
-      }
-    })();
-  })();
-  </script>
-<!-- Navigation dropdown functionality -->
-    <!-- Navigation dropdown functionality (New Clean Implementation) -->
-  <script>
-  (function() {
-    'use strict';
-    var dropdowns = document.querySelectorAll('.nav-dropdown');
-    function toggleDropdown(dropdown) {
-      var isOpen = dropdown.classList.contains('open');
-      closeAllDropdowns();
-      if (!isOpen) {
-        dropdown.classList.add('open');
-        var btn = dropdown.querySelector('button');
-        if (btn) btn.setAttribute('aria-expanded', 'true');
-      }
-    }
-    function closeAllDropdowns() {
-      dropdowns.forEach(function(dd) {
-        dd.classList.remove('open');
-        var btn = dd.querySelector('button');
-        if (btn) btn.setAttribute('aria-expanded', 'false');
+      btn.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          closeAll();
+          btn.focus();
+        }
       });
     }
-    dropdowns.forEach(function(dropdown) {
-      var btn = dropdown.querySelector('button');
-      if (btn) {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleDropdown(dropdown);
-        });
-        btn.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') { closeAllDropdowns(); btn.focus(); }
-          if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            dropdown.classList.add('open');
-            btn.setAttribute('aria-expanded', 'true');
-            var firstLink = dropdown.querySelector('.dropdown-menu a');
-            if (firstLink) firstLink.focus();
-          }
-        });
-      }
-      var menu = dropdown.querySelector('.dropdown-menu');
-      if (menu) {
-        menu.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') { closeAllDropdowns(); if (btn) btn.focus(); }
-        });
-      }
-    });
-    document.addEventListener('click', function(e) {
-      var isInsideDropdown = false;
-      dropdowns.forEach(function(dd) { if (dd.contains(e.target)) isInsideDropdown = true; });
-      if (!isInsideDropdown) closeAllDropdowns();
-    });
-  })();
-  </script>
+  });
+
+  document.addEventListener('click', e => {
+    let inside = false;
+    dropdowns.forEach(dd => { if (dd.contains(e.target)) inside = true; });
+    if (!inside) closeAll();
+  });
+})();
+</script>
+
 </body>
 </html>
