@@ -1,5 +1,5 @@
 # robots.txt for https://cruisinginthewake.com/
-# Last updated: 2025-11-19
+# Last updated: 2025-12-07
 # Purpose: Allow full indexing of public content, ensure canonical article is crawled,
 #          and prevent crawl of internal assets and fragment builds.
 
@@ -41,14 +41,12 @@ Disallow: /tmp/
 Disallow: /solo/articles/    # block article fragments / partial builds
 Disallow: /*.php$            # block dynamic scripts if not used
 
-# === Block incomplete ship pages (no images yet) ===
-Disallow: /ships/carnival-cruise-line/
-Disallow: /ships/carnival/
-Disallow: /ships/celebrity-cruises/
-Disallow: /ships/holland-america-line/
-Disallow: /ships/msc/
-Disallow: /ships/rcl/           # Block all RCL ships for now (only 8 have images)
-# TODO: Selectively allow RCL ships with images once ship pages are complete
+# === Ship pages indexing control ===
+Allow: /ships/rcl/                    # RCL ships ready (50 pages with content)
+Disallow: /ships/carnival/            # Carnival not ready (48 pages pending)
+Disallow: /ships/celebrity-cruises/   # Celebrity not ready (30 pages pending)
+Disallow: /ships/holland-america-line/ # HAL not ready (45 pages pending)
+Disallow: /ships/msc/                 # MSC not ready (1 page pending)
 
 # === Sitemap references (canonical host) ===
 Sitemap: https://cruisinginthewake.com/sitemap.xml
