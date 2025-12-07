@@ -1,922 +1,642 @@
-<!DOCTYPE html>
+<!doctype html>
 <!--
-Soli Deo Gloria
-All work on this project is offered as a gift to God.
-"Trust in the LORD with all your heart..." — Proverbs 3:5
-"Whatever you do, work heartily..." — Colossians 3:23
+████████████████████████████████████████████████████████████████████████████████
+██  SOLI DEO GLORIA — To God alone be the glory                satisfies: SR1 ██
+██  All work on this project is offered as an act of worship.                 ██
+██  "Trust in the LORD with all your heart..." — Proverbs 3:5                 ██
+██  "Whatever you do, work heartily..." — Colossians 3:23                     ██
+██                                                                            ██
+██  STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav      ██
+██  v3.010.300 · A11y/WCAG 2.1 AA Compliant                                   ██
+████████████████████████████████████████████████████████████████████████████████
 -->
 
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Horizon
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
-     cruise-line: Carnival
-     updated: 2025-11-15
-     expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons
-     target-audience: Carnival Horizon cruisers, ship comparison researchers, first-time cruisers
-     answer-first: Details, deck plans, photos, and videos for Carnival Horizon — Active (Present) ship with Carnival Cruise Line.
-     -->
+     cruise-line: Carnival Cruise Line
+     ship-class: Vista Class
+     siblings: Carnival Vista, Carnival Panorama
+     related: SkyRide, IMAX Theater, Havana Section, Dr. Seuss WaterWorks
+     updated: 2025-12-03
+     expertise: Carnival cruise planning, Vista-class ships, Caribbean cruising, Miami homeport
+     target-audience: Florida cruisers, Caribbean vacationers, Vista-class enthusiasts, family cruisers
+     answer-first: Carnival Horizon is a 133,596 GT Vista-class ship sailing from Miami, featuring SkyRide aerial attraction, IMAX theater, Havana section, and innovative family amenities.
+-->
+
 <meta charset="utf-8"/>
-  <meta name="ai-summary" content="Carnival Horizon • In The Wake">
-  <meta name="last-reviewed" content="2025-11-19">
-  <meta name="content-protocol" content="ICP-Lite v1.0">
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Carnival Horizon • In The Wake</title>
-<link href="https://inthewake.example/ships/carnival/carnival-horizon.html" rel="canonical"/>
-<meta content="Details, deck plans, photos, and videos for Carnival Horizon — Active (Present) ship with Carnival Cruise Line." name="description"/>
-<link href="https://www.carnival.com" rel="preconnect"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Carnival Horizon — Vista-Class Ship from Miami | In the Wake</title>
+<link rel="canonical" href="https://cruisinginthewake.com/ships/carnival/carnival-horizon.html"/>
+<meta name="description" content="Carnival Horizon: 133,596 GT Vista-class ship sailing from Miami. Features SkyRide, IMAX theater, Havana section, and innovative Caribbean itineraries."/>
+
+<!-- ICP-Lite v1.0 Meta Tags -->
+<meta name="ai-summary" content="Carnival Horizon: Vista-class ship (IMO 9767091), 133,596 GT, sailing from Miami. Features SkyRide aerial cycling, first IMAX at sea, Havana section with exclusive pool. Sister to Vista and Panorama."/>
+<meta name="last-reviewed" content="2025-12-03"/>
+<meta name="content-protocol" content="ICP-Lite v1.0"/>
+
+<link rel="preconnect" href="https://www.carnival.com"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
 <style>
-  /* Header / Hero */
-  .hero-header {
-    position: relative;
-    border-bottom: 6px double var(--rope);
-    background: #eaf6f6;
-    z-index: 9000;
-  }
+:root{--accent:#0057b8;--carnival-red:#e4002b;--carnival-blue:#003da5;--rope:#d9b382;--sand:#f5f1e8;--ink:#1a1a2e;--ink-mid:#3d5a6a;--text-muted:#5a6a7a}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;line-height:1.6;margin:0;color:var(--ink);background:#fff}
+.skip-link{position:absolute;top:-40px;left:0;background:var(--carnival-blue);color:#fff;padding:8px 16px;z-index:10000;text-decoration:none;border-radius:0 0 4px 0}
+.skip-link:focus{top:0}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.hero-header{position:relative;background:linear-gradient(135deg,#003da5 0%,#0057b8 50%,#00a3e0 100%);border-bottom:6px double var(--rope);color:#fff;overflow:hidden}
+.hero-header::before{content:"";position:absolute;inset:0;background:url('/assets/ships/carnival-horizon-hero.webp') center/cover no-repeat;opacity:0.2}
+.navbar{max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;gap:0.6rem;padding:0.5rem 0.9rem 0.35rem;position:relative;z-index:2000}
+.brand{display:flex;align-items:flex-end;gap:0.6rem}
+.brand img{height:28px;width:auto}
+.version-badge{font-size:0.72rem;opacity:0.8;color:rgba(255,255,255,0.8)}
+.hero-content{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:2rem 1.5rem 3rem;text-align:center}
+.hero-content h1{font-size:clamp(2rem,5vw,3rem);margin:0 0 0.5rem;text-shadow:2px 2px 8px rgba(0,0,0,0.3)}
+.hero-tagline{font-size:1.1rem;opacity:0.95;margin-bottom:1rem}
+.badge-row{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;margin-top:1rem}
+.badge{display:inline-block;padding:0.25rem 0.65rem;border-radius:999px;font-size:0.8rem;border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.15);color:#fff}
+.badge--active{background:linear-gradient(135deg,#28a745,#20863d);border-color:#28a745;font-weight:600}
+.site-nav{background:var(--sand);padding:0.5rem 1rem;display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;border-bottom:1px solid #e0d5c5}
+.nav-pill{padding:0.4rem 0.9rem;border-radius:999px;text-decoration:none;font-size:0.85rem;color:var(--ink);background:#fff;border:1px solid #ddd;transition:all 0.2s ease}
+.nav-pill:hover{background:var(--carnival-blue);color:#fff;border-color:var(--carnival-blue)}
+.nav-dropdown{position:relative}
+.dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.1);min-width:200px;z-index:1000;padding:0.5rem 0}
+.nav-dropdown.open .dropdown-menu{display:block}
+.dropdown-menu a{display:block;padding:0.5rem 1rem;color:var(--ink);text-decoration:none}
+.dropdown-menu a:hover{background:var(--sand)}
+main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
+.page-grid{display:grid;grid-template-columns:1fr;gap:2rem;align-items:start}
+@media(min-width:980px){.page-grid{grid-template-columns:1fr 320px}}
+.card{background:#fff;border:1px solid #e8eaf0;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.04);padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.card::after{content:"";position:absolute;inset:0;margin:auto;width:min(50%,280px);height:min(50%,280px);background:url('/assets/watermark.png') center/contain no-repeat;opacity:0.04;pointer-events:none}
+.card h2{margin:0 0 1rem;font-size:1.25rem;color:var(--carnival-blue);border-bottom:2px solid var(--rope);padding-bottom:0.5rem}
+.card h3{margin:1rem 0 0.5rem;font-size:1.1rem;color:var(--ink)}
+.quick-answer{background:linear-gradient(135deg,#f0f7ff,#e8f4fd);border-left:4px solid var(--carnival-blue)}
+.quick-answer h2{color:var(--carnival-blue)}
+.key-facts dt{font-weight:600;color:var(--carnival-blue);margin-top:0.75rem}
+.key-facts dd{margin:0.25rem 0 0 0;color:var(--ink-mid)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem}
+.stat-item{text-align:center;padding:1rem;background:var(--sand);border-radius:8px}
+.stat-value{font-size:1.3rem;font-weight:700;color:var(--carnival-blue)}
+.stat-label{font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem}
+.whimsy{font-size:0.75rem;color:var(--text-muted);font-style:italic}
+.sister-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.sister-card{background:var(--sand);border-radius:8px;padding:1rem;text-align:center;text-decoration:none;color:var(--ink);transition:transform 0.2s,box-shadow 0.2s}
+.sister-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.sister-card img{width:100%;height:80px;object-fit:cover;border-radius:6px;margin-bottom:0.5rem}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
+.feature-item{background:var(--sand);padding:1rem;border-radius:8px;border-left:4px solid var(--carnival-blue)}
+.feature-item h4{margin:0 0 0.5rem;color:var(--carnival-blue)}
+.feature-item p{margin:0;font-size:0.9rem;color:var(--ink-mid)}
+.dining-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.dining-item{background:var(--sand);padding:1rem;border-radius:8px;border-left:4px solid var(--carnival-blue)}
+.dining-item h4{margin:0 0 0.5rem;color:var(--carnival-blue)}
+.dining-item p{margin:0;font-size:0.9rem;color:var(--ink-mid)}
+.dining-item.specialty{border-left-color:var(--carnival-red)}
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:"";position:absolute;left:0.5rem;top:0;bottom:0;width:2px;background:var(--carnival-blue)}
+.timeline-item{position:relative;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid #eee}
+.timeline-item:last-child{border-bottom:none}
+.timeline-item::before{content:"";position:absolute;left:-1.65rem;top:0.35rem;width:12px;height:12px;background:var(--carnival-blue);border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 2px var(--carnival-blue)}
+.timeline-date{font-weight:600;color:var(--carnival-blue);margin-bottom:0.25rem}
+.tracker-container{background:#f8f9fa;border-radius:8px;overflow:hidden;margin-top:1rem}
+.tracker-container iframe{width:100%;height:350px;border:none}
+.faq details{margin:0.5rem 0;padding:0.75rem 0;border-bottom:1px solid #e8eaf0}
+.faq summary{cursor:pointer;font-weight:600;padding:0.5rem 0;color:var(--ink)}
+.faq summary:hover{color:var(--carnival-blue)}
+.faq details p{margin:0.5rem 0 0;padding-left:1rem;color:var(--ink-mid)}
+.rail{display:flex;flex-direction:column;gap:1.5rem}
+.author-card-vertical{text-align:center}
+.author-avatar{width:96px;height:96px;border-radius:12px;object-fit:cover;margin:0 auto 1rem}
+footer{background:var(--sand);border-top:4px double var(--rope);padding:2rem 1.5rem;text-align:center}
+footer p{max-width:800px;margin:0.5rem auto}
+.tiny{font-size:0.85rem;color:var(--text-muted)}
+a{color:var(--carnival-blue);text-decoration:none}
+a:hover{text-decoration:underline}
+a[target="_blank"]::after{content:" ↗";font-size:0.8em;opacity:0.7}
+.photo-carousel{margin:1rem 0}
+.photo-carousel .swiper-slide img{width:100%;height:220px;object-fit:cover;border-radius:8px}
+.photo-carousel .swiper-button-next,.photo-carousel .swiper-button-prev{color:var(--carnival-blue)}
+.photo-carousel .swiper-pagination-bullet-active{background:var(--carnival-blue)}
+.photo-caption{text-align:center;font-size:0.8rem;color:var(--text-muted);margin-top:0.5rem}
+.video-carousel{margin:1rem 0}
+.video-carousel .swiper-slide{background:#000;border-radius:8px;overflow:hidden}
+.video-thumb{position:relative;cursor:pointer}
+.video-thumb img{width:100%;height:180px;object-fit:cover}
+.video-thumb::after{content:"▶";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:3rem;color:#fff;background:rgba(0,0,0,0.3);opacity:0;transition:opacity 0.2s}
+.video-thumb:hover::after{opacity:1}
+.logbook-entry{background:var(--sand);border-radius:8px;padding:1.25rem;margin-bottom:1rem;border-left:4px solid var(--carnival-blue)}
+.logbook-entry h4{margin:0 0 0.5rem;color:var(--carnival-blue)}
+.logbook-meta{font-size:0.8rem;color:var(--text-muted);margin-bottom:0.75rem}
+.logbook-excerpt{font-size:0.95rem;line-height:1.5}
+</style>
 
-  .navbar {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-    padding: .5rem .9rem .35rem;
-    position: relative;
-    z-index: 2000;
-    overflow: visible;
-  }
-
-  .brand {
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-  }
-
-  .brand img {
-    height: 28px;
-    width: auto;
-  }
-
-  .version-badge {
-    font-size: .72rem;
-    opacity: .8;
-    color: var(--text-muted);
-  }
-
-  /* Header / Hero */
-  .hero-header {
-    position: relative;
-    border-bottom: 6px double var(--rope);
-    background: #eaf6f6;
-    z-index: 9000;
-  }
-
-  .navbar {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-    padding: .5rem .9rem .35rem;
-    position: relative;
-    z-index: 2000;
-    overflow: visible;
-  }
-
-  .brand {
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-  }
-
-  .brand img {
-    height: 28px;
-    width: auto;
-  }
-
-  .version-badge {
-    font-size: .72rem;
-    opacity: .8;
-    color: var(--text-muted);
-  }
-
-:root{--accent:#0047ff;--muted:#f5f7fb;}
-body{font-family:system-ui,-apple-system,Segoe UI,Roboto;line-height:1.6;margin:0;color:#111;background:#fff}
-header,main,footer{max-width:1100px;margin:0 auto;padding:24px}
-.badge{display:inline-block;padding:.25rem .5rem;border-radius:999px;font-size:.8rem;border:1px solid #ddd;background:#fafafa;margin-right:.5rem}
-.badge--past{background:#fff4f4;color:#a40000;border-color:#ffd1d1}
-.badge--present{background:#f2fff5;color:#075a1f;border-color:#c7f3d3}
-.badge--future{background:#f5f8ff;color:#002c7a;border-color:#cfe0ff}
-.grid{display:grid;grid-template-columns:1fr;gap:20px}
-@media(min-width:960px){.grid--2{grid-template-columns:2fr 1fr}}
-.card{background:#fff;border:1px solid #e8eaf0;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.card header{padding:16px 16px 0}
-.card .content{padding:16px}
-hr.sep{border:0;border-top:1px solid #eceff4;margin:24px 0}
-a{color:#0047ff;text-decoration:none}
-a[target="_blank"]::after{content:"↗";margin-left:4px;font-size:.85em;color:#99a}
-figure{margin:0;padding:0}
-figcaption{font-size:.85rem;color:#555;margin-top:4px}
-.small{font-size:.9rem;color:#444}
-.footer-note{font-size:.85rem;color:#555}
-
-  .nav {
-    flex: 1 1 auto;
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: .5rem;
-    white-space: nowrap;
-    flex-wrap: nowrap;
-    overflow: visible;
-    padding-inline: .75rem;
-  }
-
-  @media (max-width: 768px) {
-    .nav {
-      justify-content: flex-start;
-      overflow-x: auto;
-      scrollbar-width: thin;
-      -webkit-overflow-scrolling: touch;
-    }
-
-  }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-<meta content="inthewake_standardsv2.221a" name="inthewake:standard"/>  <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=2.234"/>
-<style id="brand-title-hide">.brand-title{display:none!important}
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-
-  <style id="hero-credit-css">
-    .hero{ position:relative }
-    .hero-credit{
-      position:absolute; right:12px; bottom:10px; background:rgba(255,255,255,.9);
-      padding:.3rem .55rem; border-radius:.5rem; font-size:.85rem;
-      box-shadow:0 2px 6px rgba(0,0,0,.12);
-    }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-
-  <style id="card-watermark">
-    .card{ position:relative; overflow:hidden }
-    .card::after{
-      content:""; position:absolute; inset:0; margin:auto;
-      width:min(60%, 360px); height:min(60%, 360px);
-      background:url('https://cruisinginthewake.com/assets/watermark.png') center/contain no-repeat;
-      opacity:.06; pointer-events:none;
-    }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-
-  <link rel="canonical" href="https://cruisinginthewake.com/ships/carnival/carnival-horizon.html"/>
-
-  <style id="hero-vibrancy">
-    .hero{ background:url('https://cruisinginthewake.com/assets/index_hero.webp') center/cover no-repeat!important;
-           filter:saturate(1.35) contrast(1.12) brightness(1.05) }
-    .hero::before,.hero::after{ content:none!important }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-
+<!-- JSON-LD: Organization -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Ken Baker",
-  "url": "https://inthewake.com/about/ken-baker.html",
-  "jobTitle": "Cruise Research Analyst & Data Specialist",
-  "description": "Cruise industry analyst specializing in ship comparisons, deck plan analysis, and dining venue research.",
-  "knowsAbout": [
-    "Cruise Ship Analysis",
-    "Deck Plans",
-    "Royal Caribbean",
-    "Cruise Dining",
-    "Ship Comparisons",
-    "Ship Reviews",
-    "Deck Plan Analysis"
-  ]
-}
+{"@context":"https://schema.org","@type":"Organization","name":"In the Wake","url":"https://cruisinginthewake.com","logo":"https://cruisinginthewake.com/assets/logo_wake_512.png","sameAs":["https://instagram.com/flickersofmajesty"]}
 </script>
 
-  <!-- JSON-LD: WebPage (ICP-Lite) -->
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Carnival Horizon \u2022 In The Wake",
-  "url": "https://cruisinginthewake.com/ships/carnival/carnival-horizon.html",
-  "description": "Information about Carnival Horizon \u2022 In The Wake"
-}
-  </script><style>
-    /* Navigation */
-    .nav {
-      flex: 1 1 auto;
-      min-width: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .5rem;
-      white-space: nowrap;
-      flex-wrap: nowrap;
-      overflow: visible;
-      padding-inline: .75rem;
-    }
+<!-- JSON-LD: WebSite with SearchAction -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}
+</script>
 
-    @media (max-width: 768px) {
+<!-- JSON-LD: BreadcrumbList -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Carnival","item":"https://cruisinginthewake.com/ships.html#carnival"},{"@type":"ListItem","position":4,"name":"Carnival Horizon","item":"https://cruisinginthewake.com/ships/carnival/carnival-horizon.html"}]}
+</script>
 
-    }
+<!-- JSON-LD: Review -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Product","name":"Carnival Horizon","description":"Vista-class cruise ship with SkyRide, IMAX theater, and Havana section","brand":{"@type":"Brand","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewRating":{"@type":"Rating","ratingValue":4.5,"bestRating":5,"worstRating":1},"reviewBody":"Carnival Horizon delivers Vista-class innovation with SkyRide aerial cycling, the first IMAX theater at sea, and exclusive Havana section — a standout for Caribbean cruises from Miami."}
+</script>
 
-    .navbar {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      gap: .6rem;
-      padding: .5rem .9rem .35rem;
-      align-items: flex-end;
-      position: relative;
-      z-index: 5;
-    }
+<!-- JSON-LD: Person (E-E-A-T) -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","url":"https://cruisinginthewake.com/authors/ken-baker.html","jobTitle":"Cruise Research Analyst","knowsAbout":["Cruise Ships","Carnival Cruise Line","Vista Class","Caribbean Cruises","Miami Cruise Port"]}
+</script>
 
-    .brand {
-      display: flex;
-      align-items: flex-end;
-      gap: .6rem;
-    }
+<!-- JSON-LD: WebPage -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"Carnival Horizon — Vista-Class Ship","url":"https://cruisinginthewake.com/ships/carnival/carnival-horizon.html","dateModified":"2025-12-03"}
+</script>
 
-    .brand img {
-      height: 28px;
-      width: auto;
-      display: block;
-    }
+<!-- JSON-LD: FAQPage -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where does Carnival Horizon sail from?","acceptedAnswer":{"@type":"Answer","text":"Carnival Horizon sails year-round from Miami, Florida, offering Eastern and Western Caribbean itineraries including stops at Cozumel, Grand Cayman, and Nassau."}},{"@type":"Question","name":"What class is Carnival Horizon?","acceptedAnswer":{"@type":"Answer","text":"Carnival Horizon is a Vista-class ship, the second of three sisters. Carnival Vista is the lead ship (2016), and Carnival Panorama is the third (2019)."}},{"@type":"Question","name":"What is SkyRide on Carnival Horizon?","acceptedAnswer":{"@type":"Answer","text":"SkyRide is a pedal-powered aerial cycling attraction suspended 150 feet above the ocean on an 800-foot track circling the ship's top deck."}},{"@type":"Question","name":"Does Carnival Horizon have an IMAX theater?","acceptedAnswer":{"@type":"Answer","text":"Yes, Carnival Horizon features a 187-seat IMAX theater showing first-run Hollywood movies and documentaries — the first IMAX experience at sea."}},{"@type":"Question","name":"What is the Havana section on Carnival Horizon?","acceptedAnswer":{"@type":"Answer","text":"The Havana section offers Cuban-themed staterooms and suites with exclusive daytime access to the Havana Bar and Havana Pool — a tropical retreat reserved for Havana guests."}}]}
+</script>
 
-    .version-badge {
-      font-size: .72rem;
-      opacity: .8;
-      margin-left: .35rem;
-    }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-
-  <!-- JSON-LD: FAQPage (ICP-Lite) -->
-  <script type="application/ld+json">
-  {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What dining options are available on Carnival Horizon?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Carnival Horizon offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship class."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I find the deck plans for Carnival Horizon?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Deck plans are available through the links on this page or on the Carnival website."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Where does Carnival Horizon sail?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Ship deployments vary by season. Check the Carnival website for current itineraries."
-      }
-    }
-  ]
-}
-  </script>
-
-  <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
-  <!-- Service Worker Registration -->
-  <script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
-  }
-  </script>
-
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));}</script>
+<link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=3.010"/>
 </head>
-<body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  <!-- ARIA Live Regions -->
-  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
-  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-<header class="site-header hero-header" role="banner">
-<header class="site-header hero-header" role="banner">
-<div class="navbar">
-  <div class="brand">
-    <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
-    <span class="tiny version-badge">v3.010.300</span>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+
+<header class="hero-header" role="banner">
+  <nav class="navbar" aria-label="Site branding">
+    <div class="brand">
+      <a href="/"><img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async"/></a>
+      <span class="version-badge">v3.010</span>
+    </div>
+  </nav>
+  <div class="hero-content">
+    <h1>Carnival Horizon</h1>
+    <p class="hero-tagline">Vista-Class Innovation — SkyRide Above, Caribbean Below</p>
+    <div class="badge-row">
+      <span class="badge badge--active">Active</span>
+      <span class="badge">Vista Class</span>
+      <span class="badge">133,596 GT</span>
+      <span class="badge">3,960 Guests</span>
+      <span class="badge">Miami</span>
+    </div>
+  </div>
+</header>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <a class="nav-pill" href="/">Home</a>
+  <div class="nav-dropdown" id="nav-planning">
+    <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">▾</span></button>
+    <div class="dropdown-menu" role="menu">
+      <a href="/planning.html">Planning Overview</a>
+      <a href="/ships.html">Ships</a>
+      <a href="/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="/ports.html">Ports</a>
+      <a href="/drink-packages.html">Drink Packages</a>
+      <a href="/cruise-lines.html">Cruise Lines</a>
+    </div>
+  </div>
+  <div class="nav-dropdown" id="nav-travel">
+    <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">▾</span></button>
+    <div class="dropdown-menu" role="menu">
+      <a href="/travel.html">Travel Overview</a>
+      <a href="/solo.html">Solo Cruising</a>
+    </div>
+  </div>
+  <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+  <a class="nav-pill" href="/search.html">Search</a>
+  <a class="nav-pill" href="/about-us.html">About</a>
+</nav>
+
+<main id="main-content" class="page-grid">
+  <div class="content-column">
+
+    <!-- First Look Photos -->
+    <section class="card" aria-labelledby="photos-title">
+      <h2 id="photos-title">First Look: Carnival Horizon</h2>
+      <div class="photo-carousel swiper" id="photo-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Carnival_Horizon%27s_bow.jpg/800px-Carnival_Horizon%27s_bow.jpg" alt="Carnival Horizon bow in Cozumel, Mexico" loading="lazy"/>
+            <p class="photo-caption">Carnival Horizon docked in Cozumel — Photo: Mason Piscitelli, CC BY-SA 4.0</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Carnival_Horizon.jpg/800px-Carnival_Horizon.jpg" alt="Carnival Horizon in Naples, Italy" loading="lazy"/>
+            <p class="photo-caption">Carnival Horizon in Porto di Napoli during Mediterranean deployment — Photo: crocieristi/Flickr, CC BY 2.0</p>
+          </div>
+        </div>
+        <div class="swiper-button-prev" aria-label="Previous photo"></div>
+        <div class="swiper-button-next" aria-label="Next photo"></div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </section>
+
+    <!-- Ship Overview -->
+    <section class="card" aria-labelledby="overview-title">
+      <h2 id="overview-title">Ship Overview</h2>
+      <p><strong>Carnival Horizon</strong> is the second Vista-class ship in Carnival's fleet, delivering a perfect blend of innovation and classic Fun Ship entertainment. Launched in 2018, she features groundbreaking attractions including <strong>SkyRide</strong> (suspended cycling above the ship), the first <strong>IMAX theater at sea</strong>, and the exclusive <strong>Havana section</strong> with Cuban-inspired staterooms.</p>
+      <p>Sailing year-round from <strong>Miami</strong>, Carnival Horizon offers Eastern and Western Caribbean itineraries with stops at popular ports including Cozumel, Grand Cayman, and Nassau. Her Vista-class design provides an ideal mix of thrilling activities, family-friendly spaces, and relaxing retreats.</p>
+
+      <h3>Key Highlights</h3>
+      <ul>
+        <li><strong>SkyRide:</strong> Pedal-powered aerial cycling 150 feet above the ocean on an 800-foot track</li>
+        <li><strong>IMAX Theater:</strong> First IMAX at sea with 187-seat venue showing Hollywood films</li>
+        <li><strong>Havana Section:</strong> Cuban-themed cabins with exclusive pool and bar access</li>
+        <li><strong>Dr. Seuss WaterWorks:</strong> Family aqua park with Cat in the Hat slides</li>
+      </ul>
+    </section>
+
+    <!-- Ship Statistics -->
+    <section class="card" aria-labelledby="stats-title" id="stats-card">
+      <h2 id="stats-title">Ship Statistics</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value">133,596</div>
+          <div class="stat-label">Gross Tonnage</div>
+          <div class="whimsy">≈ 2,672 blue whales</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">1,055 ft</div>
+          <div class="stat-label">Length (324m)</div>
+          <div class="whimsy">3.5 football fields</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">144 ft</div>
+          <div class="stat-label">Beam (44m)</div>
+          <div class="whimsy">14 parking spaces</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">3,960</div>
+          <div class="stat-label">Guest Capacity</div>
+          <div class="whimsy">Small town at sea</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">1,450</div>
+          <div class="stat-label">Crew Members</div>
+          <div class="whimsy">2.7:1 guest ratio</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">1,980</div>
+          <div class="stat-label">Staterooms</div>
+          <div class="whimsy">Floating neighborhood</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">15</div>
+          <div class="stat-label">Guest Decks</div>
+          <div class="whimsy">15-story building</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">23 kts</div>
+          <div class="stat-label">Max Speed</div>
+          <div class="whimsy">26 mph cruising</div>
+        </div>
+      </div>
+      <h3 style="margin-top: 1.5rem;">Technical Details</h3>
+      <ul class="tiny">
+        <li><strong>IMO Number:</strong> 9767091</li>
+        <li><strong>MMSI:</strong> 370039000</li>
+        <li><strong>Call Sign:</strong> H3WI</li>
+        <li><strong>Flag:</strong> Panama</li>
+        <li><strong>Builder:</strong> Fincantieri, Marghera Shipyard (Italy)</li>
+        <li><strong>Delivered:</strong> March 2018</li>
+        <li><strong>Maiden Voyage:</strong> April 2, 2018 (Barcelona)</li>
+      </ul>
+    </section>
+
+    <!-- Vista-Class Sister Ships -->
+    <section class="card" aria-labelledby="sisters-title">
+      <h2 id="sisters-title">Vista-Class Sister Ships</h2>
+      <p>Carnival Horizon is the second of three Vista-class ships, Carnival's flagship class before the Excel-class revolution:</p>
+      <div class="sister-grid">
+        <a href="/ships/carnival/carnival-vista.html" class="sister-card">
+          <img src="/assets/ships/carnival-vista-thumb.webp" alt="Carnival Vista" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
+          <strong>Carnival Vista</strong>
+          <span class="tiny">2016 · Lead Ship · Galveston</span>
+        </a>
+        <a href="/ships/carnival/carnival-panorama.html" class="sister-card">
+          <img src="/assets/ships/carnival-panorama-thumb.webp" alt="Carnival Panorama" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
+          <strong>Carnival Panorama</strong>
+          <span class="tiny">2019 · Long Beach · West Coast</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Signature Features -->
+    <section class="card" aria-labelledby="features-title">
+      <h2 id="features-title">Signature Features</h2>
+      <div class="features-grid">
+        <div class="feature-item">
+          <h4>SkyRide</h4>
+          <p>Suspended pedal-powered cycling attraction with 800-foot track circling the ship's top deck, 150 feet above sea level. A Vista-class exclusive.</p>
+        </div>
+        <div class="feature-item">
+          <h4>IMAX Theater</h4>
+          <p>187-seat venue showing first-run Hollywood films and documentaries — the first IMAX experience at sea. 3D capabilities included.</p>
+        </div>
+        <div class="feature-item">
+          <h4>Havana Section</h4>
+          <p>Cuban-themed cabins and suites with exclusive daytime access to the Havana Bar and Havana Pool — adults-only tropical retreat.</p>
+        </div>
+        <div class="feature-item">
+          <h4>Dr. Seuss WaterWorks</h4>
+          <p>Family aqua park featuring Cat in the Hat slides, Fun Things splash zone, and 300-gallon tipping bucket.</p>
+        </div>
+        <div class="feature-item">
+          <h4>SportsSquare</h4>
+          <p>Outdoor recreation complex with SkyCourse ropes course, mini-golf, jogging track, and basketball court.</p>
+        </div>
+        <div class="feature-item">
+          <h4>Serenity Adult Retreat</h4>
+          <p>Adults-only (21+) sanctuary with padded loungers, infinity whirlpools, and dedicated bar service. Peace at sea.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dining Venues -->
+    <section class="card" aria-labelledby="dining-title" id="dining-card">
+      <h2 id="dining-title">Dining Venues</h2>
+      <h3>Complimentary Dining</h3>
+      <div class="dining-grid">
+        <div class="dining-item"><h4>Reflections &amp; Horizons Dining Rooms</h4><p>Elegant dual main dining with multi-course menus and Your Time Dining flexibility.</p></div>
+        <div class="dining-item"><h4>Lido Marketplace</h4><p>Expansive buffet with action stations, deli, salad bar, and international options.</p></div>
+        <div class="dining-item"><h4>Guy's Burger Joint</h4><p>Guy Fieri's famous hand-crafted burgers with signature sauces. Consistently excellent.</p></div>
+        <div class="dining-item"><h4>BlueIguana Cantina</h4><p>Fresh Mexican fare with tacos, burritos, and house-made tortillas.</p></div>
+        <div class="dining-item"><h4>Pizzeria del Capitano</h4><p>24-hour pizza with hand-tossed dough and fresh toppings.</p></div>
+      </div>
+      <h3 style="margin-top: 1.5rem;">Specialty Dining (Fee)</h3>
+      <div class="dining-grid">
+        <div class="dining-item specialty"><h4>Fahrenheit 555 Steakhouse</h4><p>Premium steaks and seafood in an upscale atmosphere. The fleet's signature steakhouse.</p></div>
+        <div class="dining-item specialty"><h4>Bonsai Sushi</h4><p>Fresh sushi, sashimi, and Asian-inspired dishes prepared to order.</p></div>
+        <div class="dining-item specialty"><h4>Cucina del Capitano</h4><p>Family-style Italian with fresh pasta and classic recipes. Dinner only.</p></div>
+        <div class="dining-item specialty"><h4>JiJi Asian Kitchen</h4><p>Pan-Asian cuisine featuring Chinese, Thai, and Japanese flavors.</p></div>
+        <div class="dining-item specialty"><h4>Seafood Shack</h4><p>New England-style seafood with lobster rolls, crab legs, and peel-n-eat shrimp.</p></div>
+        <div class="dining-item specialty"><h4>Guy's Pig &amp; Anchor Smokehouse</h4><p>Smokehouse BBQ with slow-smoked meats and Southern sides. Guy Fieri's second venue.</p></div>
+      </div>
+    </section>
+
+    <!-- Ship's Logbook -->
+    <section class="card" aria-labelledby="logbook-title">
+      <h2 id="logbook-title">Ship's Logbook</h2>
+      <p class="tiny">Real stories from Carnival Horizon guests — curated for authenticity and insight.</p>
+      <div id="logbook-container">
+        <!-- Dynamic logbook entries load here -->
+        <p class="tiny">Loading passenger stories...</p>
+      </div>
+    </section>
+
+    <!-- Video Tours -->
+    <section class="card" aria-labelledby="videos-title">
+      <h2 id="videos-title">Video Tours &amp; Reviews</h2>
+      <div class="video-carousel swiper" id="video-swiper">
+        <div class="swiper-wrapper" id="video-wrapper">
+          <!-- Dynamic video thumbnails load here -->
+        </div>
+        <div class="swiper-button-prev" aria-label="Previous video"></div>
+        <div class="swiper-button-next" aria-label="Next video"></div>
+      </div>
+      <p class="tiny" style="margin-top: 0.75rem;">Videos sourced from YouTube creators. Click to watch.</p>
+    </section>
+
+    <!-- Deck Plans -->
+    <section class="card" aria-labelledby="deckplans-title">
+      <h2 id="deckplans-title">Deck Plans</h2>
+      <p>Explore Carnival Horizon's 15 guest decks:</p>
+      <p><a href="https://www.carnival.com/cruise-ships/carnival-horizon#deck-plans" target="_blank" rel="noopener">View Official Deck Plans on Carnival.com</a></p>
+      <p class="tiny">Deck plans show stateroom locations, public spaces, dining venues, and entertainment areas across all passenger decks.</p>
+    </section>
+
+    <!-- Live Ship Tracker -->
+    <section class="card" aria-labelledby="tracker-title">
+      <h2 id="tracker-title">Live Ship Tracker</h2>
+      <p>Track Carnival Horizon's current position in real-time:</p>
+      <div class="tracker-container">
+        <iframe title="Carnival Horizon Live Position via MarineTraffic" src="https://www.marinetraffic.com/en/ais/embed/zoom:10/centery:25.8/centerx:-80.2/maptype:1/shownames:true/mmsi:370039000/shipid:5769813/fleet:/fleet_id:/vtypes:/showmenu:false/remember:false" loading="lazy" referrerpolicy="no-referrer"></iframe>
+      </div>
+      <p class="tiny" style="margin-top: 0.75rem;"><strong>Current Homeport:</strong> Miami, Florida<br/><strong>Typical Itineraries:</strong> Eastern Caribbean (Half Moon Cay, Amber Cove, Grand Turk), Western Caribbean (Cozumel, Grand Cayman, Mahogany Bay)</p>
+    </section>
+
+    <!-- Ship Timeline -->
+    <section class="card" aria-labelledby="timeline-title">
+      <h2 id="timeline-title">Ship Timeline</h2>
+      <div class="timeline">
+        <div class="timeline-item"><div class="timeline-date">Present</div><p><strong>Miami Operations</strong> — Year-round Caribbean cruises from PortMiami, alternating Eastern and Western itineraries.</p></div>
+        <div class="timeline-item"><div class="timeline-date">April 2, 2018</div><p><strong>Maiden Voyage</strong> — Departed Barcelona for 13-day Mediterranean cruise visiting Italy, Croatia, Greece, and Malta.</p></div>
+        <div class="timeline-item"><div class="timeline-date">March 2018</div><p><strong>Delivered to Carnival</strong> — Completed at Fincantieri Marghera shipyard after 30 months of construction.</p></div>
+        <div class="timeline-item"><div class="timeline-date">November 2017</div><p><strong>Sea Trials</strong> — Completed testing in the Adriatic Sea near Venice.</p></div>
+        <div class="timeline-item"><div class="timeline-date">April 2016</div><p><strong>Keel Laying</strong> — Traditional coin ceremony at Fincantieri Marghera shipyard.</p></div>
+        <div class="timeline-item"><div class="timeline-date">March 2015</div><p><strong>Steel Cutting</strong> — Construction officially began at Marghera, Italy.</p></div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="card faq" id="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">Frequently Asked Questions</h2>
+      <details><summary>Where does Carnival Horizon sail from?</summary><p>Carnival Horizon sails year-round from <strong>Miami, Florida</strong>, offering Eastern and Western Caribbean itineraries with 6-8 day voyages.</p></details>
+      <details><summary>What class is Carnival Horizon?</summary><p>She is a <strong>Vista-class</strong> ship — the second of three sisters (Vista 2016, Horizon 2018, Panorama 2019) built by Fincantieri.</p></details>
+      <details><summary>What is SkyRide?</summary><p><strong>SkyRide</strong> is a pedal-powered aerial cycling attraction suspended 150 feet above the ocean on an 800-foot track circling the ship's top deck. Vista-class exclusive.</p></details>
+      <details><summary>Does Carnival Horizon have an IMAX theater?</summary><p>Yes! The 187-seat <strong>IMAX theater</strong> shows first-run Hollywood movies and documentaries — the first IMAX experience at sea.</p></details>
+      <details><summary>What is the Havana section?</summary><p>The <strong>Havana section</strong> offers Cuban-themed staterooms with exclusive daytime access to the Havana Bar and Havana Pool — a tropical retreat for Havana cabin guests.</p></details>
+      <details><summary>Is Carnival Horizon good for families?</summary><p>Excellent for families. Features Dr. Seuss WaterWorks aqua park, Camp Ocean kids program (ages 2-11), Circle C (12-14), and Club O2 (15-17).</p></details>
+    </section>
+
+    <!-- Sources & Attribution -->
+    <section class="card" aria-labelledby="attribution-title">
+      <h2 id="attribution-title">Sources &amp; Attribution</h2>
+      <ul class="tiny">
+        <li><a href="https://www.carnival.com/cruise-ships/carnival-horizon" target="_blank" rel="noopener">Carnival Cruise Line</a> — Official ship information</li>
+        <li><a href="https://www.marinetraffic.com/en/ais/details/ships/shipid:5769813/mmsi:370039000/imo:9767091/vessel:CARNIVAL_HORIZON" target="_blank" rel="noopener">MarineTraffic</a> — Live tracking and technical data</li>
+        <li><a href="https://www.cruisemapper.com/ships/Carnival-Horizon-1138" target="_blank" rel="noopener">CruiseMapper</a> — Ship specifications</li>
+        <li><a href="https://en.wikipedia.org/wiki/Carnival_Horizon" target="_blank" rel="noopener">Wikipedia</a> — Ship history and construction</li>
+        <li><strong>Photos:</strong> Mason Piscitelli (CC BY-SA 4.0), crocieristi/Flickr (CC BY 2.0) via Wikimedia Commons</li>
+      </ul>
+      <p class="tiny" style="margin-top: 1rem;">Page last updated: December 3, 2025</p>
+    </section>
+
   </div>
 
-    <!-- Hero section -->
-    <div class="hero" role="img" aria-label="Ship wake at sunrise">
-      <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true"/>
-      <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
-      </div>
-      <div class="tagline">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit">
-        <a class="pill long" href="https://instagram.com/flickersofmajesty">Photo © Flickers of Majesty</a>
-      </div>
-    </div></header>
-
-        <nav class="site-nav" aria-label="Main site navigation">
-        <a class="nav-pill" href="/">Home</a>
-
-        <!-- Planning Dropdown -->
-        <div class="nav-dropdown" id="nav-planning">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Planning <span class="caret">&#9662;</span>
-          </button>
-          <div class="dropdown-menu" role="menu">
-            <a href="/planning.html">Planning (overview)</a>
-            <a href="/ships.html">Ships</a>
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a href="/ports.html">Ports</a>
-            <a href="/drink-packages.html">Drink Packages</a>
-            <a href="/drink-calculator.html">Drink Calculator</a>
-            <a href="/stateroom-check.html">Stateroom Check</a>
-            <a href="/cruise-lines.html">Cruise Lines</a>
-            <a href="/packing-lists.html">Packing Lists</a>
-            <a href="/accessibility.html">Accessibility</a>
-          </div>
-        </div>
-
-        <!-- Travel Dropdown -->
-        <div class="nav-dropdown" id="nav-travel">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Travel <span class="caret">&#9662;</span>
-          </button>
-          <div class="dropdown-menu" role="menu">
-            <a href="/travel.html">Travel (overview)</a>
-            <a href="/solo.html">Solo</a>
-          </div>
-        </div>
-
-        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
-        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
-        <a class="nav-pill" href="/search.html">Search</a>
-        <a class="nav-pill" href="/about-us.html">About</a>
-      </nav></div>
-
-<div class="badge present" id="ship-status-badge">Present</div>
-<header>
-<h1>Carnival Horizon — Carnival Cruise Line</h1>
-<div>
-<span class="badge badge--present">Active (Present)</span>
-<span class="badge">Carnival Cruise Line</span>
-<span class="badge">GT: 133,500</span>
-<span class="badge">Capacity: 3,954</span>
-</div>
-</header>
-<main class="grid grid--2">
-    <!-- ICP-Lite Content Structure -->
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;">
-
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Carnival Horizon is a Carnival Cruise Line ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
-      </p>
-
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Cruisers researching Carnival Horizon or comparing Carnival ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
-      </p>
-
-      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-        <ul style="margin: 0; padding-left: 1.25rem;">
-          <li><strong>Cruise Line:</strong> Carnival Cruise Line</li>
-          <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
-          <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
-        </ul>
-      </div>
+  <aside class="rail" role="complementary" aria-label="Quick info and related content">
+    <!-- Quick Answer Card -->
+    <section class="card quick-answer" aria-labelledby="quick-answer-title">
+      <h2 id="quick-answer-title">Quick Answer</h2>
+      <p><strong>Carnival Horizon</strong> is a 133,596 GT Vista-class ship sailing year-round from Miami. She features SkyRide aerial cycling, the first IMAX theater at sea, and the exclusive Havana section with Cuban-themed cabins and private pool access.</p>
     </section>
 
-<article style="grid-column: 1;" class="card">
-<header><h2>Overview</h2></header>
-<div class="content">
-<p class="small"><strong>Year built / entered fleet:</strong> 2018</p>
-<p class="small"><strong>Class / notes:</strong> Vista-class.</p>
-<p class="small"><strong>Official ship page:</strong> <a href="https://www.carnival.com/cruise-ships/carnival-horizon" rel="noopener" target="_blank">View on carnival.com</a></p>
-<p class="small"><strong>Deck plans:</strong> <a href="https://www.carnival.com/cruise-ships/carnival-horizon#deck-plans" rel="noopener" target="_blank">Open deck plans</a></p>
-<p class="small"><strong>CruiseMapper profile:</strong> <a href="https://www.cruisemapper.com/ships/Carnival-Horizon-1138" rel="noopener" target="_blank">CruiseMapper profile</a></p>
-</div>
-</article>
-<aside class="card">
-<header><h2>Media</h2></header>
-<div class="content">
-<p>No curated videos yet. (Placeholder)</p>
-</div>
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    
-</aside>
-<section class="card" style="grid-column:1/-1;">
-<header><h2>Image Gallery</h2></header>
-<div class="content">
-<figure><img alt="Placeholder image" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Cruise_ship_icon.svg/320px-Cruise_ship_icon.svg.png"/><figcaption>Image placeholder — Wikimedia Commons (CC BY-SA)</figcaption></figure>
-<figure><img alt="Placeholder image" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Cruise_ship_icon.svg/320px-Cruise_ship_icon.svg.png"/><figcaption>Image placeholder — Wikimedia Commons (CC BY-SA)</figcaption></figure>
-<figure><img alt="Placeholder image" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Cruise_ship_icon.svg/320px-Cruise_ship_icon.svg.png"/><figcaption>Image placeholder — Wikimedia Commons (CC BY-SA)</figcaption></figure>
-</div>
-</section>
-
-    <!-- ICP-Lite FAQ Section -->
-    <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
-      <h2 style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions</h2>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Carnival Horizon?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Carnival Horizon offers complimentary dining including the <a href="/restaurants/mdr.html">main dining room</a> and buffet. Specialty restaurants vary by ship class. Check the dining section above for specific venues.</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How do I find the deck plans for Carnival Horizon?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Deck plans are available through the links on this page. You can also find official deck plans on the Carnival website or in the cruise planner app.</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Where does Carnival Horizon sail?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Ship deployments vary by season. Check the Carnival website for current itineraries and departure ports for Carnival Horizon.</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Is this information official?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides planning resources and community insights. Always confirm details with Carnival Cruise Line or your travel advisor before booking.</p>
-      </details>
+    <!-- Key Facts -->
+    <section class="card" aria-labelledby="keyfacts-title">
+      <h3 id="keyfacts-title">Key Facts</h3>
+      <dl class="key-facts">
+        <dt>Ship Class</dt>
+        <dd>Vista Class (2nd of 3)</dd>
+        <dt>Gross Tonnage</dt>
+        <dd>133,596 GT</dd>
+        <dt>Guest Capacity</dt>
+        <dd>3,960 (double occupancy)</dd>
+        <dt>Crew</dt>
+        <dd>1,450 members</dd>
+        <dt>Homeport</dt>
+        <dd>Miami, Florida</dd>
+        <dt>Maiden Voyage</dt>
+        <dd>April 2, 2018</dd>
+        <dt>Builder</dt>
+        <dd>Fincantieri (Italy)</dd>
+      </dl>
     </section>
 
-</div>
+    <!-- Author Card -->
+    <section class="card author-card-vertical" aria-labelledby="author-heading">
+      <h3 id="author-heading">About the Author</h3>
+      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+        <picture>
+          <source srcset="/authors/img/ken1.webp" type="image/webp"/>
+          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker" loading="lazy" decoding="async"/>
+        </picture>
+      </a>
+      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+      <p class="tiny">Founder of In the Wake. Writer, researcher, and cruise enthusiast dedicated to helping travelers find their perfect voyage.</p>
+      <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
+    </section>
 
-    <!-- RIGHT RAIL -->
-    <aside class="rail" role="complementary" aria-label="Author & articles">
-      <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-          </picture>
-        </a>
-        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-        <p class="tiny">
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-        </p>
-      </section>
+    <!-- Quick Links -->
+    <section class="card" aria-labelledby="quicklinks-title">
+      <h3 id="quicklinks-title">Quick Links</h3>
+      <ul style="margin: 0; padding-left: 1.25rem;">
+        <li><a href="https://www.carnival.com/cruise-ships/carnival-horizon" target="_blank" rel="noopener">Book a Cruise</a></li>
+        <li><a href="https://www.carnival.com/cruise-ships/carnival-horizon#deck-plans" target="_blank" rel="noopener">View Deck Plans</a></li>
+        <li><a href="#tracker-title">Live Ship Tracker</a></li>
+        <li><a href="#dining-card">Dining Guide</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </section>
 
-      <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    </aside>
-  </main>
-  <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-    <p class="tiny" style="margin-top: 0.5rem;">
-      <a href="/privacy.html">Privacy</a> ·
-      <a href="/terms.html">Terms</a> ·
-      <a href="/about-us.html">About</a> ·
-      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    </p>
-    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-  </footer>
-<section id="marketing-blurb"><h2>Overview</h2><p>Ship details coming soon. Check back for updates on this vessel's amenities and features.</p></section><section id="external-links"><h2>External Links</h2><ul><li><a href="https://www.carnival.com/cruise-ships/carnival-horizon" rel="noopener" target="_blank">Official Carnival Ship Page &amp; Deck Plans</a></li><li><a href="https://www.cruisemapper.com/ships/Carnival-Horizon-1138" rel="noopener" target="_blank">CruiseMapper profile</a></li></ul></section>
-  
-  <script>
-  (function(){
-    "use strict";
+    <!-- Related Ships -->
+    <section class="card" aria-labelledby="related-title">
+      <h3 id="related-title">Vista-Class Sisters</h3>
+      <ul style="margin: 0; padding-left: 1.25rem;">
+        <li><a href="/ships/carnival/carnival-vista.html">Carnival Vista</a> (Lead Ship)</li>
+        <li><a href="/ships/carnival/carnival-panorama.html">Carnival Panorama</a></li>
+      </ul>
+      <h4 style="margin-top: 1rem;">Also From Miami</h4>
+      <ul style="margin: 0; padding-left: 1.25rem;">
+        <li><a href="/ships/carnival/carnival-celebration.html">Carnival Celebration</a></li>
+        <li><a href="/ships/carnival/carnival-sunrise.html">Carnival Sunrise</a></li>
+      </ul>
+    </section>
+  </aside>
+</main>
 
-    /* ===== Recent Articles Rail ===== */
-    (async function recentRail(){
-      const rail = document.getElementById('recent-rail');
-      if(!rail) return;
+<footer role="contentinfo">
+  <p><strong>In the Wake</strong> — A Cruise Traveler's Logbook</p>
+  <p class="tiny">© 2025 In the Wake · All rights reserved.</p>
+  <p class="tiny"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/accessibility.html">Accessibility</a> · <a href="/about-us.html">About</a></p>
+  <p class="tiny" style="opacity: 0; position: absolute; pointer-events: none;" aria-hidden="true">Soli Deo Gloria — Every pixel of this project is offered as worship to God.</p>
+</footer>
 
-      const fallback = document.getElementById('recent-rail-fallback');
-      if(fallback) fallback.style.display = '';
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+(function() {
+  'use strict';
 
-      async function fetchJSONWithFallback(urls){
-        for (const u of urls){
-          try{
-            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
-            if (res.ok) return await res.json();
-          }catch(err){
-
-          }
+  // Dropdown navigation
+  const dropdowns = document.querySelectorAll('.nav-dropdown');
+  function closeAll() {
+    dropdowns.forEach(dd => {
+      dd.classList.remove('open');
+      const btn = dd.querySelector('button');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    });
+  }
+  dropdowns.forEach(dropdown => {
+    const btn = dropdown.querySelector('button');
+    if (btn) {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const isOpen = dropdown.classList.contains('open');
+        closeAll();
+        if (!isOpen) {
+          dropdown.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
         }
-        return null;
-      }
-
-      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
-
-      function setImageWithFallback(imgEl, primary, altPaths=[]){
-        if(!imgEl) return;
-        const stamp='v=3.010.300';
-        const tried=new Set();
-        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
-        function tryNext(){
-          const next=queue.shift();
-          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
-          if(tried.has(next)) return tryNext();
-          tried.add(next);
-          imgEl.src=next;
-        }
-        imgEl.onerror=tryNext;
-        tryNext();
-      }
-
-      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
-      if(!raw) {
-        if(fallback) {
-          fallback.textContent = 'Unable to load articles';
-          fallback.style.display = '';
-        }
-        return;
-      }
-
-      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-      if(!items.length) return;
-
-      const here = location.pathname.replace(/\/+$/,'');
-      const view = items.filter(p=>{
-        const href = pick(p,['url','path'],'#');
-        const norm = (href||'').replace(/\/+$/,'');
-        return norm && norm !== here;
-      }).slice(0,6);
-
-      rail.innerHTML = view.map(p=>{
-        const title = pick(p,['title','name'],'Article');
-        const href  = pick(p,['url','path'],'#');
-        const excerpt = pick(p,['excerpt','description'],'');
-        return `
-          <article class="card" style="display:flex;flex-direction:column;gap:.75rem;padding:.85rem">
-            <div style="display:grid;grid-template-columns:80px 1fr;gap:.75rem;align-items:start">
-              <div style="width:80px;height:60px;overflow:hidden;border-radius:8px;background:#eef4f6;border:1px solid #dfe7ea;flex-shrink:0">
-                <img class="article-thumb" alt="" decoding="async" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-              </div>
-              <div>
-                <h4 style="margin:0 0 .35rem 0;font-size:.9rem;line-height:1.3;font-weight:600">
-                  <a href="\${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">\${title}</a>
-                </h4>
-                \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
-              </div>
-            </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
-      }).join('');
-
-      const cards = [...rail.querySelectorAll('article.card')];
-      cards.forEach((card,i)=>{
-        const p = view[i] || {};
-        const el = card.querySelector('img.article-thumb');
-        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
-        const title = (pick(p,['title','name'],'')||'').toLowerCase();
-
-        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
-
-        // FORCE override for Top-20
-        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
-          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
-        }
-        // Friendly specifics
-        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
-        }
-        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
-          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
-        }
-        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-          primary = '/assets/articles/travel/cover.jpg';
-        }
-
-        // Heuristic fallback
-        if(!primary){
-          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
-          const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
-        }
-
-        const alts = [];
-        if(primary){
-          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
-        }
-        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
       });
-
-      if(fallback) fallback.style.display = 'none';
-
-      // Announce to screen readers
-      const status = document.getElementById('a11y-status');
-      if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
-      }
-    })();
-  })();
-  </script>
-<!-- Navigation dropdown functionality -->
-    <!-- Navigation dropdown functionality (New Clean Implementation) -->
-  <script>
-  (function() {
-    'use strict';
-    var dropdowns = document.querySelectorAll('.nav-dropdown');
-    function toggleDropdown(dropdown) {
-      var isOpen = dropdown.classList.contains('open');
-      closeAllDropdowns();
-      if (!isOpen) {
-        dropdown.classList.add('open');
-        var btn = dropdown.querySelector('button');
-        if (btn) btn.setAttribute('aria-expanded', 'true');
-      }
-    }
-    function closeAllDropdowns() {
-      dropdowns.forEach(function(dd) {
-        dd.classList.remove('open');
-        var btn = dd.querySelector('button');
-        if (btn) btn.setAttribute('aria-expanded', 'false');
+      btn.addEventListener('keydown', e => {
+        if (e.key === 'Escape') { closeAll(); btn.focus(); }
       });
     }
-    dropdowns.forEach(function(dropdown) {
-      var btn = dropdown.querySelector('button');
-      if (btn) {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleDropdown(dropdown);
-        });
-        btn.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') { closeAllDropdowns(); btn.focus(); }
-          if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            dropdown.classList.add('open');
-            btn.setAttribute('aria-expanded', 'true');
-            var firstLink = dropdown.querySelector('.dropdown-menu a');
-            if (firstLink) firstLink.focus();
-          }
+  });
+  document.addEventListener('click', e => {
+    let inside = false;
+    dropdowns.forEach(dd => { if (dd.contains(e.target)) inside = true; });
+    if (!inside) closeAll();
+  });
+
+  // Photo carousel
+  new Swiper('#photo-swiper', {
+    loop: true,
+    autoplay: { delay: 5000, disableOnInteraction: true },
+    pagination: { el: '.swiper-pagination', clickable: true },
+    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
+  });
+
+  // Load videos dynamically
+  fetch('/assets/data/videos/carnival/carnival-horizon.json')
+    .then(r => r.json())
+    .then(data => {
+      const wrapper = document.getElementById('video-wrapper');
+      if (wrapper && data.videos) {
+        wrapper.innerHTML = data.videos.map(v => `
+          <div class="swiper-slide">
+            <a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" rel="noopener" class="video-thumb" aria-label="Watch: ${v.title}">
+              <img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/>
+            </a>
+            <p class="photo-caption">${v.title}</p>
+          </div>
+        `).join('');
+        new Swiper('#video-swiper', {
+          slidesPerView: 1,
+          spaceBetween: 16,
+          navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+          breakpoints: { 640: { slidesPerView: 2 }, 900: { slidesPerView: 3 } }
         });
       }
-      var menu = dropdown.querySelector('.dropdown-menu');
-      if (menu) {
-        menu.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') { closeAllDropdowns(); if (btn) btn.focus(); }
-        });
+    })
+    .catch(() => {});
+
+  // Load logbook entries dynamically
+  fetch('/assets/data/logbook/carnival/carnival-horizon.json')
+    .then(r => r.json())
+    .then(data => {
+      const container = document.getElementById('logbook-container');
+      if (container && data.stories) {
+        const stories = data.stories.slice(0, 3);
+        container.innerHTML = stories.map(s => `
+          <article class="logbook-entry">
+            <h4>${s.title}</h4>
+            <p class="logbook-meta">${s.persona_label} · ${s.author.name}, ${s.author.location}</p>
+            <p class="logbook-excerpt">${s.markdown.split('\n\n')[0].replace(/\*\*/g, '')}</p>
+          </article>
+        `).join('') + '<p class="tiny" style="text-align:center;margin-top:1rem;">More stories in the Ship\'s Logbook...</p>';
       }
-    });
-    document.addEventListener('click', function(e) {
-      var isInsideDropdown = false;
-      dropdowns.forEach(function(dd) { if (dd.contains(e.target)) isInsideDropdown = true; });
-      if (!isInsideDropdown) closeAllDropdowns();
-    });
-  })();
-  </script>
+    })
+    .catch(() => {});
+
+})();
+</script>
 </body>
 </html>
