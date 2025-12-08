@@ -533,7 +533,7 @@
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
 </head>
 
-<body class="page solo">
+<body class="page solo no-hero-filter">
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- ARIA Live Regions -->
@@ -954,7 +954,7 @@
 
           host.innerHTML =
             '<h2>We hit rough seas loading this article.</h2>'+
-            '<p>Try refreshing or <a href="#"+ORIGIN+'/solo.html">return to Solo home</a>.</p>';
+            '<p>Try refreshing or <a href="'+ORIGIN+'/solo.html">return to Solo home</a>.</p>';
           host.setAttribute('aria-busy','false');
 
           // Announce error to screen readers
@@ -992,7 +992,7 @@
             '</picture>'+
           '</div>'+
           '<div class="meta">'+
-            '<a href="#"+(a.url||'#')+'"'+(a.url?' target="_blank" rel="noopener noreferrer"':'')+'>'+escapeHtml(a.name)+'</a>'+
+            '<a href="'+(a.url||'#')+'"'+(a.url?' target="_blank" rel="noopener noreferrer"':'')+'>'+escapeHtml(a.name)+'</a>'+
           '</div>';
 
         rail.appendChild(div);
@@ -1084,12 +1084,12 @@
         var to = a.url && /\/solo\/articles\//.test(a.url) ? a.url.replace('/solo/articles/','/solo/').replace(/\.html$/,'') + '.html' : (a.url||'#');
 
         return '<article class="rail-item">\
-          <a class="thumb" href="#"+to+'">\
+          <a class="thumb" href="'+to+'">\
             <img src="'+img+'" alt="'+escapeHtml(imgAlt)+'" width="112" height="72" style="width:112px;height:72px;object-fit:cover;border-radius:.5rem;display:block;">\
           </a>\
           <div class="meta">\
-            <h4><a href="#"+to+'">'+escapeHtml(a.title||"")+'</a></h4>\
-            <p class="tiny muted">'+escapeHtml(d)+(author.name ? ' · <img class="avatar" src="'+avatarSrc+'" alt="'+escapeHtml(avatarAlt)+'" width="18" height="18"><a class="author" href="#"+(author.url||'#')+'">'+escapeHtml(author.name)+'</a>' : '')+'</p>\
+            <h4><a href="'+to+'">'+escapeHtml(a.title||"")+'</a></h4>\
+            <p class="tiny muted">'+escapeHtml(d)+(author.name ? ' · <img class="avatar" src="'+avatarSrc+'" alt="'+escapeHtml(avatarAlt)+'" width="18" height="18"><a class="author" href="'+(author.url||'#')+'">'+escapeHtml(author.name)+'</a>' : '')+'</p>\
             <p class="tiny">'+escapeHtml(a.excerpt||"")+'</p>\
           </div>\
         </article>';
@@ -1159,7 +1159,7 @@
           '</picture>'+
         '</div>'+
         '<div style="margin-left:.5rem">'+
-          '<strong><a href="#"+(auth.url||'#')+'"'+(auth.url?' target="_blank" rel="noopener noreferrer"':'')+'>'+escapeHtml(auth.name)+'</a></strong>'+
+          '<strong><a href="'+(auth.url||'#')+'"'+(auth.url?' target="_blank" rel="noopener noreferrer"':'')+'>'+escapeHtml(auth.name)+'</a></strong>'+
           '<a class="share" href="#" role="button" style="margin-left:.75rem">Share this article</a>'+
         '</div>';
       mounted.appendChild(footer);
@@ -1259,12 +1259,12 @@
               </div>
               <div>
                 <h4 style="margin:0 0 .35rem 0;font-size:.9rem;line-height:1.3;font-weight:600">
-                  <a href="\${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">\${title}</a>
+                  <a href="${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">${title}</a>
                 </h4>
-                \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
+                ${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
+            <a href="${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
           </article>`;
       }).join('');
 
@@ -1296,13 +1296,13 @@
         if(!primary){
           const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
           const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
+          if(guess) primary = `/assets/articles/${guess}/cover.jpg`;
         }
 
         const alts = [];
         if(primary){
           const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
+          alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
         }
         setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
       });
@@ -1312,7 +1312,7 @@
       // Announce to screen readers
       const status = document.getElementById('a11y-status');
       if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
+        status.textContent = `${view.length} recent articles loaded`;
       }
     })();
   })();
