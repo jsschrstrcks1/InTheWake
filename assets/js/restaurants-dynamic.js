@@ -40,13 +40,15 @@
   // Only show dining and bars categories for restaurants page
   const SHOW_CATEGORIES = ['dining', 'bars'];
 
-  // Venue images - using category SVG placeholders
+  // Venue images - photos from Wikimedia Commons (CC licensed) + SVG fallbacks
   const VENUE_IMAGES = {
-    // Specialty Dining (fine dining)
-    'wonderland': '/assets/images/restaurants/specialty-dining.svg',
-    '150-central-park': '/assets/images/restaurants/specialty-dining.svg',
-    'chefs-table': '/assets/images/restaurants/specialty-dining.svg',
-    'chic': '/assets/images/restaurants/specialty-dining.svg',
+    // Specialty Dining (fine dining) - formal table setting photo
+    'wonderland': '/assets/images/restaurants/photos/formal-dining.jpg',
+    '150-central-park': '/assets/images/restaurants/photos/formal-dining.jpg',
+    'chefs-table': '/assets/images/restaurants/photos/formal-dining.jpg',
+    'chic': '/assets/images/restaurants/photos/formal-dining.jpg',
+    'coastal-kitchen': '/assets/images/restaurants/photos/formal-dining.jpg',
+    'mdr': '/assets/images/restaurants/photos/formal-dining.jpg',
 
     // Asian Cuisine
     'izumi': '/assets/images/restaurants/asian-cuisine.svg',
@@ -62,19 +64,21 @@
     // Steakhouse
     'chops': '/assets/images/restaurants/steakhouse.svg',
 
-    // Bars & Lounges
-    'schooner-bar': '/assets/images/restaurants/bar-lounge.svg',
-    'vintages': '/assets/images/restaurants/bar-lounge.svg',
-    'bionic-bar': '/assets/images/restaurants/bar-lounge.svg',
-    'boleros': '/assets/images/restaurants/bar-lounge.svg',
-    'playmakers': '/assets/images/restaurants/bar-lounge.svg',
-    'viking-crown-lounge': '/assets/images/restaurants/bar-lounge.svg',
-    'star-lounge': '/assets/images/restaurants/bar-lounge.svg',
-    'sky-bar': '/assets/images/restaurants/bar-lounge.svg',
-    'r-bar': '/assets/images/restaurants/bar-lounge.svg',
-    'olive-or-twist': '/assets/images/restaurants/bar-lounge.svg',
-    'diamond-club': '/assets/images/restaurants/bar-lounge.svg',
-    'globe-and-atlas': '/assets/images/restaurants/bar-lounge.svg',
+    // Bars & Lounges - cocktail lounge photos
+    'schooner-bar': '/assets/images/restaurants/photos/cocktail-lounge.jpg',
+    'vintages': '/assets/images/restaurants/photos/bar-lounge.jpg',
+    'bionic-bar': '/assets/images/restaurants/photos/bar-lounge.jpg',
+    'boleros': '/assets/images/restaurants/photos/cocktail-lounge.jpg',
+    'playmakers': '/assets/images/restaurants/photos/bar-lounge.jpg',
+    'viking-crown-lounge': '/assets/images/restaurants/photos/cocktail-lounge.jpg',
+    'star-lounge': '/assets/images/restaurants/photos/cocktail-lounge.jpg',
+    'sky-bar': '/assets/images/restaurants/photos/bar-lounge.jpg',
+    'r-bar': '/assets/images/restaurants/photos/cocktail-lounge.jpg',
+    'olive-or-twist': '/assets/images/restaurants/photos/cocktail-lounge.jpg',
+    'diamond-club': '/assets/images/restaurants/photos/cocktail-lounge.jpg',
+    'globe-and-atlas': '/assets/images/restaurants/photos/bar-lounge.jpg',
+    'bamboo-room': '/assets/images/restaurants/photos/cocktail-lounge.jpg',
+    'lime-and-coconut': '/assets/images/restaurants/photos/bar-lounge.jpg',
 
     // Default placeholder
     '_default': '/assets/images/restaurants/specialty-dining.svg'
@@ -427,14 +431,22 @@
       });
     }
 
-    // Category pill clicks (mutually exclusive)
+    // Category pill clicks (toggle behavior - click again to go back to All)
     categoryPills.forEach(pill => {
       pill.addEventListener('click', () => {
-        activeCategory = pill.dataset.filter;
+        const clickedFilter = pill.dataset.filter;
 
-        // Update button states
-        categoryPills.forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
+        // If clicking the same non-All filter, toggle back to All
+        if (clickedFilter !== 'all' && activeCategory === clickedFilter) {
+          activeCategory = 'all';
+          categoryPills.forEach(p => p.classList.remove('active'));
+          const allPill = document.querySelector('.filter-pill[data-filter="all"]');
+          if (allPill) allPill.classList.add('active');
+        } else {
+          activeCategory = clickedFilter;
+          categoryPills.forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+        }
 
         applyFilters();
       });
