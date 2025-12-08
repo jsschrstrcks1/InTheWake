@@ -7,7 +7,6 @@ All work on this project is offered as a gift to God.
 
 STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.300 · A11y/WCAG 2.1 AA Compliant
 -->
-<!doctype html>
 <html lang="en" class="no-js">
 <head>
 <!-- ai-breadcrumbs
@@ -33,7 +32,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- Core -->
   <meta charset="utf-8"/>
   <script>
-    document.documentElement.classList.remove(\'no-js\');
+    document.documentElement.classList.remove('no-js');
   </script>
 
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -437,65 +436,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     color: var(--text-muted);
   }
 
-  .nav {
-    flex: 1 1 auto;
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: .5rem;
-    white-space: nowrap;
-    flex-wrap: nowrap;
-    overflow: visible;
-    padding-inline: .75rem;
-  }
-
-  @media (max-width: 768px) {
-    .nav {
-      justify-content: flex-start;
-      overflow-x: auto;
-      scrollbar-width: thin;
-      -webkit-overflow-scrolling: touch;
-    }
-
-  }
-  
-    /* Navigation */
-    .nav {
-      flex: 1 1 auto;
-      min-width: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .5rem;
-      white-space: nowrap;
-      flex-wrap: nowrap;
-      overflow: visible;
-      padding-inline: .75rem;
-    }
-
-    @media (max-width: 768px) {
-
-    }
-  
-    /* Navigation */
-    .nav {
-      flex: 1 1 auto;
-      min-width: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .5rem;
-      white-space: nowrap;
-      flex-wrap: nowrap;
-      overflow: visible;
-      padding-inline: .75rem;
-    }
-
-    @media (max-width: 768px) {
-
-    }
-
     /* Author Card Vertical */
     .author-card-vertical {
       text-align: center;
@@ -836,7 +776,60 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <script src="/assets/js/stateroom-check.js?v=1.000.alpha"></script>
 
   <!-- Dropdown Navigation -->
-  
+  <script>
+  (function() {
+    'use strict';
+    var dropdowns = document.querySelectorAll('.nav-dropdown');
+    function toggleDropdown(dropdown) {
+      var isOpen = dropdown.classList.contains('open');
+      closeAllDropdowns();
+      if (!isOpen) {
+        dropdown.classList.add('open');
+        var btn = dropdown.querySelector('button');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+    function closeAllDropdowns() {
+      dropdowns.forEach(function(dd) {
+        dd.classList.remove('open');
+        var btn = dd.querySelector('button');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+    dropdowns.forEach(function(dropdown) {
+      var btn = dropdown.querySelector('button');
+      if (btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleDropdown(dropdown);
+        });
+        btn.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') { closeAllDropdowns(); btn.focus(); }
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            dropdown.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+            var firstLink = dropdown.querySelector('.dropdown-menu a');
+            if (firstLink) firstLink.focus();
+          }
+        });
+      }
+      var menu = dropdown.querySelector('.dropdown-menu');
+      if (menu) {
+        menu.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') { closeAllDropdowns(); if (btn) btn.focus(); }
+        });
+      }
+    });
+    document.addEventListener('click', function(e) {
+      var isInsideDropdown = false;
+      dropdowns.forEach(function(dd) { if (dd.contains(e.target)) isInsideDropdown = true; });
+      if (!isInsideDropdown) closeAllDropdowns();
+    });
+  })();
+  </script>
+
 <!-- Form Handler -->
   <script>
   (function() {
