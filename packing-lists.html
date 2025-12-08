@@ -462,14 +462,18 @@
       object-fit: contain;
     }
 
-    .hero-title .tagline {
-      position: relative;
+    /* Tagline positioned below hero-title */
+    .tagline {
+      position: absolute;
+      left: min(3vw, 1rem);
+      bottom: clamp(.55rem, 1.6vw, 1.1rem);
       font-weight: 700;
       letter-spacing: .2px;
       color: #e6f4f8;
       font-size: clamp(.9rem, 1.5vw, 1.35rem);
       white-space: nowrap;
       z-index: 3;
+      text-shadow: 0 2px 6px rgba(0,0,0,.45);
     }
 
     .hero-credit {
