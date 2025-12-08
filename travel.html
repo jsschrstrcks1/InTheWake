@@ -551,38 +551,6 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
       pointer-events: none;
     }
 
-    /* Hero title and logo positioning (matches index.html pattern) */
-    .hero-title {
-      position: absolute;
-      left: min(3vw, 1rem);
-      bottom: clamp(.6rem, 2vw, 1.4rem);
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: .3rem;
-      text-shadow: 0 2px 6px rgba(0,0,0,.45);
-    }
-
-    .hero-title .logo {
-      display: block;
-      width: clamp(189px, 23.1vw, 378px);
-      max-width: min(45vw, 520px);
-      max-height: clamp(180px, 22vw, 320px);
-      height: auto;
-      object-fit: contain;
-    }
-
-    .hero-title .tagline {
-      position: relative;
-      font-weight: 700;
-      letter-spacing: .2px;
-      color: #e6f4f8;
-      font-size: clamp(.9rem, 1.5vw, 1.35rem);
-      white-space: nowrap;
-      z-index: 3;
-    }
-
     .hero-credit {
       position: absolute;
       right: .85rem;
@@ -834,7 +802,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
       <div class="hero-title">
         <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
-      <p class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</p>
+      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
         <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener">Photo © Flickers of Majesty — Instagram</a>
       </div>
