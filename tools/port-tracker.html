@@ -188,33 +188,6 @@ Soli Deo Gloria
       font-size: 0.85rem; font-weight: 600; margin-top: 0.5rem;
       display: flex; align-items: center; gap: 0.5rem;
     }
-
-    /* Homeports Section - matches region-section style */
-    .homeports-section {
-      margin-bottom: 2rem; border: 1px solid #e0f0f5; border-radius: 8px; overflow: hidden;
-    }
-    .homeports-title {
-      font-size: 1.3rem; color: var(--sea); margin: 0; padding: 1rem;
-      background: linear-gradient(135deg, #f7fdff 0%, #e6f4f8 100%);
-      cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: space-between; transition: background 0.3s;
-    }
-    .homeports-title:hover { background: linear-gradient(135deg, #e0f0f5 0%, #d4e8ee 100%); }
-    .homeports-title-text { flex: 1; display: flex; align-items: center; gap: 0.5rem; }
-    .homeports-progress { font-size: 0.9rem; color: #666; margin-left: 1rem; }
-    .homeports-toggle { font-size: 1.5rem; transition: transform 0.3s; }
-    .homeports-section.collapsed .homeports-toggle { transform: rotate(-90deg); }
-    .homeports-content { padding: 1rem; max-height: 2000px; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s; }
-    .homeports-section.collapsed .homeports-content { max-height: 0; padding: 0 1rem; }
-    .homeports-desc { margin: 0 0 1rem 0; font-size: 0.9rem; color: #666; }
-    .homeport-item {
-      display: flex; align-items: center; padding: 0.75rem; margin-bottom: 0.5rem;
-      background: #f7fdff; border-radius: 8px; cursor: pointer; transition: all 0.2s;
-    }
-    .homeport-item:hover { background: #e0f0f5; }
-    .homeport-item.visited { background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 4px solid #28a745; }
-    .homeport-checkbox { width: 24px; height: 24px; margin-right: 1rem; cursor: pointer; flex-shrink: 0; }
-    .homeport-name { flex: 1; font-size: 1rem; color: var(--sea); font-weight: 500; }
-    .homeport-country { font-size: 0.85rem; color: #666; margin-left: auto; }
   </style>
 </head>
 <body class="page">
@@ -362,6 +335,7 @@ Soli Deo Gloria
         <button class="filter-button" data-region="Asia">🌏 Asia</button>
         <button class="filter-button" data-region="Australia & Pacific">🦘 Australia/Pacific</button>
         <button class="filter-button" data-region="Africa & Morocco">🌍 Africa</button>
+        <button class="filter-button" data-region="Homeports">🚢 Homeports</button>
       </aside>
       
       <!-- Center: Port List -->
@@ -437,21 +411,6 @@ Soli Deo Gloria
           </p>
         </section>
       </aside>
-    </div>
-
-    <!-- Homeports / Embarkation Ports Section -->
-    <div class="homeports-section" id="homeports-section">
-      <div class="homeports-title" onclick="toggleHomeports()">
-        <span class="homeports-title-text">🚢 Homeports (Embarkation/Disembarkation)</span>
-        <span class="homeports-progress" id="homeport-stats"></span>
-        <span class="homeports-toggle">▼</span>
-      </div>
-      <div class="homeports-content">
-        <p class="homeports-desc">Track which cruise terminals you've departed from or arrived at. These are separate from port visits!</p>
-        <div class="homeports-grid" id="homeports-grid">
-          <!-- Dynamically populated -->
-        </div>
-      </div>
     </div>
 
     <div class="action-buttons">
@@ -1659,7 +1618,37 @@ Soli Deo Gloria
     "region": "Northern Europe",
     "continent": "Europe",
     "url": "/ports/zeebrugge.html"
-  }
+  },
+  // Homeports (Embarkation/Disembarkation Ports)
+  { "id": "hp-miami", "name": "Miami (PortMiami)", "country": "United States", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-fort-lauderdale", "name": "Fort Lauderdale (Port Everglades)", "country": "United States", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-tampa", "name": "Tampa", "country": "United States", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-port-canaveral", "name": "Port Canaveral", "country": "United States", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-jacksonville", "name": "Jacksonville", "country": "United States", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-galveston", "name": "Galveston", "country": "United States", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-new-orleans", "name": "New Orleans", "country": "United States", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-mobile", "name": "Mobile", "country": "United States", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-new-york", "name": "New York (Cape Liberty)", "country": "United States", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-baltimore", "name": "Baltimore", "country": "United States", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-boston", "name": "Boston", "country": "United States", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-charleston", "name": "Charleston", "country": "United States", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-seattle", "name": "Seattle", "country": "United States", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-san-francisco", "name": "San Francisco", "country": "United States", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-los-angeles", "name": "Los Angeles (San Pedro)", "country": "United States", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-san-diego", "name": "San Diego", "country": "United States", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-vancouver", "name": "Vancouver", "country": "Canada", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-quebec-city", "name": "Quebec City", "country": "Canada", "region": "Homeports", "continent": "North America", "url": null },
+  { "id": "hp-sydney", "name": "Sydney", "country": "Australia", "region": "Homeports", "continent": "Oceania", "url": null },
+  { "id": "hp-brisbane", "name": "Brisbane", "country": "Australia", "region": "Homeports", "continent": "Oceania", "url": null },
+  { "id": "hp-auckland", "name": "Auckland", "country": "New Zealand", "region": "Homeports", "continent": "Oceania", "url": null },
+  { "id": "hp-southampton", "name": "Southampton", "country": "United Kingdom", "region": "Homeports", "continent": "Europe", "url": null },
+  { "id": "hp-barcelona", "name": "Barcelona", "country": "Spain", "region": "Homeports", "continent": "Europe", "url": null },
+  { "id": "hp-rome", "name": "Rome (Civitavecchia)", "country": "Italy", "region": "Homeports", "continent": "Europe", "url": null },
+  { "id": "hp-venice", "name": "Venice", "country": "Italy", "region": "Homeports", "continent": "Europe", "url": null },
+  { "id": "hp-copenhagen", "name": "Copenhagen", "country": "Denmark", "region": "Homeports", "continent": "Europe", "url": null },
+  { "id": "hp-amsterdam", "name": "Amsterdam", "country": "Netherlands", "region": "Homeports", "continent": "Europe", "url": null },
+  { "id": "hp-singapore", "name": "Singapore", "country": "Singapore", "region": "Homeports", "continent": "Asia", "url": null },
+  { "id": "hp-hong-kong", "name": "Hong Kong", "country": "China", "region": "Homeports", "continent": "Asia", "url": null }
 ];
   
   // Bingo card definitions
@@ -1676,53 +1665,21 @@ Soli Deo Gloria
     { id: 'italian-coast', name: '🍕 Italian Coastline', ports: ['venice', 'civitavecchia', 'naples', 'livorno', 'messina', 'taormina', 'ravenna', 'trieste'], howTo: 'Collect this badge by visiting all major Italian coastal ports!' },
     { id: 'norwegian-fjords', name: '🌉 Norwegian Fjords', ports: ['bergen', 'alesund', 'stavanger', 'norwegian-fjords'], howTo: 'Collect this badge by visiting all Norwegian fjord ports!' },
     { id: 'british-isles', name: '🏰 British Isles', ports: ['liverpool', 'dublin', 'cork', 'belfast', 'scotland', 'invergordon', 'kirkwall', 'lerwick', 'holyhead', 'waterford', 'newcastle', 'dover', 'portland'], howTo: 'Collect this badge by visiting all British Isles ports!' },
+    { id: 'homeport-explorer', name: '🚢 Homeport Explorer (10 ports)', ports: [], min: 10, homeportsOnly: true, howTo: 'Collect this badge by departing from 10 different cruise homeports!' },
+    { id: 'homeport-master', name: '⚓ Homeport Master (20 ports)', ports: [], min: 20, homeportsOnly: true, howTo: 'Collect this badge by departing from 20 different cruise homeports!' },
     { id: 'port-hopper', name: '🗽 Port Hopper (25 ports)', ports: [], min: 25, howTo: 'Collect this badge by visiting any 25 ports!' },
     { id: 'world-cruiser', name: '🌍 World Cruiser (50 ports)', ports: [], min: 50, howTo: 'Collect this badge by visiting any 50 ports!' },
     { id: 'ultimate', name: '👑 Ultimate Cruiser (100 ports)', ports: [], min: 100, howTo: 'Collect this badge by visiting 100 or more ports - the ultimate achievement!' }
   ];
 
-  // Homeports database - cruise embarkation/disembarkation ports
-  const HOMEPORTS_DB = [
-    // Florida
-    { id: 'miami', name: 'Miami', region: 'Florida' },
-    { id: 'fort-lauderdale', name: 'Fort Lauderdale', region: 'Florida' },
-    { id: 'tampa', name: 'Tampa', region: 'Florida' },
-    { id: 'port-canaveral', name: 'Port Canaveral', region: 'Florida' },
-    { id: 'jacksonville', name: 'Jacksonville', region: 'Florida' },
-    // Gulf Coast
-    { id: 'galveston', name: 'Galveston', region: 'Gulf Coast' },
-    { id: 'new-orleans', name: 'New Orleans', region: 'Gulf Coast' },
-    { id: 'mobile', name: 'Mobile', region: 'Gulf Coast' },
-    // East Coast
-    { id: 'new-york', name: 'New York', region: 'East Coast' },
-    { id: 'baltimore', name: 'Baltimore', region: 'East Coast' },
-    { id: 'boston-home', name: 'Boston', region: 'East Coast' },
-    { id: 'charleston', name: 'Charleston', region: 'East Coast' },
-    // West Coast
-    { id: 'seattle', name: 'Seattle', region: 'West Coast' },
-    { id: 'san-francisco', name: 'San Francisco', region: 'West Coast' },
-    { id: 'los-angeles', name: 'Los Angeles', region: 'West Coast' },
-    { id: 'san-diego', name: 'San Diego', region: 'West Coast' },
-    // Canada
-    { id: 'vancouver', name: 'Vancouver', region: 'Canada' },
-    { id: 'quebec-home', name: 'Quebec City', region: 'Canada' },
-    // Australia & NZ
-    { id: 'sydney-home', name: 'Sydney', region: 'Australia' },
-    { id: 'brisbane-home', name: 'Brisbane', region: 'Australia' },
-    { id: 'auckland-home', name: 'Auckland', region: 'Australia' },
-    // Europe
-    { id: 'southampton-home', name: 'Southampton', region: 'UK' },
-    { id: 'barcelona-home', name: 'Barcelona', region: 'Mediterranean' },
-    { id: 'rome-home', name: 'Rome (Civitavecchia)', region: 'Mediterranean' },
-    { id: 'venice-home', name: 'Venice', region: 'Mediterranean' },
-    { id: 'copenhagen-home', name: 'Copenhagen', region: 'Northern Europe' },
-    { id: 'amsterdam-home', name: 'Amsterdam', region: 'Northern Europe' }
-  ];
-
   // App state
   let visitedPorts = new Set(JSON.parse(localStorage.getItem('visited-ports') || '[]'));
-  let visitedHomeports = new Set(JSON.parse(localStorage.getItem('visited-homeports') || '[]'));
   let currentFilter = 'all';
+
+  // Helper to count homeports visited
+  function getVisitedHomeportsCount() {
+    return [...visitedPorts].filter(id => id.startsWith('hp-')).length;
+  }
 
   // Analytics tracking helper
   function trackEvent(eventName, params = {}) {
@@ -1743,7 +1700,6 @@ Soli Deo Gloria
       });
     }
     renderPortList();
-    renderHomeports();
     renderAchievementCollections();
     updateStats();
     attachEventListeners();
@@ -1756,54 +1712,6 @@ Soli Deo Gloria
       section.classList.toggle('collapsed');
     }
   };
-
-  // Toggle homeports section
-  window.toggleHomeports = function() {
-    const section = document.getElementById('homeports-section');
-    if (section) {
-      section.classList.toggle('collapsed');
-    }
-  };
-
-  // Render homeports grid
-  function renderHomeports() {
-    const grid = document.getElementById('homeports-grid');
-    if (!grid) return;
-
-    // Group by region
-    const regions = {};
-    HOMEPORTS_DB.forEach(port => {
-      if (!regions[port.region]) regions[port.region] = [];
-      regions[port.region].push(port);
-    });
-
-    grid.innerHTML = '';
-    Object.keys(regions).forEach(region => {
-      const regionDiv = document.createElement('div');
-      regionDiv.style.cssText = 'grid-column: 1 / -1; margin-top: 0.5rem;';
-      regionDiv.innerHTML = `<strong style="font-size:0.85rem;color:#666;">${region}</strong>`;
-      grid.appendChild(regionDiv);
-
-      regions[region].forEach(port => {
-        const item = document.createElement('div');
-        item.className = 'homeport-item' + (visitedHomeports.has(port.id) ? ' visited' : '');
-        item.innerHTML = `
-          <input type="checkbox" class="homeport-checkbox" data-homeport="${port.id}"
-                 ${visitedHomeports.has(port.id) ? 'checked' : ''}>
-          <span class="homeport-name">${port.name}</span>
-        `;
-        grid.appendChild(item);
-      });
-    });
-
-    // Update stats
-    const statsEl = document.getElementById('homeport-stats');
-    if (statsEl) {
-      const visited = visitedHomeports.size;
-      const total = HOMEPORTS_DB.length;
-      statsEl.textContent = `${visited} of ${total} homeports visited`;
-    }
-  }
   
   // Render port list with CLICKABLE LINKS
   function renderPortList() {
@@ -1863,10 +1771,13 @@ Soli Deo Gloria
       ports.forEach(port => {
         const item = document.createElement('div');
         item.className = 'port-item' + (visitedPorts.has(port.id) ? ' visited' : '');
+        const portNameHtml = port.url
+          ? `<a href="${port.url}" class="port-name" target="_blank" onclick="trackEvent('port_link_clicked', {port_id: '${port.id}', port_name: '${port.name}'})">${port.name}</a>`
+          : `<span class="port-name">${port.name}</span>`;
         item.innerHTML = `
-          <input type="checkbox" class="port-checkbox" data-port="${port.id}" 
+          <input type="checkbox" class="port-checkbox" data-port="${port.id}"
                  ${visitedPorts.has(port.id) ? 'checked' : ''}>
-          <a href="${port.url}" class="port-name" target="_blank" onclick="trackEvent('port_link_clicked', {port_id: '${port.id}', port_name: '${port.name}'})">${port.name}</a>
+          ${portNameHtml}
           <span class="port-country">${port.country}</span>
         `;
         section.querySelector('.region-ports').appendChild(item);
@@ -1890,7 +1801,12 @@ Soli Deo Gloria
 
       if (card.min) {
         total = card.min;
-        completed = Math.min(visitedPorts.size, total);
+        if (card.homeportsOnly) {
+          // Only count homeports for homeport-specific badges
+          completed = Math.min(getVisitedHomeportsCount(), total);
+        } else {
+          completed = Math.min(visitedPorts.size, total);
+        }
       } else {
         total = card.ports.length;
         completed = card.ports.filter(p => visitedPorts.has(p)).length;
@@ -1994,6 +1910,9 @@ Soli Deo Gloria
     
     const completedBingos = BINGO_CARDS.filter(card => {
       if (card.min) {
+        if (card.homeportsOnly) {
+          return getVisitedHomeportsCount() >= card.min;
+        }
         return visitedPorts.size >= card.min;
       } else {
         return card.ports.every(p => visitedPorts.has(p));
@@ -2033,26 +1952,6 @@ Soli Deo Gloria
         renderPortList();
         renderAchievementCollections();
         updateStats();
-      }
-
-      // Homeport checkboxes
-      if (e.target.classList.contains('homeport-checkbox')) {
-        const homeportId = e.target.dataset.homeport;
-        if (e.target.checked) {
-          visitedHomeports.add(homeportId);
-          trackEvent('homeport_checked', {
-            homeport_id: homeportId,
-            total_homeports: visitedHomeports.size
-          });
-        } else {
-          visitedHomeports.delete(homeportId);
-          trackEvent('homeport_unchecked', {
-            homeport_id: homeportId,
-            total_homeports: visitedHomeports.size
-          });
-        }
-        saveData();
-        renderHomeports();
       }
     });
     
@@ -2138,7 +2037,6 @@ Soli Deo Gloria
   // Save data to localStorage
   function saveData() {
     localStorage.setItem('visited-ports', JSON.stringify([...visitedPorts]));
-    localStorage.setItem('visited-homeports', JSON.stringify([...visitedHomeports]));
   }
   
   // Generate shareable image
