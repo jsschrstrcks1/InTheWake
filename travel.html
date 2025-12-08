@@ -741,72 +741,6 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     @media (max-width: 768px) {
 
     }
-
-    /* Dropdown Navigation */
-    .site-nav {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      flex-wrap: wrap;
-    }
-
-    .nav-pill {
-      padding: .4rem .7rem;
-      border-radius: 999px;
-      background: #fff;
-      border: 1px solid var(--rope);
-      color: var(--accent);
-      text-decoration: none;
-      font-size: .9rem;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-
-    .nav-pill:hover {
-      background: var(--foam);
-    }
-
-    .nav-dropdown {
-      position: relative;
-    }
-
-    .nav-dropdown .nav-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: .25rem;
-    }
-
-    .nav-dropdown .caret {
-      font-size: .7rem;
-    }
-
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      margin-top: .35rem;
-      background: #fff;
-      border: 1px solid var(--rope);
-      border-radius: 8px;
-      box-shadow: 0 4px 16px rgba(8,48,65,.15);
-      min-width: 180px;
-      z-index: 9999;
-      padding: .5rem 0;
-    }
-
-    .dropdown-menu a {
-      display: block;
-      padding: .5rem 1rem;
-      color: var(--ink);
-      text-decoration: none;
-      font-size: .9rem;
-    }
-
-    .dropdown-menu a:hover {
-      background: var(--foam);
-      color: var(--accent);
-    }
   </style>
 
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
@@ -1488,7 +1422,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
   (function(){
     "use strict";
 
-    /* ===== FIXED: Dropdown Menu with 300ms Hover Delay ===== */
+    /* ===== Dropdown Menu with 300ms Hover Delay ===== */
     const dropdownGroups = Array.from(document.querySelectorAll('.nav-dropdown'));
     if (!dropdownGroups.length) return;
 
@@ -1497,18 +1431,19 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     const HOVER_DELAY = 300; // milliseconds
 
     function setOpen(group, isOpen) {
-      group.dataset.open = isOpen ? "true" : "false";
+      if (isOpen) {
+        group.classList.add('open');
+      } else {
+        group.classList.remove('open');
+      }
       const button = group.querySelector('button');
       if (button) button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      const menu = group.querySelector('.dropdown-menu');
-      if (menu) menu.style.display = isOpen ? 'block' : 'none';
     }
 
     function closeAll(except = null) {
       dropdownGroups.forEach(group => {
         if (group !== except) {
           setOpen(group, false);
-          // Clear any pending timeout for this group
           if (hoverTimeouts.has(group)) {
             clearTimeout(hoverTimeouts.get(group));
             hoverTimeouts.delete(group);
@@ -1523,19 +1458,16 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
 
       // Mouse enter: Open immediately
       group.addEventListener('mouseenter', () => {
-        // Clear any pending close timeout
         if (hoverTimeouts.has(group)) {
           clearTimeout(hoverTimeouts.get(group));
           hoverTimeouts.delete(group);
         }
-        // Open this dropdown
         closeAll(group);
         setOpen(group, true);
       });
 
       // Mouse leave: Close after delay
       group.addEventListener('mouseleave', () => {
-        // Set timeout to close after delay
         const timeoutId = setTimeout(() => {
           setOpen(group, false);
           hoverTimeouts.delete(group);
@@ -1547,7 +1479,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
       if (button) {
         button.addEventListener('click', (e) => {
           e.preventDefault();
-          const isOpen = group.dataset.open === 'true';
+          const isOpen = group.classList.contains('open');
           closeAll(group);
           setOpen(group, !isOpen);
         });
@@ -1563,7 +1495,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
           e.preventDefault();
           setOpen(group, true);
           if (menu) {
-            const firstLink = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+            const firstLink = menu.querySelector('a');
             firstLink && firstLink.focus();
           }
         }
