@@ -741,6 +741,72 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     @media (max-width: 768px) {
 
     }
+
+    /* Dropdown Navigation */
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-pill {
+      padding: .4rem .7rem;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--rope);
+      color: var(--accent);
+      text-decoration: none;
+      font-size: .9rem;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .nav-pill:hover {
+      background: var(--foam);
+    }
+
+    .nav-dropdown {
+      position: relative;
+    }
+
+    .nav-dropdown .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+    }
+
+    .nav-dropdown .caret {
+      font-size: .7rem;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: .35rem;
+      background: #fff;
+      border: 1px solid var(--rope);
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(8,48,65,.15);
+      min-width: 180px;
+      z-index: 9999;
+      padding: .5rem 0;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: .5rem 1rem;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: .9rem;
+    }
+
+    .dropdown-menu a:hover {
+      background: var(--foam);
+      color: var(--accent);
+    }
   </style>
 
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
@@ -1423,7 +1489,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     "use strict";
 
     /* ===== FIXED: Dropdown Menu with 300ms Hover Delay ===== */
-    const dropdownGroups = Array.from(document.querySelectorAll('.nav-group'));
+    const dropdownGroups = Array.from(document.querySelectorAll('.nav-dropdown'));
     if (!dropdownGroups.length) return;
 
     // Track hover timeouts for each dropdown
@@ -1432,7 +1498,10 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
 
     function setOpen(group, isOpen) {
       group.dataset.open = isOpen ? "true" : "false";
-      const button = group.querySelector('
+      const button = group.querySelector('button');
+      if (button) button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      const menu = group.querySelector('.dropdown-menu');
+      if (menu) menu.style.display = isOpen ? 'block' : 'none';
     }
 
     function closeAll(except = null) {
@@ -1449,7 +1518,8 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     }
 
     dropdownGroups.forEach(group => {
-      const button = group.querySelector(');
+      const button = group.querySelector('button');
+      const menu = group.querySelector('.dropdown-menu');
 
       // Mouse enter: Open immediately
       group.addEventListener('mouseenter', () => {
@@ -1473,6 +1543,16 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
         hoverTimeouts.set(group, timeoutId);
       });
 
+      // Click to toggle
+      if (button) {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          const isOpen = group.dataset.open === 'true';
+          closeAll(group);
+          setOpen(group, !isOpen);
+        });
+      }
+
       // Keyboard navigation
       group.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
@@ -1482,24 +1562,28 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
         if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && document.activeElement === button) {
           e.preventDefault();
           setOpen(group, true);
-          const firstLink = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
-          firstLink && firstLink.focus();
+          if (menu) {
+            const firstLink = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+            firstLink && firstLink.focus();
+          }
         }
       });
 
       // Close when tabbing away
-      menu.addEventListener('focusout', () => {
-        setTimeout(() => {
-          if (!group.contains(document.activeElement)) {
-            setOpen(group, false);
-          }
-        }, 0);
-      });
+      if (menu) {
+        menu.addEventListener('focusout', () => {
+          setTimeout(() => {
+            if (!group.contains(document.activeElement)) {
+              setOpen(group, false);
+            }
+          }, 0);
+        });
+      }
     });
 
     // Close all dropdowns when clicking outside
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.nav-group')) {
+      if (!e.target.closest('.nav-dropdown')) {
         closeAll();
       }
     });
