@@ -1422,8 +1422,8 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
   (function(){
     "use strict";
 
-    /* ===== FIXED: Dropdown Menu with 300ms Hover Delay ===== */
-    const dropdownGroups = Array.from(document.querySelectorAll('.nav-group'));
+    /* ===== Dropdown Menu with 300ms Hover Delay ===== */
+    const dropdownGroups = Array.from(document.querySelectorAll('.nav-dropdown'));
     if (!dropdownGroups.length) return;
 
     // Track hover timeouts for each dropdown
@@ -1431,15 +1431,19 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     const HOVER_DELAY = 300; // milliseconds
 
     function setOpen(group, isOpen) {
-      group.dataset.open = isOpen ? "true" : "false";
-      const button = group.querySelector('
+      if (isOpen) {
+        group.classList.add('open');
+      } else {
+        group.classList.remove('open');
+      }
+      const button = group.querySelector('button');
+      if (button) button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     }
 
     function closeAll(except = null) {
       dropdownGroups.forEach(group => {
         if (group !== except) {
           setOpen(group, false);
-          // Clear any pending timeout for this group
           if (hoverTimeouts.has(group)) {
             clearTimeout(hoverTimeouts.get(group));
             hoverTimeouts.delete(group);
@@ -1449,29 +1453,37 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     }
 
     dropdownGroups.forEach(group => {
-      const button = group.querySelector(');
+      const button = group.querySelector('button');
+      const menu = group.querySelector('.dropdown-menu');
 
       // Mouse enter: Open immediately
       group.addEventListener('mouseenter', () => {
-        // Clear any pending close timeout
         if (hoverTimeouts.has(group)) {
           clearTimeout(hoverTimeouts.get(group));
           hoverTimeouts.delete(group);
         }
-        // Open this dropdown
         closeAll(group);
         setOpen(group, true);
       });
 
       // Mouse leave: Close after delay
       group.addEventListener('mouseleave', () => {
-        // Set timeout to close after delay
         const timeoutId = setTimeout(() => {
           setOpen(group, false);
           hoverTimeouts.delete(group);
         }, HOVER_DELAY);
         hoverTimeouts.set(group, timeoutId);
       });
+
+      // Click to toggle
+      if (button) {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          const isOpen = group.classList.contains('open');
+          closeAll(group);
+          setOpen(group, !isOpen);
+        });
+      }
 
       // Keyboard navigation
       group.addEventListener('keydown', (e) => {
@@ -1482,24 +1494,28 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
         if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && document.activeElement === button) {
           e.preventDefault();
           setOpen(group, true);
-          const firstLink = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
-          firstLink && firstLink.focus();
+          if (menu) {
+            const firstLink = menu.querySelector('a');
+            firstLink && firstLink.focus();
+          }
         }
       });
 
       // Close when tabbing away
-      menu.addEventListener('focusout', () => {
-        setTimeout(() => {
-          if (!group.contains(document.activeElement)) {
-            setOpen(group, false);
-          }
-        }, 0);
-      });
+      if (menu) {
+        menu.addEventListener('focusout', () => {
+          setTimeout(() => {
+            if (!group.contains(document.activeElement)) {
+              setOpen(group, false);
+            }
+          }, 0);
+        });
+      }
     });
 
     // Close all dropdowns when clicking outside
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.nav-group')) {
+      if (!e.target.closest('.nav-dropdown')) {
         closeAll();
       }
     });
