@@ -948,24 +948,26 @@
         var a = sorted[s];
         var authored = (__articlesByAuthor[a.id]||[]);
         var div = document.createElement('div'); div.className = "author";
+        div.style.cssText = "display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:1rem;";
         var webp = a.avatarBase + ".webp?v=" + encodeURIComponent(ver);
         var fall = a.avatarBase + ".jpg?v=" + encodeURIComponent(ver);
 
         div.innerHTML =
-          '<div class="avatar" style="width:64px;height:64px;border-radius:12px;overflow:hidden;flex-shrink:0">'+
+          '<div class="avatar" style="width:64px;height:64px;border-radius:12px;overflow:hidden;margin-bottom:0.5rem">'+
             '<picture>'+
               '<source type="image/webp" srcset="'+webp+'">'+
               '<img src="'+fall+'" alt="'+escapeHtml(a.name)+'" width="64" height="64" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">'+
             '</picture>'+
           '</div>'+
           '<div class="meta">'+
-            '<a href="'+(a.url||'#')+'"'+(a.url?' target="_blank" rel="noopener noreferrer"':'')+'>'+escapeHtml(a.name)+'</a>'+
+            '<a href="'+(a.url||'#')+'"'+(a.url?' target="_blank" rel="noopener noreferrer"':'')+' style="font-weight:600">'+escapeHtml(a.name)+'</a>'+
           '</div>';
 
         rail.appendChild(div);
 
         // small roll of authored links — link to FULL pages, not fragments
         var roll = document.createElement('div'); roll.className = "roll";
+        roll.style.cssText = "display:flex;flex-direction:column;gap:0.35rem;margin-bottom:1.25rem;";
         var max  = Math.min(3, authored.length);
         for(var i=0;i<max;i++){
           var art = authored[(i + Math.floor(Math.random()*Math.max(1,authored.length))) % Math.max(1,authored.length)];
@@ -973,6 +975,7 @@
           var aTag = document.createElement('a');
           aTag.href = permalink(art.slug); // full page
           aTag.textContent = art.title;
+          aTag.style.cssText = "display:block;font-size:0.85rem;line-height:1.4;";
           roll.appendChild(aTag);
         }
         rail.appendChild(roll);
