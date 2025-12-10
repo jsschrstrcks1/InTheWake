@@ -7,7 +7,6 @@ All work on this project is offered as a gift to God.
 
 STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.302 · A11y/WCAG 2.1 AA Compliant
 -->
-<!doctype html>
 <html lang="en">
 <head>
 <!-- ai-breadcrumbs
@@ -363,22 +362,22 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
     </div></header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1" style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start;">
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
   <!-- Right Rail -->
-    <aside class="rail" role="complementary" aria-label="Key facts, author & articles" style="grid-column: 2; grid-row: 1;">
+    <aside class="rail col-2" role="complementary" aria-label="Key facts, author & articles">
       <!-- Quick Answer / Best For / Key Facts -->
-      <section class="page-intro" style="margin: 0 0 1rem 0;">
-        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+      <section class="page-intro mb-1">
+        <p class="answer-line">
           <strong>Quick Answer:</strong> Quantum of the Seas is a Royal Caribbean ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
         </p>
 
-        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+        <p class="content-text">
           <strong>Best For:</strong> Cruisers researching Quantum of the Seas or comparing Royal Caribbean ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
         </p>
 
-        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-          <ul style="margin: 0; padding-left: 1.25rem;">
+        <div class="callout-box">
+          <h3 class="mt-0 mb-05">Key Facts</h3>
+          <ul class="list-indent">
             <li><strong>Cruise Line:</strong> Royal Caribbean</li>
             <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
             <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
@@ -392,7 +391,7 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.302" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+            <img class="author-avatar rounded-lg" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" decoding="async" loading="lazy"/>
           </picture>
         </a>
         <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
@@ -405,24 +404,24 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
       <!-- Recent Articles rail -->
       <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        <p class="tiny content-text">
           Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
         </p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
       </section>
-    
+
     <!-- Whimsical Distance Units -->
-    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    <section class="card" id="whimsical-units-container">
     </section>
 
   </aside>
 
     <!-- Main Content Column -->
-    <div style="grid-column: 1; grid-row: 1;">
-      <h1 style="font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--sea); margin: 0.75rem 0 0.5rem;">Quantum of the Seas — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
+    <div class="col-1">
+      <h1>Quantum of the Seas — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
 
-      <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+      <p class="content-text">
         Quantum of the Seas tends to suit tech-savvy cruisers and families seeking innovation with cutting-edge technology including North Star observation capsule, RipCord by iFLY skydiving simulator, Two70 transforming venue, and robot bartenders.
         It's ideal if you want Royal Caribbean's signature entertainment and service with groundbreaking experiences like virtual balconies and SeaPlex indoor sports complex.
         If you're looking for the absolute newest Icon class innovations or the massive scale of <a href="/ships.html#oasis-class">Oasis class</a>, you may want to explore those classes instead.
@@ -477,8 +476,8 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
         <!-- Sister Ships -->
         <section class="ship-stats card mini" aria-labelledby="sister-ships">
           <h3 id="sister-ships">Quantum Class — Sister Ships</h3>
-          <p class="small" style="margin-bottom: 0.5rem;">Explore other ships in the <a href="/ships.html#quantum-class">Quantum Class</a> family:</p>
-          <div class="related-pills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
+          <p class="small mb-05">Explore other ships in the <a href="/ships.html#quantum-class">Quantum Class</a> family:</p>
+          <div class="related-pills flex-center">
             <a class="pill" href="/ships/rcl/anthem-of-the-seas.html">Anthem of the Seas</a>
             <a class="pill" href="/ships/rcl/ovation-of-the-seas.html">Ovation of the Seas</a>
             <a class="pill" href="/ships/rcl/spectrum-of-the-seas.html">Spectrum of the Seas</a>
@@ -489,8 +488,8 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
         <!-- Ship Classes -->
         <section class="ship-stats card mini" aria-labelledby="ship-classes">
           <h3 id="ship-classes">Explore Royal Caribbean Ship Classes</h3>
-          <p class="small" style="margin-bottom: 0.5rem;">Compare Quantum with other Royal Caribbean classes:</p>
-          <div class="class-pills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
+          <p class="small mb-05">Compare Quantum with other Royal Caribbean classes:</p>
+          <div class="class-pills flex-center">
             <a class="pill" href="/cruise-lines/royal-caribbean.html#radiance">Radiance Class</a>
             <a class="pill" href="/cruise-lines/royal-caribbean.html#voyager">Voyager Class</a>
             <a class="pill" href="/cruise-lines/royal-caribbean.html#freedom">Freedom Class</a>
@@ -609,24 +608,24 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
     <section class="card" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions</h2>
 
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What makes Quantum of the Seas unique?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Quantum of the Seas features innovative attractions including the North Star observation capsule, RipCord by iFLY skydiving simulator, Two70 entertainment venue, and robot bartenders at the Bionic Bar. It's part of Royal Caribbean's Quantum Class, known for technological innovation.</p>
+      <details class="faq-item">
+        <summary>What makes Quantum of the Seas unique?</summary>
+        <p class="faq-answer">Quantum of the Seas features innovative attractions including the North Star observation capsule, RipCord by iFLY skydiving simulator, Two70 entertainment venue, and robot bartenders at the Bionic Bar. It's part of Royal Caribbean's Quantum Class, known for technological innovation.</p>
       </details>
 
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How many passengers does Quantum of the Seas hold?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Quantum of the Seas accommodates 4,180 guests at double occupancy, with a maximum capacity of approximately 4,819 passengers. The ship has a crew of 1,300.</p>
+      <details class="faq-item">
+        <summary>How many passengers does Quantum of the Seas hold?</summary>
+        <p class="faq-answer">Quantum of the Seas accommodates 4,180 guests at double occupancy, with a maximum capacity of approximately 4,819 passengers. The ship has a crew of 1,300.</p>
       </details>
 
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">The ship offers complimentary dining including the Main Dining Room and Windjammer Marketplace buffet. Specialty dining venues require additional fees. Check the dining section above for current menus and pricing.</p>
+      <details class="faq-item">
+        <summary>What dining options are available?</summary>
+        <p class="faq-answer">The ship offers complimentary dining including the Main Dining Room and Windjammer Marketplace buffet. Specialty dining venues require additional fees. Check the dining section above for current menus and pricing.</p>
       </details>
 
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Where does Quantum of the Seas sail?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Quantum of the Seas operates global itineraries including Alaska, Asia-Pacific, and Australia routes. Check the live tracker above for current position and Royal Caribbean's website for upcoming deployment schedules.</p>
+      <details class="faq-item">
+        <summary>Where does Quantum of the Seas sail?</summary>
+        <p class="faq-answer">Quantum of the Seas operates global itineraries including Alaska, Asia-Pacific, and Australia routes. Check the live tracker above for current position and Royal Caribbean's website for upcoming deployment schedules.</p>
       </details>
     </section>
 
@@ -663,13 +662,13 @@ STANDARDS: Every Page v3.010.302 · Production Template · Unified Nav v3.010.30
   <!-- FOOTER -->
     <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-    <p class="tiny" style="margin-top: 0.5rem;">
+    <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·
       <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
-    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+    <p class="tiny center visually-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
   </footer>
 
   <!-- JAVASCRIPT -->
