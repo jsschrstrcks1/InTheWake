@@ -304,6 +304,32 @@
 - [ ] Guadeloupe (Pointe-à-Pitre)
 - [ ] Dominica (Roseau)
 
+### Port Expansion - Alaska Gap (1 port)
+**Audit 2025-12-10:** Alaska batch 99% complete. One scenic cruising destination missing.
+- [ ] Hubbard Glacier (scenic cruising destination) - Create HTML page
+
+**Tracker Fix:** Vancouver has HTML but only exists as homeport (hp-vancouver) in tracker.
+- [ ] Add Vancouver as regular port entry in PORTS_DB (in addition to homeport)
+
+### Port Expansion - Australia/New Zealand (9 ports)
+**Audit 2025-12-10:** Only Sydney, Brisbane, Auckland, Melbourne have pages. Major gap for AU/NZ cruisers.
+
+**Australia (5 ports needed):**
+- [ ] Hobart, Tasmania
+- [ ] Adelaide, Australia
+- [ ] Fremantle/Perth, Australia
+- [ ] Cairns, Australia
+- [ ] Darwin, Australia
+
+**New Zealand (4 ports needed):**
+- [ ] Wellington, New Zealand
+- [ ] Christchurch (Lyttelton), New Zealand
+- [ ] Dunedin (Port Chalmers), New Zealand
+- [ ] Tauranga, New Zealand
+
+**Tracker Fix:** Melbourne has HTML but not in tracker as regular port.
+- [ ] Add Melbourne as regular port entry in PORTS_DB (in addition to homeport)
+
 ### Image Tasks
 
 #### Download Wiki Commons Images (19 ships)
