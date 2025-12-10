@@ -621,6 +621,49 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [ ] Expand to encompass all RCL ports
 - [ ] Add wiring for future cruise line expansion
 
+**Port Coverage Audit (2025-12-10):**
+- **HTML Files:** 161 port pages exist
+- **Tracker Regular Ports:** 147 entries (all have URLs, all link correctly)
+- **Tracker Homeports:** 29 entries with `url: null` (not clickable)
+
+**ACTION REQUIRED: Link 14 homeport entries to existing HTML files:**
+- [ ] `hp-baltimore` → `/ports/baltimore.html`
+- [ ] `hp-galveston` → `/ports/galveston.html`
+- [ ] `hp-los-angeles` → `/ports/los-angeles.html`
+- [ ] `hp-miami` → `/ports/port-miami.html`
+- [ ] `hp-mobile` → `/ports/mobile.html`
+- [ ] `hp-new-orleans` → `/ports/new-orleans.html`
+- [ ] `hp-new-york` → `/ports/cape-liberty.html` (Cape Liberty is NYC's cruise terminal)
+- [ ] `hp-port-canaveral` → `/ports/port-canaveral.html`
+- [ ] `hp-fort-lauderdale` → `/ports/port-everglades.html` (Port Everglades is Fort Lauderdale)
+- [ ] `hp-san-diego` → `/ports/san-diego.html`
+- [ ] `hp-seattle` → `/ports/seattle.html`
+- [ ] `hp-tampa` → `/ports/tampa.html`
+- [ ] `hp-vancouver` → `/ports/vancouver.html`
+- [ ] `hp-melbourne` → `/ports/melbourne.html` (Australia homeport)
+
+**Additional homeports that can link to existing regular port pages (12):**
+- [ ] `hp-amsterdam` → `/ports/amsterdam.html`
+- [ ] `hp-auckland` → `/ports/auckland.html`
+- [ ] `hp-barcelona` → `/ports/barcelona.html`
+- [ ] `hp-boston` → `/ports/boston.html`
+- [ ] `hp-brisbane` → `/ports/brisbane.html`
+- [ ] `hp-copenhagen` → `/ports/copenhagen.html`
+- [ ] `hp-hong-kong` → `/ports/hong-kong.html`
+- [ ] `hp-quebec-city` → `/ports/quebec-city.html`
+- [ ] `hp-singapore` → `/ports/singapore.html`
+- [ ] `hp-southampton` → `/ports/southampton.html`
+- [ ] `hp-sydney` → `/ports/sydney.html`
+- [ ] `hp-venice` → `/ports/venice.html`
+
+**Remaining homeports without any HTML page (3):**
+- hp-charleston (no /ports/charleston.html)
+- hp-jacksonville (no /ports/jacksonville.html)
+- hp-san-francisco (no /ports/san-francisco.html)
+- hp-rome (no /ports/rome.html - Civitavecchia is Rome's port, could link there)
+
+**SUMMARY: 26 of 29 homeport entries can be linked to existing pages**
+
 #### Ship Tracker / Port Logbook (Navigation)
 - [x] SITE-WIDE: Rename "Ship Tracker" → "Ship Logbook" in nav ✅ DONE 2025-11-28
 - [x] SITE-WIDE: Rename "Port Tracker" → "Port Logbook" in nav ✅ DONE 2025-11-29
