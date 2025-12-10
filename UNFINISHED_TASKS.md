@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2025-12-01 (Audit)
+**Last Updated:** 2025-12-10 (Added infrastructure tooling from ChatGPT evaluation)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -185,6 +185,108 @@
 ---
 
 ## P2 - Medium (Enhancement)
+
+### Developer Tooling & Infrastructure (2025-12-10 Evaluation)
+
+**Context:** Evaluated suggestions from ChatGPT against current codebase. These are high-leverage additions that align with single-repo, hand-rolled philosophy.
+
+#### Leaflet Map Integration — Port Tracker "My Cruising Journey"
+**Status:** Planned
+**Priority:** HIGH - Transforms Port Tracker from "useful tool" to "emotional centerpiece"
+**Bundle Impact:** ~55KB (Leaflet 42KB + marker cluster 8KB + custom 5KB)
+
+**Phase 1: Core Map (MVP)**
+- [ ] Add map view toggle to Port Tracker (List | Map | Stats tabs)
+- [ ] Display all 161 ports as pins (visited=blue filled, unvisited=gray outline)
+- [ ] Click pin → popup with port name, visited status, link to guide
+- [ ] Click pin → toggle visited status (syncs bidirectionally with list view)
+- [ ] Zoom-to-region buttons (Caribbean, Alaska, Mediterranean, Northern Europe, etc.)
+- [ ] Persist map/list view preference in localStorage
+- [ ] Lazy-load map only when tab selected (ship Wi-Fi friendly)
+- [ ] Cache map tiles in service worker for offline viewing
+
+**Phase 2: Enhanced Visualization (After Phase 1 stable)**
+- [ ] Add Turf.js for geospatial queries (~10KB modular imports)
+- [ ] Region clustering when zoomed out (badge shows count per region)
+- [ ] "Show nearby unvisited ports" toggle (Turf.buffer + filter)
+- [ ] Bingo card overlay ("Caribbean Bingo: 18/24 - you need these 6")
+- [ ] Heat map mode for repeat visitors
+
+**Phase 3: Share & Social**
+- [ ] "Share My Map" button → generates static image with stats overlay
+- [ ] Deep link support: `?view=map&region=caribbean`
+
+**Phase 4: Ship Tracker Integration**
+- [ ] Ship homeport markers
+- [ ] "Show ports I visited on [ship name]" filter
+- [ ] Combined stats: "8 ships, 42 ports, 15 countries"
+
+**Phase 5: Individual Port Pages**
+- [ ] Small map widget on each port page showing location
+- [ ] "Nearby ports" visualization (uses existing Haversine logic)
+
+**Files to Create:**
+```
+/assets/js/modules/map-core.js      # Leaflet initialization
+/assets/js/modules/map-ports.js     # Port pins, popups, sync
+/assets/js/modules/map-regions.js   # Region bounds, zoom presets
+/assets/css/components/map.css      # Map-specific styles
+```
+
+**Reference:** Detailed plan in session 2025-12-10 (ChatGPT evaluation)
+
+---
+
+#### JSON Schema Validation (check-jsonschema)
+**Status:** Planned
+**Priority:** HIGH - Data integrity for 204 JSON files
+**Tool:** python-jsonschema/check-jsonschema (aligns with existing Python tooling)
+
+**Implementation:**
+- [ ] Create `/schema/` directory for JSON Schema definitions
+- [ ] Define schema for `search-index.json` (title, url, description, category, keywords)
+- [ ] Define schema for `ports/*.json` (slug, name, lat, lon, region, country required)
+- [ ] Define schema for `ships/*.json` (ship specs, class, capacity)
+- [ ] Define schema for `brands.json`, `dishes.json`, `experiences.json`
+- [ ] Add GitHub Action: `check-jsonschema --schemafile schema/*.schema.json assets/data/**/*.json`
+- [ ] Add pre-commit hook for local validation
+
+**Value:** Catches data errors before they break search, calculators, or trackers
+
+---
+
+#### Playwright + axe-core (E2E Accessibility Testing)
+**Status:** Planned
+**Priority:** MEDIUM-HIGH - Catches interactive accessibility issues Pa11y misses
+**Bundle Impact:** Dev dependency only (~50MB), no production impact
+
+**Implementation:**
+- [ ] Install Playwright + @axe-core/playwright as dev dependencies
+- [ ] Create `/tests/e2e/` directory
+- [ ] Write `drink-calculator.spec.ts` - keyboard navigation, form accessibility
+- [ ] Write `port-tracker.spec.ts` - checkbox interactions, modal accessibility
+- [ ] Write `ship-tracker.spec.ts` - similar to port tracker
+- [ ] Add GitHub Action: Run nightly on main (not every PR - too heavy)
+- [ ] Test axe-core on opened modals (share modal, export modal, etc.)
+
+**Value:** Validates WCAG 2.1 AA commitment for interactive tools
+
+---
+
+#### Linkinator (Link Health Checking)
+**Status:** Planned
+**Priority:** MEDIUM - 522 pages with cross-references prone to link rot
+
+**Implementation:**
+- [ ] Add GitHub Action using linkinator-action
+- [ ] Run weekly on main branch
+- [ ] Scan: `*.html`, `ships/**/*.html`, `ports/**/*.html`, `restaurants/**/*.html`
+- [ ] Report broken internal links (404s)
+- [ ] Optional: Add linkinator-mcp for Claude Code integration
+
+**Value:** Catches broken links before users do; especially important after bulk renames
+
+---
 
 ### Port Expansion - Middle East (4 ports)
 - [ ] Dubai, UAE
