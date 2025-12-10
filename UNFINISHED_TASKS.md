@@ -294,15 +294,20 @@
 - [ ] Muscat, Oman
 - [ ] Salalah, Oman
 
-### Port Expansion - Caribbean Completion (8-10 ports)
+### Port Expansion - Caribbean Completion (3 ports remaining)
+**Audit 2025-12-10:** 5 of 8 ports already complete. Only 3 remain.
+
+**Still Missing:**
 - [ ] Antigua (St. John's)
 - [ ] St. Lucia (Castries)
 - [ ] Barbados (Bridgetown)
-- [ ] St. Kitts
-- [ ] Grenada (St. George's)
-- [ ] Martinique (Fort-de-France)
-- [ ] Guadeloupe (Pointe-à-Pitre)
-- [ ] Dominica (Roseau)
+
+**✅ Already Complete:**
+- ~~St. Kitts~~ ✅ /ports/st-kitts.html exists
+- ~~Grenada (St. George's)~~ ✅ /ports/grenada.html exists
+- ~~Martinique (Fort-de-France)~~ ✅ /ports/martinique.html exists
+- ~~Guadeloupe (Pointe-à-Pitre)~~ ✅ /ports/guadeloupe.html exists
+- ~~Dominica (Roseau)~~ ✅ /ports/dominica.html exists
 
 ### Port Expansion - Alaska Gap (1 port)
 **Audit 2025-12-10:** Alaska batch 99% complete. One scenic cruising destination missing.
@@ -410,15 +415,14 @@ After downloading, must add attribution sections to HTML.
 - [ ] Penang, Malaysia
 - [ ] Colombo, Sri Lanka
 
-### Port Expansion - Australia & South Pacific (15-20 ports)
-- [ ] Sydney, Australia
-- [ ] Melbourne, Australia
-- [ ] Brisbane, Australia
-- [ ] Auckland, New Zealand
-- [ ] Wellington, New Zealand
-- [ ] Fiji ports
-- [ ] New Caledonia
-- [ ] Vanuatu
+### Port Expansion - South Pacific (6-10 ports)
+**Note:** Core AU/NZ ports moved to P2 (audit 2025-12-10). Sydney, Brisbane, Auckland, Melbourne already have pages.
+
+- [ ] Fiji (Suva, Lautoka, Dravuni Island)
+- [ ] New Caledonia (Nouméa)
+- [ ] Vanuatu (Port Vila, Mystery Island)
+- [ ] Samoa (Apia)
+- [ ] Tahiti (Papeete, Bora Bora, Moorea)
 
 ### Multi-Cruise-Line Tracker Enhancement
 - [ ] Cruise line selector dropdown on Port/Ship Tracker
