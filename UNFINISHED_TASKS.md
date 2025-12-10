@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2025-12-10 (Added infrastructure tooling from ChatGPT evaluation)
+**Last Updated:** 2025-12-10 (Comprehensive 2024 RCL port gap analysis)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -61,6 +61,184 @@
 - Ship pages: 50
 
 **Realistic remaining task count: ~20-25 items** (increased after adding 14 homeports)
+
+---
+
+## 📊 2024 RCL Port Coverage Gap Analysis (2025-12-10)
+
+**Audit Method:** Compared comprehensive 2024 Royal Caribbean port list (~320 ports including UWC one-offs) against existing HTML pages in `/ports/`.
+
+### Coverage Summary
+| Metric | Count |
+|--------|-------|
+| RCL 2024 Unique Ports | 203 |
+| Existing HTML Pages | 161 |
+| **Missing (No HTML)** | **100** |
+| **Coverage** | **50.7%** |
+
+### Missing Ports by Region
+
+#### North America (11 ports)
+**Homeports (2):** Create dedicated pages or verify existing redirects
+- [ ] miami (note: port-miami.html exists, may need alias)
+- [ ] new-york (note: cape-liberty.html exists for NYC terminal)
+
+**Ports of Call (9):**
+- [ ] astoria (Oregon)
+- [ ] cabo-san-lucas (Mexico)
+- [ ] catalina-island (California)
+- [ ] ensenada (Mexico)
+- [ ] freeport (Bahamas)
+- [ ] hubbard-glacier (Alaska scenic cruising)
+- [ ] mazatlan (Mexico)
+- [ ] puerto-vallarta (Mexico)
+- [ ] endicott-arm (Alaska scenic cruising)
+
+#### Caribbean (6 ports)
+- [ ] amber-cove (Dominican Republic - Royal Caribbean private destination)
+- [ ] barbados (Bridgetown) - HIGH PRIORITY
+- [ ] bimini (Bahamas)
+- [ ] falmouth (Jamaica - note: jamaica.html exists, may cover this)
+- [ ] st-croix (USVI)
+- [ ] st-lucia (Castries) - HIGH PRIORITY
+
+#### Europe (12 ports)
+- [ ] alicante (Spain)
+- [ ] bari (Italy)
+- [ ] chania (Crete, Greece)
+- [ ] flam (Norway) - Norwegian Fjords
+- [ ] geiranger (Norway) - Norwegian Fjords
+- [ ] haifa (Israel)
+- [ ] istanbul (Turkey)
+- [ ] la-spezia (Cinque Terre gateway, Italy)
+- [ ] olden (Norway) - Norwegian Fjords
+- [ ] portofino (Italy)
+- [ ] ronne (Bornholm, Denmark)
+- [ ] toulon (France)
+
+#### Asia/Middle East (22 ports) - LARGEST GAP
+**Middle East (2):**
+- [ ] abu-dhabi (UAE) - HIGH PRIORITY
+- [ ] dubai (UAE) - HIGH PRIORITY
+
+**Japan (7):**
+- [ ] ishigaki
+- [ ] kagoshima
+- [ ] kobe
+- [ ] nagasaki
+- [ ] okinawa
+- [ ] osaka
+
+**South Korea (3):**
+- [ ] busan
+- [ ] jeju
+- [ ] seoul (Incheon port)
+
+**Southeast Asia (7):**
+- [ ] colombo (Sri Lanka)
+- [ ] goa (India)
+- [ ] hambantota (Sri Lanka)
+- [ ] ho-chi-minh-city (Vietnam)
+- [ ] lombok (Indonesia)
+- [ ] nha-trang (Vietnam)
+- [ ] penang (Malaysia)
+- [ ] phuket (Thailand)
+
+**Other Asia (3):**
+- [ ] mumbai (India)
+- [ ] taipei (Taiwan - Keelung port)
+- [ ] tianjin (Beijing gateway, China)
+
+#### Australia/NZ/Pacific (14 ports)
+**Australia (7):**
+- [ ] adelaide
+- [ ] airlie-beach
+- [ ] cairns
+- [ ] darwin
+- [ ] eden
+- [ ] fremantle (Perth)
+- [ ] hobart (Tasmania)
+
+**New Zealand (1):**
+- [ ] bay-of-islands
+
+**South Pacific (6):**
+- [ ] bora-bora (French Polynesia)
+- [ ] moorea (French Polynesia)
+- [ ] noumea (New Caledonia)
+- [ ] papeete (Tahiti)
+- [ ] port-vila (Vanuatu)
+- [ ] rarotonga (Cook Islands)
+
+#### South America (17 ports)
+- [ ] arica (Chile)
+- [ ] buenos-aires (Argentina)
+- [ ] cabo-frio (Brazil)
+- [ ] callao (Lima gateway, Peru)
+- [ ] colon (Panama)
+- [ ] coquimbo (Chile)
+- [ ] fortaleza (Brazil)
+- [ ] manta (Ecuador)
+- [ ] montevideo (Uruguay)
+- [ ] port-stanley (Falkland Islands)
+- [ ] puerto-madryn (Argentina)
+- [ ] punta-arenas (Chile - Patagonia)
+- [ ] recife (Brazil)
+- [ ] rio-de-janeiro (Brazil)
+- [ ] salvador (Brazil)
+- [ ] santos (São Paulo, Brazil)
+- [ ] valparaiso (Santiago gateway, Chile)
+
+#### Africa (11 ports)
+- [ ] abidjan (Ivory Coast)
+- [ ] antsiranana (Madagascar)
+- [ ] cape-town (South Africa)
+- [ ] dakar (Senegal)
+- [ ] la-digue (Seychelles)
+- [ ] luanda (Angola)
+- [ ] luderitz (Namibia)
+- [ ] mossel-bay (South Africa)
+- [ ] port-elizabeth (South Africa)
+- [ ] port-louis (Mauritius)
+- [ ] walvis-bay (Namibia)
+
+#### Northern Europe/Atlantic (7 ports)
+- [ ] aarhus (Denmark)
+- [ ] agadir (Morocco)
+- [ ] haugesund (Norway)
+- [ ] klaipeda (Lithuania)
+- [ ] kristiansand (Norway)
+- [ ] nuuk (Greenland)
+- [ ] qaqortoq (Greenland)
+
+### Extra Ports (Have HTML but NOT in 2024 RCL list)
+These 58 ports have pages but weren't in the 2024 RCL list. They may be:
+- Ports from other cruise lines
+- Historical/rare RCL ports
+- Scenic cruising destinations
+- Slight naming variations
+
+Notable examples: glacier-bay, norwegian-fjords, panama-canal, costa-maya, grand-turk, martinique, guadeloupe
+
+### Priority Recommendations
+
+**P1 - Immediate (HIGH traffic RCL destinations):**
+1. Caribbean: barbados, st-lucia, amber-cove (3 ports)
+2. Middle East: dubai, abu-dhabi (2 ports)
+3. Alaska: hubbard-glacier, endicott-arm (2 ports)
+
+**P2 - Short-term (Frequent RCL itineraries):**
+1. Europe: istanbul, flam, geiranger, la-spezia (4 ports)
+2. Mexico: cabo-san-lucas, ensenada, mazatlan, puerto-vallarta (4 ports)
+3. Asia: osaka, busan, phuket (3 ports)
+
+**P3 - Medium-term (Growing regions):**
+1. Australia: adelaide, cairns, hobart, fremantle (4 ports)
+2. South Pacific: bora-bora, papeete, noumea (3 ports)
+
+**P4 - Long-term (World cruise/exotic):**
+1. South America: rio-de-janeiro, buenos-aires, valparaiso (3 ports)
+2. Africa: cape-town, port-louis (2 ports)
 
 ---
 
@@ -288,52 +466,20 @@
 
 ---
 
-### Port Expansion - Middle East (4 ports)
-- [ ] Dubai, UAE
-- [ ] Abu Dhabi, UAE
-- [ ] Muscat, Oman
-- [ ] Salalah, Oman
+### Port Expansion - See Comprehensive Gap Analysis Above
 
-### Port Expansion - Caribbean Completion (3 ports remaining)
-**Audit 2025-12-10:** 5 of 8 ports already complete. Only 3 remain.
+**Refer to:** [📊 2024 RCL Port Coverage Gap Analysis](#-2024-rcl-port-coverage-gap-analysis-2025-12-10)
 
-**Still Missing:**
-- [ ] Antigua (St. John's)
-- [ ] St. Lucia (Castries)
-- [ ] Barbados (Bridgetown)
+**Quick Reference - Priority P2 Ports (100 total missing):**
+- **P1 Immediate:** barbados, st-lucia, amber-cove, dubai, abu-dhabi, hubbard-glacier, endicott-arm (7 ports)
+- **P2 Short-term:** istanbul, flam, geiranger, la-spezia, cabo-san-lucas, ensenada, mazatlan, puerto-vallarta, osaka, busan, phuket (11 ports)
+- **P3 Medium-term:** adelaide, cairns, hobart, fremantle, bora-bora, papeete, noumea, bay-of-islands (8 ports)
 
-**✅ Already Complete:**
-- ~~St. Kitts~~ ✅ /ports/st-kitts.html exists
-- ~~Grenada (St. George's)~~ ✅ /ports/grenada.html exists
-- ~~Martinique (Fort-de-France)~~ ✅ /ports/martinique.html exists
-- ~~Guadeloupe (Pointe-à-Pitre)~~ ✅ /ports/guadeloupe.html exists
-- ~~Dominica (Roseau)~~ ✅ /ports/dominica.html exists
-
-### Port Expansion - Alaska Gap (1 port)
-**Audit 2025-12-10:** Alaska batch 99% complete. One scenic cruising destination missing.
-- [ ] Hubbard Glacier (scenic cruising destination) - Create HTML page
-
-**Tracker Fix:** Vancouver has HTML but only exists as homeport (hp-vancouver) in tracker.
+**Tracker Fixes Still Needed:**
 - [ ] Add Vancouver as regular port entry in PORTS_DB (in addition to homeport)
-
-### Port Expansion - Australia/New Zealand (9 ports)
-**Audit 2025-12-10:** Only Sydney, Brisbane, Auckland, Melbourne have pages. Major gap for AU/NZ cruisers.
-
-**Australia (5 ports needed):**
-- [ ] Hobart, Tasmania
-- [ ] Adelaide, Australia
-- [ ] Fremantle/Perth, Australia
-- [ ] Cairns, Australia
-- [ ] Darwin, Australia
-
-**New Zealand (4 ports needed):**
-- [ ] Wellington, New Zealand
-- [ ] Christchurch (Lyttelton), New Zealand
-- [ ] Dunedin (Port Chalmers), New Zealand
-- [ ] Tauranga, New Zealand
-
-**Tracker Fix:** Melbourne has HTML but not in tracker as regular port.
 - [ ] Add Melbourne as regular port entry in PORTS_DB (in addition to homeport)
+
+**Note:** Previously listed Caribbean ports (St. Kitts, Grenada, Martinique, Guadeloupe, Dominica) confirmed as already complete. Antigua not in 2024 RCL list.
 
 ### Image Tasks
 
@@ -404,25 +550,17 @@ After downloading, must add attribution sections to HTML.
 
 ## P3 - Low (Nice to have)
 
-### Port Expansion - Asia (10-15 ports)
-- [ ] Osaka, Japan
-- [ ] Busan, South Korea
-- [ ] Taipei, Taiwan
-- [ ] Phuket, Thailand
-- [ ] Manila, Philippines
-- [ ] Ho Chi Minh City, Vietnam
-- [ ] Halong Bay, Vietnam
-- [ ] Penang, Malaysia
-- [ ] Colombo, Sri Lanka
+### Port Expansion - P3 Regions
 
-### Port Expansion - South Pacific (6-10 ports)
-**Note:** Core AU/NZ ports moved to P2 (audit 2025-12-10). Sydney, Brisbane, Auckland, Melbourne already have pages.
+**See detailed breakdown in:** [📊 2024 RCL Port Coverage Gap Analysis](#-2024-rcl-port-coverage-gap-analysis-2025-12-10)
 
-- [ ] Fiji (Suva, Lautoka, Dravuni Island)
-- [ ] New Caledonia (Nouméa)
-- [ ] Vanuatu (Port Vila, Mystery Island)
-- [ ] Samoa (Apia)
-- [ ] Tahiti (Papeete, Bora Bora, Moorea)
+**Asia/Middle East (22 ports):** Largest gap - includes Japan (7), South Korea (3), Southeast Asia (7), Middle East (2), India/Sri Lanka (3)
+
+**South America (17 ports):** Brazil (7), Chile (4), Argentina (3), Peru/Ecuador/Uruguay (3)
+
+**Africa (11 ports):** South Africa (3), Namibia (2), West Africa (3), Indian Ocean islands (3)
+
+**Northern Europe/Atlantic (7 ports):** Norway (3), Denmark (1), Lithuania (1), Greenland (2), Morocco (1)
 
 ### Multi-Cruise-Line Tracker Enhancement
 - [ ] Cruise line selector dropdown on Port/Ship Tracker
