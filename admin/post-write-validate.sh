@@ -255,6 +255,18 @@ for file in $FILES; do
         ((TOTAL_ERRORS++))
       fi
 
+      # Unknown placeholder checks (incomplete content detection)
+      UNKNOWN_PATTERNS="Unknown ship\|Unknown photographer\|Cruise Line: Unknown\|Photo by: Unknown\|Attribution: Unknown"
+      if grep -qE "$UNKNOWN_PATTERNS" "$file" 2>/dev/null; then
+        echo -e "   ${RED}✗${NC} Found 'Unknown' placeholder(s) - incomplete content"
+        grep -n -E "$UNKNOWN_PATTERNS" "$file" 2>/dev/null | head -5 | while read line; do
+          echo -e "      ${YELLOW}→${NC} $line"
+        done
+        ((TOTAL_ERRORS++))
+      else
+        echo -e "   ${GREEN}✓${NC} No 'Unknown' placeholders"
+      fi
+
       # Div balance
       OPEN_DIVS=$(grep -o "<div" "$file" | wc -l || echo 0)
       CLOSE_DIVS=$(grep -o "</div>" "$file" | wc -l || echo 0)

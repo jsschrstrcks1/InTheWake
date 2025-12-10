@@ -1,8 +1,29 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2025-12-10 (Comprehensive 2024 RCL port gap analysis)
+**Last Updated:** 2025-12-10 (G/Y/R lanes added)
 **Maintained by:** Claude AI (Thread tracking)
+
+---
+
+## 🚦 Task Classification (G/Y/R Lanes)
+
+Tasks are classified by AI-safety level:
+
+| Lane | Meaning | AI Role | Examples |
+|------|---------|---------|----------|
+| **🟢 [G]** | AI-safe | Claude executes autonomously | Link checks, schema fixes, pattern standardization, technical validation |
+| **🟡 [Y]** | AI proposes | Claude drafts, human approves | New articles, content changes, FAQ rewrites, image replacements |
+| **🔴 [R]** | Notes only | Claude documents, human decides | Pastoral content, `ai:guard` zones, theological interpretations, life situation articles |
+
+### Lane Rules
+- **🟢 Green tasks**: Run freely, commit when done
+- **🟡 Yellow tasks**: Present draft for approval before committing
+- **🔴 Red tasks**: Add notes/research to task, never edit content directly
+
+### Protected Zones
+Files containing `<!-- ai:guard -->` blocks require human review regardless of lane.
+Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 
 ---
 
@@ -449,10 +470,11 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 
 ## P1 - High (Content completeness)
 
-### Articles to Write (3 remaining)
+### 🔴 [R] Articles to Write (3 remaining) — PASTORAL CONTENT
 
 #### Solo Cruising Expansion
 **Status:** Partial - why-i-started-solo-cruising.html exists but not comprehensive
+**Lane:** 🔴 Red (contains grief/anxiety pastoral content)
 - [ ] Expand existing article OR create comprehensive-solo-cruising.html
 - [ ] Cover all solo personas: grief, anxiety, introverts, by-choice, first-time
 - [ ] Add ship size recommendations for solo travelers
@@ -460,12 +482,14 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 
 #### Healing Relationships at Sea
 **Status:** Not created (15+ logbook references)
+**Lane:** 🔴 Red (marriage/family pastoral content)
 - [ ] Write full article page (~3,000 words)
 - [ ] Sections: marriage restoration, family reconciliation, blended families, empty nest
 - [ ] Topics: marriage crisis recovery, estranged relationships, prodigal situations
 
 #### Rest for Wounded Healers
 **Status:** Not created (10+ logbook references)
+**Lane:** 🔴 Red (burnout/Sabbath theology)
 - [ ] Write full article page (~2,500 words)
 - [ ] Topics: pastoral burnout, caregiver fatigue, single parent burnout
 - [ ] Sabbath theology section, guilt management, Scripture integration
@@ -481,7 +505,8 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 - [ ] /drinks.html - Does not exist (drink-packages.html does exist and has content)
 - [x] /restaurants.html - ✅ Has content, no placeholder text
 
-### SEO External Tools Setup
+### 🟡 [Y] SEO External Tools Setup
+**Lane:** 🟡 Yellow (requires account credentials, human action)
 - [ ] Set up Google Search Console
 - [ ] Set up Bing Webmaster Tools
 - [ ] Set up Google Analytics dashboard for trackers
@@ -607,7 +632,8 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 
 **Note:** Previously listed Caribbean ports (St. Kitts, Grenada, Martinique, Guadeloupe, Dominica) confirmed as already complete. Antigua not in 2024 RCL list.
 
-### Image Tasks
+### 🟡 [Y] Image Tasks
+**Lane:** 🟡 Yellow (requires attribution decisions, image selection approval)
 
 #### Download Wiki Commons Images (19 ships)
 After downloading, must add attribution sections to HTML.
@@ -658,13 +684,48 @@ After downloading, must add attribution sections to HTML.
 - [ ] Add pricing information for specialty restaurants
 - [ ] Find YouTube ship tour videos for ships without videos
 
-### Technical Tasks
+### 🟢 [G] Technical Tasks
+**Lane:** 🟢 Green (automated validation, AI-safe)
 - [ ] Verify WCAG 2.1 AA compliance across new pages
 - [ ] Test keyboard navigation on dropdown menus
 - [ ] Test screen reader compatibility
 - [ ] Verify all images have proper alt text
 - [ ] Run Google PageSpeed Insights on key pages
 - [ ] Verify lazy loading for all images
+
+### 🟢 [G] CSS Consolidation — PRIORITY
+**Lane:** 🟢 Green (technical refactor, AI-safe)
+**Reference:** packing-lists.html as canonical pattern
+**Scope:** Site-wide styles.css + inline CSS extraction
+
+- [ ] Audit /assets/styles.css for conflicts and redundancies
+- [ ] Create canonical definitions (first instance + merged qualities)
+- [ ] Resolve conflicts: prefer packing-lists.html patterns
+- [ ] Remove unused/dead CSS selectors
+- [ ] Document CSS architecture decisions
+
+### 🟢 [G] Ship Page Standardization (178 pages)
+**Lane:** 🟢 Green (pattern normalization, AI-safe)
+**Reference:** packing-lists.html header pattern
+
+#### Phase 1: Extract Shared CSS
+- [ ] Create /assets/ship-page.css with standardized hero, page-grid, author-card
+- [ ] Replace inline styles in ship pages with CSS link
+
+#### Phase 2: RCL Ships (50 pages)
+- [ ] Fix author avatar to circle (remove inline border-radius overrides)
+- [ ] Standardize carousel markup to `<figure>` pattern
+- [ ] Align section order: First Look → Dining → Videos → Deck Plans/Tracker → FAQ
+- [ ] Remove emoji from stateroom buttons (consistency)
+- [ ] Uniform version badge (3.010.300)
+
+#### Phase 3: Carnival Ships (48 pages)
+- [ ] Apply same fixes as RCL Phase 2
+
+#### Phase 4: Header Standardization (site-wide)
+- [ ] Audit header patterns across all 178+ pages
+- [ ] Normalize hero sizing/positioning to packing-lists.html pattern
+- [ ] Ensure logo stays within viewable area (documented issue)
 
 ### ICP-Lite Content Enhancements
 - [ ] Add H1 + answer line to pilot ship pages
@@ -698,7 +759,8 @@ After downloading, must add attribution sections to HTML.
 - [ ] Implement article rail site-wide
 - [ ] Review intelligent breadcrumbs implementation
 
-### Additional Themed Articles
+### 🔴 [R] Additional Themed Articles — PASTORAL CONTENT
+**Lane:** 🔴 Red (life situations, grief, mental health)
 - [ ] Medical recovery articles (post-cancer, post-stroke, chronic illness)
 - [ ] Mental health articles (anxiety, PTSD/veteran, bipolar/depression)
 - [ ] Family situation articles (infertility grief, adoption, homeschool)
