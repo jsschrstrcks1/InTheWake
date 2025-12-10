@@ -810,25 +810,6 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
 
   <!-- Main -->
   <main class="wrap page-grid" id="content" tabindex="-1">
-    <!-- ICP-Lite Content Structure -->
-    <section class="page-intro" style="grid-column: 2; grid-row: 1; margin: 1rem auto 1.5rem;">
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> This page provides cruise planning resources for Travel Tips. Use the information below to help plan your cruise vacation.
-      </p>
-
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Cruisers researching travel tips, comparing options, and gathering information for trip planning.
-      </p>
-
-      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-        <ul style="margin: 0; padding-left: 1.25rem;">
-          <li><strong>Topic:</strong> Travel Tips</li>
-          <li><strong>Purpose:</strong> Cruise planning resource</li>
-        </ul>
-      </div>
-    </section>
-
     <!-- LEFT COLUMN -->
     <div style="grid-column: 1;" class="content-col">
       <!-- Intro (agreed verbiage intact) -->
@@ -1215,6 +1196,25 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
 
     <!-- RIGHT COLUMN -->
     <aside class="rail" role="complementary" aria-label="Additional resources" style="grid-column: 2;">
+      <!-- Key Facts -->
+      <section class="page-intro" style="margin: 0 0 1rem 0;">
+        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+          <strong>Quick Answer:</strong> This page provides cruise planning resources for Travel Tips. Use the information below to help plan your cruise vacation.
+        </p>
+
+        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+          <strong>Best For:</strong> Cruisers researching travel tips, comparing options, and gathering information for trip planning.
+        </p>
+
+        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li><strong>Topic:</strong> Travel Tips</li>
+            <li><strong>Purpose:</strong> Cruise planning resource</li>
+          </ul>
+        </div>
+      </section>
+
       <!-- Author Card -->
       <section class="card author-card-vertical" aria-labelledby="author-heading">
         <h3 id="author-heading">About the Author</h3>
@@ -1591,21 +1591,20 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
         const title = pick(p,['title','name'],'Article');
         const href  = pick(p,['url','path'],'#');
         const excerpt = pick(p,['excerpt','description'],'');
-        return `
-          <article class="card" style="display:flex;flex-direction:column;gap:.75rem;padding:.85rem">
-            <div style="display:grid;grid-template-columns:80px 1fr;gap:.75rem;align-items:start">
-              <div style="width:80px;height:60px;overflow:hidden;border-radius:8px;background:#eef4f6;border:1px solid #dfe7ea;flex-shrink:0">
-                <img class="article-thumb" alt="" decoding="async" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-              </div>
-              <div>
-                <h4 style="margin:0 0 .35rem 0;font-size:.9rem;line-height:1.3;font-weight:600">
-                  <a href="\${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">\${title}</a>
-                </h4>
-                \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
-              </div>
-            </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
-          </article>`;
+        return '<article class="card" style="display:flex;flex-direction:column;gap:.75rem;padding:.85rem">' +
+            '<div style="display:grid;grid-template-columns:80px 1fr;gap:.75rem;align-items:start">' +
+              '<div style="width:80px;height:60px;overflow:hidden;border-radius:8px;background:#eef4f6;border:1px solid #dfe7ea;flex-shrink:0">' +
+                '<img class="article-thumb" alt="" decoding="async" loading="lazy" style="width:100%;height:100%;object-fit:cover">' +
+              '</div>' +
+              '<div>' +
+                '<h4 style="margin:0 0 .35rem 0;font-size:.9rem;line-height:1.3;font-weight:600">' +
+                  '<a href="' + href + '" style="color:var(--accent,#0e6e8e);text-decoration:none">' + title + '</a>' +
+                '</h4>' +
+                (excerpt ? '<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">' + excerpt + '</p>' : '') +
+              '</div>' +
+            '</div>' +
+            '<a href="' + href + '" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>' +
+          '</article>';
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];
@@ -1636,13 +1635,13 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
         if(!primary){
           const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
           const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
+          if(guess) primary = '/assets/articles/' + guess + '/cover.jpg';
         }
 
         const alts = [];
         if(primary){
           const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
+          alts.push(base + '.jpeg', base + '.JPG', base + '.webp', base + '.png');
         }
         setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
       });
@@ -1652,7 +1651,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
       // Announce to screen readers
       const status = document.getElementById('a11y-status');
       if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
+        status.textContent = view.length + ' recent articles loaded';
       }
     })();
   })();
