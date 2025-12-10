@@ -14,7 +14,7 @@
      decisions-informed: which Princess ship class suits your style; how MedallionClass improves onboard experience; whether Sanctuary and specialty dining upgrades are worth it
      -->
   <!--
-    In the Wake — Princess Cruises (v3.007a)
+    In the Wake — Princess Cruises (V1.Beta)
     Reverently prepared. Soli Deo Gloria.
   -->
 
@@ -56,7 +56,7 @@
 
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Princess — In the Wake (v3.007a)</title>
+  <title>Princess — In the Wake (V1.Beta)</title>
   <meta name="version" content="3.010.300"/>
   <meta name="description" content="Princess Cruises at a glance — Sphere Class highlights, venues, MedallionClass notes, and practical traveler insight."/>
   <meta name="robots" content="index,follow"/>
@@ -151,115 +151,7 @@
   <link rel="preload" as="image" href="/assets/compass_rose.svg"/>
 
   <!-- Page styles (single hero; no duplication with global .hero) -->
-  <style>
-    :root{ --rope:#D9B382; --ink:#0f2a3a; --foam:#eef7fb; --accent:#0e6e8e; }
-    body.page{ background:linear-gradient(var(--foam),#fff 240px); color:var(--ink); }
-
-    /* keep the global hero, just gentle vibrancy */
-    .hero-header .hero{ filter:saturate(1.18) contrast(1.06) brightness(1.04); }
-    .hero::before,.hero::after{ content:none!important; }
-
-    .brand-title{ display:none!important; } /* hide legacy brand-title blocks */
-
-    /* Subtle watermark for cards */
-    .card{ position:relative; overflow:hidden }
-    .card::after{
-      content:""; position:absolute; inset:0; margin:auto;
-      width:min(60%,360px); height:min(60%,360px);
-      background:url('/assets/watermark.png') center/contain no-repeat;
-      opacity:.06; pointer-events:none;
-    }
-
-    /* Local grids */
-    .grid{ display:grid; gap:1rem; }
-    .grid.gallery{ grid-template-columns:1fr; }
-    @media (min-width:800px){ .grid.gallery{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
-
-    .badge{ display:inline-block; font-size:.78rem; padding:.1rem .45rem; border:1px solid var(--rope);
-            border-radius:999px; background:#fff; margin-left:.35rem; }
-
-    /* Search */
-    .search{ display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; }
-    .search input[type="search"]{ flex:1 1 260px; padding:.55rem .7rem; border:1px solid #cfe1ea; border-radius:10px; }
-    .search button{ padding:.55rem .8rem; border:1px dashed var(--rope); border-radius:10px; background:#fff; cursor:pointer; }
-    #searchResults .result{ padding:.6rem .7rem; border:1px solid var(--rope); border-radius:12px; background:#fff; }
-  /* Header / Hero */
-  .hero-header {
-    position: relative;
-    border-bottom: 6px double var(--rope);
-    background: #eaf6f6;
-    z-index: 9000;
-  }
-
-  .navbar {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-    padding: .5rem .9rem .35rem;
-    position: relative;
-    z-index: 2000;
-    overflow: visible;
-  }
-
-  .brand {
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-  }
-
-  .brand img {
-    height: 28px;
-    width: auto;
-  }
-
-  .version-badge {
-    font-size: .72rem;
-    opacity: .8;
-    color: var(--text-muted);
-  }
-  
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
-<script type="application/ld+json">
+  <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -285,7 +177,7 @@
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
-        <span class="version-badge tiny">v3.007a</span>
+        <span class="version-badge tiny">V1.Beta</span>
       </div>
             <nav class="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>

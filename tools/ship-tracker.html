@@ -36,109 +36,7 @@ Soli Deo Gloria
     });
   </script>
 
-  <style>
-    .tracker-container { max-width: 1400px; margin: 2rem auto; padding: 0 1rem; }
-    .tracker-header { text-align: center; margin-bottom: 2rem; }
-    .tracker-header h1 { font-size: 2.5rem; color: var(--sea, #0a3d62); margin-bottom: 0.5rem; }
-    .tracker-header p { font-size: 1.1rem; color: #666; }
-
-    .stats-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; margin-bottom: 2rem; }
-    .stat-card { background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%); color: white; padding: 1rem; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    .stat-number { font-size: 1.75rem; font-weight: bold; display: block; margin-bottom: 0.25rem; }
-    .stat-label { font-size: 0.8rem; opacity: 0.9; line-height: 1.2; }
-
-    @media (max-width: 768px) {
-      .stats-bar { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.5rem; }
-      .stat-number { font-size: 1.5rem; }
-      .stat-label { font-size: 0.75rem; }
-    }
-
-    .tracker-grid { display: grid; grid-template-columns: 250px 1fr 320px; gap: 2rem; }
-
-    @media (max-width: 1024px) {
-      .tracker-grid { grid-template-columns: 1fr; }
-    }
-
-    .filter-panel { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; }
-    .filter-panel h3 { margin-top: 0; font-size: 1.1rem; color: var(--sea); }
-    .filter-button { display: block; width: 100%; text-align: left; padding: 0.75rem 1rem; margin-bottom: 0.5rem; background: #f7fdff; border: 1px solid #e0f0f5; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
-    .filter-button:hover { background: #e0f0f5; }
-    .filter-button.active { background: var(--sea); color: white; border-color: var(--sea); }
-
-    .search-box { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
-
-    .ship-list { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    .class-section { margin-bottom: 2rem; border: 1px solid #e0f0f5; border-radius: 8px; overflow: hidden; }
-    .class-title { font-size: 1.3rem; color: var(--sea); margin-bottom: 0; padding: 1rem; background: linear-gradient(135deg, #f7fdff 0%, #e6f4f8 100%); cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: space-between; transition: background 0.3s; }
-    .class-title:hover { background: linear-gradient(135deg, #e0f0f5 0%, #d4e8ee 100%); }
-    .class-title-text { flex: 1; }
-    .class-progress { font-size: 0.9rem; color: #666; margin-left: 1rem; }
-    .class-toggle { font-size: 1.5rem; transition: transform 0.3s; }
-    .class-section.collapsed .class-toggle { transform: rotate(-90deg); }
-    .class-ships { padding: 1rem; max-height: 2000px; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s; }
-    .class-section.collapsed .class-ships { max-height: 0; padding: 0 1rem; }
-
-    .ship-item { display: flex; align-items: center; padding: 0.75rem; margin-bottom: 0.5rem; background: #f7fdff; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
-    .ship-item:hover { background: #e0f0f5; }
-    .ship-item.sailed { background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 4px solid #28a745; }
-
-    .ship-checkbox { width: 24px; height: 24px; margin-right: 1rem; cursor: pointer; flex-shrink: 0; }
-    .ship-name { flex: 1; font-size: 1rem; color: var(--sea); text-decoration: none; font-weight: 500; }
-    .ship-name:hover { text-decoration: underline; }
-    .ship-meta { font-size: 0.85rem; color: #666; margin-left: auto; display: flex; gap: 1rem; }
-
-    .bingo-panel { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; }
-    .bingo-panel h3 { margin-top: 0; font-size: 1.1rem; color: var(--sea); }
-
-    .bingo-card { margin-bottom: 1.5rem; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 2px solid #e0f0f5; position: relative; cursor: help; transition: all 0.3s; }
-    .bingo-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-    .bingo-card.completed { background: linear-gradient(135deg, #fff4e6 0%, #ffe8cc 100%); border-color: #d97706; }
-    .bingo-card.completed .bingo-icon { display: inline; }
-
-    .bingo-title { font-size: 1rem; font-weight: bold; margin-bottom: 0.5rem; color: #134; }
-    .bingo-icon { display: none; margin-right: 0.5rem; }
-    .bingo-progress { font-size: 0.85rem; color: #666; margin-bottom: 0.5rem; }
-    .progress-bar { height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
-    .progress-fill { height: 100%; background: linear-gradient(90deg, #0e6e8e 0%, #0a3d62 100%); transition: width 0.3s; }
-    .bingo-card.completed .progress-fill { background: linear-gradient(90deg, #d97706 0%, #b45309 100%); }
-
-    .bingo-tooltip { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: rgba(10, 61, 98, 0.95); color: white; margin-top: 0.5rem; padding: 0; border-radius: 6px; font-size: 0.8rem; line-height: 1.4; }
-    .bingo-card:hover .bingo-tooltip { max-height: 200px; padding: 0.75rem; }
-
-    .action-buttons { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
-    .btn { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: all 0.2s; }
-    .btn-primary { background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%); color: white; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-    .btn-secondary { background: white; color: var(--sea); border: 2px solid var(--sea); }
-    .btn-secondary:hover { background: #f7fdff; }
-
-    .share-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
-    .share-modal.active { display: flex; }
-    .share-content { background: white; padding: 2rem; border-radius: 12px; max-width: 500px; width: 90%; }
-    .share-canvas { border: 2px solid #ddd; border-radius: 8px; margin: 1rem 0; width: 100%; }
-
-    /* Author Card Vertical */
-    .author-card-vertical {
-      text-align: center;
-      margin-top: 1.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid #e0f0f5;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-  </style>
-</head>
+  </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <!-- ARIA Live Regions -->
@@ -155,7 +53,7 @@ Soli Deo Gloria
         <a href="/">
           <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
         </a>
-        <span class="tiny version-badge" aria-label="Site version 3.010.300">v3.010.300</span>
+        <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
             <nav class="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>

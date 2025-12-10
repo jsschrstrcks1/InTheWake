@@ -75,113 +75,7 @@ All work on this project is offered as a gift to God.
   <link rel="stylesheet" href="/assets/styles.css?v=3.008.032"/>
 
   <!-- Page styles -->
-  <style>
-    .visually-hidden{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;white-space:nowrap!important;border:0!important}
-    .fleet-grid{display:grid;gap:1rem}
-    @media (min-width:1060px){.fleet-grid{grid-template-columns:minmax(0,1fr) 360px}}
-    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.9rem}
-    .ship-card{display:grid;grid-template-columns:96px 1fr;gap:.6rem;align-items:start;border:2px solid var(--rope);border-radius:14px;padding:.6rem;background:#fff}
-    .ship-card .thumb{width:96px;height:64px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea}
-    .ship-card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .pill-row{display:flex;gap:.5rem;flex-wrap:wrap}
-    .pill-row a{padding:.4rem .7rem;border:1px solid var(--rope);border-radius:999px;background:#fff;text-decoration:none;font-weight:600}
-    .rail{display:grid;gap:1rem}
-    /* Author cards: circular avatars so they don’t “junk up” */
-    .rail-item{display:grid;grid-template-columns:56px 1fr;gap:.75rem;align-items:center}
-    .rail-item .avatar-wrap{width:56px;height:56px;border-radius: 12px;overflow:hidden;border:1px solid #dfe7ea;background:#f7fafb}
-    .rail-item .avatar-wrap img{width:100%;height:100%;object-fit:cover;display:block}
-    .hero{position:relative;background:url('/assets/index_hero.webp') center/cover no-repeat;min-height:240px}
-    .hero-credit{position:absolute;right:.85rem;bottom:.85rem}
-    .hero-credit .pill{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600}
-    /* Skip link focus */
-    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip-link:focus{left:.75rem;top:.75rem;width:auto;height:auto;background:#fff;border:2px solid var(--rope);border-radius:12px;padding:.5rem .75rem;z-index:1000}
-    /* Share bar */
-    .share-bar{position:fixed;left:12px;bottom:12px;display:flex;gap:.5rem;z-index:9999;transform:translateY(12px);opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease}
-    .share-bar.visible{opacity:1;transform:none;pointer-events:auto}
-    .share-bar .share{padding:.4rem .6rem;border-radius:999px;border:1px solid var(--rope);background:#fff;text-decoration:none;font-weight:600}
-    @media (prefers-reduced-motion:reduce){.share-bar{transition:none}}
-    /* Current-page visual */
-    .navbar a.is-active,.navbar a[aria-current="page"]{outline:2px dashed #c8a36a;background:#fff;box-shadow:0 0 0 3px rgba(200,163,106,.15) inset}
-  /* Header / Hero */
-  .hero-header {
-    position: relative;
-    border-bottom: 6px double var(--rope);
-    background: #eaf6f6;
-    z-index: 9000;
-  }
-
-  .navbar {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-    padding: .5rem .9rem .35rem;
-    position: relative;
-    z-index: 2000;
-    overflow: visible;
-  }
-
-  .brand {
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-  }
-
-  .brand img {
-    height: 28px;
-    width: auto;
-  }
-
-  .version-badge {
-    font-size: .72rem;
-    opacity: .8;
-    color: var(--text-muted);
-  }
-
-  .nav {
-    flex: 1 1 auto;
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: .5rem;
-    white-space: nowrap;
-    flex-wrap: nowrap;
-    overflow: visible;
-    padding-inline: .75rem;
-  }
-
-  @media (max-width: 768px) {
-    .nav {
-      justify-content: flex-start;
-      overflow-x: auto;
-      scrollbar-width: thin;
-      -webkit-overflow-scrolling: touch;
-    }
-
-  }
-  
-    /* Navigation */
-    .nav {
-      flex: 1 1 auto;
-      min-width: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .5rem;
-      white-space: nowrap;
-      flex-wrap: nowrap;
-      overflow: visible;
-      padding-inline: .75rem;
-    }
-
-    @media (max-width: 768px) {
-
-    }
-  </style>
-<script type="application/ld+json">
+  <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -210,27 +104,7 @@ All work on this project is offered as a gift to God.
   "url": "https://cruisinginthewake.com/ships/index.html",
   "description": "Browse verified ships with quick stats (debut, gross tonnage, capacity). Explore by cruise line and jump into our newest Solo & Travel articles and featured authors."
 }
-  </script><style>
-    /* Navigation */
-    .nav {
-      flex: 1 1 auto;
-      min-width: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .5rem;
-      white-space: nowrap;
-      flex-wrap: nowrap;
-      overflow: visible;
-      padding-inline: .75rem;
-    }
-
-    @media (max-width: 768px) {
-
-    }
-  </style>
-
-  <!-- LCP Optimization: Preload critical hero images -->
+  </script><!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
 </head>
@@ -245,7 +119,7 @@ All work on this project is offered as a gift to God.
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
-        <span class="tiny version-badge">v3.010.300</span>
+        <span class="tiny version-badge">V1.Beta</span>
       </div>
             <nav class="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
