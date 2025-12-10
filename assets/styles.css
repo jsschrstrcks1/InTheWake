@@ -1,480 +1,339 @@
-/* ===== In the Wake — Unified Styles (v3.006) ===== */
-:root{
-  --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
+/* ===== In the Wake — Unified Styles (v3.012.000 Consolidated) ===== */
+/* Reference: packing-lists.html as canonical pattern */
+/* Consolidation date: 2025-12-10 */
+
+/* ===== CSS Variables ===== */
+:root {
+  --sea: #0a3d62;
+  --foam: #e6f4f8;
+  --rope: #d9b382;
+  --ink: #083041;
+  --sky: #f7fdff;
+  --accent: #0e6e8e;
+  --accent-dark: #005a9c;
+  --text-muted: #2a4a5a;
+  --ink-mid: #3d5a6a;
+  --shadow: 0 6px 22px rgba(8,48,65,.08);
+  --rail: 320px;
   --grid-stroke: rgba(255,255,255,.24);
   --grid-label: rgba(255,255,255,.85);
   --grid-outline: rgba(8,48,65,.35);
   --compass-tint: invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);
 }
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--ink);background:var(--sky);line-height:1.55}
-a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
-img{max-width:100%;height:auto;display:block}
 
-/* Header + nav */
-.hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
-.navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.5rem .9rem .35rem;align-items:flex-end;position:relative;z-index:5}
-.brand{display:flex;align-items:flex-end;gap:.6rem}
-.brand img{height:28px;width:auto;display:block}
-.version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
+/* ===== Reset & Base ===== */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; overflow-x: hidden; }
+body {
+  font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--sky);
+}
+a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+img { max-width: 100%; height: auto; display: block; }
+h1, h2, h3, h4 { color: var(--sea); margin: 0.75rem 0 0.5rem; }
+h1 { font-size: 2rem; line-height: 1.2; }
+h2 { font-size: 1.5rem; line-height: 1.3; }
+h3 { font-size: 1.25rem; line-height: 1.4; }
 
-/* Pills nav */
-.pill-nav.pills{justify-content:center;margin-left:auto;margin-right:auto;max-width:none;width:100%;text-align:center;display:flex;gap:.45rem;flex-wrap:wrap}
-.pill-nav.pills a{padding:.35rem .7rem;border-radius:10px;border:1px dashed var(--rope);background:#fff;font-size:.9rem;color:var(--accent)}
-.pill-nav.pills a:hover{background:#f9fdfd;text-decoration:none}
+/* ===== Utilities ===== */
+.wrap { max-width: 1100px; margin: 0 auto; padding: 20px 14px 36px; }
+.center { text-align: center; }
+.tiny { font-size: .88rem; color: var(--text-muted); }
+.hidden { display: none !important; }
 
-/* HEADER hero only — keep off article figures */
-.hero-header > .hero{
-  position:relative;
-  width:100vw;
-  margin-left:calc(50% - 50vw);
-  min-height:clamp(200px,24vw,340px);
-  background:url('/assets/index_hero.jpg') 50% 50% / cover no-repeat;
-  display:flex;align-items:flex-end;overflow:hidden;isolation:isolate;
+.visually-hidden,
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
-/* Header-only filter/opacity reset */
-body.no-hero-filter .hero-header .hero,
-.hero-header .hero,
-.hero-header .hero *{
-  filter:none!important;mix-blend-mode:normal!important;opacity:1!important;
+/* ===== Skip Link (WCAG) ===== */
+.skip-link {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  background: var(--accent-dark);
+  color: white;
+  padding: 12px 24px;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 4px;
+}
+.skip-link:focus {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: auto;
+  height: auto;
+  z-index: 10000;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
 }
 
-/* Header-only pseudo elements */
-.hero-header .hero::before,
-.hero-header .hero::after{content:none!important}
-
-/* Header-only bits */
-.latlon-grid{position:absolute;inset:0;z-index:1;pointer-events:none}
-.hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;z-index:2;filter:var(--compass-tint) drop-shadow(0 2px 6px rgba(0,0,0,.25));pointer-events:none}
-.hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;flex-direction:column;align-items:flex-start;gap:.3rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-.hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
-.hero-title .tagline{position:relative;font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;margin:0;padding:0}
-/* Standalone tagline (outside .hero-title) - standard pattern */
-.hero .tagline{position:absolute;left:min(3vw,1rem);bottom:clamp(.55rem,1.6vw,1.1rem);font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;z-index:3;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-.hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
-.hero-credit .pill.long{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15);text-decoration:none}
-.hero-credit .pill.long:hover{background:#f9fdfd}
-
-/* Content */
-.wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
-.card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08);position:relative;overflow:hidden}
-h1,h2,h3{color:var(--sea)}
-.center{text-align:center}
-.tiny{font-size:.88rem;color:#456}
-.hidden{display:none!important}
-
-/* Whimsical distance unit styling */
-.stat-fun{
-  display:block;
-  margin-top:.25rem;
-  font-size:.85rem;
-  color:var(--ink-mid,#3d5a6a);
-  font-style:italic;
-  line-height:1.4
-}
-.stat-fun::before{content:"≈ ";opacity:.6}
-.distance-fun{
-  display:inline-block;
-  margin-left:.35rem;
-  font-size:.85rem;
-  color:var(--ink-mid,#3d5a6a);
-  font-style:italic
-}
-.distance-fun::before{content:"(";opacity:.7}
-.distance-fun::after{content:")";opacity:.7}
-
-/* Grids and ship cards */
-.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}
-@media (max-width:900px){.grid-3{grid-template-columns:1fr}}
-.ship-card{display:grid;grid-template-columns:96px 1fr;gap:.6rem;align-items:center;padding:.6rem;border:2px solid var(--rope);border-radius:14px;background:#fff;text-decoration:none;color:inherit;box-shadow:0 2px 6px rgba(8,48,65,.08)}
-.ship-card .thumb{width:96px;height:64px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea}
-.ship-card .thumb img{width:100%;height:100%;object-fit:cover}
-.ship-card .body{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
-.ship-card .badge{font-size:.72rem;background:#e6f4f8;border:1px solid var(--rope);border-radius:999px;padding:.1rem .5rem}
-
-.visually-hidden{
-  position:absolute!important;
-  width:1px!important;height:1px!important;
-  padding:0!important;margin:-1px!important;
-  overflow:hidden!important;clip:rect(0 0 0 0)!important;
-  white-space:nowrap!important;border:0!important
-}
-/* ===== Restore proper grid behavior for VX and multi-column cards ===== */
-#vx-grid {
-  display: grid;
-  gap: 1rem;
+/* ===== Focus Indicators (WCAG) ===== */
+*:focus { outline: 3px solid var(--accent-dark); outline-offset: 2px; }
+a:focus, button:focus, [tabindex="0"]:focus {
+  outline: 3px solid var(--accent-dark);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(0, 90, 156, 0.15);
 }
 
-/* 2 columns for tablets, 3 for desktop */
-@media (min-width: 720px) and (max-width: 979.98px) {
-  #vx-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (min-width: 980px) {
-  #vx-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-
-/* Small screens (mobile) = single column */
-@media (max-width: 719.98px) {
-  #vx-grid { grid-template-columns: 1fr; }
-}
-
-/* Make sure each card stretches evenly */
-#vx-grid .card.vx {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-/* ===== In the Wake — Unified Styles additive patch (v3.007.073) ===== */
-
-/* 1) Generic 2-up grid used on ship pages (First Look+Dining, Deck+Tracker) */
-.grid-2 { display: grid; gap: 1rem; align-items: stretch; }
-.grid-2 > .card { display: flex; flex-direction: column; }
-@media (min-width: 980px){ .grid-2 { grid-template-columns: 1fr 1fr; } }
-
-/* 2) Venues grid (ID-specific so we don’t affect other grids) */
-#vx-grid { display: grid; gap: 1rem; }
-@media (max-width: 719.98px){ #vx-grid { grid-template-columns: 1fr; } }
-@media (min-width: 720px) and (max-width: 979.98px){
-  #vx-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-}
-@media (min-width: 980px){
-  #vx-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
-}
-#vx-grid .card.vx { width: 100%; display: flex; flex-direction: column; }
-
-/* 3) First Look carousel sizing (prevents zero-height in some Swiper loads) */
-.swiper.firstlook { aspect-ratio: 16/9; height: auto; }
-.swiper.firstlook .swiper-wrapper,
-.swiper.firstlook .swiper-slide { height: 100% !important; }
-.swiper.firstlook figure { margin: 0; height: 100%; position: relative; overflow: hidden; }
-.swiper.firstlook img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; border-radius: 10px; display: block;
-}
-/* When JS fails and we enable the CSS-only fallback */
-.swiper-fallback .swiper.firstlook .swiper-wrapper{ display:flex; gap:0; }
-.swiper-fallback .swiper.firstlook .swiper-slide{ flex:0 0 100%; max-width:100%; }
-.swiper-fallback .swiper .swiper-button-prev,
-.swiper-fallback .swiper .swiper-button-next,
-.swiper-fallback .swiper .swiper-pagination{ display:none !important; }
-
-/* 4) “At a Glance” stats grid (safe, small) */
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:.4rem .8rem;
-  font-size:.95rem;
-}
-.stat-line{display:flex;justify-content:space-between;gap:.35rem;border-bottom:1px dashed #e4e9ec;padding:.2rem 0}
-.stat-key{color:#355;font-weight:600}
-.stat-val{color:#024}
-
-/* 5) Helpful utility: ensure media inside cards scales nicely */
-.card .card-hero,
-.card .vf-map,
-.card iframe.live-map { width:100%; border:0; border-radius:12px; }
-/* ===== In the Wake — additive stability patch (v3.007.073b) ===== */
-
-/* A) Stop horizontal "infinite scrolling" caused by full-bleed hero */
-html, body { overflow-x: hidden; }  /* safety net across the site */
-
-/* Use viewport units that ignore the scrollbar width (modern browsers) */
-@supports (width: 100svw) {
-  .hero-header .hero {
-    width: 100svw;
-    margin-left: calc(50% - 50svw);
+/* ===== Reduced Motion (WCAG) ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-/* B) First Look: keep visible even if Swiper momentarily sets height:0 */
-.swiper.firstlook {
-  aspect-ratio: 16/9;
-  height: auto;              /* prefer intrinsic sizing */
-  min-height: 220px;         /* guard against 0px flashes */
+/* ===== High Contrast Mode (WCAG) ===== */
+@media (prefers-contrast: high) {
+  :root { --text-muted: #1a2a3a; }
+  button, a, .card { border: 2px solid currentColor; }
+  *:focus { outline-width: 4px; }
 }
+
+/* ===== Header / Hero (packing-lists.html pattern) ===== */
+.hero-header {
+  position: relative;
+  border-bottom: 6px double var(--rope);
+  background: #eaf6f6;
+  z-index: 9000;
+  overflow: visible;
+}
+
+.navbar {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  gap: .6rem;
+  padding: .5rem .9rem .35rem;
+  position: relative;
+  z-index: 2000;
+  overflow: visible;
+}
+
+.brand { display: flex; align-items: flex-end; gap: .6rem; }
+.brand img { height: 28px; width: auto; }
+.version-badge { font-size: .72rem; opacity: .8; color: var(--text-muted); }
+
+/* Hero container - canonical pattern (no 100vw, no horizontal overflow) */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: clamp(200px, 24vw, 340px);
+  background: url('/assets/index_hero.webp') 50% 50%/cover no-repeat;
+  display: flex;
+  align-items: flex-end;
+  overflow-x: clip;
+  z-index: 0;
+}
+
+.hero * { filter: none !important; mix-blend-mode: normal !important; opacity: 1 !important; }
+
+.hero-compass {
+  position: absolute;
+  right: min(3vw, 1rem);
+  top: .5rem;
+  width: 86px;
+  opacity: .95;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-title {
+  position: absolute;
+  left: min(3vw, 1rem);
+  bottom: clamp(.6rem, 2vw, 1.4rem);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .3rem;
+  text-shadow: 0 2px 6px rgba(0,0,0,.45);
+}
+
+.hero-title .logo {
+  display: block;
+  width: clamp(189px, 23.1vw, 378px);
+  max-width: min(45vw, 520px);
+  max-height: clamp(180px, 22vw, 320px);
+  height: auto;
+  object-fit: contain;
+}
+
+.tagline {
+  position: absolute;
+  left: min(3vw, 1rem);
+  bottom: clamp(.55rem, 1.6vw, 1.1rem);
+  font-weight: 700;
+  letter-spacing: .2px;
+  color: #e6f4f8;
+  font-size: clamp(.9rem, 1.5vw, 1.35rem);
+  white-space: nowrap;
+  z-index: 3;
+  text-shadow: 0 2px 6px rgba(0,0,0,.45);
+}
+
+.hero-credit {
+  position: absolute;
+  right: .85rem;
+  bottom: .85rem;
+  z-index: 4;
+}
+
+.hero-credit .pill,
+.hero-credit .pill.long {
+  display: inline-block;
+  padding: .45rem .7rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--rope);
+  font-weight: 600;
+  color: #0a3d62;
+  box-shadow: 0 1.5px 6px rgba(8,48,65,.15);
+  text-decoration: none;
+}
+.hero-credit .pill:hover { background: #f9fdfd; }
+
+/* Lat/lon grid overlay (ship pages) */
+.latlon-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* ===== Cards ===== */
+.card {
+  background: #fff;
+  border: 2px solid var(--rope);
+  border-radius: 14px;
+  padding: 1rem;
+  margin: .8rem 0;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== Page Grid (2-column with rail) ===== */
+.page-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, var(--rail));
+  gap: 2rem;
+  align-items: start;
+}
+@media (max-width: 979.98px) {
+  .page-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== Grid Layouts ===== */
+.grid-2 { display: grid; gap: 1rem; align-items: stretch; }
+.grid-2 > .card { display: flex; flex-direction: column; }
+@media (min-width: 980px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; }
+@media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr; } }
+
+/* Venues grid (supports both #vx-grid and .vx-grid) */
+.vx-grid, #vx-grid { display: grid; gap: 1rem; }
+@media (max-width: 719.98px) { .vx-grid, #vx-grid { grid-template-columns: 1fr; } }
+@media (min-width: 720px) and (max-width: 979.98px) { .vx-grid, #vx-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 980px) { .vx-grid, #vx-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.vx-grid .card.vx, #vx-grid .card.vx { width: 100%; display: flex; flex-direction: column; }
+
+/* ===== Ship Cards ===== */
+.ship-card {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: .6rem;
+  align-items: center;
+  padding: .6rem;
+  border: 2px solid var(--rope);
+  border-radius: 14px;
+  background: #fff;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 2px 6px rgba(8,48,65,.08);
+}
+.ship-card .thumb { width: 96px; height: 64px; overflow: hidden; border-radius: 10px; background: #eef4f6; border: 1px solid #dfe7ea; }
+.ship-card .thumb img { width: 100%; height: 100%; object-fit: cover; }
+.ship-card .body { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.ship-card .badge { font-size: .72rem; background: #e6f4f8; border: 1px solid var(--rope); border-radius: 999px; padding: .1rem .5rem; }
+
+/* ===== Stats Grid (At a Glance) ===== */
+.stats-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .4rem .8rem; font-size: .95rem; }
+.stat-line { display: flex; justify-content: space-between; gap: .35rem; border-bottom: 1px dashed #e4e9ec; padding: .2rem 0; }
+.stat-key { color: #355; font-weight: 600; }
+.stat-val { color: #024; }
+
+/* Whimsical distance units */
+.stat-fun {
+  display: block;
+  margin-top: .25rem;
+  font-size: .85rem;
+  color: var(--ink-mid);
+  font-style: italic;
+  line-height: 1.4;
+}
+.stat-fun::before { content: "≈ "; opacity: .6; }
+.distance-fun {
+  display: inline-block;
+  margin-left: .35rem;
+  font-size: .85rem;
+  color: var(--ink-mid);
+  font-style: italic;
+}
+.distance-fun::before { content: "("; opacity: .7; }
+.distance-fun::after { content: ")"; opacity: .7; }
+
+/* ===== First Look Carousel (Swiper) ===== */
+.swiper.firstlook { aspect-ratio: 16/9; height: auto; min-height: 220px; }
 .swiper.firstlook .swiper-wrapper,
 .swiper.firstlook .swiper-slide { height: 100% !important; min-height: inherit; }
 .swiper.firstlook figure { margin: 0; height: 100%; position: relative; overflow: hidden; }
 .swiper.firstlook img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; border-radius: 10px; display: block;
-  backface-visibility: hidden; transform: translateZ(0); /* WebKit repaint fix */
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
-/* Hide chrome in CSS fallback only */
+/* Swiper fallback (no JS) */
+.swiper-fallback .swiper.firstlook .swiper-wrapper { display: flex; gap: 0; }
+.swiper-fallback .swiper.firstlook .swiper-slide { flex: 0 0 100%; max-width: 100%; }
 .swiper-fallback .swiper .swiper-button-prev,
 .swiper-fallback .swiper .swiper-button-next,
 .swiper-fallback .swiper .swiper-pagination { display: none !important; }
 
-/* C) Venues grid — ensure multi-column (keeps your earlier rules) */
-#vx-grid { display: grid; gap: 1rem; }
-@media (max-width: 719.98px){ #vx-grid { grid-template-columns: 1fr; } }
-@media (min-width: 720px) and (max-width: 979.98px){
-  #vx-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-}
-@media (min-width: 980px){
-  #vx-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
-}
-#vx-grid .card.vx { width:100%; display:flex; flex-direction:column; }
-
-/* D) Misc: media inside cards */
-.card .card-hero,
-.card .vf-map,
-.card iframe.live-map { width:100%; border:0; border-radius:12px; }
-
-/* ===== In the Wake — tiny stability patch (v3.007.073d) ===== */
-
-/* 1) Kill horizontal “infinite scroll”.
-   Root cause: .hero uses 100vw (includes scrollbar), causing 1–2px overflow. */
-html, body { overflow-x: hidden; }          /* safety net */
-.hero-header .hero {                        /* override the earlier 100vw rule */
-  width: 100% !important;
-  margin-left: 0 !important;
-}
-
-/* 2) First Look: stop height=0 blips and image disappearances during Swiper init. */
-.swiper.firstlook {
-  aspect-ratio: 16/9;
-  height: auto;
-  min-height: 220px;                        /* keeps a real box while JS boots */
-}
-.swiper.firstlook[style*="height: 0"] {
-  height: auto !important;
-  min-height: 220px !important;
-}
-.swiper.firstlook .swiper-wrapper,
-.swiper.firstlook .swiper-slide {
-  height: 100% !important;
-  min-height: inherit;
-}
-.swiper.firstlook figure { margin:0; height:100%; position:relative; overflow:hidden; }
-.swiper.firstlook img {
-  position:absolute; inset:0; width:100%; height:100%;
-  object-fit:cover; border-radius:10px; display:block;
-  backface-visibility:hidden; transform:translateZ(0);  /* WebKit repaint nudge */
-}
-
-/* 3) Ensure the two-up rows actually go 1×2 on desktop (keeps mobile = 1 col). */
-.grid-2 { display:grid; gap:1rem; align-items:stretch; }
-@media (min-width:980px){ .grid-2 { grid-template-columns: 1fr 1fr; } }
-
-/* ===== In the Wake — definitive scroll fix (v3.007.074b) ===== */
-
-/* 1. Guarantee no horizontal overflow */
-html, body { overflow-x: hidden !important; }
-
-/* 2. Specifically override the 100vw rule for ship pages */
-.hero-header > .hero {
-  width: 100% !important;
-  margin-left: 0 !important;
-  overflow-x: clip !important;   /* hides sub-pixel overflow in WebKit/Edge */
-}
-
-/* 3. Safety: contain grid SVG lines inside the header */
-.hero-header .latlon-grid {
-  max-width: 100% !important;
-  overflow: hidden !important;
-}
-
-/* 4. Maintain hero image aspect without forcing scrollbars */
-.hero-header .hero img,
-.hero-header .hero::before,
-.hero-header .hero::after {
-  max-width: 100%;
-  height: auto;
-}
-/* ===== In the Wake — Unified Styles (v3.006) ===== */
-:root{
-  --sea:#0a3d62; --foam:#e6f4f8; --rope:#d9b382; --ink:#083041; --sky:#f7fdff; --accent:#0e6e8e;
-  --grid-stroke: rgba(255,255,255,.24);
-  --grid-label: rgba(255,255,255,.85);
-  --grid-outline: rgba(8,48,65,.35);
-  --compass-tint: invert(39%) sepia(9%) saturate(1063%) hue-rotate(151deg) brightness(92%) contrast(89%);
-}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--ink);background:var(--sky);line-height:1.55}
-a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
-img{max-width:100%;height:auto;display:block}
-
-/* Header + nav */
-.hero-header{position:relative;border-bottom:6px double var(--rope);background:#eaf6f6}
-.navbar{max-width:1100px;margin:0 auto;display:flex;gap:.6rem;padding:.5rem .9rem .35rem;align-items:flex-end;position:relative;z-index:5}
-.brand{display:flex;align-items:flex-end;gap:.6rem}
-.brand img{height:28px;width:auto;display:block}
-.version-badge{font-size:.72rem;opacity:.8;margin-left:.35rem}
-
-/* Pills nav */
-.pill-nav.pills{justify-content:center;margin-left:auto;margin-right:auto;max-width:none;width:100%;text-align:center;display:flex;gap:.45rem;flex-wrap:wrap}
-.pill-nav.pills a{padding:.35rem .7rem;border-radius:10px;border:1px dashed var(--rope);background:#fff;font-size:.9rem;color:var(--accent)}
-.pill-nav.pills a:hover{background:#f9fdfd;text-decoration:none}
-
-/* Hero */
-.hero{position:relative;width:100vw;margin-left:calc(50% - 50vw);min-height:clamp(200px,24vw,340px);background:url('/assets/index_hero.jpg') 50% 50% / cover no-repeat;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
-body.no-hero-filter .hero,.hero-header .hero,.hero-header .hero *{filter:none!important;mix-blend-mode:normal!important;opacity:1!important}
-.hero::before,.hero::after{content:none!important}
-.latlon-grid{position:absolute;inset:0;z-index:1;pointer-events:none}
-.hero-compass{position:absolute;right:min(3vw,1rem);top:.5rem;width:86px;opacity:.95;z-index:2;filter:var(--compass-tint) drop-shadow(0 2px 6px rgba(0,0,0,.25));pointer-events:none}
-.hero-title{position:absolute;left:min(3vw,1rem);bottom:clamp(.6rem,2vw,1.4rem);z-index:3;display:flex;flex-direction:column;align-items:flex-start;gap:.3rem;text-shadow:0 2px 6px rgba(0,0,0,.45)}
-.hero-title .logo{width:clamp(189px,23.1vw,378px);max-width:min(45vw,520px);filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
-.hero-title .tagline{position:relative;font-weight:700;letter-spacing:.2px;color:#e6f4f8;font-size:clamp(.9rem,1.5vw,1.35rem);white-space:nowrap;margin:0;padding:0}
-.hero-credit{position:absolute;right:.85rem;bottom:.85rem;z-index:4}
-.hero-credit .pill.long{display:inline-block;padding:.45rem .7rem;border-radius:999px;background:#fff;border:1px solid var(--rope);font-weight:600;color:#0a3d62;box-shadow:0 1.5px 6px rgba(8,48,65,.15);text-decoration:none}
-.hero-credit .pill.long:hover{background:#f9fdfd}
-
-/* Content */
-.wrap{max-width:1100px;margin:0 auto;padding:20px 14px 36px}
-.card{background:#fff;border:2px solid var(--rope);border-radius:14px;padding:1rem;margin:.8rem 0;box-shadow:0 2px 6px rgba(8,48,65,.08);position:relative;overflow:hidden}
-h1,h2,h3{color:var(--sea)}
-.center{text-align:center}
-.tiny{font-size:.88rem;color:#456}
-.hidden{display:none!important}
-
-/* Whimsical distance unit styling */
-.stat-fun{
-  display:block;
-  margin-top:.25rem;
-  font-size:.85rem;
-  color:var(--ink-mid,#3d5a6a);
-  font-style:italic;
-  line-height:1.4
-}
-.stat-fun::before{content:"≈ ";opacity:.6}
-.distance-fun{
-  display:inline-block;
-  margin-left:.35rem;
-  font-size:.85rem;
-  color:var(--ink-mid,#3d5a6a);
-  font-style:italic
-}
-.distance-fun::before{content:"(";opacity:.7}
-.distance-fun::after{content:")";opacity:.7}
-
-/* Grids and ship cards */
-.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}
-@media (max-width:900px){.grid-3{grid-template-columns:1fr}}
-.ship-card{display:grid;grid-template-columns:96px 1fr;gap:.6rem;align-items:center;padding:.6rem;border:2px solid var(--rope);border-radius:14px;background:#fff;text-decoration:none;color:inherit;box-shadow:0 2px 6px rgba(8,48,65,.08)}
-.ship-card .thumb{width:96px;height:64px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea}
-.ship-card .thumb img{width:100%;height:100%;object-fit:cover}
-.ship-card .body{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
-.ship-card .badge{font-size:.72rem;background:#e6f4f8;border:1px solid var(--rope);border-radius:999px;padding:.1rem .5rem}
-
-.visually-hidden{
-  position:absolute!important;
-  width:1px!important;height:1px!important;
-  padding:0!important;margin:-1px!important;
-  overflow:hidden!important;clip:rect(0 0 0 0)!important;
-  white-space:nowrap!important;border:0!important
-}
-
-/* ===== VX grid (Grandeur uses a CLASS, not an ID) ===== */
-.vx-grid { display:grid; gap:1rem; }
-@media (max-width:719.98px){ .vx-grid { grid-template-columns:1fr; } }
-@media (min-width:720px) and (max-width:979.98px){ .vx-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-@media (min-width:980px){ .vx-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
-.vx-grid .card.vx { width:100%; display:flex; flex-direction:column; }
-
-/* ===== Generic 2-up grid used on ship pages ===== */
-.grid-2 { display:grid; gap:1rem; align-items:stretch; }
-.grid-2 > .card { display:flex; flex-direction:column; }
-@media (min-width:980px){ .grid-2 { grid-template-columns: 1fr 1fr; } }
-
-/* ===== First Look carousel sizing ===== */
-.swiper.firstlook { aspect-ratio:16/9; height:auto; }
-.swiper.firstlook .swiper-wrapper,
-.swiper.firstlook .swiper-slide { height:100% !important; }
-.swiper.firstlook figure { margin:0; height:100%; position:relative; overflow:hidden; }
-.swiper.firstlook img {
-  position:absolute; inset:0; width:100%; height:100%;
-  object-fit:cover; border-radius:10px; display:block;
-}
-.swiper-fallback .swiper.firstlook .swiper-wrapper{ display:flex; gap:0; }
-.swiper-fallback .swiper.firstlook .swiper-slide{ flex:0 0 100%; max-width:100%; }
-.swiper-fallback .swiper .swiper-button-prev,
-.swiper-fallback .swiper .swiper-button-next,
-.swiper-fallback .swiper .swiper-pagination{ display:none !important; }
-
-/* ===== “At a Glance” stats grid ===== */
-.stats-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.4rem .8rem; font-size:.95rem; }
-.stat-line{ display:flex; justify-content:space-between; gap:.35rem; border-bottom:1px dashed #e4e9ec; padding:.2rem 0; }
-.stat-key{ color:#355; font-weight:600 }
-.stat-val{ color:#024 }
-
-/* ===== Helpful utility: media inside cards ===== */
-.card .card-hero,
-.card .vf-map,
-.card iframe.live-map { width:100%; border:0; border-radius:12px; }
-
-/* ===== In the Wake — Single Hero Standard (v3.006) ===== */
-
-/* 1) Normalize hero container */
+/* ===== Article Heroes (non-carousel) ===== */
 figure.hero,
 .article-hero,
 .article-card .hero {
   margin: 0 0 1rem 0;
   padding: 0;
   border: 0;
-}
-
-/* Maintain natural proportions */
-figure.hero picture,
-figure.hero img,
-.article-hero picture,
-.article-hero img,
-.article-card .hero picture,
-.article-card .hero img {
-  display: block !important;
-  width: 100% !important;
-  height: auto !important; /* <-- allows image to scale freely */
-  max-height: 85vh;        /* prevents it from being too tall on large screens */
-  object-fit: contain !important; /* <-- shows entire image instead of cropping */
-  border-radius: 12px;
-}
-
-/* Remove split-image behavior */
-.article-card img:first-of-type,
-.article-card img:nth-of-type(2) {
-  width: 100% !important;
-}
-
-/* Hide injected duplicates */
-figure.hero img + img,
-.article-hero img + img,
-.article-card .hero img + img {
-  display: none !important;
-}
-
-/* 3) Kill any legacy 2-up split rules */
-.article-card img:first-of-type,
-.article-card img:nth-of-type(2) {
-  width: 100% !important;
-}
-
-/* 4) If any extra/fallback image gets injected, hide it */
-figure.hero img + img,
-.article-hero img + img,
-.article-card .hero img + img {
-  display: none !important;
-}
-
-/* 5) Placeholder gets subdued styling (if used) */
-.hero.placeholder {
-  filter: saturate(.85) contrast(.95);
-  opacity: .92;
-}
-
-/* ===== In the Wake — Article Hero (dedup v3.006.1) ===== */
-
-/* Natural, single-image hero: no forced crop, no absolute positioning */
-figure.hero,
-.article-hero,
-.article-card .hero {
-  margin: 0 0 1rem 0;
-  padding: 0;
-  border: 0;
-  overflow: visible !important;  /* allow natural height */
+  overflow: visible;
 }
 
 figure.hero picture,
@@ -483,206 +342,73 @@ figure.hero img,
 .article-hero img,
 .article-card .hero picture,
 .article-card .hero img {
-  position: static !important;   /* undo absolute from carousel rules */
-  inset: auto !important;
-  display: block !important;
-  width: 100% !important;
-  height: auto !important;       /* preserve native aspect ratio */
-  object-fit: contain !important;/* show entire image (no cropping) */
-  max-height: none !important;   /* set to 85vh if you want a tall cap */
+  position: static;
+  inset: auto;
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  max-height: 85vh;
   border-radius: 12px;
 }
 
-/* Ensure no legacy “2-up split” on cards */
-.article-card img:first-of-type,
-.article-card img:nth-of-type(2) {
-  width: 100% !important;
-}
-
-/* Hide any fallback duplicate image that might get injected */
+/* Hide duplicate images */
 figure.hero img + img,
 .article-hero img + img,
-.article-card .hero img + img {
-  display: none !important;
+.article-card .hero img + img { display: none !important; }
+
+.article-card img:first-of-type,
+.article-card img:nth-of-type(2) { width: 100%; }
+
+.hero.placeholder { filter: saturate(.85) contrast(.95); opacity: .92; }
+
+/* ===== Media Inside Cards ===== */
+.card .card-hero,
+.card .vf-map,
+.card iframe.live-map { width: 100%; border: 0; border-radius: 12px; }
+
+/* ===== Author/Avatar Cards ===== */
+.avatar, .journal-avatar, .author-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+@media (min-width: 720px) {
+  .journal-avatar, .author-avatar { width: 48px; height: 48px; }
 }
 
-/* Scope the COVER behavior strictly to the First Look carousel only */
-.swiper.firstlook img {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;  /* cover is correct for slides */
-  border-radius: 10px;
+.author-card-vertical { text-align: center; }
+.author-card-vertical .author-avatar {
+  display: block;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 1rem;
 }
-/* ===== In the Wake — stability shim (v3.008.038) ===== */
-/* 1) Guarantee no horizontal overflow from the header hero only */
-html, body { overflow-x: hidden; }
-.hero-header > .hero {
-  width: 100% !important;         /* override any earlier 100vw */
-  margin-left: 0 !important;      /* cancel full-bleed shift */
-  overflow-x: clip !important;    /* hides sub-pixel bleed in WebKit/Edge */
-}
+.author-card-vertical h4 { margin: 0.5rem 0 0.25rem; }
 
-/* 2) Unify venues grid: support BOTH legacy #vx-grid and current .vx-grid */
-.vx-grid, #vx-grid { display: grid; gap: 1rem; }
-@media (max-width: 719.98px){
-  .vx-grid, #vx-grid { grid-template-columns: 1fr; }
-}
-@media (min-width: 720px) and (max-width: 979.98px){
-  .vx-grid, #vx-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (min-width: 980px){
-  .vx-grid, #vx-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-.vx-grid .card.vx, #vx-grid .card.vx { width: 100%; display: flex; flex-direction: column; }
-
-/* 3) Journal rail: if an image fails, collapse the reserved box cleanly */
-.post-card .thumb.no-thumb { display: none; }
-
-/* --- Skip link: hidden until focused (WCAG) --- */
-.skip-link{
-  position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;
-}
-.skip-link:focus{
-  left:.75rem;top:.5rem;width:auto;height:auto;
-  background:#0e6e8e;color:#fff;border-radius:10px;
-  padding:.35rem .6rem;z-index:1000;outline:0;
-}
-
-/* --- Pill nav: force single line, center, with horizontal scroll on narrow screens --- */
-.pill-nav.pills{
-  display:flex;align-items:center;justify-content:center;
-  gap:.45rem; padding:.35rem 0;
-  white-space:nowrap; flex-wrap:nowrap;      /* one line */
-  overflow-x:auto; overflow-y:hidden;        /* scroll if not enough room */
-  -webkit-overflow-scrolling:touch; scrollbar-width:thin;
-}
-.pill-nav.pills a{
-  padding:.35rem .7rem;border-radius:10px;
-  border:1px solid var(--rope);              /* firm line */
-  background:#fff;font-size:.9rem;color:var(--accent);
-}
-.pill-nav.pills a:hover{ text-decoration:none; background:#f9fdfd; }
-
-/* Current page chip = dotted outline (exact visual you pointed to) */
-.pill-nav.pills a[aria-current="page"]{
-  outline:3px dashed var(--rope);
-  outline-offset:2px;
-  box-shadow:0 0 0 3px rgba(200,163,106,.15) inset;
-}
-
-/* --- Author/Journal avatar chips: consistent circles & centering --- */
-.avatar, .journal-avatar, .author-avatar{
-  width:40px;height:40px;border-radius:50%;
-  object-fit:cover;object-position:center center;display:block;
-}
-@media (min-width:720px){
-  .journal-avatar, .author-avatar{ width:48px;height:48px; }
-}
-
-/* Rail item layout used by both Journal and Authors */
-.rail-list{ display:grid; gap:1rem; }
-.rail-row{
-  display:grid; grid-template-columns:48px 1fr; gap:.75rem; align-items:start;
-}
-/* Rail item layout used by both Journal and Authors */
-.rail-list{ display:grid; gap:1rem; }
-.rail-row{ display:grid; grid-template-columns:40px 1fr; gap:.75rem; align-items:start; }
-@media (min-width:720px){
-  .rail-row{ grid-template-columns:48px 1fr; }
-}
-/* ===== Hotfix v3.008.042 — Navbar, Rails placement, Header line ===== */
-
-/* -- A) Pill navbar: never clip, one-line scroll, brand does not crowd it -- */
-.navbar {
-  display:flex;
-  align-items:center;
-  gap:.6rem;
-  overflow:visible;                 /* ensure chips aren’t cut off */
-}
-.navbar .brand { flex:0 0 auto; }
-.navbar .pill-nav { flex:1 1 auto; min-width:0; }  /* allow nav to consume width */
-
-.pill-nav.pills{
-  display:flex; align-items:center; justify-content:center;
-  gap:.45rem; padding:.35rem 0;
-  white-space:nowrap; flex-wrap:nowrap;               /* one line only */
-  overflow-x:auto; overflow-y:hidden;                 /* scroll if needed */
-  -webkit-overflow-scrolling:touch; scrollbar-width:thin;
-}
-.pill-nav.pills a{
-  padding:.35rem .7rem; border-radius:10px;
-  border:1px solid var(--rope); background:#fff; color:var(--accent);
-}
-.pill-nav.pills a[aria-current="page"]{
-  outline:3px dashed var(--rope); outline-offset:2px;
-  box-shadow:0 0 0 3px rgba(200,163,106,.15) inset;
-}
-
-/* -- B) Rails: Articles on the RIGHT at ≥980px, single column below -- */
-.rails { display:grid; gap:1rem; }
-.rail-authors, .rail-journal { min-width:0; }
-@media (min-width:980px){
-  .rails{
-    grid-template-columns:1fr 1fr;
+/* ===== Rails Layout ===== */
+.rails { display: grid; gap: 1rem; }
+.rail-authors, .rail-journal { min-width: 0; }
+@media (min-width: 980px) {
+  .rails {
+    grid-template-columns: 1fr 1fr;
     grid-template-areas: "authors journal";
   }
-  .rail-authors{ grid-area:authors; }
-  .rail-journal{ grid-area:journal; }
+  .rail-authors { grid-area: authors; }
+  .rail-journal { grid-area: journal; }
 }
-/* Mobile/tablet remains natural flow (Authors then Journal) */
 
-/* Avatar circles & alignment (shared by both rails) */
-.avatar, .journal-avatar, .author-avatar{
-  width:40px; height:40px; border-radius:50%;
-  object-fit:cover; object-position:center; display:block;
-}
-@media (min-width:720px){
-  .journal-avatar, .author-avatar{ width:48px; height:48px; }
-}
-.rail-list{ display:grid; gap:1rem; }
-.rail-row{ display:grid; grid-template-columns:48px 1fr; gap:.75rem; align-items:start; }
+.rail-list { display: grid; gap: 1rem; }
+.rail-row { display: grid; grid-template-columns: 48px 1fr; gap: .75rem; align-items: start; }
 
-/* -- C) Header bottom rope line should always be visible -- */
-.hero-header{
-  position:relative;
-  border-bottom:6px double var(--rope);
-  z-index:0;                        /* the border draws above the hero background */
-}
-.hero-header > .hero{
-  position:relative;
-  z-index:-1;                       /* push the image below the header border */
-  width:100% !important;
-  margin-left:0 !important;
-  overflow-x:clip !important;
-}
-/* === Rails: enforce “Articles on the right” on desktop === */
-@media (min-width: 980px){
-  .grid-2 { grid-template-columns: 1fr 1fr; }
-  .grid-2 .rail-authors  { order: 1; }
-  .grid-2 .rail-articles { order: 2; } /* right column */
-}
-/* Mobile stacks naturally: Authors then Journal (screen-reader friendly) */
+.post-card .thumb.no-thumb { display: none; }
 
-/* === Unified Nav: prevent horizontal clipping & give edge breathing room === */
-.pill-nav.pills{
-  /* already single-line + overflow-x set in your sheet; we just add padding & masks */
-  padding-inline: .75rem;              /* space so first/last chip aren’t cut */
-  scroll-padding-inline: .75rem;       /* keyboard/scroll alignment hint */
-  -webkit-overflow-scrolling: touch;
-  /* soft edge fade (Safari/WebKit need -webkit- prefix) */
-  mask-image: linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black .9rem, black calc(100% - .9rem), transparent);
-}
-.pill-nav.pills a:first-child{ margin-left: .15rem; }   /* micro guard rails */
-.pill-nav.pills a:last-child { margin-right:.15rem; }
-
-/* ===== NEW NAVIGATION SYSTEM v3.010.400 (Clean Rebuild) ===== */
-.navbar{ position:relative; z-index:6; overflow:visible; }
-.hero-header, header{ overflow:visible; }
-
-/* Site navigation container */
+/* ===== Navigation System (v3.010.400) ===== */
 .site-nav {
   display: flex;
   align-items: center;
@@ -692,7 +418,6 @@ html, body { overflow-x: hidden; }
   padding: 0 0.5rem;
 }
 
-/* Navigation pill buttons */
 .nav-pill {
   display: inline-flex;
   align-items: center;
@@ -701,85 +426,61 @@ html, body { overflow-x: hidden; }
   min-height: 44px;
   border-radius: 20px;
   background: #fff;
-  border: 2px solid var(--rope, #d9b382);
-  color: var(--accent, #0e6e8e);
+  border: 2px solid var(--rope);
+  color: var(--accent);
   font: inherit;
   font-size: 0.95rem;
   cursor: pointer;
   text-decoration: none;
   transition: background 0.15s, border-color 0.15s;
 }
-
 .nav-pill:hover {
-  background: var(--foam, #e6f4f8);
-  border-color: var(--accent, #0e6e8e);
+  background: var(--foam);
+  border-color: var(--accent);
 }
-
 .nav-pill[aria-current="page"] {
-  background: var(--accent, #0e6e8e);
+  background: var(--accent);
   color: #fff;
   font-weight: 600;
-  border-color: var(--accent, #0e6e8e);
+  border-color: var(--accent);
 }
-
 .nav-pill:focus-visible {
-  outline: 3px solid var(--accent, #0e6e8e);
+  outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
 
 /* Dropdown container */
-.nav-dropdown {
-  position: relative;
-  display: inline-block;
-}
+.nav-dropdown { position: relative; display: inline-block; }
+.nav-dropdown .caret { display: inline-block; transition: transform 0.2s; }
+.nav-dropdown.open .caret { transform: rotate(180deg); }
 
-.nav-dropdown .caret {
-  display: inline-block;
-  transition: transform 0.2s;
-}
-
-.nav-dropdown.open .caret {
-  transform: rotate(180deg);
-}
-
-/* Dropdown menu - hidden by default */
 .dropdown-menu {
   position: absolute;
   top: calc(100% + 6px);
   left: 0;
   min-width: 220px;
   background: #fff;
-  border: 2px solid var(--rope, #d9b382);
+  border: 2px solid var(--rope);
   border-radius: 12px;
   padding: 0.5rem;
   box-shadow: 0 8px 24px rgba(8,48,65,0.15);
   z-index: 9999;
   display: none;
 }
+.nav-dropdown.open .dropdown-menu { display: block; }
 
-/* Show dropdown when .open class is added */
-.nav-dropdown.open .dropdown-menu {
-  display: block;
-}
-
-/* Dropdown menu items */
 .dropdown-menu a {
   display: block;
   padding: 0.5rem 0.75rem;
-  color: var(--ink, #083041);
+  color: var(--ink);
   text-decoration: none;
   border-radius: 8px;
   transition: background 0.1s;
 }
-
 .dropdown-menu a:hover,
-.dropdown-menu a:focus {
-  background: #eef4f6;
-  outline: none;
-}
-
+.dropdown-menu a:focus { background: #eef4f6; outline: none; }
 .dropdown-menu a:focus-visible {
-  outline: 3px solid var(--accent, #0e6e8e);
+  outline: 3px solid var(--accent);
   outline-offset: -2px;
 }
 
@@ -790,20 +491,10 @@ html, body { overflow-x: hidden; }
     flex-wrap: nowrap;
     -webkit-overflow-scrolling: touch;
   }
-  .dropdown-menu {
-    min-width: 200px;
-  }
+  .dropdown-menu { min-width: 200px; }
 }
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .nav-pill, .dropdown-menu, .caret {
-    transition: none;
-  }
-}
-/* ===== END NEW NAVIGATION SYSTEM ===== */
-
-/* ===== Logbook Navigation (carousel controls) ===== */
+/* ===== Logbook Navigation ===== */
 .logbook-nav {
   display: flex;
   align-items: center;
@@ -823,8 +514,8 @@ html, body { overflow-x: hidden; }
   min-width: 120px;
   border-radius: 20px;
   background: #fff;
-  border: 2px solid var(--rope, #d9b382);
-  color: var(--accent, #0e6e8e);
+  border: 2px solid var(--rope);
+  color: var(--accent);
   font: inherit;
   font-size: .95rem;
   font-weight: 600;
@@ -834,19 +525,16 @@ html, body { overflow-x: hidden; }
   transition: all 0.2s ease;
   box-shadow: 0 2px 4px rgba(8,48,65,.08);
 }
-
 .logbook-btn:hover:not(:disabled) {
-  background: var(--foam, #e6f4f8);
-  border-color: var(--accent, #0e6e8e);
+  background: var(--foam);
+  border-color: var(--accent);
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(8,48,65,.12);
 }
-
 .logbook-btn:active:not(:disabled) {
   transform: translateY(0);
   box-shadow: 0 1px 2px rgba(8,48,65,.08);
 }
-
 .logbook-btn:disabled {
   opacity: .4;
   cursor: not-allowed;
@@ -854,32 +542,18 @@ html, body { overflow-x: hidden; }
   border-color: #ddd;
   color: #999;
 }
-
 .logbook-btn:focus-visible {
-  outline: 3px solid var(--accent, #0e6e8e);
+  outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
 
-/* Mobile responsive */
 @media (max-width: 520px) {
-  .logbook-nav {
-    gap: .5rem;
-  }
-  .logbook-btn {
-    min-width: 100px;
-    padding: .55rem 1rem;
-    font-size: .9rem;
-  }
+  .logbook-nav { gap: .5rem; }
+  .logbook-btn { min-width: 100px; padding: .55rem 1rem; font-size: .9rem; }
 }
 
-/* ======================================================================== */
-
-/* ===== Collapsible Sections (Site-wide Component v3.011.000) ===== */
-/* Reusable collapsible panels for sidebars, sections, and accordions */
-
-.collapsible-section {
-  margin-bottom: 1rem;
-}
+/* ===== Collapsible Sections ===== */
+.collapsible-section { margin-bottom: 1rem; }
 
 .collapsible-header {
   display: flex;
@@ -893,32 +567,20 @@ html, body { overflow-x: hidden; }
   user-select: none;
   transition: background 0.2s;
 }
-
-.collapsible-header:hover {
-  background: #e6f4f8;
-}
-
+.collapsible-header:hover { background: #e6f4f8; }
 .collapsible-header:focus {
-  outline: 3px solid var(--accent, #0e6e8e);
+  outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
-
 .collapsible-header h3,
-.collapsible-header h4 {
-  margin: 0;
-  font-size: 1rem;
-  color: var(--sea, #0a3d62);
-}
+.collapsible-header h4 { margin: 0; font-size: 1rem; color: var(--sea); }
 
 .collapsible-toggle {
   font-size: 1.2rem;
   transition: transform 0.3s;
   color: #666;
 }
-
-.collapsible-section.collapsed .collapsible-toggle {
-  transform: rotate(-90deg);
-}
+.collapsible-section.collapsed .collapsible-toggle { transform: rotate(-90deg); }
 
 .collapsible-content {
   max-height: 2000px;
@@ -926,23 +588,40 @@ html, body { overflow-x: hidden; }
   transition: max-height 0.3s ease-out, padding 0.3s;
   padding: 0.75rem 0;
 }
-
 .collapsible-section.collapsed .collapsible-content {
   max-height: 0;
   padding: 0;
 }
 
-/* Accessibility: indicate interactivity */
-.collapsible-header[role="button"] {
-  cursor: pointer;
+.collapsible-header[role="button"] { cursor: pointer; }
+
+/* ===== Legacy Support (pill-nav) ===== */
+.pill-nav.pills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  padding: .35rem 0;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.pill-nav.pills a {
+  padding: .35rem .7rem;
+  border-radius: 10px;
+  border: 1px solid var(--rope);
+  background: #fff;
+  font-size: .9rem;
+  color: var(--accent);
+}
+.pill-nav.pills a:hover { text-decoration: none; background: #f9fdfd; }
+.pill-nav.pills a[aria-current="page"] {
+  outline: 3px dashed var(--rope);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(200,163,106,.15) inset;
 }
 
-/* Reduced motion preference */
-@media (prefers-reduced-motion: reduce) {
-  .collapsible-toggle,
-  .collapsible-content {
-    transition: none;
-  }
-}
-
-/* ===== END Collapsible Sections ===== */
+/* ===== END Unified Styles ===== */
