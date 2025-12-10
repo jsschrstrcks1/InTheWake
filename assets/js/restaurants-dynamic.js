@@ -112,6 +112,7 @@
   };
 
   let venuesData = null;
+  let dishesData = null;
   let currentFilter = 'all';
 
   /**
@@ -211,6 +212,19 @@
   }
 
   /**
+   * Get dish keywords for a venue from dishesData
+   */
+  function getVenueDishes(venueSlug) {
+    if (!dishesData || !dishesData.venues || !dishesData.venues[venueSlug]) {
+      return [];
+    }
+    const venueData = dishesData.venues[venueSlug];
+    const dishes = venueData.dishes || [];
+    const cuisine = venueData.cuisine || [];
+    return [...dishes, ...cuisine];
+  }
+
+  /**
    * Create venue card HTML
    */
   function createVenueCard(venue, ships, consolidatedNames = []) {
@@ -231,9 +245,11 @@
       </div>
     ` : '';
 
-    // Add consolidated venue names as searchable keywords
-    const searchKeywords = consolidatedNames.length > 0
-      ? `data-search-keywords="${consolidatedNames.join(' ')}"`
+    // Combine consolidated venue names and dish keywords for search
+    const dishKeywords = getVenueDishes(venue.slug);
+    const allKeywords = [...consolidatedNames, ...dishKeywords];
+    const searchKeywords = allKeywords.length > 0
+      ? `data-search-keywords="${allKeywords.join(' ').replace(/"/g, '&quot;')}"`
       : '';
 
     return `
@@ -569,7 +585,7 @@
           category || '',
           ctaEl ? ctaEl.textContent : '',
           shipsEl ? shipsEl.textContent : '',
-          searchKeywords  // Include consolidated venue names
+          searchKeywords  // Include consolidated venue names, dishes, and cuisine keywords
         ];
         const searchText = searchParts.join(' ').toLowerCase();
 
@@ -644,14 +660,23 @@
   }
 
   /**
-   * Load venues data
+   * Load venues data and dish data
    */
   async function loadVenuesData() {
     try {
-      const response = await fetch('/assets/data/venues-v2.json');
-      if (!response.ok) throw new Error('Failed to load venues data');
+      // Load venues and dishes data in parallel
+      const [venuesResponse, dishesResponse] = await Promise.all([
+        fetch('/assets/data/venues-v2.json'),
+        fetch('/assets/data/venue-dishes.json').catch(() => null)
+      ]);
 
-      venuesData = await response.json();
+      if (!venuesResponse.ok) throw new Error('Failed to load venues data');
+      venuesData = await venuesResponse.json();
+
+      // Load dishes data (optional - search still works without it)
+      if (dishesResponse && dishesResponse.ok) {
+        dishesData = await dishesResponse.json();
+      }
 
       // Filter to only dining and bars, exclude consolidated venues
       const filteredVenues = venuesData.venues.filter(v =>
