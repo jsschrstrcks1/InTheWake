@@ -1,8 +1,29 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2025-12-01 (Audit)
+**Last Updated:** 2025-12-10 (G/Y/R lanes added)
 **Maintained by:** Claude AI (Thread tracking)
+
+---
+
+## 🚦 Task Classification (G/Y/R Lanes)
+
+Tasks are classified by AI-safety level:
+
+| Lane | Meaning | AI Role | Examples |
+|------|---------|---------|----------|
+| **🟢 [G]** | AI-safe | Claude executes autonomously | Link checks, schema fixes, pattern standardization, technical validation |
+| **🟡 [Y]** | AI proposes | Claude drafts, human approves | New articles, content changes, FAQ rewrites, image replacements |
+| **🔴 [R]** | Notes only | Claude documents, human decides | Pastoral content, `ai:guard` zones, theological interpretations, life situation articles |
+
+### Lane Rules
+- **🟢 Green tasks**: Run freely, commit when done
+- **🟡 Yellow tasks**: Present draft for approval before committing
+- **🔴 Red tasks**: Add notes/research to task, never edit content directly
+
+### Protected Zones
+Files containing `<!-- ai:guard -->` blocks require human review regardless of lane.
+Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 
 ---
 
@@ -145,10 +166,11 @@
 
 ## P1 - High (Content completeness)
 
-### Articles to Write (3 remaining)
+### 🔴 [R] Articles to Write (3 remaining) — PASTORAL CONTENT
 
 #### Solo Cruising Expansion
 **Status:** Partial - why-i-started-solo-cruising.html exists but not comprehensive
+**Lane:** 🔴 Red (contains grief/anxiety pastoral content)
 - [ ] Expand existing article OR create comprehensive-solo-cruising.html
 - [ ] Cover all solo personas: grief, anxiety, introverts, by-choice, first-time
 - [ ] Add ship size recommendations for solo travelers
@@ -156,12 +178,14 @@
 
 #### Healing Relationships at Sea
 **Status:** Not created (15+ logbook references)
+**Lane:** 🔴 Red (marriage/family pastoral content)
 - [ ] Write full article page (~3,000 words)
 - [ ] Sections: marriage restoration, family reconciliation, blended families, empty nest
 - [ ] Topics: marriage crisis recovery, estranged relationships, prodigal situations
 
 #### Rest for Wounded Healers
 **Status:** Not created (10+ logbook references)
+**Lane:** 🔴 Red (burnout/Sabbath theology)
 - [ ] Write full article page (~2,500 words)
 - [ ] Topics: pastoral burnout, caregiver fatigue, single parent burnout
 - [ ] Sabbath theology section, guilt management, Scripture integration
@@ -177,7 +201,8 @@
 - [ ] /drinks.html - Does not exist (drink-packages.html does exist and has content)
 - [x] /restaurants.html - ✅ Has content, no placeholder text
 
-### SEO External Tools Setup
+### 🟡 [Y] SEO External Tools Setup
+**Lane:** 🟡 Yellow (requires account credentials, human action)
 - [ ] Set up Google Search Console
 - [ ] Set up Bing Webmaster Tools
 - [ ] Set up Google Analytics dashboard for trackers
@@ -202,7 +227,8 @@
 - [ ] Guadeloupe (Pointe-à-Pitre)
 - [ ] Dominica (Roseau)
 
-### Image Tasks
+### 🟡 [Y] Image Tasks
+**Lane:** 🟡 Yellow (requires attribution decisions, image selection approval)
 
 #### Download Wiki Commons Images (19 ships)
 After downloading, must add attribution sections to HTML.
@@ -253,7 +279,8 @@ After downloading, must add attribution sections to HTML.
 - [ ] Add pricing information for specialty restaurants
 - [ ] Find YouTube ship tour videos for ships without videos
 
-### Technical Tasks
+### 🟢 [G] Technical Tasks
+**Lane:** 🟢 Green (automated validation, AI-safe)
 - [ ] Verify WCAG 2.1 AA compliance across new pages
 - [ ] Test keyboard navigation on dropdown menus
 - [ ] Test screen reader compatibility
@@ -302,7 +329,8 @@ After downloading, must add attribution sections to HTML.
 - [ ] Implement article rail site-wide
 - [ ] Review intelligent breadcrumbs implementation
 
-### Additional Themed Articles
+### 🔴 [R] Additional Themed Articles — PASTORAL CONTENT
+**Lane:** 🔴 Red (life situations, grief, mental health)
 - [ ] Medical recovery articles (post-cancer, post-stroke, chronic illness)
 - [ ] Mental health articles (anxiety, PTSD/veteran, bipolar/depression)
 - [ ] Family situation articles (infertility grief, adoption, homeschool)
