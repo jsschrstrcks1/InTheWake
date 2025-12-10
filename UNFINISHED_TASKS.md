@@ -85,6 +85,310 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 
 ---
 
+## 📊 2024 RCL Port Coverage Gap Analysis (2025-12-10)
+
+**Audit Method:** Compared comprehensive 2024 Royal Caribbean port list (~320 ports including UWC one-offs) against existing HTML pages in `/ports/`.
+
+### Coverage Summary
+| Metric | Count |
+|--------|-------|
+| RCL 2024 Unique Ports | 203 |
+| Existing HTML Pages | 161 |
+| **Missing (No HTML)** | **100** |
+| **Coverage** | **50.7%** |
+
+### Missing Ports by Region
+
+#### North America (11 ports)
+**Homeports (2):** Create dedicated pages or verify existing redirects
+- [ ] miami (note: port-miami.html exists, may need alias)
+- [ ] new-york (note: cape-liberty.html exists for NYC terminal)
+
+**Ports of Call (9):**
+- [ ] astoria (Oregon)
+- [ ] cabo-san-lucas (Mexico)
+- [ ] catalina-island (California)
+- [ ] ensenada (Mexico)
+- [ ] freeport (Bahamas)
+- [ ] hubbard-glacier (Alaska scenic cruising)
+- [ ] mazatlan (Mexico)
+- [ ] puerto-vallarta (Mexico)
+- [ ] endicott-arm (Alaska scenic cruising)
+
+#### Caribbean (6 ports)
+- [ ] amber-cove (Dominican Republic - Royal Caribbean private destination)
+- [ ] barbados (Bridgetown) - HIGH PRIORITY
+- [ ] bimini (Bahamas)
+- [ ] falmouth (Jamaica - note: jamaica.html exists, may cover this)
+- [ ] st-croix (USVI)
+- [ ] st-lucia (Castries) - HIGH PRIORITY
+
+#### Europe (12 ports)
+- [ ] alicante (Spain)
+- [ ] bari (Italy)
+- [ ] chania (Crete, Greece)
+- [ ] flam (Norway) - Norwegian Fjords
+- [ ] geiranger (Norway) - Norwegian Fjords
+- [ ] haifa (Israel)
+- [ ] istanbul (Turkey)
+- [ ] la-spezia (Cinque Terre gateway, Italy)
+- [ ] olden (Norway) - Norwegian Fjords
+- [ ] portofino (Italy)
+- [ ] ronne (Bornholm, Denmark)
+- [ ] toulon (France)
+
+#### Asia/Middle East (22 ports) - LARGEST GAP
+**Middle East (2):**
+- [ ] abu-dhabi (UAE) - HIGH PRIORITY
+- [ ] dubai (UAE) - HIGH PRIORITY
+
+**Japan (7):**
+- [ ] ishigaki
+- [ ] kagoshima
+- [ ] kobe
+- [ ] nagasaki
+- [ ] okinawa
+- [ ] osaka
+
+**South Korea (3):**
+- [ ] busan
+- [ ] jeju
+- [ ] seoul (Incheon port)
+
+**Southeast Asia (7):**
+- [ ] colombo (Sri Lanka)
+- [ ] goa (India)
+- [ ] hambantota (Sri Lanka)
+- [ ] ho-chi-minh-city (Vietnam)
+- [ ] lombok (Indonesia)
+- [ ] nha-trang (Vietnam)
+- [ ] penang (Malaysia)
+- [ ] phuket (Thailand)
+
+**Other Asia (3):**
+- [ ] mumbai (India)
+- [ ] taipei (Taiwan - Keelung port)
+- [ ] tianjin (Beijing gateway, China)
+
+#### Australia/NZ/Pacific (14 ports)
+**Australia (7):**
+- [ ] adelaide
+- [ ] airlie-beach
+- [ ] cairns
+- [ ] darwin
+- [ ] eden
+- [ ] fremantle (Perth)
+- [ ] hobart (Tasmania)
+
+**New Zealand (1):**
+- [ ] bay-of-islands
+
+**South Pacific (6):**
+- [ ] bora-bora (French Polynesia)
+- [ ] moorea (French Polynesia)
+- [ ] noumea (New Caledonia)
+- [ ] papeete (Tahiti)
+- [ ] port-vila (Vanuatu)
+- [ ] rarotonga (Cook Islands)
+
+#### South America (17 ports)
+- [ ] arica (Chile)
+- [ ] buenos-aires (Argentina)
+- [ ] cabo-frio (Brazil)
+- [ ] callao (Lima gateway, Peru)
+- [ ] colon (Panama)
+- [ ] coquimbo (Chile)
+- [ ] fortaleza (Brazil)
+- [ ] manta (Ecuador)
+- [ ] montevideo (Uruguay)
+- [ ] port-stanley (Falkland Islands)
+- [ ] puerto-madryn (Argentina)
+- [ ] punta-arenas (Chile - Patagonia)
+- [ ] recife (Brazil)
+- [ ] rio-de-janeiro (Brazil)
+- [ ] salvador (Brazil)
+- [ ] santos (São Paulo, Brazil)
+- [ ] valparaiso (Santiago gateway, Chile)
+
+#### Africa (11 ports)
+- [ ] abidjan (Ivory Coast)
+- [ ] antsiranana (Madagascar)
+- [ ] cape-town (South Africa)
+- [ ] dakar (Senegal)
+- [ ] la-digue (Seychelles)
+- [ ] luanda (Angola)
+- [ ] luderitz (Namibia)
+- [ ] mossel-bay (South Africa)
+- [ ] port-elizabeth (South Africa)
+- [ ] port-louis (Mauritius)
+- [ ] walvis-bay (Namibia)
+
+#### Northern Europe/Atlantic (7 ports)
+- [ ] aarhus (Denmark)
+- [ ] agadir (Morocco)
+- [ ] haugesund (Norway)
+- [ ] klaipeda (Lithuania)
+- [ ] kristiansand (Norway)
+- [ ] nuuk (Greenland)
+- [ ] qaqortoq (Greenland)
+
+### Extra Ports (Have HTML but NOT in 2024 RCL list)
+These 58 ports have pages but weren't in the 2024 RCL list. They may be:
+- Ports from other cruise lines
+- Historical/rare RCL ports
+- Scenic cruising destinations
+- Slight naming variations
+
+Notable examples: glacier-bay, norwegian-fjords, panama-canal, costa-maya, grand-turk, martinique, guadeloupe
+
+### Priority Recommendations
+
+**P1 - Immediate (HIGH traffic RCL destinations):**
+1. Caribbean: barbados, st-lucia, amber-cove (3 ports)
+2. Middle East: dubai, abu-dhabi (2 ports)
+3. Alaska: hubbard-glacier, endicott-arm (2 ports)
+
+**P2 - Short-term (Frequent RCL itineraries):**
+1. Europe: istanbul, flam, geiranger, la-spezia (4 ports)
+2. Mexico: cabo-san-lucas, ensenada, mazatlan, puerto-vallarta (4 ports)
+3. Asia: osaka, busan, phuket (3 ports)
+
+**P3 - Medium-term (Growing regions):**
+1. Australia: adelaide, cairns, hobart, fremantle (4 ports)
+2. South Pacific: bora-bora, papeete, noumea (3 ports)
+
+**P4 - Long-term (World cruise/exotic):**
+1. South America: rio-de-janeiro, buenos-aires, valparaiso (3 ports)
+2. Africa: cape-town, port-louis (2 ports)
+
+---
+
+## 📊 2024 RCL Homeport Gap Analysis (2025-12-10)
+
+**Audit Method:** Compared RCL departure port list (58 homeports) against existing HTML pages and tracker entries.
+
+### Homeport Coverage Summary
+| Metric | Count |
+|--------|-------|
+| RCL Homeports Listed | 58 |
+| Have HTML (direct or alias) | 36 |
+| **Missing HTML Pages** | **22** |
+| Tracker Homeport Entries | 29 |
+| **Tracker Entries Need URLs** | **26** |
+
+### Missing Homeport HTML Pages (22 ports)
+
+#### North America (5)
+- [ ] charleston (South Carolina)
+- [ ] norfolk (Virginia)
+- [ ] philadelphia (Pennsylvania)
+- [ ] san-francisco (California)
+- [ ] west-palm-beach (Florida)
+
+#### Europe (2)
+- [ ] hamburg (Germany)
+- [ ] istanbul (Turkey) - also in ports of call list
+
+#### Middle East (2)
+- [ ] dubai (UAE) - HIGH PRIORITY, also port of call
+- [ ] haifa (Israel) - also in ports of call list
+
+#### Asia (3)
+- [ ] mumbai (India) - also port of call
+- [ ] phuket (Thailand) - also port of call
+- [ ] tianjin (Beijing gateway, China)
+
+#### South America (8)
+- [ ] buenos-aires (Argentina)
+- [ ] callao (Lima gateway, Peru)
+- [ ] colon (Panama)
+- [ ] la-guaira (Caracas, Venezuela)
+- [ ] rio-de-janeiro (Brazil)
+- [ ] san-antonio (Santiago, Chile)
+- [ ] valparaiso (Santiago gateway, Chile)
+
+#### Africa (1)
+- [ ] cape-town (South Africa) - also port of call
+
+#### Caribbean (1)
+- [ ] montego-bay (Jamaica)
+
+### Existing Aliases (HTML exists under different name)
+These homeports have HTML pages under alternate names:
+- bayonne → `/ports/cape-liberty.html` ✅
+- fort-lauderdale → `/ports/port-everglades.html` ✅
+- miami → `/ports/port-miami.html` ✅
+- new-york → `/ports/cape-liberty.html` ✅ (Cape Liberty is in NY Harbor area)
+- civitavecchia → `/ports/civitavecchia.html` ✅ (Rome's port)
+- piraeus → `/ports/athens.html` ✅ (Athens port)
+
+### Tracker Homeport Entries - URL Updates Needed (26)
+
+**Already documented in port-tracker.html section above. These hp-* entries have `url: null` but can link to existing pages.**
+
+### New Homeports to ADD to Tracker (29 new entries)
+
+These homeports are on the RCL list but not in the tracker's PORTS_DB:
+
+#### North America (5)
+- [ ] hp-norfolk
+- [ ] hp-philadelphia
+- [ ] hp-west-palm-beach
+- [ ] hp-san-juan (have HTML, need tracker entry)
+- [ ] hp-honolulu (have HTML, need tracker entry)
+
+#### Europe (9)
+- [ ] hp-dover (London gateway)
+- [ ] hp-hamburg
+- [ ] hp-istanbul
+- [ ] hp-le-havre (Paris gateway)
+- [ ] hp-lisbon
+- [ ] hp-livorno (Florence/Pisa gateway)
+- [ ] hp-athens (Piraeus)
+- [ ] hp-ravenna
+- [ ] hp-trieste
+
+#### Asia/Middle East (5)
+- [ ] hp-dubai
+- [ ] hp-mumbai
+- [ ] hp-phuket
+- [ ] hp-shanghai
+- [ ] hp-tianjin
+
+#### Australia (1)
+- [ ] hp-melbourne (have HTML, need tracker entry)
+
+#### South America (8)
+- [ ] hp-buenos-aires
+- [ ] hp-callao
+- [ ] hp-cartagena (have HTML as port of call)
+- [ ] hp-colon
+- [ ] hp-la-guaira
+- [ ] hp-rio-de-janeiro
+- [ ] hp-san-antonio
+- [ ] hp-valparaiso
+
+#### Africa/Other (1)
+- [ ] hp-cape-town
+- [ ] hp-haifa
+- [ ] hp-montego-bay
+
+### Priority Recommendations - Homeports
+
+**P1 - Immediate (Major RCL hubs):**
+1. dubai, istanbul, hamburg (3 ports - Europe/Middle East expansion)
+2. rio-de-janeiro, buenos-aires (2 ports - South America hubs)
+
+**P2 - Short-term:**
+1. cape-town, haifa (2 ports - Africa/Middle East)
+2. mumbai, phuket, tianjin (3 ports - Asia)
+
+**P3 - Medium-term:**
+1. US regional: charleston, norfolk, philadelphia, san-francisco, west-palm-beach (5 ports)
+2. South America: callao, colon, valparaiso, san-antonio, la-guaira (5 ports)
+
+---
+
 ## How This File Works
 
 1. Tasks are organized by priority (P0 = Critical, P1 = High, P2 = Medium, P3 = Low, P4 = Future)
@@ -211,21 +515,122 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 
 ## P2 - Medium (Enhancement)
 
-### Port Expansion - Middle East (4 ports)
-- [ ] Dubai, UAE
-- [ ] Abu Dhabi, UAE
-- [ ] Muscat, Oman
-- [ ] Salalah, Oman
+### Developer Tooling & Infrastructure (2025-12-10 Evaluation)
 
-### Port Expansion - Caribbean Completion (8-10 ports)
-- [ ] Antigua (St. John's)
-- [ ] St. Lucia (Castries)
-- [ ] Barbados (Bridgetown)
-- [ ] St. Kitts
-- [ ] Grenada (St. George's)
-- [ ] Martinique (Fort-de-France)
-- [ ] Guadeloupe (Pointe-à-Pitre)
-- [ ] Dominica (Roseau)
+**Context:** Evaluated suggestions from ChatGPT against current codebase. These are high-leverage additions that align with single-repo, hand-rolled philosophy.
+
+#### Leaflet Map Integration — Port Tracker "My Cruising Journey"
+**Status:** Planned
+**Priority:** HIGH - Transforms Port Tracker from "useful tool" to "emotional centerpiece"
+**Bundle Impact:** ~55KB (Leaflet 42KB + marker cluster 8KB + custom 5KB)
+
+**Phase 1: Core Map (MVP)**
+- [ ] Add map view toggle to Port Tracker (List | Map | Stats tabs)
+- [ ] Display all 161 ports as pins (visited=blue filled, unvisited=gray outline)
+- [ ] Click pin → popup with port name, visited status, link to guide
+- [ ] Click pin → toggle visited status (syncs bidirectionally with list view)
+- [ ] Zoom-to-region buttons (Caribbean, Alaska, Mediterranean, Northern Europe, etc.)
+- [ ] Persist map/list view preference in localStorage
+- [ ] Lazy-load map only when tab selected (ship Wi-Fi friendly)
+- [ ] Cache map tiles in service worker for offline viewing
+
+**Phase 2: Enhanced Visualization (After Phase 1 stable)**
+- [ ] Add Turf.js for geospatial queries (~10KB modular imports)
+- [ ] Region clustering when zoomed out (badge shows count per region)
+- [ ] "Show nearby unvisited ports" toggle (Turf.buffer + filter)
+- [ ] Bingo card overlay ("Caribbean Bingo: 18/24 - you need these 6")
+- [ ] Heat map mode for repeat visitors
+
+**Phase 3: Share & Social**
+- [ ] "Share My Map" button → generates static image with stats overlay
+- [ ] Deep link support: `?view=map&region=caribbean`
+
+**Phase 4: Ship Tracker Integration**
+- [ ] Ship homeport markers
+- [ ] "Show ports I visited on [ship name]" filter
+- [ ] Combined stats: "8 ships, 42 ports, 15 countries"
+
+**Phase 5: Individual Port Pages**
+- [ ] Small map widget on each port page showing location
+- [ ] "Nearby ports" visualization (uses existing Haversine logic)
+
+**Files to Create:**
+```
+/assets/js/modules/map-core.js      # Leaflet initialization
+/assets/js/modules/map-ports.js     # Port pins, popups, sync
+/assets/js/modules/map-regions.js   # Region bounds, zoom presets
+/assets/css/components/map.css      # Map-specific styles
+```
+
+**Reference:** Detailed plan in session 2025-12-10 (ChatGPT evaluation)
+
+---
+
+#### JSON Schema Validation (check-jsonschema)
+**Status:** Planned
+**Priority:** HIGH - Data integrity for 204 JSON files
+**Tool:** python-jsonschema/check-jsonschema (aligns with existing Python tooling)
+
+**Implementation:**
+- [ ] Create `/schema/` directory for JSON Schema definitions
+- [ ] Define schema for `search-index.json` (title, url, description, category, keywords)
+- [ ] Define schema for `ports/*.json` (slug, name, lat, lon, region, country required)
+- [ ] Define schema for `ships/*.json` (ship specs, class, capacity)
+- [ ] Define schema for `brands.json`, `dishes.json`, `experiences.json`
+- [ ] Add GitHub Action: `check-jsonschema --schemafile schema/*.schema.json assets/data/**/*.json`
+- [ ] Add pre-commit hook for local validation
+
+**Value:** Catches data errors before they break search, calculators, or trackers
+
+---
+
+#### Playwright + axe-core (E2E Accessibility Testing)
+**Status:** Planned
+**Priority:** MEDIUM-HIGH - Catches interactive accessibility issues Pa11y misses
+**Bundle Impact:** Dev dependency only (~50MB), no production impact
+
+**Implementation:**
+- [ ] Install Playwright + @axe-core/playwright as dev dependencies
+- [ ] Create `/tests/e2e/` directory
+- [ ] Write `drink-calculator.spec.ts` - keyboard navigation, form accessibility
+- [ ] Write `port-tracker.spec.ts` - checkbox interactions, modal accessibility
+- [ ] Write `ship-tracker.spec.ts` - similar to port tracker
+- [ ] Add GitHub Action: Run nightly on main (not every PR - too heavy)
+- [ ] Test axe-core on opened modals (share modal, export modal, etc.)
+
+**Value:** Validates WCAG 2.1 AA commitment for interactive tools
+
+---
+
+#### Linkinator (Link Health Checking)
+**Status:** Planned
+**Priority:** MEDIUM - 522 pages with cross-references prone to link rot
+
+**Implementation:**
+- [ ] Add GitHub Action using linkinator-action
+- [ ] Run weekly on main branch
+- [ ] Scan: `*.html`, `ships/**/*.html`, `ports/**/*.html`, `restaurants/**/*.html`
+- [ ] Report broken internal links (404s)
+- [ ] Optional: Add linkinator-mcp for Claude Code integration
+
+**Value:** Catches broken links before users do; especially important after bulk renames
+
+---
+
+### Port Expansion - See Comprehensive Gap Analysis Above
+
+**Refer to:** [📊 2024 RCL Port Coverage Gap Analysis](#-2024-rcl-port-coverage-gap-analysis-2025-12-10)
+
+**Quick Reference - Priority P2 Ports (100 total missing):**
+- **P1 Immediate:** barbados, st-lucia, amber-cove, dubai, abu-dhabi, hubbard-glacier, endicott-arm (7 ports)
+- **P2 Short-term:** istanbul, flam, geiranger, la-spezia, cabo-san-lucas, ensenada, mazatlan, puerto-vallarta, osaka, busan, phuket (11 ports)
+- **P3 Medium-term:** adelaide, cairns, hobart, fremantle, bora-bora, papeete, noumea, bay-of-islands (8 ports)
+
+**Tracker Fixes Still Needed:**
+- [ ] Add Vancouver as regular port entry in PORTS_DB (in addition to homeport)
+- [ ] Add Melbourne as regular port entry in PORTS_DB (in addition to homeport)
+
+**Note:** Previously listed Caribbean ports (St. Kitts, Grenada, Martinique, Guadeloupe, Dominica) confirmed as already complete. Antigua not in 2024 RCL list.
 
 ### 🟡 [Y] Image Tasks
 **Lane:** 🟡 Yellow (requires attribution decisions, image selection approval)
@@ -332,26 +737,17 @@ After downloading, must add attribution sections to HTML.
 
 ## P3 - Low (Nice to have)
 
-### Port Expansion - Asia (10-15 ports)
-- [ ] Osaka, Japan
-- [ ] Busan, South Korea
-- [ ] Taipei, Taiwan
-- [ ] Phuket, Thailand
-- [ ] Manila, Philippines
-- [ ] Ho Chi Minh City, Vietnam
-- [ ] Halong Bay, Vietnam
-- [ ] Penang, Malaysia
-- [ ] Colombo, Sri Lanka
+### Port Expansion - P3 Regions
 
-### Port Expansion - Australia & South Pacific (15-20 ports)
-- [ ] Sydney, Australia
-- [ ] Melbourne, Australia
-- [ ] Brisbane, Australia
-- [ ] Auckland, New Zealand
-- [ ] Wellington, New Zealand
-- [ ] Fiji ports
-- [ ] New Caledonia
-- [ ] Vanuatu
+**See detailed breakdown in:** [📊 2024 RCL Port Coverage Gap Analysis](#-2024-rcl-port-coverage-gap-analysis-2025-12-10)
+
+**Asia/Middle East (22 ports):** Largest gap - includes Japan (7), South Korea (3), Southeast Asia (7), Middle East (2), India/Sri Lanka (3)
+
+**South America (17 ports):** Brazil (7), Chile (4), Argentina (3), Peru/Ecuador/Uruguay (3)
+
+**Africa (11 ports):** South Africa (3), Namibia (2), West Africa (3), Indian Ocean islands (3)
+
+**Northern Europe/Atlantic (7 ports):** Norway (3), Denmark (1), Lithuania (1), Greenland (2), Morocco (1)
 
 ### Multi-Cruise-Line Tracker Enhancement
 - [ ] Cruise line selector dropdown on Port/Ship Tracker
@@ -580,6 +976,49 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [ ] Add Author and Article cards (index.html pattern)
 - [ ] Expand to encompass all RCL ports
 - [ ] Add wiring for future cruise line expansion
+
+**Port Coverage Audit (2025-12-10):**
+- **HTML Files:** 161 port pages exist
+- **Tracker Regular Ports:** 147 entries (all have URLs, all link correctly)
+- **Tracker Homeports:** 29 entries with `url: null` (not clickable)
+
+**ACTION REQUIRED: Link 14 homeport entries to existing HTML files:**
+- [ ] `hp-baltimore` → `/ports/baltimore.html`
+- [ ] `hp-galveston` → `/ports/galveston.html`
+- [ ] `hp-los-angeles` → `/ports/los-angeles.html`
+- [ ] `hp-miami` → `/ports/port-miami.html`
+- [ ] `hp-mobile` → `/ports/mobile.html`
+- [ ] `hp-new-orleans` → `/ports/new-orleans.html`
+- [ ] `hp-new-york` → `/ports/cape-liberty.html` (Cape Liberty is NYC's cruise terminal)
+- [ ] `hp-port-canaveral` → `/ports/port-canaveral.html`
+- [ ] `hp-fort-lauderdale` → `/ports/port-everglades.html` (Port Everglades is Fort Lauderdale)
+- [ ] `hp-san-diego` → `/ports/san-diego.html`
+- [ ] `hp-seattle` → `/ports/seattle.html`
+- [ ] `hp-tampa` → `/ports/tampa.html`
+- [ ] `hp-vancouver` → `/ports/vancouver.html`
+- [ ] `hp-melbourne` → `/ports/melbourne.html` (Australia homeport)
+
+**Additional homeports that can link to existing regular port pages (12):**
+- [ ] `hp-amsterdam` → `/ports/amsterdam.html`
+- [ ] `hp-auckland` → `/ports/auckland.html`
+- [ ] `hp-barcelona` → `/ports/barcelona.html`
+- [ ] `hp-boston` → `/ports/boston.html`
+- [ ] `hp-brisbane` → `/ports/brisbane.html`
+- [ ] `hp-copenhagen` → `/ports/copenhagen.html`
+- [ ] `hp-hong-kong` → `/ports/hong-kong.html`
+- [ ] `hp-quebec-city` → `/ports/quebec-city.html`
+- [ ] `hp-singapore` → `/ports/singapore.html`
+- [ ] `hp-southampton` → `/ports/southampton.html`
+- [ ] `hp-sydney` → `/ports/sydney.html`
+- [ ] `hp-venice` → `/ports/venice.html`
+
+**Remaining homeports without any HTML page (3):**
+- hp-charleston (no /ports/charleston.html)
+- hp-jacksonville (no /ports/jacksonville.html)
+- hp-san-francisco (no /ports/san-francisco.html)
+- hp-rome (no /ports/rome.html - Civitavecchia is Rome's port, could link there)
+
+**SUMMARY: 26 of 29 homeport entries can be linked to existing pages**
 
 #### Ship Tracker / Port Logbook (Navigation)
 - [x] SITE-WIDE: Rename "Ship Tracker" → "Ship Logbook" in nav ✅ DONE 2025-11-28
