@@ -242,6 +242,132 @@ Notable examples: glacier-bay, norwegian-fjords, panama-canal, costa-maya, grand
 
 ---
 
+## 📊 2024 RCL Homeport Gap Analysis (2025-12-10)
+
+**Audit Method:** Compared RCL departure port list (58 homeports) against existing HTML pages and tracker entries.
+
+### Homeport Coverage Summary
+| Metric | Count |
+|--------|-------|
+| RCL Homeports Listed | 58 |
+| Have HTML (direct or alias) | 36 |
+| **Missing HTML Pages** | **22** |
+| Tracker Homeport Entries | 29 |
+| **Tracker Entries Need URLs** | **26** |
+
+### Missing Homeport HTML Pages (22 ports)
+
+#### North America (5)
+- [ ] charleston (South Carolina)
+- [ ] norfolk (Virginia)
+- [ ] philadelphia (Pennsylvania)
+- [ ] san-francisco (California)
+- [ ] west-palm-beach (Florida)
+
+#### Europe (2)
+- [ ] hamburg (Germany)
+- [ ] istanbul (Turkey) - also in ports of call list
+
+#### Middle East (2)
+- [ ] dubai (UAE) - HIGH PRIORITY, also port of call
+- [ ] haifa (Israel) - also in ports of call list
+
+#### Asia (3)
+- [ ] mumbai (India) - also port of call
+- [ ] phuket (Thailand) - also port of call
+- [ ] tianjin (Beijing gateway, China)
+
+#### South America (8)
+- [ ] buenos-aires (Argentina)
+- [ ] callao (Lima gateway, Peru)
+- [ ] colon (Panama)
+- [ ] la-guaira (Caracas, Venezuela)
+- [ ] rio-de-janeiro (Brazil)
+- [ ] san-antonio (Santiago, Chile)
+- [ ] valparaiso (Santiago gateway, Chile)
+
+#### Africa (1)
+- [ ] cape-town (South Africa) - also port of call
+
+#### Caribbean (1)
+- [ ] montego-bay (Jamaica)
+
+### Existing Aliases (HTML exists under different name)
+These homeports have HTML pages under alternate names:
+- bayonne → `/ports/cape-liberty.html` ✅
+- fort-lauderdale → `/ports/port-everglades.html` ✅
+- miami → `/ports/port-miami.html` ✅
+- new-york → `/ports/cape-liberty.html` ✅ (Cape Liberty is in NY Harbor area)
+- civitavecchia → `/ports/civitavecchia.html` ✅ (Rome's port)
+- piraeus → `/ports/athens.html` ✅ (Athens port)
+
+### Tracker Homeport Entries - URL Updates Needed (26)
+
+**Already documented in port-tracker.html section above. These hp-* entries have `url: null` but can link to existing pages.**
+
+### New Homeports to ADD to Tracker (29 new entries)
+
+These homeports are on the RCL list but not in the tracker's PORTS_DB:
+
+#### North America (5)
+- [ ] hp-norfolk
+- [ ] hp-philadelphia
+- [ ] hp-west-palm-beach
+- [ ] hp-san-juan (have HTML, need tracker entry)
+- [ ] hp-honolulu (have HTML, need tracker entry)
+
+#### Europe (9)
+- [ ] hp-dover (London gateway)
+- [ ] hp-hamburg
+- [ ] hp-istanbul
+- [ ] hp-le-havre (Paris gateway)
+- [ ] hp-lisbon
+- [ ] hp-livorno (Florence/Pisa gateway)
+- [ ] hp-athens (Piraeus)
+- [ ] hp-ravenna
+- [ ] hp-trieste
+
+#### Asia/Middle East (5)
+- [ ] hp-dubai
+- [ ] hp-mumbai
+- [ ] hp-phuket
+- [ ] hp-shanghai
+- [ ] hp-tianjin
+
+#### Australia (1)
+- [ ] hp-melbourne (have HTML, need tracker entry)
+
+#### South America (8)
+- [ ] hp-buenos-aires
+- [ ] hp-callao
+- [ ] hp-cartagena (have HTML as port of call)
+- [ ] hp-colon
+- [ ] hp-la-guaira
+- [ ] hp-rio-de-janeiro
+- [ ] hp-san-antonio
+- [ ] hp-valparaiso
+
+#### Africa/Other (1)
+- [ ] hp-cape-town
+- [ ] hp-haifa
+- [ ] hp-montego-bay
+
+### Priority Recommendations - Homeports
+
+**P1 - Immediate (Major RCL hubs):**
+1. dubai, istanbul, hamburg (3 ports - Europe/Middle East expansion)
+2. rio-de-janeiro, buenos-aires (2 ports - South America hubs)
+
+**P2 - Short-term:**
+1. cape-town, haifa (2 ports - Africa/Middle East)
+2. mumbai, phuket, tianjin (3 ports - Asia)
+
+**P3 - Medium-term:**
+1. US regional: charleston, norfolk, philadelphia, san-francisco, west-palm-beach (5 ports)
+2. South America: callao, colon, valparaiso, san-antonio, la-guaira (5 ports)
+
+---
+
 ## How This File Works
 
 1. Tasks are organized by priority (P0 = Critical, P1 = High, P2 = Medium, P3 = Low, P4 = Future)
