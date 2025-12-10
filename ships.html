@@ -672,7 +672,7 @@
   <link rel="stylesheet" href="/assets/css/item-cards.css?v=1.0.0">
 
   <!-- LCP preload -->
-  <link rel="preload" as="image" href="https://cruisinginthewake.com/assets/index_hero.webp?v=3.010.300" fetchpriority="high">
+  <link rel="preload" as="image" href="https://cruisinginthewake.com/assets/index_hero.jpg?v=3.010.300" fetchpriority="high">
 
   <!-- Page-local styles (tiny, standards-safe) -->
   </head>
@@ -1195,7 +1195,7 @@
         title:'Freedom of Your Own Wake',
         date:'2025-10-17',
         dek:'On choosing solitude without being alone.',
-        image:'/assets/index_hero.webp?v='+V,
+        image:'/assets/index_hero.jpg?v='+V,
         author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp?v='+V}
       },
       {
@@ -1212,7 +1212,7 @@
         date:'2025-10-16',
         dek:'A first-person guide to planning, packing, ports, and ship life.',
         image:'/assets/articles/thumbs/top-20-questions/cover.webp?v='+V,
-        fallback:'/assets/index_hero.webp?v='+V,
+        fallback:'/assets/index_hero.jpg?v='+V,
         author:{name:'Ken Baker',url:'/authors/ken-baker.html',image:'/authors/img/ken1.webp?v='+V}
       }
     ];
@@ -1476,7 +1476,7 @@
           const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
           alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
         }
-        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
+        setImageWithFallback(el, primary || '/assets/index_hero.jpg', alts);
       });
 
       if(fallback) fallback.style.display = 'none';

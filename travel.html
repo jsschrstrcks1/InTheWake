@@ -282,7 +282,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
 
   <!-- Preload LCP image (hero) -->
-  <link rel="preload" as="image" href="/assets/index_hero.webp?v=3.010.300" imagesrcset="/assets/index_hero.webp?v=3.010.300" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.300" imagesrcset="/assets/index_hero.jpg?v=3.010.300" fetchpriority="high"/>
 
   <!-- Page CSS (layout, rails, and NAV FIXES) -->
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
@@ -1217,7 +1217,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
           const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
           alts.push(base + '.jpeg', base + '.JPG', base + '.webp', base + '.png');
         }
-        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
+        setImageWithFallback(el, primary || '/assets/index_hero.jpg', alts);
       });
 
       if(fallback) fallback.style.display = 'none';
