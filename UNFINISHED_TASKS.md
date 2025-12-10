@@ -288,6 +288,40 @@ After downloading, must add attribution sections to HTML.
 - [ ] Run Google PageSpeed Insights on key pages
 - [ ] Verify lazy loading for all images
 
+### 🟢 [G] CSS Consolidation — PRIORITY
+**Lane:** 🟢 Green (technical refactor, AI-safe)
+**Reference:** packing-lists.html as canonical pattern
+**Scope:** Site-wide styles.css + inline CSS extraction
+
+- [ ] Audit /assets/styles.css for conflicts and redundancies
+- [ ] Create canonical definitions (first instance + merged qualities)
+- [ ] Resolve conflicts: prefer packing-lists.html patterns
+- [ ] Remove unused/dead CSS selectors
+- [ ] Document CSS architecture decisions
+
+### 🟢 [G] Ship Page Standardization (178 pages)
+**Lane:** 🟢 Green (pattern normalization, AI-safe)
+**Reference:** packing-lists.html header pattern
+
+#### Phase 1: Extract Shared CSS
+- [ ] Create /assets/ship-page.css with standardized hero, page-grid, author-card
+- [ ] Replace inline styles in ship pages with CSS link
+
+#### Phase 2: RCL Ships (50 pages)
+- [ ] Fix author avatar to circle (remove inline border-radius overrides)
+- [ ] Standardize carousel markup to `<figure>` pattern
+- [ ] Align section order: First Look → Dining → Videos → Deck Plans/Tracker → FAQ
+- [ ] Remove emoji from stateroom buttons (consistency)
+- [ ] Uniform version badge (3.010.300)
+
+#### Phase 3: Carnival Ships (48 pages)
+- [ ] Apply same fixes as RCL Phase 2
+
+#### Phase 4: Header Standardization (site-wide)
+- [ ] Audit header patterns across all 178+ pages
+- [ ] Normalize hero sizing/positioning to packing-lists.html pattern
+- [ ] Ensure logo stays within viewable area (documented issue)
+
 ### ICP-Lite Content Enhancements
 - [ ] Add H1 + answer line to pilot ship pages
 - [ ] Add fit-guidance cards to ship pages
