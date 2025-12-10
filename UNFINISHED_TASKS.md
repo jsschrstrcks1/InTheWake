@@ -693,16 +693,68 @@ After downloading, must add attribution sections to HTML.
 - [ ] Run Google PageSpeed Insights on key pages
 - [ ] Verify lazy loading for all images
 
-### 🟢 [G] CSS Consolidation — PRIORITY
+### 🟢 [G] CSS Consolidation — PRIORITY (AUDIT COMPLETE 2025-12-10)
 **Lane:** 🟢 Green (technical refactor, AI-safe)
 **Reference:** packing-lists.html as canonical pattern
 **Scope:** Site-wide styles.css + inline CSS extraction
 
-- [ ] Audit /assets/styles.css for conflicts and redundancies
-- [ ] Create canonical definitions (first instance + merged qualities)
-- [ ] Resolve conflicts: prefer packing-lists.html patterns
-- [ ] Remove unused/dead CSS selectors
-- [ ] Document CSS architecture decisions
+#### 📊 Audit Results (2025-12-10)
+| Metric | Count |
+|--------|-------|
+| Total HTML files | 522 |
+| Files with `<style>` blocks | 511 (98%) |
+| Files with inline `style=` attrs | 517 (99%) |
+| Total inline `style=` occurrences | **16,798** |
+| Unique inline patterns | 511 |
+| Main styles.css | 627 lines |
+
+**Inline Styles by Directory:**
+- ports/: 5,837 (avg 36/file)
+- ships/: 5,543 (avg 31/file)
+- restaurants/: 4,280 (avg 33/file)
+- solo/: 202 (avg 13/file)
+- root/: 715
+
+**⚠️ Major Conflict:** 478 pages override `.page-grid` with conflicting definitions!
+- styles.css: `grid-template-columns: minmax(0, 1fr) minmax(260px, var(--rail))`
+- Inline `<style>`: `grid-template-columns: 1fr 360px`
+
+#### Phase 1: Extract High-Frequency Patterns to CSS Classes
+**Target:** Top 10 patterns (7,000+ occurrences)
+- [ ] `.list-item-indent` → `margin: 0.5rem 0; padding-left: 1rem;` (1,069×)
+- [ ] `.accordion-trigger` → `cursor: pointer; font-weight: 600; padding: 0.5rem 0;` (1,029×)
+- [ ] `.section-divider` → `border-bottom: 1px solid #e0e8f0;` (642×)
+- [ ] `.content-text` → `color: var(--ink-mid); line-height: 1.5;` (520×)
+- [ ] `.hidden` → `display: none;` (517×)
+- [ ] `.sr-only` (already exists?) → `opacity:0;position:absolute;` (454×)
+- [ ] `.mt-05` → `margin-top: 0.5rem;` (454×)
+- [ ] `.inline` → `display: inline;` (441×)
+- [ ] `.rounded-lg` → `border-radius: 12px;` (432×)
+- [ ] `.img-cover` → `width:100%;height:100%;object-fit:cover;` (429×)
+
+#### Phase 2: Extract Component Patterns
+**Target:** Article Rail component (417× each pattern = 2,900+ occurrences)
+- [ ] Create `.article-card` component class
+- [ ] Create `.article-card-thumb` for 80×60 thumbnail
+- [ ] Create `.article-card-body` for flex layout
+- [ ] Replace inline styles in 417 article cards
+
+#### Phase 3: Resolve .page-grid Conflict
+- [ ] Decide canonical `.page-grid` definition (styles.css vs inline)
+- [ ] Remove redundant `.page-grid` from all `<style>` blocks
+- [ ] Estimated: 478 files need `<style>` block cleanup
+
+#### Phase 4: Remove Inline `<style>` Blocks
+- [ ] Port pages: Remove 161 redundant `<style>` blocks (~34,615 lines)
+- [ ] Ship pages: Remove 178 redundant `<style>` blocks
+- [ ] Restaurant pages: Remove 129 redundant `<style>` blocks
+- [ ] Verify pages render correctly after removal
+
+#### Phase 5: Inline `style=` Attribute Cleanup
+- [ ] Run sed/replace to swap inline styles for class names
+- [ ] Target: Reduce 16,798 inline styles to <1,000
+
+**Estimated Impact:** Remove ~50,000+ lines of duplicated CSS
 
 ### 🟢 [G] Ship Page Standardization (178 pages)
 **Lane:** 🟢 Green (pattern normalization, AI-safe)
