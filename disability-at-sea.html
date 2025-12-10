@@ -62,7 +62,7 @@ ADDENDUM: Facebook Domain Verification v3.008.021
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.100"/>
 
   <!-- Preload Hero -->
-  <link rel="preload" as="image" href="/assets/index_hero.webp?v=3.010.100" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.100" fetchpriority="high"/>
 
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
@@ -489,7 +489,7 @@ ADDENDUM: Facebook Domain Verification v3.008.021
       host.innerHTML = view.map(a=>{
         const title = pick(a,['title','headline'],'Article');
         const href  = pick(a,['url','permalink','path'],'#');
-        const img   = pick(a,['image','cover','thumb'], '/assets/index_hero.webp?v=3.010.100');
+        const img   = pick(a,['image','cover','thumb'], '/assets/index_hero.jpg?v=3.010.100');
         return `
           <a class="card" style="display:grid;grid-template-columns:72px 1fr;gap:.6rem;align-items:center" href="${href}">
             <div style="width:72px;height:48px;overflow:hidden;border-radius:10px;background:#eef4f6;border:1px solid #dfe7ea">
@@ -624,7 +624,7 @@ ADDENDUM: Facebook Domain Verification v3.008.021
           const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
           alts.push(base + '.jpeg', base + '.JPG', base + '.webp', base + '.png');
         }
-        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
+        setImageWithFallback(el, primary || '/assets/index_hero.jpg', alts);
       });
 
       if(fallback) fallback.style.display = 'none';
