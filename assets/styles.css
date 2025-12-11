@@ -849,4 +849,120 @@ figure.hero img + img,
 }
 .region-header:first-child { margin-top: 0; }
 
+/* ===== Article Card Component (CSS Consolidation Phase 2) ===== */
+/* Replaces inline styles in Recent Stories rail across 417+ pages */
+
+.article-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.85rem;
+}
+
+.article-card-grid {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.article-thumb-wrap {
+  width: 80px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #eef4f6;
+  border: 1px solid #dfe7ea;
+  flex-shrink: 0;
+}
+
+.article-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.article-card-body h4 {
+  margin: 0 0 0.35rem 0;
+  font-size: 0.9rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.article-card-body h4 a {
+  color: var(--accent, #0e6e8e);
+  text-decoration: none;
+}
+
+.article-card-body h4 a:hover {
+  text-decoration: underline;
+}
+
+.article-card-body .excerpt {
+  margin: 0;
+  line-height: 1.4;
+  color: var(--ink-mid, #3d5a6a);
+  font-size: 0.88rem;
+}
+
+.article-card .read-more {
+  align-self: flex-start;
+  font-size: 0.85rem;
+  padding: 0.45rem 0.95rem;
+  text-decoration: none;
+}
+
+/* Feature/Explore Cards (index.html pattern) */
+.explore-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 720px) {
+  .explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 980px) {
+  .explore-grid.top { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .explore-grid.bottom { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.feature-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-card h3 { margin: 0 0 0.5rem; }
+.feature-card h3 a { color: var(--sea); text-decoration: none; }
+.feature-card h3 a:hover { color: var(--accent); }
+
+.feature-card p {
+  flex: 1;
+  margin: 0 0 0.75rem;
+  color: var(--ink-mid);
+  line-height: 1.5;
+}
+
+.feature-card .actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+/* Class Section Headers (Ship/Port Trackers) */
+.class-section {
+  margin: 1.5rem 0 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--foam);
+  border-radius: 8px;
+  border: 1px solid var(--rope);
+}
+
+.class-section h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--sea);
+}
+
 /* ===== END Unified Styles ===== */
