@@ -506,7 +506,7 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 - [x] /restaurants.html - ✅ Has content, no placeholder text
 
 ### Page Fixes Needed
-- [ ] /search.html - Lacks version badge (V1.Beta)
+- [x] /search.html - Added version badge (V1.Beta) to navbar
 - [x] /tools/ship-tracker.html - Added logbook CSS to styles.css
 - [x] /tools/port-tracker.html - Added logbook CSS to styles.css
 
@@ -711,69 +711,62 @@ After downloading, must add attribution sections to HTML.
 - [x] restaurants.html - 17→8 inline styles (96cf3448)
 - [x] ports.html - 74→18 inline styles (e2e80105)
 
-#### 🔴 BLOCKING BUG: quantum-of-the-seas.html Layout Issue
-**Status:** Under investigation
-**Symptoms:**
-- "A First Look" and "Dining Venues" sections stretch thousands of lines
-- Page content doesn't start at the top
-- Grid creates "million billion extra lines in different squares"
-- Swiper images not displaying in First Look carousel
+#### ✅ FIXED: quantum-of-the-seas.html Layout Issue (2025-12-11)
+**Status:** COMPLETE - Fixed in commit 003bd1b4
 
-**Root Cause Analysis (2025-12-10):**
-- icon-of-the-seas.html (comparison page) also has same structural issues:
-  - Duplicate `<!doctype html>` at line 10
-  - Inline `style="grid-template-columns: 1fr"` on `<main>` overrides `.page-grid` (2-column) with single column
-  - Items placed in `grid-column: 2` while template only has 1 column → implicit columns created
-- The `.grid-2` class uses `align-items: stretch` which can cause cards to stretch to enormous heights
-- Swiper images using `.webp` directly without `<picture>` fallback may not load in some browsers
+**What was fixed:**
+- Removed duplicate `<!doctype html>` declarations from all 49 RCL ship pages
+- Removed conflicting inline `grid-template-columns: 1fr` styles from `<main>` elements
+- Replaced inline `grid-column: 2` styles on `<aside>` with proper `col-2` CSS class
+- Added CSS for `<picture>` elements in Swiper carousels (commit 97afbc21)
 
-**TODO:**
-- [ ] Fix quantum-of-the-seas.html structure to match working pages (ships.html pattern)
-- [ ] Audit all 178 ship pages for duplicate doctype and conflicting inline grid styles
-- [ ] Ensure Swiper images have `<picture>` with fallback formats
+**Root Cause Was:**
+- Duplicate doctypes causing parsing issues
+- Inline grid styles overriding `.page-grid` CSS class
+- `<picture>` elements lacking positioning CSS for absolute image placement
 
 #### Remaining Work
 
-#### 📊 Audit Results (2025-12-10)
-| Metric | Count |
-|--------|-------|
-| Total HTML files | 522 |
-| Files with `<style>` blocks | 511 (98%) |
-| Files with inline `style=` attrs | 517 (99%) |
-| Total inline `style=` occurrences | **16,798** |
-| Unique inline patterns | 511 |
-| Main styles.css | 627 lines |
+#### 📊 Audit Results (Updated 2025-12-11)
+| Metric | Before | After |
+|--------|--------|-------|
+| Files with `<style>` blocks | 511 | **6** ✅ |
+| Total inline `style=` occurrences | 16,798 | **12,618** |
+| Main styles.css | 627 lines | **969 lines** |
 
-**Inline Styles by Directory:**
-- ports/: 5,837 (avg 36/file)
-- ships/: 5,543 (avg 31/file)
-- restaurants/: 4,280 (avg 33/file)
-- solo/: 202 (avg 13/file)
-- root/: 715
+**Progress:**
+- Removed ~4,180 inline style occurrences (25% reduction)
+- Reduced `<style>` blocks from 511 to 6 files (99% reduction)
+- Added comprehensive utility classes to styles.css
 
-**⚠️ Major Conflict:** 478 pages override `.page-grid` with conflicting definitions!
-- styles.css: `grid-template-columns: minmax(0, 1fr) minmax(260px, var(--rail))`
-- Inline `<style>`: `grid-template-columns: 1fr 360px`
+**Remaining inline styles (~12,600) are primarily:**
+- Duck card special styling (index.html)
+- Dynamic JavaScript-generated content
+- One-off hero/background images
+- Specific component positioning
 
-#### Phase 1: Extract High-Frequency Patterns to CSS Classes
-**Target:** Top 10 patterns (7,000+ occurrences)
-- [ ] `.list-item-indent` → `margin: 0.5rem 0; padding-left: 1rem;` (1,069×)
-- [ ] `.accordion-trigger` → `cursor: pointer; font-weight: 600; padding: 0.5rem 0;` (1,029×)
-- [ ] `.section-divider` → `border-bottom: 1px solid #e0e8f0;` (642×)
-- [ ] `.content-text` → `color: var(--ink-mid); line-height: 1.5;` (520×)
-- [ ] `.hidden` → `display: none;` (517×)
-- [ ] `.sr-only` (already exists?) → `opacity:0;position:absolute;` (454×)
-- [ ] `.mt-05` → `margin-top: 0.5rem;` (454×)
-- [ ] `.inline` → `display: inline;` (441×)
-- [ ] `.rounded-lg` → `border-radius: 12px;` (432×)
-- [ ] `.img-cover` → `width:100%;height:100%;object-fit:cover;` (429×)
+#### ✅ Phase 1: Extract High-Frequency Patterns to CSS Classes (COMPLETE 2025-12-10)
+**Status:** Already in styles.css (lines 47-105)
+- [x] `.list-indent` → `margin: 0.5rem 0; padding-left: 1rem;`
+- [x] `.faq-item summary` → `cursor: pointer; font-weight: 600; padding: 0.5rem 0;`
+- [x] `.section-divider` → `border-bottom: 1px solid #e0e8f0;`
+- [x] `.content-text` → `color: var(--ink-mid); line-height: 1.5;`
+- [x] `.hidden` → `display: none !important;`
+- [x] `.sr-only` / `.visually-hidden` → screen reader only
+- [x] `.mt-05` through `.mt-2`, `.mb-0` through `.mb-1` → margin utilities
+- [x] `.inline` → `display: inline;`
+- [x] `.rounded-lg` / `.rounded-md` → border-radius utilities
+- [x] `.img-cover` → `width:100%;height:100%;object-fit:cover;`
 
-#### Phase 2: Extract Component Patterns
-**Target:** Article Rail component (417× each pattern = 2,900+ occurrences)
-- [ ] Create `.article-card` component class
-- [ ] Create `.article-card-thumb` for 80×60 thumbnail
-- [ ] Create `.article-card-body` for flex layout
-- [ ] Replace inline styles in 417 article cards
+#### ✅ Phase 2: Extract Component Patterns (COMPLETE 2025-12-11)
+**Status:** COMPLETE - Commit 028ba2d2
+**Target:** Article Rail component (418 files updated)
+- [x] Create `.article-card` component class
+- [x] Create `.article-thumb-wrap` and `.article-thumb` for 80×60 thumbnail
+- [x] Create `.article-card-body` for flex layout
+- [x] Create `.explore-grid` and `.feature-card` for index.html pattern
+- [x] Create `.class-section` for ship/port tracker headers
+- [x] Replace inline styles in 418 files (net reduction ~700 lines)
 
 #### Phase 3: Resolve .page-grid Conflict
 - [ ] Decide canonical `.page-grid` definition (styles.css vs inline)
@@ -1070,43 +1063,15 @@ This archive is maintained additively - tasks are never removed from this sectio
 - **Tracker Regular Ports:** 147 entries (all have URLs, all link correctly)
 - **Tracker Homeports:** 29 entries with `url: null` (not clickable)
 
-**ACTION REQUIRED: Link 14 homeport entries to existing HTML files:**
-- [ ] `hp-baltimore` → `/ports/baltimore.html`
-- [ ] `hp-galveston` → `/ports/galveston.html`
-- [ ] `hp-los-angeles` → `/ports/los-angeles.html`
-- [ ] `hp-miami` → `/ports/port-miami.html`
-- [ ] `hp-mobile` → `/ports/mobile.html`
-- [ ] `hp-new-orleans` → `/ports/new-orleans.html`
-- [ ] `hp-new-york` → `/ports/cape-liberty.html` (Cape Liberty is NYC's cruise terminal)
-- [ ] `hp-port-canaveral` → `/ports/port-canaveral.html`
-- [ ] `hp-fort-lauderdale` → `/ports/port-everglades.html` (Port Everglades is Fort Lauderdale)
-- [ ] `hp-san-diego` → `/ports/san-diego.html`
-- [ ] `hp-seattle` → `/ports/seattle.html`
-- [ ] `hp-tampa` → `/ports/tampa.html`
-- [ ] `hp-vancouver` → `/ports/vancouver.html`
-- [ ] `hp-melbourne` → `/ports/melbourne.html` (Australia homeport)
+**✅ DONE: Link 26 homeport entries to existing HTML files (2025-12-11)**
+Commit: 16b06eb3
 
-**Additional homeports that can link to existing regular port pages (12):**
-- [ ] `hp-amsterdam` → `/ports/amsterdam.html`
-- [ ] `hp-auckland` → `/ports/auckland.html`
-- [ ] `hp-barcelona` → `/ports/barcelona.html`
-- [ ] `hp-boston` → `/ports/boston.html`
-- [ ] `hp-brisbane` → `/ports/brisbane.html`
-- [ ] `hp-copenhagen` → `/ports/copenhagen.html`
-- [ ] `hp-hong-kong` → `/ports/hong-kong.html`
-- [ ] `hp-quebec-city` → `/ports/quebec-city.html`
-- [ ] `hp-singapore` → `/ports/singapore.html`
-- [ ] `hp-southampton` → `/ports/southampton.html`
-- [ ] `hp-sydney` → `/ports/sydney.html`
-- [ ] `hp-venice` → `/ports/venice.html`
+All homeports with existing HTML pages now have clickable links in port-tracker.html.
 
-**Remaining homeports without any HTML page (3):**
+**Remaining homeports without HTML pages (3):**
 - hp-charleston (no /ports/charleston.html)
 - hp-jacksonville (no /ports/jacksonville.html)
 - hp-san-francisco (no /ports/san-francisco.html)
-- hp-rome (no /ports/rome.html - Civitavecchia is Rome's port, could link there)
-
-**SUMMARY: 26 of 29 homeport entries can be linked to existing pages**
 
 #### Ship Tracker / Port Logbook (Navigation)
 - [x] SITE-WIDE: Rename "Ship Tracker" → "Ship Logbook" in nav ✅ DONE 2025-11-28
