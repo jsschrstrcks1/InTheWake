@@ -281,18 +281,18 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
     <div class="stateroom-check-container">
     <!-- ICP-Lite Content Structure -->
-    <section class="page-intro" style="max-width: 1100px; margin: 1rem auto 1.5rem;">
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+    <section class="page-intro">
+      <p class="answer-line">
         <strong>Quick Answer:</strong> This page provides cruise planning resources for Stateroom Sanity Check. Use the information below to help plan your cruise vacation.
       </p>
 
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+      <p class="content-text">
         <strong>Best For:</strong> Cruisers researching stateroom sanity check, comparing options, and gathering information for trip planning.
       </p>
 
-      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-        <ul style="margin: 0; padding-left: 1.25rem;">
+      <div class="callout-box">
+        <h3 class="mt-0 mb-05">Key Facts</h3>
+        <ul class="list-indent">
           <li><strong>Topic:</strong> Stateroom Sanity Check</li>
           <li><strong>Purpose:</strong> Cruise planning resource</li>
         </ul>
@@ -307,33 +307,33 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </section>
 
     <!-- Data Disclaimer -->
-    <section class="intro-section" style="background: #f7fdff; border-color: #3498db;">
-      <h2 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--navy, #0a3d62);">About Our Data</h2>
-      <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.75rem;">
+    <section class="intro-section callout-box">
+      <h2 class="mb-05">About Our Data</h2>
+      <p class="content-text mb-05">
         This tool uses crowd-sourced data from cruise communities like CruiseCritic, Reddit, CruiseMummy, and RoyalCaribbeanBlog. Each report is AI-verified and scored for trust and consensus, but individual experiences can vary. We don't guarantee that every cabin will match these patterns—your experience may differ based on weather, sailing season, and personal sensitivity.
       </p>
-      <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">
-        <strong>Found an exception we missed?</strong> We'd love to hear from you. <a href="mailto:contact@cruisinginthewake.com?subject=Stateroom Exception Report" style="color: var(--accent, #0e6e8e); text-decoration: underline;">Email us your cabin experience</a> and help us improve this tool for the community.
+      <p class="content-text mb-0">
+        <strong>Found an exception we missed?</strong> We'd love to hear from you. <a href="mailto:contact@cruisinginthewake.com?subject=Stateroom Exception Report">Email us your cabin experience</a> and help us improve this tool for the community.
       </p>
     </section>
 
     <!-- PWA Install Prompt (Offline Mode) -->
-    <section id="pwa-install-banner" class="intro-section" style="background: #fff8e1; border-color: #ffa000; display: none;">
-      <h2 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--navy, #0a3d62);">📱 Planning to Book Onboard?</h2>
-      <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.75rem;">
+    <section id="pwa-install-banner" class="intro-section pwa-banner hidden">
+      <h2 class="mb-05">📱 Planning to Book Onboard?</h2>
+      <p class="content-text mb-05">
         Take this tool with you offline! When you book your next cruise at the next cruise desk, you'll have instant cabin insights—no WiFi or ship internet needed.
       </p>
-      <p style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 0.75rem; color: #555;">
+      <p class="tiny mb-05">
         <strong>What happens when you install:</strong> Your phone downloads this page and all ship cabin data (~500KB total). You get an app icon on your home screen that works completely offline. No tracking, no permissions, no internet required—just instant cabin checking whenever you need it.
       </p>
-      <button id="pwa-install-button" style="background: #ffa000; color: #fff; border: none; padding: 0.75rem 1.5rem; font-size: 1rem; font-weight: 600; border-radius: 4px; cursor: pointer; margin-bottom: 0.5rem;">
+      <button id="pwa-install-button" class="pwa-install-btn mb-05">
         Install Offline App
       </button>
-      <p id="pwa-status" style="font-size: 0.85rem; color: #666; margin: 0.5rem 0 0;"></p>
+      <p id="pwa-status" class="tiny mt-05"></p>
     </section>
 
     <!-- Offline Status Indicator -->
-    <div id="offline-indicator" style="display: none; background: #ff6b6b; color: #fff; padding: 0.75rem; text-align: center; font-weight: 600; margin-bottom: 1rem; border-radius: 4px;">
+    <div id="offline-indicator" class="offline-indicator hidden">
       📵 You're offline – but this tool still works! All ship data is cached on your device.
     </div>
 
@@ -345,7 +345,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <!-- Cruise Line Selection (locked to Royal Caribbean) -->
         <div class="form-group">
           <label for="cruise-line-select">Cruise Line</label>
-          <select id="cruise-line-select" name="cruise-line" required disabled style="background-color: #f5f5f5; cursor: not-allowed;">
+          <select id="cruise-line-select" name="cruise-line" required disabled>
             <option value="royal-caribbean" selected>Royal Caribbean</option>
           </select>
           <p class="help-text">Currently supporting Royal Caribbean ships. More cruise lines coming soon!</p>
@@ -374,10 +374,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <option value="">Select a class first...</option>
           </select>
           <p class="help-text" id="ship-help-text">Choose a ship class above to see available ships</p>
-          <p class="help-text" style="font-style: italic; margin-top: 0.5rem; color: var(--ink-mid, #5a7a8a);">
+          <p class="help-text mt-05"><em>
             <strong>Sailing on a brand-new ship?</strong> Cabin feedback takes time to gather—usually 6-12 months after a ship's debut.
             Until then, choose a sister ship in the same class for guidance. Ships within a class share nearly identical layouts.
-          </p>
+          </em></p>
         </div>
 
         <div class="form-group">
@@ -418,22 +418,22 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </div>
 
     <!-- ICP-Lite FAQ Section -->
-    <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
-      <h2 style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions</h2>
+    <section class="card mt-15" id="faq" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently Asked Questions</h2>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What information does this page provide?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides planning resources and information about stateroom sanity check. Use it alongside official cruise line resources when planning your trip.</p>
+      <details class="faq-item">
+        <summary>What information does this page provide?</summary>
+        <p class="faq-answer">This page provides planning resources and information about stateroom sanity check. Use it alongside official cruise line resources when planning your trip.</p>
       </details>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Is this information official?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides community insights and planning resources. Always confirm details with your cruise line or travel advisor before making final decisions.</p>
+      <details class="faq-item">
+        <summary>Is this information official?</summary>
+        <p class="faq-answer">This page provides community insights and planning resources. Always confirm details with your cruise line or travel advisor before making final decisions.</p>
       </details>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How can I get more help?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">For additional assistance, contact your cruise line directly or work with a travel advisor who specializes in cruises.</p>
+      <details class="faq-item">
+        <summary>How can I get more help?</summary>
+        <p class="faq-answer">For additional assistance, contact your cruise line directly or work with a travel advisor who specializes in cruises.</p>
       </details>
     </section>
     </div>
@@ -445,7 +445,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+            <img class="author-avatar rounded-lg" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" decoding="async" loading="lazy"/>
           </picture>
         </a>
         <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
@@ -458,11 +458,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <!-- Recent Articles rail -->
       <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        <p class="tiny content-text mb-1">
           Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
         </p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
       </section>
     </aside>
 </main>
@@ -470,13 +470,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- FOOTER -->
     <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-    <p class="tiny" style="margin-top: 0.5rem;">
+    <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·
       <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
-    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+    <p class="tiny center visually-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
   </footer>
 
   <!-- JAVASCRIPT -->
@@ -681,19 +681,17 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         const href  = pick(p,['url','path'],'#');
         const excerpt = pick(p,['excerpt','description'],'');
         return `
-          <article class="card" style="display:flex;flex-direction:column;gap:.75rem;padding:.85rem">
-            <div style="display:grid;grid-template-columns:80px 1fr;gap:.75rem;align-items:start">
-              <div style="width:80px;height:60px;overflow:hidden;border-radius:8px;background:#eef4f6;border:1px solid #dfe7ea;flex-shrink:0">
-                <img class="article-thumb" alt="" decoding="async" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          <article class="card article-card">
+            <div class="article-card-grid">
+              <div class="article-thumb-wrap">
+                <img class="article-thumb" alt="" decoding="async" loading="lazy">
               </div>
-              <div>
-                <h4 style="margin:0 0 .35rem 0;font-size:.9rem;line-height:1.3;font-weight:600">
-                  <a href="\${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">\${title}</a>
-                </h4>
-                \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
+              <div class="article-card-body">
+                <h4><a href="\${href}">\${title}</a></h4>
+                \${excerpt ? `<p class="tiny excerpt">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
+            <a href="\${href}" class="pill read-more">Read Article →</a>
           </article>`;
       }).join('');
 
@@ -854,7 +852,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       // Show install banner
       if (installBanner) {
-        installBanner.style.display = 'block';
+        installBanner.classList.remove('hidden');
       }
     });
 
@@ -885,7 +883,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         // Hide banner after 3 seconds
         setTimeout(() => {
           if (installBanner) {
-            installBanner.style.display = 'none';
+            installBanner.classList.add('hidden');
           }
         }, 3000);
       });
@@ -896,9 +894,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
     function updateOnlineStatus() {
       if (!navigator.onLine && offlineIndicator) {
-        offlineIndicator.style.display = 'block';
+        offlineIndicator.classList.remove('hidden');
       } else if (offlineIndicator) {
-        offlineIndicator.style.display = 'none';
+        offlineIndicator.classList.add('hidden');
       }
     }
 
@@ -912,14 +910,14 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     window.addEventListener('appinstalled', () => {
       console.log('[PWA] App installed successfully');
       if (installBanner) {
-        installBanner.style.display = 'none';
+        installBanner.classList.add('hidden');
       }
     });
 
     // Hide banner if already in standalone mode (already installed)
     if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
       if (installBanner) {
-        installBanner.style.display = 'none';
+        installBanner.classList.add('hidden');
       }
     }
 

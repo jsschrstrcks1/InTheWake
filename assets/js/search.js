@@ -21,6 +21,100 @@ const CATEGORY_LABELS = {
   'port': 'Port'
 };
 
+// Food-related keywords that should prioritize restaurants over ports
+const FOOD_KEYWORDS = [
+  'pizza', 'sushi', 'steak', 'burger', 'seafood', 'lobster', 'shrimp', 'crab',
+  'pasta', 'italian', 'mexican', 'asian', 'chinese', 'japanese', 'thai', 'indian',
+  'breakfast', 'lunch', 'dinner', 'brunch', 'buffet', 'dining', 'restaurant',
+  'food', 'eat', 'menu', 'cuisine', 'chef', 'grill', 'bar', 'cafe', 'coffee',
+  'dessert', 'ice cream', 'chocolate', 'cake', 'bakery', 'pastry',
+  'wine', 'beer', 'cocktail', 'drink', 'beverage',
+  'tacos', 'burrito', 'sandwich', 'salad', 'soup', 'appetizer',
+  'vegetarian', 'vegan', 'gluten', 'allergy',
+  'escargot', 'prime rib', 'filet', 'duck', 'lamb', 'formal', 'main dining',
+  'ribeye', 'porterhouse', 'tiramisu', 'lasagna', 'parmesan', 'miso', 'tempura',
+  'sashimi', 'teriyaki', 'gyoza', 'edamame', 'churros', 'guacamole', 'fajitas',
+  'oysters', 'clam chowder', 'crab cake', 'milkshake', 'nachos', 'wings',
+  'johnny rockets', 'chops', 'izumi', 'wonderland', 'sorrento', 'giovannis',
+  'jamie', 'hibachi', 'teppanyaki', 'sabor', 'hooked', 'windjammer', 'playmakers'
+];
+
+// Location keywords that indicate port/destination intent
+const LOCATION_KEYWORDS = [
+  'italy', 'italian coast', 'greece', 'spain', 'france', 'caribbean', 'alaska',
+  'mexico', 'bahamas', 'jamaica', 'cozumel', 'nassau', 'labadee', 'perfect day',
+  'europe', 'mediterranean', 'asia', 'australia', 'hawaii', 'bermuda',
+  'port', 'destination', 'visit', 'excursion', 'shore', 'day trip'
+];
+
+// Ship-related keywords that should prioritize ships
+const SHIP_KEYWORDS = [
+  'icon', 'star', 'oasis', 'allure', 'harmony', 'symphony', 'wonder', 'utopia',
+  'quantum', 'anthem', 'ovation', 'spectrum', 'odyssey',
+  'freedom', 'liberty', 'independence',
+  'voyager', 'explorer', 'adventure', 'navigator', 'mariner',
+  'radiance', 'brilliance', 'serenade', 'jewel',
+  'vision', 'rhapsody', 'enchantment', 'grandeur', 'legend',
+  'of the seas', 'class', 'deck plan', 'stateroom', 'cabin'
+];
+
+// Check if query contains food-related terms
+function containsFoodTerm(query) {
+  const lowerQuery = query.toLowerCase();
+  return FOOD_KEYWORDS.some(term => lowerQuery.includes(term));
+}
+
+// Check if query contains location terms
+function containsLocationTerm(query) {
+  const lowerQuery = query.toLowerCase();
+  return LOCATION_KEYWORDS.some(term => lowerQuery.includes(term));
+}
+
+// Check if query contains ship-related terms
+function containsShipTerm(query) {
+  const lowerQuery = query.toLowerCase();
+  return SHIP_KEYWORDS.some(term => lowerQuery.includes(term));
+}
+
+// Determine the primary category order based on query analysis
+function getCategoryOrderForQuery(query) {
+  const hasFoodTerm = containsFoodTerm(query);
+  const hasShipTerm = containsShipTerm(query);
+  const hasLocationTerm = containsLocationTerm(query);
+
+  // Ship queries prioritize ships
+  if (hasShipTerm && !hasFoodTerm) {
+    return ['ship', 'restaurant', 'article', 'port', 'tool', 'cruise-line', 'hub', 'about'];
+  }
+
+  // Food queries prioritize restaurants (ports already filtered out)
+  if (hasFoodTerm && !hasLocationTerm) {
+    return ['restaurant', 'ship', 'article', 'tool', 'cruise-line', 'hub', 'about'];
+  }
+
+  // Location queries prioritize ports
+  if (hasLocationTerm && !hasFoodTerm) {
+    return ['port', 'ship', 'restaurant', 'article', 'tool', 'cruise-line', 'hub', 'about'];
+  }
+
+  // Default order
+  return ['restaurant', 'ship', 'article', 'port', 'tool', 'cruise-line', 'hub', 'about'];
+}
+
+// Filter results based on query context
+function filterResultsByContext(results, query) {
+  const hasFoodTerm = containsFoodTerm(query);
+  const hasLocationTerm = containsLocationTerm(query);
+
+  // If only food terms (no location), exclude ports
+  if (hasFoodTerm && !hasLocationTerm) {
+    return results.filter(r => r.item.category !== 'port');
+  }
+
+  // Otherwise, return all results
+  return results;
+}
+
 // Initialize search
 async function initSearch() {
   try {
@@ -103,7 +197,11 @@ function performSearch(query) {
     return;
   }
 
-  const results = fuse.search(query);
+  let results = fuse.search(query);
+
+  // Apply context-based filtering (e.g., exclude ports for food-only searches)
+  results = filterResultsByContext(results, query);
+
   displayResults(results, query);
 }
 
@@ -117,7 +215,7 @@ function doSearch(query) {
   }
 }
 
-// Display search results
+// Display search results grouped by category with collapsible sections
 function displayResults(results, query) {
   const container = document.getElementById('resultsContainer');
   const statusEl = document.getElementById('searchStatus');
@@ -138,51 +236,98 @@ function displayResults(results, query) {
   }
 
   // Limit results for performance
-  const maxResults = 50;
-  const displayResults = results.slice(0, maxResults);
+  const maxResults = 100;
+  const limitedResults = results.slice(0, maxResults);
 
-  // Group by category for better display
+  // Group by category
   const grouped = {};
-  displayResults.forEach(result => {
-    const cat = result.item.category;
+  limitedResults.forEach(result => {
+    const cat = result.item.category || 'other';
     if (!grouped[cat]) grouped[cat] = [];
     grouped[cat].push(result.item);
   });
 
-  // Build results HTML
-  let html = '<div class="results-grid">';
+  // Determine category order based on query type (food, ship, location, etc.)
+  const categoryOrder = getCategoryOrderForQuery(query);
 
-  displayResults.forEach(result => {
-    const item = result.item;
-    const categoryLabel = CATEGORY_LABELS[item.category] || item.category;
+  // Sort categories: ordered ones first, then any others alphabetically
+  const sortedCategories = Object.keys(grouped).sort((a, b) => {
+    const aIndex = categoryOrder.indexOf(a);
+    const bIndex = categoryOrder.indexOf(b);
+    if (aIndex === -1 && bIndex === -1) return a.localeCompare(b);
+    if (aIndex === -1) return 1;
+    if (bIndex === -1) return -1;
+    return aIndex - bIndex;
+  });
+
+  // Build results HTML with collapsible sections
+  let html = '<div class="results-grouped">';
+
+  sortedCategories.forEach((cat, catIndex) => {
+    const items = grouped[cat];
+    const categoryLabel = CATEGORY_LABELS[cat] || cat.charAt(0).toUpperCase() + cat.slice(1);
+    const pluralLabel = items.length !== 1 ? getCategoryPlural(cat) : categoryLabel;
+    const isFirstCategory = catIndex === 0;
 
     html += `
-      <article class="result-card">
-        <a href="${item.url}">
-          <span class="result-category">${categoryLabel}</span>
-          <h3 class="result-title">${escapeHtml(item.title)}</h3>
-        </a>
-        <p class="result-description">${escapeHtml(truncate(item.description, 100))}</p>
-        <p class="result-cta">${escapeHtml(item.cta)}</p>
-      </article>
+      <details class="results-section" ${isFirstCategory ? 'open' : ''}>
+        <summary class="results-section-header">
+          <span class="results-section-title">${pluralLabel}</span>
+          <span class="results-section-count">${items.length}</span>
+        </summary>
+        <div class="results-section-content">
+          <div class="results-grid">
+    `;
+
+    items.forEach(item => {
+      html += `
+        <article class="result-card">
+          <a href="${item.url}">
+            <h3 class="result-title">${escapeHtml(item.title)}</h3>
+          </a>
+          <p class="result-description">${escapeHtml(truncate(item.description, 120))}</p>
+          ${item.cta ? `<p class="result-cta">${escapeHtml(truncate(item.cta, 80))}</p>` : ''}
+        </article>
+      `;
+    });
+
+    html += `
+          </div>
+        </div>
+      </details>
     `;
   });
 
   html += '</div>';
 
-  // Show category summary
-  const categoryCounts = Object.entries(grouped)
-    .map(([cat, items]) => `${items.length} ${CATEGORY_LABELS[cat] || cat}${items.length !== 1 ? 's' : ''}`)
-    .join(', ');
-
   container.innerHTML = html;
 
+  // Update status
   if (statusEl) {
+    const categoryCounts = sortedCategories
+      .map(cat => `${grouped[cat].length} ${getCategoryPlural(cat).toLowerCase()}`)
+      .join(', ');
+
     const totalText = results.length > maxResults
       ? `Showing ${maxResults} of ${results.length} results`
       : `${results.length} result${results.length !== 1 ? 's' : ''}`;
-    statusEl.textContent = `${totalText} for "${query}" (${categoryCounts})`;
+    statusEl.textContent = `${totalText} for "${query}"`;
   }
+}
+
+// Get plural form of category label
+function getCategoryPlural(category) {
+  const plurals = {
+    'restaurant': 'Restaurants & Venues',
+    'ship': 'Ships',
+    'article': 'Articles',
+    'cruise-line': 'Cruise Lines',
+    'hub': 'Hubs',
+    'tool': 'Tools',
+    'about': 'About Pages',
+    'port': 'Ports'
+  };
+  return plurals[category] || (CATEGORY_LABELS[category] || category) + 's';
 }
 
 // Show initial state with popular searches

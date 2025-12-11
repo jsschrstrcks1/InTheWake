@@ -351,9 +351,17 @@ a:focus, button:focus, [tabindex="0"]:focus {
 .distance-fun::after { content: ")"; opacity: .7; }
 
 /* ===== First Look Carousel (Swiper) ===== */
-.swiper.firstlook { aspect-ratio: 16/9; height: auto; min-height: 220px; }
+.swiper.firstlook { aspect-ratio: 16/9; height: auto; min-height: 220px; position: relative; }
 .swiper.firstlook .swiper-wrapper,
 .swiper.firstlook .swiper-slide { height: 100% !important; min-height: inherit; }
+.swiper.firstlook .swiper-slide { position: relative; } /* Ensures absolute imgs position correctly */
+.swiper.firstlook picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
 .swiper.firstlook figure { margin: 0; height: 100%; position: relative; overflow: hidden; }
 .swiper.firstlook img {
   position: absolute;
@@ -671,5 +679,466 @@ figure.hero img + img,
   outline-offset: 2px;
   box-shadow: 0 0 0 3px rgba(200,163,106,.15) inset;
 }
+
+/* ===== Logbook / Tracker Styles ===== */
+.tracker-container { max-width: 1200px; margin: 0 auto; padding: 1rem; }
+.tracker-header { text-align: center; margin-bottom: 1.5rem; }
+.tracker-header h1 { color: var(--sea); margin-bottom: 0.5rem; }
+.tracker-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+/* Stats Bar */
+.stats-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--foam);
+  border-radius: 12px;
+  border: 1px solid var(--rope);
+}
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100px;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.stat-number { font-size: 1.5rem; font-weight: 700; color: var(--sea); }
+.stat-label { font-size: 0.8rem; color: var(--text-muted); text-align: center; }
+
+/* Tracker Grid Layout */
+.tracker-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr 280px;
+  gap: 1.5rem;
+  align-items: start;
+}
+@media (max-width: 1024px) {
+  .tracker-grid { grid-template-columns: 1fr; }
+  .filter-panel, .bingo-panel { order: -1; }
+}
+
+/* Filter Panel */
+.filter-panel {
+  background: #fff;
+  border: 2px solid var(--rope);
+  border-radius: 14px;
+  padding: 1rem;
+  position: sticky;
+  top: 1rem;
+}
+.filter-panel h3 { margin: 0 0 0.75rem; color: var(--sea); font-size: 1rem; }
+.search-box {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+.search-box:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+.filter-button {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 0.4rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.85rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.filter-button:hover { background: var(--foam); border-color: var(--accent); }
+.filter-button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* Ship/Port List */
+.ship-list, .port-list {
+  display: grid;
+  gap: 0.75rem;
+}
+.ship-item, .port-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  border: 2px solid var(--rope);
+  border-radius: 10px;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+.ship-item:hover, .port-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.ship-item.sailed, .port-item.visited {
+  background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+  border-color: #81c784;
+}
+.ship-checkbox, .port-checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.ship-name, .port-name {
+  font-weight: 600;
+  color: var(--sea);
+  text-decoration: none;
+}
+.ship-name:hover, .port-name:hover { color: var(--accent); text-decoration: underline; }
+.ship-meta, .port-meta { font-size: 0.8rem; color: var(--text-muted); text-align: right; }
+.ship-notes { margin: 0.25rem 0 0; font-style: italic; color: var(--ink-mid); }
+
+/* Progress Bar */
+.progress-bar {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent) 0%, #4db6ac 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Bingo/Achievement Panel */
+.bingo-panel {
+  background: #fff;
+  border: 2px solid var(--rope);
+  border-radius: 14px;
+  padding: 1rem;
+  position: sticky;
+  top: 1rem;
+}
+.bingo-panel h3 { margin: 0 0 0.75rem; color: var(--sea); font-size: 1rem; }
+.badge-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+.badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem;
+  background: var(--foam);
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  opacity: 0.5;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.badge-item.earned { opacity: 1; background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); }
+.badge-item.earned:hover { transform: scale(1.05); }
+.badge-icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
+.badge-name { font-weight: 600; color: var(--sea); }
+
+/* Region Headers (Port Tracker) */
+.region-header {
+  margin: 1.5rem 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--rope);
+  color: var(--sea);
+  font-size: 1.1rem;
+}
+.region-header:first-child { margin-top: 0; }
+
+/* ===== Article Card Component (CSS Consolidation Phase 2) ===== */
+/* Replaces inline styles in Recent Stories rail across 417+ pages */
+
+.article-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.85rem;
+}
+
+.article-card-grid {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.article-thumb-wrap {
+  width: 80px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #eef4f6;
+  border: 1px solid #dfe7ea;
+  flex-shrink: 0;
+}
+
+.article-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.article-card-body h4 {
+  margin: 0 0 0.35rem 0;
+  font-size: 0.9rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.article-card-body h4 a {
+  color: var(--accent, #0e6e8e);
+  text-decoration: none;
+}
+
+.article-card-body h4 a:hover {
+  text-decoration: underline;
+}
+
+.article-card-body .excerpt {
+  margin: 0;
+  line-height: 1.4;
+  color: var(--ink-mid, #3d5a6a);
+  font-size: 0.88rem;
+}
+
+.article-card .read-more {
+  align-self: flex-start;
+  font-size: 0.85rem;
+  padding: 0.45rem 0.95rem;
+  text-decoration: none;
+}
+
+/* Feature/Explore Cards (index.html pattern) */
+.explore-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 720px) {
+  .explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 980px) {
+  .explore-grid.top { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .explore-grid.bottom { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.feature-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-card h3 { margin: 0 0 0.5rem; }
+.feature-card h3 a { color: var(--sea); text-decoration: none; }
+.feature-card h3 a:hover { color: var(--accent); }
+
+.feature-card p {
+  flex: 1;
+  margin: 0 0 0.75rem;
+  color: var(--ink-mid);
+  line-height: 1.5;
+}
+
+.feature-card .actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+/* Class Section Headers (Ship/Port Trackers) */
+.class-section {
+  margin: 1.5rem 0 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--foam);
+  border-radius: 8px;
+  border: 1px solid var(--rope);
+}
+
+.class-section h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--sea);
+}
+
+/* ===== Stateroom Check Page ===== */
+.stateroom-check-container { max-width: 100%; }
+
+.intro-section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--sky);
+  border-radius: 8px;
+  border: 1px solid #e0f0f5;
+}
+
+.intro-section h1 { margin-top: 0; }
+.intro-section h2 { font-size: 1.1rem; color: var(--sea); }
+.intro-section .tagline { font-style: italic; color: var(--ink-mid); margin-bottom: 1rem; }
+
+/* PWA Install Banner */
+.pwa-banner {
+  background: #fff8e1;
+  border-color: #ffa000;
+}
+
+.pwa-banner h2 { font-size: 1.1rem; color: var(--sea); }
+
+.pwa-install-btn {
+  background: #ffa000;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pwa-install-btn:hover { background: #ff8f00; }
+
+/* Offline Indicator */
+.offline-indicator {
+  background: #ff6b6b;
+  color: #fff;
+  padding: 0.75rem;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+/* Form Styles */
+.check-form { margin-bottom: 1.5rem; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; font-weight: 600; margin-bottom: 0.35rem; color: var(--sea); }
+.form-group select,
+.form-group input {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.form-group select:disabled { background-color: #f5f5f5; cursor: not-allowed; }
+.form-group .help-text { font-size: 0.85rem; color: var(--ink-mid); margin-top: 0.35rem; }
+
+.submit-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.85rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.submit-btn:hover { background: var(--accent-dark); }
+.submit-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+/* Results Container */
+.results-container { margin-top: 1.5rem; }
+.loading-message { text-align: center; padding: 2rem; color: var(--ink-mid); }
+.error-message { background: #fff5f5; border: 1px solid #ffcccc; padding: 1rem; border-radius: 8px; color: #c53030; }
+
+/* ===== Search Results - Grouped Collapsible Sections ===== */
+.results-grouped { display: flex; flex-direction: column; gap: 1rem; }
+
+.results-section {
+  background: #fff;
+  border: 1px solid #e0f0f5;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.results-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 1.25rem;
+  background: linear-gradient(to right, var(--foam), #fff);
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--sea);
+  list-style: none;
+  border-bottom: 1px solid transparent;
+  transition: background 0.2s;
+}
+.results-section-header::-webkit-details-marker { display: none; }
+.results-section[open] .results-section-header { border-bottom-color: #e0f0f5; background: var(--foam); }
+.results-section-header:hover { background: var(--foam); }
+
+.results-section-title { font-size: 1.1rem; }
+.results-section-title::before {
+  content: '▸';
+  display: inline-block;
+  margin-right: 0.5rem;
+  transition: transform 0.2s;
+}
+.results-section[open] .results-section-title::before { transform: rotate(90deg); }
+
+.results-section-count {
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+.results-section-content { padding: 1rem 1.25rem; }
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.result-card {
+  background: var(--sky);
+  border: 1px solid #e8f4f8;
+  border-radius: 10px;
+  padding: 1rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.result-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+
+.result-card a { text-decoration: none; }
+.result-card a:hover .result-title { text-decoration: underline; }
+
+.result-title {
+  font-size: 1rem;
+  color: var(--sea);
+  margin: 0 0 0.5rem;
+  line-height: 1.3;
+}
+
+.result-description {
+  font-size: 0.88rem;
+  color: var(--ink-mid);
+  margin: 0 0 0.5rem;
+  line-height: 1.45;
+}
+
+.result-cta {
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin: 0;
+  font-style: italic;
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--ink-mid);
+}
+.no-results h2 { color: var(--sea); margin-bottom: 0.5rem; }
 
 /* ===== END Unified Styles ===== */

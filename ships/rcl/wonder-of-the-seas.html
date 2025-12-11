@@ -7,7 +7,6 @@ All work on this project is offered as a gift to God.
 
 STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.300 · A11y/WCAG 2.1 AA Compliant
 -->
-<!doctype html>
 <html lang="en">
 <head>
 <!-- ai-breadcrumbs
@@ -363,22 +362,22 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </div></header>
 
     <!-- MAIN CONTENT -->
-  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1" style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start;">
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
   <!-- Right Rail -->
-    <aside class="rail" role="complementary" aria-label="Key facts, author & articles" style="grid-column: 2; grid-row: 1;">
+    <aside class="rail col-2" role="complementary" aria-label="Key facts, author & articles">
       <!-- Quick Answer / Best For / Key Facts -->
-      <section class="page-intro" style="margin: 0 0 1rem 0;">
-        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+      <section class="page-intro">
+        <p class="answer-line">
           <strong>Quick Answer:</strong> Wonder of the Seas is a Royal Caribbean ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
         </p>
 
-        <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+        <p class="content-text">
           <strong>Best For:</strong> Cruisers researching Wonder of the Seas or comparing Royal Caribbean ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
         </p>
 
-        <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-          <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
-          <ul style="margin: 0; padding-left: 1.25rem;">
+        <div class="callout-box">
+          <h3 class="mt-0 mb-05">Key Facts</h3>
+          <ul class="list-indent">
             <li><strong>Cruise Line:</strong> Royal Caribbean</li>
             <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
             <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
@@ -411,11 +410,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <!-- Recent Articles rail -->
       <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        <p class="tiny content-text mb-1">
           Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
         </p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles...</p>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
     
     <!-- Whimsical Distance Units -->
@@ -425,15 +424,15 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </aside>
 
     <!-- Main Content Column -->
-    <div style="grid-column: 1; grid-row: 1;">
-      <h1 style="font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--sea); margin: 0.75rem 0 0.5rem;">Wonder of the Seas — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
+    <div class="col-1">
+      <h1 class="page-title">Wonder of the Seas — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
 
-      <p style="margin: 0.5rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope); background: #f7fdff; border-radius: 8px; font-size: 0.95rem; color: #134;">
-        <strong style="display: block; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: #567; margin-bottom: 0.15rem;">Looking for Wonder of the Seas planning info?</strong>
+      <p class="answer-line">
+        <strong class="section-label">Looking for Wonder of the Seas planning info?</strong>
         <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Royal Caribbean cruise aboard Wonder of the Seas.</span>
       </p>
 
-      <p style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+      <p class="content-text">
         Wonder of the Seas tends to suit travelers who appreciate grand-scale cruising with seven distinct neighborhoods including Central Park, the Boardwalk, and the dramatic AquaTheater.
         It's ideal if you want one of the world's largest cruise ships with extensive dining and entertainment options, and the space to explore something new each day.
         If you're seeking a more intimate ship or prefer smaller-scale experiences, you may want to explore Radiance, Voyager, or <a href="/ships.html#vision-class">Vision class</a> instead.
@@ -628,29 +627,29 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <section class="card faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions</h2>
 
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What makes Wonder of the Seas unique compared to other Royal Caribbean ships?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Wonder of the Seas is the newest and largest ship in the <a href="/ships.html#oasis-class">Oasis Class</a>, featuring Royal Caribbean's signature seven-neighborhood layout including Central Park (with over 12,000 live plants and trees), Boardwalk with a hand-carved carousel, and the AquaTheater with high-diving shows. At 236,857 GT with space for up to 6,988 guests, it's one of the largest cruise ships in the world, offering extensive dining, entertainment, and activities across its multiple decks.</p>
+      <details class="faq-item">
+        <summary>What makes Wonder of the Seas unique compared to other Royal Caribbean ships?</summary>
+        <p class="faq-answer">Wonder of the Seas is the newest and largest ship in the <a href="/ships.html#oasis-class">Oasis Class</a>, featuring Royal Caribbean's signature seven-neighborhood layout including Central Park (with over 12,000 live plants and trees), Boardwalk with a hand-carved carousel, and the AquaTheater with high-diving shows. At 236,857 GT with space for up to 6,988 guests, it's one of the largest cruise ships in the world, offering extensive dining, entertainment, and activities across its multiple decks.</p>
       </details>
 
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Which ships are in the same class as Wonder of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Wonder of the Seas is part of the <a href="/ships.html#oasis-class">Oasis Class</a>, which includes <a href="/ships/rcl/oasis-of-the-seas.html">Oasis of the Seas</a>, <a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>, <a href="/ships/rcl/harmony-of-the-seas.html">Harmony of the Seas</a>, <a href="/ships/rcl/symphony-of-the-seas.html">Symphony of the Seas</a>, and <a href="/ships/rcl/utopia-of-the-seas.html">Utopia of the Seas</a>. All share the iconic seven-neighborhood design and massive scale.</p>
+      <details class="faq-item">
+        <summary>Which ships are in the same class as Wonder of the Seas?</summary>
+        <p class="faq-answer">Wonder of the Seas is part of the <a href="/ships.html#oasis-class">Oasis Class</a>, which includes <a href="/ships/rcl/oasis-of-the-seas.html">Oasis of the Seas</a>, <a href="/ships/rcl/allure-of-the-seas.html">Allure of the Seas</a>, <a href="/ships/rcl/harmony-of-the-seas.html">Harmony of the Seas</a>, <a href="/ships/rcl/symphony-of-the-seas.html">Symphony of the Seas</a>, and <a href="/ships/rcl/utopia-of-the-seas.html">Utopia of the Seas</a>. All share the iconic seven-neighborhood design and massive scale.</p>
       </details>
 
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Wonder of the Seas?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Wonder offers the <a href="/restaurants/mdr.html">main dining room</a>, <a href="/restaurants/windjammer.html">Windjammer</a> Café (buffet), specialty dining including <a href="/restaurants/chops.html">Chops Grille</a>, <a href="/restaurants/giovannis.html">Giovanni's Table</a>, <a href="/restaurants/izumi.html">Izumi</a>, <a href="/restaurants/150-central-park.html">150 Central Park</a>, and <a href="/restaurants/wonderland.html">Wonderland</a>, plus numerous bars and lounges throughout the ship's seven neighborhoods. See the <a href="#dining-card">Dining Venues section</a> above for current pricing and full details.</p>
+      <details class="faq-item">
+        <summary>What dining options are available on Wonder of the Seas?</summary>
+        <p class="faq-answer">Wonder offers the <a href="/restaurants/mdr.html">main dining room</a>, <a href="/restaurants/windjammer.html">Windjammer</a> Café (buffet), specialty dining including <a href="/restaurants/chops.html">Chops Grille</a>, <a href="/restaurants/giovannis.html">Giovanni's Table</a>, <a href="/restaurants/izumi.html">Izumi</a>, <a href="/restaurants/150-central-park.html">150 Central Park</a>, and <a href="/restaurants/wonderland.html">Wonderland</a>, plus numerous bars and lounges throughout the ship's seven neighborhoods. See the <a href="#dining-card">Dining Venues section</a> above for current pricing and full details.</p>
       </details>
 
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid var(--rope);">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Where does Wonder of the Seas typically sail?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Wonder typically sails Caribbean itineraries from Port Canaveral and other ports. Deployments vary by season — check the live tracker on this page or Royal Caribbean's official site for current and upcoming voyages.</p>
+      <details class="faq-item">
+        <summary>Where does Wonder of the Seas typically sail?</summary>
+        <p class="faq-answer">Wonder typically sails Caribbean itineraries from Port Canaveral and other ports. Deployments vary by season — check the live tracker on this page or Royal Caribbean's official site for current and upcoming voyages.</p>
       </details>
 
-      <details style="margin: 0.75rem 0; padding: 0.5rem 0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How can I see Wonder of the Seas' current location?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Use the <a href="#liveTrackHeading">live ship tracker</a> on this page (in the "Where Is Wonder Right Now?" section) to see the ship's current position, speed, and next port in real-time.</p>
+      <details class="faq-item">
+        <summary>How can I see Wonder of the Seas' current location?</summary>
+        <p class="faq-answer">Use the <a href="#liveTrackHeading">live ship tracker</a> on this page (in the "Where Is Wonder Right Now?" section) to see the ship's current position, speed, and next port in real-time.</p>
       </details>
     </section>
     </div><!-- End Main Content Column -->
@@ -669,13 +668,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- FOOTER -->
     <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-    <p class="tiny" style="margin-top: 0.5rem;">
+    <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·
       <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
-    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+    <p class="tiny center visually-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
   </footer>
 
   <!-- JAVASCRIPT -->
@@ -973,19 +972,17 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         const href  = pick(p,['url','path'],'#');
         const excerpt = pick(p,['excerpt','description'],'');
         return `
-          <article class="card" style="display:flex;flex-direction:column;gap:.75rem;padding:.85rem">
-            <div style="display:grid;grid-template-columns:80px 1fr;gap:.75rem;align-items:start">
-              <div style="width:80px;height:60px;overflow:hidden;border-radius:8px;background:#eef4f6;border:1px solid #dfe7ea;flex-shrink:0">
-                <img class="article-thumb" alt="" decoding="async" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          <article class="card article-card">
+            <div class="article-card-grid">
+              <div class="article-thumb-wrap">
+                <img class="article-thumb" alt="" decoding="async" loading="lazy">
               </div>
-              <div>
-                <h4 style="margin:0 0 .35rem 0;font-size:.9rem;line-height:1.3;font-weight:600">
-                  <a href="\${href}" style="color:var(--accent,#0e6e8e);text-decoration:none">\${title}</a>
-                </h4>
-                \${excerpt ? `<p class="tiny" style="margin:0;line-height:1.4;color:var(--ink-mid,#3d5a6a)">\${excerpt}</p>` : ''}
+              <div class="article-card-body">
+                <h4><a href="\${href}">\${title}</a></h4>
+                \${excerpt ? `<p class="tiny excerpt">\${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill" style="align-self:flex-start;font-size:.85rem;padding:.45rem .95rem;text-decoration:none">Read Article →</a>
+            <a href="\${href}" class="pill read-more">Read Article →</a>
           </article>`;
       }).join('');
 
