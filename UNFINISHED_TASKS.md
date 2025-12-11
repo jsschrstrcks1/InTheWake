@@ -507,6 +507,8 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 
 ### Page Fixes Needed
 - [ ] /search.html - Lacks version badge (V1.Beta)
+- [x] /tools/ship-tracker.html - Added logbook CSS to styles.css
+- [x] /tools/port-tracker.html - Added logbook CSS to styles.css
 
 ### 🟡 [Y] SEO External Tools Setup
 **Lane:** 🟡 Yellow (requires account credentials, human action)
