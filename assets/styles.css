@@ -351,10 +351,28 @@ a:focus, button:focus, [tabindex="0"]:focus {
 .distance-fun::after { content: ")"; opacity: .7; }
 
 /* ===== First Look Carousel (Swiper) ===== */
-.swiper.firstlook { aspect-ratio: 16/9; height: auto; min-height: 220px; position: relative; }
-.swiper.firstlook .swiper-wrapper,
-.swiper.firstlook .swiper-slide { height: 100% !important; min-height: inherit; }
-.swiper.firstlook .swiper-slide { position: relative; } /* Ensures absolute imgs position correctly */
+.swiper.firstlook {
+  aspect-ratio: 16/9;
+  height: auto;
+  min-height: 220px;
+  max-height: 500px; /* Prevent infinite stretch */
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  width: 100%;
+}
+.swiper.firstlook .swiper-wrapper {
+  height: 100% !important;
+  min-height: inherit;
+}
+.swiper.firstlook .swiper-slide {
+  height: 100% !important;
+  min-height: inherit;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 100%;
+}
 .swiper.firstlook picture {
   display: block;
   width: 100%;
@@ -375,9 +393,9 @@ a:focus, button:focus, [tabindex="0"]:focus {
   transform: translateZ(0);
 }
 
-/* Swiper fallback (no JS) */
-.swiper-fallback .swiper.firstlook .swiper-wrapper { display: flex; gap: 0; }
-.swiper-fallback .swiper.firstlook .swiper-slide { flex: 0 0 100%; max-width: 100%; }
+/* Swiper fallback (no JS) - show first slide only */
+.swiper.firstlook .swiper-wrapper { display: flex; overflow: hidden; }
+.swiper.firstlook .swiper-slide { flex: 0 0 100%; max-width: 100%; }
 .swiper-fallback .swiper .swiper-button-prev,
 .swiper-fallback .swiper .swiper-button-next,
 .swiper-fallback .swiper .swiper-pagination { display: none !important; }
