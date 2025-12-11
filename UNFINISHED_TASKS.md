@@ -693,10 +693,41 @@ After downloading, must add attribution sections to HTML.
 - [ ] Run Google PageSpeed Insights on key pages
 - [ ] Verify lazy loading for all images
 
-### 🟢 [G] CSS Consolidation — PRIORITY (AUDIT COMPLETE 2025-12-10)
+### 🟢 [G] CSS Consolidation — PRIORITY (IN PROGRESS 2025-12-10)
 **Lane:** 🟢 Green (technical refactor, AI-safe)
 **Reference:** packing-lists.html as canonical pattern
 **Scope:** Site-wide styles.css + inline CSS extraction
+
+#### ✅ Root HTML Files Refactored (2025-12-10)
+- [x] index.html - Refactored to use CSS classes
+- [x] planning.html - Committed (a5c9545a)
+- [x] ships.html - 30→15 inline styles (c18cc5a6)
+- [x] travel.html - 33→8 inline styles (c18cc5a6)
+- [x] restaurants.html - 17→8 inline styles (96cf3448)
+- [x] ports.html - 74→18 inline styles (e2e80105)
+
+#### 🔴 BLOCKING BUG: quantum-of-the-seas.html Layout Issue
+**Status:** Under investigation
+**Symptoms:**
+- "A First Look" and "Dining Venues" sections stretch thousands of lines
+- Page content doesn't start at the top
+- Grid creates "million billion extra lines in different squares"
+- Swiper images not displaying in First Look carousel
+
+**Root Cause Analysis (2025-12-10):**
+- icon-of-the-seas.html (comparison page) also has same structural issues:
+  - Duplicate `<!doctype html>` at line 10
+  - Inline `style="grid-template-columns: 1fr"` on `<main>` overrides `.page-grid` (2-column) with single column
+  - Items placed in `grid-column: 2` while template only has 1 column → implicit columns created
+- The `.grid-2` class uses `align-items: stretch` which can cause cards to stretch to enormous heights
+- Swiper images using `.webp` directly without `<picture>` fallback may not load in some browsers
+
+**TODO:**
+- [ ] Fix quantum-of-the-seas.html structure to match working pages (ships.html pattern)
+- [ ] Audit all 178 ship pages for duplicate doctype and conflicting inline grid styles
+- [ ] Ensure Swiper images have `<picture>` with fallback formats
+
+#### Remaining Work
 
 #### 📊 Audit Results (2025-12-10)
 | Metric | Count |
