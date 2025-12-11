@@ -727,46 +727,46 @@ After downloading, must add attribution sections to HTML.
 
 #### Remaining Work
 
-#### 📊 Audit Results (2025-12-10)
-| Metric | Count |
-|--------|-------|
-| Total HTML files | 522 |
-| Files with `<style>` blocks | 511 (98%) |
-| Files with inline `style=` attrs | 517 (99%) |
-| Total inline `style=` occurrences | **16,798** |
-| Unique inline patterns | 511 |
-| Main styles.css | 627 lines |
+#### 📊 Audit Results (Updated 2025-12-11)
+| Metric | Before | After |
+|--------|--------|-------|
+| Files with `<style>` blocks | 511 | **6** ✅ |
+| Total inline `style=` occurrences | 16,798 | **12,618** |
+| Main styles.css | 627 lines | **969 lines** |
 
-**Inline Styles by Directory:**
-- ports/: 5,837 (avg 36/file)
-- ships/: 5,543 (avg 31/file)
-- restaurants/: 4,280 (avg 33/file)
-- solo/: 202 (avg 13/file)
-- root/: 715
+**Progress:**
+- Removed ~4,180 inline style occurrences (25% reduction)
+- Reduced `<style>` blocks from 511 to 6 files (99% reduction)
+- Added comprehensive utility classes to styles.css
 
-**⚠️ Major Conflict:** 478 pages override `.page-grid` with conflicting definitions!
-- styles.css: `grid-template-columns: minmax(0, 1fr) minmax(260px, var(--rail))`
-- Inline `<style>`: `grid-template-columns: 1fr 360px`
+**Remaining inline styles (~12,600) are primarily:**
+- Duck card special styling (index.html)
+- Dynamic JavaScript-generated content
+- One-off hero/background images
+- Specific component positioning
 
-#### Phase 1: Extract High-Frequency Patterns to CSS Classes
-**Target:** Top 10 patterns (7,000+ occurrences)
-- [ ] `.list-item-indent` → `margin: 0.5rem 0; padding-left: 1rem;` (1,069×)
-- [ ] `.accordion-trigger` → `cursor: pointer; font-weight: 600; padding: 0.5rem 0;` (1,029×)
-- [ ] `.section-divider` → `border-bottom: 1px solid #e0e8f0;` (642×)
-- [ ] `.content-text` → `color: var(--ink-mid); line-height: 1.5;` (520×)
-- [ ] `.hidden` → `display: none;` (517×)
-- [ ] `.sr-only` (already exists?) → `opacity:0;position:absolute;` (454×)
-- [ ] `.mt-05` → `margin-top: 0.5rem;` (454×)
-- [ ] `.inline` → `display: inline;` (441×)
-- [ ] `.rounded-lg` → `border-radius: 12px;` (432×)
-- [ ] `.img-cover` → `width:100%;height:100%;object-fit:cover;` (429×)
+#### ✅ Phase 1: Extract High-Frequency Patterns to CSS Classes (COMPLETE 2025-12-10)
+**Status:** Already in styles.css (lines 47-105)
+- [x] `.list-indent` → `margin: 0.5rem 0; padding-left: 1rem;`
+- [x] `.faq-item summary` → `cursor: pointer; font-weight: 600; padding: 0.5rem 0;`
+- [x] `.section-divider` → `border-bottom: 1px solid #e0e8f0;`
+- [x] `.content-text` → `color: var(--ink-mid); line-height: 1.5;`
+- [x] `.hidden` → `display: none !important;`
+- [x] `.sr-only` / `.visually-hidden` → screen reader only
+- [x] `.mt-05` through `.mt-2`, `.mb-0` through `.mb-1` → margin utilities
+- [x] `.inline` → `display: inline;`
+- [x] `.rounded-lg` / `.rounded-md` → border-radius utilities
+- [x] `.img-cover` → `width:100%;height:100%;object-fit:cover;`
 
-#### Phase 2: Extract Component Patterns
-**Target:** Article Rail component (417× each pattern = 2,900+ occurrences)
-- [ ] Create `.article-card` component class
-- [ ] Create `.article-card-thumb` for 80×60 thumbnail
-- [ ] Create `.article-card-body` for flex layout
-- [ ] Replace inline styles in 417 article cards
+#### ✅ Phase 2: Extract Component Patterns (COMPLETE 2025-12-11)
+**Status:** COMPLETE - Commit 028ba2d2
+**Target:** Article Rail component (418 files updated)
+- [x] Create `.article-card` component class
+- [x] Create `.article-thumb-wrap` and `.article-thumb` for 80×60 thumbnail
+- [x] Create `.article-card-body` for flex layout
+- [x] Create `.explore-grid` and `.feature-card` for index.html pattern
+- [x] Create `.class-section` for ship/port tracker headers
+- [x] Replace inline styles in 418 files (net reduction ~700 lines)
 
 #### Phase 3: Resolve .page-grid Conflict
 - [ ] Decide canonical `.page-grid` definition (styles.css vs inline)
