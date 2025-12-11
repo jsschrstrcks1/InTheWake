@@ -505,6 +505,9 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 - [ ] /drinks.html - Does not exist (drink-packages.html does exist and has content)
 - [x] /restaurants.html - ✅ Has content, no placeholder text
 
+### Page Fixes Needed
+- [ ] /search.html - Lacks version badge (V1.Beta)
+
 ### 🟡 [Y] SEO External Tools Setup
 **Lane:** 🟡 Yellow (requires account credentials, human action)
 - [ ] Set up Google Search Console
