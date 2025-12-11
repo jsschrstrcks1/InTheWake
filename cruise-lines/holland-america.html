@@ -551,4 +551,45 @@
     const la=a.length, lb=b.length;
     if(Math.abs(la-lb)>1) return false;
     let i=0,j=0,e=0;
-    while(i
+    while(i<la && j<lb){
+      if(a[i]===b[j]){ i++; j++; continue; }
+      if(++e>1) return false;
+      if(la>lb) i++; else if(lb>la) j++; else { i++; j++; }
+    }
+    return true;
+  }
+
+  function searchShips(q){
+    const t = norm(q);
+    if(!t) return SHIPS;
+    return SHIPS.filter(s=>{
+      const hay = [s.name, ...(s.aliases||[])].map(norm);
+      return hay.some(h => h.includes(t) || near(t,h) || h.split(/\s+/).some(w => w.startsWith(t) || near(t,w)));
+    });
+  }
+
+  function renderResults(list){
+    const root = $('#searchResults'); if(!root) return;
+    root.setAttribute('aria-busy','true');
+    root.innerHTML = list.map(s => `
+      <a class="card" href="${s.url}" aria-label="${s.name}">
+        <strong>${s.name}</strong><br><small>Open ship profile</small>
+      </a>
+    `).join('');
+    root.setAttribute('aria-busy','false');
+  }
+
+  function wireSearch(){
+    const input = $('#shipSearch'), btn = $('#btnSearch');
+    const go = ()=> renderResults(searchShips(input.value||''));
+    input?.addEventListener('input', ()=>{ clearTimeout(input._t); input._t = setTimeout(go, 90); });
+    btn?.addEventListener('click', go);
+    go(); // first paint
+  }
+
+  document.addEventListener('DOMContentLoaded', wireSearch, { once:true });
+  </script>
+
+<script src="/assets/js/dropdown.js"></script>
+</body>
+</html>
