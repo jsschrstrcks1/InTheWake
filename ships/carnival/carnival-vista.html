@@ -106,28 +106,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </div>
   </header>
 
-  <main id="main" class="wrap page-grid" role="main" tabindex="-1" style="display:grid;grid-template-columns:1fr;gap:2rem;align-items:start;">
-    <aside class="rail" role="complementary" style="grid-column:2;grid-row:1;">
-      <section class="page-intro" style="margin:1rem auto 1.5rem;">
-        <p style="margin:.75rem 0;padding:.5rem .75rem;border-left:3px solid var(--carnival-blue);background:#f7fdff;border-radius:8px;">
-          <strong>Quick Answer:</strong> Carnival Vista is the lead Vista-class ship with first SkyRide and IMAX at sea.
-        </p>
-        <div style="margin:1rem 0;padding:1rem;background:#f7fdff;border-radius:8px;border:1px solid #e0f0f5;">
-          <h3 style="margin:0 0 .5rem;font-size:1rem;color:#134;">Key Facts</h3>
-          <ul style="margin:0;padding-left:1.25rem;">
-            <li><strong>Class:</strong> Vista Class (Lead Ship)</li>
-            <li><strong>Year:</strong> 2016</li>
-            <li><strong>Tonnage:</strong> 133,500 GT</li>
-            <li><strong>Guests:</strong> 3,936 (max)</li>
-            <li><strong>Homeport:</strong> Galveston, TX</li>
-            <li><strong>IMO:</strong> 9692569</li>
-          </ul>
-        </div>
-      </section>
-      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
-    </aside>
+  <main id="main" class="wrap page-grid" role="main" tabindex="-1">
 
-    <div style="grid-column:1;">
+    <!-- Main Content Column -->
+    <section class="col-1" aria-label="Ship details">
       <section class="page-intro">
         <h1 style="font-size:clamp(1.6rem,3vw,2.1rem);color:var(--carnival-blue);margin:.75rem 0 .5rem;">Carnival Vista — Deck Plans, Live Tracker, Dining & Videos</h1>
         <p style="margin:.5rem 0;padding:.5rem .75rem;border-left:3px solid var(--carnival-blue);background:#f7fdff;border-radius:8px;font-size:.95rem;color:#134;">
@@ -252,7 +234,29 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <h2>Image Attributions</h2>
         <ul><li>Ship photography from Wikimedia Commons under Creative Commons licenses. Individual attributions in captions.</li></ul>
       </section>
-    </div>
+    </section><!-- End Main Content Column -->
+
+    <!-- Right Rail -->
+    <aside class="rail col-2" role="complementary" aria-label="Key facts">
+      <section class="page-intro">
+        <p class="answer-line">
+          <strong>Quick Answer:</strong> Carnival Vista is the lead Vista-class ship with first SkyRide and IMAX at sea.
+        </p>
+        <div class="callout-box">
+          <h3>Key Facts</h3>
+          <ul>
+            <li><strong>Class:</strong> Vista Class (Lead Ship)</li>
+            <li><strong>Year:</strong> 2016</li>
+            <li><strong>Tonnage:</strong> 133,500 GT</li>
+            <li><strong>Guests:</strong> 3,936 (max)</li>
+            <li><strong>Homeport:</strong> Galveston, TX</li>
+            <li><strong>IMO:</strong> 9692569</li>
+          </ul>
+        </div>
+      </section>
+      <section class="card" id="whimsical-units-container"></section>
+    </aside>
+
   </main>
 
   <footer class="wrap" role="contentinfo">

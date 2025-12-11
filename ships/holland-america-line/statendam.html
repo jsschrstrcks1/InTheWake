@@ -172,9 +172,12 @@ All work on this project is offered as a gift to God.
   <div class="small">Cruise Line: Holland America Line</div>
 </header>
 <div class="rope"></div>
-<main>
-    <!-- ICP-Lite Content Structure -->
-    <section class="page-intro" style="grid-column: 1 / -1; max-width: 1100px; margin: 1rem auto 1.5rem;">
+<main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
+
+    <!-- Main Content Column -->
+    <section class="col-1" aria-label="Ship details">
+<!-- ICP-Lite Content Structure -->
+    <section class="page-intro">
       <h1>Statendam</h1>
 
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
@@ -243,7 +246,7 @@ All work on this project is offered as a gift to God.
       </details>
     </section>
       <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+      <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
         <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
           Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
@@ -255,7 +258,9 @@ All work on this project is offered as a gift to God.
 </div>
 
     <!-- RIGHT RAIL -->
-    <aside class="rail" role="complementary" aria-label="Author & articles">
+    </section><!-- End Main Content Column -->
+
+    <aside class="rail col-2" role="complementary" aria-label="Author & articles">
       <section class="card author-card-vertical" aria-labelledby="author-heading">
         <h3 id="author-heading">About the Author</h3>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
