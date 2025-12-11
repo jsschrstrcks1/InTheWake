@@ -32,8 +32,11 @@ const FOOD_KEYWORDS = [
   'tacos', 'burrito', 'sandwich', 'salad', 'soup', 'appetizer',
   'vegetarian', 'vegan', 'gluten', 'allergy',
   'escargot', 'prime rib', 'filet', 'duck', 'lamb', 'formal', 'main dining',
+  'ribeye', 'porterhouse', 'tiramisu', 'lasagna', 'parmesan', 'miso', 'tempura',
+  'sashimi', 'teriyaki', 'gyoza', 'edamame', 'churros', 'guacamole', 'fajitas',
+  'oysters', 'clam chowder', 'crab cake', 'milkshake', 'nachos', 'wings',
   'johnny rockets', 'chops', 'izumi', 'wonderland', 'sorrento', 'giovannis',
-  'jamie', 'hibachi', 'teppanyaki', 'sabor', 'hooked'
+  'jamie', 'hibachi', 'teppanyaki', 'sabor', 'hooked', 'windjammer', 'playmakers'
 ];
 
 // Location keywords that indicate port/destination intent
