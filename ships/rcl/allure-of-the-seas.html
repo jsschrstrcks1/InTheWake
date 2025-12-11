@@ -910,7 +910,7 @@ updated: 2025-11-18
   })();
   </script>
 
-    <!-- ===== Live tracker (CruiseMapper iframe: auto-centers on ship by IMO) ===== -->
+    <!-- ===== Live tracker (MarineTraffic iframe: auto-centers on ship by IMO) ===== -->
   <script>
   (function initLiveTracker(){
     const card=document.querySelector('.card.itinerary[data-imo]');
@@ -923,12 +923,12 @@ updated: 2025-11-18
     const wrapper = document.createElement('div');
     wrapper.style.cssText = 'width:100%;height:500px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
 
-    // CruiseMapper iframe embed using IMO
+    // MarineTraffic iframe embed using IMO
     const iframe = document.createElement('iframe');
     iframe.style.cssText = 'width:100%;height:100%;border:0;';
     iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
     iframe.setAttribute('loading', 'lazy');
-    iframe.src = 'https://www.cruisemapper.com/?imo=' + imo;
+    iframe.src = 'https://www.marinetraffic.com/en/ais/embed/zoom:10/centery:0/centerx:0/maptype:0/shownames:false/mmsi:0/shipid:0/imo:' + imo + '/showmenu:false/remember:false';
 
     wrapper.appendChild(iframe);
     container.appendChild(wrapper);
