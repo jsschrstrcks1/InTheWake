@@ -774,10 +774,9 @@ Soli Deo Gloria
     const classOrder = ['Sovereign', 'Legend', 'Song', 'Sun Viking'];
 
     let html = `
-      <div class="historic-intro" style="padding: 1rem; background: linear-gradient(135deg, #f7f3e9 0%, #e8dcc8 100%); border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid #d4c4a8;">
-        <h2 style="margin: 0 0 0.5rem; color: #5a4a2a; font-size: 1.3rem;">📜 Historic Fleet</h2>
-        <p style="margin: 0; color: #6b5a3a; font-size: 0.95rem; line-height: 1.5;">
-          These legendary ships sailed the Royal Caribbean fleet but have since been retired or sold.
+      <div class="page-intro mb-1">
+        <p class="answer-line">
+          <strong>📜 Historic Fleet</strong> — These legendary ships sailed the Royal Caribbean fleet but have since been retired or sold.
           Mark the ones you were lucky enough to sail on and earn the Historic Sailor badge!
         </p>
       </div>
@@ -800,8 +799,8 @@ Soli Deo Gloria
       const total = classShips.length;
 
       html += `
-        <div class="class-section historic-section collapsed">
-          <div class="class-title" onclick="toggleSection(this)" style="background: linear-gradient(135deg, #f7f3e9 0%, #ebe3d3 100%);">
+        <div class="class-section collapsed">
+          <div class="class-title" onclick="toggleSection(this)">
             <div class="class-title-text">
               ⏳ ${className} Class
               <span class="class-progress">${sailed}/${total}</span>
@@ -814,16 +813,14 @@ Soli Deo Gloria
       classShips.forEach(ship => {
         const isSailed = sailedHistoricShips.has(ship.id);
         html += `
-          <div class="ship-item historic-ship ${isSailed ? 'sailed' : ''}" data-ship-id="${ship.id}" data-historic="true">
+          <div class="ship-item ${isSailed ? 'sailed' : ''}" data-ship-id="${ship.id}" data-historic="true">
             <input type="checkbox" class="ship-checkbox historic-checkbox" ${isSailed ? 'checked' : ''} data-ship-id="${ship.id}" data-historic="true">
             <span class="ship-name">${ship.name}</span>
             <div class="ship-meta">
               <span>${ship.year}–${ship.retired}</span>
               <span>${ship.tonnage.toLocaleString()} GT</span>
             </div>
-            <div class="ship-notes" style="font-size: 0.8rem; color: #6b5a3a; margin-top: 0.25rem; font-style: italic;">
-              ${ship.notes}
-            </div>
+            <p class="tiny ship-notes">${ship.notes}</p>
           </div>
         `;
       });
