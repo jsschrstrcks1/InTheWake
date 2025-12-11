@@ -187,14 +187,14 @@ Soli Deo Gloria
             <span class="collapsible-toggle">▼</span>
           </div>
           <div class="collapsible-content">
-            <p class="answer-line" style="margin: 0.5rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px; font-size: 0.9rem;">
+            <p class="answer-line tiny">
               <strong>Quick Answer:</strong> Track your cruise port visits, earn regional collection badges, and visualize your global cruising footprint.
             </p>
-            <p style="margin: 0.5rem 0; font-size: 0.85rem; color: #134; line-height: 1.5;">
+            <p class="content-text tiny">
               <strong>Best For:</strong> Cruisers tracking their port history, collecting regional badges, and comparing travel accomplishments.
             </p>
-            <div style="margin: 0.5rem 0; padding: 0.75rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5; font-size: 0.85rem;">
-              <ul style="margin: 0; padding-left: 1rem; line-height: 1.5;">
+            <div class="callout-box tiny">
+              <ul class="list-indent">
                 <li><strong>147+ ports</strong> across all continents</li>
                 <li><strong>Auto-saves</strong> to your browser</li>
                 <li><strong>Export/import</strong> your data</li>
@@ -212,7 +212,7 @@ Soli Deo Gloria
           <div class="collapsible-content">
             <div id="completed-achievements">
               <!-- Dynamically populated -->
-              <p class="tiny" style="color:#666;text-align:center;">Complete a regional collection to see it here!</p>
+              <p class="tiny content-text center">Complete a regional collection to see it here!</p>
             </div>
           </div>
         </div>
@@ -236,7 +236,7 @@ Soli Deo Gloria
           <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
             <picture>
               <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-              <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+              <img class="author-avatar rounded-lg" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" decoding="async" loading="lazy"/>
             </picture>
           </a>
           <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
@@ -1738,7 +1738,7 @@ Soli Deo Gloria
         header.innerHTML = `🏆 Completed Collections <span class="achievement-count">${completedCards.length}</span>`;
       }
     } else {
-      completedContainer.innerHTML = '<p class="tiny" style="color:#666;text-align:center;">Complete a regional collection to see it here!</p>';
+      completedContainer.innerHTML = '<p class="tiny content-text center">Complete a regional collection to see it here!</p>';
     }
 
     // Render in-progress collections
