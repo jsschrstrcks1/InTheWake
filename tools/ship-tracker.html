@@ -151,6 +151,7 @@ Soli Deo Gloria
         <button class="filter-button" data-class="Voyager">🧭 Voyager Class</button>
         <button class="filter-button" data-class="Radiance">✨ Radiance Class</button>
         <button class="filter-button" data-class="Vision">👁️ Vision Class</button>
+        <button class="filter-button" data-class="historic">⏳ Historic Fleet</button>
       <!-- Recent Articles rail -->
       <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
@@ -518,17 +519,118 @@ Soli Deo Gloria
     { id: 'icon-explorer', name: '🌟 Icon Explorer', ships: ['icon-of-the-seas'], description: 'Sail Icon of the Seas (world\'s largest)', howTo: 'Collect this badge by sailing on Icon of the Seas, the world\'s largest cruise ship!' },
     { id: 'newest-ships', name: '🔥 Newest Ships', ships: ['icon-of-the-seas', 'star-of-the-seas', 'utopia-of-the-seas', 'wonder-of-the-seas', 'odyssey-of-the-seas'], description: 'Sail ships launched 2020+', howTo: 'Collect this badge by sailing on all ships launched in 2020 or later - the newest additions to the fleet!' },
     { id: 'fleet-master', name: '🏆 Fleet Master', threshold: 10, description: 'Sail 10+ ships', howTo: 'Collect this badge by sailing on any 10 or more Royal Caribbean ships!' },
-    { id: 'class-completionist', name: '⚓ Class Completionist', description: 'Complete any ship class', special: 'class-complete', howTo: 'Collect this badge by completing all ships in any one ship class!' }
+    { id: 'class-completionist', name: '⚓ Class Completionist', description: 'Complete any ship class', special: 'class-complete', howTo: 'Collect this badge by completing all ships in any one ship class!' },
+    { id: 'historic-sailor', name: '📜 Historic Sailor', threshold: 3, special: 'historic', description: 'Sail 3+ retired ships', howTo: 'Collect this badge by sailing on 3 or more ships that have since left the Royal Caribbean fleet!' },
+    { id: 'legacy-master', name: '👑 Legacy Master', threshold: 5, special: 'historic', description: 'Sail 5+ retired ships', howTo: 'Collect this badge by sailing on 5 or more legendary retired Royal Caribbean ships!' }
   ];
 
   // Historic/retired ships (ships no longer in the RC fleet)
   const HISTORIC_SHIPS = [
-    // Note: Add any retired ships here when they leave the fleet
-    // Currently all 28 ships are in active service
+    {
+      "id": "majesty-of-the-seas",
+      "name": "Majesty of the Seas",
+      "class": "Sovereign",
+      "year": 1992,
+      "retired": 2021,
+      "tonnage": 74077,
+      "capacity": 2744,
+      "notes": "Sold in 2021, now operates as Odyssey"
+    },
+    {
+      "id": "sovereign-of-the-seas",
+      "name": "Sovereign of the Seas",
+      "class": "Sovereign",
+      "year": 1988,
+      "retired": 2008,
+      "tonnage": 73192,
+      "capacity": 2852,
+      "notes": "World's largest cruise ship when launched; sold to Pullmantur"
+    },
+    {
+      "id": "monarch-of-the-seas",
+      "name": "Monarch of the Seas",
+      "class": "Sovereign",
+      "year": 1991,
+      "retired": 2013,
+      "tonnage": 73937,
+      "capacity": 2764,
+      "notes": "Sold to Pullmantur in 2013"
+    },
+    {
+      "id": "legend-of-the-seas-1995",
+      "name": "Legend of the Seas (1995)",
+      "class": "Legend",
+      "year": 1995,
+      "retired": 2022,
+      "tonnage": 69130,
+      "capacity": 2076,
+      "notes": "Sister to Splendour; sold in 2022"
+    },
+    {
+      "id": "splendour-of-the-seas",
+      "name": "Splendour of the Seas",
+      "class": "Legend",
+      "year": 1996,
+      "retired": 2016,
+      "tonnage": 69130,
+      "capacity": 2076,
+      "notes": "Transferred to TUI in 2016"
+    },
+    {
+      "id": "empress-of-the-seas",
+      "name": "Empress of the Seas",
+      "class": "Sovereign",
+      "year": 1990,
+      "retired": 2020,
+      "tonnage": 48563,
+      "capacity": 1840,
+      "notes": "Originally Nordic Empress; sold in 2020"
+    },
+    {
+      "id": "song-of-america",
+      "name": "Song of America",
+      "class": "Song",
+      "year": 1982,
+      "retired": 1999,
+      "tonnage": 37584,
+      "capacity": 1402,
+      "notes": "Second purpose-built ship; sold to Airtours"
+    },
+    {
+      "id": "nordic-prince",
+      "name": "Nordic Prince",
+      "class": "Sun Viking",
+      "year": 1971,
+      "retired": 1995,
+      "tonnage": 23200,
+      "capacity": 1012,
+      "notes": "Stretched in 1980; sold to Sun Cruises"
+    },
+    {
+      "id": "sun-viking",
+      "name": "Sun Viking",
+      "class": "Sun Viking",
+      "year": 1972,
+      "retired": 1998,
+      "tonnage": 18559,
+      "capacity": 726,
+      "notes": "Sold in 1998"
+    },
+    {
+      "id": "song-of-norway",
+      "name": "Song of Norway",
+      "class": "Song",
+      "year": 1970,
+      "retired": 1997,
+      "tonnage": 23005,
+      "capacity": 1014,
+      "notes": "First ship built for RCL; pioneered ship stretching"
+    }
   ];
 
   // State
   let sailedShips = new Set();
+  let sailedHistoricShips = new Set();
 
   // Initialize
   function init() {
@@ -554,6 +656,7 @@ Soli Deo Gloria
       try {
         const data = JSON.parse(saved);
         sailedShips = new Set(data.ships || []);
+        sailedHistoricShips = new Set(data.historicShips || []);
       } catch (e) {
         console.error('Error loading data:', e);
       }
@@ -564,6 +667,7 @@ Soli Deo Gloria
   function saveData() {
     const data = {
       ships: Array.from(sailedShips),
+      historicShips: Array.from(sailedHistoricShips),
       lastUpdated: new Date().toISOString()
     };
     localStorage.setItem('rcl-ship-tracker', JSON.stringify(data));
@@ -572,6 +676,13 @@ Soli Deo Gloria
   // Render ships grouped by class
   function renderShips(filterClass = 'all', searchTerm = '') {
     const container = document.getElementById('ship-list');
+
+    // Handle historic ships filter
+    if (filterClass === 'historic') {
+      renderHistoricShips(container, searchTerm);
+      return;
+    }
+
     const classes = {};
 
     // Group ships by class
@@ -645,6 +756,122 @@ Soli Deo Gloria
     document.querySelectorAll('.ship-checkbox').forEach(checkbox => {
       checkbox.addEventListener('change', handleShipToggle);
     });
+  }
+
+  // Render historic ships
+  function renderHistoricShips(container, searchTerm = '') {
+    const historicClasses = {};
+
+    // Group historic ships by class
+    HISTORIC_SHIPS.forEach(ship => {
+      if (!historicClasses[ship.class]) {
+        historicClasses[ship.class] = [];
+      }
+      historicClasses[ship.class].push(ship);
+    });
+
+    // Order historic classes
+    const classOrder = ['Sovereign', 'Legend', 'Song', 'Sun Viking'];
+
+    let html = `
+      <div class="historic-intro" style="padding: 1rem; background: linear-gradient(135deg, #f7f3e9 0%, #e8dcc8 100%); border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid #d4c4a8;">
+        <h2 style="margin: 0 0 0.5rem; color: #5a4a2a; font-size: 1.3rem;">📜 Historic Fleet</h2>
+        <p style="margin: 0; color: #6b5a3a; font-size: 0.95rem; line-height: 1.5;">
+          These legendary ships sailed the Royal Caribbean fleet but have since been retired or sold.
+          Mark the ones you were lucky enough to sail on and earn the Historic Sailor badge!
+        </p>
+      </div>
+    `;
+
+    classOrder.forEach(className => {
+      let classShips = historicClasses[className] || [];
+      if (classShips.length === 0) return;
+
+      // Apply search filter
+      if (searchTerm) {
+        classShips = classShips.filter(ship =>
+          ship.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          ship.class.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        if (classShips.length === 0) return;
+      }
+
+      const sailed = classShips.filter(s => sailedHistoricShips.has(s.id)).length;
+      const total = classShips.length;
+
+      html += `
+        <div class="class-section historic-section collapsed">
+          <div class="class-title" onclick="toggleSection(this)" style="background: linear-gradient(135deg, #f7f3e9 0%, #ebe3d3 100%);">
+            <div class="class-title-text">
+              ⏳ ${className} Class
+              <span class="class-progress">${sailed}/${total}</span>
+            </div>
+            <span class="class-toggle">▼</span>
+          </div>
+          <div class="class-ships">
+      `;
+
+      classShips.forEach(ship => {
+        const isSailed = sailedHistoricShips.has(ship.id);
+        html += `
+          <div class="ship-item historic-ship ${isSailed ? 'sailed' : ''}" data-ship-id="${ship.id}" data-historic="true">
+            <input type="checkbox" class="ship-checkbox historic-checkbox" ${isSailed ? 'checked' : ''} data-ship-id="${ship.id}" data-historic="true">
+            <span class="ship-name">${ship.name}</span>
+            <div class="ship-meta">
+              <span>${ship.year}–${ship.retired}</span>
+              <span>${ship.tonnage.toLocaleString()} GT</span>
+            </div>
+            <div class="ship-notes" style="font-size: 0.8rem; color: #6b5a3a; margin-top: 0.25rem; font-style: italic;">
+              ${ship.notes}
+            </div>
+          </div>
+        `;
+      });
+
+      html += '</div></div>';
+    });
+
+    if (html === '' || HISTORIC_SHIPS.length === 0) {
+      html = '<p>No historic ships available.</p>';
+    }
+
+    container.innerHTML = html;
+
+    // Attach checkbox listeners for historic ships
+    document.querySelectorAll('.historic-checkbox').forEach(checkbox => {
+      checkbox.addEventListener('change', handleHistoricShipToggle);
+    });
+  }
+
+  // Handle historic ship checkbox toggle
+  function handleHistoricShipToggle(e) {
+    e.stopPropagation();
+    const shipId = e.target.dataset.shipId;
+    const isChecked = e.target.checked;
+
+    if (isChecked) {
+      sailedHistoricShips.add(shipId);
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'historic_ship_checked', {
+          ship_id: shipId,
+          total_historic: sailedHistoricShips.size
+        });
+      }
+    } else {
+      sailedHistoricShips.delete(shipId);
+    }
+
+    saveData();
+    updateStats();
+    renderBadges();
+
+    // Update ship item styling
+    const shipItem = e.target.closest('.ship-item');
+    if (isChecked) {
+      shipItem.classList.add('sailed');
+    } else {
+      shipItem.classList.remove('sailed');
+    }
   }
 
   // Handle ship checkbox toggle
@@ -729,6 +956,10 @@ Soli Deo Gloria
 
   // Check if badge is complete
   function checkBadgeComplete(badge) {
+    // Historic badges use sailedHistoricShips
+    if (badge.special === 'historic' && badge.threshold) {
+      return sailedHistoricShips.size >= badge.threshold;
+    }
     if (badge.threshold) {
       return sailedShips.size >= badge.threshold;
     }
@@ -760,7 +991,11 @@ Soli Deo Gloria
       let progress = 0;
       let progressText = '';
 
-      if (badge.threshold) {
+      // Handle historic badges differently
+      if (badge.special === 'historic' && badge.threshold) {
+        progress = (sailedHistoricShips.size / badge.threshold) * 100;
+        progressText = `${sailedHistoricShips.size}/${badge.threshold} historic ships`;
+      } else if (badge.threshold) {
         progress = (sailedShips.size / badge.threshold) * 100;
         progressText = `${sailedShips.size}/${badge.threshold} ships`;
       } else if (badge.special === 'class-complete') {
@@ -928,8 +1163,9 @@ Soli Deo Gloria
   function exportData() {
     const data = {
       ships: Array.from(sailedShips),
+      historicShips: Array.from(sailedHistoricShips),
       exportDate: new Date().toISOString(),
-      version: '1.0'
+      version: '1.1'
     };
 
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -951,6 +1187,10 @@ Soli Deo Gloria
         const data = JSON.parse(e.target.result);
         if (data.ships && Array.isArray(data.ships)) {
           sailedShips = new Set(data.ships);
+          // Also import historic ships if present
+          if (data.historicShips && Array.isArray(data.historicShips)) {
+            sailedHistoricShips = new Set(data.historicShips);
+          }
           saveData();
           renderShips();
           renderBadges();
@@ -959,7 +1199,8 @@ Soli Deo Gloria
 
           if (typeof gtag !== 'undefined') {
             gtag('event', 'data_imported', {
-              ships_imported: sailedShips.size
+              ships_imported: sailedShips.size,
+              historic_ships_imported: sailedHistoricShips.size
             });
           }
         } else {
