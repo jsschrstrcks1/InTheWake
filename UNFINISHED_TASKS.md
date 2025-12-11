@@ -506,7 +506,7 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 - [x] /restaurants.html - ✅ Has content, no placeholder text
 
 ### Page Fixes Needed
-- [ ] /search.html - Lacks version badge (V1.Beta)
+- [x] /search.html - Added version badge (V1.Beta) to navbar
 - [x] /tools/ship-tracker.html - Added logbook CSS to styles.css
 - [x] /tools/port-tracker.html - Added logbook CSS to styles.css
 
@@ -711,26 +711,19 @@ After downloading, must add attribution sections to HTML.
 - [x] restaurants.html - 17→8 inline styles (96cf3448)
 - [x] ports.html - 74→18 inline styles (e2e80105)
 
-#### 🔴 BLOCKING BUG: quantum-of-the-seas.html Layout Issue
-**Status:** Under investigation
-**Symptoms:**
-- "A First Look" and "Dining Venues" sections stretch thousands of lines
-- Page content doesn't start at the top
-- Grid creates "million billion extra lines in different squares"
-- Swiper images not displaying in First Look carousel
+#### ✅ FIXED: quantum-of-the-seas.html Layout Issue (2025-12-11)
+**Status:** COMPLETE - Fixed in commit 003bd1b4
 
-**Root Cause Analysis (2025-12-10):**
-- icon-of-the-seas.html (comparison page) also has same structural issues:
-  - Duplicate `<!doctype html>` at line 10
-  - Inline `style="grid-template-columns: 1fr"` on `<main>` overrides `.page-grid` (2-column) with single column
-  - Items placed in `grid-column: 2` while template only has 1 column → implicit columns created
-- The `.grid-2` class uses `align-items: stretch` which can cause cards to stretch to enormous heights
-- Swiper images using `.webp` directly without `<picture>` fallback may not load in some browsers
+**What was fixed:**
+- Removed duplicate `<!doctype html>` declarations from all 49 RCL ship pages
+- Removed conflicting inline `grid-template-columns: 1fr` styles from `<main>` elements
+- Replaced inline `grid-column: 2` styles on `<aside>` with proper `col-2` CSS class
+- Added CSS for `<picture>` elements in Swiper carousels (commit 97afbc21)
 
-**TODO:**
-- [ ] Fix quantum-of-the-seas.html structure to match working pages (ships.html pattern)
-- [ ] Audit all 178 ship pages for duplicate doctype and conflicting inline grid styles
-- [ ] Ensure Swiper images have `<picture>` with fallback formats
+**Root Cause Was:**
+- Duplicate doctypes causing parsing issues
+- Inline grid styles overriding `.page-grid` CSS class
+- `<picture>` elements lacking positioning CSS for absolute image placement
 
 #### Remaining Work
 
