@@ -21,6 +21,54 @@ const CATEGORY_LABELS = {
   'port': 'Port'
 };
 
+// Food-related keywords that should prioritize restaurants over ports
+const FOOD_KEYWORDS = [
+  'pizza', 'sushi', 'steak', 'burger', 'seafood', 'lobster', 'shrimp', 'crab',
+  'pasta', 'italian', 'mexican', 'asian', 'chinese', 'japanese', 'thai', 'indian',
+  'breakfast', 'lunch', 'dinner', 'brunch', 'buffet', 'dining', 'restaurant',
+  'food', 'eat', 'menu', 'cuisine', 'chef', 'grill', 'bar', 'cafe', 'coffee',
+  'dessert', 'ice cream', 'chocolate', 'cake', 'bakery', 'pastry',
+  'wine', 'beer', 'cocktail', 'drink', 'beverage',
+  'tacos', 'burrito', 'sandwich', 'salad', 'soup', 'appetizer',
+  'vegetarian', 'vegan', 'gluten', 'allergy',
+  'johnny rockets', 'chops', 'izumi', 'wonderland', 'sorrento', 'giovannis',
+  'jamie', 'hibachi', 'teppanyaki', 'sabor', 'hooked'
+];
+
+// Location keywords that indicate port/destination intent
+const LOCATION_KEYWORDS = [
+  'italy', 'italian coast', 'greece', 'spain', 'france', 'caribbean', 'alaska',
+  'mexico', 'bahamas', 'jamaica', 'cozumel', 'nassau', 'labadee', 'perfect day',
+  'europe', 'mediterranean', 'asia', 'australia', 'hawaii', 'bermuda',
+  'port', 'destination', 'visit', 'excursion', 'shore', 'day trip'
+];
+
+// Check if query contains food-related terms
+function containsFoodTerm(query) {
+  const lowerQuery = query.toLowerCase();
+  return FOOD_KEYWORDS.some(term => lowerQuery.includes(term));
+}
+
+// Check if query contains location terms
+function containsLocationTerm(query) {
+  const lowerQuery = query.toLowerCase();
+  return LOCATION_KEYWORDS.some(term => lowerQuery.includes(term));
+}
+
+// Filter results based on query context
+function filterResultsByContext(results, query) {
+  const hasFoodTerm = containsFoodTerm(query);
+  const hasLocationTerm = containsLocationTerm(query);
+
+  // If only food terms (no location), exclude ports
+  if (hasFoodTerm && !hasLocationTerm) {
+    return results.filter(r => r.item.category !== 'port');
+  }
+
+  // Otherwise, return all results
+  return results;
+}
+
 // Initialize search
 async function initSearch() {
   try {
@@ -103,7 +151,11 @@ function performSearch(query) {
     return;
   }
 
-  const results = fuse.search(query);
+  let results = fuse.search(query);
+
+  // Apply context-based filtering (e.g., exclude ports for food-only searches)
+  results = filterResultsByContext(results, query);
+
   displayResults(results, query);
 }
 
