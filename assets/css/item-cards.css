@@ -351,6 +351,74 @@
   z-index: 100;
 }
 
+/* ===== Venue Search Bar ===== */
+.venue-search-container {
+  position: relative;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--foam, #eaf6f6);
+  border-radius: 10px;
+}
+
+.venue-search-input {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  font-size: 1rem;
+  border: 2px solid var(--rope, #8B7355);
+  border-radius: 8px;
+  background: white;
+  color: var(--ink, #1a2a3a);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.venue-search-input:focus {
+  outline: none;
+  border-color: var(--accent, #0e6e8e);
+  box-shadow: 0 0 0 3px rgba(14, 110, 142, 0.15);
+}
+
+.venue-search-input::placeholder {
+  color: #888;
+}
+
+.search-clear-btn {
+  position: absolute;
+  right: 1.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: #888;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.search-clear-btn:hover {
+  color: var(--accent, #0e6e8e);
+}
+
+.search-clear-btn.hidden {
+  display: none;
+}
+
+.search-results-info {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted, #666);
+}
+
+.search-results-info:empty {
+  display: none;
+}
+
+#venueSearchHelp {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
 .filter-btn {
   padding: 0.5rem 1rem;
   background: white;
