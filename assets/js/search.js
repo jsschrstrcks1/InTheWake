@@ -31,6 +31,7 @@ const FOOD_KEYWORDS = [
   'wine', 'beer', 'cocktail', 'drink', 'beverage',
   'tacos', 'burrito', 'sandwich', 'salad', 'soup', 'appetizer',
   'vegetarian', 'vegan', 'gluten', 'allergy',
+  'escargot', 'prime rib', 'filet', 'duck', 'lamb', 'formal', 'main dining',
   'johnny rockets', 'chops', 'izumi', 'wonderland', 'sorrento', 'giovannis',
   'jamie', 'hibachi', 'teppanyaki', 'sabor', 'hooked'
 ];
