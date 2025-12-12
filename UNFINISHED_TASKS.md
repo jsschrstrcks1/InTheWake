@@ -1154,6 +1154,9 @@ All homeports with existing HTML pages now have clickable links in port-tracker.
 - [ ] Give renamed warning section its own card
 - [ ] Shred/replace "About the Author," "Recent Articles," "Recent Stories" with index.html pattern on all pages
 
+#### cococay.html (Specific)
+- [ ] Fix the card situation on the port page for CocoCay (layout/styling issue with content cards)
+
 ### P1 - Site-Wide Issues
 
 #### Logo Size Standardization

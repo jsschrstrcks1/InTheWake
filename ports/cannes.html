@@ -34,7 +34,7 @@ Soli Deo Gloria
   </script>
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -89,7 +89,7 @@ Soli Deo Gloria
 
     <!-- Hero -->
     <div class="hero">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
         <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
@@ -193,8 +193,8 @@ Soli Deo Gloria
       <h3 id="author-heading">About the Author</h3>
       <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
         <picture>
-          <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+          <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" decoding="async" loading="lazy"/>
         </picture>
       </a>
       <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
@@ -205,15 +205,13 @@ Soli Deo Gloria
     </section>
 
     <!-- Nearby Ports Rail -->
-    <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
-      <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
-      <div style="padding: 1rem;">
+    <section class="card" aria-labelledby="nearby-ports-title">
+        <h3 id="nearby-ports-title">Nearby Ports</h3>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
           Other ports in this region:
         </p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
-      </div>
-    </details>
+      </section>
 
       <!-- Recent Articles rail -->
       <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
@@ -297,7 +295,7 @@ Soli Deo Gloria
 
       function setImageWithFallback(imgEl, primary, altPaths=[]){
         if(!imgEl) return;
-        const stamp='v=3.010.300';
+        const stamp='v=3.010.400';
         const tried=new Set();
         const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
         function tryNext(){

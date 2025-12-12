@@ -73,7 +73,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   }
   </script>
 
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
 
   <!-- JSON-LD: BreadcrumbList -->
   <script type="application/ld+json">
@@ -325,53 +325,45 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <aside class="rail" style="grid-column: 2; align-self: start;">
     <!-- At a Glance (collapsible) -->
-    <details open class="card" style="background: #f7fdff; border: 1px solid #e0f0f5; border-radius: 8px;">
-      <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">At a Glance</summary>
-      <div style="padding: 0.5rem 0.75rem 0.75rem;">
-        <p style="margin: 0;"><strong>Quick Answer:</strong> Jamaica is all about Dunn's River Falls climbing, Blue Hole cliff jumping, and the best jerk chicken you'll ever eat at Scotchies. Hire a private driver for the day (surprisingly affordable for groups) for maximum flexibility and authentic local insights.</p>
-      </div>
-    </details>
+    <section class="page-intro mb-1">
+        <p class="answer-line">
+          <strong>Quick Answer:</strong> Jamaica is all about Dunn's River Falls climbing, Blue Hole cliff jumping, and the best jerk chicken you'll ever eat at Scotchies. Hire a private driver for the day (surprisingly affordable for groups) for maximum flexibility and authentic local insights.</p>
+      </section>
 
     <!-- Author Card (collapsible) -->
-    <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px;">
-      <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">About the Author</summary>
-      <div class="author-card-vertical" style="padding: 1rem; text-align: center;">
+    <section class="card author-card-vertical" aria-labelledby="author-heading">
+      <h3 id="author-heading">About the Author</h3>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" decoding="async" loading="lazy"/>
           </picture>
         </a>
-        <h4 style="margin: 0.5rem 0 0.25rem;"><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny" style="margin: 0.25rem 0;">Founder of In the Wake; writer and editor of the logbook.</p>
-        <p class="tiny" style="margin: 0.25rem 0;">
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny">
           <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
         </p>
-      </div>
-    </details>
+      </section>
 
     <!-- Nearby Ports Rail -->
-    <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px; margin-bottom: 1rem;">
-      <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Nearby Ports</summary>
-      <div style="padding: 1rem;">
+    <section class="card" aria-labelledby="nearby-ports-title">
+        <h3 id="nearby-ports-title">Nearby Ports</h3>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
           Other ports in this region:
         </p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
-      </div>
-    </details>
+      </section>
 
     <!-- Recent Articles rail (collapsible) -->
-    <details open class="card" style="background: #fff; border: 1px solid #e0f0f5; border-radius: 8px;">
-      <summary style="cursor: pointer; padding: 0.75rem; font-weight: 600; border-left: 3px solid var(--rope, #d9b382); border-radius: 8px 8px 0 0; background: #f7fdff;">Recent Stories</summary>
-      <div style="padding: 1rem;">
+    <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
         <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
           Real cruising experiences, practical guides, and heartfelt reflections from our community.
         </p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </div>
-    </details>
+      </section>
 
   
     <!-- Whimsical Distance Units -->
