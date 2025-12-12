@@ -521,9 +521,11 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 ## P2 - Medium (Enhancement)
 
 ### Port Map Integration — Printable/Saveable Maps for Offline Use
-**Status:** Planned
+**Status:** Planned (Pilot: Aruba POI index complete)
 **Priority:** HIGH - Key differentiator for cruise travelers without ship Wi-Fi
 **Lane:** 🟢 Green (technical infrastructure)
+
+> **Note:** This is DISTINCT from the [Port Logbook "My Cruising Journey"](#leaflet-map-integration--port-logbook-my-cruising-journey) map feature below. This provides downloadable/printable maps for each individual port page; the other shows YOUR visited ports on a world map. They share Leaflet infrastructure but serve different purposes.
 
 **Core Use Case:** Cruise traveler docks → needs confidence about next 30 minutes → saves/prints map before leaving ship → navigates without burning Wi-Fi data.
 
@@ -674,10 +676,12 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 
 **Context:** Evaluated suggestions from ChatGPT against current codebase. These are high-leverage additions that align with single-repo, hand-rolled philosophy.
 
-#### Leaflet Map Integration — Port Tracker "My Cruising Journey"
+#### Leaflet Map Integration — Port Logbook "My Cruising Journey"
 **Status:** Planned
-**Priority:** HIGH - Transforms Port Tracker from "useful tool" to "emotional centerpiece"
+**Priority:** HIGH - Transforms Port Logbook from "useful tool" to "emotional centerpiece"
 **Bundle Impact:** ~55KB (Leaflet 42KB + marker cluster 8KB + custom 5KB)
+
+> **Note:** This is DISTINCT from the [Port Map Integration](#port-map-integration--printablesaveable-maps-for-offline-use) feature above. This map shows YOUR visited ports across the world; the other provides downloadable maps for each individual port page. They share Leaflet infrastructure but serve different purposes.
 
 **Phase 1: Core Map (MVP)**
 - [ ] Add map view toggle to Port Tracker (List | Map | Stats tabs)
