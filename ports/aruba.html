@@ -39,6 +39,22 @@ All work on this project is offered as a gift to God.
   <!-- Leaflet CSS for interactive maps -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <link rel="stylesheet" href="/assets/css/components/port-map.css"/>
+
+  <!-- Swiper CSS/JS (primary + CDN fallback) -->
+  <script>
+  (function ensureSwiper(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -336,176 +352,122 @@ All work on this project is offered as a gift to God.
 
       
 
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/aruba/aruba-FOM - 1.webp" alt="Harbor view of Aruba" loading="lazy">
-          <figcaption>
-            Harbor view of Aruba
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/aruba/aruba-FOM - 10.webp" alt="Waterfront of Aruba" loading="lazy">
-          <figcaption>
-            Waterfront of Aruba
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/aruba/aruba-FOM - 11.webp" alt="Port panorama of Aruba" loading="lazy">
-          <figcaption>
-            Port panorama of Aruba
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/aruba/aruba-FOM - 12.webp" alt="Coastal landscape of Aruba" loading="lazy">
-          <figcaption>
-            Coastal landscape of Aruba
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/aruba/aruba-FOM - 2.webp" alt="Harbor view of Aruba" loading="lazy">
-          <figcaption>
-            Harbor view of Aruba
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/aruba/aruba-FOM - 3.webp" alt="Waterfront of Aruba" loading="lazy">
-          <figcaption>
-            Waterfront of Aruba
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/aruba/aruba-FOM - 4.webp" alt="Port panorama of Aruba" loading="lazy">
-          <figcaption>
-            Port panorama of Aruba
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/aruba/aruba-FOM - 5.webp" alt="Coastal landscape of Aruba" loading="lazy">
-          <figcaption>
-            Coastal landscape of Aruba
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/aruba/aruba-FOM - 6.webp" alt="Harbor view of Aruba" loading="lazy">
-          <figcaption>
-            Harbor view of Aruba
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/aruba/aruba-FOM - 7.webp" alt="Waterfront of Aruba" loading="lazy">
-          <figcaption>
-            Waterfront of Aruba
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/aruba/aruba-FOM - 8.webp" alt="Port panorama of Aruba" loading="lazy">
-          <figcaption>
-            Port panorama of Aruba
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/aruba/aruba-FOM - 9.webp" alt="Coastal landscape of Aruba" loading="lazy">
-          <figcaption>
-            Coastal landscape of Aruba
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/aruba/california-lighthouse.webp" alt="Harbor view of Aruba" loading="lazy">
-          <figcaption>
-            Harbor view of Aruba
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/aruba/henriquez-building.webp" alt="Waterfront of Aruba" loading="lazy">
-          <figcaption>
-            Waterfront of Aruba
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/aruba/oranjestad-school.webp" alt="Port panorama of Aruba" loading="lazy">
-          <figcaption>
-            Port panorama of Aruba
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>aruba-FOM - 1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 10.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 11.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 12.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 4.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 5.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 6.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 7.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 8.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>aruba-FOM - 9.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>california-lighthouse.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>henriquez-building.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>oranjestad-school.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-</article>
-
-      <!-- Port Images Gallery -->
-      <div style="margin: 2rem 0;">
-        <h3>More Aruba Moments</h3>
-        <div class="gallery-grid">
-          <figure class="gallery-item">
-            <img src="/ports/img/aruba/aruba-FOM - 1.webp" alt="Beach hammock suspended over crystal-clear turquoise water with rocky jetty" loading="lazy"/>
-            <figcaption>
-              Pure relaxation — floating above the impossible blue
-              <div class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></div>
-            </figcaption>
-          </figure>
-          <figure class="gallery-item">
-            <img src="/ports/img/aruba/aruba-FOM - 2.webp" alt="Vibrant turquoise Aruban whiptail lizard on coral rocks" loading="lazy"/>
-            <figcaption>
-              The electric-blue Aruban whiptail — the island's unofficial greeter
-              <div class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></div>
-            </figcaption>
-          </figure>
-          <figure class="gallery-item">
-            <img src="/ports/img/aruba/aruba-FOM - 6.webp" alt="Crystal clear turquoise water with wooden docks at De Palm Island" loading="lazy"/>
-            <figcaption>
-              De Palm Island — where the water is impossibly clear
-              <div class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></div>
-            </figcaption>
-          </figure>
-          <figure class="gallery-item">
-            <img src="/ports/img/aruba/aruba-FOM - 9.webp" alt="Oranjestad harbor with cruise ship and palm trees in the distance" loading="lazy"/>
-            <figcaption>
-              The harbor view that welcomes you to One Happy Island
-              <div class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></div>
-            </figcaption>
-          </figure>
-          <figure class="gallery-item">
-            <img src="/ports/img/aruba/aruba-FOM - 11.webp" alt="Red and white catamaran sailing on turquoise Caribbean waters" loading="lazy"/>
-            <figcaption>
-              Sunset catamaran sails — pure Caribbean magic
-              <div class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></div>
-            </figcaption>
-          </figure>
-          <figure class="gallery-item">
-            <img src="/ports/img/aruba/aruba-FOM - 12.webp" alt="Stunning Caribbean sunset with dramatic clouds over the ocean" loading="lazy"/>
-            <figcaption>
-              Why Aruba's sunsets are legendary
-              <div class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></div>
-            </figcaption>
-          </figure>
+    <!-- Photo Gallery Swiper -->
+    <section class="port-section card" aria-labelledby="photo-gallery">
+      <h2 id="photo-gallery">Photo Gallery</h2>
+      <div class="swiper aruba-gallery" aria-label="Aruba photo carousel">
+        <div class="swiper-wrapper">
+          <!-- 1 -->
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/aruba/aruba-FOM - 1.webp" alt="Beach hammock suspended over crystal-clear turquoise water with rocky jetty" loading="lazy"/>
+              <figcaption class="tiny">Pure relaxation — floating above the impossible blue<br/><span class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span></figcaption>
+            </figure>
+          </div>
+          <!-- 2 -->
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/aruba/aruba-FOM - 2.webp" alt="Vibrant turquoise Aruban whiptail lizard on coral rocks" loading="lazy"/>
+              <figcaption class="tiny">The electric-blue Aruban whiptail — the island's unofficial greeter<br/><span class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span></figcaption>
+            </figure>
+          </div>
+          <!-- 3 -->
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/aruba/aruba-FOM - 3.webp" alt="Colorful Aruban scene" loading="lazy"/>
+              <figcaption class="tiny">The colors of One Happy Island<br/><span class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span></figcaption>
+            </figure>
+          </div>
+          <!-- 4 -->
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/aruba/aruba-FOM - 4.webp" alt="Aruba coastal landscape" loading="lazy"/>
+              <figcaption class="tiny">Where the desert meets the sea<br/><span class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span></figcaption>
+            </figure>
+          </div>
+          <!-- 5 -->
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/aruba/aruba-FOM - 5.webp" alt="Aruba beach scene" loading="lazy"/>
+              <figcaption class="tiny">Paradise found<br/><span class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span></figcaption>
+            </figure>
+          </div>
+          <!-- 6 -->
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/aruba/aruba-FOM - 6.webp" alt="Crystal clear turquoise water with wooden docks at De Palm Island" loading="lazy"/>
+              <figcaption class="tiny">De Palm Island — where the water is impossibly clear<br/><span class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span></figcaption>
+            </figure>
+          </div>
+          <!-- 7 -->
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/aruba/aruba-FOM - 7.webp" alt="Aruba waterfront" loading="lazy"/>
+              <figcaption class="tiny">The waterfront that welcomes you<br/><span class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span></figcaption>
+            </figure>
+          </div>
+          <!-- 8 -->
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/aruba/aruba-FOM - 8.webp" alt="Aruba port panorama" loading="lazy"/>
+              <figcaption class="tiny">Views from the port<br/><span class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span></figcaption>
+            </figure>
+          </div>
+          <!-- 9 -->
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/aruba/aruba-FOM - 9.webp" alt="Oranjestad harbor with cruise ship and palm trees in the distance" loading="lazy"/>
+              <figcaption class="tiny">The harbor view that welcomes you to One Happy Island<br/><span class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span></figcaption>
+            </figure>
+          </div>
+          <!-- 10 -->
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/aruba/aruba-FOM - 10.webp" alt="Aruba waterfront scene" loading="lazy"/>
+              <figcaption class="tiny">Along the Oranjestad waterfront<br/><span class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span></figcaption>
+            </figure>
+          </div>
+          <!-- 11 -->
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/aruba/aruba-FOM - 11.webp" alt="Red and white catamaran sailing on turquoise Caribbean waters" loading="lazy"/>
+              <figcaption class="tiny">Sunset catamaran sails — pure Caribbean magic<br/><span class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span></figcaption>
+            </figure>
+          </div>
+          <!-- 12 -->
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/aruba/aruba-FOM - 12.webp" alt="Stunning Caribbean sunset with dramatic clouds over the ocean" loading="lazy"/>
+              <figcaption class="tiny">Why Aruba's sunsets are legendary<br/><span class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span></figcaption>
+            </figure>
+          </div>
+          <!-- 13 - California Lighthouse -->
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/aruba/california-lighthouse.webp" alt="California Lighthouse at Aruba's northwest tip" loading="lazy"/>
+              <figcaption class="tiny">California Lighthouse — the island's iconic landmark<br/><span class="photo-credit">Photo: WikiMedia Commons (CC BY-SA)</span></figcaption>
+            </figure>
+          </div>
+          <!-- 14 - Henriquez Building -->
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/aruba/henriquez-building.webp" alt="Historic Henriquez Building in Oranjestad with Dutch colonial architecture" loading="lazy"/>
+              <figcaption class="tiny">Dutch colonial charm in downtown Oranjestad<br/><span class="photo-credit">Photo: WikiMedia Commons (CC BY-SA)</span></figcaption>
+            </figure>
+          </div>
+          <!-- 15 - Oranjestad School -->
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/aruba/oranjestad-school.webp" alt="Colorful historic school building in Oranjestad" loading="lazy"/>
+              <figcaption class="tiny">Colorful architecture that makes Oranjestad unforgettable<br/><span class="photo-credit">Photo: WikiMedia Commons (CC BY-SA)</span></figcaption>
+            </figure>
+          </div>
         </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
       </div>
+    </section>
 
       <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
     </div>
@@ -646,6 +608,33 @@ All work on this project is offered as a gift to God.
     } else {
       initMap();
     }
+  })();
+  </script>
+
+  <!-- Initialize Photo Gallery Swiper -->
+  <script>
+  (function initGallery(){
+    function go(){
+      if(!window.__swiperReady||!window.Swiper) return setTimeout(go,120);
+      try{
+        new Swiper('.swiper.aruba-gallery',{
+          loop:true,
+          lazy:true,
+          watchOverflow:true,
+          spaceBetween:20,
+          slidesPerView:1,
+          breakpoints:{
+            640:{slidesPerView:1,spaceBetween:20},
+            768:{slidesPerView:2,spaceBetween:24},
+            1024:{slidesPerView:2,spaceBetween:30}
+          },
+          pagination:{el:'.swiper.aruba-gallery .swiper-pagination',clickable:true},
+          navigation:{nextEl:'.swiper.aruba-gallery .swiper-button-next',prevEl:'.swiper.aruba-gallery .swiper-button-prev'},
+          a11y:{enabled:true}
+        });
+      }catch(_){}
+    }
+    go();
   })();
   </script>
 
