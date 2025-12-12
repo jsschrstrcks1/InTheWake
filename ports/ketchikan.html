@@ -1,13 +1,21 @@
 <!--
 Soli Deo Gloria
 -->
+<!-- ai-breadcrumbs
+     entity: Ketchikan
+     type: Port Information Page
+     parent: /ports.html
+     category: Alaska Ports
+     cruise-line: Multiple
+     updated: 2025-12-12
+-->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="ai-summary" content="First-person logbook guide to Ketchikan with tips for totem poles, Creek Street, and Misty Fjords."/>
-  <meta name="last-reviewed" content="2025-11-21"/>
+  <meta name="last-reviewed" content="2025-12-12"/>
   <meta name="content-protocol" content="ICP-Lite v1.0"/>
   <title>Ketchikan Port Guide — Totem Poles & Misty Fjords | In the Wake</title>
   <meta name="description" content="First-person logbook guide to Ketchikan, Alaska — world-class totem poles, Creek Street boardwalks, Misty Fjords flightseeing, and salmon capital charm."/>
@@ -21,6 +29,8 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -157,21 +167,41 @@ Soli Deo Gloria
 
       <section class="port-section">
         <h3>Getting Around Ketchikan</h3>
-        <p>Downtown core walkable. Totem parks 10–15 min by shuttle/taxi. Flightseeing docks right in town.</p>
+        <p><strong>Walking:</strong> Downtown core entirely walkable. Creek Street is 10 minutes from the cruise terminal. The Lumberjack Show is steps from the pier.</p>
+        <p><strong>Totem parks:</strong> Saxman Village is 2.5 miles south ($35-50 shuttle with cultural program). Totem Bight is 10 miles north ($40-60 taxi, or budget option: city bus for $2).</p>
+        <p><strong>Flightseeing:</strong> Floatplanes for Misty Fjords depart directly from the downtown harbor — no transfer needed.</p>
+        <p><strong>Funicular:</strong> Free ride up to Cape Fox Lodge if you eat at the restaurant. Great views even without dining.</p>
       </section>
 
       <section class="port-section">
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
-        <p>It will rain. Buy the cute poncho from the first salmon-jerky stand and own it.</p>
+        <ul style="margin: 0.75rem 0; padding-left: 1.25rem;">
+          <li><strong>It will rain.</strong> Ketchikan averages 162 inches annually. Buy the cute poncho from the first salmon-jerky stand and own it.</li>
+          <li><strong>Lumberjack Show:</strong> $37 at the gate vs $50+ through ship. #1 rated for first-timers. Covered/heated seating.</li>
+          <li><strong>Misty Fjords:</strong> Weather-dependent. Book early, have a backup plan. The floatplane landing on a remote alpine lake is transformational.</li>
+          <li><strong>Creek Street:</strong> More than photo op — explore Dolly's House Museum, take the funicular up for views, and watch salmon run underneath the boardwalks (July-September).</li>
+          <li><strong>Best dining:</strong> Alaska Fish House at Thomas Basin for fish & chips that rival anything in the Pacific Northwest. Sea lions beg for scraps beneath the dock.</li>
+        </ul>
+      </section>
+
+      <!-- Interactive Map Section -->
+      <section class="port-section" id="port-map-section">
+        <h3>Ketchikan Port Map</h3>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: #678;">Interactive map showing totem parks, Creek Street, dining, and popular excursion departure points.</p>
+        <div id="port-map" style="height: 400px; border-radius: 12px; border: 1px solid #e0e8f0;"></div>
+        <p class="tiny" style="margin-top: 0.5rem; color: #999;">Click markers for details. Misty Fjords location is approximate — accessed by floatplane from downtown harbor.</p>
       </section>
 
       <section class="port-section">
         <h3>Frequently Asked Questions</h3>
-        <p><strong>Q: Is Ketchikan worth it?</strong><br/>A: 100% — most "Alaskan" feeling town.</p>
-        <p><strong>Q: Best excursion?</strong><br/>A: Misty Fjords by floatplane.</p>
-        <p><strong>Q: How long is flightseeing?</strong><br/>A: 2–2.5 hours with water landing.</p>
-        <p><strong>Q: Can you walk from port?</strong><br/>A: Yes — step off into downtown.</p>
+        <p><strong>Q: Is Ketchikan worth it?</strong><br/>A: 100% — most "Alaskan" feeling town. Walk off ship into a world of totem poles, boardwalks on stilts, and the best collection of Indigenous art anywhere.</p>
+        <p><strong>Q: Best excursion?</strong><br/>A: Misty Fjords by floatplane for bucket-list experience. Great Alaskan Lumberjack Show for first-timers wanting local fun without venturing far.</p>
+        <p><strong>Q: How long is Misty Fjords flightseeing?</strong><br/>A: 2–2.5 hours including floatplane flight and water landing on a remote alpine lake.</p>
+        <p><strong>Q: Can you walk from the cruise port?</strong><br/>A: Yes — step directly off ship into downtown. Creek Street is 10 minutes, Heritage Center is 15 minutes, Lumberjack Show is at the harbor.</p>
+        <p><strong>Q: Which totem park is best?</strong><br/>A: Saxman Village for active carving demonstrations and cultural programs. Totem Bight State Park for free admission and atmospheric rainforest setting. Both worth visiting if time allows.</p>
+        <p><strong>Q: What if Misty Fjords is cancelled?</strong><br/>A: Weather cancellations happen. Have a backup — the Lumberjack Show, totem tours, or rainforest zipline operate rain or shine.</p>
+        <p><strong>Q: Best food in Ketchikan?</strong><br/>A: Alaska Fish House for best fish & chips in Southeast Alaska. Bar Harbor for upscale dining with harbor views.</p>
       </section>
     
     <!-- Photo Gallery Section -->
@@ -247,7 +277,9 @@ Soli Deo Gloria
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
           Other ports in this region:
         </p>
-        <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+        <div id="nearby-ports" class="rail-list" aria-live="polite">
+          <p class="tiny" style="color:#999;">Loading nearby ports...</p>
+        </div>
       </section>
 
       <!-- Recent Articles rail -->
@@ -376,11 +408,11 @@ Soli Deo Gloria
                 <img class="article-thumb" alt="" decoding="async" loading="lazy">
               </div>
               <div class="article-card-body">
-                <h4><a href="\${href}">\${title}</a></h4>
-                \${excerpt ? `<p class="tiny excerpt">\${excerpt}</p>` : ''}
+                <h4><a href="${href}">${title}</a></h4>
+                ${excerpt ? `<p class="tiny excerpt">${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill read-more">Read Article →</a></article>`;
+            <a href="${href}" class="pill read-more">Read Article →</a></article>`;
       }).join('');
 
       const cards = [...rail.querySelectorAll('article.card')];
@@ -411,13 +443,13 @@ Soli Deo Gloria
         if(!primary){
           const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
           const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
+          if(guess) primary = `/assets/articles/${guess}/cover.jpg`;
         }
 
         const alts = [];
         if(primary){
           const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
+          alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
         }
         setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
       });
@@ -427,7 +459,7 @@ Soli Deo Gloria
       // Announce to screen readers
       const status = document.getElementById('a11y-status');
       if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
+        status.textContent = `${view.length} recent articles loaded`;
       }
     })();
   })();
@@ -490,10 +522,93 @@ Soli Deo Gloria
 
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'ketchikan';</script>
-  <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/nearby-ports.js?v=3.010.306"></script>
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Port Map Initialization -->
+  <script>
+  (function() {
+    'use strict';
+
+    // Wait for Leaflet to load
+    function initMap() {
+      if (typeof L === 'undefined') {
+        setTimeout(initMap, 100);
+        return;
+      }
+
+      const mapEl = document.getElementById('port-map');
+      if (!mapEl) return;
+
+      // Initialize map centered on Ketchikan
+      const map = L.map('port-map').setView([55.3700, -131.5500], 11);
+
+      // Add OpenStreetMap tiles
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 18
+      }).addTo(map);
+
+      // Load POI data
+      Promise.all([
+        fetch('/assets/data/maps/poi-index.json').then(r => r.json()),
+        fetch('/assets/data/maps/ketchikan.map.json').then(r => r.json())
+      ]).then(([poiIndex, manifest]) => {
+        const labelOverrides = manifest.label_overrides || {};
+        const approxMarkers = manifest.approximate_markers || [];
+
+        manifest.poi_ids.forEach(poiId => {
+          const poi = poiIndex[poiId];
+          if (!poi || !poi.lat || !poi.lon) return;
+
+          const label = labelOverrides[poiId] || poi.name;
+          const isApprox = approxMarkers.includes(poiId);
+
+          // Color markers by type
+          let markerColor = '#3388ff'; // default blue
+          if (poi.type === 'port') markerColor = '#e74c3c';
+          else if (poi.type === 'dining') markerColor = '#f39c12';
+          else if (poi.type === 'nature') markerColor = '#27ae60';
+          else if (poi.type === 'museum') markerColor = '#9b59b6';
+          else if (poi.type === 'attraction') markerColor = '#e91e63';
+          else if (poi.type === 'landmark') markerColor = '#00bcd4';
+
+          const marker = L.circleMarker([poi.lat, poi.lon], {
+            radius: poi.type === 'port' ? 10 : 7,
+            fillColor: markerColor,
+            color: '#fff',
+            weight: 2,
+            opacity: 1,
+            fillOpacity: 0.8
+          }).addTo(map);
+
+          let popupContent = `<strong>${label}</strong>`;
+          if (poi.notes) popupContent += `<br><span style="font-size:0.85em;">${poi.notes}</span>`;
+          if (isApprox) popupContent += `<br><em style="font-size:0.8em;color:#999;">Location approximate</em>`;
+
+          marker.bindPopup(popupContent);
+        });
+
+        // Add port pin with special marker
+        if (manifest.port_pin) {
+          L.marker([manifest.port_pin.lat, manifest.port_pin.lon])
+            .addTo(map)
+            .bindPopup(`<strong>${manifest.port_pin.label}</strong><br>Walk directly into downtown Ketchikan`);
+        }
+      }).catch(err => {
+        console.log('Could not load map data:', err);
+        mapEl.innerHTML = '<p style="padding:2rem;text-align:center;color:#666;">Map data unavailable</p>';
+      });
+    }
+
+    initMap();
+  })();
+  </script>
 
 </body>
 </html>

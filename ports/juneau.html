@@ -14,7 +14,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
      type: Port Guide
      parent: /ports.html
      category: Alaska
-     updated: 2025-11-19
+     updated: 2025-12-12
      expertise: Cruise travel, port guides, Alaska cruising
      target-audience: Cruise travelers, Alaska cruise planners
      answer-first: Juneau is Alaska's capital and adventure heart — Mendenhall Glacier, legendary whale watching, and stunning fjord scenery make it consistently the highest-rated Alaska port.
@@ -30,7 +30,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="referrer" content="no-referrer-when-downgrade"/>
   <meta name="ai-summary" content="Juneau is Alaska's capital and adventure heart — Mendenhall Glacier, legendary whale watching, and stunning fjord scenery make it consistently the highest-rated Alaska port.">
-  <meta name="last-reviewed" content="2025-11-19">
+  <meta name="last-reviewed" content="2025-12-12">
   <meta name="content-protocol" content="ICP-Lite v1.0">
 
   <!-- SEO -->
@@ -66,6 +66,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
+
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css"/>
 
   <!-- JSON-LD: BreadcrumbList -->
   <script type="application/ld+json">
@@ -359,6 +363,27 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <p>Juneau's famous liquid sunshine (aka rain) is actually part of what keeps everything so vibrantly green, the waterfalls roaring, and the glaciers feeding. Pack a light waterproof jacket and embrace those surprise rainbows that pop out over the mountains after a passing shower — they turn an ordinary walk into a postcard-perfect moment you'll never forget. And always book your helicopter or whale watching excursions early — they sell out months ahead for good reason.</p>
     </section>
 
+    <!-- Interactive Port Map -->
+    <section class="card port-map-section" id="port-map-section" style="margin-top: 2rem;">
+      <h2>Juneau Area Map</h2>
+      <p class="map-intro" style="margin-bottom: 1rem; color: #567;">Interactive map showing downtown Juneau, Mendenhall Glacier, whale watching departure points, and attractions mentioned in this guide. Click any marker for details.</p>
+      <div id="juneau-port-map" class="port-map-container" role="application" aria-label="Interactive map of Juneau and points of interest">
+        <noscript>
+          <p style="padding: 2rem; text-align: center; color: #678;">
+            Interactive map requires JavaScript. View our <a href="/assets/data/maps/poi-index.json">POI data</a> for location coordinates.
+          </p>
+        </noscript>
+      </div>
+      <div class="port-map-actions" style="margin-top: 0.75rem;">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('juneau-port-map')._portMap?.fitBounds(document.getElementById('juneau-port-map')._portMap.getBounds())">
+          Reset View
+        </button>
+      </div>
+      <p class="tiny" style="margin-top: 0.75rem; color: #678;">
+        <strong>Note:</strong> Mendenhall Glacier is 13 miles from downtown. Whale watching departs from Auke Bay, 30 minutes away.
+      </p>
+    </section>
+
     <!-- FAQ Section -->
     <section class="card faq" style="margin-top: 2rem;">
       <h2>Frequently Asked Questions</h2>
@@ -580,13 +605,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         if(!primary){
           const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
           const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
+          if(guess) primary = `/assets/articles/${guess}/cover.jpg`;
         }
 
         const alts = [];
         if(primary){
           const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
+          alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
         }
         setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
       });
@@ -596,7 +621,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       // Announce to screen readers
       const status = document.getElementById('a11y-status');
       if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
+        status.textContent = `${view.length} recent articles loaded`;
       }
     })();
   })();
@@ -604,13 +629,39 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'juneau';</script>
-  <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/nearby-ports.js?v=3.010.306"></script>
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Juneau Port Map -->
+  <script>
+  (function() {
+    function initMap() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({
+          containerId: 'juneau-port-map',
+          portSlug: 'juneau'
+        });
+      } else {
+        setTimeout(initMap, 100);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMap);
+    } else {
+      initMap();
+    }
+  })();
+  </script>
 
 </body>
 </html>

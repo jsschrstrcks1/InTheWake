@@ -658,11 +658,33 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 - [ ] Report shows: "Aruba: 12 POIs mentioned, 12 resolved ✓"
 - [ ] False positives can be suppressed with `<!-- poi:ignore -->` comment
 
+#### Phase 2.5: Mobile Responsiveness Pass (PRIORITY)
+**Status:** Needed - maps not currently mobile-friendly
+**Problem:** As users zoom in on port page maps, the legend/controls block the small viewport, making the map unusable on mobile devices.
+
+**Acceptance Criteria - Mobile Pass:**
+- [ ] Map container has responsive height (min 300px mobile, 400px tablet, 500px desktop)
+- [ ] Leaflet controls collapse or move to bottom on narrow viewports
+- [ ] Legend (if present) collapses to expandable drawer on mobile
+- [ ] Touch gestures work smoothly (pinch-zoom, pan)
+- [ ] Popup modals don't overflow viewport
+- [ ] "Full screen" option available on mobile
+- [ ] Test on iPhone SE (smallest common), iPad Mini, standard Android
+
+**Files to Update:**
+```
+/assets/css/components/port-map.css   # Add mobile breakpoints
+/ports/anchorage.html                 # Test implementation
+/ports/juneau.html                    # Test implementation
+/ports/ketchikan.html                 # Test implementation
+```
+
 #### Watch Items (Quality Standards)
 - **Attribution:** OpenStreetMap © must appear on map AND inside PDF/PNG
 - **Truthfulness:** If a pin is approximate, label it "Approximate access point"
 - **No restaurants/taxi stands:** Geography ages well, vendor logistics don't
 - **Print quality:** PDF must be legible at 300dpi, suitable for cruise-ship print centers
+- **Mobile-first:** Maps must be usable on cruise ship cabin phones with limited Wi-Fi
 
 #### Estimated File Counts
 - POIs to catalog: ~500-800 across 161 ports (5-10 per port average)
