@@ -35,6 +35,11 @@ All work on this project is offered as a gift to God.
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.305"/>
+
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css"/>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -105,6 +110,22 @@ All work on this project is offered as a gift to God.
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/ports/img/aruba/aruba-FOM - 10.webp" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
+
+  <!-- Swiper CSS/JS (primary + CDN fallback) -->
+  <script>
+  (function ensureSwiper(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -240,6 +261,22 @@ All work on this project is offered as a gift to God.
             <li><strong>Baby Beach:</strong> 45-minute drive to the southern tip. Best with a rental car or organized tour.</li>
             <li><strong>Jeep Rentals:</strong> Popular option for exploring the rugged north coast and Natural Pool. Book in advance.</li>
           </ul>
+        </section>
+
+        <!-- Interactive Port Map -->
+        <section class="port-section port-map-section" id="port-map-section">
+          <h3>Aruba Port Map</h3>
+          <p class="map-intro">Interactive map showing the cruise terminal, beaches, landmarks, and attractions mentioned in this guide. Click any marker for details and directions.</p>
+          <div id="aruba-port-map" class="port-map-container" role="application" aria-label="Interactive map of Aruba port and points of interest">
+            <noscript>
+              <p style="padding: 2rem; text-align: center; color: #678;">
+                Interactive map requires JavaScript. View our <a href="/assets/data/maps/poi-index.json">POI data</a> for location coordinates.
+              </p>
+            </noscript>
+          </div>
+          <p class="tiny" style="margin-top: 0.75rem; color: #678;">
+            <strong>Tip:</strong> Click on the map to enable scroll zoom. Marker locations are approximate.
+          </p>
         </section>
 
         <section class="port-section">
@@ -485,7 +522,7 @@ All work on this project is offered as a gift to God.
       <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
     </div>
 
-    <aside class="rail" style="grid-column: 2;">
+    <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
       <details class="card" open>
         <summary>At a Glance</summary>
         <div class="card-content">
@@ -576,7 +613,8 @@ All work on this project is offered as a gift to God.
       if(!rail) return;
       try {
         var res = await fetch('/assets/data/articles/index.json');
-        var articles = await res.json();
+        var data = await res.json();
+        var articles = data.articles || data; // Handle both {articles:[]} and [] formats
         if(articles && articles.length){
           rail.innerHTML = articles.slice(0,5).map(function(a){
             return '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #e0e8f0;"><h4 style="margin:0 0 .25rem;font-size:.95rem;"><a href="'+a.url+'">'+a.title+'</a></h4><p style="margin:0;font-size:.8rem;color:#666;">'+a.date+'</p></div>';
@@ -595,6 +633,31 @@ All work on this project is offered as a gift to God.
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Aruba Port Map -->
+  <script>
+  (function() {
+    function initMap() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({
+          containerId: 'aruba-port-map',
+          portSlug: 'aruba'
+        });
+      } else {
+        setTimeout(initMap, 100);
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMap);
+    } else {
+      initMap();
+    }
+  })();
+  </script>
 
 </body>
 </html>

@@ -89,6 +89,22 @@ All work on this project is offered as a gift to God.
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/ports/img/curacao/Curacao-FOM - 1.webp" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
+
+  <!-- Swiper CSS/JS (primary + CDN fallback) -->
+  <script>
+  (function ensureSwiper(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -485,7 +501,7 @@ All work on this project is offered as a gift to God.
       <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
     </div>
 
-    <aside class="rail" style="grid-column: 2;">
+    <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
       <details class="card" open>
         <summary>At a Glance</summary>
         <div class="card-content">
@@ -576,7 +592,8 @@ All work on this project is offered as a gift to God.
       if(!rail) return;
       try {
         var res = await fetch('/assets/data/articles/index.json');
-        var articles = await res.json();
+        var data = await res.json();
+        var articles = data.articles || data; // Handle both {articles:[]} and [] formats
         if(articles && articles.length){
           rail.innerHTML = articles.slice(0,5).map(function(a){
             return '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #e0e8f0;"><h4 style="margin:0 0 .25rem;font-size:.95rem;"><a href="'+a.url+'">'+a.title+'</a></h4><p style="margin:0;font-size:.8rem;color:#666;">'+a.date+'</p></div>';
