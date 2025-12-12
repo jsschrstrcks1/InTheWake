@@ -859,7 +859,7 @@ All work on this project is offered as a gift to God.
 
       function setImageWithFallback(imgEl, primary, altPaths=[]){
         if(!imgEl) return;
-        const stamp='v=3.010.300';
+        const stamp='v=3.010.400';
         const tried=new Set();
         const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
         function tryNext(){

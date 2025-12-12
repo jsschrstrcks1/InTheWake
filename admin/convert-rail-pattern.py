@@ -182,17 +182,44 @@ def convert_file(filepath, dry_run=False):
 
     return True
 
+def clean_ship_page(filepath, dry_run=False):
+    """Clean up ship page - remove inline styles, update versions."""
+    with open(filepath, 'r', encoding='utf-8') as f:
+        original = f.read()
+
+    content = original
+    content = clean_inline_styles(content)
+
+    if content == original:
+        return False
+
+    if dry_run:
+        print(f"Would modify: {filepath}")
+    else:
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(content)
+        print(f"Modified: {filepath}")
+
+    return True
+
 def main():
     dry_run = '--dry-run' in sys.argv
     all_ports = '--all' in sys.argv
+    all_ships = '--ships' in sys.argv
 
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
 
-    if all_ports:
+    if all_ships:
+        ships_dir = Path(__file__).parent.parent / 'ships'
+        files = list(ships_dir.rglob('*.html'))
+        process_func = clean_ship_page
+    elif all_ports:
         ports_dir = Path(__file__).parent.parent / 'ports'
         files = list(ports_dir.glob('*.html'))
+        process_func = convert_file
     elif args:
         files = [Path(a) for a in args]
+        process_func = convert_file
     else:
         print(__doc__)
         sys.exit(1)
@@ -200,7 +227,7 @@ def main():
     modified = 0
     for f in files:
         if f.exists():
-            if convert_file(f, dry_run):
+            if process_func(f, dry_run):
                 modified += 1
         else:
             print(f"File not found: {f}")
