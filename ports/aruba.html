@@ -55,6 +55,7 @@ All work on this project is offered as a gift to God.
     addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
   })();
   </script>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -125,6 +126,22 @@ All work on this project is offered as a gift to God.
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/ports/img/aruba/aruba-FOM - 10.webp" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
+
+  <!-- Swiper CSS/JS (primary + CDN fallback) -->
+  <script>
+  (function ensureSwiper(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -264,7 +281,7 @@ All work on this project is offered as a gift to God.
 
         <!-- Interactive Port Map -->
         <section class="port-section port-map-section" id="port-map-section">
-          <h3>📍 Aruba Port Map</h3>
+          <h3>Aruba Port Map</h3>
           <p class="map-intro">Interactive map showing the cruise terminal, beaches, landmarks, and attractions mentioned in this guide. Click any marker for details and directions.</p>
           <div id="aruba-port-map" class="port-map-container" role="application" aria-label="Interactive map of Aruba port and points of interest">
             <noscript>
@@ -275,11 +292,11 @@ All work on this project is offered as a gift to God.
           </div>
           <div class="port-map-actions">
             <button type="button" class="btn btn-secondary" onclick="document.getElementById('aruba-port-map')._portMap?.fitBounds(document.getElementById('aruba-port-map')._portMap.getBounds())">
-              🔄 Reset View
+              Reset View
             </button>
           </div>
           <p class="tiny" style="margin-top: 0.75rem; color: #678;">
-            <strong>Tip:</strong> Click on the map to enable scroll zoom. Marker locations are approximate — always verify with local signage.
+            <strong>Tip:</strong> Click on the map to enable scroll zoom. Marker locations are approximate.
           </p>
         </section>
 
@@ -591,7 +608,6 @@ All work on this project is offered as a gift to God.
   <!-- Initialize Aruba Port Map -->
   <script>
   (function() {
-    // Wait for DOM and Leaflet to be ready
     function initMap() {
       if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
         PortMap.init({
@@ -599,7 +615,6 @@ All work on this project is offered as a gift to God.
           portSlug: 'aruba'
         });
       } else {
-        // Retry if scripts haven't loaded yet
         setTimeout(initMap, 100);
       }
     }
@@ -609,33 +624,6 @@ All work on this project is offered as a gift to God.
     } else {
       initMap();
     }
-  })();
-  </script>
-
-  <!-- Initialize Photo Gallery Swiper -->
-  <script>
-  (function initGallery(){
-    function go(){
-      if(!window.__swiperReady||!window.Swiper) return setTimeout(go,120);
-      try{
-        new Swiper('.swiper.aruba-gallery',{
-          loop:true,
-          lazy:true,
-          watchOverflow:true,
-          spaceBetween:20,
-          slidesPerView:1,
-          breakpoints:{
-            640:{slidesPerView:1,spaceBetween:20},
-            768:{slidesPerView:2,spaceBetween:24},
-            1024:{slidesPerView:2,spaceBetween:30}
-          },
-          pagination:{el:'.swiper.aruba-gallery .swiper-pagination',clickable:true},
-          navigation:{nextEl:'.swiper.aruba-gallery .swiper-button-next',prevEl:'.swiper.aruba-gallery .swiper-button-prev'},
-          a11y:{enabled:true}
-        });
-      }catch(_){}
-    }
-    go();
   })();
   </script>
 
