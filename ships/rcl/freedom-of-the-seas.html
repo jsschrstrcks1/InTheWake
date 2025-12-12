@@ -728,7 +728,7 @@ updated: 2025-11-18
       if(!window.__swiperReady||!window.Swiper) return setTimeout(go,120);
       try{
         new Swiper('.swiper.firstlook',{
-          loop:false,lazy:true,watchOverflow:true,
+          loop:false,watchOverflow:true,
           pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
           navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
           a11y:{enabled:true}
@@ -929,6 +929,7 @@ updated: 2025-11-18
     const card=document.querySelector('.card.itinerary[data-imo]');
     if(!card) return;
     const imo=card.getAttribute('data-imo');
+    const shipName=card.getAttribute('data-name');
     const container=document.getElementById('vf-tracker-container');
     if(!imo||!container) return;
 
@@ -936,22 +937,22 @@ updated: 2025-11-18
     const wrapper = document.createElement('div');
     wrapper.style.cssText = 'width:100%;height:500px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
 
-    // VesselFinder embed - more reliable than MarineTraffic
+    // CruiseMapper embed - uses IMO number for reliable tracking
     const iframe = document.createElement('iframe');
     iframe.style.cssText = 'width:100%;height:100%;border:0;';
-    iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
+    iframe.title = 'Live ship tracker for ' + shipName.replace(/-/g, ' ');
     iframe.setAttribute('loading', 'lazy');
-    iframe.allow = 'geolocation';
-    // VesselFinder free embed format
-    iframe.src = 'https://www.vesselfinder.com/aismap?imo=' + imo + '&zoom=10&width=100%25&height=500&names=true&track=true';
+    iframe.src = 'https://www.cruisemapper.com/?imo=' + imo;
 
     wrapper.appendChild(iframe);
     container.appendChild(wrapper);
 
-    // Fallback message if iframe fails
-    iframe.onerror = function() {
-      wrapper.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;text-align:center;padding:2rem;color:#678;"><p>Live tracker temporarily unavailable.<br><a href="https://www.vesselfinder.com/?imo=' + imo + '" target="_blank" rel="noopener">View on VesselFinder →</a></p></div>';
-    };
+    // Fallback link if embed doesn't work well
+    const fallbackLink = document.createElement('p');
+    fallbackLink.className = 'tiny';
+    fallbackLink.style.marginTop = '0.5rem';
+    fallbackLink.innerHTML = 'Can\'t see the map? <a href="https://www.cruisemapper.com/?imo=' + imo + '" target="_blank" rel="noopener">Open CruiseMapper →</a>';
+    container.appendChild(fallbackLink);
   })();
   </script>
 
@@ -1027,11 +1028,11 @@ updated: 2025-11-18
                 <img class="article-thumb" alt="" decoding="async" loading="lazy">
               </div>
               <div class="article-card-body">
-                <h4><a href="\${href}">\${title}</a></h4>
-                \${excerpt ? `<p class="tiny excerpt">\${excerpt}</p>` : ''}
+                <h4><a href="${href}">${title}</a></h4>
+                ${excerpt ? `<p class="tiny excerpt">${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill read-more">Read Article →</a>
+            <a href="${href}" class="pill read-more">Read Article →</a>
           </article>`;
       }).join('');
 
@@ -1063,13 +1064,13 @@ updated: 2025-11-18
         if(!primary){
           const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
           const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
+          if(guess) primary = `/assets/articles/${guess}/cover.jpg`;
         }
 
         const alts = [];
         if(primary){
           const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
+          alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
         }
         setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
       });
@@ -1079,7 +1080,7 @@ updated: 2025-11-18
       // Announce to screen readers
       const status = document.getElementById('a11y-status');
       if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
+        status.textContent = `${view.length} recent articles loaded`;
       }
     })();
   })();
