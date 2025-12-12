@@ -1,8 +1,10 @@
 /**
  * Port Map Module
  * Renders interactive Leaflet maps with POI markers for port pages
+ * Mobile-optimized with responsive features
  *
- * @version 1.0.0
+ * @version 2.0.0
+ * @updated 2025-12-12
  * @requires Leaflet 1.9.x (loaded via CDN)
  */
 
@@ -19,18 +21,30 @@
     shopping: { color: '#c2185b', icon: '🛍️', label: 'Shopping', zIndex: 600 },
     museum: { color: '#512da8', icon: '🏛️', label: 'Museum', zIndex: 600 },
     attraction: { color: '#00796b', icon: '⭐', label: 'Attraction', zIndex: 600 },
-    park: { color: '#689f38', icon: '🌳', label: 'Park', zIndex: 500 }
+    park: { color: '#689f38', icon: '🌳', label: 'Park', zIndex: 500 },
+    dining: { color: '#f39c12', icon: '🍽️', label: 'Restaurant', zIndex: 550 }
   };
 
   // Default fallback
   const DEFAULT_TYPE = { color: '#607d8b', icon: '📍', label: 'Point of Interest', zIndex: 400 };
+
+  // Detect mobile
+  function isMobile() {
+    return window.innerWidth < 768;
+  }
+
+  function isSmallMobile() {
+    return window.innerWidth < 480;
+  }
 
   /**
    * Create a custom divIcon marker
    */
   function createMarkerIcon(poi, typeConfig) {
     const isPort = poi.type === 'port';
-    const size = isPort ? 36 : 28;
+    const mobile = isMobile();
+    // Larger touch targets on mobile
+    const size = isPort ? (mobile ? 40 : 36) : (mobile ? 32 : 28);
 
     return L.divIcon({
       className: 'port-map-marker',
@@ -45,7 +59,7 @@
         justify-content: center;
         border: 2px solid white;
         box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      "><span style="transform: rotate(45deg); font-size: ${isPort ? '16px' : '12px'};">${typeConfig.icon}</span></div>`,
+      "><span style="transform: rotate(45deg); font-size: ${isPort ? (mobile ? '18px' : '16px') : (mobile ? '14px' : '12px')};">${typeConfig.icon}</span></div>`,
       iconSize: [size, size],
       iconAnchor: [size / 2, size],
       popupAnchor: [0, -size]
@@ -70,7 +84,7 @@
     `;
 
     if (poi.notes) {
-      html += `<p style="margin: 0 0 0.5rem; font-size: 0.85rem; color: #567;">${poi.notes}</p>`;
+      html += `<p style="margin: 0 0 0.5rem; font-size: 0.85rem; color: #567; line-height: 1.4;">${poi.notes}</p>`;
     }
 
     // Add directions links
@@ -89,6 +103,57 @@
 
     html += '</div>';
     return html;
+  }
+
+  /**
+   * Add mobile-specific enhancements
+   */
+  function addMobileFeatures(map, container) {
+    // Add fullscreen button on mobile/tablet
+    if (window.innerWidth < 1024) {
+      const fsBtn = document.createElement('button');
+      fsBtn.className = 'port-map-fullscreen-btn';
+      fsBtn.innerHTML = '⛶';
+      fsBtn.setAttribute('aria-label', 'Toggle fullscreen map');
+      fsBtn.setAttribute('type', 'button');
+
+      fsBtn.addEventListener('click', function() {
+        container.classList.toggle('fullscreen');
+        map.invalidateSize();
+        fsBtn.innerHTML = container.classList.contains('fullscreen') ? '✕' : '⛶';
+        fsBtn.setAttribute('aria-label',
+          container.classList.contains('fullscreen') ? 'Exit fullscreen' : 'Toggle fullscreen map'
+        );
+        document.body.style.overflow = container.classList.contains('fullscreen') ? 'hidden' : '';
+      });
+
+      container.appendChild(fsBtn);
+
+      // Close fullscreen on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && container.classList.contains('fullscreen')) {
+          fsBtn.click();
+        }
+      });
+    }
+
+    // Pan map to keep popup in view on mobile
+    if (isMobile()) {
+      map.on('popupopen', function(e) {
+        const px = map.project(e.popup._latlng);
+        px.y -= e.popup._container.clientHeight / 2;
+        map.panTo(map.unproject(px), { animate: true, duration: 0.3 });
+      });
+    }
+
+    // Handle window resize
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(function() {
+        map.invalidateSize();
+      }, 100);
+    });
   }
 
   /**
@@ -114,7 +179,7 @@
     }
 
     // Show loading state
-    container.innerHTML = '<div class="port-map-loading" style="display: flex; align-items: center; justify-content: center; height: 100%; color: #678;">Loading map...</div>';
+    container.innerHTML = '<div class="port-map-loading">Loading map...</div>';
 
     try {
       // Fetch POI index and port manifest in parallel
@@ -133,16 +198,21 @@
       // Clear loading state
       container.innerHTML = '';
 
-      // Initialize Leaflet map
+      const mobile = isMobile();
+      const smallMobile = isSmallMobile();
+
+      // Initialize Leaflet map with mobile-optimized settings
       const map = L.map(containerId, {
-        scrollWheelZoom: false, // Prevent accidental zooms while scrolling page
-        tap: false // Fix for mobile double-tap issue
+        scrollWheelZoom: !mobile, // Disable scroll zoom on mobile
+        tap: true,
+        touchZoom: true,
+        dragging: true
       });
 
       // Add OpenStreetMap tiles with attribution
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
-        attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+        attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
       }).addTo(map);
 
       // Collect all POI coordinates for bounds calculation
@@ -166,7 +236,7 @@
         });
 
         marker.bindPopup(createPopupContent(portPoi), {
-          maxWidth: 280,
+          maxWidth: mobile ? 260 : 280,
           className: 'port-map-popup-container'
         });
 
@@ -194,7 +264,7 @@
         });
 
         marker.bindPopup(createPopupContent(poi, labelOverride), {
-          maxWidth: 280,
+          maxWidth: mobile ? 260 : 280,
           className: 'port-map-popup-container'
         });
 
@@ -205,11 +275,11 @@
       // Add all markers to a layer group
       const markerGroup = L.layerGroup(markers).addTo(map);
 
-      // Fit map to show all POIs with padding
+      // Fit map to show all POIs with responsive padding
       if (bounds.length > 0) {
         map.fitBounds(bounds, {
-          padding: [30, 30],
-          maxZoom: 14
+          padding: smallMobile ? [20, 20] : [30, 30],
+          maxZoom: smallMobile ? 13 : 14
         });
       } else if (portManifest.bbox_hint) {
         // Fallback to bounding box hint
@@ -220,13 +290,18 @@
         ]);
       }
 
-      // Enable scroll wheel zoom after user clicks on map
-      map.once('focus', function() {
-        map.scrollWheelZoom.enable();
-      });
+      // Enable scroll wheel zoom after user clicks on map (desktop only)
+      if (!mobile) {
+        map.once('focus', function() {
+          map.scrollWheelZoom.enable();
+        });
+      }
 
-      // Add legend
+      // Add legend (collapsible on mobile via CSS)
       addLegend(map, portManifest, poiIndex);
+
+      // Add mobile-specific features
+      addMobileFeatures(map, container);
 
       // Store reference for potential later use
       container._portMap = map;
@@ -236,7 +311,7 @@
     } catch (error) {
       console.error('Error initializing port map:', error);
       container.innerHTML = `
-        <div class="port-map-error" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #678; text-align: center; padding: 1rem;">
+        <div class="port-map-error">
           <p style="margin: 0 0 0.5rem;">Unable to load map</p>
           <p style="margin: 0; font-size: 0.85rem; color: #999;">Please check your connection and try again</p>
         </div>
@@ -263,17 +338,36 @@
 
     legend.onAdd = function() {
       const div = L.DomUtil.create('div', 'port-map-legend');
-      div.innerHTML = '<h5 style="margin: 0 0 0.5rem; font-size: 0.85rem; color: #1a2a3a;">Map Legend</h5>';
 
-      for (const [type, config] of Object.entries(POI_TYPES)) {
-        if (typesPresent.has(type)) {
-          div.innerHTML += `
-            <div style="display: flex; align-items: center; margin-bottom: 0.25rem; font-size: 0.75rem;">
-              <span style="display: inline-block; width: 12px; height: 12px; background: ${config.color}; border-radius: 50%; margin-right: 0.5rem;"></span>
-              ${config.label}
-            </div>
-          `;
+      // Add collapsible structure for mobile
+      div.innerHTML = `
+        <div class="port-map-legend-content">
+          <button class="legend-close" aria-label="Close legend">✕</button>
+          <h5>Map Legend</h5>
+          <ul>
+            ${Array.from(typesPresent).map(type => {
+              const config = POI_TYPES[type] || DEFAULT_TYPE;
+              return `<li><span class="legend-dot" style="background: ${config.color};"></span>${config.label}</li>`;
+            }).join('')}
+          </ul>
+        </div>
+      `;
+
+      // Toggle legend on mobile
+      div.addEventListener('click', function(e) {
+        if (window.innerWidth < 768 && !div.classList.contains('expanded')) {
+          div.classList.add('expanded');
+          e.stopPropagation();
         }
+      });
+
+      // Close legend button
+      const closeBtn = div.querySelector('.legend-close');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function(e) {
+          div.classList.remove('expanded');
+          e.stopPropagation();
+        });
       }
 
       return div;

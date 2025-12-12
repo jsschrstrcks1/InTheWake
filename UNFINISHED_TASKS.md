@@ -659,25 +659,36 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 - [ ] False positives can be suppressed with `<!-- poi:ignore -->` comment
 
 #### Phase 2.5: Mobile Responsiveness Pass (PRIORITY)
-**Status:** Needed - maps not currently mobile-friendly
+**Status:** ✅ IMPLEMENTED (2025-12-12) - Alaska ports (Anchorage, Juneau, Ketchikan)
 **Problem:** As users zoom in on port page maps, the legend/controls block the small viewport, making the map unusable on mobile devices.
 
+**Implementation (2025-12-12):**
+- Updated `/assets/css/components/port-map.css` to v2.0.0 with mobile breakpoints
+- Updated `/assets/js/modules/port-map.js` to v2.0.0 with mobile features
+- Updated standards in `/.claude/standards/css.yml` with port_map section
+
 **Acceptance Criteria - Mobile Pass:**
-- [ ] Map container has responsive height (min 300px mobile, 400px tablet, 500px desktop)
-- [ ] Leaflet controls collapse or move to bottom on narrow viewports
-- [ ] Legend (if present) collapses to expandable drawer on mobile
-- [ ] Touch gestures work smoothly (pinch-zoom, pan)
-- [ ] Popup modals don't overflow viewport
-- [ ] "Full screen" option available on mobile
+- [x] Map container has responsive height (280px → 320px → 400px → 500px)
+- [x] Leaflet controls have 44px touch targets on mobile (shrink to 32px on desktop)
+- [x] Legend collapses to icon on mobile, expands on tap
+- [x] Touch gestures work smoothly (pinch-zoom, pan, tap=true)
+- [x] Popup modals constrained to viewport with max-height and auto-scroll
+- [x] Fullscreen button available on mobile/tablet (< 1024px)
 - [ ] Test on iPhone SE (smallest common), iPad Mini, standard Android
 
-**Files to Update:**
+**Files Updated:**
 ```
-/assets/css/components/port-map.css   # Add mobile breakpoints
-/ports/anchorage.html                 # Test implementation
-/ports/juneau.html                    # Test implementation
-/ports/ketchikan.html                 # Test implementation
+/assets/css/components/port-map.css   # v2.0.0 - Mobile breakpoints, fullscreen, legend collapse
+/assets/js/modules/port-map.js        # v2.0.0 - Mobile features, fullscreen, popup panning
+/ports/anchorage.html                 # Cache-busted CSS v2.0.0
+/ports/juneau.html                    # Cache-busted CSS v2.0.0
+/ports/ketchikan.html                 # Inline script with mobile features
+/.claude/standards/css.yml            # Added port_map standards section
 ```
+
+**Remaining:**
+- [ ] Roll out to all other port pages with maps (Aruba pilot)
+- [ ] Real device testing on iPhone SE, iPad Mini, Android
 
 #### Watch Items (Quality Standards)
 - **Attribution:** OpenStreetMap © must appear on map AND inside PDF/PNG
