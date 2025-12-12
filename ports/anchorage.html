@@ -36,6 +36,10 @@ All work on this project is offered as a gift to God.
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.305"/>
 
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css"/>
+
   <!-- Swiper CSS/JS (primary + CDN fallback) -->
   <script>
   (function ensureSwiper(){
@@ -195,7 +199,7 @@ All work on this project is offered as a gift to God.
         </p>
 
         <div class="logbook-entry">
-          <p>The first thing you notice flying into Anchorage is the scale. Mountains rise impossibly high in every direction — the Chugach Range to the east, the Alaska Range to the north where Denali hides behind clouds, and Cook Inlet stretching silver-gray to the west. This is not a place that does anything small.</p>
+          <p>The first thing you notice flying into Anchorage is the scale. Mountains rise impossibly high in every direction — the Chugach Range to the east, the Alaska Range to the north where Denali hides behind clouds, and Cook Inlet stretching silver-gray to the west. This is not a place that does anything small. With nearly 300,000 residents, Anchorage is home to about 40% of Alaska's population, yet there are more than a thousand moose wandering through neighborhoods at any given time.</p>
 
           <p>I always recommend at least one night in Anchorage before or after an Alaska cruise. Yes, your ship docks in <a href="/ports/seward.html">Seward</a> or <a href="/ports/whittier.html">Whittier</a>, but rushing through misses the point. Alaska demands you slow down. And Anchorage — with its blend of urban amenities and wilderness-at-the-doorstep — is the perfect place to do it.</p>
 
@@ -203,11 +207,13 @@ All work on this project is offered as a gift to God.
             <strong>The Moment That Stays With Me:</strong> Standing on the Tony Knowles Coastal Trail at 10 p.m., the sun still bright on the water, watching a bull moose graze between cyclists and joggers like it was the most normal thing in the world. In Anchorage, it is.
           </div>
 
-          <p>My perfect Anchorage day starts with breakfast at <strong>Snow City Cafe</strong> downtown — their reindeer sausage scramble is legendary, and the line out the door proves it. From there, it's a short walk to the <strong>Anchorage Museum</strong>, which does an extraordinary job explaining Alaska's Indigenous cultures, natural history, and the unique challenges of life at these latitudes. The Smithsonian Arctic Studies Center inside is world-class.</p>
+          <p>My perfect Anchorage day starts with breakfast at <strong>Snow City Cafe</strong> downtown — voted best breakfast in Anchorage for years running by the Anchorage Press. On any given morning, locals and visitors line up bright and early outside this artsy diner. Order the Uber omelet (black forest ham with five different veggies), the Cluck Norris (chicken apple sausage), or their famous reindeer sausage scramble with sourdough toast. From there, it's a short walk to the <strong>Anchorage Museum</strong>, which does an extraordinary job explaining Alaska's Indigenous cultures, natural history, and the unique challenges of life at these latitudes. The Smithsonian Arctic Studies Center inside is world-class, and the rooftop garden offers stunning mountain views.</p>
 
-          <p>Afternoons belong to wildlife. The <strong>Alaska Wildlife Conservation Center</strong> is 30 minutes south on the Seward Highway — one of America's most scenic drives, hugging the Turnagain Arm fjord. The center rescues orphaned and injured animals, so you're guaranteed close encounters with brown bears, black bears, moose, musk ox, caribou, and bald eagles. It's not a zoo; it's conservation in action.</p>
+          <p>Afternoons belong to wildlife. The <strong>Alaska Wildlife Conservation Center</strong> — winner of the 2025 Viator Experience Award, placing it in the top 1% of travel experiences nationwide — is 30 minutes south on the Seward Highway. This isn't a zoo; it's a rescue sanctuary where orphaned and injured animals find a second chance. You're guaranteed close encounters with brown bears, black bears, moose, musk ox, caribou, and bald eagles. The drive itself is worth the trip, hugging Turnagain Arm — one of America's most scenic stretches of road, with mountains plunging into tidal flats that rival anything you'll see from your ship.</p>
 
-          <p>For dinner, <strong>Moose's Tooth Pub & Pizzeria</strong> serves what many consider the best pizza in Alaska (try the Avalanche or Apricot Chicken), with 40+ local beers on tap. Or splurge at <strong>Simon & Seafort's</strong> for king crab legs with million-dollar views of Cook Inlet.</p>
+          <p>For the adventurous, nothing beats walking on a glacier. The <strong>Matanuska Glacier</strong> — Alaska's largest road-accessible glacier — is about 2 hours northeast. Guided ice walks take you across blue ice pools and into crevasses that glow otherworldly shades of turquoise. It consistently ranks among the top-rated experiences in the region.</p>
+
+          <p>For dinner, <strong>Moose's Tooth Pub & Pizzeria</strong> serves what Food Network called some of the best pizza in America. The place is always packed, so go early and order a pint while you wait. Try the Amazing Apricot (blackened chicken, cream cheese, carrots, and apricot sauce) or the Call of the Wild (reindeer sausage, steak, bacon, and mushrooms). If you're celebrating, splurge at <strong>Simon & Seafort's</strong> — an Anchorage landmark since 1978, often voted best seafood restaurant in Alaska. Chef James Shepherd's crab-stuffed macadamia halibut is legendary, and the sweeping Cook Inlet views at sunset are worth the reservation hassle.</p>
         </div>
 
         <section class="port-section">
@@ -278,6 +284,27 @@ All work on this project is offered as a gift to God.
             <li><strong>Tipping:</strong> Standard U.S. tipping applies (18-20% for restaurants, $1-2 per drink at bars).</li>
             <li><strong>Booking:</strong> Summer is peak season. Book hotels, rental cars, and popular restaurants well in advance.</li>
           </ul>
+        </section>
+
+        <!-- Interactive Port Map -->
+        <section class="port-section port-map-section" id="port-map-section">
+          <h3>Anchorage Area Map</h3>
+          <p class="map-intro">Interactive map showing downtown Anchorage, attractions, restaurants, and day trip destinations mentioned in this guide. Click any marker for details.</p>
+          <div id="anchorage-port-map" class="port-map-container" role="application" aria-label="Interactive map of Anchorage and points of interest">
+            <noscript>
+              <p style="padding: 2rem; text-align: center; color: #678;">
+                Interactive map requires JavaScript. View our <a href="/assets/data/maps/poi-index.json">POI data</a> for location coordinates.
+              </p>
+            </noscript>
+          </div>
+          <div class="port-map-actions">
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('anchorage-port-map')._portMap?.fitBounds(document.getElementById('anchorage-port-map')._portMap.getBounds())">
+              Reset View
+            </button>
+          </div>
+          <p class="tiny" style="margin-top: 0.75rem; color: #678;">
+            <strong>Note:</strong> Anchorage attractions span a wide area. Some day trips (Matanuska Glacier, Girdwood) are 1-2 hours from downtown.
+          </p>
         </section>
 
         <section class="port-section">
@@ -417,6 +444,32 @@ All work on this project is offered as a gift to God.
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Anchorage Port Map -->
+  <script>
+  (function() {
+    function initMap() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({
+          containerId: 'anchorage-port-map',
+          portSlug: 'anchorage'
+        });
+      } else {
+        setTimeout(initMap, 100);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMap);
+    } else {
+      initMap();
+    }
+  })();
+  </script>
 
 </body>
 </html>
