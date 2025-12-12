@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://inthewake.com/schema/port-map.schema.json",
+  "title": "Port Map Manifest",
+  "description": "Per-port map configuration referencing POIs from poi-index.json",
+  "type": "object",
+  "properties": {
+    "_meta": {
+      "type": "object",
+      "properties": {
+        "version": { "type": "string" },
+        "generated": { "type": "string", "format": "date-time" },
+        "source": { "type": "string" }
+      }
+    },
+    "port_slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "URL slug matching /ports/{slug}.html"
+    },
+    "port_name": {
+      "type": "string",
+      "description": "Human-readable port name"
+    },
+    "port_pin": {
+      "type": "object",
+      "properties": {
+        "lat": { "type": "number", "minimum": -90, "maximum": 90 },
+        "lon": { "type": "number", "minimum": -180, "maximum": 180 },
+        "label": { "type": "string" }
+      },
+      "required": ["lat", "lon"],
+      "description": "Primary cruise terminal/pier location"
+    },
+    "bbox_hint": {
+      "type": "object",
+      "properties": {
+        "south": { "type": "number" },
+        "west": { "type": "number" },
+        "north": { "type": "number" },
+        "east": { "type": "number" },
+        "note": { "type": "string" }
+      },
+      "description": "Suggested bounding box for map view"
+    },
+    "poi_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Array of POI IDs from poi-index.json to display on this port's map"
+    },
+    "label_overrides": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Custom labels for specific POIs on this port's map"
+    },
+    "approximate_markers": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "POI IDs that should display 'approximate location' disclaimer"
+    },
+    "transit_routes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "type": { "type": "string", "enum": ["bus", "trolley", "train", "ferry", "tram"] },
+          "cost": { "type": "string" },
+          "frequency": { "type": "string" },
+          "stops": { "type": "array", "items": { "type": "string" } },
+          "stops_count": { "type": "integer" },
+          "connects": { "type": "array", "items": { "type": "string" } },
+          "note": { "type": "string" }
+        },
+        "required": ["id", "name", "type"]
+      },
+      "description": "Public transit routes relevant to cruise passengers"
+    }
+  },
+  "required": ["port_slug", "port_name", "port_pin", "poi_ids"],
+  "additionalProperties": false
+}

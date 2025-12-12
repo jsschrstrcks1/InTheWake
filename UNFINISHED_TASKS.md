@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2025-12-10 (G/Y/R lanes added)
+**Last Updated:** 2025-12-12 (Port Map Integration plan added)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -520,14 +520,168 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 
 ## P2 - Medium (Enhancement)
 
+### Port Map Integration — Printable/Saveable Maps for Offline Use
+**Status:** Planned (Pilot: Aruba POI index complete)
+**Priority:** HIGH - Key differentiator for cruise travelers without ship Wi-Fi
+**Lane:** 🟢 Green (technical infrastructure)
+
+> **Note:** This is DISTINCT from the [Port Logbook "My Cruising Journey"](#leaflet-map-integration--port-logbook-my-cruising-journey) map feature below. This provides downloadable/printable maps for each individual port page; the other shows YOUR visited ports on a world map. They share Leaflet infrastructure but serve different purposes.
+
+**Core Use Case:** Cruise traveler docks → needs confidence about next 30 minutes → saves/prints map before leaving ship → navigates without burning Wi-Fi data.
+
+**Architecture Decision: "Option D" (Recommended)**
+- Global POI index with IDs + aliases
+- Build script that parses port HTML for POI mentions
+- Auto-generates per-port map manifests
+- Pre-generates deterministic PDF/PNG offline artifacts
+- **Rule:** "If it's mentioned in the article, it shows up on the map" — enforced by build-time lint
+
+#### Phase 1: POI Index + Static Map Artifacts (MVP)
+**Goal:** Every port gets a downloadable map with POIs mentioned in the article.
+
+**Files to Create:**
+```
+/assets/data/poi-index.json           # Global POI database
+/assets/data/ports/{slug}.map.json    # Per-port map manifest (auto-generated)
+/assets/maps/ports/{slug}/map.png     # Pre-generated static map
+/assets/maps/ports/{slug}/map.pdf     # Pre-generated print-ready PDF
+/admin/generate-port-maps.py          # Build script for map generation
+/schema/poi-index.schema.json         # JSON schema for POI validation
+/schema/port-map.schema.json          # JSON schema for map manifest
+```
+
+**POI Index Structure:**
+```json
+{
+  "eagle-beach": {
+    "id": "eagle-beach",
+    "name": "Eagle Beach",
+    "aliases": ["Eagle beach", "eagle beach aruba"],
+    "lat": 12.5512,
+    "lon": -70.0567,
+    "type": "beach",
+    "geometry": "point"  // or "line"/"polygon" for Phase 3
+  }
+}
+```
+
+**Per-Port Map Manifest (Auto-Generated):**
+```json
+{
+  "port_slug": "aruba",
+  "port_pin": { "lat": 12.5186, "lon": -70.0358, "label": "Cruise Terminal" },
+  "poi_ids": ["eagle-beach", "palm-beach", "oranjestad-main-street"],
+  "bbox_hint": [12.45, -70.10, 12.60, -70.00],
+  "generated": "2025-12-12T00:00:00Z"
+}
+```
+
+**Acceptance Criteria - Phase 1:**
+- [ ] POI index contains all POIs mentioned across all port articles
+- [ ] Build script scans port HTML, resolves mentions to POI IDs
+- [ ] Build FAILS (or emits warning) if a POI mention can't resolve
+- [ ] Static PNG + PDF generated for each port with:
+  - Port/pier pin (prominent)
+  - All mentioned POIs as labeled markers
+  - OpenStreetMap attribution (required)
+  - Scale bar
+  - "Approximate" disclaimer where applicable
+- [ ] Download card on each port page with PNG/PDF links
+- [ ] Print CSS includes the PDF for clean printing
+
+#### Phase 2: Interactive Map (Online Enhancement)
+**Goal:** Leaflet map for online users, gracefully degrades to static artifacts.
+
+**Files to Create:**
+```
+/assets/js/modules/port-map.js        # Leaflet initialization
+/assets/css/components/port-map.css   # Map styling
+```
+
+**Acceptance Criteria - Phase 2:**
+- [ ] Leaflet map loads when online
+- [ ] Markers for pier + all POIs from manifest
+- [ ] Click marker → popup with name + "Directions" links (Google/Apple/Waze)
+- [ ] "Save Map" button downloads the pre-generated PNG
+- [ ] "Print Map" triggers print with PDF
+- [ ] Map lazy-loads only when scrolled into view (ship Wi-Fi friendly)
+- [ ] Service worker caches map tiles for offline viewing (where possible)
+- [ ] Falls back gracefully to static image when JS disabled
+
+#### Phase 3: Article-Map Integration
+**Goal:** POI mentions in article are clickable → scroll to map → highlight marker.
+
+**Acceptance Criteria - Phase 3:**
+- [ ] POI mentions get subtle "📍" indicator (non-intrusive)
+- [ ] Click → map scrolls into view → popup opens for that POI
+- [ ] "Places mentioned in this article" plain list fallback (for no-JS/screen readers)
+- [ ] Optional: crow-flies distances from pier to each POI
+
+#### Phase 4: Enhanced Geometry
+**Goal:** Beaches and promenades as regions, not just pins.
+
+**Updates to POI Index:**
+```json
+{
+  "eagle-beach": {
+    "geometry": "line",
+    "coords": [[12.551, -70.056], [12.553, -70.058], ...]
+  }
+}
+```
+
+**Acceptance Criteria - Phase 4:**
+- [ ] Support `line` geometry (beaches, boardwalks)
+- [ ] Support `polygon` geometry (districts, old towns)
+- [ ] Static maps render beaches as labeled shaded regions
+- [ ] Leaflet renders polylines/polygons with hover labels
+
+#### Phase 5: Build-Time Lint Enforcement
+**Goal:** "If it's mentioned, it's mappable" enforced automatically.
+
+**Files to Create:**
+```
+/admin/lint-poi-coverage.py           # Build-time POI coverage check
+/.github/workflows/poi-lint.yml       # CI integration
+```
+
+**Lint Rules:**
+1. Scan port HTML for place-name patterns
+2. Resolve each to POI ID via aliases
+3. FAIL if: mentioned place has no POI entry
+4. WARN if: POI exists but coordinates are placeholder
+5. Auto-update `{slug}.map.json` with resolved poi_ids
+
+**Acceptance Criteria - Phase 5:**
+- [ ] Lint script runs on every port page
+- [ ] CI fails PR if new POI mention can't resolve
+- [ ] Report shows: "Aruba: 12 POIs mentioned, 12 resolved ✓"
+- [ ] False positives can be suppressed with `<!-- poi:ignore -->` comment
+
+#### Watch Items (Quality Standards)
+- **Attribution:** OpenStreetMap © must appear on map AND inside PDF/PNG
+- **Truthfulness:** If a pin is approximate, label it "Approximate access point"
+- **No restaurants/taxi stands:** Geography ages well, vendor logistics don't
+- **Print quality:** PDF must be legible at 300dpi, suitable for cruise-ship print centers
+
+#### Estimated File Counts
+- POIs to catalog: ~500-800 across 161 ports (5-10 per port average)
+- Static maps to generate: 161 PNG + 161 PDF
+- JavaScript: ~200 lines (port-map.js)
+- Python build scripts: ~400 lines total
+
+---
+
 ### Developer Tooling & Infrastructure (2025-12-10 Evaluation)
 
 **Context:** Evaluated suggestions from ChatGPT against current codebase. These are high-leverage additions that align with single-repo, hand-rolled philosophy.
 
-#### Leaflet Map Integration — Port Tracker "My Cruising Journey"
+#### Leaflet Map Integration — Port Logbook "My Cruising Journey"
 **Status:** Planned
-**Priority:** HIGH - Transforms Port Tracker from "useful tool" to "emotional centerpiece"
+**Priority:** HIGH - Transforms Port Logbook from "useful tool" to "emotional centerpiece"
 **Bundle Impact:** ~55KB (Leaflet 42KB + marker cluster 8KB + custom 5KB)
+
+> **Note:** This is DISTINCT from the [Port Map Integration](#port-map-integration--printablesaveable-maps-for-offline-use) feature above. This map shows YOUR visited ports across the world; the other provides downloadable maps for each individual port page. They share Leaflet infrastructure but serve different purposes.
 
 **Phase 1: Core Map (MVP)**
 - [ ] Add map view toggle to Port Tracker (List | Map | Stats tabs)

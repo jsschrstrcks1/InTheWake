@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://inthewake.com/schema/poi-index.schema.json",
+  "title": "POI Index",
+  "description": "Global Point of Interest index for port maps",
+  "type": "object",
+  "additionalProperties": {
+    "oneOf": [
+      { "$ref": "#/definitions/poi" },
+      { "$ref": "#/definitions/meta" }
+    ]
+  },
+  "definitions": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "version": { "type": "string" },
+        "description": { "type": "string" },
+        "updated": { "type": "string", "format": "date" },
+        "schema": { "type": "string" }
+      },
+      "required": ["version"]
+    },
+    "poi": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "description": "Unique identifier (lowercase, hyphens only)"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Display name for the POI"
+        },
+        "aliases": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Alternative names/spellings for fuzzy matching"
+        },
+        "lat": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90,
+          "description": "Latitude in decimal degrees"
+        },
+        "lon": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180,
+          "description": "Longitude in decimal degrees"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "port",
+            "beach",
+            "landmark",
+            "nature",
+            "district",
+            "shopping",
+            "attraction",
+            "museum",
+            "park",
+            "transit"
+          ],
+          "description": "POI category for styling/filtering"
+        },
+        "geometry": {
+          "type": "string",
+          "enum": ["point", "line", "polygon"],
+          "default": "point",
+          "description": "Geometry type for map rendering"
+        },
+        "coords": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": { "type": "number" },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "description": "Coordinate array for line/polygon geometry"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Internal notes about the POI"
+        },
+        "port": {
+          "type": "string",
+          "description": "Associated port slug"
+        },
+        "approximate": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, coordinates are approximate"
+        }
+      },
+      "required": ["id", "name", "lat", "lon", "type"],
+      "additionalProperties": false
+    }
+  }
+}
