@@ -1,58 +1,64 @@
 # robots.txt for https://cruisinginthewake.com/
-# Last updated: 2025-12-07
-# Purpose: Allow full indexing of public content, ensure canonical article is crawled,
-#          and prevent crawl of internal assets and fragment builds.
+# Last updated: 2025-12-13
+# Purpose: Allow full indexing of public content while preventing crawl of
+#          internal assets, admin pages, and development files.
 
 User-agent: *
 
 # === Allow key content sections ===
 Allow: /$
-Allow: /restaurants/
 Allow: /ports/
+Allow: /ships/
 Allow: /cruise-lines/
+Allow: /restaurants/
+Allow: /solo/
+Allow: /tools/
+Allow: /authors/
+
+# === Allow main pages ===
+Allow: /index.html
 Allow: /planning.html
 Allow: /travel.html
 Allow: /solo.html
-Allow: /solo/
+Allow: /ships.html
+Allow: /ports.html
+Allow: /articles.html
 Allow: /packing-lists.html
+Allow: /packing.html
+Allow: /drinks.html
 Allow: /accessibility.html
 Allow: /drink-packages.html
 Allow: /drink-calculator.html
+Allow: /stateroom-check.html
+Allow: /search.html
+Allow: /about-us.html
+Allow: /privacy.html
+Allow: /terms.html
 
-# ✳️ Canonical full article (allow explicitly)
-Allow: /solo/visiting-the-united-states-before-your-cruise.html
-
-# === Disallow internal, redundant, or fragment paths ===
+# === Disallow internal and development paths ===
 Disallow: /assets/
 Disallow: /js/
 Disallow: /css/
 Disallow: /data/
 Disallow: /meta/
 Disallow: /vendor/
-Disallow: /vendors/          # third-party dependencies
-Disallow: /images/           # top-level only; /solo/images/ remains crawlable
+Disallow: /vendors/
+Disallow: /images/
 Disallow: /__MACOSX/
 Disallow: /404.html
+Disallow: /offline.html
 Disallow: /placeholder.md
 Disallow: /admin/
 Disallow: /drafts/
 Disallow: /staging/
 Disallow: /tmp/
-Disallow: /solo/articles/    # block article fragments / partial builds
-Disallow: /*.php$            # block dynamic scripts if not used
+Disallow: /*.php$
 
-# === Ship pages indexing control ===
-Allow: /ships/rcl/                    # RCL ships ready (50 pages with content)
-Disallow: /ships/carnival/            # Carnival not ready (48 pages pending)
-Disallow: /ships/celebrity-cruises/   # Celebrity not ready (30 pages pending)
-Disallow: /ships/holland-america-line/ # HAL not ready (45 pages pending)
-Disallow: /ships/msc/                 # MSC not ready (1 page pending)
-
-# === Sitemap references (canonical host) ===
+# === Sitemap references ===
 Sitemap: https://cruisinginthewake.com/sitemap.xml
-Sitemap: https://cruisinginthewake.com/solo/sitemap.xml
 
 # Notes:
-# - /solo/images/ remains indexable for article imagery and rich results.
-# - Aligns with <link rel="canonical"> and JSON-LD on the article page.
-# - Mirrors navigation paths and v3.010 standards.
+# - All 162 port pages are indexed
+# - All cruise line ship pages are indexed (Carnival, Celebrity, HAL, MSC, RCL)
+# - Solo cruising articles are indexed
+# - Tools (port tracker, ship tracker) are indexed
