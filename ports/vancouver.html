@@ -15,6 +15,9 @@ Soli Deo Gloria
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -55,11 +58,22 @@ Soli Deo Gloria
         <section class="port-section">
           <h3>Getting to the Port</h3>
           <ul>
-            <li><strong>Terminal:</strong> Canada Place, 999 Canada Place</li>
-            <li><strong>From YVR Airport:</strong> 25-35 minutes via Canada Line SkyTrain</li>
-            <li><strong>SkyTrain:</strong> Direct to Waterfront Station, short walk to terminal</li>
-            <li><strong>Taxi/Uber:</strong> $35-45 CAD from airport</li>
-            <li><strong>From Seattle:</strong> 3-4 hours via I-5 North (bring passport)</li>
+            <li><strong>Terminal:</strong> Canada Place, 999 Canada Place, Vancouver</li>
+            <li><strong>From YVR Airport:</strong> 25-35 minutes via Canada Line SkyTrain ($9.35 CAD adult fare, includes all-zone travel)</li>
+            <li><strong>SkyTrain:</strong> Direct to Waterfront Station — short walk to terminal. <a href="https://www.translink.ca" target="_blank" rel="noopener">TransLink</a></li>
+            <li><strong>Taxi/Uber:</strong> $35-45 CAD from airport; Uber and Lyft both operate in Vancouver</li>
+            <li><strong>From Seattle:</strong> 3-4 hours via I-5 North (bring passport — required for border crossing)</li>
+          </ul>
+        </section>
+
+        <section class="port-section">
+          <h3>Getting Around Vancouver</h3>
+          <ul>
+            <li><strong>SkyTrain:</strong> Three lines serve metro Vancouver — Canada Line (airport/Richmond), Expo Line (east), Millennium Line (east/north). Fare zones based on distance. <a href="https://www.translink.ca/schedules-and-maps/skytrain" target="_blank" rel="noopener">TransLink SkyTrain</a></li>
+            <li><strong>SeaBus:</strong> 12-minute ferry across Burrard Inlet to North Vancouver — leaves from Waterfront Station; includes access to Lonsdale Quay market</li>
+            <li><strong>Aquabus & False Creek Ferries:</strong> Small ferries connecting Granville Island, Yaletown, Science World, and more — $4-7 CAD per hop</li>
+            <li><strong>On Foot:</strong> Downtown core is compact and walkable; Stanley Park seawall is 10 km of waterfront walking</li>
+            <li><strong>Bike Rentals:</strong> Mobi bike-share stations throughout downtown; excellent for seawall and False Creek exploration</li>
           </ul>
         </section>
 
@@ -76,24 +90,51 @@ Soli Deo Gloria
         <section class="port-section">
           <h3>Nearby Hotels</h3>
           <ul>
-            <li><strong>Fairmont Waterfront:</strong> Steps from Canada Place, harbor views</li>
-            <li><strong>Pan Pacific Vancouver:</strong> Inside Canada Place itself</li>
-            <li><strong>Fairmont Hotel Vancouver:</strong> Historic "Castle in the City"</li>
-            <li><strong>JW Marriott Parq:</strong> Modern luxury near waterfront</li>
-            <li><strong>Victorian Hotel:</strong> Budget-friendly in Gastown</li>
+            <li><strong>Hilton Vancouver Downtown:</strong> Modern tower in the heart of downtown, walking distance to Canada Place and Robson Street shopping</li>
+            <li><strong>DoubleTree by Hilton Vancouver Downtown:</strong> Waterfront location near the port with harbor views</li>
+            <li><strong>Fairmont Waterfront:</strong> Steps from Canada Place, harbor views, rooftop herb garden</li>
+            <li><strong>Pan Pacific Vancouver:</strong> Inside Canada Place itself — can't get closer to the cruise terminal</li>
+            <li><strong>Fairmont Hotel Vancouver:</strong> Historic "Castle in the City" with green copper roof, opened 1939</li>
+            <li><strong>Victorian Hotel:</strong> Budget-friendly boutique option in Gastown</li>
           </ul>
         </section>
 
         <section class="port-section">
           <h3>Pre-Cruise Activities</h3>
           <ul>
-            <li><strong>Stanley Park:</strong> 1,000-acre urban park, seawall bike ride, totem poles</li>
-            <li><strong>Granville Island:</strong> Public market, artisan shops, fresh seafood</li>
-            <li><strong>Gastown:</strong> Historic district, steam clock, restaurants and bars</li>
-            <li><strong>Capilano Suspension Bridge:</strong> Swaying bridge 230 feet above the forest floor</li>
-            <li><strong>Grouse Mountain:</strong> Gondola with city and mountain views</li>
-            <li><strong>Chinatown:</strong> One of North America's largest, great dim sum</li>
+            <li><strong>Stanley Park:</strong> 1,000-acre urban park — rent bikes and ride the 10 km seawall, visit the totem poles, and explore lost lagoon. One of North America's finest urban parks</li>
+            <li><strong>Granville Island:</strong> Public market with local produce, fresh seafood, artisan shops, and buskers. Take the Aquabus for scenic access</li>
+            <li><strong>Gastown:</strong> Vancouver's oldest neighborhood — cobblestone streets, steam clock (whistles every 15 min), restaurants and boutiques</li>
+            <li><strong>Capilano Suspension Bridge Park:</strong> Swaying bridge 230 feet above the canyon, cliff walk, and treetops adventure. Book through <a href="https://www.viator.com/Vancouver-tours/Outdoor-Activities/d616-g8-c57" target="_blank" rel="noopener">Viator</a></li>
+            <li><strong>Grouse Mountain:</strong> "Peak of Vancouver" — Skyride gondola, grizzly bear sanctuary, stunning city and mountain views</li>
+            <li><strong>Chinatown:</strong> One of North America's largest and oldest — Dr. Sun Yat-Sen Classical Chinese Garden is a peaceful oasis</li>
+            <li><strong>FlyOver Canada:</strong> Thrilling flight simulation ride across Canada — located at Canada Place, perfect for embarkation day</li>
           </ul>
+        </section>
+
+        <section class="port-section">
+          <h3>History & Heritage</h3>
+          <p>Vancouver's Burrard Inlet has been home to Coast Salish peoples for over 10,000 years. European settlement began in the 1860s, and the city was incorporated in 1886 — only to burn to the ground in the Great Fire that same year. The Canadian Pacific Railway reached Vancouver in 1887, transforming it into Canada's Pacific gateway.</p>
+          <p>Canada Place opened in 1986 for Expo 86, its five white sails becoming an instant Vancouver icon. The cruise terminal handles over 1 million passengers annually, serving as the premier gateway for Alaska Inside Passage voyages. The building also houses a convention center, hotel, and the FlyOver Canada attraction.</p>
+        </section>
+
+        <section class="port-section">
+          <h3>Practical Tips</h3>
+          <ul>
+            <li><strong>Currency:</strong> Canadian dollars (CAD). US dollars often accepted but at poor exchange rates — use credit cards or withdraw CAD from ATMs</li>
+            <li><strong>Weather:</strong> Mild but changeable; May-September are best months with average highs 65-75°F. Always pack a light rain layer</li>
+            <li><strong>Compass Card:</strong> Reloadable transit card for SkyTrain, buses, and SeaBus — day pass available ($11 CAD)</li>
+            <li><strong>Dim Sum:</strong> Don't miss Vancouver's legendary Chinese cuisine — try Dynasty Seafood or Sun Sui Wah for authentic dim sum</li>
+            <li><strong>Sushi:</strong> Some of the best sushi outside Japan — local favorites include Miku (high-end) and Tojo's (legendary chef)</li>
+          </ul>
+        </section>
+
+        <section class="port-section port-map-section" id="port-map-section">
+          <h3>Vancouver Area Map</h3>
+          <p class="map-intro">Interactive map showing Canada Place, Stanley Park, Granville Island, and Gastown.</p>
+          <div id="vancouver-port-map" class="port-map-container" role="application" aria-label="Interactive map of Vancouver">
+            <noscript><p>Interactive map requires JavaScript. Key locations: Canada Place, Stanley Park, Granville Island, Gastown, Capilano Suspension Bridge.</p></noscript>
+          </div>
         </section>
 
         <section class="port-section">
@@ -124,5 +165,21 @@ Soli Deo Gloria
   <footer class="wrap" role="contentinfo"><p>© 2025 In the Wake</p></footer>
   <script>window.currentPortId = 'vancouver';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Vancouver Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'vancouver-port-map',
+        portSlug: 'vancouver'
+      });
+    }
+  });
+  </script>
 </body>
 </html>

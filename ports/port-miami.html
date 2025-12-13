@@ -15,6 +15,9 @@ Soli Deo Gloria
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -59,6 +62,18 @@ Soli Deo Gloria
             <li><strong>From South Beach:</strong> 15-20 minutes via MacArthur Causeway</li>
             <li><strong>From Fort Lauderdale (FLL):</strong> 35-45 minutes via I-95</li>
             <li><strong>Uber/Lyft:</strong> $15-25 from MIA, $40-55 from FLL</li>
+            <li><strong>Brightline:</strong> High-speed rail from Fort Lauderdale or West Palm Beach to MiamiCentral station downtown, then short taxi/rideshare to port</li>
+          </ul>
+        </section>
+
+        <section class="port-section">
+          <h3>Getting Around Miami</h3>
+          <ul>
+            <li><strong>Metromover:</strong> Free elevated rail connecting downtown, Brickell, and Omni areas — runs every 90 seconds during peak hours. <a href="https://www.miamidade.gov/global/transportation/metromover.page" target="_blank" rel="noopener">Miami-Dade Transit</a></li>
+            <li><strong>Metrorail:</strong> Heavy rail connecting airport to downtown ($2.25 fare). Brickell and Government Center stations near port area</li>
+            <li><strong>Coral Way Trolley:</strong> Free trolley service through Coral Gables and downtown neighborhoods</li>
+            <li><strong>Miami Beach Trolley:</strong> Free service along South Beach (temporarily suspended — check current status)</li>
+            <li><strong>On Foot:</strong> Downtown and Brickell are walkable; South Beach best explored by foot</li>
           </ul>
         </section>
 
@@ -75,11 +90,11 @@ Soli Deo Gloria
         <section class="port-section">
           <h3>Nearby Hotels</h3>
           <ul>
+            <li><strong>Hilton Miami Downtown:</strong> Bayfront location, easy Metromover access to port area</li>
+            <li><strong>Hilton Bentley Miami/South Beach:</strong> Oceanfront Art Deco elegance on South Beach</li>
             <li><strong>InterContinental Miami:</strong> Bayfront views, walking distance to port via PeopleMover</li>
-            <li><strong>YVE Hotel Miami:</strong> Downtown, close to Metromover</li>
             <li><strong>Faena Miami Beach:</strong> Luxury South Beach experience</li>
-            <li><strong>The Setai Miami Beach:</strong> Asian-inspired oceanfront luxury</li>
-            <li><strong>Hampton Inn Brickell:</strong> Budget-friendly downtown option</li>
+            <li><strong>Hampton Inn Brickell:</strong> Budget-friendly downtown option on the Metromover line</li>
           </ul>
         </section>
 
@@ -89,17 +104,44 @@ Soli Deo Gloria
             <li><strong>South Beach:</strong> Art Deco architecture, Ocean Drive, iconic beach</li>
             <li><strong>Little Havana:</strong> Cuban coffee, Calle Ocho, authentic culture</li>
             <li><strong>Wynwood Walls:</strong> World-famous street art district</li>
-            <li><strong>Vizcaya Museum:</strong> Stunning Italian Renaissance estate</li>
+            <li><strong>Vizcaya Museum:</strong> Stunning Italian Renaissance estate on Biscayne Bay</li>
             <li><strong>Pérez Art Museum Miami (PAMM):</strong> Contemporary art with bay views</li>
-            <li><strong>Everglades:</strong> Airboat tours about 45 minutes west</li>
+            <li><strong>Everglades National Park:</strong> UNESCO World Heritage Site — airboat tours through the River of Grass about 45 minutes west. Book through <a href="https://www.viator.com/Miami-tours/Nature-and-Wildlife/d662-g6-c64" target="_blank" rel="noopener">Viator</a> or park concessioners</li>
+            <li><strong>Biscayne National Park:</strong> 95% underwater park just south of Miami — snorkeling, diving, and glass-bottom boat tours</li>
           </ul>
+        </section>
+
+        <section class="port-section">
+          <h3>History & Heritage</h3>
+          <p>PortMiami's story began in 1896 when Henry Flagler's railroad reached the small settlement. The port grew from a modest passenger terminal in 1915 to become the world's busiest cruise port, earning the "Cruise Capital of the World" title in 1994. The dramatic skyline view from Dodge Island — with cruise ships dwarfing the Art Deco buildings — captures Miami's transformation from frontier town to global gateway.</p>
+          <p>The port sits on what was once known as Lummus Island, expanded and renamed Dodge Island in the 1960s. Today's state-of-the-art terminals, including the stunning new MSC Terminal AAA (opened 2025) and Royal Caribbean's Crown of Miami, represent nearly $2 billion in recent investment.</p>
+        </section>
+
+        <section class="port-section">
+          <h3>Practical Tips</h3>
+          <ul>
+            <li><strong>Embarkation:</strong> Most terminals offer mobile check-in starting at 10:30 AM — complete online to save time</li>
+            <li><strong>Weather:</strong> Miami is hot and humid year-round; dress light, stay hydrated, and embrace air conditioning</li>
+            <li><strong>Currency:</strong> USD; credit cards accepted virtually everywhere</li>
+            <li><strong>Cuban Coffee:</strong> Order a "cortadito" at Versailles or La Carreta for authentic café con leche experience</li>
+            <li><strong>Art Basel:</strong> Early December brings massive crowds for the annual art fair — book hotels months ahead</li>
+          </ul>
+        </section>
+
+        <section class="port-section port-map-section" id="port-map-section">
+          <h3>PortMiami Area Map</h3>
+          <p class="map-intro">Interactive map showing cruise terminals, South Beach, Little Havana, and Wynwood.</p>
+          <div id="port-miami-port-map" class="port-map-container" role="application" aria-label="Interactive map of PortMiami">
+            <noscript><p>Interactive map requires JavaScript. Key locations: Cruise terminals, South Beach, Little Havana, Wynwood Walls, Vizcaya.</p></noscript>
+          </div>
         </section>
 
         <section class="port-section">
           <h3>Frequently Asked Questions</h3>
           <p><strong>Q: PortMiami or <a href="/ports/port-everglades.html">Port Everglades</a>?</strong><br/>A: Different ports — PortMiami is in Miami (MIA airport); <a href="/ports/port-everglades.html">Port Everglades</a> is in Fort Lauderdale (FLL). Check your booking carefully.</p>
-          <p><strong>Q: How's the Miami traffic?</strong><br/>A: It can be challenging. Allow extra time, especially during rush hour or special events.</p>
-          <p><strong>Q: Is the Metromover useful?</strong><br/>A: Yes — it's free and connects downtown hotels to the port area.</p>
+          <p><strong>Q: How's the Miami traffic?</strong><br/>A: It can be challenging. Allow extra time, especially during rush hour or special events. The Metromover helps avoid downtown congestion.</p>
+          <p><strong>Q: Is the Metromover useful?</strong><br/>A: Absolutely — it's free and connects downtown hotels to the port area. Runs every 90 seconds during peak hours.</p>
+          <p><strong>Q: Best time to visit Everglades National Park?</strong><br/>A: December through April is dry season — cooler temperatures, fewer mosquitoes, and wildlife concentrated around water sources.</p>
         </section>
       </article>
     </div>
@@ -121,5 +163,21 @@ Soli Deo Gloria
   <footer class="wrap" role="contentinfo"><p>© 2025 In the Wake</p></footer>
   <script>window.currentPortId = 'port-miami';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize PortMiami Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'port-miami-port-map',
+        portSlug: 'port-miami'
+      });
+    }
+  });
+  </script>
 </body>
 </html>

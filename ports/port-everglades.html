@@ -15,6 +15,9 @@ Soli Deo Gloria
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -59,39 +62,77 @@ Soli Deo Gloria
             <li><strong>From Miami (MIA):</strong> 30-45 minutes via I-95</li>
             <li><strong>From Miami Beach:</strong> 45-60 minutes depending on traffic</li>
             <li><strong>Uber/Lyft:</strong> $10-15 from FLL, $35-50 from MIA</li>
+            <li><strong>Brightline:</strong> High-speed rail to Fort Lauderdale station, then short taxi/rideshare to port. <a href="https://www.gobrightline.com" target="_blank" rel="noopener">gobrightline.com</a></li>
+          </ul>
+        </section>
+
+        <section class="port-section">
+          <h3>Getting Around Fort Lauderdale</h3>
+          <ul>
+            <li><strong>Water Taxi:</strong> Hop-on/hop-off service along the Intracoastal, connecting hotels, Las Olas, beach, and waterfront restaurants. All-day pass $35. <a href="https://watertaxi.com" target="_blank" rel="noopener">watertaxi.com</a></li>
+            <li><strong>Sun Trolley:</strong> Free trolley service in downtown and beach areas — Las Olas Link connects downtown to beach. <a href="https://www.suntrolley.com" target="_blank" rel="noopener">suntrolley.com</a></li>
+            <li><strong>Broward County Transit:</strong> Bus routes throughout the county; Route 40 connects airport to beach</li>
+            <li><strong>On Foot:</strong> Beach strip and Las Olas Boulevard are walkable; water taxi is best for covering distance</li>
           </ul>
         </section>
 
         <section class="port-section">
           <h3>Parking Options</h3>
           <ul>
-            <li><strong>On-site parking:</strong> Midport Parking Garage and surface lots</li>
-            <li><strong>Cost:</strong> $15-22/day</li>
-            <li><strong>Off-site:</strong> Several private lots along SE 17th Street offer lower rates</li>
-            <li><strong>Reserve ahead:</strong> Highly recommended for busy sailing dates</li>
+            <li><strong>On-site parking:</strong> Midport Parking Garage and surface lots at each terminal</li>
+            <li><strong>Cost:</strong> $15-20/day for uncovered, $20-22/day for covered</li>
+            <li><strong>Off-site:</strong> Several private lots along SE 17th Street "cruise corridor" offer lower rates with shuttles</li>
+            <li><strong>Reserve ahead:</strong> Highly recommended for busy sailing dates — book through <a href="https://www.porteverglades.net" target="_blank" rel="noopener">porteverglades.net</a></li>
           </ul>
         </section>
 
         <section class="port-section">
           <h3>Nearby Hotels</h3>
           <ul>
-            <li><strong>Hilton Fort Lauderdale Marina:</strong> Steps from Terminal 25, waterfront views</li>
+            <li><strong>Hilton Fort Lauderdale Marina:</strong> Steps from Terminal 25, waterfront views — the closest major hotel to the port (0.5 mi)</li>
+            <li><strong>Hilton Fort Lauderdale Beach Resort:</strong> Oceanfront luxury on the beach with pool and spa</li>
             <li><strong>Renaissance Fort Lauderdale Cruise Port:</strong> Connected to Terminal 4</li>
             <li><strong>Hyatt Regency Pier 66:</strong> Iconic revolving restaurant, marina views</li>
-            <li><strong>W Fort Lauderdale:</strong> Beachfront luxury</li>
-            <li><strong>Budget options:</strong> Multiple hotels along SE 17th Street "cruise corridor"</li>
+            <li><strong>W Fort Lauderdale:</strong> Beachfront luxury on the beach</li>
+            <li><strong>Hampton Inn Fort Lauderdale/Downtown:</strong> Budget-friendly with free breakfast, near Las Olas</li>
           </ul>
         </section>
 
         <section class="port-section">
           <h3>Pre-Cruise Activities</h3>
           <ul>
-            <li><strong>Fort Lauderdale Beach:</strong> Wide, clean beaches with promenade</li>
-            <li><strong>Las Olas Boulevard:</strong> Dining, shopping, galleries</li>
-            <li><strong>Water Taxi:</strong> Scenic way to explore the "Venice of America"</li>
-            <li><strong>NSU Art Museum:</strong> Contemporary art collection</li>
-            <li><strong>Everglades tours:</strong> Airboat rides about 30 minutes west</li>
+            <li><strong>Fort Lauderdale Beach:</strong> Wide, clean beaches with beachfront promenade perfect for morning walks</li>
+            <li><strong>Las Olas Boulevard:</strong> Dining, shopping, galleries — the heart of Fort Lauderdale culture</li>
+            <li><strong>Water Taxi:</strong> Scenic way to explore the "Venice of America" — over 300 miles of waterways</li>
+            <li><strong>NSU Art Museum:</strong> Contemporary art collection in downtown</li>
+            <li><strong>Bonnet House Museum:</strong> Historic estate with tropical gardens, art collection, and resident monkeys</li>
+            <li><strong>Everglades National Park:</strong> UNESCO World Heritage Site — airboat tours through the River of Grass about 30 minutes west. Book through <a href="https://www.viator.com/Fort-Lauderdale-tours/Eco-Tours/d4068-g13-c56" target="_blank" rel="noopener">Viator</a></li>
+            <li><strong>Hugh Taylor Birch State Park:</strong> 180-acre urban oasis with beach access, kayaking, and nature trails</li>
           </ul>
+        </section>
+
+        <section class="port-section">
+          <h3>History & Heritage</h3>
+          <p>Fort Lauderdale's cruise story began in 1927 when the channel to Port Everglades was completed, but the city's history as the "Venice of America" dates to the 1920s when developers dredged the Intracoastal Waterway, creating the network of canals and islands that define the landscape today. The original Fort Lauderdale was established in 1838 during the Second Seminole War, named after Major William Lauderdale.</p>
+          <p>Port Everglades has grown into one of the top three cruise ports in the world, handling over 3.9 million passengers annually. The port's proximity to the Gulf Stream — just 2 miles offshore — means ships reach deep water quickly, maximizing time at sea.</p>
+        </section>
+
+        <section class="port-section">
+          <h3>Practical Tips</h3>
+          <ul>
+            <li><strong>FLL Advantage:</strong> Fort Lauderdale-Hollywood International is consistently easier to navigate than Miami International — consider flying here even if cruising from <a href="/ports/port-miami.html">PortMiami</a></li>
+            <li><strong>Weather:</strong> Hot and humid year-round; afternoon thunderstorms common in summer</li>
+            <li><strong>Swimsuit Shopping:</strong> Fort Lauderdale's Sawgrass Mills outlet mall (20 min west) is one of the largest in the US</li>
+            <li><strong>Happy Hour:</strong> Las Olas and beach restaurants often have great early evening specials</li>
+          </ul>
+        </section>
+
+        <section class="port-section port-map-section" id="port-map-section">
+          <h3>Port Everglades Area Map</h3>
+          <p class="map-intro">Interactive map showing cruise terminals, Las Olas, Fort Lauderdale Beach, and the Intracoastal.</p>
+          <div id="port-everglades-port-map" class="port-map-container" role="application" aria-label="Interactive map of Port Everglades">
+            <noscript><p>Interactive map requires JavaScript. Key locations: Cruise terminals, Las Olas Boulevard, Fort Lauderdale Beach, Intracoastal Waterway.</p></noscript>
+          </div>
         </section>
 
         <section class="port-section">
@@ -120,5 +161,21 @@ Soli Deo Gloria
   <footer class="wrap" role="contentinfo"><p>© 2025 In the Wake</p></footer>
   <script>window.currentPortId = 'port-everglades';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Port Everglades Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'port-everglades-port-map',
+        portSlug: 'port-everglades'
+      });
+    }
+  });
+  </script>
 </body>
 </html>
