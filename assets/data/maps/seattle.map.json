@@ -1,0 +1,83 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2025-12-13T00:00:00Z",
+    "source": "Researched from Visit Seattle, cruise terminal guides, and tourism resources"
+  },
+
+  "port_slug": "seattle",
+  "port_name": "Seattle",
+  "port_pin": {
+    "lat": 47.6289,
+    "lon": -122.3847,
+    "label": "Seattle Cruise Terminals"
+  },
+
+  "bbox_hint": {
+    "south": 47.59,
+    "west": -122.40,
+    "north": 47.65,
+    "east": -122.32,
+    "note": "Covers cruise terminals, downtown Seattle, Pike Place, and Seattle Center"
+  },
+
+  "poi_ids": [
+    "seattle-cruise-terminal",
+    "pike-place-market",
+    "space-needle",
+    "pioneer-square",
+    "seattle-waterfront"
+  ],
+
+  "label_overrides": {
+    "pike-place-market": "Pike Place Market (must-visit!)",
+    "space-needle": "Space Needle & Seattle Center"
+  },
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "walk-downtown",
+      "name": "Walk/Transit Downtown",
+      "type": "walking",
+      "cost": "Free-$3",
+      "duration": "20-30 minutes",
+      "connects": ["seattle-cruise-terminal", "pike-place-market", "seattle-waterfront"],
+      "note": "Pier 66 walkable to Pike Place. Pier 91 needs shuttle/taxi to downtown."
+    },
+    {
+      "id": "monorail",
+      "name": "Seattle Monorail",
+      "type": "train",
+      "cost": "USD 3",
+      "duration": "2 minutes",
+      "connects": ["pike-place-market", "space-needle"],
+      "note": "Quick connection between Westlake (downtown) and Seattle Center. Fun and efficient."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Pike Place Market",
+      "type": "cultural",
+      "duration": "2-4 hours",
+      "highlights": ["Fish throwing", "Original Starbucks", "Fresh produce & crafts"],
+      "note": "Seattle's iconic 1907 public market. Arrive early for best experience. Don't miss the gum wall!"
+    },
+    {
+      "name": "Space Needle & Seattle Center",
+      "type": "landmark",
+      "duration": "2-3 hours",
+      "highlights": ["Observation deck", "MoPOP museum", "Chihuly Garden"],
+      "note": "Buy Space Needle tickets in advance. Combine with MoPOP (music/pop culture) and Chihuly glass."
+    },
+    {
+      "name": "Pioneer Square & Underground",
+      "type": "cultural",
+      "duration": "2 hours",
+      "highlights": ["Underground Tour", "Historic architecture", "Galleries"],
+      "note": "Seattle's original downtown. Underground Tour reveals buried city streets. Great restaurants."
+    }
+  ]
+}

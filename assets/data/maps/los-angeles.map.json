@@ -1,0 +1,84 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2025-12-13T00:00:00Z",
+    "source": "Researched from LA tourism, Port of Los Angeles, and cruise guides"
+  },
+
+  "port_slug": "los-angeles",
+  "port_name": "Los Angeles (San Pedro)",
+  "port_pin": {
+    "lat": 33.7392,
+    "lon": -118.2739,
+    "label": "World Cruise Center (San Pedro)"
+  },
+
+  "bbox_hint": {
+    "south": 33.70,
+    "west": -118.55,
+    "north": 34.15,
+    "east": -118.20,
+    "note": "Covers San Pedro port area, LA landmarks - note distances are significant"
+  },
+
+  "poi_ids": [
+    "la-cruise-terminal",
+    "santa-monica",
+    "hollywood",
+    "la-downtown",
+    "san-pedro-fishermans"
+  ],
+
+  "label_overrides": {
+    "santa-monica": "Santa Monica (30+ miles)",
+    "hollywood": "Hollywood (25+ miles)",
+    "san-pedro-fishermans": "San Pedro Waterfront (walkable)"
+  },
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "walk-san-pedro",
+      "name": "Walk San Pedro",
+      "type": "walking",
+      "cost": "Free",
+      "duration": "5-15 minutes",
+      "connects": ["la-cruise-terminal", "san-pedro-fishermans"],
+      "note": "San Pedro waterfront and USS Iowa walkable from cruise terminal."
+    },
+    {
+      "id": "uber-to-la",
+      "name": "Uber/Lyft to LA",
+      "type": "car",
+      "cost": "USD 40-80",
+      "duration": "45-90 minutes (traffic dependent)",
+      "connects": ["la-cruise-terminal", "hollywood", "santa-monica"],
+      "note": "LA is spread out. Budget significant time for travel. Traffic can be brutal."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "San Pedro & USS Iowa",
+      "type": "cultural",
+      "duration": "2-4 hours",
+      "highlights": ["Battleship USS Iowa", "Waterfront dining", "Cabrillo Marine Aquarium"],
+      "note": "Best option for limited pre/post cruise time. USS Iowa is excellent WWII museum."
+    },
+    {
+      "name": "Hollywood Experience",
+      "type": "cultural",
+      "duration": "Half day minimum",
+      "highlights": ["Walk of Fame", "Chinese Theatre", "Hollywood sign views"],
+      "note": "25+ miles from port. Only attempt with full pre/post cruise day. Tourist-heavy but iconic."
+    },
+    {
+      "name": "Santa Monica",
+      "type": "beach",
+      "duration": "Half day minimum",
+      "highlights": ["Santa Monica Pier", "Pacific Park", "Route 66 end"],
+      "note": "30+ miles from port. Beautiful beach and pier. Only with pre/post cruise day."
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2025-12-13T00:00:00Z",
+    "source": "Researched from Hawaii tourism, Kona visitor guides, and cruise lines"
+  },
+
+  "port_slug": "kona",
+  "port_name": "Kona",
+  "port_pin": {
+    "lat": 19.6397,
+    "lon": -155.9969,
+    "label": "Kona Tender Port (Kailua Pier)"
+  },
+
+  "bbox_hint": {
+    "south": 19.45,
+    "west": -156.05,
+    "north": 19.70,
+    "east": -155.90,
+    "note": "Covers Kailua-Kona, coffee country, and snorkeling areas"
+  },
+
+  "poi_ids": [
+    "kona-cruise-dock",
+    "kona-historic",
+    "kona-coffee",
+    "kona-snorkeling",
+    "kona-beach"
+  ],
+
+  "label_overrides": {
+    "kona-historic": "Historic Kailua-Kona (walkable!)",
+    "kona-coffee": "Kona Coffee Country",
+    "kona-snorkeling": "Kealakekua Bay (snorkeling)"
+  },
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "walk-town",
+      "name": "Walk Historic Town",
+      "type": "walking",
+      "cost": "Free",
+      "duration": "Immediate",
+      "connects": ["kona-cruise-dock", "kona-historic"],
+      "note": "Tender drops at Kailua Pier. Historic town is walkable right from pier."
+    },
+    {
+      "id": "snorkel-boat",
+      "name": "Snorkel Boat Tour",
+      "type": "boat",
+      "cost": "USD 100-180",
+      "duration": "4-5 hours",
+      "connects": ["kona-cruise-dock", "kona-snorkeling"],
+      "note": "Best way to reach Kealakekua Bay. Many operators depart near pier. Book ahead."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Historic Kailua-Kona",
+      "type": "cultural",
+      "duration": "2-3 hours",
+      "highlights": ["Alii Drive", "Hulihe'e Palace", "Historic churches"],
+      "note": "Charming waterfront town. Shops, restaurants, history. All walkable from tender."
+    },
+    {
+      "name": "Kona Coffee Tour",
+      "type": "cultural",
+      "duration": "Half day",
+      "highlights": ["Coffee farms", "Tastings", "Scenic drives"],
+      "note": "World-famous Kona coffee region. Many farms welcome visitors. Ship excursions or taxi."
+    },
+    {
+      "name": "Snorkeling Adventure",
+      "type": "nature",
+      "duration": "4-5 hours",
+      "highlights": ["Kealakekua Bay", "Abundant marine life", "Captain Cook Monument"],
+      "note": "Some of Hawaii's best snorkeling. Boat tour required for Kealakekua. Crystal clear water."
+    }
+  ]
+}
