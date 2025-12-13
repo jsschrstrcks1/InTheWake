@@ -276,7 +276,7 @@ Soli Deo Gloria
 (function() {
   'use strict';
   
-  // Port database - all 142 ports with metadata and URLs
+  // Port database - all 211 ports with metadata and URLs
   const PORTS_DB = [
   {
     "id": "ajaccio",
@@ -1467,9 +1467,14 @@ Soli Deo Gloria
   { "id": "barbados", "name": "Barbados (Bridgetown)", "country": "Barbados", "region": "Southern Caribbean", "continent": "North America", "url": "/ports/barbados.html" },
   { "id": "st-lucia", "name": "St. Lucia (Castries)", "country": "Saint Lucia", "region": "Eastern Caribbean", "continent": "North America", "url": "/ports/st-lucia.html" },
   { "id": "amber-cove", "name": "Amber Cove", "country": "Dominican Republic", "region": "Caribbean", "continent": "North America", "url": "/ports/amber-cove.html" },
+  { "id": "antigua", "name": "Antigua (St. John's)", "country": "Antigua and Barbuda", "region": "Eastern Caribbean", "continent": "North America", "url": "/ports/antigua.html" },
   // Middle East
   { "id": "dubai", "name": "Dubai", "country": "United Arab Emirates", "region": "Middle East", "continent": "Asia", "url": "/ports/dubai.html" },
   { "id": "abu-dhabi", "name": "Abu Dhabi", "country": "United Arab Emirates", "region": "Middle East", "continent": "Asia", "url": "/ports/abu-dhabi.html" },
+  { "id": "muscat", "name": "Muscat", "country": "Oman", "region": "Middle East", "continent": "Asia", "url": "/ports/muscat.html" },
+  { "id": "salalah", "name": "Salalah", "country": "Oman", "region": "Middle East", "continent": "Asia", "url": "/ports/salalah.html" },
+  { "id": "aqaba", "name": "Aqaba", "country": "Jordan", "region": "Middle East", "continent": "Asia", "url": "/ports/aqaba.html" },
+  { "id": "safaga", "name": "Safaga", "country": "Egypt", "region": "Middle East", "continent": "Africa", "url": "/ports/safaga.html" },
   // Alaska Scenic
   { "id": "hubbard-glacier", "name": "Hubbard Glacier", "country": "United States", "region": "Alaska", "continent": "North America", "url": "/ports/hubbard-glacier.html" },
   { "id": "endicott-arm", "name": "Endicott Arm", "country": "United States", "region": "Alaska", "continent": "North America", "url": "/ports/endicott-arm.html" },
@@ -1487,11 +1492,37 @@ Soli Deo Gloria
   { "id": "osaka", "name": "Osaka", "country": "Japan", "region": "Japan", "continent": "Asia", "url": "/ports/osaka.html" },
   { "id": "busan", "name": "Busan", "country": "South Korea", "region": "East Asia", "continent": "Asia", "url": "/ports/busan.html" },
   { "id": "phuket", "name": "Phuket", "country": "Thailand", "region": "Southeast Asia", "continent": "Asia", "url": "/ports/phuket.html" },
+  { "id": "penang", "name": "Penang", "country": "Malaysia", "region": "Southeast Asia", "continent": "Asia", "url": "/ports/penang.html" },
+  { "id": "ho-chi-minh-city", "name": "Ho Chi Minh City (Phu My)", "country": "Vietnam", "region": "Southeast Asia", "continent": "Asia", "url": "/ports/ho-chi-minh-city.html" },
+  { "id": "da-nang", "name": "Da Nang", "country": "Vietnam", "region": "Southeast Asia", "continent": "Asia", "url": "/ports/da-nang.html" },
+  { "id": "fukuoka", "name": "Fukuoka", "country": "Japan", "region": "Japan", "continent": "Asia", "url": "/ports/fukuoka.html" },
+  { "id": "nagasaki", "name": "Nagasaki", "country": "Japan", "region": "Japan", "continent": "Asia", "url": "/ports/nagasaki.html" },
   // Australia
   { "id": "adelaide", "name": "Adelaide", "country": "Australia", "region": "Australia", "continent": "Oceania", "url": "/ports/adelaide.html" },
   { "id": "cairns", "name": "Cairns", "country": "Australia", "region": "Australia", "continent": "Oceania", "url": "/ports/cairns.html" },
   { "id": "hobart", "name": "Hobart", "country": "Australia", "region": "Australia", "continent": "Oceania", "url": "/ports/hobart.html" },
   { "id": "fremantle", "name": "Fremantle (Perth)", "country": "Australia", "region": "Australia", "continent": "Oceania", "url": "/ports/fremantle.html" },
+  // New Zealand
+  { "id": "wellington", "name": "Wellington", "country": "New Zealand", "region": "New Zealand", "continent": "Oceania", "url": "/ports/wellington.html" },
+  { "id": "lyttelton", "name": "Lyttelton (Christchurch)", "country": "New Zealand", "region": "New Zealand", "continent": "Oceania", "url": "/ports/lyttelton.html" },
+  { "id": "dunedin", "name": "Dunedin", "country": "New Zealand", "region": "New Zealand", "continent": "Oceania", "url": "/ports/dunedin.html" },
+  { "id": "tauranga", "name": "Tauranga", "country": "New Zealand", "region": "New Zealand", "continent": "Oceania", "url": "/ports/tauranga.html" },
+  // Africa
+  { "id": "cape-town", "name": "Cape Town", "country": "South Africa", "region": "Africa", "continent": "Africa", "url": "/ports/cape-town.html" },
+  // South America
+  { "id": "rio-de-janeiro", "name": "Rio de Janeiro", "country": "Brazil", "region": "South America", "continent": "South America", "url": "/ports/rio-de-janeiro.html" },
+  { "id": "buenos-aires", "name": "Buenos Aires", "country": "Argentina", "region": "South America", "continent": "South America", "url": "/ports/buenos-aires.html" },
+  { "id": "ushuaia", "name": "Ushuaia", "country": "Argentina", "region": "South America", "continent": "South America", "url": "/ports/ushuaia.html" },
+  { "id": "montevideo", "name": "Montevideo", "country": "Uruguay", "region": "South America", "continent": "South America", "url": "/ports/montevideo.html" },
+  { "id": "valparaiso", "name": "Valparaíso", "country": "Chile", "region": "South America", "continent": "South America", "url": "/ports/valparaiso.html" },
+  // Atlantic Islands
+  { "id": "funchal", "name": "Funchal (Madeira)", "country": "Portugal", "region": "Atlantic Europe", "continent": "Europe", "url": "/ports/funchal.html" },
+  { "id": "tenerife", "name": "Tenerife", "country": "Spain", "region": "Canary Islands", "continent": "Europe", "url": "/ports/tenerife.html" },
+  // UK Additional Ports
+  { "id": "edinburgh", "name": "Edinburgh (Leith)", "country": "Scotland", "region": "British Isles", "continent": "Europe", "url": "/ports/edinburgh.html" },
+  { "id": "greenock", "name": "Greenock (Glasgow)", "country": "Scotland", "region": "British Isles", "continent": "Europe", "url": "/ports/greenock.html" },
+  // Caribbean Additional
+  { "id": "montego-bay", "name": "Montego Bay", "country": "Jamaica", "region": "Caribbean", "continent": "North America", "url": "/ports/montego-bay.html" },
   // South Pacific
   { "id": "bora-bora", "name": "Bora Bora", "country": "French Polynesia", "region": "South Pacific", "continent": "Oceania", "url": "/ports/bora-bora.html" },
   { "id": "papeete", "name": "Papeete (Tahiti)", "country": "French Polynesia", "region": "South Pacific", "continent": "Oceania", "url": "/ports/papeete.html" },
