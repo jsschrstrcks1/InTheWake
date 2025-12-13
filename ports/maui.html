@@ -21,6 +21,9 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -142,14 +145,44 @@ Soli Deo Gloria
       </div>
 
       <section class="port-section">
+        <h3>Port & Docking</h3>
+        <p>Cruise ships arrive at the commercial port in Kahului, situated on Maui's eastern coastline. The terminal sits within an industrial zone with few attractions within immediate walking distance. The nearby town of Wailuku serves as the county's administrative center.</p>
+      </section>
+
+      <section class="port-section">
         <h3>Getting Around Maui</h3>
-        <p>Kahului harbor – car rental onsite, essential for anywhere worthwhile.</p>
+        <p>The Queen Ka'ahumanu Center shopping mall is approximately one mile from the cruise terminal (roughly a 25-minute walk on foot) and functions as the central transit hub for the Maui Bus system. The island's public bus service operates on an hourly schedule, charging $2 per individual ride or $4 for unlimited day access. Route 20 provides service to Lahaina, while Route 10 connects to Kihei.</p>
+        <p><strong>Car rental is strongly advised</strong> for comprehensive island exploration – the harbor has rental agencies onsite, making pickup convenient.</p>
+      </section>
+
+      <section class="port-section">
+        <h3>What to See & Do</h3>
+        <ul>
+          <li><strong>Kanaha Beach Park:</strong> Renowned internationally as a premier windsurfing destination with excellent swimming conditions</li>
+          <li><strong>Kanaha Pond State Wildlife Sanctuary:</strong> Habitat for migrating birds and rare Hawaiian native species</li>
+          <li><strong>Iao Valley State Park:</strong> Features "The Needle," a dramatic volcanic rock spire rising 2,250 feet above the valley floor</li>
+          <li><strong>Alexander & Baldwin Sugar Museum:</strong> Chronicles Maui's plantation heritage</li>
+          <li><strong>Lahaina:</strong> Historic whaling town located 20 miles away (approximately 45 minutes by car)</li>
+          <li><strong>Haleakala National Park:</strong> Massive volcanic crater accessible via 38-mile drive south from Kahului</li>
+        </ul>
       </section>
 
       <section class="port-section">
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
         <p>Maui traffic on the Hana side can slow – choosing West Maui or Upcountry keeps the day relaxed and beautiful.</p>
+        <p><strong>Currency & Payments:</strong> United States dollars; ATM machines readily available throughout the area.</p>
+        <p><strong>Gratuity:</strong> Expect to tip 15-20% at restaurants and 10-15% for service providers.</p>
+        <p><strong>Taxes:</strong> Local sales tax rates vary by municipality and will be added to purchases.</p>
+        <p><strong>Emergency:</strong> Dial 911 for emergency assistance.</p>
+      </section>
+
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>Maui Area Map</h3>
+        <p class="map-intro">Interactive map showing Kahului Harbor, Haleakala, beaches, and key attractions.</p>
+        <div id="maui-port-map" class="port-map-container" role="application" aria-label="Interactive map of Maui">
+          <noscript><p>Interactive map requires JavaScript. Key locations: Kahului Harbor, Haleakala volcano, Lahaina, Iao Valley.</p></noscript>
+        </div>
       </section>
 
       <section class="port-section">
@@ -416,6 +449,22 @@ Soli Deo Gloria
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Maui Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'maui-port-map',
+        portSlug: 'maui'
+      });
+    }
+  });
+  </script>
 
 </body>
 </html>

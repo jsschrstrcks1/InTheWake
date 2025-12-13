@@ -21,6 +21,9 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -151,8 +154,20 @@ Soli Deo Gloria
       </div>
 
       <section class="port-section">
+        <h3>Arrival & Docking</h3>
+        <p>The cruise terminal is located just a short drive from downtown. While the port itself is nearby, passengers will find themselves approximately 2 miles from the heart of town once they disembark. Upon arrival, guests are welcomed with live performances featuring local hula dancers and Hawaiian musicians – a memorable introduction to the island's culture.</p>
+      </section>
+
+      <section class="port-section">
         <h3>Getting Around Hilo</h3>
-        <p>Ship docks 5-minute drive from car rentals. Car is mandatory – distances are too great for taxis/tours if you want freedom.</p>
+        <p>Ship docks 5-minute drive from car rentals. Car is mandatory – distances are too great for taxis/tours if you want freedom to explore the island properly.</p>
+
+        <p><strong>Transportation Options from the Port:</strong></p>
+        <ul>
+          <li><strong>Walking:</strong> Downtown lies roughly 2 to 2.5 miles from the dock, requiring about 50 minutes on foot. Be prepared for warm conditions with minimal shade along the route.</li>
+          <li><strong>Public Transit:</strong> The Hele On Bus service costs just $1 per ride and departs from Kalanianaole Street. Morning buses leave hourly from 7:50am through 10:50am, with afternoon departures at 1:25pm, 2:25pm, and 3:25pm. Note that no service operates on Sundays.</li>
+          <li><strong>Taxis:</strong> Expect to pay between $12 and $16 for a taxi ride into the city center.</li>
+        </ul>
 
       <figure class="logbook-image float-left">
         <img src="img/hilo/hilo-2.webp" alt="Hilo waterfront" loading="lazy">
@@ -161,9 +176,42 @@ Soli Deo Gloria
       </section>
 
       <section class="port-section">
+        <h3>What to See & Do</h3>
+        <ul>
+          <li><strong>Hawaii Volcanoes National Park:</strong> The crown jewel attraction, home to the famous Kilauea Crater. Allow a full day for this unforgettable experience.</li>
+          <li><strong>University of Hawaii Botanical Gardens:</strong> Explore at no charge with self-guided walking tours through tropical plantings.</li>
+          <li><strong>Nani Mau Gardens:</strong> Beautiful tropical flora displays in a serene setting.</li>
+          <li><strong>Hilo Hula Days:</strong> On cruise ship arrival days, catch complimentary cultural performances at the Mooheau Bandstand from 11am to 1pm.</li>
+          <li><strong>Other Options:</strong> A zoo set in the rainforest environment and well-preserved historic architecture throughout downtown.</li>
+        </ul>
+      </section>
+
+      <section class="port-section">
+        <h3>Shopping in Hilo</h3>
+        <p>Browse the bayfront boutiques along Kamehameha Avenue for local goods and souvenirs. The Hilo Farmer's Market operates on Wednesdays and Saturdays, offering fresh island produce and handmade crafts – a great spot to experience local culture and find authentic items.</p>
+        <p>Look for authentic Hawaiian and Polynesian fabric prints, a specialty of the area. Keep in mind that numerous shops close their doors on Sundays.</p>
+      </section>
+
+      <section class="port-section">
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
         <p>Volcanoes National Park is at 4,000 ft elevation – a light jacket makes the steam vents and lava views even more comfortable.</p>
+
+        <p><strong>Money & Practical Matters:</strong></p>
+        <ul>
+          <li><strong>Currency:</strong> U.S. dollars are used throughout. ATM machines are readily accessible in town.</li>
+          <li><strong>Sales Tax:</strong> Expect to pay between 4% and 6% sales tax on purchases.</li>
+          <li><strong>Tipping:</strong> Restaurant servers typically receive 15-20%, taxi drivers get 10-15%, and tour guides appreciate $5-20 depending on the length and quality of service.</li>
+          <li><strong>Language:</strong> English is the predominant language, with Hawaiian holding official status. You'll hear both throughout the island.</li>
+        </ul>
+      </section>
+
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>Hilo Area Map</h3>
+        <p class="map-intro">Interactive map showing the cruise dock, Hawaii Volcanoes National Park, and waterfalls.</p>
+        <div id="hilo-port-map" class="port-map-container" role="application" aria-label="Interactive map of Hilo">
+          <noscript><p>Interactive map requires JavaScript. Key locations: Hilo Cruise Dock, Hawaii Volcanoes NP, Rainbow Falls, Akaka Falls.</p></noscript>
+        </div>
       </section>
 
       <section class="port-section">
@@ -474,6 +522,22 @@ Soli Deo Gloria
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Hilo Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'hilo-port-map',
+        portSlug: 'hilo'
+      });
+    }
+  });
+  </script>
 
 </body>
 </html>

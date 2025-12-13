@@ -21,6 +21,9 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -152,13 +155,55 @@ Soli Deo Gloria
 
       <section class="port-section">
         <h3>Getting Around Kailua-Kona</h3>
-        <p>Tender to town pier – everything on Aliʻi Drive walkable. Taxis or rental car for coffee farms south (15–25 min).</p>
+        <p><strong>Tender Service:</strong> Ships anchor in the bay and use tenders to shuttle passengers directly to Kailua Pier in the heart of town. The process is efficient and brings you right to the center of the action.</p>
+
+        <p><strong>On Foot:</strong> The historic Kailua village is compact and best explored by walking. Ali'i Drive and the surrounding streets are pleasant for strolling.</p>
+
+        <p><strong>Complimentary Transit:</strong> A free trolley service operates from the pier, making a circuit through town, shopping areas, and beaches – the full loop takes about an hour and passes by the Outrigger hotel. Additionally, the island's public bus system is free on all routes, making it easy to venture beyond the immediate area.</p>
+
+        <p><strong>Car Rentals:</strong> If you prefer your own wheels, several national agencies including Enterprise, Thrifty, and Dollar have locations near the pier for easy pickup.</p>
+      </section>
+
+      <section class="port-section">
+        <h3>What to See & Do</h3>
+        <p><strong>Snorkeling:</strong> Two outstanding spots draw underwater enthusiasts – Kahaluu Bay offers easy access and abundant marine life, while Kealakekua Bay is renowned for its crystal-clear waters and dramatic underwater landscapes.</p>
+
+        <p><strong>Beach Time:</strong> Magic Sands Beach lives up to its name with brilliant white sand that sometimes disappears with seasonal tides – a local phenomenon worth witnessing.</p>
+
+        <p><strong>Cultural Sites:</strong> Ali'i Drive is lined with historic landmarks telling the story of Hawaiian royalty and early settlement. Nearby, you can find ancient petroglyphs carved into lava rock, offering a glimpse into pre-contact Hawaii.</p>
+
+        <p><strong>Volcano Experience:</strong> Weather permitting, views of Kilauea can be spectacular from certain vantage points around the island.</p>
+
+        <p><strong>Evening Ritual:</strong> Join locals and visitors along the seawall to watch the sun sink into the Pacific – a daily spectacle that never gets old.</p>
+      </section>
+
+      <section class="port-section">
+        <h3>Shopping & Services</h3>
+        <p><strong>Farmer's Market:</strong> Open Wednesday through Sunday from 7 a.m. to 4 p.m., featuring fresh produce, local crafts, and island specialties.</p>
+
+        <p><strong>Kona Coffee:</strong> You're in the heart of coffee country – authentic Kona beans make excellent gifts and are available throughout town. Long's Pharmacy stocks locally-roasted varieties at reasonable prices.</p>
+
+        <p><strong>Major Retailers:</strong> For everyday needs or forgotten items, Target and other familiar chains are within reach of the port area.</p>
       </section>
 
       <section class="port-section">
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
-        <p>Tender ports always have the chance of swells – the Kona tenders are well-practiced and the process rarely delays the day.</p>
+        <p><strong>Tendering:</strong> Tender ports always have the chance of swells – the Kona tenders are well-practiced and the process rarely delays the day.</p>
+
+        <p><strong>Money Matters:</strong> U.S. dollars are the currency (Hawaii is a U.S. state). ATMs are readily available throughout town. Standard American tipping applies: 15-20% at restaurants, 10-15% for services like taxis and tour guides.</p>
+
+        <p><strong>Weather:</strong> The Kona coast enjoys sunshine more than 300 days a year with minimal rainfall – sunscreen is essential, umbrellas usually aren't.</p>
+
+        <p><strong>Emergency Contact:</strong> Dial 911 for any emergency services (police, fire, medical).</p>
+      </section>
+
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>Kona Area Map</h3>
+        <p class="map-intro">Interactive map showing the tender port, historic Kailua-Kona, and coffee country.</p>
+        <div id="kona-port-map" class="port-map-container" role="application" aria-label="Interactive map of Kona">
+          <noscript><p>Interactive map requires JavaScript. Key locations: Kailua Pier, historic Kona town, coffee farms, Kealakekua Bay.</p></noscript>
+        </div>
       </section>
 
       <section class="port-section">
@@ -448,6 +493,22 @@ Soli Deo Gloria
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Kona Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'kona-port-map',
+        portSlug: 'kona'
+      });
+    }
+  });
+  </script>
 
 </body>
 </html>

@@ -1,0 +1,84 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2025-12-13T00:00:00Z",
+    "source": "Researched from New Orleans tourism, Port of New Orleans, and cruise guides"
+  },
+
+  "port_slug": "new-orleans",
+  "port_name": "New Orleans",
+  "port_pin": {
+    "lat": 29.9419,
+    "lon": -90.0600,
+    "label": "Port of New Orleans"
+  },
+
+  "bbox_hint": {
+    "south": 29.92,
+    "west": -90.10,
+    "north": 29.97,
+    "east": -90.05,
+    "note": "Covers cruise terminal, French Quarter, Garden District, and CBD"
+  },
+
+  "poi_ids": [
+    "new-orleans-cruise-terminal",
+    "french-quarter",
+    "jackson-square",
+    "garden-district",
+    "nola-wwii-museum"
+  ],
+
+  "label_overrides": {
+    "french-quarter": "French Quarter (must-visit!)",
+    "nola-wwii-museum": "National WWII Museum",
+    "garden-district": "Garden District (streetcar ride)"
+  },
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "walk-french-quarter",
+      "name": "Walk to French Quarter",
+      "type": "walking",
+      "cost": "Free",
+      "duration": "15-20 minutes",
+      "connects": ["new-orleans-cruise-terminal", "french-quarter", "jackson-square"],
+      "note": "French Quarter is an easy walk from cruise terminal along the riverfront."
+    },
+    {
+      "id": "streetcar",
+      "name": "St. Charles Streetcar",
+      "type": "train",
+      "cost": "USD 1.25",
+      "duration": "30-40 minutes to Garden District",
+      "connects": ["french-quarter", "garden-district"],
+      "note": "Historic streetcar is attraction itself. Runs through beautiful Garden District."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "French Quarter",
+      "type": "cultural",
+      "duration": "Half day to full day",
+      "highlights": ["Bourbon Street", "Jackson Square", "Cafe Du Monde beignets"],
+      "note": "Heart of New Orleans. Live jazz, incredible food, historic architecture. Don't miss beignets!"
+    },
+    {
+      "name": "National WWII Museum",
+      "type": "museum",
+      "duration": "4-6 hours",
+      "highlights": ["Immersive exhibits", "Multiple pavilions", "World-class collection"],
+      "note": "One of America's best museums. Walking distance from port. Plan significant time."
+    },
+    {
+      "name": "Garden District",
+      "type": "cultural",
+      "duration": "2-3 hours",
+      "highlights": ["Antebellum mansions", "Oak-lined streets", "Magazine Street shops"],
+      "note": "Beautiful historic neighborhood. Take St. Charles streetcar for full experience."
+    }
+  ]
+}

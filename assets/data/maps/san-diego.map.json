@@ -1,0 +1,84 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2025-12-13T00:00:00Z",
+    "source": "Researched from San Diego tourism, Port of San Diego, and cruise guides"
+  },
+
+  "port_slug": "san-diego",
+  "port_name": "San Diego",
+  "port_pin": {
+    "lat": 32.7186,
+    "lon": -117.1728,
+    "label": "San Diego Cruise Terminal"
+  },
+
+  "bbox_hint": {
+    "south": 32.67,
+    "west": -117.20,
+    "north": 32.75,
+    "east": -117.14,
+    "note": "Covers downtown waterfront, Gaslamp, Balboa Park, and Coronado"
+  },
+
+  "poi_ids": [
+    "san-diego-cruise-terminal",
+    "gaslamp-quarter",
+    "uss-midway",
+    "balboa-park",
+    "coronado"
+  ],
+
+  "label_overrides": {
+    "uss-midway": "USS Midway (next to cruise terminal)",
+    "gaslamp-quarter": "Gaslamp Quarter (walkable)",
+    "balboa-park": "Balboa Park & San Diego Zoo"
+  },
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "walk-downtown",
+      "name": "Walk Downtown",
+      "type": "walking",
+      "cost": "Free",
+      "duration": "5-15 minutes",
+      "connects": ["san-diego-cruise-terminal", "uss-midway", "gaslamp-quarter"],
+      "note": "Excellent walkable downtown! USS Midway adjacent to terminal. Gaslamp 10 minutes."
+    },
+    {
+      "id": "coronado-ferry",
+      "name": "Coronado Ferry",
+      "type": "boat",
+      "cost": "USD 7",
+      "duration": "15 minutes",
+      "connects": ["san-diego-cruise-terminal", "coronado"],
+      "note": "Ferry departs Broadway Pier near cruise terminal. Scenic crossing to Coronado."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "USS Midway Museum",
+      "type": "museum",
+      "duration": "2-3 hours",
+      "highlights": ["Historic aircraft carrier", "60+ aircraft", "Flight simulators"],
+      "note": "Adjacent to cruise terminal - can't miss it! Excellent WWII/aviation museum."
+    },
+    {
+      "name": "Gaslamp Quarter",
+      "type": "cultural",
+      "duration": "2-4 hours",
+      "highlights": ["Victorian architecture", "Restaurants", "Nightlife"],
+      "note": "16-block historic district. Great dining, shopping. Walking distance from ship."
+    },
+    {
+      "name": "Balboa Park & Zoo",
+      "type": "nature",
+      "duration": "Full day",
+      "highlights": ["San Diego Zoo", "17 museums", "Beautiful gardens"],
+      "note": "World-famous zoo needs full day alone. Short Uber ride from port."
+    }
+  ]
+}

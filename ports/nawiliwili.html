@@ -21,6 +21,9 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -151,19 +154,61 @@ Soli Deo Gloria
       </div>
 
       <section class="port-section">
-        <h3>Getting Around Nawiliwili</h3>
-        <p>Nawiliwili Harbor – car rental desks 5-minute walk from ship. Car is mandatory.</p>
+        <h3>Port & Transportation</h3>
+
+        <h4>Arriving at Port</h4>
+        <p>Cruise ships arrive at Nawiliwili Harbor, located where the Hule'ia Stream meets the ocean. The Aloha Center, a 12,000-square-foot facility, sits just one block from the pier and houses various shops, art galleries, and equipment rental businesses.</p>
 
       <figure class="logbook-image float-left">
         <img src="img/nawiliwili/nawiliwili-2.webp" alt="Nawiliwili waterfront" loading="lazy">
         <figcaption>Nawiliwili scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Nawiliwili&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
       </figure>
+
+        <h4>Getting Around</h4>
+        <p>Renting a vehicle is highly recommended for exploring Kauai, as the island features primarily one principal highway that circles most of the coastline. Public transit is available through the Kauai Bus system, which operates both scheduled routes and on-demand door-to-door service. Complimentary shuttle service runs to the local Farmers Market. The town center of Lihue is approximately 1.9 miles away, roughly a 10-minute drive from the harbor.</p>
+      </section>
+
+      <section class="port-section">
+        <h3>What to See & Do</h3>
+
+        <h4>Museums & Cultural Sites</h4>
+        <p>The Kauai Museum offers exhibits on the island's heritage and cultural artifacts. Grove Farm Homestead Museum provides a glimpse into Kauai's agricultural past. Kilohana Plantation showcases the plantation era through preserved buildings and grounds.</p>
+
+        <h4>Beaches</h4>
+        <p>Niumalu Beach Park gained fame as a filming location for Raiders of the Lost Ark. Kalapaki Beach offers excellent conditions for swimming and sunbathing.</p>
+
+        <h4>Water Activities</h4>
+        <p>The waters around Kauai provide excellent opportunities for snorkeling, surfing, swimming, and kayaking. Several rivers on the island are navigable by kayak, offering unique inland water adventures.</p>
+      </section>
+
+      <section class="port-section">
+        <h3>Shopping</h3>
+        <p>Kukui Grove and Lihue Shopping Centers feature familiar mainland-style retail stores. Complimentary shuttle buses provide transportation to various shopping areas and strip malls around the island.</p>
       </section>
 
       <section class="port-section">
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
+
+        <h4>Money & Payments</h4>
+        <p>The U.S. dollar is the local currency, and credit/debit cards are accepted throughout the island. Hawaii's general excise tax ranges from 4-6% on purchases.</p>
+
+        <h4>Tipping & Gratuities</h4>
+        <p>Standard gratuity is 15-20% at restaurants, 10-15% for personal services, and $5-10 per person for half-day guided tours.</p>
+
+        <h4>Emergencies</h4>
+        <p>For emergencies, dial 911.</p>
+
+        <h4>Island Culture</h4>
         <p>Kauai's one-lane bridges and roaming chickens are part of the charm – slow down and wave; the aloha spirit rewards patience.</p>
+      </section>
+
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>Kauai Area Map</h3>
+        <p class="map-intro">Interactive map showing Nawiliwili Harbor, Waimea Canyon, Na Pali Coast, and beaches.</p>
+        <div id="nawiliwili-port-map" class="port-map-container" role="application" aria-label="Interactive map of Kauai">
+          <noscript><p>Interactive map requires JavaScript. Key locations: Nawiliwili Harbor, Waimea Canyon, Na Pali Coast, Poipu Beach.</p></noscript>
+        </div>
       </section>
 
       <section class="port-section">
@@ -474,6 +519,22 @@ Soli Deo Gloria
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Nawiliwili Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'nawiliwili-port-map',
+        portSlug: 'nawiliwili'
+      });
+    }
+  });
+  </script>
 
 </body>
 </html>

@@ -1,0 +1,84 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2025-12-13T00:00:00Z",
+    "source": "Researched from Galveston tourism, Port of Galveston, and cruise guides"
+  },
+
+  "port_slug": "galveston",
+  "port_name": "Galveston",
+  "port_pin": {
+    "lat": 29.3108,
+    "lon": -94.7922,
+    "label": "Galveston Cruise Terminals"
+  },
+
+  "bbox_hint": {
+    "south": 29.25,
+    "west": -94.90,
+    "north": 29.35,
+    "east": -94.75,
+    "note": "Covers cruise port, Strand district, seawall, and Moody Gardens"
+  },
+
+  "poi_ids": [
+    "galveston-cruise-terminal",
+    "galveston-strand",
+    "galveston-seawall",
+    "moody-gardens",
+    "galveston-pleasure-pier"
+  ],
+
+  "label_overrides": {
+    "galveston-strand": "The Strand (historic downtown)",
+    "moody-gardens": "Moody Gardens (pyramids)",
+    "galveston-seawall": "Seawall & Beach"
+  },
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "walk-strand",
+      "name": "Walk to Strand",
+      "type": "walking",
+      "cost": "Free",
+      "duration": "10-15 minutes",
+      "connects": ["galveston-cruise-terminal", "galveston-strand"],
+      "note": "Historic Strand district is walkable from cruise port."
+    },
+    {
+      "id": "trolley-seawall",
+      "name": "Trolley to Seawall",
+      "type": "train",
+      "cost": "USD 1",
+      "duration": "15-20 minutes",
+      "connects": ["galveston-strand", "galveston-seawall", "galveston-pleasure-pier"],
+      "note": "Vintage rail trolley runs along Seawall Blvd. Fun and affordable way to explore."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "The Strand Historic District",
+      "type": "cultural",
+      "duration": "2-3 hours",
+      "highlights": ["Victorian architecture", "Shops and restaurants", "Mardi Gras museum"],
+      "note": "Texas's largest collection of Victorian commercial buildings. Walking distance from port."
+    },
+    {
+      "name": "Seawall & Pleasure Pier",
+      "type": "beach",
+      "duration": "Half day",
+      "highlights": ["10-mile seawall", "Beach access", "Amusement pier"],
+      "note": "Beach, pier rides, restaurants along boulevard. Good family option."
+    },
+    {
+      "name": "Moody Gardens",
+      "type": "nature",
+      "duration": "Half day",
+      "highlights": ["Aquarium pyramid", "Rainforest pyramid", "Discovery pyramid"],
+      "note": "Three glass pyramids with aquarium and exhibits. 15 minutes from port by car."
+    }
+  ]
+}
