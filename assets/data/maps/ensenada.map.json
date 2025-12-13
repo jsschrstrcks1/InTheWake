@@ -1,0 +1,91 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2025-12-13T00:00:00Z",
+    "source": "Researched from Baja California Tourism, wine region guides, cruise sources"
+  },
+
+  "port_slug": "ensenada",
+  "port_name": "Ensenada",
+  "port_pin": {
+    "lat": 31.8667,
+    "lon": -116.6167,
+    "label": "Ensenada Cruise Terminal"
+  },
+
+  "bbox_hint": {
+    "south": 31.70,
+    "west": -116.70,
+    "north": 32.00,
+    "east": -116.50,
+    "note": "Covers downtown, La Bufadora, Valle de Guadalupe"
+  },
+
+  "poi_ids": [
+    "ensenada-port",
+    "la-bufadora",
+    "valle-de-guadalupe",
+    "ensenada-malecon"
+  ],
+
+  "label_overrides": {
+    "la-bufadora": "La Bufadora (marine blowhole)",
+    "valle-de-guadalupe": "Valle de Guadalupe (wine country)"
+  },
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "walk-downtown",
+      "name": "Walk Downtown/Malecón",
+      "type": "walking",
+      "cost": "Free",
+      "duration": "5-10 minutes",
+      "connects": ["ensenada-port", "ensenada-malecon"],
+      "note": "Tourist shops near port. Walk inland for more authentic experience."
+    },
+    {
+      "id": "taxi-bufadora",
+      "name": "Taxi to La Bufadora",
+      "type": "taxi",
+      "cost": "USD 60-80 round trip",
+      "duration": "30 minutes",
+      "connects": ["ensenada-port", "la-bufadora"],
+      "note": "Marine geyser. Best at high tide. Vendor gauntlet to viewing platform."
+    },
+    {
+      "id": "excursion-wine",
+      "name": "Wine Country Excursion",
+      "type": "excursion",
+      "cost": "USD 80-150",
+      "duration": "4-6 hours",
+      "connects": ["ensenada-port", "valle-de-guadalupe"],
+      "note": "Mexico's premier wine region. 150+ wineries. Need transportation."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Valle de Guadalupe Wine Tour",
+      "type": "cultural",
+      "duration": "4-6 hours",
+      "highlights": ["Wine tasting", "Vineyard views", "Farm-to-table dining"],
+      "note": "Mexico's Napa. Book ship excursion or private driver. Great restaurants."
+    },
+    {
+      "name": "La Bufadora Blowhole",
+      "type": "nature",
+      "duration": "2-3 hours",
+      "highlights": ["100-foot spray", "Coastal scenery", "Vendor market"],
+      "note": "Check tide charts. High tide = best action. Bring cash for vendors."
+    },
+    {
+      "name": "Fish Taco Quest",
+      "type": "food",
+      "duration": "2-3 hours",
+      "highlights": ["Street tacos", "Mercado Negro", "Local seafood"],
+      "note": "Ensenada claims to have invented fish tacos. Seek local spots."
+    }
+  ]
+}
