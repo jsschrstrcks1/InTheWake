@@ -1,0 +1,87 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2025-12-13T00:00:00Z",
+    "source": "Researched from Seward tourism, Kenai Fjords NP, and Alaska cruise guides"
+  },
+
+  "port_slug": "seward",
+  "port_name": "Seward",
+  "port_pin": {
+    "lat": 60.1047,
+    "lon": -149.4361,
+    "label": "Seward Cruise Ship Dock"
+  },
+
+  "bbox_hint": {
+    "south": 59.80,
+    "west": -149.80,
+    "north": 60.25,
+    "east": -149.30,
+    "note": "Covers Seward town, Resurrection Bay, and Kenai Fjords"
+  },
+
+  "poi_ids": [
+    "seward-cruise-dock",
+    "alaska-sealife-center",
+    "kenai-fjords-np",
+    "exit-glacier",
+    "resurrection-bay",
+    "seward-downtown"
+  ],
+
+  "label_overrides": {
+    "kenai-fjords-np": "Kenai Fjords (glacier cruises)",
+    "exit-glacier": "Exit Glacier (road accessible)",
+    "alaska-sealife-center": "Alaska SeaLife Center"
+  },
+
+  "approximate_markers": [
+    "kenai-fjords-np"
+  ],
+
+  "transit_routes": [
+    {
+      "id": "walking-downtown",
+      "name": "Walk to Downtown",
+      "type": "walking",
+      "cost": "Free",
+      "duration": "10-15 minutes",
+      "connects": ["seward-cruise-dock", "seward-downtown", "alaska-sealife-center"],
+      "note": "Easy walk along scenic waterfront to downtown and SeaLife Center."
+    },
+    {
+      "id": "kenai-fjords-cruise",
+      "name": "Kenai Fjords Day Cruise",
+      "type": "boat",
+      "cost": "USD 180-250",
+      "duration": "6-8 hours",
+      "connects": ["seward-cruise-dock", "kenai-fjords-np"],
+      "note": "Full-day cruise to tidewater glaciers, whales, puffins. Half-day options available."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Kenai Fjords National Park Cruise",
+      "type": "adventure",
+      "duration": "Half to full day",
+      "highlights": ["Tidewater glaciers", "Whales and sea lions", "Puffin colonies"],
+      "note": "Premier Alaska fjord experience. Book ahead. Bring layers and seasickness remedies."
+    },
+    {
+      "name": "Exit Glacier Hike",
+      "type": "nature",
+      "duration": "Half day",
+      "highlights": ["Walk to glacier", "Harding Icefield views", "Glacier recession markers"],
+      "note": "Only road-accessible glacier in park. 12 miles from town. Multiple trail options."
+    },
+    {
+      "name": "Alaska SeaLife Center",
+      "type": "educational",
+      "duration": "1-2 hours",
+      "highlights": ["Steller sea lions", "Puffins", "Rehabilitation center"],
+      "note": "Walk from dock. Great rainy-day option. Research and rehabilitation facility."
+    }
+  ]
+}
