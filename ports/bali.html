@@ -239,8 +239,15 @@ All work on this project is offered as a gift to God.
       <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
     </section>
 
+    <!-- Interactive Port Map -->
+    <section class="port-section">
+      <h2>Port Map</h2>
+      <p>Explore Benoa cruise port and Bali's temples, rice terraces, and beaches. Click markers for details and directions.</p>
+      <div id="port-map" class="port-map-container" role="application" aria-label="Interactive map of Bali port area"></div>
+    </section>
+
   </article>
-  
+
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
     <section class="card author-card-vertical" aria-labelledby="author-heading">
       <h3 id="author-heading">About the Author</h3>
@@ -377,6 +384,18 @@ All work on this project is offered as a gift to God.
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Port Map Module -->
+  <script src="/assets/js/modules/port-map.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.PortMap) {
+        window.PortMap.init({ containerId: 'port-map', portSlug: 'bali' });
+      }
+    });
+  </script>
 
 </body>
 </html>

@@ -182,6 +182,13 @@ All work on this project is offered as a gift to God.
         <details><summary>How do I get from Yokohama to Tokyo?</summary><p>The JR line takes about 30 minutes to Tokyo Station. Trains run constantly and are spotlessly clean. Get a Suica card for easy tap-and-go payment.</p></details>
       </section>
 
+    <!-- Interactive Port Map -->
+    <section class="port-section">
+      <h2>Port Map</h2>
+      <p>Explore Tokyo and Yokohama's cruise terminals, temples, neighborhoods, and attractions. Click markers for details and directions.</p>
+      <div id="port-map" class="port-map-container" role="application" aria-label="Interactive map of Tokyo and Yokohama port area"></div>
+    </section>
+
     </article>
     <!-- Nearby Ports Rail -->
     <section class="card" aria-labelledby="nearby-ports-title">
@@ -403,6 +410,18 @@ All work on this project is offered as a gift to God.
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Port Map Module -->
+  <script src="/assets/js/modules/port-map.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.PortMap) {
+        window.PortMap.init({ containerId: 'port-map', portSlug: 'tokyo' });
+      }
+    });
+  </script>
 
 </body>
 </html>

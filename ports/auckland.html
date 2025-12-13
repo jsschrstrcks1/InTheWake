@@ -180,8 +180,15 @@ All work on this project is offered as a gift to God.
         <details><summary>What's the Māori cultural performance like?</summary><p>The performance at Auckland War Memorial Museum is powerful – includes haka, poi dance, and traditional songs. Spine-tingling and highly recommended.</p></details>
       </section>
 
+    <!-- Interactive Port Map -->
+    <section class="port-section">
+      <h2>Port Map</h2>
+      <p>Explore Auckland's cruise terminal, volcanic cones, Waiheke Island, and the Bay of Islands. Click markers for details and directions.</p>
+      <div id="port-map" class="port-map-container" role="application" aria-label="Interactive map of Auckland port area"></div>
+    </section>
+
     </article>
-  
+
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
     <section class="card author-card-vertical" aria-labelledby="author-heading">
       <h3 id="author-heading">About the Author</h3>
@@ -318,6 +325,18 @@ All work on this project is offered as a gift to God.
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Port Map Module -->
+  <script src="/assets/js/modules/port-map.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.PortMap) {
+        window.PortMap.init({ containerId: 'port-map', portSlug: 'auckland' });
+      }
+    });
+  </script>
 
 </body>
 </html>

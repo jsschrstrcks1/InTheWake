@@ -245,6 +245,13 @@ All work on this project is offered as a gift to God.
       <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
     </section>
 
+    <!-- Interactive Port Map -->
+    <section class="port-section">
+      <h2>Port Map</h2>
+      <p>Explore Singapore's cruise terminals, attractions, hawker centers, and neighborhoods. Click markers for details and directions.</p>
+      <div id="port-map" class="port-map-container" role="application" aria-label="Interactive map of Singapore port area"></div>
+    </section>
+
   </article>
     <!-- Nearby Ports Rail -->
     <section class="card" aria-labelledby="nearby-ports-title">
@@ -465,6 +472,18 @@ All work on this project is offered as a gift to God.
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Port Map Module -->
+  <script src="/assets/js/modules/port-map.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.PortMap) {
+        window.PortMap.init({ containerId: 'port-map', portSlug: 'singapore' });
+      }
+    });
+  </script>
 
 </body>
 </html>
