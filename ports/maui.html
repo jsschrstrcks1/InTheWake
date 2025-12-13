@@ -21,6 +21,9 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -150,6 +153,14 @@ Soli Deo Gloria
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
         <p>Maui traffic on the Hana side can slow – choosing West Maui or Upcountry keeps the day relaxed and beautiful.</p>
+      </section>
+
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>Maui Area Map</h3>
+        <p class="map-intro">Interactive map showing Kahului Harbor, Haleakala, beaches, and key attractions.</p>
+        <div id="maui-port-map" class="port-map-container" role="application" aria-label="Interactive map of Maui">
+          <noscript><p>Interactive map requires JavaScript. Key locations: Kahului Harbor, Haleakala volcano, Lahaina, Iao Valley.</p></noscript>
+        </div>
       </section>
 
       <section class="port-section">
@@ -416,6 +427,22 @@ Soli Deo Gloria
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Maui Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'maui-port-map',
+        portSlug: 'maui'
+      });
+    }
+  });
+  </script>
 
 </body>
 </html>
