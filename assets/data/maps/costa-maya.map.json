@@ -1,0 +1,98 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2025-12-13T00:00:00Z",
+    "source": "Researched from Costa Maya Tourism, CruiseCritic, and local guides"
+  },
+
+  "port_slug": "costa-maya",
+  "port_name": "Costa Maya",
+  "port_pin": {
+    "lat": 18.7125,
+    "lon": -87.7083,
+    "label": "Costa Maya Cruise Port"
+  },
+
+  "bbox_hint": {
+    "south": 18.50,
+    "west": -88.50,
+    "north": 18.80,
+    "east": -87.35,
+    "note": "Covers cruise port complex, Mahahual, and inland attractions"
+  },
+
+  "poi_ids": [
+    "costa-maya-cruise-port",
+    "costa-maya-pool",
+    "mahahual-beach",
+    "chacchoben-ruins",
+    "banco-chinchorro",
+    "bacalar-lagoon"
+  ],
+
+  "label_overrides": {
+    "chacchoben-ruins": "Chacchoben Mayan Ruins",
+    "bacalar-lagoon": "Bacalar (Lake of Seven Colors)",
+    "banco-chinchorro": "Banco Chinchorro (pristine atoll)"
+  },
+
+  "approximate_markers": [
+    "banco-chinchorro",
+    "bacalar-lagoon",
+    "chacchoben-ruins"
+  ],
+
+  "transit_routes": [
+    {
+      "id": "port-complex",
+      "name": "Port Complex",
+      "type": "walking",
+      "cost": "Free",
+      "duration": "Immediate",
+      "connects": ["costa-maya-cruise-port", "costa-maya-pool"],
+      "note": "Large self-contained port with pools, restaurants, beach."
+    },
+    {
+      "id": "taxi-to-mahahual",
+      "name": "Taxi to Mahahual Village",
+      "type": "taxi",
+      "cost": "USD 5-10",
+      "duration": "5-10 minutes",
+      "connects": ["costa-maya-cruise-port", "mahahual-beach"],
+      "note": "Authentic fishing village. Beach clubs, restaurants."
+    },
+    {
+      "id": "excursion-to-ruins",
+      "name": "Chacchoben Ruins Excursion",
+      "type": "tour",
+      "cost": "USD 50-80",
+      "duration": "Half day",
+      "connects": ["costa-maya-cruise-port", "chacchoben-ruins"],
+      "note": "1-hour drive inland. Less crowded than Tulum."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Chacchoben Mayan Ruins",
+      "type": "cultural",
+      "duration": "Half day",
+      "highlights": ["Jungle pyramids", "Less crowded", "Excellent guides"],
+      "note": "Well-preserved ruins. Easier access than Tulum from here."
+    },
+    {
+      "name": "Port Pool Day",
+      "type": "relaxation",
+      "duration": "Full day",
+      "highlights": ["Complimentary pool", "Swim-up bar", "Beach access"],
+      "note": "Stay close to ship. Everything you need at port complex."
+    },
+    {
+      "name": "Bacalar Lagoon",
+      "type": "nature",
+      "duration": "Full day",
+      "highlights": ["Seven shades of blue", "Cenote swimming", "Kayaking"],
+      "note": "2-hour drive but spectacular. Freshwater lagoon. Worth it."
+    }
+  ]
+}

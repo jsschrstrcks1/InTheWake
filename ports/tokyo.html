@@ -12,12 +12,12 @@ All work on this project is offered as a gift to God.
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- ICP-Lite v1.0 Meta Tags -->
   <meta name="ai-summary" content="First-person guide to Tokyo and Yokohama cruise ports: Tsukiji Market, TeamLab, Shibuya Crossing, Senso-ji temple, and Japanese efficiency." />
-  <meta name="last-reviewed" content="2025-11-24" />
+  <meta name="last-reviewed" content="2025-12-12" />
   <meta name="content-protocol" content="ICP-Lite v1.0" />
 
   <title>Tokyo / Yokohama Cruise Port Guide – In the Wake</title>
   <meta name="description" content="First-person guide to Tokyo and Yokohama cruise ports: Tsukiji Market, TeamLab, Shibuya Crossing, Senso-ji temple, and Japanese efficiency." />
-  <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <!-- Service Worker Registration -->
   <script>
   if('serviceWorker' in navigator){
@@ -27,7 +27,11 @@ All work on this project is offered as a gift to God.
 
   <link rel="stylesheet" href="/assets/css/common.css" />
   <link rel="stylesheet" href="/assets/css/articles.css" />
-    <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <!-- Port Map Styles (mobile-responsive) -->
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -177,6 +181,13 @@ All work on this project is offered as a gift to God.
         <details><summary>Is one day enough for Tokyo?</summary><p>You can hit the highlights, but Tokyo deserves more. Focus on 2-3 areas (like Tsukiji + Asakusa + Shibuya) rather than trying to see everything.</p></details>
         <details><summary>How do I get from Yokohama to Tokyo?</summary><p>The JR line takes about 30 minutes to Tokyo Station. Trains run constantly and are spotlessly clean. Get a Suica card for easy tap-and-go payment.</p></details>
       </section>
+
+    <!-- Interactive Port Map -->
+    <section class="port-section">
+      <h2>Port Map</h2>
+      <p>Explore Tokyo and Yokohama's cruise terminals, temples, neighborhoods, and attractions. Click markers for details and directions.</p>
+      <div id="port-map" class="port-map-container" role="application" aria-label="Interactive map of Tokyo and Yokohama port area"></div>
+    </section>
 
     </article>
     <!-- Nearby Ports Rail -->
@@ -399,6 +410,18 @@ All work on this project is offered as a gift to God.
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Port Map Module -->
+  <script src="/assets/js/modules/port-map.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.PortMap) {
+        window.PortMap.init({ containerId: 'port-map', portSlug: 'tokyo' });
+      }
+    });
+  </script>
 
 </body>
 </html>

@@ -1,10 +1,10 @@
 # CSS Standards - Machine-Readable Configuration
-# Version: 1.0.0
-# Last Updated: 2025-11-24
+# Version: 1.1.0
+# Last Updated: 2025-12-12
 # Purpose: Define CSS validation rules and accessibility requirements
 
-version: "1.0.0"
-last_updated: "2025-11-24"
+version: "1.1.0"
+last_updated: "2025-12-12"
 category: "css"
 
 # Syntax validation
@@ -190,3 +190,71 @@ compatibility:
           display: grid;
         }
       }
+
+# Port Map Component Standards (v2.0.0)
+port_map:
+  mobile_first:
+    required: true
+    severity: warning
+    description: "Port maps must be mobile-first responsive"
+    breakpoints:
+      small_phone: "< 480px (height: 280px)"
+      phone: "480-767px (height: 320px)"
+      tablet: "768-1023px (height: 400px)"
+      desktop: "1024px+ (height: 500px)"
+
+  touch_targets:
+    required: true
+    severity: error
+    min_size: "44px"
+    description: "Touch targets must be at least 44px for accessibility"
+    applies_to:
+      - "zoom controls"
+      - "fullscreen button"
+      - "legend toggle"
+      - "popup close button"
+
+  fullscreen_mode:
+    required: true
+    severity: warning
+    description: "Maps must support fullscreen mode on mobile/tablet"
+    implementation:
+      - "Fullscreen button visible below 1024px"
+      - "Escape key closes fullscreen"
+      - "Body scroll locked when fullscreen"
+
+  popup_constraints:
+    required: true
+    severity: warning
+    description: "Popups must be constrained to viewport"
+    rules:
+      - "max-width: calc(100vw - 40px) on mobile"
+      - "max-height: 180px with overflow-y: auto on small screens"
+      - "Auto-pan to keep popup in view"
+
+  legend_collapse:
+    required: true
+    severity: info
+    description: "Legend should collapse on mobile to save space"
+    behavior:
+      - "Shows icon only on mobile (< 768px)"
+      - "Expands on tap"
+      - "Close button when expanded"
+      - "Always visible on desktop"
+
+  css_classes:
+    required:
+      - ".port-map-container"
+      - ".port-map-fullscreen-btn"
+      - ".port-map-legend"
+    description: "Use standard CSS classes, not inline styles"
+
+  accessibility:
+    required: true
+    severity: error
+    rules:
+      - "role='application' on map container"
+      - "aria-label describing the map"
+      - "Keyboard-accessible controls"
+      - "Focus-visible outlines"
+      - "Reduced motion support"

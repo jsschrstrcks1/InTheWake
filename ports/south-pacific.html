@@ -12,12 +12,12 @@ All work on this project is offered as a gift to God.
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- ICP-Lite v1.0 Meta Tags -->
   <meta name="ai-summary" content="First-person guide to South Pacific cruise ports: Bora Bora, Tahiti, Moorea, Fiji, Vanuatu, and Nouméa – turquoise lagoons and paradise islands." />
-  <meta name="last-reviewed" content="2025-11-24" />
+  <meta name="last-reviewed" content="2025-12-12" />
   <meta name="content-protocol" content="ICP-Lite v1.0" />
 
   <title>South Pacific Islands Cruise Port Guide – In the Wake</title>
   <meta name="description" content="First-person guide to South Pacific cruise ports: Bora Bora, Tahiti, Moorea, Fiji, Vanuatu, and Nouméa – turquoise lagoons and paradise islands." />
-  <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <!-- Service Worker Registration -->
   <script>
   if('serviceWorker' in navigator){
@@ -27,7 +27,11 @@ All work on this project is offered as a gift to God.
 
   <link rel="stylesheet" href="/assets/css/common.css" />
   <link rel="stylesheet" href="/assets/css/articles.css" />
-    <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <!-- Port Map Styles (mobile-responsive) -->
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -177,6 +181,13 @@ All work on this project is offered as a gift to God.
         <details><summary>What's a kava ceremony like in Fiji?</summary><p>Kava is a mildly sedative root drink central to Fijian culture. The ceremony is welcoming and communal. The taste is earthy (like muddy water, honestly) but the experience is unforgettable and the numbness is real.</p></details>
         <details><summary>Which South Pacific island is best for first-timers?</summary><p>Bora Bora is the iconic bucket-list choice. Fiji is more affordable with incredible snorkeling and culture. Moorea is quieter and equally beautiful with easier access from Tahiti.</p></details>
       </section>
+
+    <!-- Interactive Port Map -->
+    <section class="port-section">
+      <h2>Port Map</h2>
+      <p>Explore the South Pacific islands - Bora Bora, Moorea, Tahiti, Fiji, Vanuatu, and New Caledonia. Click markers for details and directions.</p>
+      <div id="port-map" class="port-map-container" role="application" aria-label="Interactive map of South Pacific Islands"></div>
+    </section>
 
     </article>
     <!-- Nearby Ports Rail -->
@@ -399,6 +410,18 @@ All work on this project is offered as a gift to God.
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Port Map Module -->
+  <script src="/assets/js/modules/port-map.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.PortMap) {
+        window.PortMap.init({ containerId: 'port-map', portSlug: 'south-pacific' });
+      }
+    });
+  </script>
 
 </body>
 </html>

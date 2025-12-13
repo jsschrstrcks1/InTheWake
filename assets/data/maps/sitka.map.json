@@ -1,0 +1,85 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2025-12-13T00:00:00Z",
+    "source": "Researched from Sitka tourism, NPS, and Alaska cruise guides"
+  },
+
+  "port_slug": "sitka",
+  "port_name": "Sitka",
+  "port_pin": {
+    "lat": 57.0522,
+    "lon": -135.3417,
+    "label": "Sitka Cruise Ship Lightering Dock"
+  },
+
+  "bbox_hint": {
+    "south": 57.00,
+    "west": -135.40,
+    "north": 57.10,
+    "east": -135.25,
+    "note": "Covers downtown Sitka and surrounding attractions"
+  },
+
+  "poi_ids": [
+    "sitka-cruise-dock",
+    "st-michaels-cathedral",
+    "sitka-national-historical-park",
+    "alaska-raptor-center",
+    "fortress-bears",
+    "sitka-downtown"
+  ],
+
+  "label_overrides": {
+    "st-michaels-cathedral": "St. Michael's Cathedral (Russian Orthodox)",
+    "sitka-national-historical-park": "Sitka NHP (totems & history)",
+    "alaska-raptor-center": "Raptor Center (eagle encounters)"
+  },
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "tender-to-shore",
+      "name": "Tender to Sitka",
+      "type": "boat",
+      "cost": "Included",
+      "duration": "10-15 minutes",
+      "connects": ["sitka-cruise-dock"],
+      "note": "Tender port - ships anchor in Sitka Sound. Tenders run continuously to O'Connell or Crescent Harbor."
+    },
+    {
+      "id": "walking-downtown",
+      "name": "Walk Downtown",
+      "type": "walking",
+      "cost": "Free",
+      "duration": "5-20 minutes to attractions",
+      "connects": ["sitka-cruise-dock", "st-michaels-cathedral", "sitka-national-historical-park"],
+      "note": "Downtown and NHP very walkable from both tender locations."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Sitka National Historical Park",
+      "type": "cultural",
+      "duration": "1-2 hours",
+      "highlights": ["Totem pole trail", "1804 battleground", "Cultural center"],
+      "note": "Site of last major Tlingit resistance to Russians. Beautiful rainforest walk with totems."
+    },
+    {
+      "name": "Alaska Raptor Center",
+      "type": "wildlife",
+      "duration": "1-2 hours",
+      "highlights": ["Bald eagle encounters", "Flight demonstrations", "Rehabilitation"],
+      "note": "Up-close with eagles and other raptors. Very popular - book ship excursion or taxi."
+    },
+    {
+      "name": "Russian Heritage Walking",
+      "type": "cultural",
+      "duration": "2-3 hours",
+      "highlights": ["St. Michael's Cathedral", "Russian Bishop's House", "Unique history"],
+      "note": "Alaska's Russian capital before 1867 purchase. Cathedral icons from 1848."
+    }
+  ]
+}

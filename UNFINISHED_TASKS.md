@@ -659,25 +659,133 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 - [ ] False positives can be suppressed with `<!-- poi:ignore -->` comment
 
 #### Phase 2.5: Mobile Responsiveness Pass (PRIORITY)
-**Status:** Needed - maps not currently mobile-friendly
+**Status:** ✅ IMPLEMENTED (2025-12-12) - Alaska ports (Anchorage, Juneau, Ketchikan)
 **Problem:** As users zoom in on port page maps, the legend/controls block the small viewport, making the map unusable on mobile devices.
 
+**Implementation (2025-12-12):**
+- Updated `/assets/css/components/port-map.css` to v2.0.0 with mobile breakpoints
+- Updated `/assets/js/modules/port-map.js` to v2.0.0 with mobile features
+- Updated standards in `/.claude/standards/css.yml` with port_map section
+
 **Acceptance Criteria - Mobile Pass:**
-- [ ] Map container has responsive height (min 300px mobile, 400px tablet, 500px desktop)
-- [ ] Leaflet controls collapse or move to bottom on narrow viewports
-- [ ] Legend (if present) collapses to expandable drawer on mobile
-- [ ] Touch gestures work smoothly (pinch-zoom, pan)
-- [ ] Popup modals don't overflow viewport
-- [ ] "Full screen" option available on mobile
+- [x] Map container has responsive height (280px → 320px → 400px → 500px)
+- [x] Leaflet controls have 44px touch targets on mobile (shrink to 32px on desktop)
+- [x] Legend collapses to icon on mobile, expands on tap
+- [x] Touch gestures work smoothly (pinch-zoom, pan, tap=true)
+- [x] Popup modals constrained to viewport with max-height and auto-scroll
+- [x] Fullscreen button available on mobile/tablet (< 1024px)
 - [ ] Test on iPhone SE (smallest common), iPad Mini, standard Android
 
-**Files to Update:**
+**Files Updated:**
 ```
-/assets/css/components/port-map.css   # Add mobile breakpoints
-/ports/anchorage.html                 # Test implementation
-/ports/juneau.html                    # Test implementation
-/ports/ketchikan.html                 # Test implementation
+/assets/css/components/port-map.css   # v2.0.0 - Mobile breakpoints, fullscreen, legend collapse
+/assets/js/modules/port-map.js        # v2.0.0 - Mobile features, fullscreen, popup panning
+/ports/anchorage.html                 # Cache-busted CSS v2.0.0
+/ports/juneau.html                    # Cache-busted CSS v2.0.0
+/ports/ketchikan.html                 # Inline script with mobile features
+/.claude/standards/css.yml            # Added port_map standards section
 ```
+
+**Remaining:**
+- [ ] Roll out to remaining port pages (Caribbean, Mediterranean, etc.)
+- [ ] Real device testing on iPhone SE, iPad Mini, Android
+
+#### ✅ Asia-Pacific Port Expansion (2025-12-13)
+**Status:** COMPLETE - 10 Asia-Pacific ports normalized to Alaska port standard
+**Commits:** 7a0de9d, 80c5754, 62ac630
+
+**Work Completed:**
+- Updated favicon from .ico to PNG format on all 10 ports
+- Updated last-reviewed dates to 2025-12-12
+- Created 110 POIs across 10 ports in poi-index.json
+- Created map manifest files (*.map.json) for all 10 ports
+- Added Leaflet CSS and port-map.css links to all HTML pages
+- Added map container sections with port-specific descriptions
+- Added Leaflet JS and port-map.js initialization scripts
+
+**Ports Normalized:**
+| Port | POIs | Map Manifest | Leaflet Map |
+|------|------|--------------|-------------|
+| Singapore | 18 | ✅ | ✅ |
+| Sydney | 12 | ✅ | ✅ |
+| Tokyo | 13 | ✅ | ✅ |
+| Hong Kong | 12 | ✅ | ✅ |
+| Shanghai | 9 | ✅ | ✅ |
+| Bangkok | 8 | ✅ | ✅ |
+| Bali | 8 | ✅ | ✅ |
+| Brisbane | 7 | ✅ | ✅ |
+| Auckland | 7 | ✅ | ✅ |
+| South Pacific | 6 | ✅ | ✅ |
+
+**Files Created:**
+```
+/assets/data/maps/singapore.map.json
+/assets/data/maps/sydney.map.json
+/assets/data/maps/tokyo.map.json
+/assets/data/maps/hong-kong.map.json
+/assets/data/maps/shanghai.map.json
+/assets/data/maps/bangkok.map.json
+/assets/data/maps/bali.map.json
+/assets/data/maps/brisbane.map.json
+/assets/data/maps/auckland.map.json
+/assets/data/maps/south-pacific.map.json
+```
+
+**POI Data Includes:**
+- Cruise terminals (primary and secondary)
+- Major landmarks and attractions
+- Hawker centers and dining spots
+- Districts and neighborhoods
+- Beaches and nature areas
+- Transit routes and featured experiences
+
+#### ✅ Caribbean Port Expansion (2025-12-13)
+**Status:** COMPLETE - 10 Caribbean ports with interactive Leaflet maps
+**Commits:** 954a41f, fbde507
+
+**Work Completed:**
+- Created 75 POIs across 10 Caribbean ports in poi-index.json
+- Created map manifest files (*.map.json) for all 10 ports
+- Added Leaflet CSS and port-map.css links to all HTML pages
+- Added map container sections with port-specific descriptions
+- Added Leaflet JS and port-map.js initialization scripts
+
+**Ports with Maps:**
+| Port | POIs | Map Manifest | Leaflet Map |
+|------|------|--------------|-------------|
+| Cozumel | 11 | ✅ | ✅ |
+| Nassau | 8 | ✅ | ✅ |
+| St. Thomas | 7 | ✅ | ✅ |
+| St. Maarten | 8 | ✅ | ✅ |
+| Grand Cayman | 7 | ✅ | ✅ |
+| CocoCay | 6 | ✅ | ✅ |
+| Labadee | 7 | ✅ | ✅ |
+| Jamaica | 8 | ✅ | ✅ |
+| Curaçao | 7 | ✅ | ✅ |
+| Costa Maya | 6 | ✅ | ✅ |
+
+**Files Created:**
+```
+/assets/data/maps/cozumel.map.json
+/assets/data/maps/nassau.map.json
+/assets/data/maps/st-thomas.map.json
+/assets/data/maps/st-maarten.map.json
+/assets/data/maps/grand-cayman.map.json
+/assets/data/maps/cococay.map.json
+/assets/data/maps/labadee.map.json
+/assets/data/maps/jamaica.map.json
+/assets/data/maps/curacao.map.json
+/assets/data/maps/costa-maya.map.json
+```
+
+**Caribbean POI Highlights:**
+- Beach clubs (Cozumel: Paradise Beach, Mr. Sanchos, Nachi Cocom)
+- Stingray City sandbar (Grand Cayman)
+- Maho Beach plane spotting (St. Maarten)
+- Dunn's River Falls and Blue Hole (Jamaica)
+- Willemstad UNESCO district (Curaçao)
+- Private island attractions (CocoCay, Labadee)
+- Mayan ruins (Costa Maya: Chacchoben)
 
 #### Watch Items (Quality Standards)
 - **Attribution:** OpenStreetMap © must appear on map AND inside PDF/PNG

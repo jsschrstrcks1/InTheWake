@@ -1,0 +1,89 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2025-12-12T00:00:00Z",
+    "source": "Researched from Tourism New Zealand, TripAdvisor, and local guides"
+  },
+
+  "port_slug": "auckland",
+  "port_name": "Auckland",
+  "port_pin": {
+    "lat": -36.8426,
+    "lon": 174.7648,
+    "label": "Queens Wharf Terminal"
+  },
+
+  "bbox_hint": {
+    "south": -36.90,
+    "west": 174.10,
+    "north": -35.26,
+    "east": 175.10,
+    "note": "Covers Auckland CBD, volcanic cones, Waiheke, and Bay of Islands"
+  },
+
+  "poi_ids": [
+    "auckland-cruise-terminal",
+    "sky-tower-auckland",
+    "waiheke-island",
+    "viaduct-harbour",
+    "auckland-art-gallery",
+    "mount-eden",
+    "bay-of-islands"
+  ],
+
+  "label_overrides": {
+    "sky-tower-auckland": "Sky Tower (SkyJump & SkyWalk)",
+    "waiheke-island": "Waiheke Island (wine & beaches)",
+    "mount-eden": "Mount Eden (volcanic cone views)",
+    "bay-of-islands": "Bay of Islands (separate cruise call)"
+  },
+
+  "approximate_markers": [
+    "bay-of-islands"
+  ],
+
+  "transit_routes": [
+    {
+      "id": "waiheke-ferry",
+      "name": "Fullers Ferry to Waiheke",
+      "type": "ferry",
+      "cost": "NZD 45 return",
+      "duration": "35 minutes",
+      "connects": ["auckland-cruise-terminal", "waiheke-island"],
+      "note": "Ferries from downtown terminal. Wine tours and bike rentals on island."
+    },
+    {
+      "id": "city-walking",
+      "name": "Waterfront Walk",
+      "type": "walking",
+      "cost": "Free",
+      "duration": "5-15 minutes between sites",
+      "connects": ["auckland-cruise-terminal", "viaduct-harbour", "sky-tower-auckland"],
+      "note": "All downtown attractions walkable from terminal. Flat and easy."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Waiheke Island Wine Tour",
+      "type": "tour",
+      "duration": "Half to full day",
+      "highlights": ["Boutique wineries", "Olive oil tasting", "Beautiful beaches"],
+      "note": "35-min ferry then wine tour bus or bike rental. Book ahead for winery lunches."
+    },
+    {
+      "name": "Sky Tower Experience",
+      "type": "adventure",
+      "duration": "1-2 hours",
+      "highlights": ["360-degree views", "SkyWalk (outside ledge)", "SkyJump (192m fall)"],
+      "note": "NZ's tallest structure. Observation deck, revolving restaurant, or extreme activities."
+    },
+    {
+      "name": "Mount Eden Sunrise/Sunset",
+      "type": "nature",
+      "duration": "1-2 hours",
+      "highlights": ["Volcanic crater", "City panoramas", "Sacred Maori site"],
+      "note": "Auckland's highest volcano. Easy walk up. Best at golden hour. Free."
+    }
+  ]
+}
