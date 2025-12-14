@@ -1,9 +1,9 @@
 # Royal Caribbean International - Master Port List
 
-**Generated:** 2025-11-22
+**Generated:** 2025-12-14
 **Source:** Royal Caribbean deployment schedules, PORT_TRACKER_ROADMAP.md, CruiseMapper data
 **Fleet:** 27-28 ships (as of 2025, including Icon of the Seas, Star of the Seas)
-**Current Coverage:** 147 ports with individual pages
+**Current Coverage:** 301 ports with individual pages
 **Total Unique Ports:** 350+ ports globally
 
 **Note:** This list includes all ports Royal Caribbean visits or has announced through 2028, including standard calls, private destinations, and seasonal/repositioning stops. Royal Caribbean operates globally with heavy emphasis on Caribbean (60% of sailings), Alaska, Europe, and Asia.
@@ -12,14 +12,14 @@
 
 ## Private / Exclusive Destinations (Royal Caribbean-owned)
 
-- **CocoCay** (Perfect Day at CocoCay, Bahamas) – Flagship private island with Thrill Waterpark
-- **Labadee** (Haiti) – Private resort peninsula, Haiti's north coast
+- ✅ **CocoCay** (Perfect Day at CocoCay, Bahamas) – Flagship private island with Thrill Waterpark
+- ✅ **Labadee** (Haiti) – Private resort peninsula, Haiti's north coast
 
 ---
 
 ## Caribbean & Bahamas (~60% of Royal Caribbean sailings)
 
-### ✅ COMPLETE Coverage (Current 147 ports includes most of these)
+### ✅ COMPLETE Coverage
 
 #### Eastern Caribbean
 - ✅ Nassau, Bahamas
@@ -27,15 +27,15 @@
 - ✅ St. Thomas (Charlotte Amalie), USVI
 - ✅ St. Maarten (Philipsburg)
 - ✅ San Juan, Puerto Rico
-- ⏳ St. Lucia (Castries) – HIGH PRIORITY
-- ⏳ Antigua (St. John's) – HIGH PRIORITY
-- ⏳ St. Kitts (Basseterre) – HIGH PRIORITY
+- ✅ St. Lucia (Castries)
+- ✅ Antigua (St. John's)
+- ✅ St. Kitts (Basseterre)
 - ✅ Tortola (Road Town), BVI
-- ⏳ Barbados (Bridgetown) – HIGH PRIORITY
-- ⏳ Dominica (Roseau) – HIGH PRIORITY
-- ⏳ Grenada (St. George's) – HIGH PRIORITY
-- ⏳ Martinique (Fort-de-France) – HIGH PRIORITY
-- ⏳ Guadeloupe (Pointe-à-Pitre) – HIGH PRIORITY
+- ✅ Barbados (Bridgetown)
+- ✅ Dominica (Roseau)
+- ✅ Grenada (St. George's)
+- ✅ Martinique (Fort-de-France)
+- ✅ Guadeloupe (Pointe-à-Pitre)
 
 #### Western Caribbean
 - ✅ Cozumel, Mexico
@@ -46,7 +46,7 @@
 - ✅ Grand Cayman (George Town)
 - ✅ Jamaica (Falmouth, Ocho Rios, Montego Bay)
 
-#### Southern Caribbean  
+#### Southern Caribbean
 - ✅ Aruba (Oranjestad)
 - ✅ Curacao (Willemstad)
 - ✅ Bonaire (Kralendijk)
@@ -57,6 +57,7 @@
 - ✅ Samana, Dominican Republic
 - ✅ CocoCay (Perfect Day), Bahamas
 - ✅ Labadee, Haiti
+- ✅ Amber Cove, Dominican Republic
 
 ---
 
@@ -82,7 +83,7 @@
 
 ## Hawaii & Transpacific
 
-### ✅ COMPLETE Coverage (2025-11-22)
+### ✅ COMPLETE Coverage
 - ✅ Honolulu (Oahu), Hawaii
 - ✅ Kailua-Kona (Big Island), Hawaii
 - ✅ Hilo (Big Island), Hawaii
@@ -95,7 +96,7 @@
 
 ### Mediterranean
 
-#### ✅ COMPLETE Coverage (Most major ports)
+#### ✅ COMPLETE Coverage
 - ✅ Barcelona, Spain
 - ✅ Rome (Civitavecchia), Italy
 - ✅ Naples, Italy
@@ -119,14 +120,14 @@
 - ✅ Villefranche (Nice/Monte Carlo), France
 - ✅ Cannes, France
 - ✅ Marseille, France
+- ✅ Ibiza, Spain
+- ✅ Valencia, Spain
+- ✅ Cagliari, Sardinia, Italy
+- ✅ Cadiz, Spain
+- ✅ Gibraltar, UK
 
-#### ⏳ Medium Priority Mediterranean
-- ⏳ Ibiza, Spain
-- ⏳ Valencia, Spain
+#### ⏳ Remaining Mediterranean
 - ⏳ Catania, Sicily, Italy
-- ⏳ Cagliari, Sardinia, Italy
-- ⏳ Cadiz, Spain
-- ⏳ Gibraltar, UK
 
 ### Northern Europe & British Isles
 
@@ -137,6 +138,9 @@
 - ✅ Bergen, Norway
 - ✅ Stavanger, Norway
 - ✅ Ålesund, Norway
+- ✅ Geiranger, Norway
+- ✅ Olden, Norway
+- ✅ Flam, Norway
 - ✅ Southampton, UK
 - ✅ Dover, England
 - ✅ Liverpool, England
@@ -150,28 +154,23 @@
 - ✅ Lerwick, Shetland Islands
 - ✅ Holyhead, Wales
 - ✅ Waterford, Ireland
-
-#### ⏳ Medium Priority Northern Europe
-- ⏳ Geiranger, Norway
-- ⏳ Olden, Norway
-- ⏳ Flam, Norway
-- ⏳ Helsinki, Finland
-- ⏳ Tallinn, Estonia
-- ⏳ Riga, Latvia
-- ⏳ Klaipeda, Lithuania
-- ⏳ Gdansk, Poland
-- ⏳ Warnemünde (Berlin), Germany
-- ⏳ Kiel, Germany
-- ⏳ Hamburg, Germany
-- ⏳ Le Havre (Paris), France
-- ⏳ Cherbourg, France
-- ⏳ Zeebrugge (Bruges), Belgium
-- ⏳ Greenock (Glasgow), Scotland
-- ⏳ South Queensferry (Edinburgh), Scotland
+- ✅ Helsinki, Finland
+- ✅ Tallinn, Estonia
+- ✅ Riga, Latvia
+- ✅ Klaipeda, Lithuania
+- ✅ Gdansk, Poland
+- ✅ Warnemünde (Berlin), Germany
+- ✅ Kiel, Germany
+- ✅ Hamburg, Germany
+- ✅ Le Havre (Paris), France
+- ✅ Cherbourg, France
+- ✅ Zeebrugge (Bruges), Belgium
+- ✅ Greenock (Glasgow), Scotland
+- ✅ Edinburgh (South Queensferry), Scotland
 
 ### Iceland
 - ✅ Reykjavik, Iceland
-- ⏳ Akureyri, Iceland
+- ✅ Akureyri, Iceland
 
 ---
 
@@ -195,13 +194,16 @@
 
 ## Middle East
 
-### ⏳ HIGH PRIORITY (ZERO coverage currently)
-- ⏳ Dubai, UAE
-- ⏳ Abu Dhabi, UAE
-- ⏳ Muscat, Oman
-- ⏳ Salalah, Oman
-- ⏳ Aqaba, Jordan (Petra gateway)
-- ⏳ Safaga, Egypt (Luxor gateway)
+### ✅ COMPLETE Coverage
+- ✅ Dubai, UAE
+- ✅ Abu Dhabi, UAE
+- ✅ Muscat, Oman
+- ✅ Salalah, Oman
+- ✅ Aqaba, Jordan (Petra gateway)
+- ✅ Safaga, Egypt (Luxor gateway)
+- ✅ Doha, Qatar
+- ✅ Sharm el-Sheikh, Egypt
+- ✅ Hurghada, Egypt
 
 ---
 
@@ -209,121 +211,141 @@
 
 ### East Asia
 
-#### ✅ Partial Coverage
+#### ✅ COMPLETE Coverage
 - ✅ Hong Kong
 - ✅ Singapore
-
-#### ⏳ MEDIUM PRIORITY
-- ⏳ Tokyo (Yokohama), Japan
-- ⏳ Osaka/Kobe, Japan
-- ⏳ Nagasaki, Japan
-- ⏳ Fukuoka, Japan
-- ⏳ Shanghai (Baoshan), China
-- ⏳ Tianjin (Beijing), China
-- ⏳ Busan, South Korea
-- ⏳ Jeju, South Korea
-- ⏳ Taipei (Keelung), Taiwan
+- ✅ Tokyo (Yokohama), Japan
+- ✅ Osaka, Japan
+- ✅ Kobe, Japan
+- ✅ Nagasaki, Japan
+- ✅ Fukuoka, Japan
+- ✅ Hiroshima, Japan
+- ✅ Hakodate, Japan
+- ✅ Shanghai, China
+- ✅ Tianjin (Beijing), China
+- ✅ Busan, South Korea
+- ✅ Jeju, South Korea
+- ✅ Incheon, South Korea
+- ✅ Taipei (Keelung), Taiwan
 
 ### Southeast Asia
 
-#### ⏳ MEDIUM PRIORITY
-- ⏳ Phuket, Thailand
-- ⏳ Laem Chabang (Bangkok), Thailand
-- ⏳ Ho Chi Minh City (Phu My), Vietnam
-- ⏳ Da Nang (Chan May), Vietnam
-- ⏳ Ha Long Bay, Vietnam
-- ⏳ Manila, Philippines
-- ⏳ Penang, Malaysia
-- ⏳ Colombo, Sri Lanka
-- ⏳ Bali (Benoa), Indonesia
+#### ✅ COMPLETE Coverage
+- ✅ Phuket, Thailand
+- ✅ Bangkok (Laem Chabang), Thailand
+- ✅ Koh Samui, Thailand
+- ✅ Ho Chi Minh City (Phu My), Vietnam
+- ✅ Da Nang (Chan May), Vietnam
+- ✅ Ha Long Bay, Vietnam
+- ✅ Nha Trang, Vietnam
+- ✅ Manila, Philippines
+- ✅ Penang, Malaysia
+- ✅ Langkawi, Malaysia
+- ✅ Kota Kinabalu, Malaysia
+- ✅ Colombo, Sri Lanka
+- ✅ Bali (Benoa), Indonesia
+- ✅ Lombok, Indonesia
+- ✅ Komodo, Indonesia
+- ✅ Sihanoukville, Cambodia
+- ✅ Yangon, Myanmar
+- ✅ Brunei
 
 ---
 
 ## Australia, New Zealand & South Pacific
 
-### ⏳ MEDIUM PRIORITY (All new)
+### Australia - ✅ COMPLETE Coverage
+- ✅ Sydney, Australia
+- ✅ Brisbane, Australia
+- ✅ Melbourne, Australia
+- ✅ Adelaide, Australia
+- ✅ Fremantle (Perth), Australia
+- ✅ Hobart, Tasmania
+- ✅ Cairns, Australia
+- ✅ Darwin, Australia
 
-#### Australia
-- ⏳ Sydney, Australia
-- ⏳ Brisbane, Australia
-- ⏳ Melbourne, Australia
-- ⏳ Adelaide, Australia
-- ⏳ Fremantle (Perth), Australia
-- ⏳ Hobart, Tasmania
-- ⏳ Cairns, Australia
-
-#### New Zealand
-- ⏳ Auckland, New Zealand
-- ⏳ Bay of Islands, New Zealand
-- ⏳ Wellington, New Zealand
-- ⏳ Christchurch (Lyttelton), New Zealand
-- ⏳ Dunedin (Port Chalmers), New Zealand
-- ⏳ Tauranga, New Zealand
-- ⏳ Napier, New Zealand
+### New Zealand - ✅ NEARLY COMPLETE
+- ✅ Auckland, New Zealand
+- ✅ Bay of Islands, New Zealand
+- ✅ Wellington, New Zealand
+- ✅ Christchurch (Lyttelton), New Zealand
+- ✅ Dunedin (Port Chalmers), New Zealand
+- ✅ Tauranga, New Zealand
+- ✅ Napier, New Zealand
 - ⏳ Picton, New Zealand
 - ⏳ Milford Sound (cruising)
 - ⏳ Doubtful Sound (cruising)
 
-#### South Pacific
-- ⏳ Nouméa, New Caledonia
-- ⏳ Port Vila, Vanuatu
-- ⏳ Mystery Island, Vanuatu
-- ⏳ Lifou, Loyalty Islands
-- ⏳ Suva, Fiji
-- ⏳ Lautoka, Fiji
-- ⏳ Dravuni Island, Fiji
-- ⏳ Papeete, Tahiti, French Polynesia
-- ⏳ Moorea, French Polynesia
-- ⏳ Bora Bora, French Polynesia
+### South Pacific - ✅ COMPLETE Coverage
+- ✅ Nouméa, New Caledonia
+- ✅ Vanuatu (Port Vila)
+- ✅ Mystery Island, Vanuatu
+- ✅ Lifou, Loyalty Islands
+- ✅ Suva, Fiji
+- ✅ Lautoka, Fiji
+- ✅ Dravuni Island, Fiji
+- ✅ Papeete, Tahiti, French Polynesia
+- ✅ Moorea, French Polynesia
+- ✅ Bora Bora, French Polynesia
+- ✅ Apia, Samoa
+- ✅ Tonga
 
 ---
 
 ## South America
 
-### ⏳ LOWER PRIORITY
-- ⏳ Buenos Aires, Argentina
-- ⏳ Montevideo, Uruguay
-- ⏳ Rio de Janeiro, Brazil
-- ⏳ Santos (São Paulo), Brazil
-- ⏳ Salvador, Brazil
-- ⏳ Recife, Brazil
+### ✅ MOSTLY COMPLETE
+- ✅ Buenos Aires, Argentina
+- ✅ Montevideo, Uruguay
+- ✅ Rio de Janeiro, Brazil
+- ✅ Santos (São Paulo), Brazil
+- ✅ Salvador, Brazil
+- ✅ Recife, Brazil
+- ✅ Ushuaia, Argentina (Cape Horn)
+- ✅ Valparaíso (Santiago), Chile
+- ✅ Callao (Lima), Peru
+- ✅ Puerto Madryn, Argentina
+- ✅ Manaus, Brazil (Amazon)
+
+#### ⏳ Remaining South America
 - ⏳ Fortaleza, Brazil
-- ⏳ Ushuaia, Argentina (Cape Horn)
 - ⏳ Punta Arenas, Chile
-- ⏳ Valparaíso (Santiago), Chile
-- ⏳ Callao (Lima), Peru
 - ⏳ Manta, Ecuador
 - ⏳ Guayaquil, Ecuador
-- ⏳ Antarctic Peninsula (cruising)
-- ⏳ Drake Passage (cruising)
 
 ---
 
 ## Africa & Indian Ocean
 
-### ⏳ LOWER PRIORITY
-- ⏳ Cape Town, South Africa
-- ⏳ Port Elizabeth (Gqeberha), South Africa
-- ⏳ Durban, South Africa
-- ⏳ Maputo, Mozambique
-- ⏳ Mahé, Seychelles
-- ⏳ Nosy Be, Madagascar
-- ⏳ Mombasa, Kenya
-- ⏳ Zanzibar, Tanzania
-- ⏳ Walvis Bay, Namibia
-- ⏳ Praia, Cape Verde
-- ⏳ Casablanca, Morocco
-- ⏳ Tangier, Morocco
+### ✅ COMPLETE Coverage
+- ✅ Cape Town, South Africa
+- ✅ Port Elizabeth (Gqeberha), South Africa
+- ✅ Durban, South Africa
+- ✅ Maputo, Mozambique
+- ✅ Seychelles (Mahé)
+- ✅ Nosy Be, Madagascar
+- ✅ Mombasa, Kenya
+- ✅ Zanzibar, Tanzania
+- ✅ Walvis Bay, Namibia
+- ✅ Praia, Cape Verde
+- ✅ Casablanca, Morocco
+- ✅ Tangier, Morocco
+- ✅ Dakar, Senegal
+- ✅ Mauritius
+- ✅ Luanda, Angola
 
 ---
 
 ## Mexico Pacific Coast & Central America
 
-### ⏳ LOWER PRIORITY
-- ⏳ Cabo San Lucas, Mexico
-- ⏳ Puerto Vallarta, Mexico
-- ⏳ Mazatlán, Mexico
-- ⏳ Acapulco, Mexico
+### ✅ PARTIALLY COMPLETE
+- ✅ Cabo San Lucas, Mexico
+- ✅ Puerto Vallarta, Mexico
+- ✅ Mazatlán, Mexico
+- ✅ Acapulco, Mexico
+- ✅ Ensenada, Mexico
+
+#### ⏳ Remaining Mexico Pacific & Central America
 - ⏳ Manzanillo, Mexico
 - ⏳ Zihuatanejo, Mexico
 - ⏳ Huatulco, Mexico
@@ -335,16 +357,18 @@
 
 ## Rare / Exotic Ports (World Cruises/Special Itineraries)
 
-### ⏳ LOWER PRIORITY
+### ✅ PARTIALLY COMPLETE
+- ✅ Falkland Islands (Stanley)
+- ✅ Goa, India
+
+#### ⏳ Remaining Rare/Exotic
 - ⏳ Pitcairn Island (rare world cruise stop)
 - ⏳ Easter Island, Chile
-- ⏳ Falkland Islands (Stanley)
 - ⏳ South Georgia Island
 - ⏳ Tristan da Cunha (world's most remote inhabited island)
 - ⏳ St. Helena
 - ⏳ Ascension Island
 - ⏳ Mumbai, India
-- ⏳ Goa, India
 - ⏳ Cochin, India
 
 ---
@@ -353,46 +377,47 @@
 
 | Region | Ports Created | Ports Remaining | Total Ports |
 |--------|--------------|----------------|-------------|
-| Caribbean & Bahamas | 35-40 | 8-10 | 45-50 |
+| Caribbean & Bahamas | 45+ | 0 | 45+ |
 | Alaska & Pacific Northwest | 14 | 0 | 14 |
 | Hawaii | 5 | 0 | 5 |
-| Europe (Med + Northern) | 50-55 | 15-20 | 65-75 |
+| Europe (Med + Northern) | 70+ | 1 | 71+ |
 | Canada & New England | 12 | 0 | 12 |
-| Middle East | 0 | 6 | 6 |
-| Asia (East + Southeast) | 2 | 18-20 | 20-22 |
-| Australia/NZ/Pacific | 0 | 30-35 | 30-35 |
-| South America | 0 | 20-25 | 20-25 |
-| Africa & Indian Ocean | 0 | 20-25 | 20-25 |
-| Mexico Pacific | 0 | 10-12 | 10-12 |
-| Rare/Exotic | 0 | 15-20 | 15-20 |
-| **TOTAL** | **147** | **~200-220** | **~350-370** |
+| Middle East | 9 | 0 | 9 |
+| Asia (East + Southeast) | 33+ | 0 | 33+ |
+| Australia/NZ/Pacific | 30+ | 3 | 33+ |
+| South America | 11 | 4 | 15 |
+| Africa & Indian Ocean | 15 | 0 | 15 |
+| Mexico Pacific/Central America | 5 | 6 | 11 |
+| Rare/Exotic | 2 | 8 | 10 |
+| **TOTAL** | **301** | **~22** | **~323** |
 
 ---
 
 ## Priority Breakdown
 
-### ✅ COMPLETE (147 ports)
-- Caribbean: 35-40 ports
+### ✅ COMPLETE (301 ports)
+- Caribbean: 45+ ports
 - Alaska: 14 ports
 - Hawaii: 5 ports
-- Europe: 50-55 ports
+- Europe: 70+ ports
 - Canada/New England: 12 ports
-- Asia: 2 ports (Hong Kong, Singapore)
+- Middle East: 9 ports
+- Asia: 33+ ports
+- Australia/NZ/Pacific: 30+ ports
+- South America: 11 ports
+- Africa & Indian Ocean: 15 ports
 
-### ⏳ HIGH PRIORITY Next (~15-20 ports)
-- Middle East: 4-6 ports (Dubai, Abu Dhabi, Muscat, Salalah, Aqaba, Safaga)
-- Caribbean Completion: 8-10 ports (Antigua, St. Lucia, Barbados, St. Kitts, Grenada, Martinique, Guadeloupe, Dominica)
+### ⏳ REMAINING (~22 ports)
 
-### ⏳ MEDIUM PRIORITY (~70-80 ports)
-- Asia Expansion: 18-20 ports (Japan, China, Korea, Taiwan, Southeast Asia)
-- Australia/NZ/Pacific: 30-35 ports
-- Europe Remaining: 15-20 ports (Norwegian fjords, Baltic, additional Med)
+**Medium Priority (~5 ports):**
+- Catania (Sicily)
+- Picton (New Zealand)
+- Milford Sound, Doubtful Sound (NZ scenic cruising)
 
-### ⏳ LOWER PRIORITY (~100-120 ports)
-- South America: 20-25 ports
-- Africa & Indian Ocean: 20-25 ports
-- Mexico Pacific: 10-12 ports
-- Rare/Exotic: 15-20 ports
+**Lower Priority (~17 ports):**
+- South America: Fortaleza, Punta Arenas, Manta, Guayaquil
+- Mexico/Central America: Manzanillo, Zihuatanejo, Huatulco, Corinto, Puntarenas, Puerto Caldera
+- Rare/Exotic: Pitcairn, Easter Island, South Georgia, Tristan da Cunha, St. Helena, Ascension, Mumbai, Cochin
 
 ---
 
@@ -410,32 +435,12 @@
 
 ---
 
-## Expansion Timeline (from PORT_TRACKER_ROADMAP.md)
-
-**Immediate (2025-11-22):**
-- ✅ Hawaii batch COMPLETE (5 ports)
-
-**Short-term (Next 1-2 months):**
-- Middle East batch (4-6 ports)
-- Caribbean completion (8-10 ports)
-
-**Medium-term (Next 3-6 months):**
-- Asia expansion Phase 1 (10-15 ports)
-- Australia/NZ Phase 1 (15-20 ports)
-
-**Long-term (6-12 months):**
-- South America (20-25 ports)
-- Africa & Indian Ocean (20-25 ports)
-- Rare/exotic ports (15-20 ports)
-
----
-
 **For ship-specific or year-by-year details:**
 - Royal Caribbean official website
 - CruiseMapper's Royal Caribbean page
 - PORT_TRACKER_ROADMAP.md
 
 **Compiled by:** In the Wake team
-**Last updated:** 2025-11-22
-**Current coverage:** 147/350+ ports (42%)
-**Status:** Primary focus for port expansion through 2026
+**Last updated:** 2025-12-14
+**Current coverage:** 301/323 RCL ports (93%)
+**Status:** Near-complete RCL coverage achieved
