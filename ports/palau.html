@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<!--
+Soli Deo Gloria
+All work on this project is offered as a gift to God.
+"Trust in the LORD with all your heart..." — Proverbs 3:5
+"Whatever you do, work heartily..." — Colossians 3:23
+-->
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- ICP-Lite v1.0 Meta Tags -->
+  <meta name="ai-summary" content="First-person guide to Palau cruise port in Koror: Jellyfish Lake with stingless golden jellies, Rock Islands UNESCO site, world-class diving at Blue Corner, Milky Way lagoon, and WWII history at Peleliu." />
+  <meta name="last-reviewed" content="2025-12-14" />
+  <meta name="content-protocol" content="ICP-Lite v1.0" />
+
+  <title>Palau / Koror Cruise Port Guide – In the Wake</title>
+  <meta name="description" content="First-person guide to Palau cruise port in Koror: Jellyfish Lake with stingless golden jellies, Rock Islands UNESCO site, world-class diving at Blue Corner, Milky Way lagoon, and WWII history at Peleliu." />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <link rel="stylesheet" href="/assets/css/articles.css" />
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <!-- Port Map Styles (mobile-responsive) -->
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://inthewake.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Ports", "item": "https://inthewake.io/ports.html" },
+      { "@type": "ListItem", "position": 3, "name": "Palau / Koror" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do I need a diving certification to enjoy Palau?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No – while Palau is a diver's dream, snorkeling at Jellyfish Lake, Rock Islands, and German Channel offers incredible experiences. Many tour operators offer intro dives with instructors for beginners."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the Palau Pledge and do I have to sign it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes – all visitors stamp their passport with an eco-pledge promising to respect Palau's environment. It's a beautiful reminder that we're guests in this fragile paradise."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I visit Jellyfish Lake year-round?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Generally yes, though jellyfish populations fluctuate seasonally. Check locally as the lake occasionally closes for environmental monitoring. Peak jellyfish season is typically November to May."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Palau family-friendly for non-divers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely – kayaking through Rock Islands, Jellyfish Lake (kids love it!), Milky Way lagoon mud baths, waterfall hikes, and WWII history tours offer plenty for all ages and activity levels."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- LCP Optimization: Preload critical hero images -->
+  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
+
+  <!-- Swiper CSS/JS (primary + CDN fallback) -->
+  <script>
+  (function ensureSwiper(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
+</head>
+<body>
+
+  <header class="hero-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
+      </div>
+            <nav class="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
+        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav></div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+      </div>
+      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
+      <div class="hero-credit">
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+      </div>
+    </div>
+  </header>
+
+
+
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+      <a href="/">Home</a> &rsaquo;
+      <a href="/ports.html">Ports</a> &rsaquo;
+      <span aria-current="page">Palau / Koror</span>
+    </nav>
+
+    <article>
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/palau/palau-1.webp" alt="Palau Rock Islands panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Palau</span>
+        </div>
+      </div>
+
+      <header class="article-header">
+        <h1>Palau / Koror Cruise Port Guide</h1>
+        <p class="subtitle">The Rock Islands Paradise That Changed How I See the Ocean</p>
+      </header>
+
+      <!-- Quick Answer -->
+      <section class="quick-answer" style="background:#e6f7f5;border-left:5px solid #2a9d8f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
+        <p style="margin:0;"><strong>Quick&nbsp;Answer:</strong> Palau via Koror scores 5.0 stars for pristine nature and world-class diving. Must-dos: Jellyfish Lake swimming with stingless golden jellies, Rock Islands UNESCO kayaking, Blue Corner drift diving, Milky Way lagoon mud spa, and Peleliu WWII history.</p>
+      </section>
+
+      <!-- Logbook Entry -->
+      <section>
+        <h2>My Palau Day – A First-Person Account</h2>
+        <p>When the ship docked in Koror harbor and I saw those 445 mushroom-shaped limestone islands rising from turquoise waters like ancient guardians, I understood why Palau scores a perfect 5.0 – this is what Eden must have looked like before the fall.</p>
+
+        <p>I started my day floating among millions of golden jellyfish in Jellyfish Lake, their pulsing bodies brushing my arms like gentle kisses from the sea itself. The lake is a marine sanctuary where stingless jellies migrate across the water following the sun, and swimming among them felt like drifting through liquid amber light. The warmth of the sun on my back, the silky caress of jellyfish tentacles that can't sting, the absolute silence broken only by my breathing – I've never felt so welcomed by creation.</p>
+
+        <div class="poignant-highlight">
+          <strong>The moment that stays with me:</strong> Floating in Jellyfish Lake as thousands of golden jellies pulsed around me like living constellations, their translucent bells catching sunlight in liquid gold – I realized God painted this underwater galaxy just to remind me that beauty doesn't need a purpose beyond being beautiful, and sometimes being held by wonder is purpose enough.
+        </div>
+
+        <p>After Jellyfish Lake, I kayaked through the Rock Islands Southern Lagoon – a UNESCO World Heritage Site where limestone islands create hidden lagoons, sea caves, and emerald channels. My guide pointed out ancient rock art on cave walls and traditional Bai meeting houses with their painted wooden beams telling stories older than my grandfather's grandfather.</p>
+
+        <p>Lunch was fresh tuna poke and taro at a waterfront shack in Koror where locals greeted me with genuine warmth. The afternoon belonged to the Milky Way lagoon, where I slathered myself in white mineral-rich mud that locals swear makes you look ten years younger. Whether it worked or not, floating in that milky-blue water feeling like a baptized ghost was pure joy.</p>
+      </section>
+
+      <!-- Port Essentials -->
+      <section>
+        <h2>Port Essentials</h2>
+        <p><strong>Koror</strong> is Palau's main town and cruise port, compact and walkable with tour operators right at the dock. The currency is the <strong>US Dollar</strong>, so no exchange needed for Americans. Palau was the first country to ban reef-toxic sunscreen – bring mineral-based (zinc or titanium dioxide) or you'll have to buy it here. And yes, you'll stamp your passport with the <strong>Palau Pledge</strong>, an environmental commitment that feels less like bureaucracy and more like joining a sacred covenant to protect this place.</p>
+      </section>
+
+      <!-- Top Experiences -->
+      <section>
+        <h2>Top Experiences in Palau</h2>
+
+        <h4>1. Jellyfish Lake – Swimming with Stingless Golden Jellies</h4>
+        <p>The bucket-list experience: millions of golden jellyfish that evolved without stinging cells because they have no natural predators. You hike through jungle, then float in a marine lake surrounded by pulsing amber clouds. It's otherworldly, meditative, and unlike anything else on earth. Note: populations fluctuate seasonally; check locally before you go.</p>
+
+        <h4>2. Rock Islands Southern Lagoon – UNESCO Kayaking Paradise</h4>
+        <p>445 limestone islands covered in jungle vegetation create a maze of hidden lagoons, sea caves, and white-sand beaches. Kayak through turquoise channels, explore caves with ancient Palauan rock art, and beach-hop on deserted shores where the only footprints are yours. This UNESCO World Heritage Site is a masterclass in why God loves shapes and colors.</p>
+
+        <h4>3. Blue Corner & German Channel – World-Class Diving</h4>
+        <p>If you dive, Palau is Mecca. Blue Corner offers drift diving with swirling schools of barracuda, sharks, and napoleon wrasse in electric-blue currents. German Channel is manta ray cleaning station heaven – I watched a dozen mantas glide overhead like underwater angels. Even if you don't dive, snorkeling here rivals diving most other places.</p>
+
+        <h4>4. Milky Way Lagoon – Natural Mud Spa</h4>
+        <p>A shallow lagoon with soft white limestone mud on the bottom that Palauans have used for skincare for generations. Slather yourself head-to-toe, float in the milky-blue water, rinse off, and emerge glowing. It's equal parts spa treatment and silly fun – I looked like a clay golem but felt like a sea goddess.</p>
+
+        <h4>5. Peleliu Island – WWII Battle Site</h4>
+        <p>History buffs shouldn't miss Peleliu, site of one of the Pacific War's bloodiest battles. Rusted tanks, Japanese bunkers, and memorials sit in quiet jungle. The underwater wrecks – Japanese ships and planes resting on the reef – are now artificial reefs teeming with life. It's a sobering reminder that even the machines of war become gardens of grace given enough time.</p>
+
+        <h4>6. Ngardmau Waterfall – Tallest in Palau</h4>
+        <p>A jungle trek leads to Palau's tallest waterfall cascading into a cool swimming hole. The hike is humid and muddy but worth it – standing under that thundering curtain of water with orchids clinging to the rocks and parrots calling overhead, I felt like I'd stepped into Genesis.</p>
+      </section>
+
+      <!-- Port Map Section -->
+      <section class="port-section">
+        <h2>Port Map</h2>
+        <p>Explore Koror cruise port and Palau's Rock Islands, Jellyfish Lake, dive sites, and lagoons. Click markers for details and directions.</p>
+        <div id="palau-port-map" class="port-map-container" role="application" aria-label="Interactive map of Palau port area"></div>
+      </section>
+
+      <!-- Getting Around -->
+      <section>
+        <h2>Getting Around</h2>
+        <p>Most experiences require boat tours – book directly at the port or pre-arrange with operators like Sam's Tours or Fish 'n Fins. Rock Islands tours (including Jellyfish Lake and Milky Way) are full-day excursions starting around $150–200. Diving trips start around $100–150 for two tanks. For land-based exploring, rent a car ($50/day) or hire a taxi for Koror sightseeing and the Ngardmau waterfall hike. Everything is close – the entire archipelago is intimate and navigable.</p>
+      </section>
+
+      <!-- Local Food & Drink -->
+      <section>
+        <h2>Local Food & Drink</h2>
+        <p>Palauan cuisine blends Micronesian, Filipino, and Japanese flavors. Try <strong>taro</strong> (staple root vegetable served steamed or mashed), <strong>fruit bat soup</strong> (adventurous eaters only – it's a local delicacy), fresh <strong>tuna poke</strong>, <strong>red snapper</strong> grilled with coconut, and <strong>taro leaves in coconut milk</strong>. Wash it down with fresh young coconut water or a Red Rooster beer. The Taj restaurant in Koror serves excellent Micronesian fusion, while Drop Off Bar & Grill offers sunset views with your seafood platter.</p>
+      </section>
+
+      <!-- Pro Tips -->
+      <section>
+        <h2>Pro Tips for Palau</h2>
+        <ul>
+          <li><strong>Bring reef-safe sunscreen</strong> – Reef-toxic products are banned and confiscated. Look for mineral-based zinc or titanium dioxide formulas.</li>
+          <li><strong>Sign the Palau Pledge</strong> – Every visitor gets a passport stamp pledging environmental stewardship. It's a beautiful ritual; take it seriously.</li>
+          <li><strong>Book tours in advance</strong> – Especially Jellyfish Lake and dive trips. Operators fill up, and you don't want to miss this.</li>
+          <li><strong>Bring waterproof camera</strong> – You'll want photos of the jellies, mantas, and underwater wrecks. A GoPro or underwater housing is essential.</li>
+          <li><strong>Respect WWII sites</strong> – Don't remove artifacts or climb on memorials. These are sacred spaces for those who fought and died here.</li>
+          <li><strong>Check jellyfish season</strong> – Populations peak November to May. The lake occasionally closes for environmental monitoring.</li>
+        </ul>
+      </section>
+
+      <!-- Word of Warning -->
+      <section style="background:#fef9e7;border-left:5px solid #f4d03f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
+        <p style="margin:0;"><strong>Depth Soundings Ashore:</strong> Palau is remote and pristine, which means limited medical facilities and expensive everything – budget accordingly and bring travel insurance. The humidity is intense and the sun fierce; stay hydrated and slather on that reef-safe sunscreen every hour.</p>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2>Frequently Asked Questions</h2>
+        <details><summary>Do I need a diving certification to enjoy Palau?</summary><p>No – while Palau is a diver's dream, snorkeling at Jellyfish Lake, Rock Islands, and German Channel offers incredible experiences. Many tour operators offer intro dives with instructors for beginners.</p></details>
+        <details><summary>What is the Palau Pledge and do I have to sign it?</summary><p>Yes – all visitors stamp their passport with an eco-pledge promising to respect Palau's environment. It's a beautiful reminder that we're guests in this fragile paradise.</p></details>
+        <details><summary>Can I visit Jellyfish Lake year-round?</summary><p>Generally yes, though jellyfish populations fluctuate seasonally. Check locally as the lake occasionally closes for environmental monitoring. Peak jellyfish season is typically November to May.</p></details>
+        <details><summary>Is Palau family-friendly for non-divers?</summary><p>Absolutely – kayaking through Rock Islands, Jellyfish Lake (kids love it!), Milky Way lagoon mud baths, waterfall hikes, and WWII history tours offer plenty for all ages and activity levels.</p></details>
+      </section>
+
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/palau/palau-1.webp" alt="Rock Islands of Palau" loading="lazy">
+          <figcaption>
+            Rock Islands of Palau
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/palau/palau-2.webp" alt="Jellyfish Lake, Palau" loading="lazy">
+          <figcaption>
+            Jellyfish Lake, Palau
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/palau/palau-3.webp" alt="Koror harbor, Palau" loading="lazy">
+          <figcaption>
+            Koror harbor, Palau
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/palau/palau-4.webp" alt="Milky Way lagoon, Palau" loading="lazy">
+          <figcaption>
+            Milky Way lagoon, Palau
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>palau-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+        <li><strong>palau-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+        <li><strong>palau-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+        <li><strong>palau-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
+
+  <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+    <!-- At a Glance Card -->
+    <section class="card" style="background:#f0f8ff;border:1px solid #d0e8f5;border-radius:12px;padding:1.25rem;">
+      <h3>At a Glance</h3>
+      <ul style="list-style:none;padding:0;margin:0;font-size:0.9rem;line-height:1.8;">
+        <li><strong>Port:</strong> Koror, Palau</li>
+        <li><strong>Currency:</strong> US Dollar</li>
+        <li><strong>Must-See:</strong> Jellyfish Lake, Rock Islands</li>
+        <li><strong>Best For:</strong> Divers, nature lovers, adventurers</li>
+        <li><strong>UNESCO Site:</strong> Rock Islands Southern Lagoon</li>
+        <li><strong>Unique:</strong> First country to ban reef-toxic sunscreen</li>
+      </ul>
+    </section>
+
+    <section class="card author-card-vertical" aria-labelledby="author-heading">
+      <h3 id="author-heading">About the Author</h3>
+      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+        <picture>
+          <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" decoding="async" loading="lazy"/>
+        </picture>
+      </a>
+      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+      <p class="tiny">
+        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+      </p>
+    </section>
+
+    <!-- Nearby Ports Rail -->
+    <section class="card">
+      <h3>Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Other ports in this region:
+      </p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+    </section>
+
+    <section class="card">
+      <h3>Recent Articles</h3>
+      <div id="recent-rail"></div>
+    </section>
+
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
+  </aside>
+
+  </main>
+
+    <footer class="wrap" role="contentinfo">
+    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p class="tiny" style="margin-top: 0.5rem;">
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
+      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    </p>
+    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+  </footer>
+
+  <script src="/assets/js/common.js"></script>
+
+  <script>
+    // Load recent articles
+    (async function() {
+      try {
+        const response = await fetch('/assets/data/articles/index.json');
+        const articles = await response.json();
+        const rail = document.getElementById('recent-rail');
+
+        if (rail && articles && articles.length > 0) {
+          rail.innerHTML = articles.slice(0, 5).map(article => `
+            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
+              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
+                <a href="${article.url}">${article.title}</a>
+              </h4>
+              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+        console.log('Could not load articles:', err);
+      }
+    })();
+  </script>
+  <!-- Navigation dropdown functionality -->
+    <!-- Navigation dropdown functionality (New Clean Implementation) -->
+  <script>
+  (function() {
+    'use strict';
+    var dropdowns = document.querySelectorAll('.nav-dropdown');
+    function toggleDropdown(dropdown) {
+      var isOpen = dropdown.classList.contains('open');
+      closeAllDropdowns();
+      if (!isOpen) {
+        dropdown.classList.add('open');
+        var btn = dropdown.querySelector('button');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+    function closeAllDropdowns() {
+      dropdowns.forEach(function(dd) {
+        dd.classList.remove('open');
+        var btn = dd.querySelector('button');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+    dropdowns.forEach(function(dropdown) {
+      var btn = dropdown.querySelector('button');
+      if (btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleDropdown(dropdown);
+        });
+        btn.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') { closeAllDropdowns(); btn.focus(); }
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            dropdown.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+            var firstLink = dropdown.querySelector('.dropdown-menu a');
+            if (firstLink) firstLink.focus();
+          }
+        });
+      }
+      var menu = dropdown.querySelector('.dropdown-menu');
+      if (menu) {
+        menu.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') { closeAllDropdowns(); if (btn) btn.focus(); }
+        });
+      }
+    });
+    document.addEventListener('click', function(e) {
+      var isInsideDropdown = false;
+      dropdowns.forEach(function(dd) { if (dd.contains(e.target)) isInsideDropdown = true; });
+      if (!isInsideDropdown) closeAllDropdowns();
+    });
+  })();
+  </script>
+
+  <!-- Nearby Ports Script -->
+  <script>window.currentPortId = 'palau';</script>
+  <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Port Map Module -->
+  <script src="/assets/js/modules/port-map.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.PortMap) {
+        window.PortMap.init({ containerId: 'palau-port-map', portSlug: 'palau' });
+      }
+    });
+  </script>
+
+</body>
+</html>
