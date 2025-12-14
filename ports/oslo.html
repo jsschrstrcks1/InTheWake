@@ -21,6 +21,11 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css"/>
+
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
@@ -154,7 +159,25 @@ Soli Deo Gloria
         <h3>Positively Framed Word of Warning</h3>
         <p>The clean air and wide-open spaces are Oslo's gift to you — breathe deep and let the famous Norwegian calm wash over you for one of the most rejuvenating port days of your cruise.</p>
       </section>
-    
+
+    <!-- Interactive Port Map -->
+    <section class="port-section port-map-section" id="port-map-section">
+      <h3>Oslo Port Map</h3>
+      <p class="map-intro">Interactive map showing cruise terminal and Oslo attractions. Click any marker for details.</p>
+      <div id="oslo-port-map" class="port-map-container" role="application" aria-label="Interactive map of Oslo port and points of interest">
+        <noscript>
+          <p style="padding: 2rem; text-align: center; color: #678;">
+            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=59.906&mlon=10.740#map=13/59.91/10.72" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+          </p>
+        </noscript>
+      </div>
+      <div class="port-map-actions">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('oslo-port-map')._portMap?.fitBounds(document.getElementById('oslo-port-map')._portMap.getBounds())">
+          Reset View
+        </button>
+      </div>
+    </section>
+
     <!-- Photo Gallery Section -->
     <section class="port-section photo-gallery">
       <h2>Photo Gallery</h2>
@@ -423,6 +446,22 @@ Soli Deo Gloria
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Oslo Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'oslo-port-map',
+        portSlug: 'oslo'
+      });
+    }
+  });
+  </script>
 
 </body>
 </html>
