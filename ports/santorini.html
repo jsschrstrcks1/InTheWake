@@ -67,6 +67,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
 
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css"/>
+
   <!-- JSON-LD: BreadcrumbList -->
   <script type="application/ld+json">
   {
@@ -404,6 +408,24 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <p>Santorini's legendary beauty comes packaged with legendary crowds—but strategic timing transforms the experience entirely. Catching the first tender puts you in Oia's famous blue-domed streets while they're still peaceful, and choosing a sunset catamaran cruise instead of joining the clifftop masses gives you equally spectacular views from the caldera with a wine glass in hand and room to breathe. The cable car line looks intimidating at noon but vanishes if you time your return for late afternoon. Weather can occasionally prevent tendering, so maintaining flexibility and having a backup plan protects both your schedule and your peace of mind. The island's vertical geography means comfortable walking shoes aren't optional—they're the difference between magical exploration and painful hobbling. Finally, remember that those whitewashed churches doubling as Instagram backdrops remain sacred spaces for Orthodox Christians; a moment of respectful behavior honors both the culture and your privilege to visit one of the Mediterranean's most extraordinary destinations.</p>
     </section>
 
+    <!-- Interactive Port Map -->
+    <section class="port-section port-map-section" id="port-map-section">
+      <h3>Santorini Port Map</h3>
+      <p class="map-intro">Interactive map showing the tender pier, cable car, villages, and attractions. Click any marker for details and directions.</p>
+      <div id="santorini-port-map" class="port-map-container" role="application" aria-label="Interactive map of Santorini port and points of interest">
+        <noscript>
+          <p style="padding: 2rem; text-align: center; color: #678;">
+            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=36.4167&mlon=25.4333#map=13/36.4/25.43" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+          </p>
+        </noscript>
+      </div>
+      <div class="port-map-actions">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('santorini-port-map')._portMap?.fitBounds(document.getElementById('santorini-port-map')._portMap.getBounds())">
+          Reset View
+        </button>
+      </div>
+    </section>
+
     <!-- FAQ Section -->
     <section class="card faq" style="margin-top: 2rem;">
       <h2>Frequently Asked Questions</h2>
@@ -656,6 +678,22 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Santorini Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'santorini-port-map',
+        portSlug: 'santorini'
+      });
+    }
+  });
+  </script>
 
 </body>
 </html>
