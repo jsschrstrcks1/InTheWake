@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<!--
+Soli Deo Gloria
+All work on this project is offered as a gift to God.
+"Trust in the LORD with all your heart..." — Proverbs 3:5
+"Whatever you do, work heartily..." — Colossians 3:23
+-->
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- ICP-Lite v1.0 Meta Tags -->
+  <meta name="ai-summary" content="First-person guide to Mumbai cruise port: Gateway of India, Taj Mahal Palace Hotel, Elephanta Caves, Bollywood, and why this vibrant megacity captivates every visitor." />
+  <meta name="last-reviewed" content="2025-12-14" />
+  <meta name="content-protocol" content="ICP-Lite v1.0" />
+
+  <title>Mumbai Cruise Port Guide – In the Wake</title>
+  <meta name="description" content="First-person guide to Mumbai cruise port: Gateway of India, Taj Mahal Palace Hotel, Elephanta Caves, Bollywood, and why this vibrant megacity captivates every visitor." />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <link rel="stylesheet" href="/assets/css/articles.css" />
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <!-- Port Map Styles (mobile-responsive) -->
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://inthewake.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Ports", "item": "https://inthewake.io/ports.html" },
+      { "@type": "ListItem", "position": 3, "name": "Mumbai" }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How far is the Gateway of India from the cruise terminal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Gateway of India is literally a 5-minute walk from where most cruise ships dock at Ballard Pier or the nearby berths. You can see the iconic arch from the ship."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to take a taxi or auto-rickshaw in Mumbai?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use app-based services like Uber or Ola exclusively – they're safe, cheap, air-conditioned, and eliminate haggling. Traditional taxis and rickshaws can be challenging for visitors unfamiliar with local rates."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I visit Elephanta Caves and still have time for the city?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, but plan carefully. The ferry to Elephanta takes 1 hour each way, plus 2 hours on the island. Leave early (8 a.m. ferry) to return by noon and explore Colaba, the Taj hotel, and Crawford Market in the afternoon."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What should I wear when visiting temples and religious sites in Mumbai?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cover shoulders and knees at religious sites. Bring a scarf or shawl. Remove shoes before entering temples. Modest dress shows respect and ensures you're welcome everywhere."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is street food in Mumbai safe for cruise passengers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Stick to busy stalls with high turnover where food is cooked fresh in front of you. Avoid pre-cut fruits and uncooked items. The vada pav and bhel puri from popular vendors near the Gateway are generally safe and absolutely delicious."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- LCP Optimization: Preload critical hero images -->
+  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
+
+  <!-- Swiper CSS/JS (primary + CDN fallback) -->
+  <script>
+  (function ensureSwiper(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <!-- ARIA Live Regions -->
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+
+  <header class="hero-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
+      </div>
+            <nav class="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
+        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav></div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+      </div>
+      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
+      <div class="hero-credit">
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+      </div>
+    </div>
+  </header>
+
+
+
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+      <a href="/">Home</a> &rsaquo;
+      <a href="/ports.html">Ports</a> &rsaquo;
+      <span aria-current="page">Mumbai</span>
+    </nav>
+
+    <article>
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/mumbai/mumbai-3.webp" alt="Mumbai panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Mumbai</span>
+        </div>
+      </div>
+
+      <header class="article-header">
+        <h1>Mumbai Cruise Port Guide</h1>
+        <p class="subtitle">My Gateway to India – Where Colonial Grandeur Meets Unstoppable Energy</p>
+      </header>
+
+      <!-- Quick Answer -->
+      <section class="quick-answer" style="background:#e6f7f5;border-left:5px solid #2a9d8f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
+        <p style="margin:0;"><strong>Quick&nbsp;Answer:</strong> Mumbai is India's largest city and financial capital, where the Gateway of India monument stands steps from your ship. Must-dos: Elephanta Caves UNESCO site (1-hour ferry), the Taj Mahal Palace Hotel for tea, street food at Crawford Market, and walking the colonial architecture of Colaba. The city is overwhelming, beautiful, and unlike anywhere else on Earth.</p>
+
+      <figure class="logbook-image float-right">
+        <img src="img/mumbai/mumbai-1.webp" alt="Mumbai harbor view" loading="lazy">
+        <figcaption>Mumbai — <a href="https://commons.wikimedia.org/w/index.php?search=Mumbai&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+      </section>
+
+      <!-- Logbook Entry -->
+      <section>
+        <h2>My Mumbai Day – A First-Person Account</h2>
+        <p>The first time I stepped off the gangway in Mumbai and saw the Gateway of India rising against the Arabian Sea morning light, with the honey-colored domes of the Taj Mahal Palace Hotel just beyond, I understood why they call this the Gateway to India. This is a city of 20 million souls, India's financial capital, and the beating heart of Bollywood – and it all begins right where your ship docks.</p>
+
+        <p>My perfect Mumbai day starts at 8 a.m. on the ferry to Elephanta Caves – a UNESCO World Heritage Site on an island in Mumbai Harbor. The 1-hour boat ride is an experience itself, with vendors selling chai and samosas, seagulls overhead, and the city skyline receding behind you. The caves contain massive 7th-century rock-cut temples dedicated to Shiva, including the stunning three-headed Trimurti sculpture that's 20 feet tall and carved from a single rock face.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/mumbai/mumbai-2.webp" alt="Mumbai waterfront" loading="lazy">
+        <figcaption>Mumbai scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Mumbai&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
+        <div class="poignant-highlight">
+          <strong>The moment that stays with me:</strong> Standing in the dim, cool silence of the Elephanta cave temple, watching sunlight filter through the entrance onto the ancient Trimurti sculpture, while monkeys chatter outside and incense smoke drifts upward – India's timeless spirituality and artistic genius made manifest in stone.
+        </div>
+
+        <p>Back on the mainland by noon, I always walk the Colaba neighborhood – the Afghan Church with its stunning stained glass, the colonial architecture along Colaba Causeway, and street vendors selling everything from books to bangles. Lunch is butter chicken and garlic naan at Leopold Cafe (a Mumbai institution since 1871) or fresh seafood at Trishna in Fort.</p>
+
+        <p>Afternoon tea at the Taj Mahal Palace Hotel is an absolute must – even if you just walk through the lobby, the 1903 Indo-Saracenic architecture and the history (this is where the 2008 Mumbai attacks occurred, and the hotel's staff showed incredible bravery) are profound. Crawford Market for spices, textiles, and chaos. The Marine Drive promenade at sunset, watching Mumbai's upper-middle-class families stroll the Queen's Necklace of lights. Vada pav (spicy potato sandwich) from street vendors. The sensory overload, the colors, the sounds, the smells – Mumbai is India distilled to its most concentrated essence.</p>
+      </section>
+
+      <!-- Navigation -->
+      <section>
+        <h2>Getting Around</h2>
+        <p>Most cruise ships dock at <strong>Ballard Pier</strong> or nearby berths in the Mumbai Port, which puts you a literal 5-minute walk from the Gateway of India and Colaba. Use <strong>Uber</strong> or <strong>Ola</strong> (India's ride-sharing apps) exclusively – they're cheap ($2–5 for most trips), air-conditioned, and eliminate haggling with taxi drivers. The Mumbai Metro is clean and efficient for longer distances (like to Bandra or the airport), but Colaba and South Mumbai are best explored on foot or by app-based car.</p>
+      </section>
+
+      <!-- Word of Warning -->
+      <section style="background:#fef9e7;border-left:5px solid #f4d03f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
+        <p style="margin:0;"><strong>Depth Soundings Ashore:</strong> Mumbai is intense, crowded, and sensory-overwhelming in the best possible way. Embrace the chaos, don't drink tap water, use only bottled water for brushing teeth, and stick to busy restaurants and food stalls. The city rewards the adventurous but requires common sense and flexibility.</p>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2>Frequently Asked Questions</h2>
+        <details><summary>How far is the Gateway of India from the cruise terminal?</summary><p>The Gateway of India is literally a 5-minute walk from where most cruise ships dock at Ballard Pier or the nearby berths. You can see the iconic arch from the ship.</p></details>
+        <details><summary>Is it safe to take a taxi or auto-rickshaw in Mumbai?</summary><p>Use app-based services like Uber or Ola exclusively – they're safe, cheap, air-conditioned, and eliminate haggling. Traditional taxis and rickshaws can be challenging for visitors unfamiliar with local rates.</p></details>
+        <details><summary>Can I visit Elephanta Caves and still have time for the city?</summary><p>Yes, but plan carefully. The ferry to Elephanta takes 1 hour each way, plus 2 hours on the island. Leave early (8 a.m. ferry) to return by noon and explore Colaba, the Taj hotel, and Crawford Market in the afternoon.</p></details>
+        <details><summary>What should I wear when visiting temples and religious sites in Mumbai?</summary><p>Cover shoulders and knees at religious sites. Bring a scarf or shawl. Remove shoes before entering temples. Modest dress shows respect and ensures you're welcome everywhere.</p></details>
+        <details><summary>Is street food in Mumbai safe for cruise passengers?</summary><p>Stick to busy stalls with high turnover where food is cooked fresh in front of you. Avoid pre-cut fruits and uncooked items. The vada pav and bhel puri from popular vendors near the Gateway are generally safe and absolutely delicious.</p></details>
+      </section>
+
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/mumbai/mumbai-1.webp" alt="Harbor view of Mumbai" loading="lazy">
+          <figcaption>
+            Harbor view of Mumbai
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/mumbai/mumbai-2.webp" alt="Waterfront scenery of Mumbai" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Mumbai
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/mumbai/mumbai-3.webp" alt="Port panorama of Mumbai" loading="lazy">
+          <figcaption>
+            Port panorama of Mumbai
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/mumbai/mumbai-4.webp" alt="Coastal landscape of Mumbai" loading="lazy">
+          <figcaption>
+            Coastal landscape of Mumbai
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>mumbai-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>mumbai-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>mumbai-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>mumbai-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+    <!-- Interactive Port Map -->
+    <section class="port-section">
+      <h2>Port Map</h2>
+      <p>Explore Mumbai's cruise terminal, the Gateway of India, Colaba neighborhood, and attractions. Click markers for details and directions.</p>
+      <div id="port-map" class="port-map-container" role="application" aria-label="Interactive map of Mumbai port area"></div>
+    </section>
+
+  </article>
+    <!-- Nearby Ports Rail -->
+    <section class="card" aria-labelledby="nearby-ports-title">
+        <h3 id="nearby-ports-title">Nearby Ports</h3>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Other ports in this region:
+        </p>
+        <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+      </section>
+
+      <!-- Recent Articles rail -->
+      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+
+
+  <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+    <section class="card author-card-vertical" aria-labelledby="author-heading">
+      <h3 id="author-heading">About the Author</h3>
+      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+        <picture>
+          <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" decoding="async" loading="lazy"/>
+        </picture>
+      </a>
+      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+      <p class="tiny">
+        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+      </p>
+    </section>
+
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
+  </aside>
+
+  </main>
+
+    <footer class="wrap" role="contentinfo">
+    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p class="tiny" style="margin-top: 0.5rem;">
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
+      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    </p>
+    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+  </footer>
+
+  <script src="/assets/js/common.js"></script>
+
+  <script>
+    // Load recent articles
+    (async function() {
+      try {
+        const response = await fetch('/assets/data/articles/index.json');
+        const articles = await response.json();
+        const rail = document.getElementById('recent-rail');
+
+        if (rail && articles && articles.length > 0) {
+          rail.innerHTML = articles.slice(0, 5).map(article => `
+            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
+              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
+                <a href="${article.url}">${article.title}</a>
+              </h4>
+              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+        console.log('Could not load articles:', err);
+      }
+    })();
+  </script>
+
+  <script>
+  (function(){
+    "use strict";
+
+    /* ===== Recent Articles Rail ===== */
+    (async function recentRail(){
+      const rail = document.getElementById('recent-rail');
+      if(!rail) return;
+
+      const fallback = document.getElementById('recent-rail-fallback');
+      if(fallback) fallback.style.display = '';
+
+      async function fetchJSONWithFallback(urls){
+        for (const u of urls){
+          try{
+            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
+            if (res.ok) return await res.json();
+          }catch(err){
+
+          }
+        }
+        return null;
+      }
+
+      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
+
+      function setImageWithFallback(imgEl, primary, altPaths=[]){
+        if(!imgEl) return;
+        const stamp='v=3.010.400';
+        const tried=new Set();
+        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
+        function tryNext(){
+          const next=queue.shift();
+          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
+          if(tried.has(next)) return tryNext();
+          tried.add(next);
+          imgEl.src=next;
+        }
+        imgEl.onerror=tryNext;
+        tryNext();
+      }
+
+      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
+      if(!raw) {
+        if(fallback) {
+          fallback.textContent = 'Unable to load articles';
+          fallback.style.display = '';
+        }
+        return;
+      }
+
+      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
+      if(!items.length) return;
+
+      const here = location.pathname.replace(/\/+$/,'');
+      const view = items.filter(p=>{
+        const href = pick(p,['url','path'],'#');
+        const norm = (href||'').replace(/\/+$/,'');
+        return norm && norm !== here;
+      }).slice(0,6);
+
+      rail.innerHTML = view.map(p=>{
+        const title = pick(p,['title','name'],'Article');
+        const href  = pick(p,['url','path'],'#');
+        const excerpt = pick(p,['excerpt','description'],'');
+        return `
+          <article class="card article-card">
+            <div class="article-card-grid">
+              <div class="article-thumb-wrap">
+                <img class="article-thumb" alt="" decoding="async" loading="lazy">
+              </div>
+              <div class="article-card-body">
+                <h4><a href="\${href}">\${title}</a></h4>
+                \${excerpt ? `<p class="tiny excerpt">\${excerpt}</p>` : ''}
+              </div>
+            </div>
+            <a href="\${href}" class="pill read-more">Read Article →</a></article>`;
+      }).join('');
+
+      const cards = [...rail.querySelectorAll('article.card')];
+      cards.forEach((card,i)=>{
+        const p = view[i] || {};
+        const el = card.querySelector('img.article-thumb');
+        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
+        const title = (pick(p,['title','name'],'')||'').toLowerCase();
+
+        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
+
+        // FORCE override for Top-20
+        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
+          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
+        }
+        // Friendly specifics
+        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
+          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
+        }
+        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
+          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
+        }
+        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
+          primary = '/assets/articles/travel/cover.jpg';
+        }
+
+        // Heuristic fallback
+        if(!primary){
+          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
+          const guess = slugify(href) || slugify(title);
+          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
+        }
+
+        const alts = [];
+        if(primary){
+          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
+          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
+        }
+        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
+      });
+
+      if(fallback) fallback.style.display = 'none';
+
+      // Announce to screen readers
+      const status = document.getElementById('a11y-status');
+      if(status) {
+        status.textContent = `\${view.length} recent articles loaded`;
+      }
+    })();
+  })();
+  </script>
+
+  <!-- Nearby Ports Script -->
+  <script>window.currentPortId = 'mumbai';</script>
+  <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Port Map Module -->
+  <script src="/assets/js/modules/port-map.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.PortMap) {
+        window.PortMap.init({ containerId: 'port-map', portSlug: 'mumbai' });
+      }
+    });
+  </script>
+
+</body>
+</html>
