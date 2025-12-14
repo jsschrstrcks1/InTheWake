@@ -1,10 +1,10 @@
-/* Service Worker v13.0.0 - In the Wake
+/* Service Worker v13.1.0 - In the Wake
  * Site-wide unified caching strategy with offline support
  * Supports: Ships, Ports, Restaurants, Planning Tools, Drink Calculator
  * Soli Deo Gloria ✝️
  */
 
-const VERSION = '13.0.0';
+const VERSION = '13.1.0';
 const CACHE_PREFIX = 'itw-site';
 
 /* Network state (updated by client via NETWORK_INFO message) */
@@ -25,10 +25,10 @@ const CACHES = {
 };
 
 const CONFIG = {
-  maxPages: 400,           // Updated: Site now has 553 pages (141 ports, 129 restaurants, 236 ships, 11 solo, 20 other)
-  maxAssets: 150,          // Updated: Increased for growing CSS/JS modules
-  maxImages: 600,          // Updated: Currently 285 ship images, allowing for growth
-  maxData: 100,            // Updated: Currently 76 JSON files (was over limit at 50!)
+  maxPages: 700,           // Updated 2025-12-14: Site has 652 pages (291 ports, 174 ships, 129 restaurants, etc.)
+  maxAssets: 150,          // Increased for growing CSS/JS modules
+  maxImages: 600,          // Currently 285 ship images, allowing for growth
+  maxData: 150,            // Updated 2025-12-14: 105 map manifests + 76 JSON files
   maxFonts: 30,
   staleMaxAge: 60 * 60 * 1000, // 1 hour
   calcDataMaxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
