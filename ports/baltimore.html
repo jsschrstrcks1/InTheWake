@@ -19,6 +19,9 @@ Soli Deo Gloria
   }
   </script>
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -114,44 +117,82 @@ Soli Deo Gloria
 
         <section class="port-section">
           <h3>Getting to the Port</h3>
-          <p>The cruise terminal is located at 2001 East McComas Street in South Baltimore, about 3 miles from the Inner Harbor and 10 miles from BWI Airport.</p>
+          <p>The cruise terminal is located at 2001 East McComas Street in South Baltimore's Locust Point neighborhood, about 3 miles from the Inner Harbor and 10 miles from BWI Airport.</p>
           <ul>
             <li><strong>From BWI Airport:</strong> 15-20 minutes via I-295 South</li>
             <li><strong>From Washington D.C.:</strong> About 1 hour via Baltimore-Washington Parkway</li>
             <li><strong>From Philadelphia:</strong> About 1.5 hours via I-95 South</li>
-            <li><strong>Uber/Lyft:</strong> Widely available; $15-25 from BWI Airport</li>
+            <li><strong>Uber/Lyft:</strong> Widely available; $25-40 from BWI Airport</li>
+            <li><strong>Taxi:</strong> Fixed fare from BWI approximately $35-40</li>
+          </ul>
+        </section>
+
+        <section class="port-section">
+          <h3>Getting Around Baltimore</h3>
+          <ul>
+            <li><strong>Charm City Circulator:</strong> Free bus service with four routes connecting major attractions — Purple Route serves Inner Harbor and Fells Point. <a href="https://www.charmcitycirculator.com" target="_blank" rel="noopener">Charm City Circulator</a></li>
+            <li><strong>Baltimore Water Taxi:</strong> Hop-on/hop-off service connecting Inner Harbor, Fells Point, Canton, Fort McHenry, and more — $14 all-day pass. <a href="https://baltimorewatertaxi.com" target="_blank" rel="noopener">Baltimore Water Taxi</a></li>
+            <li><strong>Light Rail:</strong> Connects BWI Airport to downtown Camden Yards station — $1.90 fare</li>
+            <li><strong>On Foot:</strong> Inner Harbor and Fells Point are walkable; cruise port is 3 miles from Inner Harbor — taxi/rideshare recommended</li>
           </ul>
         </section>
 
         <section class="port-section">
           <h3>Parking Options</h3>
-          <p>The port offers on-site parking with both covered and uncovered options.</p>
+          <p>The Cruise Maryland Terminal offers on-site parking within walking distance.</p>
           <ul>
-            <li><strong>On-site parking:</strong> Reserve in advance through your cruise line</li>
-            <li><strong>Off-site lots:</strong> Several third-party lots offer shuttle service</li>
-            <li><strong>Pro tip:</strong> Book early for peak sailing dates — spaces fill quickly</li>
+            <li><strong>On-site parking:</strong> $15-20/day for cars and SUVs — no advance reservations required, but lots can fill on busy days</li>
+            <li><strong>Payment:</strong> Credit card only upon arrival</li>
+            <li><strong>Off-site lots:</strong> Several third-party lots in the Linthicum Heights area (near BWI) offer lower rates with shuttle service</li>
+            <li><strong>Pro tip:</strong> Baltimore is the 5th busiest cruise port in the US — arrive early on peak sailing dates</li>
           </ul>
         </section>
 
         <section class="port-section">
           <h3>Nearby Hotels</h3>
           <ul>
-            <li><strong>Four Seasons Baltimore:</strong> Luxury waterfront option with harbor views</li>
-            <li><strong>Sagamore Pendry Baltimore:</strong> Historic Fells Point location with modern amenities</li>
-            <li><strong>Hilton Baltimore Inner Harbor:</strong> Connected to convention center, easy access</li>
-            <li><strong>Hampton Inn & Suites Inner Harbor:</strong> Budget-friendly with good location</li>
+            <li><strong>Hilton Baltimore Inner Harbor:</strong> Connected to convention center, skywalk to Camden Yards — central to all attractions</li>
+            <li><strong>DoubleTree by Hilton Baltimore:</strong> Downtown location near Inner Harbor with easy access to attractions</li>
+            <li><strong>Hampton Inn & Suites Inner Harbor:</strong> Budget-friendly with good location and free breakfast</li>
+            <li><strong>Four Seasons Baltimore:</strong> Luxury waterfront option in Harbor East with stunning harbor views</li>
+            <li><strong>Sagamore Pendry Baltimore:</strong> Historic Fells Point recreation pier transformed into boutique luxury</li>
           </ul>
         </section>
 
         <section class="port-section">
           <h3>Pre-Cruise Activities</h3>
           <ul>
-            <li><strong>National Aquarium:</strong> World-class exhibits and dolphin shows</li>
-            <li><strong>Fort McHenry:</strong> Birthplace of "The Star-Spangled Banner"</li>
-            <li><strong>Fells Point:</strong> Historic cobblestone streets, shops, and restaurants</li>
-            <li><strong>Camden Yards:</strong> Catch an Orioles game at the legendary ballpark</li>
-            <li><strong>Maryland Blue Crabs:</strong> Don't leave without trying them — LP Steamers or Thames Street Oyster House</li>
+            <li><strong>Fort McHenry National Monument:</strong> The only National Monument and Historic Shrine in the NPS system — birthplace of "The Star-Spangled Banner." Francis Scott Key wrote the anthem here after watching the British bombardment of September 1814. Take the Water Taxi for scenic access. <a href="https://www.nps.gov/fomc" target="_blank" rel="noopener">NPS Fort McHenry</a></li>
+            <li><strong>National Aquarium:</strong> World-class exhibits including sharks, dolphins, jellyfish, and the Australian Wild exhibit — plan 2-3 hours</li>
+            <li><strong>Inner Harbor:</strong> Harborplace shops, historic ships (USS Constellation, submarine Torsk), and waterfront dining</li>
+            <li><strong>Fells Point:</strong> Historic 18th-century neighborhood with cobblestone streets, 120+ bars and restaurants, and waterfront views</li>
+            <li><strong>Camden Yards:</strong> Catch an Orioles game at the ballpark that revolutionized stadium design — opened 1992, inspired every retro park since</li>
+            <li><strong>Maryland Blue Crabs:</strong> The iconic Chesapeake experience — LP Steamers, Captain James Landing, or Thames Street Oyster House</li>
           </ul>
+        </section>
+
+        <section class="port-section">
+          <h3>History & Heritage</h3>
+          <p>Baltimore's role in American history is profound. Fort McHenry's defense during the War of 1812 inspired Francis Scott Key to write "The Star-Spangled Banner" — the 30x42-foot flag that flew that night now hangs in the Smithsonian. The port itself dates to 1706, making it one of America's oldest.</p>
+          <p>The city was a major shipbuilding center and immigration port. Today, Baltimore combines maritime heritage with urban renewal — the Inner Harbor, once a decaying industrial waterfront, became a model for urban revitalization worldwide after its transformation in the 1980s.</p>
+        </section>
+
+        <section class="port-section">
+          <h3>Practical Tips</h3>
+          <ul>
+            <li><strong>Crab Season:</strong> Maryland blue crabs are best April through November — ordering "steamed crabs" means whole crabs with Old Bay, mallets included</li>
+            <li><strong>Port to Harbor:</strong> The cruise terminal is 3 miles from Inner Harbor — plan for taxi/rideshare; there's no direct public transit connection</li>
+            <li><strong>Weather:</strong> Hot and humid summers, cold winters — spring and fall cruises offer the best weather</li>
+            <li><strong>Orioles Schedule:</strong> If the O's are home, arrive extra early — Camden Yards traffic affects port access</li>
+          </ul>
+        </section>
+
+        <section class="port-section port-map-section" id="port-map-section">
+          <h3>Baltimore Area Map</h3>
+          <p class="map-intro">Interactive map showing cruise terminal, Inner Harbor, Fort McHenry, and Fells Point.</p>
+          <div id="baltimore-port-map" class="port-map-container" role="application" aria-label="Interactive map of Baltimore">
+            <noscript><p>Interactive map requires JavaScript. Key locations: Cruise terminal, Inner Harbor, Fort McHenry, Fells Point, Camden Yards.</p></noscript>
+          </div>
         </section>
 
         <section class="port-section">
@@ -215,5 +256,21 @@ Soli Deo Gloria
   </script>
   <script>window.currentPortId = 'baltimore';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Baltimore Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'baltimore-port-map',
+        portSlug: 'baltimore'
+      });
+    }
+  });
+  </script>
 </body>
 </html>

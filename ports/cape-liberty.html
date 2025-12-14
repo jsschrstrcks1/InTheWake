@@ -15,6 +15,9 @@ Soli Deo Gloria
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
     {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
@@ -71,10 +74,20 @@ Soli Deo Gloria
           <h3>Getting to the Port</h3>
           <ul>
             <li><strong>Address:</strong> 4 Port Terminal Blvd, Bayonne, NJ 07002</li>
-            <li><strong>From Newark Airport (EWR):</strong> 15-20 minutes via NJ Turnpike</li>
+            <li><strong>From Newark Airport (EWR):</strong> 15-20 minutes via NJ Turnpike — the closest major airport</li>
             <li><strong>From JFK Airport:</strong> 45-60 minutes depending on traffic</li>
             <li><strong>From Manhattan:</strong> 20-30 minutes via Holland Tunnel</li>
             <li><strong>Uber/Lyft:</strong> $25-40 from Newark, $50-70 from JFK</li>
+          </ul>
+        </section>
+
+        <section class="port-section">
+          <h3>Getting to Manhattan</h3>
+          <ul>
+            <li><strong>PATH Train:</strong> Affordable rapid transit connecting New Jersey to Manhattan. Exchange Place station (Jersey City) to World Trade Center is 8 minutes, $2.75 fare. <a href="https://www.panynj.gov/path" target="_blank" rel="noopener">PATH Train</a></li>
+            <li><strong>Hudson-Bergen Light Rail:</strong> Connects Bayonne to Hoboken and Jersey City; transfer to PATH for Manhattan access. <a href="https://www.njtransit.com/light-rail-stations" target="_blank" rel="noopener">NJ Transit Light Rail</a></li>
+            <li><strong>NY Waterway Ferry:</strong> Scenic ferry service from Jersey City to Midtown Manhattan (Pier 79) and Wall Street. <a href="https://www.nywaterway.com" target="_blank" rel="noopener">NY Waterway</a></li>
+            <li><strong>By Car:</strong> Holland Tunnel or Lincoln Tunnel to Manhattan — allow extra time for traffic, especially on weekends</li>
           </ul>
         </section>
 
@@ -90,21 +103,49 @@ Soli Deo Gloria
         <section class="port-section">
           <h3>Nearby Hotels</h3>
           <ul>
-            <li><strong>Doubletree by Hilton Jersey City:</strong> Waterfront views of Manhattan</li>
-            <li><strong>Hyatt Regency Jersey City:</strong> Liberty State Park location</li>
-            <li><strong>Hampton Inn Bayonne:</strong> Closest to the port, budget-friendly</li>
-            <li><strong>Stay in Manhattan:</strong> Many cruisers stay in NYC and taxi/Uber to port</li>
+            <li><strong>DoubleTree by Hilton Jersey City:</strong> Waterfront location with stunning Manhattan skyline views — just 15 min from port</li>
+            <li><strong>Hilton Newark Penn Station:</strong> Connected to Newark Penn Station for easy PATH access to NYC; 20 min from port</li>
+            <li><strong>Hampton Inn & Suites Bayonne:</strong> Closest to the port (2 miles), budget-friendly with free breakfast</li>
+            <li><strong>Hyatt Regency Jersey City:</strong> Liberty State Park location with park access and waterfront dining</li>
+            <li><strong>Stay in Manhattan:</strong> Many cruisers stay in NYC and taxi/Uber to port — experience the city before sailing</li>
           </ul>
         </section>
 
         <section class="port-section">
           <h3>Pre-Cruise Activities</h3>
           <ul>
-            <li><strong>Statue of Liberty & Ellis Island:</strong> Ferry from Liberty State Park</li>
-            <li><strong>Manhattan:</strong> Times Square, Central Park, 9/11 Memorial — just across the river</li>
-            <li><strong>Liberty State Park:</strong> Beautiful waterfront with skyline views</li>
-            <li><strong>Jersey City dining:</strong> Great restaurants without Manhattan prices</li>
+            <li><strong>Statue of Liberty National Monument:</strong> UNESCO World Heritage Site — ferries depart from Liberty State Park (10 min from port). Crown access requires advance reservation (months ahead). <a href="https://www.nps.gov/stli" target="_blank" rel="noopener">NPS Statue of Liberty</a></li>
+            <li><strong>Ellis Island Immigration Museum:</strong> Where 12 million immigrants entered America (1892-1954). Same ferry as Statue of Liberty — plan 2-3 hours for the museum. Search the online passenger database before visiting</li>
+            <li><strong>Liberty State Park:</strong> 1,212-acre waterfront park with stunning Manhattan views, the Empty Sky 9/11 Memorial, nature trails, and picnic areas — ferry launches to Lady Liberty and Ellis Island</li>
+            <li><strong>9/11 Memorial & Museum:</strong> Moving tribute at Ground Zero in Lower Manhattan (PATH train to World Trade Center)</li>
+            <li><strong>Manhattan Highlights:</strong> Times Square, Central Park, Brooklyn Bridge, Empire State Building — entire city accessible via PATH train</li>
+            <li><strong>Jersey City/Hoboken:</strong> Excellent dining and nightlife without Manhattan prices — Hoboken's Washington Street is especially lively</li>
           </ul>
+        </section>
+
+        <section class="port-section">
+          <h3>History & Heritage</h3>
+          <p>Cape Liberty sits on the site of the former Military Ocean Terminal (MOTBY), which served as the primary embarkation point for troops deploying to Europe during World War II and Korea. Over 50 million troops and their supplies passed through this peninsula. The area still bears traces of its military past, including the former administration building visible near the terminal.</p>
+          <p>The cruise terminal opened in 2004, transforming the decommissioned military facility into a passenger port. Today, it offers what many consider the most dramatic sailaway in cruising — passing the Statue of Liberty as the Manhattan skyline glitters in the fading light.</p>
+        </section>
+
+        <section class="port-section">
+          <h3>Practical Tips</h3>
+          <ul>
+            <li><strong>Sailaway Timing:</strong> Most ships depart late afternoon — position yourself on the starboard (right) side facing forward for the best Statue of Liberty views</li>
+            <li><strong>Traffic Warning:</strong> NYC-area traffic can be brutal — build in extra buffer time, especially on weekends or event days</li>
+            <li><strong>Toll Roads:</strong> NJ Turnpike, Holland Tunnel, and most bridges use cashless tolling (E-ZPass or license plate billing)</li>
+            <li><strong>Newark vs JFK:</strong> Newark (EWR) is significantly closer and easier to reach — worth the comparison when booking flights</li>
+            <li><strong>NYC on a Budget:</strong> The Staten Island Ferry (free!) offers views of Lady Liberty; High Line park and many museums have free hours</li>
+          </ul>
+        </section>
+
+        <section class="port-section port-map-section" id="port-map-section">
+          <h3>Cape Liberty Area Map</h3>
+          <p class="map-intro">Interactive map showing cruise terminal, Liberty State Park, Statue of Liberty, and Manhattan access.</p>
+          <div id="cape-liberty-port-map" class="port-map-container" role="application" aria-label="Interactive map of Cape Liberty">
+            <noscript><p>Interactive map requires JavaScript. Key locations: Cruise terminal, Liberty State Park, Statue of Liberty, PATH stations, Manhattan.</p></noscript>
+          </div>
         </section>
 
         <section class="port-section">
@@ -135,6 +176,22 @@ Soli Deo Gloria
   <footer class="wrap" role="contentinfo"><p>© 2025 In the Wake · A Cruise Traveler's Logbook</p></footer>
   <script>window.currentPortId = 'cape-liberty';</script>
   <script src="/assets/js/nearby-ports.js"></script>
-<script src="/assets/js/dropdown.js"></script>
+  <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Cape Liberty Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'cape-liberty-port-map',
+        portSlug: 'cape-liberty'
+      });
+    }
+  });
+  </script>
 </body>
 </html>
