@@ -15,6 +15,9 @@ Soli Deo Gloria
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -55,43 +58,83 @@ Soli Deo Gloria
         <section class="port-section">
           <h3>Getting to the Port</h3>
           <ul>
-            <li><strong>Address:</strong> Port Tampa Bay, 1101 Channelside Drive</li>
-            <li><strong>From Tampa Airport (TPA):</strong> 20-25 minutes</li>
+            <li><strong>Address:</strong> Port Tampa Bay, 1101 Channelside Drive, Tampa FL 33602</li>
+            <li><strong>From Tampa Airport (TPA):</strong> 20-25 minutes — one of Florida's easiest airport-to-port connections</li>
             <li><strong>From Orlando:</strong> 1.5 hours via I-4 West</li>
             <li><strong>Uber/Lyft:</strong> $15-25 from TPA airport</li>
           </ul>
         </section>
 
         <section class="port-section">
+          <h3>Getting Around Tampa</h3>
+          <ul>
+            <li><strong>TECO Line Streetcar:</strong> FREE vintage streetcar connecting downtown, Channelside (port area), and Ybor City every 15 minutes. Runs 11am-11pm daily. <a href="https://www.tecolinestreetcar.org" target="_blank" rel="noopener">tecolinestreetcar.org</a></li>
+            <li><strong>Tampa Riverwalk:</strong> 2.6-mile paved waterfront path connecting major attractions — walk or rent bikes</li>
+            <li><strong>Pirate Water Taxi:</strong> Hop-on/hop-off service along the Hillsborough River connecting downtown, Armature Works, and more</li>
+            <li><strong>HART Bus:</strong> Public transit serving greater Tampa area. <a href="https://www.gohart.org" target="_blank" rel="noopener">HART Transit</a></li>
+            <li><strong>On Foot:</strong> Downtown, Channelside, and Ybor City are all walkable once there</li>
+          </ul>
+        </section>
+
+        <section class="port-section">
           <h3>Parking Options</h3>
           <ul>
-            <li><strong>On-site parking:</strong> Port Tampa Bay garage adjacent to terminals</li>
-            <li><strong>Cost:</strong> $15-18/day — some of the best rates among major cruise ports</li>
-            <li><strong>Off-site:</strong> Several third-party lots nearby with shuttles</li>
-            <li><strong>Reserve ahead:</strong> Recommended for peak sailing dates</li>
+            <li><strong>On-site parking:</strong> Port Tampa Bay garage at 815 Channelside Drive — covered garage across from cruise terminals</li>
+            <li><strong>Cost:</strong> $17/day — some of the best rates among major Florida cruise ports</li>
+            <li><strong>Off-site alternatives:</strong> Third-party lots as low as $11/day with shuttle service</li>
+            <li><strong>Reserve ahead:</strong> Not required but recommended for peak sailing dates and holidays</li>
           </ul>
         </section>
 
         <section class="port-section">
           <h3>Nearby Hotels</h3>
           <ul>
-            <li><strong>Tampa Marriott Water Street:</strong> Walking distance to port</li>
-            <li><strong>Hilton Tampa Downtown:</strong> Connected to convention center</li>
-            <li><strong>Grand Hyatt Tampa Bay:</strong> Resort feel on the bay</li>
-            <li><strong>Hotel Haya (Ybor City):</strong> Boutique hotel in historic district</li>
+            <li><strong>Hilton Tampa Downtown:</strong> Connected to convention center, easy walk to port via Riverwalk</li>
+            <li><strong>Hilton Garden Inn Tampa Ybor Historic District:</strong> Central Ybor location, steps from streetcar and nightlife</li>
+            <li><strong>Hampton Inn & Suites Tampa Ybor City:</strong> Free cruise shuttle, free parking for up to 14 days, free breakfast — excellent park-and-cruise value</li>
+            <li><strong>Tampa Marriott Water Street:</strong> Walking distance to port with waterfront dining</li>
+            <li><strong>Grand Hyatt Tampa Bay:</strong> Resort feel on the bay with excellent pools</li>
+            <li><strong>Hotel Haya (Ybor City):</strong> Boutique hotel in historic cigar factory building</li>
           </ul>
         </section>
 
         <section class="port-section">
           <h3>Pre-Cruise Activities</h3>
           <ul>
-            <li><strong>Ybor City:</strong> Historic Cuban district, cigars, Columbia Restaurant</li>
-            <li><strong>Busch Gardens:</strong> African-themed park with world-class coasters</li>
-            <li><strong>Florida Aquarium:</strong> Right on the waterfront near the port</li>
-            <li><strong>Tampa Riverwalk:</strong> Scenic 2.6-mile walk along the Hillsborough River</li>
-            <li><strong>Clearwater Beach:</strong> 30 minutes west — consistently rated top beach</li>
-            <li><strong>St. Pete:</strong> Arts district, Dalí Museum, craft breweries</li>
+            <li><strong>Ybor City:</strong> National Historic Landmark District — Cuban roots, hand-rolled cigars, and Columbia Restaurant (Florida's oldest, since 1905)</li>
+            <li><strong>Busch Gardens Tampa Bay:</strong> African-themed park with world-class roller coasters including SheiKra and Iron Gwazi. Book through <a href="https://www.viator.com/Tampa-tours/Theme-Parks/d666-g22-c138" target="_blank" rel="noopener">Viator</a></li>
+            <li><strong>Florida Aquarium:</strong> Right on the waterfront near the port — 20,000+ animals including sharks, penguins, and sea turtles</li>
+            <li><strong>ZooTampa at Lowry Park:</strong> Florida's manatee rehabilitation center — guaranteed manatee sightings plus 1,000+ animals. New Straz Family Manatee Rescue Center opening 2026</li>
+            <li><strong>Tampa Riverwalk:</strong> 2.6-mile paved path along the Hillsborough River connecting museums, parks, and restaurants</li>
+            <li><strong>Clearwater Beach:</strong> 30 minutes west — consistently rated America's best beach by TripAdvisor</li>
+            <li><strong>Dalí Museum (St. Pete):</strong> World's most comprehensive collection of Salvador Dalí's work — stunning building, must-see art</li>
+            <li><strong>Hillsborough River State Park:</strong> Rapids, hiking, kayaking just 30 minutes north — rare Florida rapids and old-growth forest</li>
           </ul>
+        </section>
+
+        <section class="port-section">
+          <h3>History & Heritage</h3>
+          <p>Tampa's cigar industry transformed a sleepy fishing village into a thriving city. In 1886, Vicente Martinez Ybor moved his cigar factories from Key West to what became Ybor City, attracting thousands of Cuban, Spanish, and Italian immigrants. At its peak, Tampa produced 500 million cigars annually, earning the nickname "Cigar Capital of the World."</p>
+          <p>The city also played a crucial role in the Spanish-American War — Theodore Roosevelt's Rough Riders embarked from Tampa for Cuba in 1898. Today, Port Tampa Bay is the largest port in Florida and a major cruise homeport serving over 1 million passengers annually.</p>
+        </section>
+
+        <section class="port-section">
+          <h3>Practical Tips</h3>
+          <ul>
+            <li><strong>Cuban Sandwich:</strong> Tampa claims to have invented it — try Columbia Restaurant or La Segunda Bakery for authentic versions with salami (the Tampa way)</li>
+            <li><strong>Free Streetcar:</strong> The TECO Line is completely free and connects the port to Ybor City — no excuse not to explore</li>
+            <li><strong>Cigar Rolling:</strong> Watch hand-rolling demonstrations at Ybor City shops — Tampa-made cigars are still world-renowned</li>
+            <li><strong>Weather:</strong> Hot and humid May-October; afternoon thunderstorms are daily summer events but pass quickly</li>
+            <li><strong>Manatees:</strong> Best viewing December-March at ZooTampa or Big Cat Rescue (make reservations)</li>
+          </ul>
+        </section>
+
+        <section class="port-section port-map-section" id="port-map-section">
+          <h3>Tampa Area Map</h3>
+          <p class="map-intro">Interactive map showing cruise terminals, Ybor City, Tampa Riverwalk, and major attractions.</p>
+          <div id="tampa-port-map" class="port-map-container" role="application" aria-label="Interactive map of Tampa">
+            <noscript><p>Interactive map requires JavaScript. Key locations: Cruise terminals, Ybor City, Florida Aquarium, Tampa Riverwalk.</p></noscript>
+          </div>
         </section>
 
         <section class="port-section">
@@ -120,5 +163,21 @@ Soli Deo Gloria
   <footer class="wrap" role="contentinfo"><p>© 2025 In the Wake</p></footer>
   <script>window.currentPortId = 'tampa';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Tampa Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'tampa-port-map',
+        portSlug: 'tampa'
+      });
+    }
+  });
+  </script>
 </body>
 </html>
