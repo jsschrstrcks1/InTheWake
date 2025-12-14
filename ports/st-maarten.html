@@ -515,8 +515,8 @@ All work on this project is offered as a gift to God.
       try {
         var res = await fetch('/assets/data/articles/index.json');
         var data = await res.json();
-        var articles = data.articles || data; // Handle both {articles:[]} and [] formats
-        if(articles && articles.length){
+        var articles = Array.isArray(data) ? data : (data.articles || []);
+        if(articles.length){
           rail.innerHTML = articles.slice(0,5).map(function(a){
             return '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #e0e8f0;"><h4 style="margin:0 0 .25rem;font-size:.95rem;"><a href="'+a.url+'">'+a.title+'</a></h4><p style="margin:0;font-size:.8rem;color:#666;">'+a.date+'</p></div>';
           }).join('');
