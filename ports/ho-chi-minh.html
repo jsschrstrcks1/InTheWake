@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<!--
+Soli Deo Gloria
+All work on this project is offered as a gift to God.
+"Trust in the LORD with all your heart..." — Proverbs 3:5
+"Whatever you do, work heartily..." — Colossians 3:23
+-->
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- ICP-Lite v1.0 Meta Tags -->
+  <meta name="ai-summary" content="First-person guide to Ho Chi Minh City cruise port: War Remnants Museum, Cu Chi Tunnels, Notre-Dame Cathedral, vibrant markets, and iconic street food." />
+  <meta name="last-reviewed" content="2025-12-14" />
+  <meta name="content-protocol" content="ICP-Lite v1.0" />
+
+  <title>Ho Chi Minh City (Saigon) Cruise Port Guide – In the Wake</title>
+  <meta name="description" content="First-person guide to Ho Chi Minh City cruise port: War Remnants Museum, Cu Chi Tunnels, Notre-Dame Cathedral, vibrant markets, and iconic street food." />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <link rel="stylesheet" href="/assets/css/articles.css" />
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <!-- Port Map Styles (mobile-responsive) -->
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://inthewake.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Ports", "item": "https://inthewake.io/ports.html" },
+      { "@type": "ListItem", "position": 3, "name": "Ho Chi Minh City" }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How far is Ho Chi Minh City from the cruise port?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most ships dock at Phu My Port, about 80km (50 miles) from central Ho Chi Minh City—roughly 90 minutes by transfer. Some ships use Cat Lai, which is closer at 30-40 minutes. Book ship excursions or private transfers for easiest access."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the War Remnants Museum difficult to visit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The museum presents the Vietnam War from the Vietnamese perspective with powerful, sometimes graphic exhibits. It's emotionally challenging but profoundly important. Allow 90-120 minutes and prepare for a moving experience."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I visit the Cu Chi Tunnels?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes—it's a fascinating half-day trip to see the underground network used by Viet Cong fighters. You can crawl through sections (not for claustrophobes!). Book early as it's 90 minutes from the city and fills up fast."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I handle the motorbike traffic?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cross streets slowly and steadily—don't stop or run. Millions of motorbikes flow around you like water. Use Grab (like Uber) for car or motorbike taxis. It's chaotic but oddly organized once you trust the rhythm."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- LCP Optimization: Preload critical hero images -->
+  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
+
+  <!-- Swiper CSS/JS (primary + CDN fallback) -->
+  <script>
+  (function ensureSwiper(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <!-- ARIA Live Regions -->
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+
+  <header class="hero-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
+      </div>
+            <nav class="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
+        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav></div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+      </div>
+      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
+      <div class="hero-credit">
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+      </div>
+    </div>
+  </header>
+
+
+
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+      <a href="/">Home</a> &rsaquo;
+      <a href="/ports.html">Ports</a> &rsaquo;
+      <span aria-current="page">Ho Chi Minh City</span>
+    </nav>
+
+    <article>
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
+        <img src="/ports/img/ho-chi-minh/ho-chi-minh-3.webp" alt="Ho Chi Minh City panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
+        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Ho Chi Minh City</span>
+        </div>
+      </div>
+
+      <header class="article-header">
+        <h1>Ho Chi Minh City (Saigon) Cruise Port Guide</h1>
+        <p class="subtitle">My City Where History Pulses Through Every Street</p>
+      </header>
+
+      <!-- Quick Answer -->
+      <section class="quick-answer" style="background:#e6f7f5;border-left:5px solid #2a9d8f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
+        <p style="margin:0;"><strong>Quick&nbsp;Answer:</strong> Ho Chi Minh City (formerly Saigon) scores 4.7–5.0 stars for its powerful blend of wartime history, French colonial beauty, and frenetic energy. Must-dos: War Remnants Museum, Cu Chi Tunnels, Notre-Dame Cathedral, Ben Thanh Market, and street pho at dawn.</p>
+
+      <figure class="logbook-image float-right">
+        <img src="img/ho-chi-minh/ho-chi-minh-1.webp" alt="Ho Chi Minh City harbor view" loading="lazy">
+        <figcaption>Ho Chi Minh City — <a href="https://commons.wikimedia.org/w/index.php?search=Ho%20Chi%20Minh%20City&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+      </section>
+
+      <!-- Logbook Entry -->
+      <section>
+        <h2>My Ho Chi Minh City Day – A First-Person Account</h2>
+        <p>Arriving at Phu My Port knowing Saigon's chaos and soul are 90 minutes away always fills me with anticipation—this city scores 4.7–5.0 because it doesn't just tell you about Vietnam's past, it makes you feel the weight of history in your chest while motorbikes roar past and vendors sell soup on every corner.</p>
+
+        <p>My perfect day: early transfer straight to the War Remnants Museum—powerful, gut-wrenching exhibits from Vietnam's perspective on the American War (as they call it). Give yourself two hours and prepare to be moved. Then Notre-Dame Cathedral Basilica and the Central Post Office next door—Gustave Eiffel's architectural gift with arched ceilings and century-old maps still mounted on the walls.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/ho-chi-minh/ho-chi-minh-2.webp" alt="Ho Chi Minh City waterfront" loading="lazy">
+        <figcaption>Ho Chi Minh City scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Ho%20Chi%20Minh%20City&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
+        <div class="poignant-highlight">
+          <strong>The moment that stays with me:</strong> Standing in the courtyard of the War Remnants Museum surrounded by captured American tanks and helicopters, reading testimonies from Vietnamese families—Vietnam doesn't let you forget what happened here, and in that sacred heaviness you understand that some stories must be told even when they're painful, because remembering is how we honor those who lived through it.
+        </div>
+
+        <p>Reunification Palace (where the war officially ended in 1975) is hauntingly preserved—vintage 1960s furniture and the basement war room frozen in time. Then Ben Thanh Market for souvenirs, coffee, and the chaos of haggling. Lunch is street pho or banh mi from a cart—simple, perfect, and costs a dollar.</p>
+
+        <p>Afternoon trip to Cu Chi Tunnels (book ahead—it's 90 minutes each way but absolutely worth it) to crawl through the underground network where Viet Cong fighters lived. Back in the city: rooftop cocktails at Saigon Saigon Bar watching millions of motorbikes swarm below like a river of lights.</p>
+      </section>
+
+      <!-- Port Essentials -->
+      <section>
+        <h2>Port Essentials</h2>
+        <p><strong>Cruise Terminal:</strong> Most ships dock at Phu My Port (also called Thi Vai), about 80km southeast of Ho Chi Minh City. Some itineraries use Cat Lai Port, which is closer (30–40 minutes). Both require transfers—book ship excursions or private vans.</p>
+        <p><strong>Port to City:</strong> 90–120 minutes from Phu My; 30–40 minutes from Cat Lai. Highway traffic can be heavy. Grab cars or private tours are easiest.</p>
+        <p><strong>Currency:</strong> Vietnamese Dong (VND). Bring small USD bills for tips. Credit cards accepted in hotels and malls, but cash is king at markets and street stalls.</p>
+        <p><strong>Language:</strong> Vietnamese. English is common in tourist areas and among younger locals. Smile and gesture go a long way.</p>
+      </section>
+
+      <!-- Top Experiences -->
+      <section>
+        <h2>Top Experiences in Ho Chi Minh City</h2>
+
+        <h4>War Remnants Museum</h4>
+        <p>Vietnam's most visited museum presents the Vietnam War (called the American War locally) through Vietnamese eyes. Exhibits include photos, military equipment, and testimonies—powerful, graphic, and unforgettable. Allow 90–120 minutes. Not suitable for young children.</p>
+
+        <h4>Cu Chi Tunnels</h4>
+        <p>A sprawling underground network where Viet Cong fighters lived and operated during the war. You can crawl through sections (widened for tourists), see booby traps, and visit hidden command centers. A half-day trip (3–4 hours total with travel). Book early—it's hugely popular.</p>
+
+        <h4>Notre-Dame Cathedral Basilica & Central Post Office</h4>
+        <p>Two stunning French colonial landmarks side-by-side. The neo-Romanesque cathedral (built 1863–1880) features red bricks imported from Marseille. Next door, the Central Post Office—designed by Gustave Eiffel—has gorgeous arched ceilings, old-world charm, and still operates as a working post office.</p>
+
+        <h4>Ben Thanh Market</h4>
+        <p>Ho Chi Minh City's most iconic market—covered, colorful, and chaotic. Shop for silk, lacquerware, coffee, spices, and souvenirs. Haggle hard (start at half the asking price). The night market outside is even more atmospheric with street food stalls and lanterns.</p>
+
+        <h4>Reunification Palace</h4>
+        <p>The site where North Vietnamese tanks crashed through the gates on April 30, 1975, ending the war. The building is preserved exactly as it was—vintage furniture, war rooms, helicopter pad. It's a time capsule of 1960s Cold War history.</p>
+
+        <h4>Street Food & Motorbike Culture</h4>
+        <p>You haven't experienced Saigon until you've eaten pho from a street cart at dawn or banh mi from a vendor with a basket. Cross streets slowly—millions of motorbikes flow like water around you. Book a Grab bike taxi for the full adrenaline rush.</p>
+      </section>
+
+      <!-- Port Map Section -->
+      <section class="port-section">
+        <h2>Port Map</h2>
+        <p>Explore Ho Chi Minh City's cruise ports, historical sites, markets, and street food hotspots. Click markers for details and directions.</p>
+        <div id="ho-chi-minh-port-map" class="port-map-container" role="application" aria-label="Interactive map of Ho Chi Minh City port area"></div>
+      </section>
+
+      <!-- Getting Around -->
+      <section>
+        <h2>Getting Around</h2>
+        <p><strong>From Port to City:</strong> Phu My Port is 80km from downtown—90 minutes minimum. Cat Lai is closer at 30–40 minutes. Ship shuttles are reliable but expensive; private tours or Grab cars offer flexibility.</p>
+        <p><strong>In the City:</strong> Taxis and Grab (ride-hailing app) are cheap and convenient. Motorbike taxis (xe om) are faster but thrilling. Walking is doable in District 1 (downtown) but crossing streets requires nerves of steel—walk slowly and steadily; don't run or stop.</p>
+        <p><strong>Cu Chi Tunnels:</strong> Book a tour—it's 70km northwest (90 minutes each way). Half-day tours depart early morning and return by early afternoon.</p>
+      </section>
+
+      <!-- Local Food & Drink -->
+      <section>
+        <h2>Local Food & Drink</h2>
+        <p><strong>Pho:</strong> Vietnam's iconic noodle soup—beef (pho bo) or chicken (pho ga). Best eaten at dawn from street vendors. Fresh herbs, lime, and chili on the side. Life-changing.</p>
+        <p><strong>Banh Mi:</strong> French baguette stuffed with pate, pork, pickled vegetables, cilantro, and chili. Crispy, savory, perfect. Costs about $1 from street carts.</p>
+        <p><strong>Vietnamese Coffee:</strong> Strong, dark, dripped slowly over sweetened condensed milk. Served hot (ca phe nong) or iced (ca phe sua da). Addictive.</p>
+        <p><strong>Fresh Spring Rolls (Goi Cuon):</strong> Rice paper wrapped around shrimp, pork, herbs, and vermicelli. Dipped in peanut or hoisin sauce. Light and fresh.</p>
+        <p><strong>Street Food Safety:</strong> Eat where locals eat—busy stalls with high turnover mean fresh food. Avoid pre-cut fruit and ice from questionable sources. Your stomach will thank you.</p>
+      </section>
+
+      <!-- Pro Tips -->
+      <section>
+        <h2>Pro Tips for Ho Chi Minh City</h2>
+        <ul>
+          <li><strong>Book Cu Chi Tunnels Early:</strong> Tours fill up fast, especially on cruise port days. Go in the morning to beat the heat.</li>
+          <li><strong>Dress Modestly for Sites:</strong> Cover shoulders and knees at the Reunification Palace and religious sites. Bring a scarf or shawl.</li>
+          <li><strong>Cash is King:</strong> Bring small USD bills or withdraw dong from ATMs. Street vendors, markets, and small restaurants are cash-only.</li>
+          <li><strong>Crossing Streets:</strong> Don't wait for a gap—there won't be one. Walk slowly and steadily. Motorbikes will flow around you. Seriously.</li>
+          <li><strong>Bargain at Markets:</strong> Ben Thanh Market prices are inflated for tourists. Start at 50% of the asking price and negotiate. It's expected and fun.</li>
+          <li><strong>War Remnants Museum:</strong> Emotionally intense and graphic. Not suitable for young children. Allow 90–120 minutes and prepare to be moved.</li>
+          <li><strong>Stay Hydrated:</strong> Ho Chi Minh City is hot and humid year-round. Bottled water is cheap and sold everywhere. Coconut water from street vendors is refreshing.</li>
+        </ul>
+      </section>
+
+      <!-- Word of Warning -->
+      <section style="background:#fef9e7;border-left:5px solid #f4d03f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
+        <p style="margin:0;"><strong>Depth Soundings Ashore:</strong> Ho Chi Minh City's relentless energy, heavy history, and motorbike madness aren't obstacles—they're invitations to witness a nation that has rebuilt itself with resilience and grace. Lean into the chaos, honor the stories, and you'll leave with a deeper understanding of what it means to endure and thrive.</p>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2>Frequently Asked Questions</h2>
+        <details><summary>How far is Ho Chi Minh City from the cruise port?</summary><p>Most ships dock at Phu My Port, about 80km (50 miles) from central Ho Chi Minh City—roughly 90 minutes by transfer. Some ships use Cat Lai, which is closer at 30–40 minutes. Book ship excursions or private transfers for easiest access.</p></details>
+        <details><summary>Is the War Remnants Museum difficult to visit?</summary><p>The museum presents the Vietnam War from the Vietnamese perspective with powerful, sometimes graphic exhibits. It's emotionally challenging but profoundly important. Allow 90–120 minutes and prepare for a moving experience.</p></details>
+        <details><summary>Should I visit the Cu Chi Tunnels?</summary><p>Yes—it's a fascinating half-day trip to see the underground network used by Viet Cong fighters. You can crawl through sections (not for claustrophobes!). Book early as it's 90 minutes from the city and fills up fast.</p></details>
+        <details><summary>How do I handle the motorbike traffic?</summary><p>Cross streets slowly and steadily—don't stop or run. Millions of motorbikes flow around you like water. Use Grab (like Uber) for car or motorbike taxis. It's chaotic but oddly organized once you trust the rhythm.</p></details>
+      </section>
+
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/ho-chi-minh/ho-chi-minh-1.webp" alt="Harbor view of Ho Chi Minh City" loading="lazy">
+          <figcaption>
+            Harbor view of Ho Chi Minh City
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/ho-chi-minh/ho-chi-minh-2.webp" alt="Waterfront scenery of Ho Chi Minh City" loading="lazy">
+          <figcaption>
+            Waterfront scenery of Ho Chi Minh City
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/ho-chi-minh/ho-chi-minh-3.webp" alt="Port panorama of Ho Chi Minh City" loading="lazy">
+          <figcaption>
+            Port panorama of Ho Chi Minh City
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/ho-chi-minh/ho-chi-minh-4.webp" alt="Coastal landscape of Ho Chi Minh City" loading="lazy">
+          <figcaption>
+            Coastal landscape of Ho Chi Minh City
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>ho-chi-minh-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>ho-chi-minh-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>ho-chi-minh-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>ho-chi-minh-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
+    <!-- Nearby Ports Rail -->
+    <section class="card" aria-labelledby="nearby-ports-title">
+        <h3 id="nearby-ports-title">Nearby Ports</h3>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Other ports in this region:
+        </p>
+        <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+      </section>
+
+      <!-- Recent Articles rail -->
+      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+
+
+  <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+    <section class="card author-card-vertical" aria-labelledby="author-heading">
+      <h3 id="author-heading">About the Author</h3>
+      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+        <picture>
+          <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" decoding="async" loading="lazy"/>
+        </picture>
+      </a>
+      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+      <p class="tiny">
+        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+      </p>
+    </section>
+
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
+  </aside>
+
+  </main>
+
+    <footer class="wrap" role="contentinfo">
+    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p class="tiny" style="margin-top: 0.5rem;">
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
+      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    </p>
+    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+  </footer>
+
+  <script src="/assets/js/common.js"></script>
+
+  <script>
+    // Load recent articles
+    (async function() {
+      try {
+        const response = await fetch('/assets/data/articles/index.json');
+        const articles = await response.json();
+        const rail = document.getElementById('recent-rail');
+
+        if (rail && articles && articles.length > 0) {
+          rail.innerHTML = articles.slice(0, 5).map(article => `
+            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
+              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
+                <a href="${article.url}">${article.title}</a>
+              </h4>
+              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+        console.log('Could not load articles:', err);
+      }
+    })();
+  </script>
+
+  <script>
+  (function(){
+    "use strict";
+
+    /* ===== Recent Articles Rail ===== */
+    (async function recentRail(){
+      const rail = document.getElementById('recent-rail');
+      if(!rail) return;
+
+      const fallback = document.getElementById('recent-rail-fallback');
+      if(fallback) fallback.style.display = '';
+
+      async function fetchJSONWithFallback(urls){
+        for (const u of urls){
+          try{
+            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
+            if (res.ok) return await res.json();
+          }catch(err){
+
+          }
+        }
+        return null;
+      }
+
+      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
+
+      function setImageWithFallback(imgEl, primary, altPaths=[]){
+        if(!imgEl) return;
+        const stamp='v=3.010.400';
+        const tried=new Set();
+        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
+        function tryNext(){
+          const next=queue.shift();
+          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
+          if(tried.has(next)) return tryNext();
+          tried.add(next);
+          imgEl.src=next;
+        }
+        imgEl.onerror=tryNext;
+        tryNext();
+      }
+
+      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
+      if(!raw) {
+        if(fallback) {
+          fallback.textContent = 'Unable to load articles';
+          fallback.style.display = '';
+        }
+        return;
+      }
+
+      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
+      if(!items.length) return;
+
+      const here = location.pathname.replace(/\/+$/,'');
+      const view = items.filter(p=>{
+        const href = pick(p,['url','path'],'#');
+        const norm = (href||'').replace(/\/+$/,'');
+        return norm && norm !== here;
+      }).slice(0,6);
+
+      rail.innerHTML = view.map(p=>{
+        const title = pick(p,['title','name'],'Article');
+        const href  = pick(p,['url','path'],'#');
+        const excerpt = pick(p,['excerpt','description'],'');
+        return `
+          <article class="card article-card">
+            <div class="article-card-grid">
+              <div class="article-thumb-wrap">
+                <img class="article-thumb" alt="" decoding="async" loading="lazy">
+              </div>
+              <div class="article-card-body">
+                <h4><a href="\${href}">\${title}</a></h4>
+                \${excerpt ? `<p class="tiny excerpt">\${excerpt}</p>` : ''}
+              </div>
+            </div>
+            <a href="\${href}" class="pill read-more">Read Article →</a></article>`;
+      }).join('');
+
+      const cards = [...rail.querySelectorAll('article.card')];
+      cards.forEach((card,i)=>{
+        const p = view[i] || {};
+        const el = card.querySelector('img.article-thumb');
+        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
+        const title = (pick(p,['title','name'],'')||'').toLowerCase();
+
+        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
+
+        // FORCE override for Top-20
+        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
+          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
+        }
+        // Friendly specifics
+        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
+          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
+        }
+        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
+          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
+        }
+        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
+          primary = '/assets/articles/travel/cover.jpg';
+        }
+
+        // Heuristic fallback
+        if(!primary){
+          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
+          const guess = slugify(href) || slugify(title);
+          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
+        }
+
+        const alts = [];
+        if(primary){
+          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
+          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
+        }
+        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
+      });
+
+      if(fallback) fallback.style.display = 'none';
+
+      // Announce to screen readers
+      const status = document.getElementById('a11y-status');
+      if(status) {
+        status.textContent = `\${view.length} recent articles loaded`;
+      }
+    })();
+  })();
+  </script>
+
+  <!-- Nearby Ports Script -->
+  <script>window.currentPortId = 'ho-chi-minh';</script>
+  <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Port Map Module -->
+  <script src="/assets/js/modules/port-map.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.PortMap) {
+        window.PortMap.init({ containerId: 'ho-chi-minh-port-map', portSlug: 'ho-chi-minh' });
+      }
+    });
+  </script>
+
+</body>
+</html>

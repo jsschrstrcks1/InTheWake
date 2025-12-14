@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2025-12-12 (Port Map Integration plan added)
+**Last Updated:** 2025-12-14 (Port map audit updated - 186/291 ports have Leaflet maps)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -76,12 +76,13 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 - Individual page pattern standardization (author/article cards across 226 pages)
 - Duplicate pages to consolidate: legend-of-the-seas-1995-built.html, star-of-the-seas-aug-2025-debut.html
 
-**Current counts (2025-12-01):**
-- Total HTML pages: 530
-- Port pages: 161 (up from 147)
+**Current counts (2025-12-14):**
+- Total HTML pages: 652
+- Port pages: 291 (was 161)
 - Ship pages: 50
+- Ports with Leaflet maps: 186 (64%)
 
-**Realistic remaining task count: ~20-25 items** (increased after adding 14 homeports)
+**Realistic remaining task count: ~30-40 items** (port map rollout + pattern standardization)
 
 ---
 
@@ -89,13 +90,15 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 
 **Audit Method:** Compared comprehensive 2024 Royal Caribbean port list (~320 ports including UWC one-offs) against existing HTML pages in `/ports/`.
 
-### Coverage Summary
+> **⚠️ UPDATE (2025-12-14):** Port pages have grown from 161 to 291. Many missing RCL ports from this analysis have been added. Needs re-audit.
+
+### Coverage Summary (as of 2025-12-10)
 | Metric | Count |
 |--------|-------|
 | RCL 2024 Unique Ports | 203 |
-| Existing HTML Pages | 161 |
-| **Missing (No HTML)** | **100** |
-| **Coverage** | **50.7%** |
+| Existing HTML Pages | 161 → **291** |
+| **Missing (No HTML)** | **~50** (estimated) |
+| **Coverage** | **~75%** (estimated) |
 
 ### Missing Ports by Region
 
@@ -521,7 +524,7 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 ## P2 - Medium (Enhancement)
 
 ### Port Map Integration — Printable/Saveable Maps for Offline Use
-**Status:** Planned (Pilot: Aruba POI index complete)
+**Status:** IN PROGRESS - 186/291 ports (64%) have Leaflet interactive maps
 **Priority:** HIGH - Key differentiator for cruise travelers without ship Wi-Fi
 **Lane:** 🟢 Green (technical infrastructure)
 
@@ -787,6 +790,101 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 - Private island attractions (CocoCay, Labadee)
 - Mayan ruins (Costa Maya: Chacchoben)
 
+#### ✅ European & Atlantic Port Expansion (2025-12-14)
+**Status:** COMPLETE - 10 European and Atlantic ports with interactive Leaflet maps
+**Commits:** 00113f71
+
+**Work Completed:**
+- Created 63 POIs across 10 ports in poi-index.json
+- Created map manifest files (*.map.json) for all 10 ports
+- Added Leaflet CSS and port-map.css links to all HTML pages
+- Added map container sections with port-specific descriptions
+- Added Leaflet JS and port-map.js initialization scripts
+
+**Ports with Maps:**
+| Port | POIs | Map Manifest | Leaflet Map |
+|------|------|--------------|-------------|
+| Copenhagen | 7 | ✅ | ✅ |
+| Bergen | 6 | ✅ | ✅ |
+| Dublin | 7 | ✅ | ✅ |
+| Boston | 7 | ✅ | ✅ |
+| Bar Harbor | 6 | ✅ | ✅ |
+| Cannes | 6 | ✅ | ✅ |
+| Corfu | 6 | ✅ | ✅ |
+| Gibraltar | 6 | ✅ | ✅ |
+| Bordeaux | 6 | ✅ | ✅ |
+| Dover | 6 | ✅ | ✅ |
+
+**Files Created:**
+```
+/assets/data/maps/copenhagen.map.json
+/assets/data/maps/bergen.map.json
+/assets/data/maps/dublin.map.json
+/assets/data/maps/boston.map.json
+/assets/data/maps/bar-harbor.map.json
+/assets/data/maps/cannes.map.json
+/assets/data/maps/corfu.map.json
+/assets/data/maps/gibraltar.map.json
+/assets/data/maps/bordeaux.map.json
+/assets/data/maps/dover.map.json
+```
+
+**POI Highlights:**
+- Nyhavn, Tivoli Gardens, Little Mermaid (Copenhagen)
+- Bryggen UNESCO wharf, Fløibanen funicular (Bergen)
+- Trinity College Book of Kells, Guinness Storehouse, Temple Bar (Dublin)
+- Freedom Trail, Faneuil Hall, USS Constitution, Fenway Park (Boston)
+- Acadia National Park, Cadillac Mountain, Jordan Pond (Bar Harbor)
+- La Croisette, Palais des Festivals, Île Sainte-Marguerite (Cannes)
+- Old Fortress, Achilleion Palace, Paleokastritsa (Corfu)
+- Rock of Gibraltar, St. Michael's Cave, Europa Point (Gibraltar)
+- Cité du Vin, Place de la Bourse Water Mirror, Saint-Émilion (Bordeaux)
+- Dover Castle, White Cliffs, Canterbury (Dover)
+
+#### 📊 Current Progress Summary (Updated 2025-12-14)
+| Metric | Count |
+|--------|-------|
+| Total Port Pages | 291 |
+| Ports with Leaflet Maps | 186 (64%) |
+| Ports Without Maps | 105 (36%) |
+| Map Manifest Files | 105 |
+| POIs in Index | ~800+ |
+
+#### Remaining Ports Without Leaflet Maps (105 ports)
+
+**Europe - Western (14):**
+ajaccio, amalfi, bilbao, cadiz, genoa, gijon, honfleur, ibiza, la-coruna, livorno, malaga, marseille, palma, porto
+
+**Europe - Northern (17):**
+alesund, gdansk, gothenburg, hamburg, helsinki, kiel, le-havre, liverpool, newcastle, oslo, riga, southampton, stavanger, stockholm, tallinn, warnemunde, zeebrugge
+
+**Europe - Mediterranean (13):**
+cagliari, cartagena-spain, cephalonia, heraklion, koper, kusadasi, messina, ravenna, split, taormina, trieste, valencia, valletta
+
+**British Isles (10):**
+belfast, cork, holyhead, invergordon, kirkwall, lerwick, newport, portland, waterford, scotland
+
+**Scandinavia (2):**
+norwegian-fjords, tromso
+
+**Caribbean & Central America (8):**
+belize, bonaire, dominica, grand-turk, grenada, guadeloupe, martinique, roatan
+
+**South America & Africa (6):**
+callao, casablanca, durban, luanda, mindelo, praia
+
+**North America - East Coast (8):**
+charlottetown, halifax, portland-maine, quebec-city, saguenay, saint-john, san-juan, sydney-ns
+
+**North America - West Coast (4):**
+victoria-bc, whittier, panama-canal, progreso
+
+**Asia & Pacific (11):**
+christchurch, hurghada, incheon, kota-kinabalu, lautoka, melbourne, port-moresby, sihanoukville, tangier, tunis, yangon
+
+**Miscellaneous (12):**
+cartagena, cherbourg, mobile, reykjavik, samana, st-kitts, st-petersburg, tortola, vigo, villefranche, virgin-gorda, zadar
+
 #### Watch Items (Quality Standards)
 - **Attribution:** OpenStreetMap © must appear on map AND inside PDF/PNG
 - **Truthfulness:** If a pin is approximate, label it "Approximate access point"
@@ -794,11 +892,12 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 - **Print quality:** PDF must be legible at 300dpi, suitable for cruise-ship print centers
 - **Mobile-first:** Maps must be usable on cruise ship cabin phones with limited Wi-Fi
 
-#### Estimated File Counts
-- POIs to catalog: ~500-800 across 161 ports (5-10 per port average)
-- Static maps to generate: 161 PNG + 161 PDF
-- JavaScript: ~200 lines (port-map.js)
-- Python build scripts: ~400 lines total
+#### Estimated Remaining Work
+- POIs to catalog: ~500-700 across 105 remaining ports (5-7 per port average)
+- Map manifests to create: 105
+- Static maps to generate: 291 PNG + 291 PDF (future Phase 1 work)
+- JavaScript: ✅ DONE (port-map.js exists)
+- CSS: ✅ DONE (port-map.css exists)
 
 ---
 
@@ -815,7 +914,7 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 
 **Phase 1: Core Map (MVP)**
 - [ ] Add map view toggle to Port Tracker (List | Map | Stats tabs)
-- [ ] Display all 161 ports as pins (visited=blue filled, unvisited=gray outline)
+- [ ] Display all 291 ports as pins (visited=blue filled, unvisited=gray outline)
 - [ ] Click pin → popup with port name, visited status, link to guide
 - [ ] Click pin → toggle visited status (syncs bidirectionally with list view)
 - [ ] Zoom-to-region buttons (Caribbean, Alaska, Mediterranean, Northern Europe, etc.)

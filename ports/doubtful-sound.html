@@ -1,0 +1,584 @@
+<!--
+Soli Deo Gloria
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="ai-summary" content="First-person logbook guide to Doubtful Sound scenic cruising with tips for the 'Sound of Silence' experience, bottlenose dolphins, fur seals, pristine wilderness, and navigating New Zealand's deepest fjord."/>
+  <meta name="last-reviewed" content="2025-12-14"/>
+  <meta name="content-protocol" content="ICP-Lite v1.0"/>
+  <title>Doubtful Sound Guide — New Zealand's Deepest Fjord Scenic Cruising | In the Wake</title>
+  <meta name="description" content="First-person logbook guide to Doubtful Sound — pristine wilderness cruising, 'Sound of Silence' experience, bottlenose dolphins, fur seals, three times larger than Milford Sound, and Captain Cook's legacy."/>
+  <link rel="canonical" href="https://cruisinginthewake.com/ports/doubtful-sound.html"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
+  <link rel="stylesheet" href="/assets/styles.css"/>
+
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Ports", "item": "https://cruisinginthewake.com/ports.html"},
+      {"@type": "ListItem", "position": 3, "name": "Doubtful Sound", "item": "https://cruisinginthewake.com/ports/doubtful-sound.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why is it called Doubtful Sound?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Captain James Cook named it Doubtful Harbour in 1770 because he was doubtful whether the winds would be sufficient to sail his ship Endeavour back out of the narrow entrance. The name stuck when it was later classified as a sound (technically a fjord carved by glaciers, not a sound). Unlike Milford Sound which he confidently entered, Cook never actually sailed into Doubtful Sound."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Doubtful Sound differ from Milford Sound?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Doubtful Sound is three times larger than Milford Sound (40 km long vs. 15 km), ten times quieter (fewer visitors), and the deepest of New Zealand's fjords at 421 meters. While Milford sees hundreds of tour boats daily, Doubtful typically has only a handful. Doubtful requires crossing Lake Manapouri and Wilmot Pass to access, making it more remote. Ships experience the famous 'Sound of Silence' — engines cut for total quiet."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the 'Sound of Silence' experience?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The 'Sound of Silence' is a signature moment when the ship's captain cuts all engines in the middle of Doubtful Sound and asks all passengers to remain completely silent for several minutes. The resulting profound quiet — broken only by waterfalls, birdsong, and occasional dolphin breaths — creates an unforgettable experience of New Zealand's pristine wilderness. This tradition is unique to Doubtful Sound cruising."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What wildlife can I see in Doubtful Sound?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Doubtful Sound is home to a resident pod of approximately 60 bottlenose dolphins that have adapted to the freshwater layer (unique behavior). You'll commonly see New Zealand fur seals sunning on rocks, Fiordland crested penguins during breeding season (July-November), and if fortunate, rare endemic species like the Fiordland crested penguin. Birdlife includes kea, weka, and bellbirds. The dolphin sightings are among the most reliable in Fiordland."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When is the best time to cruise Doubtful Sound?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Doubtful Sound is spectacular year-round but each season offers different experiences. Summer (December-February) provides longest daylight and warmest weather. Autumn (March-May) brings stunning foliage and fewer sandflies. Winter (June-August) offers snow-capped peaks and dramatic storms. Spring (September-November) features waterfalls at peak flow from snowmelt. Rain is frequent year-round (over 200 days annually) — this feeds the hundreds of temporary waterfalls cascading down sheer cliffs, creating the fjord's signature atmosphere."
+        }
+      }
+    ]
+  }
+  </script>
+  <!-- LCP Optimization: Preload critical hero images -->
+  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
+
+  <!-- Swiper CSS/JS (primary + CDN fallback) -->
+  <script>
+  (function ensureSwiper(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
+</head>
+<body class="page">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <!-- ARIA Live Regions -->
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+
+  <header class="hero-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
+      </div>
+            <nav class="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
+        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav></div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+      </div>
+      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
+      <div class="hero-credit">
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap page-grid" id="main-content" role="main">
+    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Doubtful Sound</li></ol></nav>
+    <div style="grid-column: 1; grid-row: 1;">
+    <article class="card">
+      <!-- Port Hero with gradient background -->
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #1e3a5f 0%, #2c5f7c 30%, #4a8ba8 60%, #6fb3d2 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
+        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Doubtful Sound</div>
+      </div>
+
+      <h1>Doubtful Sound: Where Silence Speaks</h1>
+      <div class="logbook-entry">
+        <p>This isn't a typical cruise port — you never set foot on land. Instead, the ship glides deep into New Zealand's largest and deepest fjord, a place so remote and pristine that Captain Cook himself doubted he could safely navigate it in 1770. Three times the size of famous Milford Sound but receiving only a fraction of the visitors, Doubtful Sound remains one of Earth's most untouched wilderness areas.</p>
+
+      <figure class="logbook-image float-right">
+        <img src="img/doubtful-sound/doubtful-sound-1.webp" alt="Doubtful Sound fjord view" loading="lazy">
+        <figcaption>Doubtful Sound — <a href="https://commons.wikimedia.org/w/index.php?search=Doubtful%20Sound&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
+        <p>We entered at dawn with mist clinging to peaks that rise 1,200 meters straight from water so deep — 421 meters at its deepest point — that anchoring is impossible. The ship proceeded slowly up the 40-kilometer fjord past hundreds of waterfalls cascading down sheer granite cliffs. Some are permanent torrents with names; most are temporary ribbons that appear after rain and vanish in dry weather. The Fiordland rainforest clings to impossible angles, dense and primeval.</p>
+
+        <p>Then came the "Sound of Silence" — the captain cut engines in Deep Cove and requested everyone remain quiet. For ten minutes: nothing. No engine hum, no human noise, just water dripping, bellbirds calling in the forest, and the distant rumble of a waterfall. The silence felt physical, pressing in from the surrounding peaks. Someone on deck whispered, "This is what the world sounded like before us."</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/doubtful-sound/doubtful-sound-2.webp" alt="Doubtful Sound wilderness" loading="lazy">
+        <figcaption>Doubtful Sound pristine wilderness — <a href="https://commons.wikimedia.org/w/index.php?search=Doubtful%20Sound&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
+        <p>Wildlife appeared throughout the day. A pod of bottlenose dolphins — part of the unique resident population that has adapted to living in the fjord's freshwater surface layer — swam alongside for twenty minutes, surfacing to breathe with audible puffs that echoed off the cliffs. New Zealand fur seals dozed on rocks, occasionally slipping into the water with barely a ripple. Our naturalist guide pointed out a rare Fiordland crested penguin on a distant outcrop — endemic to this coastline and critically endangered.</p>
+
+        <p>The weather shifted constantly: rain squalls turned waterfalls into roaring torrents, then sudden sun broke through to illuminate patches of rainforest in emerald light while mist still clung to the peaks above. The Tasman Sea's freshwater sits atop denser seawater, creating a dark tannin layer that stains the cliffs and gives the depths an almost black appearance. Looking down from the rail felt like peering into an abyss.</p>
+
+        <p>The pros: unmatched wilderness experience with virtually guaranteed wildlife sightings in pristine surroundings far from mass tourism. The "Sound of Silence" alone justifies the journey.</p>
+        <p>The cons: weather is highly unpredictable with over 200 rainy days annually (though rain creates the waterfalls). Visibility can close in quickly. This is raw nature, not a controlled tour — that's precisely the appeal.</p>
+
+        <div class="poignant-highlight">
+          <strong>The Moment That Stays With Me:</strong> Standing on deck during the Sound of Silence with raindrops beginning to fall, watching a dolphin surface twenty feet away and exhale with a sound that carried across the entire fjord, and realizing this place exists exactly as it did when Māori paddled these waters in waka centuries ago.
+        </div>
+      </div>
+
+      <section class="port-section">
+        <h3>Getting Around Doubtful Sound</h3>
+        <p>You remain aboard ship throughout the scenic cruising — the entire experience is from the deck or your balcony. Best viewing spots are the bow (often opened for scenic cruising), any outside deck space, or your private balcony with a warm drink. Dress in layers even in summer; the temperature drops in the shadows of the fjord and rain arrives without warning. Binoculars are essential for spotting wildlife on distant shores.</p>
+      </section>
+
+      <section class="port-section">
+        <h3>Depth Soundings Ashore</h3>
+        <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips for scenic cruising days.</p>
+        <p>Set an early alarm — most ships enter Doubtful Sound at first light, and the dawn scenery with mist is unforgettable. Charge your camera fully the night before; you'll take hundreds of photos. The ship moves slowly (typically 5-8 knots) to maximize viewing time and wildlife encounters. Stay on deck as much as possible — the captain will announce the "Sound of Silence" in advance, usually mid-morning. Rain gear is mandatory; embrace the weather rather than hiding from it. The fjord reveals different moods as conditions shift.</p>
+      </section>
+
+      <!-- Interactive Port Map -->
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>Doubtful Sound Area Map</h3>
+        <p class="map-intro">Interactive map showing the fjord's extent, major arms like Deep Cove and Crooked Arm, wildlife viewing areas, and scenic points. Note: Doubtful Sound is scenic cruising only - no shore landing possible.</p>
+        <div id="doubtful-sound-port-map" class="port-map-container" role="application" aria-label="Interactive map of Doubtful Sound, New Zealand">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Enable JavaScript to view the interactive map.
+            </p>
+          </noscript>
+        </div>
+      </section>
+
+      <section class="port-section">
+        <h3>Frequently Asked Questions</h3>
+        <p><strong>Q: Why is it called Doubtful Sound?</strong><br/>A: Captain Cook was doubtful in 1770 whether winds would be sufficient to sail back out through the narrow entrance — he never entered. The name stuck despite it technically being a fjord, not a sound.</p>
+        <p><strong>Q: How does Doubtful Sound differ from Milford Sound?</strong><br/>A: Three times larger (40 km vs. 15 km), ten times quieter (far fewer visitors), and New Zealand's deepest fjord at 421 meters. Doubtful offers a more remote, pristine wilderness experience.</p>
+        <p><strong>Q: What is the "Sound of Silence" experience?</strong><br/>A: The captain cuts all engines and requests complete quiet for several minutes — the resulting profound silence broken only by nature is unforgettable and unique to Doubtful Sound cruising.</p>
+        <p><strong>Q: What wildlife can I see?</strong><br/>A: Resident bottlenose dolphin pod (approximately 60 individuals), New Zealand fur seals, Fiordland crested penguins, and endemic birds like kea and bellbirds. Dolphin sightings are highly likely.</p>
+        <p><strong>Q: When is the best time to cruise Doubtful Sound?</strong><br/>A: Spectacular year-round. Summer offers warmest weather, autumn brings foliage, winter provides snow-capped drama, spring features peak waterfall flow. Rain is frequent all year — embrace it as part of the experience.</p>
+      </section>
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/doubtful-sound/doubtful-sound-1.webp" alt="Scenic fjord view of Doubtful Sound, New Zealand" loading="lazy">
+          <figcaption>
+            Scenic fjord view of Doubtful Sound, New Zealand
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/doubtful-sound/doubtful-sound-2.webp" alt="Wilderness scenery of Doubtful Sound, New Zealand" loading="lazy">
+          <figcaption>
+            Wilderness scenery of Doubtful Sound, New Zealand
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/doubtful-sound/doubtful-sound-3.webp" alt="Waterfall panorama of Doubtful Sound, New Zealand" loading="lazy">
+          <figcaption>
+            Waterfall panorama of Doubtful Sound, New Zealand
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/doubtful-sound/doubtful-sound-4.webp" alt="Coastal landscape of Doubtful Sound, New Zealand" loading="lazy">
+          <figcaption>
+            Coastal landscape of Doubtful Sound, New Zealand
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>doubtful-sound-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>doubtful-sound-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>doubtful-sound-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>doubtful-sound-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
+  </div>
+  <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+    <section class="page-intro" style="margin: 0 0 1rem 0;">
+      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+        <strong>Quick Answer:</strong> Doubtful Sound is New Zealand's largest and deepest fjord — 40 kilometers of pristine wilderness where cruise ships glide through dramatic scenery featuring hundreds of waterfalls, resident dolphins, and the unforgettable "Sound of Silence" tradition. Three times larger than Milford Sound with a fraction of the visitors.
+      </p>
+    </section>
+        <section class="card author-card-vertical" aria-labelledby="author-heading">
+      <h3 id="author-heading">About the Author</h3>
+      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+        <picture>
+          <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" decoding="async" loading="lazy"/>
+        </picture>
+      </a>
+      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+      <p class="tiny">
+        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+      </p>
+    </section>
+
+    <!-- Nearby Ports Rail -->
+    <section class="card" aria-labelledby="nearby-ports-title">
+        <h3 id="nearby-ports-title">Nearby Ports</h3>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Other ports in this region:
+        </p>
+        <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+      </section>
+
+      <!-- Recent Articles rail -->
+      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+
+
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
+  </aside>
+
+    <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+  </main>
+    <footer class="wrap" role="contentinfo">
+    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p class="tiny" style="margin-top: 0.5rem;">
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
+      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    </p>
+    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+  </footer>
+
+  <script>
+    // Load recent articles
+    (async function() {
+      try {
+        const response = await fetch('/assets/data/articles/index.json');
+        const articles = await response.json();
+        const rail = document.getElementById('recent-rail');
+
+        if (rail && articles && articles.length > 0) {
+          rail.innerHTML = articles.slice(0, 5).map(article => `
+            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
+              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
+                <a href="${article.url}">${article.title}</a>
+              </h4>
+              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+        console.log('Could not load articles:', err);
+      }
+    })();
+  </script>
+
+  <script>
+  (function(){
+    "use strict";
+
+    /* ===== Recent Articles Rail ===== */
+    (async function recentRail(){
+      const rail = document.getElementById('recent-rail');
+      if(!rail) return;
+
+      const fallback = document.getElementById('recent-rail-fallback');
+      if(fallback) fallback.style.display = '';
+
+      async function fetchJSONWithFallback(urls){
+        for (const u of urls){
+          try{
+            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
+            if (res.ok) return await res.json();
+          }catch(err){
+
+          }
+        }
+        return null;
+      }
+
+      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
+
+      function setImageWithFallback(imgEl, primary, altPaths=[]){
+        if(!imgEl) return;
+        const stamp='v=3.010.400';
+        const tried=new Set();
+        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
+        function tryNext(){
+          const next=queue.shift();
+          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
+          if(tried.has(next)) return tryNext();
+          tried.add(next);
+          imgEl.src=next;
+        }
+        imgEl.onerror=tryNext;
+        tryNext();
+      }
+
+      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
+      if(!raw) {
+        if(fallback) {
+          fallback.textContent = 'Unable to load articles';
+          fallback.style.display = '';
+        }
+        return;
+      }
+
+      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
+      if(!items.length) return;
+
+      const here = location.pathname.replace(/\/+$/,'');
+      const view = items.filter(p=>{
+        const href = pick(p,['url','path'],'#');
+        const norm = (href||'').replace(/\/+$/,'');
+        return norm && norm !== here;
+      }).slice(0,6);
+
+      rail.innerHTML = view.map(p=>{
+        const title = pick(p,['title','name'],'Article');
+        const href  = pick(p,['url','path'],'#');
+        const excerpt = pick(p,['excerpt','description'],'');
+        return `
+          <article class="card article-card">
+            <div class="article-card-grid">
+              <div class="article-thumb-wrap">
+                <img class="article-thumb" alt="" decoding="async" loading="lazy">
+              </div>
+              <div class="article-card-body">
+                <h4><a href="\${href}">\${title}</a></h4>
+                \${excerpt ? `<p class="tiny excerpt">\${excerpt}</p>` : ''}
+              </div>
+            </div>
+            <a href="\${href}" class="pill read-more">Read Article →</a></article>`;
+      }).join('');
+
+      const cards = [...rail.querySelectorAll('article.card')];
+      cards.forEach((card,i)=>{
+        const p = view[i] || {};
+        const el = card.querySelector('img.article-thumb');
+        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
+        const title = (pick(p,['title','name'],'')||'').toLowerCase();
+
+        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
+
+        // FORCE override for Top-20
+        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
+          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
+        }
+        // Friendly specifics
+        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
+          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
+        }
+        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
+          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
+        }
+        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
+          primary = '/assets/articles/travel/cover.jpg';
+        }
+
+        // Heuristic fallback
+        if(!primary){
+          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
+          const guess = slugify(href) || slugify(title);
+          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
+        }
+
+        const alts = [];
+        if(primary){
+          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
+          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
+        }
+        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
+      });
+
+      if(fallback) fallback.style.display = 'none';
+
+      // Announce to screen readers
+      const status = document.getElementById('a11y-status');
+      if(status) {
+        status.textContent = `\${view.length} recent articles loaded`;
+      }
+    })();
+  })();
+  </script>
+<!-- Navigation dropdown functionality -->
+    <!-- Navigation dropdown functionality (New Clean Implementation) -->
+  <script>
+  (function() {
+    'use strict';
+    var dropdowns = document.querySelectorAll('.nav-dropdown');
+    function toggleDropdown(dropdown) {
+      var isOpen = dropdown.classList.contains('open');
+      closeAllDropdowns();
+      if (!isOpen) {
+        dropdown.classList.add('open');
+        var btn = dropdown.querySelector('button');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+    function closeAllDropdowns() {
+      dropdowns.forEach(function(dd) {
+        dd.classList.remove('open');
+        var btn = dd.querySelector('button');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+    dropdowns.forEach(function(dropdown) {
+      var btn = dropdown.querySelector('button');
+      if (btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleDropdown(dropdown);
+        });
+        btn.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') { closeAllDropdowns(); btn.focus(); }
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            dropdown.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+            var firstLink = dropdown.querySelector('.dropdown-menu a');
+            if (firstLink) firstLink.focus();
+          }
+        });
+      }
+      var menu = dropdown.querySelector('.dropdown-menu');
+      if (menu) {
+        menu.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') { closeAllDropdowns(); if (btn) btn.focus(); }
+        });
+      }
+    });
+    document.addEventListener('click', function(e) {
+      var isInsideDropdown = false;
+      dropdowns.forEach(function(dd) { if (dd.contains(e.target)) isInsideDropdown = true; });
+      if (!isInsideDropdown) closeAllDropdowns();
+    });
+  })();
+  </script>
+
+  <!-- Nearby Ports Script -->
+  <script>window.currentPortId = 'doubtful-sound';</script>
+  <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Doubtful Sound Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'doubtful-sound-port-map',
+        portSlug: 'doubtful-sound',
+        coordinates: [-45.3000, 166.9500],
+        zoom: 11
+      });
+    }
+  });
+  </script>
+
+</body>
+</html>

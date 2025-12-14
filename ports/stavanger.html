@@ -21,6 +21,9 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -168,7 +171,25 @@ Soli Deo Gloria
         <p><strong>Q: How long for fjord cruise?</strong><br/>A: 3–4 hours is perfect.</p>
         <p><strong>Q: Walk from port?</strong><br/>A: Yes – straight into Gamle Stavanger.</p>
       </section>
-    
+
+    <!-- Interactive Port Map -->
+    <section class="port-section port-map-section" id="port-map-section">
+      <h3>Stavanger Port Map</h3>
+      <p class="map-intro">Interactive map showing cruise terminal and Stavanger attractions. Click any marker for details.</p>
+      <div id="stavanger-port-map" class="port-map-container" role="application" aria-label="Interactive map of Stavanger port and points of interest">
+        <noscript>
+          <p style="padding: 2rem; text-align: center; color: #678;">
+            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=58.970&mlon=5.733#map=13/58.97/5.73" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+          </p>
+        </noscript>
+      </div>
+      <div class="port-map-actions">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('stavanger-port-map')._portMap?.fitBounds(document.getElementById('stavanger-port-map')._portMap.getBounds())">
+          Reset View
+        </button>
+      </div>
+    </section>
+
     <!-- Photo Gallery Section -->
     <section class="port-section photo-gallery">
       <h2>Photo Gallery</h2>
@@ -481,6 +502,22 @@ Soli Deo Gloria
       if (!isInsideDropdown) closeAllDropdowns();
     });
   })();
+  </script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Stavanger Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'stavanger-port-map',
+        portSlug: 'stavanger'
+      });
+    }
+  });
   </script>
 
   <!-- Nearby Ports Script -->
