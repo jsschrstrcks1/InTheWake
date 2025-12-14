@@ -1,0 +1,800 @@
+<!--
+Soli Deo Gloria
+-->
+<!-- ai-breadcrumbs
+     entity: Hakodate
+     type: Port Information Page
+     parent: /ports.html
+     category: Japan Ports
+     cruise-line: Multiple
+     updated: 2025-12-14
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="ai-summary" content="First-person logbook guide to Hakodate with tips for Mount Hakodate night views, morning market, and historic Western architecture."/>
+  <meta name="last-reviewed" content="2025-12-14"/>
+  <meta name="content-protocol" content="ICP-Lite v1.0"/>
+  <title>Hakodate Port Guide — Historic Port & Night Views | In the Wake</title>
+  <meta name="description" content="First-person logbook guide to Hakodate, Japan — Hokkaido's historic port with Mount Hakodate night views, fresh seafood markets, star-shaped fort, and Western architecture."/>
+  <link rel="canonical" href="https://cruisinginthewake.com/ports/hakodate.html"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
+  <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <!-- Port Map Styles (mobile-responsive) -->
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Ports", "item": "https://cruisinginthewake.com/ports.html"},
+      {"@type": "ListItem", "position": 3, "name": "Hakodate", "item": "https://cruisinginthewake.com/ports/hakodate.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Hakodate worth visiting?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely — Hakodate is one of Japan's most historically significant ports with stunning night views from Mount Hakodate, exceptional seafood at the morning market, and beautifully preserved Western architecture in Motomachi district."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best time to visit Mount Hakodate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Evening for the night view (one of Japan's top three), best around sunset. The ropeway runs until 10pm in summer, 9pm in winter. Go early or late to avoid crowds."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What should I eat at Hakodate Morning Market?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Fresh uni (sea urchin) on rice, ikura-don (salmon roe bowl), king crab, and the famous squid breakfast. Markets open at 5am, best before 9am when the cruise crowds arrive."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you walk from the cruise port to attractions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — the port is walkable to Red Brick Warehouses (5 minutes), Morning Market (10 minutes), and Motomachi (15 minutes). Streetcars reach other attractions easily."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need yen in Hakodate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — many small vendors at the morning market and local restaurants are cash-only. ATMs at 7-Eleven and post offices accept international cards."
+        }
+      }
+    ]
+  }
+  </script>
+  <!-- LCP Optimization: Preload critical hero images -->
+  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
+
+  <!-- Swiper CSS/JS (primary + CDN fallback) -->
+  <script>
+  (function ensureSwiper(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
+</head>
+<body class="page">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <!-- ARIA Live Regions -->
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+
+  <header class="hero-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
+      </div>
+            <nav class="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
+        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav></div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+      </div>
+      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
+      <div class="hero-credit">
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap page-grid" id="main-content" role="main">
+    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Hakodate</li></ol></nav>
+    <div style="grid-column: 1; grid-row: 1;">
+    <article class="card">
+      <!-- Port Hero with gradient background -->
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #c1121f 0%, #780000 30%, #003049 60%, #669bbc 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
+        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Hakodate</div>
+      </div>
+
+      <h1>Hakodate: Where Japan First Opened to the World</h1>
+      <div class="logbook-entry">
+        <p>We approached Hakodate at dawn and the first thing I saw was the mountain — a perfect rounded cone at the southern tip of Hokkaido, silhouetted against pink sky. This was the first Japanese port opened to foreign trade in 1854, and you can still feel that history in every cobblestone and church spire.</p>
+
+      <figure class="logbook-image float-right">
+        <img src="img/hakodate/hakodate-1.webp" alt="Hakodate harbor and Mount Hakodate" loading="lazy">
+        <figcaption>Hakodate harbor — <a href="https://commons.wikimedia.org/w/index.php?search=Hakodate&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
+        <p>We docked right downtown and walked straight into the morning market — Hakodate Asaichi — at 6am. Steam rose from vats of boiling crab. Vendors called out in sing-song Japanese. I had breakfast at a tiny counter: fresh uni spooned onto hot rice, ikura glistening like rubies, and a whole grilled squid so tender it melted on my tongue. The old woman serving smiled when I tried to say "oishii" (delicious). This is what you come to Hakodate for — the freshest seafood in Japan, served before most of the world is awake.</p>
+
+        <p>After breakfast we climbed the hills into Motomachi district, where Western diplomats and merchants built their homes 150 years ago. The streets are lined with European-style buildings painted soft yellows and whites: Russian Orthodox churches with onion domes, British consulates with bay windows, French cafes with wrought-iron balconies. It felt like walking through a postcard from 1870. The best view is from the Old British Consulate rose garden, looking down crooked lanes toward the harbor.</p>
+
+      <figure class="logbook-image float-left">
+        <img src="img/hakodate/hakodate-2.webp" alt="Motomachi historic district" loading="lazy">
+        <figcaption>Motomachi district — <a href="https://commons.wikimedia.org/w/index.php?search=Hakodate&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+      </figure>
+
+        <p>We spent the afternoon at Goryokaku Fort, Japan's first Western-style fortress — a perfect five-pointed star surrounded by moats and cherry trees. We climbed the observation tower for the aerial view: the geometry is stunning, like a snowflake carved into the earth. In late April the fort explodes with 1,600 cherry trees in full bloom, but even in summer the grounds are peaceful and shaded, perfect for a slow walk around the ramparts.</p>
+
+        <p>Evening we rode the nostalgic streetcar (unchanged since the 1950s, wood benches and brass fittings) back to the waterfront and wandered the Red Brick Warehouses — Kanemori — converted into shops and restaurants. Had dinner at a tiny izakaya: grilled atka mackerel, sashimi so fresh it was still sweet, hot sake in ceramic cups. Then we rode the ropeway up Mount Hakodate.</p>
+
+        <p>The night view from the summit is ranked one of Japan's top three for a reason. The city spreads below like a glowing hourglass between two bays, lights twinkling all the way to the dark sea beyond. We stayed until the stars came out and the last ropeway car descended through the mist.</p>
+
+        <p>The pros: one of Japan's most historically rich ports with extraordinary seafood, walkable Western architecture, and unforgettable night views.</p>
+        <p>The cons: can get crowded at peak times (morning market, Mount Hakodate at sunset). English signage is improving but still limited outside major tourist areas.</p>
+
+        <p>Practical tips: Visit the morning market early (before 8am). Buy yen before you arrive — many small vendors are cash-only. Streetcar day pass is excellent value. Ride Mount Hakodate ropeway 30 minutes before sunset.</p>
+
+        <div class="poignant-highlight">
+          <strong>The Moment That Stays With Me:</strong> Standing at the morning market counter at 6am, watching steam rise from my bowl of uni and ikura rice while the old vendor smiled and poured green tea, and knowing this simple breakfast was one of the purest tastes I'd ever experienced.
+        </div>
+      </div>
+
+      <section class="port-section">
+        <h3>Port Essentials</h3>
+        <p><strong>Port Location:</strong> Ships dock at Hakodate Port Terminal, directly adjacent to the Red Brick Warehouses and a 5-minute walk to the morning market. You step off the ship into the heart of the historic waterfront.</p>
+
+        <p><strong>Currency:</strong> Japanese Yen (¥). ATMs accepting international cards available at 7-Eleven, Lawson, and post offices. Many small vendors and restaurants are cash-only.</p>
+
+        <p><strong>Language:</strong> Japanese. English signage at major attractions. Helpful staff at tourist information centers speak basic English. Translation apps are invaluable.</p>
+
+        <p><strong>Getting Around:</strong> Hakodate is a walker's city. Everything within the historic core is accessible on foot or via the charming streetcar network. Taxis are available but more expensive than other transport.</p>
+
+        <p><strong>Best Time to Visit:</strong> April-May for cherry blossoms at Goryokaku. July-August for warm weather and festivals. September-October for autumn colors and fewer crowds. Winter is magical but cold.</p>
+
+        <p><strong>Tipping:</strong> Not customary in Japan. Service charges are included. Tipping can cause confusion or embarrassment.</p>
+
+        <p><strong>Tourist Information:</strong> Hakodate Station Tourist Information Center and JR Hakodate Station have English-speaking staff, free maps, and can help book activities.</p>
+      </section>
+
+      <section class="port-section">
+        <h3>Top Experiences in Hakodate</h3>
+        <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">The experiences that define this historic port.</p>
+
+        <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">Mount Hakodate Night View</h4>
+        <p>Take the ropeway (cable car) to the 334-meter summit for one of Japan's three greatest night views. The city spreads below like a glowing hourglass between Hakodate Bay and Tsugaru Strait. Best at sunset or after dark. Ropeway runs until 10pm in summer, 9pm in winter. On clear nights you can see all the way to Honshu across the strait. Go early or late to avoid peak crowds (6-7pm). There's a restaurant and viewing deck at the summit. In winter, bring warm layers — it's windy and cold at the top.</p>
+
+        <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">Hakodate Morning Market (Asaichi)</h4>
+        <p>Wake up early for Japan's freshest seafood breakfast. The market opens at 5am and is best before 9am. Order uni-don (sea urchin on rice), ikura-don (salmon roe bowl), kaisendon (mixed sashimi rice bowl), or the famous ika-somen (fresh squid cut into noodle-like strips). You can catch your own squid from tanks at some stalls. The market covers several blocks with over 250 shops selling crab, scallops, dried fish, and local produce. Don't miss the melon — Hokkaido melons are legendary. Atmosphere is lively, vendors are friendly, and the seafood is as fresh as it gets. Bring cash — many stalls don't take cards.</p>
+
+        <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">Motomachi Historic District</h4>
+        <p>Wander the hillside neighborhood where foreign diplomats and merchants built Western-style homes after the port opened in 1854. Highlights include the Old British Consulate (now a museum with rose garden and harbor views), Russian Orthodox Church (pale green with Byzantine domes), Old Public Hall (yellow and gray Victorian mansion), and dozens of historic churches, tea houses, and galleries. The cobblestone streets, gas lamps, and mix of European and Japanese architecture create a unique atmosphere. Best explored on foot — pick up a walking map at the tourist info center. Golden hour light on these buildings is magical. Many buildings are free to enter; some charge small admission fees.</p>
+
+        <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">Goryokaku Fort and Tower</h4>
+        <p>Japan's first Western-style fortress, completed in 1866 — a massive five-pointed star fort modeled after European designs. Walk the tree-lined moats and earthen ramparts, then climb the adjacent Goryokaku Tower for the aerial view (the star shape is only visible from above). The fort was the site of the last battle of the Boshin War in 1869. Today it's a peaceful park, especially beautiful during cherry blossom season (late April-early May) when 1,600 sakura trees bloom. Free to walk the grounds; tower admission ¥900. The museum inside the tower explains the history. Plan 1-2 hours. Accessible by streetcar (15 minutes from station).</p>
+
+        <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">Kanemori Red Brick Warehouses</h4>
+        <p>Historic waterfront warehouses from the Meiji era (late 1800s) converted into shopping, dining, and craft beer halls. The brickwork is beautifully preserved, and at night the buildings are illuminated against the harbor. Inside you'll find glass-blowing studios, local crafts, seafood restaurants, and brewpubs serving Hakodate beer. The complex includes a beer hall in a converted warehouse with vaulted ceilings and exposed brick — great atmosphere. It's touristy but charming, and the waterfront promenade is lovely at sunset. Walking distance from the cruise terminal (5 minutes). Free to wander; shopping and dining at your own pace.</p>
+
+        <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">Ride the Nostalgic Streetcars</h4>
+        <p>Hakodate's tram network has been running since 1913 — the streetcars themselves are vintage wooden beauties with brass fittings, pull-cord bells, and conductors in uniform. Two lines connect the station, morning market, waterfront, Goryokaku, and Yunokawa Onsen. Single rides ¥210-250; all-day pass ¥600 (excellent value if you're sightseeing). Trams run every 6-12 minutes. It's the most charming way to get around and feels like stepping back in time. Route maps available at tourist centers and hotels. Cash only on board. The tram ride itself is an experience — slow, creaky, and utterly delightful.</p>
+      </section>
+
+      <!-- Interactive Map Section -->
+      <section class="port-section" id="port-map-section">
+        <h3>Hakodate Port Map</h3>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: #678;">Interactive map showing cruise terminal, morning market, Motomachi district, and major attractions.</p>
+        <div id="hakodate-port-map" class="port-map-container" role="application" aria-label="Interactive map of Hakodate port area"></div>
+        <p class="tiny" style="margin-top: 0.5rem; color: #999;">Click markers for details. Streetcar routes connect all major attractions shown.</p>
+      </section>
+
+      <section class="port-section">
+        <h3>Getting Around Hakodate</h3>
+        <p><strong>On Foot:</strong> The historic waterfront district (Red Brick Warehouses, morning market, Motomachi) is entirely walkable from the cruise terminal. Hakodate is a compact city built for strolling. Comfortable shoes recommended for Motomachi's hilly streets.</p>
+
+        <p><strong>Streetcar (Tram):</strong> Two vintage tram lines cover the city. All-day pass ¥600, single rides ¥210-250. Routes connect the station, port, Goryokaku, and Yunokawa Onsen. Trams run 6am-11pm. Cash only on board. Charming, efficient, and quintessentially Hakodate.</p>
+
+        <p><strong>Bus:</strong> Comprehensive network but less tourist-friendly than trams (route signs mostly in Japanese). Useful for reaching Onuma Park or airport. Day passes available.</p>
+
+        <p><strong>Taxi:</strong> Readily available but expensive (base fare ¥500, then ¥80-100 per 340m). Drivers rarely speak English; have your destination written in Japanese. Useful for groups or reaching Mount Hakodate base station if you don't want to walk.</p>
+
+        <p><strong>Mount Hakodate Ropeway:</strong> Cable car to summit runs every 10-15 minutes. Round-trip ¥1,500 adults. Operates until 10pm in summer (Apr-Oct), 9pm in winter. Located in Motomachi; 15-minute walk from Red Brick Warehouses or short taxi ride.</p>
+
+        <p><strong>Rental Bikes:</strong> Available near the station and at some hotels. Hakodate is relatively flat (except Motomachi) and bike-friendly. Good option for reaching Goryokaku.</p>
+
+        <p><strong>Day Trip to Onuma Park:</strong> 30 minutes by train from Hakodate Station (¥680 each way). Beautiful volcanic park with hiking, lakes, and mountain views. Worth it if you have a full day in port.</p>
+      </section>
+
+      <section class="port-section">
+        <h3>Local Food & Drink</h3>
+        <p><strong>Must-Try Dishes:</strong></p>
+        <ul style="margin: 0.75rem 0; padding-left: 1.25rem;">
+          <li><strong>Uni-don:</strong> Fresh sea urchin on rice. Hakodate's signature breakfast. Creamy, sweet, unforgettable.</li>
+          <li><strong>Ikura-don:</strong> Salmon roe rice bowl. The roe bursts in your mouth with oceanic sweetness.</li>
+          <li><strong>Ika-somen:</strong> Squid cut into translucent noodle-like strips. Incredibly fresh and delicate.</li>
+          <li><strong>Kaisendon:</strong> Mixed sashimi rice bowl with tuna, salmon, crab, scallops, and more.</li>
+          <li><strong>King Crab:</strong> Hakodate is famous for taraba-gani (red king crab). Grilled, steamed, or in shabu-shabu.</li>
+          <li><strong>Shio (Salt) Ramen:</strong> Hakodate-style ramen with clear salt-based broth, different from miso or tonkotsu styles found elsewhere.</li>
+          <li><strong>Lucky Pierrot Burger:</strong> Local fast-food chain beloved across Hokkaido. The Chinese Chicken Burger is legendary. Locations near the port.</li>
+        </ul>
+
+        <p><strong>Where to Eat:</strong></p>
+        <ul style="margin: 0.75rem 0; padding-left: 1.25rem;">
+          <li><strong>Morning Market stalls:</strong> Best for ultra-fresh seafood breakfast (uni, ikura, kaisendon).</li>
+          <li><strong>Kanemori Red Brick Warehouses:</strong> Multiple restaurants serving seafood, grilled fish, and craft beer.</li>
+          <li><strong>Hakodate Beer Hall:</strong> Inside the red brick complex. Local beer and Hokkaido pub food.</li>
+          <li><strong>Lucky Pierrot:</strong> Near the waterfront. Quirky, delicious burgers. A local institution.</li>
+          <li><strong>Izakaya in Motomachi:</strong> Small bars serving sake, grilled fish, yakitori, and local specialties.</li>
+        </ul>
+
+        <p><strong>Drinks:</strong> Hakodate has local sake breweries and craft beer. Try Hakodate Beer (available at the red brick warehouse beer hall). Green tea and amazake (sweet fermented rice drink) are common non-alcoholic options. Vending machines everywhere — hot and cold drinks, including canned coffee.</p>
+
+        <p><strong>Sweets:</strong> Hakodate is known for soft-serve ice cream (try the Hokkaido milk flavor), melon (summer), and pastries from European-style bakeries in Motomachi.</p>
+      </section>
+
+      <section class="port-section">
+        <h3>Pro Tips for Hakodate</h3>
+        <ul style="margin: 0.75rem 0; padding-left: 1.25rem;">
+          <li><strong>Get to the morning market early</strong> — before 8am if possible. It's open from 5am and much less crowded before the tour buses arrive.</li>
+          <li><strong>Bring cash</strong> — many market stalls, small restaurants, and streetcars are cash-only. ATMs at convenience stores (7-Eleven, Lawson) accept foreign cards.</li>
+          <li><strong>Buy a streetcar day pass</strong> — ¥600 for unlimited rides. Pays for itself after three trips and makes sightseeing stress-free.</li>
+          <li><strong>Visit Mount Hakodate 30-45 minutes before sunset</strong> — you'll see the view in daylight, twilight, and full darkness. Magical transition.</li>
+          <li><strong>Weather check for Mount Hakodate</strong> — if it's foggy or rainy, the view will be obscured. Check webcams online before you go. On bad weather days, enjoy Motomachi and the market instead.</li>
+          <li><strong>Wear comfortable shoes</strong> — Motomachi is hilly with cobblestones. You'll be doing a lot of walking.</li>
+          <li><strong>Learn basic Japanese phrases</strong> — "Arigato gozaimasu" (thank you), "Sumimasen" (excuse me), "Oishii" (delicious). Locals appreciate the effort.</li>
+          <li><strong>Cherry blossom timing</strong> — Goryokaku's sakura bloom late April to early May. One of Japan's most beautiful hanami (blossom viewing) spots.</li>
+          <li><strong>If you have extra time</strong> — take the train to Onuma Quasi-National Park (30 min) for volcanic landscapes, lake views, and hiking.</li>
+          <li><strong>Respect local customs</strong> — no eating while walking, bow when greeting, remove shoes when required, speak quietly in public transport.</li>
+        </ul>
+      </section>
+
+      <section class="port-section">
+        <h3>Frequently Asked Questions</h3>
+        <p><strong>Q: Is Hakodate worth visiting?</strong><br/>A: Absolutely — Hakodate is one of Japan's most historically significant ports with stunning night views from Mount Hakodate, exceptional seafood at the morning market, and beautifully preserved Western architecture in Motomachi district.</p>
+
+        <p><strong>Q: What is the best time to visit Mount Hakodate?</strong><br/>A: Evening for the night view (one of Japan's top three), best around sunset. The ropeway runs until 10pm in summer, 9pm in winter. Go early or late to avoid crowds.</p>
+
+        <p><strong>Q: What should I eat at Hakodate Morning Market?</strong><br/>A: Fresh uni (sea urchin) on rice, ikura-don (salmon roe bowl), king crab, and the famous squid breakfast. Markets open at 5am, best before 9am when the cruise crowds arrive.</p>
+
+        <p><strong>Q: Can you walk from the cruise port to attractions?</strong><br/>A: Yes — the port is walkable to Red Brick Warehouses (5 minutes), Morning Market (10 minutes), and Motomachi (15 minutes). Streetcars reach other attractions easily.</p>
+
+        <p><strong>Q: Do I need yen in Hakodate?</strong><br/>A: Yes — many small vendors at the morning market and local restaurants are cash-only. ATMs at 7-Eleven and post offices accept international cards.</p>
+
+        <p><strong>Q: How long does it take to visit Goryokaku?</strong><br/>A: 1-2 hours including the tower and grounds. Add 30 minutes travel time by streetcar from the port area.</p>
+
+        <p><strong>Q: Is English widely spoken?</strong><br/>A: Limited outside major tourist sites. Tourist information centers have English speakers. Translation apps and pointing work well. Locals are helpful and patient.</p>
+
+        <p><strong>Q: What's the weather like?</strong><br/>A: Summer (June-Aug): warm, 20-25°C, can be humid. Spring/Fall: mild, 10-20°C, beautiful. Winter (Dec-Feb): cold, 0 to -5°C, snowy. Bring layers.</p>
+
+        <p><strong>Q: Can I visit in winter?</strong><br/>A: Yes — winter is magical with snow-covered streets, fewer crowds, and clear night views. Dress warmly. Christmas illuminations in December are spectacular.</p>
+
+        <p><strong>Q: Best souvenir from Hakodate?</strong><br/>A: Dried seafood from the morning market, local sake, Trappist butter cookies (from nearby monastery), or handmade glass from Motomachi studios.</p>
+      </section>
+
+    <!-- Photo Gallery Section -->
+    <section class="port-section photo-gallery">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="img/hakodate/hakodate-1.webp" alt="Hakodate harbor with Mount Hakodate in background" loading="lazy">
+          <figcaption>
+            Hakodate harbor with Mount Hakodate in background
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/hakodate/hakodate-2.webp" alt="Historic Motomachi district with Western architecture" loading="lazy">
+          <figcaption>
+            Historic Motomachi district with Western architecture
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/hakodate/hakodate-3.webp" alt="Mount Hakodate night view panorama" loading="lazy">
+          <figcaption>
+            Mount Hakodate night view panorama
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/hakodate/hakodate-4.webp" alt="Goryokaku Fort star-shaped fortress" loading="lazy">
+          <figcaption>
+            Goryokaku Fort star-shaped fortress
+            <div class="photo-credit">Photo: WikiMedia Commons</div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Image Credits Section -->
+    <section class="port-section image-credits">
+      <h2>Image Credits</h2>
+      <ul>
+        <li><strong>hakodate-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+        <li><strong>hakodate-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+        <li><strong>hakodate-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+        <li><strong>hakodate-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+      </ul>
+      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
+    </section>
+
+  </article>
+  </div>
+  <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+    <section class="page-intro" style="margin: 0 0 1rem 0;">
+      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+        <strong>Quick Answer:</strong> Hakodate is where Japan opened to the world — climb Mount Hakodate for million-dollar night views, feast on uni and ikura at the 5am market, wander Western-style streets where Russian churches meet Buddhist temples, and ride vintage streetcars through history.
+      </p>
+    </section>
+        <section class="card author-card-vertical" aria-labelledby="author-heading">
+      <h3 id="author-heading">About the Author</h3>
+      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+        <picture>
+          <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" decoding="async" loading="lazy"/>
+        </picture>
+      </a>
+      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+      <p class="tiny">
+        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+      </p>
+    </section>
+
+    <!-- Nearby Ports Rail -->
+    <section class="card" aria-labelledby="nearby-ports-title">
+        <h3 id="nearby-ports-title">Nearby Ports</h3>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Other ports in this region:
+        </p>
+        <div id="nearby-ports" class="rail-list" aria-live="polite">
+          <p class="tiny" style="color:#999;">Loading nearby ports...</p>
+        </div>
+      </section>
+
+      <!-- Recent Articles rail -->
+      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+
+
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
+  </aside>
+
+    <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+  </main>
+    <footer class="wrap" role="contentinfo">
+    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p class="tiny" style="margin-top: 0.5rem;">
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
+      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    </p>
+    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+  </footer>
+
+  <script>
+    // Load recent articles
+    (async function() {
+      try {
+        const response = await fetch('/assets/data/articles/index.json');
+        const articles = await response.json();
+        const rail = document.getElementById('recent-rail');
+
+        if (rail && articles && articles.length > 0) {
+          rail.innerHTML = articles.slice(0, 5).map(article => `
+            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
+              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
+                <a href="${article.url}">${article.title}</a>
+              </h4>
+              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+        console.log('Could not load articles:', err);
+      }
+    })();
+  </script>
+
+  <script>
+  (function(){
+    "use strict";
+
+    /* ===== Recent Articles Rail ===== */
+    (async function recentRail(){
+      const rail = document.getElementById('recent-rail');
+      if(!rail) return;
+
+      const fallback = document.getElementById('recent-rail-fallback');
+      if(fallback) fallback.style.display = '';
+
+      async function fetchJSONWithFallback(urls){
+        for (const u of urls){
+          try{
+            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
+            if (res.ok) return await res.json();
+          }catch(err){
+
+          }
+        }
+        return null;
+      }
+
+      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
+
+      function setImageWithFallback(imgEl, primary, altPaths=[]){
+        if(!imgEl) return;
+        const stamp='v=3.010.400';
+        const tried=new Set();
+        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
+        function tryNext(){
+          const next=queue.shift();
+          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
+          if(tried.has(next)) return tryNext();
+          tried.add(next);
+          imgEl.src=next;
+        }
+        imgEl.onerror=tryNext;
+        tryNext();
+      }
+
+      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
+      if(!raw) {
+        if(fallback) {
+          fallback.textContent = 'Unable to load articles';
+          fallback.style.display = '';
+        }
+        return;
+      }
+
+      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
+      if(!items.length) return;
+
+      const here = location.pathname.replace(/\/+$/,'');
+      const view = items.filter(p=>{
+        const href = pick(p,['url','path'],'#');
+        const norm = (href||'').replace(/\/+$/,'');
+        return norm && norm !== here;
+      }).slice(0,6);
+
+      rail.innerHTML = view.map(p=>{
+        const title = pick(p,['title','name'],'Article');
+        const href  = pick(p,['url','path'],'#');
+        const excerpt = pick(p,['excerpt','description'],'');
+        return `
+          <article class="card article-card">
+            <div class="article-card-grid">
+              <div class="article-thumb-wrap">
+                <img class="article-thumb" alt="" decoding="async" loading="lazy">
+              </div>
+              <div class="article-card-body">
+                <h4><a href="${href}">${title}</a></h4>
+                ${excerpt ? `<p class="tiny excerpt">${excerpt}</p>` : ''}
+              </div>
+            </div>
+            <a href="${href}" class="pill read-more">Read Article →</a>
+          </article>`;
+      }).join('');
+
+      const cards = [...rail.querySelectorAll('article.card')];
+      cards.forEach((card,i)=>{
+        const p = view[i] || {};
+        const el = card.querySelector('img.article-thumb');
+        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
+        const title = (pick(p,['title','name'],'')||'').toLowerCase();
+
+        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
+
+        // FORCE override for Top-20
+        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
+          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
+        }
+        // Friendly specifics
+        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
+          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
+        }
+        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
+          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
+        }
+        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
+          primary = '/assets/articles/travel/cover.jpg';
+        }
+
+        // Heuristic fallback
+        if(!primary){
+          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
+          const guess = slugify(href) || slugify(title);
+          if(guess) primary = `/assets/articles/${guess}/cover.jpg`;
+        }
+
+        const alts = [];
+        if(primary){
+          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
+          alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
+        }
+        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
+      });
+
+      if(fallback) fallback.style.display = 'none';
+
+      // Announce to screen readers
+      const status = document.getElementById('a11y-status');
+      if(status) {
+        status.textContent = `${view.length} recent articles loaded`;
+      }
+    })();
+  })();
+  </script>
+<!-- Navigation dropdown functionality -->
+    <!-- Navigation dropdown functionality (New Clean Implementation) -->
+  <script>
+  (function() {
+    'use strict';
+    var dropdowns = document.querySelectorAll('.nav-dropdown');
+    function toggleDropdown(dropdown) {
+      var isOpen = dropdown.classList.contains('open');
+      closeAllDropdowns();
+      if (!isOpen) {
+        dropdown.classList.add('open');
+        var btn = dropdown.querySelector('button');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+    function closeAllDropdowns() {
+      dropdowns.forEach(function(dd) {
+        dd.classList.remove('open');
+        var btn = dd.querySelector('button');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+    dropdowns.forEach(function(dropdown) {
+      var btn = dropdown.querySelector('button');
+      if (btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleDropdown(dropdown);
+        });
+        btn.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') { closeAllDropdowns(); btn.focus(); }
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            dropdown.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+            var firstLink = dropdown.querySelector('.dropdown-menu a');
+            if (firstLink) firstLink.focus();
+          }
+        });
+      }
+      var menu = dropdown.querySelector('.dropdown-menu');
+      if (menu) {
+        menu.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') { closeAllDropdowns(); if (btn) btn.focus(); }
+        });
+      }
+    });
+    document.addEventListener('click', function(e) {
+      var isInsideDropdown = false;
+      dropdowns.forEach(function(dd) { if (dd.contains(e.target)) isInsideDropdown = true; });
+      if (!isInsideDropdown) closeAllDropdowns();
+    });
+  })();
+  </script>
+
+  <!-- Nearby Ports Script -->
+  <script>window.currentPortId = 'hakodate';</script>
+  <script src="/assets/js/nearby-ports.js?v=3.010.306"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Port Map Initialization -->
+  <script>
+  (function() {
+    'use strict';
+
+    if (typeof PortMap !== 'undefined' && PortMap.init) {
+      PortMap.init({
+        containerId: 'hakodate-port-map',
+        portSlug: 'hakodate'
+      });
+    } else {
+      // Fallback initialization if PortMap library not loaded
+      function initMap() {
+        if (typeof L === 'undefined') {
+          setTimeout(initMap, 100);
+          return;
+        }
+
+        const mapEl = document.getElementById('hakodate-port-map');
+        if (!mapEl) return;
+
+        const isMobile = window.innerWidth < 768;
+        const isSmallMobile = window.innerWidth < 480;
+
+        const map = L.map('hakodate-port-map', {
+          center: [41.7687, 140.7289],
+          zoom: isSmallMobile ? 12 : 13,
+          scrollWheelZoom: !isMobile,
+          tap: true,
+          touchZoom: true
+        });
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+          maxZoom: 18
+        }).addTo(map);
+
+        // Add fullscreen button on mobile
+        if (window.innerWidth < 1024) {
+          const fsBtn = document.createElement('button');
+          fsBtn.className = 'port-map-fullscreen-btn';
+          fsBtn.innerHTML = '⛶';
+          fsBtn.setAttribute('aria-label', 'Toggle fullscreen map');
+          fsBtn.setAttribute('type', 'button');
+
+          fsBtn.addEventListener('click', function() {
+            mapEl.classList.toggle('fullscreen');
+            map.invalidateSize();
+            fsBtn.innerHTML = mapEl.classList.contains('fullscreen') ? '✕' : '⛶';
+            fsBtn.setAttribute('aria-label',
+              mapEl.classList.contains('fullscreen') ? 'Exit fullscreen' : 'Toggle fullscreen map'
+            );
+            document.body.style.overflow = mapEl.classList.contains('fullscreen') ? 'hidden' : '';
+          });
+
+          mapEl.appendChild(fsBtn);
+
+          document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mapEl.classList.contains('fullscreen')) {
+              fsBtn.click();
+            }
+          });
+        }
+
+        // Key locations
+        const locations = [
+          { lat: 41.7730, lon: 140.7350, name: 'Hakodate Port Terminal', type: 'port', notes: 'Cruise ships dock here, walkable to all attractions' },
+          { lat: 41.7700, lon: 140.7280, name: 'Hakodate Morning Market', type: 'dining', notes: 'Fresh seafood breakfast, open 5am-2pm' },
+          { lat: 41.7730, lon: 140.7300, name: 'Kanemori Red Brick Warehouses', type: 'attraction', notes: 'Shopping, dining, and beer halls in historic warehouses' },
+          { lat: 41.7600, lon: 140.7200, name: 'Mount Hakodate Ropeway', type: 'attraction', notes: 'Cable car to summit for famous night views' },
+          { lat: 41.7650, lon: 140.7220, name: 'Motomachi District', type: 'landmark', notes: 'Historic Western-style buildings and churches' },
+          { lat: 41.7980, lon: 140.7570, name: 'Goryokaku Fort & Tower', type: 'landmark', notes: 'Star-shaped fortress with observation tower' }
+        ];
+
+        locations.forEach(poi => {
+          let markerColor = '#3388ff';
+          if (poi.type === 'port') markerColor = '#e74c3c';
+          else if (poi.type === 'dining') markerColor = '#f39c12';
+          else if (poi.type === 'nature') markerColor = '#27ae60';
+          else if (poi.type === 'museum') markerColor = '#9b59b6';
+          else if (poi.type === 'attraction') markerColor = '#e91e63';
+          else if (poi.type === 'landmark') markerColor = '#00bcd4';
+
+          const marker = L.circleMarker([poi.lat, poi.lon], {
+            radius: poi.type === 'port' ? (isMobile ? 12 : 10) : (isMobile ? 9 : 7),
+            fillColor: markerColor,
+            color: '#fff',
+            weight: 2,
+            opacity: 1,
+            fillOpacity: 0.8
+          }).addTo(map);
+
+          let popupContent = `<strong>${poi.name}</strong>`;
+          if (poi.notes) popupContent += `<br><span style="font-size:0.85em;line-height:1.4;">${poi.notes}</span>`;
+
+          marker.bindPopup(popupContent, {
+            maxWidth: isMobile ? 260 : 300,
+            closeButton: true
+          });
+        });
+
+        // Handle window resize
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(function() {
+            map.invalidateSize();
+          }, 100);
+        });
+      }
+
+      initMap();
+    }
+  })();
+  </script>
+
+</body>
+</html>
