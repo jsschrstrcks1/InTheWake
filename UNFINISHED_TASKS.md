@@ -787,6 +787,57 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 - Private island attractions (CocoCay, Labadee)
 - Mayan ruins (Costa Maya: Chacchoben)
 
+#### ✅ European & Atlantic Port Expansion (2025-12-14)
+**Status:** COMPLETE - 10 European and Atlantic ports with interactive Leaflet maps
+**Commits:** 00113f71
+
+**Work Completed:**
+- Created 63 POIs across 10 ports in poi-index.json
+- Created map manifest files (*.map.json) for all 10 ports
+- Added Leaflet CSS and port-map.css links to all HTML pages
+- Added map container sections with port-specific descriptions
+- Added Leaflet JS and port-map.js initialization scripts
+
+**Ports with Maps:**
+| Port | POIs | Map Manifest | Leaflet Map |
+|------|------|--------------|-------------|
+| Copenhagen | 7 | ✅ | ✅ |
+| Bergen | 6 | ✅ | ✅ |
+| Dublin | 7 | ✅ | ✅ |
+| Boston | 7 | ✅ | ✅ |
+| Bar Harbor | 6 | ✅ | ✅ |
+| Cannes | 6 | ✅ | ✅ |
+| Corfu | 6 | ✅ | ✅ |
+| Gibraltar | 6 | ✅ | ✅ |
+| Bordeaux | 6 | ✅ | ✅ |
+| Dover | 6 | ✅ | ✅ |
+
+**Files Created:**
+```
+/assets/data/maps/copenhagen.map.json
+/assets/data/maps/bergen.map.json
+/assets/data/maps/dublin.map.json
+/assets/data/maps/boston.map.json
+/assets/data/maps/bar-harbor.map.json
+/assets/data/maps/cannes.map.json
+/assets/data/maps/corfu.map.json
+/assets/data/maps/gibraltar.map.json
+/assets/data/maps/bordeaux.map.json
+/assets/data/maps/dover.map.json
+```
+
+**POI Highlights:**
+- Nyhavn, Tivoli Gardens, Little Mermaid (Copenhagen)
+- Bryggen UNESCO wharf, Fløibanen funicular (Bergen)
+- Trinity College Book of Kells, Guinness Storehouse, Temple Bar (Dublin)
+- Freedom Trail, Faneuil Hall, USS Constitution, Fenway Park (Boston)
+- Acadia National Park, Cadillac Mountain, Jordan Pond (Bar Harbor)
+- La Croisette, Palais des Festivals, Île Sainte-Marguerite (Cannes)
+- Old Fortress, Achilleion Palace, Paleokastritsa (Corfu)
+- Rock of Gibraltar, St. Michael's Cave, Europa Point (Gibraltar)
+- Cité du Vin, Place de la Bourse Water Mirror, Saint-Émilion (Bordeaux)
+- Dover Castle, White Cliffs, Canterbury (Dover)
+
 #### Watch Items (Quality Standards)
 - **Attribution:** OpenStreetMap © must appear on map AND inside PDF/PNG
 - **Truthfulness:** If a pin is approximate, label it "Approximate access point"
