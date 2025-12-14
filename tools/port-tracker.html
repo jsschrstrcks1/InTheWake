@@ -276,7 +276,7 @@ Soli Deo Gloria
 (function() {
   'use strict';
   
-  // Port database - all 291 ports with metadata and URLs
+  // Port database - all 323 ports with metadata and URLs
   const PORTS_DB = [
   {
     "id": "ajaccio",
@@ -1629,6 +1629,41 @@ Soli Deo Gloria
   { "id": "callao", "name": "Callao (Lima)", "country": "Peru", "region": "South America", "continent": "South America", "url": "/ports/callao.html" },
   { "id": "santos", "name": "Santos", "country": "Brazil", "region": "South America", "continent": "South America", "url": "/ports/santos.html" },
   { "id": "olden", "name": "Olden", "country": "Norway", "region": "Northern Europe", "continent": "Europe", "url": "/ports/olden.html" },
+  // Batch 11 - Asia, Pacific, Africa, South America Expansion
+  { "id": "tianjin", "name": "Tianjin (Beijing)", "country": "China", "region": "Asia", "continent": "Asia", "url": "/ports/tianjin.html" },
+  { "id": "taipei", "name": "Taipei (Keelung)", "country": "Taiwan", "region": "Asia", "continent": "Asia", "url": "/ports/taipei.html" },
+  { "id": "napier", "name": "Napier", "country": "New Zealand", "region": "Pacific", "continent": "Oceania", "url": "/ports/napier.html" },
+  { "id": "mystery-island", "name": "Mystery Island", "country": "Vanuatu", "region": "South Pacific", "continent": "Oceania", "url": "/ports/mystery-island.html" },
+  { "id": "lifou", "name": "Lifou", "country": "New Caledonia", "region": "South Pacific", "continent": "Oceania", "url": "/ports/lifou.html" },
+  { "id": "dravuni", "name": "Dravuni Island", "country": "Fiji", "region": "South Pacific", "continent": "Oceania", "url": "/ports/dravuni.html" },
+  { "id": "port-elizabeth", "name": "Port Elizabeth (Gqeberha)", "country": "South Africa", "region": "Africa", "continent": "Africa", "url": "/ports/port-elizabeth.html" },
+  { "id": "maputo", "name": "Maputo", "country": "Mozambique", "region": "Africa", "continent": "Africa", "url": "/ports/maputo.html" },
+  { "id": "nosy-be", "name": "Nosy Be", "country": "Madagascar", "region": "Africa", "continent": "Africa", "url": "/ports/nosy-be.html" },
+  { "id": "recife", "name": "Recife", "country": "Brazil", "region": "South America", "continent": "South America", "url": "/ports/recife.html" },
+  // Batch 12 - Mediterranean, NZ, South America, Mexico, Central America
+  { "id": "catania", "name": "Catania", "country": "Italy", "region": "Mediterranean", "continent": "Europe", "url": "/ports/catania.html" },
+  { "id": "picton", "name": "Picton", "country": "New Zealand", "region": "Pacific", "continent": "Oceania", "url": "/ports/picton.html" },
+  { "id": "fortaleza", "name": "Fortaleza", "country": "Brazil", "region": "South America", "continent": "South America", "url": "/ports/fortaleza.html" },
+  { "id": "punta-arenas", "name": "Punta Arenas", "country": "Chile", "region": "South America", "continent": "South America", "url": "/ports/punta-arenas.html" },
+  { "id": "manta", "name": "Manta", "country": "Ecuador", "region": "South America", "continent": "South America", "url": "/ports/manta.html" },
+  { "id": "guayaquil", "name": "Guayaquil", "country": "Ecuador", "region": "South America", "continent": "South America", "url": "/ports/guayaquil.html" },
+  { "id": "manzanillo", "name": "Manzanillo", "country": "Mexico", "region": "Mexican Riviera", "continent": "North America", "url": "/ports/manzanillo.html" },
+  { "id": "zihuatanejo", "name": "Zihuatanejo", "country": "Mexico", "region": "Mexican Riviera", "continent": "North America", "url": "/ports/zihuatanejo.html" },
+  { "id": "huatulco", "name": "Huatulco", "country": "Mexico", "region": "Mexican Riviera", "continent": "North America", "url": "/ports/huatulco.html" },
+  { "id": "puntarenas", "name": "Puntarenas", "country": "Costa Rica", "region": "Central America", "continent": "North America", "url": "/ports/puntarenas.html" },
+  // Batch 13 - NZ Scenic, Central America, Remote/Exotic, India
+  { "id": "milford-sound", "name": "Milford Sound", "country": "New Zealand", "region": "Pacific", "continent": "Oceania", "url": "/ports/milford-sound.html" },
+  { "id": "doubtful-sound", "name": "Doubtful Sound", "country": "New Zealand", "region": "Pacific", "continent": "Oceania", "url": "/ports/doubtful-sound.html" },
+  { "id": "corinto", "name": "Corinto", "country": "Nicaragua", "region": "Central America", "continent": "North America", "url": "/ports/corinto.html" },
+  { "id": "puerto-caldera", "name": "Puerto Caldera", "country": "Costa Rica", "region": "Central America", "continent": "North America", "url": "/ports/puerto-caldera.html" },
+  { "id": "pitcairn", "name": "Pitcairn Island", "country": "British Overseas Territory", "region": "South Pacific", "continent": "Oceania", "url": "/ports/pitcairn.html" },
+  { "id": "easter-island", "name": "Easter Island (Rapa Nui)", "country": "Chile", "region": "South Pacific", "continent": "South America", "url": "/ports/easter-island.html" },
+  { "id": "south-georgia", "name": "South Georgia Island", "country": "British Overseas Territory", "region": "South Atlantic", "continent": "Antarctica", "url": "/ports/south-georgia.html" },
+  { "id": "tristan-da-cunha", "name": "Tristan da Cunha", "country": "British Overseas Territory", "region": "South Atlantic", "continent": "Africa", "url": "/ports/tristan-da-cunha.html" },
+  { "id": "st-helena", "name": "St. Helena", "country": "British Overseas Territory", "region": "South Atlantic", "continent": "Africa", "url": "/ports/st-helena.html" },
+  { "id": "ascension", "name": "Ascension Island", "country": "British Overseas Territory", "region": "South Atlantic", "continent": "Africa", "url": "/ports/ascension.html" },
+  { "id": "mumbai", "name": "Mumbai", "country": "India", "region": "Asia", "continent": "Asia", "url": "/ports/mumbai.html" },
+  { "id": "cochin", "name": "Cochin (Kochi)", "country": "India", "region": "Asia", "continent": "Asia", "url": "/ports/cochin.html" },
   // US Homeport Cities (as regular ports of call)
   { "id": "baltimore", "name": "Baltimore", "country": "United States", "region": "East Coast USA", "continent": "North America", "url": "/ports/baltimore.html" },
   { "id": "cape-liberty", "name": "Cape Liberty (New York)", "country": "United States", "region": "East Coast USA", "continent": "North America", "url": "/ports/cape-liberty.html" },
