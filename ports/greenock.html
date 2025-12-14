@@ -222,6 +222,24 @@ Soli Deo Gloria
           <p><strong>Q: Are there organized tours from Greenock?</strong><br/>A: Yes — to Glasgow, Edinburgh, Loch Lomond, Stirling Castle, and combinations. Convenient but more expensive than independent travel by train.</p>
         </section>
 
+    <!-- Interactive Port Map -->
+    <section class="port-section port-map-section" id="port-map-section">
+      <h3>Greenock Port Map</h3>
+      <p class="map-intro">Interactive map showing cruise terminal and Greenock attractions. Click any marker for details.</p>
+      <div id="greenock-port-map" class="port-map-container" role="application" aria-label="Interactive map of Greenock port and points of interest">
+        <noscript>
+          <p style="padding: 2rem; text-align: center; color: #678;">
+            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=55.946&mlon=-4.759#map=11/55.946/-4.759" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+          </p>
+        </noscript>
+      </div>
+      <div class="port-map-actions">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('greenock-port-map')._portMap?.fitBounds(document.getElementById('greenock-port-map')._portMap.getBounds())">
+          Reset View
+        </button>
+      </div>
+    </section>
+
         <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
       </article>
     </div>
