@@ -42,6 +42,10 @@ All work on this project is offered as a gift to God.
 
   <link rel="stylesheet" href="/assets/styles.css"/>
 
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css"/>
+
   <!-- JSON-LD: BreadcrumbList -->
   <script type="application/ld+json">
   {
@@ -219,6 +223,24 @@ All work on this project is offered as a gift to God.
         <p>Marseille rewards the street-smart traveler who stays aware of their surroundings. Like any large port city, it has areas with petty crime — watch bags in crowds and on the Metro. That said, the main tourist areas (Old Port, Le Panier, Notre-Dame de la Garde) are generally safe during the day. The city's grittiness is part of its authenticity; approach it with open eyes and appropriate caution, and you'll find an experience that the polished Riviera ports simply cannot offer.</p>
       </section>
     
+    <!-- Interactive Port Map -->
+    <section class="port-section port-map-section" id="port-map-section">
+      <h3>Marseille Port Map</h3>
+      <p class="map-intro">Interactive map showing cruise terminal and Marseille attractions. Click any marker for details.</p>
+      <div id="marseille-port-map" class="port-map-container" role="application" aria-label="Interactive map of Marseille port and points of interest">
+        <noscript>
+          <p style="padding: 2rem; text-align: center; color: #678;">
+            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=43.300&mlon=5.367#map=13/43.27/5.38" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+          </p>
+        </noscript>
+      </div>
+      <div class="port-map-actions">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('marseille-port-map')._portMap?.fitBounds(document.getElementById('marseille-port-map')._portMap.getBounds())">
+          Reset View
+        </button>
+      </div>
+    </section>
+
     <!-- Photo Gallery Section -->
     <section class="port-section photo-gallery">
       <h2>Photo Gallery</h2>
@@ -556,6 +578,22 @@ All work on this project is offered as a gift to God.
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Marseille Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'marseille-port-map',
+        portSlug: 'marseille'
+      });
+    }
+  });
+  </script>
 
 </body>
 </html>
