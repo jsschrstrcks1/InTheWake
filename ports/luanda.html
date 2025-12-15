@@ -13,6 +13,9 @@ Soli Deo Gloria
     <meta name="content-protocol" content="ICP-Lite v1.0">
 
     <link rel="stylesheet" href="/assets/css/main.css">
+    <!-- Leaflet CSS for interactive maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
     <link rel="canonical" href="https://inthewake.com/ports/luanda">
 
     <script type="application/ld+json">
@@ -152,11 +155,23 @@ Soli Deo Gloria
                 <h4>6. Mercado do Benfica</h4>
                 <p>For a dose of everyday Luanda, visit this sprawling market where vendors sell everything from fresh produce to fabric to carved masks. It's chaotic, colorful, and utterly authentic—women balancing baskets of fruit on their heads, the smell of roasting peanuts and dried fish, merchants calling out prices in Portuguese and local languages. This isn't a tourist market; it's where Luandans shop. Keep your valuables close, bring small kwanza notes for purchases, and ask permission before photographing people. The energy here is electric.</p>
 
-                <h2 id="port-map">Port Map</h2>
-                <div class="port-map-container">
-                    <div id="luanda-port-map" class="port-map"></div>
-                    <p class="map-caption">Interactive map of Luanda showing the port, major landmarks, and city center</p>
-                </div>
+                <!-- Interactive Port Map -->
+                <section class="port-section port-map-section" id="port-map-section">
+                    <h3>Luanda Area Map</h3>
+                    <p class="map-intro">Interactive map showing cruise terminal and Luanda attractions. Click any marker for details.</p>
+                    <div id="luanda-port-map" class="port-map-container" role="application" aria-label="Interactive map of Luanda port and points of interest">
+                        <noscript>
+                            <p style="padding: 2rem; text-align: center; color: #678;">
+                                Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=-8.8147&mlon=13.2302#map=12/-8.8147/13.2302" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+                            </p>
+                        </noscript>
+                    </div>
+                    <div class="port-map-actions">
+                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('luanda-port-map')._portMap?.fitBounds(document.getElementById('luanda-port-map')._portMap.getBounds())">
+                            Reset View
+                        </button>
+                    </div>
+                </section>
 
                 <h2 id="getting-around">Getting Around Luanda</h2>
                 <p><strong>Taxis:</strong> The most practical option for visitors. Blue-and-white taxis are metered and generally more reliable than unmarked cabs. Always agree on the fare beforehand or ensure the meter is running. Hotel taxis or app-based services (when available) tend to be safer.</p>
@@ -294,12 +309,20 @@ Soli Deo Gloria
         </div>
     </footer>
 
-    <script src="/assets/js/port-map.js"></script>
+    <!-- Leaflet JS for interactive maps -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="/assets/js/modules/port-map.js"></script>
+
+    <!-- Initialize Luanda Port Map -->
     <script>
-        PortMap.init({
-            containerId: 'luanda-port-map',
-            portSlug: 'luanda'
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+            PortMap.init({
+                containerId: 'luanda-port-map',
+                portSlug: 'luanda'
+            });
+        }
+    });
     </script>
 </body>
 </html>
