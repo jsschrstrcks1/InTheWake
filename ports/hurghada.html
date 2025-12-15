@@ -75,6 +75,9 @@ Soli Deo Gloria
     </script>
 
     <link rel="stylesheet" href="/styles/main.css">
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
 </head>
 <body>
     <header>
@@ -177,10 +180,21 @@ Soli Deo Gloria
                 </div>
             </section>
 
-            <section id="port-map">
-                <h2>Hurghada Port Map</h2>
-                <div id="hurghada-port-map" class="port-map-container" style="width: 100%; height: 400px; background-color: #e9ecef; border-radius: 8px; margin: 20px 0;">
-                    <!-- Map will be initialized here -->
+            <!-- Interactive Port Map -->
+            <section class="port-section port-map-section" id="port-map-section">
+                <h3>Hurghada Area Map</h3>
+                <p class="map-intro">Interactive map showing cruise terminal and Hurghada attractions. Click any marker for details.</p>
+                <div id="hurghada-port-map" class="port-map-container" role="application" aria-label="Interactive map of Hurghada port and points of interest">
+                    <noscript>
+                        <p style="padding: 2rem; text-align: center; color: #678;">
+                            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=27.2579&mlon=33.8116#map=12/27.2579/33.8116" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+                        </p>
+                    </noscript>
+                </div>
+                <div class="port-map-actions">
+                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('hurghada-port-map')._portMap?.fitBounds(document.getElementById('hurghada-port-map')._portMap.getBounds())">
+                        Reset View
+                    </button>
                 </div>
             </section>
 
@@ -354,13 +368,21 @@ Soli Deo Gloria
         </div>
     </footer>
 
-    <script src="/scripts/port-map.js"></script>
-    <script>
-        // Initialize the port map
-        PortMap.init({
-            containerId: 'hurghada-port-map',
-            portSlug: 'hurghada'
-        });
-    </script>
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Hurghada Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'hurghada-port-map',
+        portSlug: 'hurghada'
+      });
+    }
+  });
+  </script>
+
 </body>
 </html>

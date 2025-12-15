@@ -38,6 +38,9 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
 
   <!-- JSON-LD: BreadcrumbList -->
   <script type="application/ld+json">
@@ -276,6 +279,24 @@ Soli Deo Gloria
           <li><strong>Cacao Capital:</strong> Ecuador produces some of the world's finest cacao. Look for artisan chocolate shops selling Ecuadorian chocolate bars — excellent souvenirs.</li>
           <li><strong>Language:</strong> Very limited English outside major hotels. A few Spanish phrases go a long way. Download a translation app.</li>
         </ul>
+      </section>
+
+      <!-- Interactive Port Map -->
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>Guayaquil Area Map</h3>
+        <p class="map-intro">Interactive map showing cruise terminal and Guayaquil attractions. Click any marker for details.</p>
+        <div id="guayaquil-port-map" class="port-map-container" role="application" aria-label="Interactive map of Guayaquil port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=-2.1894&mlon=-79.8891#map=12/-2.1894/-79.8891" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('guayaquil-port-map')._portMap?.fitBounds(document.getElementById('guayaquil-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
       </section>
 
     <!-- Photo Gallery Section -->
@@ -629,16 +650,20 @@ Soli Deo Gloria
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
 
-  <!-- Port Map Script -->
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Guayaquil Port Map -->
   <script>
-  (function() {
-    if (typeof PortMap !== 'undefined' && PortMap.init) {
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
       PortMap.init({
         containerId: 'guayaquil-port-map',
         portSlug: 'guayaquil'
       });
     }
-  })();
+  });
   </script>
 
 </body>

@@ -38,6 +38,9 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
 
   <!-- JSON-LD: BreadcrumbList -->
   <script type="application/ld+json">
@@ -400,6 +403,24 @@ Soli Deo Gloria
     }
     </script>
 
+    <!-- Interactive Port Map -->
+    <section class="port-section port-map-section" id="port-map-section">
+      <h3>Callao Area Map</h3>
+      <p class="map-intro">Interactive map showing cruise terminal and Callao attractions. Click any marker for details.</p>
+      <div id="callao-port-map" class="port-map-container" role="application" aria-label="Interactive map of Callao port and points of interest">
+        <noscript>
+          <p style="padding: 2rem; text-align: center; color: #678;">
+            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=-12.046&mlon=-77.143#map=12/-12.046/-77.143" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+          </p>
+        </noscript>
+      </div>
+      <div class="port-map-actions">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('callao-port-map')._portMap?.fitBounds(document.getElementById('callao-port-map')._portMap.getBounds())">
+          Reset View
+        </button>
+      </div>
+    </section>
+
     <!-- Back to Ports -->
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
     <section class="page-intro" style="margin: 0 0 1rem 0;">
@@ -635,6 +656,22 @@ Soli Deo Gloria
       });
     }
   })();
+  </script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Callao Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'callao-port-map',
+        portSlug: 'callao'
+      });
+    }
+  });
   </script>
 
 </body>
