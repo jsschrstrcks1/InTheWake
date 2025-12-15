@@ -21,6 +21,9 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -188,7 +191,25 @@ Soli Deo Gloria
         <p><strong>Q: What's the George Washington salt connection?</strong><br/>A: Legend says Washington requested salt from Grand Turk during the Revolutionary War. The salt industry dominated the island for centuries — the old salt flats are now serene wetlands full of birds.</p>
         <p><strong>Q: Is there anything historical to see?</strong><br/>A: Cockburn Town has beautifully preserved 18th–20th century colonial homes, a national museum, and the spot where Columbus allegedly landed. The Grand Turk Lighthouse sits on coastal cliffs with a scenic walking path. Splashdown Grand Turk celebrates the island's spaceflight connection — Mercury and Gemini capsules splashed down nearby.</p>
       </section>
-    
+
+      <!-- Interactive Port Map -->
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>Grand Turk Area Map</h3>
+        <p class="map-intro">Interactive map showing cruise terminal and Grand Turk attractions. Click any marker for details.</p>
+        <div id="grand-turk-port-map" class="port-map-container" role="application" aria-label="Interactive map of Grand Turk port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=21.4575&mlon=-71.1419#map=12/21.4575/-71.1419" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('grand-turk-port-map')._portMap?.fitBounds(document.getElementById('grand-turk-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+      </section>
+
       <!-- Photo Gallery -->
       <section class="port-section" style="background: transparent; border: none; padding: 0;">
         <h3>Grand Turk Gallery</h3>
@@ -505,6 +526,22 @@ Soli Deo Gloria
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Grand Turk Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'grand-turk-port-map',
+        portSlug: 'grand-turk'
+      });
+    }
+  });
+  </script>
 
 </body>
 </html>
