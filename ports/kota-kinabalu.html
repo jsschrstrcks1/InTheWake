@@ -12,6 +12,9 @@ Soli Deo Gloria
     <title>Kota Kinabalu, Malaysia: Borneo Gateway & Mount Kinabalu Views | In The Wake</title>
     <meta name="description" content="A reflective cruise port guide to Kota Kinabalu, Sabah - where Borneo's highest peak meets turquoise marine parks, indigenous cultures, and the vibrant heart of Malaysian Borneo.">
     <link rel="stylesheet" href="/styles/main.css">
+    <!-- Leaflet CSS for interactive maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -145,11 +148,25 @@ Soli Deo Gloria
                     <h4>Mari Mari Cultural Village</h4>
                     <p>About twenty minutes from the city, this living museum recreates the traditional houses of five indigenous Bornean tribes—Kadazan-Dusun, Lundayeh, Murut, Bajau, and Rungus. I've watched demonstrators start fires with bamboo friction, tap rubber trees, and pound sago palm into flour, all while explaining the customs and beliefs that shaped Borneo life before modernization. The performances can feel touristic, but the underlying cultural information is genuine and respectfully presented. You'll taste rice wine, try blowpipe shooting, and gain appreciation for the ingenuity required to thrive in the rainforest. It's educational without being heavy-handed, entertaining without cheapening the traditions it represents.</p>
 
-                    <h2>Port Map & Orientation</h2>
+                    <!-- Interactive Port Map -->
+                    <section class="port-section port-map-section" id="port-map-section">
+                        <h3>Kota Kinabalu Area Map</h3>
+                        <p class="map-intro">Interactive map showing cruise terminal and Kota Kinabalu attractions. Click any marker for details.</p>
+                        <div id="kota-kinabalu-port-map" class="port-map-container" role="application" aria-label="Interactive map of Kota Kinabalu port and points of interest">
+                            <noscript>
+                                <p style="padding: 2rem; text-align: center; color: #678;">
+                                    Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=5.9749&mlon=116.0724#map=12/5.9749/116.0724" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+                                </p>
+                            </noscript>
+                        </div>
+                        <div class="port-map-actions">
+                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('kota-kinabalu-port-map')._portMap?.fitBounds(document.getElementById('kota-kinabalu-port-map')._portMap.getBounds())">
+                                Reset View
+                            </button>
+                        </div>
+                    </section>
 
-                    <div id="kota-kinabalu-port-map" class="port-map-container" style="height: 400px; background: #e8f4f8; display: flex; align-items: center; justify-content: center; margin: 2rem 0; border-radius: 8px;">
-                        <p style="color: #64b5f6;">Interactive map loading...</p>
-                    </div>
+                    <h2>Port Map & Orientation</h2>
 
                     <p>Kota Kinabalu's compact downtown centers on the waterfront along Jalan Tun Fuad Stephens, where Jesselton Point Ferry Terminal serves as the hub for marine park boats. Walking north along the waterfront takes you past the Filipino Market and Central Market, then to the Atkinson Clock Tower and Signal Hill beyond. Gaya Street, one block inland, becomes a vibrant Sunday market filled with locals browsing street food and handicrafts.</p>
 
@@ -291,14 +308,21 @@ Soli Deo Gloria
         </div>
     </footer>
 
-    <script src="/scripts/port-map.js"></script>
+    <!-- Leaflet JS for interactive maps -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="/assets/js/modules/port-map.js"></script>
+
+    <!-- Initialize Kota Kinabalu Port Map -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
             PortMap.init({
                 containerId: 'kota-kinabalu-port-map',
                 portSlug: 'kota-kinabalu'
             });
-        });
+        }
+    });
     </script>
+
 </body>
 </html>
