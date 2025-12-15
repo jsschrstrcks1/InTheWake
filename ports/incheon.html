@@ -84,6 +84,9 @@ Soli Deo Gloria
     </script>
 
     <link rel="stylesheet" href="/css/main.css">
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
     <link rel="canonical" href="https://inthewake.com/ports/incheon.html">
 </head>
 <body>
@@ -158,13 +161,23 @@ Soli Deo Gloria
                 <h4>Incheon Art Platform</h4>
                 <p>If you have extra time and an interest in contemporary art, the Incheon Art Platform occupies a cluster of renovated warehouses in the old port district. Artists' studios, galleries, and performance spaces fill these industrial buildings, creating a small but vibrant arts community. It's free to wander, exhibitions rotate regularly, and you might catch artists at work in open studios. The neighborhood around it retains old port character—narrow streets, modest restaurants, a slower pace than the developed areas.</p>
 
-                <h2 id="port-map-section">Port Map</h2>
-                <div class="map-container">
-                    <div id="incheon-port-map" class="port-map" style="width: 100%; height: 400px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; color: #666;">
-                        <p>Interactive map loading...</p>
+                <!-- Interactive Port Map -->
+                <section class="port-section port-map-section" id="port-map-section">
+                    <h3>Incheon Area Map</h3>
+                    <p class="map-intro">Interactive map showing cruise terminal and Incheon attractions. Click any marker for details.</p>
+                    <div id="incheon-port-map" class="port-map-container" role="application" aria-label="Interactive map of Incheon port and points of interest">
+                        <noscript>
+                            <p style="padding: 2rem; text-align: center; color: #678;">
+                                Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=37.4563&mlon=126.7052#map=12/37.4563/126.7052" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+                            </p>
+                        </noscript>
                     </div>
-                    <p class="map-caption"><em>Incheon port area, Chinatown, and key attractions. Seoul lies approximately 40km east.</em></p>
-                </div>
+                    <div class="port-map-actions">
+                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('incheon-port-map')._portMap?.fitBounds(document.getElementById('incheon-port-map')._portMap.getBounds())">
+                            Reset View
+                        </button>
+                    </div>
+                </section>
 
                 <h2>Getting Around</h2>
 
@@ -295,12 +308,21 @@ Soli Deo Gloria
         </div>
     </footer>
 
-    <script src="/js/portmap.js"></script>
-    <script>
-        PortMap.init({
-            containerId: 'incheon-port-map',
-            portSlug: 'incheon'
-        });
-    </script>
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Incheon Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'incheon-port-map',
+        portSlug: 'incheon'
+      });
+    }
+  });
+  </script>
+
 </body>
 </html>
