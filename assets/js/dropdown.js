@@ -10,6 +10,8 @@
     var dropdowns = document.querySelectorAll('.nav-dropdown');
     if (!dropdowns.length) return;
 
+    var siteNav = document.querySelector('.site-nav');
+
     function toggleDropdown(dropdown) {
       var isOpen = dropdown.classList.contains('open');
       closeAllDropdowns();
@@ -17,6 +19,8 @@
         dropdown.classList.add('open');
         var btn = dropdown.querySelector('button');
         if (btn) btn.setAttribute('aria-expanded', 'true');
+        // Add class to allow overflow on mobile
+        if (siteNav) siteNav.classList.add('dropdown-open');
       }
     }
 
@@ -26,6 +30,8 @@
         var btn = dd.querySelector('button');
         if (btn) btn.setAttribute('aria-expanded', 'false');
       });
+      // Remove overflow class when all closed
+      if (siteNav) siteNav.classList.remove('dropdown-open');
     }
 
     dropdowns.forEach(function(dropdown) {
