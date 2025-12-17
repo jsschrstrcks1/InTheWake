@@ -15,6 +15,9 @@ Soli Deo Gloria
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -97,6 +100,24 @@ Soli Deo Gloria
           <p><strong>Q: What's the best way to get from the airport?</strong><br/>A: SkyBus to Southern Cross Station, then taxi or Uber to the pier. Or direct taxi/Uber for about $60-80 AUD.</p>
           <p><strong>Q: Can I walk to the city from the pier?</strong><br/>A: It's about 4km — better to take the tram (Route 109) or a quick Uber.</p>
         </section>
+
+      <!-- Interactive Port Map -->
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>Melbourne Area Map</h3>
+        <p class="map-intro">Interactive map showing cruise terminal and Melbourne attractions. Click any marker for details.</p>
+        <div id="melbourne-port-map" class="port-map-container" role="application" aria-label="Interactive map of Melbourne port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=-37.8136&mlon=144.9631#map=12/-37.8136/144.9631" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('melbourne-port-map')._portMap?.fitBounds(document.getElementById('melbourne-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+      </section>
       </article>
     </div>
 
@@ -117,5 +138,21 @@ Soli Deo Gloria
   <footer class="wrap" role="contentinfo"><p>© 2025 In the Wake</p></footer>
   <script>window.currentPortId = 'melbourne';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Melbourne Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'melbourne-port-map',
+        portSlug: 'melbourne'
+      });
+    }
+  });
+  </script>
 </body>
 </html>
