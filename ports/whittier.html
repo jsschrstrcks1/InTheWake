@@ -21,6 +21,9 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -197,6 +200,24 @@ Soli Deo Gloria
         <p><strong>Q: Is it worth going to Anchorage?</strong><br/>A: If you've never been to Alaska's largest city, it's worth considering. But most cruisers find the glacier tours a better use of limited port time.</p>
         <p><strong>Q: What's the weather like?</strong><br/>A: Expect rain, mist, or overcast skies — Whittier sees over 200 inches of precipitation annually. Sunny days happen but aren't guaranteed.</p>
         <p><strong>Q: Why does everyone live in one building?</strong><br/>A: Begich Towers is a former Army barracks. With Whittier's brutal weather (wind, rain, snow), consolidated living just makes practical sense. It's one of Alaska's most unusual communities.</p>
+      </section>
+
+      <!-- Interactive Port Map -->
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>Whittier Area Map</h3>
+        <p class="map-intro">Interactive map showing cruise terminal and Whittier attractions. Click any marker for details.</p>
+        <div id="whittier-port-map" class="port-map-container" role="application" aria-label="Interactive map of Whittier port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=60.7731&mlon=-148.6836#map=12/60.7731/-148.6836" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('whittier-port-map')._portMap?.fitBounds(document.getElementById('whittier-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
       </section>
     </article>
   </div>
@@ -475,6 +496,22 @@ Soli Deo Gloria
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Whittier Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'whittier-port-map',
+        portSlug: 'whittier'
+      });
+    }
+  });
+  </script>
 
 </body>
 </html>
