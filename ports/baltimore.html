@@ -249,17 +249,11 @@ Soli Deo Gloria
     </p>
   </footer>
 
-  <script>
-  (function(){
-    var dropdowns = document.querySelectorAll('.nav-dropdown');
-    function closeAllDropdowns() { dropdowns.forEach(function(dd) { dd.classList.remove('open'); var btn = dd.querySelector('button'); if (btn) btn.setAttribute('aria-expanded', 'false'); }); }
-    dropdowns.forEach(function(dropdown) {
-      var btn = dropdown.querySelector('button');
-      if (btn) { btn.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); var wasOpen = dropdown.classList.contains('open'); closeAllDropdowns(); if (!wasOpen) { dropdown.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); } }); }
-    });
-    document.addEventListener('click', function(e) { var isInside = false; dropdowns.forEach(function(dd) { if (dd.contains(e.target)) isInside = true; }); if (!isInside) closeAllDropdowns(); });
-  })();
-  </script>
+  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
   <script>window.currentPortId = 'baltimore';</script>
   <script src="/assets/js/nearby-ports.js"></script>
 
