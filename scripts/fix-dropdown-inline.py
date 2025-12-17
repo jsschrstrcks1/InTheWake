@@ -14,6 +14,12 @@ INLINE_DROPDOWN_PATTERN = re.compile(
     re.DOTALL
 )
 
+# Second pattern for expanded format with 'use strict' and spaces
+INLINE_DROPDOWN_PATTERN_V2 = re.compile(
+    r"<!--[^-]*[Nn]avigation dropdown[^-]*-->\s*<script>\s*\(function\(\)\s*\{.*?var dropdowns.*?closeAllDropdowns.*?\}\)\(\);?\s*</script>",
+    re.DOTALL
+)
+
 # Replacement: external dropdown.js + in-app-browser-escape.js
 REPLACEMENT = '''<!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
@@ -43,9 +49,16 @@ def process_file(filepath):
             return 'added_escape'
         return 'already_done'
 
-    # Check for inline dropdown code
+    # Check for inline dropdown code (pattern 1 - minified)
     if INLINE_DROPDOWN_PATTERN.search(content):
         new_content = INLINE_DROPDOWN_PATTERN.sub(REPLACEMENT, content)
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(new_content)
+        return 'replaced'
+
+    # Check for inline dropdown code (pattern 2 - expanded with 'use strict')
+    if INLINE_DROPDOWN_PATTERN_V2.search(content):
+        new_content = INLINE_DROPDOWN_PATTERN_V2.sub(REPLACEMENT, content)
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(new_content)
         return 'replaced'
