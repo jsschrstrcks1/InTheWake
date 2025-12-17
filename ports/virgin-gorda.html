@@ -6,8 +6,8 @@ Soli Deo Gloria
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="ai-summary" content="First-person logbook guide to Virgin Gorda with tips for The Baths granite boulders and Devil's Bay."/>
-  <meta name="last-reviewed" content="2025-11-21"/>
+  <meta name="ai-summary" content="First-person logbook guide to Virgin Gorda with tips for The Baths 50-million-year-old granite boulders, Devil's Bay, Columbus naming history, and Copper Mine ruins."/>
+  <meta name="last-reviewed" content="2025-12-17"/>
   <meta name="content-protocol" content="ICP-Lite v1.0"/>
   <title>Virgin Gorda Port Guide — The Baths & Devil's Bay | In the Wake</title>
   <meta name="description" content="First-person logbook guide to Virgin Gorda, BVI — The Baths spectacular granite boulder grottos, Devil's Bay beach, and Caribbean snorkeling paradise."/>
@@ -21,6 +21,9 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -128,7 +131,11 @@ Soli Deo Gloria
 
       <h1>Virgin Gorda: My Baths Adventure</h1>
       <div class="logbook-entry">
-        <p>The tender ride from the ship to Spanish Town already had us grinning — water so clear we could see starfish on the bottom. We shared a safari taxi with six other excited cruisers up to The Baths and arrived just after opening (another pro move). The trail down is short but the second you step into the boulder field your jaw drops — house-sized granite spheres scattered like a giant's marbles, forming cathedral-like grottos with shafts of sunlight piercing turquoise pools.</p>
+        <p>Christopher Columbus named this island "La Gorda Virgen" — the Fat Virgin — in 1493, supposedly because the island's silhouette from the sea resembles a rotund woman lying on her side. I can't unsee it now, honestly.</p>
+
+        <p>The tender ride from the ship to Spanish Town already had us grinning — water so clear we could see starfish on the bottom. Spanish Town itself is the oldest permanent settlement in the British Virgin Islands, founded in 1780 and nestled inside what geologists say is an ancient volcanic crater. We shared a safari taxi with six other excited cruisers up to The Baths and arrived just after opening (another pro move). The trail down is short but the second you step into the boulder field your jaw drops — house-sized granite spheres scattered like a giant's marbles, forming cathedral-like grottos with shafts of sunlight piercing turquoise pools.</p>
+
+        <p>Here's the wild part: these granite boulders are around 50 million years old, formed deep beneath the earth's surface when molten rock cooled slowly. Volcanic activity eventually pushed them up, erosion stripped away the softer rock around them, and wind and water spent millennia sculpting them into the rounded giants we see today. Standing among them feels like being in a natural cathedral built by deep time itself.</p>
 
       <figure class="logbook-image float-right">
         <img src="img/virgin-gorda/virgin-gorda-1.webp" alt="Virgin Gorda harbor view" loading="lazy">
@@ -146,10 +153,12 @@ Soli Deo Gloria
 
         <p>Lunch was back at Top of the Baths restaurant — conch fritters and the strongest painkillers I've ever had (BVI recipe with nutmeg on top — dangerous). The view from the pool there is ridiculous; I could have stayed all day.</p>
 
+        <p>On the way back we detoured to see the ruins of the old Copper Mine, a haunted-looking cluster of stone chimney stacks and crumbling walls on the southwestern coast. In the mid-1800s Cornish miners came here chasing copper veins, working the ore until the mines became unprofitable and were abandoned. Now it's a national park — quiet, windswept, and strangely beautiful. The juxtaposition hit me: these same islands where enslaved Africans labored on sugar plantations until abolition in 1834, later saw European miners toiling underground. History layered on history.</p>
+
         <p>The pros: unlike anything else on Earth, and the snorkeling is world-class right there.</p>
         <p>The cons: the trail can be slippery and requires moderate fitness — not stroller or wheelchair friendly.</p>
 
-        <p>Practical tips: Wear proper water shoes with grip — the rocks are slicker than they look. Go as early as humanly possible — we were in the water by 8:45 a.m. and had the place almost to ourselves for an hour. Bring a dry bag for your phone/camera.</p>
+        <p>Practical tips: Wear proper water shoes with grip — the rocks are slicker than they look. Go as early as humanly possible — we were in the water by 8:45 a.m. and had the place almost to ourselves for an hour. Bring a dry bag for your phone/camera. Entry to The Baths National Park is $8 per person (cash or card accepted at the entrance booth).</p>
 
         <div class="poignant-highlight">
           <strong>The Moment That Stays With Me:</strong> Emerging from the last dark tunnel into Devil's Bay, sunlight exploding everywhere, and seeing that perfect crescent of sand and sea with only four other people on it — I actually whispered "no way this is real" out loud.
@@ -174,7 +183,25 @@ Soli Deo Gloria
         <p><strong>Q: How long do The Baths take?</strong><br/>A: 3–5 hours for the full experience including snorkeling and relaxing.</p>
         <p><strong>Q: Can you walk from where the tender drops you?</strong><br/>A: No — you need transport to The Baths.</p>
       </section>
-    
+
+    <!-- Interactive Port Map -->
+    <section class="port-section port-map-section" id="port-map-section">
+      <h3>Virgin Gorda Area Map</h3>
+      <p class="map-intro">Interactive map showing cruise terminal and Virgin Gorda attractions. Click any marker for details.</p>
+      <div id="virgin-gorda-port-map" class="port-map-container" role="application" aria-label="Interactive map of Virgin Gorda port and points of interest">
+        <noscript>
+          <p style="padding: 2rem; text-align: center; color: #678;">
+            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=18.4486&mlon=-64.4397#map=12/18.4486/-64.4397" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+          </p>
+        </noscript>
+      </div>
+      <div class="port-map-actions">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('virgin-gorda-port-map')._portMap?.fitBounds(document.getElementById('virgin-gorda-port-map')._portMap.getBounds())">
+          Reset View
+        </button>
+      </div>
+    </section>
+
       <!-- Photo Gallery -->
       <section class="port-section" style="background: transparent; border: none; padding: 0;">
         <h3>Virgin Gorda Gallery</h3>
@@ -491,6 +518,22 @@ Soli Deo Gloria
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Virgin Gorda Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'virgin-gorda-port-map',
+        portSlug: 'virgin-gorda'
+      });
+    }
+  });
+  </script>
 
 </body>
 </html>

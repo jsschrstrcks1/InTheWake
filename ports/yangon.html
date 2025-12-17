@@ -15,6 +15,9 @@ Soli Deo Gloria
     <meta name="content-protocol" content="ICP-Lite v1.0">
 
     <link rel="stylesheet" href="/css/style.css">
+    <!-- Leaflet CSS for interactive maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
 
     <!-- JSON-LD BreadcrumbList -->
     <script type="application/ld+json">
@@ -179,12 +182,23 @@ Soli Deo Gloria
 
                 <p>Sit. Sip. Watch the world go by. This is Yangon's true heart, beating in tiny cups of tea on crowded sidewalks.</p>
 
-                <h2 id="map-section">Yangon Port Map</h2>
-                <div class="port-map-container">
-                    <div id="yangon-port-map" class="port-map-placeholder">
-                        <p>Interactive map of Yangon's cruise terminals, major attractions, and neighborhoods.</p>
+                <!-- Interactive Port Map -->
+                <section class="port-section port-map-section" id="port-map-section">
+                    <h3>Yangon Area Map</h3>
+                    <p class="map-intro">Interactive map showing cruise terminal and Yangon attractions. Click any marker for details.</p>
+                    <div id="yangon-port-map" class="port-map-container" role="application" aria-label="Interactive map of Yangon port and points of interest">
+                        <noscript>
+                            <p style="padding: 2rem; text-align: center; color: #678;">
+                                Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=16.8409&mlon=96.1735#map=12/16.8409/96.1735" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+                            </p>
+                        </noscript>
                     </div>
-                </div>
+                    <div class="port-map-actions">
+                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('yangon-port-map')._portMap?.fitBounds(document.getElementById('yangon-port-map')._portMap.getBounds())">
+                            Reset View
+                        </button>
+                    </div>
+                </section>
 
                 <h2>Getting Around Yangon</h2>
                 <p><strong>On Organized Tours:</strong> Most cruise passengers book shore excursions that include transportation, guides, and entry fees. This is the easiest option and ensures you'll return to the ship on time.</p>
@@ -311,12 +325,20 @@ Soli Deo Gloria
         </div>
     </footer>
 
-    <script src="/js/port-map.js"></script>
+    <!-- Leaflet JS for interactive maps -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="/assets/js/modules/port-map.js"></script>
+
+    <!-- Initialize Yangon Port Map -->
     <script>
-        PortMap.init({
-            containerId: 'yangon-port-map',
-            portSlug: 'yangon'
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+            PortMap.init({
+                containerId: 'yangon-port-map',
+                portSlug: 'yangon'
+            });
+        }
+    });
     </script>
 </body>
 </html>

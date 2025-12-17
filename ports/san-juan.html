@@ -30,7 +30,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="referrer" content="no-referrer-when-downgrade"/>
   <meta name="ai-summary" content="First-person logbook guide to San Juan with tips for El Morro fortress, Old San Juan blue cobblestones, mofongo, and the birthplace of the piña colada. US territory, no passport needed.">
-  <meta name="last-reviewed" content="2025-11-29">
+  <meta name="last-reviewed" content="2025-12-16">
   <meta name="content-protocol" content="ICP-Lite v1.0">
 
   <!-- SEO: Robots & Crawling -->
@@ -74,6 +74,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
 
   <!-- JSON-LD: BreadcrumbList -->
   <script type="application/ld+json">
@@ -237,13 +240,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <article class="card logbook-entry">
       <h2>My San Juan Logbook</h2>
 
-      <p>Sailing past <strong>El Morro</strong> fortress at sunrise with waves crashing against those 400-year-old walls is one of cruising's most breathtaking arrivals. The six-level citadel rises 140 feet above the Atlantic, its weathered stone a testament to the Spanish Empire's determination to protect their New World gateway. San Juan is the only port where I can step off the gangway and be standing in a 500-year-old UNESCO World Heritage city within five minutes — no taxis, no transfers, just history at my fingertips.</p>
+      <p>Sailing past <strong>El Morro</strong> fortress at sunrise with waves crashing against those centuries-old walls is one of cruising's most breathtaking arrivals. The six-level citadel rises 140 feet above the Atlantic, its weathered stone a testament to the Spanish Empire's determination to protect their New World gateway. San Juan is the only port where I can step off the gangway and be standing in a 500-year-old UNESCO World Heritage city within five minutes — no taxis, no transfers, just history at my fingertips.</p>
 
-      <p>This is the oldest European-founded city in the Americas, settled by Spanish colonists in 1521, making it the second-oldest European capital in the New World. Walk these streets and you're tracing layers of history — indigenous Taíno pathways overlaid with Spanish colonial planning, African influences woven into the cultural fabric, Caribbean rhythms mixed with American practicality. It's a living tapestry of five centuries, and every cobblestone has a story.</p>
+      <p>Founded in 1521, San Juan stands among the oldest European settlements in the Americas. Walk these streets and you're tracing layers of history — indigenous Taíno pathways overlaid with Spanish colonial planning, African influences woven into the cultural fabric, Caribbean rhythms mixed with American practicality. In 1983, UNESCO recognized this extraordinary convergence by designating "La Fortaleza and San Juan National Historic Site" as a World Heritage Site, acknowledging what every visitor instinctively feels: this place preserves something irreplaceable, a living chronicle of empires, cultures, and centuries woven into every stone.</p>
 
-      <p>My perfect San Juan day starts at 8 a.m., stepping off the ship at Pier 3 or 4 right into the heart of Old San Juan. First stop: a café con leche and fresh mallorca (sweet bread dusted with powdered sugar) at <strong>Café Mallorca</strong> on San Francisco Street. Properly caffeinated, I wind through the narrow streets toward El Morro, those distinctive blue cobblestones (actually adoquines, ship ballast from Spain) gleaming after the morning rain.</p>
+      <p>My perfect San Juan day starts at 8 a.m., stepping off the ship at Pier 3 or 4 right into the heart of Old San Juan. First stop: a café con leche and fresh mallorca (sweet bread dusted with powdered sugar) at <strong>Café Mallorca</strong> on San Francisco Street. Properly caffeinated, I wind through the narrow streets toward El Morro, those distinctive blue cobblestones (actually <em>adoquines</em>, blocks cast from iron furnace slag brought as ship ballast from Spain) gleaming after the morning rain.</p>
 
-      <p>The walk to El Morro passes La Fortaleza (the governor's mansion, continuously occupied since 1540), candy-colored colonial buildings with intricate iron balconies, and tiny plazas where old men play dominoes and stray cats nap in the sun. Every street corner reveals another chapter of this remarkable fusion of worlds.</p>
+      <p>The walk to El Morro passes <strong>La Fortaleza</strong>, the oldest executive mansion in continuous use in the Western Hemisphere. Puerto Rico's governors have occupied this fortress-residence since 1540, an unbroken chain of administration spanning nearly five centuries. Beyond it, candy-colored colonial buildings with intricate iron balconies line the streets, and tiny plazas shelter old men playing dominoes and stray cats napping in the sun. Every street corner reveals another chapter of this remarkable fusion of worlds.</p>
 
       <div class="poignant-highlight">
         <strong>The Moment That Stays With Me:</strong> Sitting on El Morro's vast green lawn at golden hour, a cold Medalla beer in hand, while kids flew colorful kites against the fortress walls and salsa music drifted up from the Paseo de la Princesa below. The sun painting the old city pink, the breeze off the Atlantic, the sheer weight of centuries surrounding me — this is why San Juan is my favorite port.
@@ -277,7 +280,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <h2>The Fortress Guardians: El Morro and San Cristóbal</h2>
       <p>These twin citadels form the centerpiece of the <strong>San Juan National Historic Site</strong>, a designation that earned UNESCO World Heritage recognition in 1983. Walking through these fortifications isn't just sightseeing — it's stepping into the strategic military thinking that shaped Caribbean geopolitics for four centuries.</p>
 
-      <p><strong>Castillo San Felipe del Morro</strong>, universally known as El Morro, began construction in 1539 under Spanish rule and wasn't completed until 1790 — a staggering 250-year building project that transformed a simple watchtower with a single cannon into the six-level architectural marvel you see today. Its mission was singular and critical: protect San Juan Bay from naval assault by pirates, privateers, and rival European powers seeking to wrest control of Spain's New World riches.</p>
+      <p><strong>Castillo San Felipe del Morro</strong>, universally known as El Morro, began construction in 1539 under Spanish rule and required more than 200 years to complete — a multi-generational building project that transformed a simple watchtower with a single cannon into the six-level architectural marvel rising 140 feet above the Atlantic that you see today. Its mission was singular and critical: protect San Juan Bay from naval assault by pirates, privateers, and rival European powers seeking to wrest control of Spain's New World riches.</p>
 
       <p>The fortress earned its reputation defending against the British, the Dutch, and countless pirates. In 1595, the legendary English privateer Sir Francis Drake attacked with 27 vessels and more than 2,500 men — and El Morro defeated him. The fortress held. That same impregnable position continued serving military purposes through both World Wars before finally retiring from active duty in 1961, having defended San Juan for over four centuries.</p>
 
@@ -295,7 +298,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <!-- Old San Juan Exploration -->
     <article class="card">
       <h2>Discovering Old San Juan's Colonial Treasures</h2>
-      <p>The moment you set foot on those distinctive cobblestones, you're walking on history. The blue-grey adoquines aren't native stone — they're ballast blocks from Spanish sailing vessels, recycled centuries ago to pave the streets of this New World outpost. Rain brings out their blue tint, creating streets that shimmer like rivers flowing between pastel buildings.</p>
+      <p>The moment you set foot on those distinctive cobblestones, you're walking on history. The blue-grey <em>adoquines</em> aren't native stone — they're blocks cast from iron furnace slag, brought as ballast in the holds of Spanish sailing vessels and recycled centuries ago to pave the streets of this New World outpost. Rain brings out their blue tint, an almost luminous quality, creating streets that shimmer like rivers flowing between pastel buildings.</p>
 
       <p>Old San Juan's architectural palette reads like an artist's dream: salmon pink, butter yellow, Caribbean blue, mint green — Spanish colonial buildings painted in shades that reflect tropical exuberance. Intricate wrought-iron balconies overhang the sidewalks, dripping with flowering plants. The layout follows Spanish colonial planning: a grid anchored by plazas, churches, and administrative buildings, all compressed onto a small peninsula.</p>
 
@@ -323,7 +326,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       <p><strong>Alcapurrias</strong> appear at food stands and truck windows throughout the city. These fritters combine grated green bananas or yautía (a starchy root vegetable) with ground beef or crab, shaped around the filling and deep-fried until golden. They're the perfect street food — handheld, flavorful, inexpensive. Locals eat them hot from the oil, standing on street corners, often with a squeeze of lime.</p>
 
-      <p>And yes, the <strong>piña colada</strong> has genuine historical roots here. While multiple establishments claim to have invented this frozen tropical cocktail in the 1950s and 60s, the drink undeniably became synonymous with Puerto Rican hospitality. Order one at Barrachina on Fortaleza Street, which stakes the most prominent claim to its invention in 1963. Sip it slowly while contemplating that you're drinking the cocktail in its spiritual homeland.</p>
+      <p>And yes, the <strong>piña colada</strong> has genuine historical roots here. While multiple establishments claim to have invented this frozen tropical cocktail, <strong>Barrachina Restaurant</strong> on Fortaleza Street stakes perhaps the most prominent claim, asserting their bartender Ramón "Monchito" Marrero perfected the recipe in 1963. Whether you believe their origin story or one of the competing tales, the drink undeniably became synonymous with Puerto Rican hospitality. Order one at Barrachina and sip it slowly while contemplating that you're drinking the cocktail in its birthplace — or at least one of the contenders for that honor.</p>
 
       <p>Along the Paseo de la Princesa, artisan vendors set up carts in the late afternoon selling traditional treats. Look for women selling <strong>tembleque</strong> (coconut pudding), <strong>flan</strong>, and <strong>arroz con dulce</strong> (sweet rice pudding with coconut and spices). These homemade desserts rarely appear on restaurant menus but represent authentic home cooking.</p>
 
@@ -331,6 +334,24 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       <p>The food truck and street vendor scene thrives in Old San Juan. Don't hesitate to eat from carts and windows — the turnover is high, the food is fresh, and you'll taste authentic preparations at a fraction of restaurant prices. Locals line up at the same vendors tourists pass by, which tells you everything you need to know about quality.</p>
     </article>
+
+    <!-- Interactive Port Map -->
+    <section class="port-section port-map-section" id="port-map-section">
+      <h3>San Juan Area Map</h3>
+      <p class="map-intro">Interactive map showing cruise terminal and San Juan attractions. Click any marker for details.</p>
+      <div id="san-juan-port-map" class="port-map-container" role="application" aria-label="Interactive map of San Juan port and points of interest">
+        <noscript>
+          <p style="padding: 2rem; text-align: center; color: #678;">
+            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=18.4655&mlon=-66.1057#map=12/18.4655/-66.1057" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+          </p>
+        </noscript>
+      </div>
+      <div class="port-map-actions">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('san-juan-port-map')._portMap?.fitBounds(document.getElementById('san-juan-port-map')._portMap.getBounds())">
+          Reset View
+        </button>
+      </div>
+    </section>
 
     <!-- Practical Information -->
     <article class="card">
@@ -598,6 +619,22 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize San Juan Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'san-juan-port-map',
+        portSlug: 'san-juan'
+      });
+    }
+  });
+  </script>
 
 </body>
 </html>

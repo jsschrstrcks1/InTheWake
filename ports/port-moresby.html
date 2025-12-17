@@ -17,6 +17,10 @@ Soli Deo Gloria
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/ports.css">
 
+    <!-- Leaflet CSS for interactive maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
+
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
@@ -154,10 +158,23 @@ Soli Deo Gloria
                     <h4>Varirata National Park</h4>
                     <p>If your ship offers this excursion, consider it seriously. About 45 minutes from the city, Varirata sits in the mountains with stunning views over Port Moresby and the surrounding ranges. The park offers walking trails through primary rainforest where you might see birds of paradise, wallabies, and countless other species. The air is cooler here, a relief from the coastal heat, and the forest is magnificent—ancient, layered, alive with sound. This is the PNG that exists beyond the city, and it's breathtaking.</p>
 
-                    <h2 id="port-map-section">Port Map</h2>
-                    <div id="port-moresby-port-map" class="port-map-container" style="width: 100%; height: 400px; background-color: #e0e0e0; margin: 20px 0;">
-                        <!-- Map will be rendered here by PortMap.js -->
-                    </div>
+                    <!-- Interactive Port Map -->
+                    <section class="port-section port-map-section" id="port-map-section">
+                      <h3>Port Moresby Area Map</h3>
+                      <p class="map-intro">Interactive map showing cruise terminal and Port Moresby attractions. Click any marker for details.</p>
+                      <div id="port-moresby-port-map" class="port-map-container" role="application" aria-label="Interactive map of Port Moresby port and points of interest">
+                        <noscript>
+                          <p style="padding: 2rem; text-align: center; color: #678;">
+                            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=-9.4438&mlon=147.1803#map=12/-9.4438/147.1803" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+                          </p>
+                        </noscript>
+                      </div>
+                      <div class="port-map-actions">
+                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('port-moresby-port-map')._portMap?.fitBounds(document.getElementById('port-moresby-port-map')._portMap.getBounds())">
+                          Reset View
+                        </button>
+                      </div>
+                    </section>
 
                     <h2>Getting Around</h2>
                     <p>Independent navigation in Port Moresby is not recommended for cruise passengers with limited time and unfamiliarity with the city. The public transportation system exists but is inconsistent and not tourist-friendly. Taxis are available but should only be arranged through reputable companies or your ship.</p>
@@ -254,14 +271,20 @@ Soli Deo Gloria
         </div>
     </footer>
 
-    <script src="/js/PortMap.js"></script>
+    <!-- Leaflet JS for interactive maps -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="/assets/js/modules/port-map.js"></script>
+
+    <!-- Initialize Port Moresby Port Map -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            PortMap.init({
-                containerId: 'port-moresby-port-map',
-                portSlug: 'port-moresby'
-            });
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({
+          containerId: 'port-moresby-port-map',
+          portSlug: 'port-moresby'
         });
+      }
+    });
     </script>
 </body>
 </html>

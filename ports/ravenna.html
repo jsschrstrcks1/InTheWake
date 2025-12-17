@@ -6,11 +6,11 @@ Soli Deo Gloria
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="ai-summary" content="First-person logbook guide to Ravenna with tips for Byzantine mosaics, San Vitale, and Galla Placidia."/>
-  <meta name="last-reviewed" content="2025-11-21"/>
+  <meta name="ai-summary" content="First-person logbook guide to Ravenna — capital of Western Roman Empire (402-476 AD), UNESCO World Heritage Site (1996) for eight Byzantine mosaic monuments, and Dante's final resting place (died 1321)."/>
+  <meta name="last-reviewed" content="2025-12-17"/>
   <meta name="content-protocol" content="ICP-Lite v1.0"/>
   <title>Ravenna Port Guide — Byzantine Mosaics & UNESCO Treasures | In the Wake</title>
-  <meta name="description" content="First-person logbook guide to Ravenna, Italy — world capital of Byzantine mosaics, eight UNESCO sites, San Vitale, and Galla Placidia."/>
+  <meta name="description" content="First-person logbook guide to Ravenna, Italy — world's finest 5th & 6th century Byzantine mosaics in gold and blue, eight UNESCO monuments, and Dante Alighieri's tomb where he died in exile 1321."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/ravenna.html"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <!-- Service Worker Registration -->
@@ -21,6 +21,9 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -131,17 +134,21 @@ Soli Deo Gloria
 
     <article class="card"><h1>Ravenna: My Byzantine Masterpiece</h1>
       <div class="logbook-entry">
-        <p>We docked in Porto Corsini and were in Ravenna center in 15 minutes. The city feels like a quiet university town until you step into San Vitale and the entire dome explodes with emerald-green, sapphire, and 24-karat gold mosaics of Justinian and Theodora staring down with emperor eyes. I actually gasped out loud. The Mausoleum of Galla Placidia is tiny but the deepest blue starry sky you'll ever see – it feels like being inside a jewel box.</p>
+        <p>We docked in Porto Corsini and were in Ravenna center in 15 minutes. The city feels like a quiet university town until you step into San Vitale and the entire dome explodes with emerald-green, sapphire, and 24-karat gold mosaics of Justinian and Theodora staring down with emperor eyes. I actually gasped out loud. These are the world's finest 5th and 6th century Byzantine mosaics — surfaces shimmering with tesserae of gold leaf pressed between glass, still radiant after 1,500 years. The blues are so deep they feel like windows into heaven itself.</p>
 
       <figure class="logbook-image float-right">
         <img src="img/ravenna/ravenna-1.webp" alt="Ravenna harbor view" loading="lazy">
         <figcaption>Ravenna — <a href="https://commons.wikimedia.org/w/index.php?search=Ravenna&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
       </figure>
 
-        <p>We visited five of the eight UNESCO sites on foot – each more jaw-dropping than the last. We had lunch — piadina romagnola at Ca' de Vèn – flatbread stuffed with squacquerone cheese and rocket that melts in your mouth. In the afternoon we visited Sant'Apollinare in Classe just outside town – the mosaic apse with sheep and a giant cross in a green field made me tear up.</p>
+        <p>The Mausoleum of Galla Placidia is tiny but the deepest blue starry sky you'll ever see — it feels like being inside a jewel box where time stopped in 425 AD. Ravenna was the capital of the Western Roman Empire from 402 to 476, then the seat of the Ostrogothic Kingdom, then the Byzantine Exarchate. Every emperor and bishop tried to outdo the last with more gold, more color, more glory. In 1996, UNESCO designated eight of these early Christian monuments as World Heritage Sites: San Vitale, Galla Placidia, Sant'Apollinare Nuovo, Sant'Apollinare in Classe, the Arian Baptistery, the Neonian Baptistery, the Mausoleum of Theodoric, and the Archbishop's Chapel.</p>
+
+        <p>We visited five of the eight UNESCO sites on foot — each more jaw-dropping than the last. We had lunch — piadina romagnola at Ca' de Vèn — flatbread stuffed with squacquerone cheese and rocket that melts in your mouth. In the afternoon we visited Sant'Apollinare in Classe just outside town, where the mosaic apse with sheep and a giant cross in a green field made me tear up.</p>
+
+        <p>Then we walked to the Basilica of San Francesco and found Dante Alighieri's tomb tucked beside it — a simple neoclassical shrine with a single lamp that has burned since 1908. Dante died here in exile in 1321, banished from his beloved Florence for political reasons. Florence has repeatedly asked for his remains back; Ravenna has refused every time. There's something poignant about the greatest Italian poet resting in this quiet city of mosaics, far from the home that rejected him. I stood there a long time, thinking about exile and art and what it means to belong somewhere.</p>
 
         <div class="poignant-highlight">
-          <strong>The Moment That Stays With Me:</strong> Standing alone in Galla Placidia with the lights dimmed, the golden doves and starry ceiling glowing like the night sky was poured onto stone 1,600 years ago.
+          <strong>The Moment That Stays With Me:</strong> Standing alone in Galla Placidia with the lights dimmed, the golden doves and starry ceiling glowing like the night sky was poured onto stone 1,600 years ago. And then later, at Dante's tomb, reading the inscription: "Here in this corner lies Dante, exiled from his native land."
         </div>
       </div>
 
@@ -168,7 +175,25 @@ Soli Deo Gloria
         <p><strong>Q: How long for main sites?</strong><br/>A: 5–6 hours at leisurely pace.</p>
         <p><strong>Q: Walk from port?</strong><br/>A: No – shuttle needed.</p>
       </section>
-    
+
+    <!-- Interactive Port Map -->
+    <section class="port-section port-map-section" id="port-map-section">
+      <h3>Ravenna Area Map</h3>
+      <p class="map-intro">Interactive map showing cruise terminal and Ravenna attractions. Click any marker for details.</p>
+      <div id="ravenna-port-map" class="port-map-container" role="application" aria-label="Interactive map of Ravenna port and points of interest">
+        <noscript>
+          <p style="padding: 2rem; text-align: center; color: #678;">
+            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=44.4184&mlon=12.2035#map=12/44.4184/12.2035" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+          </p>
+        </noscript>
+      </div>
+      <div class="port-map-actions">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('ravenna-port-map')._portMap?.fitBounds(document.getElementById('ravenna-port-map')._portMap.getBounds())">
+          Reset View
+        </button>
+      </div>
+    </section>
+
     <!-- Photo Gallery Section -->
     <section class="port-section photo-gallery">
       <h2>Photo Gallery</h2>
@@ -489,6 +514,22 @@ Soli Deo Gloria
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Ravenna Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'ravenna-port-map',
+        portSlug: 'ravenna'
+      });
+    }
+  });
+  </script>
 
 </body>
 </html>

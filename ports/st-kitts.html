@@ -7,7 +7,7 @@ Soli Deo Gloria
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="ai-summary" content="First-person logbook guide to St. Kitts with tips for Cockleshell Beach, Brimstone Hill Fortress, and the scenic railway."/>
-  <meta name="last-reviewed" content="2025-11-20"/>
+  <meta name="last-reviewed" content="2025-12-17"/>
   <meta name="content-protocol" content="ICP-Lite v1.0"/>
   <title>St. Kitts Port Guide — Brimstone Hill & Scenic Railway | In the Wake</title>
   <meta name="description" content="First-person logbook guide to St. Kitts — Cockleshell Beach, Brimstone Hill Fortress, scenic railway with rum punch, and Killer Bee cocktails."/>
@@ -21,6 +21,9 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -128,32 +131,36 @@ Soli Deo Gloria
 
       <h1>St. Kitts: My Fortress & Beach Paradise</h1>
       <div class="logbook-entry">
-        <p>Sailing into Basseterre with Brimstone Hill Fortress looming on the hill feels like entering a pirate movie. My perfect day: shared taxi straight to Cockleshell Beach (great value) – two miles of golden sand, Carambola Beach Club, and the best grilled mahi tacos at Reggae Beach Bar (their Killer Bee rum punch is famous among visitors).</p>
+        <p>Sailing into Basseterre with Brimstone Hill Fortress looming on the hill feels like entering a pirate movie – and you're sailing into history itself. This was the very first West Indian island colonized by Europeans: the English arrived in 1623, the French in 1625, and Columbus himself sighted it in 1493. Walking through the Georgian-inspired capital with its "Circus" modeled on London's Piccadilly, I can feel centuries of stories layered beneath the modern cruise port.</p>
 
       <figure class="logbook-image float-right">
         <img src="img/st-kitts/st-kitts-1.webp" alt="St. Kitts harbor view" loading="lazy">
         <figcaption>St. Kitts — <a href="https://commons.wikimedia.org/w/index.php?search=St%20Kitts&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
       </figure>
 
-        <p>After lunch we do the scenic train ride around the island (the "last railway in the West Indies") with complimentary refreshments and choir singing. Then Brimstone Hill Fortress at golden hour – UNESCO site with insane views. Sunset back at the Port Zante waterfront watching the ship lights come on – the local bars serve Carib beer and Caribbean cocktails for those who enjoy them.</p>
+        <p>My perfect day: shared taxi straight to Cockleshell Beach (great value) – two miles of golden sand, Carambola Beach Club, and the best grilled mahi tacos at Reggae Beach Bar (their Killer Bee rum punch is famous among visitors). This island once had 68 sugar plantations by 1775; the last sugar factory closed in 2005, ending an era that shaped these Caribbean shores for centuries.</p>
+
+        <p>After lunch we board the St. Kitts Scenic Railway – built in 1912 to haul sugar cane harvest, now carrying passengers on a glorious 18-mile track that loops into a 30-mile, three-hour tour around the island with complimentary refreshments and choir singing. Then Brimstone Hill Fortress at golden hour – the "Gibraltar of the West Indies," perched 800 feet up a volcanic cone, designated UNESCO World Heritage in 1999. The British built this masterpiece over a century starting in 1690, constructed by the hands of enslaved Africans whose labor shaped the very stones I walk upon. The views are insane, the history humbling.</p>
+
+        <p>Sunset back at the Port Zante waterfront watching the ship lights come on – the local bars serve Carib beer and Caribbean cocktails for those who enjoy them. St. Kitts gained independence from Britain in 1983, and you can feel that proud island spirit in every sunset.</p>
 
         <div class="poignant-highlight">
-          <strong>The Moment That Stays With Me:</strong> Standing on top of Brimstone Hill as the sun set over Nevis with a handful of other sunset chasers, feeling like I owned the entire Caribbean.
+          <strong>The Moment That Stays With Me:</strong> Standing on top of Brimstone Hill as the sun set over Nevis with a handful of other sunset chasers, feeling like I owned the entire Caribbean – and remembering all the hands that built the fortress beneath my feet.
         </div>
       </div>
 
       <section class="port-section">
         <h3>Getting Around St. Kitts</h3>
-        <p>Port Zante – literally walk off into town. Shared taxis everywhere to beaches (great value).</p>
+        <p>Port Zante – literally walk off into town and explore Basseterre's Georgian-inspired "Circus" square. Shared taxis everywhere to beaches (great value).</p>
 
       <figure class="logbook-image float-left">
         <img src="img/st-kitts/st-kitts-2.webp" alt="St. Kitts waterfront" loading="lazy">
         <figcaption>St. Kitts scenery — <a href="https://commons.wikimedia.org/w/index.php?search=St%20Kitts&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
       </figure>
         <ul>
-          <li><strong>Cockleshell Beach:</strong> Shared taxi (won't break the bank)</li>
-          <li><strong>Brimstone Hill Fortress:</strong> Taxi or tour (worth every penny)</li>
-          <li><strong>Scenic Railway:</strong> Book through cruise line or independently</li>
+          <li><strong>Cockleshell Beach:</strong> Shared taxi (won't break the bank) – two miles of pristine sand</li>
+          <li><strong>Brimstone Hill Fortress:</strong> Taxi or tour (worth every penny) – UNESCO World Heritage site with panoramic views from 800 feet up</li>
+          <li><strong>Scenic Railway:</strong> Book through cruise line or independently – 3-hour narrated tour on the 1912 sugar train, 30 miles around the island</li>
         </ul>
       </section>
 
@@ -167,9 +174,29 @@ Soli Deo Gloria
         <h3>Frequently Asked Questions</h3>
         <p><strong>Q: Best beach?</strong><br/>A: Cockleshell or South Friars – both stunning.</p>
         <p><strong>Q: Killer Bee danger level?</strong><br/>A: Two and you're buzzing, four and you're dancing.</p>
-        <p><strong>Q: Train worth it?</strong><br/>A: 100% – best money you'll spend on the island.</p>
+        <p><strong>Q: Train worth it?</strong><br/>A: 100% – this 1912 sugar railway tour is the best money you'll spend on the island. Three hours of history, scenery, rum punch, and choir singing.</p>
+        <p><strong>Q: How long for Brimstone Hill?</strong><br/>A: Allow 2-3 hours to explore the fortress properly. The views from 800 feet up are worth every minute.</p>
+        <p><strong>Q: What makes St. Kitts historically significant?</strong><br/>A: First West Indian island colonized by Europeans (English 1623, French 1625). The island's 68 sugar plantations once drove Caribbean commerce until the last factory closed in 2005.</p>
       </section>
-    
+
+      <!-- Interactive Port Map -->
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>St. Kitts Area Map</h3>
+        <p class="map-intro">Interactive map showing cruise terminal and St. Kitts attractions. Click any marker for details.</p>
+        <div id="st-kitts-port-map" class="port-map-container" role="application" aria-label="Interactive map of St. Kitts port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=17.3026&mlon=-62.7177#map=12/17.3026/-62.7177" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('st-kitts-port-map')._portMap?.fitBounds(document.getElementById('st-kitts-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+      </section>
+
       <!-- Photo Gallery -->
       <section class="port-section" style="background: transparent; border: none; padding: 0;">
         <h3>St. Kitts Gallery</h3>
@@ -254,7 +281,7 @@ Soli Deo Gloria
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
     <section class="page-intro" style="margin: 0 0 1rem 0;">
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> St. Kitts has Cockleshell Beach with Killer Bee rum punch, UNESCO Brimstone Hill Fortress with insane views, and the last scenic railway in the West Indies with unlimited rum punch and choir singing.
+        <strong>Quick Answer:</strong> The first West Indian island colonized by Europeans (1623), St. Kitts offers Cockleshell Beach with Killer Bee rum punch, the "Gibraltar of the West Indies" Brimstone Hill Fortress (UNESCO 1999), and a historic 1912 sugar railway now carrying passengers on a three-hour island tour with rum punch and choir singing.
       </p>
     </section>
         <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -486,6 +513,22 @@ Soli Deo Gloria
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize St. Kitts Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'st-kitts-port-map',
+        portSlug: 'st-kitts'
+      });
+    }
+  });
+  </script>
 
 </body>
 </html>

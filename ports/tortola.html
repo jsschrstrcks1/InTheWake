@@ -6,11 +6,11 @@ Soli Deo Gloria
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="ai-summary" content="First-person logbook guide to Tortola with tips for The Baths on Virgin Gorda, Smuggler's Cove, and painkillers."/>
-  <meta name="last-reviewed" content="2025-11-20"/>
+  <meta name="ai-summary" content="First-person logbook guide to Tortola — Columbus's 'Land of the Turtle Dove,' Blackbeard's pirate haven, and the Sailing Capital of the Caribbean with The Baths, Fort Burt, and legendary painkillers."/>
+  <meta name="last-reviewed" content="2025-12-17"/>
   <meta name="content-protocol" content="ICP-Lite v1.0"/>
   <title>Tortola Port Guide — The Baths & British Virgin Islands | In the Wake</title>
-  <meta name="description" content="First-person logbook guide to Tortola — The Baths boulder caves on Virgin Gorda, Smuggler's Cove beach, and legendary painkiller cocktails in the BVI."/>
+  <meta name="description" content="First-person logbook guide to Tortola — Columbus's 'Land of the Turtle Dove,' Blackbeard's pirate haven, Sailing Capital of the Caribbean with The Baths boulder caves, Fort Burt history, and legendary painkillers."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/tortola.html"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <!-- Service Worker Registration -->
@@ -21,6 +21,9 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -128,7 +131,11 @@ Soli Deo Gloria
 
       <h1>Tortola: My British Virgin Islands Gateway</h1>
       <div class="logbook-entry">
-        <p>Sailing into Road Town with Sage Mountain behind and yachts everywhere feels exclusive. My perfect day: off the ship and straight to The Baths on Virgin Gorda by ferry plus open safari taxi combo (entrance included) – swimming through boulder caves and grottoes is pure Indiana Jones.</p>
+        <p>Sailing into Road Town harbor feels like entering the "Sailing Capital of the Caribbean" – and that's exactly what it is. Tortola means "Land of the Turtle Dove" (Columbus named it in 1493), and everywhere I look there are more yachts than I can count. This isn't just a cruise port – it's where sailors from around the world come to charter boats and explore the BVI archipelago.</p>
+
+        <p>The island has pirate blood in its veins. Blackbeard himself terrorized these waters in the 1700s when Tortola was a haven for buccaneers. Now it welcomes over 720,000 visitors a year as the busiest cruise port in the British Virgin Islands, thanks to that $82 million port renovation in 2015 with its impressive 1,039-foot pier.</p>
+
+        <p>My perfect day: off the ship and straight to The Baths on Virgin Gorda by ferry plus open safari taxi combo (entrance included) – swimming through boulder caves and grottoes is pure Indiana Jones.</p>
 
       <figure class="logbook-image float-right">
         <img src="img/tortola/tortola-1.webp" alt="Tortola harbor view" loading="lazy">
@@ -141,6 +148,15 @@ Soli Deo Gloria
           <strong>The Moment That Stays With Me:</strong> Emerging from the cave at The Baths into Devil's Bay – the most perfect beach I've ever seen.
         </div>
       </div>
+
+      <section class="port-section">
+        <h3>A Walk Through History</h3>
+        <p>Road Town has layers of history you can still touch. I love wandering Main Street to see St. George's Anglican Church (the craftsmanship is beautiful) and the Virgin Islands Folk Museum – small but full of stories about life here before and after slavery was abolished in 1834. The old sugar and tobacco plantations are gone now, replaced by yacht marinas and tourism.</p>
+
+        <p>Fort Burt sits on the hill overlooking the harbor – it's been watching over this anchorage since the 1700s when the Dutch and British fought over these islands. The views alone are worth the climb, and standing up there I can imagine what the lookouts saw when they spotted pirate sails on the horizon.</p>
+
+        <p>The Dutch first settled here in 1648, then the English came and stayed for 300 years. That British influence is everywhere – driving on the left, afternoon tea culture, and the proper cricket pitch in town.</p>
+      </section>
 
       <section class="port-section">
         <h3>Getting Around Tortola</h3>
@@ -160,16 +176,38 @@ Soli Deo Gloria
       <section class="port-section">
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
-        <p>The open-air safari taxis and bumpy roads are Tortola's way of giving you a free island roller-coaster with ocean views!</p>
+        <p>The open-air safari taxis and bumpy roads are Tortola's way of giving you a free island roller-coaster with ocean views! Road Town can feel busy during cruise days – those 720,000+ annual visitors have to go somewhere – but the yacht charter scene means you'll also spot serious sailors provisioning their boats and talking wind speeds and anchorages.</p>
+
+        <p>The harbor is always full of beautiful sailing yachts. Don't be surprised if you see more sailboats than powerboats – this really is the yacht chartering capital of the Caribbean, and people fly in from all over the world just to pick up their bareboat charters here.</p>
       </section>
 
       <section class="port-section">
         <h3>Frequently Asked Questions</h3>
         <p><strong>Q: The Baths worth the trip?</strong><br/>A: #1 thing to do in the entire BVI.</p>
         <p><strong>Q: Best painkiller?</strong><br/>A: Soggy Dollar Bar on Jost if you have time, otherwise Pusser's in Road Town.</p>
+        <p><strong>Q: Is the pirate history real?</strong><br/>A: Absolutely. Blackbeard and other pirates used the BVI as a base in the 1700s. The narrow channels and hidden coves made it perfect for ambushing merchant ships.</p>
+        <p><strong>Q: Why so many sailboats?</strong><br/>A: Tortola is the yacht charter capital of the Caribbean. Perfect winds, protected anchorages, and island-hopping sailing make this a sailor's paradise.</p>
         <p><strong>Q: Hurricane damage?</strong><br/>A: Almost everything rebuilt and beautiful.</p>
       </section>
-    
+
+    <!-- Interactive Port Map -->
+    <section class="port-section port-map-section" id="port-map-section">
+      <h3>Tortola Area Map</h3>
+      <p class="map-intro">Interactive map showing cruise terminal and Tortola attractions. Click any marker for details.</p>
+      <div id="tortola-port-map" class="port-map-container" role="application" aria-label="Interactive map of Tortola port and points of interest">
+        <noscript>
+          <p style="padding: 2rem; text-align: center; color: #678;">
+            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=18.4167&mlon=-64.6167#map=12/18.4167/-64.6167" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+          </p>
+        </noscript>
+      </div>
+      <div class="port-map-actions">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('tortola-port-map')._portMap?.fitBounds(document.getElementById('tortola-port-map')._portMap.getBounds())">
+          Reset View
+        </button>
+      </div>
+    </section>
+
       <!-- Photo Gallery -->
       <section class="port-section" style="background: transparent; border: none; padding: 0;">
         <h3>Tortola Gallery</h3>
@@ -254,7 +292,7 @@ Soli Deo Gloria
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
     <section class="page-intro" style="margin: 0 0 1rem 0;">
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Tortola is the gateway to the BVI – The Baths on Virgin Gorda (swimming through boulder caves is #1 in the BVI), Smuggler's Cove secluded beach, and legendary painkiller cocktails at Soggy Dollar Bar.
+        <strong>Quick Answer:</strong> Tortola – "Land of the Turtle Dove" and the Sailing Capital of the Caribbean – is your gateway to the BVI. Don't miss The Baths on Virgin Gorda (swimming through boulder caves is #1), Blackbeard's old pirate haven history, Fort Burt views, Smuggler's Cove beach, and legendary painkiller cocktails.
       </p>
     </section>
         <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -486,6 +524,22 @@ Soli Deo Gloria
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Tortola Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'tortola-port-map',
+        portSlug: 'tortola'
+      });
+    }
+  });
+  </script>
 
 </body>
 </html>
