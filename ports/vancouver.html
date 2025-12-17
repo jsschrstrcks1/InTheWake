@@ -1,175 +1,431 @@
 <!--
 Soli Deo Gloria
 -->
+<!-- ai-breadcrumbs
+     entity: Vancouver
+     type: Port Information Page
+     parent: /ports.html
+     category: Alaska Gateway Ports
+     cruise-line: Multiple
+     updated: 2025-12-17
+-->
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="utf-8"/>
+  <script>document.documentElement.classList.remove('no-js');</script>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="ai-summary" content="Vancouver cruise port guide covering embarkation for Alaska cruises, Canada Place terminal, hotels, and pre-cruise activities."/>
-  <meta name="last-reviewed" content="2025-12-01"/>
+  <meta name="ai-summary" content="Vancouver is the premier Alaska cruise gateway — Canada Place terminal, Stanley Park, Granville Island, and world-class Asian cuisine make extra pre-cruise days essential."/>
+  <meta name="last-reviewed" content="2025-12-17"/>
   <meta name="content-protocol" content="ICP-Lite v1.0"/>
-  <title>Vancouver Cruise Port Guide — Canada Place | In the Wake</title>
-  <meta name="description" content="Vancouver cruise port guide — Canada Place terminal, hotels, embarkation tips for Alaska cruises, and pre-cruise activities in British Columbia."/>
+  <title>Vancouver Port Guide — Gateway to Alaska Cruises | In the Wake</title>
+  <meta name="description" content="First-person logbook guide to Vancouver — Canada Place terminal, Stanley Park seawall, Granville Island, Gastown, and why this spectacular city deserves extra days before your Alaska cruise."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/vancouver.html"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
-  <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
-  <link rel="stylesheet" href="/assets/styles.css"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
+
+  <!-- Service Worker Registration -->
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
+
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
+
   <!-- Leaflet CSS for interactive maps -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
-  </head>
+
+  <!-- JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Ports", "item": "https://cruisinginthewake.com/ports.html"},
+      {"@type": "ListItem", "position": 3, "name": "Vancouver", "item": "https://cruisinginthewake.com/ports/vancouver.html"}
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do I need a passport for Vancouver?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — US citizens need a valid passport to enter Canada and for the Alaska cruise."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best way from Vancouver airport to Canada Place?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Canada Line SkyTrain is efficient, affordable ($9.35 CAD), and drops you right at Waterfront Station, a short walk to the cruise terminal."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- LCP Optimization: Preload critical hero images -->
+  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
+
+  <!-- Swiper CSS/JS (primary + CDN fallback) -->
+  <script>
+  (function ensureSwiper(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
+</head>
+
 <body class="page">
+  <!-- Skip Link -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
+  <!-- ARIA Live Regions -->
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+
   <header class="hero-header" role="banner">
     <div class="navbar">
-      <div class="brand"><img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake"/><span class="tiny version-badge">V1.Beta</span></div>
-      <nav class="site-nav"><a class="nav-pill" href="/">Home</a><a class="nav-pill" href="/ports.html">Ports</a><a class="nav-pill" href="/search.html">Search</a></nav>
+      <div class="brand">
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
+      </div>
+      <nav class="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
+        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav>
     </div>
+
+    <!-- Hero -->
     <div class="hero">
-      <img class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="" aria-hidden="true"/>
-      <div class="hero-title"><img class="logo" src="/assets/logo_wake_560.png" alt="In the Wake" width="560" height="567"/></div>
-      <div class="tagline">A Cruise Traveler's Logbook</div>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+      </div>
+      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
+      <div class="hero-credit">
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+      </div>
     </div>
   </header>
 
-  <main class="wrap page-grid" id="main-content" role="main">
+<!-- MAIN CONTENT -->
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
 
     <div style="grid-column: 1; grid-row: 1;">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; font-size: 0.9rem;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;">Vancouver</li></ol></nav>
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Vancouver</li></ol></nav>
 
-    <div style="grid-column: 1;">
-      <article class="card">
-        <div style="position: relative; margin-bottom: 1.5rem;">
-          <div class="port-hero">Gateway to Alaska</div>
-          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: Georgia, serif; font-size: clamp(3rem, 10vw, 6rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); letter-spacing: 0.1em; text-transform: uppercase;">Vancouver</div>
-        </div>
+    <!-- Port Header -->
+    <article class="card">
+      <!-- Port Hero with gradient background -->
+      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #1a535c 0%, #4ecdc4 30%, #a8e6cf 60%, #f1faee 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
+        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Vancouver</div>
+      </div>
 
-        <h1>Vancouver: Where Mountains Meet the Sea</h1>
+      <h1>Vancouver, British Columbia</h1>
+      <p style="font-size: 0.95rem; color: #456; margin-bottom: 0;">
+        <strong>Region:</strong> Pacific Northwest &nbsp;|&nbsp; <strong>Season:</strong> April – October &nbsp;|&nbsp; <strong>Terminal:</strong> Canada Place
+      </p>
+    </article>
 
-        <div class="logbook-entry">
-          <p>Vancouver's Canada Place terminal is one of the most spectacular cruise embarkation points in the world — five white sails reaching skyward, surrounded by mountains, water, and one of North America's most beautiful cities. This is the northern gateway for Alaska cruises, offering one-way itineraries to/from <a href="/ports/seattle.html">Seattle</a>.</p>
+    <!-- First-Person Logbook Entry -->
+    <article class="card logbook-entry">
+      <h2>My Vancouver Logbook</h2>
 
-          <p>The city itself deserves serious exploration: Stanley Park's seawall, Granville Island's markets, Gastown's steam clock, and some of the best Asian cuisine outside of Asia. Plan extra days — you'll be glad you did.</p>
+      <p>Vancouver's Canada Place terminal is one of the most spectacular cruise embarkation points in the world — five white sails reaching skyward, surrounded by mountains, water, and one of North America's most beautiful cities. This is the northern gateway for Alaska cruises, offering one-way itineraries to and from Seattle that let you see more of the Inside Passage without backtracking.</p>
 
-          <div class="poignant-highlight">
-            <strong>Vancouver Magic:</strong> Rent bikes and ride the Stanley Park seawall at sunset. When the mountains turn pink and the cruise ships light up in the harbor, you'll understand why people fall in love with this city.
-          </div>
-        </div>
+      <p>The city itself deserves serious exploration. I've spent multiple pre-cruise days here and still feel like I've barely scratched the surface. Stanley Park's seawall, Granville Island's markets, Gastown's steam clock, Chinatown's hidden gardens, and some of the best Asian cuisine outside of Asia — Vancouver rewards those who plan extra time.</p>
 
-        <section class="port-section">
-          <h3>Getting to the Port</h3>
-          <ul>
-            <li><strong>Terminal:</strong> Canada Place, 999 Canada Place, Vancouver</li>
-            <li><strong>From YVR Airport:</strong> 25-35 minutes via Canada Line SkyTrain ($9.35 CAD adult fare, includes all-zone travel)</li>
-            <li><strong>SkyTrain:</strong> Direct to Waterfront Station — short walk to terminal. <a href="https://www.translink.ca" target="_blank" rel="noopener">TransLink</a></li>
-            <li><strong>Taxi/Uber:</strong> $35-45 CAD from airport; Uber and Lyft both operate in Vancouver</li>
-            <li><strong>From Seattle:</strong> 3-4 hours via I-5 North (bring passport — required for border crossing)</li>
-          </ul>
-        </section>
+      <div class="poignant-highlight">
+        <strong>The Moment That Stays With Me:</strong> Rent bikes and ride the Stanley Park seawall at sunset. When the mountains turn pink and the cruise ships light up in the harbor, the Lions Gate Bridge frames the whole scene like a postcard come to life. I've done this ride three times now, and each time I understand a little better why people fall in love with this city and never leave.
+      </div>
 
-        <section class="port-section">
-          <h3>Getting Around Vancouver</h3>
-          <ul>
-            <li><strong>SkyTrain:</strong> Three lines serve metro Vancouver — Canada Line (airport/Richmond), Expo Line (east), Millennium Line (east/north). Fare zones based on distance. <a href="https://www.translink.ca/schedules-and-maps/skytrain" target="_blank" rel="noopener">TransLink SkyTrain</a></li>
-            <li><strong>SeaBus:</strong> 12-minute ferry across Burrard Inlet to North Vancouver — leaves from Waterfront Station; includes access to Lonsdale Quay market</li>
-            <li><strong>Aquabus & False Creek Ferries:</strong> Small ferries connecting Granville Island, Yaletown, Science World, and more — $4-7 CAD per hop</li>
-            <li><strong>On Foot:</strong> Downtown core is compact and walkable; Stanley Park seawall is 10 km of waterfront walking</li>
-            <li><strong>Bike Rentals:</strong> Mobi bike-share stations throughout downtown; excellent for seawall and False Creek exploration</li>
-          </ul>
-        </section>
+      <p>What makes Vancouver special is how effortlessly it blends urban sophistication with raw natural beauty. You can have world-class sushi for lunch, take a seaplane to a wilderness lodge for tea, and be back for craft cocktails on a rooftop overlooking the harbor by sunset. The mountains are always there, watching over everything, reminding you that the wilderness is never far away.</p>
 
-        <section class="port-section">
-          <h3>Parking Options</h3>
-          <ul>
-            <li><strong>Cruise parking:</strong> Limited and expensive in downtown Vancouver</li>
-            <li><strong>Recommendation:</strong> Park at airport and take SkyTrain, or fly in</li>
-            <li><strong>If driving from US:</strong> Several off-site lots offer cruise parking</li>
-            <li><strong>Note:</strong> Most Alaska cruisers fly into Vancouver rather than drive</li>
-          </ul>
-        </section>
+      <p>If you're embarking on an Alaska cruise from Vancouver, I cannot stress this enough: arrive early. Two or three extra days in this city will be among the best of your entire trip. The cruise is incredible, but Vancouver is not just a departure point — it's a destination in its own right.</p>
+    </article>
 
-        <section class="port-section">
-          <h3>Nearby Hotels</h3>
-          <ul>
-            <li><strong>Hilton Vancouver Downtown:</strong> Modern tower in the heart of downtown, walking distance to Canada Place and Robson Street shopping</li>
-            <li><strong>DoubleTree by Hilton Vancouver Downtown:</strong> Waterfront location near the port with harbor views</li>
-            <li><strong>Fairmont Waterfront:</strong> Steps from Canada Place, harbor views, rooftop herb garden</li>
-            <li><strong>Pan Pacific Vancouver:</strong> Inside Canada Place itself — can't get closer to the cruise terminal</li>
-            <li><strong>Fairmont Hotel Vancouver:</strong> Historic "Castle in the City" with green copper roof, opened 1939</li>
-            <li><strong>Victorian Hotel:</strong> Budget-friendly boutique option in Gastown</li>
-          </ul>
-        </section>
+    <!-- Navigation & Practical Info -->
+    <article class="card">
+      <section class="port-section">
+        <h3>Getting to the Port</h3>
+        <ul>
+          <li><strong>Terminal:</strong> Canada Place, 999 Canada Place, Vancouver</li>
+          <li><strong>From YVR Airport:</strong> 25-35 minutes via Canada Line SkyTrain ($9.35 CAD adult fare)</li>
+          <li><strong>SkyTrain:</strong> Direct to Waterfront Station — short walk to terminal</li>
+          <li><strong>Taxi/Uber:</strong> $35-45 CAD from airport; Uber and Lyft both operate in Vancouver</li>
+          <li><strong>From Seattle:</strong> 3-4 hours via I-5 North (bring passport — required for border crossing)</li>
+        </ul>
+      </section>
 
-        <section class="port-section">
-          <h3>Pre-Cruise Activities</h3>
-          <ul>
-            <li><strong>Stanley Park:</strong> 1,000-acre urban park — rent bikes and ride the 10 km seawall, visit the totem poles, and explore lost lagoon. One of North America's finest urban parks</li>
-            <li><strong>Granville Island:</strong> Public market with local produce, fresh seafood, artisan shops, and buskers. Take the Aquabus for scenic access</li>
-            <li><strong>Gastown:</strong> Vancouver's oldest neighborhood — cobblestone streets, steam clock (whistles every 15 min), restaurants and boutiques</li>
-            <li><strong>Capilano Suspension Bridge Park:</strong> Swaying bridge 230 feet above the canyon, cliff walk, and treetops adventure. Book through <a href="https://www.viator.com/Vancouver-tours/Outdoor-Activities/d616-g8-c57" target="_blank" rel="noopener">Viator</a></li>
-            <li><strong>Grouse Mountain:</strong> "Peak of Vancouver" — Skyride gondola, grizzly bear sanctuary, stunning city and mountain views</li>
-            <li><strong>Chinatown:</strong> One of North America's largest and oldest — Dr. Sun Yat-Sen Classical Chinese Garden is a peaceful oasis</li>
-            <li><strong>FlyOver Canada:</strong> Thrilling flight simulation ride across Canada — located at Canada Place, perfect for embarkation day</li>
-          </ul>
-        </section>
+      <section class="port-section">
+        <h3>Getting Around Vancouver</h3>
+        <ul>
+          <li><strong>SkyTrain:</strong> Three lines serve metro Vancouver — Canada Line (airport/Richmond), Expo Line (east), Millennium Line (east/north)</li>
+          <li><strong>SeaBus:</strong> 12-minute ferry across Burrard Inlet to North Vancouver from Waterfront Station</li>
+          <li><strong>Aquabus & False Creek Ferries:</strong> Small ferries connecting Granville Island, Yaletown, Science World — $4-7 CAD per hop</li>
+          <li><strong>On Foot:</strong> Downtown core is compact and walkable; Stanley Park seawall is 10 km of waterfront walking</li>
+          <li><strong>Bike Rentals:</strong> Mobi bike-share stations throughout downtown</li>
+        </ul>
+      </section>
 
-        <section class="port-section">
-          <h3>History & Heritage</h3>
-          <p>Vancouver's Burrard Inlet has been home to Coast Salish peoples for over 10,000 years. European settlement began in the 1860s, and the city was incorporated in 1886 — only to burn to the ground in the Great Fire that same year. The Canadian Pacific Railway reached Vancouver in 1887, transforming it into Canada's Pacific gateway.</p>
-          <p>Canada Place opened in 1986 for Expo 86, its five white sails becoming an instant Vancouver icon. The cruise terminal handles over 1 million passengers annually, serving as the premier gateway for Alaska Inside Passage voyages. The building also houses a convention center, hotel, and the FlyOver Canada attraction.</p>
-        </section>
+      <section class="port-section">
+        <h3>Pre-Cruise Activities</h3>
+        <ul>
+          <li><strong>Stanley Park:</strong> 1,000-acre urban park — rent bikes and ride the seawall, visit the totem poles, and explore Lost Lagoon</li>
+          <li><strong>Granville Island:</strong> Public market with local produce, fresh seafood, artisan shops, and buskers</li>
+          <li><strong>Gastown:</strong> Vancouver's oldest neighborhood — cobblestone streets, steam clock, restaurants and boutiques</li>
+          <li><strong>Capilano Suspension Bridge:</strong> Swaying bridge 230 feet above the canyon, cliff walk, and treetops adventure</li>
+          <li><strong>Grouse Mountain:</strong> "Peak of Vancouver" — Skyride gondola, grizzly bear sanctuary, stunning views</li>
+          <li><strong>Chinatown:</strong> One of North America's largest — Dr. Sun Yat-Sen Classical Chinese Garden is a peaceful oasis</li>
+          <li><strong>FlyOver Canada:</strong> Thrilling flight simulation ride at Canada Place, perfect for embarkation day</li>
+        </ul>
+      </section>
 
-        <section class="port-section">
-          <h3>Practical Tips</h3>
-          <ul>
-            <li><strong>Currency:</strong> Canadian dollars (CAD). US dollars often accepted but at poor exchange rates — use credit cards or withdraw CAD from ATMs</li>
-            <li><strong>Weather:</strong> Mild but changeable; May-September are best months with average highs 65-75°F. Always pack a light rain layer</li>
-            <li><strong>Compass Card:</strong> Reloadable transit card for SkyTrain, buses, and SeaBus — day pass available ($11 CAD)</li>
-            <li><strong>Dim Sum:</strong> Don't miss Vancouver's legendary Chinese cuisine — try Dynasty Seafood or Sun Sui Wah for authentic dim sum</li>
-            <li><strong>Sushi:</strong> Some of the best sushi outside Japan — local favorites include Miku (high-end) and Tojo's (legendary chef)</li>
-          </ul>
-        </section>
+      <section class="port-section">
+        <h3>Nearby Hotels</h3>
+        <ul>
+          <li><strong>Pan Pacific Vancouver:</strong> Inside Canada Place itself — can't get closer to the cruise terminal</li>
+          <li><strong>Fairmont Waterfront:</strong> Steps from Canada Place, harbor views, rooftop herb garden</li>
+          <li><strong>Fairmont Hotel Vancouver:</strong> Historic "Castle in the City" with green copper roof, opened 1939</li>
+          <li><strong>Hilton Vancouver Downtown:</strong> Modern tower, walking distance to Canada Place</li>
+          <li><strong>Victorian Hotel:</strong> Budget-friendly boutique option in Gastown</li>
+        </ul>
+      </section>
 
-        <section class="port-section port-map-section" id="port-map-section">
-          <h3>Vancouver Area Map</h3>
-          <p class="map-intro">Interactive map showing Canada Place, Stanley Park, Granville Island, and Gastown.</p>
-          <div id="vancouver-port-map" class="port-map-container" role="application" aria-label="Interactive map of Vancouver">
-            <noscript><p>Interactive map requires JavaScript. Key locations: Canada Place, Stanley Park, Granville Island, Gastown, Capilano Suspension Bridge.</p></noscript>
-          </div>
-        </section>
+      <section class="port-section">
+        <h3>Practical Tips</h3>
+        <ul>
+          <li><strong>Currency:</strong> Canadian dollars (CAD). US dollars often accepted but at poor exchange rates</li>
+          <li><strong>Weather:</strong> Mild but changeable; May-September are best with highs 65-75°F. Pack a rain layer</li>
+          <li><strong>Compass Card:</strong> Reloadable transit card for SkyTrain, buses, and SeaBus — day pass $11 CAD</li>
+          <li><strong>Dim Sum:</strong> Don't miss Vancouver's legendary Chinese cuisine — Dynasty Seafood or Sun Sui Wah</li>
+          <li><strong>Sushi:</strong> Some of the best outside Japan — Miku (high-end) and Tojo's (legendary chef)</li>
+        </ul>
+      </section>
+    </article>
 
-        <section class="port-section">
-          <h3>Frequently Asked Questions</h3>
-          <p><strong>Q: Do I need a passport for Vancouver?</strong><br/>A: Yes — US citizens need a valid passport to enter Canada and for the Alaska cruise.</p>
-          <p><strong>Q: Vancouver or <a href="/ports/seattle.html">Seattle</a> for Alaska cruises?</strong><br/>A: Both are great. One-way cruises between the two see more of the Inside Passage. Vancouver is worth extra time to explore.</p>
-          <p><strong>Q: Best way from airport?</strong><br/>A: The Canada Line SkyTrain is efficient, affordable, and drops you right at the waterfront.</p>
-          <p><strong>Q: Currency?</strong><br/>A: Canadian dollars. US dollars often accepted but at poor exchange rates. Use credit cards or withdraw CAD.</p>
-        </section>
-      </article>
-    </div>
+    <!-- Interactive Port Map -->
+    <section class="card port-map-section" id="port-map-section">
+      <h2>Vancouver Area Map</h2>
+      <p class="map-intro" style="margin-bottom: 1rem; color: #567;">Interactive map showing Canada Place, Stanley Park, Granville Island, and Gastown. Click any marker for details.</p>
+      <div id="vancouver-port-map" class="port-map-container" role="application" aria-label="Interactive map of Vancouver and points of interest">
+        <noscript>
+          <p style="padding: 2rem; text-align: center; color: #678;">
+            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=49.2888&mlon=-123.1117#map=12/49.2888/-123.1117" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+          </p>
+        </noscript>
+      </div>
+      <div class="port-map-actions" style="margin-top: 0.75rem;">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('vancouver-port-map')._portMap?.fitBounds(document.getElementById('vancouver-port-map')._portMap.getBounds())">
+          Reset View
+        </button>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="card faq">
+      <h2>Frequently Asked Questions</h2>
+
+      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
+        <summary style="cursor: pointer; font-weight: 600;">Do I need a passport for Vancouver?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Yes — US citizens need a valid passport to enter Canada and for the Alaska cruise. Make sure it's valid for the duration of your trip.</p>
+      </details>
+
+      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
+        <summary style="cursor: pointer; font-weight: 600;">Vancouver or Seattle for Alaska cruises?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Both are great homeports. One-way cruises between the two see more of the Inside Passage without backtracking. Vancouver is worth extra time to explore — it's a world-class destination in its own right.</p>
+      </details>
+
+      <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
+        <summary style="cursor: pointer; font-weight: 600;">What's the best way from the airport?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">The Canada Line SkyTrain is efficient, affordable ($9.35 CAD), and drops you right at Waterfront Station, a short walk to Canada Place.</p>
+      </details>
+
+      <details style="margin: 0.75rem 0; padding: 0.5rem 0;">
+        <summary style="cursor: pointer; font-weight: 600;">How many days should I spend in Vancouver?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">At minimum, arrive the day before your cruise. Ideally, plan 2-3 extra days to explore Stanley Park, Granville Island, Gastown, and enjoy the dining scene. You won't regret the extra time.</p>
+      </details>
+    </section>
+
+    <!-- Back to Ports -->
+    <nav style="margin-top: 2rem; text-align: center;">
+      <a href="/ports.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--accent, #0e6e8e); color: #fff; border-radius: 8px; text-decoration: none;">← Back to All Ports</a>
+    </nav>
 
     </div><!-- end main column wrapper -->
 
-
-    <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
-      <section class="page-intro mb-1">
-        <p class="answer-line">
-          <strong>Quick Answer:</strong> Spectacular Alaska cruise gateway where mountains meet the sea — Stanley Park seawall, Granville Island, Gastown, and world-class Asian cuisine make extra days essential.</p>
-          <p style="margin: 0.5rem 0 0;"><strong>Port Type:</strong> Major Alaska Homeport</p>
-          <p style="margin: 0.5rem 0 0;"><strong>Terminal:</strong> Canada Place</p>
-          <p style="margin: 0.5rem 0 0;"><strong>Airport:</strong> YVR (25-35 min)</p>
-          <p style="margin: 0.5rem 0 0;"><strong>Country:</strong> Canada (passport required)</p>
+  <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+    <details class="card" open>
+      <summary>At a Glance</summary>
+      <div class="card-content">
+        <div class="at-a-glance-grid">
+          <div class="at-a-glance-item">
+            <strong>Country</strong>
+            <span>Canada</span>
+          </div>
+          <div class="at-a-glance-item">
+            <strong>Language</strong>
+            <span>English</span>
+          </div>
+          <div class="at-a-glance-item">
+            <strong>Currency</strong>
+            <span>CAD / USD</span>
+          </div>
+          <div class="at-a-glance-item">
+            <strong>Pier</strong>
+            <span>Canada Place</span>
+          </div>
+          <div class="at-a-glance-item">
+            <strong>Best For</strong>
+            <span>Pre-cruise, Scenery</span>
+          </div>
+          <div class="at-a-glance-item">
+            <strong>Walking</strong>
+            <span>Easy to Downtown</span>
+          </div>
         </div>
-      </details>
-    </aside>
+      </div>
+    </details>
 
-    <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+    <details class="card" open>
+      <summary>About the Author</summary>
+      <div class="card-content author-card-vertical">
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
+      </div>
+    </details>
+
+    <!-- Nearby Ports Rail -->
+    <section class="card" aria-labelledby="nearby-ports-title">
+      <h3 id="nearby-ports-title">Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Other ports in this region:
+      </p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+    </section>
+
+    <details class="card" open>
+      <summary>Recent Stories</summary>
+      <div class="card-content">
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </div>
+    </details>
+
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
+  </aside>
+
   </main>
 
-  <footer class="wrap" role="contentinfo"><p>© 2025 In the Wake</p></footer>
+  <!-- FOOTER -->
+  <footer class="wrap" role="contentinfo">
+    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p class="tiny" style="margin-top: 0.5rem;">
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
+      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    </p>
+    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+  </footer>
+
+  <script>
+    /* Recent Articles Rail */
+    (async function(){
+      var rail = document.getElementById('recent-rail');
+      if(!rail) return;
+      try {
+        var res = await fetch('/assets/data/articles/index.json');
+        var data = await res.json();
+        var articles = Array.isArray(data) ? data : (data.articles || []);
+        if(articles.length){
+          rail.innerHTML = articles.slice(0,5).map(function(a){
+            return '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #e0e8f0;"><h4 style="margin:0 0 .25rem;font-size:.95rem;"><a href="'+(a.url || a.path)+'">'+a.title+'</a></h4><p style="margin:0;font-size:.8rem;color:#666;">'+(a.excerpt || a.date || '')+'</p></div>';
+          }).join('');
+        }
+      } catch(e){ console.log('Articles rail error:', e); }
+    })();
+  </script>
+
+  <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'vancouver';</script>
-  <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/nearby-ports.js?v=3.010.306"></script>
+
+  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
 
   <!-- Leaflet JS for interactive maps -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -186,5 +442,6 @@ Soli Deo Gloria
     }
   });
   </script>
+
 </body>
 </html>
