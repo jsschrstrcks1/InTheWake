@@ -312,26 +312,52 @@ Soli Deo Gloria
     </div><!-- end main column wrapper -->
 
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
-    <section class="page-intro" style="margin: 0 0 1rem 0;">
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Vancouver is the premier Alaska cruise gateway — Canada Place terminal sits beneath five iconic white sails, with Stanley Park, Granville Island, and world-class Asian cuisine making extra pre-cruise days essential.
-      </p>
-    </section>
+    <details class="card" open>
+      <summary>At a Glance</summary>
+      <div class="card-content">
+        <div class="at-a-glance-grid">
+          <div class="at-a-glance-item">
+            <strong>Country</strong>
+            <span>Canada</span>
+          </div>
+          <div class="at-a-glance-item">
+            <strong>Language</strong>
+            <span>English</span>
+          </div>
+          <div class="at-a-glance-item">
+            <strong>Currency</strong>
+            <span>CAD / USD</span>
+          </div>
+          <div class="at-a-glance-item">
+            <strong>Pier</strong>
+            <span>Canada Place</span>
+          </div>
+          <div class="at-a-glance-item">
+            <strong>Best For</strong>
+            <span>Pre-cruise, Scenery</span>
+          </div>
+          <div class="at-a-glance-item">
+            <strong>Walking</strong>
+            <span>Easy to Downtown</span>
+          </div>
+        </div>
+      </div>
+    </details>
 
-    <section class="card author-card-vertical" aria-labelledby="author-heading">
-      <h3 id="author-heading">About the Author</h3>
-      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-        <picture>
-          <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
-          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" decoding="async" loading="lazy"/>
-        </picture>
-      </a>
-      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-      <p class="tiny">
-        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-      </p>
-    </section>
+    <details class="card" open>
+      <summary>About the Author</summary>
+      <div class="card-content author-card-vertical">
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
+      </div>
+    </details>
 
     <!-- Nearby Ports Rail -->
     <section class="card" aria-labelledby="nearby-ports-title">
@@ -342,14 +368,21 @@ Soli Deo Gloria
       <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
     </section>
 
-    <!-- Recent Articles rail -->
-    <section class="card" aria-labelledby="recent-rail-title">
-      <h3 id="recent-rail-title">Recent Stories</h3>
-      <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-        Real cruising experiences, practical guides, and heartfelt reflections from our community.
-      </p>
-      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+    <details class="card" open>
+      <summary>Recent Stories</summary>
+      <div class="card-content">
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </div>
+    </details>
+
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
     </section>
+
   </aside>
 
   </main>
@@ -363,7 +396,26 @@ Soli Deo Gloria
       <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
+    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
   </footer>
+
+  <script>
+    /* Recent Articles Rail */
+    (async function(){
+      var rail = document.getElementById('recent-rail');
+      if(!rail) return;
+      try {
+        var res = await fetch('/assets/data/articles/index.json');
+        var data = await res.json();
+        var articles = Array.isArray(data) ? data : (data.articles || []);
+        if(articles.length){
+          rail.innerHTML = articles.slice(0,5).map(function(a){
+            return '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #e0e8f0;"><h4 style="margin:0 0 .25rem;font-size:.95rem;"><a href="'+(a.url || a.path)+'">'+a.title+'</a></h4><p style="margin:0;font-size:.8rem;color:#666;">'+(a.excerpt || a.date || '')+'</p></div>';
+          }).join('');
+        }
+      } catch(e){ console.log('Articles rail error:', e); }
+    })();
+  </script>
 
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'vancouver';</script>
@@ -371,6 +423,9 @@ Soli Deo Gloria
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
 
   <!-- Leaflet JS for interactive maps -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
