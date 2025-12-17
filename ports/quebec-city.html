@@ -21,6 +21,9 @@ Soli Deo Gloria
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <!-- Leaflet CSS for interactive maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -168,6 +171,24 @@ Soli Deo Gloria
           <li><strong>Must-eat:</strong> Poutine (fries, cheese curds, gravy) is the regional specialty. Try it at Chez Ashton or Le Chic Shack.</li>
           <li><strong>Château Frontenac:</strong> You can walk through the lobby even if not a guest. The Terrasse Dufferin boardwalk behind it offers the best river views.</li>
         </ul>
+      </section>
+
+      <!-- Interactive Port Map -->
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>Quebec City Area Map</h3>
+        <p class="map-intro">Interactive map showing cruise terminal and Quebec City attractions. Click any marker for details.</p>
+        <div id="quebec-city-port-map" class="port-map-container" role="application" aria-label="Interactive map of Quebec City port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=46.8139&mlon=-71.2080#map=12/46.8139/-71.2080" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('quebec-city-port-map')._portMap?.fitBounds(document.getElementById('quebec-city-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
       </section>
 
       <section class="port-section">
@@ -403,6 +424,22 @@ Soli Deo Gloria
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Leaflet JS for interactive maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+
+  <!-- Initialize Quebec City Port Map -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'quebec-city-port-map',
+        portSlug: 'quebec-city'
+      });
+    }
+  });
+  </script>
 
 </body>
 </html>
