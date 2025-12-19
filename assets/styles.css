@@ -290,6 +290,15 @@ a:focus, button:focus, [tabindex="0"]:focus {
   .page-grid { grid-template-columns: 1fr; }
 }
 
+/* In-app browser detected (class added by in-app-browser-escape.js) */
+.in-app-browser .page-grid {
+  grid-template-columns: 1fr; /* Force single column in in-app browsers */
+}
+
+.in-app-browser .rail {
+  order: 2; /* Move sidebar below content */
+}
+
 /* ===== Grid Layouts ===== */
 .grid-2 { display: grid; gap: 1rem; align-items: stretch; }
 .grid-2 > .card { display: flex; flex-direction: column; }
@@ -615,6 +624,40 @@ figure.hero img + img,
     -webkit-overflow-scrolling: touch;
   }
   .dropdown-menu { min-width: 200px; }
+
+  /* Allow dropdown to overflow nav when open */
+  .site-nav.dropdown-open {
+    overflow: visible;
+  }
+
+  /* Better dropdown positioning on mobile */
+  .nav-dropdown.open .dropdown-menu {
+    position: fixed;
+    top: auto;
+    left: 10px;
+    right: 10px;
+    width: auto;
+    max-width: calc(100vw - 20px);
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}
+
+/* In-app browser dropdown fixes */
+.in-app-browser .site-nav {
+  overflow: visible;
+}
+
+.in-app-browser .nav-dropdown.open .dropdown-menu {
+  position: fixed;
+  top: auto;
+  left: 10px;
+  right: 10px;
+  width: auto;
+  max-width: calc(100vw - 20px);
+  max-height: 60vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* ===== Logbook Navigation ===== */
