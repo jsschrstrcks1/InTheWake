@@ -1275,8 +1275,8 @@ These require ship names to be announced:
 
 ## Duplicate Pages to Consolidate
 
-- [ ] legend-of-the-seas-1995-built.html (duplicate of legend-of-the-seas.html)
-- [ ] star-of-the-seas-aug-2025-debut.html (duplicate of star-of-the-seas.html)
+- [ ] legend-of-the-seas-1995-built.html (NOTE: This is the RETIRED 1995 Vision-class ship - NOT a duplicate of the 2026 Icon-class ship)
+- [x] star-of-the-seas-aug-2025-debut.html (duplicate of star-of-the-seas.html) - DELETED 2025-12-19
 
 ---
 
