@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Link Checker (Lychee)
-        uses: lycheeverse/lychee-action@v2
+        uses: lycheeverse/lychee-action@v2.1.0
         with:
           args: >-
             --verbose
@@ -40,6 +40,7 @@ jobs:
             './**/*.html'
           fail: false  # Don't fail workflow on broken links (report only)
           output: ./lychee-report.md
+          version: v0.18.0  # Pin to stable version
 
       - name: Upload Link Check Report
         uses: actions/upload-artifact@v4
@@ -100,11 +101,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Install yq
-        run: |
-          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
-          sudo chmod +x /usr/local/bin/yq
 
       - name: Check theological requirements
         run: |
