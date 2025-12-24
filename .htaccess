@@ -1,6 +1,33 @@
-# Apache Cache Headers Configuration
-# Long-term cache for versioned assets (1 year)
+# Apache Configuration - In the Wake
 # Soli Deo Gloria
+
+# ============================================================
+# REDIRECT RULES (CRITICAL FOR SEO)
+# ============================================================
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Force HTTPS (redirect all HTTP traffic to HTTPS)
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # Remove www subdomain (canonicalize to non-www)
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+  # Redirect legacy ship URL patterns
+  # carnival-cruise-line → carnival (only phantom path that needs redirecting)
+  RewriteRule ^ships/carnival-cruise-line/(.*)$ /ships/carnival/$1 [R=301,L]
+
+  # Fix double-cruise-line naming (ships/carnival/carnival-carnival-*.html)
+  RewriteRule ^ships/carnival/carnival-carnival-(.*)$ /ships/carnival/carnival-$1 [R=301,L]
+</IfModule>
+
+# ============================================================
+# CACHE HEADERS
+# ============================================================
 
 <IfModule mod_headers.c>
   # Versioned CSS and JS files - cache for 1 year
