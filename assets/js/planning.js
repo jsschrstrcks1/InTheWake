@@ -1,190 +1,194 @@
 /**
  * Planning Page Runtime
- * Renders interactive state/port selector from inline JSON dataset
+ * Restored original implementation with all features
  * Soli Deo Gloria
  */
 
 (function() {
   'use strict';
 
-  // Parse the dataset
   const dataEl = document.getElementById('planning-dataset');
   if (!dataEl) return;
 
-  let data;
-  try {
-    data = JSON.parse(dataEl.textContent);
-  } catch(e) {
-    console.error('Failed to parse planning dataset:', e);
-    return;
+  // JSONC parser - handles comments in JSON
+  function parseJSONC(txt) {
+    const noBlock = txt.replace(/\/\*[\s\S]*?\*\//g, '');
+    const noLine = noBlock.replace(/(^|[^:\\])\/\/.*$/gm, '$1');
+    return JSON.parse(noLine);
   }
 
-  const ports = data.ports || [];
-  if (!ports.length) return;
+  let data = {};
+  try {
+    data = parseJSONC(dataEl.textContent || '{}');
+  } catch(e) {
+    console.error('Planning dataset parse error:', e);
+    data = { ports: [], signals: {} };
+  }
+
+  const stateBtns = document.getElementById('state-buttons');
+  const portBtns = document.getElementById('port-buttons');
+  const blurb = document.getElementById('port-blurb');
+  const airports = document.getElementById('airports');
+  const warns = document.getElementById('warnings');
+  const qaMount = document.getElementById('qa');
+  const seasonal = document.getElementById('seasonal-banner');
+  const breaksEl = document.getElementById('school-breaks');
+
+  const STATE_NAMES = {
+    AL: 'Alabama',
+    CA: 'California',
+    FL: 'Florida',
+    LA: 'Louisiana',
+    MD: 'Maryland',
+    MA: 'Massachusetts',
+    NJ: 'New Jersey',
+    PR: 'Puerto Rico',
+    TX: 'Texas',
+    WA: 'Washington',
+    BC: 'British Columbia',
+    NSW: 'New South Wales',
+    QLD: 'Queensland',
+    VIC: 'Victoria'
+  };
 
   // Group ports by state/country
-  const byRegion = {};
-  ports.forEach(port => {
-    const key = port.country === 'USA' ? port.state_full : port.country;
-    if (!byRegion[key]) byRegion[key] = [];
-    byRegion[key].push(port);
-  });
+  function group() {
+    const by = new Map();
+    (data.ports || []).forEach(p => {
+      const label = p.country && p.country !== 'USA'
+        ? p.country
+        : (p.state_full || STATE_NAMES[p.state] || p.state || '—');
+      if (!by.has(label)) by.set(label, []);
+      by.get(label).push(p);
+    });
+    for (const [k, list] of by) {
+      list.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+    }
+    return by;
+  }
+  const byRegion = group();
 
-  // Get containers
-  const stateButtonsEl = document.getElementById('state-buttons');
-  const portButtonsEl = document.getElementById('port-buttons');
-  const portPanelEl = document.getElementById('port-panel');
-  const portBlurbEl = document.getElementById('port-blurb');
-  const airportsEl = document.getElementById('airports');
-  const warningsEl = document.getElementById('warnings');
-  const qaEl = document.getElementById('qa');
-  const schoolBreaksEl = document.getElementById('school-breaks');
-  const spaceCoastEl = document.getElementById('space-coast-section');
-
-  if (!stateButtonsEl || !portButtonsEl || !portPanelEl) return;
-
-  // Render state buttons
-  const regions = Object.keys(byRegion).sort();
-  stateButtonsEl.innerHTML = regions.map(region =>
-    `<button class="pill" data-region="${region}">${region}</button>`
-  ).join('');
-
-  // Render school breaks info (always visible)
-  if (schoolBreaksEl) {
-    const signals = data.signals || {};
-    const spring = signals.spring_break || {};
-    const fall = signals.fall_break || {};
-    const busy = signals.busy_days || [];
-
-    schoolBreaksEl.innerHTML = `
-      <p><strong>School Break Peaks:</strong></p>
-      <ul>
-        ${spring.window ? `<li><strong>Spring Break:</strong> ${spring.window} ${spring.notes ? `<span class="muted">(${spring.notes})</span>` : ''}</li>` : ''}
-        ${fall.window ? `<li><strong>Fall Break:</strong> ${fall.window} ${fall.notes ? `<span class="muted">(${fall.notes})</span>` : ''}</li>` : ''}
-        ${busy.length ? `<li><strong>Peak Days:</strong> ${busy.slice(0, 6).join(', ')}${busy.length > 6 ? ', and more' : ''}</li>` : ''}
-      </ul>
-      ${signals.disclaimer ? `<p class="muted tiny">${signals.disclaimer}</p>` : ''}
-    `;
+  // HTML escaping for security
+  function E(s) {
+    return String(s || '').replace(/[&<>"]/g, c => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;'
+    }[c]));
   }
 
-  // Handle state button clicks
-  stateButtonsEl.addEventListener('click', e => {
-    if (e.target.tagName !== 'BUTTON') return;
-
-    const region = e.target.dataset.region;
-    const regionPorts = byRegion[region] || [];
-
-    // Highlight selected state
-    [...stateButtonsEl.querySelectorAll('button')].forEach(btn =>
-      btn.classList.toggle('active', btn.dataset.region === region)
-    );
-
-    // Render port buttons for this region
-    portButtonsEl.innerHTML = regionPorts.map(port =>
-      `<button class="pill" data-slug="${port.slug}">${port.city}</button>`
-    ).join('');
-
-    // Hide port panel until a port is selected
-    portPanelEl.style.display = 'none';
-  });
-
-  // Handle port button clicks
-  portButtonsEl.addEventListener('click', e => {
-    if (e.target.tagName !== 'BUTTON') return;
-
-    const slug = e.target.dataset.slug;
-    const port = ports.find(p => p.slug === slug);
-    if (!port) return;
-
-    // Highlight selected port
-    [...portButtonsEl.querySelectorAll('button')].forEach(btn =>
-      btn.classList.toggle('active', btn.dataset.slug === slug)
-    );
-
-    // Render port details
-    renderPortDetails(port);
-
-    // Show port panel
-    portPanelEl.style.display = 'block';
-
-    // Show Space Coast section if Port Canaveral
-    if (spaceCoastEl) {
-      spaceCoastEl.style.display = (slug === 'port-canaveral') ? 'block' : 'none';
-    }
-  });
-
-  function renderPortDetails(port) {
-    // Port blurb
-    if (portBlurbEl && port.blurb) {
-      portBlurbEl.innerHTML = port.blurb.map(p => `<p>${p}</p>`).join('');
-    }
-
-    // Airports
-    if (airportsEl && port.airports) {
-      airportsEl.innerHTML = port.airports.map(apt => `
-        <div class="airport-card">
-          <div class="airport-header">
-            <strong>${apt.code}</strong> — ${apt.name}
-          </div>
-          <div class="tiny muted">
-            <div>${apt.distance_miles} miles • ${apt.typical_drive}</div>
-            ${apt.notes ? `<div>${apt.notes}</div>` : ''}
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // Warnings/Cautions
-    if (warningsEl && port.warnings) {
-      warningsEl.innerHTML = port.warnings.map(w =>
-        `<li>${w}</li>`
-      ).join('');
-    }
-
-    // Q&A
-    if (qaEl && port.qa) {
-      qaEl.innerHTML = port.qa.map(item => `
-        <div class="qa-item">
-          <p><strong>Q: ${item.q}</strong></p>
-          <p class="tiny">${item.a}</p>
-        </div>
-      `).join('');
-    }
+  // Create button with accessibility
+  function button(label, current, onclick) {
+    const a = document.createElement('a');
+    a.href = '#';
+    a.textContent = label;
+    if (current) a.setAttribute('aria-current', 'true');
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      onclick && onclick();
+    });
+    return a;
   }
 
-  // Add CSS for active state
-  const style = document.createElement('style');
-  style.textContent = `
-    .pill.active {
-      background: #0e6e8e;
-      color: white;
-      border-color: #0e6e8e;
-    }
-    .airport-card {
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 0.75rem;
-      margin-bottom: 0.5rem;
-    }
-    .airport-header {
-      margin-bottom: 0.25rem;
-    }
-    .qa-item {
-      margin-bottom: 1rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid #f0f0f0;
-    }
-    .qa-item:last-child {
-      border-bottom: none;
-    }
-    .grid-airports {
-      display: grid;
-      gap: 0.75rem;
-      margin-top: 0.5rem;
-    }
-  `;
-  document.head.appendChild(style);
+  function renderStateButtons(active) {
+    stateBtns.innerHTML = '';
+    Array.from(byRegion.keys())
+      .sort((a, b) => (a === 'Florida' ? -1 : b === 'Florida' ? 1 : a.localeCompare(b)))
+      .forEach(label => stateBtns.appendChild(button(label, label === active, () => selectState(label))));
+  }
 
-  // Hide port panel initially
-  portPanelEl.style.display = 'none';
+  function renderPortButtons(list, activeSlug) {
+    portBtns.innerHTML = '';
+    list.forEach(p => portBtns.appendChild(button(p.name, p.slug === activeSlug, () => selectPort(p.slug))));
+  }
+
+  function renderBreaks() {
+    const s = data.signals || {};
+    const parts = [
+      `<strong>Spring Break:</strong> ${E(s.spring_break?.window || 'varies')} — ${E(s.spring_break?.notes || '')}`,
+      `<strong>Fall Break:</strong> ${E(s.fall_break?.window || 'varies')} — ${E(s.fall_break?.notes || '')}`,
+      s.busy_days?.length ? `<strong>Also Busy:</strong> ${s.busy_days.join(', ')}` : ''
+    ].filter(Boolean);
+    breaksEl.innerHTML = parts.map(x => `<div>${x}</div>`).join('') +
+      (s.disclaimer ? `<div class="tiny muted" style="margin-top:.35rem">${E(s.disclaimer)}</div>` : '');
+  }
+
+  function renderPort(p) {
+    blurb.innerHTML = (p.blurb || []).map(par => `<p>${E(par)}</p>`).join('') || `<p>${E(p.name)} — ${E(p.city)}</p>`;
+    const sig = data.signals || {};
+    seasonal.style.display = '';
+
+    // Build seasonal message
+    let seasonalMsg = `<strong>Heads-up:</strong> Spring Break (${E(sig.spring_break?.window || 'varies')}) and Fall Break (${E(sig.fall_break?.window || 'varies')}). ${E(sig.spring_break?.notes || '')}`;
+
+    // World Cup 2026 message for Seattle (expires after July 19, 2026)
+    const worldCupEnd = new Date('2026-07-20');
+    if (p.slug === 'seattle' && new Date() < worldCupEnd) {
+      seasonalMsg += `<br><strong>⚽ FIFA World Cup 2026:</strong> Seattle hosts matches June 11 – July 19, 2026. Expect surging hotel rates, downtown traffic, and packed flights. Book early or consider sailing before/after the tournament.`;
+    }
+
+    seasonal.innerHTML = seasonalMsg;
+
+    // Show Space Coast section only for ports near spaceports (FL, TX, CA)
+    const spaceSection = document.getElementById('space-coast-section');
+    if (spaceSection) {
+      const spaceportStates = ['FL', 'TX', 'CA'];
+      spaceSection.style.display = spaceportStates.includes(p.state) ? '' : 'none';
+    }
+
+    airports.innerHTML = (p.airports || []).map(a => `
+      <div class="airport">
+        <div><span class="code">${E(a.code)}</span> — ${E(a.name)}</div>
+        <div class="tiny">${E(a.distance_miles)} mi · ${E(a.typical_drive || a.typical_drive_minutes || '—')}</div>
+        ${a.notes ? `<div class="tiny muted">${E(a.notes)}</div>` : ''}
+      </div>`).join('') || `<div class="tiny muted">No airport data.</div>`;
+
+    warns.innerHTML = (p.warnings || []).map(w => `<li>${E(w)}</li>`).join('') || `<li class="tiny muted">No special cautions.</li>`;
+
+    // Lodging/hotels
+    const hotels = Array.isArray(p.lodging) ? p.lodging : [];
+    const old = document.getElementById('lodging-block');
+    if (old) old.remove();
+    if (hotels.length) {
+      const lodgingHTML = `
+        <div id="lodging-block">
+          <h3 style="margin-top:1rem">Where to Stay</h3>
+          <ul class="tiny">
+            ${hotels.map(h => `<li><a href="${E(h.url)}" rel="noopener external" target="_blank">${E(h.name)}</a>${h.notes ? ` — ${E(h.notes)}` : ''}</li>`).join('')}
+          </ul>
+        </div>`;
+      const qaEl = document.getElementById('qa');
+      if (qaEl) qaEl.insertAdjacentHTML('beforebegin', lodgingHTML);
+    }
+
+    qaMount.innerHTML = (p.qa || []).map(q => `<details class="qa"><summary>${E(q.q)}</summary><div class="tiny">${E(q.a)}</div></details>`).join('') || `<p class="tiny muted">No questions yet.</p>`;
+  }
+
+  // Selection logic with auto-selection
+  let currentLabel = byRegion.has('Florida') ? 'Florida' : Array.from(byRegion.keys())[0] || '';
+  let currentSlug = (byRegion.get(currentLabel) || [])[0]?.slug || '';
+
+  function selectState(label) {
+    currentLabel = label;
+    const list = byRegion.get(label) || [];
+    currentSlug = list[0]?.slug || '';
+    renderStateButtons(currentLabel);
+    renderPortButtons(list, currentSlug);
+    if (list[0]) renderPort(list[0]);
+  }
+
+  function selectPort(slug) {
+    currentSlug = slug;
+    const list = byRegion.get(currentLabel) || [];
+    renderPortButtons(list, currentSlug);
+    const p = list.find(x => x.slug === slug);
+    if (p) renderPort(p);
+  }
+
+  // Initialize - auto-select Florida and first port
+  renderBreaks();
+  renderStateButtons(currentLabel);
+  selectState(currentLabel);
+  selectPort(currentSlug);
 })();
