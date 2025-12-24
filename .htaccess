@@ -1,6 +1,56 @@
-# Apache Cache Headers Configuration
-# Long-term cache for versioned assets (1 year)
+# Apache Configuration - In the Wake
 # Soli Deo Gloria
+
+# ============================================================
+# REDIRECT RULES (CRITICAL FOR SEO)
+# ============================================================
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Force HTTPS (redirect all HTTP traffic to HTTPS)
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # Remove www subdomain (canonicalize to non-www)
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+  # Redirect legacy ship URL patterns
+  # carnival-cruise-line → carnival (only phantom path that needs redirecting)
+  RewriteRule ^ships/carnival-cruise-line/(.*)$ /ships/carnival/$1 [R=301,L]
+
+  # Fix double-cruise-line naming (ships/carnival/carnival-carnival-*.html)
+  RewriteRule ^ships/carnival/carnival-carnival-(.*)$ /ships/carnival/carnival-$1 [R=301,L]
+
+  # Carnival ship naming: root ships/ → ships/carnival/ subdirectory
+  RewriteRule ^ships/carnival-(mardi-gras|celebration|jubilee)\.html$ /ships/carnival/carnival-$1.html [R=301,L]
+
+  # Carnival ship naming: missing "carnival-" prefix
+  RewriteRule ^ships/carnival/(mardi-gras|celebration|jubilee)\.html$ /ships/carnival/carnival-$1.html [R=301,L]
+
+  # Renamed files
+  RewriteRule ^disability\.html$ /disability-at-sea.html [R=301,L]
+  RewriteRule ^cruise-lines/rcl\.html$ /cruise-lines/royal-caribbean.html [R=301,L]
+  RewriteRule ^solo/visitingtheunitedstates\.html$ /solo/visiting-the-united-states-before-your-cruise.html [R=301,L]
+
+  # Ship directory index redirects (carnival-cruise-line/index.html is phantom)
+  RewriteRule ^ships/carnival-cruise-line/index\.html$ /ships/carnival/ [R=301,L]
+
+  # Legacy restaurant URLs with encoding issues (em-dash → hyphen)
+  RewriteRule ^restaurants/main-dining-room[—–-]+radiance.*\.html$ /restaurants/main-dining-room.html [R=301,L,NC]
+  RewriteRule ^restaurants/chops-grille[—–-]+radiance.*\.html$ /restaurants/chops-grille.html [R=301,L,NC]
+
+  # Block nonsensical URLs
+  RewriteRule ^showmenu:.*$ /index.html [R=301,L]
+  RewriteRule ^ships/rcl/\$\{slug\}\.html$ /ships/rcl/ [R=301,L]
+  RewriteRule ^solo/\$1\.html$ /solo.html [R=301,L]
+</IfModule>
+
+# ============================================================
+# CACHE HEADERS
+# ============================================================
 
 <IfModule mod_headers.c>
   # Versioned CSS and JS files - cache for 1 year

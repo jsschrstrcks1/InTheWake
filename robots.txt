@@ -1,5 +1,5 @@
 # robots.txt for https://cruisinginthewake.com/
-# Last updated: 2025-12-13
+# Last updated: 2025-12-24
 # Purpose: Allow full indexing of public content while preventing crawl of
 #          internal assets, admin pages, and development files.
 
@@ -45,15 +45,31 @@ Disallow: /meta/
 Disallow: /vendor/
 Disallow: /vendors/
 Disallow: /images/
+Disallow: /videos/           # video metadata, not embeds
 Disallow: /__MACOSX/
 Disallow: /404.html
 Disallow: /offline.html
+Disallow: /sw.js              # service worker
 Disallow: /placeholder.md
 Disallow: /admin/
 Disallow: /drafts/
 Disallow: /staging/
 Disallow: /tmp/
 Disallow: /*.php$
+
+# === Disallow ship asset directories ===
+Disallow: /ships/*/assets/
+Disallow: /ships/*/images/
+Disallow: /ships/rcl/assets/
+Disallow: /ships/rcl/images/
+Disallow: /ships/carnival/assets/
+Disallow: /ships/celebrity-cruises/assets/
+Disallow: /ships/holland-america-line/assets/
+Disallow: /ships/msc/assets/
+
+# === Disallow JSON data files (not public content) ===
+Disallow: /*.json$
+Allow: /sitemap*.json
 
 # === Sitemap references ===
 Sitemap: https://cruisinginthewake.com/sitemap.xml
@@ -63,3 +79,5 @@ Sitemap: https://cruisinginthewake.com/sitemap.xml
 # - All cruise line ship pages are indexed (Carnival, Celebrity, HAL, MSC, RCL)
 # - Solo main pages indexed, but /solo/articles/ fragments blocked
 # - Tools (port tracker, ship tracker) are indexed
+# - Asset directories (ships/*/assets/, /videos/) blocked to prevent JSON indexing
+# - Updated 2025-12-24: Added ship asset directory blocking, JSON disallow rules
