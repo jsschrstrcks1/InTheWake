@@ -189,6 +189,14 @@ Soli Deo Gloria
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'port-map',
+        portSlug: 'endicott-arm'
+      });
+    }
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
