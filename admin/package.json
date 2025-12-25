@@ -1,0 +1,28 @@
+{
+  "name": "in-the-wake-admin-tools",
+  "version": "1.0.0",
+  "description": "Admin validation and build tools for In the Wake",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node validate-icp-lite-v14.js --all",
+    "validate:entity": "node validate-icp-lite-v14.js --entity-only",
+    "validate:file": "node validate-icp-lite-v14.js",
+    "test": "node test-validator.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "glob": "^10.3.10"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "validation",
+    "icp-lite",
+    "standards",
+    "compliance"
+  ],
+  "author": "In the Wake",
+  "license": "UNLICENSED"
+}
