@@ -151,11 +151,17 @@ if [ -n "$HTML_FILES" ]; then
       show_requirement "$DISPLAY_NAME" "$PRIORITY" "$SEVERITY" "$DESC" "$REQUIRED"
     done
 
-    # Special note about ICP-Lite
-    echo -e "${BOLD}ICP-Lite v1.0 Required Meta Tags:${NC}"
+    # Special note about ICP-Lite v1.4
+    echo -e "${BOLD}ICP-Lite v1.4 Required Meta Tags:${NC}"
     echo -e "   <meta name=\"ai-summary\" content=\"...\" />"
+    echo -e "   ${CYAN}(Max 250 chars; first ~155 must be standalone sentence)${NC}"
     echo -e "   <meta name=\"last-reviewed\" content=\"YYYY-MM-DD\" />"
-    echo -e "   <meta name=\"content-protocol\" content=\"ICP-Lite v1.0\" />"
+    echo -e "   <meta name=\"content-protocol\" content=\"ICP-Lite v1.4\" />"
+    echo ""
+    echo -e "${BOLD}JSON-LD Mirroring Required:${NC}"
+    echo -e "   description must match ai-summary exactly"
+    echo -e "   dateModified must match last-reviewed exactly"
+    echo -e "   ${CYAN}(For entity pages: ships/*, ports/*, restaurants/* must also have mainEntity)${NC}"
     echo ""
   fi
 fi

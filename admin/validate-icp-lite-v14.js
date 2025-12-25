@@ -104,14 +104,31 @@ function validateDualCap(summary) {
 }
 
 /**
- * Extract meta tags from HTML
+ * Extract meta tags from HTML and check for duplicates
  */
 function extractMetaTags($) {
-  const aiSummary = $('meta[name="ai-summary"]').attr('content') || '';
-  const lastReviewed = $('meta[name="last-reviewed"]').attr('content') || '';
-  const protocol = $('meta[name="content-protocol"]').attr('content') || '';
+  const errors = [];
 
-  return { aiSummary, lastReviewed, protocol };
+  // Check for duplicates
+  const aiSummaryTags = $('meta[name="ai-summary"]');
+  const lastReviewedTags = $('meta[name="last-reviewed"]');
+  const protocolTags = $('meta[name="content-protocol"]');
+
+  if (aiSummaryTags.length > 1) {
+    errors.push(`Duplicate ai-summary meta tags found (${aiSummaryTags.length} instances). Should have exactly 1.`);
+  }
+  if (lastReviewedTags.length > 1) {
+    errors.push(`Duplicate last-reviewed meta tags found (${lastReviewedTags.length} instances). Should have exactly 1.`);
+  }
+  if (protocolTags.length > 1) {
+    errors.push(`Duplicate content-protocol meta tags found (${protocolTags.length} instances). Should have exactly 1.`);
+  }
+
+  const aiSummary = aiSummaryTags.first().attr('content') || '';
+  const lastReviewed = lastReviewedTags.first().attr('content') || '';
+  const protocol = protocolTags.first().attr('content') || '';
+
+  return { aiSummary, lastReviewed, protocol, duplicateErrors: errors };
 }
 
 /**
@@ -137,20 +154,27 @@ function extractJSONLD($) {
 }
 
 /**
- * Find WebPage JSON-LD object
+ * Find WebPage JSON-LD object and check for duplicates
  */
 function findWebPage(jsonldData) {
+  const webpages = [];
+
   for (const data of jsonldData) {
     if (data['@type'] === 'WebPage') {
-      return data;
+      webpages.push(data);
     }
     // Check for @graph pattern
     if (data['@graph'] && Array.isArray(data['@graph'])) {
-      const webpage = data['@graph'].find(item => item['@type'] === 'WebPage');
-      if (webpage) return webpage;
+      const graphWebpages = data['@graph'].filter(item => item['@type'] === 'WebPage');
+      webpages.push(...graphWebpages);
     }
   }
-  return null;
+
+  return {
+    webpage: webpages[0] || null,
+    duplicateCount: webpages.length,
+    hasDuplicates: webpages.length > 1
+  };
 }
 
 /**
@@ -175,12 +199,19 @@ function validateJSONLDMirroring(meta, jsonldData) {
   const errors = [];
   const warnings = [];
 
-  const webpage = findWebPage(jsonldData);
+  const webpageResult = findWebPage(jsonldData);
 
-  if (!webpage) {
+  // Check for duplicate WebPage blocks
+  if (webpageResult.hasDuplicates) {
+    errors.push(`Duplicate WebPage JSON-LD blocks found (${webpageResult.duplicateCount} instances). Should have exactly 1.`);
+  }
+
+  if (!webpageResult.webpage) {
     errors.push('Missing WebPage JSON-LD schema');
     return { valid: false, errors, warnings };
   }
+
+  const webpage = webpageResult.webpage;
 
   // Check description matches ai-summary
   const description = normalize(webpage.description || '');
@@ -217,12 +248,14 @@ function validateMainEntity(filepath, jsonldData) {
     return { valid: true, errors, warnings };
   }
 
-  const webpage = findWebPage(jsonldData);
+  const webpageResult = findWebPage(jsonldData);
 
-  if (!webpage) {
+  if (!webpageResult.webpage) {
     errors.push('Entity page missing WebPage JSON-LD schema');
     return { valid: false, errors, warnings };
   }
+
+  const webpage = webpageResult.webpage;
 
   if (!webpage.mainEntity) {
     const entityInfo = getEntityType(filepath);
@@ -290,6 +323,11 @@ async function validateFile(filepath) {
     // Extract data
     const meta = extractMetaTags($);
     const jsonldData = extractJSONLD($);
+
+    // Add duplicate errors first
+    if (meta.duplicateErrors && meta.duplicateErrors.length > 0) {
+      results.errors.push(...meta.duplicateErrors);
+    }
 
     // 1. Check protocol version
     if (meta.protocol !== 'ICP-Lite v1.4') {
