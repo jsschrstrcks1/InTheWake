@@ -50,7 +50,136 @@ Port pages must follow this exact section order:
 
 ---
 
-## II. ICP-LITE v1.4 PROTOCOL REQUIREMENTS (BLOCKING)
+## II. REQUIRED STYLESHEETS AND SCRIPTS (BLOCKING)
+
+All port pages must include the following stylesheets and scripts in the `<head>` section:
+
+### Required Stylesheets (BLOCKING)
+
+```html
+<!-- Main site stylesheet -->
+<link rel="stylesheet" href="/assets/styles.css?v=3.010.305"/>
+
+<!-- Leaflet CSS for interactive maps -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""/>
+
+<!-- Port map component CSS -->
+<link rel="stylesheet" href="/assets/css/components/port-map.css"/>
+```
+
+### Swiper CSS/JS with Fallback (BLOCKING)
+
+Port pages MUST include Swiper for photo galleries with primary + CDN fallback pattern:
+
+```html
+<!-- Swiper CSS/JS (primary + CDN fallback) -->
+<script>
+(function ensureSwiper(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
+```
+
+### Required Scripts (End of `<body>`) (BLOCKING)
+
+At the end of the `<body>` tag, before closing `</body>`:
+
+```html
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+
+<!-- Initialize Map -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof L !== 'undefined') {
+    const mapEl = document.getElementById('[port-slug]-port-map');
+    if (mapEl) {
+      const map = L.map('[port-slug]-port-map').setView([LAT, LON], ZOOM);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      // Add markers here
+      L.marker([LAT, LON]).addTo(map)
+        .bindPopup('<strong>[Port Name]</strong><br>[Description]');
+
+      mapEl._portMap = map;
+    }
+  }
+});
+</script>
+
+<!-- Initialize Swiper -->
+<script>
+function initSwiper() {
+  if (typeof Swiper !== 'undefined') {
+    new Swiper('.photo-gallery-swiper', {
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      loop: true,
+      autoplay: { delay: 5000, disableOnInteraction: false }
+    });
+  }
+}
+if (window.__swiperReady) {
+  initSwiper();
+} else {
+  document.addEventListener('DOMContentLoaded', function checkSwiper() {
+    if (window.__swiperReady) initSwiper();
+    else setTimeout(checkSwiper, 100);
+  });
+}
+</script>
+```
+
+### Service Worker Registration (BLOCKING)
+
+In the `<head>` section, after meta tags:
+
+```html
+<!-- Service Worker Registration -->
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+}
+</script>
+```
+
+### Standard Icons and Manifest (BLOCKING)
+
+```html
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.webmanifest"/>
+```
+
+### Validation Rules
+
+- **BLOCKING**: Main stylesheet (`/assets/styles.css`) must be present
+- **BLOCKING**: Leaflet CSS and JS must be included with integrity hashes
+- **BLOCKING**: Port map CSS must be included (`/assets/css/components/port-map.css`)
+- **BLOCKING**: Swiper fallback pattern must be implemented exactly as specified
+- **BLOCKING**: Map initialization script must use unique map ID (`[port-slug]-port-map`)
+- **BLOCKING**: Swiper initialization must check for `window.__swiperReady` flag
+- **WARNING**: Service worker registration should be present for PWA support
+- **WARNING**: Canonical link should point to production URL
+
+---
+
+## III. ICP-LITE v1.4 PROTOCOL REQUIREMENTS (BLOCKING)
 
 All port pages must include ICP-Lite v1.4 metadata:
 
@@ -117,7 +246,7 @@ All port pages must include ICP-Lite v1.4 metadata:
 
 ---
 
-## III. PORT GUIDE CONTENT REQUIREMENTS - THE RUBRIC (BLOCKING)
+## IV. PORT GUIDE CONTENT REQUIREMENTS - THE RUBRIC (BLOCKING)
 
 Every port page must demonstrate these four pillars:
 
@@ -152,7 +281,7 @@ Every port page must demonstrate these four pillars:
 
 ---
 
-## IV. WORD COUNT REQUIREMENTS
+## V. WORD COUNT REQUIREMENTS
 
 ### Per-Section Minimums (BLOCKING)
 
@@ -177,7 +306,7 @@ Every port page must demonstrate these four pillars:
 
 ---
 
-## V. IMAGE REQUIREMENTS (BLOCKING)
+## VI. IMAGE REQUIREMENTS (BLOCKING)
 
 ### Required Image Counts
 - **Hero image**: Exactly 1 (BLOCKING)
@@ -225,7 +354,7 @@ Every port page must demonstrate these four pillars:
 
 ---
 
-## VI. MANDATORY CROSS-LINKING RULES (BLOCKING)
+## VII. MANDATORY CROSS-LINKING RULES (BLOCKING)
 
 ### Core Principle
 **IF** In the Wake has content about [TOPIC]
@@ -321,7 +450,7 @@ The validator can automatically insert missing cross-links by:
 
 ---
 
-## VII. VALIDATION OUTPUT FORMAT
+## VIII. VALIDATION OUTPUT FORMAT
 
 The validator outputs structured JSON with detailed results:
 
@@ -432,7 +561,7 @@ The validator outputs structured JSON with detailed results:
 
 ---
 
-## VIII. VALIDATION COMMAND USAGE
+## IX. VALIDATION COMMAND USAGE
 
 ```bash
 # Validate single port page
@@ -459,7 +588,7 @@ $ node admin/validate-port-page.js ports/cozumel.html --dry-run --fix-cross-link
 
 ---
 
-## IX. IMPLEMENTATION NOTES
+## X. IMPLEMENTATION NOTES
 
 ### Build Integration
 - **Pre-commit hook**: Run validator on modified port pages
@@ -484,14 +613,21 @@ Some violations require human judgment:
 
 ---
 
-## X. VERSIONING
+## XI. VERSIONING
 
-**Current Version**: ITC v1.0 (In the Wake Content Standard)
+**Current Version**: ITC v1.0.1 (In the Wake Content Standard)
 **Based On**: ICP-Lite v1.4, Port Guide Rubric v1.0
 **Last Updated**: 2025-12-26
 **Soli Deo Gloria**
 
 ### Change Log
+- **v1.0.1** (2025-12-26): Added required stylesheets and scripts section
+  - Required stylesheet includes (main styles, Leaflet, port map CSS)
+  - Swiper CSS/JS fallback pattern specification
+  - Service worker registration requirement
+  - Map and gallery initialization scripts
+  - Standard icons and manifest links
+
 - **v1.0** (2025-12-26): Initial standard codification
   - Comprehensive port page requirements
   - Section ordering enforcement
