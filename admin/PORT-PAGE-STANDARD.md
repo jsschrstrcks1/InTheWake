@@ -1,4 +1,4 @@
-# Port Page Standard - ITC v1.0 (In the Wake Content Standard)
+# Port Page Standard - ITC v1.1 (In the Wake Content Standard)
 **Soli Deo Gloria**
 
 This document defines the enforceable standard for all port pages on In the Wake. Every port page MUST comply with these requirements.
@@ -176,6 +176,216 @@ if('serviceWorker' in navigator){
 - **BLOCKING**: Swiper initialization must check for `window.__swiperReady` flag
 - **WARNING**: Service worker registration should be present for PWA support
 - **WARNING**: Canonical link should point to production URL
+
+---
+
+## II-A. POI MANIFEST SYSTEM (BLOCKING)
+
+Every port page MUST have a corresponding POI (Points of Interest) manifest file that defines all map markers, locations, transit routes, and featured experiences.
+
+### Manifest File Location (BLOCKING)
+
+```
+/assets/data/maps/[port-slug].map.json
+```
+
+**Example**: For `/ports/nassau.html`, the manifest is `/assets/data/maps/nassau.map.json`
+
+### Minimum POI Requirement (BLOCKING)
+
+**Every port MUST have at least 10 POI defined in its manifest.**
+
+POI categories include:
+- Cruise ports/terminals
+- Beaches and waterfront areas
+- Attractions and landmarks
+- Restaurants and cafes
+- Museums and cultural sites
+- Shopping districts
+- Parks and natural areas
+- Transportation hubs (airports, train stations, etc.)
+- Day trip destinations
+- Hotels or accommodations (when relevant)
+
+### Manifest File Structure (BLOCKING)
+
+```json
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "YYYY-MM-DDTHH:MM:SSZ",
+    "source": "Brief description of research sources"
+  },
+
+  "port_slug": "[slug]",
+  "port_name": "[Port Display Name]",
+
+  "port_pin": {
+    "lat": 00.0000,
+    "lon": -00.0000,
+    "label": "[Main cruise terminal name]"
+  },
+
+  "bbox_hint": {
+    "south": 00.00,
+    "west": -00.00,
+    "north": 00.00,
+    "east": -00.00,
+    "note": "Geographic area description"
+  },
+
+  "poi_ids": [
+    "[poi-identifier-1]",
+    "[poi-identifier-2]",
+    "[poi-identifier-3]"
+  ],
+
+  "label_overrides": {
+    "[poi-id]": "Custom marker label with additional context"
+  },
+
+  "approximate_markers": [
+    "[poi-id-with-approximate-coords]"
+  ],
+
+  "transit_routes": [
+    {
+      "id": "[route-id]",
+      "name": "[Route Display Name]",
+      "type": "taxi|bus|train|ferry|walking|trolley|rideshare",
+      "cost": "[Cost in local/USD currency]",
+      "duration": "[Duration description]",
+      "connects": ["[poi-id-1]", "[poi-id-2]"],
+      "note": "[Additional transit details]"
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "[Experience Name]",
+      "type": "tour|attraction|adventure|cultural|relaxation|flightseeing",
+      "duration": "[Duration description]",
+      "highlights": ["[Feature 1]", "[Feature 2]", "[Feature 3]"],
+      "note": "[Helpful context, pricing hints, booking advice]"
+    }
+  ]
+}
+```
+
+### POI ID Format (BLOCKING)
+
+- Use lowercase with hyphens: `nassau-cruise-port`, `queen-stairs`, `atlantis-paradise-island`
+- Be specific and descriptive
+- Consistent naming: `[location]-[type]` when helpful (e.g., `alaska-railroad-depot-anchorage`)
+- Avoid generic IDs like `beach-1` or `restaurant-2`
+
+### Port Map Initialization with PortMap Module (BLOCKING)
+
+Port pages MUST use the `PortMap.init()` pattern to initialize interactive maps:
+
+```html
+<!-- Set current port ID -->
+<script>window.currentPortId = '[port-slug]';</script>
+
+<!-- Load nearby ports module -->
+<script src="/assets/js/nearby-ports.js"></script>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+
+<!-- Port map module -->
+<script src="/assets/js/modules/port-map.js"></script>
+
+<!-- Initialize map using PortMap module -->
+<script>
+(function() {
+  function initMap() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: '[port-slug]-port-map',
+        portSlug: '[port-slug]'
+      });
+    } else {
+      setTimeout(initMap, 100);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMap);
+  } else {
+    initMap();
+  }
+})();
+</script>
+```
+
+### Map HTML Container (BLOCKING)
+
+```html
+<section class="port-section port-map-section" id="port-map-section">
+  <h3>[Port Name] Area Map</h3>
+  <p class="map-intro">Interactive map showing cruise terminal, attractions, restaurants, and day trip destinations. Click any marker for details.</p>
+
+  <div id="[port-slug]-port-map" class="port-map-container"
+       role="application"
+       aria-label="Interactive map of [Port Name] and points of interest">
+    <noscript>
+      <p style="padding: 2rem; text-align: center; color: #678;">
+        Interactive map requires JavaScript. View our <a href="/assets/data/maps/poi-index.json">POI data</a> for location coordinates.
+      </p>
+    </noscript>
+  </div>
+
+  <div class="port-map-actions">
+    <button type="button" class="btn btn-secondary"
+            onclick="document.getElementById('[port-slug]-port-map')._portMap?.fitBounds(document.getElementById('[port-slug]-port-map')._portMap.getBounds())">
+      Reset View
+    </button>
+  </div>
+</section>
+```
+
+### POI Data Master Index
+
+All POI manifest files are indexed in `/assets/data/maps/poi-index.json` for global POI search and cross-referencing.
+
+### Validation Rules
+
+- **BLOCKING**: POI manifest file must exist at `/assets/data/maps/[port-slug].map.json`
+- **BLOCKING**: Manifest must contain minimum 10 POI in `poi_ids` array
+- **BLOCKING**: All required manifest fields must be present (`port_slug`, `port_name`, `port_pin`, `poi_ids`)
+- **BLOCKING**: `port_slug` in manifest must match filename (e.g., `nassau` for `nassau.map.json`)
+- **BLOCKING**: Page must use `PortMap.init()` pattern, not inline Leaflet initialization
+- **BLOCKING**: `window.currentPortId` must be set before loading nearby-ports.js
+- **WARNING**: `transit_routes` should include at least 2 routes where applicable
+- **WARNING**: `featured_experiences` should include 2-4 curated experiences
+- **WARNING**: Label overrides should be used for POI needing additional context
+
+### POI Selection Guidelines
+
+When selecting POI for a port:
+
+1. **Prioritize cruise relevance**: Focus on locations accessible during typical port days (8-12 hours)
+2. **Mix of categories**: Include terminals, attractions, beaches, dining, cultural sites, transportation
+3. **Geographic distribution**: Cover different areas of the port region
+4. **Accessibility tiers**: Include locations within walking distance, short taxi rides, and full-day excursions
+5. **Include specifics**: Individual restaurants, beaches, museums (not just generic "dining district")
+6. **Day trip destinations**: Include popular day trips mentioned in text (even if 1-2 hours away)
+7. **Transit hubs**: Airports, train stations, ferry terminals when relevant to cruise passengers
+
+**Example - Nassau requires 10+ POI:**
+- Nassau Cruise Port (terminal)
+- Bay Street (shopping district)
+- Atlantis Paradise Island (attraction)
+- Cabbage Beach (beach)
+- Junkanoo Beach (beach)
+- Nassau Straw Market (shopping/cultural)
+- Queen's Staircase (landmark)
+- Pirates of Nassau Museum (cultural)
+- Royal Beach Club Paradise Island (private beach club)
+- Fort Fincastle (landmark)
 
 ---
 
@@ -615,12 +825,22 @@ Some violations require human judgment:
 
 ## XI. VERSIONING
 
-**Current Version**: ITC v1.0.1 (In the Wake Content Standard)
+**Current Version**: ITC v1.1 (In the Wake Content Standard)
 **Based On**: ICP-Lite v1.4, Port Guide Rubric v1.0
 **Last Updated**: 2025-12-26
 **Soli Deo Gloria**
 
 ### Change Log
+- **v1.1** (2025-12-26): Added POI manifest system requirements
+  - Section II-A: POI Manifest System specification
+  - Minimum 10 POI per port requirement (BLOCKING)
+  - POI manifest file structure and validation rules
+  - PortMap.init() pattern for map initialization
+  - window.currentPortId requirement
+  - nearby-ports.js module loading
+  - POI selection guidelines and examples
+  - Updated map initialization from inline Leaflet to PortMap module pattern
+
 - **v1.0.1** (2025-12-26): Added required stylesheets and scripts section
   - Required stylesheet includes (main styles, Leaflet, port map CSS)
   - Swiper CSS/JS fallback pattern specification
