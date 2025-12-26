@@ -1243,7 +1243,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- JAVASCRIPT -->
 
-<!-- Live Port Search -->
+<!-- Live Port Search with Fuzzy Matching -->
 <script>
 (function() {
   'use strict';
@@ -1254,14 +1254,57 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   if (!searchInput) return;
 
+  // Port metadata for enhanced search (keywords, countries, tags)
+  const portMetadata = {
+    'labadee': { country: 'Haiti', keywords: ['private island', 'zip line', 'beach', 'exclusive', 'private', 'haiti'], tags: ['caribbean', 'haiti', 'private'] },
+    'cococay': { country: 'Bahamas', keywords: ['perfect day', 'private island', 'water park', 'beach', 'private', 'bahamas'], tags: ['caribbean', 'bahamas', 'private'] },
+    'roatan': { country: 'Honduras', keywords: ['honduras', 'diving', 'snorkeling', 'mahogany bay'], tags: ['caribbean', 'honduras'] },
+    'cozumel': { country: 'Mexico', keywords: ['mexico', 'diving', 'mayan ruins', 'playa del carmen'], tags: ['caribbean', 'mexico'] },
+    'nassau': { country: 'Bahamas', keywords: ['bahamas', 'atlantis', 'paradise island', 'capital'], tags: ['caribbean', 'bahamas'] },
+    'grand-cayman': { country: 'Cayman Islands', keywords: ['stingray city', 'seven mile beach', 'diving', 'cayman'], tags: ['caribbean', 'cayman'] },
+    'st-thomas': { country: 'US Virgin Islands', keywords: ['usvi', 'virgin islands', 'magens bay', 'shopping', 'charlotte amalie'], tags: ['caribbean', 'usvi'] },
+    'st-maarten': { country: 'Sint Maarten', keywords: ['st martin', 'maho beach', 'philipsburg', 'dutch', 'french'], tags: ['caribbean'] },
+    'aruba': { country: 'Aruba', keywords: ['abc islands', 'eagle beach', 'oranjestad', 'dutch'], tags: ['caribbean', 'aruba'] },
+    'curacao': { country: 'Curaçao', keywords: ['abc islands', 'willemstad', 'dutch', 'colorful'], tags: ['caribbean', 'curacao'] },
+    'bonaire': { country: 'Bonaire', keywords: ['abc islands', 'diving', 'dutch', 'flamingos'], tags: ['caribbean', 'bonaire'] },
+    'san-juan': { country: 'Puerto Rico', keywords: ['puerto rico', 'old san juan', 'el morro', 'capital'], tags: ['caribbean', 'puerto rico'] },
+    'barcelona': { country: 'Spain', keywords: ['spain', 'gaudi', 'sagrada familia', 'catalonia'], tags: ['mediterranean', 'spain'] },
+    'rome-civitavecchia': { country: 'Italy', keywords: ['rome', 'vatican', 'colosseum', 'italy'], tags: ['mediterranean', 'italy'] },
+    'venice': { country: 'Italy', keywords: ['italy', 'canals', 'gondola', 'st marks'], tags: ['mediterranean', 'italy'] },
+    'santorini': { country: 'Greece', keywords: ['greece', 'oia', 'caldera', 'whitewashed', 'cyclades'], tags: ['mediterranean', 'greece'] },
+    'mykonos': { country: 'Greece', keywords: ['greece', 'party', 'windmills', 'cyclades'], tags: ['mediterranean', 'greece'] },
+    'dubrovnik': { country: 'Croatia', keywords: ['croatia', 'game of thrones', 'old town', 'kings landing'], tags: ['mediterranean', 'croatia'] },
+    'juneau': { country: 'USA', keywords: ['alaska', 'mendenhall glacier', 'whale watching', 'capital'], tags: ['alaska', 'usa'] },
+    'skagway': { country: 'USA', keywords: ['alaska', 'white pass', 'yukon', 'gold rush'], tags: ['alaska', 'usa'] },
+    'ketchikan': { country: 'USA', keywords: ['alaska', 'salmon', 'totem poles', 'misty fjords'], tags: ['alaska', 'usa'] },
+    'sitka': { country: 'USA', keywords: ['alaska', 'russian', 'bears', 'wildlife'], tags: ['alaska', 'usa'] },
+    'icy-strait-point': { country: 'USA', keywords: ['alaska', 'hoonah', 'whale watching', 'zip line'], tags: ['alaska', 'usa'] },
+    'sydney': { country: 'Australia', keywords: ['australia', 'opera house', 'harbour bridge', 'bondi'], tags: ['australia', 'south pacific'] },
+    'auckland': { country: 'New Zealand', keywords: ['new zealand', 'sky tower', 'harbour'], tags: ['new zealand', 'south pacific'] },
+    'bora-bora': { country: 'French Polynesia', keywords: ['tahiti', 'overwater bungalows', 'lagoon', 'paradise'], tags: ['south pacific', 'french polynesia'] },
+    'papeete': { country: 'French Polynesia', keywords: ['tahiti', 'capital', 'market'], tags: ['south pacific', 'french polynesia'] },
+    'dubai': { country: 'UAE', keywords: ['united arab emirates', 'burj khalifa', 'desert', 'luxury'], tags: ['middle east', 'uae'] },
+    'singapore': { country: 'Singapore', keywords: ['gardens by the bay', 'marina bay sands', 'asia'], tags: ['asia', 'singapore'] },
+    'hong-kong': { country: 'Hong Kong', keywords: ['victoria peak', 'harbor', 'dim sum', 'china'], tags: ['asia', 'hong kong'] },
+    'tokyo': { country: 'Japan', keywords: ['japan', 'shibuya', 'mount fuji', 'yokohama'], tags: ['asia', 'japan'] }
+  };
+
   // Build search index from page content
   const portLinks = Array.from(document.querySelectorAll('a[href^="/ports/"]')).map(link => {
     const section = link.closest('article[id]');
     const regionName = section ? section.querySelector('h2')?.textContent || '' : '';
+    const url = link.getAttribute('href');
+    const slug = url.replace('/ports/', '').replace('.html', '');
+    const metadata = portMetadata[slug] || {};
+
     return {
       name: link.textContent.trim(),
-      url: link.getAttribute('href'),
+      url: url,
       region: regionName,
+      slug: slug,
+      country: metadata.country || '',
+      keywords: metadata.keywords || [],
+      tags: metadata.tags || [],
       element: link
     };
   });
@@ -1269,18 +1312,52 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   // Remove duplicates
   const uniquePorts = Array.from(new Map(portLinks.map(p => [p.url, p])).values());
 
+  // Enhanced international character normalization
   function normalizeString(str) {
     return str.toLowerCase()
-      .replace(/[àáâãäå]/g, 'a')
-      .replace(/[èéêë]/g, 'e')
-      .replace(/[ìíîï]/g, 'i')
-      .replace(/[òóôõö]/g, 'o')
-      .replace(/[ùúûü]/g, 'u')
-      .replace(/[ñ]/g, 'n')
-      .replace(/[ç]/g, 'c')
+      .replace(/[àáâãäåāăą]/g, 'a')
+      .replace(/[èéêëēĕėęě]/g, 'e')
+      .replace(/[ìíîïīĭįı]/g, 'i')
+      .replace(/[òóôõöōŏő]/g, 'o')
+      .replace(/[ùúûüūŭůűų]/g, 'u')
+      .replace(/[ýÿ]/g, 'y')
+      .replace(/[ñń]/g, 'n')
+      .replace(/[çćĉċč]/g, 'c')
+      .replace(/[ß]/g, 'ss')
+      .replace(/[æ]/g, 'ae')
+      .replace(/[œ]/g, 'oe')
+      .replace(/[ðþ]/g, 'th')
       .replace(/[^a-z0-9\s]/g, ' ')
       .replace(/\s+/g, ' ')
       .trim();
+  }
+
+  // Fuzzy matching for typos (Levenshtein-inspired)
+  function fuzzyMatch(str1, str2) {
+    str1 = str1.toLowerCase();
+    str2 = str2.toLowerCase();
+
+    if (str1 === str2) return 3;
+    if (str1.includes(str2) || str2.includes(str1)) return 2;
+
+    // Calculate similarity ratio
+    const len1 = str1.length;
+    const len2 = str2.length;
+    const maxLen = Math.max(len1, len2);
+
+    if (maxLen < 4) return 0; // Too short for fuzzy matching
+
+    let matches = 0;
+    for (let i = 0; i < Math.min(len1, len2); i++) {
+      if (str1[i] === str2[i]) matches++;
+    }
+
+    const similarity = matches / maxLen;
+
+    // Allow for 1-2 character differences
+    if (similarity > 0.7) return 1;
+
+    return 0;
   }
 
   function searchPorts(query) {
@@ -1294,36 +1371,70 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     const normalized = normalizeString(query);
     const words = normalized.split(' ');
 
-    const matches = uniquePorts.filter(port => {
+    // Score-based search with fuzzy matching
+    const scored = uniquePorts.map(port => {
+      let score = 0;
       const portName = normalizeString(port.name);
       const portRegion = normalizeString(port.region);
-      const combined = portName + ' ' + portRegion;
+      const portCountry = normalizeString(port.country);
+      const portKeywords = port.keywords.map(k => normalizeString(k));
+      const portTags = port.tags.map(t => normalizeString(t));
 
-      return words.every(word => combined.includes(word));
-    }).slice(0, 20); // Limit to 20 results
+      words.forEach(word => {
+        // Exact name match (highest priority)
+        if (portName.includes(word)) score += 10;
 
-    if (matches.length === 0) {
+        // Country match
+        if (portCountry && portCountry.includes(word)) score += 8;
+
+        // Keyword match
+        if (portKeywords.some(k => k.includes(word))) score += 7;
+
+        // Region match
+        if (portRegion.includes(word)) score += 5;
+
+        // Tag match
+        if (portTags.some(t => t.includes(word))) score += 4;
+
+        // Fuzzy name match (typos)
+        const fuzzyScore = fuzzyMatch(word, portName);
+        if (fuzzyScore > 0) score += fuzzyScore;
+
+        // Fuzzy keyword match
+        portKeywords.forEach(keyword => {
+          const fuzzyKeywordScore = fuzzyMatch(word, keyword);
+          if (fuzzyKeywordScore > 0) score += fuzzyKeywordScore * 0.5;
+        });
+      });
+
+      return { ...port, score };
+    }).filter(p => p.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 20);
+
+    if (scored.length === 0) {
       searchStatus.textContent = `No ports found for "${query}"`;
       resultsContainer.innerHTML = `
         <p class="tiny" style="padding: 1rem; background: #f5f7fa; border-radius: 8px; color: #666;">
-          No ports found. Try searching by port name (e.g., "Cozumel"), region (e.g., "Caribbean"), or location.
+          No ports found. Try searching by port name (e.g., "Cozumel"), region (e.g., "Caribbean"), country (e.g., "Haiti"), or keywords (e.g., "private island").
         </p>
       `;
       resultsContainer.style.display = 'block';
       return;
     }
 
-    searchStatus.textContent = `Found ${matches.length} port${matches.length !== 1 ? 's' : ''}`;
+    searchStatus.textContent = `Found ${scored.length} port${scored.length !== 1 ? 's' : ''}`;
 
     // Get port slug from URL for image path
     const getPortSlug = (url) => url.replace('/ports/', '').replace('.html', '');
 
     resultsContainer.innerHTML = `
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem;">
-        ${matches.map(port => {
+        ${scored.map(port => {
           const slug = getPortSlug(port.url);
           const imageUrl = `/ports/img/${slug}/${slug}-fom-1.webp`;
           const fallbackImg = '/assets/index_hero.jpg';
+          const country = port.country ? ` · ${port.country}` : '';
 
           return `
           <a href="${port.url}" class="port-card" style="display: flex; flex-direction: column; background: #fff; border: 1px solid #e0e8f0; border-radius: 12px; overflow: hidden; text-decoration: none; color: inherit; transition: all 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.05);" onmouseover="this.style.borderColor='#0e6e8e'; this.style.boxShadow='0 4px 12px rgba(14,110,142,0.15)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#e0e8f0'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.05)'; this.style.transform='translateY(0)'">
@@ -1336,7 +1447,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             </div>
             <div style="padding: 0.75rem;">
               <strong style="color: #0e6e8e; font-size: 1rem; display: block;">${port.name}</strong>
-              ${port.region ? `<div class="tiny" style="color: #666; margin-top: 0.35rem;">${port.region}</div>` : ''}
+              <div class="tiny" style="color: #666; margin-top: 0.35rem;">${port.region || 'Port'}${country}</div>
             </div>
           </a>
         `;
