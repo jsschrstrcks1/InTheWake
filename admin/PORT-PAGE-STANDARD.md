@@ -31,17 +31,18 @@ Port pages must follow this exact section order:
 19. **Image Credits** (optional/recommended) - Photo attribution section
 20. **Back Navigation** - Links back to ports index
 
-### Sidebar Rail (6 sections)
+### Sidebar Rail (7 sections)
 1. **Quick Answer Box** (REQUIRED) - 50-150 word concise answer to "Is [Port] worth it?"
 2. **At a Glance** (REQUIRED) - 6-10 key data points (distance, duration, tender, etc.)
-3. **About the Author** (REQUIRED) - Author bio with photo
-4. **Nearby Ports** (REQUIRED) - 3-5 nearby ports with links
-5. **Recent Stories** (REQUIRED) - Latest 3-5 articles
-6. **Whimsical Units Container** (REQUIRED) - Fun measurement conversions
+3. **Author's Note Disclaimer** (REQUIRED) - Author experience level disclaimer (see Section III-A)
+4. **About the Author** (REQUIRED) - Author bio with photo
+5. **Nearby Ports** (REQUIRED) - 3-5 nearby ports with links
+6. **Recent Stories** (REQUIRED) - Latest 3-5 articles
+7. **Whimsical Units Container** (REQUIRED) - Fun measurement conversions
 
 ### Section Ordering Rules
 - **BLOCKING**: Main column sections 1-20 must appear in order (optional sections can be skipped)
-- **BLOCKING**: Sidebar sections 1-6 must appear in order
+- **BLOCKING**: Sidebar sections 1-7 must appear in order
 - **Fuzzy Matching**: Section headings allow variations (e.g., "Getting Around", "Getting There", "Transportation")
 - **Heading Hierarchy**:
   - Single `<h1>` for page title only
@@ -456,6 +457,67 @@ All port pages must include ICP-Lite v1.4 metadata:
 
 ---
 
+## III-A. AUTHOR EXPERIENCE DISCLAIMER (BLOCKING)
+
+Every port page MUST include a prominent disclaimer card indicating the author's experience level with the port.
+
+### Disclaimer Placement (BLOCKING)
+
+The disclaimer must appear in the **sidebar rail** as a distinct card, positioned after "At a Glance" and before "About the Author".
+
+### Disclaimer HTML Structure (BLOCKING)
+
+```html
+<aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+  <h3>Author's Note</h3>
+  <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+    [DISCLAIMER TEXT BASED ON EXPERIENCE LEVEL]
+  </p>
+</aside>
+```
+
+### Required Disclaimer Text by Experience Level (BLOCKING)
+
+Choose ONE of the following based on the author's actual experience:
+
+#### **Level 1: Port Not Yet Visited (DEFAULT)**
+Use this for ports the author has not personally visited:
+
+```
+Until I have sailed this port myself, these notes are soundings in another's wake; carefully curated and edited to meet our standards. We believe they are helpful for planning, and marked for revision once I've logged my own steps ashore.
+```
+
+#### **Level 2: Port Visit Planned**
+Use this for ports where the author has a confirmed future visit:
+
+```
+I will be sailing to this port in the coming year, so until I have sailed this port myself, these notes are soundings in another's wake—helpful for planning, and marked for revision once I've logged my own steps ashore.
+```
+
+#### **Level 3: Port Personally Visited**
+Use this for ports the author has personally experienced:
+
+```
+Now that I have sailed this port myself, these notes are my own soundings—shaped by what I saw, what worked, and what I'd do differently when I return.
+```
+
+### Validation Rules
+
+- **BLOCKING**: Disclaimer card must exist in sidebar rail
+- **BLOCKING**: Disclaimer must use exact wording from one of the three experience levels
+- **BLOCKING**: Disclaimer card must use the specified styling (background: #fffbf0, border-left: 4px solid #d4a574)
+- **BLOCKING**: Card heading must be "Author's Note"
+- **WARNING**: Disclaimer should be positioned after "At a Glance" and before "About the Author"
+
+### Implementation Notes
+
+- **Default assumption**: If no specific travel history is known, use Level 1 (Port Not Yet Visited)
+- **Accuracy requirement**: The disclaimer must accurately reflect the author's actual experience at time of publication
+- **Update requirement**: When author visits a port, the disclaimer MUST be updated from Level 1 or Level 2 to Level 3
+- **Transparency principle**: The disclaimer provides editorial transparency about first-hand vs. researched content
+
+---
+
 ## IV. PORT GUIDE CONTENT REQUIREMENTS - THE RUBRIC (BLOCKING)
 
 Every port page must demonstrate these four pillars:
@@ -831,7 +893,7 @@ Some violations require human judgment:
 **Soli Deo Gloria**
 
 ### Change Log
-- **v1.1** (2025-12-26): Added POI manifest system requirements
+- **v1.1** (2025-12-26): Added POI manifest system and author experience disclaimer requirements
   - Section II-A: POI Manifest System specification
   - Minimum 10 POI per port requirement (BLOCKING)
   - POI manifest file structure and validation rules
@@ -840,6 +902,11 @@ Some violations require human judgment:
   - nearby-ports.js module loading
   - POI selection guidelines and examples
   - Updated map initialization from inline Leaflet to PortMap module pattern
+  - Section III-A: Author Experience Disclaimer (BLOCKING)
+  - Three-level disclaimer system (not yet visited, visit planned, personally visited)
+  - Mandatory prominent disclaimer card in sidebar rail
+  - Specific styling and placement requirements
+  - Editorial transparency about first-hand vs. researched content
 
 - **v1.0.1** (2025-12-26): Added required stylesheets and scripts section
   - Required stylesheet includes (main styles, Leaflet, port map CSS)
