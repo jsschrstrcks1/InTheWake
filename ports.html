@@ -40,7 +40,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta name="referrer" content="no-referrer-when-downgrade"/>
   <meta name="ai-summary" content="Explore cruise port guides from In the Wake — authentic snapshots, accessibility notes, and honest travel insight for cruise travelers.">
   <meta name="last-reviewed" content="2025-11-19">
-  <meta name="content-protocol" content="ICP-Lite v1.0">
+  <meta name="content-protocol" content="ICP-Lite v1.4">
 
   <!-- SEO: Robots & Crawling -->
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
@@ -141,14 +141,15 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   }
   </script>
 
-  <!-- JSON-LD: WebPage (ICP-Lite) -->
+  <!-- JSON-LD: WebPage (ICP-Lite v1.4) -->
   <script type="application/ld+json">
   {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Ports",
   "url": "https://cruisinginthewake.com/ports.html",
-  "description": "Explore cruise port guides from In the Wake \u2014 authentic snapshots, accessibility notes, and honest travel insight for cruise travelers."
+  "description": "Explore cruise port guides from In the Wake \u2014 authentic snapshots, accessibility notes, and honest travel insight for cruise travelers.",
+  "dateModified": "2025-11-19"
 }
   </script><!-- Favicon / PWA -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
@@ -286,9 +287,50 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p class="content-text">
           Royal Caribbean visits over 300 destinations across all seven continents. These are the ports of call where you'll spend hours exploring, from private island paradises to ancient cities. Looking for where to <em>start</em> your cruise? Check out the <a href="/planning.html#state-port-selector">departure ports on our Planning page</a>.
         </p>
-        <p class="tiny">
-          Jump to: <a href="#private-destinations">Private Destinations</a> · <a href="#caribbean">Caribbean</a> · <a href="#alaska">Alaska</a> · <a href="#canada-new-england">Canada/New England</a> · <a href="#hawaii">Hawaii</a> · <a href="#mexico">Mexican Riviera</a> · <a href="#mediterranean">Mediterranean</a> · <a href="#northern-europe">Northern Europe</a> · <a href="#asia-pacific">Asia-Pacific</a> · <a href="#australia-nz">Australia/NZ</a> · <a href="#south-pacific">South Pacific</a> · <a href="#south-america">South America</a> · <a href="#world-cruise">World Cruise</a> · <a href="#embarkation-ports">Embarkation Ports</a>
-        </p>
+      </article>
+
+      <!-- Quick Links -->
+      <article class="card" style="background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%); border-left: 4px solid #0e6e8e;">
+        <h2 style="margin-top: 0;">Quick Links — Jump to Region</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin-bottom: 1rem;">
+          <a href="#private-destinations" class="pill" style="text-align: center;">🏝️ Private Islands</a>
+          <a href="#caribbean" class="pill" style="text-align: center;">🌴 Caribbean</a>
+          <a href="#alaska" class="pill" style="text-align: center;">🏔️ Alaska</a>
+          <a href="#canada-new-england" class="pill" style="text-align: center;">🍁 Canada/New England</a>
+          <a href="#hawaii" class="pill" style="text-align: center;">🌺 Hawaii</a>
+          <a href="#mexico" class="pill" style="text-align: center;">🌮 Mexican Riviera</a>
+          <a href="#mediterranean" class="pill" style="text-align: center;">🏛️ Mediterranean</a>
+          <a href="#northern-europe" class="pill" style="text-align: center;">⛵ Northern Europe</a>
+          <a href="#asia-pacific" class="pill" style="text-align: center;">🏯 Asia-Pacific</a>
+          <a href="#australia-nz" class="pill" style="text-align: center;">🦘 Australia/NZ</a>
+          <a href="#south-pacific" class="pill" style="text-align: center;">🌊 South Pacific</a>
+          <a href="#south-america" class="pill" style="text-align: center;">🦙 South America</a>
+          <a href="#world-cruise" class="pill" style="text-align: center;">🌍 World Cruise</a>
+          <a href="#embarkation-ports" class="pill" style="text-align: center;">⚓ Home Ports</a>
+        </div>
+      </article>
+
+      <!-- Port Search -->
+      <article class="card">
+        <h2>Search Ports</h2>
+        <div class="port-search-container">
+          <label for="port-search" class="sr-only">Search ports by name, region, or keyword</label>
+          <div style="position: relative; margin-bottom: 1rem;">
+            <input
+              type="search"
+              id="port-search"
+              placeholder="Type to search ports... (e.g., 'Cozumel', 'Caribbean', 'Alaska')"
+              autocomplete="off"
+              style="width: 100%; padding: 0.75rem 1rem 0.75rem 2.5rem; font-size: 1rem; border: 2px solid #e0e8f0; border-radius: 8px;"
+              aria-describedby="search-status"
+            />
+            <svg style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); width: 1.25rem; height: 1.25rem; fill: #666; pointer-events: none;" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+            </svg>
+          </div>
+          <div id="search-status" role="status" aria-live="polite" class="tiny" style="color: #666; min-height: 1.25rem;"></div>
+          <div id="port-results" style="margin-top: 1rem;"></div>
+        </div>
       </article>
 
       <!-- Private & Exclusive Destinations -->
@@ -981,28 +1023,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           <strong>Best For:</strong> Cruisers researching Royal Caribbean itineraries, comparing regions, and planning which ports to prioritize on their voyage.
         </p>
 
-        <!-- Port Search -->
-        <div class="port-search-container" style="margin: 1.25rem 0; padding: 1rem; background: #fff; border-radius: 12px; border: 2px solid var(--rope, #d9b382); box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
-          <label for="port-search" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #134;">
-            Search Ports & Regions
-          </label>
-          <div style="position: relative;">
-            <input
-              type="search"
-              id="port-search"
-              placeholder="Try 'Cozumel', 'western caribbean', 'Alaska'..."
-              autocomplete="off"
-              style="width: 100%; padding: 0.75rem 1rem 0.75rem 2.5rem; font-size: 1rem; border: 2px solid #e0e8f0; border-radius: 8px; transition: border-color 0.2s ease;"
-              aria-describedby="search-status"
-            />
-            <svg style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); width: 1.25rem; height: 1.25rem; fill: #666; pointer-events: none;" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-            </svg>
-          </div>
-          <div id="search-status" role="status" aria-live="polite" style="margin-top: 0.5rem; font-size: 0.85rem; color: #666; min-height: 1.25rem;"></div>
-          <div id="port-results" style="margin-top: 0.75rem; display: none;"></div>
-        </div>
-
         <div class="callout-box">
           <h3 class="mt-0 mb-05">Key Facts</h3>
           <ul class="list-indent">
@@ -1057,7 +1077,235 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </footer>
 
   <!-- JAVASCRIPT -->
-  
+
+<!-- Live Port Search -->
+<script>
+(function() {
+  'use strict';
+
+  const searchInput = document.getElementById('port-search');
+  const searchStatus = document.getElementById('search-status');
+  const resultsContainer = document.getElementById('port-results');
+
+  if (!searchInput) return;
+
+  // Build search index from page content
+  const portLinks = Array.from(document.querySelectorAll('a[href^="/ports/"]')).map(link => {
+    const section = link.closest('article[id]');
+    const regionName = section ? section.querySelector('h2')?.textContent || '' : '';
+    return {
+      name: link.textContent.trim(),
+      url: link.getAttribute('href'),
+      region: regionName,
+      element: link
+    };
+  });
+
+  // Remove duplicates
+  const uniquePorts = Array.from(new Map(portLinks.map(p => [p.url, p])).values());
+
+  function normalizeString(str) {
+    return str.toLowerCase()
+      .replace(/[àáâãäå]/g, 'a')
+      .replace(/[èéêë]/g, 'e')
+      .replace(/[ìíîï]/g, 'i')
+      .replace(/[òóôõö]/g, 'o')
+      .replace(/[ùúûü]/g, 'u')
+      .replace(/[ñ]/g, 'n')
+      .replace(/[ç]/g, 'c')
+      .replace(/[^a-z0-9\s]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function searchPorts(query) {
+    if (!query || query.length < 2) {
+      resultsContainer.innerHTML = '';
+      resultsContainer.style.display = 'none';
+      searchStatus.textContent = '';
+      return;
+    }
+
+    const normalized = normalizeString(query);
+    const words = normalized.split(' ');
+
+    const matches = uniquePorts.filter(port => {
+      const portName = normalizeString(port.name);
+      const portRegion = normalizeString(port.region);
+      const combined = portName + ' ' + portRegion;
+
+      return words.every(word => combined.includes(word));
+    }).slice(0, 20); // Limit to 20 results
+
+    if (matches.length === 0) {
+      searchStatus.textContent = `No ports found for "${query}"`;
+      resultsContainer.innerHTML = `
+        <p class="tiny" style="padding: 1rem; background: #f5f7fa; border-radius: 8px; color: #666;">
+          No ports found. Try searching by port name (e.g., "Cozumel"), region (e.g., "Caribbean"), or location.
+        </p>
+      `;
+      resultsContainer.style.display = 'block';
+      return;
+    }
+
+    searchStatus.textContent = `Found ${matches.length} port${matches.length !== 1 ? 's' : ''}`;
+
+    resultsContainer.innerHTML = `
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.75rem;">
+        ${matches.map(port => `
+          <a href="${port.url}" style="display: block; padding: 0.75rem; background: #fff; border: 1px solid #e0e8f0; border-radius: 8px; text-decoration: none; color: inherit; transition: all 0.2s ease;" onmouseover="this.style.borderColor='#0e6e8e'; this.style.boxShadow='0 2px 8px rgba(14,110,142,0.1)'" onmouseout="this.style.borderColor='#e0e8f0'; this.style.boxShadow='none'">
+            <strong style="color: #0e6e8e;">${port.name}</strong>
+            ${port.region ? `<div class="tiny" style="color: #666; margin-top: 0.25rem;">${port.region}</div>` : ''}
+          </a>
+        `).join('')}
+      </div>
+    `;
+    resultsContainer.style.display = 'block';
+  }
+
+  // Live search as user types
+  let searchTimeout;
+  searchInput.addEventListener('input', (e) => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      searchPorts(e.target.value);
+    }, 200); // 200ms debounce
+  });
+
+  // Clear on escape
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      searchInput.value = '';
+      searchPorts('');
+    }
+  });
+})();
+</script>
+
+<!-- Recent Articles Rail -->
+<script>
+(function(){
+  "use strict";
+
+  (async function recentRail(){
+    const rail = document.getElementById('recent-rail');
+    if(!rail) return;
+
+    const fallback = document.getElementById('recent-rail-fallback');
+    if(fallback) fallback.style.display = '';
+
+    async function fetchJSONWithFallback(urls){
+      for (const u of urls){
+        try{
+          const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
+          if (res.ok) return await res.json();
+        }catch(err){}
+      }
+      return null;
+    }
+
+    const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
+
+    function setImageWithFallback(imgEl, primary, altPaths=[]){
+      if(!imgEl) return;
+      const stamp='v=3.010.300';
+      const tried=new Set();
+      const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
+      function tryNext(){
+        const next=queue.shift();
+        if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
+        if(tried.has(next)) return tryNext();
+        tried.add(next);
+        imgEl.src=next;
+      }
+      imgEl.onerror=tryNext;
+      tryNext();
+    }
+
+    const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
+    if(!raw) {
+      if(fallback) {
+        fallback.textContent = 'Unable to load articles';
+        fallback.style.display = '';
+      }
+      return;
+    }
+
+    const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
+    if(!items.length) return;
+
+    const here = location.pathname.replace(/\/+$/,'');
+    const view = items.filter(p=>{
+      const href = pick(p,['url','path'],'#');
+      const norm = (href||'').replace(/\/+$/,'');
+      return norm && norm !== here;
+    }).slice(0,6);
+
+    rail.innerHTML = view.map(p=>{
+      const title = pick(p,['title','name'],'Article');
+      const href  = pick(p,['url','path'],'#');
+      const excerpt = pick(p,['excerpt','description'],'');
+      return `
+        <article class="card article-card">
+          <div class="article-card-grid">
+            <div class="article-thumb-wrap">
+              <img class="article-thumb" alt="" decoding="async" loading="lazy">
+            </div>
+            <div class="article-card-body">
+              <h4><a href="${href}">${title}</a></h4>
+              ${excerpt ? `<p class="tiny excerpt">${excerpt}</p>` : ''}
+            </div>
+          </div>
+          <a href="${href}" class="pill read-more">Read Article →</a>
+        </article>`;
+    }).join('');
+
+    const cards = [...rail.querySelectorAll('article.card')];
+    cards.forEach((card,i)=>{
+      const p = view[i] || {};
+      const el = card.querySelector('img.article-thumb');
+      const href  = (pick(p,['url','path'],'')||'').toLowerCase();
+      const title = (pick(p,['title','name'],'')||'').toLowerCase();
+
+      let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
+
+      if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
+        primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
+      }
+      if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
+        primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
+      }
+      if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
+        primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
+      }
+      if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
+        primary = '/assets/articles/travel/cover.jpg';
+      }
+
+      if(!primary){
+        const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
+        const guess = slugify(href) || slugify(title);
+        if(guess) primary = `/assets/articles/${guess}/cover.jpg`;
+      }
+
+      const alts = [];
+      if(primary){
+        const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
+        alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
+      }
+      setImageWithFallback(el, primary || '/assets/index_hero.jpg', alts);
+    });
+
+    if(fallback) fallback.style.display = 'none';
+
+    const status = document.getElementById('a11y-status');
+    if(status) {
+      status.textContent = `${view.length} recent articles loaded`;
+    }
+  })();
+})();
+</script>
+
 <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
 
