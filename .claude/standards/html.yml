@@ -47,14 +47,14 @@ structure:
       pattern: '<meta name="viewport"'
     description: "Viewport meta tag required for responsive design"
 
-# ICP-Lite v1.0 Protocol
+# ICP-Lite v1.4 Protocol
 icp_lite:
   required: true
   severity: error
   priority: 4
-  protocol_version: "1.0"
+  protocol_version: "1.4"
 
-  description: "ICP-Lite v1.0 protocol metadata for AI-first content"
+  description: "ICP-Lite v1.4 protocol metadata for AI-first content"
 
   meta_tags:
     ai_summary:
@@ -63,7 +63,10 @@ icp_lite:
       check:
         type: "grep"
         pattern: '<meta name="ai-summary"'
-      description: "Brief description for AI consumption"
+      description: "Brief description for AI consumption (max 250 chars, first 155 standalone)"
+      validation:
+        max_length: 250
+        first_155_standalone: true
 
     last_reviewed:
       required: true
@@ -79,13 +82,57 @@ icp_lite:
       severity: error
       check:
         type: "grep"
-        pattern: '<meta name="content-protocol" content="ICP-Lite v1.0"'
+        pattern: '<meta name="content-protocol" content="ICP-Lite v1.4"'
       description: "Protocol version declaration"
-      expected_value: "ICP-Lite v1.0"
+      expected_value: "ICP-Lite v1.4"
 
   rationale: |
     ICP-Lite helps AI systems understand content structure and freshness.
     Required on all HTML pages to ensure AI-friendly content delivery.
+
+  # v1.4 additions: JSON-LD mirroring
+  jsonld_mirroring:
+    required: true
+    severity: error
+    description: "JSON-LD must mirror ICP-Lite meta tags"
+    requirements:
+      - field: "description"
+        must_match: "ai-summary meta tag (exact match)"
+      - field: "dateModified"
+        must_match: "last-reviewed meta tag (exact match)"
+      - field: "@type"
+        minimum: "WebPage"
+    check:
+      type: "custom"
+      script: "validate-icp-lite-v14.js"
+    rationale: |
+      v1.4 requires JSON-LD to mirror meta tags so standards-based crawlers
+      get the same truth as custom meta tag consumers.
+
+  # v1.4 additions: mainEntity for entity pages
+  main_entity:
+    required: conditional
+    severity: error
+    condition:
+      type: "file_pattern"
+      patterns:
+        - "ships/*.html"
+        - "ports/*.html"
+        - "restaurants/*.html"
+      exclude:
+        - "index.html"
+        - "**/index.html"
+    description: "Entity pages must declare mainEntity in WebPage JSON-LD"
+    entity_types:
+      ships: { type: "Product", category: "Cruise Ship" }
+      ports: { type: "Place", category: "Port of Call" }
+      restaurants: { type: "Restaurant", category: "Dining Venue" }
+    check:
+      type: "custom"
+      script: "validate-icp-lite-v14.js"
+    rationale: |
+      Entity pages are "about" a specific thing (ship, port, restaurant).
+      The mainEntity property in WebPage JSON-LD declares what that thing is.
 
   # ITW-Lite collapsible sections
   collapsible_sections:

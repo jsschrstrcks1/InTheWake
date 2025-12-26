@@ -32,7 +32,8 @@ FOM_STANDARDS_ALIGNMENT.md        # How FOM integration aligns with CITW standar
 ### 2. Understand the Standards:
 ```bash
 new-standards/README.md           # Standards directory structure
-new-standards/v3.010/ICP_LITE_v1.0_PROTOCOL.md        # AI-first metadata
+.claude/skills/standards/resources/icp-lite-protocol.md  # ✅ ICP-Lite v1.4 (CURRENT)
+new-standards/v3.010/ICP_LITE_v1.0_PROTOCOL.md        # ❌ DEPRECATED (v1.0)
 new-standards/v3.010/AI_BREADCRUMBS_SPECIFICATION.md  # Structured context comments
 new-standards/foundation/WCAG_2.1_AA_STANDARDS_v3.100.md  # Accessibility
 ```
@@ -206,18 +207,23 @@ All work on this project is offered as a gift to God.
 
 ---
 
-## 📝 Required Meta Tags (ICP-Lite v1.0)
+## 📝 Required Meta Tags (ICP-Lite v1.4)
 
-Every page should have these AI-first meta tags:
+Every page MUST have these AI-first meta tags:
 
 ```html
-<!-- ICP-Lite v1.0: AI-First Metadata -->
-<meta name="ai-summary" content="Brief page description (1-2 sentences, 250 char max)"/>
-<meta name="last-reviewed" content="2025-11-24"/>
-<meta name="content-protocol" content="ICP-Lite v1.0"/>
+<!-- ICP-Lite v1.4: AI-First Metadata -->
+<meta name="ai-summary" content="Brief page description (max 250 chars, first ~155 must be standalone sentence)"/>
+<meta name="last-reviewed" content="2025-12-25"/>
+<meta name="content-protocol" content="ICP-Lite v1.4"/>
 ```
 
-**Read:** `new-standards/v3.010/ICP_LITE_v1.0_PROTOCOL.md`
+**New in v1.4:**
+- **Dual-Cap Rule:** Max 250 chars total, first ~155 chars must be a complete standalone sentence
+- **JSON-LD Mirroring Required:** description = ai-summary, dateModified = last-reviewed (exact match)
+- **mainEntity Required:** Entity pages (ships, ports, restaurants) must declare primary entity in JSON-LD
+
+**Read:** `.claude/skills/standards/resources/icp-lite-protocol.md` (current specification)
 
 ---
 
@@ -241,15 +247,55 @@ Ship, port, and restaurant pages should have structured context comments:
 
 ---
 
+## 🔗 JSON-LD Mirroring (ICP-Lite v1.4 Requirement)
+
+Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
+
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Page Title",
+  "description": "EXACT MATCH to ai-summary meta tag",
+  "dateModified": "EXACT MATCH to last-reviewed meta tag",
+  "datePublished": "2024-01-15"
+}
+</script>
+```
+
+**Entity pages MUST also include mainEntity:**
+
+```json
+"mainEntity": {
+  "@type": "Product",
+  "name": "Adventure of the Seas",
+  "category": "Cruise Ship",
+  "manufacturer": { "@type": "Organization", "name": "Royal Caribbean International" }
+}
+```
+
+**Entity type mapping:**
+- `ships/*` → `@type: "Product"`, category: "Cruise Ship"
+- `ports/*` → `@type: "Place"`, category: "Port of Call"
+- `restaurants/*` → `@type: "Restaurant"`, category: "Dining Venue"
+
+**Read:** `.claude/skills/standards/resources/icp-lite-protocol.md` (lines 82-133)
+
+---
+
 ## 🚨 Common Pitfalls to Avoid
 
 ### ❌ Don't:
 1. **Remove or modify theological invocation** — It's immutable
 2. **Keyword stuff content** — ITW-Lite rejects this
 3. **Use robotic SEO copy** — Natural language only
-4. **Remove AI-first meta tags** — ICP-Lite protocol required
-5. **Compromise accessibility** — WCAG AA is non-negotiable
-6. **Sacrifice UX for SEO** — Human-first principle
+4. **Remove AI-first meta tags** — ICP-Lite v1.4 protocol required
+5. **Mismatch JSON-LD and meta tags** — description must = ai-summary exactly
+6. **Omit mainEntity on entity pages** — Ships, ports, restaurants need it
+7. **Exceed 250 char summary or break dual-cap rule** — First 155 must be standalone
+8. **Compromise accessibility** — WCAG AA is non-negotiable
+9. **Sacrifice UX for SEO** — Human-first principle
 
 ### ✅ Do:
 1. **Check skill-rules.json** before major changes
@@ -270,10 +316,14 @@ Ship, port, and restaurant pages should have structured context comments:
 
 ### For New Pages:
 1. Copy structure from similar existing page
-2. Apply invocation comments
-3. Add ICP-Lite meta tags
-4. Add AI-breadcrumbs (if entity page)
-5. Verify WCAG AA compliance
+2. Apply invocation comments (Soli Deo Gloria)
+3. Add ICP-Lite v1.4 meta tags (check dual-cap rule)
+4. Add matching JSON-LD (description = ai-summary, dateModified = last-reviewed)
+5. Add mainEntity if entity page (ships, ports, restaurants)
+6. Add AI-breadcrumbs (if entity page)
+7. Verify WCAG AA compliance
+8. Run `./admin/post-write-validate.sh <file>` to verify standards
+9. Run `node admin/validate-icp-lite-v14.js <file>` for detailed ICP-Lite v1.4 check
 
 ### When Unsure:
 1. Ask user for clarification
@@ -369,10 +419,13 @@ Ship, port, and restaurant pages should have structured context comments:
 1. **7 skill rules** auto-activate based on context: 3 with skill directories + 4 rule-based triggers
 2. **ITW-Lite v3.010**: AI-first, Human-first, Google second
 3. **Theological foundation is immutable**: Soli Deo Gloria on every page
-4. **ICP-Lite protocol required**: ai-summary, last-reviewed, content-protocol meta tags
-5. **Guardrails protect CITW values**: No keyword stuffing, robotic copy, or removing AI tags
-6. **Read skill-rules.json first**: It tells you what's expected
-7. **Consult new-standards/** for page requirements
+4. **ICP-Lite v1.4 protocol required**: ai-summary (dual-cap), last-reviewed, content-protocol meta tags
+5. **JSON-LD mirroring required**: description = ai-summary, dateModified = last-reviewed (exact match)
+6. **mainEntity required on entity pages**: Ships, ports, restaurants must declare primary entity
+7. **Guardrails protect CITW values**: No keyword stuffing, robotic copy, or removing AI tags
+8. **Read skill-rules.json first**: It tells you what's expected
+9. **Consult new-standards/** for page requirements
+10. **Run validators before committing**: `./admin/post-write-validate.sh` and `node admin/validate-icp-lite-v14.js`
 
 ---
 
@@ -391,12 +444,22 @@ cat .claude/skill-rules.json | jq '.skills | keys'
 # Check standards structure
 ls -la new-standards/
 
-# Read ICP-Lite protocol
-cat new-standards/v3.010/ICP_LITE_v1.0_PROTOCOL.md
+# Read ICP-Lite v1.4 protocol (CURRENT)
+cat .claude/skills/standards/resources/icp-lite-protocol.md
 
 # Read theological foundation
 cat .claude/skills/standards/resources/theological-foundation.md
 
 # Verify alignment
 cat FOM_STANDARDS_ALIGNMENT.md
+
+# Validate ICP-Lite v1.4 compliance
+node admin/validate-icp-lite-v14.js <file>
+./admin/post-write-validate.sh <file>
+
+# Validate all files
+node admin/validate-icp-lite-v14.js --all
+
+# Install validator dependencies (first time only)
+cd admin && npm install
 ```

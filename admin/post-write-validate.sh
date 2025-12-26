@@ -247,12 +247,35 @@ for file in $FILES; do
         ((TOTAL_WARNINGS++))
       fi
 
-      # ICP-Lite checks
-      if grep -q 'name="ai-summary"' "$file" 2>/dev/null; then
-        echo -e "   ${GREEN}✓${NC} ICP-Lite ai-summary"
+      # ICP-Lite v1.4 validation (delegated to Node.js validator)
+      if command -v node &> /dev/null && [ -f "admin/validate-icp-lite-v14.js" ]; then
+        # Run Node.js validator and capture output
+        ICP_OUTPUT=$(node admin/validate-icp-lite-v14.js "$file" 2>&1)
+        ICP_EXIT=$?
+
+        if [ $ICP_EXIT -eq 0 ]; then
+          echo -e "   ${GREEN}✓${NC} ICP-Lite v1.4 compliant"
+        else
+          echo -e "   ${RED}✗${NC} ICP-Lite v1.4 validation failed"
+          # Show errors indented
+          echo "$ICP_OUTPUT" | grep -E "ERROR:|WARNING:" | while IFS= read -r line; do
+            if [[ "$line" =~ ERROR: ]]; then
+              echo -e "      ${RED}→${NC} $(echo "$line" | sed 's/.*ERROR: //')"
+            elif [[ "$line" =~ WARNING: ]]; then
+              echo -e "      ${YELLOW}→${NC} $(echo "$line" | sed 's/.*WARNING: //')"
+            fi
+          done
+          ((TOTAL_ERRORS++))
+        fi
       else
-        echo -e "   ${RED}✗${NC} Missing ICP-Lite ai-summary"
-        ((TOTAL_ERRORS++))
+        # Fallback to basic grep check if Node.js not available
+        echo -e "   ${YELLOW}⚠${NC}  Node.js validator not available, using basic ICP-Lite check"
+        if grep -q 'name="ai-summary"' "$file" 2>/dev/null; then
+          echo -e "   ${GREEN}✓${NC} ICP-Lite ai-summary present"
+        else
+          echo -e "   ${RED}✗${NC} Missing ICP-Lite ai-summary"
+          ((TOTAL_ERRORS++))
+        fi
       fi
 
       # Unknown placeholder checks (incomplete content detection)

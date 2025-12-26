@@ -1,347 +1,267 @@
-# ICP-Lite v1.0 Protocol Specification
+# ICP-Lite v1.4 Protocol — AI-First Metadata (ITW)
 
-**Version**: 1.0.0
-**Protocol Version**: ICP-Lite v1.0
-**Last Updated**: 2025-11-24
-**Purpose**: AI-first content metadata standard
-**Line Count**: ~250 lines
+**Version**: 1.4
+**Introduced**: v3.010.300 (v1.0 lineage)
+**Status**: Active standard (core required + optional layers)
+**Purpose**: Make each page easy to understand, easy to verify, and easy to cite—without breaking traditional SEO or accessibility.
 
----
-
-## Overview
-
-**ICP-Lite** (Intelligent Content Protocol - Lite) is a lightweight metadata standard that helps AI systems understand, navigate, and summarize web content.
-
-**Design Goals**:
-- Minimal overhead (3 required meta tags)
-- Human-readable and machine-parse-able
-- Helps AI understand content freshness and purpose
-- No complex schemas or dependencies
+**Soli Deo Gloria** ✝️
 
 ---
 
-## Required Meta Tags
+## Design Principles
 
-### 1. ai-summary
-
-**Purpose**: Brief description for AI consumption
-
-**Format**:
-```html
-<meta name="ai-summary" content="Brief description of page content"/>
-```
-
-**Requirements**:
-- **Length**: 50-200 characters recommended
-- **Tone**: Descriptive, not marketing
-- **Content**: What the page actually contains
-- **Audience**: Written for AI, not humans
-
-**Good Examples**:
-```html
-<meta name="ai-summary" content="Home page for sailing blog In the Wake, featuring latest posts about cruising the Great Loop"/>
-
-<meta name="ai-summary" content="Ship profile for Koinonia, a 2003 Mainship 390 Trawler currently cruising the Great Loop"/>
-
-<meta name="ai-summary" content="Complete list of ports visited during Great Loop journey with dates and experiences"/>
-```
-
-**Bad Examples**:
-```html
-<!-- ❌ Too short -->
-<meta name="ai-summary" content="Home page"/>
-
-<!-- ❌ Marketing speak -->
-<meta name="ai-summary" content="The ultimate guide to amazing sailing adventures!"/>
-
-<!-- ❌ Too long -->
-<meta name="ai-summary" content="Welcome to In the Wake, where..."/>
-```
+1. **Standards-first, then custom.** Use Schema.org/JSON-LD for anything a standard already covers. Custom meta is allowed, but treated as additive and non-authoritative to external crawlers.
+2. **Dual audience.** Humans first, but with an AI-friendly "front door" (summary + clear first paragraph + structured data).
+3. **Truth posture.** Time-sensitive/variable facts (prices, menus, policies) must be labeled with as-of date + verification posture + disclaimer.
+4. **No regressions.** Unknown meta tags should never harm indexing; they must degrade gracefully.
 
 ---
 
-### 2. last-reviewed
+## Compliance Levels
 
-**Purpose**: When content was last reviewed for accuracy
+### A. Core Compliance (Required)
+- 3 required meta tags in `<head>`
+- JSON-LD mirroring of summary + freshness
+- First-paragraph "answer lead" discipline
 
-**Format**:
+### B. Enhanced Compliance (Strongly Recommended)
+- `mainEntity` on entity pages (ships, venues, ports, tools)
+- `BreadcrumbList` schema where a hierarchy exists
+- `FAQPage` schema when there is real Q&A (not forced)
+
+### C. Optional Layers (Low-risk / Experimental)
+- `llms.txt` (experimental; may be ignored)
+- IndexNow pings (Bing/Copilot speed-ups)
+- Relationship reinforcement via `significantLink` / `relatedLink` in JSON-LD
+
+---
+
+## Required Head Meta Tags (3)
+
+### 1) AI Summary
+
+```html
+<meta name="ai-summary" content="..."/>
+```
+
+**Goal**: one factual, answer-first summary designed for citation.
+
+**Length rules (Dual-Cap)**:
+- **Max**: 250 characters total
+- **First-155 rule**: the first ~155 characters must be a complete standalone answer (so a truncated snippet still works for classic search).
+
+**Tone rules**:
+- Factual, specific, no hype, no calls to action.
+- Prefer numbers and proper nouns when known.
+
+---
+
+### 2) Last Reviewed
+
 ```html
 <meta name="last-reviewed" content="YYYY-MM-DD"/>
 ```
 
-**Requirements**:
-- **Format**: ISO 8601 date (YYYY-MM-DD)
-- **Meaning**: Last time a human verified content accuracy
-- **Not**: Last edit date (use git for that)
-- **Update**: When content is reviewed, even if not changed
-
-**Examples**:
-```html
-<meta name="last-reviewed" content="2025-11-24"/>
-<meta name="last-reviewed" content="2025-01-15"/>
-```
-
-**When to Update**:
-- ✅ Content reviewed and verified accurate
-- ✅ Facts checked against current reality
-- ✅ Links verified as still working
-- ❌ Not just for CSS/layout changes
-- ❌ Not for typo fixes
+**Meaning**: last human review for accuracy and freshness (not just a rebuild).
 
 ---
 
-### 3. content-protocol
+### 3) Protocol Identifier
 
-**Purpose**: Declare protocol version
-
-**Format**:
 ```html
-<meta name="content-protocol" content="ICP-Lite v1.0"/>
+<meta name="content-protocol" content="ICP-Lite v1.4"/>
 ```
 
-**Requirements**:
-- **Value**: Exactly "ICP-Lite v1.0"
-- **Case**: Exact match required
-- **Purpose**: Helps AI know how to parse other metadata
+**Meaning**: flags compliance for internal tooling and future parsers.
+
+**Note**: Google publishes the list of supported meta tags/attributes; unknown tags may be ignored, but they are not inherently harmful when used responsibly.
 
 ---
 
-## Complete Example
+## Required Schema Binding (JSON-LD Mirroring)
+
+Every page must mirror ICP-Lite into Schema.org JSON-LD so standards-based crawlers get the same truth.
+
+### Required mirroring rules
+- `ai-summary` must equal JSON-LD `description`
+- `last-reviewed` must equal JSON-LD `dateModified`
+- JSON-LD must declare a page type (`WebPage` baseline)
+
+### Baseline JSON-LD pattern (all pages)
 
 ```html
-<!doctype html>
-<html lang="en">
-<head>
-  <!--
-  Soli Deo Gloria
-  All work on this project is offered as a gift to God.
-  "Trust in the LORD with all your heart..." — Proverbs 3:5
-  "Whatever you do, work heartily..." — Colossians 3:23
-  -->
-
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-
-  <!-- ICP-Lite v1.0 Protocol -->
-  <meta name="ai-summary" content="Ship profile for Koinonia, our 2003 Mainship 390 Trawler currently on the Great Loop"/>
-  <meta name="last-reviewed" content="2025-11-24"/>
-  <meta name="content-protocol" content="ICP-Lite v1.0"/>
-
-  <title>Koinonia - Our Ship | In the Wake</title>
-</head>
-<body>
-  <!-- page content -->
-</body>
-</html>
-```
-
----
-
-## AI Usage Guidelines
-
-### For AI Systems Reading ICP-Lite Pages
-
-**1. Check for Protocol**:
-```javascript
-const protocol = document.querySelector('meta[name="content-protocol"]');
-if (protocol && protocol.content === 'ICP-Lite v1.0') {
-  // Parse ICP-Lite metadata
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "PAGE TITLE HERE",
+  "description": "EXACT MATCH TO ai-summary",
+  "dateModified": "2025-12-01",
+  "datePublished": "2024-01-15"
 }
+</script>
 ```
 
-**2. Extract Summary**:
-```javascript
-const summary = document.querySelector('meta[name="ai-summary"]')?.content;
-// Use for page understanding, not display
-```
+---
 
-**3. Check Freshness**:
-```javascript
-const reviewed = document.querySelector('meta[name="last-reviewed"]')?.content;
-const reviewDate = new Date(reviewed);
-const age = Date.now() - reviewDate.getTime();
+## Entity Pages Must Declare mainEntity (Strongly Recommended)
 
-if (age < 90 * 24 * 60 * 60 * 1000) {
-  // Content reviewed within 90 days - likely fresh
+If the page is "about" a ship, venue, port, tool, or article, declare the primary thing.
+
+**Schema reference**: `mainEntity`.
+
+### Ship page example
+
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Adventure of the Seas",
+  "description": "EXACT MATCH TO ai-summary",
+  "dateModified": "2025-12-01",
+  "mainEntity": {
+    "@type": "Product",
+    "name": "Adventure of the Seas",
+    "category": "Cruise Ship",
+    "manufacturer": { "@type": "Organization", "name": "Royal Caribbean International" }
+  }
 }
+</script>
 ```
 
 ---
 
-## Validation
+## Body Structure Requirements (GEO-friendly, human-friendly)
 
-### Required Checks
+### 1) Answer-First Opening Paragraph (Required)
 
-```bash
-# 1. Protocol declaration present
-grep -q 'content-protocol.*ICP-Lite v1.0' index.html
+The first paragraph (or first visible block) should answer:
+- What is this page?
+- Why does it matter / what does it help me do?
+- What kind of data is it (and does it change)?
 
-# 2. AI summary present
-grep -q 'ai-summary' index.html
+**Target**: ~60–100 words for content-heavy pages (tools, guides, hubs).
+Ship/venue pages can be shorter if the "At a Glance" block is immediately visible.
 
-# 3. Last reviewed present
-grep -q 'last-reviewed' index.html
+### 2) Semantic Chunking (Strongly Recommended)
 
-# 4. Date format valid (YYYY-MM-DD)
-grep -E 'last-reviewed.*[0-9]{4}-[0-9]{2}-[0-9]{2}' index.html
-```
+Use clear H2/H3 sections that map to real traveler questions (naturally; not spammy).
+Question-format H2s are encouraged when it reads well.
 
----
+### 3) "In Summary" boxes (Optional)
 
-## Benefits
-
-### For Content Creators
-
-1. **AI Understanding**: AI can quickly understand page purpose
-2. **Freshness Signals**: last-reviewed tells AI if content is stale
-3. **Better Summaries**: AI has context for generating summaries
-4. **Minimal Effort**: Only 3 meta tags required
-
-### For AI Systems
-
-1. **Quick Context**: No need to parse entire page
-2. **Freshness Check**: Know if content is current
-3. **Protocol Version**: Know how to parse metadata
-4. **Consistent Format**: Same tags across all pages
-
-### For Users
-
-1. **Better Search**: AI search engines use metadata
-2. **Accurate Results**: Fresh content ranked higher
-3. **Relevant Summaries**: AI summaries are more accurate
-4. **Transparent**: Last-reviewed shows content maintenance
+For long pages, a short summary box at the end of major sections can help both skim-reading humans and retrieval systems. Keep it factual.
 
 ---
 
-## Migration Guide
+## Volatile Data Discipline (Required where applicable)
 
-### Adding to Existing Site
+**Applies to**: drink package prices, menus, operating hours, policy quirks, itinerary-dependent details.
 
-**Step 1**: Add protocol declaration
+### Required elements (visible to users)
+- **As-of date** (YYYY-MM-DD)
+- **Verification posture** (one of):
+  - Verified in Cruise Planner
+  - Observed onboard
+  - Community-reported (with caution)
+- **Disclaimer**: "Subject to change without notice."
+
+### Example snippet:
+
 ```html
-<meta name="content-protocol" content="ICP-Lite v1.0"/>
+<p class="disclaimer" role="note">
+  <strong>As of 2025-11-18:</strong> Verified in Cruise Planner. Prices and menus can change without notice—confirm in your Cruise Planner before purchase.
+</p>
 ```
 
-**Step 2**: Add ai-summary (per page)
+---
+
+## Relationship & Topical Authority (Enhanced)
+
+### Breadcrumbs (Strongly Recommended)
+
+Where a hierarchy exists, include `BreadcrumbList` schema.
+
+### Relationship links in JSON-LD (Optional)
+
+Use Schema.org `significantLink` and/or `relatedLink` to reinforce clusters (ship ↔ dining ↔ cabins ↔ itineraries).
+
+---
+
+## Cross-Site Authority Linking (Optional, Recommended if you run multiple domains)
+
+If you operate multiple related sites and want consistent entity identity, use `sameAs` in Person/Organization schema.
+
+---
+
+## Optional: llms.txt (Experimental)
+
+Add `/llms.txt` at the site root with a brief site summary and pointers to key hubs. This is not a guaranteed standard and may be ignored.
+
+**Rule**: keep it conservative—summary + top-level entry points only.
+
+---
+
+## Optional: IndexNow (Bing / Copilot Freshness)
+
+If you want faster discovery of updates in Bing-based ecosystems, implement IndexNow pings in your deploy workflow.
+
+**Rule**: only ping when substantive content changes, not on every build.
+
+---
+
+## Enforcement on GitHub (Required)
+
+Because the site is hosted on GitHub Pages, enforcement should happen in CI.
+
+### CI checks must fail the build if:
+- Any of the 3 required meta tags are missing
+- `ai-summary` exceeds 250 chars
+- First ~155 chars of `ai-summary` is not a complete sentence/thought (best-effort heuristic)
+- JSON-LD `description` does not exactly match `ai-summary`
+- JSON-LD `dateModified` does not exactly match `last-reviewed`
+
+### Recommended tooling
+- A Node script that parses HTML, extracts meta + JSON-LD, validates parity
+- Run in GitHub Actions on PR + main branch
+
+---
+
+## Examples
+
+### Full `<head>` block pattern
+
 ```html
-<meta name="ai-summary" content="[Describe this page in 50-200 chars]"/>
-```
+<!-- ICP-Lite v1.4 -->
+<meta name="ai-summary" content="In the Wake helps cruise travelers compare ships, cabins, and onboard details using real voyage notes and structured guides. Data changes are labeled with as-of dates."/>
+<meta name="last-reviewed" content="2025-12-01"/>
+<meta name="content-protocol" content="ICP-Lite v1.4"/>
 
-**Step 3**: Add last-reviewed (use today's date initially)
-```html
-<meta name="last-reviewed" content="2025-11-24"/>
-```
-
-**Step 4**: Update last-reviewed when you review content
-- Set reminders to review quarterly
-- Update date after verifying accuracy
-
----
-
-## Future Versions
-
-**ICP-Lite is designed to be stable**. Version 1.0 should remain compatible indefinitely.
-
-**Possible v2.0 additions** (not currently required):
-- `ai-audience`: Target audience (general/technical/specialized)
-- `ai-intent`: User intent (learn/buy/navigate/contact)
-- `ai-type`: Content type (article/product/profile/list)
-
-**Backward Compatibility**:
-- v1.0 pages will always be valid
-- New fields will be optional
-- Old parsers can ignore new fields
-
----
-
-## Relationship to Other Standards
-
-### ICP-Lite + AI-Breadcrumbs
-
-**ICP-Lite**: Page-level metadata (what, when)
-**AI-Breadcrumbs**: Entity-level context (who, where, why)
-
-**Use both**: Entity pages (ships, ports, restaurants)
-**Use ICP-Lite only**: General pages (home, about, contact)
-
-### ICP-Lite + Schema.org
-
-**Not competitors**: They serve different purposes
-
-**ICP-Lite**: AI-first, minimal, content freshness
-**Schema.org**: SEO-first, comprehensive, structured data
-
-**Use both**: ICP-Lite for AI, Schema.org for search engines
-
----
-
-## FAQs
-
-**Q: Is this a standard from a standards body?**
-A: No, ICP-Lite is a lightweight convention, not an official standard. It's designed to be simple enough that anyone can implement it.
-
-**Q: Do search engines use this?**
-A: Not officially (yet), but AI-powered search engines may use it for better understanding.
-
-**Q: How often should I update last-reviewed?**
-A: Quarterly for static content, after any major changes, or when you verify facts are still accurate.
-
-**Q: Can I add extra meta tags?**
-A: Yes! ICP-Lite only specifies 3 required tags. Add whatever else you need.
-
-**Q: What if my CMS can't add meta tags easily?**
-A: ICP-Lite is optional. If it's too hard to implement, skip it. But for static sites, it's very easy.
-
----
-
-## Reference Implementation
-
-```javascript
-// validate-icp-lite.js
-function validateICPLite(html) {
-  const errors = [];
-
-  // Check protocol
-  if (!html.includes('content-protocol')) {
-    errors.push('Missing content-protocol meta tag');
-  } else if (!html.includes('ICP-Lite v1.0')) {
-    errors.push('content-protocol must be "ICP-Lite v1.0"');
-  }
-
-  // Check ai-summary
-  if (!html.includes('name="ai-summary"')) {
-    errors.push('Missing ai-summary meta tag');
-  }
-
-  // Check last-reviewed
-  if (!html.includes('name="last-reviewed"')) {
-    errors.push('Missing last-reviewed meta tag');
-  } else {
-    const match = html.match(/name="last-reviewed"\s+content="([^"]+)"/);
-    if (match) {
-      const date = match[1];
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-        errors.push('last-reviewed must be YYYY-MM-DD format');
-      }
-    }
-  }
-
-  return errors;
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "In the Wake — Cruise Planning",
+  "description": "In the Wake helps cruise travelers compare ships, cabins, and onboard details using real voyage notes and structured guides. Data changes are labeled with as-of dates.",
+  "datePublished": "2024-01-15",
+  "dateModified": "2025-12-01"
 }
+</script>
 ```
 
 ---
 
-## Conclusion
+## Version Notes
 
-**ICP-Lite v1.0** is a minimal, AI-first metadata standard:
-- 3 required meta tags
-- Easy to implement
-- Helps AI understand content
-- Signals content freshness
-
-**Start today**: Add these 3 tags to your pages and help AI serve your content better.
+### What's new in v1.4 (vs 1.0–1.3)
+- Dual-Cap summary rule (first ~155 chars must stand alone; max 250 total)
+- Schema parity is mandatory (description + dateModified mirroring)
+- `mainEntity` expectation for entity pages
+- Optional: `BreadcrumbList`, `significantLink`/`relatedLink`, `sameAs`, `llms.txt`, IndexNow
+- Explicit GitHub CI enforcement requirements
 
 ---
 
-**End of icp-lite-protocol.md** (~250 lines)
+**End of icp-lite-protocol.md**
