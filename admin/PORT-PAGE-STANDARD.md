@@ -498,23 +498,65 @@ I will be sailing to this port in the coming year, so until I have sailed this p
 Use this for ports the author has personally experienced:
 
 ```
-Now that I have sailed this port myself, these notes are my own soundings—shaped by what I saw, what worked, and what I'd do differently when I return.
+I've sailed this port myself, walked these shores, and these notes come from my own wake. The details reflect what I found on the ground, though ports change—always verify current conditions for your voyage.
 ```
+
+#### **Level 3 Enhanced: Multiple Visits**
+For ports visited multiple times, OPTIONALLY enhance the disclaimer to acknowledge visit count:
+
+```
+I've sailed this port myself [X] times, walked these shores, and these notes come from my own wake. The details reflect what I've consistently found across those visits, though ports change—always verify current conditions for your voyage.
+```
+
+**Examples**:
+- "I've visited Cozumel 5 times, and these notes reflect what I've consistently found..."
+- "I've sailed to Nassau 4 times, and these details come from my own wake..."
+- "After 3 visits to Aruba, these notes come from my own wake..."
 
 ### Validation Rules
 
 - **BLOCKING**: Disclaimer card must exist in sidebar rail
-- **BLOCKING**: Disclaimer must use exact wording from one of the three experience levels
+- **BLOCKING**: Disclaimer must use wording from one of the three experience levels (Level 3 may include visit count)
 - **BLOCKING**: Disclaimer card must use the specified styling (background: #fffbf0, border-left: 4px solid #d4a574)
 - **BLOCKING**: Card heading must be "Author's Note"
+- **BLOCKING**: Disclaimer level must match the port-disclaimer-registry.json (see Registry System below)
 - **WARNING**: Disclaimer should be positioned after "At a Glance" and before "About the Author"
+- **WARNING**: Ports with 2+ visits should consider including visit count in disclaimer
+
+### Disclaimer Registry System (BLOCKING)
+
+All port disclaimer levels are centrally managed in `/admin/port-disclaimer-registry.json`. This registry:
+
+- **Tracks visit history**: Level 3 ports include `visit_count` field
+- **Plans future visits**: Level 2 ports tracked with scheduled dates
+- **Defaults to Level 1**: All ports not in registry default to "not yet visited"
+- **Enforced by validator**: ICP-Lite validator automatically checks disclaimer against registry
+
+**Registry Structure**:
+```json
+{
+  "level_3_visited": {
+    "port-slug": {
+      "visit_count": 5,
+      "notes": "Visited 5 times"
+    }
+  },
+  "level_2_planned": {
+    "port-slug": {
+      "planned_visits": 1,
+      "notes": "Scheduled future cruise"
+    }
+  }
+}
+```
 
 ### Implementation Notes
 
-- **Default assumption**: If no specific travel history is known, use Level 1 (Port Not Yet Visited)
-- **Accuracy requirement**: The disclaimer must accurately reflect the author's actual experience at time of publication
-- **Update requirement**: When author visits a port, the disclaimer MUST be updated from Level 1 or Level 2 to Level 3
-- **Transparency principle**: The disclaimer provides editorial transparency about first-hand vs. researched content
+- **Default assumption**: If port not in registry, use Level 1 (Port Not Yet Visited)
+- **Accuracy requirement**: Disclaimer must match registry level at time of publication
+- **Update requirement**: When author visits a port, update both the page AND the registry
+- **Transparency principle**: Disclaimer provides editorial transparency about first-hand vs. researched content
+- **Registry source of truth**: Never manually determine disclaimer level—always check registry first
 
 ---
 

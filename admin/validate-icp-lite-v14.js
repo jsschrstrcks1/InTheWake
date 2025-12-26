@@ -8,10 +8,13 @@
  * - JSON-LD mirroring (description = ai-summary, dateModified = last-reviewed)
  * - mainEntity requirement for entity pages
  * - Volatile data discipline
+ *
+ * BLOCKING ERRORS: Validator fails fast on first error (blocks commit)
+ * OPTIONAL WARNINGS: Logged to admin/validation-warnings.log for review
  */
 
-import { readFile, readdir } from 'fs/promises';
-import { join, dirname, relative } from 'path';
+import { readFile, readdir, writeFile, appendFile } from 'fs/promises';
+import { join, dirname, relative, basename } from 'path';
 import { fileURLToPath } from 'url';
 import { load } from 'cheerio';
 import { glob } from 'glob';
@@ -19,6 +22,23 @@ import { glob } from 'glob';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const PROJECT_ROOT = join(__dirname, '..');
+const WARNINGS_LOG = join(PROJECT_ROOT, 'admin', 'validation-warnings.log');
+
+// Load disclaimer registry
+let DISCLAIMER_REGISTRY = null;
+async function loadDisclaimerRegistry() {
+  if (DISCLAIMER_REGISTRY !== null) return DISCLAIMER_REGISTRY;
+  try {
+    const registryPath = join(PROJECT_ROOT, 'admin', 'port-disclaimer-registry.json');
+    const content = await readFile(registryPath, 'utf-8');
+    DISCLAIMER_REGISTRY = JSON.parse(content);
+    return DISCLAIMER_REGISTRY;
+  } catch (error) {
+    // Registry not found or invalid - validation will skip disclaimer checks
+    DISCLAIMER_REGISTRY = {};
+    return DISCLAIMER_REGISTRY;
+  }
+}
 
 // Entity page patterns
 const ENTITY_PATTERNS = [
@@ -305,6 +325,106 @@ function validateVolatileData($, html) {
 }
 
 /**
+ * Extract port slug from filepath
+ */
+function extractPortSlug(filepath) {
+  if (!filepath.includes('ports/')) return null;
+
+  const filename = basename(filepath, '.html');
+  return filename;
+}
+
+/**
+ * Get expected disclaimer level for a port
+ */
+function getExpectedDisclaimerLevel(portSlug, registry) {
+  if (!registry || !portSlug) return 1; // Default to Level 1
+
+  // Check Level 3 (visited)
+  if (registry.level_3_visited && registry.level_3_visited[portSlug]) {
+    return 3;
+  }
+
+  // Check Level 2 (planned)
+  if (registry.level_2_planned && registry.level_2_planned[portSlug]) {
+    return 2;
+  }
+
+  // Default to Level 1
+  return 1;
+}
+
+/**
+ * Get visit count for ports visited multiple times
+ */
+function getVisitCount(portSlug, registry) {
+  if (!registry || !portSlug) return null;
+
+  if (registry.level_3_visited && registry.level_3_visited[portSlug]) {
+    return registry.level_3_visited[portSlug].visit_count || 1;
+  }
+
+  return null;
+}
+
+/**
+ * Validate disclaimer level matches registry
+ */
+async function validateDisclaimer(filepath, html) {
+  const errors = [];
+  const warnings = [];
+
+  // Only validate port pages
+  const portSlug = extractPortSlug(filepath);
+  if (!portSlug) {
+    return { valid: true, errors, warnings };
+  }
+
+  // Load registry
+  const registry = await loadDisclaimerRegistry();
+  if (!registry || Object.keys(registry).length === 0) {
+    // Registry not available, skip validation
+    return { valid: true, errors, warnings };
+  }
+
+  const expectedLevel = getExpectedDisclaimerLevel(portSlug, registry);
+  const visitCount = getVisitCount(portSlug, registry);
+
+  // Define disclaimer text patterns for each level
+  const level1Pattern = /Until I have sailed this port myself.*soundings in another's wake/s;
+  const level2Pattern = /I will be sailing to this port.*soundings in another's wake/s;
+  const level3Pattern = /I've sailed this port myself.*these notes come from my own wake/s;
+
+  // Check which disclaimer is present
+  let foundLevel = 0;
+  if (level3Pattern.test(html)) foundLevel = 3;
+  else if (level2Pattern.test(html)) foundLevel = 2;
+  else if (level1Pattern.test(html)) foundLevel = 1;
+
+  // Validate against expected level
+  if (foundLevel === 0) {
+    errors.push(`Port page missing required "Author's Note" disclaimer card\n  Expected Level ${expectedLevel} disclaimer for port: ${portSlug}`);
+  } else if (foundLevel !== expectedLevel) {
+    const levelNames = {1: 'Level 1 (not visited)', 2: 'Level 2 (visit planned)', 3: 'Level 3 (personally visited)'};
+    errors.push(`Incorrect disclaimer level for port: ${portSlug}\n  Expected: ${levelNames[expectedLevel]}\n  Found: ${levelNames[foundLevel]}\n  Update disclaimer to match registry in admin/port-disclaimer-registry.json`);
+  }
+
+  // Check for visit count mention on Level 3 ports with multiple visits
+  if (expectedLevel === 3 && visitCount && visitCount > 1) {
+    const visitCountPattern = new RegExp(`visited.*${visitCount}.*times?`, 'i');
+    if (!visitCountPattern.test(html)) {
+      warnings.push(`Port visited ${visitCount} times - consider adding visit count to disclaimer\n  Suggestion: "I've visited ${portSlug} ${visitCount} times, and these notes reflect..."`);
+    }
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings
+  };
+}
+
+/**
  * Validate a single HTML file
  */
 async function validateFile(filepath) {
@@ -353,6 +473,11 @@ async function validateFile(filepath) {
     const volatileResult = validateVolatileData($, html);
     results.warnings.push(...volatileResult.warnings);
 
+    // 6. Validate disclaimer level (for port pages only)
+    const disclaimerResult = await validateDisclaimer(relPath, html);
+    results.errors.push(...disclaimerResult.errors);
+    results.warnings.push(...disclaimerResult.warnings);
+
     results.valid = results.errors.length === 0;
 
   } catch (error) {
@@ -364,9 +489,36 @@ async function validateFile(filepath) {
 }
 
 /**
- * Print results to console
+ * Log warnings to file for later review
  */
-function printResults(allResults, options) {
+async function logWarningsToFile(allResults) {
+  const warnings = [];
+  const timestamp = new Date().toISOString();
+
+  for (const result of allResults) {
+    if (result.warnings.length > 0) {
+      warnings.push(`\n[${timestamp}] ${result.file}:`);
+      result.warnings.forEach(warn => {
+        warnings.push(`  ⚠ ${warn}`);
+      });
+    }
+  }
+
+  if (warnings.length > 0) {
+    const logContent = warnings.join('\n') + '\n';
+    try {
+      await appendFile(WARNINGS_LOG, logContent);
+      console.log(`${colors.yellow}⚠ Warnings logged to: admin/validation-warnings.log${colors.reset}\n`);
+    } catch (error) {
+      console.error(`Failed to write warnings log: ${error.message}`);
+    }
+  }
+}
+
+/**
+ * Print results to console (fail-fast on first error)
+ */
+async function printResults(allResults, options) {
   let totalFiles = 0;
   let validFiles = 0;
   let filesWithErrors = 0;
@@ -374,10 +526,24 @@ function printResults(allResults, options) {
   let totalErrors = 0;
   let totalWarnings = 0;
 
-  console.log(`\n${colors.bold}ICP-Lite v1.4 Validation Report${colors.reset}`);
+  console.log(`\n${colors.bold}ICP-Lite v1.4 Validation Report (Fail-Fast Mode)${colors.reset}`);
   console.log('='.repeat(80));
   console.log();
 
+  // First, check if there are any errors (fail-fast)
+  const firstErrorResult = allResults.find(r => r.errors.length > 0);
+  if (firstErrorResult) {
+    console.log(`${colors.red}${colors.bold}BLOCKING ERROR - VALIDATION FAILED${colors.reset}`);
+    console.log(`${colors.red}✗${colors.reset} ${firstErrorResult.file}\n`);
+    firstErrorResult.errors.forEach(err => {
+      console.log(`  ${colors.red}ERROR:${colors.reset} ${err}\n`);
+    });
+    console.log(`${colors.red}${colors.bold}Fix this blocking error before proceeding.${colors.reset}`);
+    console.log(`${colors.red}Commit blocked.${colors.reset}\n`);
+    return false;
+  }
+
+  // No errors - print success for all files
   for (const result of allResults) {
     totalFiles++;
 
@@ -386,36 +552,24 @@ function printResults(allResults, options) {
       if (!options.quiet) {
         console.log(`${colors.green}✓${colors.reset} ${result.file}`);
       }
-    } else {
-      if (result.errors.length > 0) {
-        filesWithErrors++;
-        totalErrors += result.errors.length;
-        console.log(`${colors.red}✗${colors.reset} ${result.file}`);
-        result.errors.forEach(err => {
-          console.log(`  ${colors.red}ERROR:${colors.reset} ${err}`);
-        });
+    } else if (result.warnings.length > 0) {
+      filesWithWarnings++;
+      totalWarnings += result.warnings.length;
+      if (!options.quiet) {
+        console.log(`${colors.green}✓${colors.reset} ${result.file} ${colors.yellow}(has warnings)${colors.reset}`);
       }
-
-      if (result.warnings.length > 0) {
-        filesWithWarnings++;
-        totalWarnings += result.warnings.length;
-        if (result.errors.length === 0) {
-          console.log(`${colors.yellow}⚠${colors.reset} ${result.file}`);
-        }
-        result.warnings.forEach(warn => {
-          console.log(`  ${colors.yellow}WARNING:${colors.reset} ${warn}`);
-        });
-      }
-      console.log();
     }
   }
+
+  // Log warnings to file
+  await logWarningsToFile(allResults);
 
   console.log('='.repeat(80));
   console.log(`${colors.bold}Summary:${colors.reset}`);
   console.log(`  Total files: ${totalFiles}`);
   console.log(`  Valid: ${colors.green}${validFiles}${colors.reset}`);
-  console.log(`  With errors: ${colors.red}${filesWithErrors}${colors.reset} (${totalErrors} errors)`);
-  console.log(`  With warnings: ${colors.yellow}${filesWithWarnings}${colors.reset} (${totalWarnings} warnings)`);
+  console.log(`  With errors: ${colors.red}${filesWithErrors}${colors.reset}`);
+  console.log(`  With warnings: ${colors.yellow}${filesWithWarnings}${colors.reset} (logged to file)`);
   console.log();
 
   return filesWithErrors === 0;
@@ -515,4 +669,4 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   });
 }
 
-export { validateFile, validateDualCap, validateJSONLDMirroring, validateMainEntity };
+export { validateFile, validateDualCap, validateJSONLDMirroring, validateMainEntity, validateDisclaimer };
