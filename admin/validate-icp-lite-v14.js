@@ -8,9 +8,12 @@
  * - JSON-LD mirroring (description = ai-summary, dateModified = last-reviewed)
  * - mainEntity requirement for entity pages
  * - Volatile data discipline
+ *
+ * BLOCKING ERRORS: Validator fails fast on first error (blocks commit)
+ * OPTIONAL WARNINGS: Logged to admin/validation-warnings.log for review
  */
 
-import { readFile, readdir } from 'fs/promises';
+import { readFile, readdir, writeFile, appendFile } from 'fs/promises';
 import { join, dirname, relative, basename } from 'path';
 import { fileURLToPath } from 'url';
 import { load } from 'cheerio';
@@ -19,6 +22,7 @@ import { glob } from 'glob';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const PROJECT_ROOT = join(__dirname, '..');
+const WARNINGS_LOG = join(PROJECT_ROOT, 'admin', 'validation-warnings.log');
 
 // Load disclaimer registry
 let DISCLAIMER_REGISTRY = null;
@@ -485,9 +489,36 @@ async function validateFile(filepath) {
 }
 
 /**
- * Print results to console
+ * Log warnings to file for later review
  */
-function printResults(allResults, options) {
+async function logWarningsToFile(allResults) {
+  const warnings = [];
+  const timestamp = new Date().toISOString();
+
+  for (const result of allResults) {
+    if (result.warnings.length > 0) {
+      warnings.push(`\n[${timestamp}] ${result.file}:`);
+      result.warnings.forEach(warn => {
+        warnings.push(`  ⚠ ${warn}`);
+      });
+    }
+  }
+
+  if (warnings.length > 0) {
+    const logContent = warnings.join('\n') + '\n';
+    try {
+      await appendFile(WARNINGS_LOG, logContent);
+      console.log(`${colors.yellow}⚠ Warnings logged to: admin/validation-warnings.log${colors.reset}\n`);
+    } catch (error) {
+      console.error(`Failed to write warnings log: ${error.message}`);
+    }
+  }
+}
+
+/**
+ * Print results to console (fail-fast on first error)
+ */
+async function printResults(allResults, options) {
   let totalFiles = 0;
   let validFiles = 0;
   let filesWithErrors = 0;
@@ -495,10 +526,24 @@ function printResults(allResults, options) {
   let totalErrors = 0;
   let totalWarnings = 0;
 
-  console.log(`\n${colors.bold}ICP-Lite v1.4 Validation Report${colors.reset}`);
+  console.log(`\n${colors.bold}ICP-Lite v1.4 Validation Report (Fail-Fast Mode)${colors.reset}`);
   console.log('='.repeat(80));
   console.log();
 
+  // First, check if there are any errors (fail-fast)
+  const firstErrorResult = allResults.find(r => r.errors.length > 0);
+  if (firstErrorResult) {
+    console.log(`${colors.red}${colors.bold}BLOCKING ERROR - VALIDATION FAILED${colors.reset}`);
+    console.log(`${colors.red}✗${colors.reset} ${firstErrorResult.file}\n`);
+    firstErrorResult.errors.forEach(err => {
+      console.log(`  ${colors.red}ERROR:${colors.reset} ${err}\n`);
+    });
+    console.log(`${colors.red}${colors.bold}Fix this blocking error before proceeding.${colors.reset}`);
+    console.log(`${colors.red}Commit blocked.${colors.reset}\n`);
+    return false;
+  }
+
+  // No errors - print success for all files
   for (const result of allResults) {
     totalFiles++;
 
@@ -507,36 +552,24 @@ function printResults(allResults, options) {
       if (!options.quiet) {
         console.log(`${colors.green}✓${colors.reset} ${result.file}`);
       }
-    } else {
-      if (result.errors.length > 0) {
-        filesWithErrors++;
-        totalErrors += result.errors.length;
-        console.log(`${colors.red}✗${colors.reset} ${result.file}`);
-        result.errors.forEach(err => {
-          console.log(`  ${colors.red}ERROR:${colors.reset} ${err}`);
-        });
+    } else if (result.warnings.length > 0) {
+      filesWithWarnings++;
+      totalWarnings += result.warnings.length;
+      if (!options.quiet) {
+        console.log(`${colors.green}✓${colors.reset} ${result.file} ${colors.yellow}(has warnings)${colors.reset}`);
       }
-
-      if (result.warnings.length > 0) {
-        filesWithWarnings++;
-        totalWarnings += result.warnings.length;
-        if (result.errors.length === 0) {
-          console.log(`${colors.yellow}⚠${colors.reset} ${result.file}`);
-        }
-        result.warnings.forEach(warn => {
-          console.log(`  ${colors.yellow}WARNING:${colors.reset} ${warn}`);
-        });
-      }
-      console.log();
     }
   }
+
+  // Log warnings to file
+  await logWarningsToFile(allResults);
 
   console.log('='.repeat(80));
   console.log(`${colors.bold}Summary:${colors.reset}`);
   console.log(`  Total files: ${totalFiles}`);
   console.log(`  Valid: ${colors.green}${validFiles}${colors.reset}`);
-  console.log(`  With errors: ${colors.red}${filesWithErrors}${colors.reset} (${totalErrors} errors)`);
-  console.log(`  With warnings: ${colors.yellow}${filesWithWarnings}${colors.reset} (${totalWarnings} warnings)`);
+  console.log(`  With errors: ${colors.red}${filesWithErrors}${colors.reset}`);
+  console.log(`  With warnings: ${colors.yellow}${filesWithWarnings}${colors.reset} (logged to file)`);
   console.log();
 
   return filesWithErrors === 0;
