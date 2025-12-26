@@ -388,7 +388,7 @@ async function validateDisclaimer(filepath, html) {
 
   // Define disclaimer text patterns for each level
   const level1Pattern = /Until I have sailed this port myself.*soundings in another's wake/s;
-  const level2Pattern = /my upcoming sailing.*I'm soon to trace/s;
+  const level2Pattern = /I will be sailing to this port.*soundings in another's wake/s;
   const level3Pattern = /I've sailed this port myself.*these notes come from my own wake/s;
 
   // Check which disclaimer is present
