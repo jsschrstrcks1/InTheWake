@@ -10,13 +10,15 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 <html lang="en">
 <head>
 <!-- ai-breadcrumbs
-     entity: Wonder of the Seas
+     entity: Ship
+     name: Wonder of the Seas
      type: Ship Information Page
      parent: /ships.html
+     siblings: /ships/rcl/oasis-of-the-seas.html, /ships/rcl/allure-of-the-seas.html, /ships/rcl/harmony-of-the-seas.html, /ships/rcl/symphony-of-the-seas.html, /ships/rcl/utopia-of-the-seas.html
      category: Royal Caribbean Fleet
      cruise-line: Royal Caribbean
      ship-class: Oasis Class
-     updated: 2025-11-15
+     updated: 2025-12-27
      expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons
      target-audience: Wonder of the Seas cruisers, Oasis Class researchers, ship comparison shoppers
      answer-first: Wonder of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake.
@@ -36,7 +38,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="referrer" content="no-referrer-when-downgrade"/>
   <meta name="ai-summary" content="Wonder of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake.">
-  <meta name="last-reviewed" content="2025-11-19">
+  <meta name="last-reviewed" content="2025-12-27">
   <meta name="content-protocol" content="ICP-Lite v1.4">
 
   <!-- SEO: Robots & Crawling -->
@@ -241,7 +243,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     "url": "https://cruisinginthewake.com/ships/rcl/wonder-of-the-seas.html",
     "description": "Wonder of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake.",
     "datePublished": "2024-01-01",
-    "dateModified": "2025-11-19",
+    "dateModified": "2025-12-27",
     "inLanguage": "en-US",
     "isPartOf": {
       "@type": "WebSite",
@@ -365,7 +367,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </div>
       <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logbook logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
@@ -642,7 +644,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" decoding="async" loading="lazy"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake" decoding="async" loading="lazy"/>
           </picture>
         </a>
         <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
@@ -711,7 +713,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       if(!window.__swiperReady||!window.Swiper) return setTimeout(go,120);
       try{
         new Swiper('.swiper.firstlook',{
-          loop:false,lazy:true,watchOverflow:true,
+          loop:false,rewind:false,lazy:true,watchOverflow:true,
           pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
           navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
           a11y:{enabled:true}
@@ -795,7 +797,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         setTimeout(()=>{
           try{
             new Swiper('.swiper.videos',{
-              loop:false,lazy:true,watchOverflow:true,
+              loop:false,rewind:false,lazy:true,watchOverflow:true,
               pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
               navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
               a11y:{enabled:true}
@@ -805,7 +807,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       }
     }
     function fetchVideoData(){
-      const SOURCES=[abs('/assets/data/videos/wonder-of-the-seas.json'),abs('/ships/rcl/assets/wonder-of-the-seas-videos.json')];
+      const SOURCES=[abs('/assets/data/videos/rcl/wonder-of-the-seas.json'),abs('/ships/rcl/assets/wonder-of-the-seas-videos.json')];
       function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
         return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
       return tryFetch();
@@ -906,7 +908,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   })();
   </script>
 
-    <!-- ===== Live tracker (MarineTraffic iframe: auto-centers on ship by IMO) ===== -->
+    <!-- ===== Live tracker (VesselFinder iframe: auto-centers on ship by IMO) ===== -->
   <script>
   (function initLiveTracker(){
     const card=document.querySelector('.card.itinerary[data-imo]');
@@ -919,12 +921,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     const wrapper = document.createElement('div');
     wrapper.style.cssText = 'width:100%;height:500px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
 
-    // MarineTraffic iframe embed using IMO
+    // VesselFinder iframe embed using IMO (more reliable than MarineTraffic)
     const iframe = document.createElement('iframe');
     iframe.style.cssText = 'width:100%;height:100%;border:0;';
     iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
     iframe.setAttribute('loading', 'lazy');
-    iframe.src = 'https://www.marinetraffic.com/en/ais/embed/zoom:10/maptype:0/shownames:true/mmsi:0/shipid:0/imo:' + imo + '/showmenu:false/remember:false';
+    iframe.src = 'https://www.vesselfinder.com/aismap?imo=' + imo + '&zoom=10&track=true&names=true';
 
     wrapper.appendChild(iframe);
     container.appendChild(wrapper);
