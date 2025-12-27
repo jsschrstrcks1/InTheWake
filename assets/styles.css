@@ -277,6 +277,8 @@ a:focus, button:focus, [tabindex="0"]:focus {
   box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
+  min-width: 0;
+  max-width: 100%;
 }
 
 /* ===== Page Grid (2-column with rail) ===== */
@@ -300,8 +302,8 @@ a:focus, button:focus, [tabindex="0"]:focus {
 }
 
 /* ===== Grid Layouts ===== */
-.grid-2 { display: grid; gap: 1rem; align-items: stretch; }
-.grid-2 > .card { display: flex; flex-direction: column; }
+.grid-2 { display: grid; grid-template-columns: 1fr; gap: 1rem; align-items: stretch; }
+.grid-2 > .card { display: flex; flex-direction: column; min-width: 0; max-width: 100%; }
 @media (min-width: 980px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
 
 .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; }

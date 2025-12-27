@@ -592,6 +592,120 @@ function validateJavaScript(html) {
 }
 
 /**
+ * Validate HTML structure (unclosed tags)
+ */
+function validateHTMLStructure(html) {
+  const errors = [];
+  const warnings = [];
+
+  // Count opening and closing section tags
+  const openSections = (html.match(/<section[^>]*>/gi) || []).length;
+  const closeSections = (html.match(/<\/section>/gi) || []).length;
+
+  if (openSections !== closeSections) {
+    errors.push({
+      section: 'html_structure',
+      rule: 'unclosed_section',
+      message: `Mismatched section tags: ${openSections} opening, ${closeSections} closing (causes layout overflow)`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  // Count opening and closing div tags
+  const openDivs = (html.match(/<div[^>]*>/gi) || []).length;
+  const closeDivs = (html.match(/<\/div>/gi) || []).length;
+
+  if (Math.abs(openDivs - closeDivs) > 2) {
+    errors.push({
+      section: 'html_structure',
+      rule: 'unclosed_div',
+      message: `Significant div tag mismatch: ${openDivs} opening, ${closeDivs} closing`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings, data: { openSections, closeSections, openDivs, closeDivs } };
+}
+
+/**
+ * Validate viewport/mobile compatibility
+ */
+function validateViewport($, html) {
+  const errors = [];
+  const warnings = [];
+
+  // Check for viewport meta tag
+  const viewport = $('meta[name="viewport"]').attr('content') || '';
+  if (!viewport.includes('width=device-width')) {
+    errors.push({
+      section: 'viewport',
+      rule: 'missing_viewport',
+      message: 'Missing or invalid viewport meta tag (causes mobile overflow)',
+      severity: 'BLOCKING'
+    });
+  }
+
+  // Check cards for potential overflow issues
+  const cards = $('.card');
+  let cardsWithFixedWidth = 0;
+
+  cards.each((i, elem) => {
+    const style = $(elem).attr('style') || '';
+    // Check for fixed pixel widths that could cause overflow
+    const fixedWidth = style.match(/width:\s*(\d+)px/);
+    if (fixedWidth && parseInt(fixedWidth[1]) > 400) {
+      cardsWithFixedWidth++;
+    }
+  });
+
+  if (cardsWithFixedWidth > 0) {
+    errors.push({
+      section: 'viewport',
+      rule: 'fixed_width_cards',
+      message: `${cardsWithFixedWidth} cards have fixed pixel widths >400px (causes mobile overflow)`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  // Check for grid-2 sections which need proper responsive handling
+  const grid2Sections = $('.grid-2');
+  if (grid2Sections.length > 0) {
+    // Check if CSS likely handles this (we can't validate CSS, but we can check for common issues)
+    const hasGridStyle = html.includes('.grid-2') || html.includes('grid-template');
+    if (!hasGridStyle) {
+      warnings.push({
+        section: 'viewport',
+        rule: 'grid_responsive',
+        message: 'grid-2 sections found - ensure CSS handles mobile viewport',
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  // Check for images without max-width constraints
+  const imagesWithoutMaxWidth = [];
+  $('img').each((i, elem) => {
+    const style = $(elem).attr('style') || '';
+    const width = $(elem).attr('width');
+    // If image has fixed width attribute > 400 and no max-width in style
+    if (width && parseInt(width) > 400 && !style.includes('max-width')) {
+      imagesWithoutMaxWidth.push($(elem).attr('src') || `image ${i + 1}`);
+    }
+  });
+
+  if (imagesWithoutMaxWidth.length > 3) {
+    warnings.push({
+      section: 'viewport',
+      rule: 'image_overflow',
+      message: `${imagesWithoutMaxWidth.length} large images may cause overflow on mobile`,
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings, data: { viewport, cardsWithFixedWidth, gridSections: grid2Sections.length } };
+}
+
+/**
  * Validate logbook JSON
  */
 async function validateLogbook(slug) {
@@ -724,6 +838,8 @@ async function validateShipPage(filepath) {
     const faqResult = validateFAQ($);
     const imageResult = validateImages($);
     const jsResult = validateJavaScript(html);
+    const htmlStructureResult = validateHTMLStructure(html);
+    const viewportResult = validateViewport($, html);
 
     // Async validations
     const logbookResult = await validateLogbook(slug);
@@ -735,7 +851,8 @@ async function validateShipPage(filepath) {
       ...navResult.errors, ...escapeResult.errors, ...wcagResult.errors,
       ...sectionResult.errors, ...dataResult.errors, ...consistencyResult.errors,
       ...faqResult.errors, ...imageResult.errors, ...jsResult.errors,
-      ...logbookResult.errors, ...videoResult.errors
+      ...logbookResult.errors, ...videoResult.errors,
+      ...htmlStructureResult.errors, ...viewportResult.errors
     );
 
     // Collect warnings
@@ -744,7 +861,8 @@ async function validateShipPage(filepath) {
       ...navResult.warnings, ...escapeResult.warnings, ...wcagResult.warnings,
       ...sectionResult.warnings, ...dataResult.warnings, ...consistencyResult.warnings,
       ...faqResult.warnings, ...imageResult.warnings, ...jsResult.warnings,
-      ...logbookResult.warnings, ...videoResult.warnings
+      ...logbookResult.warnings, ...videoResult.warnings,
+      ...htmlStructureResult.warnings, ...viewportResult.warnings
     );
 
     // Calculate score
@@ -762,6 +880,8 @@ async function validateShipPage(filepath) {
     results.videos = videoResult.data;
     results.wcag = wcagResult.data;
     results.navigation = navResult.data;
+    results.html_structure = htmlStructureResult.data;
+    results.viewport = viewportResult.data;
 
   } catch (error) {
     results.blocking_errors.push({ section: 'parse', rule: 'file_read', message: `Failed to parse: ${error.message}`, severity: 'BLOCKING' });
