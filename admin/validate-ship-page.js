@@ -588,7 +588,24 @@ function validateJavaScript(html) {
     warnings.push({ section: 'javascript', rule: 'missing_dropdown', message: 'Missing dropdown.js', severity: 'WARNING' });
   }
 
-  return { valid: errors.length === 0, errors, warnings, data: { loadArticlesCount, hasDropdown } };
+  // Check Swiper configurations for rewind:false
+  const swiperInits = html.match(/new Swiper\([^)]+\{[^}]+\}/g) || [];
+  let swiperMissingRewind = 0;
+  swiperInits.forEach(init => {
+    if (!init.includes('rewind:false') && !init.includes('rewind: false')) {
+      swiperMissingRewind++;
+    }
+  });
+  if (swiperMissingRewind > 0) {
+    errors.push({
+      section: 'javascript',
+      rule: 'swiper_missing_rewind',
+      message: `${swiperMissingRewind} Swiper carousels missing rewind:false (causes infinite scroll bug)`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings, data: { loadArticlesCount, hasDropdown, swiperMissingRewind } };
 }
 
 /**

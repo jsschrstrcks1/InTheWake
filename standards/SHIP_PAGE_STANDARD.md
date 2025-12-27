@@ -432,9 +432,9 @@ Stories must cover diverse perspectives. Each ship should have **at least one st
 
 ## Ship Tracker Requirements
 
-### MarineTraffic Integration (REQUIRED)
+### VesselFinder Integration (REQUIRED)
 
-Each active ship page must have a working live tracker:
+Each active ship page must have a working live tracker using VesselFinder:
 
 ```html
 <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9195195" data-name="RADIANCE-OF-THE-SEAS">
@@ -444,10 +444,16 @@ Each active ship page must have a working live tracker:
 </section>
 ```
 
+**Tracker JavaScript (Required):**
+```javascript
+// VesselFinder embed (more reliable than MarineTraffic)
+iframe.src = 'https://www.vesselfinder.com/aismap?imo=' + imo + '&zoom=10&track=true&names=true';
+```
+
 **IMO Number Validation:**
 - Must be valid 7-digit IMO number
-- Must match ship (verify via MarineTraffic)
-- TBN ships use `data-imo="TBD"`
+- Must match ship (verify via VesselFinder)
+- TBN ships use `data-imo="TBD"` and skip tracker init
 
 **Known IMO Numbers (RCL):**
 
@@ -565,8 +571,24 @@ Must include all standard elements:
 | Video Loader | Video carousel | After content | Yes |
 | Stats Loader | Ship specs | After content | Yes |
 | Dining Loader | Venues | After content | Yes |
-| Tracker Init | MarineTraffic | After content | Yes |
+| Tracker Init | VesselFinder | After content | Yes |
 | Articles Loader | Recent Stories | After content | Yes |
+
+### Swiper Configuration (REQUIRED)
+
+All Swiper carousels must include `rewind:false` to prevent infinite scroll bug:
+
+```javascript
+new Swiper('.swiper.firstlook',{
+  loop:false,
+  rewind:false,  // REQUIRED - prevents infinite scroll
+  lazy:true,
+  watchOverflow:true,
+  pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
+  navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
+  a11y:{enabled:true}
+});
+```
 
 ### Script Duplication Rules (BLOCKING)
 
@@ -621,6 +643,9 @@ Must include all standard elements:
 17. Fewer than 10 videos (8 required categories)
 18. Duplicate author names across ships
 19. Duplicate story content across ships
+20. **HTML Structure:** Mismatched section/div tags (causes layout overflow)
+21. **Viewport:** Missing viewport meta tag or cards with fixed widths >400px
+22. **Swiper:** Missing `rewind:false` in carousel configuration
 
 ### Warnings (Should Fix)
 
@@ -631,6 +656,8 @@ Must include all standard elements:
 5. Missing video category coverage
 6. Logbook stories under 300 words
 7. Missing accessibility persona in logbook
+8. Grid-2 sections without mobile-responsive CSS
+9. Large images without max-width constraints
 
 ---
 
