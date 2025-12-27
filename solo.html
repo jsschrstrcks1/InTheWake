@@ -563,6 +563,53 @@
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
 
+  <!-- Solo Article Loader Script -->
+  <script>
+  (async function loadSoloArticle() {
+    const host = document.getElementById('solo-article-host');
+    if (!host) return;
+
+    // Check URL for article parameter (hash #article-slug or query ?a=article-slug)
+    const hash = window.location.hash.slice(1); // Remove #
+    const urlParams = new URLSearchParams(window.location.search);
+    const articleSlug = hash || urlParams.get('a');
+
+    if (!articleSlug) {
+      // No article specified - hide the loading section
+      host.innerHTML = '';
+      host.style.display = 'none';
+      return;
+    }
+
+    try {
+      // Fetch the article HTML
+      const response = await fetch(`/solo/${articleSlug}.html`);
+      if (!response.ok) throw new Error('Article not found');
+
+      const html = await response.text();
+
+      // Parse HTML and extract article content
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      // Look for main article content (try multiple selectors)
+      const article = doc.querySelector('article.card') ||
+                     doc.querySelector('article') ||
+                     doc.querySelector('main');
+
+      if (article) {
+        host.innerHTML = article.innerHTML;
+        host.setAttribute('aria-busy', 'false');
+      } else {
+        host.innerHTML = '<h2>Article Not Found</h2><p>We couldn\'t load that article. <a href="/solo.html">Return to Solo Travel index</a>.</p>';
+      }
+    } catch (err) {
+      console.log('Could not load solo article:', err);
+      host.innerHTML = '<h2>Article Not Found</h2><p>We couldn\'t load that article. <a href="/solo.html">Return to Solo Travel index</a>.</p>';
+    }
+  })();
+  </script>
+
   <!-- Related Reading Rail Script -->
   <script>
   (async function loadRelatedReading() {
