@@ -1,10 +1,14 @@
 #!/usr/bin/env node
 /**
- * Recent Articles Rail Validator
+ * Recent Articles Rail Validator + ICP-Lite v1.4 Checks
  * Soli Deo Gloria
  *
  * Validates Recent Stories section pattern across HTML files.
- * Ensures consistent implementation: pagination, thumbnails, no duplicates.
+ * Also validates ICP-Lite v1.4 compliance for pages with recent-rail.
+ *
+ * Checks:
+ * - Recent Stories: pagination, thumbnails, no duplicates
+ * - ICP-Lite v1.4: dual-cap summary, JSON-LD mirroring, protocol version
  */
 
 import { readFile } from 'fs/promises';
@@ -39,11 +43,227 @@ const SKIP_PATTERNS = [
   /\.claude\//
 ];
 
+// Entity page patterns (for mainEntity check)
+const ENTITY_PATTERNS = ['ships/', 'ports/', 'restaurants/'];
+
 /**
  * Check if file should be skipped
  */
 function shouldSkip(filepath) {
   return SKIP_PATTERNS.some(pattern => pattern.test(filepath));
+}
+
+/**
+ * Check if file path indicates an entity page
+ */
+function isEntityPage(filepath) {
+  return ENTITY_PATTERNS.some(pattern => filepath.includes(pattern));
+}
+
+/**
+ * Normalize string for comparison
+ */
+function normalize(str) {
+  if (!str) return '';
+  return str
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+// ============================================
+// ICP-Lite v1.4 Validation Functions
+// ============================================
+
+/**
+ * Extract meta tags and check for duplicates
+ */
+function extractMetaTags($) {
+  const errors = [];
+
+  const aiSummaryTags = $('meta[name="ai-summary"]');
+  const lastReviewedTags = $('meta[name="last-reviewed"]');
+  const protocolTags = $('meta[name="content-protocol"]');
+
+  if (aiSummaryTags.length > 1) {
+    errors.push({
+      section: 'icp_lite',
+      rule: 'duplicate_ai_summary',
+      message: `Duplicate ai-summary meta tags (${aiSummaryTags.length} instances)`,
+      severity: 'BLOCKING'
+    });
+  }
+  if (lastReviewedTags.length > 1) {
+    errors.push({
+      section: 'icp_lite',
+      rule: 'duplicate_last_reviewed',
+      message: `Duplicate last-reviewed meta tags (${lastReviewedTags.length} instances)`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return {
+    aiSummary: aiSummaryTags.first().attr('content') || '',
+    lastReviewed: lastReviewedTags.first().attr('content') || '',
+    protocol: protocolTags.first().attr('content') || '',
+    duplicateErrors: errors
+  };
+}
+
+/**
+ * Extract JSON-LD scripts
+ */
+function extractJSONLD($) {
+  const jsonldScripts = $('script[type="application/ld+json"]');
+  const jsonldData = [];
+
+  jsonldScripts.each((i, elem) => {
+    try {
+      const content = $(elem).html();
+      if (content) jsonldData.push(JSON.parse(content));
+    } catch (e) {
+      // Invalid JSON-LD
+    }
+  });
+
+  return jsonldData;
+}
+
+/**
+ * Find WebPage JSON-LD
+ */
+function findWebPage(jsonldData) {
+  const webpages = [];
+  for (const data of jsonldData) {
+    if (data['@type'] === 'WebPage') webpages.push(data);
+    if (data['@graph'] && Array.isArray(data['@graph'])) {
+      webpages.push(...data['@graph'].filter(item => item['@type'] === 'WebPage'));
+    }
+  }
+  return { webpage: webpages[0] || null, count: webpages.length };
+}
+
+/**
+ * Validate ICP-Lite v1.4 compliance
+ */
+function validateICPLite($, filepath) {
+  const errors = [];
+  const warnings = [];
+
+  const meta = extractMetaTags($);
+  const jsonldData = extractJSONLD($);
+
+  // Add duplicate errors
+  errors.push(...meta.duplicateErrors);
+
+  // Check protocol version
+  if (meta.protocol !== 'ICP-Lite v1.4') {
+    errors.push({
+      section: 'icp_lite',
+      rule: 'protocol_version',
+      message: `Expected "ICP-Lite v1.4", found "${meta.protocol || 'none'}"`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  // Validate ai-summary (dual-cap rule)
+  if (!meta.aiSummary) {
+    errors.push({
+      section: 'icp_lite',
+      rule: 'ai_summary_missing',
+      message: 'ai-summary meta tag is missing',
+      severity: 'BLOCKING'
+    });
+  } else if (meta.aiSummary.length > 250) {
+    errors.push({
+      section: 'icp_lite',
+      rule: 'ai_summary_length',
+      message: `ai-summary exceeds 250 chars (${meta.aiSummary.length})`,
+      severity: 'BLOCKING'
+    });
+  } else if (meta.aiSummary.length < 100) {
+    warnings.push({
+      section: 'icp_lite',
+      rule: 'ai_summary_short',
+      message: `ai-summary is short (${meta.aiSummary.length} chars)`,
+      severity: 'WARNING'
+    });
+  }
+
+  // Validate last-reviewed format
+  if (!meta.lastReviewed) {
+    errors.push({
+      section: 'icp_lite',
+      rule: 'last_reviewed_missing',
+      message: 'last-reviewed meta tag is missing',
+      severity: 'BLOCKING'
+    });
+  } else if (!/^\d{4}-\d{2}-\d{2}$/.test(meta.lastReviewed)) {
+    errors.push({
+      section: 'icp_lite',
+      rule: 'last_reviewed_format',
+      message: `last-reviewed must be YYYY-MM-DD, found "${meta.lastReviewed}"`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  // Validate JSON-LD WebPage
+  const webpageResult = findWebPage(jsonldData);
+  if (webpageResult.count > 1) {
+    errors.push({
+      section: 'icp_lite',
+      rule: 'duplicate_webpage',
+      message: `Duplicate WebPage JSON-LD (${webpageResult.count} instances)`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  if (!webpageResult.webpage) {
+    errors.push({
+      section: 'icp_lite',
+      rule: 'missing_webpage',
+      message: 'Missing WebPage JSON-LD schema',
+      severity: 'BLOCKING'
+    });
+  } else {
+    // Check mirroring
+    const desc = normalize(webpageResult.webpage.description || '');
+    const summary = normalize(meta.aiSummary);
+    if (desc !== summary) {
+      errors.push({
+        section: 'icp_lite',
+        rule: 'description_mismatch',
+        message: 'WebPage description must match ai-summary',
+        severity: 'BLOCKING'
+      });
+    }
+
+    const dateModified = webpageResult.webpage.dateModified || '';
+    if (dateModified !== meta.lastReviewed) {
+      errors.push({
+        section: 'icp_lite',
+        rule: 'datemodified_mismatch',
+        message: `dateModified (${dateModified}) must match last-reviewed (${meta.lastReviewed})`,
+        severity: 'BLOCKING'
+      });
+    }
+
+    // Check mainEntity for entity pages
+    if (isEntityPage(filepath) && !webpageResult.webpage.mainEntity) {
+      errors.push({
+        section: 'icp_lite',
+        rule: 'missing_mainentity',
+        message: 'Entity page missing mainEntity in WebPage JSON-LD',
+        severity: 'BLOCKING'
+      });
+    }
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
 }
 
 /**
@@ -262,14 +482,20 @@ async function validateFile(filepath) {
     // Run validations
     const patternResult = validateRecentStoriesPattern($, html);
     const jsResult = validateJavaScript($, html);
+    const icpResult = validateICPLite($, relPath);
 
-    // Only report errors if the page has the recent-rail section
+    // Only report recent-rail errors if the page has the recent-rail section
     if (patternResult.hasSection) {
       results.blocking_errors.push(...patternResult.errors);
       results.blocking_errors.push(...jsResult.errors);
       results.warnings.push(...patternResult.warnings);
       results.warnings.push(...jsResult.warnings);
     }
+
+    // Always check ICP-Lite v1.4 compliance
+    results.blocking_errors.push(...icpResult.errors);
+    results.warnings.push(...icpResult.warnings);
+
     results.info.push(...patternResult.info);
     results.info.push(...jsResult.info);
 
@@ -283,6 +509,10 @@ async function validateFile(filepath) {
     results.hasRecentStories = patternResult.hasSection;
     results.pattern = patternResult.data;
     results.javascript = jsResult.data;
+    results.icpLite = {
+      errorsCount: icpResult.errors.length,
+      warningsCount: icpResult.warnings.length
+    };
 
   } catch (error) {
     results.blocking_errors.push({
@@ -348,12 +578,19 @@ function printResults(results, options) {
   }
 
   // Details
-  if (!options.quiet && results.pattern) {
-    console.log(`${colors.bold}Pattern Check:${colors.reset}`);
-    console.log(`  Nav Top: ${results.pattern.hasNavTop ? colors.green + '✓' : colors.red + '✗'}${colors.reset}`);
-    console.log(`  Nav Bottom: ${results.pattern.hasNavBottom ? colors.green + '✓' : colors.red + '✗'}${colors.reset}`);
-    console.log(`  Fallback: ${results.pattern.hasFallback ? colors.green + '✓' : colors.yellow + '○'}${colors.reset}`);
-    console.log(`  Authors Rail: ${results.pattern.hasAuthorsRail ? colors.green + '✓' : colors.yellow + '○'}${colors.reset}`);
+  if (!options.quiet) {
+    if (results.pattern) {
+      console.log(`${colors.bold}Recent Stories:${colors.reset}`);
+      console.log(`  Nav Top: ${results.pattern.hasNavTop ? colors.green + '✓' : colors.red + '✗'}${colors.reset}`);
+      console.log(`  Nav Bottom: ${results.pattern.hasNavBottom ? colors.green + '✓' : colors.red + '✗'}${colors.reset}`);
+      console.log(`  Fallback: ${results.pattern.hasFallback ? colors.green + '✓' : colors.yellow + '○'}${colors.reset}`);
+      console.log(`  Authors Rail: ${results.pattern.hasAuthorsRail ? colors.green + '✓' : colors.yellow + '○'}${colors.reset}`);
+    }
+    if (results.icpLite) {
+      console.log(`${colors.bold}ICP-Lite v1.4:${colors.reset}`);
+      const icpStatus = results.icpLite.errorsCount === 0 ? colors.green + '✓ Compliant' : colors.red + '✗ Non-compliant';
+      console.log(`  Status: ${icpStatus}${colors.reset}`);
+    }
     console.log();
   }
 
