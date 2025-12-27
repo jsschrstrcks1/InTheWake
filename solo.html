@@ -31,7 +31,7 @@
   <meta name="referrer" content="no-referrer-when-downgrade"/>
   <meta name="ai-summary" content="Solo cruising tips, faith-scented reflections, and practical guides from real sailings.">
   <meta name="last-reviewed" content="2025-11-19">
-  <meta name="content-protocol" content="ICP-Lite v1.0">
+  <meta name="content-protocol" content="ICP-Lite v1.4">
 
   <!-- SEO: Robots & Crawling -->
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
@@ -216,7 +216,8 @@
   "@type": "WebPage",
   "name": "Solo Travel",
   "url": "https://cruisinginthewake.com/solo.html",
-  "description": "Solo cruising tips, faith-scented reflections, and practical guides from real sailings."
+  "description": "Solo cruising tips, faith-scented reflections, and practical guides from real sailings.",
+  "dateModified": "2025-11-19"
 }
   </script><!-- Favicon / PWA -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
@@ -561,6 +562,47 @@
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
+
+  <!-- Related Reading Rail Script -->
+  <script>
+  (async function loadRelatedReading() {
+    const rail = document.getElementById('related-rail');
+    if (!rail) return;
+
+    try {
+      const response = await fetch('/assets/data/articles/index.json');
+      const data = await response.json();
+      const articles = Array.isArray(data) ? data : (data.articles || []);
+
+      // Filter for solo-related articles and limit to 6
+      const soloArticles = articles
+        .filter(article => {
+          const url = (article.url || article.path || '').toLowerCase();
+          const title = (article.title || article.name || '').toLowerCase();
+          return url.includes('/solo/') || title.includes('solo');
+        })
+        .slice(0, 6);
+
+      if (soloArticles.length > 0) {
+        rail.innerHTML = soloArticles.map(article => `
+          <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
+            <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
+              <a href="${article.url || article.path}">${article.title || article.name}</a>
+            </h4>
+            <p style="margin: 0; font-size: 0.8rem; color: #666; line-height: 1.4;">
+              ${article.excerpt || article.description || ''}
+            </p>
+          </div>
+        `).join('');
+      } else {
+        rail.innerHTML = '<p class="tiny" style="color: #999;">No articles available.</p>';
+      }
+    } catch (err) {
+      console.log('Could not load related articles:', err);
+      rail.innerHTML = '<p class="tiny" style="color: #999;">Unable to load articles.</p>';
+    }
+  })();
+  </script>
 
 </body>
 </html>
