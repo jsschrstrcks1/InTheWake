@@ -80,7 +80,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 ```html
 <!-- ai-breadcrumbs
-     entity: {{SHIP_NAME}}
+     entity: Ship
+     name: {{SHIP_NAME}}
      type: Ship Information Page
      parent: /ships.html
      category: {{CRUISE_LINE}} Fleet
@@ -96,7 +97,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 ```
 
 **Required Fields Checklist:**
-- [ ] `entity:` — Ship's full proper name
+- [ ] `entity:` — Must be exactly "Ship" (not the ship name)
+- [ ] `name:` — Ship's full proper name (e.g., "Radiance of the Seas")
 - [ ] `type:` — "Ship Information Page"
 - [ ] `parent:` — "/ships.html"
 - [ ] `category:` — "{{CRUISE_LINE}} Fleet"
@@ -183,21 +185,21 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 ---
 
-### 2.4 ICP-Lite v1.0 Meta Tags (REQUIRED)
+### 2.4 ICP-Lite v1.4 Meta Tags (REQUIRED)
 
 **Spec:** `new-standards/v3.010/ICP_LITE_v1.0_PROTOCOL.md`
 
 ```html
-  <!-- ICP-Lite v1.0: AI-First Metadata -->
+  <!-- ICP-Lite v1.4: AI-First Metadata -->
   <meta name="ai-summary" content="{{SHIP_NAME}}: deck plans, live tracker, dining venues, and stateroom videos. Plan your {{CRUISE_LINE}} cruise with In the Wake."/>
   <meta name="last-reviewed" content="{{YYYY-MM-DD}}"/>
-  <meta name="content-protocol" content="ICP-Lite v1.0"/>
+  <meta name="content-protocol" content="ICP-Lite v1.4"/>
 ```
 
 **Checklist:**
 - [ ] `ai-summary` — Under 250 characters, factual, no marketing fluff
 - [ ] `last-reviewed` — ISO 8601 date format (YYYY-MM-DD)
-- [ ] `content-protocol` — Exactly "ICP-Lite v1.0"
+- [ ] `content-protocol` — Exactly "ICP-Lite v1.4"
 
 ---
 
@@ -1016,7 +1018,7 @@ Each ship page must include these scripts (in order):
       if(!window.__swiperReady||!window.Swiper) return setTimeout(go,120);
       try{
         new Swiper('.swiper.firstlook',{
-          loop:false,lazy:true,watchOverflow:true,
+          loop:false,rewind:false,lazy:true,watchOverflow:true,
           pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
           navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
           a11y:{enabled:true}
@@ -1082,16 +1084,17 @@ const SOURCES=[abs('/assets/data/videos/{{SHIP_SLUG}}.json'),abs('/ships/{{CRUIS
 - [ ] Footer Soli Deo Gloria present
 
 ### 12.2 AI-Breadcrumbs
-- [ ] All 4 required fields present (entity, type, parent, category)
-- [ ] Entity is ship's proper name (not generic "Ship")
+- [ ] All 5 required fields present (entity, name, type, parent, category)
+- [ ] Entity is exactly "Ship" (not the ship's name)
+- [ ] Name is ship's full proper name
 - [ ] Type is "Ship Information Page"
 - [ ] Updated date in ISO 8601 format
 - [ ] answer-first contains key stats
 
-### 12.3 ICP-Lite v1.0
+### 12.3 ICP-Lite v1.4
 - [ ] ai-summary present (under 250 chars)
 - [ ] last-reviewed present (YYYY-MM-DD)
-- [ ] content-protocol is "ICP-Lite v1.0"
+- [ ] content-protocol is "ICP-Lite v1.4"
 
 ### 12.4 HTML Structure
 - [ ] `<!doctype html>` on line 1
