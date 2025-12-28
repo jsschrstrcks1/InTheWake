@@ -15,13 +15,13 @@ name: Liberty of the Seas
 class: Freedom Class
 operator: Royal Caribbean
 parent: /ships.html
-siblings: Freedom of the Seas, Independence of the Seas
+siblings: /ships/rcl/freedom-of-the-seas.html, /ships/rcl/independence-of-the-seas.html
 related: /ships.html, /cruise-lines/royal-caribbean.html, /ports.html, /drink-calculator.html
 subject: Liberty of the Seas is a Freedom Class Royal Caribbean ship offering deck plans, live ship tracking, dining venue details, and video tours to help cruisers plan their voyage
 intended-reader: Cruisers researching Liberty of the Seas or comparing Royal Caribbean ships
 core-facts: launched 2007; 154,407 GT; about 4,960 guests; features FlowRider surf simulator, H2O Zone water park, Royal Promenade
 decisions-informed: whether Liberty of the Seas's size, layout, and vibe fit your travel style; how it compares to sister ships; whether its itineraries align with your plans
-updated: 2025-11-18
+updated: 2025-12-27
 -->
   <!-- ======================================================
        In the Wake — Liberty of the Seas • Royal Caribbean
@@ -55,7 +55,7 @@ updated: 2025-11-18
 
   <!-- ICP-Lite v1.4: AI-First Metadata -->
   <meta name="ai-summary" content="Liberty of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake."/>
-  <meta name="last-reviewed" content="2025-11-18"/>
+  <meta name="last-reviewed" content="2025-12-27"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
 
   <!-- Title & SEO -->
@@ -187,7 +187,7 @@ updated: 2025-11-18
     "url": "https://cruisinginthewake.com/ships/rcl/liberty-of-the-seas.html",
     "description": "Liberty of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake.",
     "datePublished": "2024-01-01",
-    "dateModified": "2025-11-18",
+    "dateModified": "2025-12-27",
     "inLanguage": "en-US",
     "isPartOf": {
       "@type": "WebSite",
@@ -390,7 +390,7 @@ updated: 2025-11-18
       </div>
       <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logbook logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
@@ -717,7 +717,7 @@ updated: 2025-11-18
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" decoding="async" loading="lazy"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake" decoding="async" loading="lazy"/>
           </picture>
         </a>
         <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
@@ -788,7 +788,7 @@ updated: 2025-11-18
       if(!window.__swiperReady||!window.Swiper) return setTimeout(go,120);
       try{
         new Swiper('.swiper.firstlook',{
-          loop:false,lazy:true,watchOverflow:true,
+          loop:false,rewind:false,lazy:true,watchOverflow:true,
           pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
           navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
           a11y:{enabled:true}
@@ -872,7 +872,7 @@ updated: 2025-11-18
         setTimeout(()=>{
           try{
             new Swiper('.swiper.videos',{
-              loop:false,lazy:true,watchOverflow:true,
+              loop:false,rewind:false,lazy:true,watchOverflow:true,
               pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
               navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
               a11y:{enabled:true}
@@ -882,7 +882,7 @@ updated: 2025-11-18
       }
     }
     function fetchVideoData(){
-      const SOURCES=[abs('/assets/data/videos/liberty-of-the-seas.json'),abs('/ships/rcl/assets/liberty-of-the-seas-videos.json')];
+      const SOURCES=[abs('/assets/data/videos/rcl/liberty-of-the-seas.json'),abs('/ships/rcl/assets/liberty-of-the-seas-videos.json')];
       function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
         return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
       return tryFetch();
@@ -983,7 +983,7 @@ updated: 2025-11-18
   })();
   </script>
 
-  <!-- ===== Live tracker ===== -->
+  <!-- ===== Live tracker (VesselFinder iframe: auto-centers on ship by IMO) ===== -->
   <script>
   (function initLiveTracker(){
     const card=document.querySelector('.card.itinerary[data-imo]');
@@ -991,29 +991,13 @@ updated: 2025-11-18
     const imo=card.getAttribute('data-imo');
     const container=document.getElementById('vf-tracker-container');
     if(!imo||!container) return;
-
-    // CruiseMapper embed configuration
-    window.vfTrackerOptions = {
-      imo: imo,
-      width: '100%',
-      height: 300,
-      zoom: 10,
-      showNames: true,
-      showTrack: false
-    };
-
-    // Create wrapper div for VesselFinder embed
     const wrapper = document.createElement('div');
     wrapper.style.cssText = 'width:100%;height:500px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
-
-    // VesselFinder requires specific implementation - using MarineTraffic as alternative
-    // MarineTraffic provides better iframe support
     const iframe = document.createElement('iframe');
     iframe.style.cssText = 'width:100%;height:100%;border:0;';
     iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
     iframe.setAttribute('loading', 'lazy');
-    iframe.src = 'https://www.marinetraffic.com/en/ais/embed/zoom:10/maptype:0/shownames:true/mmsi:0/shipid:0/imo:' + imo + '/showmenu:false/remember:false';
-
+    iframe.src = 'https://www.vesselfinder.com/aismap?imo=' + imo + '&zoom=10&track=true&names=true';
     wrapper.appendChild(iframe);
     container.appendChild(wrapper);
   })();

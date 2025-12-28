@@ -10,17 +10,19 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 <html lang="en">
 <head>
 <!-- ai-breadcrumbs
-     entity: Spectrum of the Seas
-     type: Ship Information Page
-     parent: /ships.html
-     category: Royal Caribbean Fleet
-     cruise-line: Royal Caribbean
-     ship-class: Voyager Class
-     updated: 2025-11-15
-     expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons
-     target-audience: Spectrum of the Seas cruisers, Voyager Class researchers, ship comparison shoppers
-     answer-first: Spectrum of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake.
-     -->
+entity: Ship
+name: Spectrum of the Seas
+class: Quantum Class
+operator: Royal Caribbean
+parent: /ships.html
+siblings: /ships/rcl/quantum-of-the-seas.html, /ships/rcl/anthem-of-the-seas.html, /ships/rcl/ovation-of-the-seas.html, /ships/rcl/odyssey-of-the-seas.html
+related: /ships.html, /cruise-lines/royal-caribbean.html, /ports.html, /drink-calculator.html
+subject: Spectrum of the Seas is a Quantum-class Royal Caribbean ship offering deck plans, live ship tracking, dining venue details, and video tours to help cruisers plan their voyage
+intended-reader: Cruisers researching Spectrum of the Seas or comparing Royal Caribbean ships
+core-facts: launched 2019; 168,666 GT; about 4,246 guests at double occupancy; features North Star observation capsule, SeaPlex indoor sports complex, RipCord by iFly
+decisions-informed: whether Spectrum of the Seas's size, layout, and vibe fit your travel style; how it compares to sister ships; whether its itineraries align with your plans
+updated: 2025-12-27
+-->
   <!-- ======================================================
        In the Wake — Spectrum of the Seas • Royal Caribbean
        Version: 3.010.300  |  Soli Deo Gloria ✝️
@@ -36,7 +38,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="referrer" content="no-referrer-when-downgrade"/>
   <meta name="ai-summary" content="Spectrum of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake.">
-  <meta name="last-reviewed" content="2025-11-19">
+  <meta name="last-reviewed" content="2025-12-27">
   <meta name="content-protocol" content="ICP-Lite v1.4">
 
   <!-- SEO: Robots & Crawling -->
@@ -241,7 +243,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     "url": "https://cruisinginthewake.com/ships/rcl/spectrum-of-the-seas.html",
     "description": "Spectrum of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake.",
     "datePublished": "2024-01-01",
-    "dateModified": "2025-11-19",
+    "dateModified": "2025-12-27",
     "inLanguage": "en-US",
     "isPartOf": {
       "@type": "WebSite",
@@ -717,7 +719,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       if(!window.__swiperReady||!window.Swiper) return setTimeout(go,120);
       try{
         new Swiper('.swiper.firstlook',{
-          loop:false,lazy:true,watchOverflow:true,
+          loop:false,rewind:false,lazy:true,watchOverflow:true,
           pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
           navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
           a11y:{enabled:true}
@@ -801,7 +803,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         setTimeout(()=>{
           try{
             new Swiper('.swiper.videos',{
-              loop:false,lazy:true,watchOverflow:true,
+              loop:false,rewind:false,lazy:true,watchOverflow:true,
               pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
               navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
               a11y:{enabled:true}
@@ -930,7 +932,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     iframe.style.cssText = 'width:100%;height:100%;border:0;';
     iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
     iframe.setAttribute('loading', 'lazy');
-    iframe.src = 'https://www.marinetraffic.com/en/ais/embed/zoom:10/maptype:0/shownames:true/mmsi:0/shipid:0/imo:' + imo + '/showmenu:false/remember:false';
+    iframe.src = 'https://www.vesselfinder.com/aismap?imo=' + imo + '&zoom=10&track=true&names=true';
 
     wrapper.appendChild(iframe);
     container.appendChild(wrapper);
