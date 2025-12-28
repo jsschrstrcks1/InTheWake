@@ -298,7 +298,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- ===== Page micro CSS (scoped) ===== -->
   </head>
-<body>
+<body class="page">
   <!-- Skip link for a11y -->
   <a href="#main" class="skip-link">Skip to main content</a>
 
@@ -312,11 +312,41 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake logo" loading="eager">
         <span class="version-badge">V1.Beta</span>
       </a>
-      <nav class="nav" aria-label="Main navigation">
+      <!-- Mobile hamburger button -->
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+<nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-        <a class="nav-pill" href="/ships.html">Ships</a>
-        <a class="nav-pill" href="/ports.html">Ports</a>
-        <a class="nav-pill" href="/planning.html">Planning</a>
+        <div class="nav-dropdown" data-nav="planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+        <div class="nav-dropdown" data-nav="travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">&#9662;</span></button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
+        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
@@ -360,7 +390,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <div class="swiper-slide">
               <figure>
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/7/75/Mardi_Gras_%2850752915986%29.jpg"
+                  src="/assets/ships/carnival-mardi-gras_01.webp" onerror="this.onerror=null;this.src='/assets/ships/carnival-mardi-gras_01.jpg'"
                   alt="Carnival Mardi Gras at Meyer Turku shipyard"
                   loading="lazy">
                 <figcaption class="tiny">Carnival Mardi Gras at Meyer Turku. Photo: <a href="https://commons.wikimedia.org/wiki/File:Mardi_Gras_(50752915986).jpg" target="_blank" rel="noopener">Kees Torn</a>, CC BY-SA 2.0</figcaption>
@@ -370,7 +400,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <div class="swiper-slide">
               <figure>
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/4/49/Mardi_Gras_%2850752186443%29.jpg"
+                  src="/assets/ships/carnival-mardi-gras_02.webp" onerror="this.onerror=null;this.src='/assets/ships/carnival-mardi-gras_02.jpg'"
                   alt="Carnival Mardi Gras bow view"
                   loading="lazy">
                 <figcaption class="tiny">Mardi Gras bow view. Photo: <a href="https://commons.wikimedia.org/wiki/File:Mardi_Gras_(50752186443).jpg" target="_blank" rel="noopener">Kees Torn</a>, CC BY-SA 2.0</figcaption>
@@ -380,7 +410,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <div class="swiper-slide">
               <figure>
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/d/da/Mardi_Gras_%2850753023962%29.jpg"
+                  src="/assets/ships/carnival-mardi-gras_03.webp" onerror="this.onerror=null;this.src='/assets/ships/carnival-mardi-gras_03.jpg'"
                   alt="Carnival Mardi Gras stern view"
                   loading="lazy">
                 <figcaption class="tiny">Mardi Gras stern view. Photo: <a href="https://commons.wikimedia.org/wiki/File:Mardi_Gras_(50753023962).jpg" target="_blank" rel="noopener">Kees Torn</a>, CC BY-SA 2.0</figcaption>
@@ -390,7 +420,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <div class="swiper-slide">
               <figure>
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Mardi_Gras_%26_LIBRA_%2850746964763%29.jpg"
+                  src="/assets/ships/carnival-mardi-gras_04.webp" onerror="this.onerror=null;this.src='/assets/ships/carnival-mardi-gras_04.jpg'"
                   alt="Carnival Mardi Gras with support vessels"
                   loading="lazy">
                 <figcaption class="tiny">Mardi Gras during sea trials. Photo: <a href="https://commons.wikimedia.org/wiki/File:Mardi_Gras_%26_LIBRA_(50746964763).jpg" target="_blank" rel="noopener">Kees Torn</a>, CC BY-SA 2.0</figcaption>
@@ -400,7 +430,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <div class="swiper-slide">
               <figure>
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/7/79/Christine_Duffy_and_Louis_Sola_at_Port_Canaveral_for_Mardi_Gras_ceremony.jpg"
+                  src="/assets/ships/carnival-mardi-gras_05.webp" onerror="this.onerror=null;this.src='/assets/ships/carnival-mardi-gras_05.jpg'"
                   alt="Christine Duffy at Mardi Gras naming ceremony"
                   loading="lazy">
                 <figcaption class="tiny">Mardi Gras naming ceremony at Port Canaveral. Photo: <a href="https://commons.wikimedia.org/wiki/File:Christine_Duffy_and_Louis_Sola_at_Port_Canaveral_for_Mardi_Gras_ceremony.jpg" target="_blank" rel="noopener">Airborne1901</a>, CC BY-SA 4.0</figcaption>

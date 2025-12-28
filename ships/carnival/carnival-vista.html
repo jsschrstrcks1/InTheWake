@@ -85,7 +85,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <script>(function(){function addCSS(h){const l=document.createElement('link');l.rel='stylesheet';l.href=h;document.head.appendChild(l);}function addJS(src,ok){const s=document.createElement('script');s.src=src;s.async=true;s.onload=ok;document.head.appendChild(s);}addCSS("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css");addJS("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js",function(){window.__swiperReady=true;});})();</script>
 
   </head>
-<body>
+<body class="page">
   <a href="#main" class="skip-link">Skip to main content</a>
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 
@@ -95,11 +95,41 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake logo" loading="eager">
         <span style="font-size:.72rem;opacity:.8">V1.Beta</span>
       </a>
-      <nav class="nav" aria-label="Main navigation">
+      <!-- Mobile hamburger button -->
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+<nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-        <a class="nav-pill" href="/ships.html">Ships</a>
-        <a class="nav-pill" href="/ports.html">Ports</a>
-        <a class="nav-pill" href="/planning.html">Planning</a>
+        <div class="nav-dropdown" data-nav="planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+        <div class="nav-dropdown" data-nav="travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">&#9662;</span></button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
+        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
@@ -124,19 +154,19 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <div class="swiper-wrapper">
               <div class="swiper-slide">
                 <figure>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/2017-03-30_CARNIVAL_VISTA_-_IMO_9692569%2C_off_Oranjestad%2C_Aruba.jpg" alt="Carnival Vista off Aruba" loading="lazy">
+                  <img src="/assets/ships/carnival-vista_01.webp" onerror="this.onerror=null;this.src='/assets/ships/carnival-vista_01.jpg'" alt="Carnival Vista off Aruba" loading="lazy">
                   <figcaption class="tiny">Carnival Vista off Oranjestad, Aruba. <a href="https://commons.wikimedia.org/wiki/File:2017-03-30_CARNIVAL_VISTA_-_IMO_9692569,_off_Oranjestad,_Aruba.jpg" target="_blank">Wikimedia</a>, CC BY-SA 4.0</figcaption>
                 </figure>
               </div>
               <div class="swiper-slide">
                 <figure>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Carnival_Vista_docked_in_Valletta_hnapel_03.jpg" alt="Carnival Vista in Valletta" loading="lazy">
+                  <img src="/assets/ships/carnival-vista_02.webp" onerror="this.onerror=null;this.src='/assets/ships/carnival-vista_02.jpg'" alt="Carnival Vista in Valletta" loading="lazy">
                   <figcaption class="tiny">Carnival Vista in Valletta, Malta. <a href="https://commons.wikimedia.org/wiki/File:Carnival_Vista_docked_in_Valletta_hnapel_03.jpg" target="_blank">Wikimedia</a>, CC BY-SA 4.0</figcaption>
                 </figure>
               </div>
               <div class="swiper-slide">
                 <figure>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/2017-03-29_CARNIVAL_VISTA_-_IMO_9692569%2C_in_Willemstad%2C_Cura%C3%A7ao.jpg" alt="Carnival Vista in Curacao" loading="lazy">
+                  <img src="/assets/ships/carnival-vista_03.webp" onerror="this.onerror=null;this.src='/assets/ships/carnival-vista_03.jpg'" alt="Carnival Vista in Curacao" loading="lazy">
                   <figcaption class="tiny">Carnival Vista in Willemstad, Curacao. <a href="https://commons.wikimedia.org/wiki/File:2017-03-29_CARNIVAL_VISTA_-_IMO_9692569,_in_Willemstad,_Cura%C3%A7ao.jpg" target="_blank">Wikimedia</a>, CC BY-SA 4.0</figcaption>
                 </figure>
               </div>

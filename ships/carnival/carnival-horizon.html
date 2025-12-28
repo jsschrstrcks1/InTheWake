@@ -81,7 +81,7 @@
 <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=3.010"/>
 </head>
 
-<body>
+<body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
@@ -93,20 +93,15 @@
       <span class="version-badge">V1.Beta</span>
     </div>
   </nav>
-  <div class="hero-content">
-    <h1>Carnival Horizon</h1>
-    <p class="hero-tagline">Vista-Class Innovation — SkyRide Above, Caribbean Below</p>
-    <div class="badge-row">
-      <span class="badge badge--active">Active</span>
-      <span class="badge">Vista Class</span>
-      <span class="badge">133,596 GT</span>
-      <span class="badge">3,960 Guests</span>
-      <span class="badge">Miami</span>
-    </div>
-  </div>
-</header>
-
-<nav class="site-nav" aria-label="Main navigation">
+      <!-- Mobile hamburger button -->
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <nav class="site-nav" aria-label="Main navigation">
   <a class="nav-pill" href="/">Home</a>
   <div class="nav-dropdown" id="nav-planning">
     <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">▾</span></button>
@@ -130,6 +125,18 @@
   <a class="nav-pill" href="/search.html">Search</a>
   <a class="nav-pill" href="/about-us.html">About</a>
 </nav>
+  <div class="hero-content">
+    <h1>Carnival Horizon</h1>
+    <p class="hero-tagline">Vista-Class Innovation — SkyRide Above, Caribbean Below</p>
+    <div class="badge-row">
+      <span class="badge badge--active">Active</span>
+      <span class="badge">Vista Class</span>
+      <span class="badge">133,596 GT</span>
+      <span class="badge">3,960 Guests</span>
+      <span class="badge">Miami</span>
+    </div>
+  </div>
+</header>
 
 <main id="main-content" class="page-grid">
 
@@ -143,11 +150,11 @@
       <div class="photo-carousel swiper" id="photo-swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Carnival_Horizon%27s_bow.jpg/800px-Carnival_Horizon%27s_bow.jpg" alt="Carnival Horizon bow in Cozumel, Mexico" loading="lazy"/>
+            <img src="/assets/ships/carnival-horizon_01.webp" onerror="this.onerror=null;this.src='/assets/ships/carnival-horizon_01.jpg'" alt="Carnival Horizon bow in Cozumel, Mexico" loading="lazy"/>
             <p class="photo-caption">Carnival Horizon docked in Cozumel — Photo: Mason Piscitelli, CC BY-SA 4.0</p>
           </div>
           <div class="swiper-slide">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Carnival_Horizon.jpg/800px-Carnival_Horizon.jpg" alt="Carnival Horizon in Naples, Italy" loading="lazy"/>
+            <img src="/assets/ships/carnival-horizon_02.webp" onerror="this.onerror=null;this.src='/assets/ships/carnival-horizon_02.jpg'" alt="Carnival Horizon in Naples, Italy" loading="lazy"/>
             <p class="photo-caption">Carnival Horizon in Porto di Napoli during Mediterranean deployment — Photo: crocieristi/Flickr, CC BY 2.0</p>
           </div>
         </div>

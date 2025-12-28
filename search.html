@@ -99,7 +99,7 @@
   </script>
 
 </head>
-<body>
+<body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
@@ -114,7 +114,15 @@
         </a>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
-            <nav class="site-nav" aria-label="Main site navigation">
+      <!-- Mobile hamburger button -->
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+            <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
 
         <!-- Planning Dropdown -->
