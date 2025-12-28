@@ -500,6 +500,109 @@
     .hidden {
       display: none !important;
     }
+
+    /* Share section */
+    .share-section {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, rgba(14, 110, 142, 0.06) 0%, rgba(14, 110, 142, 0.02) 100%);
+      border-radius: 14px;
+      border: 2px solid rgba(14, 110, 142, 0.15);
+    }
+    .share-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .share-header h3 {
+      font-size: 1.1rem;
+      color: var(--sea);
+      margin: 0;
+    }
+    .share-preview {
+      background: #fff;
+      border: 1px solid #e0f0f5;
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: var(--ink-mid);
+      line-height: 1.5;
+    }
+    .share-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      text-decoration: none;
+    }
+    .share-btn:hover {
+      transform: translateY(-2px);
+    }
+    .share-btn-primary {
+      background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(14, 110, 142, 0.25);
+    }
+    .share-btn-primary:hover {
+      box-shadow: 0 6px 16px rgba(14, 110, 142, 0.35);
+    }
+    .share-btn-outline {
+      background: #fff;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+    }
+    .share-btn-outline:hover {
+      background: var(--foam);
+    }
+    .share-btn-twitter {
+      background: #000;
+      color: #fff;
+    }
+    .share-btn-facebook {
+      background: #1877f2;
+      color: #fff;
+    }
+    .share-btn-email {
+      background: #ea4335;
+      color: #fff;
+    }
+    .share-btn-download {
+      background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+      color: #fff;
+    }
+    .share-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+    .share-copied {
+      display: none;
+      color: #10b981;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+    .share-copied.show {
+      display: inline;
+    }
+
+    /* Canvas for share image (hidden) */
+    #shareCanvas {
+      display: none;
+    }
   </style>
 </head>
 
@@ -590,6 +693,48 @@
         <div id="resultsContainer">
           <!-- Results will be injected here -->
         </div>
+
+        <!-- Share Section -->
+        <div class="share-section" id="shareSection">
+          <div class="share-header">
+            <span style="font-size: 1.3rem;">📤</span>
+            <h3>Share Your Results</h3>
+          </div>
+          <div class="share-preview" id="sharePreview">
+            <!-- Dynamic share text -->
+          </div>
+          <div class="share-buttons">
+            <button class="share-btn share-btn-primary" id="btnNativeShare" type="button">
+              <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+              Share
+            </button>
+            <button class="share-btn share-btn-outline" id="btnCopyLink" type="button">
+              <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+              Copy Link
+              <span class="share-copied" id="copiedMsg">Copied!</span>
+            </button>
+            <button class="share-btn share-btn-download" id="btnDownloadImage" type="button">
+              <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              Save Image
+            </button>
+            <a class="share-btn share-btn-twitter" id="btnTwitter" href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              X
+            </a>
+            <a class="share-btn share-btn-facebook" id="btnFacebook" href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              Facebook
+            </a>
+            <a class="share-btn share-btn-email" id="btnEmail" href="#" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              Email
+            </a>
+          </div>
+        </div>
+
+        <!-- Hidden canvas for image generation -->
+        <canvas id="shareCanvas" width="1200" height="630"></canvas>
+
         <div class="quiz-restart">
           <button class="btn-restart" id="btnRestart" type="button">Take Quiz Again</button>
         </div>
@@ -1068,6 +1213,11 @@
         `;
       }).join('');
 
+      // Update share section with top pick
+      const topRec = recommendations[0];
+      const topMatchPercent = Math.min(99, Math.round(50 + topRec.score));
+      updateShareSection(topRec.ship, topMatchPercent, topRec.classData);
+
       quizResults.classList.add('active');
       quizResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -1091,6 +1241,317 @@
       quizProgress.classList.remove('visible');
       currentQuestion = 0;
       answers = {};
+      // Clear URL params
+      history.replaceState({}, '', window.location.pathname);
+    }
+
+    // ==========================================
+    // SHARING FUNCTIONALITY
+    // ==========================================
+
+    let currentTopShip = null;
+    let currentMatchPercent = 0;
+    let currentClassName = '';
+
+    // Generate shareable URL with encoded answers
+    function generateShareURL() {
+      const encoded = btoa(JSON.stringify(answers));
+      return `${window.location.origin}${window.location.pathname}?r=${encoded}`;
+    }
+
+    // Parse URL params and auto-show results
+    function parseShareURL() {
+      const params = new URLSearchParams(window.location.search);
+      const encoded = params.get('r');
+      if (encoded) {
+        try {
+          answers = JSON.parse(atob(encoded));
+          return true;
+        } catch (e) {
+          console.error('Invalid share URL');
+        }
+      }
+      return false;
+    }
+
+    // Generate share text
+    function generateShareText(ship, matchPercent, className) {
+      return `My perfect Royal Caribbean ship is ${ship.name}! 🚢\n\n${matchPercent}% match for my travel style (${className}).\n\nFind your perfect ship:`;
+    }
+
+    // Update share section with current results
+    function updateShareSection(ship, matchPercent, classData) {
+      currentTopShip = ship;
+      currentMatchPercent = matchPercent;
+      currentClassName = classData.name;
+
+      const sharePreview = document.getElementById('sharePreview');
+      const shareURL = generateShareURL();
+
+      sharePreview.innerHTML = `
+        <strong>"My perfect ship is ${ship.name}!"</strong><br>
+        ${matchPercent}% match • ${classData.name}
+      `;
+
+      // Update social links
+      const shareText = generateShareText(ship, matchPercent, classData.name);
+      const encodedText = encodeURIComponent(shareText);
+      const encodedURL = encodeURIComponent(shareURL);
+
+      document.getElementById('btnTwitter').href =
+        `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedURL}`;
+
+      document.getElementById('btnFacebook').href =
+        `https://www.facebook.com/sharer/sharer.php?u=${encodedURL}`;
+
+      const emailSubject = encodeURIComponent(`My Royal Caribbean Ship Match: ${ship.name}`);
+      const emailBody = encodeURIComponent(`${shareText}\n${shareURL}`);
+      document.getElementById('btnEmail').href =
+        `mailto:?subject=${emailSubject}&body=${emailBody}`;
+    }
+
+    // Generate share image using Canvas
+    async function generateShareImage() {
+      const canvas = document.getElementById('shareCanvas');
+      const ctx = canvas.getContext('2d');
+
+      // Draw background gradient
+      const bgGrad = ctx.createLinearGradient(0, 0, 1200, 630);
+      bgGrad.addColorStop(0, '#0a3d62');
+      bgGrad.addColorStop(1, '#083041');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, 1200, 630);
+
+      // Draw subtle wave pattern
+      ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+      ctx.lineWidth = 2;
+      for (let y = 0; y < 630; y += 20) {
+        ctx.beginPath();
+        for (let x = 0; x < 1200; x += 5) {
+          const py = y + Math.sin((x / 50) * Math.PI) * 5;
+          if (x === 0) ctx.moveTo(x, py);
+          else ctx.lineTo(x, py);
+        }
+        ctx.stroke();
+      }
+
+      // Load and draw ship image
+      return new Promise((resolve) => {
+        const shipImg = new Image();
+        shipImg.crossOrigin = 'anonymous';
+        shipImg.onload = () => {
+          // Draw ship image area with rounded corners (simulated)
+          ctx.save();
+          ctx.beginPath();
+          roundRect(ctx, 40, 100, 560, 420, 14);
+          ctx.clip();
+
+          // Calculate aspect ratio and center crop
+          const imgAspect = shipImg.width / shipImg.height;
+          const boxAspect = 560 / 420;
+          let sx = 0, sy = 0, sw = shipImg.width, sh = shipImg.height;
+
+          if (imgAspect > boxAspect) {
+            sw = shipImg.height * boxAspect;
+            sx = (shipImg.width - sw) / 2;
+          } else {
+            sh = shipImg.width / boxAspect;
+            sy = (shipImg.height - sh) / 2;
+          }
+
+          ctx.drawImage(shipImg, sx, sy, sw, sh, 40, 100, 560, 420);
+          ctx.restore();
+
+          // Draw border around ship image
+          ctx.strokeStyle = '#d9b382';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          roundRect(ctx, 40, 100, 560, 420, 14);
+          ctx.stroke();
+
+          // Right side content
+          // "My Perfect Ship Is" header
+          ctx.fillStyle = 'rgba(255,255,255,0.7)';
+          ctx.font = '24px system-ui, sans-serif';
+          ctx.fillText('My Perfect Ship Is', 640, 150);
+
+          // Ship name
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 44px system-ui, sans-serif';
+          ctx.fillText(currentTopShip.name, 640, 210);
+
+          // Class badge
+          const accentGrad = ctx.createLinearGradient(640, 235, 800, 235);
+          accentGrad.addColorStop(0, '#0e6e8e');
+          accentGrad.addColorStop(1, '#0a5a75');
+          ctx.fillStyle = accentGrad;
+          roundRect(ctx, 640, 235, 160, 36, 18);
+          ctx.fill();
+
+          ctx.fillStyle = '#ffffff';
+          ctx.font = '600 14px system-ui, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(currentClassName, 720, 259);
+          ctx.textAlign = 'left';
+
+          // Match percentage badge
+          const goldGrad = ctx.createLinearGradient(640, 300, 760, 344);
+          goldGrad.addColorStop(0, '#fbbf24');
+          goldGrad.addColorStop(1, '#d97706');
+          ctx.fillStyle = goldGrad;
+          roundRect(ctx, 640, 300, 130, 44, 22);
+          ctx.fill();
+
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 20px system-ui, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(`${currentMatchPercent}% Match`, 705, 329);
+          ctx.textAlign = 'left';
+
+          // Divider line
+          ctx.strokeStyle = 'rgba(217, 179, 130, 0.5)';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(640, 370);
+          ctx.lineTo(1140, 370);
+          ctx.stroke();
+
+          // CTA text
+          ctx.fillStyle = 'rgba(255,255,255,0.9)';
+          ctx.font = '500 20px system-ui, sans-serif';
+          ctx.fillText('Find your perfect ship at', 640, 420);
+
+          ctx.fillStyle = '#d9b382';
+          ctx.font = 'bold 24px system-ui, sans-serif';
+          ctx.fillText('cruisinginthewake.com/ships/quiz', 640, 455);
+
+          // Branding
+          ctx.fillStyle = 'rgba(255,255,255,0.8)';
+          ctx.font = '600 16px system-ui, sans-serif';
+          ctx.textAlign = 'right';
+          ctx.fillText('In the Wake', 1160, 560);
+
+          ctx.fillStyle = 'rgba(255,255,255,0.5)';
+          ctx.font = '400 12px system-ui, sans-serif';
+          ctx.fillText("A Cruise Traveler's Logbook", 1160, 582);
+          ctx.textAlign = 'left';
+
+          // Decorative rope line
+          ctx.strokeStyle = 'rgba(217, 179, 130, 0.4)';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.moveTo(40, 590);
+          ctx.lineTo(600, 590);
+          ctx.stroke();
+
+          resolve(canvas);
+        };
+
+        shipImg.onerror = () => {
+          // If image fails to load, still generate without ship image
+          ctx.fillStyle = 'rgba(14, 110, 142, 0.3)';
+          roundRect(ctx, 40, 100, 560, 420, 14);
+          ctx.fill();
+          resolve(canvas);
+        };
+
+        shipImg.src = currentTopShip.image;
+      });
+    }
+
+    // Helper: Draw rounded rectangle
+    function roundRect(ctx, x, y, width, height, radius) {
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+    }
+
+    // Copy link to clipboard
+    async function copyShareLink() {
+      const url = generateShareURL();
+      try {
+        await navigator.clipboard.writeText(url);
+        const copiedMsg = document.getElementById('copiedMsg');
+        copiedMsg.classList.add('show');
+        setTimeout(() => copiedMsg.classList.remove('show'), 2000);
+      } catch (err) {
+        // Fallback for older browsers
+        const textarea = document.createElement('textarea');
+        textarea.value = url;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        const copiedMsg = document.getElementById('copiedMsg');
+        copiedMsg.classList.add('show');
+        setTimeout(() => copiedMsg.classList.remove('show'), 2000);
+      }
+    }
+
+    // Native share (mobile)
+    async function nativeShare() {
+      const shareURL = generateShareURL();
+      const shareText = generateShareText(currentTopShip, currentMatchPercent, currentClassName);
+
+      if (navigator.share) {
+        try {
+          // Try to share with image
+          const canvas = await generateShareImage();
+          canvas.toBlob(async (blob) => {
+            const file = new File([blob], 'my-perfect-ship.png', { type: 'image/png' });
+
+            try {
+              await navigator.share({
+                title: `My Perfect Ship: ${currentTopShip.name}`,
+                text: shareText,
+                url: shareURL,
+                files: [file]
+              });
+            } catch (e) {
+              // Fallback without image
+              await navigator.share({
+                title: `My Perfect Ship: ${currentTopShip.name}`,
+                text: shareText,
+                url: shareURL
+              });
+            }
+          }, 'image/png');
+        } catch (err) {
+          console.error('Share failed:', err);
+        }
+      } else {
+        // Fallback: copy link
+        copyShareLink();
+      }
+    }
+
+    // Download share image
+    async function downloadShareImage() {
+      const canvas = await generateShareImage();
+      const link = document.createElement('a');
+      link.download = `my-perfect-ship-${currentTopShip.slug}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    // Setup share event listeners
+    function setupShareListeners() {
+      document.getElementById('btnNativeShare').addEventListener('click', nativeShare);
+      document.getElementById('btnCopyLink').addEventListener('click', copyShareLink);
+      document.getElementById('btnDownloadImage').addEventListener('click', downloadShareImage);
+
+      // Hide native share button on desktop (no Web Share API)
+      if (!navigator.share) {
+        document.getElementById('btnNativeShare').style.display = 'none';
+      }
     }
 
     // Initialize
@@ -1098,6 +1559,14 @@
       await loadQuizData();
       btnStart.addEventListener('click', startQuiz);
       btnRestart.addEventListener('click', restartQuiz);
+      setupShareListeners();
+
+      // Check for shared results URL
+      if (parseShareURL()) {
+        // Skip intro, show results directly
+        quizIntro.classList.add('hidden');
+        showResults();
+      }
     }
 
     init();
