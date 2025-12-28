@@ -8,6 +8,9 @@
  * word counts, video requirements, logbook stories, navigation, WCAG, deduplication.
  *
  * Gold Standards: radiance-of-the-seas.html, grandeur-of-the-seas.html
+ *
+ * Video Sourcing: See /admin/claude/VIDEO_SOURCING.md
+ * Master Video Manifest: /ships/rcl/rc_ship_videos.json
  */
 
 import { readFile, access } from 'fs/promises';
