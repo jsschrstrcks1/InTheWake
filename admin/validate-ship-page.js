@@ -782,6 +782,25 @@ async function validateVideos(slug) {
   const warnings = [];
   const videoPath = join(PROJECT_ROOT, 'assets', 'data', 'videos', 'rcl', `${slug}.json`);
 
+  // Known fake/placeholder video IDs (exact matches only)
+  const FAKE_VIDEO_IDS = new Set([
+    'abc123', 'def456', 'ghi789', 'jkl012', 'mno345', 'pqr678', 'stu901', 'vwx234', 'yza567',
+    'bcd890', 'efg123', 'hij456', 'klm789',
+    'abc123suite', 'def456balc', 'ghi789balc', 'jkl012ocean', 'mno345int', 'pqr678int',
+    'stu901food', 'vwx234food', 'yza567acc'
+  ]);
+
+  // Valid YouTube video ID: exactly 11 chars, alphanumeric plus - and _
+  function isValidYouTubeId(id) {
+    if (!id || typeof id !== 'string') return false;
+    // Check for known fake IDs first
+    if (FAKE_VIDEO_IDS.has(id)) return false;
+    // Valid YouTube IDs are exactly 11 characters
+    if (id.length !== 11) return false;
+    if (!/^[a-zA-Z0-9_-]{11}$/.test(id)) return false;
+    return true;
+  }
+
   try {
     await access(videoPath);
     const content = await readFile(videoPath, 'utf-8');
@@ -789,6 +808,8 @@ async function validateVideos(slug) {
     const videos = data.videos || {};
 
     let totalVideos = 0;
+    let fakeVideos = 0;
+    const fakeVideoIds = [];
     const missingCategories = [];
 
     for (const cat of REQUIRED_VIDEO_CATEGORIES) {
@@ -797,6 +818,23 @@ async function validateVideos(slug) {
       if (catVideos.length === 0) {
         missingCategories.push(cat);
       }
+      // Check each video ID
+      catVideos.forEach(v => {
+        if (v.videoId && !isValidYouTubeId(v.videoId)) {
+          fakeVideos++;
+          fakeVideoIds.push(v.videoId);
+        }
+      });
+    }
+
+    // BLOCKING: Any fake/placeholder video IDs
+    if (fakeVideos > 0) {
+      errors.push({
+        section: 'videos',
+        rule: 'fake_video_ids',
+        message: `${fakeVideos} fake/placeholder video IDs found: ${fakeVideoIds.slice(0, 3).join(', ')}${fakeVideoIds.length > 3 ? '...' : ''}`,
+        severity: 'BLOCKING'
+      });
     }
 
     if (totalVideos < 10) {
@@ -809,7 +847,7 @@ async function validateVideos(slug) {
       warnings.push({ section: 'videos', rule: 'some_missing_categories', message: `Missing: ${missingCategories.join(', ')}`, severity: 'WARNING' });
     }
 
-    return { valid: errors.length === 0, errors, warnings, data: { totalVideos, missingCategories } };
+    return { valid: errors.length === 0, errors, warnings, data: { totalVideos, missingCategories, fakeVideos } };
 
   } catch (e) {
     errors.push({ section: 'videos', rule: 'missing_file', message: `Videos JSON not found`, severity: 'BLOCKING' });
