@@ -110,24 +110,57 @@ Soli Deo Gloria
   <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
     <link rel="canonical" href="https://inthewake.com/ports/incheon.html">
 </head>
-<body>
-    <header>
-        <div class="header-container">
-            <div class="site-branding">
-                <h1><a href="/">In The Wake</a></h1>
-                <p class="tagline">Stories from cruise ports around the world</p>
-            </div>
-        </div>
-    </header>
+<body class="page">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <span role="status" aria-live="polite" aria-atomic="true" class="sr-only"></span>
+  <span role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></span>
 
-    <nav aria-label="Primary Navigation">
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/ports/">Ports</a></li>
-            <li><a href="/stories/">Stories</a></li>
-            <li><a href="/about/">About</a></li>
-        </ul>
-    </nav>
+  <header class="hero-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="lazy"/>
+        <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
+      </div>
+      <!-- Mobile hamburger button -->
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
+        <div class="nav-dropdown" data-nav="planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+        <div class="nav-dropdown" data-nav="travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">&#9662;</span></button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
+        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav>
+    </div>
+  </header>
 
     <section class="hero hero-port" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/images/ports/incheon-hero.jpg') center/cover;">
         <div class="hero-content">
