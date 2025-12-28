@@ -620,7 +620,15 @@
         </a>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
-      <nav class="site-nav" aria-label="Main site navigation">
+      <!-- Mobile hamburger button -->
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
         <div class="nav-dropdown" id="nav-planning">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
@@ -629,6 +637,7 @@
           <div class="dropdown-menu" role="menu">
             <a href="/planning.html">Planning (overview)</a>
             <a href="/ships.html">Ships</a>
+            <a href="/ships/quiz.html">Ship Quiz</a>
             <a href="/restaurants.html">Restaurants &amp; Menus</a>
             <a href="/ports.html">Ports</a>
             <a href="/drink-packages.html">Drink Packages</a>
@@ -1572,5 +1581,8 @@
     init();
   })();
   </script>
+
+  <!-- Navigation dropdown/mobile menu -->
+  <script src="/assets/js/dropdown.js"></script>
 </body>
 </html>
