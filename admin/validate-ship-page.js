@@ -8,6 +8,9 @@
  * word counts, video requirements, logbook stories, navigation, WCAG, deduplication.
  *
  * Gold Standards: radiance-of-the-seas.html, grandeur-of-the-seas.html
+ *
+ * Video Sourcing: See /admin/claude/VIDEO_SOURCING.md
+ * Master Video Manifest: /ships/rcl/rc_ship_videos.json
  */
 
 import { readFile, access } from 'fs/promises';
@@ -787,7 +790,8 @@ async function validateVideos(slug) {
     'abc123', 'def456', 'ghi789', 'jkl012', 'mno345', 'pqr678', 'stu901', 'vwx234', 'yza567',
     'bcd890', 'efg123', 'hij456', 'klm789',
     'abc123suite', 'def456balc', 'ghi789balc', 'jkl012ocean', 'mno345int', 'pqr678int',
-    'stu901food', 'vwx234food', 'yza567acc'
+    'stu901food', 'vwx234food', 'yza567acc',
+    'dQw4w9WgXcQ'  // Rick Astley - Never Gonna Give You Up
   ]);
 
   // Valid YouTube video ID: exactly 11 chars, alphanumeric plus - and _
