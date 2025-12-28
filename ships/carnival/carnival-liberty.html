@@ -66,11 +66,50 @@
 <link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
 </head>
 
-<body>
+<body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <header class="hero-header" role="banner">
-  <nav class="navbar"><div class="brand"><a href="/"><img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake"/></a><span class="version-badge">V1.Beta</span></div></nav>
+  <nav class="navbar"><div class="brand"><a href="/"><img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake"/></a><span class="version-badge">V1.Beta</span></div>
+      <!-- Mobile hamburger button -->
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
+        <div class="nav-dropdown" data-nav="planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+        <div class="nav-dropdown" data-nav="travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">&#9662;</span></button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
+        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav>
+    </nav>
   <div class="hero-content">
     <h1>Carnival Liberty</h1>
     <p class="hero-tagline">The Innovator — First Seaside Theater, First Fun Ship 2.0</p>
@@ -83,8 +122,6 @@
     </div>
   </div>
 </header>
-
-<nav class="site-nav"><a class="nav-pill" href="/">Home</a><a class="nav-pill" href="/ships.html">Ships</a><a class="nav-pill" href="/planning.html">Planning</a><a class="nav-pill" href="/search.html">Search</a><a class="nav-pill" href="/about-us.html">About</a></nav>
 
 <main id="main-content" class="page-grid">
 
