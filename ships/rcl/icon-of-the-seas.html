@@ -519,7 +519,7 @@ updated: 2025-12-27
 
         <div class="dining-content" id="dining-content" aria-live="polite"></div>
 
-        <!-- normalize dining data source to venues.json on this origin -->
+        <!-- normalize dining data source to venues-v2.json on this origin -->
         <script type="application/json" id="dining-data-source">{"provider":"rcl","json":"/assets/data/venues-v2.json","ship_slug":"icon-of-the-seas","aliases":["Icon of the Seas","Icon Of The Seas","Icon"]}</script>
         <script>
         (function fixDiningJSON(){
@@ -528,10 +528,10 @@ updated: 2025-12-27
             try{
               const obj=JSON.parse(el.textContent||'{}');
               if(obj){
-                const path='/assets/data/venues.json';
+                const path='/assets/data/venues-v2.json';
                 obj.json=(typeof _abs==='function')?_abs(path):path;
                 obj.url=obj.json;
-                obj.schema='rc.venues.v1';
+                obj.schema='rc.venues.v2';
                 el.textContent=JSON.stringify(obj);
               }
             }catch(_){}
@@ -543,7 +543,7 @@ updated: 2025-12-27
         <script>
         // window.getShipVenues(slug) helper
         (function(){
-          const DATA_PATH='/assets/data/venues.json';
+          const DATA_PATH='/assets/data/venues-v2.json';
           const DATA_URL=(typeof _abs==='function')?_abs(DATA_PATH):DATA_PATH;
           let _cache=null,_pending=null,_venuesIndex=null,_ships=null;
 
