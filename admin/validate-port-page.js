@@ -326,8 +326,8 @@ function validateSectionOrder($) {
     });
   }
 
-  // Detect sections by scanning headings and IDs
-  $('h2, h3, section, div[id], div[class*="section"]').each((i, elem) => {
+  // Detect sections by scanning headings and IDs (scoped to main content only)
+  $('main h2, main h3, main section, main div[id], main div[class*="section"]').each((i, elem) => {
     const $elem = $(elem);
     const text = $elem.text().toLowerCase();
     const id = $elem.attr('id') || '';
