@@ -42,55 +42,104 @@
 
   // Venue images - photos from Wikimedia Commons (CC licensed)
   const VENUE_IMAGES = {
-    // Specialty Dining (fine dining)
-    'wonderland': '/assets/images/restaurants/photos/italian.webp',
-    '150-central-park': '/assets/images/restaurants/photos/italian.webp',
-    'chefs-table': '/assets/images/restaurants/photos/formal-dining.webp',
-    'chic': '/assets/images/restaurants/photos/formal-dining.webp',
-    'coastal-kitchen': '/assets/images/restaurants/photos/formal-dining.webp',
+    // Main Dining Rooms
     'mdr': '/assets/images/restaurants/photos/formal-dining.webp',
+    'the-dining-room': '/assets/images/restaurants/photos/formal-dining.webp',
+    'adagio-dining-room': '/assets/images/restaurants/photos/formal-dining.webp',
 
-    // Asian Cuisine
+    // Buffet/Markets
+    'windjammer': '/assets/images/restaurants/photos/buffet.webp',
+    'surfside-eatery': '/assets/images/restaurants/photos/buffet.webp',
+    'aquadome-market': '/assets/images/restaurants/photos/buffet.webp',
+
+    // Cafes/Bakeries
+    'park-cafe': '/assets/images/restaurants/photos/croissant.webp',
+    'solarium-bistro': '/assets/images/restaurants/photos/croissant.webp',
+    'pearl-cafe': '/assets/images/restaurants/photos/croissant.webp',
+    'cafe-two70': '/assets/images/restaurants/photos/croissant.webp',
+    'la-patisserie': '/assets/images/restaurants/photos/croissant.webp',
+    'desserted': '/assets/images/restaurants/photos/croissant.webp',
+    'starbucks': '/assets/images/restaurants/photos/croissant.webp',
+    'rye-and-bean': '/assets/images/restaurants/photos/croissant.webp',
+    'latte-tudes': '/assets/images/restaurants/photos/croissant.webp',
+
+    // Casual/American
+    'surfside-bites': '/assets/images/restaurants/photos/hotdog.webp',
+    'basecamp': '/assets/images/restaurants/photos/hotdog.webp',
+    'portside-bbq': '/assets/images/restaurants/photos/hotdog.webp',
+    'johnny-rockets': '/assets/images/restaurants/photos/hotdog.webp',
+    'dog-house': '/assets/images/restaurants/photos/hotdog.webp',
+
+    // Pizza
+    'sorrentos': '/assets/images/restaurants/photos/pizza.webp',
+    'playmakers': '/assets/images/restaurants/photos/pizza.webp',
+
+    // Mexican
+    'el-loco-fresh': '/assets/images/restaurants/photos/tacos.webp',
+    'sabor': '/assets/images/restaurants/photos/tacos.webp',
+    'sabor-taqueria': '/assets/images/restaurants/photos/tacos.webp',
+    'cantina-fresca': '/assets/images/restaurants/photos/tacos.webp',
+
+    // Asian/Seafood
     'izumi': '/assets/images/restaurants/photos/sushi.webp',
     'izumi-in-the-park': '/assets/images/restaurants/photos/sushi.webp',
     'sichuan-red': '/assets/images/restaurants/photos/sushi.webp',
     'hot-pot': '/assets/images/restaurants/photos/sushi.webp',
+    'hooked-seafood': '/assets/images/restaurants/photos/sushi.webp',
+    'pier-7': '/assets/images/restaurants/photos/sushi.webp',
 
-    // Italian Cuisine
-    'jamies-italian': '/assets/images/restaurants/photos/italian.webp',
+    // Italian/Fine Dining
     'giovannis': '/assets/images/restaurants/photos/italian.webp',
-    'sorrentos': '/assets/images/restaurants/photos/pizza.webp',
+    'giovannis-italian-kitchen': '/assets/images/restaurants/photos/italian.webp',
+    'jamies-italian': '/assets/images/restaurants/photos/italian.webp',
+    '150-central-park': '/assets/images/restaurants/photos/italian.webp',
+    'wonderland': '/assets/images/restaurants/photos/italian.webp',
+    'celebration-table': '/assets/images/restaurants/photos/italian.webp',
+    'empire-supper-club': '/assets/images/restaurants/photos/italian.webp',
+    'lincoln-park-supper-club': '/assets/images/restaurants/photos/italian.webp',
+    'samba-grill': '/assets/images/restaurants/photos/italian.webp',
 
-    // Steakhouse
+    // Specialty/Formal
     'chops': '/assets/images/restaurants/photos/formal-dining.webp',
+    'chefs-table': '/assets/images/restaurants/photos/formal-dining.webp',
+    'chic': '/assets/images/restaurants/photos/formal-dining.webp',
+    'coastal-kitchen': '/assets/images/restaurants/photos/formal-dining.webp',
+    'room-service': '/assets/images/restaurants/photos/formal-dining.webp',
 
-    // Mexican
-    'sabor': '/assets/images/restaurants/photos/tacos.webp',
-    'el-loco-fresh': '/assets/images/restaurants/photos/tacos.webp',
-    'cantina-fresca': '/assets/images/restaurants/photos/tacos.webp',
-
-    // Buffet
-    'windjammer': '/assets/images/restaurants/photos/buffet.webp',
-
-    // Casual
-    'johnny-rockets': '/assets/images/restaurants/photos/hotdog.webp',
-    'dog-house': '/assets/images/restaurants/photos/hotdog.webp',
-
-    // Bars & Lounges
+    // Bars - Cocktail Lounges
     'schooner-bar': '/assets/images/restaurants/photos/cocktail-lounge.webp',
-    'vintages': '/assets/images/restaurants/photos/bar-lounge.webp',
-    'bionic-bar': '/assets/images/restaurants/photos/bar-lounge.webp',
     'boleros': '/assets/images/restaurants/photos/cocktail-lounge.webp',
-    'playmakers': '/assets/images/restaurants/photos/pizza.webp',
     'viking-crown-lounge': '/assets/images/restaurants/photos/cocktail-lounge.webp',
     'star-lounge': '/assets/images/restaurants/photos/cocktail-lounge.webp',
-    'sky-bar': '/assets/images/restaurants/photos/bar-lounge.webp',
     'r-bar': '/assets/images/restaurants/photos/cocktail-lounge.webp',
     'olive-or-twist': '/assets/images/restaurants/photos/cocktail-lounge.webp',
     'diamond-club': '/assets/images/restaurants/photos/cocktail-lounge.webp',
-    'globe-and-atlas': '/assets/images/restaurants/photos/bar-lounge.webp',
     'bamboo-room': '/assets/images/restaurants/photos/cocktail-lounge.webp',
+    'lous-jazz-n-blues': '/assets/images/restaurants/photos/cocktail-lounge.webp',
+    'dueling-pianos': '/assets/images/restaurants/photos/cocktail-lounge.webp',
+    'cloud-17': '/assets/images/restaurants/photos/cocktail-lounge.webp',
+    'dazzles': '/assets/images/restaurants/photos/cocktail-lounge.webp',
+    '1400-lobby-bar': '/assets/images/restaurants/photos/cocktail-lounge.webp',
+
+    // Bars - Casual
+    'vintages': '/assets/images/restaurants/photos/bar-lounge.webp',
+    'bionic-bar': '/assets/images/restaurants/photos/bar-lounge.webp',
+    'sky-bar': '/assets/images/restaurants/photos/bar-lounge.webp',
+    'globe-and-atlas': '/assets/images/restaurants/photos/bar-lounge.webp',
     'lime-and-coconut': '/assets/images/restaurants/photos/bar-lounge.webp',
+    'north-star-bar': '/assets/images/restaurants/photos/bar-lounge.webp',
+    'the-grove': '/assets/images/restaurants/photos/bar-lounge.webp',
+    'point-and-feather': '/assets/images/restaurants/photos/bar-lounge.webp',
+    'on-air': '/assets/images/restaurants/photos/bar-lounge.webp',
+    'trellis-bar': '/assets/images/restaurants/photos/bar-lounge.webp',
+    'the-overlook': '/assets/images/restaurants/photos/bar-lounge.webp',
+
+    // Bars - Cocktails/Tropical
+    'bubbles': '/assets/images/restaurants/photos/cocktail.webp',
+    'champagne-bar': '/assets/images/restaurants/photos/cocktail.webp',
+    'swim-and-tonic': '/assets/images/restaurants/photos/cocktail.webp',
+    'pesky-parrot': '/assets/images/restaurants/photos/cocktail.webp',
+    'lemon-post': '/assets/images/restaurants/photos/cocktail.webp',
 
     // Default placeholder
     '_default': '/assets/images/restaurants/photos/formal-dining.webp'
