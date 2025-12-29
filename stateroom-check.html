@@ -165,6 +165,47 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
 
   <!-- Page-specific CSS -->
+  <style>
+    /* Share Modal Styles */
+    .share-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .share-modal.active {
+      display: flex;
+    }
+    .share-modal-content {
+      background: #fff;
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 650px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      animation: modalFadeIn 0.3s ease;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .share-section.hidden {
+      display: none;
+    }
+    @media (max-width: 480px) {
+      .share-modal-content {
+        padding: 1rem;
+      }
+      .share-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -426,6 +467,26 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <!-- Results will be injected here by JavaScript -->
     </div>
 
+    <!-- Share Button (appears after results) -->
+    <div id="share-section" class="share-section hidden" style="margin-top: 1rem; text-align: center;">
+      <button id="share-btn" class="submit-btn" style="background: #0e6e8e; display: inline-flex; align-items: center; gap: 0.5rem;">
+        📤 Share Result
+      </button>
+    </div>
+
+  <!-- Share Modal -->
+  <div class="share-modal" id="share-modal">
+    <div class="share-modal-content">
+      <h2 style="margin-bottom: 1rem; color: #0e6e8e;">Share Your Stateroom Check</h2>
+      <canvas id="share-canvas" width="600" height="400" style="max-width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></canvas>
+      <div class="share-buttons" style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <button id="download-btn" class="submit-btn" style="background: #0e6e8e;">💾 Download Image</button>
+        <button id="copy-link-btn" class="submit-btn" style="background: #5a7a8a;">🔗 Copy Link</button>
+        <button id="close-modal-btn" class="submit-btn" style="background: #888;">Close</button>
+      </div>
+    </div>
+  </div>
+
     <!-- ICP-Lite FAQ Section -->
     <section class="card mt-15" id="faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions</h2>
@@ -565,6 +626,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           a11yStatus.textContent = `Result ready: ${result.verdict.title}`;
         }
 
+        // Show share button and store result for sharing
+        if (result.success) {
+          window.__lastStateroomResult = result;
+          document.getElementById('share-section').classList.remove('hidden');
+        }
+
       } catch (error) {
 
         resultsContainer.innerHTML = `
@@ -572,6 +639,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <p>⚠️ Something went wrong. Please try again.</p>
           </div>
         `;
+        document.getElementById('share-section').classList.add('hidden');
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Check My Stateroom';
@@ -876,6 +944,151 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       }
     }
 
+  })();
+  </script>
+
+  <!-- Share Functionality -->
+  <script>
+  (function() {
+    'use strict';
+
+    // Generate shareable image
+    function generateShareImage() {
+      const result = window.__lastStateroomResult;
+      if (!result || !result.success) return;
+
+      const canvas = document.getElementById('share-canvas');
+      const ctx = canvas.getContext('2d');
+      const verdict = result.verdict;
+
+      // Background gradient
+      const gradient = ctx.createLinearGradient(0, 0, 600, 400);
+      if (verdict.verdict === 'great') {
+        gradient.addColorStop(0, '#2d7a3d');
+        gradient.addColorStop(1, '#1a5a2a');
+      } else if (verdict.verdict === 'note') {
+        gradient.addColorStop(0, '#0e6e8e');
+        gradient.addColorStop(1, '#0a3d62');
+      } else {
+        gradient.addColorStop(0, '#d4a574');
+        gradient.addColorStop(1, '#b8956a');
+      }
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 600, 400);
+
+      // Branding header
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+      ctx.fillRect(0, 0, 600, 70);
+
+      // Title with branding
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 24px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText('⚓ Cruising In The Wake', 300, 30);
+      ctx.font = 'bold 18px Arial';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      ctx.fillText('Stateroom Check', 300, 55);
+
+      // Verdict icon
+      const verdictIcon = verdict.verdict === 'great' ? '✅' : verdict.verdict === 'note' ? '📝' : '⚠️';
+      ctx.font = '48px Arial';
+      ctx.fillText(verdictIcon, 300, 115);
+
+      // Cabin number and ship
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 28px Arial';
+      ctx.fillText(`Stateroom ${result.cabin}`, 300, 160);
+      ctx.font = '20px Arial';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      ctx.fillText(result.shipName, 300, 190);
+
+      // Verdict title
+      ctx.font = 'bold 22px Arial';
+      ctx.fillStyle = '#ffffff';
+      const verdictText = verdict.verdict === 'great' ? 'A Wonderful Choice!' :
+        verdict.verdict === 'note' ? 'Good Choice, With a Note' : 'Worth Knowing About';
+      ctx.fillText(verdictText, 300, 235);
+
+      // Category badge
+      ctx.font = '18px Arial';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+      ctx.fillText(verdict.category || 'Stateroom', 300, 265);
+
+      // Summary (wrapped text)
+      ctx.font = '14px Arial';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      const summaryShort = verdict.summary.length > 120 ? verdict.summary.substring(0, 117) + '...' : verdict.summary;
+      const words = summaryShort.split(' ');
+      let line = '';
+      let y = 300;
+      words.forEach(word => {
+        const testLine = line + word + ' ';
+        if (ctx.measureText(testLine).width > 540) {
+          ctx.fillText(line.trim(), 300, y);
+          line = word + ' ';
+          y += 20;
+        } else {
+          line = testLine;
+        }
+      });
+      if (line.trim()) ctx.fillText(line.trim(), 300, y);
+
+      // Footer with URL
+      ctx.font = 'bold 14px Arial';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText('Check your cabin at:', 300, 365);
+      ctx.font = '13px Arial';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      ctx.fillText('cruisinginthewake.com/stateroom-check.html', 300, 385);
+
+      // Show modal
+      document.getElementById('share-modal').classList.add('active');
+    }
+
+    // Download share image
+    function downloadShareImage() {
+      const result = window.__lastStateroomResult;
+      const canvas = document.getElementById('share-canvas');
+      const link = document.createElement('a');
+      link.download = `stateroom-${result?.cabin || 'check'}.png`;
+      link.href = canvas.toDataURL();
+      link.click();
+    }
+
+    // Copy share URL
+    function copyShareURL() {
+      const result = window.__lastStateroomResult;
+      if (!result) return;
+
+      const url = window.location.origin + '/stateroom-check.html';
+      navigator.clipboard.writeText(url).then(() => {
+        alert('Link copied! Share it with fellow cruisers.');
+      }).catch(err => {
+        prompt('Copy this link to share:', url);
+      });
+    }
+
+    // Event listeners
+    document.getElementById('share-btn').addEventListener('click', generateShareImage);
+    document.getElementById('download-btn').addEventListener('click', downloadShareImage);
+    document.getElementById('copy-link-btn').addEventListener('click', copyShareURL);
+    document.getElementById('close-modal-btn').addEventListener('click', () => {
+      document.getElementById('share-modal').classList.remove('active');
+    });
+
+    // Close modal on backdrop click
+    document.getElementById('share-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'share-modal') {
+        document.getElementById('share-modal').classList.remove('active');
+      }
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.getElementById('share-modal').classList.remove('active');
+      }
+    });
   })();
   </script>
 
