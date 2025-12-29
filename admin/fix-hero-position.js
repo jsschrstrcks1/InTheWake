@@ -13,10 +13,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const portsToFix = [
-  'abu-dhabi', 'acapulco', 'adelaide', 'agadir', 'akureyri', 'amber-cove',
-  'anchorage', 'antigua', 'aqaba', 'ascension', 'cozumel', 'ft-lauderdale',
-  'galveston', 'grand-cayman', 'honolulu', 'lanzarote', 'los-angeles', 'miami',
-  'nassau', 'new-orleans', 'port-canaveral', 'san-juan', 'seattle', 'tampa'
+  'apia', 'aruba'
 ];
 
 function fixHeroPosition(portName) {
