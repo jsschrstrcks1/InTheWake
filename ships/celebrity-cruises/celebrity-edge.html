@@ -253,17 +253,7 @@ All work on this project is offered as a gift to God.
         <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides planning resources and community insights. Always confirm details with Unknown or your travel advisor before booking.</p>
       </details>
     </section>
-      <!-- Recent Articles rail -->
-      <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-
-</div>
+      </div>
 
     <!-- RIGHT RAIL -->
     </section><!-- End Main Content Column -->
@@ -300,5 +290,17 @@ All work on this project is offered as a gift to God.
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
+
+  <script>
+  (async function(){
+    const rail = document.getElementById('recent-rail');
+    if(!rail) return;
+    try {
+      const res = await fetch('/assets/data/articles/index.json');
+      const articles = await res.json();
+      rail.innerHTML = articles.slice(0, 4).map(a => '<div style="margin-bottom:.75rem;"><a href="' + a.url + '">' + a.title + '</a></div>').join('');
+    } catch(e) {}
+  })();
+  </script>
 </body>
 </html>

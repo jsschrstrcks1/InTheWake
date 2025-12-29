@@ -757,5 +757,17 @@ And the sea—wide and welcoming—has room for you too.</p>
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
+
+  <script>
+  (async function(){
+    const rail = document.getElementById('recent-rail');
+    if(!rail) return;
+    try {
+      const res = await fetch('/assets/data/articles/index.json');
+      const articles = await res.json();
+      rail.innerHTML = articles.slice(0, 4).map(a => '<div style="margin-bottom:.75rem;"><a href="' + a.url + '">' + a.title + '</a></div>').join('');
+    } catch(e) {}
+  })();
+  </script>
 </body>
 </html>
