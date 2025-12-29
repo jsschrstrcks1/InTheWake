@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# Venue Page Validator — v1.0.0
+# Venue Page Validator — v1.1.0
 # =============================================================================
 # Validates venue/restaurant pages against the In the Wake standard.
 # Based on superset analysis of existing venue pages (chops.html, windjammer.html, etc.)
@@ -58,7 +58,7 @@ FILENAME=$(basename "$FILE")
 SLUG="${FILENAME%.html}"
 
 echo "============================================================================"
-echo "  Venue Page Validator — v1.0.0"
+echo "  Venue Page Validator — v1.1.0"
 echo "  File: $FILE"
 echo "============================================================================"
 
@@ -104,11 +104,22 @@ else
     check_fail "entity field MISSING or generic (should be venue's proper name)"
 fi
 
-# Type field
-if echo "$CONTENT" | grep -qE "type:\s*(Restaurant|Dining|Bar|Lounge|Venue)"; then
-    check_pass "type field present"
+# Type field - determine venue type for later checks
+VENUE_TYPE=""
+if echo "$CONTENT" | grep -qE "type:\s*(Restaurant|Dining)"; then
+    VENUE_TYPE="dining"
+    check_pass "type field present (Dining)"
+elif echo "$CONTENT" | grep -qE "type:\s*(Bar|Lounge)"; then
+    VENUE_TYPE="bar"
+    check_pass "type field present (Bar/Lounge)"
+elif echo "$CONTENT" | grep -qE "type:\s*Entertainment"; then
+    VENUE_TYPE="entertainment"
+    check_pass "type field present (Entertainment)"
+elif echo "$CONTENT" | grep -qE "type:\s*Venue"; then
+    VENUE_TYPE="venue"
+    check_pass "type field present (Venue)"
 else
-    check_fail "type field MISSING (required: Restaurant/Dining Venue, Bar/Lounge, etc.)"
+    check_fail "type field MISSING (required: Restaurant/Dining, Bar/Lounge, Entertainment, Venue)"
 fi
 
 # Parent field
@@ -439,6 +450,61 @@ if echo "$CONTENT" | grep -q 'id="sources"'; then
     check_pass "Sources section (id=\"sources\") present"
 else
     check_fail "Sources section MISSING"
+fi
+
+# =============================================================================
+# Section 8b: Entertainment Venue Content Depth (if applicable)
+# =============================================================================
+if [ "$VENUE_TYPE" = "entertainment" ]; then
+    section_header "Section 8b: Entertainment Venue Content Depth"
+
+    # Count show cards
+    SHOW_CARD_COUNT=$(echo "$CONTENT" | grep -c 'class="show-card"\|id="show-' || true)
+    if [ "$SHOW_CARD_COUNT" -ge 3 ]; then
+        check_pass "Has $SHOW_CARD_COUNT show/experience cards (3+ required)"
+    elif [ "$SHOW_CARD_COUNT" -ge 1 ]; then
+        check_warn "Only $SHOW_CARD_COUNT show/experience card(s) (3+ recommended)"
+    else
+        check_fail "No show/experience cards found (entertainment venues require show cards)"
+    fi
+
+    # Check for ship assignments in show cards
+    if echo "$CONTENT" | grep -q 'Ships:.*href="/ships/'; then
+        check_pass "Show cards include ship assignments with links"
+    else
+        check_warn "Show cards missing ship assignment links"
+    fi
+
+    # Check for runtime/duration info
+    if echo "$CONTENT" | grep -qi 'Runtime:\|Duration:\|~[0-9]\+ minutes'; then
+        check_pass "Show runtime/duration information present"
+    else
+        check_warn "Show runtime/duration information missing"
+    fi
+
+    # Check for show reviews with ratings
+    SHOW_REVIEW_COUNT=$(echo "$CONTENT" | grep -c 'class="show-review"\|<summary>.*Guest Review.*★' || true)
+    if [ "$SHOW_REVIEW_COUNT" -ge 3 ]; then
+        check_pass "Has $SHOW_REVIEW_COUNT show reviews (3+ required)"
+    elif [ "$SHOW_REVIEW_COUNT" -ge 1 ]; then
+        check_warn "Only $SHOW_REVIEW_COUNT show review(s) (3+ recommended)"
+    else
+        check_fail "No show reviews found (entertainment venues require per-show reviews)"
+    fi
+
+    # Check for technology features section
+    if echo "$CONTENT" | grep -qi 'Technology Features\|<h3>Technology\|<h4>.*Technology'; then
+        check_pass "Technology features section present"
+    else
+        check_warn "Technology features section missing (recommended for entertainment venues)"
+    fi
+
+    # Check for daytime programming
+    if echo "$CONTENT" | grep -qi 'Daytime Programming\|Daytime.*Activities'; then
+        check_pass "Daytime programming section present"
+    else
+        check_warn "Daytime programming section missing"
+    fi
 fi
 
 # =============================================================================
