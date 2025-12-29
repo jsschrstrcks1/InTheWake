@@ -257,8 +257,77 @@ function validateSectionOrder($) {
   const warnings = [];
   const detectedSections = [];
 
-  // Detect sections by scanning headings and IDs
-  $('h2, h3, section, div[id], div[class*="section"]').each((i, elem) => {
+  // Check hero box requirements - must be inside main content with image, port name overlay, and proper credits
+  const heroSection = $('section.port-hero, #hero, .port-hero');
+  if (heroSection.length > 0) {
+    // Check if hero is first child of body (wrong) vs inside main/article (correct)
+    const heroInMain = heroSection.closest('main, article, .card');
+    const heroIsFirstBodyChild = heroSection.parent().is('body') ||
+      (heroSection.prevAll('header, main, nav').length === 0 && heroSection.parent().is('body'));
+
+    if (!heroInMain.length || heroIsFirstBodyChild) {
+      errors.push({
+        section: 'hero',
+        rule: 'hero_wrong_position',
+        message: 'Hero section must be inside main content area (article/card), not at top of body before header',
+        severity: 'BLOCKING'
+      });
+    }
+
+    // Check for hero image
+    const heroImg = heroSection.find('img').first();
+    if (!heroImg.length) {
+      errors.push({
+        section: 'hero',
+        rule: 'hero_missing_image',
+        message: 'Hero box must contain an image',
+        severity: 'BLOCKING'
+      });
+    } else {
+      // Check image is webp format
+      const imgSrc = heroImg.attr('src') || '';
+      if (!imgSrc.endsWith('.webp')) {
+        errors.push({
+          section: 'hero',
+          rule: 'hero_not_webp',
+          message: 'Hero image must be in webp format',
+          severity: 'BLOCKING'
+        });
+      }
+    }
+
+    // Check for port name overlay
+    const portNameOverlay = heroSection.find('.port-hero-overlay, .port-name-overlay, h1');
+    if (!portNameOverlay.length) {
+      errors.push({
+        section: 'hero',
+        rule: 'hero_missing_overlay',
+        message: 'Hero box must contain port name overlay (h1 or .port-hero-overlay)',
+        severity: 'BLOCKING'
+      });
+    }
+
+    // Check for Wikimedia Commons credit link
+    const creditLink = heroSection.find('a[href*="commons.wikimedia.org"], a[href*="wikimedia"]');
+    if (!creditLink.length) {
+      errors.push({
+        section: 'hero',
+        rule: 'hero_missing_wikimedia_credit',
+        message: 'Hero image must include Wikimedia Commons credit link',
+        severity: 'BLOCKING'
+      });
+    }
+  } else {
+    errors.push({
+      section: 'hero',
+      rule: 'hero_missing',
+      message: 'Page must have a hero box section with class "port-hero"',
+      severity: 'BLOCKING'
+    });
+  }
+
+  // Detect sections by scanning headings and IDs (scoped to main content only)
+  $('main h2, main h3, main section, main div[id], main div[class*="section"]').each((i, elem) => {
     const $elem = $(elem);
     const text = $elem.text().toLowerCase();
     const id = $elem.attr('id') || '';

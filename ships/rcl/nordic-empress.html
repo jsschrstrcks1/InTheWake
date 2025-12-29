@@ -15,10 +15,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
      parent: /ships.html
      category: Royal Caribbean Fleet
      cruise-line: Royal Caribbean
-     ship-class: Voyager Class
+     ship-class: Empress Class
+     status: Retired Ship
      updated: 2025-11-15
      expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons
-     target-audience: Nordic Empress cruisers, Voyager Class researchers, ship comparison shoppers
+     target-audience: Nordic Empress cruisers, Empress Class researchers, ship comparison shoppers
      answer-first: Nordic Empress: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake.
      -->
   <!-- ======================================================
@@ -54,10 +55,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- ICP-Lite v1.0: AI-First Metadata -->
   <meta name="ai-summary" content="nordic-empress: historical information, legacy, and ship details from Royal Caribbean."/>
   <meta name="last-reviewed" content="2025-11-18"/>
-  <meta name="content-protocol" content="ICP-Lite v1.0"/>
+  <meta name="content-protocol" content="ICP-Lite v1.4"/>
 
   <!-- Title & SEO -->
-  <title>Nordic Empress — Deck Plans, Live Tracker, Dining & Videos | In the Wake (V1.Beta)</title>
+  <title>Nordic Empress (1990-2008) — Deck Plans, Live Tracker, Dining & Videos | In the Wake (V1.Beta)</title>
   <link rel="canonical" href="https://cruisinginthewake.com/ships/rcl/nordic-empress.html"/>
   <meta name="description" content="Nordic Empress: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake."/>
 
@@ -183,7 +184,19 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     "@type": "WebPage",
     "name": "Nordic Empress — Historical Information & Legacy",
     "url": "https://cruisinginthewake.com/ships/rcl/nordic-empress.html",
-    "description": "Nordic Empress: historical information, legacy, and ship details. Explore Royal Caribbean's Nordic Empress."
+    "description": "nordic-empress: historical information, legacy, and ship details from Royal Caribbean.",
+    "datePublished": "2024-01-01",
+    "dateModified": "2025-11-18",
+    "inLanguage": "en-US",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "In the Wake",
+      "url": "https://cruisinginthewake.com"
+    },
+    "mainEntity": {
+      "@type": "Cruise",
+      "name": "Nordic Empress"
+    }
   }
   </script>
 
@@ -211,10 +224,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       },
       {
         "@type": "Question",
-        "name": "Can I still cruise on Nordic Empress?",
+        "name": "Is Nordic Empress still in service?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No, Nordic Empress is no longer in RCL fleet. This page preserves its Royal Caribbean history for research and nostalgia."
+          "text": "No, Nordic Empress is no longer in service. The ship left the Royal Caribbean fleet in 2008 when it was transferred to Pullmantur Cruises as Empress of the Seas. Pullmantur ceased operations in 2020, and the vessel was subsequently scrapped. This page preserves its Royal Caribbean history for research and nostalgia."
         }
       }
     ]
@@ -303,7 +316,15 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
-            <nav class="site-nav" aria-label="Main site navigation">
+      <!-- Mobile hamburger button -->
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+            <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
 
         <!-- Planning Dropdown -->
@@ -374,7 +395,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
-      <h1 class="page-title">Nordic Empress — Historic Royal Caribbean Ship</h1>
+      <h1 class="page-title">Nordic Empress (1990-2008) — Historic Royal Caribbean Ship</h1>
 
       <p class="answer-line">
         <strong class="section-label">Looking for Nordic Empress info?</strong>
@@ -565,8 +586,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </details>
 
       <details class="faq-item">
-        <summary>Can I still cruise on Nordic Empress?</summary>
-        <p class="faq-answer">No, Nordic Empress is no longer in RCL fleet. This page preserves its Royal Caribbean history for research and nostalgia.</p>
+        <summary>Is Nordic Empress still in service?</summary>
+        <p class="faq-answer">No, Nordic Empress is no longer in service. The ship left the Royal Caribbean fleet in 2008 when it was transferred to Pullmantur Cruises as Empress of the Seas. Pullmantur ceased operations in 2020, and the vessel was subsequently scrapped. This page preserves its Royal Caribbean history for research and nostalgia.</p>
       </details>
     </section>
     </section><!-- End Main Content Column -->
@@ -618,11 +639,22 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <!-- Recent Articles rail -->
       <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny content-text mb-1">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        <p class="tiny content-text" style="margin-bottom: 0.75rem;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community.
         </p>
+        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
+        <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
+        <p id="recent-rail-fallback" class="tiny" style="color: #666;">Loading articles…</p>
+      </section>
+
+      <!-- Authors rail -->
+      <section class="card" aria-labelledby="authors-rail-title">
+        <h3 id="authors-rail-title">Our Authors</h3>
+        <p class="tiny content-text" style="margin-bottom: 0.75rem;">
+          The voices behind In the Wake — cruisers, storytellers, and fellow travelers.
+        </p>
+        <div id="authors-rail" class="rail-list" aria-live="polite"></div>
       </section>
     
     <!-- Whimsical Distance Units -->
@@ -662,7 +694,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       if(!window.__swiperReady||!window.Swiper) return setTimeout(go,120);
       try{
         new Swiper('.swiper.firstlook',{
-          loop:false,lazy:true,watchOverflow:true,
+          loop:false,rewind:false,lazy:true,watchOverflow:true,
           pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
           navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
           a11y:{enabled:true}
@@ -746,7 +778,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         setTimeout(()=>{
           try{
             new Swiper('.swiper.videos',{
-              loop:false,lazy:true,watchOverflow:true,
+              loop:false,rewind:false,lazy:true,watchOverflow:true,
               pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
               navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
               a11y:{enabled:true}
@@ -886,129 +918,106 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   (function(){
     "use strict";
 
-    /* ===== Recent Articles Rail ===== */
-    (async function recentRail(){
-      const rail = document.getElementById('recent-rail');
-      if(!rail) return;
+    const ARTICLES_PER_PAGE = 6;
+    let allArticles = [];
+    let currentPage = 0;
 
+    async function loadArticles(){
+      fetch('/assets/data/articles/index.json')
+        .then(r => r.ok ? r.json() : Promise.reject('Failed to load'))
+        .then(data => {
+          allArticles = (data.articles || [])
+            .filter(a => a.status === 'published')
+            .sort((a, b) => new Date(b.published) - new Date(a.published));
+          renderPage(0);
+        })
+        .catch(() => {
+          document.getElementById('recent-rail-fallback').textContent = 'Unable to load articles.';
+        });
+    }
+
+    function renderPage(page){
+      currentPage = page;
+      const start = page * ARTICLES_PER_PAGE;
+      const pageArticles = allArticles.slice(start, start + ARTICLES_PER_PAGE);
+      const totalPages = Math.ceil(allArticles.length / ARTICLES_PER_PAGE);
+
+      const container = document.getElementById('recent-rail');
       const fallback = document.getElementById('recent-rail-fallback');
-      if(fallback) fallback.style.display = '';
+      const navTop = document.getElementById('recent-rail-nav-top');
+      const navBottom = document.getElementById('recent-rail-nav-bottom');
 
-      async function fetchJSONWithFallback(urls){
-        for (const u of urls){
-          try{
-            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
-            if (res.ok) return await res.json();
-          }catch(err){
-
-          }
-        }
-        return null;
-      }
-
-      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
-
-      function setImageWithFallback(imgEl, primary, altPaths=[]){
-        if(!imgEl) return;
-        const stamp='v=3.010.400';
-        const tried=new Set();
-        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
-        function tryNext(){
-          const next=queue.shift();
-          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
-          if(tried.has(next)) return tryNext();
-          tried.add(next);
-          imgEl.src=next;
-        }
-        imgEl.onerror=tryNext;
-        tryNext();
-      }
-
-      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
-      if(!raw) {
-        if(fallback) {
-          fallback.textContent = 'Unable to load articles';
-          fallback.style.display = '';
-        }
+      if(!pageArticles.length){
+        fallback.textContent = 'No articles available.';
         return;
       }
+      fallback.style.display = 'none';
 
-      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-      if(!items.length) return;
-
-      const here = location.pathname.replace(/\/+$/,'');
-      const view = items.filter(p=>{
-        const href = pick(p,['url','path'],'#');
-        const norm = (href||'').replace(/\/+$/,'');
-        return norm && norm !== here;
-      }).slice(0,6);
-
-      rail.innerHTML = view.map(p=>{
-        const title = pick(p,['title','name'],'Article');
-        const href  = pick(p,['url','path'],'#');
-        const excerpt = pick(p,['excerpt','description'],'');
-        return `
-          <article class="card article-card">
-            <div class="article-card-grid">
-              <div class="article-thumb-wrap">
-                <img class="article-thumb" alt="" decoding="async" loading="lazy">
-              </div>
-              <div class="article-card-body">
-                <h4><a href="\${href}">\${title}</a></h4>
-                \${excerpt ? `<p class="tiny excerpt">\${excerpt}</p>` : ''}
-              </div>
-            </div>
-            <a href="\${href}" class="pill read-more">Read Article →</a>
-          </article>`;
+      container.innerHTML = pageArticles.map(a => {
+        const thumb = a.thumbnail || '/assets/img/default-thumb.jpg';
+        const authorName = a.author?.name || 'Unknown';
+        const href = '/solo/' + a.slug + '.html';
+        return '<a href="' + href + '" class="rail-item" style="display:flex;gap:0.75rem;align-items:center;padding:0.5rem 0;border-bottom:1px solid #e0e8f0;text-decoration:none;color:inherit;">' +
+          '<img src="' + thumb + '" alt="" width="56" height="56" style="border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy"/>' +
+          '<span style="display:flex;flex-direction:column;gap:0.15rem;min-width:0;">' +
+            '<strong style="font-size:0.92rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + a.title + '</strong>' +
+            '<span class="tiny" style="color:#5a7a8a;">by ' + authorName + '</span>' +
+          '</span></a>';
       }).join('');
 
-      const cards = [...rail.querySelectorAll('article.card')];
-      cards.forEach((card,i)=>{
-        const p = view[i] || {};
-        const el = card.querySelector('img.article-thumb');
-        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
-        const title = (pick(p,['title','name'],'')||'').toLowerCase();
-
-        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
-
-        // FORCE override for Top-20
-        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
-          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
-        }
-        // Friendly specifics
-        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
-        }
-        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
-          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
-        }
-        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-          primary = '/assets/articles/travel/cover.jpg';
-        }
-
-        // Heuristic fallback
-        if(!primary){
-          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
-          const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
-        }
-
-        const alts = [];
-        if(primary){
-          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
-        }
-        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
-      });
-
-      if(fallback) fallback.style.display = 'none';
-
-      // Announce to screen readers
-      const status = document.getElementById('a11y-status');
-      if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
+      if(totalPages > 1){
+        const navHTML = '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+          '<button onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
+          '<span class="tiny" style="color:#5a7a8a;">' + (page + 1) + ' / ' + totalPages + '</span>' +
+          '<button onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
+        '</div>';
+        navTop.innerHTML = navHTML;
+        navBottom.innerHTML = navHTML;
+        navTop.style.display = 'block';
+        navBottom.style.display = 'block';
       }
-    })();
+    }
+
+    window.__articlesNav = renderPage;
+
+    function loadAuthors(){
+      fetch('/data/authors.json')
+        .then(r => r.ok ? r.json() : Promise.reject('Failed'))
+        .then(data => {
+          const authors = data.authors || [];
+          const container = document.getElementById('authors-rail');
+          if(!authors.length || !container) return;
+
+          const path = location.pathname.toLowerCase();
+          const isHome = path === '/' || path === '/index.html';
+          const isAuthorsPage = path.includes('/authors');
+          const isTinaArticle = path.includes('why-i-started-solo-cruising') || path.includes('why-i-choose-to-cruise-solo');
+
+          let filtered = authors;
+          if(isHome || isAuthorsPage){
+            filtered = authors;
+          } else if(isTinaArticle){
+            filtered = authors.filter(a => a.slug === 'tina-maulsby');
+          } else {
+            filtered = authors.filter(a => a.slug === 'ken-baker');
+          }
+
+          if(!filtered.length) return;
+          container.innerHTML = filtered.map(a => {
+            const img = a.webp || a.image || '/assets/img/default-avatar.jpg';
+            return '<a href="' + a.url + '" class="rail-item" style="display:flex;gap:0.75rem;align-items:center;padding:0.5rem 0;border-bottom:1px solid #e0e8f0;text-decoration:none;color:inherit;">' +
+              '<img src="' + img + '" alt="" width="48" height="48" style="border-radius:50%;object-fit:cover;flex-shrink:0;" loading="lazy"/>' +
+              '<span style="display:flex;flex-direction:column;gap:0.1rem;">' +
+                '<strong style="font-size:0.92rem;">' + a.name + '</strong>' +
+                '<span class="tiny" style="color:#5a7a8a;">' + (a.roles ? a.roles[0] : 'Contributor') + '</span>' +
+              '</span></a>';
+          }).join('');
+        })
+        .catch(() => {});
+    }
+
+    loadArticles();
+    loadAuthors();
   })();
   </script>
 

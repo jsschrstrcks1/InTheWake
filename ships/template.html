@@ -178,7 +178,15 @@ All work on this project is offered as a gift to God.
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
-            <nav class="site-nav" aria-label="Main site navigation">
+      <!-- Mobile hamburger button -->
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+            <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
 
         <!-- Planning Dropdown -->
@@ -280,7 +288,7 @@ All work on this project is offered as a gift to God.
         <h2 id="diningHeading">Dining Venues on {{SHIP_NAME}}</h2>
 
         <img class="card-hero"
-             src="https://upload.wikimedia.org/wikipedia/commons/1/11/Cordelia_Empress_Food_Court.jpg"
+             src="/assets/ships/template_01.webp" onerror="this.onerror=null;this.src='/assets/ships/template_01.jpg'"
              alt="Food court seating with ocean view" loading="lazy"/>
 
         <div class="dining-content" id="dining-content" aria-live="polite"></div>
@@ -379,9 +387,7 @@ All work on this project is offered as a gift to God.
       <script type="application/json" id="video-data-source">
         {
           "order": ["walkthrough","top-things","stateroom-interior","stateroom-oceanview","stateroom-balcony","stateroom-suite","accessibility","extras"],
-          "fallback": [
-            {"id": "dQw4w9WgXcQ", "title": "{{SHIP_SHORT}} — Overview"}
-          ]
+          "fallback": []
         }
       </script>
     </section>

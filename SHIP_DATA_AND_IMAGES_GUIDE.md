@@ -138,9 +138,9 @@ Each ship page looks for video data in these locations (fallback order):
 {
   "videos": [
     {
-      "videoId": "dQw4w9WgXcQ",
+      "videoId": "EXAMPLE_VIDEO_ID",
       "provider": "youtube",
-      "title": "Radiance of the Seas Full Ship Tour"
+      "title": "Ship Name Full Ship Tour"
     },
     {
       "videoId": "987654321",

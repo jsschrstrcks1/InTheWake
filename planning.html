@@ -27,10 +27,10 @@
        ✅ AI-First SEO with E-E-A-T Person Schema
        ====================================================== -->
 
-  <!-- ICP-Lite v1.0 Meta Tags -->
+  <!-- ICP-Lite v1.4 Meta Tags -->
   <meta name="ai-summary" content="Central planning hub for cruise travelers — ports, airports, timing guides, booking strategies, and steady answers to help you organize your journey from planning to embarkation." />
   <meta name="last-reviewed" content="2025-11-18" />
-  <meta name="content-protocol" content="ICP-Lite v1.0" />
+  <meta name="content-protocol" content="ICP-Lite v1.4" />
 
   <!-- Core -->
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -187,12 +187,13 @@
   <!-- JSON-LD: WebPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Planning",
-  "url": "https://cruisinginthewake.com/planning.html",
-  "description": "Planning that feels like smooth water \u2014 ports, airports, timing, and steady answers for your cruise journey."
-}
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Planning",
+    "url": "https://cruisinginthewake.com/planning.html",
+    "description": "Central planning hub for cruise travelers — ports, airports, timing guides, booking strategies, and steady answers to help you organize your journey from planning to embarkation.",
+    "dateModified": "2025-11-18"
+  }
   </script><!-- Favicon / PWA -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
@@ -259,7 +260,15 @@
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
-            <nav class="site-nav" aria-label="Main site navigation">
+      <!-- Mobile hamburger button -->
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
 
         <!-- Planning Dropdown -->
@@ -426,11 +435,22 @@
       <!-- Recent Stories -->
       <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny content-text">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        <p class="tiny content-text" style="margin-bottom: 0.75rem;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community.
         </p>
+        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
+        <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
+        <p id="recent-rail-fallback" class="tiny" style="color: #666;">Loading articles…</p>
+      </section>
+
+      <!-- Authors rail -->
+      <section class="card" aria-labelledby="authors-rail-title">
+        <h3 id="authors-rail-title">Our Authors</h3>
+        <p class="tiny content-text" style="margin-bottom: 0.75rem;">
+          The voices behind In the Wake — cruisers, storytellers, and fellow travelers.
+        </p>
+        <div id="authors-rail" class="rail-list" aria-live="polite"></div>
       </section>
     </aside>
   </main>
@@ -451,87 +471,116 @@
   <script id="planning-dataset" type="application/json">{"version":"0.7","last_updated":"2025-10-20T00:00:00Z","signals":{"spring_break":{"window":"mid-Feb → early Apr","notes":"K-12 varies by district (most in March). Colleges peak early–mid March."},"fall_break":{"window":"late Sep → mid-Oct","notes":"Observed by some districts; long weekends add demand."},"busy_days":["Thanksgiving week","Christmas–New Year's","MLK","Presidents' Day","Memorial Day","Labor Day","Indigenous/Columbus Day","Veterans Day"],"disclaimer":"Drive times are typical in light–moderate traffic; weather, events, or incidents can extend them."},"ports":[{"slug":"port-miami","name":"PortMiami","city":"Miami","state":"FL","state_full":"Florida","country":"USA","blurb":["PortMiami is polished and busy with the widest itinerary choice.","Traffic + causeways surge on embark Sundays—build margin."],"tips":["Prefer MIA for day-of flights; FLL can be cheaper.","Stay Downtown/Brickell for easy mornings."],"warnings":["Rush hour + cruise surges can double drive times.","Spring Break spikes demand.","Art Basel/Ultra/F1 weekends snarl routes."],"airports":[{"code":"MIA","name":"Miami Intl","distance_miles":9,"typical_drive":"20–35 min","notes":"Closest; rail/Brightline nearby."},{"code":"FLL","name":"Fort Lauderdale","distance_miles":28,"typical_drive":"35–60 min","notes":"Often cheaper; I-95 variability."},{"code":"PBI","name":"Palm Beach","distance_miles":70,"typical_drive":"75–110 min","notes":"Smaller network; Brightline + rideshare is viable."}],"qa":[{"q":"MIA or FLL?","a":"MIA is closest. FLL can be cheaper—add 45–60+ minutes. If flying day-of, choose MIA."}]},{"slug":"port-everglades","name":"Port Everglades","city":"Fort Lauderdale","state":"FL","state_full":"Florida","country":"USA","blurb":["Efficient transfers and quick airport hop.","Stay near 17th Street for painless mornings."],"tips":["FLL→port ~10–15 min; rideshare is simplest.","Hotels on 17th St often bundle shuttles."],"warnings":["Sundays stack multiple turnarounds.","Spring Break weeks spike prices/traffic.","17th St bridge lifts bunch traffic."],"airports":[{"code":"FLL","name":"Fort Lauderdale","distance_miles":3,"typical_drive":"10–15 min","notes":"Closest/simplest hop."},{"code":"MIA","name":"Miami Intl","distance_miles":28,"typical_drive":"40–70 min","notes":"More nonstops; Brightline option."}],"qa":[{"q":"Port parking or hotel?","a":"Port parking is easiest up to ~5 nights; 'park & cruise' hotel bundles can win on week-long trips."}],"lodging":[{"name":"Holiday Inn Express Fort Lauderdale Cruise-Airport","url":"https://www.ihg.com/holidayinnexpress/hotels/us/en/fort-lauderdale/fllwc/hoteldetail","notes":"Close to the port and FLL; reasonable, clean, and consistently a good pre-cruise stay."}]},{"slug":"port-canaveral","name":"Port Canaveral","city":"Cape Canaveral","state":"FL","state_full":"Florida","country":"USA","blurb":["Clean terminals + space-coast energy.","Orlando (MCO) gives the flight choice; shuttles/private cars are common."],"tips":["If flying into MCO, target before-noon arrivals.","Shared shuttles are cost-effective; private cars save time.","Stay Cocoa Beach the night before."],"warnings":["SR-528 weekend traffic can add 20–40 min.","Holiday weeks, Spring Break, and launches surge demand."],"airports":[{"code":"MCO","name":"Orlando Intl","distance_miles":45,"typical_drive":"45–70 min","notes":"Tolls on 528; SunPass/e-toll."},{"code":"MLB","name":"Melbourne","distance_miles":26,"typical_drive":"35–50 min","notes":"Small/easy; limited routes."},{"code":"SFB","name":"Orlando Sanford","distance_miles":60,"typical_drive":"60–90 min","notes":"Budget carriers; longer drive."}],"qa":[{"q":"Same-day flight safe?","a":"Safer to arrive a day early. If same-day, book an early nonstop—weather and I-4 delays stack quickly."}]},{"slug":"port-tampa-bay","name":"Port Tampa Bay","city":"Tampa","state":"FL","state_full":"Florida","country":"USA","blurb":["Compact terminals, friendly logistics, and a waterfront that puts hotels and food within easy reach."],"tips":["Arrive a day early; weather anywhere can ripple.","Compare hotel 'park & cruise' vs. port parking."],"warnings":["Winter a.m. fog can slow channel transits.","I-275/I-4/Selmon rush can add 20–45 min."],"airports":[{"code":"TPA","name":"Tampa Intl","distance_miles":9,"typical_drive":"18–30 min","notes":"Excellent rideshare flow."},{"code":"PIE","name":"St. Pete–Clearwater","distance_miles":20,"typical_drive":"30–50 min","notes":"More budget carriers."},{"code":"SRQ","name":"Sarasota–Bradenton","distance_miles":48,"typical_drive":"55–80 min","notes":"Smaller; workable."},{"code":"MCO","name":"Orlando Intl","distance_miles":85,"typical_drive":"90–120 min","notes":"I-4 work zones add time."}],"qa":[{"q":"Budget transfer from TPA?","a":"Rideshare is simplest for 1–3; families compare hotel shuttle bundles vs. private transfers."}]},{"slug":"los-angeles","name":"Los Angeles World Cruise Center (San Pedro)","city":"Los Angeles","state":"CA","state_full":"California","country":"USA","blurb":["San Pedro serves many LA-area sailings. Pick airports based on traffic windows as much as fares."],"tips":["LAX has most nonstops; LGB is nearer with fewer routes; SNA is calm but farther.","Arrive outside peak rush (7–10a, 3–7p)."],"warnings":["405/110 rush can double times.","Sports/concert weekends spike congestion."],"airports":[{"code":"LAX","name":"Los Angeles Intl","distance_miles":20,"typical_drive":"30–65 min"},{"code":"LGB","name":"Long Beach","distance_miles":14,"typical_drive":"25–45 min"},{"code":"SNA","name":"John Wayne (Orange County)","distance_miles":36,"typical_drive":"45–80 min"}]},{"slug":"san-diego","name":"Port of San Diego","city":"San Diego","state":"CA","state_full":"California","country":"USA","blurb":["Downtown-adjacent and walkable waterfront; great option for shorter West Coast itineraries."],"tips":["SAN is minutes away—rental car rarely needed."],"warnings":["Comic-Con/marathons swell demand."],"airports":[{"code":"SAN","name":"San Diego Intl","distance_miles":3,"typical_drive":"8–15 min"}]},{"slug":"galveston","name":"Port of Galveston","city":"Galveston","state":"TX","state_full":"Texas","country":"USA","blurb":["Small-island charm with big-ship choices. Parking and shuttles are abundant."],"tips":["HOU usually shorter drives; IAH has more nonstops.","Book parking early on sold-out weekends."],"warnings":["I-45 construction/incidents can add 30–60 min.","Fog delays possible in winter."],"airports":[{"code":"HOU","name":"Houston Hobby","distance_miles":42,"typical_drive":"50–75 min"},{"code":"IAH","name":"Bush Intercontinental","distance_miles":70,"typical_drive":"75–110 min"}]},{"slug":"cape-liberty","name":"Cape Liberty (Bayonne)","city":"Bayonne","state":"NJ","state_full":"New Jersey","country":"USA","blurb":["Skyline sail-aways without Manhattan chaos; closer to EWR than JFK/LGA."],"tips":["Prefer EWR for proximity; pre-book car service.","Check game/convention schedules."],"warnings":["Bridge/tunnel traffic + closures extend drives.","Winter weather impacts schedules."],"airports":[{"code":"EWR","name":"Newark Liberty","distance_miles":10,"typical_drive":"20–35 min"},{"code":"JFK","name":"JFK","distance_miles":34,"typical_drive":"60–100 min"},{"code":"LGA","name":"LaGuardia","distance_miles":24,"typical_drive":"50–85 min"}]},{"slug":"baltimore","name":"Port of Baltimore (South Locust Point)","city":"Baltimore","state":"MD","state_full":"Maryland","country":"USA","blurb":["Straightforward terminal with on-site parking; drivable for many in the Mid-Atlantic."],"tips":["BWI is closest; Amtrak to Baltimore Penn + rideshare works."],"warnings":["I-95/I-695 incidents extend drives; winter storms ripple."],"airports":[{"code":"BWI","name":"Baltimore/Washington","distance_miles":11,"typical_drive":"20–30 min"},{"code":"DCA","name":"Reagan National","distance_miles":45,"typical_drive":"55–85 min"},{"code":"IAD","name":"Dulles","distance_miles":60,"typical_drive":"70–110 min"}]},{"slug":"boston","name":"Flynn Cruiseport Boston (Black Falcon)","city":"Boston","state":"MA","state_full":"Massachusetts","country":"USA","blurb":["Gateway to Canada/New England with lively neighborhoods nearby; autumn foliage season is magic."],"tips":["BOS is close; plan for tunnel tolls.","Consider a North End stay the night before."],"warnings":["Leaf-peeping raises fares/occupancy.","Tunnels/bridges concentrate traffic."],"airports":[{"code":"BOS","name":"Logan Intl","distance_miles":4,"typical_drive":"12–25 min"}]},{"slug":"new-orleans","name":"Port NOLA (Erato/Julia)","city":"New Orleans","state":"LA","state_full":"Louisiana","country":"USA","blurb":["Walkable and flavorful; staying in the Warehouse District trims morning stress."],"tips":["MSY ~25–35 min; avoid tight connections.","Festival season swings pricing/traffic."],"warnings":["Parades/festivals reshape routes; river fog happens."],"airports":[{"code":"MSY","name":"Luis Armstrong New Orleans","distance_miles":15,"typical_drive":"25–40 min"}]},{"slug":"mobile","name":"Port of Mobile (Alabama)","city":"Mobile","state":"AL","state_full":"Alabama","country":"USA","blurb":["Compact and friendly; a good drive-market choice."],"tips":["If flying, use MOB; many guests drive."],"warnings":["Summer thunderstorms slow interstates.","Event weekends spike demand downtown."],"airports":[{"code":"MOB","name":"Mobile Regional","distance_miles":17,"typical_drive":"25–40 min"},{"code":"PNS","name":"Pensacola","distance_miles":58,"typical_drive":"65–90 min"}]},{"slug":"seattle","name":"Port of Seattle (Pier 66/91)","city":"Seattle","state":"WA","state_full":"Washington","country":"USA","blurb":["Smooth Alaska gateway; hotels in Belltown/Waterfront simplify mornings."],"tips":["SEA has the flights; plan for security peaks.","Stadium events add time; check schedules."],"warnings":["Summer events spike downtown traffic; drizzle/fog is normal."],"airports":[{"code":"SEA","name":"Seattle–Tacoma Intl","distance_miles":15,"typical_drive":"25–45 min"},{"code":"PAE","name":"Paine Field","distance_miles":27,"typical_drive":"35–60 min"}]},{"slug":"san-juan","name":"San Juan Cruise Port","city":"San Juan","state":"PR","state_full":"Puerto Rico","country":"USA","blurb":["Deep-Caribbean itineraries with Old San Juan steps away."],"tips":["SJU has broad service; arrive daytime if possible."],"warnings":["Festivals (SanSe) fill rooms; tropical weather affects flights."],"airports":[{"code":"SJU","name":"Luis Muñoz Marín Intl","distance_miles":8,"typical_drive":"15–30 min"}]},{"slug":"vancouver","name":"Canada Place (Vancouver)","city":"Vancouver","state":"BC","state_full":"British Columbia","country":"Canada","blurb":["Premier Alaska gateway with a spectacular sail-away under Lions Gate Bridge."],"tips":["YVR has excellent transit; consider SkyTrain + short taxi.","Arrive a day early for border/ATC margin."],"warnings":["Peak summer + cruise clusters crowd downtown; convention days raise rates."],"airports":[{"code":"YVR","name":"Vancouver Intl","distance_miles":9,"typical_drive":"20–35 min","notes":"SkyTrain to Waterfront + 10–12 min walk."}]},{"slug":"sydney","name":"Overseas Passenger Terminal (Circular Quay)","city":"Sydney","state":"NSW","state_full":"New South Wales","country":"Australia","blurb":["Sail past the Opera House/Harbour Bridge—arguably the world's best sail-away."],"tips":["SYD has rail to Circular Quay; consider a CBD/Quay hotel.","Arrive day-early—international recovery buffers are kind."],"warnings":["Event days around the Quay increase traffic and pedestrian congestion."],"airports":[{"code":"SYD","name":"Sydney (Kingsford Smith)","distance_miles":10,"typical_drive":"25–40 min","notes":"Airport rail → Circular Quay."}]},{"slug":"brisbane","name":"Brisbane International Cruise Terminal (Pinkenba)","city":"Brisbane","state":"QLD","state_full":"Queensland","country":"Australia","blurb":["Purpose-built terminal with straightforward road access."],"tips":["BNE is close; rideshare is easiest.","Check ship/terminal assignments for suburban berths."],"warnings":["Peak hour on Gateway Motorway can add time."],"airports":[{"code":"BNE","name":"Brisbane","distance_miles":7,"typical_drive":"15–25 min"}]},{"slug":"melbourne","name":"Station Pier (Port Melbourne)","city":"Melbourne","state":"VIC","state_full":"Victoria","country":"Australia","blurb":["Historic pier close to the CBD and St Kilda."],"tips":["MEL has the lift; rideshare/tram to CBD is simple."],"warnings":["Event weekends can tighten hotel supply."],"airports":[{"code":"MEL","name":"Melbourne (Tullamarine)","distance_miles":17,"typical_drive":"25–45 min"}]}]}
   </script>
 
+  <!-- Article & Author Loader -->
   <script>
-  /* ===== Recent Articles Rail ===== */
-  (async function recentRail(){
-    const rail = document.getElementById('recent-rail');
-    if(!rail) return;
+  (function(){
+    const ARTICLES_PER_PAGE = 6;
+    let allArticles = [];
+    let currentPage = 0;
 
-    const fallback = document.getElementById('recent-rail-fallback');
-    if(fallback) fallback.style.display = '';
-
-    async function fetchJSONWithFallback(urls){
-      for (const u of urls){
-        try{
-          const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
-          if (res.ok) return await res.json();
-        }catch(err){
-
-        }
-      }
-      return null;
+    async function loadArticles(){
+      fetch('/assets/data/articles/index.json')
+        .then(r => r.ok ? r.json() : Promise.reject('Failed to load'))
+        .then(data => {
+          allArticles = (data.articles || [])
+            .filter(a => a.status === 'published')
+            .sort((a, b) => new Date(b.published) - new Date(a.published));
+          renderPage(0);
+        })
+        .catch(() => {
+          document.getElementById('recent-rail-fallback').textContent = 'Unable to load articles.';
+        });
     }
 
-    const raw = await fetchJSONWithFallback([
-      '/assets/data/articles/index.json',
-      '/assets/data/articles.json'
-    ]);
+    function renderPage(page){
+      currentPage = page;
+      const start = page * ARTICLES_PER_PAGE;
+      const pageArticles = allArticles.slice(start, start + ARTICLES_PER_PAGE);
+      const totalPages = Math.ceil(allArticles.length / ARTICLES_PER_PAGE);
 
-    if(!raw) {
-      if(fallback) {
-        fallback.textContent = 'Unable to load articles';
-        fallback.style.display = '';
+      const container = document.getElementById('recent-rail');
+      const fallback = document.getElementById('recent-rail-fallback');
+      const navTop = document.getElementById('recent-rail-nav-top');
+      const navBottom = document.getElementById('recent-rail-nav-bottom');
+
+      if(!pageArticles.length){
+        fallback.textContent = 'No articles available.';
+        return;
       }
-      return;
+      fallback.style.display = 'none';
+
+      container.innerHTML = pageArticles.map(a => {
+        const thumb = a.thumbnail || '/assets/img/default-thumb.jpg';
+        const authorName = a.author?.name || 'Unknown';
+        const href = '/solo/' + a.slug + '.html';
+        return '<a href="' + href + '" class="rail-item" style="display:flex;gap:0.75rem;align-items:center;padding:0.5rem 0;border-bottom:1px solid #e0e8f0;text-decoration:none;color:inherit;">' +
+          '<img src="' + thumb + '" alt="" width="56" height="56" style="border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy"/>' +
+          '<span style="display:flex;flex-direction:column;gap:0.15rem;min-width:0;">' +
+            '<strong style="font-size:0.92rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + a.title + '</strong>' +
+            '<span class="tiny" style="color:#5a7a8a;">by ' + authorName + '</span>' +
+          '</span></a>';
+      }).join('');
+
+      // Render pagination
+      if(totalPages > 1){
+        const navHTML = '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+          '<button onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
+          '<span class="tiny" style="color:#5a7a8a;">' + (page + 1) + ' / ' + totalPages + '</span>' +
+          '<button onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
+        '</div>';
+        navTop.innerHTML = navHTML;
+        navBottom.innerHTML = navHTML;
+        navTop.style.display = 'block';
+        navBottom.style.display = 'block';
+      }
     }
 
-    const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-    if(!items.length) return;
+    window.__articlesNav = renderPage;
 
-    const here = location.pathname.replace(/\/+$/,'');
-    const view = items.filter(p => {
-      const href = (p.url || p.path || '#').replace(/\/+$/,'');
-      return href && href !== here;
-    }).slice(0,6);
+    function loadAuthors(){
+      fetch('/data/authors.json')
+        .then(r => r.ok ? r.json() : Promise.reject('Failed'))
+        .then(data => {
+          const authors = data.authors || [];
+          const container = document.getElementById('authors-rail');
+          if(!authors.length || !container) return;
 
-    rail.innerHTML = view.map(p => {
-      const title = p.title || p.name || 'Article';
-      const href = p.url || p.path || '#';
-      const excerpt = p.excerpt || p.description || '';
+          // Context-aware author filtering
+          const path = location.pathname.toLowerCase();
+          const isHome = path === '/' || path === '/index.html';
+          const isAuthorsPage = path.includes('/authors');
+          const isTinaArticle = path.includes('why-i-started-solo-cruising') || path.includes('why-i-choose-to-cruise-solo');
 
-      return `
-        <article class="card article-card">
-          <div class="article-card-grid">
-            <div class="article-thumb-wrap">
-              <img class="article-thumb" alt="" decoding="async" loading="lazy">
-            </div>
-            <div class="article-card-body">
-              <h4><a href="${href}">${title}</a></h4>
-              ${excerpt ? `<p class="tiny excerpt">${excerpt}</p>` : ''}
-            </div>
-          </div>
-          <a href="${href}" class="pill read-more">Read Article →</a>
-        </article>`;
-    }).join('');
+          let filtered = authors;
+          if(isHome || isAuthorsPage){
+            // Show all authors on home and authors pages
+            filtered = authors;
+          } else if(isTinaArticle){
+            // Show Tina on her article
+            filtered = authors.filter(a => a.slug === 'tina-maulsby');
+          } else {
+            // Show only Ken everywhere else
+            filtered = authors.filter(a => a.slug === 'ken-baker');
+          }
 
-    if(fallback) fallback.style.display = 'none';
+          if(!filtered.length) return;
+          container.innerHTML = filtered.map(a => {
+            const img = a.webp || a.image || '/assets/img/default-avatar.jpg';
+            return '<a href="' + a.url + '" class="rail-item" style="display:flex;gap:0.75rem;align-items:center;padding:0.5rem 0;border-bottom:1px solid #e0e8f0;text-decoration:none;color:inherit;">' +
+              '<img src="' + img + '" alt="" width="48" height="48" style="border-radius:50%;object-fit:cover;flex-shrink:0;" loading="lazy"/>' +
+              '<span style="display:flex;flex-direction:column;gap:0.1rem;">' +
+                '<strong style="font-size:0.92rem;">' + a.name + '</strong>' +
+                '<span class="tiny" style="color:#5a7a8a;">' + (a.roles ? a.roles[0] : 'Contributor') + '</span>' +
+              '</span></a>';
+          }).join('');
+        })
+        .catch(() => {});
+    }
 
-    // Load images for each article card
-    const cards = [...rail.querySelectorAll('article.card')];
-    cards.forEach((card, i) => {
-      const p = view[i] || {};
-      const img = card.querySelector('img.article-thumb');
-      if (img) {
-        const primaryImage = p.thumb || p.thumbnail || p.image || p.cover || p.img || '/assets/index_hero.webp';
-        img.src = primaryImage;
-        img.onerror = () => { img.src = '/assets/index_hero.webp'; };
-      }
-    });
-
-    // Announce to screen readers
-    const status = document.getElementById('a11y-status');
-    if(status) {
-      status.textContent = `${view.length} recent articles loaded`;
+    if(document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', () => { loadArticles(); loadAuthors(); });
+    } else {
+      loadArticles(); loadAuthors();
     }
   })();
   </script>

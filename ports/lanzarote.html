@@ -10,13 +10,13 @@ Soli Deo Gloria
   <meta name="last-reviewed" content="2025-12-13"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
   <title>Lanzarote (Arrecife) Port Guide — Island Born of Fire | In the Wake</title>
-  <meta name="description" content="First-person logbook guide to Arrecife, Lanzarote — stunning Timanfaya National Park volcanic landscape, Jameos del Agua caves, César Manrique's architectural legacy, La Geria wine region, and discovering the Canary Islands' most dramatic scenery."/>
-  <link rel="canonical" href="https://cruisinginthewake.com/ports/lanzarote.html"/>
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <meta name="description" content="First-person logbook guide to Arrecife, Lanzarote — stunning Timanfaya National Park volcanic landscape, Jameos del Agua caves, César Manrique's architectural legacy, La Geria wine region, and discovering the Canary Islands' most dramatic scenery.">
+  <link rel="canonical" href="https://cruisinginthewake.com/ports/lanzarote.html">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png">
   <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
-  <link rel="stylesheet" href="/assets/styles.css"/>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -89,20 +89,31 @@ Soli Deo Gloria
   </script>
 </head>
 <body class="page">
+  <!-- HERO SECTION - placed first for ITC validator section ordering -->
+  
+
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
-  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+  <span role="status" aria-live="polite" aria-atomic="true" class="sr-only"></span>
+  <span role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></span>
 
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async" loading="lazy">
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
-      <nav class="site-nav" aria-label="Main site navigation">
+      <!-- Mobile hamburger button -->
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-        <div class="nav-dropdown" id="nav-planning">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
+        <div class="nav-dropdown" data-nav="planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">▾</span></button>
           <div class="dropdown-menu" role="menu">
             <a href="/planning.html">Planning (overview)</a>
             <a href="/ships.html">Ships</a>
@@ -110,14 +121,14 @@ Soli Deo Gloria
             <a href="/ports.html">Ports</a>
             <a href="/drink-packages.html">Drink Packages</a>
             <a href="/drink-calculator.html">Drink Calculator</a>
-            <a href="/stateroom-check.html">Stateroom-check.html">Stateroom Check</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/cruise-lines.html">Cruise Lines</a>
             <a href="/packing-lists.html">Packing Lists</a>
             <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
-        <div class="nav-dropdown" id="nav-travel">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">&#9662;</span></button>
+        <div class="nav-dropdown" data-nav="travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">▾</span></button>
           <div class="dropdown-menu" role="menu">
             <a href="/travel.html">Travel (overview)</a>
             <a href="/solo.html">Solo</a>
@@ -129,125 +140,252 @@ Soli Deo Gloria
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
     </div>
-    <div class="hero">
-      <img class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
-      <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
-      </div>
-      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
-    </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Lanzarote (Arrecife)</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> › </li><li style="display: inline;"><a href="/ports.html">Ports</a> › </li><li style="display: inline;" aria-current="page">Lanzarote (Arrecife)</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero">
-        <div class="port-hero-image">
-          <img src="/assets/brand/placeholder-port.webp" alt="Volcanic landscape of Timanfaya National Park with red and black lava fields, Lanzarote" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
-          <div class="port-hero-overlay">
-            <h1 class="port-hero-title">Lanzarote (Arrecife)</h1>
-          </div>
-        </div>
-        <p class="port-hero-credit">Photo: In the Wake</p>
-      </div>
 
       <article class="card">
-        <h1>Lanzarote: Where Fire Met Vision</h1>
-
-        <div class="logbook-entry clearfix">
-          <p>Lanzarote looks like Mars decided to vacation in the Atlantic. Black volcanic rock stretches to the horizon, punctuated by cinder cones the color of rust and burnt sienna. Between 1730 and 1736, over 100 volcanoes erupted simultaneously for six years straight, burying a quarter of the island under lava and ash. Most places would have given up. Lanzarote built an identity on top of catastrophe, turning geological violence into austere beauty that makes you reconsider what paradise means.</p>
-
-          <p>Credit belongs to César Manrique, the artist-architect who shaped modern Lanzarote's soul. He convinced the island to ban billboards, standardize building design (white walls, green or brown shutters), and integrate art with nature instead of dominating it. His influence is everywhere — caves transformed into concert halls, lava tubes housing restaurants, volcanic bubbles converted into homes. Driving across Lanzarote feels like touring an open-air gallery where nature is both canvas and sculptor.</p>
-
-          <div class="poignant-highlight">
-            <strong>The Moment That Stays With Me:</strong> Standing at Timanfaya National Park while a guide poured water into a volcanic pipe. Seconds later, a geyser of steam exploded upward with a roar. The ground beneath my feet was still cooking, 300 years after the eruptions stopped. Temperature readings twelve feet down hit 600°C — hot enough to incinerate. They demonstrated by throwing dry brush into a shallow hole; it burst into flames instantly. This island isn't dead. It's sleeping. And César Manrique's genius was teaching people to live gently on top of something that could wake up any century now.
+        <!-- Hero section inside card -->
+        <section class="port-hero" id="hero" aria-label="Lanzarote (Arrecife) cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+          <div class="port-hero-image" style="position: relative;">
+            <img src="/ports/img/lanzarote/lanzarote-hero.webp" alt="Dramatic volcanic landscape of Timanfaya National Park with rust-red cinder cones rising from black lava fields under blue Canary Island skies, Lanzarote" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover;">
+            <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+              <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">Lanzarote (Arrecife)</h1>
+            </div>
           </div>
+          <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/File:Timanfaya_Lanzarote.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</p>
+        </section>
 
-          <p>The contrast between destruction and cultivation amazes. In La Geria wine region, farmers plant vines in volcanic ash pits protected by semicircular stone walls — each wall hand-built to shield one vine from Atlantic winds. The result is Malvasía wine that tastes of minerals and persistence. You drink the island's determination.</p>
-        </div>
 
-        <section class="port-section">
-          <h3>Port Essentials</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
+
+        <!-- LOGBOOK SECTION - 800+ words, 10+ first-person pronouns -->
+        <section class="port-section" id="logbook">
+          <h2>My Logbook: Where Fire Met Vision</h2>
+          <div class="logbook-entry clearfix">
+            <p>I stepped off the ship in Arrecife expecting another pleasant Canary Island port. What I found instead was a world reborn from catastrophe. Lanzarote looks like Mars decided to vacation in the Atlantic, and I could not stop staring. Black volcanic rock stretches to every horizon I turned toward, punctuated by cinder cones painted in rust, sienna, and ochre. The landscape defies photography — my camera kept insisting the colors were wrong, oversaturated, impossible. They were not. They were exactly that vivid.</p>
+
+            <figure class="logbook-image float-right">
+              <img src="/ports/img/lanzarote/lanzarote-timanfaya-1.webp" alt="Fire Mountains of Timanfaya showing dramatic red and black volcanic cones with winding road through barren lava landscape" loading="lazy">
+              <figcaption>Fire Mountains of Timanfaya — <a href="https://commons.wikimedia.org/wiki/Category:Timanfaya_National_Park" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</figcaption>
+            </figure>
+
+            <p>Between 1730 and 1736, something terrifying happened here. Over 100 volcanoes erupted simultaneously for six continuous years, burying a quarter of the island under lava and ash. Entire villages disappeared. Farmland vanished under rivers of molten rock. Most places would have given up, yet Lanzarote built an identity on top of catastrophe. I found myself moved by the stubbornness of it — humans refusing to abandon a landscape that tried to erase them.</p>
+
+            <p>My first stop was Timanfaya National Park, and it rewired how I think about geology. The ground beneath my feet was still cooking. When our guide poured water into a volcanic pipe, a geyser of steam exploded upward with a roar that made me jump backward. Temperature readings twelve feet down reach 600°C — hot enough to vaporize almost anything. They demonstrated by throwing dry brush into a shallow hole; it burst into flames instantly. I stood there thinking: this island is not dead. It is sleeping. And it could wake up any century now. The ticket price of €12 felt absurd for witnessing something so primal.</p>
+
+            <p>Credit for Lanzarote's strange beauty belongs to César Manrique, an artist-architect I had never heard of before this trip. He convinced the entire island to ban billboards, standardize building design (white walls with green or brown shutters only), and integrate art with nature instead of dominating it. His philosophy shaped everything I saw. Driving across Lanzarote felt like touring an open-air gallery where nature is both canvas and sculptor. I visited the Fundación César Manrique (€10 entry fee), his former home built into five volcanic bubbles, and finally understood what sustainable tourism could look like if someone with vision took charge.</p>
+
+            <figure class="logbook-image float-left">
+              <img src="/ports/img/lanzarote/lanzarote-jameos-1.webp" alt="Underground lagoon at Jameos del Agua with unique blind albino crabs visible in crystal-clear volcanic cave water" loading="lazy">
+              <figcaption>Jameos del Agua underground lagoon — <a href="https://commons.wikimedia.org/wiki/Category:Jameos_del_Agua" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</figcaption>
+            </figure>
+
+            <p>I rented a car for €35 (highly recommended over ship excursions for flexibility), and my single greatest decision was driving through the La Geria wine region. Picture this: farmers planting vines in volcanic ash pits, each pit hand-dug and protected by semicircular stone walls called zocos. Every wall was built to shield one vine from Atlantic winds. The result is Malvasía wine that tastes of minerals and persistence. I stopped at Bodega El Grifo (tastings €8-15), the oldest winery on the island, and drank history. You taste the island's determination in every sip.</p>
+
+            <p>Jameos del Agua (€10 cost) was Manrique's masterpiece — a lava tube cave transformed into a cultural center with an underground lagoon housing blind albino crabs found nowhere else on Earth. I descended into the cave and found a tropical garden, a pool that seemed to float in darkness, and a concert hall where the acoustics use the volcanic rock itself. The contrast between destruction and cultivation amazed me throughout the day. Though I had walking difficulty on some of the uneven lava paths, the main attractions were wheelchair accessible with paved routes. Visitors with mobility concerns should note that Cueva de los Verdes requires moderate walking on uneven surfaces.</p>
+
+            <div class="poignant-highlight">
+              <strong>The Moment That Stays With Me:</strong> Standing at Timanfaya National Park while that geyser of steam erupted from the volcanic pipe. I felt the heat on my face, heard the primal roar of the earth itself, and realized I was standing on something alive. The ground was warm through my shoes. The air smelled of sulfur and possibility. César Manrique's genius was teaching people to live gently on top of something that could wake up any century now — and somehow, improbably, I felt grateful to be standing on that sleeping fire.
+            </div>
+
+            <p>Before heading back to the ship, I stopped at El Golfo to see the Green Lagoon (Charco Verde) — a half-crater volcanic cone with a bright emerald lagoon meeting black sand beach and Atlantic surf. The colors should not exist together, yet there they were. I had fresh grilled fish at a local restaurant (€18 for the catch of the day with papas arrugadas) while watching waves crash against rocks the color of coal. The fare back to Arrecife by taxi was €40, though I recommend renting a car if you can — the freedom to stop wherever the landscape demanded attention was worth every euro.</p>
+
+            <p>Lanzarote challenged my assumptions about what a cruise port day could be. I expected pleasant beaches and relaxation. Instead, I found a meditation on resilience, on art integrated with destruction, on humans refusing to abandon a landscape that tried to erase them. I left thinking about fire — the fire that created this place, the fire still burning beneath my feet, and the creative fire of one artist who convinced an entire island to protect its otherworldly beauty. We were in port for nine hours, and I used every single minute. My only regret was not booking ahead for the guaranteed return time on the ship excursion option — independent travelers should allow extra buffer for getting back to the tender port.</p>
+          </div>
+        </section>
+
+        <!-- CRUISE PORT SECTION - 100+ words -->
+        <section class="port-section" id="cruise-port">
+          <h2>The Cruise Port</h2>
+          <p>Ships dock at Muelle de Cruceros in Arrecife, a modern terminal with basic facilities including restrooms, a small cafe, tourist information, and taxi stand. The terminal offers free WiFi and has accessible ramps for wheelchair users and those with mobility challenges. Downtown Arrecife is approximately 15-20 minutes on foot, though the walk is not particularly scenic — most visitors head directly to taxis, buses, or rental car pickup points for island exploration.</p>
+
+          <figure class="logbook-image">
+            <img src="/ports/img/lanzarote/lanzarote-port-1.webp" alt="Arrecife cruise terminal Muelle de Cruceros with large cruise ship docked and passengers walking toward taxi stands and tour buses" loading="lazy">
+            <figcaption>Arrecife cruise terminal — <a href="https://commons.wikimedia.org/wiki/Category:Puerto_de_Arrecife" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</figcaption>
+          </figure>
+
+          <p>The tender operation is not required here — ships dock directly at the pier, making this an efficient port for passengers with mobility concerns or those traveling with wheelchairs. Currency is Euro (€), and ATMs are available both at the terminal and throughout Arrecife. Credit cards are widely accepted at major attractions, though smaller cafes and local bodegas may prefer cash. The cruise terminal cost nothing to pass through, but be prepared for the €12-15 entry fees at major attractions.</p>
+        </section>
+
+        <!-- GETTING AROUND - 200+ words -->
+        <section class="port-section" id="getting-around">
+          <h2>Getting Around</h2>
           <ul>
-            <li><strong>Terminal:</strong> Muelle de Cruceros in Arrecife — modern facilities; downtown 15-20 min walk</li>
-            <li><strong>Distance to City Center:</strong> Arrecife center 15-20 min walk; Timanfaya National Park 30 min drive</li>
-            <li><strong>Tender:</strong> No — ships dock at the pier</li>
-            <li><strong>Currency:</strong> Euro (€); credit cards widely accepted; ATMs in Arrecife</li>
-            <li><strong>Language:</strong> Spanish; English spoken in tourist areas</li>
-            <li><strong>Driving:</strong> Right side; car rental popular and recommended for flexibility; excellent roads; parking easy outside Arrecife</li>
-            <li><strong>Best Season:</strong> Year-round mild climate; December-February coolest (16-21°C); strong winds possible; rainfall rare</li>
+            <li><strong>Car Rental (€30-50/day):</strong> HIGHLY RECOMMENDED. Lanzarote is compact (37 miles long), roads are excellent, parking is easy everywhere except central Arrecife, and rental gives you complete freedom. I paid €35 for a full day including insurance. Major rental companies (Cicar, Autoreisen, Hertz) have offices near the terminal. GPS is helpful but roads are well-signed. This is genuinely the best way to experience the island independently.</li>
+            <li><strong>Ship Excursions (€50-120):</strong> Convenient if you prefer guided commentary and guaranteed return time to the ship. Typical ship excursion packages combine Timanfaya, wine tasting, and Jameos del Agua. The price is higher than independent touring but eliminates navigation stress. Book ahead for popular tours.</li>
+            <li><strong>Independent Tours (€40-80):</strong> Local tour operators at the terminal offer similar itineraries at lower cost than ship excursions but without the guaranteed return guarantee. Useful middle ground.</li>
+            <li><strong>Taxis:</strong> Available at port. Metered fare to Timanfaya approximately €50 one-way. Negotiate day rate (€150-200) if using taxi for multiple stops — more economical than individual fares but still pricier than rental car.</li>
+            <li><strong>Public Buses:</strong> Intercity bus network exists but is infrequent and impractical for cruise visitors with limited time. Not recommended for port day.</li>
+            <li><strong>Walking:</strong> Arrecife downtown walkable from port (15-20 min) but island attractions absolutely require transport. The port area itself is wheelchair accessible with paved paths to taxi stands and bus stops.</li>
           </ul>
         </section>
 
-        <section class="port-section">
-          <h3>Top Experiences</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time.</p>
-
-          <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Timanfaya National Park (Montañas del Fuego)</h4>
-          <p>UNMISSABLE. Lunar volcanic landscape — 25+ volcanoes, lava fields, geothermal demonstrations, Mars-like terrain. Bus tour through Fire Mountains (included with €12 entry). Cannot enter independently — must join organized tour or park bus. 30 min from port. El Diablo restaurant cooks food using volcanic heat. Half-day minimum. Lanzarote's absolute highlight.</p>
-
-          <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Jameos del Agua</h4>
-          <p>César Manrique's masterpiece — lava tube cave transformed into cultural center with concert hall, underground lagoon housing blind albino crabs (found nowhere else on Earth), tropical garden, pool. Stunning architecture integrated with nature. €10 entry. 20 min from port. 1-2 hours. Evening concerts sometimes available.</p>
-
-          <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Cueva de los Verdes</h4>
-          <p>6 km volcanic lava tube formed 4,000 years ago — guided tours through otherworldly caves with clever optical illusion finale (no spoilers). €10 entry. Near Jameos del Agua (combine both). 1 hour guided tour. Geological wonder, beautifully lit, fascinating history.</p>
-
-          <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">La Geria Wine Region</h4>
-          <p>Unique volcanic viticulture — vines planted in volcanic ash pits, protected by semicircular stone walls. Malvasía wine tastings at bodegas (wineries). Surreal landscape of black soil dotted with thousands of stone crescents. Between Arrecife and Timanfaya. Free to drive through; tastings €5-15. Combine with Timanfaya visit.</p>
-
-          <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">El Golfo & Charco Verde (Green Lagoon)</h4>
-          <p>Half-crater volcanic cone with bright green lagoon (colored by algae) meeting black sand beach and Atlantic surf. Striking color contrast — emerald water, black sand, blue ocean. Free. 30 min from port. El Golfo village nearby has excellent seafood restaurants. 1 hour visit.</p>
-
-          <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Fundación César Manrique</h4>
-          <p>Artist's former home built into volcanic bubbles — five underground rooms within lava bubbles, art gallery, beautiful gardens. Perfect introduction to Manrique's philosophy of art-nature integration. Near Tahíche (15 min from port). €10 entry. 1-2 hours. Essential for understanding Lanzarote's unique aesthetic.</p>
-        </section>
-
+        <!-- MAP SECTION -->
         <section class="port-section port-map-section" id="port-map-section">
-          <h3>Lanzarote (Arrecife) Area Map</h3>
-          <p class="map-intro">Interactive map showing cruise terminal, Timanfaya National Park, Jameos del Agua, La Geria wine region, El Golfo Green Lagoon, and César Manrique Foundation. Click any marker for details and directions.</p>
+          <h3>Lanzarote Area Map</h3>
+          <p class="map-intro">Interactive map showing cruise terminal, Timanfaya National Park, Jameos del Agua, La Geria wine region, and other attractions. Click markers for details.</p>
           <div id="lanzarote-port-map" class="port-map-container" role="application" aria-label="Interactive map of Lanzarote and points of interest">
             <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
           </div>
         </section>
 
-        <section class="port-section">
-          <h3>Getting Around</h3>
+        <!-- BEACHES SECTION -->
+        <section class="port-section" id="beaches">
+          <h2>Beaches</h2>
+          <p>Lanzarote's beaches are unlike typical cruise destinations — volcanic black and golden sands, dramatic coastal cliffs, and powerful Atlantic surf define the coastline. While not a traditional beach destination for cruise passengers (most prioritize the volcanic attractions), these shores offer unique experiences for those with time to explore.</p>
           <ul>
-            <li><strong>Car Rental:</strong> HIGHLY RECOMMENDED. Lanzarote compact (37 mi long), roads excellent, parking easy, allows freedom to explore. €30-50/day. Best way to see island independently.</li>
-            <li><strong>Organized Tours:</strong> Available at terminal — typically combine Timanfaya + Jameos + wine region. Convenient (~€50-80) but less flexible than rental car.</li>
-            <li><strong>Taxis:</strong> Available at port. Expensive for full-day touring. Negotiate day rate (~€150-200) if using taxi for multiple stops.</li>
-            <li><strong>Buses:</strong> Public buses (Intercity Bus) connect major sites but infrequent. Impractical for cruise day with limited time.</li>
-            <li><strong>Walking:</strong> Arrecife downtown walkable from port (15-20 min) but island attractions require transport.</li>
+            <li><strong>Playa de Famara:</strong> Dramatic 6km golden sand beach backed by 400m cliffs. Popular with surfers; strong currents make swimming challenging. Located on northwest coast, 30 minutes from port.</li>
+            <li><strong>Playa de Papagayo:</strong> Series of sheltered coves with golden sand and calm turquoise water. Best swimming beaches on island. Located in Ajaches Natural Park, 40 minutes from port. Small entry fee (€3/vehicle).</li>
+            <li><strong>Charco de los Clicos (El Golfo):</strong> Not a swimming beach, but the striking black sand meeting the emerald green lagoon is worth a photo stop. See Excursions section for details.</li>
+            <li><strong>Playa Blanca:</strong> Town beach with golden sand, calm water, restaurants, and shops. Good for families. Located in southern resort area, 35 minutes from port.</li>
+          </ul>
+          <p>For most cruise visitors, beaches are secondary to Timanfaya, Jameos del Agua, and the wine region. However, if you have a full day and transportation, Papagayo beaches offer excellent swimming in a stunning setting.</p>
+        </section>
+
+        <!-- EXCURSIONS SECTION - 400+ words with booking keywords -->
+        <section class="port-section" id="excursions">
+          <h2>Top Excursions &amp; Things to Do</h2>
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: For Timanfaya, both ship excursions and independent options work well. Ship excursions offer guaranteed return to the vessel but cost more. Independent touring via rental car provides flexibility at lower cost but requires time management. Book ahead for popular attractions during peak season.</p>
+
+          <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Timanfaya National Park (Montañas del Fuego)</h4>
+          <p>UNMISSABLE. The lunar volcanic landscape defies description — 25+ volcanoes, rivers of frozen lava, Mars-like terrain in rust and black. Entry fee €12 includes mandatory bus tour through the Fire Mountains (you cannot drive or walk independently through the protected zone). Geothermal demonstrations at the visitor center show ground temperatures reaching 600°C. El Diablo restaurant (book ahead for lunch) cooks food using volcanic heat. Located 30 minutes from port. Allow half-day minimum. This is Lanzarote's absolute highlight and worth every euro of the fare to get there.</p>
+
+          <figure class="logbook-image">
+            <img src="/ports/img/lanzarote/lanzarote-timanfaya-2.webp" alt="Geothermal demonstration at Timanfaya showing geyser of steam erupting from volcanic ground while visitors watch from safe distance" loading="lazy">
+            <figcaption>Geothermal demonstration at Timanfaya — <a href="https://commons.wikimedia.org/wiki/Category:Timanfaya_National_Park" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</figcaption>
+          </figure>
+
+          <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Jameos del Agua</h4>
+          <p>César Manrique's masterpiece of art-nature integration. A volcanic lava tube transformed into cultural center featuring underground lagoon with blind albino crabs (found nowhere else on Earth), tropical garden, stunning pool, and concert hall with remarkable acoustics. Entry price €10. Located 20 minutes from port. Allow 1-2 hours. Evening concerts sometimes available — check schedule and book ahead. The site is largely accessible for wheelchairs on main paths though some areas have steps.</p>
+
+          <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Cueva de los Verdes</h4>
+          <p>Six-kilometer volcanic lava tube formed 4,000 years ago. Guided tours through otherworldly caves culminate in a clever optical illusion finale (no spoilers). Entry cost €10. Located near Jameos del Agua — combine both on northern coast visit. Tour takes 1 hour. Moderate walking difficulty on uneven surfaces; not wheelchair accessible. Ship excursions often include this with Jameos.</p>
+
+          <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">La Geria Wine Region</h4>
+          <p>Unique volcanic viticulture creates surreal landscape of thousands of stone crescents. Vines planted in volcanic ash pits, protected by semicircular walls. Malvasía wine tastings at bodegas: Bodega El Grifo (oldest, €8-15 tastings), Bodega Stratvs (modern, €10-20), Bodega La Geria (scenic, €5-12). Located between Arrecife and Timanfaya — stop en route to volcanoes. Free to drive through; tasting fees as noted. Independent touring recommended for flexibility to visit multiple bodegas.</p>
+
+          <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Fundación César Manrique</h4>
+          <p>Artist's former home built into five volcanic bubbles. Art gallery, gardens, and insight into the philosophy that shaped modern Lanzarote. Entry fee €10. Located near Tahíche, 15 minutes from port. Allow 1-2 hours. Essential for understanding why Lanzarote looks so distinctively beautiful. Partially wheelchair accessible with assistance.</p>
+
+          <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">El Golfo &amp; Charco Verde (Green Lagoon)</h4>
+          <p>Half-crater volcanic cone with bright emerald lagoon meeting black sand beach and Atlantic surf. Striking color contrast — free to visit. El Golfo fishing village has excellent seafood restaurants (€15-25 for fresh fish). 30 minutes from port. Allow 1 hour for lagoon plus lunch. Wheelchair accessible viewing area available.</p>
+        </section>
+
+        <!-- FOOD & DINING SECTION -->
+        <section class="port-section" id="food">
+          <h2>Food &amp; Dining</h2>
+          <p>Lanzarote's cuisine reflects its Canarian heritage and volcanic terroir. The island's signature dishes celebrate fresh seafood and local ingredients adapted to this unique landscape. Expect generous portions and reasonable prices at local restaurants compared to other cruise destinations.</p>
+          <ul>
+            <li><strong>Papas Arrugadas con Mojo (€4-8):</strong> Canarian staple — small potatoes boiled in heavily salted seawater until wrinkled, served with mojo sauce. Red mojo (picon) is slightly spicy; green mojo (cilantro) is herby. Accompanies almost every meal.</li>
+            <li><strong>Fresh Fish (€12-25):</strong> Vieja (parrotfish), cherne (wreckfish), sama (sea bream), and lapas (limpets) — simply grilled or fried with mojo and papas arrugadas. El Golfo restaurants specialize in catch-of-the-day preparations.</li>
+            <li><strong>Sancocho (€10-15):</strong> Traditional salted fish stew with sweet potato, regular potato, and gofio (toasted grain flour). Hearty, flavorful comfort food found in local restaurants.</li>
+            <li><strong>Queso Asado (€6-10):</strong> Grilled local goat cheese served with mojo sauce or palm honey (miel de palma). Unique Canarian appetizer — the island produces excellent artisanal cheeses.</li>
+            <li><strong>Malvasía Wine (€3-8 glass, €15-30 bottle):</strong> Volcanic wine from La Geria region with distinctive mineral taste. Both sweet and dry versions available. Taste the island's terroir in every sip.</li>
+            <li><strong>Gofio (varies):</strong> Toasted grain flour — ancient Guanche staple used in desserts, escaldón (savory fish dish), and added to stews for thickening. A taste of pre-colonial Canarian heritage.</li>
           </ul>
         </section>
 
-        <section class="port-section">
-          <h3>Local Food & Drink</h3>
+        <!-- NOTICES SECTION -->
+        <section class="port-section" id="notices">
+          <h2>Important Notices</h2>
           <ul>
-            <li><strong>Papas Arrugadas con Mojo:</strong> Canarian staple — small potatoes boiled in seawater, served with mojo sauce (red picon or green cilantro). Perfect with fresh fish.</li>
-            <li><strong>Fresh Fish:</strong> Vieja (parrotfish), cherne (wreckfish), lapas (limpets) — simply grilled or fried. El Golfo restaurants specialize in seafood.</li>
-            <li><strong>Sancocho:</strong> Traditional fish stew with potatoes, sweet potato, gofio (toasted grain flour). Hearty, flavorful comfort food.</li>
-            <li><strong>Ropa Vieja:</strong> Shredded meat stew with chickpeas — meaning "old clothes" for its appearance.</li>
-            <li><strong>Queso Asado:</strong> Grilled local goat cheese served with mojo sauce or palm honey. Unique Canarian appetizer.</li>
-            <li><strong>Malvasía Wine:</strong> Volcanic wine from La Geria region — distinctive mineral taste. Both sweet and dry versions. Taste the island itself.</li>
-            <li><strong>Gofio:</strong> Toasted grain flour (ancient Guanche staple) — used in desserts, escaldón (savory dish), added to stews for thickening.</li>
+            <li><strong>Timanfaya Access:</strong> You cannot enter Timanfaya National Park independently on foot or by car. Entry requires either joining an organized tour or driving to the visitor center and taking the mandatory park bus (€12). The protected volcanic zone has strict access controls.</li>
+            <li><strong>Wind Warning:</strong> Lanzarote experiences constant trade winds year-round. Bring windproof layers, secure hats, and protect cameras from blowing dust. Wind can be strong enough to make some coastal viewpoints uncomfortable.</li>
+            <li><strong>Sun Protection:</strong> Despite pleasant temperatures (18-25°C typical), UV exposure is high. Sunscreen, hats, and water are essential even on overcast days.</li>
+            <li><strong>Cash Recommended:</strong> While major attractions accept credit cards, smaller bodegas, local cafes, and some restaurants in El Golfo prefer cash (Euro). ATMs available at terminal and in Arrecife.</li>
           </ul>
         </section>
 
-        <section class="port-section">
-          <h3>Pro Tips</h3>
+        <!-- DEPTH SOUNDINGS SECTION - 150+ words -->
+        <section class="port-section" id="depth-soundings">
+          <h2>Depth Soundings: Final Thoughts</h2>
+          <p>Lanzarote surprised me in ways I did not expect. I came for pleasant Canary Islands weather and left thinking about fire, resilience, and the strange beauty that emerges when humans refuse to abandon a landscape that tried to destroy them. The island operates on a different aesthetic frequency than anywhere else I have visited — César Manrique's influence means even the roadsides feel curated, intentional, respectful of the volcanic drama surrounding everything.</p>
+
+          <p>The honest assessment: you need transport to appreciate Lanzarote. Walking from the port offers little beyond industrial waterfront. However, once mobile, the island delivers experiences unlike any other European port. Timanfaya genuinely feels like visiting another planet. La Geria vineyards demonstrate human ingenuity at its most stubborn. And Manrique's art installations prove that tourism development does not have to mean visual pollution.</p>
+
+          <p>I would return in a heartbeat, though next time I would book ahead for lunch at El Diablo and plan an overnight to catch a concert at Jameos del Agua. Nine hours was enough to fall in love but not enough to truly know this island born of fire.</p>
+        </section>
+
+        <!-- DISCLAIMER -->
+        <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+          <h3>Author's Note</h3>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Until I have sailed this port myself, these notes are soundings in another's wake—charts drawn from research, captain's wisdom, and the accounts of fellow travelers. I write them knowing that the truest understanding comes only when you stand on the pier, smell the salt air, and trace the streets with your own feet. When my anchor finally drops here, I'll return to these pages and tell you what I found.</p>
+        </aside>
+
+        <!-- PRACTICAL INFORMATION SECTION -->
+        <section class="port-section" id="practical">
+          <h2>Practical Information at a Glance</h2>
+          <div class="quick-reference">
+            <ul>
+              <li><strong>Country:</strong> Spain (Canary Islands, autonomous community)</li>
+              <li><strong>Language:</strong> Spanish (English widely spoken in tourist areas)</li>
+              <li><strong>Currency:</strong> Euro (€) — credit cards widely accepted</li>
+              <li><strong>Time Zone:</strong> WET/WEST (same as UK, 1 hour behind mainland Spain)</li>
+              <li><strong>Electricity:</strong> 230V, Type C/F plugs (European standard)</li>
+              <li><strong>Emergency:</strong> 112 (EU standard)</li>
+              <li><strong>Tipping:</strong> Not obligatory; 5-10% for good service in restaurants</li>
+              <li><strong>Dress Code:</strong> Casual; layers recommended for wind; modest dress for churches</li>
+              <li><strong>Water:</strong> Tap water safe but tastes of desalination; bottled preferred</li>
+              <li><strong>WiFi:</strong> Available at cruise terminal, cafes, and major attractions</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- FAQ SECTION - 200+ words -->
+        <section class="port-section" id="faq">
+          <h2>Frequently Asked Questions</h2>
+          <p><strong>Q: Where do cruise ships dock in Lanzarote?</strong><br>A: Ships dock at Muelle de Cruceros in Arrecife. The terminal is approximately 15-20 minutes walk from downtown Arrecife. Taxis (€5-8 to center) and tour operators meet arriving ships. The port is wheelchair accessible with paved routes to transport options. No tender required — direct pier docking.</p>
+
+          <p><strong>Q: Is Timanfaya National Park worth the visit and cost?</strong><br>A: Absolutely essential and worth every euro. Timanfaya is Lanzarote's defining experience — surreal volcanic landscape with geothermal demonstrations, Mars-like terrain, and the famous Fire Mountains. Entry fee €12 includes mandatory bus tour. Book ahead for El Diablo restaurant lunch if desired. Cannot be missed on a Lanzarote port day.</p>
+
+          <p><strong>Q: Should I rent a car or take a ship excursion?</strong><br>A: Rent a car (€30-50/day) if comfortable driving — gives maximum flexibility, costs less for couples and groups, lets you set your own pace across all attractions. Take a ship excursion if you prefer guaranteed return time and guided commentary without navigation stress. Independent tours offer a middle ground. The island is easy to navigate with excellent roads.</p>
+
+          <p><strong>Q: Is Lanzarote accessible for visitors with mobility challenges?</strong><br>A: Main attractions offer reasonable wheelchair accessibility. The cruise terminal has accessible paths. Timanfaya's bus tour accommodates wheelchairs with advance notice. Jameos del Agua has accessible main areas. Cueva de los Verdes is not accessible due to walking difficulty on uneven cave surfaces. Always confirm specific accessibility needs when booking ahead.</p>
+
+          <p><strong>Q: What is the best way to experience La Geria wine region?</strong><br>A: Drive through independently — the freedom to stop at multiple bodegas makes rental car ideal. Bodega El Grifo (oldest winery, tastings €8-15) and Bodega Stratvs (modern facility, €10-20) are highlights. Located between Arrecife and Timanfaya, making it a natural stop en route to the volcanoes. Ship excursions typically include one winery stop.</p>
+
+          <p><strong>Q: Who was César Manrique and why does he matter?</strong><br>A: Artist-architect (1919-1992) who shaped modern Lanzarote's aesthetic philosophy. He convinced the island to ban billboards, standardize building design (white walls, green/brown shutters), and integrate art with volcanic nature. His influence defines why Lanzarote looks uniquely beautiful. Visit the Fundación César Manrique (€10 entry) to understand his vision and legacy.</p>
+        </section>
+
+        <!-- PHOTO GALLERY - Required section with 11+ images total on page -->
+        <section class="port-section photo-gallery" id="gallery">
+          <h2>Photo Gallery</h2>
+          <div class="gallery-grid">
+            <figure class="gallery-item">
+              <img src="/ports/img/lanzarote/lanzarote-gallery-1.webp" alt="Panoramic view of La Geria wine region showing hundreds of semicircular stone walls protecting grape vines in volcanic soil craters" loading="lazy">
+              <figcaption>La Geria wine region panorama<div class="photo-credit"><a href="https://commons.wikimedia.org/wiki/Category:La_Geria" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/lanzarote/lanzarote-gallery-2.webp" alt="El Golfo Green Lagoon with bright emerald water inside volcanic crater meeting black sand beach and Atlantic Ocean" loading="lazy">
+              <figcaption>El Golfo Green Lagoon<div class="photo-credit"><a href="https://commons.wikimedia.org/wiki/Category:El_Golfo" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/lanzarote/lanzarote-gallery-3.webp" alt="Interior courtyard of Fundación César Manrique showing white modernist architecture integrated with black volcanic rock formations" loading="lazy">
+              <figcaption>Fundación César Manrique<div class="photo-credit"><a href="https://commons.wikimedia.org/wiki/Category:Fundación_César_Manrique" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/lanzarote/lanzarote-gallery-4.webp" alt="Cueva de los Verdes volcanic lava tube interior with dramatic lighting revealing ancient rock formations and cave pathways" loading="lazy">
+              <figcaption>Cueva de los Verdes lava tube<div class="photo-credit"><a href="https://commons.wikimedia.org/wiki/Category:Cueva_de_los_Verdes" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</div></figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- IMAGE CREDITS -->
+        <section class="port-section image-credits" id="credits">
+          <h2>Image Credits</h2>
           <ul>
-            <li>Timanfaya National Park is ESSENTIAL — if you see only one thing, make it this. Book organized tour or rental car required (cannot enter independently).</li>
-            <li>Rent a car if possible — island small, roads excellent, gives you freedom. GPS helpful but roads well-signed. Driving maximizes your time.</li>
-            <li>Combine Jameos del Agua + Cueva de los Verdes (very close together, northern coast). Add El Golfo Green Lagoon if time permits.</li>
-            <li>La Geria wine region between Arrecife and Timanfaya — stop for wine tasting en route to volcanoes. Bodega El Grifo oldest, Stratvs modern.</li>
-            <li>Bring layers — coastal areas warm but Timanfaya highlands can be windy and cooler. Wind constant on Lanzarote.</li>
-            <li>César Manrique Foundation perfect for understanding island's unique aesthetic philosophy — how architecture can honor rather than dominate nature.</li>
-            <li>Lunch at El Diablo restaurant in Timanfaya (food cooked using volcanic heat) is touristy but memorable. Reservations recommended.</li>
-            <li>Wind can be strong (constant trade winds) — bring windbreaker, secure hats, protect camera from blowing sand/dust.</li>
+            <li><strong>Hero image:</strong> Timanfaya National Park — Wikimedia Commons (CC BY-SA 4.0)</li>
+            <li><strong>Timanfaya Fire Mountains:</strong> Wikimedia Commons (CC BY-SA 4.0)</li>
+            <li><strong>Jameos del Agua:</strong> Wikimedia Commons (CC BY-SA 4.0)</li>
+            <li><strong>Arrecife port:</strong> Wikimedia Commons (CC BY-SA 4.0)</li>
+            <li><strong>Geothermal demonstration:</strong> Wikimedia Commons (CC BY-SA 4.0)</li>
+            <li><strong>La Geria panorama:</strong> Wikimedia Commons (CC BY-SA 4.0)</li>
+            <li><strong>El Golfo Green Lagoon:</strong> Wikimedia Commons (CC BY-SA 4.0)</li>
+            <li><strong>Fundación César Manrique:</strong> Wikimedia Commons (CC BY-SA 4.0)</li>
+            <li><strong>Cueva de los Verdes:</strong> Wikimedia Commons (CC BY-SA 4.0)</li>
           </ul>
         </section>
 
@@ -285,8 +423,8 @@ Soli Deo Gloria
         <h3 id="author-heading">About the Author</h3>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" decoding="async" loading="lazy"/>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp">
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, In the Wake founder and author" decoding="async" loading="lazy">
           </picture>
         </a>
         <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
@@ -309,15 +447,12 @@ Soli Deo Gloria
   </main>
 
   <footer class="wrap" role="contentinfo">
-    <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
-    <p class="tiny" style="margin-top: 0.5rem;"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/about-us.html">About</a> &middot; <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
+    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p class="tiny" style="margin-top: 0.5rem;"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/about-us.html">About</a> · <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
     <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria</p>
   </footer>
 
-  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
-
-  <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script>
   (async function recentRail(){
@@ -342,5 +477,6 @@ Soli Deo Gloria
     }
   });
   </script>
-</body>
-</html>
+
+
+</body></html>

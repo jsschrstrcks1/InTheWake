@@ -374,6 +374,42 @@ else
 fi
 
 # ============================================================================
+# Section 7b: Image Requirements (LOCAL IMAGES ONLY)
+# ============================================================================
+section_header "Section 7b: Image Requirements"
+
+# Check for hotlinked images (external URLs in img src) - CRITICAL FAILURE
+# Exclude: YouTube thumbnails, MarineTraffic embeds, CDN scripts
+HOTLINKED_IMAGES=$(echo "$CONTENT" | grep -oE '<img[^>]+src="https?://[^"]+' | grep -v 'youtube\|marinetraffic\|cdn.jsdelivr\|googletagmanager' | wc -l || echo "0")
+if [ "$HOTLINKED_IMAGES" -gt 0 ]; then
+    check_fail "CRITICAL: $HOTLINKED_IMAGES hotlinked image(s) found — ALL images must be local"
+    # Show the offending URLs
+    echo "$CONTENT" | grep -oE '<img[^>]+src="https?://[^"]+' | grep -v 'youtube\|marinetraffic\|cdn.jsdelivr\|googletagmanager' | sed 's/.*src="/    → /' | head -5
+else
+    check_pass "All images use local paths (no hotlinking)"
+fi
+
+# Check that ship images exist in /assets/ships/
+SHIP_IMAGES=$(echo "$CONTENT" | grep -oE 'src="/assets/ships/[^"]+' | sed 's/src="//' || true)
+MISSING_IMAGES=0
+for img in $SHIP_IMAGES; do
+    FULL_PATH="$(dirname "$FILE")/../../$img"
+    if [ ! -f "$FULL_PATH" ]; then
+        # Try from repo root
+        REPO_PATH="$(pwd)$img"
+        if [ ! -f "$REPO_PATH" ]; then
+            check_fail "Missing local image: $img"
+            MISSING_IMAGES=$((MISSING_IMAGES + 1))
+        fi
+    fi
+done
+if [ "$MISSING_IMAGES" -eq 0 ] && [ -n "$SHIP_IMAGES" ]; then
+    check_pass "All referenced ship images exist locally"
+elif [ -z "$SHIP_IMAGES" ]; then
+    check_warn "No ship images found in /assets/ships/"
+fi
+
+# ============================================================================
 # Section 8: Performance
 # ============================================================================
 section_header "Section 8: Performance"

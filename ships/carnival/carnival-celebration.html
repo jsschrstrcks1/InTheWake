@@ -259,7 +259,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- Page CSS -->
   </head>
-<body>
+<body class="page">
   <a href="#main" class="skip-link">Skip to main content</a>
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 
@@ -270,11 +270,41 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake logo" loading="eager">
         <span style="font-size:.72rem;opacity:.8">V1.Beta</span>
       </a>
-      <nav class="nav" aria-label="Main navigation">
+      <!-- Mobile hamburger button -->
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+<nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-        <a class="nav-pill" href="/ships.html">Ships</a>
-        <a class="nav-pill" href="/ports.html">Ports</a>
-        <a class="nav-pill" href="/planning.html">Planning</a>
+        <div class="nav-dropdown" data-nav="planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+        <div class="nav-dropdown" data-nav="travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">&#9662;</span></button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
+        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
@@ -346,19 +376,19 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <div class="swiper-wrapper">
               <div class="swiper-slide">
                 <figure>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/2/25/Carnival_Celebration_in_Funchal.jpg" alt="Carnival Celebration in Funchal" loading="lazy">
+                  <img src="/assets/ships/carnival-celebration_01.webp" onerror="this.onerror=null;this.src='/assets/ships/carnival-celebration_01.jpg'" alt="Carnival Celebration in Funchal" loading="lazy">
                   <figcaption class="tiny">Carnival Celebration in Funchal, Madeira. Photo: <a href="https://commons.wikimedia.org/wiki/File:Carnival_Celebration_in_Funchal.jpg" target="_blank" rel="noopener">Ianbrown</a>, CC BY-SA 4.0</figcaption>
                 </figure>
               </div>
               <div class="swiper-slide">
                 <figure>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Carnival_Celebration_Leaving_Funchal%2C_Madeira_Portugal_%2852539419402%29.jpg" alt="Carnival Celebration leaving Funchal" loading="lazy">
+                  <img src="/assets/ships/carnival-celebration_02.webp" onerror="this.onerror=null;this.src='/assets/ships/carnival-celebration_02.jpg'" alt="Carnival Celebration leaving Funchal" loading="lazy">
                   <figcaption class="tiny">Carnival Celebration leaving Funchal. Photo: <a href="https://commons.wikimedia.org/wiki/File:Carnival_Celebration_Leaving_Funchal,_Madeira_Portugal_(52539419402).jpg" target="_blank" rel="noopener">Kees Torn</a>, CC BY-SA 2.0</figcaption>
                 </figure>
               </div>
               <div class="swiper-slide">
                 <figure>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Carnival_Celebration_in_Funchal_%28cropped%29.jpg" alt="Carnival Celebration bow view" loading="lazy">
+                  <img src="/assets/ships/carnival-celebration_03.webp" onerror="this.onerror=null;this.src='/assets/ships/carnival-celebration_03.jpg'" alt="Carnival Celebration bow view" loading="lazy">
                   <figcaption class="tiny">Carnival Celebration bow view. Photo: <a href="https://commons.wikimedia.org/wiki/File:Carnival_Celebration_in_Funchal_(cropped).jpg" target="_blank" rel="noopener">Ianbrown</a>, CC BY-SA 4.0</figcaption>
                 </figure>
               </div>
@@ -587,6 +617,18 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     const c=document.getElementById('whimsical-units-container'); if(!c) return;
     const facts=['At 1,130 ft, Celebration equals <strong>3.7 football fields</strong>.','Her 183,521 GT volume could hold <strong>734 Olympic pools</strong>.','820 Biscayne celebrates <strong>50 years</strong> of Carnival Cruise Line.','Cassidy Gifford is godmother — her mother christened the original Celebration in 1987.'];
     c.innerHTML='<h3 style="margin:0 0 .5rem;font-size:1rem;color:var(--carnival-blue);">Celebration by the Numbers</h3><p style="margin:0;font-size:.9rem;">'+facts[Math.floor(Math.random()*facts.length)]+'</p>';
+  })();
+  </script>
+
+  <script>
+  (async function(){
+    const rail = document.getElementById('recent-rail');
+    if(!rail) return;
+    try {
+      const res = await fetch('/assets/data/articles/index.json');
+      const articles = await res.json();
+      rail.innerHTML = articles.slice(0, 4).map(a => '<div style="margin-bottom:.75rem;"><a href="' + a.url + '">' + a.title + '</a></div>').join('');
+    } catch(e) {}
   })();
   </script>
 </body>

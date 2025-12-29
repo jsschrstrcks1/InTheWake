@@ -168,7 +168,7 @@ if ('serviceWorker' in navigator) {
 <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=3.010"/>
 </head>
 
-<body>
+<body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- ARIA Live Regions for Accessibility -->
@@ -188,21 +188,15 @@ if ('serviceWorker' in navigator) {
       <span class="version-badge">V1.Beta</span>
     </div>
   </nav>
-
-  <div class="hero-content">
-    <h1>Carnival Festivale</h1>
-    <p class="hero-tagline">The Legend Returns — Excel-Class Innovation Meets Classic Fun Ship Spirit</p>
-    <div class="badge-row">
-      <span class="badge badge--future">Coming 2027</span>
-      <span class="badge">Excel Class</span>
-      <span class="badge">~182,800 GT</span>
-      <span class="badge">~5,400 Guests</span>
-      <span class="badge">LNG Powered</span>
-    </div>
-  </div>
-</header>
-
-<nav class="site-nav" aria-label="Main navigation">
+      <!-- Mobile hamburger button -->
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <nav class="site-nav" aria-label="Main navigation">
   <a class="nav-pill" href="/">Home</a>
 
   <div class="nav-dropdown" id="nav-planning">
@@ -233,6 +227,18 @@ if ('serviceWorker' in navigator) {
   <a class="nav-pill" href="/search.html">Search</a>
   <a class="nav-pill" href="/about-us.html">About</a>
 </nav>
+  <div class="hero-content">
+    <h1>Carnival Festivale</h1>
+    <p class="hero-tagline">The Legend Returns — Excel-Class Innovation Meets Classic Fun Ship Spirit</p>
+    <div class="badge-row">
+      <span class="badge badge--future">Coming 2027</span>
+      <span class="badge">Excel Class</span>
+      <span class="badge">~182,800 GT</span>
+      <span class="badge">~5,400 Guests</span>
+      <span class="badge">LNG Powered</span>
+    </div>
+  </div>
+</header>
 
 <main id="main-content" class="page-grid">
 

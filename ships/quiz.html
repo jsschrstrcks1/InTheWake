@@ -1,0 +1,1588 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8"/>
+  <script>document.documentElement.classList.remove('no-js');</script>
+
+<!-- ai-breadcrumbs
+     entity: Ship Selection Quiz
+     type: Interactive Tool
+     parent: /ships.html
+     category: Planning Tool
+     updated: 2025-12-27
+     expertise: Cruise planning, ship selection, personalized recommendations
+     target-audience: First-time cruisers, cruise travelers seeking ship recommendations
+     answer-first: Take this quick quiz to find your perfect Royal Caribbean ship based on your travel style, group, and preferences.
+     -->
+  <!-- ======================================================
+       In the Wake — Ship Selection Quiz
+       Version: 1.0.0  |  Soli Deo Gloria
+       ====================================================== -->
+
+  <!-- Consent (autoblocking) -->
+  <script type="text/javascript" data-cmp-ab="1"
+    src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
+    data-cmp-host="a.delivery.consentmanager.net"
+    data-cmp-cdn="cdn.consentmanager.net"
+    data-cmp-codesrc="16"></script>
+
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WZP891PZXJ',{anonymize_ip:true});</script>
+
+  <!-- ICP-Lite v1.4 Meta Tags -->
+  <meta name="ai-summary" content="Interactive quiz to help cruise travelers find their perfect Royal Caribbean ship. Answer 8 simple questions about your travel party, pace, budget, and preferences to get personalized ship recommendations with explanations." />
+  <meta name="last-reviewed" content="2025-12-27" />
+  <meta name="content-protocol" content="ICP-Lite v1.4" />
+
+  <!-- Core -->
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+
+  <!-- SEO -->
+  <meta name="robots" content="index,follow,max-image-preview:large"/>
+  <meta name="color-scheme" content="light"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="author" content="In the Wake"/>
+
+  <!-- Title & Description -->
+  <title>Find Your Perfect Ship — Quiz | In the Wake</title>
+  <meta name="description" content="Not sure which Royal Caribbean ship is right for you? Take our quick quiz to get personalized recommendations based on your travel style." />
+  <link rel="canonical" href="https://cruisinginthewake.com/ships/quiz.html"/>
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://cruisinginthewake.com/ships/quiz.html"/>
+  <meta property="og:title" content="Find Your Perfect Royal Caribbean Ship — Quiz"/>
+  <meta property="og:description" content="Answer a few quick questions and we'll recommend the best ships for your cruise style."/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/ships-hero.jpg"/>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Find Your Perfect Royal Caribbean Ship — Quiz"/>
+  <meta name="twitter:description" content="Answer a few quick questions and we'll recommend the best ships for your cruise style."/>
+
+  <!-- JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships.html" },
+      { "@type": "ListItem", "position": 3, "name": "Ship Quiz", "item": "https://cruisinginthewake.com/ships/quiz.html" }
+    ]
+  }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.300">
+  <link rel="stylesheet" href="/assets/css/item-cards.css?v=1.0.0">
+
+  <style>
+    /* Quiz-specific styles */
+    .quiz-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Progress indicator */
+    .quiz-progress {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: linear-gradient(135deg, rgba(14, 110, 142, 0.95) 0%, rgba(10, 61, 98, 0.95) 100%);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(8, 48, 65, 0.2);
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+      display: none;
+    }
+    .quiz-progress.visible {
+      display: block;
+    }
+
+    /* Quiz intro */
+    .quiz-intro {
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    .quiz-intro h1 {
+      font-size: 2rem;
+      color: var(--sea);
+      margin-bottom: 1rem;
+    }
+    .quiz-intro p {
+      font-size: 1.1rem;
+      color: var(--ink-mid);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    .btn-start {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%);
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(14, 110, 142, 0.3);
+    }
+    .btn-start:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(14, 110, 142, 0.4);
+    }
+
+    /* Question screen */
+    .quiz-question {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .quiz-question.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .question-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .question-header h2 {
+      font-size: 1.6rem;
+      color: var(--sea);
+      margin-bottom: 0.5rem;
+    }
+    .question-subtitle {
+      color: var(--ink-mid);
+      font-size: 1rem;
+    }
+
+    /* Option cards */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .options-grid.two-col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .options-grid.three-col {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 600px) {
+      .options-grid.two-col,
+      .options-grid.three-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .option-card {
+      background: #fff;
+      border: 2px solid var(--rope);
+      border-radius: 14px;
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      text-align: center;
+    }
+    .option-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(14, 110, 142, 0.15);
+    }
+    .option-card.selected {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(14, 110, 142, 0.08) 0%, rgba(14, 110, 142, 0.04) 100%);
+      box-shadow: 0 4px 16px rgba(14, 110, 142, 0.2);
+    }
+    .option-card.selected .option-icon {
+      transform: scale(1.1);
+    }
+
+    .option-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      transition: transform 0.2s;
+    }
+    .option-label {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--sea);
+      margin-bottom: 0.25rem;
+    }
+    .option-desc {
+      font-size: 0.85rem;
+      color: var(--ink-mid);
+    }
+
+    /* Navigation */
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e0f0f5;
+    }
+    .btn-back {
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-back:hover {
+      background: var(--foam);
+    }
+    .btn-back:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .btn-next {
+      padding: 0.75rem 2rem;
+      background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(14, 110, 142, 0.25);
+    }
+    .btn-next:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(14, 110, 142, 0.35);
+    }
+    .btn-next:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Results screen */
+    .quiz-results {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    .quiz-results.active {
+      display: block;
+    }
+
+    .results-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .results-header h2 {
+      font-size: 1.8rem;
+      color: var(--sea);
+      margin-bottom: 0.5rem;
+    }
+    .results-header p {
+      color: var(--ink-mid);
+    }
+
+    /* Ship result cards */
+    .result-card {
+      background: #fff;
+      border: 2px solid var(--rope);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      transition: all 0.25s;
+    }
+    .result-card:hover {
+      box-shadow: 0 8px 24px rgba(14, 110, 142, 0.12);
+    }
+    .result-card.top-pick {
+      border-color: var(--accent);
+      box-shadow: 0 6px 20px rgba(14, 110, 142, 0.15);
+    }
+    .result-card.top-pick .result-badge {
+      display: block;
+    }
+
+    .result-image {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: linear-gradient(135deg, #eaf6f6 0%, #d4eeee 100%);
+    }
+    .result-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    .result-card:hover .result-image img {
+      transform: scale(1.05);
+    }
+    .result-badge {
+      display: none;
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+      color: #fff;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .result-match {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      background: rgba(14, 110, 142, 0.9);
+      color: #fff;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      backdrop-filter: blur(4px);
+    }
+
+    .result-content {
+      padding: 1.25rem;
+    }
+    .result-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+    .result-title h3 {
+      font-size: 1.3rem;
+      color: var(--sea);
+      margin: 0;
+    }
+    .result-class {
+      background: var(--foam);
+      color: var(--accent);
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .result-narrative {
+      color: var(--ink-mid);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .result-specs {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: var(--sky);
+      border-radius: 8px;
+    }
+    .spec-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .spec-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .spec-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--sea);
+    }
+
+    .result-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .highlight-tag {
+      background: linear-gradient(135deg, rgba(14, 110, 142, 0.1) 0%, rgba(14, 110, 142, 0.05) 100%);
+      color: var(--accent);
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .result-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .result-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(14, 110, 142, 0.3);
+    }
+
+    /* Restart button */
+    .quiz-restart {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid #e0f0f5;
+    }
+    .btn-restart {
+      padding: 0.75rem 2rem;
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-restart:hover {
+      background: var(--foam);
+    }
+
+    /* Why this recommendation */
+    .result-why {
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.05) 100%);
+      border-radius: 8px;
+      border-left: 3px solid #fbbf24;
+    }
+    .result-why-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #b45309;
+      margin-bottom: 0.25rem;
+    }
+    .result-why-text {
+      font-size: 0.85rem;
+      color: var(--ink-mid);
+      margin: 0;
+    }
+
+    /* Loading state */
+    .quiz-loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--ink-mid);
+    }
+
+    /* Hide elements */
+    .hidden {
+      display: none !important;
+    }
+
+    /* Share section */
+    .share-section {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, rgba(14, 110, 142, 0.06) 0%, rgba(14, 110, 142, 0.02) 100%);
+      border-radius: 14px;
+      border: 2px solid rgba(14, 110, 142, 0.15);
+    }
+    .share-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .share-header h3 {
+      font-size: 1.1rem;
+      color: var(--sea);
+      margin: 0;
+    }
+    .share-preview {
+      background: #fff;
+      border: 1px solid #e0f0f5;
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: var(--ink-mid);
+      line-height: 1.5;
+    }
+    .share-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      text-decoration: none;
+    }
+    .share-btn:hover {
+      transform: translateY(-2px);
+    }
+    .share-btn-primary {
+      background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(14, 110, 142, 0.25);
+    }
+    .share-btn-primary:hover {
+      box-shadow: 0 6px 16px rgba(14, 110, 142, 0.35);
+    }
+    .share-btn-outline {
+      background: #fff;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+    }
+    .share-btn-outline:hover {
+      background: var(--foam);
+    }
+    .share-btn-twitter {
+      background: #000;
+      color: #fff;
+    }
+    .share-btn-facebook {
+      background: #1877f2;
+      color: #fff;
+    }
+    .share-btn-email {
+      background: #ea4335;
+      color: #fff;
+    }
+    .share-btn-download {
+      background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+      color: #fff;
+    }
+    .share-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+    .share-copied {
+      display: none;
+      color: #10b981;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+    .share-copied.show {
+      display: inline;
+    }
+
+    /* Canvas for share image (hidden) */
+    #shareCanvas {
+      display: none;
+    }
+  </style>
+</head>
+
+<body class="page">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- ARIA Live Regions -->
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+  <header class="site-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <a href="/">
+          <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async"/>
+        </a>
+        <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
+      </div>
+      <!-- Mobile hamburger button -->
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
+        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Progress indicator -->
+  <div class="quiz-progress" id="quizProgress" aria-live="polite">
+    <span id="progressText">1 of 8</span>
+  </div>
+
+  <main id="main-content" class="wrap" role="main">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="/ships.html">Ships</a></li>
+        <li aria-current="page">Ship Quiz</li>
+      </ol>
+    </nav>
+
+    <div class="quiz-container">
+      <!-- Intro Screen -->
+      <div class="quiz-intro card" id="quizIntro">
+        <h1>Find Your Perfect Ship</h1>
+        <p>Not sure which Royal Caribbean ship is right for you? Answer a few quick questions and we'll recommend the best matches for your cruise style.</p>
+        <p class="tiny muted" style="margin-bottom: 1.5rem;">Takes about 2 minutes. No signup required.</p>
+        <button class="btn-start" id="btnStart" type="button">Let's Go</button>
+      </div>
+
+      <!-- Questions Container -->
+      <div id="questionsContainer" class="hidden">
+        <!-- Questions will be injected here -->
+      </div>
+
+      <!-- Results Screen -->
+      <div class="quiz-results card" id="quizResults">
+        <div class="results-header">
+          <h2>Your Perfect Ships</h2>
+          <p>Based on your answers, here are our top recommendations:</p>
+        </div>
+        <div id="resultsContainer">
+          <!-- Results will be injected here -->
+        </div>
+
+        <!-- Share Section -->
+        <div class="share-section" id="shareSection">
+          <div class="share-header">
+            <span style="font-size: 1.3rem;">📤</span>
+            <h3>Share Your Results</h3>
+          </div>
+          <div class="share-preview" id="sharePreview">
+            <!-- Dynamic share text -->
+          </div>
+          <div class="share-buttons">
+            <button class="share-btn share-btn-primary" id="btnNativeShare" type="button">
+              <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+              Share
+            </button>
+            <button class="share-btn share-btn-outline" id="btnCopyLink" type="button">
+              <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+              Copy Link
+              <span class="share-copied" id="copiedMsg">Copied!</span>
+            </button>
+            <button class="share-btn share-btn-download" id="btnDownloadImage" type="button">
+              <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              Save Image
+            </button>
+            <a class="share-btn share-btn-twitter" id="btnTwitter" href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              X
+            </a>
+            <a class="share-btn share-btn-facebook" id="btnFacebook" href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              Facebook
+            </a>
+            <a class="share-btn share-btn-email" id="btnEmail" href="#" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              Email
+            </a>
+          </div>
+        </div>
+
+        <!-- Hidden canvas for image generation -->
+        <canvas id="shareCanvas" width="1200" height="630"></canvas>
+
+        <div class="quiz-restart">
+          <button class="btn-restart" id="btnRestart" type="button">Take Quiz Again</button>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div class="quiz-loading hidden" id="quizLoading">
+        <p>Calculating your perfect ships...</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <p class="tiny muted" style="text-align:center; padding: 2rem;">
+      &copy; 2025 In the Wake. Quiz recommendations are suggestions based on general ship characteristics.
+      <br>Always verify current ship features and itineraries before booking.
+    </p>
+  </footer>
+
+  <!-- Dropdown nav script -->
+  <script>
+  (function(){
+    document.querySelectorAll('.nav-dropdown').forEach(dd=>{
+      const btn=dd.querySelector('button');
+      const menu=dd.querySelector('.dropdown-menu');
+      if(!btn||!menu)return;
+      let timeout;
+      const show=()=>{clearTimeout(timeout);btn.setAttribute('aria-expanded','true');menu.style.display='block';};
+      const hide=()=>{timeout=setTimeout(()=>{btn.setAttribute('aria-expanded','false');menu.style.display='none';},300);};
+      dd.addEventListener('mouseenter',show);
+      dd.addEventListener('mouseleave',hide);
+      btn.addEventListener('click',()=>{
+        const open=btn.getAttribute('aria-expanded')==='true';
+        open?hide():show();
+      });
+      btn.addEventListener('keydown',e=>{if(e.key==='Escape')hide();});
+    });
+  })();
+  </script>
+
+  <!-- Quiz Logic -->
+  <script>
+  (function() {
+    'use strict';
+
+    // Quiz data
+    let quizData = null;
+    let currentQuestion = 0;
+    let answers = {};
+
+    // Questions definition
+    const questions = [
+      {
+        id: 'group_type',
+        question: "Who's sailing with you?",
+        subtitle: "This helps us match the right vibe",
+        options: [
+          { value: 'solo', label: 'Just Me', icon: '🧭', desc: 'Solo adventure' },
+          { value: 'couple', label: 'Me + 1', icon: '💑', desc: 'Couples getaway' },
+          { value: 'friends', label: 'Friend Group', icon: '👯', desc: 'Squad goals' },
+          { value: 'family_young', label: 'Family (Kids 12 & Under)', icon: '👨‍👩‍👧‍👦', desc: 'Young explorers' },
+          { value: 'family_teens', label: 'Family (Teens)', icon: '🎮', desc: 'Teen-approved fun' },
+          { value: 'multigen', label: 'Multi-Generational', icon: '👴👶', desc: 'Grandparents to grandkids' }
+        ],
+        gridClass: 'three-col'
+      },
+      {
+        id: 'first_timer',
+        question: "Is this your first cruise?",
+        subtitle: "No wrong answer here!",
+        options: [
+          { value: 'true', label: 'Yes, First Timer!', icon: '🌟', desc: 'Excited to try cruising' },
+          { value: 'false', label: 'Nope, Veteran Cruiser', icon: '⚓', desc: 'Been there, sailed that' }
+        ],
+        gridClass: 'two-col'
+      },
+      {
+        id: 'energy_level',
+        question: "What's your ideal vacation pace?",
+        subtitle: "How do you like to spend your days?",
+        options: [
+          { value: 'relax', label: 'Relaxation Mode', icon: '🧘', desc: 'Pool, spa, quiet corners' },
+          { value: 'balanced', label: 'Best of Both', icon: '⚖️', desc: 'Mix of chill and adventure' },
+          { value: 'go_go_go', label: 'Go Go Go!', icon: '🎢', desc: 'Every activity, every show' }
+        ],
+        gridClass: 'three-col'
+      },
+      {
+        id: 'crowd_tolerance',
+        question: "How do you feel about crowds?",
+        subtitle: "Be honest—it matters for ship selection",
+        options: [
+          { value: 'low', label: 'Keep It Intimate', icon: '🤫', desc: 'Smaller, quieter spaces' },
+          { value: 'medium', label: 'Moderate Is Fine', icon: '👥', desc: 'Some bustle is okay' },
+          { value: 'high', label: 'Bring the Energy!', icon: '🎉', desc: 'Love a lively atmosphere' }
+        ],
+        gridClass: 'three-col'
+      },
+      {
+        id: 'ship_vs_ports',
+        question: "Ship or destinations—what matters more?",
+        subtitle: "Where's your focus?",
+        options: [
+          { value: 'ship', label: 'The Ship IS the Destination', icon: '🚢', desc: 'Onboard experience is everything' },
+          { value: 'balanced', label: 'Equal Mix', icon: '🔄', desc: 'Love both ship and ports' },
+          { value: 'ports', label: 'All About the Ports', icon: '🏝️', desc: 'Ship is just transport' }
+        ],
+        gridClass: 'three-col'
+      },
+      {
+        id: 'sailing_length',
+        question: "How long do you want to sail?",
+        subtitle: "Trip duration preference",
+        options: [
+          { value: 'short', label: '3-4 Nights', icon: '⚡', desc: 'Quick getaway' },
+          { value: 'standard', label: '5-7 Nights', icon: '📅', desc: 'Classic cruise length' },
+          { value: 'long', label: '8+ Nights', icon: '🌎', desc: 'Extended voyage' }
+        ],
+        gridClass: 'three-col'
+      },
+      {
+        id: 'budget_mindset',
+        question: "What's your budget philosophy?",
+        subtitle: "All cruises have value—this is about priorities",
+        options: [
+          { value: 'value', label: 'Smart Value', icon: '💰', desc: 'Best bang for the buck' },
+          { value: 'balanced', label: 'Balanced Approach', icon: '⚖️', desc: 'Worth paying for quality' },
+          { value: 'premium', label: 'Go Premium', icon: '✨', desc: 'The best experience matters most' }
+        ],
+        gridClass: 'three-col'
+      },
+      {
+        id: 'must_have',
+        question: "What's a must-have for you?",
+        subtitle: "Pick the one that matters most",
+        options: [
+          { value: 'waterpark', label: 'Water Slides & Pools', icon: '🌊', desc: 'Splash-tastic fun' },
+          { value: 'dining', label: 'Specialty Dining', icon: '🍽️', desc: 'Foodie experiences' },
+          { value: 'shows', label: 'Broadway Shows', icon: '🎭', desc: 'Entertainment first' },
+          { value: 'tech', label: 'Innovation & Tech', icon: '🤖', desc: 'North Star, iFly, robots' },
+          { value: 'scenic', label: 'Scenic Views', icon: '🌅', desc: 'Glass, vistas, nature' },
+          { value: 'none', label: 'No Dealbreaker', icon: '🤷', desc: 'Open to anything' }
+        ],
+        gridClass: 'three-col'
+      }
+    ];
+
+    // DOM elements
+    const quizIntro = document.getElementById('quizIntro');
+    const questionsContainer = document.getElementById('questionsContainer');
+    const quizResults = document.getElementById('quizResults');
+    const quizProgress = document.getElementById('quizProgress');
+    const progressText = document.getElementById('progressText');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const btnStart = document.getElementById('btnStart');
+    const btnRestart = document.getElementById('btnRestart');
+
+    // Load quiz data
+    async function loadQuizData() {
+      try {
+        const response = await fetch('/assets/data/ship-quiz-data.json');
+        quizData = await response.json();
+      } catch (error) {
+        console.error('Failed to load quiz data:', error);
+      }
+    }
+
+    // Render a question
+    function renderQuestion(index) {
+      const q = questions[index];
+      const isLast = index === questions.length - 1;
+
+      const html = `
+        <div class="quiz-question active" data-question="${q.id}">
+          <div class="question-header">
+            <h2>${q.question}</h2>
+            <p class="question-subtitle">${q.subtitle}</p>
+          </div>
+          <div class="options-grid ${q.gridClass || ''}">
+            ${q.options.map(opt => `
+              <div class="option-card" data-value="${opt.value}" role="button" tabindex="0" aria-pressed="false">
+                <div class="option-icon">${opt.icon}</div>
+                <div class="option-label">${opt.label}</div>
+                <div class="option-desc">${opt.desc}</div>
+              </div>
+            `).join('')}
+          </div>
+          <div class="quiz-nav">
+            <button class="btn-back" type="button" ${index === 0 ? 'disabled' : ''}>Back</button>
+            <button class="btn-next" type="button" disabled>${isLast ? 'See Results' : 'Next'}</button>
+          </div>
+        </div>
+      `;
+
+      questionsContainer.innerHTML = html;
+
+      // Add event listeners
+      const optionCards = questionsContainer.querySelectorAll('.option-card');
+      const btnNext = questionsContainer.querySelector('.btn-next');
+      const btnBack = questionsContainer.querySelector('.btn-back');
+
+      optionCards.forEach(card => {
+        card.addEventListener('click', () => selectOption(card, q.id, btnNext));
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectOption(card, q.id, btnNext);
+          }
+        });
+      });
+
+      btnNext.addEventListener('click', () => {
+        if (isLast) {
+          showResults();
+        } else {
+          currentQuestion++;
+          renderQuestion(currentQuestion);
+          updateProgress();
+        }
+      });
+
+      btnBack.addEventListener('click', () => {
+        if (currentQuestion > 0) {
+          currentQuestion--;
+          renderQuestion(currentQuestion);
+          updateProgress();
+        }
+      });
+
+      // Restore previous selection if exists
+      if (answers[q.id]) {
+        const prevSelected = questionsContainer.querySelector(`[data-value="${answers[q.id]}"]`);
+        if (prevSelected) {
+          prevSelected.classList.add('selected');
+          prevSelected.setAttribute('aria-pressed', 'true');
+          btnNext.disabled = false;
+        }
+      }
+    }
+
+    // Select an option
+    function selectOption(card, questionId, btnNext) {
+      const allCards = card.parentElement.querySelectorAll('.option-card');
+      allCards.forEach(c => {
+        c.classList.remove('selected');
+        c.setAttribute('aria-pressed', 'false');
+      });
+      card.classList.add('selected');
+      card.setAttribute('aria-pressed', 'true');
+      answers[questionId] = card.dataset.value;
+      btnNext.disabled = false;
+    }
+
+    // Update progress indicator
+    function updateProgress() {
+      progressText.textContent = `${currentQuestion + 1} of ${questions.length}`;
+    }
+
+    // Calculate scores
+    function calculateScores() {
+      const classScores = {
+        icon: 0,
+        oasis: 0,
+        quantum: 0,
+        freedom: 0,
+        voyager: 0,
+        radiance: 0,
+        vision: 0
+      };
+
+      const weights = quizData.scoring_weights;
+
+      // Apply weights for each answer
+      for (const [questionId, answer] of Object.entries(answers)) {
+        if (weights[questionId] && weights[questionId][answer]) {
+          const scoreAdjustments = weights[questionId][answer];
+          for (const [className, points] of Object.entries(scoreAdjustments)) {
+            classScores[className] += points;
+          }
+        }
+      }
+
+      // Apply must_have bonuses
+      const mustHave = answers.must_have;
+      if (mustHave === 'waterpark') {
+        classScores.icon += 15;
+        classScores.oasis += 10;
+        classScores.freedom += 8;
+      } else if (mustHave === 'dining') {
+        classScores.icon += 10;
+        classScores.oasis += 12;
+        classScores.quantum += 8;
+      } else if (mustHave === 'shows') {
+        classScores.oasis += 12;
+        classScores.quantum += 10;
+        classScores.icon += 8;
+      } else if (mustHave === 'tech') {
+        classScores.quantum += 15;
+        classScores.icon += 10;
+        classScores.oasis += 6;
+      } else if (mustHave === 'scenic') {
+        classScores.radiance += 15;
+        classScores.vision += 12;
+        classScores.quantum += 6;
+      }
+
+      return classScores;
+    }
+
+    // Get top ships for a class
+    function getTopShipsForClass(className, count = 2) {
+      const ships = Object.entries(quizData.ships)
+        .filter(([_, ship]) => ship.class === className && ship.status === 'active')
+        .sort((a, b) => b[1].year - a[1].year) // Prefer newer ships
+        .slice(0, count);
+
+      return ships.map(([slug, ship]) => ({ slug, ...ship }));
+    }
+
+    // Generate narrative for a ship
+    function generateNarrative(ship, classData, answers) {
+      const parts = [];
+
+      // Class intro
+      parts.push(classData.description);
+
+      // Add personalization based on answers
+      if (answers.group_type === 'family_young' && ['icon', 'oasis', 'freedom'].includes(ship.class)) {
+        parts.push(`With kids in tow, you'll love the dedicated family areas and kid-friendly activities.`);
+      }
+      if (answers.energy_level === 'relax' && ['radiance', 'vision'].includes(ship.class)) {
+        parts.push(`The more relaxed atmosphere is perfect for your laid-back vacation style.`);
+      }
+      if (answers.budget_mindset === 'value' && ['voyager', 'freedom', 'vision'].includes(ship.class)) {
+        parts.push(`Great value without sacrificing the Royal Caribbean experience.`);
+      }
+      if (ship.amplified) {
+        parts.push(`Recently refreshed through Royal Caribbean's Amplification program.`);
+      }
+
+      return parts.join(' ');
+    }
+
+    // Generate "why" explanation
+    function generateWhy(ship, classData, answers, rank) {
+      const reasons = [];
+
+      if (rank === 1) {
+        reasons.push('Top match for your preferences');
+      }
+
+      // Group type match
+      const groupMatches = {
+        'solo': ['radiance', 'vision', 'quantum'],
+        'couple': ['quantum', 'radiance', 'oasis'],
+        'friends': ['oasis', 'freedom', 'voyager'],
+        'family_young': ['icon', 'oasis', 'freedom'],
+        'family_teens': ['oasis', 'icon', 'quantum'],
+        'multigen': ['oasis', 'icon', 'freedom']
+      };
+      if (groupMatches[answers.group_type]?.includes(ship.class)) {
+        const groupLabels = {
+          'solo': 'solo travelers',
+          'couple': 'couples',
+          'friends': 'friend groups',
+          'family_young': 'families with kids',
+          'family_teens': 'families with teens',
+          'multigen': 'multi-generational groups'
+        };
+        reasons.push(`Great for ${groupLabels[answers.group_type]}`);
+      }
+
+      // Energy match
+      if (answers.energy_level === 'relax' && ['radiance', 'vision'].includes(ship.class)) {
+        reasons.push('Matches your relaxed pace');
+      }
+      if (answers.energy_level === 'go_go_go' && ['icon', 'oasis'].includes(ship.class)) {
+        reasons.push('Endless activities for your go-go-go style');
+      }
+
+      // Ship vs ports
+      if (answers.ship_vs_ports === 'ports' && ['radiance', 'vision'].includes(ship.class)) {
+        reasons.push('Focused on destinations, not ship distractions');
+      }
+      if (answers.ship_vs_ports === 'ship' && ['icon', 'oasis'].includes(ship.class)) {
+        reasons.push('The ship IS the destination');
+      }
+
+      return reasons.slice(0, 2).join('. ') + '.';
+    }
+
+    // Show results
+    function showResults() {
+      questionsContainer.classList.add('hidden');
+      quizProgress.classList.remove('visible');
+
+      const scores = calculateScores();
+
+      // Sort classes by score
+      const sortedClasses = Object.entries(scores)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3);
+
+      // Get ships for top classes
+      const recommendations = [];
+      let shipCount = 0;
+
+      for (const [className, score] of sortedClasses) {
+        if (shipCount >= 3) break;
+
+        const shipsNeeded = Math.min(2, 3 - shipCount);
+        const ships = getTopShipsForClass(className, shipsNeeded);
+
+        ships.forEach((ship, idx) => {
+          if (shipCount < 3) {
+            recommendations.push({
+              ship,
+              classData: quizData.classes[className],
+              score,
+              rank: shipCount + 1
+            });
+            shipCount++;
+          }
+        });
+      }
+
+      // Render results
+      resultsContainer.innerHTML = recommendations.map((rec, idx) => {
+        const { ship, classData, score, rank } = rec;
+        const narrative = generateNarrative(ship, classData, answers);
+        const why = generateWhy(ship, classData, answers, rank);
+        const matchPercent = Math.min(99, Math.round(50 + score));
+
+        return `
+          <article class="result-card ${rank === 1 ? 'top-pick' : ''}">
+            <div class="result-image">
+              <img src="${ship.image}"
+                   alt="${ship.name}"
+                   loading="${idx === 0 ? 'eager' : 'lazy'}"
+                   onerror="this.src='/assets/social/ships-hero.jpg'">
+              <span class="result-badge">Top Pick</span>
+              <span class="result-match">${matchPercent}% Match</span>
+            </div>
+            <div class="result-content">
+              <div class="result-title">
+                <h3>${ship.name}</h3>
+                <span class="result-class">${classData.name}</span>
+              </div>
+              <p class="result-narrative">${narrative}</p>
+              <div class="result-specs">
+                <div class="spec-item">
+                  <span class="spec-label">Year</span>
+                  <span class="spec-value">${ship.year}</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Size</span>
+                  <span class="spec-value">${(ship.gt / 1000).toFixed(0)}K GT</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Guests</span>
+                  <span class="spec-value">${ship.capacity.toLocaleString()}</span>
+                </div>
+              </div>
+              <div class="result-highlights">
+                ${ship.highlights.slice(0, 3).map(h => `<span class="highlight-tag">${h}</span>`).join('')}
+              </div>
+              <div class="result-why">
+                <div class="result-why-title">Why this ship?</div>
+                <p class="result-why-text">${why}</p>
+              </div>
+              <a href="${ship.page}" class="result-cta">
+                Explore ${ship.name.split(' of ')[0]} →
+              </a>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      // Update share section with top pick
+      const topRec = recommendations[0];
+      const topMatchPercent = Math.min(99, Math.round(50 + topRec.score));
+      updateShareSection(topRec.ship, topMatchPercent, topRec.classData);
+
+      quizResults.classList.add('active');
+      quizResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Start quiz
+    function startQuiz() {
+      quizIntro.classList.add('hidden');
+      questionsContainer.classList.remove('hidden');
+      quizProgress.classList.add('visible');
+      currentQuestion = 0;
+      answers = {};
+      renderQuestion(currentQuestion);
+      updateProgress();
+    }
+
+    // Restart quiz
+    function restartQuiz() {
+      quizResults.classList.remove('active');
+      quizIntro.classList.remove('hidden');
+      questionsContainer.classList.add('hidden');
+      quizProgress.classList.remove('visible');
+      currentQuestion = 0;
+      answers = {};
+      // Clear URL params
+      history.replaceState({}, '', window.location.pathname);
+    }
+
+    // ==========================================
+    // SHARING FUNCTIONALITY
+    // ==========================================
+
+    let currentTopShip = null;
+    let currentMatchPercent = 0;
+    let currentClassName = '';
+
+    // Generate shareable URL with encoded answers
+    function generateShareURL() {
+      const encoded = btoa(JSON.stringify(answers));
+      return `${window.location.origin}${window.location.pathname}?r=${encoded}`;
+    }
+
+    // Parse URL params and auto-show results
+    function parseShareURL() {
+      const params = new URLSearchParams(window.location.search);
+      const encoded = params.get('r');
+      if (encoded) {
+        try {
+          answers = JSON.parse(atob(encoded));
+          return true;
+        } catch (e) {
+          console.error('Invalid share URL');
+        }
+      }
+      return false;
+    }
+
+    // Generate share text
+    function generateShareText(ship, matchPercent, className) {
+      return `My perfect Royal Caribbean ship is ${ship.name}! 🚢\n\n${matchPercent}% match for my travel style (${className}).\n\nFind your perfect ship:`;
+    }
+
+    // Update share section with current results
+    function updateShareSection(ship, matchPercent, classData) {
+      currentTopShip = ship;
+      currentMatchPercent = matchPercent;
+      currentClassName = classData.name;
+
+      const sharePreview = document.getElementById('sharePreview');
+      const shareURL = generateShareURL();
+
+      sharePreview.innerHTML = `
+        <strong>"My perfect ship is ${ship.name}!"</strong><br>
+        ${matchPercent}% match • ${classData.name}
+      `;
+
+      // Update social links
+      const shareText = generateShareText(ship, matchPercent, classData.name);
+      const encodedText = encodeURIComponent(shareText);
+      const encodedURL = encodeURIComponent(shareURL);
+
+      document.getElementById('btnTwitter').href =
+        `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedURL}`;
+
+      document.getElementById('btnFacebook').href =
+        `https://www.facebook.com/sharer/sharer.php?u=${encodedURL}`;
+
+      const emailSubject = encodeURIComponent(`My Royal Caribbean Ship Match: ${ship.name}`);
+      const emailBody = encodeURIComponent(`${shareText}\n${shareURL}`);
+      document.getElementById('btnEmail').href =
+        `mailto:?subject=${emailSubject}&body=${emailBody}`;
+    }
+
+    // Generate share image using Canvas
+    async function generateShareImage() {
+      const canvas = document.getElementById('shareCanvas');
+      const ctx = canvas.getContext('2d');
+
+      // Draw background gradient
+      const bgGrad = ctx.createLinearGradient(0, 0, 1200, 630);
+      bgGrad.addColorStop(0, '#0a3d62');
+      bgGrad.addColorStop(1, '#083041');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, 1200, 630);
+
+      // Draw subtle wave pattern
+      ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+      ctx.lineWidth = 2;
+      for (let y = 0; y < 630; y += 20) {
+        ctx.beginPath();
+        for (let x = 0; x < 1200; x += 5) {
+          const py = y + Math.sin((x / 50) * Math.PI) * 5;
+          if (x === 0) ctx.moveTo(x, py);
+          else ctx.lineTo(x, py);
+        }
+        ctx.stroke();
+      }
+
+      // Load and draw ship image
+      return new Promise((resolve) => {
+        const shipImg = new Image();
+        shipImg.crossOrigin = 'anonymous';
+        shipImg.onload = () => {
+          // Draw ship image area with rounded corners (simulated)
+          ctx.save();
+          ctx.beginPath();
+          roundRect(ctx, 40, 100, 560, 420, 14);
+          ctx.clip();
+
+          // Calculate aspect ratio and center crop
+          const imgAspect = shipImg.width / shipImg.height;
+          const boxAspect = 560 / 420;
+          let sx = 0, sy = 0, sw = shipImg.width, sh = shipImg.height;
+
+          if (imgAspect > boxAspect) {
+            sw = shipImg.height * boxAspect;
+            sx = (shipImg.width - sw) / 2;
+          } else {
+            sh = shipImg.width / boxAspect;
+            sy = (shipImg.height - sh) / 2;
+          }
+
+          ctx.drawImage(shipImg, sx, sy, sw, sh, 40, 100, 560, 420);
+          ctx.restore();
+
+          // Draw border around ship image
+          ctx.strokeStyle = '#d9b382';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          roundRect(ctx, 40, 100, 560, 420, 14);
+          ctx.stroke();
+
+          // Right side content
+          // "My Perfect Ship Is" header
+          ctx.fillStyle = 'rgba(255,255,255,0.7)';
+          ctx.font = '24px system-ui, sans-serif';
+          ctx.fillText('My Perfect Ship Is', 640, 150);
+
+          // Ship name
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 44px system-ui, sans-serif';
+          ctx.fillText(currentTopShip.name, 640, 210);
+
+          // Class badge
+          const accentGrad = ctx.createLinearGradient(640, 235, 800, 235);
+          accentGrad.addColorStop(0, '#0e6e8e');
+          accentGrad.addColorStop(1, '#0a5a75');
+          ctx.fillStyle = accentGrad;
+          roundRect(ctx, 640, 235, 160, 36, 18);
+          ctx.fill();
+
+          ctx.fillStyle = '#ffffff';
+          ctx.font = '600 14px system-ui, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(currentClassName, 720, 259);
+          ctx.textAlign = 'left';
+
+          // Match percentage badge
+          const goldGrad = ctx.createLinearGradient(640, 300, 760, 344);
+          goldGrad.addColorStop(0, '#fbbf24');
+          goldGrad.addColorStop(1, '#d97706');
+          ctx.fillStyle = goldGrad;
+          roundRect(ctx, 640, 300, 130, 44, 22);
+          ctx.fill();
+
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 20px system-ui, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(`${currentMatchPercent}% Match`, 705, 329);
+          ctx.textAlign = 'left';
+
+          // Divider line
+          ctx.strokeStyle = 'rgba(217, 179, 130, 0.5)';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(640, 370);
+          ctx.lineTo(1140, 370);
+          ctx.stroke();
+
+          // CTA text
+          ctx.fillStyle = 'rgba(255,255,255,0.9)';
+          ctx.font = '500 20px system-ui, sans-serif';
+          ctx.fillText('Find your perfect ship at', 640, 420);
+
+          ctx.fillStyle = '#d9b382';
+          ctx.font = 'bold 24px system-ui, sans-serif';
+          ctx.fillText('cruisinginthewake.com/ships/quiz', 640, 455);
+
+          // Branding
+          ctx.fillStyle = 'rgba(255,255,255,0.8)';
+          ctx.font = '600 16px system-ui, sans-serif';
+          ctx.textAlign = 'right';
+          ctx.fillText('In the Wake', 1160, 560);
+
+          ctx.fillStyle = 'rgba(255,255,255,0.5)';
+          ctx.font = '400 12px system-ui, sans-serif';
+          ctx.fillText("A Cruise Traveler's Logbook", 1160, 582);
+          ctx.textAlign = 'left';
+
+          // Decorative rope line
+          ctx.strokeStyle = 'rgba(217, 179, 130, 0.4)';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.moveTo(40, 590);
+          ctx.lineTo(600, 590);
+          ctx.stroke();
+
+          resolve(canvas);
+        };
+
+        shipImg.onerror = () => {
+          // If image fails to load, still generate without ship image
+          ctx.fillStyle = 'rgba(14, 110, 142, 0.3)';
+          roundRect(ctx, 40, 100, 560, 420, 14);
+          ctx.fill();
+          resolve(canvas);
+        };
+
+        shipImg.src = currentTopShip.image;
+      });
+    }
+
+    // Helper: Draw rounded rectangle
+    function roundRect(ctx, x, y, width, height, radius) {
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+    }
+
+    // Copy link to clipboard
+    async function copyShareLink() {
+      const url = generateShareURL();
+      try {
+        await navigator.clipboard.writeText(url);
+        const copiedMsg = document.getElementById('copiedMsg');
+        copiedMsg.classList.add('show');
+        setTimeout(() => copiedMsg.classList.remove('show'), 2000);
+      } catch (err) {
+        // Fallback for older browsers
+        const textarea = document.createElement('textarea');
+        textarea.value = url;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        const copiedMsg = document.getElementById('copiedMsg');
+        copiedMsg.classList.add('show');
+        setTimeout(() => copiedMsg.classList.remove('show'), 2000);
+      }
+    }
+
+    // Native share (mobile)
+    async function nativeShare() {
+      const shareURL = generateShareURL();
+      const shareText = generateShareText(currentTopShip, currentMatchPercent, currentClassName);
+
+      if (navigator.share) {
+        try {
+          // Try to share with image
+          const canvas = await generateShareImage();
+          canvas.toBlob(async (blob) => {
+            const file = new File([blob], 'my-perfect-ship.png', { type: 'image/png' });
+
+            try {
+              await navigator.share({
+                title: `My Perfect Ship: ${currentTopShip.name}`,
+                text: shareText,
+                url: shareURL,
+                files: [file]
+              });
+            } catch (e) {
+              // Fallback without image
+              await navigator.share({
+                title: `My Perfect Ship: ${currentTopShip.name}`,
+                text: shareText,
+                url: shareURL
+              });
+            }
+          }, 'image/png');
+        } catch (err) {
+          console.error('Share failed:', err);
+        }
+      } else {
+        // Fallback: copy link
+        copyShareLink();
+      }
+    }
+
+    // Download share image
+    async function downloadShareImage() {
+      const canvas = await generateShareImage();
+      const link = document.createElement('a');
+      link.download = `my-perfect-ship-${currentTopShip.slug}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    // Setup share event listeners
+    function setupShareListeners() {
+      document.getElementById('btnNativeShare').addEventListener('click', nativeShare);
+      document.getElementById('btnCopyLink').addEventListener('click', copyShareLink);
+      document.getElementById('btnDownloadImage').addEventListener('click', downloadShareImage);
+
+      // Hide native share button on desktop (no Web Share API)
+      if (!navigator.share) {
+        document.getElementById('btnNativeShare').style.display = 'none';
+      }
+    }
+
+    // Initialize
+    async function init() {
+      await loadQuizData();
+      btnStart.addEventListener('click', startQuiz);
+      btnRestart.addEventListener('click', restartQuiz);
+      setupShareListeners();
+
+      // Check for shared results URL
+      if (parseShareURL()) {
+        // Skip intro, show results directly
+        quizIntro.classList.add('hidden');
+        showResults();
+      }
+    }
+
+    init();
+  })();
+  </script>
+
+  <!-- Navigation dropdown/mobile menu -->
+  <script src="/assets/js/dropdown.js"></script>
+</body>
+</html>
