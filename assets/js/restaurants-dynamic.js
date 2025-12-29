@@ -40,45 +40,57 @@
   // Only show dining and bars categories for restaurants page
   const SHOW_CATEGORIES = ['dining', 'bars'];
 
-  // Venue images - photos from Wikimedia Commons (CC licensed) + SVG fallbacks
+  // Venue images - photos from Wikimedia Commons (CC licensed)
   const VENUE_IMAGES = {
-    // Specialty Dining (fine dining) - formal table setting photo
-    'wonderland': '/assets/images/restaurants/photos/formal-dining.jpg',
-    '150-central-park': '/assets/images/restaurants/photos/formal-dining.jpg',
-    'chefs-table': '/assets/images/restaurants/photos/formal-dining.jpg',
-    'chic': '/assets/images/restaurants/photos/formal-dining.jpg',
-    'coastal-kitchen': '/assets/images/restaurants/photos/formal-dining.jpg',
-    'mdr': '/assets/images/restaurants/photos/formal-dining.jpg',
+    // Specialty Dining (fine dining)
+    'wonderland': '/assets/images/restaurants/photos/italian.webp',
+    '150-central-park': '/assets/images/restaurants/photos/italian.webp',
+    'chefs-table': '/assets/images/restaurants/photos/formal-dining.webp',
+    'chic': '/assets/images/restaurants/photos/formal-dining.webp',
+    'coastal-kitchen': '/assets/images/restaurants/photos/formal-dining.webp',
+    'mdr': '/assets/images/restaurants/photos/formal-dining.webp',
 
     // Asian Cuisine
-    'izumi': '/assets/images/restaurants/asian-cuisine.svg',
-    'izumi-in-the-park': '/assets/images/restaurants/asian-cuisine.svg',
-    'sichuan-red': '/assets/images/restaurants/asian-cuisine.svg',
-    'hot-pot': '/assets/images/restaurants/asian-cuisine.svg',
+    'izumi': '/assets/images/restaurants/photos/sushi.webp',
+    'izumi-in-the-park': '/assets/images/restaurants/photos/sushi.webp',
+    'sichuan-red': '/assets/images/restaurants/photos/sushi.webp',
+    'hot-pot': '/assets/images/restaurants/photos/sushi.webp',
 
     // Italian Cuisine
-    'jamies-italian': '/assets/images/restaurants/italian-cuisine.svg',
-    'giovannis': '/assets/images/restaurants/italian-cuisine.svg',
-    'sorrentos': '/assets/images/restaurants/italian-cuisine.svg',
+    'jamies-italian': '/assets/images/restaurants/photos/italian.webp',
+    'giovannis': '/assets/images/restaurants/photos/italian.webp',
+    'sorrentos': '/assets/images/restaurants/photos/pizza.webp',
 
     // Steakhouse
-    'chops': '/assets/images/restaurants/steakhouse.svg',
+    'chops': '/assets/images/restaurants/photos/formal-dining.webp',
 
-    // Bars & Lounges - cocktail lounge photos
-    'schooner-bar': '/assets/images/restaurants/photos/cocktail-lounge.jpg',
-    'vintages': '/assets/images/restaurants/photos/bar-lounge.jpg',
-    'bionic-bar': '/assets/images/restaurants/photos/bar-lounge.jpg',
-    'boleros': '/assets/images/restaurants/photos/cocktail-lounge.jpg',
-    'playmakers': '/assets/images/restaurants/photos/bar-lounge.jpg',
-    'viking-crown-lounge': '/assets/images/restaurants/photos/cocktail-lounge.jpg',
-    'star-lounge': '/assets/images/restaurants/photos/cocktail-lounge.jpg',
-    'sky-bar': '/assets/images/restaurants/photos/bar-lounge.jpg',
-    'r-bar': '/assets/images/restaurants/photos/cocktail-lounge.jpg',
-    'olive-or-twist': '/assets/images/restaurants/photos/cocktail-lounge.jpg',
-    'diamond-club': '/assets/images/restaurants/photos/cocktail-lounge.jpg',
-    'globe-and-atlas': '/assets/images/restaurants/photos/bar-lounge.jpg',
-    'bamboo-room': '/assets/images/restaurants/photos/cocktail-lounge.jpg',
-    'lime-and-coconut': '/assets/images/restaurants/photos/bar-lounge.jpg',
+    // Mexican
+    'sabor': '/assets/images/restaurants/photos/tacos.webp',
+    'el-loco-fresh': '/assets/images/restaurants/photos/tacos.webp',
+    'cantina-fresca': '/assets/images/restaurants/photos/tacos.webp',
+
+    // Buffet
+    'windjammer': '/assets/images/restaurants/photos/buffet.webp',
+
+    // Casual
+    'johnny-rockets': '/assets/images/restaurants/photos/hotdog.webp',
+    'dog-house': '/assets/images/restaurants/photos/hotdog.webp',
+
+    // Bars & Lounges
+    'schooner-bar': '/assets/images/restaurants/photos/cocktail-lounge.webp',
+    'vintages': '/assets/images/restaurants/photos/bar-lounge.webp',
+    'bionic-bar': '/assets/images/restaurants/photos/bar-lounge.webp',
+    'boleros': '/assets/images/restaurants/photos/cocktail-lounge.webp',
+    'playmakers': '/assets/images/restaurants/photos/pizza.webp',
+    'viking-crown-lounge': '/assets/images/restaurants/photos/cocktail-lounge.webp',
+    'star-lounge': '/assets/images/restaurants/photos/cocktail-lounge.webp',
+    'sky-bar': '/assets/images/restaurants/photos/bar-lounge.webp',
+    'r-bar': '/assets/images/restaurants/photos/cocktail-lounge.webp',
+    'olive-or-twist': '/assets/images/restaurants/photos/cocktail-lounge.webp',
+    'diamond-club': '/assets/images/restaurants/photos/cocktail-lounge.webp',
+    'globe-and-atlas': '/assets/images/restaurants/photos/bar-lounge.webp',
+    'bamboo-room': '/assets/images/restaurants/photos/cocktail-lounge.webp',
+    'lime-and-coconut': '/assets/images/restaurants/photos/bar-lounge.webp',
 
     // Default placeholder
     '_default': '/assets/images/restaurants/photos/formal-dining.webp'

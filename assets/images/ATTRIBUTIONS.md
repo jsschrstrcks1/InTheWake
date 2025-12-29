@@ -82,6 +82,12 @@ Located in `/assets/images/restaurants/photos/`
 - **License**: Creative Commons
 - **Used For**: Representing buffet dining venues
 
+### tacos.webp
+- **Source**: Wikimedia Commons
+- **Original File**: [File:Tacos_de_carnitas.jpg](https://commons.wikimedia.org/wiki/File:Tacos_de_carnitas.jpg)
+- **License**: Creative Commons
+- **Used For**: Representing Mexican cuisine venues (Sabor, El Loco Fresh, cantinas)
+
 ---
 
 All images have been resized and converted to WebP format for optimal web performance.
