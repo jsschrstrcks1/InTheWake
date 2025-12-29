@@ -1489,7 +1489,8 @@ All homeports with existing HTML pages now have clickable links in port-tracker.
 - [x] ✅ **ALL 50/50 pages have ICP-Lite elements** (Quick Answer, Best For, Key Facts) - completed 2025-11-29
   - Includes all 8 TBN ships with 2-column layout and right rail structure
 - [x] ✅ 44/50 ship pages have Author and Article cards (index.html pattern) - verified 2025-12-29
-- [ ] 5 historic/skeleton pages need full rebuilds (no body content): legend-of-the-seas-1995-built.html, nordic-prince.html, oasis-class-ship-tbn-2028.html, song-of-america.html, sun-viking.html
+- [x] ✅ song-of-america.html rebuilt with full content — 2025-12-29
+- [ ] 4 remaining skeleton pages need full rebuilds: legend-of-the-seas-1995-built.html, nordic-prince.html, oasis-class-ship-tbn-2028.html, sun-viking.html
 - [ ] Shred "Recent Stories," "Related Articles and Resources" → replace with index.html pattern on all pages
 
 #### icon-of-the-seas.html (Specific)
