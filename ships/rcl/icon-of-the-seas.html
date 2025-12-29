@@ -967,11 +967,12 @@ updated: 2025-12-27
     wrapper.style.cssText = 'width:100%;height:500px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
 
     // VesselFinder iframe embed using IMO (more reliable than MarineTraffic)
+    // Include Miami coordinates (Icon's home port) as fallback if ship position unavailable
     const iframe = document.createElement('iframe');
     iframe.style.cssText = 'width:100%;height:100%;border:0;';
     iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
     iframe.setAttribute('loading', 'lazy');
-    iframe.src = 'https://www.vesselfinder.com/aismap?imo=' + imo + '&zoom=10&track=true&names=true';
+    iframe.src = 'https://www.vesselfinder.com/aismap?imo=' + imo + '&lat=25.76&lon=-80.19&zoom=10&track=true&names=true';
 
     wrapper.appendChild(iframe);
     container.appendChild(wrapper);
