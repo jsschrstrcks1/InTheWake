@@ -1538,7 +1538,7 @@ All homeports with existing HTML pages now have clickable links in port-tracker.
 - [ ] Shred/replace "About the Author," "Recent Articles," "Recent Stories" with index.html pattern on all pages
 
 #### cococay.html (Specific)
-- [ ] Fix the card situation on the port page for CocoCay (layout/styling issue with content cards)
+- [x] Fix the card situation on the port page for CocoCay (layout/styling issue with content cards) — FIXED 2025-12-29: Replaced inline grid styles with CSS classes (col-1, col-2), moved "Back to Ports Guide" link inside content section
 
 ### P1 - Site-Wide Issues
 
