@@ -300,6 +300,19 @@ def check_lint_issues():
     """Check for common lint issues"""
     print("Checking for lint issues...")
 
+    # Blocked video IDs (Rick Rolls and other problematic videos)
+    BLOCKED_VIDEO_IDS = {
+        'dQw4w9WgXcQ',  # Never Gonna Give You Up (Rick Roll)
+        'oHg5SJYRHA0',  # Never Gonna Give You Up (alternate)
+        'xvFZjo5PgG0',  # Never Gonna Give You Up (another variant)
+    }
+
+    # Valid dining hero image patterns (must contain these keywords)
+    VALID_DINING_PATTERNS = [
+        'dining', 'food', 'restaurant', 'buffet', 'cafe', 'kitchen',
+        'cordelia', 'windjammer', 'mdr', 'venue', 'meal'
+    ]
+
     for html_file in html_files:
         try:
             with open(html_file, 'r', encoding='utf-8', errors='ignore') as f:
@@ -398,6 +411,30 @@ def check_lint_issues():
                 'issue': f'Deprecated HTML tags: {", ".join(set(d.lower() for d in deprecated))}',
                 'type': 'deprecated'
             })
+
+        # 11. CRITICAL: Blocked YouTube video IDs (Rick Rolls, etc.)
+        for blocked_id in BLOCKED_VIDEO_IDS:
+            if blocked_id in content:
+                lint_issues.append({
+                    'file': rel_file,
+                    'issue': f'BLOCKED VIDEO ID DETECTED: {blocked_id} (Rick Roll or similar)',
+                    'type': 'blocked_video'
+                })
+
+        # 12. CRITICAL: Ship pages must use dining images for dining hero (not ship images)
+        if '/ships/' in rel_file and rel_file.endswith('.html'):
+            dining_hero_match = re.search(r'id=["\']dining-hero["\'][^>]*src=["\']([^"\']+)["\']', content)
+            if dining_hero_match:
+                dining_src = dining_hero_match.group(1).lower()
+                # Check if it looks like a ship image instead of a dining image
+                is_ship_image = any(x in dining_src for x in ['/ships/', '-of-the-seas', 'ship_', '_ship'])
+                is_valid_dining = any(pattern in dining_src for pattern in VALID_DINING_PATTERNS)
+                if is_ship_image and not is_valid_dining:
+                    lint_issues.append({
+                        'file': rel_file,
+                        'issue': f'INVALID DINING HERO: Ship image used instead of dining image ({dining_src})',
+                        'type': 'invalid_dining_hero'
+                    })
 
 def check_edge_cases():
     """Check for edge cases and potential issues"""
