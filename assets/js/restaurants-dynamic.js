@@ -81,7 +81,7 @@
     'lime-and-coconut': '/assets/images/restaurants/photos/bar-lounge.jpg',
 
     // Default placeholder
-    '_default': '/assets/images/restaurants/specialty-dining.svg'
+    '_default': '/assets/images/restaurants/photos/formal-dining.webp'
   };
 
   // CTA/pitch text for venues (what makes this venue special)
