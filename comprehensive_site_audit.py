@@ -8,10 +8,13 @@ Excludes: /vendors/, /solo/articles/
 import os
 import re
 import json
+import time
 from pathlib import Path
 from collections import defaultdict
 from html.parser import HTMLParser
 from urllib.parse import urlparse, unquote
+import urllib.request
+import urllib.error
 
 BASE_DIR = Path("/home/user/InTheWake")
 EXCLUDE_DIRS = {"vendors", "node_modules"}
@@ -31,6 +34,169 @@ html_files = []
 json_files = []
 js_files = []
 css_files = []
+video_issues = []
+
+# Video validation configuration
+VALID_VIDEO_CATEGORIES = {
+    'walkthrough': ['walkthrough', 'full tour', 'ship tour', 'full ship', 'complete tour'],
+    'review': ['review', 'honest review', 'cruise review'],
+    'stateroom_interior': ['interior', 'inside cabin', 'inside stateroom', 'interior cabin', 'interior stateroom'],
+    'stateroom_oceanview': ['ocean view', 'oceanview', 'porthole', 'window cabin'],
+    'stateroom_balcony': ['balcony', 'verandah', 'veranda'],
+    'stateroom_suite': ['suite', 'royal suite', 'owner suite', 'grand suite', 'loft suite', 'sky suite', 'junior suite'],
+    'accessibility': ['accessible', 'accessibility', 'wheelchair', 'mobility', 'disability', 'disabilities'],
+    'dining': ['dining', 'food', 'restaurant', 'buffet', 'windjammer', 'specialty', 'main dining'],
+    'activities': ['activities', 'entertainment', 'pool', 'deck', 'shows', 'casino'],
+    'cabin_tour': ['cabin', 'room tour', 'stateroom tour', 'cabin tour'],
+    'general': ['cruise', 'royal caribbean', 'carnival', 'norwegian', 'princess', 'celebrity', 'msc']
+}
+
+# Cache for YouTube metadata to avoid repeated API calls
+youtube_metadata_cache = {}
+
+def get_youtube_metadata(video_id, max_retries=2):
+    """
+    Fetch YouTube video metadata using oEmbed API (no API key required).
+    Returns dict with 'title', 'author_name' or None if failed.
+    """
+    if video_id in youtube_metadata_cache:
+        return youtube_metadata_cache[video_id]
+
+    oembed_url = f"https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v={video_id}&format=json"
+
+    for attempt in range(max_retries):
+        try:
+            req = urllib.request.Request(
+                oembed_url,
+                headers={'User-Agent': 'Mozilla/5.0 (compatible; SiteAudit/1.0)'}
+            )
+            with urllib.request.urlopen(req, timeout=10) as response:
+                data = json.loads(response.read().decode('utf-8'))
+                result = {
+                    'title': data.get('title', ''),
+                    'author_name': data.get('author_name', ''),
+                    'video_id': video_id
+                }
+                youtube_metadata_cache[video_id] = result
+                return result
+        except urllib.error.HTTPError as e:
+            if e.code == 404:
+                # Video doesn't exist or is private
+                result = {'error': 'not_found', 'video_id': video_id}
+                youtube_metadata_cache[video_id] = result
+                return result
+            elif e.code == 429:
+                # Rate limited, wait and retry
+                time.sleep(2 ** attempt)
+                continue
+        except Exception as e:
+            if attempt < max_retries - 1:
+                time.sleep(1)
+                continue
+            result = {'error': str(e), 'video_id': video_id}
+            youtube_metadata_cache[video_id] = result
+            return result
+
+    result = {'error': 'max_retries', 'video_id': video_id}
+    youtube_metadata_cache[video_id] = result
+    return result
+
+def extract_ship_name_from_path(file_path):
+    """
+    Extract ship name from file path.
+    e.g., /ships/rcl/quantum-of-the-seas.html -> 'quantum of the seas'
+    """
+    path = str(file_path)
+
+    # Match ship page pattern: ships/{cruise_line}/{ship-name}.html
+    match = re.search(r'/ships/[^/]+/([^/]+)\.html$', path)
+    if match:
+        ship_slug = match.group(1)
+        # Convert slug to name: quantum-of-the-seas -> quantum of the seas
+        return ship_slug.replace('-', ' ')
+
+    return None
+
+def validate_video_for_ship(video_id, ship_name, check_metadata=True):
+    """
+    Validate that a YouTube video is related to the given ship.
+    Returns dict with 'valid', 'reason', 'title', 'category'
+    """
+    result = {
+        'valid': False,
+        'reason': '',
+        'title': None,
+        'category': None,
+        'video_id': video_id
+    }
+
+    if not check_metadata:
+        result['valid'] = True
+        result['reason'] = 'metadata_check_disabled'
+        return result
+
+    metadata = get_youtube_metadata(video_id)
+
+    if not metadata:
+        result['reason'] = 'could_not_fetch_metadata'
+        return result
+
+    if 'error' in metadata:
+        if metadata['error'] == 'not_found':
+            result['reason'] = 'video_not_found_or_private'
+            result['type'] = 'not_found'
+        elif metadata['error'] == 'max_retries':
+            result['reason'] = 'video_not_found_or_invalid'
+            result['type'] = 'not_found'
+        else:
+            result['reason'] = f"metadata_error: {metadata['error']}"
+            result['type'] = 'metadata_error'
+        return result
+
+    title = metadata.get('title', '').lower()
+    result['title'] = metadata.get('title', '')
+
+    # Check if ship name is in the title
+    ship_name_lower = ship_name.lower() if ship_name else ''
+    ship_name_variations = [ship_name_lower]
+
+    # Add common variations (e.g., "quantum" for "quantum of the seas")
+    if ' of the ' in ship_name_lower:
+        ship_name_variations.append(ship_name_lower.split(' of the ')[0])
+
+    ship_mentioned = any(var in title for var in ship_name_variations if var)
+
+    # Check what category the video falls into
+    matched_category = None
+    for category, keywords in VALID_VIDEO_CATEGORIES.items():
+        if any(kw.lower() in title for kw in keywords):
+            matched_category = category
+            break
+
+    result['category'] = matched_category
+
+    # Validation logic
+    if ship_mentioned:
+        if matched_category:
+            result['valid'] = True
+            result['reason'] = f'ship_mentioned_and_category_{matched_category}'
+        else:
+            # Ship is mentioned but no recognizable category - still okay
+            result['valid'] = True
+            result['reason'] = 'ship_mentioned_general_content'
+    else:
+        # Ship not mentioned - could be generic cruise content
+        if matched_category == 'general':
+            result['valid'] = True
+            result['reason'] = 'general_cruise_content'
+        elif matched_category:
+            result['reason'] = f'ship_not_mentioned_but_category_{matched_category}'
+            result['valid'] = False
+        else:
+            result['reason'] = 'ship_not_mentioned_no_category'
+            result['valid'] = False
+
+    return result
 
 class LinkExtractor(HTMLParser):
     def __init__(self):
@@ -555,6 +721,185 @@ def check_edge_cases():
                     'type': 'structured_data'
                 })
 
+def check_video_metadata(validate_online=True, max_videos=None):
+    """
+    Check YouTube videos in ship pages to ensure they're related to the ship
+    and match expected categories.
+
+    Checks both:
+    1. External video JSON files in assets/data/videos/ and ships/*/assets/
+    2. Inline videos-data JSON blocks in HTML
+
+    Args:
+        validate_online: If True, fetches metadata from YouTube API
+        max_videos: Maximum videos to check (for testing), None = all
+    """
+    print("Checking YouTube video metadata...")
+
+    videos_checked = 0
+    video_json_files = []
+
+    # Find all video JSON files in assets/data/videos/
+    videos_dir = BASE_DIR / 'assets' / 'data' / 'videos'
+    if videos_dir.exists():
+        for json_path in videos_dir.rglob('*.json'):
+            if json_path.stem not in ['index', 'manifest']:
+                video_json_files.append(json_path)
+
+    # Find all *-videos.json files in ships/*/assets/
+    ships_dir = BASE_DIR / 'ships'
+    if ships_dir.exists():
+        for json_path in ships_dir.rglob('*-videos.json'):
+            video_json_files.append(json_path)
+
+    print(f"  Found {len(video_json_files)} video JSON files to check")
+
+    for json_file in video_json_files:
+        if max_videos and videos_checked >= max_videos:
+            break
+
+        rel_file = str(json_file.relative_to(BASE_DIR))
+
+        # Extract ship name from filename
+        # e.g., carnival-breeze.json -> carnival breeze
+        # e.g., quantum-of-the-seas-videos.json -> quantum of the seas
+        ship_slug = json_file.stem.replace('-videos', '')
+        ship_name = ship_slug.replace('-', ' ')
+
+        try:
+            with open(json_file, 'r', encoding='utf-8', errors='ignore') as f:
+                content = f.read()
+                videos_json = json.loads(content)
+        except json.JSONDecodeError as e:
+            video_issues.append({
+                'file': rel_file,
+                'ship': ship_name,
+                'issue': f'Invalid JSON: {str(e)[:50]}',
+                'type': 'json_parse_error'
+            })
+            continue
+        except Exception:
+            continue
+
+        videos = videos_json.get('videos', [])
+
+        for video in videos:
+            if max_videos and videos_checked >= max_videos:
+                break
+
+            video_id = video.get('youtube_id') or video.get('videoId')
+            if not video_id:
+                continue
+
+            # Skip blocked video IDs (already checked elsewhere)
+            if video_id in {'dQw4w9WgXcQ', 'oHg5SJYRHA0', 'xvFZjo5PgG0'}:
+                continue
+
+            videos_checked += 1
+
+            if validate_online:
+                result = validate_video_for_ship(video_id, ship_name)
+
+                if not result['valid']:
+                    issue_detail = f"Video {video_id}"
+                    if result['title']:
+                        issue_detail += f" ('{result['title'][:50]}...')" if len(result.get('title', '')) > 50 else f" ('{result['title']}')"
+                    issue_detail += f" - {result['reason']}"
+
+                    # Use type from result if available, otherwise default to unrelated_video
+                    issue_type = result.get('type', 'unrelated_video')
+
+                    video_issues.append({
+                        'file': rel_file,
+                        'ship': ship_name,
+                        'video_id': video_id,
+                        'title': result.get('title'),
+                        'category': result.get('category'),
+                        'reason': result['reason'],
+                        'issue': issue_detail,
+                        'type': issue_type
+                    })
+
+    # Also check inline videos-data blocks in ship HTML pages
+    ship_pages = [f for f in html_files if '/ships/' in str(f) and str(f).endswith('.html')]
+
+    for html_file in ship_pages:
+        if max_videos and videos_checked >= max_videos:
+            break
+
+        rel_file = str(html_file.relative_to(BASE_DIR))
+        ship_name = extract_ship_name_from_path(html_file)
+
+        if not ship_name:
+            continue
+
+        try:
+            with open(html_file, 'r', encoding='utf-8', errors='ignore') as f:
+                content = f.read()
+        except:
+            continue
+
+        # Find inline videos-data JSON block
+        videos_match = re.search(
+            r'<script[^>]*id=["\']videos-data["\'][^>]*>(.*?)</script>',
+            content,
+            re.DOTALL
+        )
+
+        if not videos_match:
+            continue
+
+        try:
+            videos_json = json.loads(videos_match.group(1))
+            videos = videos_json.get('videos', [])
+        except json.JSONDecodeError:
+            video_issues.append({
+                'file': rel_file,
+                'ship': ship_name,
+                'issue': 'Invalid JSON in videos-data block',
+                'type': 'json_parse_error'
+            })
+            continue
+
+        for video in videos:
+            if max_videos and videos_checked >= max_videos:
+                break
+
+            video_id = video.get('youtube_id') or video.get('videoId')
+            if not video_id:
+                continue
+
+            # Skip blocked video IDs
+            if video_id in {'dQw4w9WgXcQ', 'oHg5SJYRHA0', 'xvFZjo5PgG0'}:
+                continue
+
+            videos_checked += 1
+
+            if validate_online:
+                result = validate_video_for_ship(video_id, ship_name)
+
+                if not result['valid']:
+                    issue_detail = f"Video {video_id}"
+                    if result['title']:
+                        issue_detail += f" ('{result['title'][:50]}...')" if len(result.get('title', '')) > 50 else f" ('{result['title']}')"
+                    issue_detail += f" - {result['reason']}"
+
+                    # Use type from result if available, otherwise default to unrelated_video
+                    issue_type = result.get('type', 'unrelated_video')
+
+                    video_issues.append({
+                        'file': rel_file,
+                        'ship': ship_name,
+                        'video_id': video_id,
+                        'title': result.get('title'),
+                        'category': result.get('category'),
+                        'reason': result['reason'],
+                        'issue': issue_detail,
+                        'type': issue_type
+                    })
+
+    print(f"  Checked {videos_checked} videos total")
+
 def generate_report():
     """Generate the audit report"""
     print("\n" + "="*80)
@@ -642,15 +987,36 @@ def generate_report():
     else:
         print("\nNo edge cases found!")
 
+    print("\n" + "-"*80)
+    print("6. VIDEO METADATA ISSUES")
+    print("-"*80)
+    if video_issues:
+        # Group by type
+        by_type = defaultdict(list)
+        for item in video_issues:
+            by_type[item['type']].append(item)
+
+        print(f"\nFound {len(video_issues)} video issues:\n")
+        for issue_type, items in sorted(by_type.items()):
+            print(f"\n  [{issue_type.upper()}] ({len(items)} issues)")
+            for item in items[:15]:
+                print(f"    - {item['file']}: {item['issue']}")
+            if len(items) > 15:
+                print(f"    ... and {len(items) - 15} more")
+    else:
+        print("\nNo video metadata issues found!")
+
     print("\n" + "="*80)
     print("SUMMARY")
     print("="*80)
-    print(f"\nTotal Issues Found: {len(broken_links) + len(json_broken_refs) + len(lint_issues) + len(orphan_files) + len(edge_cases)}")
+    total_issues = len(broken_links) + len(json_broken_refs) + len(lint_issues) + len(orphan_files) + len(edge_cases) + len(video_issues)
+    print(f"\nTotal Issues Found: {total_issues}")
     print(f"  - Broken Links: {len(broken_links)}")
     print(f"  - Broken JSON Refs: {len(json_broken_refs)}")
     print(f"  - Lint Issues: {len(lint_issues)}")
     print(f"  - Orphan Files: {len(orphan_files)}")
     print(f"  - Edge Cases: {len(edge_cases)}")
+    print(f"  - Video Issues: {len(video_issues)}")
 
     # Return data for JSON output
     return {
@@ -665,10 +1031,20 @@ def generate_report():
         'json_broken_refs': json_broken_refs,
         'lint_issues': lint_issues,
         'orphan_files': orphan_files,
-        'edge_cases': edge_cases
+        'edge_cases': edge_cases,
+        'video_issues': video_issues
     }
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Comprehensive Site Audit')
+    parser.add_argument('--skip-video-check', action='store_true',
+                        help='Skip YouTube video metadata validation (faster)')
+    parser.add_argument('--max-videos', type=int, default=None,
+                        help='Limit number of videos to check (for testing)')
+    args = parser.parse_args()
+
     print("Starting comprehensive site audit...")
     print(f"Base directory: {BASE_DIR}")
     print(f"Excluding: {EXCLUDE_DIRS}, {EXCLUDE_PATHS}\n")
@@ -681,11 +1057,19 @@ if __name__ == "__main__":
     check_lint_issues()
     check_edge_cases()
 
+    # Video metadata check (can be slow due to API calls)
+    if not args.skip_video_check:
+        check_video_metadata(validate_online=True, max_videos=args.max_videos)
+    else:
+        print("Skipping YouTube video metadata check (--skip-video-check)")
+
     # Generate report
     report_data = generate_report()
 
     # Save JSON report
-    with open(BASE_DIR / 'admin' / 'COMPREHENSIVE_AUDIT_2025_11_19.json', 'w') as f:
+    from datetime import datetime
+    report_filename = f'COMPREHENSIVE_AUDIT_{datetime.now().strftime("%Y_%m_%d")}.json'
+    with open(BASE_DIR / 'admin' / report_filename, 'w') as f:
         json.dump(report_data, f, indent=2)
 
-    print(f"\nJSON report saved to: admin/COMPREHENSIVE_AUDIT_2025_11_19.json")
+    print(f"\nJSON report saved to: admin/{report_filename}")
