@@ -1488,7 +1488,8 @@ All homeports with existing HTML pages now have clickable links in port-tracker.
 #### All 50 RCL Ship Pages
 - [x] ✅ **ALL 50/50 pages have ICP-Lite elements** (Quick Answer, Best For, Key Facts) - completed 2025-11-29
   - Includes all 8 TBN ships with 2-column layout and right rail structure
-- [ ] Add Author and Article cards (index.html pattern) to all 50 pages
+- [x] ✅ 44/50 ship pages have Author and Article cards (index.html pattern) - verified 2025-12-29
+- [ ] 5 historic/skeleton pages need full rebuilds (no body content): legend-of-the-seas-1995-built.html, nordic-prince.html, oasis-class-ship-tbn-2028.html, song-of-america.html, sun-viking.html
 - [ ] Shred "Recent Stories," "Related Articles and Resources" → replace with index.html pattern on all pages
 
 #### icon-of-the-seas.html (Specific)
@@ -1531,7 +1532,8 @@ All homeports with existing HTML pages now have clickable links in port-tracker.
 #### All 161 Port Pages
 - [x] ✅ **ALL 161 pages have ICP-Lite elements (Quick Answer)** - verified 2025-12-01
 - [x] ✅ Whimsical distance units added to all 161 port pages (2025-12-01)
-- [ ] Add Author and Article cards (index.html pattern) to all pages
+- [x] ✅ Add Author and Article cards (index.html pattern) to 43 port pages — FIXED 2025-12-29: bora-bora, busan, cabo-san-lucas, cairns, cape-liberty, cephalonia, christchurch, durban, endicott-arm, flam, fremantle, geiranger, hamburg, harvest-caye, hobart, huatulco, hubbard-glacier, hurghada, incheon, istanbul, kota-kinabalu, la-spezia, lautoka, luanda, manzanillo, mazatlan, melbourne, mindelo, mobile, mombasa, osaka, papeete, phuket, port-everglades, port-miami, port-moresby, praia, puerto-vallarta, royal-beach-club-nassau, san-diego, sihanoukville, yangon, zihuatanejo
+- [ ] Remaining: gatun-lake.html needs full page rebuild (no rail section exists)
 - [ ] Change "A Positively Worded Word of Warning" to better heading
 - [ ] Give "Getting Around" its own card (honor design language)
 - [ ] Give renamed warning section its own card
