@@ -27,8 +27,8 @@ jobs:
           args: >-
             --verbose
             --no-progress
+            --base .
             --accept 200,204,206,301,302,307,308
-            --exclude-mail
             --exclude "^https://www.facebook.com"
             --exclude "^https://twitter.com"
             --exclude "^https://x.com"
@@ -40,7 +40,7 @@ jobs:
             './**/*.html'
           fail: false  # Don't fail workflow on broken links (report only)
           output: ./lychee-report.md
-          version: v0.18.0  # Pin to stable version
+          lycheeVersion: v0.18.0  # Pin to stable version
 
       - name: Upload Link Check Report
         uses: actions/upload-artifact@v4
