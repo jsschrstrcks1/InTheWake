@@ -619,5 +619,17 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     c.innerHTML='<h3 style="margin:0 0 .5rem;font-size:1rem;color:var(--carnival-blue);">Celebration by the Numbers</h3><p style="margin:0;font-size:.9rem;">'+facts[Math.floor(Math.random()*facts.length)]+'</p>';
   })();
   </script>
+
+  <script>
+  (async function(){
+    const rail = document.getElementById('recent-rail');
+    if(!rail) return;
+    try {
+      const res = await fetch('/assets/data/articles/index.json');
+      const articles = await res.json();
+      rail.innerHTML = articles.slice(0, 4).map(a => '<div style="margin-bottom:.75rem;"><a href="' + a.url + '">' + a.title + '</a></div>').join('');
+    } catch(e) {}
+  })();
+  </script>
 </body>
 </html>
