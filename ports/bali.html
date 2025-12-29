@@ -93,17 +93,6 @@ Soli Deo Gloria
   </script>
 </head>
 <body class="page">
-  <!-- HERO SECTION - placed first for ITC validator section ordering -->
-  <section class="port-hero" id="hero" aria-label="Bali cruise port hero image">
-    <div class="port-hero-image">
-      <img src="/ports/img/bali/uluwatu-temple-sunset.webp" alt="Uluwatu Temple perched on dramatic sea cliffs at sunset with Indian Ocean below" loading="eager" fetchpriority="high"/>
-      <div class="port-hero-overlay">
-        <h1 class="port-hero-title">Bali</h1>
-      </div>
-    </div>
-    <p class="port-hero-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></p>
-  </section>
-
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <span role="status" aria-live="polite" aria-atomic="true" class="sr-only"></span>
   <span role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></span>
@@ -166,6 +155,17 @@ Soli Deo Gloria
 
     <div style="grid-column: 1; grid-row: 1;">
       <article class="card">
+        <!-- Hero section inside card -->
+        <section class="port-hero" id="hero" aria-label="Bali cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+          <div class="port-hero-image" style="position: relative;">
+            <img src="/ports/img/bali/uluwatu-temple-sunset.webp" alt="Uluwatu Temple perched on dramatic sea cliffs at sunset with Indian Ocean below" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover;"/>
+            <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+              <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">Bali</h1>
+            </div>
+          </div>
+          <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></p>
+        </section>
+
         <h1>Bali: Indonesia's Island of the Gods</h1>
 
         <section id="logbook">
