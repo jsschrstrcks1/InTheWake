@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# Venue Page Validator — v1.1.0
+# Venue Page Validator — v1.2.0
 # =============================================================================
 # Validates venue/restaurant pages against the In the Wake standard.
 # Based on superset analysis of existing venue pages (chops.html, windjammer.html, etc.)
@@ -58,7 +58,7 @@ FILENAME=$(basename "$FILE")
 SLUG="${FILENAME%.html}"
 
 echo "============================================================================"
-echo "  Venue Page Validator — v1.1.0"
+echo "  Venue Page Validator — v1.2.0"
 echo "  File: $FILE"
 echo "============================================================================"
 
@@ -574,6 +574,54 @@ if echo "$CONTENT" | grep -q 'class="nav-dropdown"'; then
     check_pass "Dropdown menus present"
 else
     check_warn "Dropdown menus not found"
+fi
+
+# =============================================================================
+# Section 12: Image Uniqueness (no excessive duplication)
+# =============================================================================
+section_header "Section 12: Image Uniqueness"
+
+# Rule: Images may be used once in a swiper/carousel, and once inline in text.
+# No further duplication is permitted.
+
+# Extract all image src values
+ALL_IMAGES=$(echo "$CONTENT" | grep -oP 'src="[^"]+\.(webp|jpg|jpeg|png|gif|svg)"' | sed 's/src="//;s/"$//' | sort)
+
+if [ -z "$ALL_IMAGES" ]; then
+    check_warn "No images found in page"
+else
+    # Count total images
+    TOTAL_IMAGES=$(echo "$ALL_IMAGES" | wc -l)
+    UNIQUE_IMAGES=$(echo "$ALL_IMAGES" | sort -u | wc -l)
+
+    # Find duplicated images (appearing more than twice)
+    OVER_DUPLICATED=""
+    for img in $(echo "$ALL_IMAGES" | sort -u); do
+        COUNT=$(echo "$ALL_IMAGES" | grep -Fc "$img" || echo "0")
+        if [ "$COUNT" -gt 2 ]; then
+            OVER_DUPLICATED="$OVER_DUPLICATED$img (${COUNT}x)\n"
+        fi
+    done
+
+    if [ -n "$OVER_DUPLICATED" ]; then
+        check_fail "Images used more than 2x (max: 1x swiper + 1x inline):"
+        echo -e "$OVER_DUPLICATED" | while read -r line; do
+            if [ -n "$line" ]; then
+                echo -e "    ${RED}→${NC} $line"
+            fi
+        done
+    else
+        check_pass "All images within duplication limit (max 2x per image)"
+    fi
+
+    # Check for excessive same-image usage in show cards / article sections
+    # (Swiper detection: class="swiper" or data-swiper)
+    SWIPER_IMAGES=$(echo "$CONTENT" | grep -ozP '<[^>]*class="[^"]*swiper[^"]*"[^>]*>.*?</[^>]+>' 2>/dev/null | grep -oP 'src="[^"]+\.(webp|jpg|jpeg|png|gif|svg)"' | sed 's/src="//;s/"$//' | sort -u || true)
+
+    # Report stats
+    if [ "$TOTAL_IMAGES" -gt 0 ]; then
+        check_pass "Image count: $TOTAL_IMAGES total, $UNIQUE_IMAGES unique"
+    fi
 fi
 
 # =============================================================================
