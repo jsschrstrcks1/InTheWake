@@ -148,6 +148,17 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 <a href="https://www.carnival.com/cruise-search?shipCode=EL" target="_blank" rel="noopener" class="deck-link">🗓️ View Sailings</a>
 <a href="/ships/carnival/" class="deck-link">🎭 All Carnival Ships</a>
 </div>
+<section class="card author-card-vertical" aria-labelledby="author-heading">
+  <h3 id="author-heading">About the Author</h3>
+  <a href="/authors/ken-baker.html"><img class="author-avatar" src="/authors/img/ken1_96.webp" width="96" height="96" alt="Author photo" loading="lazy"/></a>
+  <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+  <p class="tiny">Founder of In the Wake</p>
+</section>
+<section class="card" aria-labelledby="recent-rail-title">
+  <h3 id="recent-rail-title">Recent Stories</h3>
+  <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+  <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
+</section>
 </aside>
 </main>
 <footer class="wrap"><p>© 2025 In The Wake · A Cruise Encyclopedia · <span style="opacity:.6">Soli Deo Gloria</span></p></footer>
@@ -156,6 +167,30 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 new Swiper('#photo-swiper',{slidesPerView:1,spaceBetween:16,pagination:{el:'.swiper-pagination',clickable:true},breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
 fetch('/assets/data/videos/carnival/carnival-elation.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
 fetch('/assets/data/logbook/carnival/carnival-elation.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h4>${s.title}</h4><p class="logbook-meta">${s.persona_label} · ${s.author.name}</p><p>${s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')}</p></article>`).join('');}).catch(()=>{});
+</script>
+<script>
+(function(){
+  const rail=document.getElementById('recent-rail'),fb=document.getElementById('recent-rail-fallback');
+  if(!rail)return;
+  const PER=6;let articles=[],page=0;
+  function render(){
+    const start=page*PER,slice=articles.slice(start,start+PER);
+    rail.innerHTML=slice.map(a=>'<a class="rail-item" href="'+a.url+'">'+a.title+'</a>').join('');
+    let nav=document.getElementById('recent-rail-nav');
+    if(!nav){nav=document.createElement('div');nav.id='recent-rail-nav';nav.style.cssText='display:flex;gap:.5rem;margin-top:.75rem;';rail.after(nav);}
+    const total=Math.ceil(articles.length/PER);
+    nav.innerHTML=(page>0?'<button id="rail-prev" style="flex:1;padding:.35rem;border:1px solid #ccc;background:#fff;border-radius:4px;cursor:pointer;">← Prev</button>':'')+
+      (page<total-1?'<button id="rail-next" style="flex:1;padding:.35rem;border:1px solid #ccc;background:#fff;border-radius:4px;cursor:pointer;">Next →</button>':'');
+    const p=document.getElementById('rail-prev'),n=document.getElementById('rail-next');
+    if(p)p.onclick=()=>{page--;render();};
+    if(n)n.onclick=()=>{page++;render();};
+  }
+  fetch('/assets/data/articles/index.json').then(r=>r.json()).then(data=>{
+    articles=(data||[]).filter(a=>a.status==='published').sort((a,b)=>new Date(b.date)-new Date(a.date));
+    if(fb)fb.style.display='none';
+    if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
+  }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
+})();
 </script>
 </body>
 </html>

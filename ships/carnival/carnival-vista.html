@@ -284,6 +284,19 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           </ul>
         </div>
       </section>
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html"><img class="author-avatar" src="/authors/img/ken1_96.webp" width="96" height="96" alt="Author photo" loading="lazy"/></a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake</p>
+      </section>
+
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
+      </section>
+
       <section class="card" id="whimsical-units-container"></section>
     </aside>
 
@@ -304,5 +317,30 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <script>(function(){const m=document.getElementById('ship-stats'),f=document.getElementById('ship-stats-fallback');if(!m||!f)return;try{const o=JSON.parse(f.textContent);const k=['class','entered_service','gt','guests','crew','length','beam','registry'];const l={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests',crew:'Crew',length:'Length',beam:'Beam',registry:'Registry'};m.innerHTML=k.map(key=>o[key]?'<div class="stat-line"><span class="stat-key">'+l[key]+'</span><span class="stat-val">'+o[key]+'</span></div>':'').join('');}catch(_){}})();</script>
 
   <script>(function(){const c=document.getElementById('whimsical-units-container');if(!c)return;const facts=['At 1,055 ft, Vista is longer than <strong>3.5 football fields</strong>.','First cruise ship with <strong>SkyRide</strong> aerial cycling.','First cruise ship with <strong>IMAX theater</strong> at sea.','Havana section offers <strong>exclusive Cuban-themed</strong> experience.'];c.innerHTML='<h3 style="margin:0 0 .5rem;font-size:1rem;color:var(--carnival-blue);">Vista by the Numbers</h3><p style="margin:0;font-size:.9rem;">'+facts[Math.floor(Math.random()*facts.length)]+'</p>';})();</script>
+
+  <script>
+  (function(){
+    const rail=document.getElementById('recent-rail'),fb=document.getElementById('recent-rail-fallback');
+    if(!rail)return;
+    const PER=6;let articles=[],page=0;
+    function render(){
+      const start=page*PER,slice=articles.slice(start,start+PER);
+      rail.innerHTML=slice.map(a=>'<a class="rail-item" href="'+a.url+'">'+a.title+'</a>').join('');
+      let nav=document.getElementById('recent-rail-nav');
+      if(!nav){nav=document.createElement('div');nav.id='recent-rail-nav';nav.style.cssText='display:flex;gap:.5rem;margin-top:.75rem;';rail.after(nav);}
+      const total=Math.ceil(articles.length/PER);
+      nav.innerHTML=(page>0?'<button id="rail-prev" style="flex:1;padding:.35rem;border:1px solid #ccc;background:#fff;border-radius:4px;cursor:pointer;">← Prev</button>':'')+
+        (page<total-1?'<button id="rail-next" style="flex:1;padding:.35rem;border:1px solid #ccc;background:#fff;border-radius:4px;cursor:pointer;">Next →</button>':'');
+      const p=document.getElementById('rail-prev'),n=document.getElementById('rail-next');
+      if(p)p.onclick=()=>{page--;render();};
+      if(n)n.onclick=()=>{page++;render();};
+    }
+    fetch('/assets/data/articles/index.json').then(r=>r.json()).then(data=>{
+      articles=(data||[]).filter(a=>a.status==='published').sort((a,b)=>new Date(b.date)-new Date(a.date));
+      if(fb)fb.style.display='none';
+      if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
+    }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
+  })();
+  </script>
 </body>
 </html>

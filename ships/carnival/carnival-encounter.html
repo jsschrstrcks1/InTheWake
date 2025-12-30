@@ -580,6 +580,19 @@ if ('serviceWorker' in navigator) {
       </div>
     </section>
 
+    <section class="card author-card-vertical" aria-labelledby="author-heading">
+      <h3 id="author-heading">About the Author</h3>
+      <a href="/authors/ken-baker.html"><img class="author-avatar" src="/authors/img/ken1_96.webp" width="96" height="96" alt="Author photo" loading="lazy"/></a>
+      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+      <p class="tiny">Founder of In the Wake</p>
+    </section>
+
+    <section class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
+    </section>
+
   </aside>
 </main>
 
@@ -637,5 +650,30 @@ if ('serviceWorker' in navigator) {
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
+
+  <script>
+  (function(){
+    const rail=document.getElementById('recent-rail'),fb=document.getElementById('recent-rail-fallback');
+    if(!rail)return;
+    const PER=6;let articles=[],page=0;
+    function render(){
+      const start=page*PER,slice=articles.slice(start,start+PER);
+      rail.innerHTML=slice.map(a=>'<a class="rail-item" href="'+a.url+'">'+a.title+'</a>').join('');
+      let nav=document.getElementById('recent-rail-nav');
+      if(!nav){nav=document.createElement('div');nav.id='recent-rail-nav';nav.style.cssText='display:flex;gap:.5rem;margin-top:.75rem;';rail.after(nav);}
+      const total=Math.ceil(articles.length/PER);
+      nav.innerHTML=(page>0?'<button id="rail-prev" style="flex:1;padding:.35rem;border:1px solid #ccc;background:#fff;border-radius:4px;cursor:pointer;">← Prev</button>':'')+
+        (page<total-1?'<button id="rail-next" style="flex:1;padding:.35rem;border:1px solid #ccc;background:#fff;border-radius:4px;cursor:pointer;">Next →</button>':'');
+      const p=document.getElementById('rail-prev'),n=document.getElementById('rail-next');
+      if(p)p.onclick=()=>{page--;render();};
+      if(n)n.onclick=()=>{page++;render();};
+    }
+    fetch('/assets/data/articles/index.json').then(r=>r.json()).then(data=>{
+      articles=(data||[]).filter(a=>a.status==='published').sort((a,b)=>new Date(b.date)-new Date(a.date));
+      if(fb)fb.style.display='none';
+      if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
+    }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
+  })();
+  </script>
 </body>
 </html>

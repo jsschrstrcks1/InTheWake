@@ -103,7 +103,7 @@ Soli Deo Gloria
     }
     </script>
 
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/assets/styles.css">
     <!-- Leaflet CSS for interactive maps -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
@@ -167,8 +167,8 @@ Soli Deo Gloria
         </div>
     </section>
 
-    <main class="container main-content">
-        <article class="port-guide logbook-entry">
+    <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
+        <article class="col-1 port-guide logbook-entry">
             <header class="article-header">
                 <div class="article-meta">
                     <span class="port-region">South Pacific</span>
@@ -394,8 +394,8 @@ Soli Deo Gloria
             
         </article>
 
-        <aside class="sidebar">
-            <div class="sidebar-card at-a-glance">
+        <aside class="rail col-2" role="complementary" aria-label="Key facts, author & articles">
+            <section class="card">
                 <h3>At a Glance</h3>
                 <dl>
                     <dt>Country</dt>
@@ -422,33 +422,30 @@ Soli Deo Gloria
                     <dt>Known For</dt>
                     <dd>Sugar industry, Yasawa gateway, markets</dd>
                 </dl>
-            </div>
+            </section>
 
-            <div class="sidebar-card author-card">
-                <h3>About the Author</h3>
-                <img src="/images/authors/ken-baker.jpg" alt="Ken Baker" class="author-photo">
-                <h4>Ken Baker</h4>
-                <p>Ken Baker has been sailing Pacific waters for over two decades, documenting ports and cultures with a pastor's heart and a sailor's eye. Based in New Zealand, he returns to Fiji regularly, drawn by the warmth of its people and the depth of its traditions.</p>
-            </div>
+            <section class="card author-card-vertical" aria-labelledby="author-heading">
+                <h3 id="author-heading">About the Author</h3>
+                <a href="/authors/ken-baker.html"><img class="author-avatar" src="/authors/img/ken1_96.webp" width="96" height="96" alt="Author photo" loading="lazy"/></a>
+                <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+                <p class="tiny">Founder of In the Wake</p>
+            </section>
 
-            <div class="sidebar-card nearby-ports">
+            <section class="card" aria-labelledby="recent-rail-title">
+                <h3 id="recent-rail-title">Recent Stories</h3>
+                <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+                <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
+            </section>
+
+            <section class="card">
                 <h3>Nearby Ports</h3>
-                <ul>
-                    <li><a href="/ports/suva.html">Suva, Fiji</a> <span class="distance">130 nm E</span></li>
-                    <li><a href="/ports/port-vila.html">Port Vila, Vanuatu</a> <span class="distance">420 nm W</span></li>
-                    <li><a href="/ports/noumea.html">Nouméa, New Caledonia</a> <span class="distance">650 nm SW</span></li>
-                    <li><a href="/ports/apia.html">Apia, Samoa</a> <span class="distance">680 nm NE</span></li>
+                <ul style="list-style:none;margin:0;padding:0;">
+                    <li style="margin-bottom:.5rem;"><a href="/ports/suva.html">Suva, Fiji</a> <span class="tiny" style="color:#678;">130 nm E</span></li>
+                    <li style="margin-bottom:.5rem;"><a href="/ports/port-vila.html">Port Vila, Vanuatu</a> <span class="tiny" style="color:#678;">420 nm W</span></li>
+                    <li style="margin-bottom:.5rem;"><a href="/ports/noumea.html">Nouméa, New Caledonia</a> <span class="tiny" style="color:#678;">650 nm SW</span></li>
+                    <li><a href="/ports/apia.html">Apia, Samoa</a> <span class="tiny" style="color:#678;">680 nm NE</span></li>
                 </ul>
-            </div>
-
-            <div class="sidebar-card recent-stories">
-                <h3>Recent Stories</h3>
-                <ul>
-                    <li><a href="/stories/kava-ceremony-village.html">My First Kava Ceremony</a></li>
-                    <li><a href="/stories/sugar-harvest-season.html">Witnessing the Sugar Harvest</a></li>
-                    <li><a href="/stories/yasawa-island-hopping.html">Island Hopping the Yasawas</a></li>
-                </ul>
-            </div>
+            </section>
         </aside>
     </main>
 
@@ -498,6 +495,32 @@ Soli Deo Gloria
             });
         }
     });
+    </script>
+
+    <!-- Recent Articles Loader -->
+    <script>
+    (function(){
+      const rail=document.getElementById('recent-rail'),fb=document.getElementById('recent-rail-fallback');
+      if(!rail)return;
+      const PER=6;let articles=[],page=0;
+      function render(){
+        const start=page*PER,slice=articles.slice(start,start+PER);
+        rail.innerHTML=slice.map(a=>'<a class="rail-item" href="'+a.url+'">'+a.title+'</a>').join('');
+        let nav=document.getElementById('recent-rail-nav');
+        if(!nav){nav=document.createElement('div');nav.id='recent-rail-nav';nav.style.cssText='display:flex;gap:.5rem;margin-top:.75rem;';rail.after(nav);}
+        const total=Math.ceil(articles.length/PER);
+        nav.innerHTML=(page>0?'<button id="rail-prev" style="flex:1;padding:.35rem;border:1px solid #ccc;background:#fff;border-radius:4px;cursor:pointer;">← Prev</button>':'')+
+          (page<total-1?'<button id="rail-next" style="flex:1;padding:.35rem;border:1px solid #ccc;background:#fff;border-radius:4px;cursor:pointer;">Next →</button>':'');
+        const p=document.getElementById('rail-prev'),n=document.getElementById('rail-next');
+        if(p)p.onclick=()=>{page--;render();};
+        if(n)n.onclick=()=>{page++;render();};
+      }
+      fetch('/assets/data/articles/index.json').then(r=>r.json()).then(data=>{
+        articles=(data||[]).filter(a=>a.status==='published').sort((a,b)=>new Date(b.date)-new Date(a.date));
+        if(fb)fb.style.display='none';
+        if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
+      }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
+    })();
     </script>
 
 </body>
