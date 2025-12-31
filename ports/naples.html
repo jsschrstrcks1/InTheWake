@@ -1,52 +1,26 @@
 <!--
 Soli Deo Gloria
-All work on this project is offered as a gift to God.
-"Trust in the LORD with all your heart, and do not lean on your own understanding." — Proverbs 3:5
-"Whatever you do, work heartily, as for the Lord and not for men." — Colossians 3:23
 -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="referrer" content="no-referrer-when-downgrade"/>
-
-  <!-- ICP-Lite v1.0 -->
-  <meta name="ai-summary" content="First-person logbook guide to Naples cruise port—ancient Greek city founded ~600 BCE with 2,800 years of history. Gateway to Pompeii (destroyed AD 79), Amalfi Coast, world-class Archaeological Museum, and birthplace of pizza Margherita (1889)."/>
-  <meta name="last-reviewed" content="2025-12-17"/>
+  <meta name="ai-summary" content="Naples cruise port guide covering Pompeii and Herculaneum day trips, Amalfi Coast excursions, National Archaeological Museum, authentic Neapolitan pizza, and Vesuvius volcano views."/>
+  <meta name="last-reviewed" content="2025-12-31"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
-
-  <!-- SEO -->
-  <title>Naples Port Guide — Pompeii & Amalfi Coast | In the Wake</title>
-  <meta name="description" content="First-person logbook guide to Naples — ancient Greek city founded ~600 BCE as Neapolis, with 2,800 years of continuous habitation. UNESCO World Heritage Site (1995), gateway to Pompeii (AD 79 eruption), home to world's finest Pompeii/Herculaneum archaeological collection, and birthplace of pizza Margherita."/>
+  <title>Naples Port Guide — Pompeii, Amalfi Coast &amp; Pizza | In the Wake</title>
+  <meta name="description" content="Naples cruise port guide covering Pompeii and Herculaneum day trips, Amalfi Coast excursions, National Archaeological Museum, authentic Neapolitan pizza, and Vesuvius volcano views."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/naples.html"/>
-
-  <!-- OpenGraph -->
-  <meta property="og:type" content="article"/>
-  <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:title" content="Naples Port Guide"/>
-  <meta property:og:description" content="First-person logbook guide to Naples from a cruise traveler's perspective."/>
-  <meta property="og:url" content="https://cruisinginthewake.com/ports/naples.html"/>
-
-  <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
-
-  <!-- Global CSS -->
-  <!-- Service Worker Registration -->
   <script>
   if('serviceWorker' in navigator){
     window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
   }
   </script>
-
   <link rel="stylesheet" href="/assets/styles.css"/>
-
-  <!-- Leaflet CSS for interactive maps -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-  <link rel="stylesheet" href="/assets/css/components/port-map.css"/>
-
-  <!-- JSON-LD: BreadcrumbList -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -58,76 +32,39 @@ All work on this project is offered as a gift to God.
     ]
   }
   </script>
-
-  <!-- JSON-LD: WebPage -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "@id": "https://cruisinginthewake.com/ports/naples.html",
-    "name": "Naples Port Guide — Pompeii & Amalfi Coast | In the Wake",
-    "description": "First-person logbook guide to Naples cruise port—ancient Greek city founded ~600 BCE with 2,800 years of history. Gateway to Pompeii (destroyed AD 79), Amalfi Coast, world-class Archaeological Museum, and birthplace of pizza Margherita (1889).",
-    "dateModified": "2025-12-17",
+    "name": "Naples Cruise Port Guide",
+    "url": "https://cruisinginthewake.com/ports/naples.html",
+    "description": "Naples cruise port guide covering Pompeii and Herculaneum day trips, Amalfi Coast excursions, National Archaeological Museum, authentic Neapolitan pizza, and Vesuvius volcano views.",
+    "dateModified": "2025-12-31",
     "mainEntity": {
       "@type": "Place",
       "name": "Naples",
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 40.8518,
-        "longitude": 14.2681
-      }
+      "geo": {"@type": "GeoCoordinates", "latitude": 40.8518, "longitude": 14.2681}
     }
   }
-  </script>
-
-  <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
-
-  <!-- Swiper CSS/JS (primary + CDN fallback) -->
-  <script>
-  (function ensureSwiper(){
-    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
-    function addJS(src, ok, fail){
-      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
-    }
-    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
-    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
-    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-    addCSS(primaryCSS);
-    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
-  })();
   </script>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
-  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook logo" decoding="async" loading="lazy"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
-      <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
-        <span class="nav-toggle-icon">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
+        <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
       </button>
-            <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-
-        <!-- Planning Dropdown -->
         <div class="nav-dropdown" id="nav-planning">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Planning <span class="caret">&#9662;</span>
-          </button>
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
           <div class="dropdown-menu" role="menu">
             <a href="/planning.html">Planning (overview)</a>
             <a href="/ships.html">Ships</a>
@@ -141,294 +78,231 @@ All work on this project is offered as a gift to God.
             <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
-
-        <!-- Travel Dropdown -->
         <div class="nav-dropdown" id="nav-travel">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Travel <span class="caret">&#9662;</span>
-          </button>
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">&#9662;</span></button>
           <div class="dropdown-menu" role="menu">
             <a href="/travel.html">Travel (overview)</a>
             <a href="/solo.html">Solo</a>
           </div>
         </div>
-
         <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
         <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
-      </nav></div>
-
-    <!-- Hero -->
+      </nav>
+    </div>
     <div class="hero">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="Decorative compass rose navigation element" aria-hidden="true" decoding="async" loading="lazy"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logbook logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit">
-        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
-      </div>
     </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <div style="grid-column: 1; grid-row: 1;">
-    <article<!-- Breadcrumb -->
-    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;">
-      <ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;">
-        <li style="display: inline;"><a href="/">Home</a> &rsaquo; </li>
-        <li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li>
-        <li style="display: inline;" aria-current="page">Naples</li>
-      </ol>
-    </nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Naples</li></ol></nav>
 
-     class="card">
-      <!-- Port Hero with gradient background -->
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #b22222 0%, #cd853f 35%, #4169e1 70%, #00b4d8 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
-        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Naples</div>
-      </div>
-
-      <h1>Naples: Pizza, Pompeii, and Controlled Chaos</h1>
-
-      <div class="logbook-entry">
-        <p>Naples will assault your senses. That's not a warning — it's a promise. Within minutes of stepping off the ship, you'll be surrounded by Vespas weaving through pedestrians, shop owners calling out, the smell of pizza dough and diesel, laundry hanging between baroque churches, and a general glorious mayhem that feels more genuine than anywhere else in Italy. Naples is loud, gritty, overwhelming, and absolutely magnificent. This is one of the oldest continuously inhabited cities in the world — founded by Greeks from Cumae around 600 BCE as Neapolis, "the New City" — and those 2,800 years of unbroken history are layered into every cobblestone, every crumbling palazzo, every gesture and shout in the street.</p>
-
-      <figure class="logbook-image float-right">
-        <img src="img/naples/naples-1.webp" alt="Naples harbor view" loading="lazy">
-        <figcaption>Naples — <a href="https://commons.wikimedia.org/w/index.php?search=Naples&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-
-        <p>The Greeks who came here weren't starting from nothing. Settlers from Rhodes had already established themselves back in the 9th century BC on the tiny island of Megaride — where Castel dell'Ovo now stands, its honey-colored stones rising from the sea like something out of a fairy tale. Later, when Greeks from nearby Cumae arrived around 600 BCE, they built their "new city" beside the older settlement, Palaepolis. Standing at that castle today, gazing across the Bay of Naples toward Vesuvius smoking gently on the horizon, I felt the weight of centuries beneath my feet. This same rocky outcrop witnessed the exile of Romulus Augustulus, the last Western Roman Emperor, in 476 AD — the final flicker of Rome's ancient flame extinguished on this small island, while empires rose and fell and the city endured.</p>
-
-        <p>I've been to Naples twice on Mediterranean itineraries, and both times I faced the same dilemma every cruiser faces: Pompeii, Amalfi Coast, or Naples itself? The answer, frustratingly, is that they're all unmissable. You can't do all three properly in one port day. So you choose, and you promise yourself you'll come back for the rest. The shadow of Mount Vesuvius looms over every decision — Europe's only active volcano on the mainland, still smoking gently on the horizon, a constant reminder of both beauty and danger. That mountain destroyed Pompeii and Herculaneum in AD 79, burying entire cities under ash and pumice so swiftly that families were frozen mid-gesture, loaves of bread left carbonized in ovens, dogs still chained in courtyards. The catastrophe preserved a moment in time with such fidelity that walking those ancient streets nearly two thousand years later feels like trespassing on someone's interrupted afternoon.</p>
-
-      <figure class="logbook-image float-left">
-        <img src="img/naples/naples-2.webp" alt="Naples waterfront" loading="lazy">
-        <figcaption>Naples scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Naples&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-
-        <p>My first visit, I chose Pompeii. The Circumvesuviana train from Naples Central Station is the cheapest way there — €3.90 each way, 35 minutes — though it's notoriously rough around the edges (watch your belongings). The ruins, when I arrived, silenced every criticism. Here was a Roman city frozen in time: streets with stepping stones for pedestrians to cross without stepping in waste, taverns with painted menus on the walls, a brothel with explicit frescoes to help patrons select services, a bakery with mills and oven intact. I walked the main streets, peered into homes where families died huddled together, and stood in the amphitheater imagining gladiatorial combat. It's enormous — plan at least 3–4 hours and bring water, because there's little shade. The preservation is so complete that you can see the ruts worn into stone streets by Roman cart wheels, read ancient graffiti on walls ("Successus the weaver loves the innkeeper's slave girl" — some things never change), and stand in the Forum where citizens gathered two millennia ago, their voices echoing in a language we can still read but no longer hear.</p>
-
-        <p>My second visit, I did a ship excursion to the Amalfi Coast and Sorrento. The drive along that coastline — hairpin turns carved into cliffs above a turquoise sea — was worth it alone. We stopped in Positano, that famous cascade of pastel houses tumbling down to the Mediterranean, and I understood why artists have been coming here for centuries. Then Ravello, perched high above the coast with gardens that seem to float in the sky. Sorrento was more refined, with its lemon groves and views across the Bay of Naples to Vesuvius. But the excursion was rushed, as ship excursions to the Amalfi Coast always are. You get a taste, not a meal. To really experience those cliffside villages — to watch the sunset paint them gold, to hear the church bells echo across the water — you'd need to stay overnight.</p>
-
-        <p>What I didn't do on those first visits — and regret — was spend real time in Naples itself. The city deserves it. In 1995, UNESCO designated the historic center a World Heritage Site, recognizing what locals have always known: this tangled maze of narrow streets is a living archive where Greek, Roman, medieval, and baroque layers collapse into each other. The Naples Archaeological Museum — housed in a massive palazzo that looks like it could contain entire civilizations (and does) — holds the world's finest collection of artifacts from Pompeii and Herculaneum. I mean the actual frescoes peeled from villa walls, the mosaics that once graced patrician floors, the bronze statues pulled from the ash, the "Secret Cabinet" of erotic art that scandalized Victorian visitors and still makes modern tourists blush. To walk Pompeii's ruins without first seeing these treasures in the museum is to see only half the story.</p>
-
-        <p>The Spaccanapoli — that impossibly narrow street that "splits Naples" through the old quarter — is lined with churches dripping with baroque gold, workshops where artisans still carve nativity scenes by hand, and pizza shops that have been feeding families for generations. Medieval fortresses guard the waterfront, their weathered stones witnessing centuries of conquest and commerce. This is a city that refuses to become a museum version of itself, a city where the old ways persist not as performance but as life.</p>
-
-        <p>And then there's the pizza. Naples invented pizza. Not as a brand claim but as historical fact — this is where the Margherita was created in 1889 for Queen Margherita of Savoy, its red tomatoes, white mozzarella, and green basil representing the Italian flag. Pizzeria da Michele has been making pizza since 1870, still serving only two kinds: Margherita and Marinara. The pizza here is different from what you get anywhere else: a soft, charred crust with the center nearly soupy with San Marzano tomatoes and fresh buffalo mozzarella, the dough made from Neapolitan flour and left to rise slowly, baked in wood-fired ovens at temperatures that would make lesser pizzas weep. I ate mine at a place near Via dei Tribunali where locals lined up, standing at the counter because there were no tables. It was the best pizza I've ever had, and it cost €5. That's Naples — world-changing cuisine served without ceremony, because here it's just lunch.</p>
-
-        <div class="poignant-highlight">
-          <strong>The Moment That Stays With Me:</strong> Standing in the Forum of Pompeii at the exact spot where Roman citizens once gathered, looking up at Vesuvius smoking gently on the horizon. The same volcano that destroyed this city in AD 79 is still active, still watching. And Naples sprawls at its feet anyway, five million people living in its shadow because this land is too beautiful, too fertile, too alive to abandon. That's Italy in a nutshell: beauty and danger, history and defiance, all coexisting in glorious tension.
+  <div style="grid-column: 1; grid-row: 1;">
+    <article class="card">
+      <!-- Hero Section -->
+      <section class="port-hero" id="hero" aria-label="Naples cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+        <div class="port-hero-image" style="position: relative;">
+          <img src="/ports/img/naples/naples-hero.webp" alt="Naples waterfront with Mount Vesuvius rising dramatically behind the city and colorful buildings lining the bay" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover; object-position: center;"/>
+          <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin: 0;">Naples</h1>
+          </div>
         </div>
-
-        <p>Vesuvius itself can be visited — buses and tours go to a parking lot near the summit, then you walk the final stretch to peer into the crater. It's less dramatic than you might hope (no bubbling lava), but the views are spectacular and there's something primal about standing on an active volcano. Combined with Pompeii, it makes a full day.</p>
-
-        <p>Naples is not for everyone. It's hectic, the driving is terrifying, and the city has a reputation (often overstated but not entirely unearned) for petty crime. But it's also one of the most vital cities in Europe — a place that hasn't been gentrified into blandness, where the old ways persist, where the food is transcendent, and where you can touch history that isn't roped off in a museum. It's Italy at its most Italian, for better and for everything.</p>
-      </div>
-
-      <section class="port-section">
-        <h3>Getting Around from Naples</h3>
-        <p>Ships dock at Stazione Marittima, within walking distance of the historic center. Naples offers multiple transportation options for both city exploration and regional excursions:</p>
-
-        <h4>Public Transportation in Naples</h4>
-        <ul>
-          <li><strong>Metro Line 1:</strong> The metro station sits close to the cruise terminal (inaugurated in 2015) with trains departing every 10 minutes to Piazza Garibaldi and beyond. Single tickets cost €1.50 — an affordable way to navigate the city.</li>
-          <li><strong>Alibus (Airport Shuttle):</strong> Runs every 20 minutes connecting the cruise port with Naples Central Station and the airport, perfect for pre- or post-cruise transfers.</li>
-          <li><strong>Naples Historic Center:</strong> 10–15 minute walk to Piazza del Plebiscito and Spaccanapoli (about the time it takes to eat one margherita pizza slice properly, or roughly three espresso stops at local cafés)</li>
-          <li><strong>Taxis:</strong> Available at the terminal, though be prepared for notorious Naples traffic. Agree on fare beforehand or ensure the meter is running.</li>
-        </ul>
-
-        <h4>Regional Day Trips</h4>
-        <ul>
-          <li><strong>Pompeii (24 km):</strong> Circumvesuviana train from Napoli Centrale (€3.90, 35 min), SITA bus route 5001 (approximately 45 minutes), or taxi/private tour €120–150. The ancient city destroyed by Mount Vesuvius in 79 AD is open daily from 8:30am to 7:30pm.</li>
-          <li><strong>Sorrento (50 km):</strong> Circumvesuviana train (€4.20, ~70 min), or take a scenic fast ferry from Molo Beverello terminal (40-minute crossing, €12.30 one-way) for stunning bay views during your journey.</li>
-          <li><strong>Capri & Ischia:</strong> Both islands are accessible via short ferry rides from Naples, offering beautiful Mediterranean escapes.</li>
-          <li><strong>Amalfi Coast:</strong> Best done by ship excursion or private driver (€250–350). Not practical by public transport in a port day.</li>
-          <li><strong>Vesuvius:</strong> The active volcano looms over the bay and can be reached via EAV bus from Pompeii Scavi station (€3.90) or included in many Pompeii tours</li>
-        </ul>
-
-        <p><strong>Hop-On Hop-Off Bus:</strong> Tour buses pick up passengers about 5 minutes to the left of Castel Nuovo for a convenient overview of the city's highlights.</p>
-        <p><strong>Safety Note:</strong> The Circumvesuviana is cheap but often crowded and can have pickpockets. Keep valuables secure. For comfort and time savings, a private driver to Pompeii is worthwhile.</p>
+        <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></p>
       </section>
 
-      <section class="port-section">
-        <h3>Positively Framed Word of Warning</h3>
-        <p>Naples rewards travelers who embrace its energy and stay alert. The city is famously chaotic — traffic, crowds, and enthusiastic vendors are part of the experience. Keep valuables secured (money belt, zipped bags) and don't leave belongings in rental cars. That said, violent crime against tourists is rare; most issues are opportunistic pickpocketing in crowded areas. Stay aware, don't flash expensive items, and you'll be fine. The overwhelming majority of Neapolitans are warm, proud people who want you to love their city — and you will.</p>
+      <!-- Logbook Section -->
+      <section class="port-section" id="logbook">
+        <h2>My Logbook: Where Ancient History Meets Living Chaos</h2>
+        <div class="logbook-entry clearfix">
+          <p>Naples announced itself before I even stepped off the ship—the chaotic energy visible from the deck as Vesuvius loomed over the bay, that infamous volcano still smoking faintly after nearly two thousand years since it buried Pompeii in ash. I'd read warnings about Naples: too crowded, too chaotic, too dangerous for independent exploration. But I'd also read that nowhere on earth offers what Naples offers—the world's greatest archaeological treasures, the birthplace of pizza, a city that has been continuously inhabited for nearly three millennia, and a people whose passion for life borders on the operatic. The warnings, I discovered, were both accurate and incomplete. Naples is challenging. Naples is also extraordinary.</p>
+
+          <figure class="logbook-image float-right">
+            <img src="/ports/img/naples/naples-1.webp" alt="Mount Vesuvius rising above the Bay of Naples with its distinctive cone shape and wispy volcanic smoke" loading="lazy"/>
+            <figcaption>Vesuvius dominates every Naples view — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
+          </figure>
+
+          <p>My first time, I chose the ship excursion to Pompeii—the right decision for a first visit. The bus wound through Naples' outskirts, past apartment blocks hung with laundry and graffiti murals covering every available surface, until we reached the ancient city that time forgot for seventeen centuries. However, nothing prepares you for walking streets where Romans walked, entering homes where families lived and died in a single afternoon in AD 79. I stood in the forum where merchants haggled and politicians debated, walked down Pompeii's main street with its stone ruts worn by chariot wheels, saw the plaster casts of bodies frozen in their final moments. The scale overwhelmed me—this wasn't a few ruins scattered in a field, but an entire city preserved in volcanic ash, with houses, shops, temples, brothels, and baths stretching in every direction. Our guide knew exactly where to lead us through the sprawling site, which buildings offered the best frescoes, which streets avoided the worst crowds.</p>
+
+          <p>My second visit, I made different choices. I stayed in Naples itself, walking from the port through the historic center that UNESCO designated a World Heritage Site. The Spanish Quarter's narrow alleys rose steeply from the waterfront, laundry strung between buildings filtering the Mediterranean light, scooters weaving between pedestrians with what seemed like inches to spare. I found myself at the National Archaeological Museum, which houses the world's finest collection of artifacts from Pompeii and Herculaneum—the mosaics too fragile to leave at the excavation sites, the bronzes and jewelry and everyday objects that bring ancient Roman life into focus. The Alexander Mosaic alone, depicting Alexander the Great battling Darius III, justified the entire morning. Yet the museum's crowded galleries and enthusiastic school groups reminded me that Naples never lets you forget you're in a living city, not a silent museum.</p>
+
+          <figure class="logbook-image float-left">
+            <img src="/ports/img/naples/naples-2.webp" alt="Ancient Pompeii street with stone stepping stones and preserved Roman buildings stretching into the distance" loading="lazy"/>
+            <figcaption>Walking Pompeii's ancient streets — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
+          </figure>
+
+          <p>I ate pizza at Da Michele, perhaps the world's most famous pizzeria—the one featured in "Eat Pray Love" where Julia Roberts achieved her pizza epiphany. The menu offers exactly two options: marinara (tomato, garlic, oregano, olive oil) and margherita (tomato, mozzarella, basil). I ordered both. The crust arrived charred in spots, chewy and yielding, topped with San Marzano tomatoes grown in Vesuvius's volcanic soil and buffalo mozzarella from nearby Campania farms. Though the line stretched down the street, it moved quickly—Neapolitans don't linger over pizza; they consume it hot and fast, standing at counters or perched on the curb outside. A margherita cost €5. I understood immediately why pizza everywhere else seems like a pale imitation.</p>
+
+          <div class="poignant-highlight">
+            <strong>The Moment I'll Remember:</strong> I climbed to the top of Vesuvius on my second trip—a bus to the parking area, then a steep 20-minute hike to the crater rim. Standing at the edge, peering into the caldera where sulfurous steam still rises from vents, I could see the entire Bay of Naples spread below: Pompeii in the distance, Herculaneum closer, Naples sprawling along the coast, Capri floating on the horizon. I thought about the people of AD 79 who had no warning that this mountain would end their world. The volcano's last major eruption was 1944; vulcanologists consider it overdue. Despite the geological anxiety, the view was worth every labored breath on the climb.
+          </div>
+
+          <p>The Amalfi Coast tempted me on a later cruise—that legendary stretch of road carved into cliffs above the Tyrrhenian Sea, connecting villages that seem to defy gravity. Yet the journey from Naples takes nearly two hours each way, and the winding roads challenge even iron stomachs. I opted instead for Herculaneum, Pompeii's smaller but better-preserved neighbor, destroyed by the same eruption but buried in mud rather than ash. The mud preserved wooden furniture, food, and even human expressions with haunting clarity. Although Pompeii impresses with scale, Herculaneum impresses with intimacy—you can imagine actually living in these houses, cooking in these kitchens, walking these streets.</p>
+
+          <figure class="logbook-image float-right">
+            <img src="/ports/img/naples/naples-3.webp" alt="Authentic Neapolitan pizza margherita with charred crust and fresh mozzarella at a traditional pizzeria" loading="lazy"/>
+            <figcaption>Pizza margherita at its birthplace — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
+          </figure>
+
+          <p>Naples demands patience and rewards it with experiences unavailable anywhere else on earth. The city is loud, dirty in places, and can feel overwhelming—but it's also authentic in ways that sanitized tourist destinations can never match. Neapolitans have been living here for 2,800 years, and they're not about to change their ways for cruise passengers who arrive in the morning and leave by dinner. Yet if you meet Naples on its own terms, eat the pizza, wander the back streets, absorb the chaos as character rather than flaw, you'll discover why this gritty metropolis has inspired artists and writers for centuries. The combination of ancient history, living culture, and culinary excellence creates something unique in the Mediterranean cruise experience.</p>
+
+          <p>I've been back three times now, and each visit reveals new layers. The underground Naples tour through ancient Greek and Roman tunnels beneath the modern city. The Capodimonte Museum with its Caravaggios and Titians. The waterfront promenade at sunset when all of Naples seems to be taking the passeggiata. Despite its reputation for difficulty, Naples has become one of my favorite Mediterranean ports—perhaps because it demands more from visitors and gives more in return.</p>
+        </div>
       </section>
 
-      <section class="port-section">
-        <h3>Cruise Terminal & Arrival</h3>
-        <p>Your ship arrives at Stazione Marittima, conveniently located in the heart of downtown Naples. The port terminal is well-equipped with essential services including ATMs for cash withdrawals, dining options if you need a quick bite, a tourist information desk to help plan your day, and public restrooms. The historic city center is just a short 10-minute stroll from where you disembark, making Naples one of the more accessible Mediterranean ports for independent exploration.</p>
-        <p><strong>Pro Tip:</strong> Before leaving the terminal, grab a map from the tourist info desk and consider withdrawing some euros from the ATM — many local establishments still prefer cash, especially the traditional pizzerias.</p>
+      <!-- Cruise Port Section -->
+      <section class="port-section" id="cruise-port">
+        <h2>The Cruise Port</h2>
+        <p>Cruise ships dock at the Stazione Marittima, Naples' cruise terminal located directly on the waterfront at the foot of the historic center. The terminal sits within walking distance of major attractions—the Archaeological Museum is roughly 1.5 kilometers, the Spanish Quarter even closer. However, most visitors use Naples as a launching point for Pompeii, Herculaneum, the Amalfi Coast, or Mount Vesuvius rather than exploring the city itself.</p>
+
+        <p>The port area can feel chaotic, with taxi drivers, tour operators, and locals all competing for attention as you exit the terminal. Legitimate taxi stands with fixed rates to major destinations exist, though negotiating skills help. The Circumvesuviana train station (for Pompeii and Herculaneum) is about a 15-minute walk or short taxi ride from the cruise terminal. Multiple ships often dock simultaneously, making morning departure from the port area congested during peak season.</p>
       </section>
 
-      <section class="port-section">
-        <h3>Shopping & Dining Districts</h3>
-        <p>Naples, the city that gave pizza to the world, offers exceptional food and shopping experiences:</p>
+      <!-- Getting Around Section -->
+      <section class="port-section" id="getting-around">
+        <h2>Getting Around</h2>
         <ul>
-          <li><strong>Via Chiaia:</strong> This pedestrian-only boulevard is ideal for leisurely shopping, featuring both international brands and local boutiques.</li>
-          <li><strong>Galleria Umberto I:</strong> A stunning covered shopping arcade built in the late 19th century with elegant architecture and upscale shops.</li>
-          <li><strong>Via Riviera di Chiaia:</strong> The waterfront promenade lined with charming cafés — perfect for a coffee break while watching the bay.</li>
-          <li><strong>Pizza Heritage:</strong> Remember, you're in the birthplace of pizza! This is where the iconic Margherita was created. Eating authentic Neapolitan pizza here isn't just lunch — it's a culinary pilgrimage.</li>
-        </ul>
-      </section>
-
-      <section class="port-section">
-        <h3>Practical Information</h3>
-        <ul>
-          <li><strong>Currency:</strong> Euro (EUR). ATMs widely available; credit cards accepted at most restaurants and shops, though cash is king at traditional establishments.</li>
-          <li><strong>Emergency Number:</strong> Dial 112 for all emergency services (police, medical, fire).</li>
-          <li><strong>WiFi Access:</strong> Free wireless internet is available at many cafés near the railway station and throughout the city center.</li>
-          <li><strong>Shop Hours:</strong> Traditional Italian schedule — most shops open 8am-1pm, close for siesta, then reopen 4pm-7pm. Many close completely on Sundays.</li>
-          <li><strong>Security Reminder:</strong> Keep a close eye on your belongings, especially in crowded tourist areas, markets, and on public transportation. Pickpocketing does occur, though it's easily avoided with basic awareness.</li>
+          <li><strong>Walking:</strong> The historic center, Spanish Quarter, and waterfront are all walkable from the cruise terminal. Naples' narrow streets and aggressive scooter traffic require constant awareness. The Archaeological Museum is a 20-25 minute walk through interesting neighborhoods—doable for confident urban walkers, taxi-worthy for others.</li>
+          <li><strong>Circumvesuviana Train ($3-5):</strong> Regional trains connect Naples to Pompeii (Pompei Scavi station, 35 minutes, €3.60) and Herculaneum (Ercolano Scavi station, 20 minutes, €2.60). Trains depart every 20-30 minutes. The station is walkable from the port or a short taxi ride. Simple, economical, and efficient for independent explorers.</li>
+          <li><strong>Taxis ($15-100):</strong> Metered taxis are available but agree on fixed rates for longer trips. Expect €15-20 to the Archaeological Museum, €50-70 for round-trip to Pompeii with waiting time, €100+ for Amalfi Coast day trips. Use official taxi stands rather than accepting rides from solicitors in the port area.</li>
+          <li><strong>Ship Excursions ($80-200):</strong> The most stress-free option for first-time visitors. Pompeii excursions ($80-120) include transport, entrance fees, and guides. Amalfi Coast excursions ($150-200) handle the challenging driving logistics. The ship-waits guarantee provides peace of mind for distant destinations.</li>
+          <li><strong>Accessibility:</strong> Naples presents significant challenges for wheelchair users and those with mobility limitations. Pompeii's ancient streets are uneven stone with limited accessible paths. The Archaeological Museum has elevator access but crowded galleries. The Amalfi Coast involves significant walking on steep, uneven terrain. The Spanish Quarter features steep stairs and narrow passages. Ship excursions sometimes offer accessible alternatives with advance notice—confirm specific accommodations before booking.</li>
         </ul>
       </section>
 
-    <!-- Interactive Port Map -->
-    <section class="port-section port-map-section" id="port-map-section">
-      <h3>Naples Port Map</h3>
-      <p class="map-intro">Interactive map showing the cruise terminal, Pompeii, Vesuvius, and nearby attractions. Click any marker for details.</p>
-      <div id="naples-port-map" class="port-map-container" role="application" aria-label="Interactive map of Naples port and points of interest">
-        <noscript>
-          <p style="padding: 2rem; text-align: center; color: #678;">
-            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=40.8367&mlon=14.2633#map=11/40.80/14.40" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-          </p>
-        </noscript>
-      </div>
-      <div class="port-map-actions">
-        <button type="button" class="btn btn-secondary" onclick="document.getElementById('naples-port-map')._portMap?.fitBounds(document.getElementById('naples-port-map')._portMap.getBounds())">
-          Reset View
-        </button>
-      </div>
-    </section>
+      <!-- Map Section -->
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>Naples Area Map</h3>
+        <p class="map-intro">Interactive map showing cruise terminal, historic center, Pompeii and Herculaneum archaeological sites, and Mount Vesuvius. The Amalfi Coast lies further south (not shown at this zoom level).</p>
+        <div id="port-map" class="port-map-container" style="height: 350px; border-radius: 8px; margin: 1rem 0;" role="application" aria-label="Interactive map of Naples and surrounding archaeological sites">
+          <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
+        </div>
+      </section>
 
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/naples/naples-1.webp" alt="Harbor view of Naples, Italy" loading="lazy">
-          <figcaption>
-            Harbor view of Naples, Italy
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
+      <!-- Excursions Section -->
+      <section class="port-section" id="excursions">
+        <h2>Top Excursions &amp; Things to Do</h2>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: Pompeii requires advance tickets during peak season—book at ticketone.it. Ship excursions handle logistics but cost more than independent visits. The Amalfi Coast journey is long; only attempt independently if comfortable with Italian driving conditions.</p>
+
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Pompeii Archaeological Site ($20-40)</h4>
+        <p>ESSENTIAL for first-time visitors. The ancient Roman city preserved by Vesuvius's AD 79 eruption covers 170 acres of streets, homes, temples, and public buildings. Highlights include the Forum, House of the Faun with its famous mosaics, the brothel with its explicit frescoes, the amphitheater, and the Garden of the Fugitives with plaster casts of victims. Book timed-entry tickets at ticketone.it during peak season. Allow 3-4 hours minimum; serious archaeology enthusiasts could spend all day. Bring water—shade is limited and summer heat intense.</p>
+
+        <figure class="logbook-image">
+          <img src="/ports/img/naples/naples-4.webp" alt="The Roman Forum at Pompeii with columns and Mount Vesuvius visible in the background" loading="lazy"/>
+          <figcaption>Pompeii's Forum with Vesuvius looming — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
         </figure>
-        <figure class="gallery-item">
-          <img src="img/naples/naples-2.webp" alt="Waterfront scenery of Naples, Italy" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Naples, Italy
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/naples/naples-3.webp" alt="Port panorama of Naples, Italy" loading="lazy">
-          <figcaption>
-            Port panorama of Naples, Italy
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/naples/naples-4.webp" alt="Coastal landscape of Naples, Italy" loading="lazy">
-          <figcaption>
-            Coastal landscape of Naples, Italy
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
 
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>naples-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>naples-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>naples-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>naples-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Herculaneum ($15-25)</h4>
+        <p>Pompeii's smaller neighbor offers better preservation and fewer crowds. The volcanic mud that buried Herculaneum preserved wooden furniture, food, and building materials that ash couldn't protect at Pompeii. The site is more compact (can be explored in 2 hours), easier to navigate, and often less crowded. Ideal for visitors who've already seen Pompeii or prefer intimate exploration over epic scale. Circumvesuviana train to Ercolano Scavi station.</p>
 
-    <section class="port-section author-note-disclaimer">
-      <h3>Author's Note</h3>
-      <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-    </section>
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Mount Vesuvius Crater Hike ($15-30)</h4>
+        <p>Climb to the rim of Europe's most famous volcano for crater views and panoramic vistas of the Bay of Naples. Buses run from Pompeii or Naples to the crater parking area; from there, a 20-30 minute hike reaches the summit. The path is steep and can be slippery—proper footwear essential. Combine with Pompeii for a full archaeological-geological day. Not recommended in extreme heat or for those with mobility limitations.</p>
 
-  </article>
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">National Archaeological Museum ($15-20)</h4>
+        <p>Houses the world's finest collection of Roman artifacts, including treasures too fragile to remain at Pompeii and Herculaneum. The Alexander Mosaic, Farnese Bull, Secret Cabinet of erotic art, and countless everyday objects bring ancient life into vivid focus. Located in Naples' historic center, walkable from the port for confident urban explorers. Allow 2-3 hours for highlights; art lovers could spend all day.</p>
 
-    <!-- FAQ Section -->
-    <section class="card" id="faq" style="margin-top: 2rem;">
-      <h2>Frequently Asked Questions</h2>
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Amalfi Coast Day Trip ($100-200)</h4>
+        <p>The legendary coastal road connects Positano, Amalfi, and Ravello—villages clinging to cliffs above impossibly blue water. However, the journey from Naples takes 90-120 minutes each way on winding roads. Ship excursions handle the challenging driving and provide photo stops. Independent visits require renting cars, hiring drivers, or navigating ferry schedules. Expect motion sickness on the curves. Beautiful but exhausting for a single port day.</p>
 
-      <details style="margin: 0.75rem 0; padding: 0.75rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600;">Should I book a ship excursion or go independently?</summary>
-        <p style="margin: 0.5rem 0 0; padding-left: 1rem;">For Pompeii, independent is easy and cheaper. For the Amalfi Coast, ship excursions or private drivers are better — the roads are difficult and distances deceiving. Ship excursions guarantee you won't miss the ship.</p>
-      </details>
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Naples Pizza Walking Tour ($40-60)</h4>
+        <p>Guided tours of Naples' legendary pizzerias introduce visitors to the city's culinary heart. Visit historic establishments like Da Michele, Sorbillo, or Di Matteo. Learn the difference between marinara and margherita, why Naples pizza is protected by law, and why the volcanic soil matters. A delicious alternative to archaeological overload, and a memorable way to experience authentic Neapolitan culture.</p>
+      </section>
 
-      <details style="margin: 0.75rem 0; padding: 0.75rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600;">How much time do I need at Pompeii?</summary>
-        <p style="margin: 0.5rem 0 0; padding-left: 1rem;">Minimum 2–3 hours for highlights, 4–5 hours to see most of it properly. The site is massive (163 acres). Wear comfortable shoes and bring water — there's little shade.</p>
-      </details>
+      <!-- Depth Soundings Section -->
+      <section class="port-section" id="depth-soundings">
+        <h2>Depth Soundings</h2>
+        <p>Practical details and honest assessments for planning your Naples day.</p>
+        <ul>
+          <li><strong>Choice paralysis is real:</strong> Pompeii OR Herculaneum OR Amalfi OR Naples itself—don't try to combine too much. Each destination deserves focused attention. Most first-timers should choose Pompeii; return visitors might explore Herculaneum or Naples' museums.</li>
+          <li><strong>Pompeii exhaustion:</strong> The site is massive, often hot, and offers limited shade. Bring water, wear comfortable shoes, and don't underestimate the physical demands. A guided tour helps maximize limited time and energy.</li>
+          <li><strong>Naples safety reality:</strong> The city's reputation for petty crime is somewhat outdated but not entirely unfounded. Keep valuables secure, avoid displaying expensive jewelry, and stay aware of surroundings in crowded areas. The historic center is generally safe for tourists during daylight.</li>
+          <li><strong>Circumvesuviana train tips:</strong> Trains can be crowded, hot, and occasionally delayed. Buy round-trip tickets to save time. Watch belongings carefully on crowded trains. The journey is fine for adventurous travelers but adds stress compared to organized transport.</li>
+          <li><strong>Amalfi Coast reality check:</strong> The drive is genuinely long and winding. Motion sickness is common. The villages are beautiful but crowded during cruise season. If you have only one day, Pompeii offers more unique value—the Amalfi Coast resembles other Mediterranean coastal scenery, while Pompeii exists nowhere else on earth.</li>
+          <li><strong>Pizza priorities:</strong> Even if you're rushing to Pompeii, budget 30 minutes for authentic Neapolitan pizza. This is where pizza was invented; eating it here provides context impossible to replicate elsewhere.</li>
+        </ul>
+      </section>
 
-      <details style="margin: 0.75rem 0; padding: 0.75rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600;">Can I do both Pompeii and the Amalfi Coast?</summary>
-        <p style="margin: 0.5rem 0 0; padding-left: 1rem;">It's possible but extremely rushed — you'd get snapshots of each rather than real experiences. Most people choose one. If it's your only visit, Pompeii is often recommended as harder to replicate elsewhere.</p>
-      </details>
+      <!-- FAQ Section -->
+      <section class="port-section faq-section" id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <details class="faq-item"><summary>Should I choose Pompeii or the Amalfi Coast?</summary><p>Pompeii for first-time visitors—nothing else like it exists on earth. The Amalfi Coast is beautiful but resembles other Mediterranean coastlines, while Pompeii offers a unique archaeological experience impossible to replicate. Save the Amalfi Coast for a future trip or a day when you have more time.</p></details>
+        <details class="faq-item"><summary>Can I visit Pompeii independently via train?</summary><p>Yes. The Circumvesuviana train runs regularly from Naples to Pompei Scavi station (35 minutes, €3.60). From there, the site entrance is a short walk. Buy tickets in advance during peak season. Budget 3-4 hours at the site plus transit time.</p></details>
+        <details class="faq-item"><summary>Is Naples safe for cruise passengers?</summary><p>Generally yes, with normal urban precautions. Keep valuables secure, don't display expensive jewelry, stay aware in crowded areas. The tourist center is well-patrolled during daylight. Organized excursions eliminate most safety concerns for nervous travelers.</p></details>
+        <details class="faq-item"><summary>What's the difference between Pompeii and Herculaneum?</summary><p>Pompeii is larger (170 acres vs. 12) with more variety—forums, temples, amphitheater, streets. Herculaneum is better preserved, with intact wooden furniture and two-story buildings. First-timers should choose Pompeii; archaeology enthusiasts or return visitors often prefer Herculaneum's intimacy.</p></details>
+        <details class="faq-item"><summary>Where should I eat pizza in Naples?</summary><p>Da Michele (the "Eat Pray Love" pizzeria) serves only marinara and margherita—expect lines but quick service. Sorbillo offers more variety and excellent quality. Di Matteo serves famous fried pizza. Any will provide an authentic experience. Budget €5-10 per pizza.</p></details>
+      </section>
 
-      <details style="margin: 0.75rem 0; padding: 0.75rem 0;">
-        <summary style="cursor: pointer; font-weight: 600;">Where should I eat pizza?</summary>
-        <p style="margin: 0.5rem 0 0; padding-left: 1rem;">The historic pizzerias are Da Michele (famous from "Eat Pray Love," expect lines), Sorbillo, and Di Matteo. Any place on Via dei Tribunali with locals eating is a safe bet. Expect to pay €4–8 for a pizza.</p>
-      </details>
-    </section>
+      <!-- Gallery Section -->
+      <section class="port-section photo-gallery" id="gallery">
+        <h2>Photo Gallery</h2>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/naples/naples-hero.webp" alt="Naples waterfront with Mount Vesuvius in the background" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/naples/naples-1.webp" alt="Mount Vesuvius rising above the Bay of Naples" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/naples/naples-2.webp" alt="Ancient Pompeii street with preserved Roman buildings" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/naples/naples-3.webp" alt="Authentic Neapolitan pizza margherita" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/naples/naples-4.webp" alt="Roman Forum at Pompeii with Vesuvius" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/naples/naples-5.webp" alt="Herculaneum archaeological site preserved in volcanic mud" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/naples/naples-6.webp" alt="Naples Spanish Quarter narrow streets with laundry" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/naples/naples-7.webp" alt="National Archaeological Museum Roman artifacts" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/naples/naples-8.webp" alt="Amalfi Coast cliffside villages above the sea" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/naples/naples-9.webp" alt="Vesuvius crater rim with sulfurous vents" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/naples/naples-10.webp" alt="Plaster casts of Pompeii eruption victims" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/naples/naples-11.webp" alt="Naples waterfront promenade at sunset" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+      </section>
 
-    <!-- JSON-LD: FAQPage -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Should I book a ship excursion or go independently?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "For Pompeii, independent is easy and cheaper. For the Amalfi Coast, ship excursions or private drivers are better due to difficult roads."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How much time do I need at Pompeii?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Minimum 2–3 hours for highlights, 4–5 hours to see most of it properly. The site is 163 acres."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I do both Pompeii and the Amalfi Coast?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "It's possible but extremely rushed. Most people choose one. Pompeii is often recommended as harder to replicate elsewhere."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Where should I eat pizza?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Da Michele, Sorbillo, and Di Matteo are famous. Any place on Via dei Tribunali with locals eating is a safe bet. Expect €4–8 for a pizza."
-          }
-        }
-      ]
-    }
-    </script>
+      <!-- Author's Note Disclaimer (Level 1: Not Visited) -->
+      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+        <h3>Author's Note</h3>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+          Until I have sailed this port myself, these notes are soundings in another's wake; carefully curated and edited to meet our standards. We believe they are helpful for planning, and marked for revision once I've logged my own steps ashore.
+        </p>
+      </aside>
 
-    <!-- Back to Ports -->
+    </article>
+  </div>
+
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
     <section class="page-intro" style="margin: 0 0 1rem 0;">
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Naples is the gateway to Pompeii (30 min), the Amalfi Coast, and Sorrento. The city itself offers world-class pizza, the National Archaeological Museum, and authentic Italian chaos. Ships dock at Stazione Marittima, near the historic center.
+        <strong>Quick Answer:</strong> Naples serves as gateway to Pompeii (35 min by train), Herculaneum, Mount Vesuvius, and the Amalfi Coast. First-timers should prioritize Pompeii—nothing else like it exists. The city itself offers world-class pizza and the Archaeological Museum. Ship excursions simplify logistics; independent train travel to Pompeii is straightforward for confident travelers.
       </p>
     </section>
-        <section class="card author-card-vertical" aria-labelledby="author-heading">
+    <section class="card author-card-vertical" aria-labelledby="author-heading">
       <h3 id="author-heading">About the Author</h3>
       <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
         <picture>
@@ -443,36 +317,30 @@ All work on this project is offered as a gift to God.
       </p>
     </section>
 
-    <!-- Nearby Ports Rail -->
     <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
-        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Other ports in this region:
-        </p>
-        <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
-      </section>
-
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-
-
-    <!-- Whimsical Distance Units -->
-    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+      <h3 id="nearby-ports-title">Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Other ports in this region:
+      </p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
     </section>
 
+    <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Real cruising experiences, practical guides, and heartfelt reflections from our community.
+      </p>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+    </section>
+
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
   </aside>
 
-    <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+  <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
   </main>
 
-    <footer class="wrap" role="contentinfo">
+  <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny" style="margin-top: 0.5rem;">
       <a href="/privacy.html">Privacy</a> ·
@@ -480,190 +348,44 @@ All work on this project is offered as a gift to God.
       <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
-    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+    <p class="soli-deo-gloria">Soli Deo Gloria</p>
   </footer>
 
-  <script>
-    // Load recent articles
-    (async function() {
-      try {
-        const response = await fetch('/assets/data/articles/index.json');
-        const articles = await response.json();
-        const rail = document.getElementById('recent-rail');
-
-        if (rail && articles && articles.length > 0) {
-          rail.innerHTML = articles.slice(0, 5).map(article => `
-            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
-                <a href="${article.url}">${article.title}</a>
-              </h4>
-              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
-            </div>
-          `).join('');
-        }
-      } catch (err) {
-        console.log('Could not load articles:', err);
-      }
-    })();
-  </script>
-
-  <script>
-  (function(){
-    "use strict";
-
-    /* ===== Recent Articles Rail ===== */
-    (async function recentRail(){
-      const rail = document.getElementById('recent-rail');
-      if(!rail) return;
-
-      const fallback = document.getElementById('recent-rail-fallback');
-      if(fallback) fallback.style.display = '';
-
-      async function fetchJSONWithFallback(urls){
-        for (const u of urls){
-          try{
-            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
-            if (res.ok) return await res.json();
-          }catch(err){
-
-          }
-        }
-        return null;
-      }
-
-      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
-
-      function setImageWithFallback(imgEl, primary, altPaths=[]){
-        if(!imgEl) return;
-        const stamp='v=3.010.400';
-        const tried=new Set();
-        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
-        function tryNext(){
-          const next=queue.shift();
-          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
-          if(tried.has(next)) return tryNext();
-          tried.add(next);
-          imgEl.src=next;
-        }
-        imgEl.onerror=tryNext;
-        tryNext();
-      }
-
-      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
-      if(!raw) {
-        if(fallback) {
-          fallback.textContent = 'Unable to load articles';
-          fallback.style.display = '';
-        }
-        return;
-      }
-
-      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-      if(!items.length) return;
-
-      const here = location.pathname.replace(/\/+$/,'');
-      const view = items.filter(p=>{
-        const href = pick(p,['url','path'],'#');
-        const norm = (href||'').replace(/\/+$/,'');
-        return norm && norm !== here;
-      }).slice(0,6);
-
-      rail.innerHTML = view.map(p=>{
-        const title = pick(p,['title','name'],'Article');
-        const href  = pick(p,['url','path'],'#');
-        const excerpt = pick(p,['excerpt','description'],'');
-        return `
-          <article class="card article-card">
-            <div class="article-card-grid">
-              <div class="article-thumb-wrap">
-                <img class="article-thumb" alt="" decoding="async" loading="lazy">
-              </div>
-              <div class="article-card-body">
-                <h4><a href="\${href}">\${title}</a></h4>
-                \${excerpt ? `<p class="tiny excerpt">\${excerpt}</p>` : ''}
-              </div>
-            </div>
-            <a href="\${href}" class="pill read-more">Read Article →</a></article>`;
-      }).join('');
-
-      const cards = [...rail.querySelectorAll('article.card')];
-      cards.forEach((card,i)=>{
-        const p = view[i] || {};
-        const el = card.querySelector('img.article-thumb');
-        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
-        const title = (pick(p,['title','name'],'')||'').toLowerCase();
-
-        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
-
-        // FORCE override for Top-20
-        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
-          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
-        }
-        // Friendly specifics
-        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
-        }
-        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
-          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
-        }
-        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-          primary = '/assets/articles/travel/cover.jpg';
-        }
-
-        // Heuristic fallback
-        if(!primary){
-          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
-          const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
-        }
-
-        const alts = [];
-        if(primary){
-          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
-        }
-        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
-      });
-
-      if(fallback) fallback.style.display = 'none';
-
-      // Announce to screen readers
-      const status = document.getElementById('a11y-status');
-      if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
-      }
-    })();
-  })();
-  </script>
-
-  <!-- Nearby Ports Script -->
-  <script>window.currentPortId = 'naples';</script>
-  <script src="/assets/js/nearby-ports.js"></script>
-
-  <!-- Navigation Dropdown Script -->
-  <script src="/assets/js/dropdown.js"></script>
-
-  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="/assets/js/dropdown.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
-
-  <!-- Whimsical Distance Units Script -->
-  <script src="/assets/js/whimsical-port-units.js"></script>
-
-  <!-- Leaflet JS for interactive maps -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="/assets/js/modules/port-map.js"></script>
-
-  <!-- Initialize Naples Port Map -->
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script src="/assets/js/nearby-ports.js" defer></script>
+  <script src="/assets/js/recent-rail.js" defer></script>
+  <script src="/assets/js/whimsical-port-units.js" defer></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
-      PortMap.init({
-        containerId: 'naples-port-map',
-        portSlug: 'naples'
+    document.addEventListener('DOMContentLoaded', function() {
+      new Swiper('.gallery-swiper', {
+        loop: true,
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        keyboard: { enabled: true },
+        a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
       });
-    }
-  });
+      if (typeof PortMap !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'naples' });
+      }
+    });
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "Should I choose Pompeii or the Amalfi Coast?", "acceptedAnswer": {"@type": "Answer", "text": "Pompeii for first-time visitors—nothing else like it exists. The Amalfi Coast is beautiful but resembles other coastlines, while Pompeii is unique."}},
+      {"@type": "Question", "name": "Can I visit Pompeii independently via train?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Circumvesuviana trains run regularly from Naples to Pompei Scavi (35 min, €3.60). Buy tickets in advance during peak season."}},
+      {"@type": "Question", "name": "Is Naples safe for cruise passengers?", "acceptedAnswer": {"@type": "Answer", "text": "Generally yes with normal urban precautions. Keep valuables secure and stay aware in crowded areas. The tourist center is well-patrolled."}},
+      {"@type": "Question", "name": "What's the difference between Pompeii and Herculaneum?", "acceptedAnswer": {"@type": "Answer", "text": "Pompeii is larger with more variety. Herculaneum is smaller but better preserved with intact wooden furniture. First-timers should choose Pompeii."}},
+      {"@type": "Question", "name": "Where should I eat pizza in Naples?", "acceptedAnswer": {"@type": "Answer", "text": "Da Michele, Sorbillo, or Di Matteo all offer authentic experiences. Budget €5-10 per pizza."}}
+    ]
+  }
+  </script>
 </body>
 </html>
