@@ -80,7 +80,7 @@ def fix_port_page(file_path):
         </a>
         <div>
           <h4 style="margin: 0 0 0.25rem;"><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-          <p style="margin: 0; font-size: 0.85rem; color: #666;">Founder of In the Wake. 50+ sailings and counting.</p>
+          <p style="margin: 0; font-size: 0.85rem; color: #666;">Founder of In the Wake. Seasoned cruiser and counting.</p>
         </div>
       </div>
     </section>
