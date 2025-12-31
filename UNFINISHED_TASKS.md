@@ -1632,14 +1632,14 @@ Soli Deo Gloria
 | Accessibility Depth | ⭐ Market gap across all competitors | OPPORTUNITY — become THE resource |
 | Faith-Based Perspective | ⭐ No competitor addresses this | NICHE — continue developing |
 
-#### Consolidated Recommendations: 40 items
-- **P1 Quick Wins:** #1-6, #30-31 (tender index, trust messaging, offline marketing, review stamps)
+#### Consolidated Recommendations: 42 items
+- **P1 Quick Wins:** #1-6, #30-31, #41 (tender index, trust messaging, offline marketing, review stamps, accessibility equipment)
 - **P2 Strategic:** #7-19, #36-38 (transport, print CSS, structure audit, AI-proofing)
-- **P3 Content:** #20-29, #32-35 (tools, ship-port guides, embarkation, cross-links)
+- **P3 Content:** #20-29, #32-35, #42 (tools, ship-port guides, embarkation, cross-links, loyalty guide)
 - **P4 Extended:** #39-40 (newsletter, Stateroom Checker enhancement)
 
-#### "NOT Building" Summary: 20 items rejected
-User reviews, forums, booking/deals, native app, real-time tracking, affiliate links, AI-generated content, PDF-first strategy, incident database, port schedules by date, live ships-in-port, complex port planner, full YouTube, tour booking, OTA features, news churn, single-line focus
+#### "NOT Building" Summary: 24 items rejected
+User reviews, forums, booking/deals, native app, real-time tracking, affiliate links, AI-generated content, PDF-first strategy, incident database, port schedules by date, live ships-in-port, complex port planner, full YouTube, tour booking, OTA features, news churn, single-line focus, solo meetup coordination, dynamic packing app, full itinerary builder, equipment rental booking
 
 ---
 
