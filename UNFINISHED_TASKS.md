@@ -2274,9 +2274,159 @@ CruiseMapper's moat is real-time ship tracking and comprehensive technical data.
 
 ---
 
+### 🟢 [G] Competitor Gap Analysis: IQCruising (NEW - 2025-12-31)
+**Lane:** 🟢 Green (feature planning, content strategy)
+**Analysis Date:** 2025-12-31
+**Competitor:** [IQCruising.com](https://www.iqcruising.com/) + [CruisePortIQ App](https://cruiseportiq.com/) — "Maps and Guides for Travelers"
+
+#### Context
+IQCruising is a port guide site operated by Independent Quest LLC (Fort Lauderdale, FL), founded with "over 20 years of professional experience in the cruise industry" ([About IQCruising](https://www.iqcruising.com/about.html)). Unlike community-driven sites like Cruise Critic, IQCruising maintains **strict editorial control** — "the content of IQCruising.com is NOT created by visitor contributions or reviews." Their focus is Europe and Caribbean ports with downloadable PDF maps. They've also launched **CruisePortIQ**, a mobile app covering 2,000+ ports with AI-generated overviews and offline access ($4.99/year premium) ([App Store](https://apps.apple.com/us/app/cruise-planner-cruise-port-iq/id6751407310)).
+
+---
+
+#### PART A: Table Stakes (Match What They Do Well)
+
+##### A1. Detailed "At the Pier" Terminal Guides ⭐ THEIR STRENGTH
+**IQCruising strength:** Per their port guides ([Nassau](https://www.iqcruising.com/ports/caribbean/bahamas/nassau/at-the-pier.html), [Venice](https://www.iqcruising.com/ports/europe/italy/venice/at-the-pier-venice-cruise-port.html)), each port has dedicated "At the Pier" pages with:
+- Exact walking distances: "distance between the docking spots at the piers and the terminal varies between 50 and 300 meters"
+- Shuttle availability: "the port provides shuttles to the Terminal Building"
+- Terminal amenities and services
+**Current In The Wake state:** Walking distances mentioned in prose but not in standardized format
+**Assessment:** Already planned in WhatsInPort recommendations (#7 "From the Pier" component)
+**Tasks:** Already documented — continue "From the Pier" component development
+
+##### A2. Downloadable PDF Maps
+**IQCruising strength:** Per [About page](https://www.iqcruising.com/about.html): "PDF Maps of Ports and Destinations" in three formats — SmartPhone, Tablet, Desktop
+**Current In The Wake state:** Print CSS planned (recommendation #8) but no standalone PDF downloads
+**Assessment:** PDF downloads are nice-to-have but web-first is correct strategy
+**Tasks:**
+- [ ] Evaluate PDF generation for top 20 ports after print CSS is complete
+- [ ] Consider single-page "Port Quick Reference" PDF per port
+- [ ] Lower priority than web experience improvements
+
+##### A3. Structured Content Categories
+**IQCruising strength:** Consistent structure per port: "At the Pier, Weather, Transportation, Sightseeing, Tours, Highlights, Restaurants, Shopping, Facts, Basics"
+**Current In The Wake state:** Port pages have good content but structure varies
+**Assessment:** Standardized structure improves user experience and content production
+**Tasks:**
+- [ ] Audit port page structure for consistency across all 291 ports
+- [ ] Create standardized port page template with consistent sections
+- [ ] Ensure all ports have: Getting There, Getting Around, Highlights, My Logbook sections
+
+##### A4. Photo Galleries
+**IQCruising strength:** "Photo Galleries with great photos" per each port
+**Current In The Wake state:** Hero images on ports; some have galleries
+**Assessment:** Already have visual content strategy
+**Tasks:** Continue expanding photo galleries per existing roadmap
+
+---
+
+#### PART B: Unique Niche Opportunities (Gaps IQCruising Cannot Fill)
+
+##### B1. Ship Content Integration ⭐ CORE DIFFERENTIATOR
+**IQCruising gap:** Zero ship content — no ship pages, no deck plans, no ship selection tools
+**In The Wake strength:** 178 ship pages, deck plans, 500+ videos, Ship Selection Quiz, Stateroom Checker
+**Why it matters:** IQCruising answers "What's at this port?" but not "What ship should I sail on?"
+**Tasks:** Already documented — continue ship-port integration ("Ships That Visit Here")
+
+##### B2. First-Person Narrative & Emotional Connection ⭐ CORE DIFFERENTIATOR
+**IQCruising gap:** Professional but impersonal — no author voice, no "My Logbook" personal stories
+**In The Wake strength:** Ken Baker's first-person logbook entries, "The Moment That Stays With Me"
+**Why it matters:** IQCruising tells you WHAT to do; In The Wake tells you WHY it matters
+**Example:** IQCruising's Nassau overview is factual: "has a lot to offer both in quality and diversity" — but lacks emotional resonance
+**Tasks:** Already documented — continue single-voice storytelling
+
+##### B3. Interactive Planning Tools ⭐ UNIQUE FEATURE
+**IQCruising gap:** No calculators, quizzes, or personalized recommendations — just static content
+**CruisePortIQ has:** Itinerary countdown, favorites — but no decision-support tools
+**In The Wake strength:** Drink Calculator, Ship Selection Quiz, Stateroom Checker, Packing Lists
+**Tasks:** Already documented — continue tool development
+
+##### B4. Gamification & Journey Tracking ⭐ UNIQUE FEATURE
+**IQCruising gap:** No user engagement features — download PDF and you're done
+**CruisePortIQ has:** Favorites and bookmarks — but no achievements or journey tracking
+**In The Wake strength:** Port Logbook + Ship Logbook with achievement badges, percentile rankings
+**Opportunity:** Transform port planning from transactional to journey-based
+**Tasks:** Already documented — continue gamification development
+
+##### B5. Restaurant & Dining Depth ⭐ UNIQUE FEATURE
+**IQCruising gap:** "Restaurants" section exists but no detailed venue pages with menus/pricing
+**In The Wake strength:** 215+ restaurant pages with full menus, pricing, reviews
+**Tasks:** Already documented — continue dining venue development
+
+##### B6. Accessibility Information ⭐ MARKET GAP
+**IQCruising gap:** Walking distances mentioned but no wheelchair access, mobility ratings, or accessibility focus
+**In The Wake strength:** WCAG 2.1 AA compliance, accessibility.html, disability-at-sea.html
+**Opportunity:** Add mobility ratings to IQCruising-style distance info (e.g., "500m, mostly flat, cobblestones in old town")
+**Tasks:** Already documented — continue accessibility depth
+
+##### B7. Faith-Based Perspective ⭐ UNIQUE NICHE
+**IQCruising gap:** Secular, professional content
+**In The Wake strength:** "Soli Deo Gloria" foundation, pastoral content
+**Tasks:** Already documented — continue faith-based content
+
+##### B8. Weather Integration
+**IQCruising gap:** Static "Weather" pages with seasonal info but no live data
+**CruisePortIQ has:** Live weather conditions
+**In The Wake planned:** Port Weather Guide with Open-Meteo API integration (already in roadmap)
+**Tasks:** Already documented in Port Weather Guide section
+
+##### B9. Web-First Experience vs. PDF-Centric
+**IQCruising approach:** Web is vehicle for PDF downloads — "formatted for SmartPhone, Tablet, or Desktop"
+**In The Wake approach:** Web-first with PWA offline capability
+**Why it matters:** PWA is more maintainable, always current, and works offline without downloading
+**Opportunity:** Market "Works Offline" as alternative to PDF downloads
+**Tasks:** Already documented in recommendation #6 ("Works Offline" marketing)
+
+---
+
+#### What They Do Better (Learn From)
+
+| Feature | IQCruising | In The Wake | Action |
+|---------|------------|-------------|--------|
+| **"At the Pier" structure** | Dedicated section with exact distances | Distances in prose | Continue "From the Pier" component (#7) |
+| **PDF downloads** | Three format options | Planned (print CSS) | Evaluate PDF generation post-print CSS |
+| **Content consistency** | Same 10 categories per port | Varies by port | Audit and standardize port structure |
+| **Editorial control** | Strict editorial criteria | Single voice | Already aligned — both reject crowdsourcing |
+| **Industry experience** | 20+ years professional | Personal cruiser perspective | Different angles, both valid |
+
+---
+
+#### Priority Matrix
+
+| Feature | Effort | Impact | Priority |
+|---------|--------|--------|----------|
+| Port page structure audit | Medium | Medium | P2 |
+| PDF generation (post-print CSS) | Medium | Low | P3 |
+| "From the Pier" component | Medium | High | P1 (already planned) |
+| "Works Offline" marketing | Low | High | P1 (already planned) |
+
+---
+
+#### Strategic Summary
+
+**IQCruising = Professional Port Utility + PDF Downloads**
+**In The Wake = Personal Journey + Ship Integration + Interactive Tools**
+
+IQCruising is the closest competitor in philosophy — they also reject crowdsourced content in favor of editorial control. However, they're entirely port-focused with no ship content, no interactive tools, and no personal narrative. Their PDF-centric approach ("download and go") contrasts with In The Wake's web-first PWA strategy.
+
+**Key insight:** IQCruising's professional industry experience gives them credibility, but their impersonal tone creates opportunity. In The Wake's single-voice storytelling + ship integration + gamification creates a fundamentally different (and more engaging) experience.
+
+**What to adopt:**
+1. Port page structure consistency (audit and standardize)
+2. Evaluate PDF generation after print CSS (low priority)
+3. Continue "From the Pier" component (already planned)
+
+**What NOT to adopt:**
+- PDF-centric strategy (web-first is better)
+- Impersonal professional tone (personal storytelling is our moat)
+- Port-only focus (ship integration is unique differentiator)
+
+---
+
 ### 🟢 [G] Consolidated Competitor Analysis Recommendations (NEW - 2025-12-31)
 **Lane:** 🟢 Green (feature implementation)
-**Source:** WhatsInPort + Cruise Critic + Cruiseline.com + CruiseMapper competitor analyses above
+**Source:** WhatsInPort + Cruise Critic + Cruiseline.com + CruiseMapper + IQCruising competitor analyses above
 **Purpose:** Actionable task list combining insights from all competitor analyses
 
 ---
@@ -2438,11 +2588,19 @@ CruiseMapper's moat is real-time ship tracking and comprehensive technical data.
 - [ ] Consider brief, factual context on major refurbishments (e.g., "refurbished after [incident]")
 - [ ] Focus on informed awareness, not fear — transparency builds trust
 
+##### 19. Port Page Structure Audit
+**Source:** IQCruising A3
+**Effort:** Medium | **Impact:** Medium
+- [ ] Audit port page structure for consistency across all 291 ports
+- [ ] Create standardized port page template with consistent sections
+- [ ] Ensure all ports have: Getting There, Getting Around, Highlights, My Logbook sections
+- [ ] IQCruising uses 10 consistent categories per port — adapt for In The Wake voice
+
 ---
 
 #### P2 — Tools & Calculators
 
-##### 19. Cruise Budget Calculator
+##### 20. Cruise Budget Calculator
 **Source:** Cruise Critic B5
 **Effort:** Medium | **Impact:** Medium
 - [ ] Create interactive budget planning tool
@@ -2536,6 +2694,8 @@ These features were considered but rejected based on strategic analysis:
 | Real-time ship tracking | Different product category; AIS integration out of scope | CruiseMapper |
 | Incident database | Too morbid; "Real Talk" approach is better fit | CruiseMapper |
 | Port schedules by date | Requires live data integration; static deployment is sufficient | CruiseMapper |
+| PDF-first strategy | Web-first PWA is better; PDF as supplement only | IQCruising |
+| AI-generated content | Personal storytelling is our moat; AI can't replicate | CruisePortIQ |
 
 ---
 
@@ -2555,18 +2715,19 @@ These features were considered but rejected based on strategic analysis:
 - Transport cost component (#10)
 - Ship quick-facts audit (#17)
 - "Real Talk" sections research (#18)
+- Port page structure audit (#19)
 
 **Phase 3 (Medium-term):**
 - Add to Logbook button (#11)
 - DIY vs. Excursion (#12)
 - Accessibility sections (#14)
-- Budget Calculator (#19)
+- Budget Calculator (#20)
 
 **Phase 4 (Ongoing):**
-- Ship-Port combined guides (#24)
-- Faith-based content (#23)
-- Tool enhancements (#20, #21)
-- Countdown widget (#27 — optional)
+- Ship-Port combined guides (#25)
+- Faith-based content (#24)
+- Tool enhancements (#21, #22)
+- Countdown widget (#28 — optional)
 
 ---
 
