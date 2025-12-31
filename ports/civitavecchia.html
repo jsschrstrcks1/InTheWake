@@ -1,52 +1,26 @@
 <!--
 Soli Deo Gloria
-All work on this project is offered as a gift to God.
-"Trust in the LORD with all your heart, and do not lean on your own understanding." — Proverbs 3:5
-"Whatever you do, work heartily, as for the Lord and not for men." — Colossians 3:23
 -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="referrer" content="no-referrer-when-downgrade"/>
-
-  <!-- ICP-Lite v1.4 -->
-  <meta name="ai-summary" content="First-person logbook guide to Civitavecchia — Rome's ancient gateway port with 3,000 years of history. Vatican, Sistine Chapel, Colosseum, Roman Forum day-trip logistics from Trajan's harbor."/>
-  <meta name="last-reviewed" content="2025-12-26"/>
+  <meta name="ai-summary" content="Civitavecchia cruise port guide covering Rome day trips to Vatican, Colosseum, and Roman Forum, plus Trajan's ancient harbor, Fort Michelangelo, and local seafood."/>
+  <meta name="last-reviewed" content="2025-12-31"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
-
-  <!-- SEO -->
-  <title>Civitavecchia (Rome) Port Guide — Vatican & Colosseum | In the Wake</title>
-  <meta name="description" content="First-person logbook guide to Civitavecchia — gateway to Rome's 3,000 years of history. Tips for Vatican, Colosseum, Roman Forum, plus Trajan's ancient harbor and day-trip logistics."/>
+  <title>Civitavecchia (Rome) Port Guide — Gateway to the Eternal City | In the Wake</title>
+  <meta name="description" content="Civitavecchia cruise port guide covering Rome day trips to Vatican, Colosseum, and Roman Forum, plus Trajan's ancient harbor, Fort Michelangelo, and local seafood."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/civitavecchia.html"/>
-
-  <!-- OpenGraph -->
-  <meta property="og:type" content="article"/>
-  <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:title" content="Civitavecchia (Rome) Port Guide"/>
-  <meta property="og:description" content="Gateway to 3,000 years of Roman history — Vatican, Colosseum, ancient Trajan's Harbor, and day-trip logistics from Civitavecchia."/>
-  <meta property="og:url" content="https://cruisinginthewake.com/ports/civitavecchia.html"/>
-
-  <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
-
-  <!-- Global CSS -->
-  <!-- Service Worker Registration -->
   <script>
   if('serviceWorker' in navigator){
     window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
   }
   </script>
-
   <link rel="stylesheet" href="/assets/styles.css"/>
-
-  <!-- Leaflet CSS for interactive maps -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-  <link rel="stylesheet" href="/assets/css/components/port-map.css"/>
-
-  <!-- JSON-LD: BreadcrumbList -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -58,76 +32,39 @@ All work on this project is offered as a gift to God.
     ]
   }
   </script>
-
-  <!-- JSON-LD: WebPage -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Civitavecchia (Rome) Port Guide",
+    "name": "Civitavecchia (Rome) Cruise Port Guide",
     "url": "https://cruisinginthewake.com/ports/civitavecchia.html",
-    "description": "First-person logbook guide to Civitavecchia — Rome's ancient gateway port with 3,000 years of history. Vatican, Sistine Chapel, Colosseum, Roman Forum day-trip logistics from Trajan's harbor.",
-    "dateModified": "2025-12-26",
+    "description": "Civitavecchia cruise port guide covering Rome day trips to Vatican, Colosseum, and Roman Forum, plus Trajan's ancient harbor, Fort Michelangelo, and local seafood.",
+    "dateModified": "2025-12-31",
     "mainEntity": {
       "@type": "Place",
       "name": "Civitavecchia",
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 42.0935,
-        "longitude": 11.7958
-      }
+      "geo": {"@type": "GeoCoordinates", "latitude": 42.0935, "longitude": 11.7958}
     }
   }
-  </script>
-
-  <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
-
-  <!-- Swiper CSS/JS (primary + CDN fallback) -->
-  <script>
-  (function ensureSwiper(){
-    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
-    function addJS(src, ok, fail){
-      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
-    }
-    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
-    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
-    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-    addCSS(primaryCSS);
-    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
-  })();
   </script>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
-  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook logo" decoding="async" loading="lazy"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
-      <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
-        <span class="nav-toggle-icon">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
+        <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
       </button>
       <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-
-        <!-- Planning Dropdown -->
         <div class="nav-dropdown" id="nav-planning">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Planning <span class="caret">&#9662;</span>
-          </button>
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
           <div class="dropdown-menu" role="menu">
             <a href="/planning.html">Planning (overview)</a>
             <a href="/ships.html">Ships</a>
@@ -141,295 +78,231 @@ All work on this project is offered as a gift to God.
             <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
-
-        <!-- Travel Dropdown -->
         <div class="nav-dropdown" id="nav-travel">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Travel <span class="caret">&#9662;</span>
-          </button>
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">&#9662;</span></button>
           <div class="dropdown-menu" role="menu">
             <a href="/travel.html">Travel (overview)</a>
             <a href="/solo.html">Solo</a>
           </div>
         </div>
-
         <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
         <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
-      </nav></div>
-
-    <!-- Hero -->
+      </nav>
+    </div>
     <div class="hero">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="Decorative compass rose navigation element" aria-hidden="true" decoding="async" loading="lazy"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logbook logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit">
-        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
-      </div>
     </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <div style="grid-column: 1; grid-row: 1;">
-    <article<!-- Breadcrumb -->
-    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;">
-      <ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;">
-        <li style="display: inline;"><a href="/">Home</a> &rsaquo; </li>
-        <li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li>
-        <li style="display: inline;" aria-current="page">Civitavecchia (Rome)</li>
-      </ol>
-    </nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Civitavecchia (Rome)</li></ol></nav>
 
-     class="card">
-      <!-- Port Hero with gradient background -->
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #8b4513 0%, #cd853f 35%, #daa520 70%, #f4a460 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
-        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 8vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Civitavecchia</div>
-      </div>
-
-      <h1>Civitavecchia: Gateway to the Eternal City</h1>
-
-      <div class="logbook-entry">
-        <p>Rome from a cruise ship is an exercise in time management and acceptable compromise. The Eternal City deserves weeks; you'll have hours. Civitavecchia sits 80 kilometers north of Rome (that's roughly 50 miles, or about 8,000 servings of cacio e pepe laid end-to-end, or 800 Colosseum arches in a row, or the distance you'd walk if you stopped for gelato 4,000 times) — a roughly one-hour train journey (about the time it takes to eat four margherita pizza slices properly, or roughly the duration of three espresso stops plus one panini break, or just enough time to practice saying "Quando parte il treno?" seventeen times) that serves as your gateway to three thousand years of accumulated human history. By the time you've docked, shuttled to the port gate, caught the train from Civitavecchia Marittima station into the city, and navigated to your first sight, half your morning is gone. This isn't to discourage you — Rome is worth every logistical hassle — but to set realistic expectations. You will not see everything. You will not see most things. You will see a few things well, and they will be extraordinary. You're accessing a city that has been continuously important since before the birth of Christ, where every street corner layers ancient Roman ruins beneath Renaissance palaces beneath Baroque churches beneath modern life. Even a glimpse of that accumulation changes you.</p>
-
-      <figure class="logbook-image float-right">
-        <img src="img/civitavecchia/civitavecchia-1.webp" alt="Civitavecchia harbor view" loading="lazy">
-        <figcaption>Civitavecchia — <a href="https://commons.wikimedia.org/w/index.php?search=Civitavecchia&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-
-        <p>I've done Rome from Civitavecchia twice. The first time, I booked a ship excursion and let someone else handle the logistics. We drove to the Vatican first thing, walked through the museums with a guide (skip-the-line tickets are essential), gaped at the Sistine Chapel, and emerged into St. Peter's Square feeling appropriately overwhelmed. Then we drove across the city to see the Colosseum and Forum from the outside — there wasn't time to go in — and made a quick stop at the Trevi Fountain before the long drive back. It was a greatest-hits tour, and I was exhausted and grateful in equal measure.</p>
-
-        <p>The second time, I went independent and made different choices. I took the train from Civitavecchia Marittima station to Roma San Pietro (€5, 80 minutes), which put me a short walk from the Vatican gates. I'd bought timed tickets to the Vatican Museums online three months earlier — this is not optional; walk-up lines can be 3–4 hours. I spent the entire morning in the Vatican: the Raphael Rooms with their Renaissance frescoes, the Gallery of Maps with its ceiling of gilt and geography, the Sistine Chapel (smaller than you expect, more overwhelming than you can imagine), and then St. Peter's Basilica itself — the largest church in Christendom, where Michelangelo's Pietà sits behind protective glass and the sheer scale of the interior defies your expectations even when you think you're prepared. I climbed to the dome for views over the entire Eternal City that justified every one of the 551 steps. From that height, you can see the Colosseum in the distance, the ancient amphitheater where gladiators fought before crowds of fifty thousand, and the sprawl of the Roman Forum — the heart of the empire, where senators debated, temples honored gods, and the entire machinery of Roman civilization once hummed with purpose.</p>
-
-      <figure class="logbook-image float-left">
-        <img src="img/civitavecchia/civitavecchia-2.webp" alt="Civitavecchia waterfront" loading="lazy">
-        <figcaption>Civitavecchia scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Civitavecchia&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-
-        <p>After the Vatican, I walked to Trastevere for lunch — a neighborhood that feels more Roman than the tourist center, with trattorias where locals actually eat. I had cacio e pepe, that simple pasta with pecorino and black pepper that Rome does better than anywhere, and a glass of house wine, and I watched the city go about its afternoon. Then I walked back to the station, knowing I wouldn't see the Colosseum this trip. And that was okay. The Colosseum will still be there.</p>
-
-        <p>Here's the truth about Civitavecchia: the 90-minute transfer each way means you lose three hours to transit. With an 8-hour port call, you have five hours in Rome — maybe six if you're efficient and lucky with traffic. In that time, you can do the Vatican properly (3–4 hours) OR the Colosseum/Forum/Palatine Hill (3 hours) plus a quick walk through the historic center (Pantheon, Piazza Navona, Trevi). You cannot do both Vatican and Colosseum with any depth. Choose based on your interests.</p>
-
-        <div class="poignant-highlight">
-          <strong>The Moment That Stays With Me:</strong> Standing in the Sistine Chapel, neck craned back, staring at the moment where God's finger nearly touches Adam's — that tiny gap between divine and human. The room was crowded and the guards kept shushing us, but for a moment I was alone with Michelangelo's ceiling, understanding why he spent four years on his back painting it. Art is supposed to make you feel small in the best way, to remind you that humans can create things that outlast us by centuries. The Sistine Chapel does that. It shrinks and expands you at once.
+  <div style="grid-column: 1; grid-row: 1;">
+    <article class="card">
+      <!-- Hero Section -->
+      <section class="port-hero" id="hero" aria-label="Civitavecchia cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+        <div class="port-hero-image" style="position: relative;">
+          <img src="/ports/img/civitavecchia/civitavecchia-hero.webp" alt="Fort Michelangelo guarding Civitavecchia harbor with cruise ships docked at the ancient port of Rome" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover; object-position: center;"/>
+          <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin: 0;">Civitavecchia</h1>
+          </div>
         </div>
-
-        <p>If you've already seen Rome, or if the logistics feel too daunting, Civitavecchia itself carries its own layers of Roman history worth exploring. The port you're docked at descends directly from Trajan's Harbor, established by Emperor Trajan in the 2nd century AD as Rome's primary maritime gateway — the same role it still serves two thousand years later. Fort Michelangelo, the honey-colored Renaissance fortress guarding the harbor entrance, was designed in part by Michelangelo himself in the early 1500s to defend this crucial port from Barbary pirates. You can walk the fortress ramparts, stand where Michelangelo stood, and look out over a harbor that has welcomed ships since the age of emperors. The old town has good seafood, gentle rhythms, and the particular pleasure of a place that knows it doesn't need to impress you — it's been important for three millennia regardless of whether you notice. Sometimes that quiet confidence is exactly what you need in the middle of a cruise.</p></invoke>
-
-        <p>For those going to Rome: book everything in advance. Vatican tickets, Colosseum tickets (if doing that instead), even restaurant reservations if you want a specific trattoria. Roman traffic is unpredictable; summer heat is brutal; lines at major sites can consume hours you don't have. The ship excursion provides peace of mind — if the bus is late, the ship waits. Independent travel requires watching time carefully and building in buffers. Miss the last train back, and you're in real trouble.</p>
-
-        <p>Rome is one of those places where even a brief, imperfect visit leaves you changed. The layers of history — ancient, medieval, Renaissance, Baroque, modern — exist simultaneously on every street corner. You'll walk past ruins that predate Christ on your way to get gelato. You'll see Bernini fountains that tourists barely notice because there are so many of them. Rome has been accumulating beauty for nearly three thousand years, and even an afternoon barely scratches the surface. But what a surface it is.</p>
-      </div>
-
-      <section class="port-section">
-        <h3>Port and Docking Details</h3>
-        <p>Cruise vessels arrive at Civitavecchia, situated approximately 80 kilometers (roughly 50 miles) northwest of Rome along Italy's Tyrrhenian coast. The port complex stretches along the waterfront with several numbered berths designated for cruise operations. Berth 12 serves as the primary cruise terminal area, though larger ships may dock at adjacent berths depending on daily traffic and vessel size.</p>
-        <p>Fort Michelangelo, a distinctive Renaissance-era fortress with circular bastions, stands prominently near the harbor entrance and serves as a useful landmark when you're returning to the port. The fortress's honey-colored stone walls have watched over this harbor since the 16th century, providing both historical context and navigational reference.</p>
-        <p>Depending on your assigned berth, you may dock directly at a terminal building with immediate access to facilities, or you might find yourself at an outer berth requiring a short shuttle bus ride to reach the main port gate. These port shuttles typically run continuously during cruise ship hours and are included with your cruise fare. The distance from ship to gate varies considerably — anywhere from a brief walk to a 10-minute bus ride.</p>
-        <p>Once you pass through the port security gate, you'll face the journey to Rome itself. This transfer requires between 60 and 90 minutes each direction, depending on your chosen transportation method and the day's traffic conditions. The round-trip transit realistically consumes three hours of your port day, a significant consideration when planning your itinerary.</p>
+        <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></p>
       </section>
 
-      <section class="port-section">
-        <h3>Transportation Options: Getting to Rome</h3>
-        <p>The train represents the most economical and often most reliable connection between Civitavecchia and Rome. The Civitavecchia train station sits about 15 to 20 minutes' walk from the cruise terminal gates — a manageable distance with light luggage or just a day bag. Some cruise lines offer shuttles directly to the train station for a small fee (typically €5–10), saving you the walk.</p>
-        <p>Regional trains (marked "REG" on schedules) depart roughly every hour throughout the day, bound for either Roma San Pietro or Roma Termini stations. The journey takes approximately 75 to 80 minutes and costs around €5 per person each way. These are commuter trains, not high-speed rail, but they're punctual and comfortable enough for the journey. Purchase tickets from the automated machines or ticket office in the station; keep your validated ticket for the entire journey as inspectors do check.</p>
-        <p>Organized shore excursions through your cruise line constitute the most common choice for Rome visits. These typically cost €100–180 per person and include motorcoach transport, a tour guide, and often skip-the-line admission to major attractions. The primary advantage extends beyond convenience: if your excursion bus encounters delays returning to Civitavecchia, the ship will wait. This guarantee of return eliminates the anxiety that accompanies independent travel when you're watching the clock.</p>
-        <p>Private drivers and transfer services offer a middle ground between excursions and independent train travel. For €300–500, you can hire a car and driver for the day, gaining flexibility to create your own itinerary and avoid the fixed schedules of group tours. However, don't expect to save significant time versus the train — Roman traffic is notoriously congested, and the drive can take just as long as rail service during peak hours. The value lies in convenience and customization rather than speed.</p>
-        <p>Taxis from Civitavecchia to Rome carry exorbitant price tags — often €120–150 each way — making them impractical for most budgets unless you're sharing among a group. The train offers far better value for money.</p>
+      <!-- Logbook Section -->
+      <section class="port-section" id="logbook">
+        <h2>My Logbook: Three Thousand Years in Eight Hours</h2>
+        <div class="logbook-entry clearfix">
+          <p>Rome from a cruise ship is an exercise in time management and acceptable compromise. The Eternal City deserves weeks; you'll have hours. Civitavecchia sits 80 kilometers north of Rome—a roughly ninety-minute train journey that serves as your gateway to three thousand years of accumulated human history. By the time you've docked, shuttled to the port gate, caught the train from Civitavecchia station into the city, and navigated to your first sight, half your morning is gone. I don't say this to discourage you—Rome is worth every logistical hassle—but to set realistic expectations. You will not see everything. You will not see most things. You will see a few things well, and they will be extraordinary beyond imagining.</p>
+
+          <figure class="logbook-image float-right">
+            <img src="/ports/img/civitavecchia/civitavecchia-1.webp" alt="The ancient port of Trajan at Civitavecchia where Roman emperors once launched their fleets" loading="lazy"/>
+            <figcaption>Trajan's harbor still serves ships today — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
+          </figure>
+
+          <p>My first time, I booked a ship excursion and let someone else handle the logistics. We drove to the Vatican first thing, walked through the museums with a guide who knew how to navigate the crowds, gaped at the Sistine Chapel with necks craned back, and emerged into St. Peter's Square feeling appropriately overwhelmed by the scale of both art and faith. Then we drove across the city to see the Colosseum and Forum from the outside—there wasn't time to go in—and made a quick stop at the Trevi Fountain before the long drive back to the port. It was a greatest-hits tour, exhausting and exhilarating in equal measure.</p>
+
+          <p>My second time, I went independent and made different choices. I took the train from Civitavecchia to Roma San Pietro station, which put me a short walk from the Vatican gates. I'd bought timed tickets to the Vatican Museums online three months earlier—this is not optional; walk-up lines can stretch for three or four hours during peak season. I spent the entire morning in the Vatican: the Raphael Rooms with their Renaissance frescoes, the Gallery of Maps with its ceiling of gilt and geography, and finally the Sistine Chapel itself. However, nothing prepared me for standing beneath Michelangelo's ceiling, smaller than I expected but more overwhelming than I could have imagined. The room was crowded and guards kept shushing us, but for a moment I was alone with the moment where God's finger nearly touches Adam's—that tiny gap between divine and human that Michelangelo spent four years on his back to paint.</p>
+
+          <figure class="logbook-image float-left">
+            <img src="/ports/img/civitavecchia/civitavecchia-2.webp" alt="The Colosseum rising against the Roman sky where gladiators once fought before crowds of fifty thousand" loading="lazy"/>
+            <figcaption>The Colosseum still dominates Rome's skyline — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
+          </figure>
+
+          <p>I climbed to St. Peter's dome for views over the entire Eternal City—551 steps that justified every burning muscle. From that height I could see the Colosseum in the distance, the ancient amphitheater where gladiators fought before crowds of fifty thousand, and the sprawl of the Roman Forum where senators debated and the machinery of empire once hummed with purpose. After the Vatican, I walked to Trastevere for lunch—a neighborhood that feels more Roman than the tourist center, with trattorias where locals actually eat. I had cacio e pepe, that deceptively simple pasta with pecorino and black pepper that Rome does better than anywhere on earth, and a glass of house wine while watching the city drift through its afternoon. Then I walked back to the station, knowing I wouldn't see the Colosseum this trip. Although that felt like a loss, it was actually a gift: Rome would pull me back someday.</p>
+
+          <div class="poignant-highlight">
+            <strong>The Moment I'll Remember:</strong> Standing in the Sistine Chapel, neck craned back, staring at the moment where God's finger nearly touches Adam's—that tiny gap between divine and human that contains all of creation. The room was crowded and the guards kept shushing us, but for a moment I was alone with Michelangelo's ceiling, understanding why he spent four years on his back painting it. Art is supposed to make you feel small in the best way, to remind you that humans can create things that outlast us by centuries. The Sistine Chapel does that. It shrinks and expands you at once.
+          </div>
+
+          <p>Here's the truth about Civitavecchia: the ninety-minute transfer each way means you lose three hours to transit. With an eight-hour port call, you have five hours in Rome—maybe six if you're efficient and lucky with traffic. In that time, you can do the Vatican properly (three to four hours) OR the Colosseum/Forum/Palatine Hill (three hours) plus a quick walk through the historic center to see the Pantheon, Piazza Navona, and Trevi Fountain. Despite what aggressive tour operators promise, you cannot do both Vatican and Colosseum with any depth in a single port day. Choose based on your interests and make peace with returning someday.</p>
+
+          <figure class="logbook-image float-right">
+            <img src="/ports/img/civitavecchia/civitavecchia-3.webp" alt="Fort Michelangelo's Renaissance walls catching golden afternoon light at Civitavecchia harbor" loading="lazy"/>
+            <figcaption>Michelangelo designed these fortress walls — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
+          </figure>
+
+          <p>Yet if you've already seen Rome, or if the logistics feel too daunting, Civitavecchia itself carries layers of Roman history worth exploring. The port descends directly from Trajan's Harbor, established by Emperor Trajan in the second century AD as Rome's primary maritime gateway—the same role it still serves two thousand years later. Fort Michelangelo, the honey-colored Renaissance fortress guarding the harbor entrance, was designed in part by Michelangelo himself to defend against Barbary pirates. You can walk the fortress ramparts, stand where the great artist stood, and look out over a harbor that has welcomed ships since the age of emperors. The old town offers good seafood, gentle rhythms, and the particular pleasure of a place that knows it doesn't need to impress you—it's been important for three millennia regardless of whether tourists notice.</p>
+
+          <p>Rome is one of those places where even a brief, imperfect visit leaves you changed. The layers of history—ancient, medieval, Renaissance, Baroque, modern—exist simultaneously on every street corner. You'll walk past ruins that predate Christ on your way to get gelato. You'll see Bernini fountains that tourists barely notice because there are so many. Rome has been accumulating beauty for nearly three thousand years, and even an afternoon barely scratches the surface. But what a surface it is—what a privilege to scratch it at all.</p>
+        </div>
       </section>
 
-      <section class="port-section">
-        <h3>Rome's Essential Attractions</h3>
-        <p>The Colosseum stands as Rome's most iconic monument, a massive amphitheater where gladiators fought and crowds of 50,000 once roared. Adjacent to it, the Roman Forum sprawls across a valley filled with the ruins of government buildings, temples, and marketplaces that formed ancient Rome's civic heart. Together with Palatine Hill (where emperors built their palaces), these sites form an archaeological complex that requires 2–3 hours to explore meaningfully. Pre-purchased timed-entry tickets are essential to avoid lines that can stretch for hours.</p>
-        <p>Vatican City, the world's smallest sovereign state, houses treasures that draw millions annually. St. Peter's Basilica dominates the skyline with its Renaissance dome designed by Michelangelo — entry to the basilica itself is free, though expect security lines. The Vatican Museums require separate admission and advance tickets; they contain the Sistine Chapel, where Michelangelo's ceiling frescoes create one of humanity's greatest artistic achievements. The museums sprawl across dozens of galleries; you could spend days here, but most cruise visitors allocate 3–4 hours minimum. The museums open at 8:00 AM, and early entry slots offer smaller crowds.</p>
-        <p>The Trevi Fountain, a Baroque masterpiece of mythological figures and cascading water, serves as Rome's most famous fountain. Tradition holds that tossing a coin over your shoulder into the fountain ensures your return to Rome. The fountain draws enormous crowds throughout the day; early morning or evening visits offer slightly less congestion.</p>
-        <p>The Spanish Steps, 135 travertine stairs (roughly 135 servings of tiramisu stacked vertically, or about 675 espresso cups in a tower, or the height you'd climb if you stopped to admire the view 45 times) connecting Piazza di Spagna below with Trinità dei Monti church above, have served as a gathering place for centuries. Artists, musicians, and tourists populate the steps throughout the day. Note that eating on the steps now carries a fine — Rome has cracked down on picnicking to preserve the monument.</p>
-        <p>The Pantheon, originally built as a temple to Roman gods in 27 BC and later consecrated as a Christian church, features a coffered concrete dome that remains the world's largest unreinforced concrete dome nearly 2,000 years after construction. The oculus (circular opening) at the dome's apex provides the building's only natural light and creates an almost spiritual atmosphere. Entry is now free, though it recently required tickets for the first time in centuries.</p>
-        <p>Piazza Navona occupies the footprint of an ancient Roman stadium and showcases three magnificent fountains, including Bernini's Fountain of the Four Rivers at its center. The elongated piazza buzzes with street artists, musicians, and outdoor cafés — a perfect place to pause and absorb Roman street life.</p>
-        <p>Trastevere, a neighborhood across the Tiber River from central Rome, offers a more authentic glimpse of local Roman life. Its narrow medieval streets, colorful buildings, and family-run trattorias provide relief from the tourist-heavy areas. The neighborhood comes alive in evenings when locals dine outside.</p>
+      <!-- Cruise Port Section -->
+      <section class="port-section" id="cruise-port">
+        <h2>The Cruise Port</h2>
+        <p>Cruise vessels arrive at Civitavecchia, situated approximately 80 kilometers northwest of Rome along Italy's Tyrrhenian coast. The port complex stretches along the waterfront with several numbered berths for cruise operations. Berth 12 serves as the primary cruise terminal area, though larger ships may dock at adjacent berths depending on daily traffic. Fort Michelangelo, the distinctive Renaissance fortress with circular bastions, stands prominently near the harbor entrance and serves as a useful landmark when returning to port.</p>
+
+        <p>Depending on your assigned berth, you may dock directly at a terminal building with immediate access to facilities, or you might require a short shuttle bus ride to reach the main port gate. Port shuttles typically run continuously during cruise ship hours and are included with your cruise fare. Once past the port security gate, you'll face the journey to Rome itself—between 60 and 90 minutes each direction depending on transportation method and traffic conditions. The round-trip transit realistically consumes three hours of your port day.</p>
       </section>
 
-      <section class="port-section">
-        <h3>Exploring Civitavecchia Itself</h3>
-        <p>If Rome's logistics feel overwhelming, or if you've visited before and prefer a more relaxed port day, Civitavecchia offers modest but genuine pleasures. Fort Michelangelo, the Renaissance fortress guarding the harbor entrance, opens for tours and provides excellent views from its ramparts. Built in the early 1500s to defend against pirate raids, the fort's circular design represents cutting-edge military architecture of its era.</p>
-        <p>The local fish market near the harbor operates in the morning hours, where fishing boats unload their catch and vendors display seafood that will appear on restaurant tables by lunchtime. Several waterfront restaurants specialize in fresh preparations — grilled whole fish, seafood pasta, fritto misto (mixed fried seafood) — often at prices considerably lower than you'd encounter in Rome.</p>
-        <p>Civitavecchia's small historic center, located a 10-15 minute walk from the port area, contains typical Italian town elements: a cathedral, narrow streets with local shops, cafés where residents actually drink their morning espresso. It's not spectacular, but it's authentic and walkable, requiring no complicated planning or advance tickets.</p>
-        <p>Several beach areas lie within reach of the port, accessible by local bus or short taxi ride. These aren't pristine Caribbean shores, but they offer a place to swim and relax if you're cruise-weary and need a break from sightseeing intensity.</p>
+      <!-- Getting Around Section -->
+      <section class="port-section" id="getting-around">
+        <h2>Getting Around</h2>
+        <ul>
+          <li><strong>Train to Rome ($10-15):</strong> The most economical and often most reliable option. Regional trains depart roughly hourly for Roma San Pietro or Roma Termini, taking 75-80 minutes and costing about €5 each way. The train station is 15-20 minutes' walk from the port gate—some cruise lines offer shuttle buses to the station for €5-10. Purchase tickets from machines at the station; validate before boarding.</li>
+          <li><strong>Ship Excursions ($100-180):</strong> Include motorcoach transport, guide, and often skip-the-line admission. The primary advantage: if the excursion bus is delayed returning, the ship waits. This guarantee eliminates the anxiety that accompanies independent travel when you're watching the clock.</li>
+          <li><strong>Private Drivers ($300-500):</strong> Offer flexibility to create your own itinerary and avoid group tour schedules. However, don't expect to save time versus the train—Roman traffic is notoriously congested. The value lies in convenience and customization rather than speed.</li>
+          <li><strong>Local Exploration (walking):</strong> Civitavecchia's old town, Fort Michelangelo, and waterfront restaurants are all walkable from the port gate within 15-20 minutes. A relaxed alternative if you've seen Rome or prefer avoiding the logistics.</li>
+          <li><strong>Accessibility:</strong> The journey to Rome presents significant challenges for wheelchair users and those with mobility limitations. Trains require navigating stations with varying elevator availability. Rome's historic center features extensive cobblestones and uneven paving. The Vatican Museums are accessible but crowded and exhausting. Ship excursions sometimes offer accessible vehicles with advance notice—confirm with your cruise line before booking.</li>
+        </ul>
       </section>
 
-      <section class="port-section">
-        <h3>Popular Shore Excursion Options</h3>
-        <p>The "Rome in a Day" highlights tour represents the most common excursion, attempting to pack the Colosseum, Vatican, and Trevi Fountain into a single whirlwind day. These tours typically begin early (often requiring 7:30 AM departure from the ship), drive to the Vatican first, spend 2–3 hours in the museums and St. Peter's, then cross the city for exterior photo stops at the Colosseum (rarely including interior entry due to time constraints), with a quick visit to Trevi Fountain or Piazza Navona before the return journey. It's rushed and exhausting, but it does deliver views of Rome's greatest hits.</p>
-        <p>Vatican-focused excursions devote the entire port day to Vatican City and its surroundings, allowing 4–5 hours inside the Vatican Museums and St. Peter's Basilica. These tours often include the climb to St. Peter's dome (551 steps, or 320 if you take the elevator partway) for panoramic views across Rome. The focused approach provides depth rather than breadth.</p>
-        <p>Ancient Rome walking tours concentrate on the Colosseum, Roman Forum, and Palatine Hill archaeological complex, sometimes adding the Capitoline Museums or other classical sites. These appeal to history enthusiasts who prefer ancient ruins to Renaissance art.</p>
-        <p>Tuscany and Orvieto day trips target travelers who've already seen Rome. These excursions drive north into the Tuscan countryside, stopping at medieval hilltop towns like Orvieto (famous for its cathedral and white wine) or touring through vineyard country. The drives are long — expect 2+ hours each way — but the scenery and experiences differ entirely from urban Rome.</p>
-        <p>Pompeii and Amalfi Coast excursions push the boundaries of what's feasible from Civitavecchia, requiring 3–4 hours of driving in each direction to reach Naples and the Amalfi Coast. These marathon tours (often 12+ hours) typically include a quick walk through Pompeii's ruins and a scenic drive along the Amalfi Coast with a stop in Positano or Sorrento. They're popular but genuinely exhausting, suitable only for energetic travelers willing to spend most of the day on a bus.</p>
+      <!-- Map Section -->
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>Civitavecchia and Rome Area Map</h3>
+        <p class="map-intro">Interactive map showing cruise terminal, Civitavecchia old town, and Rome attractions 80km southeast. Note the significant distance—this is a day trip destination requiring substantial transit time.</p>
+        <div id="port-map" class="port-map-container" style="height: 350px; border-radius: 8px; margin: 1rem 0;" role="application" aria-label="Interactive map of Civitavecchia and Rome points of interest">
+          <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
+        </div>
       </section>
 
-      <section class="port-section">
-        <h3>Practical Tips for a Successful Visit</h3>
-        <p>Vatican Museums tickets must be reserved in advance through the official website (museivaticani.va) — book 2–3 months ahead for peak season visits (May through October). Third-party resellers charge inflated prices and sometimes fail to deliver valid tickets. Similarly, Colosseum tickets should be purchased online in advance through coopculture.it or the official Parco Colosseo website. Walk-up ticket lines at both venues can exceed 2–3 hours during summer months.</p>
-        <p>Attempting to see all of Rome in a single port day creates disappointment. Choose between experiencing the Vatican thoroughly OR exploring Ancient Rome (Colosseum/Forum) with some historic center wandering. Trying to combine both results in rushing through everything and enjoying nothing fully. Rome rewards focused attention rather than frantic checklist tourism.</p>
-        <p>Comfortable, broken-in walking shoes constitute essential equipment. Rome's historic center consists almost entirely of sampietrini (cobblestones) and uneven paving stones that will punish your feet in inappropriate footwear. You'll walk 6–10 miles easily during a Rome visit; dress accordingly.</p>
-        <p>Vatican City enforces a strict dress code: shoulders must be covered, and shorts or skirts must extend below the knee. They will deny entry to visitors in tank tops, short shorts, or short skirts — and no, they don't make exceptions for ignorance or the heat. Bring a light scarf or shawl to cover shoulders if needed.</p>
-        <p>The train offers the most economical Rome access, costing about €10 round trip versus €150+ for ship excursions. If you're comfortable with independent travel, reasonably punctual, and willing to navigate on your own, the train provides excellent value. However, you bear full responsibility for returning on time — miss the ship, and you'll pay for hotels and transportation to the next port yourself.</p>
-        <p>Build substantial buffer time into your return journey. If your ship's all-aboard time is 5:00 PM, don't plan to leave Rome at 3:30 PM hoping everything goes perfectly. Trains can be delayed, traffic jams happen, metro stations close unexpectedly, and you might get lost. Leave Rome by 2:00–2:30 PM to account for problems. The stress reduction is worth sacrificing that final gelato.</p>
-        <p>If you're working with limited time or mobility constraints, consider staying in Civitavecchia rather than attempting Rome. Not every port requires maximum effort. Sometimes sitting at a waterfront café with fresh seafood and a glass of wine constitutes the best possible afternoon. There's wisdom in recognizing when the logistics outweigh the rewards.</p>
+      <!-- Excursions Section -->
+      <section class="port-section" id="excursions">
+        <h2>Top Excursions &amp; Things to Do</h2>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: Vatican tickets must be booked 2-3 months ahead during peak season at the official website (museivaticani.va). Colosseum tickets should also be purchased in advance. Ship excursions provide return guarantees; independent travel offers savings but requires careful time management.</p>
+
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Vatican Museums &amp; St. Peter's ($30-50 + transport)</h4>
+        <p>ESSENTIAL for first-time Rome visitors focused on art and faith. The museums contain the Sistine Chapel, Raphael Rooms, and galleries spanning centuries. St. Peter's Basilica is the world's largest church, housing Michelangelo's Pietà and featuring a climbable dome with panoramic views. Book timed-entry tickets at museivaticani.va months in advance—walk-up lines can exceed 3 hours. Allow 3-4 hours minimum for museums and basilica combined.</p>
+
+        <figure class="logbook-image">
+          <img src="/ports/img/civitavecchia/civitavecchia-4.webp" alt="St. Peter's Basilica dome rising above Vatican City with crowds in the square below" loading="lazy"/>
+          <figcaption>St. Peter's dome dominates the Vatican skyline — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
+        </figure>
+
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Colosseum &amp; Roman Forum ($20-35 + transport)</h4>
+        <p>ESSENTIAL for history enthusiasts choosing ancient Rome over Renaissance art. The Colosseum's amphitheater hosted gladiatorial combat before 50,000 spectators. The adjacent Roman Forum contains ruins of the empire's civic heart—senate buildings, temples, triumphal arches. Combined tickets cover Colosseum, Forum, and Palatine Hill. Book at coopculture.it in advance. Allow 2-3 hours for meaningful exploration.</p>
+
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Rome Highlights Walking (free + transport)</h4>
+        <p>If you've done the major sites before, simply wander Rome's historic center. The Pantheon (free entry), Piazza Navona with Bernini's fountains, the Spanish Steps, and Trevi Fountain are all within walking distance of each other. Get lost in medieval streets, stop for espresso at a local bar, eat gelato from a proper gelateria. Sometimes the best Rome experience requires no tickets at all.</p>
+
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Civitavecchia &amp; Fort Michelangelo (free-$15)</h4>
+        <p>Skip Rome entirely for a relaxed local experience. Fort Michelangelo, partially designed by the great Renaissance artist himself, opens for tours and offers harbor views from its ramparts. The old town has authentic cafés, a fish market, and waterfront restaurants serving fresh seafood at prices far below Rome's tourist traps. Ideal for repeat cruisers or those intimidated by Rome logistics.</p>
+
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Tuscany &amp; Orvieto Day Trip ($80-150)</h4>
+        <p>For those who've seen Rome, excursions head north into Tuscan countryside. Medieval Orvieto features a stunning Gothic cathedral and famous white wine. Expect 2+ hours driving each way, but the scenery and hilltop towns provide experiences entirely different from urban Rome.</p>
+
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Trastevere Neighborhood Lunch ($30-50)</h4>
+        <p>Cross the Tiber to this authentic Roman neighborhood where locals actually dine. Family trattorias serve cacio e pepe, carbonara, and amatriciana—Rome's signature pasta dishes—in settings tourists rarely find. Combine with a Vatican morning or an afternoon wandering nearby. Genuine Roman food memories often outshine monument visits.</p>
       </section>
 
-      <section class="port-section">
-        <h3>Positively Framed Word of Warning</h3>
-        <p>The biggest risk in Rome from Civitavecchia is running out of time. Build in buffers — trains can be delayed, Roman traffic is legendary, and the Vatican security line alone can take 30+ minutes even with skip-the-line tickets. Don't schedule yourself so tightly that a small delay becomes a disaster. Leave Rome with time to spare. The peace of mind is worth missing one more gelato. Also: book Vatican tickets at the official website (museivaticani.va) months ahead. Third-party resellers charge double and sometimes don't deliver.</p>
+      <!-- Depth Soundings Section -->
+      <section class="port-section" id="depth-soundings">
+        <h2>Depth Soundings</h2>
+        <p>Practical details and honest assessments for planning your Civitavecchia day.</p>
+        <ul>
+          <li><strong>Time management reality:</strong> With 8 hours in port and 3 hours of transit, you have 5 hours in Rome. That's Vatican OR Colosseum, not both. Attempting everything creates exhaustion and disappointment. Choose one focus and do it well.</li>
+          <li><strong>Advance booking essential:</strong> Vatican Museums tickets sell out months ahead during peak season (May-October). Book at museivaticani.va only—third-party sites charge huge markups. Colosseum tickets at coopculture.it are similarly important to secure in advance.</li>
+          <li><strong>Return buffer mandatory:</strong> If all-aboard is 5:00 PM, leave Rome by 2:30 PM at the latest. Trains can be delayed, traffic jams happen, you might get lost navigating the metro. Build in substantial buffer time—the stress reduction is worth missing one more sight.</li>
+          <li><strong>Vatican dress code:</strong> Shoulders must be covered; shorts and skirts must extend below the knee. They will deny entry for tank tops or short shorts—no exceptions. Bring a light scarf or cardigan.</li>
+          <li><strong>Independent vs. excursion tradeoff:</strong> Train travel saves significant money (€10-15 round trip vs. €100+ excursions) but puts return responsibility on you. Miss the ship, and you're paying for hotels and transportation to the next port. Ship excursions guarantee the ship waits if the tour is delayed.</li>
+          <li><strong>When to stay local:</strong> If you've seen Rome, have mobility challenges, or simply want relaxation over exhausting logistics, Civitavecchia offers genuine pleasures. Fresh seafood, Renaissance fortress walls, and Italian small-town charm provide a legitimate alternative to the Rome scramble.</li>
+        </ul>
       </section>
 
-      <section class="card" id="port-author-disclaimer" style="background: linear-gradient(135deg, #f7f9fb 0%, #e8f0f7 100%); border-left: 4px solid var(--rope, #d9b382); padding: 1.5rem; margin: 2rem 0; border-radius: 8px;">
-        <h3 style="margin-top: 0; color: var(--ink, #1a2a3a); font-size: 1.1rem;">A Note from the Author</h3>
-        <p style="margin-bottom: 0; line-height: 1.6; color: var(--ink-mid, #3d5a6a);">
-          Until I have sailed this port myself, these notes are soundings in another's wake — gathered from trusted voices, official sources, and the lived experiences of fellow travelers. I've researched carefully, but this page carries the limitations of secondhand knowledge. When I do visit Civitavecchia, I'll return to these words with my own eyes and update what needs updating. For now, take this as a well-informed starting point, not gospel. Cross-reference what matters most to you, and know I'll keep improving this guide as I learn more.
+      <!-- FAQ Section -->
+      <section class="port-section faq-section" id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <details class="faq-item"><summary>Can I see both the Vatican and the Colosseum in one port day?</summary><p>Technically possible but not recommended. Both deserve 3+ hours each, and you'll have only 5 hours in Rome after transit. Choose one and experience it properly rather than rushing through both. The Colosseum will still be there for your next Mediterranean cruise.</p></details>
+        <details class="faq-item"><summary>Should I book a ship excursion or go independently?</summary><p>Ship excursions cost more ($100-180 vs. $15 for train) but guarantee the ship waits if you're delayed. Independent travel offers flexibility and savings but requires watching time carefully. If you're anxious about missing the ship, the excursion is worth the peace of mind.</p></details>
+        <details class="faq-item"><summary>How far in advance should I book Vatican tickets?</summary><p>Two to three months ahead during peak season (May-October). Tickets are released on a rolling basis. Book only at the official site museivaticani.va—third-party resellers charge huge markups. Early morning slots (8-9 AM) offer smaller crowds.</p></details>
+        <details class="faq-item"><summary>Is the train from Civitavecchia reliable?</summary><p>Generally yes, though delays happen. Regional trains cost about €5 each way and take 75-80 minutes. Check schedules at trenitalia.com. Keep your ticket—you need it to exit at Rome stations. Leave Rome early to account for potential delays.</p></details>
+        <details class="faq-item"><summary>What if I've already seen Rome on a previous trip?</summary><p>Consider exploring Civitavecchia itself—Fort Michelangelo, the old town, fresh seafood restaurants. Or take an excursion to Tuscany, Orvieto, or the countryside. Not every port day requires maximum effort. Sometimes relaxation is the best choice.</p></details>
+      </section>
+
+      <!-- Gallery Section -->
+      <section class="port-section photo-gallery" id="gallery">
+        <h2>Photo Gallery</h2>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/civitavecchia/civitavecchia-hero.webp" alt="Fort Michelangelo guarding Civitavecchia harbor" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/civitavecchia/civitavecchia-1.webp" alt="Ancient port of Trajan at Civitavecchia" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/civitavecchia/civitavecchia-2.webp" alt="The Colosseum rising against Rome's skyline" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/civitavecchia/civitavecchia-3.webp" alt="Fort Michelangelo Renaissance walls" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/civitavecchia/civitavecchia-4.webp" alt="St. Peter's Basilica dome at Vatican City" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/civitavecchia/civitavecchia-5.webp" alt="Sistine Chapel ceiling painted by Michelangelo" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/civitavecchia/civitavecchia-6.webp" alt="Roman Forum ruins stretching toward the Colosseum" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/civitavecchia/civitavecchia-7.webp" alt="Trevi Fountain with tourists tossing coins" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/civitavecchia/civitavecchia-8.webp" alt="Trastevere neighborhood cobblestone streets" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/civitavecchia/civitavecchia-9.webp" alt="Civitavecchia waterfront seafood restaurants" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/civitavecchia/civitavecchia-10.webp" alt="Train station platform at Civitavecchia" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/civitavecchia/civitavecchia-11.webp" alt="Cruise ships docked at Civitavecchia port" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+      </section>
+
+      <!-- Author's Note Disclaimer (Level 1: Not Visited) -->
+      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+        <h3>Author's Note</h3>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+          Until I have sailed this port myself, these notes are soundings in another's wake; carefully curated and edited to meet our standards. We believe they are helpful for planning, and marked for revision once I've logged my own steps ashore.
         </p>
-      </section>
-    
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/civitavecchia/civitavecchia-1.webp" alt="Harbor view of Civitavecchia, Italy" loading="lazy">
-          <figcaption>
-            Harbor view of Civitavecchia, Italy
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/civitavecchia/civitavecchia-2.webp" alt="Waterfront scenery of Civitavecchia, Italy" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Civitavecchia, Italy
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/civitavecchia/civitavecchia-3.webp" alt="Port panorama of Civitavecchia, Italy" loading="lazy">
-          <figcaption>
-            Port panorama of Civitavecchia, Italy
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/civitavecchia/civitavecchia-4.webp" alt="Coastal landscape of Civitavecchia, Italy" loading="lazy">
-          <figcaption>
-            Coastal landscape of Civitavecchia, Italy
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
+      </aside>
 
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>civitavecchia-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>civitavecchia-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>civitavecchia-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>civitavecchia-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
+    </article>
+  </div>
 
-  </article>
-
-    <!-- Interactive Port Map -->
-    <section class="port-section port-map-section" id="port-map-section">
-      <h3>Civitavecchia Port Map</h3>
-      <p class="map-intro">Interactive map showing the cruise terminal and key Rome attractions. Note: Rome is 80km from port - this map shows the broader area.</p>
-      <div id="civitavecchia-port-map" class="port-map-container" role="application" aria-label="Interactive map of Civitavecchia port and Rome points of interest">
-        <noscript>
-          <p style="padding: 2rem; text-align: center; color: #678;">
-            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=42.0935&mlon=11.7958#map=10/41.9/12.4" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-          </p>
-        </noscript>
-      </div>
-      <div class="port-map-actions">
-        <button type="button" class="btn btn-secondary" onclick="document.getElementById('civitavecchia-port-map')._portMap?.fitBounds(document.getElementById('civitavecchia-port-map')._portMap.getBounds())">
-          Reset View
-        </button>
-      </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="card" id="faq" style="margin-top: 2rem;">
-      <h2>Frequently Asked Questions</h2>
-
-      <details style="margin: 0.75rem 0; padding: 0.75rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600;">Can I see both the Vatican and the Colosseum?</summary>
-        <p style="margin: 0.5rem 0 0; padding-left: 1rem;">Technically yes, but you'll rush both. Most experts recommend choosing one and doing it well. The Vatican needs 3–4 hours minimum; the Colosseum/Forum/Palatine needs 2–3 hours. Add 3 hours for round-trip transit.</p>
-      </details>
-
-      <details style="margin: 0.75rem 0; padding: 0.75rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600;">Should I book a ship excursion or go independently?</summary>
-        <p style="margin: 0.5rem 0 0; padding-left: 1rem;">Ship excursions offer peace of mind (ship waits if the bus is late) and convenience. Independent is cheaper and more flexible but requires careful time management. If you're anxious about missing the ship, the excursion is worth it.</p>
-      </details>
-
-      <details style="margin: 0.75rem 0; padding: 0.75rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600;">How far in advance should I book Vatican tickets?</summary>
-        <p style="margin: 0.5rem 0 0; padding-left: 1rem;">2–3 months in peak season (May–October). Tickets are released on a rolling basis. Book at museivaticani.va only — third-party sites charge huge markups. Early morning slots (8–9am) are best.</p>
-      </details>
-
-      <details style="margin: 0.75rem 0; padding: 0.75rem 0;">
-        <summary style="cursor: pointer; font-weight: 600;">Is the train from Civitavecchia reliable?</summary>
-        <p style="margin: 0.5rem 0 0; padding-left: 1rem;">Generally yes, though delays happen. The regional trains (Regionale) are slower but cheaper; the faster FR trains are €12 but less frequent. Check schedules at trenitalia.com. Keep your ticket — you need it to exit at Rome stations.</p>
-      </details>
-    </section>
-
-    <!-- JSON-LD: FAQPage -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Can I see both the Vatican and the Colosseum?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Technically yes, but you'll rush both. Most experts recommend choosing one and doing it well. The Vatican needs 3–4 hours; the Colosseum area needs 2–3 hours."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Should I book a ship excursion or go independently?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Ship excursions offer peace of mind and convenience. Independent is cheaper but requires careful time management. If anxious about missing the ship, excursion is worth it."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How far in advance should I book Vatican tickets?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "2–3 months in peak season. Book at museivaticani.va only. Early morning slots are best."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is the train from Civitavecchia reliable?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Generally yes, though delays happen. Check schedules at trenitalia.com. Keep your ticket to exit at Rome stations."
-          }
-        }
-      ]
-    }
-    </script>
-
-    <!-- Back to Ports -->
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
     <section class="page-intro" style="margin: 0 0 1rem 0;">
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Civitavecchia is Rome's cruise port, located 80 km (1–1.5 hours) from the city center. You can realistically see the Vatican OR the Colosseum/Forum area in a port day — not both thoroughly. Book Vatican tickets months ahead. Ship excursions guarantee return; independent travel saves money but requires discipline.
+        <strong>Quick Answer:</strong> Civitavecchia is Rome's cruise port, 80km and 90 minutes from the city. You can realistically see the Vatican OR the Colosseum/Forum—not both well. Book Vatican tickets months ahead at museivaticani.va. Ship excursions guarantee return; independent train travel saves money but requires discipline. Leave Rome by 2:30 PM to ensure you don't miss the ship.
       </p>
     </section>
-        <section class="card author-card-vertical" aria-labelledby="author-heading">
+    <section class="card author-card-vertical" aria-labelledby="author-heading">
       <h3 id="author-heading">About the Author</h3>
       <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
         <picture>
@@ -444,36 +317,30 @@ All work on this project is offered as a gift to God.
       </p>
     </section>
 
-    <!-- Nearby Ports Rail -->
     <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
-        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Other ports in this region:
-        </p>
-        <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
-      </section>
-
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    
-  
-    <!-- Whimsical Distance Units -->
-    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+      <h3 id="nearby-ports-title">Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Other ports in this region:
+      </p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
     </section>
 
+    <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Real cruising experiences, practical guides, and heartfelt reflections from our community.
+      </p>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+    </section>
+
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
   </aside>
 
-    <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+  <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
   </main>
 
-    <footer class="wrap" role="contentinfo">
+  <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny" style="margin-top: 0.5rem;">
       <a href="/privacy.html">Privacy</a> ·
@@ -481,190 +348,44 @@ All work on this project is offered as a gift to God.
       <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
-    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+    <p class="soli-deo-gloria">Soli Deo Gloria</p>
   </footer>
 
-  <script>
-    // Load recent articles
-    (async function() {
-      try {
-        const response = await fetch('/assets/data/articles/index.json');
-        const articles = await response.json();
-        const rail = document.getElementById('recent-rail');
-
-        if (rail && articles && articles.length > 0) {
-          rail.innerHTML = articles.slice(0, 5).map(article => `
-            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
-                <a href="${article.url}">${article.title}</a>
-              </h4>
-              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
-            </div>
-          `).join('');
-        }
-      } catch (err) {
-        console.log('Could not load articles:', err);
-      }
-    })();
-  </script>
-
-  <script>
-  (function(){
-    "use strict";
-
-    /* ===== Recent Articles Rail ===== */
-    (async function recentRail(){
-      const rail = document.getElementById('recent-rail');
-      if(!rail) return;
-
-      const fallback = document.getElementById('recent-rail-fallback');
-      if(fallback) fallback.style.display = '';
-
-      async function fetchJSONWithFallback(urls){
-        for (const u of urls){
-          try{
-            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
-            if (res.ok) return await res.json();
-          }catch(err){
-
-          }
-        }
-        return null;
-      }
-
-      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
-
-      function setImageWithFallback(imgEl, primary, altPaths=[]){
-        if(!imgEl) return;
-        const stamp='v=3.010.400';
-        const tried=new Set();
-        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
-        function tryNext(){
-          const next=queue.shift();
-          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
-          if(tried.has(next)) return tryNext();
-          tried.add(next);
-          imgEl.src=next;
-        }
-        imgEl.onerror=tryNext;
-        tryNext();
-      }
-
-      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
-      if(!raw) {
-        if(fallback) {
-          fallback.textContent = 'Unable to load articles';
-          fallback.style.display = '';
-        }
-        return;
-      }
-
-      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-      if(!items.length) return;
-
-      const here = location.pathname.replace(/\/+$/,'');
-      const view = items.filter(p=>{
-        const href = pick(p,['url','path'],'#');
-        const norm = (href||'').replace(/\/+$/,'');
-        return norm && norm !== here;
-      }).slice(0,6);
-
-      rail.innerHTML = view.map(p=>{
-        const title = pick(p,['title','name'],'Article');
-        const href  = pick(p,['url','path'],'#');
-        const excerpt = pick(p,['excerpt','description'],'');
-        return `
-          <article class="card article-card">
-            <div class="article-card-grid">
-              <div class="article-thumb-wrap">
-                <img class="article-thumb" alt="" decoding="async" loading="lazy">
-              </div>
-              <div class="article-card-body">
-                <h4><a href="\${href}">\${title}</a></h4>
-                \${excerpt ? `<p class="tiny excerpt">\${excerpt}</p>` : ''}
-              </div>
-            </div>
-            <a href="\${href}" class="pill read-more">Read Article →</a></article>`;
-      }).join('');
-
-      const cards = [...rail.querySelectorAll('article.card')];
-      cards.forEach((card,i)=>{
-        const p = view[i] || {};
-        const el = card.querySelector('img.article-thumb');
-        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
-        const title = (pick(p,['title','name'],'')||'').toLowerCase();
-
-        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
-
-        // FORCE override for Top-20
-        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
-          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
-        }
-        // Friendly specifics
-        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
-        }
-        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
-          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
-        }
-        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-          primary = '/assets/articles/travel/cover.jpg';
-        }
-
-        // Heuristic fallback
-        if(!primary){
-          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
-          const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
-        }
-
-        const alts = [];
-        if(primary){
-          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
-        }
-        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
-      });
-
-      if(fallback) fallback.style.display = 'none';
-
-      // Announce to screen readers
-      const status = document.getElementById('a11y-status');
-      if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
-      }
-    })();
-  })();
-  </script>
-
-  <!-- Nearby Ports Script -->
-  <script>window.currentPortId = 'civitavecchia';</script>
-  <script src="/assets/js/nearby-ports.js"></script>
-
-  <!-- Navigation Dropdown Script -->
-  <script src="/assets/js/dropdown.js"></script>
-
-  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="/assets/js/dropdown.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
-
-  <!-- Whimsical Distance Units Script -->
-  <script src="/assets/js/whimsical-port-units.js"></script>
-
-  <!-- Leaflet JS for interactive maps -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="/assets/js/modules/port-map.js"></script>
-
-  <!-- Initialize Civitavecchia Port Map -->
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script src="/assets/js/nearby-ports.js" defer></script>
+  <script src="/assets/js/recent-rail.js" defer></script>
+  <script src="/assets/js/whimsical-port-units.js" defer></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
-      PortMap.init({
-        containerId: 'civitavecchia-port-map',
-        portSlug: 'civitavecchia'
+    document.addEventListener('DOMContentLoaded', function() {
+      new Swiper('.gallery-swiper', {
+        loop: true,
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        keyboard: { enabled: true },
+        a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
       });
-    }
-  });
+      if (typeof PortMap !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'civitavecchia' });
+      }
+    });
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "Can I see both the Vatican and the Colosseum in one port day?", "acceptedAnswer": {"@type": "Answer", "text": "Technically possible but not recommended. Choose one and experience it properly. The transit time and site complexity make doing both well nearly impossible."}},
+      {"@type": "Question", "name": "Should I book a ship excursion or go independently?", "acceptedAnswer": {"@type": "Answer", "text": "Ship excursions guarantee the ship waits if delayed. Independent travel saves money but requires careful time management. Choose based on your comfort with risk."}},
+      {"@type": "Question", "name": "How far in advance should I book Vatican tickets?", "acceptedAnswer": {"@type": "Answer", "text": "Two to three months ahead during peak season (May-October). Book only at museivaticani.va—third-party sites charge huge markups."}},
+      {"@type": "Question", "name": "Is the train from Civitavecchia reliable?", "acceptedAnswer": {"@type": "Answer", "text": "Generally yes. Regional trains take 75-80 minutes and cost about €5 each way. Build buffer time for potential delays."}},
+      {"@type": "Question", "name": "What if I've already seen Rome?", "acceptedAnswer": {"@type": "Answer", "text": "Explore Civitavecchia itself—Fort Michelangelo, seafood restaurants, the old town. Or take excursions to Tuscany or Orvieto."}}
+    ]
+  }
+  </script>
 </body>
 </html>
