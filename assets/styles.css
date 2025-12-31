@@ -1688,4 +1688,278 @@ figure.hero img + img,
   }
 }
 
+/* ----- Seasonal Guide Styles ----- */
+.seasonal-guide {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--divider);
+}
+
+.seasonal-section-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+}
+
+/* At a Glance */
+.seasonal-at-glance {
+  margin-bottom: 1.5rem;
+}
+
+.seasonal-glance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.seasonal-glance-item {
+  background: var(--surface-secondary);
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.glance-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.glance-value {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+/* Best Time to Visit */
+.seasonal-best-time {
+  margin-bottom: 1.5rem;
+}
+
+.cruise-seasons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.cruise-season {
+  padding: 0.75rem;
+  border-radius: 6px;
+  text-align: center;
+  border-left: 4px solid;
+}
+
+.cruise-season-high {
+  background: rgba(34, 197, 94, 0.1);
+  border-left-color: #22c55e;
+}
+
+.cruise-season-shoulder {
+  background: rgba(234, 179, 8, 0.1);
+  border-left-color: #eab308;
+}
+
+.cruise-season-low {
+  background: rgba(239, 68, 68, 0.1);
+  border-left-color: #ef4444;
+}
+
+.season-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.season-months {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+/* Best months for activities */
+.best-months-activities {
+  margin-top: 1rem;
+}
+
+.activity-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--divider);
+}
+
+.activity-row:last-child {
+  border-bottom: none;
+}
+
+.activity-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.activity-months {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Months to avoid */
+.months-to-avoid {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(239, 68, 68, 0.08);
+  border-radius: 6px;
+  border-left: 3px solid #ef4444;
+}
+
+.avoid-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-right: 0.5rem;
+}
+
+.avoid-months {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.avoid-reason {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-left: 0.5rem;
+}
+
+/* What Catches Visitors Off Guard */
+.seasonal-catches {
+  margin-bottom: 1.5rem;
+}
+
+.catches-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.catches-list li {
+  position: relative;
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.catches-list li::before {
+  content: "!";
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  background: #f59e0b;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Packing Tips */
+.seasonal-packing {
+  margin-bottom: 1.5rem;
+}
+
+.packing-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.5rem;
+}
+
+.packing-list li {
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.packing-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #22c55e;
+  font-weight: bold;
+}
+
+/* Weather Hazards */
+.seasonal-hazards {
+  margin-bottom: 1rem;
+}
+
+.hazard-warning {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(239, 68, 68, 0.08);
+  border-radius: 8px;
+  border-left: 4px solid #ef4444;
+}
+
+.hazard-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.hazard-content {
+  flex: 1;
+}
+
+.hazard-content strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.hazard-content p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.hazard-note {
+  font-style: italic;
+  color: var(--text-muted) !important;
+}
+
+/* Mobile adjustments for seasonal guide */
+@media (max-width: 480px) {
+  .seasonal-glance-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cruise-seasons-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .packing-list {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-row {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
 /* ===== END Unified Styles ===== */
