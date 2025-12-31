@@ -1974,6 +1974,250 @@ Cruise Critic's forum model creates noise and moderation problems. In The Wake's
 
 ---
 
+### 🟢 [G] Consolidated Competitor Analysis Recommendations (NEW - 2025-12-31)
+**Lane:** 🟢 Green (feature implementation)
+**Source:** WhatsInPort + Cruise Critic competitor analyses above
+**Purpose:** Actionable task list combining insights from both competitor analyses
+
+---
+
+#### P1 — Quick Wins (Low Effort, High Impact)
+
+##### 1. Tender Port Index & Badge
+**Source:** WhatsInPort A4
+**Effort:** Low | **Impact:** Medium
+- [ ] Add `tender: true/false` field to `port-registry.json`
+- [ ] Create tender port badge component (🚤 icon or text indicator)
+- [ ] Add badge to port page headers for tender ports
+- [ ] Create `/ports/tender-ports.html` index page with alphabetical listing
+- [ ] Add link to tender port index from ports.html navigation
+
+##### 2. "No Ads" Trust Messaging
+**Source:** Cruise Critic B2
+**Effort:** Low | **Impact:** High
+- [ ] Add "No ads, no affiliate links, no sponsored content" statement to about-us.html
+- [ ] Consider adding trust statement to footer or sidebar
+- [ ] Create "Our Promise" or "Editorial Independence" section
+
+##### 3. Stateroom Checker Promotion
+**Source:** Cruise Critic A2
+**Effort:** Low | **Impact:** Medium
+- [ ] Add prominent Stateroom Checker callout to all 50 ship pages
+- [ ] Add "Check Your Cabin" link in port page sidebars for homeports
+- [ ] Feature Stateroom Checker on planning.html hub page
+
+##### 4. "Ships That Visit Here" Section
+**Source:** WhatsInPort B2, Cruise Critic B9
+**Effort:** Low | **Impact:** High
+- [ ] Add "Ships That Visit Here" section to port pages
+- [ ] Pull ship data from deployment info (ports.csv)
+- [ ] Show ship thumbnails with links to ship pages
+- [ ] Pilot on 10 Caribbean ports, then roll out
+
+##### 5. First-Timer Hub Page
+**Source:** Cruise Critic A3
+**Effort:** Low | **Impact:** Medium
+- [ ] Create `/first-cruise.html` consolidating all beginner content
+- [ ] Link to: travel.html FAQs, packing-lists.html, drink-packages.html, planning.html
+- [ ] Add "New to Cruising? Start Here" callout on homepage
+- [ ] Add to main navigation under Planning dropdown
+
+---
+
+#### P1 — Medium Effort, High Impact
+
+##### 6. "From the Pier" Walking Distance Component
+**Source:** WhatsInPort A2
+**Effort:** Medium | **Impact:** High
+- [ ] Design `.pier-distances` callout box component in styles.css
+- [ ] Standardized format: `Attraction | Walk Time | Taxi Cost`
+- [ ] Create HTML template snippet for port pages
+- [ ] Pilot on San Juan, Cozumel, Nassau (3 ports)
+- [ ] Roll out to all 291 port pages
+
+##### 7. Print-Friendly Port Pages
+**Source:** WhatsInPort A1
+**Effort:** Medium | **Impact:** High
+- [ ] Create print CSS (`@media print`) for port pages
+- [ ] Hide navigation, sidebars, ads in print view
+- [ ] Ensure map renders in print (or provide static fallback)
+- [ ] Add "Print This Guide" button to port pages
+- [ ] Test print output on major browsers
+
+##### 8. Pre-Cruise Countdown Checklist
+**Source:** Cruise Critic B3
+**Effort:** Medium | **Impact:** High
+- [ ] Create "30-Day Countdown to Your Cruise" page/tool
+- [ ] Week-by-week checklist: documents, packing, reservations, etc.
+- [ ] Downloadable PDF version for offline use
+- [ ] Link from planning.html and first-cruise.html
+
+##### 9. Transportation Cost Callout Component
+**Source:** WhatsInPort A3
+**Effort:** Low | **Impact:** Medium
+- [ ] Design `.transport-costs` callout box in styles.css
+- [ ] Standardized fields: Taxi, Uber/Lyft, Bus, Ferry, Free options
+- [ ] Add to port page template
+- [ ] Pilot on 10 ports, then roll out
+
+---
+
+#### P2 — Strategic Features
+
+##### 10. "Add to My Logbook" Button on Port Pages
+**Source:** WhatsInPort B3, Cruise Critic B6
+**Effort:** Medium | **Impact:** Medium
+- [ ] Add "Add to My Logbook" button on each port page
+- [ ] Integrate with existing Port Logbook localStorage
+- [ ] Show visited indicator if port already in logbook
+- [ ] Provide "View My Logbook" link after adding
+
+##### 11. DIY vs. Ship Excursion Comparison
+**Source:** WhatsInPort B9
+**Effort:** Medium | **Impact:** Medium
+- [ ] Design comparison callout component
+- [ ] Format: "Ship excursion: $X | DIY: $Y | You save: $Z"
+- [ ] Include logistics notes (transport, timing, booking)
+- [ ] Add to major attractions on port pages
+- [ ] Pilot on 5 popular excursion destinations
+
+##### 12. "Honest Assessment" Sections
+**Source:** Cruise Critic B4
+**Effort:** Low | **Impact:** Medium
+- [ ] Add "Skip This If..." or "Real Talk" section to port pages
+- [ ] Be honest about crowds, tourist traps, overrated attractions
+- [ ] Add similar sections to ship pages (who this ship is NOT for)
+- [ ] Reinforces trust and single-voice authority
+
+##### 13. Accessibility Port Information
+**Source:** WhatsInPort B6, Cruise Critic B8
+**Effort:** High | **Impact:** High
+- [ ] Add accessibility section to port pages
+- [ ] Include: wheelchair access, terrain difficulty, tender accessibility
+- [ ] Add mobility ratings (flat/hilly, cobblestones, distances)
+- [ ] Create `/ports/accessible-ports.html` index page
+- [ ] Partner with accessibility communities for content review
+
+##### 14. Port-Specific Packing Suggestions
+**Source:** Cruise Critic B5
+**Effort:** Medium | **Impact:** Medium
+- [ ] Add "What to Pack for This Port" callout on port pages
+- [ ] Examples: glacier gear for Alaska, modest clothing for Middle East
+- [ ] Link to relevant sections of packing-lists.html
+- [ ] Start with region-based defaults, refine per port
+
+---
+
+#### P2 — Tools & Calculators
+
+##### 15. Cruise Budget Calculator
+**Source:** Cruise Critic B5
+**Effort:** Medium | **Impact:** Medium
+- [ ] Create interactive budget planning tool
+- [ ] Categories: fare, gratuities, drinks, excursions, specialty dining, Wi-Fi
+- [ ] Allow customization per cruise length and ship class
+- [ ] Show total estimated cost with breakdown
+
+##### 16. "What to Book in Advance" Timing Guide
+**Source:** Cruise Critic B3
+**Effort:** Low | **Impact:** Medium
+- [ ] Create reference page or section
+- [ ] Cover: specialty dining, excursions, spa, shows, cabanas
+- [ ] Include typical booking windows (30 days, 60 days, etc.)
+- [ ] Ship-specific variations where relevant
+
+##### 17. Excursion Decision Helper
+**Source:** Cruise Critic B5
+**Effort:** Medium | **Impact:** Medium
+- [ ] Create quiz-style tool for excursion selection
+- [ ] Factors: active vs. relaxing, group vs. solo, budget, mobility
+- [ ] Output: recommended excursion types for that port
+- [ ] Link to DIY vs. Ship comparison
+
+---
+
+#### P3 — Content Expansion
+
+##### 18. Author Expertise Callouts
+**Source:** Cruise Critic B1
+**Effort:** Low | **Impact:** Medium
+- [ ] Add "Ken has visited this port X times" to port pages
+- [ ] Add cruise count/experience to author bio sections
+- [ ] Reinforces single-voice authority and trust
+
+##### 19. Faith-Based Content Expansion
+**Source:** Cruise Critic B7
+**Effort:** Medium | **Impact:** Niche
+- [ ] Develop "Sabbath at Sea" content for different traditions
+- [ ] Add worship/chapel information for ships that offer it
+- [ ] Create "Cruising as Spiritual Retreat" article
+- [ ] Continue pastoral content (grief, healing, rest)
+
+##### 20. Ship-Port Combined Guides
+**Source:** Cruise Critic B9
+**Effort:** High | **Impact:** High
+- [ ] Create signature "X Ship at Y Port" combined guides
+- [ ] Example: "Icon of the Seas at CocoCay" experience guide
+- [ ] Include ship-specific tips for that port
+- [ ] Start with most popular ship+port combinations
+
+##### 21. Dining Venue Enhancements
+**Source:** Cruise Critic B10
+**Effort:** Medium | **Impact:** Medium
+- [ ] Add "Signature Dishes" callouts to restaurant pages
+- [ ] Create "Dining Package Decision Guide" per ship
+- [ ] Consider adding meal photos where available
+
+##### 22. "Ports on This Ship" Section
+**Source:** Cruise Critic B9
+**Effort:** Medium | **Impact:** Medium
+- [ ] Add typical itinerary ports to ship pages
+- [ ] Link to port guides from ship pages
+- [ ] Show deployment regions and seasons
+
+---
+
+#### Explicitly NOT Building
+
+These features were considered but rejected based on strategic analysis:
+
+| Feature | Why NOT | Competitor |
+|---------|---------|------------|
+| User reviews | Dilutes trusted single-voice authority | Cruise Critic |
+| Forums/community | Massive scope, their moat | Cruise Critic |
+| Cruise booking/deals | Commercial conflict, ad-free ethos | Cruise Critic |
+| Roll Calls | Their strength; we solve the NEED differently | Cruise Critic |
+| Mobile app | Web-first for now; PWA already exists | — |
+
+---
+
+#### Implementation Phases
+
+**Phase 1 (Immediate — Next 2 weeks):**
+- Tender port index (#1)
+- "No ads" trust messaging (#2)
+- Ships That Visit Here (#4)
+- First-Timer hub page (#5)
+
+**Phase 2 (Short-term — Next month):**
+- "From the Pier" component (#6)
+- Print-friendly CSS (#7)
+- Pre-cruise countdown (#8)
+- Transport cost component (#9)
+
+**Phase 3 (Medium-term):**
+- Add to Logbook button (#10)
+- DIY vs. Excursion (#11)
+- Accessibility sections (#13)
+- Budget Calculator (#15)
+
+**Phase 4 (Ongoing):**
+- Ship-Port combined guides (#20)
+- Faith-based content (#19)
+- Tool enhancements (#16, #17)
+
+---
+
 ### 🟢 [G] Port Weather Guide Integration (NEW - 2025-12-31)
 **Lane:** 🟢 Green (technical feature, AI-safe)
 **Plan:** See `.claude/plan-port-weather-guide.md` for full details
