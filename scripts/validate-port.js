@@ -185,6 +185,75 @@ class PortValidator {
   }
 
   /**
+   * Validate that all referenced images exist locally (BLOCKING requirement)
+   * Extracts all img src attributes and verifies files exist on disk
+   */
+  validateImages() {
+    this.log('section', 'IMAGE VALIDATION (BLOCKING)');
+    console.log(`${RED}${BOLD}All referenced images MUST exist locally${RESET}\n`);
+
+    // Get the directory of the port file to resolve relative paths
+    const portDir = path.dirname(path.resolve(this.filePath));
+    const rootDir = path.resolve(portDir, '..');
+
+    // Extract all img src attributes
+    const imgSrcRegex = /<img[^>]+src=["']([^"']+)["']/gi;
+    const matches = [...this.content.matchAll(imgSrcRegex)];
+
+    if (matches.length === 0) {
+      this.log('warn', 'No images found in page');
+      return;
+    }
+
+    let passCount = 0;
+    let failCount = 0;
+    const missingImages = [];
+
+    for (const match of matches) {
+      let srcPath = match[1];
+
+      // Skip external URLs (http, https, data URIs)
+      if (srcPath.startsWith('http://') || srcPath.startsWith('https://') || srcPath.startsWith('data:')) {
+        continue; // Silently skip external resources
+      }
+
+      // Strip query strings (e.g., ?v=1.0.0 for cache busting)
+      const queryIndex = srcPath.indexOf('?');
+      if (queryIndex > -1) {
+        srcPath = srcPath.substring(0, queryIndex);
+      }
+
+      // Resolve the image path
+      let resolvedPath;
+      if (srcPath.startsWith('/')) {
+        // Absolute path from site root
+        resolvedPath = path.join(rootDir, srcPath);
+      } else {
+        // Relative path from port file location
+        resolvedPath = path.join(portDir, srcPath);
+      }
+
+      // Check if file exists
+      if (fs.existsSync(resolvedPath)) {
+        passCount++;
+      } else {
+        this.log('error', `MISSING IMAGE: ${srcPath}`);
+        missingImages.push(srcPath);
+        failCount++;
+      }
+    }
+
+    // Summary
+    if (failCount > 0) {
+      console.log(`\n${RED}${BOLD}${failCount} image(s) are MISSING - these must be added or references removed${RESET}`);
+      console.log(`${RED}Missing images:${RESET}`);
+      missingImages.forEach(img => console.log(`  • ${img}`));
+    } else if (passCount > 0) {
+      this.log('pass', `All ${passCount} local images exist`);
+    }
+  }
+
+  /**
    * Validate collapsible sections (BLOCKING requirement)
    * All major port page sections must be collapsible using <details class="section-collapse">
    */
@@ -267,6 +336,11 @@ class PortValidator {
     // Run basic validations
     this.validateBasicStructure();
     this.validatePortRequirements();
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // IMAGE VALIDATION - BLOCKING REQUIREMENT
+    // ═══════════════════════════════════════════════════════════════════════════
+    this.validateImages();
 
     // ═══════════════════════════════════════════════════════════════════════════
     // COLLAPSIBLE SECTIONS - BLOCKING REQUIREMENT
@@ -368,9 +442,12 @@ Examples:
 ${BOLD}This master validator runs:${RESET}
   1. Basic page structure checks
   2. Port-specific requirements
-  3. ${RED}Weather Guide Validator (BLOCKING - must pass 100%)${RESET}
+  3. ${RED}Image Validation (BLOCKING - all images must exist locally)${RESET}
+  4. Collapsible sections check
+  5. ${RED}Weather Guide Validator (BLOCKING - must pass 100%)${RESET}
 
 ${BOLD}Blocking Requirements:${RESET}
+  • All referenced images MUST exist locally (no hallucinated paths)
   • Weather validator MUST pass with ZERO errors
   • Any blocking error fails the entire validation
 
