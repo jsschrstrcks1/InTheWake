@@ -1695,12 +1695,72 @@ figure.hero img + img,
   border-top: 1px solid var(--divider);
 }
 
+/* Collapsible sections */
+.seasonal-section {
+  margin-bottom: 1rem;
+  border: 1px solid var(--divider);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.seasonal-section[open] {
+  margin-bottom: 1.5rem;
+}
+
+.seasonal-section > .seasonal-at-glance,
+.seasonal-section > .seasonal-best-time,
+.seasonal-section > .seasonal-catches,
+.seasonal-section > .seasonal-packing,
+.seasonal-section > .seasonal-hazards {
+  padding: 1rem;
+  margin-bottom: 0;
+}
+
 .seasonal-section-title {
   font-family: var(--font-display);
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-primary);
+  margin: 0;
+  padding: 1rem;
+  cursor: pointer;
+  background: var(--surface-secondary);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.seasonal-section-title::-webkit-details-marker {
+  display: none;
+}
+
+.seasonal-section-title::after {
+  content: "+";
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+}
+
+.seasonal-section[open] > .seasonal-section-title::after {
+  content: "−";
+}
+
+.seasonal-section-title:hover {
+  background: var(--surface-tertiary, var(--surface-secondary));
+}
+
+/* Fallback for non-details h3 elements */
+h3.seasonal-section-title {
+  cursor: default;
+  background: transparent;
+  padding: 0;
   margin: 0 0 1rem 0;
+}
+
+h3.seasonal-section-title::after {
+  display: none;
 }
 
 /* At a Glance */
@@ -1759,7 +1819,7 @@ figure.hero img + img,
   border-left-color: #22c55e;
 }
 
-.cruise-season-shoulder {
+.cruise-season-transitional {
   background: rgba(234, 179, 8, 0.1);
   border-left-color: #eab308;
 }
