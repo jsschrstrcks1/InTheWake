@@ -1605,6 +1605,43 @@ Soli Deo Gloria
 
 ---
 
+### 🟢 [G] Competitor Analysis Overview (2025-12-31)
+**Lane:** 🟢 Green (strategic planning)
+**Purpose:** Comprehensive competitive landscape analysis to identify features to adopt, gaps to exploit, and strategic positioning
+
+#### Completed Analyses Summary
+
+| Competitor | Focus | Key Insight | Status |
+|------------|-------|-------------|--------|
+| **WhatsInPort** | 900+ ports, printable maps, walking distances | Utility focus; In The Wake adds storytelling | ✅ Complete |
+| **Cruise Critic** | 150K+ reviews, forums, Roll Calls | Community noise; single-voice is our moat | ✅ Complete |
+| **Cruiseline.com/Shipmate** | Mobile app, offline, deals | PWA already has offline — market it better | ✅ Complete |
+| **CruiseMapper** | Real-time ship tracking, "Cruise Minus" incidents | Different category; adopt "Real Talk" transparency | ✅ Complete |
+| **IQCruising** | 20+ years industry, PDF maps, editorial control | Similar philosophy but impersonal; we add narrative | ✅ Complete |
+| **Cruise Crocodile** | 120+ ports, specific taxi rates, affiliate links | Great transport cost model; we're ad-free | ✅ Complete |
+
+#### Key Differentiators Identified
+
+| In The Wake Strength | Competitor Coverage | Strategic Value |
+|---------------------|---------------------|-----------------|
+| Ship-Port Integration | ⭐ No competitor has this | UNIQUE — protect and expand |
+| First-Person Storytelling | ⭐ All competitors lack narrative depth | UNIQUE — core brand identity |
+| Interactive Tools (Quiz, Calculator, Checker) | ⭐ No competitor has decision-support tools | UNIQUE — expand tool suite |
+| Gamification (Logbooks, Achievements) | ⭐ No competitor has journey tracking | UNIQUE — deepen engagement |
+| Ad-Free Trust | Rare (most have affiliate/ad models) | DIFFERENTIATOR — promote explicitly |
+| Accessibility Depth | ⭐ Market gap across all competitors | OPPORTUNITY — become THE resource |
+| Faith-Based Perspective | ⭐ No competitor addresses this | NICHE — continue developing |
+
+#### Consolidated Recommendations: 29 items
+- **P1 Quick Wins:** #1-6, #17-19 (tender index, trust messaging, offline marketing)
+- **P2 Strategic:** #7-16, #20-22 (transport component, print CSS, tools)
+- **P3 Content:** #23-29 (author callouts, ship-port guides, dock callouts)
+
+#### "NOT Building" Summary: 13 items rejected
+User reviews, forums, booking/deals, native app, real-time tracking, affiliate links, AI-generated content, PDF-first strategy, incident database, port schedules by date
+
+---
+
 ### 🟢 [G] Competitor Gap Analysis: WhatsInPort.com (NEW - 2025-12-31)
 **Lane:** 🟢 Green (feature planning, content strategy)
 **Analysis Date:** 2025-12-31
