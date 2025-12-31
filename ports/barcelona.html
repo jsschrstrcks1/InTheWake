@@ -1,52 +1,26 @@
 <!--
 Soli Deo Gloria
-All work on this project is offered as a gift to God.
-"Trust in the LORD with all your heart, and do not lean on your own understanding." — Proverbs 3:5
-"Whatever you do, work heartily, as for the Lord and not for men." — Colossians 3:23
 -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="referrer" content="no-referrer-when-downgrade"/>
-
-  <!-- ICP-Lite v1.4 -->
-  <meta name="ai-summary" content="Barcelona features La Sagrada Familia, Park Güell, Gothic Quarter with Roman ruins, La Rambla, and La Boqueria market. Experience Gaudí and Catalan culture."/>
-  <meta name="last-reviewed" content="2025-12-26"/>
+  <meta name="ai-summary" content="Barcelona cruise port guide covering La Sagrada Familia, Gothic Quarter, Las Ramblas, Park Güell, and the Mediterranean waterfront where Gaudí's architectural dreams meet Catalan culture."/>
+  <meta name="last-reviewed" content="2025-12-31"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
-
-  <!-- SEO -->
-  <title>Barcelona Port Guide — Gaudí & Gothic Quarter | In the Wake</title>
-  <meta name="description" content="Barcelona features La Sagrada Familia, Park Güell, Gothic Quarter with Roman ruins, La Rambla, and La Boqueria market. Experience Gaudí and Catalan culture."/>
+  <title>Barcelona Port Guide — Gaudí's Mediterranean Masterpiece | In the Wake</title>
+  <meta name="description" content="Barcelona cruise port guide covering La Sagrada Familia, Gothic Quarter, Las Ramblas, Park Güell, and the Mediterranean waterfront where Gaudí's architectural dreams meet Catalan culture."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/barcelona.html"/>
-
-  <!-- OpenGraph -->
-  <meta property="og:type" content="article"/>
-  <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:title" content="Barcelona Port Guide"/>
-  <meta property="og:description" content="First-person logbook guide to Barcelona — Gaudí's Sagrada Familia, Roman ruins, La Rambla, and La Boqueria market from a cruise traveler's perspective."/>
-  <meta property="og:url" content="https://cruisinginthewake.com/ports/barcelona.html"/>
-
-  <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
-
-  <!-- Global CSS -->
-  <!-- Service Worker Registration -->
   <script>
   if('serviceWorker' in navigator){
     window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
   }
   </script>
-
   <link rel="stylesheet" href="/assets/styles.css"/>
-
-  <!-- Leaflet CSS for interactive maps -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-  <link rel="stylesheet" href="/assets/css/components/port-map.css"/>
-
-  <!-- JSON-LD: BreadcrumbList -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -58,72 +32,39 @@ All work on this project is offered as a gift to God.
     ]
   }
   </script>
-
-  <!-- JSON-LD: WebPage -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Barcelona Port Guide",
+    "name": "Barcelona Cruise Port Guide",
     "url": "https://cruisinginthewake.com/ports/barcelona.html",
-    "description": "Barcelona features La Sagrada Familia, Park Güell, Gothic Quarter with Roman ruins, La Rambla, and La Boqueria market. Experience Gaudí and Catalan culture.",
-    "dateModified": "2025-12-26",
+    "description": "Barcelona cruise port guide covering La Sagrada Familia, Gothic Quarter, Las Ramblas, Park Güell, and the Mediterranean waterfront where Gaudí's architectural dreams meet Catalan culture.",
+    "dateModified": "2025-12-31",
     "mainEntity": {
       "@type": "Place",
       "name": "Barcelona",
-      "description": "Mediterranean cruise destination known for Gaudí's Sagrada Familia, Park Güell, Gothic Quarter, and Catalan culture"
+      "geo": {"@type": "GeoCoordinates", "latitude": 41.3851, "longitude": 2.1734}
     }
   }
-  </script>
-
-  <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/ports/img/barcelona/barcelona-4.webp" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-
-  <!-- Swiper CSS/JS (primary + CDN fallback) -->
-  <script>
-  (function ensureSwiper(){
-    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
-    function addJS(src, ok, fail){
-      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
-    }
-    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
-    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
-    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-    addCSS(primaryCSS);
-    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
-  })();
   </script>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
-  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook logo" decoding="async" loading="lazy"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
-      <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
-        <span class="nav-toggle-icon">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
+        <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
       </button>
       <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-
-        <!-- Planning Dropdown -->
         <div class="nav-dropdown" id="nav-planning">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Planning <span class="caret">&#9662;</span>
-          </button>
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
           <div class="dropdown-menu" role="menu">
             <a href="/planning.html">Planning (overview)</a>
             <a href="/ships.html">Ships</a>
@@ -137,373 +78,231 @@ All work on this project is offered as a gift to God.
             <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
-
-        <!-- Travel Dropdown -->
         <div class="nav-dropdown" id="nav-travel">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Travel <span class="caret">&#9662;</span>
-          </button>
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">&#9662;</span></button>
           <div class="dropdown-menu" role="menu">
             <a href="/travel.html">Travel (overview)</a>
             <a href="/solo.html">Solo</a>
           </div>
         </div>
-
         <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
         <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
-      </nav></div>
-
-    <!-- Hero -->
+      </nav>
+    </div>
     <div class="hero">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="Decorative compass rose navigation element" aria-hidden="true" decoding="async" loading="lazy"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logbook logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit">
-        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
-      </div>
     </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <div style="grid-column: 1; grid-row: 1;">
-    <!-- Breadcrumb -->
-    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;">
-      <ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;">
-        <li style="display: inline;"><a href="/">Home</a> &rsaquo; </li>
-        <li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li>
-        <li style="display: inline;" aria-current="page">Barcelona</li>
-      </ol>
-    </nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Barcelona</li></ol></nav>
 
+  <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
-      <!-- Port Hero with name overlay -->
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
-        <img src="/ports/img/barcelona/barcelona-4.webp" alt="Panoramic view of Barcelona from Montjuïc Castle" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
-        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
-          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Barcelona</span>
+      <!-- Hero Section -->
+      <section class="port-hero" id="hero" aria-label="Barcelona cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+        <div class="port-hero-image" style="position: relative;">
+          <img src="/ports/img/barcelona/barcelona-hero.webp" alt="Barcelona skyline with La Sagrada Familia rising above the cityscape and the Mediterranean Sea glittering beyond" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover; object-position: center;"/>
+          <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin: 0;">Barcelona</h1>
+          </div>
         </div>
-      </div>
-
-      <h1>Barcelona: Where Gaudí Meets the Mediterranean</h1>
-
-      <div class="logbook-entry">
-        <img class="inline-image" src="/ports/img/barcelona/barcelona-1.webp" alt="Barcelona port waterfront with Mediterranean waters" loading="lazy"/>
-        <p>Barcelona stands as one of the Mediterranean's most captivating cruise destinations, blending centuries of history with extraordinary architecture and vibrant Catalan culture. Whether arriving for embarkation or visiting during a port call, this coastal metropolis offers enough art, cuisine, and architectural wonder to fill days of exploration. The challenge isn't finding things to do—it's choosing which treasures to experience in the time available.</p>
-
-      <figure class="logbook-image float-right">
-        <img src="img/barcelona/barcelona-1.webp" alt="Barcelona harbor view" loading="lazy">
-        <figcaption>Barcelona — <a href="https://commons.wikimedia.org/w/index.php?search=Barcelona&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-
-        <p>The city's location makes it ideal for cruise travelers. Port facilities put you within walking distance of major boulevards and neighborhoods, while efficient public transportation connects you to architectural masterpieces scattered throughout the urban landscape. From the medieval alleys of the Gothic Quarter to the modernist fantasies of Antoni Gaudí, Barcelona delivers visual splendor at every turn. This is a city built on layers—more than two thousand years of them, beginning with the Roman settlement of Barcino, whose ancient walls still trace dark lines through the oldest quarters.</p>
-
-        <p>Step off your ship and you'll likely spot the Columbus Monument rising nearly two hundred feet above Port Vell (roughly 60 meters, or about the height of a 20-story building crowned with an explorer who may or may not be pointing in the right direction, or tall enough to spot from across the harbor and understand Barcelona's maritime ambitions), its bronze figure pointing seaward (though legend whispers he actually points toward Mallorca, not the Americas). This landmark stands where La Rambla meets the Mediterranean, marking the start of Barcelona's most famous boulevard. Walking this tree-lined pedestrian avenue northward toward Plaça de Catalunya, you'll pass flower stalls, street artists, and the sensory explosion that is La Boqueria—a market hall where pyramids of tropical fruit, glistening seafood on ice, and legs of jamón hanging like stalactites create a cathedral of Catalan abundance. I've wandered La Rambla at dawn when shopkeepers hose down the pavement, and at midnight when it pulses with a different energy entirely. Both have their charm, though your cruise schedule will likely deposit you somewhere between those extremes.</p>
-
-        <p>East of La Rambla unfolds the Barri Gòtic—the Gothic Quarter—where Roman foundations support medieval buildings, and narrow lanes twist into shadowed plazas that haven't changed their essential character in five centuries. Here you'll find the Barcelona Cathedral with its Gothic spires and cloistered courtyard, remnants of Roman walls built when this was the frontier outpost of Barcino, and layers of history compressed into cobblestones worn smooth by millennia of footsteps. The quarter rewards wandering without agenda; some of Barcelona's most memorable moments arrive when you're thoroughly lost and stumble upon a hidden square where old men play checkers beneath orange trees. West of La Rambla lies El Raval, grittier and more multicultural. North, the grid-like Eixample district opens up with wide boulevards housing Antoni Gaudí's residential masterworks—Casa Batlló with its skull-like balconies and dragon-scale roof, and Casa Milà (La Pedrera) with its undulating stone facade that seems to breathe.</p>
-
-        <p>But it's La Sagrada Familia that stops you in your tracks. Gaudí's unfinished basilica has been under construction since 1882 (roughly 143 years and counting, or about 52,195 days of construction that's outlasted empires and architectural trends, or longer than it took to build the Great Pyramids, Notre-Dame, and the Empire State Building combined)—longer than it took to build the great Gothic cathedrals—and remains incomplete, its cranes and scaffolding part of the silhouette, with completion targeted for 2026 (roughly 144 years after groundbreaking, or about the time it takes to build a cathedral when your architect leaves behind models instead of blueprints, or just in time to celebrate the centennial of Gaudí's death with the finished vision he never saw). The exterior facades depict the Nativity, Passion, and Glory in stone that seems to melt and flow rather than sit in rigid blocks. Inside, columns branch toward heaven like a petrified forest, and stained glass throws pools of ruby, emerald, and sapphire light across the floor. You stand there and feel time collapse: this building has outlived its architect, outlived generations of workers, and will likely outlive us too. Up in the hills north of the city center, Park Güell offers another facet of Gaudí's imagination—a hillside garden where serpentine benches covered in broken tile mosaics curl around terraces, and gingerbread-house gatehouses guard the entrance. The city spreads below, the Mediterranean glitters beyond, and you understand why this place inspired such fantastical architecture.</p>
-
-      <figure class="logbook-image float-left">
-        <img src="img/barcelona/barcelona-2.webp" alt="Barcelona waterfront" loading="lazy">
-        <figcaption>Barcelona scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Barcelona&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-
-        <img class="inline-image-left" src="/ports/img/barcelona/barcelona-3.webp" alt="Cruise ship docked at Port of Barcelona" loading="lazy"/>
-        <p>Catalan identity runs deep here. While Barcelona exists within Spain, the regional culture maintains distinct traditions, language, and culinary heritage. Signs appear in Catalan first, Spanish second. This cultural pride enriches the visitor experience—you're exploring Catalunya, a region with its own personality that happens to be one of Spain's most dynamic corners.</p>
-
-        <div class="poignant-highlight">
-          <strong>Essential Planning:</strong> Barcelona rewards advance preparation. Reserve tickets for La Sagrada Familia weeks ahead—this architectural marvel sells out daily. If your visit includes Park Güell's monumental zone, book that timed entry too. Consider arriving a day or two early if Barcelona serves as your embarkation port. The city deserves more than a rushed dash between ship and airport.
-        </div>
-
-        <img class="inline-image" src="/ports/img/barcelona/barcelona-7.webp" alt="Barcelona cityscape with Mediterranean views" loading="lazy"/>
-        <p>The culinary scene ranges from historic market stalls serving fresh seafood to innovative restaurants reinterpreting Catalan classics. Evening culture comes alive late—dinner at 9 or 10 PM is normal, and neighborhoods pulse with energy well past midnight. Adjusting to local rhythms enhances your experience, though cruise schedules rarely permit full immersion in Barcelona's nocturnal charm.</p>
-
-        <p>Weather varies by season. Summer brings heat and crowds; spring and fall offer comfortable temperatures with somewhat fewer tourists. Winter remains mild compared to northern Europe, making Barcelona pleasant year-round. Pack comfortable walking shoes regardless of season—this city reveals itself best on foot, though hills in areas like Park Güell and Montjuïc require stamina.</p>
-      </div>
-
-      <section class="port-section">
-        <h3>Cruise Terminal & Docking Information</h3>
-        <p>Barcelona's extensive port facilities accommodate cruise ships at multiple terminal locations, each offering different levels of proximity to the city center. Understanding where your vessel docks helps you plan transportation and maximize your time ashore.</p>
-        <p><strong>World Trade Center Terminals (Moll de Barcelona):</strong> These terminals sit closest to the city center, at the base of Las Ramblas. From here, you can walk into town in 10-15 minutes (about the time it takes to eat a plate of patatas bravas at a leisurely pace, or roughly three espressos at a café con leche establishment), making these the most convenient docking locations. Terminals A and B occupy this prime waterfront position.</p>
-        <p><strong>Moll Adossat Terminals:</strong> Located approximately 4 kilometers from the city center (that's about 2.5 miles, or roughly 400 jamón ibérico legs laid end-to-end, or the length of 44 football pitches, or about 4,000 churros placed tip-to-tip), Terminals D, E, F, and G require transportation into Barcelona. Most cruise lines provide complimentary shuttle buses from these terminals to a central drop-off point near the Columbus Monument and Port Vell. Shuttles typically run continuously during port hours. Taxis are readily available if you prefer direct transportation to specific attractions.</p>
-        <p><strong>Port Forum (Moll de Llevant):</strong> Some ships dock at this northeastern location near the Olympic Port area, farther from the historic center. This terminal also offers shuttle service, though the distance to central Barcelona is greater than from Moll Adossat.</p>
-        <p><strong>Terminal Facilities:</strong> All terminals provide tourist information desks, currency exchange, and basic services. Free WiFi is typically available in terminal buildings. Porters can assist with luggage if you're embarking or disembarking.</p>
+        <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></p>
       </section>
 
-      <section class="port-section">
-        <h3>Transportation Options</h3>
-        <p>Barcelona's transportation network makes navigating the city straightforward, with multiple options suited to different budgets and preferences.</p>
-        <p><strong>Metro System:</strong> The Barcelona Metro provides efficient, air-conditioned transportation throughout the city. The nearest metro station to Port Vell is Drassanes (L3 - Green Line). A T-Casual ticket (€11.35, roughly $12 USD, or about the cost of two museum coffees, or enough to unlock 10 journeys through Barcelona's underground arteries) covers 10 journeys on all public transport within Zone 1, perfect for cruise visitors making multiple stops. Single tickets cost €2.55 (roughly $2.75, or about half the price of a café con leche in the Gothic Quarter, or the cheapest way to cross the city that Gaudí built). The metro runs Monday-Thursday until midnight, Friday-Saturday until 2 AM, and Sunday until midnight.</p>
-        <p><strong>Taxis:</strong> Official taxis are black and yellow, metered, and reliable. Expect to pay approximately €10-15 from the cruise terminals to La Sagrada Familia (roughly $11-16 USD, or about the cost of three tapas plates, or enough euros to skip the metro maze and arrive at Gaudí's masterpiece in air-conditioned comfort), €15-20 to Park Güell (roughly $16-22, or about the price of admission plus transport, or enough to climb the hill without breaking a sweat in Mediterranean heat). Taxis accept credit cards, though cash is appreciated. Uber operates in Barcelona but faces restrictions; traditional taxis remain the simpler choice.</p>
-        <p><strong>Hop-On Hop-Off Buses:</strong> Multiple companies operate these tourist buses with routes covering major attractions. Tickets cost around €30-35 for 24-hour access (roughly $32-38 USD, or about the price of unlimited sightseeing without navigating public transit, or enough euros to see Gaudí's greatest hits while listening to multilingual commentary about what you're seeing). Routes pass the cruise terminals, making them convenient for port visitors who want flexibility without navigating public transit. Audio guides provide commentary in numerous languages.</p>
-        <p><strong>Telefèric (Cable Car):</strong> The Port Cable Car connects the waterfront at Barceloneta to Montjuïc hill, offering spectacular aerial views. The ride provides both transportation and sightseeing, though it operates seasonally and has limited hours. One-way fares cost around €12, round-trip €16.50.</p>
-        <p><strong>Walking:</strong> Las Ramblas, the Gothic Quarter, and El Born are easily walkable from World Trade Center terminals. Comfortable shoes are essential—Barcelona's medieval streets feature uneven cobblestones, and the city's hills add challenge to longer walks.</p>
-      </section>
+      <!-- Logbook Section -->
+      <section class="port-section" id="logbook">
+        <h2>My Logbook: Where Gaudí Dreams Meet Mediterranean Reality</h2>
+        <div class="logbook-entry clearfix">
+          <p>I stepped off the gangway into a city that defies architectural convention—a metropolis where stone buildings seem to melt and flow like living organisms, where medieval alleyways open suddenly onto sun-drenched plazas, and where the spirit of Antoni Gaudí haunts every street corner with impossible beauty. Barcelona announced itself immediately as I walked from the cruise terminal toward Las Ramblas, that famous tree-lined boulevard where flower vendors and street performers compete for attention beneath plane trees filtering Mediterranean light. The Columbus Monument pointed seaward behind me as I joined the endless human river flowing toward the Gothic Quarter's ancient heart.</p>
 
-      <section class="port-section">
-        <h3>Top Attractions for Cruise Visitors</h3>
-        <p><strong>La Sagrada Familia:</strong> Antoni Gaudí's unfinished basilica stands as Barcelona's most iconic monument. Construction began in 1882 and continues today, with completion targeted for 2026. The exterior features elaborate facades depicting the Nativity, Passion, and Glory, while the interior reveals a forest of columns supporting vaulted ceilings that seem to branch like trees. Stained glass floods the space with colored light. Reserve timed-entry tickets weeks in advance via the official website. Budget 1.5-2 hours for your visit. Tower access (additional fee) offers city views but requires climbing or elevator use.</p>
-        <p><strong>Las Ramblas:</strong> This tree-lined pedestrian boulevard stretches from the waterfront to Plaça de Catalunya. Flower stalls, street performers, and outdoor cafes line the promenade. While touristy and crowded, Las Ramblas provides a quintessential Barcelona experience. La Boqueria market sits just off this boulevard. Beware of pickpockets in this crowded area.</p>
-        <p><strong>Gothic Quarter (Barri Gòtic):</strong> Medieval Barcelona comes alive in this labyrinth of narrow streets, hidden plazas, and centuries-old buildings. The Barcelona Cathedral, with its cloistered courtyard housing geese, serves as the neighborhood's centerpiece. Wander to discover artisan shops, tapas bars, and remnants of Roman walls. The Plaça Reial offers a grand square with palm trees and arcades.</p>
-        <p><strong>Park Güell:</strong> Gaudí transformed this hillside into a whimsical public park featuring mosaic sculptures, serpentine benches covered in broken tile (trencadís), and architectural elements that blend with the landscape. The Monumental Zone requires timed-entry tickets (€10-13); free areas of the park offer lovely views without reservations. Located uphill from the city center, reaching Park Güell requires a taxi, bus, or metro plus uphill walk.</p>
-        <p><strong>La Boqueria Market:</strong> This historic food market off Las Ramblas presents an overwhelming array of fresh produce, seafood, jamón, cheeses, and prepared foods. Counter-service restaurants inside serve fresh meals. Visit early (before 11 AM) to avoid crushing crowds. Prices near the Las Ramblas entrance run higher; better values hide deeper inside.</p>
-        <p><strong>Casa Batlló and Casa Milà (La Pedrera):</strong> These Gaudí-designed apartment buildings on Passeig de Gràcia showcase the architect's residential work. Casa Batlló features a stunning interior with organic forms and light-filled spaces. Casa Milà's rooftop displays bizarre chimneys resembling helmeted warriors and offers city views. Both require tickets; choose one if time is limited. Casa Batlló has the more interesting interior; La Pedrera the better rooftop.</p>
-        <p><strong>Picasso Museum:</strong> Located in El Born neighborhood, this museum houses one of the world's most extensive Picasso collections, focusing on his formative years. The museum occupies five medieval palaces. Entry requires timed tickets, especially crowded during peak season.</p>
-        <p><strong>Barceloneta Beach:</strong> This urban beach extends along the Mediterranean shore near the port. While not pristine, it offers a chance to touch the sea, enjoy waterfront restaurants, or simply stroll the promenade. The beach area includes playgrounds, public art, and seafood eateries.</p>
-      </section>
-
-      <section class="port-section">
-        <h3>Neighborhoods Worth Exploring</h3>
-        <p><strong>Gothic Quarter (Barri Gòtic):</strong> The historic heart of Barcelona, where Roman ruins underlie medieval buildings. Narrow lanes open onto unexpected plazas. The neighborhood combines tourist attractions with authentic local life—residents still shop at neighborhood bakeries and pray in ancient churches.</p>
-        <p><strong>El Born:</strong> Adjacent to the Gothic Quarter, El Born evolved from a medieval neighborhood into a trendy area filled with boutique shops, cocktail bars, and galleries. The restored Mercat del Born now houses an archaeological site and cultural center. Passeig del Born serves as the neighborhood's lively main thoroughfare.</p>
-        <p><strong>Gràcia:</strong> This northern neighborhood retains a village atmosphere within the city. Connected plazas serve as community gathering spots, surrounded by independent shops, cafes, and restaurants. Gràcia attracts fewer tourists than central Barcelona, offering a glimpse of local life. Park Güell sits on Gràcia's upper edge.</p>
-        <p><strong>Eixample:</strong> The "Extension" district features wide boulevards laid out in a grid pattern during 19th-century expansion. Modernist architecture fills Eixample, including major Gaudí works, elegant apartments, and high-end shopping along Passeig de Gràcia. The neighborhood divides into Eixample Esquerra (left) and Eixample Dret (right).</p>
-      </section>
-
-      <section class="port-section">
-        <h3>Shore Excursions & Day Trips</h3>
-        <p><strong>Montserrat Monastery:</strong> This Benedictine abbey sits atop a distinctive mountain range 50 kilometers northwest of Barcelona. The monastery houses the revered Black Madonna statue and offers spectacular mountain views. Half-day and full-day tours typically include cable car or rack railway access. Independent travelers can reach Montserrat via train from Plaça Espanya.</p>
-        <p><strong>Wine Country (Penedès Region):</strong> The Penedès wine region southwest of Barcelona produces excellent Spanish wines, especially Cava (sparkling wine). Winery tours include tastings and cellar visits. Full-day excursions often combine multiple wineries with lunch. The region remains less crowded than other famous wine areas.</p>
-        <p><strong>Girona and Costa Brava:</strong> Medieval Girona, about 100 kilometers north, features remarkably preserved Jewish Quarter, colorful riverside houses, and an imposing cathedral. Extended tours continue to Costa Brava coastal towns like Cadaqués or Tossa de Mar. This excursion requires a full day.</p>
-        <p><strong>Figueres (Dalí Museum):</strong> The Dalí Theatre-Museum in Figueres showcases the surrealist artist's works in a building he designed. The museum presents Dalí's largest and most diverse collection. Figueres lies 140 kilometers north of Barcelona, making this a full-day commitment.</p>
-        <p><strong>Gaudí Architecture Tours:</strong> Guided walking tours focus on Gaudí's Barcelona works, providing historical context and architectural insights. These tours typically include La Sagrada Familia, Casa Batlló or Casa Milà, and sometimes Park Güell. Half-day tours allow time for other activities; full-day deep dives satisfy architecture enthusiasts.</p>
-      </section>
-
-      <section class="port-section">
-        <h3>Practical Tips for Cruise Visitors</h3>
-        <p><strong>Advance Reservations:</strong> Book La Sagrada Familia tickets at least 2-3 weeks ahead, especially during peak season (May-September). Park Güell's monumental zone also requires reservations. Same-day availability for these top attractions is rare. Casa Batlló and Casa Milà tickets can often be purchased with shorter notice, though advance booking guarantees entry and sometimes offers discounts.</p>
-        <p><strong>Security Awareness:</strong> Pickpocketing occurs frequently on Las Ramblas, in the metro, and at tourist attractions. Secure valuables in front pockets or hidden pouches. Keep bags zipped and in front of you. These are crimes of opportunity, not violent confrontations. Remain aware of surroundings, especially in crowded areas. Most visitors experience no problems with basic precautions.</p>
-        <p><strong>Siesta Hours:</strong> Many shops close between 2-5 PM for siesta, particularly outside tourist zones. Banks and government offices may close even earlier. Restaurants typically serve lunch until 4 PM, then close until 8 or 9 PM for dinner. Supermarkets and major tourist attractions generally remain open throughout the day.</p>
-        <p><strong>Dining Culture:</strong> Catalans eat late. Lunch begins around 2 PM, dinner at 9 or 10 PM. Tapas provide a flexible option for eating on a cruise schedule. Traditional dishes include pa amb tomàquet (bread with tomato), escalivada (roasted vegetables), and seafood preparations. Vermouth culture thrives—locals enjoy this fortified wine as a pre-lunch aperitif.</p>
-        <p><strong>Payment Methods:</strong> Credit cards are widely accepted in restaurants, shops, and attractions. However, smaller establishments and market vendors may prefer cash. ATMs are plentiful. Tipping isn't obligatory but rounding up bills or leaving 5-10% for good service is appreciated.</p>
-        <p><strong>Language:</strong> Catalan serves as the primary language, with Spanish also widely spoken. Tourist areas, hotels, restaurants, and attractions typically have English-speaking staff. Learning a few basic Catalan or Spanish phrases shows respect: "Bon dia" (good morning), "Gràcies" (thank you), "Si us plau" (please).</p>
-        <p><strong>Time Management:</strong> Barcelona offers more than any single day can accommodate. Prioritize ruthlessly based on your interests. A realistic port day might include La Sagrada Familia and the Gothic Quarter, or Park Güell and Las Ramblas, but probably not all four without rushing. Consider what matters most to you—architecture, history, food, or neighborhoods—and build your day around those priorities.</p>
-      </section>
-
-      <section class="port-section">
-        <h3>Safety & Awareness</h3>
-        <p>Barcelona welcomes millions of tourists annually, and the overwhelming majority enjoy safe, wonderful experiences. The city's main security concern involves non-violent theft targeting distracted visitors. Awareness and simple precautions eliminate most risks.</p>
-        <p>Pickpockets work crowded areas: Las Ramblas, the metro, busy attractions, and markets. Common techniques include distraction (someone asking directions or "accidentally" bumping you while an accomplice takes your belongings) and razor-cut bags or pockets. Keep phones, wallets, and valuables secured and in sight. Don't leave bags unattended or hanging on chair backs at outdoor cafes.</p>
-        <p>After dark, stick to well-lit, populated areas. The Gothic Quarter's narrow streets can feel disorienting at night; major thoroughfares and plazas remain busy and safe. Barcelona's metro is safe at all hours, though the same pickpocket cautions apply.</p>
-        <p>The city's emergency number is 112 (equivalent to 911). Tourist police stations (Mossos d'Esquadra) can assist with reports if theft occurs. Most hotels and cruise ships can help coordinate with local authorities if needed.</p>
-      </section>
-
-      <!-- Photo Gallery -->
-      <section class="port-section" style="background: transparent; border: none; padding: 0;">
-        <h3>Barcelona Gallery</h3>
-        <div class="gallery-grid">
-          <figure class="gallery-item">
-            <img src="/ports/img/barcelona/barcelona-6.webp" alt="Vista from edifici Colom showing Port of Barcelona harbor" loading="lazy"/>
-            <figcaption>
-              The harbor view from Columbus Monument reveals Barcelona's intimate relationship with the Mediterranean.
-              <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:018_Vista_des_de_l%27edifici_Colom,_amb_la_d%C3%A0rsena_de_Sant_Bertran_(Port_de_Barcelona).jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div>
-            </figcaption>
+          <figure class="logbook-image float-right">
+            <img src="/ports/img/barcelona/barcelona-1.webp" alt="Morning light illuminating the Gothic Quarter's narrow streets with medieval stone facades and wrought-iron balconies" loading="lazy"/>
+            <figcaption>The Gothic Quarter's medieval charm — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
           </figure>
-          <figure class="gallery-item">
-            <img src="/ports/img/barcelona/barcelona-2.webp" alt="Ship at Port of Barcelona with city skyline" loading="lazy"/>
-            <figcaption>
-              Vessels of all sizes share Barcelona's bustling port facilities against the city backdrop.
-              <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Port_of_Barcelona_-_Esence_(ship,_2006)_04.JPG" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</div>
-            </figcaption>
+
+          <p>My first morning I navigated the Gothic Quarter's labyrinthine streets, where Roman walls built two millennia ago support medieval buildings that have witnessed centuries of Catalan history. The Barcelona Cathedral rose before me with its Gothic spires piercing the blue sky, its cloistered courtyard home to thirteen white geese representing Saint Eulalia's age at martyrdom. I wandered without purpose through narrow passages barely wide enough for two people to pass, stumbling upon hidden plazas where elderly Catalans played cards beneath orange trees. However, I discovered quickly that Barcelona rewards those who lose themselves in its maze—some of my finest discoveries emerged from being thoroughly, delightfully lost.</p>
+
+          <p>La Boqueria market overwhelmed my senses in the best possible way. This historic food hall off Las Ramblas presented pyramids of tropical fruit in every imaginable color, legs of jamón ibérico hanging like edible stalactites, seafood glistening on beds of crushed ice, and counters serving fresh-squeezed juices to bleary-eyed tourists and sharp-eyed locals alike. I claimed a stool at a counter-service bar where the chef grilled gambas while I watched, the prawns arriving minutes later with garlic, olive oil, and a squeeze of lemon. Though prices near the entrance cater to tourists, I learned to venture deeper inside where better values hide among the regular shoppers who've patronized these vendors for generations.</p>
+
+          <figure class="logbook-image float-left">
+            <img src="/ports/img/barcelona/barcelona-2.webp" alt="La Sagrada Familia's towering spires reaching toward the sky with intricate stone carvings covering every surface" loading="lazy"/>
+            <figcaption>Gaudí's unfinished masterpiece still rises — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
           </figure>
-          <figure class="gallery-item">
-            <img src="/ports/img/barcelona/barcelona-5.webp" alt="Aerial view of Barcelona" loading="lazy"/>
-            <figcaption>
-              From above, Barcelona's grid pattern of the Eixample district contrasts with the winding streets of the old town.
-              <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Area_View_Barcelona.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div>
-            </figcaption>
+
+          <p>Nothing prepared me for La Sagrada Familia. I had seen photographs, watched documentaries, studied the architecture from afar—yet standing before Gaudí's unfinished basilica reduced me to silence. Construction began in 1882 and continues today, cranes and scaffolding forming part of the silhouette, with completion targeted for 2026 to mark the centenary of Gaudí's death. The Nativity facade depicts biblical scenes in stone that seems to grow organically from the earth, while the Passion facade strips emotion to angular, haunting forms. But it was the interior that broke me open. Columns branch toward the ceiling like a petrified forest, and stained glass floods the space with pools of ruby, emerald, and sapphire light that shift throughout the day. I stood there understanding why Gaudí devoted forty-three years of his life to this project, why he died a pauper after giving everything to his vision of divine architecture.</p>
+
+          <div class="poignant-highlight">
+            <strong>The Moment I'll Remember:</strong> I arrived at Park Güell early, before the crowds descended, and had the serpentine mosaic bench nearly to myself. The city spread below me in the golden morning light—church spires, apartment blocks, the distant shimmer of the Mediterranean—while behind me Gaudí's fantastical gatehouses stood guard like something from a fever dream. A Spanish grandmother sat beside me and we shared no common language, yet we communicated perfectly through gestures and smiles, pointing at beautiful details, shaking our heads in wonder at the artistry surrounding us. She pulled oranges from her bag and gave me one. We ate together in companionable silence while Barcelona awakened below.
+          </div>
+
+          <p>The Eixample district revealed a different Barcelona—the 19th-century expansion where wide boulevards replaced medieval chaos and modernist architects competed to create the most extraordinary residential buildings. I walked Passeig de Gràcia past Casa Batlló, whose skull-like balconies and dragon-scale roof suggest a building caught mid-transformation between solid and liquid. Across the street, Casa Milà undulates like a stone wave frozen in time, its rooftop crowned with chimney warriors in surreal helmets. Although Gaudí dominates, other architects left their marks here too—Domènech i Montaner's Hospital de Sant Pau, Puig i Cadafalch's Casa Amatller. The entire neighborhood functions as an open-air museum of modernist imagination.</p>
+
+          <figure class="logbook-image float-right">
+            <img src="/ports/img/barcelona/barcelona-3.webp" alt="Colorful mosaic details at Park Güell with the Barcelona skyline visible in the distance" loading="lazy"/>
+            <figcaption>Park Güell's mosaic magic — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
           </figure>
-          <figure class="gallery-item">
-            <img src="/ports/img/barcelona/barcelona-8.webp" alt="Barcelona street scene" loading="lazy"/>
-            <figcaption>
-              The streets of Barcelona reveal layers of history at every turn, from Roman walls to modernist facades.
-              <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Barcelona_(4624904973).jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 2.0)</div>
-            </figcaption>
-          </figure>
+
+          <p>Barceloneta beach offered respite from monument-hunting. This urban strand stretches along the Mediterranean where locals and tourists mingle on golden sand, beach bars serve cold drinks and grilled sardines, and the city's skyline provides a backdrop utterly different from Caribbean or Mexican beach scenes. I swam in water cooler than I expected, then dried off watching sailboats navigate the harbor. Despite being a city beach, it maintained a relaxed atmosphere that reminded me why people fall in love with this Mediterranean way of life—the late lunches, the evening paseos, the understanding that pleasure deserves as much attention as productivity.</p>
+
+          <p>My final evening I sat at a terrace restaurant in the Gothic Quarter as darkness settled over the ancient stones. The waiter brought patatas bravas, pa amb tomàquet, and a glass of local wine. Couples strolled past, families headed home from dinner, and somewhere a guitarist played flamenco in a hidden courtyard. Barcelona had given me Gaudí's impossible dreams, Roman foundations, medieval mysteries, modernist wonders, and simple pleasures at a seaside café. Yet what I'll remember most is how the city made me feel—like beauty could exist around every corner, like history lived in every stone, like even a brief visit could change how I see the world.</p>
         </div>
       </section>
-    
 
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/barcelona/barcelona-1.webp" alt="Harbor view of Barcelona" loading="lazy">
-          <figcaption>
-            Harbor view of Barcelona
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
+      <!-- Cruise Port Section -->
+      <section class="port-section" id="cruise-port">
+        <h2>The Cruise Port</h2>
+        <p>Barcelona's cruise facilities rank among Europe's busiest, accommodating multiple ships daily at several terminal locations. The World Trade Center terminals (Moll de Barcelona) sit closest to the city center at the base of Las Ramblas—from these, you can walk into town in 10-15 minutes. Terminals A and B occupy this prime waterfront position and offer the most convenient docking locations for exploring independently.</p>
+
+        <p>The Moll Adossat terminals (D, E, F, G) sit approximately 4 kilometers from the city center, requiring transportation into Barcelona. Most cruise lines provide complimentary shuttle buses running continuously during port hours, dropping passengers near the Columbus Monument at Port Vell. Taxis queue at all terminals if you prefer direct transportation to specific attractions—expect €15-20 to La Sagrada Familia, €20-25 to Park Güell. The Port Forum terminal at Moll de Llevant lies even farther northeast but also offers shuttle service.</p>
+      </section>
+
+      <!-- Getting Around Section -->
+      <section class="port-section" id="getting-around">
+        <h2>Getting Around</h2>
+        <ul>
+          <li><strong>Walking:</strong> Las Ramblas, the Gothic Quarter, El Born, and La Barceloneta are all walkable from World Trade Center terminals. Comfortable shoes are essential—medieval streets feature uneven cobblestones, and distances add up quickly when exploring the Eixample district. Most port-day itineraries combine walking with other transport for efficiency.</li>
+          <li><strong>Metro ($2.50-12):</strong> Barcelona's metro provides efficient transportation throughout the city. The nearest station to Port Vell is Drassanes (L3 Green Line). A T-Casual card covering 10 journeys costs about €12 and works on metro, buses, and trams within Zone 1. Single tickets cost €2.55. The metro runs until midnight weeknights, 2 AM Friday-Saturday.</li>
+          <li><strong>Taxis ($12-25):</strong> Official black-and-yellow taxis are metered, reliable, and air-conditioned. Expect €10-15 from cruise terminals to La Sagrada Familia, €15-20 to Park Güell. Credit cards accepted. Taxis provide the most time-efficient option for covering Barcelona's spread-out attractions on a port day.</li>
+          <li><strong>Hop-On Hop-Off Buses ($32-38):</strong> Multiple companies operate tourist buses with routes covering major attractions. Tickets cost €30-35 for 24-hour access. Routes pass the cruise terminals and include audio commentary in numerous languages. Convenient for first-time visitors wanting an overview without navigating public transit.</li>
+          <li><strong>Accessibility:</strong> Barcelona presents challenges for wheelchair users and those with mobility limitations. The Gothic Quarter's cobblestones and narrow streets prove difficult to navigate. Metro stations vary in accessibility—check the TMB website for elevator-equipped stations. Major attractions like La Sagrada Familia offer wheelchair access, though Park Güell's hilly terrain limits accessibility. Newer areas like the Eixample have better sidewalks and curb cuts than medieval neighborhoods.</li>
+        </ul>
+      </section>
+
+      <!-- Map Section -->
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>Barcelona Area Map</h3>
+        <p class="map-intro">Interactive map showing cruise terminals, Gothic Quarter, Las Ramblas, La Sagrada Familia, Park Güell, and major attractions. Click markers for details.</p>
+        <div id="port-map" class="port-map-container" style="height: 350px; border-radius: 8px; margin: 1rem 0;" role="application" aria-label="Interactive map of Barcelona and points of interest">
+          <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
+        </div>
+      </section>
+
+      <!-- Excursions Section -->
+      <section class="port-section" id="excursions">
+        <h2>Top Excursions &amp; Things to Do</h2>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: La Sagrada Familia requires advance tickets—book 2-3 weeks ahead during peak season. Park Güell's monumental zone also needs timed-entry reservations. Most other attractions allow walk-up visits. Ship excursions offer convenience; independent exploration offers flexibility and savings.</p>
+
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">La Sagrada Familia ($30-50)</h4>
+        <p>ESSENTIAL for any Barcelona visit. Gaudí's unfinished basilica represents one of architecture's most extraordinary achievements—construction began 1882, completion targeted for 2026. The interior's forest-like columns and spectacular stained glass justify the hype and the crowds. Book timed-entry tickets at sagradafamilia.org weeks in advance; same-day availability is rare. Tower access adds €10-15 for city views but requires climbing or elevator. Budget 1.5-2 hours minimum inside the basilica.</p>
+
+        <figure class="logbook-image">
+          <img src="/ports/img/barcelona/barcelona-4.webp" alt="Interior of La Sagrada Familia with soaring columns and stained glass windows casting colored light" loading="lazy"/>
+          <figcaption>Stained glass transforms the interior into a kaleidoscope — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
         </figure>
-        <figure class="gallery-item">
-          <img src="img/barcelona/barcelona-2.webp" alt="Waterfront of Barcelona" loading="lazy">
-          <figcaption>
-            Waterfront of Barcelona
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/barcelona/barcelona-3.webp" alt="Port panorama of Barcelona" loading="lazy">
-          <figcaption>
-            Port panorama of Barcelona
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/barcelona/barcelona-4.webp" alt="Coastal landscape of Barcelona" loading="lazy">
-          <figcaption>
-            Coastal landscape of Barcelona
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/barcelona/barcelona-5.webp" alt="Harbor view of Barcelona" loading="lazy">
-          <figcaption>
-            Harbor view of Barcelona
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/barcelona/barcelona-6.webp" alt="Waterfront of Barcelona" loading="lazy">
-          <figcaption>
-            Waterfront of Barcelona
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/barcelona/barcelona-7.webp" alt="Port panorama of Barcelona" loading="lazy">
-          <figcaption>
-            Port panorama of Barcelona
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/barcelona/barcelona-8.webp" alt="Coastal landscape of Barcelona" loading="lazy">
-          <figcaption>
-            Coastal landscape of Barcelona
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
 
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>barcelona-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>barcelona-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>barcelona-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>barcelona-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>barcelona-5.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>barcelona-6.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>barcelona-7.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>barcelona-8.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-</article>
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Gothic Quarter Walking (free-$15)</h4>
+        <p>Self-guided wandering through Barcelona's medieval heart costs nothing but comfortable shoes. Start at the Cathedral, explore narrow streets, discover hidden plazas like Plaça del Pi and Plaça Reial. Roman wall remnants trace the ancient city's boundaries. Guided walking tours ($15-25) provide historical context and access to stories you'd miss alone. Allow 2-3 hours to wander properly without rushing the experience.</p>
 
-    <!-- Interactive Port Map -->
-    <section class="port-section port-map-section" id="port-map-section">
-      <h3>Barcelona Port Map</h3>
-      <p class="map-intro">Interactive map showing the cruise terminal, beaches, landmarks, and attractions mentioned in this guide. Click any marker for details and directions.</p>
-      <div id="barcelona-port-map" class="port-map-container" role="application" aria-label="Interactive map of Barcelona port and points of interest">
-        <noscript>
-          <p style="padding: 2rem; text-align: center; color: #678;">
-            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=41.3614&mlon=2.1677#map=14/41.3614/2.1677" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-          </p>
-        </noscript>
-      </div>
-      <div class="port-map-actions">
-        <button type="button" class="btn btn-secondary" onclick="document.getElementById('barcelona-port-map')._portMap?.fitBounds(document.getElementById('barcelona-port-map')._portMap.getBounds())">
-          Reset View
-        </button>
-      </div>
-    </section>
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Park Güell ($10-15)</h4>
+        <p>Gaudí's hillside park features serpentine mosaic benches, gingerbread gatehouses, and panoramic city views. The Monumental Zone requires timed-entry tickets ($10-13)—free areas of the park still offer lovely walks and views without reservations. Located uphill from the city center; taxi recommended ($15-20 from port) unless you enjoy steep walks. Morning visits catch better light and smaller crowds. Allow 1.5-2 hours.</p>
 
-    <!-- FAQ Section -->
-    <section class="card" id="faq" style="margin-top: 2rem;">
-      <h2>Frequently Asked Questions</h2>
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">La Boqueria Market (free-$20)</h4>
+        <p>Historic food market off Las Ramblas presents an overwhelming array of fresh produce, seafood, jamón, and prepared foods. Counter-service restaurants serve fresh meals—grilled prawns, fruit smoothies, Catalan specialties. Visit early (before 11 AM) to avoid crushing crowds. Prices near the entrance run tourist-high; better values hide deeper inside. A sensory experience that rewards those who explore beyond the obvious stalls.</p>
 
-      <details style="margin: 0.75rem 0; padding: 0.75rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600;">Do I need tickets for La Sagrada Familia?</summary>
-        <p style="margin: 0.5rem 0 0; padding-left: 1rem;">Yes, absolutely. Buy timed-entry tickets online at sagradafamilia.org weeks in advance. Same-day tickets are rarely available. Including tower access adds about €10 but offers amazing views.</p>
-      </details>
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Casa Batlló or Casa Milà ($25-45)</h4>
+        <p>Gaudí's residential masterworks on Passeig de Gràcia showcase his vision applied to apartment living. Casa Batlló features stunning organic interiors; Casa Milà (La Pedrera) offers the better rooftop with warrior-like chimneys. Choose one if time is limited—Casa Batlló for interiors, La Pedrera for rooftop views. Both require tickets; book online for discounts. Allow 1-1.5 hours each.</p>
 
-      <details style="margin: 0.75rem 0; padding: 0.75rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600;">How far is the cruise port from the city center?</summary>
-        <p style="margin: 0.5rem 0 0; padding-left: 1rem;">Very close — the terminals are at the base of La Rambla. You can walk to the Gothic Quarter in 10–15 minutes. Some terminals are farther; shuttle buses connect to the port entrance.</p>
-      </details>
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Montserrat Day Trip ($50-90)</h4>
+        <p>The Benedictine abbey atop a dramatic mountain 50 kilometers northwest offers spectacular scenery and the revered Black Madonna statue. Full-day ship excursions ($80-100) or independent visits via train from Plaça Espanya ($25-30 round trip including cable car). The mountain views alone justify the journey. Requires 5-6 hours minimum—only feasible with extended port time or as part of pre/post cruise stays.</p>
+      </section>
 
-      <details style="margin: 0.75rem 0; padding: 0.75rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600;">Can I see both La Sagrada Familia and Park Güell in one port day?</summary>
-        <p style="margin: 0.5rem 0 0; padding-left: 1rem;">Yes, if you have 7–8 hours and move efficiently. Do Sagrada Familia first (morning light is beautiful), taxi to Park Güell, then return to the Gothic Quarter. Skip one if you want a more relaxed pace.</p>
-      </details>
+      <!-- Depth Soundings Section -->
+      <section class="port-section" id="depth-soundings">
+        <h2>Depth Soundings</h2>
+        <p>Practical details and honest assessments for planning your Barcelona day.</p>
+        <ul>
+          <li><strong>Advance booking reality:</strong> La Sagrada Familia sells out daily—book 2-3 weeks ahead during peak season (May-September). Park Güell's monumental zone also requires reservations. Same-day availability for these top attractions is rare. Casa Batlló and Casa Milà can often be booked with shorter notice.</li>
+          <li><strong>Pickpocket awareness:</strong> Las Ramblas, the metro, La Boqueria, and tourist attractions attract professional pickpockets. Keep valuables in front pockets or hidden pouches. Watch for distraction techniques—someone "accidentally" bumping you while an accomplice lifts your wallet. Basic awareness eliminates most risks.</li>
+          <li><strong>Dining timing:</strong> Catalans eat late—lunch from 2 PM, dinner at 9 or 10 PM. Restaurants serving before these times cater primarily to tourists. Tapas provide flexible options that work with cruise schedules. La Boqueria offers excellent market eating throughout the day.</li>
+          <li><strong>Terminal distance matters:</strong> World Trade Center terminals allow walking into the city. Moll Adossat and Port Forum terminals require shuttles or taxis—factor this transit time into planning. An 8-hour port day from distant terminals may yield only 6 hours of actual exploring after transport and all-aboard timing.</li>
+          <li><strong>Realistic itineraries:</strong> Don't try to see everything. La Sagrada Familia plus Gothic Quarter walking makes a full day. Add Park Güell only if you have 8+ hours ashore and move efficiently. Gaudí houses plus La Boqueria works for those preferring the Eixample neighborhood over medieval atmosphere.</li>
+          <li><strong>Embarkation vs. port call:</strong> If Barcelona serves as your embarkation port, arrive a day or two early. The city deserves more than a rushed morning before boarding. Pre-cruise hotel stays allow evening dining, morning market visits, and unhurried exploration impossible during a port call.</li>
+        </ul>
+      </section>
 
-      <details style="margin: 0.75rem 0; padding: 0.75rem 0;">
-        <summary style="cursor: pointer; font-weight: 600;">Is La Boqueria worth visiting?</summary>
-        <p style="margin: 0.5rem 0 0; padding-left: 1rem;">Yes, but go early (before 11am) and walk past the front stalls to find better prices. The market can be overwhelmingly crowded by midday. Great for fresh fruit, jamón, and counter-service seafood.</p>
-      </details>
-    </section>
+      <!-- FAQ Section -->
+      <section class="port-section faq-section" id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <details class="faq-item"><summary>Do I need advance tickets for La Sagrada Familia?</summary><p>Yes, absolutely. Buy timed-entry tickets at sagradafamilia.org 2-3 weeks ahead during peak season. Same-day tickets rarely exist. Including tower access adds about €10-15 but offers amazing views of Gaudí's work and the city beyond.</p></details>
+        <details class="faq-item"><summary>How far is the cruise port from the city center?</summary><p>It depends on your terminal. World Trade Center terminals (A, B) sit at the base of Las Ramblas—walk into the Gothic Quarter in 10-15 minutes. Moll Adossat terminals (D, E, F, G) are 4 kilometers away and require shuttle buses or taxis into the city.</p></details>
+        <details class="faq-item"><summary>Can I see La Sagrada Familia and Park Güell in one day?</summary><p>Yes, if you have 7-8 hours ashore and move efficiently. Do Sagrada Familia first when you're freshest, taxi to Park Güell, then return to the Gothic Quarter for exploring and lunch. Skip one if you want a more relaxed pace.</p></details>
+        <details class="faq-item"><summary>Is pickpocketing really a problem?</summary><p>Professional pickpockets work Las Ramblas, the metro, La Boqueria, and crowded attractions. They target distracted tourists. Keep valuables secured, bags in front of you, and be aware of your surroundings. Most visitors have no problems with basic precautions.</p></details>
+        <details class="faq-item"><summary>What's the best way to get to La Sagrada Familia from the port?</summary><p>Taxi is fastest and most convenient—about €12-15 from World Trade Center terminals, €15-20 from Moll Adossat. Metro works too: take L3 from Drassanes to Diagonal, transfer to L5 to Sagrada Familia station. The metro takes longer but costs only €2.55.</p></details>
+      </section>
 
-    <!-- JSON-LD: FAQPage -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Do I need tickets for La Sagrada Familia?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, absolutely. Buy timed-entry tickets online at sagradafamilia.org weeks in advance. Same-day tickets are rarely available."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How far is the cruise port from the city center?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Very close — the terminals are at the base of La Rambla. You can walk to the Gothic Quarter in 10–15 minutes."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I see both La Sagrada Familia and Park Güell in one port day?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, if you have 7–8 hours and move efficiently. Do Sagrada Familia first, taxi to Park Güell, then return to the Gothic Quarter."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is La Boqueria worth visiting?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, but go early (before 11am) and walk past the front stalls for better prices. Great for fresh fruit, jamón, and counter-service seafood."
-          }
-        }
-      ]
-    }
-    </script>
+      <!-- Gallery Section -->
+      <section class="port-section photo-gallery" id="gallery">
+        <h2>Photo Gallery</h2>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/barcelona/barcelona-hero.webp" alt="Barcelona skyline with La Sagrada Familia rising above the cityscape" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/barcelona/barcelona-1.webp" alt="Gothic Quarter medieval streets in morning light" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/barcelona/barcelona-2.webp" alt="La Sagrada Familia's towering spires and intricate facades" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/barcelona/barcelona-3.webp" alt="Colorful mosaics at Park Güell with city views" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/barcelona/barcelona-4.webp" alt="Interior of La Sagrada Familia with stained glass" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/barcelona/barcelona-5.webp" alt="Las Ramblas tree-lined boulevard with flower stalls" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/barcelona/barcelona-6.webp" alt="Casa Batlló's dragon-scale roof and skull balconies" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/barcelona/barcelona-7.webp" alt="La Boqueria market with colorful fruit displays" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/barcelona/barcelona-8.webp" alt="Barcelona Cathedral Gothic spires in the old quarter" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/barcelona/barcelona-9.webp" alt="Barceloneta beach with Mediterranean waters" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/barcelona/barcelona-10.webp" alt="Columbus Monument at Port Vell waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/barcelona/barcelona-11.webp" alt="Evening light on Passeig de Gràcia modernist buildings" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+      </section>
 
-    <!-- Back to Ports -->
+      <!-- Author's Note Disclaimer (Level 1: Not Visited) -->
+      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+        <h3>Author's Note</h3>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+          Until I have sailed this port myself, these notes are soundings in another's wake; carefully curated and edited to meet our standards. We believe they are helpful for planning, and marked for revision once I've logged my own steps ashore.
+        </p>
+      </aside>
+
+    </article>
+  </div>
+
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
-    <!-- Key Facts -->
     <section class="page-intro" style="margin: 0 0 1rem 0;">
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Barcelona is a major embarkation port and port of call. La Sagrada Familia and Park Güell are must-sees (book tickets in advance). La Rambla, Gothic Quarter, and La Boqueria market are walkable from port. Ships dock at terminals near the bottom of La Rambla.
+        <strong>Quick Answer:</strong> Barcelona is a major embarkation port and Mediterranean highlight. La Sagrada Familia is unmissable (book tickets 2-3 weeks ahead). The Gothic Quarter, Las Ramblas, and La Boqueria are walkable from port. Park Güell and Gaudí's houses require taxi or metro. World Trade Center terminals are closest to the city; Moll Adossat requires shuttles.
       </p>
     </section>
-
-    <!-- Author's Note -->
-    <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
-      <h3>Author's Note</h3>
-      <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
-        Until I have sailed this port myself, these notes are soundings in another's wake; carefully curated and edited to meet our standards. We believe they are helpful for planning, and marked for revision once I've logged my own steps ashore.
-      </p>
-    </aside>
-
-        <section class="card author-card-vertical" aria-labelledby="author-heading">
+    <section class="card author-card-vertical" aria-labelledby="author-heading">
       <h3 id="author-heading">About the Author</h3>
       <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
         <picture>
@@ -518,52 +317,30 @@ All work on this project is offered as a gift to God.
       </p>
     </section>
 
-    <!-- Nearby Ports Rail -->
     <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
-        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Other ports in this region:
-        </p>
-        <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
-      </section>
-
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    
-  
-    <!-- Whimsical Distance Units -->
-    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+      <h3 id="nearby-ports-title">Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Other ports in this region:
+      </p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
     </section>
 
+    <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Real cruising experiences, practical guides, and heartfelt reflections from our community.
+      </p>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+    </section>
+
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
   </aside>
 
-    <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-
-    <!-- Image Attribution Section -->
-    <section class="card" style="margin-top: 2rem; background: #f7fdff;">
-      <h3>Image Credits</h3>
-      <p class="tiny" style="margin-bottom: 0.75rem;">The following images are used under Creative Commons licenses:</p>
-      <ul class="tiny" style="line-height: 1.8; padding-left: 1.25rem;">
-        <li><strong>Barcelona Port View:</strong> Photo by <a href="https://commons.wikimedia.org/wiki/File:Barcelona-port.JPG" target="_blank" rel="noopener">Wikimedia Commons contributor</a>, used under <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></li>
-        <li><strong>Port of Barcelona Ship:</strong> Photo by <a href="https://commons.wikimedia.org/wiki/File:Port_of_Barcelona_-_Esence_(ship,_2006)_04.JPG" target="_blank" rel="noopener">Wikimedia Commons contributor</a>, used under <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></li>
-        <li><strong>Cruise Ship at Barcelona:</strong> Photo by Ank Kumar, used under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></li>
-        <li><strong>Barcelona Panorama:</strong> Photo by <a href="https://commons.wikimedia.org/wiki/File:A_view_of_Barcelona_from_Montju%C3%AFc_Castle_with_Collserola_in_the_background.jpg" target="_blank" rel="noopener">Wikimedia Commons contributor</a>, used under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></li>
-        <li><strong>Area View:</strong> Photo from <a href="https://commons.wikimedia.org/wiki/File:Area_View_Barcelona.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, used under <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></li>
-        <li><strong>Columbus Monument View:</strong> Photo from <a href="https://commons.wikimedia.org/wiki/File:018_Vista_des_de_l%27edifici_Colom,_amb_la_d%C3%A0rsena_de_Sant_Bertran_(Port_de_Barcelona).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, used under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></li>
-        <li><strong>Barcelona Cityscape:</strong> Photo from <a href="https://commons.wikimedia.org/wiki/File:Barcelona_(25886526888).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, used under <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a></li>
-        <li><strong>Barcelona Street:</strong> Photo from <a href="https://commons.wikimedia.org/wiki/File:Barcelona_(4624904973).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, used under <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener">CC BY-SA 2.0</a></li>
-      </ul>
-    </section>
+  <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
   </main>
 
-    <footer class="wrap" role="contentinfo">
+  <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny" style="margin-top: 0.5rem;">
       <a href="/privacy.html">Privacy</a> ·
@@ -571,191 +348,44 @@ All work on this project is offered as a gift to God.
       <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
-    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+    <p class="soli-deo-gloria">Soli Deo Gloria</p>
   </footer>
 
-  <script>
-    // Load recent articles
-    (async function() {
-      try {
-        const response = await fetch('/assets/data/articles/index.json');
-        const articles = await response.json();
-        const rail = document.getElementById('recent-rail');
-
-        if (rail && articles && articles.length > 0) {
-          rail.innerHTML = articles.slice(0, 5).map(article => `
-            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
-                <a href="${article.url}">${article.title}</a>
-              </h4>
-              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
-            </div>
-          `).join('');
-        }
-      } catch (err) {
-        console.log('Could not load articles:', err);
-      }
-    })();
-  </script>
-
-  <script>
-  (function(){
-    "use strict";
-
-    /* ===== Recent Articles Rail ===== */
-    (async function recentRail(){
-      const rail = document.getElementById('recent-rail');
-      if(!rail) return;
-
-      const fallback = document.getElementById('recent-rail-fallback');
-      if(fallback) fallback.style.display = '';
-
-      async function fetchJSONWithFallback(urls){
-        for (const u of urls){
-          try{
-            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
-            if (res.ok) return await res.json();
-          }catch(err){
-
-          }
-        }
-        return null;
-      }
-
-      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
-
-      function setImageWithFallback(imgEl, primary, altPaths=[]){
-        if(!imgEl) return;
-        const stamp='v=3.010.400';
-        const tried=new Set();
-        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
-        function tryNext(){
-          const next=queue.shift();
-          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
-          if(tried.has(next)) return tryNext();
-          tried.add(next);
-          imgEl.src=next;
-        }
-        imgEl.onerror=tryNext;
-        tryNext();
-      }
-
-      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
-      if(!raw) {
-        if(fallback) {
-          fallback.textContent = 'Unable to load articles';
-          fallback.style.display = '';
-        }
-        return;
-      }
-
-      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-      if(!items.length) return;
-
-      const here = location.pathname.replace(/\/+$/,'');
-      const view = items.filter(p=>{
-        const href = pick(p,['url','path'],'#');
-        const norm = (href||'').replace(/\/+$/,'');
-        return norm && norm !== here;
-      }).slice(0,6);
-
-      rail.innerHTML = view.map(p=>{
-        const title = pick(p,['title','name'],'Article');
-        const href  = pick(p,['url','path'],'#');
-        const excerpt = pick(p,['excerpt','description'],'');
-        return `
-          <article class="card article-card">
-            <div class="article-card-grid">
-              <div class="article-thumb-wrap">
-                <img class="article-thumb" alt="" decoding="async" loading="lazy">
-              </div>
-              <div class="article-card-body">
-                <h4><a href="\${href}">\${title}</a></h4>
-                \${excerpt ? `<p class="tiny excerpt">\${excerpt}</p>` : ''}
-              </div>
-            </div>
-            <a href="\${href}" class="pill read-more">Read Article →</a>
-          </article>`;
-      }).join('');
-
-      const cards = [...rail.querySelectorAll('article.card')];
-      cards.forEach((card,i)=>{
-        const p = view[i] || {};
-        const el = card.querySelector('img.article-thumb');
-        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
-        const title = (pick(p,['title','name'],'')||'').toLowerCase();
-
-        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
-
-        // FORCE override for Top-20
-        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
-          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
-        }
-        // Friendly specifics
-        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
-        }
-        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
-          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
-        }
-        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-          primary = '/assets/articles/travel/cover.jpg';
-        }
-
-        // Heuristic fallback
-        if(!primary){
-          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
-          const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
-        }
-
-        const alts = [];
-        if(primary){
-          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.webp`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
-        }
-        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
-      });
-
-      if(fallback) fallback.style.display = 'none';
-
-      // Announce to screen readers
-      const status = document.getElementById('a11y-status');
-      if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
-      }
-    })();
-  })();
-  </script>
-
-  <!-- Nearby Ports Script -->
-  <script>window.currentPortId = 'barcelona';</script>
-  <script src="/assets/js/nearby-ports.js"></script>
-
-  <!-- Navigation Dropdown Script -->
-  <script src="/assets/js/dropdown.js"></script>
-
-  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="/assets/js/dropdown.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
-
-  <!-- Whimsical Distance Units Script -->
-  <script src="/assets/js/whimsical-port-units.js"></script>
-
-  <!-- Leaflet JS for interactive maps -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="/assets/js/modules/port-map.js"></script>
-
-  <!-- Initialize Barcelona Port Map -->
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script src="/assets/js/nearby-ports.js" defer></script>
+  <script src="/assets/js/recent-rail.js" defer></script>
+  <script src="/assets/js/whimsical-port-units.js" defer></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
-      PortMap.init({
-        containerId: 'barcelona-port-map',
-        portSlug: 'barcelona'
+    document.addEventListener('DOMContentLoaded', function() {
+      new Swiper('.gallery-swiper', {
+        loop: true,
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        keyboard: { enabled: true },
+        a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
       });
-    }
-  });
+      if (typeof PortMap !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'barcelona' });
+      }
+    });
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "Do I need advance tickets for La Sagrada Familia?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, absolutely. Buy timed-entry tickets at sagradafamilia.org 2-3 weeks ahead during peak season. Same-day tickets rarely exist."}},
+      {"@type": "Question", "name": "How far is the cruise port from the city center?", "acceptedAnswer": {"@type": "Answer", "text": "World Trade Center terminals sit at the base of Las Ramblas—walk into the Gothic Quarter in 10-15 minutes. Moll Adossat terminals require shuttle buses or taxis."}},
+      {"@type": "Question", "name": "Can I see La Sagrada Familia and Park Güell in one day?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, if you have 7-8 hours and move efficiently. Do Sagrada Familia first, taxi to Park Güell, then explore the Gothic Quarter."}},
+      {"@type": "Question", "name": "Is pickpocketing really a problem?", "acceptedAnswer": {"@type": "Answer", "text": "Professional pickpockets work Las Ramblas, the metro, and tourist attractions. Keep valuables secured and be aware of your surroundings."}},
+      {"@type": "Question", "name": "What's the best way to get to La Sagrada Familia from the port?", "acceptedAnswer": {"@type": "Answer", "text": "Taxi is fastest—about €12-15 from World Trade Center terminals. Metro works too via L3 to Diagonal, then L5 to Sagrada Familia."}}
+    ]
+  }
+  </script>
 </body>
 </html>
