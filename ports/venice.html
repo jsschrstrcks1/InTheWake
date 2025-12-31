@@ -6,26 +6,21 @@ Soli Deo Gloria
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="ai-summary" content="First-person logbook guide to Venice, founded 421 AD, featuring St. Mark's Basilica (relics acquired 828 AD, consecrated 1096), Rialto Bridge (1593), gondola rides, and navigating 118 islands connected by 438 bridges."/>
-  <meta name="last-reviewed" content="2025-12-17"/>
+  <meta name="ai-summary" content="Venice cruise port guide covering St. Mark's Square, Grand Canal, gondola rides, Murano and Burano islands, Doge's Palace, and navigating the floating city's canals and bridges."/>
+  <meta name="last-reviewed" content="2025-12-31"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
   <title>Venice Port Guide — Floating City of Canals | In the Wake</title>
-  <meta name="description" content="First-person logbook guide to Venice, Italy — 1,500 years of maritime history, St. Mark's Square, Grand Canal palaces, gondola rides through 400+ bridges, and island escapes to Murano and Burano."/>
+  <meta name="description" content="Venice cruise port guide covering St. Mark's Square, Grand Canal, gondola rides, Murano and Burano islands, Doge's Palace, and navigating the floating city's canals and bridges."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/venice.html"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
-  <!-- Service Worker Registration -->
   <script>
   if('serviceWorker' in navigator){
     window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
   }
   </script>
-
   <link rel="stylesheet" href="/assets/styles.css"/>
-
-  <!-- Leaflet CSS for interactive maps -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-  <link rel="stylesheet" href="/assets/css/components/port-map.css"/>
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -37,118 +32,39 @@ Soli Deo Gloria
     ]
   }
   </script>
-
-  <!-- JSON-LD: WebPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Venice Port Guide — Floating City of Canals",
+    "name": "Venice Cruise Port Guide",
     "url": "https://cruisinginthewake.com/ports/venice.html",
-    "description": "First-person logbook guide to Venice, founded 421 AD, featuring St. Mark's Basilica (relics acquired 828 AD, consecrated 1096), Rialto Bridge (1593), gondola rides, and navigating 118 islands connected by 438 bridges.",
-    "dateModified": "2025-12-17",
+    "description": "Venice cruise port guide covering St. Mark's Square, Grand Canal, gondola rides, Murano and Burano islands, Doge's Palace, and navigating the floating city's canals and bridges.",
+    "dateModified": "2025-12-31",
     "mainEntity": {
       "@type": "Place",
       "name": "Venice",
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 45.4371,
-        "longitude": 12.3326
-      }
+      "geo": {"@type": "GeoCoordinates", "latitude": 45.4371, "longitude": 12.3326}
     }
   }
-  </script>
-
-  <!-- JSON-LD: FAQPage (ICP-Lite) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Is Venice still worth visiting despite the crowds?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Absolutely. The beauty remains almost overwhelming even with tourism. Arrive early, stay late, and explore beyond the main thoroughfares to find Venice's enduring magic."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What's the single best thing to do in Venice?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Wake up early and explore the Cannaregio neighborhood at dawn. You'll see locals opening shops, buying bread, going about their morning routines in this extraordinary city."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is a gondola ride worth the expense?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "It's expensive but deeply iconic to Venice. If your budget allows, the experience of gliding through narrow waterways in near-silence creates lasting memories. Consider sharing the cost with others."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I walk from the cruise port to Venice?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Not from Marghera — you'll need the shuttle transfer. Even from the closer San Basilio terminal, a vaporetto is your best option. The People Mover and water bus system exists specifically for this connection."
-        }
-      }
-    ]
-  }
-  </script>
-
-  <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
-
-  <!-- Swiper CSS/JS (primary + CDN fallback) -->
-  <script>
-  (function ensureSwiper(){
-    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
-    function addJS(src, ok, fail){
-      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
-    }
-    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
-    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
-    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-    addCSS(primaryCSS);
-    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
-  })();
   </script>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
-  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook logo" decoding="async" loading="lazy"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
-      <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
-        <span class="nav-toggle-icon">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
+        <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
       </button>
-            <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-
-        <!-- Planning Dropdown -->
         <div class="nav-dropdown" id="nav-planning">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Planning <span class="caret">&#9662;</span>
-          </button>
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
           <div class="dropdown-menu" role="menu">
             <a href="/planning.html">Planning (overview)</a>
             <a href="/ships.html">Ships</a>
@@ -162,247 +78,231 @@ Soli Deo Gloria
             <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
-
-        <!-- Travel Dropdown -->
         <div class="nav-dropdown" id="nav-travel">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-            Travel <span class="caret">&#9662;</span>
-          </button>
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">&#9662;</span></button>
           <div class="dropdown-menu" role="menu">
             <a href="/travel.html">Travel (overview)</a>
             <a href="/solo.html">Solo</a>
           </div>
         </div>
-
         <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
         <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
-      </nav></div>
-
-    <!-- Hero -->
+      </nav>
+    </div>
     <div class="hero">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="Decorative compass rose navigation element" aria-hidden="true" decoding="async" loading="lazy"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logbook logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit">
-        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
-      </div>
     </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Venice</li></ol></nav>
-    <div style="grid-column: 1; grid-row: 1;">
-    <div class="port-hero">
-        <div class="port-hero-image">
-          <img src="/ports/img/venice/venice-3.webp" alt="Venice panoramic view" loading="eager" fetchpriority="high"/>
-          <div class="port-hero-overlay">
-            <h1 class="port-hero-title">Venice</h1>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Venice</li></ol></nav>
+
+  <div style="grid-column: 1; grid-row: 1;">
+    <article class="card">
+      <!-- Hero Section -->
+      <section class="port-hero" id="hero" aria-label="Venice cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+        <div class="port-hero-image" style="position: relative;">
+          <img src="/ports/img/venice/venice-hero.webp" alt="Venice Grand Canal with historic palaces and gondolas gliding past Byzantine domes and Renaissance facades" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover; object-position: center;"/>
+          <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin: 0;">Venice</h1>
           </div>
         </div>
-        <p class="port-hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
-      </div>
+        <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></p>
+      </section>
 
-    <article class="card"><h1>Venice: The Floating City</h1>
-      <div class="logbook-entry">
-        <p>I watched the sun rise over the lagoon as our ship approached Venice — the Campanile bell tower in St. Mark's Square appeared through morning mist like something from a dream. This city traces its birth to a single moment: March 25, 421 AD, when refugees from the crumbling Roman Empire laid the first stone of the Church of St. James of Rialto, fleeing Germanic and Hun invasions that were tearing their world apart. They built their impossible civilization on wooden pilings driven deep into marsh mud across 118 small islands, creating a city where water becomes the street and stone buildings rise like prayer from the lagoon itself. Within an hour of docking at the new Marghera terminal (built to protect this fragile lagoon ecosystem that Venetians safeguarded six centuries ago by deliberately diverting rivers), I was standing in Piazza San Marco nearly alone before the crowds arrived, watching golden light pour through the basilica's ancient Byzantine mosaics.</p>
+      <!-- Logbook Section -->
+      <section class="port-section" id="logbook">
+        <h2>My Logbook: A City That Shouldn't Exist</h2>
+        <div class="logbook-entry clearfix">
+          <p>Venice is impossible. A city built on 118 islands in a lagoon, connected by over 400 bridges, where streets are canals and buses are boats, where foundations rest on wooden pilings driven into mud centuries ago—and somehow it all still works. I first saw Venice from the deck of a cruise ship threading through the Giudecca Canal, the skyline of domes and campaniles rising from the water like a fever dream made stone. St. Mark's Campanile caught the morning sun, Santa Maria della Salute's baroque domes gleamed white against the blue, and gondolas slipped between the waves of our wake. I understood immediately why this city has inspired artists, poets, and travelers for five centuries—and why nothing I'd read or seen in photographs had prepared me for the reality.</p>
 
-      <figure class="logbook-image float-right">
-        <img src="img/venice/venice-1.webp" alt="Venice harbor view" loading="lazy">
-        <figcaption>Venice — <a href="https://commons.wikimedia.org/w/index.php?search=Venice&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
+          <figure class="logbook-image float-right">
+            <img src="/ports/img/venice/venice-1.webp" alt="St. Mark's Square at golden hour with the Campanile bell tower and Byzantine domes of the Basilica" loading="lazy"/>
+            <figcaption>St. Mark's Square at golden hour — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
+          </figure>
 
-        <p>St. Mark's Basilica stands as the spiritual heart of Venice, born from an act of holy audacity in 828 AD when Venetian merchants smuggled the relics of St. Mark the Evangelist out of Alexandria, hiding them in barrels beneath layers of pork to evade Muslim inspectors who wouldn't touch the meat. They built a basilica to house these sacred remains, and in 1096 the Doge Vitale Falier consecrated the church that still stands today — its five domes and golden mosaics embodying Venice's unique fusion of Western and Byzantine Christianity. Beside it rose the Doge's Palace, first constructed in 810 AD as a fortified castle, then magnificently rebuilt in 1340 with those wedding-cake layers of Gothic arches that seem too delicate to bear the weight of history. This palace governed a maritime empire — a true thalassocracy — that from the 9th through 12th centuries commanded Mediterranean trade routes and rivaled the greatest powers of Europe and the Islamic world. I stood before these buildings thinking about how power and beauty and faith intertwined in this extraordinary republic. The palace became a museum in 1923, but it still whispers of centuries when Doges ruled from these chambers.</p>
+          <p>My first morning I made straight for St. Mark's Square, that vast piazza Napoleon called "the drawing room of Europe." Pigeons wheeled overhead, tourists clustered around the Campanile, and the Byzantine domes of St. Mark's Basilica gleamed with golden mosaics visible even from outside. I joined the queue to enter the basilica—free admission, though lines can stretch long—and stepped into a space that felt more Istanbul than Italy, more heaven than earth. Every surface covered with gold-ground mosaics depicting biblical scenes, the dim interior illuminated by candles and the filtered light from alabaster windows. However, the crowds inside pressed close, and the marble floors showed the wear of millions of feet. Venice's beauty comes with Venice's burden: it belongs to the world now, not just to itself.</p>
 
-        <p>I spent the morning gliding down the Grand Canal on a vaporetto, that magnificent 3.8-kilometer waterway (that's about 2.4 miles, or roughly 380 gondolas laid bow-to-stern, or the length of 3,800 servings of tiramisu placed end-to-end) lined with Renaissance and Gothic palaces that reflect centuries of wealth and artistry in still water. The Rialto Bridge arched overhead — the oldest spanning of the canal, with roots reaching back to 1172 when a pontoon bridge of boats first connected the two banks. The current stone masterpiece was completed in 1593 after the wooden bridges kept collapsing or burning, and it still carries the weight of tourists and market vendors four centuries later. Later I surrendered to the gondola experience, letting a black-hulled boat carry me through narrow side canals where sunlight barely reaches the water. Venice built 438 bridges to connect its island-world, and I must have crossed dozens on foot, each one offering a new vantage point on this city that refuses to make sense by ordinary geography or reason.</p>
+          <p>I walked toward the Rialto Bridge, but "walked" understates the experience. In Venice, you don't walk—you navigate. Streets twist, dead-end at canal edges, double back unexpectedly. I got lost within fifteen minutes and discovered this was exactly right. A wrong turn led me to a tiny square where children played soccer against a church wall. Another brought me to a canal where a delivery boat was unloading vegetables to a restaurant. Getting lost in Venice means finding Venice—the real city hiding behind the tourist thoroughfares. The Rialto Bridge itself, when I finally reached it, offered postcard views of the Grand Canal and the merchant city's commercial heart, though the shops lining the bridge sold mostly tourist trinkets rather than the spices and silks that once made Venice rich.</p>
 
-        <p>In the afternoon I took a vaporetto out to the lagoon islands — first to Murano, where glass-blowers have practiced their alchemical craft since 1291 when the Republic, fearing the furnaces would burn down the wooden city, ordered all glassmakers to move their workshops to this island. I watched molten glass transform into delicate seahorses and impossible chandeliers in workshops that have passed techniques down through family lines for more than seven centuries, secrets guarded as carefully as state treasures. Then to Burano, where every house wears a different shade of cheerful paint — butter yellow beside robin's egg blue beside coral pink — and elderly women still practice the intricate lace-making that once adorned royal courts across Europe. These islands reminded me that Venice has always been more than one city, but an entire world built on water and sustained by improbable human determination, ingenuity, and an almost defiant faith that beauty matters as much as survival.</p>
+          <figure class="logbook-image float-left">
+            <img src="/ports/img/venice/venice-2.webp" alt="A gondolier steering through a narrow canal between weathered palazzos with laundry hanging above" loading="lazy"/>
+            <figcaption>Gondolier navigating back canals — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
+          </figure>
 
-        <div class="poignant-highlight">
-          <strong>The Moment That Stays With Me:</strong> Gliding beneath the Bridge of Sighs at dusk while the gondolier's voice echoed off ancient stone walls — completely touristy, utterly unforgettable, and somehow connecting me to sixteen centuries of human longing and beauty.
+          <p>I took a gondola ride—yes, the expensive, touristy, utterly essential gondola ride. The gondolier, Carlo, had been poling tourists through these canals for thirty years, following his father and grandfather. He steered us away from the Grand Canal into narrow waterways barely wider than his boat, past palazzos whose ground floors have flooded so often the doors are sealed, under bridges so low I had to duck. The water slapped against ancient stone, and for a moment the noise of tourists faded and there was only the creak of the oar, the drip of water, the echoes of this impossible city. Though €80 felt steep for forty minutes, I understood immediately why gondolas remain Venice's symbol—they're the only way to truly experience its labyrinthine waterways.</p>
+
+          <div class="poignant-highlight">
+            <strong>The Moment I'll Remember:</strong> I woke early on my second day and walked to a neighborhood called Cannaregio before the tourists arrived. The sun was just hitting the upper floors of buildings while the canals remained in shadow. An old woman opened her shutters and called down to a boat delivering bread. A cat sunned itself on a bridge. A priest unlocked a church door. For twenty minutes I saw Venice as Venetians see it—a real city where people live, not just a museum where tourists gape. Then the tour groups arrived and the spell broke. But I'd glimpsed what lies beneath the spectacle, and that glimpse changed how I saw everything else.
+          </div>
+
+          <p>On my second visit I took the vaporetto—Venice's public water buses—to Murano and Burano, the islands in the lagoon. Murano has made glass for a thousand years, the furnaces burning continuously since 1291 when glassmakers were exiled here to protect Venice from fire. I watched a demonstration where molten glass transformed into an intricate horse in minutes, the artisan's movements flowing with casual expertise born of lifelong practice. Burano, farther out, offered a different magic—an island of fishing houses painted in bright primary colors, the reflections doubling the rainbow in the canal water. Although the colors originated as practical markers helping fishermen find their homes in fog, they've become an attraction in themselves, drawing photographers seeking that perfect shot of pink beside orange beside blue.</p>
+
+          <figure class="logbook-image float-right">
+            <img src="/ports/img/venice/venice-3.webp" alt="Colorful houses along Burano's main canal with their reflections creating a rainbow on the water" loading="lazy"/>
+            <figcaption>Burano's rainbow reflections — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
+          </figure>
+
+          <p>The Doge's Palace consumed another morning—that pink-and-white Gothic fantasy overlooking the lagoon, residence of Venice's elected rulers for centuries. The council chambers with their Tintoretto and Veronese paintings, the armory with weapons that defended the republic, the Bridge of Sighs connecting the palace to the prison where Casanova once escaped. Yet what struck me most was the sheer ambition: this small collection of swampy islands built an empire that dominated Mediterranean trade, conquered Constantinople, and amassed wealth that still glitters in every church and museum. The palace tells that story—beauty as power, art as politics, splendor as statement.</p>
+
+          <p>Venice is sinking. Venice is overcrowded. Venice faces existential threats from rising seas and mass tourism. But Venice is also still here—still beautiful, still functioning, still capable of taking your breath away when you round a corner and find a scene unchanged since Canaletto painted it three centuries ago. Despite its problems, Venice delivers experiences no other city can match: the play of light on water, the echo of footsteps through marble passages, the glimpse of a private garden through a palazzo gate, the knowledge that you're walking where Byzantines and Doges and Renaissance masters walked. It's worth the crowds, worth the expense, worth the complications of getting here by cruise ship. Nothing else on earth is Venice.</p>
         </div>
-      </div>
-
-      <section class="port-section">
-        <h3>Docking Information</h3>
-        <p>Since 2021, new regulations have changed where cruise ships dock in Venice. Large vessels now anchor at the industrial port of Marghera, located across the lagoon from historic Venice. Smaller cruise ships may still use terminals at San Basilio or Riva dei Sette Martiri, which are closer to the city center.</p>
-
-        <p>If your ship docks at Marghera, you'll need to take a shuttle boat or bus service to reach Venice proper — the terminal provides transfers to Piazzale Roma, the main transportation hub where the road ends and Venice's car-free zone begins. Plan for this extra travel time in your schedule.</p>
-
-        <p>Remember: Venice is entirely car-free. Everything moves by water or on foot. The logistics can feel complicated at first, but that's part of what makes Venice extraordinary — you're entering a medieval city that still lives without automobiles.</p>
-
-      <figure class="logbook-image float-left">
-        <img src="img/venice/venice-2.webp" alt="Venice waterfront" loading="lazy">
-        <figcaption>Venice scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Venice&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
       </section>
 
-      <section class="port-section">
-        <h3>Transportation</h3>
-        <p>The vaporetto — Venice's public water bus — is your primary transportation tool within the city. These boats run regularly along the Grand Canal and to nearby islands. Purchase tickets at any ACTV booth or vending machine; multi-ride passes offer better value if you're making several trips.</p>
+      <!-- Cruise Port Section -->
+      <section class="port-section" id="cruise-port">
+        <h2>The Cruise Port</h2>
+        <p>Large cruise ships no longer sail through the Giudecca Canal past St. Mark's Square—that iconic but controversial practice ended in 2021 to protect the fragile lagoon. Ships now dock at Marghera on the mainland, requiring shuttle transfer to Venice proper. The journey takes 20-30 minutes by bus or People Mover, depositing passengers near Piazzale Roma, Venice's mainland gateway. From there, vaporettos connect to all parts of the city. Some smaller ships still use the Cruise Terminal near San Basilio, which offers more direct access but limited capacity.</p>
 
-        <p>Water taxis offer a faster, more scenic alternative but cost significantly more — think of them as the equivalent of premium car service. They're wonderful for a special arrival or departure experience.</p>
-
-        <p>Walking is actually how you'll spend most of your time in Venice. The city is a maze of narrow walkways, bridges, and alleyways. Comfortable shoes are essential — you'll be climbing stone steps on dozens of bridges throughout the day.</p>
-
-        <p>The People Mover — an automated shuttle — connects the cruise terminal area to Piazzale Roma, where you can catch vaporettos into Venice. If you're docking at Marghera, the shuttle service will bring you to Piazzale Roma, and from there the vaporetto network opens up the entire city and lagoon islands.</p>
+        <p>The changed port situation requires planning. Allow extra time for transfers, and don't expect to step directly from ship to St. Mark's Square. Vaporetto passes (€25-35 for 24-48 hours) are worth the investment for unlimited travel on the water bus network. Venice is entirely walkable once you're on the islands, but water transport connects neighborhoods efficiently and provides classic views of the Grand Canal.</p>
       </section>
 
-      <section class="port-section">
-        <h3>Top Attractions</h3>
-        <p><strong>Piazza San Marco (St. Mark's Square)</strong> serves as Venice's living room — a vast open plaza surrounded by architectural masterpieces. Arrive early to experience it before the crowds fill every corner.</p>
-
-        <p><strong>St. Mark's Basilica</strong> displays some of the most stunning Byzantine mosaics in the world. Gold leaf covers nearly every surface inside. Book tickets in advance online to skip the lengthy queues.</p>
-
-        <p><strong>Doge's Palace</strong> showcases Venetian Gothic architecture at its finest. Walk through the rooms where the Republic's leaders governed, cross the famous Bridge of Sighs, and see the prison cells where Casanova was once held. Advance booking recommended.</p>
-
-        <p><strong>Rialto Bridge</strong> arches majestically over the Grand Canal — Venice's oldest bridge and still one of its most photographed. The market area nearby comes alive in morning hours with fish and produce stalls.</p>
-
-        <p><strong>The Grand Canal</strong> flows through the heart of Venice like a reversed question mark. Take the number 1 vaporetto for the full journey — you'll pass palace after Renaissance palace lining the water's edge.</p>
-
-        <p><strong>Murano</strong> — famous worldwide for its glass-making tradition spanning centuries — sits just a short vaporetto ride away. Watch artisans shape molten glass into intricate sculptures.</p>
-
-        <p><strong>Burano</strong> looks like a child's watercolor painting come to life — every house painted in vibrant yellows, blues, reds, and greens. The island is also known for delicate lace-making traditions.</p>
-
-        <p><strong>Gallerie dell'Accademia</strong> houses the world's finest collection of Venetian art, including works by Titian, Tintoretto, and Veronese.</p>
+      <!-- Getting Around Section -->
+      <section class="port-section" id="getting-around">
+        <h2>Getting Around</h2>
+        <ul>
+          <li><strong>Walking:</strong> The primary way to explore Venice. All of the main island is walkable, though narrow streets, dead ends, and bridges with steps make navigation challenging. Follow the yellow signs pointing to major landmarks (Rialto, San Marco, Ferrovia). Getting lost is inevitable and part of the experience—just budget extra time.</li>
+          <li><strong>Vaporetto ($8-35):</strong> Venice's public water buses connect major stops along the Grand Canal and to outer islands. Single tickets cost €9.50; 24-hour passes €25, 48-hour €35. Essential for reaching Murano, Burano, and Lido. Lines 1 and 2 traverse the Grand Canal; Line 12 serves Murano and Burano. Validate tickets before boarding.</li>
+          <li><strong>Water Taxis ($70-150):</strong> Private motorboats offer direct service anywhere in the city. Expensive but efficient for groups or when time is limited. Fixed rates from airport and cruise terminals; negotiate for other journeys. A splurge for special occasions or when vaporetto queues are long.</li>
+          <li><strong>Gondolas ($80-100):</strong> Purely for the experience—not practical transport. Official rate €80 for 40 minutes (up to 6 passengers), €100 after 7 PM. Prices are fixed by the city; don't pay more. Best experienced in quieter back canals rather than the crowded Grand Canal. A memorable if costly indulgence.</li>
+          <li><strong>Accessibility:</strong> Venice presents exceptional challenges for wheelchair users and those with mobility limitations. Virtually every route involves bridges with steps, narrow passages, and uneven paving. Vaporettos have accessibility ramps at some stops but not all. The city has worked to improve accessibility but genuine limitations remain. Visitors with mobility concerns should research specific routes and consider whether Venice is feasible given their needs.</li>
+        </ul>
       </section>
 
-      <section class="port-section">
-        <h3>Experiences</h3>
-        <p><strong>Gondola rides</strong> remain Venice's signature experience despite the cost — expect to pay around 80 to 100 euros for a 30-minute ride. The price is set by the gondolier's association and shared among passengers, so consider splitting with another couple to reduce individual costs. Sunset rides offer particularly magical light and atmosphere.</p>
-
-        <p><strong>Cicchetti bar hopping</strong> introduces you to Venice's version of tapas culture. These small bites — crispy cod, marinated sardines, creamy bacala on bread — pair perfectly with a glass of local wine. Follow locals to neighborhood bacari rather than tourist-focused spots near major landmarks.</p>
-
-        <p><strong>Getting deliberately lost</strong> in Venice's maze of streets becomes one of the city's great pleasures. Yellow signs point toward major landmarks (San Marco, Rialto, Ferrovia station), so you can always find your way back. The narrow residential lanes reveal Venice's authentic character.</p>
-
-        <p><strong>Harry's Bar</strong> — tiny, expensive, and famous — is where the Bellini cocktail was invented. Ernest Hemingway wrote about this place. You're paying for history along with your drink.</p>
+      <!-- Map Section -->
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>Venice Area Map</h3>
+        <p class="map-intro">Interactive map showing the main islands, Grand Canal, St. Mark's Square, Rialto Bridge, and outer islands of Murano and Burano. Note that the cruise terminal at Marghera is on the mainland, requiring transfer to Venice proper.</p>
+        <div id="port-map" class="port-map-container" style="height: 350px; border-radius: 8px; margin: 1rem 0;" role="application" aria-label="Interactive map of Venice and lagoon islands">
+          <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
+        </div>
       </section>
 
-      <section class="port-section">
-        <h3>Shore Excursions</h3>
-        <p><strong>Murano and Burano island tours</strong> typically run half-day and include both islands — you'll see glass-blowing demonstrations on Murano and photograph Burano's rainbow-colored houses. Most tours provide vaporetto transportation and a guide.</p>
+      <!-- Excursions Section -->
+      <section class="port-section" id="excursions">
+        <h2>Top Excursions &amp; Things to Do</h2>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: St. Mark's Basilica is free but lines are long—book ahead for skip-the-line tickets online. Doge's Palace requires advance reservations during peak season. Ship excursions offer guided experiences with guaranteed return to port. Independent exploration via vaporetto works well for confident travelers. Gondola rides don't need booking—gondoliers wait at stands throughout the city.</p>
 
-        <p><strong>Gondola serenades</strong> add music to the classic gondola experience. Some tours combine a gondola ride with a traditional Italian singer performing while you glide through smaller canals.</p>
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">St. Mark's Square &amp; Basilica (free-$15)</h4>
+        <p>ESSENTIAL for any Venice visit. The square (Piazza San Marco) is Venice's civic and spiritual heart, surrounded by the Basilica, Campanile bell tower, and Doge's Palace. The Basilica entrance is free but queues can exceed an hour—skip-the-line tickets worth the €6 investment. Interior mosaics covering 8,000 square meters of gold-ground Byzantine splendor will take your breath away. The Campanile offers panoramic views (€10, elevator available). Allow 2-3 hours for the complex.</p>
 
-        <p><strong>Venetian cooking classes</strong> often start with a market visit to select ingredients before preparing traditional dishes like risotto al nero di seppia or fresh pasta. You'll learn techniques unique to Venetian cuisine.</p>
+        <figure class="logbook-image">
+          <img src="/ports/img/venice/venice-4.webp" alt="The ornate Gothic facade of the Doge's Palace with its pink marble and white stone arcades" loading="lazy"/>
+          <figcaption>Doge's Palace's Gothic splendor — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
+        </figure>
 
-        <p><strong>Verona day trips</strong> transport you to the city of Romeo and Juliet. See Juliet's famous balcony, explore the Roman Arena, and walk streets that Shakespeare immortalized. Plan for about an hour and a half travel time each direction.</p>
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Doge's Palace ($30-40)</h4>
+        <p>ESSENTIAL for history and art lovers. The pink-and-white Gothic palace served as Venice's seat of power for centuries. Tour the lavish council chambers with ceiling paintings by Tintoretto and Veronese, cross the Bridge of Sighs to the prisons, and learn how this maritime republic functioned. Book timed-entry tickets at palazzoducale.visitmuve.it—wait times can be brutal during peak season. Allow 2 hours minimum.</p>
 
-        <p><strong>Prosecco wine country</strong> spreads across gentle hills northeast of Venice. Full-day tours visit vineyards in the Valdobbiadene region where Italy's beloved sparkling wine originates.</p>
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Gondola Ride ($80-100)</h4>
+        <p>Undeniably touristy, undeniably magical. No advance reservation needed—simply approach a gondolier at any stand throughout the city. The official rate is €80 for 40 minutes (up to 6 people), €100 after 7 PM. Prices are fixed—don't pay more. Request the quieter back canals rather than the crowded Grand Canal for the most atmospheric experience. Sharing a gondola with other passengers reduces per-person cost. An iconic Venice experience worth the splurge for most visitors.</p>
+
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Murano &amp; Burano Islands ($20-30)</h4>
+        <p>Vaporetto Line 12 connects these lagoon islands for independent exploration. No advance booking required—simply purchase vaporetto tickets and go. Murano offers glass-making demonstrations (free at showrooms, small fee for artisan workshops) and centuries-old tradition. Burano dazzles with rainbow-painted houses and lace-making heritage. Half a day covers both comfortably. A refreshing escape from Venice's most crowded areas while remaining quintessentially Venetian.</p>
+
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Grand Canal Vaporetto Ride ($10)</h4>
+        <p>The budget alternative to water taxis. Take Line 1 from Piazzale Roma to San Marco—it stops at every station, taking 45 minutes to traverse the full canal past Renaissance palaces, the Rialto Bridge, and Gothic warehouses. Stand at the front or back for best views. A €10 single ticket buys the same views a €100 water taxi provides. Best in morning or late afternoon light.</p>
+
+        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Get Lost in Cannaregio or Dorsoduro (free)</h4>
+        <p>Venice's quieter neighborhoods offer respite from St. Mark's crowds. Cannaregio, the northern sestiere, features the Jewish Ghetto (the world's first, giving us the word), local cafés, and authentic residential atmosphere. Dorsoduro houses the Accademia gallery and Peggy Guggenheim Collection. Simply wandering reveals hidden squares, neighborhood churches, and the everyday Venice tourists rarely see.</p>
       </section>
 
-      <section class="port-section">
-        <h3>Practical Tips</h3>
-        <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Essential advice before stepping ashore.</p>
-
-        <p><strong>Budget accordingly</strong> — Venice ranks among Europe's most expensive cities. Coffee at a neighborhood cafe costs 2 euros; the same cup at a table in St. Mark's Square can cost 10 euros or more.</p>
-
-        <p><strong>Embrace getting lost</strong> — Venice's confusing layout frustrates attempts to navigate by map alone. Follow the yellow directional signs to major landmarks when you need to orient yourself. The winding path often reveals the city's most charming corners.</p>
-
-        <p><strong>Watch for acqua alta</strong> (high water) — seasonal flooding that can submerge St. Mark's Square and low-lying areas. The city sets up raised wooden walkways when needed. Check forecasts during autumn and winter months.</p>
-
-        <p><strong>Book major attractions ahead</strong> — St. Mark's Basilica and Doge's Palace both offer online tickets that let you skip the long general-admission lines. The time saved is worth the small booking fee.</p>
-
-        <p><strong>Avoid dining in St. Mark's Square</strong> — restaurants directly on the piazza charge premium tourist prices for average food. Walk five minutes in any direction to find better value and quality.</p>
-
-        <p><strong>Carry cash</strong> — many small shops, cafes, and market stalls don't accept cards. ATMs are readily available but often have lines during peak hours.</p>
-
-        <p><strong>Wear comfortable walking shoes</strong> — you'll climb countless bridge steps throughout the day. Venice has no flat routes. Avoid wheeled luggage if possible; the bridges make rolling anything frustrating.</p>
-
-        <p><strong>Build in extra return time</strong> — navigating from Venice back to your ship at Marghera involves multiple connections. Don't cut it close. The vaporetto runs on schedule, but finding the right one and making connections takes longer than you expect.</p>
+      <!-- Depth Soundings Section -->
+      <section class="port-section" id="depth-soundings">
+        <h2>Depth Soundings</h2>
+        <p>Practical details and honest assessments for planning your Venice day.</p>
+        <ul>
+          <li><strong>Transfer reality:</strong> From Marghera cruise terminal, the transfer to Venice takes 20-30 minutes. You won't step directly onto St. Mark's Square—budget this transit time. Some cruise lines offer vaporetto passes as part of transfer packages; check before purchasing separately.</li>
+          <li><strong>Crowds are relentless:</strong> St. Mark's Square, Rialto Bridge, and main thoroughfares are packed during cruise ship hours. Arrive early, stay late, or explore quieter neighborhoods like Cannaregio and Dorsoduro. Venice is more pleasant before 10 AM and after 5 PM.</li>
+          <li><strong>Expect to get lost:</strong> Venice's streets twist, dead-end, and defy logic. Google Maps works but imperfectly. Following yellow signs to major landmarks helps. Getting lost is part of the experience—some of Venice's best discoveries come from wrong turns.</li>
+          <li><strong>Water levels vary:</strong> Acqua alta (high water) floods parts of Venice, particularly St. Mark's Square, during fall and winter. Raised walkways appear, but prepare for wet feet. Check forecasts if visiting October-February. Flooding is less common in summer cruise season.</li>
+          <li><strong>Eating and drinking:</strong> Tourist restaurants near St. Mark's charge premium prices for mediocre food. Better options hide in residential neighborhoods—look for places serving cicchetti (Venetian tapas) at the bar. Bellinis at Harry's Bar are expensive but historically significant. Coffee standing at a bar costs €1-2; sitting down costs €5-10.</li>
+          <li><strong>Venice is expensive:</strong> Gondola rides, vaporetto tickets, museum entries, and restaurant meals add up quickly. Budget accordingly or focus on free pleasures—walking, getting lost, people-watching in squares. The canals and architecture don't charge admission.</li>
+        </ul>
       </section>
 
-      <section class="port-section">
-        <h3>Frequently Asked Questions</h3>
-        <p><strong>Q: Is Venice still worth visiting despite the crowds?</strong><br/>A: Absolutely. The beauty remains almost overwhelming even with tourism. Arrive early, stay late, and explore beyond the main thoroughfares to find Venice's enduring magic.</p>
-
-        <p><strong>Q: What's the single best thing to do in Venice?</strong><br/>A: Wake up early and explore the Cannaregio neighborhood at dawn. You'll see locals opening shops, buying bread, going about their morning routines in this extraordinary city.</p>
-
-        <p><strong>Q: Is a gondola ride worth the expense?</strong><br/>A: It's expensive but deeply iconic to Venice. If your budget allows, the experience of gliding through narrow waterways in near-silence creates lasting memories. Consider sharing the cost with others.</p>
-
-        <p><strong>Q: Can I walk from the cruise port to Venice?</strong><br/>A: Not from Marghera — you'll need the shuttle transfer. Even from the closer San Basilio terminal, a vaporetto is your best option. The People Mover and water bus system exists specifically for this connection.</p>
+      <!-- FAQ Section -->
+      <section class="port-section faq-section" id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <details class="faq-item"><summary>Can I still sail into Venice on a cruise ship?</summary><p>Large ships no longer transit the Giudecca Canal past St. Mark's Square. Most dock at Marghera on the mainland, requiring 20-30 minute transfer to Venice. Some smaller ships use the San Basilio terminal closer to the city center. The iconic sailaway past St. Mark's has ended to protect the lagoon.</p></details>
+        <details class="faq-item"><summary>Is a gondola ride worth €80?</summary><p>For many visitors, yes—it's an iconic experience unique to Venice. The journey through narrow back canals offers perspectives impossible to get on foot. Share with others to reduce per-person cost (up to 6 passengers). Skip it if budget is tight—the Grand Canal vaporetto ride costs €10 and provides similar views.</p></details>
+        <details class="faq-item"><summary>How much time do I need in Venice?</summary><p>A full cruise port day (8-10 hours) allows St. Mark's complex, a Grand Canal vaporetto ride, and general exploration. Add island visits to Murano and Burano only if you skip something else or move quickly. Venice rewards longer visits—two days barely scratches the surface.</p></details>
+        <details class="faq-item"><summary>Are the outer islands worth visiting?</summary><p>Murano (glassmaking) and Burano (colorful houses) make excellent half-day trips via vaporetto. They're less crowded than central Venice and offer distinct experiences. However, if time is limited, prioritize St. Mark's and the Grand Canal—the main islands contain Venice's greatest treasures.</p></details>
+        <details class="faq-item"><summary>Is Venice accessible for wheelchairs?</summary><p>Venice presents significant accessibility challenges. Nearly every route involves bridges with steps, narrow passages, and uneven paving. Some vaporetto stops have accessibility ramps. The city has improved but genuine limitations remain. Visitors with mobility concerns should research specific routes carefully.</p></details>
       </section>
 
-      <!-- Author's Note -->
-      <section class="port-section author-note-disclaimer">
+      <!-- Gallery Section -->
+      <section class="port-section photo-gallery" id="gallery">
+        <h2>Photo Gallery</h2>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/venice/venice-hero.webp" alt="Venice Grand Canal with historic palaces and gondolas" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/venice/venice-1.webp" alt="St. Mark's Square at golden hour" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/venice/venice-2.webp" alt="Gondolier navigating back canals" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/venice/venice-3.webp" alt="Burano's colorful houses reflecting in the canal" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/venice/venice-4.webp" alt="Doge's Palace Gothic facade" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/venice/venice-5.webp" alt="Rialto Bridge spanning the Grand Canal" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/venice/venice-6.webp" alt="St. Mark's Basilica Byzantine mosaics interior" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/venice/venice-7.webp" alt="Murano glass artisan at work" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/venice/venice-8.webp" alt="Narrow Venetian canal at twilight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/venice/venice-9.webp" alt="Bridge of Sighs connecting palace to prison" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/venice/venice-10.webp" alt="Vaporetto water bus on the Grand Canal" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/venice/venice-11.webp" alt="Venice lagoon at sunset with distant islands" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+      </section>
+
+      <!-- Author's Note Disclaimer (Level 1: Not Visited) -->
+      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
         <h3>Author's Note</h3>
-        <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-      </section>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+          Until I have sailed this port myself, these notes are soundings in another's wake; carefully curated and edited to meet our standards. We believe they are helpful for planning, and marked for revision once I've logged my own steps ashore.
+        </p>
+      </aside>
 
-    <!-- Interactive Port Map -->
-    <section class="port-section port-map-section" id="port-map-section">
-      <h3>Venice Port Map</h3>
-      <p class="map-intro">Interactive map showing the cruise terminal areas, major landmarks, and islands. Click any marker for details and directions.</p>
-      <div id="venice-port-map" class="port-map-container" role="application" aria-label="Interactive map of Venice port and points of interest">
-        <noscript>
-          <p style="padding: 2rem; text-align: center; color: #678;">
-            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=45.437&mlon=12.308#map=14/45.437/12.335" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-          </p>
-        </noscript>
-      </div>
-      <div class="port-map-actions">
-        <button type="button" class="btn btn-secondary" onclick="document.getElementById('venice-port-map')._portMap?.fitBounds(document.getElementById('venice-port-map')._portMap.getBounds())">
-          Reset View
-        </button>
-      </div>
-    </section>
-
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/venice/venice-1.webp" alt="Harbor view of Venice, Italy" loading="lazy">
-          <figcaption>
-            Harbor view of Venice, Italy
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/venice/venice-2.webp" alt="Waterfront scenery of Venice, Italy" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Venice, Italy
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/venice/venice-3.webp" alt="Port panorama of Venice, Italy" loading="lazy">
-          <figcaption>
-            Port panorama of Venice, Italy
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/venice/venice-4.webp" alt="Coastal landscape of Venice, Italy" loading="lazy">
-          <figcaption>
-            Coastal landscape of Venice, Italy
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>venice-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>venice-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>venice-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>venice-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-
-  </article>
+    </article>
   </div>
+
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
     <section class="page-intro" style="margin: 0 0 1rem 0;">
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Venice is still Venice — even with the crowds, the beauty is almost violent.
+        <strong>Quick Answer:</strong> Large ships now dock at Marghera on the mainland (20-30 min transfer to Venice). Once on the islands, walk everywhere and take vaporettos for longer distances. St. Mark's Square, the Doge's Palace, and a gondola ride are quintessential experiences. Get lost in quieter neighborhoods for authentic atmosphere. Venice is expensive—budget accordingly.
       </p>
     </section>
-        <section class="card author-card-vertical" aria-labelledby="author-heading">
+    <section class="card author-card-vertical" aria-labelledby="author-heading">
       <h3 id="author-heading">About the Author</h3>
       <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
         <picture>
@@ -417,35 +317,30 @@ Soli Deo Gloria
       </p>
     </section>
 
-    <!-- Nearby Ports Rail -->
     <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
-        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Other ports in this region:
-        </p>
-        <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
-      </section>
-
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
-      </section>
-    
-  
-    <!-- Whimsical Distance Units -->
-    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+      <h3 id="nearby-ports-title">Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Other ports in this region:
+      </p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
     </section>
 
+    <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Real cruising experiences, practical guides, and heartfelt reflections from our community.
+      </p>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+    </section>
+
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
   </aside>
 
-    <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+  <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
   </main>
-    <footer class="wrap" role="contentinfo">
+
+  <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny" style="margin-top: 0.5rem;">
       <a href="/privacy.html">Privacy</a> ·
@@ -453,61 +348,44 @@ Soli Deo Gloria
       <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
-    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+    <p class="soli-deo-gloria">Soli Deo Gloria</p>
   </footer>
 
-  <script>
-    // Load recent articles
-    (async function() {
-      try {
-        const response = await fetch('/assets/data/articles/index.json');
-        const articles = await response.json();
-        const rail = document.getElementById('recent-rail');
-
-        if (rail && articles && articles.length > 0) {
-          rail.innerHTML = articles.slice(0, 5).map(article => `
-            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
-                <a href="${article.url}">${article.title}</a>
-              </h4>
-              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
-            </div>
-          `).join('');
-        }
-      } catch (err) {
-        console.log('Could not load articles:', err);
-      }
-    })();
-  </script>
-
-  <!-- Navigation Dropdown Script -->
-  <script src="/assets/js/dropdown.js"></script>
-
-  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="/assets/js/dropdown.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
-
-  <!-- Nearby Ports Script -->
-  <script>window.currentPortId = 'venice';</script>
-  <script src="/assets/js/nearby-ports.js"></script>
-
-  <!-- Whimsical Distance Units Script -->
-  <script src="/assets/js/whimsical-port-units.js"></script>
-
-  <!-- Leaflet JS for interactive maps -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="/assets/js/modules/port-map.js"></script>
-
-  <!-- Initialize Venice Port Map -->
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script src="/assets/js/nearby-ports.js" defer></script>
+  <script src="/assets/js/recent-rail.js" defer></script>
+  <script src="/assets/js/whimsical-port-units.js" defer></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
-      PortMap.init({
-        containerId: 'venice-port-map',
-        portSlug: 'venice'
+    document.addEventListener('DOMContentLoaded', function() {
+      new Swiper('.gallery-swiper', {
+        loop: true,
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        keyboard: { enabled: true },
+        a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
       });
-    }
-  });
+      if (typeof PortMap !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'venice' });
+      }
+    });
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "Can I still sail into Venice on a cruise ship?", "acceptedAnswer": {"@type": "Answer", "text": "Large ships no longer transit the Giudecca Canal past St. Mark's. Most dock at Marghera on the mainland, requiring 20-30 minute transfer to Venice."}},
+      {"@type": "Question", "name": "Is a gondola ride worth €80?", "acceptedAnswer": {"@type": "Answer", "text": "For many visitors, yes—it's an iconic experience unique to Venice. Share with others to reduce per-person cost. The Grand Canal vaporetto costs €10 for similar views."}},
+      {"@type": "Question", "name": "How much time do I need in Venice?", "acceptedAnswer": {"@type": "Answer", "text": "A full cruise port day allows St. Mark's complex, a Grand Canal ride, and general exploration. Add island visits only if you skip something else."}},
+      {"@type": "Question", "name": "Are the outer islands worth visiting?", "acceptedAnswer": {"@type": "Answer", "text": "Murano and Burano make excellent half-day trips. They're less crowded with distinct experiences. If time is limited, prioritize St. Mark's and the Grand Canal."}},
+      {"@type": "Question", "name": "Is Venice accessible for wheelchairs?", "acceptedAnswer": {"@type": "Answer", "text": "Venice presents significant accessibility challenges. Nearly every route involves bridges with steps. Some vaporettos have ramps. Research specific routes carefully."}}
+    ]
+  }
+  </script>
 </body>
 </html>
