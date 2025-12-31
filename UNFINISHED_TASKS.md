@@ -3391,47 +3391,143 @@ These features were considered but rejected based on strategic analysis:
 
 ---
 
-#### Implementation Phases (Updated with 40 Recommendations)
+#### 🎯 PRIORITIZED MASTER LIST (40 Recommendations)
 
-**Phase 1 (Immediate — Quick Wins):**
-- Tender port index (#1)
-- "No ads" trust messaging (#2)
-- Ships That Visit Here (#4)
-- First-Timer hub page (#5)
-- "Works Offline" marketing (#6)
-- "Last Reviewed" stamps (#30)
-- Tool release notes page (#31)
+**Scoring: Effort (1-3) × Impact (1-3) × Strategic Multiplier**
+- Differentiator = 1.5x | Table Stakes = 1.0x | Nice-to-have = 0.7x
 
-**Phase 2 (Short-term — Core Features):**
-- "From the Pier" component (#7)
-- Print-friendly CSS (#8)
-- Pre-cruise countdown (#9)
-- Transport cost component (#10)
-- Ship quick-facts audit (#17)
-- "Real Talk" sections (#18)
-- Port page structure audit (#19)
-- Atomic fact blocks / TL;DR (#36)
-- Machine-readable changelog (#37)
-- Coverage transparency page (#38)
+---
 
-**Phase 3 (Medium-term — Strategic Features):**
-- Add to Logbook button (#11)
-- DIY vs. Excursion (#12)
-- Accessibility sections (#14)
-- Budget Calculator (#20)
-- Dock location callouts (#28)
-- Embarkation port guides (#32)
-- "Related ports" cross-links (#33)
-- Micro-weather alerts (#34)
-- "Report an update" form (#35)
+##### TIER 1: DO FIRST (Score 6.0+) — Maximum ROI
 
-**Phase 4 (Ongoing — Content & Tools):**
-- Ship-Port combined guides (#25)
-- Faith-based content (#24)
-- Tool enhancements (#21, #22)
-- Countdown widget (#29 — optional)
-- Newsletter launch (#39)
-- Stateroom Checker above/below (#40)
+| Rank | # | Task | Effort | Impact | Type | Score |
+|------|---|------|--------|--------|------|-------|
+| 1 | #2 | "No Ads" Trust Messaging | Low | High | Differentiator | 9.0 |
+| 2 | #6 | "Works Offline" Marketing | Low | High | Differentiator | 9.0 |
+| 3 | #4 | "Ships That Visit Here" Section | Low | High | Differentiator | 9.0 |
+| 4 | #30 | "Last Reviewed" Stamps | Low | High | Differentiator | 9.0 |
+| 5 | #36 | Atomic Fact Blocks / TL;DR | Med | High | Differentiator | 6.75 |
+| 6 | #7 | "From the Pier" Component | Med | High | Table Stakes | 6.0 |
+| 7 | #8 | Print-Friendly Port Pages | Med | High | Table Stakes | 6.0 |
+| 8 | #34 | Micro-Weather Alerts | Med | High | Differentiator | 6.75 |
+
+**Tier 1 Rationale:** These items either require minimal effort with high payoff OR directly strengthen ITW's unique differentiators (trust, ship-port integration, AI-proofing).
+
+---
+
+##### TIER 2: DO NEXT (Score 4.0-5.9) — Strong Returns
+
+| Rank | # | Task | Effort | Impact | Type | Score |
+|------|---|------|--------|--------|------|-------|
+| 9 | #1 | Tender Port Index | Low | Med | Table Stakes | 4.5 |
+| 10 | #5 | First-Timer Hub Page | Low | Med | Table Stakes | 4.5 |
+| 11 | #10 | Transport Cost Component | Low | Med | Table Stakes | 4.5 |
+| 12 | #31 | Tool Release Notes Page | Low | Med | Differentiator | 4.5 |
+| 13 | #37 | Machine-Readable Changelog (JSON) | Low | Med | Differentiator | 4.5 |
+| 14 | #38 | Coverage Transparency Page | Low | Med | Differentiator | 4.5 |
+| 15 | #9 | Pre-Cruise Countdown Checklist | Med | High | Table Stakes | 6.0 |
+| 16 | #14 | Accessibility Port Information | High | High | Differentiator | 6.75 |
+| 17 | #33 | "Related Ports" Cross-Links | Med | Med | Table Stakes | 4.0 |
+| 18 | #18 | "Real Talk" Sections | Low | Med | Differentiator | 4.5 |
+
+**Tier 2 Rationale:** Solid wins that build out core functionality. Accessibility (#14) scores high due to strategic importance despite effort.
+
+---
+
+##### TIER 3: STRATEGIC INVESTMENTS (Score 3.0-3.9) — Worth the Effort
+
+| Rank | # | Task | Effort | Impact | Type | Score |
+|------|---|------|--------|--------|------|-------|
+| 19 | #3 | Stateroom Checker Promotion | Low | Med | Table Stakes | 3.0 |
+| 20 | #11 | "Add to My Logbook" Button | Med | Med | Differentiator | 4.5 |
+| 21 | #12 | DIY vs. Ship Excursion | Med | Med | Differentiator | 4.5 |
+| 22 | #13 | "Honest Assessment" Sections | Low | Med | Differentiator | 4.5 |
+| 23 | #17 | Ship Quick-Facts Audit | Low | Med | Table Stakes | 3.0 |
+| 24 | #19 | Port Page Structure Audit | Med | Med | Table Stakes | 4.0 |
+| 25 | #32 | Embarkation Port Guides | High | High | Table Stakes | 4.5 |
+| 26 | #35 | "Report an Update" Form | Med | Med | Table Stakes | 4.0 |
+| 27 | #39 | Newsletter (Weekly) | Med | High | Differentiator | 6.75 |
+| 28 | #20 | Cruise Budget Calculator | Med | Med | Differentiator | 4.5 |
+
+**Tier 3 Rationale:** Important features requiring more investment. Newsletter (#39) and Budget Calculator (#20) build long-term engagement.
+
+---
+
+##### TIER 4: WHEN CAPACITY ALLOWS (Score 2.0-2.9)
+
+| Rank | # | Task | Effort | Impact | Type | Score |
+|------|---|------|--------|--------|------|-------|
+| 29 | #15 | Port-Specific Packing Suggestions | Med | Med | Nice-to-have | 2.8 |
+| 30 | #16 | "Why This Port Is Special" Callouts | Low | Med | Nice-to-have | 2.1 |
+| 31 | #21 | "What to Book in Advance" Guide | Low | Med | Table Stakes | 3.0 |
+| 32 | #22 | Excursion Decision Helper | Med | Med | Differentiator | 4.5 |
+| 33 | #23 | Author Expertise Callouts | Low | Med | Nice-to-have | 2.1 |
+| 34 | #25 | Ship-Port Combined Guides | High | High | Differentiator | 6.75 |
+| 35 | #26 | Dining Venue Enhancements | Med | Med | Nice-to-have | 2.8 |
+| 36 | #27 | "Ports on This Ship" Section | Med | Med | Table Stakes | 4.0 |
+| 37 | #40 | Stateroom Checker "Above/Below" | Med | Med | Differentiator | 4.5 |
+
+**Tier 4 Rationale:** Good ideas that can wait. Ship-Port Guides (#25) is high-value but requires significant content investment.
+
+---
+
+##### TIER 5: OPTIONAL / BACKLOG (Score <2.0)
+
+| Rank | # | Task | Effort | Impact | Type | Score |
+|------|---|------|--------|--------|------|-------|
+| 38 | #24 | Faith-Based Content Expansion | Med | Niche | Niche | 2.0 |
+| 39 | #28 | Dock Location Callouts | Low | Low | Table Stakes | 1.5 |
+| 40 | #29 | Cruise Countdown Widget | Med | Low | Nice-to-have | 1.4 |
+
+**Tier 5 Rationale:** Low urgency. Faith content (#24) serves important niche but isn't time-sensitive.
+
+---
+
+#### 📋 QUICK REFERENCE: Top 10 Priorities
+
+| Priority | Task | Est. Time | Why First |
+|----------|------|-----------|-----------|
+| **1** | #2 "No Ads" Trust Messaging | 1-2 hours | Zero effort, huge trust signal |
+| **2** | #6 "Works Offline" Marketing | 2-4 hours | Already works, just needs promotion |
+| **3** | #4 "Ships That Visit Here" | 4-8 hours | Unique differentiator, uses existing data |
+| **4** | #30 "Last Reviewed" Stamps | 2-4 hours | Instant credibility boost |
+| **5** | #36 Atomic Fact Blocks | 8-16 hours | AI-proofs content, helps all users |
+| **6** | #7 "From the Pier" Component | 8-16 hours | Table stakes, high user value |
+| **7** | #8 Print-Friendly CSS | 4-8 hours | One-time effort, permanent value |
+| **8** | #34 Micro-Weather Alerts | 8-16 hours | Extends weather roadmap, unique |
+| **9** | #1 Tender Port Index | 4-8 hours | Easy win, frequently asked |
+| **10** | #5 First-Timer Hub Page | 4-8 hours | Consolidates existing content |
+
+---
+
+#### 🚀 SUGGESTED SPRINT PLAN
+
+**Sprint 1 (Week 1-2): Trust & Visibility**
+- [ ] #2 "No Ads" Trust Messaging
+- [ ] #6 "Works Offline" Marketing
+- [ ] #30 "Last Reviewed" Stamps
+- [ ] #31 Tool Release Notes Page
+
+**Sprint 2 (Week 3-4): Ship-Port Integration**
+- [ ] #4 "Ships That Visit Here" Section
+- [ ] #1 Tender Port Index
+- [ ] #5 First-Timer Hub Page
+
+**Sprint 3 (Week 5-6): Port Page Enhancement**
+- [ ] #7 "From the Pier" Component
+- [ ] #10 Transport Cost Component
+- [ ] #8 Print-Friendly CSS
+
+**Sprint 4 (Week 7-8): AI-Proofing & Weather**
+- [ ] #36 Atomic Fact Blocks / TL;DR
+- [ ] #37 Machine-Readable Changelog
+- [ ] #34 Micro-Weather Alerts
+
+**Sprint 5+ (Ongoing): Strategic Features**
+- [ ] #14 Accessibility Port Information
+- [ ] #9 Pre-Cruise Countdown
+- [ ] #11-12 Logbook + DIY Excursion
+- [ ] #39 Newsletter Launch
 
 ---
 
