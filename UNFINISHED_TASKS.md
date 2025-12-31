@@ -1605,6 +1605,44 @@ Soli Deo Gloria
 
 ---
 
+### 🟢 [G] Competitor Analysis Overview (2025-12-31)
+**Lane:** 🟢 Green (strategic planning)
+**Purpose:** Comprehensive competitive landscape analysis to identify features to adopt, gaps to exploit, and strategic positioning
+
+#### Completed Analyses Summary
+
+| Competitor | Focus | Key Insight | Status |
+|------------|-------|-------------|--------|
+| **WhatsInPort** | 900+ ports, printable maps, walking distances | Utility focus; In The Wake adds storytelling | ✅ Complete |
+| **Cruise Critic** | 150K+ reviews, forums, Roll Calls | Community noise; single-voice is our moat | ✅ Complete |
+| **Cruiseline.com/Shipmate** | Mobile app, offline, deals | PWA already has offline — market it better | ✅ Complete |
+| **CruiseMapper** | Real-time ship tracking, "Cruise Minus" incidents | Different category; adopt "Real Talk" transparency | ✅ Complete |
+| **IQCruising** | 20+ years industry, PDF maps, editorial control | Similar philosophy but impersonal; we add narrative | ✅ Complete |
+| **Cruise Crocodile** | 120+ ports, specific taxi rates, affiliate links | Great transport cost model; we're ad-free | ✅ Complete |
+
+#### Key Differentiators Identified
+
+| In The Wake Strength | Competitor Coverage | Strategic Value |
+|---------------------|---------------------|-----------------|
+| Ship-Port Integration | ⭐ No competitor has this | UNIQUE — protect and expand |
+| First-Person Storytelling | ⭐ All competitors lack narrative depth | UNIQUE — core brand identity |
+| Interactive Tools (Quiz, Calculator, Checker) | ⭐ No competitor has decision-support tools | UNIQUE — expand tool suite |
+| Gamification (Logbooks, Achievements) | ⭐ No competitor has journey tracking | UNIQUE — deepen engagement |
+| Ad-Free Trust | Rare (most have affiliate/ad models) | DIFFERENTIATOR — promote explicitly |
+| Accessibility Depth | ⭐ Market gap across all competitors | OPPORTUNITY — become THE resource |
+| Faith-Based Perspective | ⭐ No competitor addresses this | NICHE — continue developing |
+
+#### Consolidated Recommendations: 40 items
+- **P1 Quick Wins:** #1-6, #30-31 (tender index, trust messaging, offline marketing, review stamps)
+- **P2 Strategic:** #7-19, #36-38 (transport, print CSS, structure audit, AI-proofing)
+- **P3 Content:** #20-29, #32-35 (tools, ship-port guides, embarkation, cross-links)
+- **P4 Extended:** #39-40 (newsletter, Stateroom Checker enhancement)
+
+#### "NOT Building" Summary: 20 items rejected
+User reviews, forums, booking/deals, native app, real-time tracking, affiliate links, AI-generated content, PDF-first strategy, incident database, port schedules by date, live ships-in-port, complex port planner, full YouTube, tour booking, OTA features, news churn, single-line focus
+
+---
+
 ### 🟢 [G] Competitor Gap Analysis: WhatsInPort.com (NEW - 2025-12-31)
 **Lane:** 🟢 Green (feature planning, content strategy)
 **Analysis Date:** 2025-12-31
@@ -2572,10 +2610,413 @@ Cruise Crocodile is a solid utility resource with authentic cruiser experience b
 
 ---
 
+### 🟢 [G] Batched Competitor Analysis: Extended Landscape (2025-12-31)
+**Lane:** 🟢 Green (strategic planning)
+**Purpose:** Rapid assessment of 50+ additional competitors across all categories
+
+---
+
+#### Category 1: Additional Port Guide Sites
+
+##### CruiseSheet.com
+**Focus:** Live ship tracker + port guides + cruise search
+**Key Features:** 182 ships tracked in real-time ([CruiseSheet Live Map](https://cruisesheet.com/live-map)); port guides with walking distances, shore excursions, insider tips; regional directory structure
+**Strength:** Combines tracking + port info in one place
+**Gap vs ITW:** No personal narrative, no interactive tools, no gamification
+**Adopt:** Directory-style port index with regional filters (validates recommendation #14)
+**NOT Building:** Live ship tracking (CruiseMapper already does this better)
+
+##### DIYCruisePorts.com / CruisePortAdvisor.com / CruisePortWiki
+**Focus:** Community-driven port guides, DIY exploration tips
+**Key Features:** User-contributed content, practical logistics focus
+**Strength:** Real cruiser experiences, budget-conscious tips
+**Gap vs ITW:** Inconsistent quality, no editorial control, no ship integration
+**Adopt:** DIY difficulty ratings concept (validates recommendation #12)
+**NOT Building:** User-generated content model
+
+##### PortGuide.org / ThePort.Guide / CruiseTrail.com / CruiseTimetables.com
+**Focus:** Port logistics databases, schedules
+**Assessment:** Minor players with limited content; WhatsInPort/CruiseMapper dominate this space
+**Adopt:** Nothing new — already covered by major competitor analyses
+**NOT Building:** Schedule databases (CruiseMapper's territory)
+
+##### Wikivoyage (en.wikivoyage.org)
+**Focus:** Free, community-edited travel guides ([Wikivoyage Cruise Ships](https://en.wikivoyage.org/wiki/Cruise_ships))
+**Key Features:** Terminal info, shuttle details, day trip suggestions, local tips
+**Strength:** Free, comprehensive, multilingual, no commercial bias
+**Gap vs ITW:** No ship content, no tools, inconsistent cruise focus, wiki editing chaos
+**Adopt:** Structured port info format (terminal → transport → attractions)
+**NOT Building:** Wiki model
+
+##### Niche Port Sites (SunsetCozumel.com, CozumelTourbase.com)
+**Focus:** Single-port weather/tips specialization
+**Assessment:** Hyper-local niche; proves demand for port-specific weather/seasonality data
+**Adopt:** Port-specific seasonal guides (validates weather integration roadmap)
+**NOT Building:** Single-port microsites
+
+---
+
+#### Category 2: Ship-Specific Research & Deck Plans
+
+##### CruiseDeckPlans.com ⭐ KEY COMPETITOR
+**Focus:** 255+ ships, 594K+ photos, 45K+ stateroom videos, printable deck plans ([CruiseDeckPlans](https://www.cruisedeckplans.com/))
+**Key Features:** Interactive deck plans, cabin check tool (what's above/below), handicap cabin listings, features NOT on ship lists
+**Strength:** Exhaustive cabin-level detail; "what's above/below" tool is brilliant
+**Gap vs ITW:** No port content, no narrative, no tools beyond deck plans
+**Adopt:**
+- "What's Above/Below" cabin context (enhance Stateroom Checker)
+- "Features NOT on This Ship" negative space info
+- Handicap/accessible cabin listings
+**New Recommendation:** Add "cabin context" to Stateroom Checker showing adjacent cabin info
+
+---
+
+#### Category 3: Big Cruise Research Hubs & Communities
+
+##### TripAdvisor Cruise Forum
+**Focus:** General travel platform with cruise subforum ([TripAdvisor Cruises Forum](https://www.tripadvisor.com/ShowForum-g1-i10703-Cruises.html))
+**Key Features:** 20K+ topics, Destination Experts, integrated hotel/restaurant reviews
+**Strength:** Massive reach, trusted brand
+**Gap vs ITW:** Poor organization, complaint-heavy culture, cruise is minor focus
+**Adopt:** Nothing new — Cruise Critic already dominates cruise forums
+**NOT Building:** General travel platform integration
+
+##### Reddit r/Cruise
+**Focus:** 595K+ member cruise community, real-time discussion ([r/Cruise](https://www.reddit.com/r/Cruise/))
+**Key Features:** Candid advice, no sponsored content, deal sharing, Q&A culture
+**Strength:** Authentic cruiser voice, rapid response, anti-corporate ethos
+**Gap vs ITW:** Chaotic, no curation, information gets buried, requires Reddit account
+**Adopt:** "Recent intel links" concept — curate best Reddit threads per port (validates recommendation #13)
+**NOT Building:** Reddit integration or own forum
+
+##### Cruise Addicts / Cruise Crazies / CruiseLineFans / CruiseMates / Frommer's / Fodor's Forums
+**Assessment:** Smaller cruise communities and legacy travel forums
+**Strength:** Dedicated enthusiast bases
+**Gap:** All suffer from forum chaos, moderation burden, declining activity vs Reddit
+**Adopt:** Nothing new — forum model is NOT our strategy
+**NOT Building:** Any community forum features
+
+---
+
+#### Category 4: Excursion Marketplaces
+
+##### ShoreExcursionsGroup.com ⭐ KEY COMPETITOR
+**Focus:** 4,000+ tours in 300+ ports, 4.9M+ excursions delivered ([Shore Excursions Group](https://www.shoreexcursionsgroup.com/))
+**Key Features:** Return-to-ship guarantee, money-back guarantee, price match, small groups (2-20), private options
+**Strength:** "Back to ship" guarantee removes #1 fear; itinerary-matched search
+**Gap vs ITW:** Commercial booking engine; we don't book excursions
+**Adopt:** "Miss-the-ship risk" language concept — be explicit about DIY timing consequences
+**NOT Building:** Excursion booking/affiliate links
+
+##### Viator ⭐ KEY COMPETITOR
+**Focus:** 300K+ experiences globally, cruise-specific filtering ([Viator Shore Excursions](https://www.viator.com/))
+**Key Features:** "Worry-Free Shore Excursions" with back-to-ship guarantee, port pickup options, cruise itinerary search tool, 24/7 support
+**Strength:** Massive inventory (10x competitors), Tripadvisor integration
+**Gap vs ITW:** Pure booking platform; no content depth
+**Adopt:** Port pickup point awareness — help users understand where tours start
+**NOT Building:** Tour booking integration
+
+##### GetYourGuide / Klook / Venture Ashore
+**Assessment:** Similar excursion marketplaces with regional strengths (Klook = Asia, GetYourGuide = Europe)
+**Adopt:** Nothing new beyond Viator/SEG insights
+**NOT Building:** Any booking/commercial integrations
+
+---
+
+#### Category 5: Cruise Blogs & Media Brands
+
+##### RoyalCaribbeanBlog.com ⭐ KEY COMPETITOR
+**Focus:** Unofficial Royal Caribbean fan blog, 148K Instagram followers ([Royal Caribbean Blog](https://www.royalcaribbeanblog.com/))
+**Key Features:** Ship reviews, weekly news recaps, cabin reviews, activity guides, Alaska partnership content
+**Strength:** Deep RCL expertise, prolific output (daily posts), strong community engagement
+**Gap vs ITW:** Single cruise line focus; we're line-agnostic
+**Adopt:** Ship activity deep-dives model; "tried X new things this year" format
+**NOT Building:** Single-line focus
+
+##### CruiseFever.net
+**Focus:** Cruise news, tips, reviews since 2011 ([Cruise Fever](https://cruisefever.net/))
+**Key Features:** 5 posts/day, 130K Facebook followers, YouTube ship tours, newsletter
+**Strength:** News velocity, multimedia presence
+**Gap vs ITW:** News-churn focus vs. evergreen planning content
+**Adopt:** Newsletter concept for retention (validates distribution recommendation)
+**NOT Building:** News churn model
+
+##### CruiseHive.com
+**Focus:** Cruise news since 2008, expert journalism ([Cruise Hive](https://www.cruisehive.com/))
+**Key Features:** Daily news, port news section, community boards, incident coverage
+**Strength:** Real journalism experience, global reach
+**Gap vs ITW:** News focus, incident/drama coverage
+**Adopt:** Port news awareness — stay current on major port changes
+**NOT Building:** Incident/drama coverage
+
+##### EatSleepCruise.com / Cruzely.com / LifeWellCruised.com
+**Focus:** Lifestyle cruise blogs, personal experience content
+**Strength:** Authentic voice, social media presence, relatable content
+**Gap vs ITW:** Less structured, variable depth
+**Assessment:** Similar philosophy to ITW but different execution; validates personal voice approach
+
+##### The Points Guy (Cruise Coverage)
+**Focus:** Points/miles blog with cruise deals and reviews ([TPG Cruise](https://thepointsguy.com/cruise/))
+**Strength:** Massive reach, trusted deals coverage
+**Gap vs ITW:** Deals/points focus; we're not commercial
+**Adopt:** Nothing — different business model entirely
+
+---
+
+#### Category 6: Official Cruise Line Content
+
+##### Royal Caribbean / Celebrity / NCL Official Guides
+**Focus:** Marketing content, shore excursion sales, port highlights
+**Strength:** Official authority, polished production
+**Gap vs ITW:** Marketing spin, upsell focus, limited DIY info, no cross-line comparison
+**Adopt:** Nothing — they're selling; we're guiding
+**NOT Building:** Cruise line partnerships or sponsored content
+
+---
+
+#### Category 7: General Travel Publishers
+
+##### Lonely Planet Cruise Ports Guides
+**Focus:** Physical guidebooks for Caribbean, Mediterranean, Scandinavia, Alaska ([Lonely Planet Cruise Ports Caribbean](https://www.amazon.com/Lonely-Planet-Cruise-Caribbean-Travel/dp/1787014185))
+**Key Features:** Full-color maps, itineraries, insider tips, cultural insights, honest reviews
+**Strength:** Editorial quality, trusted brand, comprehensive coverage
+**Gap vs ITW:** Physical books (outdated quickly), no interactivity, no ship content, no tools
+**Adopt:** Cultural insights model — "richer, more rewarding travel experience"
+**NOT Building:** Print guidebook format
+
+##### Fodor's / Condé Nast Traveler / U.S. News Travel / Rick Steves
+**Focus:** Editorial travel content, destination guides
+**Assessment:** General travel publishers with occasional cruise content; not cruise-focused
+**Adopt:** Editorial quality bar — professional writing standards
+**NOT Building:** General travel content beyond cruise focus
+
+---
+
+#### Category 8: OTAs & Booking Engines
+
+##### Cruises.com / Cruise.com / CruiseDirect / CruiseCompete / Vacations To Go / Costco Travel
+**Focus:** Cruise booking, deals, price comparison
+**Assessment:** Commercial booking platforms; completely different business model
+**Adopt:** Nothing — we don't book cruises
+**NOT Building:** Booking engine, affiliate deals, price comparison
+
+##### Expedia / Priceline / Booking.com / Trip.com / Airbnb
+**Focus:** General OTAs with cruise offerings
+**Assessment:** Mass-market booking; cruise is minor offering
+**Adopt:** Nothing relevant to ITW
+**NOT Building:** OTA features
+
+---
+
+#### Category 9: Deals & Price Tracking
+
+##### CruisePlum ⭐ INTERESTING MODEL
+**Focus:** Cruise price tracking, historical charts, alerts ([CruisePlum](https://www.cruiseplum.com/))
+**Key Features:** Interactive price history graphs, 15%+ price drop alerts, watchlist, per-guest normalization, includes taxes/gratuities, 100% free
+**Strength:** Data transparency, no commercial pressure, trusted by Reddit communities
+**Gap vs ITW:** Pure pricing focus; no content, no port info
+**Adopt:** Nothing directly — but validates "transparent, non-commercial" positioning
+**NOT Building:** Price tracking (different product entirely)
+
+---
+
+#### Category 10: YouTube & Influencer Channels
+
+##### Tips for Travellers ⭐ TOP CHANNEL
+**Focus:** 96+ sailings, 800+ videos, weekly live Q&A ([Tips for Travellers](https://www.tipsfortravellers.com/youtube/))
+**Key Features:** Most subscribed cruise channel, high-quality narration, disability cruising coverage
+**Strength:** Production quality, accessibility coverage, community engagement
+**Gap vs ITW:** Video format only; no searchable text content
+**Adopt:** Accessibility topic depth (validates disability-at-sea content)
+**YouTube-lite idea:** If video, short formats like "Pier to Town in 90 seconds"
+
+##### Emma Cruises / La Lido Loca / The Shiplife
+**Focus:** Ship tours, cruise vlogs, experience content
+**Strength:** Engaging personalities, visual ship content
+**Gap vs ITW:** Video-only, entertainment focus
+**Adopt:** Ship tour visual inspiration for video content if pursued
+**NOT Building:** Influencer-style content
+
+---
+
+#### Category 11: AI Trip Planners
+
+##### Perplexity Travel ⭐ EMERGING THREAT
+**Focus:** AI-powered trip planning with citations ([Perplexity Travel](https://www.perplexity.ai/travel))
+**Key Features:** TripAdvisor/Viator integration, hotel booking, real-time data, structured answers
+**Strength:** Speed, citation quality, aggregation without bouncing between sites
+**Gap vs ITW:** Aggregates others' content; no original voice, no specialized cruise tools
+**Strategic Response:**
+- Make ITW content AI-citable (structured data, atomic facts)
+- Be the authoritative source AI cites, not replaces
+**Adopt:** Atomic fact blocks, citable summaries (validates ChatGPT suggestions #25-27)
+
+##### ChatGPT / Google Gemini / Mindtrip / Vacay
+**Focus:** General AI assistants with travel use cases
+**Assessment:** Will increasingly answer cruise questions; threat to all content sites
+**Strategic Response:** Same as Perplexity — be the source, not the casualty
+**Adopt:** Structured data, machine-readable changelogs
+
+---
+
+#### Category 12: Drink Calculator Competitors
+
+##### CruiseMummy Drink Calculator ⭐ DIRECT COMPETITOR
+**Focus:** Beverage package worth calculator ([CruiseMummy Calculator](https://www.cruisemummy.co.uk/cruise-drinks-package-calculator/))
+**Key Features:** Sea day vs port day averaging, package limit explanations, cruise line variations
+**Strength:** 1M+ monthly users, comprehensive package guides per line
+**Gap vs ITW:** Web-only (no offline), less visual, no integration with other tools
+**Assessment:** ITW Drink Calculator already exists and is competitive
+**Adopt:** Sea day vs port day consumption distinction
+
+##### Cruzely.com / CruiseSpotlight / CruiseTipsTV / Cruise118 / Tasty Itinerary
+**Focus:** Similar drink package calculators
+**Assessment:** Validates market demand; ITW already has this covered
+**Adopt:** Nothing new beyond CruiseMummy insights
+
+---
+
+#### Batched Analysis Summary
+
+| Category | Key Competitors | ITW Advantage | Action |
+|----------|-----------------|---------------|--------|
+| Port Guides | CruiseSheet, WikiVoyage | Ship integration + narrative | Adopt regional directory structure |
+| Deck Plans | CruiseDeckPlans | Tools + port integration | Add "above/below" cabin context |
+| Communities | Reddit, TripAdvisor | Curated single-voice | Link to best threads, don't build own |
+| Excursions | Viator, SEG | DIY guidance vs booking | Add "miss-the-ship risk" language |
+| Blogs | RCBlog, CruiseFever | Multi-line + tools | Newsletter for retention |
+| AI Planners | Perplexity, ChatGPT | Original citable content | Structured data for AI citation |
+| Drink Calcs | CruiseMummy | Already competitive | Sea day/port day distinction |
+
+---
+
+### 🟢 [G] ChatGPT Suggestions Evaluation: Wheat vs. Chaff (2025-12-31)
+**Lane:** 🟢 Green (strategic planning)
+**Purpose:** Evaluate 30 ChatGPT-generated suggestions against ITW's competitive position
+
+---
+
+#### ✅ WHEAT — Adopt These (Align with ITW Strategy)
+
+##### A) Port Pages — Win the "Port Day Execution" Moment
+
+| # | Suggestion | Verdict | Justification |
+|---|------------|---------|---------------|
+| A1 | "Docking at a Glance" module | ✅ WHEAT | Already planned (#7 From the Pier) — validates priority |
+| A2 | Maps pack per port (terminal + downtown + beach) | ✅ WHEAT | Extends existing map strategy; addresses WhatsInPort strength |
+| A3 | "Save for port day" offline pack | ✅ WHEAT | PWA already supports; need marketing (#6) + possible PDF generation |
+| A4 | Ships-in-port pressure indicator | ⚠️ PARTIAL | Good concept but requires live data; consider static "busy season" warnings instead |
+| A5 | DIY difficulty rating (Easy/Moderate/Hard) | ✅ WHEAT | Already planned (#12); SEG validates demand |
+| A6 | Excursion alternatives matrix | ✅ WHEAT | Already planned (#12 DIY vs Ship) — add "miss-the-ship risk" language |
+| A7 | Accessibility Field Kit per port | ✅ WHEAT | Core differentiator; validates #14 + disability-at-sea content |
+
+##### B) Weather — Make It Undeniable ITW Is Different
+
+| # | Suggestion | Verdict | Justification |
+|---|------------|---------|---------------|
+| B8 | Dual-layer weather (live + seasonal) | ✅ WHEAT | Already planned in Port Weather Guide roadmap |
+| B9 | Docking-window default (8am-5pm) | ✅ WHEAT | Smart UX; include in weather component |
+| B10 | Micro-alerts (wind/tender, lightning, heat) | ✅ WHEAT | High value for planning; add to weather roadmap |
+
+##### C) Trust, Freshness, and "I Believe You" Signals
+
+| # | Suggestion | Verdict | Justification |
+|---|------------|---------|---------------|
+| C11 | "Last reviewed" stamp + changelog | ✅ WHEAT | Validates #2 trust messaging; easy to implement |
+| C12 | Structured sources block | ✅ WHEAT | Builds authority; cite official sources per port |
+| C13 | Community capture without forum | ✅ WHEAT | "Report an update" form + curated intel links — validates Reddit curation approach |
+
+##### D) Site Architecture and Discovery
+
+| # | Suggestion | Verdict | Justification |
+|---|------------|---------|---------------|
+| D14 | Ports index with filters/tags | ✅ WHEAT | Already planned (#19); CruiseSheet validates demand |
+| D15 | Interactive world map entry point | ⚠️ PARTIAL | Already have Leaflet maps; consider enhanced ports.html map view |
+| D16 | "Related ports" cross-links | ✅ WHEAT | Reduces bounce; adds context per itinerary |
+| D17 | Embarkation ports as first-class | ✅ WHEAT | High-stakes content gap; parking/hotel/terminal flow |
+
+##### E) Tools Moat — Expand "ITW Does Math Others Can't"
+
+| # | Suggestion | Verdict | Justification |
+|---|------------|---------|---------------|
+| E18 | Port-day planner mini-tool | ⚠️ PARTIAL | Interesting but complex; defer to Phase 4+ |
+| E19 | Port transport cost tracker | ✅ WHEAT | Already planned (#10); add dated prices |
+| E20 | Tool "release notes" publicly | ✅ WHEAT | Builds trust; easy win |
+| E21 | Embed toollets inside port pages | ✅ WHEAT | Weather panel, walk-time, budget — validates embedded approach |
+
+##### F) Distribution Gaps
+
+| # | Suggestion | Verdict | Justification |
+|---|------------|---------|---------------|
+| F22 | Newsletter (weekly) | ✅ WHEAT | CruiseFever/RCBlog validate; retention tool |
+| F23 | YouTube-lite short formats | ⚠️ PARTIAL | Only if time permits; "Pier to Town in 90 seconds" format |
+| F24 | Lead magnets (Port Day Cards) | ✅ WHEAT | Convert search traffic; PDF packs serve this |
+
+##### G) AI Disruption Layer — Be Cited, Not Replaced
+
+| # | Suggestion | Verdict | Justification |
+|---|------------|---------|---------------|
+| G25 | Atomic fact blocks on every port | ✅ WHEAT | Critical for AI citation; structured data priority |
+| G26 | Citable mini-summaries ("If you only read 30 seconds...") | ✅ WHEAT | TL;DR blocks for AI and impatient users |
+| G27 | Machine-readable changelog feed (JSON) | ✅ WHEAT | Future-proofs for AI search; low effort |
+
+##### H) Operational Discipline
+
+| # | Suggestion | Verdict | Justification |
+|---|------------|---------|---------------|
+| H28 | Port Page Data Spec + validators | ✅ WHEAT | Already implied in #19; formalize as template |
+| H29 | "Coverage transparency" page | ✅ WHEAT | Sets expectations; builds trust |
+| H30 | Triage system (demand × frequency × risk × accessibility) | ✅ WHEAT | Smart prioritization; adopt for content roadmap |
+
+---
+
+#### ❌ CHAFF — Not Adopting (Conflicts with ITW Strategy)
+
+| # | Suggestion | Verdict | Reason |
+|---|------------|---------|--------|
+| A4 (full) | Live ships-in-port data | ❌ CHAFF | Requires real-time integration; CruiseMapper's territory |
+| E18 (full) | Complex port-day planner tool | ❌ CHAFF | Scope creep; simpler approaches first |
+| F23 (full) | Full YouTube production | ❌ CHAFF | Resource-intensive; focus on web content first |
+
+---
+
+#### New Recommendations from ChatGPT Evaluation
+
+**Add to P1:**
+- #30. "Last Reviewed" stamps on all port pages (C11)
+- #31. Tool release notes / changelog page (E20)
+
+**Add to P2:**
+- #32. Embarkation port guides (parking, hotels, terminal flow) (D17)
+- #33. "Related ports" cross-links by itinerary (D16)
+- #34. Micro-weather alerts (wind/tender, lightning, heat) (B10)
+- #35. "Report an update" form for community intel (C13)
+
+**Add to P3:**
+- #36. Atomic fact blocks / TL;DR summaries per port (G25-26)
+- #37. Machine-readable changelog JSON feed (G27)
+- #38. Coverage transparency page (H29)
+- #39. Newsletter (weekly port changes + tips) (F22)
+- #40. Stateroom Checker "above/below" cabin context (from CruiseDeckPlans)
+
+---
+
+#### Summary: 27 WHEAT / 3 CHAFF
+
+The ChatGPT suggestions are **90% aligned** with ITW's existing strategy and validated by competitor analysis. Most suggestions either:
+1. Reinforce already-planned features (#1-29)
+2. Add valuable incremental improvements (trust stamps, cross-links, AI-proofing)
+3. Validate the tools-first approach that differentiates ITW
+
+The CHAFF items are rejected because they require real-time data infrastructure (ships-in-port) or resource-intensive production (YouTube) that doesn't match ITW's single-creator model.
+
+---
+
 ### 🟢 [G] Consolidated Competitor Analysis Recommendations (NEW - 2025-12-31)
 **Lane:** 🟢 Green (feature implementation)
-**Source:** WhatsInPort + Cruise Critic + Cruiseline.com + CruiseMapper + IQCruising + Cruise Crocodile competitor analyses above
-**Purpose:** Actionable task list combining insights from all competitor analyses
+**Source:** 6 deep-dive analyses + 50+ batched competitors + 30 ChatGPT suggestions evaluated
+**Competitors Analyzed:** WhatsInPort, Cruise Critic, Cruiseline.com, CruiseMapper, IQCruising, Cruise Crocodile, CruiseSheet, CruiseDeckPlans, Reddit r/Cruise, TripAdvisor, ShoreExcursionsGroup, Viator, RoyalCaribbeanBlog, CruiseFever, CruiseHive, Lonely Planet, CruisePlum, Tips for Travellers, Perplexity AI, CruiseMummy, and 30+ others
+**Purpose:** Actionable task list combining insights from comprehensive competitive landscape analysis
 
 ---
 
@@ -2835,6 +3276,92 @@ Cruise Crocodile is a solid utility resource with authentic cruiser experience b
 
 ---
 
+#### P4 — New Recommendations from Extended Analysis (ChatGPT + Batched Competitors)
+
+##### 30. "Last Reviewed" Stamps on Port Pages
+**Source:** ChatGPT C11
+**Effort:** Low | **Impact:** High
+- [ ] Add visible "Last reviewed: [date]" stamp to each port page
+- [ ] Include brief "What changed" changelog line
+- [ ] Builds trust; differentiates from outdated competitor content
+
+##### 31. Tool Release Notes / Changelog Page
+**Source:** ChatGPT E20
+**Effort:** Low | **Impact:** Medium
+- [ ] Create public changelog for Drink Calculator, Stateroom Checker, etc.
+- [ ] "Version 2.1 - Added sea day vs port day distinction"
+- [ ] Builds trust like a software product
+
+##### 32. Embarkation Port Guides
+**Source:** ChatGPT D17
+**Effort:** High | **Impact:** High
+- [ ] Create first-class guides for major embarkation ports
+- [ ] Include: parking options/costs, nearby hotels, terminal flow, check-in tips
+- [ ] High-stakes content that CruisePortAdvisor-type sites capture
+- [ ] Start with: Miami, Port Canaveral, Galveston, Fort Lauderdale
+
+##### 33. "Related Ports" Cross-Links by Itinerary
+**Source:** ChatGPT D16
+**Effort:** Medium | **Impact:** Medium
+- [ ] Add "Other ports on this itinerary" section to port pages
+- [ ] "If you're visiting Cozumel, you may also visit: Costa Maya, Roatan, Grand Cayman"
+- [ ] Reduces bounce to competitors; keeps users exploring
+
+##### 34. Micro-Weather Alerts for Port Days
+**Source:** ChatGPT B10
+**Effort:** Medium | **Impact:** High
+- [ ] Add weather micro-alerts to port weather component
+- [ ] Wind alerts: "High winds may affect tender operations"
+- [ ] Heat index: "Plan for hydration; mobility may be affected"
+- [ ] Lightning: "Beach activities may be interrupted"
+
+##### 35. "Report an Update" Form
+**Source:** ChatGPT C13
+**Effort:** Medium | **Impact:** Medium
+- [ ] Add simple form for community updates without building forum
+- [ ] "Taxi prices changed? Terminal moved? Let us know"
+- [ ] Curate and verify submissions before publishing
+- [ ] Captures Reddit's freshness advantage without moderation burden
+
+##### 36. Atomic Fact Blocks / TL;DR Summaries
+**Source:** ChatGPT G25-26
+**Effort:** Medium | **Impact:** High
+- [ ] Add structured "Quick Facts" block to every port page
+- [ ] Fields: Pier name(s), distance to center, tender Y/N, walkability, key cautions
+- [ ] Add "If you only read 30 seconds..." summary
+- [ ] Makes content AI-citable and skimmable
+
+##### 37. Machine-Readable Changelog (JSON)
+**Source:** ChatGPT G27
+**Effort:** Low | **Impact:** Medium
+- [ ] Create `/assets/data/changelog.json` with port update history
+- [ ] Enables AI search tools to surface fresh content
+- [ ] Simple JSON: `{"port": "cozumel", "date": "2025-01-15", "change": "Updated taxi rates"}`
+
+##### 38. Coverage Transparency Page
+**Source:** ChatGPT H29
+**Effort:** Low | **Impact:** Medium
+- [ ] Create page showing which ports are deep vs. stub
+- [ ] "Currently covering 291 ports: 50 comprehensive, 100 detailed, 141 basic"
+- [ ] Show what's being expanded next
+- [ ] Sets expectations and builds trust
+
+##### 39. Newsletter (Weekly)
+**Source:** ChatGPT F22, CruiseFever/RCBlog model
+**Effort:** Medium | **Impact:** High
+- [ ] Weekly email: port changes, seasonal picks, one tool tip
+- [ ] Convert search traffic into owned audience
+- [ ] Counter media site reach without becoming news-churn
+
+##### 40. Stateroom Checker "Above/Below" Context
+**Source:** CruiseDeckPlans batched analysis
+**Effort:** Medium | **Impact:** Medium
+- [ ] Enhance Stateroom Checker with cabin adjacency info
+- [ ] "Cabin 8252: Above = Solarium deck (pool noise), Below = Dining room"
+- [ ] CruiseDeckPlans' best feature; worth adopting
+
+---
+
 #### Explicitly NOT Building
 
 These features were considered but rejected based on strategic analysis:
@@ -2854,39 +3381,57 @@ These features were considered but rejected based on strategic analysis:
 | PDF-first strategy | Web-first PWA is better; PDF as supplement only | IQCruising |
 | AI-generated content | Personal storytelling is our moat; AI can't replicate | CruisePortIQ |
 | Affiliate excursion links | Conflicts with ad-free trust positioning | Cruise Crocodile |
+| Live ships-in-port data | Requires real-time integration; CruiseMapper's territory | ChatGPT A4 |
+| Complex port-day planner | Scope creep; simpler approaches first | ChatGPT E18 |
+| Full YouTube production | Resource-intensive; focus on web content first | ChatGPT F23 |
+| Tour booking integration | Commercial conflict; Viator/SEG territory | Viator, SEG |
+| OTA/booking features | Different business model entirely | Expedia, Cruises.com |
+| News churn content | Not sustainable for single creator | CruiseFever, CruiseHive |
+| Single cruise line focus | Line-agnostic approach is broader | RoyalCaribbeanBlog |
 
 ---
 
-#### Implementation Phases
+#### Implementation Phases (Updated with 40 Recommendations)
 
-**Phase 1 (Immediate — Next 2 weeks):**
+**Phase 1 (Immediate — Quick Wins):**
 - Tender port index (#1)
 - "No ads" trust messaging (#2)
 - Ships That Visit Here (#4)
 - First-Timer hub page (#5)
 - "Works Offline" marketing (#6)
+- "Last Reviewed" stamps (#30)
+- Tool release notes page (#31)
 
-**Phase 2 (Short-term — Next month):**
+**Phase 2 (Short-term — Core Features):**
 - "From the Pier" component (#7)
 - Print-friendly CSS (#8)
 - Pre-cruise countdown (#9)
 - Transport cost component (#10)
 - Ship quick-facts audit (#17)
-- "Real Talk" sections research (#18)
+- "Real Talk" sections (#18)
 - Port page structure audit (#19)
+- Atomic fact blocks / TL;DR (#36)
+- Machine-readable changelog (#37)
+- Coverage transparency page (#38)
 
-**Phase 3 (Medium-term):**
+**Phase 3 (Medium-term — Strategic Features):**
 - Add to Logbook button (#11)
 - DIY vs. Excursion (#12)
 - Accessibility sections (#14)
 - Budget Calculator (#20)
 - Dock location callouts (#28)
+- Embarkation port guides (#32)
+- "Related ports" cross-links (#33)
+- Micro-weather alerts (#34)
+- "Report an update" form (#35)
 
-**Phase 4 (Ongoing):**
+**Phase 4 (Ongoing — Content & Tools):**
 - Ship-Port combined guides (#25)
 - Faith-based content (#24)
 - Tool enhancements (#21, #22)
 - Countdown widget (#29 — optional)
+- Newsletter launch (#39)
+- Stateroom Checker above/below (#40)
 
 ---
 
