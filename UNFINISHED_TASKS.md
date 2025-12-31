@@ -2890,6 +2890,149 @@ Cruise Crocodile is a solid utility resource with authentic cruiser experience b
 
 ---
 
+#### Category 13: OVERLOOKED — Solo Cruising Content
+
+##### Solo Cruising Competitors
+**Focus:** Solo travel community, single-cabin cruises, solo meetups
+**Key Players:**
+- [Cruise Critic Solo Cruisers Forum](https://boards.cruisecritic.com/forum/279-solo-cruisers/) — dedicated subforum
+- Norwegian Solo Studios (NCL has ~1,000 dedicated solo staterooms)
+- [Singles Travel International](https://singlestravelintl.com/) — 25K Facebook followers
+- Facebook Groups: "Solo Cruise Travel," "Cruise Singles," "Solo Travelers Over 50"
+- Reddit r/Cruise solo threads
+**ITW Strength:** Already have solo.html hub + 8 dedicated articles (grief cruising, accessibility, practical guides)
+**Gap:** No community connection, no solo cabin inventory
+**Adopt:**
+- Curate best solo cruising forum threads (like #13 Report an Update)
+- Add solo cabin availability by ship
+- Link to NCL/Virgin solo-friendly options
+**NOT Building:** Solo meetup coordination (Roll Call territory)
+
+---
+
+#### Category 14: OVERLOOKED — Accessibility & Disabled Cruising
+
+##### Accessibility Competitors ⭐ MAJOR OPPORTUNITY
+**Focus:** Wheelchair cruising, mobility equipment, sensory needs
+**Key Players:**
+- [Special Needs at Sea](https://www.specialneedsatsea.com/) — wheelchair/scooter rentals delivered to stateroom
+- [Limitless Travel](https://www.limitlesstravel.org/disabled-holidays/categories/accessible-cruises) — accessible cruise booking
+- Cruise line accessibility pages (RCL, Carnival, Celebrity, Disney all have dedicated sections)
+- KultureCity — Carnival is certified "sensory inclusive"
+- Tips for Travellers YouTube — disability cruising coverage
+**ITW Strength:** Already have accessibility.html + disability-at-sea.html + WCAG 2.1 AA compliance
+**Gap:** No equipment rental guidance, no tender port accessibility warnings, no sensory-friendly content
+**Adopt:**
+- Add equipment rental info (Special Needs at Sea, Scootaround)
+- Add tender port accessibility warnings (#1 tender index enhancement)
+- Add sensory-inclusive ship ratings (Carnival certified)
+- Create accessible stateroom database
+**New Recommendation:** #41 Accessibility Equipment Guide
+
+---
+
+#### Category 15: OVERLOOKED — Packing Tools & Apps
+
+##### Packing List Competitors
+**Focus:** Smart packing lists, weather-based suggestions
+**Key Players:**
+- [PackPoint](https://www.packpnt.com/) — 2M+ lists/year, weather-driven, activity-based ([App Store](https://apps.apple.com/us/app/packpoint-travel-packing-list/id896337401))
+- Google Play Editor's Choice, featured in Washington Post, BBC, CNN
+- Generic travel packing apps (TripIt, Wanderlog)
+**ITW Strength:** Already have packing-lists.html + packing.html
+**Gap:** Static lists, not personalized by cruise/weather/activities
+**Assessment:** PackPoint handles general packing; ITW's cruise-specific lists are differentiated
+**Adopt:** Add cruise-specific tips PackPoint can't know (formal night, port day shoes, drink package considerations)
+**NOT Building:** Dynamic packing app (PackPoint does this better)
+
+---
+
+#### Category 16: OVERLOOKED — Itinerary Planning Tools
+
+##### Itinerary Competitors
+**Focus:** Trip organization, port day scheduling
+**Key Players:**
+- [TripIt](https://www.tripit.com/) — 20M users, auto-parses cruise confirmations, free + Pro ($49/yr)
+- [Wanderlog](https://wanderlog.com/) — newer alternative with similar features
+- Cruise line apps (RCL app, Carnival Hub, etc.)
+**ITW Strength:** Port pages with planning info, countdown checklist planned (#9)
+**Gap:** No day-by-day port planning tool, no itinerary import
+**Assessment:** TripIt dominates trip organization; ITW should complement, not compete
+**Adopt:** Add "Add to TripIt" or calendar integration for port days
+**NOT Building:** Full itinerary builder (TripIt's territory)
+
+---
+
+#### Category 17: OVERLOOKED — Menu & Dining Databases
+
+##### Dining Content Competitors
+**Focus:** Cruise ship menus, specialty dining prices
+**Key Players:**
+- [Freestyle Travelers NCL Menus](https://freestyletravelers.com/ncl-menus/) — NCL menu database
+- [Royal Caribbean Blog Menus](https://www.royalcaribbeanblog.com/2024/01/09/royal-caribbean-menus) — RCL menu collection
+- [My Virtual Vacations](https://www.myvirtualvacations.net/menus.html) — Celebrity menus
+- Cruise Critic specialty restaurant ratings
+**ITW Strength:** 215+ restaurant pages with menus, pricing, reviews — ALREADY LEADING
+**Gap:** Could add more cruise lines, menu change tracking
+**Assessment:** ITW is already strongest here; continue expanding
+**Adopt:** Add "Menu last updated" dates, dietary filter options
+**NOT Building:** Nothing — we're already the leader
+
+---
+
+#### Category 18: OVERLOOKED — Ship Selection/Matching Tools
+
+##### Ship Quiz Competitors
+**Focus:** Finding the right ship for your travel style
+**Key Players:**
+- Cruise line "find a cruise" wizards (basic filtering)
+- CruiseSheet ship search
+- Travel agent quiz tools
+**ITW Strength:** Ship Selection Quiz (ships/quiz.html) — 8-question personalized recommendation
+**Assessment:** ITW already has this; few competitors do
+**Adopt:** Promote quiz more prominently
+**NOT Building:** Nothing — unique feature
+
+---
+
+#### Category 19: OVERLOOKED — Gamification & Loyalty
+
+##### Loyalty/Tracking Competitors
+**Focus:** Cruise achievement tracking, loyalty program guides
+**Key Players:**
+- Official cruise line apps (Crown & Anchor, Captain's Club, etc.)
+- Cruise Critic "Cruise Count" badges
+- Facebook groups tracking cruise counts
+**ITW Strength:** Port Logbook + Ship Logbook with achievement badges — UNIQUE
+**Gap:** No loyalty program guidance beyond Crown & Anchor in drink calculator
+**Adopt:**
+- Add loyalty program comparison guide
+- Add "loyalty tier calculator" for multiple lines
+**New Recommendation:** #42 Loyalty Program Comparison Guide
+
+---
+
+#### Updated Batched Analysis Summary
+
+| Category | Key Competitors | ITW Advantage | Action |
+|----------|-----------------|---------------|--------|
+| Port Guides | CruiseSheet, WikiVoyage | Ship integration + narrative | Adopt regional directory structure |
+| Deck Plans | CruiseDeckPlans | Tools + port integration | Add "above/below" cabin context |
+| Communities | Reddit, TripAdvisor | Curated single-voice | Link to best threads, don't build own |
+| Excursions | Viator, SEG | DIY guidance vs booking | Add "miss-the-ship risk" language |
+| Blogs | RCBlog, CruiseFever | Multi-line + tools | Newsletter for retention |
+| AI Planners | Perplexity, ChatGPT | Original citable content | Structured data for AI citation |
+| Drink Calcs | CruiseMummy | Already competitive | Sea day/port day distinction |
+| **Solo Cruising** | CC Forums, NCL Studios | Already have solo hub | Add solo cabin info, curate threads |
+| **Accessibility** | Special Needs at Sea | Already have a11y content | Add equipment rental, tender warnings |
+| **Packing** | PackPoint | Cruise-specific lists | Keep cruise-specific focus |
+| **Itineraries** | TripIt, Wanderlog | Port planning content | Add calendar integration |
+| **Dining** | Blog menu pages | 215+ restaurants — LEADING | Continue expanding |
+| **Ship Quiz** | Basic cruise wizards | Personalized quiz — UNIQUE | Promote more |
+| **Gamification** | Official apps | Logbooks + badges — UNIQUE | Add loyalty guide |
+
+---
+
 ### 🟢 [G] ChatGPT Suggestions Evaluation: Wheat vs. Chaff (2025-12-31)
 **Lane:** 🟢 Green (strategic planning)
 **Purpose:** Evaluate 30 ChatGPT-generated suggestions against ITW's competitive position
@@ -3360,6 +3503,24 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] "Cabin 8252: Above = Solarium deck (pool noise), Below = Dining room"
 - [ ] CruiseDeckPlans' best feature; worth adopting
 
+##### 41. Accessibility Equipment Guide
+**Source:** Overlooked competitor analysis (Special Needs at Sea)
+**Effort:** Low | **Impact:** High
+- [ ] Add equipment rental guidance to accessibility.html
+- [ ] Cover: Special Needs at Sea, Scootaround, CareVacations
+- [ ] Add "Wheelchair delivered to stateroom" info
+- [ ] Add tender port accessibility warnings (enhance #1)
+- [ ] Add sensory-inclusive ship ratings (Carnival KultureCity certified)
+
+##### 42. Loyalty Program Comparison Guide
+**Source:** Overlooked competitor analysis (gamification gap)
+**Effort:** Medium | **Impact:** Medium
+- [ ] Create loyalty program comparison page
+- [ ] Cover: Crown & Anchor, Captain's Club, MSC Voyagers, etc.
+- [ ] Add status match opportunities
+- [ ] Add "points to next tier" calculator concept
+- [ ] Link from Drink Calculator (Crown & Anchor already there)
+
 ---
 
 #### Explicitly NOT Building
@@ -3388,10 +3549,14 @@ These features were considered but rejected based on strategic analysis:
 | OTA/booking features | Different business model entirely | Expedia, Cruises.com |
 | News churn content | Not sustainable for single creator | CruiseFever, CruiseHive |
 | Single cruise line focus | Line-agnostic approach is broader | RoyalCaribbeanBlog |
+| Solo meetup coordination | Roll Call territory; focus on content | Cruise Critic |
+| Dynamic packing app | PackPoint does this better | PackPoint |
+| Full itinerary builder | TripIt's territory; complement instead | TripIt |
+| Equipment rental booking | Commercial; link to providers instead | Special Needs at Sea |
 
 ---
 
-#### 🎯 PRIORITIZED MASTER LIST (40 Recommendations)
+#### 🎯 PRIORITIZED MASTER LIST (42 Recommendations)
 
 **Scoring: Effort (1-3) × Impact (1-3) × Strategic Multiplier**
 - Differentiator = 1.5x | Table Stakes = 1.0x | Nice-to-have = 0.7x
@@ -3410,8 +3575,9 @@ These features were considered but rejected based on strategic analysis:
 | 6 | #7 | "From the Pier" Component | Med | High | Table Stakes | 6.0 |
 | 7 | #8 | Print-Friendly Port Pages | Med | High | Table Stakes | 6.0 |
 | 8 | #34 | Micro-Weather Alerts | Med | High | Differentiator | 6.75 |
+| 9 | #41 | Accessibility Equipment Guide | Low | High | Differentiator | 9.0 |
 
-**Tier 1 Rationale:** These items either require minimal effort with high payoff OR directly strengthen ITW's unique differentiators (trust, ship-port integration, AI-proofing).
+**Tier 1 Rationale:** These items either require minimal effort with high payoff OR directly strengthen ITW's unique differentiators (trust, ship-port integration, AI-proofing, accessibility).
 
 ---
 
@@ -3448,8 +3614,9 @@ These features were considered but rejected based on strategic analysis:
 | 26 | #35 | "Report an Update" Form | Med | Med | Table Stakes | 4.0 |
 | 27 | #39 | Newsletter (Weekly) | Med | High | Differentiator | 6.75 |
 | 28 | #20 | Cruise Budget Calculator | Med | Med | Differentiator | 4.5 |
+| 29 | #42 | Loyalty Program Comparison | Med | Med | Differentiator | 4.5 |
 
-**Tier 3 Rationale:** Important features requiring more investment. Newsletter (#39) and Budget Calculator (#20) build long-term engagement.
+**Tier 3 Rationale:** Important features requiring more investment. Newsletter (#39), Budget Calculator (#20), and Loyalty Guide (#42) build long-term engagement.
 
 ---
 
@@ -3491,12 +3658,12 @@ These features were considered but rejected based on strategic analysis:
 | **2** | #6 "Works Offline" Marketing | 2-4 hours | Already works, just needs promotion |
 | **3** | #4 "Ships That Visit Here" | 4-8 hours | Unique differentiator, uses existing data |
 | **4** | #30 "Last Reviewed" Stamps | 2-4 hours | Instant credibility boost |
-| **5** | #36 Atomic Fact Blocks | 8-16 hours | AI-proofs content, helps all users |
-| **6** | #7 "From the Pier" Component | 8-16 hours | Table stakes, high user value |
-| **7** | #8 Print-Friendly CSS | 4-8 hours | One-time effort, permanent value |
-| **8** | #34 Micro-Weather Alerts | 8-16 hours | Extends weather roadmap, unique |
-| **9** | #1 Tender Port Index | 4-8 hours | Easy win, frequently asked |
-| **10** | #5 First-Timer Hub Page | 4-8 hours | Consolidates existing content |
+| **5** | #41 Accessibility Equipment Guide | 2-4 hours | Low effort, major gap filled |
+| **6** | #36 Atomic Fact Blocks | 8-16 hours | AI-proofs content, helps all users |
+| **7** | #7 "From the Pier" Component | 8-16 hours | Table stakes, high user value |
+| **8** | #8 Print-Friendly CSS | 4-8 hours | One-time effort, permanent value |
+| **9** | #34 Micro-Weather Alerts | 8-16 hours | Extends weather roadmap, unique |
+| **10** | #1 Tender Port Index | 4-8 hours | Easy win, frequently asked |
 
 ---
 
@@ -3507,6 +3674,7 @@ These features were considered but rejected based on strategic analysis:
 - [ ] #6 "Works Offline" Marketing
 - [ ] #30 "Last Reviewed" Stamps
 - [ ] #31 Tool Release Notes Page
+- [ ] #41 Accessibility Equipment Guide
 
 **Sprint 2 (Week 3-4): Ship-Port Integration**
 - [ ] #4 "Ships That Visit Here" Section
@@ -3528,6 +3696,7 @@ These features were considered but rejected based on strategic analysis:
 - [ ] #9 Pre-Cruise Countdown
 - [ ] #11-12 Logbook + DIY Excursion
 - [ ] #39 Newsletter Launch
+- [ ] #42 Loyalty Program Comparison
 
 ---
 
