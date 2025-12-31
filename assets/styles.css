@@ -2036,4 +2036,80 @@ h3.seasonal-section-title::after {
   /* Static version in noscript uses same styles as JS-rendered */
 }
 
+/* ----- Collapsible Page Sections ----- */
+.section-collapse {
+  border: none;
+  margin: 0;
+}
+
+.section-collapse > summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+}
+
+.section-collapse > summary::-webkit-details-marker {
+  display: none;
+}
+
+.section-collapse > summary h2,
+.section-collapse > summary h3 {
+  margin: 0;
+  flex: 1;
+}
+
+.section-collapse > summary::after {
+  content: "▼";
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-left: 1rem;
+  transition: transform 0.2s ease;
+  opacity: 0.5;
+}
+
+.section-collapse:not([open]) > summary::after {
+  transform: rotate(-90deg);
+}
+
+.section-collapse > summary:hover::after {
+  opacity: 1;
+}
+
+.section-collapse > .section-body {
+  padding-top: 1rem;
+}
+
+/* Animate open/close */
+.section-collapse[open] > .section-body {
+  animation: section-expand 0.2s ease-out;
+}
+
+@keyframes section-expand {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Print: always show expanded */
+@media print {
+  .section-collapse {
+    display: block !important;
+  }
+  .section-collapse > summary::after {
+    display: none;
+  }
+  .section-collapse > .section-body {
+    display: block !important;
+  }
+}
+
 /* ===== END Unified Styles ===== */

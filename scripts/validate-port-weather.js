@@ -154,8 +154,9 @@ class PortWeatherValidator {
     }
 
     // Must have EXACTLY ONE noscript in weather section
-    // Extract weather section and count noscripts within it
-    const weatherSectionMatch = this.content.match(/id="port-weather-widget"[\s\S]*?<\/div>\s*<\/section>/);
+    // Extract weather widget container and count noscripts within it
+    // The widget is closed by </div> after </noscript>
+    const weatherSectionMatch = this.content.match(/id="port-weather-widget"[\s\S]*?<\/noscript>\s*<\/div>/);
     if (weatherSectionMatch) {
       const noscriptCount = (weatherSectionMatch[0].match(/<noscript>/g) || []).length;
       if (noscriptCount === 0) {
@@ -164,6 +165,14 @@ class PortWeatherValidator {
         this.log('error', `DUPLICATE: <noscript> in weather widget (found ${noscriptCount})`);
       } else {
         this.log('pass', '<noscript> fallback (exactly 1)');
+      }
+    } else {
+      // Fallback: check if noscript exists after port-weather-widget
+      const hasNoscript = /id="port-weather-widget"[\s\S]*?<noscript>/.test(this.content);
+      if (!hasNoscript) {
+        this.log('error', 'MISSING: <noscript> fallback in weather widget');
+      } else {
+        this.log('pass', '<noscript> fallback found');
       }
     }
   }
