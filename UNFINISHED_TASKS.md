@@ -2424,9 +2424,157 @@ IQCruising is the closest competitor in philosophy — they also reject crowdsou
 
 ---
 
+### 🟢 [G] Competitor Gap Analysis: Cruise Crocodile (NEW - 2025-12-31)
+**Lane:** 🟢 Green (feature planning, content strategy)
+**Analysis Date:** 2025-12-31
+**Competitor:** [CruiseCrocodile.com](https://www.cruisecrocodile.com/) — "Cruise port guides: port maps, cruise dock info & tips"
+
+#### Context
+Cruise Crocodile offers **120+ port guides** created by "experienced cruisers who have sailed the 7 seas and want to share their port information, photos and experiences" ([cruisecrocodile.com](https://www.cruisecrocodile.com/)). Their core value proposition: "The information on Cruise Crocodile basically answers the question: you arrive in port and then what?" They cover Caribbean, Mediterranean, North America, British Isles, and beyond. Unlike IQCruising's professional industry background, Cruise Crocodile emphasizes authentic cruiser perspective. Their guides include free maps, detailed taxi/transport costs, and downloadable offline access.
+
+---
+
+#### PART A: Table Stakes (Match What They Do Well)
+
+##### A1. Detailed Transportation Costs ⭐ THEIR STRENGTH
+**Cruise Crocodile strength:** Per port guides ([Puerto Vallarta](https://www.cruisecrocodile.com/cruise-port-information/puerto-vallarta-mexico/), [Curaçao](https://www.cruisecrocodile.com/cruise-port-information/willemstad-curacao/), [Messina](https://www.cruisecrocodile.com/cruise-port-information/messina-italy/)), each port has specific taxi rates:
+- Puerto Vallarta: "From Vallarta cruise port to Malecon: 16 dollar per car or 5 dollar per person"
+- Curaçao: "The price from the dock to Seaquarium beach is approximately $25"
+- Messina: "120 euro for 3 hour sightseeing tour by taxi"
+- Mumbai: "For about 4000 Rs. (+/- 65 USD) a day, a taxi driver will take you anywhere"
+**Current In The Wake state:** Transport costs mentioned in prose but not in standardized format
+**Assessment:** Already planned in recommendation #10 (Transport Cost Callout Component)
+**Tasks:** Already documented — continue transport cost component development
+
+##### A2. Docking Location Visual Maps
+**Cruise Crocodile strength:** "See at a glance where the cruise ship will dock" with maps showing dock locations
+**Example:** San Juan guide shows "Cruise Pier (pier 1, 3, 4 and 6) has 4 cruise piers and 2 cruise terminals"
+**Current In The Wake state:** 186/291 ports have Leaflet maps; dock locations shown but not always emphasized
+**Assessment:** Already have maps — could improve dock location callouts
+**Tasks:**
+- [ ] Ensure dock locations are clearly marked on all port maps
+- [ ] Add dock location summary to port page intro for quick scanning
+
+##### A3. Shuttle Bus & Free Transport Details
+**Cruise Crocodile strength:** Per [Victoria](https://www.cruisecrocodile.com/cruise-port-information/victoria-canada/), [Kirkwall](https://www.cruisecrocodile.com/cruise-port-information/kirkwall-scotland/), [Gibraltar](https://www.cruisecrocodile.com/cruise-port-information/gibraltar/):
+- Victoria: "port provides a shuttle service into town... $6 CDN one way or $12 CDN return"
+- Gibraltar: "shuttle service from the port to Casemates square... 3 euro one way / 4 euro both ways"
+- San Juan: "free trolley to take you to the city centre"
+- Skagway: "SMART shuttle buses... $2 per person per trip or $5 for a day ticket"
+**Current In The Wake state:** Shuttle info exists but not consistently highlighted
+**Assessment:** Part of transport component already planned
+**Tasks:** Already documented in transport cost component (#10)
+
+##### A4. Downloadable Offline Guides
+**Cruise Crocodile strength:** "Want to take the cruise port guides with you on your cruise? You can easily download the port guides you need and save them on your tablet or mobile device."
+**Current In The Wake state:** PWA with service worker caching; not prominently marketed
+**Assessment:** Already have this capability — need to promote it
+**Tasks:** Already documented in recommendation #6 ("Works Offline" marketing)
+
+---
+
+#### PART B: Unique Niche Opportunities (Gaps Cruise Crocodile Cannot Fill)
+
+##### B1. Ship Content Integration ⭐ CORE DIFFERENTIATOR
+**Cruise Crocodile gap:** Zero ship content — purely port-focused
+**In The Wake strength:** 178 ship pages, deck plans, 500+ videos, Ship Selection Quiz, Stateroom Checker
+**Why it matters:** Cruise Crocodile answers "What do I do in port?" but not "What ship should I sail?"
+**Tasks:** Already documented — continue ship-port integration
+
+##### B2. First-Person Narrative vs. Utility Facts ⭐ CORE DIFFERENTIATOR
+**Cruise Crocodile gap:** "Experienced cruisers" but utility-focused content without strong personal voice
+**Example:** Their Cozumel guide is informative but transactional — dock locations, taxi rates, attractions
+**In The Wake strength:** Ken Baker's logbook entries, "The Moment That Stays With Me," emotional resonance
+**Why it matters:** Cruise Crocodile tells you WHAT to do; In The Wake tells you WHY it matters
+**Tasks:** Already documented — continue single-voice storytelling
+
+##### B3. Interactive Planning Tools ⭐ UNIQUE FEATURE
+**Cruise Crocodile gap:** No calculators, quizzes, or personalized recommendations
+**In The Wake strength:** Drink Calculator, Ship Selection Quiz, Stateroom Checker, Packing Lists
+**Tasks:** Already documented — continue tool development
+
+##### B4. Gamification & Journey Tracking ⭐ UNIQUE FEATURE
+**Cruise Crocodile gap:** No user engagement features — download and done
+**In The Wake strength:** Port Logbook + Ship Logbook with achievement badges, percentile rankings
+**Opportunity:** Transform port planning from transactional to journey-based
+**Tasks:** Already documented — continue gamification development
+
+##### B5. Restaurant & Dining Depth ⭐ UNIQUE FEATURE
+**Cruise Crocodile gap:** No dedicated dining content — occasional restaurant mentions only
+**In The Wake strength:** 215+ restaurant pages with full menus, pricing, reviews
+**Tasks:** Already documented — continue dining venue development
+
+##### B6. Accessibility Information ⭐ MARKET GAP
+**Cruise Crocodile gap:** Walking distances mentioned but no wheelchair access, terrain difficulty, or accessibility focus
+**In The Wake strength:** WCAG 2.1 AA compliance, accessibility.html, disability-at-sea.html
+**Opportunity:** Add mobility ratings beyond just distance (e.g., "flat terrain" vs "steep hills")
+**Tasks:** Already documented — continue accessibility depth
+
+##### B7. Faith-Based Perspective ⭐ UNIQUE NICHE
+**Cruise Crocodile gap:** Secular, utility-only content
+**In The Wake strength:** "Soli Deo Gloria" foundation, pastoral content
+**Tasks:** Already documented — continue faith-based content
+
+##### B8. Ad-Free Trust ⭐ TRUST DIFFERENTIATOR
+**Cruise Crocodile approach:** "book shore excursions at lower prices" — commercial affiliate links
+**In The Wake strength:** No ads, no affiliate links, no sponsored content
+**Opportunity:** Position as trusted alternative without commercial pressure
+**Tasks:** Already documented in recommendation #2 ("No ads" trust messaging)
+
+##### B9. DIY Cost Comparison
+**Cruise Crocodile strength:** Lists transport costs but doesn't compare to ship excursions
+**In The Wake opportunity:** "DIY vs. Ship Excursion" comparison already planned (#12)
+**Tasks:** Already documented — Cruise Crocodile provides good transport data model
+
+---
+
+#### What They Do Better (Learn From)
+
+| Feature | Cruise Crocodile | In The Wake | Action |
+|---------|------------------|-------------|--------|
+| **Specific taxi rates** | Exact prices per route | General transport info | Continue transport component (#10) |
+| **Shuttle details** | Costs, schedules, stops | Mentioned in prose | Include in transport component |
+| **Dock location emphasis** | Visual maps showing dock | Maps exist but less emphasis | Add dock location callouts |
+| **Cruiser perspective** | "Experienced cruisers" | Single author voice | Already aligned — both authentic |
+| **Downloadable guides** | Save to device | PWA offline | Already have — market better (#6) |
+
+---
+
+#### Priority Matrix
+
+| Feature | Effort | Impact | Priority |
+|---------|--------|--------|----------|
+| Transport cost component | Low-Medium | Medium | P1 (already planned) |
+| Dock location callouts | Low | Low | P3 |
+| "Works Offline" marketing | Low | High | P1 (already planned) |
+| Ad-free trust messaging | Low | High | P1 (already planned) |
+
+---
+
+#### Strategic Summary
+
+**Cruise Crocodile = Cruiser Utility + Transportation Focus + Commercial Links**
+**In The Wake = Personal Journey + Ship Integration + Tools + Trust**
+
+Cruise Crocodile is a solid utility resource with authentic cruiser experience behind it. Their transportation cost details are excellent and provide a good model for In The Wake's transport component. However, they're entirely port-focused with no ship content, no interactive tools, and no personal narrative beyond utility facts. Their commercial affiliate approach ("book shore excursions at lower prices") contrasts with In The Wake's ad-free trust positioning.
+
+**Key insight:** Cruise Crocodile validates the demand for detailed transportation costs — users want to know exactly how much a taxi to the beach costs. In The Wake should match this specificity while adding the "why" and emotional context they lack.
+
+**What to adopt:**
+1. Specific taxi/shuttle rate format (model for transport component #10)
+2. Dock location emphasis on maps
+3. Continue "Works Offline" marketing (they highlight downloadable guides)
+
+**What NOT to adopt:**
+- Commercial affiliate links (conflicts with ad-free trust)
+- Utility-only tone (personal storytelling is our moat)
+- Port-only focus (ship integration is unique differentiator)
+
+---
+
 ### 🟢 [G] Consolidated Competitor Analysis Recommendations (NEW - 2025-12-31)
 **Lane:** 🟢 Green (feature implementation)
-**Source:** WhatsInPort + Cruise Critic + Cruiseline.com + CruiseMapper + IQCruising competitor analyses above
+**Source:** WhatsInPort + Cruise Critic + Cruiseline.com + CruiseMapper + IQCruising + Cruise Crocodile competitor analyses above
 **Purpose:** Actionable task list combining insights from all competitor analyses
 
 ---
@@ -2608,7 +2756,7 @@ IQCruising is the closest competitor in philosophy — they also reject crowdsou
 - [ ] Allow customization per cruise length and ship class
 - [ ] Show total estimated cost with breakdown
 
-##### 20. "What to Book in Advance" Timing Guide
+##### 21. "What to Book in Advance" Timing Guide
 **Source:** Cruise Critic B3
 **Effort:** Low | **Impact:** Medium
 - [ ] Create reference page or section
@@ -2616,7 +2764,7 @@ IQCruising is the closest competitor in philosophy — they also reject crowdsou
 - [ ] Include typical booking windows (30 days, 60 days, etc.)
 - [ ] Ship-specific variations where relevant
 
-##### 21. Excursion Decision Helper
+##### 22. Excursion Decision Helper
 **Source:** Cruise Critic B5
 **Effort:** Medium | **Impact:** Medium
 - [ ] Create quiz-style tool for excursion selection
@@ -2628,14 +2776,14 @@ IQCruising is the closest competitor in philosophy — they also reject crowdsou
 
 #### P3 — Content Expansion
 
-##### 22. Author Expertise Callouts
+##### 23. Author Expertise Callouts
 **Source:** Cruise Critic B1
 **Effort:** Low | **Impact:** Medium
 - [ ] Add "Ken has visited this port X times" to port pages
 - [ ] Add cruise count/experience to author bio sections
 - [ ] Reinforces single-voice authority and trust
 
-##### 23. Faith-Based Content Expansion
+##### 24. Faith-Based Content Expansion
 **Source:** Cruise Critic B7
 **Effort:** Medium | **Impact:** Niche
 - [ ] Develop "Sabbath at Sea" content for different traditions
@@ -2643,7 +2791,7 @@ IQCruising is the closest competitor in philosophy — they also reject crowdsou
 - [ ] Create "Cruising as Spiritual Retreat" article
 - [ ] Continue pastoral content (grief, healing, rest)
 
-##### 24. Ship-Port Combined Guides
+##### 25. Ship-Port Combined Guides
 **Source:** Cruise Critic B9
 **Effort:** High | **Impact:** High
 - [ ] Create signature "X Ship at Y Port" combined guides
@@ -2651,14 +2799,14 @@ IQCruising is the closest competitor in philosophy — they also reject crowdsou
 - [ ] Include ship-specific tips for that port
 - [ ] Start with most popular ship+port combinations
 
-##### 25. Dining Venue Enhancements
+##### 26. Dining Venue Enhancements
 **Source:** Cruise Critic B10
 **Effort:** Medium | **Impact:** Medium
 - [ ] Add "Signature Dishes" callouts to restaurant pages
 - [ ] Create "Dining Package Decision Guide" per ship
 - [ ] Consider adding meal photos where available
 
-##### 26. "Ports on This Ship" Section
+##### 27. "Ports on This Ship" Section
 **Source:** Cruise Critic B9
 **Effort:** Medium | **Impact:** Medium
 - [ ] Add typical itinerary ports to ship pages
@@ -2667,9 +2815,18 @@ IQCruising is the closest competitor in philosophy — they also reject crowdsou
 
 ---
 
+##### 28. Dock Location Callouts
+**Source:** Cruise Crocodile A2
+**Effort:** Low | **Impact:** Low
+- [ ] Ensure dock locations are clearly marked on all port maps
+- [ ] Add dock location summary to port page intro for quick scanning
+- [ ] Cruise Crocodile emphasizes "see at a glance where the cruise ship will dock"
+
+---
+
 #### P3 — Optional / Low Priority
 
-##### 27. Cruise Countdown Widget
+##### 29. Cruise Countdown Widget
 **Source:** Cruiseline.com/Shipmate A2
 **Effort:** Medium | **Impact:** Low
 - [ ] Consider adding countdown to homepage or planning.html
@@ -2696,6 +2853,7 @@ These features were considered but rejected based on strategic analysis:
 | Port schedules by date | Requires live data integration; static deployment is sufficient | CruiseMapper |
 | PDF-first strategy | Web-first PWA is better; PDF as supplement only | IQCruising |
 | AI-generated content | Personal storytelling is our moat; AI can't replicate | CruisePortIQ |
+| Affiliate excursion links | Conflicts with ad-free trust positioning | Cruise Crocodile |
 
 ---
 
@@ -2722,12 +2880,13 @@ These features were considered but rejected based on strategic analysis:
 - DIY vs. Excursion (#12)
 - Accessibility sections (#14)
 - Budget Calculator (#20)
+- Dock location callouts (#28)
 
 **Phase 4 (Ongoing):**
 - Ship-Port combined guides (#25)
 - Faith-based content (#24)
 - Tool enhancements (#21, #22)
-- Countdown widget (#28 — optional)
+- Countdown widget (#29 — optional)
 
 ---
 
