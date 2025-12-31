@@ -1,0 +1,461 @@
+/**
+ * port-weather.css
+ * Styles for Port Weather Widget
+ * 
+ * Version: 1.0.0
+ * 
+ * Mobile-first, accessible, matches In the Wake design language
+ */
+
+/* ============================================================================
+   WIDGET CONTAINER
+   ============================================================================ */
+
+#port-weather-widget,
+[data-port-weather] {
+  --weather-bg: #f8fafc;
+  --weather-border: #e2e8f0;
+  --weather-text: #1e293b;
+  --weather-text-muted: #64748b;
+  --weather-accent: #0ea5e9;
+  --weather-accent-hover: #0284c7;
+  --weather-radius: 12px;
+  --weather-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  
+  font-family: inherit;
+  margin: 1.5rem 0;
+}
+
+.weather-widget-inner {
+  background: var(--weather-bg);
+  border: 1px solid var(--weather-border);
+  border-radius: var(--weather-radius);
+  padding: 1.25rem;
+  box-shadow: var(--weather-shadow);
+}
+
+/* ============================================================================
+   HEADER AND CONTROLS
+   ============================================================================ */
+
+.weather-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.weather-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--weather-text);
+  margin: 0;
+}
+
+.weather-controls {
+  display: flex;
+  gap: 0.25rem;
+}
+
+/* Unit Toggle */
+.weather-unit-toggle {
+  display: flex;
+  background: var(--weather-border);
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.unit-btn {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: none;
+  background: transparent;
+  color: var(--weather-text-muted);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+.unit-btn:hover {
+  color: var(--weather-text);
+}
+
+.unit-btn.active {
+  background: white;
+  color: var(--weather-text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.unit-btn:focus-visible {
+  outline: 2px solid var(--weather-accent);
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   CURRENT CONDITIONS
+   ============================================================================ */
+
+.weather-current {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.weather-current-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.weather-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.weather-temp {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--weather-text);
+  line-height: 1;
+}
+
+.weather-feels {
+  font-size: 0.9rem;
+  color: var(--weather-text-muted);
+}
+
+.weather-current-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: var(--weather-text);
+}
+
+.weather-condition {
+  font-weight: 500;
+}
+
+.weather-wind,
+.weather-humidity {
+  color: var(--weather-text-muted);
+}
+
+/* ============================================================================
+   FORECAST BUCKETS
+   ============================================================================ */
+
+.weather-forecast-buckets {
+  margin-bottom: 1rem;
+}
+
+.weather-forecast-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--weather-text);
+  margin: 0 0 0.75rem 0;
+}
+
+.weather-buckets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 0.5rem;
+}
+
+.weather-bucket {
+  background: white;
+  border-radius: 8px;
+  padding: 0.75rem;
+  text-align: center;
+  border: 1px solid var(--weather-border);
+}
+
+.bucket-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--weather-text-muted);
+  margin-bottom: 0.35rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bucket-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.bucket-temp {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--weather-text);
+}
+
+.bucket-wind {
+  font-size: 0.75rem;
+  color: var(--weather-text-muted);
+  margin-top: 0.25rem;
+}
+
+.bucket-precip {
+  font-size: 0.75rem;
+  color: #0369a1;
+  margin-top: 0.25rem;
+}
+
+/* ============================================================================
+   ATTRIBUTION
+   ============================================================================ */
+
+.weather-attribution {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--weather-text-muted);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--weather-border);
+}
+
+.weather-source a {
+  color: var(--weather-accent);
+  text-decoration: none;
+}
+
+.weather-source a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================================================
+   LOADING AND ERROR STATES
+   ============================================================================ */
+
+.weather-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2rem;
+  color: var(--weather-text-muted);
+  font-size: 0.9rem;
+}
+
+.loading-spinner {
+  animation: weather-spin 1s linear infinite;
+}
+
+@keyframes weather-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.weather-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 1rem;
+  color: #991b1b;
+  font-size: 0.9rem;
+}
+
+.weather-error p {
+  margin: 0 0 0.5rem 0;
+}
+
+.weather-error p:last-child {
+  margin-bottom: 0;
+  color: #7f1d1d;
+  font-size: 0.85rem;
+}
+
+.weather-no-forecast {
+  text-align: center;
+  color: var(--weather-text-muted);
+  font-size: 0.9rem;
+  padding: 1rem;
+}
+
+/* ============================================================================
+   SEASONAL VS TODAY LINE
+   ============================================================================ */
+
+.weather-typical {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  color: #065f46;
+  margin-bottom: 1rem;
+}
+
+.weather-typical-icon {
+  margin-right: 0.35rem;
+}
+
+/* ============================================================================
+   CALMEST WINDOW HINT
+   ============================================================================ */
+
+.weather-calmest {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  color: #1e40af;
+  margin-bottom: 1rem;
+}
+
+/* ============================================================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================================================ */
+
+@media (max-width: 480px) {
+  .weather-widget-inner {
+    padding: 1rem;
+  }
+  
+  .weather-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .weather-current-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .weather-icon {
+    font-size: 1.75rem;
+  }
+  
+  .weather-temp {
+    font-size: 1.75rem;
+  }
+  
+  .weather-buckets-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .weather-attribution {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .weather-buckets-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* ============================================================================
+   DARK MODE SUPPORT
+   ============================================================================ */
+
+@media (prefers-color-scheme: dark) {
+  #port-weather-widget,
+  [data-port-weather] {
+    --weather-bg: #1e293b;
+    --weather-border: #334155;
+    --weather-text: #f1f5f9;
+    --weather-text-muted: #94a3b8;
+    --weather-accent: #38bdf8;
+  }
+  
+  .weather-current,
+  .weather-bucket {
+    background: #0f172a;
+  }
+  
+  .unit-btn.active {
+    background: #334155;
+  }
+  
+  .weather-error {
+    background: #450a0a;
+    border-color: #7f1d1d;
+    color: #fecaca;
+  }
+  
+  .weather-error p:last-child {
+    color: #fca5a5;
+  }
+  
+  .weather-typical {
+    background: #064e3b;
+    border-color: #065f46;
+    color: #a7f3d0;
+  }
+  
+  .weather-calmest {
+    background: #1e3a5f;
+    border-color: #1e40af;
+    color: #bfdbfe;
+  }
+}
+
+/* ============================================================================
+   REDUCED MOTION
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner {
+    animation: none;
+  }
+  
+  .unit-btn {
+    transition: none;
+  }
+}
+
+/* ============================================================================
+   HIGH CONTRAST MODE
+   ============================================================================ */
+
+@media (prefers-contrast: high) {
+  .weather-widget-inner {
+    border-width: 2px;
+  }
+  
+  .weather-bucket {
+    border-width: 2px;
+  }
+  
+  .unit-btn:focus-visible {
+    outline-width: 3px;
+  }
+  
+  .weather-source a {
+    text-decoration: underline;
+  }
+}
+
+/* ============================================================================
+   PRINT STYLES
+   ============================================================================ */
+
+@media print {
+  #port-weather-widget,
+  [data-port-weather] {
+    break-inside: avoid;
+    border: 1px solid #000;
+  }
+  
+  .weather-unit-toggle {
+    display: none;
+  }
+  
+  .weather-attribution {
+    font-size: 0.7rem;
+  }
+}
