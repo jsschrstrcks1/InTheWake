@@ -185,6 +185,72 @@ class PortValidator {
   }
 
   /**
+   * Validate collapsible sections (BLOCKING requirement)
+   * All major port page sections must be collapsible using <details class="section-collapse">
+   */
+  validateCollapsibleSections() {
+    this.log('section', 'COLLAPSIBLE SECTIONS (BLOCKING)');
+    console.log(`${RED}${BOLD}All major sections MUST be collapsible with <details class="section-collapse">${RESET}\n`);
+
+    // Required collapsible sections - these MUST use details.section-collapse
+    const requiredCollapsibleSections = [
+      { id: 'weather-guide', name: 'Weather & Best Time to Visit' },
+      { id: 'logbook', name: 'Logbook' },
+      { id: 'cruise-port', name: 'Cruise Port' },
+      { id: 'getting-around', name: 'Getting Around' },
+      { id: 'port-map-section', name: 'Map' },
+      { id: 'beaches', name: 'Beaches' },
+      { id: 'excursions', name: 'Excursions' },
+      { id: 'food', name: 'Food & Dining' },
+      { id: 'notices', name: 'Notices' },
+      { id: 'depth-soundings', name: 'Depth Soundings' },
+      { id: 'practical', name: 'Practical Information' },
+      { id: 'faq', name: 'FAQ' },
+      { id: 'gallery', name: 'Gallery' },
+      { id: 'credits', name: 'Image Credits' }
+    ];
+
+    let passCount = 0;
+    let failCount = 0;
+
+    for (const section of requiredCollapsibleSections) {
+      // Check if section exists
+      const sectionRegex = new RegExp(`id="${section.id}"`);
+      if (!sectionRegex.test(this.content)) {
+        // Section doesn't exist - skip (other validators may check for required sections)
+        continue;
+      }
+
+      // Check if section uses collapsible pattern
+      // Pattern: <section...id="xxx"...><details class="section-collapse"
+      const collapsiblePattern = new RegExp(
+        `id="${section.id}"[^>]*>[\\s\\S]*?<details class="section-collapse"`,
+        'i'
+      );
+
+      // Also check that the section has the pattern within a reasonable distance
+      const sectionMatch = this.content.match(new RegExp(`<section[^>]*id="${section.id}"[^>]*>[\\s\\S]*?<\\/section>`, 'i'));
+
+      if (sectionMatch) {
+        const sectionContent = sectionMatch[0];
+        if (sectionContent.includes('class="section-collapse"')) {
+          this.log('pass', `${section.name} section is collapsible`);
+          passCount++;
+        } else {
+          this.log('error', `${section.name} section (id="${section.id}") is NOT collapsible - wrap content in <details class="section-collapse">`);
+          failCount++;
+        }
+      }
+    }
+
+    if (failCount > 0) {
+      console.log(`\n${RED}${BOLD}${failCount} section(s) need to be made collapsible${RESET}`);
+    } else if (passCount > 0) {
+      console.log(`\n${GREEN}All ${passCount} present sections are collapsible${RESET}`);
+    }
+  }
+
+  /**
    * Main validation runner
    */
   validate() {
@@ -201,6 +267,11 @@ class PortValidator {
     // Run basic validations
     this.validateBasicStructure();
     this.validatePortRequirements();
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // COLLAPSIBLE SECTIONS - BLOCKING REQUIREMENT
+    // ═══════════════════════════════════════════════════════════════════════════
+    this.validateCollapsibleSections();
 
     // ═══════════════════════════════════════════════════════════════════════════
     // WEATHER VALIDATOR - BLOCKING REQUIREMENT
