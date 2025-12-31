@@ -121,6 +121,12 @@ Insert after Hero section, before Logbook:
 - Weather icon + condition text
 - Humidity, wind speed
 - "Updated X minutes ago" timestamp
+- **Attribution line**: "Weather data by Open-Meteo (CC BY 4.0)" - required for compliance
+
+**48-Hour Forecast Strip** (NEW):
+- Compact 6-block forecast (4hr intervals or AM/PM segments)
+- Shows: temp, precipitation chance, wind
+- **"Best window to go ashore"** highlight: algorithmically identify lowest rain + wind period in next 12 hours - cruise-specific value-add
 
 **Seasonal Guide Cards**:
 - Grid of 2-4 season cards
@@ -145,6 +151,29 @@ Insert after Hero section, before Logbook:
 3. Alaska
 4. Northern Europe
 5. South Pacific
+
+### Seasonal Guide Content Framework (Enhanced)
+
+Each port's seasonal guide should include:
+
+1. **At a glance**: temps, humidity, rain risk, sea state tendency, daylight hours
+2. **Best months for specific activities**:
+   - Beaches / swimming
+   - Hiking / outdoor excursions
+   - City walking / sightseeing
+   - Snorkeling / water sports
+   - Avoiding crowds
+3. **"What catches people off guard"**: cruise-specific warnings
+   - Wind on the pier during tender operations
+   - Sudden afternoon squalls
+   - Evening temperature drops
+   - Humidity that wilts you by noon
+4. **Packing nudges**: actionable gear advice
+   - "Compact umbrella" vs "poncho month"
+   - "Light layer for evening"
+   - "Reef-safe sunscreen required"
+   - "Bug spray essential"
+5. **Standing disclaimer**: "Weather varies; forecasts are guidance, not guarantees"
 
 ---
 
@@ -198,6 +227,11 @@ Insert after Hero section, before Logbook:
 3. **Marine data**: Include sea temperature/wave conditions for beach ports?
 4. **Historical averages**: Show "typical weather for [month]" alongside current?
 
+## Pre-Implementation Verification
+
+1. **Open-Meteo commercial tier**: Verify if site's ad revenue disqualifies us from free "non-commercial" tier. If so, budget for paid API key.
+2. **Attribution placement**: Standardize exact wording and position for CC BY 4.0 attribution across all weather widgets.
+
 ---
 
 ## Estimated Scope
@@ -205,3 +239,15 @@ Insert after Hero section, before Logbook:
 - **New files**: 4 (2 data, 2 JS modules)
 - **Modified files**: 335 (333 port pages + styles + config)
 - **Data entry**: ~50 detailed guides + regional defaults
+
+---
+
+## Rejected Suggestions (and why)
+
+| Suggestion | Rejection Reason |
+|------------|------------------|
+| Edge proxy / Cloudflare Worker | Over-engineered. Open-Meteo needs no API key to hide. Client-side 30-min cache prevents rate limiting. Adds infra complexity for zero benefit. |
+| Regional fallbacks (NWS, MET Norway) | Unnecessary complexity. Open-Meteo has solid global coverage. Different schemas to normalize, extra attribution. Solving a problem we don't have. |
+| Right rail placement | Weather is substantive content, not sidebar material. Mobile-first: right rail collapses anyway. |
+| `weather_station_hint` field | Open-Meteo uses coordinates, not station IDs. We already have lat/lon. Unused schema fields = maintenance burden. |
+| Lightning risk indicator | Open-Meteo free tier doesn't provide lightning data. Marginal value for complexity. |
