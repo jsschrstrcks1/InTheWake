@@ -58,11 +58,12 @@ Create `/assets/data/ports/regional-climate-defaults.json` for ports without cus
 
 | Region | Best Months | Avoid | Notes |
 |--------|-------------|-------|-------|
-| Caribbean | Dec-Apr | Sep-Oct | Hurricane season Jun-Nov |
+| Caribbean | Dec-Apr | Sep-Oct | Atlantic hurricane season: **Jun 1 – Nov 30** |
 | Mediterranean | May-Jun, Sep-Oct | Aug | Peak crowds in August |
 | Alaska | Jun-Aug | - | Cruise season May-Sep |
 | Northern Europe | Jun-Aug | - | Long daylight hours |
-| South Pacific | May-Oct | Jan-Mar | Cyclone season |
+| South Pacific | May-Oct | Jan-Mar | Cyclone season: **Nov 1 – Apr 30** |
+| Mexico (Pacific) | Nov-May | Sep-Oct | East Pacific hurricane season: **May 15 – Nov 30** |
 
 ---
 
@@ -121,10 +122,11 @@ Insert after Hero section, before Logbook:
 - Weather icon + condition text
 - Humidity, wind speed
 - "Updated X minutes ago" timestamp
+- **"Seasonal vs today" context line**: e.g., *"Typical for January: cooler + breezier. Today is warmer than usual."* (requires monthly averages in seasonal data)
 - **Attribution line**: "Weather data by Open-Meteo (CC BY 4.0)" - required for compliance
 
-**48-Hour Forecast Strip** (NEW):
-- Compact 6-block forecast (4hr intervals or AM/PM segments)
+**48-Hour Forecast Strip**:
+- Compact 5-block forecast: **Today PM → Tonight → Tomorrow AM → Tomorrow PM → Next Day AM**
 - Shows: temp, precipitation chance, wind
 - **"Best window to go ashore"** highlight: algorithmically identify lowest rain + wind period in next 12 hours - cruise-specific value-add
 
@@ -143,7 +145,7 @@ Insert after Hero section, before Logbook:
 |------|-------|-------|---------|
 | **Tier 1** | ~50 | Top destinations (Barcelona, Nassau, Cozumel, etc.) | Hand-curated detailed guides |
 | **Tier 2** | ~150 | Popular secondary ports | Template + regional defaults |
-| **Tier 3** | ~133 | Niche/expedition ports | Regional defaults only |
+| **Tier 3** | ~133 | Niche/expedition ports | Regional defaults only, labeled *"Baseline regional guide"* for transparency |
 
 **Priority order for Tier 1**:
 1. Caribbean (highest traffic)
@@ -153,6 +155,8 @@ Insert after Hero section, before Logbook:
 5. South Pacific
 
 ### Seasonal Guide Content Framework (Enhanced)
+
+**Content guardrail**: Structured blocks, not essays. Avoid month-by-month prose narratives—they don't scale and become maintenance nightmares. Use repeatable, templated sections that can be populated systematically.
 
 Each port's seasonal guide should include:
 
@@ -209,9 +213,9 @@ Each port's seasonal guide should include:
 - Skeleton loader during fetch
 
 ### Accessibility
-- ARIA labels for weather section
-- Screen reader friendly temperature announcements
-- Color-blind safe season indicators (icons + color)
+- Standard semantic HTML (no ARIA live regions needed for V1—content is static on load, not auto-refreshing)
+- Color-blind safe season indicators (icons + text labels, not color alone)
+- Clear unit labels for screen readers
 
 ### SEO
 - Seasonal content rendered server-side in HTML
@@ -224,8 +228,10 @@ Each port's seasonal guide should include:
 
 1. **Temperature units**: Default to F with C toggle, or detect from browser locale?
 2. **Refresh behavior**: Auto-refresh current weather while page is open, or only on load?
-3. **Marine data**: Include sea temperature/wave conditions for beach ports?
-4. **Historical averages**: Show "typical weather for [month]" alongside current?
+
+~~3. **Marine data**: Include sea temperature/wave conditions for beach ports?~~ → **Resolved: No for V1** (see rejections)
+
+~~4. **Historical averages**: Show "typical weather for [month]" alongside current?~~ → **Resolved: Yes** - added as "Seasonal vs today" context line
 
 ## Pre-Implementation Verification
 
@@ -247,7 +253,10 @@ Each port's seasonal guide should include:
 | Suggestion | Rejection Reason |
 |------------|------------------|
 | Edge proxy / Cloudflare Worker | Over-engineered. Open-Meteo needs no API key to hide. Client-side 30-min cache prevents rate limiting. Adds infra complexity for zero benefit. |
-| Regional fallbacks (NWS, MET Norway) | Unnecessary complexity. Open-Meteo has solid global coverage. Different schemas to normalize, extra attribution. Solving a problem we don't have. |
+| Regional fallbacks (NWS, MET Norway, Stormglass) | Unnecessary complexity. Open-Meteo has solid global coverage. Different schemas to normalize, extra attribution, licensing constraints. Solving a problem we don't have. |
 | Right rail placement | Weather is substantive content, not sidebar material. Mobile-first: right rail collapses anyway. |
 | `weather_station_hint` field | Open-Meteo uses coordinates, not station IDs. We already have lat/lon. Unused schema fields = maintenance burden. |
 | Lightning risk indicator | Open-Meteo free tier doesn't provide lightning data. Marginal value for complexity. |
+| Docking-window mode | Requires itinerary data we don't have. User would need to input arrival time. Adds UI complexity for edge-case value. Users can eyeball the 48-hour strip if they know their dock time. |
+| Sea & Tender Conditions panel | Open-Meteo explicitly warns about coastal accuracy. Most cruisers don't understand swell period/direction. Wave height without local context is meaningless. Tender ops are captain's call, not passenger planning. |
+| Cross-brand gallery tie-in | Scope creep. Weather feature should be weather feature. |
