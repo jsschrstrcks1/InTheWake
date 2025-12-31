@@ -117,6 +117,8 @@ Insert after Hero section, before Logbook:
 
 ### 3.2 Visual Design
 
+**Trust framing rule**: Always distinguish live data from historical data in labels. Use "Current conditions" or "Forecast" for live API data. Use "Typical for [month]" or "Seasonal guide" for historical averages. Never blend them as if they're the same thing.
+
 **Current Weather Card**:
 - Temperature (F/C toggle matching existing currency preference pattern)
 - Weather icon + condition text
@@ -260,3 +262,7 @@ Each port's seasonal guide should include:
 | Docking-window mode | Requires itinerary data we don't have. User would need to input arrival time. Adds UI complexity for edge-case value. Users can eyeball the 48-hour strip if they know their dock time. |
 | Sea & Tender Conditions panel | Open-Meteo explicitly warns about coastal accuracy. Most cruisers don't understand swell period/direction. Wave height without local context is meaningless. Tender ops are captain's call, not passenger planning. |
 | Cross-brand gallery tie-in | Scope creep. Weather feature should be weather feature. |
+| Cruise Countdown Tool | Separate feature entirely (new tool page, user input form, itinerary storage). Not part of port weather guide. If wanted, deserves its own plan. |
+| Widget strategy (Mac/iPhone/Windows) | Different technical domain (WidgetKit, PWA, native dev). Nothing to do with adding weather to port pages. |
+| Advanced Mode toggle | UI complexity (toggle state, accordion, preferences) for speculative value. 48-hour buckets already sufficient. Build if users demand it, not speculatively. |
+| Port-day itinerary panels | Part of Countdown Tool which we're not building. Users viewing a port page are looking at ONE port. |
