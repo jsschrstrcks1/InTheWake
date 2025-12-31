@@ -1605,6 +1605,44 @@ Soli Deo Gloria
 
 ---
 
+### 🟢 [G] Port Weather Guide Integration (NEW - 2025-12-31)
+**Lane:** 🟢 Green (technical feature, AI-safe)
+**Plan:** See `.claude/plan-port-weather-guide.md` for full details
+**Reference:** `currency.js` pattern for API integration
+
+#### Overview
+Add current weather conditions and seasonal visiting guides to all port pages.
+- **Live data**: Open-Meteo API (free, no key required)
+- **Seasonal guides**: Structured JSON with tiered content
+- **UI**: Weather widget in main content with 48-hour forecast
+
+#### Phase 1: Core Infrastructure
+- [ ] Create `/assets/data/ports/seasonal-guides.json` - Hand-curated seasonal data
+- [ ] Create `/assets/data/ports/regional-climate-defaults.json` - Regional fallbacks
+- [ ] Create `/assets/js/modules/weather.js` - Open-Meteo API integration
+- [ ] Create `/assets/js/port-weather.js` - Port page weather widget loader
+- [ ] Add weather widget CSS to `/assets/styles.css`
+- [ ] Update `/assets/js/modules/config.js` with weather API endpoint
+
+#### Phase 2: Port Page Integration
+- [ ] Add weather section HTML template to port pages
+- [ ] Implement Cozumel as pilot port
+- [ ] Verify weather widget renders correctly
+- [ ] Test offline/failure handling
+
+#### Phase 3: Content Population
+- [ ] Tier 1: Top 20 Caribbean ports (hand-curated seasonal guides)
+- [ ] Tier 2: Expand to Mediterranean, Alaska
+- [ ] Tier 3: Regional defaults for remaining ports
+
+#### Technical Notes
+- **Provider**: Open-Meteo (free tier, CC BY 4.0 attribution required)
+- **Caching**: 30-min TTL for current conditions via SafeStorage
+- **Units**: Auto-detect °F/°C from locale with user override
+- **Attribution**: Required footer: "Weather data by Open-Meteo (CC BY 4.0)"
+
+---
+
 **Task Count:** ~20-30 discrete tasks remaining (down from 80+) **[UPDATED 2025-12-01]**
 **Completed Since Last Update (2025-12-01):**
 - Protocol documentation verified complete (was listed as missing)
