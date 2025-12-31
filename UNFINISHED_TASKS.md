@@ -1605,6 +1605,805 @@ Soli Deo Gloria
 
 ---
 
+### 🟢 [G] Competitor Gap Analysis: WhatsInPort.com (NEW - 2025-12-31)
+**Lane:** 🟢 Green (feature planning, content strategy)
+**Analysis Date:** 2025-12-31
+**Competitor:** [WhatsInPort.com](https://www.whatsinport.com/) — "Your cruise guide to 1200 cruise ports"
+
+#### Context
+WhatsInPort is a utility-focused port guide site with 900+ ports ([TripGuiderz](https://tripguiderz.com/2025/06/29/whatsinport/)). Their value proposition: quick, printable, practical port references for independent exploration. Analysis identifies both "table stakes" features to match AND unique niche opportunities they cannot fill.
+
+---
+
+#### PART A: Table Stakes (Match What They Do Well)
+
+These are features WhatsInPort executes well that In The Wake should also offer:
+
+##### A1. Printable "Quick Reference" Port Cards
+**WhatsInPort strength:** Per [Charting Our Course](https://chartingourcourse.com/charting-our-course-blog/tools-whatsinport-port-planning): "Printable maps alongside transportation tips, enabling cruisers to navigate ports independently"
+**Current In The Wake gap:** Interactive Leaflet maps exist (186/291 ports) but no print-optimized format
+**Tasks:**
+- [ ] Create print CSS for port pages (clean single-page output)
+- [ ] Add "Print This Guide" button to port pages
+- [ ] Generate downloadable PDF per port (Phase 1 of Port Map roadmap)
+- [ ] Include: walking map, distances from pier, transport costs, top 5 POIs
+
+##### A2. Standardized "From the Pier" Walking Distances
+**WhatsInPort strength:** Per [TripGuiderz](https://tripguiderz.com/2025/06/29/whatsinport/): "Each guide includes top attractions, walking paths, and how far they are from the terminal"
+**Current In The Wake state:** Distances mentioned in prose (e.g., `ports/san-juan.html:191`) but not in scannable format
+**Tasks:**
+- [ ] Design "From the Pier" callout box component
+- [ ] Add to styles.css as `.pier-distances` component
+- [ ] Standardize format: `Attraction: X min walk | $Y taxi`
+- [ ] Pilot on 10 Caribbean ports, then roll out site-wide
+
+##### A3. Transportation Cost Table
+**WhatsInPort strength:** "Whats In Port lists taxi rates, public bus details, and sometimes ferry schedules"
+**Current In The Wake state:** Info exists in "Getting Around" bullets but not visually distinct
+**Tasks:**
+- [ ] Design `.transport-costs` callout component
+- [ ] Standardized fields: Taxi, Uber/Lyft, Bus, Ferry, Free shuttle
+- [ ] Add to all 291 port pages
+
+##### A4. Tender Port Index & Badge
+**WhatsInPort strength:** Dedicated page at [whatsinport.com/Tender.html](https://www.whatsinport.com/Tender.html) with alphabetical tender port listing
+**Current In The Wake gap:** No tender port index; no visual tender indicator on port pages
+**Tasks:**
+- [ ] Add `tender: true/false` field to `port-registry.json`
+- [ ] Create tender port badge component (🚤 or anchor icon)
+- [ ] Add badge to port page headers for tender ports
+- [ ] Create `/ports/tender-ports.html` index page
+- [ ] Link from ports.html navigation
+
+---
+
+#### PART B: Unique Niche Opportunities (Gaps WhatsInPort Cannot Fill)
+
+These represent In The Wake's competitive advantages — areas where WhatsInPort has no presence:
+
+##### B1. First-Person Storytelling & Emotional Connection ⭐ CORE DIFFERENTIATOR
+**WhatsInPort gap:** Pure utility text with no personal voice or narrative
+**In The Wake strength:** Logbook entries create emotional resonance ("The Moment That Stays With Me")
+**Why it matters:** Per [Charting Our Course](https://chartingourcourse.com/charting-our-course-blog/tools-whatsinport-port-planning), users want "80% of what we need on one page" — but that remaining 20% is WHY to visit, not just HOW
+**Tasks:**
+- [ ] Ensure every port has "My Logbook" personal narrative section
+- [ ] Add "The Moment That Stays With Me" highlight to all ports
+- [ ] Create port storytelling template for consistency
+
+##### B2. Ship Content Integration ⭐ UNIQUE FEATURE
+**WhatsInPort gap:** Zero ship content — no ship pages, deck plans, videos, or ship selection tools
+**In The Wake strength:** 178 ship pages, deck plans, 500+ videos, ship selection quiz, stateroom checker
+**Opportunity:** "Which ships visit this port?" integration
+**Tasks:**
+- [ ] Add "Ships That Visit Here" section to port pages
+- [ ] Pull from deployment data (ports.csv has ship assignments)
+- [ ] Link ship pages from port pages bidirectionally
+- [ ] Show ship photos on port pages for visual connection
+
+##### B3. Gamification & Achievement Tracking ⭐ UNIQUE FEATURE
+**WhatsInPort gap:** No user tracking, no achievements, no personalization
+**In The Wake strength:** Port Logbook + Ship Logbook with achievement badges, percentile rankings
+**Opportunity:** Deepen emotional investment through progress tracking
+**Tasks:**
+- [ ] Add "Add to My Logbook" button on each port page
+- [ ] Show user's visited status on port pages (if tracked)
+- [ ] Create region completion achievements (Caribbean Bingo, etc.)
+- [ ] Phase 2: "My Cruising Journey" world map visualization (see Leaflet roadmap)
+
+##### B4. Restaurant & Dining Venue Depth ⭐ UNIQUE FEATURE
+**WhatsInPort gap:** No dining content whatsoever
+**In The Wake strength:** 215+ restaurant/venue pages with menus, pricing, reviews
+**Opportunity:** "Where to Eat" becomes a port planning feature
+**Tasks:**
+- [ ] Add "Recommended Dining" section to port pages (for ports with signature local food)
+- [ ] Cross-link restaurant pages for on-ship dining venue previews
+- [ ] Consider local restaurant recommendations for major ports
+
+##### B5. Planning Tools Integration
+**WhatsInPort gap:** No calculators, quizzes, or planning tools
+**In The Wake strength:** Drink Calculator, Ship Selection Quiz, Stateroom Checker, Packing Lists
+**Opportunity:** Connect tools to port context
+**Tasks:**
+- [ ] Add "Pre-Cruise Planning" links in port page sidebar
+- [ ] "Cruising from here?" section for homeport pages linking to planning tools
+- [ ] Consider port-specific packing suggestions (glacier gear for Alaska, etc.)
+
+##### B6. Accessibility Information ⭐ MARKET GAP
+**WhatsInPort gap:** No accessibility information visible
+**In The Wake strength:** WCAG 2.1 AA compliance, accessibility.html, disability-at-sea.html
+**Opportunity:** Become THE resource for accessible cruise port information
+**Tasks:**
+- [ ] Add accessibility section to port pages (wheelchair access, terrain difficulty, tender accessibility)
+- [ ] Create "Accessible Ports" filter/index page
+- [ ] Partner with accessibility-focused cruise communities for content
+- [ ] Add mobility ratings (flat/hilly, cobblestones, distances)
+
+##### B7. Cultural & Historical Context
+**WhatsInPort gap:** Minimal cultural depth — utility focus only
+**In The Wake strength:** UNESCO heritage mentions, historical context, cultural significance
+**Opportunity:** Answer "Why should I care about this place?" not just "How do I get around?"
+**Tasks:**
+- [ ] Ensure every port has historical/cultural context paragraph
+- [ ] Add UNESCO World Heritage callouts where applicable
+- [ ] Include local customs, tipping practices, language tips
+
+##### B8. Visual Excellence & Photography
+**WhatsInPort gap:** Functional but visually plain
+**In The Wake strength:** Professional photography, hero images, photo galleries
+**Opportunity:** Make port pages aspirational, not just informational
+**Tasks:**
+- [ ] Ensure every port has quality hero image
+- [ ] Add photo galleries to major ports
+- [ ] Maintain consistent visual design language
+
+##### B9. DIY vs. Ship Excursion Cost Comparison
+**WhatsInPort strength:** Mentions money-saving but doesn't quantify
+**Opportunity:** Actually show the math
+**Tasks:**
+- [ ] Add "DIY vs. Excursion" comparison callout for major attractions
+- [ ] Format: "Ship excursion: $X | DIY: $Y | You save: $Z"
+- [ ] Include logistics notes (transport, admission, timing)
+
+##### B10. Seasonal & Weather Context
+**WhatsInPort gap:** No seasonal or weather information
+**In The Wake opportunity:** Already planned (see Port Weather Guide section below)
+**Tasks:** See Port Weather Guide Integration section
+
+---
+
+#### Priority Matrix
+
+| Feature | Effort | Impact | Priority |
+|---------|--------|--------|----------|
+| Tender Port Index | Low | Medium | P1 |
+| "From the Pier" Distances | Medium | High | P1 |
+| Print CSS / PDF | Medium | High | P1 |
+| Ships That Visit Here | Low | High | P1 |
+| Transport Cost Table | Low | Medium | P2 |
+| Accessibility Sections | High | High | P2 |
+| DIY vs. Excursion | Medium | Medium | P2 |
+| Add to My Logbook button | Low | Medium | P2 |
+| Region Achievements | Medium | Medium | P3 |
+| Local Restaurant Recs | High | Low | P3 |
+
+---
+
+#### Strategic Summary
+
+**WhatsInPort = Utility** (quick reference, printable, practical)
+**In The Wake = Experience** (stories, immersion, tools, journey tracking)
+
+In The Wake should NOT become WhatsInPort — the differentiation (storytelling, ship content, gamification, tools) is the moat. However, adding their practical quick-reference elements fills genuine usability gaps without diluting the brand.
+
+**Quick Wins (implement first):**
+1. Tender port index + badge
+2. "From the Pier" distance callout box
+3. "Ships That Visit Here" section
+4. Print-friendly CSS
+
+**Unique Niche to Protect:**
+1. First-person logbook storytelling
+2. Ship-port integration (no competitor has this)
+3. Achievement/tracking gamification
+4. Accessibility depth
+
+---
+
+### 🟢 [G] Competitor Gap Analysis: Cruise Critic (NEW - 2025-12-31)
+**Lane:** 🟢 Green (feature planning, content strategy)
+**Analysis Date:** 2025-12-31
+**Competitor:** [CruiseCritic.com](https://www.cruisecritic.com/) — "World's largest cruise review site & community"
+
+#### Context
+Cruise Critic is the dominant cruise information platform, launched in 1995 and acquired by TripAdvisor in 2007. Per [News Hatch guide](https://newshatch.co.uk/cruise-critic/), it offers "over 150,000+ cruise reviews, ship ratings and the largest cruise forum." Their value proposition: community-driven reviews and social connection between cruisers. Analysis identifies table stakes features AND unique niche opportunities.
+
+---
+
+#### PART A: Table Stakes (Match What They Do Well)
+
+##### A1. User Reviews & Ratings System
+**Cruise Critic strength:** Per [News Hatch](https://newshatch.co.uk/cruise-critic/): "Dual rating system that combines Editor Ratings written by professional cruise journalists and critics" with user reviews
+**Current In The Wake gap:** Single-author voice (Ken Baker), no user review system
+**Assessment:** This is NOT a gap to fill — user reviews would dilute In The Wake's curated, trusted voice. The single-author model is a feature, not a bug.
+**Recommendation:** Do NOT add user reviews. Instead, lean into the curated expert perspective as differentiator.
+
+##### A2. Deck Plans & Cabin Selection Guidance
+**Cruise Critic strength:** Ship deck plans, cabin reviews with location advice
+**Current In The Wake state:** Stateroom Checker tool exists with 28 RCL ships, cabin exception data
+**Assessment:** In The Wake already has this, arguably better — Stateroom Checker gives personalized guidance, not just raw reviews
+**Tasks:**
+- [ ] Promote Stateroom Checker more prominently on ship pages
+- [ ] Add "cabin location tips" section to ship pages
+- [ ] Cross-link from port pages ("Cruising from here? Check your cabin")
+
+##### A3. Editorial First-Timer Content
+**Cruise Critic strength:** Per [Cruise Critic First-Timers](https://www.cruisecritic.com/ftc/): "answers to every first-time cruiser question, including what to pack, how to find cruise deals"
+**Current In The Wake state:** travel.html has "20 FAQs for Your First Voyage," packing-lists.html exists
+**Assessment:** Already have this, but could be more prominent
+**Tasks:**
+- [ ] Create dedicated "First Cruise" hub page consolidating all beginner content
+- [ ] Add "New to Cruising?" callout on homepage
+- [ ] Ensure planning.html links prominently to first-timer resources
+
+##### A4. Shore Excursion Information
+**Cruise Critic strength:** Per [Cruise Critic Forums](https://boards.cruisecritic.com/forum/2-ports-of-call/): Community discusses "best excursions, local guides, and DIY options"
+**Current In The Wake state:** Port pages have "Pre-Cruise Activities and Things to Do" sections
+**Assessment:** Already covered in narrative form; DIY vs. Excursion comparison (from WhatsInPort analysis) would enhance this
+**Tasks:** See WhatsInPort B9 (DIY vs. Excursion) — applies here too
+
+##### A5. Cruise Deals & Price Tracking
+**Cruise Critic strength:** Per [News Hatch](https://newshatch.co.uk/cruise-critic/): "Cruise Finder Tool: easily search cruises by destination, date, cruise line, and price" with price alerts
+**Current In The Wake gap:** No booking/deals integration
+**Assessment:** This is affiliate/commercial territory — adds complexity and conflicts with ad-free ethos
+**Recommendation:** Do NOT add cruise booking. Keep focus on planning and inspiration, not sales.
+
+---
+
+#### PART B: Unique Niche Opportunities (Gaps Cruise Critic Cannot Fill)
+
+##### B1. Curated Single-Voice Authority ⭐ CORE DIFFERENTIATOR
+**Cruise Critic gap:** Forum chaos — thousands of voices, conflicting opinions, hard to find definitive answers
+**User complaint:** Per [Sitejabber reviews](https://www.sitejabber.com/reviews/cruisecritic.com): Forums can be "overwhelming for new users"
+**In The Wake strength:** One trusted author (Ken Baker) with consistent voice and perspective
+**Why it matters:** Users don't want 47 opinions about Cozumel — they want one trusted guide
+**Tasks:**
+- [ ] Emphasize "A Cruise Traveler's Logbook" positioning — this is a journal, not a forum
+- [ ] Add author expertise callouts ("Ken has visited this port X times")
+- [ ] Maintain consistent voice across all content
+
+##### B2. Ad-Free, Non-Commercial Experience ⭐ TRUST DIFFERENTIATOR
+**Cruise Critic gap:** TripAdvisor ownership means ads, sponsored content, affiliate pressure
+**User complaint:** Per [Sitejabber](https://www.sitejabber.com/reviews/cruisecritic.com): Allegations that "Cruise Critic is run and operated by the cruise lines"
+**In The Wake strength:** No ads, no affiliate links, no commercial pressure
+**Why it matters:** Users can trust recommendations aren't influenced by money
+**Tasks:**
+- [ ] Add "No ads, no affiliate links" statement to about-us.html
+- [ ] Consider trust badge/seal on pages
+- [ ] Maintain editorial independence as core value
+
+##### B3. No Roll Call — But Better Pre-Cruise Preparation ⭐ OPPORTUNITY
+**Cruise Critic strength:** Per [Cruise Critic Roll Calls](https://www.cruisecritic.com/articles/8-reasons-to-join-a-cruise-critic-roll-call): "Connect with folks onboard the same sailing... split the cost of a taxi or private guide"
+**In The Wake gap:** No social/community features
+**Assessment:** Building a forum would be massive scope creep. BUT the NEED roll calls fill (pre-cruise preparation) can be addressed differently.
+**Opportunity:** Create comprehensive pre-cruise checklists that eliminate the NEED for forum advice
+**Tasks:**
+- [ ] Create "30-Day Countdown" checklist (what to do each week before sailing)
+- [ ] Add "Port Day Planner" downloadable worksheet per port
+- [ ] Create "Questions to Ask Your Cruise Line" reference sheet
+- [ ] Add "What to Book in Advance" timing guide (specialty dining, excursions, etc.)
+
+##### B4. Moderation-Free Honest Content ⭐ TRUST DIFFERENTIATOR
+**Cruise Critic gap:** Per [Sitejabber](https://www.sitejabber.com/reviews/cruisecritic.com): "very 'heavy handed' in reviewing your posts... posts are heavily censored"
+**User complaint:** "This company do not allow me to publish a bad review about NCL"
+**In The Wake strength:** No moderation politics — single author says what they think
+**Why it matters:** Users trust unfiltered opinions
+**Tasks:**
+- [ ] Include honest "Skip this if..." sections on port/ship pages
+- [ ] Don't shy away from noting drawbacks or crowds
+- [ ] Add "Real Talk" callouts for honest assessments
+
+##### B5. Personalized Planning Tools ⭐ UNIQUE FEATURE
+**Cruise Critic gap:** Generic information, no personalized recommendations
+**In The Wake strength:** Drink Calculator, Ship Selection Quiz, Stateroom Checker
+**Opportunity:** Tools that give personalized answers, not crowd-sourced opinions
+**Tasks:**
+- [ ] Create "Which Cruise Line Is Right for Me?" quiz (expand beyond RCL)
+- [ ] Add "Cruise Budget Calculator" tool
+- [ ] Create "Excursion Decision Helper" (active vs. relaxing, group vs. solo, budget)
+- [ ] Build "Dining Package Worth It?" calculator
+
+##### B6. Gamification & Personal Journey Tracking ⭐ UNIQUE FEATURE
+**Cruise Critic gap:** No tracking, no achievements, no personal cruising history
+**In The Wake strength:** Port Logbook + Ship Logbook with achievements
+**Opportunity:** Make cruising a journey to track, not just trips to review
+**Tasks:** Already documented in WhatsInPort B3 — continue developing achievement system
+
+##### B7. Faith-Based Perspective ⭐ UNIQUE NICHE
+**Cruise Critic gap:** Secular, commercial content
+**In The Wake strength:** "Soli Deo Gloria" foundation, faith-scented solo travel content
+**Opportunity:** Serve faith-based cruisers who want values-aligned content
+**Tasks:**
+- [ ] Develop "Sabbath at Sea" content for different faith traditions
+- [ ] Add worship/chapel information for ships that offer it
+- [ ] Create "Cruising as Spiritual Retreat" article
+- [ ] Pastoral content for grief, healing, rest (already planned)
+
+##### B8. Accessibility Leadership ⭐ MARKET GAP
+**Cruise Critic gap:** No dedicated accessibility focus
+**In The Wake strength:** WCAG 2.1 AA compliance, accessibility.html, disability-at-sea.html
+**Opportunity:** Become THE trusted resource for accessible cruising
+**Tasks:** Already documented in WhatsInPort B6 — continue accessibility depth
+
+##### B9. Ship-Port Integration ⭐ UNIQUE FEATURE
+**Cruise Critic gap:** Ship reviews and port guides are separate silos
+**In The Wake strength:** Can link ships to ports, show which ships visit which ports
+**Opportunity:** Answer "What's it like visiting Cozumel on Icon of the Seas?" — no one else does this
+**Tasks:**
+- [ ] Add "Ships Visiting This Port" section (already in WhatsInPort B2)
+- [ ] Add "Ports on This Ship's Itineraries" to ship pages
+- [ ] Create combined ship+port guides for signature experiences
+
+##### B10. Restaurant & Dining Depth ⭐ UNIQUE FEATURE
+**Cruise Critic gap:** Limited dining venue coverage buried in reviews
+**In The Wake strength:** 215+ restaurant pages with menus, pricing
+**Opportunity:** Become definitive dining resource for cruise ships
+**Tasks:**
+- [ ] Add "Signature Dishes" callouts to restaurant pages
+- [ ] Create "Dining Package Decision Guide" per ship
+- [ ] Add meal photos (user-submitted or curated)
+
+---
+
+#### Priority Matrix
+
+| Feature | Effort | Impact | Priority |
+|---------|--------|--------|----------|
+| "No ads" trust messaging | Low | High | P1 |
+| First-Timer hub page | Low | Medium | P1 |
+| Stateroom Checker promotion | Low | Medium | P1 |
+| Pre-cruise countdown checklist | Medium | High | P1 |
+| "Honest Assessment" sections | Low | Medium | P2 |
+| Cruise Budget Calculator | Medium | Medium | P2 |
+| Ship-Port combined guides | High | High | P2 |
+| Faith-based content expansion | Medium | Niche | P3 |
+| Cruise Line quiz expansion | High | Medium | P3 |
+
+---
+
+#### Strategic Summary
+
+**Cruise Critic = Community** (forums, user reviews, social connection)
+**In The Wake = Curation** (single trusted voice, tools, personal journey)
+
+Cruise Critic's forum model creates noise and moderation problems. In The Wake's single-author model creates trust and clarity. Do NOT try to compete with Cruise Critic's community — that's their moat. Instead, offer what they cannot:
+
+**Why users would choose In The Wake over Cruise Critic:**
+1. **One trusted voice** instead of 47 conflicting forum opinions
+2. **No ads or commercial pressure** — recommendations you can trust
+3. **Personalized tools** (calculators, quizzes) instead of generic info
+4. **Personal journey tracking** with achievements and logbooks
+5. **Honest assessments** without moderation politics
+6. **Ship-port integration** no one else offers
+7. **Accessibility commitment** as core value
+
+**What NOT to build:**
+- User review system (dilutes trusted voice)
+- Forums or community features (massive scope, Cruise Critic's strength)
+- Cruise booking/deals (commercial conflict)
+- Mobile app (for now — web-first)
+
+---
+
+### 🟢 [G] Competitor Gap Analysis: Cruiseline.com & Shipmate App (NEW - 2025-12-31)
+**Lane:** 🟢 Green (feature planning, content strategy)
+**Analysis Date:** 2025-12-31
+**Competitor:** [Cruiseline.com](https://cruiseline.com/) + [Shipmate App](https://cruiseline.com/shipmate) — "The ONLY cruise app you can use before, during, and after your cruise"
+
+#### Context
+Cruiseline.com is a cruise review and deals aggregation platform that powers the Shipmate app — voted "Best Cruise App" with over 2 million downloads ([App Store](https://apps.apple.com/us/app/shipmate-plan-track-cruises/id380449520)). Per their marketing, Shipmate is "the first cruise app ever created" and works for every cruise line, not just one. Their unique value: **offline functionality on cruise ships without WiFi**. They also run the annual [Member Choice Awards](https://cruiseline.com/advice/awards/members-choice/2025-cruiseline-com-member-choice-awards) (10th anniversary in 2025).
+
+---
+
+#### PART A: Table Stakes (Match What They Do Well)
+
+##### A1. Offline Access — "Works Without WiFi" ⭐ KEY DIFFERENTIATOR
+**Cruiseline.com strength:** Per [Shipmate Support](https://support.shipmateapp.com/article/17-can-i-use-shipmate-on-the-cruise-ship-without-wifi): "The app will also work while on board - no Internet required! This is the only cruise app that lets you access features while offline."
+**How it works:** Users can "download your cruise information so that you can access your itinerary, deck maps, and port-related information without an internet connection"
+**Current In The Wake state:** PWA exists with service worker caching, but not prominently marketed as "works offline"
+**Assessment:** In The Wake already has this capability — needs better promotion
+**Tasks:**
+- [ ] Add prominent "Works Offline on Your Cruise" messaging to port pages
+- [ ] Test service worker caching for complete port guide offline access
+- [ ] Add "Save for Offline" button or toggle per port
+- [ ] Market PWA install as "your offline cruise companion"
+
+##### A2. Cruise Countdown Feature
+**Cruiseline.com strength:** Per [App Store](https://apps.apple.com/us/app/shipmate-plan-track-cruises/id380449520): "Never miss sail day with your personalized cruise countdown widget" plus "Countdown stickers from 365 days all the way down to 1 day"
+**Current In The Wake gap:** No countdown feature
+**Assessment:** Fun engagement feature but not core to mission — low priority
+**Tasks:**
+- [ ] Consider adding cruise countdown widget to homepage or planning.html (optional)
+- [ ] Could integrate with Port Logbook — "Your next cruise: X days away"
+
+##### A3. Deck Plans with User Photos
+**Cruiseline.com strength:** Per [App Store](https://apps.apple.com/us/app/shipmate-plan-track-cruises/id380449520): "Get to know your vessel top to bottom using our detailed deck maps, and user-submitted pictures"
+**Current In The Wake state:** Ship pages have deck plans, videos; Stateroom Checker has cabin exception data
+**Assessment:** Already have this — Stateroom Checker is arguably stronger (personalized guidance vs. just browsing)
+**Tasks:**
+- [ ] Consider adding user-submitted cabin photos (low priority — moderation overhead)
+- [ ] Ensure deck plan links are prominent on ship pages
+
+##### A4. Multi-Cruise-Line Support
+**Cruiseline.com strength:** "Works for every cruise line, not just one" — Carnival, Royal Caribbean, Norwegian, Princess, Holland America, Celebrity, Disney, MSC, and more
+**Current In The Wake state:** Primarily Royal Caribbean focused (28 ships); expanding to Carnival, Celebrity
+**Assessment:** Already in roadmap (P4 — Future Expansion in UNFINISHED_TASKS.md)
+**Tasks:** Already documented — continue multi-line expansion per existing roadmap
+
+##### A5. Price Comparison & Deals
+**Cruiseline.com strength:** Aggregates deals from cruise lines and travel agency partners; price alerts
+**Current In The Wake gap:** No booking/deals integration
+**Assessment:** This is commercial territory — same conclusion as Cruise Critic analysis
+**Recommendation:** Do NOT add. Stay focused on planning and inspiration, not sales.
+
+---
+
+#### PART B: Unique Niche Opportunities (Gaps Cruiseline.com Cannot Fill)
+
+##### B1. Single-Voice Curation vs. Community Noise ⭐ CORE DIFFERENTIATOR
+**Cruiseline.com gap:** Like Cruise Critic, they rely on community reviews — thousands of voices, variable quality
+**In The Wake strength:** One trusted author (Ken Baker) with consistent perspective
+**Why it matters:** Same as Cruise Critic — users want definitive guidance, not crowdsourced opinions
+**Tasks:** Already documented in Cruise Critic B1 — continue single-voice positioning
+
+##### B2. Narrative Depth vs. Utility Data
+**Cruiseline.com gap:** Port information is "reviews, tips & photos" — utility focused, not storytelling
+**In The Wake strength:** First-person logbook entries, cultural context, "The Moment That Stays With Me"
+**Why it matters:** Shipmate tells you WHAT to do; In The Wake tells you WHY it matters
+**Tasks:**
+- [ ] Continue developing narrative depth on port pages
+- [ ] Ensure every port has "My Logbook" personal section
+- [ ] Add "Why This Port Is Special" callouts
+
+##### B3. Personalized Planning Tools ⭐ UNIQUE FEATURE
+**Cruiseline.com gap:** No calculators, quizzes, or personalized recommendations
+**In The Wake strength:** Drink Calculator, Ship Selection Quiz, Stateroom Checker
+**Why it matters:** Tools give answers; forums give opinions
+**Tasks:** Already documented — continue tool development (Budget Calculator, etc.)
+
+##### B4. Gamification Beyond Countdown ⭐ UNIQUE FEATURE
+**Cruiseline.com gap:** Only engagement feature is countdown; no tracking, achievements, or journey visualization
+**In The Wake strength:** Port Logbook + Ship Logbook with achievements, percentile rankings
+**Opportunity:** Countdown is fun but shallow; journey tracking is meaningful
+**Tasks:**
+- [ ] Consider adding countdown as complement to logbooks (optional)
+- [ ] Continue developing achievement system
+- [ ] "My Cruising Journey" world map (already in roadmap)
+
+##### B5. Restaurant & Dining Depth ⭐ UNIQUE FEATURE
+**Cruiseline.com gap:** No dedicated dining content — just general ship reviews
+**In The Wake strength:** 215+ restaurant pages with menus, pricing
+**Tasks:** Already documented — continue dining venue development
+
+##### B6. Accessibility Commitment ⭐ MARKET GAP
+**Cruiseline.com gap:** No accessibility focus visible
+**In The Wake strength:** WCAG 2.1 AA compliance, accessibility.html, disability-at-sea.html
+**Tasks:** Already documented — continue accessibility depth
+
+##### B7. Faith-Based Perspective ⭐ UNIQUE NICHE
+**Cruiseline.com gap:** Secular, community-driven content
+**In The Wake strength:** "Soli Deo Gloria" foundation, pastoral content
+**Tasks:** Already documented — continue faith-based content development
+
+##### B8. Ship-Port Integration ⭐ UNIQUE FEATURE
+**Cruiseline.com gap:** Ship info and port info are separate silos
+**In The Wake opportunity:** Connect ships to ports — which ships visit which ports, combined guides
+**Tasks:** Already documented — "Ships That Visit Here" section
+
+##### B9. No Commercial Pressure
+**Cruiseline.com gap:** Deals aggregation creates commercial incentives; some users report bait-and-switch pricing
+**User complaint:** Per [Trustpilot](https://www.trustpilot.com/review/cruiseline.com): "offer deals and when you click, hey presto, no such deals available"
+**In The Wake strength:** No booking, no ads, no affiliate pressure
+**Tasks:** Already documented — continue ad-free positioning
+
+---
+
+#### What They Do Better (Learn From)
+
+| Feature | Cruiseline.com/Shipmate | In The Wake | Action |
+|---------|-------------------------|-------------|--------|
+| **Offline marketing** | "Works without WiFi" prominently marketed | PWA exists but not promoted | Promote offline capability |
+| **Countdown engagement** | Fun pre-cruise anticipation builder | None | Consider adding (low priority) |
+| **Multi-line coverage** | All major cruise lines | RCL-focused | Already in roadmap |
+| **Mobile-first app** | Dedicated native app | PWA only | PWA is sufficient for now |
+
+---
+
+#### Priority Matrix
+
+| Feature | Effort | Impact | Priority |
+|---------|--------|--------|----------|
+| "Works Offline" messaging | Low | High | P1 |
+| Narrative depth emphasis | Low | Medium | P1 |
+| Countdown widget | Medium | Low | P3 (optional) |
+| User cabin photos | High | Low | P4 (not recommended) |
+
+---
+
+#### Strategic Summary
+
+**Cruiseline.com/Shipmate = Mobile App + Community + Deals**
+**In The Wake = Web-First + Curation + Tools + Journey**
+
+Shipmate's strength is the mobile-first, offline-capable app experience — "the only cruise app you can use before, during, and after your cruise." In The Wake's PWA already provides similar offline capability but doesn't market it. The opportunity is to promote existing offline features, not build new ones.
+
+**Key insight:** Shipmate is broad and shallow (all cruise lines, utility info, countdown fun). In The Wake is deep and focused (Royal Caribbean depth, narrative richness, personalized tools). This is the right tradeoff.
+
+**What to adopt:**
+1. Market "Works Offline" capability of existing PWA
+2. Consider countdown as fun add-on to logbooks (optional)
+
+**What NOT to adopt:**
+- Deals/price aggregation (commercial conflict)
+- User-submitted content at scale (moderation overhead, dilutes curation)
+- Native mobile app (PWA is sufficient; web-first strategy is correct)
+
+---
+
+### 🟢 [G] Consolidated Competitor Analysis Recommendations (NEW - 2025-12-31)
+**Lane:** 🟢 Green (feature implementation)
+**Source:** WhatsInPort + Cruise Critic + Cruiseline.com competitor analyses above
+**Purpose:** Actionable task list combining insights from both competitor analyses
+
+---
+
+#### P1 — Quick Wins (Low Effort, High Impact)
+
+##### 1. Tender Port Index & Badge
+**Source:** WhatsInPort A4
+**Effort:** Low | **Impact:** Medium
+- [ ] Add `tender: true/false` field to `port-registry.json`
+- [ ] Create tender port badge component (🚤 icon or text indicator)
+- [ ] Add badge to port page headers for tender ports
+- [ ] Create `/ports/tender-ports.html` index page with alphabetical listing
+- [ ] Add link to tender port index from ports.html navigation
+
+##### 2. "No Ads" Trust Messaging
+**Source:** Cruise Critic B2
+**Effort:** Low | **Impact:** High
+- [ ] Add "No ads, no affiliate links, no sponsored content" statement to about-us.html
+- [ ] Consider adding trust statement to footer or sidebar
+- [ ] Create "Our Promise" or "Editorial Independence" section
+
+##### 3. Stateroom Checker Promotion
+**Source:** Cruise Critic A2
+**Effort:** Low | **Impact:** Medium
+- [ ] Add prominent Stateroom Checker callout to all 50 ship pages
+- [ ] Add "Check Your Cabin" link in port page sidebars for homeports
+- [ ] Feature Stateroom Checker on planning.html hub page
+
+##### 4. "Ships That Visit Here" Section
+**Source:** WhatsInPort B2, Cruise Critic B9
+**Effort:** Low | **Impact:** High
+- [ ] Add "Ships That Visit Here" section to port pages
+- [ ] Pull ship data from deployment info (ports.csv)
+- [ ] Show ship thumbnails with links to ship pages
+- [ ] Pilot on 10 Caribbean ports, then roll out
+
+##### 5. First-Timer Hub Page
+**Source:** Cruise Critic A3
+**Effort:** Low | **Impact:** Medium
+- [ ] Create `/first-cruise.html` consolidating all beginner content
+- [ ] Link to: travel.html FAQs, packing-lists.html, drink-packages.html, planning.html
+- [ ] Add "New to Cruising? Start Here" callout on homepage
+- [ ] Add to main navigation under Planning dropdown
+
+##### 6. "Works Offline" Marketing
+**Source:** Cruiseline.com/Shipmate A1
+**Effort:** Low | **Impact:** High
+- [ ] Add prominent "Works Offline on Your Cruise" messaging to port pages
+- [ ] Test service worker caching for complete port guide offline access
+- [ ] Add "Save for Offline" or "Install App" button to port pages
+- [ ] Market PWA install as "your offline cruise companion"
+- [ ] Add offline capability callout to planning.html and homepage
+
+---
+
+#### P1 — Medium Effort, High Impact
+
+##### 7. "From the Pier" Walking Distance Component
+**Source:** WhatsInPort A2
+**Effort:** Medium | **Impact:** High
+- [ ] Design `.pier-distances` callout box component in styles.css
+- [ ] Standardized format: `Attraction | Walk Time | Taxi Cost`
+- [ ] Create HTML template snippet for port pages
+- [ ] Pilot on San Juan, Cozumel, Nassau (3 ports)
+- [ ] Roll out to all 291 port pages
+
+##### 8. Print-Friendly Port Pages
+**Source:** WhatsInPort A1
+**Effort:** Medium | **Impact:** High
+- [ ] Create print CSS (`@media print`) for port pages
+- [ ] Hide navigation, sidebars, ads in print view
+- [ ] Ensure map renders in print (or provide static fallback)
+- [ ] Add "Print This Guide" button to port pages
+- [ ] Test print output on major browsers
+
+##### 9. Pre-Cruise Countdown Checklist
+**Source:** Cruise Critic B3
+**Effort:** Medium | **Impact:** High
+- [ ] Create "30-Day Countdown to Your Cruise" page/tool
+- [ ] Week-by-week checklist: documents, packing, reservations, etc.
+- [ ] Downloadable PDF version for offline use
+- [ ] Link from planning.html and first-cruise.html
+
+##### 10. Transportation Cost Callout Component
+**Source:** WhatsInPort A3
+**Effort:** Low | **Impact:** Medium
+- [ ] Design `.transport-costs` callout box in styles.css
+- [ ] Standardized fields: Taxi, Uber/Lyft, Bus, Ferry, Free options
+- [ ] Add to port page template
+- [ ] Pilot on 10 ports, then roll out
+
+---
+
+#### P2 — Strategic Features
+
+##### 11. "Add to My Logbook" Button on Port Pages
+**Source:** WhatsInPort B3, Cruise Critic B6
+**Effort:** Medium | **Impact:** Medium
+- [ ] Add "Add to My Logbook" button on each port page
+- [ ] Integrate with existing Port Logbook localStorage
+- [ ] Show visited indicator if port already in logbook
+- [ ] Provide "View My Logbook" link after adding
+
+##### 12. DIY vs. Ship Excursion Comparison
+**Source:** WhatsInPort B9
+**Effort:** Medium | **Impact:** Medium
+- [ ] Design comparison callout component
+- [ ] Format: "Ship excursion: $X | DIY: $Y | You save: $Z"
+- [ ] Include logistics notes (transport, timing, booking)
+- [ ] Add to major attractions on port pages
+- [ ] Pilot on 5 popular excursion destinations
+
+##### 13. "Honest Assessment" Sections
+**Source:** Cruise Critic B4
+**Effort:** Low | **Impact:** Medium
+- [ ] Add "Skip This If..." or "Real Talk" section to port pages
+- [ ] Be honest about crowds, tourist traps, overrated attractions
+- [ ] Add similar sections to ship pages (who this ship is NOT for)
+- [ ] Reinforces trust and single-voice authority
+
+##### 14. Accessibility Port Information
+**Source:** WhatsInPort B6, Cruise Critic B8
+**Effort:** High | **Impact:** High
+- [ ] Add accessibility section to port pages
+- [ ] Include: wheelchair access, terrain difficulty, tender accessibility
+- [ ] Add mobility ratings (flat/hilly, cobblestones, distances)
+- [ ] Create `/ports/accessible-ports.html` index page
+- [ ] Partner with accessibility communities for content review
+
+##### 15. Port-Specific Packing Suggestions
+**Source:** Cruise Critic B5
+**Effort:** Medium | **Impact:** Medium
+- [ ] Add "What to Pack for This Port" callout on port pages
+- [ ] Examples: glacier gear for Alaska, modest clothing for Middle East
+- [ ] Link to relevant sections of packing-lists.html
+- [ ] Start with region-based defaults, refine per port
+
+##### 16. "Why This Port Is Special" Callouts
+**Source:** Cruiseline.com/Shipmate B2
+**Effort:** Low | **Impact:** Medium
+- [ ] Add narrative callout emphasizing unique value of each port
+- [ ] Differentiate from utility-focused competitors
+- [ ] Ensure every port has "My Logbook" personal section
+
+---
+
+#### P2 — Tools & Calculators
+
+##### 17. Cruise Budget Calculator
+**Source:** Cruise Critic B5
+**Effort:** Medium | **Impact:** Medium
+- [ ] Create interactive budget planning tool
+- [ ] Categories: fare, gratuities, drinks, excursions, specialty dining, Wi-Fi
+- [ ] Allow customization per cruise length and ship class
+- [ ] Show total estimated cost with breakdown
+
+##### 18. "What to Book in Advance" Timing Guide
+**Source:** Cruise Critic B3
+**Effort:** Low | **Impact:** Medium
+- [ ] Create reference page or section
+- [ ] Cover: specialty dining, excursions, spa, shows, cabanas
+- [ ] Include typical booking windows (30 days, 60 days, etc.)
+- [ ] Ship-specific variations where relevant
+
+##### 19. Excursion Decision Helper
+**Source:** Cruise Critic B5
+**Effort:** Medium | **Impact:** Medium
+- [ ] Create quiz-style tool for excursion selection
+- [ ] Factors: active vs. relaxing, group vs. solo, budget, mobility
+- [ ] Output: recommended excursion types for that port
+- [ ] Link to DIY vs. Ship comparison
+
+---
+
+#### P3 — Content Expansion
+
+##### 20. Author Expertise Callouts
+**Source:** Cruise Critic B1
+**Effort:** Low | **Impact:** Medium
+- [ ] Add "Ken has visited this port X times" to port pages
+- [ ] Add cruise count/experience to author bio sections
+- [ ] Reinforces single-voice authority and trust
+
+##### 21. Faith-Based Content Expansion
+**Source:** Cruise Critic B7
+**Effort:** Medium | **Impact:** Niche
+- [ ] Develop "Sabbath at Sea" content for different traditions
+- [ ] Add worship/chapel information for ships that offer it
+- [ ] Create "Cruising as Spiritual Retreat" article
+- [ ] Continue pastoral content (grief, healing, rest)
+
+##### 22. Ship-Port Combined Guides
+**Source:** Cruise Critic B9
+**Effort:** High | **Impact:** High
+- [ ] Create signature "X Ship at Y Port" combined guides
+- [ ] Example: "Icon of the Seas at CocoCay" experience guide
+- [ ] Include ship-specific tips for that port
+- [ ] Start with most popular ship+port combinations
+
+##### 23. Dining Venue Enhancements
+**Source:** Cruise Critic B10
+**Effort:** Medium | **Impact:** Medium
+- [ ] Add "Signature Dishes" callouts to restaurant pages
+- [ ] Create "Dining Package Decision Guide" per ship
+- [ ] Consider adding meal photos where available
+
+##### 24. "Ports on This Ship" Section
+**Source:** Cruise Critic B9
+**Effort:** Medium | **Impact:** Medium
+- [ ] Add typical itinerary ports to ship pages
+- [ ] Link to port guides from ship pages
+- [ ] Show deployment regions and seasons
+
+---
+
+#### P3 — Optional / Low Priority
+
+##### 25. Cruise Countdown Widget
+**Source:** Cruiseline.com/Shipmate A2
+**Effort:** Medium | **Impact:** Low
+- [ ] Consider adding countdown to homepage or planning.html
+- [ ] Could integrate with Port Logbook — "Your next cruise: X days away"
+- [ ] Fun but not core to mission — implement only if time permits
+
+---
+
+#### Explicitly NOT Building
+
+These features were considered but rejected based on strategic analysis:
+
+| Feature | Why NOT | Competitor |
+|---------|---------|------------|
+| User reviews | Dilutes trusted single-voice authority | Cruise Critic, Cruiseline.com |
+| Forums/community | Massive scope, their moat | Cruise Critic, Cruiseline.com |
+| Cruise booking/deals | Commercial conflict, ad-free ethos | Cruise Critic, Cruiseline.com |
+| Roll Calls | Their strength; we solve the NEED differently | Cruise Critic, Cruiseline.com |
+| Native mobile app | Web-first; PWA is sufficient | Cruiseline.com/Shipmate |
+| User-submitted photos | Moderation overhead, dilutes curation | Cruiseline.com |
+| Price alerts | Commercial feature, not our focus | Cruiseline.com |
+
+---
+
+#### Implementation Phases
+
+**Phase 1 (Immediate — Next 2 weeks):**
+- Tender port index (#1)
+- "No ads" trust messaging (#2)
+- Ships That Visit Here (#4)
+- First-Timer hub page (#5)
+- "Works Offline" marketing (#6)
+
+**Phase 2 (Short-term — Next month):**
+- "From the Pier" component (#7)
+- Print-friendly CSS (#8)
+- Pre-cruise countdown (#9)
+- Transport cost component (#10)
+
+**Phase 3 (Medium-term):**
+- Add to Logbook button (#11)
+- DIY vs. Excursion (#12)
+- Accessibility sections (#14)
+- Budget Calculator (#17)
+
+**Phase 4 (Ongoing):**
+- Ship-Port combined guides (#22)
+- Faith-based content (#21)
+- Tool enhancements (#18, #19)
+- Countdown widget (#25 — optional)
+
+---
+
 ### 🟢 [G] Port Weather Guide Integration (NEW - 2025-12-31)
 **Lane:** 🟢 Green (technical feature, AI-safe)
 **Plan:** See `.claude/plan-port-weather-guide.md` for full details
