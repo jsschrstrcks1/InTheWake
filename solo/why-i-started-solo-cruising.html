@@ -182,6 +182,7 @@
 
   <!-- ============================ MAIN ============================ -->
   <main id="content" class="wrap page-grid" role="main" aria-label="Main content">
+    <section class="col-1">
     <!-- ===================== SOLO ARTICLE ======================== -->
     <article class="card solo-article" itemscope itemtype="https://schema.org/Article" id="why-i-started-solo-cruising" data-slug="why-i-started-solo-cruising">
       <header class="article-hero" style="max-width:min(860px,92%);margin-inline:auto">
@@ -256,14 +257,71 @@
         <a href="https://www.etsy.com/listing/4388692258/life-is-better-on-a-cruise-shirt-blue?ref=shop_home_active_2&logging_key=f1f57007da892c84380b204380ec800041a39d9c%3A4388692258&utm_source=cruisinginthewake&utm_medium=author_pick_cta&utm_campaign=tina_profile"
            target="_blank" rel="noopener noreferrer">
            <img id="shirt-img" src="/authors/tinas-images/shirt1.webp" alt="Cruise T-shirt preview" width="120" height="120" loading="lazy" decoding="async">
-           See the shirt I couldn’t cruise without →
+           See the shirt I couldn't cruise without →
         </a>
       </p>
+    </article>
+    </section>
 
-      <!-- Navigation Dropdown Script -->
+    <!-- RIGHT RAIL -->
+    <aside class="rail col-2" role="complementary" aria-label="Author and recent articles">
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/tina-maulsby.html" aria-label="View Tina Maulsby's profile">
+          <picture>
+            <source srcset="/authors/tinas-images/tinastanding.webp" type="image/webp"/>
+            <img class="author-avatar" src="/authors/tinas-images/tinastanding.png" width="96" height="96" alt="Tina Maulsby" style="border-radius:12px;" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/tina-maulsby.html">Tina Maulsby</a></h4>
+        <p class="tiny">Solo cruiser and travel writer; founder of the largest solo cruising community online.</p>
+        <p class="tiny"><a href="https://www.tiktok.com/@beyondboundarieswithtina" target="_blank" rel="noopener">Beyond Boundaries with Tina</a></p>
+      </section>
+
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom:1rem;color:var(--ink-mid,#3d5a6a);line-height:1.5;">Real cruising experiences, practical guides, and heartfelt reflections.</p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="wrap" role="contentinfo">
+    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p class="tiny"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/about-us.html">About</a> · <a href="/accessibility.html">Accessibility</a></p>
+  </footer>
+
+  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
+
+  <!-- Recent Articles Rail -->
+  <script>
+  (function(){
+    const rail=document.getElementById('recent-rail'),fb=document.getElementById('recent-rail-fallback');
+    if(!rail)return;
+    const PER=6;let articles=[],page=0;
+    function render(){
+      const start=page*PER,slice=articles.slice(start,start+PER);
+      rail.innerHTML=slice.map(a=>'<a class="rail-item" href="'+a.url+'">'+a.title+'</a>').join('');
+      let nav=document.getElementById('recent-rail-nav');
+      if(!nav){nav=document.createElement('div');nav.id='recent-rail-nav';nav.style.cssText='display:flex;gap:.5rem;margin-top:.75rem;';rail.after(nav);}
+      const total=Math.ceil(articles.length/PER);
+      nav.innerHTML=(page>0?'<button id="rail-prev" style="flex:1;padding:.35rem;border:1px solid #ccc;background:#fff;border-radius:4px;cursor:pointer;">← Prev</button>':'')+
+        (page<total-1?'<button id="rail-next" style="flex:1;padding:.35rem;border:1px solid #ccc;background:#fff;border-radius:4px;cursor:pointer;">Next →</button>':'');
+      const p=document.getElementById('rail-prev'),n=document.getElementById('rail-next');
+      if(p)p.onclick=()=>{page--;render();};
+      if(n)n.onclick=()=>{page++;render();};
+    }
+    fetch('/assets/data/articles/index.json').then(r=>r.json()).then(data=>{
+      articles=(data||[]).filter(a=>a.status==='published').sort((a,b)=>new Date(b.date)-new Date(a.date));
+      if(fb)fb.style.display='none';
+      if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
+    }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
+  })();
+  </script>
 </body>
 </html>
