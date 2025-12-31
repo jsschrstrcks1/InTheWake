@@ -218,56 +218,61 @@ function formatTimeAgo(timeString) {
 }
 
 /**
- * Render the seasonal guide section
+ * Render the seasonal guide section with collapsible details
  */
 function renderSeasonalGuide(seasonalData, portName) {
   if (!seasonalData) return '';
 
   let html = '<div class="seasonal-guide">';
 
-  // At a Glance section (for Tier 1 ports with detailed data)
+  // At a Glance section (for Tier 1 ports with detailed data) - expanded by default
   if (seasonalData.at_a_glance) {
     const glance = seasonalData.at_a_glance;
     html += `
-      <div class="seasonal-at-glance">
-        <h3 class="seasonal-section-title">At a Glance</h3>
-        <div class="seasonal-glance-grid">
-          ${glance.temp_range ? `<div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">${glance.temp_range}</span></div>` : ''}
-          ${glance.humidity ? `<div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">${glance.humidity}</span></div>` : ''}
-          ${glance.rain ? `<div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">${glance.rain}</span></div>` : ''}
-          ${glance.wind ? `<div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">${glance.wind}</span></div>` : ''}
-          ${glance.daylight ? `<div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">${glance.daylight}</span></div>` : ''}
+      <details class="seasonal-section" open>
+        <summary class="seasonal-section-title">At a Glance</summary>
+        <div class="seasonal-at-glance">
+          <div class="seasonal-glance-grid">
+            ${glance.temp_range ? `<div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">${glance.temp_range}</span></div>` : ''}
+            ${glance.humidity ? `<div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">${glance.humidity}</span></div>` : ''}
+            ${glance.rain ? `<div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">${glance.rain}</span></div>` : ''}
+            ${glance.wind ? `<div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">${glance.wind}</span></div>` : ''}
+            ${glance.daylight ? `<div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">${glance.daylight}</span></div>` : ''}
+          </div>
         </div>
-      </div>
+      </details>
     `;
   }
 
   // Fallback for regional defaults (typical_temp_f, humidity, rain_pattern)
   if (!seasonalData.at_a_glance && (seasonalData.typical_temp_f || seasonalData.humidity || seasonalData.rain_pattern)) {
     html += `
-      <div class="seasonal-at-glance">
-        <h3 class="seasonal-section-title">At a Glance</h3>
-        <div class="seasonal-glance-grid">
-          ${seasonalData.typical_temp_f ? `<div class="seasonal-glance-item"><span class="glance-label">Typical Temp</span><span class="glance-value">${seasonalData.typical_temp_f}°F</span></div>` : ''}
-          ${seasonalData.humidity ? `<div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">${seasonalData.humidity}</span></div>` : ''}
-          ${seasonalData.rain_pattern ? `<div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">${seasonalData.rain_pattern}</span></div>` : ''}
+      <details class="seasonal-section" open>
+        <summary class="seasonal-section-title">At a Glance</summary>
+        <div class="seasonal-at-glance">
+          <div class="seasonal-glance-grid">
+            ${seasonalData.typical_temp_f ? `<div class="seasonal-glance-item"><span class="glance-label">Typical Temp</span><span class="glance-value">${seasonalData.typical_temp_f}°F</span></div>` : ''}
+            ${seasonalData.humidity ? `<div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">${seasonalData.humidity}</span></div>` : ''}
+            ${seasonalData.rain_pattern ? `<div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">${seasonalData.rain_pattern}</span></div>` : ''}
+          </div>
         </div>
-      </div>
+      </details>
     `;
   }
 
-  // Best Time to Visit section
+  // Best Time to Visit section - expanded by default
   if (seasonalData.cruise_seasons || seasonalData.best_months_for) {
+    html += `<details class="seasonal-section" open>`;
+    html += `<summary class="seasonal-section-title">Best Time to Visit</summary>`;
     html += `<div class="seasonal-best-time">`;
-    html += `<h3 class="seasonal-section-title">Best Time to Visit</h3>`;
 
-    // Cruise seasons (high/shoulder/low)
+    // Cruise seasons (high/transitional/low)
     if (seasonalData.cruise_seasons) {
       const seasons = seasonalData.cruise_seasons;
       html += `
         <div class="cruise-seasons-grid">
           ${seasons.high?.length ? `<div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">${seasons.high.join(', ')}</span></div>` : ''}
-          ${seasons.shoulder?.length ? `<div class="cruise-season cruise-season-shoulder"><span class="season-label">Shoulder Season</span><span class="season-months">${seasons.shoulder.join(', ')}</span></div>` : ''}
+          ${seasons.transitional?.length ? `<div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">${seasons.transitional.join(', ')}</span></div>` : ''}
           ${seasons.low?.length ? `<div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">${seasons.low.join(', ')}</span></div>` : ''}
         </div>
       `;
@@ -302,49 +307,55 @@ function renderSeasonalGuide(seasonalData, portName) {
       `;
     }
 
-    html += `</div>`;
+    html += `</div></details>`;
   }
 
-  // What Catches People Off Guard
+  // What Catches People Off Guard - collapsible
   if (seasonalData.catches_off_guard?.length) {
     html += `
-      <div class="seasonal-catches">
-        <h3 class="seasonal-section-title">What Catches Visitors Off Guard</h3>
-        <ul class="catches-list">
-          ${seasonalData.catches_off_guard.map(item => `<li>${item}</li>`).join('')}
-        </ul>
-      </div>
+      <details class="seasonal-section">
+        <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+        <div class="seasonal-catches">
+          <ul class="catches-list">
+            ${seasonalData.catches_off_guard.map(item => `<li>${item}</li>`).join('')}
+          </ul>
+        </div>
+      </details>
     `;
   }
 
-  // Packing Nudges
+  // Packing Nudges - collapsible
   if (seasonalData.packing_nudges?.length) {
     html += `
-      <div class="seasonal-packing">
-        <h3 class="seasonal-section-title">Packing Tips</h3>
-        <ul class="packing-list">
-          ${seasonalData.packing_nudges.map(item => `<li>${item}</li>`).join('')}
-        </ul>
-      </div>
+      <details class="seasonal-section">
+        <summary class="seasonal-section-title">Packing Tips</summary>
+        <div class="seasonal-packing">
+          <ul class="packing-list">
+            ${seasonalData.packing_nudges.map(item => `<li>${item}</li>`).join('')}
+          </ul>
+        </div>
+      </details>
     `;
   }
 
-  // Hazard Warnings
+  // Hazard Warnings - expanded by default (important info)
   if (seasonalData.hazards?.hurricane_zone) {
     const hazards = seasonalData.hazards;
     html += `
-      <div class="seasonal-hazards">
-        <h3 class="seasonal-section-title">Weather Hazards</h3>
-        <div class="hazard-warning">
-          <span class="hazard-icon">⚠️</span>
-          <div class="hazard-content">
-            <strong>Hurricane Zone</strong>
-            ${hazards.hurricane_season ? `<p>Season: ${hazards.hurricane_season}</p>` : ''}
-            ${hazards.peak_risk_months?.length ? `<p>Peak risk: ${hazards.peak_risk_months.join(', ')}</p>` : ''}
-            ${hazards.note ? `<p class="hazard-note">${hazards.note}</p>` : ''}
+      <details class="seasonal-section" open>
+        <summary class="seasonal-section-title">Weather Hazards</summary>
+        <div class="seasonal-hazards">
+          <div class="hazard-warning">
+            <span class="hazard-icon">⚠️</span>
+            <div class="hazard-content">
+              <strong>Hurricane Zone</strong>
+              ${hazards.hurricane_season ? `<p>Season: ${hazards.hurricane_season}</p>` : ''}
+              ${hazards.peak_risk_months?.length ? `<p>Peak risk: ${hazards.peak_risk_months.join(', ')}</p>` : ''}
+              ${hazards.note ? `<p class="hazard-note">${hazards.note}</p>` : ''}
+            </div>
           </div>
         </div>
-      </div>
+      </details>
     `;
   }
 
