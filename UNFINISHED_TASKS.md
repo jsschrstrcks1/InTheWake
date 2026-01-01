@@ -3178,11 +3178,12 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] Create `/ports/tender-ports.html` index page with alphabetical listing
 - [ ] Add link to tender port index from ports.html navigation
 
-##### 2. "No Ads" Trust Messaging
+##### 2. "No Ads" Trust Messaging ✅ PARTIAL
 **Source:** Cruise Critic B2
 **Effort:** Low | **Impact:** High
+**Status:** PARTIAL - Footer trust badge added 2026-01-01
+- [x] Add trust statement to footer ✅ (2026-01-01) — `<p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>` added to all 766 HTML pages
 - [ ] Add "No ads, no affiliate links, no sponsored content" statement to about-us.html
-- [ ] Consider adding trust statement to footer or sidebar
 - [ ] Create "Our Promise" or "Editorial Independence" section
 
 ##### 3. Stateroom Checker Promotion
@@ -3425,11 +3426,17 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 
 #### P4 — New Recommendations from Extended Analysis (ChatGPT + Batched Competitors)
 
-##### 30. "Last Reviewed" Stamps on Port Pages
+##### 30. "Last Reviewed" Stamps on Port Pages ✅ PARTIAL
 **Source:** ChatGPT C11
 **Effort:** Low | **Impact:** High
-- [ ] Add visible "Last reviewed: [date]" stamp to each port page
-- [ ] Include brief "What changed" changelog line
+**Status:** PARTIAL - 311/333 port pages have stamps (2026-01-01)
+- [x] Add visible "Last reviewed: January 2026" stamp to port pages ✅ (2026-01-01) — 311 port pages updated
+- [ ] **22 port pages need manual stamp addition** (non-standard templates):
+  - cephalonia, christchurch, curacao, durban, gatun-lake, hamburg
+  - harvest-caye, hurghada, incheon, kota-kinabalu, lautoka, luanda
+  - melbourne, mindelo, mobile, mombasa, port-everglades, port-miami
+  - port-moresby, praia, san-diego, sihanoukville, st-maarten, yangon
+- [ ] Include brief "What changed" changelog line (future enhancement)
 - [ ] Builds trust; differentiates from outdated competitor content
 
 ##### 31. Tool Release Notes / Changelog Page
@@ -3813,9 +3820,9 @@ These features are NOT being built now, but could be explored for future sustain
 #### 🚀 SUGGESTED SPRINT PLAN
 
 **Sprint 1 (Week 1-2): Trust & Visibility**
-- [ ] #2 "No Ads" Trust Messaging
+- [x] #2 "No Ads" Trust Messaging ✅ PARTIAL (footer badge done 2026-01-01)
 - [ ] #6 "Works Offline" Marketing
-- [ ] #30 "Last Reviewed" Stamps
+- [x] #30 "Last Reviewed" Stamps ✅ PARTIAL (311/333 ports done 2026-01-01, 22 need manual addition)
 - [ ] #31 Tool Release Notes Page
 - [ ] #41 Accessibility Equipment Guide
 
