@@ -6,6 +6,11 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Hamburg Cruise Port Guide: Maritime Gateway to Northern Europe | In the Wake</title>
     <meta name="description" content="Explore Hamburg's UNESCO Speicherstadt warehouses, architectural marvel Elbphilharmonie, and maritime heritage through a sailor's reflective lens. Personal insights from Germany's great northern port.">
 

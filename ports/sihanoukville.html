@@ -6,6 +6,11 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Sihanoukville, Cambodia - Beach Resort & Island Gateway | In The Wake</title>
     <meta name="description" content="A cruise guide to Sihanoukville, Cambodia's premier beach destination and gateway to pristine Gulf of Thailand islands.">
 
