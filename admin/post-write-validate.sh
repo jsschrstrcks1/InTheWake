@@ -299,6 +299,24 @@ for file in $FILES; do
         echo -e "   ${RED}✗${NC} Unbalanced <div> tags ($OPEN_DIVS opening, $CLOSE_DIVS closing)"
         ((TOTAL_ERRORS++))
       fi
+
+      # Trust badge check (all pages)
+      if grep -q 'class="trust-badge"' "$file" 2>/dev/null; then
+        echo -e "   ${GREEN}✓${NC} Trust badge present in footer"
+      else
+        echo -e "   ${RED}✗${NC} Missing trust badge in footer"
+        ((TOTAL_ERRORS++))
+      fi
+
+      # Last-reviewed stamp check (port pages only)
+      if [[ "$file" == *"/ports/"* ]]; then
+        if grep -q 'class="last-reviewed"' "$file" 2>/dev/null; then
+          echo -e "   ${GREEN}✓${NC} Last-reviewed stamp present"
+        else
+          echo -e "   ${YELLOW}⚠${NC}  Missing last-reviewed stamp on port page"
+          ((TOTAL_WARNINGS++))
+        fi
+      fi
       ;;
 
     *.js)

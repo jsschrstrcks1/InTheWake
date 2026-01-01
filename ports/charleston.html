@@ -19,6 +19,7 @@ Soli Deo Gloria
   }
   </script>
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -168,7 +169,10 @@ Soli Deo Gloria
           <div class="port-name-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(3rem, 10vw, 6rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase;">Charleston</div>
         </div>
 
-        <h1>Charleston: The Holy City's Gateway to the Caribbean</h1>
+        
+      <p class="last-reviewed">Last reviewed: January 2026</p>
+
+      <h1>Charleston: The Holy City's Gateway to the Caribbean</h1>
 
         <div class="logbook-entry clearfix">
           <p>Charleston is perhaps America's most beautiful port city. Sailing from here means departing through the same harbor where the Civil War began — where Fort Sumter's walls still bear the scars of that first bombardment, where centuries of history line cobblestone streets shaded by live oaks and Spanish moss. The Union Pier Terminal sits at the edge of the historic district, close enough that you can walk to Rainbow Row's pastel antebellum homes before your ship even finishes loading.</p>
@@ -258,6 +262,12 @@ Soli Deo Gloria
         </section>
 
         <section class="port-section">
+          <h3>Port Map</h3>
+          <div id="port-map" style="height: 350px; border-radius: 8px; margin: 1rem 0;"></div>
+          <p class="map-note" style="font-size: 0.85rem; color: #666; text-align: center;">Tap markers to explore Charleston's highlights</p>
+        </section>
+
+        <section class="port-section">
           <h3>Frequently Asked Questions</h3>
           <p><strong>Q: What cruise lines sail from Charleston?</strong><br/>A: <a href="/cruise-lines/carnival.html">Carnival Cruise Line</a> operates year-round sailings from Charleston to the <a href="/ports/nassau.html">Bahamas</a>, <a href="/ports/kings-wharf.html">Bermuda</a>, and Eastern Caribbean destinations.</p>
           <p><strong>Q: How far is the cruise port from downtown Charleston?</strong><br/>A: The Union Pier Terminal is located at the edge of the historic district, about 1 mile from the heart of downtown Charleston — easily walkable or a quick rideshare.</p>
@@ -277,7 +287,7 @@ Soli Deo Gloria
         <!-- VOLATILE DATA DISCLAIMER -->
         <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
           <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-29 based on official sources and firsthand verification. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-29 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
 
 
@@ -321,6 +331,7 @@ Soli Deo Gloria
     <p class="tiny" style="margin-top: 0.5rem;">
       <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/about-us.html">About</a> · <a href="/accessibility.html">Accessibility</a>
     </p>
+    <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
   </footer>
 
   <script src="/assets/js/dropdown.js"></script>
@@ -338,6 +349,19 @@ Soli Deo Gloria
       rail.innerHTML = articles.slice(0, 4).map(a => '<div style="margin-bottom:.75rem;"><a href="' + a.url + '">' + a.title + '</a></div>').join('');
     } catch(e) {}
   })();
+  </script>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'port-map',
+        portSlug: 'charleston'
+      });
+    }
+  });
   </script>
 </body>
 </html>

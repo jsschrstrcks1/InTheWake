@@ -44,6 +44,21 @@ h3 { font-size: 1.25rem; line-height: 1.4; }
 .hidden { display: none !important; }
 .inline { display: inline; }
 
+/* ===== Trust & Credibility Elements ===== */
+.trust-badge {
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-top: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.last-reviewed {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0.5rem 0 1rem;
+  font-style: italic;
+}
+
 /* ===== High-Frequency Utility Classes (CSS Consolidation 2025-12-10) ===== */
 /* These replace 7,000+ inline styles identified in site audit */
 
@@ -1685,6 +1700,56 @@ figure.hero img + img,
   }
   .weather-bucket-label {
     font-size: 0.65rem;
+  }
+}
+
+/* ===== Tender Port Indicator ===== */
+.tender-port-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+}
+
+.tender-port-indicator .tender-icon {
+  width: 48px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.tender-port-indicator .tender-text {
+  flex: 1;
+}
+
+.tender-port-indicator .tender-title {
+  font-weight: 700;
+  color: #92400e;
+  font-size: 0.95rem;
+  margin: 0 0 0.15rem;
+}
+
+.tender-port-indicator .tender-desc {
+  font-size: 0.85rem;
+  color: #78350f;
+  margin: 0;
+  line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+  .tender-port-indicator {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+  }
+  .tender-port-indicator .tender-icon {
+    width: 40px;
+    height: 30px;
   }
 }
 
