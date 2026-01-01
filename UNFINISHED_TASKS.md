@@ -3523,6 +3523,105 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 
 ---
 
+### 🟢 [G] ChatGPT Round 2 Evaluation: "Blunt Reality" Response (2026-01-01)
+**Lane:** 🟢 Green (strategic planning)
+**Purpose:** Evaluate ChatGPT's prioritization advice and "paste-ready" implementation suggestions
+
+---
+
+#### Summary Assessment
+
+ChatGPT provided 3 suggestions with implementation code:
+1. "Stop expanding maps and ship Print Mode first"
+2. "Add schema validation in CI"
+3. "Add weekly internal link check"
+
+**Overall Verdict:** MOSTLY REDUNDANT — 2 of 3 suggestions already implemented in ITW
+
+---
+
+#### Detailed Evaluation
+
+##### 1. Print Mode Priority — ✅ WHEAT (Already Captured)
+
+**ChatGPT's Claim:** "the differentiator isn't more Leaflet, it's 'I can walk off the ship with this saved/printed'"
+
+**Reality:**
+- Print Mode is already **#8 in our Tier 1 prioritization** (Score: 6.0)
+- Already on Sprint 3 roadmap
+- ChatGPT's print CSS snippet is reasonable but basic
+
+**Action:** None needed — already prioritized. ChatGPT confirms our existing analysis.
+
+---
+
+##### 2. Schema Validation in CI — ❌ REDUNDANT
+
+**ChatGPT's Claim:** "Put guardrails in place before you add more data"
+
+**ChatGPT Provided:**
+```
+schema/poi-index.schema.json  (SUGGESTED CREATION)
+schema/port-map.schema.json   (SUGGESTED CREATION)
+```
+
+**Reality — ITW Already Has:**
+```
+/schema/poi-index.schema.json  ← ALREADY EXISTS (104 lines, MORE complete than ChatGPT's)
+/schema/port-map.schema.json   ← ALREADY EXISTS
+```
+
+ITW's existing schema includes fields ChatGPT missed:
+- `shopping`, `attraction`, `park`, `transit` POI types
+- `port` association field
+- `approximate` boolean for uncertain coordinates
+- Proper meta object definitions
+
+**Action:** None — ChatGPT didn't check existing implementation before suggesting "paste-ready" code.
+
+---
+
+##### 3. Weekly Link Check — ❌ REDUNDANT
+
+**ChatGPT's Claim:** "Link rot is inevitable unless you automate detection"
+
+**ChatGPT Provided:** `.github/workflows/link-check.yml` with Linkinator
+
+**Reality — ITW Already Has:** `.github/workflows/quality.yml`
+- **Lychee link checker** (runs on every push/PR — MORE frequent than weekly)
+- Placeholder detection
+- HTML structure validation
+- Theological requirements check ("Soli Deo Gloria" validation)
+
+ChatGPT's weekly cron schedule is actually LESS thorough than ITW's on-push validation.
+
+**Action:** None — existing CI is superior to suggestion.
+
+---
+
+#### New Insight Worth Considering
+
+**Schema validation not in CI yet:** While schemas exist, `.github/workflows/quality.yml` doesn't run `check-jsonschema` against them. This could be added as a future enhancement.
+
+**Potential recommendation:** Add JSON schema validation step to existing quality.yml (LOW effort)
+
+---
+
+#### Evaluation Summary
+
+| Suggestion | Status | Notes |
+|------------|--------|-------|
+| Print Mode priority | ✅ WHEAT | Confirms existing #8 prioritization |
+| Schema files | ❌ REDUNDANT | Already exist, more complete |
+| Link checking | ❌ REDUNDANT | Already runs on every push (not just weekly) |
+| Schema validation in CI | 🟡 PARTIAL | Schemas exist but validation step not in CI |
+
+**Key Observation:** ChatGPT's "blunt reality" framing assumed features don't exist without checking. The "paste-ready implementation pack" would have created duplicate/inferior versions of existing work.
+
+**Lesson:** Always verify existing implementation before proposing "paste-ready" solutions.
+
+---
+
 #### Explicitly NOT Building
 
 These features were considered but rejected based on strategic analysis:
