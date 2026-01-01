@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2025-12-14 (Port map audit updated - 186/291 ports have Leaflet maps)
+**Last Updated:** 2026-01-01 (Port page validation audit - 333 ports validated against ICP-Lite v1.4)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -76,13 +76,122 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 - Individual page pattern standardization (author/article cards across 226 pages)
 - Duplicate pages to consolidate: legend-of-the-seas-1995-built.html, star-of-the-seas-aug-2025-debut.html
 
-**Current counts (2025-12-14):**
-- Total HTML pages: 652
-- Port pages: 291 (was 161)
+**Current counts (2026-01-01):**
+- Total HTML pages: 652+
+- Port pages: **333** (was 291)
 - Ship pages: 50
-- Ports with Leaflet maps: 186 (64%)
+- Ports with Leaflet maps: **331** (99%) - only charleston.html and jacksonville.html missing
 
 **Realistic remaining task count: ~30-40 items** (port map rollout + pattern standardization)
+
+---
+
+## 📊 Port Page Validation Audit (2026-01-01)
+
+**Audit Method:** Thorough validation of all 333 port pages against ICP-Lite v1.4 and ITW-Lite v3.010 standards.
+**Audit Date:** 2026-01-01
+**Audited By:** Claude AI (Port validation pass)
+
+### Summary
+
+| Validation Check | Total | Pass | Fail |
+|-----------------|-------|------|------|
+| Soli Deo Gloria invocation | 333 | ✅ 333 | 0 |
+| ai-summary meta tag | 333 | ✅ 333 | 0 |
+| last-reviewed meta tag | 333 | ✅ 333 | 0 |
+| content-protocol meta tag (v1.4) | 333 | ✅ 333 | 0 |
+| JSON-LD description = ai-summary | 333 | ✅ 333 | 0 |
+| JSON-LD dateModified = last-reviewed | 333 | ✅ 333 | 0 |
+| mainEntity Place schema | 333 | ✅ 333 | 0 |
+| @type Place in JSON-LD | 333 | ✅ 333 | 0 |
+| BreadcrumbList schema | 333 | ✅ 331 | **2** |
+| ai-summary max 250 chars | 333 | ✅ 333 | 0 |
+| Dual-cap rule (first 155 complete) | 333 | ✅ 323 | **10** |
+| Leaflet map integration | 333 | ✅ 331 | **2** |
+| Service worker registration | 333 | ✅ 315 | **18** |
+
+**Overall Score: 96/100** (Minor issues in 4 categories)
+
+---
+
+### 🟢 [G] P1 - Missing BreadcrumbList Schema (2 pages)
+
+These port pages are missing the required BreadcrumbList JSON-LD schema:
+
+- [ ] `ports/dublin.html` - Add BreadcrumbList schema
+- [ ] `ports/helsinki.html` - Add BreadcrumbList schema
+
+**Fix:** Add BreadcrumbList JSON-LD matching pattern from other port pages.
+
+---
+
+### 🟢 [G] P1 - Dual-Cap Rule Violations (10 pages)
+
+These pages have ai-summary that does NOT have a complete sentence within the first ~155 characters:
+
+- [ ] `ports/bay-of-islands.html` - First sentence too short (ends at char 44)
+- [ ] `ports/brunei.html` - First sentence too short (ends at char 41)
+- [ ] `ports/capri.html` - First sentence too short (ends at char 48)
+- [ ] `ports/cococay.html` - No period/sentence ending in first 160 chars
+- [ ] `ports/labadee.html` - No period/sentence ending in first 160 chars
+- [ ] `ports/naples.html` - No period/sentence ending in first 160 chars
+- [ ] `ports/papeete.html` - No period/sentence ending in first 160 chars
+- [ ] `ports/santorini.html` - No period/sentence ending in first 160 chars
+- [ ] `ports/vancouver.html` - No period/sentence ending in first 160 chars
+- [ ] `ports/yangon.html` - No period/sentence ending in first 160 chars
+
+**Fix:** Rewrite ai-summary so first ~155 chars end with a complete standalone sentence, per ICP-Lite v1.4 dual-cap rule.
+
+---
+
+### 🟢 [G] P2 - Missing Leaflet Map Integration (2 pages)
+
+These port pages lack Leaflet map integration:
+
+- [ ] `ports/charleston.html` - Add Leaflet map
+- [ ] `ports/jacksonville.html` - Add Leaflet map
+
+**Fix:** Add Leaflet map component with proper coordinates.
+
+---
+
+### 🟢 [G] P2 - Missing Service Worker Registration (18 pages)
+
+These port pages don't have service worker registration:
+
+- [ ] `ports/cephalonia.html`
+- [ ] `ports/christchurch.html`
+- [ ] `ports/durban.html`
+- [ ] `ports/hamburg.html`
+- [ ] `ports/hurghada.html`
+- [ ] `ports/incheon.html`
+- [ ] `ports/kota-kinabalu.html`
+- [ ] `ports/lautoka.html`
+- [ ] `ports/luanda.html`
+- [ ] `ports/mindelo.html`
+- [ ] `ports/mombasa.html`
+- [ ] `ports/port-moresby.html`
+- [ ] `ports/portimao.html`
+- [ ] `ports/praia.html`
+- [ ] `ports/roatan.html`
+- [ ] `ports/sihanoukville.html`
+- [ ] `ports/st-maarten.html`
+- [ ] `ports/yangon.html`
+
+**Fix:** Add service worker registration script block.
+
+---
+
+### ✅ Passing Standards (All 333 pages)
+
+The following standards are 100% compliant across all 333 port pages:
+
+1. **Theological Foundation** - Soli Deo Gloria invocation present (immutable)
+2. **ICP-Lite v1.4 Core Meta Tags** - ai-summary, last-reviewed, content-protocol all present
+3. **JSON-LD Mirroring** - description matches ai-summary exactly
+4. **JSON-LD Freshness** - dateModified matches last-reviewed exactly
+5. **Entity Schema** - mainEntity with @type: "Place" present
+6. **Length Limit** - All ai-summaries ≤250 characters
 
 ---
 
