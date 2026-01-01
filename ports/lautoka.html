@@ -6,6 +6,11 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Lautoka, Fiji: Sugar City and Gateway to Paradise | Port Guide</title>
     <meta name="description" content="Discover Lautoka, Fiji's Sugar City on western Viti Levu. Gateway to Yasawa Islands, vibrant markets, Hindu temples, and authentic Bula spirit hospitality.">
 

@@ -153,6 +153,15 @@ class PortWeatherValidator {
       }
     }
 
+    // CRITICAL: Must include port-weather.js script for weather to be visible
+    // Without this script, weather data is ONLY in noscript and won't display to JS users
+    const hasWeatherScript = /src=["'][^"']*port-weather\.js["']/.test(this.content);
+    if (!hasWeatherScript) {
+      this.log('error', 'MISSING: port-weather.js script (weather widget will not populate for JS users)');
+    } else {
+      this.log('pass', 'port-weather.js script included');
+    }
+
     // Must have EXACTLY ONE noscript in weather section
     // Extract weather widget container and count noscripts within it
     // The widget is closed by </div> after </noscript>
@@ -360,8 +369,13 @@ class PortWeatherValidator {
       this.log('pass', 'FAQPage schema (exactly 1)');
 
       // Count questions in schema - should match visible FAQ count
+      // Support multiple FAQ formats:
+      // - <p><strong>Q: (inline format)
+      // - <summary...>Q: (collapsible details format)
       const schemaQuestions = this.countOccurrences(/"@type": "Question"/);
-      const visibleQuestions = this.countOccurrences(/<p><strong>Q:/);
+      const inlineQuestions = this.countOccurrences(/<p><strong>Q:/);
+      const collapsibleQuestions = this.countOccurrences(/<summary[^>]*>Q:/);
+      const visibleQuestions = inlineQuestions + collapsibleQuestions;
 
       if (schemaQuestions !== visibleQuestions) {
         this.log('error', `FAQ count mismatch: schema has ${schemaQuestions}, page has ${visibleQuestions}`);
@@ -431,19 +445,26 @@ class PortWeatherValidator {
 
     // Check that months in best-months-activities are valid
     const validMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const validSpecialValues = ['N/A', 'None', '-']; // Allow these for non-applicable activities
 
     // Find all month sequences in activity-months spans
     const monthSpans = this.content.match(/class="activity-months">([^<]+)</g) || [];
+    let hasInvalidMonth = false;
     for (const span of monthSpans) {
-      const monthsStr = span.replace(/class="activity-months">|</g, '');
+      const monthsStr = span.replace(/class="activity-months">|</g, '').trim();
+      // Allow special values for activities that don't apply
+      if (validSpecialValues.includes(monthsStr)) continue;
       const months = monthsStr.split(/,\s*/);
       for (const month of months) {
         if (!validMonths.includes(month.trim())) {
           this.log('error', `INVALID month abbreviation: "${month.trim()}"`);
+          hasInvalidMonth = true;
         }
       }
     }
-    this.log('pass', 'All month abbreviations are valid');
+    if (!hasInvalidMonth) {
+      this.log('pass', 'All month abbreviations are valid');
+    }
 
     // Check season-months for valid months
     const seasonSpans = this.content.match(/class="season-months">([^<]+)</g) || [];

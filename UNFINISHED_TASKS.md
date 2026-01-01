@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2025-12-14 (Port map audit updated - 186/291 ports have Leaflet maps)
+**Last Updated:** 2026-01-01 (Port page validation audit - 333 ports validated against ICP-Lite v1.4)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -76,13 +76,233 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 - Individual page pattern standardization (author/article cards across 226 pages)
 - Duplicate pages to consolidate: legend-of-the-seas-1995-built.html, star-of-the-seas-aug-2025-debut.html
 
-**Current counts (2025-12-14):**
-- Total HTML pages: 652
-- Port pages: 291 (was 161)
+**Current counts (2026-01-01):**
+- Total HTML pages: 652+
+- Port pages: **333** (was 291)
 - Ship pages: 50
-- Ports with Leaflet maps: 186 (64%)
+- Ports with Leaflet maps: **333** (100%)
 
 **Realistic remaining task count: ~30-40 items** (port map rollout + pattern standardization)
+
+---
+
+## 📊 Port Page Validation Audit (2026-01-01)
+
+**Audit Method:** Thorough validation of all 333 port pages against ICP-Lite v1.4 and ITW-Lite v3.010 standards.
+**Audit Date:** 2026-01-01
+**Audited By:** Claude AI (Port validation pass)
+
+### Summary
+
+| Validation Check | Total | Pass | Fail |
+|-----------------|-------|------|------|
+| Soli Deo Gloria invocation | 333 | ✅ 333 | 0 |
+| ai-summary meta tag | 333 | ✅ 333 | 0 |
+| last-reviewed meta tag | 333 | ✅ 333 | 0 |
+| content-protocol meta tag (v1.4) | 333 | ✅ 333 | 0 |
+| JSON-LD description = ai-summary | 333 | ✅ 333 | 0 |
+| JSON-LD dateModified = last-reviewed | 333 | ✅ 333 | 0 |
+| mainEntity Place schema | 333 | ✅ 333 | 0 |
+| @type Place in JSON-LD | 333 | ✅ 333 | 0 |
+| BreadcrumbList schema | 333 | ✅ 333 | 0 |
+| ai-summary max 250 chars | 333 | ✅ 333 | 0 |
+| Dual-cap rule (first 155 complete) | 333 | ✅ 333 | 0 |
+| Leaflet map integration | 333 | ✅ 333 | 0 |
+| Service worker registration | 333 | ✅ 333 | 0 |
+
+**Overall Score: 100/100** (All validation checks passing)
+
+---
+
+### ✅ [G] P1 - Missing BreadcrumbList Schema (COMPLETED)
+
+- [x] `ports/dublin.html` - Added BreadcrumbList schema
+- [x] `ports/helsinki.html` - Added BreadcrumbList schema
+
+---
+
+### ✅ [G] P1 - Dual-Cap Rule Violations (COMPLETED)
+
+All 10 pages updated with proper dual-cap compliant ai-summary (first ~155 chars ending with complete sentence):
+
+- [x] `ports/bay-of-islands.html` - Fixed
+- [x] `ports/brunei.html` - Fixed
+- [x] `ports/capri.html` - Fixed
+- [x] `ports/cococay.html` - Fixed
+- [x] `ports/labadee.html` - Fixed
+- [x] `ports/naples.html` - Fixed
+- [x] `ports/papeete.html` - Fixed
+- [x] `ports/santorini.html` - Fixed
+- [x] `ports/vancouver.html` - Fixed
+- [x] `ports/yangon.html` - Fixed
+
+---
+
+### ✅ [G] P2 - Missing Leaflet Map Integration (COMPLETED)
+
+Both port pages now have Leaflet map integration:
+
+- [x] `ports/charleston.html` - Added Leaflet map
+- [x] `ports/jacksonville.html` - Added Leaflet map
+
+---
+
+### ✅ [G] P2 - Missing Service Worker Registration (COMPLETED)
+
+All 18 port pages now have service worker registration:
+
+- [x] `ports/cephalonia.html`
+- [x] `ports/christchurch.html`
+- [x] `ports/durban.html`
+- [x] `ports/hamburg.html`
+- [x] `ports/hurghada.html`
+- [x] `ports/incheon.html`
+- [x] `ports/kota-kinabalu.html`
+- [x] `ports/lautoka.html`
+- [x] `ports/luanda.html`
+- [x] `ports/mindelo.html`
+- [x] `ports/mombasa.html`
+- [x] `ports/port-moresby.html`
+- [x] `ports/portimao.html`
+- [x] `ports/praia.html`
+- [x] `ports/roatan.html`
+- [x] `ports/sihanoukville.html`
+- [x] `ports/st-maarten.html`
+- [x] `ports/yangon.html`
+
+---
+
+### ✅ Passing Standards (All 333 pages)
+
+The following standards are 100% compliant across all 333 port pages:
+
+1. **Theological Foundation** - Soli Deo Gloria invocation present (immutable)
+2. **ICP-Lite v1.4 Core Meta Tags** - ai-summary, last-reviewed, content-protocol all present
+3. **JSON-LD Mirroring** - description matches ai-summary exactly
+4. **JSON-LD Freshness** - dateModified matches last-reviewed exactly
+5. **Entity Schema** - mainEntity with @type: "Place" present
+6. **Length Limit** - All ai-summaries ≤250 characters
+
+---
+
+## 📊 Port Page Validator Results (2026-01-01)
+
+**Validator:** `admin/validate-port-page.js --all-ports`
+**Standard:** ITC v1.0 Port Page Standard
+**Audit Date:** 2026-01-01
+
+### Summary
+
+| Metric | Count |
+|--------|-------|
+| Total ports validated | 333 |
+| **Fully passing** | **55** (17%) |
+| Failing | 278 (83%) |
+
+### ✅ Ports PASSING Full Validation (55 ports)
+
+These ports meet ALL rubric requirements (word counts, images, sections, etc.):
+
+`abu-dhabi`, `acapulco`, `adelaide`, `agadir`, `akureyri`, `amber-cove`, `antigua`, `apia`, `aqaba`, `aruba`, `ascension`, `athens`, `auckland`, `bali`, `barcelona`, `bermuda`, `cabo-san-lucas`, `civitavecchia`, `costa-maya`, `dubrovnik`, `ensenada`, `falkland-islands`, `ft-lauderdale`, `galveston`, `grand-cayman`, `haines`, `honolulu`, `huatulco`, `hubbard-glacier`, `icy-strait-point`, `juneau`, `ketchikan`, `lanzarote`, `los-angeles`, `manzanillo`, `mazatlan`, `miami`, `mykonos`, `naples`, `nassau`, `new-orleans`, `port-canaveral`, `progreso`, `puerto-vallarta`, `san-juan`, `santorini`, `seattle`, `seward`, `sitka`, `skagway`, `tampa`, `tracy-arm`, `venice`, `whittier`, `zihuatanejo`
+
+---
+
+### 🟡 [Y] P3 - Content Depth Issues (278 ports)
+
+The port page validator enforces strict rubric standards. Most ports fail due to:
+
+| Error Category | Ports Affected | Description |
+|----------------|----------------|-------------|
+| `section_order/out_of_order` | 277 | Sections not in expected order |
+| `rubric/booking_guidance` | 275 | Missing booking guidance keywords |
+| `section_order/missing_required_sections` | 272 | Missing required sections |
+| `word_counts/logbook_minimum` | 272 | Logbook <800 words |
+| `word_counts/cruise_port_minimum` | 272 | Cruise port section <100 words |
+| `word_counts/excursions_minimum` | 271 | Excursions <400 words |
+| `images/lazy_loading` | 271 | Missing `loading="lazy"` on images |
+| `rubric/first_person_voice` | 262 | <10 first-person pronouns |
+| `images/missing_alt` | 258 | Images missing alt text |
+| `word_counts/depth_soundings_minimum` | 256 | Depth soundings <150 words |
+| `word_counts/getting_around_minimum` | 253 | Getting around <200 words |
+| `rubric/accessibility_notes` | 199 | <2 accessibility keywords |
+| `images/minimum_images` | 194 | <11 images |
+| `hero/hero_missing_wikimedia_credit` | 176 | Missing Wikimedia credit |
+| `rubric/diy_price_mentions` | 170 | <5 price mentions |
+| `word_counts/faq_minimum` | 166 | FAQ <200 words |
+| `word_counts/total_minimum` | 156 | Total page <2000 words |
+| `images/missing_credits` | 104 | Images missing figcaption credits |
+| `hero/hero_missing` | 80 | No hero section |
+| `icp_lite/missing_faqpage` | 28 | Missing FAQPage schema |
+| `images/hero_image_loading` | 22 | Hero missing `loading="eager"` |
+| `hero/hero_missing_image` | 13 | Hero section has no image |
+| `hero/hero_missing_overlay` | 9 | Hero missing port name overlay |
+
+**Note:** Most ports were created as lightweight pages. Full rubric compliance requires significant content enhancement (800+ word logbooks, 11+ images, proper sections).
+
+---
+
+### ✅ [G] P1 - Critical Technical Fixes (COMPLETED 2026-01-01)
+
+All P1 technical fixes have been completed:
+
+| Fix | Ports | Status |
+|-----|-------|--------|
+| Add FAQPage schema | 24 | ✅ Done (4 already had it) |
+| Add BreadcrumbList | 2 | ✅ dublin, helsinki |
+| Fix hero position | 1 | ✅ hamburg |
+| Fix hero to webp | 1 | ✅ royal-beach-club-nassau |
+
+**Commit:** `4dbd024` - 29 files updated
+
+---
+
+## 📊 Weather Guide Validator Results (2026-01-01)
+
+**Validator:** `scripts/validate-port-weather.js`
+**Reference Implementation:** Cozumel weather guide
+**Audit Date:** 2026-01-01
+
+### Summary
+
+| Metric | Count |
+|--------|-------|
+| Total ports | 333 |
+| **Has weather guide** | **4** (1.2%) |
+| Missing weather guide | 329 (98.8%) |
+| With validation errors | 1 |
+
+### ✅ Ports WITH Weather Guide (4 ports)
+
+| Port | Status |
+|------|--------|
+| `cozumel.html` | ✅ Perfect - all checks pass |
+| `costa-maya.html` | ✅ Perfect - all checks pass |
+| `labadee.html` | ✅ Perfect - all checks pass |
+| `glacier-bay.html` | ⚠️ FAQ count mismatch |
+
+### 🟢 [G] P1 - Fix Weather Guide Error (1 port)
+
+- [ ] `ports/glacier-bay.html` - FAQ count mismatch between FAQPage schema and visible FAQ
+
+---
+
+### 🟡 [Y] P4 - Weather Guide Rollout (329 ports)
+
+Weather guides need to be created for 329 ports. The Cozumel implementation is the reference.
+
+**Required Sections:**
+- At a Glance (Temperature, Humidity, Rain, Wind, Daylight)
+- Best Time to Visit (Peak, Transitional, Low seasons + activities)
+- What Catches Visitors Off Guard (3-7 items)
+- Packing Tips (3-7 items)
+- Weather Hazards (hurricane zone where applicable)
+- Weather FAQs (4 required questions)
+
+**Priority ports for weather guide (high-traffic destinations):**
+1. Caribbean: nassau, grand-cayman, st-thomas, jamaica, aruba, curacao
+2. Alaska: juneau, ketchikan, skagway, glacier-bay, seward
+3. Europe: barcelona, civitavecchia, naples, dubrovnik, santorini
+4. Mexico: cabo-san-lucas, puerto-vallarta, mazatlan, ensenada
 
 ---
 
