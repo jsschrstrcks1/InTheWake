@@ -1632,14 +1632,18 @@ Soli Deo Gloria
 | Accessibility Depth | ⭐ Market gap across all competitors | OPPORTUNITY — become THE resource |
 | Faith-Based Perspective | ⭐ No competitor addresses this | NICHE — continue developing |
 
-#### Consolidated Recommendations: 42 items
+#### Consolidated Recommendations: 44 items
 - **P1 Quick Wins:** #1-6, #30-31, #41 (tender index, trust messaging, offline marketing, review stamps, accessibility equipment)
 - **P2 Strategic:** #7-19, #36-38 (transport, print CSS, structure audit, AI-proofing)
 - **P3 Content:** #20-29, #32-35, #42 (tools, ship-port guides, embarkation, cross-links, loyalty guide)
 - **P4 Extended:** #39-40 (newsletter, Stateroom Checker enhancement)
+- **P5 Backlog:** #43-44 (native app, incident database "Real Talk")
 
-#### "NOT Building" Summary: 24 items rejected
-User reviews, forums, booking/deals, native app, real-time tracking, affiliate links, AI-generated content, PDF-first strategy, incident database, port schedules by date, live ships-in-port, complex port planner, full YouTube, tour booking, OTA features, news churn, single-line focus, solo meetup coordination, dynamic packing app, full itinerary builder, equipment rental booking
+#### "NOT Building" Summary: 21 items rejected
+User reviews, forums, booking/deals, real-time tracking, AI-generated content, PDF-first strategy, port schedules by date, live ships-in-port, complex port planner, full YouTube, tour booking, OTA features, news churn, single-line focus, solo meetup coordination, dynamic packing app, full itinerary builder, equipment rental booking, user-submitted photos, Roll Calls, price alerts
+
+#### Monetization (Future): 1 item deferred
+Affiliate excursion links — may reconsider for sustainability
 
 ---
 
@@ -3521,6 +3525,26 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] Add "points to next tier" calculator concept
 - [ ] Link from Drink Calculator (Crown & Anchor already there)
 
+##### 43. Native Mobile App
+**Source:** Moved from NOT Building (user decision 2026-01-01)
+**Effort:** High | **Impact:** Medium
+- [ ] Evaluate PWA limitations that would justify native app
+- [ ] Consider React Native or Flutter for cross-platform
+- [ ] Key features: offline maps, push notifications, camera integration
+- [ ] Only proceed if PWA proves insufficient for core use cases
+- [ ] Bottom of backlog — PWA-first approach remains strategy
+
+##### 44. Incident Database ("Real Talk" Edition)
+**Source:** Moved from NOT Building (user decision 2026-01-01)
+**Effort:** High | **Impact:** Medium
+- [ ] Reframe CruiseMapper-style incident data with ITW's "Real Talk" voice
+- [ ] Focus on transparency, not sensationalism
+- [ ] Categories: medical emergencies, weather diversions, mechanical issues, crime incidents
+- [ ] Add context: "What actually happened" vs. clickbait headlines
+- [ ] Consider: "What the cruise line communicated" vs. "What passengers experienced"
+- [ ] Link to relevant port/ship pages for affected itineraries
+- [ ] Bottom of backlog — significant research and editorial effort required
+
 ---
 
 ### 🟢 [G] ChatGPT Round 2 Evaluation: "Blunt Reality" Response (2026-01-01)
@@ -3632,16 +3656,13 @@ These features were considered but rejected based on strategic analysis:
 | Forums/community | Massive scope, their moat | Cruise Critic, Cruiseline.com |
 | Cruise booking/deals | Commercial conflict, ad-free ethos | Cruise Critic, Cruiseline.com |
 | Roll Calls | Their strength; we solve the NEED differently | Cruise Critic, Cruiseline.com |
-| Native mobile app | Web-first; PWA is sufficient | Cruiseline.com/Shipmate |
 | User-submitted photos | Moderation overhead, dilutes curation | Cruiseline.com |
 | Price alerts | Commercial feature, not our focus | Cruiseline.com |
 | Real-time ship tracking | Different product category; AIS integration out of scope | CruiseMapper |
-| Incident database | Too morbid; "Real Talk" approach is better fit | CruiseMapper |
 | Port schedules by date | Requires live data integration; static deployment is sufficient | CruiseMapper |
 | PDF-first strategy | Web-first PWA is better; PDF as supplement only | IQCruising |
 | AI-generated content | Personal storytelling is our moat; AI can't replicate | CruisePortIQ |
-| Affiliate excursion links | Conflicts with ad-free trust positioning | Cruise Crocodile |
-| Live ships-in-port data | Requires real-time integration; CruiseMapper's territory | ChatGPT A4 |
+| Live ships-in-port data | Requires real-time integration; see API note below | ChatGPT A4 |
 | Complex port-day planner | Scope creep; simpler approaches first | ChatGPT E18 |
 | Full YouTube production | Resource-intensive; focus on web content first | ChatGPT F23 |
 | Tour booking integration | Commercial conflict; Viator/SEG territory | Viator, SEG |
@@ -3653,9 +3674,30 @@ These features were considered but rejected based on strategic analysis:
 | Full itinerary builder | TripIt's territory; complement instead | TripIt |
 | Equipment rental booking | Commercial; link to providers instead | Special Needs at Sea |
 
+##### Live Ships-in-Port API Research
+
+Free/freemium AIS APIs exist that could enable this feature:
+- **[aisstream.io](https://aisstream.io/)** — Free websocket streaming, MMSI filtering, OpenAPI 3.0 (BEST FREE OPTION)
+- **[AISHub](https://www.aishub.net/)** — Free via data exchange (contribute AIS data to receive access)
+- **[SeaVantage](https://www.seavantage.com/)** — Free developer sandbox, aggregates terrestrial + satellite AIS
+- **[MyShipTracking](https://api.myshiptracking.com/)** — Free trial (2000 coins, 10 days)
+- **Commercial:** MarineTraffic, Datalastic, Searoutes (paid tiers)
+
+**Feasibility:** Technical barrier is lower than assumed. Could be revisited for Tier 5+ sprint.
+
 ---
 
-#### 🎯 PRIORITIZED MASTER LIST (42 Recommendations)
+#### 💰 Monetization (Future)
+
+These features are NOT being built now, but could be explored for future sustainability:
+
+| Feature | Current Status | Notes |
+|---------|----------------|-------|
+| Affiliate excursion links | Deferred | Conflicts with ad-free trust positioning; reconsider if needed for sustainability |
+
+---
+
+#### 🎯 PRIORITIZED MASTER LIST (44 Recommendations)
 
 **Scoring: Effort (1-3) × Impact (1-3) × Strategic Multiplier**
 - Differentiator = 1.5x | Table Stakes = 1.0x | Nice-to-have = 0.7x
@@ -3744,8 +3786,10 @@ These features were considered but rejected based on strategic analysis:
 | 38 | #24 | Faith-Based Content Expansion | Med | Niche | Niche | 2.0 |
 | 39 | #28 | Dock Location Callouts | Low | Low | Table Stakes | 1.5 |
 | 40 | #29 | Cruise Countdown Widget | Med | Low | Nice-to-have | 1.4 |
+| 41 | #43 | Native Mobile App | High | Med | Nice-to-have | 1.4 |
+| 42 | #44 | Incident Database ("Real Talk") | High | Med | Differentiator | 2.25 |
 
-**Tier 5 Rationale:** Low urgency. Faith content (#24) serves important niche but isn't time-sensitive.
+**Tier 5 Rationale:** Low urgency. Faith content (#24) serves important niche but isn't time-sensitive. Native app (#43) deferred until PWA limitations proven. Incident database (#44) reframed as "Real Talk" transparency—higher effort but unique voice.
 
 ---
 
