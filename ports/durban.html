@@ -6,6 +6,11 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Durban, South Africa - Sunny Beaches and Zulu Heritage | Port Guide</title>
     <meta name="description" content="Discover Durban's Golden Mile beaches, rich Indian heritage, and Zulu culture. Your personal guide to South Africa's busiest port city with warm waters and vibrant markets.">
     <meta name="keywords" content="Durban cruise port, South Africa ports, Golden Mile beach, uShaka Marine World, Zulu culture, Moses Mabhida Stadium, bunny chow, Victoria Street Market">
@@ -166,6 +171,9 @@ Soli Deo Gloria
         </div>
     </section>
 
+    
+    <p class="last-reviewed" style="max-width: 1100px; margin: 0.5rem auto 1rem; padding: 0 14px;">Last reviewed: January 2026</p>
+
     <div class="container main-container">
         <article class="port-content">
             <div class="logbook-entry">
@@ -285,7 +293,7 @@ Soli Deo Gloria
         <!-- VOLATILE DATA DISCLAIMER -->
         <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
           <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-26 based on official sources and firsthand verification. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-26 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
 
 
@@ -446,7 +454,8 @@ Soli Deo Gloria
                 <p>&copy; 2025 In The Wake. All rights reserved. | <a href="/privacy/">Privacy Policy</a></p>
             </div>
         </div>
-    </footer>
+      <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+  </footer>
 
     <!-- Leaflet JS for interactive maps -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

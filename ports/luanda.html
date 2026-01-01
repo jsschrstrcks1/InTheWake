@@ -6,6 +6,11 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Luanda, Angola: A Maritime Guide to Africa's Oil Capital | In The Wake</title>
     <meta name="description" content="A sailor's guide to Luanda, Angola - exploring the Portuguese colonial fortress, Ilha peninsula, and the stark contrasts of Africa's third-largest city.">
     <meta name="ai-summary" content="Luanda, Angola's Atlantic capital, blends 16th-century Portuguese fortresses with modern towers. The Marginal promenade and Ilha de Luanda offer waterfront respite, while kuduro and semba music animate this historic port city.">
@@ -297,7 +302,7 @@ Soli Deo Gloria
         <!-- VOLATILE DATA DISCLAIMER -->
         <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
           <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-14 based on official sources and firsthand verification. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-14 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
 
 
@@ -408,7 +413,8 @@ Soli Deo Gloria
                 <p>&copy; 2025 In The Wake. All rights reserved. | <em>Soli Deo Gloria</em></p>
             </div>
         </div>
-    </footer>
+      <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+  </footer>
 
     <!-- Leaflet JS for interactive maps -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
