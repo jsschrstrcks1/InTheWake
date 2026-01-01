@@ -114,14 +114,10 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 
 ---
 
-### 🟢 [G] P1 - Missing BreadcrumbList Schema (2 pages)
+### ✅ [G] P1 - Missing BreadcrumbList Schema (COMPLETED)
 
-These port pages are missing the required BreadcrumbList JSON-LD schema:
-
-- [ ] `ports/dublin.html` - Add BreadcrumbList schema
-- [ ] `ports/helsinki.html` - Add BreadcrumbList schema
-
-**Fix:** Add BreadcrumbList JSON-LD matching pattern from other port pages.
+- [x] `ports/dublin.html` - Added BreadcrumbList schema
+- [x] `ports/helsinki.html` - Added BreadcrumbList schema
 
 ---
 
@@ -251,16 +247,18 @@ The port page validator enforces strict rubric standards. Most ports fail due to
 
 ---
 
-### 🟢 [G] P1 - Critical Technical Fixes (Easy Wins)
+### ✅ [G] P1 - Critical Technical Fixes (COMPLETED 2026-01-01)
 
-These are quick technical fixes that don't require content changes:
+All P1 technical fixes have been completed:
 
-| Fix | Ports | Files |
-|-----|-------|-------|
-| Add FAQPage schema | 28 | valletta, tunis, trieste, tortola, tokyo, tenerife, tangier, tallinn, stockholm, st-petersburg, st-lucia, st-kitts, stavanger, singapore, shanghai, rhodes, reykjavik, ravenna, quebec-city, portland, porto, panama-canal, riga, taormina, sydney-ns, st-helena, st-maarten, st-barts |
-| Add BreadcrumbList | 2 | dublin, helsinki |
-| Fix hero position | 1 | hamburg |
-| Fix hero to webp | 1 | royal-beach-club-nassau |
+| Fix | Ports | Status |
+|-----|-------|--------|
+| Add FAQPage schema | 24 | ✅ Done (4 already had it) |
+| Add BreadcrumbList | 2 | ✅ dublin, helsinki |
+| Fix hero position | 1 | ✅ hamburg |
+| Fix hero to webp | 1 | ✅ royal-beach-club-nassau |
+
+**Commit:** `4dbd024` - 29 files updated
 
 ---
 
