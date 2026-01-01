@@ -327,9 +327,13 @@ function validateSectionOrder($) {
   }
 
   // Detect sections by scanning headings and IDs (scoped to main content only)
+  // Clone and remove noscript to avoid false positives from static fallback content
   $('main h2, main h3, main section, main div[id], main div[class*="section"]').each((i, elem) => {
     const $elem = $(elem);
-    const text = $elem.text().toLowerCase();
+    // Clone element and remove noscript content to get clean text
+    const $clone = $elem.clone();
+    $clone.find('noscript').remove();
+    const text = $clone.text().toLowerCase();
     const id = $elem.attr('id') || '';
     const className = $elem.attr('class') || '';
     const combined = `${text} ${id} ${className}`;
@@ -590,11 +594,16 @@ function validateImages($) {
     });
   }
 
-  // Check alt text
+  // Check alt text (skip decorative images with aria-hidden="true" or role="presentation")
   let missingAlt = 0;
   let shortAlt = 0;
   allImages.each((i, elem) => {
-    const alt = $(elem).attr('alt') || '';
+    const $img = $(elem);
+    // Skip decorative images
+    if ($img.attr('aria-hidden') === 'true' || $img.attr('role') === 'presentation') {
+      return;
+    }
+    const alt = $img.attr('alt') || '';
     if (!alt) {
       missingAlt++;
     } else if (alt.length < 20) {
