@@ -823,6 +823,59 @@ function validateLastReviewedStamp($) {
 }
 
 /**
+ * Validate collapsible structure - sections must use <details>/<summary>
+ */
+function validateCollapsibleStructure($) {
+  const errors = [];
+  const warnings = [];
+
+  // Sections that MUST be collapsible (inside <details> with <summary>)
+  const COLLAPSIBLE_REQUIRED = [
+    'logbook', 'cruise_port', 'getting_around', 'excursions',
+    'history', 'cultural', 'shopping', 'food', 'notices',
+    'depth_soundings', 'practical', 'faq', 'gallery', 'credits'
+  ];
+
+  // Check each required collapsible section
+  const nonCollapsibleSections = [];
+
+  $('main h2').each((i, elem) => {
+    const $h2 = $(elem);
+    const headingText = $h2.text().toLowerCase();
+
+    // Check if this heading matches a section that should be collapsible
+    for (const [key, pattern] of Object.entries(SECTION_PATTERNS)) {
+      if (COLLAPSIBLE_REQUIRED.includes(key) && pattern.test(headingText)) {
+        // This section should be collapsible - check if h2 is inside a <summary>
+        const $summary = $h2.closest('summary');
+        const $details = $h2.closest('details');
+
+        if ($summary.length === 0 || $details.length === 0) {
+          nonCollapsibleSections.push(key);
+        }
+        break;
+      }
+    }
+  });
+
+  if (nonCollapsibleSections.length > 0) {
+    errors.push({
+      section: 'structure',
+      rule: 'collapsible_required',
+      message: `Sections must use collapsible <details>/<summary> structure: ${nonCollapsibleSections.join(', ')}`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    non_collapsible: nonCollapsibleSections
+  };
+}
+
+/**
  * Validate a single port page
  */
 async function validatePortPage(filepath) {
@@ -848,6 +901,7 @@ async function validatePortPage(filepath) {
     const rubricResult = validateRubric($);
     const trustBadgeResult = validateTrustBadge($);
     const lastReviewedResult = validateLastReviewedStamp($);
+    const collapsibleResult = validateCollapsibleStructure($);
 
     // Collect all errors
     results.blocking_errors.push(...icpResult.errors);
@@ -856,6 +910,7 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...imageResult.errors);
     results.blocking_errors.push(...rubricResult.errors);
     results.blocking_errors.push(...trustBadgeResult.errors);
+    results.blocking_errors.push(...collapsibleResult.errors);
 
     // Collect all warnings
     results.warnings.push(...icpResult.warnings);
