@@ -157,15 +157,25 @@ Soli Deo Gloria
     </div>
   </header>
 
-    <section class="hero hero-port" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/images/ports/hurghada-hero.jpg');">
-        <div class="container">
-            <h1>Hurghada, Egypt</h1>
-            <p class="hero-subtitle">Red Sea Resort and Marine Life Haven</p>
-        </div>
-    </section>
-
     <main class="container port-guide-layout">
         <article class="port-content">
+
+            <!-- Hero Section -->
+            <section class="port-hero" id="hero" aria-label="Hurghada cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+                <div class="port-hero-image" style="position: relative;">
+                    <img src="/images/ports/hurghada-hero.webp" alt="Crystal clear turquoise waters of the Red Sea with coral reefs and resort buildings along Hurghada's coastline" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover;"/>
+                    <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                        <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin: 0;">Hurghada</h1>
+                    </div>
+                </div>
+                <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/File:Hurghada_Beach.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
+            </section>
+
+            <h1>Hurghada, Egypt</h1>
+            <p class="hero-subtitle" style="font-size: 1.1rem; color: #666; margin-bottom: 1.5rem;">Red Sea Resort and Marine Life Haven</p>
+
+            <h2>Captain's Logbook</h2>
+
             <div class="logbook-entry">
                 <p class="logbook-dateline">Red Sea Coast, Egypt</p>
 
@@ -185,8 +195,8 @@ Soli Deo Gloria
                 <p>Snorkeling in the Red Sea is not like snorkeling anywhere else I've been. The water is bathtub-warm even in winter, so clear you feel like you're flying rather than swimming. Coral formations rise like underwater cathedrals, and the fish—parrotfish munching on coral, clownfish darting into anemones, lionfish hovering with venomous beauty—seem unafraid, going about their business while you float above in wonder.</p>
             </div>
 
-            <section id="port-essentials">
-                <h2>Port Essentials</h2>
+            <section id="cruise_port">
+                <h2>The Cruise Port</h2>
                 <div class="essentials-grid">
                     <div class="essential-item">
                         <h3>Docking Location</h3>
@@ -207,8 +217,39 @@ Soli Deo Gloria
                 </div>
             </section>
 
-            <section id="top-experiences">
-                <h2>Top Experiences in Hurghada</h2>
+            <section id="getting_around">
+                <h2>Getting Around</h2>
+                <p><strong>Taxis</strong> are the primary way to get around Hurghada. They're plentiful but few use meters, so agree on the fare before entering. From the port: 20-30 EGP to Sigala, 40-60 EGP to Ad-Dahar, 80-100 EGP to El Gouna. Always negotiate in Egyptian Pounds, not dollars, for better rates.</p>
+
+                <p><strong>Microbuses</strong> run along the main coastal road and are very cheap (2-5 EGP) but can be confusing for visitors. They're white minivans that pick up and drop off anywhere along the route. Wave one down and tell the driver your destination.</p>
+
+                <p><strong>Hotel shuttles</strong> are sometimes available from major resorts, though most cruise visitors won't have access unless they've booked through the resort.</p>
+
+                <p><strong>Walking</strong> is practical within districts (like along the Sigala marina or through Ad-Dahar souks) but not between them—distances are long and the main road isn't particularly pedestrian-friendly.</p>
+
+                <p><strong>Organized tours</strong> are often the most practical option for marine excursions, desert safaris, and day trips. Your ship will offer packages, but local operators at the marina often have better prices. Just ensure they're licensed and have good reviews.</p>
+            </section>
+
+            <!-- Interactive Port Map -->
+            <section class="port-section port-map-section" id="port-map-section">
+                <h3>Hurghada Area Map</h3>
+                <p class="map-intro">Interactive map showing cruise terminal and Hurghada attractions. Click any marker for details.</p>
+                <div id="hurghada-port-map" class="port-map-container" role="application" aria-label="Interactive map of Hurghada port and points of interest">
+                    <noscript>
+                        <p style="padding: 2rem; text-align: center; color: #678;">
+                            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=27.2579&mlon=33.8116#map=12/27.2579/33.8116" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+                        </p>
+                    </noscript>
+                </div>
+                <div class="port-map-actions">
+                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('hurghada-port-map')._portMap?.fitBounds(document.getElementById('hurghada-port-map')._portMap.getBounds())">
+                        Reset View
+                    </button>
+                </div>
+            </section>
+
+            <section id="excursions">
+                <h2>Excursions</h2>
 
                 <div class="experience-item">
                     <h4>Giftun Islands Marine Park</h4>
@@ -239,37 +280,6 @@ Soli Deo Gloria
                     <h4>Makadi Bay and Soma Bay Resorts</h4>
                     <p>South of Hurghada, these newer resort developments offer pristine beaches and house reefs. If you just want a relaxing beach day with good snorkeling from shore, several resorts offer day passes that include beach access, pools, and lunch. Soma Bay in particular has beautiful turquoise waters and a long stretch of sand. It's less crowded than central Hurghada and the house reefs can be surprisingly good.</p>
                 </div>
-            </section>
-
-            <!-- Interactive Port Map -->
-            <section class="port-section port-map-section" id="port-map-section">
-                <h3>Hurghada Area Map</h3>
-                <p class="map-intro">Interactive map showing cruise terminal and Hurghada attractions. Click any marker for details.</p>
-                <div id="hurghada-port-map" class="port-map-container" role="application" aria-label="Interactive map of Hurghada port and points of interest">
-                    <noscript>
-                        <p style="padding: 2rem; text-align: center; color: #678;">
-                            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=27.2579&mlon=33.8116#map=12/27.2579/33.8116" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-                        </p>
-                    </noscript>
-                </div>
-                <div class="port-map-actions">
-                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('hurghada-port-map')._portMap?.fitBounds(document.getElementById('hurghada-port-map')._portMap.getBounds())">
-                        Reset View
-                    </button>
-                </div>
-            </section>
-
-            <section id="getting-around">
-                <h2>Getting Around</h2>
-                <p><strong>Taxis</strong> are the primary way to get around Hurghada. They're plentiful but few use meters, so agree on the fare before entering. From the port: 20-30 EGP to Sigala, 40-60 EGP to Ad-Dahar, 80-100 EGP to El Gouna. Always negotiate in Egyptian Pounds, not dollars, for better rates.</p>
-
-                <p><strong>Microbuses</strong> run along the main coastal road and are very cheap (2-5 EGP) but can be confusing for visitors. They're white minivans that pick up and drop off anywhere along the route. Wave one down and tell the driver your destination.</p>
-
-                <p><strong>Hotel shuttles</strong> are sometimes available from major resorts, though most cruise visitors won't have access unless they've booked through the resort.</p>
-
-                <p><strong>Walking</strong> is practical within districts (like along the Sigala marina or through Ad-Dahar souks) but not between them—distances are long and the main road isn't particularly pedestrian-friendly.</p>
-
-                <p><strong>Organized tours</strong> are often the most practical option for marine excursions, desert safaris, and day trips. Your ship will offer packages, but local operators at the marina often have better prices. Just ensure they're licensed and have good reviews.</p>
             </section>
 
             <section id="food-drink">
@@ -307,6 +317,23 @@ Soli Deo Gloria
         </aside>
 
 
+        <section id="depth_soundings">
+                <h2>Depth Soundings</h2>
+                <p class="section-intro">Historical and maritime context for the curious traveler.</p>
+                <div class="sounding-item">
+                    <h3>From Fishing Village to Resort City</h3>
+                    <p>Until the 1980s, Hurghada was a small fishing village known only to oil workers and the occasional diver who'd heard whispers of pristine reefs. Egypt's push to develop Red Sea tourism transformed it dramatically—today it stretches for 40 kilometers along the coast. Yet beneath the resorts, traditional fishing boats still launch at dawn, and old-timers remember when you could count the buildings on one hand.</p>
+                </div>
+                <div class="sounding-item">
+                    <h3>The Red Sea's Living Laboratory</h3>
+                    <p>Scientists consider the Red Sea a unique marine ecosystem. Its warm, highly saline waters support coral species found nowhere else. The sea's geological youth—formed only 20 million years ago when Africa split from Arabia—means its marine life evolved in relative isolation. Hurghada's research stations have contributed significantly to understanding coral reef resilience and climate change impacts.</p>
+                </div>
+                <div class="sounding-item">
+                    <h3>Crossroads of Empires</h3>
+                    <p>The Red Sea coast served ancient trade routes connecting Egypt to Arabia, India, and beyond. Spices, incense, and silk passed through ports like nearby Myos Hormos (now Quseir). The Eastern Desert hides Roman-era ruins and medieval Islamic fortresses. Though Hurghada itself lacks ancient monuments, it sits on a coast that has witnessed millennia of maritime commerce.</p>
+                </div>
+            </section>
+
         <section id="faq">
                 <h2>Frequently Asked Questions</h2>
 
@@ -338,6 +365,29 @@ Soli Deo Gloria
                 <div class="faq-item">
                     <h3>Do I need to book excursions in advance?</h3>
                     <p>For popular trips like Giftun Islands or Luxor, booking ahead is wise, especially during winter high season. Desert safaris and beach clubs can often be booked the day before or morning of your visit.</p>
+                </div>
+            </section>
+
+            <section id="gallery">
+                <h2>Photo Gallery</h2>
+                <p class="section-intro">Visual impressions from Hurghada and the Red Sea coast.</p>
+                <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                    <figure class="gallery-item">
+                        <img src="/images/ports/hurghada/giftun-reef.webp" alt="Colorful coral reef at Giftun Islands with tropical fish" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+                        <figcaption>The pristine coral gardens of Giftun Islands Marine Park</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="/images/ports/hurghada/sigala-marina.webp" alt="Boats moored at Sigala Marina with waterfront restaurants" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+                        <figcaption>Sigala Marina, the modern heart of Hurghada's waterfront</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="/images/ports/hurghada/eastern-desert.webp" alt="Rocky desert landscape with Bedouin camp at sunset" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+                        <figcaption>Sunset over the Eastern Desert during a Bedouin safari</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="/images/ports/hurghada/old-town-souk.webp" alt="Traditional market stalls in Ad-Dahar old town" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+                        <figcaption>The traditional souks of Ad-Dahar preserve authentic Egyptian commerce</figcaption>
+                    </figure>
                 </div>
             </section>
 
