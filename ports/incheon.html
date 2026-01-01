@@ -167,15 +167,25 @@ Soli Deo Gloria
     </div>
   </header>
 
-    <section class="hero hero-port" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/images/ports/incheon-hero.jpg') center/cover;">
-        <div class="hero-content">
-            <h1>Incheon, South Korea</h1>
-            <p class="hero-subtitle">Gateway to Seoul & Historic Treaty Port</p>
-        </div>
-    </section>
-
     <main class="port-detail-container">
         <article class="port-detail-content">
+
+            <!-- Hero Section -->
+            <section class="port-hero" id="hero" aria-label="Incheon cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+                <div class="port-hero-image" style="position: relative;">
+                    <img src="/images/ports/incheon-hero.webp" alt="Incheon harbor at dawn with container cranes and modern port facilities against misty Yellow Sea backdrop" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover;"/>
+                    <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                        <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin: 0;">Incheon</h1>
+                    </div>
+                </div>
+                <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/File:Incheon_Port.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
+            </section>
+
+            <h1>Incheon, South Korea</h1>
+            <p class="hero-subtitle" style="font-size: 1.1rem; color: #666; margin-bottom: 1.5rem;">Gateway to Seoul & Historic Treaty Port</p>
+
+            <h2>Captain's Logbook</h2>
+
             <div class="logbook-entry">
                 <p class="dateline"><strong>Port of Incheon, South Korea</strong> — Morning mist over the Yellow Sea</p>
 
@@ -192,15 +202,48 @@ Soli Deo Gloria
 
                 <p>Chinatown sprawls up the hill, announced by ornate red gates and the mingled aromas of frying garlic and fermented black beans. This is Korea's only official Chinatown, established in the 1880s when Chinese merchants settled near the docks. What strikes me is how thoroughly Korean it feels despite the Chinese architecture—this is where jajangmyeon, the beloved black bean noodle dish, became a Korean institution. I watch families gathered around steaming bowls in restaurant windows, the noodles glossy with dark sauce, and I'm reminded how cultures blend in port cities, how food carries history in every bite.</p>
 
-                <h2>Port Essentials</h2>
+            </div>
+
+            <section id="cruise_port">
+                <h2>The Cruise Port</h2>
 
                 <p>Cruise ships dock at Incheon Port's passenger terminal, which handles both cruise vessels and ferries to Chinese ports. The terminal is functional rather than fancy, located in the working port area about 40 minutes from Seoul by car, an hour by public transit. Some cruise lines offer Seoul as the primary shore excursion destination, which makes sense—the capital is the main draw for most visitors. But I'd argue for keeping at least half a day in Incheon itself, especially if you've been to Seoul before or want something beyond the standard tour.</p>
 
                 <p>The port area has basic services—currency exchange, tourist information, taxis—but it's not a waterfront promenade situation. You're in an industrial port, which has its own raw appeal but requires getting yourself elsewhere for actual attractions. The subway system is excellent and easy to navigate even with limited Korean (signs are in English), and taxis are relatively affordable though drivers may not speak English.</p>
 
                 <p>Korean Won is the currency, and while credit cards are widely accepted in Seoul and major areas, having some cash for smaller establishments and street food is wise. The exchange rate can vary, but ATMs are plentiful and generally the best option for getting local currency.</p>
+            </section>
 
-                <h2>Top Experiences</h2>
+            <section id="getting_around">
+                <h2>Getting Around</h2>
+
+                <p>The Seoul Metropolitan Subway extends to Incheon, and it's by far the best way to move between the port city and the capital. Line 1 runs from Incheon through Seoul Station and beyond—clean, efficient, cheap, with announcements in English. From the cruise terminal, you'll need a taxi or shuttle bus to reach the nearest station, but once you're on the subway network, navigation is straightforward. Get a T-money card (rechargeable transit card) if you plan multiple trips; they work on buses and subways and save both money and hassle.</p>
+
+                <p>Taxis are plentiful and relatively affordable by international standards. Regular taxis are silver or white; deluxe black taxis cost more but drivers are more likely to speak English. Uber doesn't operate in Korea, but Kakao T is the local ride-hailing app and works well if you have data service. Have your destination written in Korean or shown on a map, as many drivers don't speak English.</p>
+
+                <p>Walking is pleasant in specific neighborhoods—Chinatown, the Open Port area, Wolmido Island—but Incheon is spread out, and the port areas aren't pedestrian-friendly. Plan your transportation between sites rather than assuming you can walk.</p>
+            </section>
+
+            <!-- Interactive Port Map -->
+            <section class="port-section port-map-section" id="port-map-section">
+                <h3>Incheon Area Map</h3>
+                <p class="map-intro">Interactive map showing cruise terminal and Incheon attractions. Click any marker for details.</p>
+                <div id="incheon-port-map" class="port-map-container" role="application" aria-label="Interactive map of Incheon port and points of interest">
+                    <noscript>
+                        <p style="padding: 2rem; text-align: center; color: #678;">
+                            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=37.4563&mlon=126.7052#map=12/37.4563/126.7052" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+                        </p>
+                    </noscript>
+                </div>
+                <div class="port-map-actions">
+                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('incheon-port-map')._portMap?.fitBounds(document.getElementById('incheon-port-map')._portMap.getBounds())">
+                        Reset View
+                    </button>
+                </div>
+            </section>
+
+            <section id="excursions">
+                <h2>Excursions</h2>
 
                 <h4>Seoul Excursion (Full Day)</h4>
                 <p>Let's be honest—most people are here for Seoul. The capital is roughly an hour away and offers enough for weeks of exploration. Gyeongbokgung Palace with its changing of the guard ceremony, the traditional hanok houses of Bukchon Village, the vibrant markets of Myeongdong, the modern architecture of Gangnam, the somber history of the DMZ tours—Seoul is one of Asia's great cities, balancing ancient and cutting-edge with remarkable grace. If this is your only chance to see Korea's capital, take it. But consider an independent trip rather than a cruise ship tour if you're comfortable with navigation; you'll have more flexibility and save considerable money.</p>
@@ -219,33 +262,9 @@ Soli Deo Gloria
 
                 <h4>Incheon Art Platform</h4>
                 <p>If you have extra time and an interest in contemporary art, the Incheon Art Platform occupies a cluster of renovated warehouses in the old port district. Artists' studios, galleries, and performance spaces fill these industrial buildings, creating a small but vibrant arts community. It's free to wander, exhibitions rotate regularly, and you might catch artists at work in open studios. The neighborhood around it retains old port character—narrow streets, modest restaurants, a slower pace than the developed areas.</p>
+            </section>
 
-                <!-- Interactive Port Map -->
-                <section class="port-section port-map-section" id="port-map-section">
-                    <h3>Incheon Area Map</h3>
-                    <p class="map-intro">Interactive map showing cruise terminal and Incheon attractions. Click any marker for details.</p>
-                    <div id="incheon-port-map" class="port-map-container" role="application" aria-label="Interactive map of Incheon port and points of interest">
-                        <noscript>
-                            <p style="padding: 2rem; text-align: center; color: #678;">
-                                Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=37.4563&mlon=126.7052#map=12/37.4563/126.7052" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-                            </p>
-                        </noscript>
-                    </div>
-                    <div class="port-map-actions">
-                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('incheon-port-map')._portMap?.fitBounds(document.getElementById('incheon-port-map')._portMap.getBounds())">
-                            Reset View
-                        </button>
-                    </div>
-                </section>
-
-                <h2>Getting Around</h2>
-
-                <p>The Seoul Metropolitan Subway extends to Incheon, and it's by far the best way to move between the port city and the capital. Line 1 runs from Incheon through Seoul Station and beyond—clean, efficient, cheap, with announcements in English. From the cruise terminal, you'll need a taxi or shuttle bus to reach the nearest station, but once you're on the subway network, navigation is straightforward. Get a T-money card (rechargeable transit card) if you plan multiple trips; they work on buses and subways and save both money and hassle.</p>
-
-                <p>Taxis are plentiful and relatively affordable by international standards. Regular taxis are silver or white; deluxe black taxis cost more but drivers are more likely to speak English. Uber doesn't operate in Korea, but Kakao T is the local ride-hailing app and works well if you have data service. Have your destination written in Korean or shown on a map, as many drivers don't speak English.</p>
-
-                <p>Walking is pleasant in specific neighborhoods—Chinatown, the Open Port area, Wolmido Island—but Incheon is spread out, and the port areas aren't pedestrian-friendly. Plan your transportation between sites rather than assuming you can walk.</p>
-
+            <section id="food-drink">
                 <h2>Local Food & Drink</h2>
 
                 <p>Jajangmyeon is the signature dish, but Incheon's port location means excellent seafood. The restaurants along Wolmido's waterfront serve everything from grilled mackerel to raw fish platters, with sea squirt and sea cucumber for the adventurous. Point at tanks, negotiate prices (they're usually per person or per dish), and be prepared for generous portions served with the standard array of banchan side dishes.</p>
@@ -255,7 +274,9 @@ Soli Deo Gloria
                 <p>Soju, Korea's ubiquitous spirit, flows freely in Incheon as everywhere in Korea. The local drinking culture centers on pojangmacha (street tent bars) where colleagues and friends gather over soju, beer, and snacks. As a visitor you're welcome, though the experience works better with at least one Korean speaker in your group.</p>
 
                 <p>Coffee culture in Korea is serious—chains and independent cafes serve excellent espresso drinks, often in stylish spaces. It's not traditional, but it's very much part of modern Korean life, and a good cafe makes a pleasant break during urban exploration.</p>
+            </section>
 
+            <section id="pro-tips">
                 <h2>Pro Tips</h2>
 
                 <ul>
@@ -273,8 +294,27 @@ Soli Deo Gloria
 
                     <li><strong>Cash for markets and street food:</strong> while cards work most places, traditional markets and street vendors prefer cash. The amounts are small, so a couple of ten-thousand won notes go a long way.</li>
                 </ul>
+            </section>
 
-                <h2>FAQ</h2>
+            <section id="depth_soundings">
+                <h2>Depth Soundings</h2>
+                <p class="section-intro">Historical and maritime context for the curious traveler.</p>
+                <div class="sounding-item">
+                    <h3>The Incheon Landing</h3>
+                    <p>On September 15, 1950, United Nations forces under General Douglas MacArthur executed one of history's most audacious amphibious assaults. The Incheon Landing exploited an extreme tidal range—up to 32 feet—that most considered impossible to navigate. Landing at high tide, the forces had only hours before the water receded, leaving vessels stranded on mudflats. The gamble succeeded spectacularly, cutting North Korean supply lines and enabling the recapture of Seoul within weeks.</p>
+                </div>
+                <div class="sounding-item">
+                    <h3>Treaty Port Origins</h3>
+                    <p>Incheon (then Jemulpo) was forcibly opened to foreign trade in 1883 under unequal treaties with Japan and Western powers. The Open Port area that developed became a microcosm of late 19th-century imperialism—separate settlements for Japanese, Chinese, and Western merchants, each with distinct architecture and customs. This layered history remains visible in Incheon's streetscapes, particularly around Chinatown and the old Japanese concession area.</p>
+                </div>
+                <div class="sounding-item">
+                    <h3>Gateway to Korea's Modernization</h3>
+                    <p>Korea's first railway connected Incheon to Seoul in 1899, symbolizing the country's transformation. Today, Incheon Airport—built on reclaimed land and consistently ranked among the world's best—continues this gateway tradition. From treaty port to wartime landing beach to global aviation hub, Incheon has repeatedly served as Korea's threshold between isolation and engagement with the wider world.</p>
+                </div>
+            </section>
+
+            <section id="faq">
+                <h2>Frequently Asked Questions</h2>
 
                 <dl class="faq">
                     <dt>How do I get from Incheon Port to Seoul?</dt>
@@ -295,6 +335,30 @@ Soli Deo Gloria
                     <dt>Is English widely spoken in Incheon?</dt>
                     <dd>English is less common in Incheon than in Seoul, especially outside major tourist areas. Subway signs and major attractions have English, but many shop owners and taxi drivers speak limited English. Having your destination written in Korean, using translation apps, and being patient with communication goes a long way. Younger Koreans generally speak more English than older generations.</dd>
                 </dl>
+            </section>
+
+            <section id="gallery">
+                <h2>Photo Gallery</h2>
+                <p class="section-intro">Visual impressions from Incheon and the gateway to Korea.</p>
+                <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                    <figure class="gallery-item">
+                        <img src="/images/ports/incheon/chinatown-gate.webp" alt="Ornate red gate entrance to Incheon's Chinatown with Chinese characters" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+                        <figcaption>The vibrant entrance to Korea's only official Chinatown</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="/images/ports/incheon/macarthur-statue.webp" alt="Bronze statue of General MacArthur overlooking Incheon harbor from Jayu Park" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+                        <figcaption>MacArthur statue in Jayu Park overlooking the historic landing site</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="/images/ports/incheon/songdo-skyline.webp" alt="Futuristic skyscrapers and modern architecture of Songdo International Business District" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+                        <figcaption>Songdo's futuristic skyline represents Korea's vision of tomorrow</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="/images/ports/incheon/wolmido-waterfront.webp" alt="Wolmido Island waterfront with Ferris wheel and seafood restaurants at sunset" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+                        <figcaption>Wolmido Island's lively waterfront at golden hour</figcaption>
+                    </figure>
+                </div>
+            </section>
 
                 <p class="closing-thought">As evening falls and I make my way back toward the port, Incheon reveals itself as more than just Seoul's gateway. It's a city of layers—treaty port and modern hub, war memorial and peace harbor, Korean and Chinese and thoroughly its own. The container cranes light up against the darkening sky, and ferries sound their horns heading toward China across the Yellow Sea. This is a working city, a threshold city, a place that opens doors while holding its own quiet significance. Not every port needs to be beautiful. Some just need to be true.</p>
 
