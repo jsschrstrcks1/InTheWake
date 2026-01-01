@@ -164,15 +164,25 @@ Soli Deo Gloria
     </div>
   </header>
 
-    <section class="hero-section" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('/assets/images/ports/luanda-hero.jpg');">
-        <div class="hero-content">
-            <h1>Luanda, Angola</h1>
-            <p class="hero-subtitle">Africa's Oil Capital and Gateway to Portuguese Colonial History</p>
-        </div>
-    </section>
-
     <main class="container port-guide-layout">
         <article class="port-guide-content">
+
+            <!-- Hero Section -->
+            <section class="port-hero" id="hero" aria-label="Luanda cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+                <div class="port-hero-image" style="position: relative;">
+                    <img src="/images/ports/luanda-hero.webp" alt="Luanda waterfront skyline at dawn with Fortaleza de São Miguel and modern towers along the Marginal" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover;"/>
+                    <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                        <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin: 0;">Luanda</h1>
+                    </div>
+                </div>
+                <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/File:Luanda_Skyline.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
+            </section>
+
+            <h1>Luanda, Angola</h1>
+            <p class="hero-subtitle" style="font-size: 1.1rem; color: #666; margin-bottom: 1.5rem;">Africa's Oil Capital and Gateway to Portuguese Colonial History</p>
+
+            <h2>Captain's Logbook</h2>
+
             <div class="logbook-entry">
                 <p class="dateline"><strong>Luanda, Angola</strong> — December 2025</p>
 
@@ -184,8 +194,10 @@ Soli Deo Gloria
                     <h3>The Moment That Stays With Me:</h3>
                     <p>Standing at the ramparts of Fortaleza de São Miguel at sunset, looking down over the bay where ships have been arriving for four and a half centuries. Below me, the city spread out like a patchwork—old neighborhoods with red-tile roofs cascading toward the waterfront, the modern Marginal stretching along the coast, and in the distance, the slender finger of Ilha de Luanda pointing into the Atlantic. An elderly guard, noticing I was a sailor, told me his grandfather had worked these docks before independence, when Portuguese cargo ships dominated the harbor. "Luanda remembers everything," he said quietly. "The ships come and go, but the ocean keeps the stories." In that golden light, with the sound of the city rising up—car horns, music, voices calling in Portuguese—I understood that this port is not one thing but many: a colonial capital, a slave trade terminus, a civil war survivor, an oil boom metropolis, and through it all, a place where the sea has always shaped human destiny.</p>
                 </div>
+            </div>
 
-                <h2 id="port-essentials">Port Essentials</h2>
+            <section id="cruise_port">
+                <h2>The Cruise Port</h2>
                 <p><strong>Port of Call:</strong> Ships dock at the Port of Luanda (Porto de Luanda), one of Angola's major commercial harbors located along Luanda Bay. Cruise vessels typically use the main terminal facilities north of the city center.</p>
 
                 <p><strong>Getting to Town:</strong> The port is approximately 3-4 kilometers from the city center. Taxis are available at the port gates—negotiate fares in advance or insist on the meter. The drive to the Marginal promenade takes about 15 minutes depending on traffic.</p>
@@ -195,8 +207,10 @@ Soli Deo Gloria
                 <p><strong>Currency:</strong> Angolan Kwanza (AOA). US dollars are sometimes accepted at larger establishments, but you'll need kwanzas for markets, taxis, and local restaurants. ATMs are available in the city center, though reliability can be an issue.</p>
 
                 <p><strong>Shore Time Recommendation:</strong> You'll want at least 6-8 hours to see the Fortaleza, walk the Marginal, visit Ilha de Luanda, and absorb some of the city's complex character. A full day allows for deeper exploration including museums and markets.</p>
+            </section>
 
-                <h2 id="top-experiences">Top Experiences in Luanda</h2>
+            <section id="excursions">
+                <h2>Excursions</h2>
 
                 <h4>1. Fortaleza de São Miguel</h4>
                 <p>The 16th-century fortress dominates the city from its hilltop perch. Built by the Portuguese in 1576, it's one of the oldest structures in Luanda and now houses a military museum. The real draw is the ramparts themselves—weathered stone walls offering panoramic views over the bay, the port, and the sprawling city. Stand here and you're standing where Portuguese governors once watched for Dutch raiders and incoming slave ships. The fortress is a short taxi ride from downtown; wear comfortable shoes for the cobblestone paths and bring water for the climb.</p>
@@ -215,12 +229,11 @@ Soli Deo Gloria
 
                 <h4>6. Mercado do Benfica</h4>
                 <p>For a dose of everyday Luanda, visit this sprawling market where vendors sell everything from fresh produce to fabric to carved masks. It's chaotic, colorful, and utterly authentic—women balancing baskets of fruit on their heads, the smell of roasting peanuts and dried fish, merchants calling out prices in Portuguese and local languages. This isn't a tourist market; it's where Luandans shop. Keep your valuables close, bring small kwanza notes for purchases, and ask permission before photographing people. The energy here is electric.</p>
+            </section>
 
                 <!-- Interactive Port Map -->
-                <section class="port-section port-map-section" id="port-map-section">
-          <details class="section-collapse" open>
+                <details class="port-section port-map-section" id="port-map-section" open>
             <summary><h3>Luanda Area Map</h2></summary>
-            <div class="section-body">
                     <p class="map-intro">Interactive map showing cruise terminal and Luanda attractions. Click any marker for details.</p>
                     <div id="luanda-port-map" class="port-map-container" role="application" aria-label="Interactive map of Luanda port and points of interest">
                         <noscript>
@@ -234,11 +247,10 @@ Soli Deo Gloria
                             Reset View
                         </button>
                     </div>
-            </div>
-          </details>
-                </section>
+            </details>
 
-                <h2 id="getting-around">Getting Around Luanda</h2>
+            <section id="getting_around">
+                <h2>Getting Around</h2>
                 <p><strong>Taxis:</strong> The most practical option for visitors. Blue-and-white taxis are metered and generally more reliable than unmarked cabs. Always agree on the fare beforehand or ensure the meter is running. Hotel taxis or app-based services (when available) tend to be safer.</p>
 
                 <p><strong>Candongueiros:</strong> These minibus shared taxis are the backbone of local transport—cheap, ubiquitous, and often packed. They follow set routes but require knowing the system. For short-time visitors, they're more adventure than convenience, though riding one offers authentic Luanda experience.</p>
@@ -246,8 +258,10 @@ Soli Deo Gloria
                 <p><strong>Walking:</strong> Possible in specific areas like the Marginal and city center, but distances can be deceptive and heat intense. Sidewalks are inconsistent. For most sightseeing, you'll need wheels.</p>
 
                 <p><strong>Rental Cars:</strong> Available but not recommended unless you're very comfortable with aggressive traffic, minimal road signage, and variable road conditions. Hiring a driver for the day is often easier and not much more expensive.</p>
+            </section>
 
-                <h2 id="food-drink">Local Food & Drink</h2>
+            <section id="food-drink">
+                <h2>Local Food & Drink</h2>
                 <p><strong>Muamba de Galinha:</strong> This is Angola's national dish—chicken stewed with palm oil, okra, garlic, and chili, served over funge (cassava porridge). Rich, flavorful, and present on nearly every local menu. It's comfort food that tells you something about Portuguese and African culinary fusion.</p>
 
                 <p><strong>Calulu:</strong> A dried fish or meat stew with vegetables, sweet potato leaves, and palm oil. The fish version is particularly popular along the coast. Like muamba, it's traditionally eaten with funge, which you use to scoop the stew.</p>
@@ -257,8 +271,10 @@ Soli Deo Gloria
                 <p><strong>Cuca Beer:</strong> Angola's beloved local beer—light, crisp, and perfect when served ice-cold against Luanda's heat. You'll see the red-and-white logo everywhere. It's national pride in a bottle.</p>
 
                 <p><strong>Where to Eat:</strong> For authentic Angolan food, try restaurants in the Maianga or Alvalade neighborhoods. Ilha de Luanda has numerous seafood spots—Lookal, Miami Beach, and Cais de Kwanza are popular. The Marginal area offers everything from local joints to international cuisine. Ask locals for current recommendations; the restaurant scene evolves quickly.</p>
+            </section>
 
-                <h2 id="pro-tips">Pro Tips for Luanda</h2>
+            <section id="pro-tips">
+                <h2>Pro Tips</h2>
                 <ul>
                     <li><strong>Visa Requirements:</strong> Most visitors need a visa to enter Angola, and the process can be complex. Research requirements for your nationality well in advance. Some cruise lines arrange group visas; check with your ship.</li>
 
@@ -276,13 +292,27 @@ Soli Deo Gloria
 
                     <li><strong>Timing Your Visit:</strong> The cooler dry season (June to September) is most comfortable, though Luanda is accessible year-round. The rainy season (October to May) brings afternoon downpours but also lusher landscapes.</li>
                 </ul>
+            </section>
 
-                <section class="port-section author-note-disclaimer">
-                    <h3>Author's Note</h3>
-                    <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-                </section>
+            <section id="depth_soundings">
+                <h2>Depth Soundings</h2>
+                <p class="section-intro">Historical and maritime context for the curious traveler.</p>
+                <div class="sounding-item">
+                    <h3>The Slave Trade's Darkest Port</h3>
+                    <p>Luanda was the largest slave-trading port in Africa, shipping an estimated 4 million enslaved people to the Americas between the 16th and 19th centuries. The vast majority went to Brazil, forging a cultural connection that persists today. Portuguese colonizers built fortresses not just for defense but to process this human cargo—a legacy the city confronts at the National Museum of Slavery.</p>
+                </div>
+                <div class="sounding-item">
+                    <h3>From Independence to Civil War</h3>
+                    <p>When Portugal granted independence in 1975, Angola descended into a devastating civil war fueled by Cold War rivalries. Cuban troops, Soviet weapons, South African interventions—Luanda became a battleground for proxy forces. The conflict lasted 27 years, displacing millions and scarring the national psyche. The 2002 peace brought reconstruction and the oil boom that remade the city skyline.</p>
+                </div>
+                <div class="sounding-item">
+                    <h3>Oil Capital of Africa</h3>
+                    <p>Angola is sub-Saharan Africa's second-largest oil producer, and the wealth has transformed Luanda. Gleaming towers rise beside colonial ruins; expatriate executives pay Manhattan rents for waterfront apartments. The contrast between extreme wealth and persistent poverty defines modern Luanda—a city still navigating the complexities of resource abundance and development.</p>
+                </div>
+            </section>
 
-                <h2 id="faq">Frequently Asked Questions</h2>
+            <section id="faq">
+                <h2>Frequently Asked Questions</h2>
 
                 <h3>What is the best way to get around Luanda?</h3>
                 <p>Taxis are the most practical option for cruise passengers. Blue-and-white metered taxis are more reliable than unmarked vehicles. Always agree on the fare beforehand or ensure the meter is running. For a full day of sightseeing, consider hiring a taxi driver who can wait between stops—negotiate a day rate. The candongueiro minibuses are an authentic local experience but require knowledge of routes and destinations.</p>
@@ -301,8 +331,32 @@ Soli Deo Gloria
 
                 <h3>What's the historical significance of Luanda?</h3>
                 <p>Luanda, founded by the Portuguese in 1575, is one of Africa's oldest colonial cities. For centuries it was a major center of the transatlantic slave trade—millions of enslaved Africans were shipped from this port to Brazil and the Americas. After Angolan independence in 1975, the city endured a devastating civil war that lasted until 2002. Today's Luanda is shaped by all these layers: Portuguese colonial architecture, the painful legacy of slavery, post-war reconstruction, and an oil boom that has brought rapid development. The Fortaleza de São Miguel and the National Museum of Slavery offer windows into this complex history.</p>
-            </div>
-        
+            </section>
+
+            <section id="gallery">
+                <h2>Photo Gallery</h2>
+                <p class="section-intro">Visual impressions from Luanda and Angola's Atlantic coast.</p>
+                <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                    <figure class="gallery-item">
+                        <img src="/images/ports/luanda/fortaleza-sao-miguel.webp" alt="Fortaleza de São Miguel fortress overlooking Luanda Bay at sunset" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+                        <figcaption>The 16th-century Fortaleza de São Miguel guards the bay</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="/images/ports/luanda/marginal-promenade.webp" alt="The Marginal waterfront promenade with palm trees and modern skyline" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+                        <figcaption>The Marginal promenade stretches along Luanda Bay</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="/images/ports/luanda/ilha-beach.webp" alt="Ilha de Luanda beach with grilled seafood restaurants" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+                        <figcaption>Ilha de Luanda offers Atlantic beaches and fresh seafood</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="/images/ports/luanda/iron-palace.webp" alt="Palácio de Ferro, the Iron Palace allegedly designed by Eiffel" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+                        <figcaption>The curious Iron Palace, a Parisian import in the tropics</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+
         <!-- VOLATILE DATA DISCLAIMER -->
         <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
           <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
