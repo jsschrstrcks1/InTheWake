@@ -327,9 +327,13 @@ function validateSectionOrder($) {
   }
 
   // Detect sections by scanning headings and IDs (scoped to main content only)
+  // Clone and remove noscript to avoid false positives from static fallback content
   $('main h2, main h3, main section, main div[id], main div[class*="section"]').each((i, elem) => {
     const $elem = $(elem);
-    const text = $elem.text().toLowerCase();
+    // Clone element and remove noscript content to get clean text
+    const $clone = $elem.clone();
+    $clone.find('noscript').remove();
+    const text = $clone.text().toLowerCase();
     const id = $elem.attr('id') || '';
     const className = $elem.attr('class') || '';
     const combined = `${text} ${id} ${className}`;
@@ -400,11 +404,17 @@ function validateWordCounts($) {
     $('h2, h3').each((i, elem) => {
       const $elem = $(elem);
       if (pattern.test($elem.text())) {
-        // Get all content until next h2
-        let $next = $elem.next();
-        while ($next.length && !$next.is('h2')) {
-          sectionContent += $next.text() + ' ';
-          $next = $next.next();
+        // Find the parent section/details and get all text content
+        const $section = $elem.closest('section, details, .card');
+        if ($section.length) {
+          sectionContent += $section.text() + ' ';
+        } else {
+          // Fallback to sibling traversal
+          let $next = $elem.next();
+          while ($next.length && !$next.is('h2')) {
+            sectionContent += $next.text() + ' ';
+            $next = $next.next();
+          }
         }
       }
     });
@@ -590,11 +600,16 @@ function validateImages($) {
     });
   }
 
-  // Check alt text
+  // Check alt text (skip decorative images with aria-hidden="true" or role="presentation")
   let missingAlt = 0;
   let shortAlt = 0;
   allImages.each((i, elem) => {
-    const alt = $(elem).attr('alt') || '';
+    const $img = $(elem);
+    // Skip decorative images
+    if ($img.attr('aria-hidden') === 'true' || $img.attr('role') === 'presentation') {
+      return;
+    }
+    const alt = $img.attr('alt') || '';
     if (!alt) {
       missingAlt++;
     } else if (alt.length < 20) {
@@ -667,10 +682,17 @@ function validateRubric($) {
     $('h2, h3').each((i, elem) => {
       const $elem = $(elem);
       if (pattern.test($elem.text())) {
-        let $next = $elem.next();
-        while ($next.length && !$next.is('h2')) {
-          sectionContent += $next.text() + ' ';
-          $next = $next.next();
+        // Find the parent section/details and get all text content
+        const $section = $elem.closest('section, details, .card');
+        if ($section.length) {
+          sectionContent += $section.text() + ' ';
+        } else {
+          // Fallback to sibling traversal
+          let $next = $elem.next();
+          while ($next.length && !$next.is('h2')) {
+            sectionContent += $next.text() + ' ';
+            $next = $next.next();
+          }
         }
       }
     });
@@ -801,6 +823,59 @@ function validateLastReviewedStamp($) {
 }
 
 /**
+ * Validate collapsible structure - sections must use <details>/<summary>
+ */
+function validateCollapsibleStructure($) {
+  const errors = [];
+  const warnings = [];
+
+  // Sections that MUST be collapsible (inside <details> with <summary>)
+  const COLLAPSIBLE_REQUIRED = [
+    'logbook', 'cruise_port', 'getting_around', 'excursions',
+    'history', 'cultural', 'shopping', 'food', 'notices',
+    'depth_soundings', 'practical', 'faq', 'gallery', 'credits'
+  ];
+
+  // Check each required collapsible section
+  const nonCollapsibleSections = [];
+
+  $('main h2').each((i, elem) => {
+    const $h2 = $(elem);
+    const headingText = $h2.text().toLowerCase();
+
+    // Check if this heading matches a section that should be collapsible
+    for (const [key, pattern] of Object.entries(SECTION_PATTERNS)) {
+      if (COLLAPSIBLE_REQUIRED.includes(key) && pattern.test(headingText)) {
+        // This section should be collapsible - check if h2 is inside a <summary>
+        const $summary = $h2.closest('summary');
+        const $details = $h2.closest('details');
+
+        if ($summary.length === 0 || $details.length === 0) {
+          nonCollapsibleSections.push(key);
+        }
+        break;
+      }
+    }
+  });
+
+  if (nonCollapsibleSections.length > 0) {
+    errors.push({
+      section: 'structure',
+      rule: 'collapsible_required',
+      message: `Sections must use collapsible <details>/<summary> structure: ${nonCollapsibleSections.join(', ')}`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    non_collapsible: nonCollapsibleSections
+  };
+}
+
+/**
  * Validate a single port page
  */
 async function validatePortPage(filepath) {
@@ -826,6 +901,7 @@ async function validatePortPage(filepath) {
     const rubricResult = validateRubric($);
     const trustBadgeResult = validateTrustBadge($);
     const lastReviewedResult = validateLastReviewedStamp($);
+    const collapsibleResult = validateCollapsibleStructure($);
 
     // Collect all errors
     results.blocking_errors.push(...icpResult.errors);
@@ -834,6 +910,7 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...imageResult.errors);
     results.blocking_errors.push(...rubricResult.errors);
     results.blocking_errors.push(...trustBadgeResult.errors);
+    results.blocking_errors.push(...collapsibleResult.errors);
 
     // Collect all warnings
     results.warnings.push(...icpResult.warnings);
