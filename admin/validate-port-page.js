@@ -761,6 +761,46 @@ function validateRubric($) {
 }
 
 /**
+ * Validate trust badge in footer
+ */
+function validateTrustBadge($) {
+  const errors = [];
+  const warnings = [];
+
+  const trustBadge = $('footer .trust-badge, footer p.trust-badge');
+  if (trustBadge.length === 0) {
+    errors.push({
+      section: 'footer',
+      rule: 'trust_badge_missing',
+      message: 'Missing trust badge in footer. Expected: <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>',
+      severity: 'BLOCKING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
+ * Validate last-reviewed stamp
+ */
+function validateLastReviewedStamp($) {
+  const errors = [];
+  const warnings = [];
+
+  const lastReviewedStamp = $('p.last-reviewed, .last-reviewed');
+  if (lastReviewedStamp.length === 0) {
+    warnings.push({
+      section: 'content',
+      rule: 'last_reviewed_stamp_missing',
+      message: 'Missing visible "Last reviewed" stamp. Expected: <p class="last-reviewed">Last reviewed: [Month Year]</p>',
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
  * Validate a single port page
  */
 async function validatePortPage(filepath) {
@@ -784,6 +824,8 @@ async function validatePortPage(filepath) {
     const wordResult = validateWordCounts($);
     const imageResult = validateImages($);
     const rubricResult = validateRubric($);
+    const trustBadgeResult = validateTrustBadge($);
+    const lastReviewedResult = validateLastReviewedStamp($);
 
     // Collect all errors
     results.blocking_errors.push(...icpResult.errors);
@@ -791,6 +833,7 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...wordResult.errors);
     results.blocking_errors.push(...imageResult.errors);
     results.blocking_errors.push(...rubricResult.errors);
+    results.blocking_errors.push(...trustBadgeResult.errors);
 
     // Collect all warnings
     results.warnings.push(...icpResult.warnings);
@@ -798,6 +841,7 @@ async function validatePortPage(filepath) {
     results.warnings.push(...wordResult.warnings);
     results.warnings.push(...imageResult.warnings);
     results.warnings.push(...rubricResult.warnings);
+    results.warnings.push(...lastReviewedResult.warnings);
 
     // Calculate score (start at 100, deduct for errors/warnings)
     results.score = 100;

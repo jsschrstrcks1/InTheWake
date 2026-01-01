@@ -368,6 +368,52 @@ function getVisitCount(portSlug, registry) {
 }
 
 /**
+ * Validate trust badge in footer
+ * All pages must have the trust badge: "✓ No ads. No tracking. No affiliate links."
+ */
+function validateTrustBadge($) {
+  const errors = [];
+  const warnings = [];
+
+  // Check for trust badge in footer
+  const trustBadge = $('footer .trust-badge, footer p.trust-badge');
+
+  if (trustBadge.length === 0) {
+    errors.push('Missing trust badge in footer. Expected: <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>');
+  } else {
+    const badgeText = trustBadge.text().trim();
+    if (!badgeText.includes('No ads') || !badgeText.includes('No tracking') || !badgeText.includes('No affiliate')) {
+      warnings.push(`Trust badge text may be incomplete: "${badgeText}"`);
+    }
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
+ * Validate last-reviewed stamp on port pages
+ * Port pages should have a visible "Last reviewed: [date]" stamp
+ */
+function validateLastReviewedStamp(filepath, $) {
+  const errors = [];
+  const warnings = [];
+
+  // Only validate port pages
+  if (!filepath.includes('ports/')) {
+    return { valid: true, errors, warnings };
+  }
+
+  // Check for visible last-reviewed stamp
+  const lastReviewedStamp = $('p.last-reviewed, .last-reviewed');
+
+  if (lastReviewedStamp.length === 0) {
+    warnings.push('Missing visible "Last reviewed" stamp on port page. Expected: <p class="last-reviewed">Last reviewed: [Month Year]</p>');
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
  * Validate disclaimer level matches registry
  */
 async function validateDisclaimer(filepath, html) {
@@ -477,6 +523,15 @@ async function validateFile(filepath) {
     const disclaimerResult = await validateDisclaimer(relPath, html);
     results.errors.push(...disclaimerResult.errors);
     results.warnings.push(...disclaimerResult.warnings);
+
+    // 7. Validate trust badge in footer
+    const trustBadgeResult = validateTrustBadge($);
+    results.errors.push(...trustBadgeResult.errors);
+    results.warnings.push(...trustBadgeResult.warnings);
+
+    // 8. Validate last-reviewed stamp (for port pages only)
+    const lastReviewedResult = validateLastReviewedStamp(relPath, $);
+    results.warnings.push(...lastReviewedResult.warnings);
 
     results.valid = results.errors.length === 0;
 
