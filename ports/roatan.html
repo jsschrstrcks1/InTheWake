@@ -17,6 +17,11 @@ All work on this project is offered as a gift to God.
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
   <meta name="ai-summary" content="Roatán offers world-class diving on the Mesoamerican Reef. Explore West Bay Beach, zip-lining, iguana farm, Garifuna culture, and pristine Honduran Bay Islands."/>
   <meta name="last-reviewed" content="2025-12-26"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>

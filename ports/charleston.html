@@ -19,6 +19,7 @@ Soli Deo Gloria
   }
   </script>
   <link rel="stylesheet" href="/assets/styles.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -261,6 +262,12 @@ Soli Deo Gloria
         </section>
 
         <section class="port-section">
+          <h3>Port Map</h3>
+          <div id="port-map" style="height: 350px; border-radius: 8px; margin: 1rem 0;"></div>
+          <p class="map-note" style="font-size: 0.85rem; color: #666; text-align: center;">Tap markers to explore Charleston's highlights</p>
+        </section>
+
+        <section class="port-section">
           <h3>Frequently Asked Questions</h3>
           <p><strong>Q: What cruise lines sail from Charleston?</strong><br/>A: <a href="/cruise-lines/carnival.html">Carnival Cruise Line</a> operates year-round sailings from Charleston to the <a href="/ports/nassau.html">Bahamas</a>, <a href="/ports/kings-wharf.html">Bermuda</a>, and Eastern Caribbean destinations.</p>
           <p><strong>Q: How far is the cruise port from downtown Charleston?</strong><br/>A: The Union Pier Terminal is located at the edge of the historic district, about 1 mile from the heart of downtown Charleston — easily walkable or a quick rideshare.</p>
@@ -342,6 +349,19 @@ Soli Deo Gloria
       rail.innerHTML = articles.slice(0, 4).map(a => '<div style="margin-bottom:.75rem;"><a href="' + a.url + '">' + a.title + '</a></div>').join('');
     } catch(e) {}
   })();
+  </script>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({
+        containerId: 'port-map',
+        portSlug: 'charleston'
+      });
+    }
+  });
   </script>
 </body>
 </html>

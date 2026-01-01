@@ -6,6 +6,11 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Yangon (Rangoon), Myanmar: Golden Spires and Colonial Echoes - In the Wake</title>
     <meta name="description" content="A cruise port guide to Yangon, Myanmar - from the shimmering Shwedagon Pagoda to British colonial architecture, tea shop culture, and the complex beauty of Burma's former capital.">
 

@@ -6,6 +6,11 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Hurghada, Egypt: Red Sea Resort and Marine Life Haven - Cruise Port Guide</title>
     <meta name="description" content="Discover Hurghada's vibrant coral reefs, Giftun Islands marine park, desert adventures, and the gateway to ancient Luxor. A Red Sea haven for divers and sun-seekers.">
 

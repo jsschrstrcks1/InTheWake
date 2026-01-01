@@ -6,6 +6,11 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Mindelo, Cape Verde: Cultural Heart of the Atlantic | In The Wake</title>
     <meta name="description" content="Experience Mindelo, São Vicente - birthplace of Cesária Évora, cultural capital of Cape Verde, where morna music fills colonial streets and Porto Grande welcomes sailors to Africa's soulful archipelago.">
 

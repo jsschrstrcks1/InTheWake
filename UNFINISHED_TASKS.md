@@ -80,7 +80,7 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 - Total HTML pages: 652+
 - Port pages: **333** (was 291)
 - Ship pages: 50
-- Ports with Leaflet maps: **331** (99%) - only charleston.html and jacksonville.html missing
+- Ports with Leaflet maps: **333** (100%)
 
 **Realistic remaining task count: ~30-40 items** (port map rollout + pattern standardization)
 
@@ -104,13 +104,13 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 | JSON-LD dateModified = last-reviewed | 333 | ✅ 333 | 0 |
 | mainEntity Place schema | 333 | ✅ 333 | 0 |
 | @type Place in JSON-LD | 333 | ✅ 333 | 0 |
-| BreadcrumbList schema | 333 | ✅ 331 | **2** |
+| BreadcrumbList schema | 333 | ✅ 333 | 0 |
 | ai-summary max 250 chars | 333 | ✅ 333 | 0 |
-| Dual-cap rule (first 155 complete) | 333 | ✅ 323 | **10** |
-| Leaflet map integration | 333 | ✅ 331 | **2** |
-| Service worker registration | 333 | ✅ 315 | **18** |
+| Dual-cap rule (first 155 complete) | 333 | ✅ 333 | 0 |
+| Leaflet map integration | 333 | ✅ 333 | 0 |
+| Service worker registration | 333 | ✅ 333 | 0 |
 
-**Overall Score: 96/100** (Minor issues in 4 categories)
+**Overall Score: 100/100** (All validation checks passing)
 
 ---
 
@@ -121,60 +121,54 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 
 ---
 
-### 🟢 [G] P1 - Dual-Cap Rule Violations (10 pages)
+### ✅ [G] P1 - Dual-Cap Rule Violations (COMPLETED)
 
-These pages have ai-summary that does NOT have a complete sentence within the first ~155 characters:
+All 10 pages updated with proper dual-cap compliant ai-summary (first ~155 chars ending with complete sentence):
 
-- [ ] `ports/bay-of-islands.html` - First sentence too short (ends at char 44)
-- [ ] `ports/brunei.html` - First sentence too short (ends at char 41)
-- [ ] `ports/capri.html` - First sentence too short (ends at char 48)
-- [ ] `ports/cococay.html` - No period/sentence ending in first 160 chars
-- [ ] `ports/labadee.html` - No period/sentence ending in first 160 chars
-- [ ] `ports/naples.html` - No period/sentence ending in first 160 chars
-- [ ] `ports/papeete.html` - No period/sentence ending in first 160 chars
-- [ ] `ports/santorini.html` - No period/sentence ending in first 160 chars
-- [ ] `ports/vancouver.html` - No period/sentence ending in first 160 chars
-- [ ] `ports/yangon.html` - No period/sentence ending in first 160 chars
-
-**Fix:** Rewrite ai-summary so first ~155 chars end with a complete standalone sentence, per ICP-Lite v1.4 dual-cap rule.
+- [x] `ports/bay-of-islands.html` - Fixed
+- [x] `ports/brunei.html` - Fixed
+- [x] `ports/capri.html` - Fixed
+- [x] `ports/cococay.html` - Fixed
+- [x] `ports/labadee.html` - Fixed
+- [x] `ports/naples.html` - Fixed
+- [x] `ports/papeete.html` - Fixed
+- [x] `ports/santorini.html` - Fixed
+- [x] `ports/vancouver.html` - Fixed
+- [x] `ports/yangon.html` - Fixed
 
 ---
 
-### 🟢 [G] P2 - Missing Leaflet Map Integration (2 pages)
+### ✅ [G] P2 - Missing Leaflet Map Integration (COMPLETED)
 
-These port pages lack Leaflet map integration:
+Both port pages now have Leaflet map integration:
 
-- [ ] `ports/charleston.html` - Add Leaflet map
-- [ ] `ports/jacksonville.html` - Add Leaflet map
-
-**Fix:** Add Leaflet map component with proper coordinates.
+- [x] `ports/charleston.html` - Added Leaflet map
+- [x] `ports/jacksonville.html` - Added Leaflet map
 
 ---
 
-### 🟢 [G] P2 - Missing Service Worker Registration (18 pages)
+### ✅ [G] P2 - Missing Service Worker Registration (COMPLETED)
 
-These port pages don't have service worker registration:
+All 18 port pages now have service worker registration:
 
-- [ ] `ports/cephalonia.html`
-- [ ] `ports/christchurch.html`
-- [ ] `ports/durban.html`
-- [ ] `ports/hamburg.html`
-- [ ] `ports/hurghada.html`
-- [ ] `ports/incheon.html`
-- [ ] `ports/kota-kinabalu.html`
-- [ ] `ports/lautoka.html`
-- [ ] `ports/luanda.html`
-- [ ] `ports/mindelo.html`
-- [ ] `ports/mombasa.html`
-- [ ] `ports/port-moresby.html`
-- [ ] `ports/portimao.html`
-- [ ] `ports/praia.html`
-- [ ] `ports/roatan.html`
-- [ ] `ports/sihanoukville.html`
-- [ ] `ports/st-maarten.html`
-- [ ] `ports/yangon.html`
-
-**Fix:** Add service worker registration script block.
+- [x] `ports/cephalonia.html`
+- [x] `ports/christchurch.html`
+- [x] `ports/durban.html`
+- [x] `ports/hamburg.html`
+- [x] `ports/hurghada.html`
+- [x] `ports/incheon.html`
+- [x] `ports/kota-kinabalu.html`
+- [x] `ports/lautoka.html`
+- [x] `ports/luanda.html`
+- [x] `ports/mindelo.html`
+- [x] `ports/mombasa.html`
+- [x] `ports/port-moresby.html`
+- [x] `ports/portimao.html`
+- [x] `ports/praia.html`
+- [x] `ports/roatan.html`
+- [x] `ports/sihanoukville.html`
+- [x] `ports/st-maarten.html`
+- [x] `ports/yangon.html`
 
 ---
 

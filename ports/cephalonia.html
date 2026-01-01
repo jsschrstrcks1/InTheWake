@@ -6,6 +6,11 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Cephalonia (Kefalonia), Greece - Largest Ionian Island Port Guide | In the Wake</title>
     <meta name="description" content="First-person logbook entry from Cephalonia: Greece's largest Ionian island with 50,000 years of history, Melissani Cave's crystal waters, Myrtos Beach, ancient castles, Drogarati Cave, and resilience after the 1953 earthquake.">
 

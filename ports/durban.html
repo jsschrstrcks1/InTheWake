@@ -6,6 +6,11 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Durban, South Africa - Sunny Beaches and Zulu Heritage | Port Guide</title>
     <meta name="description" content="Discover Durban's Golden Mile beaches, rich Indian heritage, and Zulu culture. Your personal guide to South Africa's busiest port city with warm waters and vibrant markets.">
     <meta name="keywords" content="Durban cruise port, South Africa ports, Golden Mile beach, uShaka Marine World, Zulu culture, Moses Mabhida Stadium, bunny chow, Victoria Street Market">
