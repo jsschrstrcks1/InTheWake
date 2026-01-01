@@ -432,8 +432,20 @@ class PortRepairer {
     }
 
     const scriptTag = '  <!-- Port Weather Widget -->\n  <script type="module" src="/assets/js/port-weather.js"></script>\n';
-    this.content = this.content.replace('</body></html>', scriptTag + '</body></html>');
-    this.log('fix', 'Added weather script');
+
+    // Try multiple patterns for inserting the script
+    if (this.content.includes('</body></html>')) {
+      this.content = this.content.replace('</body></html>', scriptTag + '</body></html>');
+      this.log('fix', 'Added weather script');
+    } else if (this.content.match(/<\/body>\s*<\/html>/)) {
+      this.content = this.content.replace(/<\/body>(\s*)<\/html>/, scriptTag + '</body>$1</html>');
+      this.log('fix', 'Added weather script');
+    } else if (this.content.includes('</body>')) {
+      this.content = this.content.replace('</body>', scriptTag + '</body>');
+      this.log('fix', 'Added weather script');
+    } else {
+      this.log('skip', 'Could not find insertion point for weather script');
+    }
   }
 
   fixShoulderSeason() {
