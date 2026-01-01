@@ -6,11 +6,16 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Yangon (Rangoon), Myanmar: Golden Spires and Colonial Echoes - In the Wake</title>
     <meta name="description" content="A cruise port guide to Yangon, Myanmar - from the shimmering Shwedagon Pagoda to British colonial architecture, tea shop culture, and the complex beauty of Burma's former capital.">
 
     <!-- ICP-Lite Meta Tags -->
-    <meta name="ai-summary" content="Yangon, Myanmar's largest city and former capital, offers cruisers the magnificent Shwedagon Pagoda, British colonial heritage, vibrant markets, traditional tea culture, and a chance to witness a nation in transition.">
+    <meta name="ai-summary" content="Yangon is Myanmar's largest city, where the magnificent golden Shwedagon Pagoda rises above British colonial architecture and bustling tea shops. Explore vibrant markets, witness traditional culture, and experience a nation in transition.">
     <meta name="last-reviewed" content="2025-12-14">
     <meta name="content-protocol" content="ICP-Lite v1.4">
 
@@ -53,7 +58,7 @@ Soli Deo Gloria
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Yangon (Rangoon), Myanmar: Golden Spires and Colonial Echoes - In the Wake",
-      "description": "Yangon, Myanmar's largest city and former capital, offers cruisers the magnificent Shwedagon Pagoda, British colonial heritage, vibrant markets, traditional tea culture, and a chance to witness a nation in transition.",
+      "description": "Yangon is Myanmar's largest city, where the magnificent golden Shwedagon Pagoda rises above British colonial architecture and bustling tea shops. Explore vibrant markets, witness traditional culture, and experience a nation in transition.",
       "url": "https://cruisinginthewake.com/ports/yangon.html",
       "dateModified": "2025-12-14",
       "mainEntity": {
@@ -168,6 +173,9 @@ Soli Deo Gloria
             <p class="hero-subtitle">Golden Spires and Colonial Echoes</p>
         </div>
     </section>
+
+    
+    <p class="last-reviewed" style="max-width: 1100px; margin: 0.5rem auto 1rem; padding: 0 14px;">Last reviewed: January 2026</p>
 
     <div class="container main-container">
         <main>
@@ -330,7 +338,15 @@ Soli Deo Gloria
 
                     <p>Maybe that's the lesson Yangon teaches: that beauty and devotion and kindness don't require ideal conditions. They happen anyway, stubbornly, persistently, like gold glowing in the last light of day. We show up. We bear witness. We walk our path. And somehow, mysteriously, that matters.</p>
                 </div>
-            </article>
+            
+        <!-- VOLATILE DATA DISCLAIMER -->
+        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-14 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+        </aside>
+
+
+      </article>
         </main>
 
         <aside>
@@ -416,7 +432,8 @@ Soli Deo Gloria
                 <a href="/contact.html">Contact</a>
             </nav>
         </div>
-    </footer>
+      <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+  </footer>
 
     <!-- Leaflet JS for interactive maps -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

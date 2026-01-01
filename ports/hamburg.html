@@ -6,11 +6,16 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Hamburg Cruise Port Guide: Maritime Gateway to Northern Europe | In the Wake</title>
     <meta name="description" content="Explore Hamburg's UNESCO Speicherstadt warehouses, architectural marvel Elbphilharmonie, and maritime heritage through a sailor's reflective lens. Personal insights from Germany's great northern port.">
 
     <!-- ICP-Lite Meta Tags -->
-    <meta name="ai-summary" content="Hamburg port guide — UNESCO Speicherstadt warehouses (1885-1927), Elbphilharmonie concert hall (2017), Miniatur Wunderland model railway, and Elbe River maritime heritage. Ships dock at HafenCity or Altona terminals. Germany's northern gateway.">
+    <meta name="ai-summary" content="Hamburg is Germany's maritime gateway with 2,300 bridges (more than Venice). Explore Elbphilharmonie concert hall, historic Speicherstadt warehouse district, Miniatur Wunderland, and St. Michaelis Church.">
     <meta name="last-reviewed" content="2025-12-17">
     <meta name="content-protocol" content="ICP-Lite v1.4">
 
@@ -95,7 +100,7 @@ Soli Deo Gloria
         "@id": "https://cruisinginthewake.com/ports/hamburg.html",
         "name": "Hamburg Port Guide",
         "url": "https://cruisinginthewake.com/ports/hamburg.html",
-        "description": "Hamburg port guide — UNESCO Speicherstadt warehouses (1885-1927), Elbphilharmonie concert hall (2017), Miniatur Wunderland model railway, and Elbe River maritime heritage. Ships dock at HafenCity or Altona terminals. Germany's northern gateway.",
+        "description": "Hamburg is Germany's maritime gateway with 2,300 bridges (more than Venice). Explore Elbphilharmonie concert hall, historic Speicherstadt warehouse district, Miniatur Wunderland, and St. Michaelis Church.",
         "dateModified": "2025-12-17",
         "mainEntity": {
             "@type": "Place",
@@ -161,15 +166,14 @@ Soli Deo Gloria
     </div>
   </header>
 
-    <section class="hero-section port-hero hamburg-hero">
-        <div class="hero-content">
-            <h1>Hamburg, Germany</h1>
-            <p class="hero-subtitle">Maritime Gateway to Northern Europe</p>
-        </div>
-    </section>
-
     <main class="container port-page-layout">
         <article class="port-content">
+            <section class="hero-section port-hero hamburg-hero">
+                <div class="hero-content">
+                    <h1>Hamburg, Germany</h1>
+                    <p class="hero-subtitle">Maritime Gateway to Northern Europe</p>
+                </div>
+            </section>
             <div class="logbook-entry">
                 <p class="entry-date">Logbook Entry: Hamburg Port Call</p>
 
@@ -369,7 +373,15 @@ Soli Deo Gloria
       </section>
 
             </aside>
-        </article>
+        
+        <!-- VOLATILE DATA DISCLAIMER -->
+        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+        </aside>
+
+
+      </article>
 
         <aside class="port-sidebar">
             <div class="sidebar-card at-a-glance">
@@ -460,7 +472,8 @@ Soli Deo Gloria
                 <p>&copy; 2025 In the Wake. All rights reserved. | <a href="/privacy">Privacy Policy</a></p>
             </div>
         </div>
-    </footer>
+      <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+  </footer>
 
     <!-- Leaflet JS for interactive maps -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

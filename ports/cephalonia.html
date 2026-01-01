@@ -6,11 +6,16 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Cephalonia (Kefalonia), Greece - Largest Ionian Island Port Guide | In the Wake</title>
     <meta name="description" content="First-person logbook entry from Cephalonia: Greece's largest Ionian island with 50,000 years of history, Melissani Cave's crystal waters, Myrtos Beach, ancient castles, Drogarati Cave, and resilience after the 1953 earthquake.">
 
     <!-- ICP-Lite Metadata -->
-    <meta name="ai-summary" content="Cephalonia cruise guide: Greece's largest Ionian island with 50,000 years of history, Melissani Cave's crystal lake, Myrtos Beach, Drogarati Cave, Fiscardo's Venetian charm, and resilience from the 1953 earthquake.">
+    <meta name="ai-summary" content="Cephalonia is Greece's largest Ionian island with 50,000 years of history. Experience Melissani Cave's crystal lake, Myrtos Beach, Drogarati Cave, and Fiscardo's Venetian charm.">
     <meta name="last-reviewed" content="2025-12-26">
     <meta name="content-protocol" content="ICP-Lite v1.4">
 
@@ -53,7 +58,7 @@ Soli Deo Gloria
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Cephalonia Port Guide",
-      "description": "Cephalonia cruise guide: Greece's largest Ionian island with 50,000 years of history, Melissani Cave's crystal lake, Myrtos Beach, Drogarati Cave, Fiscardo's Venetian charm, and resilience from the 1953 earthquake.",
+      "description": "Cephalonia is Greece's largest Ionian island with 50,000 years of history. Experience Melissani Cave's crystal lake, Myrtos Beach, Drogarati Cave, and Fiscardo's Venetian charm.",
       "dateModified": "2025-12-26",
       "mainEntity": {
         "@type": "Place",
@@ -167,6 +172,9 @@ Soli Deo Gloria
             <p class="hero-subtitle">Where Earthquake and Endurance Shaped Greece's Largest Ionian Island</p>
         </div>
     </section>
+
+    
+    <p class="last-reviewed" style="max-width: 1100px; margin: 0.5rem auto 1rem; padding: 0 14px;">Last reviewed: January 2026</p>
 
     <div class="container main-container">
         <main class="port-content">
@@ -368,7 +376,15 @@ Soli Deo Gloria
                     </ul>
                 </section>
 
-                <section id="faq" class="content-section faq-section">
+                
+        <!-- VOLATILE DATA DISCLAIMER -->
+        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-26 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+        </aside>
+
+
+        <section id="faq" class="content-section faq-section">
                     <h2>Frequently Asked Questions</h2>
 
                     <div class="faq-item">
@@ -526,7 +542,8 @@ Soli Deo Gloria
                 <p>&copy; 2025 In the Wake. All rights reserved. <em>Soli Deo Gloria</em></p>
             </div>
         </div>
-    </footer>
+      <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+  </footer>
 
     <script src="/assets/js/port-map.js"></script>
     <script>

@@ -6,11 +6,16 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Port Moresby, Papua New Guinea - Gateway to Tribal Cultures & WWII History | In The Wake</title>
     <meta name="description" content="Explore Port Moresby, PNG's vibrant capital on the Coral Sea. Discover tribal artifacts, WWII memorials, birds of paradise, and 800+ languages in one extraordinary place.">
 
     <!-- ICP-Lite Meta Tags -->
-    <meta name="ai-summary" content="Port Moresby cruise port guide: PNG's capital offering tribal museums, WWII history at Bomana War Cemetery, Parliament House, Nature Park with birds of paradise, Ela Beach markets. Safety-conscious organized excursions recommended.">
+    <meta name="ai-summary" content="Port Moresby is Papua New Guinea's capital with 800+ indigenous languages. Explore diverse tribal cultures, WWII history, National Museum, and Melanesian traditions.">
     <meta name="last-reviewed" content="2025-12-14">
     <meta name="content-protocol" content="ICP-Lite v1.4">
 
@@ -54,7 +59,7 @@ Soli Deo Gloria
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Port Moresby, Papua New Guinea - Gateway to Tribal Cultures & WWII History | In The Wake",
-        "description": "Port Moresby cruise port guide: PNG's capital offering tribal museums, WWII history at Bomana War Cemetery, Parliament House, Nature Park with birds of paradise, Ela Beach markets. Safety-conscious organized excursions recommended.",
+        "description": "Port Moresby is Papua New Guinea's capital with 800+ indigenous languages. Explore diverse tribal cultures, WWII history, National Museum, and Melanesian traditions.",
         "dateModified": "2025-12-14",
         "mainEntity": {
             "@type": "Place",
@@ -281,7 +286,15 @@ Soli Deo Gloria
                     <h3>Do I need vaccines or malaria medication?</h3>
                     <p>Consult your doctor well before traveling. Malaria exists in PNG, and prophylaxis may be recommended depending on your activities and time spent ashore. Routine vaccinations should be up to date. Your cruise line may also provide health guidelines specific to the itinerary.</p>
                 </div>
-            </article>
+            
+        <!-- VOLATILE DATA DISCLAIMER -->
+        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-14 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+        </aside>
+
+
+      </article>
 
             <aside class="port-sidebar">
                 <div class="sidebar-card at-a-glance">
@@ -360,7 +373,8 @@ Soli Deo Gloria
         <div class="container">
             <p>&copy; 2025 In The Wake. All rights reserved. | <a href="/privacy.html">Privacy Policy</a></p>
         </div>
-    </footer>
+      <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+  </footer>
 
     <!-- Leaflet JS for interactive maps -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

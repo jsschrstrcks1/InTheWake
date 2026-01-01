@@ -44,6 +44,21 @@ h3 { font-size: 1.25rem; line-height: 1.4; }
 .hidden { display: none !important; }
 .inline { display: inline; }
 
+/* ===== Trust & Credibility Elements ===== */
+.trust-badge {
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-top: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.last-reviewed {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0.5rem 0 1rem;
+  font-style: italic;
+}
+
 /* ===== High-Frequency Utility Classes (CSS Consolidation 2025-12-10) ===== */
 /* These replace 7,000+ inline styles identified in site audit */
 
@@ -1422,6 +1437,744 @@ figure.hero img + img,
   text-align: right;
   background: #f7fdff;
   border-radius: 0 0 12px 12px;
+}
+
+/* ===== Port Weather Widget ===== */
+.weather-widget {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 1px solid #bae6fd;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.weather-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--ink-mid);
+  padding: 1rem;
+}
+
+.weather-loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e0e8f0;
+  border-top-color: var(--sea);
+  border-radius: 50%;
+  animation: weather-spin 0.8s linear infinite;
+}
+
+@keyframes weather-spin {
+  to { transform: rotate(360deg); }
+}
+
+.weather-error {
+  color: #b45309;
+  padding: 0.75rem;
+  background: #fef3c7;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.weather-current {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.weather-current-main {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.weather-icon-large {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.weather-temp-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-temp-primary {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--sea);
+  line-height: 1;
+}
+
+.weather-feels-like {
+  font-size: 0.85rem;
+  color: var(--ink-mid);
+}
+
+.weather-current-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  flex: 1;
+  min-width: 200px;
+}
+
+.weather-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.weather-detail-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+}
+
+.weather-detail-value {
+  font-size: 0.95rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.weather-seasonal-comparison {
+  font-size: 0.9rem;
+  color: var(--ink-mid);
+  padding: 0.75rem;
+  background: rgba(255,255,255,0.6);
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  font-style: italic;
+}
+
+.weather-best-window {
+  font-size: 0.9rem;
+  padding: 0.75rem;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.weather-hint {
+  color: var(--ink-mid);
+  font-size: 0.8rem;
+}
+
+.weather-forecast {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #bae6fd;
+}
+
+.weather-forecast-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--sea);
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.weather-forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.5rem;
+}
+
+.weather-forecast-bucket {
+  background: rgba(255,255,255,0.7);
+  border: 1px solid #e0f2fe;
+  border-radius: 8px;
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+}
+
+.weather-bucket-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+
+.weather-bucket-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.weather-bucket-temp {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--sea);
+}
+
+.weather-bucket-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin-top: 0.25rem;
+}
+
+.weather-bucket-precip,
+.weather-bucket-wind {
+  font-size: 0.7rem;
+  color: var(--ink-mid);
+}
+
+.weather-controls {
+  display: flex;
+  gap: 0.25rem;
+  margin-top: 0.75rem;
+}
+
+.weather-unit-toggle {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  border: 1px solid #bae6fd;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--ink-mid);
+  transition: all 0.15s ease;
+}
+
+.weather-unit-toggle:hover {
+  background: #f0f9ff;
+}
+
+.weather-unit-toggle[aria-pressed="true"] {
+  background: var(--sea);
+  color: #fff;
+  border-color: var(--sea);
+}
+
+.weather-attribution {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #e0f2fe;
+}
+
+.weather-attribution a {
+  color: var(--sea);
+  text-decoration: none;
+}
+
+.weather-attribution a:hover {
+  text-decoration: underline;
+}
+
+.weather-updated {
+  color: #64748b;
+}
+
+.weather-tier-label {
+  font-style: italic;
+  color: #94a3b8;
+}
+
+.weather-warning {
+  font-size: 0.85rem;
+  color: #b45309;
+  padding: 0.5rem;
+  background: #fef3c7;
+  border-radius: 6px;
+  margin-top: 0.75rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .weather-current {
+    flex-direction: column;
+  }
+  .weather-forecast-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .weather-forecast-bucket {
+    padding: 0.5rem 0.25rem;
+  }
+  .weather-bucket-label {
+    font-size: 0.65rem;
+  }
+}
+
+/* ===== Tender Port Indicator ===== */
+.tender-port-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+}
+
+.tender-port-indicator .tender-icon {
+  width: 48px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.tender-port-indicator .tender-text {
+  flex: 1;
+}
+
+.tender-port-indicator .tender-title {
+  font-weight: 700;
+  color: #92400e;
+  font-size: 0.95rem;
+  margin: 0 0 0.15rem;
+}
+
+.tender-port-indicator .tender-desc {
+  font-size: 0.85rem;
+  color: #78350f;
+  margin: 0;
+  line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+  .tender-port-indicator {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+  }
+  .tender-port-indicator .tender-icon {
+    width: 40px;
+    height: 30px;
+  }
+}
+
+/* ----- Seasonal Guide Styles ----- */
+.seasonal-guide {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--divider);
+}
+
+/* Collapsible sections */
+.seasonal-section {
+  margin-bottom: 1rem;
+  border: 1px solid var(--divider);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.seasonal-section[open] {
+  margin-bottom: 1.5rem;
+}
+
+.seasonal-section > .seasonal-at-glance,
+.seasonal-section > .seasonal-best-time,
+.seasonal-section > .seasonal-catches,
+.seasonal-section > .seasonal-packing,
+.seasonal-section > .seasonal-hazards {
+  padding: 1rem;
+  margin-bottom: 0;
+}
+
+.seasonal-section-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  padding: 1rem;
+  cursor: pointer;
+  background: var(--surface-secondary);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.seasonal-section-title::-webkit-details-marker {
+  display: none;
+}
+
+.seasonal-section-title::after {
+  content: "+";
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+}
+
+.seasonal-section[open] > .seasonal-section-title::after {
+  content: "−";
+}
+
+.seasonal-section-title:hover {
+  background: var(--surface-tertiary, var(--surface-secondary));
+}
+
+/* Fallback for non-details h3 elements */
+h3.seasonal-section-title {
+  cursor: default;
+  background: transparent;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+h3.seasonal-section-title::after {
+  display: none;
+}
+
+/* At a Glance */
+.seasonal-at-glance {
+  margin-bottom: 1.5rem;
+}
+
+.seasonal-glance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.seasonal-glance-item {
+  background: var(--surface-secondary);
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.glance-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.glance-value {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+/* Best Time to Visit */
+.seasonal-best-time {
+  margin-bottom: 1.5rem;
+}
+
+.cruise-seasons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.cruise-season {
+  padding: 0.75rem;
+  border-radius: 6px;
+  text-align: center;
+  border-left: 4px solid;
+}
+
+.cruise-season-high {
+  background: rgba(34, 197, 94, 0.1);
+  border-left-color: #22c55e;
+}
+
+.cruise-season-transitional {
+  background: rgba(234, 179, 8, 0.1);
+  border-left-color: #eab308;
+}
+
+.cruise-season-low {
+  background: rgba(239, 68, 68, 0.1);
+  border-left-color: #ef4444;
+}
+
+.season-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.season-months {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+/* Best months for activities */
+.best-months-activities {
+  margin-top: 1rem;
+}
+
+.activity-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--divider);
+}
+
+.activity-row:last-child {
+  border-bottom: none;
+}
+
+.activity-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.activity-months {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Months to avoid */
+.months-to-avoid {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(239, 68, 68, 0.08);
+  border-radius: 6px;
+  border-left: 3px solid #ef4444;
+}
+
+.avoid-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-right: 0.5rem;
+}
+
+.avoid-months {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.avoid-reason {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-left: 0.5rem;
+}
+
+/* What Catches Visitors Off Guard */
+.seasonal-catches {
+  margin-bottom: 1.5rem;
+}
+
+.catches-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.catches-list li {
+  position: relative;
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.catches-list li::before {
+  content: "!";
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  background: #f59e0b;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Packing Tips */
+.seasonal-packing {
+  margin-bottom: 1.5rem;
+}
+
+.packing-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.5rem;
+}
+
+.packing-list li {
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.packing-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #22c55e;
+  font-weight: bold;
+}
+
+/* Weather Hazards */
+.seasonal-hazards {
+  margin-bottom: 1rem;
+}
+
+.hazard-warning {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(239, 68, 68, 0.08);
+  border-radius: 8px;
+  border-left: 4px solid #ef4444;
+}
+
+.hazard-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.hazard-content {
+  flex: 1;
+}
+
+.hazard-content strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.hazard-content p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.hazard-note {
+  font-style: italic;
+  color: var(--text-muted) !important;
+}
+
+/* Mobile adjustments for seasonal guide */
+@media (max-width: 480px) {
+  .seasonal-glance-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cruise-seasons-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .packing-list {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-row {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
+/* Noscript fallback styling */
+.weather-noscript-note {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--divider);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.seasonal-guide-static {
+  /* Static version in noscript uses same styles as JS-rendered */
+}
+
+/* ----- Collapsible Page Sections ----- */
+.section-collapse {
+  border: none;
+  margin: 0;
+}
+
+.section-collapse > summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+}
+
+.section-collapse > summary::-webkit-details-marker {
+  display: none;
+}
+
+.section-collapse > summary h2,
+.section-collapse > summary h3 {
+  margin: 0;
+  flex: 1;
+}
+
+.section-collapse > summary::after {
+  content: "▼";
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-left: 1rem;
+  transition: transform 0.2s ease;
+  opacity: 0.5;
+}
+
+.section-collapse:not([open]) > summary::after {
+  transform: rotate(-90deg);
+}
+
+.section-collapse > summary:hover::after {
+  opacity: 1;
+}
+
+.section-collapse > .section-body {
+  padding-top: 1rem;
+}
+
+/* Animate open/close */
+.section-collapse[open] > .section-body {
+  animation: section-expand 0.2s ease-out;
+}
+
+@keyframes section-expand {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Print: always show expanded */
+@media print {
+  .section-collapse {
+    display: block !important;
+  }
+  .section-collapse > summary::after {
+    display: none;
+  }
+  .section-collapse > .section-body {
+    display: block !important;
+  }
 }
 
 /* ===== END Unified Styles ===== */

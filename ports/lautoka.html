@@ -6,11 +6,16 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Lautoka, Fiji: Sugar City and Gateway to Paradise | Port Guide</title>
     <meta name="description" content="Discover Lautoka, Fiji's Sugar City on western Viti Levu. Gateway to Yasawa Islands, vibrant markets, Hindu temples, and authentic Bula spirit hospitality.">
 
     <!-- ICP-Lite Meta Tags -->
-    <meta name="ai-summary" content="First-person guide to Lautoka, Fiji — Sugar City and gateway to Yasawa Islands with vibrant markets, Sri Krishna Kaliya temple, rainforest parks, and Fijian hospitality.">
+    <meta name="ai-summary" content="Lautoka is Fiji's Sugar City gateway to island adventures. Visit Nadi Hindu temple, Garden of the Sleeping Giant, cloud forests, traditional villages, and vibrant markets.">
     <meta name="last-reviewed" content="2025-12-14">
     <meta name="content-protocol" content="ICP-Lite v1.4">
 
@@ -48,7 +53,7 @@ Soli Deo Gloria
         "@type": "WebPage",
         "@id": "https://inthewake.com/ports/lautoka.html",
         "name": "Lautoka Port Guide",
-        "description": "First-person guide to Lautoka, Fiji — Sugar City and gateway to Yasawa Islands with vibrant markets, Sri Krishna Kaliya temple, rainforest parks, and Fijian hospitality.",
+        "description": "Lautoka is Fiji's Sugar City gateway to island adventures. Visit Nadi Hindu temple, Garden of the Sleeping Giant, cloud forests, traditional villages, and vibrant markets.",
         "dateModified": "2025-12-14",
         "mainEntity": {
             "@type": "Place",
@@ -352,7 +357,15 @@ Soli Deo Gloria
                 <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
             </section>
 
-            <section id="faq" class="content-section">
+            
+        <!-- VOLATILE DATA DISCLAIMER -->
+        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-14 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+        </aside>
+
+
+        <section id="faq" class="content-section">
                 <h2>Frequently Asked Questions</h2>
 
                 <div class="faq-item">
@@ -477,7 +490,8 @@ Soli Deo Gloria
                 <p>&copy; 2025 In the Wake. All rights reserved. | Soli Deo Gloria</p>
             </div>
         </div>
-    </footer>
+      <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+  </footer>
 
     <script src="/js/main.js"></script>
 

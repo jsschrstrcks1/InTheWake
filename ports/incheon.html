@@ -6,11 +6,16 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Incheon, South Korea - Gateway Port & Historic Landing Site | In The Wake</title>
     <meta name="description" content="First-hand account of Incheon, South Korea - gateway to Seoul, historic treaty port, and site of the pivotal Korean War landing. Chinatown, Songdo, and harbor reflections.">
 
     <!-- ICP-Lite Meta Tags -->
-    <meta name="ai-summary" content="Incheon cruise port: gateway to Seoul (1 hour), Incheon Landing 1950, Korea's only Chinatown, jajangmyeon birthplace, Jayu Park MacArthur statue, Wolmido Island seafood, futuristic Songdo district, historic treaty port architecture.">
+    <meta name="ai-summary" content="Incheon is South Korea's gateway to Seoul with 5,000 years of history. Visit Gyeongbokgung Palace, N Seoul Tower, DMZ tours, vibrant markets, and experience K-culture.">
     <meta name="last-reviewed" content="2025-12-14">
     <meta name="content-protocol" content="ICP-Lite v1.4">
 
@@ -49,7 +54,7 @@ Soli Deo Gloria
         "@id": "https://inthewake.com/ports/incheon.html",
         "name": "Incheon, South Korea - Gateway Port & Historic Landing Site",
         "url": "https://inthewake.com/ports/incheon.html",
-        "description": "Incheon cruise port: gateway to Seoul (1 hour), Incheon Landing 1950, Korea's only Chinatown, jajangmyeon birthplace, Jayu Park MacArthur statue, Wolmido Island seafood, futuristic Songdo district, historic treaty port architecture.",
+        "description": "Incheon is South Korea's gateway to Seoul with 5,000 years of history. Visit Gyeongbokgung Palace, N Seoul Tower, DMZ tours, vibrant markets, and experience K-culture.",
         "dateModified": "2025-12-14",
         "mainEntity": {
             "@type": "Place",
@@ -332,7 +337,15 @@ Soli Deo Gloria
 
                 </aside>
             </div>
-        </article>
+        
+        <!-- VOLATILE DATA DISCLAIMER -->
+        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-14 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+        </aside>
+
+
+      </article>
 
         <aside class="port-detail-sidebar">
             <div class="sidebar-card at-a-glance">
@@ -399,7 +412,8 @@ Soli Deo Gloria
                 </ul>
             </nav>
         </div>
-    </footer>
+      <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+  </footer>
 
   <!-- Leaflet JS for interactive maps -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

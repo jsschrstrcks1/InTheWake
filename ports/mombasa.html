@@ -6,11 +6,16 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Mombasa Port Guide - Gateway to Safari and Swahili Coast | In The Wake</title>
     <meta name="description" content="Your complete guide to Mombasa, Kenya - explore Fort Jesus, Old Town's Swahili architecture, pristine Diani Beach, and gateway to Tsavo safari adventures.">
 
     <!-- ICP-Lite Protocol -->
-    <meta name="ai-summary" content="Comprehensive port guide for Mombasa, Kenya covering Fort Jesus UNESCO site, Old Town Swahili architecture, Diani Beach, Haller Park, safari excursions to Tsavo, dhow culture, and practical visitor information for cruise passengers.">
+    <meta name="ai-summary" content="Mombasa is Kenya's historic Swahili port with Fort Jesus UNESCO site. Experience Old Town, spice markets, safaris to Tsavo, beaches, and East African coastal culture.">
     <meta name="last-reviewed" content="2025-12-14">
     <meta name="content-protocol" content="ICP-Lite v1.4">
 
@@ -54,7 +59,7 @@ Soli Deo Gloria
       "@type": "WebPage",
       "@id": "https://inthewake.com/ports/mombasa",
       "name": "Mombasa Port Guide - Gateway to Safari and Swahili Coast | In The Wake",
-      "description": "Comprehensive port guide for Mombasa, Kenya covering Fort Jesus UNESCO site, Old Town Swahili architecture, Diani Beach, Haller Park, safari excursions to Tsavo, dhow culture, and practical visitor information for cruise passengers.",
+      "description": "Mombasa is Kenya's historic Swahili port with Fort Jesus UNESCO site. Experience Old Town, spice markets, safaris to Tsavo, beaches, and East African coastal culture.",
       "dateModified": "2025-12-14",
       "mainEntity": {
         "@type": "Place",
@@ -387,7 +392,15 @@ Soli Deo Gloria
                             <p>Light, breathable clothing in natural fabrics works best in the tropical heat. However, Mombasa has a conservative Muslim culture—cover shoulders and knees when visiting Old Town and religious sites. Beachwear is fine at the beaches but not in the city. Bring comfortable walking shoes, sunscreen, and a hat.</p>
                         </div>
                     </section>
-                </article>
+                
+        <!-- VOLATILE DATA DISCLAIMER -->
+        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-14 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+        </aside>
+
+
+      </article>
 
                 <aside class="port-sidebar">
                     <div class="sidebar-card at-a-glance">
@@ -494,7 +507,8 @@ Soli Deo Gloria
                 <p>&copy; 2025 In The Wake. All rights reserved.</p>
             </div>
         </div>
-    </footer>
+      <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+  </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="/js/port-map.js"></script>
