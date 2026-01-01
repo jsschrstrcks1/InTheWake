@@ -6,6 +6,11 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Port Moresby, Papua New Guinea - Gateway to Tribal Cultures & WWII History | In The Wake</title>
     <meta name="description" content="Explore Port Moresby, PNG's vibrant capital on the Coral Sea. Discover tribal artifacts, WWII memorials, birds of paradise, and 800+ languages in one extraordinary place.">
 

@@ -185,6 +185,65 @@ class PortValidator {
   }
 
   /**
+   * Validate tender port indicator (BLOCKING for tender ports)
+   * If port is in registry as tenderPort: true, page MUST have tender-port-indicator
+   */
+  validateTenderPortIndicator() {
+    this.log('section', 'TENDER PORT INDICATOR VALIDATION');
+
+    // Extract port slug from file path (e.g., ports/belize.html -> belize)
+    const fileName = path.basename(this.filePath, '.html');
+    const portSlug = fileName;
+
+    // Load port registry
+    const registryPath = path.join(__dirname, '..', 'assets', 'data', 'ports', 'port-registry.json');
+
+    if (!fs.existsSync(registryPath)) {
+      this.log('warn', 'Port registry not found, skipping tender port validation');
+      return;
+    }
+
+    try {
+      const registryData = JSON.parse(fs.readFileSync(registryPath, 'utf8'));
+      const registry = registryData.ports || registryData; // Handle both wrapped and unwrapped formats
+
+      // Check if this port exists in registry
+      if (!registry[portSlug]) {
+        this.log('info', `Port "${portSlug}" not found in registry, skipping tender check`);
+        return;
+      }
+
+      const portData = registry[portSlug];
+      const isTenderPort = portData.tenderPort === true;
+
+      if (isTenderPort) {
+        // This is a tender port - MUST have the indicator
+        if (this.content.includes('class="tender-port-indicator"')) {
+          this.log('pass', 'Tender port has required tender-port-indicator element');
+
+          // Also check for the icon
+          if (this.content.includes('tender-boat.svg')) {
+            this.log('pass', 'Tender indicator includes tender-boat icon');
+          } else {
+            this.log('warn', 'Tender indicator missing tender-boat.svg icon');
+          }
+        } else {
+          this.log('error', `BLOCKING: Port "${portData.name}" is a tender port but MISSING tender-port-indicator element`);
+        }
+      } else {
+        // Not a tender port - should NOT have the indicator
+        if (this.content.includes('class="tender-port-indicator"')) {
+          this.log('error', `Port "${portData.name}" is NOT a tender port but has tender-port-indicator element`);
+        } else {
+          this.log('pass', 'Non-tender port correctly lacks tender-port-indicator');
+        }
+      }
+    } catch (err) {
+      this.log('warn', `Could not parse port registry: ${err.message}`);
+    }
+  }
+
+  /**
    * Validate that all referenced images exist locally (BLOCKING requirement)
    * Extracts all img src attributes and verifies files exist on disk
    */
@@ -336,6 +395,11 @@ class PortValidator {
     // Run basic validations
     this.validateBasicStructure();
     this.validatePortRequirements();
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // TENDER PORT INDICATOR - BLOCKING REQUIREMENT FOR TENDER PORTS
+    // ═══════════════════════════════════════════════════════════════════════════
+    this.validateTenderPortIndicator();
 
     // ═══════════════════════════════════════════════════════════════════════════
     // IMAGE VALIDATION - BLOCKING REQUIREMENT

@@ -6,6 +6,11 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Mombasa Port Guide - Gateway to Safari and Swahili Coast | In The Wake</title>
     <meta name="description" content="Your complete guide to Mombasa, Kenya - explore Fort Jesus, Old Town's Swahili architecture, pristine Diani Beach, and gateway to Tsavo safari adventures.">
 

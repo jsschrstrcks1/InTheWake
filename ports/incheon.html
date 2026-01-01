@@ -6,6 +6,11 @@ Soli Deo Gloria
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  }
+  </script>
     <title>Incheon, South Korea - Gateway Port & Historic Landing Site | In The Wake</title>
     <meta name="description" content="First-hand account of Incheon, South Korea - gateway to Seoul, historic treaty port, and site of the pivotal Korean War landing. Chinatown, Songdo, and harbor reflections.">
 
