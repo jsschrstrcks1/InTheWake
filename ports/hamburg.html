@@ -89,6 +89,62 @@ Soli Deo Gloria
                 "@type": "Answer",
                 "text": "Hamburg uses the Euro (EUR). Credit cards are widely accepted, but it's useful to have some cash for smaller shops, markets, and the famous Sunday Fischmarkt."
             }
+        },{
+            "@type": "Question",
+            "name": "What's the weather like in Hamburg during cruise season?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Hamburg's cruise season runs May through September, with mild to warm temperatures. Summer (June-August) averages 60-70°F, though occasional heat waves can push temperatures higher. The maritime climate brings frequent rain and variable weather—you can experience sunshine, clouds, and showers all in one day. Even summer days can feel cool near the harbor due to wind off the Elbe."
+            }
+        },{
+            "@type": "Question",
+            "name": "What should I pack for Hamburg weather?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Layer, layer, layer. Hamburg's maritime climate changes rapidly, so bring: a waterproof rain jacket (essential year-round), comfortable waterproof walking shoes with good traction, layers you can add or remove (light sweater or fleece even in summer), a compact umbrella for persistent drizzle, and a scarf for harbor winds. Cobblestones in Speicherstadt get slippery when wet, so grippy soles matter more than fashion."
+            }
+        },{
+            "@type": "Question",
+            "name": "Does Hamburg get very hot in summer?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Not typically. Hamburg's northern location and maritime influence keep summer temperatures moderate—most days stay between 60-70°F. Heat waves occasionally push temperatures into the low-to-mid 80s°F, but these are exceptions. The bigger concern is rain, not heat."
+            }
+        },{
+            "@type": "Question",
+            "name": "How often does it rain in Hamburg?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Frequently. Hamburg averages 120-130 rainy days per year, spread fairly evenly across all months. Maritime weather systems bring regular showers, though these are often brief rather than all-day downpours. Summer can be just as rainy as other seasons—don't assume warm months will be dry."
+            }
+        },{
+            "@type": "Question",
+            "name": "Is Hamburg windy year-round?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, especially near the harbor and waterfront. Hamburg sits on the Elbe River near the North Sea, so maritime winds are constant. The Elbphilharmonie Plaza, harbor tours, and waterfront promenades experience stronger winds that make temperatures feel colder than the thermometer suggests. Wind chill can drop the perceived temperature by 5-10°F."
+            }
+        },{
+            "@type": "Question",
+            "name": "When is the best time to visit Hamburg?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The best time to visit Hamburg is May through September, when temperatures are mild (60-70°F), daylight hours are long, and outdoor activities are most enjoyable. June, July, and August offer the warmest weather and peak cruise season, though crowds are larger and prices higher. May and September provide excellent shoulder-season conditions—pleasant weather with fewer tourists and better value."
+            }
+        },{
+            "@type": "Question",
+            "name": "Does Hamburg have a hurricane or storm season?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Hamburg doesn't experience hurricanes, but autumn and winter bring Atlantic storm systems that can produce strong winds, heavy rain, and rough seas. November through February sees the worst weather—persistent rain, short daylight hours, and occasional gales that make harbor tours unpleasant. Cruise season (May-September) largely avoids the stormiest months, though rain remains possible any time of year."
+            }
+        },{
+            "@type": "Question",
+            "name": "Should I be concerned about rain ruining my Hamburg port day?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Rain is likely but shouldn't ruin your visit. Hamburg gets rain frequently, but it typically comes in showers rather than all-day downpours. Pack a waterproof jacket, bring an umbrella, wear shoes with good traction on wet cobblestones, and adopt the local mindset: keep exploring regardless of weather. Many top attractions are indoors. The Speicherstadt warehouse district looks especially atmospheric in rain, and harbor tours operate in all but the worst conditions."
+            }
         }]
     }
     </script>
@@ -166,7 +222,7 @@ Soli Deo Gloria
     </div>
   </header>
 
-    <main class="container port-page-layout">
+    <main class="container port-page-layout" id="main-content">
         <article class="port-content">
             <section class="hero-section port-hero hamburg-hero">
                 <div class="hero-content">
@@ -191,17 +247,126 @@ Soli Deo Gloria
                 <p>Hamburg doesn't announce itself with Mediterranean brightness or tropical exuberance. Instead, it reveals itself gradually, like a well-told story—in the morning light filtering through Speicherstadt's arched windows, in the organized chaos of the Sunday Fischmarkt, in the quiet dignity of the Rathaus reflected in the Binnenalster's waters, in the neon-lit energy of the Reeperbahn where the Beatles once played eight-hour sets in smoky clubs. This is a city that rewards the curious, the patient, the willing wanderer—those who understand that northern beauty speaks in understatement, in quality over flash, in substance earned through centuries of maritime trade and cultural exchange.</p>
             </div>
 
+            <section class="port-section" id="weather-guide">
+              <details class="section-collapse" open>
+                <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+                <div class="section-body">
+                  <div id="port-weather-widget"
+                   data-port-id="hamburg"
+                   data-port-name="Hamburg"
+                   data-lat="53.5511"
+                   data-lon="9.9937"
+                   data-region="Northern Europe">
+                <noscript>
+                  <div class="seasonal-guide seasonal-guide-static">
+                    <details class="seasonal-section" open>
+                      <summary class="seasonal-section-title">At a Glance</summary>
+                      <div class="seasonal-at-glance">
+                        <div class="seasonal-glance-grid">
+                          <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">35-45°F (winter); 60-70°F (summer)</span></div>
+                          <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Moderate to high (70-80%)</span></div>
+                          <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Frequent year-round; maritime climate</span></div>
+                          <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Moderate; stronger near harbor</span></div>
+                          <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">7 hours (winter) to 17 hours (summer)</span></div>
+                        </div>
+                      </div>
+                    </details>
+                    <details class="seasonal-section" open>
+                      <summary class="seasonal-section-title">Best Time to Visit</summary>
+                      <div class="seasonal-best-time">
+                        <div class="cruise-seasons-grid">
+                          <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Jun, Jul, Aug</span></div>
+                          <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">May, Sep</span></div>
+                          <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Oct, Nov, Dec, Jan, Feb, Mar, Apr</span></div>
+                        </div>
+                        <div class="best-months-activities">
+                          <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Jun, Jul, Aug</span></div>
+                          <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Jun, Jul, Aug</span></div>
+                          <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                          <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                          <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                        </div>
+                        <div class="months-to-avoid">
+                          <span class="avoid-label">Consider avoiding:</span>
+                          <span class="avoid-months">Nov, Dec, Jan, Feb</span>
+                          <span class="avoid-reason">(short daylight hours; cold rain; many outdoor attractions less appealing)</span>
+                        </div>
+                      </div>
+                    </details>
+                    <details class="seasonal-section">
+                      <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                      <div class="seasonal-catches">
+                        <ul class="catches-list">
+                          <li>Weather changes rapidly — bring layers even on sunny mornings</li>
+                          <li>Rain is frequent year-round; waterproof jacket essential</li>
+                          <li>Harbor winds make it feel colder than the thermometer suggests</li>
+                          <li>Summer evenings stay light until 10 PM; winter darkness by 4 PM</li>
+                          <li>Air conditioning uncommon — summer days in museums can be warm</li>
+                          <li>Cobblestones in Speicherstadt become slippery when wet</li>
+                        </ul>
+                      </div>
+                    </details>
+                    <details class="seasonal-section">
+                      <summary class="seasonal-section-title">Packing Tips</summary>
+                      <div class="seasonal-packing">
+                        <ul class="packing-list">
+                          <li>Waterproof jacket or rain shell (essential year-round)</li>
+                          <li>Layers for variable weather and indoor/outdoor transitions</li>
+                          <li>Comfortable waterproof walking shoes with good traction</li>
+                          <li>Umbrella for persistent maritime drizzle</li>
+                          <li>Light scarf for harbor breezes (even in summer)</li>
+                          <li>Sunglasses and sunscreen for summer (days are long and bright)</li>
+                        </ul>
+                      </div>
+                    </details>
+                    <details class="seasonal-section" open>
+                      <summary class="seasonal-section-title">Weather Hazards</summary>
+                      <div class="seasonal-hazards">
+                        <div class="hazard-warning">
+                          <span class="hazard-icon">⚠️</span>
+                          <div class="hazard-content">
+                            <strong>Sudden Rain Showers</strong>
+                            <p>Maritime weather brings unexpected rain; clear mornings can turn wet within hours</p>
+                            <p>Keep waterproof layers accessible throughout the day</p>
+                            <p class="hazard-note">Cobblestones become slippery when wet — watch footing in Speicherstadt</p>
+                          </div>
+                        </div>
+                        <div class="hazard-warning">
+                          <span class="hazard-icon">🌬️</span>
+                          <div class="hazard-content">
+                            <strong>Harbor Winds</strong>
+                            <p>Exposed waterfront areas experience stronger winds, especially at Elbphilharmonie Plaza</p>
+                            <p>Wind chill can make temperatures feel 5-10°F colder near the Elbe</p>
+                            <p class="hazard-note">Secure hats and loose items; bring windproof layer for harbor tours</p>
+                          </div>
+                        </div>
+                      </div>
+                    </details>
+                    <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+                  </div>
+                </noscript>
+                  </div>
+                </div>
+              </details>
+            </section>
+
             <section class="port-section">
-                <h2>Port Essentials</h2>
+                <details class="section-collapse" open>
+                  <summary><h2>Port Essentials</h2></summary>
+                  <div class="section-body">
                 <p>Ships dock at Hamburg Cruise Center with two main terminals: HafenCity (the more central location) and Altona/Steinwerder. From HafenCity, you can walk to Speicherstadt and the city center in 15-20 minutes, or catch the U3 U-Bahn from nearby Baumwall station. Altona terminal offers shuttle buses to Altona train station with excellent S-Bahn and U-Bahn connections.</p>
 
                 <p>Hamburg's public transportation system is outstanding—the HVV network includes U-Bahn (subway), S-Bahn (urban rail), buses, and ferries. A day ticket provides unlimited travel and excellent value. The city is also remarkably walkable, especially around the historic center, harbor, and Speicherstadt district.</p>
 
                 <p>Hamburg uses the Euro, and credit cards are widely accepted. English is commonly spoken in tourist areas, though a few German phrases are always appreciated. The weather can be unpredictable—even in summer, bring layers and be prepared for rain. This is northern Germany, after all, where the maritime climate keeps everyone on their toes.</p>
+                  </div>
+                </details>
             </section>
 
             <section class="port-section experiences-section">
-                <h2>Top Experiences</h2>
+                <details class="section-collapse" open>
+                  <summary><h2>Top Experiences</h2></summary>
+                  <div class="section-body">
                 <p>Hamburg offers a rich tapestry of experiences that blend maritime heritage with cultural sophistication. Here's where to invest your time:</p>
 
                 <div class="experience-item">
@@ -236,18 +401,26 @@ Soli Deo Gloria
                     <h4>Rise Early for the Fischmarkt (Sunday Only)</h4>
                     <p>Since 1703, Hamburg's fish market has gathered at the same spot every Sunday morning from 5am to 9:30am (7am-9:30am in winter). Yes, it's early, especially after a late Saturday night in St. Pauli, but this institution transcends mere shopping. Vendors shout their wares in rapid-fire German, selling not just fish but flowers, fruits, souvenirs, and almost anything else. Inside the Fischauktionshalle, live bands play while people dance, eat breakfast, and drink beer at hours that would scandalize more conservative cities. It's chaotic, loud, authentically local, and absolutely wonderful—a glimpse of Hamburg's working-class soul. Go for the atmosphere, stay for a fish sandwich, and embrace the controlled chaos of a tradition that has outlasted empires.</p>
                 </div>
+                  </div>
+                </details>
             </section>
 
             <section class="port-section map-section">
-                <h2>Port Map</h2>
+                <details class="section-collapse" open>
+                  <summary><h2>Port Map</h2></summary>
+                  <div class="section-body">
                 <div id="hamburg-port-map" class="port-map-container">
                     <!-- Map will be initialized here -->
                 </div>
                 <p class="map-caption">Interactive map showing Hamburg's cruise terminals, major attractions, and public transportation connections.</p>
+                  </div>
+                </details>
             </section>
 
             <section class="port-section">
-                <h2>Getting Around</h2>
+                <details class="section-collapse" open>
+                  <summary><h2>Getting Around</h2></summary>
+                  <div class="section-body">
                 <p>Hamburg's HVV public transportation network is comprehensive, efficient, and visitor-friendly. The system includes U-Bahn (subway), S-Bahn (suburban rail), buses, and ferries—all integrated under one ticketing system. A Hamburg CARD provides unlimited public transport plus discounts on attractions, making it worthwhile for most cruise visitors.</p>
 
                 <p>From HafenCity terminal, you can walk to Speicherstadt in 5 minutes and the city center in 15-20 minutes. The U3 line from Baumwall station connects to the main train station (Hauptbahnhof) and beyond. From Altona terminal, take the shuttle bus to Altona station, where S-Bahn and regional trains provide quick access across the city.</p>
@@ -255,10 +428,14 @@ Soli Deo Gloria
                 <p>Hamburg is also an excellent cycling city with dedicated bike lanes and rental stations throughout. The terrain is flat, and cycling lets you cover more ground than walking while maintaining flexibility. Taxis are readily available but expensive for longer journeys. Given the excellent public transport, I rarely recommend them except for convenience late at night or with mobility concerns.</p>
 
                 <p>The Landungsbrücken pier serves as a transportation hub where U-Bahn, S-Bahn, buses, and harbor ferries converge—it's worth knowing this central connection point for navigating the city.</p>
+                  </div>
+                </details>
             </section>
 
             <section class="port-section">
-                <h2>Local Food & Drink</h2>
+                <details class="section-collapse" open>
+                  <summary><h2>Local Food &amp; Drink</h2></summary>
+                  <div class="section-body">
                 <p>Hamburg's cuisine reflects its maritime heritage and northern German traditions. Fresh fish dominates menus, prepared simply to showcase quality. Try Finkenwerder Scholle (plaice with bacon and shrimp), Matjes (young herring), or Labskaus—a curious sailor's dish of corned beef, potatoes, beetroot, and herring, topped with a fried egg and pickles. It looks peculiar but tastes comforting, especially with a cold local beer.</p>
 
                 <p>The Fischmarkt offers the most authentic fish sandwiches—grab a Fischbrötchen piled high with smoked mackerel or fried fish, and eat it while watching the harbor. For sit-down dining, the Portugiesenviertel (Portuguese Quarter) near the harbor features excellent seafood restaurants.</p>
@@ -266,10 +443,14 @@ Soli Deo Gloria
                 <p>Hamburg has embraced café culture enthusiastically. The Schanzenviertel and Karolinenviertel neighborhoods overflow with independent cafés serving excellent coffee and pastries. Try Franzbrötchen, Hamburg's answer to the cinnamon roll—a flaky, cinnamon-sugared pastry that pairs perfectly with morning coffee.</p>
 
                 <p>Local beers include Astra (ubiquitous and beloved despite—or because of—its working-class reputation) and Holsten. For something special, visit one of Hamburg's craft breweries in the Schanzenviertel. And yes, Hamburg's Reeperbahn entertainment district offers nightlife ranging from beer halls to cocktail bars to venues where the Beatles honed their craft in the early 1960s—though that's perhaps better saved for overnight visitors.</p>
+                  </div>
+                </details>
             </section>
 
             <section class="port-section">
-                <h2>Pro Tips</h2>
+                <details class="section-collapse" open>
+                  <summary><h2>Pro Tips</h2></summary>
+                  <div class="section-body">
                 <ul class="pro-tips-list">
                     <li><strong>Book Elbphilharmonie Plaza tickets in advance:</strong> While free, the Plaza has timed entry tickets that can be reserved online up to two months ahead. Walk-ups are possible but may involve waiting.</li>
                     <li><strong>Sunday Fischmarkt requires early rising:</strong> Set an alarm for 5am or 6am—the market closes at 9:30am sharp, and the best atmosphere happens early when locals mix with night owls ending their evenings.</li>
@@ -280,10 +461,14 @@ Soli Deo Gloria
                     <li><strong>Beatles history lives on:</strong> The original Star-Club is gone, but Beatles-Platz near the Reeperbahn features a steel sculpture, and plaques mark significant sites for fans making the pilgrimage.</li>
                     <li><strong>Museums close Mondays:</strong> Many Hamburg museums follow this pattern—plan accordingly if your port day falls on Monday.</li>
                 </ul>
+                  </div>
+                </details>
             </section>
 
-            <section class="port-section faq-section">
-                <h2>Frequently Asked Questions</h2>
+            <section class="port-section faq-section" id="faq">
+                <details class="section-collapse" open>
+                  <summary><h2>Frequently Asked Questions</h2></summary>
+                  <div class="section-body">
 
                 <div class="faq-item">
                     <h3>Where do cruise ships dock in Hamburg?</h3>
@@ -314,11 +499,87 @@ Soli Deo Gloria
                     <h3>What's the connection between Hamburg and the Beatles?</h3>
                     <p>Before achieving fame, the Beatles performed over 270 nights in Hamburg between 1960-1962, primarily at venues in the St. Pauli district including the Star-Club and Kaiserkeller. These grueling performances—often 8 hours per night—honed their skills and stage presence. John Lennon famously said, "I was born in Liverpool, but I grew up in Hamburg." Beatles-Platz near the Reeperbahn commemorates this important chapter with a steel sculpture and information plaques.</p>
                 </div>
+
+                <div class="faq-item">
+                  <details>
+                    <summary style="cursor: pointer; font-weight: 600;">Q: What's the weather like in Hamburg during cruise season?</summary>
+                    <div style="margin-top: 0.5rem;">
+                      <p>Hamburg's cruise season runs May through September, with mild to warm temperatures. Summer (June-August) averages 60-70°F, though occasional heat waves can push temperatures higher. The maritime climate brings frequent rain and variable weather—you can experience sunshine, clouds, and showers all in one day. Even summer days can feel cool near the harbor due to wind off the Elbe. Long daylight hours are a bonus: summer evenings stay light until 10 PM, giving you extra time to explore.</p>
+                    </div>
+                  </details>
+                </div>
+
+                <div class="faq-item">
+                  <details>
+                    <summary style="cursor: pointer; font-weight: 600;">Q: What should I pack for Hamburg weather?</summary>
+                    <div style="margin-top: 0.5rem;">
+                      <p>Layer, layer, layer. Hamburg's maritime climate changes rapidly, so bring: a waterproof rain jacket (essential year-round), comfortable waterproof walking shoes with good traction, layers you can add or remove (light sweater or fleece even in summer), a compact umbrella for persistent drizzle, and a scarf for harbor winds. Sunglasses and sunscreen are needed for summer's long, bright days. Cobblestones in Speicherstadt get slippery when wet, so grippy soles matter more than fashion.</p>
+                    </div>
+                  </details>
+                </div>
+
+                <div class="faq-item">
+                  <details>
+                    <summary style="cursor: pointer; font-weight: 600;">Q: Does Hamburg get very hot in summer?</summary>
+                    <div style="margin-top: 0.5rem;">
+                      <p>Not typically. Hamburg's northern location and maritime influence keep summer temperatures moderate—most days stay between 60-70°F. Heat waves occasionally push temperatures into the low-to-mid 80s°F, but these are exceptions. The bigger concern is rain, not heat. Air conditioning is uncommon in older buildings and museums, so even moderate temperatures can feel warm indoors. The harbor and waterfront areas stay cooler due to sea breezes, while inland city streets can be 5-10°F warmer on sunny days.</p>
+                    </div>
+                  </details>
+                </div>
+
+                <div class="faq-item">
+                  <details>
+                    <summary style="cursor: pointer; font-weight: 600;">Q: How often does it rain in Hamburg?</summary>
+                    <div style="margin-top: 0.5rem;">
+                      <p>Frequently. Hamburg averages 120-130 rainy days per year, spread fairly evenly across all months. Maritime weather systems bring regular showers, though these are often brief rather than all-day downpours. Summer can be just as rainy as other seasons—don't assume warm months will be dry. The saving grace: rain typically comes in passing showers, not week-long deluges. Locals carry umbrellas habitually and keep exploring regardless of weather. Adopt the same mindset and you'll enjoy Hamburg rain or shine.</p>
+                    </div>
+                  </details>
+                </div>
+
+                <div class="faq-item">
+                  <details>
+                    <summary style="cursor: pointer; font-weight: 600;">Q: Is Hamburg windy year-round?</summary>
+                    <div style="margin-top: 0.5rem;">
+                      <p>Yes, especially near the harbor and waterfront. Hamburg sits on the Elbe River near the North Sea, so maritime winds are constant. The Elbphilharmonie Plaza, harbor tours, and waterfront promenades experience stronger winds that make temperatures feel colder than the thermometer suggests. Wind chill can drop the perceived temperature by 5-10°F. Inside the Speicherstadt's canal district, buildings provide some shelter, but bridges and open areas catch the wind. Bring a windproof jacket layer and secure hats and loose items when exploring the harbor.</p>
+                    </div>
+                  </details>
+                </div>
+
+                <div class="faq-item">
+                  <details>
+                    <summary style="cursor: pointer; font-weight: 600;">Q: When is the best time to visit Hamburg?</summary>
+                    <div style="margin-top: 0.5rem;">
+                      <p>The best time to visit Hamburg is May through September, when temperatures are mild (60-70°F), daylight hours are long, and outdoor activities are most enjoyable. June, July, and August offer the warmest weather and peak cruise season, though crowds are larger and prices higher. May and September provide excellent shoulder-season conditions—pleasant weather with fewer tourists and better value. If you don't mind cooler temperatures and shorter days, April and October can also be rewarding, though rain becomes more frequent and many outdoor attractions lose their appeal.</p>
+                    </div>
+                  </details>
+                </div>
+
+                <div class="faq-item">
+                  <details>
+                    <summary style="cursor: pointer; font-weight: 600;">Q: Does Hamburg have a hurricane or storm season?</summary>
+                    <div style="margin-top: 0.5rem;">
+                      <p>Hamburg doesn't experience hurricanes, but autumn and winter bring Atlantic storm systems that can produce strong winds, heavy rain, and rough seas. November through February sees the worst weather—persistent rain, short daylight hours, and occasional gales that make harbor tours unpleasant. Summer storms are rare and typically brief afternoon thundershowers. The biggest weather concern isn't dramatic storms but rather the frequent drizzle and gray skies that characterize northern maritime climates. Cruise season (May-September) largely avoids the stormiest months, though rain remains possible any time of year.</p>
+                    </div>
+                  </details>
+                </div>
+
+                <div class="faq-item">
+                  <details>
+                    <summary style="cursor: pointer; font-weight: 600;">Q: Should I be concerned about rain ruining my Hamburg port day?</summary>
+                    <div style="margin-top: 0.5rem;">
+                      <p>Rain is likely but shouldn't ruin your visit. Hamburg gets rain frequently, but it typically comes in showers rather than all-day downpours. Pack a waterproof jacket, bring an umbrella, wear shoes with good traction on wet cobblestones, and adopt the local mindset: keep exploring regardless of weather. Many top attractions (Miniatur Wunderland, Elbphilharmonie, museums, cafés) are indoors. The Speicherstadt warehouse district looks especially atmospheric in rain, and harbor tours operate in all but the worst conditions. Locals don't let weather dictate their plans—neither should you.</p>
+                    </div>
+                  </details>
+                </div>
+                  </div>
+                </details>
             </section>
 
             <!-- Interactive Port Map -->
             <section class="port-section port-map-section" id="port-map-section">
-              <h3>Hamburg Port Map</h3>
+              <details class="section-collapse" open>
+                <summary><h3>Hamburg Port Map</h3></summary>
+                <div class="section-body">
               <p class="map-intro">Interactive map showing cruise terminal and Hamburg attractions. Click any marker for details.</p>
               <div id="hamburg-port-map" class="port-map-container" role="application" aria-label="Interactive map of Hamburg port and points of interest">
                 <noscript>
@@ -332,6 +593,8 @@ Soli Deo Gloria
                   Reset View
                 </button>
               </div>
+                </div>
+              </details>
             </section>
 
             <!-- Author's Note -->
@@ -416,7 +679,7 @@ Soli Deo Gloria
             <div class="sidebar-card author-card">
                 <h3>About the Author</h3>
                 <div class="author-info">
-                    <img src="/images/authors/ken-baker.jpg" alt="Ken Baker" class="author-photo">
+                    <img src="/authors/img/ken1_96.webp" alt="Ken Baker" class="author-photo" width="96" height="96" loading="lazy">
                     <p class="author-name">Ken Baker</p>
                     <p class="author-title">Crew Member & Maritime Writer</p>
                 </div>
@@ -563,5 +826,8 @@ Soli Deo Gloria
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Port Weather Widget -->
+  <script type="module" src="/assets/js/port-weather.js"></script>
 </body>
 </html>
