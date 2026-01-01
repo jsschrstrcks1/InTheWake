@@ -404,11 +404,17 @@ function validateWordCounts($) {
     $('h2, h3').each((i, elem) => {
       const $elem = $(elem);
       if (pattern.test($elem.text())) {
-        // Get all content until next h2
-        let $next = $elem.next();
-        while ($next.length && !$next.is('h2')) {
-          sectionContent += $next.text() + ' ';
-          $next = $next.next();
+        // Find the parent section/details and get all text content
+        const $section = $elem.closest('section, details, .card');
+        if ($section.length) {
+          sectionContent += $section.text() + ' ';
+        } else {
+          // Fallback to sibling traversal
+          let $next = $elem.next();
+          while ($next.length && !$next.is('h2')) {
+            sectionContent += $next.text() + ' ';
+            $next = $next.next();
+          }
         }
       }
     });
@@ -676,10 +682,17 @@ function validateRubric($) {
     $('h2, h3').each((i, elem) => {
       const $elem = $(elem);
       if (pattern.test($elem.text())) {
-        let $next = $elem.next();
-        while ($next.length && !$next.is('h2')) {
-          sectionContent += $next.text() + ' ';
-          $next = $next.next();
+        // Find the parent section/details and get all text content
+        const $section = $elem.closest('section, details, .card');
+        if ($section.length) {
+          sectionContent += $section.text() + ' ';
+        } else {
+          // Fallback to sibling traversal
+          let $next = $elem.next();
+          while ($next.length && !$next.is('h2')) {
+            sectionContent += $next.text() + ' ';
+            $next = $next.next();
+          }
         }
       }
     });
