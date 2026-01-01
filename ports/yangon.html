@@ -167,19 +167,28 @@ Soli Deo Gloria
     </div>
   </header>
 
-    <section class="hero hero-port" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('/images/ports/yangon-hero.jpg');">
-        <div class="container">
-            <h1>Yangon (Rangoon), Myanmar</h1>
-            <p class="hero-subtitle">Golden Spires and Colonial Echoes</p>
-        </div>
-    </section>
-
-    
-    <p class="last-reviewed" style="max-width: 1100px; margin: 0.5rem auto 1rem; padding: 0 14px;">Last reviewed: January 2026</p>
-
     <div class="container main-container">
         <main>
             <article class="port-guide logbook-entry">
+
+                <!-- Hero Section -->
+                <section class="port-hero" id="hero" aria-label="Yangon cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+                    <div class="port-hero-image" style="position: relative;">
+                        <img src="/images/ports/yangon/yangon-hero.webp" alt="Golden Shwedagon Pagoda rising above Yangon's skyline at sunset with traditional buildings in foreground" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover;"/>
+                        <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin: 0;">Yangon</h1>
+                        </div>
+                    </div>
+                    <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/File:Shwedagon_Pagoda.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
+                </section>
+
+                <p class="last-reviewed">Last reviewed: January 2026</p>
+
+                <h1>Yangon (Rangoon), Myanmar</h1>
+                <p class="hero-subtitle" style="font-size: 1.1rem; color: #666; margin-bottom: 1.5rem;">Golden Spires and Colonial Echoes</p>
+
+                <h2>Captain's Logbook</h2>
+
                 <p class="dateline">Yangon River, Myanmar • December 2024</p>
 
                 <p>The first thing you see isn't the city itself but the golden tip of Shwedagon Pagoda rising above the haze like a beacon, catching the early morning light as your ship navigates up the Yangon River. It's a fitting introduction to this place—a city where the sacred and the everyday exist side by side, where 2,600 years of Buddhist devotion meets the crumbling grandeur of British colonial ambition.</p>
@@ -193,7 +202,7 @@ Soli Deo Gloria
                     <p>Sunset at Shwedagon Pagoda, watching an elderly woman circumambulate the great stupa for what must have been the thousandth time in her life, her bare feet knowing every inch of the marble path. She paused at each planetary post, made her offerings with practiced grace, her lips moving in prayer. As the sun dropped and the golden dome seemed to ignite from within, catching fire with the last light, I understood something profound: faith this deep doesn't come from comfort or certainty. It comes from walking the same path over and over, from showing up even when the world around you shifts and cracks, from lighting your candle in the darkness and trusting it means something. She didn't see me watching. She didn't perform for anyone. This was just her practice, her devotion, as natural as breathing.</p>
                 </div>
 
-                <h2>Port Essentials</h2>
+                <h2>The Cruise Port</h2>
                 <p><strong>Cruise Terminal:</strong> Ships dock at Thilawa Port (about 25km south of downtown Yangon) or occasionally at Botataung Jetty on the Yangon River. Thilawa is a newer commercial port facility; expect a 45-60 minute drive into the city center. Most cruise lines arrange shore excursions with transportation included.</p>
 
                 <p><strong>Port to City:</strong> From Thilawa, organized tours provide buses or vans. Independent travelers can arrange private taxis through the ship or at the port (negotiate price beforehand—expect around $40-50 USD for a day charter). From Botataung Jetty, you're much closer to downtown (10-15 minutes).</p>
@@ -204,7 +213,36 @@ Soli Deo Gloria
 
                 <p><strong>Language:</strong> Burmese is the official language. English is spoken by guides, in tourist areas, and by educated professionals, but don't expect widespread fluency. Learning a few Burmese phrases shows respect: "Mingalaba" (hello), "Kyay-zu-beh" (thank you).</p>
 
-                <h2>Top Experiences in Yangon</h2>
+                <h2>Getting Around</h2>
+                <p><strong>On Organized Tours:</strong> Most cruise passengers book shore excursions that include transportation, guides, and entry fees. This is the easiest option and ensures you'll return to the ship on time.</p>
+
+                <p><strong>Taxis:</strong> Taxis are plentiful but few have meters. Negotiate the price before getting in. From Thilawa Port to Shwedagon Pagoda expect to pay around $25-30 USD for the trip. Hiring a driver for the full day (8 hours) runs $40-60 depending on your negotiating skills.</p>
+
+                <p><strong>Grab:</strong> The ride-sharing app Grab operates in Yangon, offering more transparent pricing and English-language booking. You'll need internet access (ship WiFi usually doesn't extend to shore; consider a local SIM card if staying longer).</p>
+
+                <p><strong>Walking:</strong> Downtown Yangon is walkable if you can handle heat and humidity. The colonial quarter, Sule Pagoda area, and riverfront can be explored on foot. Shwedagon Pagoda is further north and requires transportation.</p>
+
+                <p><strong>Circular Train:</strong> For the adventurous with extra time, the Circular Railway loops around Yangon in about 3 hours, offering glimpses of local life. It's slow, crowded, and absolutely fascinating—but probably too time-consuming for a single port day.</p>
+
+                <!-- Interactive Port Map -->
+                <section class="port-section port-map-section" id="port-map-section">
+                    <h2>Yangon Area Map</h2>
+                    <p class="map-intro">Interactive map showing cruise terminal and Yangon attractions. Click any marker for details.</p>
+                    <div id="yangon-port-map" class="port-map-container" role="application" aria-label="Interactive map of Yangon port and points of interest">
+                        <noscript>
+                            <p style="padding: 2rem; text-align: center; color: #678;">
+                                Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=16.8409&mlon=96.1735#map=12/16.8409/96.1735" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+                            </p>
+                        </noscript>
+                    </div>
+                    <div class="port-map-actions">
+                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('yangon-port-map')._portMap?.fitBounds(document.getElementById('yangon-port-map')._portMap.getBounds())">
+                            Reset View
+                        </button>
+                    </div>
+                </section>
+
+                <h2>Excursions & Things to Do</h2>
 
                 <h4>Shwedagon Pagoda: The Heart of Buddhist Burma</h4>
                 <p>This is non-negotiable—you came to Yangon for this. The Shwedagon Pagoda is one of the world's most sacred Buddhist sites, a 99-meter-tall stupa covered in gold plates and topped with thousands of diamonds and precious stones. Legend says it enshrines eight hairs of the Buddha himself, making it over 2,600 years old.</p>
@@ -246,35 +284,6 @@ Soli Deo Gloria
 
                 <p>Sit. Sip. Watch the world go by. This is Yangon's true heart, beating in tiny cups of tea on crowded sidewalks.</p>
 
-                <!-- Interactive Port Map -->
-                <section class="port-section port-map-section" id="port-map-section">
-                    <h3>Yangon Area Map</h3>
-                    <p class="map-intro">Interactive map showing cruise terminal and Yangon attractions. Click any marker for details.</p>
-                    <div id="yangon-port-map" class="port-map-container" role="application" aria-label="Interactive map of Yangon port and points of interest">
-                        <noscript>
-                            <p style="padding: 2rem; text-align: center; color: #678;">
-                                Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=16.8409&mlon=96.1735#map=12/16.8409/96.1735" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-                            </p>
-                        </noscript>
-                    </div>
-                    <div class="port-map-actions">
-                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('yangon-port-map')._portMap?.fitBounds(document.getElementById('yangon-port-map')._portMap.getBounds())">
-                            Reset View
-                        </button>
-                    </div>
-                </section>
-
-                <h2>Getting Around Yangon</h2>
-                <p><strong>On Organized Tours:</strong> Most cruise passengers book shore excursions that include transportation, guides, and entry fees. This is the easiest option and ensures you'll return to the ship on time.</p>
-
-                <p><strong>Taxis:</strong> Taxis are plentiful but few have meters. Negotiate the price before getting in. From Thilawa Port to Shwedagon Pagoda expect to pay around $25-30 USD for the trip. Hiring a driver for the full day (8 hours) runs $40-60 depending on your negotiating skills.</p>
-
-                <p><strong>Grab:</strong> The ride-sharing app Grab operates in Yangon, offering more transparent pricing and English-language booking. You'll need internet access (ship WiFi usually doesn't extend to shore; consider a local SIM card if staying longer).</p>
-
-                <p><strong>Walking:</strong> Downtown Yangon is walkable if you can handle heat and humidity. The colonial quarter, Sule Pagoda area, and riverfront can be explored on foot. Shwedagon Pagoda is further north and requires transportation.</p>
-
-                <p><strong>Circular Train:</strong> For the adventurous with extra time, the Circular Railway loops around Yangon in about 3 hours, offering glimpses of local life. It's slow, crowded, and absolutely fascinating—but probably too time-consuming for a single port day.</p>
-
                 <h2>Local Food & Drink</h2>
                 <p><strong>Burmese Curry:</strong> Unlike Thai or Indian curries, Burmese curries are oil-rich, mild, and served with an array of side dishes—rice, soup, raw vegetables, and condiments. They're meant to be eaten communally, mixing and matching flavors.</p>
 
@@ -287,6 +296,16 @@ Soli Deo Gloria
                 <p><strong>Myanmar Beer:</strong> The local brew is light, refreshing, and perfect in the heat. Available everywhere.</p>
 
                 <p><strong>Sweet Tea:</strong> As mentioned, tea shop culture is central to Yangon life. The tea is strong, sweet, and served with condensed milk. It's an experience as much as a beverage.</p>
+
+                <h2>Depth Soundings</h2>
+
+                <div class="reflection-box">
+                    <p>I left Yangon with more questions than answers. How do you love a place whose government you can't support? How do you witness beauty and injustice existing side by side? How do you receive hospitality from people who have so little and have suffered so much?</p>
+
+                    <p>There are no easy answers. But I think about that woman circumambulating Shwedagon, about the tea shop owner who gave me free samosas, about the nun who blessed my "long journey" and "good heart." These people aren't waiting for perfect circumstances to live with grace and generosity. They're doing it now, in the midst of everything.</p>
+
+                    <p>Maybe that's the lesson Yangon teaches: that beauty and devotion and kindness don't require ideal conditions. They happen anyway, stubbornly, persistently, like gold glowing in the last light of day. We show up. We bear witness. We walk our path. And somehow, mysteriously, that matters.</p>
+                </div>
 
                 <h2>Pro Tips for Yangon</h2>
                 <ul>
@@ -331,14 +350,26 @@ Soli Deo Gloria
                 <h3>Can I use credit cards in Yangon?</h3>
                 <p>Major hotels and some upscale restaurants accept credit cards, but Myanmar remains largely a cash economy. Bring sufficient US dollars or withdraw Kyat from ATMs (available in Yangon).</p>
 
-                <div class="reflection-box">
-                    <p>I left Yangon with more questions than answers. How do you love a place whose government you can't support? How do you witness beauty and injustice existing side by side? How do you receive hospitality from people who have so little and have suffered so much?</p>
-
-                    <p>There are no easy answers. But I think about that woman circumambulating Shwedagon, about the tea shop owner who gave me free samosas, about the nun who blessed my "long journey" and "good heart." These people aren't waiting for perfect circumstances to live with grace and generosity. They're doing it now, in the midst of everything.</p>
-
-                    <p>Maybe that's the lesson Yangon teaches: that beauty and devotion and kindness don't require ideal conditions. They happen anyway, stubbornly, persistently, like gold glowing in the last light of day. We show up. We bear witness. We walk our path. And somehow, mysteriously, that matters.</p>
+                <h2>Photo Gallery</h2>
+                <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                    <figure>
+                        <img src="/images/ports/yangon/shwedagon-sunset.jpg" alt="Shwedagon Pagoda's golden stupa glowing at sunset with devotees circumambulating the base" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+                        <figcaption class="tiny" style="text-align: center; margin-top: 0.5rem;">Shwedagon Pagoda at sunset</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="/images/ports/yangon/colonial-architecture.jpg" alt="British colonial architecture in downtown Yangon with Victorian-era government buildings" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+                        <figcaption class="tiny" style="text-align: center; margin-top: 0.5rem;">Colonial downtown Yangon</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="/images/ports/yangon/tea-shop.jpg" alt="Traditional Yangon tea shop with locals sitting on small stools drinking sweet tea" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+                        <figcaption class="tiny" style="text-align: center; margin-top: 0.5rem;">Tea shop culture</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="/images/ports/yangon/sule-pagoda.jpg" alt="Sule Pagoda golden stupa at the heart of downtown Yangon traffic circle" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+                        <figcaption class="tiny" style="text-align: center; margin-top: 0.5rem;">Sule Pagoda downtown</figcaption>
+                    </figure>
                 </div>
-            
+
         <!-- VOLATILE DATA DISCLAIMER -->
         <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
           <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
