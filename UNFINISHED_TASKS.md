@@ -195,6 +195,125 @@ The following standards are 100% compliant across all 333 port pages:
 
 ---
 
+## 📊 Port Page Validator Results (2026-01-01)
+
+**Validator:** `admin/validate-port-page.js --all-ports`
+**Standard:** ITC v1.0 Port Page Standard
+**Audit Date:** 2026-01-01
+
+### Summary
+
+| Metric | Count |
+|--------|-------|
+| Total ports validated | 333 |
+| **Fully passing** | **55** (17%) |
+| Failing | 278 (83%) |
+
+### ✅ Ports PASSING Full Validation (55 ports)
+
+These ports meet ALL rubric requirements (word counts, images, sections, etc.):
+
+`abu-dhabi`, `acapulco`, `adelaide`, `agadir`, `akureyri`, `amber-cove`, `antigua`, `apia`, `aqaba`, `aruba`, `ascension`, `athens`, `auckland`, `bali`, `barcelona`, `bermuda`, `cabo-san-lucas`, `civitavecchia`, `costa-maya`, `dubrovnik`, `ensenada`, `falkland-islands`, `ft-lauderdale`, `galveston`, `grand-cayman`, `haines`, `honolulu`, `huatulco`, `hubbard-glacier`, `icy-strait-point`, `juneau`, `ketchikan`, `lanzarote`, `los-angeles`, `manzanillo`, `mazatlan`, `miami`, `mykonos`, `naples`, `nassau`, `new-orleans`, `port-canaveral`, `progreso`, `puerto-vallarta`, `san-juan`, `santorini`, `seattle`, `seward`, `sitka`, `skagway`, `tampa`, `tracy-arm`, `venice`, `whittier`, `zihuatanejo`
+
+---
+
+### 🟡 [Y] P3 - Content Depth Issues (278 ports)
+
+The port page validator enforces strict rubric standards. Most ports fail due to:
+
+| Error Category | Ports Affected | Description |
+|----------------|----------------|-------------|
+| `section_order/out_of_order` | 277 | Sections not in expected order |
+| `rubric/booking_guidance` | 275 | Missing booking guidance keywords |
+| `section_order/missing_required_sections` | 272 | Missing required sections |
+| `word_counts/logbook_minimum` | 272 | Logbook <800 words |
+| `word_counts/cruise_port_minimum` | 272 | Cruise port section <100 words |
+| `word_counts/excursions_minimum` | 271 | Excursions <400 words |
+| `images/lazy_loading` | 271 | Missing `loading="lazy"` on images |
+| `rubric/first_person_voice` | 262 | <10 first-person pronouns |
+| `images/missing_alt` | 258 | Images missing alt text |
+| `word_counts/depth_soundings_minimum` | 256 | Depth soundings <150 words |
+| `word_counts/getting_around_minimum` | 253 | Getting around <200 words |
+| `rubric/accessibility_notes` | 199 | <2 accessibility keywords |
+| `images/minimum_images` | 194 | <11 images |
+| `hero/hero_missing_wikimedia_credit` | 176 | Missing Wikimedia credit |
+| `rubric/diy_price_mentions` | 170 | <5 price mentions |
+| `word_counts/faq_minimum` | 166 | FAQ <200 words |
+| `word_counts/total_minimum` | 156 | Total page <2000 words |
+| `images/missing_credits` | 104 | Images missing figcaption credits |
+| `hero/hero_missing` | 80 | No hero section |
+| `icp_lite/missing_faqpage` | 28 | Missing FAQPage schema |
+| `images/hero_image_loading` | 22 | Hero missing `loading="eager"` |
+| `hero/hero_missing_image` | 13 | Hero section has no image |
+| `hero/hero_missing_overlay` | 9 | Hero missing port name overlay |
+
+**Note:** Most ports were created as lightweight pages. Full rubric compliance requires significant content enhancement (800+ word logbooks, 11+ images, proper sections).
+
+---
+
+### 🟢 [G] P1 - Critical Technical Fixes (Easy Wins)
+
+These are quick technical fixes that don't require content changes:
+
+| Fix | Ports | Files |
+|-----|-------|-------|
+| Add FAQPage schema | 28 | valletta, tunis, trieste, tortola, tokyo, tenerife, tangier, tallinn, stockholm, st-petersburg, st-lucia, st-kitts, stavanger, singapore, shanghai, rhodes, reykjavik, ravenna, quebec-city, portland, porto, panama-canal, riga, taormina, sydney-ns, st-helena, st-maarten, st-barts |
+| Add BreadcrumbList | 2 | dublin, helsinki |
+| Fix hero position | 1 | hamburg |
+| Fix hero to webp | 1 | royal-beach-club-nassau |
+
+---
+
+## 📊 Weather Guide Validator Results (2026-01-01)
+
+**Validator:** `scripts/validate-port-weather.js`
+**Reference Implementation:** Cozumel weather guide
+**Audit Date:** 2026-01-01
+
+### Summary
+
+| Metric | Count |
+|--------|-------|
+| Total ports | 333 |
+| **Has weather guide** | **4** (1.2%) |
+| Missing weather guide | 329 (98.8%) |
+| With validation errors | 1 |
+
+### ✅ Ports WITH Weather Guide (4 ports)
+
+| Port | Status |
+|------|--------|
+| `cozumel.html` | ✅ Perfect - all checks pass |
+| `costa-maya.html` | ✅ Perfect - all checks pass |
+| `labadee.html` | ✅ Perfect - all checks pass |
+| `glacier-bay.html` | ⚠️ FAQ count mismatch |
+
+### 🟢 [G] P1 - Fix Weather Guide Error (1 port)
+
+- [ ] `ports/glacier-bay.html` - FAQ count mismatch between FAQPage schema and visible FAQ
+
+---
+
+### 🟡 [Y] P4 - Weather Guide Rollout (329 ports)
+
+Weather guides need to be created for 329 ports. The Cozumel implementation is the reference.
+
+**Required Sections:**
+- At a Glance (Temperature, Humidity, Rain, Wind, Daylight)
+- Best Time to Visit (Peak, Transitional, Low seasons + activities)
+- What Catches Visitors Off Guard (3-7 items)
+- Packing Tips (3-7 items)
+- Weather Hazards (hurricane zone where applicable)
+- Weather FAQs (4 required questions)
+
+**Priority ports for weather guide (high-traffic destinations):**
+1. Caribbean: nassau, grand-cayman, st-thomas, jamaica, aruba, curacao
+2. Alaska: juneau, ketchikan, skagway, glacier-bay, seward
+3. Europe: barcelona, civitavecchia, naples, dubrovnik, santorini
+4. Mexico: cabo-san-lucas, puerto-vallarta, mazatlan, ensenada
+
+---
+
 ## 📊 2024 RCL Port Coverage Gap Analysis (2025-12-10)
 
 **Audit Method:** Compared comprehensive 2024 Royal Caribbean port list (~320 ports including UWC one-offs) against existing HTML pages in `/ports/`.
