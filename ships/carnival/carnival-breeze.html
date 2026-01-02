@@ -15,6 +15,7 @@
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Breeze
+     name: Carnival Breeze
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
@@ -90,7 +91,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where does Carnival Breeze sail from?","acceptedAnswer":{"@type":"Answer","text":"Carnival Breeze operates from Galveston, Texas, offering Western Caribbean, Eastern Caribbean, and Mexico itineraries convenient for Texas, Oklahoma, Louisiana, and nearby states."}},{"@type":"Question","name":"What class is Carnival Breeze?","acceptedAnswer":{"@type":"Answer","text":"Carnival Breeze is a Dream-class ship, the third and final vessel in the class after Carnival Dream (2009) and Carnival Magic (2011). All three were built by Fincantieri at Monfalcone."}},{"@type":"Question","name":"How big is Carnival Breeze?","acceptedAnswer":{"@type":"Answer","text":"Carnival Breeze measures 130,000 gross tons and is 1,004 feet long. She accommodates 3,690 guests at double occupancy across 1,845 staterooms on 15 guest decks."}}]}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
   <!-- Twitter Card -->
@@ -171,7 +172,7 @@
   </ol>
 </nav>
 
-<main id="main-content" class="wrap page-grid" role="main">
+<main id="main-content" class="wrap page-grid" role="main" data-ship="Carnival Breeze" data-imo="9548450">
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
@@ -397,8 +398,8 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
-  new Swiper('#photo-swiper',{loop:true,navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},pagination:{el:'.swiper-pagination',clickable:true}});
-  window.videoSwiper=new Swiper('#video-swiper',{loop:false,navigation:{nextEl:'#video-swiper .swiper-button-next',prevEl:'#video-swiper .swiper-button-prev'}});
+  new Swiper('#photo-swiper',{loop:false,rewind:false,navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},pagination:{el:'.swiper-pagination',clickable:true}});
+  window.videoSwiper=new Swiper('#video-swiper',{loop:false,rewind:false,navigation:{nextEl:'#video-swiper .swiper-button-next',prevEl:'#video-swiper .swiper-button-prev'}});
 });
 </script>
 
@@ -452,6 +453,11 @@ document.addEventListener('DOMContentLoaded',function(){
   window.__articlesNav = renderPage;
   loadArticles();
 })();
-</script>
+</script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

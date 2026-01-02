@@ -15,6 +15,7 @@
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Conquest
+     name: Carnival Conquest
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
@@ -157,7 +158,7 @@
   </div>
 </header>
 
-<main id="main-content" class="page-grid" role="main">
+<main id="main-content" class="page-grid" role="main" data-ship="Carnival Conquest">
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
@@ -258,9 +259,14 @@
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-new Swiper('#photo-swiper',{loop:true,pagination:{el:'.swiper-pagination',clickable:true}});
+new Swiper('#photo-swiper',{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true}});
 fetch('/assets/data/videos/carnival/carnival-conquest.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
 fetch('/assets/data/logbook/carnival/carnival-conquest.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h4>${s.title}</h4><p class="logbook-meta">${s.persona_label} · ${s.author.name}</p><p>${s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')}</p></article>`).join('');}).catch(()=>{});
-</script>
+</script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

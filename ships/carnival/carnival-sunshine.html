@@ -15,6 +15,7 @@
   <!-- AI-Breadcrumbs: Structured context for AI assistants -->
   <!-- ai-breadcrumbs
        entity: Carnival Sunshine
+     name: Carnival Sunshine
        type: Ship Information Page
        parent: /ships.html
        category: Carnival Fleet
@@ -311,7 +312,7 @@
   </section>
 
   <!-- Main Content -->
-  <main id="main-content" class="content-wrap">
+  <main id="main-content" class="content-wrap" data-ship="Carnival Sunshine" data-imo="9185516">
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
@@ -646,6 +647,11 @@
       if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
     }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
   })();
-  </script>
+  </script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

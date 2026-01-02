@@ -12,6 +12,7 @@
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Luminosa
+     name: Carnival Luminosa
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
@@ -87,7 +88,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What was Carnival Luminosa called before?","acceptedAnswer":{"@type":"Answer","text":"Carnival Luminosa sailed as Costa Luminosa from 2009 until her transfer to Carnival Cruise Line in November 2022. She underwent a major refurbishment in Palermo, Italy, to add Carnival branding and dining concepts."}},{"@type":"Question","name":"What class is Carnival Luminosa?","acceptedAnswer":{"@type":"Answer","text":"Carnival Luminosa is classified as a Spirit-class hybrid, incorporating design elements from both Spirit and Vista classes. She's the fifth Spirit-class vessel in Carnival's fleet."}},{"@type":"Question","name":"How big is Carnival Luminosa?","acceptedAnswer":{"@type":"Answer","text":"Carnival Luminosa measures 92,700 gross tons, 965 feet (294m) long, with capacity for 2,260 guests at double occupancy across 1,130 staterooms on 12 decks."}},{"@type":"Question","name":"Where does Carnival Luminosa sail from?","acceptedAnswer":{"@type":"Answer","text":"Carnival Luminosa is homeported in Brisbane, Australia, offering itineraries to the South Pacific, Papua New Guinea, and Australian coastal destinations."}},{"@type":"Question","name":"Is Carnival Luminosa in the Australian market?","acceptedAnswer":{"@type":"Answer","text":"Yes, Carnival Luminosa serves as Carnival's flagship in Australia, joining Carnival Splendor in the Australian market. She brought modern Carnival dining and entertainment to Australian cruisers."}}]}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
@@ -164,7 +165,7 @@
   </ol>
 </nav>
 
-<main class="wrap page-grid" id="main-content" role="main">
+<main class="wrap page-grid" id="main-content" role="main" data-ship="Carnival Luminosa" data-imo="9398905">
   <!-- Main Content Column -->
   <section class="col-1" aria-label="Ship details">
   <!-- Transfer Note -->
@@ -433,6 +434,11 @@
     if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
   }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
 })();
-</script>
+</script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

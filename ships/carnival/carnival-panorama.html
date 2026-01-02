@@ -15,6 +15,7 @@
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Panorama
+     name: Carnival Panorama
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
@@ -169,7 +170,7 @@
   </div>
 </header>
 
-<main id="main-content" class="page-grid">
+<main id="main-content" class="page-grid" data-ship="Carnival Panorama" data-imo="9764479">
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
@@ -539,7 +540,7 @@
 
   // Photo carousel
   new Swiper('#photo-swiper', {
-    loop: true,
+    loop:false,
     autoplay: { delay: 5000, disableOnInteraction: true },
     pagination: { el: '.swiper-pagination', clickable: true },
     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
@@ -559,9 +560,9 @@
             <p class="photo-caption">${v.title}</p>
           </div>
         `).join('');
-        new Swiper('#video-swiper', {
+        new Swiper('#video-swiper',{
           slidesPerView: 1,
-          spaceBetween: 16,
+          spaceBetween: 16,rewind:false,
           navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
           breakpoints: { 640: { slidesPerView: 2 }, 900: { slidesPerView: 3 } }
         });

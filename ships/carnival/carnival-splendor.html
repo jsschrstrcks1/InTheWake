@@ -23,6 +23,7 @@
 
   <!-- ai-breadcrumbs
        entity: Carnival Splendor
+     name: Carnival Splendor
        type: Ship Profile Page
        parent: /ships.html
        category: Carnival Fleet
@@ -52,7 +53,7 @@
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/carnival-splendor.jpg"/>
 
   <link rel="preconnect" href="https://www.carnival.com">
-  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
 
   <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
@@ -294,7 +295,7 @@
     <strong>Carnival Splendor</strong>
   </nav>
 
-  <main class="wrap page-grid" id="main-content" role="main">
+  <main class="wrap page-grid" id="main-content" role="main" data-ship="Carnival Splendor" data-imo="9398917">
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
     <!-- Quick Answer Section -->
@@ -577,6 +578,11 @@
       if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
     }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
   })();
-  </script>
+  </script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>
