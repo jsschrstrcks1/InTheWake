@@ -14,10 +14,13 @@ for (const file of files) {
       encoding: 'utf8',
       stdio: ['pipe', 'pipe', 'pipe']
     });
-    if (result.includes('PASSED WITH WARNINGS')) {
-      // Extract warning message
-      const match = result.match(/Missing logbook section/);
-      warningPorts.push(file.replace('.html', ''));
+    if (result.includes('VALIDATION PASSED WITH WARNINGS')) {
+      // Extract warning messages
+      const warnings = result.match(/^\s*\d+\.\s+(.+)$/gm) || [];
+      warningPorts.push({
+        port: file.replace('.html', ''),
+        warnings: warnings.map(w => w.replace(/^\s*\d+\.\s+/, ''))
+      });
     }
   } catch (e) {
     // Failed ports, skip
@@ -25,4 +28,7 @@ for (const file of files) {
 }
 
 console.log(`Found ${warningPorts.length} ports with warnings:\n`);
-warningPorts.forEach(p => console.log(p));
+warningPorts.forEach(p => {
+  console.log(`${p.port}:`);
+  p.warnings.forEach(w => console.log(`  - ${w}`));
+});
