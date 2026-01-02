@@ -23,6 +23,7 @@
 
   <!-- ai-breadcrumbs
        entity: Carnival Sunrise
+     name: Carnival Sunrise
        type: Ship Profile Page
        parent: /ships.html
        category: Carnival Fleet
@@ -52,7 +53,7 @@
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/carnival-sunrise.jpg"/>
 
   <link rel="preconnect" href="https://www.carnival.com">
-  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
 
   <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
@@ -294,7 +295,7 @@
     <strong>Carnival Sunrise</strong>
   </nav>
 
-  <main class="wrap page-grid" id="main-content" role="main">
+  <main class="wrap page-grid" id="main-content" role="main" data-ship="Carnival Sunrise" data-imo="9066393">
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
     <!-- Quick Answer Section -->
@@ -308,6 +309,8 @@
     <!-- Ship Statistics -->
     <section class="card">
       <h2>Ship Statistics</h2>
+          <div id="ship-stats" class="stats-grid" data-slug="carnival-sunrise"></div>
+          <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-sunrise","name":"Carnival Sunrise","class":"Sunshine Class","entered_service":2019,"gt":"102,000 GT","guests":"2,984","crew":"1,040","length":"893 ft (272 m)","beam":"116 ft (35 m)","registry":"Panama"}</script>
       <div class="stats-grid">
         <div class="stat-item">
           <div class="stat-value">101,509</div>
@@ -516,10 +519,16 @@
 
       <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
         <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
-      </section>
-    </aside>
+      
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+  </section>
+  </aside>
   </main>
 
   <footer role="contentinfo">
@@ -558,6 +567,11 @@
       if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
     }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
   })();
-  </script>
+  </script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

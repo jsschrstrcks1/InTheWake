@@ -11,6 +11,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Mardi Gras
+     name: Carnival Mardi Gras
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
@@ -660,7 +661,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
           Real cruising experiences, practical guides, and heartfelt reflections from our community.
         </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
       </section>
 
     <!-- Whimsical Distance Units -->
@@ -693,7 +695,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       if(!window.__swiperReady||!window.Swiper) return setTimeout(go,120);
       try{
         new Swiper('.swiper.firstlook',{
-          loop:false,lazy:true,watchOverflow:true,
+          loop:false,rewind:false,lazy:true,watchOverflow:true,
           pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
           navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
           a11y:{enabled:true}
@@ -777,7 +779,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         setTimeout(()=>{
           try{
             new Swiper('.swiper.videos',{
-              loop:false,lazy:true,watchOverflow:true,
+              loop:false,rewind:false,lazy:true,watchOverflow:true,
               pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
               navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
               a11y:{enabled:true}
@@ -892,6 +894,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       rail.innerHTML = articles.slice(0, 4).map(a => '<div style="margin-bottom:.75rem;"><a href="' + a.url + '">' + a.title + '</a></div>').join('');
     } catch(e) {}
   })();
-  </script>
+  </script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

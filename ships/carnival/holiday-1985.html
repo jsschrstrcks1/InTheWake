@@ -7,6 +7,8 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 <html lang="en">
 <head>
 <!-- ai-breadcrumbs entity:MS Holiday (1985) | type:Historic Ship Tribute | parent:/ships.html | category:Carnival Fleet (Historic) | ship-class:Holiday Class Lead | status:Scrapped 2021 | updated:2025-12-03 | answer-first:MS Holiday (1985-2009) was Holiday Class lead ship, first SuperLiner. 46,052 GT. Built by Aalborg Værft, Denmark. 24 Carnival years. Later Grand Holiday, Magellan. Scrapped 2021. -->
+     name: MS Holiday (1985) | type:Historic Ship Tribute | parent:/ships.html | category:Carnival Fleet (Historic) | ship-class:Holiday Class Lead | status:Scrapped 2021 | updated:2025-12-03 | answer-first:MS Holiday (1985-2009) was Holiday Class lead ship, first SuperLiner. 46,052 GT. Built by Aalborg Værft, Denmark. 24 Carnival years. Later Grand Holiday, Magellan. Scrapped 2021. -->
+     name: MS Holiday (1985) | type:Historic Ship Tribute | parent:/ships.html | category:Carnival Fleet (Historic) | ship-class:Holiday Class Lead | status:Scrapped 2021 | updated:2025-12-03 | answer-first:MS Holiday (1985-2009) was Holiday Class lead ship, first SuperLiner. 46,052 GT. Built by Aalborg Værft, Denmark. 24 Carnival years. Later Grand Holiday, Magellan. Scrapped 2021. -->
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MS Holiday (1985) — Holiday Class Lead Ship | In The Wake</title>
 <meta name="description" content="Memorial tribute to MS Holiday — the lead ship of Carnival's Holiday Class (1985-2009). The first SuperLiner that launched the bigger-is-better revolution.">
@@ -105,7 +107,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 <p style="margin-top:1rem;font-size:1.1rem">The First SuperLiner</p>
 </header>
 
-<main class="wrap page-grid" id="main-content" role="main">
+<main class="wrap page-grid" id="main-content" role="main" data-ship="Holiday 1985">
 <section class="col-1" aria-label="Ship details">
 
 <div class="memorial-banner">
@@ -169,10 +171,16 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 
   <section class="card" aria-labelledby="recent-rail-title">
     <h3 id="recent-rail-title">Recent Stories</h3>
-    <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+    <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
     <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
   </section>
-</aside>
+  </aside>
 </main>
 
 <footer class="footer"><p>© 2025 In The Wake — Cruise encyclopedic planning built AI-first, human-first, Google second.</p><p style="font-size:.75rem;margin-top:.5rem">Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
@@ -202,6 +210,11 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
     if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
   }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
 })();
-</script>
+</script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

@@ -11,6 +11,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Celebration
+     name: Carnival Celebration
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
@@ -269,7 +270,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- Page CSS -->
   </head>
-<body class="page">
+<body class="page" data-ship="Carnival Celebration">
   <a href="#main" class="skip-link">Skip to main content</a>
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 
@@ -360,7 +361,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
       </section>
 
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
@@ -545,7 +547,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   (function initFirstLook(){
     function go(){
       if(!window.__swiperReady||!window.Swiper) return setTimeout(go,120);
-      try{ new Swiper('.swiper.firstlook',{loop:false,lazy:true,watchOverflow:true,pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},a11y:{enabled:true}}); }catch(_){}
+      try{ new Swiper('.swiper.firstlook',{loop:false,rewind:false,lazy:true,watchOverflow:true,pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},a11y:{enabled:true}}); }catch(_){}
     }
     go();
   })();
@@ -604,7 +606,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         return '<div class="swiper-slide"><iframe src="'+url+'" title="'+String(v.title||'').replace(/</g,'&lt;')+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
       }).join('');
       if(window.__swiperReady&&window.Swiper){
-        setTimeout(()=>{ try{ new Swiper('.swiper.videos',{loop:false,pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'}}); }catch(_){} },150);
+        setTimeout(()=>{ try{ new Swiper('.swiper.videos',{loop:false,rewind:false,pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'}}); }catch(_){} },150);
       }
     }
     fetch(abs('/assets/data/videos/carnival/carnival-celebration.json'),{cache:'no-store'})
@@ -642,6 +644,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       rail.innerHTML = articles.slice(0, 4).map(a => '<div style="margin-bottom:.75rem;"><a href="' + a.url + '">' + a.title + '</a></div>').join('');
     } catch(e) {}
   })();
-  </script>
+  </script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

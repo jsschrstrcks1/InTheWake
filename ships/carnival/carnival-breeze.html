@@ -15,6 +15,7 @@
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Breeze
+     name: Carnival Breeze
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
@@ -90,7 +91,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where does Carnival Breeze sail from?","acceptedAnswer":{"@type":"Answer","text":"Carnival Breeze operates from Galveston, Texas, offering Western Caribbean, Eastern Caribbean, and Mexico itineraries convenient for Texas, Oklahoma, Louisiana, and nearby states."}},{"@type":"Question","name":"What class is Carnival Breeze?","acceptedAnswer":{"@type":"Answer","text":"Carnival Breeze is a Dream-class ship, the third and final vessel in the class after Carnival Dream (2009) and Carnival Magic (2011). All three were built by Fincantieri at Monfalcone."}},{"@type":"Question","name":"How big is Carnival Breeze?","acceptedAnswer":{"@type":"Answer","text":"Carnival Breeze measures 130,000 gross tons and is 1,004 feet long. She accommodates 3,690 guests at double occupancy across 1,845 staterooms on 15 guest decks."}}]}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
   <!-- Twitter Card -->
@@ -171,7 +172,7 @@
   </ol>
 </nav>
 
-<main id="main-content" class="wrap page-grid" role="main">
+<main id="main-content" class="wrap page-grid" role="main" data-ship="Carnival Breeze" data-imo="9548450">
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
@@ -180,41 +181,21 @@
     <!-- Photo Carousel -->
     <section class="card" aria-labelledby="photos-title">
       <h2 id="photos-title">Photo Gallery</h2>
-      <div class="swiper" id="photo-swiper">
-        <div class="swiper-wrapper" id="photo-wrapper">
-          <div class="swiper-slide"><img src="/assets/images/placeholder-ship.jpg" alt="Carnival Breeze" loading="eager"></div>
+      <div class="swiper" id="photo-swiper" aria-label="Carnival Breeze photo gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/images/placeholder-ship.jpg" alt="Carnival Breeze at sea - Dream-class cruise ship" loading="eager">
+              <figcaption class="tiny">Photo coming soon. <a href="https://commons.wikimedia.org/wiki/File:Carnival_Breeze_(ship,_2012)_001.jpg" target="_blank" rel="noopener">View on Wikimedia</a></figcaption>
+            </figure>
+          </div>
         </div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev" aria-label="Previous photo"></div>
+        <div class="swiper-button-next" aria-label="Next photo"></div>
         <div class="swiper-pagination"></div>
       </div>
-      <p id="photo-attribution" style="font-size:.8rem;color:#666;margin-top:.75rem;text-align:center"></p>
+      <p class="tiny" style="text-align:center;margin-top:.5rem;">Images from Wikimedia Commons under Creative Commons licenses.</p>
     </section>
-    <script>
-    (function(){
-      var images = [
-        {file:'Carnival_Breeze_(ship,_2012)_001.jpg', desc:'Carnival Breeze at sea', author:'Wikimedia Commons', license:'CC BY-SA 4.0'},
-        {file:'CarnivalBreeze.jpg', desc:'Carnival Breeze stern view', author:'Wikimedia Commons', license:'CC BY-SA 3.0'}
-      ];
-      var wrapper = document.getElementById('photo-wrapper');
-      var attr = document.getElementById('photo-attribution');
-      if(!wrapper) return;
-      wrapper.innerHTML = '';
-      images.forEach(function(img, i){
-        var slide = document.createElement('div');
-        slide.className = 'swiper-slide';
-        var imgEl = document.createElement('img');
-        imgEl.src = 'https://commons.wikimedia.org/wiki/Special:FilePath/' + encodeURIComponent(img.file) + '?width=800';
-        imgEl.alt = img.desc;
-        imgEl.loading = i === 0 ? 'eager' : 'lazy';
-        slide.appendChild(imgEl);
-        wrapper.appendChild(slide);
-      });
-      if(attr && images.length > 0) {
-        attr.innerHTML = 'Photos from Wikimedia Commons under Creative Commons licenses.';
-      }
-    })();
-    </script>
 
     <!-- First Look -->
     <section class="card" aria-labelledby="overview-title">
@@ -238,10 +219,10 @@
     <!-- Video Carousel -->
     <section class="card" aria-labelledby="videos-title">
       <h2 id="videos-title">Ship Videos</h2>
-      <div class="swiper" id="video-swiper">
+      <div class="swiper" id="video-swiper" aria-label="Carnival Breeze video gallery">
         <div class="swiper-wrapper" id="video-wrapper"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
       </div>
       <p id="video-counter" style="text-align:center;margin:.75rem 0 0;font-size:.9rem;color:#666"></p>
     </section>
@@ -286,6 +267,8 @@
     <!-- Stats Grid -->
     <section class="card" aria-labelledby="stats-title">
       <h2 id="stats-title">Ship Statistics</h2>
+          <div id="ship-stats" class="stats-grid" data-slug="carnival-breeze"></div>
+          <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-breeze","name":"Carnival Breeze","class":"Dream Class","entered_service":2012,"gt":"130,000 GT","guests":"3,690","crew":"1,386","length":"1,004 ft (306 m)","beam":"158 ft (48 m)","registry":"Panama"}</script>
       <div class="stats-grid">
         <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">130,000 GT</div><div class="whimsy">≈ 2,549 blue whales</div></div>
         <div class="stat-item"><div class="label">Guests</div><div class="value">3,690</div><div class="whimsy">small town afloat</div></div>
@@ -397,8 +380,8 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
-  new Swiper('#photo-swiper',{loop:true,navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},pagination:{el:'.swiper-pagination',clickable:true}});
-  window.videoSwiper=new Swiper('#video-swiper',{loop:false,navigation:{nextEl:'#video-swiper .swiper-button-next',prevEl:'#video-swiper .swiper-button-prev'}});
+  new Swiper('#photo-swiper',{loop:false,rewind:false,navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},pagination:{el:'.swiper-pagination',clickable:true}});
+  window.videoSwiper=new Swiper('#video-swiper',{loop:false,rewind:false,navigation:{nextEl:'#video-swiper .swiper-button-next',prevEl:'#video-swiper .swiper-button-prev'}});
 });
 </script>
 
@@ -452,6 +435,11 @@ document.addEventListener('DOMContentLoaded',function(){
   window.__articlesNav = renderPage;
   loadArticles();
 })();
-</script>
+</script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

@@ -7,6 +7,8 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 <html lang="en">
 <head>
 <!-- ai-breadcrumbs entity:TSS Festivale (1961) | type:Historic Ship Tribute | parent:/ships.html | category:Carnival Fleet (Historic) | ship-class:Converted Ocean Liner | status:Scrapped 2003-04 | updated:2025-12-03 | answer-first:TSS Festivale (1978-1996) was Carnival's third ship. First waterslide at sea (1981). Originally RMS Transvaal Castle (1961). 27,000 GT. 42 years total service. Scrapped 2003-2004. -->
+     name: TSS Festivale (1961) | type:Historic Ship Tribute | parent:/ships.html | category:Carnival Fleet (Historic) | ship-class:Converted Ocean Liner | status:Scrapped 2003-04 | updated:2025-12-03 | answer-first:TSS Festivale (1978-1996) was Carnival's third ship. First waterslide at sea (1981). Originally RMS Transvaal Castle (1961). 27,000 GT. 42 years total service. Scrapped 2003-2004. -->
+     name: TSS Festivale (1961) | type:Historic Ship Tribute | parent:/ships.html | category:Carnival Fleet (Historic) | ship-class:Converted Ocean Liner | status:Scrapped 2003-04 | updated:2025-12-03 | answer-first:TSS Festivale (1978-1996) was Carnival's third ship. First waterslide at sea (1981). Originally RMS Transvaal Castle (1961). 27,000 GT. 42 years total service. Scrapped 2003-2004. -->
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TSS Festivale (1961) — First Waterslide at Sea | In The Wake</title>
 <meta name="description" content="Memorial tribute to TSS Festivale — Carnival's third ship (1978-1996). The innovation pioneer that introduced the first waterslide at sea in 1981.">
@@ -105,7 +107,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 <p style="margin-top:1rem;font-size:1.1rem">The Innovation Pioneer</p>
 </header>
 
-<main class="wrap page-grid" id="main-content" role="main">
+<main class="wrap page-grid" id="main-content" role="main" data-ship="Festivale 1961">
 <section class="col-1" aria-label="Ship details">
 
 <div class="memorial-banner">
@@ -170,10 +172,16 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 
   <section class="card" aria-labelledby="recent-rail-title">
     <h3 id="recent-rail-title">Recent Stories</h3>
-    <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+    <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
     <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
+  
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
   </section>
-</aside>
+  </aside>
 </main>
 
 <footer class="footer"><p>© 2025 In The Wake — Cruise encyclopedic planning built AI-first, human-first, Google second.</p><p style="font-size:.75rem;margin-top:.5rem">Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
@@ -203,6 +211,11 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
     if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
   }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
 })();
-</script>
+</script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

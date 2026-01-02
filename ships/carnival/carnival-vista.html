@@ -11,6 +11,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Vista
+     name: Carnival Vista
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
@@ -103,7 +104,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <script>(function(){function addCSS(h){const l=document.createElement('link');l.rel='stylesheet';l.href=h;document.head.appendChild(l);}function addJS(src,ok){const s=document.createElement('script');s.src=src;s.async=true;s.onload=ok;document.head.appendChild(s);}addCSS("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css");addJS("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js",function(){window.__swiperReady=true;});})();</script>
 
   </head>
-<body class="page">
+<body class="page" data-ship="Carnival Vista">
   <a href="#main" class="skip-link">Skip to main content</a>
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 
@@ -312,7 +313,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
         <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
       </section>
 
@@ -328,11 +331,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
   </footer>
 
-  <script>(function(){function go(){if(!window.__swiperReady||!window.Swiper)return setTimeout(go,120);try{new Swiper('.swiper.firstlook',{loop:false,pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'}});}catch(_){}}go();})();</script>
+  <script>(function(){function go(){if(!window.__swiperReady||!window.Swiper)return setTimeout(go,120);try{new Swiper('.swiper.firstlook',{loop:false,rewind:false,pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'}});}catch(_){}}go();})();</script>
 
   <script>(function(){const mount=document.getElementById('logbook-stories');if(!mount)return;function abs(p){return(window._abs?_abs(p):p);}fetch(abs('/assets/data/logbook/carnival/carnival-vista.json'),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{if(!data||!data.stories||!data.stories.length)return;let i=0;const arr=data.stories;function render(){const s=arr[i];mount.innerHTML='<article><h3>'+s.title+'</h3><div>'+s.markdown.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')+'</div></article>';}render();const nav=document.createElement('nav');nav.style.cssText='display:flex;gap:.5rem;margin-top:1rem;';const prev=document.createElement('button');prev.textContent='Previous';prev.style.cssText='flex:1;padding:.5rem;border:1px solid #e8ecf0;background:white;cursor:pointer;border-radius:4px;';const next=document.createElement('button');next.textContent='Next';next.style.cssText='flex:1;padding:.5rem;border:1px solid #e8ecf0;background:white;cursor:pointer;border-radius:4px;';nav.append(prev,next);mount.after(nav);prev.onclick=()=>{i=Math.max(0,i-1);render();prev.disabled=i===0;next.disabled=i===arr.length-1;};next.onclick=()=>{i=Math.min(arr.length-1,i+1);render();prev.disabled=i===0;next.disabled=i===arr.length-1;};prev.disabled=true;next.disabled=arr.length<=1;}).catch(()=>{});})();</script>
 
-  <script>(function(){const mount=document.getElementById('featuredVideos');if(!mount)return;function abs(p){return(window._abs?_abs(p):p);}fetch(abs('/assets/data/videos/carnival/carnival-vista.json'),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{if(!data||!data.videos)return;mount.innerHTML=data.videos.map(v=>'<div class="swiper-slide"><iframe src="https://www.youtube-nocookie.com/embed/'+v.videoId+'?rel=0" title="'+v.title+'" allowfullscreen loading="lazy"></iframe></div>').join('');if(window.__swiperReady)setTimeout(()=>{try{new Swiper('.swiper.videos',{loop:false,pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'}});}catch(_){}},150);}).catch(()=>{});})();</script>
+  <script>(function(){const mount=document.getElementById('featuredVideos');if(!mount)return;function abs(p){return(window._abs?_abs(p):p);}fetch(abs('/assets/data/videos/carnival/carnival-vista.json'),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{if(!data||!data.videos)return;mount.innerHTML=data.videos.map(v=>'<div class="swiper-slide"><iframe src="https://www.youtube-nocookie.com/embed/'+v.videoId+'?rel=0" title="'+v.title+'" allowfullscreen loading="lazy"></iframe></div>').join('');if(window.__swiperReady)setTimeout(()=>{try{new Swiper('.swiper.videos',{loop:false,rewind:false,pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'}});}catch(_){}},150);}).catch(()=>{});})();</script>
 
   <script>(function(){const m=document.getElementById('ship-stats'),f=document.getElementById('ship-stats-fallback');if(!m||!f)return;try{const o=JSON.parse(f.textContent);const k=['class','entered_service','gt','guests','crew','length','beam','registry'];const l={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests',crew:'Crew',length:'Length',beam:'Beam',registry:'Registry'};m.innerHTML=k.map(key=>o[key]?'<div class="stat-line"><span class="stat-key">'+l[key]+'</span><span class="stat-val">'+o[key]+'</span></div>':'').join('');}catch(_){}})();</script>
 
@@ -361,6 +364,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
     }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
   })();
-  </script>
+  </script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

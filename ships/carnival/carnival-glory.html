@@ -15,6 +15,7 @@
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Glory
+     name: Carnival Glory
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
@@ -102,7 +103,7 @@
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <header class="hero-header" role="banner">
-  <nav class="navbar"><div class="brand"><a href="/"><img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake"/></a><span class="version-badge">V1.Beta</span></div>
+  <nav class="navbar"><div class="brand"><a href="/"><img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake" loading="eager"/></a><span class="version-badge">V1.Beta</span></div>
       <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon">
@@ -156,14 +157,14 @@
   </div>
 </header>
 
-<main id="main-content" class="page-grid">
+<main id="main-content" class="page-grid" data-ship="Carnival Glory" data-imo="9203935">
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
 <div class="content-column">
 
     <section class="card"><h2>First Look: Carnival Glory</h2>
-      <div class="photo-carousel swiper" id="photo-swiper"><div class="swiper-wrapper">
+      <div class="photo-carousel swiper" id="photo-swiper" aria-label="Carnival Glory photo gallery"><div class="swiper-wrapper">
         <div class="swiper-slide"><img src="/assets/ships/carnival-glory_01.webp" alt="Carnival Glory at Norfolk" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/><p class="photo-caption">Carnival Glory at Norfolk</p></div>
       </div><div class="swiper-pagination"></div></div>
     </section>
@@ -174,6 +175,8 @@
     </section>
 
     <section class="card"><h2>Ship Statistics</h2>
+          <div id="ship-stats" class="stats-grid" data-slug="carnival-glory"></div>
+          <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-glory","name":"Carnival Glory","class":"Conquest Class","entered_service":2003,"gt":"110,000 GT","guests":"2,974","crew":"1,150","length":"952 ft (290 m)","beam":"116 ft (35 m)","registry":"Panama"}</script>
       <div class="stats-grid">
         <div class="stat-item"><div class="stat-value">110,239</div><div class="stat-label">Gross Tonnage</div><div class="whimsy">≈ 2,205 blue whales</div></div>
         <div class="stat-item"><div class="stat-value">952 ft</div><div class="stat-label">Length</div><div class="whimsy">3.2 football fields</div></div>
@@ -224,7 +227,7 @@
 
     <section class="card"><h2>Ship's Logbook</h2><div id="logbook-container"><p class="tiny">Loading stories...</p></div></section>
 
-    <section class="card"><h2>Video Tours</h2><div class="swiper" id="video-swiper"><div class="swiper-wrapper" id="video-wrapper"></div></div></section>
+    <section class="card"><h2>Video Tours</h2><div class="swiper" id="video-swiper" aria-label="Carnival Glory video gallery"><div class="swiper-wrapper" id="video-wrapper"></div></div></section>
 
     <section class="card"><h2>Deck Plans</h2><p><a href="https://www.carnival.com/cruise-ships/carnival-glory#deck-plans" target="_blank" rel="noopener">View Official Deck Plans on Carnival.com</a></p></section>
 
@@ -247,7 +250,11 @@
     <aside class="rail col-2">
     <section class="card quick-answer"><h2>Quick Answer</h2><p><strong>Carnival Glory</strong> is a 110,239 GT Conquest-class ship sailing from Norfolk. Her Heroes Tribute Lounge (2024) honors military service — perfect for Hampton Roads families.</p></section>
     <section class="card"><h3>Key Facts</h3><dl class="key-facts"><dt>Class</dt><dd>Conquest (2nd of 5)</dd><dt>Tonnage</dt><dd>110,239 GT</dd><dt>Guests</dt><dd>2,984</dd><dt>Homeport</dt><dd>Norfolk, VA</dd><dt>Delivered</dt><dd>2003</dd></dl></section>
-    <section class="card author-card-vertical"><h3>Author</h3><img class="author-avatar" src="/authors/img/ken1_96.webp" alt="Ken Baker"/><h4><a href="/authors/ken-baker.html">Ken Baker</a></h4><p class="tiny">Founder, In the Wake</p></section>
+    <section class="card author-card-vertical"><h3>Author</h3><img class="author-avatar" src="/authors/img/ken1_96.webp" alt="Ken Baker" loading="lazy"/><h4><a href="/authors/ken-baker.html">Ken Baker</a></h4><p class="tiny">Founder, In the Wake</p>
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+  </section>
   </aside>
 </main>
 
@@ -256,9 +263,14 @@
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-new Swiper('#photo-swiper',{loop:true,pagination:{el:'.swiper-pagination',clickable:true}});
+new Swiper('#photo-swiper',{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true}});
 fetch('/assets/data/videos/carnival/carnival-glory.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
 fetch('/assets/data/logbook/carnival/carnival-glory.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h4>${s.title}</h4><p class="logbook-meta">${s.persona_label} · ${s.author.name}</p><p>${s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')}</p></article>`).join('');}).catch(()=>{});
-</script>
+</script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>
