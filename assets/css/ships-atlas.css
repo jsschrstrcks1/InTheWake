@@ -1,0 +1,770 @@
+/**
+ * Ship Size Atlas Styles v1.0.0
+ * Soli Deo Gloria
+ *
+ * Styles for the Ship Size Atlas comparison tool
+ */
+
+/* ============================================
+   Quick Start Section
+   ============================================ */
+.atlas-quick-start {
+  background: var(--bg-soft, #f8fafc);
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.quick-start-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.quick-start-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.quick-start-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+/* ============================================
+   Controls Section
+   ============================================ */
+.atlas-controls {
+  background: var(--bg-soft, #f8fafc);
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.atlas-controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.atlas-controls-row:last-child {
+  margin-bottom: 0;
+}
+
+.atlas-control-group {
+  flex: 1 1 180px;
+  min-width: 150px;
+}
+
+.atlas-search-group {
+  position: relative;
+  flex: 2 1 250px;
+}
+
+.atlas-search-input {
+  width: 100%;
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-color, #d1d5db);
+  border-radius: 0.375rem;
+  background: white;
+}
+
+.atlas-search-input:focus {
+  outline: 2px solid var(--accent, #0e6e8e);
+  outline-offset: 2px;
+}
+
+.atlas-search-clear {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: var(--text-muted, #6b7280);
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 1;
+}
+
+.atlas-search-clear.hidden {
+  display: none;
+}
+
+.atlas-select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-color, #d1d5db);
+  border-radius: 0.375rem;
+  background: white;
+  cursor: pointer;
+}
+
+.atlas-select:focus {
+  outline: 2px solid var(--accent, #0e6e8e);
+  outline-offset: 2px;
+}
+
+.atlas-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid var(--accent, #0e6e8e);
+  border-radius: 0.375rem;
+  background: var(--accent, #0e6e8e);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.atlas-btn:hover {
+  background: var(--accent-dark, #0a5a73);
+}
+
+.atlas-btn:focus {
+  outline: 2px solid var(--accent, #0e6e8e);
+  outline-offset: 2px;
+}
+
+.atlas-btn-secondary {
+  background: white;
+  color: var(--accent, #0e6e8e);
+}
+
+.atlas-btn-secondary:hover {
+  background: var(--bg-soft, #f8fafc);
+}
+
+.atlas-btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+}
+
+.atlas-btn-active {
+  background: var(--success, #059669);
+  border-color: var(--success, #059669);
+}
+
+.atlas-btn-active:hover {
+  background: var(--success-dark, #047857);
+}
+
+.atlas-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.atlas-results-summary {
+  font-size: 0.85rem;
+  color: var(--text-muted, #6b7280);
+  margin-top: 0.5rem;
+}
+
+/* ============================================
+   Tabs
+   ============================================ */
+.atlas-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--border-color, #e5e7eb);
+  margin-bottom: 1rem;
+}
+
+.atlas-tab {
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted, #6b7280);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.atlas-tab:hover {
+  color: var(--accent, #0e6e8e);
+}
+
+.atlas-tab.active {
+  color: var(--accent, #0e6e8e);
+  border-bottom-color: var(--accent, #0e6e8e);
+}
+
+.atlas-tab:focus {
+  outline: 2px solid var(--accent, #0e6e8e);
+  outline-offset: 2px;
+}
+
+.atlas-panel.hidden {
+  display: none;
+}
+
+/* ============================================
+   Ranked List View
+   ============================================ */
+.atlas-ranked-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.atlas-ranked-item {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: white;
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 0.5rem;
+  transition: box-shadow 0.15s ease;
+}
+
+.atlas-ranked-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.atlas-ranked-rank {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-muted, #6b7280);
+  text-align: center;
+}
+
+.atlas-ranked-info {
+  min-width: 0;
+}
+
+.atlas-ranked-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.atlas-ranked-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.atlas-ranked-brand {
+  font-size: 0.8rem;
+  color: var(--text-muted, #6b7280);
+}
+
+.atlas-ranked-bar-container {
+  height: 6px;
+  background: var(--bg-soft, #f1f5f9);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.atlas-ranked-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.atlas-ranked-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
+
+.atlas-stat {
+  color: var(--text-muted, #6b7280);
+}
+
+.atlas-stat strong {
+  color: var(--text-primary, #1f2937);
+}
+
+.atlas-ranked-actions {
+  flex-shrink: 0;
+}
+
+/* ============================================
+   Brand Panels View
+   ============================================ */
+.atlas-brand-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.atlas-brand-panel {
+  background: white;
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.atlas-brand-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: var(--bg-soft, #f8fafc);
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+}
+
+.atlas-brand-header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.atlas-brand-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted, #6b7280);
+}
+
+.atlas-brand-ships {
+  padding: 0.5rem;
+}
+
+.atlas-brand-ship {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  border-left: 3px solid transparent;
+  transition: background-color 0.15s ease;
+}
+
+.atlas-brand-ship:hover {
+  background: var(--bg-soft, #f8fafc);
+}
+
+.atlas-brand-ship-info strong {
+  display: block;
+  font-size: 0.9rem;
+}
+
+/* ============================================
+   Master Table View
+   ============================================ */
+.atlas-table-wrapper {
+  overflow-x: auto;
+  margin: 0 -0.5rem;
+  padding: 0 0.5rem;
+}
+
+.atlas-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.atlas-table th,
+.atlas-table td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+  white-space: nowrap;
+}
+
+.atlas-table th {
+  font-weight: 600;
+  background: var(--bg-soft, #f8fafc);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.atlas-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.atlas-table th.sortable:hover {
+  background: #e5e7eb;
+}
+
+.atlas-table th.sortable::after {
+  content: '';
+  display: inline-block;
+  margin-left: 0.25rem;
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.atlas-table th.sorted-desc::after {
+  content: '▼';
+  font-size: 0.7rem;
+}
+
+.atlas-table th.sorted-asc::after {
+  content: '▲';
+  font-size: 0.7rem;
+}
+
+.atlas-table tbody tr:hover {
+  background: var(--bg-soft, #f8fafc);
+}
+
+.atlas-table td:first-child {
+  font-weight: 500;
+}
+
+/* ============================================
+   Compare Section
+   ============================================ */
+.atlas-compare-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--border-color, #e5e7eb);
+}
+
+.atlas-compare-section.hidden {
+  display: none;
+}
+
+.atlas-compare-section h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.atlas-compare-tray {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.atlas-compare-card {
+  position: relative;
+  padding: 1rem;
+  background: white;
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 0.5rem;
+  border-top: 3px solid var(--accent, #0e6e8e);
+}
+
+.atlas-compare-card h4 {
+  margin: 0 0 0.25rem;
+  font-size: 0.95rem;
+  padding-right: 1.5rem;
+}
+
+.atlas-compare-remove {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: var(--text-muted, #6b7280);
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.atlas-compare-remove:hover {
+  color: var(--danger, #dc2626);
+}
+
+.atlas-compare-stats {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  margin-top: 0.75rem;
+}
+
+.atlas-compare-stats dt {
+  color: var(--text-muted, #6b7280);
+}
+
+.atlas-compare-stats dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+.atlas-compare-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ============================================
+   Education Sections
+   ============================================ */
+.atlas-definitions {
+  margin: 1rem 0;
+}
+
+.atlas-definitions dt {
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.atlas-definitions dt:first-child {
+  margin-top: 0;
+}
+
+.atlas-definitions dd {
+  margin: 0.25rem 0 0 0;
+  color: var(--text-secondary, #4b5563);
+}
+
+.atlas-tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.atlas-tier-card {
+  padding: 1rem;
+  background: var(--bg-soft, #f8fafc);
+  border-radius: 0.5rem;
+  border-left: 3px solid var(--accent, #0e6e8e);
+}
+
+.atlas-tier-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+}
+
+.atlas-tier-card ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.85rem;
+}
+
+.atlas-tier-card li {
+  margin-bottom: 0.25rem;
+}
+
+/* ============================================
+   Rail Styles
+   ============================================ */
+.atlas-tier-legend,
+.atlas-confidence-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.atlas-tier-legend li,
+.atlas-confidence-legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.tier-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.atlas-downloads {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+.atlas-downloads li {
+  margin-bottom: 0.5rem;
+}
+
+.atlas-downloads a {
+  font-size: 0.85rem;
+}
+
+.rail-compare-actions {
+  margin-top: 0.5rem;
+}
+
+/* ============================================
+   Size Tier Colors
+   ============================================ */
+.tier-mega,
+.tier-indicator.tier-mega {
+  background: #7c3aed; /* Purple */
+}
+
+.tier-large,
+.tier-indicator.tier-large {
+  background: #2563eb; /* Blue */
+}
+
+.tier-mid,
+.tier-indicator.tier-mid {
+  background: #0891b2; /* Cyan */
+}
+
+.tier-small,
+.tier-indicator.tier-small {
+  background: #059669; /* Green */
+}
+
+.atlas-ranked-bar.tier-mega {
+  background: linear-gradient(90deg, #7c3aed, #9333ea);
+}
+
+.atlas-ranked-bar.tier-large {
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+}
+
+.atlas-ranked-bar.tier-mid {
+  background: linear-gradient(90deg, #0891b2, #06b6d4);
+}
+
+.atlas-ranked-bar.tier-small {
+  background: linear-gradient(90deg, #059669, #10b981);
+}
+
+.atlas-brand-ship.tier-mega {
+  border-left-color: #7c3aed;
+}
+
+.atlas-brand-ship.tier-large {
+  border-left-color: #2563eb;
+}
+
+.atlas-brand-ship.tier-mid {
+  border-left-color: #0891b2;
+}
+
+.atlas-brand-ship.tier-small {
+  border-left-color: #059669;
+}
+
+.atlas-compare-card.tier-mega {
+  border-top-color: #7c3aed;
+}
+
+.atlas-compare-card.tier-large {
+  border-top-color: #2563eb;
+}
+
+.atlas-compare-card.tier-mid {
+  border-top-color: #0891b2;
+}
+
+.atlas-compare-card.tier-small {
+  border-top-color: #059669;
+}
+
+/* ============================================
+   Badges
+   ============================================ */
+.badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.badge-verified {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.badge-mixed {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge-missing {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ============================================
+   Empty & Error States
+   ============================================ */
+.atlas-empty-state,
+.atlas-error {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted, #6b7280);
+}
+
+.atlas-loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted, #6b7280);
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 768px) {
+  .atlas-controls-row {
+    flex-direction: column;
+  }
+
+  .atlas-control-group {
+    flex: 1 1 100%;
+  }
+
+  .atlas-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .atlas-tab {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  .atlas-ranked-item {
+    grid-template-columns: 2.5rem 1fr;
+    gap: 0.75rem;
+  }
+
+  .atlas-ranked-actions {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin-top: 0.5rem;
+  }
+
+  .atlas-compare-tray {
+    grid-template-columns: 1fr;
+  }
+
+  .atlas-tiers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-start-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .atlas-ranked-stats {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .atlas-table {
+    font-size: 0.75rem;
+  }
+
+  .atlas-table th,
+  .atlas-table td {
+    padding: 0.375rem 0.5rem;
+  }
+}

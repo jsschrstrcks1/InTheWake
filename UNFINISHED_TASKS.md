@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2026-01-01 (Port page validation audit - 333 ports validated against ICP-Lite v1.4)
+**Last Updated:** 2026-01-02 (Added Ship Size Atlas completion tasks - nav update, data expansion, enhanced features)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -4108,7 +4108,93 @@ Add current weather conditions and seasonal visiting guides to all port pages.
 
 ---
 
-**Task Count:** ~20-30 discrete tasks remaining (down from 80+) **[UPDATED 2025-12-01]**
+### 🟢 [G] Ship Size Atlas Completion (NEW - 2026-01-02)
+**Lane:** 🟢 Green (technical feature, data expansion)
+**Location:** `/tools/ship-size-atlas.html`
+**Reference:** `admin/Cruise Ship Size Atlas.docx` for full specification
+
+#### Overview
+The Ship Size Atlas v1.0 has been created with core functionality:
+- Three view modes (Ranked, By Brand, Master Table)
+- Filtering by group, brand, size tier, status
+- Compare up to 5 ships side-by-side
+- 65+ ships from 14 brands in initial dataset
+
+#### Phase 1: Site Navigation Update (PRIORITY)
+- [ ] **Update site-wide navigation** to include Ship Size Atlas link
+  - Add to Planning dropdown menu in all pages (652+ files)
+  - Suggested label: "Ship Size Atlas" or "Compare Ships"
+  - Target URL: `/tools/ship-size-atlas.html`
+  - Pattern: Follow same nav structure as existing items
+
+#### Phase 2: Data Expansion
+- [ ] Expand ship database from 65 to 185+ ships
+  - [ ] Royal Caribbean: Add remaining ships (currently 29/30)
+  - [ ] Celebrity Cruises: Expand from 5 to 15 ships
+  - [ ] MSC Cruises: Expand from 10 to 25 ships
+  - [ ] Norwegian: Expand from 10 to 21 ships
+  - [ ] Carnival: Expand from 6 to 30 ships
+  - [ ] Holland America: Expand from 3 to 11 ships
+  - [ ] Princess: Expand from 5 to 17 ships
+  - [ ] Silversea: Add 12 ships
+  - [ ] Oceania: Add 8 ships
+  - [ ] Regent: Add 7 ships
+  - [ ] Costa: Add 9 ships
+  - [ ] Seabourn: Add 6 ships
+  - [ ] Explora: Add 5 ships
+- [ ] Cross-check data against source URLs:
+  - Priority 3: Vacations To Go roster (baseline count)
+  - Priority 4: ShipLife + CruiseMapper (bulk metrics)
+  - Priority 5: Cruise Critic "30 biggest ships" (validation)
+
+#### Phase 3: Enhanced Features
+- [ ] Add "Size Map" scatter chart view (GT vs Passengers visualization)
+- [ ] Add "Top 30 Largest Ships" spotlight module
+- [ ] Add ship detail drawer/modal with full specs and conflict badges
+- [ ] Implement data conflict display (when sources disagree)
+- [ ] Add accessibility overlay for wheelchair/mobility info (future)
+
+#### Phase 4: Data Quality
+- [ ] Create automated coverage report (ships per brand vs expected)
+- [ ] Add "last verified" date display per ship
+- [ ] Implement conflict flagging UI for mixed confidence data
+- [ ] Add source citation links in ship detail view
+
+#### Data Source URLs (for expansion)
+```
+Priority 1 - Official fleet pages:
+- https://www.royalcaribbean.com/cruise-ships
+- https://www.celebritycruises.com/cruise-ships
+- https://www.msccruisesusa.com/cruise/ships
+- https://www.ncl.com/cruise-ships
+- https://www.carnival.com/cruise-ships.aspx
+- https://www.hollandamerica.com/en/us/cruise-ships
+- https://www.princess.com/ships/
+- https://www.silversea.com/ships.html
+- https://www.oceaniacruises.com/ships
+- https://www.rssc.com/ships
+- https://www.cunard.com/en-us/cruise-ships
+- https://www.seabourn.com/en/us/ships
+- https://www.costacruises.com/ships.html
+- https://www.explorajourneys.com/en/ships
+
+Priority 3 - Baseline roster:
+- https://www.vacationstogo.com/cruise_ships.cfm
+
+Priority 4 - Size comparison data:
+- https://shiplife.org/knowledge-center/cruise-ship-size-comparison/
+- https://www.cruisemapper.com/wiki/753-cruise-ship-sizes-comparison-dimensions-length-weight-draft
+```
+
+#### Technical Notes
+- **Data files:** `/data/atlas/ship-size-atlas.json`, `brands.json`, `parent_groups.json`
+- **JS module:** `/assets/js/ships-atlas.js`
+- **CSS:** `/assets/css/ships-atlas.css`
+- **Confidence system:** verified | mixed | missing (badges in UI)
+
+---
+
+**Task Count:** ~30-40 discrete tasks remaining (up from 20-30, added Ship Size Atlas) **[UPDATED 2026-01-02]**
 **Completed Since Last Update (2025-12-01):**
 - Protocol documentation verified complete (was listed as missing)
 - Onboarding documentation reviewed and fixed
