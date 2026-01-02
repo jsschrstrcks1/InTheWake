@@ -338,7 +338,7 @@ function showInitialState() {
   if (container) {
     container.innerHTML = `
       <div class="initial-state" id="initialState">
-        <p>Start typing to search across ${searchIndex.length} pages including ships, restaurants, articles, and tools.</p>
+        <p>Start typing to search across ${searchIndex.length} indexed pages including ships, ports, restaurants, articles, and tools.</p>
         <div class="popular-searches">
           <h3>Popular Searches</h3>
           <div class="popular-tags">

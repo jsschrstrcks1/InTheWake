@@ -157,25 +157,15 @@ Soli Deo Gloria
     </div>
   </header>
 
-    <main class="container port-guide-layout">
-        <article class="port-content">
-
-            <!-- Hero Section -->
-            <section class="port-hero" id="hero" aria-label="Hurghada cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
-                <div class="port-hero-image" style="position: relative;">
-                    <img src="/images/ports/hurghada-hero.webp" alt="Crystal clear turquoise waters of the Red Sea with coral reefs and resort buildings along Hurghada's coastline" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover;"/>
-                    <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                        <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin: 0;">Hurghada</h1>
-                    </div>
-                </div>
-                <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/File:Hurghada_Beach.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
-            </section>
-
+    <section class="hero hero-port" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/images/ports/hurghada-hero.jpg');">
+        <div class="container">
             <h1>Hurghada, Egypt</h1>
-            <p class="hero-subtitle" style="font-size: 1.1rem; color: #666; margin-bottom: 1.5rem;">Red Sea Resort and Marine Life Haven</p>
+            <p class="hero-subtitle">Red Sea Resort and Marine Life Haven</p>
+        </div>
+    </section>
 
-            <h2>Captain's Logbook</h2>
-
+    <main class="container port-guide-layout" id="main-content">
+        <article class="port-content">
             <div class="logbook-entry">
                 <p class="logbook-dateline">Red Sea Coast, Egypt</p>
 
@@ -195,8 +185,8 @@ Soli Deo Gloria
                 <p>Snorkeling in the Red Sea is not like snorkeling anywhere else I've been. The water is bathtub-warm even in winter, so clear you feel like you're flying rather than swimming. Coral formations rise like underwater cathedrals, and the fish—parrotfish munching on coral, clownfish darting into anemones, lionfish hovering with venomous beauty—seem unafraid, going about their business while you float above in wonder.</p>
             </div>
 
-            <section id="cruise_port">
-                <h2>The Cruise Port</h2>
+            <section id="port-essentials">
+                <h2>Port Essentials</h2>
                 <div class="essentials-grid">
                     <div class="essential-item">
                         <h3>Docking Location</h3>
@@ -217,39 +207,8 @@ Soli Deo Gloria
                 </div>
             </section>
 
-            <section id="getting_around">
-                <h2>Getting Around</h2>
-                <p><strong>Taxis</strong> are the primary way to get around Hurghada. They're plentiful but few use meters, so agree on the fare before entering. From the port: 20-30 EGP to Sigala, 40-60 EGP to Ad-Dahar, 80-100 EGP to El Gouna. Always negotiate in Egyptian Pounds, not dollars, for better rates.</p>
-
-                <p><strong>Microbuses</strong> run along the main coastal road and are very cheap (2-5 EGP) but can be confusing for visitors. They're white minivans that pick up and drop off anywhere along the route. Wave one down and tell the driver your destination.</p>
-
-                <p><strong>Hotel shuttles</strong> are sometimes available from major resorts, though most cruise visitors won't have access unless they've booked through the resort.</p>
-
-                <p><strong>Walking</strong> is practical within districts (like along the Sigala marina or through Ad-Dahar souks) but not between them—distances are long and the main road isn't particularly pedestrian-friendly.</p>
-
-                <p><strong>Organized tours</strong> are often the most practical option for marine excursions, desert safaris, and day trips. Your ship will offer packages, but local operators at the marina often have better prices. Just ensure they're licensed and have good reviews.</p>
-            </section>
-
-            <!-- Interactive Port Map -->
-            <section class="port-section port-map-section" id="port-map-section">
-                <h3>Hurghada Area Map</h3>
-                <p class="map-intro">Interactive map showing cruise terminal and Hurghada attractions. Click any marker for details.</p>
-                <div id="hurghada-port-map" class="port-map-container" role="application" aria-label="Interactive map of Hurghada port and points of interest">
-                    <noscript>
-                        <p style="padding: 2rem; text-align: center; color: #678;">
-                            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=27.2579&mlon=33.8116#map=12/27.2579/33.8116" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-                        </p>
-                    </noscript>
-                </div>
-                <div class="port-map-actions">
-                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('hurghada-port-map')._portMap?.fitBounds(document.getElementById('hurghada-port-map')._portMap.getBounds())">
-                        Reset View
-                    </button>
-                </div>
-            </section>
-
-            <section id="excursions">
-                <h2>Excursions</h2>
+            <section id="top-experiences">
+                <h2>Top Experiences in Hurghada</h2>
 
                 <div class="experience-item">
                     <h4>Giftun Islands Marine Park</h4>
@@ -282,6 +241,38 @@ Soli Deo Gloria
                 </div>
             </section>
 
+            <!-- Interactive Port Map -->
+            <details class="port-section port-map-section" id="port-map-section" open>
+            <summary><h3>Hurghada Area Map</h2></summary>
+                <p class="map-intro">Interactive map showing cruise terminal and Hurghada attractions. Click any marker for details.</p>
+                <div id="hurghada-port-map" class="port-map-container" role="application" aria-label="Interactive map of Hurghada port and points of interest">
+                    <noscript>
+                        <p style="padding: 2rem; text-align: center; color: #678;">
+                            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=27.2579&mlon=33.8116#map=12/27.2579/33.8116" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+                        </p>
+                    </noscript>
+                </div>
+                <div class="port-map-actions">
+                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('hurghada-port-map')._portMap?.fitBounds(document.getElementById('hurghada-port-map')._portMap.getBounds())">
+                        Reset View
+                    </button>
+                </div>
+            </details>
+
+            <section id="getting-around">
+          <details class="section-collapse" open>
+            <summary><h2>Getting Around</h2></summary>
+                <p><strong>Taxis</strong> are the primary way to get around Hurghada. They're plentiful but few use meters, so agree on the fare before entering. From the port: 20-30 EGP to Sigala, 40-60 EGP to Ad-Dahar, 80-100 EGP to El Gouna. Always negotiate in Egyptian Pounds, not dollars, for better rates.</p>
+
+                <p><strong>Microbuses</strong> run along the main coastal road and are very cheap (2-5 EGP) but can be confusing for visitors. They're white minivans that pick up and drop off anywhere along the route. Wave one down and tell the driver your destination.</p>
+
+                <p><strong>Hotel shuttles</strong> are sometimes available from major resorts, though most cruise visitors won't have access unless they've booked through the resort.</p>
+
+                <p><strong>Walking</strong> is practical within districts (like along the Sigala marina or through Ad-Dahar souks) but not between them—distances are long and the main road isn't particularly pedestrian-friendly.</p>
+
+                <p><strong>Organized tours</strong> are often the most practical option for marine excursions, desert safaris, and day trips. Your ship will offer packages, but local operators at the marina often have better prices. Just ensure they're licensed and have good reviews.</p>
+            </details>
+
             <section id="food-drink">
                 <h2>Local Food & Drink</h2>
                 <p>Hurghada's dining scene ranges from resort buffets to authentic Egyptian eateries tucked in Ad-Dahar's back streets.</p>
@@ -309,7 +300,87 @@ Soli Deo Gloria
                 </ul>
             </section>
 
-            
+            <!-- WEATHER & BEST TIME TO VISIT -->
+            <details class="port-section" id="weather-guide" open>
+              <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+              <div class="collapse-body">
+                <div id="port-weather-widget"
+                     data-port-id="hurghada"
+                     data-port-name="Hurghada"
+                     data-lat="27.2579"
+                     data-lon="33.8116"
+                     data-region="Middle East">
+                  <noscript>
+                    <div class="seasonal-guide seasonal-guide-static">
+                      <details class="seasonal-section" open>
+                        <summary class="seasonal-section-title">At a Glance</summary>
+                        <div class="seasonal-at-glance">
+                          <div class="seasonal-glance-grid">
+                            <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">59–95°F (15–35°C) seasonally</span></div>
+                            <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Low to moderate (40–60%)</span></div>
+                            <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Very rare; desert climate</span></div>
+                            <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Moderate; can be gusty Mar–May</span></div>
+                            <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10–14 hours depending on season</span></div>
+                          </div>
+                        </div>
+                      </details>
+                      <details class="seasonal-section" open>
+                        <summary class="seasonal-section-title">Best Time to Visit</summary>
+                        <div class="seasonal-best-time">
+                          <div class="cruise-seasons-grid">
+                            <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Oct, Nov, Dec, Jan, Feb, Mar, Apr</span></div>
+                            <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">May, Sep</span></div>
+                            <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Jun, Jul, Aug</span></div>
+                          </div>
+                          <div class="best-months-activities">
+                            <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Mar, Apr, May, Sep, Oct, Nov</span></div>
+                            <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Mar, Apr, May, Sep, Oct, Nov</span></div>
+                            <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                            <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar, Apr</span></div>
+                            <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Jun, Jul, Aug</span></div>
+                          </div>
+                          <div class="months-to-avoid">
+                            <strong>Months to approach with caution:</strong> Jun, Jul, Aug (extreme heat 40°C+)
+                          </div>
+                        </div>
+                      </details>
+                      <details class="seasonal-section">
+                        <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                        <ul class="catches-list">
+                          <li><strong>Desert heat in summer:</strong> Temperatures regularly exceed 40°C (104°F) in Jul–Aug — outdoor activities become dangerous</li>
+                          <li><strong>Strong winds (khamsin):</strong> Desert sandstorms can occur Mar–May, occasionally affecting visibility</li>
+                          <li><strong>Water temperature varies:</strong> Red Sea is warm (24–28°C) but can drop to 21°C in winter — still swimmable but cooler</li>
+                        </ul>
+                      </details>
+                      <details class="seasonal-section">
+                        <summary class="seasonal-section-title">Packing Tips</summary>
+                        <ul class="packing-list">
+                          <li>High-SPF reef-safe sunscreen — UV is intense year-round</li>
+                          <li>Lightweight, breathable clothing (light colors)</li>
+                          <li>Modest clothing for visiting local areas (cover shoulders/knees)</li>
+                          <li>Hat and sunglasses — essential for desert sun</li>
+                          <li>Rash guard for extended snorkeling</li>
+                        </ul>
+                      </details>
+                      <details class="seasonal-section">
+                        <summary class="seasonal-section-title">Weather Hazards</summary>
+                        <div class="hazard-warning">
+                          <span class="hazard-icon">☀️</span>
+                          <div class="hazard-content">
+                            <strong>Extreme Heat Zone</strong>
+                            <p>Season: Jun – Aug</p>
+                            <p>Peak risk: Jul, Aug</p>
+                            <p class="hazard-note">Summer temperatures regularly exceed 40°C (104°F). Limit outdoor activities to early morning or evening. Stay hydrated and seek air-conditioned spaces during midday hours.</p>
+                          </div>
+                        </div>
+                      </details>
+                    </div>
+                  </noscript>
+                </div>
+              </div>
+            </details>
+
+
         <!-- VOLATILE DATA DISCLAIMER -->
         <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
           <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
@@ -317,25 +388,9 @@ Soli Deo Gloria
         </aside>
 
 
-        <section id="depth_soundings">
-                <h2>Depth Soundings</h2>
-                <p class="section-intro">Historical and maritime context for the curious traveler.</p>
-                <div class="sounding-item">
-                    <h3>From Fishing Village to Resort City</h3>
-                    <p>Until the 1980s, Hurghada was a small fishing village known only to oil workers and the occasional diver who'd heard whispers of pristine reefs. Egypt's push to develop Red Sea tourism transformed it dramatically—today it stretches for 40 kilometers along the coast. Yet beneath the resorts, traditional fishing boats still launch at dawn, and old-timers remember when you could count the buildings on one hand.</p>
-                </div>
-                <div class="sounding-item">
-                    <h3>The Red Sea's Living Laboratory</h3>
-                    <p>Scientists consider the Red Sea a unique marine ecosystem. Its warm, highly saline waters support coral species found nowhere else. The sea's geological youth—formed only 20 million years ago when Africa split from Arabia—means its marine life evolved in relative isolation. Hurghada's research stations have contributed significantly to understanding coral reef resilience and climate change impacts.</p>
-                </div>
-                <div class="sounding-item">
-                    <h3>Crossroads of Empires</h3>
-                    <p>The Red Sea coast served ancient trade routes connecting Egypt to Arabia, India, and beyond. Spices, incense, and silk passed through ports like nearby Myos Hormos (now Quseir). The Eastern Desert hides Roman-era ruins and medieval Islamic fortresses. Though Hurghada itself lacks ancient monuments, it sits on a coast that has witnessed millennia of maritime commerce.</p>
-                </div>
-            </section>
-
         <section id="faq">
-                <h2>Frequently Asked Questions</h2>
+          <details class="section-collapse" open>
+            <summary><h2>Frequently Asked Questions</h2></summary>
 
                 <div class="faq-item">
                     <h3>What currency do I need in Hurghada?</h3>
@@ -366,30 +421,19 @@ Soli Deo Gloria
                     <h3>Do I need to book excursions in advance?</h3>
                     <p>For popular trips like Giftun Islands or Luxor, booking ahead is wise, especially during winter high season. Desert safaris and beach clubs can often be booked the day before or morning of your visit.</p>
                 </div>
-            </section>
+            </div>
+          </details>
+            
+          <p><strong>Q: What's the best time of year to visit Hurghada, Egypt: Red Sea Resort and Marine Life Haven?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
 
-            <section id="gallery">
-                <h2>Photo Gallery</h2>
-                <p class="section-intro">Visual impressions from Hurghada and the Red Sea coast.</p>
-                <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                    <figure class="gallery-item">
-                        <img src="/images/ports/hurghada/giftun-reef.webp" alt="Colorful coral reef at Giftun Islands with tropical fish" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
-                        <figcaption>The pristine coral gardens of Giftun Islands Marine Park</figcaption>
-                    </figure>
-                    <figure class="gallery-item">
-                        <img src="/images/ports/hurghada/sigala-marina.webp" alt="Boats moored at Sigala Marina with waterfront restaurants" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
-                        <figcaption>Sigala Marina, the modern heart of Hurghada's waterfront</figcaption>
-                    </figure>
-                    <figure class="gallery-item">
-                        <img src="/images/ports/hurghada/eastern-desert.webp" alt="Rocky desert landscape with Bedouin camp at sunset" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
-                        <figcaption>Sunset over the Eastern Desert during a Bedouin safari</figcaption>
-                    </figure>
-                    <figure class="gallery-item">
-                        <img src="/images/ports/hurghada/old-town-souk.webp" alt="Traditional market stalls in Ad-Dahar old town" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
-                        <figcaption>The traditional souks of Ad-Dahar preserve authentic Egyptian commerce</figcaption>
-                    </figure>
-                </div>
-            </section>
+          <p><strong>Q: Does Hurghada, Egypt: Red Sea Resort and Marine Life Haven have extreme weather to worry about?</strong><br>A: Like most destinations, weather conditions vary by season. Check the weather hazards section above for specific concerns and the best months to visit. Cruise lines monitor conditions and will adjust itineraries if needed for passenger safety.</p>
+
+          <p><strong>Q: What should I pack for Hurghada, Egypt: Red Sea Resort and Marine Life Haven's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
+
+          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
+        
+          <p><strong>Q: Does Hurghada, Egypt: Red Sea Resort and Marine Life Haven have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
+        </section>
 
             <!-- Author's Note -->
             <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;margin-top:2rem;">
@@ -617,5 +661,7 @@ Soli Deo Gloria
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+  <!-- Port Weather Widget -->
+  <script type="module" src="/assets/js/port-weather.js"></script>
 </body>
 </html>

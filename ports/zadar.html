@@ -210,10 +210,9 @@ Soli Deo Gloria
       </p>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
-        <section class="port-section" id="weather-guide" aria-label="Weather and Best Time to Visit">
-          <details class="section-collapse" open>
+        <details class="port-section" id="weather-guide" open>
             <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-            <div class="section-body">
+            <div class="collapse-body">
               <div id="port-weather-widget"
                data-port-id="zadar"
                data-port-name="Zadar"
@@ -235,11 +234,11 @@ Soli Deo Gloria
                   </div>
                 </details>
                 <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
+                  <div class="seasonal-section-title">Best Time to Visit</div>
                   <div class="seasonal-best-time">
                     <div class="cruise-seasons-grid">
                       <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Jun, Jul, Aug</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Shoulder Season</span><span class="season-months">May, Sep</span></div>
+                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">May, Sep</span></div>
                       <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Oct, Nov, Dec, Jan, Feb, Mar, Apr</span></div>
                     </div>
                     <div class="best-months-activities">
@@ -257,7 +256,7 @@ Soli Deo Gloria
                   </div>
                 </details>
                 <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                  <div class="seasonal-section-title">What Catches Visitors Off Guard</div>
                   <div class="seasonal-catches">
                     <ul class="catches-list">
                       <li>Summer heat can be intense — marble streets radiate heat in afternoon sun</li>
@@ -269,7 +268,7 @@ Soli Deo Gloria
                   </div>
                 </details>
                 <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
+                  <div class="seasonal-section-title">Packing Tips</div>
                   <div class="seasonal-packing">
                     <ul class="packing-list">
                       <li>Sunscreen and wide-brimmed hat for summer sun</li>
@@ -281,7 +280,7 @@ Soli Deo Gloria
                   </div>
                 </details>
                 <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
+                  <div class="seasonal-section-title">Weather Hazards</div>
                   <div class="seasonal-hazards">
                     <div class="hazard-warning">
                       <span class="hazard-icon">⚠️</span>
@@ -298,15 +297,13 @@ Soli Deo Gloria
               </div>
             </noscript>
               </div>
-            </div>
-          </details>
-        </section>
+            </details>
     </article>
 
     <section id="logbook" class="card logbook-entry">
       <details class="section-collapse" open>
         <summary><h2>Captain's Logbook</h2></summary>
-        <div class="section-body">
+        <div class="collapse-body">
       <h3>Zadar: My Adriatic Innovation</h3>
       <div class="logbook-entry">
         <p>We arrived in one of Croatia's oldest continuously inhabited cities, where layers of history stack beneath your feet. This was ancient Iader to the Romans, their colony that thrived from the 1st century BC through the 3rd century AD. Walking through the old town peninsula, I found myself standing in the Roman Forum – the largest on the eastern Adriatic coast – still serving as the city's living room two millennia later. Column capitals catch the morning light while locals sip coffee where senators once debated.</p>
@@ -358,11 +355,9 @@ Soli Deo Gloria
         <p><strong>Q: Walk from port?</strong><br/>A: Yes – right into the music.</p>
       </section>
 
-            <p class="last-reviewed">Last reviewed: January 2026</p>
-
 <!-- Interactive Port Map -->
-    <section class="port-section port-map-section" id="port-map-section">
-      <h3>Zadar Area Map</h3>
+    <details class="port-section port-map-section" id="port-map-section" open>
+            <summary><h3>Zadar Area Map</h2></summary>
       <p class="map-intro">Interactive map showing cruise terminal and Zadar attractions. Click any marker for details.</p>
       <div id="zadar-port-map" class="port-map-container" role="application" aria-label="Interactive map of Zadar port and points of interest">
         <noscript>
@@ -376,7 +371,7 @@ Soli Deo Gloria
           Reset View
         </button>
       </div>
-    </section>
+            </details>
 
     <!-- Photo Gallery Section -->
     <section class="port-section photo-gallery">
@@ -428,6 +423,19 @@ Soli Deo Gloria
           <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
           <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
+        <!-- FAQ SECTION -->
+        <details class="port-section" id="faq" open>
+            <summary><h2>Frequently Asked Questions</h2></summary>
+          <p><strong>Q: What's the best time of year to visit Zadar?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
+
+          <p><strong>Q: Does Zadar have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
+
+          <p><strong>Q: What should I pack for Zadar's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
+
+          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
+            </details>
+
+
 
 
       </article>
@@ -546,5 +554,7 @@ Soli Deo Gloria
   });
   </script>
 
+  <!-- Port Weather Widget -->
+  <script type="module" src="/assets/js/port-weather.js"></script>
 </body>
 </html>
