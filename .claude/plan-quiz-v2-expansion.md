@@ -838,10 +838,128 @@ Follow existing pattern (1200×630px):
 └────────────────────────────────────────────────────────┘
 ```
 
+---
+
+## ALL Mode Logic
+
 1. Score all classes across all 4 cruise lines (7+9+9+8 = 33 classes)
 2. Apply cruise-line-level modifiers (food quality, CDC, etc.)
 3. No artificial diversity enforcement — pure best-score wins
 4. Results show cruise line badge on each card for clarity
+
+---
+
+## Innovations (V2 Launch)
+
+### "Why This Ship?" Explainer
+
+Each result card includes an expandable breakdown showing how the recommendation was calculated:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  Why Icon of the Seas? (94% match)          [▼ Show]   │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  Your Preferences                          Points       │
+│  ──────────────────────────────────────────────────    │
+│  ✓ Family with young kids                    +16       │
+│  ✓ Go-go-go energy level                     +18       │
+│  ✓ Ship-focused vacation                     +14       │
+│  ✓ High crowd tolerance                      +14       │
+│  ✓ Standard 5-7 night sailing                 +8       │
+│  ✓ Balanced budget                            +0       │
+│  ✓ A few cruises experience                   +4       │
+│  ──────────────────────────────────────────────────    │
+│  Subtotal (preferences)                       74       │
+│                                                         │
+│  Bonuses                                               │
+│  ──────────────────────────────────────────────────    │
+│  ✓ RCL food quality                           +6       │
+│  ✓ Icon class dining variety                  +2       │
+│  ✓ CDC health score (97)                      +1       │
+│  ──────────────────────────────────────────────────    │
+│  Total Score: 83 → 94% match                           │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Value:** Builds trust, helps users understand the algorithm isn't arbitrary.
+
+**Implementation:** Store scoring breakdown during calculation, render on demand.
+
+---
+
+## Innovations (V2.1 - Post-Launch)
+
+### "What If?" Toggle
+
+After results, let users tweak one answer to see how results change:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  [Your Results]    [What If...?]                        │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  What if you preferred a relaxing pace instead?         │
+│  → Your top pick would change to Radiance of the Seas  │
+│                                                         │
+│  What if you had low crowd tolerance?                   │
+│  → Your top pick would change to Carnival Spirit        │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Value:** Helps users on the fence between preferences, increases engagement.
+
+### "Compare My Top 3" Side-by-Side
+
+One-click to see recommended ships in comparison table:
+
+```
+┌──────────────────────────────────────────────────────────────────────┐
+│  Compare Your Top 3                                                  │
+├──────────────────┬──────────────────┬──────────────────┬────────────┤
+│  Feature         │ Icon of the Seas │ Oasis of the Seas│ Wonder     │
+├──────────────────┼──────────────────┼──────────────────┼────────────┤
+│  Year            │ 2024             │ 2009 (Amp 2019)  │ 2022       │
+│  Capacity        │ 5,610            │ 5,400            │ 5,734      │
+│  Waterparks      │ Category 6       │ FlowRider+Slides │ FlowRider  │
+│  Food Score      │ +9               │ +8               │ +8         │
+│  CDC Score       │ 97               │ 92               │ 95         │
+│  Match %         │ 94%              │ 91%              │ 89%        │
+└──────────────────┴──────────────────┴──────────────────┴────────────┘
+```
+
+**Value:** Helps users make final decision between recommended ships.
+
+### "Take Quiz for Someone Else" Mode
+
+Toggle at quiz start:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  Taking this quiz for:                                  │
+│                                                         │
+│  ○ Myself                                               │
+│  ○ Someone else (I'll answer on their behalf)          │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+Changes result text from "Your perfect ship" to "Their perfect ship."
+
+**Value:** Travel agents, gift planners, people helping family book.
+
+---
+
+## Future Enhancements (Backlog)
+
+| Feature | Description | Requires |
+|---------|-------------|----------|
+| Seasonal Availability | Show when ships sail where | Itinerary data |
+| Print-Friendly Results | Clean PDF-style output | Minor CSS work |
+| Price Range Hints | Approximate cost per cruise line | Pricing research |
+| Save/Bookmark Results | Return to results later | Local storage or accounts |
 
 ---
 
@@ -915,27 +1033,44 @@ See `admin/QUIZ_EXPANSION_GUIDE.md` for detailed procedures.
 ## Implementation Order
 
 1. ✅ RCL data (complete — existing quiz)
-2. ⏳ Carnival class profiles + scoring weights
-3. ⏳ NCL class profiles + scoring weights
-4. ⏳ MSC class profiles + scoring weights
+2. ✅ Carnival class profiles + scoring weights
+3. ✅ NCL class profiles + scoring weights
+4. ✅ MSC class profiles + scoring weights
 5. ⏳ Build `allshipquiz.html` with pill UI
 6. ⏳ Create `ship-quiz-data-v2.json`
-7. ⏳ Test all combinations
-8. ⏳ Soft launch
-9. ⏳ Rename to replace existing quiz
+7. ⏳ Implement "Why This Ship?" explainer
+8. ⏳ Implement "You Might Also Like" section
+9. ⏳ Test all combinations + edge cases
+10. ⏳ Soft launch (Facebook group)
+11. ⏳ Rename to replace existing quiz
 
 ---
 
 ## Open Items for Implementation
 
-- [ ] Finalize Carnival class descriptions and "best_for" / "not_ideal_for" lists
-- [ ] Finalize NCL class descriptions
-- [ ] Finalize MSC class descriptions
-- [ ] Verify ship page coverage for each line
-- [ ] Create scoring weights for Carnival, NCL, MSC (following RCL pattern)
-- [ ] Build pill selector component matching site nav style
-- [ ] Handle "ALL" mode normalization if needed
+### Planning Complete ✅
+- [x] Carnival class descriptions, best_for, not_ideal_for, scoring weights
+- [x] NCL class descriptions, best_for, not_ideal_for, scoring weights
+- [x] MSC class descriptions, best_for, not_ideal_for, scoring weights
+- [x] Multi-line display design (color coding, result cards)
+- [x] "You Might Also Like" section design
+- [x] Mobile hamburger menu design
+- [x] URL sharing format
+- [x] Edge case test personas
+- [x] "Why This Ship?" explainer design
+
+### Implementation Pending ⏳
+- [ ] Build pill selector component (match site nav style)
+- [ ] Create `ship-quiz-data-v2.json` with all cruise line data
+- [ ] Implement brand-aware color coding
+- [ ] Implement "You Might Also Like" section
+- [ ] Implement "Why This Ship?" explainer
+- [ ] Implement mobile hamburger menu with escape rope
+- [ ] Implement lazy loading for performance
 - [ ] Populate all CDC scores in ship data
+- [ ] Verify ship page coverage for each line (create stubs as needed)
+- [ ] Run edge case test personas
+- [ ] Soft launch to Facebook group
 
 ---
 
@@ -981,6 +1116,15 @@ Per ITW-Lite v3.010:
 - **Added complete NCL class profiles** — 9 classes with descriptions, best_for, not_ideal_for, and scoring weights
 - **Added complete MSC class profiles** — 8 classes with descriptions, best_for, not_ideal_for, and scoring weights
 - **All 4 cruise lines now have complete class data** — Ready for implementation
+- **Added multi-line display design** — Brand-aware colors, result card layouts, pill selector
+- **Added "You Might Also Like" section** — Cross-line recommendations when filtering by single cruise line
+- **Added mobile hamburger menu design** — 5 pills collapse to dropdown on small screens
+- **Added URL sharing format** — `?line=` and `?r=` parameters for shareable results
+- **Added edge case test personas** — 8 test scenarios for QA before launch
+- **Added "Why This Ship?" explainer (V2)** — Scoring breakdown modal for transparency
+- **Added V2.1 future features** — "What If?" toggle, Compare Top 3, Take Quiz for Someone Else
+- **Added future enhancements backlog** — Weight calculator, quiz history, ship availability
+- **Planning phase complete** — Ready for implementation
 
 ---
 

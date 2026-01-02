@@ -261,6 +261,57 @@ Use consistent vibe slugs across cruise lines for similar experiences:
 
 ---
 
+## V2 Features
+
+### "Why This Ship?" Explainer
+
+Each result card includes a "Why This Ship?" button that reveals:
+
+```
+┌─────────────────────────────────────────────┐
+│  Why Icon of the Seas?                      │
+├─────────────────────────────────────────────┤
+│  Your Preferences           Ship Match      │
+│  ──────────────────         ──────────      │
+│  ✅ High energy             +18 pts         │
+│  ✅ Large ship okay         +14 pts         │
+│  ✅ Family groups           +12 pts         │
+│  ⚡ Ship-as-destination     +16 pts         │
+│  🍽️ Food matters           +7 pts          │
+│  ──────────────────         ──────────      │
+│  Total Match Score:         67 pts          │
+└─────────────────────────────────────────────┘
+```
+
+### URL Sharing Format
+
+```
+/ships/allshipquiz.html?line=rcl&r=icon-oasis-wonder
+```
+
+Parameters:
+- `line`: Cruise line filter (all, rcl, carnival, ncl, msc)
+- `r`: Encoded result (top 3 ships by slug)
+
+---
+
+## V2.1 Features (Post-Launch)
+
+### "What If?" Toggle
+Allows users to toggle between their answers and alternative responses to see how results change in real-time.
+
+### Compare Top 3
+Side-by-side comparison of the top 3 recommended ships with key differentiators highlighted.
+
+### Take Quiz for Someone Else
+Persona-based quizzing for vacation planning:
+- Parents
+- In-laws
+- Kids
+- Friends
+
+---
+
 ## Future Cruise Lines to Consider
 
 | Cruise Line | Parent Company | Complexity | Ship Pages Needed |
@@ -297,6 +348,9 @@ Before adding a new cruise line, verify:
 - Added annual maintenance procedures
 - Added food quality scoring formula
 - Changed `first_timer` (binary) → `cruise_experience` (3-tier: first_time / a_few / seasoned)
+- Added V2 features: "Why This Ship?" explainer, URL sharing format
+- Added V2.1 features: "What If?" toggle, Compare Top 3, Take Quiz for Someone Else
+- Planning phase complete
 
 ---
 
