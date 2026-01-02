@@ -1,11 +1,25 @@
 #!/usr/bin/env node
 /**
- * Ship Page Validator - ITW-SHIP-002 v2.0
+ * Ship Page Validator - ITW-SHIP-002 v2.1
  * Soli Deo Gloria
  *
  * Comprehensive validator for ship pages following the Ship Page Standard v2.0.
  * Validates: ICP-Lite v1.4, JSON-LD schemas, section ordering, content consistency,
  * word counts, video requirements, logbook stories, navigation, WCAG, deduplication.
+ *
+ * v2.1 Enhancements:
+ * - Strict section ORDER enforcement (per RCL gold standard)
+ * - Soli Deo Gloria comment validation
+ * - Content purity checks (forbidden brochure language, gambling, profanity)
+ * - Faith-scented content markers detection
+ * - Ship stats fallback JSON validation
+ * - Dining data source JSON validation
+ * - Word count validation (min 2500, max 6000)
+ * - Grid-2 pairing validation (First Look + Dining, Deck Plans + Tracker)
+ * - Swiper loop:false + rewind:false enforcement
+ * - CSS version query parameter check
+ * - Internet at Sea and Ship Quiz navigation checks
+ * - Author card and Whimsical Units rail validation
  *
  * Gold Standards: radiance-of-the-seas.html, grandeur-of-the-seas.html
  *
@@ -78,12 +92,101 @@ const SECTION_PATTERNS = {
   tracker: /tracker|live.?tracker|where is|marinetraffic/i,
   faq: /faq|frequently asked|questions/i,
   attribution: /attribution|credits?|image.?credits?/i,
-  recent_rail: /recent.?stories|recent.?rail/i
+  recent_rail: /recent.?stories|recent.?rail/i,
+  author_card: /about the author|author-card/i,
+  whimsical_units: /whimsical.?units|distance.?units/i
 };
 
 const REQUIRED_SECTIONS = [
   'page_intro', 'first_look', 'dining', 'logbook', 'videos',
   'map', 'tracker', 'faq', 'attribution', 'recent_rail'
+];
+
+// Expected STRICT section order per RCL gold standard (radiance-of-the-seas.html)
+// Sections must appear in this order in the main content area
+const EXPECTED_MAIN_SECTION_ORDER = [
+  'page_intro',    // ICP-Lite intro with answer-line
+  'first_look',    // A First Look carousel + stats (inside grid-2 with dining)
+  'dining',        // Dining venues (inside grid-2 with first_look)
+  'logbook',       // The Logbook - Tales From the Wake
+  'videos',        // Watch: Ship Highlights
+  'map',           // Ship Map (Deck Plans) - inside grid-2 with tracker
+  'tracker',       // Where Is Ship Right Now? - inside grid-2 with map
+  'faq',           // Frequently Asked Questions
+  'attribution'    // Image Attributions
+];
+
+// Expected order for right rail sections
+const EXPECTED_RAIL_SECTION_ORDER = [
+  'page_intro',      // Quick Answer / Best For / Key Facts
+  'author_card',     // About the Author
+  'recent_rail',     // Recent Stories
+  'whimsical_units'  // Whimsical Distance Units
+];
+
+// =============================================================================
+// WORD COUNT REQUIREMENTS (from SHIP_PAGE_STANDARD.md v2.0)
+// =============================================================================
+const WORD_COUNT_REQUIREMENTS = {
+  page_intro: { min: 100, max: 300, label: 'Page Introduction' },
+  first_look: { min: 50, max: 150, label: 'A First Look' },
+  dining: { min: 50, max: 200, label: 'Dining Overview' },
+  logbook_story: { min: 300, max: 600, label: 'Logbook Story (each)' },
+  video_section: { min: 20, max: 80, label: 'Video Section' },
+  faq: { min: 200, max: 600, label: 'FAQ Section' },
+  total_page: { min: 2500, max: 6000, label: 'Total Page' }
+};
+
+// =============================================================================
+// CONTENT PURITY RULES (adapted from validate-port-page-v2.js)
+// =============================================================================
+const FORBIDDEN_PATTERNS = [
+  // Brochure/sales language (warnings - stylistic issues)
+  { pattern: /you'll love/i, category: 'brochure', severity: 'warning' },
+  { pattern: /perfect for/i, category: 'brochure', severity: 'warning' },
+  { pattern: /ideal choice/i, category: 'brochure', severity: 'warning' },
+  { pattern: /value[- ]packed/i, category: 'brochure', severity: 'warning' },
+  { pattern: /bucket[- ]list/i, category: 'hype', severity: 'warning' },
+  { pattern: /must[- ]do/i, category: 'brochure', severity: 'warning' },
+  { pattern: /must[- ]see/i, category: 'brochure', severity: 'warning' },
+  { pattern: /\bdeliver[s]?\b.*innovation/i, category: 'brochure', severity: 'warning' },
+  { pattern: /see our .* guide/i, category: 'self-promo', severity: 'warning' },
+  { pattern: /check our .* calculator/i, category: 'self-promo', severity: 'warning' },
+  // Drinking/nightlife (blocking)
+  { pattern: /\b(bar hop|bar-hop|pub crawl|pub-crawl)\b/i, category: 'drinking' },
+  { pattern: /\b(get drunk|getting drunk|wasted|hammered)\b/i, category: 'drinking' },
+  // Gambling (warning with allowed context)
+  { pattern: /\bcasino\b/i, category: 'gambling', severity: 'warning', allowed_context: /casino royale|virtual casino/i },
+  // Profanity (warning)
+  { pattern: /\b(damn|hell|crap|ass)\b/i, category: 'profanity', severity: 'warning' }
+];
+
+// Faith-scented content markers (REQUIRED per standard)
+const FAITH_MARKERS = [
+  /\bgod\b/i, /\bprayer\b/i, /\bscripture\b/i, /\bblessing\b/i,
+  /\bgrace\b/i, /\bfaith\b/i, /\bsoul\b/i, /\bspirit\b/i,
+  /\bawe\b/i, /\bwonder\b/i, /\bhealing\b/i, /\bhope\b/i,
+  /soli deo gloria/i, /proverbs/i, /colossians/i
+];
+
+// Emotional pivot/tear-jerk markers (REQUIRED in logbook)
+const EMOTIONAL_PIVOT_MARKERS = [
+  /tears?\b/i, /crying\b/i, /wept\b/i, /choked up/i,
+  /eyes (welled|watered|filled)/i, /heart (ached|swelled|broke|leapt)/i,
+  /breath caught/i, /couldn't speak/i, /moment of silence/i,
+  /finally (said|spoke|understood|saw)/i, /for the first time in/i,
+  /something (shifted|changed|broke open)/i, /healing\b/i,
+  /reconcil/i, /forgive/i, /thank (god|you|him|her)/i
+];
+
+// Navigation items that MUST be present (per index.html gold standard)
+const REQUIRED_NAV_ITEMS = [
+  '/planning.html', '/ships.html', '/ships/quiz.html', '/restaurants.html',
+  '/ports.html', '/internet-at-sea.html', '/drink-packages.html',
+  '/drink-calculator.html', '/stateroom-check.html', '/cruise-lines.html',
+  '/packing-lists.html', '/accessibility.html', '/travel.html', '/solo.html',
+  '/tools/port-tracker.html', '/tools/ship-tracker.html',
+  '/search.html', '/about-us.html'
 ];
 
 /**
@@ -120,6 +223,42 @@ function normalize(str) {
   return str.replace(/&quot;/g, '"').replace(/&apos;/g, "'")
     .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
     .replace(/\s+/g, ' ').trim();
+}
+
+/**
+ * Validate Soli Deo Gloria comment (must be near top of file)
+ */
+function validateSoliDeoGloria(html) {
+  const errors = [];
+  const warnings = [];
+
+  // Check for Soli Deo Gloria comment in first 500 chars
+  const firstPart = html.substring(0, 500);
+  const hasSoliDeoGloria = /soli\s+deo\s+gloria/i.test(firstPart);
+
+  if (!hasSoliDeoGloria) {
+    errors.push({
+      section: 'soli_deo_gloria',
+      rule: 'missing_dedication',
+      message: 'Missing "Soli Deo Gloria" dedication comment near top of file',
+      severity: 'BLOCKING'
+    });
+  }
+
+  // Check for standard comment block format
+  const hasStandardFormat = html.includes('Soli Deo Gloria') &&
+    (html.includes('Proverbs 3:5') || html.includes('Colossians 3:23'));
+
+  if (hasSoliDeoGloria && !hasStandardFormat) {
+    warnings.push({
+      section: 'soli_deo_gloria',
+      rule: 'incomplete_dedication',
+      message: 'Soli Deo Gloria comment found but missing Scripture references',
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings, data: { hasSoliDeoGloria, hasStandardFormat } };
 }
 
 /**
@@ -306,13 +445,25 @@ function validateNavigation($) {
     if (href) navLinks.push(href);
   });
 
-  // Check for key navigation items
-  const missingNav = GOLD_NAV_ITEMS.filter(item => !navLinks.includes(item));
+  // Check for key navigation items (using REQUIRED_NAV_ITEMS which includes Internet at Sea)
+  const missingNav = REQUIRED_NAV_ITEMS.filter(item => !navLinks.includes(item));
+
+  // Internet at Sea is a critical new addition - check specifically
+  const hasInternetAtSea = navLinks.includes('/internet-at-sea.html');
+  if (!hasInternetAtSea) {
+    errors.push({
+      section: 'navigation',
+      rule: 'missing_internet_at_sea',
+      message: 'Navigation missing /internet-at-sea.html link (required per gold standard)',
+      severity: 'BLOCKING'
+    });
+  }
+
   if (missingNav.length > 3) {
     errors.push({
       section: 'navigation',
       rule: 'missing_nav_items',
-      message: `Navigation missing ${missingNav.length} items from gold standard`,
+      message: `Navigation missing ${missingNav.length} items from gold standard: ${missingNav.slice(0, 5).join(', ')}${missingNav.length > 5 ? '...' : ''}`,
       severity: 'BLOCKING'
     });
   } else if (missingNav.length > 0) {
@@ -324,7 +475,7 @@ function validateNavigation($) {
     });
   }
 
-  return { valid: errors.length === 0, errors, warnings, data: { nav_links: navLinks.length, missing: missingNav } };
+  return { valid: errors.length === 0, errors, warnings, data: { nav_links: navLinks.length, missing: missingNav, hasInternetAtSea } };
 }
 
 /**
@@ -344,6 +495,237 @@ function validateEscapeScript(html) {
   }
 
   return { valid: errors.length === 0, errors, warnings: [], data: { hasEscapeScript: hasEscape } };
+}
+
+/**
+ * Validate content purity (no forbidden patterns)
+ */
+function validateContentPurity($, html) {
+  const errors = [];
+  const warnings = [];
+  const violations = [];
+
+  const bodyText = $('body').text();
+
+  for (const rule of FORBIDDEN_PATTERNS) {
+    if (rule.pattern.test(bodyText)) {
+      // Check if there's an allowed context
+      if (rule.allowed_context && rule.allowed_context.test(bodyText)) {
+        continue;
+      }
+
+      const match = bodyText.match(rule.pattern);
+      const violation = {
+        category: rule.category,
+        matched: match ? match[0] : 'pattern',
+        severity: rule.severity || 'BLOCKING'
+      };
+      violations.push(violation);
+
+      if (rule.severity === 'warning') {
+        warnings.push({
+          section: 'content_purity',
+          rule: `forbidden_${rule.category}`,
+          message: `Forbidden content found: "${violation.matched}" (${rule.category})`,
+          severity: 'WARNING'
+        });
+      } else {
+        errors.push({
+          section: 'content_purity',
+          rule: `forbidden_${rule.category}`,
+          message: `Forbidden content found: "${violation.matched}" (${rule.category})`,
+          severity: 'BLOCKING'
+        });
+      }
+    }
+  }
+
+  // Check for faith markers (at least one should be present)
+  const hasFaithContent = FAITH_MARKERS.some(marker => marker.test(html));
+  if (!hasFaithContent) {
+    warnings.push({
+      section: 'content_purity',
+      rule: 'missing_faith_markers',
+      message: 'No faith-scented content markers found (God, prayer, Scripture, etc.)',
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings, data: { violations, hasFaithContent } };
+}
+
+/**
+ * Validate inline ship stats JSON
+ */
+function validateShipStatsJSON($) {
+  const errors = [];
+  const warnings = [];
+  const statsElement = $('#ship-stats-fallback');
+
+  if (statsElement.length === 0) {
+    warnings.push({
+      section: 'inline_json',
+      rule: 'missing_stats_fallback',
+      message: 'Missing #ship-stats-fallback JSON element',
+      severity: 'WARNING'
+    });
+    return { valid: true, errors, warnings, data: {} };
+  }
+
+  try {
+    const content = statsElement.html() || '';
+    const data = JSON.parse(content);
+
+    // Required fields
+    const requiredFields = ['slug', 'name', 'class', 'entered_service', 'gt', 'guests'];
+    const missingFields = requiredFields.filter(f => !data[f]);
+
+    if (missingFields.length > 0) {
+      errors.push({
+        section: 'inline_json',
+        rule: 'stats_missing_fields',
+        message: `Ship stats JSON missing fields: ${missingFields.join(', ')}`,
+        severity: 'BLOCKING'
+      });
+    }
+
+    // Validate slug matches data-slug attribute
+    const statsContainer = $('#ship-stats');
+    const dataSlug = statsContainer.attr('data-slug');
+    if (dataSlug && data.slug !== dataSlug) {
+      errors.push({
+        section: 'inline_json',
+        rule: 'stats_slug_mismatch',
+        message: `Stats JSON slug "${data.slug}" doesn't match data-slug="${dataSlug}"`,
+        severity: 'BLOCKING'
+      });
+    }
+
+    return { valid: errors.length === 0, errors, warnings, data };
+  } catch (e) {
+    errors.push({
+      section: 'inline_json',
+      rule: 'stats_parse_error',
+      message: `Ship stats JSON parse error: ${e.message}`,
+      severity: 'BLOCKING'
+    });
+    return { valid: false, errors, warnings, data: {} };
+  }
+}
+
+/**
+ * Validate dining data source JSON
+ */
+function validateDiningJSON($) {
+  const errors = [];
+  const warnings = [];
+  const diningElement = $('#dining-data-source');
+
+  if (diningElement.length === 0) {
+    warnings.push({
+      section: 'inline_json',
+      rule: 'missing_dining_source',
+      message: 'Missing #dining-data-source JSON element',
+      severity: 'WARNING'
+    });
+    return { valid: true, errors, warnings, data: {} };
+  }
+
+  try {
+    const content = diningElement.html() || '';
+    const data = JSON.parse(content);
+
+    // Required fields
+    if (!data.ship_slug) {
+      errors.push({
+        section: 'inline_json',
+        rule: 'dining_missing_slug',
+        message: 'Dining data source missing ship_slug field',
+        severity: 'BLOCKING'
+      });
+    }
+
+    if (!data.json && !data.url) {
+      errors.push({
+        section: 'inline_json',
+        rule: 'dining_missing_json',
+        message: 'Dining data source missing json/url field',
+        severity: 'BLOCKING'
+      });
+    }
+
+    return { valid: errors.length === 0, errors, warnings, data };
+  } catch (e) {
+    errors.push({
+      section: 'inline_json',
+      rule: 'dining_parse_error',
+      message: `Dining data source JSON parse error: ${e.message}`,
+      severity: 'BLOCKING'
+    });
+    return { valid: false, errors, warnings, data: {} };
+  }
+}
+
+/**
+ * Validate total page word count
+ * Note: Ship pages use dynamic content loading (logbook, videos) so static word count
+ * will be lower than actual rendered content. We use a lower threshold for static HTML.
+ */
+function validateWordCounts($) {
+  const errors = [];
+  const warnings = [];
+
+  // Get all text from main content, excluding scripts and JSON
+  const mainContent = $('main').clone();
+  mainContent.find('script, style, noscript').remove();
+  const pageText = mainContent.text();
+  const totalWords = countWords(pageText);
+
+  // Ship pages have dynamic content (logbook stories, videos loaded via JS)
+  // Use lower static threshold but warn if very low
+  const STATIC_MIN = 500; // Minimum for static content only
+  const EXPECTED_MIN = WORD_COUNT_REQUIREMENTS.total_page.min;
+
+  if (totalWords < STATIC_MIN) {
+    errors.push({
+      section: 'word_counts',
+      rule: 'page_too_short',
+      message: `Static page content (${totalWords} words) below minimum ${STATIC_MIN} (excluding dynamic content)`,
+      severity: 'BLOCKING'
+    });
+  } else if (totalWords < EXPECTED_MIN) {
+    warnings.push({
+      section: 'word_counts',
+      rule: 'low_static_content',
+      message: `Static page content (${totalWords} words) - note: logbook/videos load dynamically`,
+      severity: 'WARNING'
+    });
+  } else if (totalWords > WORD_COUNT_REQUIREMENTS.total_page.max) {
+    warnings.push({
+      section: 'word_counts',
+      rule: 'page_too_long',
+      message: `Total page content (${totalWords} words) exceeds maximum ${WORD_COUNT_REQUIREMENTS.total_page.max}`,
+      severity: 'WARNING'
+    });
+  }
+
+  // Check FAQ section word count
+  const faqSection = $('section.faq, .faq, #faq, details:contains("Frequently Asked")');
+  if (faqSection.length > 0) {
+    const faqClone = faqSection.clone();
+    faqClone.find('script, style').remove();
+    const faqWords = countWords(faqClone.text());
+    if (faqWords < WORD_COUNT_REQUIREMENTS.faq.min) {
+      warnings.push({
+        section: 'word_counts',
+        rule: 'faq_too_short',
+        message: `FAQ section (${faqWords} words) below minimum ${WORD_COUNT_REQUIREMENTS.faq.min}`,
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  return { valid: errors.length === 0, errors, warnings, data: { totalWords } };
 }
 
 /**
@@ -387,31 +769,109 @@ function validateWCAG($) {
 }
 
 /**
- * Validate sections
+ * Validate sections - STRICT ORDER ENFORCEMENT
  */
 function validateSections($, isTBN) {
   const errors = [];
   const warnings = [];
-  const detected = [];
 
-  $('h2, h3, section, div[id]').each((i, elem) => {
-    const text = $(elem).text().toLowerCase();
-    const id = $(elem).attr('id') || '';
-    const combined = `${text} ${id}`;
+  // Track section positions for order validation
+  const sectionPositions = [];
+
+  // Scan main content area for sections (in DOM order)
+  // Look at sections, divs with classes, and headings
+  $('main section, main .card, main h2, main h3, main [class*="page-intro"], main [class*="first-look"], main [class*="logbook"], main [class*="videos"]').each((i, elem) => {
+    const text = $(elem).text().substring(0, 200).toLowerCase();
+    const id = ($(elem).attr('id') || '').toLowerCase();
+    const className = ($(elem).attr('class') || '').toLowerCase();
+    const ariaLabel = ($(elem).attr('aria-label') || '').toLowerCase();
+    const combined = `${text} ${id} ${className} ${ariaLabel}`;
 
     for (const [key, pattern] of Object.entries(SECTION_PATTERNS)) {
-      if (pattern.test(combined) && !detected.includes(key)) {
-        detected.push(key);
+      if (pattern.test(combined)) {
+        // Record position if not already detected
+        if (!sectionPositions.find(s => s.key === key)) {
+          sectionPositions.push({ key, index: i, text: text.substring(0, 50) });
+        }
         break;
       }
     }
   });
 
+  const detected = sectionPositions.map(s => s.key);
+
+  // Check for required sections
   const required = isTBN ? ['page_intro', 'first_look', 'faq', 'attribution', 'recent_rail'] : REQUIRED_SECTIONS;
   const missing = required.filter(s => !detected.includes(s));
 
   if (missing.length > 0) {
-    errors.push({ section: 'sections', rule: 'missing_required', message: `Missing sections: ${missing.join(', ')}`, severity: 'BLOCKING' });
+    errors.push({
+      section: 'sections',
+      rule: 'missing_required',
+      message: `Missing required sections: ${missing.join(', ')}`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  // STRICT SECTION ORDER ENFORCEMENT
+  // Filter detected sections to only those in expected order list
+  const mainSectionsDetected = sectionPositions
+    .filter(s => EXPECTED_MAIN_SECTION_ORDER.includes(s.key))
+    .map(s => s.key);
+
+  // Check if sections are in correct order
+  const outOfOrder = [];
+  let lastIndex = -1;
+  for (const section of mainSectionsDetected) {
+    const expectedIndex = EXPECTED_MAIN_SECTION_ORDER.indexOf(section);
+    if (expectedIndex < lastIndex) {
+      outOfOrder.push(section);
+    } else {
+      lastIndex = expectedIndex;
+    }
+  }
+
+  if (outOfOrder.length > 0) {
+    errors.push({
+      section: 'sections',
+      rule: 'wrong_section_order',
+      message: `Sections out of expected order: ${outOfOrder.join(', ')}. Expected order: page_intro → first_look → dining → logbook → videos → map → tracker → faq → attribution`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  // Validate grid-2 pairings (First Look + Dining, Deck Plans + Tracker)
+  const grid2Sections = $('.grid-2');
+  let hasFirstLookDiningPair = false;
+  let hasMapTrackerPair = false;
+
+  grid2Sections.each((i, elem) => {
+    const content = $(elem).text().toLowerCase();
+    if (content.includes('first look') && content.includes('dining')) {
+      hasFirstLookDiningPair = true;
+    }
+    if ((content.includes('deck plan') || content.includes('ship map')) &&
+        (content.includes('where is') || content.includes('tracker'))) {
+      hasMapTrackerPair = true;
+    }
+  });
+
+  if (!isTBN && !hasFirstLookDiningPair) {
+    warnings.push({
+      section: 'sections',
+      rule: 'missing_grid2_firstlook_dining',
+      message: 'First Look and Dining should be paired in a grid-2 section',
+      severity: 'WARNING'
+    });
+  }
+
+  if (!isTBN && !hasMapTrackerPair) {
+    warnings.push({
+      section: 'sections',
+      rule: 'missing_grid2_map_tracker',
+      message: 'Deck Plans and Tracker should be paired in a grid-2 section',
+      severity: 'WARNING'
+    });
   }
 
   // Recent Stories rail elements
@@ -427,7 +887,48 @@ function validateSections($, isTBN) {
     errors.push({ section: 'sections', rule: 'missing_nav_bottom', message: 'Missing #recent-rail-nav-bottom', severity: 'BLOCKING' });
   }
 
-  return { valid: errors.length === 0, errors, warnings, data: { detected, missing, hasRail, hasNavTop, hasNavBottom, hasFallback } };
+  // Check for author card in rail
+  const hasAuthorCard = $('aside .author-card-vertical, aside [id*="author"], .rail .author-card').length > 0;
+  if (!hasAuthorCard) {
+    warnings.push({
+      section: 'sections',
+      rule: 'missing_author_card',
+      message: 'Missing author card in right rail',
+      severity: 'WARNING'
+    });
+  }
+
+  // Check for whimsical units container
+  const hasWhimsicalUnits = $('#whimsical-units-container').length > 0;
+  if (!hasWhimsicalUnits) {
+    warnings.push({
+      section: 'sections',
+      rule: 'missing_whimsical_units',
+      message: 'Missing #whimsical-units-container in right rail',
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: {
+      detected,
+      detected_order: mainSectionsDetected,
+      expected_order: EXPECTED_MAIN_SECTION_ORDER,
+      out_of_order: outOfOrder,
+      missing,
+      hasRail,
+      hasNavTop,
+      hasNavBottom,
+      hasFallback,
+      hasAuthorCard,
+      hasWhimsicalUnits,
+      hasFirstLookDiningPair,
+      hasMapTrackerPair
+    }
+  };
 }
 
 /**
@@ -591,12 +1092,16 @@ function validateJavaScript(html) {
     warnings.push({ section: 'javascript', rule: 'missing_dropdown', message: 'Missing dropdown.js', severity: 'WARNING' });
   }
 
-  // Check Swiper configurations for rewind:false
-  const swiperInits = html.match(/new Swiper\([^)]+\{[^}]+\}/g) || [];
+  // Check Swiper configurations for rewind:false and loop:false
+  const swiperInits = html.match(/new Swiper\([^)]+\{[\s\S]*?\}\)/g) || [];
   let swiperMissingRewind = 0;
+  let swiperMissingLoop = 0;
   swiperInits.forEach(init => {
     if (!init.includes('rewind:false') && !init.includes('rewind: false')) {
       swiperMissingRewind++;
+    }
+    if (!init.includes('loop:false') && !init.includes('loop: false')) {
+      swiperMissingLoop++;
     }
   });
   if (swiperMissingRewind > 0) {
@@ -607,8 +1112,27 @@ function validateJavaScript(html) {
       severity: 'BLOCKING'
     });
   }
+  if (swiperMissingLoop > 0) {
+    warnings.push({
+      section: 'javascript',
+      rule: 'swiper_missing_loop',
+      message: `${swiperMissingLoop} Swiper carousels missing loop:false (gold standard requires explicit loop:false)`,
+      severity: 'WARNING'
+    });
+  }
 
-  return { valid: errors.length === 0, errors, warnings, data: { loadArticlesCount, hasDropdown, swiperMissingRewind } };
+  // Check for version consistency in CSS/JS includes
+  const stylesVersion = html.match(/styles\.css\?v=([0-9.]+)/);
+  if (!stylesVersion) {
+    warnings.push({
+      section: 'javascript',
+      rule: 'missing_styles_version',
+      message: 'styles.css missing version query parameter (e.g., styles.css?v=3.010.400)',
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings, data: { loadArticlesCount, hasDropdown, swiperMissingRewind, swiperMissingLoop, stylesVersion: stylesVersion ? stylesVersion[1] : null } };
 }
 
 /**
@@ -971,6 +1495,7 @@ async function validateShipPage(filepath) {
     results.shipName = shipName;
 
     // Run all validations
+    const soliDeoGloriaResult = validateSoliDeoGloria(html);
     const breadcrumbResult = validateAIBreadcrumbs(html, shipName);
     const icpResult = validateICPLite($);
     const jsonldResult = validateJSONLD($, filepath);
@@ -986,6 +1511,12 @@ async function validateShipPage(filepath) {
     const htmlStructureResult = validateHTMLStructure(html);
     const viewportResult = validateViewport($, html);
 
+    // New v2.1 validations
+    const contentPurityResult = validateContentPurity($, html);
+    const shipStatsResult = validateShipStatsJSON($);
+    const diningResult = validateDiningJSON($);
+    const wordCountResult = validateWordCounts($);
+
     // Async validations
     const logbookResult = await validateLogbook(slug);
     const videoResult = await validateVideos(slug);
@@ -993,22 +1524,28 @@ async function validateShipPage(filepath) {
 
     // Collect errors
     results.blocking_errors.push(
+      ...soliDeoGloriaResult.errors,
       ...breadcrumbResult.errors, ...icpResult.errors, ...jsonldResult.errors,
       ...navResult.errors, ...escapeResult.errors, ...wcagResult.errors,
       ...sectionResult.errors, ...dataResult.errors, ...consistencyResult.errors,
       ...faqResult.errors, ...imageResult.errors, ...jsResult.errors,
       ...logbookResult.errors, ...videoResult.errors, ...articlesResult.errors,
-      ...htmlStructureResult.errors, ...viewportResult.errors
+      ...htmlStructureResult.errors, ...viewportResult.errors,
+      ...contentPurityResult.errors, ...shipStatsResult.errors,
+      ...diningResult.errors, ...wordCountResult.errors
     );
 
     // Collect warnings
     results.warnings.push(
+      ...soliDeoGloriaResult.warnings,
       ...breadcrumbResult.warnings, ...icpResult.warnings, ...jsonldResult.warnings,
       ...navResult.warnings, ...escapeResult.warnings, ...wcagResult.warnings,
       ...sectionResult.warnings, ...dataResult.warnings, ...consistencyResult.warnings,
       ...faqResult.warnings, ...imageResult.warnings, ...jsResult.warnings,
       ...logbookResult.warnings, ...videoResult.warnings, ...articlesResult.warnings,
-      ...htmlStructureResult.warnings, ...viewportResult.warnings
+      ...htmlStructureResult.warnings, ...viewportResult.warnings,
+      ...contentPurityResult.warnings, ...shipStatsResult.warnings,
+      ...diningResult.warnings, ...wordCountResult.warnings
     );
 
     // Calculate score
@@ -1017,6 +1554,7 @@ async function validateShipPage(filepath) {
     results.valid = results.blocking_errors.length === 0;
 
     // Add detailed data
+    results.soli_deo_gloria = soliDeoGloriaResult.data;
     results.icp_lite = icpResult.data;
     results.sections = sectionResult.data;
     results.data_attributes = dataResult.data;
@@ -1029,6 +1567,9 @@ async function validateShipPage(filepath) {
     results.navigation = navResult.data;
     results.html_structure = htmlStructureResult.data;
     results.viewport = viewportResult.data;
+    results.content_purity = contentPurityResult.data;
+    results.word_counts = wordCountResult.data;
+    results.inline_json = { stats: shipStatsResult.data, dining: diningResult.data };
 
   } catch (error) {
     results.blocking_errors.push({ section: 'parse', rule: 'file_read', message: `Failed to parse: ${error.message}`, severity: 'BLOCKING' });
