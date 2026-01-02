@@ -4,7 +4,7 @@
  * Soli Deo Gloria ✝️
  */
 
-const VERSION = '13.1.0';
+const VERSION = '13.2.0';
 const CACHE_PREFIX = 'itw-site';
 
 /* Network state (updated by client via NETWORK_INFO message) */
@@ -25,7 +25,7 @@ const CACHES = {
 };
 
 const CONFIG = {
-  maxPages: 700,           // Updated 2025-12-14: Site has 652 pages (291 ports, 174 ships, 129 restaurants, etc.)
+  maxPages: 800,           // Updated 2026-01-02: Site has 738+ indexed pages (333 ports, 171 ships, 207 restaurants, etc.)
   maxAssets: 150,          // Increased for growing CSS/JS modules
   maxImages: 600,          // Currently 285 ship images, allowing for growth
   maxData: 150,            // Updated 2025-12-14: 105 map manifests + 76 JSON files
@@ -841,8 +841,8 @@ function isShipImage(url) {
 }
 
 function isShipPage(url) {
-  // Detect individual ship pages
-  return /^\/ships\/rcl\/[^/]+\.html$/i.test(url.pathname);
+  // Detect individual ship pages from all cruise lines (rcl, carnival, celebrity-cruises, holland-america-line, msc)
+  return /^\/ships\/[^/]+\/[^/]+\.html$/i.test(url.pathname);
 }
 
 function isShipsIndexPage(url) {
