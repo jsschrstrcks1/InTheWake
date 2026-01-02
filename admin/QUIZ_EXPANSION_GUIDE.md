@@ -296,6 +296,7 @@ Before adding a new cruise line, verify:
 - Added CDC health inspection scoring
 - Added annual maintenance procedures
 - Added food quality scoring formula
+- Changed `first_timer` (binary) → `cruise_experience` (3-tier: first_time / a_few / seasoned)
 
 ---
 

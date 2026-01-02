@@ -50,12 +50,54 @@ Expand the existing RCL-only ship quiz to support 4 cruise lines via pill select
 | # | ID | Question |
 |---|-----|----------|
 | 1 | `group_type` | Who's sailing with you? |
-| 2 | `first_timer` | Is this your first cruise? |
+| 2 | `cruise_experience` | How much have you cruised? |
 | 3 | `energy_level` | What's your ideal vacation pace? |
 | 4 | `crowd_tolerance` | How do you feel about crowds? |
 | 5 | `ship_vs_ports` | Ship or destinations—what matters more? |
 | 6 | `sailing_length` | How long do you want to sail? |
 | 7 | `budget_mindset` | What's your budget philosophy? |
+
+### Question 2: Cruise Experience (Updated from Binary)
+
+**Old:** `first_timer` (true/false) — "Veteran cruiser" confused users with 4-5 cruises
+
+**New:** `cruise_experience` (3-tier scale)
+
+| Value | Label | Icon | Description |
+|-------|-------|------|-------------|
+| `first_time` | "First time!" | 🌟 | "Excited to discover cruising" |
+| `a_few` | "A few cruises" | ⚓ | "I've got the basics down" |
+| `seasoned` | "Seasoned sailor" | 🧭 | "Lost count of my sailings" |
+
+**Scoring Weights:**
+
+```json
+"cruise_experience": {
+  "first_time": {
+    "freedom": 6, "voyager": 6, "oasis": 4,
+    "conquest": 6, "dream": 6, "vista": 4,
+    "breakaway": 6, "jewel": 6, "breakaway_plus": 4,
+    "meraviglia": 6, "fantasia": 6, "seaside": 4
+  },
+  "a_few": {
+    "oasis": 4, "quantum": 4, "freedom": 2,
+    "vista": 4, "dream": 4, "excel": 2,
+    "breakaway_plus": 4, "breakaway": 4, "prima": 2,
+    "meraviglia_plus": 4, "seaside_evo": 4, "world": 2
+  },
+  "seasoned": {
+    "icon": 4, "radiance": 4, "vision": 4,
+    "excel": 4, "spirit": 4, "venice": 4,
+    "prima": 4, "epic": 4, "sun": 4,
+    "world": 4, "lirica": 4, "musica": 4
+  }
+}
+```
+
+**Rationale:**
+- **First time:** Steer toward "safe" mainstream ships with broad appeal
+- **A few cruises:** Ready to explore more variety, modern ships
+- **Seasoned:** Open to flagships, niche ships, or intimate experiences
 
 ### Question 8: Must-Have (Updated for Universal)
 
@@ -512,6 +554,7 @@ Per ITW-Lite v3.010:
 - Added class-level dining modifiers for all 4 cruise lines
 - Created `admin/QUIZ_EXPANSION_GUIDE.md` for future expansion
 - Documented annual maintenance procedures
+- **Changed `first_timer` to `cruise_experience`** — 3-tier scale (first_time / a_few / seasoned) to address user confusion with "veteran cruiser" label
 
 ---
 
