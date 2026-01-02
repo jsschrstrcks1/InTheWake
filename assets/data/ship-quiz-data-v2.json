@@ -1,0 +1,1933 @@
+{
+  "model_version": "2.0",
+  "as_of_date": "2026-01-02",
+  "supported_lines": ["rcl", "carnival", "ncl", "msc"],
+
+  "cruise_lines": {
+    "rcl": {
+      "name": "Royal Caribbean",
+      "short_name": "RCL",
+      "colors": {
+        "primary": "#1a3d7c",
+        "accent": "#ffd700"
+      },
+      "food_modifier": 6
+    },
+    "carnival": {
+      "name": "Carnival Cruise Line",
+      "short_name": "Carnival",
+      "colors": {
+        "primary": "#e31837",
+        "accent": "#0033a0"
+      },
+      "food_modifier": -3,
+      "casual_food_modifier": 6
+    },
+    "ncl": {
+      "name": "Norwegian Cruise Line",
+      "short_name": "NCL",
+      "colors": {
+        "primary": "#00205b",
+        "accent": "#ffffff"
+      },
+      "food_modifier": 2
+    },
+    "msc": {
+      "name": "MSC Cruises",
+      "short_name": "MSC",
+      "colors": {
+        "primary": "#003366",
+        "accent": "#b8860b"
+      },
+      "food_modifier": -5
+    }
+  },
+
+  "classes": {
+    "rcl": {
+      "icon": {
+        "name": "Icon Class",
+        "intensity": 10,
+        "vibe": "max_resort_family",
+        "description": "The largest cruise ships ever built. Floating cities with neighborhoods, waterparks, and endless possibilities.",
+        "best_for": ["Families with kids", "First-timers who want it all", "High-energy seekers"],
+        "not_ideal_for": ["Low crowd tolerance", "Port-focused travelers", "Value seekers"],
+        "dining_modifier": 2,
+        "avg_gt": 250000,
+        "avg_capacity": 5610
+      },
+      "oasis": {
+        "name": "Oasis Class",
+        "intensity": 9,
+        "vibe": "mega_variety_social",
+        "description": "Neighborhood-style mega-ships with Central Park, Boardwalk, and incredible variety. The original game-changers.",
+        "best_for": ["Multi-generational groups", "Teens and tweens", "Those wanting variety"],
+        "not_ideal_for": ["Low crowd tolerance", "Intimate ship seekers", "Sanctuary seekers"],
+        "dining_modifier": 1,
+        "avg_gt": 227000,
+        "avg_capacity": 5500
+      },
+      "quantum": {
+        "name": "Quantum Class",
+        "intensity": 7,
+        "vibe": "modern_innovative_balanced",
+        "description": "Tech-forward ships with North Star, RipCord, and innovative dining. Modern without being overwhelming.",
+        "best_for": ["Couples", "Tech enthusiasts", "Balanced travelers"],
+        "not_ideal_for": ["Waterpark-first families", "Traditional dining lovers"],
+        "dining_modifier": 1,
+        "avg_gt": 168000,
+        "avg_capacity": 4180
+      },
+      "freedom": {
+        "name": "Freedom Class",
+        "intensity": 7,
+        "vibe": "big_fun_value_balanced",
+        "description": "Classic big-ship fun with FlowRider and solid amenities. Great value for the experience.",
+        "best_for": ["Value seekers", "First-timers", "Friend groups"],
+        "not_ideal_for": ["Must-have-newest seekers", "Ultra-premium seekers"],
+        "dining_modifier": 0,
+        "avg_gt": 155000,
+        "avg_capacity": 3634
+      },
+      "voyager": {
+        "name": "Voyager Class",
+        "intensity": 6,
+        "vibe": "classic_goldilocks_value",
+        "description": "The original revolutionaries. Still deliver a great Royal Caribbean experience at excellent value.",
+        "best_for": ["Value-first travelers", "Short getaways", "First-timers"],
+        "not_ideal_for": ["Must-feel-modern travelers", "Maximum variety seekers"],
+        "dining_modifier": 0,
+        "avg_gt": 138000,
+        "avg_capacity": 3200
+      },
+      "radiance": {
+        "name": "Radiance Class",
+        "intensity": 4,
+        "vibe": "scenic_calm_ports",
+        "description": "Elegant mid-size ships with floor-to-ceiling glass. Perfect for scenic destinations and relaxed cruising.",
+        "best_for": ["Couples", "Port-focused travelers", "Alaska cruisers"],
+        "not_ideal_for": ["Families with young kids", "Nightlife seekers", "Thrill seekers"],
+        "dining_modifier": -1,
+        "avg_gt": 90000,
+        "avg_capacity": 2142
+      },
+      "vision": {
+        "name": "Vision Class",
+        "intensity": 3,
+        "vibe": "simple_classic_ports_value",
+        "description": "Classic, intimate ships focused on the destination. Simple cruising done well.",
+        "best_for": ["Port-intensive itineraries", "Value seekers", "Traditional cruisers"],
+        "not_ideal_for": ["Families with young kids", "Ship-as-destination travelers", "Modern-feel seekers"],
+        "dining_modifier": -1,
+        "avg_gt": 78000,
+        "avg_capacity": 2200
+      }
+    },
+    "carnival": {
+      "excel": {
+        "name": "Excel Class",
+        "intensity": 9,
+        "vibe": "party_flagship_mega",
+        "description": "Carnival's largest ships with 6,400+ guests. BOLT roller coaster, 20+ dining venues, themed zones. First LNG-powered Carnival ships.",
+        "best_for": ["Families with kids", "Thrill-seekers", "First-timers wanting everything"],
+        "not_ideal_for": ["Low crowd tolerance", "Value-first budgets", "Quiet atmosphere seekers"],
+        "dining_modifier": 3,
+        "avg_gt": 183000,
+        "avg_capacity": 6400
+      },
+      "vista": {
+        "name": "Vista Class",
+        "intensity": 8,
+        "vibe": "modern_family_fun",
+        "description": "The most family-friendly Carnival class. SkyRide, IMAX theater, Family Harbor zone, Havana section for adults.",
+        "best_for": ["Families with kids of all ages", "Couples wanting Havana perks", "West Coast cruisers"],
+        "not_ideal_for": ["Those seeking newest/flashiest", "Very budget-conscious travelers"],
+        "dining_modifier": 1,
+        "avg_gt": 133500,
+        "avg_capacity": 3934
+      },
+      "dream": {
+        "name": "Dream Class",
+        "intensity": 7,
+        "vibe": "balanced_mainstream",
+        "description": "Sweet spot between features and price. WaterWorks water park, comedy clubs, piano bars. Great for families and friend groups.",
+        "best_for": ["Families with water-park-loving kids", "Friend groups", "Couples seeking value"],
+        "not_ideal_for": ["Those wanting flagship experience", "Ultra-quiet seekers"],
+        "dining_modifier": 1,
+        "avg_gt": 130000,
+        "avg_capacity": 3646
+      },
+      "conquest": {
+        "name": "Conquest Class",
+        "intensity": 6,
+        "vibe": "classic_workhorse",
+        "description": "Carnival's budget workhorses. 3,000 guests, solid core Carnival experience. Some have enhanced waterparks.",
+        "best_for": ["Value-first travelers", "First-timers on a budget", "Short getaway cruisers"],
+        "not_ideal_for": ["Must-have-modern seekers", "Extensive specialty dining seekers"],
+        "dining_modifier": 0,
+        "avg_gt": 110000,
+        "avg_capacity": 2974
+      },
+      "spirit": {
+        "name": "Spirit Class",
+        "intensity": 5,
+        "vibe": "intimate_elegant",
+        "description": "Mid-size ships (2,100 guests) with highest percentage of balcony cabins. More intimate, can transit Panama Canal.",
+        "best_for": ["Couples seeking intimacy", "Destination-focused cruisers", "Panama Canal/Alaska itineraries"],
+        "not_ideal_for": ["Families with young kids", "Thrill-seekers", "Nightlife-first travelers"],
+        "dining_modifier": -1,
+        "avg_gt": 88000,
+        "avg_capacity": 2124
+      },
+      "venice": {
+        "name": "Venice Class",
+        "intensity": 7,
+        "vibe": "eurozone_premium",
+        "description": "Costa ships transferred to Carnival with European flair. Italian design touches, refined atmosphere.",
+        "best_for": ["Couples", "Travelers wanting European feel", "NYC-based cruisers"],
+        "not_ideal_for": ["Families wanting traditional Carnival vibe", "Waterpark enthusiasts"],
+        "dining_modifier": 1,
+        "avg_gt": 135000,
+        "avg_capacity": 4072
+      },
+      "splendor": {
+        "name": "Splendor Class",
+        "intensity": 6,
+        "vibe": "solo_workhorse",
+        "description": "Solo ship bridging Dream and Conquest classes. Good variety without mega-ship scale.",
+        "best_for": ["Balanced travelers", "Those wanting mid-size experience", "Value seekers"],
+        "not_ideal_for": ["Those wanting newest features", "Families needing extensive kids programming"],
+        "dining_modifier": 0,
+        "avg_gt": 113300,
+        "avg_capacity": 3006
+      },
+      "sunshine": {
+        "name": "Sunshine Class",
+        "intensity": 5,
+        "vibe": "refreshed_classic",
+        "description": "Refreshed older ships with modern Carnival touches. Serenity adult-only area, Guy's Burger Joint, RedFrog Pub.",
+        "best_for": ["Value seekers", "Short getaway cruisers", "Adults seeking Serenity deck"],
+        "not_ideal_for": ["Families wanting big waterparks", "Must-feel-modern travelers"],
+        "dining_modifier": 0,
+        "avg_gt": 102000,
+        "avg_capacity": 2974
+      },
+      "fantasy": {
+        "name": "Fantasy Class",
+        "intensity": 3,
+        "vibe": "budget_short_getaway",
+        "description": "Carnival's oldest and smallest active ships. Simple, no-frills cruising. Great value for short getaways.",
+        "best_for": ["Budget-first travelers", "Short 3-4 night getaways", "First-timers testing the waters"],
+        "not_ideal_for": ["Families with young kids", "Those wanting activities", "Ship-as-destination travelers"],
+        "dining_modifier": -2,
+        "avg_gt": 70000,
+        "avg_capacity": 2056
+      }
+    },
+    "ncl": {
+      "prima": {
+        "name": "Prima Class",
+        "intensity": 9,
+        "vibe": "modern_innovative_flagship",
+        "description": "NCL's newest, most upscale ships. Highest space-to-passenger ratio, 8-deck Haven complex, Indulge Food Hall, Ocean Boulevard.",
+        "best_for": ["Couples seeking luxury", "Adults-only groups", "Haven suite guests"],
+        "not_ideal_for": ["Families with young kids", "Budget travelers"],
+        "dining_modifier": 1,
+        "avg_gt": 142500,
+        "avg_capacity": 3215
+      },
+      "breakaway_plus": {
+        "name": "Breakaway Plus Class",
+        "intensity": 8,
+        "vibe": "mega_variety",
+        "description": "NCL's largest ships packed with activities. Go-karts, laser tag, Galaxy Pavilion VR, Broadway shows. Best dining variety in fleet.",
+        "best_for": ["High-energy travelers", "Families with teens", "Entertainment lovers"],
+        "not_ideal_for": ["Those seeking quiet/intimate", "Budget-first travelers"],
+        "dining_modifier": 2,
+        "avg_gt": 168000,
+        "avg_capacity": 4000
+      },
+      "breakaway": {
+        "name": "Breakaway Class",
+        "intensity": 7,
+        "vibe": "mainstream_balanced",
+        "description": "Foundation for Breakaway Plus with slightly fewer features. Ropes course, Aqua Park, good nightlife.",
+        "best_for": ["Families", "First-time NCL cruisers", "Balance of features and value"],
+        "not_ideal_for": ["Must-have-newest seekers", "Those wanting go-karts/laser tag"],
+        "dining_modifier": 1,
+        "avg_gt": 145000,
+        "avg_capacity": 3963
+      },
+      "epic": {
+        "name": "Epic Class",
+        "intensity": 7,
+        "vibe": "solo_friendly_mega",
+        "description": "Unique solo-focused ship with 128 Studio Staterooms and exclusive Studio Lounge. Large ship with ice bar, Cirque shows.",
+        "best_for": ["Solo travelers", "Singles wanting social atmosphere", "Adults seeking variety"],
+        "not_ideal_for": ["Families", "Couples wanting privacy", "Those wanting modern design"],
+        "dining_modifier": 0,
+        "avg_gt": 155000,
+        "avg_capacity": 4100
+      },
+      "jewel": {
+        "name": "Jewel Class",
+        "intensity": 6,
+        "vibe": "mid_size_classic",
+        "description": "Mid-size classics (2,400 guests) beloved by NCL loyalists. Relaxed resort feel, good specialty dining.",
+        "best_for": ["Couples", "Experienced cruisers", "Freestyle purists"],
+        "not_ideal_for": ["Families wanting waterparks", "Thrill-seekers", "First-timers wanting wow"],
+        "dining_modifier": 0,
+        "avg_gt": 93000,
+        "avg_capacity": 2376
+      },
+      "pride_of_america": {
+        "name": "Pride of America",
+        "intensity": 5,
+        "vibe": "hawaii_specialist",
+        "description": "Hawaii specialist - the only cruise ship sailing year-round inter-island Hawaii itineraries. US-flagged, American crew.",
+        "best_for": ["Hawaii-focused travelers", "Inter-island experience seekers", "US travelers preferring American crew"],
+        "not_ideal_for": ["Caribbean/Europe seekers", "Budget travelers", "Families wanting activities"],
+        "dining_modifier": 0,
+        "avg_gt": 81000,
+        "avg_capacity": 2186
+      },
+      "dawn": {
+        "name": "Dawn Class",
+        "intensity": 5,
+        "vibe": "classic_mid_size",
+        "description": "Early Freestyle Cruising ships (2001-2002). Quirky layouts, solid service. Good for destination-focused cruising.",
+        "best_for": ["Destination-focused cruisers", "Experienced travelers", "Those prioritizing itinerary over ship"],
+        "not_ideal_for": ["Ship-as-destination travelers", "Families with young kids", "First-timers"],
+        "dining_modifier": -1,
+        "avg_gt": 92000,
+        "avg_capacity": 2340
+      },
+      "sun": {
+        "name": "Sun Class",
+        "intensity": 4,
+        "vibe": "intimate_value",
+        "description": "Oldest active NCL ships. Smaller, more intimate, often all-inclusive deals. Sky specializes in short cruises.",
+        "best_for": ["Value seekers", "Short getaway cruisers", "Adults wanting quiet"],
+        "not_ideal_for": ["Families", "Those wanting activities", "Long cruises"],
+        "dining_modifier": -1,
+        "avg_gt": 77000,
+        "avg_capacity": 2002
+      },
+      "spirit": {
+        "name": "Spirit Class",
+        "intensity": 4,
+        "vibe": "intimate_classic",
+        "description": "Fleet's oldest ship (1998 build). Well-maintained but lacking modern features. Classic cruising.",
+        "best_for": ["Nostalgic cruisers", "Value seekers", "Destination-focused travelers"],
+        "not_ideal_for": ["Families", "Those wanting activities", "Ship-as-destination travelers"],
+        "dining_modifier": -2,
+        "avg_gt": 75000,
+        "avg_capacity": 1966
+      }
+    },
+    "msc": {
+      "world": {
+        "name": "World Class",
+        "intensity": 9,
+        "vibe": "mega_flagship",
+        "description": "MSC's largest, newest flagships (~216,000 GT). Eataly restaurant, The Harbour family zone, bumper cars, Cliffhanger swing. LNG-powered.",
+        "best_for": ["Families wanting megaship variety", "Couples seeking European flair", "Budget-conscious megaship seekers"],
+        "not_ideal_for": ["Those wanting intimate experience", "Crowd-averse travelers", "Those wanting American-style service"],
+        "dining_modifier": 4,
+        "avg_gt": 216000,
+        "avg_capacity": 6762
+      },
+      "meraviglia_plus": {
+        "name": "Meraviglia-Plus Class",
+        "intensity": 8,
+        "vibe": "large_modern",
+        "description": "Large ships with covered LED promenade, Cirque shows, extensive dining. Indoor-focused design works well for varied weather.",
+        "best_for": ["Families wanting entertainment", "Foodies", "Mediterranean cruisers"],
+        "not_ideal_for": ["Those wanting outdoor focus", "Intimate experience seekers"],
+        "dining_modifier": 1,
+        "avg_gt": 181000,
+        "avg_capacity": 5700
+      },
+      "seaside_evo": {
+        "name": "Seaside EVO Class",
+        "intensity": 8,
+        "vibe": "beach_resort_style",
+        "description": "Enhanced Seaside design with more outdoor space. Resort-style living, outdoor promenade, designed for warm-weather cruising.",
+        "best_for": ["Caribbean cruisers", "Families wanting water features", "Sun lovers"],
+        "not_ideal_for": ["Cold-weather itinerary seekers", "Indoor-focused travelers"],
+        "dining_modifier": 1,
+        "avg_gt": 170000,
+        "avg_capacity": 5632
+      },
+      "meraviglia": {
+        "name": "Meraviglia Class",
+        "intensity": 7,
+        "vibe": "mainstream_modern",
+        "description": "High-tech entertainment, stunning LED promenade, modern European city feel at sea. Strong Cirque shows.",
+        "best_for": ["Entertainment lovers", "Families", "Those wanting modern design"],
+        "not_ideal_for": ["Outdoor-focused travelers", "Intimacy seekers"],
+        "dining_modifier": 0,
+        "avg_gt": 171000,
+        "avg_capacity": 5700
+      },
+      "seaside": {
+        "name": "Seaside Class",
+        "intensity": 7,
+        "vibe": "outdoor_focused",
+        "description": "First MSC ships designed for warm-weather/outdoor cruising. Broad outdoor promenade, zipline, outdoor spa.",
+        "best_for": ["Warm-weather cruisers", "Couples seeking sun", "Families wanting water slides"],
+        "not_ideal_for": ["Mediterranean winter sailings", "Those wanting extensive indoor options"],
+        "dining_modifier": 0,
+        "avg_gt": 160000,
+        "avg_capacity": 5179
+      },
+      "fantasia": {
+        "name": "Fantasia Class",
+        "intensity": 6,
+        "vibe": "classic_euro",
+        "description": "MSC's classic big ship class (130,000+ GT). European elegance, Yacht Club suites, showing age but well-maintained.",
+        "best_for": ["European-style experience lovers", "Yacht Club guests", "Destination-focused travelers"],
+        "not_ideal_for": ["Must-feel-modern travelers", "Families wanting extensive activities"],
+        "dining_modifier": -1,
+        "avg_gt": 138000,
+        "avg_capacity": 4363
+      },
+      "musica": {
+        "name": "Musica Class",
+        "intensity": 5,
+        "vibe": "mid_size_euro",
+        "description": "Mid-size ships with classic MSC décor. Relaxed, international atmosphere. Good for itinerary-focused cruising.",
+        "best_for": ["Experienced cruisers", "Destination-focused travelers", "Value seekers"],
+        "not_ideal_for": ["Activity seekers", "Families with young kids", "First-timers wanting wow"],
+        "dining_modifier": -1,
+        "avg_gt": 92000,
+        "avg_capacity": 3013
+      },
+      "lirica": {
+        "name": "Lirica Class",
+        "intensity": 4,
+        "vibe": "intimate_euro",
+        "description": "MSC's oldest ships (2003-2004, refurbished 2015). Smallest in fleet, intimate feel. Classic character retained.",
+        "best_for": ["Budget travelers", "Destination-focused cruisers", "European traditionalists"],
+        "not_ideal_for": ["Families wanting activities", "Ship-as-destination travelers", "Those wanting modern amenities"],
+        "dining_modifier": -2,
+        "avg_gt": 65000,
+        "avg_capacity": 2069
+      }
+    }
+  },
+
+  "ships": {
+    "rcl": {
+      "icon-of-the-seas": {
+        "name": "Icon of the Seas",
+        "class": "icon",
+        "year": 2024,
+        "gt": 250800,
+        "capacity": 5610,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["Category 6 waterpark", "7 pools", "40+ restaurants & bars", "Surfside family neighborhood"],
+        "image": "/assets/social/icon-of-the-seas.jpg",
+        "page": "/ships/rcl/icon-of-the-seas.html"
+      },
+      "star-of-the-seas": {
+        "name": "Star of the Seas",
+        "class": "icon",
+        "year": 2025,
+        "gt": 250800,
+        "capacity": 5610,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Icon's sister ship", "Category 6 waterpark", "Debuting 2025"],
+        "image": "/assets/social/star-of-the-seas.jpg",
+        "page": "/ships/rcl/star-of-the-seas.html"
+      },
+      "wonder-of-the-seas": {
+        "name": "Wonder of the Seas",
+        "class": "oasis",
+        "year": 2022,
+        "gt": 236857,
+        "capacity": 5734,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 95,
+        "highlights": ["Largest Oasis-class", "8 neighborhoods", "Wonder Playscape"],
+        "image": "/assets/social/wonder-of-the-seas.jpg",
+        "page": "/ships/rcl/wonder-of-the-seas.html"
+      },
+      "utopia-of-the-seas": {
+        "name": "Utopia of the Seas",
+        "class": "oasis",
+        "year": 2024,
+        "gt": 236860,
+        "capacity": 5668,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Newest Oasis-class", "Short getaway focused", "Weekend party positioning"],
+        "image": "/assets/social/utopia-of-the-seas.jpg",
+        "page": "/ships/rcl/utopia-of-the-seas.html"
+      },
+      "symphony-of-the-seas": {
+        "name": "Symphony of the Seas",
+        "class": "oasis",
+        "year": 2018,
+        "gt": 228081,
+        "capacity": 5518,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Ultimate Abyss slide", "Laser tag", "Glow-in-dark mini golf"],
+        "image": "/assets/social/symphony-of-the-seas.jpg",
+        "page": "/ships/rcl/symphony-of-the-seas.html"
+      },
+      "harmony-of-the-seas": {
+        "name": "Harmony of the Seas",
+        "class": "oasis",
+        "year": 2016,
+        "gt": 226963,
+        "capacity": 5479,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["Ultimate Abyss debut ship", "Bionic Bar", "Perfect Day sailings"],
+        "image": "/assets/social/harmony-of-the-seas.jpg",
+        "page": "/ships/rcl/harmony-of-the-seas.html"
+      },
+      "allure-of-the-seas": {
+        "name": "Allure of the Seas",
+        "class": "oasis",
+        "year": 2010,
+        "gt": 225282,
+        "capacity": 5400,
+        "status": "active",
+        "amplified": true,
+        "amplified_year": 2020,
+        "cdc_score": 100,
+        "highlights": ["Amplified 2020", "The Mason Jar", "El Loco Fresh", "Playmakers"],
+        "image": "/assets/social/allure-of-the-seas.jpg",
+        "page": "/ships/rcl/allure-of-the-seas.html"
+      },
+      "oasis-of-the-seas": {
+        "name": "Oasis of the Seas",
+        "class": "oasis",
+        "year": 2009,
+        "gt": 225282,
+        "capacity": 5400,
+        "status": "active",
+        "amplified": true,
+        "amplified_year": 2019,
+        "cdc_score": 92,
+        "highlights": ["The original mega-ship", "Amplified 2019", "Central Park", "Boardwalk"],
+        "image": "/assets/social/oasis-of-the-seas.jpg",
+        "page": "/ships/rcl/oasis-of-the-seas.html"
+      },
+      "odyssey-of-the-seas": {
+        "name": "Odyssey of the Seas",
+        "class": "quantum",
+        "year": 2021,
+        "gt": 167704,
+        "capacity": 4180,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 97,
+        "highlights": ["Newest Quantum Ultra", "SeaPlex", "Sky Pad", "Playmakers"],
+        "image": "/assets/social/odyssey-of-the-seas.jpg",
+        "page": "/ships/rcl/odyssey-of-the-seas.html"
+      },
+      "spectrum-of-the-seas": {
+        "name": "Spectrum of the Seas",
+        "class": "quantum",
+        "year": 2019,
+        "gt": 169379,
+        "capacity": 4240,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Asia-Pacific flagship", "North Star", "Ultimate Family Suite"],
+        "image": "/assets/social/spectrum-of-the-seas.jpg",
+        "page": "/ships/rcl/spectrum-of-the-seas.html"
+      },
+      "ovation-of-the-seas": {
+        "name": "Ovation of the Seas",
+        "class": "quantum",
+        "year": 2016,
+        "gt": 167800,
+        "capacity": 4180,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["Alaska favorite", "North Star", "RipCord by iFLY", "Two70"],
+        "image": "/assets/social/ovation-of-the-seas.jpg",
+        "page": "/ships/rcl/ovation-of-the-seas.html"
+      },
+      "anthem-of-the-seas": {
+        "name": "Anthem of the Seas",
+        "class": "quantum",
+        "year": 2015,
+        "gt": 167800,
+        "capacity": 4180,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 99,
+        "highlights": ["East Coast based", "North Star", "Bumper cars", "SeaPlex"],
+        "image": "/assets/social/anthem-of-the-seas.jpg",
+        "page": "/ships/rcl/anthem-of-the-seas.html"
+      },
+      "quantum-of-the-seas": {
+        "name": "Quantum of the Seas",
+        "class": "quantum",
+        "year": 2014,
+        "gt": 168666,
+        "capacity": 4180,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 97,
+        "highlights": ["Original Quantum", "First North Star", "Asia-based"],
+        "image": "/assets/social/quantum-of-the-seas.jpg",
+        "page": "/ships/rcl/quantum-of-the-seas.html"
+      },
+      "independence-of-the-seas": {
+        "name": "Independence of the Seas",
+        "class": "freedom",
+        "year": 2008,
+        "gt": 156080,
+        "capacity": 3634,
+        "status": "active",
+        "amplified": true,
+        "amplified_year": 2018,
+        "cdc_score": 93,
+        "highlights": ["Amplified 2018", "Sky Pad", "Splashaway Bay", "El Loco Fresh"],
+        "image": "/assets/social/independence-of-the-seas.jpg",
+        "page": "/ships/rcl/independence-of-the-seas.html"
+      },
+      "liberty-of-the-seas": {
+        "name": "Liberty of the Seas",
+        "class": "freedom",
+        "year": 2007,
+        "gt": 154407,
+        "capacity": 3634,
+        "status": "active",
+        "amplified": true,
+        "amplified_year": 2016,
+        "cdc_score": 99,
+        "highlights": ["Amplified 2016", "Tidal Wave slide", "Splashaway Bay"],
+        "image": "/assets/social/liberty-of-the-seas.jpg",
+        "page": "/ships/rcl/liberty-of-the-seas.html"
+      },
+      "freedom-of-the-seas": {
+        "name": "Freedom of the Seas",
+        "class": "freedom",
+        "year": 2006,
+        "gt": 156271,
+        "capacity": 3634,
+        "status": "active",
+        "amplified": true,
+        "amplified_year": 2020,
+        "cdc_score": 96,
+        "highlights": ["Amplified 2020", "Perfect Storm slides", "Splashaway Bay", "Playmakers"],
+        "image": "/assets/social/freedom-of-the-seas.jpg",
+        "page": "/ships/rcl/freedom-of-the-seas.html"
+      },
+      "mariner-of-the-seas": {
+        "name": "Mariner of the Seas",
+        "class": "voyager",
+        "year": 2003,
+        "gt": 139863,
+        "capacity": 3388,
+        "status": "active",
+        "amplified": true,
+        "amplified_year": 2018,
+        "cdc_score": 100,
+        "highlights": ["Amplified 2018", "Sky Pad", "FlowRider", "Short getaways from LA"],
+        "image": "/assets/social/mariner-of-the-seas.jpg",
+        "page": "/ships/rcl/mariner-of-the-seas.html"
+      },
+      "navigator-of-the-seas": {
+        "name": "Navigator of the Seas",
+        "class": "voyager",
+        "year": 2002,
+        "gt": 139570,
+        "capacity": 3388,
+        "status": "active",
+        "amplified": true,
+        "amplified_year": 2019,
+        "cdc_score": 96,
+        "highlights": ["Amplified 2019", "Blaster aqua coaster", "To Dry For bar"],
+        "image": "/assets/social/navigator-of-the-seas.jpg",
+        "page": "/ships/rcl/navigator-of-the-seas.html"
+      },
+      "adventure-of-the-seas": {
+        "name": "Adventure of the Seas",
+        "class": "voyager",
+        "year": 2001,
+        "gt": 137276,
+        "capacity": 3114,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["Ice skating rink", "Rock climbing wall", "FlowRider"],
+        "image": "/assets/social/adventure-of-the-seas.jpg",
+        "page": "/ships/rcl/adventure-of-the-seas.html"
+      },
+      "explorer-of-the-seas": {
+        "name": "Explorer of the Seas",
+        "class": "voyager",
+        "year": 2000,
+        "gt": 137308,
+        "capacity": 3114,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 93,
+        "highlights": ["Classic Voyager experience", "Ice skating", "Rock climbing"],
+        "image": "/assets/social/explorer-of-the-seas.jpg",
+        "page": "/ships/rcl/explorer-of-the-seas.html"
+      },
+      "voyager-of-the-seas": {
+        "name": "Voyager of the Seas",
+        "class": "voyager",
+        "year": 1999,
+        "gt": 137276,
+        "capacity": 3114,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 97,
+        "highlights": ["The original revolutionary", "Started the mega-ship era"],
+        "image": "/assets/social/voyager-of-the-seas.jpg",
+        "page": "/ships/rcl/voyager-of-the-seas.html"
+      },
+      "brilliance-of-the-seas": {
+        "name": "Brilliance of the Seas",
+        "class": "radiance",
+        "year": 2002,
+        "gt": 90090,
+        "capacity": 2142,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["Floor-to-ceiling glass", "Outdoor pool deck", "Adults-focused"],
+        "image": "/assets/social/brilliance-of-the-seas.jpg",
+        "page": "/ships/rcl/brilliance-of-the-seas.html"
+      },
+      "jewel-of-the-seas": {
+        "name": "Jewel of the Seas",
+        "class": "radiance",
+        "year": 2004,
+        "gt": 90090,
+        "capacity": 2142,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["European itineraries", "Scenic cruising", "Intimate size"],
+        "image": "/assets/social/jewel-of-the-seas.jpg",
+        "page": "/ships/rcl/jewel-of-the-seas.html"
+      },
+      "radiance-of-the-seas": {
+        "name": "Radiance of the Seas",
+        "class": "radiance",
+        "year": 2001,
+        "gt": 90090,
+        "capacity": 2142,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["Alaska specialist", "Glass elevators", "Panoramic views"],
+        "image": "/assets/social/radiance-of-the-seas.jpg",
+        "page": "/ships/rcl/radiance-of-the-seas.html"
+      },
+      "serenade-of-the-seas": {
+        "name": "Serenade of the Seas",
+        "class": "radiance",
+        "year": 2003,
+        "gt": 90090,
+        "capacity": 2142,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["Panama Canal specialist", "Scenic routes", "Elegant atmosphere"],
+        "image": "/assets/social/serenade-of-the-seas.jpg",
+        "page": "/ships/rcl/serenade-of-the-seas.html"
+      },
+      "enchantment-of-the-seas": {
+        "name": "Enchantment of the Seas",
+        "class": "vision",
+        "year": 1997,
+        "gt": 82910,
+        "capacity": 2730,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 97,
+        "highlights": ["Stretched in 2005", "Short getaways", "Value-focused"],
+        "image": "/assets/social/enchantment-of-the-seas.jpg",
+        "page": "/ships/rcl/enchantment-of-the-seas.html"
+      },
+      "grandeur-of-the-seas": {
+        "name": "Grandeur of the Seas",
+        "class": "vision",
+        "year": 1996,
+        "gt": 73817,
+        "capacity": 1992,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["Most intimate RCL ship", "Classic cruising", "Excellent value"],
+        "image": "/assets/social/grandeur-of-the-seas.jpg",
+        "page": "/ships/rcl/grandeur-of-the-seas.html"
+      },
+      "rhapsody-of-the-seas": {
+        "name": "Rhapsody of the Seas",
+        "class": "vision",
+        "year": 1997,
+        "gt": 78491,
+        "capacity": 2109,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Refreshed 2012", "Smaller ship experience", "Destination-focused"],
+        "image": "/assets/social/rhapsody-of-the-seas.jpg",
+        "page": "/ships/rcl/rhapsody-of-the-seas.html"
+      },
+      "vision-of-the-seas": {
+        "name": "Vision of the Seas",
+        "class": "vision",
+        "year": 1998,
+        "gt": 78340,
+        "capacity": 2050,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 99,
+        "highlights": ["Classic Vision class", "Traditional experience", "Intimate atmosphere"],
+        "image": "/assets/social/vision-of-the-seas.jpg",
+        "page": "/ships/rcl/vision-of-the-seas.html"
+      }
+    },
+    "carnival": {
+      "mardi-gras": {
+        "name": "Mardi Gras",
+        "class": "excel",
+        "year": 2021,
+        "gt": 180800,
+        "capacity": 5282,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 97,
+        "highlights": ["BOLT roller coaster", "Zone-based design", "Guy Fieri's venues"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/mardi-gras.html"
+      },
+      "carnival-celebration": {
+        "name": "Carnival Celebration",
+        "class": "excel",
+        "year": 2022,
+        "gt": 183521,
+        "capacity": 5374,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["BOLT coaster", "Miami-themed zones", "Newest Excel ship"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/celebration.html"
+      },
+      "carnival-jubilee": {
+        "name": "Carnival Jubilee",
+        "class": "excel",
+        "year": 2023,
+        "gt": 183521,
+        "capacity": 5374,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["BOLT coaster", "Texas-themed zones", "Galveston homeport"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/jubilee.html"
+      },
+      "carnival-vista": {
+        "name": "Carnival Vista",
+        "class": "vista",
+        "year": 2016,
+        "gt": 133500,
+        "capacity": 3934,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 93,
+        "highlights": ["SkyRide", "IMAX theater", "Havana section"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/vista.html"
+      },
+      "carnival-horizon": {
+        "name": "Carnival Horizon",
+        "class": "vista",
+        "year": 2018,
+        "gt": 133500,
+        "capacity": 3954,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 95,
+        "highlights": ["SkyRide", "Dr. Seuss WaterWorks", "Family Harbor"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/horizon.html"
+      },
+      "carnival-panorama": {
+        "name": "Carnival Panorama",
+        "class": "vista",
+        "year": 2019,
+        "gt": 133500,
+        "capacity": 3954,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["West Coast flagship", "Sky Zone trampoline", "Havana section"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/panorama.html"
+      },
+      "carnival-dream": {
+        "name": "Carnival Dream",
+        "class": "dream",
+        "year": 2009,
+        "gt": 128251,
+        "capacity": 3646,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 94,
+        "highlights": ["WaterWorks", "Limelight Lounge", "Ocean Plaza"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/dream.html"
+      },
+      "carnival-magic": {
+        "name": "Carnival Magic",
+        "class": "dream",
+        "year": 2011,
+        "gt": 128048,
+        "capacity": 3690,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 97,
+        "highlights": ["WaterWorks", "SportSquare", "RedFrog Pub"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/magic.html"
+      },
+      "carnival-breeze": {
+        "name": "Carnival Breeze",
+        "class": "dream",
+        "year": 2012,
+        "gt": 128052,
+        "capacity": 3690,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 97,
+        "highlights": ["WaterWorks", "Cucina del Capitano", "Guy's Burger Joint"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/breeze.html"
+      },
+      "carnival-conquest": {
+        "name": "Carnival Conquest",
+        "class": "conquest",
+        "year": 2002,
+        "gt": 110000,
+        "capacity": 2974,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Classic Carnival experience", "Impressionist art theme"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/conquest.html"
+      },
+      "carnival-glory": {
+        "name": "Carnival Glory",
+        "class": "conquest",
+        "year": 2003,
+        "gt": 110000,
+        "capacity": 2974,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 96,
+        "highlights": ["Colors theme", "Guy's Burger Joint added"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/glory.html"
+      },
+      "carnival-valor": {
+        "name": "Carnival Valor",
+        "class": "conquest",
+        "year": 2004,
+        "gt": 110000,
+        "capacity": 2974,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 96,
+        "highlights": ["New Orleans homeport", "Valor-themed décor"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/valor.html"
+      },
+      "carnival-liberty": {
+        "name": "Carnival Liberty",
+        "class": "conquest",
+        "year": 2005,
+        "gt": 110000,
+        "capacity": 2974,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 93,
+        "highlights": ["Victorian theme", "Port Canaveral based"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/liberty.html"
+      },
+      "carnival-freedom": {
+        "name": "Carnival Freedom",
+        "class": "conquest",
+        "year": 2007,
+        "gt": 110000,
+        "capacity": 2974,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 96,
+        "highlights": ["American theme", "Recently refreshed"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/freedom.html"
+      },
+      "carnival-spirit": {
+        "name": "Carnival Spirit",
+        "class": "spirit",
+        "year": 2001,
+        "gt": 88500,
+        "capacity": 2124,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 99,
+        "highlights": ["Australia homeport", "Intimate atmosphere"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/spirit.html"
+      },
+      "carnival-pride": {
+        "name": "Carnival Pride",
+        "class": "spirit",
+        "year": 2002,
+        "gt": 88500,
+        "capacity": 2124,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 86,
+        "highlights": ["Baltimore homeport", "Renaissance art theme"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/pride.html"
+      },
+      "carnival-legend": {
+        "name": "Carnival Legend",
+        "class": "spirit",
+        "year": 2002,
+        "gt": 88500,
+        "capacity": 2124,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 90,
+        "highlights": ["Mythology theme", "Tampa homeport"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/legend.html"
+      },
+      "carnival-miracle": {
+        "name": "Carnival Miracle",
+        "class": "spirit",
+        "year": 2004,
+        "gt": 88500,
+        "capacity": 2124,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 99,
+        "highlights": ["Superheroes theme", "Long Beach based"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/miracle.html"
+      },
+      "carnival-luminosa": {
+        "name": "Carnival Luminosa",
+        "class": "spirit",
+        "year": 2009,
+        "gt": 92720,
+        "capacity": 2260,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 97,
+        "highlights": ["Former Costa ship", "Seattle homeport", "European flair"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/luminosa.html"
+      },
+      "carnival-venezia": {
+        "name": "Carnival Venezia",
+        "class": "venice",
+        "year": 2019,
+        "gt": 135500,
+        "capacity": 4072,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Former Costa ship", "NYC homeport", "Italian design"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/venezia.html"
+      },
+      "carnival-firenze": {
+        "name": "Carnival Firenze",
+        "class": "venice",
+        "year": 2020,
+        "gt": 135500,
+        "capacity": 4072,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Former Costa ship", "Long Beach based", "European atmosphere"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/firenze.html"
+      },
+      "carnival-splendor": {
+        "name": "Carnival Splendor",
+        "class": "splendor",
+        "year": 2008,
+        "gt": 113300,
+        "capacity": 3006,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 93,
+        "highlights": ["Solo ship in class", "Good mid-size option"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/splendor.html"
+      },
+      "carnival-sunshine": {
+        "name": "Carnival Sunshine",
+        "class": "sunshine",
+        "year": 1996,
+        "gt": 102853,
+        "capacity": 2974,
+        "status": "active",
+        "amplified": true,
+        "amplified_year": 2013,
+        "cdc_score": null,
+        "highlights": ["Major 2013 refit", "Guy's Burger Joint", "Charleston based"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/sunshine.html"
+      },
+      "carnival-sunrise": {
+        "name": "Carnival Sunrise",
+        "class": "sunshine",
+        "year": 1999,
+        "gt": 101509,
+        "capacity": 2984,
+        "status": "active",
+        "amplified": true,
+        "amplified_year": 2019,
+        "cdc_score": 97,
+        "highlights": ["Major 2019 refit", "Miami homeport"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/sunrise.html"
+      },
+      "carnival-radiance": {
+        "name": "Carnival Radiance",
+        "class": "sunshine",
+        "year": 2000,
+        "gt": 101353,
+        "capacity": 2984,
+        "status": "active",
+        "amplified": true,
+        "amplified_year": 2022,
+        "cdc_score": 98,
+        "highlights": ["Major 2022 refit", "Long Beach based"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/radiance.html"
+      },
+      "carnival-paradise": {
+        "name": "Carnival Paradise",
+        "class": "fantasy",
+        "year": 1998,
+        "gt": 70367,
+        "capacity": 2056,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 97,
+        "highlights": ["Budget-friendly", "Short getaways"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/paradise.html"
+      },
+      "carnival-elation": {
+        "name": "Carnival Elation",
+        "class": "fantasy",
+        "year": 1998,
+        "gt": 70367,
+        "capacity": 2056,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 93,
+        "highlights": ["Budget-friendly", "Jacksonville based"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/carnival/elation.html"
+      }
+    },
+    "ncl": {
+      "norwegian-aqua": {
+        "name": "Norwegian Aqua",
+        "class": "prima",
+        "year": 2025,
+        "gt": 142500,
+        "capacity": 3571,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Newest Prima", "Enhanced family features", "Aqua Slidecoaster"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/aqua.html"
+      },
+      "norwegian-viva": {
+        "name": "Norwegian Viva",
+        "class": "prima",
+        "year": 2023,
+        "gt": 142500,
+        "capacity": 3215,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Prima-class ship", "Ocean Boulevard", "Indulge Food Hall"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/viva.html"
+      },
+      "norwegian-prima": {
+        "name": "Norwegian Prima",
+        "class": "prima",
+        "year": 2022,
+        "gt": 142500,
+        "capacity": 3215,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 97,
+        "highlights": ["First Prima-class", "Ocean Boulevard", "The Drop slide"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/prima.html"
+      },
+      "norwegian-encore": {
+        "name": "Norwegian Encore",
+        "class": "breakaway_plus",
+        "year": 2019,
+        "gt": 169116,
+        "capacity": 3998,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["Go-karts", "Laser tag", "Galaxy Pavilion VR"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/encore.html"
+      },
+      "norwegian-bliss": {
+        "name": "Norwegian Bliss",
+        "class": "breakaway_plus",
+        "year": 2018,
+        "gt": 168028,
+        "capacity": 4004,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Go-karts", "Alaska flagship", "Observation Lounge"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/bliss.html"
+      },
+      "norwegian-joy": {
+        "name": "Norwegian Joy",
+        "class": "breakaway_plus",
+        "year": 2017,
+        "gt": 167725,
+        "capacity": 3804,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Go-karts", "Galaxy Pavilion", "Refitted for Western market"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/joy.html"
+      },
+      "norwegian-escape": {
+        "name": "Norwegian Escape",
+        "class": "breakaway_plus",
+        "year": 2015,
+        "gt": 164600,
+        "capacity": 4266,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Ropes course", "The Waterfront", "Jimmy Buffett's Margaritaville"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/escape.html"
+      },
+      "norwegian-getaway": {
+        "name": "Norwegian Getaway",
+        "class": "breakaway",
+        "year": 2014,
+        "gt": 145655,
+        "capacity": 3963,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 95,
+        "highlights": ["Ropes course", "Aqua Park", "The Waterfront"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/getaway.html"
+      },
+      "norwegian-breakaway": {
+        "name": "Norwegian Breakaway",
+        "class": "breakaway",
+        "year": 2013,
+        "gt": 144017,
+        "capacity": 3963,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["First Breakaway", "Ropes course", "NYC homeport"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/breakaway.html"
+      },
+      "norwegian-epic": {
+        "name": "Norwegian Epic",
+        "class": "epic",
+        "year": 2010,
+        "gt": 155873,
+        "capacity": 4100,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 89,
+        "highlights": ["128 Studio cabins", "Studio Lounge", "Ice bar"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/epic.html"
+      },
+      "norwegian-gem": {
+        "name": "Norwegian Gem",
+        "class": "jewel",
+        "year": 2007,
+        "gt": 93530,
+        "capacity": 2394,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Jewel-class ship", "NYC homeport", "Relaxed vibe"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/gem.html"
+      },
+      "norwegian-pearl": {
+        "name": "Norwegian Pearl",
+        "class": "jewel",
+        "year": 2006,
+        "gt": 93530,
+        "capacity": 2394,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Jewel-class ship", "Bowling alley", "10 dining options"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/pearl.html"
+      },
+      "norwegian-jade": {
+        "name": "Norwegian Jade",
+        "class": "jewel",
+        "year": 2006,
+        "gt": 93558,
+        "capacity": 2402,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Jewel-class ship", "Europe specialist", "Yin & Yang spa"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/jade.html"
+      },
+      "norwegian-jewel": {
+        "name": "Norwegian Jewel",
+        "class": "jewel",
+        "year": 2005,
+        "gt": 93502,
+        "capacity": 2376,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["First Jewel-class", "Asia deployments", "Classic NCL"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/jewel.html"
+      },
+      "pride-of-america": {
+        "name": "Pride of America",
+        "class": "pride_of_america",
+        "year": 2005,
+        "gt": 80439,
+        "capacity": 2186,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Hawaii inter-island", "US-flagged", "Only overnight at ports"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/pride-of-america.html"
+      },
+      "norwegian-dawn": {
+        "name": "Norwegian Dawn",
+        "class": "dawn",
+        "year": 2002,
+        "gt": 92250,
+        "capacity": 2340,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["Early Freestyle ship", "Bermuda specialist"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/dawn.html"
+      },
+      "norwegian-star": {
+        "name": "Norwegian Star",
+        "class": "dawn",
+        "year": 2001,
+        "gt": 91740,
+        "capacity": 2348,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 94,
+        "highlights": ["First Freestyle ship", "Good itineraries"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/star.html"
+      },
+      "norwegian-sun": {
+        "name": "Norwegian Sun",
+        "class": "sun",
+        "year": 2001,
+        "gt": 78309,
+        "capacity": 1936,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Intimate ship", "Cuba specialist", "Value pricing"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/sun.html"
+      },
+      "norwegian-sky": {
+        "name": "Norwegian Sky",
+        "class": "sun",
+        "year": 1999,
+        "gt": 77104,
+        "capacity": 2002,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Short cruises", "All-inclusive pricing", "Miami based"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/sky.html"
+      },
+      "norwegian-spirit": {
+        "name": "Norwegian Spirit",
+        "class": "spirit",
+        "year": 1998,
+        "gt": 75338,
+        "capacity": 1966,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 97,
+        "highlights": ["Fleet's oldest", "Refurbished 2020", "Classic cruising"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/ncl/spirit.html"
+      }
+    },
+    "msc": {
+      "msc-world-america": {
+        "name": "MSC World America",
+        "class": "world",
+        "year": 2025,
+        "gt": 215863,
+        "capacity": 6762,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Newest flagship", "Eataly at sea", "The Harbour family zone"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/world-america.html"
+      },
+      "msc-world-europa": {
+        "name": "MSC World Europa",
+        "class": "world",
+        "year": 2022,
+        "gt": 215863,
+        "capacity": 6762,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["First World-class", "LNG-powered", "11-deck promenade"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/world-europa.html"
+      },
+      "msc-euribia": {
+        "name": "MSC Euribia",
+        "class": "meraviglia_plus",
+        "year": 2023,
+        "gt": 181541,
+        "capacity": 6327,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["LNG-powered", "LED promenade", "Cirque shows"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/euribia.html"
+      },
+      "msc-virtuosa": {
+        "name": "MSC Virtuosa",
+        "class": "meraviglia_plus",
+        "year": 2021,
+        "gt": 181541,
+        "capacity": 6334,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Rob the Robot bartender", "LED promenade", "Cirque du Soleil"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/virtuosa.html"
+      },
+      "msc-grandiosa": {
+        "name": "MSC Grandiosa",
+        "class": "meraviglia_plus",
+        "year": 2019,
+        "gt": 181541,
+        "capacity": 6334,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["First Meraviglia-Plus", "LED promenade", "Cirque du Soleil"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/grandiosa.html"
+      },
+      "msc-seascape": {
+        "name": "MSC Seascape",
+        "class": "seaside_evo",
+        "year": 2022,
+        "gt": 170412,
+        "capacity": 5632,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Caribbean flagship", "Robot bartenders", "Outdoor promenade"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/seascape.html"
+      },
+      "msc-seashore": {
+        "name": "MSC Seashore",
+        "class": "seaside_evo",
+        "year": 2021,
+        "gt": 169400,
+        "capacity": 5632,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["First Seaside EVO", "Extended outdoor deck", "Miami homeport"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/seashore.html"
+      },
+      "msc-meraviglia": {
+        "name": "MSC Meraviglia",
+        "class": "meraviglia",
+        "year": 2017,
+        "gt": 171598,
+        "capacity": 5714,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["First Meraviglia", "LED promenade", "Cirque du Soleil"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/meraviglia.html"
+      },
+      "msc-bellissima": {
+        "name": "MSC Bellissima",
+        "class": "meraviglia",
+        "year": 2019,
+        "gt": 171598,
+        "capacity": 5714,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Highest-rated MSC ship", "LED promenade", "Cirque du Soleil"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/bellissima.html"
+      },
+      "msc-seaside": {
+        "name": "MSC Seaside",
+        "class": "seaside",
+        "year": 2017,
+        "gt": 160000,
+        "capacity": 5179,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["First Seaside", "Outdoor promenade", "Miami homeport"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/seaside.html"
+      },
+      "msc-seaview": {
+        "name": "MSC Seaview",
+        "class": "seaside",
+        "year": 2018,
+        "gt": 160000,
+        "capacity": 5179,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Seaside-class ship", "Outdoor focus", "European deployments"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/seaview.html"
+      },
+      "msc-preziosa": {
+        "name": "MSC Preziosa",
+        "class": "fantasia",
+        "year": 2013,
+        "gt": 139072,
+        "capacity": 4363,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Newest Fantasia", "Infinity pool", "Yacht Club"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/preziosa.html"
+      },
+      "msc-divina": {
+        "name": "MSC Divina",
+        "class": "fantasia",
+        "year": 2012,
+        "gt": 139072,
+        "capacity": 4345,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Sophia Loren godmother", "Yacht Club", "Caribbean based"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/divina.html"
+      },
+      "msc-magnifica": {
+        "name": "MSC Magnifica",
+        "class": "fantasia",
+        "year": 2010,
+        "gt": 137936,
+        "capacity": 3223,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 86,
+        "highlights": ["World cruise specialist", "Top Sail Lounge", "Classic MSC"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/magnifica.html"
+      },
+      "msc-splendida": {
+        "name": "MSC Splendida",
+        "class": "fantasia",
+        "year": 2009,
+        "gt": 137936,
+        "capacity": 4363,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Yacht Club", "Mediterranean specialist"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/splendida.html"
+      },
+      "msc-fantasia": {
+        "name": "MSC Fantasia",
+        "class": "fantasia",
+        "year": 2008,
+        "gt": 137936,
+        "capacity": 4363,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["First Fantasia-class", "First Yacht Club", "Mediterranean based"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/fantasia.html"
+      },
+      "msc-poesia": {
+        "name": "MSC Poesia",
+        "class": "musica",
+        "year": 2008,
+        "gt": 92627,
+        "capacity": 3013,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Musica-class ship", "European itineraries"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/poesia.html"
+      },
+      "msc-orchestra": {
+        "name": "MSC Orchestra",
+        "class": "musica",
+        "year": 2007,
+        "gt": 92409,
+        "capacity": 3013,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Musica-class ship", "South America cruises"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/orchestra.html"
+      },
+      "msc-musica": {
+        "name": "MSC Musica",
+        "class": "musica",
+        "year": 2006,
+        "gt": 92409,
+        "capacity": 3013,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["First Musica-class", "Mediterranean specialist"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/musica.html"
+      },
+      "msc-lirica": {
+        "name": "MSC Lirica",
+        "class": "lirica",
+        "year": 2003,
+        "gt": 65591,
+        "capacity": 2069,
+        "status": "active",
+        "amplified": true,
+        "amplified_year": 2015,
+        "cdc_score": 100,
+        "highlights": ["First Lirica-class", "Refurbished 2015", "Intimate size"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/lirica.html"
+      },
+      "msc-opera": {
+        "name": "MSC Opera",
+        "class": "lirica",
+        "year": 2004,
+        "gt": 65591,
+        "capacity": 2069,
+        "status": "active",
+        "amplified": true,
+        "amplified_year": 2015,
+        "cdc_score": null,
+        "highlights": ["Lirica-class ship", "Refurbished 2015", "European sailings"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/opera.html"
+      },
+      "msc-sinfonia": {
+        "name": "MSC Sinfonia",
+        "class": "lirica",
+        "year": 2002,
+        "gt": 65542,
+        "capacity": 2069,
+        "status": "active",
+        "amplified": true,
+        "amplified_year": 2015,
+        "cdc_score": null,
+        "highlights": ["Lirica-class ship", "Refurbished 2015", "Budget-friendly"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/sinfonia.html"
+      },
+      "msc-armonia": {
+        "name": "MSC Armonia",
+        "class": "lirica",
+        "year": 2001,
+        "gt": 65542,
+        "capacity": 2069,
+        "status": "active",
+        "amplified": true,
+        "amplified_year": 2014,
+        "cdc_score": null,
+        "highlights": ["Oldest MSC ship", "Refurbished 2014", "Cuba specialist"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/msc/armonia.html"
+      }
+    }
+  },
+
+  "scoring_weights": {
+    "rcl": {
+      "energy_level": {
+        "go_go_go": { "icon": 18, "oasis": 16, "freedom": 10, "voyager": 8, "quantum": 8, "radiance": 0, "vision": 0 },
+        "balanced": { "freedom": 14, "quantum": 12, "voyager": 10, "oasis": 8, "icon": 0, "radiance": 0, "vision": 0 },
+        "relax": { "radiance": 18, "vision": 14, "quantum": 6, "voyager": 4, "icon": -12, "oasis": -10, "freedom": 0 }
+      },
+      "crowd_tolerance": {
+        "high": { "icon": 14, "oasis": 12 },
+        "medium": { "freedom": 8, "quantum": 8, "voyager": 6 },
+        "low": { "radiance": 14, "vision": 12, "voyager": 8, "icon": -14, "oasis": -12 }
+      },
+      "budget_mindset": {
+        "premium": { "icon": 12, "oasis": 10, "quantum": 8 },
+        "balanced": { "freedom": 10, "voyager": 8, "quantum": 8, "oasis": 6 },
+        "value": { "voyager": 14, "freedom": 12, "vision": 10, "radiance": 6, "icon": -10 }
+      },
+      "sailing_length": {
+        "short": { "voyager": 10, "freedom": 10, "oasis": 8 },
+        "standard": { "freedom": 10, "voyager": 10, "oasis": 8, "quantum": 8 },
+        "long": { "radiance": 12, "vision": 10, "quantum": 10, "voyager": 6, "icon": -8 }
+      },
+      "group_type": {
+        "solo": { "radiance": 8, "vision": 8, "quantum": 6, "voyager": 6 },
+        "couple": { "quantum": 10, "radiance": 10, "oasis": 6, "voyager": 6 },
+        "friends": { "oasis": 12, "freedom": 10, "voyager": 10, "icon": 6 },
+        "family_young": { "icon": 16, "oasis": 10, "freedom": 10, "voyager": 8 },
+        "family_teens": { "oasis": 14, "icon": 12, "quantum": 10, "freedom": 8 },
+        "multigen": { "oasis": 12, "icon": 10, "freedom": 10, "voyager": 8, "radiance": 6 }
+      },
+      "ship_vs_ports": {
+        "ship": { "icon": 12, "oasis": 10, "quantum": 6, "freedom": 6 },
+        "balanced": { "freedom": 8, "quantum": 8, "voyager": 6, "oasis": 4 },
+        "ports": { "radiance": 18, "vision": 18, "voyager": 8, "icon": -15, "oasis": -12 }
+      },
+      "cruise_experience": {
+        "first_time": { "freedom": 6, "voyager": 6, "oasis": 4 },
+        "a_few": { "oasis": 4, "quantum": 4, "freedom": 2 },
+        "seasoned": { "icon": 4, "radiance": 4, "vision": 4 }
+      }
+    },
+    "carnival": {
+      "energy_level": {
+        "go_go_go": { "excel": 18, "vista": 14, "dream": 12, "conquest": 8, "venice": 6, "splendor": 6, "sunshine": 4, "spirit": 0, "fantasy": 0 },
+        "balanced": { "dream": 14, "vista": 12, "conquest": 10, "splendor": 10, "venice": 8, "excel": 6, "sunshine": 6, "spirit": 4, "fantasy": 0 },
+        "relax": { "spirit": 16, "fantasy": 12, "sunshine": 10, "venice": 8, "splendor": 6, "conquest": 4, "excel": -10, "vista": -6, "dream": 0 }
+      },
+      "crowd_tolerance": {
+        "high": { "excel": 14, "vista": 10, "dream": 8 },
+        "medium": { "dream": 8, "conquest": 8, "splendor": 6, "vista": 6, "venice": 6 },
+        "low": { "spirit": 14, "fantasy": 12, "sunshine": 10, "venice": 8, "excel": -14, "vista": -10 }
+      },
+      "budget_mindset": {
+        "premium": { "excel": 12, "vista": 8, "venice": 8, "dream": 6 },
+        "balanced": { "dream": 10, "conquest": 10, "vista": 8, "splendor": 8, "spirit": 6 },
+        "value": { "fantasy": 14, "conquest": 12, "sunshine": 12, "splendor": 10, "spirit": 8, "excel": -8 }
+      },
+      "sailing_length": {
+        "short": { "fantasy": 12, "conquest": 10, "sunshine": 10, "dream": 6, "excel": 4 },
+        "standard": { "dream": 10, "conquest": 10, "vista": 8, "excel": 8, "splendor": 8 },
+        "long": { "spirit": 12, "venice": 10, "vista": 8, "dream": 6, "excel": -6 }
+      },
+      "group_type": {
+        "solo": { "spirit": 10, "venice": 8, "sunshine": 6, "splendor": 6 },
+        "couple": { "spirit": 12, "venice": 10, "dream": 8, "vista": 6 },
+        "friends": { "excel": 12, "dream": 10, "conquest": 10, "vista": 8 },
+        "family_young": { "excel": 16, "vista": 14, "dream": 12, "conquest": 8, "spirit": -12, "fantasy": -14 },
+        "family_teens": { "excel": 14, "vista": 12, "dream": 10, "conquest": 8 },
+        "multigen": { "vista": 12, "excel": 10, "dream": 10, "conquest": 8, "spirit": 6 }
+      },
+      "ship_vs_ports": {
+        "ship": { "excel": 14, "vista": 10, "dream": 8, "conquest": 4 },
+        "balanced": { "dream": 8, "conquest": 8, "vista": 6, "splendor": 6 },
+        "ports": { "spirit": 16, "fantasy": 14, "sunshine": 10, "venice": 8, "excel": -12, "vista": -8 }
+      },
+      "cruise_experience": {
+        "first_time": { "conquest": 6, "dream": 6, "vista": 4 },
+        "a_few": { "vista": 4, "dream": 4, "excel": 2 },
+        "seasoned": { "excel": 4, "spirit": 4, "venice": 4 }
+      }
+    },
+    "ncl": {
+      "energy_level": {
+        "go_go_go": { "breakaway_plus": 18, "prima": 12, "breakaway": 12, "epic": 10, "jewel": 4, "dawn": 0, "sun": 0, "spirit": 0, "pride_of_america": 0 },
+        "balanced": { "jewel": 12, "breakaway": 12, "prima": 10, "epic": 8, "breakaway_plus": 6, "dawn": 6, "pride_of_america": 6, "sun": 0, "spirit": 0 },
+        "relax": { "sun": 16, "spirit": 14, "jewel": 12, "dawn": 10, "pride_of_america": 8, "breakaway_plus": -10, "prima": -6, "breakaway": 0, "epic": 0 }
+      },
+      "crowd_tolerance": {
+        "high": { "breakaway_plus": 14, "prima": 10, "epic": 8, "breakaway": 8 },
+        "medium": { "breakaway": 8, "jewel": 8, "epic": 6, "prima": 6 },
+        "low": { "sun": 14, "spirit": 14, "jewel": 10, "dawn": 10, "breakaway_plus": -14, "epic": -10 }
+      },
+      "budget_mindset": {
+        "premium": { "prima": 14, "breakaway_plus": 10, "epic": 6 },
+        "balanced": { "breakaway": 10, "jewel": 10, "breakaway_plus": 8, "epic": 8, "dawn": 6 },
+        "value": { "sun": 14, "spirit": 12, "dawn": 10, "jewel": 8, "prima": -10, "breakaway_plus": -6 }
+      },
+      "sailing_length": {
+        "short": { "sun": 12, "spirit": 8, "breakaway": 6 },
+        "standard": { "breakaway_plus": 10, "breakaway": 10, "jewel": 8, "prima": 8, "epic": 8 },
+        "long": { "pride_of_america": 14, "dawn": 10, "jewel": 8, "prima": 6, "sun": -8 }
+      },
+      "group_type": {
+        "solo": { "epic": 16, "prima": 8, "jewel": 6, "sun": 6 },
+        "couple": { "prima": 14, "jewel": 12, "breakaway_plus": 8, "dawn": 6 },
+        "friends": { "breakaway_plus": 14, "breakaway": 12, "epic": 10, "prima": 8 },
+        "family_young": { "breakaway_plus": 14, "breakaway": 12, "epic": -10, "sun": -14, "spirit": -14 },
+        "family_teens": { "breakaway_plus": 16, "breakaway": 12, "prima": 8, "jewel": 6 },
+        "multigen": { "breakaway_plus": 10, "jewel": 10, "breakaway": 8, "prima": 6 }
+      },
+      "ship_vs_ports": {
+        "ship": { "breakaway_plus": 14, "prima": 12, "epic": 8, "breakaway": 6 },
+        "balanced": { "breakaway": 8, "jewel": 8, "prima": 6, "breakaway_plus": 6 },
+        "ports": { "pride_of_america": 16, "dawn": 14, "spirit": 12, "sun": 10, "jewel": 8, "breakaway_plus": -10 }
+      },
+      "cruise_experience": {
+        "first_time": { "breakaway": 6, "jewel": 6, "breakaway_plus": 4 },
+        "a_few": { "breakaway_plus": 4, "breakaway": 4, "prima": 2 },
+        "seasoned": { "prima": 4, "epic": 4, "sun": 4 }
+      }
+    },
+    "msc": {
+      "energy_level": {
+        "go_go_go": { "world": 18, "meraviglia_plus": 14, "seaside_evo": 12, "meraviglia": 10, "seaside": 8, "fantasia": 4, "musica": 0, "lirica": 0 },
+        "balanced": { "meraviglia": 12, "seaside": 10, "seaside_evo": 10, "fantasia": 8, "meraviglia_plus": 6, "world": 6, "musica": 6, "lirica": 0 },
+        "relax": { "lirica": 16, "musica": 14, "fantasia": 10, "seaside": 6, "world": -10, "meraviglia_plus": -8, "meraviglia": 0, "seaside_evo": 0 }
+      },
+      "crowd_tolerance": {
+        "high": { "world": 14, "meraviglia_plus": 10, "seaside_evo": 8, "meraviglia": 8 },
+        "medium": { "seaside": 8, "meraviglia": 8, "fantasia": 6, "seaside_evo": 6 },
+        "low": { "lirica": 14, "musica": 14, "fantasia": 8, "world": -14, "meraviglia_plus": -10 }
+      },
+      "budget_mindset": {
+        "premium": { "world": 12, "meraviglia_plus": 8, "seaside_evo": 6 },
+        "balanced": { "seaside": 10, "meraviglia": 10, "fantasia": 8, "seaside_evo": 8 },
+        "value": { "lirica": 14, "musica": 12, "fantasia": 10, "world": -6, "meraviglia_plus": -4 }
+      },
+      "sailing_length": {
+        "short": { "lirica": 10, "seaside": 8, "musica": 6 },
+        "standard": { "world": 10, "seaside_evo": 10, "meraviglia": 8, "seaside": 8, "meraviglia_plus": 8 },
+        "long": { "fantasia": 12, "musica": 10, "lirica": 8, "meraviglia_plus": 6 }
+      },
+      "group_type": {
+        "solo": { "musica": 8, "lirica": 8, "fantasia": 6 },
+        "couple": { "seaside_evo": 12, "seaside": 12, "world": 8, "fantasia": 8, "musica": 6 },
+        "friends": { "world": 12, "meraviglia_plus": 10, "meraviglia": 10, "seaside_evo": 8 },
+        "family_young": { "world": 16, "meraviglia_plus": 14, "seaside_evo": 12, "meraviglia": 10, "lirica": -12, "musica": -10 },
+        "family_teens": { "world": 14, "meraviglia_plus": 12, "seaside_evo": 10, "meraviglia": 8 },
+        "multigen": { "fantasia": 10, "world": 10, "meraviglia_plus": 8, "seaside_evo": 8 }
+      },
+      "ship_vs_ports": {
+        "ship": { "world": 14, "meraviglia_plus": 10, "seaside_evo": 8, "meraviglia": 6 },
+        "balanced": { "seaside": 8, "meraviglia": 8, "fantasia": 6, "seaside_evo": 6 },
+        "ports": { "lirica": 16, "musica": 14, "fantasia": 10, "world": -10, "meraviglia_plus": -8 }
+      },
+      "cruise_experience": {
+        "first_time": { "meraviglia": 6, "fantasia": 6, "seaside": 4 },
+        "a_few": { "meraviglia_plus": 4, "seaside_evo": 4, "world": 2 },
+        "seasoned": { "world": 4, "lirica": 4, "musica": 4 }
+      }
+    }
+  },
+
+  "must_have_bonuses": {
+    "waterpark": {
+      "rcl": { "icon": 15, "oasis": 10, "freedom": 8 },
+      "carnival": { "excel": 15, "vista": 12, "dream": 8 },
+      "ncl": { "breakaway_plus": 12, "breakaway": 10, "prima": 6 },
+      "msc": { "world": 12, "seaside_evo": 10, "meraviglia_plus": 8 }
+    },
+    "dining": {
+      "rcl": { "icon": 10, "oasis": 12, "quantum": 8 },
+      "carnival": { "excel": 12, "vista": 8, "venice": 8 },
+      "ncl": { "prima": 12, "breakaway_plus": 10, "jewel": 6 },
+      "msc": { "world": 14, "meraviglia_plus": 8, "seaside_evo": 6 }
+    },
+    "shows": {
+      "rcl": { "oasis": 12, "quantum": 10, "icon": 8 },
+      "carnival": { "excel": 10, "vista": 8, "dream": 8 },
+      "ncl": { "breakaway_plus": 12, "breakaway": 10, "epic": 8 },
+      "msc": { "meraviglia_plus": 12, "meraviglia": 12, "world": 8 }
+    },
+    "tech": {
+      "rcl": { "quantum": 15, "icon": 10, "oasis": 6 },
+      "carnival": { "excel": 12, "vista": 8 },
+      "ncl": { "prima": 14, "breakaway_plus": 10 },
+      "msc": { "world": 12, "meraviglia_plus": 10, "seaside_evo": 8 }
+    },
+    "scenic": {
+      "rcl": { "radiance": 15, "vision": 12, "quantum": 6 },
+      "carnival": { "spirit": 12, "venice": 10, "fantasy": 8 },
+      "ncl": { "jewel": 12, "dawn": 10, "pride_of_america": 14 },
+      "msc": { "fantasia": 10, "musica": 10, "lirica": 8 }
+    },
+    "family": {
+      "rcl": { "icon": 14, "oasis": 12, "freedom": 10 },
+      "carnival": { "excel": 14, "vista": 14, "dream": 10 },
+      "ncl": { "breakaway_plus": 12, "breakaway": 10 },
+      "msc": { "world": 14, "meraviglia_plus": 12, "seaside_evo": 10 }
+    }
+  }
+}
