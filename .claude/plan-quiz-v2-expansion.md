@@ -674,7 +674,169 @@ Food Score =
 
 ---
 
-## ALL Mode Logic
+## Multi-Line Results Display
+
+### Brand-Aware Color Coding (No Trademarks)
+
+| Cruise Line | Primary Color | Accent | Notes |
+|-------------|---------------|--------|-------|
+| Royal Caribbean | `#1a3d7c` (navy) | `#ffd700` (gold) | Crown/anchor vibes |
+| Carnival | `#e31837` (red) | `#0033a0` (blue) | Fun ship energy |
+| Norwegian | `#00205b` (deep blue) | `#ffffff` (white) | Fjord-inspired |
+| MSC | `#003366` (marine blue) | `#b8860b` (gold) | Mediterranean elegance |
+
+### Result Card Design
+
+```
+┌─────────────────────────────────────────┐
+│ [Color bar matching cruise line]        │
+│                                         │
+│  🚢 Icon of the Seas                    │
+│  Royal Caribbean • Icon Class           │
+│  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 94%    │
+│                                         │
+│  250,800 GT • 5,610 guests • 2024       │
+│  ✓ Category 6 waterpark                 │
+│  ✓ 7 pools, 6 waterslides               │
+│                                         │
+│  [View Ship →]                          │
+└─────────────────────────────────────────┘
+```
+
+### "You Might Also Like" Section
+
+Always displayed below main results. Shows top-scoring ships from **unselected** cruise lines.
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  You Might Also Like                                        │
+│  ─────────────────────────────────────────────────────────  │
+│  Ships from other cruise lines that match your preferences  │
+│                                                             │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐         │
+│  │ [Carnival]  │  │ [NCL]       │  │ [MSC]       │         │
+│  │ Celebration │  │ Encore      │  │ World Amer. │         │
+│  │ 89% match   │  │ 87% match   │  │ 85% match   │         │
+│  └─────────────┘  └─────────────┘  └─────────────┘         │
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ 🎨 Color Guide:                                     │   │
+│  │ ■ Royal Caribbean  ■ Carnival  ■ NCL  ■ MSC        │   │
+│  └─────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## URL Sharing
+
+### Format
+
+```
+/ships/allshipquiz.html?line=rcl&r=BASE64_ENCODED_ANSWERS
+```
+
+| Parameter | Values | Purpose |
+|-----------|--------|---------|
+| `line` | `all`, `rcl`, `carnival`, `ncl`, `msc` | Selected cruise line filter |
+| `r` | Base64 JSON | Encoded quiz answers (existing pattern) |
+
+### Behavior
+
+- If `line` param present, pre-select that pill on load
+- If `r` param present, skip to results
+- Both can be combined to share "here's what I got on Carnival"
+
+---
+
+## Mobile Experience
+
+### Hamburger Menu for Pill Selector
+
+On viewports < 768px:
+
+```
+┌──────────────────────────────────────────┐
+│  Find Your Perfect Ship         [≡]     │
+│                                          │
+│  Currently showing: Royal Caribbean      │
+│                                          │
+└──────────────────────────────────────────┘
+
+[≡] expands to:
+┌──────────────────────────────────────────┐
+│  Select Cruise Line              [×]    │
+│  ─────────────────────────────────────  │
+│  ○ ALL Cruise Lines                      │
+│  ● Royal Caribbean                       │
+│  ○ Carnival                              │
+│  ○ Norwegian Cruise Line                 │
+│  ○ MSC Cruises                           │
+│  ─────────────────────────────────────  │
+│  [← Back to Quiz]  (escape rope)         │
+└──────────────────────────────────────────┘
+```
+
+---
+
+## Performance
+
+### Lazy Loading Strategy
+
+```javascript
+// On page load
+fetch('ship-quiz-data-v2.json')  // Load lightweight index
+
+// On cruise line selection (or ALL)
+loadCruiseLineData(line)  // Load full data for selected line(s)
+```
+
+**Alternative:** Single file if <500KB gzipped (simpler, test during implementation)
+
+---
+
+## Edge Case Testing
+
+### Test Personas
+
+| Persona | Preferences | Expected Result |
+|---------|-------------|-----------------|
+| Budget Solo Relaxer | solo + value + relax + ports | NCL Spirit, Carnival Fantasy, MSC Lirica |
+| Mega-Ship Family | family_young + go_go_go + ship | RCL Icon, Carnival Excel, MSC World |
+| Intimate Couple | couple + relax + low crowds + ports | RCL Radiance, Carnival Spirit, NCL Jewel |
+| Premium Foodies | couple + premium + dining must-have | RCL Oasis/Icon (food bonus), NCL Prima |
+| Value First-Timer | first_time + value + balanced | RCL Voyager, Carnival Conquest, NCL Breakaway |
+| Seasoned Adventurer | seasoned + go_go_go + unique_thrills | RCL Icon, Carnival Excel (BOLT), NCL Breakaway Plus (go-karts) |
+
+### Validation Approach
+
+1. **Pre-launch:** Run all test personas, verify expected classes appear
+2. **Soft launch:** Facebook group feedback
+3. **Post-launch:** Monitor for unexpected patterns
+
+---
+
+## Share Image (Canvas)
+
+Follow existing pattern (1200×630px):
+
+```
+┌────────────────────────────────────────────────────────┐
+│                                                        │
+│  [Ship Image as Background]                            │
+│                                                        │
+│  ┌──────────────────────────────────────────────────┐ │
+│  │  Your Perfect Ship Match                         │ │
+│  │                                                  │ │
+│  │  🚢 Icon of the Seas                             │ │
+│  │  Royal Caribbean • 94% Match                     │ │
+│  │                                                  │ │
+│  │  Take the quiz: inthewake.io/ships/quiz         │ │
+│  └──────────────────────────────────────────────────┘ │
+│                                                        │
+│  [Cruise line color bar at bottom]                     │
+└────────────────────────────────────────────────────────┘
+```
 
 1. Score all classes across all 4 cruise lines (7+9+9+8 = 33 classes)
 2. Apply cruise-line-level modifiers (food quality, CDC, etc.)
