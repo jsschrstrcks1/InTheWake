@@ -96,6 +96,10 @@ def add_social_tags(filepath, dry_run=False):
     title = get_title(content)
     modified = False
 
+    # Get canonical URL for og:url
+    canonical_match = re.search(r'<link\s+rel="canonical"\s+href="([^"]*)"', content)
+    canonical_url = canonical_match.group(1) if canonical_match else ''
+
     # Add og:image after og:url if missing
     if not has_og_image(content):
         # Find og:url and add og:image after it
@@ -114,6 +118,21 @@ def add_social_tags(filepath, dry_run=False):
                 og_image_tag = f'\n  <meta property="og:image" content="{image_url}"/>'
                 content = re.sub(og_title_pattern, r'\1' + og_image_tag, content)
                 modified = True
+            elif 'og:type' not in content:
+                # No OpenGraph tags at all - add full section after canonical link
+                og_section = f'''
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:title" content="{title}"/>
+  <meta property="og:description" content="{description}"/>
+  <meta property="og:url" content="{canonical_url}"/>
+  <meta property="og:image" content="{image_url}"/>
+'''
+                canonical_pattern = r'(<link\s+rel="canonical"\s+href="[^"]*"\s*/?>)'
+                if re.search(canonical_pattern, content):
+                    content = re.sub(canonical_pattern, r'\1' + og_section, content)
+                    modified = True
 
     # Add twitter:image after twitter:card if missing
     if not has_twitter_image(content):
@@ -173,7 +192,7 @@ def main():
         if not os.path.exists(dir_path):
             continue
 
-        html_files = list(Path(dir_path).glob('*.html'))
+        html_files = list(Path(dir_path).glob('**/*.html'))
         updated_in_dir = 0
 
         for filepath in html_files:
