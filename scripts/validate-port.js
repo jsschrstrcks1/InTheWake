@@ -162,11 +162,25 @@ class PortValidator {
       this.log('pass', 'Has hero section');
     }
 
-    // Check for logbook section
-    if (!this.content.includes('id="logbook"')) {
-      this.log('warn', 'Missing logbook section (recommended for Tier 1 ports)');
-    } else {
+    // Check for logbook section (only warn for Tier 1 ports)
+    const hasLogbook = this.content.includes('id="logbook"');
+    const portSlug = path.basename(this.filePath, '.html');
+    const registryPath = path.join(__dirname, '..', 'assets', 'data', 'ports', 'port-registry.json');
+    let isTier1 = false;
+    try {
+      const registry = JSON.parse(fs.readFileSync(registryPath, 'utf8'));
+      const portData = registry.ports[portSlug];
+      isTier1 = portData && portData.tier === 1;
+    } catch (e) {
+      // If registry unavailable, don't warn
+    }
+
+    if (!hasLogbook && isTier1) {
+      this.log('warn', 'Missing logbook section (required for Tier 1 ports)');
+    } else if (hasLogbook) {
       this.log('pass', 'Has logbook section');
+    } else {
+      this.log('pass', 'Logbook section not required (Tier 2+ port)');
     }
 
     // Check for FAQ section
