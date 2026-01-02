@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2026-01-02 (Added Ship Size Atlas completion tasks - nav update, data expansion, enhanced features)
+**Last Updated:** 2026-01-02 (Added comprehensive port audit - 43 missing ports identified)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -4339,7 +4339,166 @@ Priority 4 - Size comparison data:
 
 ---
 
-**Task Count:** ~30-40 discrete tasks remaining (up from 20-30, added Ship Size Atlas) **[UPDATED 2026-01-02]**
+### 🟡 [Y] Comprehensive Port Audit: Missing Destinations (NEW - 2026-01-02)
+
+**Lane:** 🟡 Yellow (content creation - requires research and writing)
+**Audit Date:** 2026-01-02
+**Total Existing Ports:** 333
+**Missing Ports Identified:** 43
+
+#### Overview
+
+This audit compares the user's requested port list against existing HTML files in `/ports/`. Ports are categorized by region and priority.
+
+---
+
+#### ✅ EXISTING PORTS (53 ports confirmed in repository)
+
+**Royal Beach Club Collection:**
+- ✅ `royal-beach-club-nassau.html` — Royal Beach Club Paradise Island (Nassau, Bahamas)
+
+**Caribbean/Bahamas:**
+- ✅ `freeport.html` — Freeport/Lucaya (Grand Bahama)
+- ✅ `jamaica.html` — Falmouth, Jamaica (Ocho Rios)
+- ✅ `harvest-caye.html` — Harvest Caye, Belize (NCL private island)
+
+**Mexico:**
+- ✅ `cabo-san-lucas.html`, `puerto-vallarta.html`, `mazatlan.html`, `ensenada.html`
+
+**Mediterranean/Europe:**
+- ✅ `la-spezia.html`, `istanbul.html`, `catania.html`, `haifa.html`, `limassol.html`
+- ✅ `geiranger.html`, `flam.html`, `olden.html`, `edinburgh.html`, `akureyri.html`
+
+**Asia:**
+- ✅ `penang.html`, `langkawi.html`, `phuket.html`, `koh-samui.html`
+- ✅ `ho-chi-minh-city.html`, `nha-trang.html`, `ha-long-bay.html`
+- ✅ `busan.html`, `incheon.html`, `jeju.html`
+- ✅ `kobe.html`, `osaka.html`, `nagasaki.html`, `hakodate.html`, `hiroshima.html`
+
+**Australia/New Zealand:**
+- ✅ `melbourne.html`, `cairns.html`, `hobart.html`, `adelaide.html`, `fremantle.html`, `darwin.html`
+- ✅ `mystery-island.html`
+
+**Remote/Pacific:**
+- ✅ `easter-island.html`, `pitcairn.html`, `port-moresby.html` (Papua New Guinea)
+- ✅ `colombo.html`, `maldives.html`, `nosy-be.html`, `mauritius.html`, `seychelles.html`
+- ✅ `zanzibar.html`, `cape-town.html`, `walvis-bay.html`, `st-helena.html`
+- ✅ `tenerife.html`, `gran-canaria.html`, `lanzarote.html` (Canary Islands)
+
+---
+
+#### ❌ MISSING PORTS (43 ports need to be created)
+
+##### Royal Beach Club Collection (2 ports) — FUTURE DESTINATIONS
+| Port | Notes | Priority |
+|------|-------|----------|
+| Royal Beach Club Cozumel | Announced for 2026, linked on ports.html with text only | P3 (future) |
+| Royal Beach Club Antigua | In development, linked on ports.html with text only | P4 (future) |
+
+##### Caribbean/Atlantic (7 ports)
+| Port | Notes | Priority |
+|------|-------|----------|
+| Bimini, Bahamas | Popular short cruise destination | P2 |
+| St. John, USVI | National park destination | P2 |
+| St. Croix, USVI | Danish colonial history, rum | P2 |
+| Tobago | Trinidad & Tobago, Caribbean | P3 |
+| Trinidad | Port of Spain, Carnival culture | P3 |
+| Santa Marta, Colombia | Historic port, Tayrona access | P3 |
+
+##### Alaska/North America Extensions (6 ports)
+| Port | Notes | Priority |
+|------|-------|----------|
+| Alaska Inside Passage | Scenic cruising guide (not a port) | P3 |
+| Denali National Park | Cruisetour extension destination | P3 |
+| Fairbanks | Cruisetour extension destination | P3 |
+| Cape Cod, Massachusetts | New England cruise destination | P3 |
+| Martha's Vineyard | Upscale island destination | P3 |
+| Montreal, Quebec | St. Lawrence River cruises | P2 |
+
+##### Europe/Mediterranean (6 ports)
+| Port | Notes | Priority |
+|------|-------|----------|
+| Alexandria, Egypt | Ancient history, Nile access | P2 |
+| Port Said, Egypt | Suez Canal gateway | P3 |
+| Honningsvag, Norway | North Cape, Arctic Norway | P2 |
+| Glasgow, Scotland | Note: `greenock.html` serves nearby | P3 |
+| Ísafjörður, Iceland | Westfjords, remote beauty | P3 |
+| Tórshavn, Faroe Islands | Danish territory, unique culture | P3 |
+
+##### Asia (6 ports)
+| Port | Notes | Priority |
+|------|-------|----------|
+| Kuala Lumpur, Malaysia | Port Klang serves as cruise port | P2 |
+| Jakarta, Indonesia | Tanjung Priok port | P3 |
+| Beijing, China | Note: `tianjin.html` is Beijing's port | P4 (alias) |
+| Kyoto, Japan | Note: osaka/kobe serve as nearby ports | P4 (alias) |
+| Okinawa, Japan | Tropical Japan, beaches, diving | P2 |
+| Kagoshima, Japan | Sakurajima volcano, samurai history | P2 |
+
+##### Australia/New Zealand (4 ports)
+| Port | Notes | Priority |
+|------|-------|----------|
+| Airlie Beach, Australia | Whitsundays gateway | P2 |
+| Port Arthur, Tasmania | Convict history UNESCO site | P3 |
+| Rotorua, New Zealand | Geothermal, Maori culture (via Tauranga) | P3 |
+| Akaroa, New Zealand | French-influenced, Banks Peninsula | P3 |
+
+##### South America/Antarctica (12 ports) — EXPEDITION CRUISING
+| Port | Notes | Priority |
+|------|-------|----------|
+| Ilhabela, Brazil | Island paradise, sailing destination | P3 |
+| Búzios, Brazil | Brigitte Bardot's former retreat | P3 |
+| Punta del Este, Uruguay | South American Riviera | P3 |
+| Puerto Montt, Chile | Lake District gateway | P2 |
+| Cape Horn | Legendary sailing landmark | P3 |
+| Chilean Fjords | Scenic cruising region | P3 |
+| Strait of Magellan | Historic passage | P3 |
+| Glacier Alley | Patagonian fjords scenic | P3 |
+| Antarctic Peninsula | Expedition destination | P2 |
+| Drake Passage | Ocean crossing to Antarctica | P4 |
+| South Shetland Islands | Antarctic wildlife, research bases | P3 |
+| Antarctica | Continent overview page | P2 |
+
+##### Remote/Pacific (1 port)
+| Port | Notes | Priority |
+|------|-------|----------|
+| Aitutaki, Cook Islands | World's most beautiful lagoon | P3 |
+
+---
+
+#### ports.html Link Status
+
+**Verified Links for Existing Ports:**
+- ✅ Royal Beach Club Nassau is linked in both the Royal Beach Club section and the comprehensive port list
+- ✅ Most existing ports are properly linked in regional sections
+- ✅ Harvest Caye, Jamaica, Freeport all have proper links
+
+**Missing Links to Fix:**
+- Royal Beach Club Cozumel is mentioned but links to regular `cozumel.html` (appropriate until dedicated page exists)
+- Royal Beach Club Antigua is text-only (no link - appropriate until page exists)
+
+---
+
+#### Priority Summary
+
+| Priority | Count | Description |
+|----------|-------|-------------|
+| **P2 - High** | 12 | Popular destinations, high cruise traffic |
+| **P3 - Medium** | 27 | Growing destinations, expedition ports |
+| **P4 - Low** | 4 | Aliases, far-future destinations |
+
+**Recommended Batches:**
+1. **Batch 1 (P2):** Montreal, Bimini, St. John/Croix USVI, Alexandria, Honningsvag, Okinawa, Kagoshima, Kuala Lumpur, Airlie Beach, Puerto Montt, Antarctic Peninsula, Antarctica
+2. **Batch 2 (P3 Caribbean/Atlantic):** Tobago, Trinidad, Santa Marta
+3. **Batch 3 (P3 Europe/Remote):** Port Said, Glasgow, Ísafjörður, Tórshavn, Aitutaki
+4. **Batch 4 (P3 Asia/AusNZ):** Jakarta, Port Arthur, Rotorua, Akaroa
+5. **Batch 5 (P3 South America):** Ilhabela, Búzios, Punta del Este, Cape Horn, Chilean Fjords, Strait of Magellan, Glacier Alley, South Shetland Islands
+6. **Batch 6 (P3 Alaska Extensions):** Alaska Inside Passage, Denali, Fairbanks, Cape Cod, Martha's Vineyard
+7. **Batch 7 (P4 Future/Aliases):** Royal Beach Club Cozumel, Royal Beach Club Antigua, Beijing alias, Kyoto alias, Drake Passage
+
+---
+
+**Task Count:** ~30-40 discrete tasks remaining + 43 new port pages (up from 20-30, added Ship Size Atlas and Port Audit) **[UPDATED 2026-01-02]**
 **Completed Since Last Update (2025-12-01):**
 - Protocol documentation verified complete (was listed as missing)
 - Onboarding documentation reviewed and fixed
