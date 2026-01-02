@@ -208,6 +208,24 @@ function isTBNShip(filepath, html) {
 }
 
 /**
+ * Check if ship is historic (retired/sold)
+ */
+function isHistoricShip(html) {
+  const lowerHtml = html.toLowerCase();
+  return lowerHtml.includes('status: retired') ||
+         lowerHtml.includes('sold to tui') ||
+         lowerHtml.includes('sold to marella') ||
+         lowerHtml.includes('sold to pullmantur') ||
+         lowerHtml.includes('sold to celebrity') ||
+         lowerHtml.includes('retired ship') ||
+         lowerHtml.includes('(historical)') ||
+         lowerHtml.includes('retired from service') ||
+         lowerHtml.includes('no longer in service') ||
+         lowerHtml.includes('scrapped') ||
+         lowerHtml.includes('decommissioned');
+}
+
+/**
  * Extract ship name from filepath
  */
 function extractShipName(filepath) {
@@ -671,7 +689,7 @@ function validateDiningJSON($) {
  * Note: Ship pages use dynamic content loading (logbook, videos) so static word count
  * will be lower than actual rendered content. We use a lower threshold for static HTML.
  */
-function validateWordCounts($) {
+function validateWordCounts($, isHistoric = false) {
   const errors = [];
   const warnings = [];
 
@@ -683,16 +701,26 @@ function validateWordCounts($) {
 
   // Ship pages have dynamic content (logbook stories, videos loaded via JS)
   // Use lower static threshold but warn if very low
-  const STATIC_MIN = 500; // Minimum for static content only
+  // Historic ships have even lower threshold (less content available)
+  const STATIC_MIN = isHistoric ? 300 : 500;
   const EXPECTED_MIN = WORD_COUNT_REQUIREMENTS.total_page.min;
 
   if (totalWords < STATIC_MIN) {
-    errors.push({
-      section: 'word_counts',
-      rule: 'page_too_short',
-      message: `Static page content (${totalWords} words) below minimum ${STATIC_MIN} (excluding dynamic content)`,
-      severity: 'BLOCKING'
-    });
+    if (isHistoric) {
+      warnings.push({
+        section: 'word_counts',
+        rule: 'historic_page_short',
+        message: `Historic ship has ${totalWords} words static content (acceptable for retired ships)`,
+        severity: 'WARNING'
+      });
+    } else {
+      errors.push({
+        section: 'word_counts',
+        rule: 'page_too_short',
+        message: `Static page content (${totalWords} words) below minimum ${STATIC_MIN} (excluding dynamic content)`,
+        severity: 'BLOCKING'
+      });
+    }
   } else if (totalWords < EXPECTED_MIN) {
     warnings.push({
       section: 'word_counts',
@@ -771,7 +799,7 @@ function validateWCAG($) {
 /**
  * Validate sections - STRICT ORDER ENFORCEMENT
  */
-function validateSections($, isTBN) {
+function validateSections($, isTBN, isHistoric = false) {
   const errors = [];
   const warnings = [];
 
@@ -801,7 +829,16 @@ function validateSections($, isTBN) {
   const detected = sectionPositions.map(s => s.key);
 
   // Check for required sections
-  const required = isTBN ? ['page_intro', 'first_look', 'faq', 'attribution', 'recent_rail'] : REQUIRED_SECTIONS;
+  // TBN and Historic ships have relaxed section requirements
+  let required;
+  if (isTBN) {
+    required = ['page_intro', 'first_look', 'faq', 'attribution', 'recent_rail'];
+  } else if (isHistoric) {
+    // Historic ships don't require map/tracker (ship may be scrapped or sold)
+    required = ['page_intro', 'first_look', 'dining', 'logbook', 'faq', 'attribution', 'recent_rail'];
+  } else {
+    required = REQUIRED_SECTIONS;
+  }
   const missing = required.filter(s => !detected.includes(s));
 
   if (missing.length > 0) {
@@ -934,7 +971,7 @@ function validateSections($, isTBN) {
 /**
  * Validate data attributes
  */
-function validateDataAttributes($, isTBN) {
+function validateDataAttributes($, isTBN, isHistoric = false) {
   const errors = [];
   const warnings = [];
 
@@ -945,8 +982,11 @@ function validateDataAttributes($, isTBN) {
     errors.push({ section: 'data_attr', rule: 'missing_data_ship', message: 'Missing data-ship attribute', severity: 'BLOCKING' });
   }
 
-  if (!dataImo && !isTBN) {
+  // TBN and Historic ships don't require data-imo (may not have IMO or ship may be scrapped)
+  if (!dataImo && !isTBN && !isHistoric) {
     errors.push({ section: 'data_attr', rule: 'missing_data_imo', message: 'Missing data-imo attribute', severity: 'BLOCKING' });
+  } else if (!dataImo && isHistoric) {
+    warnings.push({ section: 'data_attr', rule: 'historic_no_imo', message: 'Historic ship has no data-imo (acceptable for retired ships)', severity: 'WARNING' });
   }
 
   if (isTBN && dataImo && dataImo !== 'TBD') {
@@ -958,7 +998,7 @@ function validateDataAttributes($, isTBN) {
     errors.push({ section: 'data_attr', rule: 'invalid_imo', message: `IMO "${dataImo}" is not valid 7-digit format`, severity: 'BLOCKING' });
   }
 
-  return { valid: errors.length === 0, errors, warnings, data: { dataShip, dataImo, isTBN } };
+  return { valid: errors.length === 0, errors, warnings, data: { dataShip, dataImo, isTBN, isHistoric } };
 }
 
 /**
@@ -1033,14 +1073,19 @@ function validateFAQ($) {
 /**
  * Validate images
  */
-function validateImages($) {
+function validateImages($, isHistoric = false) {
   const errors = [];
   const warnings = [];
   const allImages = $('img');
   const imageCount = allImages.length;
 
+  // Historic ships have relaxed image requirements (may not have many photos available)
   if (imageCount < 8) {
-    errors.push({ section: 'images', rule: 'few_images', message: `Only ${imageCount} images, minimum 8`, severity: 'BLOCKING' });
+    if (isHistoric) {
+      warnings.push({ section: 'images', rule: 'historic_few_images', message: `Historic ship has ${imageCount} images (acceptable for retired ships)`, severity: 'WARNING' });
+    } else {
+      errors.push({ section: 'images', rule: 'few_images', message: `Only ${imageCount} images, minimum 8`, severity: 'BLOCKING' });
+    }
   }
 
   let missingAlt = 0;
@@ -1252,7 +1297,7 @@ function validateViewport($, html) {
 /**
  * Validate logbook JSON
  */
-async function validateLogbook(slug) {
+async function validateLogbook(slug, isHistoric = false) {
   const errors = [];
   const warnings = [];
   const logbookPath = join(PROJECT_ROOT, 'assets', 'data', 'logbook', 'rcl', `${slug}.json`);
@@ -1263,8 +1308,13 @@ async function validateLogbook(slug) {
     const data = JSON.parse(content);
     const stories = data.stories || [];
 
+    // Historic ships have relaxed story count requirements
     if (stories.length < 10) {
-      errors.push({ section: 'logbook', rule: 'few_stories', message: `Only ${stories.length} stories, minimum 10`, severity: 'BLOCKING' });
+      if (isHistoric) {
+        warnings.push({ section: 'logbook', rule: 'historic_few_stories', message: `Historic ship has ${stories.length} stories (acceptable for retired ships)`, severity: 'WARNING' });
+      } else {
+        errors.push({ section: 'logbook', rule: 'few_stories', message: `Only ${stories.length} stories, minimum 10`, severity: 'BLOCKING' });
+      }
     }
 
     // Check for required personas
@@ -1304,7 +1354,7 @@ async function validateLogbook(slug) {
 /**
  * Validate videos JSON
  */
-async function validateVideos(slug) {
+async function validateVideos(slug, isHistoric = false) {
   const errors = [];
   const warnings = [];
   const videoPath = join(PROJECT_ROOT, 'assets', 'data', 'videos', 'rcl', `${slug}.json`);
@@ -1365,14 +1415,22 @@ async function validateVideos(slug) {
       });
     }
 
-    if (totalVideos < 10) {
-      errors.push({ section: 'videos', rule: 'few_videos', message: `Only ${totalVideos} videos, minimum 10`, severity: 'BLOCKING' });
-    }
+    // Historic ships have relaxed video requirements
+    if (isHistoric) {
+      // For historic ships, just check the file exists (already validated above)
+      if (totalVideos === 0) {
+        warnings.push({ section: 'videos', rule: 'historic_no_videos', message: 'Historic ship has no videos (acceptable for retired ships)', severity: 'WARNING' });
+      }
+    } else {
+      if (totalVideos < 10) {
+        errors.push({ section: 'videos', rule: 'few_videos', message: `Only ${totalVideos} videos, minimum 10`, severity: 'BLOCKING' });
+      }
 
-    if (missingCategories.length > 2) {
-      errors.push({ section: 'videos', rule: 'missing_categories', message: `Missing video categories: ${missingCategories.join(', ')}`, severity: 'BLOCKING' });
-    } else if (missingCategories.length > 0) {
-      warnings.push({ section: 'videos', rule: 'some_missing_categories', message: `Missing: ${missingCategories.join(', ')}`, severity: 'WARNING' });
+      if (missingCategories.length > 2) {
+        errors.push({ section: 'videos', rule: 'missing_categories', message: `Missing video categories: ${missingCategories.join(', ')}`, severity: 'BLOCKING' });
+      } else if (missingCategories.length > 0) {
+        warnings.push({ section: 'videos', rule: 'some_missing_categories', message: `Missing: ${missingCategories.join(', ')}`, severity: 'WARNING' });
+      }
     }
 
     return { valid: errors.length === 0, errors, warnings, data: { totalVideos, missingCategories, fakeVideos } };
@@ -1489,9 +1547,11 @@ async function validateShipPage(filepath) {
     const html = await readFile(filepath, 'utf-8');
     const $ = load(html);
     const isTBN = isTBNShip(filepath, html);
+    const isHistoric = isHistoricShip(html);
     const shipName = extractShipName(filepath);
 
     results.isTBN = isTBN;
+    results.isHistoric = isHistoric;
     results.shipName = shipName;
 
     // Run all validations
@@ -1502,11 +1562,11 @@ async function validateShipPage(filepath) {
     const navResult = validateNavigation($);
     const escapeResult = validateEscapeScript(html);
     const wcagResult = validateWCAG($);
-    const sectionResult = validateSections($, isTBN);
-    const dataResult = validateDataAttributes($, isTBN);
+    const sectionResult = validateSections($, isTBN, isHistoric);
+    const dataResult = validateDataAttributes($, isTBN, isHistoric);
     const consistencyResult = validateContentConsistency($, filepath);
     const faqResult = validateFAQ($);
-    const imageResult = validateImages($);
+    const imageResult = validateImages($, isHistoric);
     const jsResult = validateJavaScript(html);
     const htmlStructureResult = validateHTMLStructure(html);
     const viewportResult = validateViewport($, html);
@@ -1515,11 +1575,11 @@ async function validateShipPage(filepath) {
     const contentPurityResult = validateContentPurity($, html);
     const shipStatsResult = validateShipStatsJSON($);
     const diningResult = validateDiningJSON($);
-    const wordCountResult = validateWordCounts($);
+    const wordCountResult = validateWordCounts($, isHistoric);
 
     // Async validations
-    const logbookResult = await validateLogbook(slug);
-    const videoResult = await validateVideos(slug);
+    const logbookResult = await validateLogbook(slug, isHistoric);
+    const videoResult = await validateVideos(slug, isHistoric);
     const articlesResult = await validateArticles();
 
     // Collect errors
@@ -1595,7 +1655,8 @@ function printResults(results, options) {
 
   console.log(`${colors.bold}File:${colors.reset} ${results.file}`);
   console.log(`${colors.bold}Ship:${colors.reset} ${results.shipName || 'Unknown'}`);
-  console.log(`${colors.bold}Type:${colors.reset} ${results.isTBN ? 'TBN (Future Ship)' : 'Active Ship'}`);
+  const shipType = results.isTBN ? 'TBN (Future Ship)' : results.isHistoric ? 'Historic (Retired/Sold)' : 'Active Ship';
+  console.log(`${colors.bold}Type:${colors.reset} ${shipType}`);
 
   const scoreColor = results.score >= 90 ? colors.green : results.score >= 70 ? colors.yellow : colors.red;
   console.log(`${colors.bold}Score:${colors.reset} ${scoreColor}${results.score}/100${colors.reset}`);
@@ -1691,8 +1752,8 @@ async function main() {
       results.forEach(r => {
         const status = r.valid ? colors.green + 'P' : colors.red + 'F';
         const score = r.score >= 90 ? colors.green : r.score >= 70 ? colors.yellow : colors.red;
-        const tbn = r.isTBN ? colors.dim + ' [TBN]' + colors.reset : '';
-        console.log(`${status}${colors.reset} ${r.file}${tbn} ${score}[${r.score}]${colors.reset} ${r.blocking_errors.length}E ${r.warnings.length}W`);
+        const typeLabel = r.isTBN ? colors.dim + ' [TBN]' + colors.reset : r.isHistoric ? colors.dim + ' [HIST]' + colors.reset : '';
+        console.log(`${status}${colors.reset} ${r.file}${typeLabel} ${score}[${r.score}]${colors.reset} ${r.blocking_errors.length}E ${r.warnings.length}W`);
 
         if (r.valid) passed++; else failed++;
         totalErrors += r.blocking_errors.length;
