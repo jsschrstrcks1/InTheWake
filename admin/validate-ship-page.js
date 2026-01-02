@@ -1105,12 +1105,29 @@ function validateImages($, isHistoric = false) {
   let missingAlt = 0;
   let shortAlt = 0;
   let missingLazy = 0;
+  let hotlinkedImages = [];
+
+  // Allowed external domains for images (CDNs, YouTube thumbnails for video sections)
+  const allowedExternalDomains = [
+    'img.youtube.com',
+    'i.ytimg.com',
+    'cruisinginthewake.com'
+  ];
 
   allImages.each((i, elem) => {
+    const src = $(elem).attr('src') || '';
     const alt = $(elem).attr('alt');
     const loading = $(elem).attr('loading');
     const fetchpriority = $(elem).attr('fetchpriority');
     const ariaHidden = $(elem).attr('aria-hidden');
+
+    // Check for hotlinked images (external URLs)
+    if (src.startsWith('http://') || src.startsWith('https://')) {
+      const isAllowed = allowedExternalDomains.some(domain => src.includes(domain));
+      if (!isAllowed) {
+        hotlinkedImages.push(src.substring(0, 60) + (src.length > 60 ? '...' : ''));
+      }
+    }
 
     // Decorative images with aria-hidden="true" are allowed to have empty alt
     if (!alt && ariaHidden !== 'true') missingAlt++;
@@ -1120,6 +1137,16 @@ function validateImages($, isHistoric = false) {
       missingLazy++;
     }
   });
+
+  // BLOCKING: Hotlinked images must be locally hosted
+  if (hotlinkedImages.length > 0) {
+    errors.push({
+      section: 'images',
+      rule: 'hotlinked_images',
+      message: `${hotlinkedImages.length} image(s) hotlinked from external sources - must be locally hosted: ${hotlinkedImages.slice(0, 3).join(', ')}${hotlinkedImages.length > 3 ? '...' : ''}`,
+      severity: 'BLOCKING'
+    });
+  }
 
   if (missingAlt > 0) {
     errors.push({ section: 'images', rule: 'missing_alt', message: `${missingAlt} images missing alt text`, severity: 'BLOCKING' });
@@ -1131,7 +1158,7 @@ function validateImages($, isHistoric = false) {
     warnings.push({ section: 'images', rule: 'missing_lazy', message: `${missingLazy} images missing loading="lazy"`, severity: 'WARNING' });
   }
 
-  return { valid: errors.length === 0, errors, warnings, data: { total: imageCount, missingAlt, shortAlt, missingLazy } };
+  return { valid: errors.length === 0, errors, warnings, data: { total: imageCount, missingAlt, shortAlt, missingLazy, hotlinked: hotlinkedImages.length } };
 }
 
 /**
@@ -1144,6 +1171,22 @@ function validateJavaScript(html) {
   const loadArticlesCount = (html.match(/async function loadArticles/g) || []).length;
   if (loadArticlesCount > 1) {
     errors.push({ section: 'javascript', rule: 'duplicate_loadarticles', message: `${loadArticlesCount} loadArticles() functions`, severity: 'BLOCKING' });
+  }
+
+  // Check for JavaScript-based image hotlinking (e.g., Wikimedia Special:FilePath)
+  const hotlinkingPatterns = [
+    /commons\.wikimedia\.org\/wiki\/Special:FilePath/,
+    /upload\.wikimedia\.org/,
+    /imgEl\.src\s*=\s*['"]https?:\/\/(?!img\.youtube|i\.ytimg|cruisinginthewake)/
+  ];
+  const hasJsHotlinking = hotlinkingPatterns.some(pattern => pattern.test(html));
+  if (hasJsHotlinking) {
+    errors.push({
+      section: 'javascript',
+      rule: 'js_hotlinking',
+      message: 'JavaScript dynamically loads images from external sources (Wikimedia/etc) - images must be locally hosted',
+      severity: 'BLOCKING'
+    });
   }
 
   const hasDropdown = html.includes('dropdown.js');

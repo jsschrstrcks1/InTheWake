@@ -181,41 +181,21 @@
     <!-- Photo Carousel -->
     <section class="card" aria-labelledby="photos-title">
       <h2 id="photos-title">Photo Gallery</h2>
-      <div class="swiper" id="photo-swiper">
-        <div class="swiper-wrapper" id="photo-wrapper">
-          <div class="swiper-slide"><img src="/assets/images/placeholder-ship.jpg" alt="Carnival Breeze" loading="eager"></div>
+      <div class="swiper" id="photo-swiper" aria-label="Carnival Breeze photo gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/images/placeholder-ship.jpg" alt="Carnival Breeze at sea - Dream-class cruise ship" loading="eager">
+              <figcaption class="tiny">Photo coming soon. <a href="https://commons.wikimedia.org/wiki/File:Carnival_Breeze_(ship,_2012)_001.jpg" target="_blank" rel="noopener">View on Wikimedia</a></figcaption>
+            </figure>
+          </div>
         </div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev" aria-label="Previous photo"></div>
+        <div class="swiper-button-next" aria-label="Next photo"></div>
         <div class="swiper-pagination"></div>
       </div>
-      <p id="photo-attribution" style="font-size:.8rem;color:#666;margin-top:.75rem;text-align:center"></p>
+      <p class="tiny" style="text-align:center;margin-top:.5rem;">Images from Wikimedia Commons under Creative Commons licenses.</p>
     </section>
-    <script>
-    (function(){
-      var images = [
-        {file:'Carnival_Breeze_(ship,_2012)_001.jpg', desc:'Carnival Breeze at sea', author:'Wikimedia Commons', license:'CC BY-SA 4.0'},
-        {file:'CarnivalBreeze.jpg', desc:'Carnival Breeze stern view', author:'Wikimedia Commons', license:'CC BY-SA 3.0'}
-      ];
-      var wrapper = document.getElementById('photo-wrapper');
-      var attr = document.getElementById('photo-attribution');
-      if(!wrapper) return;
-      wrapper.innerHTML = '';
-      images.forEach(function(img, i){
-        var slide = document.createElement('div');
-        slide.className = 'swiper-slide';
-        var imgEl = document.createElement('img');
-        imgEl.src = 'https://commons.wikimedia.org/wiki/Special:FilePath/' + encodeURIComponent(img.file) + '?width=800';
-        imgEl.alt = img.desc;
-        imgEl.loading = i === 0 ? 'eager' : 'lazy';
-        slide.appendChild(imgEl);
-        wrapper.appendChild(slide);
-      });
-      if(attr && images.length > 0) {
-        attr.innerHTML = 'Photos from Wikimedia Commons under Creative Commons licenses.';
-      }
-    })();
-    </script>
 
     <!-- First Look -->
     <section class="card" aria-labelledby="overview-title">
