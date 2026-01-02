@@ -54,11 +54,20 @@ def get_restaurants():
     return restaurants
 
 def get_ships():
-    """Get all RCL ships"""
-    ships_dir = Path('/home/user/InTheWake/ships/rcl')
+    """Get all ships from all cruise lines"""
+    ships_base = Path('/home/user/InTheWake/ships')
     ships = []
 
-    # Ship CTAs - key ships with custom text
+    # Cruise line directories and their display names
+    cruise_lines = {
+        'rcl': 'Royal Caribbean',
+        'carnival': 'Carnival',
+        'celebrity-cruises': 'Celebrity Cruises',
+        'holland-america-line': 'Holland America Line',
+        'msc': 'MSC Cruises'
+    }
+
+    # Ship CTAs - key ships with custom text (RCL ships)
     ship_ctas = {
         'icon-of-the-seas': 'The biggest, newest ship with every innovation. Perfect for first-timers wanting the full Royal Caribbean experience.',
         'utopia-of-the-seas': 'Newest Oasis-class ship sailing short getaways from Florida. Great for weekend cruisers.',
@@ -90,43 +99,120 @@ def get_ships():
         'vision-of-the-seas': 'Traditional cruising feel. Perfect for those who prefer smaller ships.',
     }
 
-    for html_file in ships_dir.glob('*.html'):
+    # Process each cruise line directory
+    for line_dir, line_name in cruise_lines.items():
+        ships_dir = ships_base / line_dir
+        if not ships_dir.exists():
+            continue
+
+        for html_file in ships_dir.glob('*.html'):
+            slug = html_file.stem
+
+            # Skip template and non-ship files
+            if slug in ['template', 'index']:
+                continue
+
+            # Create readable name from slug
+            name = slug.replace('-', ' ').title()
+            name = name.replace(' Of The ', ' of the ')
+
+            # Get CTA or default
+            cta = ship_ctas.get(slug, f"Explore {name} - deck plans, dining venues, staterooms, and cruise tips.")
+
+            # Keywords - include cruise line name
+            keywords = [word.lower() for word in name.split()]
+            keywords.extend([line_name.lower(), line_dir.replace('-', ' ')])
+
+            # RCL-specific class keywords
+            if line_dir == 'rcl':
+                if 'oasis' in slug or slug in ['wonder-of-the-seas', 'symphony-of-the-seas', 'harmony-of-the-seas', 'allure-of-the-seas', 'utopia-of-the-seas']:
+                    keywords.extend(['oasis', 'class', 'largest', 'biggest'])
+                if 'quantum' in slug or 'anthem' in slug or 'ovation' in slug or 'odyssey' in slug or 'spectrum' in slug:
+                    keywords.extend(['quantum', 'class', 'north star', 'bumper cars'])
+                if 'freedom' in slug or 'liberty' in slug or 'independence' in slug:
+                    keywords.extend(['freedom', 'class', 'flowrider'])
+                if 'voyager' in slug or 'mariner' in slug or 'navigator' in slug or 'adventure' in slug or 'explorer' in slug:
+                    keywords.extend(['voyager', 'class'])
+                if 'radiance' in slug or 'brilliance' in slug or 'serenade' in slug or 'jewel' in slug:
+                    keywords.extend(['radiance', 'class', 'windows', 'views'])
+
+            ships.append({
+                'title': f"{name} ({line_name})",
+                'url': f'/ships/{line_dir}/{slug}.html',
+                'description': f"Complete guide to {name} on {line_name} - deck plans, dining, staterooms, and what makes this ship special.",
+                'cta': cta,
+                'category': 'ship',
+                'keywords': keywords
+            })
+
+    # Also get any ships in the root ships directory
+    for html_file in ships_base.glob('*.html'):
+        slug = html_file.stem
+        if slug in ['template', 'index', 'rooms', 'quiz']:
+            continue
+
+        name = slug.replace('-', ' ').title()
+        name = name.replace(' Of The ', ' of the ')
+
+        ships.append({
+            'title': name,
+            'url': f'/ships/{slug}.html',
+            'description': f"Guide to {name} - deck plans, dining, and cruise information.",
+            'cta': f"Explore {name} - deck plans, dining venues, staterooms, and cruise tips.",
+            'category': 'ship',
+            'keywords': [word.lower() for word in name.split()]
+        })
+
+    return ships
+
+def get_ports():
+    """Get all port pages"""
+    ports_dir = Path('/home/user/InTheWake/ports')
+    ports = []
+
+    # Region keywords for common port locations
+    region_keywords = {
+        'caribbean': ['caribbean', 'island', 'beach', 'tropical'],
+        'alaska': ['alaska', 'glacier', 'wildlife', 'frontier'],
+        'mediterranean': ['mediterranean', 'europe', 'historic', 'culture'],
+        'bahamas': ['bahamas', 'island', 'beach', 'tropical'],
+        'mexico': ['mexico', 'mexican', 'riviera'],
+        'hawaii': ['hawaii', 'hawaiian', 'pacific', 'tropical'],
+        'australia': ['australia', 'australian', 'down under'],
+        'asia': ['asia', 'asian', 'pacific'],
+        'europe': ['europe', 'european', 'historic'],
+    }
+
+    for html_file in ports_dir.glob('*.html'):
         slug = html_file.stem
 
-        # Skip template
-        if slug == 'template':
+        # Skip non-port files
+        if slug in ['index', 'template']:
             continue
 
         # Create readable name from slug
         name = slug.replace('-', ' ').title()
-        name = name.replace(' Of The ', ' of the ')
 
-        # Get CTA or default
-        cta = ship_ctas.get(slug, f"Explore {name} - deck plans, dining venues, staterooms, and cruise tips.")
-
-        # Keywords
+        # Keywords from name
         keywords = [word.lower() for word in name.split()]
-        if 'oasis' in slug or slug in ['wonder-of-the-seas', 'symphony-of-the-seas', 'harmony-of-the-seas', 'allure-of-the-seas', 'utopia-of-the-seas']:
-            keywords.extend(['oasis', 'class', 'largest', 'biggest'])
-        if 'quantum' in slug or 'anthem' in slug or 'ovation' in slug or 'odyssey' in slug or 'spectrum' in slug:
-            keywords.extend(['quantum', 'class', 'north star', 'bumper cars'])
-        if 'freedom' in slug or 'liberty' in slug or 'independence' in slug:
-            keywords.extend(['freedom', 'class', 'flowrider'])
-        if 'voyager' in slug or 'mariner' in slug or 'navigator' in slug or 'adventure' in slug or 'explorer' in slug:
-            keywords.extend(['voyager', 'class'])
-        if 'radiance' in slug or 'brilliance' in slug or 'serenade' in slug or 'jewel' in slug:
-            keywords.extend(['radiance', 'class', 'windows', 'views'])
+        keywords.extend(['port', 'cruise port', 'destination'])
 
-        ships.append({
+        # Add region keywords if detected
+        slug_lower = slug.lower()
+        for region, region_kws in region_keywords.items():
+            if region in slug_lower:
+                keywords.extend(region_kws)
+
+        ports.append({
             'title': name,
-            'url': f'/ships/rcl/{slug}.html',
-            'description': f"Complete guide to {name} - deck plans, dining, staterooms, and what makes this ship special.",
-            'cta': cta,
-            'category': 'ship',
+            'url': f'/ports/{slug}.html',
+            'description': f"Port guide for {name} - what to do, how to get around, and tips for your cruise visit.",
+            'cta': f"Planning a visit to {name}? Find shore excursion ideas, local tips, and accessibility info.",
+            'category': 'port',
             'keywords': keywords
         })
 
-    return ships
+    return ports
 
 def get_articles():
     """Get solo articles"""
@@ -369,6 +455,7 @@ def main():
     # Gather all content
     index.extend(get_restaurants())
     index.extend(get_ships())
+    index.extend(get_ports())
     index.extend(get_articles())
     index.extend(get_cruise_lines())
     index.extend(get_hub_pages())
