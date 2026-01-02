@@ -234,6 +234,20 @@ function extractShipName(filepath) {
 }
 
 /**
+ * Extract cruise line directory from filepath
+ * e.g., /ships/rcl/ship.html -> 'rcl'
+ *       /ships/carnival/ship.html -> 'carnival'
+ *       /ships/virgin-voyages/ship.html -> 'virgin-voyages'
+ */
+function extractCruiseLine(filepath) {
+  const match = filepath.match(/ships\/([^/]+)\//);
+  if (match) {
+    return match[1];
+  }
+  return 'rcl'; // Default fallback
+}
+
+/**
  * Normalize string for comparison
  */
 function normalize(str) {
@@ -1297,10 +1311,10 @@ function validateViewport($, html) {
 /**
  * Validate logbook JSON
  */
-async function validateLogbook(slug, isHistoric = false) {
+async function validateLogbook(slug, cruiseLine = 'rcl', isHistoric = false) {
   const errors = [];
   const warnings = [];
-  const logbookPath = join(PROJECT_ROOT, 'assets', 'data', 'logbook', 'rcl', `${slug}.json`);
+  const logbookPath = join(PROJECT_ROOT, 'assets', 'data', 'logbook', cruiseLine, `${slug}.json`);
 
   try {
     await access(logbookPath);
@@ -1354,10 +1368,10 @@ async function validateLogbook(slug, isHistoric = false) {
 /**
  * Validate videos JSON
  */
-async function validateVideos(slug, isHistoric = false) {
+async function validateVideos(slug, cruiseLine = 'rcl', isHistoric = false) {
   const errors = [];
   const warnings = [];
-  const videoPath = join(PROJECT_ROOT, 'assets', 'data', 'videos', 'rcl', `${slug}.json`);
+  const videoPath = join(PROJECT_ROOT, 'assets', 'data', 'videos', cruiseLine, `${slug}.json`);
 
   // Known fake/placeholder video IDs (exact matches only)
   const FAKE_VIDEO_IDS = new Set([
@@ -1549,10 +1563,12 @@ async function validateShipPage(filepath) {
     const isTBN = isTBNShip(filepath, html);
     const isHistoric = isHistoricShip(html);
     const shipName = extractShipName(filepath);
+    const cruiseLine = extractCruiseLine(filepath);
 
     results.isTBN = isTBN;
     results.isHistoric = isHistoric;
     results.shipName = shipName;
+    results.cruiseLine = cruiseLine;
 
     // Run all validations
     const soliDeoGloriaResult = validateSoliDeoGloria(html);
@@ -1577,9 +1593,9 @@ async function validateShipPage(filepath) {
     const diningResult = validateDiningJSON($);
     const wordCountResult = validateWordCounts($, isHistoric);
 
-    // Async validations
-    const logbookResult = await validateLogbook(slug, isHistoric);
-    const videoResult = await validateVideos(slug, isHistoric);
+    // Async validations (pass cruiseLine for correct data paths)
+    const logbookResult = await validateLogbook(slug, cruiseLine, isHistoric);
+    const videoResult = await validateVideos(slug, cruiseLine, isHistoric);
     const articlesResult = await validateArticles();
 
     // Collect errors
@@ -1655,6 +1671,7 @@ function printResults(results, options) {
 
   console.log(`${colors.bold}File:${colors.reset} ${results.file}`);
   console.log(`${colors.bold}Ship:${colors.reset} ${results.shipName || 'Unknown'}`);
+  console.log(`${colors.bold}Cruise Line:${colors.reset} ${results.cruiseLine || 'Unknown'}`);
   const shipType = results.isTBN ? 'TBN (Future Ship)' : results.isHistoric ? 'Historic (Retired/Sold)' : 'Active Ship';
   console.log(`${colors.bold}Type:${colors.reset} ${shipType}`);
 
