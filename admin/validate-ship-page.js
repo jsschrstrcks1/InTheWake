@@ -208,6 +208,24 @@ function isTBNShip(filepath, html) {
 }
 
 /**
+ * Check if ship is historic (retired/sold)
+ */
+function isHistoricShip(html) {
+  const lowerHtml = html.toLowerCase();
+  return lowerHtml.includes('status: retired') ||
+         lowerHtml.includes('sold to tui') ||
+         lowerHtml.includes('sold to marella') ||
+         lowerHtml.includes('sold to pullmantur') ||
+         lowerHtml.includes('sold to celebrity') ||
+         lowerHtml.includes('retired ship') ||
+         lowerHtml.includes('(historical)') ||
+         lowerHtml.includes('retired from service') ||
+         lowerHtml.includes('no longer in service') ||
+         lowerHtml.includes('scrapped') ||
+         lowerHtml.includes('decommissioned');
+}
+
+/**
  * Extract ship name from filepath
  */
 function extractShipName(filepath) {
@@ -1304,7 +1322,7 @@ async function validateLogbook(slug) {
 /**
  * Validate videos JSON
  */
-async function validateVideos(slug) {
+async function validateVideos(slug, isHistoric = false) {
   const errors = [];
   const warnings = [];
   const videoPath = join(PROJECT_ROOT, 'assets', 'data', 'videos', 'rcl', `${slug}.json`);
@@ -1365,14 +1383,22 @@ async function validateVideos(slug) {
       });
     }
 
-    if (totalVideos < 10) {
-      errors.push({ section: 'videos', rule: 'few_videos', message: `Only ${totalVideos} videos, minimum 10`, severity: 'BLOCKING' });
-    }
+    // Historic ships have relaxed video requirements
+    if (isHistoric) {
+      // For historic ships, just check the file exists (already validated above)
+      if (totalVideos === 0) {
+        warnings.push({ section: 'videos', rule: 'historic_no_videos', message: 'Historic ship has no videos (acceptable for retired ships)', severity: 'WARNING' });
+      }
+    } else {
+      if (totalVideos < 10) {
+        errors.push({ section: 'videos', rule: 'few_videos', message: `Only ${totalVideos} videos, minimum 10`, severity: 'BLOCKING' });
+      }
 
-    if (missingCategories.length > 2) {
-      errors.push({ section: 'videos', rule: 'missing_categories', message: `Missing video categories: ${missingCategories.join(', ')}`, severity: 'BLOCKING' });
-    } else if (missingCategories.length > 0) {
-      warnings.push({ section: 'videos', rule: 'some_missing_categories', message: `Missing: ${missingCategories.join(', ')}`, severity: 'WARNING' });
+      if (missingCategories.length > 2) {
+        errors.push({ section: 'videos', rule: 'missing_categories', message: `Missing video categories: ${missingCategories.join(', ')}`, severity: 'BLOCKING' });
+      } else if (missingCategories.length > 0) {
+        warnings.push({ section: 'videos', rule: 'some_missing_categories', message: `Missing: ${missingCategories.join(', ')}`, severity: 'WARNING' });
+      }
     }
 
     return { valid: errors.length === 0, errors, warnings, data: { totalVideos, missingCategories, fakeVideos } };
@@ -1489,9 +1515,11 @@ async function validateShipPage(filepath) {
     const html = await readFile(filepath, 'utf-8');
     const $ = load(html);
     const isTBN = isTBNShip(filepath, html);
+    const isHistoric = isHistoricShip(html);
     const shipName = extractShipName(filepath);
 
     results.isTBN = isTBN;
+    results.isHistoric = isHistoric;
     results.shipName = shipName;
 
     // Run all validations
@@ -1519,7 +1547,7 @@ async function validateShipPage(filepath) {
 
     // Async validations
     const logbookResult = await validateLogbook(slug);
-    const videoResult = await validateVideos(slug);
+    const videoResult = await validateVideos(slug, isHistoric);
     const articlesResult = await validateArticles();
 
     // Collect errors
@@ -1595,7 +1623,8 @@ function printResults(results, options) {
 
   console.log(`${colors.bold}File:${colors.reset} ${results.file}`);
   console.log(`${colors.bold}Ship:${colors.reset} ${results.shipName || 'Unknown'}`);
-  console.log(`${colors.bold}Type:${colors.reset} ${results.isTBN ? 'TBN (Future Ship)' : 'Active Ship'}`);
+  const shipType = results.isTBN ? 'TBN (Future Ship)' : results.isHistoric ? 'Historic (Retired/Sold)' : 'Active Ship';
+  console.log(`${colors.bold}Type:${colors.reset} ${shipType}`);
 
   const scoreColor = results.score >= 90 ? colors.green : results.score >= 70 ? colors.yellow : colors.red;
   console.log(`${colors.bold}Score:${colors.reset} ${scoreColor}${results.score}/100${colors.reset}`);
@@ -1691,8 +1720,8 @@ async function main() {
       results.forEach(r => {
         const status = r.valid ? colors.green + 'P' : colors.red + 'F';
         const score = r.score >= 90 ? colors.green : r.score >= 70 ? colors.yellow : colors.red;
-        const tbn = r.isTBN ? colors.dim + ' [TBN]' + colors.reset : '';
-        console.log(`${status}${colors.reset} ${r.file}${tbn} ${score}[${r.score}]${colors.reset} ${r.blocking_errors.length}E ${r.warnings.length}W`);
+        const typeLabel = r.isTBN ? colors.dim + ' [TBN]' + colors.reset : r.isHistoric ? colors.dim + ' [HIST]' + colors.reset : '';
+        console.log(`${status}${colors.reset} ${r.file}${typeLabel} ${score}[${r.score}]${colors.reset} ${r.blocking_errors.length}E ${r.warnings.length}W`);
 
         if (r.valid) passed++; else failed++;
         totalErrors += r.blocking_errors.length;
