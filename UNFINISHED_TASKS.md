@@ -4127,21 +4127,22 @@ The Ship Size Atlas v1.0 has been created with core functionality:
   - Target URL: `/tools/ship-size-atlas.html`
   - Pattern: Follow same nav structure as existing items
 
-#### Phase 2: Data Expansion
-- [ ] Expand ship database from 65 to 185+ ships
-  - [ ] Royal Caribbean: Add remaining ships (currently 29/30)
-  - [ ] Celebrity Cruises: Expand from 5 to 15 ships
-  - [ ] MSC Cruises: Expand from 10 to 25 ships
-  - [ ] Norwegian: Expand from 10 to 21 ships
-  - [ ] Carnival: Expand from 6 to 30 ships
-  - [ ] Holland America: Expand from 3 to 11 ships
-  - [ ] Princess: Expand from 5 to 17 ships
-  - [ ] Silversea: Add 12 ships
-  - [ ] Oceania: Add 8 ships
-  - [ ] Regent: Add 7 ships
-  - [ ] Costa: Add 9 ships
-  - [ ] Seabourn: Add 6 ships
-  - [ ] Explora: Add 5 ships
+#### Phase 2: Data Expansion ✅ COMPLETED 2026-01-02
+- [x] **Expanded ship database from 71 to 192 ships**
+  - [x] Royal Caribbean: 29 ships
+  - [x] Celebrity Cruises: 15 ships (Solstice + Millennium classes)
+  - [x] MSC Cruises: 24 ships (all classes)
+  - [x] Norwegian: 20 ships (full fleet)
+  - [x] Carnival: 24 ships
+  - [x] Holland America: 10 ships
+  - [x] Princess: 17 ships
+  - [x] Silversea: 12 ships
+  - [x] Oceania: 8 ships
+  - [x] Regent: 7 ships
+  - [x] Costa: 9 ships
+  - [x] Seabourn: 7 ships
+  - [x] Explora Journeys: 6 ships
+  - [x] Cunard: 4 ships
 - [ ] Cross-check data against source URLs:
   - Priority 3: Vacations To Go roster (baseline count)
   - Priority 4: ShipLife + CruiseMapper (bulk metrics)
@@ -4159,6 +4160,150 @@ The Ship Size Atlas v1.0 has been created with core functionality:
 - [ ] Add "last verified" date display per ship
 - [ ] Implement conflict flagging UI for mixed confidence data
 - [ ] Add source citation links in ship detail view
+
+#### Phase 5: Missing Ship Pages (116 pages needed)
+**Generated:** 2026-01-02 from cross-reference of `ship-size-atlas.json` vs `/ships/**/*.html`
+**Reference:** `/data/atlas/missing-ship-pages.json` for full list
+
+##### Norwegian Cruise Line (20 pages) — NEW FOLDER: `ships/norwegian/`
+- [ ] norwegian-encore.html
+- [ ] norwegian-bliss.html
+- [ ] norwegian-joy.html
+- [ ] norwegian-escape.html
+- [ ] norwegian-aqua.html
+- [ ] norwegian-epic.html
+- [ ] norwegian-getaway.html
+- [ ] norwegian-breakaway.html
+- [ ] norwegian-prima.html
+- [ ] norwegian-viva.html
+- [ ] norwegian-jade.html
+- [ ] norwegian-gem.html
+- [ ] norwegian-pearl.html
+- [ ] norwegian-jewel.html
+- [ ] norwegian-dawn.html
+- [ ] norwegian-star.html
+- [ ] pride-of-america.html
+- [ ] norwegian-sun.html
+- [ ] norwegian-sky.html
+- [ ] norwegian-spirit.html
+
+##### MSC Cruises (23 pages) — EXPAND: `ships/msc/`
+- [ ] msc-world-europa.html
+- [ ] msc-world-asia.html
+- [ ] msc-euribia.html
+- [ ] msc-grandiosa.html
+- [ ] msc-virtuosa.html
+- [ ] msc-meraviglia.html
+- [ ] msc-bellissima.html
+- [ ] msc-seascape.html
+- [ ] msc-seashore.html
+- [ ] msc-seaside.html
+- [ ] msc-seaview.html
+- [ ] msc-divina.html
+- [ ] msc-preziosa.html
+- [ ] msc-fantasia.html
+- [ ] msc-splendida.html
+- [ ] msc-magnifica.html
+- [ ] msc-poesia.html
+- [ ] msc-orchestra.html
+- [ ] msc-musica.html
+- [ ] msc-lirica.html
+- [ ] msc-opera.html
+- [ ] msc-sinfonia.html
+- [ ] msc-armonia.html
+
+##### Princess Cruises (17 pages) — NEW FOLDER: `ships/princess/`
+- [ ] sun-princess.html
+- [ ] star-princess.html
+- [ ] discovery-princess.html
+- [ ] enchanted-princess.html
+- [ ] sky-princess.html
+- [ ] majestic-princess.html
+- [ ] regal-princess.html
+- [ ] royal-princess.html
+- [ ] diamond-princess.html
+- [ ] sapphire-princess.html
+- [ ] crown-princess.html
+- [ ] emerald-princess.html
+- [ ] ruby-princess.html
+- [ ] caribbean-princess.html
+- [ ] grand-princess.html
+- [ ] coral-princess.html
+- [ ] island-princess.html
+
+##### Silversea (12 pages) — NEW FOLDER: `ships/silversea/`
+- [ ] silver-nova.html
+- [ ] silver-ray.html
+- [ ] silver-moon.html
+- [ ] silver-dawn.html
+- [ ] silver-muse.html
+- [ ] silver-spirit.html
+- [ ] silver-whisper.html
+- [ ] silver-shadow.html
+- [ ] silver-endeavour.html
+- [ ] silver-wind.html
+- [ ] silver-cloud.html
+- [ ] silver-origin.html
+
+##### Costa Cruises (9 pages) — NEW FOLDER: `ships/costa/`
+- [ ] costa-toscana.html
+- [ ] costa-smeralda.html
+- [ ] costa-firenze.html
+- [ ] costa-venezia.html
+- [ ] costa-diadema.html
+- [ ] costa-pacifica.html
+- [ ] costa-favolosa.html
+- [ ] costa-fascinosa.html
+- [ ] costa-deliziosa.html
+
+##### Oceania Cruises (8 pages) — NEW FOLDER: `ships/oceania/`
+- [ ] vista.html
+- [ ] allura.html
+- [ ] marina.html
+- [ ] riviera.html
+- [ ] insignia.html
+- [ ] nautica.html
+- [ ] regatta.html
+- [ ] sirena.html
+
+##### Seabourn (7 pages) — NEW FOLDER: `ships/seabourn/`
+- [ ] seabourn-ovation.html
+- [ ] seabourn-encore.html
+- [ ] seabourn-quest.html
+- [ ] seabourn-sojourn.html
+- [ ] seabourn-odyssey.html
+- [ ] seabourn-venture.html
+- [ ] seabourn-pursuit.html
+
+##### Regent Seven Seas (7 pages) — NEW FOLDER: `ships/regent/`
+- [ ] seven-seas-grandeur.html
+- [ ] seven-seas-splendor.html
+- [ ] seven-seas-explorer.html
+- [ ] seven-seas-mariner.html
+- [ ] seven-seas-voyager.html
+- [ ] seven-seas-navigator.html
+- [ ] prestige.html (ordered 2026)
+
+##### Explora Journeys (6 pages) — NEW FOLDER: `ships/explora-journeys/`
+- [ ] explora-i.html
+- [ ] explora-ii.html
+- [ ] explora-iii.html (ordered 2026)
+- [ ] explora-iv.html (ordered 2027)
+- [ ] explora-v.html (ordered 2028)
+- [ ] explora-vi.html (ordered 2028)
+
+##### Cunard (4 pages) — NEW FOLDER: `ships/cunard/`
+- [ ] queen-mary-2.html
+- [ ] queen-anne.html
+- [ ] queen-elizabeth.html
+- [ ] queen-victoria.html
+
+##### Holland America Line (2 pages) — EXPAND: `ships/holland-america-line/`
+- [ ] westerdam.html
+- [ ] zuiderdam.html
+
+##### Carnival (1 page) — Note: carnival-mardi-gras.html exists, but "Mardi Gras" (no prefix) does not
+- [ ] Verify: mardi-gras.html naming convention
 
 #### Data Source URLs (for expansion)
 ```
