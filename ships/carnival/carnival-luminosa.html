@@ -184,6 +184,8 @@
   <!-- Ship Statistics -->
   <section class="card" aria-labelledby="stats-title">
     <h2 id="stats-title">Ship Statistics</h2>
+          <div id="ship-stats" class="stats-grid" data-slug="carnival-luminosa"></div>
+          <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-luminosa","name":"Carnival Luminosa","class":"Spirit Class","entered_service":2009,"gt":"92,720 GT","guests":"2,260","crew":"1,050","length":"964 ft (294 m)","beam":"106 ft (32 m)","registry":"Panama"}</script>
     <div class="stats-grid">
       <div class="stat-item">
         <div class="label">Gross Tonnage</div>
@@ -392,9 +394,15 @@
 
     <section class="card" aria-labelledby="recent-rail-title">
       <h3 id="recent-rail-title">Recent Stories</h3>
+      <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
       <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
       <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
+    
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
     </section>
+  </section>
   </aside>
 </main>
 

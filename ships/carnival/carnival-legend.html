@@ -89,7 +89,7 @@
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <header class="hero-header" role="banner">
-  <nav class="navbar"><div class="brand"><a href="/"><img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake"/></a><span class="version-badge">V1.Beta</span></div>
+  <nav class="navbar"><div class="brand"><a href="/"><img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake" loading="eager"/></a><span class="version-badge">V1.Beta</span></div>
       <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon">
@@ -154,6 +154,8 @@
     </section>
 
     <section class="card"><h2>Ship Statistics</h2>
+          <div id="ship-stats" class="stats-grid" data-slug="carnival-legend"></div>
+          <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-legend","name":"Carnival Legend","class":"Spirit Class","entered_service":2002,"gt":"86,000 GT","guests":"2,124","crew":"930","length":"960 ft (293 m)","beam":"106 ft (32 m)","registry":"Panama"}</script>
       <div class="stats-grid">
         <div class="stat-item"><div class="stat-value">85,942</div><div class="stat-label">Gross Tonnage</div><div class="whimsy">≈ 1,719 blue whales</div></div>
         <div class="stat-item"><div class="stat-value">961 ft</div><div class="stat-label">Length</div><div class="whimsy">3.2 football fields</div></div>
@@ -202,7 +204,7 @@
     </section>
 
     <section class="card"><h2>Ship's Logbook</h2><div id="logbook-container"><p class="tiny">Loading stories...</p></div></section>
-    <section class="card"><h2>Video Tours</h2><div class="swiper" id="video-swiper"><div class="swiper-wrapper" id="video-wrapper"></div></div></section>
+    <section class="card"><h2>Video Tours</h2><div class="swiper" id="video-swiper" aria-label="Carnival Legend video gallery"><div class="swiper-wrapper" id="video-wrapper"></div></div></section>
     <section class="card"><h2>Deck Plans</h2><p><a href="https://www.carnival.com/cruise-ships/carnival-legend#deck-plans" target="_blank" rel="noopener">View Official Deck Plans on Carnival.com</a></p></section>
 
     <section class="card"><h2>Live Ship Tracker</h2>
@@ -223,7 +225,11 @@
     <aside class="rail col-2">
     <section class="card quick-answer"><h2>Quick Answer</h2><p><strong>Carnival Legend</strong> is an 85,942 GT Spirit-class ship christened by Dame Judi Dench. First Fun Ship with a wedding chapel.</p></section>
     <section class="card"><h3>Key Facts</h3><dl class="key-facts"><dt>Class</dt><dd>Spirit (3rd of 4)</dd><dt>Tonnage</dt><dd>85,942 GT</dd><dt>Guests</dt><dd>2,124</dd><dt>Homeport</dt><dd>Baltimore/Tampa</dd><dt>Godmother</dt><dd>Dame Judi Dench</dd></dl></section>
-    <section class="card author-card-vertical"><h3>Author</h3><img class="author-avatar" src="/authors/img/ken1_96.webp" alt="Ken Baker"/><h4><a href="/authors/ken-baker.html">Ken Baker</a></h4><p class="tiny">Founder, In the Wake</p></section>
+    <section class="card author-card-vertical"><h3>Author</h3><img class="author-avatar" src="/authors/img/ken1_96.webp" alt="Ken Baker" loading="lazy"/><h4><a href="/authors/ken-baker.html">Ken Baker</a></h4><p class="tiny">Founder, In the Wake</p>
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+  </section>
   </aside>
 </main>
 

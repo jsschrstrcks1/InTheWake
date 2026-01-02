@@ -331,7 +331,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <!-- Navigation with Dropdown Menus -->
 
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async" loading="eager"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
       <!-- Mobile hamburger button -->
@@ -398,9 +398,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           </g>
         </svg>
       </div>
-      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" loading="lazy"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567" loading="lazy"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
@@ -431,6 +431,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         It's ideal if you want Carnival's signature fun atmosphere with Excel-class innovation and year-round sailings from Galveston.
         If you're looking for a smaller, more intimate experience or different homeports, you may want to explore Vista class or Dream class instead.
       </p>
+    </section><!-- End page-intro -->
+
     <!-- Row 1: First Look + Dining -->
     <section class="grid-2">
       <!-- First Look + Stats -->
@@ -719,7 +721,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
           Real cruising experiences, practical guides, and heartfelt reflections from our community.
         </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
+      <p id="recent-rail-fallback" class="tiny" style="color: #666;">Loading articles…</p>
       </section>
 
     <!-- Whimsical Distance Units -->

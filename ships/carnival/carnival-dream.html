@@ -103,7 +103,7 @@
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <header class="hero-header" role="banner">
-  <nav class="navbar"><div class="brand"><a href="/"><img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake"/></a><span class="version-badge">V1.Beta</span></div>
+  <nav class="navbar"><div class="brand"><a href="/"><img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake" loading="eager"/></a><span class="version-badge">V1.Beta</span></div>
       <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon">
@@ -164,7 +164,7 @@
 <div class="content-column">
 
     <section class="card"><h2>First Look: Carnival Dream</h2>
-      <div class="photo-carousel swiper" id="photo-swiper"><div class="swiper-wrapper">
+      <div class="photo-carousel swiper" id="photo-swiper" aria-label="Carnival Dream photo gallery"><div class="swiper-wrapper">
         <div class="swiper-slide"><img src="/assets/ships/carnival-dream_01.webp" onerror="this.onerror=null;this.src='/assets/ships/carnival-dream_01.jpg'" alt="Carnival Dream at Nassau" loading="lazy"/><p class="photo-caption">Carnival Dream at Nassau — Photo: Kiran891, CC BY-SA 4.0</p></div>
       </div><div class="swiper-pagination"></div></div>
     </section>
@@ -175,6 +175,8 @@
     </section>
 
     <section class="card"><h2>Ship Statistics</h2>
+          <div id="ship-stats" class="stats-grid" data-slug="carnival-dream"></div>
+          <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-dream","name":"Carnival Dream","class":"Dream Class","entered_service":2009,"gt":"130,000 GT","guests":"3,646","crew":"1,367","length":"1,004 ft (306 m)","beam":"158 ft (48 m)","registry":"Panama"}</script>
       <div class="stats-grid">
         <div class="stat-item"><div class="stat-value">128,250</div><div class="stat-label">Gross Tonnage</div><div class="whimsy">≈ 2,565 blue whales</div></div>
         <div class="stat-item"><div class="stat-value">1,004 ft</div><div class="stat-label">Length</div><div class="whimsy">3.3 football fields</div></div>
@@ -222,7 +224,7 @@
 
     <section class="card"><h2>Ship's Logbook</h2><div id="logbook-container"><p class="tiny">Loading stories...</p></div></section>
 
-    <section class="card"><h2>Video Tours</h2><div class="swiper" id="video-swiper"><div class="swiper-wrapper" id="video-wrapper"></div></div></section>
+    <section class="card"><h2>Video Tours</h2><div class="swiper" id="video-swiper" aria-label="Carnival Dream video gallery"><div class="swiper-wrapper" id="video-wrapper"></div></div></section>
 
     <section class="card"><h2>Deck Plans</h2><p><a href="https://www.carnival.com/cruise-ships/carnival-dream#deck-plans" target="_blank" rel="noopener">View Official Deck Plans on Carnival.com</a></p></section>
 
@@ -245,7 +247,11 @@
     <aside class="rail col-2">
     <section class="card quick-answer"><h2>Quick Answer</h2><p><strong>Carnival Dream</strong> is a 128,250 GT Dream-class lead ship sailing from Galveston. She pioneered WaterWorks, Serenity, and Ocean Plaza — innovations that defined modern Carnival cruising.</p></section>
     <section class="card"><h3>Key Facts</h3><dl class="key-facts"><dt>Class</dt><dd>Dream Class (Lead)</dd><dt>Tonnage</dt><dd>128,250 GT</dd><dt>Guests</dt><dd>3,646</dd><dt>Homeport</dt><dd>Galveston, TX</dd><dt>Maiden</dt><dd>Sept 21, 2009</dd></dl></section>
-    <section class="card author-card-vertical"><h3>Author</h3><img class="author-avatar" src="/authors/img/ken1_96.webp" alt="Ken Baker"/><h4><a href="/authors/ken-baker.html">Ken Baker</a></h4><p class="tiny">Founder, In the Wake</p></section>
+    <section class="card author-card-vertical"><h3>Author</h3><img class="author-avatar" src="/authors/img/ken1_96.webp" alt="Ken Baker" loading="lazy"/><h4><a href="/authors/ken-baker.html">Ken Baker</a></h4><p class="tiny">Founder, In the Wake</p>
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+  </section>
   </aside>
 </main>
 

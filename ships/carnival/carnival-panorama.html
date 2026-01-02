@@ -120,7 +120,7 @@
 <header class="hero-header" role="banner">
   <nav class="navbar" aria-label="Site branding">
     <div class="brand">
-      <a href="/"><img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async"/></a>
+      <a href="/"><img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async" loading="eager"/></a>
       <span class="version-badge">V1.Beta</span>
     </div>
   </nav>
@@ -179,7 +179,7 @@
     <!-- First Look Photos -->
     <section class="card" aria-labelledby="photos-title">
       <h2 id="photos-title">First Look: Carnival Panorama</h2>
-      <div class="photo-carousel swiper" id="photo-swiper">
+      <div class="photo-carousel swiper" id="photo-swiper" aria-label="Carnival Panorama photo gallery">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <img src="/assets/ships/carnival-panorama-exterior.webp" alt="Carnival Panorama at Long Beach cruise terminal" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
@@ -215,6 +215,8 @@
     <!-- Ship Statistics -->
     <section class="card" aria-labelledby="stats-title" id="stats-card">
       <h2 id="stats-title">Ship Statistics</h2>
+          <div id="ship-stats" class="stats-grid" data-slug="carnival-panorama"></div>
+          <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-panorama","name":"Carnival Panorama","class":"Vista Class","entered_service":2019,"gt":"133,500 GT","guests":"3,954","crew":"1,450","length":"1,055 ft (322 m)","beam":"122 ft (37 m)","registry":"Panama"}</script>
       <div class="stats-grid">
         <div class="stat-item">
           <div class="stat-value">133,868</div>
@@ -276,12 +278,12 @@
       <p>Carnival Panorama is the third and largest of three Vista-class ships, the platform that pioneered SkyRide, IMAX, and Havana section:</p>
       <div class="sister-grid">
         <a href="/ships/carnival/carnival-vista.html" class="sister-card">
-          <img src="/assets/ships/carnival-vista-thumb.webp" alt="Carnival Vista" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
+          <img src="/assets/ships/carnival-vista-thumb.webp" alt="Carnival Panorama cruise ship at sea" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
           <strong>Carnival Vista</strong>
           <span class="tiny">2016 · Lead Ship · Galveston</span>
         </a>
         <a href="/ships/carnival/carnival-horizon.html" class="sister-card">
-          <img src="/assets/ships/carnival-horizon-thumb.webp" alt="Carnival Horizon" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
+          <img src="/assets/ships/carnival-horizon-thumb.webp" alt="Carnival Panorama cruise ship at sea" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
           <strong>Carnival Horizon</strong>
           <span class="tiny">2018 · Miami · Caribbean</span>
         </a>
@@ -354,7 +356,7 @@
     <!-- Video Tours -->
     <section class="card" aria-labelledby="videos-title">
       <h2 id="videos-title">Video Tours &amp; Reviews</h2>
-      <div class="video-carousel swiper" id="video-swiper">
+      <div class="video-carousel swiper" id="video-swiper" aria-label="Carnival Panorama video gallery">
         <div class="swiper-wrapper" id="video-wrapper">
           <!-- Dynamic video thumbnails load here -->
         </div>
@@ -488,7 +490,11 @@
         <li><a href="/ships/carnival/carnival-radiance.html">Carnival Radiance</a> (LA)</li>
         <li><a href="/ships/carnival/carnival-miracle.html">Carnival Miracle</a> (Seattle)</li>
       </ul>
+    
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
     </section>
+  </section>
   </aside>
 </main>
 
@@ -540,7 +546,7 @@
 
   // Photo carousel
   new Swiper('#photo-swiper', {
-    loop:false,
+    loop:false,rewind:false,
     autoplay: { delay: 5000, disableOnInteraction: true },
     pagination: { el: '.swiper-pagination', clickable: true },
     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }

@@ -219,10 +219,10 @@
     <!-- Video Carousel -->
     <section class="card" aria-labelledby="videos-title">
       <h2 id="videos-title">Ship Videos</h2>
-      <div class="swiper" id="video-swiper">
+      <div class="swiper" id="video-swiper" aria-label="Carnival Breeze video gallery">
         <div class="swiper-wrapper" id="video-wrapper"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
       </div>
       <p id="video-counter" style="text-align:center;margin:.75rem 0 0;font-size:.9rem;color:#666"></p>
     </section>
@@ -267,6 +267,8 @@
     <!-- Stats Grid -->
     <section class="card" aria-labelledby="stats-title">
       <h2 id="stats-title">Ship Statistics</h2>
+          <div id="ship-stats" class="stats-grid" data-slug="carnival-breeze"></div>
+          <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-breeze","name":"Carnival Breeze","class":"Dream Class","entered_service":2012,"gt":"130,000 GT","guests":"3,690","crew":"1,386","length":"1,004 ft (306 m)","beam":"158 ft (48 m)","registry":"Panama"}</script>
       <div class="stats-grid">
         <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">130,000 GT</div><div class="whimsy">≈ 2,549 blue whales</div></div>
         <div class="stat-item"><div class="label">Guests</div><div class="value">3,690</div><div class="whimsy">small town afloat</div></div>
