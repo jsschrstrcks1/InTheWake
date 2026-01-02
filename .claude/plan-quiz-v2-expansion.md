@@ -360,7 +360,7 @@ Food Score =
 | Radiance | 4 | scenic_calm_ports | -1 |
 | Vision | 3 | simple_classic_ports_value | -1 |
 
-### Carnival (9 classes) — TO CREATE
+### Carnival (9 classes) — COMPLETE ✅
 
 | Class | Ships | Intensity | Vibe | Dining Mod |
 |-------|-------|-----------|------|------------|
@@ -374,7 +374,94 @@ Food Score =
 | Sunshine | Sunshine, Sunrise, Radiance | 5 | refreshed_classic | 0 |
 | Fantasy | Paradise, Elation | 3 | budget_short_getaway | -2 |
 
-### Norwegian (9 classes) — TO CREATE
+#### Carnival Class Profiles (Detailed)
+
+**Excel Class** (Mardi Gras, Celebration, Jubilee)
+- **Description:** Carnival's largest ships with 6,400+ guests. BOLT roller coaster, 20+ dining venues, themed zones. First LNG-powered Carnival ships.
+- **Best for:** Families with kids, thrill-seekers, first-timers wanting "everything," groups wanting variety
+- **Not ideal for:** Low crowd tolerance, value-first budgets, those seeking intimate/quiet atmosphere
+
+**Vista Class** (Vista, Horizon, Panorama)
+- **Description:** The most family-friendly Carnival class. SkyRide, IMAX theater, Family Harbor zone with protected staterooms, Havana section for adults.
+- **Best for:** Families with kids of all ages, couples wanting Family Harbor or Havana perks, West Coast cruisers (Panorama)
+- **Not ideal for:** Those seeking newest/flashiest experience, very budget-conscious travelers
+
+**Dream Class** (Dream, Magic, Breeze)
+- **Description:** Sweet spot between features and price. WaterWorks water park, comedy clubs, piano bars. Great for families and friend groups.
+- **Best for:** Families with water-park-loving kids, friend groups, couples seeking value with amenities
+- **Not ideal for:** Those wanting flagship experience, ultra-quiet seekers
+
+**Conquest Class** (Conquest, Glory, Valor, Liberty, Freedom)
+- **Description:** Carnival's budget workhorses. 3,000 guests, solid core Carnival experience. Some have enhanced waterparks, all have comedy clubs.
+- **Best for:** Value-first travelers, first-timers on a budget, families wanting affordable fun, short getaway cruisers
+- **Not ideal for:** Must-have-modern seekers, those wanting extensive specialty dining
+
+**Spirit Class** (Spirit, Pride, Legend, Miracle, Luminosa)
+- **Description:** Mid-size ships (2,100 guests) with highest percentage of balcony cabins. More intimate, can transit Panama Canal. Classic elegance.
+- **Best for:** Couples seeking intimacy, destination-focused cruisers, Panama Canal/Alaska itineraries, those who prefer smaller ships
+- **Not ideal for:** Families with young kids wanting big waterparks, thrill-seekers, nightlife-first travelers
+
+**Venice Class** (Firenze, Venezia)
+- **Description:** Costa ships transferred to Carnival with European flair. Italian design touches, refined atmosphere. Based in NYC/Long Beach.
+- **Best for:** Couples, travelers wanting European feel without crossing Atlantic, NYC-based cruisers
+- **Not ideal for:** Families wanting Carnival's traditional "fun ship" vibe, waterpark enthusiasts
+
+**Splendor Class** (Splendor)
+- **Description:** Solo ship bridging Dream and Conquest classes. Good variety without mega-ship scale.
+- **Best for:** Balanced travelers, those wanting mid-size experience, value seekers
+- **Not ideal for:** Those wanting newest features, families needing extensive kids programming
+
+**Sunshine Class** (Sunshine, Sunrise, Radiance)
+- **Description:** Refreshed older ships with modern Carnival touches. Serenity adult-only area, Guy's Burger Joint, RedFrog Pub.
+- **Best for:** Value seekers, short getaway cruisers, adults seeking Serenity deck, traditional cruise feel
+- **Not ideal for:** Families wanting big waterparks, must-feel-modern travelers
+
+**Fantasy Class** (Paradise, Elation)
+- **Description:** Carnival's oldest and smallest active ships. Simple, no-frills cruising. Great value for short getaways.
+- **Best for:** Budget-first travelers, short 3-4 night getaways, first-timers testing the waters, port-intensive itineraries
+- **Not ideal for:** Families with young kids, those wanting activities, ship-as-destination travelers
+
+#### Carnival Scoring Weights
+
+```json
+"carnival_scoring_weights": {
+  "energy_level": {
+    "go_go_go": { "excel": 18, "vista": 14, "dream": 12, "conquest": 8, "venice": 6, "splendor": 6, "sunshine": 4, "spirit": 0, "fantasy": 0 },
+    "balanced": { "dream": 14, "vista": 12, "conquest": 10, "splendor": 10, "venice": 8, "excel": 6, "sunshine": 6, "spirit": 4, "fantasy": 0 },
+    "relax": { "spirit": 16, "fantasy": 12, "sunshine": 10, "venice": 8, "splendor": 6, "conquest": 4, "excel": -10, "vista": -6, "dream": 0 }
+  },
+  "crowd_tolerance": {
+    "high": { "excel": 14, "vista": 10, "dream": 8 },
+    "medium": { "dream": 8, "conquest": 8, "splendor": 6, "vista": 6, "venice": 6 },
+    "low": { "spirit": 14, "fantasy": 12, "sunshine": 10, "venice": 8, "excel": -14, "vista": -10 }
+  },
+  "budget_mindset": {
+    "premium": { "excel": 12, "vista": 8, "venice": 8, "dream": 6 },
+    "balanced": { "dream": 10, "conquest": 10, "vista": 8, "splendor": 8, "spirit": 6 },
+    "value": { "fantasy": 14, "conquest": 12, "sunshine": 12, "splendor": 10, "spirit": 8, "excel": -8 }
+  },
+  "sailing_length": {
+    "short_3_4": { "fantasy": 12, "conquest": 10, "sunshine": 10, "dream": 6, "excel": 4 },
+    "standard_5_7": { "dream": 10, "conquest": 10, "vista": 8, "excel": 8, "splendor": 8 },
+    "long_8_plus": { "spirit": 12, "venice": 10, "vista": 8, "dream": 6, "excel": -6 }
+  },
+  "group_type": {
+    "solo": { "spirit": 10, "venice": 8, "sunshine": 6, "splendor": 6 },
+    "couple": { "spirit": 12, "venice": 10, "dream": 8, "vista": 6 },
+    "friends": { "excel": 12, "dream": 10, "conquest": 10, "vista": 8 },
+    "family_young": { "excel": 16, "vista": 14, "dream": 12, "conquest": 8, "spirit": -12, "fantasy": -14 },
+    "family_teens": { "excel": 14, "vista": 12, "dream": 10, "conquest": 8 },
+    "multigen": { "vista": 12, "excel": 10, "dream": 10, "conquest": 8, "spirit": 6 }
+  },
+  "ship_vs_ports": {
+    "ship": { "excel": 14, "vista": 10, "dream": 8, "conquest": 4 },
+    "balanced": { "dream": 8, "conquest": 8, "vista": 6, "splendor": 6 },
+    "ports": { "spirit": 16, "fantasy": 14, "sunshine": 10, "venice": 8, "excel": -12, "vista": -8 }
+  }
+}
+```
+
+### Norwegian (9 classes) — COMPLETE ✅
 
 | Class | Ships | Intensity | Vibe | Dining Mod |
 |-------|-------|-----------|------|------------|
@@ -388,7 +475,96 @@ Food Score =
 | Sun | Sun, Sky | 4 | intimate_value | -1 |
 | Spirit | Spirit | 4 | intimate_classic | -2 |
 
-### MSC (8 classes) — TO CREATE
+#### NCL Class Profiles (Detailed)
+
+**Prima/Prima+ Class** (Prima, Viva, Aqua)
+- **Description:** NCL's newest, most upscale ships. Highest space-to-passenger ratio, 8-deck Haven complex, Indulge Food Hall, Ocean Boulevard wrap-around promenade.
+- **Best for:** Couples seeking luxury, adults-only groups, upmarket resort experience, Haven suite guests
+- **Not ideal for:** Families with young kids (limited kids activities on Prima/Viva), budget travelers
+- **Note:** Aqua (2025) added more family features than Prima/Viva
+
+**Breakaway Plus Class** (Encore, Bliss, Joy, Escape)
+- **Description:** NCL's largest ships packed with activities. Go-karts, laser tag, Galaxy Pavilion VR, Broadway shows. Best dining variety in fleet.
+- **Best for:** High-energy travelers, families with teens, entertainment lovers, groups wanting variety
+- **Not ideal for:** Those seeking quiet/intimate, budget-first travelers, short getaways
+- **Note:** Escape lacks go-karts/laser tag; Encore/Bliss/Joy are most feature-rich
+
+**Breakaway Class** (Getaway, Breakaway)
+- **Description:** Foundation for Breakaway Plus with slightly fewer features. Ropes course, Aqua Park, good nightlife. Solid mainstream experience.
+- **Best for:** Families, first-time NCL cruisers, those wanting balance of features and value
+- **Not ideal for:** Must-have-newest seekers, those wanting go-karts/laser tag
+
+**Epic Class** (Epic)
+- **Description:** Unique solo-focused ship with 128 Studio Staterooms and exclusive Studio Lounge. Large ship (4,200 guests) with ice bar, Cirque shows.
+- **Best for:** Solo travelers, singles wanting social atmosphere, adults seeking variety
+- **Not ideal for:** Families, couples wanting privacy, those wanting modern design (2010 ship)
+
+**Jewel Class** (Gem, Pearl, Jade, Jewel)
+- **Description:** Mid-size classics (2,400 guests) beloved by NCL loyalists. Relaxed resort feel, good specialty dining, less need for reservations.
+- **Best for:** Couples, experienced cruisers, those preferring mid-size ships, freestyle purists
+- **Not ideal for:** Families wanting waterparks, thrill-seekers, first-timers wanting "wow"
+
+**Pride of America** (Pride of America)
+- **Description:** Hawaii specialist - the only cruise ship sailing year-round inter-island Hawaii itineraries. US-flagged, American crew.
+- **Best for:** Hawaii-focused travelers, those wanting inter-island experience, US travelers preferring American crew
+- **Not ideal for:** Caribbean/Europe seekers, budget travelers, families wanting activities
+
+**Dawn Class** (Dawn, Star)
+- **Description:** Early Freestyle Cruising ships (2001-2002). Quirky layouts, solid service. Good for destination-focused cruising.
+- **Best for:** Destination-focused cruisers, experienced travelers, those prioritizing itinerary over ship
+- **Not ideal for:** Ship-as-destination travelers, families with young kids, first-timers
+
+**Sun Class** (Sun, Sky) — *Note: Leaving fleet 2026-2027*
+- **Description:** Oldest active NCL ships. Smaller, more intimate, often all-inclusive deals. Sky specializes in short cruises.
+- **Best for:** Value seekers, short getaway cruisers, adults wanting quiet, intimacy lovers
+- **Not ideal for:** Families, those wanting activities, long cruises
+
+**Spirit Class** (Spirit)
+- **Description:** Fleet's oldest ship (1998 build, joined NCL 2004). Well-maintained but lacking modern features. Classic cruising.
+- **Best for:** Nostalgic cruisers, value seekers, destination-focused travelers
+- **Not ideal for:** Families, those wanting activities, ship-as-destination travelers
+
+#### NCL Scoring Weights
+
+```json
+"ncl_scoring_weights": {
+  "energy_level": {
+    "go_go_go": { "breakaway_plus": 18, "prima": 12, "breakaway": 12, "epic": 10, "jewel": 4, "dawn": 0, "sun": 0, "spirit": 0 },
+    "balanced": { "jewel": 12, "breakaway": 12, "prima": 10, "epic": 8, "breakaway_plus": 6, "dawn": 6, "pride_of_america": 6 },
+    "relax": { "sun": 16, "spirit": 14, "jewel": 12, "dawn": 10, "pride_of_america": 8, "breakaway_plus": -10, "prima": -6 }
+  },
+  "crowd_tolerance": {
+    "high": { "breakaway_plus": 14, "prima": 10, "epic": 8, "breakaway": 8 },
+    "medium": { "breakaway": 8, "jewel": 8, "epic": 6, "prima": 6 },
+    "low": { "sun": 14, "spirit": 14, "jewel": 10, "dawn": 10, "breakaway_plus": -14, "epic": -10 }
+  },
+  "budget_mindset": {
+    "premium": { "prima": 14, "breakaway_plus": 10, "epic": 6 },
+    "balanced": { "breakaway": 10, "jewel": 10, "breakaway_plus": 8, "epic": 8, "dawn": 6 },
+    "value": { "sun": 14, "spirit": 12, "dawn": 10, "jewel": 8, "prima": -10, "breakaway_plus": -6 }
+  },
+  "sailing_length": {
+    "short_3_4": { "sun": 12, "spirit": 8, "breakaway": 6 },
+    "standard_5_7": { "breakaway_plus": 10, "breakaway": 10, "jewel": 8, "prima": 8, "epic": 8 },
+    "long_8_plus": { "pride_of_america": 14, "dawn": 10, "jewel": 8, "prima": 6, "sun": -8 }
+  },
+  "group_type": {
+    "solo": { "epic": 16, "prima": 8, "jewel": 6, "sun": 6 },
+    "couple": { "prima": 14, "jewel": 12, "breakaway_plus": 8, "dawn": 6 },
+    "friends": { "breakaway_plus": 14, "breakaway": 12, "epic": 10, "prima": 8 },
+    "family_young": { "breakaway_plus": 14, "breakaway": 12, "epic": -10, "sun": -14, "spirit": -14 },
+    "family_teens": { "breakaway_plus": 16, "breakaway": 12, "prima": 8, "jewel": 6 },
+    "multigen": { "breakaway_plus": 10, "jewel": 10, "breakaway": 8, "prima": 6 }
+  },
+  "ship_vs_ports": {
+    "ship": { "breakaway_plus": 14, "prima": 12, "epic": 8, "breakaway": 6 },
+    "balanced": { "breakaway": 8, "jewel": 8, "prima": 6, "breakaway_plus": 6 },
+    "ports": { "pride_of_america": 16, "dawn": 14, "spirit": 12, "sun": 10, "jewel": 8, "breakaway_plus": -10 }
+  }
+}
+```
+
+### MSC (8 classes) — COMPLETE ✅
 
 | Class | Ships | Intensity | Vibe | Dining Mod |
 |-------|-------|-----------|------|------------|
@@ -400,6 +576,90 @@ Food Score =
 | Fantasia | Preziosa, Divina, Magnifica, Splendida, Fantasia | 6 | classic_euro | -1 |
 | Musica | Poesia, Orchestra, Musica | 5 | mid_size_euro | -1 |
 | Lirica | Opera, Lirica, Sinfonia, Armonia | 4 | intimate_euro | -2 |
+
+#### MSC Class Profiles (Detailed)
+
+**World Class** (World America, World Europa)
+- **Description:** MSC's largest, newest flagships (~216,000 GT, 6,700+ guests). Eataly restaurant, The Harbour family zone, bumper cars, Cliffhanger swing. LNG-powered.
+- **Best for:** Families wanting megaship variety, couples seeking European flair, budget-conscious megaship seekers
+- **Not ideal for:** Those wanting intimate experience, crowd-averse travelers, those wanting American-style service
+- **Note:** World America (Caribbean) vs World Europa (Mediterranean) - different markets
+
+**Meraviglia-Plus Class** (Grandiosa, Virtuosa, Euribia)
+- **Description:** Large ships with covered LED promenade, Cirque shows, extensive dining. Indoor-focused design works well for varied weather.
+- **Best for:** Families wanting entertainment, foodies, Mediterranean cruisers, tech/innovation lovers
+- **Not ideal for:** Those wanting outdoor focus, intimate experience seekers
+
+**Seaside EVO Class** (Seascape, Seashore)
+- **Description:** Enhanced Seaside design with more outdoor space. Resort-style living, outdoor promenade, designed for warm-weather cruising.
+- **Best for:** Caribbean cruisers, families wanting water features, sun lovers, couples seeking resort vibe
+- **Not ideal for:** Cold-weather itinerary seekers, indoor-focused travelers
+
+**Meraviglia Class** (Meraviglia, Bellissima)
+- **Description:** High-tech entertainment, stunning LED promenade, modern European city feel at sea. Strong Cirque shows.
+- **Best for:** Entertainment lovers, families, European cruisers, those wanting modern design
+- **Not ideal for:** Outdoor-focused travelers, intimacy seekers
+- **Note:** Bellissima is highest-rated MSC ship in customer reviews
+
+**Seaside Class** (Seaside, Seaview)
+- **Description:** First MSC ships designed for warm-weather/outdoor cruising. Broad outdoor promenade, zipline, outdoor spa. Calmer than Meraviglia.
+- **Best for:** Warm-weather cruisers, couples seeking sun, families wanting water slides
+- **Not ideal for:** Mediterranean winter sailings, those wanting extensive indoor options
+
+**Fantasia Class** (Fantasia, Splendida, Divina, Preziosa, Magnifica)
+- **Description:** MSC's "classic big ship" class (130,000+ GT). European elegance, Yacht Club suites, showing age but well-maintained.
+- **Best for:** European-style experience lovers, Yacht Club guests, destination-focused travelers, value seekers
+- **Not ideal for:** Must-feel-modern travelers, families wanting extensive activities
+
+**Musica Class** (Musica, Orchestra, Poesia)
+- **Description:** Mid-size ships with classic MSC décor. Relaxed, international atmosphere. Good for itinerary-focused cruising.
+- **Best for:** Experienced cruisers, destination-focused travelers, those wanting smaller/calmer ships, value seekers
+- **Not ideal for:** Activity seekers, families with young kids, first-timers wanting "wow"
+
+**Lirica Class** (Lirica, Opera, Sinfonia, Armonia)
+- **Description:** MSC's oldest ships (2003-2004, refurbished 2015). Smallest in fleet, intimate feel. Classic character retained.
+- **Best for:** Budget travelers, destination-focused cruisers, intimacy lovers, European traditionalists
+- **Not ideal for:** Families wanting activities, ship-as-destination travelers, those wanting modern amenities
+
+#### MSC Scoring Weights
+
+```json
+"msc_scoring_weights": {
+  "energy_level": {
+    "go_go_go": { "world": 18, "meraviglia_plus": 14, "seaside_evo": 12, "meraviglia": 10, "seaside": 8, "fantasia": 4, "musica": 0, "lirica": 0 },
+    "balanced": { "meraviglia": 12, "seaside": 10, "seaside_evo": 10, "fantasia": 8, "meraviglia_plus": 6, "world": 6, "musica": 6 },
+    "relax": { "lirica": 16, "musica": 14, "fantasia": 10, "seaside": 6, "world": -10, "meraviglia_plus": -8 }
+  },
+  "crowd_tolerance": {
+    "high": { "world": 14, "meraviglia_plus": 10, "seaside_evo": 8, "meraviglia": 8 },
+    "medium": { "seaside": 8, "meraviglia": 8, "fantasia": 6, "seaside_evo": 6 },
+    "low": { "lirica": 14, "musica": 14, "fantasia": 8, "world": -14, "meraviglia_plus": -10 }
+  },
+  "budget_mindset": {
+    "premium": { "world": 12, "meraviglia_plus": 8, "seaside_evo": 6 },
+    "balanced": { "seaside": 10, "meraviglia": 10, "fantasia": 8, "seaside_evo": 8 },
+    "value": { "lirica": 14, "musica": 12, "fantasia": 10, "world": -6, "meraviglia_plus": -4 }
+  },
+  "sailing_length": {
+    "short_3_4": { "lirica": 10, "seaside": 8, "musica": 6 },
+    "standard_5_7": { "world": 10, "seaside_evo": 10, "meraviglia": 8, "seaside": 8, "meraviglia_plus": 8 },
+    "long_8_plus": { "fantasia": 12, "musica": 10, "lirica": 8, "meraviglia_plus": 6 }
+  },
+  "group_type": {
+    "solo": { "musica": 8, "lirica": 8, "fantasia": 6 },
+    "couple": { "seaside_evo": 12, "seaside": 12, "world": 8, "fantasia": 8, "musica": 6 },
+    "friends": { "world": 12, "meraviglia_plus": 10, "meraviglia": 10, "seaside_evo": 8 },
+    "family_young": { "world": 16, "meraviglia_plus": 14, "seaside_evo": 12, "meraviglia": 10, "lirica": -12, "musica": -10 },
+    "family_teens": { "world": 14, "meraviglia_plus": 12, "seaside_evo": 10, "meraviglia": 8 },
+    "multigen": { "fantasia": 10, "world": 10, "meraviglia_plus": 8, "seaside_evo": 8 }
+  },
+  "ship_vs_ports": {
+    "ship": { "world": 14, "meraviglia_plus": 10, "seaside_evo": 8, "meraviglia": 6 },
+    "balanced": { "seaside": 8, "meraviglia": 8, "fantasia": 6, "seaside_evo": 6 },
+    "ports": { "lirica": 16, "musica": 14, "fantasia": 10, "world": -10, "meraviglia_plus": -8 }
+  }
+}
+```
 
 ---
 
@@ -555,6 +815,10 @@ Per ITW-Lite v3.010:
 - Created `admin/QUIZ_EXPANSION_GUIDE.md` for future expansion
 - Documented annual maintenance procedures
 - **Changed `first_timer` to `cruise_experience`** — 3-tier scale (first_time / a_few / seasoned) to address user confusion with "veteran cruiser" label
+- **Added complete Carnival class profiles** — 9 classes with descriptions, best_for, not_ideal_for, and scoring weights
+- **Added complete NCL class profiles** — 9 classes with descriptions, best_for, not_ideal_for, and scoring weights
+- **Added complete MSC class profiles** — 8 classes with descriptions, best_for, not_ideal_for, and scoring weights
+- **All 4 cruise lines now have complete class data** — Ready for implementation
 
 ---
 
