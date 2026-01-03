@@ -1,0 +1,271 @@
+#!/bin/bash
+#
+# Pre-commit Security Hook - In the Wake
+# Soli Deo Gloria
+#
+# This hook checks for security issues before allowing commits.
+#
+
+set -e
+
+echo ""
+echo "═══════════════════════════════════════════════════════"
+echo "🔒 PRE-COMMIT SECURITY CHECK"
+echo "═══════════════════════════════════════════════════════"
+echo ""
+
+# Get list of staged files
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM)
+
+if [ -z "$STAGED_FILES" ]; then
+    echo "✅ No files staged for commit"
+    exit 0
+fi
+
+ERRORS=0
+WARNINGS=0
+
+# ============================================================
+# CHECK 1: Forbidden File Types
+# ============================================================
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📁 Checking for forbidden file types..."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+FORBIDDEN_PATTERNS=(
+    "\.env$"
+    "\.env\."
+    "\.pem$"
+    "\.key$"
+    "\.pfx$"
+    "\.p12$"
+    "\.sql$"
+    "\.db$"
+    "\.sqlite$"
+    "credentials\."
+    "secrets\."
+    "\.kdbx$"
+)
+
+for pattern in "${FORBIDDEN_PATTERNS[@]}"; do
+    MATCHES=$(echo "$STAGED_FILES" | grep -iE "$pattern" || true)
+    if [ -n "$MATCHES" ]; then
+        echo "❌ BLOCKED: Forbidden file type detected:"
+        echo "$MATCHES" | sed 's/^/   /'
+        ERRORS=$((ERRORS + 1))
+    fi
+done
+
+if [ $ERRORS -eq 0 ]; then
+    echo "✅ No forbidden file types found"
+fi
+
+# ============================================================
+# CHECK 2: Secret Patterns in Staged Files
+# ============================================================
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "🔑 Scanning for hardcoded secrets..."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# Patterns that might indicate secrets (case-insensitive)
+SECRET_PATTERNS=(
+    "api[_-]?key\s*[:=]"
+    "api[_-]?secret\s*[:=]"
+    "password\s*[:=]\s*['\"][^'\"]{8,}"
+    "secret[_-]?key\s*[:=]"
+    "private[_-]?key\s*[:=]"
+    "auth[_-]?token\s*[:=]"
+    "access[_-]?token\s*[:=]"
+    "-----BEGIN (RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----"
+    "-----BEGIN CERTIFICATE-----"
+)
+
+for file in $STAGED_FILES; do
+    # Skip binary files and certain directories
+    if [[ "$file" == *.png ]] || [[ "$file" == *.jpg ]] || [[ "$file" == *.webp ]] || \
+       [[ "$file" == *.gif ]] || [[ "$file" == *.ico ]] || [[ "$file" == *.woff* ]] || \
+       [[ "$file" == admin/claude/* ]]; then
+        continue
+    fi
+
+    if [ -f "$file" ]; then
+        for pattern in "${SECRET_PATTERNS[@]}"; do
+            if git diff --cached "$file" | grep -qiE "$pattern" 2>/dev/null; then
+                echo "⚠️  WARNING: Possible secret in $file"
+                echo "   Pattern: $pattern"
+                WARNINGS=$((WARNINGS + 1))
+            fi
+        done
+    fi
+done
+
+if [ $WARNINGS -eq 0 ]; then
+    echo "✅ No obvious secret patterns found"
+fi
+
+# ============================================================
+# CHECK 3: DOM Danger Sinks (XSS Risk)
+# ============================================================
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "🛡️  Checking for DOM XSS danger sinks..."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+JS_FILES=$(echo "$STAGED_FILES" | grep -E "\.js$" || true)
+XSS_WARNINGS=0
+
+if [ -n "$JS_FILES" ]; then
+    for file in $JS_FILES; do
+        if [ -f "$file" ]; then
+            # Check for potentially dangerous patterns in NEW code
+            DIFF_CONTENT=$(git diff --cached "$file")
+
+            # innerHTML check - smarter detection
+            if echo "$DIFF_CONTENT" | grep -q "innerHTML\s*=" 2>/dev/null; then
+                # Check if file has escapeHtml function defined
+                HAS_ESCAPE_FN=false
+                if grep -q "function escapeHtml" "$file" 2>/dev/null; then
+                    HAS_ESCAPE_FN=true
+                fi
+
+                # Check if the innerHTML lines in the diff use escapeHtml or sanitizeUrl
+                INNERHTML_LINES=$(echo "$DIFF_CONTENT" | grep "innerHTML\s*=" | grep "^\+" || true)
+
+                if [ -n "$INNERHTML_LINES" ]; then
+                    # Count lines with innerHTML that DON'T use escaping
+                    UNESCAPED_COUNT=0
+                    ESCAPED_COUNT=0
+
+                    while IFS= read -r line; do
+                        # Skip empty lines
+                        [ -z "$line" ] && continue
+
+                        # Check if line uses escapeHtml() or sanitizeUrl() or textContent
+                        if echo "$line" | grep -qE "(escapeHtml|sanitizeUrl|textContent)" 2>/dev/null; then
+                            ESCAPED_COUNT=$((ESCAPED_COUNT + 1))
+                        else
+                            # Check if it's just static HTML (no ${} interpolation with variables)
+                            # Static HTML like '<p>Hello</p>' is safe
+                            if echo "$line" | grep -qE '\$\{[^}]+\}' 2>/dev/null; then
+                                # Has template interpolation - check if all are escaped
+                                if echo "$line" | grep -qE '\$\{[^}]*escapeHtml' 2>/dev/null; then
+                                    ESCAPED_COUNT=$((ESCAPED_COUNT + 1))
+                                else
+                                    UNESCAPED_COUNT=$((UNESCAPED_COUNT + 1))
+                                fi
+                            else
+                                # No interpolation or simple static content
+                                ESCAPED_COUNT=$((ESCAPED_COUNT + 1))
+                            fi
+                        fi
+                    done <<< "$INNERHTML_LINES"
+
+                    if [ $UNESCAPED_COUNT -gt 0 ]; then
+                        if [ "$HAS_ESCAPE_FN" = true ]; then
+                            echo "⚠️  WARNING: innerHTML in $file has $UNESCAPED_COUNT unescaped dynamic value(s)"
+                            echo "   File has escapeHtml() - ensure all \${} values use it!"
+                        else
+                            echo "⚠️  WARNING: innerHTML usage in $file without escapeHtml() function"
+                            echo "   Add: function escapeHtml(t){if(!t)return'';const d=document.createElement('div');d.textContent=String(t);return d.innerHTML;}"
+                        fi
+                        XSS_WARNINGS=$((XSS_WARNINGS + 1))
+                        WARNINGS=$((WARNINGS + 1))
+                    elif [ $ESCAPED_COUNT -gt 0 ]; then
+                        echo "✅ innerHTML in $file: $ESCAPED_COUNT properly escaped usage(s)"
+                    fi
+                fi
+            fi
+
+            # eval() usage - always dangerous
+            if echo "$DIFF_CONTENT" | grep -qE "\beval\s*\(" 2>/dev/null; then
+                echo "❌ BLOCKED: eval() usage in $file"
+                echo "   eval() is forbidden - use safer alternatives!"
+                ERRORS=$((ERRORS + 1))
+            fi
+
+            # document.write - always dangerous
+            if echo "$DIFF_CONTENT" | grep -q "document\.write" 2>/dev/null; then
+                echo "❌ BLOCKED: document.write() in $file"
+                echo "   document.write() is forbidden - use DOM methods!"
+                ERRORS=$((ERRORS + 1))
+            fi
+
+            # Check for dangerous href/src with user input (without sanitizeUrl)
+            if echo "$DIFF_CONTENT" | grep -qE 'href="\$\{' 2>/dev/null; then
+                if ! echo "$DIFF_CONTENT" | grep -qE 'href="\$\{sanitizeUrl' 2>/dev/null; then
+                    echo "⚠️  WARNING: Dynamic href in $file without sanitizeUrl()"
+                    echo "   Use sanitizeUrl() to prevent javascript: XSS"
+                    XSS_WARNINGS=$((XSS_WARNINGS + 1))
+                    WARNINGS=$((WARNINGS + 1))
+                fi
+            fi
+        fi
+    done
+
+    if [ $XSS_WARNINGS -eq 0 ] && [ $ERRORS -eq 0 ]; then
+        echo "✅ No unescaped DOM XSS sinks in new code"
+    fi
+else
+    echo "ℹ️  No JavaScript files in this commit"
+fi
+
+# ============================================================
+# CHECK 4: Analytics Requirement (HTML files)
+# ============================================================
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📊 Checking analytics requirement..."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+HTML_FILES=$(echo "$STAGED_FILES" | grep -E "\.html$" | grep -v "admin/" || true)
+
+MISSING_ANALYTICS=0
+for file in $HTML_FILES; do
+    if [ -f "$file" ]; then
+        if ! grep -q "googletagmanager.com/gtag" "$file" 2>/dev/null; then
+            echo "⚠️  Missing Google Analytics: $file"
+            MISSING_ANALYTICS=$((MISSING_ANALYTICS + 1))
+        fi
+        if ! grep -q "cloud.umami.is/script.js" "$file" 2>/dev/null; then
+            echo "⚠️  Missing Umami Analytics: $file"
+            MISSING_ANALYTICS=$((MISSING_ANALYTICS + 1))
+        fi
+    fi
+done
+
+if [ $MISSING_ANALYTICS -eq 0 ]; then
+    echo "✅ All HTML files have required analytics"
+elif [ -n "$HTML_FILES" ]; then
+    echo ""
+    echo "   ℹ️  See CLAUDE.md Section 0 for required analytics snippets"
+fi
+
+# ============================================================
+# SUMMARY
+# ============================================================
+echo ""
+echo "═══════════════════════════════════════════════════════"
+echo "📋 SECURITY CHECK SUMMARY"
+echo "═══════════════════════════════════════════════════════"
+echo ""
+echo "   Errors:   $ERRORS"
+echo "   Warnings: $WARNINGS"
+echo ""
+
+if [ $ERRORS -gt 0 ]; then
+    echo "❌ COMMIT BLOCKED - Please fix the errors above"
+    echo ""
+    exit 1
+fi
+
+if [ $WARNINGS -gt 0 ]; then
+    echo "⚠️  Warnings detected. Review before continuing."
+    echo ""
+    echo "   Press Enter to continue, or Ctrl+C to abort..."
+    read -r
+fi
+
+echo "✅ Security checks passed"
+echo ""
+exit 0
