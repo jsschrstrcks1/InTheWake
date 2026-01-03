@@ -275,6 +275,19 @@
     "logo": "https://cruisinginthewake.com/assets/logo_wake.png"
   }
   </script>
+
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+<!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
 <body class="page">
   <!-- Skip Link for Accessibility -->
@@ -322,6 +335,22 @@
       <span class="badge badge--transfer">Ex-Costa</span>
     </div>
   </section>
+
+    <div class="grid-2">
+      <section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">Deck Plans</h2>
+        <div id="ship-map" data-ship="carnival-venezia">
+          <p>Interactive deck plans for Carnival Venezia are available on the cruise line's official website.</p>
+        </div>
+      </section>
+
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9319466" data-name="CARNIVALVENEZIA">
+        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
+        <div id="ship-tracker-container">
+          <p>Track Carnival Venezia's current position and voyage details.</p>
+        </div>
+      </section>
+    </div>
 
   <!-- Main Content -->
   <main id="main-content" class="content-wrap" data-ship="Carnival Venezia" data-imo="9319466">
@@ -582,7 +611,11 @@ Dining Venues on Carnival Venezia <a href="/restaurants.html" style="font-size: 
       </div>
 
       <!-- Sidebar Rail -->
-    </section><!-- End Main Content Column -->
+    <section class="card attributions">
+      <h2>Image Attributions</h2>
+      <p class="tiny">Ship images are served locally from licensed sources or CC-BY-SA-4.0 Wikimedia Commons. See individual image captions for specific attribution.</p>
+    </section>
+  </section><!-- End Main Content Column -->
 
     <aside class="rail col-2" role="complementary" aria-label="Quick links and resources">
 
@@ -639,41 +672,14 @@ Dining Venues on Carnival Venezia <a href="/restaurants.html" style="font-size: 
   </aside>
     </div>
   
-    <section class="card attributions">
-      <h2>Image Attributions</h2>
-      <p class="tiny">Ship images are served locally from licensed sources or CC-BY-SA-4.0 Wikimedia Commons. See individual image captions for specific attribution.</p>
-    </section>
+    
 
     <!-- Videos -->
-    <section class="card" aria-labelledby="video-highlights">
-      <h2 id="video-highlights">Watch: Carnival Venezia Highlights</h2>
-      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
-      <div class="swiper videos" aria-label="Featured video carousel">
-        <div class="swiper-wrapper" id="featuredVideos"></div>
-        <div class="swiper-pagination" aria-hidden="true"></div>
-        <div class="swiper-button-prev" aria-label="Previous slide"></div>
-        <div class="swiper-button-next" aria-label="Next slide"></div>
-      </div>
-      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
-    </section>
+    
 
 
     <!-- Deck Plans & Tracker Grid -->
-    <div class="grid-2">
-      <section class="card" aria-labelledby="deck-plans">
-        <h2 id="deck-plans">Deck Plans</h2>
-        <div id="ship-map" data-ship="carnival-venezia">
-          <p>Interactive deck plans for Carnival Venezia are available on the cruise line's official website.</p>
-        </div>
-      </section>
-
-      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9319466" data-name="CARNIVALVENEZIA">
-        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
-        <div id="ship-tracker-container">
-          <p>Track Carnival Venezia's current position and voyage details.</p>
-        </div>
-      </section>
-    </div>
+    
 
     <script>
     (function(){

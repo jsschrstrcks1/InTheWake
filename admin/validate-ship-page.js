@@ -873,8 +873,17 @@ function validateSections($, isTBN, isHistoric = false) {
   const sectionPositions = [];
 
   // Scan main content area for sections (in DOM order)
-  // Look at sections, divs with classes, and headings
-  $('main section, main .card, main h2, main h3, main [class*="page-intro"], main [class*="first-look"], main [class*="logbook"], main [class*="videos"]').each((i, elem) => {
+  // Scope to .col-1 (main content column) to exclude rail/aside sections
+  // which contain navigation links that could falsely match section patterns
+  const mainColSelector = 'main .col-1 section, main .col-1 .card, main .col-1 h2, main .col-1 h3, main .col-1 [class*="page-intro"], main .col-1 [class*="first-look"], main .col-1 [class*="logbook"], main .col-1 [class*="videos"]';
+  // Fallback for pages without col-1 structure
+  const fallbackSelector = 'main section, main .card, main h2, main h3, main [class*="page-intro"], main [class*="first-look"], main [class*="logbook"], main [class*="videos"]';
+  const hasColStructure = $('main .col-1').length > 0;
+  const selector = hasColStructure ? mainColSelector : fallbackSelector;
+
+  $(selector).each((i, elem) => {
+    // Skip elements inside aside/rail even with fallback selector
+    if ($(elem).closest('aside, .col-2, .rail').length > 0) return;
     const text = $(elem).text().substring(0, 200).toLowerCase();
     const id = ($(elem).attr('id') || '').toLowerCase();
     const className = ($(elem).attr('class') || '').toLowerCase();
@@ -893,6 +902,39 @@ function validateSections($, isTBN, isHistoric = false) {
   });
 
   const detected = sectionPositions.map(s => s.key);
+
+  // Also check for sections outside col-1 but still in main (some pages have sections after col-1)
+  $('main > section, main > .card').each((i, elem) => {
+    if ($(elem).closest('aside, .col-2, .rail').length > 0) return;
+    if ($(elem).hasClass('col-1') || $(elem).hasClass('col-2')) return;
+
+    const text = $(elem).text().substring(0, 200).toLowerCase();
+    const id = ($(elem).attr('id') || '').toLowerCase();
+    const className = ($(elem).attr('class') || '').toLowerCase();
+    const combined = `${text} ${id} ${className}`;
+
+    for (const [key, pattern] of Object.entries(SECTION_PATTERNS)) {
+      if (pattern.test(combined) && !detected.includes(key)) {
+        detected.push(key);
+        break;
+      }
+    }
+  });
+
+  // Also check for rail sections (recent_rail, author_card, etc.) which are in aside/col-2
+  $('aside section, .col-2 section, .rail section').each((i, elem) => {
+    const text = $(elem).text().substring(0, 200).toLowerCase();
+    const id = ($(elem).attr('id') || '').toLowerCase();
+    const className = ($(elem).attr('class') || '').toLowerCase();
+    const combined = `${text} ${id} ${className}`;
+
+    for (const [key, pattern] of Object.entries(SECTION_PATTERNS)) {
+      if (pattern.test(combined) && !detected.includes(key)) {
+        detected.push(key);
+        break;
+      }
+    }
+  });
 
   // Check for required sections
   // TBN and Historic ships have relaxed section requirements
