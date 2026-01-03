@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2026-01-01 (Port page validation audit - 333 ports validated against ICP-Lite v1.4)
+**Last Updated:** 2026-01-02 (Added comprehensive port audit - 43 missing ports identified)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -4108,7 +4108,397 @@ Add current weather conditions and seasonal visiting guides to all port pages.
 
 ---
 
-**Task Count:** ~20-30 discrete tasks remaining (down from 80+) **[UPDATED 2025-12-01]**
+### 🟢 [G] Ship Size Atlas Completion (NEW - 2026-01-02)
+**Lane:** 🟢 Green (technical feature, data expansion)
+**Location:** `/tools/ship-size-atlas.html`
+**Reference:** `admin/Cruise Ship Size Atlas.docx` for full specification
+
+#### Overview
+The Ship Size Atlas v1.0 has been created with core functionality:
+- Three view modes (Ranked, By Brand, Master Table)
+- Filtering by group, brand, size tier, status
+- Compare up to 5 ships side-by-side
+- 65+ ships from 14 brands in initial dataset
+
+#### Phase 1: Site Navigation Update (PRIORITY)
+- [ ] **Update site-wide navigation** to include Ship Size Atlas link
+  - Add to Planning dropdown menu in all pages (652+ files)
+  - Suggested label: "Ship Size Atlas" or "Compare Ships"
+  - Target URL: `/tools/ship-size-atlas.html`
+  - Pattern: Follow same nav structure as existing items
+
+#### Phase 2: Data Expansion ✅ COMPLETED 2026-01-02
+- [x] **Expanded ship database from 71 to 192 ships**
+  - [x] Royal Caribbean: 29 ships
+  - [x] Celebrity Cruises: 15 ships (Solstice + Millennium classes)
+  - [x] MSC Cruises: 24 ships (all classes)
+  - [x] Norwegian: 20 ships (full fleet)
+  - [x] Carnival: 24 ships
+  - [x] Holland America: 10 ships
+  - [x] Princess: 17 ships
+  - [x] Silversea: 12 ships
+  - [x] Oceania: 8 ships
+  - [x] Regent: 7 ships
+  - [x] Costa: 9 ships
+  - [x] Seabourn: 7 ships
+  - [x] Explora Journeys: 6 ships
+  - [x] Cunard: 4 ships
+- [ ] Cross-check data against source URLs:
+  - Priority 3: Vacations To Go roster (baseline count)
+  - Priority 4: ShipLife + CruiseMapper (bulk metrics)
+  - Priority 5: Cruise Critic "30 biggest ships" (validation)
+
+#### Phase 3: Enhanced Features
+- [ ] Add "Size Map" scatter chart view (GT vs Passengers visualization)
+- [ ] Add "Top 30 Largest Ships" spotlight module
+- [ ] Add ship detail drawer/modal with full specs and conflict badges
+- [ ] Implement data conflict display (when sources disagree)
+- [ ] Add accessibility overlay for wheelchair/mobility info (future)
+
+#### Phase 4: Data Quality
+- [ ] Create automated coverage report (ships per brand vs expected)
+- [ ] Add "last verified" date display per ship
+- [ ] Implement conflict flagging UI for mixed confidence data
+- [ ] Add source citation links in ship detail view
+
+#### Phase 5: Missing Ship Pages (116 pages needed)
+**Generated:** 2026-01-02 from cross-reference of `ship-size-atlas.json` vs `/ships/**/*.html`
+**Reference:** `/data/atlas/missing-ship-pages.json` for full list
+
+##### Norwegian Cruise Line (20 pages) — NEW FOLDER: `ships/norwegian/`
+- [ ] norwegian-encore.html
+- [ ] norwegian-bliss.html
+- [ ] norwegian-joy.html
+- [ ] norwegian-escape.html
+- [ ] norwegian-aqua.html
+- [ ] norwegian-epic.html
+- [ ] norwegian-getaway.html
+- [ ] norwegian-breakaway.html
+- [ ] norwegian-prima.html
+- [ ] norwegian-viva.html
+- [ ] norwegian-jade.html
+- [ ] norwegian-gem.html
+- [ ] norwegian-pearl.html
+- [ ] norwegian-jewel.html
+- [ ] norwegian-dawn.html
+- [ ] norwegian-star.html
+- [ ] pride-of-america.html
+- [ ] norwegian-sun.html
+- [ ] norwegian-sky.html
+- [ ] norwegian-spirit.html
+
+##### MSC Cruises (23 pages) — EXPAND: `ships/msc/`
+- [ ] msc-world-europa.html
+- [ ] msc-world-asia.html
+- [ ] msc-euribia.html
+- [ ] msc-grandiosa.html
+- [ ] msc-virtuosa.html
+- [ ] msc-meraviglia.html
+- [ ] msc-bellissima.html
+- [ ] msc-seascape.html
+- [ ] msc-seashore.html
+- [ ] msc-seaside.html
+- [ ] msc-seaview.html
+- [ ] msc-divina.html
+- [ ] msc-preziosa.html
+- [ ] msc-fantasia.html
+- [ ] msc-splendida.html
+- [ ] msc-magnifica.html
+- [ ] msc-poesia.html
+- [ ] msc-orchestra.html
+- [ ] msc-musica.html
+- [ ] msc-lirica.html
+- [ ] msc-opera.html
+- [ ] msc-sinfonia.html
+- [ ] msc-armonia.html
+
+##### Princess Cruises (17 pages) — NEW FOLDER: `ships/princess/`
+- [ ] sun-princess.html
+- [ ] star-princess.html
+- [ ] discovery-princess.html
+- [ ] enchanted-princess.html
+- [ ] sky-princess.html
+- [ ] majestic-princess.html
+- [ ] regal-princess.html
+- [ ] royal-princess.html
+- [ ] diamond-princess.html
+- [ ] sapphire-princess.html
+- [ ] crown-princess.html
+- [ ] emerald-princess.html
+- [ ] ruby-princess.html
+- [ ] caribbean-princess.html
+- [ ] grand-princess.html
+- [ ] coral-princess.html
+- [ ] island-princess.html
+
+##### Silversea (12 pages) — NEW FOLDER: `ships/silversea/`
+- [ ] silver-nova.html
+- [ ] silver-ray.html
+- [ ] silver-moon.html
+- [ ] silver-dawn.html
+- [ ] silver-muse.html
+- [ ] silver-spirit.html
+- [ ] silver-whisper.html
+- [ ] silver-shadow.html
+- [ ] silver-endeavour.html
+- [ ] silver-wind.html
+- [ ] silver-cloud.html
+- [ ] silver-origin.html
+
+##### Costa Cruises (9 pages) — NEW FOLDER: `ships/costa/`
+- [ ] costa-toscana.html
+- [ ] costa-smeralda.html
+- [ ] costa-firenze.html
+- [ ] costa-venezia.html
+- [ ] costa-diadema.html
+- [ ] costa-pacifica.html
+- [ ] costa-favolosa.html
+- [ ] costa-fascinosa.html
+- [ ] costa-deliziosa.html
+
+##### Oceania Cruises (8 pages) — NEW FOLDER: `ships/oceania/`
+- [ ] vista.html
+- [ ] allura.html
+- [ ] marina.html
+- [ ] riviera.html
+- [ ] insignia.html
+- [ ] nautica.html
+- [ ] regatta.html
+- [ ] sirena.html
+
+##### Seabourn (7 pages) — NEW FOLDER: `ships/seabourn/`
+- [ ] seabourn-ovation.html
+- [ ] seabourn-encore.html
+- [ ] seabourn-quest.html
+- [ ] seabourn-sojourn.html
+- [ ] seabourn-odyssey.html
+- [ ] seabourn-venture.html
+- [ ] seabourn-pursuit.html
+
+##### Regent Seven Seas (7 pages) — NEW FOLDER: `ships/regent/`
+- [ ] seven-seas-grandeur.html
+- [ ] seven-seas-splendor.html
+- [ ] seven-seas-explorer.html
+- [ ] seven-seas-mariner.html
+- [ ] seven-seas-voyager.html
+- [ ] seven-seas-navigator.html
+- [ ] prestige.html (ordered 2026)
+
+##### Explora Journeys (6 pages) — NEW FOLDER: `ships/explora-journeys/`
+- [ ] explora-i.html
+- [ ] explora-ii.html
+- [ ] explora-iii.html (ordered 2026)
+- [ ] explora-iv.html (ordered 2027)
+- [ ] explora-v.html (ordered 2028)
+- [ ] explora-vi.html (ordered 2028)
+
+##### Cunard (4 pages) — NEW FOLDER: `ships/cunard/`
+- [ ] queen-mary-2.html
+- [ ] queen-anne.html
+- [ ] queen-elizabeth.html
+- [ ] queen-victoria.html
+
+##### Holland America Line (2 pages) — EXPAND: `ships/holland-america-line/`
+- [ ] westerdam.html
+- [ ] zuiderdam.html
+
+##### Carnival (1 page) — Note: carnival-mardi-gras.html exists, but "Mardi Gras" (no prefix) does not
+- [ ] Verify: mardi-gras.html naming convention
+
+#### Data Source URLs (for expansion)
+```
+Priority 1 - Official fleet pages:
+- https://www.royalcaribbean.com/cruise-ships
+- https://www.celebritycruises.com/cruise-ships
+- https://www.msccruisesusa.com/cruise/ships
+- https://www.ncl.com/cruise-ships
+- https://www.carnival.com/cruise-ships.aspx
+- https://www.hollandamerica.com/en/us/cruise-ships
+- https://www.princess.com/ships/
+- https://www.silversea.com/ships.html
+- https://www.oceaniacruises.com/ships
+- https://www.rssc.com/ships
+- https://www.cunard.com/en-us/cruise-ships
+- https://www.seabourn.com/en/us/ships
+- https://www.costacruises.com/ships.html
+- https://www.explorajourneys.com/en/ships
+
+Priority 3 - Baseline roster:
+- https://www.vacationstogo.com/cruise_ships.cfm
+
+Priority 4 - Size comparison data:
+- https://shiplife.org/knowledge-center/cruise-ship-size-comparison/
+- https://www.cruisemapper.com/wiki/753-cruise-ship-sizes-comparison-dimensions-length-weight-draft
+```
+
+#### Technical Notes
+- **Data files:** `/data/atlas/ship-size-atlas.json`, `brands.json`, `parent_groups.json`
+- **JS module:** `/assets/js/ships-atlas.js`
+- **CSS:** `/assets/css/ships-atlas.css`
+- **Confidence system:** verified | mixed | missing (badges in UI)
+
+---
+
+### 🟡 [Y] Comprehensive Port Audit: Missing Destinations (NEW - 2026-01-02)
+
+**Lane:** 🟡 Yellow (content creation - requires research and writing)
+**Audit Date:** 2026-01-02
+**Total Existing Ports:** 333
+**Missing Ports Identified:** 43
+
+#### Overview
+
+This audit compares the user's requested port list against existing HTML files in `/ports/`. Ports are categorized by region and priority.
+
+---
+
+#### ✅ EXISTING PORTS (53 ports confirmed in repository)
+
+**Royal Beach Club Collection:**
+- ✅ `royal-beach-club-nassau.html` — Royal Beach Club Paradise Island (Nassau, Bahamas)
+
+**Caribbean/Bahamas:**
+- ✅ `freeport.html` — Freeport/Lucaya (Grand Bahama)
+- ✅ `jamaica.html` — Falmouth, Jamaica (Ocho Rios)
+- ✅ `harvest-caye.html` — Harvest Caye, Belize (NCL private island)
+
+**Mexico:**
+- ✅ `cabo-san-lucas.html`, `puerto-vallarta.html`, `mazatlan.html`, `ensenada.html`
+
+**Mediterranean/Europe:**
+- ✅ `la-spezia.html`, `istanbul.html`, `catania.html`, `haifa.html`, `limassol.html`
+- ✅ `geiranger.html`, `flam.html`, `olden.html`, `edinburgh.html`, `akureyri.html`
+
+**Asia:**
+- ✅ `penang.html`, `langkawi.html`, `phuket.html`, `koh-samui.html`
+- ✅ `ho-chi-minh-city.html`, `nha-trang.html`, `ha-long-bay.html`
+- ✅ `busan.html`, `incheon.html`, `jeju.html`
+- ✅ `kobe.html`, `osaka.html`, `nagasaki.html`, `hakodate.html`, `hiroshima.html`
+
+**Australia/New Zealand:**
+- ✅ `melbourne.html`, `cairns.html`, `hobart.html`, `adelaide.html`, `fremantle.html`, `darwin.html`
+- ✅ `mystery-island.html`
+
+**Remote/Pacific:**
+- ✅ `easter-island.html`, `pitcairn.html`, `port-moresby.html` (Papua New Guinea)
+- ✅ `colombo.html`, `maldives.html`, `nosy-be.html`, `mauritius.html`, `seychelles.html`
+- ✅ `zanzibar.html`, `cape-town.html`, `walvis-bay.html`, `st-helena.html`
+- ✅ `tenerife.html`, `gran-canaria.html`, `lanzarote.html` (Canary Islands)
+
+---
+
+#### ❌ MISSING PORTS (43 ports need to be created)
+
+##### Royal Beach Club Collection (2 ports) — FUTURE DESTINATIONS
+| Port | Notes | Priority |
+|------|-------|----------|
+| Royal Beach Club Cozumel | Announced for 2026, linked on ports.html with text only | P3 (future) |
+| Royal Beach Club Antigua | In development, linked on ports.html with text only | P4 (future) |
+
+##### Caribbean/Atlantic (7 ports)
+| Port | Notes | Priority |
+|------|-------|----------|
+| Bimini, Bahamas | Popular short cruise destination | P2 |
+| St. John, USVI | National park destination | P2 |
+| St. Croix, USVI | Danish colonial history, rum | P2 |
+| Tobago | Trinidad & Tobago, Caribbean | P3 |
+| Trinidad | Port of Spain, Carnival culture | P3 |
+| Santa Marta, Colombia | Historic port, Tayrona access | P3 |
+
+##### Alaska/North America Extensions (6 ports)
+| Port | Notes | Priority |
+|------|-------|----------|
+| Alaska Inside Passage | Scenic cruising guide (not a port) | P3 |
+| Denali National Park | Cruisetour extension destination | P3 |
+| Fairbanks | Cruisetour extension destination | P3 |
+| Cape Cod, Massachusetts | New England cruise destination | P3 |
+| Martha's Vineyard | Upscale island destination | P3 |
+| Montreal, Quebec | St. Lawrence River cruises | P2 |
+
+##### Europe/Mediterranean (6 ports)
+| Port | Notes | Priority |
+|------|-------|----------|
+| Alexandria, Egypt | Ancient history, Nile access | P2 |
+| Port Said, Egypt | Suez Canal gateway | P3 |
+| Honningsvag, Norway | North Cape, Arctic Norway | P2 |
+| Glasgow, Scotland | Note: `greenock.html` serves nearby | P3 |
+| Ísafjörður, Iceland | Westfjords, remote beauty | P3 |
+| Tórshavn, Faroe Islands | Danish territory, unique culture | P3 |
+
+##### Asia (6 ports)
+| Port | Notes | Priority |
+|------|-------|----------|
+| Kuala Lumpur, Malaysia | Port Klang serves as cruise port | P2 |
+| Jakarta, Indonesia | Tanjung Priok port | P3 |
+| Beijing, China | Note: `tianjin.html` is Beijing's port | P4 (alias) |
+| Kyoto, Japan | Note: osaka/kobe serve as nearby ports | P4 (alias) |
+| Okinawa, Japan | Tropical Japan, beaches, diving | P2 |
+| Kagoshima, Japan | Sakurajima volcano, samurai history | P2 |
+
+##### Australia/New Zealand (4 ports)
+| Port | Notes | Priority |
+|------|-------|----------|
+| Airlie Beach, Australia | Whitsundays gateway | P2 |
+| Port Arthur, Tasmania | Convict history UNESCO site | P3 |
+| Rotorua, New Zealand | Geothermal, Maori culture (via Tauranga) | P3 |
+| Akaroa, New Zealand | French-influenced, Banks Peninsula | P3 |
+
+##### South America/Antarctica (12 ports) — EXPEDITION CRUISING
+| Port | Notes | Priority |
+|------|-------|----------|
+| Ilhabela, Brazil | Island paradise, sailing destination | P3 |
+| Búzios, Brazil | Brigitte Bardot's former retreat | P3 |
+| Punta del Este, Uruguay | South American Riviera | P3 |
+| Puerto Montt, Chile | Lake District gateway | P2 |
+| Cape Horn | Legendary sailing landmark | P3 |
+| Chilean Fjords | Scenic cruising region | P3 |
+| Strait of Magellan | Historic passage | P3 |
+| Glacier Alley | Patagonian fjords scenic | P3 |
+| Antarctic Peninsula | Expedition destination | P2 |
+| Drake Passage | Ocean crossing to Antarctica | P4 |
+| South Shetland Islands | Antarctic wildlife, research bases | P3 |
+| Antarctica | Continent overview page | P2 |
+
+##### Remote/Pacific (1 port)
+| Port | Notes | Priority |
+|------|-------|----------|
+| Aitutaki, Cook Islands | World's most beautiful lagoon | P3 |
+
+---
+
+#### ports.html Link Status
+
+**Verified Links for Existing Ports:**
+- ✅ Royal Beach Club Nassau is linked in both the Royal Beach Club section and the comprehensive port list
+- ✅ Most existing ports are properly linked in regional sections
+- ✅ Harvest Caye, Jamaica, Freeport all have proper links
+
+**Missing Links to Fix:**
+- Royal Beach Club Cozumel is mentioned but links to regular `cozumel.html` (appropriate until dedicated page exists)
+- Royal Beach Club Antigua is text-only (no link - appropriate until page exists)
+
+---
+
+#### Priority Summary
+
+| Priority | Count | Description |
+|----------|-------|-------------|
+| **P2 - High** | 12 | Popular destinations, high cruise traffic |
+| **P3 - Medium** | 27 | Growing destinations, expedition ports |
+| **P4 - Low** | 4 | Aliases, far-future destinations |
+
+**Recommended Batches:**
+1. **Batch 1 (P2):** Montreal, Bimini, St. John/Croix USVI, Alexandria, Honningsvag, Okinawa, Kagoshima, Kuala Lumpur, Airlie Beach, Puerto Montt, Antarctic Peninsula, Antarctica
+2. **Batch 2 (P3 Caribbean/Atlantic):** Tobago, Trinidad, Santa Marta
+3. **Batch 3 (P3 Europe/Remote):** Port Said, Glasgow, Ísafjörður, Tórshavn, Aitutaki
+4. **Batch 4 (P3 Asia/AusNZ):** Jakarta, Port Arthur, Rotorua, Akaroa
+5. **Batch 5 (P3 South America):** Ilhabela, Búzios, Punta del Este, Cape Horn, Chilean Fjords, Strait of Magellan, Glacier Alley, South Shetland Islands
+6. **Batch 6 (P3 Alaska Extensions):** Alaska Inside Passage, Denali, Fairbanks, Cape Cod, Martha's Vineyard
+7. **Batch 7 (P4 Future/Aliases):** Royal Beach Club Cozumel, Royal Beach Club Antigua, Beijing alias, Kyoto alias, Drake Passage
+
+---
+
+**Task Count:** ~30-40 discrete tasks remaining + 43 new port pages (up from 20-30, added Ship Size Atlas and Port Audit) **[UPDATED 2026-01-02]**
 **Completed Since Last Update (2025-12-01):**
 - Protocol documentation verified complete (was listed as missing)
 - Onboarding documentation reviewed and fixed

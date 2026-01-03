@@ -15,6 +15,7 @@
   <!-- AI-Breadcrumbs: Structured context for AI assistants -->
   <!-- ai-breadcrumbs
        entity: Carnival Sunshine
+     name: Carnival Sunshine
        type: Ship Information Page
        parent: /ships.html
        category: Carnival Fleet
@@ -36,9 +37,17 @@
   <!-- ICP-Lite v1.0 Meta Tags -->
   <meta name="ai-summary" content="Carnival Sunshine: FIRST 100K GT cruise ship ever (1996 as Destiny). Lead Destiny-class, 102,853 GT, Norfolk VA homeport. Lin Arison godmother. IMO 9070058.">
   <meta name="last-reviewed" content="2025-12-02">
-  <meta name="content-protocol" content="ICP-Lite v1.0">
+  <meta name="content-protocol" content="ICP-Lite v1.4">
 
   <link rel="canonical" href="https://cruisinginthewake.com/ships/carnival/carnival-sunshine.html">
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:title" content="Carnival Sunshine — Historic First 100K GT Cruise Ship • In The Wake"/>
+  <meta property="og:description" content="Carnival Sunshine (ex-Carnival Destiny) made history as the FIRST cruise ship to exceed 100,000 GT in 1996. Lead ship of the Destiny-class, now homeported in Norfolk, Virginia. Complete guide with deck plans, dining, and live tracker."/>
+  <meta property="og:url" content="https://cruisinginthewake.com/ships/carnival/carnival-sunshine.html"/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/carnival-sunshine.jpg"/>
+
   <link rel="preconnect" href="https://www.carnival.com">
   <meta name="inthewake:standard" content="inthewake_v3.010">
 
@@ -167,7 +176,7 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Carnival Sunshine — Historic First 100K GT Cruise Ship",
-    "description": "Carnival Sunshine (ex-Carnival Destiny) made history as the FIRST cruise ship to exceed 100,000 GT in 1996. Lead ship of the Destiny-class, homeported in Norfolk, Virginia.",
+    "description": "Carnival Sunshine: FIRST 100K GT cruise ship ever (1996 as Destiny). Lead Destiny-class, 102,853 GT, Norfolk VA homeport. Lin Arison godmother. IMO 9070058.",
     "url": "https://cruisinginthewake.com/ships/carnival/carnival-sunshine.html",
     "datePublished": "2024-01-15",
     "dateModified": "2025-12-02",
@@ -250,6 +259,12 @@
       window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
     }
   </script>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Carnival Sunshine — Historic First 100K GT Cruise Ship • In The Wake"/>
+  <meta name="twitter:description" content="Carnival Sunshine (ex-Carnival Destiny) made history as the FIRST cruise ship to exceed 100,000 GT in 1996. Lead ship of the Destiny-class, now homeported in Norfolk, Virginia. Complete guide with deck plans, dining, and live tracker."/>
+  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/carnival-sunshine.jpg"/>
 </head>
 <body class="page">
   <!-- Skip Link for Accessibility -->
@@ -264,7 +279,7 @@
     <div class="navbar">
       <div class="brand">
         <a href="/">
-          <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async">
+          <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async" loading="eager">
         </a>
         <span class="version-badge">V1.Beta</span>
       </div>
@@ -297,10 +312,17 @@
   </section>
 
   <!-- Main Content -->
-  <main id="main-content" class="content-wrap">
+  <main id="main-content" class="content-wrap" data-ship="Carnival Sunshine" data-imo="9185516">
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" aria-label="Carnival Sunshine overview">
+      <p class="answer-line">
+        <strong class="section-label">Looking for Carnival Sunshine planning info?</strong>
+        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Carnival cruise aboard Carnival Sunshine.</span>
+      </p>
+    </section>
 <div class="page-grid">
       <!-- Primary Content Column -->
       <div class="main-column">
@@ -321,11 +343,28 @@
             </div>
           </div>
         </section>
+    <!-- Dining Section -->
+    <section id="dining-card" class="card" data-ship="Carnival Sunshine" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">
+        <img id="dining-hero" class="card-hero"
+             src="/assets/ships/carnival-sunshine/dining-hero.jpg"
+             alt="Carnival Sunshine dining venue" loading="lazy"
+             onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
+Dining Venues on Carnival Sunshine <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+      <p class="section-intro">Explore the dining options available on Carnival Sunshine, from complimentary venues to specialty restaurants.</p>
+      <div class="dining-content" id="dining-content" aria-live="polite">
+        <p class="tiny">Loading venue information...</p>
+      </div>
+    </section>
+
 
         <!-- Ship Statistics -->
         <section class="card" aria-labelledby="stats-title">
           <div class="card-header">
             <h2 id="stats-title">Ship Statistics</h2>
+          <div id="ship-stats" class="stats-grid" data-slug="carnival-sunshine"></div>
+          <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-sunshine","name":"Carnival Sunshine","class":"Sunshine Class","entered_service":2013,"gt":"102,853 GT","guests":"2,974","crew":"1,040","length":"893 ft (272 m)","beam":"116 ft (35 m)","registry":"Panama"}</script>
+        <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-sunshine","aliases":["Carnival Sunshine"]}</script>
           </div>
           <div class="card-body">
             <div class="stats-grid">
@@ -575,13 +614,23 @@
 
         <section class="card" aria-labelledby="recent-rail-title">
           <h3 id="recent-rail-title">Recent Stories</h3>
-          <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+          <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
           <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
-        </section>
-
-      </aside>
+        
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+  </section>
+  </aside>
     </div>
-  </main>
+  
+    <section class="card attributions">
+      <h2>Image Attributions</h2>
+      <p class="tiny">Ship images are served locally from licensed sources or CC-BY-SA-4.0 Wikimedia Commons. See individual image captions for specific attribution.</p>
+    </section>
+</main>
 
   <!-- Attribution Section -->
   <section class="content-wrap" style="padding-top: 0;">
@@ -632,6 +681,11 @@
       if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
     }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
   })();
-  </script>
+  </script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

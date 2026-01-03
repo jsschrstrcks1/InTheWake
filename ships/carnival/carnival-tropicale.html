@@ -15,6 +15,8 @@
   <!-- AI-Breadcrumbs: Structured context for AI assistants -->
   <!-- ai-breadcrumbs
        entity: Carnival Tropicale
+     name: Carnival Tropicale
+     name: Carnival Tropicale
        type: Ship Information Page (Future)
        parent: /ships.html
        category: Carnival Fleet
@@ -36,9 +38,17 @@
   <!-- ICP-Lite v1.0 Meta Tags -->
   <meta name="ai-summary" content="Carnival Tropicale: Future Excel-class ship (5th of 5), expected 2028 delivery. ~182,800 GT, LNG-powered. Sister to Mardi Gras, Celebration, Jubilee, Festivale.">
   <meta name="last-reviewed" content="2025-12-02">
-  <meta name="content-protocol" content="ICP-Lite v1.0">
+  <meta name="content-protocol" content="ICP-Lite v1.4">
 
   <link rel="canonical" href="https://cruisinginthewake.com/ships/carnival/carnival-tropicale.html">
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:title" content="Carnival Tropicale — Future Excel-Class Ship (2028) • In The Wake"/>
+  <meta property="og:description" content="Carnival Tropicale is an Excel-class cruise ship on order for delivery in 2028. The 5th Excel-class vessel will feature LNG propulsion, BOLT roller coaster, and expected 182,800 GT. Preview of what's coming."/>
+  <meta property="og:url" content="https://cruisinginthewake.com/ships/carnival/carnival-tropicale.html"/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/carnival-tropicale.jpg"/>
+
   <link rel="preconnect" href="https://www.carnival.com">
   <meta name="inthewake:standard" content="inthewake_v3.010">
 
@@ -119,7 +129,7 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Carnival Tropicale — Future Excel-Class Ship (2028)",
-    "description": "Carnival Tropicale is an Excel-class cruise ship on order for delivery in 2028. The 5th Excel-class vessel will feature LNG propulsion and BOLT roller coaster.",
+    "description": "Carnival Tropicale: Future Excel-class ship (5th of 5), expected 2028 delivery. ~182,800 GT, LNG-powered. Sister to Mardi Gras, Celebration, Jubilee, Festivale.",
     "url": "https://cruisinginthewake.com/ships/carnival/carnival-tropicale.html",
     "datePublished": "2024-06-01",
     "dateModified": "2025-12-02",
@@ -135,6 +145,15 @@
       "manufacturer": {
         "@type": "Organization",
         "name": "Meyer Turku"
+      }
+    },
+    "mainEntity": {
+      "@type": "Product",
+      "name": "Carnival Tropicale",
+      "category": "Cruise Ship",
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "Carnival Cruise Line"
       }
     }
   }
@@ -214,6 +233,12 @@
       window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
     }
   </script>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Carnival Tropicale — Future Excel-Class Ship (2028) • In The Wake"/>
+  <meta name="twitter:description" content="Carnival Tropicale is an Excel-class cruise ship on order for delivery in 2028. The 5th Excel-class vessel will feature LNG propulsion, BOLT roller coaster, and expected 182,800 GT. Preview of what's coming."/>
+  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/carnival-tropicale.jpg"/>
 </head>
 <body class="page">
   <!-- Skip Link for Accessibility -->
@@ -228,7 +253,7 @@
     <div class="navbar">
       <div class="brand">
         <a href="/">
-          <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async">
+          <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async" loading="eager">
         </a>
         <span class="version-badge">V1.Beta</span>
       </div>
@@ -261,7 +286,7 @@
   </section>
 
   <!-- Main Content -->
-  <main id="main-content" class="content-wrap">
+  <main id="main-content" class="content-wrap" data-ship="Carnival Tropicale">
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
@@ -285,6 +310,7 @@
             </div>
           </div>
         </section>
+<script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-tropicale","aliases":["Carnival Tropicale"]}</script>
 
         <!-- Expected Statistics -->
         <section class="card" aria-labelledby="stats-title">
@@ -517,11 +543,16 @@
 
         <section class="card" aria-labelledby="recent-rail-title">
           <h3 id="recent-rail-title">Recent Stories</h3>
-          <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+          <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
           <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
-        </section>
-
-      </aside>
+        
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+  </section>
+  </aside>
     </div>
   </main>
 
@@ -574,6 +605,11 @@
       if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
     }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
   })();
-  </script>
+  </script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

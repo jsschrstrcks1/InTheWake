@@ -11,6 +11,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Jubilee
+     name: Carnival Jubilee
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
@@ -56,7 +57,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- ICP-Lite v1.0: AI-First Metadata -->
   <meta name="ai-summary" content="Carnival Jubilee: deck plans, live tracker, dining venues, and stateroom videos. Plan your Carnival cruise with In the Wake."/>
   <meta name="last-reviewed" content="2025-12-02"/>
-  <meta name="content-protocol" content="ICP-Lite v1.0"/>
+  <meta name="content-protocol" content="ICP-Lite v1.4"/>
 
   <!-- Title & SEO -->
   <title>Carnival Jubilee — Deck Plans, Live Tracker, Dining & Videos | In the Wake (V1.Beta)</title>
@@ -185,7 +186,17 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     "@type": "WebPage",
     "name": "Carnival Jubilee — Deck Plans, Live Tracker, Dining & Videos",
     "url": "https://cruisinginthewake.com/ships/carnival/carnival-jubilee.html",
-    "description": "Carnival Jubilee: deck plans, live tracker, dining venues, and stateroom videos. Plan your Carnival cruise with In the Wake."
+    "description": "Carnival Jubilee: deck plans, live tracker, dining venues, and stateroom videos. Plan your Carnival cruise with In the Wake.",
+    "dateModified": "2025-12-02",
+    "mainEntity": {
+      "@type": "Product",
+      "name": "Carnival Jubilee",
+      "category": "Cruise Ship",
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "Carnival Cruise Line"
+      }
+    }
   }
   </script>
 
@@ -320,7 +331,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <!-- Navigation with Dropdown Menus -->
 
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async" loading="eager"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
       <!-- Mobile hamburger button -->
@@ -342,8 +353,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           <div class="dropdown-menu" role="menu">
             <a href="/planning.html">Planning (overview)</a>
             <a href="/ships.html">Ships</a>
+            <a href="/ships/quiz.html">Ship Quiz</a>
             <a href="/restaurants.html">Restaurants &amp; Menus</a>
             <a href="/ports.html">Ports</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
             <a href="/drink-packages.html">Drink Packages</a>
             <a href="/drink-calculator.html">Drink Calculator</a>
             <a href="/stateroom-check.html">Stateroom Check</a>
@@ -386,9 +399,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           </g>
         </svg>
       </div>
-      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" loading="lazy"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567" loading="lazy"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
@@ -419,6 +432,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         It's ideal if you want Carnival's signature fun atmosphere with Excel-class innovation and year-round sailings from Galveston.
         If you're looking for a smaller, more intimate experience or different homeports, you may want to explore Vista class or Dream class instead.
       </p>
+    </section><!-- End page-intro -->
+
     <!-- Row 1: First Look + Dining -->
     <section class="grid-2">
       <!-- First Look + Stats -->
@@ -707,7 +722,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
           Real cruising experiences, practical guides, and heartfelt reflections from our community.
         </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
+      <p id="recent-rail-fallback" class="tiny" style="color: #666;">Loading articles…</p>
       </section>
 
     <!-- Whimsical Distance Units -->
@@ -740,7 +758,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       if(!window.__swiperReady||!window.Swiper) return setTimeout(go,120);
       try{
         new Swiper('.swiper.firstlook',{
-          loop:false,lazy:true,watchOverflow:true,
+          loop:false,rewind:false,lazy:true,watchOverflow:true,
           pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
           navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
           a11y:{enabled:true}
@@ -824,7 +842,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         setTimeout(()=>{
           try{
             new Swiper('.swiper.videos',{
-              loop:false,lazy:true,watchOverflow:true,
+              loop:false,rewind:false,lazy:true,watchOverflow:true,
               pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
               navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
               a11y:{enabled:true}

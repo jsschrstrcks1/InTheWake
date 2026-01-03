@@ -17,10 +17,12 @@ for (const file of files) {
       encoding: 'utf8',
       stdio: ['pipe', 'pipe', 'pipe']
     });
-    if (result.includes('PERFECT')) {
-      passed++;
-    } else if (result.includes('PASSED WITH WARNINGS')) {
+    // Check for WARNINGS first (more specific) - must match master validator output
+    // not sub-validator output which also contains "PERFECT"
+    if (result.includes('VALIDATION PASSED WITH WARNINGS')) {
       warnings++;
+    } else if (result.includes('PERFECT - ALL VALIDATIONS PASSED')) {
+      passed++;
     } else {
       failed++;
       failedPorts.push(file);
