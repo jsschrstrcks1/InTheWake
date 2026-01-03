@@ -2,6 +2,40 @@
 # Soli Deo Gloria
 
 # ============================================================
+# SECURITY: BLOCK ACCESS TO SENSITIVE FILES
+# ============================================================
+
+# Block access to Python scripts and compiled bytecode
+<FilesMatch "\.(py|pyc|pyo)$">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# Block access to admin directory entirely
+<Directory "admin">
+  Order Allow,Deny
+  Deny from all
+</Directory>
+
+# Block access to scripts directory
+<Directory "scripts">
+  Order Allow,Deny
+  Deny from all
+</Directory>
+
+# Block access to hidden files and directories (except .htaccess)
+<FilesMatch "^\.(?!htaccess)">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# Block access to backup and temp files
+<FilesMatch "\.(bak|tmp|old|orig|swp|log)$">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# ============================================================
 # REDIRECT RULES (CRITICAL FOR SEO)
 # ============================================================
 
