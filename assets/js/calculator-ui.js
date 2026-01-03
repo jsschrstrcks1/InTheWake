@@ -106,6 +106,15 @@ const PRESETS = {
 let chartInstance = null;
 let quizState = { step: 1, answers: {}, recommendedPreset: null };
 
+/* ==================== SECURITY HELPERS ==================== */
+
+function escapeHtml(text) {
+  if (!text) return '';
+  const div = document.createElement('div');
+  div.textContent = String(text);
+  return div.innerHTML;
+}
+
 /* ==================== PRESET APPLICATION ==================== */
 
 function applyPreset(presetKey) {
@@ -848,8 +857,8 @@ function fetchArticles() {
 
   container.innerHTML = articles.map(article => {
     return `
-      <a href="${article.url}" class="rail-article" aria-label="${article.ariaLabel}">
-        <div class="rail-article-title">${article.title}</div>
+      <a href="${escapeHtml(article.url)}" class="rail-article" aria-label="${escapeHtml(article.ariaLabel)}">
+        <div class="rail-article-title">${escapeHtml(article.title)}</div>
       </a>
     `;
   }).join('');
@@ -1056,10 +1065,10 @@ function renderCostSummary(results) {
 
     row.innerHTML = `
       <div class="cost-option-left">
-        <div class="cost-option-icon" aria-hidden="true">${option.icon}</div>
+        <div class="cost-option-icon" aria-hidden="true">${escapeHtml(option.icon)}</div>
         <div class="cost-option-info">
-          <h4>${option.title}</h4>
-          <p>${option.subtitle}</p>
+          <h4>${escapeHtml(option.title)}</h4>
+          <p>${escapeHtml(option.subtitle)}</p>
         </div>
       </div>
       <div class="cost-option-right">
