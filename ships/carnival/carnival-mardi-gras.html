@@ -505,7 +505,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       <!-- Dining -->
       <section id="dining-card" class="card" data-ship="Carnival Mardi Gras" aria-labelledby="diningHeading">
-        <h2 id="diningHeading">Dining Venues on Carnival Mardi Gras <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--carnival-blue); opacity: 0.8;" aria-label="Browse all restaurants">Browse All</a></h2>
+        <h2 id="diningHeading">
+        <img id="dining-hero" class="card-hero"
+             src="/assets/ships/carnival-mardi-gras/dining-hero.jpg"
+             alt="Carnival Mardi Gras dining venue" loading="lazy"
+             onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
+Dining Venues on Carnival Mardi Gras <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--carnival-blue); opacity: 0.8;" aria-label="Browse all restaurants">Browse All</a></h2>
 
         <div class="dining-content" id="dining-content" aria-live="polite">
           <div class="dining-item"><span class="dining-type included">Included</span> Flambeaux (MDR)</div>
@@ -554,7 +559,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
         <p><a class="btn" href="https://www.carnival.com/cruise-ships/carnival-mardi-gras/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans</a></p>
         <p class="tiny">Carnival Mardi Gras spans 18 guest decks with 2,641 staterooms. Key areas: Deck 6 (Grand Central), Deck 7 (La Piazza), Deck 8 (French Quarter), Deck 16-17 (Ultimate Playground with BOLT).</p>
-      </section>
+      
+        <figure>
+          <img src="/assets/ship-map.png" alt="Simplified deck plan preview" loading="lazy"/>
+          <figcaption class="tiny">Simplified deck layout overview</figcaption>
+        </figure>
+</section>
 
       <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9837444" data-name="CARNIVAL-MARDI-GRAS">
         <h2 id="liveTrackHeading">Where Is Mardi Gras Right Now?</h2>
@@ -664,6 +674,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         </p>
         <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
       <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
+      <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
+
       </section>
 
     <!-- Whimsical Distance Units -->
