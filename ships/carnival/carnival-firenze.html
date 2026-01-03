@@ -278,7 +278,8 @@ if ('serviceWorker' in navigator) {
   <a class="nav-pill" href="/search.html">Search</a>
   <a class="nav-pill" href="/about-us.html">About</a>
 </nav>
-  <div class="hero-content">
+  <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" loading="lazy"/>
+      <div class="hero-content">
     <h1>Carnival Firenze</h1>
     <p class="hero-tagline">Carnival Fun Italian Style — Florentine Elegance Meets West Coast Adventure</p>
     <div class="badge-row">
@@ -330,9 +331,22 @@ if ('serviceWorker' in navigator) {
         <li><strong>Modern Amenities:</strong> WaterWorks park, Serenity adults-only retreat, Cloud 9 Spa</li>
       </ul>
     </section>
+    <section class="card" aria-labelledby="special-heading">
+      
+      <h3>What Makes Carnival Firenze Special</h3>
+      <p>Originally built as Costa Firenze for Costa Cruises, this Spirit-class vessel joined the Carnival fleet in 2024 with Italian-themed décor intact. Sailing from Long Beach, she offers Mexican Riviera cruises with a distinctly European ambiance—a unique combination in the Carnival fleet.</p>
+      <p>The ship retains her original Italian design elements while incorporating Carnival favorites like Guy's Burger Joint and BlueIguana Cantina. Her smaller size (135,000 GT) creates a more intimate atmosphere than the larger Excel-class ships.</p>
+    
+    </section>
+
     <!-- Dining Section -->
     <section id="dining-card" class="card" data-ship="Carnival Firenze" aria-labelledby="diningHeading">
-      <h2 id="diningHeading">Dining Venues on Carnival Firenze <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+      <h2 id="diningHeading">
+        <img id="dining-hero" class="card-hero"
+             src="/assets/ships/carnival-firenze/dining-hero.jpg"
+             alt="Carnival Firenze dining venue" loading="lazy"
+             onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
+Dining Venues on Carnival Firenze <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
       <p class="section-intro">Explore the dining options available on Carnival Firenze, from complimentary venues to specialty restaurants.</p>
       <div class="dining-content" id="dining-content" aria-live="polite">
         <p class="tiny">Loading venue information...</p>
@@ -523,7 +537,12 @@ if ('serviceWorker' in navigator) {
 
       <h3 style="margin-top: 1rem;">Ship Tours &amp; Reviews</h3>
       <p class="tiny">Video content coming soon. Check YouTube for recent Carnival Firenze ship tours, cabin reviews, and dining guides.</p>
-    </section>
+    
+        <figure>
+          <img src="/assets/ship-map.png" alt="Simplified deck plan preview" loading="lazy"/>
+          <figcaption class="tiny">Simplified deck layout overview</figcaption>
+        </figure>
+</section>
 
     <!-- FAQ Section -->
     <section class="card faq" id="faq" aria-labelledby="faq-title">
