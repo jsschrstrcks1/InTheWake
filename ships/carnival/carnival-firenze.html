@@ -295,6 +295,17 @@ if ('serviceWorker' in navigator) {
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" aria-label="Carnival Firenze overview">
+      <p class="answer-line">
+        <strong class="section-label">Looking for Carnival Firenze planning info?</strong>
+        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Carnival cruise aboard Carnival Firenze from Long Beach.</span>
+      </p>
+      <p class="content-text">
+        Carnival Firenze is a Spirit Class vessel featuring Italian-themed Costa-conversion with unique flair. Whether you're planning your first cruise or are a seasoned traveler, this guide helps you discover what makes this ship special.
+      </p>
+    </section>
+
 <div class="content-column">
 
     <!-- Italian Style Banner -->
@@ -552,8 +563,14 @@ if ('serviceWorker' in navigator) {
     </section><!-- End Main Content Column -->
 
     <aside class="rail col-2" role="complementary" aria-label="Author and related content">
-
-    <section class="card author-card-vertical" aria-labelledby="author-heading">
+    <section class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
+      <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
+    </section>
+25842    <section class="card author-card-vertical" aria-labelledby="author-heading">
       <h3 id="author-heading">About the Author</h3>
       <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
         <picture>
