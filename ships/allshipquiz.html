@@ -2039,7 +2039,7 @@
         scoresByLine[line] = scores;
 
         const sortedClasses = Object.entries(scores)
-          .sort((a, b) => b[1] - a[1]);
+          .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])); // tie-break by class name
 
         for (const [className, score] of sortedClasses) {
           const ships = getTopShipsForClass(line, className, 2);
@@ -2057,7 +2057,8 @@
       }
 
       // Sort all results by score and cache for limit adjustment
-      allResults.sort((a, b) => b.score - a.score);
+      // Tie-break by ship year (newer first), then by name
+      allResults.sort((a, b) => b.score - a.score || b.ship.year - a.ship.year || a.ship.name.localeCompare(b.ship.name));
       allResultsCache = allResults;
       const topResults = allResults.slice(0, resultsLimit);
 
@@ -2065,7 +2066,7 @@
       resultsContainer.innerHTML = topResults.map((rec, idx) => {
         const { ship, classData, className, line, score, lineData } = rec;
         const narrative = generateNarrative(ship, classData, line);
-        const matchPercent = Math.min(99, Math.round(50 + score));
+        const matchPercent = Math.max(1, Math.min(99, Math.round(50 + score)));
 
         const scoreBreakdown = [];
         const weights = quizData.scoring_weights[line];
@@ -2194,10 +2195,10 @@
         }
 
         if (otherResults.length > 0) {
-          otherResults.sort((a, b) => b.score - a.score);
+          otherResults.sort((a, b) => b.score - a.score || b.ship.year - a.ship.year || a.ship.name.localeCompare(b.ship.name));
 
           alsoLikeGrid.innerHTML = otherResults.map(r => {
-            const matchPercent = Math.min(99, Math.round(50 + r.score));
+            const matchPercent = Math.max(1, Math.min(99, Math.round(50 + r.score)));
             return `
               <a href="${r.ship.page}" class="also-like-card">
                 <div class="ship-name">${r.ship.name}</div>
@@ -2282,7 +2283,7 @@
       resultsContainer.innerHTML = topResults.map((rec, idx) => {
         const { ship, classData, className, line, score, lineData } = rec;
         const narrative = generateNarrative(ship, classData, line);
-        const matchPercent = Math.min(99, Math.round(50 + score));
+        const matchPercent = Math.max(1, Math.min(99, Math.round(50 + score)));
 
         const scoreBreakdown = [];
         const weights = quizData.scoring_weights[line];
