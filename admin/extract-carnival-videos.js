@@ -7,21 +7,39 @@
  * categorizing them appropriately for ship page validation.
  */
 
-import { readFile, writeFile, mkdir } from 'fs/promises';
+import { readFile, writeFile, mkdir, readdir } from 'fs/promises';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const MANIFEST_PATHS = [
-  join(__dirname, '..', 'ships', 'rcl', 'assets', 'videos', 'adventure-of-the-seas.json'),
-  join(__dirname, '..', 'ships', 'rcl', 'assets', 'videos', 'allure-of-the-seas.json'),
-  join(__dirname, '..', 'ships', 'rcl', 'assets', 'videos', 'radiance.json'),
-  join(__dirname, '..', 'ships', 'rc_ship_videos.json'),
-  join(__dirname, '..', 'data', 'rc_ship_videos.json'),
-];
 const OUTPUT_DIR = join(__dirname, '..', 'assets', 'data', 'videos', 'carnival');
+
+async function getManifestPaths() {
+  const paths = [
+    join(__dirname, '..', 'ships', 'rcl', 'assets', 'videos', 'adventure-of-the-seas.json'),
+    join(__dirname, '..', 'ships', 'rcl', 'assets', 'videos', 'allure-of-the-seas.json'),
+    join(__dirname, '..', 'ships', 'rcl', 'assets', 'videos', 'radiance.json'),
+    join(__dirname, '..', 'ships', 'rc_ship_videos.json'),
+    join(__dirname, '..', 'data', 'rc_ship_videos.json'),
+  ];
+
+  // Add all individual RCL video files
+  const rclAssetsDir = join(__dirname, '..', 'ships', 'rcl', 'assets');
+  try {
+    const files = await readdir(rclAssetsDir);
+    for (const f of files) {
+      if (f.endsWith('-videos.json')) {
+        paths.push(join(rclAssetsDir, f));
+      }
+    }
+  } catch (e) {
+    // Directory may not exist
+  }
+
+  return paths;
+}
 
 // Carnival ship slugs to match
 const CARNIVAL_SHIPS = [
@@ -192,8 +210,12 @@ async function main() {
 
   const stats = { total: 0, matched: 0 };
 
+  // Get all manifest paths dynamically
+  const manifestPaths = await getManifestPaths();
+  console.log(`Found ${manifestPaths.length} manifest files to scan\n`);
+
   // Process each manifest
-  for (const manifestPath of MANIFEST_PATHS) {
+  for (const manifestPath of manifestPaths) {
     await processManifest(manifestPath, shipVideos, stats);
   }
 
