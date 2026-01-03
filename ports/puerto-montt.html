@@ -1,0 +1,606 @@
+<!--
+Soli Deo Gloria
+
+"The heavens declare the glory of God;
+the skies proclaim the work of his hands."
+- Psalm 19:1
+
+ITW-Lite v3.010 | ICP-Lite v1.4
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Puerto Montt Cruise Port Guide 2025 | Chilean Lake District | In the Wake</title>
+    <meta
+      name="description"
+      content="Complete Puerto Montt cruise port guide for the Chilean Lake District. Osorno volcano views, Frutillar German heritage, and Patagonian seafood. Shore excursion tips."
+    />
+    <meta
+      name="ai-summary"
+      content="Puerto Montt is gateway to Chilean Lake District. Osorno volcano dominates landscape, Frutillar showcases German colonial heritage. Fresh seafood at Angelmó market essential. Tender port common. Dec-Mar best weather."
+    />
+    <meta name="last-reviewed" content="2026-01-03" />
+    <meta name="content-protocol" content="ICP-Lite v1.4" />
+    <meta
+      name="keywords"
+      content="Puerto Montt cruise port, Chilean Lake District, Osorno volcano, Frutillar, Patagonia cruises, Chile cruise"
+    />
+    <link rel="canonical" href="https://inthewake.io/ports/puerto-montt" />
+
+    <!-- Open Graph -->
+    <meta
+      property="og:title"
+      content="Puerto Montt Cruise Port Guide 2025 | Chilean Lake District"
+    />
+    <meta
+      property="og:description"
+      content="Explore the Chilean Lake District from Puerto Montt. Osorno volcano, German heritage towns, and world-class seafood."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://inthewake.io/ports/puerto-montt" />
+    <meta
+      property="og:image"
+      content="https://inthewake.io/images/ports/puerto-montt-og.jpg"
+    />
+
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://inthewake.io/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Ports",
+            "item": "https://inthewake.io/ports"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Puerto Montt",
+            "item": "https://inthewake.io/ports/puerto-montt"
+          }
+        ]
+      }
+    </script>
+
+    <!-- Structured Data: WebPage with Place -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Puerto Montt Cruise Port Guide",
+        "description": "Complete guide to visiting Puerto Montt and the Chilean Lake District",
+        "mainEntity": {
+          "@type": "Place",
+          "name": "Puerto Montt",
+          "description": "Gateway to the Chilean Lake District and northern Patagonia",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": -41.4693,
+            "longitude": -72.9424
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Puerto Montt",
+            "addressRegion": "Los Lagos",
+            "addressCountry": "CL"
+          }
+        }
+      }
+    </script>
+
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Puerto Montt a tender port?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Puerto Montt can be either a dock or tender port depending on conditions and berth availability. Many ships anchor in the bay and tender to the pier. Check with your cruise line for specific details about your sailing."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the best excursion from Puerto Montt?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The most popular excursion visits Frutillar and the Osorno volcano viewpoints. Frutillar is a beautifully preserved German colonial town on Lake Llanquihue with stunning volcano views. A full-day tour typically costs $100-150."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What should I eat in Puerto Montt?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Puerto Montt is famous for fresh seafood, especially curanto (a traditional Chiloé dish of shellfish, meat, and potatoes), salmon, and sea urchin (erizo). The Angelmó market is the best place to sample local seafood."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "When is the best time to cruise to Puerto Montt?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "December through March (summer in the Southern Hemisphere) offers the best weather with warmer temperatures and less rain. The Osorno volcano is most likely to be visible during clear summer days."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-container">
+        <a href="/" class="logo" aria-label="In the Wake Home">
+          <img
+            src="/images/logo.png"
+            alt="In the Wake logo"
+            width="160"
+            height="40"
+          />
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <ul>
+            <li><a href="/ports.html">Ports</a></li>
+            <li><a href="/tips/">Tips</a></li>
+            <li><a href="/news/">News</a></li>
+            <li><a href="/about.html">About</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="port-guide">
+      <!-- Hero Section -->
+      <section class="hero hero--port" aria-label="Port hero image">
+        <div class="hero__image-wrapper">
+          <img
+            src="/images/ports/puerto-montt-hero.jpg"
+            alt="Snow-capped Osorno volcano rising above Lake Llanquihue with wooden pier in foreground"
+            class="hero__image"
+            width="1920"
+            height="800"
+            loading="eager"
+          />
+        </div>
+        <div class="hero__content container">
+          <h1>Puerto Montt</h1>
+          <p class="hero__subtitle">Gateway to the Chilean Lake District</p>
+        </div>
+      </section>
+
+      <div class="container port-layout">
+        <article class="port-content">
+          <!-- Tender Notice -->
+          <div class="tender-notice" role="alert">
+            <span class="tender-notice__icon">🚤</span>
+            <p>
+              <strong>Tender Port:</strong> Puerto Montt frequently requires
+              tendering depending on conditions and berth availability. Allow
+              extra time for shore access.
+            </p>
+          </div>
+
+          <!-- Logbook Entry -->
+          <section class="logbook-entry" aria-label="Personal narrative">
+            <div class="logbook-entry__header">
+              <span class="logbook-entry__icon">📔</span>
+              <h2>From the Logbook</h2>
+            </div>
+            <div class="logbook-entry__content">
+              <p>
+                The Osorno volcano materialized out of morning clouds like a
+                perfect cone painted by a child who hadn't yet learned that
+                mountains are supposed to be irregular. It floated above Lake
+                Llanquihue, its reflection so pristine that I photographed it
+                upside down by accident and couldn't tell the difference. This
+                is Chile's Lake District: a landscape stolen from Bavaria and
+                transplanted to the edge of Patagonia, complete with the German
+                immigrants who brought their kuchen recipes and half-timbered
+                architecture.
+              </p>
+              <p class="logbook-entry__highlight">
+                At Angelmó market, I watched a fisherman shuck sea urchins
+                straight from the morning's catch. He handed me a shell halved
+                to reveal sunset-orange roe inside. "Pruebe," he said. Try. The
+                taste was the ocean made solid—briny, sweet, with a finish like
+                clean copper. I bought a dozen more and a plastic fork, and
+                stood there eating the Pacific while rain began to fall.
+              </p>
+            </div>
+          </section>
+
+          <!-- Main Content -->
+          <section class="port-section" id="cruise-port">
+            <h2>The Cruise Port</h2>
+            <p>
+              Puerto Montt sits at the northern edge of Chilean Patagonia, where
+              the Central Valley finally meets the sea after 1,000 kilometers.
+              The city itself is a working port town—functional rather than
+              charming—but serves as the essential gateway to one of South
+              America's most spectacular landscapes.
+            </p>
+            <p>
+              Ships may dock at the commercial pier or anchor in the bay and
+              tender passengers to shore. The tender dock lands you at the
+              Angelmó waterfront, conveniently adjacent to the famous seafood
+              market. A tourism information booth and taxi stand are nearby.
+            </p>
+            <p>
+              The city center is about 2km from Angelmó and walkable along the
+              waterfront. However, most visitors head directly to the Lake
+              District attractions, which require transportation.
+            </p>
+          </section>
+
+          <section class="port-section" id="attractions">
+            <h2>Lake District Highlights</h2>
+
+            <h3>Frutillar</h3>
+            <p>
+              This gem of German colonial architecture sits on the shore of Lake
+              Llanquihue, 65km from Puerto Montt. The town's German heritage
+              dates to mid-19th century immigration, and the traditions remain
+              remarkably preserved. Walk the lakefront promenade with Osorno
+              volcano looming across the water, visit the Museo Colonial Alemán,
+              and absolutely stop for kuchen (German-style cake) at one of the
+              traditional teahouses.
+            </p>
+
+            <h3>Puerto Varas</h3>
+            <p>
+              Closer to Puerto Montt (20km), Puerto Varas is another lakeside
+              town with German heritage but a more developed tourist
+              infrastructure. Rose gardens, casino, adventure tour operators,
+              and excellent restaurants make it a popular base. The views of
+              Osorno and Calbuco volcanoes from the waterfront are spectacular.
+            </p>
+
+            <h3>Osorno Volcano</h3>
+            <p>
+              The symmetrical 2,652-meter stratovolcano dominates the landscape.
+              On clear days, excursions ascend to the ski area and viewpoint at
+              1,200 meters for stunning panoramas. The volcano is part of
+              Vicente Pérez Rosales National Park, Chile's oldest protected
+              area.
+            </p>
+
+            <h3>Petrohué Falls & Todos los Santos Lake</h3>
+            <p>
+              Emerald-green rapids crash through volcanic basalt formations at
+              Petrohué Falls. Nearby, Lago Todos los Santos (All Saints Lake)
+              offers boat trips across water the color of glacial milk, framed
+              by three volcanoes. This crossing historically connected Chile to
+              Argentina via Bariloche.
+            </p>
+          </section>
+
+          <section class="port-section" id="angelmo">
+            <h2>Angelmó Market</h2>
+            <p>
+              Even if you take an excursion, try to visit Angelmó before
+              returning to the ship. This waterfront market is the best
+              introduction to Patagonian seafood and one of Chile's most
+              authentic markets.
+            </p>
+            <h3>What to Try</h3>
+            <ul>
+              <li>
+                <strong>Curanto</strong>: The signature dish of Chiloé island,
+                traditionally cooked in a pit. Layers of shellfish, chicken,
+                pork, sausage, and potatoes. Rich and overwhelming—share with
+                friends.
+              </li>
+              <li>
+                <strong>Erizos (Sea Urchins)</strong>: Eaten raw with lemon, the
+                bright orange roe tastes like concentrated ocean.
+              </li>
+              <li>
+                <strong>Locos (Chilean Abalone)</strong>: Chewy, flavorful
+                mollusk, often served in salads.
+              </li>
+              <li>
+                <strong>Caldillo de Congrio</strong>: The conger eel soup
+                immortalized by Pablo Neruda's poem.
+              </li>
+              <li>
+                <strong>Fresh Salmon</strong>: Chile is the world's second
+                largest salmon producer, and it doesn't get fresher than this.
+              </li>
+            </ul>
+            <p>
+              The market also sells crafts, woolens, and souvenirs—bargaining is
+              acceptable but not aggressive.
+            </p>
+          </section>
+
+          <section class="port-section" id="excursions">
+            <h2>Excursion Options</h2>
+            <h3>Ship Excursions</h3>
+            <ul>
+              <li>
+                <strong>Frutillar & Puerto Varas</strong>: Full day, $100-150.
+                The classic Lake District tour with both German heritage towns.
+              </li>
+              <li>
+                <strong>Osorno Volcano</strong>: Full day, $120-180. Ascends to
+                ski area viewpoint plus lake stops.
+              </li>
+              <li>
+                <strong>Petrohué Falls & Lakes</strong>: Full day, $100-150.
+                National park scenery and optional boat cruise.
+              </li>
+              <li>
+                <strong>Chiloé Island</strong>: Full day, $150-200. UNESCO
+                wooden churches and traditional culture (requires ferry
+                crossing).
+              </li>
+            </ul>
+            <h3>Independent Exploration</h3>
+            <p>
+              Taxis and private tours are readily available at the port. A
+              half-day taxi to Frutillar and Puerto Varas costs approximately
+              $100-150 for up to 4 passengers. English-speaking guides can be
+              arranged through local tour operators—book in advance during peak
+              season.
+            </p>
+          </section>
+
+          <section class="port-section" id="practical">
+            <h2>Practical Information</h2>
+            <h3>Money</h3>
+            <p>
+              Chilean Peso (CLP) is the local currency. Approximately 900 CLP =
+              1 USD (2025). Credit cards widely accepted in restaurants and
+              shops. ATMs available in town. USD sometimes accepted but at poor
+              rates.
+            </p>
+
+            <h3>Weather</h3>
+            <p>
+              Puerto Montt is famously rainy—the city receives over 1,800mm
+              annually. Summer (December-March) offers the best chance of clear
+              weather, with temperatures around 15-20°C (59-68°F). Even in
+              summer, pack layers and rain gear. The weather can change
+              rapidly—you may see all four seasons in one day.
+            </p>
+
+            <h3>Language</h3>
+            <p>
+              Spanish is the primary language. English is limited outside
+              tourist services. Having key phrases or a translation app helps.
+            </p>
+
+            <h3>Time Needed</h3>
+            <p>
+              The Lake District deserves a full day. If you have limited time,
+              prioritize Frutillar (2 hours plus transit) over Puerto Montt
+              city. Angelmó market can be explored in 1-2 hours.
+            </p>
+          </section>
+
+          <!-- Port Map -->
+          <section class="port-section" id="map">
+            <h2>Port Map</h2>
+            <div
+              id="port-map"
+              class="port-map"
+              style="height: 400px"
+              aria-label="Map showing Puerto Montt and Lake District"
+            ></div>
+          </section>
+
+          <!-- FAQ Section -->
+          <section class="port-section" id="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+              <details class="faq-item">
+                <summary>Is Puerto Montt a tender port?</summary>
+                <p>
+                  Puerto Montt can be either a dock or tender port depending on
+                  conditions and berth availability. Many ships anchor in the
+                  bay and tender to the pier. Check with your cruise line for
+                  specific details about your sailing.
+                </p>
+              </details>
+              <details class="faq-item">
+                <summary>What is the best excursion from Puerto Montt?</summary>
+                <p>
+                  The most popular excursion visits Frutillar and the Osorno
+                  volcano viewpoints. Frutillar is a beautifully preserved
+                  German colonial town on Lake Llanquihue with stunning volcano
+                  views. A full-day tour typically costs $100-150.
+                </p>
+              </details>
+              <details class="faq-item">
+                <summary>What should I eat in Puerto Montt?</summary>
+                <p>
+                  Puerto Montt is famous for fresh seafood, especially curanto
+                  (a traditional Chiloé dish of shellfish, meat, and potatoes),
+                  salmon, and sea urchin (erizo). The Angelmó market is the best
+                  place to sample local seafood.
+                </p>
+              </details>
+              <details class="faq-item">
+                <summary>When is the best time to cruise to Puerto Montt?</summary>
+                <p>
+                  December through March (summer in the Southern Hemisphere)
+                  offers the best weather with warmer temperatures and less
+                  rain. The Osorno volcano is most likely to be visible during
+                  clear summer days.
+                </p>
+              </details>
+              <details class="faq-item">
+                <summary>Can I see the Osorno volcano on a cloudy day?</summary>
+                <p>
+                  Unfortunately, clouds frequently obscure the volcano. If it's
+                  cloudy in the morning, it may clear later. Some visitors
+                  report better luck in the afternoon. Even without volcano
+                  views, the Lake District towns and Angelmó market remain
+                  worthwhile.
+                </p>
+              </details>
+            </div>
+          </section>
+
+          <!-- Disclaimers -->
+          <section class="disclaimers">
+            <p class="disclaimer">
+              <strong>Author's Note:</strong> Port information reflects
+              conditions during our visit. Tendering status, transportation
+              options, and attractions may change. Verify current details with
+              your cruise line before arrival.
+            </p>
+            <p class="disclaimer">
+              <strong>Price Note:</strong> Prices listed are estimates from 2025
+              and may vary based on season, currency fluctuations, and other
+              factors. Always confirm current pricing before booking.
+            </p>
+          </section>
+        </article>
+
+        <!-- Rail / Sidebar -->
+        <aside class="port-rail">
+          <div class="rail-section quick-answer">
+            <h3>Quick Answer</h3>
+            <p>
+              Puerto Montt is the gateway to Chile's Lake District. Take an
+              excursion to Frutillar for German heritage and volcano views. Eat
+              fresh seafood at Angelmó market before returning to the ship.
+            </p>
+          </div>
+
+          <div class="rail-section best-for">
+            <h3>Best For</h3>
+            <ul>
+              <li>🌋 Volcano scenery</li>
+              <li>🏔️ Lake District beauty</li>
+              <li>🦪 Fresh seafood</li>
+              <li>🇩🇪 German heritage</li>
+            </ul>
+          </div>
+
+          <div class="rail-section key-facts">
+            <h3>Key Facts</h3>
+            <dl>
+              <dt>Country</dt>
+              <dd>Chile</dd>
+              <dt>Language</dt>
+              <dd>Spanish</dd>
+              <dt>Currency</dt>
+              <dd>Chilean Peso (CLP)</dd>
+              <dt>Best Season</dt>
+              <dd>Dec-Mar</dd>
+              <dt>Tender Port</dt>
+              <dd>Sometimes</dd>
+            </dl>
+          </div>
+
+          <div class="rail-section nearby-ports">
+            <h3>Nearby Ports</h3>
+            <ul>
+              <li><a href="/ports/castro">Castro (Chiloé)</a></li>
+              <li><a href="/ports/punta-arenas">Punta Arenas</a></li>
+              <li><a href="/ports/ushuaia">Ushuaia</a></li>
+              <li><a href="/ports/valparaiso">Valparaíso</a></li>
+            </ul>
+          </div>
+
+          <div class="rail-section author-card">
+            <h3>Your Guide</h3>
+            <div class="author-info">
+              <img
+                src="/images/author-thumb.jpg"
+                alt="Author"
+                class="author-thumb"
+                width="60"
+                height="60"
+              />
+              <div>
+                <strong>In the Wake</strong>
+                <p>Cruising Chilean Patagonia since 2019</p>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="/ports.html">All Ports</a>
+          <a href="/tips/">Cruise Tips</a>
+          <a href="/news/">News</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+          <a href="/privacy.html">Privacy</a>
+        </nav>
+        <p class="copyright">
+          &copy; 2025 In the Wake. Independent cruise information.
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (document.getElementById("port-map")) {
+          const map = L.map("port-map").setView([-41.3, -72.7], 9);
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "&copy; OpenStreetMap contributors",
+          }).addTo(map);
+
+          // Puerto Montt
+          L.marker([-41.4693, -72.9424])
+            .addTo(map)
+            .bindPopup("<strong>Puerto Montt</strong><br>Cruise Port & Angelmó Market");
+
+          // Frutillar
+          L.marker([-41.1167, -73.0667])
+            .addTo(map)
+            .bindPopup("<strong>Frutillar</strong><br>German Colonial Town");
+
+          // Puerto Varas
+          L.marker([-41.3167, -72.9833])
+            .addTo(map)
+            .bindPopup("<strong>Puerto Varas</strong><br>Lake District Hub");
+
+          // Osorno Volcano
+          L.marker([-41.1, -72.4933])
+            .addTo(map)
+            .bindPopup("<strong>Osorno Volcano</strong><br>2,652m / 8,701ft");
+        }
+      });
+    </script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js");
+      }
+    </script>
+  </body>
+</html>
