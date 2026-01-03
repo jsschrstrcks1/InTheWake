@@ -9,10 +9,10 @@
      type: Interactive Tool
      parent: /ships.html
      category: Planning Tool
-     updated: 2026-01-02
+     updated: 2026-01-03
      expertise: Cruise planning, ship selection, personalized recommendations
      target-audience: Cruise travelers seeking ship recommendations across multiple lines
-     answer-first: Take this quick quiz to find your perfect cruise ship across Royal Caribbean, Carnival, NCL, and MSC based on your travel style.
+     answer-first: Take this quick quiz to find your perfect cruise ship across 15 major cruise lines—from mainstream to ultra-luxury—based on your travel style.
      -->
   <!-- ======================================================
        In the Wake — All Ship Quiz V2
@@ -32,7 +32,7 @@
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WZP891PZXJ',{anonymize_ip:true});</script>
 
   <!-- ICP-Lite v1.4 Meta Tags -->
-  <meta name="ai-summary" content="Interactive quiz to help cruise travelers find their perfect ship across Royal Caribbean, Carnival, Norwegian, and MSC. Answer 8 simple questions about your travel party, pace, budget, and preferences to get personalized ship recommendations." />
+  <meta name="ai-summary" content="Interactive quiz to help cruise travelers find their perfect ship across 15 major cruise lines including Royal Caribbean, Celebrity, Princess, Carnival, Norwegian, MSC, Holland America, Cunard, Costa, Virgin Voyages, and luxury lines like Oceania, Regent, Seabourn, Silversea, and Explora Journeys. Answer 8 simple questions to get personalized ship recommendations." />
   <meta name="last-reviewed" content="2026-01-02" />
   <meta name="content-protocol" content="ICP-Lite v1.4" />
 
@@ -48,7 +48,7 @@
 
   <!-- Title & Description -->
   <title>Find Your Perfect Cruise Ship — Quiz | In the Wake</title>
-  <meta name="description" content="Not sure which cruise ship is right for you? Take our quick quiz to get personalized recommendations from Royal Caribbean, Carnival, Norwegian, and MSC." />
+  <meta name="description" content="Not sure which cruise ship is right for you? Take our quick quiz to get personalized recommendations from 15 major cruise lines—from mainstream to ultra-luxury." />
   <link rel="canonical" href="https://cruisinginthewake.com/ships/allshipquiz.html"/>
 
   <!-- OpenGraph -->
@@ -56,7 +56,7 @@
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://cruisinginthewake.com/ships/allshipquiz.html"/>
   <meta property="og:title" content="Find Your Perfect Cruise Ship — Quiz"/>
-  <meta property="og:description" content="Answer a few quick questions and we'll recommend the best ships for your cruise style across 4 major cruise lines."/>
+  <meta property="og:description" content="Answer a few quick questions and we'll recommend the best ships for your cruise style across 15 major cruise lines."/>
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/ships-hero.jpg"/>
 
   <!-- Twitter Card -->
@@ -138,6 +138,17 @@
     .line-pill[data-line="carnival"] .line-dot { background: #e31837; }
     .line-pill[data-line="ncl"] .line-dot { background: #00205b; }
     .line-pill[data-line="msc"] .line-dot { background: #003366; }
+    .line-pill[data-line="celebrity"] .line-dot { background: #1c2b3a; }
+    .line-pill[data-line="princess"] .line-dot { background: #0a2240; }
+    .line-pill[data-line="holland"] .line-dot { background: #003366; }
+    .line-pill[data-line="cunard"] .line-dot { background: #1a1a1a; }
+    .line-pill[data-line="costa"] .line-dot { background: #ffd700; }
+    .line-pill[data-line="virgin"] .line-dot { background: #e10a0a; }
+    .line-pill[data-line="oceania"] .line-dot { background: #003366; }
+    .line-pill[data-line="regent"] .line-dot { background: #1a2e4a; }
+    .line-pill[data-line="seabourn"] .line-dot { background: #002855; }
+    .line-pill[data-line="silversea"] .line-dot { background: #1c1c1c; }
+    .line-pill[data-line="explora"] .line-dot { background: #1a1a2e; }
 
     /* Mobile hamburger for pills */
     .line-selector-mobile {
@@ -926,7 +937,7 @@
       <!-- Intro Screen -->
       <div class="quiz-intro card" id="quizIntro">
         <h1>Find Your Perfect Ship</h1>
-        <p>Not sure which cruise ship is right for you? Answer a few quick questions and we'll recommend the best matches from Royal Caribbean, Carnival, Norwegian, and MSC.</p>
+        <p>Not sure which cruise ship is right for you? Answer a few quick questions and we'll recommend the best matches from 15 major cruise lines—from mainstream to ultra-luxury.</p>
 
         <!-- Desktop pill selector -->
         <div class="cruise-line-selector" role="group" aria-label="Select cruise line">
@@ -944,6 +955,39 @@
           </button>
           <button class="line-pill" data-line="msc" type="button">
             <span class="line-dot"></span> MSC
+          </button>
+          <button class="line-pill" data-line="celebrity" type="button">
+            <span class="line-dot"></span> Celebrity
+          </button>
+          <button class="line-pill" data-line="princess" type="button">
+            <span class="line-dot"></span> Princess
+          </button>
+          <button class="line-pill" data-line="holland" type="button">
+            <span class="line-dot"></span> Holland America
+          </button>
+          <button class="line-pill" data-line="cunard" type="button">
+            <span class="line-dot"></span> Cunard
+          </button>
+          <button class="line-pill" data-line="costa" type="button">
+            <span class="line-dot"></span> Costa
+          </button>
+          <button class="line-pill" data-line="virgin" type="button">
+            <span class="line-dot"></span> Virgin Voyages
+          </button>
+          <button class="line-pill" data-line="oceania" type="button">
+            <span class="line-dot"></span> Oceania
+          </button>
+          <button class="line-pill" data-line="regent" type="button">
+            <span class="line-dot"></span> Regent
+          </button>
+          <button class="line-pill" data-line="seabourn" type="button">
+            <span class="line-dot"></span> Seabourn
+          </button>
+          <button class="line-pill" data-line="silversea" type="button">
+            <span class="line-dot"></span> Silversea
+          </button>
+          <button class="line-pill" data-line="explora" type="button">
+            <span class="line-dot"></span> Explora
           </button>
         </div>
 
@@ -976,6 +1020,50 @@
             <div class="line-option" data-line="msc">
               <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#003366;"></span>
               MSC Cruises
+            </div>
+            <div class="line-option" data-line="celebrity">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#1c2b3a;"></span>
+              Celebrity Cruises
+            </div>
+            <div class="line-option" data-line="princess">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#0a2240;"></span>
+              Princess Cruises
+            </div>
+            <div class="line-option" data-line="holland">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#003366;"></span>
+              Holland America
+            </div>
+            <div class="line-option" data-line="cunard">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#1a1a1a;"></span>
+              Cunard
+            </div>
+            <div class="line-option" data-line="costa">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#ffd700;"></span>
+              Costa Cruises
+            </div>
+            <div class="line-option" data-line="virgin">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#e10a0a;"></span>
+              Virgin Voyages
+            </div>
+            <div class="line-option" data-line="oceania">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#003366;"></span>
+              Oceania Cruises
+            </div>
+            <div class="line-option" data-line="regent">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#1a2e4a;"></span>
+              Regent Seven Seas
+            </div>
+            <div class="line-option" data-line="seabourn">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#002855;"></span>
+              Seabourn
+            </div>
+            <div class="line-option" data-line="silversea">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#1c1c1c;"></span>
+              Silversea
+            </div>
+            <div class="line-option" data-line="explora">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#1a1a2e;"></span>
+              Explora Journeys
             </div>
             <div class="line-option escape-rope" data-action="close">
               ← Back to Quiz
@@ -1010,10 +1098,21 @@
             <!-- Injected dynamically -->
           </div>
           <div class="color-guide">
-            <div class="color-item"><span class="dot" style="background:#1a3d7c;"></span> Royal Caribbean</div>
+            <div class="color-item"><span class="dot" style="background:#1a3d7c;"></span> RCL</div>
             <div class="color-item"><span class="dot" style="background:#e31837;"></span> Carnival</div>
             <div class="color-item"><span class="dot" style="background:#00205b;"></span> NCL</div>
             <div class="color-item"><span class="dot" style="background:#003366;"></span> MSC</div>
+            <div class="color-item"><span class="dot" style="background:#1c2b3a;"></span> Celebrity</div>
+            <div class="color-item"><span class="dot" style="background:#0a2240;"></span> Princess</div>
+            <div class="color-item"><span class="dot" style="background:#003366;"></span> HAL</div>
+            <div class="color-item"><span class="dot" style="background:#1a1a1a;"></span> Cunard</div>
+            <div class="color-item"><span class="dot" style="background:#ffd700;"></span> Costa</div>
+            <div class="color-item"><span class="dot" style="background:#e10a0a;"></span> Virgin</div>
+            <div class="color-item"><span class="dot" style="background:#003366;"></span> Oceania</div>
+            <div class="color-item"><span class="dot" style="background:#1a2e4a;"></span> Regent</div>
+            <div class="color-item"><span class="dot" style="background:#002855;"></span> Seabourn</div>
+            <div class="color-item"><span class="dot" style="background:#1c1c1c;"></span> Silversea</div>
+            <div class="color-item"><span class="dot" style="background:#1a1a2e;"></span> Explora</div>
           </div>
         </div>
 
@@ -1104,7 +1203,18 @@
       'rcl': 'Royal Caribbean',
       'carnival': 'Carnival',
       'ncl': 'NCL',
-      'msc': 'MSC'
+      'msc': 'MSC',
+      'celebrity': 'Celebrity',
+      'princess': 'Princess',
+      'holland': 'Holland America',
+      'cunard': 'Cunard',
+      'costa': 'Costa',
+      'virgin': 'Virgin Voyages',
+      'oceania': 'Oceania',
+      'regent': 'Regent',
+      'seabourn': 'Seabourn',
+      'silversea': 'Silversea',
+      'explora': 'Explora'
     };
 
     // Questions definition
