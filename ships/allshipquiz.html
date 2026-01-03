@@ -426,6 +426,59 @@
       color: var(--ink-mid);
     }
 
+    /* Results limit control */
+    .results-limit-control {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      padding: 0.5rem;
+      background: var(--sky);
+      border-radius: 50px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .limit-btn {
+      width: 44px;
+      height: 44px;
+      border: 2px solid var(--rope);
+      border-radius: 50%;
+      background: #fff;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--sea);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .limit-btn:hover:not(:disabled) {
+      background: var(--sea);
+      color: #fff;
+      border-color: var(--sea);
+    }
+    .limit-btn:active:not(:disabled) {
+      transform: scale(0.95);
+    }
+    .limit-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .limit-display {
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      min-width: 120px;
+      text-align: center;
+    }
+    .limit-display strong {
+      color: var(--sea);
+      font-size: 1.1rem;
+    }
+
     /* Ship result cards with brand colors */
     .result-card {
       background: #fff;
@@ -455,6 +508,17 @@
     .result-brand-bar.carnival { background: linear-gradient(90deg, #e31837, #0033a0); }
     .result-brand-bar.ncl { background: linear-gradient(90deg, #00205b, #ffffff); }
     .result-brand-bar.msc { background: linear-gradient(90deg, #003366, #b8860b); }
+    .result-brand-bar.celebrity { background: linear-gradient(90deg, #1c2b3a, #c4a35a); }
+    .result-brand-bar.princess { background: linear-gradient(90deg, #0a2240, #c9a961); }
+    .result-brand-bar.holland { background: linear-gradient(90deg, #003366, #ffffff); }
+    .result-brand-bar.cunard { background: linear-gradient(90deg, #1a1a1a, #c41e3a); }
+    .result-brand-bar.costa { background: linear-gradient(90deg, #ffd700, #003399); }
+    .result-brand-bar.virgin { background: linear-gradient(90deg, #e10a0a, #ffffff); }
+    .result-brand-bar.oceania { background: linear-gradient(90deg, #003366, #8b0000); }
+    .result-brand-bar.regent { background: linear-gradient(90deg, #1a2e4a, #c9a961); }
+    .result-brand-bar.seabourn { background: linear-gradient(90deg, #002855, #c5b358); }
+    .result-brand-bar.silversea { background: linear-gradient(90deg, #1c1c1c, #c0c0c0); }
+    .result-brand-bar.explora { background: linear-gradient(90deg, #1a1a2e, #d4af37); }
 
     .result-image {
       position: relative;
@@ -538,6 +602,17 @@
     .result-line.carnival { background: #e31837; }
     .result-line.ncl { background: #00205b; }
     .result-line.msc { background: #003366; }
+    .result-line.celebrity { background: #1c2b3a; }
+    .result-line.princess { background: #0a2240; }
+    .result-line.holland { background: #003366; }
+    .result-line.cunard { background: #1a1a1a; }
+    .result-line.costa { background: #003399; color: #ffd700; }
+    .result-line.virgin { background: #e10a0a; }
+    .result-line.oceania { background: #003366; }
+    .result-line.regent { background: #1a2e4a; }
+    .result-line.seabourn { background: #002855; }
+    .result-line.silversea { background: #1c1c1c; }
+    .result-line.explora { background: #1a1a2e; }
 
     .result-narrative {
       color: var(--ink-mid);
@@ -583,6 +658,270 @@
       border-radius: 999px;
       font-size: 0.8rem;
       font-weight: 500;
+    }
+
+    /* Dress code section */
+    .result-dress-code {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding: 0.6rem 0.75rem;
+      background: linear-gradient(135deg, rgba(139, 69, 19, 0.08) 0%, rgba(139, 69, 19, 0.03) 100%);
+      border-radius: 8px;
+      border-left: 3px solid #8b4513;
+    }
+    .dress-code-icon {
+      font-size: 1.2rem;
+    }
+    .dress-code-content {
+      flex: 1;
+    }
+    .dress-code-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .dress-code-value {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #8b4513;
+    }
+    .dress-code-desc {
+      font-size: 0.8rem;
+      color: var(--ink-mid);
+      margin-top: 0.15rem;
+    }
+
+    /* Comparison drawer */
+    .compare-tray {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--parchment);
+      border-top: 2px solid var(--rope);
+      padding: 1rem;
+      z-index: 100;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    }
+    .compare-tray.visible {
+      transform: translateY(0);
+    }
+    .compare-tray-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .compare-tray-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--sea);
+    }
+    .compare-tray-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .compare-clear-btn {
+      background: transparent;
+      border: 1px solid var(--rope);
+      color: var(--ink-mid);
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .compare-view-btn {
+      background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%);
+      border: none;
+      color: #fff;
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .compare-cards {
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+    .compare-card {
+      flex: 0 0 140px;
+      background: var(--sky);
+      border-radius: 8px;
+      padding: 0.75rem;
+      position: relative;
+    }
+    .compare-card-remove {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 20px;
+      height: 20px;
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .compare-card h4 {
+      font-size: 0.8rem;
+      margin: 0 0 0.25rem;
+      color: var(--sea);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-right: 1rem;
+    }
+    .compare-card-line {
+      font-size: 0.7rem;
+      color: var(--ink-mid);
+      margin-bottom: 0.5rem;
+    }
+    .compare-card-stats {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.15rem 0.5rem;
+      font-size: 0.7rem;
+    }
+    .compare-card-stats dt {
+      color: var(--text-muted);
+    }
+    .compare-card-stats dd {
+      color: var(--sea);
+      font-weight: 600;
+      margin: 0;
+    }
+    .compare-card-match {
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--rope);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #059669;
+      text-align: center;
+    }
+
+    /* Line warnings (adults-only, luxury) */
+    .result-warning {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      padding: 0.6rem 0.75rem;
+      background: linear-gradient(135deg, rgba(220, 38, 38, 0.08) 0%, rgba(220, 38, 38, 0.03) 100%);
+      border-radius: 8px;
+      border-left: 3px solid #dc2626;
+    }
+    .result-warning-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .result-warning-text {
+      font-size: 0.8rem;
+      color: #991b1b;
+      line-height: 1.4;
+    }
+    .result-warning-title {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    /* Compare toggle button on cards */
+    .compare-toggle {
+      background: transparent;
+      border: 1px solid var(--rope);
+      color: var(--ink-mid);
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      margin-top: 0.75rem;
+      width: 100%;
+      transition: all 0.2s;
+    }
+    .compare-toggle:hover {
+      background: var(--sky);
+    }
+    .compare-toggle.active {
+      background: #059669;
+      color: #fff;
+      border-color: #059669;
+    }
+
+    /* Comparison modal */
+    .compare-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .compare-modal.visible {
+      display: flex;
+    }
+    .compare-modal-content {
+      background: var(--parchment);
+      border-radius: 14px;
+      max-width: 900px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 1.5rem;
+    }
+    .compare-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .compare-modal-title {
+      font-size: 1.25rem;
+      color: var(--sea);
+    }
+    .compare-modal-close {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--ink-mid);
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .compare-table th,
+    .compare-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--rope);
+    }
+    .compare-table th:first-child {
+      width: 100px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+    .compare-table td {
+      font-weight: 500;
+      color: var(--sea);
+    }
+    .compare-table .ship-header {
+      font-weight: 600;
+      color: var(--sea);
     }
 
     /* Why this ship section */
@@ -1085,6 +1424,11 @@
         <div class="results-header">
           <h2>Your Perfect Ships</h2>
           <p>Based on your answers, here are our top recommendations:</p>
+          <div class="results-limit-control">
+            <button type="button" class="limit-btn" id="btnLimitMinus" aria-label="Show fewer ships">−</button>
+            <span class="limit-display">Showing <strong id="limitCount">3</strong> ships</span>
+            <button type="button" class="limit-btn" id="btnLimitPlus" aria-label="Show more ships">+</button>
+          </div>
         </div>
         <div id="resultsContainer">
           <!-- Results will be injected here -->
@@ -1157,6 +1501,31 @@
     </div>
   </main>
 
+  <!-- Comparison Tray -->
+  <div class="compare-tray" id="compareTray">
+    <div class="compare-tray-header">
+      <span class="compare-tray-title">Compare Ships (<span id="compareCount">0/5</span>)</span>
+      <div class="compare-tray-actions">
+        <button class="compare-clear-btn" onclick="clearCompare()">Clear All</button>
+        <button class="compare-view-btn" onclick="showCompareModal()">View Comparison</button>
+      </div>
+    </div>
+    <div class="compare-cards" id="compareCards"></div>
+  </div>
+
+  <!-- Comparison Modal -->
+  <div class="compare-modal" id="compareModal">
+    <div class="compare-modal-content">
+      <div class="compare-modal-header">
+        <h2 class="compare-modal-title">Ship Comparison</h2>
+        <button class="compare-modal-close" onclick="closeCompareModal()">×</button>
+      </div>
+      <table class="compare-table">
+        <tbody id="compareTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
   <footer class="site-footer" role="contentinfo">
     <p class="tiny muted" style="text-align:center; padding: 2rem;">
       &copy; 2026 In the Wake. Quiz recommendations are suggestions based on general ship characteristics.
@@ -1196,6 +1565,67 @@
     let currentQuestion = 0;
     let answers = {};
     let selectedLine = 'all';
+    let resultsLimit = 3;
+    let allResultsCache = []; // Cache for adjusting limit without recalculating
+    let compareShips = []; // Ships in comparison tray (max 5)
+    const MAX_COMPARE = 5;
+
+    // Dress code display mapping
+    const dressCodeLabels = {
+      'casual': { label: 'Casual', icon: '👕' },
+      'resort_casual': { label: 'Resort Casual', icon: '🌴' },
+      'smart_casual': { label: 'Smart Casual', icon: '👔' },
+      'elegant_casual': { label: 'Elegant Casual', icon: '✨' },
+      'formal_optional': { label: 'Formal Optional', icon: '🎩' }
+    };
+
+    // Format dress code for display
+    function formatDressCode(lineData) {
+      if (!lineData || !lineData.dress_code) return null;
+      const dc = dressCodeLabels[lineData.dress_code] || { label: lineData.dress_code, icon: '👔' };
+      return {
+        icon: dc.icon,
+        label: dc.label,
+        description: lineData.dress_description || ''
+      };
+    }
+
+    // Check for family/group compatibility warnings
+    function getLineWarnings(lineData, groupType) {
+      const warnings = [];
+      const familyGroups = ['family_young', 'family_teens', 'multigen'];
+
+      if (familyGroups.includes(groupType)) {
+        // Adults-only warning
+        if (lineData.adults_only) {
+          warnings.push({
+            icon: '⚠️',
+            title: 'Adults Only',
+            message: `${lineData.name} is an adults-only cruise line (18+). Not suitable for travelers with children.`
+          });
+        }
+
+        // Ultra-luxury warning for families with young kids
+        if (lineData.tier === 'ultra_luxury' && groupType === 'family_young') {
+          warnings.push({
+            icon: '💎',
+            title: 'Luxury Experience',
+            message: 'Ultra-luxury lines cater primarily to adults. Limited children\'s facilities and activities.'
+          });
+        }
+
+        // Formal dress code warning for families
+        if (lineData.dress_code === 'formal_optional' && groupType === 'family_young') {
+          warnings.push({
+            icon: '👔',
+            title: 'Formal Dress Code',
+            message: 'This line has formal dress expectations that may be challenging with young children.'
+          });
+        }
+      }
+
+      return warnings;
+    }
 
     // Line display names
     const lineNames = {
@@ -1586,9 +2016,19 @@
       questionsContainer.classList.add('hidden');
       quizProgress.classList.remove('visible');
 
-      const linesToScore = selectedLine === 'all'
-        ? ['rcl', 'carnival', 'ncl', 'msc']
+      // Filter out adults-only lines for family groups (only in "all" mode)
+      const familyGroups = ['family_young', 'family_teens', 'multigen'];
+      const isFamily = familyGroups.includes(answers.group_type);
+
+      let linesToScore = selectedLine === 'all'
+        ? Object.keys(quizData.scoring_weights)
         : [selectedLine];
+
+      // Exclude adults-only lines from family results when viewing all lines
+      // (If user specifically selected an adults-only line, show warning instead)
+      if (isFamily && selectedLine === 'all') {
+        linesToScore = linesToScore.filter(line => !quizData.cruise_lines[line]?.adults_only);
+      }
 
       // Calculate scores for all selected lines
       const allResults = [];
@@ -1616,9 +2056,10 @@
         }
       }
 
-      // Sort all results by score and take top 3
+      // Sort all results by score and cache for limit adjustment
       allResults.sort((a, b) => b.score - a.score);
-      const topResults = allResults.slice(0, 3);
+      allResultsCache = allResults;
+      const topResults = allResults.slice(0, resultsLimit);
 
       // Render results
       resultsContainer.innerHTML = topResults.map((rec, idx) => {
@@ -1657,6 +2098,18 @@
                   <span class="result-class">${classData.name}</span>
                 </div>
               </div>
+              ${(() => {
+                const warnings = getLineWarnings(lineData, answers.group_type);
+                return warnings.map(w => `
+                  <div class="result-warning">
+                    <span class="result-warning-icon">${w.icon}</span>
+                    <div class="result-warning-text">
+                      <span class="result-warning-title">${w.title}</span>
+                      ${w.message}
+                    </div>
+                  </div>
+                `).join('');
+              })()}
               <p class="result-narrative">${narrative}</p>
               <div class="result-specs">
                 <div class="spec-item">
@@ -1675,6 +2128,19 @@
               <div class="result-highlights">
                 ${ship.highlights.slice(0, 3).map(h => `<span class="highlight-tag">${h}</span>`).join('')}
               </div>
+              ${(() => {
+                const dc = formatDressCode(lineData);
+                return dc ? `
+                  <div class="result-dress-code">
+                    <span class="dress-code-icon">${dc.icon}</span>
+                    <div class="dress-code-content">
+                      <span class="dress-code-label">Dress Code</span>
+                      <span class="dress-code-value">${dc.label}</span>
+                      <p class="dress-code-desc">${dc.description}</p>
+                    </div>
+                  </div>
+                ` : '';
+              })()}
               <div class="result-why">
                 <div class="result-why-header" onclick="this.nextElementSibling.nextElementSibling.classList.toggle('open'); this.querySelector('.result-why-toggle').textContent = this.nextElementSibling.nextElementSibling.classList.contains('open') ? 'Hide details' : 'Show details';">
                   <span class="result-why-title">Why this ship?</span>
@@ -1695,6 +2161,10 @@
               <a href="${ship.page}" class="result-cta">
                 Explore ${ship.name.split(' of ')[0]} →
               </a>
+              <button type="button" class="compare-toggle" data-ship-id="${ship.slug}-${line}"
+                onclick="toggleCompare('${ship.slug}-${line}', ${JSON.stringify(ship).replace(/"/g, '&quot;')}, ${JSON.stringify(lineData).replace(/"/g, '&quot;')}, ${matchPercent})">
+                + Compare
+              </button>
             </div>
           </article>
         `;
@@ -1702,7 +2172,7 @@
 
       // Show "You Might Also Like" if filtered to single line
       if (selectedLine !== 'all') {
-        const otherLines = ['rcl', 'carnival', 'ncl', 'msc'].filter(l => l !== selectedLine);
+        const otherLines = Object.keys(quizData.scoring_weights).filter(l => l !== selectedLine);
         const otherResults = [];
 
         for (const line of otherLines) {
@@ -1743,6 +2213,9 @@
         alsoLikeSection.classList.add('hidden');
       }
 
+      // Update limit display
+      updateLimitDisplay();
+
       // Update share section
       const topRec = topResults[0];
       const topMatchPercent = Math.min(99, Math.round(50 + topRec.score));
@@ -1772,7 +2245,266 @@
       alsoLikeSection.classList.add('hidden');
       currentQuestion = 0;
       answers = {};
+      resultsLimit = 3;
+      allResultsCache = [];
+      compareShips = [];
+      updateCompareTray();
       history.replaceState({}, '', window.location.pathname);
+    }
+
+    // Adjust results limit
+    function adjustResultsLimit(delta) {
+      const newLimit = Math.max(3, Math.min(10, resultsLimit + delta));
+      if (newLimit === resultsLimit) return;
+
+      resultsLimit = newLimit;
+      updateLimitDisplay();
+      rerenderResults();
+    }
+
+    // Update the limit display and button states
+    function updateLimitDisplay() {
+      const limitCount = document.getElementById('limitCount');
+      const btnMinus = document.getElementById('btnLimitMinus');
+      const btnPlus = document.getElementById('btnLimitPlus');
+
+      if (limitCount) limitCount.textContent = resultsLimit;
+      if (btnMinus) btnMinus.disabled = resultsLimit <= 3;
+      if (btnPlus) btnPlus.disabled = resultsLimit >= 10 || resultsLimit >= allResultsCache.length;
+    }
+
+    // Re-render results with current limit (uses cached results)
+    function rerenderResults() {
+      if (allResultsCache.length === 0) return;
+
+      const topResults = allResultsCache.slice(0, resultsLimit);
+
+      resultsContainer.innerHTML = topResults.map((rec, idx) => {
+        const { ship, classData, className, line, score, lineData } = rec;
+        const narrative = generateNarrative(ship, classData, line);
+        const matchPercent = Math.min(99, Math.round(50 + score));
+
+        const scoreBreakdown = [];
+        const weights = quizData.scoring_weights[line];
+        for (const [qId, answer] of Object.entries(answers)) {
+          if (weights[qId] && weights[qId][answer] && weights[qId][answer][className]) {
+            const pts = weights[qId][answer][className];
+            const qLabel = questions.find(q => q.id === qId)?.question || qId;
+            scoreBreakdown.push({ label: qLabel.replace("?", ""), points: pts });
+          }
+        }
+
+        const why = generateWhy(ship, classData, line, scoreBreakdown, idx + 1);
+
+        return `
+          <article class="result-card ${idx === 0 ? 'top-pick' : ''}">
+            <div class="result-brand-bar ${line}"></div>
+            <div class="result-image">
+              <img src="${ship.image}"
+                   alt="${ship.name}"
+                   loading="${idx === 0 ? 'eager' : 'lazy'}"
+                   onerror="this.src='/assets/social/ships-hero.jpg'">
+              <span class="result-badge">Top Pick</span>
+              <span class="result-match">${matchPercent}% Match</span>
+            </div>
+            <div class="result-content">
+              <div class="result-title">
+                <h3>${ship.name}</h3>
+                <div class="result-badges">
+                  <span class="result-line ${line}">${lineData.short_name}</span>
+                  <span class="result-class">${classData.name}</span>
+                </div>
+              </div>
+              ${(() => {
+                const warnings = getLineWarnings(lineData, answers.group_type);
+                return warnings.map(w => `
+                  <div class="result-warning">
+                    <span class="result-warning-icon">${w.icon}</span>
+                    <div class="result-warning-text">
+                      <span class="result-warning-title">${w.title}</span>
+                      ${w.message}
+                    </div>
+                  </div>
+                `).join('');
+              })()}
+              <p class="result-narrative">${narrative}</p>
+              <div class="result-specs">
+                <div class="spec-item">
+                  <span class="spec-label">Year</span>
+                  <span class="spec-value">${ship.year}</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Size</span>
+                  <span class="spec-value">${(ship.gt / 1000).toFixed(0)}K GT</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Guests</span>
+                  <span class="spec-value">${ship.capacity.toLocaleString()}</span>
+                </div>
+              </div>
+              <div class="result-highlights">
+                ${ship.highlights.slice(0, 3).map(h => `<span class="highlight-tag">${h}</span>`).join('')}
+              </div>
+              ${(() => {
+                const dc = formatDressCode(lineData);
+                return dc ? `
+                  <div class="result-dress-code">
+                    <span class="dress-code-icon">${dc.icon}</span>
+                    <div class="dress-code-content">
+                      <span class="dress-code-label">Dress Code</span>
+                      <span class="dress-code-value">${dc.label}</span>
+                      <p class="dress-code-desc">${dc.description}</p>
+                    </div>
+                  </div>
+                ` : '';
+              })()}
+              <div class="result-why">
+                <div class="result-why-header" onclick="this.nextElementSibling.nextElementSibling.classList.toggle('open'); this.querySelector('.result-why-toggle').textContent = this.nextElementSibling.nextElementSibling.classList.contains('open') ? 'Hide details' : 'Show details';">
+                  <span class="result-why-title">Why this ship?</span>
+                  <span class="result-why-toggle">Show details</span>
+                </div>
+                <div class="result-why-summary">${why.summary}</div>
+                <div class="result-why-details">
+                  <div class="why-breakdown">
+                    ${why.breakdown.slice(0, 5).map(b =>
+                      `<div class="why-item"><span class="why-label">${b.label}</span><span class="why-points ${b.points >= 0 ? 'positive' : 'negative'}">${b.points >= 0 ? '+' : ''}${b.points}</span></div>`
+                    ).join('')}
+                  </div>
+                </div>
+              </div>
+              <a href="${ship.page}" class="result-cta">Explore ${ship.name}</a>
+              <button type="button" class="compare-toggle" data-ship-id="${ship.slug}-${line}"
+                onclick="toggleCompare('${ship.slug}-${line}', ${JSON.stringify(ship).replace(/"/g, '&quot;')}, ${JSON.stringify(lineData).replace(/"/g, '&quot;')}, ${matchPercent})">
+                + Compare
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      // Update plus button state based on available results
+      updateLimitDisplay();
+
+      // Update compare button states
+      updateCompareButtonStates();
+    }
+
+    // ==========================================
+    // COMPARISON FUNCTIONALITY
+    // ==========================================
+
+    function toggleCompare(shipId, shipData, lineData, matchPercent) {
+      const idx = compareShips.findIndex(s => s.id === shipId);
+
+      if (idx >= 0) {
+        // Remove from comparison
+        compareShips.splice(idx, 1);
+      } else {
+        // Add to comparison (max 5)
+        if (compareShips.length >= MAX_COMPARE) {
+          alert(`You can compare up to ${MAX_COMPARE} ships at a time.`);
+          return;
+        }
+        compareShips.push({
+          id: shipId,
+          ship: shipData,
+          lineData,
+          matchPercent
+        });
+      }
+
+      updateCompareTray();
+      updateCompareButtonStates();
+    }
+
+    function updateCompareButtonStates() {
+      document.querySelectorAll('.compare-toggle').forEach(btn => {
+        const shipId = btn.dataset.shipId;
+        const isInCompare = compareShips.some(s => s.id === shipId);
+        btn.classList.toggle('active', isInCompare);
+        btn.textContent = isInCompare ? '✓ In Compare' : '+ Compare';
+      });
+    }
+
+    function updateCompareTray() {
+      const tray = document.getElementById('compareTray');
+      const cardsContainer = document.getElementById('compareCards');
+      const countSpan = document.getElementById('compareCount');
+
+      if (!tray) return;
+
+      if (compareShips.length === 0) {
+        tray.classList.remove('visible');
+        return;
+      }
+
+      tray.classList.add('visible');
+      countSpan.textContent = `${compareShips.length}/${MAX_COMPARE}`;
+
+      cardsContainer.innerHTML = compareShips.map(c => `
+        <div class="compare-card">
+          <button class="compare-card-remove" onclick="toggleCompare('${c.id}', null, null, null)">×</button>
+          <h4>${c.ship.name}</h4>
+          <div class="compare-card-line">${c.lineData.short_name}</div>
+          <dl class="compare-card-stats">
+            <dt>GT</dt><dd>${(c.ship.gt / 1000).toFixed(0)}K</dd>
+            <dt>Guests</dt><dd>${c.ship.capacity.toLocaleString()}</dd>
+            <dt>Year</dt><dd>${c.ship.year}</dd>
+          </dl>
+          <div class="compare-card-match">${c.matchPercent}% Match</div>
+        </div>
+      `).join('');
+    }
+
+    function clearCompare() {
+      compareShips = [];
+      updateCompareTray();
+      updateCompareButtonStates();
+    }
+
+    function showCompareModal() {
+      if (compareShips.length < 2) {
+        alert('Add at least 2 ships to compare.');
+        return;
+      }
+
+      const modal = document.getElementById('compareModal');
+      const tbody = document.getElementById('compareTableBody');
+
+      // Build comparison table rows
+      const rows = [
+        { label: 'Cruise Line', fn: c => c.lineData.name },
+        { label: 'Match', fn: c => c.matchPercent + '%' },
+        { label: 'Year Built', fn: c => c.ship.year },
+        { label: 'Size (GT)', fn: c => (c.ship.gt / 1000).toFixed(0) + 'K' },
+        { label: 'Guests', fn: c => c.ship.capacity.toLocaleString() },
+        { label: 'Dress Code', fn: c => {
+          const dc = formatDressCode(c.lineData);
+          return dc ? dc.label : '—';
+        }},
+        { label: 'Highlights', fn: c => c.ship.highlights.slice(0, 2).join(', ') || '—' }
+      ];
+
+      const headerRow = `
+        <tr>
+          <th></th>
+          ${compareShips.map(c => `<th class="ship-header">${c.ship.name}</th>`).join('')}
+        </tr>
+      `;
+
+      const dataRows = rows.map(row => `
+        <tr>
+          <th>${row.label}</th>
+          ${compareShips.map(c => `<td>${row.fn(c)}</td>`).join('')}
+        </tr>
+      `).join('');
+
+      tbody.innerHTML = headerRow + dataRows;
+      modal.classList.add('visible');
+    }
+
+    function closeCompareModal() {
+      document.getElementById('compareModal').classList.remove('visible');
     }
 
     // ==========================================
@@ -1795,7 +2527,7 @@
       const encoded = params.get('r');
       const lineParam = params.get('line');
 
-      if (lineParam && ['all', 'rcl', 'carnival', 'ncl', 'msc'].includes(lineParam)) {
+      if (lineParam && Object.keys(lineNames).includes(lineParam)) {
         selectedLine = lineParam;
         document.querySelectorAll('.cruise-line-selector .line-pill').forEach(p => {
           p.classList.toggle('active', p.dataset.line === selectedLine);
@@ -1939,6 +2671,10 @@
       btnStart.addEventListener('click', startQuiz);
       btnRestart.addEventListener('click', restartQuiz);
       setupShareListeners();
+
+      // Results limit +/- buttons
+      document.getElementById('btnLimitMinus')?.addEventListener('click', () => adjustResultsLimit(-1));
+      document.getElementById('btnLimitPlus')?.addEventListener('click', () => adjustResultsLimit(1));
 
       if (parseShareURL()) {
         quizIntro.classList.add('hidden');
