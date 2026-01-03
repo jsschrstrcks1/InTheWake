@@ -113,6 +113,7 @@ echo "🛡️  Checking for DOM XSS danger sinks..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 JS_FILES=$(echo "$STAGED_FILES" | grep -E "\.js$" || true)
+XSS_WARNINGS=0
 
 if [ -n "$JS_FILES" ]; then
     for file in $JS_FILES; do
@@ -120,31 +121,90 @@ if [ -n "$JS_FILES" ]; then
             # Check for potentially dangerous patterns in NEW code
             DIFF_CONTENT=$(git diff --cached "$file")
 
-            # innerHTML with potential user input (warn only)
+            # innerHTML check - smarter detection
             if echo "$DIFF_CONTENT" | grep -q "innerHTML\s*=" 2>/dev/null; then
-                echo "⚠️  WARNING: innerHTML usage in $file"
-                echo "   Ensure user input is properly escaped!"
-                WARNINGS=$((WARNINGS + 1))
+                # Check if file has escapeHtml function defined
+                HAS_ESCAPE_FN=false
+                if grep -q "function escapeHtml" "$file" 2>/dev/null; then
+                    HAS_ESCAPE_FN=true
+                fi
+
+                # Check if the innerHTML lines in the diff use escapeHtml or sanitizeUrl
+                INNERHTML_LINES=$(echo "$DIFF_CONTENT" | grep "innerHTML\s*=" | grep "^\+" || true)
+
+                if [ -n "$INNERHTML_LINES" ]; then
+                    # Count lines with innerHTML that DON'T use escaping
+                    UNESCAPED_COUNT=0
+                    ESCAPED_COUNT=0
+
+                    while IFS= read -r line; do
+                        # Skip empty lines
+                        [ -z "$line" ] && continue
+
+                        # Check if line uses escapeHtml() or sanitizeUrl() or textContent
+                        if echo "$line" | grep -qE "(escapeHtml|sanitizeUrl|textContent)" 2>/dev/null; then
+                            ESCAPED_COUNT=$((ESCAPED_COUNT + 1))
+                        else
+                            # Check if it's just static HTML (no ${} interpolation with variables)
+                            # Static HTML like '<p>Hello</p>' is safe
+                            if echo "$line" | grep -qE '\$\{[^}]+\}' 2>/dev/null; then
+                                # Has template interpolation - check if all are escaped
+                                if echo "$line" | grep -qE '\$\{[^}]*escapeHtml' 2>/dev/null; then
+                                    ESCAPED_COUNT=$((ESCAPED_COUNT + 1))
+                                else
+                                    UNESCAPED_COUNT=$((UNESCAPED_COUNT + 1))
+                                fi
+                            else
+                                # No interpolation or simple static content
+                                ESCAPED_COUNT=$((ESCAPED_COUNT + 1))
+                            fi
+                        fi
+                    done <<< "$INNERHTML_LINES"
+
+                    if [ $UNESCAPED_COUNT -gt 0 ]; then
+                        if [ "$HAS_ESCAPE_FN" = true ]; then
+                            echo "⚠️  WARNING: innerHTML in $file has $UNESCAPED_COUNT unescaped dynamic value(s)"
+                            echo "   File has escapeHtml() - ensure all \${} values use it!"
+                        else
+                            echo "⚠️  WARNING: innerHTML usage in $file without escapeHtml() function"
+                            echo "   Add: function escapeHtml(t){if(!t)return'';const d=document.createElement('div');d.textContent=String(t);return d.innerHTML;}"
+                        fi
+                        XSS_WARNINGS=$((XSS_WARNINGS + 1))
+                        WARNINGS=$((WARNINGS + 1))
+                    elif [ $ESCAPED_COUNT -gt 0 ]; then
+                        echo "✅ innerHTML in $file: $ESCAPED_COUNT properly escaped usage(s)"
+                    fi
+                fi
             fi
 
-            # eval() usage
+            # eval() usage - always dangerous
             if echo "$DIFF_CONTENT" | grep -qE "\beval\s*\(" 2>/dev/null; then
-                echo "⚠️  WARNING: eval() usage in $file"
-                echo "   Avoid eval() with user-controlled data!"
-                WARNINGS=$((WARNINGS + 1))
+                echo "❌ BLOCKED: eval() usage in $file"
+                echo "   eval() is forbidden - use safer alternatives!"
+                ERRORS=$((ERRORS + 1))
             fi
 
-            # document.write
+            # document.write - always dangerous
             if echo "$DIFF_CONTENT" | grep -q "document\.write" 2>/dev/null; then
-                echo "⚠️  WARNING: document.write() in $file"
-                echo "   Consider safer alternatives!"
-                WARNINGS=$((WARNINGS + 1))
+                echo "❌ BLOCKED: document.write() in $file"
+                echo "   document.write() is forbidden - use DOM methods!"
+                ERRORS=$((ERRORS + 1))
+            fi
+
+            # Check for dangerous href/src with user input (without sanitizeUrl)
+            if echo "$DIFF_CONTENT" | grep -qE 'href="\$\{' 2>/dev/null; then
+                if ! echo "$DIFF_CONTENT" | grep -qE 'href="\$\{sanitizeUrl' 2>/dev/null; then
+                    echo "⚠️  WARNING: Dynamic href in $file without sanitizeUrl()"
+                    echo "   Use sanitizeUrl() to prevent javascript: XSS"
+                    XSS_WARNINGS=$((XSS_WARNINGS + 1))
+                    WARNINGS=$((WARNINGS + 1))
+                fi
             fi
         fi
     done
 
-    if [ $WARNINGS -eq 0 ]; then
-        echo "✅ No DOM XSS danger sinks in new code"
+    if [ $XSS_WARNINGS -eq 0 ] && [ $ERRORS -eq 0 ]; then
+        echo "✅ No unescaped DOM XSS sinks in new code"
     fi
 else
     echo "ℹ️  No JavaScript files in this commit"

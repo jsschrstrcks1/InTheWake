@@ -23,11 +23,14 @@ Security-focused pre-commit hook that checks for:
    - API keys, passwords, tokens, private keys
    - WARNS but allows commit (with confirmation)
 
-3. **DOM XSS Danger Sinks**
-   - `innerHTML` usage
-   - `eval()` calls
-   - `document.write()`
-   - WARNS but allows commit
+3. **DOM XSS Danger Sinks** (Smart Detection)
+   - `innerHTML` usage - checks if `escapeHtml()` is used
+     - ✅ PASSES if dynamic values use `escapeHtml()`
+     - ⚠️ WARNS if unescaped `${}` interpolation detected
+     - Suggests adding `escapeHtml()` function if missing
+   - Dynamic `href` attributes - checks for `sanitizeUrl()`
+   - `eval()` calls - BLOCKS commit
+   - `document.write()` - BLOCKS commit
 
 4. **Analytics Requirement**
    - Checks HTML files for Google Analytics
