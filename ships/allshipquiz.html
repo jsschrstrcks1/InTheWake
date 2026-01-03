@@ -578,6 +578,15 @@
       color: var(--sea);
       margin: 0;
     }
+    .ship-name-link {
+      color: var(--sea);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .ship-name-link:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
     .result-badges {
       display: flex;
       gap: 0.5rem;
@@ -1049,6 +1058,13 @@
       font-size: 0.85rem;
       font-weight: 600;
       color: var(--accent);
+    }
+    .also-like-card.no-link {
+      cursor: default;
+    }
+    .also-like-card.no-link:hover {
+      transform: none;
+      border-color: var(--rope);
     }
 
     /* Color guide */
@@ -2093,7 +2109,7 @@
             </div>
             <div class="result-content">
               <div class="result-title">
-                <h3>${ship.name}</h3>
+                <h3>${ship.page_exists ? `<a href="${ship.page}" class="ship-name-link">${ship.name}</a>` : ship.name}</h3>
                 <div class="result-badges">
                   <span class="result-line ${line}">${lineData.short_name}</span>
                   <span class="result-class">${classData.name}</span>
@@ -2159,9 +2175,7 @@
                   </div>
                 </div>
               </div>
-              <a href="${ship.page}" class="result-cta">
-                Explore ${ship.name.split(' of ')[0]} →
-              </a>
+              ${ship.page_exists ? `<a href="${ship.page}" class="result-cta">Explore ${ship.name.split(' of ')[0]} →</a>` : ''}
               <button type="button" class="compare-toggle" data-ship-id="${ship.slug}-${line}"
                 onclick="toggleCompare('${ship.slug}-${line}', ${JSON.stringify(ship).replace(/"/g, '&quot;')}, ${JSON.stringify(lineData).replace(/"/g, '&quot;')}, ${matchPercent})">
                 + Compare
@@ -2199,12 +2213,14 @@
 
           alsoLikeGrid.innerHTML = otherResults.map(r => {
             const matchPercent = Math.max(1, Math.min(99, Math.round(50 + r.score)));
+            const cardTag = r.ship.page_exists ? 'a' : 'div';
+            const hrefAttr = r.ship.page_exists ? `href="${r.ship.page}"` : '';
             return `
-              <a href="${r.ship.page}" class="also-like-card">
+              <${cardTag} ${hrefAttr} class="also-like-card${r.ship.page_exists ? '' : ' no-link'}">
                 <div class="ship-name">${r.ship.name}</div>
                 <div class="ship-line" style="color:${r.lineData.colors.primary}">${r.lineData.short_name}</div>
                 <div class="ship-match">${matchPercent}% match</div>
-              </a>
+              </${cardTag}>
             `;
           }).join('');
 
@@ -2310,7 +2326,7 @@
             </div>
             <div class="result-content">
               <div class="result-title">
-                <h3>${ship.name}</h3>
+                <h3>${ship.page_exists ? `<a href="${ship.page}" class="ship-name-link">${ship.name}</a>` : ship.name}</h3>
                 <div class="result-badges">
                   <span class="result-line ${line}">${lineData.short_name}</span>
                   <span class="result-class">${classData.name}</span>
@@ -2373,7 +2389,7 @@
                   </div>
                 </div>
               </div>
-              <a href="${ship.page}" class="result-cta">Explore ${ship.name}</a>
+              ${ship.page_exists ? `<a href="${ship.page}" class="result-cta">Explore ${ship.name} →</a>` : ''}
               <button type="button" class="compare-toggle" data-ship-id="${ship.slug}-${line}"
                 onclick="toggleCompare('${ship.slug}-${line}', ${JSON.stringify(ship).replace(/"/g, '&quot;')}, ${JSON.stringify(lineData).replace(/"/g, '&quot;')}, ${matchPercent})">
                 + Compare
