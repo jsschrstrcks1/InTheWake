@@ -1299,17 +1299,131 @@ Based on the quiz scoring weights, here's how scores calculate for representativ
 
 Based on persona analysis:
 
-### High Priority
-1. **Dietary needs question** - Would help Persona 30 (vegan luxury)
-2. **Accessibility indicator** - Would help Persona 27 (mobility limitations)
-3. **"Convert skeptic" indicator** - For Persona 28 (reluctant cruisers)
+### High Priority - Must_Have Question Additions
 
-### Medium Priority
-4. **WiFi importance question** - Would help Persona 15 (digital nomad)
-5. **Special needs family indicator** - Would help Persona 16 (autism)
-6. **Warning for family + low crowds combo** - For Persona 25
+1. **Nightlife/Bars** - Jake's Crew cares about bars and party scene, not waterslides. Current must_have options miss this entirely.
+   - Add: `nightlife` option ("Bars, clubs, casino, party scene")
+   - Benefits: Bachelor parties, girls' trips, young friend groups
+   - Scoring: Virgin +20, Carnival Excel +15, NCL Breakaway+ +12
 
-### Low Priority (Nice to Have)
-7. **LGBTQ+ friendly indicator** - For Persona 17
-8. **Age range question** - Could refine recommendations for young old souls (26) vs active retirees (74)
-9. **"Open to luxury if good deal" option** - For budget luxury hunters
+2. **Spa/Wellness** - Priya's actual priority is spa, not "scenic"
+   - Add: `spa` option ("Spa, wellness, relaxation")
+   - Benefits: Solo wellness travelers, couples retreats
+   - Scoring: Celebrity +15, Oceania +14, Seabourn +14, Virgin +12
+
+3. **Service Level** - Victoria & James need butler-level service distinction
+   - Add: `service` option ("White-glove, butler-level service")
+   - Benefits: Ultra-luxury seekers who won't compromise on service
+   - Scoring: Regent +20, Silversea +20, Seabourn +18, Explora +16
+   - Negative: Mainstream lines -10 (correctly excludes them)
+
+### High Priority - New Question: Kid Separation
+
+**Proposed Question:** "How important is separation from children?"
+
+Options:
+- `not_applicable` - "Traveling with kids / doesn't matter"
+- `adult_spaces` - "Want good adult-only areas"
+- `kids_away` - "Need excellent kids club so parents get adult time"
+- `no_kids_period` - "Prefer adults-only environment entirely"
+
+Scoring impact:
+- `adult_spaces`: RCL Solarium ships +8, Celebrity +10, NCL Haven +8
+- `kids_away`: Icon/Oasis +15 (best kids programs = most separation), Carnival Vista +12
+- `no_kids_period`: Virgin +25, luxury lines +10, mainstream family ships -15
+
+This solves:
+- Brennans (want kids occupied elsewhere)
+- Jen's 40th (want no kids at all)
+- Priya (wants adult atmosphere)
+- Jake's Crew (bachelor party, no kids)
+
+### High Priority - Conditional Follow-Up: Accessibility
+
+**Trigger:** After main quiz, if user indicates interest:
+"Do you have any accessibility needs we should consider?"
+
+Options:
+- `none` - "No accessibility needs"
+- `mobility_mild` - "Some mobility limitations (cane, limited walking)"
+- `mobility_wheelchair` - "Wheelchair or scooter user"
+- `sensory_visual` - "Visual impairment"
+- `sensory_auditory` - "Hearing impairment"
+- `cognitive` - "Autism/sensory processing / cognitive needs"
+
+Scoring impact:
+- `mobility_mild`: Penalize ships where main activities require climbing/stairs
+- `mobility_wheelchair`: Boost newer ships with better accessibility, penalize older/smaller
+- `cognitive`: Boost RCL (Autism on the Seas), Carnival (sensory-friendly), Royal Caribbean
+
+This solves:
+- Bob & Carol (mobility limitations)
+- Garcia Family (autism)
+
+### Medium Priority - Budget/Luxury Mismatch Advisory
+
+When quiz detects:
+- `budget_mindset: value` AND (`crowd_tolerance: low` OR `must_have: dining` OR `must_have: service`)
+
+Display advisory on results page:
+> "Your preferences suggest premium/luxury experiences, but you've selected a value budget. Consider:
+> - **Suites on mainstream lines** for 'luxury lite' experience
+> - **Repositioning cruises** on luxury lines at 40-60% discount
+> - **Last-minute deals** through cruise line newsletters
+> - Or adjust expectations - Celebrity/Holland America offer premium feel at mid-range prices"
+
+This helps The Nguyens understand the tradeoff rather than being silently disappointed.
+
+### Medium Priority - Special Needs Family Indicator
+
+For families who select accessibility needs, provide results guidance:
+- RCL: Autism on the Seas partnership, sensory-friendly films, trained staff
+- Carnival: Sensory-friendly screenings, quiet spaces
+- Princess: Good accessibility reputation
+- NCL: Splash Academy trained staff
+
+### Low Priority - Research Needed First
+
+**Vegan/Dietary Dealbreaker:**
+- Research needed: Do MSC, Costa, Explora adequately serve vegans?
+- If all 15 lines accommodate, skip this (universal capability)
+- If some struggle, add to must_have: `dietary` ("Vegan, gluten-free, allergy-safe")
+
+**WiFi Quality:**
+- No industry-wide metric exists
+- Skip for now - too hard to score consistently
+- Alex (digital nomad) will need to research this independently
+
+### Not Needed - Out of Scope
+
+**Itinerary preferences (sea days vs port-intensive):**
+- Quiz recommends SHIPS, not itineraries
+- Eleanor will select her own port-intensive itinerary at booking
+- Port-focused ship classes already scored via `ship_vs_ports: ports`
+
+---
+
+## Persona 28: Michael - Expanded Backstory
+
+**Why Michael hates cruises:**
+- **Practical engineer mindset** - Sees captive-audience pricing as "tourist trap"
+- **Values autonomy** - Can't leave when he wants, feels trapped
+- **Introvert** - Forced socialization (assigned dining, deck parties) is nightmare
+- **Frugal** - Paying for things he won't use (shows, pools, kids activities)
+- **Claustrophobic tendencies** - Small cabin, can't escape ship
+- **Skeptic** - Assumes everything is designed to extract money from him
+
+**Why escape options matter:**
+- Balcony = private outdoor space, can avoid public areas
+- Library/quiet lounges = hide from "cruise activities"
+- Room service = avoid MDR assigned seating
+- Port days = OFF the ship, exploring independently
+
+**What might convert him:**
+- Ship with excellent balcony/suite with space to retreat
+- Destination-intensive itinerary (more time OFF ship)
+- Specialty dining where HE chooses when/where
+- Line with less "forced fun" (Celebrity, Holland America vs Carnival)
+
+**Quiz can't capture this, but results could note:**
+> "For reluctant cruisers or those who value autonomy, consider: longer balcony time, destination-focused itineraries, premium lines with flexible dining."
