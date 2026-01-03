@@ -177,6 +177,7 @@
     <section class="card"><h2>Ship Statistics</h2>
           <div id="ship-stats" class="stats-grid" data-slug="carnival-glory"></div>
           <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-glory","name":"Carnival Glory","class":"Conquest Class","entered_service":2003,"gt":"110,000 GT","guests":"2,974","crew":"1,150","length":"952 ft (290 m)","beam":"116 ft (35 m)","registry":"Panama"}</script>
+        <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-glory","aliases":["Carnival Glory"]}</script>
       <div class="stats-grid">
         <div class="stat-item"><div class="stat-value">110,239</div><div class="stat-label">Gross Tonnage</div><div class="whimsy">≈ 2,205 blue whales</div></div>
         <div class="stat-item"><div class="stat-value">952 ft</div><div class="stat-label">Length</div><div class="whimsy">3.2 football fields</div></div>
@@ -208,7 +209,7 @@
       </div>
     </section>
 
-    <section class="card"><h2>Dining Venues</h2>
+    <section class="card" id="dining-card"><h2 id="diningHeading">Dining Venues</h2>
       <h3>Complimentary</h3>
       <div class="dining-grid">
         <div class="dining-item"><h4>Platinum &amp; Golden Dining Rooms</h4><p>Elegant dual main dining rooms with Your Time Dining.</p></div>
@@ -256,6 +257,29 @@
     </section>
   </section>
   </aside>
+
+    <section class="card faq" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <details>
+          <summary><strong>What are the dining options on Carnival Glory?</strong></summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">Carnival Glory offers main dining rooms, Guy's Burger Joint, BlueIguana Cantina, and specialty restaurants. See the dining section above for full details.</p>
+        </details>
+        <details>
+          <summary><strong>Where does Carnival Glory sail from?</strong></summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">Check the official Carnival website for current homeport and itinerary information.</p>
+        </details>
+        <details>
+          <summary><strong>How can I track Carnival Glory's current location?</strong></summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">Use the live ship tracker section on this page to see the ship's current position, speed, and next port in real-time.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="card attributions">
+      <h2>Image Attributions</h2>
+      <p class="tiny">Ship images are served locally from licensed sources or CC-BY-SA-4.0 Wikimedia Commons. See individual image captions for specific attribution.</p>
+    </section>
 </main>
 
 <footer><p><strong>In the Wake</strong></p><p class="tiny">© 2025 · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p><p class="tiny" style="opacity:0;position:absolute" aria-hidden="true">Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
@@ -264,7 +288,7 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 new Swiper('#photo-swiper',{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true}});
-fetch('/assets/data/videos/carnival/carnival-glory.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
+fetch('/assets/data/videos/carnival/carnival-glory.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
 fetch('/assets/data/logbook/carnival/carnival-glory.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h4>${s.title}</h4><p class="logbook-meta">${s.persona_label} · ${s.author.name}</p><p>${s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')}</p></article>`).join('');}).catch(()=>{});
 </script>  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>

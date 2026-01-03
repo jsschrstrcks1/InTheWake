@@ -216,6 +216,7 @@
       <h2 id="stats-title">Ship Statistics</h2>
           <div id="ship-stats" class="stats-grid" data-slug="carnival-horizon"></div>
           <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-horizon","name":"Carnival Horizon","class":"Vista Class","entered_service":2018,"gt":"133,500 GT","guests":"3,954","crew":"1,450","length":"1,055 ft (322 m)","beam":"122 ft (37 m)","registry":"Panama"}</script>
+        <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-horizon","aliases":["Carnival Horizon"]}</script>
       <div class="stats-grid">
         <div class="stat-item">
           <div class="stat-value">133,596</div>
@@ -543,7 +544,7 @@
   });
 
   // Photo carousel
-  new Swiper('#photo-swiper', {
+  new Swiper('#photo-swiper',{loop:false,rewind:false,
     loop:false,rewind:false,
     autoplay: { delay: 5000, disableOnInteraction: true },
     pagination: { el: '.swiper-pagination', clickable: true },
@@ -564,7 +565,7 @@
             <p class="photo-caption">${v.title}</p>
           </div>
         `).join('');
-        new Swiper('#video-swiper',{
+        new Swiper('#video-swiper',{loop:false,rewind:false,
           slidesPerView: 1,
           spaceBetween: 16,rewind:false,
           navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
