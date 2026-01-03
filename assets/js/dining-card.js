@@ -23,10 +23,13 @@
   const DISPLAY_N = DISPLAY.toLowerCase();
 
   // Normalizers
-  const norm   = s => String(s || '').toLowerCase().replace(/’/g, "'").trim();
+  const norm   = s => String(s || '').toLowerCase().replace(/'/g, "'").trim();
   const normShip = s => norm(s).replace(/\s+of the seas$/, ''); // RC tolerance
   const slugify = s => String(s || '').toLowerCase().replace(/&/g, 'and')
     .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+  // Escape HTML to prevent XSS
+  const escapeHtml = t => { if (!t) return ''; const d = document.createElement('div'); d.textContent = String(t); return d.innerHTML; };
 
   // Absolute helper if present
   const abs = (p) => (typeof window._abs === 'function' ? window._abs(p) : p);
@@ -74,7 +77,7 @@
     const mk = ({ name, slug }) => {
       const s = slug && String(slug).trim() ? slug : slugify(name);
       const href = abs(`/restaurants/${s}.html`);
-      return `<a href="${href}">${name}</a>`;
+      return `<a href="${escapeHtml(href)}">${escapeHtml(name)}</a>`;
     };
     return arr.map(mk);
   }
@@ -107,7 +110,7 @@
 
   function renderError(msg) {
     const mount = document.getElementById('dining-content');
-    if (mount) mount.innerHTML = `<p class="tiny" role="alert">${msg}</p>`;
+    if (mount) mount.innerHTML = `<p class="tiny" role="alert">${escapeHtml(msg)}</p>`;
     CARD.removeAttribute('aria-busy');
   }
 

@@ -235,6 +235,16 @@
   }
 
   /**
+   * Escape HTML entities to prevent XSS
+   */
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = String(text);
+    return div.innerHTML;
+  }
+
+  /**
    * Get image for a venue
    */
   function getVenueImage(slug) {
@@ -301,7 +311,7 @@
 
     const shipsHtml = displayShips.length > 0 ? `
       <div class="ships-available">
-        ${displayShips.map(s => `<span class="ship-chip">${formatShipName(s.name)}</span>`).join('')}
+        ${displayShips.map(s => `<span class="ship-chip">${escapeHtml(formatShipName(s.name))}</span>`).join('')}
         ${moreCount > 0 ? `<span class="chip more">+${moreCount} more</span>` : ''}
       </div>
     ` : '';
@@ -314,23 +324,23 @@
       : '';
 
     return `
-      <article class="item-card" data-venue="${venue.slug}" data-category="${categoryClass}" ${searchKeywords}>
-        <a href="${pageUrl}" class="item-card-link">
+      <article class="item-card" data-venue="${escapeHtml(venue.slug)}" data-category="${escapeHtml(categoryClass)}" ${searchKeywords}>
+        <a href="${escapeHtml(pageUrl)}" class="item-card-link">
           <div class="item-card-image">
-            <img src="${imageUrl}"
-                 alt="${venue.name}"
+            <img src="${escapeHtml(imageUrl)}"
+                 alt="${escapeHtml(venue.name)}"
                  loading="lazy"
                  decoding="async"
                  onerror="this.onerror=null;this.src='${VENUE_IMAGES['_default']}'" />
-            <span class="item-card-badge ${categoryClass}">${venue.subcategory || venue.category}</span>
+            <span class="item-card-badge ${escapeHtml(categoryClass)}">${escapeHtml(venue.subcategory || venue.category)}</span>
           </div>
           <div class="item-card-content">
-            <h3 class="item-card-title">${venue.name}</h3>
+            <h3 class="item-card-title">${escapeHtml(venue.name)}</h3>
             <div class="item-card-meta">
-              ${venue.cost ? `<span class="badge">${venue.cost}</span>` : ''}
+              ${venue.cost ? `<span class="badge">${escapeHtml(venue.cost)}</span>` : ''}
               ${venue.premium ? '<span class="badge">Specialty</span>' : '<span class="badge">Included</span>'}
             </div>
-            <p class="item-card-cta">${cta}</p>
+            <p class="item-card-cta">${escapeHtml(cta)}</p>
             ${shipsHtml}
           </div>
         </a>
@@ -675,7 +685,7 @@
       // Update results info
       if (resultsInfo) {
         if (matchCount === 0) {
-          resultsInfo.innerHTML = `<strong>No venues found for "${trimmedQuery.replace(/</g, '&lt;')}"</strong> — try a different spelling`;
+          resultsInfo.innerHTML = `<strong>No venues found for "${escapeHtml(trimmedQuery)}"</strong> — try a different spelling`;
         } else {
           const catNames = {
             'dining': 'Dining',
