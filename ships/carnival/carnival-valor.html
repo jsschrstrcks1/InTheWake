@@ -161,6 +161,17 @@
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" aria-label="Carnival Valor overview">
+      <p class="answer-line">
+        <strong class="section-label">Looking for Carnival Valor planning info?</strong>
+        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Carnival cruise aboard Carnival Valor from New Orleans.</span>
+      </p>
+      <p class="content-text">
+        Carnival Valor is a Conquest Class vessel featuring Conquest-class Fun Ship from NOLA. Whether you're planning your first cruise or are a seasoned traveler, this guide helps you discover what makes this ship special.
+      </p>
+    </section>
+
 <div class="content-column">
 
     <section class="card"><h2>First Look: Carnival Valor</h2>
@@ -177,6 +188,7 @@
     <section class="card"><h2>Ship Statistics</h2>
           <div id="ship-stats" class="stats-grid" data-slug="carnival-valor"></div>
           <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-valor","name":"Carnival Valor","class":"Conquest Class","entered_service":2004,"gt":"110,000 GT","guests":"2,974","crew":"1,150","length":"952 ft (290 m)","beam":"116 ft (35 m)","registry":"Panama"}</script>
+        <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-valor","aliases":["Carnival Valor"]}</script>
       <div class="stats-grid">
         <div class="stat-item"><div class="stat-value">110,239</div><div class="stat-label">Gross Tonnage</div><div class="whimsy">≈ 2,205 blue whales</div></div>
         <div class="stat-item"><div class="stat-value">952 ft</div><div class="stat-label">Length</div><div class="whimsy">3.2 football fields</div></div>
@@ -208,7 +220,7 @@
       </div>
     </section>
 
-    <section class="card"><h2>Dining Venues</h2>
+    <section class="card" id="dining-card"><h2 id="diningHeading">Dining Venues</h2>
       <h3>Complimentary</h3>
       <div class="dining-grid">
         <div class="dining-item"><h4>Lincoln &amp; Washington Dining Rooms</h4><p>Elegant dual main dining rooms with Your Time Dining.</p></div>
@@ -248,7 +260,14 @@
     </section><!-- End Main Content Column -->
 
     <aside class="rail col-2">
-    <section class="card quick-answer"><h2>Quick Answer</h2><p><strong>Carnival Valor</strong> is a 110,239 GT Conquest-class ship sailing from New Orleans. Christened by Katie Couric in 2004, she moves to Mobile, AL in 2027.</p></section>
+    <section class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
+      <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
+    </section>
+18556    <section class="card quick-answer"><h2>Quick Answer</h2><p><strong>Carnival Valor</strong> is a 110,239 GT Conquest-class ship sailing from New Orleans. Christened by Katie Couric in 2004, she moves to Mobile, AL in 2027.</p></section>
     <section class="card"><h3>Key Facts</h3><dl class="key-facts"><dt>Class</dt><dd>Conquest (3rd of 5)</dd><dt>Tonnage</dt><dd>110,239 GT</dd><dt>Guests</dt><dd>2,974</dd><dt>Homeport</dt><dd>New Orleans, LA</dd><dt>Godmother</dt><dd>Katie Couric</dd></dl></section>
     <section class="card author-card-vertical"><h3>Author</h3><img class="author-avatar" src="/authors/img/ken1_96.webp" alt="Ken Baker" loading="lazy"/><h4><a href="/authors/ken-baker.html">Ken Baker</a></h4><p class="tiny">Founder, In the Wake</p>
     <!-- Whimsical Distance Units -->
@@ -256,6 +275,29 @@
     </section>
   </section>
   </aside>
+
+    <section class="card faq" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <details>
+          <summary><strong>What are the dining options on Carnival Valor?</strong></summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">Carnival Valor offers main dining rooms, Guy's Burger Joint, BlueIguana Cantina, and specialty restaurants. See the dining section above for full details.</p>
+        </details>
+        <details>
+          <summary><strong>Where does Carnival Valor sail from?</strong></summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">Check the official Carnival website for current homeport and itinerary information.</p>
+        </details>
+        <details>
+          <summary><strong>How can I track Carnival Valor's current location?</strong></summary>
+          <p style="margin: 0.5rem 0; padding-left: 1rem;">Use the live ship tracker section on this page to see the ship's current position, speed, and next port in real-time.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="card attributions">
+      <h2>Image Attributions</h2>
+      <p class="tiny">Ship images are served locally from licensed sources or CC-BY-SA-4.0 Wikimedia Commons. See individual image captions for specific attribution.</p>
+    </section>
 </main>
 
 <footer><p><strong>In the Wake</strong></p><p class="tiny">© 2025 · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p><p class="tiny" style="opacity:0;position:absolute" aria-hidden="true">Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
@@ -264,7 +306,7 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 new Swiper('#photo-swiper',{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true}});
-fetch('/assets/data/videos/carnival/carnival-valor.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
+fetch('/assets/data/videos/carnival/carnival-valor.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
 fetch('/assets/data/logbook/carnival/carnival-valor.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h4>${s.title}</h4><p class="logbook-meta">${s.persona_label} · ${s.author.name}</p><p>${s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')}</p></article>`).join('');}).catch(()=>{});
 </script>  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>

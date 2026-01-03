@@ -176,7 +176,18 @@
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
-<div class="main-col">
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" aria-label="Carnival Magic overview">
+      <p class="answer-line">
+        <strong class="section-label">Looking for Carnival Magic planning info?</strong>
+        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Carnival cruise aboard Carnival Magic from Port Canaveral.</span>
+      </p>
+      <p class="content-text">
+        Carnival Magic is a Dream Class vessel featuring Dream-class entertainment near Orlando. Whether you're planning your first cruise or are a seasoned traveler, this guide helps you discover what makes this ship special.
+      </p>
+    </section>
+
+11566<div class="main-col">
 
     <!-- Photo Carousel -->
     <section class="card" aria-labelledby="photos-title">
@@ -204,6 +215,15 @@
       <p>At 130,000 GT with capacity for 3,690 guests, Magic shares the innovative Dream-class layout featuring open-air promenade decks and the spectacular Lanai outdoor dining concept. Her homeport in Norfolk, Virginia makes her a favorite among East Coast cruisers seeking the full Fun Ship experience.</p>
       <p>The ship's unique lifeboat configuration with 18 double-sized boats differs from lead ship Carnival Dream, while maintaining the class's signature architectural elements and generous space ratios.</p>
     </section>
+    <!-- Dining Section -->
+    <section id="dining-card" class="card" data-ship="Carnival Magic" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining Venues on Carnival Magic <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+      <p class="section-intro">Explore the dining options available on Carnival Magic, from complimentary venues to specialty restaurants.</p>
+      <div class="dining-content" id="dining-content" aria-live="polite">
+        <p class="tiny">Loading venue information...</p>
+      </div>
+    </section>
+
 
     <!-- Sister Ships -->
     <section class="card" aria-labelledby="sisters-title">
@@ -217,6 +237,11 @@
     </section>
 
     <!-- Video Carousel -->
+    <section class="card" aria-labelledby="logbook-title">
+      <h2 id="logbook-title">Guest Logbook</h2>
+      <div id="logbook-entries"><p style="color:#666;font-style:italic">Loading guest stories...</p></div>
+    </section>
+
     <section class="card" aria-labelledby="videos-title">
       <h2 id="videos-title">Ship Videos</h2>
       <div class="swiper" id="video-swiper" aria-label="Carnival Magic video gallery">
@@ -242,10 +267,7 @@
     </script>
 
     <!-- Logbook Stories -->
-    <section class="card" aria-labelledby="logbook-title">
-      <h2 id="logbook-title">Guest Logbook</h2>
-      <div id="logbook-entries"><p style="color:#666;font-style:italic">Loading guest stories...</p></div>
-    </section>
+    
     <script>
     fetch('/assets/data/logbook/carnival/carnival-magic.json').then(r=>r.json()).then(function(data){
       var container=document.getElementById('logbook-entries');
@@ -269,6 +291,7 @@
       <h2 id="stats-title">Ship Statistics</h2>
           <div id="ship-stats" class="stats-grid" data-slug="carnival-magic"></div>
           <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-magic","name":"Carnival Magic","class":"Dream Class","entered_service":2011,"gt":"130,000 GT","guests":"3,690","crew":"1,386","length":"1,004 ft (306 m)","beam":"158 ft (48 m)","registry":"Panama"}</script>
+        <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-magic","aliases":["Carnival Magic"]}</script>
       <div class="stats-grid">
         <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">130,000 GT</div><div class="whimsy">≈ 2,549 blue whales</div></div>
         <div class="stat-item"><div class="label">Guests</div><div class="value">3,690</div><div class="whimsy">small town afloat</div></div>
@@ -367,6 +390,11 @@
     <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
     </section>
   </aside>
+
+    <section class="card attributions">
+      <h2>Image Attributions</h2>
+      <p class="tiny">Ship images are served locally from licensed sources or CC-BY-SA-4.0 Wikimedia Commons. See individual image captions for specific attribution.</p>
+    </section>
 </main>
 
 <footer role="contentinfo">

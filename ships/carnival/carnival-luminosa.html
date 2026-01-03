@@ -168,7 +168,18 @@
 <main class="wrap page-grid" id="main-content" role="main" data-ship="Carnival Luminosa" data-imo="9398905">
   <!-- Main Content Column -->
   <section class="col-1" aria-label="Ship details">
-  <!-- Transfer Note -->
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" aria-label="Carnival Luminosa overview">
+      <p class="answer-line">
+        <strong class="section-label">Looking for Carnival Luminosa planning info?</strong>
+        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Carnival cruise aboard Carnival Luminosa from Brisbane.</span>
+      </p>
+      <p class="content-text">
+        Carnival Luminosa is a Spirit Class vessel featuring Australia-based Spirit-class cruising. Whether you're planning your first cruise or are a seasoned traveler, this guide helps you discover what makes this ship special.
+      </p>
+    </section>
+
+12004  <!-- Transfer Note -->
   <div class="transfer-note">
     <strong>Former Name:</strong> Costa Luminosa (2009–2022). Transferred to Carnival Cruise Line in November 2022 following a major refurbishment in Palermo, Italy.
   </div>
@@ -180,12 +191,22 @@
     <p>Her design incorporates elements from both Spirit and Vista classes, resulting in a unique layout that distinguishes her from other Spirit-class vessels. At 92,700 gross tons with capacity for 2,260 guests, she offers an intimate atmosphere with European elegance now enhanced with Carnival's signature "Fun Ship" experiences.</p>
     <p>Luminosa serves as Carnival's flagship in the Australian market, homeported in Brisbane and offering South Pacific, Papua New Guinea, and Australian coastal itineraries—making Carnival cruising accessible to Australian guests.</p>
   </section>
+    <!-- Dining Section -->
+    <section id="dining-card" class="card" data-ship="Carnival Luminosa" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining Venues on Carnival Luminosa <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+      <p class="section-intro">Explore the dining options available on Carnival Luminosa, from complimentary venues to specialty restaurants.</p>
+      <div class="dining-content" id="dining-content" aria-live="polite">
+        <p class="tiny">Loading venue information...</p>
+      </div>
+    </section>
+
 
   <!-- Ship Statistics -->
   <section class="card" aria-labelledby="stats-title">
     <h2 id="stats-title">Ship Statistics</h2>
           <div id="ship-stats" class="stats-grid" data-slug="carnival-luminosa"></div>
           <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-luminosa","name":"Carnival Luminosa","class":"Spirit Class","entered_service":2009,"gt":"92,720 GT","guests":"2,260","crew":"1,050","length":"964 ft (294 m)","beam":"106 ft (32 m)","registry":"Panama"}</script>
+        <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-luminosa","aliases":["Carnival Luminosa"]}</script>
     <div class="stats-grid">
       <div class="stat-item">
         <div class="label">Gross Tonnage</div>

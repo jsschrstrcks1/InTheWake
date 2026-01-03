@@ -317,6 +317,13 @@
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" aria-label="Carnival Venezia overview">
+      <p class="answer-line">
+        <strong class="section-label">Looking for Carnival Venezia planning info?</strong>
+        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Carnival cruise aboard Carnival Venezia.</span>
+      </p>
+    </section>
 <div class="page-grid">
       <!-- Primary Content Column -->
       <div class="main-column">
@@ -337,6 +344,15 @@
             </div>
           </div>
         </section>
+    <!-- Dining Section -->
+    <section id="dining-card" class="card" data-ship="Carnival Venezia" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining Venues on Carnival Venezia <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+      <p class="section-intro">Explore the dining options available on Carnival Venezia, from complimentary venues to specialty restaurants.</p>
+      <div class="dining-content" id="dining-content" aria-live="polite">
+        <p class="tiny">Loading venue information...</p>
+      </div>
+    </section>
+
 
         <!-- Ship Statistics -->
         <section class="card" aria-labelledby="stats-title">
@@ -344,6 +360,7 @@
             <h2 id="stats-title">Ship Statistics</h2>
           <div id="ship-stats" class="stats-grid" data-slug="carnival-venezia"></div>
           <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-venezia","name":"Carnival Venezia","class":"Spirit Class","entered_service":2023,"gt":"86,000 GT","guests":"2,680","crew":"930","length":"960 ft (293 m)","beam":"106 ft (32 m)","registry":"Panama"}</script>
+        <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-venezia","aliases":["Carnival Venezia"]}</script>
           </div>
           <div class="card-body">
             <div class="stats-grid">
@@ -597,7 +614,12 @@
   </section>
   </aside>
     </div>
-  </main>
+  
+    <section class="card attributions">
+      <h2>Image Attributions</h2>
+      <p class="tiny">Ship images are served locally from licensed sources or CC-BY-SA-4.0 Wikimedia Commons. See individual image captions for specific attribution.</p>
+    </section>
+</main>
 
   <!-- Attribution Section -->
   <section class="content-wrap" style="padding-top: 0;">

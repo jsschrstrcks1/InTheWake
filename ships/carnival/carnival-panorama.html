@@ -174,6 +174,17 @@
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" aria-label="Carnival Panorama overview">
+      <p class="answer-line">
+        <strong class="section-label">Looking for Carnival Panorama planning info?</strong>
+        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Carnival cruise aboard Carnival Panorama from Long Beach.</span>
+      </p>
+      <p class="content-text">
+        Carnival Panorama is a Vista Class vessel featuring Vista-class innovation from California. Whether you're planning your first cruise or are a seasoned traveler, this guide helps you discover what makes this ship special.
+      </p>
+    </section>
+
 <div class="content-column">
 
     <!-- First Look Photos -->
@@ -217,6 +228,7 @@
       <h2 id="stats-title">Ship Statistics</h2>
           <div id="ship-stats" class="stats-grid" data-slug="carnival-panorama"></div>
           <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-panorama","name":"Carnival Panorama","class":"Vista Class","entered_service":2019,"gt":"133,500 GT","guests":"3,954","crew":"1,450","length":"1,055 ft (322 m)","beam":"122 ft (37 m)","registry":"Panama"}</script>
+        <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-panorama","aliases":["Carnival Panorama"]}</script>
       <div class="stats-grid">
         <div class="stat-item">
           <div class="stat-value">133,868</div>
@@ -465,8 +477,14 @@
       <p class="tiny">Founder of In the Wake. Writer, researcher, and cruise enthusiast dedicated to helping travelers find their perfect voyage.</p>
       <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
     </section>
-
-    <!-- Quick Links -->
+    <section class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
+      <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
+    </section>
+<!-- Quick Links -->
     <section class="card" aria-labelledby="quicklinks-title">
       <h3 id="quicklinks-title">Quick Links</h3>
       <ul style="margin: 0; padding-left: 1.25rem;">
@@ -545,7 +563,7 @@
   });
 
   // Photo carousel
-  new Swiper('#photo-swiper', {
+  new Swiper('#photo-swiper',{loop:false,rewind:false,
     loop:false,rewind:false,
     autoplay: { delay: 5000, disableOnInteraction: true },
     pagination: { el: '.swiper-pagination', clickable: true },
@@ -566,7 +584,7 @@
             <p class="photo-caption">${v.title}</p>
           </div>
         `).join('');
-        new Swiper('#video-swiper',{
+        new Swiper('#video-swiper',{loop:false,rewind:false,
           slidesPerView: 1,
           spaceBetween: 16,rewind:false,
           navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
