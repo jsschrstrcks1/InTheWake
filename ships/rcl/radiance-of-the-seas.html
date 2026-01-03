@@ -940,7 +940,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       }
     }
     function fetchVideoData(){
-      const SOURCES=[abs('/assets/data/videos/radiance-of-the-seas.json'),abs('/ships/rcl/assets/radiance-of-the-seas-videos.json')];
+      const SOURCES=[abs('/assets/data/videos/rcl/radiance-of-the-seas.json'),abs('/ships/rcl/assets/radiance-of-the-seas-videos.json')];
       function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
         return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
       return tryFetch();
