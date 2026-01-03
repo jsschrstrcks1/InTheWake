@@ -1,7 +1,7 @@
 {
-  "model_version": "2.0",
-  "as_of_date": "2026-01-02",
-  "supported_lines": ["rcl", "carnival", "ncl", "msc"],
+  "model_version": "2.1",
+  "as_of_date": "2026-01-03",
+  "supported_lines": ["rcl", "carnival", "ncl", "msc", "celebrity", "princess", "holland", "cunard", "costa", "virgin", "oceania", "regent", "seabourn", "silversea", "explora"],
 
   "cruise_lines": {
     "rcl": {
@@ -40,6 +40,121 @@
         "accent": "#b8860b"
       },
       "food_modifier": -5
+    },
+    "celebrity": {
+      "name": "Celebrity Cruises",
+      "short_name": "Celebrity",
+      "colors": {
+        "primary": "#1c2b3a",
+        "accent": "#c4a35a"
+      },
+      "food_modifier": 12,
+      "tier": "premium"
+    },
+    "princess": {
+      "name": "Princess Cruises",
+      "short_name": "Princess",
+      "colors": {
+        "primary": "#0a2240",
+        "accent": "#c9a961"
+      },
+      "food_modifier": 4,
+      "tier": "premium"
+    },
+    "holland": {
+      "name": "Holland America Line",
+      "short_name": "Holland America",
+      "colors": {
+        "primary": "#003366",
+        "accent": "#ffffff"
+      },
+      "food_modifier": 8,
+      "tier": "premium"
+    },
+    "cunard": {
+      "name": "Cunard",
+      "short_name": "Cunard",
+      "colors": {
+        "primary": "#1a1a1a",
+        "accent": "#c41e3a"
+      },
+      "food_modifier": 15,
+      "tier": "luxury"
+    },
+    "costa": {
+      "name": "Costa Cruises",
+      "short_name": "Costa",
+      "colors": {
+        "primary": "#ffd700",
+        "accent": "#003399"
+      },
+      "food_modifier": 0,
+      "tier": "contemporary"
+    },
+    "virgin": {
+      "name": "Virgin Voyages",
+      "short_name": "Virgin",
+      "colors": {
+        "primary": "#e10a0a",
+        "accent": "#ffffff"
+      },
+      "food_modifier": 10,
+      "tier": "premium",
+      "adults_only": true
+    },
+    "oceania": {
+      "name": "Oceania Cruises",
+      "short_name": "Oceania",
+      "colors": {
+        "primary": "#003366",
+        "accent": "#8b0000"
+      },
+      "food_modifier": 18,
+      "tier": "upper_premium"
+    },
+    "regent": {
+      "name": "Regent Seven Seas",
+      "short_name": "Regent",
+      "colors": {
+        "primary": "#1a2e4a",
+        "accent": "#c9a961"
+      },
+      "food_modifier": 20,
+      "tier": "ultra_luxury",
+      "all_inclusive": true
+    },
+    "seabourn": {
+      "name": "Seabourn",
+      "short_name": "Seabourn",
+      "colors": {
+        "primary": "#002855",
+        "accent": "#c5b358"
+      },
+      "food_modifier": 20,
+      "tier": "ultra_luxury",
+      "all_inclusive": true
+    },
+    "silversea": {
+      "name": "Silversea Cruises",
+      "short_name": "Silversea",
+      "colors": {
+        "primary": "#1c1c1c",
+        "accent": "#c0c0c0"
+      },
+      "food_modifier": 20,
+      "tier": "ultra_luxury",
+      "all_inclusive": true
+    },
+    "explora": {
+      "name": "Explora Journeys",
+      "short_name": "Explora",
+      "colors": {
+        "primary": "#1a1a2e",
+        "accent": "#d4af37"
+      },
+      "food_modifier": 18,
+      "tier": "ultra_luxury",
+      "all_inclusive": true
     }
   },
 
@@ -413,6 +528,435 @@
         "dining_modifier": -2,
         "avg_gt": 65000,
         "avg_capacity": 2069
+      }
+    },
+    "celebrity": {
+      "edge": {
+        "name": "Edge Class",
+        "intensity": 6,
+        "vibe": "modern_premium_innovative",
+        "description": "Revolutionary design with Magic Carpet, Infinite Verandas, and Eden. Celebrity's newest and most innovative ships.",
+        "best_for": ["Couples", "Foodies", "Design-conscious travelers", "Adults seeking modern luxury"],
+        "not_ideal_for": ["Families with young children", "Traditional cruise seekers", "Budget travelers"],
+        "dining_modifier": 3,
+        "avg_gt": 130000,
+        "avg_capacity": 2900
+      },
+      "solstice": {
+        "name": "Solstice Class",
+        "intensity": 5,
+        "vibe": "refined_modern_elegant",
+        "description": "First ships with real grass at sea (Lawn Club). Refined elegance with excellent dining and entertainment.",
+        "best_for": ["Couples", "Adults", "Wine enthusiasts", "Those seeking relaxation"],
+        "not_ideal_for": ["Families needing kids programs", "Thrill seekers", "Budget-first travelers"],
+        "dining_modifier": 2,
+        "avg_gt": 122000,
+        "avg_capacity": 2850
+      },
+      "millennium": {
+        "name": "Millennium Class",
+        "intensity": 4,
+        "vibe": "classic_intimate_refined",
+        "description": "Smaller, more intimate ships. Fully renovated with modern amenities while retaining classic elegance.",
+        "best_for": ["Repeat cruisers", "Adults seeking intimacy", "Port-focused travelers"],
+        "not_ideal_for": ["Families", "Those wanting newest ships", "Activity seekers"],
+        "dining_modifier": 1,
+        "avg_gt": 91000,
+        "avg_capacity": 2200
+      },
+      "expedition": {
+        "name": "Expedition Class",
+        "intensity": 3,
+        "vibe": "luxury_expedition_intimate",
+        "description": "Purpose-built for Galapagos. Ultra-luxury expedition with all-suite accommodations.",
+        "best_for": ["Nature lovers", "Expedition seekers", "Luxury travelers"],
+        "not_ideal_for": ["Families with young kids", "Those wanting big-ship amenities", "Budget travelers"],
+        "dining_modifier": 3,
+        "avg_gt": 5900,
+        "avg_capacity": 100
+      }
+    },
+    "princess": {
+      "sphere": {
+        "name": "Sphere Class",
+        "intensity": 7,
+        "vibe": "innovative_family_premium",
+        "description": "Newest and largest Princess ships. Features The Dome and The Sphere with LNG power for sustainability.",
+        "best_for": ["Families", "Couples", "Tech enthusiasts", "Sustainability-minded travelers"],
+        "not_ideal_for": ["Intimate ship seekers", "Traditional cruisers", "Ultra-luxury seekers"],
+        "dining_modifier": 2,
+        "avg_gt": 175500,
+        "avg_capacity": 4310
+      },
+      "royal": {
+        "name": "Royal Class",
+        "intensity": 6,
+        "vibe": "modern_premium_balanced",
+        "description": "MedallionClass technology. SeaWalk glass walkway, Sky Suites, and excellent dining options.",
+        "best_for": ["Couples", "Multi-gen families", "Tech-savvy travelers", "First-timers to premium"],
+        "not_ideal_for": ["Budget seekers", "Intimate ship lovers", "Ultra-luxury seekers"],
+        "dining_modifier": 1,
+        "avg_gt": 143000,
+        "avg_capacity": 3600
+      },
+      "grand": {
+        "name": "Grand Class",
+        "intensity": 5,
+        "vibe": "classic_value_reliable",
+        "description": "Princess's workhorse fleet. Proven design with Movies Under the Stars and excellent itineraries.",
+        "best_for": ["Value seekers", "Itinerary-focused travelers", "Repeat Princess cruisers"],
+        "not_ideal_for": ["Must-have-newest travelers", "Families wanting waterparks", "Ultra-luxury seekers"],
+        "dining_modifier": 0,
+        "avg_gt": 110000,
+        "avg_capacity": 2800
+      },
+      "coral": {
+        "name": "Coral Class",
+        "intensity": 4,
+        "vibe": "intimate_classic_panama",
+        "description": "Panamax-sized for Panama Canal transit. Intimate atmosphere with CODLAG propulsion.",
+        "best_for": ["Panama Canal cruisers", "Port-focused travelers", "Those preferring smaller ships"],
+        "not_ideal_for": ["Activity seekers", "Families with kids", "Those wanting newest ships"],
+        "dining_modifier": 0,
+        "avg_gt": 92000,
+        "avg_capacity": 2000
+      }
+    },
+    "holland": {
+      "pinnacle": {
+        "name": "Pinnacle Class",
+        "intensity": 5,
+        "vibe": "music_heritage_refined",
+        "description": "Newest HAL ships with Music Walk, B.B. King's Blues Club, and Rolling Stone Rock Room.",
+        "best_for": ["Music lovers", "Adults", "Culinary travelers", "Heritage cruise seekers"],
+        "not_ideal_for": ["Families with young kids", "Party seekers", "Budget travelers"],
+        "dining_modifier": 2,
+        "avg_gt": 99800,
+        "avg_capacity": 2650
+      },
+      "signature": {
+        "name": "Signature Class",
+        "intensity": 4,
+        "vibe": "elegant_refined_classic",
+        "description": "Enhanced Vista design with additional deck. Three specialty restaurants and elegant public spaces.",
+        "best_for": ["Adults", "Couples", "Repeat HAL cruisers", "Those seeking refinement"],
+        "not_ideal_for": ["Families", "Activity seekers", "First-time cruisers wanting big ships"],
+        "dining_modifier": 1,
+        "avg_gt": 86700,
+        "avg_capacity": 2100
+      },
+      "vista": {
+        "name": "Vista Class",
+        "intensity": 4,
+        "vibe": "classic_compass_heritage",
+        "description": "Compass-named fleet (Noordam, Westerdam, etc.). Distinctive twin funnels and 67% verandah staterooms.",
+        "best_for": ["Heritage seekers", "Adults", "Port-focused travelers", "Value-conscious premium"],
+        "not_ideal_for": ["Families", "Those wanting newest amenities", "Party seekers"],
+        "dining_modifier": 0,
+        "avg_gt": 82000,
+        "avg_capacity": 1940
+      },
+      "r_class": {
+        "name": "R Class",
+        "intensity": 3,
+        "vibe": "intimate_classic_traditional",
+        "description": "Smallest and oldest HAL ships. Access smaller ports, popular for Grand Voyages.",
+        "best_for": ["Destination-focused travelers", "Repeat cruisers", "Grand Voyage seekers"],
+        "not_ideal_for": ["Families", "Activity seekers", "Those wanting modern amenities"],
+        "dining_modifier": 0,
+        "avg_gt": 61000,
+        "avg_capacity": 1432
+      }
+    },
+    "cunard": {
+      "queen_mary_2": {
+        "name": "Queen Mary 2 Class",
+        "intensity": 5,
+        "vibe": "ocean_liner_transatlantic",
+        "description": "World's only ocean liner. Built for transatlantic crossings with strengthened bow and classic elegance.",
+        "best_for": ["Transatlantic travelers", "History buffs", "Those seeking tradition", "Dog owners (kennels)"],
+        "not_ideal_for": ["Warm weather seekers", "Families wanting waterparks", "Casual cruisers"],
+        "dining_modifier": 3,
+        "avg_gt": 151400,
+        "avg_capacity": 2691
+      },
+      "pinnacle_cunard": {
+        "name": "Pinnacle Class",
+        "intensity": 5,
+        "vibe": "modern_british_elegant",
+        "description": "Newest Cunarder with modern amenities. Retractable glass roof pool and 15 restaurants.",
+        "best_for": ["Modern luxury seekers", "Couples", "Foodies", "British heritage fans"],
+        "not_ideal_for": ["Budget travelers", "Casual cruisers", "Families with young kids"],
+        "dining_modifier": 2,
+        "avg_gt": 113000,
+        "avg_capacity": 2996
+      },
+      "vista_cunard": {
+        "name": "Vista Class",
+        "intensity": 4,
+        "vibe": "classic_british_refined",
+        "description": "Queen Victoria and Queen Elizabeth. Classic Cunard elegance with afternoon tea tradition.",
+        "best_for": ["Tradition seekers", "Adults", "British heritage fans", "World cruise travelers"],
+        "not_ideal_for": ["Families with kids", "Activity seekers", "Casual cruisers"],
+        "dining_modifier": 2,
+        "avg_gt": 90500,
+        "avg_capacity": 2070
+      }
+    },
+    "costa": {
+      "excellence": {
+        "name": "Excellence Class",
+        "intensity": 8,
+        "vibe": "italian_family_sustainable",
+        "description": "LNG-powered flagships. Italian-themed with each deck inspired by different Italian regions.",
+        "best_for": ["European families", "Italian culture lovers", "Sustainability-minded travelers"],
+        "not_ideal_for": ["Americans wanting US-style service", "Quiet seekers", "Ultra-luxury travelers"],
+        "dining_modifier": 1,
+        "avg_gt": 185000,
+        "avg_capacity": 5300
+      },
+      "diadema": {
+        "name": "Diadema Class",
+        "intensity": 7,
+        "vibe": "italian_entertainment_social",
+        "description": "Costa's entertainment flagship with 7 restaurants and 15 lounges. Mediterranean focus.",
+        "best_for": ["European travelers", "Entertainment seekers", "Mediterranean cruisers"],
+        "not_ideal_for": ["Quiet seekers", "Americans wanting US-style", "Ultra-luxury seekers"],
+        "dining_modifier": 0,
+        "avg_gt": 132500,
+        "avg_capacity": 3772
+      },
+      "concordia": {
+        "name": "Concordia Class",
+        "intensity": 6,
+        "vibe": "classic_italian_value",
+        "description": "Proven Italian design with recording studio (Pacifica), PlayStation World, and Grand Prix simulator.",
+        "best_for": ["Value seekers", "European families", "Mediterranean cruisers"],
+        "not_ideal_for": ["Luxury seekers", "Those wanting newest ships", "American-style service"],
+        "dining_modifier": -1,
+        "avg_gt": 114000,
+        "avg_capacity": 3014
+      },
+      "luminosa": {
+        "name": "Luminosa Class",
+        "intensity": 5,
+        "vibe": "elegant_panamax_worldwide",
+        "description": "Panamax specs for world cruises. Italian elegance with Murano glass and marble throughout.",
+        "best_for": ["World cruise seekers", "Italian design lovers", "Destination-focused travelers"],
+        "not_ideal_for": ["Families with kids", "Activity seekers", "Budget travelers"],
+        "dining_modifier": 0,
+        "avg_gt": 92700,
+        "avg_capacity": 2260
+      }
+    },
+    "virgin": {
+      "lady": {
+        "name": "Lady Class",
+        "intensity": 8,
+        "vibe": "adults_only_modern_party",
+        "description": "Adults-only with no kids, no buffet, no main dining room. Rebellious luxury with 20+ eateries included.",
+        "best_for": ["Couples", "Friend groups", "Foodies", "Adults wanting party atmosphere"],
+        "not_ideal_for": ["Families with kids", "Traditional cruisers", "Those wanting formal nights"],
+        "dining_modifier": 3,
+        "avg_gt": 110000,
+        "avg_capacity": 2770
+      }
+    },
+    "oceania": {
+      "allura": {
+        "name": "Allura Class",
+        "intensity": 4,
+        "vibe": "culinary_luxury_destination",
+        "description": "Newest Oceania ships. 'Finest Cuisine at Sea' with exceptional personalized service.",
+        "best_for": ["Foodies", "Destination travelers", "Couples", "Luxury seekers"],
+        "not_ideal_for": ["Families with kids", "Activity seekers", "Budget travelers"],
+        "dining_modifier": 4,
+        "avg_gt": 68000,
+        "avg_capacity": 1200
+      },
+      "oceania": {
+        "name": "Oceania Class",
+        "intensity": 4,
+        "vibe": "epicurean_elegant_intimate",
+        "description": "Marina and Riviera. First ships built specifically for Oceania with world-class cuisine.",
+        "best_for": ["Culinary travelers", "Adults", "Destination seekers", "Wine enthusiasts"],
+        "not_ideal_for": ["Families", "Activity seekers", "Budget travelers"],
+        "dining_modifier": 4,
+        "avg_gt": 66000,
+        "avg_capacity": 1250
+      },
+      "regatta": {
+        "name": "Regatta Class",
+        "intensity": 3,
+        "vibe": "intimate_classic_gourmet",
+        "description": "Smaller R-class ships. Intimate atmosphere with 70% verandah staterooms and four open-seating restaurants.",
+        "best_for": ["Intimate ship lovers", "Repeat cruisers", "Port-focused travelers", "Culinary travelers"],
+        "not_ideal_for": ["Families", "Those wanting big-ship amenities", "First-time cruisers"],
+        "dining_modifier": 3,
+        "avg_gt": 30277,
+        "avg_capacity": 670
+      }
+    },
+    "regent": {
+      "explorer": {
+        "name": "Explorer Class",
+        "intensity": 3,
+        "vibe": "ultra_luxury_all_inclusive",
+        "description": "All-suite, all-balcony ultra-luxury. Among the most opulent cruise ships ever built.",
+        "best_for": ["Ultra-luxury seekers", "All-inclusive travelers", "Couples", "Celebrations"],
+        "not_ideal_for": ["Budget travelers", "Families with young kids", "Party seekers"],
+        "dining_modifier": 5,
+        "avg_gt": 55000,
+        "avg_capacity": 750
+      },
+      "voyager_regent": {
+        "name": "Voyager Class",
+        "intensity": 3,
+        "vibe": "refined_classic_luxury",
+        "description": "Refined Penthouse Suites with modern touches. Classic Regent elegance throughout.",
+        "best_for": ["Luxury seekers", "Couples", "Adults", "All-inclusive travelers"],
+        "not_ideal_for": ["Families", "Budget travelers", "Those wanting newest ships"],
+        "dining_modifier": 4,
+        "avg_gt": 42000,
+        "avg_capacity": 700
+      },
+      "mariner_regent": {
+        "name": "Mariner Class",
+        "intensity": 3,
+        "vibe": "classic_luxury_intimate",
+        "description": "Classic luxury with Chartreuse restaurant and Connoisseur Club. Timeless elegance.",
+        "best_for": ["Repeat Regent cruisers", "Classic luxury seekers", "Adults"],
+        "not_ideal_for": ["Families", "Those wanting modern design", "Activity seekers"],
+        "dining_modifier": 4,
+        "avg_gt": 48000,
+        "avg_capacity": 700
+      },
+      "navigator": {
+        "name": "Navigator Class",
+        "intensity": 2,
+        "vibe": "intimate_luxury_yacht",
+        "description": "Smallest Regent ship. Yacht-like atmosphere with gorgeous teak pool deck.",
+        "best_for": ["Yacht lovers", "Intimate luxury seekers", "Small ship enthusiasts"],
+        "not_ideal_for": ["Families", "Those wanting variety", "First-time cruisers"],
+        "dining_modifier": 4,
+        "avg_gt": 30000,
+        "avg_capacity": 490
+      }
+    },
+    "seabourn": {
+      "encore_seabourn": {
+        "name": "Encore Class",
+        "intensity": 3,
+        "vibe": "ultra_luxury_intimate",
+        "description": "300 luxury suites with all-balcony configuration. Enhanced amenities and high staff-to-guest ratio.",
+        "best_for": ["Ultra-luxury seekers", "Couples", "All-inclusive travelers", "Service-focused"],
+        "not_ideal_for": ["Families with kids", "Budget travelers", "Activity seekers"],
+        "dining_modifier": 5,
+        "avg_gt": 41000,
+        "avg_capacity": 600
+      },
+      "odyssey_seabourn": {
+        "name": "Odyssey Class",
+        "intensity": 2,
+        "vibe": "intimate_yacht_luxury",
+        "description": "Just 458 guests for exceptional personalized service. Intimate yacht-like atmosphere.",
+        "best_for": ["Intimate luxury seekers", "Repeat cruisers", "Couples", "All-inclusive travelers"],
+        "not_ideal_for": ["Families", "Those wanting variety", "Activity seekers"],
+        "dining_modifier": 5,
+        "avg_gt": 32000,
+        "avg_capacity": 458
+      },
+      "venture": {
+        "name": "Venture Class",
+        "intensity": 4,
+        "vibe": "expedition_ultra_luxury",
+        "description": "PC6 Polar Class expedition ships. Ultra-luxury meets adventure with Arctic/Antarctic capability.",
+        "best_for": ["Expedition seekers", "Nature lovers", "Adventure luxury travelers"],
+        "not_ideal_for": ["Traditional cruisers", "Those wanting warm weather", "Families with young kids"],
+        "dining_modifier": 5,
+        "avg_gt": 23600,
+        "avg_capacity": 264
+      }
+    },
+    "silversea": {
+      "nova": {
+        "name": "Nova Class",
+        "intensity": 4,
+        "vibe": "ultra_luxury_modern",
+        "description": "Highest space-to-passenger ratio in Silversea fleet. All-suite with butler service.",
+        "best_for": ["Ultra-luxury seekers", "Space-conscious travelers", "All-inclusive travelers"],
+        "not_ideal_for": ["Families with kids", "Budget travelers", "Activity seekers"],
+        "dining_modifier": 5,
+        "avg_gt": 54700,
+        "avg_capacity": 728
+      },
+      "muse": {
+        "name": "Muse Class",
+        "intensity": 4,
+        "vibe": "mediterranean_ultra_luxury",
+        "description": "Mediterranean-inspired design with 8 dining options. All-suite luxury throughout.",
+        "best_for": ["Foodies", "Couples", "Ultra-luxury seekers", "Mediterranean cruisers"],
+        "not_ideal_for": ["Families", "Budget travelers", "Large ship seekers"],
+        "dining_modifier": 5,
+        "avg_gt": 66000,
+        "avg_capacity": 596
+      },
+      "spirit_silversea": {
+        "name": "Spirit Class",
+        "intensity": 3,
+        "vibe": "elegant_ultra_luxury",
+        "description": "First new-class ship for Silversea. Enhanced amenities while maintaining intimate atmosphere.",
+        "best_for": ["Luxury seekers", "Couples", "Adults", "All-inclusive travelers"],
+        "not_ideal_for": ["Families", "Budget travelers", "Activity seekers"],
+        "dining_modifier": 4,
+        "avg_gt": 40000,
+        "avg_capacity": 608
+      },
+      "millennium_silversea": {
+        "name": "Millennium Class",
+        "intensity": 3,
+        "vibe": "classic_intimate_luxury",
+        "description": "Classic Silversea elegance with spacious suites and exceptional space-to-passenger ratio.",
+        "best_for": ["Intimate ship lovers", "Repeat cruisers", "Couples", "All-inclusive travelers"],
+        "not_ideal_for": ["Families", "Those wanting big ships", "First-time cruisers"],
+        "dining_modifier": 4,
+        "avg_gt": 28000,
+        "avg_capacity": 385
+      },
+      "expedition_silversea": {
+        "name": "Expedition Class",
+        "intensity": 4,
+        "vibe": "luxury_expedition_adventure",
+        "description": "Ice-class expedition ships. Ultra-luxury meets adventure with PC6 capability.",
+        "best_for": ["Expedition seekers", "Nature lovers", "Ultra-luxury adventurers"],
+        "not_ideal_for": ["Traditional cruisers", "Families with young kids", "Warm weather seekers"],
+        "dining_modifier": 5,
+        "avg_gt": 17000,
+        "avg_capacity": 230
+      }
+    },
+    "explora": {
+      "explora": {
+        "name": "Explora Class",
+        "intensity": 4,
+        "vibe": "ocean_residence_luxury",
+        "description": "461 all-balcony suites with 1.25:1 passenger-to-crew ratio. Six restaurants and 12 bars/lounges.",
+        "best_for": ["Ultra-luxury seekers", "Couples", "Foodies", "All-inclusive travelers"],
+        "not_ideal_for": ["Families with kids", "Budget travelers", "Activity seekers"],
+        "dining_modifier": 5,
+        "avg_gt": 63900,
+        "avg_capacity": 922
+      },
+      "explora_plus": {
+        "name": "Explora Plus Class",
+        "intensity": 4,
+        "vibe": "sustainable_ultra_luxury",
+        "description": "First LNG-powered ship in fleet. Enhanced sustainability with same ultra-luxury experience.",
+        "best_for": ["Sustainability-minded luxury travelers", "Ultra-luxury seekers", "Couples"],
+        "not_ideal_for": ["Families", "Budget travelers", "Traditional cruisers"],
+        "dining_modifier": 5,
+        "avg_gt": 63900,
+        "avg_capacity": 892
       }
     }
   },
@@ -1740,6 +2284,1220 @@
         "highlights": ["Oldest MSC ship", "Refurbished 2014", "Cuba specialist"],
         "image": "/assets/social/ships-hero.jpg",
         "page": "/ships/msc/armonia.html"
+      }
+    },
+    "celebrity": {
+      "celebrity-xcel": {
+        "name": "Celebrity Xcel",
+        "class": "edge",
+        "year": 2025,
+        "gt": 140600,
+        "capacity": 3260,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Newest Celebrity ship", "Magic Carpet", "Edge Staterooms with Infinite Veranda"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/celebrity-cruises/celebrity-xcel.html"
+      },
+      "celebrity-ascent": {
+        "name": "Celebrity Ascent",
+        "class": "edge",
+        "year": 2023,
+        "gt": 140600,
+        "capacity": 3260,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Extended Edge hull", "The Retreat luxury area", "Eden venue"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/celebrity-cruises/celebrity-ascent.html"
+      },
+      "celebrity-beyond": {
+        "name": "Celebrity Beyond",
+        "class": "edge",
+        "year": 2022,
+        "gt": 140600,
+        "capacity": 3260,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["Grand Plaza atrium", "Le Voyage by Daniel Boulud", "Water-inspired spa"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/celebrity-cruises/celebrity-beyond.html"
+      },
+      "celebrity-apex": {
+        "name": "Celebrity Apex",
+        "class": "edge",
+        "year": 2020,
+        "gt": 130818,
+        "capacity": 2918,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Magic Carpet outdoor venue", "Rooftop Garden", "Revolutionary Edge design"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/celebrity-cruises/celebrity-apex.html"
+      },
+      "celebrity-edge": {
+        "name": "Celebrity Edge",
+        "class": "edge",
+        "year": 2018,
+        "gt": 130818,
+        "capacity": 2918,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 97,
+        "highlights": ["First Edge-class", "Infinite Veranda debut", "Eden multi-level venue"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/celebrity-cruises/celebrity-edge.html"
+      },
+      "celebrity-reflection": {
+        "name": "Celebrity Reflection",
+        "class": "solstice",
+        "year": 2012,
+        "gt": 126000,
+        "capacity": 3046,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Largest Solstice-class", "Signature Reflection Suite", "Lawn Club"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/celebrity-cruises/celebrity-reflection.html"
+      },
+      "celebrity-silhouette": {
+        "name": "Celebrity Silhouette",
+        "class": "solstice",
+        "year": 2011,
+        "gt": 122000,
+        "capacity": 2886,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 99,
+        "highlights": ["Real grass Lawn Club", "80% verandas", "AquaClass staterooms"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/celebrity-cruises/celebrity-silhouette.html"
+      },
+      "celebrity-eclipse": {
+        "name": "Celebrity Eclipse",
+        "class": "solstice",
+        "year": 2010,
+        "gt": 121878,
+        "capacity": 2850,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Lawn Club", "Hot Glass Show", "Larger staterooms"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/celebrity-cruises/celebrity-eclipse.html"
+      },
+      "celebrity-equinox": {
+        "name": "Celebrity Equinox",
+        "class": "solstice",
+        "year": 2009,
+        "gt": 121878,
+        "capacity": 2850,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Half-acre Lawn Club", "Qsine restaurant", "Concierge Class"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/celebrity-cruises/celebrity-equinox.html"
+      },
+      "celebrity-solstice": {
+        "name": "Celebrity Solstice",
+        "class": "solstice",
+        "year": 2008,
+        "gt": 121878,
+        "capacity": 2850,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["First real grass at sea", "Namesake of class", "Multiple specialty dining"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/celebrity-cruises/celebrity-solstice.html"
+      },
+      "celebrity-constellation": {
+        "name": "Celebrity Constellation",
+        "class": "millennium",
+        "year": 2002,
+        "gt": 91000,
+        "capacity": 2559,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Modernized with Solstice upgrades", "Tuscan Grille", "Mediterranean specialist"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/celebrity-cruises/celebrity-constellation.html"
+      },
+      "celebrity-summit": {
+        "name": "Celebrity Summit",
+        "class": "millennium",
+        "year": 2001,
+        "gt": 91000,
+        "capacity": 2599,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Renovated with Sushi on Five", "Intimate experience", "Full-service spa"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/celebrity-cruises/celebrity-summit.html"
+      },
+      "celebrity-infinity": {
+        "name": "Celebrity Infinity",
+        "class": "millennium",
+        "year": 2001,
+        "gt": 91000,
+        "capacity": 2170,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 96,
+        "highlights": ["Contemporary Celebrity design", "Intimate atmosphere", "Tuscan Grille"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/celebrity-cruises/celebrity-infinity.html"
+      },
+      "celebrity-millennium": {
+        "name": "Celebrity Millennium",
+        "class": "millennium",
+        "year": 2000,
+        "gt": 91000,
+        "capacity": 2218,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["First Millennium-class", "Renovated 2019", "Rooftop Terrace"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/celebrity-cruises/celebrity-millennium.html"
+      },
+      "celebrity-flora": {
+        "name": "Celebrity Flora",
+        "class": "expedition",
+        "year": 2019,
+        "gt": 5922,
+        "capacity": 100,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Galapagos-specific", "Dynamic positioning", "All-suite accommodations"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/celebrity-cruises/celebrity-flora.html"
+      }
+    },
+    "princess": {
+      "sun-princess": {
+        "name": "Sun Princess",
+        "class": "sphere",
+        "year": 2024,
+        "gt": 175500,
+        "capacity": 4310,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 97,
+        "highlights": ["LNG-powered", "The Dome geodesic structure", "Largest Princess ship"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/sun-princess.html"
+      },
+      "star-princess": {
+        "name": "Star Princess",
+        "class": "sphere",
+        "year": 2025,
+        "gt": 175500,
+        "capacity": 4310,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Second Sphere-class", "LNG-powered", "The Sphere three-story Piazza"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/star-princess.html"
+      },
+      "discovery-princess": {
+        "name": "Discovery Princess",
+        "class": "royal",
+        "year": 2022,
+        "gt": 145281,
+        "capacity": 3660,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["25 bars & restaurants", "Sky Suites with 270° views", "Bistro Sur La Mer"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/discovery-princess.html"
+      },
+      "enchanted-princess": {
+        "name": "Enchanted Princess",
+        "class": "royal",
+        "year": 2020,
+        "gt": 144650,
+        "capacity": 3660,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 99,
+        "highlights": ["SeaWalk glass walkway", "MedallionClass technology", "Movies Under the Stars"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/enchanted-princess.html"
+      },
+      "sky-princess": {
+        "name": "Sky Princess",
+        "class": "royal",
+        "year": 2019,
+        "gt": 145281,
+        "capacity": 3660,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["81% balcony cabins", "Sky Suites", "Largest thermal suite at launch"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/sky-princess.html"
+      },
+      "majestic-princess": {
+        "name": "Majestic Princess",
+        "class": "royal",
+        "year": 2017,
+        "gt": 143700,
+        "capacity": 3560,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["Originally for Chinese market", "SeaWalk", "3:1 passenger-to-crew ratio"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/majestic-princess.html"
+      },
+      "regal-princess": {
+        "name": "Regal Princess",
+        "class": "royal",
+        "year": 2014,
+        "gt": 142229,
+        "capacity": 3560,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["SeaWalk", "15 passenger decks", "Salty Dog Grill"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/regal-princess.html"
+      },
+      "royal-princess": {
+        "name": "Royal Princess",
+        "class": "royal",
+        "year": 2013,
+        "gt": 142714,
+        "capacity": 3560,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 96,
+        "highlights": ["Christened by Kate Middleton", "First SeaWalk", "50% larger atrium"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/royal-princess.html"
+      },
+      "ruby-princess": {
+        "name": "Ruby Princess",
+        "class": "grand",
+        "year": 2008,
+        "gt": 113561,
+        "capacity": 3080,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Crown subclass", "Poolside outdoor theater", "Two additional decks"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/ruby-princess.html"
+      },
+      "emerald-princess": {
+        "name": "Emerald Princess",
+        "class": "grand",
+        "year": 2007,
+        "gt": 113561,
+        "capacity": 3080,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["Crown subclass", "Poolside theater", "Enhanced entertainment"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/emerald-princess.html"
+      },
+      "crown-princess": {
+        "name": "Crown Princess",
+        "class": "grand",
+        "year": 2006,
+        "gt": 113561,
+        "capacity": 3080,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 99,
+        "highlights": ["First Crown subclass", "Poolside theater concept", "Improved layout"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/crown-princess.html"
+      },
+      "caribbean-princess": {
+        "name": "Caribbean Princess",
+        "class": "grand",
+        "year": 2004,
+        "gt": 112894,
+        "capacity": 3140,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Caribbean subclass", "One additional deck", "Refined Grand design"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/caribbean-princess.html"
+      },
+      "sapphire-princess": {
+        "name": "Sapphire Princess",
+        "class": "grand",
+        "year": 2004,
+        "gt": 115875,
+        "capacity": 2670,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Built in Japan", "Gem subclass", "Largest Grand-class by volume"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/sapphire-princess.html"
+      },
+      "diamond-princess": {
+        "name": "Diamond Princess",
+        "class": "grand",
+        "year": 2004,
+        "gt": 115875,
+        "capacity": 2670,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Built by Mitsubishi in Nagasaki", "Gem subclass", "Sister to Sapphire"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/diamond-princess.html"
+      },
+      "grand-princess": {
+        "name": "Grand Princess",
+        "class": "grand",
+        "year": 1998,
+        "gt": 108806,
+        "capacity": 2602,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 95,
+        "highlights": ["Oldest Princess ship", "Namesake of Grand Class", "Pioneered many features"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/grand-princess.html"
+      },
+      "island-princess": {
+        "name": "Island Princess",
+        "class": "coral",
+        "year": 2003,
+        "gt": 92822,
+        "capacity": 2200,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Panamax-sized", "Panama Canal transit", "CODLAG propulsion"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/island-princess.html"
+      },
+      "coral-princess": {
+        "name": "Coral Princess",
+        "class": "coral",
+        "year": 2002,
+        "gt": 91627,
+        "capacity": 1970,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["First EnviroEngine CODLAG", "Panama Canal capable", "Three revolving stages"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/princess/coral-princess.html"
+      }
+    },
+    "holland": {
+      "rotterdam": {
+        "name": "Rotterdam",
+        "class": "pinnacle",
+        "year": 2021,
+        "gt": 99863,
+        "capacity": 2650,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Seventh Rotterdam", "Music Walk complete", "$4.1M art collection"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/holland-america-line/rotterdam.html"
+      },
+      "nieuw-statendam": {
+        "name": "Nieuw Statendam",
+        "class": "pinnacle",
+        "year": 2018,
+        "gt": 99863,
+        "capacity": 2650,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Musical instrument design", "Rolling Stone Rock Room", "Five specialty restaurants"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/holland-america-line/nieuw-statendam.html"
+      },
+      "koningsdam": {
+        "name": "Koningsdam",
+        "class": "pinnacle",
+        "year": 2016,
+        "gt": 99863,
+        "capacity": 2650,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 99,
+        "highlights": ["First Pinnacle Class", "Music Walk concept debut", "Rudi's Sel de Mer"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/holland-america-line/koningsdam.html"
+      },
+      "nieuw-amsterdam": {
+        "name": "Nieuw Amsterdam",
+        "class": "signature",
+        "year": 2010,
+        "gt": 86700,
+        "capacity": 2106,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Refined Eurodam sister", "Three specialty restaurants", "2.3:1 guest-to-staff ratio"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/holland-america-line/nieuw-amsterdam-v.html"
+      },
+      "eurodam": {
+        "name": "Eurodam",
+        "class": "signature",
+        "year": 2008,
+        "gt": 86700,
+        "capacity": 2104,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["First Signature Class", "Christened by Queen Beatrix", "Enhanced Vista design"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/holland-america-line/eurodam.html"
+      },
+      "noordam": {
+        "name": "Noordam",
+        "class": "vista",
+        "year": 2006,
+        "gt": 82897,
+        "capacity": 1972,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 97,
+        "highlights": ["Named for north", "67% verandah staterooms", "Twin funnels design"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/holland-america-line/noordam-iv.html"
+      },
+      "westerdam": {
+        "name": "Westerdam",
+        "class": "vista",
+        "year": 2004,
+        "gt": 82305,
+        "capacity": 1964,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Named for west", "Extensive glass in superstructure", "67% verandah ratio"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/holland-america-line/westerdam.html"
+      },
+      "oosterdam": {
+        "name": "Oosterdam",
+        "class": "vista",
+        "year": 2003,
+        "gt": 81769,
+        "capacity": 1916,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Named for east", "Signature twin funnels", "Built by Fincantieri"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/holland-america-line/oosterdam.html"
+      },
+      "zuiderdam": {
+        "name": "Zuiderdam",
+        "class": "vista",
+        "year": 2002,
+        "gt": 82820,
+        "capacity": 1916,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 99,
+        "highlights": ["Lead Vista Class", "Named for south", "Extensive glass design"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/holland-america-line/zuiderdam.html"
+      },
+      "zaandam": {
+        "name": "Zaandam",
+        "class": "r_class",
+        "year": 2000,
+        "gt": 61396,
+        "capacity": 1432,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Clinton-signed saxophone", "Refurbished 2025", "Grand Voyage specialist"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/holland-america-line/zaandam.html"
+      },
+      "volendam": {
+        "name": "Volendam",
+        "class": "r_class",
+        "year": 1999,
+        "gt": 61214,
+        "capacity": 1432,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 97,
+        "highlights": ["Oldest HAL ship", "Floral design theme", "Refurbished 2024"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/holland-america-line/volendam.html"
+      }
+    },
+    "cunard": {
+      "queen-mary-2": {
+        "name": "Queen Mary 2",
+        "class": "queen_mary_2",
+        "year": 2004,
+        "gt": 151400,
+        "capacity": 2691,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Only ocean liner", "Transatlantic crossings", "Kennels for dogs"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/cunard/queen-mary-2.html"
+      },
+      "queen-anne": {
+        "name": "Queen Anne",
+        "class": "pinnacle_cunard",
+        "year": 2024,
+        "gt": 113000,
+        "capacity": 2996,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["Newest Cunarder (249th ship)", "Pavilion Pool with retractable roof", "15 restaurants"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/cunard/queen-anne.html"
+      },
+      "queen-victoria": {
+        "name": "Queen Victoria",
+        "class": "vista_cunard",
+        "year": 2007,
+        "gt": 90049,
+        "capacity": 2061,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["Smallest Cunarder", "Classic elegance", "Afternoon tea tradition"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/cunard/queen-victoria.html"
+      },
+      "queen-elizabeth": {
+        "name": "Queen Elizabeth",
+        "class": "vista_cunard",
+        "year": 2010,
+        "gt": 90901,
+        "capacity": 2081,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Modified Vista design", "Steeper stern", "Timeless elegance"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/cunard/queen-elizabeth.html"
+      }
+    },
+    "costa": {
+      "costa-smeralda": {
+        "name": "Costa Smeralda",
+        "class": "excellence",
+        "year": 2019,
+        "gt": 183900,
+        "capacity": 5282,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "shipsan_grade": "A",
+        "highlights": ["First LNG-powered Costa", "20% CO2 reduction", "Italian-themed decks"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/costa/costa-smeralda.html"
+      },
+      "costa-toscana": {
+        "name": "Costa Toscana",
+        "class": "excellence",
+        "year": 2021,
+        "gt": 186364,
+        "capacity": 5322,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "shipsan_grade": "A",
+        "highlights": ["Largest Costa ever", "Decks by Italian regions", "100% LNG-powered"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/costa/costa-toscana.html"
+      },
+      "costa-diadema": {
+        "name": "Costa Diadema",
+        "class": "diadema",
+        "year": 2014,
+        "gt": 132500,
+        "capacity": 3772,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "shipsan_grade": "A",
+        "highlights": ["Only Diadema Class", "7 restaurants", "15 lounges and bars"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/costa/costa-diadema.html"
+      },
+      "costa-pacifica": {
+        "name": "Costa Pacifica",
+        "class": "concordia",
+        "year": 2009,
+        "gt": 114425,
+        "capacity": 3014,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "shipsan_grade": "A",
+        "highlights": ["First ship with recording studio", "Grand Prix simulator", "PlayStation World"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/costa/costa-pacifica.html"
+      },
+      "costa-favolosa": {
+        "name": "Costa Favolosa",
+        "class": "concordia",
+        "year": 2011,
+        "gt": 113307,
+        "capacity": 3014,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "shipsan_grade": "A",
+        "highlights": ["Concordia Class", "Italian-inspired design", "22 knots max speed"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/costa/costa-favolosa.html"
+      },
+      "costa-fascinosa": {
+        "name": "Costa Fascinosa",
+        "class": "concordia",
+        "year": 2012,
+        "gt": 114417,
+        "capacity": 3014,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "shipsan_grade": "A",
+        "highlights": ["Final Concordia Class", "Former flagship", "Cinema 4D"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/costa/costa-fascinosa.html"
+      },
+      "costa-deliziosa": {
+        "name": "Costa Deliziosa",
+        "class": "luminosa",
+        "year": 2010,
+        "gt": 92700,
+        "capacity": 2260,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "shipsan_grade": "A",
+        "highlights": ["Panamax specs", "Murano glass chandeliers", "3,500 sqm Samsara Spa"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/costa/costa-deliziosa.html"
+      }
+    },
+    "virgin": {
+      "scarlet-lady": {
+        "name": "Scarlet Lady",
+        "class": "lady",
+        "year": 2020,
+        "gt": 110000,
+        "capacity": 2770,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 94,
+        "highlights": ["First Virgin Voyages ship", "Adults-only", "20+ eateries included"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/virgin-voyages/scarlet-lady.html"
+      },
+      "valiant-lady": {
+        "name": "Valiant Lady",
+        "class": "lady",
+        "year": 2021,
+        "gt": 110000,
+        "capacity": 2770,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 97,
+        "highlights": ["Adults-only luxury", "Caribbean and Med", "78 RockStar Quarters"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/virgin-voyages/valiant-lady.html"
+      },
+      "resilient-lady": {
+        "name": "Resilient Lady",
+        "class": "lady",
+        "year": 2022,
+        "gt": 110000,
+        "capacity": 2770,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Hydrodynamic hull design", "Global deployment", "Sustainability focus"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/virgin-voyages/resilient-lady.html"
+      },
+      "brilliant-lady": {
+        "name": "Brilliant Lady",
+        "class": "lady",
+        "year": 2023,
+        "gt": 110000,
+        "capacity": 2770,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Panama Canal capable", "Eco-forward technology", "Lifeboats set further in"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/virgin-voyages/brilliant-lady.html"
+      }
+    },
+    "oceania": {
+      "oceania-vista": {
+        "name": "Vista",
+        "class": "allura",
+        "year": 2023,
+        "gt": 68000,
+        "capacity": 1200,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Finest Cuisine at Sea", "Personalized service", "600 staterooms"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/oceania/vista.html"
+      },
+      "oceania-allura": {
+        "name": "Allura",
+        "class": "allura",
+        "year": 2025,
+        "gt": 68000,
+        "capacity": 1200,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Newest Oceania ship", "Immersive journeys", "600 staterooms"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/oceania/allura.html"
+      },
+      "oceania-marina": {
+        "name": "Marina",
+        "class": "oceania",
+        "year": 2011,
+        "gt": 66084,
+        "capacity": 1250,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["First built for Oceania", "Ultimate epicurean experience", "Sophisticated design"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/oceania/marina.html"
+      },
+      "oceania-riviera": {
+        "name": "Riviera",
+        "class": "oceania",
+        "year": 2012,
+        "gt": 66084,
+        "capacity": 1250,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 99,
+        "highlights": ["Sister to Marina", "Grace and elegance", "Gourmet dining focus"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/oceania/riviera.html"
+      },
+      "oceania-regatta": {
+        "name": "Regatta",
+        "class": "regatta",
+        "year": 1998,
+        "gt": 30277,
+        "capacity": 648,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Four open-seating restaurants", "Aquamar Spa", "70% private verandas"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/oceania/regatta.html"
+      },
+      "oceania-insignia": {
+        "name": "Insignia",
+        "class": "regatta",
+        "year": 1998,
+        "gt": 30277,
+        "capacity": 670,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Transformed 2018", "Classic elegance", "Four open-seating restaurants"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/oceania/insignia.html"
+      },
+      "oceania-nautica": {
+        "name": "Nautica",
+        "class": "regatta",
+        "year": 2000,
+        "gt": 30277,
+        "capacity": 670,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 98,
+        "highlights": ["400 staff for 670 guests", "Eight lounges and bars", "Luxurious furnishings"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/oceania/nautica.html"
+      },
+      "oceania-sirena": {
+        "name": "Sirena",
+        "class": "regatta",
+        "year": 1999,
+        "gt": 30277,
+        "capacity": 684,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Sister to Regatta class", "670-guest intimacy", "Celebrated fleet elements"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/oceania/sirena.html"
+      }
+    },
+    "regent": {
+      "seven-seas-grandeur": {
+        "name": "Seven Seas Grandeur",
+        "class": "explorer",
+        "year": 2023,
+        "gt": 55500,
+        "capacity": 746,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Newest Regent ship", "64 destinations", "Most opulent ever built"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/regent/seven-seas-grandeur.html"
+      },
+      "seven-seas-splendor": {
+        "name": "Seven Seas Splendor",
+        "class": "explorer",
+        "year": 2020,
+        "gt": 55000,
+        "capacity": 750,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Highest staff-to-guest ratio", "375 all-suite", "All-balcony"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/regent/seven-seas-splendor.html"
+      },
+      "seven-seas-explorer": {
+        "name": "Seven Seas Explorer",
+        "class": "explorer",
+        "year": 2016,
+        "gt": 54000,
+        "capacity": 750,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Palatial Regent Suite", "All-suite all-balcony", "Hand-picked art"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/regent/seven-seas-explorer.html"
+      },
+      "seven-seas-voyager": {
+        "name": "Seven Seas Voyager",
+        "class": "voyager_regent",
+        "year": 2003,
+        "gt": 42363,
+        "capacity": 700,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Refined Penthouse Suites", "Voyager Lounge", "Modern touches"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/regent/seven-seas-voyager.html"
+      },
+      "seven-seas-mariner": {
+        "name": "Seven Seas Mariner",
+        "class": "mariner_regent",
+        "year": 2001,
+        "gt": 48075,
+        "capacity": 700,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Chartreuse restaurant", "Connoisseur Club", "Classic luxury"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/regent/seven-seas-mariner.html"
+      },
+      "seven-seas-navigator": {
+        "name": "Seven Seas Navigator",
+        "class": "navigator",
+        "year": 1999,
+        "gt": 30000,
+        "capacity": 490,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Smallest Regent", "Yacht-like atmosphere", "Teak pool deck"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/regent/seven-seas-navigator.html"
+      }
+    },
+    "seabourn": {
+      "seabourn-ovation": {
+        "name": "Seabourn Ovation",
+        "class": "encore_seabourn",
+        "year": 2018,
+        "gt": 41865,
+        "capacity": 600,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["More space and amenities", "High staff-to-guest ratio", "Modern ultra-luxury"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/seabourn/seabourn-ovation.html"
+      },
+      "seabourn-encore": {
+        "name": "Seabourn Encore",
+        "class": "encore_seabourn",
+        "year": 2016,
+        "gt": 40350,
+        "capacity": 600,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["12 decks", "300 luxury suites", "All-balcony"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/seabourn/seabourn-encore.html"
+      },
+      "seabourn-quest": {
+        "name": "Seabourn Quest",
+        "class": "odyssey_seabourn",
+        "year": 2011,
+        "gt": 32000,
+        "capacity": 458,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Just 458 guests", "Intimate personalized", "All-suite"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/seabourn/seabourn-quest.html"
+      },
+      "seabourn-venture": {
+        "name": "Seabourn Venture",
+        "class": "venture",
+        "year": 2022,
+        "gt": 23615,
+        "capacity": 264,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["PC6 Polar Class", "Arctic/Antarctic capable", "Expedition hardware"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/seabourn/seabourn-venture.html"
+      },
+      "seabourn-pursuit": {
+        "name": "Seabourn Pursuit",
+        "class": "venture",
+        "year": 2023,
+        "gt": 23615,
+        "capacity": 264,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["PC6 Polar Class", "Global expeditions", "State-of-the-art"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/seabourn/seabourn-pursuit.html"
+      }
+    },
+    "silversea": {
+      "silver-nova": {
+        "name": "Silver Nova",
+        "class": "nova",
+        "year": 2023,
+        "gt": 54700,
+        "capacity": 728,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Highest space-to-passenger ratio", "All-suite", "Butler service"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/silversea/silver-nova.html"
+      },
+      "silver-ray": {
+        "name": "Silver Ray",
+        "class": "nova",
+        "year": 2024,
+        "gt": 54700,
+        "capacity": 728,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Second Nova class", "All-suite", "State-of-the-art design"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/silversea/silver-ray.html"
+      },
+      "silver-muse": {
+        "name": "Silver Muse",
+        "class": "muse",
+        "year": 2017,
+        "gt": 66000,
+        "capacity": 596,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["8 dining options", "All-suite", "Mediterranean-inspired"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/silversea/silver-muse.html"
+      },
+      "silver-moon": {
+        "name": "Silver Moon",
+        "class": "muse",
+        "year": 2020,
+        "gt": 66000,
+        "capacity": 596,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Sister to Muse", "All-suite luxury", "Enhanced dining"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/silversea/silver-moon.html"
+      },
+      "silver-dawn": {
+        "name": "Silver Dawn",
+        "class": "muse",
+        "year": 2021,
+        "gt": 66000,
+        "capacity": 596,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Muse-class elegance", "All-suite", "2021 maiden voyage"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/silversea/silver-dawn.html"
+      },
+      "silver-spirit": {
+        "name": "Silver Spirit",
+        "class": "spirit_silversea",
+        "year": 2009,
+        "gt": 40000,
+        "capacity": 608,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["First new-class Silversea", "Largest ocean ship before Nova", "Enhanced amenities"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/silversea/silver-spirit.html"
+      },
+      "silver-shadow": {
+        "name": "Silver Shadow",
+        "class": "millennium_silversea",
+        "year": 2000,
+        "gt": 28000,
+        "capacity": 388,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Spacious suites", "Space-to-passenger ratio 74", "Classic elegance"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/silversea/silver-shadow.html"
+      },
+      "silver-whisper": {
+        "name": "Silver Whisper",
+        "class": "millennium_silversea",
+        "year": 2001,
+        "gt": 28000,
+        "capacity": 382,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": 100,
+        "highlights": ["Sister to Shadow", "295 crew", "Exceptional service"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/silversea/silver-whisper.html"
+      },
+      "silver-wind": {
+        "name": "Silver Wind",
+        "class": "expedition_silversea",
+        "year": 1995,
+        "gt": 17400,
+        "capacity": 274,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Expedition conversion", "Ice-class bow", "Intimate luxury expedition"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/silversea/silver-wind.html"
+      },
+      "silver-cloud": {
+        "name": "Silver Cloud",
+        "class": "expedition_silversea",
+        "year": 1994,
+        "gt": 17400,
+        "capacity": 254,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["First Silversea ship", "$40M expedition conversion", "200 in polar waters"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/silversea/silver-cloud.html"
+      },
+      "silver-endeavour": {
+        "name": "Silver Endeavour",
+        "class": "expedition_silversea",
+        "year": 2021,
+        "gt": 20649,
+        "capacity": 220,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["World's largest ice class yacht", "1:1 crew-to-guest ratio", "PC6 certified"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/silversea/silver-endeavour.html"
+      },
+      "silver-origin": {
+        "name": "Silver Origin",
+        "class": "expedition_silversea",
+        "year": 2020,
+        "gt": 5800,
+        "capacity": 100,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Galapagos-specific", "Dynamic positioning", "Butler service all suites"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/silversea/silver-origin.html"
+      }
+    },
+    "explora": {
+      "explora-i": {
+        "name": "Explora I",
+        "class": "explora",
+        "year": 2023,
+        "gt": 63900,
+        "capacity": 922,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "shipsan_grade": "A",
+        "highlights": ["461 all-balcony suites", "1.25:1 crew ratio", "Six restaurants"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/explora-journeys/explora-i.html"
+      },
+      "explora-ii": {
+        "name": "Explora II",
+        "class": "explora",
+        "year": 2024,
+        "gt": 63900,
+        "capacity": 922,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "shipsan_grade": "A",
+        "highlights": ["Sustainability focus", "461 all-balcony suites", "European design aesthetic"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/explora-journeys/explora-ii.html"
       }
     }
   },
