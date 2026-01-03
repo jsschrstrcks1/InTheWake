@@ -426,6 +426,59 @@
       color: var(--ink-mid);
     }
 
+    /* Results limit control */
+    .results-limit-control {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      padding: 0.5rem;
+      background: var(--sky);
+      border-radius: 50px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .limit-btn {
+      width: 44px;
+      height: 44px;
+      border: 2px solid var(--rope);
+      border-radius: 50%;
+      background: #fff;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--sea);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .limit-btn:hover:not(:disabled) {
+      background: var(--sea);
+      color: #fff;
+      border-color: var(--sea);
+    }
+    .limit-btn:active:not(:disabled) {
+      transform: scale(0.95);
+    }
+    .limit-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .limit-display {
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      min-width: 120px;
+      text-align: center;
+    }
+    .limit-display strong {
+      color: var(--sea);
+      font-size: 1.1rem;
+    }
+
     /* Ship result cards with brand colors */
     .result-card {
       background: #fff;
@@ -455,6 +508,17 @@
     .result-brand-bar.carnival { background: linear-gradient(90deg, #e31837, #0033a0); }
     .result-brand-bar.ncl { background: linear-gradient(90deg, #00205b, #ffffff); }
     .result-brand-bar.msc { background: linear-gradient(90deg, #003366, #b8860b); }
+    .result-brand-bar.celebrity { background: linear-gradient(90deg, #1c2b3a, #c4a35a); }
+    .result-brand-bar.princess { background: linear-gradient(90deg, #0a2240, #c9a961); }
+    .result-brand-bar.holland { background: linear-gradient(90deg, #003366, #ffffff); }
+    .result-brand-bar.cunard { background: linear-gradient(90deg, #1a1a1a, #c41e3a); }
+    .result-brand-bar.costa { background: linear-gradient(90deg, #ffd700, #003399); }
+    .result-brand-bar.virgin { background: linear-gradient(90deg, #e10a0a, #ffffff); }
+    .result-brand-bar.oceania { background: linear-gradient(90deg, #003366, #8b0000); }
+    .result-brand-bar.regent { background: linear-gradient(90deg, #1a2e4a, #c9a961); }
+    .result-brand-bar.seabourn { background: linear-gradient(90deg, #002855, #c5b358); }
+    .result-brand-bar.silversea { background: linear-gradient(90deg, #1c1c1c, #c0c0c0); }
+    .result-brand-bar.explora { background: linear-gradient(90deg, #1a1a2e, #d4af37); }
 
     .result-image {
       position: relative;
@@ -538,6 +602,17 @@
     .result-line.carnival { background: #e31837; }
     .result-line.ncl { background: #00205b; }
     .result-line.msc { background: #003366; }
+    .result-line.celebrity { background: #1c2b3a; }
+    .result-line.princess { background: #0a2240; }
+    .result-line.holland { background: #003366; }
+    .result-line.cunard { background: #1a1a1a; }
+    .result-line.costa { background: #003399; color: #ffd700; }
+    .result-line.virgin { background: #e10a0a; }
+    .result-line.oceania { background: #003366; }
+    .result-line.regent { background: #1a2e4a; }
+    .result-line.seabourn { background: #002855; }
+    .result-line.silversea { background: #1c1c1c; }
+    .result-line.explora { background: #1a1a2e; }
 
     .result-narrative {
       color: var(--ink-mid);
@@ -1085,6 +1160,11 @@
         <div class="results-header">
           <h2>Your Perfect Ships</h2>
           <p>Based on your answers, here are our top recommendations:</p>
+          <div class="results-limit-control">
+            <button type="button" class="limit-btn" id="btnLimitMinus" aria-label="Show fewer ships">−</button>
+            <span class="limit-display">Showing <strong id="limitCount">3</strong> ships</span>
+            <button type="button" class="limit-btn" id="btnLimitPlus" aria-label="Show more ships">+</button>
+          </div>
         </div>
         <div id="resultsContainer">
           <!-- Results will be injected here -->
@@ -1196,6 +1276,8 @@
     let currentQuestion = 0;
     let answers = {};
     let selectedLine = 'all';
+    let resultsLimit = 3;
+    let allResultsCache = []; // Cache for adjusting limit without recalculating
 
     // Line display names
     const lineNames = {
@@ -1587,7 +1669,7 @@
       quizProgress.classList.remove('visible');
 
       const linesToScore = selectedLine === 'all'
-        ? ['rcl', 'carnival', 'ncl', 'msc']
+        ? Object.keys(quizData.scoring_weights)
         : [selectedLine];
 
       // Calculate scores for all selected lines
@@ -1616,9 +1698,10 @@
         }
       }
 
-      // Sort all results by score and take top 3
+      // Sort all results by score and cache for limit adjustment
       allResults.sort((a, b) => b.score - a.score);
-      const topResults = allResults.slice(0, 3);
+      allResultsCache = allResults;
+      const topResults = allResults.slice(0, resultsLimit);
 
       // Render results
       resultsContainer.innerHTML = topResults.map((rec, idx) => {
@@ -1702,7 +1785,7 @@
 
       // Show "You Might Also Like" if filtered to single line
       if (selectedLine !== 'all') {
-        const otherLines = ['rcl', 'carnival', 'ncl', 'msc'].filter(l => l !== selectedLine);
+        const otherLines = Object.keys(quizData.scoring_weights).filter(l => l !== selectedLine);
         const otherResults = [];
 
         for (const line of otherLines) {
@@ -1743,6 +1826,9 @@
         alsoLikeSection.classList.add('hidden');
       }
 
+      // Update limit display
+      updateLimitDisplay();
+
       // Update share section
       const topRec = topResults[0];
       const topMatchPercent = Math.min(99, Math.round(50 + topRec.score));
@@ -1772,7 +1858,114 @@
       alsoLikeSection.classList.add('hidden');
       currentQuestion = 0;
       answers = {};
+      resultsLimit = 3;
+      allResultsCache = [];
       history.replaceState({}, '', window.location.pathname);
+    }
+
+    // Adjust results limit
+    function adjustResultsLimit(delta) {
+      const newLimit = Math.max(3, Math.min(10, resultsLimit + delta));
+      if (newLimit === resultsLimit) return;
+
+      resultsLimit = newLimit;
+      updateLimitDisplay();
+      rerenderResults();
+    }
+
+    // Update the limit display and button states
+    function updateLimitDisplay() {
+      const limitCount = document.getElementById('limitCount');
+      const btnMinus = document.getElementById('btnLimitMinus');
+      const btnPlus = document.getElementById('btnLimitPlus');
+
+      if (limitCount) limitCount.textContent = resultsLimit;
+      if (btnMinus) btnMinus.disabled = resultsLimit <= 3;
+      if (btnPlus) btnPlus.disabled = resultsLimit >= 10 || resultsLimit >= allResultsCache.length;
+    }
+
+    // Re-render results with current limit (uses cached results)
+    function rerenderResults() {
+      if (allResultsCache.length === 0) return;
+
+      const topResults = allResultsCache.slice(0, resultsLimit);
+
+      resultsContainer.innerHTML = topResults.map((rec, idx) => {
+        const { ship, classData, className, line, score, lineData } = rec;
+        const narrative = generateNarrative(ship, classData, line);
+        const matchPercent = Math.min(99, Math.round(50 + score));
+
+        const scoreBreakdown = [];
+        const weights = quizData.scoring_weights[line];
+        for (const [qId, answer] of Object.entries(answers)) {
+          if (weights[qId] && weights[qId][answer] && weights[qId][answer][className]) {
+            const pts = weights[qId][answer][className];
+            const qLabel = questions.find(q => q.id === qId)?.question || qId;
+            scoreBreakdown.push({ label: qLabel.replace("?", ""), points: pts });
+          }
+        }
+
+        const why = generateWhy(ship, classData, line, scoreBreakdown, idx + 1);
+
+        return `
+          <article class="result-card ${idx === 0 ? 'top-pick' : ''}">
+            <div class="result-brand-bar ${line}"></div>
+            <div class="result-image">
+              <img src="${ship.image}"
+                   alt="${ship.name}"
+                   loading="${idx === 0 ? 'eager' : 'lazy'}"
+                   onerror="this.src='/assets/social/ships-hero.jpg'">
+              <span class="result-badge">Top Pick</span>
+              <span class="result-match">${matchPercent}% Match</span>
+            </div>
+            <div class="result-content">
+              <div class="result-title">
+                <h3>${ship.name}</h3>
+                <div class="result-badges">
+                  <span class="result-line ${line}">${lineData.short_name}</span>
+                  <span class="result-class">${classData.name}</span>
+                </div>
+              </div>
+              <p class="result-narrative">${narrative}</p>
+              <div class="result-specs">
+                <div class="spec-item">
+                  <span class="spec-label">Year</span>
+                  <span class="spec-value">${ship.year}</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Size</span>
+                  <span class="spec-value">${(ship.gt / 1000).toFixed(0)}K GT</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Guests</span>
+                  <span class="spec-value">${ship.capacity.toLocaleString()}</span>
+                </div>
+              </div>
+              <div class="result-highlights">
+                ${ship.highlights.slice(0, 3).map(h => `<span class="highlight-tag">${h}</span>`).join('')}
+              </div>
+              <div class="result-why">
+                <div class="result-why-header" onclick="this.nextElementSibling.nextElementSibling.classList.toggle('open'); this.querySelector('.result-why-toggle').textContent = this.nextElementSibling.nextElementSibling.classList.contains('open') ? 'Hide details' : 'Show details';">
+                  <span class="result-why-title">Why this ship?</span>
+                  <span class="result-why-toggle">Show details</span>
+                </div>
+                <div class="result-why-summary">${why.summary}</div>
+                <div class="result-why-details">
+                  <div class="why-breakdown">
+                    ${why.breakdown.slice(0, 5).map(b =>
+                      `<div class="why-item"><span class="why-label">${b.label}</span><span class="why-points ${b.points >= 0 ? 'positive' : 'negative'}">${b.points >= 0 ? '+' : ''}${b.points}</span></div>`
+                    ).join('')}
+                  </div>
+                </div>
+              </div>
+              <a href="${ship.page}" class="result-cta">Explore ${ship.name}</a>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      // Update plus button state based on available results
+      updateLimitDisplay();
     }
 
     // ==========================================
@@ -1795,7 +1988,7 @@
       const encoded = params.get('r');
       const lineParam = params.get('line');
 
-      if (lineParam && ['all', 'rcl', 'carnival', 'ncl', 'msc'].includes(lineParam)) {
+      if (lineParam && Object.keys(lineNames).includes(lineParam)) {
         selectedLine = lineParam;
         document.querySelectorAll('.cruise-line-selector .line-pill').forEach(p => {
           p.classList.toggle('active', p.dataset.line === selectedLine);
@@ -1939,6 +2132,10 @@
       btnStart.addEventListener('click', startQuiz);
       btnRestart.addEventListener('click', restartQuiz);
       setupShareListeners();
+
+      // Results limit +/- buttons
+      document.getElementById('btnLimitMinus')?.addEventListener('click', () => adjustResultsLimit(-1));
+      document.getElementById('btnLimitPlus')?.addEventListener('click', () => adjustResultsLimit(1));
 
       if (parseShareURL()) {
         quizIntro.classList.add('hidden');
