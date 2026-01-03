@@ -155,6 +155,32 @@ function matchesShip(video, shipSlug, shipName) {
 }
 
 function categorizeVideo(video) {
+  // Use pre-extracted category if available
+  if (video._extracted_category) {
+    const cat = video._extracted_category.toLowerCase().replace(/-/g, ' ');
+    // Map to our standard categories
+    if (cat.includes('top') && cat.includes('ten')) return 'top ten';
+    if (cat.includes('suite')) return 'suite';
+    if (cat.includes('balcony')) return 'balcony';
+    if (cat.includes('ocean') || cat.includes('oceanview')) return 'oceanview';
+    if (cat.includes('interior') || cat.includes('inside')) return 'interior';
+    if (cat.includes('dining') || cat.includes('food')) return 'food';
+    if (cat.includes('access')) return 'accessible';
+    if (cat.includes('walk') || cat.includes('tour') || cat.includes('overview')) return 'ship walk through';
+  }
+
+  // Use existing category field if present
+  if (video.category) {
+    const cat = video.category.toLowerCase();
+    if (cat.includes('suite')) return 'suite';
+    if (cat.includes('balcony')) return 'balcony';
+    if (cat.includes('ocean')) return 'oceanview';
+    if (cat.includes('interior') || cat.includes('inside')) return 'interior';
+    if (cat.includes('dining') || cat.includes('food')) return 'food';
+    if (cat.includes('access')) return 'accessible';
+  }
+
+  // Fall back to keyword matching in title/description
   const title = (video.title || '').toLowerCase();
   const desc = (video.description || '').toLowerCase();
   const combined = title + ' ' + desc;
@@ -171,15 +197,18 @@ function categorizeVideo(video) {
 }
 
 async function loadManifests() {
-  const manifestPaths = [
-    join(PROJECT_ROOT, 'ships', 'rcl', 'assets', 'videos', 'adventure-of-the-seas.json'),
-    join(PROJECT_ROOT, 'ships', 'rcl', 'assets', 'videos', 'allure-of-the-seas.json'),
-    join(PROJECT_ROOT, 'ships', 'rcl', 'assets', 'videos', 'radiance.json'),
-    join(PROJECT_ROOT, 'ships', 'rc_ship_videos.json'),
-    join(PROJECT_ROOT, 'data', 'rc_ship_videos.json'),
-  ];
+  const manifestPaths = [];
 
-  // Add all individual RCL video files
+  // Add main video manifest files
+  manifestPaths.push(join(PROJECT_ROOT, 'ships', 'rcl', 'assets', 'videos', 'adventure-of-the-seas.json'));
+  manifestPaths.push(join(PROJECT_ROOT, 'ships', 'rcl', 'assets', 'videos', 'allure-of-the-seas.json'));
+  manifestPaths.push(join(PROJECT_ROOT, 'ships', 'rcl', 'assets', 'videos', 'radiance.json'));
+  manifestPaths.push(join(PROJECT_ROOT, 'ships', 'rcl', 'assets', 'videos', 'enchantment-of-the-seas.json'));
+  manifestPaths.push(join(PROJECT_ROOT, 'ships', 'rc_ship_videos.json'));
+  manifestPaths.push(join(PROJECT_ROOT, 'ships', 'rcl', 'rc_ship_videos.json'));
+  manifestPaths.push(join(PROJECT_ROOT, 'data', 'rc_ship_videos.json'));
+
+  // Add all individual RCL video files (*-videos.json)
   const rclAssetsDir = join(PROJECT_ROOT, 'ships', 'rcl', 'assets');
   try {
     const files = await readdir(rclAssetsDir);
@@ -198,30 +227,55 @@ async function loadManifests() {
       const content = await readFile(manifestPath, 'utf8');
       const json = JSON.parse(content);
 
-      // Handle different JSON structures
+      // Handle multiple JSON structures
       let videos = [];
 
-      if (json.videos) {
-        if (Array.isArray(json.videos)) {
-          videos = json.videos;
-        } else if (typeof json.videos === 'object') {
-          // Categorized structure
-          for (const category of Object.values(json.videos)) {
-            if (Array.isArray(category)) {
-              videos.push(...category);
+      // Structure 1: Nested categories - json.videos is an object with category keys
+      if (json.videos && typeof json.videos === 'object' && !Array.isArray(json.videos)) {
+        for (const [categoryName, categoryVideos] of Object.entries(json.videos)) {
+          if (Array.isArray(categoryVideos)) {
+            for (const v of categoryVideos) {
+              v._extracted_category = categoryName;
+              videos.push(v);
             }
           }
         }
       }
 
+      // Structure 2: Flat array - json.videos is an array
+      if (json.videos && Array.isArray(json.videos)) {
+        videos.push(...json.videos);
+      }
+
+      // Structure 3: Root-level array (no videos key)
+      if (Array.isArray(json)) {
+        videos.push(...json);
+      }
+
+      // Structure 4: videos_interleaved array
       if (json.videos_interleaved && Array.isArray(json.videos_interleaved)) {
         videos.push(...json.videos_interleaved);
       }
 
-      // Deduplicate by videoId
+      // Structure 5: by_category object
+      if (json.by_category && typeof json.by_category === 'object') {
+        for (const [categoryName, categoryVideos] of Object.entries(json.by_category)) {
+          if (Array.isArray(categoryVideos)) {
+            for (const v of categoryVideos) {
+              v._extracted_category = categoryName;
+              videos.push(v);
+            }
+          }
+        }
+      }
+
+      // Deduplicate by videoId or youtube_id
       for (const v of videos) {
-        if (v.videoId && !seenVideoIds.has(v.videoId)) {
-          seenVideoIds.add(v.videoId);
+        const vid = v.videoId || v.youtube_id;
+        if (vid && !seenVideoIds.has(vid)) {
+          seenVideoIds.add(vid);
+          // Normalize to videoId
+          v.videoId = vid;
           allVideos.push(v);
         }
       }
