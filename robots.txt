@@ -1,5 +1,5 @@
 # robots.txt for https://cruisinginthewake.com/
-# Last updated: 2025-12-24
+# Last updated: 2026-01-03
 # Purpose: Allow full indexing of public content while preventing crawl of
 #          internal assets, admin pages, and development files.
 
@@ -34,6 +34,7 @@ Allow: /search.html
 Allow: /about-us.html
 Allow: /privacy.html
 Allow: /terms.html
+Allow: /internet-at-sea.html
 
 # === Disallow internal and development paths ===
 Disallow: /solo/articles/    # article fragments, not full pages
@@ -64,8 +65,18 @@ Disallow: /ships/rcl/assets/
 Disallow: /ships/rcl/images/
 Disallow: /ships/carnival/assets/
 Disallow: /ships/celebrity-cruises/assets/
+Disallow: /ships/costa/assets/
+Disallow: /ships/cunard/assets/
+Disallow: /ships/explora-journeys/assets/
 Disallow: /ships/holland-america-line/assets/
 Disallow: /ships/msc/assets/
+Disallow: /ships/norwegian/assets/
+Disallow: /ships/oceania/assets/
+Disallow: /ships/princess/assets/
+Disallow: /ships/regent/assets/
+Disallow: /ships/seabourn/assets/
+Disallow: /ships/silversea/assets/
+Disallow: /ships/virgin-voyages/assets/
 
 # === Disallow JSON data files (not public content) ===
 Disallow: /*.json$
@@ -75,9 +86,12 @@ Allow: /sitemap*.json
 Sitemap: https://cruisinginthewake.com/sitemap.xml
 
 # Notes:
-# - All 291 port pages are indexed (updated 2025-12-14)
-# - All cruise line ship pages are indexed (Carnival, Celebrity, HAL, MSC, RCL)
+# - All 364 port pages are indexed (updated 2026-01-03)
+# - All cruise line ship pages are indexed (15 cruise lines, 294 ships):
+#   Carnival, Celebrity, Costa, Cunard, Explora Journeys, HAL,
+#   MSC, Norwegian, Oceania, Princess, RCL, Regent, Seabourn,
+#   Silversea, Virgin Voyages
 # - Solo main pages indexed, but /solo/articles/ fragments blocked
-# - Tools (port tracker, ship tracker) are indexed
+# - Tools (port tracker, ship tracker, ship size atlas) are indexed
 # - Asset directories (ships/*/assets/, /videos/) blocked to prevent JSON indexing
-# - Updated 2025-12-24: Added ship asset directory blocking, JSON disallow rules
+# - Updated 2026-01-03: Expanded to 15 cruise lines, 364 ports, 294 ships
