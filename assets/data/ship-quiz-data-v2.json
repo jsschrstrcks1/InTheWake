@@ -841,6 +841,17 @@
         "dining_modifier": 4,
         "avg_gt": 30000,
         "avg_capacity": 490
+      },
+      "prestige": {
+        "name": "Prestige Class",
+        "intensity": 3,
+        "vibe": "next_gen_ultra_luxury",
+        "description": "Next-generation ultra-luxury. 40% larger than Explorer class with only 10% more guests. Largest all-inclusive luxury suites at sea.",
+        "best_for": ["Ultra-luxury seekers", "Suite enthusiasts", "Special occasions", "All-inclusive travelers"],
+        "not_ideal_for": ["Budget travelers", "Families with young kids", "Party seekers"],
+        "dining_modifier": 5,
+        "avg_gt": 76550,
+        "avg_capacity": 850
       }
     },
     "seabourn": {
@@ -3003,13 +3014,27 @@
         "highlights": ["Panamax specs", "Murano glass chandeliers", "3,500 sqm Samsara Spa"],
         "image": "/assets/social/ships-hero.jpg",
         "page": "/ships/costa/costa-deliziosa.html"
+      },
+      "costa-serena": {
+        "name": "Costa Serena",
+        "class": "concordia",
+        "year": 2007,
+        "gt": 114147,
+        "capacity": 3014,
+        "status": "active",
+        "amplified": false,
+        "cdc_score": null,
+        "shipsan_grade": null,
+        "highlights": ["Second Concordia-class ship", "Asia deployment 2025-26", "Wärtsilä 42MW engines"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/costa/costa-serena.html"
       }
     },
     "virgin": {
       "scarlet-lady": {
         "name": "Scarlet Lady",
         "class": "lady",
-        "year": 2020,
+        "year": 2021,
         "gt": 110000,
         "capacity": 2770,
         "status": "active",
@@ -3022,7 +3047,7 @@
       "valiant-lady": {
         "name": "Valiant Lady",
         "class": "lady",
-        "year": 2021,
+        "year": 2022,
         "gt": 110000,
         "capacity": 2770,
         "status": "active",
@@ -3035,7 +3060,7 @@
       "resilient-lady": {
         "name": "Resilient Lady",
         "class": "lady",
-        "year": 2022,
+        "year": 2023,
         "gt": 110000,
         "capacity": 2770,
         "status": "active",
@@ -3048,7 +3073,7 @@
       "brilliant-lady": {
         "name": "Brilliant Lady",
         "class": "lady",
-        "year": 2023,
+        "year": 2025,
         "gt": 110000,
         "capacity": 2770,
         "status": "active",
@@ -3243,6 +3268,19 @@
         "highlights": ["Smallest Regent", "Yacht-like atmosphere", "Teak pool deck"],
         "image": "/assets/social/ships-hero.jpg",
         "page": "/ships/regent/seven-seas-navigator.html"
+      },
+      "seven-seas-prestige": {
+        "name": "Seven Seas Prestige",
+        "class": "prestige",
+        "year": 2026,
+        "gt": 76550,
+        "capacity": 850,
+        "status": "building",
+        "amplified": false,
+        "cdc_score": null,
+        "highlights": ["Largest Regent ship", "8,794 sq ft Skyview Suite", "Starlight Atrium"],
+        "image": "/assets/social/ships-hero.jpg",
+        "page": "/ships/regent/seven-seas-prestige.html"
       }
     },
     "seabourn": {
@@ -3662,6 +3700,446 @@
         "a_few": { "meraviglia_plus": 4, "seaside_evo": 4, "world": 2 },
         "seasoned": { "world": 4, "lirica": 4, "musica": 4 }
       }
+    },
+    "celebrity": {
+      "energy_level": {
+        "go_go_go": { "edge": 10, "solstice": 6, "millennium": 0 },
+        "balanced": { "edge": 12, "solstice": 14, "millennium": 8 },
+        "relax": { "millennium": 16, "solstice": 10, "edge": 4 }
+      },
+      "crowd_tolerance": {
+        "high": { "edge": 8, "solstice": 6 },
+        "medium": { "edge": 10, "solstice": 10, "millennium": 8 },
+        "low": { "millennium": 16, "solstice": 8, "edge": -4 }
+      },
+      "budget_mindset": {
+        "premium": { "edge": 14, "solstice": 10, "millennium": 6 },
+        "balanced": { "solstice": 12, "edge": 10, "millennium": 10 },
+        "value": { "millennium": 10, "solstice": 6, "edge": -6 }
+      },
+      "sailing_length": {
+        "short": { "solstice": 8, "edge": 6, "millennium": 4 },
+        "standard": { "edge": 10, "solstice": 10, "millennium": 8 },
+        "long": { "millennium": 12, "solstice": 10, "edge": 6 }
+      },
+      "group_type": {
+        "solo": { "millennium": 10, "solstice": 8, "edge": 6 },
+        "couple": { "edge": 14, "solstice": 12, "millennium": 10 },
+        "friends": { "edge": 12, "solstice": 10, "millennium": 6 },
+        "family_young": { "edge": -10, "solstice": -8, "millennium": -12 },
+        "family_teens": { "edge": 4, "solstice": 2, "millennium": -4 },
+        "multigen": { "solstice": 6, "edge": 4, "millennium": 2 }
+      },
+      "ship_vs_ports": {
+        "ship": { "edge": 12, "solstice": 8, "millennium": 4 },
+        "balanced": { "solstice": 10, "edge": 8, "millennium": 8 },
+        "ports": { "millennium": 14, "solstice": 10, "edge": 4 }
+      },
+      "cruise_experience": {
+        "first_time": { "solstice": 6, "edge": 4 },
+        "a_few": { "edge": 6, "solstice": 4, "millennium": 2 },
+        "seasoned": { "millennium": 6, "edge": 4, "solstice": 4 }
+      }
+    },
+    "princess": {
+      "energy_level": {
+        "go_go_go": { "sphere": 12, "royal": 8, "grand": 4 },
+        "balanced": { "royal": 14, "sphere": 10, "grand": 10 },
+        "relax": { "grand": 14, "royal": 8, "sphere": 2 }
+      },
+      "crowd_tolerance": {
+        "high": { "sphere": 10, "royal": 8 },
+        "medium": { "royal": 10, "grand": 10, "sphere": 6 },
+        "low": { "grand": 12, "royal": 6, "sphere": -6 }
+      },
+      "budget_mindset": {
+        "premium": { "sphere": 12, "royal": 10 },
+        "balanced": { "royal": 12, "grand": 10, "sphere": 8 },
+        "value": { "grand": 14, "royal": 8, "sphere": -4 }
+      },
+      "sailing_length": {
+        "short": { "grand": 10, "royal": 8, "sphere": 4 },
+        "standard": { "royal": 12, "sphere": 10, "grand": 10 },
+        "long": { "grand": 12, "royal": 10, "sphere": 6 }
+      },
+      "group_type": {
+        "solo": { "grand": 8, "royal": 6 },
+        "couple": { "royal": 12, "sphere": 10, "grand": 10 },
+        "friends": { "sphere": 10, "royal": 8, "grand": 6 },
+        "family_young": { "sphere": 14, "royal": 12, "grand": 8 },
+        "family_teens": { "sphere": 12, "royal": 10, "grand": 8 },
+        "multigen": { "royal": 12, "sphere": 10, "grand": 10 }
+      },
+      "ship_vs_ports": {
+        "ship": { "sphere": 12, "royal": 8, "grand": 4 },
+        "balanced": { "royal": 10, "grand": 10, "sphere": 8 },
+        "ports": { "grand": 14, "royal": 10, "sphere": 4 }
+      },
+      "cruise_experience": {
+        "first_time": { "royal": 8, "grand": 6, "sphere": 4 },
+        "a_few": { "sphere": 6, "royal": 6, "grand": 4 },
+        "seasoned": { "grand": 6, "royal": 4, "sphere": 4 }
+      }
+    },
+    "holland": {
+      "energy_level": {
+        "go_go_go": { "pinnacle": 6, "signature": 2, "vista": 0 },
+        "balanced": { "pinnacle": 12, "signature": 10, "vista": 8 },
+        "relax": { "vista": 16, "signature": 14, "pinnacle": 8 }
+      },
+      "crowd_tolerance": {
+        "high": { "pinnacle": 6, "signature": 4 },
+        "medium": { "pinnacle": 10, "signature": 10, "vista": 8 },
+        "low": { "vista": 14, "signature": 12, "pinnacle": 8 }
+      },
+      "budget_mindset": {
+        "premium": { "pinnacle": 12, "signature": 8, "vista": 4 },
+        "balanced": { "signature": 12, "pinnacle": 10, "vista": 10 },
+        "value": { "vista": 12, "signature": 8, "pinnacle": 4 }
+      },
+      "sailing_length": {
+        "short": { "vista": 6, "signature": 4 },
+        "standard": { "pinnacle": 10, "signature": 10, "vista": 8 },
+        "long": { "vista": 14, "signature": 12, "pinnacle": 10 }
+      },
+      "group_type": {
+        "solo": { "vista": 10, "signature": 8, "pinnacle": 6 },
+        "couple": { "pinnacle": 14, "signature": 12, "vista": 10 },
+        "friends": { "pinnacle": 10, "signature": 8, "vista": 4 },
+        "family_young": { "pinnacle": -10, "signature": -12, "vista": -14 },
+        "family_teens": { "pinnacle": 0, "signature": -2, "vista": -4 },
+        "multigen": { "pinnacle": 6, "signature": 4, "vista": 4 }
+      },
+      "ship_vs_ports": {
+        "ship": { "pinnacle": 10, "signature": 6, "vista": 4 },
+        "balanced": { "signature": 10, "pinnacle": 8, "vista": 8 },
+        "ports": { "vista": 14, "signature": 10, "pinnacle": 6 }
+      },
+      "cruise_experience": {
+        "first_time": { "pinnacle": 4, "signature": 2 },
+        "a_few": { "pinnacle": 6, "signature": 6, "vista": 4 },
+        "seasoned": { "vista": 10, "signature": 8, "pinnacle": 6 }
+      }
+    },
+    "cunard": {
+      "energy_level": {
+        "go_go_go": { "queen_mary_2": 4, "pinnacle_cunard": 6, "vista_cunard": 2 },
+        "balanced": { "pinnacle_cunard": 12, "queen_mary_2": 10, "vista_cunard": 10 },
+        "relax": { "vista_cunard": 16, "queen_mary_2": 12, "pinnacle_cunard": 8 }
+      },
+      "crowd_tolerance": {
+        "high": { "queen_mary_2": 8, "pinnacle_cunard": 6 },
+        "medium": { "pinnacle_cunard": 10, "queen_mary_2": 8, "vista_cunard": 8 },
+        "low": { "vista_cunard": 14, "pinnacle_cunard": 8, "queen_mary_2": 4 }
+      },
+      "budget_mindset": {
+        "premium": { "pinnacle_cunard": 14, "queen_mary_2": 12, "vista_cunard": 10 },
+        "balanced": { "vista_cunard": 10, "queen_mary_2": 8, "pinnacle_cunard": 8 },
+        "value": { "vista_cunard": 4, "queen_mary_2": 0, "pinnacle_cunard": -6 }
+      },
+      "sailing_length": {
+        "short": { "pinnacle_cunard": 4, "vista_cunard": 4 },
+        "standard": { "pinnacle_cunard": 10, "vista_cunard": 10, "queen_mary_2": 6 },
+        "long": { "queen_mary_2": 16, "vista_cunard": 12, "pinnacle_cunard": 10 }
+      },
+      "group_type": {
+        "solo": { "vista_cunard": 10, "queen_mary_2": 8, "pinnacle_cunard": 6 },
+        "couple": { "pinnacle_cunard": 14, "vista_cunard": 12, "queen_mary_2": 10 },
+        "friends": { "pinnacle_cunard": 8, "vista_cunard": 6, "queen_mary_2": 4 },
+        "family_young": { "queen_mary_2": -10, "vista_cunard": -12, "pinnacle_cunard": -8 },
+        "family_teens": { "pinnacle_cunard": 2, "queen_mary_2": 0, "vista_cunard": -2 },
+        "multigen": { "vista_cunard": 6, "pinnacle_cunard": 6, "queen_mary_2": 4 }
+      },
+      "ship_vs_ports": {
+        "ship": { "queen_mary_2": 14, "pinnacle_cunard": 10, "vista_cunard": 8 },
+        "balanced": { "pinnacle_cunard": 10, "vista_cunard": 10, "queen_mary_2": 8 },
+        "ports": { "vista_cunard": 12, "pinnacle_cunard": 8, "queen_mary_2": 2 }
+      },
+      "cruise_experience": {
+        "first_time": { "pinnacle_cunard": 4, "vista_cunard": 2 },
+        "a_few": { "pinnacle_cunard": 6, "vista_cunard": 6, "queen_mary_2": 4 },
+        "seasoned": { "queen_mary_2": 10, "vista_cunard": 8, "pinnacle_cunard": 6 }
+      }
+    },
+    "costa": {
+      "energy_level": {
+        "go_go_go": { "excellence": 14, "diadema": 10, "concordia": 6, "luminosa": 2 },
+        "balanced": { "diadema": 12, "concordia": 10, "excellence": 8, "luminosa": 8 },
+        "relax": { "luminosa": 14, "concordia": 8, "diadema": 4, "excellence": -4 }
+      },
+      "crowd_tolerance": {
+        "high": { "excellence": 12, "diadema": 10 },
+        "medium": { "diadema": 10, "concordia": 8, "excellence": 6 },
+        "low": { "luminosa": 14, "concordia": 8, "excellence": -10 }
+      },
+      "budget_mindset": {
+        "premium": { "excellence": 10, "diadema": 6, "luminosa": 4 },
+        "balanced": { "diadema": 10, "concordia": 10, "excellence": 8 },
+        "value": { "concordia": 14, "luminosa": 10, "diadema": 8, "excellence": -4 }
+      },
+      "sailing_length": {
+        "short": { "concordia": 10, "diadema": 8, "luminosa": 4 },
+        "standard": { "excellence": 10, "diadema": 10, "concordia": 8, "luminosa": 6 },
+        "long": { "luminosa": 14, "concordia": 8, "excellence": 6 }
+      },
+      "group_type": {
+        "solo": { "luminosa": 8, "concordia": 6 },
+        "couple": { "luminosa": 10, "diadema": 8, "concordia": 6 },
+        "friends": { "excellence": 10, "diadema": 8, "concordia": 6 },
+        "family_young": { "excellence": 14, "diadema": 12, "concordia": 8 },
+        "family_teens": { "excellence": 12, "diadema": 10, "concordia": 8 },
+        "multigen": { "excellence": 10, "diadema": 10, "concordia": 8 }
+      },
+      "ship_vs_ports": {
+        "ship": { "excellence": 12, "diadema": 8, "concordia": 4 },
+        "balanced": { "diadema": 10, "concordia": 8, "excellence": 8 },
+        "ports": { "luminosa": 14, "concordia": 10, "excellence": -6 }
+      },
+      "cruise_experience": {
+        "first_time": { "concordia": 6, "diadema": 4 },
+        "a_few": { "diadema": 6, "excellence": 4, "concordia": 4 },
+        "seasoned": { "luminosa": 6, "excellence": 4 }
+      }
+    },
+    "virgin": {
+      "energy_level": {
+        "go_go_go": { "lady": 16 },
+        "balanced": { "lady": 10 },
+        "relax": { "lady": 4 }
+      },
+      "crowd_tolerance": {
+        "high": { "lady": 10 },
+        "medium": { "lady": 12 },
+        "low": { "lady": 6 }
+      },
+      "budget_mindset": {
+        "premium": { "lady": 14 },
+        "balanced": { "lady": 10 },
+        "value": { "lady": -6 }
+      },
+      "sailing_length": {
+        "short": { "lady": 10 },
+        "standard": { "lady": 12 },
+        "long": { "lady": 6 }
+      },
+      "group_type": {
+        "solo": { "lady": 10 },
+        "couple": { "lady": 16 },
+        "friends": { "lady": 18 },
+        "family_young": { "lady": -20 },
+        "family_teens": { "lady": -16 },
+        "multigen": { "lady": -12 }
+      },
+      "ship_vs_ports": {
+        "ship": { "lady": 14 },
+        "balanced": { "lady": 10 },
+        "ports": { "lady": 4 }
+      },
+      "cruise_experience": {
+        "first_time": { "lady": 4 },
+        "a_few": { "lady": 8 },
+        "seasoned": { "lady": 10 }
+      }
+    },
+    "oceania": {
+      "energy_level": {
+        "go_go_go": { "allura": 4, "oceania": 2, "regatta": 0 },
+        "balanced": { "allura": 10, "oceania": 10, "regatta": 8 },
+        "relax": { "regatta": 16, "oceania": 14, "allura": 10 }
+      },
+      "crowd_tolerance": {
+        "high": { "allura": 4, "oceania": 4 },
+        "medium": { "allura": 10, "oceania": 10, "regatta": 8 },
+        "low": { "regatta": 16, "oceania": 12, "allura": 10 }
+      },
+      "budget_mindset": {
+        "premium": { "allura": 14, "oceania": 12, "regatta": 10 },
+        "balanced": { "oceania": 10, "allura": 8, "regatta": 8 },
+        "value": { "regatta": 4, "oceania": 0, "allura": -6 }
+      },
+      "sailing_length": {
+        "short": { "allura": 4, "oceania": 4, "regatta": 2 },
+        "standard": { "allura": 10, "oceania": 10, "regatta": 8 },
+        "long": { "regatta": 14, "oceania": 12, "allura": 10 }
+      },
+      "group_type": {
+        "solo": { "regatta": 12, "oceania": 10, "allura": 8 },
+        "couple": { "allura": 14, "oceania": 14, "regatta": 12 },
+        "friends": { "allura": 10, "oceania": 8, "regatta": 6 },
+        "family_young": { "allura": -12, "oceania": -14, "regatta": -16 },
+        "family_teens": { "allura": -4, "oceania": -6, "regatta": -8 },
+        "multigen": { "allura": 4, "oceania": 2, "regatta": 0 }
+      },
+      "ship_vs_ports": {
+        "ship": { "allura": 8, "oceania": 6, "regatta": 4 },
+        "balanced": { "allura": 10, "oceania": 10, "regatta": 10 },
+        "ports": { "regatta": 14, "oceania": 12, "allura": 10 }
+      },
+      "cruise_experience": {
+        "first_time": { "allura": 4, "oceania": 4 },
+        "a_few": { "allura": 6, "oceania": 6, "regatta": 4 },
+        "seasoned": { "regatta": 10, "oceania": 8, "allura": 6 }
+      }
+    },
+    "regent": {
+      "energy_level": {
+        "go_go_go": { "prestige": 4, "explorer": 2, "voyager_regent": 0, "mariner_regent": 0, "navigator": 0 },
+        "balanced": { "prestige": 10, "explorer": 10, "voyager_regent": 8, "mariner_regent": 8, "navigator": 6 },
+        "relax": { "navigator": 16, "mariner_regent": 14, "voyager_regent": 12, "explorer": 10, "prestige": 8 }
+      },
+      "crowd_tolerance": {
+        "high": { "prestige": 4, "explorer": 4 },
+        "medium": { "explorer": 10, "prestige": 10, "voyager_regent": 8, "mariner_regent": 8 },
+        "low": { "navigator": 16, "mariner_regent": 14, "voyager_regent": 12, "explorer": 10, "prestige": 8 }
+      },
+      "budget_mindset": {
+        "premium": { "prestige": 16, "explorer": 14, "voyager_regent": 12, "mariner_regent": 10, "navigator": 10 },
+        "balanced": { "explorer": 8, "prestige": 6, "voyager_regent": 6, "mariner_regent": 4, "navigator": 4 },
+        "value": { "navigator": -6, "mariner_regent": -8, "voyager_regent": -10, "explorer": -12, "prestige": -14 }
+      },
+      "sailing_length": {
+        "short": { "prestige": 4, "explorer": 4, "voyager_regent": 2 },
+        "standard": { "explorer": 10, "prestige": 10, "voyager_regent": 8, "mariner_regent": 8, "navigator": 6 },
+        "long": { "navigator": 14, "mariner_regent": 12, "voyager_regent": 12, "explorer": 10, "prestige": 10 }
+      },
+      "group_type": {
+        "solo": { "navigator": 12, "mariner_regent": 10, "voyager_regent": 8, "explorer": 6, "prestige": 4 },
+        "couple": { "prestige": 16, "explorer": 14, "voyager_regent": 12, "mariner_regent": 12, "navigator": 10 },
+        "friends": { "prestige": 10, "explorer": 8, "voyager_regent": 6, "mariner_regent": 4, "navigator": 2 },
+        "family_young": { "prestige": -14, "explorer": -14, "voyager_regent": -16, "mariner_regent": -18, "navigator": -18 },
+        "family_teens": { "prestige": -4, "explorer": -6, "voyager_regent": -8, "mariner_regent": -10, "navigator": -10 },
+        "multigen": { "prestige": 4, "explorer": 4, "voyager_regent": 2, "mariner_regent": 0, "navigator": 0 }
+      },
+      "ship_vs_ports": {
+        "ship": { "prestige": 10, "explorer": 8, "voyager_regent": 6, "mariner_regent": 4, "navigator": 2 },
+        "balanced": { "explorer": 10, "prestige": 10, "voyager_regent": 10, "mariner_regent": 8, "navigator": 8 },
+        "ports": { "navigator": 14, "mariner_regent": 12, "voyager_regent": 12, "explorer": 10, "prestige": 8 }
+      },
+      "cruise_experience": {
+        "first_time": { "explorer": 4, "prestige": 4 },
+        "a_few": { "prestige": 6, "explorer": 6, "voyager_regent": 4 },
+        "seasoned": { "navigator": 10, "mariner_regent": 8, "voyager_regent": 8, "explorer": 6, "prestige": 6 }
+      }
+    },
+    "seabourn": {
+      "energy_level": {
+        "go_go_go": { "venture": 8, "encore_seabourn": 4, "odyssey_seabourn": 0 },
+        "balanced": { "encore_seabourn": 12, "venture": 10, "odyssey_seabourn": 8 },
+        "relax": { "odyssey_seabourn": 16, "encore_seabourn": 12, "venture": 6 }
+      },
+      "crowd_tolerance": {
+        "high": { "encore_seabourn": 4, "venture": 4 },
+        "medium": { "encore_seabourn": 10, "venture": 10, "odyssey_seabourn": 10 },
+        "low": { "odyssey_seabourn": 16, "encore_seabourn": 14, "venture": 12 }
+      },
+      "budget_mindset": {
+        "premium": { "encore_seabourn": 14, "odyssey_seabourn": 14, "venture": 16 },
+        "balanced": { "encore_seabourn": 6, "odyssey_seabourn": 6, "venture": 6 },
+        "value": { "odyssey_seabourn": -10, "encore_seabourn": -10, "venture": -14 }
+      },
+      "sailing_length": {
+        "short": { "encore_seabourn": 4, "odyssey_seabourn": 2 },
+        "standard": { "encore_seabourn": 10, "odyssey_seabourn": 10, "venture": 8 },
+        "long": { "venture": 14, "odyssey_seabourn": 12, "encore_seabourn": 10 }
+      },
+      "group_type": {
+        "solo": { "odyssey_seabourn": 12, "encore_seabourn": 10, "venture": 8 },
+        "couple": { "encore_seabourn": 16, "odyssey_seabourn": 14, "venture": 12 },
+        "friends": { "encore_seabourn": 8, "venture": 8, "odyssey_seabourn": 6 },
+        "family_young": { "encore_seabourn": -16, "odyssey_seabourn": -18, "venture": -18 },
+        "family_teens": { "encore_seabourn": -8, "odyssey_seabourn": -10, "venture": -10 },
+        "multigen": { "encore_seabourn": 2, "odyssey_seabourn": 0, "venture": 0 }
+      },
+      "ship_vs_ports": {
+        "ship": { "encore_seabourn": 8, "odyssey_seabourn": 6, "venture": 8 },
+        "balanced": { "encore_seabourn": 10, "odyssey_seabourn": 10, "venture": 10 },
+        "ports": { "odyssey_seabourn": 14, "encore_seabourn": 12, "venture": 12 }
+      },
+      "cruise_experience": {
+        "first_time": { "encore_seabourn": 4, "odyssey_seabourn": 2 },
+        "a_few": { "encore_seabourn": 6, "odyssey_seabourn": 6, "venture": 4 },
+        "seasoned": { "odyssey_seabourn": 10, "encore_seabourn": 8, "venture": 8 }
+      }
+    },
+    "silversea": {
+      "energy_level": {
+        "go_go_go": { "nova": 6, "muse": 4, "expedition_silversea": 8, "spirit_silversea": 2, "millennium_silversea": 0 },
+        "balanced": { "nova": 12, "muse": 12, "spirit_silversea": 10, "expedition_silversea": 10, "millennium_silversea": 8 },
+        "relax": { "millennium_silversea": 16, "spirit_silversea": 14, "muse": 10, "nova": 8, "expedition_silversea": 4 }
+      },
+      "crowd_tolerance": {
+        "high": { "nova": 4, "muse": 4 },
+        "medium": { "nova": 10, "muse": 10, "spirit_silversea": 10, "expedition_silversea": 8 },
+        "low": { "millennium_silversea": 16, "spirit_silversea": 14, "muse": 12, "nova": 10, "expedition_silversea": 12 }
+      },
+      "budget_mindset": {
+        "premium": { "nova": 14, "muse": 14, "spirit_silversea": 12, "expedition_silversea": 16, "millennium_silversea": 10 },
+        "balanced": { "spirit_silversea": 8, "muse": 6, "nova": 6, "millennium_silversea": 6, "expedition_silversea": 4 },
+        "value": { "millennium_silversea": -8, "spirit_silversea": -10, "muse": -12, "nova": -14, "expedition_silversea": -16 }
+      },
+      "sailing_length": {
+        "short": { "nova": 4, "muse": 4, "spirit_silversea": 2 },
+        "standard": { "nova": 10, "muse": 10, "spirit_silversea": 10, "millennium_silversea": 8, "expedition_silversea": 8 },
+        "long": { "expedition_silversea": 14, "millennium_silversea": 12, "spirit_silversea": 12, "muse": 10, "nova": 10 }
+      },
+      "group_type": {
+        "solo": { "millennium_silversea": 12, "spirit_silversea": 10, "muse": 8, "nova": 6, "expedition_silversea": 8 },
+        "couple": { "nova": 16, "muse": 14, "spirit_silversea": 12, "expedition_silversea": 12, "millennium_silversea": 10 },
+        "friends": { "nova": 10, "muse": 8, "expedition_silversea": 10, "spirit_silversea": 6, "millennium_silversea": 4 },
+        "family_young": { "nova": -14, "muse": -16, "spirit_silversea": -18, "millennium_silversea": -18, "expedition_silversea": -18 },
+        "family_teens": { "nova": -4, "muse": -6, "expedition_silversea": -4, "spirit_silversea": -8, "millennium_silversea": -10 },
+        "multigen": { "nova": 4, "muse": 2, "spirit_silversea": 0, "millennium_silversea": 0, "expedition_silversea": 0 }
+      },
+      "ship_vs_ports": {
+        "ship": { "nova": 10, "muse": 8, "spirit_silversea": 6, "expedition_silversea": 4 },
+        "balanced": { "nova": 10, "muse": 10, "spirit_silversea": 10, "millennium_silversea": 8, "expedition_silversea": 10 },
+        "ports": { "expedition_silversea": 16, "millennium_silversea": 14, "spirit_silversea": 12, "muse": 10, "nova": 8 }
+      },
+      "cruise_experience": {
+        "first_time": { "nova": 4, "muse": 4 },
+        "a_few": { "nova": 6, "muse": 6, "spirit_silversea": 4 },
+        "seasoned": { "millennium_silversea": 10, "spirit_silversea": 10, "expedition_silversea": 10, "muse": 8, "nova": 6 }
+      }
+    },
+    "explora": {
+      "energy_level": {
+        "go_go_go": { "explora": 4, "explora_plus": 4 },
+        "balanced": { "explora": 12, "explora_plus": 12 },
+        "relax": { "explora": 14, "explora_plus": 14 }
+      },
+      "crowd_tolerance": {
+        "high": { "explora": 4, "explora_plus": 4 },
+        "medium": { "explora": 10, "explora_plus": 10 },
+        "low": { "explora": 14, "explora_plus": 14 }
+      },
+      "budget_mindset": {
+        "premium": { "explora": 14, "explora_plus": 16 },
+        "balanced": { "explora": 6, "explora_plus": 6 },
+        "value": { "explora": -12, "explora_plus": -14 }
+      },
+      "sailing_length": {
+        "short": { "explora": 4, "explora_plus": 4 },
+        "standard": { "explora": 10, "explora_plus": 10 },
+        "long": { "explora": 14, "explora_plus": 14 }
+      },
+      "group_type": {
+        "solo": { "explora": 10, "explora_plus": 10 },
+        "couple": { "explora": 16, "explora_plus": 16 },
+        "friends": { "explora": 10, "explora_plus": 10 },
+        "family_young": { "explora": -16, "explora_plus": -16 },
+        "family_teens": { "explora": -8, "explora_plus": -8 },
+        "multigen": { "explora": 2, "explora_plus": 2 }
+      },
+      "ship_vs_ports": {
+        "ship": { "explora": 10, "explora_plus": 10 },
+        "balanced": { "explora": 12, "explora_plus": 12 },
+        "ports": { "explora": 10, "explora_plus": 10 }
+      },
+      "cruise_experience": {
+        "first_time": { "explora": 4, "explora_plus": 4 },
+        "a_few": { "explora": 6, "explora_plus": 6 },
+        "seasoned": { "explora": 10, "explora_plus": 10 }
+      }
     }
   },
 
@@ -3670,37 +4148,68 @@
       "rcl": { "icon": 15, "oasis": 10, "freedom": 8 },
       "carnival": { "excel": 15, "vista": 12, "dream": 8 },
       "ncl": { "breakaway_plus": 12, "breakaway": 10, "prima": 6 },
-      "msc": { "world": 12, "seaside_evo": 10, "meraviglia_plus": 8 }
+      "msc": { "world": 12, "seaside_evo": 10, "meraviglia_plus": 8 },
+      "princess": { "sphere": 10, "royal": 8, "grand": 6 },
+      "costa": { "excellence": 10, "diadema": 8 }
     },
     "dining": {
       "rcl": { "icon": 10, "oasis": 12, "quantum": 8 },
       "carnival": { "excel": 12, "vista": 8, "venice": 8 },
       "ncl": { "prima": 12, "breakaway_plus": 10, "jewel": 6 },
-      "msc": { "world": 14, "meraviglia_plus": 8, "seaside_evo": 6 }
+      "msc": { "world": 14, "meraviglia_plus": 8, "seaside_evo": 6 },
+      "celebrity": { "edge": 14, "solstice": 12, "millennium": 10 },
+      "princess": { "royal": 10, "sphere": 8, "grand": 6 },
+      "holland": { "pinnacle": 12, "signature": 10, "vista": 8 },
+      "cunard": { "pinnacle_cunard": 14, "queen_mary_2": 12, "vista_cunard": 10 },
+      "virgin": { "lady": 16 },
+      "oceania": { "allura": 18, "oceania": 16, "regatta": 14 },
+      "regent": { "prestige": 18, "explorer": 16, "voyager_regent": 14, "mariner_regent": 14, "navigator": 12 },
+      "seabourn": { "encore_seabourn": 16, "odyssey_seabourn": 16, "venture": 14 },
+      "silversea": { "nova": 16, "muse": 16, "spirit_silversea": 14, "millennium_silversea": 14, "expedition_silversea": 12 },
+      "explora": { "explora": 16, "explora_plus": 16 }
     },
     "shows": {
       "rcl": { "oasis": 12, "quantum": 10, "icon": 8 },
       "carnival": { "excel": 10, "vista": 8, "dream": 8 },
       "ncl": { "breakaway_plus": 12, "breakaway": 10, "epic": 8 },
-      "msc": { "meraviglia_plus": 12, "meraviglia": 12, "world": 8 }
+      "msc": { "meraviglia_plus": 12, "meraviglia": 12, "world": 8 },
+      "celebrity": { "edge": 10, "solstice": 8 },
+      "princess": { "sphere": 10, "royal": 8, "grand": 6 },
+      "cunard": { "queen_mary_2": 12, "pinnacle_cunard": 10, "vista_cunard": 8 },
+      "virgin": { "lady": 12 }
     },
     "tech": {
       "rcl": { "quantum": 15, "icon": 10, "oasis": 6 },
       "carnival": { "excel": 12, "vista": 8 },
       "ncl": { "prima": 14, "breakaway_plus": 10 },
-      "msc": { "world": 12, "meraviglia_plus": 10, "seaside_evo": 8 }
+      "msc": { "world": 12, "meraviglia_plus": 10, "seaside_evo": 8 },
+      "celebrity": { "edge": 12, "solstice": 6 },
+      "princess": { "sphere": 14, "royal": 10 },
+      "costa": { "excellence": 10, "diadema": 6 }
     },
     "scenic": {
       "rcl": { "radiance": 15, "vision": 12, "quantum": 6 },
       "carnival": { "spirit": 12, "venice": 10, "fantasy": 8 },
       "ncl": { "jewel": 12, "dawn": 10, "pride_of_america": 14 },
-      "msc": { "fantasia": 10, "musica": 10, "lirica": 8 }
+      "msc": { "fantasia": 10, "musica": 10, "lirica": 8 },
+      "celebrity": { "millennium": 14, "solstice": 10, "edge": 8 },
+      "princess": { "grand": 12, "royal": 10, "sphere": 6 },
+      "holland": { "vista": 14, "signature": 12, "pinnacle": 10 },
+      "cunard": { "queen_mary_2": 14, "vista_cunard": 12, "pinnacle_cunard": 8 },
+      "costa": { "luminosa": 14, "concordia": 10 },
+      "oceania": { "regatta": 16, "oceania": 14, "allura": 12 },
+      "regent": { "navigator": 14, "mariner_regent": 12, "voyager_regent": 12, "explorer": 10, "prestige": 10 },
+      "seabourn": { "venture": 16, "odyssey_seabourn": 14, "encore_seabourn": 12 },
+      "silversea": { "expedition_silversea": 18, "millennium_silversea": 14, "spirit_silversea": 12, "muse": 10, "nova": 10 },
+      "explora": { "explora": 12, "explora_plus": 12 }
     },
     "family": {
       "rcl": { "icon": 14, "oasis": 12, "freedom": 10 },
       "carnival": { "excel": 14, "vista": 14, "dream": 10 },
       "ncl": { "breakaway_plus": 12, "breakaway": 10 },
-      "msc": { "world": 14, "meraviglia_plus": 12, "seaside_evo": 10 }
+      "msc": { "world": 14, "meraviglia_plus": 12, "seaside_evo": 10 },
+      "princess": { "sphere": 12, "royal": 10, "grand": 8 },
+      "costa": { "excellence": 12, "diadema": 10, "concordia": 8 }
     }
   }
 }
