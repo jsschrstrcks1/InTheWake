@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * Extract Carnival Videos from Master Manifest
+ * Extract Carnival Videos from Multiple Master Manifests
  * Soli Deo Gloria
  *
- * Parses the large video manifest and extracts Carnival ship videos,
+ * Parses multiple video manifests and extracts Carnival ship videos,
  * categorizing them appropriately for ship page validation.
  */
 
@@ -14,7 +14,13 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const MANIFEST_PATH = join(__dirname, '..', 'ships', 'rcl', 'assets', 'videos', 'adventure-of-the-seas.json');
+const MANIFEST_PATHS = [
+  join(__dirname, '..', 'ships', 'rcl', 'assets', 'videos', 'adventure-of-the-seas.json'),
+  join(__dirname, '..', 'ships', 'rcl', 'assets', 'videos', 'allure-of-the-seas.json'),
+  join(__dirname, '..', 'ships', 'rcl', 'assets', 'videos', 'radiance.json'),
+  join(__dirname, '..', 'ships', 'rc_ship_videos.json'),
+  join(__dirname, '..', 'data', 'rc_ship_videos.json'),
+];
 const OUTPUT_DIR = join(__dirname, '..', 'assets', 'data', 'videos', 'carnival');
 
 // Carnival ship slugs to match
@@ -30,20 +36,21 @@ const CARNIVAL_SHIPS = [
 
 // Category mapping for validator
 const CATEGORY_MAP = {
-  'ship walk through': ['walkthrough', 'ship tour', 'full tour', 'public deck', 'full walk'],
-  'top ten': ['top 10', 'top ten', 'best', 'review'],
-  'suite': ['suite', 'grand suite', 'excel suite', 'corner suite', 'presidential'],
-  'balcony': ['balcony', 'verandah', 'cove balcony'],
-  'oceanview': ['ocean view', 'oceanview', 'porthole'],
-  'interior': ['interior', 'inside cabin'],
-  'food': ['dining', 'food', 'restaurant', 'buffet', 'specialty dining', 'guy\'s burger'],
-  'accessible': ['accessible', 'wheelchair', 'ada']
+  'ship walk through': ['walkthrough', 'ship tour', 'full tour', 'public deck', 'full walk', 'deck tour'],
+  'top ten': ['top 10', 'top ten', 'best', 'review', 'things to do'],
+  'suite': ['suite', 'grand suite', 'excel suite', 'corner suite', 'presidential', 'havana suite'],
+  'balcony': ['balcony', 'verandah', 'cove balcony', 'aft balcony'],
+  'oceanview': ['ocean view', 'oceanview', 'porthole', 'window'],
+  'interior': ['interior', 'inside cabin', 'inside stateroom'],
+  'food': ['dining', 'food', 'restaurant', 'buffet', 'specialty dining', 'guy\'s burger', 'menu', 'lido'],
+  'accessible': ['accessible', 'wheelchair', 'ada', 'mobility']
 };
 
 function getShipSlug(title) {
   const titleLower = title.toLowerCase();
   for (const slug of CARNIVAL_SHIPS) {
-    const shipName = slug.replace('carnival-', 'carnival ');
+    // Convert slug to ship name (e.g., "carnival-mardi-gras" -> "carnival mardi gras")
+    const shipName = slug.replace(/-/g, ' ');
     if (titleLower.includes(shipName)) {
       return slug;
     }
@@ -76,14 +83,102 @@ function categorizeVideo(title, description = '') {
   return categories.length > 0 ? categories : ['ship walk through'];
 }
 
+function addVideoToShip(shipVideos, shipSlug, video, stats) {
+  const categories = categorizeVideo(video.title, video.description || '');
+  const videoId = video.videoId || video.youtube_id || '';
+
+  if (!videoId) return;
+
+  for (const cat of categories) {
+    if (!shipVideos[shipSlug].videos[cat]) {
+      shipVideos[shipSlug].videos[cat] = [];
+    }
+
+    const exists = shipVideos[shipSlug].videos[cat].some(v => v.videoId === videoId);
+    if (!exists) {
+      shipVideos[shipSlug].videos[cat].push({
+        videoId: videoId,
+        provider: 'youtube',
+        title: video.title,
+        description: (video.description || '').substring(0, 200)
+      });
+      stats.matched++;
+    }
+  }
+}
+
+async function processManifest(manifestPath, shipVideos, stats) {
+  let manifest;
+  try {
+    manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
+    console.log(`Processing: ${manifestPath.split('/').pop()}`);
+  } catch (e) {
+    console.log(`Skipping (not found): ${manifestPath.split('/').pop()}`);
+    return;
+  }
+
+  // Handle different manifest structures
+  // Structure 1: { videos: { category: [videos] } }
+  if (manifest.videos && typeof manifest.videos === 'object' && !Array.isArray(manifest.videos)) {
+    for (const [category, videos] of Object.entries(manifest.videos)) {
+      if (!Array.isArray(videos)) continue;
+      for (const video of videos) {
+        stats.total++;
+        if (!video.title) continue;
+        const shipSlug = getShipSlug(video.title);
+        if (shipSlug) {
+          addVideoToShip(shipVideos, shipSlug, video, stats);
+        }
+      }
+    }
+  }
+
+  // Structure 2: { videos: [videos] } - array of videos
+  if (manifest.videos && Array.isArray(manifest.videos)) {
+    for (const video of manifest.videos) {
+      stats.total++;
+      if (!video.title) continue;
+      const shipSlug = getShipSlug(video.title);
+      if (shipSlug) {
+        addVideoToShip(shipVideos, shipSlug, video, stats);
+      }
+    }
+  }
+
+  // Structure 3: videos_interleaved array
+  if (manifest.videos_interleaved && Array.isArray(manifest.videos_interleaved)) {
+    for (const video of manifest.videos_interleaved) {
+      stats.total++;
+      if (!video.title) continue;
+      const shipSlug = getShipSlug(video.title);
+      if (shipSlug) {
+        addVideoToShip(shipVideos, shipSlug, video, stats);
+      }
+    }
+  }
+
+  // Structure 4: ships object with nested videos
+  if (manifest.ships && typeof manifest.ships === 'object') {
+    for (const [shipKey, shipData] of Object.entries(manifest.ships)) {
+      if (shipData.videos && Array.isArray(shipData.videos)) {
+        for (const video of shipData.videos) {
+          stats.total++;
+          if (!video.title) continue;
+          const shipSlug = getShipSlug(video.title);
+          if (shipSlug) {
+            addVideoToShip(shipVideos, shipSlug, video, stats);
+          }
+        }
+      }
+    }
+  }
+}
+
 async function main() {
-  console.log('Extracting Carnival Videos from Master Manifest');
-  console.log('================================================\n');
+  console.log('Extracting Carnival Videos from Multiple Manifests');
+  console.log('===================================================\n');
 
-  // Read manifest
-  const manifest = JSON.parse(await readFile(MANIFEST_PATH, 'utf8'));
-
-  // Collect all videos by ship
+  // Initialize ship videos structure
   const shipVideos = {};
   CARNIVAL_SHIPS.forEach(slug => {
     shipVideos[slug] = {
@@ -95,40 +190,11 @@ async function main() {
     };
   });
 
-  let totalVideos = 0;
-  let matchedVideos = 0;
+  const stats = { total: 0, matched: 0 };
 
-  // Process all video categories in the manifest
-  for (const [category, videos] of Object.entries(manifest.videos || {})) {
-    if (!Array.isArray(videos)) continue;
-
-    for (const video of videos) {
-      totalVideos++;
-      if (!video.title) continue;
-
-      const shipSlug = getShipSlug(video.title);
-      if (!shipSlug) continue;
-
-      matchedVideos++;
-      const categories = categorizeVideo(video.title, video.description || '');
-
-      for (const cat of categories) {
-        if (!shipVideos[shipSlug].videos[cat]) {
-          shipVideos[shipSlug].videos[cat] = [];
-        }
-
-        // Check for duplicates
-        const exists = shipVideos[shipSlug].videos[cat].some(v => v.videoId === video.videoId);
-        if (!exists) {
-          shipVideos[shipSlug].videos[cat].push({
-            videoId: video.videoId,
-            provider: 'youtube',
-            title: video.title,
-            description: (video.description || '').substring(0, 200)
-          });
-        }
-      }
-    }
+  // Process each manifest
+  for (const manifestPath of MANIFEST_PATHS) {
+    await processManifest(manifestPath, shipVideos, stats);
   }
 
   // Write output files
@@ -145,9 +211,9 @@ async function main() {
     }
   }
 
-  console.log(`\n================================================`);
-  console.log(`Total videos in manifest: ${totalVideos}`);
-  console.log(`Matched Carnival videos: ${matchedVideos}`);
+  console.log(`\n===================================================`);
+  console.log(`Total videos scanned: ${stats.total}`);
+  console.log(`Carnival videos extracted: ${stats.matched}`);
   console.log(`Ships with videos: ${shipsWithVideos}/${CARNIVAL_SHIPS.length}`);
 }
 
