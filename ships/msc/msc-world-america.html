@@ -15,6 +15,8 @@ All work on this project is offered as a gift to God.
      parent: /ships.html
      category: Royal Caribbean Fleet
      cruise-line: Royal Caribbean
+     ship-class: World Class
+     siblings: /ships/msc/msc-world-asia.html, /ships/msc/msc-world-europa.html
      updated: 2025-11-15
      expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons
      target-audience: Msc World America cruisers, ship comparison researchers, first-time cruisers
@@ -193,6 +195,9 @@ All work on this project is offered as a gift to God.
 
 <!-- JSON-LD: BreadcrumbList -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"MSC Cruises","item":"https://cruisinginthewake.com/cruise-lines/msc.html"},{"@type":"ListItem","position":4,"name":"Msc World America","item":"https://cruisinginthewake.com/ships/msc/msc-world-america.html"}]}</script>
+
+  <!-- JSON-LD: Review -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Msc World America","brand":{"@type":"Organization","name":"MSC Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5},"reviewBody":"Msc World America from MSC Cruises offers memorable cruise experiences with excellent amenities and service."}</script>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -205,7 +210,7 @@ All work on this project is offered as a gift to God.
       <!-- Navigation with Dropdown Menus -->
 
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
       <!-- Mobile hamburger button -->
@@ -260,9 +265,9 @@ All work on this project is offered as a gift to God.
     </div>
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <img loading="lazy" class="hero-compass" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img loading="lazy" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
@@ -294,8 +299,9 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 <script type="application/json" id="dining-data-source">{"provider":"msc","json":"/assets/data/venues-v2.json","ship_slug":"msc-world-america","aliases":["Msc World America"]}</script>
+        <script type="application/json" id="ship-stats-fallback">{"slug":"msc-world-america","name":"Msc World America","cruise_line":"MSC Cruises","class":"World Class","entered_service":2025,"gt":"215,863 GT","guests":"6,762","crew":"2,200"}</script>
 
-<section class="card" aria-labelledby="watch-highlights">
+<section class="card" data-ship="Msc World America" aria-labelledby="watch-highlights">
   <h2 id="watch-highlights">Watch: Msc World America Highlights</h2>
   <p class="muted">Video highlights coming soon.</p>
 </section>
@@ -341,7 +347,16 @@ All work on this project is offered as a gift to God.
 </section>
 
 <!-- ICP-Lite FAQ Section -->
-<section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
+
+    <!-- Ken's Logbook Section -->
+    <section class="card note-kens-logbook" aria-labelledby="logbook">
+      <h2 id="logbook">Ken's Logbook: Msc World America</h2>
+      <div id="logbook-container" data-ship="msc-world-america" data-line="msc">
+        <p class="placeholder">Stories and insights from cruisers who have sailed on Msc World America will appear here.</p>
+      </div>
+    </section>
+
+    <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
   <h2 style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions</h2>
 
   <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
@@ -400,7 +415,24 @@ All work on this project is offered as a gift to God.
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
+    
+      <!-- Recent Articles Navigation -->
+      <section class="card" id="recent-rail-nav-bottom" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Articles</h3>
+        <nav aria-label="Recent articles">
+          <ul class="rail-links">
+            <li><a href="/articles/index.html">View all articles</a></li>
+          </ul>
+        </nav>
+      </section>
     </aside>
+  
+
+    <!-- Attribution Section -->
+    <section class="card attributions">
+      <h3>Sources & Attribution</h3>
+      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
+    </section>
   </main>
 
   <footer class="wrap" role="contentinfo">

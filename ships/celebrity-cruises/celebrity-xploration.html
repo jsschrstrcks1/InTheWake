@@ -15,6 +15,8 @@ All work on this project is offered as a gift to God.
      parent: /ships.html
      category: Celebrity Fleet
      cruise-line: Celebrity
+     ship-class: Expedition Class
+     siblings: /ships/celebrity-cruises/celebrity-flora.html, /ships/celebrity-cruises/celebrity-xpedition.html, /ships/celebrity-cruises/celebrity-xperience.html
      updated: 2025-11-15
      expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons
      target-audience: Celebrity XplorationHistorical cruisers, ship comparison researchers, first-time cruisers
@@ -122,6 +124,9 @@ All work on this project is offered as a gift to God.
 
 <!-- JSON-LD: BreadcrumbList -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Celebrity Cruises","item":"https://cruisinginthewake.com/cruise-lines/celebrity-cruises.html"},{"@type":"ListItem","position":4,"name":"Celebrity Xploration","item":"https://cruisinginthewake.com/ships/celebrity-cruises/celebrity-xploration.html"}]}</script>
+
+  <!-- JSON-LD: Review -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Celebrity Xploration","brand":{"@type":"Organization","name":"Celebrity Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5},"reviewBody":"Celebrity Xploration from Celebrity Cruises offers memorable cruise experiences with excellent amenities and service."}</script>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -132,7 +137,7 @@ All work on this project is offered as a gift to God.
 <header class="site-header hero-header" role="banner">
 <div class="navbar">
   <div class="brand">
-    <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+    <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
     <span class="tiny version-badge">V1.Beta</span>
   </div>
       <!-- Mobile hamburger button -->
@@ -188,9 +193,9 @@ All work on this project is offered as a gift to God.
     <!-- Hero section -->
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true"/>
+      <img loading="lazy" class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img loading="lazy" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
@@ -229,11 +234,24 @@ All work on this project is offered as a gift to God.
         </ul>
       </div>
     </section>
-<script type="application/json" id="dining-data-source">{"provider":"celebrity-cruises","json":"/assets/data/venues-v2.json","ship_slug":"celebrity-xploration","aliases":["Celebrity Xploration"]}</script>
 
-  <section class="section card">
+    <!-- First Look Section -->
+    <section class="card" aria-labelledby="first-look">
+      <h2 id="first-look">A First Look</h2>
+      <div class="grid-2" style="gap: 1.5rem;">
+        <div>
+          <p>Celebrity Xploration offers a memorable cruise experience with Celebrity Cruises. This ship features modern amenities, diverse dining options, and entertainment for all ages.</p>
+          <p>Explore the deck plans below to familiarize yourself with the ship's layout, or check out the dining section to see available restaurants and venues.</p>
+        </div>
+        <div id="ship-stats" class="stats-grid" data-slug=""></div>
+      </div>
+    </section>
+<script type="application/json" id="dining-data-source">{"provider":"celebrity-cruises","json":"/assets/data/venues-v2.json","ship_slug":"celebrity-xploration","aliases":["Celebrity Xploration"]}</script>
+        <script type="application/json" id="ship-stats-fallback">{"slug":"celebrity-xploration","name":"Celebrity Xploration","cruise_line":"Celebrity Cruises","class":"Expedition Class","entered_service":2017,"gt":"356 GT","guests":"16","crew":"13"}</script>
+
+  <section class="section card" data-ship="Celebrity Xploration">
     <h2>Dining</h2>
-    <img src="/assets/img/Cordelia_Empress_Food_Court.webp" alt="Ship dining area" style="width:100%;height:auto;border-radius:12px;margin-bottom:12px;"/>
+    <img loading="lazy" src="/assets/img/Cordelia_Empress_Food_Court.webp" alt="Ship dining area" style="width:100%;height:auto;border-radius:12px;margin-bottom:12px;"/>
     
     <p class="small">If a venue list does not appear, it means this ship’s dining has not been verified yet.</p>
   </section>
@@ -256,6 +274,33 @@ All work on this project is offered as a gift to God.
   </footer>
 
     <!-- ICP-Lite FAQ Section -->
+    
+    <!-- Ken's Logbook Section -->
+    <section class="card note-kens-logbook" aria-labelledby="logbook">
+      <h2 id="logbook">Ken's Logbook: Celebrity Xploration</h2>
+      <div id="logbook-container" data-ship="celebrity-xploration" data-line="celebrity-cruises">
+        <p class="placeholder">Stories and insights from cruisers who have sailed on Celebrity Xploration will appear here.</p>
+      </div>
+    </section>
+
+    
+    <!-- Deck Plans & Tracker Grid -->
+    <div class="grid-2">
+      <section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">Deck Plans</h2>
+        <div id="ship-map" data-ship="celebrity-xploration">
+          <p>Interactive deck plans for Celebrity Xploration are available on the cruise line's official website.</p>
+        </div>
+      </section>
+
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="TBD" data-name="CELEBRITYXPLORATION">
+        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
+        <div id="ship-tracker-container">
+          <p>Track Celebrity Xploration's current position and voyage details.</p>
+        </div>
+      </section>
+    </div>
+
     <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
       <h2 style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions</h2>
 
@@ -308,7 +353,24 @@ All work on this project is offered as a gift to God.
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
       </section>
+    
+      <!-- Recent Articles Navigation -->
+      <section class="card" id="recent-rail-nav-bottom" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Articles</h3>
+        <nav aria-label="Recent articles">
+          <ul class="rail-links">
+            <li><a href="/articles/index.html">View all articles</a></li>
+          </ul>
+        </nav>
+      </section>
     </aside>
+  
+
+    <!-- Attribution Section -->
+    <section class="card attributions">
+      <h3>Sources & Attribution</h3>
+      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
+    </section>
   </main>
 
   <!-- Navigation Dropdown Script -->

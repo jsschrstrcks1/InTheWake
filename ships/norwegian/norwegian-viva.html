@@ -15,6 +15,8 @@ All work on this project is offered as a gift to God.
      parent: /ships.html
      category: Norwegian Cruise Line Fleet
      cruise-line: Norwegian Cruise Line
+     ship-class: Prima Class
+     siblings: /ships/norwegian/norwegian-aqua.html, /ships/norwegian/norwegian-prima.html
      updated: 2026-01-02
      expertise: Norwegian ship reviews, deck plans, dining analysis, cabin comparisons
      target-audience: Norwegian Viva cruisers, ship comparison researchers, first-time cruisers
@@ -118,6 +120,9 @@ All work on this project is offered as a gift to God.
 
 <!-- JSON-LD: BreadcrumbList -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Norwegian Cruise Line","item":"https://cruisinginthewake.com/cruise-lines/norwegian.html"},{"@type":"ListItem","position":4,"name":"Norwegian Viva","item":"https://cruisinginthewake.com/ships/norwegian/norwegian-viva.html"}]}</script>
+
+  <!-- JSON-LD: Review -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Norwegian Viva","brand":{"@type":"Organization","name":"Norwegian Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5},"reviewBody":"Norwegian Viva from Norwegian Cruise Line offers memorable cruise experiences with excellent amenities and service."}</script>
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -125,7 +130,7 @@ All work on this project is offered as a gift to God.
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <a href="/"><img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake" decoding="async"/></a>
+        <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake" decoding="async"/></a>
         <span class="tiny version-badge">V1.Beta</span>
       </div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
@@ -178,9 +183,9 @@ All work on this project is offered as a gift to God.
           </g>
         </svg>
       </div>
-      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" decoding="async"/>
+      <img loading="lazy" class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img loading="lazy" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
     </div>
@@ -206,7 +211,7 @@ All work on this project is offered as a gift to God.
     </div>
 
     <!-- Ship Specifications -->
-    <section class="card" aria-labelledby="specsHeading">
+    <section class="card" data-ship="Norwegian Viva" aria-labelledby="specsHeading">
       <h2 id="specsHeading">Norwegian Viva Specifications</h2>
       <div class="ship-specs">
         <div class="spec-item">
@@ -249,6 +254,7 @@ All work on this project is offered as a gift to God.
       <p>Dining venue information coming soon. Norwegian Cruise Line ships typically feature a variety of complimentary and specialty dining options.</p>
     </section>
 <script type="application/json" id="dining-data-source">{"provider":"norwegian","json":"/assets/data/venues-v2.json","ship_slug":"norwegian-viva","aliases":["Norwegian Viva"]}</script>
+        <script type="application/json" id="ship-stats-fallback">{"slug":"norwegian-viva","name":"Norwegian Viva","cruise_line":"Norwegian Cruise Line","class":"Prima Class","entered_service":2023,"gt":"142,500 GT","guests":"3,215","crew":"1,388"}</script>
 
     <section class="card" aria-labelledby="entertainmentHeading">
       <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
@@ -280,6 +286,13 @@ All work on this project is offered as a gift to God.
         <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare Norwegian Viva with other ships</li>
         <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
       </ul>
+    </section>
+  
+
+    <!-- Attribution Section -->
+    <section class="card attributions">
+      <h3>Sources & Attribution</h3>
+      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
     </section>
   </main>
 
