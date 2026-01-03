@@ -1,7 +1,7 @@
 # Claude AI Assistant Guide - In the Wake
 
-**Version:** 1.0.0
-**Last Updated:** 2025-11-23
+**Version:** 1.1.0
+**Last Updated:** 2026-01-03
 **Purpose:** Comprehensive onboarding and reference guide for Claude AI assistants working on the In the Wake codebase
 
 ---
@@ -247,6 +247,30 @@ All pages should include:
 ---
 
 ## 🔧 Technical Standards
+
+### 0. Analytics (REQUIRED on Every Page)
+
+**CRITICAL:** Every HTML page MUST include both analytics scripts in the `<head>`:
+
+```html
+<!-- Google Analytics (with IP anonymization for GDPR) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+<script>
+  window.dataLayer=window.dataLayer||[];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+</script>
+
+<!-- Umami (secondary analytics - privacy-focused) -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+```
+
+**Why Both?**
+- **Google Analytics:** Industry standard, detailed insights, conversion tracking
+- **Umami:** Privacy-first backup, cookie-free, GDPR-compliant by design
+
+**Note:** The footer trust badge says "Minimal analytics" - this accurately reflects our use of analytics while maintaining user trust.
 
 ### 1. Performance Optimization
 
@@ -565,6 +589,52 @@ AI-first content protocol that helps AI assistants understand and cite content c
 - ❌ NEVER break existing functionality (no regressions)
 - ❌ NEVER skip WCAG 2.1 AA accessibility requirements
 
+### Security Standards
+
+**Forbidden Files (Never Commit to Production Branch):**
+- ❌ `.env`, `.env.*` - Environment variables
+- ❌ `*.key`, `*.pem`, `*.pfx` - Private keys
+- ❌ `*.sql`, `*.db` - Database files
+- ❌ `*.bak`, `*.old`, `*.tmp` - Backup files
+- ❌ `credentials.*`, `secrets.*` - Credential files
+
+**JavaScript Security Rules:**
+- ❌ NEVER use `innerHTML` with user input or URL parameters
+- ❌ NEVER use `eval()` or `new Function()` with user data
+- ❌ NEVER use `document.write()`
+- ✅ ALWAYS use `textContent` for user-controlled strings
+- ✅ ALWAYS validate/sanitize URL parameters before rendering
+- ✅ ALWAYS escape HTML entities when displaying user input
+
+**Safe Escaping Pattern:**
+```javascript
+// CORRECT: Escape user input before display
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// CORRECT: Use textContent for user input
+element.textContent = userInput;
+
+// WRONG: Never do this with user input
+element.innerHTML = userInput;  // XSS vulnerability!
+```
+
+**Trust Claims:**
+- Footer trust badge MUST match actual site behavior
+- If analytics are used, Privacy Policy must disclose them
+- Current accurate badge: "✓ No ads. Minimal analytics. No affiliate links."
+
+**Protected by .htaccess:**
+- Python files (`.py`, `.pyc`, `.pyo`) - blocked
+- Markdown files (`.md`) - blocked
+- Shell scripts (`.sh`) - blocked
+- Backup files (`.bak`, `.tmp`, `.old`) - blocked
+- `/admin/` directory - blocked (except `/admin/reports/*.html`)
+- `/scripts/` directory - blocked entirely
+
 ### Git Workflow
 - ❌ NEVER push to main/master directly
 - ❌ NEVER force push to main/master
@@ -782,4 +852,5 @@ Before marking any task complete, verify:
 ---
 
 **Version History:**
+- v1.1.0 (2026-01-03) - Added analytics requirement (Section 0), security standards section, trust claim accuracy rules
 - v1.0.0 (2025-11-23) - Initial comprehensive Claude guide created
