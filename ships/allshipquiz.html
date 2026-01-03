@@ -2016,9 +2016,19 @@
       questionsContainer.classList.add('hidden');
       quizProgress.classList.remove('visible');
 
-      const linesToScore = selectedLine === 'all'
+      // Filter out adults-only lines for family groups (only in "all" mode)
+      const familyGroups = ['family_young', 'family_teens', 'multigen'];
+      const isFamily = familyGroups.includes(answers.group_type);
+
+      let linesToScore = selectedLine === 'all'
         ? Object.keys(quizData.scoring_weights)
         : [selectedLine];
+
+      // Exclude adults-only lines from family results when viewing all lines
+      // (If user specifically selected an adults-only line, show warning instead)
+      if (isFamily && selectedLine === 'all') {
+        linesToScore = linesToScore.filter(line => !quizData.cruise_lines[line]?.adults_only);
+      }
 
       // Calculate scores for all selected lines
       const allResults = [];
