@@ -434,12 +434,12 @@
       const isCompared = compareList.some(s => s.ship_id === ship.ship_id);
 
       return `
-        <article class="atlas-ranked-item" data-ship-id="${ship.ship_id}">
+        <article class="atlas-ranked-item" data-ship-id="${escapeHtml(ship.ship_id)}">
           <div class="atlas-ranked-rank">${index + 1}</div>
           <div class="atlas-ranked-info">
             <div class="atlas-ranked-header">
-              <h3 class="atlas-ranked-name">${ship.name_current}</h3>
-              <span class="atlas-ranked-brand">${brand?.display_name || ship.brand}</span>
+              <h3 class="atlas-ranked-name">${escapeHtml(ship.name_current)}</h3>
+              <span class="atlas-ranked-brand">${escapeHtml(brand?.display_name || ship.brand)}</span>
             </div>
             <div class="atlas-ranked-bar-container">
               <div class="atlas-ranked-bar tier-${tier}" style="width: ${barWidth}%"></div>
@@ -449,13 +449,13 @@
               <span class="atlas-stat"><strong>${formatNumber(ship.pax_double || ship.pax_max)}</strong> guests</span>
               <span class="atlas-stat"><strong>${ship.length_m || '—'}</strong>m</span>
               <span class="atlas-stat">${ship.year_built || '—'}</span>
-              ${ship.confidence ? `<span class="badge badge-${ship.confidence}">${ship.confidence}</span>` : ''}
+              ${ship.confidence ? `<span class="badge badge-${escapeHtml(ship.confidence)}">${escapeHtml(ship.confidence)}</span>` : ''}
             </div>
           </div>
           <div class="atlas-ranked-actions">
             <button type="button"
                     class="atlas-btn atlas-btn-sm ${isCompared ? 'atlas-btn-active' : ''}"
-                    onclick="window.atlasToggleCompare('${ship.ship_id}')"
+                    onclick="window.atlasToggleCompare('${escapeHtml(ship.ship_id)}')"
                     aria-pressed="${isCompared}">
               ${isCompared ? '✓ Compare' : '+ Compare'}
             </button>
@@ -505,10 +505,10 @@
       const parentGroup = parentGroups.find(g => g.id === brand.parent_group_id);
 
       return `
-        <section class="atlas-brand-panel" aria-labelledby="brand-${brand.id}">
+        <section class="atlas-brand-panel" aria-labelledby="brand-${escapeHtml(brand.id)}">
           <header class="atlas-brand-header">
-            <h3 id="brand-${brand.id}">${brand.display_name}</h3>
-            <span class="atlas-brand-meta">${parentGroup?.short_name || ''} · ${ships.length} ship${ships.length !== 1 ? 's' : ''}</span>
+            <h3 id="brand-${escapeHtml(brand.id)}">${escapeHtml(brand.display_name)}</h3>
+            <span class="atlas-brand-meta">${escapeHtml(parentGroup?.short_name || '')} · ${ships.length} ship${ships.length !== 1 ? 's' : ''}</span>
           </header>
           <div class="atlas-brand-ships">
             ${ships.map(ship => {
@@ -517,12 +517,12 @@
               return `
                 <div class="atlas-brand-ship tier-${tier}">
                   <div class="atlas-brand-ship-info">
-                    <strong>${ship.name_current}</strong>
+                    <strong>${escapeHtml(ship.name_current)}</strong>
                     <span class="tiny">${formatNumber(ship.gt)} GT · ${formatNumber(ship.pax_double || ship.pax_max)} guests · ${ship.year_built || '—'}</span>
                   </div>
                   <button type="button"
                           class="atlas-btn atlas-btn-sm ${isCompared ? 'atlas-btn-active' : ''}"
-                          onclick="window.atlasToggleCompare('${ship.ship_id}')"
+                          onclick="window.atlasToggleCompare('${escapeHtml(ship.ship_id)}')"
                           aria-pressed="${isCompared}">
                     ${isCompared ? '✓' : '+'}
                   </button>
@@ -553,9 +553,9 @@
       const isCompared = compareList.some(s => s.ship_id === ship.ship_id);
 
       return `
-        <tr data-ship-id="${ship.ship_id}">
-          <td><strong>${ship.name_current}</strong></td>
-          <td>${brand?.display_name || ship.brand}</td>
+        <tr data-ship-id="${escapeHtml(ship.ship_id)}">
+          <td><strong>${escapeHtml(ship.name_current)}</strong></td>
+          <td>${escapeHtml(brand?.display_name || ship.brand)}</td>
           <td>${formatNumber(ship.gt)}</td>
           <td>${ship.length_m || '—'}</td>
           <td>${ship.beam_m || '—'}</td>
@@ -566,7 +566,7 @@
           <td>
             <button type="button"
                     class="atlas-btn atlas-btn-sm ${isCompared ? 'atlas-btn-active' : ''}"
-                    onclick="window.atlasToggleCompare('${ship.ship_id}')"
+                    onclick="window.atlasToggleCompare('${escapeHtml(ship.ship_id)}')"
                     aria-pressed="${isCompared}">
               ${isCompared ? '✓' : '+'}
             </button>
@@ -683,10 +683,10 @@
           <div class="atlas-compare-card tier-${tier}">
             <button type="button"
                     class="atlas-compare-remove"
-                    onclick="window.atlasToggleCompare('${ship.ship_id}')"
-                    aria-label="Remove ${ship.name_current} from comparison">×</button>
-            <h4>${ship.name_current}</h4>
-            <p class="tiny muted">${brand?.display_name || ship.brand}</p>
+                    onclick="window.atlasToggleCompare('${escapeHtml(ship.ship_id)}')"
+                    aria-label="Remove ${escapeHtml(ship.name_current)} from comparison">×</button>
+            <h4>${escapeHtml(ship.name_current)}</h4>
+            <p class="tiny muted">${escapeHtml(brand?.display_name || ship.brand)}</p>
             <dl class="atlas-compare-stats">
               <dt>GT</dt>
               <dd>${formatNumber(ship.gt)}</dd>
@@ -718,17 +718,27 @@
   }
 
   /**
+   * Escape HTML entities to prevent XSS
+   */
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = String(text);
+    return div.innerHTML;
+  }
+
+  /**
    * Show error message
    */
   function showError(message) {
     if (elements.rankedList) {
-      elements.rankedList.innerHTML = `<div class="atlas-error"><p>${message}</p></div>`;
+      elements.rankedList.innerHTML = `<div class="atlas-error"><p>${escapeHtml(message)}</p></div>`;
     }
     if (elements.brandPanels) {
-      elements.brandPanels.innerHTML = `<div class="atlas-error"><p>${message}</p></div>`;
+      elements.brandPanels.innerHTML = `<div class="atlas-error"><p>${escapeHtml(message)}</p></div>`;
     }
     if (elements.tableBody) {
-      elements.tableBody.innerHTML = `<tr><td colspan="10" class="atlas-error">${message}</td></tr>`;
+      elements.tableBody.innerHTML = `<tr><td colspan="10" class="atlas-error">${escapeHtml(message)}</td></tr>`;
     }
   }
 

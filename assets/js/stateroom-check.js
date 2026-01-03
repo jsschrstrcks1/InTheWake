@@ -47,6 +47,16 @@
   // ============================================================
 
   /**
+   * Escape HTML entities to prevent XSS
+   */
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = String(text);
+    return div.innerHTML;
+  }
+
+  /**
    * Parse room range string into array of room numbers
    * Supports: "7001-7050", "7001,7002,7003", or mixed
    */
@@ -472,10 +482,11 @@
           'general': 'ℹ️'
         };
         const icon = iconMap[issue.category] || 'ℹ️';
+        const severityClass = ['info', 'minor', 'major'].includes(issue.severity) ? issue.severity : 'info';
         issuesHTML += `
-          <div class="issue-card issue-${issue.severity}">
-            <h4>${icon} ${issue.heading}</h4>
-            <p>${issue.description}</p>
+          <div class="issue-card issue-${severityClass}">
+            <h4>${icon} ${escapeHtml(issue.heading)}</h4>
+            <p>${escapeHtml(issue.description)}</p>
           </div>
         `;
       });
@@ -485,18 +496,18 @@
     return `
       <article class="stateroom-result ${verdictClass}" role="region" aria-live="polite">
         <header class="result-header">
-          <h2>${verdictIcon} ${verdict.title}</h2>
-          <p class="cabin-meta">${verdict.category} · ${shipName}</p>
+          <h2>${verdictIcon} ${escapeHtml(verdict.title)}</h2>
+          <p class="cabin-meta">${escapeHtml(verdict.category)} · ${escapeHtml(shipName)}</p>
         </header>
 
         <div class="result-summary">
-          <p class="summary-text">${verdict.summary}</p>
+          <p class="summary-text">${escapeHtml(verdict.summary)}</p>
         </div>
 
         ${issuesHTML}
 
         <footer class="result-encouragement">
-          <p>${verdict.encouragement}</p>
+          <p>${escapeHtml(verdict.encouragement)}</p>
         </footer>
       </article>
     `;
@@ -575,7 +586,7 @@
     if (result.error) {
       container.innerHTML = `
         <div class="error-message" role="alert">
-          <p>⚠️ ${result.message}</p>
+          <p>⚠️ ${escapeHtml(result.message)}</p>
         </div>
       `;
       return;

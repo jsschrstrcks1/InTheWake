@@ -258,6 +258,58 @@ function normalize(str) {
 }
 
 /**
+ * Validate analytics scripts (REQUIRED per CLAUDE.md Section 0)
+ * Every page must have both Google Analytics and Umami
+ */
+function validateAnalytics($, html) {
+  const errors = [];
+  const warnings = [];
+
+  // Check for Google Analytics
+  const hasGoogleAnalytics = html.includes('googletagmanager.com/gtag/js') &&
+                              html.includes('G-WZP891PZXJ');
+
+  // Check for Umami Analytics
+  const hasUmami = html.includes('cloud.umami.is/script.js') &&
+                   html.includes('9661a449-3ba9-49ea-88e8-4493363578d2');
+
+  if (!hasGoogleAnalytics) {
+    errors.push({
+      section: 'analytics',
+      rule: 'missing_google_analytics',
+      message: 'Missing Google Analytics script (REQUIRED per CLAUDE.md Section 0)',
+      severity: 'BLOCKING'
+    });
+  }
+
+  if (!hasUmami) {
+    errors.push({
+      section: 'analytics',
+      rule: 'missing_umami',
+      message: 'Missing Umami Analytics script (REQUIRED per CLAUDE.md Section 0)',
+      severity: 'BLOCKING'
+    });
+  }
+
+  // Check that GA has IP anonymization enabled
+  if (hasGoogleAnalytics && !html.includes('anonymize_ip:true') && !html.includes('anonymize_ip: true')) {
+    warnings.push({
+      section: 'analytics',
+      rule: 'missing_ip_anonymization',
+      message: 'Google Analytics should have anonymize_ip:true for GDPR compliance',
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: { hasGoogleAnalytics, hasUmami }
+  };
+}
+
+/**
  * Validate Soli Deo Gloria comment (must be near top of file)
  */
 function validateSoliDeoGloria(html) {
@@ -1673,6 +1725,7 @@ async function validateShipPage(filepath) {
     const viewportResult = validateViewport($, html);
 
     // New v2.1 validations
+    const analyticsResult = validateAnalytics($, html);
     const contentPurityResult = validateContentPurity($, html);
     const shipStatsResult = validateShipStatsJSON($);
     const diningResult = validateDiningJSON($);
@@ -1685,6 +1738,7 @@ async function validateShipPage(filepath) {
 
     // Collect errors
     results.blocking_errors.push(
+      ...analyticsResult.errors,
       ...soliDeoGloriaResult.errors,
       ...breadcrumbResult.errors, ...icpResult.errors, ...jsonldResult.errors,
       ...navResult.errors, ...escapeResult.errors, ...wcagResult.errors,
@@ -1698,6 +1752,7 @@ async function validateShipPage(filepath) {
 
     // Collect warnings
     results.warnings.push(
+      ...analyticsResult.warnings,
       ...soliDeoGloriaResult.warnings,
       ...breadcrumbResult.warnings, ...icpResult.warnings, ...jsonldResult.warnings,
       ...navResult.warnings, ...escapeResult.warnings, ...wcagResult.warnings,
@@ -1715,6 +1770,7 @@ async function validateShipPage(filepath) {
     results.valid = results.blocking_errors.length === 0;
 
     // Add detailed data
+    results.analytics = analyticsResult.data;
     results.soli_deo_gloria = soliDeoGloriaResult.data;
     results.icp_lite = icpResult.data;
     results.sections = sectionResult.data;

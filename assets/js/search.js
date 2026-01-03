@@ -282,7 +282,7 @@ function displayResults(results, query) {
     items.forEach(item => {
       html += `
         <article class="result-card">
-          <a href="${item.url}">
+          <a href="${sanitizeUrl(item.url)}">
             <h3 class="result-title">${escapeHtml(item.title)}</h3>
           </a>
           <p class="result-description">${escapeHtml(truncate(item.description, 120))}</p>
@@ -383,6 +383,17 @@ function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
+}
+
+// Utility: Sanitize URL to prevent javascript: and data: XSS
+function sanitizeUrl(url) {
+  if (!url) return '#';
+  // Only allow relative paths and http(s) URLs
+  if (url.startsWith('/') || url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+  // Block potentially dangerous protocols
+  return '#';
 }
 
 // Utility: Truncate text
