@@ -826,7 +826,7 @@ updated: 2025-12-29
       }
     }
     function fetchVideoData(){
-      const SOURCES=[abs('/assets/data/videos/quantum-of-the-seas.json'),abs('/ships/rcl/assets/quantum-of-the-seas-videos.json')];
+      const SOURCES=[abs('/assets/data/videos/rcl/quantum-of-the-seas.json'),abs('/ships/rcl/assets/quantum-of-the-seas-videos.json')];
       function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
         return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
       return tryFetch();
