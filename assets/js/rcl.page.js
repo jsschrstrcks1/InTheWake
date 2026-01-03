@@ -5,6 +5,7 @@
   let SHOW_UNFINISHED=false, VENUE_FILTER='all', EXP_FILTER='all';
   const norm = s => String(s||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'').trim();
   async function loadJSON(path){ const r=await fetch(path,{cache:'no-store'}); if(!r.ok) throw 0; return r.json(); }
+  function escapeHtml(t){ if(!t) return ''; const d=document.createElement('div'); d.textContent=String(t); return d.innerHTML; }
 
   let SHIPS=[], VENUES=[], EXPS=[];
   function classOrderWeight(c){const order=['Icon','Oasis','Quantum','Quantum Ultra','Freedom','Voyager','Radiance','Vision','Archive']; const i=order.indexOf(c); return i<0?999:i;}
@@ -31,8 +32,8 @@
     if(note) note.textContent='';
     list.forEach(s=>{
       const a=document.createElement('a'); a.href=shipUrl(s.slug); a.className='ship-card';
-      a.innerHTML=`<span class="thumb"><img loading="lazy" decoding="async" alt="${s.name}" src="${shipThumb(s.slug)}"></span>
-                 <span class="body"><strong>${s.name}</strong><span class="badge">${s.class}</span></span>`;
+      a.innerHTML=`<span class="thumb"><img loading="lazy" decoding="async" alt="${escapeHtml(s.name)}" src="${shipThumb(s.slug)}"></span>
+                 <span class="body"><strong>${escapeHtml(s.name)}</strong><span class="badge">${escapeHtml(s.class)}</span></span>`;
       wrap.appendChild(a);
     });
   }
@@ -43,8 +44,8 @@
     panel.innerHTML='';
     list.forEach(vn=>{
       const a=document.createElement('a'); a.href=ORIGIN+'/restaurants/'+vn.slug+'.html'; a.className='ship-card';
-      a.innerHTML=`<span class="thumb"><img loading="lazy" decoding="async" alt="${vn.name}" src="https://cruisinginthewake.com/assets/ships/placeholder-ship.jpg"></span>
-                 <span class="body"><strong>${vn.name}</strong><span class="badge">${vn.premium?'Premium':'Included'}</span></span>`;
+      a.innerHTML=`<span class="thumb"><img loading="lazy" decoding="async" alt="${escapeHtml(vn.name)}" src="https://cruisinginthewake.com/assets/ships/placeholder-ship.jpg"></span>
+                 <span class="body"><strong>${escapeHtml(vn.name)}</strong><span class="badge">${vn.premium?'Premium':'Included'}</span></span>`;
       panel.appendChild(a);
     });
   }
@@ -56,9 +57,9 @@
     const venueHits=VENUES.filter(x=>(VENUE_FILTER==='all'||(VENUE_FILTER==='premium'?x.premium:!x.premium))&&norm(x.name).includes(v));
     const expHits=EXPS.filter(x=>(EXP_FILTER==='all'||(EXP_FILTER==='premium'?x.premium:!x.premium))&&norm(x.name).includes(v));
 
-    const shipCard=s=>`<a class="ship-card" href="${shipUrl(s.slug)}"><span class="thumb"><img loading="lazy" decoding="async" alt="${s.name}" src="${shipThumb(s.slug)}"></span><span class="body"><strong>${s.name}</strong><span class="badge">${s.class}</span></span></a>`;
-    const venueCard=v=>`<a class="ship-card" href="${ORIGIN}/restaurants/${v.slug}.html"><span class="thumb"><img loading="lazy" decoding="async" alt="${v.name}" src="https://cruisinginthewake.com/assets/ships/placeholder-ship.jpg"></span><span class="body"><strong>${v.name}</strong><span class="badge">${v.premium?'Premium':'Included'}</span></span></a>`;
-    const expCard=e=>`<div class="ship-card"><span class="thumb"><img loading="lazy" decoding="async" alt="${e.name}" src="https://cruisinginthewake.com/assets/ships/placeholder-ship.jpg"></span><span class="body"><strong>${e.name}</strong><span class="badge">${e.premium?'Premium':'Included'}</span></span></div>`;
+    const shipCard=s=>`<a class="ship-card" href="${shipUrl(s.slug)}"><span class="thumb"><img loading="lazy" decoding="async" alt="${escapeHtml(s.name)}" src="${shipThumb(s.slug)}"></span><span class="body"><strong>${escapeHtml(s.name)}</strong><span class="badge">${escapeHtml(s.class)}</span></span></a>`;
+    const venueCard=v=>`<a class="ship-card" href="${ORIGIN}/restaurants/${v.slug}.html"><span class="thumb"><img loading="lazy" decoding="async" alt="${escapeHtml(v.name)}" src="https://cruisinginthewake.com/assets/ships/placeholder-ship.jpg"></span><span class="body"><strong>${escapeHtml(v.name)}</strong><span class="badge">${v.premium?'Premium':'Included'}</span></span></a>`;
+    const expCard=e=>`<div class="ship-card"><span class="thumb"><img loading="lazy" decoding="async" alt="${escapeHtml(e.name)}" src="https://cruisinginthewake.com/assets/ships/placeholder-ship.jpg"></span><span class="body"><strong>${escapeHtml(e.name)}</strong><span class="badge">${e.premium?'Premium':'Included'}</span></span></div>`;
     const block=(t,items)=> items.length ? `<div class="search-block"><h3>${t}</h3><div class="grid cols-3">${items.join('')}</div></div>` : '';
     out.innerHTML=[block('Ships', shipHits.slice(0,12).map(shipCard)), block('Venues', venueHits.slice(0,9).map(venueCard)), block('Experiences', expHits.slice(0,6).map(expCard))].join('');
   }

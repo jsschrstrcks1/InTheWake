@@ -479,6 +479,34 @@
       font-size: 1.1rem;
     }
 
+    /* Budget/Luxury mismatch advisory */
+    .budget-advisory {
+      background: linear-gradient(135deg, #fff8e1 0%, #fff3c4 100%);
+      border: 2px solid #f9a825;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .advisory-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .advisory-content {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #5d4037;
+    }
+    .advisory-content ul {
+      margin: 0.5rem 0 0 0;
+      padding-left: 1.25rem;
+    }
+    .advisory-content li {
+      margin-bottom: 0.25rem;
+    }
+
     /* Ship result cards with brand colors */
     .result-card {
       background: #fff;
@@ -1547,7 +1575,7 @@
       &copy; 2026 In the Wake. Quiz recommendations are suggestions based on general ship characteristics.
       <br>Always verify current ship features and itineraries before booking.
     </p>
-    <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
 
   <!-- Dropdown nav script -->
@@ -1756,9 +1784,24 @@
           { value: 'tech', label: 'Unique Thrills', icon: '🎢', desc: 'Go-karts, coasters, iFly' },
           { value: 'scenic', label: 'Scenic & Relaxation', icon: '🌅', desc: 'Glass, vistas, nature' },
           { value: 'family', label: 'Kids & Family Zones', icon: '👨‍👩‍👧‍👦', desc: 'Family-focused areas' },
+          { value: 'nightlife', label: 'Bars & Nightlife', icon: '🍸', desc: 'Party scene, casino, clubs' },
+          { value: 'spa', label: 'Spa & Wellness', icon: '💆', desc: 'Thermal suites, yoga, zen' },
+          { value: 'service', label: 'Butler-Level Service', icon: '🎩', desc: 'White-glove luxury' },
           { value: 'none', label: 'No Dealbreaker', icon: '🤷', desc: 'Open to anything' }
         ],
         gridClass: 'three-col'
+      },
+      {
+        id: 'kid_separation',
+        question: "How important is separation from children?",
+        subtitle: "Be honest - no judgment here",
+        options: [
+          { value: 'not_applicable', label: 'Traveling with Kids', icon: '👨‍👩‍👧', desc: "Doesn't apply to me" },
+          { value: 'dont_care', label: "Don't Mind Kids", icon: '😊', desc: 'Kids around is fine' },
+          { value: 'adult_spaces', label: 'Want Adult Areas', icon: '🏖️', desc: 'Solarium, quiet pools' },
+          { value: 'no_kids', label: 'Adults-Only Please', icon: '🚫👶', desc: 'Prefer no children aboard' }
+        ],
+        gridClass: 'two-col'
       }
     ];
 
@@ -1962,6 +2005,19 @@
         }
       }
 
+      // Apply kid_separation bonuses
+      const kidSeparation = answers.kid_separation;
+      if (kidSeparation && quizData.kid_separation_weights && quizData.kid_separation_weights[line]) {
+        const kidWeights = quizData.kid_separation_weights[line][kidSeparation];
+        if (kidWeights) {
+          for (const [className, weight] of Object.entries(kidWeights)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += weight;
+            }
+          }
+        }
+      }
+
       return classScores;
     }
 
@@ -2078,8 +2134,35 @@
       allResultsCache = allResults;
       const topResults = allResults.slice(0, resultsLimit);
 
+      // Check for budget/luxury mismatch and generate advisory
+      const budgetLuxuryMismatch = answers.budget_mindset === 'value' && (
+        answers.crowd_tolerance === 'low' ||
+        answers.must_have === 'dining' ||
+        answers.must_have === 'service' ||
+        answers.must_have === 'spa'
+      );
+
+      let advisoryHTML = '';
+      if (budgetLuxuryMismatch) {
+        advisoryHTML = `
+          <div class="budget-advisory">
+            <div class="advisory-icon">💡</div>
+            <div class="advisory-content">
+              <strong>A note on your preferences:</strong>
+              Your tastes suggest premium experiences, but you've selected a value budget. Consider:
+              <ul>
+                <li><strong>Suites on mainstream lines</strong> for a "luxury lite" experience</li>
+                <li><strong>Repositioning cruises</strong> on luxury lines at 40-60% off</li>
+                <li><strong>Last-minute deals</strong> via cruise line newsletters</li>
+              </ul>
+              Celebrity and Holland America offer premium feel at mid-range prices.
+            </div>
+          </div>
+        `;
+      }
+
       // Render results
-      resultsContainer.innerHTML = topResults.map((rec, idx) => {
+      resultsContainer.innerHTML = advisoryHTML + topResults.map((rec, idx) => {
         const { ship, classData, className, line, score, lineData } = rec;
         const narrative = generateNarrative(ship, classData, line);
         const matchPercent = Math.max(1, Math.min(99, Math.round(50 + score)));

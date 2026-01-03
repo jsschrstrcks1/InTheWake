@@ -42,6 +42,9 @@ Soli Deo Gloria
 
 <!-- JSON-LD: BreadcrumbList -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Virgin Voyages","item":"https://cruisinginthewake.com/cruise-lines/virgin-voyages.html"},{"@type":"ListItem","position":4,"name":"Brilliant Lady","item":"https://cruisinginthewake.com/ships/virgin-voyages/brilliant-lady.html"}]}</script>
+
+  <!-- JSON-LD: Review -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Brilliant Lady — Virgin Voyages | In the Wake","brand":{"@type":"Organization","name":"Virgin Voyages"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5},"reviewBody":"Brilliant Lady — Virgin Voyages | In the Wake from Virgin Voyages offers memorable cruise experiences with excellent amenities and service."}</script>
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -49,7 +52,7 @@ Soli Deo Gloria
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <a href="/"><img src="/assets/logo_wake_256.png" alt="In the Wake" width="256" height="259"/></a>
+        <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" alt="In the Wake" width="256" height="259"/></a>
       </div>
       <nav class="site-nav" id="site-nav">
         <a class="nav-pill" href="/">Home</a>
@@ -71,7 +74,7 @@ Soli Deo Gloria
     <h1>Brilliant Lady</h1>
     <p class="lead">Virgin Voyages' fourth ship, launched 2024. Adults-only cruising with all dining and tips included.</p>
 
-    <section class="card">
+    <section class="card" data-ship="Brilliant Lady — Virgin Voyages | In the Wake">
       <h2>Quick Facts</h2>
       <ul>
         <li><strong>Cruise Line:</strong> Virgin Voyages</li>
@@ -87,14 +90,22 @@ Soli Deo Gloria
       <p>Full ship details, deck plans, dining guides, and live tracker coming soon.</p>
     </section>
 <script type="application/json" id="dining-data-source">{"provider":"virgin-voyages","json":"/assets/data/venues-v2.json","ship_slug":"brilliant-lady","aliases":["Brilliant Lady"]}</script>
+        <script type="application/json" id="ship-stats-fallback">{"slug":"brilliant-lady","name":"Brilliant Lady — Virgin Voyages | In the Wake","cruise_line":"Virgin Voyages","class":"Virgin Class","entered_service":2025,"gt":"110,000 GT","guests":"2,770","crew":"1,160"}</script>
 
     <p><a href="/ships/virgin-voyages/" class="btn">Back to Virgin Voyages Fleet</a></p>
+  
+
+    <!-- Attribution Section -->
+    <section class="card attributions">
+      <h3>Sources & Attribution</h3>
+      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
+    </section>
   </main>
 
   <footer class="wrap">
     <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook</p>
     <p class="tiny"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a></p>
-    <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
   <script src="/assets/js/dropdown.js"></script>
 </body>

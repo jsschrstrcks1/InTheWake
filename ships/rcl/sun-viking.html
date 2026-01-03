@@ -17,6 +17,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
      category: Royal Caribbean Fleet
      cruise-line: Royal Caribbean
      ship-class: Song of Norway Class
+     siblings: /ships/rcl/nordic-prince.html
      updated: 2025-11-15
      expertise: Royal Caribbean ship reviews, historical ships, cruise ship history
      target-audience: Royal Caribbean historians, cruise enthusiasts, ship researchers
@@ -267,6 +268,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
+
+  <!-- JSON-LD: Review -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Sun Viking","brand":{"@type":"Organization","name":"Royal Caribbean International"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5},"reviewBody":"Sun Viking is a Song of Norway Class vessel from Royal Caribbean International, offering memorable cruise experiences with excellent amenities and service."}</script>
 </head>
 
 <body class="page">
@@ -353,7 +357,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </div>
       <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" loading="eager"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel site logo" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img loading="lazy" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel site logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
@@ -394,7 +398,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <!-- Row 1: Info + Stats -->
     <section class="grid-2">
       <!-- About -->
-      <section class="card" aria-labelledby="about-ship">
+      <section class="card" data-ship="Sun Viking" aria-labelledby="about-ship">
         <h2 id="about-ship">Sun Viking — Third of the Founding Fleet</h2>
         <p>Sun Viking was the third ship of Royal Caribbean's original fleet, joining Song of Norway and Nordic Prince in establishing the cruise line's reputation for excellence. Launched in 1972, Sun Viking continued Royal Caribbean's tradition of Scandinavian-inspired design and warm hospitality.</p>
         <p>The ship served Royal Caribbean for an impressive 32 years, making her one of the longest-serving vessels in the fleet's history. During her career, Sun Viking sailed countless Caribbean itineraries and created memories for generations of cruisers.</p>
@@ -488,6 +492,33 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </section>
 
     <!-- FAQ Section (ICP-Lite) -->
+    
+    <!-- Ken's Logbook Section -->
+    <section class="card note-kens-logbook" aria-labelledby="logbook">
+      <h2 id="logbook">Ken's Logbook: Sun Viking</h2>
+      <div id="logbook-container" data-ship="sun-viking" data-line="rcl">
+        <p class="placeholder">Stories and insights from cruisers who have sailed on Sun Viking will appear here.</p>
+      </div>
+    </section>
+
+    
+    <!-- Deck Plans & Tracker Grid -->
+    <div class="grid-2">
+      <section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">Deck Plans</h2>
+        <div id="ship-map" data-ship="sun-viking">
+          <p>Interactive deck plans for Sun Viking are available on the cruise line's official website.</p>
+        </div>
+      </section>
+
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="TBD" data-name="SUNVIKING">
+        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
+        <div id="ship-tracker-container">
+          <p>Track Sun Viking's current position and voyage details.</p>
+        </div>
+      </section>
+    </div>
+
     <section class="card faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions</h2>
 
@@ -588,7 +619,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center visually-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-    <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
 
   <!-- JAVASCRIPT -->

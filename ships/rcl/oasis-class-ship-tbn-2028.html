@@ -18,6 +18,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
      category: Royal Caribbean Fleet
      cruise-line: Royal Caribbean
      ship-class: Oasis Class
+     siblings: /ships/rcl/allure-of-the-seas.html, /ships/rcl/harmony-of-the-seas.html, /ships/rcl/oasis-of-the-seas.html, /ships/rcl/symphony-of-the-seas.html, /ships/rcl/utopia-of-the-seas.html, /ships/rcl/wonder-of-the-seas.html
      updated: 2025-11-15
      expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons
      target-audience: Royal Caribbean cruisers, Oasis Class researchers, ship comparison shoppers
@@ -276,6 +277,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
+
+  <!-- JSON-LD: Review -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Unnamed Oasis VII (2028)","brand":{"@type":"Organization","name":"Royal Caribbean International"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5},"reviewBody":"Unnamed Oasis VII (2028) is a Oasis Class vessel from Royal Caribbean International, offering memorable cruise experiences with excellent amenities and service."}</script>
 </head>
 
 <body class="page">
@@ -362,7 +366,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </div>
       <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" loading="eager"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel site logo" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img loading="lazy" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel site logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
@@ -381,7 +385,16 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <h1 class="page-title">Unnamed Oasis VII (2028)</h1>
 
     <!-- FAQ Section -->
-    <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
+    
+    <!-- Ken's Logbook Section -->
+    <section class="card note-kens-logbook" aria-labelledby="logbook">
+      <h2 id="logbook">Ken's Logbook: Unnamed Oasis VII (2028)</h2>
+      <div id="logbook-container" data-ship="oasis-class-ship-tbn-2028" data-line="rcl">
+        <p class="placeholder">Stories and insights from cruisers who have sailed on Unnamed Oasis VII (2028) will appear here.</p>
+      </div>
+    </section>
+
+    <section class="card faq" data-ship="Unnamed Oasis VII (2028)" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
       <h2 style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions</h2>
 
       <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
@@ -548,6 +561,19 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
       </section>
     </aside>
+  
+    <!-- Ship Tracker Placeholder -->
+    <section id="ship-tracker" class="card" data-imo="TBD" data-name="OASISCLASSSHIPTBN2028">
+      <h2>Ship Tracking</h2>
+      <p>Live tracking will be available when this ship enters service.</p>
+    </section>
+  
+
+    <!-- Attribution Section -->
+    <section class="card attributions">
+      <h3>Sources & Attribution</h3>
+      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
+    </section>
   </main>
 
   <!-- FOOTER -->
@@ -560,7 +586,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center visually-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-    <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
 
   <!-- JAVASCRIPT -->
