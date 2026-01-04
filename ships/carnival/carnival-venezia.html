@@ -15,6 +15,7 @@
   <!-- AI-Breadcrumbs: Structured context for AI assistants -->
   <!-- ai-breadcrumbs
        entity: Carnival Venezia
+     name: Carnival Venezia
        type: Ship Information Page
        parent: /ships.html
        category: Carnival Fleet
@@ -263,6 +264,30 @@
   <meta name="twitter:title" content="Carnival Venezia — Italian-Inspired Vista-Class Ship • In The Wake"/>
   <meta name="twitter:description" content="Carnival Venezia (ex-Costa Venezia) brings authentic Italian heritage to the Carnival fleet. Vista-class ship homeported in Port Canaveral with Italian dining, Venetian decor, and 135,225 GT of style."/>
   <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/carnival-venezia.jpg"/>
+
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "In the Wake",
+    "url": "https://cruisinginthewake.com",
+    "logo": "https://cruisinginthewake.com/assets/logo_wake.png"
+  }
+  </script>
+
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+<!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
 <body class="page">
   <!-- Skip Link for Accessibility -->
@@ -277,7 +302,7 @@
     <div class="navbar">
       <div class="brand">
         <a href="/">
-          <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async">
+          <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async" loading="eager">
         </a>
         <span class="version-badge">V1.Beta</span>
       </div>
@@ -311,11 +336,34 @@
     </div>
   </section>
 
+    <div class="grid-2">
+      <section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">Deck Plans</h2>
+        <div id="ship-map" data-ship="carnival-venezia">
+          <p>Interactive deck plans for Carnival Venezia are available on the cruise line's official website.</p>
+        </div>
+      </section>
+
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9319466" data-name="CARNIVALVENEZIA">
+        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
+        <div id="ship-tracker-container">
+          <p>Track Carnival Venezia's current position and voyage details.</p>
+        </div>
+      </section>
+    </div>
+
   <!-- Main Content -->
-  <main id="main-content" class="content-wrap">
+  <main id="main-content" class="content-wrap" data-ship="Carnival Venezia" data-imo="9319466">
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" aria-label="Carnival Venezia overview">
+      <p class="answer-line">
+        <strong class="section-label">Looking for Carnival Venezia planning info?</strong>
+        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Carnival cruise aboard Carnival Venezia.</span>
+      </p>
+    </section>
 <div class="page-grid">
       <!-- Primary Content Column -->
       <div class="main-column">
@@ -336,11 +384,36 @@
             </div>
           </div>
         </section>
+    <section class="card" aria-labelledby="special-heading">
+      
+      <h3>What Makes Carnival Venezia Special</h3>
+      <p>Sailing from New York City, Carnival Venezia brings Italian elegance to the Northeast cruising market. Her Venice-inspired interior design features Murano glass accents, marble details, and distinctly Mediterranean aesthetics. As a Costa conversion, she offers a unique experience unlike any other ship in the Carnival fleet.</p>
+      <p>The Piazza Carnival serves as the social heart of the ship, hosting live music, parties, and the 50th Birthday specialty restaurant. For NYC-area cruisers, Venezia provides convenient access to Bermuda and Bahamas itineraries with European flair.</p>
+    
+    </section>
+
+    <!-- Dining Section -->
+    <section id="dining-card" class="card" data-ship="Carnival Venezia" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">
+        <img id="dining-hero" class="card-hero"
+             src="/assets/ships/carnival-venezia/dining-hero.jpg"
+             alt="Carnival Venezia dining venue" loading="lazy"
+             onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
+Dining Venues on Carnival Venezia <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+      <p class="section-intro">Explore the dining options available on Carnival Venezia, from complimentary venues to specialty restaurants.</p>
+      <div class="dining-content" id="dining-content" aria-live="polite">
+        <p class="tiny">Loading venue information...</p>
+      </div>
+    </section>
+
 
         <!-- Ship Statistics -->
         <section class="card" aria-labelledby="stats-title">
           <div class="card-header">
             <h2 id="stats-title">Ship Statistics</h2>
+          <div id="ship-stats" class="stats-grid" data-slug="carnival-venezia"></div>
+          <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-venezia","name":"Carnival Venezia","class":"Spirit Class","entered_service":2023,"gt":"86,000 GT","guests":"2,680","crew":"930","length":"960 ft (293 m)","beam":"106 ft (32 m)","registry":"Panama"}</script>
+        <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-venezia","aliases":["Carnival Venezia"]}</script>
           </div>
           <div class="card-body">
             <div class="stats-grid">
@@ -538,7 +611,11 @@
       </div>
 
       <!-- Sidebar Rail -->
-    </section><!-- End Main Content Column -->
+    <section class="card attributions">
+      <h2>Image Attributions</h2>
+      <p class="tiny">Ship images are served locally from licensed sources or CC-BY-SA-4.0 Wikimedia Commons. See individual image captions for specific attribution.</p>
+    </section>
+  </section><!-- End Main Content Column -->
 
     <aside class="rail col-2" role="complementary" aria-label="Quick links and resources">
 
@@ -583,13 +660,78 @@
 
         <section class="card" aria-labelledby="recent-rail-title">
           <h3 id="recent-rail-title">Recent Stories</h3>
-          <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+          <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
           <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
-        </section>
-
-      </aside>
+        
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+  </section>
+  </aside>
     </div>
-  </main>
+  
+    
+
+    <!-- Videos -->
+    
+
+
+    <!-- Deck Plans & Tracker Grid -->
+    
+
+    <script>
+    (function(){
+      const mount=document.getElementById('featuredVideos');
+      const fallback=document.getElementById('videoFallback');
+      if(!mount) return;
+      function abs(p){try{return new URL(p,location.href).href}catch(_){return p}}
+      function getVideoURL(id,provider){
+        if(provider==='youtube'||!provider) return 'https://www.youtube-nocookie.com/embed/'+id+'?rel=0';
+        return null;
+      }
+      function renderVideos(arr){
+        if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
+        mount.innerHTML=arr.slice(0,12).map(v=>{
+          const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
+          const title=String(v.title||'Carnival Venezia').replace(/</g,'&lt;');
+          return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
+        }).join('');
+        if(mount.children.length&&window.Swiper){
+          setTimeout(()=>{
+            try{
+              new Swiper('.swiper.videos',{
+                loop:false,rewind:false,lazy:true,watchOverflow:true,
+                pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
+                navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
+                a11y:{enabled:true}
+              });
+            }catch(_){}
+          },150);
+        }
+      }
+      function fetchVideoData(){
+        const SOURCES=[abs('/assets/data/videos/carnival/carnival-venezia.json')];
+        function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+          return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+        return tryFetch();
+      }
+      function flattenVideos(data){
+        if(!data||!data.videos) return [];
+        if(Array.isArray(data.videos)) return data.videos;
+        let vids=[];
+        for(const cat of Object.values(data.videos)){
+          if(Array.isArray(cat)) vids=vids.concat(cat);
+        }
+        return vids;
+      }
+      fetchVideoData().then(data=>{ if(data) renderVideos(flattenVideos(data)); });
+    })();
+    </script>
+
+
+    </main>
 
   <!-- Attribution Section -->
   <section class="content-wrap" style="padding-top: 0;">
@@ -614,7 +756,7 @@
       <a href="/accessibility.html">Accessibility</a>
     </p>
     <p class="tiny" style="opacity: 0; position: absolute; pointer-events: none;" aria-hidden="true">Soli Deo Gloria</p>
-    <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
 
   <script>
@@ -640,6 +782,11 @@
       if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
     }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
   })();
-  </script>
+  </script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

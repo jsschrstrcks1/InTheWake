@@ -15,12 +15,13 @@
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Breeze
+     name: Carnival Breeze
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
      cruise-line: Carnival Cruise Line
      ship-class: Dream-class
-     siblings: Carnival Dream, Carnival Magic
+     siblings: /ships/carnival/carnival-adventure.html, /ships/carnival/carnival-celebration.html, /ships/carnival/carnival-conquest.html, /ships/carnival/carnival-dream.html, /ships/carnival/carnival-ecstasy.html
      related: Dream-class history, Fincantieri Monfalcone, WaterWorks
      updated: 2025-12-03
      expertise: Carnival cruise ships, Dream-class vessels, Texas cruising
@@ -90,7 +91,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where does Carnival Breeze sail from?","acceptedAnswer":{"@type":"Answer","text":"Carnival Breeze operates from Galveston, Texas, offering Western Caribbean, Eastern Caribbean, and Mexico itineraries convenient for Texas, Oklahoma, Louisiana, and nearby states."}},{"@type":"Question","name":"What class is Carnival Breeze?","acceptedAnswer":{"@type":"Answer","text":"Carnival Breeze is a Dream-class ship, the third and final vessel in the class after Carnival Dream (2009) and Carnival Magic (2011). All three were built by Fincantieri at Monfalcone."}},{"@type":"Question","name":"How big is Carnival Breeze?","acceptedAnswer":{"@type":"Answer","text":"Carnival Breeze measures 130,000 gross tons and is 1,004 feet long. She accommodates 3,690 guests at double occupancy across 1,845 staterooms on 15 guest decks."}}]}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
   <!-- Twitter Card -->
@@ -98,6 +99,19 @@
   <meta name="twitter:title" content="Carnival Breeze — Dream-Class from Galveston"/>
   <meta name="twitter:description" content="Carnival Breeze cruise ship guide: Dream-class flagship from Galveston, Texas. 130,000 GT with WaterWorks, Serenity, and Guy's Burger Joint. Live tracker, deck plans, and guest stories."/>
   <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/carnival-breeze.jpg"/>
+
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+<!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -171,50 +185,41 @@
   </ol>
 </nav>
 
-<main id="main-content" class="wrap page-grid" role="main">
+<main id="main-content" class="wrap page-grid" role="main" data-ship="Carnival Breeze" data-imo="9548450">
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
-<div class="main-col">
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" aria-label="Carnival Breeze overview">
+      <p class="answer-line">
+        <strong class="section-label">Looking for Carnival Breeze planning info?</strong>
+        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Carnival cruise aboard Carnival Breeze from Galveston.</span>
+      </p>
+      <p class="content-text">
+        Carnival Breeze is a Dream Class vessel featuring family-friendly Fun Ship with WaterWorks aqua park. Whether you're planning your first cruise or are a seasoned traveler, this guide helps you discover what makes this ship special.
+      </p>
+    </section>
+
+11613<div class="main-col">
 
     <!-- Photo Carousel -->
     <section class="card" aria-labelledby="photos-title">
       <h2 id="photos-title">Photo Gallery</h2>
-      <div class="swiper" id="photo-swiper">
-        <div class="swiper-wrapper" id="photo-wrapper">
-          <div class="swiper-slide"><img src="/assets/images/placeholder-ship.jpg" alt="Carnival Breeze" loading="eager"></div>
+      <div class="swiper" id="photo-swiper" aria-label="Carnival Breeze photo gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/images/placeholder-ship.jpg" alt="Carnival Breeze at sea - Dream-class cruise ship" loading="eager">
+              <figcaption class="tiny">Photo coming soon. <a href="https://commons.wikimedia.org/wiki/File:Carnival_Breeze_(ship,_2012)_001.jpg" target="_blank" rel="noopener">View on Wikimedia</a></figcaption>
+            </figure>
+          </div>
         </div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev" aria-label="Previous photo"></div>
+        <div class="swiper-button-next" aria-label="Next photo"></div>
         <div class="swiper-pagination"></div>
       </div>
-      <p id="photo-attribution" style="font-size:.8rem;color:#666;margin-top:.75rem;text-align:center"></p>
+      <p class="tiny" style="text-align:center;margin-top:.5rem;">Images from Wikimedia Commons under Creative Commons licenses.</p>
     </section>
-    <script>
-    (function(){
-      var images = [
-        {file:'Carnival_Breeze_(ship,_2012)_001.jpg', desc:'Carnival Breeze at sea', author:'Wikimedia Commons', license:'CC BY-SA 4.0'},
-        {file:'CarnivalBreeze.jpg', desc:'Carnival Breeze stern view', author:'Wikimedia Commons', license:'CC BY-SA 3.0'}
-      ];
-      var wrapper = document.getElementById('photo-wrapper');
-      var attr = document.getElementById('photo-attribution');
-      if(!wrapper) return;
-      wrapper.innerHTML = '';
-      images.forEach(function(img, i){
-        var slide = document.createElement('div');
-        slide.className = 'swiper-slide';
-        var imgEl = document.createElement('img');
-        imgEl.src = 'https://commons.wikimedia.org/wiki/Special:FilePath/' + encodeURIComponent(img.file) + '?width=800';
-        imgEl.alt = img.desc;
-        imgEl.loading = i === 0 ? 'eager' : 'lazy';
-        slide.appendChild(imgEl);
-        wrapper.appendChild(slide);
-      });
-      if(attr && images.length > 0) {
-        attr.innerHTML = 'Photos from Wikimedia Commons under Creative Commons licenses.';
-      }
-    })();
-    </script>
 
     <!-- First Look -->
     <section class="card" aria-labelledby="overview-title">
@@ -223,6 +228,28 @@
       <p>At 130,000 GT with capacity for 3,690 guests, Breeze incorporates all Dream-class innovations plus refinements from lessons learned on Dream and Magic. She features WaterWorks aqua park, SkyCourse ropes course, the Lanai outdoor promenade, and the full complement of Guy Fieri and Carnival dining concepts.</p>
       <p>Built by Fincantieri at Monfalcone, Breeze represents the culmination of the Dream-class design philosophy—open-air spaces, generous public areas, and the signature Fun Ship experience that defines Carnival cruising.</p>
     </section>
+    <section class="card" aria-labelledby="special-heading">
+      
+      <h3>What Makes Carnival Breeze Special</h3>
+      <p>As one of the Dream-class ships sailing from Galveston, Breeze offers convenient access to Caribbean destinations for Texas cruisers. Her 1,004-foot length and 130,000 gross tonnage deliver a balanced experience—large enough for extensive amenities but intimate enough for easy navigation.</p>
+      <p>The WaterWorks aqua park and Serenity adults-only retreat provide contrasting experiences for different moods. Guy's Burger Joint and BlueIguana Cantina have become Carnival signatures, both complimentary and consistently excellent.</p>
+    
+    </section>
+
+    <!-- Dining Section -->
+    <section id="dining-card" class="card" data-ship="Carnival Breeze" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">
+        <img id="dining-hero" class="card-hero"
+             src="/assets/ships/carnival-breeze/dining-hero.jpg"
+             alt="Carnival Breeze dining venue" loading="lazy"
+             onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
+Dining Venues on Carnival Breeze <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+      <p class="section-intro">Explore the dining options available on Carnival Breeze, from complimentary venues to specialty restaurants.</p>
+      <div class="dining-content" id="dining-content" aria-live="polite">
+        <p class="tiny">Loading venue information...</p>
+      </div>
+    </section>
+
 
     <!-- Sister Ships -->
     <section class="card" aria-labelledby="sisters-title">
@@ -236,12 +263,17 @@
     </section>
 
     <!-- Video Carousel -->
+    <section class="card" aria-labelledby="logbook-title">
+      <h2 id="logbook-title">Guest Logbook</h2>
+      <div id="logbook-entries"><p style="color:#666;font-style:italic">Loading guest stories...</p></div>
+    </section>
+
     <section class="card" aria-labelledby="videos-title">
       <h2 id="videos-title">Ship Videos</h2>
-      <div class="swiper" id="video-swiper">
+      <div class="swiper" id="video-swiper" aria-label="Carnival Breeze video gallery">
         <div class="swiper-wrapper" id="video-wrapper"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
       </div>
       <p id="video-counter" style="text-align:center;margin:.75rem 0 0;font-size:.9rem;color:#666"></p>
     </section>
@@ -261,10 +293,7 @@
     </script>
 
     <!-- Logbook Stories -->
-    <section class="card" aria-labelledby="logbook-title">
-      <h2 id="logbook-title">Guest Logbook</h2>
-      <div id="logbook-entries"><p style="color:#666;font-style:italic">Loading guest stories...</p></div>
-    </section>
+    
     <script>
     fetch('/assets/data/logbook/carnival/carnival-breeze.json').then(r=>r.json()).then(function(data){
       var container=document.getElementById('logbook-entries');
@@ -286,6 +315,9 @@
     <!-- Stats Grid -->
     <section class="card" aria-labelledby="stats-title">
       <h2 id="stats-title">Ship Statistics</h2>
+          <div id="ship-stats" class="stats-grid" data-slug="carnival-breeze"></div>
+          <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-breeze","name":"Carnival Breeze","class":"Dream Class","entered_service":2012,"gt":"130,000 GT","guests":"3,690","crew":"1,386","length":"1,004 ft (306 m)","beam":"158 ft (48 m)","registry":"Panama"}</script>
+        <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-breeze","aliases":["Carnival Breeze"]}</script>
       <div class="stats-grid">
         <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">130,000 GT</div><div class="whimsy">≈ 2,549 blue whales</div></div>
         <div class="stat-item"><div class="label">Guests</div><div class="value">3,690</div><div class="whimsy">small town afloat</div></div>
@@ -301,6 +333,10 @@
     <!-- Deck Plans -->
     <section class="card" aria-labelledby="deck-title">
       <h2 id="deck-title">Deck Plans</h2>
+        <figure>
+          <img src="/assets/ship-map.png" alt="Carnival Breeze simplified deck plan preview" loading="lazy"/>
+          <figcaption class="tiny">Simplified deck layout overview</figcaption>
+        </figure>
       <p>Carnival Breeze spans 15 guest decks with 1,845 staterooms. Explore cabin locations, dining venues, pools, WaterWorks, and entertainment areas on the official interactive deck plans.</p>
       <p><a href="https://www.carnival.com/cruise-ships/carnival-breeze#deck-plans" target="_blank" rel="noopener" style="display:inline-block;background:var(--carnival-blue);color:#fff;padding:.75rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:500">View Official Deck Plans →</a></p>
     </section>
@@ -384,6 +420,11 @@
     <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
     </section>
   </aside>
+
+    <section class="card attributions">
+      <h2>Image Attributions</h2>
+      <p class="tiny">Ship images are served locally from licensed sources or CC-BY-SA-4.0 Wikimedia Commons. See individual image captions for specific attribution.</p>
+    </section>
 </main>
 
 <footer role="contentinfo">
@@ -391,14 +432,14 @@
   <p>© 2025 In the Wake. All rights reserved.</p>
   <p style="margin-top:1rem"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/accessibility.html">Accessibility</a></p>
   <p aria-hidden="true" style="opacity:0;position:absolute;pointer-events:none">Soli Deo Gloria</p>
-  <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+  <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
-  new Swiper('#photo-swiper',{loop:true,navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},pagination:{el:'.swiper-pagination',clickable:true}});
-  window.videoSwiper=new Swiper('#video-swiper',{loop:false,navigation:{nextEl:'#video-swiper .swiper-button-next',prevEl:'#video-swiper .swiper-button-prev'}});
+  new Swiper('#photo-swiper',{loop:false,rewind:false,navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},pagination:{el:'.swiper-pagination',clickable:true}});
+  window.videoSwiper=new Swiper('#video-swiper',{loop:false,rewind:false,navigation:{nextEl:'#video-swiper .swiper-button-next',prevEl:'#video-swiper .swiper-button-prev'}});
 });
 </script>
 
@@ -452,6 +493,11 @@ document.addEventListener('DOMContentLoaded',function(){
   window.__articlesNav = renderPage;
   loadArticles();
 })();
-</script>
+</script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

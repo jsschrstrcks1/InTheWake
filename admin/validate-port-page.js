@@ -79,6 +79,58 @@ function countWords(text) {
 }
 
 /**
+ * Validate analytics scripts (REQUIRED per CLAUDE.md Section 0)
+ * Every page must have both Google Analytics and Umami
+ */
+function validateAnalytics($, html) {
+  const errors = [];
+  const warnings = [];
+
+  // Check for Google Analytics
+  const hasGoogleAnalytics = html.includes('googletagmanager.com/gtag/js') &&
+                              html.includes('G-WZP891PZXJ');
+
+  // Check for Umami Analytics
+  const hasUmami = html.includes('cloud.umami.is/script.js') &&
+                   html.includes('9661a449-3ba9-49ea-88e8-4493363578d2');
+
+  if (!hasGoogleAnalytics) {
+    errors.push({
+      section: 'analytics',
+      rule: 'missing_google_analytics',
+      message: 'Missing Google Analytics script (REQUIRED per CLAUDE.md Section 0)',
+      severity: 'BLOCKING'
+    });
+  }
+
+  if (!hasUmami) {
+    errors.push({
+      section: 'analytics',
+      rule: 'missing_umami',
+      message: 'Missing Umami Analytics script (REQUIRED per CLAUDE.md Section 0)',
+      severity: 'BLOCKING'
+    });
+  }
+
+  // Check that GA has IP anonymization enabled
+  if (hasGoogleAnalytics && !html.includes('anonymize_ip:true') && !html.includes('anonymize_ip: true')) {
+    warnings.push({
+      section: 'analytics',
+      rule: 'missing_ip_anonymization',
+      message: 'Google Analytics should have anonymize_ip:true for GDPR compliance',
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: { hasGoogleAnalytics, hasUmami }
+  };
+}
+
+/**
  * Validate ICP-Lite v1.4 compliance
  */
 function validateICPLite($, html) {
@@ -894,6 +946,7 @@ async function validatePortPage(filepath) {
     const $ = load(html);
 
     // Run all validations
+    const analyticsResult = validateAnalytics($, html);
     const icpResult = validateICPLite($, html);
     const sectionResult = validateSectionOrder($);
     const wordResult = validateWordCounts($);
@@ -904,6 +957,7 @@ async function validatePortPage(filepath) {
     const collapsibleResult = validateCollapsibleStructure($);
 
     // Collect all errors
+    results.blocking_errors.push(...analyticsResult.errors);
     results.blocking_errors.push(...icpResult.errors);
     results.blocking_errors.push(...sectionResult.errors);
     results.blocking_errors.push(...wordResult.errors);
@@ -913,6 +967,7 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...collapsibleResult.errors);
 
     // Collect all warnings
+    results.warnings.push(...analyticsResult.warnings);
     results.warnings.push(...icpResult.warnings);
     results.warnings.push(...sectionResult.warnings);
     results.warnings.push(...wordResult.warnings);
@@ -929,6 +984,7 @@ async function validatePortPage(filepath) {
     results.valid = results.blocking_errors.length === 0;
 
     // Add detailed results
+    results.analytics = analyticsResult.data;
     results.icp_lite = icpResult.data;
     results.section_order = {
       valid: sectionResult.valid,

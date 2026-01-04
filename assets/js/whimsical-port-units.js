@@ -8,6 +8,14 @@
 (function() {
   'use strict';
 
+  // Escape HTML to prevent XSS
+  function escapeHtml(text) {
+    if (!text) return '';
+    var div = document.createElement('div');
+    div.textContent = String(text);
+    return div.innerHTML;
+  }
+
   async function loadWhimsicalUnits() {
     var container = document.getElementById('whimsical-units-container');
     if (!container) return;
@@ -87,8 +95,8 @@
         '<ul style="list-style:none;padding:0;margin:0;">' +
         facts.map(function(f) {
           return '<li style="padding:0.6rem 0;border-bottom:1px solid #e8f0f4;font-size:0.9rem;line-height:1.5;">' +
-            '<span style="color:var(--sea,#0a3d62);font-weight:500;">' + f.comparison + '</span>' +
-            '<br><span class="tiny" style="color:#789;font-style:italic;">' + f.note + '</span>' +
+            '<span style="color:var(--sea,#0a3d62);font-weight:500;">' + escapeHtml(f.comparison) + '</span>' +
+            '<br><span class="tiny" style="color:#789;font-style:italic;">' + escapeHtml(f.note) + '</span>' +
           '</li>';
         }).join('') +
         '</ul>' +

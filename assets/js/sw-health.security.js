@@ -11,6 +11,14 @@
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
   const fmt = (v) => (v === true ? '✅ Yes' : v === false ? '❌ No' : v ?? '—');
 
+  // Escape HTML to prevent XSS
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = String(text);
+    return div.innerHTML;
+  }
+
   function kvRow(k, v) {
     return `<div class="kv"><div class="k">${k}</div><div class="v">${v}</div></div>`;
   }
@@ -103,38 +111,38 @@
       kvRow('Secure context (HTTPS/localhost)', fmt(basics.isSecure)),
       kvRow('Location uses HTTPS', fmt(basics.https)),
       kvRow('Cross-Origin Isolated', fmt(basics.crossOriginIso)),
-      kvRow('Referrer-Policy', `<code>${basics.referrerPolicy}</code>`),
+      kvRow('Referrer-Policy', `<code>${escapeHtml(basics.referrerPolicy)}</code>`),
       kvRow('Inline script nonce present', fmt(basics.hasNonce)),
-      kvRow('CSP (meta)', `<div class="muted"><code>${basics.cspMeta}</code></div>`),
-      kvRow('HSTS enforced', basics.hstsLikely === false ? '❌ No (HTTP)' : 'ℹ️ ' + basics.hstsLikely),
+      kvRow('CSP (meta)', `<div class="muted"><code>${escapeHtml(basics.cspMeta)}</code></div>`),
+      kvRow('HSTS enforced', basics.hstsLikely === false ? '❌ No (HTTP)' : 'ℹ️ ' + escapeHtml(basics.hstsLikely)),
     ].join('');
 
     // SERVICE WORKER
     const swHTML = [
       kvRow('Supported', fmt(sw.supported)),
-      kvRow('Active state', `<code>${sw.state}</code>`),
-      kvRow('Registration scope', `<code>${sw.scope}</code>`),
-      kvRow('Script URL', `<code>${sw.scriptURL}</code>`),
+      kvRow('Active state', `<code>${escapeHtml(sw.state)}</code>`),
+      kvRow('Registration scope', `<code>${escapeHtml(sw.scope)}</code>`),
+      kvRow('Script URL', `<code>${escapeHtml(sw.scriptURL)}</code>`),
       kvRow('Controller present', fmt(sw.hasController)),
-      kvRow('Controller URL', `<code>${sw.controllerUrl}</code>`),
-      kvRow('updateViaCache', `<code>${sw.updateViaCache}</code>`),
+      kvRow('Controller URL', `<code>${escapeHtml(sw.controllerUrl)}</code>`),
+      kvRow('updateViaCache', `<code>${escapeHtml(sw.updateViaCache)}</code>`),
       `<div class="row muted">Tip: active should be <code>active</code>, and controller should exist once a page is claimed.</div>`
     ].join('');
 
     // PERMISSIONS
     const permsHTML = [
-      kvRow('Notifications', `<code>${perms.notif}</code>`),
-      kvRow('Push', `<code>${perms.push}</code>`),
-      kvRow('Clipboard (read)', `<code>${perms.clipboard}</code>`),
-      kvRow('Camera', `<code>${perms.camera}</code>`),
-      kvRow('Microphone', `<code>${perms.mic}</code>`),
+      kvRow('Notifications', `<code>${escapeHtml(perms.notif)}</code>`),
+      kvRow('Push', `<code>${escapeHtml(perms.push)}</code>`),
+      kvRow('Clipboard (read)', `<code>${escapeHtml(perms.clipboard)}</code>`),
+      kvRow('Camera', `<code>${escapeHtml(perms.camera)}</code>`),
+      kvRow('Microphone', `<code>${escapeHtml(perms.mic)}</code>`),
       `<div class="row muted">States come from the Permissions API where supported (granted/denied/prompt/unknown).</div>`
     ].join('');
 
     // APP CONFIG
     const appHTML = [
       kvRow('Integrity checks enabled', fmt(itw.enableIntegrityChecks)),
-      kvRow('Worker integrity hash', `<code>${itw.workerIntegrityHash}</code>`),
+      kvRow('Worker integrity hash', `<code>${escapeHtml(itw.workerIntegrityHash)}</code>`),
       kvRow('Telemetry enabled', fmt(itw.enableTelemetry)),
       `<div class="row muted">These map to <code>ITW_CFG.security</code> set in your HTML loader.</div>`
     ].join('');
@@ -164,7 +172,7 @@
       const data = await gatherSecurity();
       render(root, data);
     } catch (e) {
-      root.innerHTML = `<div class="card">Failed to load security diagnostics: ${String(e)}</div>`;
+      root.innerHTML = `<div class="card">Failed to load security diagnostics: ${escapeHtml(String(e))}</div>`;
     }
 
     // Wire the tab button if the host page uses data-tab switching

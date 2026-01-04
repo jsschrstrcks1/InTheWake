@@ -11,12 +11,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Vista
+     name: Carnival Vista
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
      cruise-line: Carnival Cruise Line
      ship-class: Vista Class
-     siblings: Carnival Horizon, Carnival Panorama
+     siblings: /ships/carnival/carnival-adventure.html, /ships/carnival/carnival-breeze.html, /ships/carnival/carnival-celebration.html, /ships/carnival/carnival-conquest.html, /ships/carnival/carnival-dream.html
      related: /ships.html, /cruise-lines/carnival.html, /ports.html
      updated: 2025-12-03
      expertise: Carnival ship reviews, deck plans, dining analysis, Vista-class innovations
@@ -103,7 +104,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <script>(function(){function addCSS(h){const l=document.createElement('link');l.rel='stylesheet';l.href=h;document.head.appendChild(l);}function addJS(src,ok){const s=document.createElement('script');s.src=src;s.async=true;s.onload=ok;document.head.appendChild(s);}addCSS("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css");addJS("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js",function(){window.__swiperReady=true;});})();</script>
 
   </head>
-<body class="page">
+<body class="page" data-ship="Carnival Vista">
   <a href="#main" class="skip-link">Skip to main content</a>
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 
@@ -199,6 +200,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <h3>Key Facts About Carnival Vista</h3>
             <div id="ship-stats" class="stats-grid" data-slug="carnival-vista"></div>
             <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-vista","name":"Carnival Vista","class":"Vista Class (Lead)","entered_service":2016,"gt":"133,500 GT","guests":"3,936 (max)","crew":"1,450","length":"1,055 ft (322 m)","beam":"122 ft (37 m)","registry":"Panama"}</script>
+        <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-vista","aliases":["Carnival Vista"]}</script>
           </section>
 
           <section class="card mini">
@@ -212,7 +214,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         </section>
 
         <section id="dining-card" class="card">
-          <h2>Dining Venues on Carnival Vista</h2>
+          <h2>
+        <img id="dining-hero" class="card-hero"
+             src="/assets/ships/carnival-vista/dining-hero.jpg"
+             alt="Carnival Vista dining venue" loading="lazy"
+             onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
+Dining Venues on Carnival Vista</h2>
           <div class="dining-content">
             <div class="dining-item"><span class="dining-type included">Included</span> Horizons (MDR)</div>
             <div class="dining-item"><span class="dining-type included">Included</span> Reflections (MDR)</div>
@@ -247,12 +254,35 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <div id="videoFallback" class="tiny hidden">Videos loading...</div>
       </section>
 
+
+    <!-- Deck Plans & Tracker Grid -->
+    <div class="grid-2">
+      <section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">Deck Plans</h2>
+        <div id="ship-map" data-ship="carnival-vista">
+          <p>Interactive deck plans for Carnival Vista are available on the cruise line's official website.</p>
+        </div>
+      </section>
+
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9692569" data-name="CARNIVALVISTA">
+        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
+        <div id="ship-tracker-container">
+          <p>Track Carnival Vista's current position and voyage details.</p>
+        </div>
+      </section>
+    </div>
+
       <section class="grid-2">
         <section class="card">
           <h2>Ship Map (Deck Plans)</h2>
           <p><a class="btn" href="https://www.carnival.com/cruise-ships/carnival-vista/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans</a></p>
           <p class="tiny">15 guest decks, 1,968 staterooms. Key areas: Deck 5 (Havana section), Deck 10 (Lido), Deck 12 (SkyRide), Deck 15 (Serenity).</p>
-        </section>
+        
+        <figure>
+          <img src="/assets/ship-map.png" alt="Simplified deck plan preview" loading="lazy"/>
+          <figcaption class="tiny">Simplified deck layout overview</figcaption>
+        </figure>
+</section>
 
         <section class="card" data-imo="9692569">
           <h2>Where Is Vista Right Now?</h2>
@@ -312,7 +342,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
         <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
       </section>
 
@@ -325,14 +357,14 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <p>2025 In the Wake - A Cruise Traveler's Logbook - All rights reserved.</p>
     <p class="tiny" style="margin-top:.5rem;"><a href="/privacy.html">Privacy</a> - <a href="/terms.html">Terms</a> - <a href="/about-us.html">About</a> - <a href="/accessibility.html">Accessibility</a></p>
     <p class="tiny" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria - Every pixel offered as worship to God.</p>
-    <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
 
-  <script>(function(){function go(){if(!window.__swiperReady||!window.Swiper)return setTimeout(go,120);try{new Swiper('.swiper.firstlook',{loop:false,pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'}});}catch(_){}}go();})();</script>
+  <script>(function(){function go(){if(!window.__swiperReady||!window.Swiper)return setTimeout(go,120);try{new Swiper('.swiper.firstlook',{loop:false,rewind:false,pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'}});}catch(_){}}go();})();</script>
 
   <script>(function(){const mount=document.getElementById('logbook-stories');if(!mount)return;function abs(p){return(window._abs?_abs(p):p);}fetch(abs('/assets/data/logbook/carnival/carnival-vista.json'),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{if(!data||!data.stories||!data.stories.length)return;let i=0;const arr=data.stories;function render(){const s=arr[i];mount.innerHTML='<article><h3>'+s.title+'</h3><div>'+s.markdown.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')+'</div></article>';}render();const nav=document.createElement('nav');nav.style.cssText='display:flex;gap:.5rem;margin-top:1rem;';const prev=document.createElement('button');prev.textContent='Previous';prev.style.cssText='flex:1;padding:.5rem;border:1px solid #e8ecf0;background:white;cursor:pointer;border-radius:4px;';const next=document.createElement('button');next.textContent='Next';next.style.cssText='flex:1;padding:.5rem;border:1px solid #e8ecf0;background:white;cursor:pointer;border-radius:4px;';nav.append(prev,next);mount.after(nav);prev.onclick=()=>{i=Math.max(0,i-1);render();prev.disabled=i===0;next.disabled=i===arr.length-1;};next.onclick=()=>{i=Math.min(arr.length-1,i+1);render();prev.disabled=i===0;next.disabled=i===arr.length-1;};prev.disabled=true;next.disabled=arr.length<=1;}).catch(()=>{});})();</script>
 
-  <script>(function(){const mount=document.getElementById('featuredVideos');if(!mount)return;function abs(p){return(window._abs?_abs(p):p);}fetch(abs('/assets/data/videos/carnival/carnival-vista.json'),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{if(!data||!data.videos)return;mount.innerHTML=data.videos.map(v=>'<div class="swiper-slide"><iframe src="https://www.youtube-nocookie.com/embed/'+v.videoId+'?rel=0" title="'+v.title+'" allowfullscreen loading="lazy"></iframe></div>').join('');if(window.__swiperReady)setTimeout(()=>{try{new Swiper('.swiper.videos',{loop:false,pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'}});}catch(_){}},150);}).catch(()=>{});})();</script>
+  <script>(function(){const mount=document.getElementById('featuredVideos');if(!mount)return;function abs(p){return(window._abs?_abs(p):p);}fetch(abs('/assets/data/videos/carnival/carnival-vista.json'),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{if(!data||!data.videos)return;mount.innerHTML=data.videos.map(v=>'<div class="swiper-slide"><iframe src="https://www.youtube-nocookie.com/embed/'+v.videoId+'?rel=0" title="'+v.title+'" allowfullscreen loading="lazy"></iframe></div>').join('');if(window.__swiperReady)setTimeout(()=>{try{new Swiper('.swiper.videos',{loop:false,rewind:false,pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'}});}catch(_){}},150);}).catch(()=>{});})();</script>
 
   <script>(function(){const m=document.getElementById('ship-stats'),f=document.getElementById('ship-stats-fallback');if(!m||!f)return;try{const o=JSON.parse(f.textContent);const k=['class','entered_service','gt','guests','crew','length','beam','registry'];const l={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests',crew:'Crew',length:'Length',beam:'Beam',registry:'Registry'};m.innerHTML=k.map(key=>o[key]?'<div class="stat-line"><span class="stat-key">'+l[key]+'</span><span class="stat-val">'+o[key]+'</span></div>':'').join('');}catch(_){}})();</script>
 
@@ -361,6 +393,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
     }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
   })();
-  </script>
+  </script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

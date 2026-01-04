@@ -10,9 +10,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 <html lang="en" class="no-js">
 <head>
 <!-- ai-breadcrumbs
+     name: Viking Serenade
      entity: Viking Serenade
      type: Ship Information Page
      parent: /ships.html
+     siblings: /ships/rcl/adventure-of-the-seas.html, /ships/rcl/allure-of-the-seas.html, /ships/rcl/anthem-of-the-seas.html, /ships/rcl/brilliance-of-the-seas.html, /ships/rcl/discovery-class-ship-tbn.html
      category: Royal Caribbean Fleet
      cruise-line: Royal Caribbean
      ship-class: Viking Serenade Class
@@ -267,6 +269,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
+
+  <!-- JSON-LD: Review -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Viking Serenade","brand":{"@type":"Organization","name":"Royal Caribbean International"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5},"reviewBody":"Viking Serenade is a Viking Serenade Class vessel from Royal Caribbean International, offering memorable cruise experiences with excellent amenities and service."}</script>
 </head>
 
 <body class="page">
@@ -305,6 +310,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           <div class="dropdown-menu" role="menu">
             <a href="/planning.html">Planning (overview)</a>
             <a href="/ships.html">Ships</a>
+            <a href="/ships/quiz.html">Ship Quiz</a>
             <a href="/restaurants.html">Restaurants &amp; Menus</a>
             <a href="/ports.html">Ports</a>
             <a href="/internet-at-sea.html">Internet at Sea</a>
@@ -352,7 +358,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </div>
       <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" loading="eager"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel site logo" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img loading="lazy" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel site logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
@@ -385,7 +391,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- Row 1: Ship Overview + Stats -->
     <section class="grid-2">
       <!-- Ship Overview -->
-      <section class="card" aria-labelledby="ship-overview">
+      <section class="card" data-ship="Viking Serenade" aria-labelledby="ship-overview">
         <h2 id="ship-overview">Historical Overview</h2>
 
         <div class="swiper firstlook" aria-label="Viking Serenade photo carousel">
@@ -481,6 +487,33 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </section>
 
     <!-- FAQ Section (ICP-Lite) -->
+    
+    <!-- Ken's Logbook Section -->
+    <section class="card note-kens-logbook" aria-labelledby="logbook">
+      <h2 id="logbook">Ken's Logbook: Viking Serenade</h2>
+      <div id="logbook-container" data-ship="viking-serenade" data-line="rcl">
+        <p class="placeholder">Stories and insights from cruisers who have sailed on Viking Serenade will appear here.</p>
+      </div>
+    </section>
+
+    
+    <!-- Deck Plans & Tracker Grid -->
+    <div class="grid-2">
+      <section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">Deck Plans</h2>
+        <div id="ship-map" data-ship="viking-serenade">
+          <p>Interactive deck plans for Viking Serenade are available on the cruise line's official website.</p>
+        </div>
+      </section>
+
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="TBD" data-name="VIKINGSERENADE">
+        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
+        <div id="ship-tracker-container">
+          <p>Track Viking Serenade's current position and voyage details.</p>
+        </div>
+      </section>
+    </div>
+
     <section class="card faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions</h2>
 
@@ -528,6 +561,19 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           </a>
         </p>
       </section>
+
+    <!-- First Look Section -->
+    <section class="card" aria-labelledby="first-look">
+      <h2 id="first-look">A First Look</h2>
+      <div class="grid-2" style="gap: 1.5rem;">
+        <div>
+          <p>Viking Serenade offers a memorable cruise experience with Royal Caribbean International. This ship features modern amenities, diverse dining options, and entertainment for all ages.</p>
+          <p>Explore the deck plans below to familiarize yourself with the ship's layout, or check out the dining section to see available restaurants and venues.</p>
+        </div>
+        <div id="ship-stats" class="stats-grid" data-slug=""></div>
+      </div>
+    </section>
+<script type="application/json" id="dining-data-source">{"provider":"rcl","json":"/assets/data/venues-v2.json","ship_slug":"viking-serenade","aliases":["Viking Serenade"]}</script>
 
       <!-- Author card (Vertical Layout) -->
       <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -594,7 +640,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center visually-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-    <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
 
   <!-- JAVASCRIPT -->

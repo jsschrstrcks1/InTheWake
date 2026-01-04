@@ -6,6 +6,14 @@
  * Requires: weather.js module, port data attributes on container.
  */
 
+// Escape HTML to prevent XSS (module-level for use by all functions)
+function escapeHtml(text) {
+  if (!text) return '';
+  const div = document.createElement('div');
+  div.textContent = String(text);
+  return div.innerHTML;
+}
+
 (async function() {
   'use strict';
 
@@ -28,7 +36,7 @@
   container.innerHTML = `
     <div class="weather-loading">
       <span class="weather-loading-spinner"></span>
-      Loading weather for ${portName}...
+      Loading weather for ${escapeHtml(portName)}...
     </div>
   `;
 
@@ -68,7 +76,7 @@ function renderWeatherWidget(container, weatherData, seasonalData, regionalDefau
   if (weatherData.error) {
     container.innerHTML = `
       <div class="weather-error">
-        <p>${weatherData.error}</p>
+        <p>${escapeHtml(weatherData.error)}</p>
       </div>
     `;
     return;
@@ -96,24 +104,24 @@ function renderWeatherWidget(container, weatherData, seasonalData, regionalDefau
       <!-- Current Conditions -->
       <div class="weather-current">
         <div class="weather-current-main">
-          <span class="weather-icon-large">${current.icon}</span>
+          <span class="weather-icon-large">${escapeHtml(current.icon)}</span>
           <div class="weather-temp-block">
-            <span class="weather-temp-primary">${current.temp}</span>
-            <span class="weather-feels-like">Feels like ${current.feelsLike}</span>
+            <span class="weather-temp-primary">${escapeHtml(current.temp)}</span>
+            <span class="weather-feels-like">Feels like ${escapeHtml(current.feelsLike)}</span>
           </div>
         </div>
         <div class="weather-current-details">
           <div class="weather-detail">
             <span class="weather-detail-label">Condition</span>
-            <span class="weather-detail-value">${current.condition}</span>
+            <span class="weather-detail-value">${escapeHtml(current.condition)}</span>
           </div>
           <div class="weather-detail">
             <span class="weather-detail-label">Wind</span>
-            <span class="weather-detail-value">${current.windSpeed} ${current.windDirection}</span>
+            <span class="weather-detail-value">${escapeHtml(current.windSpeed)} ${escapeHtml(current.windDirection)}</span>
           </div>
           <div class="weather-detail">
             <span class="weather-detail-label">Humidity</span>
-            <span class="weather-detail-value">${current.humidity}%</span>
+            <span class="weather-detail-value">${escapeHtml(current.humidity)}%</span>
           </div>
         </div>
       </div>
@@ -126,8 +134,8 @@ function renderWeatherWidget(container, weatherData, seasonalData, regionalDefau
 
       ${bestWindow ? `
       <div class="weather-best-window">
-        <strong>Calmest window:</strong> ${bestWindow.label}
-        (${bestWindow.precipChance}% rain, ${bestWindow.wind} wind)
+        <strong>Calmest window:</strong> ${escapeHtml(bestWindow.label)}
+        (${escapeHtml(bestWindow.precipChance)}% rain, ${escapeHtml(bestWindow.wind)} wind)
         <span class="weather-hint">— forecast-based</span>
       </div>
       ` : ''}
@@ -139,12 +147,12 @@ function renderWeatherWidget(container, weatherData, seasonalData, regionalDefau
         <div class="weather-forecast-grid">
           ${forecast.map(bucket => `
             <div class="weather-forecast-bucket">
-              <div class="weather-bucket-label">${bucket.label}</div>
-              <div class="weather-bucket-icon">${bucket.icon}</div>
-              <div class="weather-bucket-temp">${bucket.tempHigh}</div>
+              <div class="weather-bucket-label">${escapeHtml(bucket.label)}</div>
+              <div class="weather-bucket-icon">${escapeHtml(bucket.icon)}</div>
+              <div class="weather-bucket-temp">${escapeHtml(bucket.tempHigh)}</div>
               <div class="weather-bucket-details">
-                <span class="weather-bucket-precip">${bucket.precipChance}% rain</span>
-                <span class="weather-bucket-wind">${bucket.windAvg}</span>
+                <span class="weather-bucket-precip">${escapeHtml(bucket.precipChance)}% rain</span>
+                <span class="weather-bucket-wind">${escapeHtml(bucket.windAvg)}</span>
               </div>
             </div>
           `).join('')}
@@ -162,14 +170,14 @@ function renderWeatherWidget(container, weatherData, seasonalData, regionalDefau
 
       <!-- Attribution (required) -->
       <div class="weather-attribution">
-        <span class="weather-updated">Updated ${formatTimeAgo(current.time)}</span>
-        · <a href="${attributionUrl}" target="_blank" rel="noopener">${attribution}</a>
-        ${tierLabel ? `· <span class="weather-tier-label">${tierLabel}</span>` : ''}
+        <span class="weather-updated">Updated ${escapeHtml(formatTimeAgo(current.time))}</span>
+        · <a href="${escapeHtml(attributionUrl)}" target="_blank" rel="noopener">${escapeHtml(attribution)}</a>
+        ${tierLabel ? `· <span class="weather-tier-label">${escapeHtml(tierLabel)}</span>` : ''}
       </div>
 
       ${weatherData.warning ? `
       <div class="weather-warning">
-        ${weatherData.warning}
+        ${escapeHtml(weatherData.warning)}
       </div>
       ` : ''}
     </div>
@@ -233,11 +241,11 @@ function renderSeasonalGuide(seasonalData, portName) {
         <summary class="seasonal-section-title">At a Glance</summary>
         <div class="seasonal-at-glance">
           <div class="seasonal-glance-grid">
-            ${glance.temp_range ? `<div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">${glance.temp_range}</span></div>` : ''}
-            ${glance.humidity ? `<div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">${glance.humidity}</span></div>` : ''}
-            ${glance.rain ? `<div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">${glance.rain}</span></div>` : ''}
-            ${glance.wind ? `<div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">${glance.wind}</span></div>` : ''}
-            ${glance.daylight ? `<div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">${glance.daylight}</span></div>` : ''}
+            ${glance.temp_range ? `<div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">${escapeHtml(glance.temp_range)}</span></div>` : ''}
+            ${glance.humidity ? `<div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">${escapeHtml(glance.humidity)}</span></div>` : ''}
+            ${glance.rain ? `<div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">${escapeHtml(glance.rain)}</span></div>` : ''}
+            ${glance.wind ? `<div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">${escapeHtml(glance.wind)}</span></div>` : ''}
+            ${glance.daylight ? `<div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">${escapeHtml(glance.daylight)}</span></div>` : ''}
           </div>
         </div>
       </details>
@@ -251,9 +259,9 @@ function renderSeasonalGuide(seasonalData, portName) {
         <summary class="seasonal-section-title">At a Glance</summary>
         <div class="seasonal-at-glance">
           <div class="seasonal-glance-grid">
-            ${seasonalData.typical_temp_f ? `<div class="seasonal-glance-item"><span class="glance-label">Typical Temp</span><span class="glance-value">${seasonalData.typical_temp_f}°F</span></div>` : ''}
-            ${seasonalData.humidity ? `<div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">${seasonalData.humidity}</span></div>` : ''}
-            ${seasonalData.rain_pattern ? `<div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">${seasonalData.rain_pattern}</span></div>` : ''}
+            ${seasonalData.typical_temp_f ? `<div class="seasonal-glance-item"><span class="glance-label">Typical Temp</span><span class="glance-value">${escapeHtml(seasonalData.typical_temp_f)}°F</span></div>` : ''}
+            ${seasonalData.humidity ? `<div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">${escapeHtml(seasonalData.humidity)}</span></div>` : ''}
+            ${seasonalData.rain_pattern ? `<div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">${escapeHtml(seasonalData.rain_pattern)}</span></div>` : ''}
           </div>
         </div>
       </details>
@@ -271,9 +279,9 @@ function renderSeasonalGuide(seasonalData, portName) {
       const seasons = seasonalData.cruise_seasons;
       html += `
         <div class="cruise-seasons-grid">
-          ${seasons.high?.length ? `<div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">${seasons.high.join(', ')}</span></div>` : ''}
-          ${seasons.transitional?.length ? `<div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">${seasons.transitional.join(', ')}</span></div>` : ''}
-          ${seasons.low?.length ? `<div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">${seasons.low.join(', ')}</span></div>` : ''}
+          ${seasons.high?.length ? `<div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">${escapeHtml(seasons.high.join(', '))}</span></div>` : ''}
+          ${seasons.transitional?.length ? `<div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">${escapeHtml(seasons.transitional.join(', '))}</span></div>` : ''}
+          ${seasons.low?.length ? `<div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">${escapeHtml(seasons.low.join(', '))}</span></div>` : ''}
         </div>
       `;
     }
@@ -287,8 +295,8 @@ function renderSeasonalGuide(seasonalData, portName) {
           const activityLabel = activity.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
           html += `
             <div class="activity-row">
-              <span class="activity-label">${activityLabel}</span>
-              <span class="activity-months">${months.join(', ')}</span>
+              <span class="activity-label">${escapeHtml(activityLabel)}</span>
+              <span class="activity-months">${escapeHtml(months.join(', '))}</span>
             </div>
           `;
         }
@@ -301,7 +309,7 @@ function renderSeasonalGuide(seasonalData, portName) {
       html += `
         <div class="months-to-avoid">
           <span class="avoid-label">Consider avoiding:</span>
-          <span class="avoid-months">${seasonalData.avoid_months.join(', ')}</span>
+          <span class="avoid-months">${escapeHtml(seasonalData.avoid_months.join(', '))}</span>
           ${seasonalData.hazards?.peak_risk_months ? `<span class="avoid-reason">(hurricane risk)</span>` : ''}
         </div>
       `;
@@ -317,7 +325,7 @@ function renderSeasonalGuide(seasonalData, portName) {
         <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
         <div class="seasonal-catches">
           <ul class="catches-list">
-            ${seasonalData.catches_off_guard.map(item => `<li>${item}</li>`).join('')}
+            ${seasonalData.catches_off_guard.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
           </ul>
         </div>
       </details>
@@ -331,7 +339,7 @@ function renderSeasonalGuide(seasonalData, portName) {
         <summary class="seasonal-section-title">Packing Tips</summary>
         <div class="seasonal-packing">
           <ul class="packing-list">
-            ${seasonalData.packing_nudges.map(item => `<li>${item}</li>`).join('')}
+            ${seasonalData.packing_nudges.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
           </ul>
         </div>
       </details>
@@ -349,9 +357,9 @@ function renderSeasonalGuide(seasonalData, portName) {
             <span class="hazard-icon">⚠️</span>
             <div class="hazard-content">
               <strong>Hurricane Zone</strong>
-              ${hazards.hurricane_season ? `<p>Season: ${hazards.hurricane_season}</p>` : ''}
-              ${hazards.peak_risk_months?.length ? `<p>Peak risk: ${hazards.peak_risk_months.join(', ')}</p>` : ''}
-              ${hazards.note ? `<p class="hazard-note">${hazards.note}</p>` : ''}
+              ${hazards.hurricane_season ? `<p>Season: ${escapeHtml(hazards.hurricane_season)}</p>` : ''}
+              ${hazards.peak_risk_months?.length ? `<p>Peak risk: ${escapeHtml(hazards.peak_risk_months.join(', '))}</p>` : ''}
+              ${hazards.note ? `<p class="hazard-note">${escapeHtml(hazards.note)}</p>` : ''}
             </div>
           </div>
         </div>

@@ -23,12 +23,13 @@
 
   <!-- ai-breadcrumbs
        entity: Carnival Splendor
+     name: Carnival Splendor
        type: Ship Profile Page
        parent: /ships.html
        category: Carnival Fleet
        cruise-line: Carnival Cruise Line
        ship-class: Concordia-class (Splendor-class)
-       siblings: Costa Serena, Costa Pacifica, Costa Favolosa, Costa Fascinosa
+       siblings: /ships/carnival/carnival-adventure.html, /ships/carnival/carnival-breeze.html, /ships/carnival/carnival-celebration.html, /ships/carnival/carnival-conquest.html, /ships/carnival/carnival-dream.html
        related: carnival-spirit.html (also Australia-based)
        updated: 2025-12-02
        expertise: Carnival ship specifications, Concordia-class fleet, Australian cruising
@@ -52,7 +53,7 @@
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/carnival-splendor.jpg"/>
 
   <link rel="preconnect" href="https://www.carnival.com">
-  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
 
   <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
@@ -218,6 +219,19 @@
   <meta name="twitter:title" content="Carnival Splendor — Concordia-class Cruise Ship"/>
   <meta name="twitter:description" content="Complete guide to Carnival Splendor — the only Concordia-class ship in Carnival's fleet, featuring the largest spa at sea and now sailing year-round from Sydney, Australia."/>
   <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/carnival-splendor.jpg"/>
+
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+<!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -294,10 +308,37 @@
     <strong>Carnival Splendor</strong>
   </nav>
 
-  <main class="wrap page-grid" id="main-content" role="main">
+  <main class="wrap page-grid" id="main-content" role="main" data-ship="Carnival Splendor" data-imo="9398917">
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
-    <!-- Quick Answer Section -->
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" aria-label="Carnival Splendor overview">
+      <p class="answer-line">
+        <strong class="section-label">Looking for Carnival Splendor planning info?</strong>
+        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Carnival cruise aboard Carnival Splendor from Long Beach.</span>
+      </p>
+      <p class="content-text">
+        Carnival Splendor is a Splendor Class vessel featuring unique Splendor-class design from California. Whether you're planning your first cruise or are a seasoned traveler, this guide helps you discover what makes this ship special.
+      </p>
+    </section>
+
+    <div class="grid-2">
+      <section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">Deck Plans</h2>
+        <div id="ship-map" data-ship="carnival-splendor">
+          <p>Interactive deck plans for Carnival Splendor are available on the cruise line's official website.</p>
+        </div>
+      </section>
+
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9398917" data-name="CARNIVALSPLENDOR">
+        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
+        <div id="ship-tracker-container">
+          <p>Track Carnival Splendor's current position and voyage details.</p>
+        </div>
+      </section>
+    </div>
+
+14146    <!-- Quick Answer Section -->
     <section class="card">
       <h2>Overview</h2>
       <p><strong>Carnival Splendor</strong> is a 113,323 gross ton cruise ship and the only Concordia-class vessel in Carnival's fleet. Built in 2008 at Fincantieri's Sestri Ponente shipyard in Italy, Splendor was originally designed for Costa Cruises but transferred to Carnival during construction, giving her unique design elements not found on other Carnival ships.</p>
@@ -308,6 +349,9 @@
     <!-- Ship Statistics -->
     <section class="card">
       <h2>Ship Statistics</h2>
+          <div id="ship-stats" class="stats-grid" data-slug="carnival-splendor"></div>
+          <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-splendor","name":"Carnival Splendor","class":"Splendor Class","entered_service":2008,"gt":"113,300 GT","guests":"3,006","crew":"1,150","length":"952 ft (290 m)","beam":"116 ft (35 m)","registry":"Panama"}</script>
+        <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-splendor","aliases":["Carnival Splendor"]}</script>
       <div class="stats-grid">
         <div class="stat-item">
           <div class="stat-value">113,323</div>
@@ -347,6 +391,10 @@
     <!-- Deck Plans -->
     <section class="card">
       <h2>Deck Plans</h2>
+        <figure>
+          <img src="/assets/ship-map.png" alt="Carnival Splendor simplified deck plan preview" loading="lazy"/>
+          <figcaption class="tiny">Simplified deck layout overview</figcaption>
+        </figure>
       <p>Carnival Splendor features 13 passenger decks with 1,508 staterooms. Access the official interactive deck plans to explore cabin locations, dining venues, pools, and entertainment areas.</p>
       <p><a class="btn" href="https://www.carnival.com/cruise-ships/carnival-splendor#deck-plans" target="_blank" rel="noopener" style="display: inline-block; background: var(--carnival-blue); color: #fff; padding: 0.75rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600;">View Official Deck Plans →</a></p>
     </section>
@@ -510,7 +558,11 @@
       </ul>
       <p class="tiny" style="margin-top: 1rem; color: var(--ink-mid);">Ship specifications verified December 2025. Live tracking data provided by MarineTraffic.</p>
     </section>
-    </section><!-- End Main Content Column -->
+    <section class="card attributions">
+      <h2>Image Attributions</h2>
+      <p class="tiny">Ship images are served locally from licensed sources or CC-BY-SA-4.0 Wikimedia Commons. See individual image captions for specific attribution.</p>
+    </section>
+  </section><!-- End Main Content Column -->
 
     <!-- Right Rail -->
     <aside class="rail col-2" role="complementary" aria-label="Key facts, author & articles">
@@ -535,11 +587,77 @@
 
       <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
         <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
-      </section>
-    </aside>
-  </main>
+      
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+  </section>
+  </aside>
+  
+    
+
+    <!-- Videos -->
+    
+
+
+    <!-- Deck Plans & Tracker Grid -->
+    
+
+    <script>
+    (function(){
+      const mount=document.getElementById('featuredVideos');
+      const fallback=document.getElementById('videoFallback');
+      if(!mount) return;
+      function abs(p){try{return new URL(p,location.href).href}catch(_){return p}}
+      function getVideoURL(id,provider){
+        if(provider==='youtube'||!provider) return 'https://www.youtube-nocookie.com/embed/'+id+'?rel=0';
+        return null;
+      }
+      function renderVideos(arr){
+        if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
+        mount.innerHTML=arr.slice(0,12).map(v=>{
+          const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
+          const title=String(v.title||'Carnival Splendor').replace(/</g,'&lt;');
+          return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
+        }).join('');
+        if(mount.children.length&&window.Swiper){
+          setTimeout(()=>{
+            try{
+              new Swiper('.swiper.videos',{
+                loop:false,rewind:false,lazy:true,watchOverflow:true,
+                pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
+                navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
+                a11y:{enabled:true}
+              });
+            }catch(_){}
+          },150);
+        }
+      }
+      function fetchVideoData(){
+        const SOURCES=[abs('/assets/data/videos/carnival/carnival-splendor.json')];
+        function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+          return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+        return tryFetch();
+      }
+      function flattenVideos(data){
+        if(!data||!data.videos) return [];
+        if(Array.isArray(data.videos)) return data.videos;
+        let vids=[];
+        for(const cat of Object.values(data.videos)){
+          if(Array.isArray(cat)) vids=vids.concat(cat);
+        }
+        return vids;
+      }
+      fetchVideoData().then(data=>{ if(data) renderVideos(flattenVideos(data)); });
+    })();
+    </script>
+
+
+    </main>
 
   <footer role="contentinfo">
     <p><strong>In the Wake</strong> — A Cruise Encyclopedia & Planning Guide</p>
@@ -551,7 +669,7 @@
       <a href="/accessibility.html">Accessibility</a>
     </p>
     <p class="tiny" style="margin-top: 1rem; opacity: 0.7;">Soli Deo Gloria</p>
-    <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
 
   <script>
@@ -577,6 +695,11 @@
       if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
     }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
   })();
-  </script>
+  </script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

@@ -2,12 +2,68 @@
 # Soli Deo Gloria
 
 # ============================================================
+# SECURITY: BLOCK ACCESS TO SENSITIVE FILES
+# ============================================================
+
+# Block access to Python scripts and compiled bytecode
+<FilesMatch "\.(py|pyc|pyo)$">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# Block access to hidden files and directories (except .htaccess)
+<FilesMatch "^\.(?!htaccess)">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# Block access to backup and temp files
+<FilesMatch "\.(bak|tmp|old|orig|swp|log)$">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# Block access to markdown files (documentation, not web content)
+<FilesMatch "\.md$">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# Block access to CSV files (data exports, attributions)
+<FilesMatch "\.csv$">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# Block access to shell scripts
+<FilesMatch "\.sh$">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# ============================================================
 # REDIRECT RULES (CRITICAL FOR SEO)
 # ============================================================
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # ============================================================
+  # SECURITY: Block access to development directories
+  # ============================================================
+
+  # Block /scripts/ directory entirely (development tools only)
+  RewriteRule ^scripts/ - [F,L]
+
+  # Block admin Python/JS files but allow admin/reports/*.html
+  RewriteCond %{REQUEST_URI} ^/admin/
+  RewriteCond %{REQUEST_URI} !^/admin/reports/.*\.html$
+  RewriteRule ^admin/ - [F,L]
+
+  # ============================================================
+  # HTTPS & CANONICAL REDIRECTS
+  # ============================================================
 
   # Force HTTPS (redirect all HTTP traffic to HTTPS)
   RewriteCond %{HTTPS} off

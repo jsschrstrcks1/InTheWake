@@ -590,6 +590,16 @@
   }
 
   /**
+   * Escape HTML entities to prevent XSS
+   */
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  /**
    * Fuzzy matching using Levenshtein distance
    */
   function levenshteinDistance(str1, str2) {
@@ -761,7 +771,7 @@
       // Update results info
       if (resultsInfo) {
         if (matchCount === 0) {
-          resultsInfo.innerHTML = `<strong>No ships found for "${trimmedQuery.replace(/</g, '&lt;')}"</strong> — try a different spelling or search for a class name`;
+          resultsInfo.innerHTML = `<strong>No ships found for "${escapeHtml(trimmedQuery)}"</strong> — try a different spelling or search for a class name`;
         } else {
           const classText = matchedClasses.size === 1
             ? `in ${Array.from(matchedClasses)[0]}`

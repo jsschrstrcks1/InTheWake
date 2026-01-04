@@ -15,12 +15,13 @@
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Panorama
+     name: Carnival Panorama
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
      cruise-line: Carnival Cruise Line
      ship-class: Vista Class
-     siblings: Carnival Vista, Carnival Horizon
+     siblings: /ships/carnival/carnival-adventure.html, /ships/carnival/carnival-breeze.html, /ships/carnival/carnival-celebration.html, /ships/carnival/carnival-conquest.html, /ships/carnival/carnival-dream.html
      related: SkyRide, IMAX Theater, Havana Section, Mexican Riviera
      updated: 2025-12-03
      expertise: Carnival cruise planning, Vista-class ships, Mexican Riviera cruising, Long Beach homeport
@@ -109,6 +110,19 @@
   <meta name="twitter:title" content="Carnival Panorama — Vista-Class Ship from Long Beach"/>
   <meta name="twitter:description" content="Carnival Panorama: 133,868 GT Vista-class ship sailing from Long Beach. Features SkyRide, IMAX theater, Havana section, and Mexican Riviera itineraries."/>
   <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/carnival-panorama.jpg"/>
+
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+<!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
 
 <body class="page">
@@ -119,7 +133,7 @@
 <header class="hero-header" role="banner">
   <nav class="navbar" aria-label="Site branding">
     <div class="brand">
-      <a href="/"><img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async"/></a>
+      <a href="/"><img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async" loading="eager"/></a>
       <span class="version-badge">V1.Beta</span>
     </div>
   </nav>
@@ -138,7 +152,8 @@
     <div class="dropdown-menu" role="menu">
       <a href="/planning.html">Planning Overview</a>
       <a href="/ships.html">Ships</a>
-      <a href="/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
       <a href="/ports.html">Ports</a>
       <a href="/internet-at-sea.html">Internet at Sea</a>
             <a href="/drink-packages.html">Drink Packages</a>
@@ -156,7 +171,8 @@
   <a class="nav-pill" href="/search.html">Search</a>
   <a class="nav-pill" href="/about-us.html">About</a>
 </nav>
-  <div class="hero-content">
+  <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" loading="lazy"/>
+      <div class="hero-content">
     <h1>Carnival Panorama</h1>
     <p class="hero-tagline">Vista-Class Innovation — West Coast's Mexican Riviera Gateway</p>
     <div class="badge-row">
@@ -169,16 +185,27 @@
   </div>
 </header>
 
-<main id="main-content" class="page-grid">
+<main id="main-content" class="page-grid" data-ship="Carnival Panorama" data-imo="9764479">
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" aria-label="Carnival Panorama overview">
+      <p class="answer-line">
+        <strong class="section-label">Looking for Carnival Panorama planning info?</strong>
+        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Carnival cruise aboard Carnival Panorama from Long Beach.</span>
+      </p>
+      <p class="content-text">
+        Carnival Panorama is a Vista Class vessel featuring Vista-class innovation from California. Whether you're planning your first cruise or are a seasoned traveler, this guide helps you discover what makes this ship special.
+      </p>
+    </section>
+
 <div class="content-column">
 
     <!-- First Look Photos -->
     <section class="card" aria-labelledby="photos-title">
       <h2 id="photos-title">First Look: Carnival Panorama</h2>
-      <div class="photo-carousel swiper" id="photo-swiper">
+      <div class="photo-carousel swiper" id="photo-swiper" aria-label="Carnival Panorama photo gallery">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <img src="/assets/ships/carnival-panorama-exterior.webp" alt="Carnival Panorama at Long Beach cruise terminal" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
@@ -214,6 +241,9 @@
     <!-- Ship Statistics -->
     <section class="card" aria-labelledby="stats-title" id="stats-card">
       <h2 id="stats-title">Ship Statistics</h2>
+          <div id="ship-stats" class="stats-grid" data-slug="carnival-panorama"></div>
+          <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-panorama","name":"Carnival Panorama","class":"Vista Class","entered_service":2019,"gt":"133,500 GT","guests":"3,954","crew":"1,450","length":"1,055 ft (322 m)","beam":"122 ft (37 m)","registry":"Panama"}</script>
+        <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-panorama","aliases":["Carnival Panorama"]}</script>
       <div class="stats-grid">
         <div class="stat-item">
           <div class="stat-value">133,868</div>
@@ -275,12 +305,12 @@
       <p>Carnival Panorama is the third and largest of three Vista-class ships, the platform that pioneered SkyRide, IMAX, and Havana section:</p>
       <div class="sister-grid">
         <a href="/ships/carnival/carnival-vista.html" class="sister-card">
-          <img src="/assets/ships/carnival-vista-thumb.webp" alt="Carnival Vista" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
+          <img src="/assets/ships/carnival-vista-thumb.webp" alt="Carnival Panorama cruise ship at sea" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
           <strong>Carnival Vista</strong>
           <span class="tiny">2016 · Lead Ship · Galveston</span>
         </a>
         <a href="/ships/carnival/carnival-horizon.html" class="sister-card">
-          <img src="/assets/ships/carnival-horizon-thumb.webp" alt="Carnival Horizon" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
+          <img src="/assets/ships/carnival-horizon-thumb.webp" alt="Carnival Panorama cruise ship at sea" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
           <strong>Carnival Horizon</strong>
           <span class="tiny">2018 · Miami · Caribbean</span>
         </a>
@@ -320,7 +350,12 @@
 
     <!-- Dining Venues -->
     <section class="card" aria-labelledby="dining-title" id="dining-card">
-      <h2 id="dining-title">Dining Venues</h2>
+      <h2 id="dining-title">
+        <img id="dining-hero" class="card-hero"
+             src="/assets/ships/carnival-panorama/dining-hero.jpg"
+             alt="Carnival Panorama dining venue" loading="lazy"
+             onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
+Dining Venues</h2>
       <h3>Complimentary Dining</h3>
       <div class="dining-grid">
         <div class="dining-item"><h4>Horizons Main Dining Room</h4><p>Two-story elegant main dining with multi-course menus and Your Time Dining flexibility.</p></div>
@@ -353,7 +388,7 @@
     <!-- Video Tours -->
     <section class="card" aria-labelledby="videos-title">
       <h2 id="videos-title">Video Tours &amp; Reviews</h2>
-      <div class="video-carousel swiper" id="video-swiper">
+      <div class="video-carousel swiper" id="video-swiper" aria-label="Carnival Panorama video gallery">
         <div class="swiper-wrapper" id="video-wrapper">
           <!-- Dynamic video thumbnails load here -->
         </div>
@@ -369,7 +404,12 @@
       <p>Explore Carnival Panorama's 15 guest decks:</p>
       <p><a href="https://www.carnival.com/cruise-ships/carnival-panorama#deck-plans" target="_blank" rel="noopener">View Official Deck Plans on Carnival.com</a></p>
       <p class="tiny">Deck plans show stateroom locations, public spaces, dining venues, and entertainment areas across all passenger decks.</p>
-    </section>
+    
+        <figure>
+          <img src="/assets/ship-map.png" alt="Simplified deck plan preview" loading="lazy"/>
+          <figcaption class="tiny">Simplified deck layout overview</figcaption>
+        </figure>
+</section>
 
     <!-- Live Ship Tracker -->
     <section class="card" aria-labelledby="tracker-title">
@@ -396,6 +436,15 @@
     </section>
 
     <!-- FAQ -->
+    
+    <!-- Ken's Logbook Section -->
+    <section class="card note-kens-logbook" aria-labelledby="logbook">
+      <h2 id="logbook">Ken's Logbook: Carnival Panorama</h2>
+      <div id="logbook-container" data-ship="carnival-panorama" data-line="carnival">
+        <p class="placeholder">Stories and insights from cruisers who have sailed on Carnival Panorama will appear here.</p>
+      </div>
+    </section>
+
     <section class="card faq" id="faq" aria-labelledby="faq-title">
       <h2 id="faq-title">Frequently Asked Questions</h2>
       <details><summary>Where does Carnival Panorama sail from?</summary><p>Carnival Panorama sails year-round from <strong>Long Beach, California</strong>, offering week-long Mexican Riviera itineraries to Cabo San Lucas, Mazatlán, and Puerto Vallarta.</p></details>
@@ -462,8 +511,14 @@
       <p class="tiny">Founder of In the Wake. Writer, researcher, and cruise enthusiast dedicated to helping travelers find their perfect voyage.</p>
       <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
     </section>
-
-    <!-- Quick Links -->
+    <section class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
+      <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
+    </section>
+<!-- Quick Links -->
     <section class="card" aria-labelledby="quicklinks-title">
       <h3 id="quicklinks-title">Quick Links</h3>
       <ul style="margin: 0; padding-left: 1.25rem;">
@@ -487,16 +542,109 @@
         <li><a href="/ships/carnival/carnival-radiance.html">Carnival Radiance</a> (LA)</li>
         <li><a href="/ships/carnival/carnival-miracle.html">Carnival Miracle</a> (Seattle)</li>
       </ul>
+    
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
     </section>
+  </section>
   </aside>
-</main>
+
+    <!-- Videos -->
+    <section class="card" aria-labelledby="video-highlights">
+      <h2 id="video-highlights">Watch: Carnival Panorama Highlights</h2>
+      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
+      <div class="swiper videos" aria-label="Featured video carousel">
+        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
+    </section>
+
+
+    <!-- Deck Plans & Tracker Grid -->
+    <div class="grid-2">
+      <section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">Deck Plans</h2>
+        <div id="ship-map" data-ship="carnival-panorama">
+          <p>Interactive deck plans for Carnival Panorama are available on the cruise line's official website.</p>
+        </div>
+      </section>
+
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9764479" data-name="CARNIVALPANORAMA">
+        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
+        <div id="ship-tracker-container">
+          <p>Track Carnival Panorama's current position and voyage details.</p>
+        </div>
+      </section>
+    </div>
+
+    <script>
+    (function(){
+      const mount=document.getElementById('featuredVideos');
+      const fallback=document.getElementById('videoFallback');
+      if(!mount) return;
+      function abs(p){try{return new URL(p,location.href).href}catch(_){return p}}
+      function getVideoURL(id,provider){
+        if(provider==='youtube'||!provider) return 'https://www.youtube-nocookie.com/embed/'+id+'?rel=0';
+        return null;
+      }
+      function renderVideos(arr){
+        if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
+        mount.innerHTML=arr.slice(0,12).map(v=>{
+          const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
+          const title=String(v.title||'Carnival Panorama').replace(/</g,'&lt;');
+          return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
+        }).join('');
+        if(mount.children.length&&window.Swiper){
+          setTimeout(()=>{
+            try{
+              new Swiper('.swiper.videos',{
+                loop:false,rewind:false,lazy:true,watchOverflow:true,
+                pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
+                navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
+                a11y:{enabled:true}
+              });
+            }catch(_){}
+          },150);
+        }
+      }
+      function fetchVideoData(){
+        const SOURCES=[abs('/assets/data/videos/carnival/carnival-panorama.json')];
+        function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+          return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+        return tryFetch();
+      }
+      function flattenVideos(data){
+        if(!data||!data.videos) return [];
+        if(Array.isArray(data.videos)) return data.videos;
+        let vids=[];
+        for(const cat of Object.values(data.videos)){
+          if(Array.isArray(cat)) vids=vids.concat(cat);
+        }
+        return vids;
+      }
+      fetchVideoData().then(data=>{ if(data) renderVideos(flattenVideos(data)); });
+    })();
+    </script>
+
+
+    
+
+    <!-- Attribution Section -->
+    <section class="card attributions">
+      <h3>Sources & Attribution</h3>
+      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
+    </section>
+  </main>
 
 <footer role="contentinfo">
   <p><strong>In the Wake</strong> — A Cruise Traveler's Logbook</p>
   <p class="tiny">© 2025 In the Wake · All rights reserved.</p>
   <p class="tiny"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/accessibility.html">Accessibility</a> · <a href="/about-us.html">About</a></p>
   <p class="tiny" style="opacity: 0; position: absolute; pointer-events: none;" aria-hidden="true">Soli Deo Gloria — Every pixel of this project is offered as worship to God.</p>
-  <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+  <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -538,8 +686,8 @@
   });
 
   // Photo carousel
-  new Swiper('#photo-swiper', {
-    loop: true,
+  new Swiper('#photo-swiper',{loop:false,rewind:false,
+    loop:false,rewind:false,
     autoplay: { delay: 5000, disableOnInteraction: true },
     pagination: { el: '.swiper-pagination', clickable: true },
     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
@@ -559,9 +707,9 @@
             <p class="photo-caption">${v.title}</p>
           </div>
         `).join('');
-        new Swiper('#video-swiper', {
+        new Swiper('#video-swiper',{loop:false,rewind:false,
           slidesPerView: 1,
-          spaceBetween: 16,
+          spaceBetween: 16,rewind:false,
           navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
           breakpoints: { 640: { slidesPerView: 2 }, 900: { slidesPerView: 3 } }
         });

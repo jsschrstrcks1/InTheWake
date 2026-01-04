@@ -11,12 +11,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Celebration
+     name: Carnival Celebration
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
      cruise-line: Carnival Cruise Line
      ship-class: Excel Class
-     siblings: Carnival Mardi Gras, Carnival Jubilee, Carnival Festivale
+     siblings: /ships/carnival/carnival-adventure.html, /ships/carnival/carnival-breeze.html, /ships/carnival/carnival-conquest.html, /ships/carnival/carnival-dream.html, /ships/carnival/carnival-ecstasy.html
      related: /ships.html, /cruise-lines/carnival.html, /ports.html, /drink-calculator.html
      updated: 2025-12-03
      expertise: Carnival Cruise Line ship reviews, deck plans, dining analysis, Excel-class innovations
@@ -269,7 +270,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- Page CSS -->
   </head>
-<body class="page">
+<body class="page" data-ship="Carnival Celebration">
   <a href="#main" class="skip-link">Skip to main content</a>
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 
@@ -360,7 +361,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
+      <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
+
       </section>
 
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
@@ -372,7 +377,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <h1 style="font-size:clamp(1.6rem,3vw,2.1rem);color:var(--carnival-blue);margin:.75rem 0 .5rem;">Carnival Celebration — Deck Plans, Live Tracker, Dining & Videos</h1>
         <p style="margin:.5rem 0;padding:.5rem .75rem;border-left:3px solid var(--carnival-blue);background:#f7fdff;border-radius:8px;font-size:.95rem;color:#134;">
           <strong style="display:block;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:#567;margin-bottom:.15rem;">Looking for Carnival Celebration planning info?</strong>
-          <span>This page covers deck plans, live tracking, dining venues, and videos for Carnival's 50th anniversary flagship.</span>
+          <span>This page covers deck plans, live tracking, dining venues, and videos for Carnival's 50th anniversary flagship. Celebrating half a century of Fun Ships, Celebration debuted in November 2022 from PortMiami featuring LNG propulsion and the exclusive 820 Biscayne zone. She continues the Excel-class legacy with BOLT coaster, six themed zones, and over twenty dining venues.</span>
         </p>
         <p style="margin:.75rem 0;font-size:.95rem;color:#134;line-height:1.6;">
           Carnival Celebration suits travelers who want Excel-class innovation from Miami. The exclusive 820 Biscayne zone celebrates Miami's art deco heritage with Cuban coffee and NOLA-style entertainment.
@@ -415,6 +420,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <script type="application/json" id="ship-stats-fallback">
             {"slug":"carnival-celebration","name":"Carnival Celebration","class":"Excel Class (50th Anniversary)","entered_service":2022,"gt":"183,521 GT","guests":"5,374 (max)","crew":"1,745","length":"1,130 ft (344 m)","beam":"140 ft (43 m)","registry":"Panama"}
             </script>
+        <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-celebration","aliases":["Carnival Celebration"]}</script>
           </section>
 
           <section class="card mini" aria-labelledby="related-ships">
@@ -442,7 +448,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
         <!-- Dining -->
         <section id="dining-card" class="card" aria-labelledby="diningHeading">
-          <h2 id="diningHeading">Dining Venues on Carnival Celebration</h2>
+          <h2 id="diningHeading">
+        <img id="dining-hero" class="card-hero"
+             src="/assets/ships/carnival-celebration/dining-hero.jpg"
+             alt="Carnival Celebration dining venue" loading="lazy"
+             onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
+Dining Venues on Carnival Celebration</h2>
           <div class="dining-content" id="dining-content">
             <div class="dining-item"><span class="dining-type included">Included</span> Latitudes (MDR)</div>
             <div class="dining-item"><span class="dining-type included">Included</span> Reflections (MDR)</div>
@@ -469,8 +480,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <div id="logbook-stories" class="prose"></div>
       </section>
 
-      <!-- Videos -->
-      <section class="card" aria-labelledby="video-highlights">
+    <section class="card" aria-labelledby="video-highlights">
         <h2 id="video-highlights">Watch: Celebration Highlights</h2>
         <p class="small">Ship walkthroughs, top-10s, and stateroom tours.</p>
         <div class="swiper videos" aria-label="Featured video carousel">
@@ -482,13 +492,23 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <div id="videoFallback" class="tiny hidden">Videos will appear once sources sync.</div>
       </section>
 
+    
+
+      <!-- Videos -->
+      
+
       <!-- Deck Plans + Live Tracker -->
       <section class="grid-2">
         <section class="card" aria-labelledby="deck-plans">
           <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
           <p><a class="btn" href="https://www.carnival.com/cruise-ships/carnival-celebration/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans</a></p>
           <p class="tiny">18 guest decks, 2,681 staterooms. Key: Deck 6 (Grand Central), Deck 7 (La Piazza), Deck 8 (820 Biscayne), Deck 16-17 (Ultimate Playground).</p>
-        </section>
+        
+        <figure>
+          <img src="/assets/ship-map.png" alt="Simplified deck plan preview" loading="lazy"/>
+          <figcaption class="tiny">Simplified deck layout overview</figcaption>
+        </figure>
+</section>
 
         <section class="card" aria-labelledby="liveTrackHeading" data-imo="9837456" data-name="CARNIVAL-CELEBRATION">
           <h2 id="liveTrackHeading">Where Is Celebration Right Now?</h2>
@@ -521,6 +541,15 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         </details>
       </section>
 
+      <!-- Excel-Class Sisters -->
+      <section class="card" aria-labelledby="excel-sisters">
+        <h2 id="excel-sisters">Excel-Class Sister Ships</h2>
+        <div class="sister-grid">
+          <a href="/ships/carnival/carnival-mardi-gras.html" class="sister-card"><img class="sister-thumb" src="/assets/ships/carnival-mardi-gras_01.webp" alt="Carnival Mardi Gras" loading="lazy" style="width:60px;height:40px;object-fit:cover;border-radius:4px;margin-right:0.5rem" onerror="this.style.display='none'"/><strong>Carnival Mardi Gras</strong><br/><span class="tiny">2020 · Port Canaveral</span></a>
+          <a href="/ships/carnival/carnival-jubilee.html" class="sister-card"><img class="sister-thumb" src="/assets/ships/carnival/carnival-jubilee/carnival-jubilee1.webp" alt="Carnival Jubilee" loading="lazy" style="width:60px;height:40px;object-fit:cover;border-radius:4px;margin-right:0.5rem" onerror="this.style.display='none'"/><strong>Carnival Jubilee</strong><br/><span class="tiny">2023 · Galveston</span></a>
+        </div>
+      </section>
+
       <!-- Attribution -->
       <section class="card">
         <h2>Image Attributions</h2>
@@ -537,7 +566,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <p>2025 In the Wake - A Cruise Traveler's Logbook - All rights reserved.</p>
     <p class="tiny" style="margin-top:.5rem;"><a href="/privacy.html">Privacy</a> - <a href="/terms.html">Terms</a> - <a href="/about-us.html">About</a> - <a href="/accessibility.html">Accessibility</a></p>
     <p class="tiny" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria - Every pixel and part of this project is offered as worship to God.</p>
-    <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
 
   <!-- JAVASCRIPT -->
@@ -545,7 +574,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   (function initFirstLook(){
     function go(){
       if(!window.__swiperReady||!window.Swiper) return setTimeout(go,120);
-      try{ new Swiper('.swiper.firstlook',{loop:false,lazy:true,watchOverflow:true,pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},a11y:{enabled:true}}); }catch(_){}
+      try{ new Swiper('.swiper.firstlook',{loop:false,rewind:false,lazy:true,watchOverflow:true,pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},a11y:{enabled:true}}); }catch(_){}
     }
     go();
   })();
@@ -604,7 +633,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         return '<div class="swiper-slide"><iframe src="'+url+'" title="'+String(v.title||'').replace(/</g,'&lt;')+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
       }).join('');
       if(window.__swiperReady&&window.Swiper){
-        setTimeout(()=>{ try{ new Swiper('.swiper.videos',{loop:false,pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'}}); }catch(_){} },150);
+        setTimeout(()=>{ try{ new Swiper('.swiper.videos',{loop:false,rewind:false,pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'}}); }catch(_){} },150);
       }
     }
     fetch(abs('/assets/data/videos/carnival/carnival-celebration.json'),{cache:'no-store'})
@@ -642,6 +671,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       rail.innerHTML = articles.slice(0, 4).map(a => '<div style="margin-bottom:.75rem;"><a href="' + a.url + '">' + a.title + '</a></div>').join('');
     } catch(e) {}
   })();
-  </script>
+  </script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

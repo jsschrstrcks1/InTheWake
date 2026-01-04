@@ -12,12 +12,13 @@
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Luminosa
+     name: Carnival Luminosa
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
      cruise-line: Carnival Cruise Line
      ship-class: Spirit-class (hybrid)
-     siblings: Carnival Spirit, Carnival Pride, Carnival Legend, Carnival Miracle
+     siblings: /ships/carnival/carnival-adventure.html, /ships/carnival/carnival-breeze.html, /ships/carnival/carnival-celebration.html, /ships/carnival/carnival-conquest.html, /ships/carnival/carnival-dream.html
      related: Costa Luminosa, Costa Deliziosa, Fincantieri Marghera
      updated: 2025-12-02
      expertise: Carnival cruise ships, Spirit-class vessels, Costa transfers
@@ -87,13 +88,26 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What was Carnival Luminosa called before?","acceptedAnswer":{"@type":"Answer","text":"Carnival Luminosa sailed as Costa Luminosa from 2009 until her transfer to Carnival Cruise Line in November 2022. She underwent a major refurbishment in Palermo, Italy, to add Carnival branding and dining concepts."}},{"@type":"Question","name":"What class is Carnival Luminosa?","acceptedAnswer":{"@type":"Answer","text":"Carnival Luminosa is classified as a Spirit-class hybrid, incorporating design elements from both Spirit and Vista classes. She's the fifth Spirit-class vessel in Carnival's fleet."}},{"@type":"Question","name":"How big is Carnival Luminosa?","acceptedAnswer":{"@type":"Answer","text":"Carnival Luminosa measures 92,700 gross tons, 965 feet (294m) long, with capacity for 2,260 guests at double occupancy across 1,130 staterooms on 12 decks."}},{"@type":"Question","name":"Where does Carnival Luminosa sail from?","acceptedAnswer":{"@type":"Answer","text":"Carnival Luminosa is homeported in Brisbane, Australia, offering itineraries to the South Pacific, Papua New Guinea, and Australian coastal destinations."}},{"@type":"Question","name":"Is Carnival Luminosa in the Australian market?","acceptedAnswer":{"@type":"Answer","text":"Yes, Carnival Luminosa serves as Carnival's flagship in Australia, joining Carnival Splendor in the Australian market. She brought modern Carnival dining and entertainment to Australian cruisers."}}]}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Carnival Luminosa — Spirit-Class Cruise Ship"/>
   <meta name="twitter:description" content="Carnival Luminosa cruise ship guide: live tracker, deck plans, dining venues. Ex-Costa Luminosa Spirit-class hybrid (92,700 GT) now sailing from Brisbane, Australia."/>
   <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/carnival-luminosa.jpg"/>
+
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+<!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -164,10 +178,21 @@
   </ol>
 </nav>
 
-<main class="wrap page-grid" id="main-content" role="main">
+<main class="wrap page-grid" id="main-content" role="main" data-ship="Carnival Luminosa" data-imo="9398905">
   <!-- Main Content Column -->
   <section class="col-1" aria-label="Ship details">
-  <!-- Transfer Note -->
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" aria-label="Carnival Luminosa overview">
+      <p class="answer-line">
+        <strong class="section-label">Looking for Carnival Luminosa planning info?</strong>
+        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Carnival cruise aboard Carnival Luminosa from Brisbane.</span>
+      </p>
+      <p class="content-text">
+        Carnival Luminosa is a Spirit Class vessel featuring Australia-based Spirit-class cruising. Whether you're planning your first cruise or are a seasoned traveler, this guide helps you discover what makes this ship special.
+      </p>
+    </section>
+
+12004  <!-- Transfer Note -->
   <div class="transfer-note">
     <strong>Former Name:</strong> Costa Luminosa (2009–2022). Transferred to Carnival Cruise Line in November 2022 following a major refurbishment in Palermo, Italy.
   </div>
@@ -179,10 +204,27 @@
     <p>Her design incorporates elements from both Spirit and Vista classes, resulting in a unique layout that distinguishes her from other Spirit-class vessels. At 92,700 gross tons with capacity for 2,260 guests, she offers an intimate atmosphere with European elegance now enhanced with Carnival's signature "Fun Ship" experiences.</p>
     <p>Luminosa serves as Carnival's flagship in the Australian market, homeported in Brisbane and offering South Pacific, Papua New Guinea, and Australian coastal itineraries—making Carnival cruising accessible to Australian guests.</p>
   </section>
+    <!-- Dining Section -->
+    <section id="dining-card" class="card" data-ship="Carnival Luminosa" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">
+        <img id="dining-hero" class="card-hero"
+             src="/assets/ships/carnival-luminosa/dining-hero.jpg"
+             alt="Carnival Luminosa dining venue" loading="lazy"
+             onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
+Dining Venues on Carnival Luminosa <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+      <p class="section-intro">Explore the dining options available on Carnival Luminosa, from complimentary venues to specialty restaurants.</p>
+      <div class="dining-content" id="dining-content" aria-live="polite">
+        <p class="tiny">Loading venue information...</p>
+      </div>
+    </section>
+
 
   <!-- Ship Statistics -->
   <section class="card" aria-labelledby="stats-title">
     <h2 id="stats-title">Ship Statistics</h2>
+          <div id="ship-stats" class="stats-grid" data-slug="carnival-luminosa"></div>
+          <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-luminosa","name":"Carnival Luminosa","class":"Spirit Class","entered_service":2009,"gt":"92,720 GT","guests":"2,260","crew":"1,050","length":"964 ft (294 m)","beam":"106 ft (32 m)","registry":"Panama"}</script>
+        <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-luminosa","aliases":["Carnival Luminosa"]}</script>
     <div class="stats-grid">
       <div class="stat-item">
         <div class="label">Gross Tonnage</div>
@@ -222,6 +264,10 @@
   <!-- Deck Plans -->
   <section class="card" aria-labelledby="deck-plans-title">
     <h2 id="deck-plans-title">Deck Plans</h2>
+        <figure>
+          <img src="/assets/ship-map.png" alt="Carnival Luminosa simplified deck plan preview" loading="lazy"/>
+          <figcaption class="tiny">Simplified deck layout overview</figcaption>
+        </figure>
     <p>Carnival Luminosa features 12 passenger decks with 1,130 staterooms. Access the official interactive deck plans to explore cabin locations, dining venues, pools, and entertainment areas.</p>
     <p><a class="btn" href="https://www.carnival.com/cruise-ships/carnival-luminosa#deck-plans" target="_blank" rel="noopener">View Official Deck Plans →</a></p>
   </section>
@@ -391,11 +437,24 @@
 
     <section class="card" aria-labelledby="recent-rail-title">
       <h3 id="recent-rail-title">Recent Stories</h3>
+      <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
       <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
       <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
+    
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
     </section>
+  </section>
   </aside>
-</main>
+
+
+    <!-- Attribution Section -->
+    <section class="card attributions">
+      <h3>Sources & Attribution</h3>
+      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
+    </section>
+  </main>
 
 <footer role="contentinfo">
   <p><strong>In the Wake</strong> — A Cruise Traveler's Logbook</p>
@@ -407,7 +466,7 @@
     <a href="/about-us.html">About</a>
   </p>
   <p style="opacity: 0; position: absolute; pointer-events: none;" aria-hidden="true">Soli Deo Gloria</p>
-  <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+  <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
 
 <script>
@@ -433,6 +492,11 @@
     if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
   }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
 })();
-</script>
+</script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

@@ -234,6 +234,20 @@ function extractShipName(filepath) {
 }
 
 /**
+ * Extract cruise line directory from filepath
+ * e.g., /ships/rcl/ship.html -> 'rcl'
+ *       /ships/carnival/ship.html -> 'carnival'
+ *       /ships/virgin-voyages/ship.html -> 'virgin-voyages'
+ */
+function extractCruiseLine(filepath) {
+  const match = filepath.match(/ships\/([^/]+)\//);
+  if (match) {
+    return match[1];
+  }
+  return 'rcl'; // Default fallback
+}
+
+/**
  * Normalize string for comparison
  */
 function normalize(str) {
@@ -241,6 +255,58 @@ function normalize(str) {
   return str.replace(/&quot;/g, '"').replace(/&apos;/g, "'")
     .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
     .replace(/\s+/g, ' ').trim();
+}
+
+/**
+ * Validate analytics scripts (REQUIRED per CLAUDE.md Section 0)
+ * Every page must have both Google Analytics and Umami
+ */
+function validateAnalytics($, html) {
+  const errors = [];
+  const warnings = [];
+
+  // Check for Google Analytics
+  const hasGoogleAnalytics = html.includes('googletagmanager.com/gtag/js') &&
+                              html.includes('G-WZP891PZXJ');
+
+  // Check for Umami Analytics
+  const hasUmami = html.includes('cloud.umami.is/script.js') &&
+                   html.includes('9661a449-3ba9-49ea-88e8-4493363578d2');
+
+  if (!hasGoogleAnalytics) {
+    errors.push({
+      section: 'analytics',
+      rule: 'missing_google_analytics',
+      message: 'Missing Google Analytics script (REQUIRED per CLAUDE.md Section 0)',
+      severity: 'BLOCKING'
+    });
+  }
+
+  if (!hasUmami) {
+    errors.push({
+      section: 'analytics',
+      rule: 'missing_umami',
+      message: 'Missing Umami Analytics script (REQUIRED per CLAUDE.md Section 0)',
+      severity: 'BLOCKING'
+    });
+  }
+
+  // Check that GA has IP anonymization enabled
+  if (hasGoogleAnalytics && !html.includes('anonymize_ip:true') && !html.includes('anonymize_ip: true')) {
+    warnings.push({
+      section: 'analytics',
+      rule: 'missing_ip_anonymization',
+      message: 'Google Analytics should have anonymize_ip:true for GDPR compliance',
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: { hasGoogleAnalytics, hasUmami }
+  };
 }
 
 /**
@@ -807,8 +873,17 @@ function validateSections($, isTBN, isHistoric = false) {
   const sectionPositions = [];
 
   // Scan main content area for sections (in DOM order)
-  // Look at sections, divs with classes, and headings
-  $('main section, main .card, main h2, main h3, main [class*="page-intro"], main [class*="first-look"], main [class*="logbook"], main [class*="videos"]').each((i, elem) => {
+  // Scope to .col-1 (main content column) to exclude rail/aside sections
+  // which contain navigation links that could falsely match section patterns
+  const mainColSelector = 'main .col-1 section, main .col-1 .card, main .col-1 h2, main .col-1 h3, main .col-1 [class*="page-intro"], main .col-1 [class*="first-look"], main .col-1 [class*="logbook"], main .col-1 [class*="videos"]';
+  // Fallback for pages without col-1 structure
+  const fallbackSelector = 'main section, main .card, main h2, main h3, main [class*="page-intro"], main [class*="first-look"], main [class*="logbook"], main [class*="videos"]';
+  const hasColStructure = $('main .col-1').length > 0;
+  const selector = hasColStructure ? mainColSelector : fallbackSelector;
+
+  $(selector).each((i, elem) => {
+    // Skip elements inside aside/rail even with fallback selector
+    if ($(elem).closest('aside, .col-2, .rail').length > 0) return;
     const text = $(elem).text().substring(0, 200).toLowerCase();
     const id = ($(elem).attr('id') || '').toLowerCase();
     const className = ($(elem).attr('class') || '').toLowerCase();
@@ -827,6 +902,39 @@ function validateSections($, isTBN, isHistoric = false) {
   });
 
   const detected = sectionPositions.map(s => s.key);
+
+  // Also check for sections outside col-1 but still in main (some pages have sections after col-1)
+  $('main > section, main > .card').each((i, elem) => {
+    if ($(elem).closest('aside, .col-2, .rail').length > 0) return;
+    if ($(elem).hasClass('col-1') || $(elem).hasClass('col-2')) return;
+
+    const text = $(elem).text().substring(0, 200).toLowerCase();
+    const id = ($(elem).attr('id') || '').toLowerCase();
+    const className = ($(elem).attr('class') || '').toLowerCase();
+    const combined = `${text} ${id} ${className}`;
+
+    for (const [key, pattern] of Object.entries(SECTION_PATTERNS)) {
+      if (pattern.test(combined) && !detected.includes(key)) {
+        detected.push(key);
+        break;
+      }
+    }
+  });
+
+  // Also check for rail sections (recent_rail, author_card, etc.) which are in aside/col-2
+  $('aside section, .col-2 section, .rail section').each((i, elem) => {
+    const text = $(elem).text().substring(0, 200).toLowerCase();
+    const id = ($(elem).attr('id') || '').toLowerCase();
+    const className = ($(elem).attr('class') || '').toLowerCase();
+    const combined = `${text} ${id} ${className}`;
+
+    for (const [key, pattern] of Object.entries(SECTION_PATTERNS)) {
+      if (pattern.test(combined) && !detected.includes(key)) {
+        detected.push(key);
+        break;
+      }
+    }
+  });
 
   // Check for required sections
   // TBN and Historic ships have relaxed section requirements
@@ -1091,12 +1199,29 @@ function validateImages($, isHistoric = false) {
   let missingAlt = 0;
   let shortAlt = 0;
   let missingLazy = 0;
+  let hotlinkedImages = [];
+
+  // Allowed external domains for images (CDNs, YouTube thumbnails for video sections)
+  const allowedExternalDomains = [
+    'img.youtube.com',
+    'i.ytimg.com',
+    'cruisinginthewake.com'
+  ];
 
   allImages.each((i, elem) => {
+    const src = $(elem).attr('src') || '';
     const alt = $(elem).attr('alt');
     const loading = $(elem).attr('loading');
     const fetchpriority = $(elem).attr('fetchpriority');
     const ariaHidden = $(elem).attr('aria-hidden');
+
+    // Check for hotlinked images (external URLs)
+    if (src.startsWith('http://') || src.startsWith('https://')) {
+      const isAllowed = allowedExternalDomains.some(domain => src.includes(domain));
+      if (!isAllowed) {
+        hotlinkedImages.push(src.substring(0, 60) + (src.length > 60 ? '...' : ''));
+      }
+    }
 
     // Decorative images with aria-hidden="true" are allowed to have empty alt
     if (!alt && ariaHidden !== 'true') missingAlt++;
@@ -1106,6 +1231,16 @@ function validateImages($, isHistoric = false) {
       missingLazy++;
     }
   });
+
+  // BLOCKING: Hotlinked images must be locally hosted
+  if (hotlinkedImages.length > 0) {
+    errors.push({
+      section: 'images',
+      rule: 'hotlinked_images',
+      message: `${hotlinkedImages.length} image(s) hotlinked from external sources - must be locally hosted: ${hotlinkedImages.slice(0, 3).join(', ')}${hotlinkedImages.length > 3 ? '...' : ''}`,
+      severity: 'BLOCKING'
+    });
+  }
 
   if (missingAlt > 0) {
     errors.push({ section: 'images', rule: 'missing_alt', message: `${missingAlt} images missing alt text`, severity: 'BLOCKING' });
@@ -1117,7 +1252,7 @@ function validateImages($, isHistoric = false) {
     warnings.push({ section: 'images', rule: 'missing_lazy', message: `${missingLazy} images missing loading="lazy"`, severity: 'WARNING' });
   }
 
-  return { valid: errors.length === 0, errors, warnings, data: { total: imageCount, missingAlt, shortAlt, missingLazy } };
+  return { valid: errors.length === 0, errors, warnings, data: { total: imageCount, missingAlt, shortAlt, missingLazy, hotlinked: hotlinkedImages.length } };
 }
 
 /**
@@ -1130,6 +1265,22 @@ function validateJavaScript(html) {
   const loadArticlesCount = (html.match(/async function loadArticles/g) || []).length;
   if (loadArticlesCount > 1) {
     errors.push({ section: 'javascript', rule: 'duplicate_loadarticles', message: `${loadArticlesCount} loadArticles() functions`, severity: 'BLOCKING' });
+  }
+
+  // Check for JavaScript-based image hotlinking (e.g., Wikimedia Special:FilePath)
+  const hotlinkingPatterns = [
+    /commons\.wikimedia\.org\/wiki\/Special:FilePath/,
+    /upload\.wikimedia\.org/,
+    /imgEl\.src\s*=\s*['"]https?:\/\/(?!img\.youtube|i\.ytimg|cruisinginthewake)/
+  ];
+  const hasJsHotlinking = hotlinkingPatterns.some(pattern => pattern.test(html));
+  if (hasJsHotlinking) {
+    errors.push({
+      section: 'javascript',
+      rule: 'js_hotlinking',
+      message: 'JavaScript dynamically loads images from external sources (Wikimedia/etc) - images must be locally hosted',
+      severity: 'BLOCKING'
+    });
   }
 
   const hasDropdown = html.includes('dropdown.js');
@@ -1297,10 +1448,10 @@ function validateViewport($, html) {
 /**
  * Validate logbook JSON
  */
-async function validateLogbook(slug, isHistoric = false) {
+async function validateLogbook(slug, cruiseLine = 'rcl', isHistoric = false) {
   const errors = [];
   const warnings = [];
-  const logbookPath = join(PROJECT_ROOT, 'assets', 'data', 'logbook', 'rcl', `${slug}.json`);
+  const logbookPath = join(PROJECT_ROOT, 'assets', 'data', 'logbook', cruiseLine, `${slug}.json`);
 
   try {
     await access(logbookPath);
@@ -1354,10 +1505,10 @@ async function validateLogbook(slug, isHistoric = false) {
 /**
  * Validate videos JSON
  */
-async function validateVideos(slug, isHistoric = false) {
+async function validateVideos(slug, cruiseLine = 'rcl', isHistoric = false) {
   const errors = [];
   const warnings = [];
-  const videoPath = join(PROJECT_ROOT, 'assets', 'data', 'videos', 'rcl', `${slug}.json`);
+  const videoPath = join(PROJECT_ROOT, 'assets', 'data', 'videos', cruiseLine, `${slug}.json`);
 
   // Known fake/placeholder video IDs (exact matches only)
   const FAKE_VIDEO_IDS = new Set([
@@ -1549,10 +1700,12 @@ async function validateShipPage(filepath) {
     const isTBN = isTBNShip(filepath, html);
     const isHistoric = isHistoricShip(html);
     const shipName = extractShipName(filepath);
+    const cruiseLine = extractCruiseLine(filepath);
 
     results.isTBN = isTBN;
     results.isHistoric = isHistoric;
     results.shipName = shipName;
+    results.cruiseLine = cruiseLine;
 
     // Run all validations
     const soliDeoGloriaResult = validateSoliDeoGloria(html);
@@ -1572,18 +1725,20 @@ async function validateShipPage(filepath) {
     const viewportResult = validateViewport($, html);
 
     // New v2.1 validations
+    const analyticsResult = validateAnalytics($, html);
     const contentPurityResult = validateContentPurity($, html);
     const shipStatsResult = validateShipStatsJSON($);
     const diningResult = validateDiningJSON($);
     const wordCountResult = validateWordCounts($, isHistoric);
 
-    // Async validations
-    const logbookResult = await validateLogbook(slug, isHistoric);
-    const videoResult = await validateVideos(slug, isHistoric);
+    // Async validations (pass cruiseLine for correct data paths)
+    const logbookResult = await validateLogbook(slug, cruiseLine, isHistoric);
+    const videoResult = await validateVideos(slug, cruiseLine, isHistoric);
     const articlesResult = await validateArticles();
 
     // Collect errors
     results.blocking_errors.push(
+      ...analyticsResult.errors,
       ...soliDeoGloriaResult.errors,
       ...breadcrumbResult.errors, ...icpResult.errors, ...jsonldResult.errors,
       ...navResult.errors, ...escapeResult.errors, ...wcagResult.errors,
@@ -1597,6 +1752,7 @@ async function validateShipPage(filepath) {
 
     // Collect warnings
     results.warnings.push(
+      ...analyticsResult.warnings,
       ...soliDeoGloriaResult.warnings,
       ...breadcrumbResult.warnings, ...icpResult.warnings, ...jsonldResult.warnings,
       ...navResult.warnings, ...escapeResult.warnings, ...wcagResult.warnings,
@@ -1614,6 +1770,7 @@ async function validateShipPage(filepath) {
     results.valid = results.blocking_errors.length === 0;
 
     // Add detailed data
+    results.analytics = analyticsResult.data;
     results.soli_deo_gloria = soliDeoGloriaResult.data;
     results.icp_lite = icpResult.data;
     results.sections = sectionResult.data;
@@ -1655,6 +1812,7 @@ function printResults(results, options) {
 
   console.log(`${colors.bold}File:${colors.reset} ${results.file}`);
   console.log(`${colors.bold}Ship:${colors.reset} ${results.shipName || 'Unknown'}`);
+  console.log(`${colors.bold}Cruise Line:${colors.reset} ${results.cruiseLine || 'Unknown'}`);
   const shipType = results.isTBN ? 'TBN (Future Ship)' : results.isHistoric ? 'Historic (Retired/Sold)' : 'Active Ship';
   console.log(`${colors.bold}Type:${colors.reset} ${shipType}`);
 

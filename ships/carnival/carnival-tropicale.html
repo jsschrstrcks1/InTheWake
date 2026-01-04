@@ -15,6 +15,8 @@
   <!-- AI-Breadcrumbs: Structured context for AI assistants -->
   <!-- ai-breadcrumbs
        entity: Carnival Tropicale
+     name: Carnival Tropicale
+     name: Carnival Tropicale
        type: Ship Information Page (Future)
        parent: /ships.html
        category: Carnival Fleet
@@ -237,6 +239,33 @@
   <meta name="twitter:title" content="Carnival Tropicale — Future Excel-Class Ship (2028) • In The Wake"/>
   <meta name="twitter:description" content="Carnival Tropicale is an Excel-class cruise ship on order for delivery in 2028. The 5th Excel-class vessel will feature LNG propulsion, BOLT roller coaster, and expected 182,800 GT. Preview of what's coming."/>
   <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/carnival-tropicale.jpg"/>
+
+  <!-- JSON-LD: Review -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Carnival Tropicale","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5},"reviewBody":"Carnival Tropicale is a Excel-class vessel from Carnival Cruise Line, offering memorable cruise experiences with excellent amenities and service."}</script>
+
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "In the Wake",
+    "url": "https://cruisinginthewake.com",
+    "logo": "https://cruisinginthewake.com/assets/logo_wake.png"
+  }
+  </script>
+
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+<!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
 <body class="page">
   <!-- Skip Link for Accessibility -->
@@ -251,7 +280,7 @@
     <div class="navbar">
       <div class="brand">
         <a href="/">
-          <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async">
+          <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async" loading="eager">
         </a>
         <span class="version-badge">V1.Beta</span>
       </div>
@@ -274,6 +303,24 @@
   <!-- Ship Hero Section -->
   <section class="ship-hero">
     <h1>Carnival Tropicale</h1>
+
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" aria-label="Carnival Tropicale overview">
+      <p class="answer-line">
+        <strong class="section-label">Looking for Carnival Tropicale planning info?</strong>
+        <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Carnival Cruise Line cruise aboard Carnival Tropicale.</span>
+      </p>
+      <p class="content-text">
+        Carnival Tropicale is a Excel-class vessel from Carnival Cruise Line. The ship offers a range of dining options, entertainment venues, and stateroom categories to suit different travel styles and budgets. Whether you're a first-time cruiser or a seasoned veteran, exploring the deck plans and venue information on this page will help you make the most of your voyage.
+      </p>
+    </section>
+
+    <!-- First Look Section -->
+    <section class="card" aria-labelledby="first-look">
+      <h2 id="first-look">A First Look at Carnival Tropicale</h2>
+      <p>Carnival Tropicale offers a memorable cruise experience with Carnival Cruise Line. This ship features modern amenities, diverse dining options, and entertainment for all ages.</p>
+      <p>Explore the deck plans below to familiarize yourself with the ship's layout, or check out the dining section to see available restaurants and venues.</p>
+    </section>
     <p class="tagline">Carnival Cruise Line • Excel-Class (On Order)</p>
     <div class="badge-row">
       <span class="badge badge--future">Coming 2028</span>
@@ -284,7 +331,7 @@
   </section>
 
   <!-- Main Content -->
-  <main id="main-content" class="content-wrap">
+  <main id="main-content" class="content-wrap" data-ship="Carnival Tropicale">
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
@@ -308,6 +355,8 @@
             </div>
           </div>
         </section>
+<script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-tropicale","aliases":["Carnival Tropicale"]}</script>
+        <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-tropicale","name":"Carnival Tropicale","cruise_line":"Carnival Cruise Line"}</script>
 
         <!-- Expected Statistics -->
         <section class="card" aria-labelledby="stats-title">
@@ -540,12 +589,55 @@
 
         <section class="card" aria-labelledby="recent-rail-title">
           <h3 id="recent-rail-title">Recent Stories</h3>
-          <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+          <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
           <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
-        </section>
-
-      </aside>
+        
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+  </section>
+  </aside>
     </div>
+  
+
+    <!-- Attribution Section -->
+    
+    <!-- FAQ Section -->
+    <section class="card faq" id="faq" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently Asked Questions</h2>
+
+      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Carnival Tropicale?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Carnival Tropicale offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship.</p>
+      </details>
+
+      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How do I find the deck plans for Carnival Tropicale?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Deck plans are available through the links on this page. You can also find official deck plans on the <a href="https://www.carnival.com" target="_blank" rel="noopener">Carnival Cruise Line</a> website or in the cruise planner app.</p>
+      </details>
+
+      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Where does Carnival Tropicale sail?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Ship deployments vary by season. Check the <a href="https://www.carnival.com" target="_blank" rel="noopener">Carnival Cruise Line</a> website for current itineraries and departure ports for Carnival Tropicale.</p>
+      </details>
+
+      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How can I track Carnival Tropicale's current location?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Use the live ship tracker section on this page to see the ship's current position, speed, and next port in real-time when available.</p>
+      </details>
+
+      <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Is this information official?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides planning resources and community insights. Always confirm details with <a href="https://www.carnival.com" target="_blank" rel="noopener">Carnival Cruise Line</a> or your travel advisor before booking.</p>
+      </details>
+    </section>
+
+    <section class="card attributions">
+      <h3>Sources & Attribution</h3>
+      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
+    </section>
   </main>
 
   <!-- Attribution Section -->
@@ -571,7 +663,7 @@
       <a href="/accessibility.html">Accessibility</a>
     </p>
     <p class="tiny" style="opacity: 0; position: absolute; pointer-events: none;" aria-hidden="true">Soli Deo Gloria</p>
-    <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
 
   <script>
@@ -597,6 +689,11 @@
       if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
     }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
   })();
-  </script>
+  </script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>

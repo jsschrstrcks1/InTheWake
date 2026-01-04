@@ -38,6 +38,21 @@
     return Math.round(n).toLocaleString();
   }
 
+  function escapeHtml(text) {
+    if (!text) return '';
+    var div = document.createElement('div');
+    div.textContent = String(text);
+    return div.innerHTML;
+  }
+
+  function sanitizeUrl(url) {
+    if (!url) return '#';
+    if (url.startsWith('/') || url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
+    }
+    return '#';
+  }
+
   function pickRandom(arr) {
     return arr && arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
   }
@@ -111,12 +126,12 @@
       var whimsyHtml = whimsy.length ?
         '<div class="whimsy-units" id="whimsy-'+idx+'" style="display:none;margin-top:0.5rem;padding:0.5rem;background:#f9fafb;border-radius:6px;font-size:0.75rem;color:#556;line-height:1.6;">' +
         '<span style="font-style:italic;color:#789;">That\'s roughly...</span><br>' +
-        whimsy.map(function(w){ return '• <strong>' + formatNumber(w.count) + '</strong> ' + w.label; }).join('<br>') +
+        whimsy.map(function(w){ return '• <strong>' + formatNumber(w.count) + '</strong> ' + escapeHtml(w.label); }).join('<br>') +
         '</div>' : '';
 
       return '<div style="border-bottom:1px solid #e0e8f0;">' +
         '<div class="port-row" data-whimsy="whimsy-'+idx+'" style="display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;cursor:pointer;">' +
-        '<a href="'+p.url+'" style="font-size:0.9rem;text-decoration:none;color:inherit;" onclick="event.stopPropagation();">'+p.name+'</a>' +
+        '<a href="'+sanitizeUrl(p.url)+'" style="font-size:0.9rem;text-decoration:none;color:inherit;" onclick="event.stopPropagation();">'+escapeHtml(p.name)+'</a>' +
         '<span style="font-size:0.75rem;color:#678;display:flex;align-items:center;gap:4px;">'+distLabel+' <span style="font-size:0.6rem;opacity:0.6;">▼</span></span>' +
         '</div>' + whimsyHtml + '</div>';
     }).join('');

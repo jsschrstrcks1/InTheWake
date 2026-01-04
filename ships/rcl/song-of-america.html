@@ -10,9 +10,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 <html lang="en" class="no-js">
 <head>
 <!-- ai-breadcrumbs
+     name: Song of America
      entity: Song of America
      type: Ship Information Page
      parent: /ships.html
+     siblings: /ships/rcl/adventure-of-the-seas.html, /ships/rcl/allure-of-the-seas.html, /ships/rcl/anthem-of-the-seas.html, /ships/rcl/brilliance-of-the-seas.html, /ships/rcl/discovery-class-ship-tbn.html
      category: Royal Caribbean Fleet
      cruise-line: Royal Caribbean
      ship-class: Song of America Class
@@ -156,6 +158,33 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- LCP Optimization -->
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
+
+  <!-- JSON-LD: Review -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Song of America","brand":{"@type":"Organization","name":"Royal Caribbean International"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5},"reviewBody":"Song of America is a Song of America Class vessel from Royal Caribbean International, offering memorable cruise experiences with excellent amenities and service."}</script>
+
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "In the Wake",
+    "url": "https://cruisinginthewake.com",
+    "logo": "https://cruisinginthewake.com/assets/logo_wake.png"
+  }
+  </script>
+
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+<!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
 
 <body class="page">
@@ -170,7 +199,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
       <!-- Mobile hamburger button -->
@@ -192,6 +221,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           <div class="dropdown-menu" role="menu">
             <a href="/planning.html">Planning (overview)</a>
             <a href="/ships.html">Ships</a>
+            <a href="/ships/quiz.html">Ship Quiz</a>
             <a href="/restaurants.html">Restaurants &amp; Menus</a>
             <a href="/ports.html">Ports</a>
             <a href="/internet-at-sea.html">Internet at Sea</a>
@@ -224,9 +254,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
     <!-- Hero -->
     <div class="hero">
-      <img class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img loading="lazy" class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img loading="lazy" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
@@ -369,8 +399,20 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         </div>
       </section>
 
+    <!-- First Look Section -->
+    <section class="card" aria-labelledby="first-look">
+      <h2 id="first-look">A First Look</h2>
+      <div class="grid-2" style="gap: 1.5rem;">
+        <div>
+          <p>Song of America offers a memorable cruise experience with Royal Caribbean International. This ship features modern amenities, diverse dining options, and entertainment for all ages.</p>
+          <p>Explore the deck plans below to familiarize yourself with the ship's layout, or check out the dining section to see available restaurants and venues.</p>
+        </div>
+        <div id="ship-stats" class="stats-grid" data-slug=""></div>
+      </div>
+    </section>
+
       <!-- Author Card -->
-      <section class="card author-card-vertical" aria-labelledby="author-heading">
+      <section class="card author-card-vertical" data-ship="Song of America" aria-labelledby="author-heading">
         <h3 id="author-heading">About the Author</h3>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
@@ -401,6 +443,14 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
       </section>
     </aside>
+    <script type="application/json" id="ship-stats-fallback">{"slug":"song-of-america","name":"Song of America","cruise_line":"Royal Caribbean International"}</script>
+  
+
+    <!-- Attribution Section -->
+    <section class="card attributions">
+      <h3>Sources & Attribution</h3>
+      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
+    </section>
   </main>
 
   <!-- FOOTER -->
@@ -413,7 +463,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria</p>
-    <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
 
   <!-- JAVASCRIPT -->

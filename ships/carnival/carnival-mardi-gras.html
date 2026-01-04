@@ -11,12 +11,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 <head>
 <!-- ai-breadcrumbs
      entity: Carnival Mardi Gras
+     name: Carnival Mardi Gras
      type: Ship Information Page
      parent: /ships.html
      category: Carnival Fleet
      cruise-line: Carnival Cruise Line
      ship-class: Excel Class
-     siblings: Carnival Celebration, Carnival Jubilee, Carnival Festivale
+     siblings: /ships/carnival/carnival-adventure.html, /ships/carnival/carnival-breeze.html, /ships/carnival/carnival-celebration.html, /ships/carnival/carnival-conquest.html, /ships/carnival/carnival-dream.html
      related: /ships.html, /cruise-lines/carnival.html, /ports.html, /drink-calculator.html
      updated: 2025-12-03
      expertise: Carnival Cruise Line ship reviews, deck plans, dining analysis, Excel-class innovations
@@ -471,6 +472,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             "registry": "Panama"
           }
           </script>
+        <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-mardi-gras","aliases":["Carnival Mardi Gras"]}</script>
         </section>
 
         <!-- Sister Ships -->
@@ -503,7 +505,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       <!-- Dining -->
       <section id="dining-card" class="card" data-ship="Carnival Mardi Gras" aria-labelledby="diningHeading">
-        <h2 id="diningHeading">Dining Venues on Carnival Mardi Gras <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--carnival-blue); opacity: 0.8;" aria-label="Browse all restaurants">Browse All</a></h2>
+        <h2 id="diningHeading">
+        <img id="dining-hero" class="card-hero"
+             src="/assets/ships/carnival-mardi-gras/dining-hero.jpg"
+             alt="Carnival Mardi Gras dining venue" loading="lazy"
+             onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
+Dining Venues on Carnival Mardi Gras <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--carnival-blue); opacity: 0.8;" aria-label="Browse all restaurants">Browse All</a></h2>
 
         <div class="dining-content" id="dining-content" aria-live="polite">
           <div class="dining-item"><span class="dining-type included">Included</span> Flambeaux (MDR)</div>
@@ -552,7 +559,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <h2 id="deck-plans">Ship Map (Deck Plans)</h2>
         <p><a class="btn" href="https://www.carnival.com/cruise-ships/carnival-mardi-gras/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans</a></p>
         <p class="tiny">Carnival Mardi Gras spans 18 guest decks with 2,641 staterooms. Key areas: Deck 6 (Grand Central), Deck 7 (La Piazza), Deck 8 (French Quarter), Deck 16-17 (Ultimate Playground with BOLT).</p>
-      </section>
+      
+        <figure>
+          <img src="/assets/ship-map.png" alt="Simplified deck plan preview" loading="lazy"/>
+          <figcaption class="tiny">Simplified deck layout overview</figcaption>
+        </figure>
+</section>
 
       <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9837444" data-name="CARNIVAL-MARDI-GRAS">
         <h2 id="liveTrackHeading">Where Is Mardi Gras Right Now?</h2>
@@ -660,7 +672,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
           Real cruising experiences, practical guides, and heartfelt reflections from our community.
         </p>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
+      <p id="recent-rail-fallback" class="tiny">Loading articles…</p>
+
       </section>
 
     <!-- Whimsical Distance Units -->
@@ -681,7 +697,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <a href="/accessibility.html">Accessibility & WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria - Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.</p>
-    <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
 
   <!-- JAVASCRIPT -->
@@ -693,7 +709,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       if(!window.__swiperReady||!window.Swiper) return setTimeout(go,120);
       try{
         new Swiper('.swiper.firstlook',{
-          loop:false,lazy:true,watchOverflow:true,
+          loop:false,rewind:false,lazy:true,watchOverflow:true,
           pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
           navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
           a11y:{enabled:true}
@@ -777,7 +793,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         setTimeout(()=>{
           try{
             new Swiper('.swiper.videos',{
-              loop:false,lazy:true,watchOverflow:true,
+              loop:false,rewind:false,lazy:true,watchOverflow:true,
               pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
               navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
               a11y:{enabled:true}
@@ -892,6 +908,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       rail.innerHTML = articles.slice(0, 4).map(a => '<div style="margin-bottom:.75rem;"><a href="' + a.url + '">' + a.title + '</a></div>').join('');
     } catch(e) {}
   })();
-  </script>
+  </script>  <!-- Navigation Dropdown Script -->
+  <script src="/assets/js/dropdown.js"></script>
+
+
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>
