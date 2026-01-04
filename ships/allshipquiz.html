@@ -1614,6 +1614,31 @@
     let compareShips = []; // Ships in comparison tray (max 5)
     const MAX_COMPARE = 5;
 
+    // Auto-detect user's region from timezone
+    function detectUserRegion() {
+      try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        // Australia/Pacific
+        if (tz.startsWith('Australia/') || tz.startsWith('Pacific/Auckland') ||
+            tz.startsWith('Pacific/Fiji') || tz.startsWith('Pacific/Port_Moresby')) {
+          return 'australia';
+        }
+        // Asia
+        if (tz.startsWith('Asia/')) {
+          return 'asia';
+        }
+        // Europe
+        if (tz.startsWith('Europe/') || tz === 'Atlantic/Reykjavik' ||
+            tz.startsWith('Africa/') && (tz.includes('Casablanca') || tz.includes('Algiers'))) {
+          return 'europe';
+        }
+        // Default: North America
+        return 'north_america';
+      } catch (e) {
+        return 'north_america';
+      }
+    }
+
     // Dress code display mapping
     const dressCodeLabels = {
       'casual': { label: 'Casual', icon: '👕' },
@@ -1708,6 +1733,21 @@
         gridClass: 'three-col'
       },
       {
+        id: 'home_region',
+        question: "Where would you like to sail from?",
+        subtitle: "We'll prioritize cruise lines in your area",
+        options: [
+          { value: 'north_america', label: 'North America', icon: '🌎', desc: 'Caribbean, Alaska, US ports' },
+          { value: 'europe', label: 'UK & Europe', icon: '🌍', desc: 'Mediterranean, Northern Europe' },
+          { value: 'australia', label: 'Australia & Pacific', icon: '🌏', desc: 'Down Under, NZ, South Pacific' },
+          { value: 'asia', label: 'Asia', icon: '🗾', desc: 'Singapore, Japan, Southeast Asia' },
+          { value: 'flexible', label: "I'll Travel to Embark", icon: '✈️', desc: 'Show me everything' }
+        ],
+        gridClass: 'three-col',
+        optional: true,
+        autoDetect: true
+      },
+      {
         id: 'cruise_experience',
         question: "How much have you cruised?",
         subtitle: "No wrong answer here!",
@@ -1717,6 +1757,18 @@
           { value: 'seasoned', label: 'Seasoned Sailor', icon: '🧭', desc: 'Lost count of my sailings' }
         ],
         gridClass: 'three-col'
+      },
+      {
+        id: 'dress_code',
+        question: "How do you feel about dressing up?",
+        subtitle: "Cruise lines vary from formal nights to barefoot casual",
+        options: [
+          { value: 'formal', label: 'Love Formal Nights', icon: '👔', desc: 'Tuxedos, gowns, elegant evenings' },
+          { value: 'smart', label: 'Smart Casual', icon: '👗', desc: 'Dress up sometimes, not every night' },
+          { value: 'casual', label: 'Resort Casual', icon: '🌴', desc: 'Nice but comfortable' },
+          { value: 'relaxed', label: 'As Relaxed as Possible', icon: '🩴', desc: 'Shorts and flip-flops' }
+        ],
+        gridClass: 'two-col'
       },
       {
         id: 'energy_level',
@@ -1961,6 +2013,17 @@
           btnNext.disabled = false;
         }
       }
+      // Auto-detect and pre-select region for home_region question if no answer yet
+      else if (q.id === 'home_region' && q.autoDetect) {
+        const detectedRegion = detectUserRegion();
+        const regionCard = questionsContainer.querySelector(`[data-value="${detectedRegion}"]`);
+        if (regionCard) {
+          regionCard.classList.add('selected');
+          regionCard.setAttribute('aria-pressed', 'true');
+          answers[q.id] = detectedRegion;
+          btnNext.disabled = false;
+        }
+      }
     }
 
     // Select an option
@@ -2040,6 +2103,37 @@
               classScores[className] += weight;
             }
           }
+        }
+      }
+
+      // Apply dress_code bonuses
+      const dressCode = answers.dress_code;
+      if (dressCode && quizData.dress_code_weights && quizData.dress_code_weights[line]) {
+        const dressWeights = quizData.dress_code_weights[line][dressCode];
+        if (dressWeights) {
+          for (const [className, weight] of Object.entries(dressWeights)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += weight;
+            }
+          }
+        }
+      }
+
+      // Apply regional availability penalties
+      const homeRegion = answers.home_region || detectUserRegion();
+      if (homeRegion && homeRegion !== 'flexible' && quizData.regional_availability) {
+        const availability = quizData.regional_availability[line]?.[homeRegion];
+        const penalties = {
+          'strong': 0,
+          'moderate': -5,
+          'limited': -15,
+          'rare': -25,
+          'none': -50
+        };
+        const penalty = penalties[availability] || 0;
+        // Apply penalty to ALL classes for this line
+        for (const className of Object.keys(classScores)) {
+          classScores[className] += penalty;
         }
       }
 
