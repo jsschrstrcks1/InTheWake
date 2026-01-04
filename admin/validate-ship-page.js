@@ -460,13 +460,29 @@ function validateJSONLD($, filepath) {
   const schemas = [];
   const foundTypes = [];
 
+  // Helper to recursively find all @type values in a schema
+  function findAllTypes(obj, types = []) {
+    if (!obj || typeof obj !== 'object') return types;
+    if (obj['@type']) types.push(obj['@type']);
+    for (const value of Object.values(obj)) {
+      if (Array.isArray(value)) {
+        value.forEach(item => findAllTypes(item, types));
+      } else if (typeof value === 'object') {
+        findAllTypes(value, types);
+      }
+    }
+    return types;
+  }
+
   jsonldScripts.each((i, elem) => {
     try {
       const content = $(elem).html();
       if (content) {
         const data = JSON.parse(content);
         schemas.push(data);
-        if (data['@type']) foundTypes.push(data['@type']);
+        // Find all types including nested ones (e.g., Person inside Review.author)
+        const allTypes = findAllTypes(data);
+        foundTypes.push(...allTypes);
       }
     } catch (e) {
       errors.push({ section: 'json_ld', rule: 'parse_error', message: `JSON-LD parse error: ${e.message}`, severity: 'BLOCKING' });
@@ -1847,12 +1863,12 @@ async function validateShipAtlas(slug, cruiseLine, shipName, score, isTBN, isHis
       severity: 'BLOCKING'
     });
   } else if (!meetsThreshold && inAtlas) {
-    // Ship is in atlas but not ready (<90%) - BLOCKING
-    errors.push({
+    // Ship is in atlas but page not ready (<90%) - WARNING (keep in atlas for data, but don't link to page yet)
+    warnings.push({
       section: 'discoverability',
       rule: 'in_atlas_not_ready',
-      message: `Ship is in atlas but only scores ${score}% (<90%) - remove from atlas or improve page`,
-      severity: 'BLOCKING'
+      message: `Ship in atlas but page only ${score}% ready - do not link from atlas page until 90%+`,
+      severity: 'WARNING'
     });
   } else if (!meetsThreshold && !inAtlas) {
     // Not ready and not in atlas - that's correct, but note it
