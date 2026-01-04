@@ -283,6 +283,30 @@ All work on this project is offered as a gift to God.
     <!-- First Look Section -->
     <section class="card" aria-labelledby="first-look">
       <h2 id="first-look">A First Look at Norwegian Joy</h2>
+
+      <div class="swiper firstlook" aria-label="Norwegian Joy photo carousel">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <picture>
+              <img src="/assets/ships/Norwegian_Joy_SanFrancisco.jpg" alt="Norwegian Joy cruise ship in San Francisco harbor" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="swiper-slide">
+            <picture>
+              <img src="/assets/ships/Norwegian_Joy_001.jpg" alt="Norwegian Joy cruise ship at sea" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="swiper-slide">
+            <picture>
+              <img src="/assets/ships/Norwegian_Joy_Panama.jpg" alt="Norwegian Joy transiting the Panama Canal" loading="lazy" decoding="async">
+            </picture>
+          </div>
+        </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
+      </div>
+
       <p>Norwegian Joy offers a memorable cruise experience with Norwegian Cruise Line. This ship features modern amenities, diverse dining options, and entertainment for all ages.</p>
       <p>Explore the deck plans below to familiarize yourself with the ship's layout, or check out the dining section to see available restaurants and venues.</p>
     </section>
@@ -328,7 +352,16 @@ All work on this project is offered as a gift to God.
     </section>
 
     <!-- Stub Notice -->
-    
+
+    <!-- Dining Section -->
+    <section class="card" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on Norwegian Joy</h2>
+      <img id="dining-hero" class="card-hero" src="/assets/img/Cordelia_Empress_Food_Court.webp" alt="Cruise ship dining venue with elegant place settings and ocean views" loading="lazy" decoding="async"/>
+      <p>Dining venue information coming soon. Norwegian Cruise Line ships typically feature a variety of complimentary and specialty dining options.</p>
+    </section>
+    <script type="application/json" id="dining-data-source">{"provider":"norwegian","json":"/assets/data/venues-v2.json","ship_slug":"norwegian-joy","aliases":["Norwegian Joy"]}</script>
+    <script type="application/json" id="ship-stats-fallback">{"slug":"norwegian-joy","name":"Norwegian Joy","cruise_line":"Norwegian Cruise Line","class":"Breakaway Plus","entered_service":2017,"gt":"167,725 GT","guests":"3,883","crew":"1,821"}</script>
+
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: Norwegian Joy</h2>
@@ -336,7 +369,6 @@ All work on this project is offered as a gift to God.
         <p class="placeholder">Stories and insights from cruisers who have sailed on Norwegian Joy will appear here.</p>
       </div>
     </section>
-
 
     <!-- Videos Section -->
     <section class="card" aria-labelledby="video-highlights">
@@ -400,16 +432,6 @@ All work on this project is offered as a gift to God.
     })();
     </script>
 
-    
-
-    <!-- Placeholder sections -->
-    <section class="card" aria-labelledby="diningHeading">
-      <h2 id="diningHeading">Dining on Norwegian Joy</h2>
-      <p>Dining venue information coming soon. Norwegian Cruise Line ships typically feature a variety of complimentary and specialty dining options.</p>
-    </section>
-<script type="application/json" id="dining-data-source">{"provider":"norwegian","json":"/assets/data/venues-v2.json","ship_slug":"norwegian-joy","aliases":["Norwegian Joy"]}</script>
-        <script type="application/json" id="ship-stats-fallback">{"slug":"norwegian-joy","name":"Norwegian Joy","cruise_line":"Norwegian Cruise Line","class":"Breakaway Plus","entered_service":2017,"gt":"167,725 GT","guests":"3,883","crew":"1,821"}</script>
-
     <section class="card" aria-labelledby="entertainmentHeading">
       <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
       <p>Entertainment details coming soon. Explore shows, activities, and onboard experiences.</p>
@@ -425,7 +447,7 @@ All work on this project is offered as a gift to God.
         </figure>
         <p><a class="btn" href="https://www.ncl.com/" target="_blank" rel="noopener">Visit Norwegian Official Site</a></p>
       </section>
-      <section class="card" aria-labelledby="trackingHeading">
+      <section class="card" aria-labelledby="trackingHeading" data-imo="9703796" data-name="NORWEGIAN-JOY">
         <h2 id="trackingHeading">Where Is Norwegian Joy?</h2>
         <p>Track Norwegian Joy's current position and upcoming itinerary.</p>
         <p><a class="btn" href="https://www.cruisemapper.com/?search=Norwegian%20Joy" target="_blank" rel="noopener">Open Live Tracker</a></p>
