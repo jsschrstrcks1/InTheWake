@@ -88,7 +88,8 @@ const GOLD_NAV_ITEMS = [
 
 // Section patterns
 const SECTION_PATTERNS = {
-  page_intro: /page-intro|intro|looking for|what this page covers/i,
+  // page_intro: Match "page-intro" class/id, "intro" as standalone word (not "introduced"), or specific phrases
+  page_intro: /page-intro|\bintro\b|looking for .+ planning info|what this page covers|answer-line/i,
   first_look: /first.?look|gallery|a first look/i,
   dining: /dining|restaurants?|venues?/i,
   logbook: /logbook|tales from the wake|crew.?stories/i,
@@ -896,9 +897,9 @@ function validateSections($, isTBN, isHistoric = false) {
   // Scan main content area for sections (in DOM order)
   // Scope to .col-1 (main content column) to exclude rail/aside sections
   // which contain navigation links that could falsely match section patterns
-  const mainColSelector = 'main .col-1 section, main .col-1 .card, main .col-1 h2, main .col-1 h3, main .col-1 [class*="page-intro"], main .col-1 [class*="first-look"], main .col-1 [class*="logbook"], main .col-1 [class*="videos"]';
+  const mainColSelector = 'main .col-1 section, main .col-1 .card, main .col-1 h2, main .col-1 h3, main .col-1 [class*="page-intro"], main .col-1 .answer-line, main .col-1 [class*="first-look"], main .col-1 [class*="logbook"], main .col-1 [class*="videos"]';
   // Fallback for pages without col-1 structure
-  const fallbackSelector = 'main section, main .card, main h2, main h3, main [class*="page-intro"], main [class*="first-look"], main [class*="logbook"], main [class*="videos"]';
+  const fallbackSelector = 'main section, main .card, main h2, main h3, main [class*="page-intro"], main .answer-line, main [class*="first-look"], main [class*="logbook"], main [class*="videos"]';
   const hasColStructure = $('main .col-1').length > 0;
   const selector = hasColStructure ? mainColSelector : fallbackSelector;
 
