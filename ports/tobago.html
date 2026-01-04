@@ -76,7 +76,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Tobago Cruise Port Guide",
-        "description": "Complete guide to visiting Tobago via cruise ship at Scarborough",
+        "description": "Tobago cruise ships dock at Scarborough. Pigeon Point has iconic thatched jetty, Buccoo Reef offers glass-bottom boats and Nylon Pool. Rainforest oldest protected in Western Hemisphere. Laid-back vibe, less developed than Trinidad.",
         "mainEntity": {
           "@type": "Place",
           "name": "Scarborough",
@@ -85,7 +85,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             "@type": "GeoCoordinates",
             "latitude": 11.1821,
             "longitude": -60.7357
-          },
+          ,
+        "dateModified": "2026-01-03"
+      },
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "Scarborough",
@@ -140,12 +142,24 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     />
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+  <!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+</head>
   <body>
     <header class="site-header">
       <div class="container header-container">
         <a href="/" class="logo" aria-label="In the Wake Home">
-          <img
+          <img loading="lazy"
             src="/images/logo.png"
             alt="In the Wake logo"
             width="160"
@@ -471,7 +485,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           <div class="rail-section author-card">
             <h3>Your Guide</h3>
             <div class="author-info">
-              <img
+              <img loading="lazy"
                 src="/images/author-thumb.jpg"
                 alt="Author"
                 class="author-thumb"
@@ -502,6 +516,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           &copy; 2025 In the Wake. Independent cruise information.
         </p>
       </div>
+      <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>

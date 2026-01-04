@@ -120,6 +120,18 @@ Soli Deo Gloria
   <meta name="twitter:title" content="Hamburg Cruise Port Guide: Maritime Gateway to Northern Europe"/>
   <meta name="twitter:description" content="Explore Hamburg's UNESCO Speicherstadt warehouses, architectural marvel Elbphilharmonie, and maritime heritage through a sailor's reflective lens. Personal insights from Germany's great northern port."/>
   <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/port-hero.jpg"/>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+  <!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
 <body class="page">
       <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -452,7 +464,7 @@ Soli Deo Gloria
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake" decoding="async" loading="lazy"/>
+            <img fetchpriority="high" class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake" decoding="async" loading="eager"/>
           </picture>
         </a>
         <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
@@ -535,7 +547,7 @@ Soli Deo Gloria
             <div class="sidebar-card author-card">
                 <h3>About the Author</h3>
                 <div class="author-info">
-                    <img src="/images/authors/ken-baker.jpg" alt="Ken Baker" class="author-photo">
+                    <img loading="lazy" src="/images/authors/ken-baker.jpg" alt="Ken Baker" class="author-photo">
                     <p class="author-name">Ken Baker</p>
                     <p class="author-title">Crew Member & Maritime Writer</p>
                 </div>
