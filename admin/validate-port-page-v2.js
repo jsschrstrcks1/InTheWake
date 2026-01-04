@@ -646,12 +646,20 @@ function validateSectionOrder($) {
       });
     }
 
-    const creditLink = heroSection.find('a[href*="commons.wikimedia.org"], a[href*="wikimedia"]');
+    // Accept credits from multiple free image sources
+    const creditLink = heroSection.find(`
+      a[href*="commons.wikimedia.org"],
+      a[href*="wikimedia"],
+      a[href*="unsplash.com"],
+      a[href*="pexels.com"],
+      a[href*="pixabay.com"],
+      a[href*="flickr.com"]
+    `.replace(/\s+/g, ''));
     if (!creditLink.length) {
       errors.push({
         section: 'hero',
-        rule: 'hero_missing_wikimedia_credit',
-        message: 'Hero image must include Wikimedia Commons credit link',
+        rule: 'hero_missing_image_credit',
+        message: 'Hero image must include credit link (Wikimedia, Unsplash, Pexels, Pixabay, or Flickr)',
         severity: 'BLOCKING'
       });
     }
