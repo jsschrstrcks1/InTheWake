@@ -1802,6 +1802,18 @@
           { value: 'no_kids', label: 'Adults-Only Please', icon: '🚫👶', desc: 'Prefer no children aboard' }
         ],
         gridClass: 'two-col'
+      },
+      {
+        id: 'atmosphere',
+        question: "What atmosphere suits you best?",
+        subtitle: "The overall vibe you're looking for",
+        options: [
+          { value: 'party', label: 'Party & Energetic', icon: '🎉', desc: 'DJ pools, clubs, high energy' },
+          { value: 'balanced', label: 'Balanced Mix', icon: '⚖️', desc: 'Fun but not over the top' },
+          { value: 'sophisticated', label: 'Refined & Understated', icon: '🥂', desc: 'Elegant, cultured, serene' },
+          { value: 'traditional', label: 'Classic Cruising', icon: '⚓', desc: 'Time-tested, formal nights' }
+        ],
+        gridClass: 'two-col'
       }
     ];
 
@@ -2018,6 +2030,19 @@
         }
       }
 
+      // Apply atmosphere bonuses
+      const atmosphere = answers.atmosphere;
+      if (atmosphere && quizData.atmosphere_weights && quizData.atmosphere_weights[line]) {
+        const atmosphereWeights = quizData.atmosphere_weights[line][atmosphere];
+        if (atmosphereWeights) {
+          for (const [className, weight] of Object.entries(atmosphereWeights)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += weight;
+            }
+          }
+        }
+      }
+
       return classScores;
     }
 
@@ -2156,6 +2181,34 @@
                 <li><strong>Last-minute deals</strong> via cruise line newsletters</li>
               </ul>
               Celebrity and Holland America offer premium feel at mid-range prices.
+            </div>
+          </div>
+        `;
+      }
+
+      // Check for Viking-like preferences (sophisticated, destination-focused, adult couple/solo)
+      const vikingMatch = (
+        answers.atmosphere === 'sophisticated' &&
+        answers.crowd_tolerance === 'low' &&
+        answers.ship_vs_ports === 'ports' &&
+        (answers.group_type === 'couple' || answers.group_type === 'solo') &&
+        (answers.budget_mindset === 'premium' || answers.budget_mindset === 'all_in') &&
+        (answers.kid_separation === 'no_kids' || answers.kid_separation === 'adult_spaces')
+      );
+
+      if (vikingMatch) {
+        advisoryHTML += `
+          <div class="budget-advisory">
+            <div class="advisory-icon">⚓</div>
+            <div class="advisory-content">
+              <strong>You might also enjoy Viking Ocean Cruises</strong>
+              Your preferences—sophisticated atmosphere, destination focus, smaller crowds, and adults-only—align well with Viking's approach.
+              They're not in our quiz yet (too many ships to track!), but worth exploring if you value:
+              <ul>
+                <li><strong>Destination immersion</strong> with included shore excursions</li>
+                <li><strong>Scandinavian-inspired design</strong> with understated elegance</li>
+                <li><strong>All-inclusive pricing</strong> (Wi-Fi, specialty dining, excursions)</li>
+              </ul>
             </div>
           </div>
         `;
