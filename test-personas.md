@@ -1403,6 +1403,210 @@ For families who select accessibility needs, provide results guidance:
 
 ---
 
+## New Question Impact Analysis: Dress Code + Regional Availability
+
+### Added Questions:
+- **dress_code**: formal | smart | casual | relaxed
+- **home_region**: north_america | europe | australia | asia | flexible
+
+---
+
+### Key Persona Impacts
+
+#### Persona 36: "Brenda" (Real User Feedback - Australian Casual Cruiser)
+**Based on actual user feedback from Facebook**
+
+- **Group**: Unknown (assume couple or solo)
+- **Region**: Australia
+- **Dress code preference**: Hates formal attire
+- **Budget**: Value-focused
+- **Original quiz result**: Cunard (WRONG)
+- **Why it was wrong**: Cunard rarely sails from Australia AND requires formal dress
+
+**Quiz Answers with New Questions:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| home_region | australia | Lives in Australia |
+| dress_code | casual | Explicitly hates formal |
+| group_type | couple | Assumed |
+| cruise_experience | a_few | Knows what she likes |
+| energy_level | balanced | Not specified |
+| crowd_tolerance | low | Sophisticated taste |
+| ship_vs_ports | balanced | Not specified |
+| sailing_length | standard | Not specified |
+| budget_mindset | value | Explicitly on budget |
+| atmosphere | sophisticated | Wants refined but not formal |
+| must_have | none | Not specified |
+
+**Score Impact - Cunard:**
+- Original score: ~+40 (sophisticated atmosphere, low crowds)
+- Regional penalty (rare in Australia): **-25**
+- Dress code penalty (casual + Cunard): **-25**
+- **New total: ~-10** (correctly excluded!)
+
+**Score Impact - Better Matches:**
+- Celebrity Edge: +0 regional (strong in Aus) +8 dress (smart casual friendly) = **+48 total**
+- Princess Royal: +0 regional (strong in Aus) +6 dress (casual fine) = **+45 total**
+- Holland America: +0 regional (moderate -5) +4 dress = **+35 total**
+
+**Expected New Result**: Celebrity Edge, Princess Royal - sophisticated but accessible from Australia, no formal requirement.
+
+---
+
+#### Persona 1: Jake's Crew (Bachelor Party) - Dress Code Impact
+**New Answers:**
+| Question | Answer |
+|----------|--------|
+| home_region | north_america | Caribbean bachelor party |
+| dress_code | relaxed | Shorts and flip-flops only |
+
+**Score Impact:**
+- Cunard: -25 (relaxed = massive penalty)
+- Virgin: +20 (relaxed = perfect match!)
+- NCL: +15 (freestyle = relaxed friendly)
+- Carnival: +10 (casual brand)
+
+**Result**: Virgin/NCL now score even higher, Cunard completely eliminated.
+
+---
+
+#### Persona 2: Harold & Mildred (Refined Retirees) - Dress Code Impact
+**New Answers:**
+| Question | Answer |
+|----------|--------|
+| home_region | north_america | US-based retirees |
+| dress_code | formal | Love formal nights |
+
+**Score Impact:**
+- Cunard: +20 (formal = perfect!)
+- Regent: +10 (elegant but flexible)
+- Virgin: -20 (no formal = dealbreaker)
+- Carnival: -8 (too casual)
+
+**Result**: Cunard now scores higher, correctly matched!
+
+---
+
+#### Persona 10: Jen's 40th (Party Girls) - Regional Impact Example
+**Scenario A - US-based:**
+| Question | Answer |
+|----------|--------|
+| home_region | north_america | |
+| dress_code | smart | Glam nights welcome |
+
+**Result**: Virgin Voyages #1 (strong in N. America, smart casual ok)
+
+**Scenario B - If they were Australian:**
+| Question | Answer |
+|----------|--------|
+| home_region | australia | |
+| dress_code | smart | |
+
+**Score Impact:**
+- Virgin: -50 (none in Australia!)
+- Celebrity Edge: +0 (strong in Aus)
+- NCL Prima: -5 (moderate in Aus)
+
+**Result**: Celebrity Edge becomes #1, Virgin drops off entirely!
+
+---
+
+#### Persona 14: Marty & Doris (Cruise Veterans) - Traditional Dress Impact
+**New Answers:**
+| Question | Answer |
+|----------|--------|
+| home_region | north_america | |
+| dress_code | formal | Traditional formal nights |
+| atmosphere | traditional | Classic cruising |
+
+**Score Impact:**
+- Cunard: +20 (formal) +18 (traditional atmosphere) = +38 bonus
+- Princess: +10 (formal) +14 (traditional) = +24 bonus
+- Virgin: -20 (formal) -15 (traditional) = -35 penalty
+
+**Result**: Cunard/Princess move up, Virgin correctly excluded for this demographic.
+
+---
+
+#### Persona 20: Eleanor (Destination Purist) - Regional Example
+**Scenario - Europe-based:**
+| Question | Answer |
+|----------|--------|
+| home_region | europe | Sailing from Mediterranean |
+| dress_code | casual | Practical for excursions |
+
+**Score Impact:**
+- MSC: +0 (strong in Europe)
+- Virgin: +0 (strong in Europe)
+- Disney: -5 (moderate in Europe)
+
+**Result**: More European-friendly options surface.
+
+---
+
+#### Persona 18: Victoria & James (Minimalist Luxury) - Asia Scenario
+**Scenario - Singapore-based:**
+| Question | Answer |
+|----------|--------|
+| home_region | asia | Based in Singapore |
+| dress_code | smart | Elegant always |
+
+**Score Impact:**
+- Silversea: +0 (strong in Asia!) - stays top
+- Regent: -5 (moderate in Asia) - slight penalty
+- Explora: -25 (rare in Asia) - drops significantly
+- Virgin: -50 (none in Asia) - eliminated
+
+**Result**: Silversea rises to #1 over Regent for Asia-based luxury seekers.
+
+---
+
+### Regional Impact Summary Table
+
+| Persona | Region | Most Affected Line | Impact |
+|---------|--------|-------------------|--------|
+| Brenda (36) | Australia | Cunard | -25 (rare) → excluded |
+| Brenda (36) | Australia | Virgin | -50 (none) → excluded |
+| Jen's 40th | Australia (if) | Virgin | -50 (none) → excluded |
+| Victoria & James | Asia (if) | Explora | -25 (rare) → drops |
+| Eleanor | Europe | MSC | +0 (strong) → rises |
+| Harold & Mildred | N. America | All luxury | +0 (all available) |
+
+---
+
+### Dress Code Impact Summary Table
+
+| Persona | Dress Code | Positive Impact | Negative Impact |
+|---------|------------|-----------------|-----------------|
+| Jake's Crew | relaxed | Virgin +20, NCL +15 | Cunard -25, HAL -8 |
+| Harold & Mildred | formal | Cunard +20, Regent +10 | Virgin -20, NCL -10 |
+| Brenda | casual | Celebrity +8, Princess +6 | Cunard -10, HAL -4 |
+| Marty & Doris | formal | Cunard +20, Princess +10 | Virgin -20 |
+| Priya | smart | Celebrity +12, Oceania +12 | Neutral |
+| Brittany & Madison | smart | Celebrity +12 | Cunard -8 |
+
+---
+
+### Edge Cases Resolved by New Questions
+
+1. **Brenda's Cunard Mismatch** ✓
+   - Region (Australia) + Dress (casual) = Cunard double-penalized
+   - New result: Celebrity/Princess (sophisticated but accessible)
+
+2. **Bachelor Party Getting Cunard** ✓
+   - Dress (relaxed) = Cunard -25
+   - New result: Virgin/NCL correctly prioritized
+
+3. **Asian Luxury Seekers Getting Unavailable Lines** ✓
+   - Region filters out lines with no Asia presence
+   - Silversea correctly rises for Asia-based users
+
+4. **Australian Families Missing Local Options** ✓
+   - Princess (strong in Aus) gets boosted
+   - Virgin (none in Aus) correctly excluded
+
+---
+
 ## Persona 28: Michael - Expanded Backstory
 
 **Why Michael hates cruises:**
