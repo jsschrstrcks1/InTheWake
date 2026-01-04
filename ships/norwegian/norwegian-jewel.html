@@ -283,6 +283,30 @@ All work on this project is offered as a gift to God.
     <!-- First Look Section -->
     <section class="card" aria-labelledby="first-look">
       <h2 id="first-look">A First Look at Norwegian Jewel</h2>
+
+      <div class="swiper firstlook" aria-label="Norwegian Jewel photo carousel">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <picture>
+              <img src="/assets/ships/Norwegian_Jewel_Sydney.jpg" alt="Norwegian Jewel cruise ship in Sydney harbor" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="swiper-slide">
+            <picture>
+              <img src="/assets/ships/Norwegian_Jewel_Auckland.jpg" alt="Norwegian Jewel docked in Auckland, New Zealand" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="swiper-slide">
+            <picture>
+              <img src="/assets/ships/Norwegian_Jewel_2005.jpg" alt="Norwegian Jewel cruise ship at sea" loading="lazy" decoding="async">
+            </picture>
+          </div>
+        </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
+      </div>
+
       <p>Norwegian Jewel offers a memorable cruise experience with Norwegian Cruise Line. This ship features modern amenities, diverse dining options, and entertainment for all ages.</p>
       <p>Explore the deck plans below to familiarize yourself with the ship's layout, or check out the dining section to see available restaurants and venues.</p>
     </section>
@@ -328,7 +352,16 @@ All work on this project is offered as a gift to God.
     </section>
 
     <!-- Stub Notice -->
-    
+
+    <!-- Dining Section -->
+    <section class="card" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on Norwegian Jewel</h2>
+      <img id="dining-hero" class="card-hero" src="/assets/img/Cordelia_Empress_Food_Court.webp" alt="Cruise ship dining venue with elegant place settings and ocean views" loading="lazy" decoding="async"/>
+      <p>Dining venue information coming soon. Norwegian Cruise Line ships typically feature a variety of complimentary and specialty dining options.</p>
+    </section>
+    <script type="application/json" id="dining-data-source">{"provider":"norwegian","json":"/assets/data/venues-v2.json","ship_slug":"norwegian-jewel","aliases":["Norwegian Jewel"]}</script>
+    <script type="application/json" id="ship-stats-fallback">{"slug":"norwegian-jewel","name":"Norwegian Jewel","cruise_line":"Norwegian Cruise Line","class":"Jewel Class","entered_service":2005,"gt":"93,502 GT","guests":"2,376","crew":"1,072"}</script>
+
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: Norwegian Jewel</h2>
@@ -337,48 +370,6 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 
-    
-
-    <!-- Placeholder sections -->
-    <section class="card" aria-labelledby="diningHeading">
-      <h2 id="diningHeading">Dining on Norwegian Jewel</h2>
-      <p>Dining venue information coming soon. Norwegian Cruise Line ships typically feature a variety of complimentary and specialty dining options.</p>
-    </section>
-<script type="application/json" id="dining-data-source">{"provider":"norwegian","json":"/assets/data/venues-v2.json","ship_slug":"norwegian-jewel","aliases":["Norwegian Jewel"]}</script>
-        <script type="application/json" id="ship-stats-fallback">{"slug":"norwegian-jewel","name":"Norwegian Jewel","cruise_line":"Norwegian Cruise Line","class":"Jewel Class","entered_service":2005,"gt":"93,502 GT","guests":"2,376","crew":"1,072"}</script>
-
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
-      <p>Entertainment details coming soon. Explore shows, activities, and onboard experiences.</p>
-    </section>
-
-    <section class="grid-2">
-      <section class="card" aria-labelledby="deckPlansHeading">
-        <h2 id="deckPlansHeading">Deck Plans</h2>
-        <p>View the official deck plans to explore Norwegian Jewel's layout.</p>
-        <figure>
-          <img src="/assets/ship-map.png" alt="Norwegian Jewel simplified deck plan preview" loading="lazy"/>
-          <figcaption class="tiny">Simplified deck layout overview</figcaption>
-        </figure>
-        <p><a class="btn" href="https://www.ncl.com/" target="_blank" rel="noopener">Visit Norwegian Official Site</a></p>
-      </section>
-      <section class="card" aria-labelledby="trackingHeading">
-        <h2 id="trackingHeading">Where Is Norwegian Jewel?</h2>
-        <p>Track Norwegian Jewel's current position and upcoming itinerary.</p>
-        <p><a class="btn" href="https://www.cruisemapper.com/?search=Norwegian%20Jewel" target="_blank" rel="noopener">Open Live Tracker</a></p>
-      </section>
-    </section>
-
-    <!-- Related Links -->
-    <section class="card">
-      <h2>Explore More</h2>
-      <ul>
-        <li><a href="/ships.html">All Ships</a></li>
-        <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare Norwegian Jewel with other ships</li>
-        <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
-      </ul>
-    </section>
-  
     <!-- Videos -->
     <section class="card" aria-labelledby="video-highlights">
       <h2 id="video-highlights">Watch: Norwegian Jewel Highlights</h2>
@@ -391,24 +382,6 @@ All work on this project is offered as a gift to God.
       </div>
       <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
-
-
-    <!-- Deck Plans & Tracker Grid -->
-    <div class="grid-2">
-      <section class="card" aria-labelledby="deck-plans">
-        <h2 id="deck-plans">Deck Plans</h2>
-        <div id="ship-map" data-ship="norwegian-jewel">
-          <p>Interactive deck plans for Norwegian Jewel are available on the cruise line's official website.</p>
-        </div>
-      </section>
-
-      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="TBD" data-name="NORWEGIANJEWEL">
-        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
-        <div id="ship-tracker-container">
-          <p>Track Norwegian Jewel's current position and voyage details.</p>
-        </div>
-      </section>
-    </div>
 
     <script>
     (function(){
@@ -459,8 +432,24 @@ All work on this project is offered as a gift to God.
     })();
     </script>
 
+    <section class="grid-2">
+      <section class="card" aria-labelledby="deckPlansHeading">
+        <h2 id="deckPlansHeading">Deck Plans</h2>
+        <p>View the official deck plans to explore Norwegian Jewel's layout.</p>
+        <figure>
+          <img src="/assets/ship-map.png" alt="Norwegian Jewel simplified deck plan preview" loading="lazy"/>
+          <figcaption class="tiny">Simplified deck layout overview</figcaption>
+        </figure>
+        <p><a class="btn" href="https://www.ncl.com/" target="_blank" rel="noopener">Visit Norwegian Official Site</a></p>
+      </section>
+      <section class="card" aria-labelledby="trackingHeading" data-imo="9304045" data-name="NORWEGIAN-JEWEL">
+        <h2 id="trackingHeading">Where Is Norwegian Jewel?</h2>
+        <p>Track Norwegian Jewel's current position and upcoming itinerary.</p>
+        <p><a class="btn" href="https://www.cruisemapper.com/?search=Norwegian%20Jewel" target="_blank" rel="noopener">Open Live Tracker</a></p>
+      </section>
+    </section>
 
-    
+
 
     <!-- Attribution Section -->
     

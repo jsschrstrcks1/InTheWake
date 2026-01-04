@@ -283,6 +283,30 @@ All work on this project is offered as a gift to God.
     <!-- First Look Section -->
     <section class="card" aria-labelledby="first-look">
       <h2 id="first-look">A First Look at Norwegian Jade</h2>
+
+      <div class="swiper firstlook" aria-label="Norwegian Jade photo carousel">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <picture>
+              <img src="/assets/ships/Norwegian_Jade_Civitavecchia.jpg" alt="Norwegian Jade cruise ship docked in Civitavecchia, Italy" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="swiper-slide">
+            <picture>
+              <img src="/assets/ships/Norwegian_Jade_Genoa.jpg" alt="Norwegian Jade in Genoa, Italy harbor" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="swiper-slide">
+            <picture>
+              <img src="/assets/ships/Norwegian_Jade_001.jpg" alt="Norwegian Jade cruise ship at sea" loading="lazy" decoding="async">
+            </picture>
+          </div>
+        </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
+      </div>
+
       <p>Norwegian Jade offers a memorable cruise experience with Norwegian Cruise Line. This ship features modern amenities, diverse dining options, and entertainment for all ages.</p>
       <p>Explore the deck plans below to familiarize yourself with the ship's layout, or check out the dining section to see available restaurants and venues.</p>
     </section>
@@ -328,7 +352,16 @@ All work on this project is offered as a gift to God.
     </section>
 
     <!-- Stub Notice -->
-    
+
+    <!-- Dining Section -->
+    <section class="card" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on Norwegian Jade</h2>
+      <img id="dining-hero" class="card-hero" src="/assets/img/Cordelia_Empress_Food_Court.webp" alt="Cruise ship dining venue with elegant place settings and ocean views" loading="lazy" decoding="async"/>
+      <p>Dining venue information coming soon. Norwegian Cruise Line ships typically feature a variety of complimentary and specialty dining options.</p>
+    </section>
+    <script type="application/json" id="dining-data-source">{"provider":"norwegian","json":"/assets/data/venues-v2.json","ship_slug":"norwegian-jade","aliases":["Norwegian Jade"]}</script>
+    <script type="application/json" id="ship-stats-fallback">{"slug":"norwegian-jade","name":"Norwegian Jade","cruise_line":"Norwegian Cruise Line","class":"Jewel Class","entered_service":2006,"gt":"93,558 GT","guests":"2,402","crew":"1,076"}</script>
+
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: Norwegian Jade</h2>
@@ -336,7 +369,6 @@ All work on this project is offered as a gift to God.
         <p class="placeholder">Stories and insights from cruisers who have sailed on Norwegian Jade will appear here.</p>
       </div>
     </section>
-
 
     <!-- Videos Section -->
     <section class="card" aria-labelledby="video-highlights">
@@ -400,16 +432,6 @@ All work on this project is offered as a gift to God.
     })();
     </script>
 
-    
-
-    <!-- Placeholder sections -->
-    <section class="card" aria-labelledby="diningHeading">
-      <h2 id="diningHeading">Dining on Norwegian Jade</h2>
-      <p>Dining venue information coming soon. Norwegian Cruise Line ships typically feature a variety of complimentary and specialty dining options.</p>
-    </section>
-<script type="application/json" id="dining-data-source">{"provider":"norwegian","json":"/assets/data/venues-v2.json","ship_slug":"norwegian-jade","aliases":["Norwegian Jade"]}</script>
-        <script type="application/json" id="ship-stats-fallback">{"slug":"norwegian-jade","name":"Norwegian Jade","cruise_line":"Norwegian Cruise Line","class":"Jewel Class","entered_service":2006,"gt":"93,558 GT","guests":"2,402","crew":"1,076"}</script>
-
     <section class="card" aria-labelledby="entertainmentHeading">
       <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
       <p>Entertainment details coming soon. Explore shows, activities, and onboard experiences.</p>
@@ -425,7 +447,7 @@ All work on this project is offered as a gift to God.
         </figure>
         <p><a class="btn" href="https://www.ncl.com/" target="_blank" rel="noopener">Visit Norwegian Official Site</a></p>
       </section>
-      <section class="card" aria-labelledby="trackingHeading">
+      <section class="card" aria-labelledby="trackingHeading" data-imo="9304057" data-name="NORWEGIAN-JADE">
         <h2 id="trackingHeading">Where Is Norwegian Jade?</h2>
         <p>Track Norwegian Jade's current position and upcoming itinerary.</p>
         <p><a class="btn" href="https://www.cruisemapper.com/?search=Norwegian%20Jade" target="_blank" rel="noopener">Open Live Tracker</a></p>

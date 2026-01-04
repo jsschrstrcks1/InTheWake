@@ -328,7 +328,15 @@ All work on this project is offered as a gift to God.
     </section>
 
     <!-- Stub Notice -->
-    
+
+    <!-- Dining Section -->
+    <section class="card" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on Norwegian Spirit</h2>
+      <p>Dining venue information coming soon. Norwegian Cruise Line ships typically feature a variety of complimentary and specialty dining options.</p>
+    </section>
+    <script type="application/json" id="dining-data-source">{"provider":"norwegian","json":"/assets/data/venues-v2.json","ship_slug":"norwegian-spirit","aliases":["Norwegian Spirit"]}</script>
+    <script type="application/json" id="ship-stats-fallback">{"slug":"norwegian-spirit","name":"Norwegian Spirit","cruise_line":"Norwegian Cruise Line","class":"Spirit Class","entered_service":1998,"gt":"75,338 GT","guests":"1,966","crew":"912"}</script>
+
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: Norwegian Spirit</h2>
@@ -337,15 +345,18 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 
-    
-
-    <!-- Placeholder sections -->
-    <section class="card" aria-labelledby="diningHeading">
-      <h2 id="diningHeading">Dining on Norwegian Spirit</h2>
-      <p>Dining venue information coming soon. Norwegian Cruise Line ships typically feature a variety of complimentary and specialty dining options.</p>
+    <!-- Videos -->
+    <section class="card" aria-labelledby="video-highlights">
+      <h2 id="video-highlights">Watch: Norwegian Spirit Highlights</h2>
+      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
+      <div class="swiper videos" aria-label="Featured video carousel">
+        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
-<script type="application/json" id="dining-data-source">{"provider":"norwegian","json":"/assets/data/venues-v2.json","ship_slug":"norwegian-spirit","aliases":["Norwegian Spirit"]}</script>
-        <script type="application/json" id="ship-stats-fallback">{"slug":"norwegian-spirit","name":"Norwegian Spirit","cruise_line":"Norwegian Cruise Line","class":"Spirit Class","entered_service":1998,"gt":"75,338 GT","guests":"1,966","crew":"912"}</script>
 
     <section class="card" aria-labelledby="entertainmentHeading">
       <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
@@ -378,20 +389,6 @@ All work on this project is offered as a gift to God.
         <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
       </ul>
     </section>
-  
-    <!-- Videos -->
-    <section class="card" aria-labelledby="video-highlights">
-      <h2 id="video-highlights">Watch: Norwegian Spirit Highlights</h2>
-      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
-      <div class="swiper videos" aria-label="Featured video carousel">
-        <div class="swiper-wrapper" id="featuredVideos"></div>
-        <div class="swiper-pagination" aria-hidden="true"></div>
-        <div class="swiper-button-prev" aria-label="Previous slide"></div>
-        <div class="swiper-button-next" aria-label="Next slide"></div>
-      </div>
-      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
-    </section>
-
 
     <!-- Deck Plans & Tracker Grid -->
     <div class="grid-2">
