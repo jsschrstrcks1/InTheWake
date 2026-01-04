@@ -20,6 +20,48 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { glob } from 'glob';
 import { load } from 'cheerio';
+import https from 'https';
+
+/**
+ * HTTP GET request using native https module (more compatible than fetch)
+ */
+function httpGet(url, headers = {}) {
+  return new Promise((resolve, reject) => {
+    const urlObj = new URL(url);
+    const options = {
+      hostname: urlObj.hostname,
+      path: urlObj.pathname + urlObj.search,
+      method: 'GET',
+      headers: {
+        'User-Agent': 'InTheWake/1.0 (https://cruisinginthewake.com; contact@cruisinginthewake.com) Node.js',
+        ...headers
+      }
+    };
+
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          try {
+            resolve(JSON.parse(data));
+          } catch (e) {
+            resolve(data);
+          }
+        } else {
+          reject(new Error(`HTTP ${res.statusCode}`));
+        }
+      });
+    });
+
+    req.on('error', reject);
+    req.setTimeout(30000, () => {
+      req.destroy();
+      reject(new Error('Request timeout'));
+    });
+    req.end();
+  });
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -76,15 +118,7 @@ async function fetchWikimedia(searchTerm) {
   const url = `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=${encodedSearch}&srnamespace=6&srlimit=5&format=json&origin=*`;
 
   try {
-    const response = await fetch(url, {
-      headers: {
-        'User-Agent': 'InTheWake/1.0 (https://cruisinginthewake.com; contact@cruisinginthewake.com) Node.js'
-      }
-    });
-
-    if (!response.ok) return null;
-
-    const data = await response.json();
+    const data = await httpGet(url);
     const results = data.query?.search || [];
 
     if (results.length === 0) return null;
@@ -95,15 +129,7 @@ async function fetchWikimedia(searchTerm) {
 
     // Fetch actual image URL
     const imageUrl = `https://commons.wikimedia.org/w/api.php?action=query&titles=${encodeURIComponent(title)}&prop=imageinfo&iiprop=url|extmetadata&format=json&origin=*`;
-    const imageResponse = await fetch(imageUrl, {
-      headers: {
-        'User-Agent': 'InTheWake/1.0 (https://cruisinginthewake.com; contact@cruisinginthewake.com) Node.js'
-      }
-    });
-
-    if (!imageResponse.ok) return null;
-
-    const imageData = await imageResponse.json();
+    const imageData = await httpGet(imageUrl);
     const pages = imageData.query?.pages || {};
     const page = Object.values(pages)[0];
     const imageinfo = page?.imageinfo?.[0];
@@ -138,15 +164,9 @@ async function fetchUnsplash(searchTerm) {
   const url = `https://api.unsplash.com/search/photos?query=${encodedSearch}&per_page=5&orientation=landscape`;
 
   try {
-    const response = await fetch(url, {
-      headers: {
-        'Authorization': `Client-ID ${API_KEYS.unsplash}`
-      }
+    const data = await httpGet(url, {
+      'Authorization': `Client-ID ${API_KEYS.unsplash}`
     });
-
-    if (!response.ok) return null;
-
-    const data = await response.json();
     const results = data.results || [];
 
     if (results.length === 0) return null;
@@ -182,15 +202,9 @@ async function fetchPexels(searchTerm) {
   const url = `https://api.pexels.com/v1/search?query=${encodedSearch}&per_page=5&orientation=landscape`;
 
   try {
-    const response = await fetch(url, {
-      headers: {
-        'Authorization': API_KEYS.pexels
-      }
+    const data = await httpGet(url, {
+      'Authorization': API_KEYS.pexels
     });
-
-    if (!response.ok) return null;
-
-    const data = await response.json();
     const photos = data.photos || [];
 
     if (photos.length === 0) return null;
@@ -226,11 +240,7 @@ async function fetchPixabay(searchTerm) {
   const url = `https://pixabay.com/api/?key=${API_KEYS.pixabay}&q=${encodedSearch}&image_type=photo&orientation=horizontal&per_page=5`;
 
   try {
-    const response = await fetch(url);
-
-    if (!response.ok) return null;
-
-    const data = await response.json();
+    const data = await httpGet(url);
     const hits = data.hits || [];
 
     if (hits.length === 0) return null;
