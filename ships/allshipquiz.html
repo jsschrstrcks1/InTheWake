@@ -1757,6 +1757,20 @@
         gridClass: 'three-col'
       },
       {
+        id: 'destination',
+        question: "What destinations interest you most?",
+        subtitle: "Some ships specialize in certain regions",
+        options: [
+          { value: 'caribbean', label: 'Caribbean', icon: '🏝️', desc: 'Beaches, warmth, relaxation' },
+          { value: 'alaska', label: 'Alaska/Scenic', icon: '🏔️', desc: 'Glaciers, wildlife, nature' },
+          { value: 'hawaii', label: 'Hawaii', icon: '🌺', desc: 'Islands, culture, volcanoes' },
+          { value: 'mediterranean', label: 'Mediterranean', icon: '🏛️', desc: 'History, culture, cuisine' },
+          { value: 'expedition', label: 'Expedition/Remote', icon: '🧭', desc: 'Off-the-beaten-path adventure' },
+          { value: 'flexible', label: 'Flexible', icon: '🌍', desc: 'Open to anywhere' }
+        ],
+        gridClass: 'three-col'
+      },
+      {
         id: 'sailing_length',
         question: "How long do you want to sail?",
         subtitle: "Trip duration preference",
@@ -1777,6 +1791,18 @@
           { value: 'premium', label: 'Go Premium', icon: '✨', desc: 'The best experience matters most' }
         ],
         gridClass: 'three-col'
+      },
+      {
+        id: 'ship_age',
+        question: "How important is a brand-new ship?",
+        subtitle: "Newer isn't always better—older ships have charm and value",
+        options: [
+          { value: 'newest', label: 'Must Be Newest', icon: '✨', desc: 'Flagship experience only' },
+          { value: 'modern', label: 'Prefer Modern', icon: '🆕', desc: 'Last 10 years is fine' },
+          { value: 'classic', label: 'Classic Is Fine', icon: '⚓', desc: 'Proven reliability, good value' },
+          { value: 'dont_care', label: "Don't Care", icon: '🤷', desc: 'Whatever fits my needs' }
+        ],
+        gridClass: 'two-col'
       },
       {
         id: 'must_have',
@@ -2096,6 +2122,44 @@
       if (line === 'ncl') {
         for (const className of Object.keys(classScores)) {
           classScores[className] -= 7;
+        }
+      }
+
+      // Apply destination bonuses
+      const destination = answers.destination;
+      if (destination && destination !== 'flexible' && quizData.destination_weights && quizData.destination_weights[line]) {
+        const destWeights = quizData.destination_weights[line][destination];
+        if (destWeights) {
+          for (const [className, weight] of Object.entries(destWeights)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += weight;
+            }
+          }
+        }
+      }
+
+      // Apply ship_age bonuses (favor older ships when user prefers classic)
+      const shipAge = answers.ship_age;
+      if (shipAge && shipAge !== 'dont_care' && quizData.ship_age_weights && quizData.ship_age_weights[line]) {
+        const ageWeights = quizData.ship_age_weights[line][shipAge];
+        if (ageWeights) {
+          for (const [className, weight] of Object.entries(ageWeights)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += weight;
+            }
+          }
+        }
+      }
+
+      // Reduce mega-ship dominance for low crowd tolerance or port-focused travelers
+      if ((answers.crowd_tolerance === 'low' || answers.ship_vs_ports === 'ports') && quizData.mega_ship_penalty) {
+        const penalty = quizData.mega_ship_penalty[line];
+        if (penalty) {
+          for (const [className, weight] of Object.entries(penalty)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += weight;
+            }
+          }
         }
       }
 
