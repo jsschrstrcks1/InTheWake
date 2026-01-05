@@ -2091,6 +2091,14 @@
         }
       }
 
+      // Apply line-level editorial adjustments
+      // NCL: -7 across all classes (service quality, safety concerns)
+      if (line === 'ncl') {
+        for (const className of Object.keys(classScores)) {
+          classScores[className] -= 7;
+        }
+      }
+
       return classScores;
     }
 
