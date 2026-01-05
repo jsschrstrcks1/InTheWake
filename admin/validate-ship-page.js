@@ -1,11 +1,16 @@
 #!/usr/bin/env node
 /**
- * Ship Page Validator - ITW-SHIP-002 v2.1
+ * Ship Page Validator - ITW-SHIP-002 v2.2
  * Soli Deo Gloria
  *
  * Comprehensive validator for ship pages following the Ship Page Standard v2.0.
  * Validates: ICP-Lite v1.4, JSON-LD schemas, section ordering, content consistency,
  * word counts, video requirements, logbook stories, navigation, WCAG, deduplication.
+ *
+ * v2.2 Enhancements:
+ * - Discoverability validation: search.html, ships.html, ship atlas
+ * - 90% threshold rule: ships must score 90%+ before atlas inclusion
+ * - Search index presence check (active ships = blocking, TBN/historic = warning)
  *
  * v2.1 Enhancements:
  * - Strict section ORDER enforcement (per RCL gold standard)
@@ -83,7 +88,8 @@ const GOLD_NAV_ITEMS = [
 
 // Section patterns
 const SECTION_PATTERNS = {
-  page_intro: /page-intro|intro|looking for|what this page covers/i,
+  // page_intro: Match "page-intro" class/id, "intro" as standalone word (not "introduced"), or specific phrases
+  page_intro: /page-intro|\bintro\b|looking for .+ planning info|what this page covers|answer-line/i,
   first_look: /first.?look|gallery|a first look/i,
   dining: /dining|restaurants?|venues?/i,
   logbook: /logbook|tales from the wake|crew.?stories/i,
@@ -455,13 +461,29 @@ function validateJSONLD($, filepath) {
   const schemas = [];
   const foundTypes = [];
 
+  // Helper to recursively find all @type values in a schema
+  function findAllTypes(obj, types = []) {
+    if (!obj || typeof obj !== 'object') return types;
+    if (obj['@type']) types.push(obj['@type']);
+    for (const value of Object.values(obj)) {
+      if (Array.isArray(value)) {
+        value.forEach(item => findAllTypes(item, types));
+      } else if (typeof value === 'object') {
+        findAllTypes(value, types);
+      }
+    }
+    return types;
+  }
+
   jsonldScripts.each((i, elem) => {
     try {
       const content = $(elem).html();
       if (content) {
         const data = JSON.parse(content);
         schemas.push(data);
-        if (data['@type']) foundTypes.push(data['@type']);
+        // Find all types including nested ones (e.g., Person inside Review.author)
+        const allTypes = findAllTypes(data);
+        foundTypes.push(...allTypes);
       }
     } catch (e) {
       errors.push({ section: 'json_ld', rule: 'parse_error', message: `JSON-LD parse error: ${e.message}`, severity: 'BLOCKING' });
@@ -875,9 +897,9 @@ function validateSections($, isTBN, isHistoric = false) {
   // Scan main content area for sections (in DOM order)
   // Scope to .col-1 (main content column) to exclude rail/aside sections
   // which contain navigation links that could falsely match section patterns
-  const mainColSelector = 'main .col-1 section, main .col-1 .card, main .col-1 h2, main .col-1 h3, main .col-1 [class*="page-intro"], main .col-1 [class*="first-look"], main .col-1 [class*="logbook"], main .col-1 [class*="videos"]';
+  const mainColSelector = 'main .col-1 section, main .col-1 .card, main .col-1 h2, main .col-1 h3, main .col-1 [class*="page-intro"], main .col-1 .answer-line, main .col-1 [class*="first-look"], main .col-1 [class*="logbook"], main .col-1 [class*="videos"]';
   // Fallback for pages without col-1 structure
-  const fallbackSelector = 'main section, main .card, main h2, main h3, main [class*="page-intro"], main [class*="first-look"], main [class*="logbook"], main [class*="videos"]';
+  const fallbackSelector = 'main section, main .card, main h2, main h3, main [class*="page-intro"], main .answer-line, main [class*="first-look"], main [class*="logbook"], main [class*="videos"]';
   const hasColStructure = $('main .col-1').length > 0;
   const selector = hasColStructure ? mainColSelector : fallbackSelector;
 
@@ -1678,6 +1700,191 @@ async function validateArticles() {
   }
 }
 
+// =============================================================================
+// DISCOVERABILITY VALIDATION (v2.2)
+// Ships must be findable via search.html, ships.html, and ship atlas (at 90%+)
+// =============================================================================
+
+// Cache for index data (loaded once per batch validation)
+let searchIndexCache = null;
+let shipAtlasCache = null;
+
+/**
+ * Load search index (cached)
+ */
+async function loadSearchIndex() {
+  if (searchIndexCache) return searchIndexCache;
+
+  const searchIndexPath = join(PROJECT_ROOT, 'assets', 'data', 'search-index.json');
+  try {
+    const content = await readFile(searchIndexPath, 'utf-8');
+    searchIndexCache = JSON.parse(content);
+    return searchIndexCache;
+  } catch (e) {
+    return [];
+  }
+}
+
+/**
+ * Load ship atlas (cached)
+ */
+async function loadShipAtlas() {
+  if (shipAtlasCache) return shipAtlasCache;
+
+  const atlasPath = join(PROJECT_ROOT, 'data', 'atlas', 'ship-size-atlas.json');
+  try {
+    const content = await readFile(atlasPath, 'utf-8');
+    const data = JSON.parse(content);
+    shipAtlasCache = data.ships || [];
+    return shipAtlasCache;
+  } catch (e) {
+    return [];
+  }
+}
+
+/**
+ * Validate ship is in search index (search.html discoverability)
+ */
+async function validateSearchIndex(slug, cruiseLine, shipName, isTBN, isHistoric) {
+  const errors = [];
+  const warnings = [];
+
+  const searchIndex = await loadSearchIndex();
+  const expectedUrl = `/ships/${cruiseLine}/${slug}.html`;
+
+  // Find ship in search index
+  const inSearchIndex = searchIndex.some(entry =>
+    entry.url === expectedUrl ||
+    entry.url === expectedUrl.replace('.html', '') ||
+    (entry.title && entry.title.toLowerCase().includes(shipName.toLowerCase()))
+  );
+
+  if (!inSearchIndex) {
+    // TBN and historic ships get a warning, active ships get blocking error
+    if (isTBN || isHistoric) {
+      warnings.push({
+        section: 'discoverability',
+        rule: 'not_in_search_index',
+        message: `Ship not in search-index.json (search.html won't find it)`,
+        severity: 'WARNING'
+      });
+    } else {
+      errors.push({
+        section: 'discoverability',
+        rule: 'not_in_search_index',
+        message: `Ship not in search-index.json (search.html won't find it) - add to /assets/data/search-index.json`,
+        severity: 'BLOCKING'
+      });
+    }
+  }
+
+  return { valid: errors.length === 0, errors, warnings, data: { inSearchIndex, expectedUrl } };
+}
+
+/**
+ * Validate ship atlas presence with 90% rule
+ * - Ships with score >= 90% MUST be in atlas
+ * - Ships with score < 90% should NOT be in atlas yet
+ */
+async function validateShipAtlas(slug, cruiseLine, shipName, score, isTBN, isHistoric) {
+  const errors = [];
+  const warnings = [];
+
+  const atlas = await loadShipAtlas();
+
+  // Atlas ship_id format: brand-slug (e.g., "rcl-wonder-of-the-seas")
+  // Map cruise line directory to atlas brand
+  const brandMap = {
+    'rcl': 'royal-caribbean',
+    'carnival': 'carnival',
+    'norwegian': 'norwegian',
+    'celebrity-cruises': 'celebrity',
+    'princess': 'princess',
+    'holland-america-line': 'holland-america',
+    'msc': 'msc',
+    'costa': 'costa',
+    'cunard': 'cunard',
+    'silversea': 'silversea',
+    'seabourn': 'seabourn',
+    'regent': 'regent',
+    'oceania': 'oceania',
+    'viking': 'viking',
+    'virgin-voyages': 'virgin-voyages',
+    'explora-journeys': 'explora',
+    'disney': 'disney',
+    'azamara': 'azamara'
+  };
+
+  const atlasBrand = brandMap[cruiseLine] || cruiseLine;
+  const expectedAtlasId = `${cruiseLine}-${slug}`;
+  const altAtlasId = `${atlasBrand}-${slug}`;
+
+  // Find ship in atlas
+  const inAtlas = atlas.some(ship =>
+    ship.ship_id === expectedAtlasId ||
+    ship.ship_id === altAtlasId ||
+    (ship.name_current && ship.name_current.toLowerCase() === shipName.toLowerCase())
+  );
+
+  // TBN ships are exempt from atlas requirements
+  if (isTBN) {
+    if (inAtlas) {
+      warnings.push({
+        section: 'discoverability',
+        rule: 'tbn_in_atlas',
+        message: `TBN ship is in atlas (unusual - may need removal until ship is named)`,
+        severity: 'WARNING'
+      });
+    }
+    return { valid: true, errors, warnings, data: { inAtlas, score, meetsThreshold: false } };
+  }
+
+  // Historic ships: warning only if not in atlas
+  if (isHistoric) {
+    if (!inAtlas) {
+      warnings.push({
+        section: 'discoverability',
+        rule: 'historic_not_in_atlas',
+        message: `Historic ship not in ship atlas (acceptable for retired ships)`,
+        severity: 'WARNING'
+      });
+    }
+    return { valid: true, errors, warnings, data: { inAtlas, score, meetsThreshold: false } };
+  }
+
+  // Active ships: 90% threshold rule
+  const meetsThreshold = score >= 90;
+
+  if (meetsThreshold && !inAtlas) {
+    // Ship is ready (90%+) but not in atlas - BLOCKING
+    errors.push({
+      section: 'discoverability',
+      rule: 'ready_not_in_atlas',
+      message: `Ship scores ${score}% (≥90%) but not in ship atlas - add to /data/atlas/ship-size-atlas.json`,
+      severity: 'BLOCKING'
+    });
+  } else if (!meetsThreshold && inAtlas) {
+    // Ship is in atlas but page not ready (<90%) - WARNING (keep in atlas for data, but don't link to page yet)
+    warnings.push({
+      section: 'discoverability',
+      rule: 'in_atlas_not_ready',
+      message: `Ship in atlas but page only ${score}% ready - do not link from atlas page until 90%+`,
+      severity: 'WARNING'
+    });
+  } else if (!meetsThreshold && !inAtlas) {
+    // Not ready and not in atlas - that's correct, but note it
+    warnings.push({
+      section: 'discoverability',
+      rule: 'not_atlas_ready',
+      message: `Ship scores ${score}% - needs 90%+ to be added to ship atlas`,
+      severity: 'WARNING'
+    });
+  }
+  // If meetsThreshold && inAtlas, everything is good - no error or warning
+
+  return { valid: errors.length === 0, errors, warnings, data: { inAtlas, score, meetsThreshold } };
+}
+
 /**
  * Validate a single ship page
  */
@@ -1736,6 +1943,35 @@ async function validateShipPage(filepath) {
     const videoResult = await validateVideos(slug, cruiseLine, isHistoric);
     const articlesResult = await validateArticles();
 
+    // Calculate preliminary score for discoverability checks
+    const preliminaryErrors = [
+      ...analyticsResult.errors, ...soliDeoGloriaResult.errors,
+      ...breadcrumbResult.errors, ...icpResult.errors, ...jsonldResult.errors,
+      ...navResult.errors, ...escapeResult.errors, ...wcagResult.errors,
+      ...sectionResult.errors, ...dataResult.errors, ...consistencyResult.errors,
+      ...faqResult.errors, ...imageResult.errors, ...jsResult.errors,
+      ...logbookResult.errors, ...videoResult.errors, ...articlesResult.errors,
+      ...htmlStructureResult.errors, ...viewportResult.errors,
+      ...contentPurityResult.errors, ...shipStatsResult.errors,
+      ...diningResult.errors, ...wordCountResult.errors
+    ];
+    const preliminaryWarnings = [
+      ...analyticsResult.warnings, ...soliDeoGloriaResult.warnings,
+      ...breadcrumbResult.warnings, ...icpResult.warnings, ...jsonldResult.warnings,
+      ...navResult.warnings, ...escapeResult.warnings, ...wcagResult.warnings,
+      ...sectionResult.warnings, ...dataResult.warnings, ...consistencyResult.warnings,
+      ...faqResult.warnings, ...imageResult.warnings, ...jsResult.warnings,
+      ...logbookResult.warnings, ...videoResult.warnings, ...articlesResult.warnings,
+      ...htmlStructureResult.warnings, ...viewportResult.warnings,
+      ...contentPurityResult.warnings, ...shipStatsResult.warnings,
+      ...diningResult.warnings, ...wordCountResult.warnings
+    ];
+    const preliminaryScore = Math.max(0, 100 - (preliminaryErrors.length * 10) - (preliminaryWarnings.length * 2));
+
+    // v2.2 Discoverability validations (need preliminary score for atlas 90% rule)
+    const searchIndexResult = await validateSearchIndex(slug, cruiseLine, shipName, isTBN, isHistoric);
+    const shipAtlasResult = await validateShipAtlas(slug, cruiseLine, shipName, preliminaryScore, isTBN, isHistoric);
+
     // Collect errors
     results.blocking_errors.push(
       ...analyticsResult.errors,
@@ -1747,7 +1983,8 @@ async function validateShipPage(filepath) {
       ...logbookResult.errors, ...videoResult.errors, ...articlesResult.errors,
       ...htmlStructureResult.errors, ...viewportResult.errors,
       ...contentPurityResult.errors, ...shipStatsResult.errors,
-      ...diningResult.errors, ...wordCountResult.errors
+      ...diningResult.errors, ...wordCountResult.errors,
+      ...searchIndexResult.errors, ...shipAtlasResult.errors
     );
 
     // Collect warnings
@@ -1761,7 +1998,8 @@ async function validateShipPage(filepath) {
       ...logbookResult.warnings, ...videoResult.warnings, ...articlesResult.warnings,
       ...htmlStructureResult.warnings, ...viewportResult.warnings,
       ...contentPurityResult.warnings, ...shipStatsResult.warnings,
-      ...diningResult.warnings, ...wordCountResult.warnings
+      ...diningResult.warnings, ...wordCountResult.warnings,
+      ...searchIndexResult.warnings, ...shipAtlasResult.warnings
     );
 
     // Calculate score
@@ -1787,6 +2025,10 @@ async function validateShipPage(filepath) {
     results.content_purity = contentPurityResult.data;
     results.word_counts = wordCountResult.data;
     results.inline_json = { stats: shipStatsResult.data, dining: diningResult.data };
+    results.discoverability = {
+      search_index: searchIndexResult.data,
+      ship_atlas: shipAtlasResult.data
+    };
 
   } catch (error) {
     results.blocking_errors.push({ section: 'parse', rule: 'file_read', message: `Failed to parse: ${error.message}`, severity: 'BLOCKING' });

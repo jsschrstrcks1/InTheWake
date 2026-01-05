@@ -156,65 +156,18 @@
     }
     @media (max-width: 600px) {
       .cruise-line-selector {
-        display: none;
+        /* Show pills on mobile too - they wrap nicely */
+        display: flex;
+        padding: 0.75rem;
+        gap: 0.4rem;
+      }
+      .line-pill {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
+        min-height: 40px;
       }
       .line-selector-mobile {
-        display: block;
-        margin-bottom: 1.5rem;
-      }
-      .line-selector-trigger {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        padding: 1rem;
-        background: var(--sky);
-        border: 2px solid var(--rope);
-        border-radius: 14px;
-        font-weight: 600;
-        cursor: pointer;
-      }
-      .line-selector-trigger .current-line {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-      .line-selector-dropdown {
-        display: none;
-        position: absolute;
-        left: 0;
-        right: 0;
-        background: #fff;
-        border: 2px solid var(--rope);
-        border-radius: 14px;
-        margin-top: 0.5rem;
-        padding: 0.5rem;
-        z-index: 100;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-      }
-      .line-selector-dropdown.open {
-        display: block;
-      }
-      .line-selector-dropdown .line-option {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 1rem;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background 0.2s;
-      }
-      .line-selector-dropdown .line-option:hover {
-        background: var(--foam);
-      }
-      .line-selector-dropdown .line-option.active {
-        background: var(--foam);
-        font-weight: 600;
-      }
-      .line-selector-dropdown .escape-rope {
-        border-top: 1px solid var(--rope);
-        margin-top: 0.5rem;
-        padding-top: 0.5rem;
+        display: none; /* Hide old dropdown - using pills on mobile now */
       }
     }
 
@@ -1608,11 +1561,36 @@
     let quizData = null;
     let currentQuestion = 0;
     let answers = {};
-    let selectedLine = 'all';
+    let selectedLines = ['all']; // Array for multi-select
     let resultsLimit = 3;
     let allResultsCache = []; // Cache for adjusting limit without recalculating
     let compareShips = []; // Ships in comparison tray (max 5)
     const MAX_COMPARE = 5;
+
+    // Auto-detect user's region from timezone
+    function detectUserRegion() {
+      try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        // Australia/Pacific
+        if (tz.startsWith('Australia/') || tz.startsWith('Pacific/Auckland') ||
+            tz.startsWith('Pacific/Fiji') || tz.startsWith('Pacific/Port_Moresby')) {
+          return 'australia';
+        }
+        // Asia
+        if (tz.startsWith('Asia/')) {
+          return 'asia';
+        }
+        // Europe
+        if (tz.startsWith('Europe/') || tz === 'Atlantic/Reykjavik' ||
+            tz.startsWith('Africa/') && (tz.includes('Casablanca') || tz.includes('Algiers'))) {
+          return 'europe';
+        }
+        // Default: North America
+        return 'north_america';
+      } catch (e) {
+        return 'north_america';
+      }
+    }
 
     // Dress code display mapping
     const dressCodeLabels = {
@@ -1708,6 +1686,21 @@
         gridClass: 'three-col'
       },
       {
+        id: 'home_region',
+        question: "Where would you like to sail from?",
+        subtitle: "We'll prioritize cruise lines in your area",
+        options: [
+          { value: 'north_america', label: 'North America', icon: '🌎', desc: 'Caribbean, Alaska, US ports' },
+          { value: 'europe', label: 'UK & Europe', icon: '🌍', desc: 'Mediterranean, Northern Europe' },
+          { value: 'australia', label: 'Australia & Pacific', icon: '🌏', desc: 'Down Under, NZ, South Pacific' },
+          { value: 'asia', label: 'Asia', icon: '🗾', desc: 'Singapore, Japan, Southeast Asia' },
+          { value: 'flexible', label: "I'll Travel to Embark", icon: '✈️', desc: 'Show me everything' }
+        ],
+        gridClass: 'three-col',
+        optional: true,
+        autoDetect: true
+      },
+      {
         id: 'cruise_experience',
         question: "How much have you cruised?",
         subtitle: "No wrong answer here!",
@@ -1717,6 +1710,18 @@
           { value: 'seasoned', label: 'Seasoned Sailor', icon: '🧭', desc: 'Lost count of my sailings' }
         ],
         gridClass: 'three-col'
+      },
+      {
+        id: 'dress_code',
+        question: "How do you feel about dressing up?",
+        subtitle: "Cruise lines vary from formal nights to barefoot casual",
+        options: [
+          { value: 'formal', label: 'Love Formal Nights', icon: '👔', desc: 'Tuxedos, gowns, elegant evenings' },
+          { value: 'smart', label: 'Smart Casual', icon: '👗', desc: 'Dress up sometimes, not every night' },
+          { value: 'casual', label: 'Resort Casual', icon: '🌴', desc: 'Nice but comfortable' },
+          { value: 'relaxed', label: 'As Relaxed as Possible', icon: '🩴', desc: 'Shorts and flip-flops' }
+        ],
+        gridClass: 'two-col'
       },
       {
         id: 'energy_level',
@@ -1752,6 +1757,20 @@
         gridClass: 'three-col'
       },
       {
+        id: 'destination',
+        question: "What destinations interest you most?",
+        subtitle: "Some ships specialize in certain regions",
+        options: [
+          { value: 'caribbean', label: 'Caribbean', icon: '🏝️', desc: 'Beaches, warmth, relaxation' },
+          { value: 'alaska', label: 'Alaska/Scenic', icon: '🏔️', desc: 'Glaciers, wildlife, nature' },
+          { value: 'hawaii', label: 'Hawaii', icon: '🌺', desc: 'Islands, culture, volcanoes' },
+          { value: 'mediterranean', label: 'Mediterranean', icon: '🏛️', desc: 'History, culture, cuisine' },
+          { value: 'expedition', label: 'Expedition/Remote', icon: '🧭', desc: 'Off-the-beaten-path adventure' },
+          { value: 'flexible', label: 'Flexible', icon: '🌍', desc: 'Open to anywhere' }
+        ],
+        gridClass: 'three-col'
+      },
+      {
         id: 'sailing_length',
         question: "How long do you want to sail?",
         subtitle: "Trip duration preference",
@@ -1772,6 +1791,18 @@
           { value: 'premium', label: 'Go Premium', icon: '✨', desc: 'The best experience matters most' }
         ],
         gridClass: 'three-col'
+      },
+      {
+        id: 'ship_age',
+        question: "How important is a brand-new ship?",
+        subtitle: "Newer isn't always better—older ships have charm and value",
+        options: [
+          { value: 'newest', label: 'Must Be Newest', icon: '✨', desc: 'Flagship experience only' },
+          { value: 'modern', label: 'Prefer Modern', icon: '🆕', desc: 'Last 10 years is fine' },
+          { value: 'classic', label: 'Classic Is Fine', icon: '⚓', desc: 'Proven reliability, good value' },
+          { value: 'dont_care', label: "Don't Care", icon: '🤷', desc: 'Whatever fits my needs' }
+        ],
+        gridClass: 'two-col'
       },
       {
         id: 'must_have',
@@ -1839,56 +1870,54 @@
       }
     }
 
-    // Setup cruise line selector
+    // Setup cruise line selector (multi-select)
     function setupLineSelector() {
-      // Desktop pills
-      document.querySelectorAll('.cruise-line-selector .line-pill').forEach(pill => {
+      const pills = document.querySelectorAll('.cruise-line-selector .line-pill');
+
+      pills.forEach(pill => {
         pill.addEventListener('click', () => {
-          document.querySelectorAll('.cruise-line-selector .line-pill').forEach(p => p.classList.remove('active'));
-          pill.classList.add('active');
-          selectedLine = pill.dataset.line;
-          updateMobileSelector();
-        });
-      });
+          const line = pill.dataset.line;
 
-      // Mobile dropdown
-      const trigger = document.getElementById('mobileSelectorTrigger');
-      const dropdown = document.getElementById('mobileDropdown');
-
-      trigger.addEventListener('click', () => {
-        dropdown.classList.toggle('open');
-      });
-
-      document.querySelectorAll('#mobileDropdown .line-option').forEach(opt => {
-        opt.addEventListener('click', () => {
-          if (opt.dataset.action === 'close') {
-            dropdown.classList.remove('open');
-            return;
+          if (line === 'all') {
+            // "All Lines" clicked - reset to all
+            selectedLines = ['all'];
+          } else {
+            // Individual line clicked - toggle it
+            if (selectedLines.includes('all')) {
+              // Was "all", now selecting specific line
+              selectedLines = [line];
+            } else if (selectedLines.includes(line)) {
+              // Deselect this line
+              selectedLines = selectedLines.filter(l => l !== line);
+              // If nothing selected, go back to "all"
+              if (selectedLines.length === 0) {
+                selectedLines = ['all'];
+              }
+            } else {
+              // Add this line
+              selectedLines.push(line);
+            }
           }
-          document.querySelectorAll('#mobileDropdown .line-option').forEach(o => o.classList.remove('active'));
-          opt.classList.add('active');
-          selectedLine = opt.dataset.line;
-          updateMobileSelector();
-          dropdown.classList.remove('open');
 
-          // Sync desktop pills
-          document.querySelectorAll('.cruise-line-selector .line-pill').forEach(p => {
-            p.classList.toggle('active', p.dataset.line === selectedLine);
-          });
+          // Update pill UI
+          updatePillUI();
         });
       });
+    }
 
-      // Close dropdown on outside click
-      document.addEventListener('click', (e) => {
-        if (!e.target.closest('.line-selector-mobile')) {
-          dropdown.classList.remove('open');
+    // Update pill visual state
+    function updatePillUI() {
+      document.querySelectorAll('.cruise-line-selector .line-pill').forEach(p => {
+        const line = p.dataset.line;
+        if (selectedLines.includes('all')) {
+          p.classList.toggle('active', line === 'all');
+        } else {
+          p.classList.toggle('active', selectedLines.includes(line));
         }
       });
     }
 
-    function updateMobileSelector() {
-      document.getElementById('currentLineName').textContent = lineNames[selectedLine];
-    }
+    // Mobile selector no longer used - pills work on all devices
 
     // Render a question
     function renderQuestion(index) {
@@ -1937,10 +1966,12 @@
       btnNext.addEventListener('click', () => {
         if (isLast) {
           showResults();
+          history.pushState({ results: true }, '', '#results');
         } else {
           currentQuestion++;
           renderQuestion(currentQuestion);
           updateProgress();
+          history.pushState({ question: currentQuestion, inQuiz: true }, '', `#q${currentQuestion + 1}`);
         }
       });
 
@@ -1949,6 +1980,7 @@
           currentQuestion--;
           renderQuestion(currentQuestion);
           updateProgress();
+          history.pushState({ question: currentQuestion, inQuiz: true }, '', `#q${currentQuestion + 1}`);
         }
       });
 
@@ -1958,6 +1990,17 @@
         if (prevSelected) {
           prevSelected.classList.add('selected');
           prevSelected.setAttribute('aria-pressed', 'true');
+          btnNext.disabled = false;
+        }
+      }
+      // Auto-detect and pre-select region for home_region question if no answer yet
+      else if (q.id === 'home_region' && q.autoDetect) {
+        const detectedRegion = detectUserRegion();
+        const regionCard = questionsContainer.querySelector(`[data-value="${detectedRegion}"]`);
+        if (regionCard) {
+          regionCard.classList.add('selected');
+          regionCard.setAttribute('aria-pressed', 'true');
+          answers[q.id] = detectedRegion;
           btnNext.disabled = false;
         }
       }
@@ -2043,6 +2086,83 @@
         }
       }
 
+      // Apply dress_code bonuses
+      const dressCode = answers.dress_code;
+      if (dressCode && quizData.dress_code_weights && quizData.dress_code_weights[line]) {
+        const dressWeights = quizData.dress_code_weights[line][dressCode];
+        if (dressWeights) {
+          for (const [className, weight] of Object.entries(dressWeights)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += weight;
+            }
+          }
+        }
+      }
+
+      // Apply regional availability penalties
+      const homeRegion = answers.home_region || detectUserRegion();
+      if (homeRegion && homeRegion !== 'flexible' && quizData.regional_availability) {
+        const availability = quizData.regional_availability[line]?.[homeRegion];
+        const penalties = {
+          'strong': 0,
+          'moderate': -5,
+          'limited': -15,
+          'rare': -25,
+          'none': -50
+        };
+        const penalty = penalties[availability] || 0;
+        // Apply penalty to ALL classes for this line
+        for (const className of Object.keys(classScores)) {
+          classScores[className] += penalty;
+        }
+      }
+
+      // Apply line-level editorial adjustments
+      // NCL: -7 across all classes (service quality, safety concerns)
+      if (line === 'ncl') {
+        for (const className of Object.keys(classScores)) {
+          classScores[className] -= 7;
+        }
+      }
+
+      // Apply destination bonuses
+      const destination = answers.destination;
+      if (destination && destination !== 'flexible' && quizData.destination_weights && quizData.destination_weights[line]) {
+        const destWeights = quizData.destination_weights[line][destination];
+        if (destWeights) {
+          for (const [className, weight] of Object.entries(destWeights)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += weight;
+            }
+          }
+        }
+      }
+
+      // Apply ship_age bonuses (favor older ships when user prefers classic)
+      const shipAge = answers.ship_age;
+      if (shipAge && shipAge !== 'dont_care' && quizData.ship_age_weights && quizData.ship_age_weights[line]) {
+        const ageWeights = quizData.ship_age_weights[line][shipAge];
+        if (ageWeights) {
+          for (const [className, weight] of Object.entries(ageWeights)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += weight;
+            }
+          }
+        }
+      }
+
+      // Reduce mega-ship dominance for low crowd tolerance or port-focused travelers
+      if ((answers.crowd_tolerance === 'low' || answers.ship_vs_ports === 'ports') && quizData.mega_ship_penalty) {
+        const penalty = quizData.mega_ship_penalty[line];
+        if (penalty) {
+          for (const [className, weight] of Object.entries(penalty)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += weight;
+            }
+          }
+        }
+      }
+
       return classScores;
     }
 
@@ -2117,13 +2237,13 @@
       const familyGroups = ['family_young', 'family_teens', 'multigen'];
       const isFamily = familyGroups.includes(answers.group_type);
 
-      let linesToScore = selectedLine === 'all'
+      let linesToScore = selectedLines.includes('all')
         ? Object.keys(quizData.scoring_weights)
-        : [selectedLine];
+        : selectedLines;
 
       // Exclude adults-only lines from family results when viewing all lines
       // (If user specifically selected an adults-only line, show warning instead)
-      if (isFamily && selectedLine === 'all') {
+      if (isFamily && selectedLines.includes('all')) {
         linesToScore = linesToScore.filter(line => !quizData.cruise_lines[line]?.adults_only);
       }
 
@@ -2321,9 +2441,9 @@
         `;
       }).join('');
 
-      // Show "You Might Also Like" if filtered to single line
-      if (selectedLine !== 'all') {
-        const otherLines = Object.keys(quizData.scoring_weights).filter(l => l !== selectedLine);
+      // Show "You Might Also Like" if filtered to specific lines (not all)
+      if (!selectedLines.includes('all')) {
+        const otherLines = Object.keys(quizData.scoring_weights).filter(l => !selectedLines.includes(l));
         const otherResults = [];
 
         for (const line of otherLines) {
@@ -2387,7 +2507,36 @@
       answers = {};
       renderQuestion(currentQuestion);
       updateProgress();
+      // Push initial state for back button support
+      history.pushState({ question: 0, inQuiz: true }, '', '#q1');
     }
+
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', (e) => {
+      if (e.state && e.state.inQuiz && typeof e.state.question === 'number') {
+        // Navigate to specific question
+        currentQuestion = e.state.question;
+        renderQuestion(currentQuestion);
+        updateProgress();
+        // Show questions, hide results
+        quizResults.classList.remove('active');
+        questionsContainer.classList.remove('hidden');
+      } else if (quizResults.classList.contains('active')) {
+        // On results page, back goes to last question
+        quizResults.classList.remove('active');
+        questionsContainer.classList.remove('hidden');
+        currentQuestion = questions.length - 1;
+        renderQuestion(currentQuestion);
+        updateProgress();
+        history.pushState({ question: currentQuestion, inQuiz: true }, '', `#q${currentQuestion + 1}`);
+      } else if (!quizIntro.classList.contains('hidden')) {
+        // Already at intro, let browser handle normally
+        return;
+      } else {
+        // Default: go back to intro
+        restartQuiz();
+      }
+    });
 
     // Restart quiz
     function restartQuiz() {
@@ -2670,7 +2819,7 @@
     let currentClassName = '';
 
     function generateShareURL() {
-      const data = { answers, line: selectedLine };
+      const data = { answers, lines: selectedLines };
       const encoded = btoa(JSON.stringify(data));
       return `${window.location.origin}${window.location.pathname}?r=${encoded}`;
     }
@@ -2680,24 +2829,23 @@
       const encoded = params.get('r');
       const lineParam = params.get('line');
 
+      // Legacy: single line param
       if (lineParam && Object.keys(lineNames).includes(lineParam)) {
-        selectedLine = lineParam;
-        document.querySelectorAll('.cruise-line-selector .line-pill').forEach(p => {
-          p.classList.toggle('active', p.dataset.line === selectedLine);
-        });
-        updateMobileSelector();
+        selectedLines = [lineParam];
+        updatePillUI();
       }
 
       if (encoded) {
         try {
           const data = JSON.parse(atob(encoded));
           answers = data.answers || {};
-          if (data.line) {
-            selectedLine = data.line;
-            document.querySelectorAll('.cruise-line-selector .line-pill').forEach(p => {
-              p.classList.toggle('active', p.dataset.line === selectedLine);
-            });
-            updateMobileSelector();
+          // Support both old 'line' and new 'lines' format
+          if (data.lines) {
+            selectedLines = data.lines;
+            updatePillUI();
+          } else if (data.line) {
+            selectedLines = [data.line];
+            updatePillUI();
           }
           return true;
         } catch (e) {

@@ -30,6 +30,9 @@ All work on this project is offered as a gift to God.
   gtag('js', new Date());
   gtag('config', 'G-WZP891PZXJ');
 </script>
+
+  <!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
@@ -127,6 +130,55 @@ All work on this project is offered as a gift to God.
 
   <!-- JSON-LD: Review -->
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"MSC World Europa","brand":{"@type":"Organization","name":"MSC Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5},"reviewBody":"MSC World Europa from MSC Cruises offers memorable cruise experiences with excellent amenities and service."}</script>
+  <!-- JSON-LD: FAQPage (ICP-Lite) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What dining options are available on MSC World Europa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MSC World Europa offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I find the deck plans for MSC World Europa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Deck plans are available through the links on this page. You can also find official deck plans on the MSC Cruises website or in the cruise planner app."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where does MSC World Europa sail?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ship deployments vary by season. Check the MSC Cruises website for current itineraries and departure ports for MSC World Europa."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I track MSC World Europa's current location?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the live ship tracker section on this page to see the ship's current position, speed, and next port in real-time when available."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this information official?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This page provides planning resources and community insights. Always confirm details with MSC Cruises or your travel advisor before booking."
+        }
+      }
+    ]
+  }
+  </script>
 
   <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
@@ -139,7 +191,7 @@ All work on this project is offered as a gift to God.
   }
   </script>
 </head>
-<body class="page">
+<body class="page" data-imo="9837582">
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <header class="hero-header">
@@ -163,6 +215,7 @@ All work on this project is offered as a gift to God.
             <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
             <a href="/restaurants.html">Restaurants &amp; Menus</a>
             <a href="/ports.html">Ports</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
             <a href="/drink-packages.html">Drink Packages</a>
             <a href="/drink-calculator.html">Drink Calculator</a>
             <a href="/stateroom-check.html">Stateroom Check</a>
@@ -229,9 +282,67 @@ All work on this project is offered as a gift to God.
 
     <!-- First Look Section -->
     <section class="card" aria-labelledby="first-look">
-      <h2 id="first-look">A First Look at MSC World Europa</h2>
-      <p>MSC World Europa offers a memorable cruise experience with MSC Cruises. This ship features modern amenities, diverse dining options, and entertainment for all ages.</p>
-      <p>Explore the deck plans below to familiarize yourself with the ship's layout, or check out the dining section to see available restaurants and venues.</p>
+      <h2 id="first-look">First Look: MSC World Europa</h2>
+      <div class="swiper firstlook" aria-label="MSC World Europa photo gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/msc-world-europa_01.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MSC World Europa exterior showing the groundbreaking World Class design with Y-shaped aft" loading="lazy">
+              <figcaption class="tiny">MSC World Europa - the revolutionary World Class flagship</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/msc-world-europa_02.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="The Promenade outdoor area with the world's longest LED Dome at sea" loading="lazy">
+              <figcaption class="tiny">The Promenade with the spectacular LED Dome</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/msc-world-europa_03.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="The Europa Grand Canyon area with 11-deck central atrium" loading="lazy">
+              <figcaption class="tiny">Europa Grand Canyon - soaring 11-deck atrium</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/msc-world-europa_04.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MSC Yacht Club exclusive suite area" loading="lazy">
+              <figcaption class="tiny">MSC Yacht Club exclusive luxury experience</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/msc-world-europa_05.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Luna Park indoor amusement park" loading="lazy">
+              <figcaption class="tiny">Luna Park indoor amusement park</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/msc-world-europa_06.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Helios Pool area on the top deck" loading="lazy">
+              <figcaption class="tiny">Helios Pool deck</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/msc-world-europa_07.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Specialty restaurant dining venue" loading="lazy">
+              <figcaption class="tiny">World-class specialty dining</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/msc-world-europa_08.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Balcony stateroom with modern design" loading="lazy">
+              <figcaption class="tiny">Modern balcony stateroom</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
+      </div>
+      <div style="margin-top: 1.5rem;">
+        <p>MSC World Europa is the revolutionary flagship of MSC Cruises' World Class, debuting in 2022. At 215,863 gross tons and accommodating over 6,700 guests, she introduced groundbreaking design innovations that redefined cruise ship architecture. The ship features a distinctive Y-shaped aft that creates sweeping sea views and houses the dramatic 11-deck Europa Grand Canyon atrium.</p>
+        <p>The ship showcases The Promenade, an outdoor destination featuring the world's longest LED Dome at sea, spanning 104 meters and creating immersive visual experiences. Entertainment highlights include Luna Park, a dedicated indoor amusement area, and the Cliffhanger over-water swing ride. MSC World Europa offers 13 dining venues including specialty restaurants from celebrity chefs.</p>
+        <p>MSC Yacht Club provides an exclusive ship-within-a-ship experience with private pools, restaurants, and butler service. The ship is also notable for being MSC's first LNG-powered vessel, representing the cruise line's commitment to environmental innovation. With seven pools, six waterslides, and extensive family areas, MSC World Europa delivers experiences for every type of cruiser.</p>
+      </div>
     </section>
     <p class="subtitle">MSC Cruises &bull; World Class</p>
 
@@ -274,8 +385,13 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 
-    <!-- Stub Notice -->
-    
+    <!-- Dining Section -->
+    <section class="card" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on MSC World Europa</h2>
+      <p>Dining venue information coming soon. MSC Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
+    </section>
+    <script type="application/json" id="dining-data-source">{"provider":"msc","json":"/assets/data/venues-v2.json","ship_slug":"msc-world-europa","aliases":["MSC World Europa"]}</script>
+
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: MSC World Europa</h2>
@@ -349,13 +465,7 @@ All work on this project is offered as a gift to God.
 
     
 
-    <!-- Placeholder sections -->
-    <section class="card" aria-labelledby="diningHeading">
-      <h2 id="diningHeading">Dining on MSC World Europa</h2>
-      <p>Dining venue information coming soon. MSC Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
-    </section>
-<script type="application/json" id="dining-data-source">{"provider":"msc","json":"/assets/data/venues-v2.json","ship_slug":"msc-world-europa","aliases":["MSC World Europa"]}</script>
-        <script type="application/json" id="ship-stats-fallback">{"slug":"msc-world-europa","name":"MSC World Europa","cruise_line":"MSC Cruises","class":"World Class","entered_service":2022,"gt":"205,700 GT","guests":"6,762","crew":"2,138"}</script>
+<script type="application/json" id="ship-stats-fallback">{"slug":"msc-world-europa","name":"MSC World Europa","cruise_line":"MSC Cruises","class":"World Class","entered_service":2022,"gt":"205,700 GT","guests":"6,762","crew":"2,138"}</script>
 
     <section class="card" aria-labelledby="entertainmentHeading">
       <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>

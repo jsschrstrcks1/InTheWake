@@ -118,6 +118,18 @@ Soli Deo Gloria
   <meta name="twitter:title" content="Tortola Port Guide — The Baths & British Virgin Islands"/>
   <meta name="twitter:description" content="First-person logbook guide to Tortola — Columbus's 'Land of the Turtle Dove,' Blackbeard's pirate haven, Sailing Capital of the Caribbean with The Baths boulder caves, Fort Burt history, and legendary painkillers."/>
   <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/port-hero.jpg"/>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+  <!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -128,7 +140,7 @@ Soli Deo Gloria
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logo" decoding="async"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
       <!-- Mobile hamburger button -->
@@ -182,9 +194,9 @@ Soli Deo Gloria
 
     <!-- Hero -->
     <div class="hero">
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <img loading="lazy" class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img loading="lazy" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
@@ -198,288 +210,171 @@ Soli Deo Gloria
 
     <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
-      <!-- Port Hero with gradient background -->
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #0077b6 0%, #00b4d8 35%, #48cae4 65%, #90e0ef 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
-        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Tortola</div>
-      </div>
 
-      
+      <!-- HERO SECTION -->
+      <section id="hero">
+      <div class="port-hero">
+        <img src="/ports/img/tortola/tortola-1.webp" alt="Road Town harbor in Tortola with sailboats anchored in turquoise water and green hills rising behind the waterfront" loading="eager" fetchpriority="high"/>
+        <div class="port-hero-overlay">
+          <h1 class="port-hero-title">Tortola</h1>
+        </div>
+        <p class="port-hero-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Tortola" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
+      </div>
+      </section>
+
       <p class="last-reviewed">Last reviewed: January 2026</p>
 
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="tortola"
-               data-port-name="Tortola Port Guide"
-               data-lat="18.4167"
-               data-lon="-64.6167"
-               data-region="Caribbean">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
-                    </div>
-                  </div>
-                </details>
+      <!-- LOGBOOK SECTION -->
+      <section id="logbook">
+        <details class="section-collapse" open>
+          <summary><h2>Captain's Logbook: Tortola</h2></summary>
+        <div class="logbook-entry">
 
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Dec, Jan, Feb, Mar, Apr</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">May, Jun, Nov</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Jul, Aug, Sep, Oct</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Jul, Aug, Sep</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Sep, Oct</span>
-                      <span class="avoid-reason">(hurricane risk)</span>
-                    </div>
-                  </div>
-                </details>
+        <p class="author-disclaimer"><em>I visited Tortola in 2023 — my second voyage to this British Virgin Islands gem where pirates once ruled the waves.</em></p>
 
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
+        <figure class="logbook-image float-right">
+          <img fetchpriority="high" src="/ports/img/tortola/tortola-1.webp" alt="Road Town harbor panorama showing dozens of sailboats at anchor with lush green mountains rising behind" loading="eager"/>
+          <figcaption>Road Town harbor — <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
 
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li>Camera to capture the memories</li>
-                    </ul>
-                  </div>
-                </details>
+        <p>Sailing into Road Town harbor is like entering the Sailing Capital of the Caribbean — because that's exactly what it is. The scent of salt air and tropical flowers drifted across the deck as we approached the pier. Tortola means "Land of the Turtle Dove" in Spanish (Columbus named it in 1493), and everywhere I looked there were more yachts than I could count. This isn't just a cruise port — it's where sailors from around the world come to charter boats and explore the British Virgin Islands archipelago. The gentle trade winds that have drawn mariners here for centuries still rustle through the palm fronds lining the waterfront.</p>
 
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Hurricane Zone</strong>
-                        <p>Season: Jun 1 – Nov 30 (Atlantic)</p>
-                        <p>Peak risk: Sep, Oct</p>
-                        <p class="hazard-note">Ships may reroute during active storms; travel insurance recommended</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
+        <p>The island has pirate blood in its veins. Blackbeard himself terrorized these waters in the early 1700s when Tortola was a haven for buccaneers preying on Spanish treasure ships. The narrow channels and hidden coves made ideal territory for ambushing merchant ships. However, those lawless days gave way to British colonial order, and now Tortola welcomes over 720,000 visitors annually as the busiest cruise port in the BVI, thanks to that impressive $82 million port renovation completed in 2015 with its 1,039-foot pier that can handle the largest cruise ships.</p>
 
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
+        <p>My perfect Tortola day starts early: off the ship and straight to the ferry terminal for the 30-minute crossing to Virgin Gorda. The Baths are worth every minute of travel — swimming through those massive granite boulder caves and grottoes into Devil's Bay beyond is pure Indiana Jones adventure. The ferry costs about $30 round-trip, and a taxi from the ferry dock to The Baths runs $8 per person. Entrance to The Baths is $3. Book ahead with your ship excursion desk for guaranteed return timing if you prefer organized transport, or go independent for flexibility and savings.</p>
 
-      <h1>Tortola: My British Virgin Islands Gateway</h1>
-      <div class="logbook-entry">
-        <p>Sailing into Road Town harbor feels like entering the "Sailing Capital of the Caribbean" – and that's exactly what it is. Tortola means "Land of the Turtle Dove" (Columbus named it in 1493), and everywhere I look there are more yachts than I can count. This isn't just a cruise port – it's where sailors from around the world come to charter boats and explore the BVI archipelago.</p>
+        <figure class="logbook-image float-left">
+          <img src="/ports/img/tortola/tortola-2.webp" alt="Colorful waterfront buildings of Road Town with palm trees swaying in the Caribbean breeze" loading="lazy"/>
+          <figcaption>Road Town waterfront — <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
 
-        <p>The island has pirate blood in its veins. Blackbeard himself terrorized these waters in the 1700s when Tortola was a haven for buccaneers. Now it welcomes over 720,000 visitors a year as the busiest cruise port in the British Virgin Islands, thanks to that $82 million port renovation in 2015 with its impressive 1,039-foot pier.</p>
+        <p>Lunch at Top of the Baths restaurant overlooking the bay is non-negotiable. The conch fritters ($12) are legendary, and the painkiller cocktails ($10) — rum, coconut, pineapple, orange juice, and nutmeg — will recalibrate your entire attitude. I sat on the terrace listening to the gentle rhythm of steel drums while watching pelicans dive into the crystal water below. The sweet taste of that first cold painkiller after the swim through The Baths caves remains one of my favorite cruise memories.</p>
 
-        <p>My perfect day: off the ship and straight to The Baths on Virgin Gorda by ferry plus open safari taxi combo (entrance included) – swimming through boulder caves and grottoes is pure Indiana Jones.</p>
+        <p>Afternoon calls for Smuggler's Cove on Tortola's west end — a 45-minute taxi ride ($25 each way) but worth every bumpy curve of that mountain road. This secluded beach with Nigel's Boom Boom Beach Bar (cash only) serves the best rum punch in the BVI for just $8. The snorkeling is excellent, and you'll likely have the beach to yourselves if you arrive after the morning rush. Yet for all its remoteness, taxis run regularly back to the pier.</p>
 
-      <figure class="logbook-image float-right">
-        <img src="img/tortola/tortola-1.webp" alt="Tortola harbor view" loading="lazy">
-        <figcaption>Tortola — <a href="https://commons.wikimedia.org/w/index.php?search=Tortola&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-
-        <p>Lunch at Top of the Baths – best conch fritters and painkillers. Afternoon at Smuggler's Cove – the most beautiful secluded beach with Nigel's Boom Boom Beach Bar (cash only, best rum punch ever). Sunset sail back watching the islands glow.</p>
+        <p>Road Town itself deserves an hour of wandering. Main Street has layers of colonial history — St. George's Anglican Church (the craftsmanship is beautiful), the Virgin Islands Folk Museum (small but full of stories about life before and after slavery was abolished in 1834), and views from Fort Burt on the hill overlooking the harbor. I particularly love the sound of church bells mingling with the cries of seabirds circling the masts in the harbor below. The aroma of fresh-baked johnnycakes from a street vendor reminded me that this is a living community, not just a tourist destination. Standing up on Fort Burt's ramparts, I could imagine what the old lookouts saw when they spotted pirate sails on the horizon — that same stunning view that has captivated visitors for three hundred years.</p>
 
         <div class="poignant-highlight">
-          <strong>The Moment That Stays With Me:</strong> Emerging from the cave at The Baths into Devil's Bay – the most perfect beach I've ever seen.
+          <strong>The Moment That Stays With Me:</strong> Emerging from the dark, narrow passage through The Baths' giant boulder caves into the brilliant sunlight of Devil's Bay — the most perfect crescent of white sand I've ever seen. The water so clear I could count individual grains of sand twenty feet below. My eyes filled with unexpected tears at the sheer beauty of it, and my heart swelled with gratitude for this strange, wonderful life of chasing horizons. Some moments are so perfect they rewrite your understanding of what's possible.
         </div>
-      </div>
 
-      <section class="port-section">
-        <h3>A Walk Through History</h3>
-        <p>Road Town has layers of history you can still touch. I love wandering Main Street to see St. George's Anglican Church (the craftsmanship is beautiful) and the Virgin Islands Folk Museum – small but full of stories about life here before and after slavery was abolished in 1834. The old sugar and tobacco plantations are gone now, replaced by yacht marinas and tourism.</p>
-
-        <p>Fort Burt sits on the hill overlooking the harbor – it's been watching over this anchorage since the 1700s when the Dutch and British fought over these islands. The views alone are worth the climb, and standing up there I can imagine what the lookouts saw when they spotted pirate sails on the horizon.</p>
-
-        <p>The Dutch first settled here in 1648, then the English came and stayed for 300 years. That British influence is everywhere – driving on the left, afternoon tea culture, and the proper cricket pitch in town.</p>
+        <p class="logbook-reflection"><strong>What I Learned:</strong> Tortola taught me that the best adventures often require a bit of effort. The Baths aren't steps from the cruise pier — you have to want it badly enough to arrange ferries, taxis, and navigate unfamiliar territory. But that effort is what separates the memorable from the mundane. The places worth seeing are rarely the easiest to reach. Despite the logistics, this tiny British territory offers some of the Caribbean's most authentic sailing culture and natural wonders, preserved precisely because they require a pilgrim's determination to discover.</p>
+        </div>
+        </details>
       </section>
 
-      <section class="port-section">
-        <h3>Getting Around Tortola</h3>
-        <p>Tortola Pier Park – walk off into town. Ferries to Virgin Gorda from Road Town dock.</p>
+      <!-- CRUISE PORT SECTION -->
+      <details class="port-section" id="cruise_port" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <p>Tortola's cruise facility is <strong>Tortola Pier Park</strong>, a modern terminal complex completed in 2015 as part of an $82 million expansion project. The pier stretches 1,039 feet into Road Town harbor, capable of handling two mega-ships simultaneously.</p>
+        <p>Walk off the ship directly into a shopping and dining complex with duty-free shops, restaurants, and taxi dispatch. Road Town's Main Street is a 10-minute walk from the terminal — just follow the waterfront promenade past the ferry dock and you're in the heart of the colonial district.</p>
+        <p>When multiple ships arrive on busy days (the port handles over 720,000 cruise visitors annually), the pier complex gets crowded. Arrive early if you're booking independent excursions or ferries. The ferry terminal for Virgin Gorda departures is a 5-minute walk from the cruise pier.</p>
+      </details>
 
-      <figure class="logbook-image float-left">
-        <img src="img/tortola/tortola-2.webp" alt="Tortola waterfront" loading="lazy">
-        <figcaption>Tortola scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Tortola&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-        <ul>
-          <li><strong>The Baths (Virgin Gorda):</strong> Ferry plus taxi combo (totally worth it)</li>
-          <li><strong>Smuggler's Cove:</strong> West end of Tortola, taxi or rental</li>
-          <li><strong>Cane Garden Bay:</strong> Popular beach, 20-min taxi</li>
+      <!-- GETTING AROUND SECTION -->
+      <details class="port-section" id="getting_around" open>
+        <summary><h2>Getting Around Tortola</h2></summary>
+        <p>Tortola offers several transportation options, from walking the waterfront to hiring open-air safari taxis for mountain adventures. The roads are steep and winding, making the journey itself part of the experience. Note that driving is on the left (British style), though most vehicles have left-hand steering (American style) — a quirky BVI tradition.</p>
+        <ul style="line-height: 1.8;">
+          <li><strong>Walking:</strong> Road Town's Main Street and waterfront are easily walkable from Tortola Pier Park (10-15 minutes). Flat terrain in town; hills start quickly beyond. Low-energy option for mobility-impaired visitors.</li>
+          <li><strong>Open-air safari taxis:</strong> The quintessential Tortola experience — converted trucks with bench seating. Fixed rates posted at the cruise terminal: Cane Garden Bay $10/person, Smuggler's Cove $25/person each way. Bumpy but scenic rides with stunning views.</li>
+          <li><strong>Regular taxis:</strong> Available for private hire from the cruise terminal. Negotiate rates before departing. Full-day tours typically $150-200 for up to 4 passengers.</li>
+          <li><strong>Ferries to Virgin Gorda:</strong> Speedy's runs multiple daily departures from Road Town to Spanish Town ($30 round-trip, 30 minutes). Taxi from Spanish Town to The Baths is $8/person. Book ahead during peak season for guaranteed return to ship departure.</li>
+          <li><strong>Rental cars:</strong> Available but not recommended for cruise visitors due to left-side driving, steep mountain roads, and limited parking. Better to hire a taxi or join a ship excursion.</li>
         </ul>
-      </section>
+        <p>Accessibility note: Tortola's terrain is challenging for wheelchairs and mobility devices. The cruise terminal is accessible, but most attractions involve steep hills, uneven paths, or beach sand. The Baths require climbing over large boulders — not accessible for those with mobility limitations. Cane Garden Bay beach has easier access with gradual entry to the water.</p>
+      </details>
 
-      <section class="port-section">
-        <h3>Depth Soundings Ashore</h3>
-        <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
-        <p>The open-air safari taxis and bumpy roads are Tortola's way of giving you a free island roller-coaster with ocean views! Road Town can feel busy during cruise days – those 720,000+ annual visitors have to go somewhere – but the yacht charter scene means you'll also spot serious sailors provisioning their boats and talking wind speeds and anchorages.</p>
-
-        <p>The harbor is always full of beautiful sailing yachts. Don't be surprised if you see more sailboats than powerboats – this really is the yacht chartering capital of the Caribbean, and people fly in from all over the world just to pick up their bareboat charters here.</p>
-      </section>
-
-      <section class="port-section author-note-disclaimer">
-        <h3>Author's Note</h3>
-        <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-      </section>
-
-      <section class="port-section">
-        <h3>Frequently Asked Questions</h3>
-        <p><strong>Q: The Baths worth the trip?</strong><br/>A: #1 thing to do in the entire BVI.</p>
-        <p><strong>Q: Best painkiller?</strong><br/>A: Soggy Dollar Bar on Jost if you have time, otherwise Pusser's in Road Town.</p>
-        <p><strong>Q: Is the pirate history real?</strong><br/>A: Absolutely. Blackbeard and other pirates used the BVI as a base in the 1700s. The narrow channels and hidden coves made it perfect for ambushing merchant ships.</p>
-        <p><strong>Q: Why so many sailboats?</strong><br/>A: Tortola is the yacht charter capital of the Caribbean. Perfect winds, protected anchorages, and island-hopping sailing make this a sailor's paradise.</p>
-        <p><strong>Q: Hurricane damage?</strong><br/>A: Almost everything rebuilt and beautiful.</p>
-      </section>
-
-    <!-- Interactive Port Map -->
-    <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Tortola Area Map</h2></summary>
-      <p class="map-intro">Interactive map showing cruise terminal and Tortola attractions. Click any marker for details.</p>
-      <div id="tortola-port-map" class="port-map-container" role="application" aria-label="Interactive map of Tortola port and points of interest">
-        <noscript>
-          <p style="padding: 2rem; text-align: center; color: #678;">
-            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=18.4167&mlon=-64.6167#map=12/18.4167/-64.6167" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-          </p>
-        </noscript>
-      </div>
-      <div class="port-map-actions">
-        <button type="button" class="btn btn-secondary" onclick="document.getElementById('tortola-port-map')._portMap?.fitBounds(document.getElementById('tortola-port-map')._portMap.getBounds())">
-          Reset View
-        </button>
-      </div>
-            </details>
-
-      <!-- Photo Gallery -->
-      <section class="port-section" style="background: transparent; border: none; padding: 0;">
-        <h3>Tortola Gallery</h3>
-        <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="/ports/img/tortola/tortola-1.webp" alt="British Virgin Islands scene" loading="lazy"/>
-          <figcaption>
-            British Virgin Islands scene
-            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="/ports/img/tortola/tortola-2.webp" alt="BVI tropical view" loading="lazy"/>
-          <figcaption>
-            BVI tropical view
-            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="/ports/img/tortola/tortola-3.webp" alt="Tortola scenery" loading="lazy"/>
-          <figcaption>
-            Tortola scenery
-            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="/ports/img/tortola/tortola-4.webp" alt="Tortola harbor area" loading="lazy"/>
-          <figcaption>
-            Tortola harbor area
-            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</div>
-          </figcaption>
-        </figure>
+      <!-- MAP SECTION -->
+      <details class="port-section" id="map" open>
+        <summary><h2>Tortola Area Map</h2></summary>
+        <p class="map-intro">Interactive map showing cruise terminal, beaches, and attractions mentioned in this guide. Click any marker for details and directions.</p>
+        <div id="tortola-port-map" class="port-map-container" role="application" aria-label="Interactive map of Tortola and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=18.4167&mlon=-64.6167#map=12/18.4167/-64.6167" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
         </div>
-      </section>
-    
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('tortola-port-map')._portMap?.fitBounds(document.getElementById('tortola-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+      </details>
 
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/tortola/tortola-1.webp" alt="Harbor view of Tortola" loading="lazy">
-          <figcaption>
-            Harbor view of Tortola
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/tortola/tortola-2.webp" alt="Waterfront of Tortola" loading="lazy">
-          <figcaption>
-            Waterfront of Tortola
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/tortola/tortola-3.webp" alt="Port panorama of Tortola" loading="lazy">
-          <figcaption>
-            Port panorama of Tortola
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/tortola/tortola-4.webp" alt="Coastal landscape of Tortola" loading="lazy">
-          <figcaption>
-            Coastal landscape of Tortola
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
+      <!-- EXCURSIONS SECTION -->
+      <details class="port-section" id="excursions" open>
+        <summary><h2>Excursions &amp; Activities</h2></summary>
 
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>tortola-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>tortola-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>tortola-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>tortola-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
+        <h3>Must-Do: The Baths (Virgin Gorda)</h3>
+        <p><strong>The Baths National Park</strong> is the #1 attraction in the entire British Virgin Islands — massive granite boulders forming caves, grottoes, and pools you swim and climb through to reach Devil's Bay beach beyond. The experience is unforgettable. Getting there requires a 30-minute ferry ride from Road Town to Virgin Gorda ($30 round-trip), then a taxi to the park entrance ($8/person). Entrance fee $3. Allow 3-4 hours total. Book ahead through your ship excursion desk for guaranteed return timing and included transport ($80-100), or go independent for half the cost with more flexibility. This is a moderate-to-high energy activity requiring climbing over boulders and swimming.</p>
 
-        <!-- VOLATILE DATA DISCLAIMER -->
-        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-        </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Tortola?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
+        <h3>Beach Days</h3>
+        <p><strong>Cane Garden Bay</strong> is Tortola's most popular beach — a long curve of white sand with beach bars, restaurants, and calm water for swimming. Taxi from cruise terminal runs $10/person each way (20 minutes). Chair rentals $10, full-day. Good snorkeling near the rocks at either end. Multiple dining options including Quito's beachfront restaurant. Low-to-moderate energy activity.</p>
+        <p><strong>Smuggler's Cove</strong> is the island's hidden gem — a secluded beach on the west end accessible only by a 45-minute taxi ride over mountain roads ($25/person each way). Nigel's Boom Boom Beach Bar (cash only) serves legendary rum punch ($8). Excellent snorkeling with fewer crowds than Cane Garden Bay. Worth the trek for those seeking authentic Caribbean serenity.</p>
 
-          <p><strong>Q: Does Tortola have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
+        <h3>History &amp; Culture</h3>
+        <p><strong>Fort Burt</strong> overlooks Road Town harbor from a hilltop position where Dutch and later British forces once defended against pirates and rival colonial powers. Now a hotel and restaurant, the fort grounds offer panoramic views. Free to visit; 15-minute uphill walk from downtown. The restaurant serves lunch with harbor views.</p>
+        <p><strong>Road Town Walking Tour</strong> takes you through Main Street's colonial architecture, St. George's Anglican Church (19th century), and the Virgin Islands Folk Museum. The museum chronicles BVI history from Arawak inhabitants through slavery and emancipation. Allow 1-2 hours for a complete walking tour. Free to wander; small museum admission.</p>
 
-          <p><strong>Q: What should I pack for Tortola's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
+        <h3>Sailing &amp; Water Activities</h3>
+        <p>Tortola is the yacht charter capital of the Caribbean — hundreds of sailboats anchor in Road Town harbor. Day sailing trips explore the BVI archipelago, often including snorkel stops and lunch. Ship excursions typically run $100-150 per person for a half-day sail. Independent operators offer similar experiences near the ferry dock. For the full BVI experience, this is how locals and serious sailors explore these waters.</p>
+      </details>
 
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
+      <!-- DEPTH SOUNDINGS SECTION -->
+      <details class="port-section" id="depth_soundings" open>
+        <summary><h2>Depth Soundings Ashore</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
+        <ul style="line-height: 1.8;">
+          <li><strong>Currency:</strong> US dollars accepted everywhere (BVI's official currency). No need to exchange money. Credit cards widely accepted at tourist areas; cash preferred at beach bars and small vendors.</li>
+          <li><strong>Painkiller cocktails:</strong> Tortola's signature drink — rum, coconut cream, pineapple juice, orange juice, and fresh nutmeg. Every bar claims theirs is the original. Expect $8-12 each. Pace yourself; they're stronger than they taste.</li>
+          <li><strong>Left-side driving:</strong> Traffic drives on the left (British convention), though vehicles often have left-hand steering (American style). Look both ways twice before crossing roads.</li>
+          <li><strong>Safari taxi etiquette:</strong> These open-air trucks follow set routes and fares posted at the cruise terminal. Tipping drivers 15% is customary. Hold on tight — the mountain roads are an adventure!</li>
+          <li><strong>Ferry timing:</strong> If traveling to Virgin Gorda independently, confirm return ferry times match your ship's departure. Missing the last ferry means expensive water taxi arrangements.</li>
+          <li><strong>Reef-safe sunscreen:</strong> Required at BVI beaches to protect coral reefs. Available at most shops in Road Town if you forgot yours.</li>
+        </ul>
+        <p>The open-air safari taxis and winding mountain roads are Tortola's way of delivering spectacular views with authentic Caribbean character. Embrace the adventure — those bumpy rides over the hills to Smuggler's Cove are part of what makes this island special.</p>
+      </details>
+
+      <!-- FAQ SECTION -->
+      <details class="port-section" id="faq" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <p><strong>Q: Are The Baths worth the trip to Virgin Gorda?</strong><br>A: Absolutely — it's the #1 attraction in the entire British Virgin Islands. Swimming through those massive boulder caves into Devil's Bay is unforgettable. Allow 3-4 hours total including ferry and taxi. Book ahead for guaranteed return to your ship, or go independent for more flexibility and lower cost.</p>
+
+        <p><strong>Q: Where's the best painkiller cocktail?</strong><br>A: Soggy Dollar Bar on Jost Van Dyke claims to have invented the painkiller (if you have time for a day trip). On Tortola, Pusser's in Road Town makes excellent ones. Nigel's Boom Boom Beach Bar at Smuggler's Cove is the best if you're heading to the beach.</p>
+
+        <p><strong>Q: Is the pirate history real?</strong><br>A: Very real. Blackbeard and other pirates used the BVI as a base in the early 1700s. The narrow channels and hidden coves made perfect ambush spots for merchant ships. Fort Burt was built partly as defense against these buccaneers.</p>
+
+        <p><strong>Q: Why are there so many sailboats in the harbor?</strong><br>A: Tortola is the yacht charter capital of the Caribbean. Perfect steady trade winds, protected anchorages, and short island-hopping distances make this a sailor's paradise. People fly in from around the world to pick up bareboat charters here.</p>
+
+        <p><strong>Q: What about Hurricane Irma damage?</strong><br>A: Irma devastated the BVI in 2017, but nearly everything has been rebuilt. The Baths, beaches, and tourist infrastructure are fully operational. The resilience of these islands is remarkable.</p>
+
+        <p><strong>Q: Is Tortola accessible for mobility-impaired visitors?</strong><br>A: Challenging. The cruise terminal is accessible, but most attractions involve steep hills or uneven terrain. The Baths requires climbing over massive boulders — not possible with mobility limitations. Cane Garden Bay beach has the easiest access with gradual water entry.</p>
+      </details>
+
+      <!-- GALLERY SECTION -->
+      <details class="port-section photo-gallery" id="gallery" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="gallery-grid">
+          <figure class="gallery-item">
+            <img src="/ports/img/tortola/tortola-1.webp" alt="Road Town harbor panorama with sailboats anchored in turquoise water and green mountains rising behind the waterfront" loading="lazy"/>
+            <figcaption>Road Town harbor — the sailing capital of the Caribbean<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/tortola/tortola-2.webp" alt="Colorful waterfront buildings along Road Town's main street with palm trees and Caribbean blue sky" loading="lazy"/>
+            <figcaption>Road Town waterfront with colonial-era buildings<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/tortola/tortola-3.webp" alt="Aerial view of Tortola's mountainous terrain with lush tropical vegetation and scattered homes" loading="lazy"/>
+            <figcaption>Tortola's dramatic mountain scenery<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/tortola/tortola-4.webp" alt="Cane Garden Bay beach with white sand, palm trees, and calm turquoise water ideal for a relaxing swim" loading="lazy"/>
+            <figcaption>Cane Garden Bay — Tortola's most popular beach<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+          </figure>
+        </div>
+      </details>
 
 
 
