@@ -22,6 +22,56 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const PROJECT_ROOT = join(__dirname, '..');
 
+// Cache for site integration data (loaded once)
+let siteIntegrationCache = null;
+
+/**
+ * Load site integration data from ports.html and search-index.json
+ * This is cached to avoid reading files multiple times
+ */
+async function loadSiteIntegrationData() {
+  if (siteIntegrationCache) {
+    return siteIntegrationCache;
+  }
+
+  const portsHtmlPath = join(PROJECT_ROOT, 'ports.html');
+  const searchIndexPath = join(PROJECT_ROOT, 'assets/data/search-index.json');
+
+  let portsHtmlLinks = new Set();
+  let searchIndexUrls = new Set();
+
+  try {
+    // Load ports.html and extract all port links
+    const portsHtml = await readFile(portsHtmlPath, 'utf-8');
+    const linkMatches = portsHtml.matchAll(/href="(\/ports\/[^"]+\.html)"/g);
+    for (const match of linkMatches) {
+      portsHtmlLinks.add(match[1]);
+    }
+  } catch (error) {
+    console.error(`Warning: Could not load ports.html: ${error.message}`);
+  }
+
+  try {
+    // Load search-index.json and extract port URLs
+    const searchIndexRaw = await readFile(searchIndexPath, 'utf-8');
+    const searchIndex = JSON.parse(searchIndexRaw);
+    for (const entry of searchIndex) {
+      if (entry.url && entry.url.startsWith('/ports/')) {
+        searchIndexUrls.add(entry.url);
+      }
+    }
+  } catch (error) {
+    console.error(`Warning: Could not load search-index.json: ${error.message}`);
+  }
+
+  siteIntegrationCache = {
+    portsHtmlLinks,
+    searchIndexUrls
+  };
+
+  return siteIntegrationCache;
+}
+
 // Colors for terminal output
 const colors = {
   reset: '\x1b[0m',
@@ -332,6 +382,54 @@ function validateAnalytics($, html) {
 }
 
 /**
+ * Validate site integration - port must be listed and searchable
+ * Checks:
+ * 1. Port is listed in ports.html (has a navigation link)
+ * 2. Port is in search-index.json (searchable)
+ */
+async function validateSiteIntegration(filepath) {
+  const errors = [];
+  const warnings = [];
+
+  // Get filename to construct expected URL
+  const filename = filepath.split('/').pop();
+  const expectedUrl = `/ports/${filename}`;
+
+  // Load site integration data (cached)
+  const { portsHtmlLinks, searchIndexUrls } = await loadSiteIntegrationData();
+
+  // Check if port is listed in ports.html
+  if (!portsHtmlLinks.has(expectedUrl)) {
+    errors.push({
+      section: 'site_integration',
+      rule: 'not_in_ports_html',
+      message: `Port page is not linked in ports.html. Add navigation link to ${expectedUrl}`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  // Check if port is in search-index.json
+  if (!searchIndexUrls.has(expectedUrl)) {
+    errors.push({
+      section: 'site_integration',
+      rule: 'not_in_search_index',
+      message: `Port page is not in search-index.json. Add entry for ${expectedUrl} to be searchable`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: {
+      inPortsHtml: portsHtmlLinks.has(expectedUrl),
+      inSearchIndex: searchIndexUrls.has(expectedUrl)
+    }
+  };
+}
+
+/**
  * Validate ICP-Lite v1.4 compliance
  */
 function validateICPLite($, html) {
@@ -548,12 +646,20 @@ function validateSectionOrder($) {
       });
     }
 
-    const creditLink = heroSection.find('a[href*="commons.wikimedia.org"], a[href*="wikimedia"]');
+    // Accept credits from multiple free image sources
+    const creditLink = heroSection.find(`
+      a[href*="commons.wikimedia.org"],
+      a[href*="wikimedia"],
+      a[href*="unsplash.com"],
+      a[href*="pexels.com"],
+      a[href*="pixabay.com"],
+      a[href*="flickr.com"]
+    `.replace(/\s+/g, ''));
     if (!creditLink.length) {
       errors.push({
         section: 'hero',
-        rule: 'hero_missing_wikimedia_credit',
-        message: 'Hero image must include Wikimedia Commons credit link',
+        rule: 'hero_missing_image_credit',
+        message: 'Hero image must include credit link (Wikimedia, Unsplash, Pexels, Pixabay, or Flickr)',
         severity: 'BLOCKING'
       });
     }
@@ -1428,8 +1534,10 @@ async function validatePortPage(filepath) {
     const trustBadgeResult = validateTrustBadge($);
     const lastReviewedResult = validateLastReviewedStamp($);
     const collapsibleResult = validateCollapsibleStructure($);
+    const siteIntegrationResult = await validateSiteIntegration(filepath);
 
     // Collect all errors
+    results.blocking_errors.push(...siteIntegrationResult.errors);
     results.blocking_errors.push(...analyticsResult.errors);
     results.blocking_errors.push(...icpResult.errors);
     results.blocking_errors.push(...sectionResult.errors);
@@ -1481,6 +1589,7 @@ async function validatePortPage(filepath) {
     results.logbook_narrative = logbookResult.data;
     results.content_purity = contentPurityResult.data;
     results.unique_names = uniqueNamesResult.data;
+    results.site_integration = siteIntegrationResult.data;
 
   } catch (error) {
     results.blocking_errors.push({

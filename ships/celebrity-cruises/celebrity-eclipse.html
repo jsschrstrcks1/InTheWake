@@ -28,6 +28,14 @@ All work on this project is offered as a gift to God.
   <meta name="last-reviewed" content="2025-11-19">
   <meta name="content-protocol" content="ICP-Lite v1.4">
 <title>Celebrity Eclipse • Celebrity Cruises • In The Wake</title>
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:title" content="Celebrity Eclipse • Celebrity Cruises • In The Wake"/>
+  <meta property="og:description" content="Celebrity Eclipse • Celebrity Cruises • In The Wake"/>
+  <meta property="og:url" content=""/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/celebrity-eclipse.jpg"/>
+
   <!-- Service Worker Registration -->
   <script>
   if('serviceWorker' in navigator){
@@ -127,6 +135,30 @@ All work on this project is offered as a gift to God.
 
   <!-- JSON-LD: Review -->
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Celebrity Eclipse","brand":{"@type":"Organization","name":"Celebrity Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5},"reviewBody":"Celebrity Eclipse from Celebrity Cruises offers memorable cruise experiences with excellent amenities and service."}</script>
+
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "In the Wake",
+    "url": "https://cruisinginthewake.com",
+    "logo": "https://cruisinginthewake.com/assets/logo_wake.png"
+  }
+  </script>
+
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+<!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -238,14 +270,68 @@ All work on this project is offered as a gift to God.
 
     <!-- First Look Section -->
     <section class="card" aria-labelledby="first-look">
-      <h2 id="first-look">A First Look</h2>
-      <div class="grid-2" style="gap: 1.5rem;">
-        <div>
-          <p>Celebrity Eclipse offers a memorable cruise experience with Celebrity Cruises. This ship features modern amenities, diverse dining options, and entertainment for all ages.</p>
-          <p>Explore the deck plans below to familiarize yourself with the ship's layout, or check out the dining section to see available restaurants and venues.</p>
+      <h2 id="first-look">First Look: Celebrity Eclipse</h2>
+      <div class="swiper firstlook" aria-label="Celebrity Eclipse photo gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-eclipse_01.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Celebrity Eclipse exterior showing the classic Solstice-class profile" loading="lazy">
+              <figcaption class="tiny">Celebrity Eclipse at sea</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-eclipse_02.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="The Lawn Club with real grass and ocean views" loading="lazy">
+              <figcaption class="tiny">The iconic Lawn Club</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-eclipse_03.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Pool deck with Solarium adults-only area" loading="lazy">
+              <figcaption class="tiny">Resort-style pool deck</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-eclipse_04.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Murano French specialty restaurant" loading="lazy">
+              <figcaption class="tiny">Murano fine dining</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-eclipse_05.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="AquaSpa wellness center" loading="lazy">
+              <figcaption class="tiny">AquaSpa wellness retreat</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-eclipse_06.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Grand Foyer multi-story atrium" loading="lazy">
+              <figcaption class="tiny">Grand Foyer atrium</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-eclipse_07.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Main dining room elegant setting" loading="lazy">
+              <figcaption class="tiny">Main dining room elegance</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-eclipse_08.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="AquaClass stateroom with spa amenities" loading="lazy">
+              <figcaption class="tiny">AquaClass spa-inspired stateroom</figcaption>
+            </figure>
+          </div>
         </div>
-        <div id="ship-stats" class="stats-grid" data-slug=""></div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
       </div>
+      <div style="margin-top: 1.5rem;">
+        <p>Celebrity Eclipse is the third ship in Celebrity Cruises' acclaimed Solstice Class, debuting in 2010. At 121,878 gross tons and carrying 2,850 guests, Eclipse continues the Solstice Class tradition of modern luxury while offering unique itineraries including seasonal deployments to Alaska, the South Pacific, and Australia.</p>
+        <p>The ship features the signature Lawn Club with half an acre of real grass on the top deck, perfect for lawn games, outdoor movies, and picnics with ocean views. Specialty dining options include Murano French restaurant, the innovative Qsine creative dining experience, Tuscan Grille Italian steakhouse, and Silk Harvest pan-Asian cuisine. The AquaSpa by Elemis offers rejuvenating treatments and the relaxing Persian Garden.</p>
+        <p>Celebrity Eclipse has become particularly popular for Alaska cruises, where guests can experience stunning glaciers and wildlife from the ship's outward-facing design. Following Celebrity's Revolution modernization program, the ship features refreshed staterooms, enhanced dining venues, and updated public spaces. AquaClass accommodations provide exclusive access to Blu restaurant and spa-inspired amenities.</p>
+      </div>
+      <div id="ship-stats" class="stats-grid" data-slug="celebrity-eclipse"></div>
     </section>
 <script type="application/json" id="dining-data-source">{"provider":"celebrity-cruises","json":"/assets/data/venues-v2.json","ship_slug":"celebrity-eclipse","aliases":["Celebrity Eclipse"]}</script>
         <script type="application/json" id="ship-stats-fallback">{"slug":"celebrity-eclipse","name":"Celebrity Eclipse","cruise_line":"Celebrity Cruises","class":"Solstice Class","entered_service":2010,"gt":"121,878 GT","guests":"2,850","crew":"1,210"}</script>
@@ -284,7 +370,18 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 
-    
+    <section class="card" aria-labelledby="video-highlights">
+      <h2 id="video-highlights">Watch: Celebrity Eclipse Videos</h2>
+      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
+      <div class="swiper videos" aria-label="Featured video carousel">
+        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
+    </section>
+
     <!-- Deck Plans & Tracker Grid -->
     <div class="grid-2">
       <section class="card" aria-labelledby="deck-plans">
@@ -331,6 +428,20 @@ All work on this project is offered as a gift to God.
     </section><!-- End Main Content Column -->
 
     <aside class="rail col-2" role="complementary" aria-label="Author & articles">
+      <!-- Recent Articles Navigation (Top) -->
+      <section class="card" id="recent-rail-nav-top" aria-labelledby="nav-top-title">
+        <h3 id="nav-top-title">Quick Navigation</h3>
+        <nav aria-label="Page sections">
+          <ul class="rail-links">
+            <li><a href="#first-look">First Look</a></li>
+            <li><a href="#dining-card">Dining</a></li>
+            <li><a href="#logbook">Logbook</a></li>
+            <li><a href="#video-highlights">Videos</a></li>
+            <li><a href="#deck-plans">Deck Plans</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </nav>
+      </section>
       <section class="card author-card-vertical" aria-labelledby="author-heading">
         <h3 id="author-heading">About the Author</h3>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
@@ -389,6 +500,55 @@ All work on this project is offered as a gift to God.
       const articles = await res.json();
       rail.innerHTML = articles.slice(0, 4).map(a => '<div style="margin-bottom:.75rem;"><a href="' + a.url + '">' + a.title + '</a></div>').join('');
     } catch(e) {}
+  })();
+  </script>
+
+  <script>
+  (function(){
+    const mount=document.getElementById('featuredVideos');
+    const fallback=document.getElementById('videoFallback');
+    if(!mount) return;
+    function abs(p){try{return new URL(p,location.href).href}catch(_){return p}}
+    function getVideoURL(id,provider){
+      if(provider==='youtube'||!provider) return 'https://www.youtube-nocookie.com/embed/'+id+'?rel=0';
+      return null;
+    }
+    function renderVideos(arr){
+      if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
+      mount.innerHTML=arr.slice(0,12).map(v=>{
+        const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
+        const title=String(v.title||'Celebrity Eclipse').replace(/</g,'&lt;');
+        return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
+      }).join('');
+      if(mount.children.length&&window.Swiper){
+        setTimeout(()=>{
+          try{
+            new Swiper('.swiper.videos',{
+              loop:false,rewind:false,lazy:true,watchOverflow:true,
+              pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
+              navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
+              a11y:{enabled:true}
+            });
+          }catch(_){}
+        },150);
+      }
+    }
+    function fetchVideoData(){
+      const SOURCES=[abs('/assets/data/videos/celebrity-cruises/celebrity-eclipse.json')];
+      function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+        return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+      return tryFetch();
+    }
+    function flattenVideos(data){
+      if(!data||!data.videos) return [];
+      if(Array.isArray(data.videos)) return data.videos;
+      let vids=[];
+      for(const cat of Object.values(data.videos)){
+        if(Array.isArray(cat)) vids=vids.concat(cat);
+      }
+      return vids;
+    }
+    fetchVideoData().then(data=>{ if(data) renderVideos(flattenVideos(data)); });
   })();
   </script>
 </body>

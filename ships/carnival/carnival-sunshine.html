@@ -12,22 +12,21 @@
 -->
 <html lang="en">
 <head>
-  <!-- AI-Breadcrumbs: Structured context for AI assistants -->
-  <!-- ai-breadcrumbs
-       entity: Carnival Sunshine
+<!-- ai-breadcrumbs
+     entity: Carnival Sunshine
      name: Carnival Sunshine
-       type: Ship Information Page
-       parent: /ships.html
-       category: Carnival Fleet
-       cruise-line: Carnival Cruise Line
-       ship-class: Destiny-class (Sunshine-class)
-       siblings: Carnival Sunrise, Carnival Radiance
-       related: /ships/carnival.html, /cruise-lines/carnival.html
-       updated: 2025-12-02
-       expertise: Carnival ship reviews, deck plans, dining analysis, cabin comparisons
-       target-audience: Carnival Sunshine cruisers, historic ship enthusiasts, first-time cruisers
-       answer-first: Carnival Sunshine (ex-Carnival Destiny) made history as the FIRST cruise ship to exceed 100,000 GT. Lead ship of the Destiny-class, homeported in Norfolk, Virginia. Features include Guy's Burger Joint, BlueIguana Cantina, and Cloud 9 Spa. IMO 9070058.
-  -->
+     type: Ship Information Page
+     parent: /ships.html
+     category: Carnival Fleet
+     cruise-line: Carnival Cruise Line
+     ship-class: Destiny-class (Sunshine-class)
+     siblings: /ships/carnival/carnival-sunrise.html, /ships/carnival/carnival-radiance.html
+     related: /ships/carnival.html, /cruise-lines/carnival.html
+     updated: 2026-01-05
+     expertise: Carnival ship reviews, deck plans, dining analysis, cabin comparisons
+     target-audience: Carnival Sunshine cruisers, historic ship enthusiasts, first-time cruisers
+     answer-first: Carnival Sunshine (ex-Carnival Destiny) made history as the FIRST cruise ship to exceed 100,000 GT. Lead ship of the Destiny-class, homeported in Norfolk, Virginia. Features include Guy's Burger Joint, BlueIguana Cantina, and Cloud 9 Spa. IMO 9070058.
+-->
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -276,6 +275,19 @@
     "logo": "https://cruisinginthewake.com/assets/logo_wake.png"
   }
   </script>
+
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+<!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
 <body class="page">
   <!-- Skip Link for Accessibility -->
@@ -295,12 +307,38 @@
         <span class="version-badge">V1.Beta</span>
       </div>
       <nav class="site-nav" aria-label="Main navigation">
-        <a class="nav-pill" href="/">Home</a>
-        <a class="nav-pill" href="/ships.html">Ships</a>
-        <a class="nav-pill" href="/planning.html">Planning</a>
-        <a class="nav-pill" href="/search.html">Search</a>
-        <a class="nav-pill" href="/about-us.html">About</a>
-      </nav>
+  <a class="nav-pill" href="/">Home</a>
+
+  <div class="nav-dropdown" id="nav-planning">
+    <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+      Planning <span class="caret">▾</span>
+    </button>
+    <div class="dropdown-menu" role="menu">
+      <a href="/planning.html">Planning Overview</a>
+      <a href="/ships.html">Ships</a>
+      <a href="/ships/quiz.html">Ship Quiz</a>
+      <a href="/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="/ports.html">Ports</a>
+      <a href="/internet-at-sea.html">Internet at Sea</a>
+      <a href="/drink-packages.html">Drink Packages</a>
+      <a href="/cruise-lines.html">Cruise Lines</a>
+    </div>
+  </div>
+
+  <div class="nav-dropdown" id="nav-travel">
+    <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+      Travel <span class="caret">▾</span>
+    </button>
+    <div class="dropdown-menu" role="menu">
+      <a href="/travel.html">Travel Overview</a>
+      <a href="/solo.html">Solo Cruising</a>
+    </div>
+  </div>
+
+  <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+  <a class="nav-pill" href="/search.html">Search</a>
+  <a class="nav-pill" href="/about-us.html">About</a>
+</nav>
     </div>
   </header>
 
@@ -334,6 +372,67 @@
         <span>This page covers deck plans, live ship tracking, dining venues, and video tours to help you plan your Carnival cruise aboard Carnival Sunshine.</span>
       </p>
     </section>
+
+    <!-- First Look Gallery -->
+    <section class="card" aria-labelledby="first-look">
+      <h2 id="first-look">First Look: Carnival Sunshine</h2>
+      <div class="swiper firstlook" aria-label="Carnival Sunshine photo gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/carnival-sunshine_01.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Sunshine cruise ship at sea - the first 100,000 GT cruise ship in history" loading="lazy">
+              <figcaption class="tiny">Carnival Sunshine - the historic first 100K GT cruise ship ever built</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/carnival-sunshine_02.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Sunshine pool deck with WaterWorks" loading="lazy">
+              <figcaption class="tiny">Pool deck featuring WaterWorks aqua park</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/carnival-sunshine_03.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Sunshine atrium grand lobby" loading="lazy">
+              <figcaption class="tiny">Grand atrium with stunning contemporary design</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/carnival-sunshine_04.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Sunshine docked at Norfolk Virginia homeport" loading="lazy">
+              <figcaption class="tiny">Carnival Sunshine at her Norfolk, VA homeport</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/carnival-sunshine_05.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Sunshine Guy's Burger Joint" loading="lazy">
+              <figcaption class="tiny">Guy's Burger Joint by Guy Fieri</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/carnival-sunshine_06.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Sunshine Serenity adults-only retreat" loading="lazy">
+              <figcaption class="tiny">Serenity adults-only retreat area</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/carnival-sunshine_07.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Sunshine balcony stateroom" loading="lazy">
+              <figcaption class="tiny">Spacious balcony stateroom with ocean views</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/carnival-sunshine_08.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Sunshine sailing the Caribbean" loading="lazy">
+              <figcaption class="tiny">Sailing the Caribbean from Norfolk, Virginia</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
+      </div>
+    </section>
+
 <div class="page-grid">
       <!-- Primary Content Column -->
       <div class="main-column">
@@ -479,6 +578,24 @@ Dining Venues on Carnival Sunshine <a href="/restaurants.html" style="font-size:
             </div>
           </div>
         </section>
+
+    <!-- Ken's Logbook -->
+    <section class="card" id="logbook">
+      <h2>Ken's Logbook</h2>
+      <p>Real passenger experiences aboard Carnival Sunshine, from Norfolk Caribbean adventures to historic ship memories.</p>
+      <div id="logbook-container" data-ship="carnival-sunshine" aria-live="polite">
+        <p class="loading-text">Loading stories...</p>
+      </div>
+    </section>
+
+    <!-- Videos -->
+    <section class="card" id="videos">
+      <h2>Carnival Sunshine Videos</h2>
+      <p>Ship tours, cabin walkthroughs, and passenger experiences aboard Carnival Sunshine.</p>
+      <div id="videos-container" class="videos-grid" data-ship="carnival-sunshine" aria-live="polite">
+        <p class="loading-text">Loading videos...</p>
+      </div>
+    </section>
 
         <!-- Live Tracker -->
         <section class="card" aria-labelledby="tracker-title">

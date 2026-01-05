@@ -17,7 +17,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
      category: Carnival Fleet
      cruise-line: Carnival Cruise Line
      ship-class: Grand Class
-     siblings: Carnival Adventure
+     siblings: /ships/carnival/carnival-adventure.html, /ships/carnival/carnival-breeze.html, /ships/carnival/carnival-celebration.html, /ships/carnival/carnival-conquest.html, /ships/carnival/carnival-dream.html
      related: /ships/carnival/, /cruise-lines/carnival.html
      updated: 2025-12-01
      expertise: Carnival cruise ship reviews, Grand Class ships, Australia cruises, deck plans
@@ -228,6 +228,19 @@ if ('serviceWorker' in navigator) {
     "logo": "https://cruisinginthewake.com/assets/logo_wake.png"
   }
   </script>
+
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+<!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
 
 <body class="page">
@@ -537,6 +550,69 @@ if ('serviceWorker' in navigator) {
         <p class="placeholder">Stories and insights from cruisers who have sailed on Carnival Encounter will appear here.</p>
       </div>
     </section>
+
+
+    <!-- Videos Section -->
+    <section class="card" aria-labelledby="video-highlights">
+      <h2 id="video-highlights">Watch: Carnival Encounter Highlights</h2>
+      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
+      <div class="swiper videos" aria-label="Featured video carousel">
+        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
+    </section>
+
+    <script>
+    (function(){
+      const mount=document.getElementById('featuredVideos');
+      const fallback=document.getElementById('videoFallback');
+      if(!mount) return;
+      function abs(p){try{return new URL(p,location.href).href}catch(_){return p}}
+      function getVideoURL(id,provider){
+        if(provider==='youtube'||!provider) return 'https://www.youtube-nocookie.com/embed/'+id+'?rel=0';
+        return null;
+      }
+      function renderVideos(arr){
+        if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
+        mount.innerHTML=arr.slice(0,12).map(v=>{
+          const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
+          const title=String(v.title||'Carnival Encounter').replace(/</g,'&lt;');
+          return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
+        }).join('');
+        if(mount.children.length&&window.Swiper){
+          setTimeout(()=>{
+            try{
+              new Swiper('.swiper.videos',{
+                loop:false,rewind:false,lazy:true,watchOverflow:true,
+                pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
+                navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
+                a11y:{enabled:true}
+              });
+            }catch(_){}
+          },150);
+        }
+      }
+      function fetchVideoData(){
+        const SOURCES=[abs('/assets/data/videos/carnival/carnival-encounter.json')];
+        function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+          return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+        return tryFetch();
+      }
+      function flattenVideos(data){
+        if(!data||!data.videos) return [];
+        if(Array.isArray(data.videos)) return data.videos;
+        let vids=[];
+        for(const cat of Object.values(data.videos)){
+          if(Array.isArray(cat)) vids=vids.concat(cat);
+        }
+        return vids;
+      }
+      fetchVideoData().then(data=>{ if(data) renderVideos(flattenVideos(data)); });
+    })();
+    </script>
 
     
     <!-- Deck Plans & Tracker Grid -->
