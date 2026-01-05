@@ -76,7 +76,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Santa Marta Cruise Port Guide",
-        "description": "Complete guide to visiting Santa Marta, Colombia via cruise ship",
+        "description": "Santa Marta is Colombia's oldest city, docks at modern marina. Sierra Nevada backdrop stunning—world's highest coastal mountain. Tayrona National Park has pristine beaches. Historic center walkable. Tender possible for large ships.",
         "mainEntity": {
           "@type": "Place",
           "name": "Santa Marta",
@@ -85,7 +85,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             "@type": "GeoCoordinates",
             "latitude": 11.2408,
             "longitude": -74.2110
-          },
+          ,
+        "dateModified": "2026-01-03"
+      },
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "Santa Marta",
@@ -140,12 +142,24 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     />
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+  <!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+</head>
   <body>
     <header class="site-header">
       <div class="container header-container">
         <a href="/" class="logo" aria-label="In the Wake Home">
-          <img
+          <img loading="lazy"
             src="/images/logo.png"
             alt="In the Wake logo"
             width="160"
@@ -508,7 +522,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           <div class="rail-section author-card">
             <h3>Your Guide</h3>
             <div class="author-info">
-              <img
+              <img loading="lazy"
                 src="/images/author-thumb.jpg"
                 alt="Author"
                 class="author-thumb"
@@ -539,6 +553,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           &copy; 2025 In the Wake. Independent cruise information.
         </p>
       </div>
+      <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>

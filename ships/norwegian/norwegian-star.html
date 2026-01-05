@@ -30,6 +30,9 @@ All work on this project is offered as a gift to God.
   gtag('js', new Date());
   gtag('config', 'G-WZP891PZXJ');
 </script>
+
+  <!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
@@ -45,9 +48,13 @@ All work on this project is offered as a gift to God.
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://cruisinginthewake.com/ships/norwegian/norwegian-star.html"/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/ships-hero.jpg"/>
   <meta property="og:title" content="Norwegian Star — Norwegian Cruise Line Ship Guide"/>
   <meta property="og:description" content="Explore Norwegian Star: Dawn Class ship with 2,240 guests. Dining, entertainment, and planning resources."/>
   <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:description" content="Discover Norwegian Star: A Dawn Class ship from Norwegian Cruise Line. 91,740 GT, 2,240 guests, built 2001. Dining, entertainment, deck plans, and planning tips."/>
+  <meta name="twitter:title" content="Norwegian Star — Norwegian Cruise Line Ship Guide"/>
+  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/ships-hero.jpg"/>
 
   <!-- JSON-LD (CruiseShip schema) -->
   <script type="application/ld+json">
@@ -123,6 +130,55 @@ All work on this project is offered as a gift to God.
 
   <!-- JSON-LD: Review -->
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Norwegian Star","brand":{"@type":"Organization","name":"Norwegian Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5},"reviewBody":"Norwegian Star from Norwegian Cruise Line offers memorable cruise experiences with excellent amenities and service."}</script>
+  <!-- JSON-LD: FAQPage (ICP-Lite) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What dining options are available on Norwegian Star?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Norwegian Star offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I find the deck plans for Norwegian Star?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Deck plans are available through the links on this page. You can also find official deck plans on the Norwegian Cruise Line website or in the cruise planner app."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where does Norwegian Star sail?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ship deployments vary by season. Check the Norwegian Cruise Line website for current itineraries and departure ports for Norwegian Star."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I track Norwegian Star's current location?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the live ship tracker section on this page to see the ship's current position, speed, and next port in real-time when available."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this information official?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This page provides planning resources and community insights. Always confirm details with Norwegian Cruise Line or your travel advisor before booking."
+        }
+      }
+    ]
+  }
+  </script>
 
   <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
@@ -159,6 +215,7 @@ All work on this project is offered as a gift to God.
             <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
             <a href="/restaurants.html">Restaurants &amp; Menus</a>
             <a href="/ports.html">Ports</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
             <a href="/drink-packages.html">Drink Packages</a>
             <a href="/drink-calculator.html">Drink Calculator</a>
             <a href="/stateroom-check.html">Stateroom Check</a>
@@ -226,6 +283,25 @@ All work on this project is offered as a gift to God.
     <!-- First Look Section -->
     <section class="card" aria-labelledby="first-look">
       <h2 id="first-look">A First Look at Norwegian Star</h2>
+
+      <div class="swiper firstlook" aria-label="Norwegian Star photo carousel">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <picture>
+              <img src="/assets/ships/Norwegian_Star_Alaska.jpg" alt="Norwegian Star cruise ship on a cruise to Alaska" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="swiper-slide">
+            <picture>
+              <img src="/assets/ships/Norwegian_Star_Izmir.jpg" alt="Norwegian Star cruise ship docked in Izmir, Turkey" loading="lazy" decoding="async">
+            </picture>
+          </div>
+        </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
+      </div>
+
       <p>Norwegian Star offers a memorable cruise experience with Norwegian Cruise Line. This ship features modern amenities, diverse dining options, and entertainment for all ages.</p>
       <p>Explore the deck plans below to familiarize yourself with the ship's layout, or check out the dining section to see available restaurants and venues.</p>
     </section>
@@ -271,7 +347,16 @@ All work on this project is offered as a gift to God.
     </section>
 
     <!-- Stub Notice -->
-    
+
+    <!-- Dining Section -->
+    <section class="card" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on Norwegian Star</h2>
+      <img id="dining-hero" class="card-hero" src="/assets/img/Cordelia_Empress_Food_Court.webp" alt="Cruise ship dining venue with elegant place settings and ocean views" loading="lazy" decoding="async"/>
+      <p>Dining venue information coming soon. Norwegian Cruise Line ships typically feature a variety of complimentary and specialty dining options.</p>
+    </section>
+    <script type="application/json" id="dining-data-source">{"provider":"norwegian","json":"/assets/data/venues-v2.json","ship_slug":"norwegian-star","aliases":["Norwegian Star"]}</script>
+    <script type="application/json" id="ship-stats-fallback">{"slug":"norwegian-star","name":"Norwegian Star","cruise_line":"Norwegian Cruise Line","class":"Dawn Class","entered_service":2001,"gt":"91,740 GT","guests":"2,240","crew":"1,100"}</script>
+
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: Norwegian Star</h2>
@@ -279,7 +364,6 @@ All work on this project is offered as a gift to God.
         <p class="placeholder">Stories and insights from cruisers who have sailed on Norwegian Star will appear here.</p>
       </div>
     </section>
-
 
     <!-- Videos Section -->
     <section class="card" aria-labelledby="video-highlights">
@@ -343,16 +427,6 @@ All work on this project is offered as a gift to God.
     })();
     </script>
 
-    
-
-    <!-- Placeholder sections -->
-    <section class="card" aria-labelledby="diningHeading">
-      <h2 id="diningHeading">Dining on Norwegian Star</h2>
-      <p>Dining venue information coming soon. Norwegian Cruise Line ships typically feature a variety of complimentary and specialty dining options.</p>
-    </section>
-<script type="application/json" id="dining-data-source">{"provider":"norwegian","json":"/assets/data/venues-v2.json","ship_slug":"norwegian-star","aliases":["Norwegian Star"]}</script>
-        <script type="application/json" id="ship-stats-fallback">{"slug":"norwegian-star","name":"Norwegian Star","cruise_line":"Norwegian Cruise Line","class":"Dawn Class","entered_service":2001,"gt":"91,740 GT","guests":"2,348","crew":"1,031"}</script>
-
     <section class="card" aria-labelledby="entertainmentHeading">
       <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
       <p>Entertainment details coming soon. Explore shows, activities, and onboard experiences.</p>
@@ -368,7 +442,7 @@ All work on this project is offered as a gift to God.
         </figure>
         <p><a class="btn" href="https://www.ncl.com/" target="_blank" rel="noopener">Visit Norwegian Official Site</a></p>
       </section>
-      <section class="card" aria-labelledby="trackingHeading">
+      <section class="card itinerary" aria-labelledby="trackingHeading" data-imo="9195157" data-name="NORWEGIAN-STAR">
         <h2 id="trackingHeading">Where Is Norwegian Star?</h2>
         <p>Track Norwegian Star's current position and upcoming itinerary.</p>
         <p><a class="btn" href="https://www.cruisemapper.com/?search=Norwegian%20Star" target="_blank" rel="noopener">Open Live Tracker</a></p>

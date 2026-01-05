@@ -1403,6 +1403,291 @@ For families who select accessibility needs, provide results guidance:
 
 ---
 
+## New Question Impact Analysis: Dress Code + Regional Availability
+
+### Added Questions:
+- **dress_code**: formal | smart | casual | relaxed
+- **home_region**: north_america | europe | australia | asia | flexible
+
+---
+
+### Key Persona Impacts
+
+#### Persona 36: "Brenda" (Real User Feedback - Australian Casual Cruiser)
+**Based on actual user feedback from Facebook**
+
+- **Group**: Unknown (assume couple or solo)
+- **Region**: Australia
+- **Dress code preference**: Hates formal attire
+- **Budget**: Value-focused
+- **Original quiz result**: Cunard (WRONG)
+- **Why it was wrong**: Cunard rarely sails from Australia AND requires formal dress
+
+**Quiz Answers with New Questions:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| home_region | australia | Lives in Australia |
+| dress_code | casual | Explicitly hates formal |
+| group_type | couple | Assumed |
+| cruise_experience | a_few | Knows what she likes |
+| energy_level | balanced | Not specified |
+| crowd_tolerance | low | Sophisticated taste |
+| ship_vs_ports | balanced | Not specified |
+| sailing_length | standard | Not specified |
+| budget_mindset | value | Explicitly on budget |
+| atmosphere | sophisticated | Wants refined but not formal |
+| must_have | none | Not specified |
+
+**Score Impact - Cunard:**
+- Original score: ~+40 (sophisticated atmosphere, low crowds)
+- Regional penalty (rare in Australia): **-25**
+- Dress code penalty (casual + Cunard): **-25**
+- **New total: ~-10** (correctly excluded!)
+
+**Score Impact - Better Matches:**
+- Celebrity Edge: +0 regional (strong in Aus) +8 dress (smart casual friendly) = **+48 total**
+- Princess Royal: +0 regional (strong in Aus) +6 dress (casual fine) = **+45 total**
+- Holland America: +0 regional (moderate -5) +4 dress = **+35 total**
+
+**Expected New Result**: Celebrity Edge, Princess Royal - sophisticated but accessible from Australia, no formal requirement.
+
+---
+
+#### Persona 1: Jake's Crew (Bachelor Party) - Dress Code Impact
+**New Answers:**
+| Question | Answer |
+|----------|--------|
+| home_region | north_america | Caribbean bachelor party |
+| dress_code | relaxed | Shorts and flip-flops only |
+
+**Score Impact:**
+- Cunard: -25 (relaxed = massive penalty)
+- Virgin: +20 (relaxed = perfect match!)
+- NCL: +15 (freestyle = relaxed friendly)
+- Carnival: +10 (casual brand)
+
+**Result**: Virgin/NCL now score even higher, Cunard completely eliminated.
+
+---
+
+#### Persona 2: Harold & Mildred (Refined Retirees) - Dress Code Impact
+**New Answers:**
+| Question | Answer |
+|----------|--------|
+| home_region | north_america | US-based retirees |
+| dress_code | formal | Love formal nights |
+
+**Score Impact:**
+- Cunard: +20 (formal = perfect!)
+- Regent: +10 (elegant but flexible)
+- Virgin: -20 (no formal = dealbreaker)
+- Carnival: -8 (too casual)
+
+**Result**: Cunard now scores higher, correctly matched!
+
+---
+
+#### Persona 10: Jen's 40th (Party Girls) - Regional Impact Example
+**Scenario A - US-based:**
+| Question | Answer |
+|----------|--------|
+| home_region | north_america | |
+| dress_code | smart | Glam nights welcome |
+
+**Result**: Virgin Voyages #1 (strong in N. America, smart casual ok)
+
+**Scenario B - If they were Australian:**
+| Question | Answer |
+|----------|--------|
+| home_region | australia | |
+| dress_code | smart | |
+
+**Score Impact:**
+- Virgin: -50 (none in Australia!)
+- Celebrity Edge: +0 (strong in Aus)
+- NCL Prima: -5 (moderate in Aus)
+
+**Result**: Celebrity Edge becomes #1, Virgin drops off entirely!
+
+---
+
+#### Persona 14: Marty & Doris (Cruise Veterans) - Traditional Dress Impact
+**New Answers:**
+| Question | Answer |
+|----------|--------|
+| home_region | north_america | |
+| dress_code | formal | Traditional formal nights |
+| atmosphere | traditional | Classic cruising |
+
+**Score Impact:**
+- Cunard: +20 (formal) +18 (traditional atmosphere) = +38 bonus
+- Princess: +10 (formal) +14 (traditional) = +24 bonus
+- Virgin: -20 (formal) -15 (traditional) = -35 penalty
+
+**Result**: Cunard/Princess move up, Virgin correctly excluded for this demographic.
+
+---
+
+#### Persona 20: Eleanor (Destination Purist) - Regional Example
+**Scenario - Europe-based:**
+| Question | Answer |
+|----------|--------|
+| home_region | europe | Sailing from Mediterranean |
+| dress_code | casual | Practical for excursions |
+
+**Score Impact:**
+- MSC: +0 (strong in Europe)
+- Virgin: +0 (strong in Europe)
+- Disney: -5 (moderate in Europe)
+
+**Result**: More European-friendly options surface.
+
+---
+
+#### Persona 18: Victoria & James (Minimalist Luxury) - Asia Scenario
+**Scenario - Singapore-based:**
+| Question | Answer |
+|----------|--------|
+| home_region | asia | Based in Singapore |
+| dress_code | smart | Elegant always |
+
+**Score Impact:**
+- Silversea: +0 (strong in Asia!) - stays top
+- Regent: -5 (moderate in Asia) - slight penalty
+- Explora: -25 (rare in Asia) - drops significantly
+- Virgin: -50 (none in Asia) - eliminated
+
+**Result**: Silversea rises to #1 over Regent for Asia-based luxury seekers.
+
+---
+
+### Regional Impact Summary Table
+
+| Persona | Region | Most Affected Line | Impact |
+|---------|--------|-------------------|--------|
+| Brenda (36) | Australia | Cunard | -25 (rare) → excluded |
+| Brenda (36) | Australia | Virgin | -50 (none) → excluded |
+| Jen's 40th | Australia (if) | Virgin | -50 (none) → excluded |
+| Victoria & James | Asia (if) | Explora | -25 (rare) → drops |
+| Eleanor | Europe | MSC | +0 (strong) → rises |
+| Harold & Mildred | N. America | All luxury | +0 (all available) |
+
+---
+
+### Dress Code Impact Summary Table
+
+| Persona | Dress Code | Positive Impact | Negative Impact |
+|---------|------------|-----------------|-----------------|
+| Jake's Crew | relaxed | Virgin +20, NCL +15 | Cunard -25, HAL -8 |
+| Harold & Mildred | formal | Cunard +20, Regent +10 | Virgin -20, NCL -10 |
+| Brenda | casual | Celebrity +8, Princess +6 | Cunard -10, HAL -4 |
+| Marty & Doris | formal | Cunard +20, Princess +10 | Virgin -20 |
+| Priya | smart | Celebrity +12, Oceania +12 | Neutral |
+| Brittany & Madison | smart | Celebrity +12 | Cunard -8 |
+
+---
+
+### Edge Cases Resolved by New Questions
+
+1. **Brenda's Cunard Mismatch** ✓
+   - Region (Australia) + Dress (casual) = Cunard double-penalized
+   - New result: Celebrity/Princess (sophisticated but accessible)
+
+2. **Bachelor Party Getting Cunard** ✓
+   - Dress (relaxed) = Cunard -25
+   - New result: Virgin/NCL correctly prioritized
+
+3. **Asian Luxury Seekers Getting Unavailable Lines** ✓
+   - Region filters out lines with no Asia presence
+   - Silversea correctly rises for Asia-based users
+
+4. **Australian Families Missing Local Options** ✓
+   - Princess (strong in Aus) gets boosted
+   - Virgin (none in Aus) correctly excluded
+
+5. **NCL Editorial Penalty (-7 all classes)** ✓
+   - Service quality and women's safety concerns
+   - Affects all NCL recommendations across the board
+
+---
+
+## NCL Penalty Edge Case Analysis
+
+**Editorial adjustment:** -7 points to all NCL ship classes (service quality, safety concerns)
+
+### Impact on Personas Previously Matched to NCL:
+
+#### Persona 1: Jake's Crew (Bachelor Party)
+**Before NCL penalty:**
+- NCL Prima: ~+50 (party atmosphere, relaxed dress, nightlife)
+- Virgin Scarlet: ~+52
+
+**After NCL penalty:**
+- NCL Prima: ~+43 (-7)
+- Virgin Scarlet: ~+52 (unchanged)
+
+**Result:** Virgin now has a stronger lead. NCL still viable but not top pick.
+
+---
+
+#### Persona 10: Jen's 40th (Party Girls)
+**Before NCL penalty:**
+- NCL Breakaway: ~+45
+- Virgin: ~+55
+- Carnival Excel: ~+40
+
+**After NCL penalty:**
+- NCL Breakaway: ~+38 (-7)
+- Virgin: ~+55 (unchanged)
+- Carnival Excel: ~+40 (unchanged)
+
+**Result:** Virgin solidifies #1, Carnival overtakes NCL for #2 in party category.
+
+---
+
+#### Persona 25: Taylor's Solo Trip (Solo Female Traveler)
+**Critical edge case - safety concerns most relevant here**
+
+**Before NCL penalty:**
+- NCL Prima (solo studio cabins): ~+42
+- Celebrity Edge: ~+45
+- Virgin Scarlet: ~+40
+
+**After NCL penalty:**
+- NCL Prima: ~+35 (-7)
+- Celebrity Edge: ~+45 (unchanged)
+- Virgin Scarlet: ~+40 (unchanged)
+
+**Result:** Celebrity clearly #1 for solo female travelers. NCL's solo-friendly features no longer compensate for safety penalty. This is the intended outcome.
+
+---
+
+#### Persona 3: Sarah & Marcus (Young Professionals)
+**Before NCL penalty:**
+- Celebrity Edge: ~+55
+- NCL Prima: ~+45
+
+**After NCL penalty:**
+- Celebrity Edge: ~+55 (unchanged)
+- NCL Prima: ~+38 (-7)
+
+**Result:** Celebrity's lead widens. NCL no longer close competitor.
+
+---
+
+### Summary: NCL Penalty Impact
+
+| Persona | NCL Before | NCL After | New Winner |
+|---------|------------|-----------|------------|
+| Jake's Crew | +50 | +43 | Virgin (+52) |
+| Jen's 40th | +45 | +38 | Virgin (+55) |
+| Taylor Solo | +42 | +35 | Celebrity (+45) |
+| Sarah & Marcus | +45 | +38 | Celebrity (+55) |
+
+**Key outcome:** Solo female travelers (Persona 25) now correctly steered toward Celebrity over NCL despite NCL's solo-friendly cabin design.
+
+---
+
 ## Persona 28: Michael - Expanded Backstory
 
 **Why Michael hates cruises:**
@@ -1427,3 +1712,961 @@ For families who select accessibility needs, provide results guidance:
 
 **Quiz can't capture this, but results could note:**
 > "For reluctant cruisers or those who value autonomy, consider: longer balcony time, destination-focused itineraries, premium lines with flexible dining."
+
+---
+
+## Line & Ship Frequency Analysis
+
+### Methodology
+Analyzed all 35 personas to count how often each line/ship class appears as:
+- **Ideal** (top recommendation)
+- **Acceptable** (good secondary)
+- **Red Flag** (never recommend)
+
+---
+
+### OVERREPRESENTED: Lines/Ships That Appear Too Often
+
+| Line/Class | Ideal Count | Concern |
+|------------|-------------|---------|
+| **RCL Icon/Oasis** | 8+ | Dominates family, thrill, multigenerational |
+| **Celebrity Edge** | 6+ | Default for couples, solo, premium |
+| **Virgin Voyages** | 5+ | Every adults-only, party, trendy persona |
+
+**Issue:** These three become "safe answers" that crowd out other valid options.
+
+**Recommendations:**
+1. Consider slight penalty for Icon/Oasis when `crowd_tolerance: low` (currently weak)
+2. Edge shouldn't dominate EVERY couples query - diversify to Princess/HAL
+3. Virgin can't always win adults-only - Celebrity Millennium has adult appeal too
+
+---
+
+### UNDERREPRESENTED: Lines/Ships That Never Appear
+
+#### Cruise Lines - Rarely/Never Top Match:
+
+| Line | Problem | Personas Who SHOULD Get This |
+|------|---------|------------------------------|
+| **Disney** | Not in results | Families with young kids (Martinez, Chen-Okonkwo) |
+| **Costa** | Absorbed into Carnival data? | European budget seekers |
+| **Cunard** | Only for formal traditionalists | More than just Harold & Mildred |
+
+#### Ship Classes - Never Surface:
+
+| Line | Class | Why It's Buried | Potential Match |
+|------|-------|-----------------|-----------------|
+| **RCL** | Vision Class | Too old, low intensity | Budget port-focused (Eleanor, Wilson) |
+| **RCL** | Radiance Class | Overshadowed by Oasis | Alaska/scenic couples (Robert & Jean) |
+| **Carnival** | Fantasy Class | Budget getaway, low features | First-timers testing waters (Wilson) |
+| **Carnival** | Spirit Class | Mid-size intimate | Panama Canal seekers, couples |
+| **NCL** | Jewel/Dawn/Sun | Older, classic freestyle | Loyal NCL fans, relaxed pace |
+| **NCL** | Pride of America | Hawaii only | Anyone doing Hawaii! |
+| **MSC** | Lirica Class | Oldest, European | European budget, port-intensive |
+| **HAL** | Signature/Vista | Overshadowed by Pinnacle | Traditional cruisers (Marty & Doris) |
+| **Princess** | Coral/Grand Class | Older, classic | Traditional, formal nights lovers |
+| **Seabourn** | Venture | Expedition only | Adventure luxury (Bob & Carol) |
+| **Silversea** | Expedition ships | Not well scored | Eleanor, history buffs |
+
+---
+
+### MISSING PERSONA COVERAGE
+
+#### No good match for:
+1. **Hawaii seekers** - NCL Pride of America should surface but doesn't
+2. **Panama Canal** - Carnival Spirit, smaller ships don't surface
+3. **Alaska scenic** - RCL Radiance, HAL should appear more
+4. **Expedition luxury** - Seabourn Venture, Silversea expeditions buried
+5. **Budget first-timers** - Carnival Fantasy, RCL Vision could work
+
+---
+
+### Score Dominance Analysis
+
+**Why some ships always win:**
+
+| Factor | Effect | Example |
+|--------|--------|---------|
+| High intensity = high scores | Mega-ships dominate | Icon always beats Vision |
+| Family bonuses stack | Waterpark + kids club + capacity | Oasis gets triple boost |
+| "Premium" captures too much | Celebrity Edge = premium default | Beats HAL, Princess |
+| Adults-only bonus too strong | Virgin Voyages | +25 kid_separation overwhelms other factors |
+
+---
+
+### Recommendations for Rebalancing
+
+#### 1. Add destination/itinerary question
+> "What destinations interest you most?"
+> - Caribbean (warm weather, beaches)
+> - Alaska/scenic (glaciers, wildlife)
+> - Hawaii (islands, culture)
+> - Mediterranean (history, ports)
+> - Expedition (remote, adventure)
+
+This would surface:
+- NCL Pride of America (Hawaii)
+- RCL Radiance (Alaska)
+- Seabourn Venture (expedition)
+- Silversea expeditions
+
+#### 2. Add ship age/newness tolerance question
+> "How important is a brand-new ship?"
+> - Must be newest (flagship experience)
+> - Prefer modern (last 10 years)
+> - Classic is fine (proven reliability)
+> - Don't care (whatever fits)
+
+This would allow:
+- RCL Vision/Voyager (classic value)
+- Carnival Fantasy (budget)
+- HAL Vista class (traditional)
+- NCL Jewel (relaxed)
+
+#### 3. Reduce mega-ship dominance
+- Add slight penalty for Icon/Oasis when `crowd_tolerance: low` or `ship_vs_ports: ports`
+- Boost mid-size ships (RCL Quantum, Carnival Spirit, HAL Signature) for couples
+- Consider "ship size preference" question
+
+#### 4. Disney handling
+- Disney should appear for `family_young` + `must_have: family`
+- Currently excluded entirely - add Disney data or note in results
+
+---
+
+### Ships That Should Surface More
+
+| Ship Class | Current State | Should Appear For |
+|------------|---------------|-------------------|
+| RCL Radiance | Almost never | Couples, scenic, Alaska |
+| Carnival Spirit | Rarely | Panama Canal, intimate couples |
+| NCL Jewel | Rarely | Freestyle loyalists, relaxed |
+| HAL Signature | Sometimes | Traditional cruisers |
+| Princess Coral | Rarely | Formal night lovers |
+| Seabourn Venture | Never | Adventure + luxury combo |
+
+---
+
+### Ships That Could Be Deprioritized
+
+| Ship Class | Current State | Concern |
+|------------|---------------|---------|
+| RCL Icon | Always #1 for families | Drowns out Oasis, Carnival |
+| Celebrity Edge | Always #1 for couples | HAL, Princess should compete |
+| Virgin Scarlet | Always #1 for adults-only | Celebrity Millennium underrated |
+
+---
+
+### Test Scenarios to Verify Balance
+
+#### Scenario A: Scenic Alaska Couple
+```
+group_type: couple
+energy_level: relax
+crowd_tolerance: low
+ship_vs_ports: ports
+budget_mindset: balanced
+```
+**Expected:** RCL Radiance, HAL Pinnacle, Princess
+**Current likely result:** Celebrity Edge (overrepresented)
+
+#### Scenario B: Budget First-Timer
+```
+group_type: solo
+cruise_experience: first_time
+budget_mindset: value
+sailing_length: short
+```
+**Expected:** Carnival Fantasy, RCL Voyager, MSC Lirica
+**Current likely result:** Some mainstream but missing true budget options
+
+#### Scenario C: Hawaii Focused
+```
+ship_vs_ports: ports
+sailing_length: long
+[if we had destination question: hawaii]
+```
+**Expected:** NCL Pride of America should dominate
+**Current likely result:** NCL Pride of America probably never surfaces
+
+---
+
+## Section D: New Question Test Personas (Destination & Ship Age)
+
+These personas specifically test the new destination and ship_age questions added for rebalancing.
+
+### Persona 37: "The Hawaii Dreamers" - The Tanaka Family
+- **Group**: Couple (60, 58)
+- **Occasion**: Bucket list Hawaii cruise
+- **Priorities**: Inter-island hopping, Hawaiian culture, no sea days
+- **Budget**: Upper mid-range
+- **Destination**: Hawaii specifically
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | couple | Empty nesters |
+| cruise_experience | a_few | Have cruised Caribbean |
+| energy_level | balanced | Want to explore |
+| crowd_tolerance | medium | Acceptable |
+| ship_vs_ports | ports | Island experience focus |
+| sailing_length | standard | 7-night inter-island |
+| budget_mindset | balanced | Worth it for Hawaii |
+| destination | hawaii | The whole point! |
+| ship_age | dont_care | Whatever serves Hawaii |
+| must_have | scenic | Views of islands |
+
+**Expected Results:**
+- **Ideal**: NCL Pride of America (+50 Hawaii bonus!) - ONLY ship doing inter-island Hawaii
+- **Acceptable**: NCL Jewel (Hawaii from mainland), Princess
+- **Red Flags**: Ships that don't sail Hawaii routes
+
+**Test Purpose:** Verify Hawaii destination question surfaces Pride of America
+
+---
+
+### Persona 38: "The Glacier Chasers" - Janet & Tom
+- **Group**: Couple (55, 57)
+- **Occasion**: Alaska wildlife viewing
+- **Priorities**: Glaciers, wildlife, scenic cruising, small ports
+- **Budget**: Mid-range
+- **Destination**: Alaska specifically
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | couple | Couple |
+| cruise_experience | seasoned | Know what they want |
+| energy_level | relax | Scenic appreciation |
+| crowd_tolerance | low | Want intimate viewing |
+| ship_vs_ports | balanced | Both matter |
+| sailing_length | standard | 7-night Alaska |
+| budget_mindset | balanced | Worth it for Alaska |
+| destination | alaska | The whole point! |
+| ship_age | classic | Doesn't matter for scenic |
+| must_have | scenic | Views are everything |
+
+**Expected Results:**
+- **Ideal**: RCL Radiance (+20 Alaska bonus), HAL Pinnacle/Koningsdam
+- **Acceptable**: Princess Royal, Celebrity Millennium
+- **Red Flags**: Mega-ships too big for Glacier Bay permits
+
+**Test Purpose:** Verify Alaska destination + classic ship_age surfaces Radiance class
+
+---
+
+### Persona 39: "The Expedition Seekers" - Dr. Helen & Professor Mark
+- **Group**: Couple (65, 67)
+- **Occasion**: Antarctica/Arctic bucket list
+- **Priorities**: Zodiac landings, wildlife encounters, expert guides
+- **Budget**: Ultra-luxury (saved for this)
+- **Destination**: Expedition/remote areas
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | couple | Academic couple |
+| cruise_experience | seasoned | World travelers |
+| energy_level | balanced | Active but thoughtful |
+| crowd_tolerance | low | Small expedition groups |
+| ship_vs_ports | ports | Landings are everything |
+| sailing_length | long | Expedition requires time |
+| budget_mindset | premium | Expedition isn't cheap |
+| destination | expedition | Remote, adventure |
+| ship_age | modern | Safety for expeditions |
+| must_have | scenic | Wildlife, landscapes |
+
+**Expected Results:**
+- **Ideal**: Seabourn Venture (+25 expedition bonus), Silversea Expedition
+- **Acceptable**: Viking Expedition, Regent Explorer
+- **Red Flags**: Any mega-ship, mainstream cruise lines
+
+**Test Purpose:** Verify expedition destination surfaces Seabourn Venture and expedition ships
+
+---
+
+### Persona 40: "The Nostalgic Cruisers" - Cliff & Patty
+- **Group**: Couple (72, 70)
+- **Occasion**: Anniversary cruise - like the "good old days"
+- **Priorities**: Classic ship feel, smaller vessel, traditional experience
+- **Budget**: Value-focused
+- **Ship preference**: Don't need newest ship
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | couple | Long-time cruisers |
+| cruise_experience | seasoned | Cruising for decades |
+| energy_level | relax | Know the pace |
+| crowd_tolerance | low | Prefer classic intimacy |
+| ship_vs_ports | balanced | Traditional cruising |
+| sailing_length | standard | Classic 7-night |
+| budget_mindset | value | Fixed income |
+| destination | caribbean | Classic destination |
+| ship_age | classic | Explicitly prefer older |
+| must_have | shows | Traditional entertainment |
+
+**Expected Results:**
+- **Ideal**: RCL Vision (+15 classic bonus), Carnival Fantasy (+12), HAL Signature
+- **Acceptable**: RCL Radiance (+12), Carnival Spirit (+10), NCL Sun
+- **Red Flags**: Brand new mega-ships (overwhelming, not their style)
+
+**Test Purpose:** Verify classic ship_age preference surfaces Vision/Fantasy classes
+
+---
+
+### Persona 41: "The Port Purists" - Solo Sophie
+- **Group**: Solo (45)
+- **Occasion**: Mediterranean cultural immersion
+- **Priorities**: Maximum port time, small ports access, destination focus
+- **Budget**: Upper mid-range
+- **Ship preference**: Smaller ships that can access intimate ports
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | solo | Solo traveler |
+| cruise_experience | seasoned | Experienced |
+| energy_level | balanced | Active in ports |
+| crowd_tolerance | low | Wants fewer people |
+| ship_vs_ports | ports | Ports are everything |
+| sailing_length | long | Deep exploration |
+| budget_mindset | balanced | Will pay for access |
+| destination | mediterranean | History, culture |
+| ship_age | dont_care | Whatever fits small ports |
+| must_have | scenic | Port views |
+
+**Expected Results with Mega-Ship Penalty:**
+- **Ideal**: Oceania (+10 Med), Silversea, Azamara
+- **Acceptable**: Celebrity Millennium, HAL, Princess (smaller ships)
+- **Penalized**: RCL Icon (-12), Oasis (-10) - too big for small Med ports
+
+**Test Purpose:** Verify mega_ship_penalty applied for ports + low crowds combination
+
+---
+
+### Persona 42: "The Caribbean First-Timers" - The Mitchell Family
+- **Group**: Family with young kids (38, 36, 8, 5)
+- **Occasion**: First family cruise
+- **Priorities**: Waterslides, kids club, beach days
+- **Budget**: Value-focused
+- **Ship preference**: Whatever's newest/flashiest
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | family_young | Young family |
+| cruise_experience | first_time | Never cruised |
+| energy_level | go_go_go | Kids have energy |
+| crowd_tolerance | high | Expected with families |
+| ship_vs_ports | ship | Keep kids busy onboard |
+| sailing_length | short | Testing waters |
+| budget_mindset | value | Family budget |
+| destination | caribbean | Classic family |
+| ship_age | newest | Want flagship experience |
+| must_have | waterpark | Kids want slides |
+
+**Expected Results:**
+- **Ideal**: RCL Icon/Oasis (newest bonus), Carnival Excel (BOLT coaster)
+- **Acceptable**: MSC World, NCL Prima
+- **NOT Penalized**: Mega-ships appropriate here (high crowds, ship-focused)
+
+**Test Purpose:** Verify mega_ship_penalty NOT applied when crowd_tolerance: high and ship focus
+
+---
+
+## Summary: New Question Test Matrix
+
+| Persona | destination | ship_age | Expected Surfaced Ship |
+|---------|-------------|----------|------------------------|
+| 37. Tanaka | hawaii | dont_care | NCL Pride of America |
+| 38. Glacier Chasers | alaska | classic | RCL Radiance |
+| 39. Expedition | expedition | modern | Seabourn Venture |
+| 40. Nostalgic | caribbean | classic | RCL Vision, Fantasy |
+| 41. Port Purist | mediterranean | dont_care | Oceania (mega-ships penalized) |
+| 42. Mitchell Family | caribbean | newest | RCL Icon (NO penalty) |
+
+### Success Criteria for Rebalancing:
+1. ✓ NCL Pride of America appears for Hawaii seekers
+2. ✓ RCL Radiance appears for Alaska + classic preference
+3. ✓ Seabourn Venture appears for expedition seekers
+4. ✓ RCL Vision/Carnival Fantasy appear for classic preference
+5. ✓ Mega-ships penalized for low crowds + ports focus
+6. ✓ Mega-ships NOT penalized for high crowds + ship focus
+
+---
+
+## Section E: Regional Availability Edge Cases
+
+These personas test regional availability penalties to ensure users get ships that actually sail from their region.
+
+### Persona 43: "The Sydney Party Girls" - Aussie Hens Trip
+- **Group**: 8 women (ages 30-35)
+- **Occasion**: Bachelorette party
+- **Region**: Australia
+- **Problem**: Want Virgin Voyages vibe but Virgin doesn't sail Australia
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | friends | Girls trip |
+| home_region | australia | Based in Sydney |
+| cruise_experience | a_few | Some have cruised |
+| energy_level | go_go_go | Party mode |
+| crowd_tolerance | medium | Want scene not chaos |
+| ship_vs_ports | ship | Party on ship |
+| sailing_length | short | Long weekend |
+| budget_mindset | balanced | Splurging |
+| dress_code | relaxed | Beach and bars |
+| must_have | nightlife | The whole point |
+
+**Expected Results:**
+- **Ideal**: P&O Australia (strong regional presence, party vibe), Carnival Spirit (sails from Sydney)
+- **Acceptable**: Princess (strong in Aus), Celebrity (sails Aus seasonally)
+- **MUST BE EXCLUDED**: Virgin Voyages (-50, none in Australia)
+
+**Critical Test**: Virgin should NOT appear despite perfect preference match due to regional unavailability.
+
+---
+
+### Persona 44: "The Singapore Sophisticates" - Chen Family
+- **Group**: Multigenerational (grandparents 70s, parents 40s, kids 10, 8)
+- **Occasion**: Family reunion
+- **Region**: Singapore/Asia
+- **Problem**: Many luxury lines have limited Asia presence
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | multigen | 3 generations |
+| home_region | asia | Singapore based |
+| cruise_experience | a_few | Have cruised regionally |
+| energy_level | balanced | Mix of ages |
+| crowd_tolerance | medium | Accept for family |
+| ship_vs_ports | balanced | Both matter |
+| sailing_length | standard | Week cruise |
+| budget_mindset | premium | Can afford luxury |
+| dress_code | smart | Asian sensibilities |
+| must_have | family | Multi-gen needs |
+
+**Expected Results:**
+- **Ideal**: RCL Quantum/Spectrum (homeported in Asia), Silversea (strong Asia)
+- **Acceptable**: Princess (seasonal Asia), Celebrity (seasonal)
+- **PENALIZED**: Regent (-5 moderate), Explora (-25 rare), Cunard (-15 limited)
+- **EXCLUDED**: Viking Ocean (-50 none in quiz region), Virgin (-50)
+
+**Critical Test**: Premium request should still avoid lines with no Asia presence.
+
+---
+
+### Persona 45: "The European Budget Seekers" - The Schmidt Family
+- **Group**: Family (parents 42/40, teens 16/14)
+- **Occasion**: Mediterranean cruise
+- **Region**: Germany (Europe)
+- **Problem**: Want value cruise from Europe
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | family_teens | Teenage kids |
+| home_region | europe | Germany |
+| cruise_experience | first_time | Never cruised |
+| energy_level | balanced | Teen + parent mix |
+| crowd_tolerance | medium | Accept family crowds |
+| ship_vs_ports | balanced | Med ports + ship |
+| sailing_length | standard | 7-night Med |
+| budget_mindset | value | Budget conscious |
+| destination | mediterranean | Med cruise |
+| dress_code | casual | German practical |
+| must_have | tech | Teens need activities |
+
+**Expected Results:**
+- **Ideal**: MSC World/Seaside (+0 strong Europe, family features, value)
+- **Acceptable**: Costa (European value), Carnival (if sailing Med)
+- **BOOSTED**: MSC, Costa (European home lines)
+- **NOT PENALIZED**: Most mainstream lines sail Europe
+
+**Critical Test**: European home lines (MSC, Costa) should rise for Europe-based budget seekers.
+
+---
+
+### Persona 46: "The Isolated Luxury Seeker" - Dame Margaret
+- **Group**: Solo (75)
+- **Occasion**: World cruise segment
+- **Region**: New Zealand
+- **Problem**: Ultra-luxury but very limited options from NZ
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | solo | Solo traveler |
+| home_region | australia | NZ falls under Aus/Pacific |
+| cruise_experience | seasoned | Decades of cruising |
+| energy_level | relax | Refined pace |
+| crowd_tolerance | low | Intimate only |
+| ship_vs_ports | balanced | Both appreciated |
+| sailing_length | long | Extended voyage |
+| budget_mindset | premium | Money no object |
+| dress_code | formal | Traditional elegance |
+| must_have | dining | Gourmet essential |
+
+**Expected Results:**
+- **Ideal**: Silversea (strong in Australia/NZ), Regent (repositioning cruises)
+- **Acceptable**: Seabourn (occasional), Oceania (seasonal)
+- **ADVISORY**: "For ultra-luxury from New Zealand, consider repositioning cruises or flights to embarkation ports"
+
+**Critical Test**: Should still get luxury results but with regional reality check.
+
+---
+
+## Section F: NCL Penalty Impact Analysis
+
+These personas specifically test how the -7 NCL editorial penalty affects recommendations.
+
+### Persona 47: "The Solo Studio Seeker" - Maya
+- **Group**: Solo female (38)
+- **Occasion**: First solo cruise
+- **Priority**: Solo-friendly ship with dedicated solo spaces
+- **Critical**: NCL has best solo studios but now has -7 penalty
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | solo | Solo traveler |
+| cruise_experience | first_time | New to cruising |
+| energy_level | balanced | Want options |
+| crowd_tolerance | medium | Not overwhelming |
+| ship_vs_ports | balanced | Both matter |
+| sailing_length | standard | Test the waters |
+| budget_mindset | balanced | Reasonable |
+| dress_code | casual | Relaxed |
+| must_have | none | Solo experience |
+
+**Score Analysis:**
+- NCL Prima (pre-penalty): solo(+18) + first_time(+4) + balanced scores ≈ **+45**
+- NCL Prima (post-penalty): **+38** (-7 editorial)
+- Celebrity Edge: solo(+12) + first_time(+6) + balanced ≈ **+42**
+- Virgin Scarlet: solo(+22) + first_time(+2) ≈ **+40**
+
+**Expected Results:**
+- **Winner**: Celebrity Edge (now beats NCL)
+- **Close Second**: Virgin Scarlet, NCL Prima
+- **Acceptable**: Royal Caribbean Quantum
+
+**Critical Test**: NCL should drop from #1 to #2-3 for solo travelers due to penalty.
+
+---
+
+### Persona 48: "The Freestyle Loyalist" - Regular Rick
+- **Group**: Couple (58, 56)
+- **Occasion**: 12th NCL cruise
+- **Priority**: Loyal NCL customer, loves freestyle dining
+- **Conflict**: Editorial penalty vs natural NCL preference
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | couple | Couple |
+| cruise_experience | seasoned | Very experienced |
+| energy_level | balanced | Know what they like |
+| crowd_tolerance | medium | Used to NCL crowds |
+| ship_vs_ports | ship | Love freestyle concept |
+| sailing_length | standard | Their usual |
+| budget_mindset | balanced | Know the deals |
+| dress_code | relaxed | Freestyle dress |
+| must_have | none | Just want NCL |
+
+**Score Analysis:**
+- NCL Breakaway Plus (pre-penalty): couple(+10) + seasoned(+6) + ship(+12) + relaxed dress(+15) ≈ **+55**
+- NCL Breakaway Plus (post-penalty): **+48** (-7)
+- Virgin Lady: couple(+8) + seasoned(+4) + ship(+14) + relaxed(+20) ≈ **+46**
+- Carnival Excel: couple(+6) + seasoned(+4) + ship(+14) + relaxed(+10) ≈ **+40**
+
+**Expected Results:**
+- **Winner**: NCL Breakaway Plus (still wins due to strong preference alignment)
+- **Close Second**: Virgin Voyages
+- **Note**: For users with strong NCL preference, penalty reduces but doesn't eliminate
+
+**Critical Test**: NCL should still win for users with strong NCL-aligned preferences, just with reduced margin.
+
+---
+
+### Persona 49: "The Haven Hopeful" - The Luxury-Lite Seekers
+- **Group**: Couple (45, 43)
+- **Occasion**: Anniversary splurge
+- **Priority**: Want luxury experience at premium-mainstream price (NCL Haven)
+- **Conflict**: NCL Haven is their target, but penalty applies
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | couple | Couple |
+| cruise_experience | a_few | Know mainstream |
+| energy_level | relax | Want pampered |
+| crowd_tolerance | low | Haven = escape crowds |
+| ship_vs_ports | balanced | Both |
+| sailing_length | standard | 7 nights |
+| budget_mindset | premium | Splurging |
+| dress_code | smart | Haven elegance |
+| must_have | service | Butler service appeal |
+
+**Score Analysis:**
+- NCL Prima Haven (pre-penalty): couple(+12) + relax(+10) + low(+8) + premium(+14) + service(+12) ≈ **+60**
+- NCL Prima Haven (post-penalty): **+53** (-7)
+- Celebrity Retreat: couple(+14) + relax(+12) + low(+10) + premium(+16) + service(+10) ≈ **+62**
+- Virgin RockStar: couple(+10) + relax(+8) + low(+12) + premium(+14) + service(+8) ≈ **+52**
+
+**Expected Results:**
+- **Winner**: Celebrity Retreat (beats NCL Haven now)
+- **Close Second**: NCL Prima Haven
+- **Alternative**: Virgin RockStar Quarters
+
+**Critical Test**: NCL Haven loses to Celebrity Retreat for luxury-lite seekers.
+
+---
+
+## Section G: Extreme & Unusual Combinations
+
+These personas test unusual answer combinations that might expose scoring bugs.
+
+### Persona 50: "The Impossible Dreamer" - Ultra-Luxury on Budget
+- **Group**: Solo (28)
+- **Wants**: Regent-quality experience
+- **Budget**: Carnival budget
+- **Expected**: Algorithm must handle gracefully
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | solo | Solo |
+| cruise_experience | first_time | Never cruised |
+| energy_level | relax | Want pampering |
+| crowd_tolerance | low | Hate crowds |
+| ship_vs_ports | balanced | Want everything |
+| sailing_length | long | Extended voyage |
+| budget_mindset | value | STRICT budget |
+| dress_code | formal | Want elegance |
+| must_have | dining | Gourmet expected |
+| must_have | service | Butler service |
+
+**Score Conflict Analysis:**
+- Luxury lines: dining(+18) + service(+18) + low(+14) + formal(+20) = **+70 base**
+  - BUT value budget: **-30 to -50** penalty
+  - **Net: +20 to +40**
+- Premium mainstream: dining(+10) + low(-4) + formal(+10) = **+16 base**
+  - value budget: **+0 to +10** bonus
+  - **Net: +16 to +26**
+
+**Expected Results:**
+- **Recommended**: Celebrity Millennium, Holland America (premium feel, accessible price)
+- **Advisory**: "Your preferences suggest luxury experiences. Consider Celebrity or Holland America for premium feel at mid-range prices."
+- **NOT**: Regent/Silversea (budget constraint) or Carnival (quality mismatch)
+
+**Critical Test**: Budget constraint must override luxury preferences, with helpful advisory.
+
+---
+
+### Persona 51: "The Extreme Introvert" - All Low Scores
+- **Group**: Solo (55)
+- **Wants**: Absolute minimum interaction
+- **Pattern**: Every answer is most restrictive/low option
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | solo | Alone |
+| cruise_experience | first_time | Reluctant |
+| energy_level | relax | Very low energy |
+| crowd_tolerance | low | Hates people |
+| ship_vs_ports | ports | Escape ship |
+| sailing_length | short | Minimize time |
+| budget_mindset | value | Won't invest |
+| dress_code | relaxed | No effort |
+| destination | flexible | Doesn't care |
+| must_have | none | Nothing matters |
+
+**Expected Results:**
+- **Recommended**: Small, quiet, port-focused ships
+- **Ideal**: Holland America (older demographic), Oceania (intimate), RCL Radiance
+- **Red Flags**: Party ships, mega-ships, high-energy lines
+
+**Critical Test**: System should produce reasonable result from consistently low/restrictive answers.
+
+---
+
+### Persona 52: "The Everything Maximizer" - All High Scores
+- **Group**: Large group (12 friends)
+- **Wants**: EVERYTHING at maximum
+- **Pattern**: Every answer is highest/most option
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | friends | Big group |
+| cruise_experience | seasoned | Done it all |
+| energy_level | go_go_go | Maximum activity |
+| crowd_tolerance | high | Love energy |
+| ship_vs_ports | ship | Ship is destination |
+| sailing_length | long | Extended party |
+| budget_mindset | premium | Money to spend |
+| dress_code | formal | Glam it up |
+| destination | caribbean | Party destination |
+| ship_age | newest | Flagship only |
+| must_have | tech | All the toys |
+
+**Expected Results:**
+- **Recommended**: RCL Icon of the Seas (newest, most features)
+- **Alternatives**: Carnival Excel, MSC World Europa
+- **Score**: Should be very high positive for mega-ships
+
+**Critical Test**: Maximum answers should clearly point to flagship mega-ships.
+
+---
+
+### Persona 53: "The Walking Contradiction" - Opposing Answers
+- **Group**: Couple (40, 38)
+- **Pattern**: Answers that directly contradict each other
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | couple | Just two |
+| energy_level | go_go_go | High energy |
+| crowd_tolerance | low | But hate crowds |
+| ship_vs_ports | ship | Ship focused |
+| budget_mindset | value | Budget |
+| dress_code | formal | BUT formal dress |
+| must_have | waterpark | Family feature |
+| destination | expedition | Remote/adventure |
+
+**Contradictions:**
+- go_go_go + low crowds = Impossible on big activity ships
+- value + formal = Unusual combination
+- couple + waterpark = Typically family feature
+- expedition + waterpark = Don't exist together
+
+**Expected Results:**
+- **Algorithm behavior**: Should find middle ground
+- **Likely result**: Mid-size activity ship (RCL Quantum, Freedom class)
+- **NOT**: Pure expedition ships (no waterpark) or mega-ships (crowds)
+
+**Critical Test**: Algorithm handles contradictory inputs without crashing or nonsensical results.
+
+---
+
+### Persona 54: "The Regional Impossibility" - Asian Expedition Luxury
+- **Group**: Couple (65, 63)
+- **Region**: Asia
+- **Wants**: Luxury expedition from Asia
+- **Problem**: Almost no expedition ships homeport in Asia
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | couple | Couple |
+| home_region | asia | Based in Asia |
+| cruise_experience | seasoned | Experienced |
+| energy_level | balanced | Expedition pace |
+| crowd_tolerance | low | Small ships |
+| ship_vs_ports | ports | Landings |
+| sailing_length | long | Expedition length |
+| budget_mindset | premium | Can afford |
+| destination | expedition | Remote areas |
+| dress_code | smart | Elegant expedition |
+| must_have | scenic | Wildlife |
+
+**Expected Results:**
+- **Best Available**: Silversea Expedition (occasionally in Asia), Ponant (rare)
+- **Advisory**: "Expedition cruises from Asia are limited. Consider flights to embarkation ports in Australia, South America, or Europe."
+- **Regional penalty applied**: Most expedition ships get -15 to -50
+
+**Critical Test**: System handles impossible regional combinations with helpful guidance.
+
+---
+
+## Section H: Solo Traveler Variations
+
+Different types of solo travelers with distinct needs.
+
+### Persona 55: "The Solo Socializer" - Wants to Meet People
+- **Group**: Solo (35)
+- **Priority**: Meet other travelers, group activities, social dining
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | solo | Solo but social |
+| cruise_experience | first_time | New to cruising |
+| energy_level | go_go_go | Active social |
+| crowd_tolerance | high | Love people |
+| ship_vs_ports | balanced | Both |
+| sailing_length | standard | Week cruise |
+| budget_mindset | balanced | Reasonable |
+| dress_code | smart | Meet people nicely |
+| must_have | shows | Social entertainment |
+
+**Expected Results:**
+- **Ideal**: NCL Epic/Prima (solo studio + social spaces), Virgin (social vibe)
+- **Acceptable**: Royal Caribbean (activities to meet people)
+- **NOT**: Ultra-luxury small ships (too intimate/awkward)
+
+---
+
+### Persona 56: "The Solo Escape Artist" - Wants to Be Alone
+- **Group**: Solo (50)
+- **Priority**: Solitude, spa, reading, no forced interaction
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | solo | Solo for solitude |
+| cruise_experience | seasoned | Knows what works |
+| energy_level | relax | Peace and quiet |
+| crowd_tolerance | low | Avoid people |
+| ship_vs_ports | balanced | Quiet ports |
+| sailing_length | long | Extended retreat |
+| budget_mindset | premium | Worth it for peace |
+| dress_code | casual | No attention |
+| must_have | spa | Wellness focus |
+
+**Expected Results:**
+- **Ideal**: Oceania (intimate, spa), Celebrity (solarium), Silversea (suite solitude)
+- **Acceptable**: Holland America (older quiet demographic)
+- **NOT**: Party ships, social-focused lines
+
+---
+
+### Persona 57: "The Solo Parent" - Single Mom with Kids
+- **Group**: Solo adult + children (Mom 42, kids 10, 7)
+- **Priority**: Kids club so mom gets breaks, easy logistics
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | family_young | Has kids (solo parent) |
+| cruise_experience | first_time | First solo parent trip |
+| energy_level | balanced | Kids active, mom tired |
+| crowd_tolerance | medium | Accept family environment |
+| ship_vs_ports | ship | Easy, contained |
+| sailing_length | short | Manageable alone |
+| budget_mindset | value | Single income |
+| dress_code | casual | Practical |
+| must_have | family | Kids club essential |
+
+**Expected Results:**
+- **Ideal**: Royal Caribbean Freedom/Oasis (excellent kids programming)
+- **Acceptable**: Carnival Vista (Camp Ocean), Disney (if budget allows)
+- **Critical**: Must have supervised kids programs so single parent gets breaks
+
+---
+
+### Persona 58: "The Widower's First Voyage" - Grief Travel
+- **Group**: Solo (68, recently widowed)
+- **Priority**: Gentle reintroduction to travel, spouse memories, not lonely
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | solo | Newly solo |
+| cruise_experience | seasoned | Cruised with late spouse |
+| energy_level | relax | Gentle pace |
+| crowd_tolerance | medium | Want some company |
+| ship_vs_ports | balanced | Familiar pattern |
+| sailing_length | standard | Comfortable length |
+| budget_mindset | balanced | Fixed income |
+| dress_code | smart | Maintain standards |
+| must_have | shows | Evening entertainment |
+
+**Expected Results:**
+- **Ideal**: Holland America (similar demographic, gentle), Princess (familiar)
+- **Acceptable**: Celebrity Millennium, Cunard (if formal background)
+- **NOT**: Party ships, youth-focused lines
+
+**Special Consideration**: Results should favor lines with older demographics and social opportunities without forced activities.
+
+---
+
+## Section I: Dress Code Edge Cases
+
+### Persona 59: "The Formal Fanatic" - Lives for Gala Nights
+- **Group**: Couple (62, 60)
+- **Priority**: Multiple formal nights, ballroom dancing, evening elegance
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | couple | Couple |
+| cruise_experience | seasoned | Traditional cruisers |
+| energy_level | balanced | Daytime casual, evening formal |
+| crowd_tolerance | medium | Enjoy fellow guests |
+| ship_vs_ports | balanced | Classic cruising |
+| sailing_length | long | More formal nights |
+| budget_mindset | balanced | Not luxury but not budget |
+| dress_code | formal | THE priority |
+| must_have | shows | Ballroom, orchestra |
+
+**Expected Results:**
+- **Ideal**: Cunard (+20 formal bonus), Princess (+10)
+- **Acceptable**: Holland America, Celebrity
+- **EXCLUDED**: Virgin (-20 no formal), NCL (-10 freestyle), Carnival (-8)
+
+**Critical Test**: Formal dress code should strongly favor traditional lines.
+
+---
+
+### Persona 60: "The Flip-Flop Forever" - Anti-Dress Code
+- **Group**: Friends (4 guys, 30s)
+- **Priority**: Never wear closed-toe shoes, shorts 24/7
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| group_type | friends | Buddy trip |
+| cruise_experience | a_few | Casual cruisers |
+| energy_level | go_go_go | Beach and bars |
+| crowd_tolerance | high | Party scene |
+| ship_vs_ports | ship | Pool and bar |
+| sailing_length | short | Weekend getaway |
+| budget_mindset | value | Cheap trip |
+| dress_code | relaxed | NO dress code |
+| must_have | nightlife | Bars, casino |
+
+**Expected Results:**
+- **Ideal**: Virgin (+20 relaxed), NCL (+15 freestyle), Carnival (+10)
+- **Acceptable**: Royal Caribbean (casual options)
+- **EXCLUDED**: Cunard (-25), Holland America (-8)
+
+**Critical Test**: Relaxed dress code should strongly favor casual lines.
+
+---
+
+## Edge Case Summary Matrix
+
+| ID | Persona | Key Edge Case | Expected Behavior |
+|----|---------|---------------|-------------------|
+| 43 | Sydney Party | Region blocks ideal line | Virgin excluded, P&O surfaces |
+| 44 | Singapore Family | Asia premium limited | RCL Asia ships, Silversea |
+| 45 | German Family | European value seeker | MSC/Costa boosted |
+| 46 | NZ Ultra-Luxury | Remote region + luxury | Silversea, advisory given |
+| 47 | Solo Studio | NCL penalty impact | Celebrity beats NCL |
+| 48 | Freestyle Loyalist | NCL loyalty vs penalty | NCL still wins (reduced) |
+| 49 | Haven Hopeful | Luxury-lite comparison | Celebrity Retreat wins |
+| 50 | Impossible Dream | Budget vs luxury conflict | Celebrity/HAL with advisory |
+| 51 | Extreme Introvert | All-low answers | Small quiet ships |
+| 52 | Everything Max | All-high answers | Flagship mega-ships |
+| 53 | Contradiction | Opposing answers | Middle-ground result |
+| 54 | Asian Expedition | Impossible combo | Advisory about flights |
+| 55 | Solo Socializer | Social solo | NCL Epic, Virgin |
+| 56 | Solo Escape | Solitude solo | Oceania, Celebrity |
+| 57 | Solo Parent | Single parent + kids | RCL for kids club |
+| 58 | Widower | Grief travel | HAL, Princess (gentle) |
+| 59 | Formal Fanatic | Formal priority | Cunard, Princess |
+| 60 | Flip-Flop | Anti-dress code | Virgin, NCL, Carnival |
+
+### Critical Failure Scenarios to Verify:
+
+1. **Virgin for Australian family** - MUST NOT happen (no ships there)
+2. **Cunard for relaxed dress code** - MUST NOT happen (opposite of brand)
+3. **Party ship for grief traveler** - MUST NOT happen (tone-deaf)
+4. **Expedition for waterpark seeker** - MUST NOT happen (incompatible)
+5. **NCL #1 for solo female** - Should now be #2-3 due to penalty

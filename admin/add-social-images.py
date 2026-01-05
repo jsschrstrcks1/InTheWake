@@ -119,7 +119,7 @@ def add_social_tags(filepath, dry_run=False):
                 content = re.sub(og_title_pattern, r'\1' + og_image_tag, content)
                 modified = True
             elif 'og:type' not in content:
-                # No OpenGraph tags at all - add full section after canonical link
+                # No OpenGraph tags at all - add full section after canonical link or title
                 og_section = f'''
   <!-- OpenGraph -->
   <meta property="og:type" content="article"/>
@@ -133,6 +133,12 @@ def add_social_tags(filepath, dry_run=False):
                 if re.search(canonical_pattern, content):
                     content = re.sub(canonical_pattern, r'\1' + og_section, content)
                     modified = True
+                else:
+                    # No canonical link - insert after title tag
+                    title_pattern = r'(<title>[^<]*</title>)'
+                    if re.search(title_pattern, content):
+                        content = re.sub(title_pattern, r'\1' + og_section, content)
+                        modified = True
 
     # Add twitter:image after twitter:card if missing
     if not has_twitter_image(content):
@@ -181,7 +187,11 @@ def main():
     # Also check root-level HTML files
     root_files = [
         'drinks.html', 'drink-packages.html', 'packing.html',
-        'search.html', 'privacy.html', 'terms.html', 'offline.html'
+        'search.html', 'privacy.html', 'terms.html', 'offline.html',
+        'internet-at-sea.html', 'stateroom-check.html', 'about-us.html',
+        'accessibility.html', 'articles.html', 'cruise-lines.html',
+        'disability-at-sea.html', 'packing-lists.html', 'planning.html',
+        'ports.html', 'restaurants.html', 'ships.html', 'index.html'
     ]
 
     total_updated = 0
