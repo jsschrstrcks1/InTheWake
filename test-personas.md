@@ -1712,3 +1712,179 @@ For families who select accessibility needs, provide results guidance:
 
 **Quiz can't capture this, but results could note:**
 > "For reluctant cruisers or those who value autonomy, consider: longer balcony time, destination-focused itineraries, premium lines with flexible dining."
+
+---
+
+## Line & Ship Frequency Analysis
+
+### Methodology
+Analyzed all 35 personas to count how often each line/ship class appears as:
+- **Ideal** (top recommendation)
+- **Acceptable** (good secondary)
+- **Red Flag** (never recommend)
+
+---
+
+### OVERREPRESENTED: Lines/Ships That Appear Too Often
+
+| Line/Class | Ideal Count | Concern |
+|------------|-------------|---------|
+| **RCL Icon/Oasis** | 8+ | Dominates family, thrill, multigenerational |
+| **Celebrity Edge** | 6+ | Default for couples, solo, premium |
+| **Virgin Voyages** | 5+ | Every adults-only, party, trendy persona |
+
+**Issue:** These three become "safe answers" that crowd out other valid options.
+
+**Recommendations:**
+1. Consider slight penalty for Icon/Oasis when `crowd_tolerance: low` (currently weak)
+2. Edge shouldn't dominate EVERY couples query - diversify to Princess/HAL
+3. Virgin can't always win adults-only - Celebrity Millennium has adult appeal too
+
+---
+
+### UNDERREPRESENTED: Lines/Ships That Never Appear
+
+#### Cruise Lines - Rarely/Never Top Match:
+
+| Line | Problem | Personas Who SHOULD Get This |
+|------|---------|------------------------------|
+| **Disney** | Not in results | Families with young kids (Martinez, Chen-Okonkwo) |
+| **Costa** | Absorbed into Carnival data? | European budget seekers |
+| **Cunard** | Only for formal traditionalists | More than just Harold & Mildred |
+
+#### Ship Classes - Never Surface:
+
+| Line | Class | Why It's Buried | Potential Match |
+|------|-------|-----------------|-----------------|
+| **RCL** | Vision Class | Too old, low intensity | Budget port-focused (Eleanor, Wilson) |
+| **RCL** | Radiance Class | Overshadowed by Oasis | Alaska/scenic couples (Robert & Jean) |
+| **Carnival** | Fantasy Class | Budget getaway, low features | First-timers testing waters (Wilson) |
+| **Carnival** | Spirit Class | Mid-size intimate | Panama Canal seekers, couples |
+| **NCL** | Jewel/Dawn/Sun | Older, classic freestyle | Loyal NCL fans, relaxed pace |
+| **NCL** | Pride of America | Hawaii only | Anyone doing Hawaii! |
+| **MSC** | Lirica Class | Oldest, European | European budget, port-intensive |
+| **HAL** | Signature/Vista | Overshadowed by Pinnacle | Traditional cruisers (Marty & Doris) |
+| **Princess** | Coral/Grand Class | Older, classic | Traditional, formal nights lovers |
+| **Seabourn** | Venture | Expedition only | Adventure luxury (Bob & Carol) |
+| **Silversea** | Expedition ships | Not well scored | Eleanor, history buffs |
+
+---
+
+### MISSING PERSONA COVERAGE
+
+#### No good match for:
+1. **Hawaii seekers** - NCL Pride of America should surface but doesn't
+2. **Panama Canal** - Carnival Spirit, smaller ships don't surface
+3. **Alaska scenic** - RCL Radiance, HAL should appear more
+4. **Expedition luxury** - Seabourn Venture, Silversea expeditions buried
+5. **Budget first-timers** - Carnival Fantasy, RCL Vision could work
+
+---
+
+### Score Dominance Analysis
+
+**Why some ships always win:**
+
+| Factor | Effect | Example |
+|--------|--------|---------|
+| High intensity = high scores | Mega-ships dominate | Icon always beats Vision |
+| Family bonuses stack | Waterpark + kids club + capacity | Oasis gets triple boost |
+| "Premium" captures too much | Celebrity Edge = premium default | Beats HAL, Princess |
+| Adults-only bonus too strong | Virgin Voyages | +25 kid_separation overwhelms other factors |
+
+---
+
+### Recommendations for Rebalancing
+
+#### 1. Add destination/itinerary question
+> "What destinations interest you most?"
+> - Caribbean (warm weather, beaches)
+> - Alaska/scenic (glaciers, wildlife)
+> - Hawaii (islands, culture)
+> - Mediterranean (history, ports)
+> - Expedition (remote, adventure)
+
+This would surface:
+- NCL Pride of America (Hawaii)
+- RCL Radiance (Alaska)
+- Seabourn Venture (expedition)
+- Silversea expeditions
+
+#### 2. Add ship age/newness tolerance question
+> "How important is a brand-new ship?"
+> - Must be newest (flagship experience)
+> - Prefer modern (last 10 years)
+> - Classic is fine (proven reliability)
+> - Don't care (whatever fits)
+
+This would allow:
+- RCL Vision/Voyager (classic value)
+- Carnival Fantasy (budget)
+- HAL Vista class (traditional)
+- NCL Jewel (relaxed)
+
+#### 3. Reduce mega-ship dominance
+- Add slight penalty for Icon/Oasis when `crowd_tolerance: low` or `ship_vs_ports: ports`
+- Boost mid-size ships (RCL Quantum, Carnival Spirit, HAL Signature) for couples
+- Consider "ship size preference" question
+
+#### 4. Disney handling
+- Disney should appear for `family_young` + `must_have: family`
+- Currently excluded entirely - add Disney data or note in results
+
+---
+
+### Ships That Should Surface More
+
+| Ship Class | Current State | Should Appear For |
+|------------|---------------|-------------------|
+| RCL Radiance | Almost never | Couples, scenic, Alaska |
+| Carnival Spirit | Rarely | Panama Canal, intimate couples |
+| NCL Jewel | Rarely | Freestyle loyalists, relaxed |
+| HAL Signature | Sometimes | Traditional cruisers |
+| Princess Coral | Rarely | Formal night lovers |
+| Seabourn Venture | Never | Adventure + luxury combo |
+
+---
+
+### Ships That Could Be Deprioritized
+
+| Ship Class | Current State | Concern |
+|------------|---------------|---------|
+| RCL Icon | Always #1 for families | Drowns out Oasis, Carnival |
+| Celebrity Edge | Always #1 for couples | HAL, Princess should compete |
+| Virgin Scarlet | Always #1 for adults-only | Celebrity Millennium underrated |
+
+---
+
+### Test Scenarios to Verify Balance
+
+#### Scenario A: Scenic Alaska Couple
+```
+group_type: couple
+energy_level: relax
+crowd_tolerance: low
+ship_vs_ports: ports
+budget_mindset: balanced
+```
+**Expected:** RCL Radiance, HAL Pinnacle, Princess
+**Current likely result:** Celebrity Edge (overrepresented)
+
+#### Scenario B: Budget First-Timer
+```
+group_type: solo
+cruise_experience: first_time
+budget_mindset: value
+sailing_length: short
+```
+**Expected:** Carnival Fantasy, RCL Voyager, MSC Lirica
+**Current likely result:** Some mainstream but missing true budget options
+
+#### Scenario C: Hawaii Focused
+```
+ship_vs_ports: ports
+sailing_length: long
+[if we had destination question: hawaii]
+```
+**Expected:** NCL Pride of America should dominate
+**Current likely result:** NCL Pride of America probably never surfaces
