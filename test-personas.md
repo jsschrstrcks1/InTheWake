@@ -1605,6 +1605,87 @@ For families who select accessibility needs, provide results guidance:
    - Princess (strong in Aus) gets boosted
    - Virgin (none in Aus) correctly excluded
 
+5. **NCL Editorial Penalty (-7 all classes)** ✓
+   - Service quality and women's safety concerns
+   - Affects all NCL recommendations across the board
+
+---
+
+## NCL Penalty Edge Case Analysis
+
+**Editorial adjustment:** -7 points to all NCL ship classes (service quality, safety concerns)
+
+### Impact on Personas Previously Matched to NCL:
+
+#### Persona 1: Jake's Crew (Bachelor Party)
+**Before NCL penalty:**
+- NCL Prima: ~+50 (party atmosphere, relaxed dress, nightlife)
+- Virgin Scarlet: ~+52
+
+**After NCL penalty:**
+- NCL Prima: ~+43 (-7)
+- Virgin Scarlet: ~+52 (unchanged)
+
+**Result:** Virgin now has a stronger lead. NCL still viable but not top pick.
+
+---
+
+#### Persona 10: Jen's 40th (Party Girls)
+**Before NCL penalty:**
+- NCL Breakaway: ~+45
+- Virgin: ~+55
+- Carnival Excel: ~+40
+
+**After NCL penalty:**
+- NCL Breakaway: ~+38 (-7)
+- Virgin: ~+55 (unchanged)
+- Carnival Excel: ~+40 (unchanged)
+
+**Result:** Virgin solidifies #1, Carnival overtakes NCL for #2 in party category.
+
+---
+
+#### Persona 25: Taylor's Solo Trip (Solo Female Traveler)
+**Critical edge case - safety concerns most relevant here**
+
+**Before NCL penalty:**
+- NCL Prima (solo studio cabins): ~+42
+- Celebrity Edge: ~+45
+- Virgin Scarlet: ~+40
+
+**After NCL penalty:**
+- NCL Prima: ~+35 (-7)
+- Celebrity Edge: ~+45 (unchanged)
+- Virgin Scarlet: ~+40 (unchanged)
+
+**Result:** Celebrity clearly #1 for solo female travelers. NCL's solo-friendly features no longer compensate for safety penalty. This is the intended outcome.
+
+---
+
+#### Persona 3: Sarah & Marcus (Young Professionals)
+**Before NCL penalty:**
+- Celebrity Edge: ~+55
+- NCL Prima: ~+45
+
+**After NCL penalty:**
+- Celebrity Edge: ~+55 (unchanged)
+- NCL Prima: ~+38 (-7)
+
+**Result:** Celebrity's lead widens. NCL no longer close competitor.
+
+---
+
+### Summary: NCL Penalty Impact
+
+| Persona | NCL Before | NCL After | New Winner |
+|---------|------------|-----------|------------|
+| Jake's Crew | +50 | +43 | Virgin (+52) |
+| Jen's 40th | +45 | +38 | Virgin (+55) |
+| Taylor Solo | +42 | +35 | Celebrity (+45) |
+| Sarah & Marcus | +45 | +38 | Celebrity (+55) |
+
+**Key outcome:** Solo female travelers (Persona 25) now correctly steered toward Celebrity over NCL despite NCL's solo-friendly cabin design.
+
 ---
 
 ## Persona 28: Michael - Expanded Backstory
