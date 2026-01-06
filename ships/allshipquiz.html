@@ -2006,7 +2006,7 @@
       }
     }
 
-    // Select an option
+    // Select an option and auto-advance
     function selectOption(card, questionId, btnNext) {
       const allCards = card.parentElement.querySelectorAll('.option-card');
       allCards.forEach(c => {
@@ -2017,6 +2017,11 @@
       card.setAttribute('aria-pressed', 'true');
       answers[questionId] = card.dataset.value;
       btnNext.disabled = false;
+
+      // Auto-advance after brief delay to show selection
+      setTimeout(() => {
+        btnNext.click();
+      }, 350);
     }
 
     // Update progress indicator

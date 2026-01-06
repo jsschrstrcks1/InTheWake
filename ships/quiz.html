@@ -5,18 +5,18 @@
   <script>document.documentElement.classList.remove('no-js');</script>
 
 <!-- ai-breadcrumbs
-     entity: Ship Selection Quiz
+     entity: Multi-Line Ship Selection Quiz
      type: Interactive Tool
      parent: /ships.html
      category: Planning Tool
-     updated: 2025-12-27
+     updated: 2026-01-03
      expertise: Cruise planning, ship selection, personalized recommendations
-     target-audience: First-time cruisers, cruise travelers seeking ship recommendations
-     answer-first: Take this quick quiz to find your perfect Royal Caribbean ship based on your travel style, group, and preferences.
+     target-audience: Cruise travelers seeking ship recommendations across multiple lines
+     answer-first: Take this quick quiz to find your perfect cruise ship across 15 major cruise lines—from mainstream to ultra-luxury—based on your travel style.
      -->
   <!-- ======================================================
-       In the Wake — Ship Selection Quiz
-       Version: 1.0.0  |  Soli Deo Gloria
+       In the Wake — All Ship Quiz V2
+       Version: 2.0.0  |  Soli Deo Gloria
        ====================================================== -->
 
   <!-- Consent (autoblocking) -->
@@ -32,8 +32,8 @@
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WZP891PZXJ',{anonymize_ip:true});</script>
 
   <!-- ICP-Lite v1.4 Meta Tags -->
-  <meta name="ai-summary" content="Interactive quiz to help cruise travelers find their perfect Royal Caribbean ship. Answer 8 simple questions about your travel party, pace, budget, and preferences to get personalized ship recommendations with explanations." />
-  <meta name="last-reviewed" content="2025-12-27" />
+  <meta name="ai-summary" content="Interactive quiz to help cruise travelers find their perfect ship across 15 major cruise lines including Royal Caribbean, Celebrity, Princess, Carnival, Norwegian, MSC, Holland America, Cunard, Costa, Virgin Voyages, and luxury lines like Oceania, Regent, Seabourn, Silversea, and Explora Journeys. Answer 8 simple questions to get personalized ship recommendations." />
+  <meta name="last-reviewed" content="2026-01-02" />
   <meta name="content-protocol" content="ICP-Lite v1.4" />
 
   <!-- Core -->
@@ -47,23 +47,22 @@
   <meta name="author" content="In the Wake"/>
 
   <!-- Title & Description -->
-  <title>Find Your Perfect Ship — Quiz | In the Wake</title>
-  <meta name="description" content="Not sure which Royal Caribbean ship is right for you? Take our quick quiz to get personalized recommendations based on your travel style." />
-  <link rel="canonical" href="https://cruisinginthewake.com/ships/quiz.html"/>
+  <title>Find Your Perfect Cruise Ship — Quiz | In the Wake</title>
+  <meta name="description" content="Not sure which cruise ship is right for you? Take our quick quiz to get personalized recommendations from 15 major cruise lines—from mainstream to ultra-luxury." />
+  <link rel="canonical" href="https://cruisinginthewake.com/ships/allshipquiz.html"/>
 
   <!-- OpenGraph -->
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:url" content="https://cruisinginthewake.com/ships/quiz.html"/>
-  <meta property="og:title" content="Find Your Perfect Royal Caribbean Ship — Quiz"/>
-  <meta property="og:description" content="Answer a few quick questions and we'll recommend the best ships for your cruise style."/>
-  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/icon-of-the-seas.jpg"/>
+  <meta property="og:url" content="https://cruisinginthewake.com/ships/allshipquiz.html"/>
+  <meta property="og:title" content="Find Your Perfect Cruise Ship — Quiz"/>
+  <meta property="og:description" content="Answer a few quick questions and we'll recommend the best ships for your cruise style across 15 major cruise lines."/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/ships-hero.jpg"/>
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Find Your Perfect Royal Caribbean Ship — Quiz"/>
+  <meta name="twitter:title" content="Find Your Perfect Cruise Ship — Quiz"/>
   <meta name="twitter:description" content="Answer a few quick questions and we'll recommend the best ships for your cruise style."/>
-  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/icon-of-the-seas.jpg"/>
 
   <!-- JSON-LD: BreadcrumbList -->
   <script type="application/ld+json">
@@ -73,7 +72,7 @@
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/" },
       { "@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships.html" },
-      { "@type": "ListItem", "position": 3, "name": "Ship Quiz", "item": "https://cruisinginthewake.com/ships/quiz.html" }
+      { "@type": "ListItem", "position": 3, "name": "Ship Quiz", "item": "https://cruisinginthewake.com/ships/allshipquiz.html" }
     ]
   }
   </script>
@@ -91,6 +90,85 @@
     .quiz-container {
       max-width: 800px;
       margin: 0 auto;
+    }
+
+    /* Cruise line pill selector */
+    .cruise-line-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: var(--sky);
+      border-radius: 14px;
+    }
+    .line-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.2rem;
+      border: 2px solid var(--rope);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-height: 44px;
+    }
+    .line-pill:hover {
+      border-color: var(--accent);
+      background: var(--foam);
+    }
+    .line-pill.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .line-pill .line-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .line-pill[data-line="all"] .line-dot { background: linear-gradient(135deg, #1a3d7c, #e31837, #00205b, #003366); }
+    .line-pill[data-line="rcl"] .line-dot { background: #1a3d7c; }
+    .line-pill[data-line="carnival"] .line-dot { background: #e31837; }
+    .line-pill[data-line="ncl"] .line-dot { background: #00205b; }
+    .line-pill[data-line="msc"] .line-dot { background: #003366; }
+    .line-pill[data-line="celebrity"] .line-dot { background: #1c2b3a; }
+    .line-pill[data-line="princess"] .line-dot { background: #0a2240; }
+    .line-pill[data-line="holland"] .line-dot { background: #003366; }
+    .line-pill[data-line="cunard"] .line-dot { background: #1a1a1a; }
+    .line-pill[data-line="costa"] .line-dot { background: #ffd700; }
+    .line-pill[data-line="virgin"] .line-dot { background: #e10a0a; }
+    .line-pill[data-line="oceania"] .line-dot { background: #003366; }
+    .line-pill[data-line="regent"] .line-dot { background: #1a2e4a; }
+    .line-pill[data-line="seabourn"] .line-dot { background: #002855; }
+    .line-pill[data-line="silversea"] .line-dot { background: #1c1c1c; }
+    .line-pill[data-line="explora"] .line-dot { background: #1a1a2e; }
+
+    /* Mobile hamburger for pills */
+    .line-selector-mobile {
+      display: none;
+    }
+    @media (max-width: 600px) {
+      .cruise-line-selector {
+        /* Show pills on mobile too - they wrap nicely */
+        display: flex;
+        padding: 0.75rem;
+        gap: 0.4rem;
+      }
+      .line-pill {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
+        min-height: 40px;
+      }
+      .line-selector-mobile {
+        display: none; /* Hide old dropdown - using pills on mobile now */
+      }
     }
 
     /* Progress indicator */
@@ -127,7 +205,7 @@
       font-size: 1.1rem;
       color: var(--ink-mid);
       max-width: 600px;
-      margin: 0 auto 2rem;
+      margin: 0 auto 1.5rem;
     }
     .btn-start {
       display: inline-block;
@@ -301,7 +379,88 @@
       color: var(--ink-mid);
     }
 
-    /* Ship result cards */
+    /* Results limit control */
+    .results-limit-control {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      padding: 0.5rem;
+      background: var(--sky);
+      border-radius: 50px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .limit-btn {
+      width: 44px;
+      height: 44px;
+      border: 2px solid var(--rope);
+      border-radius: 50%;
+      background: #fff;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--sea);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .limit-btn:hover:not(:disabled) {
+      background: var(--sea);
+      color: #fff;
+      border-color: var(--sea);
+    }
+    .limit-btn:active:not(:disabled) {
+      transform: scale(0.95);
+    }
+    .limit-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .limit-display {
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      min-width: 120px;
+      text-align: center;
+    }
+    .limit-display strong {
+      color: var(--sea);
+      font-size: 1.1rem;
+    }
+
+    /* Budget/Luxury mismatch advisory */
+    .budget-advisory {
+      background: linear-gradient(135deg, #fff8e1 0%, #fff3c4 100%);
+      border: 2px solid #f9a825;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .advisory-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .advisory-content {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #5d4037;
+    }
+    .advisory-content ul {
+      margin: 0.5rem 0 0 0;
+      padding-left: 1.25rem;
+    }
+    .advisory-content li {
+      margin-bottom: 0.25rem;
+    }
+
+    /* Ship result cards with brand colors */
     .result-card {
       background: #fff;
       border: 2px solid var(--rope);
@@ -320,6 +479,27 @@
     .result-card.top-pick .result-badge {
       display: block;
     }
+
+    /* Brand color bar */
+    .result-brand-bar {
+      height: 6px;
+      width: 100%;
+    }
+    .result-brand-bar.rcl { background: linear-gradient(90deg, #1a3d7c, #ffd700); }
+    .result-brand-bar.carnival { background: linear-gradient(90deg, #e31837, #0033a0); }
+    .result-brand-bar.ncl { background: linear-gradient(90deg, #00205b, #ffffff); }
+    .result-brand-bar.msc { background: linear-gradient(90deg, #003366, #b8860b); }
+    .result-brand-bar.celebrity { background: linear-gradient(90deg, #1c2b3a, #c4a35a); }
+    .result-brand-bar.princess { background: linear-gradient(90deg, #0a2240, #c9a961); }
+    .result-brand-bar.holland { background: linear-gradient(90deg, #003366, #ffffff); }
+    .result-brand-bar.cunard { background: linear-gradient(90deg, #1a1a1a, #c41e3a); }
+    .result-brand-bar.costa { background: linear-gradient(90deg, #ffd700, #003399); }
+    .result-brand-bar.virgin { background: linear-gradient(90deg, #e10a0a, #ffffff); }
+    .result-brand-bar.oceania { background: linear-gradient(90deg, #003366, #8b0000); }
+    .result-brand-bar.regent { background: linear-gradient(90deg, #1a2e4a, #c9a961); }
+    .result-brand-bar.seabourn { background: linear-gradient(90deg, #002855, #c5b358); }
+    .result-brand-bar.silversea { background: linear-gradient(90deg, #1c1c1c, #c0c0c0); }
+    .result-brand-bar.explora { background: linear-gradient(90deg, #1a1a2e, #d4af37); }
 
     .result-image {
       position: relative;
@@ -371,11 +551,27 @@
       justify-content: space-between;
       align-items: flex-start;
       margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
     .result-title h3 {
       font-size: 1.3rem;
       color: var(--sea);
       margin: 0;
+    }
+    .ship-name-link {
+      color: var(--sea);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .ship-name-link:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+    .result-badges {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
     }
     .result-class {
       background: var(--foam);
@@ -385,6 +581,28 @@
       font-size: 0.75rem;
       font-weight: 600;
     }
+    .result-line {
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .result-line.rcl { background: #1a3d7c; }
+    .result-line.carnival { background: #e31837; }
+    .result-line.ncl { background: #00205b; }
+    .result-line.msc { background: #003366; }
+    .result-line.celebrity { background: #1c2b3a; }
+    .result-line.princess { background: #0a2240; }
+    .result-line.holland { background: #003366; }
+    .result-line.cunard { background: #1a1a1a; }
+    .result-line.costa { background: #003399; color: #ffd700; }
+    .result-line.virgin { background: #e10a0a; }
+    .result-line.oceania { background: #003366; }
+    .result-line.regent { background: #1a2e4a; }
+    .result-line.seabourn { background: #002855; }
+    .result-line.silversea { background: #1c1c1c; }
+    .result-line.explora { background: #1a1a2e; }
 
     .result-narrative {
       color: var(--ink-mid);
@@ -432,6 +650,327 @@
       font-weight: 500;
     }
 
+    /* Dress code section */
+    .result-dress-code {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding: 0.6rem 0.75rem;
+      background: linear-gradient(135deg, rgba(139, 69, 19, 0.08) 0%, rgba(139, 69, 19, 0.03) 100%);
+      border-radius: 8px;
+      border-left: 3px solid #8b4513;
+    }
+    .dress-code-icon {
+      font-size: 1.2rem;
+    }
+    .dress-code-content {
+      flex: 1;
+    }
+    .dress-code-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .dress-code-value {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #8b4513;
+    }
+    .dress-code-desc {
+      font-size: 0.8rem;
+      color: var(--ink-mid);
+      margin-top: 0.15rem;
+    }
+
+    /* Comparison drawer */
+    .compare-tray {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--parchment);
+      border-top: 2px solid var(--rope);
+      padding: 1rem;
+      z-index: 100;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    }
+    .compare-tray.visible {
+      transform: translateY(0);
+    }
+    .compare-tray-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .compare-tray-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--sea);
+    }
+    .compare-tray-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .compare-clear-btn {
+      background: transparent;
+      border: 1px solid var(--rope);
+      color: var(--ink-mid);
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .compare-view-btn {
+      background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%);
+      border: none;
+      color: #fff;
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .compare-cards {
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+    .compare-card {
+      flex: 0 0 140px;
+      background: var(--sky);
+      border-radius: 8px;
+      padding: 0.75rem;
+      position: relative;
+    }
+    .compare-card-remove {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 20px;
+      height: 20px;
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .compare-card h4 {
+      font-size: 0.8rem;
+      margin: 0 0 0.25rem;
+      color: var(--sea);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-right: 1rem;
+    }
+    .compare-card-line {
+      font-size: 0.7rem;
+      color: var(--ink-mid);
+      margin-bottom: 0.5rem;
+    }
+    .compare-card-stats {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.15rem 0.5rem;
+      font-size: 0.7rem;
+    }
+    .compare-card-stats dt {
+      color: var(--text-muted);
+    }
+    .compare-card-stats dd {
+      color: var(--sea);
+      font-weight: 600;
+      margin: 0;
+    }
+    .compare-card-match {
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--rope);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #059669;
+      text-align: center;
+    }
+
+    /* Line warnings (adults-only, luxury) */
+    .result-warning {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      padding: 0.6rem 0.75rem;
+      background: linear-gradient(135deg, rgba(220, 38, 38, 0.08) 0%, rgba(220, 38, 38, 0.03) 100%);
+      border-radius: 8px;
+      border-left: 3px solid #dc2626;
+    }
+    .result-warning-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .result-warning-text {
+      font-size: 0.8rem;
+      color: #991b1b;
+      line-height: 1.4;
+    }
+    .result-warning-title {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    /* Compare toggle button on cards */
+    .compare-toggle {
+      background: transparent;
+      border: 1px solid var(--rope);
+      color: var(--ink-mid);
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      margin-top: 0.75rem;
+      width: 100%;
+      transition: all 0.2s;
+    }
+    .compare-toggle:hover {
+      background: var(--sky);
+    }
+    .compare-toggle.active {
+      background: #059669;
+      color: #fff;
+      border-color: #059669;
+    }
+
+    /* Comparison modal */
+    .compare-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .compare-modal.visible {
+      display: flex;
+    }
+    .compare-modal-content {
+      background: var(--parchment);
+      border-radius: 14px;
+      max-width: 900px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 1.5rem;
+    }
+    .compare-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .compare-modal-title {
+      font-size: 1.25rem;
+      color: var(--sea);
+    }
+    .compare-modal-close {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--ink-mid);
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .compare-table th,
+    .compare-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--rope);
+    }
+    .compare-table th:first-child {
+      width: 100px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+    .compare-table td {
+      font-weight: 500;
+      color: var(--sea);
+    }
+    .compare-table .ship-header {
+      font-weight: 600;
+      color: var(--sea);
+    }
+
+    /* Why this ship section */
+    .result-why {
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.05) 100%);
+      border-radius: 8px;
+      border-left: 3px solid #fbbf24;
+    }
+    .result-why-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .result-why-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #b45309;
+      margin-bottom: 0;
+    }
+    .result-why-toggle {
+      font-size: 0.75rem;
+      color: #b45309;
+      text-decoration: underline;
+    }
+    .result-why-text {
+      font-size: 0.85rem;
+      color: var(--ink-mid);
+      margin: 0.5rem 0 0;
+    }
+    .result-why-details {
+      display: none;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(251, 191, 36, 0.3);
+    }
+    .result-why-details.open {
+      display: block;
+    }
+    .score-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+    }
+    .score-row .label {
+      color: var(--ink-mid);
+    }
+    .score-row .points {
+      font-weight: 600;
+      color: #b45309;
+    }
+
     .result-cta {
       display: inline-flex;
       align-items: center;
@@ -447,6 +986,88 @@
     .result-cta:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(14, 110, 142, 0.3);
+    }
+
+    /* You Might Also Like section */
+    .also-like-section {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, rgba(14, 110, 142, 0.04) 0%, rgba(14, 110, 142, 0.02) 100%);
+      border-radius: 14px;
+      border: 1px solid rgba(14, 110, 142, 0.1);
+    }
+    .also-like-section h3 {
+      font-size: 1.1rem;
+      color: var(--sea);
+      margin-bottom: 0.5rem;
+    }
+    .also-like-section p {
+      color: var(--ink-mid);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .also-like-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+    .also-like-card {
+      background: #fff;
+      border: 2px solid var(--rope);
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .also-like-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .also-like-card .ship-name {
+      font-weight: 600;
+      color: var(--sea);
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+    .also-like-card .ship-line {
+      font-size: 0.75rem;
+      color: var(--ink-mid);
+      margin-bottom: 0.5rem;
+    }
+    .also-like-card .ship-match {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .also-like-card.no-link {
+      cursor: default;
+    }
+    .also-like-card.no-link:hover {
+      transform: none;
+      border-color: var(--rope);
+    }
+
+    /* Color guide */
+    .color-guide {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background: #fff;
+      border-radius: 8px;
+      font-size: 0.8rem;
+    }
+    .color-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .color-item .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
     }
 
     /* Restart button */
@@ -468,26 +1089,6 @@
     }
     .btn-restart:hover {
       background: var(--foam);
-    }
-
-    /* Why this recommendation */
-    .result-why {
-      margin-top: 0.75rem;
-      padding: 0.75rem;
-      background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.05) 100%);
-      border-radius: 8px;
-      border-left: 3px solid #fbbf24;
-    }
-    .result-why-title {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #b45309;
-      margin-bottom: 0.25rem;
-    }
-    .result-why-text {
-      font-size: 0.85rem;
-      color: var(--ink-mid);
-      margin: 0;
     }
 
     /* Loading state */
@@ -568,18 +1169,6 @@
     .share-btn-outline:hover {
       background: var(--foam);
     }
-    .share-btn-twitter {
-      background: #000;
-      color: #fff;
-    }
-    .share-btn-facebook {
-      background: #1877f2;
-      color: #fff;
-    }
-    .share-btn-email {
-      background: #ea4335;
-      color: #fff;
-    }
     .share-btn-download {
       background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
       color: #fff;
@@ -605,28 +1194,6 @@
       display: none;
     }
   </style>
-
-  <!-- JSON-LD: WebPage (ICP-Lite v1.4) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Find Your Perfect Ship — Quiz",
-    "url": "https://cruisinginthewake.com/ships/quiz.html",
-    "description": "Interactive quiz to help cruise travelers find their perfect Royal Caribbean ship. Answer 8 simple questions about your travel party, pace, budget, and preferences to get personalized ship recommendations with explanations.",
-    "dateModified": "2025-12-27",
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "In the Wake",
-      "url": "https://cruisinginthewake.com/"
-    },
-    "mainEntity": {
-      "@type": "Product",
-      "name": "Find Your Perfect Ship",
-      "category": "Cruise Ship"
-    }
-  }
-  </script>
 </head>
 
 <body class="page">
@@ -663,7 +1230,6 @@
             <a href="/ships/quiz.html">Ship Quiz</a>
             <a href="/restaurants.html">Restaurants &amp; Menus</a>
             <a href="/ports.html">Ports</a>
-            <a href="/internet-at-sea.html">Internet at Sea</a>
             <a href="/drink-packages.html">Drink Packages</a>
             <a href="/drink-calculator.html">Drink Calculator</a>
             <a href="/stateroom-check.html">Stateroom Check</a>
@@ -707,7 +1273,140 @@
       <!-- Intro Screen -->
       <div class="quiz-intro card" id="quizIntro">
         <h1>Find Your Perfect Ship</h1>
-        <p>Not sure which Royal Caribbean ship is right for you? Answer a few quick questions and we'll recommend the best matches for your cruise style.</p>
+        <p>Not sure which cruise ship is right for you? Answer a few quick questions and we'll recommend the best matches from 15 major cruise lines—from mainstream to ultra-luxury.</p>
+
+        <!-- Desktop pill selector -->
+        <div class="cruise-line-selector" role="group" aria-label="Select cruise line">
+          <button class="line-pill active" data-line="all" type="button">
+            <span class="line-dot"></span> All Lines
+          </button>
+          <button class="line-pill" data-line="rcl" type="button">
+            <span class="line-dot"></span> Royal Caribbean
+          </button>
+          <button class="line-pill" data-line="carnival" type="button">
+            <span class="line-dot"></span> Carnival
+          </button>
+          <button class="line-pill" data-line="ncl" type="button">
+            <span class="line-dot"></span> NCL
+          </button>
+          <button class="line-pill" data-line="msc" type="button">
+            <span class="line-dot"></span> MSC
+          </button>
+          <button class="line-pill" data-line="celebrity" type="button">
+            <span class="line-dot"></span> Celebrity
+          </button>
+          <button class="line-pill" data-line="princess" type="button">
+            <span class="line-dot"></span> Princess
+          </button>
+          <button class="line-pill" data-line="holland" type="button">
+            <span class="line-dot"></span> Holland America
+          </button>
+          <button class="line-pill" data-line="cunard" type="button">
+            <span class="line-dot"></span> Cunard
+          </button>
+          <button class="line-pill" data-line="costa" type="button">
+            <span class="line-dot"></span> Costa
+          </button>
+          <button class="line-pill" data-line="virgin" type="button">
+            <span class="line-dot"></span> Virgin Voyages
+          </button>
+          <button class="line-pill" data-line="oceania" type="button">
+            <span class="line-dot"></span> Oceania
+          </button>
+          <button class="line-pill" data-line="regent" type="button">
+            <span class="line-dot"></span> Regent
+          </button>
+          <button class="line-pill" data-line="seabourn" type="button">
+            <span class="line-dot"></span> Seabourn
+          </button>
+          <button class="line-pill" data-line="silversea" type="button">
+            <span class="line-dot"></span> Silversea
+          </button>
+          <button class="line-pill" data-line="explora" type="button">
+            <span class="line-dot"></span> Explora
+          </button>
+        </div>
+
+        <!-- Mobile dropdown selector -->
+        <div class="line-selector-mobile" style="position: relative;">
+          <button class="line-selector-trigger" type="button" id="mobileSelectorTrigger">
+            <span class="current-line">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg, #1a3d7c, #e31837, #00205b, #003366);"></span>
+              <span id="currentLineName">All Cruise Lines</span>
+            </span>
+            <span>&#9662;</span>
+          </button>
+          <div class="line-selector-dropdown" id="mobileDropdown">
+            <div class="line-option active" data-line="all">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg, #1a3d7c, #e31837, #00205b, #003366);"></span>
+              All Cruise Lines
+            </div>
+            <div class="line-option" data-line="rcl">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#1a3d7c;"></span>
+              Royal Caribbean
+            </div>
+            <div class="line-option" data-line="carnival">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#e31837;"></span>
+              Carnival
+            </div>
+            <div class="line-option" data-line="ncl">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#00205b;"></span>
+              Norwegian Cruise Line
+            </div>
+            <div class="line-option" data-line="msc">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#003366;"></span>
+              MSC Cruises
+            </div>
+            <div class="line-option" data-line="celebrity">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#1c2b3a;"></span>
+              Celebrity Cruises
+            </div>
+            <div class="line-option" data-line="princess">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#0a2240;"></span>
+              Princess Cruises
+            </div>
+            <div class="line-option" data-line="holland">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#003366;"></span>
+              Holland America
+            </div>
+            <div class="line-option" data-line="cunard">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#1a1a1a;"></span>
+              Cunard
+            </div>
+            <div class="line-option" data-line="costa">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#ffd700;"></span>
+              Costa Cruises
+            </div>
+            <div class="line-option" data-line="virgin">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#e10a0a;"></span>
+              Virgin Voyages
+            </div>
+            <div class="line-option" data-line="oceania">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#003366;"></span>
+              Oceania Cruises
+            </div>
+            <div class="line-option" data-line="regent">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#1a2e4a;"></span>
+              Regent Seven Seas
+            </div>
+            <div class="line-option" data-line="seabourn">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#002855;"></span>
+              Seabourn
+            </div>
+            <div class="line-option" data-line="silversea">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#1c1c1c;"></span>
+              Silversea
+            </div>
+            <div class="line-option" data-line="explora">
+              <span class="line-dot" style="width:10px;height:10px;border-radius:50%;background:#1a1a2e;"></span>
+              Explora Journeys
+            </div>
+            <div class="line-option escape-rope" data-action="close">
+              ← Back to Quiz
+            </div>
+          </div>
+        </div>
+
         <p class="tiny muted" style="margin-bottom: 1.5rem;">Takes about 2 minutes. No signup required.</p>
         <button class="btn-start" id="btnStart" type="button">Let's Go</button>
       </div>
@@ -722,9 +1421,40 @@
         <div class="results-header">
           <h2>Your Perfect Ships</h2>
           <p>Based on your answers, here are our top recommendations:</p>
+          <div class="results-limit-control">
+            <button type="button" class="limit-btn" id="btnLimitMinus" aria-label="Show fewer ships">−</button>
+            <span class="limit-display">Showing <strong id="limitCount">3</strong> ships</span>
+            <button type="button" class="limit-btn" id="btnLimitPlus" aria-label="Show more ships">+</button>
+          </div>
         </div>
         <div id="resultsContainer">
           <!-- Results will be injected here -->
+        </div>
+
+        <!-- You Might Also Like Section -->
+        <div class="also-like-section hidden" id="alsoLikeSection">
+          <h3>You Might Also Like</h3>
+          <p>Ships from other cruise lines that match your preferences:</p>
+          <div class="also-like-grid" id="alsoLikeGrid">
+            <!-- Injected dynamically -->
+          </div>
+          <div class="color-guide">
+            <div class="color-item"><span class="dot" style="background:#1a3d7c;"></span> RCL</div>
+            <div class="color-item"><span class="dot" style="background:#e31837;"></span> Carnival</div>
+            <div class="color-item"><span class="dot" style="background:#00205b;"></span> NCL</div>
+            <div class="color-item"><span class="dot" style="background:#003366;"></span> MSC</div>
+            <div class="color-item"><span class="dot" style="background:#1c2b3a;"></span> Celebrity</div>
+            <div class="color-item"><span class="dot" style="background:#0a2240;"></span> Princess</div>
+            <div class="color-item"><span class="dot" style="background:#003366;"></span> HAL</div>
+            <div class="color-item"><span class="dot" style="background:#1a1a1a;"></span> Cunard</div>
+            <div class="color-item"><span class="dot" style="background:#ffd700;"></span> Costa</div>
+            <div class="color-item"><span class="dot" style="background:#e10a0a;"></span> Virgin</div>
+            <div class="color-item"><span class="dot" style="background:#003366;"></span> Oceania</div>
+            <div class="color-item"><span class="dot" style="background:#1a2e4a;"></span> Regent</div>
+            <div class="color-item"><span class="dot" style="background:#002855;"></span> Seabourn</div>
+            <div class="color-item"><span class="dot" style="background:#1c1c1c;"></span> Silversea</div>
+            <div class="color-item"><span class="dot" style="background:#1a1a2e;"></span> Explora</div>
+          </div>
         </div>
 
         <!-- Share Section -->
@@ -750,18 +1480,6 @@
               <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
               Save Image
             </button>
-            <a class="share-btn share-btn-twitter" id="btnTwitter" href="#" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              X
-            </a>
-            <a class="share-btn share-btn-facebook" id="btnFacebook" href="#" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-              Facebook
-            </a>
-            <a class="share-btn share-btn-email" id="btnEmail" href="#" target="_blank">
-              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-              Email
-            </a>
           </div>
         </div>
 
@@ -780,9 +1498,34 @@
     </div>
   </main>
 
+  <!-- Comparison Tray -->
+  <div class="compare-tray" id="compareTray">
+    <div class="compare-tray-header">
+      <span class="compare-tray-title">Compare Ships (<span id="compareCount">0/5</span>)</span>
+      <div class="compare-tray-actions">
+        <button class="compare-clear-btn" onclick="clearCompare()">Clear All</button>
+        <button class="compare-view-btn" onclick="showCompareModal()">View Comparison</button>
+      </div>
+    </div>
+    <div class="compare-cards" id="compareCards"></div>
+  </div>
+
+  <!-- Comparison Modal -->
+  <div class="compare-modal" id="compareModal">
+    <div class="compare-modal-content">
+      <div class="compare-modal-header">
+        <h2 class="compare-modal-title">Ship Comparison</h2>
+        <button class="compare-modal-close" onclick="closeCompareModal()">×</button>
+      </div>
+      <table class="compare-table">
+        <tbody id="compareTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
   <footer class="site-footer" role="contentinfo">
     <p class="tiny muted" style="text-align:center; padding: 2rem;">
-      &copy; 2025 In the Wake. Quiz recommendations are suggestions based on general ship characteristics.
+      &copy; 2026 In the Wake. Quiz recommendations are suggestions based on general ship characteristics.
       <br>Always verify current ship features and itineraries before booking.
     </p>
     <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
@@ -814,10 +1557,117 @@
   (function() {
     'use strict';
 
-    // Quiz data
+    // State
     let quizData = null;
     let currentQuestion = 0;
     let answers = {};
+    let selectedLines = ['all']; // Array for multi-select
+    let resultsLimit = 3;
+    let allResultsCache = []; // Cache for adjusting limit without recalculating
+    let compareShips = []; // Ships in comparison tray (max 5)
+    const MAX_COMPARE = 5;
+
+    // Auto-detect user's region from timezone
+    function detectUserRegion() {
+      try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        // Australia/Pacific
+        if (tz.startsWith('Australia/') || tz.startsWith('Pacific/Auckland') ||
+            tz.startsWith('Pacific/Fiji') || tz.startsWith('Pacific/Port_Moresby')) {
+          return 'australia';
+        }
+        // Asia
+        if (tz.startsWith('Asia/')) {
+          return 'asia';
+        }
+        // Europe
+        if (tz.startsWith('Europe/') || tz === 'Atlantic/Reykjavik' ||
+            tz.startsWith('Africa/') && (tz.includes('Casablanca') || tz.includes('Algiers'))) {
+          return 'europe';
+        }
+        // Default: North America
+        return 'north_america';
+      } catch (e) {
+        return 'north_america';
+      }
+    }
+
+    // Dress code display mapping
+    const dressCodeLabels = {
+      'casual': { label: 'Casual', icon: '👕' },
+      'resort_casual': { label: 'Resort Casual', icon: '🌴' },
+      'smart_casual': { label: 'Smart Casual', icon: '👔' },
+      'elegant_casual': { label: 'Elegant Casual', icon: '✨' },
+      'formal_optional': { label: 'Formal Optional', icon: '🎩' }
+    };
+
+    // Format dress code for display
+    function formatDressCode(lineData) {
+      if (!lineData || !lineData.dress_code) return null;
+      const dc = dressCodeLabels[lineData.dress_code] || { label: lineData.dress_code, icon: '👔' };
+      return {
+        icon: dc.icon,
+        label: dc.label,
+        description: lineData.dress_description || ''
+      };
+    }
+
+    // Check for family/group compatibility warnings
+    function getLineWarnings(lineData, groupType) {
+      const warnings = [];
+      const familyGroups = ['family_young', 'family_teens', 'multigen'];
+
+      if (familyGroups.includes(groupType)) {
+        // Adults-only warning
+        if (lineData.adults_only) {
+          warnings.push({
+            icon: '⚠️',
+            title: 'Adults Only',
+            message: `${lineData.name} is an adults-only cruise line (18+). Not suitable for travelers with children.`
+          });
+        }
+
+        // Ultra-luxury warning for families with young kids
+        if (lineData.tier === 'ultra_luxury' && groupType === 'family_young') {
+          warnings.push({
+            icon: '💎',
+            title: 'Luxury Experience',
+            message: 'Ultra-luxury lines cater primarily to adults. Limited children\'s facilities and activities.'
+          });
+        }
+
+        // Formal dress code warning for families
+        if (lineData.dress_code === 'formal_optional' && groupType === 'family_young') {
+          warnings.push({
+            icon: '👔',
+            title: 'Formal Dress Code',
+            message: 'This line has formal dress expectations that may be challenging with young children.'
+          });
+        }
+      }
+
+      return warnings;
+    }
+
+    // Line display names
+    const lineNames = {
+      'all': 'All Cruise Lines',
+      'rcl': 'Royal Caribbean',
+      'carnival': 'Carnival',
+      'ncl': 'NCL',
+      'msc': 'MSC',
+      'celebrity': 'Celebrity',
+      'princess': 'Princess',
+      'holland': 'Holland America',
+      'cunard': 'Cunard',
+      'costa': 'Costa',
+      'virgin': 'Virgin Voyages',
+      'oceania': 'Oceania',
+      'regent': 'Regent',
+      'seabourn': 'Seabourn',
+      'silversea': 'Silversea',
+      'explora': 'Explora'
+    };
 
     // Questions definition
     const questions = [
@@ -836,12 +1686,40 @@
         gridClass: 'three-col'
       },
       {
-        id: 'first_timer',
-        question: "Is this your first cruise?",
+        id: 'home_region',
+        question: "Where would you like to sail from?",
+        subtitle: "We'll prioritize cruise lines in your area",
+        options: [
+          { value: 'north_america', label: 'North America', icon: '🌎', desc: 'Caribbean, Alaska, US ports' },
+          { value: 'europe', label: 'UK & Europe', icon: '🌍', desc: 'Mediterranean, Northern Europe' },
+          { value: 'australia', label: 'Australia & Pacific', icon: '🌏', desc: 'Down Under, NZ, South Pacific' },
+          { value: 'asia', label: 'Asia', icon: '🗾', desc: 'Singapore, Japan, Southeast Asia' },
+          { value: 'flexible', label: "I'll Travel to Embark", icon: '✈️', desc: 'Show me everything' }
+        ],
+        gridClass: 'three-col',
+        optional: true,
+        autoDetect: true
+      },
+      {
+        id: 'cruise_experience',
+        question: "How much have you cruised?",
         subtitle: "No wrong answer here!",
         options: [
-          { value: 'true', label: 'Yes, First Timer!', icon: '🌟', desc: 'Excited to try cruising' },
-          { value: 'false', label: 'Nope, Veteran Cruiser', icon: '⚓', desc: 'Been there, sailed that' }
+          { value: 'first_time', label: 'First Time!', icon: '🌟', desc: 'Excited to discover cruising' },
+          { value: 'a_few', label: 'A Few Cruises', icon: '⚓', desc: "I've got the basics down" },
+          { value: 'seasoned', label: 'Seasoned Sailor', icon: '🧭', desc: 'Lost count of my sailings' }
+        ],
+        gridClass: 'three-col'
+      },
+      {
+        id: 'dress_code',
+        question: "How do you feel about dressing up?",
+        subtitle: "Cruise lines vary from formal nights to barefoot casual",
+        options: [
+          { value: 'formal', label: 'Love Formal Nights', icon: '👔', desc: 'Tuxedos, gowns, elegant evenings' },
+          { value: 'smart', label: 'Smart Casual', icon: '👗', desc: 'Dress up sometimes, not every night' },
+          { value: 'casual', label: 'Resort Casual', icon: '🌴', desc: 'Nice but comfortable' },
+          { value: 'relaxed', label: 'As Relaxed as Possible', icon: '🩴', desc: 'Shorts and flip-flops' }
         ],
         gridClass: 'two-col'
       },
@@ -879,6 +1757,20 @@
         gridClass: 'three-col'
       },
       {
+        id: 'destination',
+        question: "What destinations interest you most?",
+        subtitle: "Some ships specialize in certain regions",
+        options: [
+          { value: 'caribbean', label: 'Caribbean', icon: '🏝️', desc: 'Beaches, warmth, relaxation' },
+          { value: 'alaska', label: 'Alaska/Scenic', icon: '🏔️', desc: 'Glaciers, wildlife, nature' },
+          { value: 'hawaii', label: 'Hawaii', icon: '🌺', desc: 'Islands, culture, volcanoes' },
+          { value: 'mediterranean', label: 'Mediterranean', icon: '🏛️', desc: 'History, culture, cuisine' },
+          { value: 'expedition', label: 'Expedition/Remote', icon: '🧭', desc: 'Off-the-beaten-path adventure' },
+          { value: 'flexible', label: 'Flexible', icon: '🌍', desc: 'Open to anywhere' }
+        ],
+        gridClass: 'three-col'
+      },
+      {
         id: 'sailing_length',
         question: "How long do you want to sail?",
         subtitle: "Trip duration preference",
@@ -901,18 +1793,58 @@
         gridClass: 'three-col'
       },
       {
+        id: 'ship_age',
+        question: "How important is a brand-new ship?",
+        subtitle: "Newer isn't always better—older ships have charm and value",
+        options: [
+          { value: 'newest', label: 'Must Be Newest', icon: '✨', desc: 'Flagship experience only' },
+          { value: 'modern', label: 'Prefer Modern', icon: '🆕', desc: 'Last 10 years is fine' },
+          { value: 'classic', label: 'Classic Is Fine', icon: '⚓', desc: 'Proven reliability, good value' },
+          { value: 'dont_care', label: "Don't Care", icon: '🤷', desc: 'Whatever fits my needs' }
+        ],
+        gridClass: 'two-col'
+      },
+      {
         id: 'must_have',
         question: "What's a must-have for you?",
         subtitle: "Pick the one that matters most",
         options: [
           { value: 'waterpark', label: 'Water Slides & Pools', icon: '🌊', desc: 'Splash-tastic fun' },
           { value: 'dining', label: 'Specialty Dining', icon: '🍽️', desc: 'Foodie experiences' },
-          { value: 'shows', label: 'Broadway Shows', icon: '🎭', desc: 'Entertainment first' },
-          { value: 'tech', label: 'Innovation & Tech', icon: '🤖', desc: 'North Star, iFly, robots' },
-          { value: 'scenic', label: 'Scenic Views', icon: '🌅', desc: 'Glass, vistas, nature' },
+          { value: 'shows', label: 'Live Shows', icon: '🎭', desc: 'Entertainment first' },
+          { value: 'tech', label: 'Unique Thrills', icon: '🎢', desc: 'Go-karts, coasters, iFly' },
+          { value: 'scenic', label: 'Scenic & Relaxation', icon: '🌅', desc: 'Glass, vistas, nature' },
+          { value: 'family', label: 'Kids & Family Zones', icon: '👨‍👩‍👧‍👦', desc: 'Family-focused areas' },
+          { value: 'nightlife', label: 'Bars & Nightlife', icon: '🍸', desc: 'Party scene, casino, clubs' },
+          { value: 'spa', label: 'Spa & Wellness', icon: '💆', desc: 'Thermal suites, yoga, zen' },
+          { value: 'service', label: 'Butler-Level Service', icon: '🎩', desc: 'White-glove luxury' },
           { value: 'none', label: 'No Dealbreaker', icon: '🤷', desc: 'Open to anything' }
         ],
         gridClass: 'three-col'
+      },
+      {
+        id: 'kid_separation',
+        question: "How important is separation from children?",
+        subtitle: "Be honest - no judgment here",
+        options: [
+          { value: 'not_applicable', label: 'Traveling with Kids', icon: '👨‍👩‍👧', desc: "Doesn't apply to me" },
+          { value: 'dont_care', label: "Don't Mind Kids", icon: '😊', desc: 'Kids around is fine' },
+          { value: 'adult_spaces', label: 'Want Adult Areas', icon: '🏖️', desc: 'Solarium, quiet pools' },
+          { value: 'no_kids', label: 'Adults-Only Please', icon: '🚫👶', desc: 'Prefer no children aboard' }
+        ],
+        gridClass: 'two-col'
+      },
+      {
+        id: 'atmosphere',
+        question: "What atmosphere suits you best?",
+        subtitle: "The overall vibe you're looking for",
+        options: [
+          { value: 'party', label: 'Party & Energetic', icon: '🎉', desc: 'DJ pools, clubs, high energy' },
+          { value: 'balanced', label: 'Balanced Mix', icon: '⚖️', desc: 'Fun but not over the top' },
+          { value: 'sophisticated', label: 'Refined & Understated', icon: '🥂', desc: 'Elegant, cultured, serene' },
+          { value: 'traditional', label: 'Classic Cruising', icon: '⚓', desc: 'Time-tested, formal nights' }
+        ],
+        gridClass: 'two-col'
       }
     ];
 
@@ -925,16 +1857,67 @@
     const resultsContainer = document.getElementById('resultsContainer');
     const btnStart = document.getElementById('btnStart');
     const btnRestart = document.getElementById('btnRestart');
+    const alsoLikeSection = document.getElementById('alsoLikeSection');
+    const alsoLikeGrid = document.getElementById('alsoLikeGrid');
 
     // Load quiz data
     async function loadQuizData() {
       try {
-        const response = await fetch('/assets/data/ship-quiz-data.json');
+        const response = await fetch('/assets/data/ship-quiz-data-v2.json');
         quizData = await response.json();
       } catch (error) {
         console.error('Failed to load quiz data:', error);
       }
     }
+
+    // Setup cruise line selector (multi-select)
+    function setupLineSelector() {
+      const pills = document.querySelectorAll('.cruise-line-selector .line-pill');
+
+      pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          const line = pill.dataset.line;
+
+          if (line === 'all') {
+            // "All Lines" clicked - reset to all
+            selectedLines = ['all'];
+          } else {
+            // Individual line clicked - toggle it
+            if (selectedLines.includes('all')) {
+              // Was "all", now selecting specific line
+              selectedLines = [line];
+            } else if (selectedLines.includes(line)) {
+              // Deselect this line
+              selectedLines = selectedLines.filter(l => l !== line);
+              // If nothing selected, go back to "all"
+              if (selectedLines.length === 0) {
+                selectedLines = ['all'];
+              }
+            } else {
+              // Add this line
+              selectedLines.push(line);
+            }
+          }
+
+          // Update pill UI
+          updatePillUI();
+        });
+      });
+    }
+
+    // Update pill visual state
+    function updatePillUI() {
+      document.querySelectorAll('.cruise-line-selector .line-pill').forEach(p => {
+        const line = p.dataset.line;
+        if (selectedLines.includes('all')) {
+          p.classList.toggle('active', line === 'all');
+        } else {
+          p.classList.toggle('active', selectedLines.includes(line));
+        }
+      });
+    }
+
+    // Mobile selector no longer used - pills work on all devices
 
     // Render a question
     function renderQuestion(index) {
@@ -983,10 +1966,12 @@
       btnNext.addEventListener('click', () => {
         if (isLast) {
           showResults();
+          history.pushState({ results: true }, '', '#results');
         } else {
           currentQuestion++;
           renderQuestion(currentQuestion);
           updateProgress();
+          history.pushState({ question: currentQuestion, inQuiz: true }, '', `#q${currentQuestion + 1}`);
         }
       });
 
@@ -995,6 +1980,7 @@
           currentQuestion--;
           renderQuestion(currentQuestion);
           updateProgress();
+          history.pushState({ question: currentQuestion, inQuiz: true }, '', `#q${currentQuestion + 1}`);
         }
       });
 
@@ -1007,9 +1993,20 @@
           btnNext.disabled = false;
         }
       }
+      // Auto-detect and pre-select region for home_region question if no answer yet
+      else if (q.id === 'home_region' && q.autoDetect) {
+        const detectedRegion = detectUserRegion();
+        const regionCard = questionsContainer.querySelector(`[data-value="${detectedRegion}"]`);
+        if (regionCard) {
+          regionCard.classList.add('selected');
+          regionCard.setAttribute('aria-pressed', 'true');
+          answers[q.id] = detectedRegion;
+          btnNext.disabled = false;
+        }
+      }
     }
 
-    // Select an option
+    // Select an option and auto-advance
     function selectOption(card, questionId, btnNext) {
       const allCards = card.parentElement.querySelectorAll('.option-card');
       allCards.forEach(c => {
@@ -1020,6 +2017,11 @@
       card.setAttribute('aria-pressed', 'true');
       answers[questionId] = card.dataset.value;
       btnNext.disabled = false;
+
+      // Auto-advance after brief delay to show selection
+      setTimeout(() => {
+        btnNext.click();
+      }, 350);
     }
 
     // Update progress indicator
@@ -1027,137 +2029,208 @@
       progressText.textContent = `${currentQuestion + 1} of ${questions.length}`;
     }
 
-    // Calculate scores
-    function calculateScores() {
-      const classScores = {
-        icon: 0,
-        oasis: 0,
-        quantum: 0,
-        freedom: 0,
-        voyager: 0,
-        radiance: 0,
-        vision: 0
-      };
+    // Calculate scores for a cruise line
+    function calculateScoresForLine(line) {
+      const classScores = {};
+      const classes = quizData.classes[line];
+      const weights = quizData.scoring_weights[line];
 
-      const weights = quizData.scoring_weights;
+      // Initialize scores
+      for (const className of Object.keys(classes)) {
+        classScores[className] = 0;
+      }
 
       // Apply weights for each answer
       for (const [questionId, answer] of Object.entries(answers)) {
         if (weights[questionId] && weights[questionId][answer]) {
           const scoreAdjustments = weights[questionId][answer];
           for (const [className, points] of Object.entries(scoreAdjustments)) {
-            classScores[className] += points;
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += points;
+            }
           }
         }
       }
 
       // Apply must_have bonuses
       const mustHave = answers.must_have;
-      if (mustHave === 'waterpark') {
-        classScores.icon += 15;
-        classScores.oasis += 10;
-        classScores.freedom += 8;
-      } else if (mustHave === 'dining') {
-        classScores.icon += 10;
-        classScores.oasis += 12;
-        classScores.quantum += 8;
-      } else if (mustHave === 'shows') {
-        classScores.oasis += 12;
-        classScores.quantum += 10;
-        classScores.icon += 8;
-      } else if (mustHave === 'tech') {
-        classScores.quantum += 15;
-        classScores.icon += 10;
-        classScores.oasis += 6;
-      } else if (mustHave === 'scenic') {
-        classScores.radiance += 15;
-        classScores.vision += 12;
-        classScores.quantum += 6;
+      if (mustHave && mustHave !== 'none' && quizData.must_have_bonuses[mustHave]) {
+        const bonuses = quizData.must_have_bonuses[mustHave][line];
+        if (bonuses) {
+          for (const [className, bonus] of Object.entries(bonuses)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += bonus;
+            }
+          }
+        }
+      }
+
+      // Apply kid_separation bonuses
+      const kidSeparation = answers.kid_separation;
+      if (kidSeparation && quizData.kid_separation_weights && quizData.kid_separation_weights[line]) {
+        const kidWeights = quizData.kid_separation_weights[line][kidSeparation];
+        if (kidWeights) {
+          for (const [className, weight] of Object.entries(kidWeights)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += weight;
+            }
+          }
+        }
+      }
+
+      // Apply atmosphere bonuses
+      const atmosphere = answers.atmosphere;
+      if (atmosphere && quizData.atmosphere_weights && quizData.atmosphere_weights[line]) {
+        const atmosphereWeights = quizData.atmosphere_weights[line][atmosphere];
+        if (atmosphereWeights) {
+          for (const [className, weight] of Object.entries(atmosphereWeights)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += weight;
+            }
+          }
+        }
+      }
+
+      // Apply dress_code bonuses
+      const dressCode = answers.dress_code;
+      if (dressCode && quizData.dress_code_weights && quizData.dress_code_weights[line]) {
+        const dressWeights = quizData.dress_code_weights[line][dressCode];
+        if (dressWeights) {
+          for (const [className, weight] of Object.entries(dressWeights)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += weight;
+            }
+          }
+        }
+      }
+
+      // Apply regional availability penalties
+      const homeRegion = answers.home_region || detectUserRegion();
+      if (homeRegion && homeRegion !== 'flexible' && quizData.regional_availability) {
+        const availability = quizData.regional_availability[line]?.[homeRegion];
+        const penalties = {
+          'strong': 0,
+          'moderate': -5,
+          'limited': -15,
+          'rare': -25,
+          'none': -50
+        };
+        const penalty = penalties[availability] || 0;
+        // Apply penalty to ALL classes for this line
+        for (const className of Object.keys(classScores)) {
+          classScores[className] += penalty;
+        }
+      }
+
+      // Apply line-level editorial adjustments
+      // NCL: -7 across all classes (service quality, safety concerns)
+      if (line === 'ncl') {
+        for (const className of Object.keys(classScores)) {
+          classScores[className] -= 7;
+        }
+      }
+
+      // Apply destination bonuses
+      const destination = answers.destination;
+      if (destination && destination !== 'flexible' && quizData.destination_weights && quizData.destination_weights[line]) {
+        const destWeights = quizData.destination_weights[line][destination];
+        if (destWeights) {
+          for (const [className, weight] of Object.entries(destWeights)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += weight;
+            }
+          }
+        }
+      }
+
+      // Apply ship_age bonuses (favor older ships when user prefers classic)
+      const shipAge = answers.ship_age;
+      if (shipAge && shipAge !== 'dont_care' && quizData.ship_age_weights && quizData.ship_age_weights[line]) {
+        const ageWeights = quizData.ship_age_weights[line][shipAge];
+        if (ageWeights) {
+          for (const [className, weight] of Object.entries(ageWeights)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += weight;
+            }
+          }
+        }
+      }
+
+      // Reduce mega-ship dominance for low crowd tolerance or port-focused travelers
+      if ((answers.crowd_tolerance === 'low' || answers.ship_vs_ports === 'ports') && quizData.mega_ship_penalty) {
+        const penalty = quizData.mega_ship_penalty[line];
+        if (penalty) {
+          for (const [className, weight] of Object.entries(penalty)) {
+            if (classScores.hasOwnProperty(className)) {
+              classScores[className] += weight;
+            }
+          }
+        }
       }
 
       return classScores;
     }
 
     // Get top ships for a class
-    function getTopShipsForClass(className, count = 2) {
-      const ships = Object.entries(quizData.ships)
+    function getTopShipsForClass(line, className, count = 2) {
+      const ships = Object.entries(quizData.ships[line])
         .filter(([_, ship]) => ship.class === className && ship.status === 'active')
-        .sort((a, b) => b[1].year - a[1].year) // Prefer newer ships
+        .sort((a, b) => b[1].year - a[1].year)
         .slice(0, count);
 
-      return ships.map(([slug, ship]) => ({ slug, ...ship }));
+      return ships.map(([slug, ship]) => ({ slug, ...ship, line }));
     }
 
     // Generate narrative for a ship
-    function generateNarrative(ship, classData, answers) {
-      const parts = [];
+    function generateNarrative(ship, classData, line) {
+      const parts = [classData.description];
 
-      // Class intro
-      parts.push(classData.description);
-
-      // Add personalization based on answers
-      if (answers.group_type === 'family_young' && ['icon', 'oasis', 'freedom'].includes(ship.class)) {
-        parts.push(`With kids in tow, you'll love the dedicated family areas and kid-friendly activities.`);
+      if (answers.group_type === 'family_young' && classData.intensity >= 7) {
+        parts.push(`With kids in tow, you'll love the dedicated family areas.`);
       }
-      if (answers.energy_level === 'relax' && ['radiance', 'vision'].includes(ship.class)) {
+      if (answers.energy_level === 'relax' && classData.intensity <= 5) {
         parts.push(`The more relaxed atmosphere is perfect for your laid-back vacation style.`);
       }
-      if (answers.budget_mindset === 'value' && ['voyager', 'freedom', 'vision'].includes(ship.class)) {
-        parts.push(`Great value without sacrificing the Royal Caribbean experience.`);
-      }
       if (ship.amplified) {
-        parts.push(`Recently refreshed through Royal Caribbean's Amplification program.`);
+        parts.push(`Recently refreshed with modern amenities.`);
       }
 
       return parts.join(' ');
     }
 
-    // Generate "why" explanation
-    function generateWhy(ship, classData, answers, rank) {
+    // Generate why explanation with score breakdown
+    function generateWhy(ship, classData, line, scoreBreakdown, rank) {
       const reasons = [];
 
       if (rank === 1) {
         reasons.push('Top match for your preferences');
       }
 
-      // Group type match
       const groupMatches = {
-        'solo': ['radiance', 'vision', 'quantum'],
-        'couple': ['quantum', 'radiance', 'oasis'],
-        'friends': ['oasis', 'freedom', 'voyager'],
-        'family_young': ['icon', 'oasis', 'freedom'],
-        'family_teens': ['oasis', 'icon', 'quantum'],
-        'multigen': ['oasis', 'icon', 'freedom']
+        'solo': { intensity: [3, 6], reason: 'solo travelers' },
+        'couple': { intensity: [4, 8], reason: 'couples' },
+        'family_young': { intensity: [7, 10], reason: 'families with kids' },
+        'family_teens': { intensity: [7, 10], reason: 'families with teens' }
       };
-      if (groupMatches[answers.group_type]?.includes(ship.class)) {
-        const groupLabels = {
-          'solo': 'solo travelers',
-          'couple': 'couples',
-          'friends': 'friend groups',
-          'family_young': 'families with kids',
-          'family_teens': 'families with teens',
-          'multigen': 'multi-generational groups'
-        };
-        reasons.push(`Great for ${groupLabels[answers.group_type]}`);
+
+      if (groupMatches[answers.group_type]) {
+        const match = groupMatches[answers.group_type];
+        if (classData.intensity >= match.intensity[0] && classData.intensity <= match.intensity[1]) {
+          reasons.push(`Great for ${match.reason}`);
+        }
       }
 
-      // Energy match
-      if (answers.energy_level === 'relax' && ['radiance', 'vision'].includes(ship.class)) {
+      if (answers.energy_level === 'relax' && classData.intensity <= 5) {
         reasons.push('Matches your relaxed pace');
       }
-      if (answers.energy_level === 'go_go_go' && ['icon', 'oasis'].includes(ship.class)) {
+      if (answers.energy_level === 'go_go_go' && classData.intensity >= 8) {
         reasons.push('Endless activities for your go-go-go style');
       }
 
-      // Ship vs ports
-      if (answers.ship_vs_ports === 'ports' && ['radiance', 'vision'].includes(ship.class)) {
-        reasons.push('Focused on destinations, not ship distractions');
-      }
-      if (answers.ship_vs_ports === 'ship' && ['icon', 'oasis'].includes(ship.class)) {
-        reasons.push('The ship IS the destination');
-      }
-
-      return reasons.slice(0, 2).join('. ') + '.';
+      return {
+        summary: reasons.slice(0, 2).join('. ') + (reasons.length > 0 ? '.' : 'A great match based on your preferences.'),
+        breakdown: scoreBreakdown
+      };
     }
 
     // Show results
@@ -1165,45 +2238,128 @@
       questionsContainer.classList.add('hidden');
       quizProgress.classList.remove('visible');
 
-      const scores = calculateScores();
+      // Filter out adults-only lines for family groups (only in "all" mode)
+      const familyGroups = ['family_young', 'family_teens', 'multigen'];
+      const isFamily = familyGroups.includes(answers.group_type);
 
-      // Sort classes by score
-      const sortedClasses = Object.entries(scores)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 3);
+      let linesToScore = selectedLines.includes('all')
+        ? Object.keys(quizData.scoring_weights)
+        : selectedLines;
 
-      // Get ships for top classes
-      const recommendations = [];
-      let shipCount = 0;
+      // Exclude adults-only lines from family results when viewing all lines
+      // (If user specifically selected an adults-only line, show warning instead)
+      if (isFamily && selectedLines.includes('all')) {
+        linesToScore = linesToScore.filter(line => !quizData.cruise_lines[line]?.adults_only);
+      }
 
-      for (const [className, score] of sortedClasses) {
-        if (shipCount >= 3) break;
+      // Calculate scores for all selected lines
+      const allResults = [];
+      const scoresByLine = {};
 
-        const shipsNeeded = Math.min(2, 3 - shipCount);
-        const ships = getTopShipsForClass(className, shipsNeeded);
+      for (const line of linesToScore) {
+        const scores = calculateScoresForLine(line);
+        scoresByLine[line] = scores;
 
-        ships.forEach((ship, idx) => {
-          if (shipCount < 3) {
-            recommendations.push({
+        const sortedClasses = Object.entries(scores)
+          .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])); // tie-break by class name
+
+        for (const [className, score] of sortedClasses) {
+          const ships = getTopShipsForClass(line, className, 2);
+          for (const ship of ships) {
+            allResults.push({
               ship,
-              classData: quizData.classes[className],
+              classData: quizData.classes[line][className],
+              className,
+              line,
               score,
-              rank: shipCount + 1
+              lineData: quizData.cruise_lines[line]
             });
-            shipCount++;
           }
-        });
+        }
+      }
+
+      // Sort all results by score and cache for limit adjustment
+      // Tie-break by ship year (newer first), then by name
+      allResults.sort((a, b) => b.score - a.score || b.ship.year - a.ship.year || a.ship.name.localeCompare(b.ship.name));
+      allResultsCache = allResults;
+      const topResults = allResults.slice(0, resultsLimit);
+
+      // Check for budget/luxury mismatch and generate advisory
+      const budgetLuxuryMismatch = answers.budget_mindset === 'value' && (
+        answers.crowd_tolerance === 'low' ||
+        answers.must_have === 'dining' ||
+        answers.must_have === 'service' ||
+        answers.must_have === 'spa'
+      );
+
+      let advisoryHTML = '';
+      if (budgetLuxuryMismatch) {
+        advisoryHTML = `
+          <div class="budget-advisory">
+            <div class="advisory-icon">💡</div>
+            <div class="advisory-content">
+              <strong>A note on your preferences:</strong>
+              Your tastes suggest premium experiences, but you've selected a value budget. Consider:
+              <ul>
+                <li><strong>Suites on mainstream lines</strong> for a "luxury lite" experience</li>
+                <li><strong>Repositioning cruises</strong> on luxury lines at 40-60% off</li>
+                <li><strong>Last-minute deals</strong> via cruise line newsletters</li>
+              </ul>
+              Celebrity and Holland America offer premium feel at mid-range prices.
+            </div>
+          </div>
+        `;
+      }
+
+      // Check for Viking-like preferences (sophisticated, destination-focused, adult couple/solo)
+      const vikingMatch = (
+        answers.atmosphere === 'sophisticated' &&
+        answers.crowd_tolerance === 'low' &&
+        answers.ship_vs_ports === 'ports' &&
+        (answers.group_type === 'couple' || answers.group_type === 'solo') &&
+        (answers.budget_mindset === 'premium' || answers.budget_mindset === 'all_in') &&
+        (answers.kid_separation === 'no_kids' || answers.kid_separation === 'adult_spaces')
+      );
+
+      if (vikingMatch) {
+        advisoryHTML += `
+          <div class="budget-advisory">
+            <div class="advisory-icon">⚓</div>
+            <div class="advisory-content">
+              <strong>You might also enjoy Viking Ocean Cruises</strong>
+              Your preferences—sophisticated atmosphere, destination focus, smaller crowds, and adults-only—align well with Viking's approach.
+              They're not in our quiz yet (too many ships to track!), but worth exploring if you value:
+              <ul>
+                <li><strong>Destination immersion</strong> with included shore excursions</li>
+                <li><strong>Scandinavian-inspired design</strong> with understated elegance</li>
+                <li><strong>All-inclusive pricing</strong> (Wi-Fi, specialty dining, excursions)</li>
+              </ul>
+            </div>
+          </div>
+        `;
       }
 
       // Render results
-      resultsContainer.innerHTML = recommendations.map((rec, idx) => {
-        const { ship, classData, score, rank } = rec;
-        const narrative = generateNarrative(ship, classData, answers);
-        const why = generateWhy(ship, classData, answers, rank);
-        const matchPercent = Math.min(99, Math.round(50 + score));
+      resultsContainer.innerHTML = advisoryHTML + topResults.map((rec, idx) => {
+        const { ship, classData, className, line, score, lineData } = rec;
+        const narrative = generateNarrative(ship, classData, line);
+        const matchPercent = Math.max(1, Math.min(99, Math.round(50 + score)));
+
+        const scoreBreakdown = [];
+        const weights = quizData.scoring_weights[line];
+        for (const [qId, answer] of Object.entries(answers)) {
+          if (weights[qId] && weights[qId][answer] && weights[qId][answer][className]) {
+            const pts = weights[qId][answer][className];
+            const qLabel = questions.find(q => q.id === qId)?.question || qId;
+            scoreBreakdown.push({ label: qLabel.replace("?", ""), points: pts });
+          }
+        }
+
+        const why = generateWhy(ship, classData, line, scoreBreakdown, idx + 1);
 
         return `
-          <article class="result-card ${rank === 1 ? 'top-pick' : ''}">
+          <article class="result-card ${idx === 0 ? 'top-pick' : ''}">
+            <div class="result-brand-bar ${line}"></div>
             <div class="result-image">
               <img src="${ship.image}"
                    alt="${ship.name}"
@@ -1214,9 +2370,24 @@
             </div>
             <div class="result-content">
               <div class="result-title">
-                <h3>${ship.name}</h3>
-                <span class="result-class">${classData.name}</span>
+                <h3>${ship.page_exists ? `<a href="${ship.page}" class="ship-name-link">${ship.name}</a>` : ship.name}</h3>
+                <div class="result-badges">
+                  <span class="result-line ${line}">${lineData.short_name}</span>
+                  <span class="result-class">${classData.name}</span>
+                </div>
               </div>
+              ${(() => {
+                const warnings = getLineWarnings(lineData, answers.group_type);
+                return warnings.map(w => `
+                  <div class="result-warning">
+                    <span class="result-warning-icon">${w.icon}</span>
+                    <div class="result-warning-text">
+                      <span class="result-warning-title">${w.title}</span>
+                      ${w.message}
+                    </div>
+                  </div>
+                `).join('');
+              })()}
               <p class="result-narrative">${narrative}</p>
               <div class="result-specs">
                 <div class="spec-item">
@@ -1235,22 +2406,98 @@
               <div class="result-highlights">
                 ${ship.highlights.slice(0, 3).map(h => `<span class="highlight-tag">${h}</span>`).join('')}
               </div>
+              ${(() => {
+                const dc = formatDressCode(lineData);
+                return dc ? `
+                  <div class="result-dress-code">
+                    <span class="dress-code-icon">${dc.icon}</span>
+                    <div class="dress-code-content">
+                      <span class="dress-code-label">Dress Code</span>
+                      <span class="dress-code-value">${dc.label}</span>
+                      <p class="dress-code-desc">${dc.description}</p>
+                    </div>
+                  </div>
+                ` : '';
+              })()}
               <div class="result-why">
-                <div class="result-why-title">Why this ship?</div>
-                <p class="result-why-text">${why}</p>
+                <div class="result-why-header" onclick="this.nextElementSibling.nextElementSibling.classList.toggle('open'); this.querySelector('.result-why-toggle').textContent = this.nextElementSibling.nextElementSibling.classList.contains('open') ? 'Hide details' : 'Show details';">
+                  <span class="result-why-title">Why this ship?</span>
+                  <span class="result-why-toggle">Show details</span>
+                </div>
+                <p class="result-why-text">${why.summary}</p>
+                <div class="result-why-details">
+                  <div class="score-breakdown">
+                    ${why.breakdown.slice(0, 5).map(b => `
+                      <div class="score-row">
+                        <span class="label">${b.label}</span>
+                        <span class="points">${b.points > 0 ? '+' : ''}${b.points} pts</span>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
               </div>
-              <a href="${ship.page}" class="result-cta">
-                Explore ${ship.name.split(' of ')[0]} →
-              </a>
+              ${ship.page_exists ? `<a href="${ship.page}" class="result-cta">Explore ${ship.name.split(' of ')[0]} →</a>` : ''}
+              <button type="button" class="compare-toggle" data-ship-id="${ship.slug}-${line}"
+                onclick="toggleCompare('${ship.slug}-${line}', ${JSON.stringify(ship).replace(/"/g, '&quot;')}, ${JSON.stringify(lineData).replace(/"/g, '&quot;')}, ${matchPercent})">
+                + Compare
+              </button>
             </div>
           </article>
         `;
       }).join('');
 
-      // Update share section with top pick
-      const topRec = recommendations[0];
+      // Show "You Might Also Like" if filtered to specific lines (not all)
+      if (!selectedLines.includes('all')) {
+        const otherLines = Object.keys(quizData.scoring_weights).filter(l => !selectedLines.includes(l));
+        const otherResults = [];
+
+        for (const line of otherLines) {
+          const scores = calculateScoresForLine(line);
+          const sortedClasses = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+
+          if (sortedClasses.length > 0) {
+            const [topClass, topScore] = sortedClasses[0];
+            const ships = getTopShipsForClass(line, topClass, 1);
+            if (ships.length > 0) {
+              otherResults.push({
+                ship: ships[0],
+                line,
+                score: topScore,
+                lineData: quizData.cruise_lines[line]
+              });
+            }
+          }
+        }
+
+        if (otherResults.length > 0) {
+          otherResults.sort((a, b) => b.score - a.score || b.ship.year - a.ship.year || a.ship.name.localeCompare(b.ship.name));
+
+          alsoLikeGrid.innerHTML = otherResults.map(r => {
+            const matchPercent = Math.max(1, Math.min(99, Math.round(50 + r.score)));
+            const cardTag = r.ship.page_exists ? 'a' : 'div';
+            const hrefAttr = r.ship.page_exists ? `href="${r.ship.page}"` : '';
+            return `
+              <${cardTag} ${hrefAttr} class="also-like-card${r.ship.page_exists ? '' : ' no-link'}">
+                <div class="ship-name">${r.ship.name}</div>
+                <div class="ship-line" style="color:${r.lineData.colors.primary}">${r.lineData.short_name}</div>
+                <div class="ship-match">${matchPercent}% match</div>
+              </${cardTag}>
+            `;
+          }).join('');
+
+          alsoLikeSection.classList.remove('hidden');
+        }
+      } else {
+        alsoLikeSection.classList.add('hidden');
+      }
+
+      // Update limit display
+      updateLimitDisplay();
+
+      // Update share section
+      const topRec = topResults[0];
       const topMatchPercent = Math.min(99, Math.round(50 + topRec.score));
-      updateShareSection(topRec.ship, topMatchPercent, topRec.classData);
+      updateShareSection(topRec.ship, topMatchPercent, topRec.lineData, topRec.classData);
 
       quizResults.classList.add('active');
       quizResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1265,7 +2512,36 @@
       answers = {};
       renderQuestion(currentQuestion);
       updateProgress();
+      // Push initial state for back button support
+      history.pushState({ question: 0, inQuiz: true }, '', '#q1');
     }
+
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', (e) => {
+      if (e.state && e.state.inQuiz && typeof e.state.question === 'number') {
+        // Navigate to specific question
+        currentQuestion = e.state.question;
+        renderQuestion(currentQuestion);
+        updateProgress();
+        // Show questions, hide results
+        quizResults.classList.remove('active');
+        questionsContainer.classList.remove('hidden');
+      } else if (quizResults.classList.contains('active')) {
+        // On results page, back goes to last question
+        quizResults.classList.remove('active');
+        questionsContainer.classList.remove('hidden');
+        currentQuestion = questions.length - 1;
+        renderQuestion(currentQuestion);
+        updateProgress();
+        history.pushState({ question: currentQuestion, inQuiz: true }, '', `#q${currentQuestion + 1}`);
+      } else if (!quizIntro.classList.contains('hidden')) {
+        // Already at intro, let browser handle normally
+        return;
+      } else {
+        // Default: go back to intro
+        restartQuiz();
+      }
+    });
 
     // Restart quiz
     function restartQuiz() {
@@ -1273,10 +2549,269 @@
       quizIntro.classList.remove('hidden');
       questionsContainer.classList.add('hidden');
       quizProgress.classList.remove('visible');
+      alsoLikeSection.classList.add('hidden');
       currentQuestion = 0;
       answers = {};
-      // Clear URL params
+      resultsLimit = 3;
+      allResultsCache = [];
+      compareShips = [];
+      updateCompareTray();
       history.replaceState({}, '', window.location.pathname);
+    }
+
+    // Adjust results limit
+    function adjustResultsLimit(delta) {
+      const newLimit = Math.max(3, Math.min(10, resultsLimit + delta));
+      if (newLimit === resultsLimit) return;
+
+      resultsLimit = newLimit;
+      updateLimitDisplay();
+      rerenderResults();
+    }
+
+    // Update the limit display and button states
+    function updateLimitDisplay() {
+      const limitCount = document.getElementById('limitCount');
+      const btnMinus = document.getElementById('btnLimitMinus');
+      const btnPlus = document.getElementById('btnLimitPlus');
+
+      if (limitCount) limitCount.textContent = resultsLimit;
+      if (btnMinus) btnMinus.disabled = resultsLimit <= 3;
+      if (btnPlus) btnPlus.disabled = resultsLimit >= 10 || resultsLimit >= allResultsCache.length;
+    }
+
+    // Re-render results with current limit (uses cached results)
+    function rerenderResults() {
+      if (allResultsCache.length === 0) return;
+
+      const topResults = allResultsCache.slice(0, resultsLimit);
+
+      resultsContainer.innerHTML = topResults.map((rec, idx) => {
+        const { ship, classData, className, line, score, lineData } = rec;
+        const narrative = generateNarrative(ship, classData, line);
+        const matchPercent = Math.max(1, Math.min(99, Math.round(50 + score)));
+
+        const scoreBreakdown = [];
+        const weights = quizData.scoring_weights[line];
+        for (const [qId, answer] of Object.entries(answers)) {
+          if (weights[qId] && weights[qId][answer] && weights[qId][answer][className]) {
+            const pts = weights[qId][answer][className];
+            const qLabel = questions.find(q => q.id === qId)?.question || qId;
+            scoreBreakdown.push({ label: qLabel.replace("?", ""), points: pts });
+          }
+        }
+
+        const why = generateWhy(ship, classData, line, scoreBreakdown, idx + 1);
+
+        return `
+          <article class="result-card ${idx === 0 ? 'top-pick' : ''}">
+            <div class="result-brand-bar ${line}"></div>
+            <div class="result-image">
+              <img src="${ship.image}"
+                   alt="${ship.name}"
+                   loading="${idx === 0 ? 'eager' : 'lazy'}"
+                   onerror="this.src='/assets/social/ships-hero.jpg'">
+              <span class="result-badge">Top Pick</span>
+              <span class="result-match">${matchPercent}% Match</span>
+            </div>
+            <div class="result-content">
+              <div class="result-title">
+                <h3>${ship.page_exists ? `<a href="${ship.page}" class="ship-name-link">${ship.name}</a>` : ship.name}</h3>
+                <div class="result-badges">
+                  <span class="result-line ${line}">${lineData.short_name}</span>
+                  <span class="result-class">${classData.name}</span>
+                </div>
+              </div>
+              ${(() => {
+                const warnings = getLineWarnings(lineData, answers.group_type);
+                return warnings.map(w => `
+                  <div class="result-warning">
+                    <span class="result-warning-icon">${w.icon}</span>
+                    <div class="result-warning-text">
+                      <span class="result-warning-title">${w.title}</span>
+                      ${w.message}
+                    </div>
+                  </div>
+                `).join('');
+              })()}
+              <p class="result-narrative">${narrative}</p>
+              <div class="result-specs">
+                <div class="spec-item">
+                  <span class="spec-label">Year</span>
+                  <span class="spec-value">${ship.year}</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Size</span>
+                  <span class="spec-value">${(ship.gt / 1000).toFixed(0)}K GT</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Guests</span>
+                  <span class="spec-value">${ship.capacity.toLocaleString()}</span>
+                </div>
+              </div>
+              <div class="result-highlights">
+                ${ship.highlights.slice(0, 3).map(h => `<span class="highlight-tag">${h}</span>`).join('')}
+              </div>
+              ${(() => {
+                const dc = formatDressCode(lineData);
+                return dc ? `
+                  <div class="result-dress-code">
+                    <span class="dress-code-icon">${dc.icon}</span>
+                    <div class="dress-code-content">
+                      <span class="dress-code-label">Dress Code</span>
+                      <span class="dress-code-value">${dc.label}</span>
+                      <p class="dress-code-desc">${dc.description}</p>
+                    </div>
+                  </div>
+                ` : '';
+              })()}
+              <div class="result-why">
+                <div class="result-why-header" onclick="this.nextElementSibling.nextElementSibling.classList.toggle('open'); this.querySelector('.result-why-toggle').textContent = this.nextElementSibling.nextElementSibling.classList.contains('open') ? 'Hide details' : 'Show details';">
+                  <span class="result-why-title">Why this ship?</span>
+                  <span class="result-why-toggle">Show details</span>
+                </div>
+                <div class="result-why-summary">${why.summary}</div>
+                <div class="result-why-details">
+                  <div class="why-breakdown">
+                    ${why.breakdown.slice(0, 5).map(b =>
+                      `<div class="why-item"><span class="why-label">${b.label}</span><span class="why-points ${b.points >= 0 ? 'positive' : 'negative'}">${b.points >= 0 ? '+' : ''}${b.points}</span></div>`
+                    ).join('')}
+                  </div>
+                </div>
+              </div>
+              ${ship.page_exists ? `<a href="${ship.page}" class="result-cta">Explore ${ship.name} →</a>` : ''}
+              <button type="button" class="compare-toggle" data-ship-id="${ship.slug}-${line}"
+                onclick="toggleCompare('${ship.slug}-${line}', ${JSON.stringify(ship).replace(/"/g, '&quot;')}, ${JSON.stringify(lineData).replace(/"/g, '&quot;')}, ${matchPercent})">
+                + Compare
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      // Update plus button state based on available results
+      updateLimitDisplay();
+
+      // Update compare button states
+      updateCompareButtonStates();
+    }
+
+    // ==========================================
+    // COMPARISON FUNCTIONALITY
+    // ==========================================
+
+    function toggleCompare(shipId, shipData, lineData, matchPercent) {
+      const idx = compareShips.findIndex(s => s.id === shipId);
+
+      if (idx >= 0) {
+        // Remove from comparison
+        compareShips.splice(idx, 1);
+      } else {
+        // Add to comparison (max 5)
+        if (compareShips.length >= MAX_COMPARE) {
+          alert(`You can compare up to ${MAX_COMPARE} ships at a time.`);
+          return;
+        }
+        compareShips.push({
+          id: shipId,
+          ship: shipData,
+          lineData,
+          matchPercent
+        });
+      }
+
+      updateCompareTray();
+      updateCompareButtonStates();
+    }
+
+    function updateCompareButtonStates() {
+      document.querySelectorAll('.compare-toggle').forEach(btn => {
+        const shipId = btn.dataset.shipId;
+        const isInCompare = compareShips.some(s => s.id === shipId);
+        btn.classList.toggle('active', isInCompare);
+        btn.textContent = isInCompare ? '✓ In Compare' : '+ Compare';
+      });
+    }
+
+    function updateCompareTray() {
+      const tray = document.getElementById('compareTray');
+      const cardsContainer = document.getElementById('compareCards');
+      const countSpan = document.getElementById('compareCount');
+
+      if (!tray) return;
+
+      if (compareShips.length === 0) {
+        tray.classList.remove('visible');
+        return;
+      }
+
+      tray.classList.add('visible');
+      countSpan.textContent = `${compareShips.length}/${MAX_COMPARE}`;
+
+      cardsContainer.innerHTML = compareShips.map(c => `
+        <div class="compare-card">
+          <button class="compare-card-remove" onclick="toggleCompare('${c.id}', null, null, null)">×</button>
+          <h4>${c.ship.name}</h4>
+          <div class="compare-card-line">${c.lineData.short_name}</div>
+          <dl class="compare-card-stats">
+            <dt>GT</dt><dd>${(c.ship.gt / 1000).toFixed(0)}K</dd>
+            <dt>Guests</dt><dd>${c.ship.capacity.toLocaleString()}</dd>
+            <dt>Year</dt><dd>${c.ship.year}</dd>
+          </dl>
+          <div class="compare-card-match">${c.matchPercent}% Match</div>
+        </div>
+      `).join('');
+    }
+
+    function clearCompare() {
+      compareShips = [];
+      updateCompareTray();
+      updateCompareButtonStates();
+    }
+
+    function showCompareModal() {
+      if (compareShips.length < 2) {
+        alert('Add at least 2 ships to compare.');
+        return;
+      }
+
+      const modal = document.getElementById('compareModal');
+      const tbody = document.getElementById('compareTableBody');
+
+      // Build comparison table rows
+      const rows = [
+        { label: 'Cruise Line', fn: c => c.lineData.name },
+        { label: 'Match', fn: c => c.matchPercent + '%' },
+        { label: 'Year Built', fn: c => c.ship.year },
+        { label: 'Size (GT)', fn: c => (c.ship.gt / 1000).toFixed(0) + 'K' },
+        { label: 'Guests', fn: c => c.ship.capacity.toLocaleString() },
+        { label: 'Dress Code', fn: c => {
+          const dc = formatDressCode(c.lineData);
+          return dc ? dc.label : '—';
+        }},
+        { label: 'Highlights', fn: c => c.ship.highlights.slice(0, 2).join(', ') || '—' }
+      ];
+
+      const headerRow = `
+        <tr>
+          <th></th>
+          ${compareShips.map(c => `<th class="ship-header">${c.ship.name}</th>`).join('')}
+        </tr>
+      `;
+
+      const dataRows = rows.map(row => `
+        <tr>
+          <th>${row.label}</th>
+          ${compareShips.map(c => `<td>${row.fn(c)}</td>`).join('')}
+        </tr>
+      `).join('');
+
+      tbody.innerHTML = headerRow + dataRows;
+      modal.classList.add('visible');
+    }
+
+    function closeCompareModal() {
+      document.getElementById('compareModal').classList.remove('visible');
     }
 
     // ==========================================
@@ -1285,21 +2820,38 @@
 
     let currentTopShip = null;
     let currentMatchPercent = 0;
+    let currentLineName = '';
     let currentClassName = '';
 
-    // Generate shareable URL with encoded answers
     function generateShareURL() {
-      const encoded = btoa(JSON.stringify(answers));
+      const data = { answers, lines: selectedLines };
+      const encoded = btoa(JSON.stringify(data));
       return `${window.location.origin}${window.location.pathname}?r=${encoded}`;
     }
 
-    // Parse URL params and auto-show results
     function parseShareURL() {
       const params = new URLSearchParams(window.location.search);
       const encoded = params.get('r');
+      const lineParam = params.get('line');
+
+      // Legacy: single line param
+      if (lineParam && Object.keys(lineNames).includes(lineParam)) {
+        selectedLines = [lineParam];
+        updatePillUI();
+      }
+
       if (encoded) {
         try {
-          answers = JSON.parse(atob(encoded));
+          const data = JSON.parse(atob(encoded));
+          answers = data.answers || {};
+          // Support both old 'line' and new 'lines' format
+          if (data.lines) {
+            selectedLines = data.lines;
+            updatePillUI();
+          } else if (data.line) {
+            selectedLines = [data.line];
+            updatePillUI();
+          }
           return true;
         } catch (e) {
           console.error('Invalid share URL');
@@ -1308,207 +2860,23 @@
       return false;
     }
 
-    // Generate share text
-    function generateShareText(ship, matchPercent, className) {
-      return `My perfect Royal Caribbean ship is ${ship.name}! 🚢\n\n${matchPercent}% match for my travel style (${className}).\n\nFind your perfect ship:`;
+    function generateShareText(ship, matchPercent, lineName) {
+      return `My perfect cruise ship is ${ship.name}! 🚢\n\n${matchPercent}% match for my travel style (${lineName}).\n\nFind your perfect ship:`;
     }
 
-    // Update share section with current results
-    function updateShareSection(ship, matchPercent, classData) {
+    function updateShareSection(ship, matchPercent, lineData, classData) {
       currentTopShip = ship;
       currentMatchPercent = matchPercent;
+      currentLineName = lineData.name;
       currentClassName = classData.name;
 
       const sharePreview = document.getElementById('sharePreview');
-      const shareURL = generateShareURL();
-
       sharePreview.innerHTML = `
         <strong>"My perfect ship is ${ship.name}!"</strong><br>
-        ${matchPercent}% match • ${classData.name}
+        ${matchPercent}% match • ${lineData.short_name} • ${classData.name}
       `;
-
-      // Update social links
-      const shareText = generateShareText(ship, matchPercent, classData.name);
-      const encodedText = encodeURIComponent(shareText);
-      const encodedURL = encodeURIComponent(shareURL);
-
-      document.getElementById('btnTwitter').href =
-        `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedURL}`;
-
-      document.getElementById('btnFacebook').href =
-        `https://www.facebook.com/sharer/sharer.php?u=${encodedURL}`;
-
-      const emailSubject = encodeURIComponent(`My Royal Caribbean Ship Match: ${ship.name}`);
-      const emailBody = encodeURIComponent(`${shareText}\n${shareURL}`);
-      document.getElementById('btnEmail').href =
-        `mailto:?subject=${emailSubject}&body=${emailBody}`;
     }
 
-    // Generate share image using Canvas
-    async function generateShareImage() {
-      const canvas = document.getElementById('shareCanvas');
-      const ctx = canvas.getContext('2d');
-
-      // Draw background gradient
-      const bgGrad = ctx.createLinearGradient(0, 0, 1200, 630);
-      bgGrad.addColorStop(0, '#0a3d62');
-      bgGrad.addColorStop(1, '#083041');
-      ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, 1200, 630);
-
-      // Draw subtle wave pattern
-      ctx.strokeStyle = 'rgba(255,255,255,0.03)';
-      ctx.lineWidth = 2;
-      for (let y = 0; y < 630; y += 20) {
-        ctx.beginPath();
-        for (let x = 0; x < 1200; x += 5) {
-          const py = y + Math.sin((x / 50) * Math.PI) * 5;
-          if (x === 0) ctx.moveTo(x, py);
-          else ctx.lineTo(x, py);
-        }
-        ctx.stroke();
-      }
-
-      // Load and draw ship image
-      return new Promise((resolve) => {
-        const shipImg = new Image();
-        shipImg.crossOrigin = 'anonymous';
-        shipImg.onload = () => {
-          // Draw ship image area with rounded corners (simulated)
-          ctx.save();
-          ctx.beginPath();
-          roundRect(ctx, 40, 100, 560, 420, 14);
-          ctx.clip();
-
-          // Calculate aspect ratio and center crop
-          const imgAspect = shipImg.width / shipImg.height;
-          const boxAspect = 560 / 420;
-          let sx = 0, sy = 0, sw = shipImg.width, sh = shipImg.height;
-
-          if (imgAspect > boxAspect) {
-            sw = shipImg.height * boxAspect;
-            sx = (shipImg.width - sw) / 2;
-          } else {
-            sh = shipImg.width / boxAspect;
-            sy = (shipImg.height - sh) / 2;
-          }
-
-          ctx.drawImage(shipImg, sx, sy, sw, sh, 40, 100, 560, 420);
-          ctx.restore();
-
-          // Draw border around ship image
-          ctx.strokeStyle = '#d9b382';
-          ctx.lineWidth = 3;
-          ctx.beginPath();
-          roundRect(ctx, 40, 100, 560, 420, 14);
-          ctx.stroke();
-
-          // Right side content
-          // "My Perfect Ship Is" header
-          ctx.fillStyle = 'rgba(255,255,255,0.7)';
-          ctx.font = '24px system-ui, sans-serif';
-          ctx.fillText('My Perfect Ship Is', 640, 150);
-
-          // Ship name
-          ctx.fillStyle = '#ffffff';
-          ctx.font = 'bold 44px system-ui, sans-serif';
-          ctx.fillText(currentTopShip.name, 640, 210);
-
-          // Class badge
-          const accentGrad = ctx.createLinearGradient(640, 235, 800, 235);
-          accentGrad.addColorStop(0, '#0e6e8e');
-          accentGrad.addColorStop(1, '#0a5a75');
-          ctx.fillStyle = accentGrad;
-          roundRect(ctx, 640, 235, 160, 36, 18);
-          ctx.fill();
-
-          ctx.fillStyle = '#ffffff';
-          ctx.font = '600 14px system-ui, sans-serif';
-          ctx.textAlign = 'center';
-          ctx.fillText(currentClassName, 720, 259);
-          ctx.textAlign = 'left';
-
-          // Match percentage badge
-          const goldGrad = ctx.createLinearGradient(640, 300, 760, 344);
-          goldGrad.addColorStop(0, '#fbbf24');
-          goldGrad.addColorStop(1, '#d97706');
-          ctx.fillStyle = goldGrad;
-          roundRect(ctx, 640, 300, 130, 44, 22);
-          ctx.fill();
-
-          ctx.fillStyle = '#ffffff';
-          ctx.font = 'bold 20px system-ui, sans-serif';
-          ctx.textAlign = 'center';
-          ctx.fillText(`${currentMatchPercent}% Match`, 705, 329);
-          ctx.textAlign = 'left';
-
-          // Divider line
-          ctx.strokeStyle = 'rgba(217, 179, 130, 0.5)';
-          ctx.lineWidth = 2;
-          ctx.beginPath();
-          ctx.moveTo(640, 370);
-          ctx.lineTo(1140, 370);
-          ctx.stroke();
-
-          // CTA text
-          ctx.fillStyle = 'rgba(255,255,255,0.9)';
-          ctx.font = '500 20px system-ui, sans-serif';
-          ctx.fillText('Find your perfect ship at', 640, 420);
-
-          ctx.fillStyle = '#d9b382';
-          ctx.font = 'bold 24px system-ui, sans-serif';
-          ctx.fillText('cruisinginthewake.com/ships/quiz', 640, 455);
-
-          // Branding
-          ctx.fillStyle = 'rgba(255,255,255,0.8)';
-          ctx.font = '600 16px system-ui, sans-serif';
-          ctx.textAlign = 'right';
-          ctx.fillText('In the Wake', 1160, 560);
-
-          ctx.fillStyle = 'rgba(255,255,255,0.5)';
-          ctx.font = '400 12px system-ui, sans-serif';
-          ctx.fillText("A Cruise Traveler's Logbook", 1160, 582);
-          ctx.textAlign = 'left';
-
-          // Decorative rope line
-          ctx.strokeStyle = 'rgba(217, 179, 130, 0.4)';
-          ctx.lineWidth = 3;
-          ctx.beginPath();
-          ctx.moveTo(40, 590);
-          ctx.lineTo(600, 590);
-          ctx.stroke();
-
-          resolve(canvas);
-        };
-
-        shipImg.onerror = () => {
-          // If image fails to load, still generate without ship image
-          ctx.fillStyle = 'rgba(14, 110, 142, 0.3)';
-          roundRect(ctx, 40, 100, 560, 420, 14);
-          ctx.fill();
-          resolve(canvas);
-        };
-
-        shipImg.src = currentTopShip.image;
-      });
-    }
-
-    // Helper: Draw rounded rectangle
-    function roundRect(ctx, x, y, width, height, radius) {
-      ctx.beginPath();
-      ctx.moveTo(x + radius, y);
-      ctx.lineTo(x + width - radius, y);
-      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-      ctx.lineTo(x + width, y + height - radius);
-      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-      ctx.lineTo(x + radius, y + height);
-      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-      ctx.lineTo(x, y + radius);
-      ctx.quadraticCurveTo(x, y, x + radius, y);
-      ctx.closePath();
-    }
-
-    // Copy link to clipboard
     async function copyShareLink() {
       const url = generateShareURL();
       try {
@@ -1517,7 +2885,6 @@
         copiedMsg.classList.add('show');
         setTimeout(() => copiedMsg.classList.remove('show'), 2000);
       } catch (err) {
-        // Fallback for older browsers
         const textarea = document.createElement('textarea');
         textarea.value = url;
         document.body.appendChild(textarea);
@@ -1530,59 +2897,74 @@
       }
     }
 
-    // Native share (mobile)
     async function nativeShare() {
       const shareURL = generateShareURL();
-      const shareText = generateShareText(currentTopShip, currentMatchPercent, currentClassName);
+      const shareText = generateShareText(currentTopShip, currentMatchPercent, currentLineName);
 
       if (navigator.share) {
         try {
-          // Try to share with image
-          const canvas = await generateShareImage();
-          canvas.toBlob(async (blob) => {
-            const file = new File([blob], 'my-perfect-ship.png', { type: 'image/png' });
-
-            try {
-              await navigator.share({
-                title: `My Perfect Ship: ${currentTopShip.name}`,
-                text: shareText,
-                url: shareURL,
-                files: [file]
-              });
-            } catch (e) {
-              // Fallback without image
-              await navigator.share({
-                title: `My Perfect Ship: ${currentTopShip.name}`,
-                text: shareText,
-                url: shareURL
-              });
-            }
-          }, 'image/png');
+          await navigator.share({
+            title: `My Perfect Ship: ${currentTopShip.name}`,
+            text: shareText,
+            url: shareURL
+          });
         } catch (err) {
           console.error('Share failed:', err);
         }
       } else {
-        // Fallback: copy link
         copyShareLink();
       }
     }
 
-    // Download share image
     async function downloadShareImage() {
-      const canvas = await generateShareImage();
+      const canvas = document.getElementById('shareCanvas');
+      const ctx = canvas.getContext('2d');
+
+      // Draw background
+      const bgGrad = ctx.createLinearGradient(0, 0, 1200, 630);
+      bgGrad.addColorStop(0, '#0a3d62');
+      bgGrad.addColorStop(1, '#083041');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, 1200, 630);
+
+      // Content
+      ctx.fillStyle = 'rgba(255,255,255,0.7)';
+      ctx.font = '24px system-ui, sans-serif';
+      ctx.fillText('My Perfect Cruise Ship Is', 80, 150);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 48px system-ui, sans-serif';
+      ctx.fillText(currentTopShip.name, 80, 220);
+
+      ctx.fillStyle = '#d9b382';
+      ctx.font = '600 24px system-ui, sans-serif';
+      ctx.fillText(`${currentMatchPercent}% Match • ${currentLineName}`, 80, 280);
+
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx.font = '20px system-ui, sans-serif';
+      ctx.fillText('Find your perfect ship at', 80, 400);
+
+      ctx.fillStyle = '#d9b382';
+      ctx.font = 'bold 24px system-ui, sans-serif';
+      ctx.fillText('cruisinginthewake.com/ships/allshipquiz.html', 80, 440);
+
+      ctx.fillStyle = 'rgba(255,255,255,0.8)';
+      ctx.font = '600 16px system-ui, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText('In the Wake', 1120, 560);
+      ctx.textAlign = 'left';
+
       const link = document.createElement('a');
-      link.download = `my-perfect-ship-${currentTopShip.slug}.png`;
+      link.download = `my-perfect-ship-${currentTopShip.slug || 'result'}.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
     }
 
-    // Setup share event listeners
     function setupShareListeners() {
       document.getElementById('btnNativeShare').addEventListener('click', nativeShare);
       document.getElementById('btnCopyLink').addEventListener('click', copyShareLink);
       document.getElementById('btnDownloadImage').addEventListener('click', downloadShareImage);
 
-      // Hide native share button on desktop (no Web Share API)
       if (!navigator.share) {
         document.getElementById('btnNativeShare').style.display = 'none';
       }
@@ -1591,13 +2973,16 @@
     // Initialize
     async function init() {
       await loadQuizData();
+      setupLineSelector();
       btnStart.addEventListener('click', startQuiz);
       btnRestart.addEventListener('click', restartQuiz);
       setupShareListeners();
 
-      // Check for shared results URL
+      // Results limit +/- buttons
+      document.getElementById('btnLimitMinus')?.addEventListener('click', () => adjustResultsLimit(-1));
+      document.getElementById('btnLimitPlus')?.addEventListener('click', () => adjustResultsLimit(1));
+
       if (parseShareURL()) {
-        // Skip intro, show results directly
         quizIntro.classList.add('hidden');
         showResults();
       }
