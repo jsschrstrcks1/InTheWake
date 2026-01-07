@@ -501,40 +501,42 @@ Notable examples: glacier-bay, norwegian-fjords, panama-canal, costa-maya, grand
 
 ### Missing Homeport HTML Pages (22 ports)
 
-#### North America (5)
-- [ ] charleston (South Carolina)
-- [ ] norfolk (Virginia)
-- [ ] philadelphia (Pennsylvania)
-- [ ] san-francisco (California)
-- [ ] west-palm-beach (Florida)
+> **⚠️ RE-AUDITED 2026-01-07:** Most ports from this list have been created. Only Norfolk confirmed as missing RC homeport.
 
-#### Europe (2)
-- [ ] hamburg (Germany)
-- [ ] istanbul (Turkey) - also in ports of call list
+#### North America (1 confirmed missing)
+- [x] ✅ charleston.html EXISTS
+- [ ] **norfolk (Virginia)** — CONFIRMED RC homeport (Vision of the Seas after Baltimore bridge collapse)
+- [x] ~~philadelphia~~ — NOT an RC homeport (nearest: Baltimore, Cape Liberty)
+- [x] ✅ san-francisco.html EXISTS
+- [x] ~~west-palm-beach~~ — NOT an RC homeport (Port of Palm Beach = Margaritaville at Sea only)
 
-#### Middle East (2)
-- [ ] dubai (UAE) - HIGH PRIORITY, also port of call
-- [ ] haifa (Israel) - also in ports of call list
+#### Europe (0 missing)
+- [x] ✅ hamburg.html EXISTS
+- [x] ✅ istanbul.html EXISTS
 
-#### Asia (3)
-- [ ] mumbai (India) - also port of call
-- [ ] phuket (Thailand) - also port of call
-- [ ] tianjin (Beijing gateway, China)
+#### Middle East (0 missing)
+- [x] ✅ dubai.html EXISTS
+- [x] ✅ haifa.html EXISTS
 
-#### South America (8)
-- [ ] buenos-aires (Argentina)
-- [ ] callao (Lima gateway, Peru)
-- [ ] colon (Panama)
-- [ ] la-guaira (Caracas, Venezuela)
-- [ ] rio-de-janeiro (Brazil)
-- [ ] san-antonio (Santiago, Chile)
-- [ ] valparaiso (Santiago gateway, Chile)
+#### Asia (0 missing)
+- [x] ✅ mumbai.html EXISTS
+- [x] ✅ phuket.html EXISTS
+- [x] ✅ tianjin.html EXISTS
 
-#### Africa (1)
-- [ ] cape-town (South Africa) - also port of call
+#### South America (0 missing RC homeports)
+- [x] ✅ buenos-aires.html EXISTS
+- [x] ✅ callao.html EXISTS
+- [x] ✅ colon.html EXISTS
+- [x] ~~la-guaira~~ — Port of call only (not RC homeport), currently suspended due to Venezuela situation
+- [x] ✅ rio-de-janeiro.html EXISTS
+- [x] ~~san-antonio~~ — valparaiso.html covers Santiago gateway
+- [x] ✅ valparaiso.html EXISTS
 
-#### Caribbean (1)
-- [ ] montego-bay (Jamaica)
+#### Africa (0 missing)
+- [x] ✅ cape-town.html EXISTS
+
+#### Caribbean (0 missing)
+- [x] ✅ montego-bay.html EXISTS
 
 ### Existing Aliases (HTML exists under different name)
 These homeports have HTML pages under alternate names:
