@@ -1862,6 +1862,43 @@ All homeports with existing HTML pages now have clickable links in port-tracker.
 #### cococay.html (Specific)
 - [x] Fix the card situation on the port page for CocoCay (layout/styling issue with content cards) — FIXED 2025-12-29: Replaced inline grid styles with CSS classes (col-1, col-2), moved "Back to Ports Guide" link inside content section
 
+#### nassau.html Content Enhancement (2026-01-07 Audit)
+**Status:** TODO
+**Source:** User-provided firsthand content audit
+**Priority:** MEDIUM - Page is good but missing several attractions
+
+**Missing Attractions to Add:**
+- [ ] **John Watling's Distillery** at Buena Vista Estate (1789)
+  - Casino Royale filming location ("James Bond jumped here" sign)
+  - Free guided tours, rum tasting (~$5-10 for samples)
+  - Nice restaurant with Pina Coladas and Conch
+  - ~20 minute visit
+- [ ] **Graycliff Complex** on West Street
+  - Chocolatiers (sample Bahamian chocolates, chocolate drinks)
+  - Winery (sweet wine tasting)
+  - Cigar Store
+  - Heritage Museum (by appointment)
+  - National Art Gallery of The Bahamas nearby
+  - 300-year-old Graycliff Hotel
+- [ ] **Bahamas Rum Cake Factory** on Bay Street
+  - Different from Tortuga (currently mentioned)
+  - Local shop with unique flavors, samples available
+  - Adjacent outdoor bar serving Kalik Radler
+
+**Missing Details to Add:**
+- [ ] Name local beers: **Kalik** and **Sands** (page doesn't mention by name)
+- [ ] Clarify Junkanoo Museum locations:
+  - NEW museum in renovated cruise port (user reports)
+  - Educulture Junkanoo Museum on West Street (currently mentioned)
+  - Verify if same or different venues
+- [ ] Update cruise port section with renovated port details:
+  - Air-conditioned shops
+  - Spicy Conch Fritters stall
+  - Pineapple Dole Whip (rare outside Hawaii/Disney)
+
+**Optional (Minor Attractions):**
+- [ ] Bahamian National Stadium & Olympic exhibit (niche interest)
+
 ### P1 - Site-Wide Issues
 
 #### Logo Size Standardization
