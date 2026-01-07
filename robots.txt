@@ -25,7 +25,6 @@ Allow: /ports.html
 Allow: /articles.html
 Allow: /packing-lists.html
 Allow: /packing.html
-Allow: /drinks.html
 Allow: /accessibility.html
 Allow: /drink-packages.html
 Allow: /drink-calculator.html
@@ -64,6 +63,8 @@ Disallow: /restaurants_index_stub.html  # Stub page
 Disallow: /ships/ships.html             # Phantom path
 Disallow: /*$*                          # Template variable URLs like ${url}
 Disallow: /showmenu:*                   # Malformed query-as-path URLs
+Disallow: /drinks.html                  # Redirect stub → /drink-packages.html
+Disallow: /restaurants/chops-grille*    # Phantom pages → /restaurants/chops.html
 
 # === Disallow ship asset directories ===
 Disallow: /ships/*/assets/

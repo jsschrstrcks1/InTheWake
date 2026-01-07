@@ -90,13 +90,18 @@
   RewriteRule ^disability\.html$ /disability-at-sea.html [R=301,L]
   RewriteRule ^cruise-lines/rcl\.html$ /cruise-lines/royal-caribbean.html [R=301,L]
   RewriteRule ^solo/visitingtheunitedstates\.html$ /solo/visiting-the-united-states-before-your-cruise.html [R=301,L]
+  RewriteRule ^drinks\.html$ /drink-packages.html [R=301,L]
 
   # Ship directory index redirects (carnival-cruise-line/index.html is phantom)
   RewriteRule ^ships/carnival-cruise-line/index\.html$ /ships/carnival/ [R=301,L]
 
   # Legacy restaurant URLs with encoding issues (em-dash → hyphen)
   RewriteRule ^restaurants/main-dining-room[—–-]+radiance.*\.html$ /restaurants/main-dining-room.html [R=301,L,NC]
-  RewriteRule ^restaurants/chops-grille[—–-]+radiance.*\.html$ /restaurants/chops-grille.html [R=301,L,NC]
+  RewriteRule ^restaurants/chops-grille[—–-]+radiance.*\.html$ /restaurants/chops.html [R=301,L,NC]
+
+  # Phantom chops-grille ship-specific pages (only chops.html exists)
+  RewriteRule ^restaurants/chops-grille-(adventure|enchantment|grandeur|radiance|rhapsody|vision|brilliance|serenade|jewel|mariner|navigator|voyager|explorer|freedom|liberty|independence|anthem|quantum|ovation|spectrum|odyssey|wonder|icon|star|utopia)\.html$ /restaurants/chops.html [R=301,L,NC]
+  RewriteRule ^restaurants/chops-grille\.html$ /restaurants/chops.html [R=301,L]
 
   # Block nonsensical URLs and template variable patterns
   RewriteRule ^showmenu:.*$ /index.html [R=301,L]
