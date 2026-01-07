@@ -98,10 +98,48 @@
   RewriteRule ^restaurants/main-dining-room[—–-]+radiance.*\.html$ /restaurants/main-dining-room.html [R=301,L,NC]
   RewriteRule ^restaurants/chops-grille[—–-]+radiance.*\.html$ /restaurants/chops-grille.html [R=301,L,NC]
 
-  # Block nonsensical URLs
+  # Block nonsensical URLs and template variable patterns
   RewriteRule ^showmenu:.*$ /index.html [R=301,L]
   RewriteRule ^ships/rcl/\$\{slug\}\.html$ /ships/rcl/ [R=301,L]
   RewriteRule ^solo/\$1\.html$ /solo.html [R=301,L]
+  RewriteRule ^\$\{url\}$ /index.html [R=301,L]
+
+  # ============================================================
+  # CARNIVAL HISTORIC SHIP REDIRECTS (Google 404 fixes)
+  # ============================================================
+
+  # Historic ships without year suffix - redirect to dated versions
+  RewriteRule ^ships/carnival/festivale\.html$ /ships/carnival/festivale-1961.html [R=301,L]
+  RewriteRule ^ships/carnival/celebration\.html$ /ships/carnival/celebration-1987.html [R=301,L]
+  RewriteRule ^ships/carnival/holiday\.html$ /ships/carnival/holiday-1985.html [R=301,L]
+  RewriteRule ^ships/carnival/tropicale\.html$ /ships/carnival/tropicale-1981.html [R=301,L]
+  RewriteRule ^ships/carnival/carnivale\.html$ /ships/carnival/carnivale-1956.html [R=301,L]
+  RewriteRule ^ships/carnival/jubilee\.html$ /ships/carnival/carnival-jubilee.html [R=301,L]
+
+  # ============================================================
+  # STUB AND PHANTOM PAGE REDIRECTS
+  # ============================================================
+
+  # Stub pages
+  RewriteRule ^restaurants_index_stub\.html$ /restaurants.html [R=301,L]
+
+  # Ship directory phantom paths
+  RewriteRule ^ships/ships\.html$ /ships.html [R=301,L]
+  RewriteRule ^ships/celebrity-cruises/index\.html$ /ships/celebrity-cruises/ [R=301,L]
+  RewriteRule ^ships/holland-america-line/index\.html$ /ships/holland-america-line/ [R=301,L]
+
+  # Directory to main page redirects
+  RewriteRule ^cruise-lines/?$ /cruise-lines.html [R=301,L]
+  RewriteRule ^videos/?$ /ships.html [R=301,L]
+  RewriteRule ^solo/?$ /solo.html [R=301,L]
+
+  # ============================================================
+  # ASSET FILE BLOCKS (return 410 Gone for Google to de-index)
+  # ============================================================
+
+  # Block JSON files in ship asset directories (these should not be indexed)
+  RewriteRule ^ships/rcl/assets/.*\.json$ - [G,L]
+  RewriteRule ^videos/.*\.json$ - [G,L]
 </IfModule>
 
 # ============================================================
