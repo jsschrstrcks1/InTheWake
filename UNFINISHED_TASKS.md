@@ -703,6 +703,33 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 - [ ] Add ship size recommendations for solo travelers
 - [ ] FAQ: dining alone, safety, meeting people, solo supplements
 
+#### Solo Travel Safety Tips (2026-01-07 Audit Gap)
+**Status:** TODO - Major content gap identified
+**Source:** Compilation from travel blogs, Reddit, social media
+**Priority:** HIGH - Current solo content focuses on emotional support but lacks practical safety
+
+**Missing Safety Tips to Add (solo-cruising-practical-guide.html or new article):**
+- [ ] Share itinerary/location with trusted family or friends before traveling
+- [ ] Use location-sharing apps for real-time peace of mind
+- [ ] Download offline maps before arriving at each port
+- [ ] Carry a charged power bank at all times
+- [ ] Choose 24/7 staffed hotels over private rentals when pre/post-cruising
+- [ ] Prefer well-lit, crowded public areas over isolated shortcuts
+- [ ] Know local emergency numbers for each port (add to port pages?)
+- [ ] Carry self-defense tools where legal (pepper spray, personal alarm)
+- [ ] Inform hotel staff you're traveling solo and not expecting visitors
+- [ ] Handle money smartly: credit cards over debit for fraud protection
+- [ ] Carry secondary wallet with backup cards/cash in separate location
+- [ ] Start with domestic/familiar destinations to build solo confidence
+- [ ] Have exit strategy when chatting with strangers (public settings only)
+- [ ] Avoid sharing cabin number or personal details with new acquaintances
+- [ ] Consider travel insurance (illness/delays harder to manage solo)
+
+**Packing List Additions (packing-lists.html):**
+- [ ] Add earplugs/white noise machine to packing tips (currently only in stateroom data)
+- [ ] Add power bank to essentials list
+- [ ] Add personal safety alarm to optional items
+
 #### Healing Relationships at Sea
 **Status:** Not created (15+ logbook references)
 **Lane:** 🔴 Red (marriage/family pastoral content)
