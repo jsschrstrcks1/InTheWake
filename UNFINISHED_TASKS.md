@@ -1695,12 +1695,73 @@ All homeports with existing HTML pages now have clickable links in port-tracker.
 - [ ] Update article rail to match index.html pattern
 
 #### drink-calculator.html (Drink Calculator Enhancement)
+
+**Pricing & Package Features (existing):**
 - [ ] Make package prices editable (user can input actual prices they're paying)
 - [ ] Clicking a package card updates the total to show what they would pay
 - [ ] Show price two ways: per day (editable) + per week (calculated from days × daily)
 - [ ] Verify/update default package prices (current defaults may be outdated)
   - Current defaults: Soda $13.99/day, Refreshment $34.00/day, Deluxe $85.00/day, Coffee Card $31 (15 punches)
   - FAQ mentions Deluxe at $89/day pre-cruise - verify which is correct
+
+**Brand & Shell Alignment (from audit 2026-01-07):**
+- [ ] Adopt light pastel palette (cream bg, pale coral accent) matching site brand
+- [ ] Add rope borders + nautical box shadows per site design system
+- [ ] Center hero compass image on load; animate slight sway on scroll
+- [ ] Ensure header sticky behavior matches index.html pattern
+
+**Navigation & Accessibility:**
+- [ ] Ship dropdown: pre-populate from ships.json, sort by class, lazy-load images
+- [ ] Active nav link state + hover colors must match site nav pattern
+- [ ] Full keyboard navigation (Tab through inputs, Enter to calculate)
+- [ ] Add skip-to-calculator link for screen readers
+
+**App Boot & Module Loading:**
+- [ ] Ensure math module (drink-calc-math.js) loads before first user interaction
+- [ ] Add version badge in footer (e.g., "v2.1.0") for changelog reference
+- [ ] Graceful fallback if JS fails to load (show static FAQ + disclaimer)
+
+**Packages Section UX:**
+- [ ] Move package cards ABOVE the "Your Results" breakdown (user picks, then sees results)
+- [ ] Add "Winner" badge/affordance on best-value package (green checkmark or highlight)
+- [ ] Show savings amount vs. pay-per-drink on winning package
+
+**Group Breakdown Table:**
+- [ ] Add collapsible "Group Breakdown" table showing per-person totals
+- [ ] Support multiple travelers with different drinking habits
+- [ ] Show combined group total + per-person average
+
+**Visual Assets:**
+- [ ] Add avatar/profile silhouette for "Your Drinking Style" persona display
+- [ ] Compass rose image should lazy-load with IntersectionObserver
+- [ ] Optimize all images for WebP with fallback
+
+**Banners, Tooltips & A11y:**
+- [ ] Add info tooltips explaining each package tier (what's included)
+- [ ] Crown & Anchor discount banner for loyalty members
+- [ ] Ensure all form inputs have visible labels (not just placeholders)
+- [ ] Color contrast must meet WCAG AA (check coral-on-cream)
+
+**Disclaimer & Legal Copy:**
+- [ ] Update disclaimer: "Prices verified [DATE] via Cruise Planner. Subject to change."
+- [ ] Add affiliate disclosure if applicable
+- [ ] Link to official Royal Caribbean beverage page
+
+**PWA & Offline Support:**
+- [ ] Verify manifest.json includes drink-calculator in scope
+- [ ] Ensure calculator works offline (service worker caches static assets)
+- [ ] Add apple-touch-icon and favicon-32 for bookmarking
+
+**Telemetry & Sharing:**
+- [ ] Add "Email My Results" feature (mailto: link with pre-filled summary)
+- [ ] "Add to Planning Pass" button to save results to localStorage trip plan
+- [ ] Optional: Track calculator usage anonymously for popular drink patterns
+
+**CI & QA:**
+- [ ] Add drink-calculator.spec.ts E2E test (already noted in Playwright section)
+- [ ] Lint CSS with site-wide standards
+- [ ] Cross-browser test: Safari, Firefox, Chrome, Edge
+- [ ] Mobile responsive check: 320px, 375px, 768px breakpoints
 
 ### P0 - Individual Ship Pages (ships/rcl/*.html)
 
