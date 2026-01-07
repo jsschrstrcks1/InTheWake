@@ -76,6 +76,108 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 - Individual page pattern standardization (author/article cards across 226 pages)
 - Duplicate pages to consolidate: legend-of-the-seas-1995-built.html, star-of-the-seas-aug-2025-debut.html
 
+---
+
+## 📋 User To-Do List Audit (2026-01-07)
+
+**Source:** User-provided to-do list audited against codebase
+**Status:** Audit complete - gaps identified below
+
+### ✅ Already Complete / Exists
+
+| Item | Status | Notes |
+|------|--------|-------|
+| RCL Ships | ✅ 41 ships in /ships/rcl/ | All classes covered: Icon, Oasis, Quantum Ultra, Quantum, Freedom, Voyager, Radiance, Vision + historical |
+| Premium Restaurants | ✅ All 6 exist | Sabor, Chops, Giovanni's, Izumi, Wonderland, 150 Central Park |
+| Stateroom Exceptions | ✅ 28 ships covered | All active RCL fleet has exception JSON files |
+| Norfolk Homeport | ✅ CONFIRMED | RC sails from Norfolk (Vision of the Seas) - [royalcaribbean.com](https://www.royalcaribbean.com/cruise-from/norfolk-virginia) |
+
+### 🟡 [Y] fleet_index.json Cleanup
+**Status:** DIRTY - needs cleanup
+**Lane:** 🟢 Green (data cleanup)
+**Issues Found:**
+- [ ] First cruise line entry is "All from 1960s." - malformed, should be proper cruise line
+- [ ] 3 duplicate copies exist:
+  - `/assets/data/fleet_index.json`
+  - `/data/fleet_index.json`
+  - `/ships/assets/data/fleet/fleet_index.json`
+- [ ] Consolidate to single source of truth
+- [ ] Remove malformed entries
+
+### 🟡 [Y] ships.html Display Issues
+**Status:** Multiple issues reported
+**Lane:** 🟡 Yellow (UI/display changes)
+**Issues:**
+- [ ] Class cards need images
+- [ ] Cruise lines need images
+- [ ] Individual ship images "coming up awkwardly" - investigate rendering
+- [ ] Non-existent cruise lines appearing - audit cruise line list
+
+### 🟡 [Y] Stateroom "Positive Oddball" Categories - Radiance Class
+**Status:** MISSING - only negative oddballs documented
+**Lane:** 🟢 Green (data enhancement)
+**Context:** User provided detailed Radiance cabin data for OVERSIZED family rooms and EXTENDED aft balconies
+
+**Missing Positive Flags to Add:**
+- [ ] Add `OVERSIZED_FAMILY` flag for Ultra Spacious Ocean View (1K) / Family Ocean View (FO)
+  - Rooms: 7004, 7504, 8000, 8002, 8500, 8502 (Decks 7-8 bow-facing)
+  - Size: 265-319 sq ft vs standard 164-179 sq ft
+  - Features: Bunks + sofa beds, fits up to 6, epic panoramic views
+  - Minor helipad obstruction on some
+- [ ] Add `EXTENDED_AFT_BALCONY` flag for larger aft balconies
+  - Rooms: 7172, 7174, 7660, 7670, 8164, 8664, 8670
+  - Size: 50-80 sq ft vs standard 41-45 sq ft
+  - Features: Near-180° wake views, minimal obstructions
+- [ ] Update stateroom-exceptions.radiance-of-the-seas.v2.json
+- [ ] Consider adding to all Radiance-class ships (Brilliance, Jewel, Serenade)
+
+### 🟡 [Y] Carnival Fleet Index Page Enhancement
+**Status:** BARE - just a list, no marketing or organization
+**Lane:** 🟡 Yellow (content creation)
+**File:** `/ships/carnival/index.html`
+
+**Current State:** Simple `<ol>` list of 29 ship links, no descriptions or class organization
+
+**Requested Enhancements:**
+- [ ] Add 1-2 paragraph Carnival-esque marketing blurb explaining page shows class highlights
+- [ ] Organize ships by class (Excel/XL, Vista, Dream, Conquest, Spirit, Fantasy, etc.)
+- [ ] Add class cards with images and descriptions
+- [ ] Polish and present verbiage attractively
+- [ ] Mention venues relevant to each class
+- [ ] Add links back to packing-lists.html
+- [ ] (Future) CTA for booking - leave off for now
+
+### 🟡 [Y] RC Venues Page with Deep Links
+**Status:** DOES NOT EXIST
+**Lane:** 🟡 Yellow (new page creation)
+**Context:** User wants venues page per ship class for deep linking from RC fleet page
+
+**Tasks:**
+- [ ] Create `/ships/rcl/venues.html` (or similar)
+- [ ] Organize venues by ship class (Icon, Oasis, Quantum, etc.)
+- [ ] Enable URL parameters for class filtering (e.g., `?class=oasis`)
+- [ ] Link from ship class cards on ships.html
+
+### 🟢 [G] WCAG 2.1 AA Compliance Audit
+**Status:** Claimed compliant but needs verification
+**Lane:** 🟢 Green (automated audit)
+**Tasks:**
+- [ ] Run axe-core or similar on all pages
+- [ ] Document any failures
+- [ ] Fix identified issues
+- [ ] Verify color contrast across all pages
+- [ ] Check keyboard navigation
+- [ ] Verify screen reader compatibility
+
+### 🟡 [Y] Norfolk Homeport Page
+**Status:** MISSING - confirmed RC departure port
+**Lane:** 🟢 Green (new page from template)
+**Ships:** Vision of the Seas (confirmed)
+**Tasks:**
+- [ ] Create `/ports/norfolk.html` homeport page
+- [ ] Add to PORTS_DB in port-tracker.html
+- [ ] Add to homeport listing on planning.html
+
 **Current counts (2026-01-01):**
 - Total HTML pages: 652+
 - Port pages: **333** (was 291)
