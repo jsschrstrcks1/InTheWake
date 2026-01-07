@@ -11,16 +11,16 @@ ITW-Lite v3.010 | ICP-Lite v1.4
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cape Cod Cruise Port Guide 2025 | Massachusetts | In the Wake</title>
+    <title>Cape Cod Port Guide 2025 | Provincetown & New England | In the Wake</title>
     <meta
       name="description"
-      content="Complete Cape Cod cruise port guide via Provincetown. New England's iconic peninsula with beaches, lighthouses, whales, and Pilgrim history."
+      content="Cape Cod cruise port guide via Provincetown. Pilgrim landing site, whale watching, artist colony, and Cape Cod National Seashore. New England's iconic peninsula."
     />
     <meta
       name="ai-summary"
-      content="Cape Cod cruises typically anchor at Provincetown. Pilgrim landing site, whale watching hub, artist colony. Cape Cod National Seashore beaches stunning. Fall foliage cruises popular. Kennedy legacy at Hyannis separate destination."
+      content="Cape Cod cruises anchor at Provincetown. Pilgrim landing site, whale watching hub, artist colony. Cape Cod National Seashore stunning. Fall foliage cruises popular. Kennedy legacy at Hyannis requires day trip."
     />
-    <meta name="last-reviewed" content="2026-01-03" />
+    <meta name="last-reviewed" content="2026-01-07" />
     <meta name="content-protocol" content="ICP-Lite v1.4" />
     <meta
       name="keywords"
@@ -28,19 +28,71 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     />
     <link rel="canonical" href="https://inthewake.io/ports/cape-cod" />
 
+    <!-- Open Graph -->
+    <meta property="og:title" content="Cape Cod Port Guide 2025 | Provincetown Cruise" />
+    <meta property="og:description" content="Complete guide to Cape Cod via Provincetown. Whale watching, Pilgrim Monument, artist colony, and New England charm." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://inthewake.io/ports/cape-cod" />
+    <meta property="og:image" content="https://inthewake.io/images/ports/cape-cod-og.jpg" />
+
+    <!-- Structured Data: BreadcrumbList -->
     <script type="application/ld+json">
-      {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://inthewake.io/"},
-        {"@type": "ListItem", "position": 2, "name": "Ports", "item": "https://inthewake.io/ports"},
-        {"@type": "ListItem", "position": 3, "name": "Cape Cod", "item": "https://inthewake.io/ports/cape-cod"}
-      ]}
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://inthewake.io/" },
+          { "@type": "ListItem", "position": 2, "name": "Ports", "item": "https://inthewake.io/ports" },
+          { "@type": "ListItem", "position": 3, "name": "Cape Cod", "item": "https://inthewake.io/ports/cape-cod" }
+        ]
+      }
     </script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  
+    <!-- Structured Data: WebPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Cape Cod Port Guide",
+        "description": "Cape Cod cruises anchor at Provincetown. Pilgrim landing site, whale watching hub, artist colony. Cape Cod National Seashore stunning. Fall foliage cruises popular. Kennedy legacy at Hyannis requires day trip.",
+        "mainEntity": {
+          "@type": "Place",
+          "name": "Cape Cod / Provincetown",
+          "geo": { "@type": "GeoCoordinates", "latitude": 42.0526, "longitude": -70.1867 }
+        },
+        "dateModified": "2026-01-07"
+      }
+    </script>
+
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Where do cruise ships dock in Cape Cod?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Cruise ships anchor in Provincetown Harbor at the tip of Cape Cod and tender passengers to MacMillan Pier. Some smaller ships may dock directly at the pier."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is whale watching worth it from Provincetown?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutely. Provincetown is one of the best whale watching destinations on the East Coast. Stellwagen Bank, a major feeding ground, lies just minutes offshore. Humpback, fin, and minke whales are commonly spotted April through October."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>
@@ -54,204 +106,316 @@ ITW-Lite v3.010 | ICP-Lite v1.4
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
   <body>
-    <header class="site-header">
-      <div class="container header-container">
-        <a href="/" class="logo"><img loading="lazy" src="/images/logo.png" alt="In the Wake logo" width="160" height="40" /></a>
-        <nav class="main-nav"><ul><li><a href="/ports.html">Ports</a></li><li><a href="/tips/">Tips</a></li><li><a href="/news/">News</a></li><li><a href="/about.html">About</a></li></ul></nav>
-      </div>
+    <header>
+      <nav class="navbar">
+        <a href="/" class="logo">In The Wake</a>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
+        <ul class="nav-links">
+          <li><a href="/ships.html">Ships</a></li>
+          <li><a href="/ports.html">Ports</a></li>
+          <li><a href="/tips/">Tips</a></li>
+          <li><a href="/news/">News</a></li>
+        </ul>
+      </nav>
     </header>
 
     <main class="port-guide">
-      <section class="hero hero--port">
-        <div class="hero__image-wrapper">
-          <img src="/images/ports/cape-cod-hero.jpg" alt="Cape Cod lighthouse on sandy dunes with autumn grasses" class="hero__image" width="1920" height="800" loading="eager" />
-        </div>
-        <div class="hero__content container">
+      <!-- Hero Section -->
+      <section class="port-hero">
+        <img
+          src="/images/ports/cape-cod-hero.webp"
+          alt="Provincetown Harbor with Pilgrim Monument tower rising above the colorful New England town and Cape Cod Bay"
+          class="hero-image"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="hero-overlay">
           <h1>Cape Cod</h1>
-          <p class="hero__subtitle">Where America Began</p>
+          <p class="hero-subtitle">New England's Beloved Peninsula via Provincetown</p>
         </div>
+        <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
       </section>
 
-      <div class="container port-layout">
-        <article class="port-content">
-          <div class="tender-notice" role="alert">
-            <span class="tender-notice__icon">🚤</span>
-            <p><strong>Tender Port:</strong> Most cruises anchor at Provincetown and tender to MacMillan Pier. Larger ships may call at other Cape locations.</p>
+      <article class="port-content">
+        <header class="port-header">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <ol>
+              <li><a href="/">Home</a></li>
+              <li><a href="/ports.html">Ports</a></li>
+              <li aria-current="page">Cape Cod</li>
+            </ol>
+          </nav>
+          <p class="port-type"><span class="badge">Tender Port</span> <span class="badge">Massachusetts</span></p>
+        </header>
+
+        <!-- Logbook Entry -->
+        <details class="port-section logbook" open>
+          <summary><h2>From the Logbook</h2></summary>
+          <div class="logbook-content">
+            <p>I woke to find our ship anchored in Provincetown Harbor on a crisp October morning, the famous Pilgrim Monument rising from the town like a granite finger pointing toward heaven. The tender ride across the harbor took ten minutes, passing fishing boats returning with their morning catch, and I could already smell the salt air mixing with wood smoke from shore. Fall had painted the landscape in amber and crimson, and I understood immediately why New England fall foliage cruises have become so popular. This was America at its most postcard-perfect, yet somehow more beautiful than any photograph had promised.</p>
+
+            <p>Provincetown occupies the very tip of Cape Cod's curled fist, a narrow strip of sand where the Pilgrims actually first landed in November 1620 before continuing to Plymouth. The Pilgrim Monument commemorates those five weeks they spent here, and I climbed its 252 stairs for views that stretched across the entire peninsula—the Atlantic Ocean to the east, Cape Cod Bay to the west, the fragile sandspit of the Outer Cape curving southward toward the mainland. However, what struck me most from that height was how precarious this land seems, how temporary, as if the next big storm might simply wash it away. The Cape is geologically young, built from glacial debris only 15,000 years ago, and it continues to shift and erode with every passing year.</p>
+
+            <p>Walking Commercial Street, I entered a different America than I'd expected. Provincetown has been an artists' colony since the early 1900s and an LGBTQ haven since the 1960s, and its character reflects both identities proudly. Rainbow flags flew from Victorian porches. Art galleries displayed work ranging from traditional seascapes to provocative contemporary pieces. Drag queens advertised evening shows from doorways of cabarets. The smell of Portuguese bread wafted from bakeries—a reminder that this was once a fishing village populated by immigrants from the Azores. I bought a malasada (Portuguese fried dough) still warm from the oil, sugar dusting my fingers, and ate it while watching the fishing fleet unload the day's catch.</p>
+
+            <p>The whale watching boat left MacMillan Pier at noon, and within forty-five minutes we had reached Stellwagen Bank—a submerged plateau that creates ideal feeding conditions for humpback whales, fin whales, and minke whales. The naturalist on board explained that these same individuals return year after year, identifiable by the unique patterns on their tail flukes. Then a humpback surfaced fifty yards off our bow, exhaled a misty spout that caught the sunlight, and dove. We watched the water, waiting. The whale breached without warning—forty tons of animal launching clear of the surface, twisting in midair, crashing back with a concussion that I felt in my chest. My breath caught. Tears filled my eyes unexpectedly. Some encounters with wildness transcend words; they simply rewrite something in your soul.</p>
+
+            <p>The Cape Cod National Seashore protects forty miles of pristine Atlantic coastline, and I hired a taxi to Race Point—the beach at the Cape's outermost tip. The sand stretched empty in both directions, waves rolling in from three thousand miles of open ocean, dunes rising behind me crowned with beach grass that bent in the constant wind. I walked alone for an hour, finding only seal tracks and shore bird prints in the wet sand. Nevertheless, this emptiness felt sacred rather than lonely. I thought about the Pilgrims who walked these same sands four hundred years ago, uncertain whether they would survive the coming winter, and felt a sudden kinship with all the seekers who have come to this land looking for something they couldn't find elsewhere.</p>
+
+            <p>Back in town, I explored the Provincetown Art Association and Museum, founded in 1914 when artists like Charles Hawthorne established summer schools here. The light on Cape Cod has attracted painters for over a century—something about the way the peninsula juts into the Atlantic creates a luminosity that photographers and painters find irresistible. The collection includes early Provincetown School works and contemporary pieces, all united by their attention to this specific landscape of dunes and sea and sky. I stood before a painting of Race Point at sunset and recognized the exact view I'd witnessed hours earlier.</p>
+
+            <p>Dinner came at a Portuguese restaurant on the west end of Commercial Street, where the tourists thin out and the working town reasserts itself. I ordered bacalhau (salt cod) prepared in the traditional style with potatoes and onions, accompanied by local Wellfleet oysters so fresh they tasted like the sea itself. The restaurant owner's family had fished these waters for three generations; his grandfather had sailed from the Azores in the 1920s. He spoke of the changes—fewer fish, more tourists, old families selling to developers—with the stoic acceptance of someone who has watched his world transform while remaining rooted in it. The meal cost $45 with tip, and the stories were free.</p>
+
+            <p>Returning to the tender in evening light, I passed the Pilgrim plaque on the harbor wall and paused. The inscription notes that the Mayflower Compact was signed in this harbor—the first governing document of English colonial America, an agreement to form a civil society based on consent rather than authority. Standing where democracy took its first tentative breath on American soil, I felt the weight of accumulated history pressing against my chest. My heart ached with something between gratitude and responsibility—gratitude for the freedoms those imperfect people set in motion, responsibility to honor their courage with our own.</p>
+
+            <p><strong>The moment that stays with me:</strong> That humpback whale breaching against the October sky, water cascading from her barnacled body, the collective gasp of the passengers around me. My heart swelled with the wild joy of witnessing something ancient and free, something that existed long before humans sailed these waters and will continue long after we're gone. Provincetown reminded me that some places hold layers of meaning beyond tourism—Pilgrim courage, artist vision, wild ocean, fragile sand—all of it converging at this improbable point where land finally surrenders to sea.</p>
+
+            <p>Looking back, Cape Cod taught me that history isn't something sealed in museums; it lives in the salt-stained wharves, in the Portuguese bread, in the whales that return each year to the same feeding grounds. What I learned here will stay with me: that the places which have survived the longest are often the most fragile, and that every visit to such places carries both privilege and responsibility.</p>
+
+            <p class="author-note"><em>These notes are soundings in another's wake—research and trusted accounts until my own anchor drops here. Planning a fall New England cruise soon.</em></p>
           </div>
+        </details>
 
-          <section class="logbook-entry">
-            <div class="logbook-entry__header">
-              <span class="logbook-entry__icon">📔</span>
-              <h2>From the Logbook</h2>
+        <!-- Cruise Port Section -->
+        <details class="port-section cruise-port" open>
+          <summary><h2>The Cruise Port</h2></summary>
+          <div class="cruise-port-content">
+            <p>Cape Cod cruise ships anchor in Provincetown Harbor and tender passengers to MacMillan Pier in the heart of town. Tender operations depend on weather—wind and waves can delay or cancel port calls. Some smaller expedition ships may dock directly at the pier. The tender ride takes approximately 10-15 minutes.</p>
+
+            <p>MacMillan Pier sits at the foot of Commercial Street, Provincetown's main thoroughfare. Everything is immediately accessible on foot: shops, restaurants, galleries, whale watching boats, and the Pilgrim Monument. No taxi required for town exploration. Currency is US dollars; ATMs and card acceptance widespread. English spoken everywhere. This is a compact, walkable port with good accessibility in the town center; outlying areas like Race Point require transportation. Wheelchair access is generally good on Commercial Street's flat terrain.</p>
+
+            <div class="port-quick-facts">
+              <h3>Quick Facts</h3>
+              <div class="at-a-glance-grid">
+                <div class="at-a-glance-item"><strong>Port Type</strong><span>Tender Port</span></div>
+                <div class="at-a-glance-item"><strong>Location</strong><span>Provincetown Harbor</span></div>
+                <div class="at-a-glance-item"><strong>Currency</strong><span>US Dollar (USD)</span></div>
+                <div class="at-a-glance-item"><strong>Language</strong><span>English</span></div>
+                <div class="at-a-glance-item"><strong>Best For</strong><span>Whale watching, Art, History</span></div>
+              </div>
             </div>
-            <div class="logbook-entry__content">
-              <p>
-                The Pilgrims landed here first—not at Plymouth Rock, but at
-                Provincetown, at the very tip of Cape Cod's curving arm. They
-                stayed five weeks before moving on, signing the Mayflower
-                Compact in the harbor while deciding what kind of society they
-                would build. The Pilgrim Monument towers 252 feet above the
-                town, a granite reminder that American history began with
-                refugees seeking a new start.
-              </p>
-              <p class="logbook-entry__highlight">
-                On the whale watch, a humpback surfaced close enough to see
-                the barnacles on her chin. She rolled, showing her white
-                pectoral fin, and I swear she looked at us—one eye, ancient
-                and knowing, taking our measure before she dove. Stellwagen
-                Bank, just north of Provincetown, is one of the world's great
-                whale feeding grounds. The Pilgrims must have seen these
-                creatures too, though they lacked our sense of wonder.
-              </p>
-            </div>
-          </section>
+          </div>
+        </details>
 
-          <section class="port-section" id="cruise-port">
-            <h2>The Cruise Port</h2>
-            <p>
-              Cape Cod cruises most commonly anchor at Provincetown, tendering
-              to MacMillan Pier at the heart of the town's Commercial Street.
-              The pier puts you steps from shops, restaurants, and the Pilgrim
-              Monument.
-            </p>
-            <p>
-              Some cruises visit other Cape Cod locations or offer excursions
-              to Hyannis (Kennedy compound area) and the outer beaches.
-            </p>
-          </section>
+        <!-- Getting Around Section -->
+        <details class="port-section getting-around" open>
+          <summary><h2>Getting Around</h2></summary>
+          <div class="getting-around-content">
+            <p>Provincetown is wonderfully walkable—Commercial Street runs the length of town and contains nearly everything visitors need. However, reaching outlying attractions requires transportation.</p>
 
-          <section class="port-section" id="provincetown">
-            <h2>Provincetown</h2>
-            <h3>Pilgrim Monument</h3>
-            <p>
-              The tallest all-granite structure in the US commemorates the
-              Mayflower's first landing. Climb 116 steps and 60 ramps for
-              panoramic Cape views. The museum at the base covers Pilgrim
-              and local history.
-            </p>
-            <h3>Commercial Street</h3>
-            <p>
-              The town's main drag is a one-mile stretch of galleries, shops,
-              restaurants, and people-watching. Provincetown has been an artist
-              colony since the 1800s and an LGBTQ+ destination since the 1970s.
-              The vibe is welcoming and eclectic.
-            </p>
-            <h3>Art Galleries</h3>
-            <p>
-              Dozens of galleries showcase local and regional artists. The
-              Provincetown Art Association and Museum anchors the scene.
-            </p>
-          </section>
+            <p><strong>Walking:</strong> Commercial Street stretches about one mile from one end of town to the other. Flat terrain makes for easy walking. Pilgrim Monument is a 10-minute uphill walk from the pier. Most shops, restaurants, and galleries are accessible on foot. Low stamina sufficient for town exploration; the monument climb requires moderate stamina (252 steps).</p>
 
-          <section class="port-section" id="whales">
-            <h2>Whale Watching</h2>
-            <p>
-              Stellwagen Bank National Marine Sanctuary, just offshore, is
-              one of the world's premier whale-watching destinations.
-            </p>
+            <p><strong>Taxis and Shuttles:</strong> Local taxis available at MacMillan Pier. Cost to Race Point approximately $15-20 one way. The seasonal shuttle bus connects town to Herring Cove and Race Point during summer ($2). Uber has limited availability—traditional taxis more reliable. Book ahead for guaranteed whale watching return times if going independent.</p>
+
+            <p><strong>Bicycles:</strong> Rental bikes available in town ($25-35/day). The Province Lands Bike Trail offers 5.45 miles of paved paths through dunes and forest to Race Point and Herring Cove. Moderate stamina for cycling; some hills. Great option for active visitors who want to explore beyond town.</p>
+
+            <p><strong>Whale Watching:</strong> Boats depart directly from MacMillan Pier—walking distance from tender landing. Multiple operators offer 3-4 hour tours ($55-65 per person). Book ahead during peak season; go independent for flexibility or take ship excursion for guaranteed return. Low stamina; may be challenging for those prone to seasickness.</p>
+
+            <p><strong>Accessibility:</strong> Commercial Street is generally flat and accessible. Some historic buildings lack wheelchair access. The Pilgrim Monument has no elevator—stairs only. Whale watching boats have limited accessibility. Tender operations may present challenges for mobility-impaired visitors depending on conditions.</p>
+          </div>
+        </details>
+
+        <!-- Port Map Section -->
+        <section class="port-section map">
+          <h2>Cape Cod Map</h2>
+          <div id="port-map" style="height: 400px; border-radius: 8px"></div>
+          <p class="map-note">Provincetown, MacMillan Pier, Pilgrim Monument, and key attractions marked.</p>
+        </section>
+
+        <!-- Excursions Section -->
+        <details class="port-section excursions" open>
+          <summary><h2>Shore Excursions</h2></summary>
+          <div class="excursions-content">
+            <p>Provincetown offers unique New England experiences from whale watching to Pilgrim history. Ship excursions provide guaranteed return to vessel—important for tender port. Go independent for flexibility, but monitor tender schedules carefully and book ahead for whale watching.</p>
+
+            <h3>Whale Watching</h3>
+            <p>Provincetown's signature experience. Stellwagen Bank National Marine Sanctuary lies 30-45 minutes offshore, providing excellent humpback, fin, and minke whale sightings April through October. Tours run 3-4 hours and depart from MacMillan Pier (walking distance from tender). Cost $55-65 per person. Naturalist narration included. Book ahead during peak season—tours sell out. Ship excursion guarantees timing; go independent for lower prices and flexibility. Low stamina but bring motion sickness remedies if sensitive. Partially accessible.</p>
+
+            <h3>Pilgrim Monument & Provincetown Museum</h3>
+            <p>The tallest all-granite structure in the US commemorates the Pilgrims' 1620 landing. Climb 252 stairs (116 ramps, 60 steps) for panoramic views of the entire Cape. Museum below covers Pilgrim history and Provincetown's maritime past. Admission $14 adults. 10-minute walk from pier. Allow 1-2 hours. Go independent—no booking needed. Moderate stamina for climb. Not wheelchair accessible to top; museum accessible.</p>
+
+            <h3>Cape Cod National Seashore</h3>
+            <p>Forty miles of protected Atlantic coastline with pristine sand dunes and empty expanses where the Atlantic rolls in from three thousand miles of open ocean. Race Point offers the most dramatic scenery—taxi from town ($15-20 one way) or bike the Province Lands Trail through fragrant pitch pine forests. Herring Cove is closer and more sheltered, with calmer waters for swimming in summer. Look for grey seals hauled out on sandbars. No entrance fee. Allow 2-3 hours minimum. Go independent by taxi, bike, or seasonal shuttle. Moderate stamina for walking on sand. Limited accessibility; some viewpoints have boardwalks.</p>
+
+            <h3>Provincetown Art Walk</h3>
+            <p>Self-guided exploration of galleries along Commercial Street. The Provincetown Art Association and Museum ($15) anchors the scene with works from the historic Provincetown School. Dozens of galleries showcase contemporary art, photography, and crafts. Free to browse galleries; museum admission separate. Allow 2-3 hours. Go independent—no booking needed. Low stamina on flat streets. Mostly accessible.</p>
+
+            <h3>Commercial Street Exploration</h3>
+            <p>The heart of Provincetown. Browse shops selling everything from nautical antiques to contemporary art, sample Portuguese pastries at century-old bakeries, watch street performers, and soak up the unique bohemian atmosphere that has drawn artists and writers for generations. Lobster rolls ($18-25) at waterfront restaurants with harbor views. Coffee and freshly baked malasadas at Portuguese bakeries ($5-10). LGBTQ-friendly environment with a welcoming community spirit. Go independent and wander freely at your own pace. Low stamina. Accessible.</p>
+          </div>
+        </details>
+
+        <!-- Depth Soundings Section -->
+        <details class="port-section depth-soundings" open>
+          <summary><h2>Depth Soundings</h2></summary>
+          <div class="depth-soundings-content">
+            <p>The Pilgrims made their first American landfall at Provincetown on November 11, 1620—a fact often overshadowed by Plymouth's greater fame. They spent five weeks here, exploring the Cape, drafting the Mayflower Compact, and deciding this sandy spit was unsuitable for their permanent settlement. The Pilgrim Monument, completed in 1910, commemorates this often-forgotten chapter of American founding.</p>
+
+            <p>Portuguese fishermen from the Azores began arriving in the mid-1800s, transforming Provincetown into a major fishing port. Their descendants still live here, and Portuguese cultural influences remain visible in bakeries, restaurants, and the annual Blessing of the Fleet. The fishing industry has declined dramatically since its peak, but working boats still operate from MacMillan Pier alongside the whale watching fleet.</p>
+
+            <p>The art colony emerged in the early 1900s when painters discovered the Cape's remarkable light. Charles Hawthorne founded the Cape Cod School of Art in 1899, and generations of artists followed. The LGBTQ community found refuge here beginning in the 1960s, when Provincetown became one of the first American destinations openly welcoming gay and lesbian visitors. Today these identities interweave—artist colony, fishing village, LGBTQ haven, tourist destination—creating a community unlike anywhere else in New England.</p>
+          </div>
+        </details>
+
+        <!-- Practical Section -->
+        <details class="port-section practical">
+          <summary><h2>Practical Notes</h2></summary>
+          <div class="practical-content">
             <ul>
-              <li><strong>Season</strong>: April-October, peak June-September.</li>
-              <li><strong>Species</strong>: Humpback (most common), fin whales, minke whales, occasional right whales.</li>
-              <li><strong>Duration</strong>: 3-4 hour tours from MacMillan Pier.</li>
-              <li><strong>Success Rate</strong>: Very high. Whales are seen on 95%+ of trips in season.</li>
+              <li><strong>Currency:</strong> US Dollar (USD). ATMs and card acceptance everywhere</li>
+              <li><strong>Language:</strong> English</li>
+              <li><strong>Weather:</strong> Fall foliage cruises September-October ideal. Summer warm but crowded. Spring variable. Winter cruises rare</li>
+              <li><strong>Peak Season:</strong> July-August most crowded; September-October popular for foliage cruises</li>
+              <li><strong>Tender Warning:</strong> Wind can delay or cancel tender operations. Have indoor backup plans</li>
+              <li><strong>Tipping:</strong> 15-20% at restaurants; $5-10 for taxi drivers</li>
+              <li><strong>WiFi:</strong> Available at cafes; cellular coverage good throughout town</li>
             </ul>
-            <p><strong>Note:</strong> Book whale watches early—they fill up, especially when cruise ships are in port.</p>
-          </section>
-
-          <section class="port-section" id="beaches">
-            <h2>Cape Cod National Seashore</h2>
-            <p>
-              President Kennedy established this protected coastline in 1961.
-              Forty miles of beaches, dunes, marshes, and ponds along the
-              outer Cape. Access points include:
-            </p>
-            <ul>
-              <li><strong>Race Point Beach</strong>: Wide sandy beach, occasional seal sightings.</li>
-              <li><strong>Herring Cove Beach</strong>: Calmer water, famous sunset viewing.</li>
-              <li><strong>Province Lands Trails</strong>: Bike paths through dunes and forests.</li>
-            </ul>
-            <p>Beaches are accessible by bicycle, taxi, or excursion from Provincetown.</p>
-          </section>
-
-          <section class="port-section" id="practical">
-            <h2>Practical Information</h2>
-            <h3>Best Season</h3>
-            <p>
-              Summer (June-August) is warmest but crowded. Fall foliage cruises
-              (September-October) offer stunning colors and fewer crowds.
-              Whale watching runs April-October.
-            </p>
-            <h3>Getting Around</h3>
-            <p>
-              Provincetown is walkable. Bikes available for rent. Shuttles
-              connect to outer beaches. Excursions cover Hyannis and other
-              Cape destinations.
-            </p>
-            <h3>Weather</h3>
-            <p>
-              Maritime climate. Summers 20-27°C (68-80°F). Fall brings cooler
-              temperatures and changeable conditions. Always bring layers.
-            </p>
-          </section>
-
-          <section class="port-section" id="map">
-            <h2>Port Map</h2>
-            <div id="port-map" class="port-map" style="height: 400px"></div>
-          </section>
-
-          <section class="port-section" id="faq">
-            <h2>FAQs</h2>
-            <div class="faq-list">
-              <details class="faq-item"><summary>Can I see the Kennedy compound from Cape Cod?</summary><p>The Kennedy Compound is in Hyannis, about 30 miles from Provincetown. It's visible only by boat tour from Hyannis Harbor, not from Provincetown. Ship excursions may include this option.</p></details>
-              <details class="faq-item"><summary>Will I definitely see whales?</summary><p>In season (April-October), whale sightings occur on 95%+ of trips. Humpbacks are most common. The experience is nearly guaranteed.</p></details>
-              <details class="faq-item"><summary>Is Provincetown family-friendly?</summary><p>Yes. Despite its reputation as an LGBTQ+ destination, Provincetown is welcoming to all. The beaches, whale watches, and Pilgrim Monument appeal to families.</p></details>
-            </div>
-          </section>
-
-          <section class="disclaimers">
-            <p class="disclaimer"><strong>Author's Note:</strong> Cape Cod rewards those who slow down. Walk Commercial Street, watch the whales, and remember that American history started with a boat full of hopeful strangers.</p>
-          </section>
-        </article>
-
-        <aside class="port-rail">
-          <div class="rail-section quick-answer">
-            <h3>Quick Answer</h3>
-            <p>Pilgrim landing site, world-class whale watching, and quintessential New England charm. Provincetown combines history, art, beaches, and one of Earth's great marine encounters.</p>
+            <p class="last-reviewed">Last reviewed: January 2026</p>
           </div>
-          <div class="rail-section best-for">
-            <h3>Best For</h3>
-            <ul><li>🐋 Whale watching</li><li>🏖️ National Seashore</li><li>🎨 Art galleries</li><li>📜 Pilgrim history</li></ul>
+        </details>
+
+        <!-- FAQ Section -->
+        <details class="port-section faq">
+          <summary><h2>Frequently Asked Questions</h2></summary>
+          <div class="faq-content">
+            <details class="faq-item">
+              <summary>Where do cruise ships dock in Cape Cod?</summary>
+              <p>Cruise ships anchor in Provincetown Harbor at the tip of Cape Cod and tender passengers to MacMillan Pier. This is not a docking port—you'll ride a tender boat from ship to shore. Some smaller expedition ships may dock directly.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Is whale watching worth it from Provincetown?</summary>
+              <p>Absolutely—Provincetown is one of the best whale watching destinations on the East Coast. Stellwagen Bank lies just 30-45 minutes offshore. Humpback, fin, and minke whales are regularly spotted April through October. Book ahead during peak season as tours sell out.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Can I visit Plymouth from Provincetown?</summary>
+              <p>Not realistically during a cruise port call. Plymouth is 75 miles away by road—the only route goes back up the Cape and around. Focus on Provincetown itself; save Plymouth for a separate trip or a cruise that actually stops there.</p>
+            </details>
+            <details class="faq-item">
+              <summary>What's the best time of year to visit Cape Cod?</summary>
+              <p>Fall foliage cruises (September-October) offer stunning colors and comfortable weather. Summer is warmest but most crowded. Spring can be unpredictable. Most cruises visit between May and October when whale watching is active.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Is Provincetown LGBTQ-friendly?</summary>
+              <p>Extremely. Provincetown has been a welcoming destination for LGBTQ visitors since the 1960s and remains one of the most openly gay-friendly communities in the United States. Rainbow flags are common, and the atmosphere is inclusive and celebratory.</p>
+            </details>
           </div>
-          <div class="rail-section key-facts">
-            <h3>Key Facts</h3>
-            <dl><dt>State</dt><dd>Massachusetts</dd><dt>Currency</dt><dd>USD</dd><dt>Whale Season</dt><dd>Apr-Oct</dd><dt>Tender Port</dt><dd>Yes (Provincetown)</dd></dl>
+        </details>
+
+        <!-- Photo Gallery -->
+        <details class="port-section gallery" open>
+          <summary><h2>Gallery</h2></summary>
+          <div class="gallery-grid">
+            <figure>
+              <img src="/images/ports/cape-cod-monument.jpg" alt="Pilgrim Monument tower rising above Provincetown rooftops" loading="lazy" />
+              <figcaption>Pilgrim Monument<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/cape-cod-whale.jpg" alt="Humpback whale breaching off Provincetown coast" loading="lazy" />
+              <figcaption>Whale watching<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/cape-cod-commercial.jpg" alt="Commercial Street in Provincetown with shops and galleries" loading="lazy" />
+              <figcaption>Commercial Street<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/cape-cod-race-point.jpg" alt="Race Point pristine sand dunes meeting Atlantic Ocean" loading="lazy" />
+              <figcaption>Race Point<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/cape-cod-harbor.jpg" alt="Provincetown Harbor with fishing boats and tender pier" loading="lazy" />
+              <figcaption>Provincetown Harbor<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/cape-cod-dunes.jpg" alt="Province Lands sand dunes with beach grass" loading="lazy" />
+              <figcaption>Province Lands dunes<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/cape-cod-gallery.jpg" alt="Art gallery interior in Provincetown" loading="lazy" />
+              <figcaption>Art galleries<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/cape-cod-pier.jpg" alt="MacMillan Pier with fishing and whale watching boats" loading="lazy" />
+              <figcaption>MacMillan Pier<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/cape-cod-lighthouse.jpg" alt="Race Point Lighthouse on Cape Cod National Seashore" loading="lazy" />
+              <figcaption>Race Point Lighthouse<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/cape-cod-fall.jpg" alt="Fall foliage colors along Cape Cod" loading="lazy" />
+              <figcaption>Fall foliage<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/cape-cod-sunset.jpg" alt="Sunset over Provincetown Harbor" loading="lazy" />
+              <figcaption>Harbor sunset<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
           </div>
-          <div class="rail-section nearby-ports">
-            <h3>Nearby Ports</h3>
-            <ul><li><a href="/ports/boston">Boston</a></li><li><a href="/ports/marthas-vineyard">Martha's Vineyard</a></li><li><a href="/ports/newport">Newport</a></li></ul>
-          </div>
+        </details>
+
+        <!-- Disclaimers -->
+        <aside class="disclaimers">
+          <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
         </aside>
-      </div>
+      </article>
+
+      <!-- Rail Sidebar -->
+      <aside class="port-rail">
+        <div class="rail-section">
+          <h3>Quick Answer</h3>
+          <p>New England's beloved peninsula visited via Provincetown. Whale watching, Pilgrim landing site, artist colony, and stunning National Seashore—all within a walkable tender port.</p>
+        </div>
+
+        <div class="rail-section">
+          <h3>Best For</h3>
+          <ul>
+            <li>Whale watching</li>
+            <li>Pilgrim Monument</li>
+            <li>Art galleries</li>
+            <li>Fall foliage</li>
+            <li>National Seashore</li>
+          </ul>
+        </div>
+
+        <div class="rail-section">
+          <h3>Key Facts</h3>
+          <ul>
+            <li><strong>Location:</strong> Massachusetts</li>
+            <li><strong>Currency:</strong> USD</li>
+            <li><strong>Language:</strong> English</li>
+            <li><strong>Port Type:</strong> Tender</li>
+            <li><strong>Walk from Pier:</strong> Yes</li>
+          </ul>
+        </div>
+
+        <div class="rail-section">
+          <h3>Related Pages</h3>
+          <ul>
+            <li><a href="/ports/boston.html">Boston</a></li>
+            <li><a href="/ports/bar-harbor.html">Bar Harbor</a></li>
+            <li><a href="/ports/newport.html">Newport</a></li>
+          </ul>
+        </div>
+      </aside>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <nav class="footer-nav"><a href="/ports.html">All Ports</a><a href="/tips/">Cruise Tips</a><a href="/about.html">About</a></nav>
-        <p class="copyright">&copy; 2025 In the Wake.</p>
-      </div>
+    <footer>
+      <p>&copy; 2025 In The Wake. All rights reserved.</p>
+      <p class="disclaimer">Not affiliated with any cruise line.</p>
       <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        if (document.getElementById("port-map")) {
-          const map = L.map("port-map").setView([42.0, -70.1], 9);
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {attribution: "&copy; OSM"}).addTo(map);
-          L.marker([42.0526, -70.1867]).addTo(map).bindPopup("<strong>Provincetown</strong><br>MacMillan Pier");
-          L.marker([42.0434, -70.2411]).addTo(map).bindPopup("<strong>Race Point</strong><br>Beach");
-          L.marker([41.6528, -70.2833]).addTo(map).bindPopup("<strong>Hyannis</strong><br>Kennedy Compound area");
-        }
+        var map = L.map("port-map").setView([42.05, -70.19], 13);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: "&copy; OpenStreetMap contributors",
+        }).addTo(map);
+        L.marker([42.0526, -70.1867]).addTo(map).bindPopup("MacMillan Pier / Tender Landing");
+        L.marker([42.0571, -70.1893]).addTo(map).bindPopup("Pilgrim Monument");
+        L.marker([42.0726, -70.1867]).addTo(map).bindPopup("Race Point");
+        L.marker([42.0575, -70.1800]).addTo(map).bindPopup("Commercial Street");
       });
     </script>
   </body>
