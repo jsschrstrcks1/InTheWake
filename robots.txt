@@ -61,7 +61,6 @@ Disallow: /*.php$
 Disallow: /ships/carnival-cruise-line/  # Legacy path, redirects to /ships/carnival/
 Disallow: /restaurants_index_stub.html  # Stub page
 Disallow: /ships/ships.html             # Phantom path
-Disallow: /*$*                          # Template variable URLs like ${url}
 Disallow: /showmenu:*                   # Malformed query-as-path URLs
 Disallow: /drinks.html                  # Redirect stub → /drink-packages.html
 Disallow: /restaurants/chops-grille*    # Phantom pages → /restaurants/chops.html
@@ -104,4 +103,6 @@ Sitemap: https://cruisinginthewake.com/sitemap.xml
 # - Asset directories (ships/*/assets/, /videos/) blocked to prevent JSON indexing
 # - Updated 2026-01-03: Expanded to 15 cruise lines, 372 ports, 294 ships
 # - Updated 2026-01-07: Added blocks for legacy carnival-cruise-line path, stub pages,
-#   template variable URLs, and other phantom paths causing 404 errors in Google Search Console
+#   and other phantom paths causing 404 errors in Google Search Console
+# - Removed problematic /*$* pattern that was incorrectly blocking legitimate ship pages
+#   (template variable URLs are handled by .htaccess redirects instead)
