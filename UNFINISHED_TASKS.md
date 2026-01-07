@@ -1846,6 +1846,23 @@ Soli Deo Gloria
 - [ ] Currently rehashes data from other pages less attractively
 - [ ] Decision needed: Refactor, repurpose, or recycle
 
+#### Port Webcams Integration (NEW 2026-01-07)
+**Lane:** 🟡 Yellow (research + implementation)
+**Purpose:** Embed live port webcams on port pages for real-time views
+- [ ] Research which ports have publicly available webcams/livestreams
+- [ ] Compile list of webcam sources (port authorities, tourism boards, EarthCam, etc.)
+- [ ] Verify embedding permissions for each source
+- [ ] Design webcam embed component for port pages
+- [ ] Implement webcam section on port pages (where available)
+- [ ] Document which ports have webcams vs. which don't
+**Priority Ports:**
+- Alaska ports (Ketchikan, Juneau, Skagway - popular for ship watching)
+- Caribbean homeports (Miami, Fort Lauderdale, Galveston)
+- European ports with harbor cams
+**Notes:**
+- Some webcams may require attribution or have usage restrictions
+- Consider fallback for offline/unavailable streams
+
 ### P3 - Investigation & Documentation
 
 #### ✅ DONE: Distance Units Feature
