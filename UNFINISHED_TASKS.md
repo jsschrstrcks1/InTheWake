@@ -1225,6 +1225,43 @@ cartagena, cherbourg, mobile, reykjavik, samana, st-kitts, st-petersburg, tortol
 
 ---
 
+#### Service Worker v14 Upgrade (sw.js Enhancement)
+**Status:** Planned
+**Priority:** HIGH - Critical for drink calculator offline reliability
+**Current Version:** v13.2.0
+**Source:** Perplexity/Grok/Claude audit (2026-01-07)
+
+**Context:** Cross-origin bug is FIXED in v13.2.0, but advanced caching strategies from v20.4 planning remain unimplemented.
+
+**Bug Fixes (Critical):**
+- [ ] Add `|| response.type === 'cors'` check to 8 cache functions (cacheFirstStrategy, staleWhileRevalidate, etc.)
+  - Lines 223, 242, 266, 295, 304, 330, 444, 598 all missing cors type check
+  - Without this, CORS responses from CDN may not cache properly
+
+**New Caching Strategies:**
+- [ ] Implement `staleIfErrorTimestamped` - network-first with timed fallback (12hr for FX APIs)
+- [ ] Implement `warmCalculatorShell` - predictive prefetch when user visits /planning/ or /index.html
+  - Pre-cache: drink-packages.html, drink-calculator.app.js, drink-worker.js, drink-math.js, Chart.js CDN
+
+**Message Handlers:**
+- [ ] Add `FORCE_DATA_REFRESH` message handler - allows UI to trigger manual cache refresh
+- [ ] Verify `DATA_REFRESHED` broadcasts are received by app.js (already implemented in SW)
+- [ ] Add `GET_CACHE_STATS` handler for calculator-specific freshness data
+
+**UI Integration (app.js / drink-calculator):**
+- [ ] Add "Refresh Rates" button next to offline indicator (triggers FORCE_DATA_REFRESH)
+- [ ] Add listener for DATA_REFRESHED → show non-intrusive toast "Calculator data updated"
+- [ ] Display cache age in UI when using stale data ("Using cached data from 2 days ago")
+
+**Admin Tooling:**
+- [x] ✅ sw-health.html exists at /admin/reports/sw-health.html
+- [ ] Verify sw-health.html uses GET_CACHE_STATS for calculator freshness display
+- [ ] Add "Cache Size" visualization per bucket (pages, images, data, fonts)
+
+**Reference:** v20.4 planning discussion archived in session 2026-01-07
+
+---
+
 ### Port Expansion - See Comprehensive Gap Analysis Above
 
 **Refer to:** [📊 2024 RCL Port Coverage Gap Analysis](#-2024-rcl-port-coverage-gap-analysis-2025-12-10)
