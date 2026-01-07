@@ -278,11 +278,11 @@ All P1 technical fixes have been completed:
 | `cozumel.html` | ✅ Perfect - all checks pass |
 | `costa-maya.html` | ✅ Perfect - all checks pass |
 | `labadee.html` | ✅ Perfect - all checks pass |
-| `glacier-bay.html` | ⚠️ FAQ count mismatch |
+| `glacier-bay.html` | ✅ Perfect - FIXED 2026-01-07 |
 
-### 🟢 [G] P1 - Fix Weather Guide Error (1 port)
+### ✅ [G] P1 - Fix Weather Guide Error (COMPLETE)
 
-- [ ] `ports/glacier-bay.html` - FAQ count mismatch between FAQPage schema and visible FAQ
+- [x] `ports/glacier-bay.html` - FAQ count mismatch — FIXED 2026-01-07: Added missing "Will I see glaciers calving?" FAQ to schema (13 FAQs now match)
 
 ---
 
@@ -306,183 +306,42 @@ Weather guides need to be created for 329 ports. The Cozumel implementation is t
 
 ---
 
-## 📊 2024 RCL Port Coverage Gap Analysis (2025-12-10)
+## ✅ 2024 RCL Port Coverage Gap Analysis (RESOLVED 2026-01-07)
 
-**Audit Method:** Compared comprehensive 2024 Royal Caribbean port list (~320 ports including UWC one-offs) against existing HTML pages in `/ports/`.
+**Original Audit:** 2025-12-10
+**Re-Audit:** 2026-01-07 — Verified 374 port pages now exist
 
-> **⚠️ UPDATE (2025-12-14):** Port pages have grown from 161 to 291. Many missing RCL ports from this analysis have been added. Needs re-audit.
+> **✅ RESOLVED:** This section was stale. Re-audit on 2026-01-07 confirmed nearly all "missing" ports have been created. Port count grew from 161 → 374 pages.
 
-### Coverage Summary (as of 2025-12-10)
+### Coverage Summary (as of 2026-01-07)
 | Metric | Count |
 |--------|-------|
-| RCL 2024 Unique Ports | 203 |
-| Existing HTML Pages | 161 → **291** |
-| **Missing (No HTML)** | **~50** (estimated) |
-| **Coverage** | **~75%** (estimated) |
+| Port HTML Pages | **374** |
+| Coverage | **~95%+** of RCL ports |
 
-### Missing Ports by Region
+### Remaining Gaps (Minimal)
 
-#### North America (11 ports)
-**Homeports (2):** Create dedicated pages or verify existing redirects
-- [ ] miami (note: port-miami.html exists, may need alias)
-- [ ] new-york (note: cape-liberty.html exists for NYC terminal)
+**Verified Still Missing:**
+- [ ] **norfolk.html** — RC homeport (Vision of the Seas after Baltimore bridge collapse)
+- [ ] astoria (Oregon) — rare port
+- [ ] catalina-island (California) — verify if covered by los-angeles.html
+- [ ] eden (Australia) — rare port
+- [ ] port-vila (Vanuatu) — verify if covered by vanuatu.html
+- [ ] rarotonga (Cook Islands) — exotic/rare
+- [ ] arica (Chile) — rare
+- [ ] coquimbo (Chile) — rare
+- [ ] abidjan (Ivory Coast) — rare/exotic
+- [ ] antsiranana (Madagascar) — rare/exotic
+- [ ] la-digue (Seychelles) — rare/exotic
+- [ ] luderitz (Namibia) — rare/exotic
+- [ ] mossel-bay (South Africa) — rare/exotic
+- [ ] aarhus (Denmark) — rare
+- [ ] haugesund (Norway) — rare
+- [ ] kristiansand (Norway) — rare
+- [ ] nuuk (Greenland) — exotic/rare
+- [ ] qaqortoq (Greenland) — exotic/rare
 
-**Ports of Call (9):**
-- [ ] astoria (Oregon)
-- [ ] cabo-san-lucas (Mexico)
-- [ ] catalina-island (California)
-- [ ] ensenada (Mexico)
-- [ ] freeport (Bahamas)
-- [ ] hubbard-glacier (Alaska scenic cruising)
-- [ ] mazatlan (Mexico)
-- [ ] puerto-vallarta (Mexico)
-- [ ] endicott-arm (Alaska scenic cruising)
-
-#### Caribbean (6 ports)
-- [ ] amber-cove (Dominican Republic - Royal Caribbean private destination)
-- [ ] barbados (Bridgetown) - HIGH PRIORITY
-- [ ] bimini (Bahamas)
-- [ ] falmouth (Jamaica - note: jamaica.html exists, may cover this)
-- [ ] st-croix (USVI)
-- [ ] st-lucia (Castries) - HIGH PRIORITY
-
-#### Europe (12 ports)
-- [ ] alicante (Spain)
-- [ ] bari (Italy)
-- [ ] chania (Crete, Greece)
-- [ ] flam (Norway) - Norwegian Fjords
-- [ ] geiranger (Norway) - Norwegian Fjords
-- [ ] haifa (Israel)
-- [ ] istanbul (Turkey)
-- [ ] la-spezia (Cinque Terre gateway, Italy)
-- [ ] olden (Norway) - Norwegian Fjords
-- [ ] portofino (Italy)
-- [ ] ronne (Bornholm, Denmark)
-- [ ] toulon (France)
-
-#### Asia/Middle East (22 ports) - LARGEST GAP
-**Middle East (2):**
-- [ ] abu-dhabi (UAE) - HIGH PRIORITY
-- [ ] dubai (UAE) - HIGH PRIORITY
-
-**Japan (7):**
-- [ ] ishigaki
-- [ ] kagoshima
-- [ ] kobe
-- [ ] nagasaki
-- [ ] okinawa
-- [ ] osaka
-
-**South Korea (3):**
-- [ ] busan
-- [ ] jeju
-- [ ] seoul (Incheon port)
-
-**Southeast Asia (7):**
-- [ ] colombo (Sri Lanka)
-- [ ] goa (India)
-- [ ] hambantota (Sri Lanka)
-- [ ] ho-chi-minh-city (Vietnam)
-- [ ] lombok (Indonesia)
-- [ ] nha-trang (Vietnam)
-- [ ] penang (Malaysia)
-- [ ] phuket (Thailand)
-
-**Other Asia (3):**
-- [ ] mumbai (India)
-- [ ] taipei (Taiwan - Keelung port)
-- [ ] tianjin (Beijing gateway, China)
-
-#### Australia/NZ/Pacific (14 ports)
-**Australia (7):**
-- [ ] adelaide
-- [ ] airlie-beach
-- [ ] cairns
-- [ ] darwin
-- [ ] eden
-- [ ] fremantle (Perth)
-- [ ] hobart (Tasmania)
-
-**New Zealand (1):**
-- [ ] bay-of-islands
-
-**South Pacific (6):**
-- [ ] bora-bora (French Polynesia)
-- [ ] moorea (French Polynesia)
-- [ ] noumea (New Caledonia)
-- [ ] papeete (Tahiti)
-- [ ] port-vila (Vanuatu)
-- [ ] rarotonga (Cook Islands)
-
-#### South America (17 ports)
-- [ ] arica (Chile)
-- [ ] buenos-aires (Argentina)
-- [ ] cabo-frio (Brazil)
-- [ ] callao (Lima gateway, Peru)
-- [ ] colon (Panama)
-- [ ] coquimbo (Chile)
-- [ ] fortaleza (Brazil)
-- [ ] manta (Ecuador)
-- [ ] montevideo (Uruguay)
-- [ ] port-stanley (Falkland Islands)
-- [ ] puerto-madryn (Argentina)
-- [ ] punta-arenas (Chile - Patagonia)
-- [ ] recife (Brazil)
-- [ ] rio-de-janeiro (Brazil)
-- [ ] salvador (Brazil)
-- [ ] santos (São Paulo, Brazil)
-- [ ] valparaiso (Santiago gateway, Chile)
-
-#### Africa (11 ports)
-- [ ] abidjan (Ivory Coast)
-- [ ] antsiranana (Madagascar)
-- [ ] cape-town (South Africa)
-- [ ] dakar (Senegal)
-- [ ] la-digue (Seychelles)
-- [ ] luanda (Angola)
-- [ ] luderitz (Namibia)
-- [ ] mossel-bay (South Africa)
-- [ ] port-elizabeth (South Africa)
-- [ ] port-louis (Mauritius)
-- [ ] walvis-bay (Namibia)
-
-#### Northern Europe/Atlantic (7 ports)
-- [ ] aarhus (Denmark)
-- [ ] agadir (Morocco)
-- [ ] haugesund (Norway)
-- [ ] klaipeda (Lithuania)
-- [ ] kristiansand (Norway)
-- [ ] nuuk (Greenland)
-- [ ] qaqortoq (Greenland)
-
-### Extra Ports (Have HTML but NOT in 2024 RCL list)
-These 58 ports have pages but weren't in the 2024 RCL list. They may be:
-- Ports from other cruise lines
-- Historical/rare RCL ports
-- Scenic cruising destinations
-- Slight naming variations
-
-Notable examples: glacier-bay, norwegian-fjords, panama-canal, costa-maya, grand-turk, martinique, guadeloupe
-
-### Priority Recommendations
-
-**P1 - Immediate (HIGH traffic RCL destinations):**
-1. Caribbean: barbados, st-lucia, amber-cove (3 ports)
-2. Middle East: dubai, abu-dhabi (2 ports)
-3. Alaska: hubbard-glacier, endicott-arm (2 ports)
-
-**P2 - Short-term (Frequent RCL itineraries):**
-1. Europe: istanbul, flam, geiranger, la-spezia (4 ports)
-2. Mexico: cabo-san-lucas, ensenada, mazatlan, puerto-vallarta (4 ports)
-3. Asia: osaka, busan, phuket (3 ports)
-
-**P3 - Medium-term (Growing regions):**
-1. Australia: adelaide, cairns, hobart, fremantle (4 ports)
-2. South Pacific: bora-bora, papeete, noumea (3 ports)
-
-**P4 - Long-term (World cruise/exotic):**
-1. South America: rio-de-janeiro, buenos-aires, valparaiso (3 ports)
-2. Africa: cape-town, port-louis (2 ports)
+**Note:** Most remaining gaps are exotic/world cruise ports with minimal traffic. The major RCL destinations are now complete.
 
 ---
 
