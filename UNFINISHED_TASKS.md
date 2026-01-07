@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2026-01-02 (Added comprehensive port audit - 43 missing ports identified)
+**Last Updated:** 2026-01-07 (Re-audited port pages - 41 of 43 "missing" ports now complete, only 2 future Royal Beach Clubs + 4 POIs remain)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -4339,130 +4339,102 @@ Priority 4 - Size comparison data:
 
 ---
 
-### 🟡 [Y] Comprehensive Port Audit: Missing Destinations (NEW - 2026-01-02)
+### ✅ [G] Comprehensive Port Audit: Missing Destinations (COMPLETED - 2026-01-07)
 
-**Lane:** 🟡 Yellow (content creation - requires research and writing)
-**Audit Date:** 2026-01-02
-**Total Existing Ports:** 333
-**Missing Ports Identified:** 43
+**Lane:** ✅ Green (completed)
+**Original Audit Date:** 2026-01-02
+**Re-Audit Date:** 2026-01-07
+**Total Existing Ports:** 374
+**Missing Ports Identified:** 2 (future Royal Beach Club destinations only)
+**Missing POIs Identified:** 4 (CocoCay and Labadee map data)
 
 #### Overview
 
-This audit compares the user's requested port list against existing HTML files in `/ports/`. Ports are categorized by region and priority.
+This audit compares the user's requested port list against existing HTML files in `/ports/`. **RE-AUDITED 2026-01-07: 41 of 43 "missing" ports have been completed. Only 2 future Royal Beach Club destinations remain.**
 
 ---
 
-#### ✅ EXISTING PORTS (53 ports confirmed in repository)
+#### ✅ EXISTING PORTS (374 total port pages confirmed in repository)
+
+**All originally requested ports now exist except 2 future Royal Beach Club destinations.**
 
 **Royal Beach Club Collection:**
 - ✅ `royal-beach-club-nassau.html` — Royal Beach Club Paradise Island (Nassau, Bahamas)
 
-**Caribbean/Bahamas:**
-- ✅ `freeport.html` — Freeport/Lucaya (Grand Bahama)
-- ✅ `jamaica.html` — Falmouth, Jamaica (Ocho Rios)
-- ✅ `harvest-caye.html` — Harvest Caye, Belize (NCL private island)
+**Caribbean/Bahamas (ALL COMPLETE):**
+- ✅ `freeport.html`, `bimini.html`, `st-john-usvi.html`, `st-croix.html`
+- ✅ `jamaica.html` (covers Falmouth), `harvest-caye.html`
+- ✅ `tobago.html`, `trinidad.html`, `santa-marta.html`
 
-**Mexico:**
+**Mexico (ALL COMPLETE):**
 - ✅ `cabo-san-lucas.html`, `puerto-vallarta.html`, `mazatlan.html`, `ensenada.html`
 
-**Mediterranean/Europe:**
+**Mediterranean/Europe (ALL COMPLETE):**
 - ✅ `la-spezia.html`, `istanbul.html`, `catania.html`, `haifa.html`, `limassol.html`
-- ✅ `geiranger.html`, `flam.html`, `olden.html`, `edinburgh.html`, `akureyri.html`
+- ✅ `alexandria.html`, `port-said.html`
+- ✅ `geiranger.html`, `flam.html`, `olden.html`, `honningsvag.html`
+- ✅ `edinburgh.html`, `glasgow.html`
+- ✅ `akureyri.html`, `isafjordur.html`, `torshavn.html`
 
-**Asia:**
-- ✅ `penang.html`, `langkawi.html`, `phuket.html`, `koh-samui.html`
-- ✅ `ho-chi-minh-city.html`, `nha-trang.html`, `ha-long-bay.html`
-- ✅ `busan.html`, `incheon.html`, `jeju.html`
-- ✅ `kobe.html`, `osaka.html`, `nagasaki.html`, `hakodate.html`, `hiroshima.html`
+**Asia (ALL COMPLETE):**
+- ✅ `penang.html`, `langkawi.html`, `kuala-lumpur.html`, `phuket.html`, `koh-samui.html`
+- ✅ `ho-chi-minh-city.html`, `nha-trang.html`, `ha-long-bay.html`, `jakarta.html`
+- ✅ `beijing.html`, `busan.html`, `incheon.html`, `jeju.html`
+- ✅ `kobe.html`, `osaka.html`, `kyoto.html`, `nagasaki.html`, `hakodate.html`, `okinawa.html`, `kagoshima.html`, `hiroshima.html`
 
-**Australia/New Zealand:**
+**Australia/New Zealand (ALL COMPLETE):**
 - ✅ `melbourne.html`, `cairns.html`, `hobart.html`, `adelaide.html`, `fremantle.html`, `darwin.html`
-- ✅ `mystery-island.html`
+- ✅ `airlie-beach.html`, `port-arthur.html`, `rotorua.html`, `akaroa.html`, `mystery-island.html`
 
-**Remote/Pacific:**
-- ✅ `easter-island.html`, `pitcairn.html`, `port-moresby.html` (Papua New Guinea)
+**South America/Antarctica (ALL COMPLETE):**
+- ✅ `ilhabela.html`, `buzios.html`, `punta-del-este.html`, `puerto-montt.html`
+- ✅ `cape-horn.html`, `chilean-fjords.html`, `strait-of-magellan.html`, `glacier-alley.html`
+- ✅ `antarctic-peninsula.html`, `drake-passage.html`, `south-shetland-islands.html`, `antarctica.html`
+
+**Alaska/Canada/US Extensions (ALL COMPLETE):**
+- ✅ `inside-passage.html`, `denali.html`, `fairbanks.html`
+- ✅ `cape-cod.html`, `marthas-vineyard.html`, `montreal.html`
+
+**Remote/Pacific (ALL COMPLETE):**
+- ✅ `easter-island.html`, `pitcairn.html`, `aitutaki.html`, `port-moresby.html`
 - ✅ `colombo.html`, `maldives.html`, `nosy-be.html`, `mauritius.html`, `seychelles.html`
 - ✅ `zanzibar.html`, `cape-town.html`, `walvis-bay.html`, `st-helena.html`
 - ✅ `tenerife.html`, `gran-canaria.html`, `lanzarote.html` (Canary Islands)
 
 ---
 
-#### ❌ MISSING PORTS (43 ports need to be created)
+#### ❌ MISSING PORTS (2 ports — future Royal Beach Club destinations)
 
-##### Royal Beach Club Collection (2 ports) — FUTURE DESTINATIONS
 | Port | Notes | Priority |
 |------|-------|----------|
-| Royal Beach Club Cozumel | Announced for 2026, linked on ports.html with text only | P3 (future) |
-| Royal Beach Club Antigua | In development, linked on ports.html with text only | P4 (future) |
+| Royal Beach Club Cozumel | Announced for 2026, not yet open | P4 (future) |
+| Royal Beach Club Antigua | In development, not yet open | P4 (future) |
 
-##### Caribbean/Atlantic (7 ports)
-| Port | Notes | Priority |
-|------|-------|----------|
-| Bimini, Bahamas | Popular short cruise destination | P2 |
-| St. John, USVI | National park destination | P2 |
-| St. Croix, USVI | Danish colonial history, rum | P2 |
-| Tobago | Trinidad & Tobago, Caribbean | P3 |
-| Trinidad | Port of Spain, Carnival culture | P3 |
-| Santa Marta, Colombia | Historic port, Tayrona access | P3 |
+##### ~~Caribbean/Atlantic (7 ports)~~ ✅ ALL COMPLETE
+##### ~~Alaska/North America Extensions (6 ports)~~ ✅ ALL COMPLETE
+##### ~~Europe/Mediterranean (6 ports)~~ ✅ ALL COMPLETE
+##### ~~Asia (6 ports)~~ ✅ ALL COMPLETE
+##### ~~Australia/New Zealand (4 ports)~~ ✅ ALL COMPLETE
+##### ~~South America/Antarctica (12 ports)~~ ✅ ALL COMPLETE
+##### ~~Remote/Pacific (1 port)~~ ✅ ALL COMPLETE
 
-##### Alaska/North America Extensions (6 ports)
-| Port | Notes | Priority |
-|------|-------|----------|
-| Alaska Inside Passage | Scenic cruising guide (not a port) | P3 |
-| Denali National Park | Cruisetour extension destination | P3 |
-| Fairbanks | Cruisetour extension destination | P3 |
-| Cape Cod, Massachusetts | New England cruise destination | P3 |
-| Martha's Vineyard | Upscale island destination | P3 |
-| Montreal, Quebec | St. Lawrence River cruises | P2 |
+---
 
-##### Europe/Mediterranean (6 ports)
-| Port | Notes | Priority |
-|------|-------|----------|
-| Alexandria, Egypt | Ancient history, Nile access | P2 |
-| Port Said, Egypt | Suez Canal gateway | P3 |
-| Honningsvag, Norway | North Cape, Arctic Norway | P2 |
-| Glasgow, Scotland | Note: `greenock.html` serves nearby | P3 |
-| Ísafjörður, Iceland | Westfjords, remote beauty | P3 |
-| Tórshavn, Faroe Islands | Danish territory, unique culture | P3 |
+#### 🗺️ MISSING POIs in Map Data (4 items) — NEW 2026-01-07
 
-##### Asia (6 ports)
-| Port | Notes | Priority |
-|------|-------|----------|
-| Kuala Lumpur, Malaysia | Port Klang serves as cruise port | P2 |
-| Jakarta, Indonesia | Tanjung Priok port | P3 |
-| Beijing, China | Note: `tianjin.html` is Beijing's port | P4 (alias) |
-| Kyoto, Japan | Note: osaka/kobe serve as nearby ports | P4 (alias) |
-| Okinawa, Japan | Tropical Japan, beaches, diving | P2 |
-| Kagoshima, Japan | Sakurajima volcano, samurai history | P2 |
+**CocoCay (`cococay.map.json`):**
+| POI | Notes | Priority |
+|-----|-------|----------|
+| Snorkel Beach | Add to poi_ids array | P3 |
 
-##### Australia/New Zealand (4 ports)
-| Port | Notes | Priority |
-|------|-------|----------|
-| Airlie Beach, Australia | Whitsundays gateway | P2 |
-| Port Arthur, Tasmania | Convict history UNESCO site | P3 |
-| Rotorua, New Zealand | Geothermal, Maori culture (via Tauranga) | P3 |
-| Akaroa, New Zealand | French-influenced, Banks Peninsula | P3 |
+**Labadee (`labadee.map.json`):**
+| POI | Notes | Priority |
+|-----|-------|----------|
+| Arawak Aqua Park | Floating water park attraction | P2 |
+| Columbus Cove | Beach area | P3 |
+| Nellie's Beach | Beach area | P3 |
 
-##### South America/Antarctica (12 ports) — EXPEDITION CRUISING
-| Port | Notes | Priority |
-|------|-------|----------|
-| Ilhabela, Brazil | Island paradise, sailing destination | P3 |
-| Búzios, Brazil | Brigitte Bardot's former retreat | P3 |
-| Punta del Este, Uruguay | South American Riviera | P3 |
-| Puerto Montt, Chile | Lake District gateway | P2 |
-| Cape Horn | Legendary sailing landmark | P3 |
-| Chilean Fjords | Scenic cruising region | P3 |
-| Strait of Magellan | Historic passage | P3 |
-| Glacier Alley | Patagonian fjords scenic | P3 |
-| Antarctic Peninsula | Expedition destination | P2 |
-| Drake Passage | Ocean crossing to Antarctica | P4 |
-| South Shetland Islands | Antarctic wildlife, research bases | P3 |
-| Antarctica | Continent overview page | P2 |
-
-##### Remote/Pacific (1 port)
-| Port | Notes | Priority |
-|------|-------|----------|
-| Aitutaki, Cook Islands | World's most beautiful lagoon | P3 |
+**Note:** User originally requested "Zip Line" for CocoCay, but CocoCay has no zip line — Dragon's Breath is at Labadee and already exists in POI data.
 
 ---
 
@@ -4479,34 +4451,37 @@ This audit compares the user's requested port list against existing HTML files i
 
 ---
 
-#### Priority Summary
+#### Priority Summary (UPDATED 2026-01-07)
 
 | Priority | Count | Description |
 |----------|-------|-------------|
-| **P2 - High** | 12 | Popular destinations, high cruise traffic |
-| **P3 - Medium** | 27 | Growing destinations, expedition ports |
-| **P4 - Low** | 4 | Aliases, far-future destinations |
+| **P2 - High** | 1 | Arawak Aqua Park POI |
+| **P3 - Medium** | 3 | Snorkel Beach, Columbus Cove, Nellie's Beach POIs |
+| **P4 - Low** | 2 | Future Royal Beach Club destinations (Cozumel, Antigua) |
 
-**Recommended Batches:**
-1. **Batch 1 (P2):** Montreal, Bimini, St. John/Croix USVI, Alexandria, Honningsvag, Okinawa, Kagoshima, Kuala Lumpur, Airlie Beach, Puerto Montt, Antarctic Peninsula, Antarctica
-2. **Batch 2 (P3 Caribbean/Atlantic):** Tobago, Trinidad, Santa Marta
-3. **Batch 3 (P3 Europe/Remote):** Port Said, Glasgow, Ísafjörður, Tórshavn, Aitutaki
-4. **Batch 4 (P3 Asia/AusNZ):** Jakarta, Port Arthur, Rotorua, Akaroa
-5. **Batch 5 (P3 South America):** Ilhabela, Búzios, Punta del Este, Cape Horn, Chilean Fjords, Strait of Magellan, Glacier Alley, South Shetland Islands
-6. **Batch 6 (P3 Alaska Extensions):** Alaska Inside Passage, Denali, Fairbanks, Cape Cod, Martha's Vineyard
-7. **Batch 7 (P4 Future/Aliases):** Royal Beach Club Cozumel, Royal Beach Club Antigua, Beijing alias, Kyoto alias, Drake Passage
+**Remaining Work:**
+1. **POI Updates:** Add 4 POIs to CocoCay and Labadee map JSON files
+2. **Future Pages:** Create Royal Beach Club Cozumel and Antigua pages when destinations open
+
+~~**Recommended Batches (OBSOLETE - ALL COMPLETE):**~~
+~~1. Batch 1-7: ALL port pages have been created~~
 
 ---
 
-**Task Count:** ~30-40 discrete tasks remaining + 43 new port pages (up from 20-30, added Ship Size Atlas and Port Audit) **[UPDATED 2026-01-02]**
-**Completed Since Last Update (2025-12-01):**
-- Protocol documentation verified complete (was listed as missing)
+**Task Count:** ~30-40 discrete tasks remaining (port pages COMPLETE, POI additions + future Royal Beach Clubs pending) **[UPDATED 2026-01-07]**
+**Completed Since Last Update (2026-01-07):**
+- **41 of 43 "missing" port pages created** — only 2 future Royal Beach Club destinations remain
+- Port count increased from 333 to 374 pages
+- All Caribbean, Mexico, Europe, Asia, Australia/NZ, South America, and expedition ports complete
+
+**Previously Completed (2025-12-01):**
+- Protocol documentation verified complete
 - Onboarding documentation reviewed and fixed
 - ships.html Product→Thing schema fix (Google Search Console)
-- **ICP-Lite: 100% complete** - all 226 pages ✅
-  - 13 hub pages, 161 port pages, 50 ship pages, 2 tool pages
-**Estimated Effort:** 12-20 hours for complete standardization (down from 60-80 hours)
-**Priority:** Pattern standardization (author/article cards) across all pages
+- **ICP-Lite: 100% complete** - all 226+ pages ✅
 
-**Note:** This list created from comprehensive user audit on 2025-11-25, re-audited 2025-11-29 and 2025-12-01. Discovered most hub page ICP-Lite work already complete. Protocol documentation also exists. All tasks require matching reference pattern from index.html.
+**Estimated Effort:** 2-4 hours for remaining POI additions
+**Priority:** Add 4 missing POIs to CocoCay/Labadee map data
+
+**Note:** This list created from comprehensive user audit on 2025-11-25, re-audited 2025-11-29, 2025-12-01, and 2026-01-07. Port page audit verified 374 existing port pages.
 
