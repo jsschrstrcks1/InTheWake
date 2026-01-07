@@ -253,6 +253,100 @@ Because the site is hosted on GitHub Pages, enforcement should happen in CI.
 
 ---
 
+## Writing Guidelines for ai-summary
+
+### Do:
+- Lead with the most important fact
+- Use exact numbers when available (GT, capacity, year)
+- State ship class, tonnage, capacity for ship pages
+- Answer "what is this page?" in first clause
+- Use natural language (AI-friendly)
+- End the first ~155 characters with a complete thought
+
+### Don't:
+- Use marketing language ("amazing", "best", "incredible")
+- Include calls to action ("book now", "learn more")
+- Repeat site name unnecessarily
+- Use vague qualifiers ("many", "several", "various")
+- Exceed 250 characters total
+- Start with "This page..." (lead with the entity)
+
+---
+
+## Templates by Page Type
+
+### Ship Page Template
+```
+[Ship Name] is a [Class] ship ([GT] GT, [capacity] guests, launched [year]) featuring [2-3 signature features] and [itinerary type] itineraries.
+```
+
+**Example:**
+```html
+<meta name="ai-summary" content="Adventure of the Seas is a Voyager Class ship (137,276 GT, 3,114 guests, launched 2001) featuring the iconic Royal Promenade, ice skating rink, rock climbing wall, and worldwide itineraries."/>
+```
+
+### Port Page Template
+```
+[Port Name] features [signature attraction/experience]. [Key geographic/cultural fact]. [What cruisers typically do here].
+```
+
+**Example:**
+```html
+<meta name="ai-summary" content="Juneau offers glacier excursions to Mendenhall Glacier and whale watching in the Inside Passage. Alaska's capital is only accessible by air or sea, giving it a remote frontier feel."/>
+```
+
+### Tool Page Template
+```
+[Tool name] helps cruisers [primary benefit]. [One sentence explaining what it does or shows].
+```
+
+**Example:**
+```html
+<meta name="ai-summary" content="Drink Package Calculator helps cruisers determine if unlimited drink packages save money. Input sailing length, drinking habits, and get cost comparison with pay-per-drink pricing."/>
+```
+
+### Restaurant/Venue Page Template
+```
+[Venue Name] is [cruise line]'s [type] ([surcharge or included]) featuring [signature items] [fleet availability].
+```
+
+**Example:**
+```html
+<meta name="ai-summary" content="Chops Grille is Royal Caribbean's signature steakhouse (surcharge $59.99/person) featuring USDA Prime beef, fresh seafood, premium sides, and upscale dining ambiance across the fleet."/>
+```
+
+### Hub/Index Page Template
+```
+[Action verb] all [entity type] by [key filters]. [What users can do]. [Scope/count if impressive].
+```
+
+**Example:**
+```html
+<meta name="ai-summary" content="Compare all Royal Caribbean ships by class, size, features, and itineraries. View deck plans, dining options, and live tracking for 27 active vessels."/>
+```
+
+---
+
+## Maintenance Schedule
+
+### Review Cadence
+- **Weekly**: Tool pages when data changes (prices, calculators)
+- **Monthly**: All hub pages (ships.html, ports.html, etc.)
+- **Quarterly**: All ship pages (fleet changes, refurbishments)
+- **As-needed**: Port pages (new attractions, pier changes)
+- **On creation**: New pages get ICP-Lite immediately
+
+### Quality Audit Checklist
+- [ ] Character count ≤ 250
+- [ ] First ~155 chars form complete thought
+- [ ] Factual accuracy verified
+- [ ] Date format valid (YYYY-MM-DD)
+- [ ] JSON-LD description matches ai-summary exactly
+- [ ] JSON-LD dateModified matches last-reviewed exactly
+- [ ] No marketing language or CTAs
+
+---
+
 ## Version Notes
 
 ### What's new in v1.4 (vs 1.0–1.3)
@@ -261,6 +355,8 @@ Because the site is hosted on GitHub Pages, enforcement should happen in CI.
 - `mainEntity` expectation for entity pages
 - Optional: `BreadcrumbList`, `significantLink`/`relatedLink`, `sameAs`, `llms.txt`, IndexNow
 - Explicit GitHub CI enforcement requirements
+- Writing guidelines and page-type templates (merged from v1.0)
+- Maintenance schedule guidance
 
 ---
 
