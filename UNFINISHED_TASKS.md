@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2026-01-07 (Re-audited port pages - 41 of 43 "missing" ports now complete, only 2 future Royal Beach Clubs + 4 POIs remain)
+**Last Updated:** 2026-01-07 (Comprehensive UI/UX audit - added header hero standardization, flagged 4 items for re-verification, updated stateroom fleet expansion)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -1612,6 +1612,7 @@ This archive is maintained additively - tasks are never removed from this sectio
 - [ ] Standardize header hero size (currently bigger than planning)
 - [ ] Resize hero while keeping horizon centered in viewport
 - [ ] Ensure logo stays within frame (all pages should match)
+- [ ] **FLEET EXPANSION (2026-01-07):** Needs rest of RCL ships represented in tool dropdown
 
 #### cruise-lines.html
 - [x] ✅ Add right rail: Quick Answer, Key Facts, Best For (verified present 2025-11-29)
@@ -1772,27 +1773,59 @@ All homeports with existing HTML pages now have clickable links in port-tracker.
 **Affected:** Multiple hub pages have inconsistent logo sizing
 **Action:** Audit logo CSS across all pages, standardize to index.html dimensions
 
-#### ✅ DONE: Git Merge Conflicts
-**Status:** COMPLETE - 0 instances found site-wide (verified 2025-11-29)
+#### Header Hero Standardization (NEW 2026-01-07)
+**Status:** TODO
+**Issue:** Header hero sizes differ across pages (some bigger than others)
+**Reference:** planning.html as canonical pattern
+**Requirements:**
+- [ ] All pages should share same header hero size
+- [ ] Horizon must stay centered in viewport on all pages
+- [ ] Logo must stay within viewable area (not stick above frame)
+- [ ] Audit all hub pages: index, ships, ports, restaurants, cruise-lines, travel, solo, accessibility, drink-packages, stateroom-check, packing-lists
+- [ ] Fix any CSS filter making hero colors muted (should be vibrant like index.html)
+**Affected Pages (per user report):**
+- stateroom-check.html - hero bigger than planning
+- cruise-lines.html - different hero structure
+- travel.html - different hero shape
+- solo.html - CSS filter making colors muted
+- ship-tracker.html - hero larger than most
+- accessibility.html - hero/logo different from others
 
-#### ✅ DONE: Footer Text Standardization
-**Status:** COMPLETE - All footers follow standard pattern (verified 2025-11-29)
+#### ⚠️ RE-VERIFY: Git Merge Conflicts
+**Previous Status:** COMPLETE - 0 instances found site-wide (verified 2025-11-29)
+**User Report (2026-01-07):** `<<<<<<< HEAD ======= >>>>>>> 4aa11716` exists on bottom of SOME pages
+- [ ] Re-audit site-wide for git conflict markers
+- [ ] Clean up any remaining instances
+
+#### ⚠️ RE-VERIFY: Footer Text Standardization
+**Previous Status:** COMPLETE - All footers follow standard pattern (verified 2025-11-29)
+**User Report (2026-01-07):** Footer text varies across pages
+**Expected Pattern (centered under page left column content):**
 ```
 © 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.
 Privacy · Terms · About · Accessibility & WCAG 2.1 AA Commitment
 Soli Deo Gloria
 ```
+- [ ] Re-audit footer text site-wide
+- [ ] Ensure consistent centering (under left column content, not page center)
 
-#### ✅ DONE: Grid Layout Bugs Site-Wide
-**Status:** COMPLETE - 764 instances eliminated across 571 files (PR #283, verified 2025-11-29)
-- Removed all `grid-row: 1 / span 999` instances (infinite scroll bug)
-- Removed all `grid-row: 2` instances (gap bug)
-- Affected directories: ports/, ships/, restaurants/, solo/, tools/
+#### ⚠️ RE-VERIFY: Grid Layout Bugs Site-Wide
+**Previous Status:** COMPLETE - 764 instances eliminated across 571 files (PR #283, verified 2025-11-29)
+**User Report (2026-01-07):** packing-lists.html has infinite scroll bug
+- [ ] Re-verify packing-lists.html specifically
+- [ ] Check for any regression in grid layout fixes
+
+#### ⚠️ RE-VERIFY: Port Logbook (port-tracker.html)
+**Previous Status:** FIXED - JSON syntax errors in PORTS_DB corrected (2025-11-29)
+**User Report (2026-01-07):** No ports populate regardless of what you click
+- [ ] Re-investigate port-tracker.html functionality
+- [ ] Verify PORTS_DB loads correctly
 
 #### ✅ DONE: ICP-Lite Compliance Audit
 **Status:** COMPLETE - 100% site-wide coverage achieved (2025-11-29)
 - All 212 pages have Quick Answer, Best For, Key Facts
 - 13 hub pages, 147 port pages, 50 ship pages, 2 tool pages
+- [ ] **NEW (2026-01-07):** Site-wide ICP-Lite re-audit recommended to ensure full compliance
 
 ### P2 - Content & Feature Work
 
@@ -1815,9 +1848,13 @@ Soli Deo Gloria
 
 ### P3 - Investigation & Documentation
 
-#### Distance Units Feature
-- [ ] Locate documentation for fun-distance-units.json
-- [ ] Plan attractive integration on ship pages
+#### ✅ DONE: Distance Units Feature
+**Status:** COMPLETE - Whimsical distance units added to all ship and port pages (2025-12-01)
+- [x] Integrated fun-distance-units.json feature on ships pages
+- [x] All 50 RCL ship pages display 3 random whimsical units
+- [x] All 161 port pages have whimsical distance units
+- [x] Uses shared whimsical-port-units.js component
+**Note:** User mentioned (2026-01-07) distance measurement JSON doesn't seem in use - may need re-verification
 
 #### Logbook JSON Orphans
 - [ ] Verify if assets/data/logbook/rcl/*.json files are dynamically loaded
