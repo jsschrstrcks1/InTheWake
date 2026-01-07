@@ -1219,6 +1219,87 @@ cartagena, cherbourg, mobile, reykjavik, samana, st-kitts, st-petersburg, tortol
 
 ---
 
+#### Royal Caribbean Experiences & Activities Data (2026-01-07 Audit)
+**Status:** TODO - Major content gaps identified
+**Source:** Comprehensive RC fleet experience audit (Oct 2025 data)
+**Priority:** MEDIUM - Current experiences.json only has 4 items; user data has 60+
+
+**Current State:**
+- experiences.json: Only 4 items (Chef's Table, Protect the Egg, Belly Flop, All Access Tour)
+- 215 restaurant/venue pages exist but focus on dining, not activities
+- dining-activities.html covers: Candy Sushi, Cupcake Decorating, Taste of Royal, Sushi & Sake
+
+**Missing Tastings & Pairing Classes:**
+- [ ] Wine Tastings (at Vintage Chophouse or Schooner Bar)
+- [ ] Whiskey Tastings (at Playmakers Sports Bar)
+- [ ] Rum Tastings (at Bionic Bar or Pool Bar)
+- [ ] Mixology Class (at Bionic Bar)
+- [ ] Pasta Making Class (at Giovanni's Table)
+- [ ] Chocolate Tasting (at Café Promenade)
+
+**Missing Behind-the-Scenes Tours:**
+- [ ] Behind the Waves Tour (~$80 pp)
+- [ ] Backstage Theater Tour (~$40 pp)
+- [ ] Bridge Tour (standalone, captain-led)
+- [ ] Galley Tour with Lunch (bundled option)
+
+**Missing Games & Competitions (add to experiences.json):**
+- [ ] World's Sexiest Man/Woman Contest
+- [ ] Cannonball Contest
+- [ ] Quest (Team Game Show)
+- [ ] Love & Marriage Game Show
+- [ ] Majority Rules Game Show
+- [ ] Family Face-Off
+- [ ] Trivia Contests (multiple daily)
+- [ ] Bingo (paid entry ~$10-50)
+- [ ] Name That Tune
+- [ ] Liar's Club
+- [ ] Pub Games (Schooner Bar)
+- [ ] Scavenger Hunt
+- [ ] Battle of the Sexes
+- [ ] Crazy Chicken Carnival Games (Boardwalk, Oasis/Icon)
+
+**Missing Sports & Fitness Events:**
+- [ ] Basketball Tournament
+- [ ] Volleyball Tournament
+- [ ] Table Tennis (Ping Pong) Tournament
+- [ ] Shuffleboard Tournament
+- [ ] Pickleball Tournament (select ships post-2024)
+- [ ] Fitness Challenges/Competitions
+
+**Missing Enrichment & Classes:**
+- [ ] Dance Classes (ballroom, salsa, line dancing)
+- [ ] Art Classes/Auctions
+- [ ] Guest Lectures (port/history experts)
+- [ ] Language Phrase Classes
+- [ ] Card Making Class
+- [ ] Flower Arranging Class
+- [ ] Stargazing Session
+- [ ] Bird Watching Walk (port days)
+
+**Missing Nightlife & Social Events:**
+- [ ] Silent Disco Party (Quantum+)
+- [ ] Dancing Under the Stars
+- [ ] Glow Party (neon/blacklight)
+- [ ] White Hot Party (dress code event)
+
+**Production Shows by Ship (MAJOR GAP):**
+- [ ] Create production-shows.json mapping specific shows to ships
+- [ ] Icon Class: The Effectors, Wizard of Oz, Aqua Action!, Starburst ice show
+- [ ] Oasis Class: CATS, Mamma Mia!, GREASE, Hairspray!, various ice/aqua shows
+- [ ] Quantum Class: We Will Rock You!, Sequins & Feathers, Spectra's Cabaret
+- [ ] Freedom Class: Saturday Night Fever, Marquee, Invitation to Dance
+- [ ] Voyager Class: Broadway Rhythm and Rhyme, Ice Odyssey, various per ship
+- [ ] Radiance Class: City of Dreams, Now & Forever, Stage to Screen
+- [ ] Vision Class: Broadway Rhythm and Rhyme, Boogie Wonderland, Ballroom Fever
+
+**Implementation Options:**
+- Option A: Expand experiences.json with all activities + ship availability
+- Option B: Create separate JSON files (games.json, tours.json, shows.json)
+- Option C: Add activities to individual ship page data files
+
+---
+
 #### Playwright + axe-core (E2E Accessibility Testing)
 **Status:** Planned
 **Priority:** MEDIUM-HIGH - Catches interactive accessibility issues Pa11y misses
