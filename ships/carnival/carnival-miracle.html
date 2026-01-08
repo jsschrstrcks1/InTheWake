@@ -268,7 +268,7 @@ Dining Venues</h2>
       <details><summary>What is Fun Ship 2.0?</summary><p>Miracle's 2015 refurbishment added Guy's Burger Joint, BlueIguana Cantina, Red Frog Rum Bar, and Alchemy Bar.</p></details>
     </section>
 
-    <section class="card"><h2>Sources</h2><ul class="tiny"><li><a href="https://www.carnival.com/cruise-ships/carnival-miracle" target="_blank">Carnival Cruise Line</a></li><li><a href="https://www.marinetraffic.com" target="_blank">MarineTraffic</a></li><li><a href="https://en.wikipedia.org/wiki/Carnival_Miracle" target="_blank">Wikipedia</a></li></ul></section>
+    <section class="card"><h2>Sources</h2><ul class="tiny"><li><a href="https://www.carnival.com/cruise-ships/carnival-miracle" target="_blank" rel="noopener">Carnival Cruise Line</a></li><li><a href="https://www.marinetraffic.com" target="_blank" rel="noopener">MarineTraffic</a></li><li><a href="https://en.wikipedia.org/wiki/Carnival_Miracle" target="_blank" rel="noopener">Wikipedia</a></li></ul></section>
   </div>
     </section><!-- End Main Content Column -->
 
@@ -400,7 +400,7 @@ Dining Venues</h2>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-fetch('/assets/data/videos/carnival/carnival-miracle.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
+fetch('/assets/data/videos/carnival/carnival-miracle.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
 fetch('/assets/data/logbook/carnival/carnival-miracle.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h4>${s.title}</h4><p class="logbook-meta">${s.persona_label} · ${s.author.name}</p><p>${s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')}</p></article>`).join('');}).catch(()=>{});
 </script>  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>

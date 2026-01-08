@@ -280,7 +280,7 @@ Dining Venues</h2>
       <details><summary>What is special about Conquest's décor?</summary><p>French Impressionist theme honoring New Orleans' artistic heritage, with Renoir and Monet reproductions throughout.</p></details>
     </section>
 
-    <section class="card"><h2>Sources</h2><ul class="tiny"><li><a href="https://www.carnival.com/cruise-ships/carnival-conquest" target="_blank">Carnival Cruise Line</a></li><li><a href="https://www.marinetraffic.com" target="_blank">MarineTraffic</a></li><li>Photo: Wikimedia Commons, CC BY-SA 4.0</li></ul></section>
+    <section class="card"><h2>Sources</h2><ul class="tiny"><li><a href="https://www.carnival.com/cruise-ships/carnival-conquest" target="_blank" rel="noopener">Carnival Cruise Line</a></li><li><a href="https://www.marinetraffic.com" target="_blank" rel="noopener">MarineTraffic</a></li><li>Photo: Wikimedia Commons, CC BY-SA 4.0</li></ul></section>
 
   </div>
     </section><!-- End Main Content Column -->
@@ -314,7 +314,7 @@ Dining Venues</h2>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 new Swiper('#photo-swiper',{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true}});
-fetch('/assets/data/videos/carnival/carnival-conquest.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
+fetch('/assets/data/videos/carnival/carnival-conquest.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
 fetch('/assets/data/logbook/carnival/carnival-conquest.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h4>${s.title}</h4><p class="logbook-meta">${s.persona_label} · ${s.author.name}</p><p>${s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')}</p></article>`).join('');}).catch(()=>{});
 </script>  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
