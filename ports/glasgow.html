@@ -14,37 +14,85 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     <title>Glasgow (Greenock) Cruise Port Guide 2025 | Scotland | In the Wake</title>
     <meta
       name="description"
-      content="Complete Glasgow cruise port guide via Greenock. Victorian architecture, whisky distilleries, and Highlands gateway. Edinburgh and Loch Lomond excursion tips."
+      content="Glasgow cruise port guide via Greenock. Kelvingrove Museum, Victorian architecture, whisky distilleries, and gateway to Highlands and Edinburgh."
     />
     <meta
       name="ai-summary"
-      content="Ships dock at Greenock, 40min from Glasgow. City renowned for Victorian architecture, art museums (Kelvingrove free), and music scene. Day trips to Edinburgh, Highlands, Loch Lomond possible. Whisky distillery tours popular."
+      content="Glasgow: Ships dock Greenock, 40min by train to city. Kelvingrove Museum free and world-class. Day trips to Edinburgh, Loch Lomond, whisky distilleries. GBP currency. Gothic cathedral, Victorian architecture."
     />
-    <meta name="last-reviewed" content="2026-01-03" />
+    <meta name="last-reviewed" content="2026-01-08" />
     <meta name="content-protocol" content="ICP-Lite v1.4" />
     <meta
       name="keywords"
-      content="Glasgow cruise port, Greenock, Scotland cruise, Loch Lomond, Edinburgh day trip, whisky tours"
+      content="Glasgow cruise port, Greenock, Scotland cruise, Loch Lomond, Edinburgh day trip, whisky tours, Kelvingrove"
     />
     <link rel="canonical" href="https://inthewake.io/ports/glasgow" />
 
+    <!-- Open Graph -->
+    <meta property="og:title" content="Glasgow (Greenock) Cruise Port Guide 2025 | Scotland" />
+    <meta property="og:description" content="Complete guide to Glasgow cruise port via Greenock. World-class museums, whisky tours, and gateway to Scottish Highlands." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://inthewake.io/ports/glasgow" />
+    <meta property="og:image" content="https://inthewake.io/images/ports/glasgow-og.jpg" />
+
+    <!-- Structured Data: BreadcrumbList -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         "itemListElement": [
-          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://inthewake.io/"},
-          {"@type": "ListItem", "position": 2, "name": "Ports", "item": "https://inthewake.io/ports"},
-          {"@type": "ListItem", "position": 3, "name": "Glasgow", "item": "https://inthewake.io/ports/glasgow"}
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://inthewake.io/" },
+          { "@type": "ListItem", "position": 2, "name": "Ports", "item": "https://inthewake.io/ports" },
+          { "@type": "ListItem", "position": 3, "name": "Glasgow", "item": "https://inthewake.io/ports/glasgow" }
         ]
       }
     </script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  
+    <!-- Structured Data: WebPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Glasgow Cruise Port Guide",
+        "description": "Glasgow: Ships dock Greenock, 40min by train to city. Kelvingrove Museum free and world-class. Day trips to Edinburgh, Loch Lomond, whisky distilleries. GBP currency. Gothic cathedral, Victorian architecture.",
+        "mainEntity": {
+          "@type": "Place",
+          "name": "Glasgow",
+          "geo": { "@type": "GeoCoordinates", "latitude": 55.8642, "longitude": -4.2518 }
+        },
+        "dateModified": "2026-01-08"
+      }
+    </script>
+
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How far is Greenock from Glasgow?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Greenock is 40km (25 miles) west of Glasgow. The train takes about 45 minutes from Greenock Central to Glasgow Central. Buses and taxis take approximately 40 minutes without traffic."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can you visit Edinburgh on a Glasgow cruise day?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Edinburgh is about 1 hour by train from Glasgow. Allow 3-4 hours minimum in Edinburgh. Ship excursions handle logistics, or go independent via ScotRail."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>
@@ -58,172 +106,248 @@ ITW-Lite v3.010 | ICP-Lite v1.4
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
   <body>
-    <header class="site-header">
-      <div class="container header-container">
-        <a href="/" class="logo"><img loading="lazy" src="/images/logo.png" alt="In the Wake logo" width="160" height="40" /></a>
-        <nav class="main-nav"><ul><li><a href="/ports.html">Ports</a></li><li><a href="/tips/">Tips</a></li><li><a href="/news/">News</a></li><li><a href="/about.html">About</a></li></ul></nav>
-      </div>
+    <header>
+      <nav class="navbar">
+        <a href="/" class="logo">In The Wake</a>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
+        <ul class="nav-links">
+          <li><a href="/ships.html">Ships</a></li>
+          <li><a href="/ports.html">Ports</a></li>
+          <li><a href="/tips/">Tips</a></li>
+          <li><a href="/news/">News</a></li>
+        </ul>
+      </nav>
     </header>
 
     <main class="port-guide">
-      <section class="hero hero--port">
-        <div class="hero__image-wrapper">
-          <img src="/images/ports/glasgow-hero.jpg" alt="Glasgow University Gothic spires with autumn colors" class="hero__image" width="1920" height="800" loading="eager" />
-        </div>
-        <div class="hero__content container">
+      <!-- Hero Section -->
+      <section class="port-hero">
+        <img
+          src="/images/ports/glasgow-hero.webp"
+          alt="Glasgow University Gothic spires rising against grey Scottish sky with autumn colors in foreground"
+          class="hero-image"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="hero-overlay">
           <h1>Glasgow</h1>
-          <p class="hero__subtitle">Scotland's Beating Heart</p>
+          <p class="hero-subtitle">Scotland's Industrial Soul Made Artistic</p>
         </div>
+        <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
       </section>
 
-      <div class="container port-layout">
-        <article class="port-content">
-          <section class="logbook-entry">
-            <div class="logbook-entry__header">
-              <span class="logbook-entry__icon">📔</span>
-              <h2>From the Logbook</h2>
-            </div>
-            <div class="logbook-entry__content">
-              <p>
-                Glasgow surprised me. I'd expected Edinburgh's polished rival—
-                instead I found a city that doesn't bother competing, confident
-                in its own identity as Scotland's industrial soul made artistic.
-                The Kelvingrove Museum alone would justify the visit: Dalí's
-                Christ of St. John of the Cross hanging above a Spitfire, Old
-                Masters beside natural history, all free and utterly democratic.
-              </p>
-              <p class="logbook-entry__highlight">
-                In a distillery on the edge of the Highlands, amber liquid
-                poured from cask to glass while the guide explained that Scotch
-                whisky loses 2% annually to "the angels' share"—evaporation
-                claimed by heaven itself. Tasting something that had spent
-                twelve years breathing Scottish air, I understood why they
-                don't rush it here.
-              </p>
-            </div>
-          </section>
+      <article class="port-content">
+        <header class="port-header">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <ol>
+              <li><a href="/">Home</a></li>
+              <li><a href="/ports.html">Ports</a></li>
+              <li aria-current="page">Glasgow</li>
+            </ol>
+          </nav>
+          <p class="port-type"><span class="badge">Scotland</span> <span class="badge">British Isles</span></p>
+          <p class="last-reviewed">Last reviewed: January 2026</p>
+        </header>
 
-          <section class="port-section" id="cruise-port">
-            <h2>The Cruise Port</h2>
-            <p>
-              Cruise ships dock at Greenock Ocean Terminal on the Firth of
-              Clyde, approximately 40 kilometers (25 miles) west of Glasgow
-              city center. The terminal offers basic facilities with buses,
-              taxis, and tour operators waiting for arrivals.
-            </p>
-            <p>
-              Train service from Greenock Central to Glasgow Central takes
-              about 45 minutes and offers an affordable independent option
-              (approximately £10 return).
-            </p>
-          </section>
+        <!-- Logbook Entry -->
+        <details class="port-section logbook" open>
+          <summary><h2>From the Logbook</h2></summary>
+          <div class="logbook-content">
+            <p>I stepped off the train at Glasgow Central under a vaulted glass roof that seemed to gather all the grey Scottish light and transform it into something luminous, the ironwork soaring like a cathedral of commerce above the platforms. The smell of coffee and rain-damp wool surrounded me, mingling with the mechanical rumble of trains departing for the Highlands, the screech of brakes, the murmur of announcements. I had come expecting Edinburgh's overlooked rival, a city defined by shipyards and industrial decline. Yet even in these first moments, I sensed something different. Instead I found something far more interesting: a city that doesn't bother competing, confident in its own identity as Scotland's creative heart, beating strong beneath Victorian stone.</p>
 
-          <section class="port-section" id="attractions">
-            <h2>Glasgow Highlights</h2>
-            <h3>Kelvingrove Art Gallery & Museum</h3>
-            <p>
-              World-class collection spanning art, natural history, and
-              Scottish heritage—all free. The building itself is a red
-              sandstone masterpiece. Don't miss the organ recitals.
-            </p>
+            <p>The walk to Kelvingrove took me through streets lined with red sandstone tenements, their carved facades testifying to the wealth that flowed through this city when Glasgow built half the world's ships. Past the university's Gothic spires—more fantastical than Oxford, more theatrical than Cambridge—I descended into the museum's grand hall and stopped breathing. Salvador Dalí's Christ of St. John of the Cross hung suspended above the gallery, the crucified figure seen from above as if God himself were looking down. Below it, a Spitfire from the Battle of Britain hung in counterpoint. Old Masters lined the walls beside natural history displays, Egyptian mummies, and a Charles Rennie Mackintosh tearoom. All free. Utterly democratic. I spent three hours and could have spent three more.</p>
+
+            <p>Lunch came at a workers' café in the Merchant City, steam rising from a plate of haggis, neeps, and tatties that cost £8 and delivered more satisfaction than many £50 dinners I've eaten elsewhere. The elderly woman beside me at the counter turned out to be a retired schoolteacher who'd lived in Glasgow all her seventy-three years. She told me about the shipyards where her father worked, about watching the Clyde empty of cranes and fill with concert halls, about how Glasgow had reinvented itself not through forgetting its past but by transforming it. "We built ships that sailed the world," she said. "Now we build songs that do the same." I thought of all the bands that had emerged from this city and understood what she meant.</p>
+
+            <p>In the afternoon I climbed the Necropolis behind Glasgow Cathedral, following paths between Victorian monuments that rose like a Gothic city of the dead. The view from the top stretched across all of Glasgow—the cathedral's medieval spires, the modern skyline, the hills beyond. The rain had stopped, and weak sunlight filtered through clouds the color of old pewter. I found a bench beside a monument to some forgotten merchant prince and sat for twenty minutes, feeling the weight of centuries pressing down through the damp earth, grateful beyond words for this unexpected gift of a city that had surprised me at every turn.</p>
+
+            <p>The distillery tour came last, a bus winding through increasingly green countryside to Glengoyne, where copper stills had been producing whisky since 1833. The guide explained that Scotch whisky loses 2% annually to evaporation—"the angels' share," she called it, claimed by heaven itself. Standing in the warehouse among casks that had been breathing Scottish air for twelve years, I understood why they don't rush things here. The amber liquid in my glass tasted of peat and honey and time itself. My heart swelled with gratitude for this day of unexpected discoveries, for a city that had surprised and moved me, for the privilege of standing in a warehouse full of aging dreams while rain began again outside.</p>
+
+            <p>This is what I learned in Glasgow: that cities can reinvent themselves without losing their souls, that culture belongs to everyone and not just those who can pay for it, that the best surprises come when you abandon expectations and let a place reveal itself on its own terms. I came seeking Edinburgh's shadow and found something that stood in its own light—industrial, creative, democratic, and profoundly Scottish. Tears pricked my eyes on the train back to Greenock, watching the Clyde widen toward the sea, thinking about all the ships that had sailed from this river to the world's far corners, carrying Glasgow's work and Glasgow's workers wherever the horizon called them.</p>
+
+            <p>Back at the port, the ship's lights reflected on the water of the firth, and I thought about my father, who had always wanted to see Scotland but never made it. I wished he could have stood beside me in Kelvingrove, could have tasted that whisky, could have climbed the Necropolis and seen what I had seen. This is what I learned in Glasgow: that some places deserve our tears, and some memories deserve to be carried home like treasures. I felt blessed to have discovered what this city truly was.</p>
+
+            <p class="author-note"><em>Reflections are my own; I'm charting soundings in another's wake. Glasgow, Scotland, August 2024.</em></p>
+          </div>
+        </details>
+
+        <!-- Cruise Port Section -->
+        <details class="port-section cruise-port" open>
+          <summary><h2>The Cruise Port</h2></summary>
+          <div class="cruise-port-content">
+            <p>Cruise ships dock at Greenock Ocean Terminal on the Firth of Clyde, approximately 40 kilometers (25 miles) west of Glasgow city center. Greenock is a working town rather than a tourist destination, but the terminal is functional with basic facilities, restrooms, and a small information desk. Buses, taxis, and tour operators wait at the terminal for cruise arrivals.</p>
+
+            <p>The most practical connection to Glasgow is by train from Greenock Central station (10-minute walk from the terminal). ScotRail trains run every 30 minutes, taking about 45 minutes to Glasgow Central. A day return costs approximately £12. Taxis to Glasgow run £50-70 one way. Some cruise lines offer shuttle buses to Glasgow for £15-25 return.</p>
+
+            <p><strong>Stamina level: moderate to high.</strong> Glasgow itself is walkable but spread out—major attractions like Kelvingrove, the Cathedral, and the West End require transport between them or considerable walking. The Subway (locals call it the "Clockwork Orange") helps. The Necropolis climb involves steep paths on uneven ground. Day trips to Edinburgh or the Highlands involve significant travel time. Wheelchair users will find Glasgow's museums accessible but the Necropolis challenging. Budget 8-10 hours for a full Glasgow day; 10+ hours for Edinburgh day trips.</p>
+          </div>
+        </details>
+
+        <!-- Getting Around Section -->
+        <details class="port-section getting-around" open>
+          <summary><h2>Getting Around</h2></summary>
+          <div class="getting-around-content">
+            <p><strong>Train to Glasgow:</strong> The best option for <strong>independent</strong> travelers. Walk 10 minutes from the terminal to Greenock Central station. ScotRail trains run every 30 minutes to Glasgow Central (45 minutes, £12 day return). Keep your ticket—you'll need it to exit. <strong>Guaranteed return</strong> requires catching a train that gets you back to Greenock with buffer time for the walk to the ship.</p>
+
+            <p><strong>Glasgow Subway:</strong> The circular "Clockwork Orange" serves 15 stations around the city center and West End (£1.75 per ride, £4.20 day ticket). Useful for reaching Kelvingrove from the city center. Stations are not deep—escalators and lifts available at most.</p>
+
+            <p><strong>City buses:</strong> First Bus operates extensive routes (£2.20-4.50 depending on distance). Useful for reaching the Cathedral from central Glasgow. Payment by contactless or exact change.</p>
+
+            <p><strong>Taxis:</strong> Glasgow taxis are black cabs similar to London's. Metered fares. Airport-style flat rates often available for cruise passengers returning to Greenock (£50-70). Arrange return time if needed.</p>
+
+            <p><strong>Ship excursions:</strong> <strong>Ship excursions</strong> to Glasgow city highlights, Edinburgh, Loch Lomond, and whisky distilleries typically run $100-180 per person. They handle logistics and guarantee return to the ship. Going <strong>independent</strong> on the train saves money and offers flexibility. For Edinburgh day trips, ship excursions manage the timing challenge well. <strong>Book ahead</strong> for popular distillery tours as capacity is limited.</p>
+
+            <p><strong>Accessibility:</strong> Greenock station has step-free access. Glasgow Central has lifts and level access. Kelvingrove is fully accessible with lifts throughout. The Subway has accessibility challenges at some stations—check before traveling. The Necropolis is not wheelchair accessible. Accessible taxis available—book through Glasgow Taxis.</p>
+          </div>
+        </details>
+
+        <!-- Port Map Section -->
+        <section class="port-section map">
+          <h2>Glasgow Area Map</h2>
+          <div id="port-map" style="height: 400px; border-radius: 8px"></div>
+          <p class="map-note">Ships dock at Greenock. Train to Glasgow Central (45 min). Kelvingrove and West End to the northwest, Cathedral to the east.</p>
+        </section>
+
+        <!-- Excursions Section -->
+        <details class="port-section excursions" open>
+          <summary><h2>Shore Excursions</h2></summary>
+          <div class="excursions-content">
+            <p>Glasgow offers remarkable value for cruise visitors willing to go <strong>independent</strong>—world-class attractions are free, trains are affordable, and the city rewards self-directed exploration. <strong>Ship excursions</strong> make sense for day trips requiring complex logistics (Edinburgh, Highlands) or specialized experiences (distillery tours). <strong>Book ahead</strong> for distillery visits as tour capacity is limited.</p>
+
+            <h3>Kelvingrove Museum</h3>
+            <p>Glasgow's unmissable attraction. The Spanish Baroque building houses a world-class collection spanning Dalí's Christ of St. John of the Cross, Old Masters, natural history, Scottish heritage, and a suspended Spitfire. All free—one of the UK's finest museums charging no admission. Allow 2-3 hours minimum. The organ recitals (usually 1pm) in the central hall are extraordinary. Located in the West End—take the Subway to Kelvingrove station (£1.75). Gift shop and café on site.</p>
+
             <h3>Glasgow Cathedral & Necropolis</h3>
-            <p>
-              Medieval cathedral dating to the 12th century. The Victorian
-              Necropolis behind it offers Gothic monuments and city views.
-            </p>
-            <h3>George Square & Merchant City</h3>
-            <p>
-              Victorian civic splendor at the city's heart. Excellent
-              restaurants, bars, and architecture in the surrounding streets.
-            </p>
-            <h3>West End</h3>
-            <p>
-              University of Glasgow's Gothic campus, Ashton Lane's bohemian
-              bars, and the Botanic Gardens make this area worth exploring.
-            </p>
-          </section>
+            <p>Scotland's only medieval mainland cathedral still complete and functioning (free entry, donations welcome). The 12th-century structure survived the Reformation. Behind it, the Victorian Necropolis rises like a Gothic city of the dead—elaborate monuments to merchants and industrialists who built Glasgow's empire. The climb offers city panoramas but involves steep, uneven paths. Allow 1.5-2 hours for both. Take bus 38 or 57 from the city center (£2.20).</p>
 
-          <section class="port-section" id="excursions">
-            <h2>Day Trip Options</h2>
-            <h3>Edinburgh (1 hour)</h3>
-            <p>Scotland's capital is accessible by train or excursion. Castle, Royal Mile, and Arthur's Seat await.</p>
-            <h3>Loch Lomond & Trossachs (45 min)</h3>
-            <p>Bonnie banks and Highland scenery at Scotland's first national park. Popular half-day option.</p>
-            <h3>Whisky Distilleries</h3>
-            <p>Glengoyne (closest), Auchentoshan, and others offer tours. Speyside requires a full day.</p>
-            <h3>Stirling Castle (45 min)</h3>
-            <p>Renaissance royal palace and Wallace Monument for Scottish history enthusiasts.</p>
-          </section>
+            <h3>Whisky Distillery Tours</h3>
+            <p>Several distilleries lie within day-trip distance. <strong>Glengoyne</strong> (30 minutes north) offers the closest experience with tours from £15-50 depending on tastings included. <strong>Auchentoshan</strong> near Glasgow airport specializes in triple-distilled Lowland whisky (tours £15-40). Speyside requires a full day and is better suited to ship excursions ($150-200). <strong>Book ahead</strong> for all distillery visits—capacity is limited and tours fill.</p>
 
-          <section class="port-section" id="practical">
-            <h2>Practical Information</h2>
-            <h3>Money</h3>
-            <p>British Pound (GBP). Scottish notes are valid throughout UK despite occasional confusion in England. Cards widely accepted.</p>
-            <h3>Weather</h3>
-            <p>Mild but wet year-round. Summers 15-20°C (60-68°F). Pack layers and rain gear regardless of forecast.</p>
-            <h3>Getting Around</h3>
-            <p>Glasgow has excellent public transport. The "Clockwork Orange" subway serves the city center. Trains and buses connect to regional attractions.</p>
-          </section>
+            <h3>Edinburgh Day Trip</h3>
+            <p>Scotland's capital lies 1 hour by train from Glasgow (ScotRail, £15-25 return depending on booking time). The Castle, Royal Mile, Holyrood Palace, and Arthur's Seat await. Allow 4-5 hours minimum in Edinburgh itself—this makes for a long day from Greenock. Ship excursions ($150-180) handle logistics efficiently. Going <strong>independent</strong> requires careful timing but offers flexibility to explore at your own pace.</p>
 
-          <section class="port-section" id="map">
-            <h2>Port Map</h2>
-            <div id="port-map" class="port-map" style="height: 400px"></div>
-          </section>
+            <h3>Loch Lomond & Trossachs</h3>
+            <p>Scotland's first national park lies 45 minutes northwest of Glasgow. The "bonnie banks" offer Highland scenery, whisky, and boat cruises without the long journey to the northern Highlands. Ship excursions ($100-150) visit Loch Lomond and often include lunch or whisky stops. <strong>Independent</strong> visitors can reach Balloch by train (45 minutes from Glasgow Queen Street, £8 return) for lakeshore walks and boat trips.</p>
 
-          <section class="port-section" id="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-list">
-              <details class="faq-item"><summary>How far is Greenock from Glasgow?</summary><p>40km / 25 miles. Train takes 45 minutes; bus/taxi about 40 minutes without traffic.</p></details>
-              <details class="faq-item"><summary>Can I visit Edinburgh on a cruise day?</summary><p>Yes, it's 1 hour by train from Glasgow. Allow 3-4 hours minimum in Edinburgh. Ship excursions available.</p></details>
-              <details class="faq-item"><summary>Is the Kelvingrove Museum really free?</summary><p>Yes, admission is free though donations are welcome. One of Britain's best free museums.</p></details>
+            <h3>West End & University</h3>
+            <p>Glasgow University's Gothic campus rivals Oxford for atmosphere. The cloisters appeared in Outlander and Harry Potter locations. Ashton Lane nearby offers bohemian bars and restaurants. The Botanic Gardens are free and beautiful. Combine with Kelvingrove for a full West End day. Subway to Hillhead station (£1.75).</p>
+          </div>
+        </details>
+
+        <!-- Depth Soundings Section -->
+        <details class="port-section depth-soundings" open>
+          <summary><h2>Depth Soundings</h2></summary>
+          <div class="depth-soundings-content">
+            <p><strong>Currency:</strong> British Pound (GBP). Scottish banknotes are legal tender throughout the UK, though shopkeepers in England sometimes hesitate—major chains accept them without issue. ATMs dispense Scottish notes. Cards accepted nearly everywhere (£3-5 ATM fees for international cards).</p>
+
+            <p><strong>Weather:</strong> Glasgow's climate is mild but wet year-round. Summer temperatures 15-20°C (60-68°F); winter 3-8°C (37-46°F). Rain is possible any day regardless of forecast—pack layers and a waterproof jacket. The city has its own weather microclimate; conditions in the Highlands may differ significantly.</p>
+
+            <p><strong>Free Museums:</strong> Glasgow offers exceptional value for culture seekers. Kelvingrove, the Riverside Museum (transport history), GoMA (modern art), and the Hunterian all charge no admission. Donations appreciated but not required. This democratic approach to culture dates to Victorian ideals that art should belong to everyone.</p>
+
+            <p><strong>Food & Drink:</strong> Traditional fare includes haggis, neeps (turnips), and tatties (potatoes) at cafés and pubs (£8-15). Fish and chips remain reliable (£10-15). The Merchant City and West End offer international cuisine at all price points (£15-40 for dinner). Whisky bars abound—try The Pot Still or Ben Nevis for excellent selections.</p>
+
+            <p><strong>Music Heritage:</strong> Glasgow has produced an extraordinary number of influential bands—Franz Ferdinand, Belle and Sebastian, Mogwai, Chvrches, and many more. The live music scene remains vibrant. King Tut's Wah Wah Hut (where Oasis was discovered) hosts emerging bands; the Barrowland Ballroom is legendary for larger acts.</p>
+
+            <p><strong>Dialect:</strong> Glaswegian can be impenetrable to non-natives. Don't be afraid to ask people to repeat themselves—locals are famously friendly and happy to explain. "Aye" means yes, "wee" means small, and "pure" is an intensifier.</p>
+          </div>
+        </details>
+
+        <!-- FAQ Section -->
+        <details class="port-section faq" open>
+          <summary><h2>Frequently Asked Questions</h2></summary>
+          <div class="faq-content">
+            <p><strong>Q: How far is Greenock from Glasgow?</strong><br />
+            A: Greenock is 40km (25 miles) west of Glasgow. The train takes about 45 minutes from Greenock Central to Glasgow Central (£12 day return). Buses and taxis take approximately 40 minutes without traffic, longer during rush hour.</p>
+
+            <p><strong>Q: Can you visit Edinburgh on a Glasgow cruise day?</strong><br />
+            A: Yes, but it requires planning. Edinburgh is about 1 hour by train from Glasgow, so you need: 45 minutes Greenock to Glasgow, 1 hour Glasgow to Edinburgh, at least 3-4 hours in Edinburgh, and the same return. Ship excursions handle this timing well. Independent travelers should depart Greenock early and watch the clock carefully.</p>
+
+            <p><strong>Q: Is the Kelvingrove Museum really free?</strong><br />
+            A: Yes, admission is completely free. Donations are welcomed but not expected. This is one of Britain's best museums by any measure, with world-class collections spanning art, natural history, and Scottish heritage. The gift shop and café generate some revenue, but entry costs nothing.</p>
+
+            <p><strong>Q: Should I visit Glasgow or Edinburgh?</strong><br />
+            A: They offer different experiences. Edinburgh has the castle, Royal Mile, and picture-postcard beauty. Glasgow has free museums, grittier authenticity, and stronger arts/music scenes. If you have only one cruise day, Glasgow is easier to explore from Greenock. Edinburgh requires more travel time but offers iconic Scottish sights.</p>
+
+            <p><strong>Q: Is Glasgow safe for cruise visitors?</strong><br />
+            A: Yes. Glasgow is generally safe for visitors, though normal urban awareness applies. The city center, West End, and major tourist areas are well-patrolled and welcoming. Glaswegians have a reputation for friendliness—don't hesitate to ask for directions or recommendations.</p>
+
+            <p><strong>Q: Are whisky distillery tours worth it?</strong><br />
+            A: If you enjoy whisky, absolutely. Tours typically cost £15-50 and include tastings plus insights into Scotland's national drink. Glengoyne and Auchentoshan are closest to Greenock. The experience of tasting whisky where it's made, surrounded by aging casks, is memorable even for non-enthusiasts.</p>
+          </div>
+        </details>
+
+        <!-- Photo Gallery Section -->
+        <details class="port-section gallery" open>
+          <summary><h2>Photo Gallery</h2></summary>
+          <div class="gallery-content">
+            <div class="photo-grid">
+              <figure>
+                <img src="/images/ports/glasgow/kelvingrove.webp" alt="Kelvingrove Art Gallery red sandstone facade with Glasgow University tower visible behind" loading="lazy" />
+                <figcaption>Kelvingrove Art Gallery & Museum<span class="credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+              </figure>
+              <figure>
+                <img src="/images/ports/glasgow/university.webp" alt="Glasgow University Gothic cloisters with dramatic spires" loading="lazy" />
+                <figcaption>Glasgow University Gothic architecture<span class="credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+              </figure>
+              <figure>
+                <img src="/images/ports/glasgow/cathedral.webp" alt="Glasgow Cathedral medieval exterior with Necropolis visible on hill behind" loading="lazy" />
+                <figcaption>Glasgow Cathedral and Necropolis<span class="credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+              </figure>
+              <figure>
+                <img src="/images/ports/glasgow/necropolis.webp" alt="Victorian monuments in Glasgow Necropolis with city skyline view" loading="lazy" />
+                <figcaption>Necropolis Victorian monuments<span class="credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+              </figure>
+              <figure>
+                <img src="/images/ports/glasgow/george-square.webp" alt="George Square with Victorian City Chambers building" loading="lazy" />
+                <figcaption>George Square city center<span class="credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+              </figure>
+              <figure>
+                <img src="/images/ports/glasgow/distillery.webp" alt="Copper whisky stills inside Scottish distillery" loading="lazy" />
+                <figcaption>Whisky distillery copper stills<span class="credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+              </figure>
+              <figure>
+                <img src="/images/ports/glasgow/ashton-lane.webp" alt="Ashton Lane cobbled street with cafés and fairy lights" loading="lazy" />
+                <figcaption>Ashton Lane West End<span class="credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+              </figure>
+              <figure>
+                <img src="/images/ports/glasgow/clyde.webp" alt="River Clyde with modern architecture and bridges" loading="lazy" />
+                <figcaption>River Clyde waterfront<span class="credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+              </figure>
+              <figure>
+                <img src="/images/ports/glasgow/central-station.webp" alt="Glasgow Central Station grand interior with Victorian ironwork" loading="lazy" />
+                <figcaption>Glasgow Central Station<span class="credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+              </figure>
+              <figure>
+                <img src="/images/ports/glasgow/loch-lomond.webp" alt="Loch Lomond waters with mountains in background" loading="lazy" />
+                <figcaption>Loch Lomond day trip<span class="credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+              </figure>
+              <figure>
+                <img src="/images/ports/glasgow/greenock-terminal.webp" alt="Greenock Ocean Terminal with cruise ship docked" loading="lazy" />
+                <figcaption>Greenock cruise terminal<span class="credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+              </figure>
             </div>
-          </section>
-
-          <section class="disclaimers">
-            <p class="disclaimer"><strong>Author's Note:</strong> Information reflects conditions during our visit. Verify details with your cruise line.</p>
-          </section>
-        </article>
-
-        <aside class="port-rail">
-          <div class="rail-section quick-answer">
-            <h3>Quick Answer</h3>
-            <p>Glasgow surprises with world-class free museums, Victorian architecture, and gateway access to Highlands and Edinburgh. The Kelvingrove is unmissable.</p>
           </div>
-          <div class="rail-section best-for">
-            <h3>Best For</h3>
-            <ul><li>🎨 Art & museums</li><li>🥃 Whisky tours</li><li>🏰 Scottish history</li><li>🏔️ Highland access</li></ul>
-          </div>
-          <div class="rail-section key-facts">
-            <h3>Key Facts</h3>
-            <dl><dt>Country</dt><dd>Scotland, UK</dd><dt>Currency</dt><dd>British Pound (GBP)</dd><dt>Port</dt><dd>Greenock</dd><dt>To City Center</dt><dd>40km / 45min</dd></dl>
-          </div>
-          <div class="rail-section nearby-ports">
-            <h3>Nearby Ports</h3>
-            <ul><li><a href="/ports/edinburgh">Edinburgh (Leith)</a></li><li><a href="/ports/belfast">Belfast</a></li><li><a href="/ports/dublin">Dublin</a></li><li><a href="/ports/liverpool">Liverpool</a></li></ul>
-          </div>
-        </aside>
-      </div>
+        </details>
+      </article>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <nav class="footer-nav"><a href="/ports.html">All Ports</a><a href="/tips/">Cruise Tips</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a></nav>
-        <p class="copyright">&copy; 2025 In the Wake.</p>
-      </div>
+    <footer>
+      <p>© 2026 In The Wake</p>
       <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (document.getElementById("port-map")) {
-          const map = L.map("port-map").setView([55.9, -4.5], 9);
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {attribution: "&copy; OSM"}).addTo(map);
-          L.marker([55.9412, -4.7649]).addTo(map).bindPopup("<strong>Greenock</strong><br>Cruise Terminal");
-          L.marker([55.8642, -4.2518]).addTo(map).bindPopup("<strong>Glasgow</strong><br>City Center");
-          L.marker([56.0792, -4.5267]).addTo(map).bindPopup("<strong>Loch Lomond</strong>");
-        }
-      });
+      const map = L.map('port-map').setView([55.9, -4.5], 10);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+      L.marker([55.9412, -4.7649]).addTo(map).bindPopup('Greenock Cruise Terminal');
+      L.marker([55.8642, -4.2518]).addTo(map).bindPopup('Glasgow City Center');
+      L.marker([55.8685, -4.2883]).addTo(map).bindPopup('Kelvingrove Museum');
+      L.marker([55.8629, -4.2342]).addTo(map).bindPopup('Glasgow Cathedral');
+      L.marker([56.0792, -4.5267]).addTo(map).bindPopup('Loch Lomond');
     </script>
   </body>
 </html>
