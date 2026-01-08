@@ -19,9 +19,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     />
     <meta
       name="ai-summary"
-      content="Denali is North America's highest peak at 20,310ft. Pre/post cruise land tours from Anchorage or Whittier. Park bus essential—private vehicles limited. Big 5 wildlife possible: grizzly, moose, caribou, Dall sheep, wolf. Mountain visible 30% of summer days."
+      content="Denali land extension from Alaska cruises. North America's highest peak at 20,310ft visible 30% of summer days. Park bus required beyond mile 15. Big Five wildlife. Cruisetours via Alaska Railroad from Whittier/Seward."
     />
-    <meta name="last-reviewed" content="2026-01-03" />
+    <meta name="last-reviewed" content="2026-01-07" />
     <meta name="content-protocol" content="ICP-Lite v1.4" />
     <meta
       name="keywords"
@@ -29,19 +29,71 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     />
     <link rel="canonical" href="https://inthewake.io/ports/denali" />
 
+    <!-- Open Graph -->
+    <meta property="og:title" content="Denali National Park Cruise Extension Guide 2025" />
+    <meta property="og:description" content="Complete guide to Denali as Alaska cruise land extension. North America's highest peak, Big Five wildlife, and wilderness tours." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://inthewake.io/ports/denali" />
+    <meta property="og:image" content="https://inthewake.io/images/ports/denali-og.jpg" />
+
+    <!-- Structured Data: BreadcrumbList -->
     <script type="application/ld+json">
-      {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://inthewake.io/"},
-        {"@type": "ListItem", "position": 2, "name": "Ports", "item": "https://inthewake.io/ports"},
-        {"@type": "ListItem", "position": 3, "name": "Denali", "item": "https://inthewake.io/ports/denali"}
-      ]}
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://inthewake.io/" },
+          { "@type": "ListItem", "position": 2, "name": "Ports", "item": "https://inthewake.io/ports" },
+          { "@type": "ListItem", "position": 3, "name": "Denali", "item": "https://inthewake.io/ports/denali" }
+        ]
+      }
     </script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  
+    <!-- Structured Data: WebPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Denali National Park Cruise Extension Guide",
+        "description": "Denali land extension from Alaska cruises. North America's highest peak at 20,310ft visible 30% of summer days. Park bus required beyond mile 15. Big Five wildlife. Cruisetours via Alaska Railroad from Whittier/Seward.",
+        "mainEntity": {
+          "@type": "Place",
+          "name": "Denali National Park",
+          "geo": { "@type": "GeoCoordinates", "latitude": 63.0692, "longitude": -151.0063 }
+        },
+        "dateModified": "2026-01-07"
+      }
+    </script>
+
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Will I see Denali mountain on my visit?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Clouds obscure Denali's summit roughly 70% of summer days. Clear views are treasured when they occur but cannot be guaranteed. Many visitors find the wildlife and wilderness experience rewarding regardless of mountain visibility. Early mornings offer the best chance before clouds build."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many nights should I add to my Alaska cruise?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Two nights minimum allows one full day for a park bus tour. Three or four nights permit deeper exploration—multiple bus routes, rafting, or flightseeing additions. Most cruisetour packages offer two to four night options at various price points."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>
@@ -55,213 +107,303 @@ ITW-Lite v3.010 | ICP-Lite v1.4
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
   <body>
-    <header class="site-header">
-      <div class="container header-container">
-        <a href="/" class="logo"><img loading="lazy" src="/images/logo.png" alt="In the Wake logo" width="160" height="40" /></a>
-        <nav class="main-nav"><ul><li><a href="/ports.html">Ports</a></li><li><a href="/tips/">Tips</a></li><li><a href="/news/">News</a></li><li><a href="/about.html">About</a></li></ul></nav>
-      </div>
+    <header>
+      <nav class="navbar">
+        <a href="/" class="logo">In The Wake</a>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
+        <ul class="nav-links">
+          <li><a href="/ships.html">Ships</a></li>
+          <li><a href="/ports.html">Ports</a></li>
+          <li><a href="/tips/">Tips</a></li>
+          <li><a href="/news/">News</a></li>
+        </ul>
+      </nav>
     </header>
 
     <main class="port-guide">
-      <section class="hero hero--port">
-        <div class="hero__image-wrapper">
-          <img src="/images/ports/denali-hero.jpg" alt="Denali mountain peak rising above clouds with autumn tundra in foreground" class="hero__image" width="1920" height="800" loading="eager" />
-        </div>
-        <div class="hero__content container">
+      <!-- Hero Section -->
+      <section class="port-hero">
+        <img
+          src="/images/ports/denali-hero.webp"
+          alt="Denali mountain peak rising above clouds with autumn tundra colors in foreground"
+          class="hero-image"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="hero-overlay">
           <h1>Denali</h1>
-          <p class="hero__subtitle">The High One</p>
+          <p class="hero-subtitle">The High One</p>
         </div>
+        <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
       </section>
 
-      <div class="container port-layout">
-        <article class="port-content">
-          <div class="tender-notice" role="alert">
-            <span class="tender-notice__icon">🚂</span>
-            <p><strong>Land Extension:</strong> Denali is not a cruise port. This guide covers Denali as a pre/post cruise land extension, typically accessed by train or motorcoach from Anchorage or Whittier.</p>
+      <article class="port-content">
+        <header class="port-header">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <ol>
+              <li><a href="/">Home</a></li>
+              <li><a href="/ports.html">Ports</a></li>
+              <li aria-current="page">Denali</li>
+            </ol>
+          </nav>
+          <p class="port-type"><span class="badge">Land Extension</span> <span class="badge">Alaska</span></p>
+        </header>
+
+        <!-- Logbook Entry -->
+        <details class="port-section logbook" open>
+          <summary><h2>From the Logbook</h2></summary>
+          <div class="logbook-content">
+            <p>The Alaska Railroad car smelled of coffee and anticipation as we pulled out of Anchorage at dawn. My wife had secured us seats in the dome car, and as the urban sprawl gave way to birch forest and then raw mountain terrain, I understood why she had insisted. Through the curved glass above, peaks rose into clouds that seemed close enough to touch. The train swayed gently, rhythmically, and somewhere behind us a child pressed her face to the window and gasped at a moose standing knee-deep in a glacial stream. Eight hours to Denali—eight hours that passed like a long, beautiful exhale across landscape that made our usual world seem small.</p>
+
+            <p>The Athabaskan people called it Denali, "The High One," and at 20,310 feet it commands North America as its highest peak. But raw altitude tells only part of the story. Denali rises nearly 18,000 vertical feet from the surrounding lowlands—more than Everest climbs above its Tibetan plateau. When the clouds parted on our second morning and I saw the mountain whole against an impossibly blue sky, my breath caught in my chest. That mass of ice and granite, blazing white in the early light, seemed to belong to another world entirely. Our guide mentioned that only thirty percent of summer visitors see the summit clearly. We were among the fortunate, and I found myself grateful for that gift in ways I hadn't expected to feel.</p>
+
+            <p>The park bus rumbled along the unpaved road toward Eielson, dust rising behind us in a brown plume that hung in the still morning air. Mile after mile of tundra stretched toward distant ridges, the landscape painted in rusts and golds of late August. The driver spoke quietly into her microphone, narrating without disturbing, pointing out features most passengers would miss. Then she stopped and cut the engine entirely. Silence poured in through the open windows—absolute, vast, humbling. I could hear my own heartbeat. On a hillside perhaps two hundred yards away, a grizzly sow worked through berry bushes with two cubs tumbling after her in clumsy imitation.</p>
+
+            <p>Through my binoculars I watched her methodical progress, the way she tested each bush, the cubs copying her movements with earnest incompetence. She knew we were there—you don't survive this wilderness without constant awareness—but we were simply part of her landscape, no more concerning than the ravens circling overhead in lazy spirals. We watched for twenty minutes before she ambled over the ridge and disappeared into terrain that would take humans hours to cross. Nobody on the bus spoke for a long moment afterward. The silence felt appropriate, even necessary.</p>
+
+            <p>Wildlife encounters accumulated throughout our days in the park: a bull moose browsing willows near Wonder Lake, his antlers still velvet-covered and impossibly massive; Dall sheep picking their way across a rocky slope with improbable grace; caribou moving through the tundra in small groups, their migration carrying ancient patterns forward. We never saw wolves, though our driver pointed to fresh tracks in a muddy stretch of road. "They're here," she said, her voice carrying something like reverence. "They're always here. But they show themselves when they choose to be seen." Something in that felt profoundly right—this was wilderness on wilderness terms, not a zoo with larger enclosures.</p>
+
+            <p>One evening I walked alone from our lodge to a viewpoint overlooking the Nenana River. The water ran gray with glacial flour, its roar filling the valley with a sound like continuous distant thunder. The air smelled of spruce and approaching rain, clean and sharp in my lungs after days of breathing recycled ship air. A bald eagle worked upstream, hunting for salmon, and I stood watching until the light failed and the first stars appeared above the ridgeline. My wife found me there an hour later, still standing, still watching the darkness deepen. "It's different here," was all the explanation offered. "Everything feels more itself, more present." She took my hand and we walked back together through the gathering night.</p>
+
+            <p>The return journey south offered different perspectives—the same mountains from new angles, the Alaska Range fading behind us as we approached Talkeetna. The coffee tasted different now, the simple sweetness of wild blueberry jam on sourdough from the dining car. Small pleasures felt amplified after days of confronting the enormous. Looking back now, months later, I understand that Denali gives you exactly what you need, though rarely what you expect. The mountain may hide behind clouds for your entire visit. The wolves may stay in shadow. But the scale of this place, the patient wildness of it, works on you in ways that don't fully register until you're home again, surrounded by the small and the managed and the tame.</p>
+
+            <p><strong>The moment that stays with me:</strong> Standing at that viewpoint as darkness fell, tears unexpected on my cheeks, my heart swelling with something I couldn't name. Not joy exactly, not sadness—something larger than either. The recognition that wilderness still exists, that some places remain genuinely wild despite our best efforts to categorize and control them. That grizzly sow will be working those berry bushes long after I'm gone, teaching new cubs the ancient rhythms of survival. My wife still has the autumn tundra as her phone background. When I see it, I smell spruce and glacial air, and something in me settles toward stillness, grateful for the privilege of having witnessed what endures.</p>
+
+            <p class="author-note"><em>Reflections are my own; I'm charting soundings in another's wake. Alaska cruisetour extension, August 2024.</em></p>
           </div>
+        </details>
 
-          <section class="logbook-entry">
-            <div class="logbook-entry__header">
-              <span class="logbook-entry__icon">📔</span>
-              <h2>From the Logbook</h2>
-            </div>
-            <div class="logbook-entry__content">
-              <p>
-                The Athabaskan people called it Denali—"The High One"—and at
-                20,310 feet, it's the highest peak in North America. But height
-                is less impressive than what they call "base-to-summit rise":
-                Denali climbs nearly 18,000 vertical feet from the surrounding
-                lowlands, more than Everest rises above its plateau. When the
-                clouds finally parted and I saw it whole, that impossible
-                presence against the sky, I understood why climbers die trying.
-              </p>
-              <p class="logbook-entry__highlight">
-                On the park road, we stopped for a grizzly sow with two cubs,
-                working a hillside for berries with the intensity of an
-                accountant at tax time. She knew we were there—you don't
-                survive this wilderness by being unaware—but she didn't care.
-                We were in her office, and she had work to do.
-              </p>
-            </div>
-          </section>
+        <!-- Cruise Port Section -->
+        <details class="port-section cruise-port" open>
+          <summary><h2>The Cruise Port</h2></summary>
+          <div class="cruise-port-content">
+            <p>Denali National Park has become one of Alaska's most popular cruise additions, offering a land-based wilderness experience that complements the coastal scenery of Inside Passage voyages. Major cruise lines partner with lodges and transportation providers to create seamless "cruisetour" packages that handle all logistics from ship to park. These extensions typically add two to four nights to your Alaska itinerary, positioning either before your cruise departs or after it concludes in Whittier or Seward.</p>
 
-          <section class="port-section" id="overview">
-            <h2>Denali Overview</h2>
-            <p>
-              Denali National Park protects over 6 million acres of Alaska's
-              interior—larger than Massachusetts. The mountain itself is the
-              centerpiece, but most visitors come for wildlife and wilderness.
-              The park's single road limits access, preserving the wildness
-              that makes Denali unique.
-            </p>
-            <h3>The Mountain</h3>
-            <p>
-              Denali is visible only about 30% of summer days—clouds frequently
-              obscure the summit. Clear views are treasured, not expected. The
-              best viewing window is typically early morning before clouds
-              build.
-            </p>
-          </section>
+            <p>The park protects over six million acres of Alaskan interior wilderness—larger than the state of Massachusetts. Unlike cruise ports where you manage your own exploration, Denali requires structured access through the park bus system. Private vehicles can travel only the first fifteen miles of the ninety-two-mile park road; beyond that point, authorized buses provide the only transportation deeper into the wilderness. This restriction preserves the wild character that makes Denali unique and ensures wildlife encounters happen on nature's terms rather than through windshield tourism. Most visitors spend full days on these buses, and the experience is transformative despite the long hours.</p>
 
-          <section class="port-section" id="access">
-            <h2>Cruise Extension Access</h2>
-            <h3>Cruisetours</h3>
-            <p>
-              Major cruise lines offer "cruisetour" packages combining an
-              Alaska cruise with land extension to Denali. These include:
-            </p>
-            <ul>
-              <li><strong>Pre-Cruise</strong>: Fly to Anchorage or Fairbanks, tour Denali, then travel to Whittier or Seward to join the ship.</li>
-              <li><strong>Post-Cruise</strong>: Disembark in Whittier or Seward, tour Denali, fly home from Anchorage or Fairbanks.</li>
-            </ul>
-            <h3>Transportation</h3>
-            <ul>
-              <li><strong>Alaska Railroad</strong>: Scenic train from Anchorage to Denali (8+ hours). Dome cars offer panoramic views.</li>
-              <li><strong>Motorcoach</strong>: Faster but less scenic (5 hours from Anchorage).</li>
-              <li><strong>Driving</strong>: Highway 3 (Parks Highway) connects Anchorage to Denali.</li>
-            </ul>
-          </section>
-
-          <section class="port-section" id="wildlife">
-            <h2>Wildlife: The Big 5</h2>
-            <p>
-              Denali visitors seek the "Big 5"—the iconic Alaskan megafauna:
-            </p>
-            <ul>
-              <li><strong>Grizzly Bear</strong>: Common. Often seen on hillsides or along rivers. Keep distance (300 yards required).</li>
-              <li><strong>Moose</strong>: Largest deer species. Look near water and willows.</li>
-              <li><strong>Caribou</strong>: Denali herd numbers fluctuate. Check current conditions.</li>
-              <li><strong>Dall Sheep</strong>: White-coated. Look on high rocky slopes.</li>
-              <li><strong>Wolf</strong>: Rare but present. Most visitors don't see them.</li>
-            </ul>
-            <h3>Best Viewing</h3>
-            <p>
-              The park road is designed for wildlife viewing. Tour buses stop
-              for sightings. Bring binoculars—animals may be distant. Early
-              morning and evening offer best activity.
-            </p>
-          </section>
-
-          <section class="port-section" id="park-road">
-            <h2>The Park Road</h2>
-            <p>
-              Only the first 15 miles of Denali's 92-mile road are open to
-              private vehicles. Beyond that, visitors must use park buses.
-            </p>
-            <h3>Bus Options</h3>
-            <ul>
-              <li><strong>Transit Buses</strong>: Drop passengers at stops for hiking. Cheaper, more flexibility.</li>
-              <li><strong>Narrated Tours</strong>: Guided experience, no hopping on/off. Good for wildlife focus.</li>
-              <li><strong>Tundra Wilderness Tour</strong>: 6-8 hours to Toklat River (mile 53). Most popular.</li>
-              <li><strong>Eielson Visitor Center</strong>: 8+ hours to mile 66. Best Denali mountain views.</li>
-              <li><strong>Kantishna</strong>: Full day (11+ hours) to road's end.</li>
-            </ul>
-            <h3>Road Conditions</h3>
-            <p>
-              Unpaved beyond mile 15. Dusty, bumpy, slow. This is intentional—
-              it keeps the wilderness wild. Bus trips are long but the
-              experience is worth the time investment.
-            </p>
-          </section>
-
-          <section class="port-section" id="practical">
-            <h2>Practical Information</h2>
-            <h3>Best Time</h3>
-            <p>Late June through August. September offers fall colors and fewer crowds but services start closing.</p>
-            <h3>What to Bring</h3>
-            <ul>
-              <li>Binoculars (essential)</li>
-              <li>Layers—temperatures vary dramatically</li>
-              <li>Rain gear</li>
-              <li>Camera with zoom lens</li>
-              <li>Snacks for long bus rides</li>
-            </ul>
-            <h3>Accommodation</h3>
-            <p>
-              Cruise tour packages include lodges near the park entrance or
-              along the Parks Highway. Options range from rustic to luxury.
-              Book early—summer fills months in advance.
-            </p>
-          </section>
-
-          <section class="port-section" id="map">
-            <h2>Location Map</h2>
-            <div id="port-map" class="port-map" style="height: 400px"></div>
-          </section>
-
-          <section class="port-section" id="faq">
-            <h2>FAQs</h2>
-            <div class="faq-list">
-              <details class="faq-item"><summary>Will I see Denali (the mountain)?</summary><p>Maybe. Clouds obscure the summit about 70% of summer days. Clear views are a gift, not a guarantee. The wildlife and wilderness experience is rewarding regardless.</p></details>
-              <details class="faq-item"><summary>How many days should I add?</summary><p>Cruisetours typically add 2-4 days. Minimum 2 nights to experience one full park day. More time allows deeper exploration.</p></details>
-              <details class="faq-item"><summary>Is the long bus ride worth it?</summary><p>Yes. The wildlife viewing, landscape, and experience of accessing true wilderness justify the time. Shorter tours exist but miss the best wildlife areas.</p></details>
-            </div>
-          </section>
-
-          <section class="disclaimers">
-            <p class="disclaimer"><strong>Author's Note:</strong> Denali rewards patience. Weather changes. Wildlife appears on its own schedule. The mountain reveals itself when it chooses. This is wilderness on wilderness terms.</p>
-          </section>
-        </article>
-
-        <aside class="port-rail">
-          <div class="rail-section quick-answer">
-            <h3>Quick Answer</h3>
-            <p>Add Denali to your Alaska cruise for North America's highest peak, the Big 5 wildlife, and genuine wilderness. Bus tours into the park are essential. The mountain may hide, but the experience never disappoints.</p>
+            <p><strong>Stamina level: moderate.</strong> Bus tours into the park run six to eleven hours with limited restroom stops. Lodge facilities handle physical needs between park days, but be prepared for long periods of sitting, constant wildlife watching, and remote conditions where cell service doesn't exist.</p>
           </div>
-          <div class="rail-section best-for">
-            <h3>Best For</h3>
-            <ul><li>🐻 Wildlife viewing</li><li>🏔️ Mountain scenery</li><li>🌲 True wilderness</li><li>🚂 Scenic train journey</li></ul>
+        </details>
+
+        <!-- Getting Around Section -->
+        <details class="port-section getting-around" open>
+          <summary><h2>Getting to Denali</h2></summary>
+          <div class="getting-around-content">
+            <p>Most cruisetour guests travel from either Whittier or Seward (the primary Alaska cruise ports) to Denali via two main options. The <strong>Alaska Railroad</strong> offers the scenic route—an eight-hour journey through mountain passes and river valleys with dome cars providing panoramic views of terrain inaccessible by road. The train runs from Anchorage to Denali station, with connections from cruise ports adding transit time. <strong>Motorcoach service</strong> covers the same route faster (roughly five hours from Anchorage) but trades scenery for efficiency and predictable scheduling.</p>
+
+            <p>Within the park area, shuttle buses connect lodges to the park entrance and visitor center throughout the day. Walking paths near the lodges allow independent exploration without transportation—several miles of trails wind through boreal forest and along river valleys. For those extending beyond cruisetour packages, rental cars from Anchorage or Fairbanks provide flexibility for exploring the Parks Highway corridor, but remember: you cannot drive past mile fifteen in the park itself regardless of vehicle type.</p>
+
+            <p><strong>Accessibility:</strong> Travelers with mobility needs should note that park buses can accommodate wheelchairs with advance notice required during booking. Lodge accessibility varies significantly—confirm specific requirements when making reservations. The main visitor center at mile 1.5 offers fully accessible facilities, ranger programs, and exhibits. Remote wilderness areas present inherent challenges; discuss limitations with tour operators before booking specialized excursions.</p>
           </div>
-          <div class="rail-section key-facts">
-            <h3>Key Facts</h3>
-            <dl><dt>Peak Height</dt><dd>20,310 ft / 6,190m</dd><dt>Park Size</dt><dd>6 million acres</dd><dt>From Anchorage</dt><dd>5 hours drive</dd><dt>Season</dt><dd>May-September</dd></dl>
+        </details>
+
+        <!-- Port Map Section -->
+        <section class="port-section map">
+          <h2>Denali Map</h2>
+          <div id="port-map" style="height: 400px; border-radius: 8px"></div>
+          <p class="map-note">Denali peak, park entrance, and Anchorage connection marked.</p>
+        </section>
+
+        <!-- Excursions Section -->
+        <details class="port-section excursions" open>
+          <summary><h2>Tours and Excursions</h2></summary>
+          <div class="excursions-content">
+            <p>Park bus tours form the core Denali experience—there is no substitute for spending hours on the wilderness road watching for wildlife and absorbing the scale of this landscape. You can book through your <strong>ship excursion</strong> desk as part of cruisetour packages, or arrange <strong>independent</strong> bookings directly through the National Park Service reservation system. For ship-booked options, you're <strong>guaranteed return</strong> to your lodge and all logistics are handled by the cruise line's partners. Independent travelers should <strong>book ahead</strong>—summer bus seats sell out months in advance, especially for longer routes to Eielson and Kantishna.</p>
+
+            <h3>Tundra Wilderness Tour</h3>
+            <p>The most popular option for cruisetour visitors. This narrated bus travels to Toklat River at mile 53, covering prime wildlife habitat in six to eight hours round trip. Professional driver-naturalists provide interpretation throughout, stopping for wildlife sightings and photo opportunities. You'll traverse multiple ecosystems from boreal forest to high tundra, with excellent chances for grizzly bear and moose sightings. Cost $100-140 depending on season and booking method. Low stamina requirement—seated throughout with rest stops. Accessible buses available with advance request.</p>
+
+            <h3>Eielson Visitor Center Tour</h3>
+            <p>Extends deeper into the park to mile 66, adding superior mountain views when weather cooperates. On clear days, Denali itself dominates the horizon from Eielson's viewing deck. Plan eight or more hours for this route, which covers the same wildlife-rich terrain as the Tundra tour plus additional alpine territory. Cost $130-170. The visitor center offers exhibits, ranger programs, and restroom facilities. Moderate stamina—longer duration requires patience. Book ahead essential—limited daily capacity.</p>
+
+            <h3>Kantishna Full-Day Experience</h3>
+            <p>For visitors with time and stamina, the full ninety-two miles to road's end at Kantishna offers the complete Denali immersion. Eleven or more hours of wilderness travel, crossing Wonder Lake with its famous Denali reflections (weather permitting), accessing the park's most remote sections. Cost $190-230. Includes lunch. This tour works best for overnight cruisetour packages with multiple park days. Book ahead months in advance—very limited capacity.</p>
+
+            <h3>Flightseeing Tours</h3>
+            <p>When weather cooperates, small aircraft tours offer perspectives impossible from the ground. Flights circle Denali itself, often landing on Ruth Glacier for a brief walk on the ice field. Spectacular views of the mountain's massive scale and the surrounding Alaska Range. Tours operate from Talkeetna, requiring ground transportation from Denali lodges (often included in package). Cost $300-500 per person depending on flight length. Weather dependent—cancellations happen frequently. Book ahead but expect flexibility. Low stamina. Accessibility limited by aircraft type.</p>
+
+            <h3>Nenana River Rafting</h3>
+            <p>The Nenana River provides excellent rafting options near the park entrance. Choose gentle scenic floats ($90-110) for families and those wanting relaxed river time, or Class III-IV whitewater adventures ($120-150) for more excitement. Most trips run two to four hours from put-ins near the park entrance area. These work perfectly as second-day activities after completing a full park bus tour. Go independent—multiple outfitters operate in the area. Moderate stamina for whitewater; low for scenic floats. Some accessibility accommodations available on scenic trips.</p>
+
+            <h3>Lodge-Based Activities</h3>
+            <p>Cruisetour lodges offer various on-site activities: naturalist presentations, sled dog demonstrations, gold panning, nature walks, and evening programs. Most are included in package pricing or available for modest fees ($20-50). These provide excellent options for partial days or for visitors who prefer less intensive scheduling. Go independent at lodge facilities. Low stamina. Accessibility varies by activity.</p>
           </div>
-          <div class="rail-section nearby-ports">
-            <h3>Connecting Ports</h3>
-            <ul><li><a href="/ports/whittier">Whittier</a></li><li><a href="/ports/seward">Seward</a></li><li><a href="/ports/anchorage">Anchorage</a></li></ul>
+        </details>
+
+        <!-- Depth Soundings Section -->
+        <details class="port-section depth-soundings" open>
+          <summary><h2>Depth Soundings</h2></summary>
+          <div class="depth-soundings-content">
+            <p><strong>The mountain's challenge:</strong> Denali has claimed over 100 mountaineering lives since records began—the peak's Arctic latitude creates conditions more severe than higher mountains at lower latitudes. Roughly 1,000 climbers attempt the summit annually, with success rates around 50%. The main climbing season runs May through July when weather windows occasionally open. Most climbers spend 17-21 days on the mountain. For cruise visitors, the mountaineering world remains visible only through scope and story.</p>
+
+            <p><strong>The Big Five wildlife:</strong> Grizzly bear, moose, caribou, Dall sheep, and wolf represent Denali's iconic megafauna. Wolves are genuinely rare sightings—consider any wolf encounter exceptional luck. Grizzly and moose appear on most summer bus trips. The park maintains strict distance requirements: 300 yards minimum for bears and wolves, 25 yards for other wildlife. These rules exist for human safety and animal welfare—violations can result in park ejection.</p>
+
+            <p><strong>Indigenous stewardship:</strong> Athabaskan peoples have inhabited the Denali region for over 13,000 years, hunting caribou and living in harmony with the land long before western mapping arrived. The Athabaskan name "Denali" meaning "The High One" was officially restored in 2015, replacing "Mount McKinley" after decades of advocacy by Alaska Native groups and state officials. This restoration honors the mountain's original name and the people who first witnessed its grandeur.</p>
+
+            <p><strong>Preservation legacy:</strong> Charles Sheldon, a naturalist-hunter, advocated tirelessly for Denali's protection in the early 1900s. Mount McKinley National Park was established in 1917, later expanded and renamed Denali National Park and Preserve in 1980. The single-road, bus-only access system—often frustrating to visitors accustomed to national park driving—exists specifically to preserve the wilderness experience Sheldon fought to protect.</p>
           </div>
+        </details>
+
+        <!-- Practical Section -->
+        <details class="port-section practical">
+          <summary><h2>Practical Notes</h2></summary>
+          <div class="practical-content">
+            <ul>
+              <li><strong>Currency:</strong> US Dollar. Credit cards accepted at lodges; limited services in park itself</li>
+              <li><strong>Language:</strong> English throughout</li>
+              <li><strong>Season:</strong> Late May through mid-September. Peak season June-August. September offers fall colors and fewer visitors but reduced services</li>
+              <li><strong>Weather:</strong> Summer temperatures 40-70°F (4-21°C). Rain frequent. Denali creates its own weather—clear mornings often cloud over by afternoon</li>
+              <li><strong>What to Bring:</strong> Binoculars essential. Layered clothing for temperature swings. Rain gear regardless of forecast. Snacks for long bus rides. Camera with zoom lens for distant wildlife</li>
+              <li><strong>Cell Service:</strong> Extremely limited in park. Most areas have no coverage. Plan accordingly for emergency communication</li>
+              <li><strong>Wildlife Safety:</strong> Never approach wildlife. Bears and moose can be dangerous. Follow ranger guidance at all times</li>
+              <li><strong>Booking:</strong> Cruisetour packages typically include lodging, transportation, and one park bus tour. Additional tours require advance booking</li>
+            </ul>
+            <p class="last-reviewed">Last reviewed: January 2026</p>
+          </div>
+        </details>
+
+        <!-- FAQ Section -->
+        <details class="port-section faq">
+          <summary><h2>Frequently Asked Questions</h2></summary>
+          <div class="faq-content">
+            <details class="faq-item">
+              <summary>Will I see Denali mountain on my visit?</summary>
+              <p>Clouds obscure Denali's summit roughly 70% of summer days. Clear views are treasured when they occur but cannot be guaranteed. Many visitors find the wildlife and wilderness experience rewarding regardless of mountain visibility. Early mornings offer the best chance before clouds build. The Eielson tour provides the best vantage point when weather cooperates.</p>
+            </details>
+            <details class="faq-item">
+              <summary>How many nights should I add to my Alaska cruise?</summary>
+              <p>Two nights minimum allows one full day for a park bus tour. Three or four nights permit deeper exploration—multiple bus routes, rafting, or flightseeing additions. Most cruisetour packages offer two to four night options at various price points. Longer stays allow for weather flexibility and deeper immersion.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Is the long bus ride worth it?</summary>
+              <p>Yes. The controlled access preserves authentic wilderness and ensures wildlife encounters happen naturally without vehicle stress on animals. Shorter tours exist but miss prime habitat areas. Most visitors find the time investment rewarded by the depth of experience. Bring books, binoculars, or simply watch the landscape—eight hours passes surprisingly quickly when grizzlies appear.</p>
+            </details>
+            <details class="faq-item">
+              <summary>What wildlife will I definitely see?</summary>
+              <p>Nothing is guaranteed in wild country, but grizzly bears and moose are spotted on most summer bus trips—driver-naturalists know the terrain intimately. Dall sheep appear frequently on rocky slopes. Caribou sightings depend on herd location and seasonal movement patterns. Wolves are present but rarely seen—consider any wolf sighting exceptional fortune.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Can I drive my own vehicle into the park?</summary>
+              <p>Only for the first 15 miles to Savage River checkpoint. Beyond that point, the park road requires authorized bus transportation regardless of vehicle type. This restriction protects wildlife and preserves wilderness character. Some lottery permits allow private vehicles on specific dates in September—check nps.gov/dena for current availability and application windows.</p>
+            </details>
+          </div>
+        </details>
+
+        <!-- Photo Gallery -->
+        <details class="port-section gallery" open>
+          <summary><h2>Gallery</h2></summary>
+          <div class="gallery-grid">
+            <figure>
+              <img src="/images/ports/denali-peak.jpg" alt="Denali summit emerging above cloud layer at sunrise with pink alpenglow" loading="lazy" />
+              <figcaption>The High One Revealed<div class="photo-credit">Photo: <a href="https://www.nps.gov/dena" target="_blank" rel="noopener">NPS / Kent Miller</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/denali-grizzly.jpg" alt="Grizzly bear sow with two cubs foraging on tundra hillside" loading="lazy" />
+              <figcaption>Grizzly Family<div class="photo-credit">Photo: <a href="https://www.nps.gov/dena" target="_blank" rel="noopener">NPS / Tim Rains</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/denali-moose.jpg" alt="Bull moose with velvet-covered antlers browsing willows near Wonder Lake" loading="lazy" />
+              <figcaption>Bull Moose at Wonder Lake<div class="photo-credit">Photo: <a href="https://www.nps.gov/dena" target="_blank" rel="noopener">NPS / Jacob Frank</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/denali-tundra.jpg" alt="Autumn tundra colors stretching toward distant Alaska Range peaks" loading="lazy" />
+              <figcaption>Fall Tundra Colors<div class="photo-credit">Photo: <a href="https://www.nps.gov/dena" target="_blank" rel="noopener">NPS / Emily Mesner</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/denali-railroad.jpg" alt="Alaska Railroad dome car traveling through mountain terrain with passengers viewing scenery" loading="lazy" />
+              <figcaption>Dome Car Experience<div class="photo-credit">Photo: <a href="https://www.alaskarailroad.com" target="_blank" rel="noopener">Alaska Railroad</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/denali-dall-sheep.jpg" alt="White Dall sheep rams on rocky mountain slope above timberline" loading="lazy" />
+              <figcaption>Dall Sheep Rams<div class="photo-credit">Photo: <a href="https://www.nps.gov/dena" target="_blank" rel="noopener">NPS / Kent Miller</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/denali-caribou.jpg" alt="Small caribou herd crossing autumn tundra during seasonal migration" loading="lazy" />
+              <figcaption>Caribou Migration<div class="photo-credit">Photo: <a href="https://www.nps.gov/dena" target="_blank" rel="noopener">NPS / Tim Rains</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/denali-bus.jpg" alt="Green park bus on unpaved wilderness road with Denali visible in distance" loading="lazy" />
+              <figcaption>Park Bus on Wilderness Road<div class="photo-credit">Photo: <a href="https://www.nps.gov/dena" target="_blank" rel="noopener">NPS / Jacob Frank</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/denali-eielson.jpg" alt="Eielson Visitor Center building with Denali peak dominating the background" loading="lazy" />
+              <figcaption>Eielson Visitor Center<div class="photo-credit">Photo: <a href="https://www.nps.gov/dena" target="_blank" rel="noopener">NPS / Emily Mesner</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/denali-river.jpg" alt="Glacial Nenana River flowing through valley with mountains beyond" loading="lazy" />
+              <figcaption>Nenana River Valley<div class="photo-credit">Photo: <a href="https://www.nps.gov/dena" target="_blank" rel="noopener">NPS / Kent Miller</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/denali-wildflowers.jpg" alt="Purple alpine wildflowers blooming on tundra with mountain backdrop" loading="lazy" />
+              <figcaption>Tundra Wildflowers<div class="photo-credit">Photo: <a href="https://www.nps.gov/dena" target="_blank" rel="noopener">NPS / Tim Rains</a></div></figcaption>
+            </figure>
+          </div>
+        </details>
+
+        <!-- Disclaimers -->
+        <aside class="disclaimers">
+          <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+          <p class="author-note"><em>These soundings in another's wake reflect one family's experience. Denali reveals itself on its own terms—weather shifts, wildlife moves, the mountain hides and appears. What remains constant is the scale of this place, the patient wildness that asks nothing of you but attention.</em></p>
         </aside>
-      </div>
+      </article>
+
+      <!-- Rail Sidebar -->
+      <aside class="port-rail">
+        <div class="rail-section">
+          <h3>Quick Answer</h3>
+          <p>North America's highest peak as Alaska cruise land extension. Park buses access wildlife-rich wilderness where grizzlies, moose, and caribou roam. The mountain reveals itself when clouds cooperate—roughly 30% of summer days. Worth every hour on the bus.</p>
+        </div>
+
+        <div class="rail-section">
+          <h3>Best For</h3>
+          <ul>
+            <li>Big Five wildlife</li>
+            <li>Mountain scenery</li>
+            <li>Wilderness immersion</li>
+            <li>Scenic train journey</li>
+            <li>Alaska extension</li>
+          </ul>
+        </div>
+
+        <div class="rail-section">
+          <h3>Key Facts</h3>
+          <ul>
+            <li><strong>Type:</strong> Land Extension</li>
+            <li><strong>Peak Height:</strong> 20,310 ft</li>
+            <li><strong>Park Size:</strong> 6 million acres</li>
+            <li><strong>From Anchorage:</strong> 5 hours</li>
+            <li><strong>Season:</strong> May-September</li>
+          </ul>
+        </div>
+
+        <div class="rail-section">
+          <h3>Related Pages</h3>
+          <ul>
+            <li><a href="/ports/whittier.html">Whittier</a></li>
+            <li><a href="/ports/seward.html">Seward</a></li>
+            <li><a href="/ports/juneau.html">Juneau</a></li>
+          </ul>
+        </div>
+      </aside>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <nav class="footer-nav"><a href="/ports.html">All Ports</a><a href="/tips/">Cruise Tips</a><a href="/about.html">About</a></nav>
-        <p class="copyright">&copy; 2025 In the Wake.</p>
-      </div>
+    <footer>
+      <p>&copy; 2025 In The Wake. All rights reserved.</p>
+      <p class="disclaimer">Not affiliated with any cruise line.</p>
       <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        if (document.getElementById("port-map")) {
-          const map = L.map("port-map").setView([63.5, -150.5], 7);
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {attribution: "&copy; OSM"}).addTo(map);
-          L.marker([63.0692, -151.0063]).addTo(map).bindPopup("<strong>Denali</strong><br>The Peak (20,310ft)");
-          L.marker([63.7333, -148.9167]).addTo(map).bindPopup("<strong>Park Entrance</strong>");
-          L.marker([61.2181, -149.9003]).addTo(map).bindPopup("<strong>Anchorage</strong><br>5 hours");
-        }
+        var map = L.map("port-map").setView([63.1, -150.5], 7);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: "&copy; OpenStreetMap contributors",
+        }).addTo(map);
+        L.marker([63.0692, -151.0063]).addTo(map).bindPopup("Denali Summit (20,310 ft)");
+        L.marker([63.7333, -148.9167]).addTo(map).bindPopup("Park Entrance & Visitor Center");
+        L.marker([61.2181, -149.9003]).addTo(map).bindPopup("Anchorage (5 hours)");
       });
     </script>
   </body>
