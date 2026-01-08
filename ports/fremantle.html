@@ -493,9 +493,9 @@ Soli Deo Gloria
 
       if(totalPages > 1){
         const navHTML = '<div style="display:flex;justify-content:space-between;align-items:center;">' +
-          '<button onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
           '<span class="tiny" style="color:#5a7a8a;">' + (page + 1) + ' / ' + totalPages + '</span>' +
-          '<button onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
         '</div>';
         navTop.innerHTML = navHTML;
         navBottom.innerHTML = navHTML;
