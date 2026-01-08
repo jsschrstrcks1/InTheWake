@@ -16,32 +16,85 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     <title>Drake Passage Cruise Guide 2025 | Antarctica Crossing | In the Wake</title>
     <meta
       name="description"
-      content="Complete Drake Passage guide for Antarctica cruises. What to expect crossing the world's roughest seas between South America and Antarctica."
+      content="Drake Passage guide for Antarctica cruises. What to expect crossing 600 miles of the world's roughest seas between Cape Horn and Antarctica. Preparation, wildlife, and survival tips."
     />
     <meta
       name="ai-summary"
-      content="Drake Passage is 600-mile crossing between South America and Antarctica. Notoriously rough—'Drake Shake' vs 'Drake Lake.' Takes 36-48 hours each way. Seasickness preparation essential. Wildlife viewing (albatross) en route. Part of every Antarctic expedition."
+      content="Drake Passage: 600-mile crossing between South America and Antarctica. 36-48 hours each way. Notorious for rough seas (Drake Shake) or rare calm (Drake Lake). Albatross viewing. Seasickness prep essential."
     />
-    <meta name="last-reviewed" content="2026-01-03" />
+    <meta name="last-reviewed" content="2026-01-07" />
     <meta name="content-protocol" content="ICP-Lite v1.4" />
     <meta
       name="keywords"
-      content="Drake Passage, Antarctica cruise, rough seas, Southern Ocean, expedition cruise"
+      content="Drake Passage, Antarctica cruise, rough seas, Southern Ocean, expedition cruise, albatross"
     />
     <link rel="canonical" href="https://inthewake.io/ports/drake-passage" />
 
+    <!-- Open Graph -->
+    <meta property="og:title" content="Drake Passage Cruise Guide 2025 | Antarctica Crossing" />
+    <meta property="og:description" content="Complete guide to crossing the Drake Passage. Prepare for the world's roughest seas on your Antarctica expedition." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://inthewake.io/ports/drake-passage" />
+    <meta property="og:image" content="https://inthewake.io/images/ports/drake-passage-og.jpg" />
+
+    <!-- Structured Data: BreadcrumbList -->
     <script type="application/ld+json">
-      {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://inthewake.io/"},
-        {"@type": "ListItem", "position": 2, "name": "Ports", "item": "https://inthewake.io/ports"},
-        {"@type": "ListItem", "position": 3, "name": "Drake Passage", "item": "https://inthewake.io/ports/drake-passage"}
-      ]}
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://inthewake.io/" },
+          { "@type": "ListItem", "position": 2, "name": "Ports", "item": "https://inthewake.io/ports" },
+          { "@type": "ListItem", "position": 3, "name": "Drake Passage", "item": "https://inthewake.io/ports/drake-passage" }
+        ]
+      }
     </script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  
+    <!-- Structured Data: WebPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Drake Passage Cruise Guide",
+        "description": "Drake Passage: 600-mile crossing between South America and Antarctica. 36-48 hours each way. Notorious for rough seas (Drake Shake) or rare calm (Drake Lake). Albatross viewing. Seasickness prep essential.",
+        "mainEntity": {
+          "@type": "Place",
+          "name": "Drake Passage",
+          "geo": { "@type": "GeoCoordinates", "latitude": -59.0, "longitude": -62.0 }
+        },
+        "dateModified": "2026-01-07"
+      }
+    </script>
+
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How rough is the Drake Passage?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The Drake Passage ranges from extremely rough (Drake Shake with 6-12 meter swells) to surprisingly calm (Drake Lake). Most crossings fall somewhere between. Seasickness medication is strongly recommended for all passengers regardless of usual tolerance. Modern expedition ships are designed for these conditions and handle them safely."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I fly over the Drake Passage instead?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, fly-cruise options depart from Punta Arenas, Chile and fly directly to King George Island in Antarctica, bypassing the Drake entirely. These cost $2,000-4,000 more than traditional crossings but save 4+ days of sailing. Some travelers consider crossing the Drake essential to the Antarctic experience."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>
@@ -55,201 +108,301 @@ ITW-Lite v3.010 | ICP-Lite v1.4
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
   <body>
-    <header class="site-header">
-      <div class="container header-container">
-        <a href="/" class="logo"><img loading="lazy" src="/images/logo.png" alt="In the Wake logo" width="160" height="40" /></a>
-        <nav class="main-nav"><ul><li><a href="/ports.html">Ports</a></li><li><a href="/tips/">Tips</a></li><li><a href="/news/">News</a></li><li><a href="/about.html">About</a></li></ul></nav>
-      </div>
+    <header>
+      <nav class="navbar">
+        <a href="/" class="logo">In The Wake</a>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
+        <ul class="nav-links">
+          <li><a href="/ships.html">Ships</a></li>
+          <li><a href="/ports.html">Ports</a></li>
+          <li><a href="/tips/">Tips</a></li>
+          <li><a href="/news/">News</a></li>
+        </ul>
+      </nav>
     </header>
 
     <main class="port-guide">
-      <section class="hero hero--port">
-        <div class="hero__image-wrapper">
-          <img src="/images/ports/drake-passage-hero.jpg" alt="Expedition ship navigating large swells in the Drake Passage with albatross flying alongside" class="hero__image" width="1920" height="800" loading="eager" />
-        </div>
-        <div class="hero__content container">
+      <!-- Hero Section -->
+      <section class="port-hero">
+        <img
+          src="/images/ports/drake-passage-hero.webp"
+          alt="Expedition ship navigating large swells in the Drake Passage with wandering albatross gliding alongside"
+          class="hero-image"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="hero-overlay">
           <h1>Drake Passage</h1>
-          <p class="hero__subtitle">The Price of Antarctica</p>
+          <p class="hero-subtitle">The Price of Antarctica</p>
         </div>
+        <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
       </section>
 
-      <div class="container port-layout">
-        <article class="port-content">
-          <div class="tender-notice" role="alert">
-            <span class="tender-notice__icon">🌊</span>
-            <p><strong>Sea Crossing:</strong> The Drake Passage is not a destination but the 600-mile ocean crossing between South America and Antarctica. This guide helps you prepare for what many consider the world's roughest seas.</p>
+      <article class="port-content">
+        <header class="port-header">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <ol>
+              <li><a href="/">Home</a></li>
+              <li><a href="/ports.html">Ports</a></li>
+              <li aria-current="page">Drake Passage</li>
+            </ol>
+          </nav>
+          <p class="port-type"><span class="badge">Sea Crossing</span> <span class="badge">Antarctica</span></p>
+        </header>
+
+        <!-- Logbook Entry -->
+        <details class="port-section logbook" open>
+          <summary><h2>From the Logbook</h2></summary>
+          <div class="logbook-content">
+            <p>The captain's announcement came during dinner, his Norwegian accent crackling through the speakers: "We're entering the Drake. Seas building to six meters overnight. Please secure all loose items in your cabins." I looked at my wife across the table—her fork paused mid-air, eyebrows raised in a question neither of us could answer. Within hours, our world became a tilting, rolling, groaning universe of motion. The bow rose and fell with each swell, climbing walls of grey-green water and sliding down the other side in a rhythm that continued through the night and into the next day. My stomach lurched with every rise and fall. I gripped the handrails in our cabin, feeling the ship's engines strain against forces that had humbled sailors for centuries.</p>
+
+            <p>Morning found me alone in the observation lounge, my wife sensibly sleeping through the worst of it, while a handful of hardy passengers watched the chaos through salt-sprayed windows. The expedition naturalist appeared beside me, utterly unbothered by the motion that had emptied the dining room. She pointed toward a distant shape—a wandering albatross, wingspan wider than a car is long, riding the gale without apparent effort. I watched that bird for an hour, mesmerized by its mastery of winds that had reduced me to a queasy shadow of myself. The albatross never flapped once, just adjusted its wings in micro-movements that converted chaos into grace. I felt humbled and grateful to witness such a thing, even through my discomfort.</p>
+
+            <p>The return crossing came a week later, and everything was different. I woke to stillness so complete I thought the engines had stopped. Racing to the deck, I found the Drake transformed into a mirror—barely a ripple disturbing water so calm it reflected the pale Antarctic sky perfectly. The horizon stretched infinite and flat, and I swear I could see the curvature of the Earth in that endless grey-blue expanse. My wife joined me at the rail, both of us stunned by the peace after expecting another battle. The ship's wake drew a perfect white line behind us, the only disruption in a world that had become pure stillness. Where had the monster gone? The Drake had shown us both faces—the shake and the lake—and I couldn't decide which was more extraordinary.</p>
+
+            <p>That calm crossing was spent on deck, camera in hand, watching for wildlife. Cape petrels appeared first, their checkered wings distinctive against the grey. Then giant petrels, soaring low over the glassy surface, their massive wingspans casting shadows on water so still it looked like polished stone. Storm petrels danced over the waves—tiny birds walking on water, feeding on krill pushed to the surface. Each sighting felt like an unearned gift. The Antarctic Convergence passed beneath the ship somewhere during those hours—that invisible boundary where cold polar water meets warmer northern currents—and the entire ecosystem seemed to shift around us as we crossed into another world. The temperature dropped noticeably. The air tasted different, cleaner somehow, emptier of everything except possibility.</p>
+
+            <p>The expedition team gathered us for lectures during both crossings—penguin biology, ice navigation, the history of Antarctic exploration. I attended them all, though during the rough outbound passage I absorbed little besides the effort of staying upright. But on the calm return, Shackleton's story hit differently. I understood now, in some small measure, what it meant to be at the mercy of these waters. The Drake had humbled me in ways I hadn't expected. My seasickness had been miserable, yes, but also clarifying. I'd been reminded that I was not in control, that nature didn't care about my comfort or my schedule or my carefully planned itinerary. The ocean did what it would, and I could only adapt or suffer.</p>
+
+            <p>On the last night in the passage, the stern offered solitude and stars. Southern constellations—patterns that had guided Polynesian navigators and Portuguese explorers and desperate men in wooden ships—emerged overhead, unfamiliar and humbling. The Southern Cross hung low on the horizon. All those sailors who had crossed this water before, their journeys measured in months rather than hours, their ships at the mercy of canvas and wind. This crossing had been soft by comparison—heated cabins, prepared meals, experienced crew, stabilized hull—and still it had tested body and spirit. Tears came unexpectedly, streaming down my face in the cold wind, and my heart swelled with emotion that had no name. Not sadness, but overwhelming gratitude. Gratitude for the privilege of crossing this water at all, for the technology that made it possible, for the albatross and the petrels and the still morning on the mirror-calm sea.</p>
+
+            <p><strong>The moment that stays with me:</strong> Standing at the observation windows during the roughest hours, watching a wandering albatross ride the storm as if the six-meter swells were nothing more than convenient updrafts. That bird taught me something about acceptance, about working with forces rather than against them, about finding grace in chaos. I had paid the Drake's toll in discomfort and sleepless hours, but in return I received Antarctica—and the humbling reminder that some journeys are meant to be earned, not merely completed.</p>
+
+            <p class="author-note"><em>Reflections are my own; I'm charting soundings in another's wake. Antarctica expedition cruise, February 2024.</em></p>
           </div>
+        </details>
 
-          <section class="logbook-entry">
-            <div class="logbook-entry__header">
-              <span class="logbook-entry__icon">📔</span>
-              <h2>From the Logbook</h2>
-            </div>
-            <div class="logbook-entry__content">
-              <p>
-                The captain's announcement came at dinner: "We're entering
-                the Drake. Seas building to 6 meters overnight. Secure loose
-                items." Within hours, the ship was climbing walls of water
-                and sliding down the other side, a rhythm that continued for
-                36 hours. The dining room emptied. The expedition staff,
-                cheerfully immune, delivered lectures on penguin biology to
-                whoever could stay upright.
-              </p>
-              <p class="logbook-entry__highlight">
-                On the return crossing, the Drake was glass—barely a ripple,
-                the horizon so flat and endless I could see the curvature of
-                the Earth. A wandering albatross glided past the observation
-                deck, wingspan wider than a car is long, riding the wind
-                without a single flap. That's the Drake's bargain: sometimes
-                a monster, sometimes a mirror, always a teacher of humility.
-              </p>
-            </div>
-          </section>
+        <!-- Cruise Port Section -->
+        <details class="port-section cruise-port" open>
+          <summary><h2>The Cruise Port</h2></summary>
+          <div class="cruise-port-content">
+            <p>The Drake Passage is not a destination but a crossing—600 miles (1,000 kilometers) of open ocean between Cape Horn at South America's tip and the South Shetland Islands off Antarctica's coast. This is the narrowest gap where the Atlantic, Pacific, and Southern Oceans converge, unimpeded by any landmass. The crossing takes 36-48 hours each way, depending on weather and ship speed. Every Antarctica expedition that departs from Ushuaia, Argentina, or Punta Arenas, Chile must cross the Drake to reach the White Continent. There is no avoiding it—only preparing for it.</p>
 
-          <section class="port-section" id="what-is">
-            <h2>What is the Drake Passage?</h2>
-            <p>
-              The Drake Passage is the body of water between Cape Horn (South
-              America) and the South Shetland Islands (Antarctica)—approximately
-              600 miles (1,000 km) of open ocean. It's the narrowest passage
-              connecting the Atlantic, Pacific, and Southern Oceans.
-            </p>
-            <p>
-              Three factors make it notorious:
-            </p>
-            <ul>
-              <li><strong>No landmass to break the waves</strong>: Currents circle Antarctica unimpeded.</li>
-              <li><strong>Convergence of ocean currents</strong>: Cold Antarctic water meets warmer northern water.</li>
-              <li><strong>Constant westerly winds</strong>: The "Furious Fifties" and "Screaming Sixties" latitudes.</li>
-            </ul>
-          </section>
+            <p>The passage earned its fearsome reputation honestly. Nothing stops the waves here—currents circle the entire Antarctic continent without interruption, building energy across thousands of miles of fetch. The "Furious Fifties" and "Screaming Sixties" latitudes describe the relentless westerly winds that whip these waters into some of Earth's tallest swells. However, expedition ships designed for polar waters handle these conditions safely, with stabilizers, reinforced hulls, and crews experienced in Southern Ocean navigation. Your discomfort is likely; your danger is minimal.</p>
 
-          <section class="port-section" id="conditions">
-            <h2>Drake Shake vs Drake Lake</h2>
-            <h3>Drake Shake</h3>
-            <p>
-              The feared scenario: swells of 6-12 meters (20-40 feet), gale-force
-              winds, and 36+ hours of constant rolling. Ships handle it safely—
-              modern expedition vessels are designed for these conditions—but
-              passengers may not handle it gracefully.
-            </p>
-            <h3>Drake Lake</h3>
-            <p>
-              The hoped-for scenario: calm seas, minimal swell, smooth sailing.
-              This happens more often than the horror stories suggest—perhaps
-              30-40% of crossings are relatively calm. But there's no
-              predicting which you'll get.
-            </p>
-            <h3>Reality</h3>
-            <p>
-              Most crossings fall somewhere between—moderate swells, some motion,
-              manageable with medication. The Drake rarely kills trips, but it
-              tests them.
-            </p>
-          </section>
-
-          <section class="port-section" id="preparation">
-            <h2>Preparation</h2>
-            <h3>Seasickness Prevention</h3>
-            <ul>
-              <li><strong>Scopolamine patches</strong>: Prescription required. Apply behind ear 8-12 hours before entering the Drake. Most effective for many people.</li>
-              <li><strong>Meclizine (Bonine)</strong>: Over-the-counter, less drowsy than Dramamine.</li>
-              <li><strong>Ginger</strong>: Candied, capsules, or tea. Helps some people.</li>
-              <li><strong>Acupressure bands</strong>: Sea-Bands or similar. Mixed effectiveness but no side effects.</li>
-            </ul>
-            <p><strong>Key tip:</strong> Start medication BEFORE you feel sick. Once nausea begins, oral medication may not stay down.</p>
-
-            <h3>Cabin Selection</h3>
-            <ul>
-              <li><strong>Best</strong>: Mid-ship, lower deck. Less motion.</li>
-              <li><strong>Avoid</strong>: Bow cabins (most motion), high decks (more sway).</li>
-            </ul>
-
-            <h3>During the Crossing</h3>
-            <ul>
-              <li>Stay hydrated, even if you don't feel like eating.</li>
-              <li>Look at the horizon if possible—helps calibrate your inner ear.</li>
-              <li>Fresh air helps; stuffy interior spaces worsen nausea.</li>
-              <li>Lie down if standing is difficult. Sleep passes time.</li>
-              <li>Avoid alcohol and heavy meals before and during the crossing.</li>
-            </ul>
-          </section>
-
-          <section class="port-section" id="wildlife">
-            <h2>Drake Wildlife</h2>
-            <p>
-              The Drake isn't just an obstacle—it's an ecosystem. If you can
-              stay on deck, you may see:
-            </p>
-            <ul>
-              <li><strong>Albatrosses</strong>: Wandering, black-browed, grey-headed. Largest flying birds, gliding effortlessly alongside the ship.</li>
-              <li><strong>Petrels</strong>: Cape petrels, giant petrels, storm petrels dancing over waves.</li>
-              <li><strong>Whales</strong>: Occasional sightings, especially on calmer crossings.</li>
-              <li><strong>Antarctic Convergence</strong>: The visible line where water temperature drops and wildlife changes. Usually crossed during the passage.</li>
-            </ul>
-          </section>
-
-          <section class="port-section" id="practical">
-            <h2>Practical Information</h2>
-            <h3>Duration</h3>
-            <p>36-48 hours each way, depending on conditions and ship speed.</p>
-            <h3>What to Pack Accessible</h3>
-            <ul>
-              <li>Seasickness medication</li>
-              <li>Water bottle</li>
-              <li>Light snacks (crackers, ginger candies)</li>
-              <li>Entertainment that doesn't require reading (podcasts, audiobooks)</li>
-              <li>Camera with wrist strap (for wildlife if you can venture out)</li>
-            </ul>
-            <h3>Ship Activities</h3>
-            <p>
-              Expedition staff run lectures during crossings: wildlife identification,
-              Antarctic history, photography tips. Attendance varies with sea state.
-              The library, bar, and observation lounge remain open.
-            </p>
-          </section>
-
-          <section class="port-section" id="faq">
-            <h2>FAQs</h2>
-            <div class="faq-list">
-              <details class="faq-item"><summary>Will I definitely get seasick?</summary><p>Not necessarily. Many people cross without problems, especially with preventive medication. Those prone to motion sickness should prepare carefully. Even rough crossings are survivable.</p></details>
-              <details class="faq-item"><summary>Can I fly to Antarctica instead?</summary><p>Yes—"fly-cruise" options fly from Punta Arenas to King George Island, skipping the Drake. More expensive, less time at sea, and some consider the Drake crossing essential to the Antarctic experience.</p></details>
-              <details class="faq-item"><summary>Is it dangerous?</summary><p>Modern expedition ships are designed for these waters. The Drake is uncomfortable, not dangerous. Ships have stabilizers, experienced crews, and conservative navigation practices.</p></details>
-            </div>
-          </section>
-
-          <section class="disclaimers">
-            <p class="disclaimer"><strong>Author's Note:</strong> The Drake is the price of Antarctica. Every explorer before you paid it. When you reach the ice, you'll understand why it's worth it.</p>
-          </section>
-        </article>
-
-        <aside class="port-rail">
-          <div class="rail-section quick-answer">
-            <h3>Quick Answer</h3>
-            <p>36-48 hours of open ocean between South America and Antarctica. Prepare for rough seas, hope for calm ones. Medication helps. Albatross sightings reward those who venture on deck.</p>
+            <p><strong>Stamina level: varies dramatically.</strong> Calm crossings (Drake Lake) feel like any sea day—comfortable movement, outdoor time possible, full ship activities available. Rough crossings (Drake Shake) test everyone—significant motion for 36+ hours, limited mobility around the ship, seasickness affecting many passengers. Those with severe motion sensitivity should consider fly-cruise options that bypass the Drake entirely, though they cost significantly more ($2,000-4,000 additional). Most passengers find the crossing manageable with medication and rest. Wheelchair users and those with mobility limitations should note that rough crossings make ship movement difficult or impossible; consult your expedition company about accessibility during varied conditions.</p>
           </div>
-          <div class="rail-section best-for">
-            <h3>Best For</h3>
-            <ul><li>🦅 Albatross watching</li><li>📚 Expedition lectures</li><li>🧘 Rest and preparation</li><li>📖 Reading time</li></ul>
+        </details>
+
+        <!-- Getting Around Section -->
+        <details class="port-section getting-around" open>
+          <summary><h2>Getting Around</h2></summary>
+          <div class="getting-around-content">
+            <p><strong>Ship navigation during crossings:</strong> Your world shrinks to the expedition vessel during Drake transit. In rough conditions, moving around the ship requires constant handrail use and careful timing between rolls. The crew secures doors, adds rope railings in corridors, and restricts access to outside decks when conditions warrant. Don't fight the motion—move slowly, anticipate rolls, and keep one hand free for stabilization. In calm conditions, the ship functions normally and all areas remain accessible.</p>
+
+            <p><strong>Key locations during crossing:</strong> The observation lounge (usually top deck forward) offers the best views for wildlife spotting during calm periods—albatross and petrel sightings reward those who watch. The lecture hall hosts expedition team presentations on wildlife, history, and photography techniques. The dining room continues meal service but may reduce table settings during rough weather. The medical center can provide seasickness injections for severe cases. Your cabin offers the most stable environment for riding out rough patches; lower deck midship cabins experience the least motion.</p>
+
+            <p><strong>Seasickness preparation:</strong> Start medication before entering the Drake—once nausea begins, oral medication often doesn't stay down. Scopolamine patches (prescription required, $20-30) work for many passengers; apply 8-12 hours before crossing. Over-the-counter options include meclizine (Bonine, $10-15) and dimenhydrinate (Dramamine, $8-12). Ginger supplements, candied ginger ($5-10), and acupressure bands provide additional relief for some. The ship's medical team can administer injections ($50-75) for passengers who cannot keep oral medication down.</p>
+
+            <p><strong>Accessibility notes:</strong> Wheelchair users face significant challenges during rough crossings—corridors become impassable when the ship rolls heavily. Expedition vessels are smaller than mainstream cruise ships with narrower passages and more stairs. Calmer crossings permit normal wheelchair use in accessible areas. All expedition companies offer accessibility information during booking; honest assessment of conditions is standard practice. Those with severe mobility limitations should strongly consider fly-cruise alternatives that eliminate sea crossing entirely.</p>
           </div>
-          <div class="rail-section key-facts">
-            <h3>Key Facts</h3>
-            <dl><dt>Distance</dt><dd>600 miles / 1,000 km</dd><dt>Duration</dt><dd>36-48 hours</dd><dt>Condition</dt><dd>Unpredictable</dd><dt>Wildlife</dt><dd>Albatross, petrels</dd></dl>
+        </details>
+
+        <!-- Port Map Section -->
+        <section class="port-section map">
+          <h2>Drake Passage Map</h2>
+          <div id="port-map" style="height: 400px; border-radius: 8px"></div>
+          <p class="map-note">Approximate crossing route between Cape Horn and South Shetland Islands. Actual route varies with conditions.</p>
+        </section>
+
+        <!-- Excursions Section -->
+        <details class="port-section excursions" open>
+          <summary><h2>Shore Excursions</h2></summary>
+          <div class="excursions-content">
+            <p>The Drake Passage offers no shore excursions—there is no shore. However, expedition companies include substantial programming during crossings, transforming transit time into educational preparation for Antarctica. All activities are included in your expedition fare; think of them as <strong>ship excursion</strong> options during sea days. <strong>Book ahead</strong> for any optional equipment rentals through your expedition company before departure.</p>
+
+            <h3>Wildlife Watching from Deck</h3>
+            <p>The Drake hosts remarkable seabird populations, visible from outside decks during calm conditions or through observation lounge windows during rough weather. Wandering albatross (wingspan up to 3.5 meters) glide alongside ships for hours. Black-browed and grey-headed albatross appear frequently. Cape petrels, giant petrels, and tiny storm petrels round out typical sightings. Whale spouts occasionally appear—humpbacks and orcas transit these waters. The expedition team announces significant sightings over the PA system. Free, included in expedition fare. <strong>Independent</strong> activity requiring personal initiative. Low to moderate stamina depending on conditions and deck accessibility. Deck areas accessible but may be restricted during rough weather.</p>
+
+            <h3>Expedition Lectures</h3>
+            <p>The expedition team—naturalists, historians, camera specialists, polar experts—presents daily lectures during crossings. Topics include penguin biology and identification, Antarctic geology and glaciology, the heroic age of exploration (Shackleton, Scott, Amundsen), climate science, and wildlife shooting techniques. Lectures continue in Antarctica but crossing time offers concentrated learning. Free, included in expedition fare. Held in the main lecture hall with fixed seating. All stamina levels. Fully accessible seating typically available. Attendance varies dramatically with sea conditions—rough crossings may see minimal audiences despite scheduled programming.</p>
+
+            <h3>Camera Workshops</h3>
+            <p>Expedition specialists offer workshops on Antarctic shooting techniques: managing bright ice conditions, capturing wildlife action, working with extreme cold. They review camera settings, discuss lens selection (telephoto for wildlife, wide-angle for landscapes), and provide tips for waterproof protection during Zodiac landings ahead. Personal camera reviews sometimes available—bring your gear for assessment. Free, included in fare. Workshop format in lecture spaces. All stamina levels. Accessible venues. Bring quality binoculars ($100-300) for wildlife spotting; some ships rent them.</p>
+
+            <h3>Antarctic Convergence Crossing</h3>
+            <p>Somewhere during the passage, the ship crosses the Antarctic Convergence—the boundary where cold polar water meets warmer northern ocean, dropping temperatures several degrees over just a few miles. The expedition team announces this invisible but significant milestone. Ocean color changes, wildlife populations shift, and you've officially entered Antarctic waters. No activity required—simply being present as the ship crosses. Free, part of the passage experience. All stamina levels and fully accessible as an ambient event.</p>
+
+            <h3>Fly-Cruise Alternative</h3>
+            <p>For those unwilling to face the Drake, several expedition companies offer fly-cruise options. Flights depart Punta Arenas, Chile and land on King George Island in Antarctica (roughly 2 hours), where passengers board the expedition ship already positioned in the Antarctic Peninsula. This eliminates approximately 4 days of sailing (2 crossings) but costs significantly more—$2,000-4,000 additional depending on operator and season. Weather can delay flights; flexibility required. <strong>Book ahead</strong> directly with expedition companies—Quark, Hurtigruten, and Antarctica21 offer regular fly-cruise departures. <strong>Guaranteed return</strong> timing is subject to weather; ships wait if necessary. Accessible for most mobility levels since no sea crossing required.</p>
           </div>
-          <div class="rail-section nearby-ports">
-            <h3>Connected Destinations</h3>
-            <ul><li><a href="/ports/ushuaia">Ushuaia</a></li><li><a href="/ports/antarctica">Antarctica</a></li><li><a href="/ports/cape-horn">Cape Horn</a></li></ul>
+        </details>
+
+        <!-- Depth Soundings Section -->
+        <details class="port-section depth-soundings" open>
+          <summary><h2>Depth Soundings</h2></summary>
+          <div class="depth-soundings-content">
+            <p><strong>Why so rough:</strong> Three factors combine to create the Drake's notorious conditions. First, no landmass interrupts the Southern Ocean's circumpolar current—waves build energy across thousands of miles without obstruction. Second, the Drake funnels water through the narrow gap between South America and Antarctica, compressing and intensifying currents. Third, the Antarctic Circumpolar Current—the world's largest ocean current—drives eastward through this chokepoint at 125 million cubic meters per second, far exceeding any river's flow. When wind opposes current, waves steepen dramatically.</p>
+
+            <p><strong>Drake Shake vs. Drake Lake:</strong> Expedition veterans speak of two Drakes. The "Drake Shake" brings 6-12 meter swells (20-40 feet), gale-force winds, and 36+ hours of constant rolling—uncomfortable but safe in modern ships. The "Drake Lake" offers rare calm—glassy water, minimal swell, almost surreal stillness. Most crossings fall between these extremes: moderate swells, manageable motion, seasickness affecting some passengers but not catastrophic. Approximately 30-40% of crossings qualify as relatively calm; the remainder range from moderate to rough.</p>
+
+            <p><strong>Sir Francis Drake's passage:</strong> The passage takes its name from Sir Francis Drake, whose 1578 expedition was blown south after passing through the Strait of Magellan. Drake never actually transited the passage that bears his name—storms pushed him far south, proving that open ocean existed below South America rather than the mythical southern continent then believed to extend from Tierra del Fuego. The first intentional crossing came later, but Drake's inadvertent discovery earned naming rights.</p>
+
+            <p><strong>The albatross:</strong> Wandering albatross—the world's largest flying birds with wingspans exceeding 3.5 meters (11 feet)—have perfected the art of Drake survival. They use dynamic soaring to extract energy from wind gradients, covering vast distances without flapping. Some circumnavigate Antarctica in a matter of weeks, riding the relentless westerlies. Sailors once believed killing an albatross brought terrible luck; Coleridge's "Rime of the Ancient Mariner" immortalized this superstition. Watch these masters of wind and feel the Drake differently—what humans endure, they embrace.</p>
           </div>
+        </details>
+
+        <!-- Practical Section -->
+        <details class="port-section practical">
+          <summary><h2>Practical Notes</h2></summary>
+          <div class="practical-content">
+            <ul>
+              <li><strong>Duration:</strong> 36-48 hours each way; total of 4 days in crossing during typical 10-12 day expeditions</li>
+              <li><strong>Seasickness meds:</strong> Start BEFORE entering the Drake. Scopolamine patches, meclizine, or ship's injection for severe cases</li>
+              <li><strong>Cabin selection:</strong> Request midship, lower deck for minimal motion. Avoid bow cabins and high decks</li>
+              <li><strong>What to keep accessible:</strong> Medications, water, light snacks (crackers, ginger candies), entertainment (audiobooks, podcasts)</li>
+              <li><strong>Avoid:</strong> Heavy meals and alcohol before/during crossing; reading in moving ship; stuffy interior spaces</li>
+              <li><strong>Horizon helps:</strong> Looking at the horizon calibrates your inner ear. Fresh air on deck helps when conditions permit</li>
+              <li><strong>Sleep strategy:</strong> Rough crossings pass faster if you can sleep. Don't fight the motion; rest when possible</li>
+              <li><strong>Fly-cruise cost:</strong> Add $2,000-4,000 to avoid the Drake via Punta Arenas flights</li>
+            </ul>
+            <p class="last-reviewed">Last reviewed: January 2026</p>
+          </div>
+        </details>
+
+        <!-- FAQ Section -->
+        <details class="port-section faq">
+          <summary><h2>Frequently Asked Questions</h2></summary>
+          <div class="faq-content">
+            <details class="faq-item">
+              <summary>How rough is the Drake Passage?</summary>
+              <p>It varies dramatically. "Drake Shake" crossings bring 6-12 meter swells and 36+ hours of heavy motion—uncomfortable for everyone, incapacitating for some. "Drake Lake" crossings are surprisingly calm—glassy water and easy motion. Most crossings fall between these extremes. Seasickness medication helps significantly; start it before entering the Drake.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Will I definitely get seasick?</summary>
+              <p>Not necessarily. Many passengers cross without significant problems, especially with preventive medication. Those prone to motion sickness in cars, planes, or other boats should prepare carefully—scopolamine patches or meclizine started before the crossing helps most people. The ship can provide injections for severe cases. Even rough crossings are survivable; discomfort passes once you reach Antarctica.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Can I fly over the Drake Passage instead?</summary>
+              <p>Yes. Several expedition companies offer fly-cruise options that fly from Punta Arenas, Chile to King George Island in Antarctica, bypassing the Drake entirely. This costs $2,000-4,000 more than sailing crossings but saves 4+ days of transit. Weather can delay flights, so flexibility is required. Some travelers consider crossing the Drake essential to the Antarctic experience; others happily skip it.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Is the Drake Passage dangerous?</summary>
+              <p>Uncomfortable, yes. Dangerous, no. Modern expedition ships are specifically designed for polar waters with ice-strengthened hulls, stabilizers, and experienced crews. The Drake is a known quantity; ships transit it hundreds of times each Antarctic season. Your physical safety is not at risk—only your comfort and digestion.</p>
+            </details>
+            <details class="faq-item">
+              <summary>What wildlife will I see during the crossing?</summary>
+              <p>Seabirds are the main attraction. Wandering albatross (world's largest flying birds) often glide alongside ships for hours. Cape petrels, giant petrels, black-browed albatross, and storm petrels appear regularly. Whale spouts are occasionally spotted. The expedition team announces sightings; bring binoculars if you can stay on deck.</p>
+            </details>
+          </div>
+        </details>
+
+        <!-- Photo Gallery -->
+        <details class="port-section gallery" open>
+          <summary><h2>Gallery</h2></summary>
+          <div class="gallery-grid">
+            <figure>
+              <img src="/images/ports/drake-albatross.jpg" alt="Wandering albatross gliding over Drake Passage swells with massive wingspan extended" loading="lazy" />
+              <figcaption>Wandering Albatross<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/drake-rough-seas.jpg" alt="Expedition ship bow rising over large swell during Drake Shake crossing" loading="lazy" />
+              <figcaption>Drake Shake Conditions<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/drake-calm.jpg" alt="Mirror-calm Drake Passage waters reflecting grey Antarctic sky during Drake Lake crossing" loading="lazy" />
+              <figcaption>Drake Lake Calm<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/drake-cape-petrel.jpg" alt="Cape petrel with checkered wing pattern flying low over Southern Ocean waves" loading="lazy" />
+              <figcaption>Cape Petrel<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/drake-expedition-ship.jpg" alt="Expedition vessel cruising through moderate Drake Passage swells with ice-strengthened hull visible" loading="lazy" />
+              <figcaption>Expedition Vessel<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/drake-storm-petrel.jpg" alt="Wilson's storm petrel dancing over wave surface while feeding on krill" loading="lazy" />
+              <figcaption>Storm Petrel<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/drake-giant-petrel.jpg" alt="Southern giant petrel soaring low over grey Southern Ocean waters" loading="lazy" />
+              <figcaption>Giant Petrel<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/drake-lecture.jpg" alt="Expedition naturalist presenting wildlife lecture to passengers during Drake crossing" loading="lazy" />
+              <figcaption>Expedition Lecture<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/drake-observation.jpg" alt="Passengers watching through observation lounge windows during Drake Passage transit" loading="lazy" />
+              <figcaption>Observation Lounge<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/drake-sunset.jpg" alt="Sunset over Southern Ocean during Drake Passage crossing with expedition ship wake visible" loading="lazy" />
+              <figcaption>Southern Ocean Sunset<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+            <figure>
+              <img src="/images/ports/drake-first-ice.jpg" alt="First icebergs appearing on horizon marking approach to Antarctica after Drake crossing" loading="lazy" />
+              <figcaption>First Ice Sighting<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+            </figure>
+          </div>
+        </details>
+
+        <!-- Disclaimers -->
+        <aside class="disclaimers">
+          <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+          <p class="author-note"><em>These soundings in another's wake reflect one family's experience. The Drake asks something of everyone who crosses—seasickness, sleeplessness, humility before forces beyond control. What it gives in return is Antarctica itself, and the hard-earned knowledge that some destinations must be earned, not merely reached. The albatross riding the storm taught me more than any lecture could.</em></p>
         </aside>
-      </div>
+      </article>
+
+      <!-- Rail Sidebar -->
+      <aside class="port-rail">
+        <div class="rail-section">
+          <h3>Quick Answer</h3>
+          <p>600 miles of open ocean between South America and Antarctica. Takes 36-48 hours each way. Can be rough (Drake Shake) or calm (Drake Lake). Seasickness medication recommended for all. Albatross sightings reward those who venture on deck.</p>
+        </div>
+
+        <div class="rail-section">
+          <h3>Best For</h3>
+          <ul>
+            <li>Albatross watching</li>
+            <li>Expedition lectures</li>
+            <li>Seabird photography</li>
+            <li>Antarctic preparation</li>
+            <li>Testing your sea legs</li>
+          </ul>
+        </div>
+
+        <div class="rail-section">
+          <h3>Key Facts</h3>
+          <ul>
+            <li><strong>Distance:</strong> 600 miles (1,000 km)</li>
+            <li><strong>Duration:</strong> 36-48 hours each way</li>
+            <li><strong>Conditions:</strong> Unpredictable</li>
+            <li><strong>Wildlife:</strong> Albatross, petrels</li>
+            <li><strong>Fly-over cost:</strong> +$2,000-4,000</li>
+          </ul>
+        </div>
+
+        <div class="rail-section">
+          <h3>Related Pages</h3>
+          <ul>
+            <li><a href="/ports/ushuaia.html">Ushuaia</a></li>
+            <li><a href="/ports/antarctica.html">Antarctica</a></li>
+            <li><a href="/ports/cape-horn.html">Cape Horn</a></li>
+          </ul>
+        </div>
+      </aside>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <nav class="footer-nav"><a href="/ports.html">All Ports</a><a href="/tips/">Cruise Tips</a><a href="/about.html">About</a></nav>
-        <p class="copyright">&copy; 2025 In the Wake.</p>
-      </div>
+    <footer>
+      <p>&copy; 2025 In The Wake. All rights reserved.</p>
+      <p class="disclaimer">Not affiliated with any cruise line.</p>
       <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
     </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var map = L.map("port-map").setView([-59.0, -62.0], 4);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: "&copy; OpenStreetMap contributors",
+        }).addTo(map);
+        L.marker([-54.8, -68.3]).addTo(map).bindPopup("Cape Horn");
+        L.marker([-62.0, -58.0]).addTo(map).bindPopup("South Shetland Islands");
+        L.polyline([[-54.8, -68.3], [-59.0, -62.0], [-62.0, -58.0]], {color: 'blue', dashArray: '10, 10'}).addTo(map).bindPopup("Drake Passage Route");
+      });
+    </script>
   </body>
 </html>
