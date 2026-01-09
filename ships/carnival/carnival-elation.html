@@ -335,7 +335,7 @@ Dining Venues on Carnival Elation <a href="/restaurants.html" style="font-size: 
 </main>
 <footer class="wrap"><p>© 2025 In The Wake · A Cruise Encyclopedia · <span style="opacity:.6">Soli Deo Gloria</span></p>  <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous"></script>
 <script>
 new Swiper('#photo-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,pagination:{el:'.swiper-pagination',clickable:true},breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
 fetch('/assets/data/videos/carnival/carnival-elation.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
