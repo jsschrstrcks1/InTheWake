@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2026-01-02 (Added comprehensive port audit - 43 missing ports identified)
+**Last Updated:** 2026-01-09 (Port audit - 373 port pages, 3 missing ports identified)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -76,13 +76,175 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 - Individual page pattern standardization (author/article cards across 226 pages)
 - Duplicate pages to consolidate: legend-of-the-seas-1995-built.html, star-of-the-seas-aug-2025-debut.html
 
-**Current counts (2026-01-01):**
+**Current counts (2026-01-09):**
 - Total HTML pages: 652+
-- Port pages: **333** (was 291)
+- Port pages: **373** (was 333)
 - Ship pages: 50
-- Ports with Leaflet maps: **333** (100%)
+- Ports with Leaflet maps: **373** (100%)
 
 **Realistic remaining task count: ~30-40 items** (port map rollout + pattern standardization)
+
+---
+
+## 📊 Port Audit - Royal Caribbean Destinations (2026-01-09)
+
+**Audit Method:** Verified all user-requested cruise ports against existing files and ports.html links.
+**Audit Date:** 2026-01-09
+**Audited By:** Claude AI (Port coverage audit)
+
+### Summary
+
+| Category | Count |
+|----------|-------|
+| Ports audited | 95+ |
+| **Ports with files** | **92+** |
+| **Ports properly linked on ports.html** | **90+** |
+| **Missing port pages** | **3** |
+
+### ✅ Ports VERIFIED (Files exist AND linked on ports.html)
+
+All requested ports from the following categories have been verified:
+
+**Caribbean & Bahamas:**
+- ✅ Royal Beach Club Paradise Island (`royal-beach-club-nassau.html`) - LINKED
+- ✅ Freeport/Lucaya (`freeport.html`) - LINKED
+- ✅ Bimini (`bimini.html`) - LINKED
+- ✅ St John USVI (`st-john-usvi.html`) - LINKED
+- ✅ St Croix USVI (`st-croix.html`) - LINKED
+- ✅ Harvest Caye Belize (`harvest-caye.html`) - LINKED
+- ✅ Tobago (`tobago.html`) - LINKED
+- ✅ Trinidad (`trinidad.html`) - LINKED
+- ✅ Santa Marta Colombia (`santa-marta.html`) - LINKED
+
+**Alaska:**
+- ✅ Inside Passage (`inside-passage.html`) - LINKED
+- ✅ Denali National Park (`denali.html`) - LINKED
+- ✅ Fairbanks (`fairbanks.html`) - LINKED
+
+**Canada & New England:**
+- ✅ Cape Cod (`cape-cod.html`) - LINKED
+- ✅ Martha's Vineyard (`marthas-vineyard.html`) - LINKED
+- ✅ Montreal (`montreal.html`) - LINKED
+
+**Mexican Riviera:**
+- ✅ Cabo San Lucas (`cabo-san-lucas.html`) - LINKED
+- ✅ Puerto Vallarta (`puerto-vallarta.html`) - LINKED
+- ✅ Mazatlan (`mazatlan.html`) - LINKED
+- ✅ Ensenada (`ensenada.html`) - LINKED
+
+**Mediterranean:**
+- ✅ La Spezia Italy (`la-spezia.html`) - LINKED
+- ✅ Istanbul Turkey (`istanbul.html`) - LINKED
+- ✅ Catania Sicily (`catania.html`) - LINKED
+- ✅ Haifa Israel (`haifa.html`) - LINKED
+- ✅ Limassol Cyprus (`limassol.html`) - LINKED
+- ✅ Alexandria Egypt (`alexandria.html`) - LINKED
+- ✅ Port Said Egypt (`port-said.html`) - LINKED
+
+**Northern Europe:**
+- ✅ Geiranger Norway (`geiranger.html`) - LINKED
+- ✅ Flåm Norway (`flam.html`) - LINKED
+- ✅ Olden/Nordfjord (`olden.html`) - LINKED
+- ✅ Honningsvåg (`honningsvag.html`) - LINKED
+- ✅ Edinburgh (`edinburgh.html`) - LINKED
+- ✅ Glasgow (`glasgow.html`) - LINKED
+- ✅ Akureyri Iceland (`akureyri.html`) - LINKED
+- ✅ Ísafjörður Iceland (`isafjordur.html`) - LINKED
+- ✅ Tórshavn Faroe Islands (`torshavn.html`) - LINKED
+
+**Southeast Asia:**
+- ✅ Penang Malaysia (`penang.html`) - LINKED
+- ✅ Langkawi Malaysia (`langkawi.html`) - LINKED
+- ✅ Kuala Lumpur (`kuala-lumpur.html`) - LINKED
+- ✅ Phuket Thailand (`phuket.html`) - LINKED
+- ✅ Ko Samui Thailand (`koh-samui.html`) - LINKED
+- ✅ Ho Chi Minh City (`ho-chi-minh-city.html`) - LINKED
+- ✅ Nha Trang (`nha-trang.html`) - LINKED
+- ✅ Halong Bay Vietnam (`ha-long-bay.html`) - LINKED
+- ✅ Jakarta Indonesia (`jakarta.html`) - LINKED
+
+**East Asia:**
+- ✅ Beijing (`beijing.html`) - LINKED
+- ✅ Busan South Korea (`busan.html`) - LINKED
+- ✅ Incheon/Seoul (`incheon.html`) - LINKED
+- ✅ Jeju Island Korea (`jeju.html`) - LINKED
+- ✅ Kobe Japan (`kobe.html`) - LINKED
+- ✅ Osaka Japan (`osaka.html`) - LINKED
+- ✅ Kyoto Japan (`kyoto.html`) - LINKED
+- ✅ Nagasaki Japan (`nagasaki.html`) - LINKED
+- ✅ Hakodate Japan (`hakodate.html`) - LINKED
+- ✅ Okinawa Japan (`okinawa.html`) - LINKED
+- ✅ Kagoshima Japan (`kagoshima.html`) - LINKED
+- ✅ Hiroshima Japan (`hiroshima.html`) - LINKED
+
+**Australia & New Zealand:**
+- ✅ Melbourne (`melbourne.html`) - LINKED
+- ✅ Cairns (`cairns.html`) - LINKED
+- ✅ Hobart Tasmania (`hobart.html`) - LINKED
+- ✅ Adelaide (`adelaide.html`) - LINKED
+- ✅ Fremantle/Perth (`fremantle.html`) - LINKED
+- ✅ Darwin (`darwin.html`) - LINKED
+- ✅ Airlie Beach (`airlie-beach.html`) - LINKED
+- ✅ Port Arthur Tasmania (`port-arthur.html`) - LINKED
+- ✅ Rotorua New Zealand (`rotorua.html`) - LINKED
+- ✅ Akaroa New Zealand (`akaroa.html`) - LINKED
+- ✅ Mystery Island (`mystery-island.html`) - LINKED
+
+**South America:**
+- ✅ Ilhabela Brazil (`ilhabela.html`) - LINKED
+- ✅ Búzios Brazil (`buzios.html`) - LINKED
+- ✅ Punta del Este Uruguay (`punta-del-este.html`) - LINKED
+- ✅ Puerto Montt Chile (`puerto-montt.html`) - LINKED
+- ✅ Cape Horn (`cape-horn.html`) - LINKED
+- ✅ Chilean Fjords (`chilean-fjords.html`) - LINKED
+- ✅ Strait of Magellan (`strait-of-magellan.html`) - LINKED
+- ✅ Glacier Alley (`glacier-alley.html`) - LINKED
+- ✅ Antarctic Peninsula (`antarctic-peninsula.html`) - LINKED
+- ✅ Drake Passage (`drake-passage.html`) - LINKED
+- ✅ South Shetland Islands (`south-shetland-islands.html`) - LINKED
+
+**World Cruise & Remote Destinations:**
+- ✅ Antarctica (`antarctica.html`) - LINKED
+- ✅ Easter Island (`easter-island.html`) - LINKED
+- ✅ Pitcairn Island (`pitcairn.html`) - LINKED
+- ✅ Aitutaki Cook Islands (`aitutaki.html`) - LINKED
+- ✅ Papua New Guinea (`port-moresby.html`) - LINKED
+- ✅ Sri Lanka/Colombo (`colombo.html`) - LINKED
+- ✅ Maldives/Malé (`maldives.html`) - LINKED
+- ✅ Madagascar/Nosy Be (`nosy-be.html`) - LINKED
+- ✅ Mauritius (`mauritius.html`) - LINKED
+- ✅ Seychelles (`seychelles.html`) - LINKED
+- ✅ Zanzibar Tanzania (`zanzibar.html`) - LINKED
+- ✅ Cape Town South Africa (`cape-town.html`) - LINKED
+- ✅ Namibia/Walvis Bay (`walvis-bay.html`) - LINKED
+- ✅ St. Helena (`st-helena.html`) - LINKED
+- ✅ Canary Islands (individual pages: `gran-canaria.html`, `lanzarote.html`, `tenerife.html`) - LINKED
+
+---
+
+### 🟡 [Y] P2 - Missing Port Pages (3 ports)
+
+The following ports need dedicated pages created:
+
+| Port | Status | Notes |
+|------|--------|-------|
+| **Royal Beach Club Cozumel** | ❌ Missing | Future Royal Caribbean beach club (announced 2026). `cozumel.html` exists for the existing port. |
+| **Royal Beach Club Antigua** | ❌ Missing | Future Royal Caribbean beach club (in development). `antigua.html` exists for the existing port. |
+| **Falmouth, Jamaica** | ❌ Missing | RCL's own $224M pier built in 2011. Currently covered under `jamaica.html` but deserves dedicated page. |
+
+**Recommendation:**
+- Royal Beach Club pages can be created as stubs until opening dates approach
+- Falmouth Jamaica should be P1 priority as it's RCL's dedicated facility with significant passenger traffic
+
+---
+
+### ⚠️ Note on ports.html Link Verification
+
+The ports.html page includes all major ports in the user's list. Some ports appear:
+1. **In detailed regional sections** (lines 300-1000) with full href links
+2. **In the comprehensive A-Z listing** (lines 1000+) with full href links
+
+All requested ports from the audit are properly linked in at least one location on ports.html.
 
 ---
 
