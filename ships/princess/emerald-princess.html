@@ -328,16 +328,6 @@ All work on this project is offered as a gift to God.
     </section>
 
     <!-- Stub Notice -->
-    
-    <!-- Ken's Logbook Section -->
-    <section class="card note-kens-logbook" aria-labelledby="logbook">
-      <h2 id="logbook">The Logbook: Emerald Princess</h2>
-      <div id="logbook-container" data-ship="emerald-princess" data-line="princess">
-        <p class="placeholder">Stories and insights from cruisers who have sailed on Emerald Princess will appear here.</p>
-      </div>
-    </section>
-
-    
 
     <!-- Placeholder sections -->
     <section class="card" aria-labelledby="diningHeading">
@@ -347,38 +337,95 @@ All work on this project is offered as a gift to God.
 <script type="application/json" id="dining-data-source">{"provider":"princess","json":"/assets/data/venues-v2.json","ship_slug":"emerald-princess","aliases":["Emerald Princess"]}</script>
         <script type="application/json" id="ship-stats-fallback">{"slug":"emerald-princess","name":"Emerald Princess","cruise_line":"Princess Cruises","class":"Grand Class","entered_service":2007,"gt":"113,561 GT","guests":"3,082","crew":"1,200"}</script>
 
+    <!-- Ken's Logbook Section -->
+    <section class="card note-kens-logbook" aria-labelledby="logbook">
+      <h2 id="logbook">The Logbook: Emerald Princess</h2>
+      <div id="logbook-container" data-ship="emerald-princess" data-line="princess">
+        <p class="placeholder">Stories and insights from cruisers who have sailed on Emerald Princess will appear here.</p>
+      </div>
+    </section>
+
     <section class="card" aria-labelledby="entertainmentHeading">
       <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
       <p>Entertainment details coming soon. Explore shows, activities, and onboard experiences.</p>
     </section>
 
-    <section class="grid-2">
-      <section class="card" aria-labelledby="deckPlansHeading">
-        <h2 id="deckPlansHeading">Deck Plans</h2>
-        <p>View the official deck plans to explore Emerald Princess's layout.</p>
-        <figure>
-          <img src="/assets/ship-map.png" alt="Emerald Princess simplified deck plan preview" loading="lazy"/>
-          <figcaption class="tiny">Simplified deck layout overview</figcaption>
-        </figure>
-        <p><a class="btn" href="https://www.princess.com/" target="_blank" rel="noopener">Visit Princess Official Site</a></p>
-      </section>
-      <section class="card" aria-labelledby="trackingHeading">
-        <h2 id="trackingHeading">Where Is Emerald Princess?</h2>
-        <p>Track Emerald Princess's current position and upcoming itinerary.</p>
-        <p><a class="btn" href="https://www.cruisemapper.com/?search=Emerald%20Princess" target="_blank" rel="noopener">Open Live Tracker</a></p>
-      </section>
+    <!-- Photo Gallery -->
+    <section class="card" aria-labelledby="photo-gallery">
+      <h2 id="photo-gallery">Photo Gallery: Emerald Princess</h2>
+      <p class="small">Explore images of Emerald Princess from various voyages and perspectives.</p>
+      <div class="swiper ship-gallery" aria-label="Ship photo gallery carousel">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="/assets/ships/princess/emerald-princess-1.jpg"
+                 alt="Emerald Princess exterior view"
+                 loading="lazy"
+                 onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/princess/emerald-princess-2.jpg"
+                 alt="Emerald Princess atrium"
+                 loading="lazy"
+                 onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/princess/emerald-princess-3.jpg"
+                 alt="Emerald Princess pool deck"
+                 loading="lazy"
+                 onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/princess/emerald-princess-4.jpg"
+                 alt="Emerald Princess dining room"
+                 loading="lazy"
+                 onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/princess/emerald-princess-5.jpg"
+                 alt="Emerald Princess theater"
+                 loading="lazy"
+                 onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/princess/emerald-princess-6.jpg"
+                 alt="Emerald Princess balcony cabin"
+                 loading="lazy"
+                 onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/princess/emerald-princess-7.jpg"
+                 alt="Emerald Princess at sea"
+                 loading="lazy"
+                 onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/princess/emerald-princess-8.jpg"
+                 alt="Emerald Princess in port"
+                 loading="lazy"
+                 onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+          </div>
+        </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
     </section>
 
-    <!-- Related Links -->
-    <section class="card">
-      <h2>Explore More</h2>
-      <ul>
-        <li><a href="/ships.html">All Ships</a></li>
-        <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare Emerald Princess with other ships</li>
-        <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
-      </ul>
-    </section>
-  
+    <script>
+    if(window.Swiper){
+      setTimeout(()=>{
+        try{
+          new Swiper('.swiper.ship-gallery',{
+            loop:false,rewind:false,lazy:true,watchOverflow:true,
+            pagination:{el:'.swiper.ship-gallery .swiper-pagination',clickable:true},
+            navigation:{nextEl:'.swiper.ship-gallery .swiper-button-next',prevEl:'.swiper.ship-gallery .swiper-button-prev'},
+            a11y:{enabled:true}
+          });
+        }catch(_){}
+      },150);
+    }
+    </script>
+
     <!-- Videos -->
     <section class="card" aria-labelledby="video-highlights">
       <h2 id="video-highlights">Watch: Emerald Princess Highlights</h2>
@@ -506,7 +553,9 @@ All work on this project is offered as a gift to God.
         <nav aria-label="Page sections">
           <ul class="rail-links">
             <li><a href="#first-look">First Look</a></li>
+            <li><a href="#diningHeading">Dining</a></li>
             <li><a href="#logbook">Logbook</a></li>
+            <li><a href="#photo-gallery">Photo Gallery</a></li>
             <li><a href="#video-highlights">Videos</a></li>
             <li><a href="#faq">FAQ</a></li>
           </ul>

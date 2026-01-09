@@ -293,8 +293,36 @@ All work on this project is offered as a gift to God.
       <div class="photo-carousel swiper" id="photo-swiper" aria-label="Regal Princess photo gallery">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
-            <img src="/assets/ships/Regal_Princess_Warnemunde.jpg" alt="Regal Princess cruise ship docked in Warnemunde Germany" loading="lazy"/>
+            <img src="/assets/ships/Regal_Princess_Warnemunde.jpg" alt="Regal Princess cruise ship docked in Warnemunde Germany" loading="lazy" onerror="this.src='/assets/ship-placeholder.jpg'"/>
             <p class="photo-caption">Regal Princess in Warnemünde, Germany — Photo: Wikimedia Commons, CC BY-SA 4.0</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Regal_Princess_sea.jpg" alt="Regal Princess at sea displaying distinctive blue wave hull livery" loading="lazy" onerror="this.src='/assets/ship-placeholder.jpg'"/>
+            <p class="photo-caption">Regal Princess cruising at sea with signature Princess wave design — Photo: Wikimedia Commons, CC BY-SA 4.0</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Regal_Princess_Barcelona.jpg" alt="Regal Princess departing Barcelona Spain with city skyline in background" loading="lazy" onerror="this.src='/assets/ship-placeholder.jpg'"/>
+            <p class="photo-caption">Regal Princess leaving Barcelona, Spain — Photo: Wikimedia Commons, CC BY-SA 4.0</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Regal_Princess_profile.jpg" alt="Regal Princess bow view at sea showing signature Princess wave hull design" loading="lazy" onerror="this.src='/assets/ship-placeholder.jpg'"/>
+            <p class="photo-caption">Regal Princess bow view at sea — Photo: Wikimedia Commons, CC BY-SA 4.0</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Regal_Princess_stern.jpg" alt="Regal Princess stern view docked at port promenade" loading="lazy" onerror="this.src='/assets/ship-placeholder.jpg'"/>
+            <p class="photo-caption">Regal Princess stern at port — Photo: Wikimedia Commons, CC BY-SA 4.0</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Regal_Princess_piazza.jpg" alt="Regal Princess Piazza atrium interior with street cafe seating" loading="lazy" onerror="this.src='/assets/ship-placeholder.jpg'"/>
+            <p class="photo-caption">Regal Princess Piazza atrium — Photo: Princess Cruises</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Regal_Princess_seawalk.jpg" alt="Regal Princess SeaWalk glass walkway extending over ocean" loading="lazy" onerror="this.src='/assets/ship-placeholder.jpg'"/>
+            <p class="photo-caption">Regal Princess SeaWalk glass-bottom walkway — Photo: Princess Cruises</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Regal_Princess_movies_under_stars.jpg" alt="Regal Princess Movies Under the Stars poolside theater at night" loading="lazy" onerror="this.src='/assets/ship-placeholder.jpg'"/>
+            <p class="photo-caption">Regal Princess Movies Under the Stars — Photo: Princess Cruises</p>
           </div>
         </div>
         <div class="swiper-button-prev" aria-label="Previous photo"></div>
@@ -343,8 +371,14 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 
-    <!-- Stub Notice -->
-    
+    <!-- Dining Section -->
+    <section class="card" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on Regal Princess</h2>
+      <p>Dining venue information coming soon. Princess Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
+    </section>
+    <script type="application/json" id="dining-data-source">{"provider":"princess","json":"/assets/data/venues-v2.json","ship_slug":"regal-princess","aliases":["Regal Princess"]}</script>
+    <script type="application/json" id="ship-stats-fallback">{"slug":"regal-princess","name":"Regal Princess","cruise_line":"Princess Cruises","class":"Royal Class","entered_service":2014,"gt":"142,229 GT","guests":"3,560","crew":"1,346"}</script>
+
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: Regal Princess</h2>
@@ -352,7 +386,6 @@ All work on this project is offered as a gift to God.
         <p class="placeholder">Stories and insights from cruisers who have sailed on Regal Princess will appear here.</p>
       </div>
     </section>
-
 
     <!-- Videos Section -->
     <section class="card" aria-labelledby="video-highlights">
@@ -416,47 +449,28 @@ All work on this project is offered as a gift to God.
     })();
     </script>
 
-    
-
-    <!-- Placeholder sections -->
-    <section class="card" aria-labelledby="diningHeading">
-      <h2 id="diningHeading">Dining on Regal Princess</h2>
-      <p>Dining venue information coming soon. Princess Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
-    </section>
-<script type="application/json" id="dining-data-source">{"provider":"princess","json":"/assets/data/venues-v2.json","ship_slug":"regal-princess","aliases":["Regal Princess"]}</script>
-        <script type="application/json" id="ship-stats-fallback">{"slug":"regal-princess","name":"Regal Princess","cruise_line":"Princess Cruises","class":"Royal Class","entered_service":2014,"gt":"142,229 GT","guests":"3,560","crew":"1,346"}</script>
-
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
-      <p>Entertainment details coming soon. Explore shows, activities, and onboard experiences.</p>
-    </section>
-
-    <section class="grid-2">
-      <section class="card" aria-labelledby="deckPlansHeading">
-        <h2 id="deckPlansHeading">Deck Plans</h2>
-        <p>View the official deck plans to explore Regal Princess's layout.</p>
+    <!-- Deck Plans & Tracker Grid -->
+    <div class="grid-2">
+      <section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">Deck Plans</h2>
+        <div id="ship-map" data-ship="regal-princess">
+          <p>Interactive deck plans for Regal Princess are available on the cruise line's official website.</p>
+        </div>
         <figure>
           <img src="/assets/ship-map.png" alt="Regal Princess simplified deck plan preview" loading="lazy"/>
           <figcaption class="tiny">Simplified deck layout overview</figcaption>
         </figure>
         <p><a class="btn" href="https://www.princess.com/" target="_blank" rel="noopener">Visit Princess Official Site</a></p>
       </section>
-      <section class="card" aria-labelledby="trackingHeading">
-        <h2 id="trackingHeading">Where Is Regal Princess?</h2>
-        <p>Track Regal Princess's current position and upcoming itinerary.</p>
+
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="TBD" data-name="REGALPRINCESS">
+        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
+        <div id="ship-tracker-container">
+          <p>Track Regal Princess's current position and voyage details.</p>
+        </div>
         <p><a class="btn" href="https://www.cruisemapper.com/?search=Regal%20Princess" target="_blank" rel="noopener">Open Live Tracker</a></p>
       </section>
-    </section>
-
-    <!-- Related Links -->
-    <section class="card">
-      <h2>Explore More</h2>
-      <ul>
-        <li><a href="/ships.html">All Ships</a></li>
-        <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare Regal Princess with other ships</li>
-        <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
-      </ul>
-    </section>
+    </div>
   
 
     <!-- Attribution Section -->
@@ -538,6 +552,30 @@ All work on this project is offered as a gift to God.
     <p class="trust-badge">No ads. No tracking. No affiliate links.</p>
   </footer>
 
+  <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
+  <script>
+  // Initialize photo carousel
+  if(typeof Swiper !== 'undefined'){
+    try{
+      new Swiper('#photo-swiper', {
+        loop: false,
+        rewind: false,
+        lazy: true,
+        pagination: {
+          el: '#photo-swiper .swiper-pagination',
+          clickable: true
+        },
+        navigation: {
+          nextEl: '#photo-swiper .swiper-button-next',
+          prevEl: '#photo-swiper .swiper-button-prev'
+        },
+        a11y: {
+          enabled: true
+        }
+      });
+    }catch(e){}
+  }
+  </script>
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>

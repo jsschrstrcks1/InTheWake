@@ -293,12 +293,36 @@ All work on this project is offered as a gift to God.
       <div class="photo-carousel swiper" id="photo-swiper" aria-label="Caribbean Princess photo gallery">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
-            <img src="/assets/ships/Caribbean_Princess_Scotland.jpg" alt="Caribbean Princess cruise ship moored in Firth of Forth Scotland" loading="lazy"/>
+            <img src="/assets/ships/Caribbean_Princess_Scotland.jpg" alt="Caribbean Princess cruise ship moored in Firth of Forth Scotland" loading="lazy" onerror="this.src='/assets/ship-placeholder.jpg'"/>
             <p class="photo-caption">Caribbean Princess in Scotland — Photo: Wikimedia Commons, CC BY 2.0</p>
           </div>
           <div class="swiper-slide">
-            <img src="/assets/ships/Caribbean_Princess_Belfast.jpg" alt="Caribbean Princess in Belfast Lough Northern Ireland" loading="lazy"/>
+            <img src="/assets/ships/Caribbean_Princess_Belfast.jpg" alt="Caribbean Princess in Belfast Lough Northern Ireland" loading="lazy" onerror="this.src='/assets/ship-placeholder.jpg'"/>
             <p class="photo-caption">Caribbean Princess in Belfast Lough — Photo: Wikimedia Commons, CC BY 2.0</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Caribbean_Princess_bow.jpg" alt="Caribbean Princess bow view at sea showing Grand Class design" loading="lazy" onerror="this.src='/assets/ship-placeholder.jpg'"/>
+            <p class="photo-caption">Caribbean Princess bow view at sea — Photo: Wikimedia Commons, CC BY 2.0</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Caribbean_Princess_profile.jpg" alt="Caribbean Princess full exterior profile showing Princess livery" loading="lazy" onerror="this.src='/assets/ship-placeholder.jpg'"/>
+            <p class="photo-caption">Caribbean Princess profile view — Photo: Wikimedia Commons, CC BY 2.0</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Caribbean_Princess_stern.jpg" alt="Caribbean Princess stern view at port" loading="lazy" onerror="this.src='/assets/ship-placeholder.jpg'"/>
+            <p class="photo-caption">Caribbean Princess stern at port — Photo: Wikimedia Commons, CC BY 2.0</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Caribbean_Princess_deck.jpg" alt="Caribbean Princess pool deck and outdoor amenities" loading="lazy" onerror="this.src='/assets/ship-placeholder.jpg'"/>
+            <p class="photo-caption">Caribbean Princess pool deck — Photo: Wikimedia Commons, CC BY 2.0</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Caribbean_Princess_night.jpg" alt="Caribbean Princess illuminated at night in port" loading="lazy" onerror="this.src='/assets/ship-placeholder.jpg'"/>
+            <p class="photo-caption">Caribbean Princess at night — Photo: Wikimedia Commons, CC BY 2.0</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Caribbean_Princess_aerial.jpg" alt="Caribbean Princess aerial view showing full ship layout" loading="lazy" onerror="this.src='/assets/ship-placeholder.jpg'"/>
+            <p class="photo-caption">Caribbean Princess aerial view — Photo: Wikimedia Commons, CC BY 2.0</p>
           </div>
         </div>
         <div class="swiper-button-prev" aria-label="Previous photo"></div>
@@ -347,8 +371,14 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 
-    <!-- Stub Notice -->
-    
+    <!-- Dining Section -->
+    <section class="card" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on Caribbean Princess</h2>
+      <p>Dining venue information coming soon. Princess Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
+    </section>
+    <script type="application/json" id="dining-data-source">{"provider":"princess","json":"/assets/data/venues-v2.json","ship_slug":"caribbean-princess","aliases":["Caribbean Princess"]}</script>
+    <script type="application/json" id="ship-stats-fallback">{"slug":"caribbean-princess","name":"Caribbean Princess","cruise_line":"Princess Cruises","class":"Grand Class","entered_service":2004,"gt":"112,894 GT","guests":"3,142","crew":"1,200"}</script>
+
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: Caribbean Princess</h2>
@@ -356,7 +386,6 @@ All work on this project is offered as a gift to God.
         <p class="placeholder">Stories and insights from cruisers who have sailed on Caribbean Princess will appear here.</p>
       </div>
     </section>
-
 
     <!-- Videos Section -->
     <section class="card" aria-labelledby="video-highlights">
@@ -370,6 +399,29 @@ All work on this project is offered as a gift to God.
       </div>
       <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
+
+    <!-- Deck Plans & Tracker Grid -->
+    <div class="grid-2">
+      <section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">Deck Plans</h2>
+        <div id="ship-map" data-ship="caribbean-princess">
+          <p>Interactive deck plans for Caribbean Princess are available on the cruise line's official website.</p>
+        </div>
+        <figure>
+          <img src="/assets/ship-map.png" alt="Caribbean Princess simplified deck plan preview" loading="lazy"/>
+          <figcaption class="tiny">Simplified deck layout overview</figcaption>
+        </figure>
+        <p><a class="btn" href="https://www.princess.com/" target="_blank" rel="noopener">Visit Princess Official Site</a></p>
+      </section>
+
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="TBD" data-name="CARIBBEANPRINCESS">
+        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
+        <div id="ship-tracker-container">
+          <p>Track Caribbean Princess's current position and voyage details.</p>
+        </div>
+        <p><a class="btn" href="https://www.cruisemapper.com/?search=Caribbean%20Princess" target="_blank" rel="noopener">Open Live Tracker</a></p>
+      </section>
+    </div>
 
     <script>
     (function(){
@@ -419,48 +471,6 @@ All work on this project is offered as a gift to God.
       fetchVideoData().then(data=>{ if(data) renderVideos(flattenVideos(data)); });
     })();
     </script>
-
-    
-
-    <!-- Placeholder sections -->
-    <section class="card" aria-labelledby="diningHeading">
-      <h2 id="diningHeading">Dining on Caribbean Princess</h2>
-      <p>Dining venue information coming soon. Princess Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
-    </section>
-<script type="application/json" id="dining-data-source">{"provider":"princess","json":"/assets/data/venues-v2.json","ship_slug":"caribbean-princess","aliases":["Caribbean Princess"]}</script>
-        <script type="application/json" id="ship-stats-fallback">{"slug":"caribbean-princess","name":"Caribbean Princess","cruise_line":"Princess Cruises","class":"Grand Class","entered_service":2004,"gt":"112,894 GT","guests":"3,142","crew":"1,200"}</script>
-
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
-      <p>Entertainment details coming soon. Explore shows, activities, and onboard experiences.</p>
-    </section>
-
-    <section class="grid-2">
-      <section class="card" aria-labelledby="deckPlansHeading">
-        <h2 id="deckPlansHeading">Deck Plans</h2>
-        <p>View the official deck plans to explore Caribbean Princess's layout.</p>
-        <figure>
-          <img src="/assets/ship-map.png" alt="Caribbean Princess simplified deck plan preview" loading="lazy"/>
-          <figcaption class="tiny">Simplified deck layout overview</figcaption>
-        </figure>
-        <p><a class="btn" href="https://www.princess.com/" target="_blank" rel="noopener">Visit Princess Official Site</a></p>
-      </section>
-      <section class="card" aria-labelledby="trackingHeading">
-        <h2 id="trackingHeading">Where Is Caribbean Princess?</h2>
-        <p>Track Caribbean Princess's current position and upcoming itinerary.</p>
-        <p><a class="btn" href="https://www.cruisemapper.com/?search=Caribbean%20Princess" target="_blank" rel="noopener">Open Live Tracker</a></p>
-      </section>
-    </section>
-
-    <!-- Related Links -->
-    <section class="card">
-      <h2>Explore More</h2>
-      <ul>
-        <li><a href="/ships.html">All Ships</a></li>
-        <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare Caribbean Princess with other ships</li>
-        <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
-      </ul>
-    </section>
   
 
     <!-- Attribution Section -->
