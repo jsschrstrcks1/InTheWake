@@ -270,11 +270,15 @@ if ('serviceWorker' in navigator) {
       <a href="/planning.html">Planning Overview</a>
       <a href="/ships.html">Ships</a>
       <a href="/ships/quiz.html">Ship Quiz</a>
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="/restaurants.html">Restaurants &amp; Menus</a>
       <a href="/ports.html">Ports</a>
       <a href="/internet-at-sea.html">Internet at Sea</a>
-            <a href="/drink-packages.html">Drink Packages</a>
+      <a href="/drink-packages.html">Drink Packages</a>
+      <a href="/drink-calculator.html">Drink Calculator</a>
+      <a href="/stateroom-check.html">Stateroom Check</a>
       <a href="/cruise-lines.html">Cruise Lines</a>
+      <a href="/packing-lists.html">Packing Lists</a>
+      <a href="/accessibility.html">Accessibility</a>
     </div>
   </div>
 
@@ -288,6 +292,7 @@ if ('serviceWorker' in navigator) {
     </div>
   </div>
 
+  <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
   <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
   <a class="nav-pill" href="/search.html">Search</a>
   <a class="nav-pill" href="/about-us.html">About</a>
@@ -397,7 +402,7 @@ if ('serviceWorker' in navigator) {
 
       <p>Named after Florence (Firenze in Italian), the ship features Florentine Renaissance-inspired artwork, Italian specialty restaurants, and the warm hospitality that defines both Italian cruising and Carnival's Fun Ship experience. She sails year-round from <strong>Long Beach, California</strong> to the Mexican Riviera and Baja Mexico.</p>
 
-      <h3>Key Highlights</h3>
+      <h3>Key Features</h3>
       <ul>
         <li><strong>Italian Heritage:</strong> Florentine art, décor, and design throughout</li>
         <li><strong>Specialty Dining:</strong> Authentic Italian venues including Cucina del Capitano</li>
@@ -428,6 +433,26 @@ Dining Venues on Carnival Firenze <a href="/restaurants.html" style="font-size: 
       <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-firenze","aliases":["Carnival Firenze"]}</script>
     </section>
 
+    <!-- Ken's Logbook Section -->
+    <section class="card note-kens-logbook" aria-labelledby="logbook">
+      <h2 id="logbook">Ken's Logbook: Carnival Firenze</h2>
+      <div id="logbook-container" data-ship="carnival-firenze" data-line="carnival">
+        <p class="placeholder">Stories and insights from cruisers who have sailed on Carnival Firenze will appear here.</p>
+      </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section class="card" aria-labelledby="video-highlights">
+      <h2 id="video-highlights">Watch: Carnival Firenze Highlights</h2>
+      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
+      <div class="swiper videos" aria-label="Featured video carousel">
+        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
+    </section>
 
     <!-- Ship Statistics -->
     <section class="card" aria-labelledby="stats-title">
@@ -500,72 +525,6 @@ Dining Venues on Carnival Firenze <a href="/restaurants.html" style="font-size: 
       </a>
     </section>
 
-    <!-- Dining Section -->
-    <section class="card" aria-labelledby="dining-title">
-      <h2 id="dining-title">Dining Venues</h2>
-      <p>Experience "Carnival Fun Italian Style" through authentic Italian cuisine and classic Carnival favorites:</p>
-
-      <h3>Complimentary Dining</h3>
-      <div class="dining-grid">
-        <div class="dining-item">
-          <h4>Main Dining Rooms</h4>
-          <p>Two elegantly appointed restaurants serving multi-course Italian-inspired menus with Your Time Dining flexibility.</p>
-        </div>
-        <div class="dining-item">
-          <h4>Lido Marketplace</h4>
-          <p>Buffet-style dining with Italian specialties, pizza station, and international favorites available throughout the day.</p>
-        </div>
-        <div class="dining-item">
-          <h4>Pizzeria del Capitano</h4>
-          <p>Hand-tossed artisan pizza made fresh 24 hours a day — a Carnival signature.</p>
-        </div>
-        <div class="dining-item">
-          <h4>Guy's Burger Joint</h4>
-          <p>Guy Fieri's famous burgers, hand-cut fries, and signature sauces poolside.</p>
-        </div>
-      </div>
-
-      <h3 style="margin-top: 1.5rem;">Specialty Dining (Fee)</h3>
-      <div class="dining-grid">
-        <div class="dining-item specialty">
-          <h4>Cucina del Capitano</h4>
-          <p>Authentic Italian family-style dining with pasta made fresh daily, Italian wines, and classic recipes.</p>
-        </div>
-        <div class="dining-item specialty">
-          <h4>Fahrenheit 555 Steakhouse</h4>
-          <p>Premium steaks, chops, and seafood in an elegant setting with exceptional service.</p>
-        </div>
-        <div class="dining-item specialty">
-          <h4>Bonsai Sushi</h4>
-          <p>Fresh sushi, sashimi, and Asian-inspired dishes crafted by skilled chefs.</p>
-        </div>
-        <div class="dining-item specialty">
-          <h4>Chef's Table</h4>
-          <p>Intimate multi-course dining experience with wine pairings and galley tour.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Live Tracker -->
-    <section class="card" aria-labelledby="tracker-title">
-      <h2 id="tracker-title">Live Ship Tracker</h2>
-      <p>Track Carnival Firenze's current position in real-time:</p>
-
-      <div class="tracker-container">
-        <iframe
-          title="Carnival Firenze Live Position via MarineTraffic"
-          src="https://www.marinetraffic.com/en/ais/embed/zoom:10/centery:33.75/centerx:-118.2/maptype:1/shownames:true/mmsi:352003546/shipid:6276010/fleet:/fleet_id:/vtypes:/showmenu:false/remember:false"
-          loading="lazy"
-          referrerpolicy="no-referrer">
-        </iframe>
-      </div>
-
-      <p class="tiny" style="margin-top: 0.75rem;">
-        <strong>Current Homeport:</strong> Long Beach, California<br/>
-        <strong>Typical Itineraries:</strong> Mexican Riviera (Cabo, Puerto Vallarta, Mazatlán), Baja Mexico (Ensenada, Catalina Island)
-      </p>
-    </section>
-
     <!-- Ship History Timeline -->
     <section class="card" aria-labelledby="timeline-title">
       <h2 id="timeline-title">Ship Timeline</h2>
@@ -596,48 +555,6 @@ Dining Venues on Carnival Firenze <a href="/restaurants.html" style="font-size: 
           <p><strong>Construction Begins</strong> — Steel cutting at Fincantieri Marghera as second Venice-class ship for Costa Cruises.</p>
         </div>
       </div>
-    </section>
-
-    <!-- Deck Plans & Videos -->
-    <section class="card" aria-labelledby="resources-title">
-      <h2 id="resources-title">Deck Plans &amp; Videos</h2>
-
-      <h3>Official Resources</h3>
-      <ul>
-        <li><a href="https://www.carnival.com/cruise-ships/carnival-firenze" target="_blank" rel="noopener">Carnival Firenze Official Page</a></li>
-        <li><a href="https://www.carnival.com/cruise-ships/carnival-firenze#deck-plans" target="_blank" rel="noopener">Interactive Deck Plans</a></li>
-        <li><a href="https://www.carnival.com/cruise-ships/carnival-firenze#cabins" target="_blank" rel="noopener">Stateroom Categories</a></li>
-      </ul>
-
-      <h3 style="margin-top: 1rem;">Ship Tours &amp; Reviews</h3>
-      <p class="tiny">Video content coming soon. Check YouTube for recent Carnival Firenze ship tours, cabin reviews, and dining guides.</p>
-    
-        <figure>
-          <img src="/assets/ship-map.png" alt="Simplified deck plan preview" loading="lazy"/>
-          <figcaption class="tiny">Simplified deck layout overview</figcaption>
-        </figure>
-</section>
-
-    <!-- FAQ Section -->
-    
-    <!-- Ken's Logbook Section -->
-    <section class="card note-kens-logbook" aria-labelledby="logbook">
-      <h2 id="logbook">Ken's Logbook: Carnival Firenze</h2>
-      <div id="logbook-container" data-ship="carnival-firenze" data-line="carnival">
-        <p class="placeholder">Stories and insights from cruisers who have sailed on Carnival Firenze will appear here.</p>
-      </div>
-    </section>
-
-    <section class="card" aria-labelledby="video-highlights">
-      <h2 id="video-highlights">Watch: Carnival Firenze Highlights</h2>
-      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
-      <div class="swiper videos" aria-label="Featured video carousel">
-        <div class="swiper-wrapper" id="featuredVideos"></div>
-        <div class="swiper-pagination" aria-hidden="true"></div>
-        <div class="swiper-button-prev" aria-label="Previous slide"></div>
-        <div class="swiper-button-next" aria-label="Next slide"></div>
-      </div>
-      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
 
     <div class="grid-2">
