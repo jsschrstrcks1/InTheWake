@@ -24,7 +24,7 @@ Soli Deo Gloria
     <meta property="og:title" content="Durban, South Africa - Sunny Beaches and Zulu Heritage">
     <meta property="og:description" content="Your personal guide to Durban's warm Indian Ocean beaches, vibrant Indian culture, and Zulu heritage.">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://inthewake.com/ports/durban">
+    <meta property="og:url" content="https://cruisinginthewake.com/ports/durban">
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/port-hero.jpg"/>
 
     <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
@@ -42,17 +42,17 @@ Soli Deo Gloria
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://inthewake.com/"
+            "item": "https://cruisinginthewake.com/"
         },{
             "@type": "ListItem",
             "position": 2,
             "name": "Ports",
-            "item": "https://inthewake.com/ports/"
+            "item": "https://cruisinginthewake.com/ports/"
         },{
             "@type": "ListItem",
             "position": 3,
             "name": "Durban",
-            "item": "https://inthewake.com/ports/durban"
+            "item": "https://cruisinginthewake.com/ports/durban"
         }]
     }
     </script>
@@ -61,7 +61,7 @@ Soli Deo Gloria
     {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "@id": "https://inthewake.com/ports/durban",
+        "@id": "https://cruisinginthewake.com/ports/durban",
         "name": "Durban, South Africa - Sunny Beaches and Zulu Heritage | Port Guide",
         "description": "Durban offers Golden Mile beachfront and rich Indian heritage. Visit Victoria Street Market, uShaka Marine World, Moses Mabhida Stadium, and taste authentic bunny chow.",
         "dateModified": "2025-12-26",
@@ -583,11 +583,10 @@ Soli Deo Gloria
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Follow</h4>
+                    <h4>Connect</h4>
                     <ul>
-                        <li><a href="#">Facebook</a></li>
-                        <li><a href="#">Instagram</a></li>
-                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="/about-us.html">About Us</a></li>
+                        <li><a href="/search.html">Search</a></li>
                     </ul>
                 </div>
             </div>
@@ -668,9 +667,9 @@ Soli Deo Gloria
 
       if(totalPages > 1){
         const navHTML = '<div style="display:flex;justify-content:space-between;align-items:center;">' +
-          '<button onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
           '<span class="tiny" style="color:#5a7a8a;">' + (page + 1) + ' / ' + totalPages + '</span>' +
-          '<button onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
         '</div>';
         navTop.innerHTML = navHTML;
         navBottom.innerHTML = navHTML;

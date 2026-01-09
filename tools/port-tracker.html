@@ -1884,7 +1884,7 @@ Soli Deo Gloria
         const item = document.createElement('div');
         item.className = 'port-item' + (visitedPorts.has(port.id) ? ' visited' : '');
         const portNameHtml = port.url
-          ? `<a href="${port.url}" class="port-name" target="_blank" onclick="trackEvent('port_link_clicked', {port_id: '${port.id}', port_name: '${port.name}'})">${port.name}</a>`
+          ? `<a href="${port.url}" class="port-name" target="_blank" rel="noopener" onclick="trackEvent('port_link_clicked', {port_id: '${port.id}', port_name: '${port.name}'})">${port.name}</a>`
           : `<span class="port-name">${port.name}</span>`;
         item.innerHTML = `
           <input type="checkbox" class="port-checkbox" data-port="${port.id}"

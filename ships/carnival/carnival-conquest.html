@@ -56,7 +56,7 @@
 <meta name="content-protocol" content="ICP-Lite v1.4"/>
 
 <link rel="preconnect" href="https://www.carnival.com"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" integrity="sha256-dMpqrlRo28kkeQw7TSGaCJuQo0utU6D3yjpz5ztvWrg=" crossorigin="anonymous"/>
 
 <!-- JSON-LD: Organization -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"In the Wake","url":"https://cruisinginthewake.com","logo":"https://cruisinginthewake.com/assets/logo_wake_512.png"}</script>
@@ -281,7 +281,7 @@ Dining Venues</h2>
       <details><summary><strong>How can I track Carnival Conquest's current location?</strong></summary><p>Use the live ship tracker section on this page to see the ship's current position, speed, heading, and next port in real-time via MarineTraffic AIS integration. The tracker updates automatically as the ship moves through her Western Caribbean itinerary.</p></details>
     </section>
 
-    <section class="card"><h2>Sources</h2><ul class="tiny"><li><a href="https://www.carnival.com/cruise-ships/carnival-conquest" target="_blank">Carnival Cruise Line</a></li><li><a href="https://www.marinetraffic.com" target="_blank">MarineTraffic</a></li><li>Photo: Wikimedia Commons, CC BY-SA 4.0</li></ul></section>
+    <section class="card"><h2>Sources</h2><ul class="tiny"><li><a href="https://www.carnival.com/cruise-ships/carnival-conquest" target="_blank" rel="noopener">Carnival Cruise Line</a></li><li><a href="https://www.marinetraffic.com" target="_blank" rel="noopener">MarineTraffic</a></li><li>Photo: Wikimedia Commons, CC BY-SA 4.0</li></ul></section>
 
   </div>
     </section><!-- End Main Content Column -->
@@ -312,10 +312,10 @@ Dining Venues</h2>
 <footer><p><strong>In the Wake</strong></p><p class="tiny">© 2025 · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p><p class="tiny" style="opacity:0;position:absolute" aria-hidden="true">Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous"></script>
 <script>
 new Swiper('#photo-swiper',{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true}});
-fetch('/assets/data/videos/carnival/carnival-conquest.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
+fetch('/assets/data/videos/carnival/carnival-conquest.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
 fetch('/assets/data/logbook/carnival/carnival-conquest.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h4>${s.title}</h4><p class="logbook-meta">${s.persona_label} · ${s.author.name}</p><p>${s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')}</p></article>`).join('');}).catch(()=>{});
 </script>  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
