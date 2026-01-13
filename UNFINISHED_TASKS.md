@@ -158,6 +158,26 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 - [ ] Enable URL parameters for class filtering (e.g., `?class=oasis`)
 - [ ] Link from ship class cards on ships.html
 
+### 🟡 [Y] Travel Advisory Hub on Planning Page
+**Status:** PLANNED
+**Lane:** 🟡 Yellow (content addition)
+**Context:** Add section linking to government travel advisory portals. Single hub approach (not per-port links) serves global audience without US-centric "international" classification.
+
+**Rationale:**
+- What's "international" depends on reader's location
+- Per-port links would require 349+ page updates and ongoing validation
+- Single hub is low-maintenance and serves all nationalities
+
+**Implementation:**
+- [ ] Add "Travel Advisories" section to `/planning.html` or `/travel.html`
+- [ ] Include links to major government portals:
+  - 🇺🇸 US: travel.state.gov
+  - 🇬🇧 UK: gov.uk/foreign-travel-advice
+  - 🇨🇦 Canada: travel.gc.ca
+  - 🇦🇺 Australia: smartraveller.gov.au
+  - 🇳🇿 NZ: safetravel.govt.nz
+- [ ] Optional: JS locale detection to highlight user's local government
+
 ### 🟢 [G] WCAG 2.1 AA Compliance Audit
 **Status:** Claimed compliant but needs verification
 **Lane:** 🟢 Green (automated audit)
