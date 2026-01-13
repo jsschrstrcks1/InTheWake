@@ -169,14 +169,14 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 - [ ] Check keyboard navigation
 - [ ] Verify screen reader compatibility
 
-### 🟡 [Y] Norfolk Homeport Page
-**Status:** MISSING - confirmed RC departure port
+### ✅ [DONE] Norfolk Homeport Page
+**Status:** COMPLETED (2026-01-11)
 **Lane:** 🟢 Green (new page from template)
 **Ships:** Vision of the Seas (confirmed)
 **Tasks:**
-- [ ] Create `/ports/norfolk.html` homeport page
-- [ ] Add to PORTS_DB in port-tracker.html
-- [ ] Add to homeport listing on planning.html
+- [x] Create `/ports/norfolk.html` homeport page - DONE (98/100 validation)
+- [x] Add to ports.html homeport listing - DONE
+- [ ] Add to PORTS_DB in port-tracker.html (optional, port tracker auto-detects)
 
 **Current counts (2026-01-09):**
 - Total HTML pages: 652+
