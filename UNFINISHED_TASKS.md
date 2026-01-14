@@ -98,20 +98,20 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
   - Fixed in commit e958d244
 
 ### 🟡 [Y] Carnival Fleet Index Page Enhancement
-**Status:** BARE - just a list, no marketing or organization
+**Status:** ✅ COMPLETE (2026-01-14)
 **Lane:** 🟡 Yellow (content creation)
 **File:** `/ships/carnival/index.html`
 
-**Current State:** Simple `<ol>` list of 29 ship links, no descriptions or class organization
-
-**Requested Enhancements:**
-- [ ] Add 1-2 paragraph Carnival-esque marketing blurb explaining page shows class highlights
-- [ ] Organize ships by class (Excel/XL, Vista, Dream, Conquest, Spirit, Fantasy, etc.)
-- [ ] Add class cards with images and descriptions
-- [ ] Polish and present verbiage attractively
-- [ ] Mention venues relevant to each class
-- [ ] Add links back to packing-lists.html
+**Completed:**
+- [x] Add 1-2 paragraph Carnival-esque marketing blurb explaining page shows class highlights
+- [x] Organize ships by class (Excel/XL, Vista, Dream, Conquest, Spirit, Fantasy, etc.)
+- [x] Add class cards with images and descriptions
+- [x] Polish and present verbiage attractively
+- [x] Mention venues relevant to each class
+- [x] Add links back to packing-lists.html, ships.html, and ship quiz
 - [ ] (Future) CTA for booking - leave off for now
+
+**Commit:** 1c54d103
 
 ### 🟡 [Y] RC Venues Page with Deep Links
 **Status:** DOES NOT EXIST
@@ -1024,11 +1024,12 @@ After downloading, must add attribution sections to HTML.
 - [ ] Verify duplicate ships (Legend, Star variants)
 
 ### Cruise Line Hub Page Attributions
-- [ ] Carnival.html - Replace placeholders with credited media
-- [ ] Celebrity.html - Replace placeholders with credited media
-- [ ] Disney.html - Replace placeholders with credited media
-- [ ] Holland America.html - Replace placeholders with credited media
-- [ ] MSC.html - Replace placeholders with credited media
+**Status:** ✅ COMPLETE (verified 2026-01-14) - All pages have proper Wikimedia Commons attributions
+- [x] Carnival.html - Has credited Wikimedia images with CC licenses
+- [x] Celebrity.html - Has credited Wikimedia images with CC licenses
+- [x] Disney.html - Has credited Wikimedia images with CC licenses
+- [x] Holland America.html - Has credited Wikimedia images with CC licenses
+- [x] MSC.html - Has credited Wikimedia images with CC licenses
 
 ### Data Completion
 - [ ] Complete /assets/data/venues.json with all dining venues
