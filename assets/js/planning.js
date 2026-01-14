@@ -108,7 +108,7 @@
     const parts = [
       `<strong>Spring Break:</strong> ${E(s.spring_break?.window || 'varies')} — ${E(s.spring_break?.notes || '')}`,
       `<strong>Fall Break:</strong> ${E(s.fall_break?.window || 'varies')} — ${E(s.fall_break?.notes || '')}`,
-      s.busy_days?.length ? `<strong>Also Busy:</strong> ${s.busy_days.join(', ')}` : ''
+      s.busy_days?.length ? `<strong>Also Busy:</strong> ${E(s.busy_days.join(', '))}` : ''
     ].filter(Boolean);
     breaksEl.innerHTML = parts.map(x => `<div>${x}</div>`).join('') +
       (s.disclaimer ? `<div class="tiny muted" style="margin-top:.35rem">${E(s.disclaimer)}</div>` : '');

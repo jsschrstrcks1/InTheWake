@@ -328,7 +328,15 @@ All work on this project is offered as a gift to God.
     </section>
 
     <!-- Stub Notice -->
-    
+
+    <!-- Dining Section -->
+    <section class="card" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on Grand Princess</h2>
+      <p>Dining venue information coming soon. Princess Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
+    </section>
+<script type="application/json" id="dining-data-source">{"provider":"princess","json":"/assets/data/venues-v2.json","ship_slug":"grand-princess","aliases":["Grand Princess"]}</script>
+        <script type="application/json" id="ship-stats-fallback">{"slug":"grand-princess","name":"Grand Princess","cruise_line":"Princess Cruises","class":"Grand Class","entered_service":1998,"gt":"107,517 GT","guests":"2,600","crew":"1,100"}</script>
+
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: Grand Princess</h2>
@@ -337,6 +345,59 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 
+    <!-- Photo Gallery Section -->
+    <section class="card" aria-labelledby="photo-gallery">
+      <h2 id="photo-gallery">Photo Gallery</h2>
+      <p class="small">Explore Grand Princess through these photos from around the ship.</p>
+      <div class="swiper photos" aria-label="Photo gallery carousel">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="/assets/ships/princess/grand-princess/exterior-bow.jpg" alt="Grand Princess exterior bow view" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/princess/grand-princess/atrium.jpg" alt="Grand Princess grand atrium" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/princess/grand-princess/pool-deck.jpg" alt="Grand Princess pool deck" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/princess/grand-princess/dining-room.jpg" alt="Grand Princess main dining room" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/princess/grand-princess/theater.jpg" alt="Grand Princess theater" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/princess/grand-princess/balcony-cabin.jpg" alt="Grand Princess balcony cabin" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/princess/grand-princess/movies-under-stars.jpg" alt="Grand Princess Movies Under the Stars" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/princess/grand-princess/exterior-sunset.jpg" alt="Grand Princess at sunset" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+          </div>
+        </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+    </section>
+
+    <script>
+    (function(){
+      if(window.Swiper){
+        setTimeout(()=>{
+          try{
+            new Swiper('.swiper.photos',{
+              loop:false,rewind:false,lazy:true,watchOverflow:true,
+              pagination:{el:'.swiper.photos .swiper-pagination',clickable:true},
+              navigation:{nextEl:'.swiper.photos .swiper-button-next',prevEl:'.swiper.photos .swiper-button-prev'},
+              a11y:{enabled:true}
+            });
+          }catch(_){}
+        },150);
+      }
+    })();
+    </script>
 
     <!-- Videos Section -->
     <section class="card" aria-labelledby="video-highlights">
@@ -400,21 +461,6 @@ All work on this project is offered as a gift to God.
     })();
     </script>
 
-    
-
-    <!-- Placeholder sections -->
-    <section class="card" aria-labelledby="diningHeading">
-      <h2 id="diningHeading">Dining on Grand Princess</h2>
-      <p>Dining venue information coming soon. Princess Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
-    </section>
-<script type="application/json" id="dining-data-source">{"provider":"princess","json":"/assets/data/venues-v2.json","ship_slug":"grand-princess","aliases":["Grand Princess"]}</script>
-        <script type="application/json" id="ship-stats-fallback">{"slug":"grand-princess","name":"Grand Princess","cruise_line":"Princess Cruises","class":"Grand Class","entered_service":1998,"gt":"107,517 GT","guests":"2,600","crew":"1,100"}</script>
-
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
-      <p>Entertainment details coming soon. Explore shows, activities, and onboard experiences.</p>
-    </section>
-
     <section class="grid-2">
       <section class="card" aria-labelledby="deckPlansHeading">
         <h2 id="deckPlansHeading">Deck Plans</h2>
@@ -425,7 +471,7 @@ All work on this project is offered as a gift to God.
         </figure>
         <p><a class="btn" href="https://www.princess.com/" target="_blank" rel="noopener">Visit Princess Official Site</a></p>
       </section>
-      <section class="card" aria-labelledby="trackingHeading">
+      <section class="card itinerary" aria-labelledby="trackingHeading" data-imo="9104005" data-name="GRANDPRINCESS">
         <h2 id="trackingHeading">Where Is Grand Princess?</h2>
         <p>Track Grand Princess's current position and upcoming itinerary.</p>
         <p><a class="btn" href="https://www.cruisemapper.com/?search=Grand%20Princess" target="_blank" rel="noopener">Open Live Tracker</a></p>
@@ -487,7 +533,9 @@ All work on this project is offered as a gift to God.
         <nav aria-label="Page sections">
           <ul class="rail-links">
             <li><a href="#first-look">First Look</a></li>
+            <li><a href="#diningHeading">Dining</a></li>
             <li><a href="#logbook">Logbook</a></li>
+            <li><a href="#photo-gallery">Photos</a></li>
             <li><a href="#video-highlights">Videos</a></li>
             <li><a href="#faq">FAQ</a></li>
           </ul>

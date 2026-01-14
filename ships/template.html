@@ -542,8 +542,7 @@ All work on this project is offered as a gift to God.
       const targetSlug = (el.getAttribute('data-slug') || '').trim().toLowerCase();
       const SOURCES = [
         'https://cruisinginthewake.com/assets/data/fleet_index.json',
-        '/assets/data/fleet_index.json',
-        '/data/fleet_index.json'
+        '/assets/data/fleet_index.json'
       ];
       async function tryFetch(u){
         const url = u + (u.includes('?') ? '&' : '?') + 'v=' + Date.now();
@@ -597,7 +596,7 @@ All work on this project is offered as a gift to God.
 
       const urlList = [
         'https://cruisinginthewake.com/assets/data/fleet_index.json',
-        '/assets/data/fleet_index.json','/data/fleet_index.json'
+        '/assets/data/fleet_index.json'
       ];
       async function fetchFirst(list){ for (const u of list){ try{ const r=await fetch(u); if(r.ok) return r.json(); }catch{} } return null; }
       const data = await fetchFirst(urlList);

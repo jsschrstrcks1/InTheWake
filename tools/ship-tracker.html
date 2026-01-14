@@ -182,7 +182,8 @@ Soli Deo Gloria
       <!-- Left Sidebar: Filters -->
       <aside class="filter-panel">
         <h3>Filter by Class</h3>
-        <input type="text" class="search-box" id="search-box" placeholder="Search ships...">
+        <label for="search-box" class="sr-only">Search ships by name or class</label>
+        <input type="text" class="search-box" id="search-box" placeholder="Search ships..." aria-label="Search ships by name or class">
         <button class="filter-button active" data-class="all">🚢 All Ships</button>
         <button class="filter-button" data-class="Icon">🌟 Icon Class</button>
         <button class="filter-button" data-class="Oasis">⚡ Oasis Class</button>
@@ -760,7 +761,7 @@ Soli Deo Gloria
 
       html += `
         <div class="class-section collapsed">
-          <div class="class-title" onclick="toggleSection(this)">
+          <div class="class-title" role="button" tabindex="0" aria-expanded="false" onclick="toggleSection(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection(this)}"
             <div class="class-title-text">
               ${className} Class
               <span class="class-progress">${sailed}/${total}</span>
@@ -841,7 +842,7 @@ Soli Deo Gloria
 
       html += `
         <div class="class-section collapsed">
-          <div class="class-title" onclick="toggleSection(this)">
+          <div class="class-title" role="button" tabindex="0" aria-expanded="false" onclick="toggleSection(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection(this)}"
             <div class="class-title-text">
               ⏳ ${className} Class
               <span class="class-progress">${sailed}/${total}</span>
@@ -1336,6 +1337,8 @@ Soli Deo Gloria
   window.toggleSection = function(element) {
     const section = element.closest('.class-section');
     section.classList.toggle('collapsed');
+    const isExpanded = !section.classList.contains('collapsed');
+    element.setAttribute('aria-expanded', isExpanded);
   };
 
   // URL State Sharing
