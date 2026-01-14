@@ -1,0 +1,337 @@
+<!doctype html>
+<!--
+Soli Deo Gloria
+All work on this project is offered as a gift to God.
+"Trust in the LORD with all your heart..." — Proverbs 3:5
+"Whatever you do, work heartily..." — Colossians 3:23
+-->
+<html lang="en"><head>
+<!-- ai-breadcrumbs
+     entity: Royal Caribbean Venues Guide
+     type: Venue Information Page
+     parent: /ships.html
+     category: Royal Caribbean Fleet
+     cruise-line: Royal Caribbean
+     updated: 2026-01-14
+     expertise: RC ship venues, dining venues, bars, activities, entertainment
+     target-audience: Royal Caribbean cruisers, ship comparison researchers, first-time cruisers
+     answer-first: Complete guide to Royal Caribbean venues organized by ship class.
+     --><meta charset='utf-8'>
+  <meta name="ai-summary" content="Royal Caribbean Venues by Ship Class – In The Wake">
+  <meta name="last-reviewed" content="2026-01-14">
+  <meta name="content-protocol" content="ICP-Lite v1.4">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Royal Caribbean Venues by Ship Class – In The Wake</title>
+  <meta name="description" content="Explore dining venues, bars, entertainment, and activities on Royal Caribbean ships. Filter by ship class: Icon, Oasis, Quantum, Freedom, Voyager, Radiance, and more.">
+  <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=2.234"/>
+  <link rel="stylesheet" href="/assets/css/ships-dynamic.css"/>
+  <link rel="stylesheet" href="/assets/css/item-cards.css"/>
+<style id="venues-page-styles">
+    .intro-text {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #333;
+      margin-bottom: 2rem;
+      padding: 1.25rem;
+      background: linear-gradient(135deg, #e8f4ff 0%, #dceeff 100%);
+      border-left: 4px solid #0e6e8e;
+      border-radius: 8px;
+    }
+    .back-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 2px solid var(--rope, #8B7355);
+    }
+    .back-links .pill {
+      padding: 0.75rem 1.5rem;
+      background: var(--foam, #eaf6f6);
+      border: 2px solid var(--rope, #8B7355);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--accent, #0e6e8e);
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .back-links .pill:hover {
+      background: var(--accent, #0e6e8e);
+      color: white;
+      border-color: var(--accent, #0e6e8e);
+    }
+
+    /* Class Filter Pills */
+    .class-filter-section {
+      margin-bottom: 2rem;
+    }
+    .class-filter-label {
+      font-weight: 600;
+      color: var(--ink, #1a2a3a);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .class-filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .class-pill {
+      padding: 0.5rem 1rem;
+      background: var(--foam, #eaf6f6);
+      border: 2px solid var(--rope, #8B7355);
+      border-radius: 20px;
+      text-decoration: none;
+      color: var(--accent, #0e6e8e);
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .class-pill:hover {
+      background: #d4eeee;
+      border-color: var(--accent, #0e6e8e);
+    }
+    .class-pill.active {
+      background: var(--accent, #0e6e8e);
+      color: white;
+      border-color: var(--accent, #0e6e8e);
+    }
+
+    /* Venue Category Sections */
+    .venue-category {
+      margin-bottom: 2rem;
+    }
+    .venue-category-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--rope, #8B7355);
+    }
+    .venue-category-icon {
+      font-size: 1.5rem;
+    }
+    .venue-category-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--accent, #0e6e8e);
+      margin: 0;
+    }
+
+    /* Venue Grid */
+    .venue-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    @media (min-width: 768px) {
+      .venue-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.25rem;
+      }
+    }
+
+    /* Venue Card */
+    .venue-card {
+      background: white;
+      border: 2px solid var(--rope, #8B7355);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      transition: all 0.2s ease;
+    }
+    .venue-card:hover {
+      border-color: var(--accent, #0e6e8e);
+      box-shadow: 0 4px 12px rgba(14, 110, 142, 0.12);
+    }
+    .venue-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .venue-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--ink, #1a2a3a);
+      margin: 0;
+    }
+    .venue-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .venue-badge.complimentary {
+      background: #d4edda;
+      color: #155724;
+    }
+    .venue-badge.specialty {
+      background: #fff3cd;
+      color: #856404;
+    }
+    .venue-badge.premium {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    .venue-description {
+      font-size: 0.9rem;
+      color: var(--text-muted, #666);
+      margin: 0 0 0.5rem 0;
+      line-height: 1.4;
+    }
+    .venue-cost {
+      font-size: 0.85rem;
+      color: var(--accent, #0e6e8e);
+      font-weight: 500;
+    }
+    .venue-ships {
+      font-size: 0.8rem;
+      color: var(--text-muted, #666);
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid #eee;
+    }
+
+    /* Ship class header styling */
+    .ship-class-venues-section {
+      margin-bottom: 2.5rem;
+    }
+    .ship-class-venues-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: var(--foam, #eaf6f6);
+      border-radius: 10px;
+      border-left: 4px solid var(--accent, #0e6e8e);
+    }
+    .ship-class-venues-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--accent, #0e6e8e);
+      margin: 0;
+    }
+    .ship-class-venues-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted, #666);
+      margin: 0.25rem 0 0;
+    }
+
+    /* No results message */
+    .no-venues-message {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: var(--foam, #eaf6f6);
+      border-radius: 12px;
+      color: var(--text-muted, #666);
+    }
+
+    /* Page Grid Layout */
+    .page-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (min-width: 980px) {
+      .page-grid {
+        grid-template-columns: 1fr 320px;
+      }
+    }
+    .rail {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip link for keyboard/screen reader users -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- HEADER (loaded from external) -->
+  <header id="site-header"></header>
+
+  <h1 class="page-title wrap">Royal Caribbean Venues by Ship Class</h1>
+  <main id="main-content" class="wrap page-grid">
+    <div class="main-content-area">
+      <p class="intro-text">
+        Explore dining venues, bars, entertainment, and activities across Royal Caribbean's fleet.
+        Each ship class offers unique experiences — from Icon Class's Category 6 waterpark to
+        Oasis Class's Central Park and Boardwalk neighborhoods. Filter by class to see what's
+        available on your ship.
+      </p>
+
+      <!-- Class Filter -->
+      <section class="class-filter-section" aria-label="Filter by ship class">
+        <span class="class-filter-label">Filter by Ship Class:</span>
+        <div class="class-filter-pills" id="classFilterPills">
+          <button class="class-pill active" data-class="all">All Classes</button>
+          <button class="class-pill" data-class="icon">Icon Class</button>
+          <button class="class-pill" data-class="oasis">Oasis Class</button>
+          <button class="class-pill" data-class="quantum">Quantum Class</button>
+          <button class="class-pill" data-class="freedom">Freedom Class</button>
+          <button class="class-pill" data-class="voyager">Voyager Class</button>
+          <button class="class-pill" data-class="radiance">Radiance Class</button>
+        </div>
+      </section>
+
+      <!-- Venues Container -->
+      <div id="venuesContainer">
+        <p class="ships-loading">Loading venues</p>
+      </div>
+
+      <div class="back-links">
+        <a href="/ships.html" class="pill">← Back to All Ships</a>
+        <a href="/restaurants.html" class="pill">Restaurant Menus</a>
+        <a href="/drink-packages.html" class="pill">Drink Packages</a>
+      </div>
+    </div>
+
+    <!-- Right Rail -->
+    <aside class="rail" role="complementary" aria-label="Related information">
+      <section class="card">
+        <h3>Quick Tips</h3>
+        <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.6;">
+          <li><strong>Complimentary</strong> venues are included in your cruise fare</li>
+          <li><strong>Specialty</strong> dining requires reservations and additional fees</li>
+          <li>Book popular restaurants early via the Royal Caribbean app</li>
+          <li>Prices may vary by ship and sailing date</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h3>By Ship Class</h3>
+        <p style="font-size: 0.9rem; color: #666; margin-bottom: 0.75rem;">
+          Click a ship class to explore its individual ships:
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="/ships.html#icon-class" class="pill" style="text-align: center;">Icon Class</a>
+          <a href="/ships.html#oasis-class" class="pill" style="text-align: center;">Oasis Class</a>
+          <a href="/ships.html#quantum-class" class="pill" style="text-align: center;">Quantum Class</a>
+          <a href="/ships.html#freedom-class" class="pill" style="text-align: center;">Freedom Class</a>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="wrap" role="contentinfo">
+    <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
+    <p class="tiny mt-05">
+      <a href="/privacy.html">Privacy</a> &middot;
+      <a href="/terms.html">Terms</a> &middot;
+      <a href="/about-us.html">About</a>
+    </p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="/assets/js/nav-bundle.min.js" defer></script>
+  <script src="/assets/js/rcl-venues.js" type="module"></script>
+</body>
+</html>

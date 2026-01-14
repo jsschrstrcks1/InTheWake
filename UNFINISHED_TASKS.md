@@ -170,16 +170,24 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 - [x] Reused ships-dynamic.css and item-cards.css for consistent styling
 - [x] Added Carnival brand colors (red accents) and upcoming ship badges
 
-### 🟡 [Y] RC Venues Page with Deep Links
-**Status:** DOES NOT EXIST
-**Lane:** 🟡 Yellow (new page creation)
+### 🟢 [G] RC Venues Page with Deep Links — COMPLETE
+**Status:** COMPLETE
+**Lane:** 🟢 Green (completed)
 **Context:** User wants venues page per ship class for deep linking from RC fleet page
+**Completed:** 2026-01-14
 
 **Tasks:**
-- [ ] Create `/ships/rcl/venues.html` (or similar)
-- [ ] Organize venues by ship class (Icon, Oasis, Quantum, etc.)
-- [ ] Enable URL parameters for class filtering (e.g., `?class=oasis`)
-- [ ] Link from ship class cards on ships.html
+- [x] Create `/ships/rcl/venues.html`
+- [x] Organize venues by ship class (Icon, Oasis, Quantum, etc.)
+- [x] Enable URL parameters for class filtering (e.g., `?class=oasis`)
+- [x] Link from ship class cards on ships.html
+
+**Implementation Notes:**
+- Created `/ships/rcl/venues.html` with class filter pills
+- Created `/assets/js/rcl-venues.js` module that fetches from venues-v2.json
+- Venues organized by category (Dining, Bars, Activities, Entertainment, Neighborhoods)
+- URL deep linking works (e.g., `/ships/rcl/venues.html?class=oasis`)
+- Shows which ships have each venue when filtered by class
 
 ### 🟡 [Y] Travel Advisory Hub on Planning Page
 **Status:** PLANNED
