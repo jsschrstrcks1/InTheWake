@@ -1734,7 +1734,7 @@ After downloading, must add attribution sections to HTML.
 - [ ] Fix author avatar to circle (remove inline border-radius overrides)
 - [ ] Standardize carousel markup to `<figure>` pattern
 - [ ] Align section order: First Look → Dining → Videos → Deck Plans/Tracker → FAQ
-- [ ] Remove emoji from stateroom buttons (consistency)
+- [x] Remove emoji from stateroom buttons (consistency) - DONE (27 files, 2026-01-14)
 - [ ] Uniform version badge (3.010.300)
 
 #### Phase 3: Carnival Ships (48 pages)
