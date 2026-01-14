@@ -20,7 +20,63 @@ All work on this project is offered as a gift to God.
   <meta name="ai-summary" content="Carnival – In The Wake">
   <meta name="last-reviewed" content="2025-11-19">
   <meta name="content-protocol" content="ICP-Lite v1.4"><title>Carnival – In The Wake</title>  <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=2.234"/>
-<style id="brand-title-hide">.brand-title{display:none!important}
+  <link rel="stylesheet" href="/assets/css/ships-dynamic.css"/>
+  <link rel="stylesheet" href="/assets/css/item-cards.css"/>
+<style id="carnival-page-styles">
+    .intro-text {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #333;
+      margin-bottom: 2rem;
+      padding: 1.25rem;
+      background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+      border-left: 4px solid #c00;
+      border-radius: 8px;
+    }
+    .back-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 2px solid var(--rope, #8B7355);
+    }
+    .back-links .pill {
+      padding: 0.75rem 1.5rem;
+      background: var(--foam, #eaf6f6);
+      border: 2px solid var(--rope, #8B7355);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--accent, #0e6e8e);
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .back-links .pill:hover {
+      background: var(--accent, #0e6e8e);
+      color: white;
+      border-color: var(--accent, #0e6e8e);
+    }
+    /* Carnival brand color accents */
+    .carnival-hero .cruise-line-hero-overlay {
+      background: linear-gradient(to top, rgba(180, 0, 0, 0.9) 0%, rgba(100, 0, 0, 0.6) 50%, transparent 100%);
+    }
+    .upcoming-badge {
+      background: linear-gradient(135deg, rgba(255, 140, 0, 0.95) 0%, rgba(200, 100, 0, 0.95) 100%) !important;
+    }
+    .note-badge {
+      background: linear-gradient(135deg, rgba(100, 100, 100, 0.95) 0%, rgba(60, 60, 60, 0.95) 100%) !important;
+      left: 0.875rem;
+      right: auto;
+    }
+    .ship-card.upcoming {
+      border-color: #ff8c00;
+    }
+    .ship-card.upcoming:hover {
+      border-color: #ff6600;
+      box-shadow: 0 8px 24px rgba(255, 140, 0, 0.2);
+    }
+  </style>
+  <style id="brand-title-hide">.brand-title{display:none!important}
     /* Page Grid Layout */
     .page-grid {
       display: grid;
@@ -357,7 +413,19 @@ All work on this project is offered as a gift to God.
     </div></header>
 </div>
 
-<h1>Carnival Fleet Pages</h1><ol><li><a href="/ships/carnival/carnival-adventure.html" target="_blank" rel="noopener">Carnival Adventure</a></li><li><a href="/ships/carnival/carnival-breeze.html" target="_blank" rel="noopener">Carnival Breeze</a></li><li><a href="/ships/carnival/carnival-celebration.html" target="_blank" rel="noopener">Carnival Celebration</a></li><li><a href="/ships/carnival/carnival-conquest.html" target="_blank" rel="noopener">Carnival Conquest</a></li><li><a href="/ships/carnival/carnival-dream.html" target="_blank" rel="noopener">Carnival Dream</a></li><li><a href="/ships/carnival/carnival-elation.html" target="_blank" rel="noopener">Carnival Elation</a></li><li><a href="/ships/carnival/carnival-encounter.html" target="_blank" rel="noopener">Carnival Encounter</a></li><li><a href="/ships/carnival/carnival-firenze.html" target="_blank" rel="noopener">Carnival Firenze</a></li><li><a href="/ships/carnival/carnival-freedom.html" target="_blank" rel="noopener">Carnival Freedom</a></li><li><a href="/ships/carnival/carnival-glory.html" target="_blank" rel="noopener">Carnival Glory</a></li><li><a href="/ships/carnival/carnival-horizon.html" target="_blank" rel="noopener">Carnival Horizon</a></li><li><a href="/ships/carnival/carnival-jubilee.html" target="_blank" rel="noopener">Carnival Jubilee</a></li><li><a href="/ships/carnival/carnival-legend.html" target="_blank" rel="noopener">Carnival Legend</a></li><li><a href="/ships/carnival/carnival-liberty.html" target="_blank" rel="noopener">Carnival Liberty</a></li><li><a href="/ships/carnival/carnival-luminosa.html" target="_blank" rel="noopener">Carnival Luminosa</a></li><li><a href="/ships/carnival/carnival-magic.html" target="_blank" rel="noopener">Carnival Magic</a></li><li><a href="/ships/carnival/carnival-mardi-gras.html" target="_blank" rel="noopener">Carnival Mardi Gras</a></li><li><a href="/ships/carnival/carnival-miracle.html" target="_blank" rel="noopener">Carnival Miracle</a></li><li><a href="/ships/carnival/carnival-panorama.html" target="_blank" rel="noopener">Carnival Panorama</a></li><li><a href="/ships/carnival/carnival-paradise.html" target="_blank" rel="noopener">Carnival Paradise</a></li><li><a href="/ships/carnival/carnival-pride.html" target="_blank" rel="noopener">Carnival Pride</a></li><li><a href="/ships/carnival/carnival-radiance.html" target="_blank" rel="noopener">Carnival Radiance</a></li><li><a href="/ships/carnival/carnival-spirit.html" target="_blank" rel="noopener">Carnival Spirit</a></li><li><a href="/ships/carnival/carnival-splendor.html" target="_blank" rel="noopener">Carnival Splendor</a></li><li><a href="/ships/carnival/carnival-sunrise.html" target="_blank" rel="noopener">Carnival Sunrise</a></li><li><a href="/ships/carnival/carnival-sunshine.html" target="_blank" rel="noopener">Carnival Sunshine</a></li><li><a href="/ships/carnival/carnival-valor.html" target="_blank" rel="noopener">Carnival Valor</a></li><li><a href="/ships/carnival/carnival-venezia.html" target="_blank" rel="noopener">Carnival Venezia</a></li><li><a href="/ships/carnival/carnival-vista.html" target="_blank" rel="noopener">Carnival Vista</a></li></ol>
+<h1>Carnival Cruise Line Fleet</h1>
+<main id="main-content" class="wrap">
+  <p class="intro-text">Welcome aboard Carnival — the "Fun Ships" that pioneered affordable cruising for everyone. From the groundbreaking BOLT roller coaster on the Excel-class to the classic charm of the Fantasy ships, there's a Carnival vessel for every type of cruiser. Explore our complete fleet organized by ship class to find your perfect match.</p>
+
+  <div id="carnivalFleetContainer" class="ships-container">
+    <p class="ships-loading">Loading Carnival fleet</p>
+  </div>
+
+  <div class="back-links">
+    <a href="/ships.html" class="pill">← Back to All Ships</a>
+    <a href="/packing-lists.html" class="pill">Packing Lists</a>
+  </div>
+</main>
   
   <footer class="wrap">
     <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook</p>
@@ -370,4 +438,7 @@ All work on this project is offered as a gift to God.
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
+
+  <!-- Carnival Fleet Dynamic Module -->
+  <script src="/assets/js/carnival-fleet.js"></script>
 </body></html>

@@ -147,21 +147,28 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
   - jewel-of-the-seas.v2.json ✅ Added
   - serenade-of-the-seas.v2.json ✅ Added
 
-### 🟡 [Y] Carnival Fleet Index Page Enhancement
-**Status:** BARE - just a list, no marketing or organization
+### ✅ [Y] Carnival Fleet Index Page Enhancement (COMPLETED 2026-01-14)
+**Status:** COMPLETE - Dynamic fleet page with class organization
 **Lane:** 🟡 Yellow (content creation)
 **File:** `/ships/carnival/index.html`
 
-**Current State:** Simple `<ol>` list of 29 ship links, no descriptions or class organization
-
-**Requested Enhancements:**
-- [ ] Add 1-2 paragraph Carnival-esque marketing blurb explaining page shows class highlights
-- [ ] Organize ships by class (Excel/XL, Vista, Dream, Conquest, Spirit, Fantasy, etc.)
-- [ ] Add class cards with images and descriptions
-- [ ] Polish and present verbiage attractively
-- [ ] Mention venues relevant to each class
-- [ ] Add links back to packing-lists.html
-- [ ] (Future) CTA for booking - leave off for now
+**Completed Work:**
+- [x] Add 1-2 paragraph Carnival-esque marketing blurb - **DONE**
+  - Intro text highlighting "Fun Ships" heritage and class variety
+- [x] Organize ships by class - **DONE** (10 classes)
+  - Excel, Vista, Dream, Conquest, Spirit, Splendor, Sunshine, Fantasy, Ex-Costa, Ex-P&O
+- [x] Add class cards with images and descriptions - **DONE**
+  - Each class has hero image from flagship ship
+  - Class descriptions highlighting key features (BOLT, SkyRide, etc.)
+- [x] Polish and present verbiage attractively - **DONE**
+  - Ship CTAs explaining why to choose each ship
+  - Capacity, GT, year built badges
+- [x] Mention venues relevant to each class - **DONE**
+  - Class descriptions reference BOLT, SkyRide, Ocean Plaza, WaterWorks, etc.
+- [x] Add links back to packing-lists.html - **DONE**
+- [x] Created `/assets/js/carnival-fleet.js` with full fleet data
+- [x] Reused ships-dynamic.css and item-cards.css for consistent styling
+- [x] Added Carnival brand colors (red accents) and upcoming ship badges
 
 ### 🟡 [Y] RC Venues Page with Deep Links
 **Status:** DOES NOT EXIST
