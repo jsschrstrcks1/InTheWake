@@ -114,15 +114,17 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 **Commit:** 1c54d103
 
 ### 🟡 [Y] RC Venues Page with Deep Links
-**Status:** DOES NOT EXIST
+**Status:** ✅ COMPLETE (2026-01-14)
 **Lane:** 🟡 Yellow (new page creation)
 **Context:** User wants venues page per ship class for deep linking from RC fleet page
 
-**Tasks:**
-- [ ] Create `/ships/rcl/venues.html` (or similar)
-- [ ] Organize venues by ship class (Icon, Oasis, Quantum, etc.)
-- [ ] Enable URL parameters for class filtering (e.g., `?class=oasis`)
-- [ ] Link from ship class cards on ships.html
+**Completed:**
+- [x] Create `/ships/rcl/venues.html`
+- [x] Organize venues by ship class (Icon, Oasis, Quantum, Freedom, Voyager, Radiance, Vision)
+- [x] Enable URL parameters for class filtering (e.g., `?class=oasis`)
+- [ ] Link from ship class cards on ships.html (future enhancement)
+
+**Commit:** d8c2609b
 
 ---
 
