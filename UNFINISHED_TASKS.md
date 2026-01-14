@@ -118,23 +118,24 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 - [ ] Individual ship images "coming up awkwardly" - investigate rendering
 - [ ] Non-existent cruise lines appearing - audit cruise line list
 
-### 🟡 [Y] Stateroom "Positive Oddball" Categories - Radiance Class
-**Status:** MISSING - only negative oddballs documented
+### ✅ [G] Stateroom "Positive Oddball" Categories - Radiance Class (COMPLETED 2026-01-14)
+**Status:** COMPLETE - All 4 Radiance-class ships updated
 **Lane:** 🟢 Green (data enhancement)
-**Context:** User provided detailed Radiance cabin data for OVERSIZED family rooms and EXTENDED aft balconies
 
-**Missing Positive Flags to Add:**
-- [ ] Add `OVERSIZED_FAMILY` flag for Ultra Spacious Ocean View (1K) / Family Ocean View (FO)
+**Positive Flags Added:**
+- [x] `OVERSIZED_FAMILY` flag for Ultra Spacious Ocean View (1K) / Family Ocean View (FO)
   - Rooms: 7004, 7504, 8000, 8002, 8500, 8502 (Decks 7-8 bow-facing)
   - Size: 265-319 sq ft vs standard 164-179 sq ft
-  - Features: Bunks + sofa beds, fits up to 6, epic panoramic views
-  - Minor helipad obstruction on some
-- [ ] Add `EXTENDED_AFT_BALCONY` flag for larger aft balconies
+  - Features: Bunks + sofa beds, fits up to 6, panoramic forward views
+- [x] `EXTENDED_AFT_BALCONY` flag for larger aft balconies
   - Rooms: 7172, 7174, 7660, 7670, 8164, 8664, 8670
   - Size: 50-80 sq ft vs standard 41-45 sq ft
   - Features: Near-180° wake views, minimal obstructions
-- [ ] Update stateroom-exceptions.radiance-of-the-seas.v2.json
-- [ ] Consider adding to all Radiance-class ships (Brilliance, Jewel, Serenade)
+- [x] Updated all 4 Radiance-class ships:
+  - radiance-of-the-seas.v2.json (already had flags)
+  - brilliance-of-the-seas.v2.json ✅ Added
+  - jewel-of-the-seas.v2.json ✅ Added
+  - serenade-of-the-seas.v2.json ✅ Added
 
 ### 🟡 [Y] Carnival Fleet Index Page Enhancement
 **Status:** BARE - just a list, no marketing or organization
@@ -1514,8 +1515,8 @@ cartagena, cherbourg, mobile, reykjavik, samana, st-kitts, st-petersburg, tortol
 - **P3 Medium-term:** adelaide, cairns, hobart, fremantle, bora-bora, papeete, noumea, bay-of-islands (8 ports)
 
 **Tracker Fixes Still Needed:**
-- [ ] Add Vancouver as regular port entry in PORTS_DB (in addition to homeport)
-- [ ] Add Melbourne as regular port entry in PORTS_DB (in addition to homeport)
+- [x] Add Vancouver as regular port entry in PORTS_DB ✅ Already exists (line 1722)
+- [x] Add Melbourne as regular port entry in PORTS_DB ✅ Already exists (line 1723)
 
 **Note:** Previously listed Caribbean ports (St. Kitts, Grenada, Martinique, Guadeloupe, Dominica) confirmed as already complete. Antigua not in 2024 RCL list.
 
