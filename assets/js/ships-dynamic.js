@@ -213,6 +213,37 @@
 
   };
 
+  // Class header images - use flagship ship's image for each class
+  const CLASS_IMAGES = {
+    'Icon Class': '/assets/ships/Icon_of_the_Seas_(cropped).webp',
+    'Oasis Class': '/assets/ships/Oasis-of-the-seas-FOM- - 1.webp',
+    'Quantum Ultra Class': '/assets/ships/Spectrum_of_the_Seas_01.webp',
+    'Quantum Class': '/assets/ships/Quantum_of_the_Seas_-_Wedel_04.webp',
+    'Freedom Class': '/assets/ships/freedom-of-the-seas-FOM- - 1.webp',
+    'Voyager Class': '/assets/ships/Voyageroftheseas.webp',
+    'Radiance Class': '/assets/ships/Radiance-of-the-seas-FOM- - 1.webp',
+    'Vision Class': '/assets/ships/Grandeur-of-the-seas-FOM- - 1.webp',
+    'Sovereign Class': '/assets/ships/Sovereign_of_the_Seas_Nassau_Bahamas_(244161813)_(cropped)_(cropped).webp',
+    'Historic Fleet': '/assets/ships/Song_of_Norway_Vigo_(cropped)_(cropped).webp'
+  };
+
+  // Class descriptions - brief summary of what defines each class
+  const CLASS_DESCRIPTIONS = {
+    'Icon Class': 'The largest ships at sea with groundbreaking innovations like Category 6 water park and AquaDome.',
+    'Oasis Class': 'Neighborhood-style megaships that pioneered Central Park, Boardwalk, and the AquaTheater.',
+    'Quantum Ultra Class': 'Enhanced Quantum ships with expanded venues and Asian market features.',
+    'Quantum Class': 'Smart ships with North Star observation pod, iFly skydiving, and Two70° entertainment.',
+    'Freedom Class': 'FlowRider surf simulators, H2O Zone, and excellent value for families.',
+    'Voyager Class': 'The original Royal Promenade ships with ice rinks and rock climbing walls.',
+    'Radiance Class': 'Floor-to-ceiling glass throughout for stunning ocean views on every voyage.',
+    'Vision Class': 'Intimate ships with classic Royal Caribbean charm and easier navigation.',
+    'Sovereign Class': 'Historic megaships that defined modern cruising (retired fleet).',
+    'Historic Fleet': 'Ships that built Royal Caribbean\'s legacy from the 1970s through 1990s.'
+  };
+
+  // Cruise line branding
+  const CRUISE_LINE_HERO = '/assets/social/royal-caribbean-hero.jpg';
+
   // Ship CTA/pitch text - WHY choose this ship and WHO it's for
   const SHIP_CTAS = {
     // Icon Class
@@ -436,26 +467,37 @@
 
     const shipsHtml = ships.map(ship => createShipCard(ship)).join('');
     const shipCount = ships.length;
+    const classImage = CLASS_IMAGES[className] || '/assets/ship-placeholder.jpg';
+    const classDescription = CLASS_DESCRIPTIONS[className] || '';
 
     // Default to collapsed for all classes EXCEPT Icon Class
     const isIconClass = className === 'Icon Class';
     const expandedState = isIconClass ? 'true' : 'false';
     const collapsedClass = isIconClass ? '' : ' collapsed';
+    const classSlug = className.replace(/\s+/g, '-').toLowerCase();
 
     return `
-      <section class="ship-class-section${collapsedClass}" data-class="${className}">
+      <section class="ship-class-section${collapsedClass}" data-class="${className}" id="${classSlug}">
         <button class="ship-class-toggle"
                 type="button"
                 aria-expanded="${expandedState}"
-                aria-controls="ships-${className.replace(/\s+/g, '-').toLowerCase()}">
-          <h2 class="ship-class-title">
-            ${className}
-            <span class="ship-count">${shipCount} ship${shipCount !== 1 ? 's' : ''}</span>
-          </h2>
+                aria-controls="ships-${classSlug}">
+          <div class="ship-class-header-content">
+            <div class="ship-class-image">
+              <img src="${classImage}" alt="${className}" loading="lazy" decoding="async" />
+            </div>
+            <div class="ship-class-info">
+              <h2 class="ship-class-title">
+                ${className}
+                <span class="ship-count">${shipCount} ship${shipCount !== 1 ? 's' : ''}</span>
+              </h2>
+              ${classDescription ? `<p class="ship-class-description">${classDescription}</p>` : ''}
+            </div>
+          </div>
           <span class="toggle-icon" aria-hidden="true">▼</span>
         </button>
         <div class="ship-class-content"
-             id="ships-${className.replace(/\s+/g, '-').toLowerCase()}"
+             id="ships-${classSlug}"
              role="region"
              aria-label="${className} ships">
           <div class="ship-grid">
@@ -479,13 +521,26 @@
       .filter(html => html) // Remove empty sections
       .join('');
 
+    // Count total ships
+    const totalShips = Object.values(RC_FLEET).reduce((sum, cls) => sum + cls.ships.length, 0);
+    const activeShips = Object.values(RC_FLEET).reduce((sum, cls) =>
+      sum + cls.ships.filter(s => !s.retired).length, 0);
+
     return `
       <section class="cruise-line-section" data-line="royal-caribbean">
         <div class="cruise-line-header">
-          <h2 class="cruise-line-title">Royal Caribbean International</h2>
-          <button class="view-all-btn" type="button" id="toggleAllClasses">
-            Expand All Classes
-          </button>
+          <div class="cruise-line-hero">
+            <img src="${CRUISE_LINE_HERO}" alt="Royal Caribbean International fleet" loading="eager" decoding="async" />
+            <div class="cruise-line-hero-overlay">
+              <h2 class="cruise-line-title">Royal Caribbean International</h2>
+              <p class="cruise-line-stats">${activeShips} active ships · ${Object.keys(RC_FLEET).length} ship classes</p>
+            </div>
+          </div>
+          <div class="cruise-line-actions">
+            <button class="view-all-btn" type="button" id="toggleAllClasses">
+              Expand All Classes
+            </button>
+          </div>
         </div>
         <div class="cruise-line-content">
           ${classesHtml}
