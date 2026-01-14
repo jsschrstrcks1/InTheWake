@@ -109,13 +109,21 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 - [x] Updated code references in `ships/template.html` and `assets/cache-manifest.json`
 - **Result:** 10 properly named cruise lines, 359 ships, all data intact
 
-### 🟡 [Y] ships.html Display Issues
-**Status:** Partially resolved
+### ✅ [Y] ships.html Display Issues (COMPLETED 2026-01-14)
+**Status:** COMPLETE - All display issues resolved
 **Lane:** 🟡 Yellow (UI/display changes)
 **Issues:**
-- [ ] Class cards need images (feature not yet implemented in ships.html)
-- [ ] Cruise lines need images (feature not yet implemented)
-- [ ] Individual ship images "coming up awkwardly" - investigate rendering (needs visual testing)
+- [x] Class cards need images - **FIXED** (2026-01-14)
+  - Added CLASS_IMAGES map with flagship ship images for each class
+  - Added CLASS_DESCRIPTIONS with brief summaries
+  - Updated createShipClassSection() to render class header with image thumbnail and description
+- [x] Cruise lines need images - **FIXED** (2026-01-14)
+  - Added CRUISE_LINE_HERO using royal-caribbean-hero.jpg
+  - Updated createCruiseLineSection() with hero image overlay, title, and ship stats
+- [x] Individual ship images improved - **FIXED** (2026-01-14)
+  - Enhanced CSS with proper aspect ratios, object-fit cover, smooth hover transitions
+  - Added focus states for accessibility
+  - Added search-hidden/search-empty display states
 - [x] Non-existent cruise lines appearing - **FIXED** by fleet_index.json cleanup (2026-01-14)
   - Root cause: Malformed cruise line names like "From 1970s.", "All from 2003." were rendering as cruise line names
   - Fixed in commit e958d244
