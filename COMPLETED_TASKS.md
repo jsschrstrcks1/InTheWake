@@ -1,7 +1,7 @@
 # Completed Tasks
 
 **Purpose:** Historical archive of all completed work. Tasks are added here when marked complete by user confirmation.
-**Last Updated:** 2025-12-01
+**Last Updated:** 2026-01-14
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -12,6 +12,136 @@ When a task is completed:
 1. User confirms the task is done
 2. Task is removed from IN_PROGRESS_TASKS.md
 3. Task is added to this file with completion date
+
+---
+
+## January 2026 Completions
+
+### fleet_index.json Cleanup - COMPLETE (2026-01-14)
+**Status:** COMPLETE
+**Lane:** 🟢 Green (data cleanup)
+- [x] Fixed 6 malformed cruise line names (notes masquerading as cruise line names)
+- [x] Added proper parent_company and slug fields to all cruise lines
+- [x] Consolidated to single source: `/assets/data/fleet_index.json` (v2.400)
+- [x] Deleted duplicates: `/data/fleet_index.json`, `/ships/assets/data/fleet/fleet_index.json`
+- [x] Updated code references in `ships/template.html` and `assets/cache-manifest.json`
+**Result:** 10 properly named cruise lines, 359 ships, all data intact
+
+### Stateroom "Positive Oddball" Categories - Radiance Class - COMPLETE (2026-01-14)
+**Status:** COMPLETE - All 4 Radiance-class ships updated
+**Lane:** 🟢 Green (data enhancement)
+- [x] Added `OVERSIZED_FAMILY` flag for Ultra Spacious Ocean View (1K) / Family Ocean View (FO)
+- [x] Added `EXTENDED_AFT_BALCONY` flag for larger aft balconies
+- [x] Updated all 4 Radiance-class ships: radiance, brilliance, jewel, serenade
+
+### WCAG 2.1 AA Compliance Audit - COMPLETE (2026-01-14)
+**Status:** COMPLETE - Critical issues fixed
+**Lane:** 🟢 Green (automated audit)
+- [x] Restored focus outline on dropdown menu links (styles.css) - WCAG 2.4.7
+- [x] Added keyboard support to ship-tracker.html and port-tracker.html
+- [x] Added accessible labels to search inputs
+- [x] Fixed empty alt text on dynamically generated images
+**Result:** Site meets WCAG 2.1 Level A and Level AA requirements
+
+### Norfolk Homeport Page - COMPLETE (2026-01-11)
+**Status:** COMPLETE
+**Lane:** 🟢 Green (new page from template)
+- [x] Created `/ports/norfolk.html` homeport page (98/100 validation)
+- [x] Added to ports.html homeport listing
+
+### Stateroom Button Emoji Removal - COMPLETE (2026-01-14)
+**Status:** COMPLETE - 27 RCL ship pages updated
+- [x] Removed bed emoji (🛏️) from stateroom buttons for consistency
+- [x] Button text now reads "Check Your Stateroom →" (no emoji)
+
+### Port Page Validation Audit - COMPLETE (2026-01-01)
+**Status:** COMPLETE - 333 port pages validated
+- [x] All 333 ports pass: Soli Deo Gloria, ai-summary, last-reviewed, content-protocol
+- [x] All 333 ports pass: JSON-LD mirroring, BreadcrumbList, Leaflet maps, service worker
+**Overall Score: 100/100**
+
+### P1 Technical Fixes - COMPLETE (2026-01-01)
+**Status:** COMPLETE
+- [x] Added BreadcrumbList schema to dublin.html, helsinki.html
+- [x] Fixed Dual-Cap Rule violations on 10 pages
+- [x] Added Leaflet maps to charleston.html, jacksonville.html
+- [x] Added service worker registration to 18 port pages
+- [x] Fixed Weather Guide FAQ count mismatch on glacier-bay.html
+
+### 2024 RCL Port Coverage Gap Analysis - RESOLVED (2026-01-07)
+**Status:** RESOLVED - Re-audit confirmed 374 port pages now exist
+- Port count grew from 161 → 374 pages
+- Nearly all "missing" ports have been created
+- Coverage: ~95%+ of RCL ports
+
+### P0 Critical Fixes - COMPLETE (2025-11-28)
+**Status:** COMPLETE
+- [x] Fixed Duplicate Dropdown JavaScript (15 files)
+- [x] Fixed Placeholder Image Attributions (4 ships)
+- [x] Added ship-tracker.html Footer
+- [x] Renamed "Ship Tracker" → "Ship Logbook" (504 files)
+
+### Stateroom Checker Tool - RCL Fleet Expansion - COMPLETE
+**Status:** COMPLETE - All 28 active RCL ships supported
+- [x] PWA support with offline functionality
+- [x] 3-tier dropdown system (Cruise Line → Ship Class → Ship)
+- [x] Service worker caches all ship data (~500KB)
+- [x] 28/28 ships: Adventure, Allure, Anthem, Brilliance, Enchantment, Explorer, Freedom, Grandeur, Harmony, Icon, Independence, Jewel, Liberty, Mariner, Navigator, Oasis, Odyssey, Ovation, Quantum, Radiance, Serenade, Spectrum, Star, Symphony, Utopia, Vision, Voyager, Wonder
+
+### Protocol Documentation - COMPLETE (2025-12-01)
+**Status:** COMPLETE - All files exist at admin/claude/
+- [x] ITW-LITE_PROTOCOL.md (844 lines)
+- [x] STANDARDS_INDEX.md
+- [x] CLAUDE.md
+
+### Port Tracker Homeport Links - COMPLETE (2025-12-11)
+**Status:** COMPLETE - 26 homeport entries linked to HTML files
+- [x] All homeports with existing HTML pages now have clickable links
+
+### Port Map Expansion - Asia-Pacific - COMPLETE (2025-12-13)
+**Status:** COMPLETE - 10 Asia-Pacific ports with interactive Leaflet maps
+- [x] Singapore, Sydney, Tokyo, Hong Kong, Shanghai, Bangkok, Bali, Brisbane, Auckland, South Pacific
+- [x] 110 POIs created in poi-index.json
+- [x] Map manifest files created for all 10 ports
+
+### Port Map Expansion - Caribbean - COMPLETE (2025-12-13)
+**Status:** COMPLETE - 10 Caribbean ports with interactive Leaflet maps
+- [x] Cozumel, Nassau, St. Thomas, St. Maarten, Grand Cayman, CocoCay, Labadee, Jamaica, Aruba, Puerto Rico
+- [x] 75 POIs created in poi-index.json
+- [x] Map manifest files created for all 10 ports
+
+### Port Map Mobile Responsiveness - COMPLETE (2025-12-12)
+**Status:** COMPLETE - Alaska ports implemented
+- [x] Mobile breakpoints in port-map.css v2.0.0
+- [x] 44px touch targets, collapsible legend, fullscreen button
+- [x] Updated Anchorage, Juneau, Ketchikan
+
+### Competitor Analysis - COMPLETE (2025-12-31)
+**Status:** COMPLETE - 6 competitor analyses, 44 recommendations
+- [x] WhatsInPort, Cruise Critic, Cruiseline.com/Shipmate, CruiseMapper, IQCruising, Cruise Crocodile
+- [x] Key differentiators identified: ship-port integration, storytelling, interactive tools, gamification
+
+### Distance Units Feature - COMPLETE (2025-12-01)
+**Status:** COMPLETE - Whimsical distance units added site-wide
+- [x] All 50 RCL ship pages display 3 random whimsical units
+- [x] All 161+ port pages have whimsical distance units
+
+### ICP-Lite Compliance - COMPLETE (2025-11-29)
+**Status:** COMPLETE - 100% site-wide coverage
+- [x] All pages have Quick Answer, Best For, Key Facts
+- [x] 13 hub pages, 161+ port pages, 50 ship pages, 2 tool pages
+
+### Orphaned Articles in Sitemap - COMPLETE (2025-11-29)
+**Status:** COMPLETE - All 3 articles added to sitemap.xml
+- [x] accessible-cruising.html
+- [x] freedom-of-your-own-wake.html
+- [x] visiting-the-united-states-before-your-cruise.html
+
+### Re-Verification Audits - COMPLETE (2026-01-07)
+**Status:** All re-audits passed
+- [x] Git Merge Conflicts: None found (false positive from HTML comment decorators)
+- [x] Footer Text: All consistent
+- [x] Port Logbook: PORTS_DB contains 333+ ports, JS logic intact
 
 ---
 
