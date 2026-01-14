@@ -78,6 +78,25 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 
 ---
 
+## 🧹 Task File Cleanup Needed
+
+### [G] Move Completed Tasks to COMPLETED_TASKS.md
+**Lane:** 🟢 Green (file maintenance)
+**Status:** PENDING
+**Priority:** P2 (housekeeping)
+
+**Problem:** UNFINISHED_TASKS.md contains 30+ completed task sections marked with ✅. These should be moved to COMPLETED_TASKS.md for better organization and file size reduction.
+
+**Scope:**
+- ~30 completed sections to extract (e.g., fleet_index.json cleanup, WCAG audit, Radiance stateroom flags, Norfolk homeport, etc.)
+- Add to COMPLETED_TASKS.md with appropriate date groupings
+- Remove from UNFINISHED_TASKS.md
+- Update "Last Updated" timestamps
+
+**Estimated Impact:** Reduce UNFINISHED_TASKS.md by ~40-50%
+
+---
+
 ## 📋 User To-Do List Audit (2026-01-07)
 
 **Source:** User-provided to-do list audited against codebase
