@@ -110,13 +110,15 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 - **Result:** 10 properly named cruise lines, 359 ships, all data intact
 
 ### 🟡 [Y] ships.html Display Issues
-**Status:** Multiple issues reported
+**Status:** Partially resolved
 **Lane:** 🟡 Yellow (UI/display changes)
 **Issues:**
-- [ ] Class cards need images
-- [ ] Cruise lines need images
-- [ ] Individual ship images "coming up awkwardly" - investigate rendering
-- [ ] Non-existent cruise lines appearing - audit cruise line list
+- [ ] Class cards need images (feature not yet implemented in ships.html)
+- [ ] Cruise lines need images (feature not yet implemented)
+- [ ] Individual ship images "coming up awkwardly" - investigate rendering (needs visual testing)
+- [x] Non-existent cruise lines appearing - **FIXED** by fleet_index.json cleanup (2026-01-14)
+  - Root cause: Malformed cruise line names like "From 1970s.", "All from 2003." were rendering as cruise line names
+  - Fixed in commit e958d244
 
 ### ✅ [G] Stateroom "Positive Oddball" Categories - Radiance Class (COMPLETED 2026-01-14)
 **Status:** COMPLETE - All 4 Radiance-class ships updated
