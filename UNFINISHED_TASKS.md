@@ -92,17 +92,22 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 | Stateroom Exceptions | ✅ 28 ships covered | All active RCL fleet has exception JSON files |
 | Norfolk Homeport | ✅ CONFIRMED | RC sails from Norfolk (Vision of the Seas) - [royalcaribbean.com](https://www.royalcaribbean.com/cruise-from/norfolk-virginia) |
 
-### 🟡 [Y] fleet_index.json Cleanup
-**Status:** DIRTY - needs cleanup
+### ✅ [G] fleet_index.json Cleanup (COMPLETED 2026-01-14)
+**Status:** COMPLETE
 **Lane:** 🟢 Green (data cleanup)
-**Issues Found:**
-- [ ] First cruise line entry is "All from 1960s." - malformed, should be proper cruise line
-- [ ] 3 duplicate copies exist:
-  - `/assets/data/fleet_index.json`
-  - `/data/fleet_index.json`
-  - `/ships/assets/data/fleet/fleet_index.json`
-- [ ] Consolidate to single source of truth
-- [ ] Remove malformed entries
+**Issues Fixed:**
+- [x] Fixed 6 malformed cruise line names:
+  - "From 1970s." → Royal Caribbean International
+  - "All from 2003." → Oceania Cruises
+  - "All luxury all-suite." → Regent Seven Seas Cruises
+  - "Ocean, expedition, and all ~80 river ships listed fully." → Viking Ocean Cruises
+  - "River Ships" → Viking River Cruises
+  - "Young fleet, no past retirements." → Disney Cruise Line
+- [x] Added proper parent_company and slug fields to all cruise lines
+- [x] Consolidated to single source: `/assets/data/fleet_index.json` (v2.400)
+- [x] Deleted duplicates: `/data/fleet_index.json`, `/ships/assets/data/fleet/fleet_index.json`
+- [x] Updated code references in `ships/template.html` and `assets/cache-manifest.json`
+- **Result:** 10 properly named cruise lines, 359 ships, all data intact
 
 ### 🟡 [Y] ships.html Display Issues
 **Status:** Multiple issues reported
