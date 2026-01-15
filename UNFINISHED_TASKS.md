@@ -189,10 +189,11 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 - URL deep linking works (e.g., `/ships/rcl/venues.html?class=oasis`)
 - Shows which ships have each venue when filtered by class
 
-### 🟡 [Y] Travel Advisory Hub on Planning Page
-**Status:** PLANNED
-**Lane:** 🟡 Yellow (content addition)
+### 🟢 [G] Travel Advisory Hub on Planning Page — COMPLETE
+**Status:** COMPLETE
+**Lane:** 🟢 Green (completed)
 **Context:** Add section linking to government travel advisory portals. Single hub approach (not per-port links) serves global audience without US-centric "international" classification.
+**Completed:** 2026-01-14
 
 **Rationale:**
 - What's "international" depends on reader's location
@@ -200,14 +201,19 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 - Single hub is low-maintenance and serves all nationalities
 
 **Implementation:**
-- [ ] Add "Travel Advisories" section to `/planning.html` or `/travel.html`
-- [ ] Include links to major government portals:
+- [x] Add "Travel Advisories" section to `/planning.html`
+- [x] Include links to major government portals:
   - 🇺🇸 US: travel.state.gov
   - 🇬🇧 UK: gov.uk/foreign-travel-advice
   - 🇨🇦 Canada: travel.gc.ca
   - 🇦🇺 Australia: smartraveller.gov.au
   - 🇳🇿 NZ: safetravel.govt.nz
-- [ ] Optional: JS locale detection to highlight user's local government
+- [ ] Optional: JS locale detection to highlight user's local government (deferred for future enhancement)
+
+**Notes:**
+- Added between "Timing" and "Space Coast Launches" sections
+- Responsive grid layout with flag emojis for visual identification
+- Links open in new tabs with rel="noopener external"
 
 ### 🟢 [G] WCAG 2.1 AA Compliance Audit
 **Status:** Claimed compliant but needs verification
