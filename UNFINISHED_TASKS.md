@@ -387,19 +387,20 @@ All requested ports from the following categories have been verified:
 
 ---
 
-### 🟡 [Y] P2 - Missing Port Pages (2 ports remaining)
+### 🟢 [G] P2 - Missing Port Pages — COMPLETE
 
-The following ports need dedicated pages created:
+All requested port pages have been addressed:
 
 | Port | Status | Notes |
 |------|--------|-------|
-| **Royal Beach Club Cozumel** | ❌ Missing | Future Royal Caribbean beach club (announced 2026). `cozumel.html` exists for the existing port. |
-| **Royal Beach Club Antigua** | ❌ Missing | Future Royal Caribbean beach club (in development). `antigua.html` exists for the existing port. |
+| **Royal Beach Club Cozumel** | ✅ Complete | Full page exists at `royal-beach-club-cozumel.html`. Opening Dec 31, 2026. Added official RCL CTA link. |
+| **Royal Beach Club Antigua** | ✅ Complete | Full page exists at `royal-beach-club-antigua.html`. Opening 2027 (TBD). Added official RCL CTA link. |
 | **Falmouth, Jamaica** | ✅ Redirect | Created `falmouth-jamaica.html` redirect → `jamaica.html` (which already serves as the comprehensive Falmouth guide). |
 
-**Recommendation:**
-- Royal Beach Club pages can be created as stubs until opening dates approach
-- ~~Falmouth Jamaica should be P1 priority~~ — DONE: jamaica.html already covers Falmouth extensively; redirect page added for SEO
+**Completed 2026-01-14:**
+- Both Royal Beach Club pages already existed with comprehensive marketing content
+- Added prominent CTA sections with official royalcaribbean.com links (target="_blank")
+- All external links open in new windows
 
 ---
 
