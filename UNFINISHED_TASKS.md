@@ -387,7 +387,7 @@ All requested ports from the following categories have been verified:
 
 ---
 
-### 🟡 [Y] P2 - Missing Port Pages (3 ports)
+### 🟡 [Y] P2 - Missing Port Pages (2 ports remaining)
 
 The following ports need dedicated pages created:
 
@@ -395,11 +395,11 @@ The following ports need dedicated pages created:
 |------|--------|-------|
 | **Royal Beach Club Cozumel** | ❌ Missing | Future Royal Caribbean beach club (announced 2026). `cozumel.html` exists for the existing port. |
 | **Royal Beach Club Antigua** | ❌ Missing | Future Royal Caribbean beach club (in development). `antigua.html` exists for the existing port. |
-| **Falmouth, Jamaica** | ❌ Missing | RCL's own $224M pier built in 2011. Currently covered under `jamaica.html` but deserves dedicated page. |
+| **Falmouth, Jamaica** | ✅ Redirect | Created `falmouth-jamaica.html` redirect → `jamaica.html` (which already serves as the comprehensive Falmouth guide). |
 
 **Recommendation:**
 - Royal Beach Club pages can be created as stubs until opening dates approach
-- Falmouth Jamaica should be P1 priority as it's RCL's dedicated facility with significant passenger traffic
+- ~~Falmouth Jamaica should be P1 priority~~ — DONE: jamaica.html already covers Falmouth extensively; redirect page added for SEO
 
 ---
 
