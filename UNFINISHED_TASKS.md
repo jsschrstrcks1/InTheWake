@@ -650,11 +650,11 @@ Weather guides need to be created for 329 ports. The Cozumel implementation is t
 ### Remaining Gaps (Minimal)
 
 **Verified Still Missing:**
-- [ ] **norfolk.html** — RC homeport (Vision of the Seas after Baltimore bridge collapse)
+- [x] **norfolk.html** — ✅ EXISTS (RC homeport, Vision of the Seas after Baltimore bridge collapse)
 - [ ] astoria (Oregon) — rare port
-- [ ] catalina-island (California) — verify if covered by los-angeles.html
+- [ ] catalina-island (California) — verify if covered by los-angeles.html (NOT covered - separate island destination)
 - [ ] eden (Australia) — rare port
-- [ ] port-vila (Vanuatu) — verify if covered by vanuatu.html
+- [x] port-vila (Vanuatu) — ✅ covered by vanuatu.html (title: "Vanuatu (Port Vila) Port Guide")
 - [ ] rarotonga (Cook Islands) — exotic/rare
 - [ ] arica (Chile) — rare
 - [ ] coquimbo (Chile) — rare
@@ -3880,13 +3880,13 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] Create `/ports/tender-ports.html` index page with alphabetical listing
 - [ ] Add link to tender port index from ports.html navigation
 
-##### 2. "No Ads" Trust Messaging ✅ PARTIAL
+##### 2. "No Ads" Trust Messaging ✅ COMPLETE
 **Source:** Cruise Critic B2
 **Effort:** Low | **Impact:** High
-**Status:** PARTIAL - Footer trust badge added 2026-01-01
+**Status:** COMPLETE - Footer trust badge + About Us section
 - [x] Add trust statement to footer ✅ (2026-01-01) — `<p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>` added to all 766 HTML pages
-- [ ] Add "No ads, no affiliate links, no sponsored content" statement to about-us.html
-- [ ] Create "Our Promise" or "Editorial Independence" section
+- [x] Add "No ads, no affiliate links, no sponsored content" statement to about-us.html ✅ (2026-01-15) — "Our Promise" section added
+- [x] Create "Our Promise" or "Editorial Independence" section ✅ (2026-01-15) — included in about-us.html update
 
 ##### 3. Stateroom Checker Promotion
 **Source:** Cruise Critic A2
@@ -4522,7 +4522,7 @@ These features are NOT being built now, but could be explored for future sustain
 #### 🚀 SUGGESTED SPRINT PLAN
 
 **Sprint 1 (Week 1-2): Trust & Visibility**
-- [x] #2 "No Ads" Trust Messaging ✅ PARTIAL (footer badge done 2026-01-01)
+- [x] #2 "No Ads" Trust Messaging ✅ COMPLETE (footer badge 2026-01-01, about-us.html "Our Promise" 2026-01-15)
 - [ ] #6 "Works Offline" Marketing
 - [x] #30 "Last Reviewed" Stamps ✅ PARTIAL (311/333 ports done 2026-01-01, 22 need manual addition)
 - [ ] #31 Tool Release Notes Page
