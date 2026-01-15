@@ -147,37 +147,53 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
   - jewel-of-the-seas.v2.json ✅ Added
   - serenade-of-the-seas.v2.json ✅ Added
 
-### 🟡 [Y] Carnival Fleet Index Page Enhancement
-**Status:** BARE - just a list, no marketing or organization
+### ✅ [Y] Carnival Fleet Index Page Enhancement (COMPLETED 2026-01-14)
+**Status:** COMPLETE - Dynamic fleet page with class organization
 **Lane:** 🟡 Yellow (content creation)
 **File:** `/ships/carnival/index.html`
 
-**Current State:** Simple `<ol>` list of 29 ship links, no descriptions or class organization
+**Completed Work:**
+- [x] Add 1-2 paragraph Carnival-esque marketing blurb - **DONE**
+  - Intro text highlighting "Fun Ships" heritage and class variety
+- [x] Organize ships by class - **DONE** (10 classes)
+  - Excel, Vista, Dream, Conquest, Spirit, Splendor, Sunshine, Fantasy, Ex-Costa, Ex-P&O
+- [x] Add class cards with images and descriptions - **DONE**
+  - Each class has hero image from flagship ship
+  - Class descriptions highlighting key features (BOLT, SkyRide, etc.)
+- [x] Polish and present verbiage attractively - **DONE**
+  - Ship CTAs explaining why to choose each ship
+  - Capacity, GT, year built badges
+- [x] Mention venues relevant to each class - **DONE**
+  - Class descriptions reference BOLT, SkyRide, Ocean Plaza, WaterWorks, etc.
+- [x] Add links back to packing-lists.html - **DONE**
+- [x] Created `/assets/js/carnival-fleet.js` with full fleet data
+- [x] Reused ships-dynamic.css and item-cards.css for consistent styling
+- [x] Added Carnival brand colors (red accents) and upcoming ship badges
 
-**Requested Enhancements:**
-- [ ] Add 1-2 paragraph Carnival-esque marketing blurb explaining page shows class highlights
-- [ ] Organize ships by class (Excel/XL, Vista, Dream, Conquest, Spirit, Fantasy, etc.)
-- [ ] Add class cards with images and descriptions
-- [ ] Polish and present verbiage attractively
-- [ ] Mention venues relevant to each class
-- [ ] Add links back to packing-lists.html
-- [ ] (Future) CTA for booking - leave off for now
-
-### 🟡 [Y] RC Venues Page with Deep Links
-**Status:** DOES NOT EXIST
-**Lane:** 🟡 Yellow (new page creation)
+### 🟢 [G] RC Venues Page with Deep Links — COMPLETE
+**Status:** COMPLETE
+**Lane:** 🟢 Green (completed)
 **Context:** User wants venues page per ship class for deep linking from RC fleet page
+**Completed:** 2026-01-14
 
 **Tasks:**
-- [ ] Create `/ships/rcl/venues.html` (or similar)
-- [ ] Organize venues by ship class (Icon, Oasis, Quantum, etc.)
-- [ ] Enable URL parameters for class filtering (e.g., `?class=oasis`)
-- [ ] Link from ship class cards on ships.html
+- [x] Create `/ships/rcl/venues.html`
+- [x] Organize venues by ship class (Icon, Oasis, Quantum, etc.)
+- [x] Enable URL parameters for class filtering (e.g., `?class=oasis`)
+- [x] Link from ship class cards on ships.html
 
-### 🟡 [Y] Travel Advisory Hub on Planning Page
-**Status:** PLANNED
-**Lane:** 🟡 Yellow (content addition)
+**Implementation Notes:**
+- Created `/ships/rcl/venues.html` with class filter pills
+- Created `/assets/js/rcl-venues.js` module that fetches from venues-v2.json
+- Venues organized by category (Dining, Bars, Activities, Entertainment, Neighborhoods)
+- URL deep linking works (e.g., `/ships/rcl/venues.html?class=oasis`)
+- Shows which ships have each venue when filtered by class
+
+### 🟢 [G] Travel Advisory Hub on Planning Page — COMPLETE
+**Status:** COMPLETE
+**Lane:** 🟢 Green (completed)
 **Context:** Add section linking to government travel advisory portals. Single hub approach (not per-port links) serves global audience without US-centric "international" classification.
+**Completed:** 2026-01-14
 
 **Rationale:**
 - What's "international" depends on reader's location
@@ -185,14 +201,19 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 - Single hub is low-maintenance and serves all nationalities
 
 **Implementation:**
-- [ ] Add "Travel Advisories" section to `/planning.html` or `/travel.html`
-- [ ] Include links to major government portals:
+- [x] Add "Travel Advisories" section to `/planning.html`
+- [x] Include links to major government portals:
   - 🇺🇸 US: travel.state.gov
   - 🇬🇧 UK: gov.uk/foreign-travel-advice
   - 🇨🇦 Canada: travel.gc.ca
   - 🇦🇺 Australia: smartraveller.gov.au
   - 🇳🇿 NZ: safetravel.govt.nz
-- [ ] Optional: JS locale detection to highlight user's local government
+- [ ] Optional: JS locale detection to highlight user's local government (deferred for future enhancement)
+
+**Notes:**
+- Added between "Timing" and "Space Coast Launches" sections
+- Responsive grid layout with flag emojis for visual identification
+- Links open in new tabs with rel="noopener external"
 
 ### 🟢 [G] WCAG 2.1 AA Compliance Audit
 **Status:** Claimed compliant but needs verification
@@ -366,19 +387,20 @@ All requested ports from the following categories have been verified:
 
 ---
 
-### 🟡 [Y] P2 - Missing Port Pages (3 ports)
+### 🟢 [G] P2 - Missing Port Pages — COMPLETE
 
-The following ports need dedicated pages created:
+All requested port pages have been addressed:
 
 | Port | Status | Notes |
 |------|--------|-------|
-| **Royal Beach Club Cozumel** | ❌ Missing | Future Royal Caribbean beach club (announced 2026). `cozumel.html` exists for the existing port. |
-| **Royal Beach Club Antigua** | ❌ Missing | Future Royal Caribbean beach club (in development). `antigua.html` exists for the existing port. |
-| **Falmouth, Jamaica** | ❌ Missing | RCL's own $224M pier built in 2011. Currently covered under `jamaica.html` but deserves dedicated page. |
+| **Royal Beach Club Cozumel** | ✅ Complete | Full page exists at `royal-beach-club-cozumel.html`. Opening Dec 31, 2026. Added official RCL CTA link. |
+| **Royal Beach Club Antigua** | ✅ Complete | Full page exists at `royal-beach-club-antigua.html`. Opening 2027 (TBD). Added official RCL CTA link. |
+| **Falmouth, Jamaica** | ✅ Redirect | Created `falmouth-jamaica.html` redirect → `jamaica.html` (which already serves as the comprehensive Falmouth guide). |
 
-**Recommendation:**
-- Royal Beach Club pages can be created as stubs until opening dates approach
-- Falmouth Jamaica should be P1 priority as it's RCL's dedicated facility with significant passenger traffic
+**Completed 2026-01-14:**
+- Both Royal Beach Club pages already existed with comprehensive marketing content
+- Added prominent CTA sections with official royalcaribbean.com links (target="_blank")
+- All external links open in new windows
 
 ---
 
@@ -628,11 +650,11 @@ Weather guides need to be created for 329 ports. The Cozumel implementation is t
 ### Remaining Gaps (Minimal)
 
 **Verified Still Missing:**
-- [ ] **norfolk.html** — RC homeport (Vision of the Seas after Baltimore bridge collapse)
+- [x] **norfolk.html** — ✅ EXISTS (RC homeport, Vision of the Seas after Baltimore bridge collapse)
 - [ ] astoria (Oregon) — rare port
-- [ ] catalina-island (California) — verify if covered by los-angeles.html
+- [ ] catalina-island (California) — verify if covered by los-angeles.html (NOT covered - separate island destination)
 - [ ] eden (Australia) — rare port
-- [ ] port-vila (Vanuatu) — verify if covered by vanuatu.html
+- [x] port-vila (Vanuatu) — ✅ covered by vanuatu.html (title: "Vanuatu (Port Vila) Port Guide")
 - [ ] rarotonga (Cook Islands) — exotic/rare
 - [ ] arica (Chile) — rare
 - [ ] coquimbo (Chile) — rare
@@ -3858,13 +3880,13 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] Create `/ports/tender-ports.html` index page with alphabetical listing
 - [ ] Add link to tender port index from ports.html navigation
 
-##### 2. "No Ads" Trust Messaging ✅ PARTIAL
+##### 2. "No Ads" Trust Messaging ✅ COMPLETE
 **Source:** Cruise Critic B2
 **Effort:** Low | **Impact:** High
-**Status:** PARTIAL - Footer trust badge added 2026-01-01
+**Status:** COMPLETE - Footer trust badge + About Us section
 - [x] Add trust statement to footer ✅ (2026-01-01) — `<p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>` added to all 766 HTML pages
-- [ ] Add "No ads, no affiliate links, no sponsored content" statement to about-us.html
-- [ ] Create "Our Promise" or "Editorial Independence" section
+- [x] Add "No ads, no affiliate links, no sponsored content" statement to about-us.html ✅ (2026-01-15) — "Our Promise" section added
+- [x] Create "Our Promise" or "Editorial Independence" section ✅ (2026-01-15) — included in about-us.html update
 
 ##### 3. Stateroom Checker Promotion
 **Source:** Cruise Critic A2
@@ -4500,7 +4522,7 @@ These features are NOT being built now, but could be explored for future sustain
 #### 🚀 SUGGESTED SPRINT PLAN
 
 **Sprint 1 (Week 1-2): Trust & Visibility**
-- [x] #2 "No Ads" Trust Messaging ✅ PARTIAL (footer badge done 2026-01-01)
+- [x] #2 "No Ads" Trust Messaging ✅ COMPLETE (footer badge 2026-01-01, about-us.html "Our Promise" 2026-01-15)
 - [ ] #6 "Works Offline" Marketing
 - [x] #30 "Last Reviewed" Stamps ✅ PARTIAL (311/333 ports done 2026-01-01, 22 need manual addition)
 - [ ] #31 Tool Release Notes Page
