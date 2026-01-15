@@ -40,6 +40,7 @@
   <meta property="og:description" content="Carnival Breeze cruise ship guide: Dream-class flagship from Galveston, Texas. 130,000 GT with WaterWorks, Serenity, and Guy's Burger Joint. Live tracker, deck plans, and guest stories."/>
   <meta property="og:url" content="https://cruisinginthewake.com/ships/carnival/carnival-breeze.html"/>
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/carnival-breeze.jpg"/>
+  <meta property="og:locale" content="en_US"/>
 
 
 <!-- ICP-Lite v1.0 Meta Tags -->
@@ -92,6 +93,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
+<link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
   <!-- Twitter Card -->
@@ -118,7 +120,7 @@
 
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
-  <header class="hero-header" role="banner" style="padding:0;">
+  <header class="hero-header ship-page" role="banner">
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="lazy"/>
@@ -176,8 +178,8 @@
   </div>
 </header>
 
-<nav class="wrap" aria-label="Breadcrumb" style="padding-bottom:0">
-  <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:.5rem;margin:0;padding:0;font-size:.9rem">
+<nav class="wrap breadcrumb-nav" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
     <li><a href="/">Home</a> ›</li>
     <li><a href="/ships.html">Ships</a> ›</li>
     <li><a href="/ships.html#carnival">Carnival</a> ›</li>
@@ -236,7 +238,7 @@
         <div class="swiper-button-next" aria-label="Next photo"></div>
         <div class="swiper-pagination"></div>
       </div>
-      <p class="tiny" style="text-align:center;margin-top:.5rem;">Images from Wikimedia Commons under Creative Commons licenses.</p>
+      <p class="tiny image-credit">Images from Wikimedia Commons under Creative Commons licenses.</p>
     </section>
 
     <!-- First Look -->
@@ -261,7 +263,7 @@
              src="/assets/ships/carnival-breeze/dining-hero.jpg"
              alt="Carnival Breeze dining venue" loading="lazy"
              onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
-Dining Venues on Carnival Breeze <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+Dining Venues on Carnival Breeze <a href="/restaurants.html" class="section-label-link" aria-label="Browse all restaurants">→ Browse All</a></h2>
       <p class="section-intro">Explore the dining options available on Carnival Breeze, from complimentary venues to specialty restaurants.</p>
       <div class="dining-content" id="dining-content" aria-live="polite">
         <p class="tiny">Loading venue information...</p>
@@ -283,7 +285,7 @@ Dining Venues on Carnival Breeze <a href="/restaurants.html" style="font-size: 0
     <!-- Video Carousel -->
     <section class="card" aria-labelledby="logbook-title">
       <h2 id="logbook-title">Guest Logbook</h2>
-      <div id="logbook-entries"><p style="color:#666;font-style:italic">Loading guest stories...</p></div>
+      <div id="logbook-entries"><p class="loading-text">Loading guest stories...</p></div>
     </section>
 
     <section class="card" aria-labelledby="videos-title">
@@ -293,7 +295,7 @@ Dining Venues on Carnival Breeze <a href="/restaurants.html" style="font-size: 0
         <div class="swiper-button-prev" aria-label="Previous slide"></div>
         <div class="swiper-button-next" aria-label="Next slide"></div>
       </div>
-      <p id="video-counter" style="text-align:center;margin:.75rem 0 0;font-size:.9rem;color:#666"></p>
+      <p id="video-counter" class="video-counter"></p>
     </section>
     <script>
     fetch('/assets/data/videos/carnival/carnival-breeze.json').then(r=>r.json()).then(function(data){
@@ -302,7 +304,7 @@ Dining Venues on Carnival Breeze <a href="/restaurants.html" style="font-size: 0
       wrapper.innerHTML='';
       data.videos.forEach(function(v){
         var slide=document.createElement('div');slide.className='swiper-slide';
-        slide.innerHTML='<div style="position:relative;padding-bottom:56.25%;height:0"><iframe src="https://www.youtube-nocookie.com/embed/'+v.videoId+'" title="'+v.title+'" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"></iframe></div>';
+        slide.innerHTML='<div class="video-embed"><iframe src="https://www.youtube-nocookie.com/embed/'+v.videoId+'" title="'+v.title+'" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
         wrapper.appendChild(slide);
       });
       if(counter)counter.textContent=data.videos.length+' videos available';
@@ -356,14 +358,14 @@ Dining Venues on Carnival Breeze <a href="/restaurants.html" style="font-size: 0
           <figcaption class="tiny">Simplified deck layout overview</figcaption>
         </figure>
       <p>Carnival Breeze spans 15 guest decks with 1,845 staterooms. Explore cabin locations, dining venues, pools, WaterWorks, and entertainment areas on the official interactive deck plans.</p>
-      <p><a href="https://www.carnival.com/cruise-ships/carnival-breeze#deck-plans" target="_blank" rel="noopener" style="display:inline-block;background:var(--carnival-blue);color:#fff;padding:.75rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:500">View Official Deck Plans →</a></p>
+      <p><a href="https://www.carnival.com/cruise-ships/carnival-breeze#deck-plans" target="_blank" rel="noopener" class="btn-deck-plans carnival">View Official Deck Plans →</a></p>
     </section>
 
     <!-- Live Tracker -->
     <section class="card" aria-labelledby="tracker-title" data-imo="9548450" data-name="CARNIVAL BREEZE">
       <h2 id="tracker-title">Live Ship Tracker</h2>
       <iframe class="tracker-frame" src="https://www.marinetraffic.com/en/ais/embed/zoom:8/centery:29/centerx:-95/maptype:4/shownames:true/mmsi:370766000/shipid:637478" title="Carnival Breeze Live Position" loading="lazy"></iframe>
-      <p style="font-size:.85rem;color:#666;margin-top:.75rem">IMO: 9548450 · MMSI: 370766000 · Call Sign: H3RC · Flag: Panama</p>
+      <p class="ship-stats-summary">IMO: 9548450 · MMSI: 370766000 · Call Sign: H3RC · Flag: Panama</p>
     </section>
 
     <!-- FAQ -->
@@ -377,8 +379,8 @@ Dining Venues on Carnival Breeze <a href="/restaurants.html" style="font-size: 0
     </section>
 
     <!-- Attribution -->
-    <section class="card" style="font-size:.85rem;color:#666">
-      <h2 style="font-size:1.1rem">Sources & Attribution</h2>
+    <section class="card sources-card">
+      <h2>Sources & Attribution</h2>
       <p>Ship specifications from <a href="https://en.wikipedia.org/wiki/Carnival_Breeze" target="_blank" rel="noopener">Wikipedia</a>, <a href="https://www.cruisemapper.com/ships/Carnival-Breeze-895" target="_blank" rel="noopener">CruiseMapper</a>, and Carnival Cruise Line. IMO 9548450. Live tracking via MarineTraffic. Photos from Wikimedia Commons under Creative Commons licenses.</p>
       <p>Page maintained by <a href="/authors/ken-baker.html">Ken Baker</a>, Cruise Research Analyst.</p>
     </section>
@@ -391,20 +393,20 @@ Dining Venues on Carnival Breeze <a href="/restaurants.html" style="font-size: 0
     <aside class="rail col-2">
     <div class="card">
       <h3>Quick Answer</h3>
-      <p style="margin:0"><strong>Carnival Breeze</strong> is a 130,000 GT Dream-class ship homeported in Galveston, Texas. Built in 2012, she features WaterWorks, SkyCourse, and the Lanai promenade. Texas cruisers can reach Caribbean destinations without flying to Florida.</p>
+      <p class="mb-0"><strong>Carnival Breeze</strong> is a 130,000 GT Dream-class ship homeported in Galveston, Texas. Built in 2012, she features WaterWorks, SkyCourse, and the Lanai promenade. Texas cruisers can reach Caribbean destinations without flying to Florida.</p>
     </div>
     <div class="card">
       <h3>Key Facts</h3>
-      <table class="key-facts" style="width:100%;border-collapse:collapse">
-        <tr><td><strong>Class</strong></td><td style="text-align:right">Dream-class</td></tr>
-        <tr><td><strong>Year Built</strong></td><td style="text-align:right">2012</td></tr>
-        <tr><td><strong>Shipyard</strong></td><td style="text-align:right">Fincantieri Monfalcone</td></tr>
-        <tr><td><strong>Tonnage</strong></td><td style="text-align:right">130,000 GT</td></tr>
-        <tr><td><strong>Length</strong></td><td style="text-align:right">1,004 ft / 306 m</td></tr>
-        <tr><td><strong>Guests</strong></td><td style="text-align:right">3,690</td></tr>
-        <tr><td><strong>Crew</strong></td><td style="text-align:right">1,386</td></tr>
-        <tr><td><strong>Homeport</strong></td><td style="text-align:right">Galveston, TX</td></tr>
-        <tr><td><strong>IMO</strong></td><td style="text-align:right">9548450</td></tr>
+      <table class="key-facts">
+        <tr><td><strong>Class</strong></td><td>Dream-class</td></tr>
+        <tr><td><strong>Year Built</strong></td><td>2012</td></tr>
+        <tr><td><strong>Shipyard</strong></td><td>Fincantieri Monfalcone</td></tr>
+        <tr><td><strong>Tonnage</strong></td><td>130,000 GT</td></tr>
+        <tr><td><strong>Length</strong></td><td>1,004 ft / 306 m</td></tr>
+        <tr><td><strong>Guests</strong></td><td>3,690</td></tr>
+        <tr><td><strong>Crew</strong></td><td>1,386</td></tr>
+        <tr><td><strong>Homeport</strong></td><td>Galveston, TX</td></tr>
+        <tr><td><strong>IMO</strong></td><td>9548450</td></tr>
       </table>
     </div>
         <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -425,17 +427,17 @@ Dining Venues on Carnival Breeze <a href="/restaurants.html" style="font-size: 0
     <!-- Recent Articles rail -->
     <section class="card" aria-labelledby="recent-rail-title">
       <h3 id="recent-rail-title">Recent Stories</h3>
-      <p class="tiny content-text" style="margin-bottom: 0.75rem;">
+      <p class="tiny content-text mb-075">
         Real cruising experiences, practical guides, and heartfelt reflections from our community.
       </p>
-      <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+      <nav id="recent-rail-nav-top" class="rail-nav mb-05" aria-label="Article pagination"></nav>
       <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-      <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
-      <p id="recent-rail-fallback" class="tiny" style="color: #666;">Loading articles…</p>
+      <nav id="recent-rail-nav-bottom" class="rail-nav mt-075" aria-label="Article pagination"></nav>
+      <p id="recent-rail-fallback" class="tiny loading-text">Loading articles…</p>
     </section>
 
     <!-- Whimsical Distance Units -->
-    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    <section class="card whimsical-units-container" id="whimsical-units-container">
     </section>
   </aside>
 
@@ -448,8 +450,8 @@ Dining Venues on Carnival Breeze <a href="/restaurants.html" style="font-size: 0
 <footer role="contentinfo">
   <p><strong>In the Wake</strong> — A Cruise Traveler's Logbook</p>
   <p>© 2025 In the Wake. All rights reserved.</p>
-  <p style="margin-top:1rem"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/accessibility.html">Accessibility</a></p>
-  <p aria-hidden="true" style="opacity:0;position:absolute;pointer-events:none">Soli Deo Gloria</p>
+  <p class="mt-1"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/accessibility.html">Accessibility</a></p>
+  <p aria-hidden="true" class="hidden">Soli Deo Gloria</p>
   <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>
 

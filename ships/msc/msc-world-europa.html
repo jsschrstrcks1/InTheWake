@@ -49,6 +49,7 @@ All work on this project is offered as a gift to God.
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://cruisinginthewake.com/ships/msc/msc-world-europa.html"/>
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/ships-hero.jpg"/>
+  <meta property="og:locale" content="en_US"/>
   <meta property="og:title" content="MSC World Europa — MSC Cruises Ship Guide"/>
   <meta property="og:description" content="Explore MSC World Europa: World Class ship with 5,264 guests. Dining, entertainment, and planning resources."/>
   <meta name="twitter:card" content="summary_large_image"/>
@@ -240,7 +241,7 @@ All work on this project is offered as a gift to God.
     </div>
   </header>
 
-  <main class="wrap" id="content">
+  <main class="wrap" id="content" role="main">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a> &rsaquo;
       <a href="/ships.html">Ships</a> &rsaquo;
@@ -454,7 +455,20 @@ All work on this project is offered as a gift to God.
     </section>
 
     <section class="grid-2">
-      <section class="card" aria-labelledby="deckPlansHeading">
+      
+    <!-- Ship Statistics -->
+    <section class="card" aria-labelledby="ship-stats-title">
+      <h2 id="ship-stats-title">Ship Statistics</h2>
+      <div id="ship-stats" class="stats-grid" data-slug="msc-world-europa">
+        <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">205,700 GT</div></div>
+        <div class="stat-item"><div class="label">Guests</div><div class="value">6,762</div></div>
+        <div class="stat-item"><div class="label">Crew</div><div class="value">2,138</div></div>
+        <div class="stat-item"><div class="label">Entered Service</div><div class="value">2022</div></div>
+        <div class="stat-item"><div class="label">Class</div><div class="value">World Class</div></div>
+      </div>
+    </section>
+
+<section class="card" aria-labelledby="deckPlansHeading">
         <h2 id="deckPlansHeading">Deck Plans</h2>
         <p>View the official deck plans to explore MSC World Europa's layout.</p>
         <figure>
@@ -547,7 +561,7 @@ All work on this project is offered as a gift to God.
       </section>
 
       <!-- Whimsical Distance Units -->
-      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+      <section class="card" id="whimsical-units-container" class="whimsical-units-container">
       </section>
     </aside>
   </main>

@@ -40,6 +40,7 @@
   <meta property="og:description" content="Carnival Magic cruise ship guide: First SkyCourse at sea, 130,000 GT Dream-class from Norfolk. Live tracker, deck plans, dining venues, and guest stories."/>
   <meta property="og:url" content="https://cruisinginthewake.com/ships/carnival/carnival-magic.html"/>
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/carnival-magic.jpg"/>
+  <meta property="og:locale" content="en_US"/>
 
 
 <!-- ICP-Lite v1.0 Meta Tags -->
@@ -92,6 +93,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
+<link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
   <!-- Twitter Card -->
@@ -118,7 +120,7 @@
 
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
-  <header class="hero-header" role="banner" style="padding:0;">
+  <header class="hero-header ship-page" role="banner">
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="lazy"/>
@@ -176,8 +178,8 @@
   </div>
 </header>
 
-<nav class="wrap" aria-label="Breadcrumb" style="padding-bottom:0">
-  <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:.5rem;margin:0;padding:0;font-size:.9rem">
+<nav class="wrap" aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-list">
     <li><a href="/">Home</a> ›</li>
     <li><a href="/ships.html">Ships</a> ›</li>
     <li><a href="/ships.html#carnival">Carnival</a> ›</li>
@@ -236,7 +238,7 @@
         <div class="swiper-button-next" aria-label="Next photo"></div>
         <div class="swiper-pagination"></div>
       </div>
-      <p class="tiny" style="text-align:center;margin-top:.5rem;">Images from Wikimedia Commons under Creative Commons licenses.</p>
+      <p class="tiny" class="image-credit">Images from Wikimedia Commons under Creative Commons licenses.</p>
     </section>
 
     <!-- First Look -->
@@ -275,7 +277,7 @@ Dining Venues on Carnival Magic <a href="/restaurants.html" style="font-size: 0.
     <!-- Video Carousel -->
     <section class="card" aria-labelledby="logbook-title">
       <h2 id="logbook-title">Guest Logbook</h2>
-      <div id="logbook-entries"><p style="color:#666;font-style:italic">Loading guest stories...</p></div>
+      <div id="logbook-entries"><p class="loading-text">Loading guest stories...</p></div>
     </section>
 
     <section class="card" aria-labelledby="videos-title">
@@ -285,7 +287,7 @@ Dining Venues on Carnival Magic <a href="/restaurants.html" style="font-size: 0.
         <div class="swiper-button-prev" aria-label="Previous slide"></div>
         <div class="swiper-button-next" aria-label="Next slide"></div>
       </div>
-      <p id="video-counter" style="text-align:center;margin:.75rem 0 0;font-size:.9rem;color:#666"></p>
+      <p id="video-counter" class="video-counter"></p>
     </section>
     <script>
     fetch('/assets/data/videos/carnival/carnival-magic.json').then(r=>r.json()).then(function(data){
@@ -294,7 +296,7 @@ Dining Venues on Carnival Magic <a href="/restaurants.html" style="font-size: 0.
       wrapper.innerHTML='';
       data.videos.forEach(function(v){
         var slide=document.createElement('div');slide.className='swiper-slide';
-        slide.innerHTML='<div style="position:relative;padding-bottom:56.25%;height:0"><iframe src="https://www.youtube-nocookie.com/embed/'+v.videoId+'" title="'+v.title+'" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"></iframe></div>';
+        slide.innerHTML='<div class="video-embed"><iframe src="https://www.youtube-nocookie.com/embed/'+v.videoId+'" title="'+v.title+'" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
         wrapper.appendChild(slide);
       });
       if(counter)counter.textContent=data.videos.length+' videos available';
@@ -348,14 +350,14 @@ Dining Venues on Carnival Magic <a href="/restaurants.html" style="font-size: 0.
           <figcaption class="tiny">Simplified deck layout overview</figcaption>
         </figure>
       <p>Carnival Magic spans 15 guest decks with 1,845 staterooms. Explore cabin locations, dining venues, pools, and entertainment areas on the official interactive deck plans.</p>
-      <p><a href="https://www.carnival.com/cruise-ships/carnival-magic#deck-plans" target="_blank" rel="noopener" style="display:inline-block;background:var(--carnival-blue);color:#fff;padding:.75rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:500">View Official Deck Plans →</a></p>
+      <p><a href="https://www.carnival.com/cruise-ships/carnival-magic#deck-plans" target="_blank" rel="noopener" class="btn-deck-plans carnival">View Official Deck Plans →</a></p>
     </section>
 
     <!-- Live Tracker -->
     <section class="card" aria-labelledby="tracker-title">
       <h2 id="tracker-title">Live Ship Tracker</h2>
       <iframe class="tracker-frame" src="https://www.marinetraffic.com/en/ais/embed/zoom:8/centery:36/centerx:-76/maptype:4/shownames:true/mmsi:370491000/shipid:458815" title="Carnival Magic Live Position" loading="lazy"></iframe>
-      <p style="font-size:.85rem;color:#666;margin-top:.75rem">IMO: 9378486 · MMSI: 370491000 · Call Sign: H3QB · Flag: Panama</p>
+      <p class="ship-stats-summary">IMO: 9378486 · MMSI: 370491000 · Call Sign: H3QB · Flag: Panama</p>
     </section>
 
     <!-- FAQ -->
@@ -369,8 +371,8 @@ Dining Venues on Carnival Magic <a href="/restaurants.html" style="font-size: 0.
     </section>
 
     <!-- Attribution -->
-    <section class="card" style="font-size:.85rem;color:#666">
-      <h2 style="font-size:1.1rem">Sources & Attribution</h2>
+    <section class="card" class="sources-card">
+      <h2>Sources & Attribution</h2>
       <p>Ship specifications from <a href="https://en.wikipedia.org/wiki/Carnival_Magic" target="_blank" rel="noopener">Wikipedia</a>, <a href="https://www.cruisemapper.com/ships/Carnival-Magic-698" target="_blank" rel="noopener">CruiseMapper</a>, and Carnival Cruise Line. IMO 9378486. Live tracking via MarineTraffic. Photos from Wikimedia Commons under Creative Commons licenses.</p>
       <p>Page maintained by <a href="/authors/ken-baker.html">Ken Baker</a>, Cruise Research Analyst.</p>
     </section>
@@ -383,20 +385,20 @@ Dining Venues on Carnival Magic <a href="/restaurants.html" style="font-size: 0.
     <aside class="rail col-2">
     <div class="card">
       <h3>Quick Answer</h3>
-      <p style="margin:0"><strong>Carnival Magic</strong> is a 130,000 GT Dream-class ship that pioneered the SkyCourse ropes course in 2011. Operating from Norfolk, she offers Caribbean cruises with 3,690-guest capacity and Dream-class amenities including the Lanai open-air promenade.</p>
+      <p class="mb-0"><strong>Carnival Magic</strong> is a 130,000 GT Dream-class ship that pioneered the SkyCourse ropes course in 2011. Operating from Norfolk, she offers Caribbean cruises with 3,690-guest capacity and Dream-class amenities including the Lanai open-air promenade.</p>
     </div>
     <div class="card">
       <h3>Key Facts</h3>
-      <table class="key-facts" style="width:100%;border-collapse:collapse">
-        <tr><td><strong>Class</strong></td><td style="text-align:right">Dream-class</td></tr>
-        <tr><td><strong>Year Built</strong></td><td style="text-align:right">2011</td></tr>
-        <tr><td><strong>Shipyard</strong></td><td style="text-align:right">Fincantieri Monfalcone</td></tr>
-        <tr><td><strong>Tonnage</strong></td><td style="text-align:right">130,000 GT</td></tr>
-        <tr><td><strong>Length</strong></td><td style="text-align:right">1,004 ft / 306 m</td></tr>
-        <tr><td><strong>Guests</strong></td><td style="text-align:right">3,690</td></tr>
-        <tr><td><strong>Crew</strong></td><td style="text-align:right">1,386</td></tr>
-        <tr><td><strong>Homeport</strong></td><td style="text-align:right">Norfolk, VA</td></tr>
-        <tr><td><strong>IMO</strong></td><td style="text-align:right">9378486</td></tr>
+      <table class="key-facts" class="key-facts">
+        <tr><td><strong>Class</strong></td><td class="text-right">Dream-class</td></tr>
+        <tr><td><strong>Year Built</strong></td><td class="text-right">2011</td></tr>
+        <tr><td><strong>Shipyard</strong></td><td class="text-right">Fincantieri Monfalcone</td></tr>
+        <tr><td><strong>Tonnage</strong></td><td class="text-right">130,000 GT</td></tr>
+        <tr><td><strong>Length</strong></td><td class="text-right">1,004 ft / 306 m</td></tr>
+        <tr><td><strong>Guests</strong></td><td class="text-right">3,690</td></tr>
+        <tr><td><strong>Crew</strong></td><td class="text-right">1,386</td></tr>
+        <tr><td><strong>Homeport</strong></td><td class="text-right">Norfolk, VA</td></tr>
+        <tr><td><strong>IMO</strong></td><td class="text-right">9378486</td></tr>
       </table>
     </div>
         <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -417,7 +419,7 @@ Dining Venues on Carnival Magic <a href="/restaurants.html" style="font-size: 0.
     <!-- Recent Articles rail -->
     <section class="card" aria-labelledby="recent-rail-title">
       <h3 id="recent-rail-title">Recent Stories</h3>
-      <p class="tiny content-text" style="margin-bottom: 0.75rem;">
+      <p class="tiny content-text" class="mb-075">
         Real cruising experiences, practical guides, and heartfelt reflections from our community.
       </p>
       <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
@@ -440,7 +442,7 @@ Dining Venues on Carnival Magic <a href="/restaurants.html" style="font-size: 0.
 <footer role="contentinfo">
   <p><strong>In the Wake</strong> — A Cruise Traveler's Logbook</p>
   <p>© 2025 In the Wake. All rights reserved.</p>
-  <p style="margin-top:1rem"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/accessibility.html">Accessibility</a></p>
+  <p class="mt-1"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/accessibility.html">Accessibility</a></p>
   <p aria-hidden="true" style="opacity:0;position:absolute;pointer-events:none">Soli Deo Gloria</p>
   <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
   </footer>

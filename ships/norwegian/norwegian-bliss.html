@@ -49,6 +49,7 @@ All work on this project is offered as a gift to God.
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://cruisinginthewake.com/ships/norwegian/norwegian-bliss.html"/>
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/ships-hero.jpg"/>
+  <meta property="og:locale" content="en_US"/>
   <meta property="og:title" content="Norwegian Bliss — Norwegian Cruise Line Ship Guide"/>
   <meta property="og:description" content="Explore Norwegian Bliss: Breakaway Plus Class ship with 4,004 guests. Dining, entertainment, and planning resources."/>
   <meta name="twitter:card" content="summary_large_image"/>
@@ -240,7 +241,7 @@ All work on this project is offered as a gift to God.
     </div>
   </header>
 
-  <main class="wrap" id="content" data-ship="Norwegian Bliss" data-imo="9749670">
+  <main class="wrap" id="content" data-ship="Norwegian Bliss" data-imo="9749670" role="main">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a> &rsaquo;
       <a href="/ships.html">Ships</a> &rsaquo;
@@ -426,7 +427,20 @@ All work on this project is offered as a gift to God.
 
     <!-- Deck Plans & Tracker Grid -->
     <div class="grid-2">
-      <section class="card" aria-labelledby="deck-plans">
+      
+    <!-- Ship Statistics -->
+    <section class="card" aria-labelledby="ship-stats-title">
+      <h2 id="ship-stats-title">Ship Statistics</h2>
+      <div id="ship-stats" class="stats-grid" data-slug="norwegian-bliss">
+        <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">168,028 GT</div></div>
+        <div class="stat-item"><div class="label">Guests</div><div class="value">4,004</div></div>
+        <div class="stat-item"><div class="label">Crew</div><div class="value">1,716</div></div>
+        <div class="stat-item"><div class="label">Entered Service</div><div class="value">2018</div></div>
+        <div class="stat-item"><div class="label">Class</div><div class="value">Breakaway Plus</div></div>
+      </div>
+    </section>
+
+<section class="card" aria-labelledby="deck-plans">
         <h2 id="deck-plans">Deck Plans</h2>
         <div id="ship-map" data-ship="norwegian-bliss">
           <p>Interactive deck plans for Norwegian Bliss are available on the cruise line's official website.</p>
@@ -554,7 +568,7 @@ All work on this project is offered as a gift to God.
       </section>
 
       <!-- Whimsical Distance Units -->
-      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+      <section class="card" id="whimsical-units-container" class="whimsical-units-container">
       </section>
 
       <section class="card" id="recent-rail-nav-bottom" aria-labelledby="recent-rail-title">
