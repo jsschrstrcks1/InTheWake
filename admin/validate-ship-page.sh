@@ -437,35 +437,28 @@ fi
 # ============================================================================
 section_header "Section 9: Required Content Sections"
 
-REQUIRED_SECTIONS=(
-    'id="first-look"'
-    'id="ship-stats"'
-    'id="dining-card"'
-    'id="logbook"'
-    'id="video-highlights"'
-    'id="deck-plans"'
-    'id="liveTrackHeading"'
-    'id="faq-heading"'
-)
+# Accept both RCL-style and Carnival-style section IDs
+check_section() {
+    local name="$1"
+    shift
+    for pattern in "$@"; do
+        if echo "$CONTENT" | grep -qE "$pattern"; then
+            check_pass "$name present"
+            return 0
+        fi
+    done
+    check_fail "$name MISSING"
+    return 1
+}
 
-SECTION_NAMES=(
-    "First Look section"
-    "Ship Stats section"
-    "Dining section"
-    "Logbook section"
-    "Video section"
-    "Deck Plans section"
-    "Live Tracker section"
-    "FAQ section"
-)
-
-for i in "${!REQUIRED_SECTIONS[@]}"; do
-    if echo "$CONTENT" | grep -q "${REQUIRED_SECTIONS[$i]}"; then
-        check_pass "${SECTION_NAMES[$i]} present"
-    else
-        check_fail "${SECTION_NAMES[$i]} MISSING"
-    fi
-done
+check_section "First Look section" 'id="first-look"' 'id="overview-title"'
+check_section "Ship Stats section" 'id="ship-stats"' 'class="stats-grid"'
+check_section "Dining section" 'id="dining-card"' 'id="diningHeading"'
+check_section "Logbook section" 'id="logbook"' 'id="logbook-title"' 'id="logbook-entries"'
+check_section "Video section" 'id="video-highlights"' 'id="videos-title"' 'id="video-swiper"'
+check_section "Deck Plans section" 'id="deck-plans"' 'id="deck-title"'
+check_section "Live Tracker section" 'id="liveTrackHeading"' 'id="tracker-title"' 'class="tracker-frame"'
+check_section "FAQ section" 'id="faq-heading"' 'id="faq-title"' 'class="faq-item"'
 
 # Check for ship-stats-fallback JSON
 if echo "$CONTENT" | grep -q 'id="ship-stats-fallback"'; then
