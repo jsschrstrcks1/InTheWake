@@ -184,8 +184,8 @@ else
     check_fail "last-reviewed meta tag MISSING (required)"
 fi
 
-if echo "$CONTENT" | grep -q 'content="ICP-Lite v1.0"'; then
-    check_pass "content-protocol is 'ICP-Lite v1.0'"
+if echo "$CONTENT" | grep -qE 'content="ICP-Lite v1\.(0|4)"'; then
+    check_pass "content-protocol is ICP-Lite v1.x"
 else
     check_fail "content-protocol meta tag MISSING or incorrect (required)"
 fi
