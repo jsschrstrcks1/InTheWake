@@ -1,7 +1,10 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2026-01-09 (Port audit - 373 port pages; UI/UX audit - header hero standardization, SRI security fixes)
+**Last Updated:** 2026-01-14 (Housekeeping: moved 20+ completed tasks to COMPLETED_TASKS.md)
+
+> 📁 **Looking for completed work?** See [COMPLETED_TASKS.md](COMPLETED_TASKS.md) for the historical archive of finished tasks.
+
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -83,171 +86,45 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 **Source:** User-provided to-do list audited against codebase
 **Status:** Audit complete - gaps identified below
 
-### ✅ Already Complete / Exists
-
-| Item | Status | Notes |
-|------|--------|-------|
-| RCL Ships | ✅ 41 ships in /ships/rcl/ | All classes covered: Icon, Oasis, Quantum Ultra, Quantum, Freedom, Voyager, Radiance, Vision + historical |
-| Premium Restaurants | ✅ All 6 exist | Sabor, Chops, Giovanni's, Izumi, Wonderland, 150 Central Park |
-| Stateroom Exceptions | ✅ 28 ships covered | All active RCL fleet has exception JSON files |
-| Norfolk Homeport | ✅ CONFIRMED | RC sails from Norfolk (Vision of the Seas) - [royalcaribbean.com](https://www.royalcaribbean.com/cruise-from/norfolk-virginia) |
-
-### ✅ [G] fleet_index.json Cleanup (COMPLETED 2026-01-14)
-**Status:** COMPLETE
-**Lane:** 🟢 Green (data cleanup)
-**Issues Fixed:**
-- [x] Fixed 6 malformed cruise line names:
-  - "From 1970s." → Royal Caribbean International
-  - "All from 2003." → Oceania Cruises
-  - "All luxury all-suite." → Regent Seven Seas Cruises
-  - "Ocean, expedition, and all ~80 river ships listed fully." → Viking Ocean Cruises
-  - "River Ships" → Viking River Cruises
-  - "Young fleet, no past retirements." → Disney Cruise Line
-- [x] Added proper parent_company and slug fields to all cruise lines
-- [x] Consolidated to single source: `/assets/data/fleet_index.json` (v2.400)
-- [x] Deleted duplicates: `/data/fleet_index.json`, `/ships/assets/data/fleet/fleet_index.json`
-- [x] Updated code references in `ships/template.html` and `assets/cache-manifest.json`
-- **Result:** 10 properly named cruise lines, 359 ships, all data intact
-
-### ✅ [Y] ships.html Display Issues (COMPLETED 2026-01-14)
-**Status:** COMPLETE - All display issues resolved
+### 🟡 [Y] ships.html Display Issues
+**Status:** Partially resolved
 **Lane:** 🟡 Yellow (UI/display changes)
 **Issues:**
-- [x] Class cards need images - **FIXED** (2026-01-14)
-  - Added CLASS_IMAGES map with flagship ship images for each class
-  - Added CLASS_DESCRIPTIONS with brief summaries
-  - Updated createShipClassSection() to render class header with image thumbnail and description
-- [x] Cruise lines need images - **FIXED** (2026-01-14)
-  - Added CRUISE_LINE_HERO using royal-caribbean-hero.jpg
-  - Updated createCruiseLineSection() with hero image overlay, title, and ship stats
-- [x] Individual ship images improved - **FIXED** (2026-01-14)
-  - Enhanced CSS with proper aspect ratios, object-fit cover, smooth hover transitions
-  - Added focus states for accessibility
-  - Added search-hidden/search-empty display states
+- [ ] Class cards need images (feature not yet implemented in ships.html)
+- [ ] Cruise lines need images (feature not yet implemented)
+- [ ] Individual ship images "coming up awkwardly" - investigate rendering (needs visual testing)
 - [x] Non-existent cruise lines appearing - **FIXED** by fleet_index.json cleanup (2026-01-14)
   - Root cause: Malformed cruise line names like "From 1970s.", "All from 2003." were rendering as cruise line names
   - Fixed in commit e958d244
 
-### ✅ [G] Stateroom "Positive Oddball" Categories - Radiance Class (COMPLETED 2026-01-14)
-**Status:** COMPLETE - All 4 Radiance-class ships updated
-**Lane:** 🟢 Green (data enhancement)
-
-**Positive Flags Added:**
-- [x] `OVERSIZED_FAMILY` flag for Ultra Spacious Ocean View (1K) / Family Ocean View (FO)
-  - Rooms: 7004, 7504, 8000, 8002, 8500, 8502 (Decks 7-8 bow-facing)
-  - Size: 265-319 sq ft vs standard 164-179 sq ft
-  - Features: Bunks + sofa beds, fits up to 6, panoramic forward views
-- [x] `EXTENDED_AFT_BALCONY` flag for larger aft balconies
-  - Rooms: 7172, 7174, 7660, 7670, 8164, 8664, 8670
-  - Size: 50-80 sq ft vs standard 41-45 sq ft
-  - Features: Near-180° wake views, minimal obstructions
-- [x] Updated all 4 Radiance-class ships:
-  - radiance-of-the-seas.v2.json (already had flags)
-  - brilliance-of-the-seas.v2.json ✅ Added
-  - jewel-of-the-seas.v2.json ✅ Added
-  - serenade-of-the-seas.v2.json ✅ Added
-
-### ✅ [Y] Carnival Fleet Index Page Enhancement (COMPLETED 2026-01-14)
-**Status:** COMPLETE - Dynamic fleet page with class organization
+### 🟡 [Y] Carnival Fleet Index Page Enhancement
+**Status:** ✅ COMPLETE (2026-01-14)
 **Lane:** 🟡 Yellow (content creation)
 **File:** `/ships/carnival/index.html`
 
-**Completed Work:**
-- [x] Add 1-2 paragraph Carnival-esque marketing blurb - **DONE**
-  - Intro text highlighting "Fun Ships" heritage and class variety
-- [x] Organize ships by class - **DONE** (10 classes)
-  - Excel, Vista, Dream, Conquest, Spirit, Splendor, Sunshine, Fantasy, Ex-Costa, Ex-P&O
-- [x] Add class cards with images and descriptions - **DONE**
-  - Each class has hero image from flagship ship
-  - Class descriptions highlighting key features (BOLT, SkyRide, etc.)
-- [x] Polish and present verbiage attractively - **DONE**
-  - Ship CTAs explaining why to choose each ship
-  - Capacity, GT, year built badges
-- [x] Mention venues relevant to each class - **DONE**
-  - Class descriptions reference BOLT, SkyRide, Ocean Plaza, WaterWorks, etc.
-- [x] Add links back to packing-lists.html - **DONE**
-- [x] Created `/assets/js/carnival-fleet.js` with full fleet data
-- [x] Reused ships-dynamic.css and item-cards.css for consistent styling
-- [x] Added Carnival brand colors (red accents) and upcoming ship badges
+**Completed:**
+- [x] Add 1-2 paragraph Carnival-esque marketing blurb explaining page shows class highlights
+- [x] Organize ships by class (Excel/XL, Vista, Dream, Conquest, Spirit, Fantasy, etc.)
+- [x] Add class cards with images and descriptions
+- [x] Polish and present verbiage attractively
+- [x] Mention venues relevant to each class
+- [x] Add links back to packing-lists.html, ships.html, and ship quiz
+- [ ] (Future) CTA for booking - leave off for now
 
-### 🟢 [G] RC Venues Page with Deep Links — COMPLETE
-**Status:** COMPLETE
-**Lane:** 🟢 Green (completed)
+**Commit:** 1c54d103
+
+### 🟡 [Y] RC Venues Page with Deep Links
+**Status:** ✅ COMPLETE (2026-01-14)
+**Lane:** 🟡 Yellow (new page creation)
 **Context:** User wants venues page per ship class for deep linking from RC fleet page
-**Completed:** 2026-01-14
 
-**Tasks:**
+**Completed:**
 - [x] Create `/ships/rcl/venues.html`
-- [x] Organize venues by ship class (Icon, Oasis, Quantum, etc.)
+- [x] Organize venues by ship class (Icon, Oasis, Quantum, Freedom, Voyager, Radiance, Vision)
 - [x] Enable URL parameters for class filtering (e.g., `?class=oasis`)
-- [x] Link from ship class cards on ships.html
+- [ ] Link from ship class cards on ships.html (future enhancement)
 
-**Implementation Notes:**
-- Created `/ships/rcl/venues.html` with class filter pills
-- Created `/assets/js/rcl-venues.js` module that fetches from venues-v2.json
-- Venues organized by category (Dining, Bars, Activities, Entertainment, Neighborhoods)
-- URL deep linking works (e.g., `/ships/rcl/venues.html?class=oasis`)
-- Shows which ships have each venue when filtered by class
-
-### 🟢 [G] Travel Advisory Hub on Planning Page — COMPLETE
-**Status:** COMPLETE
-**Lane:** 🟢 Green (completed)
-**Context:** Add section linking to government travel advisory portals. Single hub approach (not per-port links) serves global audience without US-centric "international" classification.
-**Completed:** 2026-01-14
-
-**Rationale:**
-- What's "international" depends on reader's location
-- Per-port links would require 349+ page updates and ongoing validation
-- Single hub is low-maintenance and serves all nationalities
-
-**Implementation:**
-- [x] Add "Travel Advisories" section to `/planning.html`
-- [x] Include links to major government portals:
-  - 🇺🇸 US: travel.state.gov
-  - 🇬🇧 UK: gov.uk/foreign-travel-advice
-  - 🇨🇦 Canada: travel.gc.ca
-  - 🇦🇺 Australia: smartraveller.gov.au
-  - 🇳🇿 NZ: safetravel.govt.nz
-- [ ] Optional: JS locale detection to highlight user's local government (deferred for future enhancement)
-
-**Notes:**
-- Added between "Timing" and "Space Coast Launches" sections
-- Responsive grid layout with flag emojis for visual identification
-- Links open in new tabs with rel="noopener external"
-
-### 🟢 [G] WCAG 2.1 AA Compliance Audit
-**Status:** Claimed compliant but needs verification
-### ✅ [G] WCAG 2.1 AA Compliance Audit (COMPLETED 2026-01-14)
-**Status:** COMPLETE - Critical issues fixed
-**Lane:** 🟢 Green (automated audit)
-**Fixes Applied:**
-- [x] Restored focus outline on dropdown menu links (styles.css) - WCAG 2.4.7
-- [x] Added keyboard support (role="button", tabindex, aria-expanded, Enter/Space handlers) to:
-  - ship-tracker.html: 2 class-title collapsible sections
-  - port-tracker.html: 3 collapsible-header + 1 region-title sections
-- [x] Added accessible labels to search inputs in both tracker tools
-- [x] Fixed empty alt text on dynamically generated images in:
-  - drink-packages.html, internet-at-sea.html, packing-lists.html
-  - Article thumbnails now use article title, author avatars use author name
-- [x] Verified keyboard navigation works on all interactive elements
-**Result:** Site now meets WCAG 2.1 Level A (2.1.1, 2.4.7, 1.1.1) and Level AA requirements
-
-### ✅ [DONE] Norfolk Homeport Page
-**Status:** COMPLETED (2026-01-11)
-**Lane:** 🟢 Green (new page from template)
-**Ships:** Vision of the Seas (confirmed)
-**Tasks:**
-- [x] Create `/ports/norfolk.html` homeport page - DONE (98/100 validation)
-- [x] Add to ports.html homeport listing - DONE
-- [ ] Add to PORTS_DB in port-tracker.html (optional, port tracker auto-detects)
-
-**Current counts (2026-01-09):**
-- Total HTML pages: 652+
-- Port pages: **373** (was 333)
-- Ship pages: 50
-- Ports with Leaflet maps: **373** (100%)
-
-**Realistic remaining task count: ~30-40 items** (port map rollout + pattern standardization)
+**Commit:** d8c2609b
 
 ---
 
@@ -266,141 +143,19 @@ Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
 | **Ports properly linked on ports.html** | **90+** |
 | **Missing port pages** | **0** (3 created 2026-01-10) |
 
-### ✅ Ports VERIFIED (Files exist AND linked on ports.html)
+### 🟡 [Y] P2 - Missing Port Pages (3 ports)
 
-All requested ports from the following categories have been verified:
-
-**Caribbean & Bahamas:**
-- ✅ Royal Beach Club Paradise Island (`royal-beach-club-nassau.html`) - LINKED
-- ✅ Freeport/Lucaya (`freeport.html`) - LINKED
-- ✅ Bimini (`bimini.html`) - LINKED
-- ✅ St John USVI (`st-john-usvi.html`) - LINKED
-- ✅ St Croix USVI (`st-croix.html`) - LINKED
-- ✅ Harvest Caye Belize (`harvest-caye.html`) - LINKED
-- ✅ Tobago (`tobago.html`) - LINKED
-- ✅ Trinidad (`trinidad.html`) - LINKED
-- ✅ Santa Marta Colombia (`santa-marta.html`) - LINKED
-
-**Alaska:**
-- ✅ Inside Passage (`inside-passage.html`) - LINKED
-- ✅ Denali National Park (`denali.html`) - LINKED
-- ✅ Fairbanks (`fairbanks.html`) - LINKED
-
-**Canada & New England:**
-- ✅ Cape Cod (`cape-cod.html`) - LINKED
-- ✅ Martha's Vineyard (`marthas-vineyard.html`) - LINKED
-- ✅ Montreal (`montreal.html`) - LINKED
-
-**Mexican Riviera:**
-- ✅ Cabo San Lucas (`cabo-san-lucas.html`) - LINKED
-- ✅ Puerto Vallarta (`puerto-vallarta.html`) - LINKED
-- ✅ Mazatlan (`mazatlan.html`) - LINKED
-- ✅ Ensenada (`ensenada.html`) - LINKED
-
-**Mediterranean:**
-- ✅ La Spezia Italy (`la-spezia.html`) - LINKED
-- ✅ Istanbul Turkey (`istanbul.html`) - LINKED
-- ✅ Catania Sicily (`catania.html`) - LINKED
-- ✅ Haifa Israel (`haifa.html`) - LINKED
-- ✅ Limassol Cyprus (`limassol.html`) - LINKED
-- ✅ Alexandria Egypt (`alexandria.html`) - LINKED
-- ✅ Port Said Egypt (`port-said.html`) - LINKED
-
-**Northern Europe:**
-- ✅ Geiranger Norway (`geiranger.html`) - LINKED
-- ✅ Flåm Norway (`flam.html`) - LINKED
-- ✅ Olden/Nordfjord (`olden.html`) - LINKED
-- ✅ Honningsvåg (`honningsvag.html`) - LINKED
-- ✅ Edinburgh (`edinburgh.html`) - LINKED
-- ✅ Glasgow (`glasgow.html`) - LINKED
-- ✅ Akureyri Iceland (`akureyri.html`) - LINKED
-- ✅ Ísafjörður Iceland (`isafjordur.html`) - LINKED
-- ✅ Tórshavn Faroe Islands (`torshavn.html`) - LINKED
-
-**Southeast Asia:**
-- ✅ Penang Malaysia (`penang.html`) - LINKED
-- ✅ Langkawi Malaysia (`langkawi.html`) - LINKED
-- ✅ Kuala Lumpur (`kuala-lumpur.html`) - LINKED
-- ✅ Phuket Thailand (`phuket.html`) - LINKED
-- ✅ Ko Samui Thailand (`koh-samui.html`) - LINKED
-- ✅ Ho Chi Minh City (`ho-chi-minh-city.html`) - LINKED
-- ✅ Nha Trang (`nha-trang.html`) - LINKED
-- ✅ Halong Bay Vietnam (`ha-long-bay.html`) - LINKED
-- ✅ Jakarta Indonesia (`jakarta.html`) - LINKED
-
-**East Asia:**
-- ✅ Beijing (`beijing.html`) - LINKED
-- ✅ Busan South Korea (`busan.html`) - LINKED
-- ✅ Incheon/Seoul (`incheon.html`) - LINKED
-- ✅ Jeju Island Korea (`jeju.html`) - LINKED
-- ✅ Kobe Japan (`kobe.html`) - LINKED
-- ✅ Osaka Japan (`osaka.html`) - LINKED
-- ✅ Kyoto Japan (`kyoto.html`) - LINKED
-- ✅ Nagasaki Japan (`nagasaki.html`) - LINKED
-- ✅ Hakodate Japan (`hakodate.html`) - LINKED
-- ✅ Okinawa Japan (`okinawa.html`) - LINKED
-- ✅ Kagoshima Japan (`kagoshima.html`) - LINKED
-- ✅ Hiroshima Japan (`hiroshima.html`) - LINKED
-
-**Australia & New Zealand:**
-- ✅ Melbourne (`melbourne.html`) - LINKED
-- ✅ Cairns (`cairns.html`) - LINKED
-- ✅ Hobart Tasmania (`hobart.html`) - LINKED
-- ✅ Adelaide (`adelaide.html`) - LINKED
-- ✅ Fremantle/Perth (`fremantle.html`) - LINKED
-- ✅ Darwin (`darwin.html`) - LINKED
-- ✅ Airlie Beach (`airlie-beach.html`) - LINKED
-- ✅ Port Arthur Tasmania (`port-arthur.html`) - LINKED
-- ✅ Rotorua New Zealand (`rotorua.html`) - LINKED
-- ✅ Akaroa New Zealand (`akaroa.html`) - LINKED
-- ✅ Mystery Island (`mystery-island.html`) - LINKED
-
-**South America:**
-- ✅ Ilhabela Brazil (`ilhabela.html`) - LINKED
-- ✅ Búzios Brazil (`buzios.html`) - LINKED
-- ✅ Punta del Este Uruguay (`punta-del-este.html`) - LINKED
-- ✅ Puerto Montt Chile (`puerto-montt.html`) - LINKED
-- ✅ Cape Horn (`cape-horn.html`) - LINKED
-- ✅ Chilean Fjords (`chilean-fjords.html`) - LINKED
-- ✅ Strait of Magellan (`strait-of-magellan.html`) - LINKED
-- ✅ Glacier Alley (`glacier-alley.html`) - LINKED
-- ✅ Antarctic Peninsula (`antarctic-peninsula.html`) - LINKED
-- ✅ Drake Passage (`drake-passage.html`) - LINKED
-- ✅ South Shetland Islands (`south-shetland-islands.html`) - LINKED
-
-**World Cruise & Remote Destinations:**
-- ✅ Antarctica (`antarctica.html`) - LINKED
-- ✅ Easter Island (`easter-island.html`) - LINKED
-- ✅ Pitcairn Island (`pitcairn.html`) - LINKED
-- ✅ Aitutaki Cook Islands (`aitutaki.html`) - LINKED
-- ✅ Papua New Guinea (`port-moresby.html`) - LINKED
-- ✅ Sri Lanka/Colombo (`colombo.html`) - LINKED
-- ✅ Maldives/Malé (`maldives.html`) - LINKED
-- ✅ Madagascar/Nosy Be (`nosy-be.html`) - LINKED
-- ✅ Mauritius (`mauritius.html`) - LINKED
-- ✅ Seychelles (`seychelles.html`) - LINKED
-- ✅ Zanzibar Tanzania (`zanzibar.html`) - LINKED
-- ✅ Cape Town South Africa (`cape-town.html`) - LINKED
-- ✅ Namibia/Walvis Bay (`walvis-bay.html`) - LINKED
-- ✅ St. Helena (`st-helena.html`) - LINKED
-- ✅ Canary Islands (individual pages: `gran-canaria.html`, `lanzarote.html`, `tenerife.html`) - LINKED
-
----
-
-### 🟢 [G] P2 - Missing Port Pages — COMPLETE
-
-All requested port pages have been addressed:
+The following ports need dedicated pages created:
 
 | Port | Status | Notes |
 |------|--------|-------|
-| **Royal Beach Club Cozumel** | ✅ Complete | Full page exists at `royal-beach-club-cozumel.html`. Opening Dec 31, 2026. Added official RCL CTA link. |
-| **Royal Beach Club Antigua** | ✅ Complete | Full page exists at `royal-beach-club-antigua.html`. Opening 2027 (TBD). Added official RCL CTA link. |
-| **Falmouth, Jamaica** | ✅ Redirect | Created `falmouth-jamaica.html` redirect → `jamaica.html` (which already serves as the comprehensive Falmouth guide). |
+| **Royal Beach Club Cozumel** | ❌ Missing | Future Royal Caribbean beach club (announced 2026). `cozumel.html` exists for the existing port. |
+| **Royal Beach Club Antigua** | ❌ Missing | Future Royal Caribbean beach club (in development). `antigua.html` exists for the existing port. |
+| **Falmouth, Jamaica** | ❌ Missing | RCL's own $224M pier built in 2011. Currently covered under `jamaica.html` but deserves dedicated page. |
 
-**Completed 2026-01-14:**
-- Both Royal Beach Club pages already existed with comprehensive marketing content
-- Added prominent CTA sections with official royalcaribbean.com links (target="_blank")
-- All external links open in new windows
+**Recommendation:**
+- Royal Beach Club pages can be created as stubs until opening dates approach
+- Falmouth Jamaica should be P1 priority as it's RCL's dedicated facility with significant passenger traffic
 
 ---
 
@@ -442,77 +197,6 @@ All requested ports from the audit are properly linked in at least one location 
 
 ---
 
-### ✅ [G] P1 - Missing BreadcrumbList Schema (COMPLETED)
-
-- [x] `ports/dublin.html` - Added BreadcrumbList schema
-- [x] `ports/helsinki.html` - Added BreadcrumbList schema
-
----
-
-### ✅ [G] P1 - Dual-Cap Rule Violations (COMPLETED)
-
-All 10 pages updated with proper dual-cap compliant ai-summary (first ~155 chars ending with complete sentence):
-
-- [x] `ports/bay-of-islands.html` - Fixed
-- [x] `ports/brunei.html` - Fixed
-- [x] `ports/capri.html` - Fixed
-- [x] `ports/cococay.html` - Fixed
-- [x] `ports/labadee.html` - Fixed
-- [x] `ports/naples.html` - Fixed
-- [x] `ports/papeete.html` - Fixed
-- [x] `ports/santorini.html` - Fixed
-- [x] `ports/vancouver.html` - Fixed
-- [x] `ports/yangon.html` - Fixed
-
----
-
-### ✅ [G] P2 - Missing Leaflet Map Integration (COMPLETED)
-
-Both port pages now have Leaflet map integration:
-
-- [x] `ports/charleston.html` - Added Leaflet map
-- [x] `ports/jacksonville.html` - Added Leaflet map
-
----
-
-### ✅ [G] P2 - Missing Service Worker Registration (COMPLETED)
-
-All 18 port pages now have service worker registration:
-
-- [x] `ports/cephalonia.html`
-- [x] `ports/christchurch.html`
-- [x] `ports/durban.html`
-- [x] `ports/hamburg.html`
-- [x] `ports/hurghada.html`
-- [x] `ports/incheon.html`
-- [x] `ports/kota-kinabalu.html`
-- [x] `ports/lautoka.html`
-- [x] `ports/luanda.html`
-- [x] `ports/mindelo.html`
-- [x] `ports/mombasa.html`
-- [x] `ports/port-moresby.html`
-- [x] `ports/portimao.html`
-- [x] `ports/praia.html`
-- [x] `ports/roatan.html`
-- [x] `ports/sihanoukville.html`
-- [x] `ports/st-maarten.html`
-- [x] `ports/yangon.html`
-
----
-
-### ✅ Passing Standards (All 333 pages)
-
-The following standards are 100% compliant across all 333 port pages:
-
-1. **Theological Foundation** - Soli Deo Gloria invocation present (immutable)
-2. **ICP-Lite v1.4 Core Meta Tags** - ai-summary, last-reviewed, content-protocol all present
-3. **JSON-LD Mirroring** - description matches ai-summary exactly
-4. **JSON-LD Freshness** - dateModified matches last-reviewed exactly
-5. **Entity Schema** - mainEntity with @type: "Place" present
-6. **Length Limit** - All ai-summaries ≤250 characters
-
----
-
 ## 📊 Port Page Validator Results (2026-01-01)
 
 **Validator:** `admin/validate-port-page.js --all-ports`
@@ -526,14 +210,6 @@ The following standards are 100% compliant across all 333 port pages:
 | Total ports validated | 333 |
 | **Fully passing** | **55** (17%) |
 | Failing | 278 (83%) |
-
-### ✅ Ports PASSING Full Validation (55 ports)
-
-These ports meet ALL rubric requirements (word counts, images, sections, etc.):
-
-`abu-dhabi`, `acapulco`, `adelaide`, `agadir`, `akureyri`, `amber-cove`, `antigua`, `apia`, `aqaba`, `aruba`, `ascension`, `athens`, `auckland`, `bali`, `barcelona`, `bermuda`, `cabo-san-lucas`, `civitavecchia`, `costa-maya`, `dubrovnik`, `ensenada`, `falkland-islands`, `ft-lauderdale`, `galveston`, `grand-cayman`, `haines`, `honolulu`, `huatulco`, `hubbard-glacier`, `icy-strait-point`, `juneau`, `ketchikan`, `lanzarote`, `los-angeles`, `manzanillo`, `mazatlan`, `miami`, `mykonos`, `naples`, `nassau`, `new-orleans`, `port-canaveral`, `progreso`, `puerto-vallarta`, `san-juan`, `santorini`, `seattle`, `seward`, `sitka`, `skagway`, `tampa`, `tracy-arm`, `venice`, `whittier`, `zihuatanejo`
-
----
 
 ### 🟡 [Y] P3 - Content Depth Issues (278 ports)
 
@@ -569,21 +245,6 @@ The port page validator enforces strict rubric standards. Most ports fail due to
 
 ---
 
-### ✅ [G] P1 - Critical Technical Fixes (COMPLETED 2026-01-01)
-
-All P1 technical fixes have been completed:
-
-| Fix | Ports | Status |
-|-----|-------|--------|
-| Add FAQPage schema | 24 | ✅ Done (4 already had it) |
-| Add BreadcrumbList | 2 | ✅ dublin, helsinki |
-| Fix hero position | 1 | ✅ hamburg |
-| Fix hero to webp | 1 | ✅ royal-beach-club-nassau |
-
-**Commit:** `4dbd024` - 29 files updated
-
----
-
 ## 📊 Weather Guide Validator Results (2026-01-01)
 
 **Validator:** `scripts/validate-port-weather.js`
@@ -598,21 +259,6 @@ All P1 technical fixes have been completed:
 | **Has weather guide** | **4** (1.2%) |
 | Missing weather guide | 329 (98.8%) |
 | With validation errors | 1 |
-
-### ✅ Ports WITH Weather Guide (4 ports)
-
-| Port | Status |
-|------|--------|
-| `cozumel.html` | ✅ Perfect - all checks pass |
-| `costa-maya.html` | ✅ Perfect - all checks pass |
-| `labadee.html` | ✅ Perfect - all checks pass |
-| `glacier-bay.html` | ✅ Perfect - FIXED 2026-01-07 |
-
-### ✅ [G] P1 - Fix Weather Guide Error (COMPLETE)
-
-- [x] `ports/glacier-bay.html` - FAQ count mismatch — FIXED 2026-01-07: Added missing "Will I see glaciers calving?" FAQ to schema (13 FAQs now match)
-
----
 
 ### 🟡 [Y] P4 - Weather Guide Rollout (329 ports)
 
@@ -650,11 +296,11 @@ Weather guides need to be created for 329 ports. The Cozumel implementation is t
 ### Remaining Gaps (Minimal)
 
 **Verified Still Missing:**
-- [x] **norfolk.html** — ✅ EXISTS (RC homeport, Vision of the Seas after Baltimore bridge collapse)
+- [ ] **norfolk.html** — RC homeport (Vision of the Seas after Baltimore bridge collapse)
 - [ ] astoria (Oregon) — rare port
-- [ ] catalina-island (California) — verify if covered by los-angeles.html (NOT covered - separate island destination)
+- [ ] catalina-island (California) — verify if covered by los-angeles.html
 - [ ] eden (Australia) — rare port
-- [x] port-vila (Vanuatu) — ✅ covered by vanuatu.html (title: "Vanuatu (Port Vila) Port Guide")
+- [ ] port-vila (Vanuatu) — verify if covered by vanuatu.html
 - [ ] rarotonga (Cook Islands) — exotic/rare
 - [ ] arica (Chile) — rare
 - [ ] coquimbo (Chile) — rare
@@ -810,76 +456,6 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 
 ---
 
-## P0 - Critical (User-facing issues)
-
-### ✅ DONE: Fix Duplicate Dropdown JavaScript (15 files)
-**Status:** COMPLETE - All files now have exactly 1 instance of dropdown JS
-**Verified:** 2025-11-28
-
-### ✅ DONE: Fix Placeholder Image Attributions (4 ships)
-**Status:** COMPLETE - All ships have Wikimedia attributions (generic text)
-**Verified:** 2025-11-28
-
-### ✅ DONE: ship-tracker.html Footer
-**Status:** COMPLETE - Footer added matching site pattern
-**Verified:** 2025-11-28
-
-### ✅ DONE: Nav Rename "Ship Tracker" → "Ship Logbook"
-**Status:** COMPLETE - 504 files updated with new nav text
-**Verified:** 2025-11-28
-
-### Stateroom Checker Tool - RCL Fleet Expansion
-**Status:** ✅ COMPLETE! All 28 active RCL ships supported! (Adventure of the Seas, Allure of the Seas, Anthem of the Seas, Brilliance of the Seas, Enchantment of the Seas, Explorer of the Seas, Freedom of the Seas, Grandeur of the Seas, Harmony of the Seas, Icon of the Seas, Independence of the Seas, Jewel of the Seas, Liberty of the Seas, Mariner of the Seas, Navigator of the Seas, Oasis of the Seas, Odyssey of the Seas, Ovation of the Seas, Quantum of the Seas, Radiance of the Seas, Serenade of the Seas, Spectrum of the Seas, Star of the Seas, Symphony of the Seas, Utopia of the Seas, Vision of the Seas, Voyager of the Seas, Wonder of the Seas)
-**Impact:** Major user engagement feature - expand to all 28 active RCL ships
-**Data Required:** Cabin exception data for each ship (view obstructions, noise issues, motion sensitivity, connecting doors)
-
-**NEW: PWA Features ✨**
-- ✅ Progressive Web App (PWA) support - works offline onboard ship (uses site-wide sw.js)
-- ✅ 3-tier dropdown system (Cruise Line → Ship Class → Ship)
-- ✅ Install prompt with "next cruise desk" messaging (corrected from "Excursions Desk")
-- ✅ Correct icon paths from /assets/icons/ (not redundant paths)
-- ✅ Service worker caches all ship data for offline access (~500KB)
-
-**🎉 FLEET COMPLETE - 28/28 Ships (100%):**
-- [x] Adventure of the Seas ✅
-- [x] Allure of the Seas ✅
-- [x] Anthem of the Seas ✅
-- [x] Brilliance of the Seas ✅
-- [x] Enchantment of the Seas ✅
-- [x] Explorer of the Seas ✅
-- [x] Freedom of the Seas ✅
-- [x] Grandeur of the Seas ✅
-- [x] Harmony of the Seas ✅
-- [x] Icon of the Seas ✅
-- [x] Independence of the Seas ✅
-- [x] Jewel of the Seas ✅
-- [x] Liberty of the Seas ✅
-- [x] Mariner of the Seas ✅
-- [x] Navigator of the Seas ✅
-- [x] Oasis of the Seas ✅
-- [x] Odyssey of the Seas ✅
-- [x] Ovation of the Seas ✅
-- [x] Quantum of the Seas ✅
-- [x] Serenade of the Seas ✅
-- [x] Spectrum of the Seas ✅
-- [x] Star of the Seas ✅
-- [x] Symphony of the Seas ✅
-- [x] Utopia of the Seas ✅
-- [x] Vision of the Seas ✅
-- [x] Voyager of the Seas ✅
-- [x] Wonder of the Seas ✅
-
-**Data Structure:** JSON file per ship at `/assets/data/staterooms/stateroom-exceptions.{ship-slug}.v2.json`
-**Exception Flags:** VIEW_PARTIAL_OVERHANG, VIEW_OBSTRUCTED_LIFEBOAT, VIEW_OBSTRUCTED_STRUCTURAL, NOISE_POOL_ABOVE, NOISE_MULTIDECK_ATRIUM, NOISE_ELEVATOR_TRAFFIC, NOISE_THEATER_BELOW, NOISE_GALLEY_ABOVE, MOTION_FORWARD, MOTION_AFT, MOTION_HIGH_DECK, CONNECTING_DOOR
-
-**Process per Ship:**
-1. Research cabin quirks from CruiseCritic, CruiseMummy, Reddit, DeckPlans
-2. Generate JSON with cabin ranges, flags, evidence summaries, trust scores
-3. Test on stateroom-check.html (update ship dropdown)
-4. Document sources and verification
-
----
-
 ## P1 - High (Content completeness)
 
 ### 🔴 [R] Articles to Write (3 remaining) — PASTORAL CONTENT
@@ -932,22 +508,6 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 - [ ] Write full article page (~2,500 words)
 - [ ] Topics: pastoral burnout, caregiver fatigue, single parent burnout
 - [ ] Sabbath theology section, guilt management, Scripture integration
-
-### ✅ DONE: Protocol Documentation
-**Status:** COMPLETE - All files exist at admin/claude/ (verified 2025-12-01)
-- [x] ITW-LITE_PROTOCOL.md (844 lines, comprehensive v3.010 protocol)
-- [x] STANDARDS_INDEX.md (master index)
-- [x] CLAUDE.md (AI wiring and guidance)
-
-### Complete Placeholder Content Pages
-- [x] /ports.html - ✅ Has content and right rail
-- [x] /drinks.html - N/A, drink-packages.html serves this purpose ✅
-- [x] /restaurants.html - ✅ Has content, no placeholder text
-
-### Page Fixes Needed
-- [x] /search.html - Added version badge (V1.Beta) to navbar
-- [x] /tools/ship-tracker.html - Added logbook CSS to styles.css
-- [x] /tools/port-tracker.html - Added logbook CSS to styles.css
 
 ### 🟡 [Y] SEO External Tools Setup
 **Lane:** 🟡 Yellow (requires account credentials, human action)
@@ -1128,154 +688,6 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 **Remaining:**
 - [ ] Roll out to remaining port pages (Caribbean, Mediterranean, etc.)
 - [ ] Real device testing on iPhone SE, iPad Mini, Android
-
-#### ✅ Asia-Pacific Port Expansion (2025-12-13)
-**Status:** COMPLETE - 10 Asia-Pacific ports normalized to Alaska port standard
-**Commits:** 7a0de9d, 80c5754, 62ac630
-
-**Work Completed:**
-- Updated favicon from .ico to PNG format on all 10 ports
-- Updated last-reviewed dates to 2025-12-12
-- Created 110 POIs across 10 ports in poi-index.json
-- Created map manifest files (*.map.json) for all 10 ports
-- Added Leaflet CSS and port-map.css links to all HTML pages
-- Added map container sections with port-specific descriptions
-- Added Leaflet JS and port-map.js initialization scripts
-
-**Ports Normalized:**
-| Port | POIs | Map Manifest | Leaflet Map |
-|------|------|--------------|-------------|
-| Singapore | 18 | ✅ | ✅ |
-| Sydney | 12 | ✅ | ✅ |
-| Tokyo | 13 | ✅ | ✅ |
-| Hong Kong | 12 | ✅ | ✅ |
-| Shanghai | 9 | ✅ | ✅ |
-| Bangkok | 8 | ✅ | ✅ |
-| Bali | 8 | ✅ | ✅ |
-| Brisbane | 7 | ✅ | ✅ |
-| Auckland | 7 | ✅ | ✅ |
-| South Pacific | 6 | ✅ | ✅ |
-
-**Files Created:**
-```
-/assets/data/maps/singapore.map.json
-/assets/data/maps/sydney.map.json
-/assets/data/maps/tokyo.map.json
-/assets/data/maps/hong-kong.map.json
-/assets/data/maps/shanghai.map.json
-/assets/data/maps/bangkok.map.json
-/assets/data/maps/bali.map.json
-/assets/data/maps/brisbane.map.json
-/assets/data/maps/auckland.map.json
-/assets/data/maps/south-pacific.map.json
-```
-
-**POI Data Includes:**
-- Cruise terminals (primary and secondary)
-- Major landmarks and attractions
-- Hawker centers and dining spots
-- Districts and neighborhoods
-- Beaches and nature areas
-- Transit routes and featured experiences
-
-#### ✅ Caribbean Port Expansion (2025-12-13)
-**Status:** COMPLETE - 10 Caribbean ports with interactive Leaflet maps
-**Commits:** 954a41f, fbde507
-
-**Work Completed:**
-- Created 75 POIs across 10 Caribbean ports in poi-index.json
-- Created map manifest files (*.map.json) for all 10 ports
-- Added Leaflet CSS and port-map.css links to all HTML pages
-- Added map container sections with port-specific descriptions
-- Added Leaflet JS and port-map.js initialization scripts
-
-**Ports with Maps:**
-| Port | POIs | Map Manifest | Leaflet Map |
-|------|------|--------------|-------------|
-| Cozumel | 11 | ✅ | ✅ |
-| Nassau | 8 | ✅ | ✅ |
-| St. Thomas | 7 | ✅ | ✅ |
-| St. Maarten | 8 | ✅ | ✅ |
-| Grand Cayman | 7 | ✅ | ✅ |
-| CocoCay | 6 | ✅ | ✅ |
-| Labadee | 7 | ✅ | ✅ |
-| Jamaica | 8 | ✅ | ✅ |
-| Curaçao | 7 | ✅ | ✅ |
-| Costa Maya | 6 | ✅ | ✅ |
-
-**Files Created:**
-```
-/assets/data/maps/cozumel.map.json
-/assets/data/maps/nassau.map.json
-/assets/data/maps/st-thomas.map.json
-/assets/data/maps/st-maarten.map.json
-/assets/data/maps/grand-cayman.map.json
-/assets/data/maps/cococay.map.json
-/assets/data/maps/labadee.map.json
-/assets/data/maps/jamaica.map.json
-/assets/data/maps/curacao.map.json
-/assets/data/maps/costa-maya.map.json
-```
-
-**Caribbean POI Highlights:**
-- Beach clubs (Cozumel: Paradise Beach, Mr. Sanchos, Nachi Cocom)
-- Stingray City sandbar (Grand Cayman)
-- Maho Beach plane spotting (St. Maarten)
-- Dunn's River Falls and Blue Hole (Jamaica)
-- Willemstad UNESCO district (Curaçao)
-- Private island attractions (CocoCay, Labadee)
-- Mayan ruins (Costa Maya: Chacchoben)
-
-#### ✅ European & Atlantic Port Expansion (2025-12-14)
-**Status:** COMPLETE - 10 European and Atlantic ports with interactive Leaflet maps
-**Commits:** 00113f71
-
-**Work Completed:**
-- Created 63 POIs across 10 ports in poi-index.json
-- Created map manifest files (*.map.json) for all 10 ports
-- Added Leaflet CSS and port-map.css links to all HTML pages
-- Added map container sections with port-specific descriptions
-- Added Leaflet JS and port-map.js initialization scripts
-
-**Ports with Maps:**
-| Port | POIs | Map Manifest | Leaflet Map |
-|------|------|--------------|-------------|
-| Copenhagen | 7 | ✅ | ✅ |
-| Bergen | 6 | ✅ | ✅ |
-| Dublin | 7 | ✅ | ✅ |
-| Boston | 7 | ✅ | ✅ |
-| Bar Harbor | 6 | ✅ | ✅ |
-| Cannes | 6 | ✅ | ✅ |
-| Corfu | 6 | ✅ | ✅ |
-| Gibraltar | 6 | ✅ | ✅ |
-| Bordeaux | 6 | ✅ | ✅ |
-| Dover | 6 | ✅ | ✅ |
-
-**Files Created:**
-```
-/assets/data/maps/copenhagen.map.json
-/assets/data/maps/bergen.map.json
-/assets/data/maps/dublin.map.json
-/assets/data/maps/boston.map.json
-/assets/data/maps/bar-harbor.map.json
-/assets/data/maps/cannes.map.json
-/assets/data/maps/corfu.map.json
-/assets/data/maps/gibraltar.map.json
-/assets/data/maps/bordeaux.map.json
-/assets/data/maps/dover.map.json
-```
-
-**POI Highlights:**
-- Nyhavn, Tivoli Gardens, Little Mermaid (Copenhagen)
-- Bryggen UNESCO wharf, Fløibanen funicular (Bergen)
-- Trinity College Book of Kells, Guinness Storehouse, Temple Bar (Dublin)
-- Freedom Trail, Faneuil Hall, USS Constitution, Fenway Park (Boston)
-- Acadia National Park, Cadillac Mountain, Jordan Pond (Bar Harbor)
-- La Croisette, Palais des Festivals, Île Sainte-Marguerite (Cannes)
-- Old Fortress, Achilleion Palace, Paleokastritsa (Corfu)
-- Rock of Gibraltar, St. Michael's Cave, Europa Point (Gibraltar)
-- Cité du Vin, Place de la Bourse Water Mirror, Saint-Émilion (Bordeaux)
-- Dover Castle, White Cliffs, Canterbury (Dover)
 
 #### 📊 Current Progress Summary (Updated 2025-12-14)
 | Metric | Count |
@@ -1614,11 +1026,12 @@ After downloading, must add attribution sections to HTML.
 - [ ] Verify duplicate ships (Legend, Star variants)
 
 ### Cruise Line Hub Page Attributions
-- [ ] Carnival.html - Replace placeholders with credited media
-- [ ] Celebrity.html - Replace placeholders with credited media
-- [ ] Disney.html - Replace placeholders with credited media
-- [ ] Holland America.html - Replace placeholders with credited media
-- [ ] MSC.html - Replace placeholders with credited media
+**Status:** ✅ COMPLETE (verified 2026-01-14) - All pages have proper Wikimedia Commons attributions
+- [x] Carnival.html - Has credited Wikimedia images with CC licenses
+- [x] Celebrity.html - Has credited Wikimedia images with CC licenses
+- [x] Disney.html - Has credited Wikimedia images with CC licenses
+- [x] Holland America.html - Has credited Wikimedia images with CC licenses
+- [x] MSC.html - Has credited Wikimedia images with CC licenses
 
 ### Data Completion
 - [ ] Complete /assets/data/venues.json with all dining venues
@@ -1734,7 +1147,7 @@ After downloading, must add attribution sections to HTML.
 - [ ] Fix author avatar to circle (remove inline border-radius overrides)
 - [ ] Standardize carousel markup to `<figure>` pattern
 - [ ] Align section order: First Look → Dining → Videos → Deck Plans/Tracker → FAQ
-- [ ] Remove emoji from stateroom buttons (consistency)
+- [x] Remove emoji from stateroom buttons (consistency) - DONE (27 files, 2026-01-14)
 - [ ] Uniform version badge (3.010.300)
 
 #### Phase 3: Carnival Ships (48 pages)
@@ -3880,13 +3293,13 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] Create `/ports/tender-ports.html` index page with alphabetical listing
 - [ ] Add link to tender port index from ports.html navigation
 
-##### 2. "No Ads" Trust Messaging ✅ COMPLETE
+##### 2. "No Ads" Trust Messaging ✅ PARTIAL
 **Source:** Cruise Critic B2
 **Effort:** Low | **Impact:** High
-**Status:** COMPLETE - Footer trust badge + About Us section
+**Status:** PARTIAL - Footer trust badge added 2026-01-01
 - [x] Add trust statement to footer ✅ (2026-01-01) — `<p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>` added to all 766 HTML pages
-- [x] Add "No ads, no affiliate links, no sponsored content" statement to about-us.html ✅ (2026-01-15) — "Our Promise" section added
-- [x] Create "Our Promise" or "Editorial Independence" section ✅ (2026-01-15) — included in about-us.html update
+- [ ] Add "No ads, no affiliate links, no sponsored content" statement to about-us.html
+- [ ] Create "Our Promise" or "Editorial Independence" section
 
 ##### 3. Stateroom Checker Promotion
 **Source:** Cruise Critic A2
@@ -4522,7 +3935,7 @@ These features are NOT being built now, but could be explored for future sustain
 #### 🚀 SUGGESTED SPRINT PLAN
 
 **Sprint 1 (Week 1-2): Trust & Visibility**
-- [x] #2 "No Ads" Trust Messaging ✅ COMPLETE (footer badge 2026-01-01, about-us.html "Our Promise" 2026-01-15)
+- [x] #2 "No Ads" Trust Messaging ✅ PARTIAL (footer badge done 2026-01-01)
 - [ ] #6 "Works Offline" Marketing
 - [x] #30 "Last Reviewed" Stamps ✅ PARTIAL (311/333 ports done 2026-01-01, 22 need manual addition)
 - [ ] #31 Tool Release Notes Page
