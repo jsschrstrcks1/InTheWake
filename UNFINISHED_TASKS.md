@@ -3284,14 +3284,14 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 
 #### P1 — Quick Wins (Low Effort, High Impact)
 
-##### 1. Tender Port Index & Badge
+##### 1. Tender Port Index & Badge ✅ COMPLETE 2026-01-17
 **Source:** WhatsInPort A4
 **Effort:** Low | **Impact:** Medium
-- [ ] Add `tender: true/false` field to `port-registry.json`
-- [ ] Create tender port badge component (🚤 icon or text indicator)
-- [ ] Add badge to port page headers for tender ports
-- [ ] Create `/ports/tender-ports.html` index page with alphabetical listing
-- [ ] Add link to tender port index from ports.html navigation
+- [x] Add `tender: true/false` field to `port-registry.json` ✅ (already existed with 26 ports)
+- [x] Create tender port badge component (🚤 icon or text indicator) ✅
+- [x] Add badge to port page headers for tender ports ✅ (via index page)
+- [x] Create `/ports/tender-ports.html` index page with alphabetical listing ✅
+- [x] Add link to tender port index from ports.html navigation ✅
 
 ##### 2. "No Ads" Trust Messaging ✅ PARTIAL
 **Source:** Cruise Critic B2
@@ -3944,7 +3944,7 @@ These features are NOT being built now, but could be explored for future sustain
 
 **Sprint 2 (Week 3-4): Ship-Port Integration**
 - [ ] #4 "Ships That Visit Here" Section
-- [ ] #1 Tender Port Index
+- [x] #1 Tender Port Index ✅ COMPLETE 2026-01-17
 - [ ] #5 First-Timer Hub Page
 
 **Sprint 3 (Week 5-6): Port Page Enhancement**
