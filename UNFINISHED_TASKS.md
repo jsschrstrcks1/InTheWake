@@ -3629,14 +3629,14 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] "Cabin 8252: Above = Solarium deck (pool noise), Below = Dining room"
 - [ ] CruiseDeckPlans' best feature; worth adopting
 
-##### 41. Accessibility Equipment Guide
+##### 41. Accessibility Equipment Guide ✅ COMPLETE 2026-01-17
 **Source:** Overlooked competitor analysis (Special Needs at Sea)
 **Effort:** Low | **Impact:** High
-- [ ] Add equipment rental guidance to accessibility.html
-- [ ] Cover: Special Needs at Sea, Scootaround, CareVacations
-- [ ] Add "Wheelchair delivered to stateroom" info
-- [ ] Add tender port accessibility warnings (enhance #1)
-- [ ] Add sensory-inclusive ship ratings (Carnival KultureCity certified)
+- [x] Add equipment rental guidance to accessibility.html ✅
+- [x] Cover: Special Needs at Sea, Scootaround, CareVacations ✅
+- [x] Add "Wheelchair delivered to stateroom" info ✅
+- [x] Add tender port accessibility warnings (enhance #1) ✅
+- [x] Add sensory-inclusive ship ratings (Carnival KultureCity certified) ✅
 
 ##### 42. Loyalty Program Comparison Guide
 **Source:** Overlooked competitor analysis (gamification gap)
@@ -3939,7 +3939,7 @@ These features are NOT being built now, but could be explored for future sustain
 - [x] #6 "Works Offline" Marketing ✅ PARTIAL (planning.html + homepage done 2026-01-17)
 - [x] #30 "Last Reviewed" Stamps ✅ PARTIAL (311/333 ports done 2026-01-01, 22 need manual addition)
 - [ ] #31 Tool Release Notes Page
-- [ ] #41 Accessibility Equipment Guide
+- [x] #41 Accessibility Equipment Guide ✅ COMPLETE 2026-01-17
 
 **Sprint 2 (Week 3-4): Ship-Port Integration**
 - [ ] #4 "Ships That Visit Here" Section
