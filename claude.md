@@ -1,0 +1,192 @@
+# Claude Code Context - In the Wake
+
+**Project:** In the Wake (cruisinginthewake.com)
+**Type:** Static cruise planning website
+**Version:** ITW-Lite v3.010.305
+**Hosting:** GitHub Pages
+
+---
+
+## Quick Start
+
+This is a static HTML/CSS/JavaScript cruise planning website with an AI-first metadata philosophy. Before making changes, understand the key principles:
+
+1. **Theological Foundation (IMMUTABLE):** Every HTML file MUST have Soli Deo Gloria invocation
+2. **ITW-Lite Philosophy:** AI-first → Human-first → Google second
+3. **Standards:** ICP-Lite v1.4 metadata protocol required on all pages
+4. **Validation:** Run validators after edits
+
+---
+
+## Essential Documents
+
+| Document | Purpose | Location |
+|----------|---------|----------|
+| **Onboarding** | Full system overview | [.claude/ONBOARDING.md](.claude/ONBOARDING.md) |
+| **Maintenance Tasks** | Routine maintenance guide | [MAINTENANCE_TASKS.md](MAINTENANCE_TASKS.md) |
+| **Standards** | Code standards reference | [.claude/skills/standards/STANDARDS.md](.claude/skills/standards/STANDARDS.md) |
+| **Skill Rules** | Auto-activation configuration | [.claude/skill-rules.json](.claude/skill-rules.json) |
+| **ICP-Lite Protocol** | AI metadata specification | [.claude/skills/standards/resources/icp-lite-protocol.md](.claude/skills/standards/resources/icp-lite-protocol.md) |
+| **Theological Foundation** | Invocation requirements | [.claude/skills/standards/resources/theological-foundation.md](.claude/skills/standards/resources/theological-foundation.md) |
+| **Ship Page Standards** | Ship page template | [new-standards/foundation/SHIP_PAGE_STANDARDS_v3.007.010.md](new-standards/foundation/SHIP_PAGE_STANDARDS_v3.007.010.md) |
+| **Unfinished Tasks** | Current work backlog | [admin/UNFINISHED-TASKS.md](admin/UNFINISHED-TASKS.md) |
+
+---
+
+## Key Directories
+
+```
+InTheWake/
+├── ships/              # 309 ship pages by cruise line
+├── ports/              # 400+ port guide pages
+├── restaurants/        # Dining venue pages
+├── assets/             # CSS, JS, images, data
+├── admin/              # Maintenance scripts and tools
+├── new-standards/      # Site standards documentation
+├── .claude/            # Claude Code skill system
+│   ├── skills/         # 3 skill directories
+│   ├── plugins/        # 5 SEO/accessibility plugins
+│   ├── commands/       # 4 commands (/commit, /create-pr, etc.)
+│   └── hooks/          # Auto-activation hooks
+└── .github/workflows/  # CI/CD quality checks
+```
+
+---
+
+## Common Commands
+
+### Validation
+```bash
+# Validate ICP-Lite compliance
+node admin/validate-icp-lite-v14.js <file>
+node admin/validate-icp-lite-v14.js --all
+
+# Validate ship pages
+node admin/validate-ship-page.js ships/rcl/adventure-of-the-seas.html
+node admin/validate-ship-page.js --all-ships
+
+# Post-write validation
+./admin/post-write-validate.sh <file>
+```
+
+### Batch Fixes
+```bash
+# Fix stub pages
+node admin/batch-fix-stub-pages.js
+
+# Fix JSON-LD schemas
+node admin/fix-jsonld-schemas.js
+
+# WebP image audit
+python3 admin/webp_audit.py
+```
+
+### Site Generation
+```bash
+# Generate sitemap
+python3 admin/generate_sitemap.py
+
+# Generate search index
+python3 admin/generate_search_index.py
+```
+
+---
+
+## Guardrails
+
+### REJECT
+- Keyword stuffing
+- Removing AI-first meta tags
+- Compromising readability for SEO
+- Modifying theological invocation
+- Generic template content
+
+### ACCEPT
+- Schema.org structured data
+- Semantic HTML
+- Natural, conversational language
+- Faith-scented reflections
+- ICP-Lite v1.4 compliance
+
+---
+
+## Required Page Elements
+
+### Every HTML Page
+```html
+<!-- Soli Deo Gloria invocation (before line 20) -->
+<!--
+Soli Deo Gloria
+All work on this project is offered as a gift to God.
+"Trust in the LORD with all your heart..." — Proverbs 3:5
+"Whatever you do, work heartily..." — Colossians 3:23
+-->
+
+<!-- ICP-Lite v1.4 meta tags -->
+<meta name="ai-summary" content="Brief description (max 250 chars)"/>
+<meta name="last-reviewed" content="2026-01-17"/>
+<meta name="content-protocol" content="ICP-Lite v1.4"/>
+```
+
+### Entity Pages (ships, ports, restaurants)
+```html
+<!-- AI-breadcrumbs -->
+<!-- ai-breadcrumbs
+     entity: Adventure of the Seas
+     type: Ship Information Page
+     parent: /ships.html
+     category: Royal Caribbean Fleet
+     -->
+
+<!-- JSON-LD with mainEntity -->
+<script type="application/ld+json">
+{
+  "@type": "WebPage",
+  "description": "MUST MATCH ai-summary exactly",
+  "dateModified": "MUST MATCH last-reviewed exactly",
+  "mainEntity": { "@type": "Product", "name": "Ship Name" }
+}
+</script>
+```
+
+---
+
+## Current Status
+
+| Metric | Value |
+|--------|-------|
+| Ship Pages | 309 |
+| Passing Validation | 36 (12%) |
+| Blocking Errors | 2,101 |
+| Port Pages | 400+ |
+
+See [admin/UNFINISHED-TASKS.md](admin/UNFINISHED-TASKS.md) for detailed status.
+
+---
+
+## Maintenance
+
+For routine maintenance tasks, commands, and schedules, see:
+
+**[MAINTENANCE_TASKS.md](MAINTENANCE_TASKS.md)**
+
+Includes:
+- Content quality checks
+- Link verification
+- Standards compliance
+- Ship page validation
+- Security checks
+- Performance optimization
+
+---
+
+## Getting Help
+
+- **Skill questions:** Check `.claude/skill-rules.json`
+- **Standards questions:** Check `new-standards/README.md`
+- **Theological questions:** Check `.claude/skills/standards/resources/theological-foundation.md`
+- **ITW-Lite philosophy:** See skill-rules.json notes section
+
+---
+
+*Soli Deo Gloria*
