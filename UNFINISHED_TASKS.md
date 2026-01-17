@@ -3554,12 +3554,13 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] Include brief "What changed" changelog line (future enhancement)
 - [ ] Builds trust; differentiates from outdated competitor content
 
-##### 31. Tool Release Notes / Changelog Page
+##### 31. Tool Release Notes / Changelog Page ✅ COMPLETE 2026-01-17
 **Source:** ChatGPT E20
 **Effort:** Low | **Impact:** Medium
-- [ ] Create public changelog for Drink Calculator, Stateroom Checker, etc.
-- [ ] "Version 2.1 - Added sea day vs port day distinction"
-- [ ] Builds trust like a software product
+- [x] Create public changelog for Drink Calculator, Stateroom Checker, etc. ✅
+- [x] "Version 2.1 - Added sea day vs port day distinction" ✅
+- [x] Builds trust like a software product ✅
+**Location:** /tools/release-notes.html
 
 ##### 32. Embarkation Port Guides
 **Source:** ChatGPT D17
@@ -3938,7 +3939,7 @@ These features are NOT being built now, but could be explored for future sustain
 - [x] #2 "No Ads" Trust Messaging ✅ PARTIAL (footer badge done 2026-01-01)
 - [x] #6 "Works Offline" Marketing ✅ PARTIAL (planning.html + homepage done 2026-01-17)
 - [x] #30 "Last Reviewed" Stamps ✅ PARTIAL (311/333 ports done 2026-01-01, 22 need manual addition)
-- [ ] #31 Tool Release Notes Page
+- [x] #31 Tool Release Notes Page ✅ COMPLETE 2026-01-17
 - [x] #41 Accessibility Equipment Guide ✅ COMPLETE 2026-01-17
 
 **Sprint 2 (Week 3-4): Ship-Port Integration**
