@@ -9,6 +9,14 @@
 (function() {
   'use strict';
 
+  // Escape HTML to prevent XSS
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = String(text);
+    return div.innerHTML;
+  }
+
   // POI type configurations - colors and icons
   const POI_TYPES = {
     port: { color: '#d32f2f', icon: '⚓', label: 'Cruise Terminal', zIndex: 1000 },
@@ -61,16 +69,16 @@
 
     let html = `
       <div class="port-map-popup">
-        <h4 style="margin: 0 0 0.5rem; color: ${typeConfig.color}; font-size: 1rem;">
-          ${typeConfig.icon} ${displayName}
+        <h4 style="margin: 0 0 0.5rem; color: ${escapeHtml(typeConfig.color)}; font-size: 1rem;">
+          ${escapeHtml(typeConfig.icon)} ${escapeHtml(displayName)}
         </h4>
         <p style="margin: 0 0 0.5rem; font-size: 0.85rem; color: #456;">
-          <strong>Type:</strong> ${typeConfig.label}
+          <strong>Type:</strong> ${escapeHtml(typeConfig.label)}
         </p>
     `;
 
     if (poi.notes) {
-      html += `<p style="margin: 0 0 0.5rem; font-size: 0.85rem; color: #567;">${poi.notes}</p>`;
+      html += `<p style="margin: 0 0 0.5rem; font-size: 0.85rem; color: #567;">${escapeHtml(poi.notes)}</p>`;
     }
 
     // Add directions links
@@ -269,8 +277,8 @@
         if (typesPresent.has(type)) {
           div.innerHTML += `
             <div style="display: flex; align-items: center; margin-bottom: 0.25rem; font-size: 0.75rem;">
-              <span style="display: inline-block; width: 12px; height: 12px; background: ${config.color}; border-radius: 50%; margin-right: 0.5rem;"></span>
-              ${config.label}
+              <span style="display: inline-block; width: 12px; height: 12px; background: ${escapeHtml(config.color)}; border-radius: 50%; margin-right: 0.5rem;"></span>
+              ${escapeHtml(config.label)}
             </div>
           `;
         }
