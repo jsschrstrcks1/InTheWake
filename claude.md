@@ -14,7 +14,8 @@ This is a static HTML/CSS/JavaScript cruise planning website with an AI-first me
 1. **Theological Foundation (IMMUTABLE):** Every HTML file MUST have Soli Deo Gloria invocation
 2. **ITW-Lite Philosophy:** AI-first → Human-first → Google second
 3. **Standards:** ICP-Lite v1.4 metadata protocol required on all pages
-4. **Validation:** Run validators after edits
+4. **Last-Reviewed Dates:** Update `last-reviewed` meta AND `dateModified` JSON-LD on EVERY edit
+5. **Validation:** Run validators after edits
 
 ---
 
@@ -110,6 +111,29 @@ python3 admin/generate_search_index.py
 
 ---
 
+## CRITICAL: Last-Reviewed Date Updates
+
+**Every time you edit ANY page, you MUST update:**
+
+```html
+<!-- 1. Update the meta tag -->
+<meta name="last-reviewed" content="YYYY-MM-DD"/>
+
+<!-- 2. Update the JSON-LD (MUST match exactly) -->
+"dateModified": "YYYY-MM-DD"
+```
+
+**Why this matters:**
+- Google uses `dateModified` to assess content freshness for ranking
+- AI systems use `last-reviewed` to determine information currency
+- Stale dates signal outdated content to both humans and machines
+
+**Rule:** If you touch a page, update the date. No exceptions.
+
+**Monthly Task:** Find pages not updated in 6+ months and refresh them. See [MAINTENANCE_TASKS.md](MAINTENANCE_TASKS.md) Section 1.6 for commands.
+
+---
+
 ## Required Page Elements
 
 ### Every HTML Page
@@ -172,6 +196,8 @@ For routine maintenance tasks, commands, and schedules, see:
 
 Includes:
 - Content quality checks
+- **Last-reviewed date updates** (on every edit)
+- **Stale page audits** (6+ months old)
 - Link verification
 - Standards compliance
 - Ship page validation

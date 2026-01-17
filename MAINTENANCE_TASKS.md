@@ -24,6 +24,7 @@ This document outlines routine maintenance tasks for the In the Wake website. Th
 | Update unfinished tasks | `./admin/update-unfinished-tasks.sh` | Weekly |
 | Generate sitemap | `python3 admin/generate_sitemap.py` | After adding pages |
 | Generate search index | `python3 admin/generate_search_index.py` | After content changes |
+| Find stale pages (6+ months) | See Section 1.5 | Monthly |
 
 ---
 
@@ -118,6 +119,86 @@ node admin/validate-ship-page.js --all-ships 2>&1 | grep "persona"
 ```
 
 **Reference:** `admin/UNFINISHED-TASKS.md` for current status
+
+---
+
+### 1.5 Last-Reviewed Date Updates (CRITICAL)
+
+**Frequency:** Every time a page is edited
+
+**What:** Update the `last-reviewed` meta tag and matching JSON-LD `dateModified` whenever ANY change is made to a page.
+
+**Why This Matters:**
+- Google uses `dateModified` to assess content freshness
+- AI systems use `last-reviewed` to determine information currency
+- Stale dates signal outdated content to both humans and machines
+- Fresh dates improve search ranking and AI trust
+
+**Required Updates When Editing ANY Page:**
+```html
+<!-- Update the meta tag -->
+<meta name="last-reviewed" content="2026-01-17"/>
+
+<!-- Update the matching JSON-LD (MUST be identical) -->
+"dateModified": "2026-01-17"
+```
+
+**Rule:** If you touch a page, update the date. No exceptions.
+
+---
+
+### 1.6 Stale Page Audit (6+ Months)
+
+**Frequency:** Monthly
+
+**What:** Identify pages that haven't been reviewed in 6+ months and prioritize them for updates.
+
+**Why:** Pages with old `last-reviewed` dates:
+- May contain outdated information
+- Signal to Google/AI that content may be stale
+- Risk losing search ranking over time
+- May have broken links or missing images
+
+**Command to Find Stale Pages:**
+```bash
+# Find pages with last-reviewed dates older than 6 months
+# This searches for dates before the cutoff (adjust YYYY-MM as needed)
+grep -r --include="*.html" 'name="last-reviewed"' . | \
+  grep -E 'content="202[0-4]|content="2025-0[1-6]"' | \
+  cut -d: -f1 | sort -u
+```
+
+**Alternative - Check by Directory:**
+```bash
+# Check ship pages
+for f in ships/**/*.html; do
+  DATE=$(grep -o 'last-reviewed" content="[^"]*' "$f" | cut -d'"' -f3)
+  if [[ "$DATE" < "2025-07-01" ]]; then
+    echo "STALE: $f ($DATE)"
+  fi
+done
+
+# Check port pages
+for f in ports/**/*.html; do
+  DATE=$(grep -o 'last-reviewed" content="[^"]*' "$f" | cut -d'"' -f3)
+  if [[ "$DATE" < "2025-07-01" ]]; then
+    echo "STALE: $f ($DATE)"
+  fi
+done
+```
+
+**When Refreshing Stale Pages:**
+1. Review content for accuracy
+2. Update any outdated information
+3. Fix broken links
+4. Verify images still exist
+5. Update `last-reviewed` and `dateModified` to today
+6. Run page validator
+
+**Priority Order for Stale Pages:**
+1. High-traffic pages (popular ships, major ports)
+2. Pages with oldest dates
+3. Pages with known issues
 
 ---
 
@@ -491,9 +572,17 @@ node admin/batch-fix-lazy-images.js
 |-----|------|
 | **Daily** | Review CI/CD status, fix any failures |
 | **Weekly** | ICP-Lite validation, placeholder check, update unfinished tasks |
-| **Monthly** | Content length validation, persona coverage, WebP audit, Core Web Vitals |
-| **After Edits** | Ship page validation, JSON-LD verification |
+| **Monthly** | Content length validation, persona coverage, WebP audit, Core Web Vitals, **stale page audit** |
+| **After Edits** | Ship page validation, JSON-LD verification, **update last-reviewed date** |
 | **After Adding Pages** | Regenerate sitemap, regenerate search index |
+
+### Critical Reminder: Last-Reviewed Dates
+
+**Every page edit MUST include updating:**
+1. `<meta name="last-reviewed" content="YYYY-MM-DD"/>`
+2. `"dateModified": "YYYY-MM-DD"` in JSON-LD WebPage block
+
+These must match exactly. This is non-negotiable for Google/AI freshness signals.
 
 ---
 
