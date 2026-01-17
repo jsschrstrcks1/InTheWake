@@ -3316,13 +3316,13 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] Show ship thumbnails with links to ship pages
 - [ ] Pilot on 10 Caribbean ports, then roll out
 
-##### 5. First-Timer Hub Page
+##### 5. First-Timer Hub Page ✅ COMPLETE 2026-01-17
 **Source:** Cruise Critic A3
 **Effort:** Low | **Impact:** Medium
-- [ ] Create `/first-cruise.html` consolidating all beginner content
-- [ ] Link to: travel.html FAQs, packing-lists.html, drink-packages.html, planning.html
-- [ ] Add "New to Cruising? Start Here" callout on homepage
-- [ ] Add to main navigation under Planning dropdown
+- [x] Create `/first-cruise.html` consolidating all beginner content ✅
+- [x] Link to: travel.html FAQs, packing-lists.html, drink-packages.html, planning.html ✅
+- [x] Add "New to Cruising? Start Here" callout on homepage ✅
+- [x] Add to main navigation under Planning dropdown ✅
 
 ##### 6. "Works Offline" Marketing
 **Source:** Cruiseline.com/Shipmate A1
@@ -3945,7 +3945,7 @@ These features are NOT being built now, but could be explored for future sustain
 **Sprint 2 (Week 3-4): Ship-Port Integration**
 - [ ] #4 "Ships That Visit Here" Section
 - [x] #1 Tender Port Index ✅ COMPLETE 2026-01-17
-- [ ] #5 First-Timer Hub Page
+- [x] #5 First-Timer Hub Page ✅ COMPLETE 2026-01-17
 
 **Sprint 3 (Week 5-6): Port Page Enhancement**
 - [ ] #7 "From the Pier" Component
