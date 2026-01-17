@@ -3331,7 +3331,7 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] Test service worker caching for complete port guide offline access
 - [ ] Add "Save for Offline" or "Install App" button to port pages
 - [ ] Market PWA install as "your offline cruise companion"
-- [ ] Add offline capability callout to planning.html and homepage
+- [x] Add offline capability callout to planning.html and homepage ✅ 2026-01-17
 
 ---
 
@@ -3936,7 +3936,7 @@ These features are NOT being built now, but could be explored for future sustain
 
 **Sprint 1 (Week 1-2): Trust & Visibility**
 - [x] #2 "No Ads" Trust Messaging ✅ PARTIAL (footer badge done 2026-01-01)
-- [ ] #6 "Works Offline" Marketing
+- [x] #6 "Works Offline" Marketing ✅ PARTIAL (planning.html + homepage done 2026-01-17)
 - [x] #30 "Last Reviewed" Stamps ✅ PARTIAL (311/333 ports done 2026-01-01, 22 need manual addition)
 - [ ] #31 Tool Release Notes Page
 - [ ] #41 Accessibility Equipment Guide
