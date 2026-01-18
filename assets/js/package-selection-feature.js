@@ -15,6 +15,14 @@
 (function(window) {
   'use strict';
 
+  // Escape HTML to prevent XSS
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = String(text);
+    return div.innerHTML;
+  }
+
   /**
    * Package Selection Module
    * Handles interactive package card clicks and forced package calculation
@@ -469,7 +477,7 @@
         'refresh': 'Refreshment Package',
         'deluxe': 'Deluxe Beverage Package'
       };
-      return names[type] || type;
+      return names[type] || escapeHtml(type);
     },
 
     /**

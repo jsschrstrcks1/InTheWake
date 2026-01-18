@@ -10,7 +10,7 @@ All work on this project is offered as a gift to God.
 <head>
 <!-- ai-breadcrumbs
      name: Msc World America
-     entity: Msc World America
+     entity: Ship
      type: Ship Information Page
      parent: /ships.html
      category: Royal Caribbean Fleet
@@ -28,6 +28,8 @@ All work on this project is offered as a gift to God.
   <meta name="last-reviewed" content="2025-11-19">
   <meta name="content-protocol" content="ICP-Lite v1.4">
   <title>Msc World America — In the Wake (v2.201)</title>
+<meta name="description" content="Msc World America (v2.201)"/>
+<link rel="canonical" href="https://cruisinginthewake.com/ships/msc/msc-world-america.html"/>
   <!-- OpenGraph -->
   <meta property="og:type" content="article"/>
   <meta property="og:site_name" content="In the Wake"/>
@@ -35,6 +37,7 @@ All work on this project is offered as a gift to God.
   <meta property="og:description" content="Msc World America (v2.201)"/>
   <meta property="og:url" content=""/>
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/msc-world-america.jpg"/>
+  <meta property="og:locale" content="en_US"/>
 
   <!-- Service Worker Registration -->
   <script>
@@ -75,18 +78,6 @@ All work on this project is offered as a gift to God.
   }
   main, header, footer, section, nav { position: relative; z-index: 1; }
 
-    /* Page Grid Layout */
-    .page-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    @media (min-width: 980px) {
-      .page-grid {
-        grid-template-columns: 1fr 320px;
-      }
-    }
     .rail {
       display: flex;
       flex-direction: column;
@@ -304,7 +295,7 @@ All work on this project is offered as a gift to God.
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
     </div></header>
-  <main class="wrap page-grid" id="content">
+  <main role="main" class="wrap page-grid" id="content" data-imo="9837432">
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
@@ -345,7 +336,25 @@ All work on this project is offered as a gift to God.
 </section>
 <section class="grid-2">
 
-  <section class="card" aria-labelledby="deck-plans">
+  
+    <!-- Ship Statistics -->
+    <section class="card" aria-labelledby="ship-stats-title">
+      <h2 id="ship-stats-title">Ship Statistics</h2>
+      <div id="ship-stats" class="stats-grid" data-slug="msc-world-america">
+        <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">215,863 GT</div></div>
+        <div class="stat-item"><div class="label">Guests</div><div class="value">6,762</div></div>
+        <div class="stat-item"><div class="label">Crew</div><div class="value">2,200</div></div>
+        <div class="stat-item"><div class="label">Entered Service</div><div class="value">2025</div></div>
+        <div class="stat-item"><div class="label">Class</div><div class="value">World Class</div></div>
+      </div>
+    </section>
+    <p style="margin-top: 1rem;">
+      <a href="https://www.msccruises.com/en-us/cruise-ships/msc-world-america.aspx" class="btn-deck-plans" target="_blank" rel="nofollow noopener">
+        View Official Deck Plans →
+      </a>
+    </p>
+
+<section class="card" aria-labelledby="deck-plans">
     <h2 id="deck-plans">Ship Layout (Deck Plans)</h2>
   <p>Study the ship’s layout—pin your stateroom, elevators, dining, and venues before you sail.</p>
         <figure>
@@ -489,7 +498,7 @@ All work on this project is offered as a gift to God.
       <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
-    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- Navigation Dropdown Script -->
