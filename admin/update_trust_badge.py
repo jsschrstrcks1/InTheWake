@@ -12,8 +12,8 @@ from pathlib import Path
 
 # Configuration
 ROOT_DIR = Path(__file__).parent.parent
-OLD_TEXT = '✓ No ads. No tracking. No affiliate links.'
-NEW_TEXT = '✓ No ads. Minimal analytics. No affiliate links.'
+OLD_TEXT = '✓ No ads. No tracking. Independent of cruise lines.'
+NEW_TEXT = '✓ No ads. Minimal analytics. Independent of cruise lines.'
 
 def update_file(filepath: Path) -> bool:
     """Update trust badge in a single file. Returns True if changed."""
