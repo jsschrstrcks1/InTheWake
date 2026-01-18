@@ -369,7 +369,7 @@ function getVisitCount(portSlug, registry) {
 
 /**
  * Validate trust badge in footer
- * All pages must have the trust badge: "✓ No ads. No tracking. No affiliate links."
+ * All pages must have the trust badge: "✓ No ads. No tracking. Independent of cruise lines."
  */
 function validateTrustBadge($) {
   const errors = [];
@@ -379,7 +379,7 @@ function validateTrustBadge($) {
   const trustBadge = $('footer .trust-badge, footer p.trust-badge');
 
   if (trustBadge.length === 0) {
-    errors.push('Missing trust badge in footer. Expected: <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>');
+    errors.push('Missing trust badge in footer. Expected: <p class="trust-badge">✓ No ads. No tracking. Independent of cruise lines.</p>');
   } else {
     const badgeText = trustBadge.text().trim();
     if (!badgeText.includes('No ads') || !badgeText.includes('No tracking') || !badgeText.includes('No affiliate')) {
