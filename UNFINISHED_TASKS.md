@@ -3284,14 +3284,14 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 
 #### P1 — Quick Wins (Low Effort, High Impact)
 
-##### 1. Tender Port Index & Badge
+##### 1. Tender Port Index & Badge ✅ COMPLETE 2026-01-17
 **Source:** WhatsInPort A4
 **Effort:** Low | **Impact:** Medium
-- [ ] Add `tender: true/false` field to `port-registry.json`
-- [ ] Create tender port badge component (🚤 icon or text indicator)
-- [ ] Add badge to port page headers for tender ports
-- [ ] Create `/ports/tender-ports.html` index page with alphabetical listing
-- [ ] Add link to tender port index from ports.html navigation
+- [x] Add `tender: true/false` field to `port-registry.json` ✅ (already existed with 26 ports)
+- [x] Create tender port badge component (🚤 icon or text indicator) ✅
+- [x] Add badge to port page headers for tender ports ✅ (via index page)
+- [x] Create `/ports/tender-ports.html` index page with alphabetical listing ✅
+- [x] Add link to tender port index from ports.html navigation ✅
 
 ##### 2. "No Ads" Trust Messaging ✅ PARTIAL
 **Source:** Cruise Critic B2
@@ -3316,13 +3316,13 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] Show ship thumbnails with links to ship pages
 - [ ] Pilot on 10 Caribbean ports, then roll out
 
-##### 5. First-Timer Hub Page
+##### 5. First-Timer Hub Page ✅ COMPLETE 2026-01-17
 **Source:** Cruise Critic A3
 **Effort:** Low | **Impact:** Medium
-- [ ] Create `/first-cruise.html` consolidating all beginner content
-- [ ] Link to: travel.html FAQs, packing-lists.html, drink-packages.html, planning.html
-- [ ] Add "New to Cruising? Start Here" callout on homepage
-- [ ] Add to main navigation under Planning dropdown
+- [x] Create `/first-cruise.html` consolidating all beginner content ✅
+- [x] Link to: travel.html FAQs, packing-lists.html, drink-packages.html, planning.html ✅
+- [x] Add "New to Cruising? Start Here" callout on homepage ✅
+- [x] Add to main navigation under Planning dropdown ✅
 
 ##### 6. "Works Offline" Marketing
 **Source:** Cruiseline.com/Shipmate A1
@@ -3331,7 +3331,7 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] Test service worker caching for complete port guide offline access
 - [ ] Add "Save for Offline" or "Install App" button to port pages
 - [ ] Market PWA install as "your offline cruise companion"
-- [ ] Add offline capability callout to planning.html and homepage
+- [x] Add offline capability callout to planning.html and homepage ✅ 2026-01-17
 
 ---
 
@@ -3554,12 +3554,13 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] Include brief "What changed" changelog line (future enhancement)
 - [ ] Builds trust; differentiates from outdated competitor content
 
-##### 31. Tool Release Notes / Changelog Page
+##### 31. Tool Release Notes / Changelog Page ✅ COMPLETE 2026-01-17
 **Source:** ChatGPT E20
 **Effort:** Low | **Impact:** Medium
-- [ ] Create public changelog for Drink Calculator, Stateroom Checker, etc.
-- [ ] "Version 2.1 - Added sea day vs port day distinction"
-- [ ] Builds trust like a software product
+- [x] Create public changelog for Drink Calculator, Stateroom Checker, etc. ✅
+- [x] "Version 2.1 - Added sea day vs port day distinction" ✅
+- [x] Builds trust like a software product ✅
+**Location:** /tools/release-notes.html
 
 ##### 32. Embarkation Port Guides
 **Source:** ChatGPT D17
@@ -3629,14 +3630,14 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] "Cabin 8252: Above = Solarium deck (pool noise), Below = Dining room"
 - [ ] CruiseDeckPlans' best feature; worth adopting
 
-##### 41. Accessibility Equipment Guide
+##### 41. Accessibility Equipment Guide ✅ COMPLETE 2026-01-17
 **Source:** Overlooked competitor analysis (Special Needs at Sea)
 **Effort:** Low | **Impact:** High
-- [ ] Add equipment rental guidance to accessibility.html
-- [ ] Cover: Special Needs at Sea, Scootaround, CareVacations
-- [ ] Add "Wheelchair delivered to stateroom" info
-- [ ] Add tender port accessibility warnings (enhance #1)
-- [ ] Add sensory-inclusive ship ratings (Carnival KultureCity certified)
+- [x] Add equipment rental guidance to accessibility.html ✅
+- [x] Cover: Special Needs at Sea, Scootaround, CareVacations ✅
+- [x] Add "Wheelchair delivered to stateroom" info ✅
+- [x] Add tender port accessibility warnings (enhance #1) ✅
+- [x] Add sensory-inclusive ship ratings (Carnival KultureCity certified) ✅
 
 ##### 42. Loyalty Program Comparison Guide
 **Source:** Overlooked competitor analysis (gamification gap)
@@ -4091,15 +4092,15 @@ Every page with affiliate links MUST include disclosure:
 
 **Sprint 1 (Week 1-2): Trust & Visibility**
 - [x] #2 "No Ads" Trust Messaging ✅ PARTIAL (footer badge done 2026-01-01)
-- [ ] #6 "Works Offline" Marketing
+- [x] #6 "Works Offline" Marketing ✅ PARTIAL (planning.html + homepage done 2026-01-17)
 - [x] #30 "Last Reviewed" Stamps ✅ PARTIAL (311/333 ports done 2026-01-01, 22 need manual addition)
-- [ ] #31 Tool Release Notes Page
-- [ ] #41 Accessibility Equipment Guide
+- [x] #31 Tool Release Notes Page ✅ COMPLETE 2026-01-17
+- [x] #41 Accessibility Equipment Guide ✅ COMPLETE 2026-01-17
 
 **Sprint 2 (Week 3-4): Ship-Port Integration**
 - [ ] #4 "Ships That Visit Here" Section
-- [ ] #1 Tender Port Index
-- [ ] #5 First-Timer Hub Page
+- [x] #1 Tender Port Index ✅ COMPLETE 2026-01-17
+- [x] #5 First-Timer Hub Page ✅ COMPLETE 2026-01-17
 
 **Sprint 3 (Week 5-6): Port Page Enhancement**
 - [ ] #7 "From the Pier" Component
