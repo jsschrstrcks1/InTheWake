@@ -846,7 +846,7 @@ function validateTrustBadge($) {
     errors.push({
       section: 'footer',
       rule: 'trust_badge_missing',
-      message: 'Missing trust badge in footer. Expected: <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>',
+      message: 'Missing trust badge in footer. Expected: <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>',
       severity: 'BLOCKING'
     });
   }
