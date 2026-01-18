@@ -1432,7 +1432,7 @@ function validateTrustBadge($) {
     errors.push({
       section: 'footer',
       rule: 'trust_badge_missing',
-      message: 'Missing trust badge in footer. Expected: <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>',
+      message: 'Missing trust badge in footer. Expected: <p class="trust-badge">✓ No ads. No tracking. Independent of cruise lines.</p>',
       severity: 'BLOCKING'
     });
   }
