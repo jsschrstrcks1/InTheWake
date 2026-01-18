@@ -144,49 +144,94 @@ This is used as a **trust differentiator** against competitors. Adding affiliate
 ## 4. Expanded Product Recommendations
 
 ### Travel Essentials (Add to Packing Lists)
-- **Compression bags** - for maximizing luggage space
-- **Travel power strip** - cruise-approved multi-outlet
-- **Motion sickness bands** - Sea-Band or similar
-- **Waterproof phone pouch** - for pool/beach days
-- **Portable fan** - small battery-operated cabin fan
+
+#### Cruise-Approved Power Strips (TOP PRIORITY)
+Most cruise cabins only have 2 outlets. Power strips are essential but MUST be non-surge protected.
+- **Cruise On Power Strip** - 3 AC + 2 USB, fits in palm, all cruise lines approved
+- **One Beat Travel Power Strip** - 3 outlets + 4 USB (2 USB-C), compact 3.2"×4.1"
+- **NTONPOWER i-Donut** - 3 outlets + 3 USB, FCC approved, fire-resistant shell
+- **Note:** Royal Caribbean/Celebrity now ban ALL AC-outlet devices - verify policies first
+
+#### Motion Sickness Relief
+- **Sea-Band** - Original acupressure wristbands, drug-free, clinically tested
+- **SafeHarbor Wristbands** - 4-pair packs with e-book, great for families
+- **Reliefband** - Electronic option, reusable, more expensive but highly effective
+
+#### Organization & Packing
+- **Compression packing cubes** - BAGAIL (4.5★, 24K reviews), OlarHike 10-piece sets
+- **Monos Compression Cubes** - Premium nylon twill, under $100 for 4-piece
+- **Eagle Creek Pack-It Isolate** - Best value option per Pack Hacker
+- Look for: 30-50% volume reduction, water-resistant ripstop nylon
+
+#### Waterproof Phone Protection
+- **UNBREAKcable Floating Pouch (2-pack)** - IPX8, floats, fits phones up to 7"
+- **Hiearcool Waterproof Pouch (2-pack)** - IPX8, fits up to 8.3", touchscreen works
+- **F-color Waterproof Fanny Pack** - Triple-zip roll-top, fits phone + passport + cards
+- Key features: IPX8 rating, floating design, lanyard included
+
+#### Cruise Card Management
+- **Cruise On Lanyard (2-pack)** - #1 rated, retractable 27" reel, waterproof pouch
+- **Leather/necklace lanyards** - Dressier options for formal nights
+- Tip: Some require hole-punching - request at front desk, avoid RFID damage
+
+#### Other Essentials
 - **Collapsible water bottle** - for port days
-- **Lanyard/card holder** - for cruise card
 - **Hanging toiletry bag** - bathroom organization
 - **Travel pill organizer** - medications
-- **First aid kit** - compact travel version
+- **Compact first aid kit** - bandages, pain relief, motion sickness meds
 
 ### Technology (Add to Internet Guide)
-- **Portable battery pack** - high-capacity
+
+#### Portable Power Banks (TSA Rules)
+- **Anker PowerCore Essential 20K** - 20,000mAh (~74Wh), 2 devices, fast charging
+- **INIU 20000mAh 65W** - Three ports including 65W USB-C for laptops
+- **Anker Prime 26K** - 26,250mAh (99.7Wh), max capacity for flights
+- TSA limits: Under 100Wh = always allowed; 100-160Wh = airline approval needed
+- MUST be in carry-on, never checked luggage
+
+#### E-Readers
+- **Kindle Paperwhite** - Best for travel: waterproof IPX8, 10-week battery, 6.8" display
+- **Standard Kindle 2026** - Budget option at $109, 6-week battery, 300ppi
+- **Kindle Colorsoft** - Color e-ink, waterproof, $279, great for visual content
+- **Kobo Clara** - Alternative with Libby/Overdrive library integration
+
+#### Noise-Canceling Earbuds
+- **Bose QuietComfort Ultra Earbuds 2** - Best ANC, "reduces busy streets to near-silence"
+- **AirPods Pro 3** - Best for iPhone, 2x better ANC than Pro 2
+- **Sony WF-1000XM5** - Premium AirPods alternative, superior sound
+- **EarFun Air Pro 4** - Budget option with excellent ANC
+- **Beats Fit Pro** - Best for workouts, secure wingtip design
+
+#### Other Tech
 - **Universal travel adapter** - for international ports
-- **Bluetooth speaker** - balcony entertainment
-- **E-reader** - Kindle for poolside reading
-- **Noise-canceling earbuds** - flight/cabin use
+- **Bluetooth speaker** - waterproof for balcony use
 
 ### Photography (New Article)
-- **Camera floating strap** - for water activities
-- **Mini tripod/selfie stick**
-- **SD cards** - high capacity
-- **Underwater camera case**
-- **Drone** (note: many ports/ships prohibit)
+- **Camera floating strap** - prevents sinking during water activities
+- **Mini tripod/selfie stick** - versatile for port photos
+- **High-capacity SD cards** - 128GB+ recommended
+- **Underwater camera case** - universal fit for snorkeling
+- **Note:** Drones prohibited on most ships and many ports
 
-### Cabin Comfort (New Article)
-- **Sleep mask & earplugs**
-- **Small nightlight** - USB powered
-- **Travel pillow**
-- **Clip-on book light**
-- **Mini essential oil diffuser**
+### Cabin Comfort (Organization Article)
+- **Sleep mask & earplugs** - cabin hallways can be noisy
+- **USB nightlight** - navigating dark cabin at night
+- **Travel pillow** - for flights and lounging
+- **Clip-on book light** - reading without disturbing roommate
+- **Portable fan** - small USB-powered for air circulation
 
 ### Faith Items (Solo/Grief Articles)
-- **Travel Bible** - compact edition
-- **Prayer journal**
+- **Compact travel Bible** - NIV, ESV travel editions
+- **Prayer journal** - travel-sized
 - **Devotional books** - cruise/travel themed
-- **Small cross/religious keepsake**
+- **Small cross/religious keepsake** - for comfort
 
-### Cruise Duck Supplies (New Article)
-- **Bulk rubber ducks** - variety packs
-- **Duck calling cards** - printable tags
-- **Waterproof labels**
-- **Mini gift bags** - for duck hiding
+### Cruise Duck Supplies (Duck Tradition Article)
+- **Bulk rubber ducks** - 50-100 packs for serious duckers
+- **Pre-tagged ducks** - "You've Been Ducked" ready to hide
+- **Waterproof labels/tags** - for DIY tagging
+- **Mini gift bags** - optional for special hides
+- **Themed ducks** - holidays, professions, characters
 
 ---
 
