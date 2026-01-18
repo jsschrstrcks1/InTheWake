@@ -3284,14 +3284,14 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 
 #### P1 — Quick Wins (Low Effort, High Impact)
 
-##### 1. Tender Port Index & Badge
+##### 1. Tender Port Index & Badge ✅ COMPLETE 2026-01-17
 **Source:** WhatsInPort A4
 **Effort:** Low | **Impact:** Medium
-- [ ] Add `tender: true/false` field to `port-registry.json`
-- [ ] Create tender port badge component (🚤 icon or text indicator)
-- [ ] Add badge to port page headers for tender ports
-- [ ] Create `/ports/tender-ports.html` index page with alphabetical listing
-- [ ] Add link to tender port index from ports.html navigation
+- [x] Add `tender: true/false` field to `port-registry.json` ✅ (already existed with 26 ports)
+- [x] Create tender port badge component (🚤 icon or text indicator) ✅
+- [x] Add badge to port page headers for tender ports ✅ (via index page)
+- [x] Create `/ports/tender-ports.html` index page with alphabetical listing ✅
+- [x] Add link to tender port index from ports.html navigation ✅
 
 ##### 2. "No Ads" Trust Messaging ✅ PARTIAL
 **Source:** Cruise Critic B2
@@ -3316,13 +3316,13 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] Show ship thumbnails with links to ship pages
 - [ ] Pilot on 10 Caribbean ports, then roll out
 
-##### 5. First-Timer Hub Page
+##### 5. First-Timer Hub Page ✅ COMPLETE 2026-01-17
 **Source:** Cruise Critic A3
 **Effort:** Low | **Impact:** Medium
-- [ ] Create `/first-cruise.html` consolidating all beginner content
-- [ ] Link to: travel.html FAQs, packing-lists.html, drink-packages.html, planning.html
-- [ ] Add "New to Cruising? Start Here" callout on homepage
-- [ ] Add to main navigation under Planning dropdown
+- [x] Create `/first-cruise.html` consolidating all beginner content ✅
+- [x] Link to: travel.html FAQs, packing-lists.html, drink-packages.html, planning.html ✅
+- [x] Add "New to Cruising? Start Here" callout on homepage ✅
+- [x] Add to main navigation under Planning dropdown ✅
 
 ##### 6. "Works Offline" Marketing
 **Source:** Cruiseline.com/Shipmate A1
@@ -3331,7 +3331,7 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] Test service worker caching for complete port guide offline access
 - [ ] Add "Save for Offline" or "Install App" button to port pages
 - [ ] Market PWA install as "your offline cruise companion"
-- [ ] Add offline capability callout to planning.html and homepage
+- [x] Add offline capability callout to planning.html and homepage ✅ 2026-01-17
 
 ---
 
@@ -3554,12 +3554,13 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] Include brief "What changed" changelog line (future enhancement)
 - [ ] Builds trust; differentiates from outdated competitor content
 
-##### 31. Tool Release Notes / Changelog Page
+##### 31. Tool Release Notes / Changelog Page ✅ COMPLETE 2026-01-17
 **Source:** ChatGPT E20
 **Effort:** Low | **Impact:** Medium
-- [ ] Create public changelog for Drink Calculator, Stateroom Checker, etc.
-- [ ] "Version 2.1 - Added sea day vs port day distinction"
-- [ ] Builds trust like a software product
+- [x] Create public changelog for Drink Calculator, Stateroom Checker, etc. ✅
+- [x] "Version 2.1 - Added sea day vs port day distinction" ✅
+- [x] Builds trust like a software product ✅
+**Location:** /tools/release-notes.html
 
 ##### 32. Embarkation Port Guides
 **Source:** ChatGPT D17
@@ -3629,14 +3630,14 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 - [ ] "Cabin 8252: Above = Solarium deck (pool noise), Below = Dining room"
 - [ ] CruiseDeckPlans' best feature; worth adopting
 
-##### 41. Accessibility Equipment Guide
+##### 41. Accessibility Equipment Guide ✅ COMPLETE 2026-01-17
 **Source:** Overlooked competitor analysis (Special Needs at Sea)
 **Effort:** Low | **Impact:** High
-- [ ] Add equipment rental guidance to accessibility.html
-- [ ] Cover: Special Needs at Sea, Scootaround, CareVacations
-- [ ] Add "Wheelchair delivered to stateroom" info
-- [ ] Add tender port accessibility warnings (enhance #1)
-- [ ] Add sensory-inclusive ship ratings (Carnival KultureCity certified)
+- [x] Add equipment rental guidance to accessibility.html ✅
+- [x] Cover: Special Needs at Sea, Scootaround, CareVacations ✅
+- [x] Add "Wheelchair delivered to stateroom" info ✅
+- [x] Add tender port accessibility warnings (enhance #1) ✅
+- [x] Add sensory-inclusive ship ratings (Carnival KultureCity certified) ✅
 
 ##### 42. Loyalty Program Comparison Guide
 **Source:** Overlooked competitor analysis (gamification gap)
@@ -3809,13 +3810,168 @@ Free/freemium AIS APIs exist that could enable this feature:
 
 ---
 
-#### 💰 Monetization (Future)
+#### 💰 Affiliate Monetization Strategy (ACTIVE - 2026-01-18)
 
-These features are NOT being built now, but could be explored for future sustainability:
+**Status:** APPROVED - Implementing Amazon Associates + future Hilton Hotels
+**Plan Document:** `.claude/plan-affiliate-deployment.md`
+**Trust Position:** Independent of cruise lines; honest product recommendations only
 
-| Feature | Current Status | Notes |
-|---------|----------------|-------|
-| Affiliate excursion links | Deferred | Conflicts with ad-free trust positioning; reconsider if needed for sustainability |
+##### Strategic Positioning Update
+
+**OLD:** "✓ No ads. Minimal analytics. No affiliate links."
+**NEW:** "✓ No ads. Minimal analytics. Independent recommendations."
+
+Key differentiator remains: **We are NOT affiliated with any cruise line.** Affiliate links are for helpful travel products only (Amazon, Hilton) — never cruise bookings or sponsored cruise content.
+
+---
+
+##### Phase 1: Infrastructure (P0 - Do First)
+
+| Task | Status | Notes |
+|------|--------|-------|
+| Create `/affiliate-disclosure.html` | [ ] TODO | FTC-required disclosure page |
+| Update trust badges site-wide | [ ] TODO | Change "No affiliate links" → "Independent recommendations" |
+| Add `.affiliate-link` CSS class | [ ] TODO | Consistent styling with `rel="sponsored"` |
+| Update `about-us.html` disclosure | [ ] TODO | Explain Amazon Associates participation |
+
+---
+
+##### Phase 2: New Content (P1 - High Value)
+
+| Article | Status | Affiliate Products |
+|---------|--------|-------------------|
+| `/articles/cruise-duck-tradition.html` | [ ] TODO | Duck magnets, ducks with/without tags, tiny ducks, Jesus figures |
+| `/articles/cruise-cabin-organization.html` | [ ] TODO | Magnetic hooks, over-door organizer, packing cubes |
+| `/articles/cruise-photography-tech.html` | [ ] TODO | GoPro Hero 13, GoPro competitor, AirPods Max |
+
+---
+
+##### Phase 3: Existing Page Enhancement (P1 - High Value)
+
+| Page | Status | Products to Add |
+|------|--------|-----------------|
+| `/packing-lists.html` | [ ] TODO | Packing cubes, magnetic hooks, USB charger, luggage tags, Osprey pack |
+| `/internet-at-sea.html` | [ ] TODO | USB charger, AirPods Max, Apple Watch Ultra 3 |
+
+---
+
+##### Current Affiliate Links Inventory
+
+**Cruise Duck Category:**
+| Product | Link | Target Page |
+|---------|------|-------------|
+| Duck magnets | https://amzn.to/4b0QlEA | Duck tradition article |
+| Magnet hooks (cabin) | https://amzn.to/4sHvzQV | Packing lists, Duck tradition |
+| Ducks with tags | https://amzn.to/4r49vhM | Duck tradition article |
+| More ducks (no tags) | https://amzn.to/4jH8dqc | Duck tradition article |
+| Tiny duck | https://amzn.to/3YOHRsS | Duck tradition article |
+
+**Faith Items:**
+| Product | Link | Target Page |
+|---------|------|-------------|
+| Little Jesus figures | https://amzn.to/4pKZ5lY | Duck tradition, Solo articles |
+
+**Travel Gear:**
+| Product | Link | Target Page |
+|---------|------|-------------|
+| Luggage tags | https://amzn.to/3NiCCzh | Packing lists |
+| Osprey carry-on pack | https://amzn.to/3NiCCzh | Packing lists |
+| Packing cubes | https://amzn.to/4a0Iwh2 | Packing lists |
+| Over-the-door organizer | https://amzn.to/4qrIjcF | Packing lists, Cabin org article |
+
+**Technology:**
+| Product | Link | Target Page |
+|---------|------|-------------|
+| Apple AirPods Max | https://amzn.to/4r1LXdb | Internet at Sea |
+| Apple Watch Ultra 3 | https://amzn.to/45WQh5e | Internet at Sea |
+| GoPro Hero 13 | https://amzn.to/4qWXY3o | Photography article |
+| GoPro competitor | https://amzn.to/4qKMUah | Photography article |
+| Cruise-approved USB charger | https://amzn.to/4qC6vcr | Packing lists, Internet at Sea |
+
+---
+
+##### Expanded Product Recommendations (Research & Add Links)
+
+**Travel Essentials (Packing Lists):**
+- [ ] Compression bags
+- [ ] Travel power strip (cruise-approved)
+- [ ] Motion sickness bands (Sea-Band)
+- [ ] Waterproof phone pouch
+- [ ] Portable cabin fan
+- [ ] Lanyard/card holder for cruise card
+- [ ] Hanging toiletry bag
+- [ ] Travel pill organizer
+- [ ] Compact first aid kit
+- [ ] Collapsible water bottle
+
+**Technology (Internet at Sea / Photo article):**
+- [ ] High-capacity portable battery pack
+- [ ] Universal travel adapter
+- [ ] Bluetooth speaker (balcony use)
+- [ ] Kindle e-reader
+- [ ] Noise-canceling earbuds
+- [ ] Camera floating strap
+- [ ] Mini tripod/selfie stick
+- [ ] High-capacity SD cards
+
+**Cabin Comfort (Organization article):**
+- [ ] Sleep mask & earplugs
+- [ ] USB nightlight
+- [ ] Travel pillow
+- [ ] Clip-on book light
+- [ ] Mini essential oil diffuser
+
+**Cruise Duck Supplies (Duck tradition article):**
+- [ ] Bulk rubber duck variety packs
+- [ ] Duck calling cards/tags
+- [ ] Waterproof labels
+- [ ] Mini gift bags for hiding
+
+**Faith Items (Solo/grief articles):**
+- [ ] Compact travel Bible
+- [ ] Prayer journal
+- [ ] Cruise/travel devotional books
+
+**Hotel Partners (Future):**
+- [ ] Hilton Hotels affiliate program (research & apply)
+- [ ] Pre/post-cruise hotel recommendations
+
+---
+
+##### FTC Compliance Requirements
+
+Every page with affiliate links MUST include disclosure:
+
+```html
+<!-- Option A: Inline at first affiliate link -->
+<p class="affiliate-disclosure">
+  <small>Some links are affiliate links. We may earn a commission at no extra cost to you.
+  <a href="/affiliate-disclosure.html">Full disclosure</a>.</small>
+</p>
+
+<!-- Option B: Page header -->
+<aside class="affiliate-notice" role="note">
+  This page contains affiliate links. <a href="/affiliate-disclosure.html">Learn more</a>.
+</aside>
+```
+
+**Link attributes required:**
+```html
+<a href="https://amzn.to/xxx" rel="sponsored noopener" target="_blank" class="affiliate-link">
+```
+
+---
+
+##### Priority Order
+
+1. **P0:** Create affiliate disclosure page (legal requirement)
+2. **P0:** Update trust badges site-wide
+3. **P1:** Create cruise duck tradition article (unique content + multiple products)
+4. **P1:** Enhance packing-lists.html (highest traffic, most product opportunities)
+5. **P2:** Create cabin organization guide
+6. **P2:** Enhance internet-at-sea.html
+7. **P3:** Create photography/tech guide
+8. **P3:** Research and add expanded product links
 
 ---
 
@@ -3936,15 +4092,15 @@ These features are NOT being built now, but could be explored for future sustain
 
 **Sprint 1 (Week 1-2): Trust & Visibility**
 - [x] #2 "No Ads" Trust Messaging ✅ PARTIAL (footer badge done 2026-01-01)
-- [ ] #6 "Works Offline" Marketing
+- [x] #6 "Works Offline" Marketing ✅ PARTIAL (planning.html + homepage done 2026-01-17)
 - [x] #30 "Last Reviewed" Stamps ✅ PARTIAL (311/333 ports done 2026-01-01, 22 need manual addition)
-- [ ] #31 Tool Release Notes Page
-- [ ] #41 Accessibility Equipment Guide
+- [x] #31 Tool Release Notes Page ✅ COMPLETE 2026-01-17
+- [x] #41 Accessibility Equipment Guide ✅ COMPLETE 2026-01-17
 
 **Sprint 2 (Week 3-4): Ship-Port Integration**
 - [ ] #4 "Ships That Visit Here" Section
-- [ ] #1 Tender Port Index
-- [ ] #5 First-Timer Hub Page
+- [x] #1 Tender Port Index ✅ COMPLETE 2026-01-17
+- [x] #5 First-Timer Hub Page ✅ COMPLETE 2026-01-17
 
 **Sprint 3 (Week 5-6): Port Page Enhancement**
 - [ ] #7 "From the Pier" Component

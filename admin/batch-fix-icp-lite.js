@@ -222,7 +222,7 @@ async function fixFile(filepath) {
       // Find closing </footer> and add trust badge before it
       const footerMatch = html.match(/<\/footer>/i);
       if (footerMatch) {
-        const trustBadge = '\n    <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>\n  ';
+        const trustBadge = '\n    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>\n  ';
         html = html.replace(/<\/footer>/i, trustBadge + '</footer>');
         modified = true;
         changes.push('Added trust badge to footer');
