@@ -3809,13 +3809,168 @@ Free/freemium AIS APIs exist that could enable this feature:
 
 ---
 
-#### 💰 Monetization (Future)
+#### 💰 Affiliate Monetization Strategy (ACTIVE - 2026-01-18)
 
-These features are NOT being built now, but could be explored for future sustainability:
+**Status:** APPROVED - Implementing Amazon Associates + future Hilton Hotels
+**Plan Document:** `.claude/plan-affiliate-deployment.md`
+**Trust Position:** Independent of cruise lines; honest product recommendations only
 
-| Feature | Current Status | Notes |
-|---------|----------------|-------|
-| Affiliate excursion links | Deferred | Conflicts with ad-free trust positioning; reconsider if needed for sustainability |
+##### Strategic Positioning Update
+
+**OLD:** "✓ No ads. Minimal analytics. No affiliate links."
+**NEW:** "✓ No ads. Minimal analytics. Independent recommendations."
+
+Key differentiator remains: **We are NOT affiliated with any cruise line.** Affiliate links are for helpful travel products only (Amazon, Hilton) — never cruise bookings or sponsored cruise content.
+
+---
+
+##### Phase 1: Infrastructure (P0 - Do First)
+
+| Task | Status | Notes |
+|------|--------|-------|
+| Create `/affiliate-disclosure.html` | [ ] TODO | FTC-required disclosure page |
+| Update trust badges site-wide | [ ] TODO | Change "No affiliate links" → "Independent recommendations" |
+| Add `.affiliate-link` CSS class | [ ] TODO | Consistent styling with `rel="sponsored"` |
+| Update `about-us.html` disclosure | [ ] TODO | Explain Amazon Associates participation |
+
+---
+
+##### Phase 2: New Content (P1 - High Value)
+
+| Article | Status | Affiliate Products |
+|---------|--------|-------------------|
+| `/articles/cruise-duck-tradition.html` | [ ] TODO | Duck magnets, ducks with/without tags, tiny ducks, Jesus figures |
+| `/articles/cruise-cabin-organization.html` | [ ] TODO | Magnetic hooks, over-door organizer, packing cubes |
+| `/articles/cruise-photography-tech.html` | [ ] TODO | GoPro Hero 13, GoPro competitor, AirPods Max |
+
+---
+
+##### Phase 3: Existing Page Enhancement (P1 - High Value)
+
+| Page | Status | Products to Add |
+|------|--------|-----------------|
+| `/packing-lists.html` | [ ] TODO | Packing cubes, magnetic hooks, USB charger, luggage tags, Osprey pack |
+| `/internet-at-sea.html` | [ ] TODO | USB charger, AirPods Max, Apple Watch Ultra 3 |
+
+---
+
+##### Current Affiliate Links Inventory
+
+**Cruise Duck Category:**
+| Product | Link | Target Page |
+|---------|------|-------------|
+| Duck magnets | https://amzn.to/4b0QlEA | Duck tradition article |
+| Magnet hooks (cabin) | https://amzn.to/4sHvzQV | Packing lists, Duck tradition |
+| Ducks with tags | https://amzn.to/4r49vhM | Duck tradition article |
+| More ducks (no tags) | https://amzn.to/4jH8dqc | Duck tradition article |
+| Tiny duck | https://amzn.to/3YOHRsS | Duck tradition article |
+
+**Faith Items:**
+| Product | Link | Target Page |
+|---------|------|-------------|
+| Little Jesus figures | https://amzn.to/4pKZ5lY | Duck tradition, Solo articles |
+
+**Travel Gear:**
+| Product | Link | Target Page |
+|---------|------|-------------|
+| Luggage tags | https://amzn.to/3NiCCzh | Packing lists |
+| Osprey carry-on pack | https://amzn.to/3NiCCzh | Packing lists |
+| Packing cubes | https://amzn.to/4a0Iwh2 | Packing lists |
+| Over-the-door organizer | https://amzn.to/4qrIjcF | Packing lists, Cabin org article |
+
+**Technology:**
+| Product | Link | Target Page |
+|---------|------|-------------|
+| Apple AirPods Max | https://amzn.to/4r1LXdb | Internet at Sea |
+| Apple Watch Ultra 3 | https://amzn.to/45WQh5e | Internet at Sea |
+| GoPro Hero 13 | https://amzn.to/4qWXY3o | Photography article |
+| GoPro competitor | https://amzn.to/4qKMUah | Photography article |
+| Cruise-approved USB charger | https://amzn.to/4qC6vcr | Packing lists, Internet at Sea |
+
+---
+
+##### Expanded Product Recommendations (Research & Add Links)
+
+**Travel Essentials (Packing Lists):**
+- [ ] Compression bags
+- [ ] Travel power strip (cruise-approved)
+- [ ] Motion sickness bands (Sea-Band)
+- [ ] Waterproof phone pouch
+- [ ] Portable cabin fan
+- [ ] Lanyard/card holder for cruise card
+- [ ] Hanging toiletry bag
+- [ ] Travel pill organizer
+- [ ] Compact first aid kit
+- [ ] Collapsible water bottle
+
+**Technology (Internet at Sea / Photo article):**
+- [ ] High-capacity portable battery pack
+- [ ] Universal travel adapter
+- [ ] Bluetooth speaker (balcony use)
+- [ ] Kindle e-reader
+- [ ] Noise-canceling earbuds
+- [ ] Camera floating strap
+- [ ] Mini tripod/selfie stick
+- [ ] High-capacity SD cards
+
+**Cabin Comfort (Organization article):**
+- [ ] Sleep mask & earplugs
+- [ ] USB nightlight
+- [ ] Travel pillow
+- [ ] Clip-on book light
+- [ ] Mini essential oil diffuser
+
+**Cruise Duck Supplies (Duck tradition article):**
+- [ ] Bulk rubber duck variety packs
+- [ ] Duck calling cards/tags
+- [ ] Waterproof labels
+- [ ] Mini gift bags for hiding
+
+**Faith Items (Solo/grief articles):**
+- [ ] Compact travel Bible
+- [ ] Prayer journal
+- [ ] Cruise/travel devotional books
+
+**Hotel Partners (Future):**
+- [ ] Hilton Hotels affiliate program (research & apply)
+- [ ] Pre/post-cruise hotel recommendations
+
+---
+
+##### FTC Compliance Requirements
+
+Every page with affiliate links MUST include disclosure:
+
+```html
+<!-- Option A: Inline at first affiliate link -->
+<p class="affiliate-disclosure">
+  <small>Some links are affiliate links. We may earn a commission at no extra cost to you.
+  <a href="/affiliate-disclosure.html">Full disclosure</a>.</small>
+</p>
+
+<!-- Option B: Page header -->
+<aside class="affiliate-notice" role="note">
+  This page contains affiliate links. <a href="/affiliate-disclosure.html">Learn more</a>.
+</aside>
+```
+
+**Link attributes required:**
+```html
+<a href="https://amzn.to/xxx" rel="sponsored noopener" target="_blank" class="affiliate-link">
+```
+
+---
+
+##### Priority Order
+
+1. **P0:** Create affiliate disclosure page (legal requirement)
+2. **P0:** Update trust badges site-wide
+3. **P1:** Create cruise duck tradition article (unique content + multiple products)
+4. **P1:** Enhance packing-lists.html (highest traffic, most product opportunities)
+5. **P2:** Create cabin organization guide
+6. **P2:** Enhance internet-at-sea.html
+7. **P3:** Create photography/tech guide
+8. **P3:** Research and add expanded product links
 
 ---
 
