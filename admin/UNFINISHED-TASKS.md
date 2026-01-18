@@ -2,7 +2,38 @@
 
 ## Soli Deo Gloria
 
-Last Updated: 2026-01-03
+Last Updated: 2026-01-18
+
+---
+
+## Homepage Improvement Initiative
+
+**Context:** Analytics show heavy bounce rates from homepage and tool pages. ChatGPT audit identified missing intent-based navigation and tool prominence issues.
+
+### Goals
+- Reduce homepage bounce by helping visitors route faster
+- Elevate interactive tools above content cards
+- Create soft cross-links from tool pages to reduce dead-end visits
+- Maintain calm, trust-first brand voice (no urgency-driven CTAs)
+
+### Tasks
+
+| Task | Status | Priority |
+|------|--------|----------|
+| Add intent selector ("What are you planning?") | DONE | HIGH |
+| Create Planning Tools row (Ship Quiz, Drink Calculator, Stateroom Check, Packing Lists) | DONE | HIGH |
+| Reduce explore grid from 10 cards to 6 | DONE | MEDIUM |
+| Update trust line (remove "no affiliate links" - Amazon affiliate coming) | DONE | HIGH |
+| Add Related Resources to Drink Calculator | DONE | MEDIUM |
+| Add Related Resources to Ship Quiz | DONE | MEDIUM |
+| Add Related Resources to Stateroom Check | DONE | MEDIUM |
+
+### Design Principles
+- Intent-based routing: "What are you planning?" not "Here's everything"
+- Tools visually distinct from content cards
+- No urgency language ("Don't miss out!") - keep trust-first voice
+- Light touch on faith angle - findable but unobtrusive
+- Acknowledge Royal Caribbean focus (for now)
 
 ---
 
