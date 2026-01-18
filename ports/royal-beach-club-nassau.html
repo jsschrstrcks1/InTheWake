@@ -724,7 +724,7 @@ All work on this project is offered as a gift to God.
               <div class="swiper-slide">
                 <figure>
                   <img src="/ports/img/royal-beach-club-nassau/gallery-10-kids-beach.jpg" alt="Children playing in shallow turquoise water building sandcastles" loading="lazy"/>
-                  <figcaption>Calm, shallow water perfect for families. Photo © <a href="https://commons.wikimedia.org/wiki/File:Kids_beach_Bahamas.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</figcaption>
+                  <figcaption>Calm, shallow water ideal for families. Photo © <a href="https://commons.wikimedia.org/wiki/File:Kids_beach_Bahamas.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</figcaption>
                 </figure>
               </div>
             </div>
@@ -902,7 +902,7 @@ All work on this project is offered as a gift to God.
         <a href="/contact.html">Contact</a>
       </nav>
     </div>
-    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- Leaflet JS -->
@@ -1005,9 +1005,9 @@ All work on this project is offered as a gift to God.
 
       if(totalPages > 1){
         const navHTML = '<div style="display:flex;justify-content:space-between;align-items:center;">' +
-          '<button onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
           '<span class="tiny" style="color:#5a7a8a;">' + (page + 1) + ' / ' + totalPages + '</span>' +
-          '<button onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
         '</div>';
         navTop.innerHTML = navHTML;
         navBottom.innerHTML = navHTML;

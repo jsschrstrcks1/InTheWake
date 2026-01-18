@@ -10,7 +10,7 @@ All work on this project is offered as a gift to God.
 <head>
 <!-- ai-breadcrumbs
      name: Sapphire Princess
-     entity: Sapphire Princess
+     entity: Ship
      type: Ship Information Page
      parent: /ships.html
      category: Princess Cruises Fleet
@@ -49,6 +49,7 @@ All work on this project is offered as a gift to God.
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://cruisinginthewake.com/ships/princess/sapphire-princess.html"/>
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/ships-hero.jpg"/>
+  <meta property="og:locale" content="en_US"/>
   <meta property="og:title" content="Sapphire Princess — Princess Cruises Ship Guide"/>
   <meta property="og:description" content="Explore Sapphire Princess: Grand Class ship with 2,670 guests. Dining, entertainment, and planning resources."/>
   <meta name="twitter:card" content="summary_large_image"/>
@@ -102,25 +103,6 @@ All work on this project is offered as a gift to God.
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
   <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css"/>
-
-  <style>
-    .stub-notice {
-      background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
-      border: 2px dashed #856404;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin: 1rem 0;
-      text-align: center;
-    }
-    .stub-notice h3 { color: #856404; margin: 0 0 .5rem; }
-    .stub-notice p { color: #664d03; margin: 0; }
-    .ship-specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-    .spec-item { background: var(--bg-alt, #f5f5f5); padding: 1rem; border-radius: 6px; text-align: center; }
-    .spec-label { font-size: .75rem; color: var(--text-muted); text-transform: uppercase; }
-    .spec-value { font-size: 1.25rem; font-weight: 600; color: var(--text); }
-    .quick-answer { background: #e8f4f8; border-left: 4px solid #17a2b8; padding: 1rem 1.5rem; margin: 1rem 0; border-radius: 0 8px 8px 0; }
-    .quick-answer h3 { margin: 0 0 .5rem; color: #0c5460; }
-  </style>
 
 <!-- JSON-LD: WebSite -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
@@ -197,7 +179,7 @@ All work on this project is offered as a gift to God.
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake" decoding="async"/></a>
+        <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/></a>
         <span class="tiny version-badge">V1.Beta</span>
       </div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
@@ -253,13 +235,13 @@ All work on this project is offered as a gift to God.
       </div>
       <img loading="lazy" class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img loading="lazy" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
     </div>
   </header>
 
-  <main class="wrap" id="content">
+  <main class="wrap" id="content" role="main">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a> &rsaquo;
       <a href="/ships.html">Ships</a> &rsaquo;
@@ -280,11 +262,63 @@ All work on this project is offered as a gift to God.
       </p>
     </section>
 
-    <!-- First Look Section -->
-    <section class="card" aria-labelledby="first-look">
-      <h2 id="first-look">A First Look at Sapphire Princess</h2>
-      <p>Sapphire Princess offers a memorable cruise experience with Princess Cruises. This ship features modern amenities, diverse dining options, and entertainment for all ages.</p>
-      <p>Explore the deck plans below to familiarize yourself with the ship's layout, or check out the dining section to see available restaurants and venues.</p>
+    <!-- First Look & Dining Grid -->
+    <section class="grid-2">
+      <section class="card" aria-labelledby="first-look">
+        <h2 id="first-look">A First Look at Sapphire Princess</h2>
+        <p>Sapphire Princess offers a memorable cruise experience with Princess Cruises. This ship features modern amenities, diverse dining options, and entertainment for all ages.</p>
+        <p>Explore the deck plans below to familiarize yourself with the ship's layout, or check out the dining section to see available restaurants and venues.</p>
+      </section>
+
+      <section class="card" aria-labelledby="diningHeading">
+        <h2 id="diningHeading">Dining on Sapphire Princess</h2>
+        <p>Dining venue information coming soon. Princess Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
+        <p>From elegant main dining rooms to casual buffet options and premium specialty restaurants, Sapphire Princess offers diverse culinary experiences to suit every taste and occasion.</p>
+      </section>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="card" aria-labelledby="photos-title">
+      <h2 id="photos-title">Sapphire Princess Photo Gallery</h2>
+      <div class="photo-carousel swiper" id="photo-swiper" aria-label="Sapphire Princess photo gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="/assets/ships/Sapphire_Princess_exterior.jpg" alt="Sapphire Princess at sea" loading="lazy" onerror="this.src='/assets/images/placeholder-cabin.webp'"/>
+            <p class="photo-caption">Sapphire Princess at sea — Photo: Princess Cruises</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Sapphire_Princess_bow.jpg" alt="Sapphire Princess bow view showing Princess wave design" loading="lazy" onerror="this.src='/assets/images/placeholder-cabin.webp'"/>
+            <p class="photo-caption">Sapphire Princess bow view — Photo: Princess Cruises</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Sapphire_Princess_stern.jpg" alt="Sapphire Princess stern view at sea" loading="lazy" onerror="this.src='/assets/images/placeholder-cabin.webp'"/>
+            <p class="photo-caption">Sapphire Princess stern at sea — Photo: Princess Cruises</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Sapphire_Princess_pool.jpg" alt="Sapphire Princess pool deck area with Movies Under the Stars screen" loading="lazy" onerror="this.src='/assets/images/placeholder-cabin.webp'"/>
+            <p class="photo-caption">Sapphire Princess pool deck — Photo: Princess Cruises</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Sapphire_Princess_atrium.jpg" alt="Sapphire Princess atrium interior showing multi-deck design" loading="lazy" onerror="this.src='/assets/images/placeholder-cabin.webp'"/>
+            <p class="photo-caption">Sapphire Princess atrium — Photo: Princess Cruises</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Sapphire_Princess_dining.jpg" alt="Sapphire Princess main dining room" loading="lazy" onerror="this.src='/assets/images/placeholder-cabin.webp'"/>
+            <p class="photo-caption">Sapphire Princess dining room — Photo: Princess Cruises</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Sapphire_Princess_stateroom.jpg" alt="Sapphire Princess balcony stateroom interior" loading="lazy" onerror="this.src='/assets/images/placeholder-cabin.webp'"/>
+            <p class="photo-caption">Sapphire Princess balcony stateroom — Photo: Princess Cruises</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Sapphire_Princess_theater.jpg" alt="Sapphire Princess theater and entertainment venue" loading="lazy" onerror="this.src='/assets/images/placeholder-cabin.webp'"/>
+            <p class="photo-caption">Sapphire Princess Princess Theater — Photo: Princess Cruises</p>
+          </div>
+        </div>
+        <div class="swiper-button-prev" aria-label="Previous photo"></div>
+        <div class="swiper-button-next" aria-label="Next photo"></div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+      </div>
     </section>
     <p class="subtitle">Princess Cruises &bull; Grand Class</p>
 
@@ -327,8 +361,9 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 
-    <!-- Stub Notice -->
-    
+<script type="application/json" id="dining-data-source">{"provider":"princess","json":"/assets/data/venues-v2.json","ship_slug":"sapphire-princess","aliases":["Sapphire Princess"]}</script>
+    <script type="application/json" id="ship-stats-fallback">{"slug":"sapphire-princess","name":"Sapphire Princess","cruise_line":"Princess Cruises","class":"Diamond Class","entered_service":2004,"gt":"115,875 GT","guests":"2,670","crew":"1,100"}</script>
+
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: Sapphire Princess</h2>
@@ -337,48 +372,6 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 
-    
-
-    <!-- Placeholder sections -->
-    <section class="card" aria-labelledby="diningHeading">
-      <h2 id="diningHeading">Dining on Sapphire Princess</h2>
-      <p>Dining venue information coming soon. Princess Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
-    </section>
-<script type="application/json" id="dining-data-source">{"provider":"princess","json":"/assets/data/venues-v2.json","ship_slug":"sapphire-princess","aliases":["Sapphire Princess"]}</script>
-        <script type="application/json" id="ship-stats-fallback">{"slug":"sapphire-princess","name":"Sapphire Princess","cruise_line":"Princess Cruises","class":"Diamond Class","entered_service":2004,"gt":"115,875 GT","guests":"2,670","crew":"1,100"}</script>
-
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
-      <p>Entertainment details coming soon. Explore shows, activities, and onboard experiences.</p>
-    </section>
-
-    <section class="grid-2">
-      <section class="card" aria-labelledby="deckPlansHeading">
-        <h2 id="deckPlansHeading">Deck Plans</h2>
-        <p>View the official deck plans to explore Sapphire Princess's layout.</p>
-        <figure>
-          <img src="/assets/ship-map.png" alt="Sapphire Princess simplified deck plan preview" loading="lazy"/>
-          <figcaption class="tiny">Simplified deck layout overview</figcaption>
-        </figure>
-        <p><a class="btn" href="https://www.princess.com/" target="_blank" rel="noopener">Visit Princess Official Site</a></p>
-      </section>
-      <section class="card" aria-labelledby="trackingHeading">
-        <h2 id="trackingHeading">Where Is Sapphire Princess?</h2>
-        <p>Track Sapphire Princess's current position and upcoming itinerary.</p>
-        <p><a class="btn" href="https://www.cruisemapper.com/?search=Sapphire%20Princess" target="_blank" rel="noopener">Open Live Tracker</a></p>
-      </section>
-    </section>
-
-    <!-- Related Links -->
-    <section class="card">
-      <h2>Explore More</h2>
-      <ul>
-        <li><a href="/ships.html">All Ships</a></li>
-        <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare Sapphire Princess with other ships</li>
-        <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
-      </ul>
-    </section>
-  
     <!-- Videos -->
     <section class="card" aria-labelledby="video-highlights">
       <h2 id="video-highlights">Watch: Sapphire Princess Highlights</h2>
@@ -392,17 +385,35 @@ All work on this project is offered as a gift to God.
       <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
 
-
     <!-- Deck Plans & Tracker Grid -->
     <div class="grid-2">
-      <section class="card" aria-labelledby="deck-plans">
+      
+    <!-- Ship Statistics -->
+    <section class="card" aria-labelledby="ship-stats-title">
+      <h2 id="ship-stats-title">Ship Statistics</h2>
+      <div id="ship-stats" class="stats-grid" data-slug="sapphire-princess">
+        <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">115,875 GT</div></div>
+        <div class="stat-item"><div class="label">Guests</div><div class="value">2,670</div></div>
+        <div class="stat-item"><div class="label">Crew</div><div class="value">1,100</div></div>
+        <div class="stat-item"><div class="label">Entered Service</div><div class="value">2004</div></div>
+        <div class="stat-item"><div class="label">Class</div><div class="value">Diamond Class</div></div>
+      </div>
+    </section>
+    <p style="margin-top: 1rem;">
+      <a href="https://www.princess.com/ships-and-experience/cruise-ships/sapphire-princess/" class="btn-deck-plans" target="_blank" rel="nofollow noopener">
+        View Official Deck Plans →
+      </a>
+    </p>
+
+<section class="card" aria-labelledby="deck-plans">
         <h2 id="deck-plans">Deck Plans</h2>
         <div id="ship-map" data-ship="sapphire-princess">
           <p>Interactive deck plans for Sapphire Princess are available on the cruise line's official website.</p>
+          <p><a class="btn" href="https://www.princess.com/" target="_blank" rel="noopener">Visit Princess Official Site</a></p>
         </div>
       </section>
 
-      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="TBD" data-name="SAPPHIREPRINCESS">
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9228198" data-name="SAPPHIREPRINCESS">
         <h2 id="liveTrackHeading">Live Ship Tracker</h2>
         <div id="ship-tracker-container">
           <p>Track Sapphire Princess's current position and voyage details.</p>
@@ -459,8 +470,21 @@ All work on this project is offered as a gift to God.
     })();
     </script>
 
-
-    
+    <script>
+    // Photo Gallery Swiper
+    if(document.getElementById('photo-swiper')&&window.Swiper){
+      setTimeout(()=>{
+        try{
+          new Swiper('#photo-swiper',{
+            loop:false,rewind:false,lazy:true,watchOverflow:true,
+            pagination:{el:'#photo-swiper .swiper-pagination',clickable:true},
+            navigation:{nextEl:'#photo-swiper .swiper-button-next',prevEl:'#photo-swiper .swiper-button-prev'},
+            a11y:{enabled:true}
+          });
+        }catch(_){}
+      },150);
+    }
+    </script>
 
     <!-- Attribution Section -->
     
@@ -470,27 +494,37 @@ All work on this project is offered as a gift to God.
 
       <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Sapphire Princess?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Sapphire Princess offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Sapphire Princess offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship. Popular specialty venues on Princess ships include Crown Grill steakhouse, Sabatini's Italian restaurant, and various casual dining options throughout the ship.</p>
       </details>
 
       <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How do I find the deck plans for Sapphire Princess?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Deck plans are available through the links on this page. You can also find official deck plans on the <a href="https://www.princess.com" target="_blank" rel="noopener">Princess Cruises</a> website or in the cruise planner app.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Deck plans are available through the links on this page. You can also find official deck plans on the <a href="https://www.princess.com" target="_blank" rel="noopener">Princess Cruises</a> website or in the cruise planner app. Interactive deck plans help you explore cabin locations, public venues, dining areas, and entertainment spaces to plan your voyage effectively.</p>
       </details>
 
       <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Where does Sapphire Princess sail?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Ship deployments vary by season. Check the <a href="https://www.princess.com" target="_blank" rel="noopener">Princess Cruises</a> website for current itineraries and departure ports for Sapphire Princess.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Sapphire Princess typically sails Alaska during summer months, Australia and the Pacific during winter, and various other regions based on seasonal deployment. Ship deployments vary by season. Check the <a href="https://www.princess.com" target="_blank" rel="noopener">Princess Cruises</a> website for current itineraries and departure ports for Sapphire Princess. The ship serves diverse markets worldwide, offering cruisers flexibility to experience different destinations on the same familiar vessel.</p>
       </details>
 
       <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How can I track Sapphire Princess's current location?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Use the live ship tracker section on this page to see the ship's current position, speed, and next port in real-time when available.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Use the live ship tracker section on this page to see the ship's current position, speed, and next port in real-time when available. The tracker displays the ship's location on a map along with voyage details including heading, speed, and upcoming port calls. This feature is particularly useful for friends and family following your cruise or for planning shore excursions.</p>
+      </details>
+
+      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What is the difference between Diamond Princess and Sapphire Princess?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Both ships are Diamond Class vessels built at the same shipyard in Japan with identical specifications. The main difference is their deployment: Diamond Princess serves primarily Japanese waters and Asian markets, while Sapphire Princess ranges globally with seasonal deployments to Alaska, Australia, Europe, and other regions. The ship design, amenities, and capacity are virtually identical.</p>
+      </details>
+
+      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
+        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Does Sapphire Princess have accessible staterooms?</summary>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Yes, Sapphire Princess offers accessible staterooms designed for guests with mobility challenges. These cabins feature wider doorways, roll-in showers, grab bars, and other accessibility features. Public areas include elevators, ramps, and accessible seating in entertainment venues. Contact Princess Cruises or your travel advisor to discuss specific accessibility needs and book appropriate accommodations.</p>
       </details>
 
       <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Is this information official?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides planning resources and community insights. Always confirm details with <a href="https://www.princess.com" target="_blank" rel="noopener">Princess Cruises</a> or your travel advisor before booking.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides planning resources and community insights. Always confirm details with <a href="https://www.princess.com" target="_blank" rel="noopener">Princess Cruises</a> or your travel advisor before booking. Ship specifications, itineraries, and amenities may change. Official information is available through Princess Cruises directly.</p>
       </details>
     </section>
 
@@ -513,10 +547,20 @@ All work on this project is offered as a gift to God.
         </nav>
       </section>
 
+      <section class="card" id="whimsical-units-container" aria-labelledby="ship-size-title">
+        <h3 id="ship-size-title">Ship Size in Fun Units</h3>
+        <p class="small">116,000 gross tons is approximately:</p>
+        <ul class="tiny">
+          <li>58,000 average cars</li>
+          <li>17 million basketballs</li>
+          <li>1,740 blue whales</li>
+        </ul>
+      </section>
+
       <section class="card author-card-vertical" aria-labelledby="author-heading">
         <h3 id="author-heading">About the Author</h3>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker" decoding="async" loading="lazy"/>
+          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker cruise research analyst and author of In The Wake ship reviews" decoding="async" loading="lazy"/>
         </a>
         <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
         <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
@@ -538,9 +582,10 @@ All work on this project is offered as a gift to God.
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria</p>
-    <p class="trust-badge">No ads. No tracking. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
+  <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>

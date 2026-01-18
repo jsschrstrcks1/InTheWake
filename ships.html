@@ -763,6 +763,10 @@
 
       <p>Explore the Royal Caribbean fleet organized by ship class—from the newest Icon-class megaships to the classic Vision-class vessels. Each ship card shows you available images (cycling randomly each visit) and links directly to detailed ship pages.</p>
 
+      <div class="callout-box" style="margin: 1.5rem 0; padding: 1rem; background: linear-gradient(135deg, #f0f7ff 0%, #e8f4ff 100%); border-left: 4px solid #0e6e8e; border-radius: 8px;">
+        <p style="margin: 0;"><strong>Not sure which ship is right for you?</strong> Take our <a href="/ships/quiz.html" style="font-weight: 600;">Ship Quiz</a> to find your perfect match based on your travel style, priorities, and cruise preferences.</p>
+      </div>
+
       <div class="ships-share-section">
         <button id="shareShipsPage" class="share-btn" type="button" aria-label="Share this page">Share Page</button>
       </div>
@@ -1134,6 +1138,17 @@
         </div>
       </section>
 
+      <!-- Explore More -->
+      <section class="card" aria-labelledby="explore-more-heading">
+        <h3 id="explore-more-heading">Explore More</h3>
+        <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.8;">
+          <li><a href="/ships/rcl/venues.html">RC Venues by Ship Class</a></li>
+          <li><a href="/ships/carnival/index.html">Carnival Fleet Guide</a></li>
+          <li><a href="/restaurants.html">Restaurant Menus</a></li>
+          <li><a href="/drink-packages.html">Drink Packages</a></li>
+        </ul>
+      </section>
+
       <!-- Author card (vertical pattern matching index.html) -->
       <section class="card author-card-vertical" aria-labelledby="author-heading">
         <h3 id="author-heading">About the Author</h3>
@@ -1195,7 +1210,7 @@
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center visually-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- Dynamic Ships Module v1.000.000 -->
@@ -1433,9 +1448,9 @@
       // Render pagination
       if(totalPages > 1){
         const navHTML = '<div style="display:flex;justify-content:space-between;align-items:center;">' +
-          '<button onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
           '<span class="tiny" style="color:#5a7a8a;">' + (page + 1) + ' / ' + totalPages + '</span>' +
-          '<button onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
         '</div>';
         navTop.innerHTML = navHTML;
         navBottom.innerHTML = navHTML;

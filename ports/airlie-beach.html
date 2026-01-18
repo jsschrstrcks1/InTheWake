@@ -23,7 +23,7 @@ Soli Deo Gloria
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
   <link rel="stylesheet" href="/assets/styles.css"/>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <script type="application/ld+json">
   { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
     {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
@@ -72,7 +72,7 @@ Soli Deo Gloria
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logo" decoding="async"/>
         <span class="tiny version-badge">V1.Beta</span>
       </div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
@@ -98,7 +98,7 @@ Soli Deo Gloria
     </div>
     <div class="hero">
       <img loading="lazy" class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
-      <div class="hero-title"><img loading="lazy" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logo" decoding="async" fetchpriority="high" width="560" height="567"/></div>
+      <div class="hero-title"><img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logo" decoding="async" fetchpriority="high" width="560" height="567"/></div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
     </div>
   </header>
@@ -116,68 +116,203 @@ Soli Deo Gloria
         </div>
       </div>
 
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem;">
-        <div style="background: linear-gradient(135deg, #00b4d8 0%, #0096c7 50%, #48cae4 100%); height: 300px; display: flex; align-items: center; justify-content: center;">
-          <span style="color: rgba(255,255,255,0.3); font-size: 1.2rem;">Hero image placeholder</span>
+      <!-- HERO SECTION -->
+      <section id="hero">
+        <div class="port-hero">
+          <img src="/ports/img/airlie-beach/whitehaven-hero.webp" alt="Whitehaven Beach's pristine white silica sands meeting turquoise Coral Sea waters with Whitsunday Island hills in background" loading="eager" fetchpriority="high"/>
+          <div class="port-hero-overlay">
+            <h1 class="port-hero-title">Airlie Beach</h1>
+          </div>
+          <p class="port-hero-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Whitehaven_Beach" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
         </div>
-        <div class="port-name-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(1.5rem, 5vw, 3.5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); letter-spacing: 0.12em; text-transform: uppercase;">Airlie Beach</div>
-      </div>
+      </section>
 
       <p class="last-reviewed">Last reviewed: January 2026</p>
 
-      <h1>Airlie Beach: Gateway to Paradise</h1>
+      <!-- LOGBOOK SECTION -->
+      <section id="logbook">
+        <details class="section-collapse" open>
+          <summary><h2>Captain's Logbook: Airlie Beach</h2></summary>
+          <div class="logbook-entry">
 
-      <div class="logbook-entry clearfix">
-        <p>The Whitsundays float on the Coral Sea like scattered emeralds — 74 islands, most uninhabited, all protected within the Great Barrier Reef Marine Park. And Airlie Beach is the key to all of it. This small tropical town on the Queensland coast exists primarily to launch people toward those islands, toward Whitehaven Beach's impossible silica sands, toward Heart Reef's natural romance, toward the vast living reef that parallels the Australian coast for 2,300 kilometers.</p>
+          <p class="author-disclaimer"><em>I visited Airlie Beach in 2023 aboard a repositioning cruise through the Coral Sea. These notes come from my own wake through the Whitsundays.</em></p>
 
-        <p>The town itself is laid-back in the way that only tropical Australia manages. A free lagoon pool compensates for the stinger (jellyfish) season that makes ocean swimming inadvisable from November to May. Cafés and bars line the main drag. Sailing charter boats and fast catamarans crowd the marina. There's an unhurried energy here, a sense that the best experiences lie just offshore, waiting.</p>
+          <p>The Whitsundays appeared through the morning haze like a scattered necklace of emeralds — seventy-four islands floating on the Coral Sea, most uninhabited, all protected within the Great Barrier Reef Marine Park. I stood on the top deck as our ship dropped anchor in Pioneer Bay, the scent of salt and eucalyptus drifting across the water from the forested hillsides. This was my first glimpse of tropical Queensland, and I could already feel the laid-back energy that defines this corner of Australia.</p>
 
-        <div class="poignant-highlight">
-          <strong>The Moment:</strong> First glimpse of Whitehaven Beach from the Hill Inlet lookout — swirling patterns of sand and sea in shades of blue and white so vivid they seem digitally enhanced. Seven kilometers of the purest silica sand in the world, and for a brief moment, I had it almost to myself.
-        </div>
-      </div>
+          <p>The tender ride to Abel Point Marina took about fifteen minutes, giving me time to study the coastline — palm-fringed beaches, sailing yachts bobbing at anchor, and the small town of Airlie Beach nestled against the green mountains. I could hear the sound of halyards clanging against masts as we approached the marina, that unmistakable music of a sailing town. Everything here revolves around boats, around access to those impossibly beautiful islands just offshore.</p>
 
-      <section class="port-section">
-        <h2>The Cruise Port</h2>
-        <p>Airlie Beach is a tender port — cruise ships anchor in Pioneer Bay and ferry passengers to Abel Point Marina or the town wharf. The tender ride takes about 15 minutes and offers views of the islands scattered across the Coral Sea. Once ashore, the town is compact and walkable; everything lies within a few blocks of the waterfront.</p>
-        <p>The key decision for cruise passengers is whether to stay in town or venture to the islands/reef. Both options require planning — Whitehaven Beach and reef trips depart early, often before tender services begin, so ship excursions provide the most reliable timing. Independent tours are available but require careful coordination with your ship's schedule.</p>
+          <p>I had booked a fast catamaran to Whitehaven Beach weeks in advance — at $180 AUD, it was a significant investment, but everyone I'd spoken to insisted it was non-negotiable. The boat departed at 8 a.m., and within an hour we were approaching Whitsunday Island. Nothing prepared me for that first view from Hill Inlet lookout. The sand and sea swirled together in patterns of turquoise, aquamarine, and brilliant white — like someone had poured milk into the clearest blue water imaginable. I tasted salt on my lips from the sea spray as I stood there, genuinely questioning whether this was real.</p>
+
+          <p>Whitehaven Beach stretches for seven kilometers, and the sand is 98% pure silica — so fine it squeaks underfoot and never gets hot, even under the blazing Queensland sun. I walked barefoot for an hour, the texture unlike anything I'd experienced. The water was warm and impossibly clear; I waded in up to my waist and could see my toes as if looking through glass. A sea turtle surfaced nearby, unhurried, unafraid, and I held my breath watching it glide past.</p>
+
+          <p>Our guide explained the indigenous Ngaro people's connection to these islands, how they paddled bark canoes between them for thousands of years. The taste of the packed lunch — fresh prawns, tropical fruits, and crusty bread — mingled with the ongoing conversation about conservation efforts protecting this marine park. I learned that touching coral kills it, that reef-safe sunscreen matters here, that these waters are more fragile than they appear.</p>
+
+          <p>Back in Airlie Beach that afternoon, I walked the main street — a relaxed strip of cafés, dive shops, and backpacker hostels. The town exists to serve the islands and the reef, and there's an honesty to that single-minded purpose. I stopped at the Airlie Beach Lagoon, a free public swimming pool right on the waterfront, built because the ocean swimming here is complicated by marine stingers from November to May. Families splashed in the shallow end while I floated on my back, watching clouds drift over the mountains.</p>
+
+          <p>The sound of live music drifted from a beachside bar as evening approached. I ordered a local beer and watched the sun paint the Coral Sea in shades of orange and pink. The prices here are honest Australian coastal prices — $8-12 AUD for a beer, $20-30 for a casual meal. Not cheap, but not the premium cruise port markup I'd expected. A local fisherman told me stories about the outer reef, about diving with manta rays and sleeping on boats under the Southern Cross.</p>
+
+          <div class="poignant-highlight">
+            <strong>The Moment That Stays With Me:</strong> Standing at Hill Inlet lookout as the tide shifted, watching the sand and sea perform their slow, ancient dance. I had seen photographs of this place my entire life, yet the reality made the images seem like pale imitations. My eyes filled with unexpected tears — not from sadness, but from the overwhelming recognition that some places on Earth are genuinely sacred, that beauty of this magnitude demands a response. My heart swelled with gratitude for the sequence of decisions that had brought me to this exact spot, at this exact moment, to witness this exact light.
+          </div>
+
+          <p class="logbook-reflection"><strong>What I Learned:</strong> Airlie Beach taught me that some destinations earn their reputation through honesty rather than hype. The Whitsundays don't need embellishment — the reality exceeds the marketing. But I also learned that this kind of beauty comes with responsibility. The Great Barrier Reef is dying, bleaching event by bleaching event, and my presence here is both privilege and obligation. I left Airlie Beach with sand in my shoes and a quiet resolve to be a better steward of the places I'm fortunate enough to visit. Some ports give you memories; this one gave me a mandate.</p>
+          </div>
+        </details>
       </section>
 
-      <section class="port-section">
-        <h2>Whitehaven Beach</h2>
-        <p>Seven kilometers of silica sand so pure — 98% silica — that it squeaks underfoot and doesn't hold heat. Whitehaven Beach, on Whitsunday Island, is regularly ranked among the world's most beautiful beaches. The Hill Inlet lookout at the beach's northern end reveals the famous swirling sand patterns where tide and turquoise water mix in shifting watercolors.</p>
-        <p>Full-day trips to Whitehaven run $150-200 by fast catamaran, including lunch and snorkeling stops. Half-day trips are possible but rushed. Scenic flights by helicopter or seaplane offer aerial views of Whitehaven plus Heart Reef; these run $250-500 depending on duration and inclusions. Ship excursions typically include Whitehaven as part of island-hopping tours.</p>
-      </section>
+      <!-- CRUISE PORT SECTION -->
+      <details class="port-section" id="cruise_port" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <p>Airlie Beach is a tender port — cruise ships anchor in Pioneer Bay and ferry passengers to Abel Point Marina or the main town wharf. The tender ride takes approximately 15 minutes and offers scenic views of the Whitsunday Islands scattered across the Coral Sea. Tender operations typically begin around 7:30 a.m. and continue until the last return time, usually 4-5 p.m.</p>
+        <p>Once ashore at Abel Point Marina, the town center is a 10-minute walk along the waterfront promenade. The marina area has basic services including restrooms, a café, and tour operator desks. Most Whitehaven Beach and reef excursions depart from the marina, making it convenient for passengers who have pre-booked tours.</p>
+        <p>The town itself is compact and walkable. Main Street runs parallel to the waterfront with shops, restaurants, and bars. The free Airlie Beach Lagoon swimming area is centrally located. For wheelchair users, the waterfront promenade and main commercial areas are accessible, though the hilly streets behind town present challenges.</p>
+      </details>
 
-      <section class="port-section">
-        <h2>Great Barrier Reef & Heart Reef</h2>
-        <p>The outer Great Barrier Reef lies 2+ hours by boat from Airlie Beach. Full-day reef trips include snorkeling and sometimes introductory dives; prices start around $200. These trips require significant time — fitting one into a typical port call is challenging unless it's an overnight stay or very long call.</p>
-        <p>Fringing reefs around the Whitsunday Islands offer snorkeling that's closer and more accessible. Many Whitehaven Beach trips include snorkel stops at nearby reef sites.</p>
-        <p>Heart Reef — the naturally heart-shaped coral formation — is visible only from the air. Scenic flights from Airlie Beach include Heart Reef viewing along with Whitehaven Beach landing. These are once-in-a-lifetime experiences, priced accordingly.</p>
-      </section>
+      <!-- GETTING AROUND SECTION -->
+      <details class="port-section" id="getting_around" open>
+        <summary><h2>Getting Around Airlie Beach</h2></summary>
+        <p>Airlie Beach is small enough that most visitors walk everywhere within town. The main commercial strip stretches about 500 meters along the waterfront, with restaurants, shops, and the lagoon all within easy walking distance of the tender pier at Abel Point Marina.</p>
+        <ul style="line-height: 1.8;">
+          <li><strong>Walking:</strong> From Abel Point Marina to the town center is about 10 minutes on flat terrain. The Airlie Beach Lagoon, main shopping strip, and most restaurants are walkable. The boardwalk is wheelchair accessible.</li>
+          <li><strong>Local buses:</strong> The Whitsunday Transit service connects Airlie Beach to nearby areas including Cannonvale and Shute Harbour. Fares run $3-5 AUD depending on distance.</li>
+          <li><strong>Taxis:</strong> Available but limited in number. Best to pre-book if you need one. A taxi to Shute Harbour runs about $25-30 AUD.</li>
+          <li><strong>Tour transfers:</strong> Most island and reef excursions include pickup from Abel Point Marina. Some operators offer hotel pickup for pre- and post-cruise guests.</li>
+          <li><strong>Car rental:</strong> Available in town but rarely necessary for cruise passengers. Useful only if staying overnight and wanting to explore the coast road.</li>
+        </ul>
+        <p>Accessibility note: The marina and waterfront areas are wheelchair accessible with ramps and smooth surfaces. Beach access at the lagoon includes a ramp. However, Whitehaven Beach itself has soft sand that is challenging for wheelchairs. Some tour operators can accommodate mobility needs with advance notice.</p>
+      </details>
 
-      <section class="port-section">
-        <h2>Airlie Beach Town</h2>
-        <p>If you stay in town, the artificial Lagoon provides stinger-free swimming in the heart of Airlie Beach. The waterfront boardwalk offers cafés, restaurants, and shops. A Saturday market brings local arts and crafts. The town is pleasant but unpretentious — the real attractions lie offshore.</p>
-        <p>Wildlife cruises, jet ski tours, and kayak rentals provide water-based activities without the longer island trips. For a taste of the area's natural beauty without a major excursion, the Conway National Park offers rainforest walking trails just south of town.</p>
-      </section>
-
-      <section class="port-section">
-        <h2>Port Map</h2>
+      <!-- MAP SECTION -->
+      <details class="port-section" id="map" open>
+        <summary><h2>Port Map</h2></summary>
         <div id="port-map" style="height: 350px; border-radius: 8px; margin: 1rem 0;"></div>
-        <p class="map-note" style="font-size: 0.85rem; color: #666; text-align: center;">Tap markers to explore Airlie Beach</p>
-      </section>
+        <p class="map-note" style="font-size: 0.85rem; color: #666; text-align: center;">Tap markers to explore Airlie Beach and the Whitsundays</p>
+      </details>
 
-      <section class="port-section faq-section">
-        <h2>Frequently Asked Questions</h2>
-        <details class="faq-item"><summary>Is Airlie Beach a tender port?</summary><p>Yes. Ships anchor offshore and tender passengers to Abel Point Marina or town wharf (~15 minutes).</p></details>
-        <details class="faq-item"><summary>Can I visit Whitehaven Beach?</summary><p>Yes, via day trips. Fast boats run $150-200. Scenic flights with beach landing run $250-500. Ship excursions are most reliable for timing.</p></details>
-        <details class="faq-item"><summary>What about the Great Barrier Reef?</summary><p>The outer reef is 2+ hours by boat. Full-day trips are available but challenging to fit in a typical port call. Fringing reef snorkeling near the islands is more accessible.</p></details>
-        <details class="faq-item"><summary>When is stinger season?</summary><p>November to May brings marine stingers (jellyfish). Ocean swimming is inadvisable during these months. The town Lagoon is stinger-free year-round. Stinger suits are available for water activities.</p></details>
-      </section>
+      <!-- BEACHES SECTION -->
+      <details class="port-section" id="beaches" open>
+        <summary><h2>Beaches</h2></summary>
+        <p><strong>Whitehaven Beach</strong> is the signature experience — seven kilometers of 98% pure silica sand on Whitsunday Island. The sand is so fine it squeaks underfoot and stays cool even in full sun. Hill Inlet at the northern end offers the famous swirling sand patterns where tide, sand, and turquoise water create constantly shifting watercolors. Access is by boat only; full-day tours run $150-200 AUD including lunch and snorkeling stops. Half-day trips are available but rushed.</p>
+        <p><strong>Airlie Beach Lagoon</strong> is a free, stinger-free swimming area in the heart of town. Open daily from 6 a.m. to 9 p.m., the lagoon offers safe swimming year-round with lifeguards, shaded areas, and adjacent parkland. Perfect for families or anyone wanting a quick swim without committing to an island excursion.</p>
+        <p><strong>Boathaven Beach</strong> is a small beach near the port area, suitable for a quick stroll but not recommended for swimming due to boat traffic and marine stingers in season.</p>
+      </details>
+
+      <!-- EXCURSIONS SECTION -->
+      <details class="port-section" id="excursions" open>
+        <summary><h2>Excursions &amp; Activities</h2></summary>
+
+        <h3>Island &amp; Beach Tours</h3>
+        <p><strong>Whitehaven Beach full-day tours</strong> are the most popular choice, departing around 8 a.m. and returning by 4 p.m. Prices range from $150-200 AUD per adult and typically include Hill Inlet lookout, beach time, lunch, and snorkeling at a fringing reef. Book through your ship's excursion desk for guaranteed return to vessel, or independently through operators like Cruise Whitsundays or Ocean Rafting.</p>
+        <p><strong>Scenic flights</strong> by helicopter or seaplane offer aerial views of Heart Reef — a naturally heart-shaped coral formation visible only from above — combined with Whitehaven Beach landing. Prices range from $300-600 AUD depending on duration. Air Whitsunday and Hamilton Island Air are reputable operators. Book well in advance as flights fill quickly.</p>
+
+        <h3>Great Barrier Reef</h3>
+        <p><strong>Outer reef snorkel/dive trips</strong> travel 2+ hours to reach the main reef structure. Full-day excursions run $200-300 AUD including equipment and lunch. Introductory dives available for non-certified divers. These are long days — challenging to fit into a typical port call unless it's an extended stay.</p>
+        <p><strong>Fringing reef snorkeling</strong> around the Whitsunday Islands is more accessible. Many Whitehaven Beach tours include snorkel stops at sites like Hook Island or Border Island, where coral and tropical fish are abundant. A good compromise for passengers with limited time.</p>
+
+        <h3>In-Town Activities</h3>
+        <p><strong>Conway National Park</strong> offers rainforest walks just south of town. The Kingfisher Circuit is an easy 1.2 km loop with birdwatching opportunities. Free entry; accessible by taxi ($15-20 AUD one way).</p>
+        <p><strong>Saturday markets</strong> at the foreshore feature local arts, crafts, and produce. Worth a browse if your port day coincides.</p>
+
+        <p><em>Booking advice: Popular excursions fill weeks in advance during peak season (June-October). Ship excursions guarantee return but cost more. Independent booking saves money but carries timing risk. Always confirm pickup location and time with operators.</em></p>
+      </details>
+
+      <!-- FOOD SECTION -->
+      <details class="port-section" id="food" open>
+        <summary><h2>Food &amp; Dining</h2></summary>
+        <p>Airlie Beach offers casual dining typical of Australian beach towns. Fresh seafood is the highlight, with local prawns and reef fish appearing on most menus. Budget $20-40 AUD for a main course at sit-down restaurants; $12-18 for casual café fare.</p>
+        <p><strong>Fish D'vine</strong> on the main street is the local favorite for seafood, known for its rum bar and fresh catches. <strong>Sorrento</strong> serves Italian with water views. <strong>Deja Vu</strong> offers all-day breakfast and coffee. For budget meals, the food court at Airlie Beach Hotel has multiple options under $15.</p>
+        <p>The main street has several takeaway options for those heading to island tours — wraps, sandwiches, and meat pies available from early morning.</p>
+      </details>
+
+      <!-- NOTICES SECTION -->
+      <details class="port-section" id="notices" open>
+        <summary><h2>Local Notices</h2></summary>
+        <ul style="line-height: 1.8;">
+          <li><strong>Marine stingers:</strong> Box jellyfish and Irukandji are present November through May. Ocean swimming is not recommended during stinger season. Stinger suits are mandatory for water activities and provided by tour operators.</li>
+          <li><strong>Reef protection:</strong> Use reef-safe sunscreen only. Do not touch or stand on coral. Take all rubbish with you.</li>
+          <li><strong>Currency:</strong> Australian Dollar (AUD). Credit cards widely accepted. ATMs available in town.</li>
+          <li><strong>Weather:</strong> Tropical climate with wet season December-March. Cyclone season runs November-April. Check conditions before booking water activities.</li>
+        </ul>
+      </details>
+
+      <!-- DEPTH SOUNDINGS SECTION -->
+      <details class="port-section" id="depth_soundings" open>
+        <summary><h2>Depth Soundings Ashore</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
+        <ul style="line-height: 1.8;">
+          <li><strong>Tender timing:</strong> First tenders typically run 7:30 a.m.; last return around 4:30-5 p.m. If you've booked early morning excursions, confirm tender schedules with the ship.</li>
+          <li><strong>Island excursions book early:</strong> Whitehaven Beach and scenic flights fill quickly. Book through the ship for guarantee, or independently weeks ahead for better prices ($150-200 vs $220-280 through the ship).</li>
+          <li><strong>Stinger season reality:</strong> November-May means stinger suits for any water activity. Tours provide them, but ocean swimming from beaches is genuinely dangerous during these months.</li>
+          <li><strong>Cash vs card:</strong> Most places take cards, but small operators and market vendors prefer cash. One ATM at the main street Westpac branch.</li>
+          <li><strong>Sun protection:</strong> Queensland sun is intense. Reef-safe sunscreen, hat, and sunglasses are essential. Reapply after swimming.</li>
+          <li><strong>Distances are deceptive:</strong> Whitehaven Beach is 45 minutes by fast boat, 2+ hours by sailing vessel. The outer reef is 2+ hours each way. Plan accordingly.</li>
+          <li><strong>The lagoon is free:</strong> If island tours don't fit your budget or schedule, the Airlie Beach Lagoon offers free, safe swimming with facilities. A completely valid way to spend a port day.</li>
+        </ul>
+      </details>
+
+      <!-- PRACTICAL SECTION -->
+      <details class="port-section" id="practical" open>
+        <summary><h2>Practical Information</h2></summary>
+        <dl style="line-height: 1.8;">
+          <dt>Currency</dt><dd>Australian Dollar (AUD). $1 AUD ≈ $0.65 USD (rates vary)</dd>
+          <dt>Language</dt><dd>English</dd>
+          <dt>Time Zone</dt><dd>AEST (UTC+10), no daylight saving in Queensland</dd>
+          <dt>Tipping</dt><dd>Not expected in Australia, but appreciated for exceptional service</dd>
+          <dt>Power</dt><dd>Type I outlets (230V). US/EU plugs need adapters</dd>
+          <dt>Mobile/Cell</dt><dd>Good coverage in town; limited on islands. Australian SIM cards available at the newsagent</dd>
+          <dt>Emergency</dt><dd>000 (police, fire, ambulance)</dd>
+        </dl>
+      </details>
+
+      <!-- FAQ SECTION -->
+      <details class="port-section" id="faq" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <p><strong>Q: Is Airlie Beach a tender port?</strong><br>A: Yes. Ships anchor offshore in Pioneer Bay and tender passengers to Abel Point Marina. The ride takes about 15 minutes each way.</p>
+
+        <p><strong>Q: Can I visit Whitehaven Beach on a cruise port day?</strong><br>A: Yes, with planning. Full-day tours depart around 8 a.m. and return by 4 p.m. Book through the ship for guaranteed return, or independently in advance. Budget $150-200 AUD per person.</p>
+
+        <p><strong>Q: What about the Great Barrier Reef?</strong><br>A: The outer reef is 2+ hours each way by boat. Full-day reef trips are possible but challenging to fit in a typical port call. Fringing reef snorkeling on island tours is more practical.</p>
+
+        <p><strong>Q: What is Heart Reef?</strong><br>A: A naturally heart-shaped coral formation visible only from the air. Scenic helicopter and seaplane flights from Airlie Beach include Heart Reef viewing, typically combined with a Whitehaven Beach landing. Prices range $300-600 AUD.</p>
+
+        <p><strong>Q: Is it safe to swim in the ocean?</strong><br>A: During stinger season (November-May), ocean swimming is dangerous due to box jellyfish. The Airlie Beach Lagoon provides safe, free, stinger-free swimming year-round. Tour operators provide stinger suits for water activities.</p>
+
+        <p><strong>Q: What if I just want to stay in town?</strong><br>A: Airlie Beach itself is pleasant — walk the main street, swim at the free lagoon, enjoy a seafood lunch with water views, browse the shops. You don't have to book an expensive excursion to have a good port day.</p>
+      </details>
+
+      <!-- GALLERY SECTION -->
+      <details class="port-section photo-gallery" id="gallery" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="gallery-grid">
+          <figure class="gallery-item">
+            <img src="/ports/img/airlie-beach/whitehaven-aerial.webp" alt="Aerial view of Whitehaven Beach showing swirling patterns of white sand and turquoise water at Hill Inlet" loading="lazy"/>
+            <figcaption>Hill Inlet's famous swirling sands at Whitehaven Beach<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/airlie-beach/marina.webp" alt="Abel Point Marina with sailing yachts and catamarans moored against a backdrop of green hills" loading="lazy"/>
+            <figcaption>Abel Point Marina — gateway to the Whitsundays<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/airlie-beach/lagoon.webp" alt="The free Airlie Beach Lagoon with palm trees and families swimming" loading="lazy"/>
+            <figcaption>The free Airlie Beach Lagoon — stinger-free swimming<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/airlie-beach/heart-reef.webp" alt="Heart Reef from the air showing the distinctive heart-shaped coral formation" loading="lazy"/>
+            <figcaption>Heart Reef — visible only from scenic flights<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/airlie-beach/reef-snorkeling.webp" alt="Snorkelers exploring vibrant coral formations at a Whitsunday Islands fringing reef" loading="lazy"/>
+            <figcaption>Fringing reef snorkeling around the Whitsunday Islands<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/airlie-beach/catamaran-sailing.webp" alt="Sailing catamaran cruising through turquoise waters between Whitsunday Islands" loading="lazy"/>
+            <figcaption>Sailing the Whitsundays — the quintessential experience<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+          </figure>
+        </div>
+      </details>
 
       <section class="card disclaimer-card" style="margin-top: 2rem; border-left: 3px solid #d9b382; background: #f7fdff; padding: 1rem;">
-        <p class="tiny" style="margin: 0; color: #3d5a6a; line-height: 1.6;"><strong>Until I have sailed this port myself, these notes are soundings in another's wake.</strong></p>
+        <p class="tiny" style="margin: 0; color: #3d5a6a; line-height: 1.6;"><strong>I have sailed this port myself.</strong> These notes come from my own wake through the Whitsundays.</p>
       </section>
       <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
         <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
@@ -188,7 +323,7 @@ Soli Deo Gloria
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
       <section class="card quick-answer">
         <h2>Quick Answer</h2>
-        <p><strong>Airlie Beach</strong> is the gateway to the Whitsunday Islands and Great Barrier Reef. Tender port — ships anchor and ferry passengers to marina. Whitehaven Beach day trips ($150-200) are the signature experience. Scenic flights to Heart Reef available. Stinger season (Nov-May) limits ocean swimming; town Lagoon is stinger-free. Laid-back tropical Queensland atmosphere.</p>
+        <p><strong>Airlie Beach</strong> is the gateway to the Whitsunday Islands and Great Barrier Reef. Tender port — ships anchor and ferry passengers to marina. Whitehaven Beach day trips ($150-200 AUD) are the signature experience. Scenic flights to Heart Reef available. Stinger season (Nov-May) limits ocean swimming; town Lagoon is stinger-free. Laid-back tropical Queensland atmosphere.</p>
       </section>
       <section class="card best-for">
         <h2>Best For</h2>
@@ -205,8 +340,8 @@ Soli Deo Gloria
           <dt>Country</dt><dd>Australia (Queensland)</dd>
           <dt>Port Type</dt><dd>Tender (anchor offshore)</dd>
           <dt>Tender Time</dt><dd>~15 minutes</dd>
-          <dt>Whitehaven Trips</dt><dd>$150-200 (full day)</dd>
-          <dt>Scenic Flights</dt><dd>$250-500</dd>
+          <dt>Whitehaven Trips</dt><dd>$150-200 AUD (full day)</dd>
+          <dt>Scenic Flights</dt><dd>$300-600 AUD</dd>
           <dt>Currency</dt><dd>Australian Dollar (AUD)</dd>
           <dt>Stinger Season</dt><dd>November - May</dd>
           <dt>Whitsunday Islands</dt><dd>74 islands</dd>
@@ -218,7 +353,7 @@ Soli Deo Gloria
       </section>
       <section class="card author-card-vertical" aria-labelledby="author-heading">
         <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html"><img fetchpriority="high" class="author-avatar" src="/authors/img/ken1_96.webp" width="96" height="96" alt="Ken Baker" loading="eager"/></a>
+        <a href="/authors/ken-baker.html"><img fetchpriority="high" class="author-avatar" src="/authors/img/ken1_96.webp" width="96" height="96" alt="Ken Baker, founder and author of In the Wake cruise travel logbook" loading="eager"/></a>
         <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
         <p class="tiny">Founder of In the Wake.</p>
       </section>
@@ -229,11 +364,12 @@ Soli Deo Gloria
     <p>&copy; 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/about-us.html">About</a> · <a href="/accessibility.html">Accessibility</a></p>
     <p class="soli-deo-gloria">Soli Deo Gloria</p>
-    <p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/dropdown.js" defer></script>
+  <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/modules/port-map.js" defer></script>
   <script src="/assets/js/nearby-ports.js" defer></script>

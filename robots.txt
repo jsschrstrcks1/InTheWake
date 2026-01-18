@@ -1,5 +1,5 @@
 # robots.txt for https://cruisinginthewake.com/
-# Last updated: 2026-01-03
+# Last updated: 2026-01-07
 # Purpose: Allow full indexing of public content while preventing crawl of
 #          internal assets, admin pages, and development files.
 
@@ -25,7 +25,6 @@ Allow: /ports.html
 Allow: /articles.html
 Allow: /packing-lists.html
 Allow: /packing.html
-Allow: /drinks.html
 Allow: /accessibility.html
 Allow: /drink-packages.html
 Allow: /drink-calculator.html
@@ -57,6 +56,14 @@ Disallow: /drafts/
 Disallow: /staging/
 Disallow: /tmp/
 Disallow: /*.php$
+
+# === Disallow legacy/phantom paths (redirects exist but should not crawl) ===
+Disallow: /ships/carnival-cruise-line/  # Legacy path, redirects to /ships/carnival/
+Disallow: /restaurants_index_stub.html  # Stub page
+Disallow: /ships/ships.html             # Phantom path
+Disallow: /showmenu:*                   # Malformed query-as-path URLs
+Disallow: /drinks.html                  # Redirect stub → /drink-packages.html
+Disallow: /restaurants/chops-grille*    # Phantom pages → /restaurants/chops.html
 
 # === Disallow ship asset directories ===
 Disallow: /ships/*/assets/
@@ -95,3 +102,7 @@ Sitemap: https://cruisinginthewake.com/sitemap.xml
 # - Tools (port tracker, ship tracker, ship size atlas) are indexed
 # - Asset directories (ships/*/assets/, /videos/) blocked to prevent JSON indexing
 # - Updated 2026-01-03: Expanded to 15 cruise lines, 372 ports, 294 ships
+# - Updated 2026-01-07: Added blocks for legacy carnival-cruise-line path, stub pages,
+#   and other phantom paths causing 404 errors in Google Search Console
+# - Removed problematic /*$* pattern that was incorrectly blocking legitimate ship pages
+#   (template variable URLs are handled by .htaccess redirects instead)

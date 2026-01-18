@@ -118,7 +118,7 @@ Soli Deo Gloria
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <header class="hero-header" role="banner">
     <div class="navbar">
-      <div class="brand"><img loading="lazy" src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake"/><span class="tiny version-badge">V1.Beta</span></div>
+      <div class="brand"><img loading="lazy" src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake cruise travel logo"/><span class="tiny version-badge">V1.Beta</span></div>
       <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon">
@@ -161,7 +161,7 @@ Soli Deo Gloria
     </div>
     <div class="hero">
       <img loading="lazy" class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="" aria-hidden="true"/>
-      <div class="hero-title"><img loading="lazy" class="logo" src="/assets/logo_wake_560.png" alt="In the Wake" width="560" height="567"/></div>
+      <div class="hero-title"><img loading="eager" class="logo" src="/assets/logo_wake_560.png" alt="In the Wake cruise travel logo" width="560" height="567"/></div>
       <div class="tagline">A Cruise Traveler's Logbook</div>
     </div>
   </header>
@@ -318,7 +318,7 @@ Soli Deo Gloria
 
         <section class="port-section">
           <h2>The Transit Experience</h2>
-          <p>Ships cross Gatun Lake at reduced speed — typically 8-10 knots — both for safety and to minimize wake that could erode the shoreline. This slower pace is perfect for viewing. The crossing takes 2-3 hours depending on your ship's route through the lake. Some ships pass close to Barro Colorado Island; others take a more direct route.</p>
+          <p>Ships cross Gatun Lake at reduced speed — typically 8-10 knots — both for safety and to minimize wake that could erode the shoreline. This slower pace is ideal for viewing. The crossing takes 2-3 hours depending on your ship's route through the lake. Some ships pass close to Barro Colorado Island; others take a more direct route.</p>
 
           <p>Most cruise lines provide expert narration during the canal transit, explaining the history, engineering, and ecology of Gatun Lake. Listen for stories about the "tree islands" — hilltops that became isolated islands when the valley flooded, each now its own miniature ecosystem.</p>
         </section>
@@ -447,12 +447,13 @@ Soli Deo Gloria
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center visually-hidden" aria-hidden="true">Soli Deo Gloria</p>
-    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- JAVASCRIPT -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/dropdown.js" defer></script>
+  <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/fun-distance-units.js" defer></script>
   <script src="/assets/js/whimsical-port-units.js" defer></script>
 
@@ -510,9 +511,9 @@ Soli Deo Gloria
 
       if(totalPages > 1){
         const navHTML = '<div style="display:flex;justify-content:space-between;align-items:center;">' +
-          '<button onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
           '<span class="tiny" style="color:#5a7a8a;">' + (page + 1) + ' / ' + totalPages + '</span>' +
-          '<button onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
         '</div>';
         navTop.innerHTML = navHTML;
         navBottom.innerHTML = navHTML;

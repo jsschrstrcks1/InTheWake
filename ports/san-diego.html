@@ -126,7 +126,7 @@ Soli Deo Gloria
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <header class="hero-header" role="banner">
     <div class="navbar">
-      <div class="brand"><img loading="lazy" src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake"/><span class="tiny version-badge">V1.Beta</span></div>
+      <div class="brand"><img loading="lazy" src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake cruise travel logo"/><span class="tiny version-badge">V1.Beta</span></div>
       <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon">
@@ -169,7 +169,7 @@ Soli Deo Gloria
     </div>
     <div class="hero">
       <img loading="lazy" class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="" aria-hidden="true"/>
-      <div class="hero-title"><img loading="lazy" class="logo" src="/assets/logo_wake_560.png" alt="In the Wake" width="560" height="567"/></div>
+      <div class="hero-title"><img loading="eager" class="logo" src="/assets/logo_wake_560.png" alt="In the Wake cruise travel logo" width="560" height="567"/></div>
       <div class="tagline">A Cruise Traveler's Logbook</div>
     </div>
   </header>
@@ -347,7 +347,7 @@ Soli Deo Gloria
             <li><strong>Cabrillo National Monument:</strong> Point Loma headland with tide pools, Old Point Loma Lighthouse (1855), and stunning harbor views. Commemorates Juan Rodriguez Cabrillo's 1542 landing — first European on West Coast. <a href="https://www.nps.gov/cabr" target="_blank" rel="noopener">NPS Cabrillo</a></li>
             <li><strong>San Diego Zoo:</strong> World-famous zoo with 4,000+ animals — plan at least half a day. Book through <a href="https://www.viator.com/San-Diego-tours/Nature-and-Wildlife/d616-g6-c64" target="_blank" rel="noopener">Viator</a></li>
             <li><strong>Balboa Park:</strong> 1,200-acre cultural hub with 17 museums, Spanish Colonial architecture, and stunning gardens</li>
-            <li><strong>Gaslamp Quarter:</strong> 16-block National Historic District with Victorian architecture, restaurants, rooftop bars, and nightlife</li>
+            <li><strong>Gaslamp Quarter:</strong> 16-block National Historic District with Victorian architecture, restaurants, rooftop bars, and evening entertainment</li>
             <li><strong>Coronado Island:</strong> Beach, iconic Hotel del Coronado (1888), accessible by ferry or bridge — consistently rated top beach in America</li>
             <li><strong>Old Town San Diego:</strong> Birthplace of California — Mexican heritage, authentic cuisine, and free museums</li>
             <li><strong>La Jolla:</strong> Upscale coastal village with sea caves, seals, and world-class snorkeling/kayaking (20 min north)</li>
@@ -483,7 +483,7 @@ Soli Deo Gloria
     <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
   </main>
 
-  <footer class="wrap" role="contentinfo"><p>© 2025 In the Wake</p>  <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
+  <footer class="wrap" role="contentinfo"><p>© 2025 In the Wake</p>  <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
   <script>window.currentPortId = 'san-diego';</script>
   <script src="/assets/js/nearby-ports.js"></script>
@@ -558,9 +558,9 @@ Soli Deo Gloria
 
       if(totalPages > 1){
         const navHTML = '<div style="display:flex;justify-content:space-between;align-items:center;">' +
-          '<button onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
           '<span class="tiny" style="color:#5a7a8a;">' + (page + 1) + ' / ' + totalPages + '</span>' +
-          '<button onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
         '</div>';
         navTop.innerHTML = navHTML;
         navBottom.innerHTML = navHTML;

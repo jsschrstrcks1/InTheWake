@@ -10,7 +10,7 @@ All work on this project is offered as a gift to God.
 <head>
 <!-- ai-breadcrumbs
      name: Coral Princess
-     entity: Coral Princess
+     entity: Ship
      type: Ship Information Page
      parent: /ships.html
      category: Princess Cruises Fleet
@@ -49,6 +49,7 @@ All work on this project is offered as a gift to God.
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://cruisinginthewake.com/ships/princess/coral-princess.html"/>
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/ships-hero.jpg"/>
+  <meta property="og:locale" content="en_US"/>
   <meta property="og:title" content="Coral Princess — Princess Cruises Ship Guide"/>
   <meta property="og:description" content="Explore Coral Princess: Coral Class ship with 1,970 guests. Dining, entertainment, and planning resources."/>
   <meta name="twitter:card" content="summary_large_image"/>
@@ -102,25 +103,6 @@ All work on this project is offered as a gift to God.
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
   <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css"/>
-
-  <style>
-    .stub-notice {
-      background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
-      border: 2px dashed #856404;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin: 1rem 0;
-      text-align: center;
-    }
-    .stub-notice h3 { color: #856404; margin: 0 0 .5rem; }
-    .stub-notice p { color: #664d03; margin: 0; }
-    .ship-specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-    .spec-item { background: var(--bg-alt, #f5f5f5); padding: 1rem; border-radius: 6px; text-align: center; }
-    .spec-label { font-size: .75rem; color: var(--text-muted); text-transform: uppercase; }
-    .spec-value { font-size: 1.25rem; font-weight: 600; color: var(--text); }
-    .quick-answer { background: #e8f4f8; border-left: 4px solid #17a2b8; padding: 1rem 1.5rem; margin: 1rem 0; border-radius: 0 8px 8px 0; }
-    .quick-answer h3 { margin: 0 0 .5rem; color: #0c5460; }
-  </style>
 
 <!-- JSON-LD: WebSite -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
@@ -197,7 +179,7 @@ All work on this project is offered as a gift to God.
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake" decoding="async"/></a>
+        <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/></a>
         <span class="tiny version-badge">V1.Beta</span>
       </div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
@@ -253,13 +235,13 @@ All work on this project is offered as a gift to God.
       </div>
       <img loading="lazy" class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img loading="lazy" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
     </div>
   </header>
 
-  <main class="wrap" id="content">
+  <main class="wrap" id="content" role="main">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a> &rsaquo;
       <a href="/ships.html">Ships</a> &rsaquo;
@@ -285,6 +267,50 @@ All work on this project is offered as a gift to God.
       <h2 id="first-look">A First Look at Coral Princess</h2>
       <p>Coral Princess offers a memorable cruise experience with Princess Cruises. This ship features modern amenities, diverse dining options, and entertainment for all ages.</p>
       <p>Explore the deck plans below to familiarize yourself with the ship's layout, or check out the dining section to see available restaurants and venues.</p>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="card" aria-labelledby="photos-title">
+      <h2 id="photos-title">Coral Princess Photo Gallery</h2>
+      <div class="photo-carousel swiper" id="photo-swiper" aria-label="Coral Princess photo gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="/assets/ships/Coral_Princess_dock.jpg" alt="Coral Princess cruise ship docked at port showing full exterior profile" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+            <p class="photo-caption">Coral Princess at port</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Coral_Princess_sea.jpg" alt="Coral Princess at sea displaying distinctive Princess wave hull livery" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+            <p class="photo-caption">Coral Princess cruising at sea</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Coral_Princess_bow.jpg" alt="Coral Princess bow view at sea showing signature Princess wave hull design" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+            <p class="photo-caption">Coral Princess bow view</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Coral_Princess_stern.jpg" alt="Coral Princess stern view docked at port" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+            <p class="photo-caption">Coral Princess stern at port</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Coral_Princess_profile.jpg" alt="Coral Princess side profile showing full ship layout" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+            <p class="photo-caption">Coral Princess full profile</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Coral_Princess_aerial.jpg" alt="Coral Princess aerial view showing deck layout" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+            <p class="photo-caption">Coral Princess aerial view</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Coral_Princess_sunset.jpg" alt="Coral Princess at sunset with dramatic sky" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+            <p class="photo-caption">Coral Princess at sunset</p>
+          </div>
+          <div class="swiper-slide">
+            <img src="/assets/ships/Coral_Princess_port_arrival.jpg" alt="Coral Princess arriving at port with tugboat assistance" loading="lazy" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
+            <p class="photo-caption">Coral Princess port arrival</p>
+          </div>
+        </div>
+        <div class="swiper-button-prev" aria-label="Previous photo"></div>
+        <div class="swiper-button-next" aria-label="Next photo"></div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+      </div>
     </section>
     <p class="subtitle">Princess Cruises &bull; Coral Class</p>
 
@@ -327,8 +353,14 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 
-    <!-- Stub Notice -->
-    
+    <!-- Dining Section -->
+    <section class="card" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on Coral Princess</h2>
+      <p>Dining venue information coming soon. Princess Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
+    </section>
+<script type="application/json" id="dining-data-source">{"provider":"princess","json":"/assets/data/venues-v2.json","ship_slug":"coral-princess","aliases":["Coral Princess"]}</script>
+        <script type="application/json" id="ship-stats-fallback">{"slug":"coral-princess","name":"Coral Princess","cruise_line":"Princess Cruises","class":"Coral Class","entered_service":2002,"gt":"91,627 GT","guests":"1,970","crew":"900"}</script>
+
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: Coral Princess</h2>
@@ -337,6 +369,11 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 
+    <!-- Entertainment Section -->
+    <section class="card" aria-labelledby="entertainmentHeading">
+      <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
+      <p>Entertainment details coming soon. Explore shows, activities, and onboard experiences.</p>
+    </section>
 
     <!-- Videos Section -->
     <section class="card" aria-labelledby="video-highlights">
@@ -400,23 +437,26 @@ All work on this project is offered as a gift to God.
     })();
     </script>
 
-    
-
-    <!-- Placeholder sections -->
-    <section class="card" aria-labelledby="diningHeading">
-      <h2 id="diningHeading">Dining on Coral Princess</h2>
-      <p>Dining venue information coming soon. Princess Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
-    </section>
-<script type="application/json" id="dining-data-source">{"provider":"princess","json":"/assets/data/venues-v2.json","ship_slug":"coral-princess","aliases":["Coral Princess"]}</script>
-        <script type="application/json" id="ship-stats-fallback">{"slug":"coral-princess","name":"Coral Princess","cruise_line":"Princess Cruises","class":"Coral Class","entered_service":2002,"gt":"91,627 GT","guests":"1,970","crew":"900"}</script>
-
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
-      <p>Entertainment details coming soon. Explore shows, activities, and onboard experiences.</p>
-    </section>
-
     <section class="grid-2">
-      <section class="card" aria-labelledby="deckPlansHeading">
+      
+    <!-- Ship Statistics -->
+    <section class="card" aria-labelledby="ship-stats-title">
+      <h2 id="ship-stats-title">Ship Statistics</h2>
+      <div id="ship-stats" class="stats-grid" data-slug="coral-princess">
+        <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">91,627 GT</div></div>
+        <div class="stat-item"><div class="label">Guests</div><div class="value">1,970</div></div>
+        <div class="stat-item"><div class="label">Crew</div><div class="value">900</div></div>
+        <div class="stat-item"><div class="label">Entered Service</div><div class="value">2002</div></div>
+        <div class="stat-item"><div class="label">Class</div><div class="value">Coral Class</div></div>
+      </div>
+    </section>
+    <section class="card" aria-labelledby="deck-plans">
+      <h2 id="deck-plans">Deck Plans</h2>
+      <p>View the official deck plans to explore cabin locations, dining venues, pools, and entertainment areas.</p>
+      <p><a href="https://www.princess.com/ships-and-experience/cruise-ships/coral-princess/" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official Deck Plans →</a></p>
+    </section>
+
+<section class="card" aria-labelledby="deckPlansHeading">
         <h2 id="deckPlansHeading">Deck Plans</h2>
         <p>View the official deck plans to explore Coral Princess's layout.</p>
         <figure>
@@ -425,7 +465,7 @@ All work on this project is offered as a gift to God.
         </figure>
         <p><a class="btn" href="https://www.princess.com/" target="_blank" rel="noopener">Visit Princess Official Site</a></p>
       </section>
-      <section class="card" aria-labelledby="trackingHeading">
+      <section class="card itinerary" aria-labelledby="trackingHeading" data-imo="9228195" data-name="CORALPRINCESS">
         <h2 id="trackingHeading">Where Is Coral Princess?</h2>
         <p>Track Coral Princess's current position and upcoming itinerary.</p>
         <p><a class="btn" href="https://www.cruisemapper.com/?search=Coral%20Princess" target="_blank" rel="noopener">Open Live Tracker</a></p>
@@ -497,7 +537,7 @@ All work on this project is offered as a gift to God.
       <section class="card author-card-vertical" aria-labelledby="author-heading">
         <h3 id="author-heading">About the Author</h3>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker" decoding="async" loading="lazy"/>
+          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker cruise research analyst and author of In The Wake ship reviews" decoding="async" loading="lazy"/>
         </a>
         <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
         <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
@@ -519,10 +559,36 @@ All work on this project is offered as a gift to God.
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria</p>
-    <p class="trust-badge">No ads. No tracking. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
+  <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
+  <script>
+    // Initialize photo gallery Swiper
+    document.addEventListener('DOMContentLoaded', function() {
+      const photoSwiper = document.getElementById('photo-swiper');
+      if (photoSwiper && window.Swiper) {
+        new Swiper('#photo-swiper', {
+          loop: false,
+          rewind: false,
+          lazy: true,
+          watchOverflow: true,
+          pagination: {
+            el: '#photo-swiper .swiper-pagination',
+            clickable: true
+          },
+          navigation: {
+            nextEl: '#photo-swiper .swiper-button-next',
+            prevEl: '#photo-swiper .swiper-button-prev'
+          },
+          a11y: {
+            enabled: true
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>

@@ -1,0 +1,471 @@
+<!--
+Soli Deo Gloria
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="ai-summary" content="Norfolk homeport features Naval Station Norfolk tours, Nauticus maritime museum, USS Wisconsin battleship. ORF Airport 15 minutes away. Virginia Beach 30 minutes. Royal Caribbean sails seasonally."/>
+  <meta name="last-reviewed" content="2026-01-11"/>
+  <meta name="content-protocol" content="ICP-Lite v1.4"/>
+  <title>Norfolk Cruise Port Guide — Naval Heritage & Virginia Beach | In the Wake</title>
+  <meta name="description" content="First-person logbook guide to Norfolk cruise homeport — Naval Station Norfolk, Nauticus museum, USS Wisconsin battleship, and gateway to Virginia Beach."/>
+  <link rel="canonical" href="https://cruisinginthewake.com/ports/norfolk.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:title" content="Norfolk Cruise Port Guide — Naval Heritage & Virginia Beach"/>
+  <meta property="og:description" content="First-person guide to Norfolk cruise homeport."/>
+  <meta property="og:url" content="https://cruisinginthewake.com/ports/norfolk.html"/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/port-hero.jpg"/>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
+  <link rel="stylesheet" href="/assets/styles.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css"/>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Ports", "item": "https://cruisinginthewake.com/ports.html"},
+      {"@type": "ListItem", "position": 3, "name": "Norfolk", "item": "https://cruisinginthewake.com/ports/norfolk.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Norfolk Cruise Port Guide",
+    "description": "Norfolk homeport features Naval Station Norfolk tours, Nauticus maritime museum, USS Wisconsin battleship. ORF Airport 15 minutes away. Virginia Beach 30 minutes. Royal Caribbean sails seasonally.",
+    "dateModified": "2026-01-11",
+    "mainEntity": {
+      "@type": "Place",
+      "name": "Norfolk",
+      "geo": {"@type": "GeoCoordinates", "latitude": 36.8508, "longitude": -76.2859}
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "What cruise lines sail from Norfolk?", "acceptedAnswer": {"@type": "Answer", "text": "Royal Caribbean offers seasonal sailings from Norfolk on Vision of the Seas to Bermuda, Bahamas, and Caribbean destinations. Carnival has also offered sailings in the past."}},
+      {"@type": "Question", "name": "How far is Norfolk Airport from the cruise terminal?", "acceptedAnswer": {"@type": "Answer", "text": "Norfolk International Airport (ORF) is approximately 8 miles from Half Moone Cruise Terminal. Rideshare or taxi takes 15-20 minutes and costs $20-35."}},
+      {"@type": "Question", "name": "Should I arrive a day early for a Norfolk cruise?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, arriving a day early is recommended to avoid missing your cruise due to travel delays. Norfolk offers Nauticus museum, USS Wisconsin, Naval Station tours, and Virginia Beach is just 30 minutes away."}},
+      {"@type": "Question", "name": "How much does parking cost at the cruise terminal?", "acceptedAnswer": {"@type": "Answer", "text": "Parking at Half Moone Cruise Terminal costs approximately $15-18 per day. Reservations recommended during peak season. The garage is attached to the terminal for convenience."}}
+    ]
+  }
+  </script>
+
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Norfolk Cruise Port Guide — Naval Heritage"/>
+  <meta name="twitter:description" content="First-person guide to Norfolk cruise homeport."/>
+  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/port-hero.jpg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+</head>
+<body class="page">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+  <header class="hero-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logo" decoding="async"/>
+        <span class="tiny version-badge">V1.Beta</span>
+      </div>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">&#9662;</span></button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
+        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav>
+    </div>
+    <div class="hero">
+      <img loading="lazy" class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logo" decoding="async" fetchpriority="high" width="560" height="567"/>
+      </div>
+      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
+    </div>
+  </header>
+
+  <main class="wrap page-grid" id="main-content" role="main">
+    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Norfolk</li></ol></nav>
+
+    <article class="card" style="grid-column: 1; grid-row: 1;">
+      <!-- HERO SECTION -->
+      <section class="port-hero" id="hero">
+        <div class="port-hero-image">
+          <img src="/ports/img/norfolk/norfolk-hero.webp" alt="Norfolk Virginia waterfront with USS Wisconsin battleship and downtown skyline" loading="eager" fetchpriority="high" onerror="this.src='/assets/social/port-hero.jpg'"/>
+          <div class="port-hero-overlay">
+            <h1 class="port-hero-title">Norfolk</h1>
+            <p class="port-hero-subtitle">America's Naval Capital</p>
+          </div>
+        </div>
+        <p class="port-hero-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
+      </section>
+
+      <!-- LOGBOOK SECTION -->
+      <details class="port-section" id="logbook" open>
+        <details class="section-collapse" open>
+          <summary><h2>My Thoughts: Cruising from America's Naval Heart</h2></summary>
+          <div class="collapse-body">
+            <div class="logbook-entry clearfix">
+              <p>Norfolk surprised me. I expected a military town with limited appeal for cruise travelers, but what I found was a waterfront city that genuinely embraces its maritime heritage while offering real experiences beyond the typical homeport routine. The presence of the world's largest naval base creates a unique atmosphere — you're sailing from a place where naval history isn't preserved in museums alone; it's alive in the water around you, with active-duty ships passing your cruise ship as you depart. There's something special about starting a vacation in a city that takes the sea this seriously.</p>
+
+              <p>What struck me most was the accessibility of genuine naval history. The USS Wisconsin, one of the last battleships ever built, sits permanently docked at Nauticus and you can walk her decks. This isn't a replica or a recreation — it's an Iowa-class battleship that served in World War II, Korea, and Desert Storm. Standing on that teak deck, looking at those massive 16-inch guns, I felt the weight of history in a way no museum exhibit could replicate. For families with kids interested in military history, or really anyone who appreciates engineering marvels, this alone justifies arriving a day early. However, if military history isn't your thing, the appeal does diminish somewhat compared to homeports like Baltimore or Charleston with broader tourist attractions.</p>
+
+              <p>The downtown waterfront has been thoughtfully developed around Town Point Park, creating pleasant walking space between the cruise terminal and attractions. I appreciated that Nauticus, the Battleship Wisconsin, and good restaurants are all within a reasonable walk from Half Moone Cruise Terminal. The Waterside District offers dining and entertainment right on the water, though I'll be honest — it feels more like a nice food hall than a must-see destination. For a pre-cruise dinner with waterfront views, it works perfectly well. On the other hand, it lacks the distinctive character of Baltimore's Inner Harbor or Charleston's historic district.</p>
+
+              <p>Virginia Beach is the wild card that makes Norfolk more attractive than it might otherwise be. Just 30 minutes from the cruise terminal, you have access to a proper Atlantic beach resort town with a long boardwalk, good restaurants, and genuine beach culture. If you're arriving a day early in summer, spending that afternoon at Virginia Beach before your cruise creates a nice contrast — beach relaxation followed by cruise relaxation. In contrast, during the cooler months this option becomes less appealing, and Norfolk's other attractions may not fill a full day for everyone.</p>
+
+              <p>The cruise terminal itself is functional and well-organized, though not luxurious. Half Moone sits right downtown with attached parking, making the logistics straightforward. I found the check-in process efficient and the terminal clean if unremarkable. The advantage here is simplicity — you're not dealing with the sprawl of Port Canaveral or the traffic challenges of Miami. Drive downtown, park in the garage, walk into the terminal. For East Coast cruisers seeking a less hectic departure, Norfolk delivers that calm start to vacation that I've come to value more as I've cruised more frequently.</p>
+
+              <p>Royal Caribbean's Vision of the Seas calls Norfolk home for seasonal sailings, typically offering Bermuda and Bahamas itineraries. The ship is an older Radiance-class vessel, which means you're not getting the latest innovations, but you are getting a well-maintained ship with good bones at often-attractive prices. The combination of a manageable homeport and competitive pricing makes Norfolk worth considering for cruisers in the Mid-Atlantic region, especially those who want to avoid the drive to Baltimore or the flight to Florida. Though I should note that the limited ship selection — essentially one ship sailing seasonally — means you don't have the itinerary variety of larger homeports.</p>
+
+              <div class="poignant-highlight">
+                <strong>What Surprised Me Most:</strong> Walking the deck of USS Wisconsin at sunset, watching the Norfolk skyline light up behind a ship that helped win World War II, then strolling to a waterfront dinner before returning to my hotel near the cruise terminal. Norfolk isn't glamorous, but it offers a distinctly American maritime experience that larger homeports have traded for scale. Sometimes that trade-off is worth making.
+              </div>
+
+              <p>I recommend Norfolk for cruisers who value easy logistics over abundant homeport attractions, who find military and naval history genuinely interesting, and who live within reasonable driving distance of southeast Virginia. It's not trying to compete with Port Canaveral's theme parks or New York's cultural riches — it's offering something simpler and more focused. For the right traveler, that's exactly what they want. For others seeking pre-cruise excitement, Baltimore or Charleston might be better choices.</p>
+
+              <p>One final observation: Norfolk reminded me why I started cruising in the first place. The simplicity of driving to a downtown terminal, parking in an attached garage, and walking aboard a ship bound for the Caribbean — without airport security theater or three-hour drives to the coast — captures what cruising should feel like. The city may not have the flash of Miami or the charm of Charleston, but it has something increasingly rare: straightforward access to the sea.</p>
+            </div>
+          </div>
+        </details>
+      </details>
+
+      <!-- CRUISE PORT SECTION -->
+      <details class="port-section" id="cruise_port" open>
+        <details class="section-collapse" open>
+          <summary><h2>Cruise Port Overview</h2></summary>
+          <div class="collapse-body">
+            <p>Norfolk's Half Moone Cruise and Celebration Center serves as the city's cruise terminal, located in downtown Norfolk on the Elizabeth River waterfront. The terminal is modern, well-maintained, and conveniently connected to an attached parking garage. Its downtown location means you're within walking distance of Nauticus, the Waterside District, and several hotels — a significant advantage over more isolated terminals.</p>
+
+            <p>Royal Caribbean operates seasonal cruises from Norfolk, primarily on Vision of the Seas offering 5-9 night itineraries to Bermuda, the Bahamas, and Caribbean destinations. Carnival has also offered sailings from Norfolk in the past. The seasonal nature of the port means most departures occur spring through fall, taking advantage of better weather and school vacation periods. Ships typically dock right at Half Moone, so you're stepping off the gangway into the terminal without tender complications.</p>
+
+            <p>For travelers, Norfolk offers a less crowded alternative to major East Coast homeports. You won't find the cruise ship traffic of Miami or the security lines of Port Canaveral. The trade-off is limited ship selection — you're essentially choosing from whatever Royal Caribbean has deployed here for the season. If Vision of the Seas and its itineraries work for your schedule and budget, Norfolk is an excellent homeport. If you need specific ships or destinations, you may need to look elsewhere.</p>
+
+            <p>The terminal handles embarkation efficiently, with check-in typically beginning around 11am for afternoon departures. I found security screening straightforward and wait times reasonable, though arriving during the recommended window helps ensure smooth processing. Porters are available for luggage handling, and the terminal has adequate seating for the wait between check-in and boarding. Accessibility features are good, with wheelchair assistance available on request.</p>
+          </div>
+        </details>
+      </details>
+
+      <!-- GETTING AROUND -->
+      <details class="port-section" id="getting-around" open>
+        <details class="section-collapse" open>
+          <summary><h2>Getting Around</h2></summary>
+          <div class="collapse-body">
+            <p>Norfolk's manageable size makes pre-cruise exploration straightforward, though you'll want to plan based on what you want to see:</p>
+            <ul>
+              <li><strong>Walking:</strong> From Half Moone Cruise Terminal, Nauticus and the USS Wisconsin are a 5-minute walk. The Waterside District is 10 minutes. Town Point Park stretches along the waterfront between attractions. For downtown Norfolk, walking works well.</li>
+              <li><strong>Rideshare/Taxi:</strong> Uber and Lyft operate throughout the area. From the airport (ORF), expect $20-35 and 15-20 minutes to downtown. Virginia Beach runs $35-50 and 25-35 minutes depending on traffic and beach traffic conditions.</li>
+              <li><strong>Rental Car:</strong> Useful if you want to explore Virginia Beach, Colonial Williamsburg (about an hour away), or the broader Hampton Roads region. Not necessary if you're staying downtown and focusing on walkable attractions. Terminal parking makes day-of logistics easy if you're driving.</li>
+              <li><strong>THE TIDE Light Rail:</strong> Norfolk's light rail connects downtown to the airport vicinity, though it doesn't go directly to the cruise terminal. More useful for local exploration than cruise logistics, but worth knowing about.</li>
+              <li><strong>Elizabeth River Ferry:</strong> A fun way to cross to Portsmouth if you want to explore the other side of the harbor. The ferry runs from Waterside and takes about 15 minutes. Portsmouth has historic Olde Towne worth a wander.</li>
+            </ul>
+            <p><strong>Airport:</strong> Norfolk International Airport (ORF) is compact and easy to navigate, about 8 miles from the cruise terminal. It's served by most major domestic carriers. For international connections, you'll typically route through Charlotte, Atlanta, or other hubs. The airport's manageable size means less stress on travel days.</p>
+          </div>
+        </details>
+      </details>
+
+      <!-- MAP SECTION -->
+      <details class="port-section port-map-section" id="port-map-section" open>
+        <details class="section-collapse" open>
+          <summary><h3>Norfolk Area Map</h3></summary>
+          <div class="collapse-body">
+            <p class="map-intro">Interactive map showing Half Moone Cruise Terminal, Nauticus, and nearby attractions.</p>
+            <div id="norfolk-port-map" class="port-map-container" role="application" aria-label="Interactive map of Norfolk">
+              <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
+            </div>
+          </div>
+        </details>
+      </details>
+
+      <!-- BEACHES/ATTRACTIONS -->
+      <details class="port-section" id="beaches" open>
+        <details class="section-collapse" open>
+          <summary><h2>Beaches &amp; Attractions</h2></summary>
+          <div class="collapse-body">
+            <p>Norfolk itself isn't a beach destination, but Virginia Beach is 30 minutes away and offers excellent Atlantic beaches. Here's what to consider for pre-cruise exploration:</p>
+            <ul>
+              <li><strong>Virginia Beach Oceanfront:</strong> Three miles of beach with a famous boardwalk, Neptune statue photo op, and classic beach resort atmosphere. Summer weekends get crowded; weekday mornings are pleasant. Great for a pre-cruise beach day if you're arriving early in warm months.</li>
+              <li><strong>Nauticus &amp; USS Wisconsin:</strong> The maritime museum and battleship are Norfolk's signature attractions. Allow 2-3 hours to explore both properly. The Hampton Roads Naval Museum inside Nauticus is free and excellent. USS Wisconsin deck access is included with Nauticus admission.</li>
+              <li><strong>Naval Station Norfolk Tours:</strong> The world's largest naval base offers bus tours that drive you past aircraft carriers, submarines, and support vessels. Tours depart from Nauticus and must be booked in advance. Fascinating for anyone interested in military operations, though photography restrictions apply.</li>
+              <li><strong>Chrysler Museum of Art:</strong> Free admission to a surprisingly excellent art museum with glass studio demonstrations. Walking distance from downtown if you have a few hours to fill.</li>
+              <li><strong>Colonial Williamsburg:</strong> About an hour's drive, but if you're arriving two days early, this living history museum is world-class. The combination of Norfolk naval history and Williamsburg colonial history makes for a distinctive American heritage experience.</li>
+            </ul>
+          </div>
+        </details>
+      </details>
+
+      <!-- EXCURSIONS SECTION -->
+      <details class="port-section" id="excursions" open>
+        <details class="section-collapse" open>
+          <summary><h2>Shore Excursions &amp; Pre-Cruise Activities</h2></summary>
+          <div class="collapse-body">
+            <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Norfolk is a homeport, not a port of call, so these are suggestions for pre- or post-cruise activities rather than ship excursions.</p>
+
+            <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Recommended Pre-Cruise Day</h4>
+            <ul>
+              <li><strong>Morning:</strong> USS Wisconsin and Nauticus — arrive when they open at 10am to beat any crowds and have time to explore properly</li>
+              <li><strong>Lunch:</strong> Waterside District offers multiple options with harbor views, or try Freemason Abbey for upscale American in a converted church</li>
+              <li><strong>Afternoon:</strong> Naval Station Norfolk tour (book ahead) or stroll Town Point Park and the downtown waterfront</li>
+              <li><strong>Evening:</strong> Dinner at a downtown restaurant, early to bed at a nearby hotel for smooth embarkation morning</li>
+            </ul>
+
+            <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">If You Have Two Days</h4>
+            <p>Add Virginia Beach for a beach day, or drive to Colonial Williamsburg for living history. Both are worthwhile extensions that make the trip to Norfolk feel like more than just a cruise departure point. Book ahead for Williamsburg tickets if visiting during peak season, as the historic area can reach capacity.</p>
+
+            <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">How to Book</h4>
+            <p><strong>Booking independently:</strong> Naval Station Norfolk tours should be booked through Nauticus or the Naval Station's official channels — this is a military base and access requires advance arrangement. Virginia Beach hotels and activities book directly or through travel sites. Colonial Williamsburg offers ship excursion packages through some cruise lines, but booking directly often provides more flexibility. I recommend booking Naval Station tours at least two weeks ahead during peak season to ensure availability.</p>
+          </div>
+        </details>
+      </details>
+
+      <!-- FOOD -->
+      <details class="port-section" id="food" open>
+        <details class="section-collapse" open>
+          <summary><h2>Food &amp; Dining</h2></summary>
+          <div class="collapse-body">
+            <p>Norfolk offers solid dining options near the cruise terminal, though it's not a culinary destination on par with Charleston or New Orleans. Here's what I found worth seeking out:</p>
+            <ul>
+              <li><strong>Waterside District:</strong> Food hall atmosphere with multiple vendors — good for groups who can't agree on cuisine. Waterfront location makes it convenient for pre-cruise dining, though quality varies by vendor.</li>
+              <li><strong>Freemason Abbey:</strong> Upscale American in a converted 1873 church. The setting is memorable and the food is reliably good. Solid choice for a nice pre-cruise dinner.</li>
+              <li><strong>Saltine:</strong> Oyster bar and seafood focusing on local Virginia catches. If you want a taste of Chesapeake Bay before heading to the Caribbean, this delivers.</li>
+              <li><strong>Doumar's:</strong> Historic drive-in that claims to have invented the ice cream cone. It's a detour from downtown, but the nostalgia factor and classic American diner food make it fun for families.</li>
+              <li><strong>Virginia Beach options:</strong> The oceanfront has abundant casual dining. If you're spending time at the beach, Waterman's Surfside Grille offers good seafood with ocean views.</li>
+            </ul>
+            <p><strong>Local specialty:</strong> Virginia is oyster country, particularly in the fall and winter months. If you're cruising during R months (September through April), seek out local Lynnhaven oysters for a true taste of place.</p>
+          </div>
+        </details>
+      </details>
+
+      <!-- NOTICES -->
+      <details class="port-section" id="notices" open>
+        <details class="section-collapse" open>
+          <summary><h2>Important Notices</h2></summary>
+          <div class="collapse-body">
+            <ul>
+              <li><strong>Seasonal Port:</strong> Norfolk cruises operate primarily spring through fall. Winter departures are rare. Check current Royal Caribbean schedules for available sailings.</li>
+              <li><strong>Limited Ship Selection:</strong> Unlike major homeports, Norfolk typically has only one ship (Vision of the Seas) operating seasonally. Book early for preferred dates and cabin categories.</li>
+              <li><strong>Parking Reservations:</strong> Terminal garage parking is convenient but can fill during peak sailings. Consider reserving in advance through the cruise line or terminal website.</li>
+              <li><strong>Naval Station Tours:</strong> Require advance booking and valid government-issued ID. Foreign nationals may face additional screening requirements. Book through official channels only.</li>
+              <li><strong>Weather Considerations:</strong> Hampton Roads can experience hurricanes and nor'easters. Monitor weather during Atlantic storm season (June-November) as itinerary changes are possible.</li>
+            </ul>
+          </div>
+        </details>
+      </details>
+
+      <!-- DEPTH SOUNDINGS -->
+      <details class="port-section" id="depth-soundings" open>
+        <details class="section-collapse" open>
+          <summary><h2>Depth Soundings: Final Thoughts</h2></summary>
+          <div class="collapse-body">
+            <p>Norfolk works best for a specific type of cruiser: someone who lives within driving distance of southeast Virginia, values easy logistics over homeport excitement, and finds naval history genuinely compelling. If that describes you, Norfolk offers a calm, manageable cruise departure with meaningful pre-cruise activities and competitive pricing on seasonal itineraries.</p>
+
+            <p>The limitations are real. You're choosing from one ship sailing a limited set of itineraries. The city's attractions, while genuine, don't match the depth of larger ports. Virginia Beach is nice but requires a separate trip. If you're flying in for your cruise anyway, the calculus changes — you might as well fly to a port with more ship choices and year-round sailings.</p>
+
+            <p>But for the Mid-Atlantic cruiser tired of driving to Baltimore or flying to Florida, Norfolk represents a valuable option. The drive from Richmond, Washington DC, or Raleigh is reasonable. The terminal is downtown and walkable to attractions. The experience of departing from America's naval capital, passing active-duty warships on your way to sea, creates a distinctly American send-off that larger commercial ports can't replicate.</p>
+
+            <p>I'd recommend Norfolk for families with military connections or history buffs, for cruisers prioritizing value over luxury, and for anyone who simply wants a less hectic start to their vacation. It won't dazzle you, but it will get you to sea efficiently with a few genuinely interesting experiences along the way. Sometimes that's exactly what a homeport should do.</p>
+          </div>
+        </details>
+      </details>
+
+      <!-- PRACTICAL -->
+      <details class="port-section" id="practical" open>
+        <details class="section-collapse" open>
+          <summary><h2>Practical Information at a Glance</h2></summary>
+          <div class="collapse-body">
+            <div class="quick-reference">
+              <ul>
+                <li><strong>Terminal:</strong> Half Moone Cruise and Celebration Center</li>
+                <li><strong>Address:</strong> 1 Waterside Drive, Norfolk, VA 23510</li>
+                <li><strong>Airport:</strong> Norfolk International (ORF) — 8 miles, 15-20 minutes</li>
+                <li><strong>Parking:</strong> Attached garage, approximately $15-18/day</li>
+                <li><strong>Cruise Line:</strong> Royal Caribbean (seasonal, Vision of the Seas)</li>
+                <li><strong>Typical Itineraries:</strong> Bermuda (5-7 nights), Bahamas (5-7 nights), Caribbean (7-9 nights)</li>
+                <li><strong>Season:</strong> Spring through Fall (limited winter sailings)</li>
+                <li><strong>Currency:</strong> USD</li>
+                <li><strong>Virginia Beach:</strong> 30 minutes by car</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+      </details>
+
+      <!-- FAQ -->
+      <details class="port-section" id="faq" open>
+        <details class="section-collapse" open>
+          <summary><h2>Frequently Asked Questions</h2></summary>
+          <div class="collapse-body">
+            <p><strong>Q: What ships sail from Norfolk?</strong><br>A: Royal Caribbean deploys Vision of the Seas seasonally from Norfolk, typically offering Bermuda, Bahamas, and Caribbean itineraries spring through fall. Carnival has offered sailings in the past. Check current schedules as deployment changes annually.</p>
+
+            <p><strong>Q: Is there Uber/Lyft at Norfolk Airport?</strong><br>A: Yes, both operate at ORF. Pickup is at the terminal's ground transportation area. Expect $20-35 to reach downtown Norfolk and the cruise terminal, with the trip taking 15-20 minutes depending on traffic.</p>
+
+            <p><strong>Q: Can I visit Naval Station Norfolk?</strong><br>A: Yes, through official tours booked via Nauticus. Tours run several times daily and last about 45 minutes. You'll ride a bus through the base viewing carriers, submarines, and support ships. ID required; book in advance as tours fill up.</p>
+
+            <p><strong>Q: How far is Virginia Beach from the cruise terminal?</strong><br>A: About 18 miles, or 25-35 minutes by car depending on traffic. The beach resort area has its own hotels if you want to split your pre-cruise time between Norfolk attractions and beach relaxation.</p>
+
+            <p><strong>Q: Is Norfolk worth arriving a day early?</strong><br>A: Yes, if you're interested in naval history. The USS Wisconsin and Nauticus provide a solid half-day of exploration. Combined with a nice dinner downtown, it makes for a pleasant pre-cruise experience. If military history doesn't appeal to you, you might prefer arriving same-day.</p>
+
+            <p><strong>Q: Where should I stay near the cruise terminal?</strong><br>A: The Norfolk Waterside Marriott and Sheraton Norfolk Waterside are both downtown within walking distance of attractions and the terminal. For budget options, there are hotels near the airport or along I-64, though you'll need to drive or rideshare to embarkation.</p>
+          </div>
+        </details>
+      </details>
+
+      <!-- GALLERY -->
+      <details class="port-section photo-gallery" id="gallery" open>
+        <details class="section-collapse" open>
+          <summary><h2>Photo Gallery</h2></summary>
+          <div class="collapse-body">
+            <p class="tiny" style="margin-bottom: 1rem; color: #678;">Norfolk waterfront and attractions.</p>
+            <div class="gallery-grid">
+              <figure class="gallery-item">
+                <img src="/ports/img/norfolk/uss-wisconsin.webp" alt="USS Wisconsin battleship docked at Nauticus in Norfolk" loading="lazy" onerror="this.style.display='none'"/>
+                <figcaption>USS Wisconsin at Nauticus<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+              </figure>
+              <figure class="gallery-item">
+                <img src="/ports/img/norfolk/nauticus.webp" alt="Nauticus maritime museum on Norfolk waterfront" loading="lazy" onerror="this.style.display='none'"/>
+                <figcaption>Nauticus maritime museum<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+              </figure>
+              <figure class="gallery-item">
+                <img src="/ports/img/norfolk/waterfront.webp" alt="Norfolk downtown waterfront and harbor" loading="lazy" onerror="this.style.display='none'"/>
+                <figcaption>Downtown waterfront<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+              </figure>
+              <figure class="gallery-item">
+                <img src="/ports/img/norfolk/virginia-beach.webp" alt="Virginia Beach oceanfront boardwalk and beach resort area" loading="lazy" onerror="this.style.display='none'"/>
+                <figcaption>Virginia Beach boardwalk<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+              </figure>
+              <figure class="gallery-item">
+                <img src="/ports/img/norfolk/town-point-park.webp" alt="Town Point Park waterfront green space in downtown Norfolk" loading="lazy" onerror="this.style.display='none'"/>
+                <figcaption>Town Point Park waterfront<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+              </figure>
+              <figure class="gallery-item">
+                <img src="/ports/img/norfolk/half-moone-terminal.webp" alt="Half Moone Cruise Terminal building in downtown Norfolk Virginia" loading="lazy" onerror="this.style.display='none'"/>
+                <figcaption>Half Moone Cruise Terminal<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
+              </figure>
+            </div>
+          </div>
+        </details>
+      </details>
+
+      <!-- CREDITS -->
+      <details class="port-section image-credits" id="credits" open>
+        <details class="section-collapse" open>
+          <summary><h2>Image Credits</h2></summary>
+          <div class="collapse-body">
+            <ul>
+              <li><strong>All photographs:</strong> <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> — various contributors, CC BY-SA licenses</li>
+            </ul>
+          </div>
+        </details>
+      </details>
+
+      <p class="last-reviewed">Last reviewed: January 2026</p>
+
+      <p style="margin-top: 2rem;"><a href="/ports.html">← All Ports</a></p>
+    </article>
+
+    <!-- SIDEBAR -->
+    <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+      <section class="card" aria-labelledby="glance-heading">
+        <h3 id="glance-heading">Quick Facts</h3>
+        <div class="at-a-glance-grid">
+          <div class="at-a-glance-item"><strong>Type</strong><span>Homeport</span></div>
+          <div class="at-a-glance-item"><strong>Terminal</strong><span>Half Moone</span></div>
+          <div class="at-a-glance-item"><strong>Airport</strong><span>ORF (8 mi)</span></div>
+          <div class="at-a-glance-item"><strong>Parking</strong><span>$15-18/day</span></div>
+          <div class="at-a-glance-item"><strong>Ship</strong><span>Vision of the Seas</span></div>
+          <div class="at-a-glance-item"><strong>Season</strong><span>Spring-Fall</span></div>
+        </div>
+      </section>
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+      </section>
+      <section class="card" aria-labelledby="related-heading">
+        <h3 id="related-heading">Related Homeports</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><a href="/ports/baltimore.html">Baltimore</a></li>
+          <li><a href="/ports/cape-liberty.html">Cape Liberty (NJ)</a></li>
+          <li><a href="/ports/charleston.html">Charleston</a></li>
+        </ul>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="wrap" role="contentinfo">
+    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p class="tiny" style="margin-top: 0.5rem;"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/about-us.html">About</a> · <a href="/accessibility.html">Accessibility</a></p>
+    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+  </footer>
+
+  <script src="/assets/js/dropdown.js"></script>
+  <script src="/assets/js/ship-port-links.js" defer></script>
+  <script src="/assets/js/in-app-browser-escape.js"></script>
+  <script>window.currentPortId = 'norfolk';</script>
+  <script src="/assets/js/nearby-ports.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+      PortMap.init({ containerId: 'norfolk-port-map', portSlug: 'norfolk' });
+    }
+  });
+  </script>
+  <script type="module" src="/assets/js/port-weather.js"></script>
+</body>
+</html>

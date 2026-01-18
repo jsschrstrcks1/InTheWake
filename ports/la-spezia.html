@@ -27,7 +27,7 @@ Soli Deo Gloria
   }
   </script>
   <link rel="stylesheet" href="/assets/styles.css"/>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -131,7 +131,7 @@ Soli Deo Gloria
     <div class="hero">
       <img loading="lazy" class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img loading="lazy" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
     </div>
@@ -143,7 +143,7 @@ Soli Deo Gloria
     <article class="card" style="grid-column: 1; grid-row: 1;">
       <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem;">
         <div style="background: linear-gradient(135deg, #e8b84a 0%, #c49a32 50%, #8b6914 100%); height: 300px; display: flex; align-items: center; justify-content: center;">
-          <span style="color: rgba(255,255,255,0.3); font-size: 1.2rem;">Hero image placeholder</span>
+          
         </div>
         <div class="port-name-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase;">La Spezia</div>
       </div>
@@ -384,7 +384,7 @@ Soli Deo Gloria
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
       <section class="card quick-answer">
         <h2>Quick Answer</h2>
-        <p><strong>La Spezia</strong> in Italy's Gulf of Poets is your gateway to UNESCO Cinque Terre – five impossibly colorful villages (Monterosso, Vernazza, Corniglia, Manarola, Riomaggiore) clinging to Mediterranean cliffs where Byron and Shelley once wandered. Take the train from La Spezia (15 min to first village), pick 2-3 villages to explore deeply, eat fresh pesto and warm focaccia, sip Sciacchetrà wine while watching sunset from Manarola's rocks. This is bucket-list Italy at its most authentic – just start at dawn to beat the crowds.</p>
+        <p><strong>La Spezia</strong> in Italy's Gulf of Poets is your gateway to UNESCO Cinque Terre – five impossibly colorful villages (Monterosso, Vernazza, Corniglia, Manarola, Riomaggiore) clinging to Mediterranean cliffs where Byron and Shelley once wandered. Take the train from La Spezia (15 min to first village), pick 2-3 villages to explore deeply, eat fresh pesto and warm focaccia, sip Sciacchetrà wine while watching sunset from Manarola's rocks. This is once-in-a-lifetime Italy at its most authentic – just start at dawn to beat the crowds.</p>
       </section>
       <section class="card best-for">
         <h2>Best For</h2>
@@ -423,11 +423,12 @@ Soli Deo Gloria
     <p>&copy; 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/about-us.html">About</a> · <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
     <p class="soli-deo-gloria">Soli Deo Gloria</p>
-    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/dropdown.js" defer></script>
+  <script src="/assets/js/ship-port-links.js" defer></script>
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
@@ -508,9 +509,9 @@ Soli Deo Gloria
 
       if(totalPages > 1){
         const navHTML = '<div style="display:flex;justify-content:space-between;align-items:center;">' +
-          '<button onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
           '<span class="tiny" style="color:#5a7a8a;">' + (page + 1) + ' / ' + totalPages + '</span>' +
-          '<button onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
         '</div>';
         navTop.innerHTML = navHTML;
         navBottom.innerHTML = navHTML;

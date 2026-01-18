@@ -139,7 +139,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     "reviewBody": "Symphony of the Seas delivers Royal Caribbean's signature ocean-view experience with glass walls, mid-size intimacy, and global itineraries spanning Alaska to Australia.",
     "reviewRating": {
       "@type": "Rating",
-      "ratingValue": "4.6",
+      "ratingValue": 4.6,
       "bestRating": "5",
       "worstRating": "1"
     },
@@ -188,6 +188,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
+  <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
 
   <!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
   <script>
@@ -378,7 +379,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </div>
       <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" loading="eager"/>
       <div class="hero-title">
-        <img loading="lazy" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logbook logo" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logbook logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
@@ -528,7 +529,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <a class="pill" href="/ships/rcl/wonder-of-the-seas.html">Wonder of the Seas</a>
             <a class="pill" href="/ships/rcl/utopia-of-the-seas.html">Utopia of the Seas</a>
           </div>
-          <p style="text-align:center"><a href="/ships.html" class="btn">See All Ships</a></p>
+          <p class="text-center"><a href="/ships.html" class="btn">See All Ships</a></p>
         </section>
 
         <!-- Ship Classes -->
@@ -544,7 +545,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <a class="pill" href="/cruise-lines/royal-caribbean.html#icon">Icon Class</a>
             <a class="pill" href="/cruise-lines/royal-caribbean.html#vision">Vision Class</a>
           </div>
-          <p style="text-align:center"><a href="/ships.html" class="btn">Browse All Ships</a></p>
+          <p class="text-center"><a href="/ships.html" class="btn">Browse All Ships</a></p>
         </section>
       </section>
 
@@ -619,6 +620,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <h2 id="logbook">The Logbook — Tales From the Wake</h2>
       <div id="logbook-stories" class="prose"></div>
     </section>
+    <p style="margin-top: 1rem;">
+      <a href="https://www.royalcaribbean.com/cruise-ships/symphony-of-the-seas" class="btn-deck-plans" target="_blank" rel="nofollow noopener">
+        View Official Deck Plans →
+      </a>
+    </p>
 
     <!-- Videos -->
     <section class="card" aria-labelledby="video-highlights">
@@ -647,7 +653,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <h2 id="liveTrackHeading">Where Is Symphony Right Now?</h2>
         <p>See the ship's current position, speed, and next port on a live tracker.</p>
 
-        <div id="vf-tracker-container" style="width:100%;height:500px;position:relative;"></div>
+        <div id="vf-tracker-container" class="tracker-container"></div>
         <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
       </section>
     </section>
@@ -706,7 +712,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
         <p style="margin: 1rem 0; text-align: center;">
           <a href="/stateroom-check.html" class="pill" style="display: inline-block; padding: 0.6rem 1.2rem; text-decoration: none;">
-            🛏️ Check Your Stateroom →
+            Check Your Stateroom →
           </a>
         </p>
       </section>
@@ -730,26 +736,26 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <!-- Recent Articles rail -->
       <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny content-text" style="margin-bottom: 0.75rem;">
+        <p class="tiny content-text" class="mb-075">
           Real cruising experiences, practical guides, and heartfelt reflections from our community.
         </p>
-        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" class="rail-nav mb-05"></nav>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
-        <p id="recent-rail-fallback" class="tiny" style="color: #666;">Loading articles…</p>
+        <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" class="rail-nav mt-075"></nav>
+        <p id="recent-rail-fallback" class="tiny" class="loading-text">Loading articles…</p>
       </section>
 
       <!-- Authors rail -->
       <section class="card" aria-labelledby="authors-rail-title">
         <h3 id="authors-rail-title">Our Authors</h3>
-        <p class="tiny content-text" style="margin-bottom: 0.75rem;">
+        <p class="tiny content-text" class="mb-075">
           The voices behind In the Wake — cruisers, storytellers, and fellow travelers.
         </p>
         <div id="authors-rail" class="rail-list" aria-live="polite"></div>
       </section>
     
     <!-- Whimsical Distance Units -->
-    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    <section class="card" id="whimsical-units-container" class="whimsical-units-container">
     </section>
 
   </aside>
@@ -775,7 +781,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center visually-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- JAVASCRIPT -->
@@ -1070,9 +1076,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       if(totalPages > 1){
         const navHTML = '<div style="display:flex;justify-content:space-between;align-items:center;">' +
-          '<button onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
           '<span class="tiny" style="color:#5a7a8a;">' + (page + 1) + ' / ' + totalPages + '</span>' +
-          '<button onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
         '</div>';
         navTop.innerHTML = navHTML;
         navBottom.innerHTML = navHTML;
@@ -1129,6 +1135,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <script src="/assets/js/whimsical-port-units.js"></script>
 
 <script src="/assets/js/dropdown.js"></script>
+  <script src="/assets/js/ship-port-links.js" defer></script>
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>

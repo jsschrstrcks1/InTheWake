@@ -508,6 +508,42 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p class="faq-answer">For additional assistance, contact your cruise line directly or work with a travel advisor who specializes in cruises.</p>
       </details>
     </section>
+
+    <!-- Related Resources Section -->
+    <section class="card related-resources" style="margin: 1.5rem 0; padding: 1.25rem; background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%); border: 2px solid #e8eef2;">
+      <h2 style="margin: 0 0 0.75rem; font-size: 1.15rem; color: #083041;">Continue planning your cruise...</h2>
+      <p class="tiny content-text" style="margin-bottom: 1rem; color: #5a7a8a;">Now that you've checked your stateroom, explore these related resources.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem;">
+        <a href="/ships.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem; background: #fff; border: 1px solid #dce5ea; border-radius: 8px; text-decoration: none; color: inherit; transition: all 0.2s ease;">
+          <span style="font-size: 1.5rem;">🚢</span>
+          <div>
+            <strong style="display: block; color: #0e6e8e; font-size: 0.95rem;">Ship Database</strong>
+            <span class="tiny" style="color: #5a7a8a;">Explore your ship's details</span>
+          </div>
+        </a>
+        <a href="/ships/quiz.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem; background: #fff; border: 1px solid #dce5ea; border-radius: 8px; text-decoration: none; color: inherit; transition: all 0.2s ease;">
+          <span style="font-size: 1.5rem;">🎯</span>
+          <div>
+            <strong style="display: block; color: #0e6e8e; font-size: 0.95rem;">Ship Quiz</strong>
+            <span class="tiny" style="color: #5a7a8a;">Find your perfect ship</span>
+          </div>
+        </a>
+        <a href="/drink-calculator.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem; background: #fff; border: 1px solid #dce5ea; border-radius: 8px; text-decoration: none; color: inherit; transition: all 0.2s ease;">
+          <span style="font-size: 1.5rem;">🧮</span>
+          <div>
+            <strong style="display: block; color: #0e6e8e; font-size: 0.95rem;">Drink Calculator</strong>
+            <span class="tiny" style="color: #5a7a8a;">Is the package worth it?</span>
+          </div>
+        </a>
+        <a href="/packing-lists.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem; background: #fff; border: 1px solid #dce5ea; border-radius: 8px; text-decoration: none; color: inherit; transition: all 0.2s ease;">
+          <span style="font-size: 1.5rem;">🧳</span>
+          <div>
+            <strong style="display: block; color: #0e6e8e; font-size: 0.95rem;">Packing Lists</strong>
+            <span class="tiny" style="color: #5a7a8a;">Get ready to sail</span>
+          </div>
+        </a>
+      </div>
+    </section>
     </div>
 
     <aside class="rail col-2" role="complementary">
@@ -560,7 +596,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center visually-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- JAVASCRIPT -->
@@ -710,9 +746,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       // Render pagination
       if(totalPages > 1){
         const navHTML = '<div style="display:flex;justify-content:space-between;align-items:center;">' +
-          '<button onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
           '<span class="tiny" style="color:#5a7a8a;">' + (page + 1) + ' / ' + totalPages + '</span>' +
-          '<button onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
+          '<button type="button" onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
         '</div>';
         navTop.innerHTML = navHTML;
         navBottom.innerHTML = navHTML;

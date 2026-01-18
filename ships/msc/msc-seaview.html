@@ -10,7 +10,7 @@ All work on this project is offered as a gift to God.
 <head>
 <!-- ai-breadcrumbs
      name: MSC Seaview
-     entity: MSC Seaview
+     entity: Ship
      type: Ship Information Page
      parent: /ships.html
      category: MSC Cruises Fleet
@@ -49,6 +49,7 @@ All work on this project is offered as a gift to God.
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://cruisinginthewake.com/ships/msc/msc-seaview.html"/>
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/ships-hero.jpg"/>
+  <meta property="og:locale" content="en_US"/>
   <meta property="og:title" content="MSC Seaview — MSC Cruises Ship Guide"/>
   <meta property="og:description" content="Explore MSC Seaview: Seaside Class ship with 4,132 guests. Dining, entertainment, and planning resources."/>
   <meta name="twitter:card" content="summary_large_image"/>
@@ -102,25 +103,6 @@ All work on this project is offered as a gift to God.
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
   <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css"/>
-
-  <style>
-    .stub-notice {
-      background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
-      border: 2px dashed #856404;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin: 1rem 0;
-      text-align: center;
-    }
-    .stub-notice h3 { color: #856404; margin: 0 0 .5rem; }
-    .stub-notice p { color: #664d03; margin: 0; }
-    .ship-specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-    .spec-item { background: var(--bg-alt, #f5f5f5); padding: 1rem; border-radius: 6px; text-align: center; }
-    .spec-label { font-size: .75rem; color: var(--text-muted); text-transform: uppercase; }
-    .spec-value { font-size: 1.25rem; font-weight: 600; color: var(--text); }
-    .quick-answer { background: #e8f4f8; border-left: 4px solid #17a2b8; padding: 1rem 1.5rem; margin: 1rem 0; border-radius: 0 8px 8px 0; }
-    .quick-answer h3 { margin: 0 0 .5rem; color: #0c5460; }
-  </style>
 
 <!-- JSON-LD: WebSite -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
@@ -197,7 +179,7 @@ All work on this project is offered as a gift to God.
   <header class="hero-header">
     <div class="navbar">
       <div class="brand">
-        <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake" decoding="async"/></a>
+        <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/></a>
         <span class="tiny version-badge">V1.Beta</span>
       </div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
@@ -253,13 +235,13 @@ All work on this project is offered as a gift to God.
       </div>
       <img loading="lazy" class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img loading="lazy" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
     </div>
   </header>
 
-  <main class="wrap" id="content">
+  <main class="wrap" id="content" role="main" data-imo="9745366">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a> &rsaquo;
       <a href="/ships.html">Ships</a> &rsaquo;
@@ -416,7 +398,25 @@ All work on this project is offered as a gift to God.
     </section>
 
     <section class="grid-2">
-      <section class="card" aria-labelledby="deckPlansHeading">
+      
+    <!-- Ship Statistics -->
+    <section class="card" aria-labelledby="ship-stats-title">
+      <h2 id="ship-stats-title">Ship Statistics</h2>
+      <div id="ship-stats" class="stats-grid" data-slug="msc-seaview">
+        <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">153,516 GT</div></div>
+        <div class="stat-item"><div class="label">Guests</div><div class="value">5,179</div></div>
+        <div class="stat-item"><div class="label">Crew</div><div class="value">1,413</div></div>
+        <div class="stat-item"><div class="label">Entered Service</div><div class="value">2018</div></div>
+        <div class="stat-item"><div class="label">Class</div><div class="value">Seaside Class</div></div>
+      </div>
+    </section>
+    <section class="card" aria-labelledby="deck-plans">
+      <h2 id="deck-plans">Deck Plans</h2>
+      <p>View the official deck plans to explore cabin locations, dining venues, pools, and entertainment areas.</p>
+      <p><a href="https://www.msccruises.com/en-us/cruise-ships/msc-seaview.aspx" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official Deck Plans →</a></p>
+    </section>
+
+<section class="card" aria-labelledby="deckPlansHeading">
         <h2 id="deckPlansHeading">Deck Plans</h2>
         <p>View the official deck plans to explore MSC Seaview's layout.</p>
         <figure>
@@ -497,7 +497,7 @@ All work on this project is offered as a gift to God.
       <section class="card author-card-vertical" aria-labelledby="author-heading">
         <h3 id="author-heading">About the Author</h3>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker" decoding="async" loading="lazy"/>
+          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker cruise research analyst and author of In The Wake ship reviews" decoding="async" loading="lazy"/>
         </a>
         <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
         <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
@@ -519,7 +519,7 @@ All work on this project is offered as a gift to God.
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria</p>
-    <p class="trust-badge">No ads. No tracking. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <script src="/assets/js/dropdown.js"></script>

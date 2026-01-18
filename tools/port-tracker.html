@@ -199,7 +199,8 @@ Soli Deo Gloria
       <!-- Left Sidebar: Filters -->
       <aside class="filter-panel">
         <h3>Filter by Region</h3>
-        <input type="text" class="search-box" id="search-box" placeholder="Search ports...">
+        <label for="search-box" class="sr-only">Search ports by name or region</label>
+        <input type="text" class="search-box" id="search-box" placeholder="Search ports..." aria-label="Search ports by name or region">
         <button class="filter-button active" data-region="all">📍 All Ports</button>
         <button class="filter-button" data-region="Caribbean">🏝️ Caribbean</button>
         <button class="filter-button" data-region="Atlantic Islands">🌊 Atlantic Islands</button>
@@ -223,7 +224,7 @@ Soli Deo Gloria
       <aside class="bingo-panel">
         <!-- ICP-Lite: Collapsible Quick Guide -->
         <div class="collapsible-section" id="icp-section">
-          <div class="collapsible-header" onclick="toggleCollapsible('icp-section')">
+          <div class="collapsible-header" role="button" tabindex="0" aria-expanded="true" aria-controls="icp-section" onclick="toggleCollapsible('icp-section')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCollapsible('icp-section')}">
             <h3>📖 Quick Guide</h3>
             <span class="collapsible-toggle">▼</span>
           </div>
@@ -246,7 +247,7 @@ Soli Deo Gloria
 
         <!-- Completed Collections (open by default) -->
         <div class="collapsible-section" id="completed-collections">
-          <div class="collapsible-header" onclick="toggleCollapsible('completed-collections')">
+          <div class="collapsible-header" role="button" tabindex="0" aria-expanded="true" aria-controls="completed-collections" onclick="toggleCollapsible('completed-collections')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCollapsible('completed-collections')}">
             <h3>🏆 Completed Collections</h3>
             <span class="collapsible-toggle">▼</span>
           </div>
@@ -260,7 +261,7 @@ Soli Deo Gloria
 
         <!-- In Progress Collections (collapsible) -->
         <div class="collapsible-section" id="progress-collections">
-          <div class="collapsible-header" onclick="toggleCollapsible('progress-collections')">
+          <div class="collapsible-header" role="button" tabindex="0" aria-expanded="true" aria-controls="progress-collections" onclick="toggleCollapsible('progress-collections')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCollapsible('progress-collections')}">
             <h3>📊 In Progress</h3>
             <span class="collapsible-toggle">▼</span>
           </div>
@@ -1822,6 +1823,11 @@ Soli Deo Gloria
     const section = document.getElementById(sectionId);
     if (section) {
       section.classList.toggle('collapsed');
+      const header = section.querySelector('.collapsible-header');
+      if (header) {
+        const isExpanded = !section.classList.contains('collapsed');
+        header.setAttribute('aria-expanded', isExpanded);
+      }
     }
   };
   
@@ -1869,8 +1875,9 @@ Soli Deo Gloria
       const section = document.createElement('div');
       section.className = wasExpanded ? 'region-section' : 'region-section collapsed';
       section.dataset.region = region;
+      const isExpanded = !section.classList.contains('collapsed');
       section.innerHTML = `
-        <div class="region-title" onclick="toggleSection(this)">
+        <div class="region-title" role="button" tabindex="0" aria-expanded="${isExpanded}" onclick="toggleSection(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection(this)}">
           <div class="region-title-text">
             ${region}
             <span class="region-progress">${visited}/${total} visited</span>
@@ -1884,7 +1891,7 @@ Soli Deo Gloria
         const item = document.createElement('div');
         item.className = 'port-item' + (visitedPorts.has(port.id) ? ' visited' : '');
         const portNameHtml = port.url
-          ? `<a href="${port.url}" class="port-name" target="_blank" onclick="trackEvent('port_link_clicked', {port_id: '${port.id}', port_name: '${port.name}'})">${port.name}</a>`
+          ? `<a href="${port.url}" class="port-name" target="_blank" rel="noopener" onclick="trackEvent('port_link_clicked', {port_id: '${port.id}', port_name: '${port.name}'})">${port.name}</a>`
           : `<span class="port-name">${port.name}</span>`;
         item.innerHTML = `
           <input type="checkbox" class="port-checkbox" data-port="${port.id}"
@@ -2365,6 +2372,8 @@ Soli Deo Gloria
   window.toggleSection = function(element) {
     const section = element.closest('.region-section');
     section.classList.toggle('collapsed');
+    const isExpanded = !section.classList.contains('collapsed');
+    element.setAttribute('aria-expanded', isExpanded);
   };
 
   // URL State Sharing

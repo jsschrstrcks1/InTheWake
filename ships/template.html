@@ -9,7 +9,7 @@ All work on this project is offered as a gift to God.
 <html lang="en">
 <head>
 <!-- ai-breadcrumbs
-     entity: {{SHIP_NAME}}
+     entity: Ship
      type: Ship Information Page
      parent: /ships.html
      category: Royal Caribbean Fleet
@@ -84,7 +84,7 @@ All work on this project is offered as a gift to God.
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Ken Baker",
-  "url": "https://inthewake.com/about/ken-baker.html",
+  "url": "https://cruisinginthewake.com/about/ken-baker.html",
   "jobTitle": "Cruise Research Analyst & Data Specialist",
   "description": "Cruise industry analyst specializing in ship comparisons, deck plan analysis, and dining venue research.",
   "knowsAbout": [
@@ -259,7 +259,7 @@ All work on this project is offered as a gift to God.
       </div>
       <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
 
@@ -470,7 +470,7 @@ All work on this project is offered as a gift to God.
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-    <p class="trust-badge">✓ No ads. Minimal analytics. No affiliate links.</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- JS -->
@@ -542,8 +542,7 @@ All work on this project is offered as a gift to God.
       const targetSlug = (el.getAttribute('data-slug') || '').trim().toLowerCase();
       const SOURCES = [
         'https://cruisinginthewake.com/assets/data/fleet_index.json',
-        '/assets/data/fleet_index.json',
-        '/data/fleet_index.json'
+        '/assets/data/fleet_index.json'
       ];
       async function tryFetch(u){
         const url = u + (u.includes('?') ? '&' : '?') + 'v=' + Date.now();
@@ -597,7 +596,7 @@ All work on this project is offered as a gift to God.
 
       const urlList = [
         'https://cruisinginthewake.com/assets/data/fleet_index.json',
-        '/assets/data/fleet_index.json','/data/fleet_index.json'
+        '/assets/data/fleet_index.json'
       ];
       async function fetchFirst(list){ for (const u of list){ try{ const r=await fetch(u); if(r.ok) return r.json(); }catch{} } return null; }
       const data = await fetchFirst(urlList);
