@@ -27,6 +27,9 @@ Last Updated: 2026-01-18
 | Add Related Resources to Drink Calculator | DONE | MEDIUM |
 | Add Related Resources to Ship Quiz | DONE | MEDIUM |
 | Add Related Resources to Stateroom Check | DONE | MEDIUM |
+| Add Related Resources to Packing Lists | DONE | MEDIUM |
+| Replace placeholder Key Facts with Site Highlights + Search | DONE | MEDIUM |
+| Standardize trust badge site-wide (958 pages) | DONE | HIGH |
 
 ### Design Principles
 - Intent-based routing: "What are you planning?" not "Here's everything"
