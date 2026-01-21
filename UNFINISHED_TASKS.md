@@ -3825,33 +3825,57 @@ Key differentiator remains: **We are NOT affiliated with any cruise line.** Affi
 
 ---
 
-##### Phase 1: Infrastructure (P0 - Do First)
+##### Phase 1: Infrastructure (P0 - Do First) ✅ COMPLETE
 
 | Task | Status | Notes |
 |------|--------|-------|
-| Create `/affiliate-disclosure.html` | [ ] TODO | FTC-required disclosure page |
-| Update trust badges site-wide | [ ] TODO | Change "No affiliate links" → "Independent recommendations" |
-| Add `.affiliate-link` CSS class | [ ] TODO | Consistent styling with `rel="sponsored"` |
+| Create `/affiliate-disclosure.html` | ✅ DONE | FTC-required disclosure page |
+| Update trust badges site-wide | ✅ DONE | Changed to "Independent of cruise lines" |
+| Add `.affiliate-link` CSS class | ✅ DONE | Using `rel="sponsored noopener"` |
 | Update `about-us.html` disclosure | [ ] TODO | Explain Amazon Associates participation |
 
 ---
 
-##### Phase 2: New Content (P1 - High Value)
+##### Phase 2: New Content (P1 - High Value) ✅ COMPLETE
 
 | Article | Status | Affiliate Products |
 |---------|--------|-------------------|
-| `/articles/cruise-duck-tradition.html` | [ ] TODO | Duck magnets, ducks with/without tags, tiny ducks, Jesus figures |
-| `/articles/cruise-cabin-organization.html` | [ ] TODO | Magnetic hooks, over-door organizer, packing cubes |
-| `/articles/cruise-photography-tech.html` | [ ] TODO | GoPro Hero 13, GoPro competitor, AirPods Max |
+| `/articles/cruise-duck-tradition.html` | ✅ DONE | Duck magnets, bulk ducks, mini ducks, Jesus figures |
+| `/articles/cruise-cabin-organization.html` | ✅ DONE | Magnetic hooks, over-door organizer, packing cubes, power banks |
+| `/articles/cruise-tech-photography-guide.html` | ✅ DONE | Waterproof cases, e-readers, earbuds, power banks |
 
 ---
 
-##### Phase 3: Existing Page Enhancement (P1 - High Value)
+##### Phase 3: Existing Page Enhancement (P1 - High Value) ✅ COMPLETE
 
 | Page | Status | Products to Add |
 |------|--------|-----------------|
-| `/packing-lists.html` | [ ] TODO | Packing cubes, magnetic hooks, USB charger, luggage tags, Osprey pack |
-| `/internet-at-sea.html` | [ ] TODO | USB charger, AirPods Max, Apple Watch Ultra 3 |
+| `/packing-lists.html` | ✅ DONE | Lanyards, hooks, packing cubes, USB charger |
+| `/internet-at-sea.html` | ✅ DONE | Earbuds, e-readers, power banks, waterproof cases |
+
+---
+
+##### Phase 4: Cross-Linking (P2 - In Progress)
+
+| Task | Status | Notes |
+|------|--------|-------|
+| Add affiliate article links to ship pages | [ ] IN PROGRESS | ~311 ship files - link to cabin org, packing, tech guide |
+| Add affiliate article links to port pages | [ ] TODO | ~380 port files - link to photography guide, packing lists |
+
+---
+
+##### Phase 5: Future Articles (P3 - Backlog)
+
+| Article | Priority | Affiliate Products | Cross-Link From |
+|---------|----------|-------------------|-----------------|
+| Shore Excursions 101 | HIGH | Travel insurance, waterproof bags, camera gear | All 380 port pages |
+| Formal Night Guide | HIGH | Formal attire, shoes, accessories | first-cruise, packing-lists |
+| Embarkation Day Guide | HIGH | Luggage tags, portable chargers, travel organizers | planning, first-cruise, travel |
+| Motion Sickness Prevention | HIGH | Sea-Bands, Bonine, ginger supplements | first-cruise, packing-lists, cabin org |
+| Family Cruising Guide | MEDIUM | Kids items, family gear, entertainment | planning, first-cruise |
+| Budget Cruising Tips | MEDIUM | Deal sites, money-saving gear | planning, first-cruise |
+| Cruise Etiquette Guide | MEDIUM | N/A (content-focused) | first-cruise, planning |
+| Onboard Safety & Health | MEDIUM | First aid, medications, safety items | first-cruise, packing-lists |
 
 ---
 

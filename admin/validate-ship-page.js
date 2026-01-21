@@ -33,6 +33,7 @@
  */
 
 import { readFile, access } from 'fs/promises';
+import { existsSync } from 'fs';
 import { join, dirname, relative, basename } from 'path';
 import { fileURLToPath } from 'url';
 import { load } from 'cheerio';
@@ -962,7 +963,7 @@ function validateSections($, isTBN, isHistoric = false) {
   // TBN and Historic ships have relaxed section requirements
   let required;
   if (isTBN) {
-    required = ['page_intro', 'first_look', 'faq', 'attribution', 'recent_rail'];
+    required = ['page_intro', 'first_look', 'dining', 'faq', 'attribution', 'recent_rail'];
   } else if (isHistoric) {
     // Historic ships don't require map/tracker (ship may be scrapped or sold)
     required = ['page_intro', 'first_look', 'dining', 'logbook', 'faq', 'attribution', 'recent_rail'];
@@ -1203,7 +1204,7 @@ function validateFAQ($) {
 /**
  * Validate images
  */
-function validateImages($, isHistoric = false) {
+function validateImages($, isHistoric = false, filepath = '') {
   const errors = [];
   const warnings = [];
   const allImages = $('img');
@@ -1222,6 +1223,36 @@ function validateImages($, isHistoric = false) {
   let shortAlt = 0;
   let missingLazy = 0;
   let hotlinkedImages = [];
+  let missingLocalImages = [];
+
+  // BLOCKING: Dining hero must use the shared Cordelia image
+  const diningHero = $('#dining-hero');
+  const hasDiningHero = diningHero.length > 0;
+  let hasCordeliaDining = false;
+
+  if (hasDiningHero) {
+    const diningHeroSrc = diningHero.attr('src') || '';
+    hasCordeliaDining = diningHeroSrc.includes('Cordelia_Empress_Food_Court');
+    if (!hasCordeliaDining) {
+      errors.push({
+        section: 'images',
+        rule: 'wrong_dining_hero',
+        message: `Dining hero must use shared Cordelia image (/assets/img/Cordelia_Empress_Food_Court.webp), found: ${diningHeroSrc.substring(0, 50)}`,
+        severity: 'BLOCKING'
+      });
+    }
+  } else {
+    // Check if page has a dining section - if so, it needs a dining-hero image
+    const hasDiningSection = $('[id="dining"], [aria-labelledby="dining"], section.card:contains("Dining")').length > 0;
+    if (hasDiningSection) {
+      errors.push({
+        section: 'images',
+        rule: 'missing_dining_hero',
+        message: 'Dining section exists but missing dining-hero image with Cordelia_Empress_Food_Court.webp',
+        severity: 'BLOCKING'
+      });
+    }
+  }
 
   // Allowed external domains for images (CDNs, YouTube thumbnails for video sections)
   const allowedExternalDomains = [
@@ -1242,6 +1273,12 @@ function validateImages($, isHistoric = false) {
       const isAllowed = allowedExternalDomains.some(domain => src.includes(domain));
       if (!isAllowed) {
         hotlinkedImages.push(src.substring(0, 60) + (src.length > 60 ? '...' : ''));
+      }
+    } else if (src.startsWith('/assets/ships/')) {
+      // Check if local ship image exists
+      const localPath = join(PROJECT_ROOT, src.split('?')[0]); // Remove query params
+      if (!existsSync(localPath)) {
+        missingLocalImages.push(src.split('?')[0]);
       }
     }
 
@@ -1264,6 +1301,16 @@ function validateImages($, isHistoric = false) {
     });
   }
 
+  // BLOCKING: Referenced images must exist locally
+  if (missingLocalImages.length > 0) {
+    errors.push({
+      section: 'images',
+      rule: 'missing_local_images',
+      message: `${missingLocalImages.length} image(s) referenced but not found locally: ${missingLocalImages.slice(0, 3).join(', ')}${missingLocalImages.length > 3 ? '...' : ''}`,
+      severity: 'BLOCKING'
+    });
+  }
+
   if (missingAlt > 0) {
     errors.push({ section: 'images', rule: 'missing_alt', message: `${missingAlt} images missing alt text`, severity: 'BLOCKING' });
   }
@@ -1274,7 +1321,7 @@ function validateImages($, isHistoric = false) {
     warnings.push({ section: 'images', rule: 'missing_lazy', message: `${missingLazy} images missing loading="lazy"`, severity: 'WARNING' });
   }
 
-  return { valid: errors.length === 0, errors, warnings, data: { total: imageCount, missingAlt, shortAlt, missingLazy, hotlinked: hotlinkedImages.length } };
+  return { valid: errors.length === 0, errors, warnings, data: { total: imageCount, missingAlt, shortAlt, missingLazy, hotlinked: hotlinkedImages.length, missingLocal: missingLocalImages.length, hasDiningHero, hasCordeliaDining } };
 }
 
 /**
@@ -1351,6 +1398,126 @@ function validateJavaScript(html) {
   }
 
   return { valid: errors.length === 0, errors, warnings, data: { loadArticlesCount, hasDropdown, swiperMissingRewind, swiperMissingLoop, stylesVersion: stylesVersion ? stylesVersion[1] : null } };
+}
+
+/**
+ * Validate clean console (no runtime JavaScript errors)
+ * Checks for patterns that would cause console errors when the page loads
+ */
+function validateCleanConsole(html) {
+  const errors = [];
+  const warnings = [];
+  const issues = [];
+
+  // 1. Uncaught syntax errors - check for obvious JS syntax issues
+  const scriptBlocks = html.match(/<script[^>]*>[\s\S]*?<\/script>/gi) || [];
+
+  scriptBlocks.forEach((block, index) => {
+    // Extract just the JS content
+    const jsContent = block.replace(/<script[^>]*>/i, '').replace(/<\/script>/i, '');
+
+    // Check for unclosed string literals (basic check)
+    const lines = jsContent.split('\n');
+    lines.forEach((line, lineNum) => {
+      // Skip comments
+      if (line.trim().startsWith('//')) return;
+
+      // Check for console.log/error/warn statements (debug code left in)
+      if (/console\.(log|warn|error|debug|info)\s*\(/.test(line)) {
+        issues.push(`Script block ${index + 1}: console statement found (line ~${lineNum + 1})`);
+      }
+    });
+
+    // Check for undefined function calls that are common mistakes
+    const problematicPatterns = [
+      { pattern: /\.addEventListner\(/, message: 'Typo: addEventListner should be addEventListener' },
+      { pattern: /\.innerHtml\s*=/, message: 'Typo: innerHtml should be innerHTML' },
+      { pattern: /\.classlist\./, message: 'Typo: classlist should be classList' },
+      { pattern: /document\.getElementByID\(/, message: 'Typo: getElementByID should be getElementById' },
+      { pattern: /\.getElementByClassName\(/, message: 'Typo: getElementByClassName should be getElementsByClassName' },
+      { pattern: /\.queryselector\(/, message: 'Typo: queryselector should be querySelector' },
+      { pattern: /\.appendchild\(/, message: 'Typo: appendchild should be appendChild' },
+      { pattern: /\.setattribute\(/, message: 'Typo: setattribute should be setAttribute' }
+    ];
+
+    problematicPatterns.forEach(({ pattern, message }) => {
+      if (pattern.test(jsContent)) {
+        issues.push(`Script block ${index + 1}: ${message}`);
+      }
+    });
+
+    // Check for accessing properties on potentially null querySelector results without null check
+    // Pattern: querySelector(...).property without optional chaining or null check
+    const unsafeQuerySelectorAccess = jsContent.match(/querySelector\([^)]+\)\.(classList|style|innerHTML|textContent|value|src|href|id|className)/g) || [];
+    if (unsafeQuerySelectorAccess.length > 0) {
+      // Only flag if there's no preceding null check or optional chaining
+      unsafeQuerySelectorAccess.forEach(match => {
+        // Check if this pattern appears without optional chaining (?)
+        if (!jsContent.includes(match.replace(').', ')?.')) && !jsContent.includes('if (' + match.split('.')[0])) {
+          issues.push(`Potential null reference: ${match.substring(0, 50)}... (use ?. or null check)`);
+        }
+      });
+    }
+  });
+
+  // 2. Check for broken JSON in inline scripts (data-ship-stats-fallback, etc.)
+  const jsonDataAttributes = html.match(/data-[a-z-]+-json='[^']*'/g) || [];
+  jsonDataAttributes.forEach(attr => {
+    const jsonStr = attr.replace(/data-[a-z-]+-json='/, '').replace(/'$/, '');
+    try {
+      JSON.parse(jsonStr);
+    } catch (e) {
+      issues.push(`Invalid JSON in ${attr.substring(0, 30)}...: ${e.message}`);
+    }
+  });
+
+  // 3. Check for script tags referencing non-existent local files (common 404 error)
+  const scriptSrcs = html.match(/src="(\/[^"]+\.js[^"]*)"/g) || [];
+  scriptSrcs.forEach(src => {
+    const path = src.match(/src="([^"]+)"/)?.[1];
+    if (path && path.startsWith('/') && !path.startsWith('//')) {
+      const localPath = join(PROJECT_ROOT, path.split('?')[0]);
+      try {
+        if (!existsSync(localPath)) {
+          issues.push(`Script 404: ${path} not found`);
+        }
+      } catch (e) {
+        // Ignore access errors
+      }
+    }
+  });
+
+  // 4. Check for thrown errors or explicit error handling that might indicate problems
+  if (html.includes('throw new Error') && !html.includes('try')) {
+    issues.push('Unhandled throw statement without try/catch');
+  }
+
+  // Determine severity
+  if (issues.length > 0) {
+    // Console.log statements are warnings, other issues are errors
+    const consoleStatements = issues.filter(i => i.includes('console statement'));
+    const actualErrors = issues.filter(i => !i.includes('console statement'));
+
+    if (actualErrors.length > 0) {
+      errors.push({
+        section: 'clean_console',
+        rule: 'js_runtime_errors',
+        message: `${actualErrors.length} potential console error(s): ${actualErrors.slice(0, 2).join('; ')}${actualErrors.length > 2 ? '...' : ''}`,
+        severity: 'BLOCKING'
+      });
+    }
+
+    if (consoleStatements.length > 0) {
+      warnings.push({
+        section: 'clean_console',
+        rule: 'debug_statements',
+        message: `${consoleStatements.length} console statement(s) found (debug code in production)`,
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  return { valid: errors.length === 0, errors, warnings, data: { issues, clean: issues.length === 0 } };
 }
 
 /**
@@ -1928,6 +2095,7 @@ async function validateShipPage(filepath) {
     const faqResult = validateFAQ($);
     const imageResult = validateImages($, isHistoric);
     const jsResult = validateJavaScript(html);
+    const cleanConsoleResult = validateCleanConsole(html);
     const htmlStructureResult = validateHTMLStructure(html);
     const viewportResult = validateViewport($, html);
 
@@ -1950,6 +2118,7 @@ async function validateShipPage(filepath) {
       ...navResult.errors, ...escapeResult.errors, ...wcagResult.errors,
       ...sectionResult.errors, ...dataResult.errors, ...consistencyResult.errors,
       ...faqResult.errors, ...imageResult.errors, ...jsResult.errors,
+      ...cleanConsoleResult.errors,
       ...logbookResult.errors, ...videoResult.errors, ...articlesResult.errors,
       ...htmlStructureResult.errors, ...viewportResult.errors,
       ...contentPurityResult.errors, ...shipStatsResult.errors,
@@ -1961,6 +2130,7 @@ async function validateShipPage(filepath) {
       ...navResult.warnings, ...escapeResult.warnings, ...wcagResult.warnings,
       ...sectionResult.warnings, ...dataResult.warnings, ...consistencyResult.warnings,
       ...faqResult.warnings, ...imageResult.warnings, ...jsResult.warnings,
+      ...cleanConsoleResult.warnings,
       ...logbookResult.warnings, ...videoResult.warnings, ...articlesResult.warnings,
       ...htmlStructureResult.warnings, ...viewportResult.warnings,
       ...contentPurityResult.warnings, ...shipStatsResult.warnings,
@@ -1980,6 +2150,7 @@ async function validateShipPage(filepath) {
       ...navResult.errors, ...escapeResult.errors, ...wcagResult.errors,
       ...sectionResult.errors, ...dataResult.errors, ...consistencyResult.errors,
       ...faqResult.errors, ...imageResult.errors, ...jsResult.errors,
+      ...cleanConsoleResult.errors,
       ...logbookResult.errors, ...videoResult.errors, ...articlesResult.errors,
       ...htmlStructureResult.errors, ...viewportResult.errors,
       ...contentPurityResult.errors, ...shipStatsResult.errors,
@@ -1995,6 +2166,7 @@ async function validateShipPage(filepath) {
       ...navResult.warnings, ...escapeResult.warnings, ...wcagResult.warnings,
       ...sectionResult.warnings, ...dataResult.warnings, ...consistencyResult.warnings,
       ...faqResult.warnings, ...imageResult.warnings, ...jsResult.warnings,
+      ...cleanConsoleResult.warnings,
       ...logbookResult.warnings, ...videoResult.warnings, ...articlesResult.warnings,
       ...htmlStructureResult.warnings, ...viewportResult.warnings,
       ...contentPurityResult.warnings, ...shipStatsResult.warnings,
@@ -2024,6 +2196,7 @@ async function validateShipPage(filepath) {
     results.viewport = viewportResult.data;
     results.content_purity = contentPurityResult.data;
     results.word_counts = wordCountResult.data;
+    results.clean_console = cleanConsoleResult.data;
     results.inline_json = { stats: shipStatsResult.data, dining: diningResult.data };
     results.discoverability = {
       search_index: searchIndexResult.data,
