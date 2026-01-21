@@ -12,11 +12,18 @@
  * rubric compliance, logbook narrative structure, voice requirements
  */
 
-import { readFile } from 'fs/promises';
-import { join, dirname, relative } from 'path';
+import { readFile, readdir, stat } from 'fs/promises';
+import { existsSync, readFileSync } from 'fs';
+import { createHash } from 'crypto';
+import { join, dirname, relative, basename } from 'path';
 import { fileURLToPath } from 'url';
 import { load } from 'cheerio';
 import { glob } from 'glob';
+
+// Known placeholder image hashes (these should not be used on any port page)
+const PLACEHOLDER_HASHES = new Set([
+  'd7a4721e321920f7f6414c7a7fe865f0'  // cozumel-fom-1.webp placeholder
+]);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -973,6 +980,122 @@ function validateImages($) {
 }
 
 /**
+ * Validate port-specific images (each port must have unique images, not placeholders)
+ */
+async function validatePortImages(filepath) {
+  const errors = [];
+  const warnings = [];
+
+  // Extract port slug from filename (e.g., barcelona.html -> barcelona)
+  const filename = basename(filepath, '.html');
+  const portImgDir = join(PROJECT_ROOT, 'ports', 'img', filename);
+
+  // Check if port has its own image directory
+  if (!existsSync(portImgDir)) {
+    errors.push({
+      section: 'port_images',
+      rule: 'missing_port_img_directory',
+      message: `Port image directory not found: ports/img/${filename}/`,
+      severity: 'BLOCKING'
+    });
+    return { valid: false, errors, warnings, data: {} };
+  }
+
+  // Scan images in port directory
+  let imageFiles = [];
+  try {
+    const files = await readdir(portImgDir);
+    imageFiles = files.filter(f => f.endsWith('.webp') || f.endsWith('.jpg') || f.endsWith('.png'));
+  } catch (e) {
+    errors.push({
+      section: 'port_images',
+      rule: 'port_img_read_error',
+      message: `Could not read port image directory: ${e.message}`,
+      severity: 'BLOCKING'
+    });
+    return { valid: false, errors, warnings, data: {} };
+  }
+
+  if (imageFiles.length === 0) {
+    errors.push({
+      section: 'port_images',
+      rule: 'no_port_images',
+      message: `No images found in ports/img/${filename}/`,
+      severity: 'BLOCKING'
+    });
+    return { valid: false, errors, warnings, data: {} };
+  }
+
+  // Check each image for placeholder hash
+  let placeholderCount = 0;
+  const placeholderImages = [];
+
+  for (const imgFile of imageFiles) {
+    const imgPath = join(portImgDir, imgFile);
+    try {
+      const imgBuffer = readFileSync(imgPath);
+      const hash = createHash('md5').update(imgBuffer).digest('hex');
+
+      if (PLACEHOLDER_HASHES.has(hash)) {
+        placeholderCount++;
+        placeholderImages.push(imgFile);
+      }
+    } catch (e) {
+      // Skip files that can't be read
+    }
+  }
+
+  if (placeholderCount > 0) {
+    errors.push({
+      section: 'port_images',
+      rule: 'placeholder_images_detected',
+      message: `${placeholderCount} placeholder image(s) detected in ports/img/${filename}/: ${placeholderImages.slice(0, 3).join(', ')}${placeholderCount > 3 ? '...' : ''}. Each port must have unique, port-specific images.`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  // Check for images with identical file sizes (potential duplicates)
+  const sizeGroups = {};
+  for (const imgFile of imageFiles) {
+    const imgPath = join(portImgDir, imgFile);
+    try {
+      const stats = await stat(imgPath);
+      const size = stats.size;
+      if (!sizeGroups[size]) sizeGroups[size] = [];
+      sizeGroups[size].push(imgFile);
+    } catch (e) {
+      // Skip files that can't be read
+    }
+  }
+
+  // Find groups of images with same size (potential duplicates)
+  const duplicateSizeGroups = Object.entries(sizeGroups)
+    .filter(([size, files]) => files.length > 2)  // More than 2 files with same size is suspicious
+    .map(([size, files]) => files);
+
+  if (duplicateSizeGroups.length > 0) {
+    const totalSuspicious = duplicateSizeGroups.reduce((acc, g) => acc + g.length, 0);
+    warnings.push({
+      section: 'port_images',
+      rule: 'potential_duplicate_images',
+      message: `${totalSuspicious} images have identical file sizes, may be duplicates/placeholders`,
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: {
+      total_port_images: imageFiles.length,
+      placeholder_images: placeholderCount,
+      potential_duplicates: duplicateSizeGroups.length > 0
+    }
+  };
+}
+
+/**
  * Validate rubric compliance (Four Pillars - ITC v1.1)
  */
 function validateRubric($) {
@@ -1526,6 +1649,7 @@ async function validatePortPage(filepath) {
     const sectionResult = validateSectionOrder($);
     const wordResult = validateWordCounts($);
     const imageResult = validateImages($);
+    const portImagesResult = await validatePortImages(filepath);
     const rubricResult = validateRubric($);
     const logbookResult = validateLogbookNarrative($);
     const contentPurityResult = validateContentPurity($);
@@ -1543,6 +1667,7 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...sectionResult.errors);
     results.blocking_errors.push(...wordResult.errors);
     results.blocking_errors.push(...imageResult.errors);
+    results.blocking_errors.push(...portImagesResult.errors);
     results.blocking_errors.push(...rubricResult.errors);
     results.blocking_errors.push(...logbookResult.errors);
     results.blocking_errors.push(...contentPurityResult.errors);
@@ -1555,6 +1680,7 @@ async function validatePortPage(filepath) {
     results.warnings.push(...sectionResult.warnings);
     results.warnings.push(...wordResult.warnings);
     results.warnings.push(...imageResult.warnings);
+    results.warnings.push(...portImagesResult.warnings);
     results.warnings.push(...rubricResult.warnings);
     results.warnings.push(...logbookResult.warnings);
     results.warnings.push(...contentPurityResult.warnings);
@@ -1585,6 +1711,7 @@ async function validatePortPage(filepath) {
     };
     results.word_counts = wordResult.counts;
     results.images = imageResult.counts;
+    results.port_images = portImagesResult.data;
     results.rubric = rubricResult.data;
     results.logbook_narrative = logbookResult.data;
     results.content_purity = contentPurityResult.data;
