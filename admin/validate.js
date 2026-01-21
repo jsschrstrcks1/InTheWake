@@ -60,6 +60,7 @@ const PATH_PATTERNS = [
   { pattern: /^ships\/.*\.html$/, type: 'ship' },
   { pattern: /^ports\/index\.html$/, type: 'index' },
   { pattern: /^ports\/.*\.html$/, type: 'port' },
+  { pattern: /^cruise-lines\/.*\.html$/, type: 'index' },  // Cruise line pages use basic validation
   { pattern: /^venues\/.*\.html$/, type: 'venue' },
   { pattern: /^articles\/.*\.html$/, type: 'article' },
   { pattern: /^blog\/.*\.html$/, type: 'article' },
@@ -168,11 +169,57 @@ async function runValidator(validatorScript, filepath, options = {}) {
 }
 
 /**
+ * Check if a page is a redirect stub
+ */
+function isRedirectPage($, html) {
+  // Check for meta refresh redirect
+  const hasMetaRefresh = $('meta[http-equiv="refresh"]').length > 0;
+
+  // Check for JavaScript redirect
+  const hasJsRedirect = html.includes('window.location.replace(') ||
+                        html.includes('window.location.href=') ||
+                        html.includes('window.location.href =');
+
+  // Check for noindex (often used on redirects)
+  const robotsMeta = $('meta[name="robots"]').attr('content') || '';
+  const isNoindex = robotsMeta.toLowerCase().includes('noindex');
+
+  return hasMetaRefresh || (hasJsRedirect && isNoindex);
+}
+
+/**
+ * Check if a page appears truncated (head content but no body content)
+ */
+function isTruncatedPage($, html) {
+  const bodyContent = $('body').html() || '';
+  const hasHead = $('head').length > 0;
+
+  // A truncated page has a head but very little body content
+  // (less than 100 chars after stripping whitespace and simple redirect messages)
+  const cleanBody = bodyContent.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+                               .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+                               .replace(/<[^>]+>/g, '')
+                               .replace(/\s+/g, ' ')
+                               .trim();
+
+  return hasHead && cleanBody.length < 100 && !isRedirectPage($, html);
+}
+
+/**
  * Run basic validation (for all page types)
  */
 async function runBasicValidation($, html, filepath) {
   const errors = [];
   const warnings = [];
+
+  // Check if this is a redirect page (skip structural validation for these)
+  const isRedirect = isRedirectPage($, html);
+
+  // Check if page appears truncated
+  const isTruncated = isTruncatedPage($, html);
+  if (isTruncated) {
+    errors.push({ rule: 'truncated', message: 'Page appears truncated - missing body content' });
+  }
 
   // Check for required meta tags
   const charset = $('meta[charset]').attr('charset');
@@ -191,10 +238,12 @@ async function runBasicValidation($, html, filepath) {
     errors.push({ rule: 'title', message: 'Missing or too short page title' });
   }
 
-  // Check for description
-  const description = $('meta[name="description"]').attr('content');
-  if (!description || description.length < 50) {
-    warnings.push({ rule: 'description', message: 'Missing or too short meta description' });
+  // Check for description (skip for redirects)
+  if (!isRedirect) {
+    const description = $('meta[name="description"]').attr('content');
+    if (!description || description.length < 50) {
+      warnings.push({ rule: 'description', message: 'Missing or too short meta description' });
+    }
   }
 
   // Check for canonical URL
@@ -214,15 +263,17 @@ async function runBasicValidation($, html, filepath) {
     errors.push({ rule: 'umami', message: 'Missing Umami Analytics script' });
   }
 
-  // Check for proper HTML5 structure
-  if (!$('header').length) {
-    warnings.push({ rule: 'structure', message: 'Missing <header> element' });
-  }
-  if (!$('main').length) {
-    errors.push({ rule: 'structure', message: 'Missing <main> element' });
-  }
-  if (!$('footer').length) {
-    warnings.push({ rule: 'structure', message: 'Missing <footer> element' });
+  // Check for proper HTML5 structure (skip for redirect pages)
+  if (!isRedirect && !isTruncated) {
+    if (!$('header').length) {
+      warnings.push({ rule: 'structure', message: 'Missing <header> element' });
+    }
+    if (!$('main').length) {
+      errors.push({ rule: 'structure', message: 'Missing <main> element' });
+    }
+    if (!$('footer').length) {
+      warnings.push({ rule: 'structure', message: 'Missing <footer> element' });
+    }
   }
 
   // Check for broken image references (local images that don't exist)
@@ -230,7 +281,9 @@ async function runBasicValidation($, html, filepath) {
   $('img').each((i, elem) => {
     const src = $(elem).attr('src') || '';
     if (src.startsWith('/') && !src.startsWith('//')) {
-      const imgPath = join(PROJECT_ROOT, src);
+      // Strip query string and hash from path before checking
+      const cleanSrc = src.split('?')[0].split('#')[0];
+      const imgPath = join(PROJECT_ROOT, cleanSrc);
       if (!existsSync(imgPath)) {
         localImages.push(src);
       }
@@ -244,7 +297,7 @@ async function runBasicValidation($, html, filepath) {
     });
   }
 
-  return { errors, warnings };
+  return { errors, warnings, isRedirect, isTruncated };
 }
 
 /**

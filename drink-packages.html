@@ -103,6 +103,18 @@
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+  </script>
+
+  <!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
   <!-- Service Worker Registration -->
   <script>
   if('serviceWorker' in navigator){
