@@ -2348,34 +2348,6 @@
         `;
       }
 
-      // Check for Viking-like preferences (sophisticated, destination-focused, adult couple/solo)
-      const vikingMatch = (
-        answers.atmosphere === 'sophisticated' &&
-        answers.crowd_tolerance === 'low' &&
-        answers.ship_vs_ports === 'ports' &&
-        (answers.group_type === 'couple' || answers.group_type === 'solo') &&
-        (answers.budget_mindset === 'premium' || answers.budget_mindset === 'all_in') &&
-        (answers.kid_separation === 'no_kids' || answers.kid_separation === 'adult_spaces')
-      );
-
-      if (vikingMatch) {
-        advisoryHTML += `
-          <div class="budget-advisory">
-            <div class="advisory-icon">⚓</div>
-            <div class="advisory-content">
-              <strong>You might also enjoy Viking Ocean Cruises</strong>
-              Your preferences—sophisticated atmosphere, destination focus, smaller crowds, and adults-only—align well with Viking's approach.
-              They're not in our quiz yet (too many ships to track!), but worth exploring if you value:
-              <ul>
-                <li><strong>Destination immersion</strong> with included shore excursions</li>
-                <li><strong>Scandinavian-inspired design</strong> with understated elegance</li>
-                <li><strong>All-inclusive pricing</strong> (Wi-Fi, specialty dining, excursions)</li>
-              </ul>
-            </div>
-          </div>
-        `;
-      }
-
       // Render results
       resultsContainer.innerHTML = advisoryHTML + topResults.map((rec, idx) => {
         const { ship, classData, className, line, score, lineData } = rec;
