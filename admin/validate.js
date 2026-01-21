@@ -60,6 +60,7 @@ const PATH_PATTERNS = [
   { pattern: /^ships\/.*\.html$/, type: 'ship' },
   { pattern: /^ports\/index\.html$/, type: 'index' },
   { pattern: /^ports\/.*\.html$/, type: 'port' },
+  { pattern: /^cruise-lines\/.*\.html$/, type: 'index' },  // Cruise line pages use basic validation
   { pattern: /^venues\/.*\.html$/, type: 'venue' },
   { pattern: /^articles\/.*\.html$/, type: 'article' },
   { pattern: /^blog\/.*\.html$/, type: 'article' },
@@ -280,7 +281,9 @@ async function runBasicValidation($, html, filepath) {
   $('img').each((i, elem) => {
     const src = $(elem).attr('src') || '';
     if (src.startsWith('/') && !src.startsWith('//')) {
-      const imgPath = join(PROJECT_ROOT, src);
+      // Strip query string and hash from path before checking
+      const cleanSrc = src.split('?')[0].split('#')[0];
+      const imgPath = join(PROJECT_ROOT, cleanSrc);
       if (!existsSync(imgPath)) {
         localImages.push(src);
       }
