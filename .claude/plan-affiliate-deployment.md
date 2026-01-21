@@ -141,97 +141,115 @@ This is used as a **trust differentiator** against competitors. Adding affiliate
 
 ---
 
-## 4. Expanded Product Recommendations
+## 4. Expanded Product Recommendations (WITH AFFILIATE LINKS)
 
 ### Travel Essentials (Add to Packing Lists)
 
-#### Cruise-Approved Power Strips (TOP PRIORITY)
-Most cruise cabins only have 2 outlets. Power strips are essential but MUST be non-surge protected.
-- **Cruise On Power Strip** - 3 AC + 2 USB, fits in palm, all cruise lines approved
-- **One Beat Travel Power Strip** - 3 outlets + 4 USB (2 USB-C), compact 3.2"×4.1"
-- **NTONPOWER i-Donut** - 3 outlets + 3 USB, FCC approved, fire-resistant shell
-- **Note:** Royal Caribbean/Celebrity now ban ALL AC-outlet devices - verify policies first
+#### Power Strips (CHECK YOUR CRUISE LINE POLICY FIRST)
+Most cruise cabins only have 2 outlets. Power strips are banned on some lines entirely.
+| Product | Link | Notes |
+|---------|------|-------|
+| Cruise On Power Strip (3 AC + 2 USB) | https://amzn.to/3ZnEZmQ | Check line policy first |
+| One Beat Travel Power Strip (3 outlets + 4 USB) | https://amzn.to/4612dmz | ⚠️ NOT allowed on RCL/Celebrity |
+| NTONPOWER i-Donut (3 outlets + 3 USB) | https://amzn.to/4qZfcxi | ⚠️ NOT allowed on RCL/Celebrity |
+
+**IMPORTANT:** Royal Caribbean/Celebrity now ban ALL AC-outlet devices. Many other lines have changing policies. Always verify with your specific cruise line before packing.
 
 #### Motion Sickness Relief
-- **Sea-Band** - Original acupressure wristbands, drug-free, clinically tested
-- **SafeHarbor Wristbands** - 4-pair packs with e-book, great for families
-- **Reliefband** - Electronic option, reusable, more expensive but highly effective
+| Product | Link | Notes |
+|---------|------|-------|
+| Dramamine | https://amzn.to/4qCaZ2L | Traditional medication |
+| Bonine | https://amzn.to/45N4G3W | Less drowsy formula |
+| Motion sickness patches | https://amzn.to/49Zdd6q | Behind-the-ear patches |
+| Sea-Band (acupressure wristbands) | https://amzn.to/4sQHlsc | Drug-free, clinically tested |
+| SafeHarbor Wristbands (4-pair) | https://amzn.to/3NqBwl6 | Great for families |
+| Reliefband (electronic) | https://amzn.to/4jJm7s9 | Reusable, more expensive |
 
 #### Organization & Packing
-- **Compression packing cubes** - BAGAIL (4.5★, 24K reviews), OlarHike 10-piece sets
-- **Monos Compression Cubes** - Premium nylon twill, under $100 for 4-piece
-- **Eagle Creek Pack-It Isolate** - Best value option per Pack Hacker
-- Look for: 30-50% volume reduction, water-resistant ripstop nylon
+| Product | Link | Notes |
+|---------|------|-------|
+| BAGAIL Compression Packing Cubes | https://amzn.to/45fFrHn | 4.5★, 24K reviews |
+| OlarHike 10-piece packing set | https://amzn.to/49JglSu | Complete set |
+| Monos Compression Cubes | https://amzn.to/49JFOLS | Premium nylon twill |
+| Eagle Creek Pack-It Isolate | https://amzn.to/4pICkPm | Best value option |
 
 #### Waterproof Phone Protection
-- **UNBREAKcable Floating Pouch (2-pack)** - IPX8, floats, fits phones up to 7"
-- **Hiearcool Waterproof Pouch (2-pack)** - IPX8, fits up to 8.3", touchscreen works
-- **F-color Waterproof Fanny Pack** - Triple-zip roll-top, fits phone + passport + cards
-- Key features: IPX8 rating, floating design, lanyard included
+| Product | Link | Notes |
+|---------|------|-------|
+| UNBREAKcable Floating Pouch (2-pack) | https://amzn.to/4q404hr | IPX8, floats |
+| Hiearcool Waterproof Pouch (2-pack) | https://amzn.to/3NC7rPn | Fits up to 8.3" |
+| F-color Waterproof Fanny Pack | https://amzn.to/4pL7Igj | Fits phone + passport |
 
 #### Cruise Card Management
-- **Cruise On Lanyard (2-pack)** - #1 rated, retractable 27" reel, waterproof pouch
-- **Leather/necklace lanyards** - Dressier options for formal nights
-- Tip: Some require hole-punching - request at front desk, avoid RFID damage
-
-#### Other Essentials
-- **Collapsible water bottle** - for port days
-- **Hanging toiletry bag** - bathroom organization
-- **Travel pill organizer** - medications
-- **Compact first aid kit** - bandages, pain relief, motion sickness meds
+| Product | Link | Notes |
+|---------|------|-------|
+| Cruise card holder | https://amzn.to/49JtWcL | Basic option |
+| Cruise On Lanyard (2-pack, retractable) | https://amzn.to/4qYosBE | #1 rated, waterproof pouch |
+| Leather lanyard | https://amzn.to/4jLT6vT | Dressy option |
+| Necklace lanyard | https://amzn.to/3YMRvw9 | Formal nights |
 
 ### Technology (Add to Internet Guide)
 
 #### Portable Power Banks (TSA Rules)
-- **Anker PowerCore Essential 20K** - 20,000mAh (~74Wh), 2 devices, fast charging
-- **INIU 20000mAh 65W** - Three ports including 65W USB-C for laptops
-- **Anker Prime 26K** - 26,250mAh (99.7Wh), max capacity for flights
-- TSA limits: Under 100Wh = always allowed; 100-160Wh = airline approval needed
-- MUST be in carry-on, never checked luggage
+| Product | Link | Notes |
+|---------|------|-------|
+| Anker PowerCore Essential 20K | https://amzn.to/45golcm | 20,000mAh (~74Wh) |
+| INIU 20000mAh 65W | https://amzn.to/4qrBtDY | 65W USB-C for laptops |
+| Anker Prime 26K | https://amzn.to/4sLHjBD | 99.7Wh, max for flights |
+| Anker Prime 26K (alt link) | https://amzn.to/49ZEG7X | Same product |
+
+TSA limits: Under 100Wh = always allowed; 100-160Wh = airline approval needed. MUST be in carry-on, never checked luggage.
 
 #### E-Readers
-- **Kindle Paperwhite** - Best for travel: waterproof IPX8, 10-week battery, 6.8" display
-- **Standard Kindle 2026** - Budget option at $109, 6-week battery, 300ppi
-- **Kindle Colorsoft** - Color e-ink, waterproof, $279, great for visual content
-- **Kobo Clara** - Alternative with Libby/Overdrive library integration
+| Product | Link | Notes |
+|---------|------|-------|
+| Kindle Paperwhite | https://amzn.to/3NPpiSY | Waterproof IPX8, 10-week battery |
+| Standard Kindle | https://amzn.to/4bFLXel | Budget option |
+| Kindle Colorsoft | https://amzn.to/4jIhr5w | Color e-ink, waterproof |
+| Kobo Clara | https://amzn.to/49Z94zg | Libby/Overdrive integration |
 
 #### Noise-Canceling Earbuds
-- **Bose QuietComfort Ultra Earbuds 2** - Best ANC, "reduces busy streets to near-silence"
-- **AirPods Pro 3** - Best for iPhone, 2x better ANC than Pro 2
-- **Sony WF-1000XM5** - Premium AirPods alternative, superior sound
-- **EarFun Air Pro 4** - Budget option with excellent ANC
-- **Beats Fit Pro** - Best for workouts, secure wingtip design
-
-#### Other Tech
-- **Universal travel adapter** - for international ports
-- **Bluetooth speaker** - waterproof for balcony use
+| Product | Link | Notes |
+|---------|------|-------|
+| Bose QuietComfort Ultra Earbuds 2 | https://amzn.to/4jLydkp | Best ANC overall |
+| AirPods Pro 3 | https://amzn.to/4b4FLfV | Best for iPhone |
+| Sony WF-1000XM5 | https://amzn.to/49pwkGA | Premium sound quality |
+| EarFun Air Pro 4 | https://amzn.to/49xUCNe | Budget option, excellent ANC |
+| Beats Fit Pro | https://amzn.to/3Nj4Utv | Best for workouts |
 
 ### Photography (New Article)
-- **Camera floating strap** - prevents sinking during water activities
-- **Mini tripod/selfie stick** - versatile for port photos
-- **High-capacity SD cards** - 128GB+ recommended
-- **Underwater camera case** - universal fit for snorkeling
-- **Note:** Drones prohibited on most ships and many ports
+| Product | Link | Notes |
+|---------|------|-------|
+| Camera floating strap | https://amzn.to/49GP82Z | Prevents sinking |
+| Mini tripod/selfie stick | https://amzn.to/4b56iJT | Versatile for port photos |
+| High-capacity SD cards (128GB+) | https://amzn.to/3NPpula | Don't run out of space |
+| Underwater camera case | https://amzn.to/3ZjTUyu | Universal fit for snorkeling |
+
+**Note:** Drones prohibited on most ships and many ports.
 
 ### Cabin Comfort (Organization Article)
-- **Sleep mask & earplugs** - cabin hallways can be noisy
-- **USB nightlight** - navigating dark cabin at night
-- **Travel pillow** - for flights and lounging
-- **Clip-on book light** - reading without disturbing roommate
-- **Portable fan** - small USB-powered for air circulation
+| Product | Link | Notes |
+|---------|------|-------|
+| Sleep mask | https://amzn.to/49tT9ZP | Block cabin light |
+| Earplugs | https://amzn.to/3LNTf5k | Cabin hallways can be noisy |
+| USB nightlight | https://amzn.to/4qq1xzf | Navigate dark cabin |
+| Travel pillow | https://amzn.to/4r5oc49 | Flights and lounging |
+| Clip-on book light | https://amzn.to/4bC9MDN | Read without disturbing roommate |
+| Portable USB fan | https://amzn.to/4jLnm9W | Air circulation |
 
 ### Faith Items (Solo/Grief Articles)
-- **Compact travel Bible** - NIV, ESV travel editions
-- **Prayer journal** - travel-sized
-- **Devotional books** - cruise/travel themed
-- **Small cross/religious keepsake** - for comfort
+| Product | Link | Notes |
+|---------|------|-------|
+| Compact travel Bible (ESV) | https://amzn.to/3LA6K8M | Portable edition |
+| Prayer journal | https://amzn.to/4b5sR1a | Travel-sized |
+| Cruise/travel devotional | https://amzn.to/4b68cKi | Daily readings |
 
 ### Cruise Duck Supplies (Duck Tradition Article)
-- **Bulk rubber ducks** - 50-100 packs for serious duckers
-- **Pre-tagged ducks** - "You've Been Ducked" ready to hide
-- **Waterproof labels/tags** - for DIY tagging
-- **Mini gift bags** - optional for special hides
-- **Themed ducks** - holidays, professions, characters
+| Product | Link | Notes |
+|---------|------|-------|
+| Bulk rubber duck variety packs | https://amzn.to/4r4ZuAR | For serious duckers |
+| Pre-tagged "You've Been Ducked" ducks | https://amzn.to/3NPCjff | Ready to hide |
+| Mini gift bags | https://amzn.to/4pOjqqH | Optional for special hides |
 
 ---
 

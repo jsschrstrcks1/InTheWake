@@ -1,0 +1,1163 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8"/>
+  <script>document.documentElement.classList.remove('no-js');</script>
+
+<!-- ai-breadcrumbs
+     entity: Cruise Line Quiz
+     type: Interactive Tool
+     parent: /cruise-lines.html
+     category: Planning Tool
+     updated: 2026-01-21
+     expertise: Cruise planning, cruise line selection, personalized recommendations
+     target-audience: Cruise travelers choosing between cruise lines
+     answer-first: Take this quick quiz to find the cruise line that best matches your travel style, budget, and preferences across 15 major lines from mainstream to ultra-luxury.
+     -->
+  <!-- ======================================================
+       In the Wake — Cruise Line Picker Quiz
+       Version: 1.1.0  |  Soli Deo Gloria
+       ====================================================== -->
+
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WZP891PZXJ',{anonymize_ip:true});</script>
+
+  <!-- ICP-Lite v1.4 Meta Tags -->
+  <meta name="ai-summary" content="Interactive quiz to help cruise travelers find the right cruise line based on travel style, budget, and preferences. Covers 15 lines: Royal Caribbean, Carnival, Norwegian, MSC, Celebrity, Princess, Holland America, Cunard, Costa, Virgin Voyages, Oceania, Regent Seven Seas, Seabourn, Silversea, and Explora Journeys." />
+  <meta name="last-reviewed" content="2026-01-21" />
+  <meta name="content-protocol" content="ICP-Lite v1.4" />
+
+  <!-- Core -->
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+
+  <!-- SEO -->
+  <meta name="robots" content="index,follow,max-image-preview:large"/>
+  <meta name="color-scheme" content="light"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="author" content="In the Wake"/>
+
+  <!-- Title & Description -->
+  <title>Which Cruise Line Is Right for You? — Quiz | In the Wake</title>
+  <meta name="description" content="Not sure which cruise line to choose? Take our quick quiz to find the perfect match from 15 major lines—mainstream to ultra-luxury—based on your travel style and budget." />
+  <link rel="canonical" href="https://cruisinginthewake.com/cruise-lines/quiz.html"/>
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://cruisinginthewake.com/cruise-lines/quiz.html"/>
+  <meta property="og:title" content="Which Cruise Line Is Right for You? — Quiz"/>
+  <meta property="og:description" content="Answer a few quick questions and we'll recommend the best cruise line for your travel style from 15 major lines."/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/cruise-lines-hero.jpg"/>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Which Cruise Line Is Right for You? — Quiz"/>
+  <meta name="twitter:description" content="Answer a few quick questions and we'll recommend the best cruise line for your travel style."/>
+
+  <!-- JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Cruise Lines", "item": "https://cruisinginthewake.com/cruise-lines.html" },
+      { "@type": "ListItem", "position": 3, "name": "Cruise Line Quiz", "item": "https://cruisinginthewake.com/cruise-lines/quiz.html" }
+    ]
+  }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.300">
+
+  <style>
+    /* Quiz-specific styles */
+    .quiz-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .quiz-intro {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .quiz-intro h1 {
+      font-size: 1.8rem;
+      color: var(--sea, #083041);
+      margin-bottom: 0.5rem;
+    }
+    .quiz-intro p {
+      color: var(--ink-mid, #5a7a8a);
+      font-size: 1.05rem;
+    }
+
+    /* Progress bar */
+    .quiz-progress {
+      background: var(--sky, #e0f4f8);
+      height: 8px;
+      border-radius: 4px;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    .quiz-progress-bar {
+      background: linear-gradient(90deg, var(--accent, #0e6e8e), var(--sea, #083041));
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    /* Question card */
+    .quiz-question {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .quiz-question.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .question-header {
+      margin-bottom: 1.5rem;
+    }
+    .question-number {
+      font-size: 0.85rem;
+      color: var(--accent, #0e6e8e);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .question-text {
+      font-size: 1.4rem;
+      color: var(--sea, #083041);
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    /* Options */
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .quiz-option {
+      display: block;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border: 2px solid var(--rope, #d9b382);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+    }
+    .quiz-option:hover {
+      border-color: var(--accent, #0e6e8e);
+      background: var(--foam, #f0f9fc);
+    }
+    .quiz-option.selected {
+      border-color: var(--accent, #0e6e8e);
+      background: var(--accent, #0e6e8e);
+      color: #fff;
+    }
+    .quiz-option.selected .option-desc {
+      color: rgba(255,255,255,0.85);
+    }
+    .option-label {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .option-desc {
+      font-size: 0.85rem;
+      color: var(--ink-mid, #5a7a8a);
+    }
+
+    /* Navigation */
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e0f0f5;
+    }
+    .btn-back {
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      color: var(--accent, #0e6e8e);
+      border: 2px solid var(--accent, #0e6e8e);
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-back:hover:not(:disabled) {
+      background: var(--foam, #f0f9fc);
+    }
+    .btn-back:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .btn-next {
+      padding: 0.75rem 2rem;
+      background: linear-gradient(135deg, #0e6e8e 0%, #0a3d62 100%);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(14, 110, 142, 0.25);
+    }
+    .btn-next:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(14, 110, 142, 0.35);
+    }
+    .btn-next:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Results */
+    .quiz-results {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    .quiz-results.active {
+      display: block;
+    }
+    .results-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .results-header h2 {
+      font-size: 1.6rem;
+      color: var(--sea, #083041);
+      margin-bottom: 0.5rem;
+    }
+    .results-header p {
+      color: var(--ink-mid, #5a7a8a);
+    }
+
+    /* Result cards */
+    .result-card {
+      background: #fff;
+      border: 2px solid var(--rope, #d9b382);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+      transition: all 0.25s;
+    }
+    .result-card:hover {
+      box-shadow: 0 8px 24px rgba(14, 110, 142, 0.12);
+    }
+    .result-card.top-pick {
+      border-color: var(--accent, #0e6e8e);
+      box-shadow: 0 6px 20px rgba(14, 110, 142, 0.15);
+    }
+
+    .result-brand-bar {
+      height: 6px;
+      width: 100%;
+    }
+    /* Mainstream lines */
+    .result-brand-bar.rcl { background: linear-gradient(90deg, #1a3d7c, #ffd700); }
+    .result-brand-bar.carnival { background: linear-gradient(90deg, #e31837, #0033a0); }
+    .result-brand-bar.ncl { background: linear-gradient(90deg, #00205b, #ffffff); }
+    .result-brand-bar.msc { background: linear-gradient(90deg, #003366, #b8860b); }
+    .result-brand-bar.celebrity { background: linear-gradient(90deg, #1c2b3a, #c4a35a); }
+    .result-brand-bar.princess { background: linear-gradient(90deg, #0a2240, #c9a961); }
+    .result-brand-bar.holland { background: linear-gradient(90deg, #003366, #ffffff); }
+    .result-brand-bar.cunard { background: linear-gradient(90deg, #1a1a1a, #c41e3a); }
+    .result-brand-bar.costa { background: linear-gradient(90deg, #ffd700, #003399); }
+    .result-brand-bar.virgin { background: linear-gradient(90deg, #e10a0a, #ffffff); }
+    /* Luxury lines */
+    .result-brand-bar.oceania { background: linear-gradient(90deg, #003366, #8b0000); }
+    .result-brand-bar.regent { background: linear-gradient(90deg, #1a2e4a, #c9a961); }
+    .result-brand-bar.seabourn { background: linear-gradient(90deg, #002855, #c4a35a); }
+    .result-brand-bar.silversea { background: linear-gradient(90deg, #1c1c1c, #c0c0c0); }
+    .result-brand-bar.explora { background: linear-gradient(90deg, #1a1a2e, #c9a961); }
+
+    .result-content {
+      padding: 1.25rem;
+    }
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+    .result-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--sea, #083041);
+    }
+    .result-badge {
+      display: none;
+      background: var(--accent, #0e6e8e);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+    .top-pick .result-badge {
+      display: inline-block;
+    }
+    .result-tier {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+    .result-tier.mainstream { background: #e0f4f8; color: #0e6e8e; }
+    .result-tier.premium { background: #f0e6d3; color: #8b6914; }
+    .result-tier.luxury { background: #1a1a2e; color: #c9a961; }
+    .result-match {
+      font-size: 0.9rem;
+      color: var(--accent, #0e6e8e);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .result-tagline {
+      font-size: 0.95rem;
+      color: var(--ink-mid, #5a7a8a);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    .result-best-for {
+      font-size: 0.85rem;
+      color: var(--ink, #134);
+      margin-bottom: 1rem;
+    }
+    .result-best-for strong {
+      color: var(--sea, #083041);
+    }
+    .result-link {
+      display: inline-block;
+      padding: 0.5rem 1.25rem;
+      background: var(--foam, #f0f9fc);
+      color: var(--accent, #0e6e8e);
+      text-decoration: none;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .result-link:hover {
+      background: var(--accent, #0e6e8e);
+      color: #fff;
+    }
+
+    /* Restart */
+    .restart-section {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e0f0f5;
+    }
+    .btn-restart {
+      padding: 0.75rem 2rem;
+      background: transparent;
+      color: var(--accent, #0e6e8e);
+      border: 2px solid var(--accent, #0e6e8e);
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-restart:hover {
+      background: var(--foam, #f0f9fc);
+    }
+
+    /* Related Resources */
+    .related-resources {
+      margin-top: 2rem;
+      padding: 1.25rem;
+      background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+      border: 2px solid #e8eef2;
+      border-radius: 12px;
+    }
+    .related-resources h3 {
+      margin: 0 0 0.75rem;
+      font-size: 1.1rem;
+      color: var(--sea, #083041);
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+    }
+    .related-link {
+      display: block;
+      padding: 0.75rem;
+      background: #fff;
+      border: 1px solid #e0e8f0;
+      border-radius: 8px;
+      text-decoration: none;
+      color: inherit;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .related-link:hover {
+      border-color: var(--accent, #0e6e8e);
+      background: var(--foam, #f0f9fc);
+    }
+    .related-link strong {
+      display: block;
+      color: var(--accent, #0e6e8e);
+      margin-bottom: 0.25rem;
+    }
+    .related-link span {
+      font-size: 0.8rem;
+      color: var(--ink-mid, #5a7a8a);
+    }
+
+    /* Loading state */
+    .quiz-loading {
+      display: none;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    .quiz-loading.active {
+      display: block;
+    }
+    .quiz-loading p {
+      color: var(--ink-mid, #5a7a8a);
+      font-size: 1.1rem;
+    }
+  </style>
+
+  <!-- Navigation -->
+  <script src="/assets/js/dropdown.js"></script>
+</head>
+<body class="page">
+  <!-- Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- HEADER -->
+  <header class="hero-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <a href="/">
+          <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async"/>
+        </a>
+        <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
+      </div>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
+        <div class="nav-dropdown">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/ports.html">Ports</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Cruise Lines <span class="caret">&#9662;</span></button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/cruise-lines.html">Compare Cruise Lines</a>
+            <a href="/cruise-lines/quiz.html" aria-current="page">Cruise Line Quiz</a>
+            <a href="/cruise-lines/royal-caribbean.html">Royal Caribbean</a>
+            <a href="/cruise-lines/carnival.html">Carnival</a>
+            <a href="/cruise-lines/celebrity.html">Celebrity</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Tools <span class="caret">&#9662;</span></button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+          </div>
+        </div>
+        <a class="nav-pill" href="/solo.html">Solo</a>
+        <a class="nav-pill" href="/first-cruise.html">First Cruise</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main id="main-content" class="wrap" role="main">
+    <div class="quiz-container">
+
+      <!-- Intro -->
+      <div class="quiz-intro">
+        <h1>Which Cruise Line Is Right for You?</h1>
+        <p>Answer 6 quick questions and we'll match you with the best cruise lines from mainstream to ultra-luxury.</p>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="quiz-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div class="quiz-progress-bar" style="width: 0%"></div>
+      </div>
+
+      <!-- Questions -->
+      <div id="quiz-questions">
+
+        <!-- Question 1: Who's traveling? -->
+        <div class="quiz-question active" data-question="1">
+          <div class="question-header">
+            <div class="question-number">Question 1 of 6</div>
+            <div class="question-text">Who's traveling?</div>
+          </div>
+          <div class="quiz-options">
+            <button type="button" class="quiz-option" data-value="family-kids">
+              <div class="option-label">Family with kids</div>
+              <div class="option-desc">Children under 18 will be joining</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="couple">
+              <div class="option-label">Couple</div>
+              <div class="option-desc">Traveling as a pair, romantic getaway</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="solo">
+              <div class="option-label">Solo</div>
+              <div class="option-desc">Traveling alone, open to meeting people</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="multigenerational">
+              <div class="option-label">Multigenerational group</div>
+              <div class="option-desc">Grandparents, parents, kids together</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="friends">
+              <div class="option-label">Friends group</div>
+              <div class="option-desc">Adults traveling together</div>
+            </button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="btn-back" disabled>Back</button>
+            <button type="button" class="btn-next" disabled>Next</button>
+          </div>
+        </div>
+
+        <!-- Question 2: Budget -->
+        <div class="quiz-question" data-question="2">
+          <div class="question-header">
+            <div class="question-number">Question 2 of 6</div>
+            <div class="question-text">What's your budget priority?</div>
+          </div>
+          <div class="quiz-options">
+            <button type="button" class="quiz-option" data-value="value">
+              <div class="option-label">Best value</div>
+              <div class="option-desc">Looking for affordable cruising without sacrificing fun</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="mid-range">
+              <div class="option-label">Mid-range comfort</div>
+              <div class="option-desc">Willing to pay more for better experience</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="premium">
+              <div class="option-label">Premium experience</div>
+              <div class="option-desc">Quality matters more than price</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="luxury">
+              <div class="option-label">Luxury / all-inclusive</div>
+              <div class="option-desc">Top-tier service, everything included</div>
+            </button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="btn-back">Back</button>
+            <button type="button" class="btn-next" disabled>Next</button>
+          </div>
+        </div>
+
+        <!-- Question 3: What matters most -->
+        <div class="quiz-question" data-question="3">
+          <div class="question-header">
+            <div class="question-number">Question 3 of 6</div>
+            <div class="question-text">What matters most to you?</div>
+          </div>
+          <div class="quiz-options">
+            <button type="button" class="quiz-option" data-value="activities">
+              <div class="option-label">Activities & entertainment</div>
+              <div class="option-desc">Water parks, shows, rock climbing, things to do</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="dining">
+              <div class="option-label">Food & dining</div>
+              <div class="option-desc">Great restaurants, culinary experiences</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="destinations">
+              <div class="option-label">Destinations & ports</div>
+              <div class="option-desc">The itinerary and places we visit</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="relaxation">
+              <div class="option-label">Relaxation & wellness</div>
+              <div class="option-desc">Spa, peace and quiet, unwinding</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="service">
+              <div class="option-label">Service & attention</div>
+              <div class="option-desc">Personalized care, attentive staff</div>
+            </button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="btn-back">Back</button>
+            <button type="button" class="btn-next" disabled>Next</button>
+          </div>
+        </div>
+
+        <!-- Question 4: Ship size -->
+        <div class="quiz-question" data-question="4">
+          <div class="question-header">
+            <div class="question-number">Question 4 of 6</div>
+            <div class="question-text">What ship size appeals to you?</div>
+          </div>
+          <div class="quiz-options">
+            <button type="button" class="quiz-option" data-value="mega">
+              <div class="option-label">Mega-ships</div>
+              <div class="option-desc">5,000+ guests, endless options, floating cities</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="large">
+              <div class="option-label">Large ships</div>
+              <div class="option-desc">2,500-5,000 guests, lots to do but manageable</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="mid">
+              <div class="option-label">Mid-size ships</div>
+              <div class="option-desc">1,000-2,500 guests, balanced experience</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="small">
+              <div class="option-label">Smaller / boutique</div>
+              <div class="option-desc">Under 1,000 guests, intimate atmosphere</div>
+            </button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="btn-back">Back</button>
+            <button type="button" class="btn-next" disabled>Next</button>
+          </div>
+        </div>
+
+        <!-- Question 5: Atmosphere -->
+        <div class="quiz-question" data-question="5">
+          <div class="question-header">
+            <div class="question-number">Question 5 of 6</div>
+            <div class="question-text">What atmosphere do you prefer?</div>
+          </div>
+          <div class="quiz-options">
+            <button type="button" class="quiz-option" data-value="casual">
+              <div class="option-label">Casual & fun</div>
+              <div class="option-desc">Relaxed dress code, laid-back vibes</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="smart-casual">
+              <div class="option-label">Smart casual</div>
+              <div class="option-desc">Polished but comfortable, some dress-up nights</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="elegant">
+              <div class="option-label">Elegant & refined</div>
+              <div class="option-desc">Sophisticated ambiance, formal options</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="trendy">
+              <div class="option-label">Trendy & contemporary</div>
+              <div class="option-desc">Modern, stylish, Instagram-worthy</div>
+            </button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="btn-back">Back</button>
+            <button type="button" class="btn-next" disabled>Next</button>
+          </div>
+        </div>
+
+        <!-- Question 6: Special interests -->
+        <div class="quiz-question" data-question="6">
+          <div class="question-header">
+            <div class="question-number">Question 6 of 6</div>
+            <div class="question-text">Any special interests?</div>
+          </div>
+          <div class="quiz-options">
+            <button type="button" class="quiz-option" data-value="adults-only">
+              <div class="option-label">Adults-only preferred</div>
+              <div class="option-desc">No kids on the ship</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="enrichment">
+              <div class="option-label">Cultural enrichment</div>
+              <div class="option-desc">Lectures, learning, destination immersion</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="adventure">
+              <div class="option-label">Adventure & thrills</div>
+              <div class="option-desc">Waterslides, zip lines, go-karts</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="british">
+              <div class="option-label">British heritage</div>
+              <div class="option-desc">Traditional ocean liner experience</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="none">
+              <div class="option-label">No special preference</div>
+              <div class="option-desc">Open to anything</div>
+            </button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="btn-back">Back</button>
+            <button type="button" class="btn-next" disabled>See My Results</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Loading -->
+      <div class="quiz-loading" id="quiz-loading">
+        <p>Finding your perfect cruise lines...</p>
+      </div>
+
+      <!-- Results -->
+      <div class="quiz-results" id="quiz-results">
+        <div class="results-header">
+          <h2>Your Best Cruise Line Matches</h2>
+          <p>Based on your preferences, here are the cruise lines we recommend:</p>
+        </div>
+        <div id="results-list"></div>
+
+        <div class="restart-section">
+          <button type="button" class="btn-restart" id="btn-restart">Take the Quiz Again</button>
+        </div>
+
+        <!-- Related Resources -->
+        <div class="related-resources">
+          <h3>Continue Planning</h3>
+          <div class="related-grid">
+            <a href="/ships/quiz.html" class="related-link">
+              <strong>Ship Quiz</strong>
+              <span>Find your perfect ship</span>
+            </a>
+            <a href="/first-cruise.html" class="related-link">
+              <strong>First Cruise Guide</strong>
+              <span>New to cruising?</span>
+            </a>
+            <a href="/drink-calculator.html" class="related-link">
+              <strong>Drink Calculator</strong>
+              <span>Package worth it?</span>
+            </a>
+            <a href="/packing-lists.html" class="related-link">
+              <strong>Packing Lists</strong>
+              <span>Don't forget anything</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="wrap" role="contentinfo">
+    <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
+    <p class="tiny mt-05">
+      <a href="/privacy.html">Privacy</a> &middot;
+      <a href="/terms.html">Terms</a> &middot;
+      <a href="/about-us.html">About</a> &middot;
+      <a href="/accessibility.html">Accessibility</a>
+    </p>
+    <p class="trust-badge">&#10003; No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+  </footer>
+
+  <!-- Quiz Logic -->
+  <script>
+  (function() {
+    'use strict';
+
+    // All 15 cruise lines matching the ship quiz
+    const cruiseLines = {
+      // MAINSTREAM LINES
+      'rcl': {
+        name: 'Royal Caribbean',
+        tier: 'mainstream',
+        tagline: 'The vacation revolution. Mega-ships packed with activities, entertainment, and wow-factor experiences from water parks to Broadway shows.',
+        bestFor: 'Active families, first-time cruisers, mega-ship enthusiasts',
+        url: '/cruise-lines/royal-caribbean.html',
+        scores: {
+          travelers: { 'family-kids': 5, 'couple': 3, 'solo': 2, 'multigenerational': 5, 'friends': 3 },
+          budget: { 'value': 3, 'mid-range': 5, 'premium': 3, 'luxury': 1 },
+          priority: { 'activities': 5, 'dining': 3, 'destinations': 3, 'relaxation': 2, 'service': 3 },
+          shipSize: { 'mega': 5, 'large': 4, 'mid': 2, 'small': 0 },
+          atmosphere: { 'casual': 4, 'smart-casual': 4, 'elegant': 2, 'trendy': 3 },
+          special: { 'adults-only': 0, 'enrichment': 2, 'adventure': 5, 'british': 0, 'none': 3 }
+        }
+      },
+      'carnival': {
+        name: 'Carnival',
+        tier: 'mainstream',
+        tagline: 'Choose Fun! Casual, high-energy cruising with waterslides, comedy clubs, and Guy Fieri burgers. Great value for families.',
+        bestFor: 'Families, first-time cruisers, value-seekers, fun-lovers',
+        url: '/cruise-lines/carnival.html',
+        scores: {
+          travelers: { 'family-kids': 5, 'couple': 3, 'solo': 2, 'multigenerational': 4, 'friends': 4 },
+          budget: { 'value': 5, 'mid-range': 4, 'premium': 2, 'luxury': 0 },
+          priority: { 'activities': 4, 'dining': 3, 'destinations': 3, 'relaxation': 2, 'service': 2 },
+          shipSize: { 'mega': 4, 'large': 5, 'mid': 3, 'small': 0 },
+          atmosphere: { 'casual': 5, 'smart-casual': 3, 'elegant': 1, 'trendy': 2 },
+          special: { 'adults-only': 0, 'enrichment': 1, 'adventure': 4, 'british': 0, 'none': 4 }
+        }
+      },
+      'ncl': {
+        name: 'Norwegian',
+        tier: 'mainstream',
+        tagline: 'Freestyle cruising with no fixed dining times and casual atmosphere. Great flexibility, though service can be inconsistent.',
+        bestFor: 'Flexible travelers, solo cruisers, friend groups',
+        url: '/cruise-lines/norwegian.html',
+        // NOTE: Scores reduced to reflect service quality concerns (aligned with ship quiz -7 penalty)
+        scores: {
+          travelers: { 'family-kids': 3, 'couple': 3, 'solo': 4, 'multigenerational': 2, 'friends': 4 },
+          budget: { 'value': 3, 'mid-range': 4, 'premium': 2, 'luxury': 0 },
+          priority: { 'activities': 3, 'dining': 3, 'destinations': 3, 'relaxation': 2, 'service': 1 },
+          shipSize: { 'mega': 4, 'large': 5, 'mid': 3, 'small': 0 },
+          atmosphere: { 'casual': 5, 'smart-casual': 3, 'elegant': 1, 'trendy': 3 },
+          special: { 'adults-only': 1, 'enrichment': 1, 'adventure': 3, 'british': 0, 'none': 3 }
+        }
+      },
+      'msc': {
+        name: 'MSC Cruises',
+        tier: 'mainstream',
+        tagline: 'European-style cruising with Italian flair, stunning ships, and excellent value. Popular with multigenerational families.',
+        bestFor: 'European travelers, multigenerational families, value seekers',
+        url: '/cruise-lines/msc.html',
+        scores: {
+          travelers: { 'family-kids': 4, 'couple': 3, 'solo': 2, 'multigenerational': 5, 'friends': 3 },
+          budget: { 'value': 5, 'mid-range': 4, 'premium': 3, 'luxury': 2 },
+          priority: { 'activities': 4, 'dining': 3, 'destinations': 4, 'relaxation': 3, 'service': 3 },
+          shipSize: { 'mega': 5, 'large': 4, 'mid': 3, 'small': 0 },
+          atmosphere: { 'casual': 3, 'smart-casual': 4, 'elegant': 3, 'trendy': 3 },
+          special: { 'adults-only': 1, 'enrichment': 2, 'adventure': 3, 'british': 0, 'none': 4 }
+        }
+      },
+      'celebrity': {
+        name: 'Celebrity Cruises',
+        tier: 'premium',
+        tagline: 'Modern luxury with design-forward ships, exceptional dining, and sophisticated atmosphere. Adults-focused but welcomes families.',
+        bestFor: 'Couples, foodies, solo travelers, wellness seekers',
+        url: '/cruise-lines/celebrity.html',
+        scores: {
+          travelers: { 'family-kids': 2, 'couple': 5, 'solo': 4, 'multigenerational': 3, 'friends': 4 },
+          budget: { 'value': 2, 'mid-range': 4, 'premium': 5, 'luxury': 3 },
+          priority: { 'activities': 2, 'dining': 5, 'destinations': 4, 'relaxation': 5, 'service': 4 },
+          shipSize: { 'mega': 2, 'large': 4, 'mid': 5, 'small': 2 },
+          atmosphere: { 'casual': 2, 'smart-casual': 5, 'elegant': 4, 'trendy': 4 },
+          special: { 'adults-only': 3, 'enrichment': 3, 'adventure': 1, 'british': 0, 'none': 4 }
+        }
+      },
+      'princess': {
+        name: 'Princess Cruises',
+        tier: 'premium',
+        tagline: 'Come Back New. Destination-focused cruising with MedallionClass technology, Movies Under the Stars, and gracious service.',
+        bestFor: 'Couples, mature travelers, destination lovers',
+        url: '/cruise-lines/princess.html',
+        scores: {
+          travelers: { 'family-kids': 3, 'couple': 5, 'solo': 3, 'multigenerational': 4, 'friends': 3 },
+          budget: { 'value': 3, 'mid-range': 5, 'premium': 4, 'luxury': 2 },
+          priority: { 'activities': 3, 'dining': 4, 'destinations': 5, 'relaxation': 4, 'service': 4 },
+          shipSize: { 'mega': 3, 'large': 5, 'mid': 4, 'small': 1 },
+          atmosphere: { 'casual': 3, 'smart-casual': 5, 'elegant': 4, 'trendy': 2 },
+          special: { 'adults-only': 2, 'enrichment': 4, 'adventure': 2, 'british': 1, 'none': 4 }
+        }
+      },
+      'holland': {
+        name: 'Holland America',
+        tier: 'premium',
+        tagline: 'Savor the Journey. Classic cruising with cultural enrichment, exceptional service, and refined atmosphere for discerning travelers.',
+        bestFor: 'Mature travelers, culture seekers, couples',
+        url: '/cruise-lines/holland-america.html',
+        scores: {
+          travelers: { 'family-kids': 1, 'couple': 5, 'solo': 3, 'multigenerational': 3, 'friends': 3 },
+          budget: { 'value': 2, 'mid-range': 4, 'premium': 5, 'luxury': 3 },
+          priority: { 'activities': 2, 'dining': 4, 'destinations': 5, 'relaxation': 4, 'service': 4 },
+          shipSize: { 'mega': 1, 'large': 3, 'mid': 5, 'small': 3 },
+          atmosphere: { 'casual': 2, 'smart-casual': 4, 'elegant': 5, 'trendy': 1 },
+          special: { 'adults-only': 3, 'enrichment': 5, 'adventure': 1, 'british': 2, 'none': 3 }
+        }
+      },
+      'cunard': {
+        name: 'Cunard',
+        tier: 'luxury',
+        tagline: 'The most iconic name in cruising. British heritage, white-glove service, and the only true ocean liner still sailing (Queen Mary 2).',
+        bestFor: 'Traditionalists, transatlantic travelers, history lovers',
+        url: '/cruise-lines/cunard.html',
+        scores: {
+          travelers: { 'family-kids': 2, 'couple': 5, 'solo': 3, 'multigenerational': 3, 'friends': 3 },
+          budget: { 'value': 1, 'mid-range': 3, 'premium': 5, 'luxury': 4 },
+          priority: { 'activities': 2, 'dining': 4, 'destinations': 4, 'relaxation': 4, 'service': 5 },
+          shipSize: { 'mega': 2, 'large': 4, 'mid': 5, 'small': 2 },
+          atmosphere: { 'casual': 1, 'smart-casual': 3, 'elegant': 5, 'trendy': 1 },
+          special: { 'adults-only': 2, 'enrichment': 4, 'adventure': 0, 'british': 5, 'none': 2 }
+        }
+      },
+      'costa': {
+        name: 'Costa Cruises',
+        tier: 'mainstream',
+        tagline: 'Italian style at sea. Vibrant atmosphere, Mediterranean flair, and excellent value with a European sensibility.',
+        bestFor: 'European travelers, families, value seekers',
+        url: '/cruise-lines/costa.html',
+        scores: {
+          travelers: { 'family-kids': 4, 'couple': 3, 'solo': 2, 'multigenerational': 4, 'friends': 3 },
+          budget: { 'value': 5, 'mid-range': 4, 'premium': 2, 'luxury': 1 },
+          priority: { 'activities': 3, 'dining': 4, 'destinations': 4, 'relaxation': 3, 'service': 3 },
+          shipSize: { 'mega': 4, 'large': 5, 'mid': 3, 'small': 0 },
+          atmosphere: { 'casual': 4, 'smart-casual': 4, 'elegant': 3, 'trendy': 2 },
+          special: { 'adults-only': 0, 'enrichment': 2, 'adventure': 2, 'british': 0, 'none': 4 }
+        }
+      },
+      'virgin': {
+        name: 'Virgin Voyages',
+        tier: 'premium',
+        tagline: 'Adults-only, all-dining-included cruising with trendy vibes, incredible restaurants, and late-night energy. No kids, no buffets.',
+        bestFor: 'Foodies, couples, friend groups, nightlife lovers',
+        url: '/cruise-lines/virgin.html',
+        // NOTE: Strong negative scores for family travelers - Virgin is 18+ only
+        scores: {
+          travelers: { 'family-kids': -10, 'couple': 5, 'solo': 4, 'multigenerational': -5, 'friends': 5 },
+          budget: { 'value': 2, 'mid-range': 4, 'premium': 5, 'luxury': 3 },
+          priority: { 'activities': 3, 'dining': 5, 'destinations': 3, 'relaxation': 3, 'service': 4 },
+          shipSize: { 'mega': 2, 'large': 5, 'mid': 4, 'small': 0 },
+          atmosphere: { 'casual': 3, 'smart-casual': 4, 'elegant': 2, 'trendy': 5 },
+          special: { 'adults-only': 5, 'enrichment': 2, 'adventure': 2, 'british': 0, 'none': 3 }
+        }
+      },
+      // LUXURY LINES
+      'oceania': {
+        name: 'Oceania Cruises',
+        tier: 'luxury',
+        tagline: 'The Finest Cuisine at Sea. Mid-size ships, destination-focused itineraries, and culinary excellence that rivals top restaurants.',
+        bestFor: 'Foodies, destination-focused travelers, couples',
+        url: '/cruise-lines.html',
+        // NOTE: Adults-focused, no dedicated kids programs
+        scores: {
+          travelers: { 'family-kids': -2, 'couple': 5, 'solo': 4, 'multigenerational': 2, 'friends': 4 },
+          budget: { 'value': 1, 'mid-range': 2, 'premium': 4, 'luxury': 5 },
+          priority: { 'activities': 1, 'dining': 5, 'destinations': 5, 'relaxation': 4, 'service': 5 },
+          shipSize: { 'mega': 0, 'large': 2, 'mid': 5, 'small': 4 },
+          atmosphere: { 'casual': 2, 'smart-casual': 4, 'elegant': 5, 'trendy': 2 },
+          special: { 'adults-only': 4, 'enrichment': 5, 'adventure': 1, 'british': 1, 'none': 3 }
+        }
+      },
+      'regent': {
+        name: 'Regent Seven Seas',
+        tier: 'luxury',
+        tagline: 'The most inclusive luxury. All-suite ships where everything is included: shore excursions, specialty dining, drinks, gratuities, even WiFi.',
+        bestFor: 'Luxury seekers, those who want everything included',
+        url: '/cruise-lines.html',
+        // NOTE: Ultra-luxury, limited kids facilities, not ideal for families with young children
+        scores: {
+          travelers: { 'family-kids': -3, 'couple': 5, 'solo': 4, 'multigenerational': 2, 'friends': 4 },
+          budget: { 'value': 0, 'mid-range': 1, 'premium': 3, 'luxury': 5 },
+          priority: { 'activities': 2, 'dining': 5, 'destinations': 5, 'relaxation': 5, 'service': 5 },
+          shipSize: { 'mega': 0, 'large': 1, 'mid': 4, 'small': 5 },
+          atmosphere: { 'casual': 2, 'smart-casual': 4, 'elegant': 5, 'trendy': 2 },
+          special: { 'adults-only': 4, 'enrichment': 4, 'adventure': 1, 'british': 1, 'none': 3 }
+        }
+      },
+      'seabourn': {
+        name: 'Seabourn',
+        tier: 'luxury',
+        tagline: 'Ultra-luxury with intimate ships, expedition voyages, and the highest crew-to-guest ratios afloat. Personalized service at its finest.',
+        bestFor: 'Luxury travelers, expedition seekers, service connoisseurs',
+        url: '/cruise-lines.html',
+        // NOTE: Strongly adults-focused, no kids programs, not suitable for families
+        scores: {
+          travelers: { 'family-kids': -5, 'couple': 5, 'solo': 4, 'multigenerational': 1, 'friends': 4 },
+          budget: { 'value': 0, 'mid-range': 1, 'premium': 3, 'luxury': 5 },
+          priority: { 'activities': 2, 'dining': 5, 'destinations': 5, 'relaxation': 5, 'service': 5 },
+          shipSize: { 'mega': 0, 'large': 0, 'mid': 3, 'small': 5 },
+          atmosphere: { 'casual': 2, 'smart-casual': 4, 'elegant': 5, 'trendy': 2 },
+          special: { 'adults-only': 5, 'enrichment': 4, 'adventure': 3, 'british': 1, 'none': 3 }
+        }
+      },
+      'silversea': {
+        name: 'Silversea',
+        tier: 'luxury',
+        tagline: 'Italian elegance meets expedition adventure. From the Mediterranean to Antarctica, with butler service in every suite.',
+        bestFor: 'Luxury travelers, expedition enthusiasts, couples',
+        url: '/cruise-lines.html',
+        // NOTE: Ultra-luxury, adults-focused, limited kids facilities
+        scores: {
+          travelers: { 'family-kids': -3, 'couple': 5, 'solo': 4, 'multigenerational': 1, 'friends': 4 },
+          budget: { 'value': 0, 'mid-range': 1, 'premium': 3, 'luxury': 5 },
+          priority: { 'activities': 2, 'dining': 5, 'destinations': 5, 'relaxation': 4, 'service': 5 },
+          shipSize: { 'mega': 0, 'large': 1, 'mid': 4, 'small': 5 },
+          atmosphere: { 'casual': 2, 'smart-casual': 4, 'elegant': 5, 'trendy': 3 },
+          special: { 'adults-only': 4, 'enrichment': 4, 'adventure': 4, 'british': 0, 'none': 3 }
+        }
+      },
+      'explora': {
+        name: 'Explora Journeys',
+        tier: 'luxury',
+        tagline: 'The Ocean State of Mind. MSC\'s new ultra-luxury brand with ocean suites, contemporary design, and European sophistication.',
+        bestFor: 'Modern luxury seekers, design enthusiasts, couples',
+        url: '/cruise-lines.html',
+        // NOTE: Ultra-luxury, adults-focused environment
+        scores: {
+          travelers: { 'family-kids': -2, 'couple': 5, 'solo': 4, 'multigenerational': 1, 'friends': 4 },
+          budget: { 'value': 0, 'mid-range': 1, 'premium': 3, 'luxury': 5 },
+          priority: { 'activities': 2, 'dining': 5, 'destinations': 4, 'relaxation': 5, 'service': 5 },
+          shipSize: { 'mega': 0, 'large': 2, 'mid': 5, 'small': 4 },
+          atmosphere: { 'casual': 2, 'smart-casual': 4, 'elegant': 4, 'trendy': 5 },
+          special: { 'adults-only': 4, 'enrichment': 3, 'adventure': 2, 'british': 0, 'none': 3 }
+        }
+      }
+    };
+
+    // State
+    let currentQuestion = 1;
+    const totalQuestions = 6;
+    const answers = {};
+
+    // DOM elements
+    const progressBar = document.querySelector('.quiz-progress-bar');
+    const questions = document.querySelectorAll('.quiz-question');
+    const resultsSection = document.getElementById('quiz-results');
+    const loadingSection = document.getElementById('quiz-loading');
+    const resultsList = document.getElementById('results-list');
+    const restartBtn = document.getElementById('btn-restart');
+
+    // Initialize
+    function init() {
+      document.querySelectorAll('.quiz-option').forEach(option => {
+        option.addEventListener('click', handleOptionClick);
+      });
+      document.querySelectorAll('.btn-back').forEach(btn => {
+        btn.addEventListener('click', goBack);
+      });
+      document.querySelectorAll('.btn-next').forEach(btn => {
+        btn.addEventListener('click', goNext);
+      });
+      restartBtn.addEventListener('click', restart);
+      updateProgress();
+    }
+
+    function handleOptionClick(e) {
+      const option = e.currentTarget;
+      const questionEl = option.closest('.quiz-question');
+      const questionNum = parseInt(questionEl.dataset.question);
+
+      questionEl.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+      option.classList.add('selected');
+
+      const categories = ['travelers', 'budget', 'priority', 'shipSize', 'atmosphere', 'special'];
+      answers[categories[questionNum - 1]] = option.dataset.value;
+
+      questionEl.querySelector('.btn-next').disabled = false;
+    }
+
+    function goBack() {
+      if (currentQuestion > 1) showQuestion(currentQuestion - 1);
+    }
+
+    function goNext() {
+      if (currentQuestion < totalQuestions) {
+        showQuestion(currentQuestion + 1);
+      } else {
+        showResults();
+      }
+    }
+
+    function showQuestion(num) {
+      questions.forEach(q => q.classList.remove('active'));
+      document.querySelector(`[data-question="${num}"]`).classList.add('active');
+      currentQuestion = num;
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const pct = ((currentQuestion - 1) / totalQuestions) * 100;
+      progressBar.style.width = pct + '%';
+    }
+
+    function showResults() {
+      document.getElementById('quiz-questions').style.display = 'none';
+      loadingSection.classList.add('active');
+
+      setTimeout(() => {
+        const results = calculateResults();
+        renderResults(results);
+        loadingSection.classList.remove('active');
+        resultsSection.classList.add('active');
+      }, 800);
+    }
+
+    function calculateResults() {
+      const scores = {};
+
+      Object.keys(cruiseLines).forEach(lineId => {
+        const line = cruiseLines[lineId];
+        let score = 0;
+
+        Object.keys(answers).forEach(category => {
+          const answer = answers[category];
+          if (line.scores[category] && line.scores[category][answer] !== undefined) {
+            score += line.scores[category][answer];
+          }
+        });
+
+        scores[lineId] = score;
+      });
+
+      const sorted = Object.keys(scores)
+        .map(id => ({ id, score: scores[id], ...cruiseLines[id] }))
+        .sort((a, b) => b.score - a.score);
+
+      return sorted.slice(0, 5);
+    }
+
+    function renderResults(results) {
+      const maxScore = results[0].score;
+
+      resultsList.innerHTML = results.map((line, idx) => {
+        const matchPct = Math.round((line.score / maxScore) * 100);
+        const isTopPick = idx === 0;
+        const tierLabel = line.tier === 'luxury' ? 'Luxury' : line.tier === 'premium' ? 'Premium' : 'Mainstream';
+
+        return `
+          <div class="result-card ${isTopPick ? 'top-pick' : ''}">
+            <div class="result-brand-bar ${line.id}"></div>
+            <div class="result-content">
+              <div class="result-header">
+                <div class="result-name">${line.name}</div>
+                <span class="result-badge">Top Pick</span>
+              </div>
+              <span class="result-tier ${line.tier}">${tierLabel}</span>
+              <div class="result-match">${matchPct}% match</div>
+              <div class="result-tagline">${line.tagline}</div>
+              <div class="result-best-for"><strong>Best for:</strong> ${line.bestFor}</div>
+              <a href="${line.url}" class="result-link">Learn more</a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function restart() {
+      currentQuestion = 1;
+      Object.keys(answers).forEach(k => delete answers[k]);
+
+      questions.forEach(q => {
+        q.classList.remove('active');
+        q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+        q.querySelector('.btn-next').disabled = true;
+      });
+      questions[0].classList.add('active');
+      questions[0].querySelector('.btn-back').disabled = true;
+
+      resultsSection.classList.remove('active');
+      document.getElementById('quiz-questions').style.display = 'block';
+
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    init();
+  })();
+  </script>
+
+</body>
+</html>

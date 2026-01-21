@@ -2,6 +2,18 @@
 <!--
 Soli Deo Gloria
 -->
+<!-- ai-breadcrumbs
+     entity: Ship
+     name: Resilient Lady
+     type: Ship Information Page
+     parent: /ships.html
+     siblings: /ships/virgin-voyages/valiant-lady.html, /ships/virgin-voyages/scarlet-lady.html, /ships/virgin-voyages/brilliant-lady.html
+     category: Virgin Voyages Fleet
+     cruise-line: Virgin Voyages
+     ship-class: Lady Class
+     updated: 2026-01-21
+     answer-first: Resilient Lady is Virgin Voyages' third ship, launched 2023. 110,000 GT, 2,770 guests. Adults-only Mediterranean and Greek Isles cruises.
+     -->
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
@@ -149,12 +161,44 @@ Soli Deo Gloria
       <div class="brand">
         <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" alt="In the Wake cruise travel guide and ship reviews logo" width="256" height="259"/></a>
       </div>
-      <nav class="site-nav" id="site-nav">
-        <a class="nav-pill" href="/">Home</a>
-        <a class="nav-pill" href="/ships.html">Ships</a>
-        <a class="nav-pill" href="/ports.html">Ports</a>
-        <a class="nav-pill" href="/search.html">Search</a>
-      </nav>
+      <nav class="site-nav" aria-label="Main navigation">
+  <a class="nav-pill" href="/">Home</a>
+
+  <div class="nav-dropdown" id="nav-planning">
+    <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+      Planning <span class="caret">▾</span>
+    </button>
+    <div class="dropdown-menu" role="menu">
+      <a href="/planning.html">Planning Overview</a>
+      <a href="/ships.html">Ships</a>
+      <a href="/ships/quiz.html">Ship Quiz</a>
+      <a href="/restaurants.html">Restaurants &amp; Menus</a>
+      <a href="/ports.html">Ports</a>
+      <a href="/internet-at-sea.html">Internet at Sea</a>
+      <a href="/drink-packages.html">Drink Packages</a>
+      <a href="/drink-calculator.html">Drink Calculator</a>
+      <a href="/stateroom-check.html">Stateroom Check</a>
+      <a href="/cruise-lines.html">Cruise Lines</a>
+      <a href="/packing-lists.html">Packing Lists</a>
+      <a href="/accessibility.html">Accessibility</a>
+    </div>
+  </div>
+
+  <div class="nav-dropdown" id="nav-travel">
+    <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+      Travel <span class="caret">▾</span>
+    </button>
+    <div class="dropdown-menu" role="menu">
+      <a href="/travel.html">Travel Overview</a>
+      <a href="/solo.html">Solo Cruising</a>
+    </div>
+  </div>
+
+  <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
+  <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+  <a class="nav-pill" href="/search.html">Search</a>
+  <a class="nav-pill" href="/about-us.html">About</a>
+</nav>
     </div>
   </header>
 
@@ -368,7 +412,19 @@ Soli Deo Gloria
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
       </section>
     </aside>
-  </main>
+  
+    <!-- Planning Resources -->
+    <section class="card" aria-labelledby="planning-resources">
+      <h2 id="planning-resources">Plan Your Cruise</h2>
+      <p>Helpful resources to prepare for your voyage:</p>
+      <ul>
+        <li><a href="/packing-lists.html">Complete Cruise Packing Lists</a></li>
+        <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization Tips</a></li>
+        <li><a href="/internet-at-sea.html">Internet &amp; WiFi at Sea</a></li>
+        <li><a href="/articles/cruise-tech-photography-guide.html">Tech &amp; Photography Guide</a></li>
+      </ul>
+    </section>
+</main>
 
   <footer class="wrap">
     <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook</p>
@@ -376,5 +432,7 @@ Soli Deo Gloria
     <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
   <script src="/assets/js/dropdown.js"></script>
+  <!-- In-App Browser Detection & Escape Banner -->
+  <script src="/assets/js/in-app-browser-escape.js"></script>
 </body>
 </html>
