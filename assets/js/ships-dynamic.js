@@ -1,30 +1,150 @@
 /**
- * Ships Dynamic Module v1.000.000
+ * Ships Dynamic Module v2.000.000
  * Soli Deo Gloria
  *
  * Features:
+ * - Multi-cruise-line support with selector buttons
  * - Hierarchical cruise line → ship class → ship display
  * - Intelligent image matching and cycling
  * - Collapsible sections with smooth transitions
  * - Share functionality
- * - Only shows ships with available images
+ * - "Coming Soon" indicator for ships without pages
+ * - Royal Caribbean pre-selected by default
  */
 
 (function() {
   'use strict';
 
-  // Ship image database - maps ship slugs to available images
+  // ===== CRUISE LINE CONFIGURATION =====
+  const CRUISE_LINES = {
+    'rcl': {
+      name: 'Royal Caribbean',
+      shortName: 'RCL',
+      directory: 'rcl',
+      heroImage: '/assets/social/royal-caribbean-hero.jpg',
+      color: '#003366'
+    },
+    'carnival': {
+      name: 'Carnival Cruise Line',
+      shortName: 'Carnival',
+      directory: 'carnival',
+      heroImage: '/assets/social/carnival-hero.jpg',
+      color: '#1f4e79'
+    },
+    'celebrity': {
+      name: 'Celebrity Cruises',
+      shortName: 'Celebrity',
+      directory: 'celebrity-cruises',
+      heroImage: '/assets/social/celebrity-hero.jpg',
+      color: '#1a1a2e'
+    },
+    'norwegian': {
+      name: 'Norwegian Cruise Line',
+      shortName: 'NCL',
+      directory: 'norwegian',
+      heroImage: '/assets/social/ncl-hero.jpg',
+      color: '#003b5c'
+    },
+    'princess': {
+      name: 'Princess Cruises',
+      shortName: 'Princess',
+      directory: 'princess',
+      heroImage: '/assets/social/princess-hero.jpg',
+      color: '#004987'
+    },
+    'holland': {
+      name: 'Holland America Line',
+      shortName: 'HAL',
+      directory: 'holland-america-line',
+      heroImage: '/assets/social/hal-hero.jpg',
+      color: '#002244'
+    },
+    'msc': {
+      name: 'MSC Cruises',
+      shortName: 'MSC',
+      directory: 'msc',
+      heroImage: '/assets/social/msc-hero.jpg',
+      color: '#003366'
+    },
+    'costa': {
+      name: 'Costa Cruises',
+      shortName: 'Costa',
+      directory: 'costa',
+      heroImage: '/assets/social/costa-hero.jpg',
+      color: '#f9d423'
+    },
+    'cunard': {
+      name: 'Cunard Line',
+      shortName: 'Cunard',
+      directory: 'cunard',
+      heroImage: '/assets/social/cunard-hero.jpg',
+      color: '#8b0000'
+    },
+    'seabourn': {
+      name: 'Seabourn',
+      shortName: 'Seabourn',
+      directory: 'seabourn',
+      heroImage: '/assets/social/seabourn-hero.jpg',
+      color: '#1a1a2e'
+    },
+    'oceania': {
+      name: 'Oceania Cruises',
+      shortName: 'Oceania',
+      directory: 'oceania',
+      heroImage: '/assets/social/oceania-hero.jpg',
+      color: '#003366'
+    },
+    'regent': {
+      name: 'Regent Seven Seas',
+      shortName: 'Regent',
+      directory: 'regent',
+      heroImage: '/assets/social/regent-hero.jpg',
+      color: '#002244'
+    },
+    'silversea': {
+      name: 'Silversea Cruises',
+      shortName: 'Silversea',
+      directory: 'silversea',
+      heroImage: '/assets/social/silversea-hero.jpg',
+      color: '#4a4a4a'
+    },
+    'explora': {
+      name: 'Explora Journeys',
+      shortName: 'Explora',
+      directory: 'explora-journeys',
+      heroImage: '/assets/social/explora-hero.jpg',
+      color: '#1a1a2e'
+    },
+    'virgin': {
+      name: 'Virgin Voyages',
+      shortName: 'Virgin',
+      directory: 'virgin',
+      heroImage: '/assets/social/virgin-hero.jpg',
+      color: '#e31937'
+    }
+  };
+
+  // Cruise line display order (tiers)
+  const CRUISE_LINE_ORDER = [
+    // Mainstream
+    'rcl', 'carnival', 'norwegian', 'msc', 'costa',
+    // Premium
+    'celebrity', 'princess', 'holland', 'cunard', 'virgin',
+    // Luxury
+    'oceania', 'regent', 'seabourn', 'silversea', 'explora'
+  ];
+
+  // ===== SHIP IMAGE DATABASE =====
   const SHIP_IMAGES = {
-    // Icon Class
+    // Royal Caribbean Icon Class
     'icon-of-the-seas': [
       '/assets/ships/Icon_of_the_Seas_(cropped).webp',
       '/assets/ships/Icon_of_the_Seas_(kahunapulej).webp',
       '/assets/ships/Icon_of_the_Seas_stern_in_Philipsburg,_Sint_Maarten.webp'
     ],
     'star-of-the-seas': [
-      '/assets/ships/Cádiz_-_Crucero_Star_of_the_Seas,_atracado_en_el_puerto_de_Cádiz_(25_julio_2025)_01.webp'
+      '/assets/ships/Cádiz_-_Crucero_Star_of_the_Seas,_atracado_en_el_puerto_de_Cádiz_(25_julio_2025)_01.webp'
     ],
-
     // Oasis Class
     'oasis-of-the-seas': [
       '/assets/ships/Oasis-of-the-seas-FOM- - 1.webp',
@@ -48,13 +168,12 @@
     'wonder-of-the-seas': [
       '/assets/ships/Wonder_of_the_Seas_-_August_2021.webp',
       '/assets/ships/Wonder_of_the_Seas_Jan_30_2025.webp',
-      '/assets/ships/Wonder_of_the_Seas_atracando_en_Cartagena-España-.webp'
+      '/assets/ships/Wonder_of_the_Seas_atracando_en_Cartagena-España-.webp'
     ],
     'utopia-of-the-seas': [
       '/assets/ships/Utopia-of-the-seas-FOM- - 1.webp',
       '/assets/ships/Utopia-of-the-seas-FOM- - 2.webp'
     ],
-
     // Quantum Ultra Class
     'spectrum-of-the-seas': [
       '/assets/ships/Spectrum_of_the_Seas_01.webp',
@@ -66,7 +185,6 @@
       '/assets/ships/Odyssey_of_the_Seas_(53429955475).webp',
       '/assets/ships/Odyssey_of_the_Seas_Abends.webp'
     ],
-
     // Quantum Class
     'quantum-of-the-seas': [
       '/assets/ships/Quantum_of_the_Seas_-_Wedel_04.webp',
@@ -83,7 +201,6 @@
       '/assets/ships/ovation-of-the-seas-FOM-10.webp',
       '/assets/ships/ovation-of-the-seas-FOM-11.webp'
     ],
-
     // Freedom Class
     'freedom-of-the-seas': [
       '/assets/ships/freedom-of-the-seas-FOM- - 1.webp',
@@ -97,9 +214,8 @@
     ],
     'independence-of-the-seas': [
       '/assets/ships/Cruise_ship_Independence_of_the_Seas_R01.webp',
-      '/assets/ships/1993-Independence_of_the_seas_na_Coruña.webp'
+      '/assets/ships/1993-Independence_of_the_seas_na_Coruña.webp'
     ],
-
     // Voyager Class
     'voyager-of-the-seas': [
       '/assets/ships/"Voyager_of_the_Seas"_(8194516843).webp',
@@ -113,7 +229,7 @@
     'navigator-of-the-seas': [
       '/assets/ships/Navigator_of_the_Seas_(Grand_Cayman)_001.webp',
       '/assets/ships/Navigator_of_the_Seas_(ship,_2002)_in_Ensenada,_Mexico_(August_2024)_1.webp',
-      '/assets/ships/Navigator_of_the_Seas,_Puerto_de_la_Bahía_de_Cádiz.webp'
+      '/assets/ships/Navigator_of_the_Seas,_Puerto_de_la_Bahía_de_Cádiz.webp'
     ],
     'adventure-of-the-seas': [
       '/assets/ships/Adventure_of_the_Seas_5.webp',
@@ -123,7 +239,6 @@
     'explorer-of-the-seas': [
       '/assets/ships/Explorer_of_the_Seas,_Fremantle,_2015_(03).webp'
     ],
-
     // Radiance Class
     'radiance-of-the-seas': [
       '/assets/ships/Radiance-of-the-seas-FOM- - 1.webp',
@@ -145,7 +260,6 @@
       '/assets/ships/Jewel-of-the-seas-FOM- - 1.webp',
       '/assets/ships/jewel-of-the-seas1.webp'
     ],
-
     // Vision Class
     'grandeur-of-the-seas': [
       '/assets/ships/Grandeur-of-the-seas-FOM- - 1.webp',
@@ -166,8 +280,7 @@
       '/assets/ships/vision-of-the-seas1.webp',
       '/assets/ships/vision-of-the-seas2.webp'
     ],
-
-    // Sovereign Class
+    // Historic Fleet
     'majesty-of-the-seas': [
       '/assets/ships/MSMajestyOfTheSeasEdit1.webp',
       '/assets/ships/Majesty_of_the_Seas_(ship,_1992)_002.webp',
@@ -182,15 +295,11 @@
       '/assets/ships/2560px-Monarch_of_the_seas_(2707258203).webp',
       '/assets/ships/Monarch_of_the_Seas.webp'
     ],
-
-    // Legend Class
     'splendour-of-the-seas': [
       '/assets/ships/Fotos_del_crucero_"Splendour_of_the_Seas"_de_Royal_Caribbean_en_el_muelle_de_Santa_Catalina_del_Puerto_de_Las_Palmas_de_Gran_Canaria_Islas_Canarias_(6424810807).webp',
       '/assets/ships/Fotos_del_crucero_"Splendour_of_the_Seas"_de_Royal_Caribbean_en_el_muelle_de_Santa_Catalina_del_Puerto_de_Las_Palmas_de_Gran_Canaria_Islas_Canarias_(6424818065).webp',
       '/assets/ships/Splendour_of_the_Seas_(at_Split_on_2011-0716).webp'
     ],
-
-    // Historic Ships
     'song-of-norway': [
       '/assets/ships/Song_of_Norway_Vigo_(cropped)_(cropped)-2.webp',
       '/assets/ships/Song_of_Norway_Vigo_(cropped)_(cropped).webp',
@@ -209,95 +318,11 @@
       '/assets/ships/NordicEmpress1.webp',
       '/assets/ships/NordicEmpress1_(cropped)_(cropped).webp',
       '/assets/ships/MS_Nordic_Empress_in_Miami_(bigger).webp'
-    ],
-
+    ]
   };
 
-  // Class header images - use flagship ship's image for each class
-  const CLASS_IMAGES = {
-    'Icon Class': '/assets/ships/Icon_of_the_Seas_(cropped).webp',
-    'Oasis Class': '/assets/ships/Oasis-of-the-seas-FOM- - 1.webp',
-    'Quantum Ultra Class': '/assets/ships/Spectrum_of_the_Seas_01.webp',
-    'Quantum Class': '/assets/ships/Quantum_of_the_Seas_-_Wedel_04.webp',
-    'Freedom Class': '/assets/ships/freedom-of-the-seas-FOM- - 1.webp',
-    'Voyager Class': '/assets/ships/Voyageroftheseas.webp',
-    'Radiance Class': '/assets/ships/Radiance-of-the-seas-FOM- - 1.webp',
-    'Vision Class': '/assets/ships/Grandeur-of-the-seas-FOM- - 1.webp',
-    'Sovereign Class': '/assets/ships/Sovereign_of_the_Seas_Nassau_Bahamas_(244161813)_(cropped)_(cropped).webp',
-    'Historic Fleet': '/assets/ships/Song_of_Norway_Vigo_(cropped)_(cropped).webp'
-  };
-
-  // Class descriptions - brief summary of what defines each class
-  const CLASS_DESCRIPTIONS = {
-    'Icon Class': 'The largest ships at sea with groundbreaking innovations like Category 6 water park and AquaDome.',
-    'Oasis Class': 'Neighborhood-style megaships that pioneered Central Park, Boardwalk, and the AquaTheater.',
-    'Quantum Ultra Class': 'Enhanced Quantum ships with expanded venues and Asian market features.',
-    'Quantum Class': 'Smart ships with North Star observation pod, iFly skydiving, and Two70° entertainment.',
-    'Freedom Class': 'FlowRider surf simulators, H2O Zone, and excellent value for families.',
-    'Voyager Class': 'The original Royal Promenade ships with ice rinks and rock climbing walls.',
-    'Radiance Class': 'Floor-to-ceiling glass throughout for stunning ocean views on every voyage.',
-    'Vision Class': 'Intimate ships with classic Royal Caribbean charm and easier navigation.',
-    'Sovereign Class': 'Historic megaships that defined modern cruising (retired fleet).',
-    'Historic Fleet': 'Ships that built Royal Caribbean\'s legacy from the 1970s through 1990s.'
-  };
-
-  // Cruise line branding
-  const CRUISE_LINE_HERO = '/assets/social/royal-caribbean-hero.jpg';
-
-  // Ship CTA/pitch text - WHY choose this ship and WHO it's for
-  const SHIP_CTAS = {
-    // Icon Class
-    'icon-of-the-seas': 'The biggest, newest ship with every innovation. Perfect for first-timers who want to experience everything Royal Caribbean offers in one sailing.',
-    'star-of-the-seas': 'Icon-class with all the latest features. Ideal for families and thrill-seekers who want cutting-edge amenities and maximum variety.',
-
-    // Oasis Class
-    'oasis-of-the-seas': 'The original neighborhood ship that started a revolution. Great value for Oasis-class experience at a lower price point.',
-    'allure-of-the-seas': 'Freshly refurbished with new venues. Excellent choice for families wanting the classic Oasis experience with modern updates.',
-    'harmony-of-the-seas': 'First Oasis ship with waterslides and virtual balconies. Perfect for families with kids who love water thrills.',
-    'symphony-of-the-seas': 'Refined Oasis-class with Ultimate Abyss slide. Great for groups wanting diverse dining and entertainment options.',
-    'wonder-of-the-seas': 'The most refined Oasis ship before Icon. Ideal for those wanting newer amenities without the highest price tag.',
-    'utopia-of-the-seas': 'Short Caribbean sailings from Florida. Perfect for quick getaways and first-time cruisers testing the waters.',
-
-    // Quantum Ultra Class
-    'spectrum-of-the-seas': 'Designed for Asian markets with unique venues. Great for foodies seeking diverse Asian cuisine options.',
-    'odyssey-of-the-seas': 'Quantum innovation with Caribbean itineraries. Perfect for tech enthusiasts who want North Star and SeaPlex.',
-
-    // Quantum Class
-    'quantum-of-the-seas': 'The original smart ship with groundbreaking tech. Great for cruisers who prioritize innovation over traditional amenities.',
-    'anthem-of-the-seas': 'Year-round from New Jersey. Ideal for East Coast cruisers who want to avoid flying to a homeport.',
-    'ovation-of-the-seas': 'The Alaska specialist with incredible viewing. Perfect for those prioritizing scenery and destination immersion.',
-
-    // Freedom Class
-    'freedom-of-the-seas': 'Classic Royal Caribbean with FlowRider and H2O Zone. Great value for families with a mix of kids ages.',
-    'liberty-of-the-seas': 'Popular Galveston homeport. Perfect for Texas cruisers wanting short Caribbean getaways.',
-    'independence-of-the-seas': 'UK sailings and European itineraries. Ideal for European cruisers or those wanting to explore the continent.',
-
-    // Voyager Class
-    'voyager-of-the-seas': 'The ship that introduced the Royal Promenade. Great for nostalgia and excellent value.',
-    'explorer-of-the-seas': 'Ice rink and rock climbing pioneer. Good for families wanting classic amenities at budget-friendly prices.',
-    'adventure-of-the-seas': 'Shorter Caribbean sailings. Perfect for quick getaways or testing if cruising is for you.',
-    'navigator-of-the-seas': 'LA homeport with Mexican Riviera. Ideal for West Coast cruisers wanting easy embarkation.',
-    'mariner-of-the-seas': 'Short Bahamas sailings from Florida. Great for weekend cruises and Perfect Day at CocoCay access.',
-
-    // Radiance Class
-    'radiance-of-the-seas': 'Floor-to-ceiling windows throughout. Check out this ship if million-dollar views through glass walls matter to you.',
-    'brilliance-of-the-seas': 'Intimate ship with elegant design. Perfect for couples and adults who prefer a quieter, refined experience.',
-    'serenade-of-the-seas': 'Alaska and Panama Canal specialist. Ideal for destination-focused cruisers who want scenery over crowds.',
-    'jewel-of-the-seas': 'European and exotic itineraries. Great for experienced cruisers seeking unique ports and longer voyages.',
-
-    // Vision Class
-    'grandeur-of-the-seas': 'Classic and intimate experience. Perfect for cruisers who prefer smaller ships and easier navigation.',
-    'enchantment-of-the-seas': 'Budget-friendly with solid amenities. Great for value-seekers and those prioritizing itinerary over ship.',
-    'vision-of-the-seas': 'The smallest active Royal ship. Ideal for those who want fewer crowds and a more traditional cruise feel.',
-    'rhapsody-of-the-seas': 'Affordable exotic itineraries. Perfect for budget-conscious travelers wanting unique destinations.',
-
-    // Sovereign Class (retired/sold but may have images)
-    'sovereign-of-the-seas': 'Historic first megaship. For cruise history enthusiasts.',
-    'monarch-of-the-seas': 'Classic 1990s cruise experience. For nostalgia.',
-    'majesty-of-the-seas': 'Budget Bahamas sailings. Great value for quick getaways.'
-  };
-
-  // Royal Caribbean fleet data organized by class
+  // ===== FLEET DATA =====
+  // Royal Caribbean Fleet
   const RC_FLEET = {
     'Icon Class': {
       order: 1,
@@ -368,17 +393,14 @@
         { name: 'Rhapsody of the Seas', slug: 'rhapsody-of-the-seas', year: 1997, gt: '78,491', capacity: 2435 }
       ]
     },
-    'Sovereign Class': {
+    'Historic Fleet': {
       order: 9,
       ships: [
+        // Sovereign Class ships (former megaships that defined modern cruising)
         { name: 'Sovereign of the Seas', slug: 'sovereign-of-the-seas', year: 1988, gt: '73,192', capacity: 2852, retired: true },
         { name: 'Monarch of the Seas', slug: 'monarch-of-the-seas', year: 1991, gt: '73,937', capacity: 2764, retired: true },
-        { name: 'Majesty of the Seas', slug: 'majesty-of-the-seas', year: 1992, gt: '74,077', capacity: 2767, retired: true }
-      ]
-    },
-    'Historic Fleet': {
-      order: 10,
-      ships: [
+        { name: 'Majesty of the Seas', slug: 'majesty-of-the-seas', year: 1992, gt: '74,077', capacity: 2767, retired: true },
+        // Legend Class and earlier ships
         { name: 'Splendour of the Seas', slug: 'splendour-of-the-seas', year: 1996, gt: '69,130', capacity: 2076, retired: true },
         { name: 'Song of Norway', slug: 'song-of-norway', year: 1970, gt: '23,005', capacity: 1040, retired: true },
         { name: 'Song of America', slug: 'song-of-america', year: 1982, gt: '37,584', capacity: 1575, retired: true },
@@ -388,6 +410,73 @@
     }
   };
 
+  // Class descriptions
+  const CLASS_DESCRIPTIONS = {
+    // Royal Caribbean
+    'Icon Class': 'The largest ships at sea with groundbreaking innovations like Category 6 water park and AquaDome.',
+    'Oasis Class': 'Neighborhood-style megaships that pioneered Central Park, Boardwalk, and the AquaTheater.',
+    'Quantum Ultra Class': 'Enhanced Quantum ships with expanded venues and Asian market features.',
+    'Quantum Class': 'Smart ships with North Star observation pod, iFly skydiving, and Two70° entertainment.',
+    'Freedom Class': 'FlowRider surf simulators, H2O Zone, and excellent value for families.',
+    'Voyager Class': 'The original Royal Promenade ships with ice rinks and rock climbing walls.',
+    'Radiance Class': 'Floor-to-ceiling glass throughout for stunning ocean views on every voyage.',
+    'Vision Class': 'Intimate ships with classic Royal Caribbean charm and easier navigation.',
+    'Historic Fleet': 'Historic ships that built Royal Caribbean\'s legacy from the 1970s through 1990s, including the Sovereign Class megaships that defined modern cruising.'
+  };
+
+  // Class header images
+  const CLASS_IMAGES = {
+    'Icon Class': '/assets/ships/Icon_of_the_Seas_(cropped).webp',
+    'Oasis Class': '/assets/ships/Oasis-of-the-seas-FOM- - 1.webp',
+    'Quantum Ultra Class': '/assets/ships/Spectrum_of_the_Seas_01.webp',
+    'Quantum Class': '/assets/ships/Quantum_of_the_Seas_-_Wedel_04.webp',
+    'Freedom Class': '/assets/ships/freedom-of-the-seas-FOM- - 1.webp',
+    'Voyager Class': '/assets/ships/Voyageroftheseas.webp',
+    'Radiance Class': '/assets/ships/Radiance-of-the-seas-FOM- - 1.webp',
+    'Vision Class': '/assets/ships/Grandeur-of-the-seas-FOM- - 1.webp',
+    'Historic Fleet': '/assets/ships/Sovereign_of_the_Seas_Nassau_Bahamas_(244161813)_(cropped)_(cropped).webp'
+  };
+
+  // Ship CTA text - WHY choose this ship
+  const SHIP_CTAS = {
+    'icon-of-the-seas': 'The biggest, newest ship with every innovation. Perfect for first-timers who want everything.',
+    'star-of-the-seas': 'Icon-class with all the latest features. Ideal for families and thrill-seekers.',
+    'oasis-of-the-seas': 'The original neighborhood ship that started a revolution. Great value for Oasis-class experience.',
+    'allure-of-the-seas': 'Freshly refurbished with new venues. Excellent choice for families wanting the classic Oasis experience.',
+    'harmony-of-the-seas': 'First Oasis ship with waterslides and virtual balconies. Perfect for families with kids.',
+    'symphony-of-the-seas': 'Refined Oasis-class with Ultimate Abyss slide. Great for groups wanting diverse options.',
+    'wonder-of-the-seas': 'The most refined Oasis ship before Icon. Ideal for newer amenities without highest price.',
+    'utopia-of-the-seas': 'Short Caribbean sailings from Florida. Perfect for quick getaways and first-time cruisers.',
+    'spectrum-of-the-seas': 'Designed for Asian markets with unique venues. Great for foodies seeking diverse cuisine.',
+    'odyssey-of-the-seas': 'Quantum innovation with Caribbean itineraries. Perfect for tech enthusiasts.',
+    'quantum-of-the-seas': 'The original smart ship with groundbreaking tech. Great for innovation-focused cruisers.',
+    'anthem-of-the-seas': 'Year-round from New Jersey. Ideal for East Coast cruisers who want to avoid flying.',
+    'ovation-of-the-seas': 'The Alaska specialist with incredible viewing. Perfect for scenery and destination immersion.',
+    'freedom-of-the-seas': 'Classic Royal Caribbean with FlowRider and H2O Zone. Great value for families.',
+    'liberty-of-the-seas': 'Popular Galveston homeport. Perfect for Texas cruisers wanting Caribbean getaways.',
+    'independence-of-the-seas': 'UK sailings and European itineraries. Ideal for European cruisers.',
+    'voyager-of-the-seas': 'The ship that introduced the Royal Promenade. Great for nostalgia and value.',
+    'explorer-of-the-seas': 'Ice rink and rock climbing pioneer. Good for families wanting classic amenities.',
+    'adventure-of-the-seas': 'Shorter Caribbean sailings. Perfect for quick getaways or testing if cruising is for you.',
+    'navigator-of-the-seas': 'LA homeport with Mexican Riviera. Ideal for West Coast cruisers.',
+    'mariner-of-the-seas': 'Short Bahamas sailings from Florida. Great for weekend cruises and CocoCay.',
+    'radiance-of-the-seas': 'Floor-to-ceiling windows throughout. Million-dollar views through glass walls.',
+    'brilliance-of-the-seas': 'Intimate ship with elegant design. Perfect for couples and adults.',
+    'serenade-of-the-seas': 'Alaska and Panama Canal specialist. Ideal for destination-focused cruisers.',
+    'jewel-of-the-seas': 'European and exotic itineraries. Great for experienced cruisers seeking unique ports.',
+    'grandeur-of-the-seas': 'Classic and intimate experience. Perfect for cruisers who prefer smaller ships.',
+    'enchantment-of-the-seas': 'Budget-friendly with solid amenities. Great for value-seekers.',
+    'vision-of-the-seas': 'The smallest active Royal ship. Ideal for fewer crowds and traditional feel.',
+    'rhapsody-of-the-seas': 'Affordable exotic itineraries. Perfect for budget-conscious travelers.',
+    'sovereign-of-the-seas': 'Historic first megaship. For cruise history enthusiasts.',
+    'monarch-of-the-seas': 'Classic 1990s cruise experience. For nostalgia.',
+    'majesty-of-the-seas': 'Budget Bahamas sailings. Great value for quick getaways.'
+  };
+
+  // Current state
+  let currentCruiseLine = 'rcl';
+  let validatedShips = {}; // Will be populated from JSON if available
+
   /**
    * Get a random image for a ship (different each page load)
    */
@@ -395,7 +484,6 @@
     const images = SHIP_IMAGES[slug];
     if (!images || images.length === 0) return null;
 
-    // Use a seed based on today's date and ship slug for pseudo-random selection
     const today = new Date().toDateString();
     const seed = (today + slug).split('').reduce((a, b) => {
       a = ((a << 5) - a) + b.charCodeAt(0);
@@ -407,70 +495,88 @@
   }
 
   /**
-   * Check if ship has images
+   * Check if ship has a valid page (checks for HTML file existence via fetch)
    */
-  function hasImages(slug) {
-    return SHIP_IMAGES[slug] && SHIP_IMAGES[slug].length > 0;
+  async function checkShipPageExists(cruiseLineDir, slug) {
+    const url = `/ships/${cruiseLineDir}/${slug}.html`;
+    try {
+      const response = await fetch(url, { method: 'HEAD' });
+      return response.ok;
+    } catch (e) {
+      return false;
+    }
   }
 
   /**
    * Create ship card HTML
    */
-  function createShipCard(ship) {
+  function createShipCard(ship, cruiseLineConfig, hasPage = true) {
     const imageUrl = getRandomShipImage(ship.slug);
-    const pageUrl = `/ships/rcl/${ship.slug}.html`;
+    const pageUrl = `/ships/${cruiseLineConfig.directory}/${ship.slug}.html`;
     const placeholderUrl = '/assets/ship-placeholder.jpg';
     const cta = SHIP_CTAS[ship.slug] || 'Explore this ship to discover what makes it special for your cruise.';
-
-    // Format capacity with commas
     const formattedCapacity = ship.capacity ? ship.capacity.toLocaleString() : '';
 
-    return `
-      <article class="ship-card item-card${ship.retired ? ' retired' : ''}" data-ship-slug="${ship.slug}">
-        <a href="${pageUrl}" class="ship-card-link item-card-link">
-          <div class="ship-card-image item-card-image">
-            <img src="${imageUrl || placeholderUrl}"
-                 alt="${ship.name}"
-                 loading="lazy"
-                 decoding="async"
-                 onerror="this.onerror=null;this.src='${placeholderUrl}'" />
-            ${imageUrl && SHIP_IMAGES[ship.slug] && SHIP_IMAGES[ship.slug].length > 1 ?
-    `<span class="image-count-badge item-card-badge" aria-label="${SHIP_IMAGES[ship.slug].length} images available">${SHIP_IMAGES[ship.slug].length}</span>`
-    : ''}
-            ${ship.retired ? `<span class="retired-badge item-card-badge" aria-label="Retired from fleet">Retired</span>` : ''}
-          </div>
-          <div class="ship-card-content item-card-content">
-            <h3 class="ship-card-title item-card-title">${ship.name}</h3>
-            <div class="ship-card-stats item-card-meta">
-              <span class="badge">${ship.year}</span>
-              ${ship.gt ? `<span class="badge">${ship.gt} GT</span>` : ''}
-              ${formattedCapacity ? `<span class="badge">${formattedCapacity} guests</span>` : ''}
-            </div>
-            <p class="item-card-cta">${cta}</p>
-            <span class="ship-card-cta-btn">${ship.retired ? 'View History' : 'Explore Ship'}</span>
-          </div>
-        </a>
-      </article>
+    const cardClasses = ['ship-card', 'item-card'];
+    if (ship.retired) cardClasses.push('retired');
+    if (!hasPage) cardClasses.push('coming-soon');
+
+    const cardContent = `
+      <div class="ship-card-image item-card-image">
+        <img src="${imageUrl || placeholderUrl}"
+             alt="${ship.name}"
+             loading="lazy"
+             decoding="async"
+             onerror="this.onerror=null;this.src='${placeholderUrl}'" />
+        ${imageUrl && SHIP_IMAGES[ship.slug] && SHIP_IMAGES[ship.slug].length > 1 ?
+          `<span class="image-count-badge item-card-badge" aria-label="${SHIP_IMAGES[ship.slug].length} images available">${SHIP_IMAGES[ship.slug].length}</span>`
+          : ''}
+        ${ship.retired ? `<span class="retired-badge item-card-badge" aria-label="Retired from fleet">Retired</span>` : ''}
+        ${!hasPage ? `<span class="coming-soon-badge item-card-badge" aria-label="Page coming soon">Coming Soon</span>` : ''}
+      </div>
+      <div class="ship-card-content item-card-content">
+        <h3 class="ship-card-title item-card-title">${ship.name}</h3>
+        <div class="ship-card-stats item-card-meta">
+          <span class="badge">${ship.year}</span>
+          ${ship.gt ? `<span class="badge">${ship.gt} GT</span>` : ''}
+          ${formattedCapacity ? `<span class="badge">${formattedCapacity} guests</span>` : ''}
+        </div>
+        <p class="item-card-cta">${cta}</p>
+        <span class="ship-card-cta-btn">${!hasPage ? 'Coming Soon' : ship.retired ? 'View History' : 'Explore Ship'}</span>
+      </div>
     `;
+
+    if (hasPage) {
+      return `
+        <article class="${cardClasses.join(' ')}" data-ship-slug="${ship.slug}">
+          <a href="${pageUrl}" class="ship-card-link item-card-link">
+            ${cardContent}
+          </a>
+        </article>
+      `;
+    } else {
+      return `
+        <article class="${cardClasses.join(' ')}" data-ship-slug="${ship.slug}">
+          <div class="ship-card-link item-card-link" style="cursor: default;">
+            ${cardContent}
+          </div>
+        </article>
+      `;
+    }
   }
 
   /**
    * Create ship class section HTML
    */
-  function createShipClassSection(className, classData) {
-    // Show all ships (with or without images)
+  function createShipClassSection(className, classData, cruiseLineConfig) {
     const ships = classData.ships;
+    if (ships.length === 0) return '';
 
-    if (ships.length === 0) {
-      return ''; // Don't show empty classes
-    }
-
-    const shipsHtml = ships.map(ship => createShipCard(ship)).join('');
+    const shipsHtml = ships.map(ship => createShipCard(ship, cruiseLineConfig, true)).join('');
     const shipCount = ships.length;
     const classImage = CLASS_IMAGES[className] || '/assets/ship-placeholder.jpg';
     const classDescription = CLASS_DESCRIPTIONS[className] || '';
 
-    // Default to collapsed for all classes EXCEPT Icon Class
     const isIconClass = className === 'Icon Class';
     const expandedState = isIconClass ? 'true' : 'false';
     const collapsedClass = isIconClass ? '' : ' collapsed';
@@ -509,31 +615,87 @@
   }
 
   /**
-   * Create cruise line section HTML
+   * Create cruise line selector buttons
    */
-  function createCruiseLineSection() {
+  function createCruiseLineSelector() {
+    const buttons = CRUISE_LINE_ORDER.map(lineKey => {
+      const line = CRUISE_LINES[lineKey];
+      if (!line) return '';
+      const isActive = lineKey === currentCruiseLine ? ' active' : '';
+      return `
+        <button class="cruise-line-btn${isActive}"
+                data-cruise-line="${lineKey}"
+                type="button"
+                aria-pressed="${lineKey === currentCruiseLine}">
+          ${line.shortName}
+        </button>
+      `;
+    }).join('');
+
+    return `
+      <div class="cruise-line-selector" role="tablist" aria-label="Select cruise line">
+        ${buttons}
+      </div>
+      <p class="tiny muted" style="margin-top: 0.5rem; text-align: center;">
+        Select a cruise line to view their fleet. More ships and details coming soon.
+      </p>
+    `;
+  }
+
+  /**
+   * Create cruise line section content
+   */
+  function createCruiseLineSection(lineKey) {
+    const line = CRUISE_LINES[lineKey];
+    const fleet = lineKey === 'rcl' ? RC_FLEET : {};
+
     // Sort classes by order
-    const sortedClasses = Object.entries(RC_FLEET)
+    const sortedClasses = Object.entries(fleet)
       .sort((a, b) => (a[1].order || 999) - (b[1].order || 999));
 
     const classesHtml = sortedClasses
-      .map(([className, classData]) => createShipClassSection(className, classData))
-      .filter(html => html) // Remove empty sections
+      .map(([className, classData]) => createShipClassSection(className, classData, line))
+      .filter(html => html)
       .join('');
 
-    // Count total ships
-    const totalShips = Object.values(RC_FLEET).reduce((sum, cls) => sum + cls.ships.length, 0);
-    const activeShips = Object.values(RC_FLEET).reduce((sum, cls) =>
+    const activeShips = Object.values(fleet).reduce((sum, cls) =>
       sum + cls.ships.filter(s => !s.retired).length, 0);
+    const classCount = Object.keys(fleet).length;
+
+    if (lineKey !== 'rcl') {
+      return `
+        <section class="cruise-line-section" data-line="${lineKey}">
+          <div class="cruise-line-header">
+            <div class="cruise-line-hero" style="background: ${line.color};">
+              <div class="cruise-line-hero-overlay">
+                <h2 class="cruise-line-title">${line.name}</h2>
+                <p class="cruise-line-stats">Fleet guide coming soon</p>
+              </div>
+            </div>
+          </div>
+          <div class="cruise-line-content">
+            <div class="coming-soon-section" style="padding: 3rem 1rem; text-align: center; background: #f8f9fa; border-radius: 8px; margin: 1rem 0;">
+              <h3 style="color: #5a7a8a; margin-bottom: 1rem;">🚢 ${line.name} Fleet Coming Soon</h3>
+              <p style="color: #789; max-width: 500px; margin: 0 auto;">
+                We're working on comprehensive guides for the ${line.name} fleet.
+                In the meantime, explore our complete Royal Caribbean coverage or
+                check out individual ship pages in the <a href="/ships/${line.directory}/" style="color: #0e6e8e;">ships/${line.directory}</a> directory.
+              </p>
+            </div>
+          </div>
+        </section>
+      `;
+    }
 
     return `
-      <section class="cruise-line-section" data-line="royal-caribbean">
+      <section class="cruise-line-section" data-line="${lineKey}">
         <div class="cruise-line-header">
           <div class="cruise-line-hero">
-            <img src="${CRUISE_LINE_HERO}" alt="Royal Caribbean International fleet" loading="eager" decoding="async" />
+            <img src="${line.heroImage}" alt="${line.name} fleet" loading="eager" decoding="async"
+                 onerror="this.style.display='none';this.parentElement.style.background='${line.color}';" />
             <div class="cruise-line-hero-overlay">
-              <h2 class="cruise-line-title">Royal Caribbean International</h2>
-              <p class="cruise-line-stats">${activeShips} active ships · ${Object.keys(RC_FLEET).length} ship classes</p>
+              <h2 class="cruise-line-title">${line.name}</h2>
+              <p class="cruise-line-stats">${activeShips} active ships · ${classCount} ship classes</p>
             </div>
           </div>
           <div class="cruise-line-actions">
@@ -580,7 +742,6 @@
     const toggleAllBtn = document.getElementById('toggleAllClasses');
     if (!toggleAllBtn) return;
 
-    // Start with allExpanded = false since only Icon Class is initially expanded
     let allExpanded = false;
 
     toggleAllBtn.addEventListener('click', () => {
@@ -607,6 +768,48 @@
   }
 
   /**
+   * Initialize cruise line selector
+   */
+  function initializeCruiseLineSelector() {
+    const buttons = document.querySelectorAll('.cruise-line-btn');
+    const contentContainer = document.getElementById('cruiseLineContent');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lineKey = btn.getAttribute('data-cruise-line');
+        if (lineKey === currentCruiseLine) return;
+
+        // Update button states
+        buttons.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+
+        // Update current state and re-render
+        currentCruiseLine = lineKey;
+        contentContainer.innerHTML = createCruiseLineSection(lineKey);
+
+        // Re-initialize interactivity
+        initializeCollapsibles();
+        initializeExpandAll();
+        initializeSearch();
+
+        // Set initial state for content sections
+        requestAnimationFrame(() => {
+          document.querySelectorAll('.ship-class-content').forEach(content => {
+            const section = content.closest('.ship-class-section');
+            if (!section.classList.contains('collapsed')) {
+              content.style.maxHeight = content.scrollHeight + 'px';
+            }
+          });
+        });
+      });
+    });
+  }
+
+  /**
    * Add share functionality
    */
   function initializeShare() {
@@ -615,8 +818,8 @@
 
     shareBtn.addEventListener('click', async () => {
       const shareData = {
-        title: 'Royal Caribbean Ships — In the Wake',
-        text: 'Explore the Royal Caribbean fleet with deck plans, live tracking, and detailed ship information.',
+        title: 'Ships — In the Wake',
+        text: 'Explore cruise ship fleets with deck plans, live tracking, and detailed ship information.',
         url: window.location.href
       };
 
@@ -645,7 +848,7 @@
   }
 
   /**
-   * Escape HTML entities to prevent XSS
+   * Escape HTML entities
    */
   function escapeHtml(text) {
     if (!text) return '';
@@ -686,17 +889,14 @@
     const q = query.toLowerCase().trim();
     const t = target.toLowerCase();
 
-    // Exact substring match
     if (t.includes(q)) return true;
 
-    // Word-by-word matching
     const targetWords = t.split(/[\s\-]+/);
     for (const word of targetWords) {
       if (word.startsWith(q)) return true;
       if (word.includes(q)) return true;
     }
 
-    // Fuzzy match using Levenshtein for short queries
     if (q.length >= 3) {
       for (const word of targetWords) {
         const distance = levenshteinDistance(q, word.substring(0, q.length + 2));
@@ -704,7 +904,6 @@
         if (distance / maxLen <= threshold) return true;
       }
 
-      // Also check against full target
       const distance = levenshteinDistance(q, t.substring(0, q.length + 3));
       if (distance <= Math.ceil(q.length * threshold)) return true;
     }
@@ -744,17 +943,14 @@
       const shipCards = document.querySelectorAll('.ship-card');
       const classSections = document.querySelectorAll('.ship-class-section');
 
-      // Clear button visibility
       if (clearBtn) {
         clearBtn.style.display = trimmedQuery ? 'block' : 'none';
       }
 
-      // If no query, show everything
       if (!trimmedQuery) {
         shipCards.forEach(card => card.classList.remove('search-hidden'));
         classSections.forEach(section => {
           section.classList.remove('search-empty');
-          // Expand all sections when clearing search
           const toggle = section.querySelector('.ship-class-toggle');
           const content = section.querySelector('.ship-class-content');
           if (toggle && content) {
@@ -770,15 +966,16 @@
       let matchCount = 0;
       const matchedClasses = new Set();
 
-      // Check each ship
+      // Get current fleet data
+      const fleet = currentCruiseLine === 'rcl' ? RC_FLEET : {};
+
       shipCards.forEach(card => {
         const slug = card.getAttribute('data-ship-slug');
         const section = card.closest('.ship-class-section');
         const className = section ? section.getAttribute('data-class') : '';
 
-        // Find ship data
         let ship = null;
-        for (const [cls, data] of Object.entries(RC_FLEET)) {
+        for (const [cls, data] of Object.entries(fleet)) {
           const found = data.ships.find(s => s.slug === slug);
           if (found) {
             ship = found;
@@ -803,16 +1000,13 @@
         }
       });
 
-      // Hide/show class sections based on visible ships
       classSections.forEach(section => {
-        const className = section.getAttribute('data-class');
         const visibleShips = section.querySelectorAll('.ship-card:not(.search-hidden)');
 
         if (visibleShips.length === 0) {
           section.classList.add('search-empty');
         } else {
           section.classList.remove('search-empty');
-          // Expand sections with matches
           const toggle = section.querySelector('.ship-class-toggle');
           const content = section.querySelector('.ship-class-content');
           if (toggle && content) {
@@ -823,10 +1017,9 @@
         }
       });
 
-      // Update results info
       if (resultsInfo) {
         if (matchCount === 0) {
-          resultsInfo.innerHTML = `<strong>No ships found for "${escapeHtml(trimmedQuery)}"</strong> — try a different spelling or search for a class name`;
+          resultsInfo.innerHTML = `<strong>No ships found for "${escapeHtml(trimmedQuery)}"</strong> — try a different spelling or class name`;
         } else {
           const classText = matchedClasses.size === 1
             ? `in ${Array.from(matchedClasses)[0]}`
@@ -838,7 +1031,6 @@
       }
     }
 
-    // Debounced search on input
     searchInput.addEventListener('input', (e) => {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
@@ -846,7 +1038,6 @@
       }, 150);
     });
 
-    // Clear button
     if (clearBtn) {
       clearBtn.addEventListener('click', () => {
         searchInput.value = '';
@@ -855,7 +1046,6 @@
       });
     }
 
-    // Handle Enter key (prevent form submission if in form)
     searchInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         e.preventDefault();
@@ -874,10 +1064,16 @@
     const container = document.getElementById('shipsContainer');
     if (!container) return;
 
-    // Render the cruise line section
-    container.innerHTML = createCruiseLineSection();
+    // Create the main structure
+    container.innerHTML = `
+      ${createCruiseLineSelector()}
+      <div id="cruiseLineContent">
+        ${createCruiseLineSection(currentCruiseLine)}
+      </div>
+    `;
 
     // Initialize interactivity
+    initializeCruiseLineSelector();
     initializeCollapsibles();
     initializeExpandAll();
     initializeShare();
@@ -886,7 +1082,10 @@
     // Set initial state for all content sections
     requestAnimationFrame(() => {
       document.querySelectorAll('.ship-class-content').forEach(content => {
-        content.style.maxHeight = content.scrollHeight + 'px';
+        const section = content.closest('.ship-class-section');
+        if (!section.classList.contains('collapsed')) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+        }
       });
     });
   }

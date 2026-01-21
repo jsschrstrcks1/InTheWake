@@ -5,6 +5,68 @@
  * Styles for the dynamic, hierarchical ships interface
  */
 
+/* ===== Cruise Line Selector ===== */
+.cruise-line-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: var(--foam, #eaf6f6);
+  border: 2px solid var(--rope, #8B7355);
+  border-radius: 12px;
+  justify-content: center;
+}
+
+.cruise-line-btn {
+  padding: 0.5rem 1rem;
+  background: white;
+  color: var(--ink, #1a2a3a);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 40px;
+  white-space: nowrap;
+}
+
+.cruise-line-btn:hover {
+  background: #f8f9fa;
+  border-color: var(--rope, #8B7355);
+}
+
+.cruise-line-btn.active {
+  background: var(--accent, #0e6e8e);
+  color: white;
+  border-color: var(--accent, #0e6e8e);
+}
+
+.cruise-line-btn.active:hover {
+  background: var(--sea, #0a5570);
+  border-color: var(--sea, #0a5570);
+}
+
+.cruise-line-btn:focus-visible {
+  outline: 3px solid var(--accent, #0e6e8e);
+  outline-offset: 2px;
+}
+
+/* Mobile cruise line selector */
+@media (max-width: 767px) {
+  .cruise-line-selector {
+    gap: 0.35rem;
+    padding: 0.5rem;
+  }
+
+  .cruise-line-btn {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.75rem;
+    min-height: 36px;
+  }
+}
+
 /* ===== Cruise Line Section ===== */
 .cruise-line-section {
   margin-bottom: 3rem;
@@ -289,6 +351,69 @@
   font-size: 0.9rem;
   color: var(--text-muted, #666);
   margin: 0;
+}
+
+/* Coming Soon and Retired badges */
+.coming-soon-badge,
+.retired-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.coming-soon-badge {
+  background: rgba(255, 152, 0, 0.95);
+  color: white;
+}
+
+.retired-badge {
+  background: rgba(120, 144, 156, 0.95);
+  color: white;
+}
+
+/* Coming soon ship card styles */
+.ship-card.coming-soon {
+  opacity: 0.85;
+}
+
+.ship-card.coming-soon:hover {
+  transform: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-color: var(--rope, #8B7355);
+}
+
+.ship-card.coming-soon .ship-card-cta-btn {
+  background: var(--text-muted, #666);
+  color: white;
+}
+
+/* Coming soon section placeholder */
+.coming-soon-section {
+  padding: 3rem 1rem;
+  text-align: center;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.coming-soon-section h3 {
+  color: #5a7a8a;
+  margin-bottom: 1rem;
+}
+
+.coming-soon-section p {
+  color: #789;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.coming-soon-section a {
+  color: var(--accent, #0e6e8e);
 }
 
 /* ===== Share Button (in hero or top section) ===== */
