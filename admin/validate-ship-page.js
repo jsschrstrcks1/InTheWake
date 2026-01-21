@@ -963,7 +963,7 @@ function validateSections($, isTBN, isHistoric = false) {
   // TBN and Historic ships have relaxed section requirements
   let required;
   if (isTBN) {
-    required = ['page_intro', 'first_look', 'faq', 'attribution', 'recent_rail'];
+    required = ['page_intro', 'first_look', 'dining', 'faq', 'attribution', 'recent_rail'];
   } else if (isHistoric) {
     // Historic ships don't require map/tracker (ship may be scrapped or sold)
     required = ['page_intro', 'first_look', 'dining', 'logbook', 'faq', 'attribution', 'recent_rail'];
@@ -1225,6 +1225,35 @@ function validateImages($, isHistoric = false, filepath = '') {
   let hotlinkedImages = [];
   let missingLocalImages = [];
 
+  // BLOCKING: Dining hero must use the shared Cordelia image
+  const diningHero = $('#dining-hero');
+  const hasDiningHero = diningHero.length > 0;
+  let hasCordeliaDining = false;
+
+  if (hasDiningHero) {
+    const diningHeroSrc = diningHero.attr('src') || '';
+    hasCordeliaDining = diningHeroSrc.includes('Cordelia_Empress_Food_Court');
+    if (!hasCordeliaDining) {
+      errors.push({
+        section: 'images',
+        rule: 'wrong_dining_hero',
+        message: `Dining hero must use shared Cordelia image (/assets/img/Cordelia_Empress_Food_Court.webp), found: ${diningHeroSrc.substring(0, 50)}`,
+        severity: 'BLOCKING'
+      });
+    }
+  } else {
+    // Check if page has a dining section - if so, it needs a dining-hero image
+    const hasDiningSection = $('[id="dining"], [aria-labelledby="dining"], section.card:contains("Dining")').length > 0;
+    if (hasDiningSection) {
+      errors.push({
+        section: 'images',
+        rule: 'missing_dining_hero',
+        message: 'Dining section exists but missing dining-hero image with Cordelia_Empress_Food_Court.webp',
+        severity: 'BLOCKING'
+      });
+    }
+  }
+
   // Allowed external domains for images (CDNs, YouTube thumbnails for video sections)
   const allowedExternalDomains = [
     'img.youtube.com',
@@ -1292,7 +1321,7 @@ function validateImages($, isHistoric = false, filepath = '') {
     warnings.push({ section: 'images', rule: 'missing_lazy', message: `${missingLazy} images missing loading="lazy"`, severity: 'WARNING' });
   }
 
-  return { valid: errors.length === 0, errors, warnings, data: { total: imageCount, missingAlt, shortAlt, missingLazy, hotlinked: hotlinkedImages.length, missingLocal: missingLocalImages.length } };
+  return { valid: errors.length === 0, errors, warnings, data: { total: imageCount, missingAlt, shortAlt, missingLazy, hotlinked: hotlinkedImages.length, missingLocal: missingLocalImages.length, hasDiningHero, hasCordeliaDining } };
 }
 
 /**
