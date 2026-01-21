@@ -46,6 +46,21 @@ def add_dining_hero(filepath):
     # Pattern 3: <section ... aria-labelledby="diningHeading"> followed by <h2>
     pattern3 = r'(aria-labelledby="diningHeading">\s*<h2[^>]*>)(Dining[^<]*)(</h2>)'
 
+    # Pattern 4: <h2 id="dining-card">Dining on [Ship]</h2>
+    pattern4 = r'(<h2\s+id="dining-card">)(Dining[^<]*)(</h2>)'
+
+    # Pattern 5: <h2>Features & Dining</h2>
+    pattern5 = r'(<h2>)(Features & Dining)(</h2>)'
+
+    # Pattern 6: <h2>Dining Venues</h2> within Features section
+    pattern6 = r'(<h3>)(Dining Venues)(</h3>)'
+
+    # Pattern 7: <h2 id="dining-heading">Dining Venues</h2>
+    pattern7 = r'(<h2\s+id="dining-heading">)(Dining[^<]*)(</h2>)'
+
+    # Pattern 8: <header><h2 id="dining-title">Dining Venues</h2></header>
+    pattern8 = r'(<header><h2\s+id="dining-title">)(Dining[^<]*)(</h2></header>)'
+
     dining_hero_img = f'''<img id="dining-hero" class="card-hero"
              src="/assets/img/Cordelia_Empress_Food_Court.webp"
              alt="{ship_name} dining venue" loading="lazy"/>
@@ -54,33 +69,31 @@ def add_dining_hero(filepath):
     modified = False
     new_content = content
 
-    # Try pattern 1
-    if re.search(pattern1, content):
-        new_content = re.sub(
-            pattern1,
-            lambda m: f'{m.group(1)}{dining_hero_img}{m.group(2)}{m.group(3)}',
-            content
-        )
-        modified = True
-    # Try pattern 2
-    elif re.search(pattern2, content):
-        new_content = re.sub(
-            pattern2,
-            lambda m: f'{m.group(1)}{dining_hero_img}{m.group(2)}{m.group(3)}',
-            content
-        )
-        modified = True
-    # Try pattern 3
-    elif re.search(pattern3, content):
-        new_content = re.sub(
-            pattern3,
-            lambda m: f'{m.group(1)}{dining_hero_img}{m.group(2)}{m.group(3)}',
-            content
-        )
-        modified = True
-    else:
+    # Try patterns in order
+    patterns = [
+        (pattern1, 'pattern1'),
+        (pattern2, 'pattern2'),
+        (pattern3, 'pattern3'),
+        (pattern4, 'pattern4'),
+        (pattern5, 'pattern5'),
+        (pattern6, 'pattern6'),
+        (pattern7, 'pattern7'),
+        (pattern8, 'pattern8'),
+    ]
+
+    for pattern, name in patterns:
+        if re.search(pattern, content):
+            new_content = re.sub(
+                pattern,
+                lambda m: f'{m.group(1)}{dining_hero_img}{m.group(2)}{m.group(3)}',
+                content
+            )
+            modified = True
+            break
+
+    if not modified:
         # Check if there's any dining section we can add to
-        if 'Dining on ' in content or 'Dining Venues' in content:
+        if 'Dining on ' in content or 'Dining Venues' in content or 'Features & Dining' in content:
             print(f"  MANUAL: {filepath} has dining text but pattern not matched")
             return False
         else:
