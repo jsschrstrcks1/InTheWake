@@ -12,11 +12,11 @@
      updated: 2026-01-21
      expertise: Cruise planning, cruise line selection, personalized recommendations
      target-audience: Cruise travelers choosing between cruise lines
-     answer-first: Take this quick quiz to find the cruise line that best matches your travel style, budget, and preferences.
+     answer-first: Take this quick quiz to find the cruise line that best matches your travel style, budget, and preferences across 15 major lines from mainstream to ultra-luxury.
      -->
   <!-- ======================================================
        In the Wake — Cruise Line Picker Quiz
-       Version: 1.0.0  |  Soli Deo Gloria
+       Version: 1.1.0  |  Soli Deo Gloria
        ====================================================== -->
 
   <!-- Analytics -->
@@ -25,7 +25,7 @@
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WZP891PZXJ',{anonymize_ip:true});</script>
 
   <!-- ICP-Lite v1.4 Meta Tags -->
-  <meta name="ai-summary" content="Interactive quiz to help cruise travelers find the right cruise line based on travel style, budget, and preferences. Covers Royal Caribbean, Carnival, Celebrity, Disney, Norwegian, Princess, Holland America, Viking, Virgin Voyages, and MSC." />
+  <meta name="ai-summary" content="Interactive quiz to help cruise travelers find the right cruise line based on travel style, budget, and preferences. Covers 15 lines: Royal Caribbean, Carnival, Norwegian, MSC, Celebrity, Princess, Holland America, Cunard, Costa, Virgin Voyages, Oceania, Regent Seven Seas, Seabourn, Silversea, and Explora Journeys." />
   <meta name="last-reviewed" content="2026-01-21" />
   <meta name="content-protocol" content="ICP-Lite v1.4" />
 
@@ -41,7 +41,7 @@
 
   <!-- Title & Description -->
   <title>Which Cruise Line Is Right for You? — Quiz | In the Wake</title>
-  <meta name="description" content="Not sure which cruise line to choose? Take our quick quiz to find the perfect match for your travel style, budget, and what matters most to you." />
+  <meta name="description" content="Not sure which cruise line to choose? Take our quick quiz to find the perfect match from 15 major lines—mainstream to ultra-luxury—based on your travel style and budget." />
   <link rel="canonical" href="https://cruisinginthewake.com/cruise-lines/quiz.html"/>
 
   <!-- OpenGraph -->
@@ -49,7 +49,7 @@
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:url" content="https://cruisinginthewake.com/cruise-lines/quiz.html"/>
   <meta property="og:title" content="Which Cruise Line Is Right for You? — Quiz"/>
-  <meta property="og:description" content="Answer a few quick questions and we'll recommend the best cruise line for your travel style."/>
+  <meta property="og:description" content="Answer a few quick questions and we'll recommend the best cruise line for your travel style from 15 major lines."/>
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/cruise-lines-hero.jpg"/>
 
   <!-- Twitter Card -->
@@ -271,16 +271,23 @@
       height: 6px;
       width: 100%;
     }
-    .result-brand-bar.royal-caribbean { background: linear-gradient(90deg, #1a3d7c, #ffd700); }
+    /* Mainstream lines */
+    .result-brand-bar.rcl { background: linear-gradient(90deg, #1a3d7c, #ffd700); }
     .result-brand-bar.carnival { background: linear-gradient(90deg, #e31837, #0033a0); }
-    .result-brand-bar.celebrity { background: linear-gradient(90deg, #1c2b3a, #c4a35a); }
-    .result-brand-bar.disney { background: linear-gradient(90deg, #1a1a6c, #ff0000); }
-    .result-brand-bar.norwegian { background: linear-gradient(90deg, #00205b, #ffffff); }
-    .result-brand-bar.princess { background: linear-gradient(90deg, #0a2240, #c9a961); }
-    .result-brand-bar.holland-america { background: linear-gradient(90deg, #003366, #ffffff); }
-    .result-brand-bar.viking { background: linear-gradient(90deg, #c41e3a, #1a1a1a); }
-    .result-brand-bar.virgin { background: linear-gradient(90deg, #e10a0a, #ffffff); }
+    .result-brand-bar.ncl { background: linear-gradient(90deg, #00205b, #ffffff); }
     .result-brand-bar.msc { background: linear-gradient(90deg, #003366, #b8860b); }
+    .result-brand-bar.celebrity { background: linear-gradient(90deg, #1c2b3a, #c4a35a); }
+    .result-brand-bar.princess { background: linear-gradient(90deg, #0a2240, #c9a961); }
+    .result-brand-bar.holland { background: linear-gradient(90deg, #003366, #ffffff); }
+    .result-brand-bar.cunard { background: linear-gradient(90deg, #1a1a1a, #c41e3a); }
+    .result-brand-bar.costa { background: linear-gradient(90deg, #ffd700, #003399); }
+    .result-brand-bar.virgin { background: linear-gradient(90deg, #e10a0a, #ffffff); }
+    /* Luxury lines */
+    .result-brand-bar.oceania { background: linear-gradient(90deg, #003366, #8b0000); }
+    .result-brand-bar.regent { background: linear-gradient(90deg, #1a2e4a, #c9a961); }
+    .result-brand-bar.seabourn { background: linear-gradient(90deg, #002855, #c4a35a); }
+    .result-brand-bar.silversea { background: linear-gradient(90deg, #1c1c1c, #c0c0c0); }
+    .result-brand-bar.explora { background: linear-gradient(90deg, #1a1a2e, #c9a961); }
 
     .result-content {
       padding: 1.25rem;
@@ -309,6 +316,16 @@
     .top-pick .result-badge {
       display: inline-block;
     }
+    .result-tier {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+    .result-tier.mainstream { background: #e0f4f8; color: #0e6e8e; }
+    .result-tier.premium { background: #f0e6d3; color: #8b6914; }
+    .result-tier.luxury { background: #1a1a2e; color: #c9a961; }
     .result-match {
       font-size: 0.9rem;
       color: var(--accent, #0e6e8e);
@@ -486,7 +503,7 @@
       <!-- Intro -->
       <div class="quiz-intro">
         <h1>Which Cruise Line Is Right for You?</h1>
-        <p>Answer 6 quick questions and we'll match you with the cruise lines that fit your style.</p>
+        <p>Answer 6 quick questions and we'll match you with the best cruise lines from mainstream to ultra-luxury.</p>
       </div>
 
       <!-- Progress Bar -->
@@ -584,9 +601,9 @@
               <div class="option-label">Relaxation & wellness</div>
               <div class="option-desc">Spa, peace and quiet, unwinding</div>
             </button>
-            <button type="button" class="quiz-option" data-value="nightlife">
-              <div class="option-label">Nightlife & social</div>
-              <div class="option-desc">Bars, clubs, parties, meeting people</div>
+            <button type="button" class="quiz-option" data-value="service">
+              <div class="option-label">Service & attention</div>
+              <div class="option-desc">Personalized care, attentive staff</div>
             </button>
           </div>
           <div class="quiz-nav">
@@ -662,10 +679,6 @@
             <div class="question-text">Any special interests?</div>
           </div>
           <div class="quiz-options">
-            <button type="button" class="quiz-option" data-value="disney">
-              <div class="option-label">Disney magic</div>
-              <div class="option-desc">Character experiences, Disney theming</div>
-            </button>
             <button type="button" class="quiz-option" data-value="adults-only">
               <div class="option-label">Adults-only preferred</div>
               <div class="option-desc">No kids on the ship</div>
@@ -677,6 +690,10 @@
             <button type="button" class="quiz-option" data-value="adventure">
               <div class="option-label">Adventure & thrills</div>
               <div class="option-desc">Waterslides, zip lines, go-karts</div>
+            </button>
+            <button type="button" class="quiz-option" data-value="british">
+              <div class="option-label">British heritage</div>
+              <div class="option-desc">Traditional ocean liner experience</div>
             </button>
             <button type="button" class="quiz-option" data-value="none">
               <div class="option-label">No special preference</div>
@@ -752,146 +769,233 @@
   (function() {
     'use strict';
 
-    // Cruise line data with scoring weights
+    // All 15 cruise lines matching the ship quiz
     const cruiseLines = {
-      'royal-caribbean': {
+      // MAINSTREAM LINES
+      'rcl': {
         name: 'Royal Caribbean',
+        tier: 'mainstream',
         tagline: 'The vacation revolution. Mega-ships packed with activities, entertainment, and wow-factor experiences from water parks to Broadway shows.',
         bestFor: 'Active families, first-time cruisers, mega-ship enthusiasts',
         url: '/cruise-lines/royal-caribbean.html',
         scores: {
           travelers: { 'family-kids': 5, 'couple': 3, 'solo': 2, 'multigenerational': 5, 'friends': 3 },
           budget: { 'value': 3, 'mid-range': 5, 'premium': 3, 'luxury': 1 },
-          priority: { 'activities': 5, 'dining': 3, 'destinations': 3, 'relaxation': 2, 'nightlife': 3 },
+          priority: { 'activities': 5, 'dining': 3, 'destinations': 3, 'relaxation': 2, 'service': 3 },
           shipSize: { 'mega': 5, 'large': 4, 'mid': 2, 'small': 0 },
           atmosphere: { 'casual': 4, 'smart-casual': 4, 'elegant': 2, 'trendy': 3 },
-          special: { 'disney': 0, 'adults-only': 0, 'enrichment': 2, 'adventure': 5, 'none': 3 }
+          special: { 'adults-only': 0, 'enrichment': 2, 'adventure': 5, 'british': 0, 'none': 3 }
         }
       },
       'carnival': {
-        name: 'Carnival Cruise Line',
+        name: 'Carnival',
+        tier: 'mainstream',
         tagline: 'Choose Fun! Casual, high-energy cruising with waterslides, comedy clubs, and Guy Fieri burgers. Great value for families.',
         bestFor: 'Families, first-time cruisers, value-seekers, fun-lovers',
         url: '/cruise-lines/carnival.html',
         scores: {
           travelers: { 'family-kids': 5, 'couple': 3, 'solo': 2, 'multigenerational': 4, 'friends': 4 },
           budget: { 'value': 5, 'mid-range': 4, 'premium': 2, 'luxury': 0 },
-          priority: { 'activities': 4, 'dining': 3, 'destinations': 3, 'relaxation': 2, 'nightlife': 4 },
+          priority: { 'activities': 4, 'dining': 3, 'destinations': 3, 'relaxation': 2, 'service': 2 },
           shipSize: { 'mega': 4, 'large': 5, 'mid': 3, 'small': 0 },
           atmosphere: { 'casual': 5, 'smart-casual': 3, 'elegant': 1, 'trendy': 2 },
-          special: { 'disney': 0, 'adults-only': 0, 'enrichment': 1, 'adventure': 4, 'none': 4 }
+          special: { 'adults-only': 0, 'enrichment': 1, 'adventure': 4, 'british': 0, 'none': 4 }
         }
       },
-      'celebrity': {
-        name: 'Celebrity Cruises',
-        tagline: 'Modern luxury with design-forward ships, exceptional dining, and sophisticated atmosphere. Adults-focused but welcomes families.',
-        bestFor: 'Couples, foodies, solo travelers, wellness seekers',
-        url: '/cruise-lines/celebrity.html',
-        scores: {
-          travelers: { 'family-kids': 2, 'couple': 5, 'solo': 4, 'multigenerational': 3, 'friends': 4 },
-          budget: { 'value': 2, 'mid-range': 4, 'premium': 5, 'luxury': 3 },
-          priority: { 'activities': 2, 'dining': 5, 'destinations': 4, 'relaxation': 5, 'nightlife': 3 },
-          shipSize: { 'mega': 2, 'large': 4, 'mid': 5, 'small': 2 },
-          atmosphere: { 'casual': 2, 'smart-casual': 5, 'elegant': 4, 'trendy': 4 },
-          special: { 'disney': 0, 'adults-only': 3, 'enrichment': 3, 'adventure': 1, 'none': 4 }
-        }
-      },
-      'disney': {
-        name: 'Disney Cruise Line',
-        tagline: 'Where Disney magic meets the sea. Rotational dining, character experiences, and Broadway-quality entertainment for the whole family.',
-        bestFor: 'Families with Disney fans, multigenerational groups',
-        url: '/cruise-lines/disney.html',
-        scores: {
-          travelers: { 'family-kids': 5, 'couple': 2, 'solo': 1, 'multigenerational': 5, 'friends': 2 },
-          budget: { 'value': 1, 'mid-range': 3, 'premium': 5, 'luxury': 2 },
-          priority: { 'activities': 4, 'dining': 4, 'destinations': 3, 'relaxation': 3, 'nightlife': 1 },
-          shipSize: { 'mega': 3, 'large': 5, 'mid': 3, 'small': 0 },
-          atmosphere: { 'casual': 3, 'smart-casual': 4, 'elegant': 3, 'trendy': 2 },
-          special: { 'disney': 5, 'adults-only': 0, 'enrichment': 2, 'adventure': 2, 'none': 2 }
-        }
-      },
-      'norwegian': {
-        name: 'Norwegian Cruise Line',
+      'ncl': {
+        name: 'Norwegian',
+        tier: 'mainstream',
         tagline: 'Freestyle cruising with no fixed dining times, casual atmosphere, and innovative ships. Great for those who want flexibility.',
         bestFor: 'Flexible travelers, solo cruisers, friend groups',
         url: '/cruise-lines/norwegian.html',
         scores: {
           travelers: { 'family-kids': 4, 'couple': 4, 'solo': 5, 'multigenerational': 3, 'friends': 5 },
           budget: { 'value': 3, 'mid-range': 5, 'premium': 3, 'luxury': 1 },
-          priority: { 'activities': 4, 'dining': 4, 'destinations': 3, 'relaxation': 3, 'nightlife': 4 },
+          priority: { 'activities': 4, 'dining': 4, 'destinations': 3, 'relaxation': 3, 'service': 3 },
           shipSize: { 'mega': 4, 'large': 5, 'mid': 3, 'small': 0 },
           atmosphere: { 'casual': 5, 'smart-casual': 4, 'elegant': 2, 'trendy': 3 },
-          special: { 'disney': 0, 'adults-only': 1, 'enrichment': 2, 'adventure': 3, 'none': 4 }
-        }
-      },
-      'princess': {
-        name: 'Princess Cruises',
-        tagline: 'Come Back New. Destination-focused cruising with MedallionClass technology, Movies Under the Stars, and gracious service.',
-        bestFor: 'Couples, mature travelers, destination lovers',
-        url: '/cruise-lines/princess.html',
-        scores: {
-          travelers: { 'family-kids': 3, 'couple': 5, 'solo': 3, 'multigenerational': 4, 'friends': 3 },
-          budget: { 'value': 3, 'mid-range': 5, 'premium': 4, 'luxury': 2 },
-          priority: { 'activities': 3, 'dining': 4, 'destinations': 5, 'relaxation': 4, 'nightlife': 2 },
-          shipSize: { 'mega': 3, 'large': 5, 'mid': 4, 'small': 1 },
-          atmosphere: { 'casual': 3, 'smart-casual': 5, 'elegant': 4, 'trendy': 2 },
-          special: { 'disney': 0, 'adults-only': 2, 'enrichment': 4, 'adventure': 2, 'none': 4 }
-        }
-      },
-      'holland-america': {
-        name: 'Holland America Line',
-        tagline: 'Savor the Journey. Classic cruising with cultural enrichment, exceptional service, and refined atmosphere for discerning travelers.',
-        bestFor: 'Mature travelers, culture seekers, couples',
-        url: '/cruise-lines/holland-america.html',
-        scores: {
-          travelers: { 'family-kids': 1, 'couple': 5, 'solo': 3, 'multigenerational': 3, 'friends': 3 },
-          budget: { 'value': 2, 'mid-range': 4, 'premium': 5, 'luxury': 3 },
-          priority: { 'activities': 2, 'dining': 4, 'destinations': 5, 'relaxation': 4, 'nightlife': 2 },
-          shipSize: { 'mega': 1, 'large': 3, 'mid': 5, 'small': 3 },
-          atmosphere: { 'casual': 2, 'smart-casual': 4, 'elegant': 5, 'trendy': 1 },
-          special: { 'disney': 0, 'adults-only': 3, 'enrichment': 5, 'adventure': 1, 'none': 3 }
-        }
-      },
-      'viking': {
-        name: 'Viking',
-        tagline: 'The Thinking Person\'s Cruise. Adults-only, destination-immersive voyages with cultural enrichment and Scandinavian design.',
-        bestFor: 'Adults seeking enrichment, couples, cultural travelers',
-        url: '/cruise-lines/viking.html',
-        scores: {
-          travelers: { 'family-kids': 0, 'couple': 5, 'solo': 4, 'multigenerational': 2, 'friends': 4 },
-          budget: { 'value': 1, 'mid-range': 3, 'premium': 5, 'luxury': 4 },
-          priority: { 'activities': 1, 'dining': 4, 'destinations': 5, 'relaxation': 4, 'nightlife': 1 },
-          shipSize: { 'mega': 0, 'large': 2, 'mid': 5, 'small': 4 },
-          atmosphere: { 'casual': 2, 'smart-casual': 4, 'elegant': 5, 'trendy': 3 },
-          special: { 'disney': 0, 'adults-only': 5, 'enrichment': 5, 'adventure': 1, 'none': 3 }
-        }
-      },
-      'virgin': {
-        name: 'Virgin Voyages',
-        tagline: 'Adults-only, all-dining-included cruising with trendy vibes, incredible restaurants, and late-night energy. No kids, no buffets.',
-        bestFor: 'Foodies, couples, friend groups, nightlife lovers',
-        url: '/cruise-lines/virgin.html',
-        scores: {
-          travelers: { 'family-kids': 0, 'couple': 5, 'solo': 4, 'multigenerational': 1, 'friends': 5 },
-          budget: { 'value': 2, 'mid-range': 4, 'premium': 5, 'luxury': 3 },
-          priority: { 'activities': 3, 'dining': 5, 'destinations': 3, 'relaxation': 3, 'nightlife': 5 },
-          shipSize: { 'mega': 2, 'large': 5, 'mid': 4, 'small': 0 },
-          atmosphere: { 'casual': 3, 'smart-casual': 4, 'elegant': 2, 'trendy': 5 },
-          special: { 'disney': 0, 'adults-only': 5, 'enrichment': 2, 'adventure': 2, 'none': 3 }
+          special: { 'adults-only': 1, 'enrichment': 2, 'adventure': 3, 'british': 0, 'none': 4 }
         }
       },
       'msc': {
         name: 'MSC Cruises',
+        tier: 'mainstream',
         tagline: 'European-style cruising with Italian flair, stunning ships, and excellent value. Popular with multigenerational families.',
         bestFor: 'European travelers, multigenerational families, value seekers',
         url: '/cruise-lines/msc.html',
         scores: {
           travelers: { 'family-kids': 4, 'couple': 3, 'solo': 2, 'multigenerational': 5, 'friends': 3 },
           budget: { 'value': 5, 'mid-range': 4, 'premium': 3, 'luxury': 2 },
-          priority: { 'activities': 4, 'dining': 3, 'destinations': 4, 'relaxation': 3, 'nightlife': 3 },
+          priority: { 'activities': 4, 'dining': 3, 'destinations': 4, 'relaxation': 3, 'service': 3 },
           shipSize: { 'mega': 5, 'large': 4, 'mid': 3, 'small': 0 },
           atmosphere: { 'casual': 3, 'smart-casual': 4, 'elegant': 3, 'trendy': 3 },
-          special: { 'disney': 0, 'adults-only': 1, 'enrichment': 2, 'adventure': 3, 'none': 4 }
+          special: { 'adults-only': 1, 'enrichment': 2, 'adventure': 3, 'british': 0, 'none': 4 }
+        }
+      },
+      'celebrity': {
+        name: 'Celebrity Cruises',
+        tier: 'premium',
+        tagline: 'Modern luxury with design-forward ships, exceptional dining, and sophisticated atmosphere. Adults-focused but welcomes families.',
+        bestFor: 'Couples, foodies, solo travelers, wellness seekers',
+        url: '/cruise-lines/celebrity.html',
+        scores: {
+          travelers: { 'family-kids': 2, 'couple': 5, 'solo': 4, 'multigenerational': 3, 'friends': 4 },
+          budget: { 'value': 2, 'mid-range': 4, 'premium': 5, 'luxury': 3 },
+          priority: { 'activities': 2, 'dining': 5, 'destinations': 4, 'relaxation': 5, 'service': 4 },
+          shipSize: { 'mega': 2, 'large': 4, 'mid': 5, 'small': 2 },
+          atmosphere: { 'casual': 2, 'smart-casual': 5, 'elegant': 4, 'trendy': 4 },
+          special: { 'adults-only': 3, 'enrichment': 3, 'adventure': 1, 'british': 0, 'none': 4 }
+        }
+      },
+      'princess': {
+        name: 'Princess Cruises',
+        tier: 'premium',
+        tagline: 'Come Back New. Destination-focused cruising with MedallionClass technology, Movies Under the Stars, and gracious service.',
+        bestFor: 'Couples, mature travelers, destination lovers',
+        url: '/cruise-lines/princess.html',
+        scores: {
+          travelers: { 'family-kids': 3, 'couple': 5, 'solo': 3, 'multigenerational': 4, 'friends': 3 },
+          budget: { 'value': 3, 'mid-range': 5, 'premium': 4, 'luxury': 2 },
+          priority: { 'activities': 3, 'dining': 4, 'destinations': 5, 'relaxation': 4, 'service': 4 },
+          shipSize: { 'mega': 3, 'large': 5, 'mid': 4, 'small': 1 },
+          atmosphere: { 'casual': 3, 'smart-casual': 5, 'elegant': 4, 'trendy': 2 },
+          special: { 'adults-only': 2, 'enrichment': 4, 'adventure': 2, 'british': 1, 'none': 4 }
+        }
+      },
+      'holland': {
+        name: 'Holland America',
+        tier: 'premium',
+        tagline: 'Savor the Journey. Classic cruising with cultural enrichment, exceptional service, and refined atmosphere for discerning travelers.',
+        bestFor: 'Mature travelers, culture seekers, couples',
+        url: '/cruise-lines/holland-america.html',
+        scores: {
+          travelers: { 'family-kids': 1, 'couple': 5, 'solo': 3, 'multigenerational': 3, 'friends': 3 },
+          budget: { 'value': 2, 'mid-range': 4, 'premium': 5, 'luxury': 3 },
+          priority: { 'activities': 2, 'dining': 4, 'destinations': 5, 'relaxation': 4, 'service': 4 },
+          shipSize: { 'mega': 1, 'large': 3, 'mid': 5, 'small': 3 },
+          atmosphere: { 'casual': 2, 'smart-casual': 4, 'elegant': 5, 'trendy': 1 },
+          special: { 'adults-only': 3, 'enrichment': 5, 'adventure': 1, 'british': 2, 'none': 3 }
+        }
+      },
+      'cunard': {
+        name: 'Cunard',
+        tier: 'luxury',
+        tagline: 'The most iconic name in cruising. British heritage, white-glove service, and the only true ocean liner still sailing (Queen Mary 2).',
+        bestFor: 'Traditionalists, transatlantic travelers, history lovers',
+        url: '/cruise-lines/cunard.html',
+        scores: {
+          travelers: { 'family-kids': 2, 'couple': 5, 'solo': 3, 'multigenerational': 3, 'friends': 3 },
+          budget: { 'value': 1, 'mid-range': 3, 'premium': 5, 'luxury': 4 },
+          priority: { 'activities': 2, 'dining': 4, 'destinations': 4, 'relaxation': 4, 'service': 5 },
+          shipSize: { 'mega': 2, 'large': 4, 'mid': 5, 'small': 2 },
+          atmosphere: { 'casual': 1, 'smart-casual': 3, 'elegant': 5, 'trendy': 1 },
+          special: { 'adults-only': 2, 'enrichment': 4, 'adventure': 0, 'british': 5, 'none': 2 }
+        }
+      },
+      'costa': {
+        name: 'Costa Cruises',
+        tier: 'mainstream',
+        tagline: 'Italian style at sea. Vibrant atmosphere, Mediterranean flair, and excellent value with a European sensibility.',
+        bestFor: 'European travelers, families, value seekers',
+        url: '/cruise-lines/costa.html',
+        scores: {
+          travelers: { 'family-kids': 4, 'couple': 3, 'solo': 2, 'multigenerational': 4, 'friends': 3 },
+          budget: { 'value': 5, 'mid-range': 4, 'premium': 2, 'luxury': 1 },
+          priority: { 'activities': 3, 'dining': 4, 'destinations': 4, 'relaxation': 3, 'service': 3 },
+          shipSize: { 'mega': 4, 'large': 5, 'mid': 3, 'small': 0 },
+          atmosphere: { 'casual': 4, 'smart-casual': 4, 'elegant': 3, 'trendy': 2 },
+          special: { 'adults-only': 0, 'enrichment': 2, 'adventure': 2, 'british': 0, 'none': 4 }
+        }
+      },
+      'virgin': {
+        name: 'Virgin Voyages',
+        tier: 'premium',
+        tagline: 'Adults-only, all-dining-included cruising with trendy vibes, incredible restaurants, and late-night energy. No kids, no buffets.',
+        bestFor: 'Foodies, couples, friend groups, nightlife lovers',
+        url: '/cruise-lines/virgin.html',
+        scores: {
+          travelers: { 'family-kids': 0, 'couple': 5, 'solo': 4, 'multigenerational': 1, 'friends': 5 },
+          budget: { 'value': 2, 'mid-range': 4, 'premium': 5, 'luxury': 3 },
+          priority: { 'activities': 3, 'dining': 5, 'destinations': 3, 'relaxation': 3, 'service': 4 },
+          shipSize: { 'mega': 2, 'large': 5, 'mid': 4, 'small': 0 },
+          atmosphere: { 'casual': 3, 'smart-casual': 4, 'elegant': 2, 'trendy': 5 },
+          special: { 'adults-only': 5, 'enrichment': 2, 'adventure': 2, 'british': 0, 'none': 3 }
+        }
+      },
+      // LUXURY LINES
+      'oceania': {
+        name: 'Oceania Cruises',
+        tier: 'luxury',
+        tagline: 'The Finest Cuisine at Sea. Mid-size ships, destination-focused itineraries, and culinary excellence that rivals top restaurants.',
+        bestFor: 'Foodies, destination-focused travelers, couples',
+        url: '/cruise-lines.html',
+        scores: {
+          travelers: { 'family-kids': 1, 'couple': 5, 'solo': 4, 'multigenerational': 3, 'friends': 4 },
+          budget: { 'value': 1, 'mid-range': 2, 'premium': 4, 'luxury': 5 },
+          priority: { 'activities': 1, 'dining': 5, 'destinations': 5, 'relaxation': 4, 'service': 5 },
+          shipSize: { 'mega': 0, 'large': 2, 'mid': 5, 'small': 4 },
+          atmosphere: { 'casual': 2, 'smart-casual': 4, 'elegant': 5, 'trendy': 2 },
+          special: { 'adults-only': 4, 'enrichment': 5, 'adventure': 1, 'british': 1, 'none': 3 }
+        }
+      },
+      'regent': {
+        name: 'Regent Seven Seas',
+        tier: 'luxury',
+        tagline: 'The most inclusive luxury. All-suite ships where everything is included: shore excursions, specialty dining, drinks, gratuities, even WiFi.',
+        bestFor: 'Luxury seekers, those who want everything included',
+        url: '/cruise-lines.html',
+        scores: {
+          travelers: { 'family-kids': 1, 'couple': 5, 'solo': 4, 'multigenerational': 3, 'friends': 4 },
+          budget: { 'value': 0, 'mid-range': 1, 'premium': 3, 'luxury': 5 },
+          priority: { 'activities': 2, 'dining': 5, 'destinations': 5, 'relaxation': 5, 'service': 5 },
+          shipSize: { 'mega': 0, 'large': 1, 'mid': 4, 'small': 5 },
+          atmosphere: { 'casual': 2, 'smart-casual': 4, 'elegant': 5, 'trendy': 2 },
+          special: { 'adults-only': 4, 'enrichment': 4, 'adventure': 1, 'british': 1, 'none': 3 }
+        }
+      },
+      'seabourn': {
+        name: 'Seabourn',
+        tier: 'luxury',
+        tagline: 'Ultra-luxury with intimate ships, expedition voyages, and the highest crew-to-guest ratios afloat. Personalized service at its finest.',
+        bestFor: 'Luxury travelers, expedition seekers, service connoisseurs',
+        url: '/cruise-lines.html',
+        scores: {
+          travelers: { 'family-kids': 0, 'couple': 5, 'solo': 4, 'multigenerational': 2, 'friends': 4 },
+          budget: { 'value': 0, 'mid-range': 1, 'premium': 3, 'luxury': 5 },
+          priority: { 'activities': 2, 'dining': 5, 'destinations': 5, 'relaxation': 5, 'service': 5 },
+          shipSize: { 'mega': 0, 'large': 0, 'mid': 3, 'small': 5 },
+          atmosphere: { 'casual': 2, 'smart-casual': 4, 'elegant': 5, 'trendy': 2 },
+          special: { 'adults-only': 5, 'enrichment': 4, 'adventure': 3, 'british': 1, 'none': 3 }
+        }
+      },
+      'silversea': {
+        name: 'Silversea',
+        tier: 'luxury',
+        tagline: 'Italian elegance meets expedition adventure. From the Mediterranean to Antarctica, with butler service in every suite.',
+        bestFor: 'Luxury travelers, expedition enthusiasts, couples',
+        url: '/cruise-lines.html',
+        scores: {
+          travelers: { 'family-kids': 1, 'couple': 5, 'solo': 4, 'multigenerational': 2, 'friends': 4 },
+          budget: { 'value': 0, 'mid-range': 1, 'premium': 3, 'luxury': 5 },
+          priority: { 'activities': 2, 'dining': 5, 'destinations': 5, 'relaxation': 4, 'service': 5 },
+          shipSize: { 'mega': 0, 'large': 1, 'mid': 4, 'small': 5 },
+          atmosphere: { 'casual': 2, 'smart-casual': 4, 'elegant': 5, 'trendy': 3 },
+          special: { 'adults-only': 4, 'enrichment': 4, 'adventure': 4, 'british': 0, 'none': 3 }
+        }
+      },
+      'explora': {
+        name: 'Explora Journeys',
+        tier: 'luxury',
+        tagline: 'The Ocean State of Mind. MSC\'s new ultra-luxury brand with ocean suites, contemporary design, and European sophistication.',
+        bestFor: 'Modern luxury seekers, design enthusiasts, couples',
+        url: '/cruise-lines.html',
+        scores: {
+          travelers: { 'family-kids': 1, 'couple': 5, 'solo': 4, 'multigenerational': 2, 'friends': 4 },
+          budget: { 'value': 0, 'mid-range': 1, 'premium': 3, 'luxury': 5 },
+          priority: { 'activities': 2, 'dining': 5, 'destinations': 4, 'relaxation': 5, 'service': 5 },
+          shipSize: { 'mega': 0, 'large': 2, 'mid': 5, 'small': 4 },
+          atmosphere: { 'casual': 2, 'smart-casual': 4, 'elegant': 4, 'trendy': 5 },
+          special: { 'adults-only': 4, 'enrichment': 3, 'adventure': 2, 'british': 0, 'none': 3 }
         }
       }
     };
@@ -911,22 +1015,16 @@
 
     // Initialize
     function init() {
-      // Add click handlers to all options
       document.querySelectorAll('.quiz-option').forEach(option => {
         option.addEventListener('click', handleOptionClick);
       });
-
-      // Add click handlers to nav buttons
       document.querySelectorAll('.btn-back').forEach(btn => {
         btn.addEventListener('click', goBack);
       });
       document.querySelectorAll('.btn-next').forEach(btn => {
         btn.addEventListener('click', goNext);
       });
-
-      // Restart button
       restartBtn.addEventListener('click', restart);
-
       updateProgress();
     }
 
@@ -935,24 +1033,17 @@
       const questionEl = option.closest('.quiz-question');
       const questionNum = parseInt(questionEl.dataset.question);
 
-      // Deselect siblings
       questionEl.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
-
-      // Select this one
       option.classList.add('selected');
 
-      // Store answer
       const categories = ['travelers', 'budget', 'priority', 'shipSize', 'atmosphere', 'special'];
       answers[categories[questionNum - 1]] = option.dataset.value;
 
-      // Enable next button
       questionEl.querySelector('.btn-next').disabled = false;
     }
 
     function goBack() {
-      if (currentQuestion > 1) {
-        showQuestion(currentQuestion - 1);
-      }
+      if (currentQuestion > 1) showQuestion(currentQuestion - 1);
     }
 
     function goNext() {
@@ -976,15 +1067,12 @@
     }
 
     function showResults() {
-      // Hide questions, show loading
       document.getElementById('quiz-questions').style.display = 'none';
       loadingSection.classList.add('active');
 
-      // Calculate scores
       setTimeout(() => {
         const results = calculateResults();
         renderResults(results);
-
         loadingSection.classList.remove('active');
         resultsSection.classList.add('active');
       }, 800);
@@ -993,12 +1081,10 @@
     function calculateResults() {
       const scores = {};
 
-      // Calculate score for each cruise line
       Object.keys(cruiseLines).forEach(lineId => {
         const line = cruiseLines[lineId];
         let score = 0;
 
-        // Sum scores based on answers
         Object.keys(answers).forEach(category => {
           const answer = answers[category];
           if (line.scores[category] && line.scores[category][answer] !== undefined) {
@@ -1009,12 +1095,10 @@
         scores[lineId] = score;
       });
 
-      // Sort by score
       const sorted = Object.keys(scores)
         .map(id => ({ id, score: scores[id], ...cruiseLines[id] }))
         .sort((a, b) => b.score - a.score);
 
-      // Return top 5
       return sorted.slice(0, 5);
     }
 
@@ -1024,6 +1108,7 @@
       resultsList.innerHTML = results.map((line, idx) => {
         const matchPct = Math.round((line.score / maxScore) * 100);
         const isTopPick = idx === 0;
+        const tierLabel = line.tier === 'luxury' ? 'Luxury' : line.tier === 'premium' ? 'Premium' : 'Mainstream';
 
         return `
           <div class="result-card ${isTopPick ? 'top-pick' : ''}">
@@ -1033,10 +1118,11 @@
                 <div class="result-name">${line.name}</div>
                 <span class="result-badge">Top Pick</span>
               </div>
+              <span class="result-tier ${line.tier}">${tierLabel}</span>
               <div class="result-match">${matchPct}% match</div>
               <div class="result-tagline">${line.tagline}</div>
               <div class="result-best-for"><strong>Best for:</strong> ${line.bestFor}</div>
-              <a href="${line.url}" class="result-link">Learn more about ${line.name.split(' ')[0]}</a>
+              <a href="${line.url}" class="result-link">Learn more</a>
             </div>
           </div>
         `;
@@ -1044,11 +1130,9 @@
     }
 
     function restart() {
-      // Reset state
       currentQuestion = 1;
       Object.keys(answers).forEach(k => delete answers[k]);
 
-      // Reset UI
       questions.forEach(q => {
         q.classList.remove('active');
         q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
@@ -1064,7 +1148,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Start
     init();
   })();
   </script>
