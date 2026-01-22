@@ -70,10 +70,16 @@ for (const [lineKey, dir] of Object.entries(CRUISE_LINE_DIRS)) {
     totalShips++;
 
     try {
-      const output = execSync(`node admin/validate-ship-page.js ${filePath}`, {
-        encoding: 'utf8',
-        stdio: ['pipe', 'pipe', 'pipe']
-      });
+      let output;
+      try {
+        output = execSync(`node admin/validate-ship-page.js ${filePath}`, {
+          encoding: 'utf8',
+          stdio: ['pipe', 'pipe', 'pipe']
+        });
+      } catch (execError) {
+        // Validator exits with code 1 for FAIL status - still capture stdout
+        output = execError.stdout || '';
+      }
 
       // Strip ANSI color codes and extract score
       const cleanOutput = output.replace(/\x1b\[[0-9;]*m/g, '');
