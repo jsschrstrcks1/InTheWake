@@ -34,13 +34,14 @@ PORT_SEARCH_TERMS = {
     "grand-cayman": ["George Town Grand Cayman", "Seven Mile Beach Cayman"],
     "aruba": ["Oranjestad Aruba", "Aruba cruise terminal"],
     "curacao": ["Willemstad Curacao", "Curacao harbor"],
-    "barbados": ["Bridgetown Barbados", "Barbados cruise port"],
-    "st-lucia": ["Pitons St Lucia", "Castries harbor"],
+    "barbados": ["Bridgetown Barbados", "Barbados", "Harrison's Cave Barbados"],
+    "st-lucia": ["Pitons St Lucia", "Castries harbor", "St Lucia"],
     "antigua": ["St Johns Antigua", "English Harbour Antigua"],
     "grenada": ["St Georges Grenada", "Grenada harbor"],
+    "falmouth": ["Falmouth Jamaica", "Jamaica", "Dunn's River Falls"],
 
     # European ports
-    "amsterdam": ["Amsterdam canals", "Amsterdam Centraal", "Rijksmuseum Amsterdam"],
+    "amsterdam": ["Amsterdam", "Amsterdam canals", "Rijksmuseum Amsterdam", "Anne Frank House"],
     "barcelona": ["Barcelona port", "La Sagrada Familia", "Las Ramblas Barcelona"],
     "rome": ["Civitavecchia port", "Rome Colosseum"],
     "venice": ["Venice Grand Canal", "St Marks Square Venice"],
@@ -51,6 +52,11 @@ PORT_SEARCH_TERMS = {
     "lisbon": ["Lisbon Belem Tower", "Lisbon harbor"],
     "naples": ["Naples harbor", "Mount Vesuvius Naples"],
     "marseille": ["Vieux Port Marseille", "Notre Dame de la Garde"],
+    "alesund": ["Alesund Norway", "Alesund Art Nouveau", "Aksla viewpoint"],
+    "amalfi": ["Amalfi Coast", "Amalfi Cathedral", "Positano Italy"],
+
+    # Middle East / Africa
+    "alexandria": ["Alexandria Egypt", "Bibliotheca Alexandrina", "Citadel of Qaitbay"],
 
     # Alaska ports
     "juneau": ["Juneau Alaska harbor", "Mendenhall Glacier"],
@@ -65,17 +71,109 @@ PORT_SEARCH_TERMS = {
     "tokyo": ["Tokyo Bay", "Rainbow Bridge Tokyo"],
     "sydney": ["Sydney Opera House", "Sydney Harbour Bridge"],
     "auckland": ["Auckland Sky Tower", "Auckland harbor"],
+    "bangkok": ["Bangkok Thailand", "Grand Palace Bangkok", "Wat Arun"],
+    "ho-chi-minh-city": ["Ho Chi Minh City", "Saigon", "Notre Dame Cathedral Saigon"],
+
+    # New Zealand
+    "akaroa": ["Akaroa New Zealand", "Banks Peninsula", "Hector's dolphin"],
+
+    # Pacific Islands
+    "airlie-beach": ["Whitsunday Islands", "Whitehaven Beach", "Great Barrier Reef"],
+    "aitutaki": ["Aitutaki lagoon", "Cook Islands", "One Foot Island"],
+
+    # Corsica
+    "ajaccio": ["Ajaccio Corsica", "Napoleon birthplace", "Maison Bonaparte"],
+
+    # Antarctica
+    "antarctica": ["Antarctica", "Antarctic Peninsula", "Emperor penguin Antarctica"],
+    "antarctic-peninsula": ["Antarctic Peninsula", "Antarctica cruise", "Gentoo penguin"],
+
+    # US East Coast
+    "baltimore": ["Baltimore Inner Harbor", "Fort McHenry", "Maryland crabs"],
+    "bar-harbor": ["Bar Harbor Maine", "Acadia National Park", "Cadillac Mountain"],
+    "norfolk": ["Norfolk Virginia", "USS Wisconsin", "Nauticus"],
+
+    # Turkey
+    "bodrum": ["Bodrum Turkey", "Bodrum Castle", "Bodrum harbor"],
 }
 
 # Image type mappings - what semantic names map to search terms
 IMAGE_TYPE_SEARCHES = {
     "hero": ["panorama", "aerial view", "harbor view", "skyline"],
     "harbor": ["harbor", "port", "cruise terminal", "waterfront"],
+    "harbour": ["harbour", "port", "cruise terminal", "waterfront"],
     "landmark": ["landmark", "monument", "famous", "tourist"],
     "beach": ["beach", "coast", "shore", "sand"],
     "street": ["street", "downtown", "city center", "market"],
     "food": ["food", "cuisine", "restaurant", "local dish"],
     "aerial": ["aerial", "drone", "bird's eye", "panorama"],
+    "panorama": ["panorama", "aerial", "view"],
+    "sunset": ["sunset", "evening", "dusk"],
+    "sunrise": ["sunrise", "morning", "dawn"],
+    "night": ["night", "evening", "lights"],
+    "museum": ["museum", "gallery", "art"],
+    "cathedral": ["cathedral", "church", "basilica"],
+    "church": ["church", "cathedral", "chapel"],
+    "castle": ["castle", "fortress", "palace"],
+    "palace": ["palace", "royal", "mansion"],
+    "market": ["market", "bazaar", "stalls"],
+    "cafe": ["cafe", "restaurant", "terrace"],
+    "canal": ["canal", "waterway", "boats"],
+    "bridge": ["bridge", "crossing"],
+    "mountain": ["mountain", "peak", "hill"],
+    "glacier": ["glacier", "ice", "frozen"],
+    "waterfall": ["waterfall", "falls", "cascade"],
+    "lagoon": ["lagoon", "bay", "cove"],
+    "island": ["island", "isle", "atoll"],
+    "reef": ["reef", "coral", "underwater"],
+    "snorkeling": ["snorkeling", "diving", "underwater"],
+    "hiking": ["hiking", "trail", "path"],
+    "steps": ["steps", "stairs", "climbing"],
+    "aquarium": ["aquarium", "fish", "marine"],
+    "zoo": ["zoo", "animals", "wildlife"],
+    "temple": ["temple", "shrine", "sacred"],
+    "shrine": ["shrine", "temple", "sacred"],
+    "mosque": ["mosque", "islamic", "minaret"],
+    "library": ["library", "books", "reading"],
+    "pyramids": ["pyramids", "ancient", "egypt"],
+    "sphinx": ["sphinx", "egypt", "ancient"],
+    "citadel": ["citadel", "fortress", "castle"],
+    "corniche": ["corniche", "waterfront", "promenade"],
+    "catacombs": ["catacombs", "underground", "tombs"],
+    "coast": ["coast", "coastline", "shore"],
+    "drive": ["drive", "road", "scenic"],
+    "grotto": ["grotto", "cave", "cavern"],
+    "ferry": ["ferry", "boat", "ship"],
+    "ceramics": ["ceramics", "pottery", "crafts"],
+    "lemons": ["lemons", "citrus", "fruit"],
+    "pasta": ["pasta", "italian food", "restaurant"],
+    "path": ["path", "trail", "hiking"],
+    "cloister": ["cloister", "monastery", "courtyard"],
+    "positano": ["Positano", "amalfi coast village"],
+    "penguin": ["penguin", "penguins", "colony"],
+    "iceberg": ["iceberg", "ice", "antarctic"],
+    "zodiac": ["zodiac", "boat", "expedition"],
+    "colony": ["colony", "wildlife", "birds"],
+    "calving": ["glacier calving", "ice breaking"],
+    "seal": ["seal", "seals", "marine"],
+    "whale": ["whale", "whales", "marine"],
+    "ship": ["ship", "cruise ship", "vessel"],
+    "inner-harbor": ["inner harbor", "harbor", "marina"],
+    "fort": ["fort", "fortress", "military"],
+    "aquarium": ["aquarium", "fish", "marine life"],
+    "crabs": ["crabs", "seafood", "maryland"],
+    "grand-palace": ["grand palace", "royal palace"],
+    "wat": ["wat", "temple", "buddhist"],
+    "cadillac": ["Cadillac Mountain", "acadia"],
+    "jordan-pond": ["Jordan Pond", "acadia"],
+    "bridgetown": ["Bridgetown", "barbados"],
+    "carlisle": ["Carlisle Bay", "barbados"],
+    "harrisons": ["Harrison's Cave", "barbados"],
+    "dunn": ["Dunn's River Falls", "jamaica"],
+    "dazaifu": ["Dazaifu", "shrine", "fukuoka"],
+    "notre-dame": ["Notre Dame Cathedral", "saigon"],
+    "pitons": ["Pitons", "st lucia"],
+    "sugar-beach": ["Sugar Beach", "st lucia"],
 }
 
 
@@ -227,6 +325,33 @@ def extract_image_type(filename):
     return "hero"
 
 
+def build_search_queries(port_slug, img_name):
+    """Build a list of search queries for a specific image."""
+    img_type = extract_image_type(img_name)
+    queries = []
+
+    # Get port display name
+    port_name = port_slug.replace("-", " ").title()
+
+    # Direct search using image type as keyword
+    type_words = img_type.replace("-", " ")
+    queries.append(f"{port_name} {type_words}")
+
+    # Look up specific search terms
+    base_terms = PORT_SEARCH_TERMS.get(port_slug, [port_name])
+    type_terms = IMAGE_TYPE_SEARCHES.get(img_type, [type_words])
+
+    for base in base_terms[:2]:
+        for term in type_terms[:2]:
+            queries.append(f"{base} {term}")
+
+    # Also try just the base terms for hero images
+    if "hero" in img_type:
+        queries.extend(base_terms[:3])
+
+    return queries[:8]  # Limit to 8 queries
+
+
 def source_port_images(port_slug, dry_run=False, limit=5):
     """Source missing images for a port."""
     missing = find_missing_images(port_slug)
@@ -246,62 +371,55 @@ def source_port_images(port_slug, dry_run=False, limit=5):
     downloaded = 0
 
     for img_name in missing[:limit]:
-        img_type = extract_image_type(img_name)
-
-        # Build search query
-        type_terms = IMAGE_TYPE_SEARCHES.get(img_type, [img_type])
+        # Build search queries for this specific image
+        queries = build_search_queries(port_slug, img_name)
 
         found = False
-        for base_term in base_terms:
-            for type_term in type_terms:
-                query = f"{base_term} {type_term}"
-                print(f"    Searching: {query}")
+        for query in queries:
+            print(f"    Searching: {query}")
 
-                results = search_wikimedia(query, limit=3)
+            results = search_wikimedia(query, limit=5)
 
-                for file_title in results:
-                    info = get_image_info(file_title)
-                    if not info:
-                        continue
+            for file_title in results:
+                info = get_image_info(file_title)
+                if not info:
+                    continue
 
-                    print(f"    Found: {file_title[:50]}... ({info['license']})")
+                print(f"    Found: {file_title[:50]}... ({info['license']})")
 
-                    if dry_run:
-                        found = True
-                        break
-
-                    # Download and convert
-                    temp_path = port_img_dir / f"temp_{img_name}"
-                    final_path = port_img_dir / img_name
-
-                    if download_image(info["url"], temp_path):
-                        if convert_to_webp(temp_path, final_path):
-                            # Clean up temp file if different
-                            if temp_path.exists() and temp_path != final_path:
-                                temp_path.unlink()
-
-                            # Save attribution
-                            attr_path = port_img_dir / f"{img_name}.attr.json"
-                            with open(attr_path, "w", encoding="utf-8") as f:
-                                json.dump(info, f, indent=2)
-
-                            print(f"    Downloaded: {img_name}")
-                            downloaded += 1
-                            found = True
-                            break
-
-                if found:
+                if dry_run:
+                    found = True
                     break
 
-                time.sleep(0.5)  # Rate limiting
+                # Download and convert
+                temp_path = port_img_dir / f"temp_{img_name}"
+                final_path = port_img_dir / img_name
+
+                if download_image(info["url"], temp_path):
+                    if convert_to_webp(temp_path, final_path):
+                        # Clean up temp file if different
+                        if temp_path.exists() and temp_path != final_path:
+                            temp_path.unlink()
+
+                        # Save attribution
+                        attr_path = port_img_dir / f"{img_name}.attr.json"
+                        with open(attr_path, "w", encoding="utf-8") as f:
+                            json.dump(info, f, indent=2)
+
+                        print(f"    Downloaded: {img_name}")
+                        downloaded += 1
+                        found = True
+                        break
 
             if found:
                 break
 
+            time.sleep(0.3)  # Rate limiting
+
         if not found:
             print(f"    Could not find: {img_name}")
 
-        time.sleep(1)  # Rate limiting between images
+        time.sleep(0.5)  # Rate limiting between images
 
     return downloaded
 
@@ -333,10 +451,10 @@ def main():
     print(f"Processing {len(ports)} ports with missing images...\n")
 
     total_downloaded = 0
-    for port_slug in ports[:20]:  # Limit to 20 ports per run
-        downloaded = source_port_images(port_slug, dry_run=dry_run, limit=3)
+    for port_slug in ports:  # Process all ports
+        downloaded = source_port_images(port_slug, dry_run=dry_run, limit=20)  # Up to 20 images per port
         total_downloaded += downloaded
-        time.sleep(2)  # Rate limiting between ports
+        time.sleep(1)  # Rate limiting between ports
 
     print(f"\nTotal images downloaded: {total_downloaded}")
 
