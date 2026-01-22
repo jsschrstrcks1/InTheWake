@@ -410,6 +410,95 @@
     }
   };
 
+  // Carnival Cruise Line Fleet
+  const CARNIVAL_FLEET = {
+    'Excel Class': {
+      order: 1,
+      ships: [
+        { name: 'Carnival Jubilee', slug: 'carnival-jubilee', year: 2023, gt: '183,521', capacity: 5374 },
+        { name: 'Carnival Celebration', slug: 'carnival-celebration', year: 2022, gt: '183,521', capacity: 5374 },
+        { name: 'Mardi Gras', slug: 'carnival-mardi-gras', year: 2021, gt: '183,521', capacity: 5282 }
+      ]
+    },
+    'Venice Class': {
+      order: 2,
+      ships: [
+        { name: 'Carnival Firenze', slug: 'carnival-firenze', year: 2024, gt: '135,500', capacity: 4126 },
+        { name: 'Carnival Venezia', slug: 'carnival-venezia', year: 2023, gt: '135,500', capacity: 4126 }
+      ]
+    },
+    'Vista Class': {
+      order: 3,
+      ships: [
+        { name: 'Carnival Panorama', slug: 'carnival-panorama', year: 2019, gt: '133,596', capacity: 4008 },
+        { name: 'Carnival Horizon', slug: 'carnival-horizon', year: 2018, gt: '133,596', capacity: 3954 },
+        { name: 'Carnival Vista', slug: 'carnival-vista', year: 2016, gt: '133,596', capacity: 3954 }
+      ]
+    },
+    'Dream Class': {
+      order: 4,
+      ships: [
+        { name: 'Carnival Breeze', slug: 'carnival-breeze', year: 2012, gt: '130,000', capacity: 3690 },
+        { name: 'Carnival Magic', slug: 'carnival-magic', year: 2011, gt: '130,000', capacity: 3690 },
+        { name: 'Carnival Dream', slug: 'carnival-dream', year: 2009, gt: '130,000', capacity: 3646 }
+      ]
+    },
+    'Splendor Class': {
+      order: 5,
+      ships: [
+        { name: 'Carnival Splendor', slug: 'carnival-splendor', year: 2008, gt: '113,323', capacity: 3006 }
+      ]
+    },
+    'Conquest Class': {
+      order: 6,
+      ships: [
+        { name: 'Carnival Freedom', slug: 'carnival-freedom', year: 2007, gt: '110,320', capacity: 2974 },
+        { name: 'Carnival Liberty', slug: 'carnival-liberty', year: 2005, gt: '110,320', capacity: 2974 },
+        { name: 'Carnival Valor', slug: 'carnival-valor', year: 2004, gt: '110,239', capacity: 2974 },
+        { name: 'Carnival Glory', slug: 'carnival-glory', year: 2003, gt: '110,239', capacity: 2974 },
+        { name: 'Carnival Conquest', slug: 'carnival-conquest', year: 2002, gt: '110,239', capacity: 2974 }
+      ]
+    },
+    'Spirit Class': {
+      order: 7,
+      ships: [
+        { name: 'Carnival Luminosa', slug: 'carnival-luminosa', year: 2009, gt: '92,720', capacity: 2260 },
+        { name: 'Carnival Miracle', slug: 'carnival-miracle', year: 2004, gt: '85,942', capacity: 2124 },
+        { name: 'Carnival Legend', slug: 'carnival-legend', year: 2002, gt: '85,942', capacity: 2124 },
+        { name: 'Carnival Pride', slug: 'carnival-pride', year: 2001, gt: '85,920', capacity: 2124 },
+        { name: 'Carnival Spirit', slug: 'carnival-spirit', year: 2001, gt: '85,920', capacity: 2124 }
+      ]
+    },
+    'Sunshine Class': {
+      order: 8,
+      ships: [
+        { name: 'Carnival Radiance', slug: 'carnival-radiance', year: 2023, gt: '101,509', capacity: 2764 },
+        { name: 'Carnival Sunrise', slug: 'carnival-sunrise', year: 2019, gt: '101,509', capacity: 2764 },
+        { name: 'Carnival Sunshine', slug: 'carnival-sunshine', year: 2013, gt: '102,853', capacity: 2974 }
+      ]
+    },
+    'Fantasy Class': {
+      order: 9,
+      ships: [
+        { name: 'Carnival Paradise', slug: 'carnival-paradise', year: 1998, gt: '70,367', capacity: 2052 },
+        { name: 'Carnival Elation', slug: 'carnival-elation', year: 1998, gt: '70,367', capacity: 2052 }
+      ]
+    },
+    'Historic Fleet': {
+      order: 10,
+      ships: [
+        { name: 'Carnival Ecstasy', slug: 'carnival-ecstasy', year: 1991, gt: '70,367', capacity: 2052, retired: true },
+        { name: 'Carnival Sensation', slug: 'carnival-sensation', year: 1993, gt: '70,367', capacity: 2052, retired: true },
+        { name: 'Carnival Fascination', slug: 'carnival-fascination', year: 1994, gt: '70,367', capacity: 2052, retired: true },
+        { name: 'Carnival Imagination', slug: 'carnival-imagination', year: 1995, gt: '70,367', capacity: 2052, retired: true },
+        { name: 'Carnival Inspiration', slug: 'carnival-inspiration', year: 1996, gt: '70,367', capacity: 2052, retired: true },
+        { name: 'Carnival Fantasy', slug: 'carnival-fantasy', year: 1990, gt: '70,367', capacity: 2052, retired: true },
+        { name: 'Mardi Gras (1972)', slug: 'mardi-gras-1972', year: 1972, gt: '27,284', capacity: 1024, retired: true },
+        { name: 'Tropicale', slug: 'tropicale-1981', year: 1981, gt: '36,674', capacity: 1400, retired: true }
+      ]
+    }
+  };
+
   // Class descriptions
   const CLASS_DESCRIPTIONS = {
     // Royal Caribbean
@@ -421,7 +510,75 @@
     'Voyager Class': 'The original Royal Promenade ships with ice rinks and rock climbing walls.',
     'Radiance Class': 'Floor-to-ceiling glass throughout for stunning ocean views on every voyage.',
     'Vision Class': 'Intimate ships with classic Royal Caribbean charm and easier navigation.',
-    'Historic Fleet': 'Historic ships that built Royal Caribbean\'s legacy from the 1970s through 1990s, including the Sovereign Class megaships that defined modern cruising.'
+    'Historic Fleet': 'Historic ships that built the line\'s legacy from the 1970s through 1990s.',
+    // Carnival
+    'Excel Class': 'LNG-powered megaships with BOLT roller coaster, themed zones, and Carnival\'s most innovative features.',
+    'Venice Class': 'Italian-themed ships featuring Costa heritage with Carnival\'s Fun Ship atmosphere.',
+    'Vista Class': 'SkyRide aerial cycling, IMAX theater, and the Havana Cuban-themed area.',
+    'Dream Class': 'WaterWorks aqua park, Serenity adult retreat, and Guy\'s Burger Joint.',
+    'Splendor Class': 'Refined mid-size ship bridging Dream and Conquest classes.',
+    'Conquest Class': 'Classic Carnival fun with excellent value and wide variety of dining options.',
+    'Spirit Class': 'Mid-size ships with intimate feel, multiple dining venues, and Carnival spirit.',
+    'Sunshine Class': 'Revitalized ships with modern features including Guy\'s and BlueIguana.',
+    'Fantasy Class': 'Compact classic ships perfect for shorter cruises and first-time cruisers.',
+    // Celebrity
+    'Edge Class': 'Revolutionary design with Magic Carpet cantilever platform, outward-facing cabins, and modern luxury.',
+    'Solstice Class': 'Lawn Club, Aqua Class spa cabins, and contemporary premium cruising at its finest.',
+    'Millennium Class': 'Elegant mid-size ships with excellent service and refined dining experiences.',
+    'Expedition Class': 'Small expedition vessels for Galápagos and unique destination experiences.',
+    // Norwegian
+    'Prima Class': 'Sleek new design with Ocean Boulevard wraparound promenade and innovative public spaces.',
+    'Breakaway Plus Class': 'Enhanced megaships with go-kart tracks, Galaxy Pavilion VR, and expanded Haven.',
+    'Breakaway Class': 'Waterfront dining, Aqua Park with multiple slides, and The Haven luxury enclave.',
+    'Epic Class': 'Massive ship with unique studio cabins for solo travelers and ice bar.',
+    'Jewel Class': 'Mid-size ships with bowling alleys, great for families and destination-focused cruises.',
+    'Dawn Class': 'Refined mid-size vessels with excellent service and intimate atmosphere.',
+    'Sun Class': 'Compact ships perfect for shorter sailings and easier port navigation.',
+    'Spirit Class': 'Classic NCL experience with good value and comfortable cruising.',
+    'Pride of America': 'US-flagged ship sailing exclusively around Hawaii year-round.',
+    // Princess
+    'Sphere Class': 'Next-generation ships with The Dome entertainment venue and enhanced Sanctuary.',
+    'Royal Class': 'SeaWalk glass walkway, Princess Live venue, and elevated Princess experience.',
+    'Grand Class': 'Classic Princess elegance with Movies Under the Stars and excellent dining.',
+    'Coral Class': 'Mid-size intimate ships perfect for Panama Canal and destination sailings.',
+    // Holland America
+    'Pinnacle Class': 'Music Walk entertainment hub, rolling stone lounge, and refined dining options.',
+    'Signature Class': 'Enhanced amenities with Lanai staterooms and Pinnacle Grill dining.',
+    'Vista Class': 'Mid-size classic ships with excellent Alaska and European itineraries.',
+    'R Class': 'Intimate ships with elegant Dutch heritage and personalized service.',
+    // MSC
+    'World Class': 'LNG-powered giants with innovative MSC Yacht Club and expansive promenades.',
+    'Meraviglia Plus Class': 'Mediterranean promenade with LED dome and Cirque du Soleil shows.',
+    'Seaside EVO Class': 'Enhanced beach condo design with expanded outdoor spaces.',
+    'Meraviglia Class': 'Indoor promenade with LED ceiling and diverse entertainment.',
+    'Seaside Class': 'Beach condo design with wraparound waterfront promenade.',
+    'Fantasia Class': 'Elegant ships with MSC Yacht Club ship-within-a-ship concept.',
+    'Musica Class': 'Mid-size ships with good value and Mediterranean ambiance.',
+    'Lirica Class': 'Classic compact ships ideal for value-focused Mediterranean cruises.',
+    // Costa
+    'Excellence Class': 'LNG-powered Italian design with Costa heritage and family focus.',
+    'Concordia Class': 'Modern Italian styling with extensive entertainment options.',
+    // Cunard
+    'Queen Class': 'Iconic ocean liners with White Star heritage, Grill restaurants, and transatlantic crossings.',
+    // Oceania
+    'Allura Class': 'New generation with world-class culinary focus and destination immersion.',
+    'Oceania Class': 'The Finest Cuisine at Sea with exceptional destination experiences.',
+    'Regatta Class': 'Intimate ships with country club atmosphere and culinary excellence.',
+    // Regent
+    'Explorer Class': 'All-suite, all-inclusive ultra-luxury with largest balconies at sea.',
+    'Voyager Class': 'Intimate luxury with all-inclusive pricing and exceptional service.',
+    // Seabourn
+    'Encore Class': 'All-suite intimate luxury with The Grill by Thomas Keller.',
+    'Expedition Class': 'Purpose-built expedition ships for polar and adventure voyages.',
+    'Odyssey Class': 'Intimate yachts with personalized service and spacious suites.',
+    // Silversea
+    'Nova Class': 'Innovative luxury with asymmetrical design and extensive outdoor spaces.',
+    'Muse Class': 'All-inclusive luxury with multiple dining venues and butler service.',
+    'Classic Class': 'Intimate luxury ships with legendary Silversea service.',
+    // Explora
+    'Explora Class': 'MSC\'s new ultra-luxury brand with ocean residences and refined elegance.',
+    // Virgin
+    'Virgin Class': 'Adults-only with rebellious spirit, innovative dining, and no traditional cruise elements.'
   };
 
   // Class header images
@@ -642,12 +799,470 @@
     `;
   }
 
+  // Celebrity Cruises Fleet
+  const CELEBRITY_FLEET = {
+    'Edge Class': {
+      order: 1,
+      ships: [
+        { name: 'Celebrity Xcel', slug: 'celebrity-xcel', year: 2025, gt: '140,600', capacity: 3250 },
+        { name: 'Celebrity Ascent', slug: 'celebrity-ascent', year: 2023, gt: '140,600', capacity: 3260 },
+        { name: 'Celebrity Beyond', slug: 'celebrity-beyond', year: 2022, gt: '140,600', capacity: 3260 },
+        { name: 'Celebrity Apex', slug: 'celebrity-apex', year: 2020, gt: '130,818', capacity: 2910 },
+        { name: 'Celebrity Edge', slug: 'celebrity-edge', year: 2018, gt: '130,818', capacity: 2918 }
+      ]
+    },
+    'Solstice Class': {
+      order: 2,
+      ships: [
+        { name: 'Celebrity Reflection', slug: 'celebrity-reflection', year: 2012, gt: '126,000', capacity: 3046 },
+        { name: 'Celebrity Silhouette', slug: 'celebrity-silhouette', year: 2011, gt: '122,000', capacity: 2886 },
+        { name: 'Celebrity Eclipse', slug: 'celebrity-eclipse', year: 2010, gt: '122,000', capacity: 2852 },
+        { name: 'Celebrity Equinox', slug: 'celebrity-equinox', year: 2009, gt: '122,000', capacity: 2852 },
+        { name: 'Celebrity Solstice', slug: 'celebrity-solstice', year: 2008, gt: '122,000', capacity: 2852 }
+      ]
+    },
+    'Millennium Class': {
+      order: 3,
+      ships: [
+        { name: 'Celebrity Constellation', slug: 'celebrity-constellation', year: 2002, gt: '91,000', capacity: 2170 },
+        { name: 'Celebrity Summit', slug: 'celebrity-summit', year: 2001, gt: '91,000', capacity: 2158 },
+        { name: 'Celebrity Infinity', slug: 'celebrity-infinity', year: 2001, gt: '91,000', capacity: 2170 },
+        { name: 'Celebrity Millennium', slug: 'celebrity-millennium', year: 2000, gt: '91,000', capacity: 2158 }
+      ]
+    },
+    'Expedition Class': {
+      order: 4,
+      ships: [
+        { name: 'Celebrity Flora', slug: 'celebrity-flora', year: 2019, gt: '5,739', capacity: 100 },
+        { name: 'Celebrity Xpedition', slug: 'celebrity-xpedition', year: 2001, gt: '2,842', capacity: 96 },
+        { name: 'Celebrity Xploration', slug: 'celebrity-xploration', year: 2017, gt: '1,850', capacity: 48 }
+      ]
+    },
+    'Historic Fleet': {
+      order: 5,
+      ships: [
+        { name: 'Celebrity Century', slug: 'celebrity-century', year: 1995, gt: '70,606', capacity: 1750, retired: true },
+        { name: 'Celebrity Galaxy', slug: 'celebrity-galaxy', year: 1996, gt: '77,713', capacity: 1870, retired: true },
+        { name: 'Celebrity Mercury', slug: 'celebrity-mercury', year: 1997, gt: '77,713', capacity: 1870, retired: true },
+        { name: 'Horizon', slug: 'horizon', year: 1990, gt: '46,811', capacity: 1354, retired: true },
+        { name: 'Zenith', slug: 'zenith', year: 1992, gt: '47,255', capacity: 1374, retired: true }
+      ]
+    }
+  };
+
+  // Norwegian Cruise Line Fleet
+  const NORWEGIAN_FLEET = {
+    'Prima Class': {
+      order: 1,
+      ships: [
+        { name: 'Norwegian Aqua', slug: 'norwegian-aqua', year: 2025, gt: '156,300', capacity: 3550 },
+        { name: 'Norwegian Viva', slug: 'norwegian-viva', year: 2023, gt: '142,500', capacity: 3219 },
+        { name: 'Norwegian Prima', slug: 'norwegian-prima', year: 2022, gt: '142,500', capacity: 3215 }
+      ]
+    },
+    'Breakaway Plus Class': {
+      order: 2,
+      ships: [
+        { name: 'Norwegian Encore', slug: 'norwegian-encore', year: 2019, gt: '169,116', capacity: 3998 },
+        { name: 'Norwegian Bliss', slug: 'norwegian-bliss', year: 2018, gt: '168,028', capacity: 4004 },
+        { name: 'Norwegian Joy', slug: 'norwegian-joy', year: 2017, gt: '167,725', capacity: 3883 },
+        { name: 'Norwegian Escape', slug: 'norwegian-escape', year: 2015, gt: '164,600', capacity: 4266 }
+      ]
+    },
+    'Breakaway Class': {
+      order: 3,
+      ships: [
+        { name: 'Norwegian Getaway', slug: 'norwegian-getaway', year: 2014, gt: '145,655', capacity: 3963 },
+        { name: 'Norwegian Breakaway', slug: 'norwegian-breakaway', year: 2013, gt: '145,655', capacity: 3963 }
+      ]
+    },
+    'Epic Class': {
+      order: 4,
+      ships: [
+        { name: 'Norwegian Epic', slug: 'norwegian-epic', year: 2010, gt: '155,873', capacity: 4100 }
+      ]
+    },
+    'Jewel Class': {
+      order: 5,
+      ships: [
+        { name: 'Norwegian Gem', slug: 'norwegian-gem', year: 2007, gt: '93,530', capacity: 2394 },
+        { name: 'Norwegian Pearl', slug: 'norwegian-pearl', year: 2006, gt: '93,530', capacity: 2394 },
+        { name: 'Norwegian Jade', slug: 'norwegian-jade', year: 2006, gt: '93,558', capacity: 2402 },
+        { name: 'Norwegian Jewel', slug: 'norwegian-jewel', year: 2005, gt: '93,502', capacity: 2376 }
+      ]
+    },
+    'Dawn Class': {
+      order: 6,
+      ships: [
+        { name: 'Norwegian Dawn', slug: 'norwegian-dawn', year: 2002, gt: '92,250', capacity: 2340 },
+        { name: 'Norwegian Star', slug: 'norwegian-star', year: 2001, gt: '91,740', capacity: 2348 }
+      ]
+    },
+    'Sun Class': {
+      order: 7,
+      ships: [
+        { name: 'Norwegian Sun', slug: 'norwegian-sun', year: 2001, gt: '78,309', capacity: 1936 },
+        { name: 'Norwegian Sky', slug: 'norwegian-sky', year: 1999, gt: '77,104', capacity: 2002 }
+      ]
+    },
+    'Spirit Class': {
+      order: 8,
+      ships: [
+        { name: 'Norwegian Spirit', slug: 'norwegian-spirit', year: 1998, gt: '75,338', capacity: 2018 }
+      ]
+    },
+    'Pride of America': {
+      order: 9,
+      ships: [
+        { name: 'Pride of America', slug: 'pride-of-america', year: 2005, gt: '80,439', capacity: 2186 }
+      ]
+    }
+  };
+
+  // Princess Cruises Fleet
+  const PRINCESS_FLEET = {
+    'Sphere Class': {
+      order: 1,
+      ships: [
+        { name: 'Star Princess', slug: 'star-princess', year: 2025, gt: '175,500', capacity: 4300 },
+        { name: 'Sun Princess', slug: 'sun-princess', year: 2024, gt: '175,500', capacity: 4300 }
+      ]
+    },
+    'Royal Class': {
+      order: 2,
+      ships: [
+        { name: 'Discovery Princess', slug: 'discovery-princess', year: 2022, gt: '145,000', capacity: 3660 },
+        { name: 'Enchanted Princess', slug: 'enchanted-princess', year: 2021, gt: '145,000', capacity: 3660 },
+        { name: 'Sky Princess', slug: 'sky-princess', year: 2019, gt: '145,000', capacity: 3660 },
+        { name: 'Majestic Princess', slug: 'majestic-princess', year: 2017, gt: '143,700', capacity: 3560 },
+        { name: 'Regal Princess', slug: 'regal-princess', year: 2014, gt: '142,714', capacity: 3560 },
+        { name: 'Royal Princess', slug: 'royal-princess', year: 2013, gt: '142,714', capacity: 3560 }
+      ]
+    },
+    'Grand Class': {
+      order: 3,
+      ships: [
+        { name: 'Ruby Princess', slug: 'ruby-princess', year: 2008, gt: '113,561', capacity: 3080 },
+        { name: 'Emerald Princess', slug: 'emerald-princess', year: 2007, gt: '113,561', capacity: 3080 },
+        { name: 'Crown Princess', slug: 'crown-princess', year: 2006, gt: '113,561', capacity: 3080 },
+        { name: 'Caribbean Princess', slug: 'caribbean-princess', year: 2004, gt: '112,894', capacity: 3140 },
+        { name: 'Sapphire Princess', slug: 'sapphire-princess', year: 2004, gt: '115,875', capacity: 2670 },
+        { name: 'Diamond Princess', slug: 'diamond-princess', year: 2004, gt: '115,875', capacity: 2670 },
+        { name: 'Grand Princess', slug: 'grand-princess', year: 1998, gt: '107,517', capacity: 2600 }
+      ]
+    },
+    'Coral Class': {
+      order: 4,
+      ships: [
+        { name: 'Island Princess', slug: 'island-princess', year: 2003, gt: '91,627', capacity: 1970 },
+        { name: 'Coral Princess', slug: 'coral-princess', year: 2002, gt: '91,627', capacity: 1970 }
+      ]
+    }
+  };
+
+  // Holland America Line Fleet
+  const HOLLAND_FLEET = {
+    'Pinnacle Class': {
+      order: 1,
+      ships: [
+        { name: 'Rotterdam', slug: 'rotterdam', year: 2021, gt: '99,500', capacity: 2668 },
+        { name: 'Nieuw Statendam', slug: 'nieuw-statendam', year: 2018, gt: '99,500', capacity: 2666 },
+        { name: 'Koningsdam', slug: 'koningsdam', year: 2016, gt: '99,500', capacity: 2650 }
+      ]
+    },
+    'Signature Class': {
+      order: 2,
+      ships: [
+        { name: 'Nieuw Amsterdam', slug: 'nieuw-amsterdam', year: 2010, gt: '86,273', capacity: 2106 },
+        { name: 'Eurodam', slug: 'eurodam', year: 2008, gt: '86,273', capacity: 2104 }
+      ]
+    },
+    'Vista Class': {
+      order: 3,
+      ships: [
+        { name: 'Noordam', slug: 'noordam', year: 2006, gt: '82,318', capacity: 1916 },
+        { name: 'Westerdam', slug: 'westerdam', year: 2004, gt: '82,348', capacity: 1916 },
+        { name: 'Oosterdam', slug: 'oosterdam', year: 2003, gt: '82,305', capacity: 1916 },
+        { name: 'Zuiderdam', slug: 'zuiderdam', year: 2002, gt: '82,305', capacity: 1916 }
+      ]
+    },
+    'R Class': {
+      order: 4,
+      ships: [
+        { name: 'Zaandam', slug: 'zaandam', year: 2000, gt: '61,396', capacity: 1432 },
+        { name: 'Volendam', slug: 'volendam', year: 1999, gt: '61,214', capacity: 1432 }
+      ]
+    }
+  };
+
+  // MSC Cruises Fleet
+  const MSC_FLEET = {
+    'World Class': {
+      order: 1,
+      ships: [
+        { name: 'MSC World America', slug: 'msc-world-america', year: 2025, gt: '215,863', capacity: 6762 },
+        { name: 'MSC World Europa', slug: 'msc-world-europa', year: 2022, gt: '205,700', capacity: 6762 }
+      ]
+    },
+    'Meraviglia Plus Class': {
+      order: 2,
+      ships: [
+        { name: 'MSC Euribia', slug: 'msc-euribia', year: 2023, gt: '183,500', capacity: 6334 },
+        { name: 'MSC Virtuosa', slug: 'msc-virtuosa', year: 2021, gt: '181,541', capacity: 6334 },
+        { name: 'MSC Grandiosa', slug: 'msc-grandiosa', year: 2019, gt: '181,541', capacity: 6334 }
+      ]
+    },
+    'Seaside EVO Class': {
+      order: 3,
+      ships: [
+        { name: 'MSC Seascape', slug: 'msc-seascape', year: 2022, gt: '170,412', capacity: 5877 },
+        { name: 'MSC Seashore', slug: 'msc-seashore', year: 2021, gt: '170,412', capacity: 5877 }
+      ]
+    },
+    'Meraviglia Class': {
+      order: 4,
+      ships: [
+        { name: 'MSC Bellissima', slug: 'msc-bellissima', year: 2019, gt: '171,598', capacity: 5686 },
+        { name: 'MSC Meraviglia', slug: 'msc-meraviglia', year: 2017, gt: '171,598', capacity: 5714 }
+      ]
+    },
+    'Seaside Class': {
+      order: 5,
+      ships: [
+        { name: 'MSC Seaview', slug: 'msc-seaview', year: 2018, gt: '154,000', capacity: 5331 },
+        { name: 'MSC Seaside', slug: 'msc-seaside', year: 2017, gt: '154,000', capacity: 5179 }
+      ]
+    },
+    'Fantasia Class': {
+      order: 6,
+      ships: [
+        { name: 'MSC Preziosa', slug: 'msc-preziosa', year: 2013, gt: '139,072', capacity: 4363 },
+        { name: 'MSC Divina', slug: 'msc-divina', year: 2012, gt: '139,072', capacity: 4345 },
+        { name: 'MSC Magnifica', slug: 'msc-magnifica', year: 2010, gt: '95,128', capacity: 2518 },
+        { name: 'MSC Splendida', slug: 'msc-splendida', year: 2009, gt: '137,936', capacity: 4363 },
+        { name: 'MSC Fantasia', slug: 'msc-fantasia', year: 2008, gt: '137,936', capacity: 4363 }
+      ]
+    },
+    'Musica Class': {
+      order: 7,
+      ships: [
+        { name: 'MSC Poesia', slug: 'msc-poesia', year: 2008, gt: '92,627', capacity: 2550 },
+        { name: 'MSC Orchestra', slug: 'msc-orchestra', year: 2007, gt: '92,409', capacity: 2550 },
+        { name: 'MSC Musica', slug: 'msc-musica', year: 2006, gt: '92,409', capacity: 2550 }
+      ]
+    },
+    'Lirica Class': {
+      order: 8,
+      ships: [
+        { name: 'MSC Opera', slug: 'msc-opera', year: 2004, gt: '65,591', capacity: 2150 },
+        { name: 'MSC Lirica', slug: 'msc-lirica', year: 2003, gt: '65,591', capacity: 2069 },
+        { name: 'MSC Sinfonia', slug: 'msc-sinfonia', year: 2002, gt: '65,591', capacity: 2223 },
+        { name: 'MSC Armonia', slug: 'msc-armonia', year: 2001, gt: '65,591', capacity: 2223 }
+      ]
+    }
+  };
+
+  // Costa Cruises Fleet
+  const COSTA_FLEET = {
+    'Excellence Class': {
+      order: 1,
+      ships: [
+        { name: 'Costa Toscana', slug: 'costa-toscana', year: 2021, gt: '185,000', capacity: 6554 },
+        { name: 'Costa Smeralda', slug: 'costa-smeralda', year: 2019, gt: '185,000', capacity: 6554 }
+      ]
+    },
+    'Vista Class': {
+      order: 2,
+      ships: [
+        { name: 'Costa Diadema', slug: 'costa-diadema', year: 2014, gt: '132,500', capacity: 4947 },
+        { name: 'Costa Fascinosa', slug: 'costa-fascinosa', year: 2012, gt: '114,500', capacity: 3780 },
+        { name: 'Costa Favolosa', slug: 'costa-favolosa', year: 2011, gt: '114,500', capacity: 3780 }
+      ]
+    },
+    'Concordia Class': {
+      order: 3,
+      ships: [
+        { name: 'Costa Pacifica', slug: 'costa-pacifica', year: 2009, gt: '114,500', capacity: 3780 },
+        { name: 'Costa Serena', slug: 'costa-serena', year: 2007, gt: '114,147', capacity: 3780 }
+      ]
+    },
+    'Spirit Class': {
+      order: 4,
+      ships: [
+        { name: 'Costa Fortuna', slug: 'costa-fortuna', year: 2003, gt: '102,587', capacity: 2720 }
+      ]
+    }
+  };
+
+  // Cunard Line Fleet
+  const CUNARD_FLEET = {
+    'Queen Class': {
+      order: 1,
+      ships: [
+        { name: 'Queen Anne', slug: 'queen-anne', year: 2024, gt: '113,000', capacity: 2996 },
+        { name: 'Queen Mary 2', slug: 'queen-mary-2', year: 2004, gt: '149,215', capacity: 2691 },
+        { name: 'Queen Victoria', slug: 'queen-victoria', year: 2007, gt: '90,900', capacity: 2061 },
+        { name: 'Queen Elizabeth', slug: 'queen-elizabeth', year: 2010, gt: '90,900', capacity: 2081 }
+      ]
+    }
+  };
+
+  // Oceania Cruises Fleet
+  const OCEANIA_FLEET = {
+    'Allura Class': {
+      order: 1,
+      ships: [
+        { name: 'Allura', slug: 'allura', year: 2025, gt: '67,000', capacity: 1200 },
+        { name: 'Vista', slug: 'vista', year: 2023, gt: '67,000', capacity: 1200 }
+      ]
+    },
+    'Oceania Class': {
+      order: 2,
+      ships: [
+        { name: 'Riviera', slug: 'riviera', year: 2012, gt: '66,084', capacity: 1250 },
+        { name: 'Marina', slug: 'marina', year: 2011, gt: '66,084', capacity: 1250 }
+      ]
+    },
+    'Regatta Class': {
+      order: 3,
+      ships: [
+        { name: 'Sirena', slug: 'sirena', year: 1999, gt: '30,277', capacity: 684 },
+        { name: 'Nautica', slug: 'nautica', year: 2000, gt: '30,277', capacity: 684 },
+        { name: 'Regatta', slug: 'regatta', year: 1998, gt: '30,277', capacity: 684 }
+      ]
+    }
+  };
+
+  // Regent Seven Seas Fleet
+  const REGENT_FLEET = {
+    'Explorer Class': {
+      order: 1,
+      ships: [
+        { name: 'Seven Seas Grandeur', slug: 'seven-seas-grandeur', year: 2023, gt: '55,254', capacity: 750 },
+        { name: 'Seven Seas Splendor', slug: 'seven-seas-splendor', year: 2020, gt: '55,254', capacity: 750 },
+        { name: 'Seven Seas Explorer', slug: 'seven-seas-explorer', year: 2016, gt: '54,000', capacity: 750 }
+      ]
+    },
+    'Voyager Class': {
+      order: 2,
+      ships: [
+        { name: 'Seven Seas Voyager', slug: 'seven-seas-voyager', year: 2003, gt: '42,363', capacity: 700 },
+        { name: 'Seven Seas Mariner', slug: 'seven-seas-mariner', year: 2001, gt: '48,075', capacity: 700 },
+        { name: 'Seven Seas Navigator', slug: 'seven-seas-navigator', year: 1999, gt: '28,803', capacity: 490 }
+      ]
+    }
+  };
+
+  // Seabourn Fleet
+  const SEABOURN_FLEET = {
+    'Encore Class': {
+      order: 1,
+      ships: [
+        { name: 'Seabourn Ovation', slug: 'seabourn-ovation', year: 2018, gt: '40,350', capacity: 600 },
+        { name: 'Seabourn Encore', slug: 'seabourn-encore', year: 2016, gt: '40,350', capacity: 600 }
+      ]
+    },
+    'Expedition Class': {
+      order: 2,
+      ships: [
+        { name: 'Seabourn Pursuit', slug: 'seabourn-pursuit', year: 2023, gt: '23,000', capacity: 264 },
+        { name: 'Seabourn Venture', slug: 'seabourn-venture', year: 2022, gt: '23,000', capacity: 264 }
+      ]
+    },
+    'Odyssey Class': {
+      order: 3,
+      ships: [
+        { name: 'Seabourn Quest', slug: 'seabourn-quest', year: 2011, gt: '32,346', capacity: 450 },
+        { name: 'Seabourn Sojourn', slug: 'seabourn-sojourn', year: 2010, gt: '32,346', capacity: 450 }
+      ]
+    }
+  };
+
+  // Silversea Cruises Fleet
+  const SILVERSEA_FLEET = {
+    'Nova Class': {
+      order: 1,
+      ships: [
+        { name: 'Silver Ray', slug: 'silver-ray', year: 2024, gt: '54,700', capacity: 728 },
+        { name: 'Silver Nova', slug: 'silver-nova', year: 2023, gt: '54,700', capacity: 728 }
+      ]
+    },
+    'Muse Class': {
+      order: 2,
+      ships: [
+        { name: 'Silver Dawn', slug: 'silver-dawn', year: 2022, gt: '40,700', capacity: 596 },
+        { name: 'Silver Moon', slug: 'silver-moon', year: 2020, gt: '40,700', capacity: 596 },
+        { name: 'Silver Muse', slug: 'silver-muse', year: 2017, gt: '40,700', capacity: 596 }
+      ]
+    },
+    'Classic Class': {
+      order: 3,
+      ships: [
+        { name: 'Silver Spirit', slug: 'silver-spirit', year: 2009, gt: '36,009', capacity: 608 },
+        { name: 'Silver Whisper', slug: 'silver-whisper', year: 2001, gt: '28,258', capacity: 382 },
+        { name: 'Silver Shadow', slug: 'silver-shadow', year: 2000, gt: '28,258', capacity: 382 }
+      ]
+    },
+    'Expedition Class': {
+      order: 4,
+      ships: [
+        { name: 'Silver Endeavour', slug: 'silver-endeavour', year: 2021, gt: '20,000', capacity: 200 },
+        { name: 'Silver Origin', slug: 'silver-origin', year: 2020, gt: '5,800', capacity: 100 },
+        { name: 'Silver Wind', slug: 'silver-wind', year: 1995, gt: '17,400', capacity: 274 },
+        { name: 'Silver Cloud', slug: 'silver-cloud', year: 1994, gt: '16,927', capacity: 254 }
+      ]
+    }
+  };
+
+  // Explora Journeys Fleet
+  const EXPLORA_FLEET = {
+    'Explora Class': {
+      order: 1,
+      ships: [
+        { name: 'Explora II', slug: 'explora-ii', year: 2024, gt: '63,900', capacity: 922 },
+        { name: 'Explora I', slug: 'explora-i', year: 2023, gt: '63,900', capacity: 922 }
+      ]
+    }
+  };
+
+  // Virgin Voyages Fleet
+  const VIRGIN_FLEET = {
+    'Virgin Class': {
+      order: 1,
+      ships: [
+        { name: 'Brilliant Lady', slug: 'brilliant-lady', year: 2025, gt: '110,000', capacity: 2770 },
+        { name: 'Resilient Lady', slug: 'resilient-lady', year: 2023, gt: '110,000', capacity: 2770 },
+        { name: 'Valiant Lady', slug: 'valiant-lady', year: 2022, gt: '110,000', capacity: 2770 },
+        { name: 'Scarlet Lady', slug: 'scarlet-lady', year: 2020, gt: '110,000', capacity: 2770 }
+      ]
+    }
+  };
+
+  // Fleet data mapping
+  const FLEET_DATA = {
+    'rcl': RC_FLEET,
+    'carnival': CARNIVAL_FLEET,
+    'celebrity': CELEBRITY_FLEET,
+    'norwegian': NORWEGIAN_FLEET,
+    'princess': PRINCESS_FLEET,
+    'holland': HOLLAND_FLEET,
+    'msc': MSC_FLEET,
+    'costa': COSTA_FLEET,
+    'cunard': CUNARD_FLEET,
+    'oceania': OCEANIA_FLEET,
+    'regent': REGENT_FLEET,
+    'seabourn': SEABOURN_FLEET,
+    'silversea': SILVERSEA_FLEET,
+    'explora': EXPLORA_FLEET,
+    'virgin': VIRGIN_FLEET
+  };
+
   /**
    * Create cruise line section content
    */
   function createCruiseLineSection(lineKey) {
     const line = CRUISE_LINES[lineKey];
-    const fleet = lineKey === 'rcl' ? RC_FLEET : {};
+    const fleet = FLEET_DATA[lineKey] || {};
 
     // Sort classes by order
     const sortedClasses = Object.entries(fleet)
@@ -662,7 +1277,8 @@
       sum + cls.ships.filter(s => !s.retired).length, 0);
     const classCount = Object.keys(fleet).length;
 
-    if (lineKey !== 'rcl') {
+    // Show "Coming Soon" for cruise lines without fleet data
+    if (Object.keys(fleet).length === 0) {
       return `
         <section class="cruise-line-section" data-line="${lineKey}">
           <div class="cruise-line-header">
@@ -967,7 +1583,7 @@
       const matchedClasses = new Set();
 
       // Get current fleet data
-      const fleet = currentCruiseLine === 'rcl' ? RC_FLEET : {};
+      const fleet = FLEET_DATA[currentCruiseLine] || {};
 
       shipCards.forEach(card => {
         const slug = card.getAttribute('data-ship-slug');
