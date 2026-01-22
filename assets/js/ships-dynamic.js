@@ -632,7 +632,37 @@
 
   // Current state
   let currentCruiseLine = 'rcl';
-  let validatedShips = {}; // Will be populated from JSON if available
+  let validatedShips = {}; // Will be populated from JSON
+
+  /**
+   * Load validated ships data from JSON
+   */
+  async function loadValidatedShips() {
+    try {
+      const response = await fetch('/data/validated-ships.json');
+      if (response.ok) {
+        const data = await response.json();
+        validatedShips = data.passing || {};
+        console.log(`Loaded validation data: ${Object.keys(validatedShips).length} cruise lines`);
+      }
+    } catch (e) {
+      console.log('Validated ships data not available, showing all ships');
+      validatedShips = {};
+    }
+  }
+
+  /**
+   * Check if a ship is validated (80%+ score)
+   */
+  function isShipValidated(lineKey, slug) {
+    // If no validation data, show all ships
+    if (Object.keys(validatedShips).length === 0) return true;
+
+    const lineShips = validatedShips[lineKey];
+    if (!lineShips) return false;
+
+    return lineShips.some(ship => ship.slug === slug);
+  }
 
   /**
    * Get a random image for a ship (different each page load)
@@ -729,8 +759,17 @@
     const ships = classData.ships;
     if (ships.length === 0) return '';
 
-    const shipsHtml = ships.map(ship => createShipCard(ship, cruiseLineConfig, true)).join('');
-    const shipCount = ships.length;
+    // Check validation status for each ship
+    const lineKey = Object.keys(CRUISE_LINES).find(k => CRUISE_LINES[k].directory === cruiseLineConfig.directory);
+    const validatedShipsList = ships.filter(ship => isShipValidated(lineKey, ship.slug));
+
+    // Don't show empty class sections
+    if (validatedShipsList.length === 0) return '';
+
+    const shipsHtml = validatedShipsList
+      .map(ship => createShipCard(ship, cruiseLineConfig, true))
+      .join('');
+    const shipCount = validatedShipsList.length;
     const classImage = CLASS_IMAGES[className] || '/assets/ship-placeholder.jpg';
     const classDescription = CLASS_DESCRIPTIONS[className] || '';
 
@@ -1273,9 +1312,12 @@
       .filter(html => html)
       .join('');
 
+    // Count only validated active ships
     const activeShips = Object.values(fleet).reduce((sum, cls) =>
-      sum + cls.ships.filter(s => !s.retired).length, 0);
-    const classCount = Object.keys(fleet).length;
+      sum + cls.ships.filter(s => !s.retired && isShipValidated(lineKey, s.slug)).length, 0);
+    // Count only classes that have validated ships
+    const classCount = sortedClasses.filter(([className, classData]) =>
+      classData.ships.some(s => isShipValidated(lineKey, s.slug))).length;
 
     // Show "Coming Soon" for cruise lines without fleet data
     if (Object.keys(fleet).length === 0) {
@@ -1676,9 +1718,15 @@
   /**
    * Initialize the ships page
    */
-  function init() {
+  async function init() {
     const container = document.getElementById('shipsContainer');
     if (!container) return;
+
+    // Show loading state
+    container.innerHTML = '<div class="ships-loading">Loading ship data</div>';
+
+    // Load validation data first
+    await loadValidatedShips();
 
     // Create the main structure
     container.innerHTML = `
