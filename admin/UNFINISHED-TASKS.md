@@ -145,18 +145,52 @@ This section tracks work that was started but not completed in previous conversa
 
 ---
 
-### 7. Stateroom Checker Repair 🔴 CRITICAL DATA ISSUE
+### 7. Stateroom Checker Repair 🔴 CRITICAL - DATA/CODE MISMATCH
 
-**Status:** User-reported, needs investigation
+**Status:** AUDITED 2026-01-24 — **Fundamental data format issue discovered**
 
-**Issue:** Many stateroom categories are assigned incorrect room type classifications.
+**Root Cause Analysis (2026-01-24):**
+
+The stateroom checker tool (`stateroom-check.js`) loads exception data from individual ship files (e.g., `stateroom-exceptions.grandeur-of-the-seas.v2.json`). However:
+
+1. **DATA FORMAT MISMATCH**: The code's `parseRoomRange()` function (lines 63-89) only handles NUMERIC formats like `"8001-8858"` or `"8056,8068"`. But ~25% of exceptions use TEXT descriptions that cannot be parsed:
+   - "All Deck 8 cabins" → **FAILS** (returns empty, no match possible)
+   - "forward decks 12-14" → **FAILS**
+   - "all connecting cabins" → **FAILS**
+   - "Deck 7 balcony cabins" → **FAILS**
+
+2. **QUANTIFIED IMPACT**:
+   - 28 ship exception files total
+   - 41 exceptions (25%) have unparseable text descriptions
+   - 123 exceptions (75%) have correct numeric formats
+
+3. **RESULT**: 25% of stateroom warnings will NEVER match any cabin number the user enters. The tool appears to work but silently fails to warn about known issues.
+
+**Audit Progress:**
+
+| Ship | Status | Notes |
+|------|--------|-------|
+| Grandeur of the Seas | ✅ FIXED | 4 exceptions converted to numeric, 2 removed (no room data) |
+| Rhapsody of the Seas | NOT STARTED | Next in Vision-class |
+| Enchantment of the Seas | NOT STARTED | |
+| Vision of the Seas | NOT STARTED | |
+| ... (24 more ships) | NOT STARTED | |
+
+**Tasks:**
 
 | Task | Status |
 |------|--------|
-| Audit all stateroom category assignments | NOT STARTED |
-| Identify mis-categorized rooms | NOT STARTED |
-| Fix category assignments in JSON data files | NOT STARTED |
-| Test stateroom checker with corrected data | NOT STARTED |
+| Audit data/code compatibility | ✅ DONE (2026-01-24) |
+| Fix Grandeur of the Seas exceptions | ✅ DONE (2026-01-24) |
+| Convert remaining 27 ships from text to numeric room specs | NOT STARTED |
+| Research connecting cabin numbers for CO category | NOT STARTED |
+| Research balcony cabin numbers by ship | NOT STARTED |
+| Test stateroom checker after all fixes | NOT STARTED |
+
+**Technical Notes:**
+- The `rcl-ship-room-flags.json` file is NOT used by the checker — it loads from individual ship exception files
+- Exceptions removed for Grandeur documented in `removed_exceptions` array with restoration criteria
+- Deck plan sources: [CruiseDeckPlans](https://www.cruisedeckplans.com), [CruiseMapper](https://www.cruisemapper.com)
 
 ---
 
