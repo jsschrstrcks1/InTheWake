@@ -294,7 +294,7 @@ The stateroom checker tool (`stateroom-check.js`) loads exception data from indi
 ### 8. Competitor Gap Analysis — Quick Wins 🟡 HIGH IMPACT
 
 **Source:** `COMPETITOR_GAP_AUDIT_2026_01_17.md`
-**Status:** 7/7 P1 items DONE ✅ (verified 2026-01-24)
+**Status:** 6/7 P1 items DONE, 1 PARTIAL (verified 2026-01-24)
 
 **P1 Quick Wins (Low Effort, High Impact):**
 | Task | Status | Addresses |
@@ -303,18 +303,26 @@ The stateroom checker tool (`stateroom-check.js`) loads exception data from indi
 | "No Ads" trust messaging on about-us.html | ✅ DONE | Cruise Critic, CruiseMapper |
 | Tender Port Index + badge (`/ports/tender-ports.html`) | ✅ DONE | WhatsInPort |
 | "From the Pier" distance callout box component | PARTIAL (some ports) | WhatsInPort, IQCruising |
-| "Ships That Visit Here" section on port pages | ✅ DONE (63 RCL ports, dynamic via JS) | UNIQUE - no competitor has this |
+| "Ships That Visit Here" section on port pages | PARTIAL (63/380 ports, RCL only) | UNIQUE - no competitor has this |
 | First-Timer Hub page | ✅ DONE (`first-cruise.html` 27KB) | Cruise Critic |
 | Pre-Cruise 30-Day Countdown checklist | ✅ DONE (`countdown.html` 2026-01-24) | Cruise Critic Roll Call |
 
 **P2 Strategic (Medium Effort):**
 | Task | Status | Addresses |
 |------|--------|-----------|
+| **Expand "Ships That Visit" to all 15 cruise lines** | NOT STARTED (63/380 ports, RCL only) | UNIQUE differentiator |
 | Print CSS + PDF generation for port pages | NOT STARTED | WhatsInPort, IQCruising |
 | Transport cost callout component | NOT STARTED | WhatsInPort, Cruise Crocodile |
 | Accessibility sections on port pages | NOT STARTED | UNIQUE - market gap |
 | DIY vs. Ship Excursion cost comparisons | NOT STARTED | WhatsInPort, Cruise Crocodile |
 | Honest assessment "Real Talk" sections | NOT STARTED | Cruise Critic, CruiseMapper |
+
+**"Ships That Visit Here" Expansion Plan:**
+- Current: 63 ports with RCL ship data only
+- Needed: Add deployment data for all 15 cruise lines
+- Data file: `assets/data/ship-deployments.json`
+- JS module: `assets/js/ship-port-links.js`
+- Cruise lines to add: Carnival, Celebrity, NCL, Princess, Holland America, MSC, Costa, Cunard, Disney, Virgin Voyages, Oceania, Regent, Seabourn, Silversea, Explora
 
 **Unique Differentiators to Protect:**
 - Ship-Port Integration ⭐⭐⭐ (expand with bidirectional linking)
@@ -712,11 +720,11 @@ node admin/validate-ship-page.js ships/celebrity-cruises/*.html
 - ~~Quiz Dress Code~~ — Question exists at line 1716
 - ~~30-Day Countdown Checklist~~ — `countdown.html` with 35 interactive tasks (2026-01-24)
 - ~~Works Offline Badge~~ — 376 port pages now show "Works offline" in trust badge (2026-01-24)
-- ~~Ships That Visit Here~~ — 63 ports show RCL ships via ship-port-links.js (already implemented)
+- ~~Ships That Visit Here~~ — Infrastructure done (63/380 ports, RCL only — needs expansion to 15 cruise lines)
 
 ### 🟡 HIGH PRIORITY (Remaining Work)
 5. **Quiz UX Bugs** — iPhone scroll issue, back button (NCL links is #1 above)
-6. **Competitor Gap P1 Complete** — All 7 P1 quick wins DONE
+6. **Ships That Visit Expansion** — Add 14 more cruise lines to ship-deployments.json (currently RCL only, 63/380 ports)
 7. **Quiz Regional Features** — Regional availability filter (dress code done)
 8. **Port Weather Remaining** — 80 ports still need weather section
 
