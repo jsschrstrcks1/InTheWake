@@ -1,0 +1,81 @@
+# Lychee link checker configuration
+# https://lychee.cli.rs/
+
+# Exclude domains that block bots or rate-limit aggressively
+exclude = [
+  # Social media (already in workflow, but belt and suspenders)
+  "^https://www.facebook.com",
+  "^https://twitter.com",
+  "^https://x.com",
+  "^https://www.instagram.com",
+
+  # Cruise line official sites (bot protection, rate limiting)
+  "^https://www.royalcaribbean.com",
+  "^https://www.carnival.com",
+  "^https://www.ncl.com",
+  "^https://www.msccruises.com",
+  "^https://www.celebritycruises.com",
+  "^https://www.princess.com",
+  "^https://www.hollandamerica.com",
+  "^https://www.cunard.com",
+  "^https://www.virginvoyages.com",
+  "^https://www.seabourn.com",
+  "^https://www.silversea.com",
+  "^https://www.rssc.com",
+  "^https://www.oceaniacruises.com",
+  "^https://www.explorajourneys.com",
+  "^https://www.costacruises.com",
+  "^https://disneycruise.disney.go.com",
+
+  # Ship tracking sites (rate limiting)
+  "^https://www.cruisemapper.com",
+  "^https://www.marinetraffic.com",
+  "^https://www.vesselfinder.com",
+
+  # Video sites (often timeout or require auth)
+  "^https://www.youtube.com",
+  "^https://youtu.be",
+
+  # Amazon affiliate links (redirect chains cause issues)
+  "^https://amzn.to",
+  "^https://www.amazon.com",
+
+  # Government sites (often slow or block bots)
+  "^https://www.cdc.gov",
+  "^https://www.cbp.gov",
+
+  # Wikipedia (rate limiting on bulk requests)
+  "^https://.*wikipedia.org",
+  "^https://commons.wikimedia.org",
+
+  # Local development
+  "localhost",
+  "127.0.0.1"
+]
+
+# Accept these status codes as valid
+accept = [200, 204, 206, 301, 302, 307, 308]
+
+# Timeout per request (seconds)
+timeout = 20
+
+# Max concurrent requests (reduce to be friendlier to servers)
+max_concurrency = 5
+
+# Max retries per link
+max_retries = 2
+
+# User agent (some sites block default lychee agent)
+user_agent = "Mozilla/5.0 (compatible; InTheWake-LinkChecker/1.0)"
+
+# Don't check email addresses (mailto: links)
+include_mail = false
+
+# Don't check fragments (anchor links) - faster
+include_fragments = false
+
+# Output format
+format = "markdown"
+
+# Verbose output
+verbose = true
