@@ -37,7 +37,7 @@ This section tracks work that was started but not completed in previous conversa
 | Implement mobile hamburger menu with escape rope | ✅ DONE |
 | Implement lazy loading for performance | UNKNOWN |
 | Populate all CDC scores in ship data | ✅ DONE |
-| Verify ship page coverage (create stubs as needed) | 🔴 NCL BROKEN (see bug) |
+| Verify ship page coverage (create stubs as needed) | ✅ FIXED (NCL, Carnival, MSC, Costa, Regent paths corrected) |
 | Run edge case test personas | NOT STARTED |
 | Soft launch to Facebook group | UNKNOWN |
 
@@ -114,18 +114,18 @@ This section tracks work that was started but not completed in previous conversa
 
 ---
 
-### 5. Quiz UX Bugs 🔴 CONFIRMED
+### 5. Quiz UX Bugs 🟡 PARTIAL
 
 **Plan File:** `quiz-bugfix-plan.md`
-**Status:** Bugs verified 2026-01-24
+**Status:** Ship links FIXED ✅ | Other bugs pending
 
 | Bug | Description | Priority | Status |
 |-----|-------------|----------|--------|
-| NCL links broken | 🔴 CONFIRMED: Data has `/ships/ncl/*.html` but files are at `/ships/norwegian/norwegian-*.html`. All 20 NCL ships have `page_exists: false` | P1 | NOT FIXED |
+| Ship links broken (NCL, Carnival, MSC, Costa, Regent) | ✅ FIXED 2026-01-24: Corrected paths for 190/192 ships (99%) | P1 | ✅ FIXED |
 | Can't scroll cruise line list on iPhone | Dropdown has no max-height, extends past screen | P1 | UNVERIFIED |
 | Back button restarts quiz | No history state management | P2 | UNVERIFIED |
 
-**Root Cause of NCL Bug:** `ship-quiz-data-v2.json` has wrong directory path for NCL ships
+**Remaining:** 2 future ships without pages (costa-serena, seven-seas-prestige)
 
 **Feature Request:** Multi-select cruise lines (defer to future)
 
@@ -567,12 +567,12 @@ node admin/validate-ship-page.js ships/celebrity-cruises/*.html
 ## Master Priority Summary (All Threads)
 
 ### 🔴 CRITICAL (Fix First)
-1. **NCL Quiz Links Broken** — Data has wrong path (`/ships/ncl/` vs `/ships/norwegian/`), all 20 NCL ships affected
-2. **Stateroom Checker Data** — Many rooms assigned wrong categories (user-reported, needs audit)
-3. **Ship Validation Crisis** — 205/311 ships failing (66%) with 981 blocking errors
-4. **Port Validation Crisis** — 291/380 ports failing (77%)
+1. **Stateroom Checker Data** — Many rooms assigned wrong categories (user-reported, needs audit)
+2. **Ship Validation Crisis** — 205/311 ships failing (66%) with 981 blocking errors
+3. **Port Validation Crisis** — 291/380 ports failing (77%)
 
 ### ✅ RECENTLY COMPLETED (Verified 2026-01-24)
+- ~~Quiz Ship Links~~ — Fixed paths for NCL, Carnival, MSC, Costa, Regent (190/192 ships, 99%)
 - ~~Quiz Critical Bugs~~ — `linesToScore` and "Also Like" now use dynamic line list
 - ~~Quiz V2 Expansion~~ — allshipquiz.html exists with all 15 cruise lines
 - ~~Port Weather Guide~~ — 300/380 ports have weather (79%)
