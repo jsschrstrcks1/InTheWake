@@ -294,12 +294,12 @@ The stateroom checker tool (`stateroom-check.js`) loads exception data from indi
 ### 8. Competitor Gap Analysis — Quick Wins 🟡 HIGH IMPACT
 
 **Source:** `COMPETITOR_GAP_AUDIT_2026_01_17.md`
-**Status:** 5/7 P1 items DONE ✅ (verified 2026-01-24)
+**Status:** 6/7 P1 items DONE ✅ (verified 2026-01-24)
 
 **P1 Quick Wins (Low Effort, High Impact):**
 | Task | Status | Addresses |
 |------|--------|-----------|
-| "Works Offline" marketing on port pages | NOT STARTED (0 ports) | Cruiseline.com, IQCruising |
+| "Works Offline" marketing on port pages | ✅ DONE (376 ports, 2026-01-24) | Cruiseline.com, IQCruising |
 | "No Ads" trust messaging on about-us.html | ✅ DONE | Cruise Critic, CruiseMapper |
 | Tender Port Index + badge (`/ports/tender-ports.html`) | ✅ DONE | WhatsInPort |
 | "From the Pier" distance callout box component | PARTIAL (some ports) | WhatsInPort, IQCruising |
@@ -711,10 +711,11 @@ node admin/validate-ship-page.js ships/celebrity-cruises/*.html
 - ~~Affiliate Disclosure~~ — `affiliate-disclosure.html` exists (12KB)
 - ~~Quiz Dress Code~~ — Question exists at line 1716
 - ~~30-Day Countdown Checklist~~ — `countdown.html` with 35 interactive tasks (2026-01-24)
+- ~~Works Offline Badge~~ — 376 port pages now show "Works offline" in trust badge (2026-01-24)
 
 ### 🟡 HIGH PRIORITY (Remaining Work)
 5. **Quiz UX Bugs** — iPhone scroll issue, back button (NCL links is #1 above)
-6. **Competitor Gap Quick Wins** — 2 remaining: Works Offline, Ships That Visit
+6. **Competitor Gap Quick Wins** — 1 remaining: Ships That Visit Here
 7. **Quiz Regional Features** — Regional availability filter (dress code done)
 8. **Port Weather Remaining** — 80 ports still need weather section
 
