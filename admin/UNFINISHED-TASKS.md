@@ -123,7 +123,45 @@ This section tracks work that was started but not completed in previous conversa
 
 ---
 
-### 5. From Thread Audit (2025-11-19) — Remaining Items
+### 5. Competitor Gap Analysis — Quick Wins 🟡 HIGH IMPACT
+
+**Source:** `COMPETITOR_GAP_AUDIT_2026_01_17.md`
+**Status:** Analysis complete, implementation NOT STARTED
+
+Competitor analysis of 6 platforms (WhatsInPort, Cruise Critic, Cruiseline.com, CruiseMapper, IQCruising, Cruise Crocodile) identified these actionable gaps:
+
+**P1 Quick Wins (Low Effort, High Impact):**
+| Task | Status | Addresses |
+|------|--------|-----------|
+| "Works Offline" marketing on port pages | NOT STARTED | Cruiseline.com, IQCruising |
+| "No Ads" trust messaging on about-us.html | NOT STARTED | Cruise Critic, CruiseMapper |
+| Tender Port Index + badge (`/ports/tender-ports.html`) | NOT STARTED | WhatsInPort |
+| "From the Pier" distance callout box component | NOT STARTED | WhatsInPort, IQCruising |
+| "Ships That Visit Here" section on port pages | NOT STARTED | UNIQUE - no competitor has this |
+| First-Timer Hub page | NOT STARTED | Cruise Critic |
+| Pre-Cruise 30-Day Countdown checklist | NOT STARTED | Cruise Critic Roll Call |
+
+**P2 Strategic (Medium Effort):**
+| Task | Status | Addresses |
+|------|--------|-----------|
+| Print CSS + PDF generation for port pages | NOT STARTED | WhatsInPort, IQCruising |
+| Transport cost callout component | NOT STARTED | WhatsInPort, Cruise Crocodile |
+| Accessibility sections on port pages | NOT STARTED | UNIQUE - market gap |
+| DIY vs. Ship Excursion cost comparisons | NOT STARTED | WhatsInPort, Cruise Crocodile |
+| Honest assessment "Real Talk" sections | NOT STARTED | Cruise Critic, CruiseMapper |
+
+**Unique Differentiators to Protect:**
+- Ship-Port Integration ⭐⭐⭐ (expand with bidirectional linking)
+- First-Person Storytelling ⭐⭐⭐ (ensure every port has logbook)
+- Interactive Tools ⭐⭐⭐ (Ship Quiz, Drink Calculator, etc.)
+- Gamification ⭐⭐⭐ (Port/Ship Logbooks, achievements)
+- Ad-Free Trust ⭐⭐ (needs explicit marketing)
+- Accessibility Leadership ⭐⭐ (become THE resource)
+- Faith-Based Perspective ⭐ (pastoral content)
+
+---
+
+### 6. From Thread Audit (2025-11-19) — Remaining Items
 
 **Source:** `admin/THREAD_AUDIT_2025_11_19.md`
 
@@ -484,19 +522,22 @@ node admin/validate-ship-page.js ships/celebrity-cruises/*.html
 2. **Ship Validation Crisis** — 273/309 ships failing (88%) with 2,101 blocking errors
 
 ### 🟡 HIGH PRIORITY (Ready for Implementation)
-3. **Quiz V2 Expansion** — All planning complete, ready to build
-4. **Affiliate Link Deployment** — Plan complete, decision needed on trust badge wording
-5. **Port Weather Guide** — Planning complete, no blockers
+3. **Competitor Gap Quick Wins** — 7 low-effort, high-impact items (see section 5)
+   - "Works Offline" marketing, Tender Port Index, First-Timer Hub, etc.
+4. **Quiz V2 Expansion** — All planning complete, ready to build
+5. **Affiliate Link Deployment** — Plan complete, decision needed on trust badge wording
+6. **Port Weather Guide** — Planning complete, no blockers
 
-### 🟠 MEDIUM PRIORITY (Content Debt)
-6. **Vanilla Stories** — ~1,570 stories needed across 157 ships (12 cruise lines)
-7. **Missing Articles** — Rest & Recovery, Family Challenges, Healing Relationships
-8. **Historic Logbooks** — Nordic Prince, Sun Viking
+### 🟠 MEDIUM PRIORITY (Content & Features)
+7. **Competitor Gap P2 Strategic** — Print CSS, Transport costs, Accessibility sections
+8. **Vanilla Stories** — ~1,570 stories needed across 157 ships (12 cruise lines)
+9. **Missing Articles** — Rest & Recovery, Family Challenges, Healing Relationships
+10. **Historic Logbooks** — Nordic Prince, Sun Viking
 
 ### 🔵 LOW PRIORITY (Future Enhancement)
-9. **Dining Hero Images** — 44 RCL ships
-10. **Corrupted JSON Files** — 8 files need manual review
-11. **Disney/MSC Broken Links** — 12 ship pages
+11. **Dining Hero Images** — 44 RCL ships
+12. **Corrupted JSON Files** — 8 files need manual review
+13. **Disney/MSC Broken Links** — 12 ship pages
 
 ---
 
@@ -504,6 +545,7 @@ node admin/validate-ship-page.js ships/celebrity-cruises/*.html
 
 | Feature | Plan File | Status |
 |---------|-----------|--------|
+| Competitor Gap Analysis | `COMPETITOR_GAP_AUDIT_2026_01_17.md` | Ready - 7 P1 quick wins |
 | Ship Quiz V2 | `.claude/plan-quiz-v2-expansion.md` | Ready |
 | Quiz Bug Fixes | `.claude/plan-quiz-edge-cases-and-improvements.md` | Bugs documented |
 | Affiliate Links | `.claude/plan-affiliate-deployment.md` | Draft |
