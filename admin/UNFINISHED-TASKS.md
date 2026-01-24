@@ -6,6 +6,84 @@ Last Updated: 2026-01-24
 
 ---
 
+## Session Work: Navigation & Content Expansion (2026-01-24)
+
+### Navigation Reorganization ✅ COMPLETE
+
+**Branch:** `claude/audit-competitor-gaps-0zTZ0`
+**Commits:** 5 commits pushed
+
+Reorganized site-wide navigation for user retention with new dropdown structure:
+- **Planning:** Your First Cruise, Ships, Cruise Lines, Ports, Packing Lists, Accessibility
+- **Tools:** Ship Quiz, Cruise Line Quiz, Drink Calculator, Stateroom Check, Port Logbook, Ship Logbook
+- **Onboard:** Restaurants & Menus, Drink Packages, Internet at Sea, Articles
+- **Travel:** Travel (overview), Solo
+
+| Task | Files Updated | Status |
+|------|---------------|--------|
+| Update pages with `id="nav-planning"` dropdowns | 512 | ✅ DONE |
+| Update pages with simple nav (no dropdowns) | 23 | ✅ DONE |
+| Migrate port pages from `main-nav` template | 32 | ✅ DONE |
+| Migrate port pages from `nav-links` template | 7 | ✅ DONE |
+| Fix broken HTML files (missing body tags) | 5 | ✅ DONE |
+| Fix remaining pages with simple nav | 3 | ✅ DONE |
+
+**Broken Files Fixed:**
+- `authors/ken-baker.html` - Missing body structure, added nav
+- `authors/tina-maulsby.html` - Missing body structure, added nav
+- `disability-at-sea.html` - Missing body structure, added nav
+- `ships/carnival/carnival-adventure.html` - Missing body structure, added nav
+- `solo/in-the-wake-of-grief-meta.html` - Skipped (meta file, not a rendered page)
+
+**Scripts Created:**
+- `scripts/update-nav.py` - Updated 512 pages
+- `scripts/update-simple-nav.py` - Updated 23 pages
+- `scripts/migrate-port-template.py` - Migrated 32 port pages
+- `scripts/migrate-port-template-v2.py` - Migrated 7 port pages
+- `scripts/fix-broken-files.py` - Fixed 5 broken HTML files
+- `scripts/fix-remaining-nav.py` - Fixed 3 remaining pages
+
+---
+
+### Author Pages E-E-A-T Content Expansion ✅ COMPLETE
+
+Expanded author pages with rich content for Google E-E-A-T compliance:
+
+| Page | Before | After | Status |
+|------|--------|-------|--------|
+| `authors/ken-baker.html` | ~100 words | ~500 words | ✅ PASS validation |
+| `authors/tina-maulsby.html` | ~80 words | ~450 words | ✅ PASS validation |
+| `disability-at-sea.html` | Stub (50 words) | ~400 words | ✅ PASS validation |
+
+**Content Added:**
+- Rich biographical sections with cruising experience
+- Detailed expertise breakdowns
+- Featured articles sections
+- Philosophy/connect sections
+- JSON-LD Person schemas (E-E-A-T)
+- JSON-LD WebPage schemas (ICP-Lite v1.4 compliance)
+- Proper canonical URLs, OpenGraph, Twitter cards
+
+**Validation Fixes Applied:**
+- Added WebPage JSON-LD schemas to all 3 pages
+- Fixed malformed `<title>` tag in disability-at-sea.html (had anchor tag inside)
+- Ensured JSON-LD descriptions match ai-summary meta tags
+
+---
+
+### PR 963 Conflict Analysis
+
+**Status:** Extensive conflicts due to divergent branch histories
+
+PR 963 (canonical URL fixes for 22 port pages) is based on a different branch with extensive changes including:
+- New `.claude/` plugins and commands
+- Many new image files
+- Port page updates
+
+**Recommendation:** PR 963 should be merged separately by the maintainer. The nav reorganization work (PR 962) was already merged to main. Cherry-pick/rebase approaches resulted in 1000+ file conflicts.
+
+---
+
 ## Work From Previous Claude Threads (Discovered via Context Review)
 
 This section tracks work that was started but not completed in previous conversation threads.
@@ -216,27 +294,36 @@ The stateroom checker tool (`stateroom-check.js`) loads exception data from indi
 ### 8. Competitor Gap Analysis — Quick Wins 🟡 HIGH IMPACT
 
 **Source:** `COMPETITOR_GAP_AUDIT_2026_01_17.md`
-**Status:** 4/7 P1 items DONE ✅ (verified 2026-01-24)
+**Status:** 6/7 P1 items DONE, 1 PARTIAL (verified 2026-01-24)
 
 **P1 Quick Wins (Low Effort, High Impact):**
 | Task | Status | Addresses |
 |------|--------|-----------|
-| "Works Offline" marketing on port pages | NOT STARTED (0 ports) | Cruiseline.com, IQCruising |
+| "Works Offline" marketing on port pages | ✅ DONE (376 ports, 2026-01-24) | Cruiseline.com, IQCruising |
 | "No Ads" trust messaging on about-us.html | ✅ DONE | Cruise Critic, CruiseMapper |
 | Tender Port Index + badge (`/ports/tender-ports.html`) | ✅ DONE | WhatsInPort |
 | "From the Pier" distance callout box component | PARTIAL (some ports) | WhatsInPort, IQCruising |
-| "Ships That Visit Here" section on port pages | NOT STARTED (0 ports) | UNIQUE - no competitor has this |
+| "Ships That Visit Here" section on port pages | PARTIAL (70/380 ports, RCL+Carnival) | UNIQUE - no competitor has this |
 | First-Timer Hub page | ✅ DONE (`first-cruise.html` 27KB) | Cruise Critic |
-| Pre-Cruise 30-Day Countdown checklist | NOT STARTED | Cruise Critic Roll Call |
+| Pre-Cruise 30-Day Countdown checklist | ✅ DONE (`countdown.html` 2026-01-24) | Cruise Critic Roll Call |
 
 **P2 Strategic (Medium Effort):**
 | Task | Status | Addresses |
 |------|--------|-----------|
+| **Expand "Ships That Visit" to all 15 cruise lines** | IN PROGRESS (2/15 lines: RCL, Carnival) | UNIQUE differentiator |
 | Print CSS + PDF generation for port pages | NOT STARTED | WhatsInPort, IQCruising |
 | Transport cost callout component | NOT STARTED | WhatsInPort, Cruise Crocodile |
 | Accessibility sections on port pages | NOT STARTED | UNIQUE - market gap |
 | DIY vs. Ship Excursion cost comparisons | NOT STARTED | WhatsInPort, Cruise Crocodile |
 | Honest assessment "Real Talk" sections | NOT STARTED | Cruise Critic, CruiseMapper |
+
+**"Ships That Visit Here" Expansion Plan:**
+- Current: 70 ports, 55 ships (29 RCL + 26 Carnival)
+- Progress: 2/15 cruise lines complete
+- Data file: `assets/data/ship-deployments.json` (v1.1.0)
+- JS module: `assets/js/ship-port-links.js` (multi-cruise-line support added 2026-01-24)
+- Cruise lines done: ✅ Royal Caribbean (29 ships), ✅ Carnival (26 ships)
+- Cruise lines remaining: Celebrity, NCL, Princess, Holland America, MSC, Costa, Cunard, Disney, Virgin Voyages, Oceania, Regent, Seabourn, Silversea, Explora
 
 **Unique Differentiators to Protect:**
 - Ship-Port Integration ⭐⭐⭐ (expand with bidirectional linking)
@@ -632,10 +719,13 @@ node admin/validate-ship-page.js ships/celebrity-cruises/*.html
 - ~~First-Timer Hub~~ — `first-cruise.html` exists (27KB)
 - ~~Affiliate Disclosure~~ — `affiliate-disclosure.html` exists (12KB)
 - ~~Quiz Dress Code~~ — Question exists at line 1716
+- ~~30-Day Countdown Checklist~~ — `countdown.html` with 35 interactive tasks (2026-01-24)
+- ~~Works Offline Badge~~ — 376 port pages now show "Works offline" in trust badge (2026-01-24)
+- ~~Ships That Visit Here~~ — In progress (70/380 ports, 55 ships across RCL + Carnival — 13 cruise lines remaining)
 
 ### 🟡 HIGH PRIORITY (Remaining Work)
 5. **Quiz UX Bugs** — iPhone scroll issue, back button (NCL links is #1 above)
-6. **Competitor Gap Quick Wins** — 3 remaining: Works Offline, Ships That Visit, 30-Day Countdown
+6. **Ships That Visit Expansion** — Add 13 more cruise lines to ship-deployments.json (RCL + Carnival done, 70/380 ports, 55 ships)
 7. **Quiz Regional Features** — Regional availability filter (dress code done)
 8. **Port Weather Remaining** — 80 ports still need weather section
 

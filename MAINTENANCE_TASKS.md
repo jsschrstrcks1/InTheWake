@@ -1,7 +1,7 @@
 # Routine Maintenance Tasks
 
 **For:** In the Wake (cruisinginthewake.com)
-**Last Updated:** 2026-01-18
+**Last Updated:** 2026-01-24
 **Version:** ITW-Lite v3.010
 
 ---
@@ -29,6 +29,8 @@ This document outlines routine maintenance tasks for the In the Wake website. Th
 | Port page validation | `node admin/validate-port-page-v2.js` | After edits |
 | Review admin reports | See Section 8.3 | Weekly |
 | Discoverability check | See Section 5.3 | After adding pages |
+| Ship deployments update | See Section 10.1 | Bi-annually (Fall/Spring) |
+| Add new cruise line data | See Section 10.2 | As resources allow |
 
 ---
 
@@ -844,6 +846,7 @@ node admin/validate-port-page-v2.js ports/caribbean/cozumel.html
 | **Weekly** | ICP-Lite validation, placeholder check, update unfinished tasks, **review admin reports** |
 | **Monthly** | Content length validation, persona coverage, WebP audit, Core Web Vitals, **stale page audit** |
 | **Quarterly** | **Vanilla stories audit**, port disclaimer registry review |
+| **Bi-annually** | **Ship deployments update** (April/October - seasonal changes + announcements) |
 | **After Edits** | Ship/port validation, JSON-LD verification, **update last-reviewed date** |
 | **After Adding Pages** | Regenerate sitemap, regenerate search index, **discoverability check** |
 | **After Cruises** | Update port disclaimer registry (Level 2→3) |
@@ -855,6 +858,163 @@ node admin/validate-port-page-v2.js ports/caribbean/cozumel.html
 2. `"dateModified": "YYYY-MM-DD"` in JSON-LD WebPage block
 
 These must match exactly. This is non-negotiable for Google/AI freshness signals.
+
+---
+
+## 10. Ship Deployments Data Maintenance
+
+### 10.1 Ship Deployments JSON Updates
+
+**Frequency:** Bi-annually (Fall and Spring) or when cruise lines announce major deployment changes
+
+**What:** Keep `assets/data/ship-deployments.json` current with ship homeport assignments and typical port calls.
+
+**Data File:** `assets/data/ship-deployments.json`
+**JS Module:** `assets/js/ship-port-links.js`
+
+**Current Coverage (as of 2026-01-24):**
+- 55 ships (29 Royal Caribbean + 26 Carnival)
+- 70 ports with cross-links
+- 2 of 15 cruise lines implemented
+
+**When to Update:**
+1. **Cruise line announces new ship deployments** (typically October for next year)
+2. **New ships enter service** (add to ships object and port_to_ships)
+3. **Ship changes homeport** (update homeports array, typical_ports, homeport_details)
+4. **Seasonal repositioning** (spring/fall schedule changes)
+5. **Ship leaves fleet** (retirements, transfers to other cruise lines)
+
+**Data Sources:**
+- Royal Caribbean: [royalcaribbean.com/cruise-ships](https://www.royalcaribbean.com/cruise-ships)
+- Carnival: [carnival.com/cruise-ships](https://www.carnival.com/cruise-ships)
+- CruiseMapper: [cruisemapper.com](https://www.cruisemapper.com) (deployment schedules)
+- Cruise line press releases
+- Ship page `ai-summary` metadata (contains homeport info)
+
+**How to Update:**
+
+1. **Add a new ship:**
+   ```json
+   "new-ship-slug": {
+     "name": "Ship Name",
+     "class": "Class Name",
+     "cruise_line": "rcl|carnival|celebrity|etc",
+     "homeports": ["port-slug"],
+     "regions": ["region-name"],
+     "season": "year-round|seasonal|summer|winter",
+     "typical_ports": ["port1", "port2"],
+     "itinerary_lengths": [4, 7]
+   }
+   ```
+
+2. **Update port_to_ships:** Add ship slug to each port it visits
+   ```json
+   "cozumel": ["existing-ships", "new-ship-slug"]
+   ```
+
+3. **Update homeport_details:** If new homeport or adding ships to existing homeport
+   ```json
+   "new-homeport": {
+     "name": "Display Name",
+     "state": "State/Province",
+     "country": "Country",
+     "ships": ["ship-slug"],
+     "port_page": "/ports/port-slug.html"
+   }
+   ```
+
+**Validation:**
+```bash
+# Validate JSON syntax
+python3 -c "import json; json.load(open('assets/data/ship-deployments.json')); print('Valid')"
+
+# Count ships by cruise line
+python3 -c "import json; d=json.load(open('assets/data/ship-deployments.json')); print({cl: len([s for s in d['ships'].values() if s.get('cruise_line')==cl]) for cl in ['rcl','carnival']})"
+```
+
+---
+
+### 10.2 Adding New Cruise Lines
+
+**Frequency:** As resources allow (see admin/UNFINISHED-TASKS.md for priority list)
+
+**Remaining Cruise Lines (13):**
+Celebrity, NCL, Princess, Holland America, MSC, Costa, Cunard, Disney, Virgin Voyages, Oceania, Regent, Seabourn, Silversea, Explora
+
+**Steps to Add a New Cruise Line:**
+
+1. **Update CRUISE_LINES in ship-port-links.js:**
+   ```javascript
+   'celebrity': {
+     name: 'Celebrity Cruises',
+     path: '/ships/celebrity/',
+     bookingUrl: 'https://www.celebritycruises.com/cruise-ships/',
+     allShipsUrl: '/ships.html'
+   }
+   ```
+
+2. **Add class order for sorting (larger ships first):**
+   ```javascript
+   'celebrity': ['Edge', 'Millennium', 'Solstice', 'Other']
+   ```
+
+3. **Add brand colors:**
+   ```javascript
+   'celebrity': { bg: '#f5f0eb', border: '#d4c4b0', hover: '#ebe3d9', text: '#1a1a1a' }
+   ```
+
+4. **Gather deployment data** from cruise line website and add ships to JSON
+
+5. **Update port_to_ships** for all ports the new cruise line visits
+
+6. **Add homeport_details** for any new homeports
+
+7. **Update UNFINISHED-TASKS.md** to track progress
+
+**Reference:** See git commit `a2fafad4` for example of adding Carnival cruise line
+
+---
+
+### 10.3 Seasonal Deployment Monitoring
+
+**Frequency:** Twice yearly (April and October)
+
+**What:** Cruise lines typically announce seasonal changes:
+- **October:** Next year's deployment announcements
+- **April:** Summer repositioning takes effect
+
+**Check List:**
+- [ ] Ships moving between homeports
+- [ ] New seasonal ports being added
+- [ ] Ships leaving for drydock or refit
+- [ ] New ships entering service
+
+**Typical Seasonal Patterns:**
+- **Winter:** Caribbean, Mexico, Australia
+- **Summer:** Alaska, Europe, Canada/New England
+- **Year-round:** Caribbean hubs (Miami, Port Canaveral, Galveston)
+
+---
+
+### 10.4 Port Name Formatting
+
+**Frequency:** When adding new ports
+
+**What:** Ensure special port names are properly formatted in `ship-port-links.js`.
+
+**Location:** `formatPortName()` function in `assets/js/ship-port-links.js`
+
+**Add entries for ports with special formatting:**
+```javascript
+const specialNames = {
+  'half-moon-cay': 'Half Moon Cay',
+  'grand-turk': 'Grand Turk',
+  'st-thomas': 'St. Thomas',
+  // Add new ports here
+};
+```
+
+**Note:** Ports not in this list will be auto-formatted from slug (e.g., "cozumel" → "Cozumel")
 
 ---
 
@@ -894,6 +1054,10 @@ These must match exactly. This is non-negotiable for Google/AI freshness signals
 - **Unfinished Tasks:** `admin/UNFINISHED-TASKS.md`
 - **Vanilla Stories:** `admin/VANILLA-STORIES.md`
 - **Port Disclaimer Registry:** `admin/port-disclaimer-registry.json`
+
+### Data Files
+- **Ship Deployments:** `assets/data/ship-deployments.json` (ship-port cross-linking)
+- **Ship Port Links JS:** `assets/js/ship-port-links.js` (renders "Ships That Visit Here")
 
 ### Admin Tools
 - **Admin README:** `admin/README.md`
