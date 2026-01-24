@@ -4,16 +4,28 @@
     "ship_class": "Vision",
     "launch_year": 1997,
     "last_updated": "2026-01-24",
-    "audit_notes": "2026-01-24: Audited for data/code compatibility. Added category_overrides for Deck 4 Interior cabins that inferCategory() incorrectly returns as Oceanview. Each cabin individually verified via CruiseDeckPlans stateroom detail pages.",
+    "audit_notes": "2026-01-24: Complete ship audit - every cabin on Decks 2, 3, 4, 7, 8 individually verified via CruiseDeckPlans. Added category_overrides for all cabins that inferCategory() misclassifies.",
     "category_overrides": {
       "Interior": [
-        4077, 4081, 4087,
-        4501, 4515, 4517, 4519, 4521, 4527, 4529, 4531,
-        4541, 4551, 4557, 4565
+        2029, 2039, 2055, 2073, 2099, 2527, 2529, 2539, 2543, 2551, 2553, 2555, 2579, 2583, 2597, 2599,
+        3005, 3007, 3031, 3043, 3053, 3055, 3061, 3067, 3081, 3087, 3091, 3101, 3103, 3125, 3503, 3507, 3511, 3517, 3539, 3541, 3569, 3603, 3619, 3623, 3625, 3639,
+        4077, 4081, 4087, 4501, 4515, 4517, 4519, 4521, 4527, 4529, 4531, 4541, 4551, 4557, 4565,
+        7023, 7027, 7073, 7119, 7123, 7135, 7155, 7171, 7519, 7523, 7557, 7577, 7581, 7659, 7671,
+        8015, 8045, 8047, 8061, 8073, 8077, 8081, 8093, 8119, 8123, 8127, 8135, 8547, 8555, 8559, 8577, 8581, 8639, 8659, 8671
+      ],
+      "Ocean View": [
+        2008, 2010, 2014, 2018, 2020, 2032, 2034, 2048, 2058, 2060, 2064, 2074, 2082, 2088, 2096, 2098, 2100, 2514, 2520, 2522, 2536, 2544, 2546, 2556, 2570, 2578, 2586, 2592, 2604,
+        7006, 7008, 7010, 7012, 7098, 7100, 7104, 7598, 7600, 7602, 7604,
+        8012, 8098, 8102, 8104, 8598, 8600, 8602
+      ],
+      "Suite": [
+        7166, 7168, 7170, 7172, 7666, 7668, 7670, 7672,
+        8014, 8020, 8022, 8028, 8032, 8034, 8040, 8048, 8052, 8060, 8062, 8066, 8090, 8092, 8096, 8108, 8110, 8114, 8116, 8118, 8122, 8124, 8126, 8130, 8138, 8144, 8146, 8150, 8156, 8166, 8170, 8172,
+        8514, 8520, 8522, 8528, 8532, 8534, 8540, 8544, 8548, 8552, 8558, 8560, 8562, 8566, 8586, 8590, 8592, 8596, 8608, 8610, 8614, 8616, 8618, 8622, 8626, 8632, 8634, 8636, 8638, 8650, 8652, 8658, 8666, 8670, 8672
       ],
       "_verification_source": "https://www.cruisedeckplans.com/ships/stateroom-details.php?ship=Enchantment-of-the-Seas&cabin={cabin}",
       "_verification_date": "2026-01-24",
-      "_verification_note": "Each cabin number verified individually. User-reported bug: cabin 4531 was incorrectly shown as Oceanview when it is actually Interior."
+      "_verification_note": "Every cabin on Decks 2, 3, 4, 7, 8 verified individually via CruiseDeckPlans. User-reported bug: cabin 4531 was incorrectly shown as Oceanview when it is actually Interior."
     },
     "exceptions": [
       {
