@@ -12,76 +12,71 @@ This section tracks work that was started but not completed in previous conversa
 
 ---
 
-### 1. Ship Quiz V2 Expansion 🟡 READY FOR IMPLEMENTATION
+### 1. Ship Quiz V2 Expansion ✅ MOSTLY COMPLETE
 
 **Plan File:** `.claude/plan-quiz-v2-expansion.md`
-**Status:** Planning COMPLETE ✅ | Implementation PENDING ⏳
+**Status:** IMPLEMENTED ✅ (verified 2026-01-24)
 
-**What was completed:**
-- All 4 cruise lines (RCL, Carnival, NCL, MSC) have complete class profiles and scoring weights
-- UI design for pill selector, mobile hamburger menu
-- "Why This Ship?" explainer design
-- "You Might Also Like" section design
-- Brand-aware color coding scheme
-- URL sharing format
-- Edge case test personas
-- Food quality scoring system with CDC health modifiers
-
-**What remains to do:**
+**What exists:**
+- `ships/allshipquiz.html` — Full quiz with all 15 cruise lines
+- `assets/data/ship-quiz-data-v2.json` — Complete data for all 15 lines
+- Pill selector UI (57 references)
+- "You Might Also Like" section (18 references)
+- Mobile hamburger menu (implemented)
+- Brand colors per cruise line (implemented)
+- Dress code question (line 1716: "How do you feel about dressing up?")
+- CDC scores populated
 
 | Task | Status |
 |------|--------|
-| Build `ships/allshipquiz.html` with pill selector UI | NOT STARTED |
-| Create `assets/data/ship-quiz-data-v2.json` with all cruise line data | NOT STARTED |
-| Implement brand-aware color coding | NOT STARTED |
-| Implement "You Might Also Like" section | NOT STARTED |
+| Build `ships/allshipquiz.html` with pill selector UI | ✅ DONE |
+| Create `assets/data/ship-quiz-data-v2.json` with all cruise line data | ✅ DONE (15 lines) |
+| Implement brand-aware color coding | ✅ DONE |
+| Implement "You Might Also Like" section | ✅ DONE |
 | Implement "Why This Ship?" explainer | NOT STARTED |
-| Implement mobile hamburger menu with escape rope | NOT STARTED |
-| Implement lazy loading for performance | NOT STARTED |
-| Populate all CDC scores in ship data | NOT STARTED |
-| Verify ship page coverage (create stubs as needed) | NOT STARTED |
+| Implement mobile hamburger menu with escape rope | ✅ DONE |
+| Implement lazy loading for performance | UNKNOWN |
+| Populate all CDC scores in ship data | ✅ DONE |
+| Verify ship page coverage (create stubs as needed) | 🔴 NCL BROKEN (see bug) |
 | Run edge case test personas | NOT STARTED |
-| Soft launch to Facebook group | NOT STARTED |
+| Soft launch to Facebook group | UNKNOWN |
 
 ---
 
-### 2. Quiz Edge Cases & Critical Bugs 🔴 CRITICAL
+### 2. Quiz Edge Cases & Improvements ✅ CRITICAL BUGS FIXED
 
 **Plan File:** `.claude/plan-quiz-edge-cases-and-improvements.md`
-**Status:** Analysis complete, CRITICAL BUGS unfixed
+**Status:** Critical bugs FIXED ✅ | Enhancement features pending
 
-**CRITICAL BUG #1:** Only 4 lines scored in "All Lines" mode
-- **Location:** `ships/allshipquiz.html:1589-1591`
-- **Impact:** Despite UI showing 15 cruise lines, only RCL, Carnival, NCL, MSC are scored
-- **Fix:** Change hardcoded array to `Object.keys(quizData.scoring_weights)`
+**CRITICAL BUG #1:** ✅ FIXED (verified 2026-01-24)
+- **Location:** `ships/allshipquiz.html:2245-2247`
+- **Fix applied:** Now uses `Object.keys(quizData.scoring_weights)`
 
-**CRITICAL BUG #2:** "Also Like" section hardcoded to 4 lines
-- **Location:** `ships/allshipquiz.html:1705`
-- **Fix:** Use dynamic line list instead of hardcoded array
+**CRITICAL BUG #2:** ✅ FIXED (verified 2026-01-24)
+- **Location:** `ships/allshipquiz.html:2451`
+- **Fix applied:** Now uses `Object.keys(quizData.scoring_weights).filter(...)`
 
 | Task | Status |
 |------|--------|
-| Fix linesToScore to include all 15 lines | NOT STARTED |
-| Fix "Also Like" to show all other lines | NOT STARTED |
+| Fix linesToScore to include all 15 lines | ✅ DONE |
+| Fix "Also Like" to show all other lines | ✅ DONE |
 | Add null safety for lineData access | NOT STARTED |
 | Implement 10-ship limit (user request) | NOT STARTED |
 | Add Comparison Drawer from Ship Atlas | NOT STARTED |
 
 ---
 
-### 3. Affiliate Link Deployment 🟡 DRAFT PLAN
+### 3. Affiliate Link Deployment 🟡 PARTIAL
 
 **Plan File:** `.claude/plan-affiliate-deployment.md`
-**Status:** Draft plan created 2026-01-18, NOT STARTED
-
-**Key Decision Required:** Trust badge changes ("No affiliate links" → "Honest recommendations")
+**Status:** Phase 1 DONE ✅ | Phases 2-3 NOT STARTED (verified 2026-01-24)
 
 **Phase 1 (Infrastructure):**
 | Task | Status |
 |------|--------|
-| Create `/affiliate-disclosure.html` | NOT STARTED |
-| Update trust badges site-wide | NOT STARTED |
-| Create CSS classes for affiliate links | NOT STARTED |
+| Create `/affiliate-disclosure.html` | ✅ DONE (12KB, exists) |
+| Update trust badges site-wide | UNKNOWN (needs verification) |
+| Create CSS classes for affiliate links | UNKNOWN |
 
 **Phase 2 (New Content):**
 | Task | Status |
@@ -100,61 +95,53 @@ This section tracks work that was started but not completed in previous conversa
 
 ---
 
-### 4. Port Weather Guide Feature 🟡 PLANNED
+### 4. Port Weather Guide Feature ✅ MOSTLY COMPLETE
 
 **Plan File:** `.claude/plan-port-weather-guide.md`
-**Status:** Comprehensive planning complete, NO implementation started
-
-**Architecture Decisions Made:**
-- API: Open-Meteo (free, no API key required)
-- Files: seasonal-guides.json, regional-climate-defaults.json
-- Caching: 30-minute localStorage cache
-- UI: Weather widget + 48-hour forecast + seasonal guide cards
+**Status:** IMPLEMENTED ✅ (verified 2026-01-24) — 300/380 ports have weather
 
 | Task | Status |
 |------|--------|
-| Create `/assets/data/ports/seasonal-guides.json` | NOT STARTED |
-| Create `/assets/data/ports/regional-climate-defaults.json` | NOT STARTED |
-| Create `/assets/js/modules/weather.js` | NOT STARTED |
-| Create `/assets/js/port-weather.js` | NOT STARTED |
-| Modify `/assets/styles.css` for weather widgets | NOT STARTED |
-| Add weather section to all 333 port pages | NOT STARTED |
-| Create Tier 1 guides (~50 top ports) | NOT STARTED |
+| Create `/assets/data/ports/seasonal-guides.json` | ✅ DONE (65 lines) |
+| Create `/assets/data/ports/regional-climate-defaults.json` | ✅ DONE (exists) |
+| Create `/assets/js/modules/weather.js` | UNKNOWN |
+| Create `/assets/js/port-weather.js` | ✅ DONE (373 lines) |
+| Modify `/assets/styles.css` for weather widgets | ✅ DONE (implied by 300 ports working) |
+| Add weather section to all 333 port pages | ✅ 300/380 DONE (79%) |
+| Create Tier 1 guides (~50 top ports) | UNKNOWN |
+
+**Remaining:** 80 port pages need weather section added
 
 ---
 
-### 5. Quiz UX Bugs 🔴 USER-REPORTED
+### 5. Quiz UX Bugs 🔴 CONFIRMED
 
 **Plan File:** `quiz-bugfix-plan.md`
-**Status:** Bugs documented, NOT FIXED
-
-Based on user feedback (Chris Foster) and analytics (80% mobile, 57% iOS):
+**Status:** Bugs verified 2026-01-24
 
 | Bug | Description | Priority | Status |
 |-----|-------------|----------|--------|
-| NCL links do nothing | Ship page URLs don't exist, links fail silently | P1 | NOT STARTED |
-| Can't scroll cruise line list on iPhone | Dropdown has no max-height, extends past screen | P1 | NOT STARTED |
-| Back button restarts quiz | No history state management | P2 | NOT STARTED |
+| NCL links broken | 🔴 CONFIRMED: Data has `/ships/ncl/*.html` but files are at `/ships/norwegian/norwegian-*.html`. All 20 NCL ships have `page_exists: false` | P1 | NOT FIXED |
+| Can't scroll cruise line list on iPhone | Dropdown has no max-height, extends past screen | P1 | UNVERIFIED |
+| Back button restarts quiz | No history state management | P2 | UNVERIFIED |
+
+**Root Cause of NCL Bug:** `ship-quiz-data-v2.json` has wrong directory path for NCL ships
 
 **Feature Request:** Multi-select cruise lines (defer to future)
 
 ---
 
-### 6. Quiz Regional Features 🟡 PLANNED
+### 6. Quiz Regional Features ✅ PARTIAL
 
 **Plan File:** `quiz-regional-plan.md`
-**Status:** Planning complete, NOT STARTED
-
-Two new quiz features to improve recommendation accuracy:
+**Status:** Dress code DONE ✅ | Regional NOT STARTED (verified 2026-01-24)
 
 | Feature | Description | Status |
 |---------|-------------|--------|
-| Dress code question | Distinguish formal (Cunard) from casual (Virgin) | NOT STARTED |
+| Dress code question | Line 1716: "How do you feel about dressing up?" with formal/smart/casual options | ✅ DONE |
+| Dress code data | All 15 cruise lines have `dress_code` and `dress_description` fields | ✅ DONE |
 | Regional availability filter | Penalize lines that don't sail from user's region | NOT STARTED |
 | Auto-detect user region | Use timezone to suggest home region | NOT STARTED |
-
-**Dress code scoring weights defined for all 15 cruise lines**
-**Regional availability data defined for all 15 cruise lines**
 
 ---
 
@@ -176,19 +163,17 @@ Two new quiz features to improve recommendation accuracy:
 ### 8. Competitor Gap Analysis — Quick Wins 🟡 HIGH IMPACT
 
 **Source:** `COMPETITOR_GAP_AUDIT_2026_01_17.md`
-**Status:** Analysis complete, PARTIAL implementation
-
-Competitor analysis of 6 platforms (WhatsInPort, Cruise Critic, Cruiseline.com, CruiseMapper, IQCruising, Cruise Crocodile) identified these actionable gaps:
+**Status:** 4/7 P1 items DONE ✅ (verified 2026-01-24)
 
 **P1 Quick Wins (Low Effort, High Impact):**
 | Task | Status | Addresses |
 |------|--------|-----------|
-| "Works Offline" marketing on port pages | NOT STARTED | Cruiseline.com, IQCruising |
+| "Works Offline" marketing on port pages | NOT STARTED (0 ports) | Cruiseline.com, IQCruising |
 | "No Ads" trust messaging on about-us.html | ✅ DONE | Cruise Critic, CruiseMapper |
 | Tender Port Index + badge (`/ports/tender-ports.html`) | ✅ DONE | WhatsInPort |
 | "From the Pier" distance callout box component | PARTIAL (some ports) | WhatsInPort, IQCruising |
-| "Ships That Visit Here" section on port pages | NOT STARTED | UNIQUE - no competitor has this |
-| First-Timer Hub page | NOT STARTED | Cruise Critic |
+| "Ships That Visit Here" section on port pages | NOT STARTED (0 ports) | UNIQUE - no competitor has this |
+| First-Timer Hub page | ✅ DONE (`first-cruise.html` 27KB) | Cruise Critic |
 | Pre-Cruise 30-Day Countdown checklist | NOT STARTED | Cruise Critic Roll Call |
 
 **P2 Strategic (Medium Effort):**
@@ -582,30 +567,35 @@ node admin/validate-ship-page.js ships/celebrity-cruises/*.html
 ## Master Priority Summary (All Threads)
 
 ### 🔴 CRITICAL (Fix First)
-1. **Quiz Critical Bugs** — `linesToScore` and "Also Like" hardcoded to 4 lines (breaks 11 cruise lines)
-2. **Quiz UX Bugs** — NCL links broken, can't scroll on iPhone, back button restarts quiz
-3. **Stateroom Checker Data** — Many rooms assigned wrong categories (user-reported)
-4. **Ship Validation Crisis** — 205/311 ships failing (66%) with 981 blocking errors
-5. **Port Validation Crisis** — 291/380 ports failing (77%)
+1. **NCL Quiz Links Broken** — Data has wrong path (`/ships/ncl/` vs `/ships/norwegian/`), all 20 NCL ships affected
+2. **Stateroom Checker Data** — Many rooms assigned wrong categories (user-reported, needs audit)
+3. **Ship Validation Crisis** — 205/311 ships failing (66%) with 981 blocking errors
+4. **Port Validation Crisis** — 291/380 ports failing (77%)
 
-### 🟡 HIGH PRIORITY (Ready for Implementation)
-6. **Competitor Gap Quick Wins** — 5 remaining items (2 done: No Ads ✅, Tender Index ✅)
-   - "Works Offline" marketing, First-Timer Hub, Countdown checklist, Ships That Visit
-7. **Quiz V2 Expansion** — All planning complete, ready to build
-8. **Quiz Regional Features** — Dress code + regional availability (planning complete)
-9. **Affiliate Link Deployment** — Plan complete, decision needed on trust badge wording
-10. **Port Weather Guide** — Planning complete, no blockers
+### ✅ RECENTLY COMPLETED (Verified 2026-01-24)
+- ~~Quiz Critical Bugs~~ — `linesToScore` and "Also Like" now use dynamic line list
+- ~~Quiz V2 Expansion~~ — allshipquiz.html exists with all 15 cruise lines
+- ~~Port Weather Guide~~ — 300/380 ports have weather (79%)
+- ~~First-Timer Hub~~ — `first-cruise.html` exists (27KB)
+- ~~Affiliate Disclosure~~ — `affiliate-disclosure.html` exists (12KB)
+- ~~Quiz Dress Code~~ — Question exists at line 1716
+
+### 🟡 HIGH PRIORITY (Remaining Work)
+5. **Quiz UX Bugs** — iPhone scroll issue, back button (NCL links is #1 above)
+6. **Competitor Gap Quick Wins** — 3 remaining: Works Offline, Ships That Visit, 30-Day Countdown
+7. **Quiz Regional Features** — Regional availability filter (dress code done)
+8. **Port Weather Remaining** — 80 ports still need weather section
 
 ### 🟠 MEDIUM PRIORITY (Content & Features)
-11. **Competitor Gap P2 Strategic** — Print CSS, Transport costs, Accessibility sections
-12. **Vanilla Stories** — ~1,570 stories needed across 157 ships (12 cruise lines)
-13. **Missing Articles** — Rest & Recovery, Family Challenges, Healing Relationships
-14. **Historic Logbooks** — Nordic Prince ✅, Sun Viking ✅ (DONE - both pass validator)
+9. **Competitor Gap P2 Strategic** — Print CSS, Transport costs, Accessibility sections
+10. **Vanilla Stories** — ~1,570 stories needed across 157 ships (12 cruise lines)
+11. **Missing Articles** — Rest & Recovery, Family Challenges, Healing Relationships
+12. **Affiliate Phase 2-3** — New articles + enhance existing pages
 
 ### 🔵 LOW PRIORITY (Future Enhancement)
-15. **Dining Hero Images** — 44 RCL ships
-16. **Corrupted JSON Files** — 8 files need manual review
-17. **Disney/MSC Broken Links** — 12 ship pages
+13. **Dining Hero Images** — 44 RCL ships
+14. **Corrupted JSON Files** — 8 files need manual review
+15. **Disney/MSC Broken Links** — 12 ship pages (Disney dir doesn't exist, MSC has 25 pages)
 
 ---
 
