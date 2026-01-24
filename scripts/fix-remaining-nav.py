@@ -1,39 +1,12 @@
-<!doctype html>
-<!-- Invocation: Author page — may everything we ship be true, beautiful, and helpful. Soli Deo Gloria. -->
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="referrer" content="no-referrer">
-  <meta name="ai-summary" content="Ken Baker — Founder of In the Wake. Pastor, photographer, and seasoned cruiser. Expertise in Royal Caribbean, accessibility, and solo cruising.">
-  <meta name="last-reviewed" content="2025-11-19">
-  <meta name="content-protocol" content="ICP-Lite v1.4">
-  <meta name="theme-color" content="#0e6e8e">
-  <!-- bump for cache bust -->
-  <meta name="version" content="3.010.300"/>
+#!/usr/bin/env python3
+"""
+Fix remaining pages with simple nav to use dropdown nav.
+"""
 
-  <title>Ken Baker — In the Wake</title>
-  <!-- OpenGraph -->
-  <meta property="og:type" content="article"/>
-  <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:title" content="Ken Baker — In the Wake"/>
-  <meta property="og:description" content="Ken Baker — Founder of In the Wake. Pastor, photographer, and seasoned cruiser. Expertise in Royal Caribbean, accessibility, and solo cruising."/>
-  <meta property="og:url" content=""/>
-  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/about-hero.jpg"/>
+import re
+from pathlib import Path
 
-
-  <!-- Canonical normalizer (choose ONE host; apex here) -->
-  <!-- Navigation Dropdown Script -->
-  <script src="/assets/js/dropdown.js"></script>
-
-  <!-- In-App Browser Detection & Escape Banner -->
-  <script src="/assets/js/in-app-browser-escape.js"></script>
-</head>
-
-<body class="page">
-
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+NEW_HEADER = '''  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <header class="hero-header" role="banner">
     <nav class="navbar" aria-label="Main navigation">
@@ -104,36 +77,74 @@
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
     </nav>
-  </header>
+  </header>'''
 
+def fix_carnival_tropicale():
+    """Fix carnival-tropicale.html"""
+    filepath = Path('/home/user/InTheWake/ships/carnival/carnival-tropicale.html')
+    content = filepath.read_text()
 
-  <main class="wrap page-grid" id="main-content" role="main">
-    <article class="card">
-      <h1>Ken Baker</h1>
+    # Replace old header
+    old_header_pattern = re.compile(
+        r'<header class="site-header".*?</header>\s*',
+        re.DOTALL
+    )
 
-      <p class="subtitle">Founder & Editor — In the Wake</p>
-      <p>Ken Baker is a traveler, pastor, and storyteller. With 50+ cruises under his belt, he founded In the Wake to share practical cruise planning tools and faith-scented reflections for smoother sailings.</p>
-      <h2>Expertise</h2>
-      <ul>
-        <li>Cruise Planning</li>
-        <li>Royal Caribbean</li>
-        <li>Solo Cruising</li>
-        <li>Accessibility Advocacy</li>
-        <li>Photography</li>
-      </ul>
-      <h2>Philosophy</h2>
-      <p><em>"The calmest seas are found in another's wake."</em></p>
-      <p>Every page on this site is crafted with care, offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.</p>
+    content = old_header_pattern.sub(NEW_HEADER + '\n\n', content)
 
-    </article>
-  </main>
+    # Add skip link target if needed
+    content = content.replace('id="main"', 'id="main-content"')
 
-  <footer class="wrap" role="contentinfo">
-    <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook</p>
-    <p class="tiny"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a></p>
-    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
-  </footer>
+    filepath.write_text(content)
+    print(f"Updated: {filepath.name}")
 
-  <script src="/assets/js/dropdown.js"></script>
-</body>
-</html>
+def fix_affiliate_disclosure():
+    """Fix affiliate-disclosure.html"""
+    filepath = Path('/home/user/InTheWake/affiliate-disclosure.html')
+    content = filepath.read_text()
+
+    # Replace old header (including skip link)
+    old_pattern = re.compile(
+        r'<!-- Skip Link -->.*?</header>\s*',
+        re.DOTALL
+    )
+
+    content = old_pattern.sub(NEW_HEADER + '\n\n', content)
+
+    # Fix main id
+    content = content.replace('id="main"', 'id="main-content"')
+
+    filepath.write_text(content)
+    print(f"Updated: {filepath.name}")
+
+def fix_cruise_duck():
+    """Fix cruise-duck-tradition.html"""
+    filepath = Path('/home/user/InTheWake/articles/cruise-duck-tradition.html')
+    content = filepath.read_text()
+
+    # Check if it has header
+    if '<header' not in content:
+        print(f"SKIP: {filepath.name} - no header to replace")
+        return
+
+    # Replace old header structure
+    old_pattern = re.compile(
+        r'<a href="#main[^"]*" class="skip-link"[^>]*>.*?</a>\s*.*?<header[^>]*>.*?</header>\s*',
+        re.DOTALL
+    )
+
+    if old_pattern.search(content):
+        content = old_pattern.sub(NEW_HEADER + '\n\n', content)
+    else:
+        # Try simpler pattern
+        header_pattern = re.compile(r'<header[^>]*>.*?</header>\s*', re.DOTALL)
+        content = header_pattern.sub(NEW_HEADER + '\n\n', content)
+
+    filepath.write_text(content)
+    print(f"Updated: {filepath.name}")
+
+if __name__ == '__main__':
+    fix_carnival_tropicale()
+    fix_affiliate_disclosure()
+    fix_cruise_duck()
+    print("\nDone!")

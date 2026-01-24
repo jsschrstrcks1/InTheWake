@@ -1,39 +1,14 @@
-<!doctype html>
-<!-- Invocation: Author page — may everything we ship be true, beautiful, and helpful. Soli Deo Gloria. -->
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="referrer" content="no-referrer">
-  <meta name="ai-summary" content="Ken Baker — Founder of In the Wake. Pastor, photographer, and seasoned cruiser. Expertise in Royal Caribbean, accessibility, and solo cruising.">
-  <meta name="last-reviewed" content="2025-11-19">
-  <meta name="content-protocol" content="ICP-Lite v1.4">
-  <meta name="theme-color" content="#0e6e8e">
-  <!-- bump for cache bust -->
-  <meta name="version" content="3.010.300"/>
+#!/usr/bin/env python3
+"""
+Migrate port pages with nav-links template to new nav structure.
+"""
 
-  <title>Ken Baker — In the Wake</title>
-  <!-- OpenGraph -->
-  <meta property="og:type" content="article"/>
-  <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:title" content="Ken Baker — In the Wake"/>
-  <meta property="og:description" content="Ken Baker — Founder of In the Wake. Pastor, photographer, and seasoned cruiser. Expertise in Royal Caribbean, accessibility, and solo cruising."/>
-  <meta property="og:url" content=""/>
-  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/about-hero.jpg"/>
+import os
+import re
+from pathlib import Path
 
-
-  <!-- Canonical normalizer (choose ONE host; apex here) -->
-  <!-- Navigation Dropdown Script -->
-  <script src="/assets/js/dropdown.js"></script>
-
-  <!-- In-App Browser Detection & Escape Banner -->
-  <script src="/assets/js/in-app-browser-escape.js"></script>
-</head>
-
-<body class="page">
-
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+# New header/nav structure
+NEW_HEADER = '''  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <header class="hero-header" role="banner">
     <nav class="navbar" aria-label="Main navigation">
@@ -104,36 +79,70 @@
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
     </nav>
-  </header>
+  </header>'''
 
+# Pattern to match old header with nav-links
+OLD_HEADER_PATTERN = re.compile(
+    r'<header>\s*<nav class="navbar">.*?</nav>\s*</header>\s*',
+    re.DOTALL
+)
 
-  <main class="wrap page-grid" id="main-content" role="main">
-    <article class="card">
-      <h1>Ken Baker</h1>
+def update_file(filepath):
+    """Update a port page from nav-links template to new."""
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            content = f.read()
+    except Exception as e:
+        return f"ERROR reading: {e}"
 
-      <p class="subtitle">Founder & Editor — In the Wake</p>
-      <p>Ken Baker is a traveler, pastor, and storyteller. With 50+ cruises under his belt, he founded In the Wake to share practical cruise planning tools and faith-scented reflections for smoother sailings.</p>
-      <h2>Expertise</h2>
-      <ul>
-        <li>Cruise Planning</li>
-        <li>Royal Caribbean</li>
-        <li>Solo Cruising</li>
-        <li>Accessibility Advocacy</li>
-        <li>Photography</li>
-      </ul>
-      <h2>Philosophy</h2>
-      <p><em>"The calmest seas are found in another's wake."</em></p>
-      <p>Every page on this site is crafted with care, offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.</p>
+    if 'class="nav-links"' not in content:
+        return "SKIP: No nav-links class"
 
-    </article>
-  </main>
+    original = content
 
-  <footer class="wrap" role="contentinfo">
-    <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook</p>
-    <p class="tiny"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a></p>
-    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
-  </footer>
+    # Replace old header with new
+    content = OLD_HEADER_PATTERN.sub('', content)
 
-  <script src="/assets/js/dropdown.js"></script>
-</body>
-</html>
+    # Insert new header after <body> tag
+    body_match = re.search(r'<body[^>]*>', content)
+    if body_match:
+        insert_pos = body_match.end()
+        content = content[:insert_pos] + '\n' + NEW_HEADER + '\n\n' + content[insert_pos:].lstrip()
+
+    # Update stylesheet reference if needed
+    content = content.replace('/css/style.css', '/assets/styles.css')
+
+    if content == original:
+        return "SKIP: No changes made"
+
+    try:
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(content)
+        return "UPDATED"
+    except Exception as e:
+        return f"ERROR writing: {e}"
+
+def main():
+    ports_dir = Path('/home/user/InTheWake/ports')
+
+    results = {'UPDATED': 0, 'SKIP': 0, 'ERROR': 0}
+
+    for filepath in ports_dir.glob('*.html'):
+        result = update_file(filepath)
+
+        if result.startswith('ERROR'):
+            results['ERROR'] += 1
+            print(f"ERROR: {filepath.name}: {result}")
+        elif result.startswith('SKIP'):
+            results['SKIP'] += 1
+        else:
+            results['UPDATED'] += 1
+            print(f"Updated: {filepath.name}")
+
+    print(f"\n=== Summary ===")
+    print(f"Updated: {results['UPDATED']}")
+    print(f"Skipped: {results['SKIP']}")
+    print(f"Errors: {results['ERROR']}")
+
+if __name__ == '__main__':
+    main()
