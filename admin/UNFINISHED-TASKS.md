@@ -256,15 +256,23 @@ Competitor analysis of 6 platforms (WhatsInPort, Cruise Critic, Cruiseline.com, 
 
 ---
 
-## Current Status
+## Current Validation Status (as of 2026-01-24)
 
+### Ship Pages
 | Metric | Value |
 |--------|-------|
-| Total Ship Pages | 309 |
-| Pages Passing Validation | 36 (12%) |
-| Pages Failing Validation | 273 (88%) |
-| Total Blocking Errors | 2,101 |
-| Total Warnings | 2,399 |
+| Total Ship Pages | 311 |
+| Pages Passing Validation | 106 (34%) |
+| Pages Failing Validation | 205 (66%) |
+| Total Blocking Errors | 981 |
+| Total Warnings | 2,429 |
+
+### Port Pages
+| Metric | Value |
+|--------|-------|
+| Total Port Pages | 380 |
+| Pages Passing Validation | 89 (23%) |
+| Pages Failing Validation | 291 (77%) |
 
 ---
 
@@ -557,11 +565,17 @@ node admin/validate-ship-page.js ships/celebrity-cruises/*.html
 
 ## Progress Tracking
 
+### Ship Pages
 | Date | Passing | Failing | Errors | Warnings | Notes |
 |------|---------|---------|--------|----------|-------|
-| 2026-01-24 | 36 | 273 | 2,101 | 2,399 | Context review - unfinished tasks updated |
+| 2026-01-24 | 106 (34%) | 205 (66%) | 981 | 2,429 | Fresh validation run |
 | 2026-01-03 | 36 | 273 | 2,101 | 2,399 | After validator fix + stub pages |
 | 2025-12-27 | 9 | 300 | 2,488 | 2,500 | Before latest fixes |
+
+### Port Pages
+| Date | Passing | Failing | Notes |
+|------|---------|---------|-------|
+| 2026-01-24 | 89 (23%) | 291 (77%) | Fresh validation run |
 
 ---
 
@@ -571,26 +585,27 @@ node admin/validate-ship-page.js ships/celebrity-cruises/*.html
 1. **Quiz Critical Bugs** — `linesToScore` and "Also Like" hardcoded to 4 lines (breaks 11 cruise lines)
 2. **Quiz UX Bugs** — NCL links broken, can't scroll on iPhone, back button restarts quiz
 3. **Stateroom Checker Data** — Many rooms assigned wrong categories (user-reported)
-4. **Ship Validation Crisis** — 273/309 ships failing (88%) with 2,101 blocking errors
+4. **Ship Validation Crisis** — 205/311 ships failing (66%) with 981 blocking errors
+5. **Port Validation Crisis** — 291/380 ports failing (77%)
 
 ### 🟡 HIGH PRIORITY (Ready for Implementation)
-5. **Competitor Gap Quick Wins** — 5 remaining items (2 done: No Ads ✅, Tender Index ✅)
+6. **Competitor Gap Quick Wins** — 5 remaining items (2 done: No Ads ✅, Tender Index ✅)
    - "Works Offline" marketing, First-Timer Hub, Countdown checklist, Ships That Visit
-6. **Quiz V2 Expansion** — All planning complete, ready to build
-7. **Quiz Regional Features** — Dress code + regional availability (planning complete)
-8. **Affiliate Link Deployment** — Plan complete, decision needed on trust badge wording
-9. **Port Weather Guide** — Planning complete, no blockers
+7. **Quiz V2 Expansion** — All planning complete, ready to build
+8. **Quiz Regional Features** — Dress code + regional availability (planning complete)
+9. **Affiliate Link Deployment** — Plan complete, decision needed on trust badge wording
+10. **Port Weather Guide** — Planning complete, no blockers
 
 ### 🟠 MEDIUM PRIORITY (Content & Features)
-10. **Competitor Gap P2 Strategic** — Print CSS, Transport costs, Accessibility sections
-11. **Vanilla Stories** — ~1,570 stories needed across 157 ships (12 cruise lines)
-12. **Missing Articles** — Rest & Recovery, Family Challenges, Healing Relationships
-13. **Historic Logbooks** — Nordic Prince ✅, Sun Viking ✅ (DONE)
+11. **Competitor Gap P2 Strategic** — Print CSS, Transport costs, Accessibility sections
+12. **Vanilla Stories** — ~1,570 stories needed across 157 ships (12 cruise lines)
+13. **Missing Articles** — Rest & Recovery, Family Challenges, Healing Relationships
+14. **Historic Logbooks** — Nordic Prince ✅, Sun Viking ✅ (DONE - both pass validator)
 
 ### 🔵 LOW PRIORITY (Future Enhancement)
-14. **Dining Hero Images** — 44 RCL ships
-15. **Corrupted JSON Files** — 8 files need manual review
-16. **Disney/MSC Broken Links** — 12 ship pages
+15. **Dining Hero Images** — 44 RCL ships
+16. **Corrupted JSON Files** — 8 files need manual review
+17. **Disney/MSC Broken Links** — 12 ship pages
 
 ---
 
