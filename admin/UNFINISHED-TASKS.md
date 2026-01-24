@@ -123,10 +123,60 @@ This section tracks work that was started but not completed in previous conversa
 
 ---
 
-### 5. Competitor Gap Analysis — Quick Wins 🟡 HIGH IMPACT
+### 5. Quiz UX Bugs 🔴 USER-REPORTED
+
+**Plan File:** `quiz-bugfix-plan.md`
+**Status:** Bugs documented, NOT FIXED
+
+Based on user feedback (Chris Foster) and analytics (80% mobile, 57% iOS):
+
+| Bug | Description | Priority | Status |
+|-----|-------------|----------|--------|
+| NCL links do nothing | Ship page URLs don't exist, links fail silently | P1 | NOT STARTED |
+| Can't scroll cruise line list on iPhone | Dropdown has no max-height, extends past screen | P1 | NOT STARTED |
+| Back button restarts quiz | No history state management | P2 | NOT STARTED |
+
+**Feature Request:** Multi-select cruise lines (defer to future)
+
+---
+
+### 6. Quiz Regional Features 🟡 PLANNED
+
+**Plan File:** `quiz-regional-plan.md`
+**Status:** Planning complete, NOT STARTED
+
+Two new quiz features to improve recommendation accuracy:
+
+| Feature | Description | Status |
+|---------|-------------|--------|
+| Dress code question | Distinguish formal (Cunard) from casual (Virgin) | NOT STARTED |
+| Regional availability filter | Penalize lines that don't sail from user's region | NOT STARTED |
+| Auto-detect user region | Use timezone to suggest home region | NOT STARTED |
+
+**Dress code scoring weights defined for all 15 cruise lines**
+**Regional availability data defined for all 15 cruise lines**
+
+---
+
+### 7. Stateroom Checker Repair 🔴 CRITICAL DATA ISSUE
+
+**Status:** User-reported, needs investigation
+
+**Issue:** Many stateroom categories are assigned incorrect room type classifications.
+
+| Task | Status |
+|------|--------|
+| Audit all stateroom category assignments | NOT STARTED |
+| Identify mis-categorized rooms | NOT STARTED |
+| Fix category assignments in JSON data files | NOT STARTED |
+| Test stateroom checker with corrected data | NOT STARTED |
+
+---
+
+### 8. Competitor Gap Analysis — Quick Wins 🟡 HIGH IMPACT
 
 **Source:** `COMPETITOR_GAP_AUDIT_2026_01_17.md`
-**Status:** Analysis complete, implementation NOT STARTED
+**Status:** Analysis complete, PARTIAL implementation
 
 Competitor analysis of 6 platforms (WhatsInPort, Cruise Critic, Cruiseline.com, CruiseMapper, IQCruising, Cruise Crocodile) identified these actionable gaps:
 
@@ -134,9 +184,9 @@ Competitor analysis of 6 platforms (WhatsInPort, Cruise Critic, Cruiseline.com, 
 | Task | Status | Addresses |
 |------|--------|-----------|
 | "Works Offline" marketing on port pages | NOT STARTED | Cruiseline.com, IQCruising |
-| "No Ads" trust messaging on about-us.html | NOT STARTED | Cruise Critic, CruiseMapper |
-| Tender Port Index + badge (`/ports/tender-ports.html`) | NOT STARTED | WhatsInPort |
-| "From the Pier" distance callout box component | NOT STARTED | WhatsInPort, IQCruising |
+| "No Ads" trust messaging on about-us.html | ✅ DONE | Cruise Critic, CruiseMapper |
+| Tender Port Index + badge (`/ports/tender-ports.html`) | ✅ DONE | WhatsInPort |
+| "From the Pier" distance callout box component | PARTIAL (some ports) | WhatsInPort, IQCruising |
 | "Ships That Visit Here" section on port pages | NOT STARTED | UNIQUE - no competitor has this |
 | First-Timer Hub page | NOT STARTED | Cruise Critic |
 | Pre-Cruise 30-Day Countdown checklist | NOT STARTED | Cruise Critic Roll Call |
@@ -161,7 +211,7 @@ Competitor analysis of 6 platforms (WhatsInPort, Cruise Critic, Cruiseline.com, 
 
 ---
 
-### 6. From Thread Audit (2025-11-19) — Remaining Items
+### 9. From Thread Audit (2025-11-19) — Remaining Items
 
 **Source:** `admin/THREAD_AUDIT_2025_11_19.md`
 
@@ -180,7 +230,7 @@ Competitor analysis of 6 platforms (WhatsInPort, Cruise Critic, Cruiseline.com, 
 | Write "Rest & Recovery" article | NOT STARTED |
 | Write "Family Challenges" article | NOT STARTED |
 | Write "Healing Relationships" article | NOT STARTED |
-| 2 historic logbooks (nordic-prince, sun-viking) | NOT STARTED |
+| 2 historic logbooks (nordic-prince, sun-viking) | ✅ DONE |
 
 ---
 
@@ -519,25 +569,28 @@ node admin/validate-ship-page.js ships/celebrity-cruises/*.html
 
 ### 🔴 CRITICAL (Fix First)
 1. **Quiz Critical Bugs** — `linesToScore` and "Also Like" hardcoded to 4 lines (breaks 11 cruise lines)
-2. **Ship Validation Crisis** — 273/309 ships failing (88%) with 2,101 blocking errors
+2. **Quiz UX Bugs** — NCL links broken, can't scroll on iPhone, back button restarts quiz
+3. **Stateroom Checker Data** — Many rooms assigned wrong categories (user-reported)
+4. **Ship Validation Crisis** — 273/309 ships failing (88%) with 2,101 blocking errors
 
 ### 🟡 HIGH PRIORITY (Ready for Implementation)
-3. **Competitor Gap Quick Wins** — 7 low-effort, high-impact items (see section 5)
-   - "Works Offline" marketing, Tender Port Index, First-Timer Hub, etc.
-4. **Quiz V2 Expansion** — All planning complete, ready to build
-5. **Affiliate Link Deployment** — Plan complete, decision needed on trust badge wording
-6. **Port Weather Guide** — Planning complete, no blockers
+5. **Competitor Gap Quick Wins** — 5 remaining items (2 done: No Ads ✅, Tender Index ✅)
+   - "Works Offline" marketing, First-Timer Hub, Countdown checklist, Ships That Visit
+6. **Quiz V2 Expansion** — All planning complete, ready to build
+7. **Quiz Regional Features** — Dress code + regional availability (planning complete)
+8. **Affiliate Link Deployment** — Plan complete, decision needed on trust badge wording
+9. **Port Weather Guide** — Planning complete, no blockers
 
 ### 🟠 MEDIUM PRIORITY (Content & Features)
-7. **Competitor Gap P2 Strategic** — Print CSS, Transport costs, Accessibility sections
-8. **Vanilla Stories** — ~1,570 stories needed across 157 ships (12 cruise lines)
-9. **Missing Articles** — Rest & Recovery, Family Challenges, Healing Relationships
-10. **Historic Logbooks** — Nordic Prince, Sun Viking
+10. **Competitor Gap P2 Strategic** — Print CSS, Transport costs, Accessibility sections
+11. **Vanilla Stories** — ~1,570 stories needed across 157 ships (12 cruise lines)
+12. **Missing Articles** — Rest & Recovery, Family Challenges, Healing Relationships
+13. **Historic Logbooks** — Nordic Prince ✅, Sun Viking ✅ (DONE)
 
 ### 🔵 LOW PRIORITY (Future Enhancement)
-11. **Dining Hero Images** — 44 RCL ships
-12. **Corrupted JSON Files** — 8 files need manual review
-13. **Disney/MSC Broken Links** — 12 ship pages
+14. **Dining Hero Images** — 44 RCL ships
+15. **Corrupted JSON Files** — 8 files need manual review
+16. **Disney/MSC Broken Links** — 12 ship pages
 
 ---
 
@@ -545,9 +598,11 @@ node admin/validate-ship-page.js ships/celebrity-cruises/*.html
 
 | Feature | Plan File | Status |
 |---------|-----------|--------|
-| Competitor Gap Analysis | `COMPETITOR_GAP_AUDIT_2026_01_17.md` | Ready - 7 P1 quick wins |
+| Competitor Gap Analysis | `COMPETITOR_GAP_AUDIT_2026_01_17.md` | Partial (2/7 P1 done) |
 | Ship Quiz V2 | `.claude/plan-quiz-v2-expansion.md` | Ready |
-| Quiz Bug Fixes | `.claude/plan-quiz-edge-cases-and-improvements.md` | Bugs documented |
+| Quiz Edge Cases | `.claude/plan-quiz-edge-cases-and-improvements.md` | Bugs documented |
+| Quiz UX Bugs | `quiz-bugfix-plan.md` | User-reported bugs |
+| Quiz Regional Features | `quiz-regional-plan.md` | Ready |
 | Affiliate Links | `.claude/plan-affiliate-deployment.md` | Draft |
 | Port Weather | `.claude/plan-port-weather-guide.md` | Ready |
 
