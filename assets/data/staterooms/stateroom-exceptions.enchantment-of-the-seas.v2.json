@@ -4,7 +4,17 @@
     "ship_class": "Vision",
     "launch_year": 1997,
     "last_updated": "2026-01-24",
-    "audit_notes": "2026-01-24: Audited for data/code compatibility. Removed unparseable connecting cabins exception. All other exceptions have valid numeric room specs.",
+    "audit_notes": "2026-01-24: Audited for data/code compatibility. Added category_overrides for Deck 4 Interior cabins that inferCategory() incorrectly returns as Oceanview. Each cabin individually verified via CruiseDeckPlans stateroom detail pages.",
+    "category_overrides": {
+      "Interior": [
+        4077, 4081, 4087,
+        4501, 4515, 4517, 4519, 4521, 4527, 4529, 4531,
+        4541, 4551, 4557, 4565
+      ],
+      "_verification_source": "https://www.cruisedeckplans.com/ships/stateroom-details.php?ship=Enchantment-of-the-Seas&cabin={cabin}",
+      "_verification_date": "2026-01-24",
+      "_verification_note": "Each cabin number verified individually. User-reported bug: cabin 4531 was incorrectly shown as Oceanview when it is actually Interior."
+    },
     "exceptions": [
       {
         "rooms": "8100-8600",

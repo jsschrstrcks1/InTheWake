@@ -225,7 +225,7 @@
   }
 
   /**
-   * Determine category from cabin number (basic heuristic)
+   * Determine category from cabin number (basic heuristic fallback)
    */
   function inferCategory(cabinNum) {
     const cabin = parseInt(cabinNum, 10);
@@ -240,6 +240,34 @@
       return 'Suite';
     }
     return 'Ocean View';
+  }
+
+  /**
+   * Get cabin category using ship-specific overrides first, then fallback to inference
+   * @param {string|number} cabinNum - The cabin number
+   * @param {Object} shipData - The ship data object (may contain category_overrides)
+   * @returns {string} The cabin category
+   */
+  function getCabinCategory(cabinNum, shipData) {
+    const cabin = parseInt(cabinNum, 10);
+
+    // Check ship-specific category overrides first
+    if (shipData && shipData.category_overrides) {
+      const overrides = shipData.category_overrides;
+
+      // Check each category in overrides
+      for (const [category, cabins] of Object.entries(overrides)) {
+        // Skip metadata fields (those starting with underscore)
+        if (category.startsWith('_')) continue;
+
+        if (Array.isArray(cabins) && cabins.includes(cabin)) {
+          return category;
+        }
+      }
+    }
+
+    // Fallback to heuristic inference
+    return inferCategory(cabinNum);
   }
 
   /**
@@ -273,9 +301,9 @@
   /**
    * Generate pastoral, encouraging verdict
    */
-  function generateVerdict(cabinNum, shipSlug, exceptions, travelerType) {
+  function generateVerdict(cabinNum, shipSlug, exceptions, travelerType, shipData) {
     const cabin = String(cabinNum);
-    const category = inferCategory(cabinNum);
+    const category = getCabinCategory(cabinNum, shipData);
     const travelerLabel = TRAVELER_TYPES[travelerType] || 'Traveler';
 
     if (exceptions.length === 0) {
@@ -564,8 +592,8 @@
     // Find exceptions
     const exceptions = findExceptions(cabin, data);
 
-    // Generate verdict
-    const verdict = generateVerdict(cabin, ship, exceptions, type);
+    // Generate verdict (pass shipData for category overrides)
+    const verdict = generateVerdict(cabin, ship, exceptions, type, data);
 
     return {
       success: true,
