@@ -1,11 +1,12 @@
 /**
  * Ship-Port Cross-Linking Module
- * Version: 1.0.0
+ * Version: 1.1.0
  *
  * Provides bidirectional linking between ship and port pages:
  * - Port pages show "Ships That Visit Here"
  * - Ship pages show "Ports on This Ship's Itineraries"
  *
+ * Supported cruise lines: Royal Caribbean, Carnival, Celebrity
  * Data source: /assets/data/ship-deployments.json
  */
 
@@ -27,6 +28,12 @@
       name: 'Carnival Cruise Line',
       path: '/ships/carnival/',
       bookingUrl: 'https://www.carnival.com/cruise-ships/',
+      allShipsUrl: '/ships.html'
+    },
+    'celebrity': {
+      name: 'Celebrity Cruises',
+      path: '/ships/celebrity-cruises/',
+      bookingUrl: 'https://www.celebritycruises.com/cruise-ships/',
       allShipsUrl: '/ships.html'
     }
   };
@@ -102,7 +109,10 @@
       'new-caledonia': 'New Caledonia',
       'los-angeles': 'Los Angeles',
       'san-diego': 'San Diego',
-      'san-francisco': 'San Francisco'
+      'san-francisco': 'San Francisco',
+      'buenos-aires': 'Buenos Aires',
+      'punta-arenas': 'Punta Arenas',
+      'san-cristobal': 'San Cristóbal'
     };
 
     if (specialNames[slug]) return specialNames[slug];
@@ -159,13 +169,15 @@
     // Class order for sorting (larger ships first)
     const classOrders = {
       'rcl': ['Icon', 'Oasis', 'Quantum', 'Freedom', 'Voyager', 'Radiance', 'Vision', 'Other'],
-      'carnival': ['Excel', 'Vista', 'Dream', 'Concordia', 'Venice', 'Destiny', 'Conquest', 'Spirit', 'Fantasy', 'Other']
+      'carnival': ['Excel', 'Vista', 'Dream', 'Concordia', 'Venice', 'Destiny', 'Conquest', 'Spirit', 'Fantasy', 'Other'],
+      'celebrity': ['Edge', 'Solstice', 'Millennium', 'Expedition', 'Other']
     };
 
     // Brand colors for cruise lines
     const brandColors = {
       'rcl': { bg: '#e6f4f8', border: '#b8d4e3', hover: '#d0e8f0', text: '#0e6e8e' },
-      'carnival': { bg: '#fff3e6', border: '#e3c8b8', hover: '#ffe6cc', text: '#c74a35' }
+      'carnival': { bg: '#fff3e6', border: '#e3c8b8', hover: '#ffe6cc', text: '#c74a35' },
+      'celebrity': { bg: '#f0f0f5', border: '#c0c0d0', hover: '#e0e0eb', text: '#1a1a4e' }
     };
 
     let html = `
@@ -176,7 +188,7 @@
     `;
 
     // Render each cruise line's ships
-    const cruiseLineOrder = ['rcl', 'carnival']; // Define display order
+    const cruiseLineOrder = ['rcl', 'celebrity', 'carnival']; // Define display order
     const activeCruiseLines = cruiseLineOrder.filter(cl => shipsByCruiseLine[cl]);
 
     activeCruiseLines.forEach((cruiseLineId, index) => {
