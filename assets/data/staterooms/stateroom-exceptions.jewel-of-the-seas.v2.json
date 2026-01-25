@@ -5,34 +5,36 @@
   "last_refurbishment": 2021,
   "data_version": "2.1",
   "last_updated": "2026-01-25",
-  "audit_notes": "2026-01-25: Room-by-room verification in progress via CruiseDeckPlans. Each cabin individually checked. Previous text-based data cleared - only verified cabins included.",
+  "audit_notes": "2026-01-25: Room-by-room verification IN PROGRESS via iCruise. Each cabin must be individually checked. Previous pattern-based data cleared.",
   "audit_status": "IN_PROGRESS",
   "total_exceptions": 0,
   "cabin_decks": "2, 3, 4, 7, 8, 9, 10",
-  "methodology": "Individual cabin verification via https://www.cruisedeckplans.com/ships/stateroom-details.php?ship=Jewel-of-the-Seas&cabin={number}",
-  "trust_note": "Only verified cabins included. Audit ongoing.",
+  "methodology": "Individual cabin verification via https://www.icruise.com/cabins/royal-caribbean-cruises-jewel-of-the-seas-cabin-{number}.html",
+  "trust_note": "Only verified cabins included. Audit ongoing - no pattern assumptions.",
   "category_overrides": {
-    "Suite": [
-      1028, 1054
-    ],
+    "Suite": [],
     "Interior": [
-      3539
+      2001, 2003, 2005, 2007, 2009, 2011, 2013, 2015, 2019, 2021, 2023, 2027, 2029,
+      3009, 3011, 3013, 3015, 3017, 3019, 3041, 3043, 3045, 3047, 3049, 3051, 3053, 3055, 3057, 3065, 3067, 3069, 3083
     ],
     "Ocean View": [
-      7004, 7504,
-      8000
+      2000, 2004, 2006, 2012, 2028,
+      3000, 3002, 3004, 3006, 3008, 3010, 3012, 3014, 3016, 3018, 3020, 3022, 3024, 3026, 3028, 3030, 3032, 3034, 3036, 3038, 3040, 3042, 3044, 3046, 3048, 3050, 3052, 3054, 3056, 3058, 3060, 3062, 3064, 3066, 3068, 3070, 3071, 3072, 3073, 3074, 3075, 3076, 3077, 3078, 3079, 3080, 3081, 3086
     ],
-    "_verification_source": "https://www.cruisedeckplans.com/ships/stateroom-details.php?ship=Jewel-of-the-Seas&cabin={cabin}",
+    "Balcony": [
+      2002, 2008, 2010, 2014, 2016, 2018, 2020, 2022, 2026
+    ],
+    "_verification_source": "https://www.icruise.com/cabins/royal-caribbean-cruises-jewel-of-the-seas-cabin-{cabin}.html",
     "_verification_date": "2026-01-25",
-    "_verification_note": "Each cabin individually checked via CruiseDeckPlans. Audit in progress - more cabins to verify.",
-    "_verified_count": 6
+    "_verification_note": "Deck 2: COMPLETE (27 cabins). Deck 3: IN PROGRESS. Each cabin individually checked via iCruise.",
+    "_verified_count": 95
   },
   "exceptions": [],
   "removed_exceptions": [
     {
-      "original_rooms": "Previous text-based exceptions with room ranges",
+      "original_rooms": "Pattern-based cabin data",
       "flag": "UNVERIFIED_DATA",
-      "removal_reason": "Previous file contained text-based cabin ranges not individually verified. Cleared and replacing with individually verified cabins only.",
+      "removal_reason": "Previous data was based on pattern assumptions from sister ships. Cleared and starting fresh with individual verification.",
       "removal_date": "2026-01-25"
     }
   ],
