@@ -1,12 +1,12 @@
 /**
  * Ship-Port Cross-Linking Module
- * Version: 1.12.0
+ * Version: 1.13.0
  *
  * Provides bidirectional linking between ship and port pages:
  * - Port pages show "Ships That Visit Here"
  * - Ship pages show "Ports on This Ship's Itineraries"
  *
- * Supported cruise lines: Royal Caribbean, Carnival, Celebrity, Norwegian, Princess, Holland America, MSC, Virgin Voyages, Costa Cruises, Cunard, Oceania, Regent, Seabourn, Silversea
+ * Supported cruise lines: Royal Caribbean, Carnival, Celebrity, Norwegian, Princess, Holland America, MSC, Virgin Voyages, Costa Cruises, Cunard, Oceania, Regent, Seabourn, Silversea, Explora Journeys
  * Data source: /assets/data/ship-deployments.json
  */
 
@@ -100,6 +100,12 @@
       name: 'Silversea Cruises',
       path: '/ships/silversea/',
       bookingUrl: 'https://www.silversea.com/ships.html',
+      allShipsUrl: '/ships.html'
+    },
+    'explora': {
+      name: 'Explora Journeys',
+      path: '/ships/explora/',
+      bookingUrl: 'https://explorajourneys.com/ships/',
       allShipsUrl: '/ships.html'
     }
   };
@@ -263,7 +269,8 @@
       'oceania': ['Allura', 'Vista', 'Oceania', 'R-Class', 'Other'],
       'regent': ['Grandeur', 'Splendor', 'Explorer', 'Voyager', 'Mariner', 'Navigator', 'Other'],
       'seabourn': ['Encore', 'Odyssey', 'Expedition', 'Other'],
-      'silversea': ['Nova', 'Muse', 'Spirit', 'Shadow', 'Wind', 'Expedition', 'Other']
+      'silversea': ['Nova', 'Muse', 'Spirit', 'Shadow', 'Wind', 'Expedition', 'Other'],
+      'explora': ['Explora', 'Other']
     };
 
     // Brand colors for cruise lines
@@ -281,7 +288,8 @@
       'oceania': { bg: '#f5f0e8', border: '#d8c8b0', hover: '#f0e8d8', text: '#8b6914' },
       'regent': { bg: '#e8ecf5', border: '#b0b8d8', hover: '#d8e0f0', text: '#1a2a5e' },
       'seabourn': { bg: '#e8f0e8', border: '#b0d0b0', hover: '#d8e8d8', text: '#1a4a2e' },
-      'silversea': { bg: '#f0f0f0', border: '#c0c0c0', hover: '#e8e8e8', text: '#404040' }
+      'silversea': { bg: '#f0f0f0', border: '#c0c0c0', hover: '#e8e8e8', text: '#404040' },
+      'explora': { bg: '#f0eef5', border: '#c8c0d8', hover: '#e8e4f0', text: '#2a1a4e' }
     };
 
     let html = `
@@ -292,7 +300,7 @@
     `;
 
     // Render each cruise line's ships
-    const cruiseLineOrder = ['rcl', 'celebrity', 'princess', 'hal', 'cunard', 'oceania', 'regent', 'seabourn', 'silversea', 'ncl', 'msc', 'costa', 'virgin', 'carnival']; // Define display order
+    const cruiseLineOrder = ['rcl', 'celebrity', 'princess', 'hal', 'cunard', 'oceania', 'regent', 'seabourn', 'silversea', 'explora', 'ncl', 'msc', 'costa', 'virgin', 'carnival']; // Define display order
     const activeCruiseLines = cruiseLineOrder.filter(cl => shipsByCruiseLine[cl]);
 
     activeCruiseLines.forEach((cruiseLineId, index) => {
