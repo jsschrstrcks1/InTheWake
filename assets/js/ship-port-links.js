@@ -1,12 +1,12 @@
 /**
  * Ship-Port Cross-Linking Module
- * Version: 1.3.0
+ * Version: 1.4.0
  *
  * Provides bidirectional linking between ship and port pages:
  * - Port pages show "Ships That Visit Here"
  * - Ship pages show "Ports on This Ship's Itineraries"
  *
- * Supported cruise lines: Royal Caribbean, Carnival, Celebrity, Norwegian, Princess
+ * Supported cruise lines: Royal Caribbean, Carnival, Celebrity, Norwegian, Princess, Holland America
  * Data source: /assets/data/ship-deployments.json
  */
 
@@ -46,6 +46,12 @@
       name: 'Princess Cruises',
       path: '/ships/princess/',
       bookingUrl: 'https://www.princess.com/ships-and-experience/ships/',
+      allShipsUrl: '/ships.html'
+    },
+    'hal': {
+      name: 'Holland America Line',
+      path: '/ships/hal/',
+      bookingUrl: 'https://www.hollandamerica.com/en_US/cruise-ships.html',
       allShipsUrl: '/ships.html'
     }
   };
@@ -186,7 +192,8 @@
       'carnival': ['Excel', 'Vista', 'Dream', 'Concordia', 'Venice', 'Destiny', 'Conquest', 'Spirit', 'Fantasy', 'Other'],
       'celebrity': ['Edge', 'Solstice', 'Millennium', 'Expedition', 'Other'],
       'ncl': ['Prima', 'Breakaway Plus', 'Breakaway', 'Epic', 'Jewel', 'Dawn', 'Sun', 'Spirit', 'Sky', 'America', 'Other'],
-      'princess': ['Sphere', 'Royal', 'Grand', 'Coral', 'Other']
+      'princess': ['Sphere', 'Royal', 'Grand', 'Coral', 'Other'],
+      'hal': ['Pinnacle', 'Signature', 'Vista', 'R', 'Other']
     };
 
     // Brand colors for cruise lines
@@ -195,7 +202,8 @@
       'carnival': { bg: '#fff3e6', border: '#e3c8b8', hover: '#ffe6cc', text: '#c74a35' },
       'celebrity': { bg: '#f0f0f5', border: '#c0c0d0', hover: '#e0e0eb', text: '#1a1a4e' },
       'ncl': { bg: '#e6f0ff', border: '#b8c8e3', hover: '#d0e0f5', text: '#003087' },
-      'princess': { bg: '#e6f2ef', border: '#b8d4cd', hover: '#d0e8e3', text: '#00665e' }
+      'princess': { bg: '#e6f2ef', border: '#b8d4cd', hover: '#d0e8e3', text: '#00665e' },
+      'hal': { bg: '#e8eef5', border: '#c0cee0', hover: '#d8e4f0', text: '#1a3a5c' }
     };
 
     let html = `
@@ -206,7 +214,7 @@
     `;
 
     // Render each cruise line's ships
-    const cruiseLineOrder = ['rcl', 'celebrity', 'princess', 'ncl', 'carnival']; // Define display order
+    const cruiseLineOrder = ['rcl', 'celebrity', 'princess', 'hal', 'ncl', 'carnival']; // Define display order
     const activeCruiseLines = cruiseLineOrder.filter(cl => shipsByCruiseLine[cl]);
 
     activeCruiseLines.forEach((cruiseLineId, index) => {
