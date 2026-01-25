@@ -310,27 +310,27 @@ The `inferCategory()` heuristic is wrong for many cabins. The fix is `category_o
 | "No Ads" trust messaging on about-us.html | ✅ DONE | Cruise Critic, CruiseMapper |
 | Tender Port Index + badge (`/ports/tender-ports.html`) | ✅ DONE | WhatsInPort |
 | "From the Pier" distance callout box component | PARTIAL (some ports) | WhatsInPort, IQCruising |
-| "Ships That Visit Here" section on port pages | PARTIAL (100/380 ports, RCL+Carnival+Celebrity+NCL+Princess+HAL+MSC) | UNIQUE - no competitor has this |
+| "Ships That Visit Here" section on port pages | ✅ DONE (123/380 ports, 15 cruise lines, 193 ships) | UNIQUE - no competitor has this |
 | First-Timer Hub page | ✅ DONE (`first-cruise.html` 27KB) | Cruise Critic |
 | Pre-Cruise 30-Day Countdown checklist | ✅ DONE (`countdown.html` 2026-01-24) | Cruise Critic Roll Call |
 
 **P2 Strategic (Medium Effort):**
 | Task | Status | Addresses |
 |------|--------|-----------|
-| **Expand "Ships That Visit" to all 15 cruise lines** | IN PROGRESS (7/15 lines: RCL, Carnival, Celebrity, NCL, Princess, HAL, MSC) | UNIQUE differentiator |
+| **Expand "Ships That Visit" to all 15 cruise lines** | ✅ DONE (15/15 lines: RCL, Carnival, Celebrity, NCL, Princess, HAL, MSC, Virgin, Costa, Cunard, Oceania, Regent, Seabourn, Silversea, Explora) | UNIQUE differentiator |
 | Print CSS + PDF generation for port pages | NOT STARTED | WhatsInPort, IQCruising |
 | Transport cost callout component | NOT STARTED | WhatsInPort, Cruise Crocodile |
 | Accessibility sections on port pages | NOT STARTED | UNIQUE - market gap |
 | DIY vs. Ship Excursion cost comparisons | NOT STARTED | WhatsInPort, Cruise Crocodile |
 | Honest assessment "Real Talk" sections | NOT STARTED | Cruise Critic, CruiseMapper |
 
-**"Ships That Visit Here" Expansion Plan:**
-- Current: 100 ports, 141 ships (29 RCL + 26 Carnival + 16 Celebrity + 20 NCL + 17 Princess + 11 HAL + 22 MSC)
-- Progress: 7/15 cruise lines complete
-- Data file: `assets/data/ship-deployments.json` (v1.6.0)
-- JS module: `assets/js/ship-port-links.js` (v1.5.0 - multi-cruise-line support)
-- Cruise lines done: ✅ Royal Caribbean (29 ships), ✅ Carnival (26 ships), ✅ Celebrity (16 ships), ✅ Norwegian (20 ships), ✅ Princess (17 ships), ✅ Holland America (11 ships), ✅ MSC Cruises (22 ships)
-- Cruise lines remaining: Costa, Cunard, Disney, Virgin Voyages, Oceania, Regent, Seabourn, Silversea, Explora
+**"Ships That Visit Here" Expansion Plan:** ✅ COMPLETE
+- Current: 123 ports, 193 ships (29 RCL + 26 Carnival + 16 Celebrity + 20 NCL + 17 Princess + 11 HAL + 22 MSC + 4 Virgin + 9 Costa + 4 Cunard + 8 Oceania + 6 Regent + 7 Seabourn + 12 Silversea + 2 Explora)
+- Progress: 15/15 cruise lines complete (Disney excluded per user preference)
+- Data file: `assets/data/ship-deployments.json` (v1.13.0)
+- JS module: `assets/js/ship-port-links.js` (v1.13.0 - multi-cruise-line support)
+- Cruise lines done: ✅ Royal Caribbean (29), ✅ Carnival (26), ✅ Celebrity (16), ✅ Norwegian (20), ✅ Princess (17), ✅ Holland America (11), ✅ MSC (22), ✅ Virgin (4), ✅ Costa (9), ✅ Cunard (4), ✅ Oceania (8), ✅ Regent (6), ✅ Seabourn (7), ✅ Silversea (12), ✅ Explora (2)
+- Cruise lines remaining: None
 
 **Unique Differentiators to Protect:**
 - Ship-Port Integration ⭐⭐⭐ (expand with bidirectional linking)
@@ -728,11 +728,11 @@ node admin/validate-ship-page.js ships/celebrity-cruises/*.html
 - ~~Quiz Dress Code~~ — Question exists at line 1716
 - ~~30-Day Countdown Checklist~~ — `countdown.html` with 35 interactive tasks (2026-01-24)
 - ~~Works Offline Badge~~ — 376 port pages now show "Works offline" in trust badge (2026-01-24)
-- ~~Ships That Visit Here~~ — In progress (100/380 ports, 141 ships across RCL + Carnival + Celebrity + NCL + Princess + HAL + MSC — 8 cruise lines remaining)
+- ~~Ships That Visit Here~~ — ✅ COMPLETE (123/380 ports, 193 ships across 15 cruise lines)
 
 ### 🟡 HIGH PRIORITY (Remaining Work)
 5. **Quiz UX Bugs** — iPhone scroll issue, back button (NCL links is #1 above)
-6. **Ships That Visit Expansion** — Add 8 more cruise lines to ship-deployments.json (RCL + Carnival + Celebrity + NCL + Princess + HAL + MSC done, 100/380 ports, 141 ships)
+6. ~~**Ships That Visit Expansion**~~ — ✅ COMPLETE (15 cruise lines, 193 ships across 123 ports)
 7. **Quiz Regional Features** — Regional availability filter (dress code done)
 8. **Port Weather Remaining** — 80 ports still need weather section
 
