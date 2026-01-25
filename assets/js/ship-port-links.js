@@ -1,11 +1,12 @@
 /**
  * Ship-Port Cross-Linking Module
- * Version: 1.0.0
+ * Version: 1.5.0
  *
  * Provides bidirectional linking between ship and port pages:
  * - Port pages show "Ships That Visit Here"
  * - Ship pages show "Ports on This Ship's Itineraries"
  *
+ * Supported cruise lines: Royal Caribbean, Carnival, Celebrity, Norwegian, Princess, Holland America, MSC
  * Data source: /assets/data/ship-deployments.json
  */
 
@@ -27,6 +28,36 @@
       name: 'Carnival Cruise Line',
       path: '/ships/carnival/',
       bookingUrl: 'https://www.carnival.com/cruise-ships/',
+      allShipsUrl: '/ships.html'
+    },
+    'celebrity': {
+      name: 'Celebrity Cruises',
+      path: '/ships/celebrity-cruises/',
+      bookingUrl: 'https://www.celebritycruises.com/cruise-ships/',
+      allShipsUrl: '/ships.html'
+    },
+    'ncl': {
+      name: 'Norwegian Cruise Line',
+      path: '/ships/ncl/',
+      bookingUrl: 'https://www.ncl.com/cruise-ships/',
+      allShipsUrl: '/ships.html'
+    },
+    'princess': {
+      name: 'Princess Cruises',
+      path: '/ships/princess/',
+      bookingUrl: 'https://www.princess.com/ships-and-experience/ships/',
+      allShipsUrl: '/ships.html'
+    },
+    'hal': {
+      name: 'Holland America Line',
+      path: '/ships/hal/',
+      bookingUrl: 'https://www.hollandamerica.com/en_US/cruise-ships.html',
+      allShipsUrl: '/ships.html'
+    },
+    'msc': {
+      name: 'MSC Cruises',
+      path: '/ships/msc/',
+      bookingUrl: 'https://www.msccruises.com/cruise-ships',
       allShipsUrl: '/ships.html'
     }
   };
@@ -102,7 +133,14 @@
       'new-caledonia': 'New Caledonia',
       'los-angeles': 'Los Angeles',
       'san-diego': 'San Diego',
-      'san-francisco': 'San Francisco'
+      'san-francisco': 'San Francisco',
+      'buenos-aires': 'Buenos Aires',
+      'punta-arenas': 'Punta Arenas',
+      'san-cristobal': 'San Cristóbal',
+      'great-stirrup-cay': 'Great Stirrup Cay',
+      'new-york': 'New York',
+      'ocean-cay': 'Ocean Cay MSC Marine Reserve',
+      'abu-dhabi': 'Abu Dhabi'
     };
 
     if (specialNames[slug]) return specialNames[slug];
@@ -159,13 +197,23 @@
     // Class order for sorting (larger ships first)
     const classOrders = {
       'rcl': ['Icon', 'Oasis', 'Quantum', 'Freedom', 'Voyager', 'Radiance', 'Vision', 'Other'],
-      'carnival': ['Excel', 'Vista', 'Dream', 'Concordia', 'Venice', 'Destiny', 'Conquest', 'Spirit', 'Fantasy', 'Other']
+      'carnival': ['Excel', 'Vista', 'Dream', 'Concordia', 'Venice', 'Destiny', 'Conquest', 'Spirit', 'Fantasy', 'Other'],
+      'celebrity': ['Edge', 'Solstice', 'Millennium', 'Expedition', 'Other'],
+      'ncl': ['Prima', 'Breakaway Plus', 'Breakaway', 'Epic', 'Jewel', 'Dawn', 'Sun', 'Spirit', 'Sky', 'America', 'Other'],
+      'princess': ['Sphere', 'Royal', 'Grand', 'Coral', 'Other'],
+      'hal': ['Pinnacle', 'Signature', 'Vista', 'R', 'Other'],
+      'msc': ['World', 'Meraviglia Plus', 'Seaside EVO', 'Meraviglia', 'Seaside', 'Fantasia', 'Musica', 'Lirica', 'Other']
     };
 
     // Brand colors for cruise lines
     const brandColors = {
       'rcl': { bg: '#e6f4f8', border: '#b8d4e3', hover: '#d0e8f0', text: '#0e6e8e' },
-      'carnival': { bg: '#fff3e6', border: '#e3c8b8', hover: '#ffe6cc', text: '#c74a35' }
+      'carnival': { bg: '#fff3e6', border: '#e3c8b8', hover: '#ffe6cc', text: '#c74a35' },
+      'celebrity': { bg: '#f0f0f5', border: '#c0c0d0', hover: '#e0e0eb', text: '#1a1a4e' },
+      'ncl': { bg: '#e6f0ff', border: '#b8c8e3', hover: '#d0e0f5', text: '#003087' },
+      'princess': { bg: '#e6f2ef', border: '#b8d4cd', hover: '#d0e8e3', text: '#00665e' },
+      'hal': { bg: '#e8eef5', border: '#c0cee0', hover: '#d8e4f0', text: '#1a3a5c' },
+      'msc': { bg: '#e6e9f0', border: '#b8c0d0', hover: '#d0d5e5', text: '#1a2a4a' }
     };
 
     let html = `
@@ -176,7 +224,7 @@
     `;
 
     // Render each cruise line's ships
-    const cruiseLineOrder = ['rcl', 'carnival']; // Define display order
+    const cruiseLineOrder = ['rcl', 'celebrity', 'princess', 'hal', 'ncl', 'msc', 'carnival']; // Define display order
     const activeCruiseLines = cruiseLineOrder.filter(cl => shipsByCruiseLine[cl]);
 
     activeCruiseLines.forEach((cruiseLineId, index) => {

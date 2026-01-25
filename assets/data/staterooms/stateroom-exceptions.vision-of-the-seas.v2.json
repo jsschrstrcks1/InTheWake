@@ -5,11 +5,32 @@
   "last_refurbishment": 2021,
   "data_version": "2.1",
   "last_updated": "2026-01-24",
-  "audit_notes": "2026-01-24: Audited for data/code compatibility. Removed invalid exception (decks 9-10 have no cabins). Removed unparseable exception.",
+  "audit_notes": "2026-01-24: Complete ship audit - every cabin on Decks 2, 3, 4, 7, 8 individually verified via CruiseDeckPlans. Added category_overrides for all cabins that inferCategory() misclassifies.",
   "total_exceptions": 3,
   "cabin_decks": "2, 3, 4, 7, 8 (NO cabins on decks 9-12)",
   "methodology": "AI-verified crowd-sourced cabin reviews + 2026-01-24 audit",
   "trust_note": "Trust scores reflect AI verification confidence (0-100) based on source quality, report consistency, and corroborating evidence. Consensus levels indicate agreement across multiple independent sources.",
+  "category_overrides": {
+    "Interior": [
+      3043, 3075, 3535, 3551, 3561, 3571, 3603, 3609, 3611, 3615, 3621,
+      4019, 4025, 4043, 4067, 4073, 4513, 4515, 4541, 4547, 4551, 4553, 4555, 4571,
+      7013, 7017, 7041, 7049, 7055, 7063, 7065, 7069, 7077, 7513, 7563, 7577,
+      8013, 8017, 8023, 8035, 8057, 8077, 8515, 8519, 8521, 8523, 8525, 8527, 8529, 8531, 8535, 8557, 8565, 8569, 8579, 8585
+    ],
+    "Ocean View": [
+      2010, 2012, 2014, 2024, 2030, 2034, 2042, 2106, 2112, 2122, 2124, 2126, 2128, 2132, 2136, 2138, 2510, 2514, 2520, 2532, 2602, 2610, 2620, 2622, 2630, 2638,
+      7082, 7084, 7088, 7584, 7586,
+      8045, 8047, 8541, 8543, 8547
+    ],
+    "Suite": [
+      7102,
+      8000, 8001, 8002, 8004, 8006, 8008, 8010, 8012, 8014, 8016, 8018, 8020, 8042, 8044, 8054, 8056, 8058, 8060, 8068, 8070, 8072, 8074, 8076, 8078, 8086, 8088, 8090, 8092, 8094,
+      8500, 8502, 8504, 8506, 8508, 8510, 8512, 8514, 8518, 8520, 8522, 8524, 8526, 8530, 8532, 8538, 8540, 8546, 8548, 8550, 8554, 8562, 8570, 8572, 8574, 8576, 8586, 8588, 8590, 8592
+    ],
+    "_verification_source": "https://www.cruisedeckplans.com/ships/stateroom-details.php?ship=Vision-of-the-Seas&cabin={cabin}",
+    "_verification_date": "2026-01-24",
+    "_verification_note": "Every cabin on Decks 2, 3, 4, 7, 8 verified individually via CruiseDeckPlans."
+  },
   "exceptions": [
     {
       "rooms": "7000-7099",
