@@ -303,14 +303,14 @@ The stateroom checker tool (`stateroom-check.js`) loads exception data from indi
 | "No Ads" trust messaging on about-us.html | ✅ DONE | Cruise Critic, CruiseMapper |
 | Tender Port Index + badge (`/ports/tender-ports.html`) | ✅ DONE | WhatsInPort |
 | "From the Pier" distance callout box component | PARTIAL (some ports) | WhatsInPort, IQCruising |
-| "Ships That Visit Here" section on port pages | PARTIAL (87/380 ports, RCL+Carnival+Celebrity+NCL) | UNIQUE - no competitor has this |
+| "Ships That Visit Here" section on port pages | PARTIAL (92/380 ports, RCL+Carnival+Celebrity+NCL+Princess) | UNIQUE - no competitor has this |
 | First-Timer Hub page | ✅ DONE (`first-cruise.html` 27KB) | Cruise Critic |
 | Pre-Cruise 30-Day Countdown checklist | ✅ DONE (`countdown.html` 2026-01-24) | Cruise Critic Roll Call |
 
 **P2 Strategic (Medium Effort):**
 | Task | Status | Addresses |
 |------|--------|-----------|
-| **Expand "Ships That Visit" to all 15 cruise lines** | IN PROGRESS (4/15 lines: RCL, Carnival, Celebrity, NCL) | UNIQUE differentiator |
+| **Expand "Ships That Visit" to all 15 cruise lines** | IN PROGRESS (5/15 lines: RCL, Carnival, Celebrity, NCL, Princess) | UNIQUE differentiator |
 | Print CSS + PDF generation for port pages | NOT STARTED | WhatsInPort, IQCruising |
 | Transport cost callout component | NOT STARTED | WhatsInPort, Cruise Crocodile |
 | Accessibility sections on port pages | NOT STARTED | UNIQUE - market gap |
@@ -318,12 +318,12 @@ The stateroom checker tool (`stateroom-check.js`) loads exception data from indi
 | Honest assessment "Real Talk" sections | NOT STARTED | Cruise Critic, CruiseMapper |
 
 **"Ships That Visit Here" Expansion Plan:**
-- Current: 87 ports, 91 ships (29 RCL + 26 Carnival + 16 Celebrity + 20 NCL)
-- Progress: 4/15 cruise lines complete (the "big four" are done)
-- Data file: `assets/data/ship-deployments.json` (v1.3.0)
-- JS module: `assets/js/ship-port-links.js` (v1.2.0 - multi-cruise-line support)
-- Cruise lines done: ✅ Royal Caribbean (29 ships), ✅ Carnival (26 ships), ✅ Celebrity (16 ships), ✅ Norwegian (20 ships)
-- Cruise lines remaining: Princess, Holland America, MSC, Costa, Cunard, Disney, Virgin Voyages, Oceania, Regent, Seabourn, Silversea, Explora
+- Current: 92 ports, 108 ships (29 RCL + 26 Carnival + 16 Celebrity + 20 NCL + 17 Princess)
+- Progress: 5/15 cruise lines complete
+- Data file: `assets/data/ship-deployments.json` (v1.4.0)
+- JS module: `assets/js/ship-port-links.js` (v1.3.0 - multi-cruise-line support)
+- Cruise lines done: ✅ Royal Caribbean (29 ships), ✅ Carnival (26 ships), ✅ Celebrity (16 ships), ✅ Norwegian (20 ships), ✅ Princess (17 ships)
+- Cruise lines remaining: Holland America, MSC, Costa, Cunard, Disney, Virgin Voyages, Oceania, Regent, Seabourn, Silversea, Explora
 
 **Unique Differentiators to Protect:**
 - Ship-Port Integration ⭐⭐⭐ (expand with bidirectional linking)
@@ -721,11 +721,11 @@ node admin/validate-ship-page.js ships/celebrity-cruises/*.html
 - ~~Quiz Dress Code~~ — Question exists at line 1716
 - ~~30-Day Countdown Checklist~~ — `countdown.html` with 35 interactive tasks (2026-01-24)
 - ~~Works Offline Badge~~ — 376 port pages now show "Works offline" in trust badge (2026-01-24)
-- ~~Ships That Visit Here~~ — In progress (87/380 ports, 91 ships across RCL + Carnival + Celebrity + NCL — 11 cruise lines remaining)
+- ~~Ships That Visit Here~~ — In progress (92/380 ports, 108 ships across RCL + Carnival + Celebrity + NCL + Princess — 10 cruise lines remaining)
 
 ### 🟡 HIGH PRIORITY (Remaining Work)
 5. **Quiz UX Bugs** — iPhone scroll issue, back button (NCL links is #1 above)
-6. **Ships That Visit Expansion** — Add 11 more cruise lines to ship-deployments.json (RCL + Carnival + Celebrity + NCL done, 87/380 ports, 91 ships)
+6. **Ships That Visit Expansion** — Add 10 more cruise lines to ship-deployments.json (RCL + Carnival + Celebrity + NCL + Princess done, 92/380 ports, 108 ships)
 7. **Quiz Regional Features** — Regional availability filter (dress code done)
 8. **Port Weather Remaining** — 80 ports still need weather section
 
