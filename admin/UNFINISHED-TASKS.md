@@ -223,71 +223,78 @@ This section tracks work that was started but not completed in previous conversa
 
 ---
 
-### 7. Stateroom Checker Repair 🔴 CRITICAL - DATA/CODE MISMATCH
+### 7. Stateroom Checker Data — Room-by-Room Audits 🟡 IN PROGRESS
 
-**Status:** AUDITED 2026-01-24 — **Fundamental data format issue discovered**
+**Status:** 2026-01-25 — Major progress: 270 ships now have exception files (up from 29)
 
-**Root Cause Analysis (2026-01-24):**
+**Recent Progress (2026-01-25):**
+- ✅ Created 241 baseline stateroom exception files for ALL cruise lines
+- ✅ Total coverage: 270 ships (Carnival, Celebrity, Norwegian, Princess, MSC, Holland America, Costa, Cunard, Explora, Oceania, Regent, Seabourn, Silversea, Virgin)
+- ✅ Vision-class RCL ships fully audited with category_overrides (4/4 complete)
 
-The stateroom checker tool (`stateroom-check.js`) loads exception data from individual ship files (e.g., `stateroom-exceptions.grandeur-of-the-seas.v2.json`). However:
+**Baseline File Strategy:**
+New ships get "safe baseline" files with:
+- Ship metadata (name, class, launch year)
+- Empty exceptions array (no false positives)
+- Placeholder for category_overrides (falls back to heuristic)
 
-1. **DATA FORMAT MISMATCH**: The code's `parseRoomRange()` function (lines 63-89) only handles NUMERIC formats like `"8001-8858"` or `"8056,8068"`. But ~25% of exceptions use TEXT descriptions that cannot be parsed:
-   - "All Deck 8 cabins" → **FAILS** (returns empty, no match possible)
-   - "forward decks 12-14" → **FAILS**
-   - "all connecting cabins" → **FAILS**
-   - "Deck 7 balcony cabins" → **FAILS**
+This allows the Stateroom Checker to work for all ships. Accuracy improves as room-by-room audits are completed.
 
-2. **QUANTIFIED IMPACT**:
-   - 28 ship exception files total
-   - 41 exceptions (25%) have unparseable text descriptions
-   - 123 exceptions (75%) have correct numeric formats
+**Room Type Classification Fix:**
+The `inferCategory()` heuristic is wrong for many cabins. The fix is `category_overrides` in each ship's exception file, which maps specific cabin numbers to their correct type. Ships with audited overrides show correct categories.
 
-3. **RESULT**: 25% of stateroom warnings will NEVER match any cabin number the user enters. The tool appears to work but silently fails to warn about known issues.
+**RCL Audit Progress (29 ships):**
 
-4. **ROOM TYPE CLASSIFICATION BUG** (discovered from Facebook user feedback 2026-01-24):
-   The `inferCategory()` function (lines 230-243) uses a hardcoded heuristic that's WRONG for many cabins:
-   ```javascript
-   if (cabin >= 1000 && cabin < 3000) return 'Interior';
-   else if (cabin >= 7000 && cabin < 9000) return 'Balcony';
-   else if (cabin >= 9000) return 'Suite';
-   return 'Ocean View';  // ← This is the problem!
-   ```
-
-   **User reports from "Enchantment of the Seas - Past, Present & Future" Facebook group:**
-   - Sandi Werner Salter: Rooms 4575 and 4531 are Interior, tool says Ocean View
-   - Mary Asher: Oceanview cabin incorrectly identified as Interior
-   - Debbie Laff: Boardwalk Balcony incorrectly identified as Suite
-
-   **Root cause**: Deck 4 has BOTH Interior AND Oceanview cabins mixed. The code assumes all 4xxx rooms are "Ocean View" but this is wrong. Room type cannot be determined by number alone.
-
-**Audit Progress:**
-
-| Ship | Status | Notes |
-|------|--------|-------|
-| Grandeur of the Seas | ✅ FIXED | 4 exceptions converted to numeric, 2 removed (no room data) |
-| Vision of the Seas | ✅ FIXED | INVALID "forward decks 9-10" removed (no cabins there), 1 text removed |
-| Enchantment of the Seas | ✅ FIXED | 1 text exception removed, 4 valid numeric remain |
-| Rhapsody of the Seas | NO FILE | No exception file exists |
-| ... (24 more ships) | NOT STARTED | |
+| Ship Class | Ship | Status | Notes |
+|------------|------|--------|-------|
+| **Vision** | Grandeur of the Seas | ✅ AUDITED | category_overrides complete |
+| **Vision** | Vision of the Seas | ✅ AUDITED | category_overrides complete |
+| **Vision** | Enchantment of the Seas | ✅ AUDITED | category_overrides complete |
+| **Vision** | Rhapsody of the Seas | ✅ AUDITED | category_overrides complete |
+| **Radiance** | Radiance of the Seas | ❌ NEEDS AUDIT | Has evidence pack |
+| **Radiance** | Brilliance of the Seas | ❌ NEEDS AUDIT | |
+| **Radiance** | Serenade of the Seas | ❌ NEEDS AUDIT | |
+| **Radiance** | Jewel of the Seas | ❌ NEEDS AUDIT | |
+| **Voyager** | Voyager of the Seas | ❌ NEEDS AUDIT | |
+| **Voyager** | Explorer of the Seas | ❌ NEEDS AUDIT | |
+| **Voyager** | Adventure of the Seas | ❌ NEEDS AUDIT | |
+| **Voyager** | Navigator of the Seas | ❌ NEEDS AUDIT | |
+| **Voyager** | Mariner of the Seas | ❌ NEEDS AUDIT | |
+| **Freedom** | Freedom of the Seas | ❌ NEEDS AUDIT | |
+| **Freedom** | Liberty of the Seas | ❌ NEEDS AUDIT | |
+| **Freedom** | Independence of the Seas | ❌ NEEDS AUDIT | |
+| **Oasis** | Oasis of the Seas | ❌ NEEDS AUDIT | |
+| **Oasis** | Allure of the Seas | ❌ NEEDS AUDIT | |
+| **Oasis** | Harmony of the Seas | ❌ NEEDS AUDIT | |
+| **Oasis** | Symphony of the Seas | ❌ NEEDS AUDIT | |
+| **Oasis** | Wonder of the Seas | ❌ NEEDS AUDIT | |
+| **Oasis** | Utopia of the Seas | ❌ NEEDS AUDIT | |
+| **Quantum** | Quantum of the Seas | ❌ NEEDS AUDIT | |
+| **Quantum** | Anthem of the Seas | ❌ NEEDS AUDIT | |
+| **Quantum** | Ovation of the Seas | ❌ NEEDS AUDIT | |
+| **Quantum** | Spectrum of the Seas | ❌ NEEDS AUDIT | |
+| **Quantum** | Odyssey of the Seas | ❌ NEEDS AUDIT | |
+| **Icon** | Icon of the Seas | ❌ NEEDS AUDIT | |
+| **Icon** | Star of the Seas | ❌ NEEDS AUDIT | |
 
 **Tasks:**
 
 | Task | Status |
 |------|--------|
-| Audit data/code compatibility | ✅ DONE (2026-01-24) |
-| Fix Grandeur of the Seas exceptions | ✅ DONE (2026-01-24) |
-| Fix Vision of the Seas exceptions | ✅ DONE (2026-01-24) |
-| Fix Enchantment of the Seas exceptions | ✅ DONE (2026-01-24) |
-| Convert remaining 24 ships from text to numeric room specs | IN PROGRESS |
-| **FIX inferCategory() to use actual room data** | 🔴 CRITICAL - NOT STARTED |
-| Research connecting cabin numbers for CO category | NOT STARTED |
-| Research balcony cabin numbers by ship | NOT STARTED |
-| Test stateroom checker after all fixes | NOT STARTED |
+| Create baseline files for all cruise lines | ✅ DONE (241 files, 2026-01-25) |
+| Audit Vision-class ships | ✅ DONE (4/4 ships) |
+| Audit Radiance-class ships | IN PROGRESS (0/4 ships) |
+| Audit Voyager-class ships | NOT STARTED (0/5 ships) |
+| Audit Freedom-class ships | NOT STARTED (0/3 ships) |
+| Audit Oasis-class ships | NOT STARTED (0/6 ships) |
+| Audit Quantum-class ships | NOT STARTED (0/5 ships) |
+| Audit Icon-class ships | NOT STARTED (0/2 ships) |
+| Test stateroom checker after all RCL audits | NOT STARTED |
 
 **Technical Notes:**
-- The `rcl-ship-room-flags.json` file is NOT used by the checker — it loads from individual ship exception files
-- Exceptions removed for Grandeur documented in `removed_exceptions` array with restoration criteria
 - Deck plan sources: [CruiseDeckPlans](https://www.cruisedeckplans.com), [CruiseMapper](https://www.cruisemapper.com)
+- category_overrides maps cabin numbers to: Interior, Ocean View, Balcony, Suite
+- Sister ships within a class often share layouts (can copy overrides with verification)
 
 ---
 
