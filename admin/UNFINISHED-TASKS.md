@@ -310,7 +310,7 @@ The `inferCategory()` heuristic is wrong for many cabins. The fix is `category_o
 | "No Ads" trust messaging on about-us.html | ✅ DONE | Cruise Critic, CruiseMapper |
 | Tender Port Index + badge (`/ports/tender-ports.html`) | ✅ DONE | WhatsInPort |
 | "From the Pier" distance callout box component | PARTIAL (some ports) | WhatsInPort, IQCruising |
-| "Ships That Visit Here" section on port pages | ✅ DONE (357/380 ports, 15 cruise lines, 193 ships) | UNIQUE - no competitor has this |
+| "Ships That Visit Here" section on port pages | ✅ DONE (371/380 ports, 15 cruise lines, 193 ships) | UNIQUE - no competitor has this |
 | First-Timer Hub page | ✅ DONE (`first-cruise.html` 27KB) | Cruise Critic |
 | Pre-Cruise 30-Day Countdown checklist | ✅ DONE (`countdown.html` 2026-01-24) | Cruise Critic Roll Call |
 
@@ -325,12 +325,14 @@ The `inferCategory()` heuristic is wrong for many cabins. The fix is `category_o
 | Honest assessment "Real Talk" sections | NOT STARTED | Cruise Critic, CruiseMapper |
 
 **"Ships That Visit Here" Expansion Plan:** ✅ COMPLETE
-- Current: 357 ports, 193 ships (29 RCL + 26 Carnival + 16 Celebrity + 20 NCL + 17 Princess + 11 HAL + 22 MSC + 4 Virgin + 9 Costa + 4 Cunard + 8 Oceania + 6 Regent + 7 Seabourn + 12 Silversea + 2 Explora)
+- Current: 371 ports mapped, 193 ships across 15 cruise lines
 - Progress: 15/15 cruise lines complete (Disney excluded per user preference)
-- Data file: `assets/data/ship-deployments.json` (v1.13.0)
+- Data file: `assets/data/ship-deployments.json` (v1.14.0)
 - JS module: `assets/js/ship-port-links.js` (v1.13.0 - multi-cruise-line support)
 - Cruise lines done: ✅ Royal Caribbean (29), ✅ Carnival (26), ✅ Celebrity (16), ✅ Norwegian (20), ✅ Princess (17), ✅ Holland America (11), ✅ MSC (22), ✅ Virgin (4), ✅ Costa (9), ✅ Cunard (4), ✅ Oceania (8), ✅ Regent (6), ✅ Seabourn (7), ✅ Silversea (12), ✅ Explora (2)
 - Cruise lines remaining: None
+- **Scenic routes added (2026-01-25):** Inside Passage (28), Norwegian Fjords (17), Chilean Fjords/Glacier Alley/Strait of Magellan/Cape Horn (9), Antarctica/Drake Passage (11), Doubtful Sound (13), Gatun Lake (16), Port Everglades (19), Port Miami (70)
+- **9 unmapped pages remain:** Land tours (Beijing, Denali, Fairbanks, Kyoto), aggregate pages (Scotland, South Pacific, Tender Ports), and ft-lauderdale (duplicate of port-everglades)
 
 **Unique Differentiators to Protect:**
 - Ship-Port Integration ⭐⭐⭐ (expand with bidirectional linking)
