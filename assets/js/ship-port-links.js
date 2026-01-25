@@ -1,12 +1,12 @@
 /**
  * Ship-Port Cross-Linking Module
- * Version: 1.6.0
+ * Version: 1.7.0
  *
  * Provides bidirectional linking between ship and port pages:
  * - Port pages show "Ships That Visit Here"
  * - Ship pages show "Ports on This Ship's Itineraries"
  *
- * Supported cruise lines: Royal Caribbean, Carnival, Celebrity, Norwegian, Princess, Holland America, MSC, Virgin Voyages
+ * Supported cruise lines: Royal Caribbean, Carnival, Celebrity, Norwegian, Princess, Holland America, MSC, Virgin Voyages, Costa Cruises
  * Data source: /assets/data/ship-deployments.json
  */
 
@@ -64,6 +64,12 @@
       name: 'Virgin Voyages',
       path: '/ships/virgin/',
       bookingUrl: 'https://www.virginvoyages.com/ships',
+      allShipsUrl: '/ships.html'
+    },
+    'costa': {
+      name: 'Costa Cruises',
+      path: '/ships/costa/',
+      bookingUrl: 'https://www.costacruises.com/ships.html',
       allShipsUrl: '/ships.html'
     }
   };
@@ -151,7 +157,10 @@
       'key-west': 'Key West',
       'palma-de-mallorca': 'Palma de Mallorca',
       'st-croix': 'St. Croix',
-      'puerto-plata': 'Puerto Plata'
+      'puerto-plata': 'Puerto Plata',
+      'civitavecchia': 'Civitavecchia (Rome)',
+      'punta-del-este': 'Punta del Este',
+      'la-spezia': 'La Spezia'
     };
 
     if (specialNames[slug]) return specialNames[slug];
@@ -214,7 +223,8 @@
       'princess': ['Sphere', 'Royal', 'Grand', 'Coral', 'Other'],
       'hal': ['Pinnacle', 'Signature', 'Vista', 'R', 'Other'],
       'msc': ['World', 'Meraviglia Plus', 'Seaside EVO', 'Meraviglia', 'Seaside', 'Fantasia', 'Musica', 'Lirica', 'Other'],
-      'virgin': ['Lady', 'Other']
+      'virgin': ['Lady', 'Other'],
+      'costa': ['Excellence', 'Venice', 'Diadema', 'Concordia', 'Spirit', 'Other']
     };
 
     // Brand colors for cruise lines
@@ -226,7 +236,8 @@
       'princess': { bg: '#e6f2ef', border: '#b8d4cd', hover: '#d0e8e3', text: '#00665e' },
       'hal': { bg: '#e8eef5', border: '#c0cee0', hover: '#d8e4f0', text: '#1a3a5c' },
       'msc': { bg: '#e6e9f0', border: '#b8c0d0', hover: '#d0d5e5', text: '#1a2a4a' },
-      'virgin': { bg: '#fce8e8', border: '#e8c0c0', hover: '#f5d5d5', text: '#cc0000' }
+      'virgin': { bg: '#fce8e8', border: '#e8c0c0', hover: '#f5d5d5', text: '#cc0000' },
+      'costa': { bg: '#fff8e6', border: '#e8d8b0', hover: '#fff0cc', text: '#c09000' }
     };
 
     let html = `
@@ -237,7 +248,7 @@
     `;
 
     // Render each cruise line's ships
-    const cruiseLineOrder = ['rcl', 'celebrity', 'princess', 'hal', 'ncl', 'msc', 'virgin', 'carnival']; // Define display order
+    const cruiseLineOrder = ['rcl', 'celebrity', 'princess', 'hal', 'ncl', 'msc', 'costa', 'virgin', 'carnival']; // Define display order
     const activeCruiseLines = cruiseLineOrder.filter(cl => shipsByCruiseLine[cl]);
 
     activeCruiseLines.forEach((cruiseLineId, index) => {
