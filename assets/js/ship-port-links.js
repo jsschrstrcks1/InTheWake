@@ -1,12 +1,12 @@
 /**
  * Ship-Port Cross-Linking Module
- * Version: 1.4.0
+ * Version: 1.5.0
  *
  * Provides bidirectional linking between ship and port pages:
  * - Port pages show "Ships That Visit Here"
  * - Ship pages show "Ports on This Ship's Itineraries"
  *
- * Supported cruise lines: Royal Caribbean, Carnival, Celebrity, Norwegian, Princess, Holland America
+ * Supported cruise lines: Royal Caribbean, Carnival, Celebrity, Norwegian, Princess, Holland America, MSC
  * Data source: /assets/data/ship-deployments.json
  */
 
@@ -52,6 +52,12 @@
       name: 'Holland America Line',
       path: '/ships/hal/',
       bookingUrl: 'https://www.hollandamerica.com/en_US/cruise-ships.html',
+      allShipsUrl: '/ships.html'
+    },
+    'msc': {
+      name: 'MSC Cruises',
+      path: '/ships/msc/',
+      bookingUrl: 'https://www.msccruises.com/cruise-ships',
       allShipsUrl: '/ships.html'
     }
   };
@@ -132,7 +138,9 @@
       'punta-arenas': 'Punta Arenas',
       'san-cristobal': 'San Cristóbal',
       'great-stirrup-cay': 'Great Stirrup Cay',
-      'new-york': 'New York'
+      'new-york': 'New York',
+      'ocean-cay': 'Ocean Cay MSC Marine Reserve',
+      'abu-dhabi': 'Abu Dhabi'
     };
 
     if (specialNames[slug]) return specialNames[slug];
@@ -193,7 +201,8 @@
       'celebrity': ['Edge', 'Solstice', 'Millennium', 'Expedition', 'Other'],
       'ncl': ['Prima', 'Breakaway Plus', 'Breakaway', 'Epic', 'Jewel', 'Dawn', 'Sun', 'Spirit', 'Sky', 'America', 'Other'],
       'princess': ['Sphere', 'Royal', 'Grand', 'Coral', 'Other'],
-      'hal': ['Pinnacle', 'Signature', 'Vista', 'R', 'Other']
+      'hal': ['Pinnacle', 'Signature', 'Vista', 'R', 'Other'],
+      'msc': ['World', 'Meraviglia Plus', 'Seaside EVO', 'Meraviglia', 'Seaside', 'Fantasia', 'Musica', 'Lirica', 'Other']
     };
 
     // Brand colors for cruise lines
@@ -203,7 +212,8 @@
       'celebrity': { bg: '#f0f0f5', border: '#c0c0d0', hover: '#e0e0eb', text: '#1a1a4e' },
       'ncl': { bg: '#e6f0ff', border: '#b8c8e3', hover: '#d0e0f5', text: '#003087' },
       'princess': { bg: '#e6f2ef', border: '#b8d4cd', hover: '#d0e8e3', text: '#00665e' },
-      'hal': { bg: '#e8eef5', border: '#c0cee0', hover: '#d8e4f0', text: '#1a3a5c' }
+      'hal': { bg: '#e8eef5', border: '#c0cee0', hover: '#d8e4f0', text: '#1a3a5c' },
+      'msc': { bg: '#e6e9f0', border: '#b8c0d0', hover: '#d0d5e5', text: '#1a2a4a' }
     };
 
     let html = `
@@ -214,7 +224,7 @@
     `;
 
     // Render each cruise line's ships
-    const cruiseLineOrder = ['rcl', 'celebrity', 'princess', 'hal', 'ncl', 'carnival']; // Define display order
+    const cruiseLineOrder = ['rcl', 'celebrity', 'princess', 'hal', 'ncl', 'msc', 'carnival']; // Define display order
     const activeCruiseLines = cruiseLineOrder.filter(cl => shipsByCruiseLine[cl]);
 
     activeCruiseLines.forEach((cruiseLineId, index) => {
