@@ -15,7 +15,7 @@ You're working on **In the Wake**, a cruise planning website with an enhanced Cl
 1. **Skills auto-activate** based on what you're doing (editing HTML triggers SEO/accessibility skills)
 2. **ITW-Lite v3.010 philosophy**: AI-first, Human-first, Google second
 3. **Theological foundation is IMMUTABLE**: Soli Deo Gloria invocation required on all pages
-4. **7 skill rules total**: 3 with dedicated directories (standards, skill-developer, frontend-dev-guidelines) + 4 rule-based triggers in skill-rules.json (seo-optimizer, accessibility-auditor, content-strategy, performance-analyzer)
+4. **8 skill rules total**: 3 with dedicated directories (standards, skill-developer, frontend-dev-guidelines) + 5 rule-based triggers in skill-rules.json (seo-optimizer, accessibility-auditor, content-strategy, performance-analyzer, ship-page-validator)
 5. **Read this first**: `.claude/skill-rules.json` (skill activation rules) and `new-standards/README.md` (site standards)
 
 ---
@@ -68,9 +68,9 @@ new-standards/foundation/WCAG_2.1_AA_STANDARDS_v3.100.md  # Accessibility
 
 ---
 
-## 🛠️ The 7 Skill Rules
+## 🛠️ The 8 Skill Rules
 
-The system includes 7 skill rules defined in `.claude/skill-rules.json`. Three have dedicated skill directories with documentation; four are rule-based triggers only.
+The system includes 8 skill rules defined in `.claude/skill-rules.json`. Three have dedicated skill directories with documentation; five are rule-based triggers only.
 
 ### Skills with Dedicated Directories (3)
 
@@ -90,7 +90,7 @@ The system includes 7 skill rules defined in `.claude/skill-rules.json`. Three h
 **Purpose:** HTML/CSS/JS best practices for static sites
 **Resources:** `.claude/skills/frontend-dev-guidelines/SKILL.md`
 
-### Rule-Based Triggers (4)
+### Rule-Based Triggers (5)
 
 These skills are defined as activation rules in `skill-rules.json` with guardrails and triggers, but don't have dedicated SKILL.md directories. They influence behavior through their rule definitions.
 
@@ -119,6 +119,15 @@ These skills are defined as activation rules in `skill-rules.json` with guardrai
 **Triggers:** performance, optimize, lighthouse, Core Web Vitals, LCP, FID, CLS
 **Purpose:** Web performance optimization
 
+#### 8. **ship-page-validator** (CITW Original - High Priority)
+**Triggers:** "ship page", "create ship", "validate ship", ship checklist
+**Triggers Files:** ships/**/*.html (excludes ships/index.html, ships.html)
+**Purpose:** Auto-validates ship pages against SHIP_PAGE_CHECKLIST_v3.010 standards
+**Guardrails:**
+- ✅ REQUIRED: Soli Deo Gloria invocation, AI-breadcrumbs, ICP-Lite v1.4 meta tags
+- ✅ REQUIRED: 7 JSON-LD blocks, WCAG accessibility, all content sections
+- Post-write hook: `.claude/hooks/ship-page-validator.sh`
+
 ---
 
 ## 📦 Plugins (5 total)
@@ -144,11 +153,12 @@ Located in `.claude/commands/`:
 
 ---
 
-## 🪝 Hooks (2 auto-activation)
+## 🪝 Hooks (3 auto-activation)
 
 Located in `.claude/hooks/`:
 1. **skill-activation-prompt.sh** — Intelligently loads skills based on context
 2. **post-tool-use-tracker.sh** — Tracks tool usage to optimize future loads
+3. **ship-page-validator.sh** — Auto-validates ship pages against v3.010 checklist after Write/Edit
 
 **Configured in:** `.claude/settings.json`
 
@@ -161,12 +171,12 @@ InTheWake/
 ├── .claude/                    # Claude Code system (YOU ARE HERE)
 │   ├── INSTALLATION.md         # Full installation guide
 │   ├── ONBOARDING.md          # This file
-│   ├── skill-rules.json       # Skill activation rules (7 rule definitions)
+│   ├── skill-rules.json       # Skill activation rules (8 rule definitions)
 │   ├── settings.json          # Hook configuration
 │   ├── skills/                # 3 skills with directories (standards, skill-developer, frontend-dev-guidelines)
 │   ├── plugins/               # 5 plugins (SEO, accessibility, performance)
 │   ├── commands/              # 4 commands (/commit, /create-pr, etc.)
-│   ├── hooks/                 # 2 hooks (auto-activation)
+│   ├── hooks/                 # 3 hooks (auto-activation + ship validation)
 │   └── references/            # UI/UX pattern references
 ├── new-standards/             # CITW official standards directory
 │   ├── README.md              # Standards overview
@@ -380,10 +390,16 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 
 ## 🔄 Version History
 
+**v1.1.2** (2026-01-25) — Documentation accuracy update
+- Corrected skill count from 7 to 8 (includes ship-page-validator)
+- Corrected hooks count from 2 to 3
+- Added ship-page-validator skill documentation
+- Fixed ICP-Lite version references to v1.4
+
 **v1.1.0** (2025-11-24) — FOM integration
 - Merged 6 FOM skills into CITW
 - Added ITW-Lite v3.010 guardrails
-- Added 5 plugins, 4 commands, 2 hooks
+- Added 5 plugins, 4 commands, 3 hooks
 - Preserved theological foundation
 
 **v1.0.0** (Previous) — CITW original
@@ -416,7 +432,7 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 
 ## 🎯 TL;DR — What You Need to Know
 
-1. **7 skill rules** auto-activate based on context: 3 with skill directories + 4 rule-based triggers
+1. **8 skill rules** auto-activate based on context: 3 with skill directories + 5 rule-based triggers
 2. **ITW-Lite v3.010**: AI-first, Human-first, Google second
 3. **Theological foundation is immutable**: Soli Deo Gloria on every page
 4. **ICP-Lite v1.4 protocol required**: ai-summary (dual-cap), last-reviewed, content-protocol meta tags
@@ -438,7 +454,7 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 ## Quick Reference Commands
 
 ```bash
-# View skill configuration
+# View skill configuration (8 skills expected)
 cat .claude/skill-rules.json | jq '.skills | keys'
 
 # Check standards structure
