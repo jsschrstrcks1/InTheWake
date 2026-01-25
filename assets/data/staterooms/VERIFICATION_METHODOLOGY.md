@@ -67,21 +67,13 @@ Primary: https://www.cruisedeckplans.com/ships/stateroom-details.php?ship={ship-
 | 10   | TBD          | 30       | TBD       |
 
 ## Ships In Progress
-1. Voyager of the Seas - 27/~3,100 verified
+1. Jewel of the Seas - 0/~650 verified (RESTARTED - previous data was pattern-based)
+2. Voyager of the Seas - 27/~3,100 verified
 
 ## Ships Completed
 1. Radiance of the Seas - 618 cabins verified (COMPLETE)
 2. Brilliance of the Seas - 655 cabins verified (COMPLETE)
-3. Serenade of the Seas - 638 cabins verified (COMPLETE)
-4. Jewel of the Seas - 639 cabins verified (COMPLETE)
-
-## Radiance-Class Complete!
-All four Radiance-class ships have been fully verified:
-- Radiance of the Seas (2001): 618 cabins
-- Brilliance of the Seas (2002): 655 cabins
-- Serenade of the Seas (2003): 638 cabins
-- Jewel of the Seas (2004): 639 cabins
-Total: 2,550 cabins across 4 ships
+3. Serenade of the Seas - 873 cabins verified (COMPLETE)
 
 ## Next Steps
 Continue Radiance of the Seas:
