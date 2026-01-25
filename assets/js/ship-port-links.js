@@ -1,12 +1,12 @@
 /**
  * Ship-Port Cross-Linking Module
- * Version: 1.9.0
+ * Version: 1.12.0
  *
  * Provides bidirectional linking between ship and port pages:
  * - Port pages show "Ships That Visit Here"
  * - Ship pages show "Ports on This Ship's Itineraries"
  *
- * Supported cruise lines: Royal Caribbean, Carnival, Celebrity, Norwegian, Princess, Holland America, MSC, Virgin Voyages, Costa Cruises, Cunard, Oceania
+ * Supported cruise lines: Royal Caribbean, Carnival, Celebrity, Norwegian, Princess, Holland America, MSC, Virgin Voyages, Costa Cruises, Cunard, Oceania, Regent, Seabourn, Silversea
  * Data source: /assets/data/ship-deployments.json
  */
 
@@ -82,6 +82,24 @@
       name: 'Oceania Cruises',
       path: '/ships/oceania/',
       bookingUrl: 'https://www.oceaniacruises.com/ships/',
+      allShipsUrl: '/ships.html'
+    },
+    'regent': {
+      name: 'Regent Seven Seas',
+      path: '/ships/regent/',
+      bookingUrl: 'https://www.rssc.com/ships',
+      allShipsUrl: '/ships.html'
+    },
+    'seabourn': {
+      name: 'Seabourn',
+      path: '/ships/seabourn/',
+      bookingUrl: 'https://www.seabourn.com/en_US/cruise-ships.html',
+      allShipsUrl: '/ships.html'
+    },
+    'silversea': {
+      name: 'Silversea Cruises',
+      path: '/ships/silversea/',
+      bookingUrl: 'https://www.silversea.com/ships.html',
       allShipsUrl: '/ships.html'
     }
   };
@@ -242,7 +260,10 @@
       'virgin': ['Lady', 'Other'],
       'costa': ['Excellence', 'Venice', 'Diadema', 'Concordia', 'Spirit', 'Other'],
       'cunard': ['Ocean Liner', 'Queen', 'Other'],
-      'oceania': ['Allura', 'Vista', 'Oceania', 'R-Class', 'Other']
+      'oceania': ['Allura', 'Vista', 'Oceania', 'R-Class', 'Other'],
+      'regent': ['Grandeur', 'Splendor', 'Explorer', 'Voyager', 'Mariner', 'Navigator', 'Other'],
+      'seabourn': ['Encore', 'Odyssey', 'Expedition', 'Other'],
+      'silversea': ['Nova', 'Muse', 'Spirit', 'Shadow', 'Wind', 'Expedition', 'Other']
     };
 
     // Brand colors for cruise lines
@@ -257,7 +278,10 @@
       'virgin': { bg: '#fce8e8', border: '#e8c0c0', hover: '#f5d5d5', text: '#cc0000' },
       'costa': { bg: '#fff8e6', border: '#e8d8b0', hover: '#fff0cc', text: '#c09000' },
       'cunard': { bg: '#f5e8e8', border: '#d8b0b0', hover: '#f0d8d8', text: '#8b0000' },
-      'oceania': { bg: '#f5f0e8', border: '#d8c8b0', hover: '#f0e8d8', text: '#8b6914' }
+      'oceania': { bg: '#f5f0e8', border: '#d8c8b0', hover: '#f0e8d8', text: '#8b6914' },
+      'regent': { bg: '#e8ecf5', border: '#b0b8d8', hover: '#d8e0f0', text: '#1a2a5e' },
+      'seabourn': { bg: '#e8f0e8', border: '#b0d0b0', hover: '#d8e8d8', text: '#1a4a2e' },
+      'silversea': { bg: '#f0f0f0', border: '#c0c0c0', hover: '#e8e8e8', text: '#404040' }
     };
 
     let html = `
@@ -268,7 +292,7 @@
     `;
 
     // Render each cruise line's ships
-    const cruiseLineOrder = ['rcl', 'celebrity', 'princess', 'hal', 'cunard', 'oceania', 'ncl', 'msc', 'costa', 'virgin', 'carnival']; // Define display order
+    const cruiseLineOrder = ['rcl', 'celebrity', 'princess', 'hal', 'cunard', 'oceania', 'regent', 'seabourn', 'silversea', 'ncl', 'msc', 'costa', 'virgin', 'carnival']; // Define display order
     const activeCruiseLines = cruiseLineOrder.filter(cl => shipsByCruiseLine[cl]);
 
     activeCruiseLines.forEach((cruiseLineId, index) => {
