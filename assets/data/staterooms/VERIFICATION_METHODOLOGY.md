@@ -67,14 +67,13 @@ Primary: https://www.cruisedeckplans.com/ships/stateroom-details.php?ship={ship-
 | 10   | TBD          | 30       | TBD       |
 
 ## Ships In Progress
-1. Radiance of the Seas - 75/1,061 verified (7%)
-2. Brilliance of the Seas - 23/~1,061 verified
-3. Serenade of the Seas - 9/~1,061 verified
-4. Jewel of the Seas - 6/~1,061 verified
-5. Voyager of the Seas - 27/~3,100 verified
+1. Jewel of the Seas - 6/~650 verified
+2. Voyager of the Seas - 27/~3,100 verified
 
 ## Ships Completed
-(none yet)
+1. Radiance of the Seas - 618 cabins verified (COMPLETE)
+2. Brilliance of the Seas - 655 cabins verified (COMPLETE)
+3. Serenade of the Seas - 638 cabins verified (COMPLETE)
 
 ## Next Steps
 Continue Radiance of the Seas:
