@@ -303,7 +303,7 @@ The stateroom checker tool (`stateroom-check.js`) loads exception data from indi
 | "No Ads" trust messaging on about-us.html | ✅ DONE | Cruise Critic, CruiseMapper |
 | Tender Port Index + badge (`/ports/tender-ports.html`) | ✅ DONE | WhatsInPort |
 | "From the Pier" distance callout box component | PARTIAL (some ports) | WhatsInPort, IQCruising |
-| "Ships That Visit Here" section on port pages | ✅ DONE (100/380 ports, 15 cruise lines, 193 ships) | UNIQUE - no competitor has this |
+| "Ships That Visit Here" section on port pages | ✅ DONE (123/380 ports, 15 cruise lines, 193 ships) | UNIQUE - no competitor has this |
 | First-Timer Hub page | ✅ DONE (`first-cruise.html` 27KB) | Cruise Critic |
 | Pre-Cruise 30-Day Countdown checklist | ✅ DONE (`countdown.html` 2026-01-24) | Cruise Critic Roll Call |
 
@@ -318,7 +318,7 @@ The stateroom checker tool (`stateroom-check.js`) loads exception data from indi
 | Honest assessment "Real Talk" sections | NOT STARTED | Cruise Critic, CruiseMapper |
 
 **"Ships That Visit Here" Expansion Plan:** ✅ COMPLETE
-- Current: 100 ports, 193 ships (29 RCL + 26 Carnival + 16 Celebrity + 20 NCL + 17 Princess + 11 HAL + 22 MSC + 4 Virgin + 9 Costa + 4 Cunard + 8 Oceania + 6 Regent + 7 Seabourn + 12 Silversea + 2 Explora)
+- Current: 123 ports, 193 ships (29 RCL + 26 Carnival + 16 Celebrity + 20 NCL + 17 Princess + 11 HAL + 22 MSC + 4 Virgin + 9 Costa + 4 Cunard + 8 Oceania + 6 Regent + 7 Seabourn + 12 Silversea + 2 Explora)
 - Progress: 15/15 cruise lines complete (Disney excluded per user preference)
 - Data file: `assets/data/ship-deployments.json` (v1.13.0)
 - JS module: `assets/js/ship-port-links.js` (v1.13.0 - multi-cruise-line support)
@@ -721,11 +721,11 @@ node admin/validate-ship-page.js ships/celebrity-cruises/*.html
 - ~~Quiz Dress Code~~ — Question exists at line 1716
 - ~~30-Day Countdown Checklist~~ — `countdown.html` with 35 interactive tasks (2026-01-24)
 - ~~Works Offline Badge~~ — 376 port pages now show "Works offline" in trust badge (2026-01-24)
-- ~~Ships That Visit Here~~ — ✅ COMPLETE (100/380 ports, 193 ships across 15 cruise lines)
+- ~~Ships That Visit Here~~ — ✅ COMPLETE (123/380 ports, 193 ships across 15 cruise lines)
 
 ### 🟡 HIGH PRIORITY (Remaining Work)
 5. **Quiz UX Bugs** — iPhone scroll issue, back button (NCL links is #1 above)
-6. ~~**Ships That Visit Expansion**~~ — ✅ COMPLETE (15 cruise lines, 193 ships across 100+ ports)
+6. ~~**Ships That Visit Expansion**~~ — ✅ COMPLETE (15 cruise lines, 193 ships across 123 ports)
 7. **Quiz Regional Features** — Regional availability filter (dress code done)
 8. **Port Weather Remaining** — 80 ports still need weather section
 
