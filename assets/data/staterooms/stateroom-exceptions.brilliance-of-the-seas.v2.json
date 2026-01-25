@@ -5,120 +5,44 @@
   "last_refurbishment": 2021,
   "data_version": "2.1",
   "last_updated": "2026-01-25",
-  "audit_notes": "2026-01-25: Converted text exceptions to numeric. Category overrides based on Radiance-class layout verified via CruiseDeckPlans. Sister ship to Radiance with identical cabin layout.",
-  "total_exceptions": 5,
+  "audit_notes": "2026-01-25: Room-by-room verification in progress via CruiseDeckPlans. Each cabin individually checked. Previous pattern-generated data cleared - only verified cabins included.",
+  "audit_status": "IN_PROGRESS",
+  "total_exceptions": 0,
   "cabin_decks": "2, 3, 4, 7, 8, 9, 10",
-  "methodology": "Converted from evidence pack + Radiance-class category verification",
-  "trust_note": "Trust scores reflect AI verification confidence (0-100) based on source quality, report consistency, and corroborating evidence.",
+  "methodology": "Individual cabin verification via https://www.cruisedeckplans.com/ships/stateroom-details.php?ship=Brilliance-of-the-Seas&cabin={number}",
+  "trust_note": "Only verified cabins included. Audit ongoing.",
   "category_overrides": {
+    "Suite": [
+      1028, 1030, 1054,
+      1528
+    ],
     "Interior": [
-      3011, 3013, 3015, 3017, 3019, 3021, 3023, 3025, 3027, 3029, 3031, 3033, 3035, 3037, 3039, 3041, 3043,
-      3511, 3513, 3515, 3517, 3519, 3521, 3523, 3525, 3527, 3529, 3531, 3533, 3535, 3537, 3539, 3541, 3543,
-      4011, 4013, 4015, 4017, 4019, 4021, 4023, 4025, 4027, 4029, 4031, 4033, 4035, 4037, 4039, 4041,
-      4511, 4513, 4515, 4517, 4519, 4521, 4523, 4525, 4527, 4529, 4531, 4533, 4535, 4537, 4539, 4541,
-      7025, 7027, 7029, 7031, 7033, 7035, 7037, 7039, 7041, 7043, 7045, 7047, 7049, 7051, 7053, 7055,
-      7525, 7527, 7529, 7531, 7533, 7535, 7537, 7539, 7541, 7543, 7545, 7547, 7549, 7551, 7553, 7555,
-      8011, 8013, 8015, 8017, 8019, 8021, 8023, 8025, 8027, 8029, 8031, 8033, 8035, 8037, 8039, 8041,
-      8511, 8513, 8515, 8517, 8519, 8521, 8523, 8525, 8527, 8529, 8531, 8533, 8535, 8537, 8539, 8541,
-      9013, 9015, 9017, 9019, 9021, 9023, 9025, 9027, 9029, 9031,
-      9513, 9515, 9517, 9519, 9521, 9523, 9525, 9527, 9529, 9531
+      3539, 3541
     ],
     "Ocean View": [
-      2500, 2502, 2504, 2506, 2508, 2510, 2512, 2514, 2516, 2518, 2520, 2522, 2524, 2526, 2528, 2530, 2532, 2534, 2536, 2538, 2540, 2542, 2544, 2546, 2548, 2550, 2552, 2554, 2556, 2558, 2560, 2562, 2564, 2566, 2568, 2570, 2572, 2574, 2576, 2578,
-      3078, 3080, 3082, 3084, 3086, 3088, 3090, 3092, 3094, 3096, 3098, 3100,
-      3578, 3580, 3582, 3584, 3586, 3588, 3590, 3592, 3594, 3596, 3598, 3600,
-      4078, 4080, 4082, 4084, 4086, 4088, 4090, 4092, 4094, 4096, 4098, 4100,
-      4578, 4580, 4582, 4584, 4586, 4588, 4590, 4592, 4594, 4596, 4598, 4600,
-      7004, 7006, 7008, 7010, 7012, 7014, 7016, 7018, 7020, 7022, 7024,
-      7504, 7506, 7508, 7510, 7512, 7514, 7516, 7518, 7520, 7522, 7524,
-      8000, 8002, 8004, 8006, 8008, 8010,
-      8500, 8502, 8504, 8506, 8508, 8510
+      7002, 7004,
+      7500, 7504,
+      8000, 8002,
+      8500
     ],
-    "Suite": [
-      1028, 1030, 1032, 1034, 1036, 1038, 1040, 1042, 1044, 1046, 1048, 1050, 1052, 1054,
-      1528, 1530, 1532, 1534, 1536, 1538, 1540, 1542, 1544, 1546, 1548, 1550, 1552, 1554
+    "Balcony": [
+      1000,
+      7112, 7114, 7546,
+      7610, 7612
     ],
     "_verification_source": "https://www.cruisedeckplans.com/ships/stateroom-details.php?ship=Brilliance-of-the-Seas&cabin={cabin}",
     "_verification_date": "2026-01-25",
-    "_verification_note": "Category overrides based on Radiance-class standard layout. Verified key cabins: 4531=Interior, 8000=Ocean View, 1054=Suite."
+    "_verification_note": "Each cabin individually checked via CruiseDeckPlans. Audit in progress - more cabins to verify.",
+    "_verified_count": 19
   },
-  "exceptions": [
-    {
-      "rooms": [7064, 7066, 7142, 7564, 7506, 8058, 8060, 8558, 8560, 8162, 8164, 8662, 8664],
-      "flag": "VIEW_OBSTRUCTED_LIFEBOAT",
-      "trust_score": 85,
-      "report_count": 8,
-      "evidence_summary": "Specific balcony cabins on Decks 7 and 8 have lifeboats directly below that block downward views to the sea. The obstruction is partial, leaving horizon views intact."
-    },
-    {
-      "rooms": [4000, 4002, 4004, 4006, 4008, 4010, 4012, 4014, 4016, 4018, 4020, 4022, 4024, 4026, 4028, 4030, 4032, 4034],
-      "flag": "NOISE_THEATER_BELOW",
-      "trust_score": 80,
-      "report_count": 7,
-      "evidence_summary": "Forward Deck 4 cabins adjacent to Pacifica Theater may pick up muffled music and vibrations from evening shows until around 11 PM."
-    },
-    {
-      "rooms": [1028, 1030, 1032, 1034, 1036, 1038, 1040, 1042, 1044, 1046, 1048, 1050, 1052, 1528, 1530, 1532, 1534, 1536, 1538, 1540, 1542, 1544, 1546, 1548, 1550, 1552],
-      "flag": "NOISE_POOL_ABOVE",
-      "trust_score": 82,
-      "report_count": 10,
-      "evidence_summary": "Deck 10 cabins below pool deck experience early morning chair scraping and setup noises around 5-6 AM."
-    },
-    {
-      "rooms": [9252, 9652],
-      "flag": "VIEW_OBSTRUCTED_STRUCTURAL",
-      "trust_score": 89,
-      "report_count": 7,
-      "evidence_summary": "Obstructed by window washing platform on Deck 9."
-    },
-    {
-      "rooms": [1054],
-      "flag": "NOISE_MULTIDECK_ATRIUM",
-      "trust_score": 82,
-      "report_count": 6,
-      "evidence_summary": "Suite near Centrum hears auctions and music penetrating walls. Late-night events can be disruptive."
-    }
-  ],
+  "exceptions": [],
   "removed_exceptions": [
     {
-      "original_rooms": "Deck 7 balcony cabins except 7104,7514",
-      "flag": "VIEW_PARTIAL_OVERHANG",
-      "removal_reason": "Text description - need specific cabin numbers for each partially obstructed balcony",
-      "removal_date": "2026-01-25"
-    },
-    {
-      "original_rooms": "All Deck 8 cabins",
-      "flag": "NOISE_POOL_ABOVE",
-      "removal_reason": "Too broad - Pool noise affects Deck 10 suites not Deck 8",
-      "removal_date": "2026-01-25"
-    },
-    {
-      "original_rooms": "forward decks 9-10",
-      "flag": "MOTION_FORWARD",
-      "removal_reason": "Too generic - motion is inherent and expected",
-      "removal_date": "2026-01-25"
-    },
-    {
-      "original_rooms": "all connecting cabins",
-      "flag": "CONNECTING_DOOR",
-      "removal_reason": "Generic text - need specific connecting cabin list",
+      "original_rooms": "Many pattern-generated cabin numbers",
+      "flag": "UNVERIFIED_DATA",
+      "removal_reason": "Previous file contained cabin numbers generated by patterns that don't exist on this ship. Cleared and replacing with individually verified cabins only.",
       "removal_date": "2026-01-25"
     }
   ],
-  "positive_oddballs": [
-    {
-      "rooms": [7004, 7504, 8000, 8002, 8500, 8502],
-      "flag": "OVERSIZED_FAMILY",
-      "trust_score": 92,
-      "report_count": 18,
-      "evidence_summary": "Ultra Spacious Ocean View (1K) / Family Ocean View (FO). 265-319 sq ft vs standard 164-179 sq ft. Feature bunks and sofa beds sleeping up to 6. Hidden gems for families."
-    },
-    {
-      "rooms": [7172, 7174, 7660, 7670, 8164, 8664, 8670],
-      "flag": "EXTENDED_AFT_BALCONY",
-      "trust_score": 88,
-      "report_count": 12,
-      "evidence_summary": "Extended aft balconies with 50-80 sq ft (vs standard 41-45 sq ft). Near-180° wake views."
-    }
-  ]
+  "positive_oddballs": []
 }
