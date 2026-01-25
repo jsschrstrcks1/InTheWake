@@ -25,7 +25,7 @@ You're working on **In the Wake**, a cruise planning website with an enhanced Cl
 ### 1. Start Here - The System:
 ```bash
 .claude/INSTALLATION.md           # Complete system documentation
-.claude/skill-rules.json          # Skill activation rules (7 skills)
+.claude/skill-rules.json          # Skill activation rules (8 skills)
 FOM_STANDARDS_ALIGNMENT.md        # How FOM integration aligns with CITW standards
 ```
 
@@ -347,7 +347,7 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 **What happened:**
 - FOM (Flickers of Majesty) had a 6-layer Claude Code enhancement system
 - We merged the "wheat" (cruise-relevant components) into CITW
-- Result: 7 skills total (1 CITW + 6 FOM adapted)
+- Result: 8 skill rules total (2 CITW original + 6 FOM adapted)
 
 **Key adaptations:**
 - FOM-Lite v1.0 → ITW-Lite v3.010
@@ -389,6 +389,10 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 ---
 
 ## 🔄 Version History
+
+**v1.1.3** (2026-01-25) — Documentation consistency update
+- Fixed remaining "7 skills" references to "8 skills" throughout document
+- Clarified CITW original skill count: 2 (standards + ship-page-validator)
 
 **v1.1.2** (2026-01-25) — Documentation accuracy update
 - Corrected skill count from 7 to 8 (includes ship-page-validator)

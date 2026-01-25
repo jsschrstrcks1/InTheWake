@@ -365,6 +365,10 @@ cat .claude/skill-rules.json | jq '.skills | keys'
 
 ## Version History
 
+**v1.1.3** (2026-01-25)
+- Documentation update: Fixed remaining "7 skills" references to "8 skills" in ONBOARDING.md
+- Clarified CITW original skill count: 2 (standards + ship-page-validator)
+
 **v1.1.2** (2026-01-25)
 - Documentation update: Corrected skill count from 7 to 8 (includes ship-page-validator)
 - Documentation update: Corrected hooks count from 2 to 3
