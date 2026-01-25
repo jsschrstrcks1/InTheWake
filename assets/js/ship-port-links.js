@@ -1,12 +1,12 @@
 /**
  * Ship-Port Cross-Linking Module
- * Version: 1.1.0
+ * Version: 1.2.0
  *
  * Provides bidirectional linking between ship and port pages:
  * - Port pages show "Ships That Visit Here"
  * - Ship pages show "Ports on This Ship's Itineraries"
  *
- * Supported cruise lines: Royal Caribbean, Carnival, Celebrity
+ * Supported cruise lines: Royal Caribbean, Carnival, Celebrity, Norwegian
  * Data source: /assets/data/ship-deployments.json
  */
 
@@ -34,6 +34,12 @@
       name: 'Celebrity Cruises',
       path: '/ships/celebrity-cruises/',
       bookingUrl: 'https://www.celebritycruises.com/cruise-ships/',
+      allShipsUrl: '/ships.html'
+    },
+    'ncl': {
+      name: 'Norwegian Cruise Line',
+      path: '/ships/ncl/',
+      bookingUrl: 'https://www.ncl.com/cruise-ships/',
       allShipsUrl: '/ships.html'
     }
   };
@@ -112,7 +118,9 @@
       'san-francisco': 'San Francisco',
       'buenos-aires': 'Buenos Aires',
       'punta-arenas': 'Punta Arenas',
-      'san-cristobal': 'San Cristóbal'
+      'san-cristobal': 'San Cristóbal',
+      'great-stirrup-cay': 'Great Stirrup Cay',
+      'new-york': 'New York'
     };
 
     if (specialNames[slug]) return specialNames[slug];
@@ -170,14 +178,16 @@
     const classOrders = {
       'rcl': ['Icon', 'Oasis', 'Quantum', 'Freedom', 'Voyager', 'Radiance', 'Vision', 'Other'],
       'carnival': ['Excel', 'Vista', 'Dream', 'Concordia', 'Venice', 'Destiny', 'Conquest', 'Spirit', 'Fantasy', 'Other'],
-      'celebrity': ['Edge', 'Solstice', 'Millennium', 'Expedition', 'Other']
+      'celebrity': ['Edge', 'Solstice', 'Millennium', 'Expedition', 'Other'],
+      'ncl': ['Prima', 'Breakaway Plus', 'Breakaway', 'Epic', 'Jewel', 'Dawn', 'Sun', 'Spirit', 'Sky', 'America', 'Other']
     };
 
     // Brand colors for cruise lines
     const brandColors = {
       'rcl': { bg: '#e6f4f8', border: '#b8d4e3', hover: '#d0e8f0', text: '#0e6e8e' },
       'carnival': { bg: '#fff3e6', border: '#e3c8b8', hover: '#ffe6cc', text: '#c74a35' },
-      'celebrity': { bg: '#f0f0f5', border: '#c0c0d0', hover: '#e0e0eb', text: '#1a1a4e' }
+      'celebrity': { bg: '#f0f0f5', border: '#c0c0d0', hover: '#e0e0eb', text: '#1a1a4e' },
+      'ncl': { bg: '#e6f0ff', border: '#b8c8e3', hover: '#d0e0f5', text: '#003087' }
     };
 
     let html = `
@@ -188,7 +198,7 @@
     `;
 
     // Render each cruise line's ships
-    const cruiseLineOrder = ['rcl', 'celebrity', 'carnival']; // Define display order
+    const cruiseLineOrder = ['rcl', 'celebrity', 'ncl', 'carnival']; // Define display order
     const activeCruiseLines = cruiseLineOrder.filter(cl => shipsByCruiseLine[cl]);
 
     activeCruiseLines.forEach((cruiseLineId, index) => {
