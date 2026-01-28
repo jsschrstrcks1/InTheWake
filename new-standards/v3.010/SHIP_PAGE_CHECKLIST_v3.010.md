@@ -209,13 +209,14 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 ```html
   <!-- Title & SEO -->
-  <title>{{SHIP_NAME}} — Deck Plans, Live Tracker, Dining & Videos | In the Wake (v3.010.300)</title>
+  <title>{{SHIP_NAME}} | {{CRUISE_LINE}} — Deck Plans, Live Tracker, Dining & Videos | In the Wake</title>
   <link rel="canonical" href="https://cruisinginthewake.com/ships/{{CRUISE_LINE_SLUG}}/{{SHIP_SLUG}}.html"/>
   <meta name="description" content="{{SHIP_NAME}}: deck plans, live tracker, dining venues, and stateroom videos. Plan your {{CRUISE_LINE}} cruise with In the Wake."/>
 ```
 
 **Checklist:**
-- [ ] Title format: `{{SHIP_NAME}} — Deck Plans, Live Tracker, Dining & Videos | In the Wake (v3.010.300)`
+- [ ] Title format: `{{SHIP_NAME}} | {{CRUISE_LINE}} — Deck Plans, Live Tracker, Dining & Videos | In the Wake`
+- [ ] Title includes cruise line name for brand keyword SEO
 - [ ] Canonical URL is absolute with production hostname
 - [ ] Description matches ai-summary content
 
@@ -227,7 +228,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- OpenGraph -->
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:title" content="{{SHIP_NAME}} — Deck Plans, Live Tracker, Dining & Videos"/>
+  <meta property="og:title" content="{{SHIP_NAME}} | {{CRUISE_LINE}} — Deck Plans, Live Tracker, Dining & Videos"/>
   <meta property="og:description" content="All the essentials for {{SHIP_NAME}}: live map, dining, stats, and videos."/>
   <meta property="og:url" content="https://cruisinginthewake.com/ships/{{CRUISE_LINE_SLUG}}/{{SHIP_SLUG}}.html"/>
   <meta property="og:locale" content="en_US"/>
@@ -246,7 +247,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 ```html
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="{{SHIP_NAME}} — Deck Plans, Live Tracker, Dining & Videos"/>
+  <meta name="twitter:title" content="{{SHIP_NAME}} | {{CRUISE_LINE}} — Deck Plans, Live Tracker, Dining & Videos"/>
   <meta name="twitter:description" content="Live tracker, dining, deck plans, and videos for {{SHIP_NAME}}."/>
   <meta name="twitter:image" content="https://cruisinginthewake.com/assets/ships/{{SHIP_SLUG}}1.webp"/>
 ```
@@ -420,7 +421,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "{{SHIP_NAME}} — Deck Plans, Live Tracker, Dining & Videos",
+    "name": "{{SHIP_NAME}} | {{CRUISE_LINE}} — Deck Plans, Live Tracker, Dining & Videos",
     "url": "https://cruisinginthewake.com/ships/{{CRUISE_LINE_SLUG}}/{{SHIP_SLUG}}.html",
     "description": "{{SHIP_NAME}}: deck plans, live tracker, dining venues, and stateroom videos. Plan your {{CRUISE_LINE}} cruise with In the Wake."
   }
@@ -726,7 +727,7 @@ The page uses a 2-column grid on desktop (main content + right rail):
 ### 9.3 H1 Heading (EXACTLY ONE)
 
 ```html
-      <h1 style="font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--sea); margin: 0.75rem 0 0.5rem;">{{SHIP_NAME}} — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
+      <h1 style="font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--sea); margin: 0.75rem 0 0.5rem;">{{SHIP_NAME}} | {{CRUISE_LINE}} — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
 ```
 
 **Checklist:**
@@ -744,7 +745,7 @@ Each ship page MUST have these sections:
 
 ```html
     <section class="page-intro" aria-label="{{SHIP_NAME}} overview">
-      <h1>{{SHIP_NAME}} — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
+      <h1>{{SHIP_NAME}} | {{CRUISE_LINE}} — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
 
       <p style="...">
         <strong style="...">Looking for {{SHIP_NAME}} planning info?</strong>
@@ -1105,11 +1106,12 @@ const SOURCES=[abs('/assets/data/videos/{{SHIP_SLUG}}.json'),abs('/ships/{{CRUIS
 - [ ] H1 matches title
 
 ### 12.5 SEO
-- [ ] Title follows format
+- [ ] Title follows format: `{{SHIP_NAME}} | {{CRUISE_LINE}} — Deck Plans, Live Tracker, Dining & Videos | In the Wake`
+- [ ] Title includes cruise line name for brand keyword SEO
 - [ ] Canonical URL is absolute
 - [ ] Description matches ai-summary
-- [ ] All 7 OpenGraph tags present
-- [ ] All 4 Twitter Card tags present
+- [ ] All 7 OpenGraph tags present (og:title includes cruise line)
+- [ ] All 4 Twitter Card tags present (twitter:title includes cruise line)
 
 ### 12.6 JSON-LD (7 Required Blocks)
 - [ ] Organization
