@@ -225,7 +225,7 @@ This section tracks work that was started but not completed in previous conversa
 
 ### 7. Stateroom Checker Data — Room-by-Room Audits 🟡 IN PROGRESS
 
-**Status:** 2026-01-28 — Vision + Radiance + Voyager + Freedom classes fully complete, Icon partial (17/29 RCL ships audited)
+**Status:** 2026-01-28 — Vision + Radiance + Voyager + Freedom + Oasis + Icon classes fully complete (24/29 RCL ships audited)
 
 **Recent Progress (2026-01-28):**
 - ✅ Created 241 baseline stateroom exception files for ALL cruise lines
@@ -234,7 +234,8 @@ This section tracks work that was started but not completed in previous conversa
 - ✅ Radiance-class RCL ships fully audited (4/4 complete): Radiance (639), Brilliance (710), Serenade (871), Jewel (810)
 - ✅ Voyager-class RCL ships fully audited (5/5 complete): Voyager (1,719), Explorer (1,691), Adventure (1,712), Navigator (1,709), Mariner (1,697)
 - ✅ Freedom-class RCL ships fully audited (3/3 complete): Freedom (2,031), Liberty (1,962), Independence (1,968)
-- ✅ Star of the Seas audited (2,789 cabins — Icon class)
+- ✅ Oasis-class RCL ships fully audited (6/6 complete): Oasis (2,961), Allure (2,964), Harmony (2,839), Symphony (2,803), Wonder (2,935), Utopia (2,965)
+- ✅ Icon-class RCL ships fully audited (2/2 complete): Star (2,789), Icon (2,817)
 
 **Baseline File Strategy:**
 New ships get "safe baseline" files with:
@@ -267,18 +268,18 @@ The `inferCategory()` heuristic is wrong for many cabins. The fix is `category_o
 | **Freedom** | Freedom of the Seas | ✅ AUDITED | 2,031 cabins via iCruise |
 | **Freedom** | Liberty of the Seas | ✅ AUDITED | 1,962 cabins via iCruise |
 | **Freedom** | Independence of the Seas | ✅ AUDITED | 1,968 cabins via iCruise |
-| **Oasis** | Oasis of the Seas | ❌ NEEDS AUDIT | |
-| **Oasis** | Allure of the Seas | ❌ NEEDS AUDIT | |
-| **Oasis** | Harmony of the Seas | ❌ NEEDS AUDIT | |
-| **Oasis** | Symphony of the Seas | ❌ NEEDS AUDIT | |
-| **Oasis** | Wonder of the Seas | ❌ NEEDS AUDIT | |
-| **Oasis** | Utopia of the Seas | ❌ NEEDS AUDIT | |
+| **Oasis** | Oasis of the Seas | ✅ AUDITED | 2,961 cabins via iCruise |
+| **Oasis** | Allure of the Seas | ✅ AUDITED | 2,964 cabins via iCruise |
+| **Oasis** | Harmony of the Seas | ✅ AUDITED | 2,839 cabins via iCruise |
+| **Oasis** | Symphony of the Seas | ✅ AUDITED | 2,803 cabins via iCruise |
+| **Oasis** | Wonder of the Seas | ✅ AUDITED | 2,935 cabins via iCruise |
+| **Oasis** | Utopia of the Seas | ✅ AUDITED | 2,965 cabins via iCruise |
 | **Quantum** | Quantum of the Seas | ❌ NEEDS AUDIT | |
 | **Quantum** | Anthem of the Seas | ❌ NEEDS AUDIT | |
 | **Quantum** | Ovation of the Seas | ❌ NEEDS AUDIT | |
 | **Quantum** | Spectrum of the Seas | ❌ NEEDS AUDIT | |
 | **Quantum** | Odyssey of the Seas | ❌ NEEDS AUDIT | |
-| **Icon** | Icon of the Seas | ❌ NEEDS AUDIT | |
+| **Icon** | Icon of the Seas | ✅ AUDITED | 2,817 cabins via iCruise |
 | **Icon** | Star of the Seas | ✅ AUDITED | 2,789 cabins via iCruise |
 
 **Tasks:**
@@ -290,9 +291,9 @@ The `inferCategory()` heuristic is wrong for many cabins. The fix is `category_o
 | Audit Radiance-class ships | ✅ DONE (4/4 ships) |
 | Audit Voyager-class ships | ✅ DONE (5/5 ships) |
 | Audit Freedom-class ships | ✅ DONE (3/3 ships) |
-| Audit Oasis-class ships | NOT STARTED (0/6 ships) |
+| Audit Oasis-class ships | ✅ DONE (6/6 ships) |
 | Audit Quantum-class ships | NOT STARTED (0/5 ships) |
-| Audit Icon-class ships | IN PROGRESS (1/2 ships — Star done) |
+| Audit Icon-class ships | ✅ DONE (2/2 ships) |
 | Test stateroom checker after all RCL audits | NOT STARTED |
 
 **Technical Notes:**
@@ -302,7 +303,7 @@ The `inferCategory()` heuristic is wrong for many cabins. The fix is `category_o
 - Promenade View (2T, CP) and Virtual Balcony (2U, 4U) cabins classified as Interior per project convention
 - Voyager-class cabin numbering: 1xxx = Decks 10-12, 2xxx = Deck 2, 3xxx = Deck 3, 6-9xxx = Decks 6-9
 - Sister ships within a class often share layouts (can copy overrides with verification)
-- iCruise WMPHShipCodes: Voyager=5, Explorer=6, Adventure=7, Navigator=96, Mariner=141, Freedom=182, Liberty=222, Independence=236
+- iCruise WMPHShipCodes: Voyager=5, Explorer=6, Adventure=7, Navigator=96, Mariner=141, Freedom=182, Liberty=222, Independence=236, Oasis=292, Allure=293, Harmony=532, Symphony=597, Wonder=708, Icon=791, Utopia=812, Star=828
 
 ---
 
