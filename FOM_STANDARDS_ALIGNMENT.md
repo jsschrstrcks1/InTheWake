@@ -3,6 +3,12 @@
 **Date:** 2025-11-24
 **FOM Commit:** 77e804d
 **Verification Status:** ✅ **FULLY ALIGNED**
+**Last Reviewed:** 2026-01-28
+
+> **Note:** This document was created during the original FOM integration (2025-11-24).
+> Since then: ICP-Lite has been updated to **v1.4** (was v1.0), a **3rd hook** was added
+> (ship-page-validator), and an **8th skill** was added (ship-page-validator).
+> All references below reflect the state at verification time unless annotated.
 
 ---
 
@@ -293,7 +299,7 @@ All FOM components integrate cleanly with existing CITW standards:
 6. ✅ performance-analyzer
 7. ✅ 5 plugins (SEO, accessibility, performance)
 8. ✅ 4 commands (/commit, /create-pr, /update-docs, /add-to-changelog)
-9. ✅ 2 hooks (skill-activation, tool-use-tracker)
+9. ✅ 3 hooks (skill-activation, tool-use-tracker, ship-page-validator)
 
 ---
 
