@@ -225,7 +225,7 @@ This section tracks work that was started but not completed in previous conversa
 
 ### 7. Stateroom Checker Data — Room-by-Room Audits 🟡 IN PROGRESS
 
-**Status:** 2026-01-28 — Vision + Radiance + Voyager classes fully complete, Icon partial (14/29 RCL ships audited)
+**Status:** 2026-01-28 — Vision + Radiance + Voyager + Freedom classes fully complete, Icon partial (17/29 RCL ships audited)
 
 **Recent Progress (2026-01-28):**
 - ✅ Created 241 baseline stateroom exception files for ALL cruise lines
@@ -233,6 +233,7 @@ This section tracks work that was started but not completed in previous conversa
 - ✅ Vision-class RCL ships fully audited with category_overrides (4/4 complete)
 - ✅ Radiance-class RCL ships fully audited (4/4 complete): Radiance (639), Brilliance (710), Serenade (871), Jewel (810)
 - ✅ Voyager-class RCL ships fully audited (5/5 complete): Voyager (1,719), Explorer (1,691), Adventure (1,712), Navigator (1,709), Mariner (1,697)
+- ✅ Freedom-class RCL ships fully audited (3/3 complete): Freedom (2,031), Liberty (1,962), Independence (1,968)
 - ✅ Star of the Seas audited (2,789 cabins — Icon class)
 
 **Baseline File Strategy:**
@@ -263,9 +264,9 @@ The `inferCategory()` heuristic is wrong for many cabins. The fix is `category_o
 | **Voyager** | Adventure of the Seas | ✅ AUDITED | 1,712 cabins via iCruise |
 | **Voyager** | Navigator of the Seas | ✅ AUDITED | 1,709 cabins via iCruise |
 | **Voyager** | Mariner of the Seas | ✅ AUDITED | 1,697 cabins via iCruise |
-| **Freedom** | Freedom of the Seas | ❌ NEEDS AUDIT | |
-| **Freedom** | Liberty of the Seas | ❌ NEEDS AUDIT | |
-| **Freedom** | Independence of the Seas | ❌ NEEDS AUDIT | |
+| **Freedom** | Freedom of the Seas | ✅ AUDITED | 2,031 cabins via iCruise |
+| **Freedom** | Liberty of the Seas | ✅ AUDITED | 1,962 cabins via iCruise |
+| **Freedom** | Independence of the Seas | ✅ AUDITED | 1,968 cabins via iCruise |
 | **Oasis** | Oasis of the Seas | ❌ NEEDS AUDIT | |
 | **Oasis** | Allure of the Seas | ❌ NEEDS AUDIT | |
 | **Oasis** | Harmony of the Seas | ❌ NEEDS AUDIT | |
@@ -288,7 +289,7 @@ The `inferCategory()` heuristic is wrong for many cabins. The fix is `category_o
 | Audit Vision-class ships | ✅ DONE (4/4 ships) |
 | Audit Radiance-class ships | ✅ DONE (4/4 ships) |
 | Audit Voyager-class ships | ✅ DONE (5/5 ships) |
-| Audit Freedom-class ships | NOT STARTED (0/3 ships) |
+| Audit Freedom-class ships | ✅ DONE (3/3 ships) |
 | Audit Oasis-class ships | NOT STARTED (0/6 ships) |
 | Audit Quantum-class ships | NOT STARTED (0/5 ships) |
 | Audit Icon-class ships | IN PROGRESS (1/2 ships — Star done) |
@@ -301,7 +302,7 @@ The `inferCategory()` heuristic is wrong for many cabins. The fix is `category_o
 - Promenade View (2T, CP) and Virtual Balcony (2U, 4U) cabins classified as Interior per project convention
 - Voyager-class cabin numbering: 1xxx = Decks 10-12, 2xxx = Deck 2, 3xxx = Deck 3, 6-9xxx = Decks 6-9
 - Sister ships within a class often share layouts (can copy overrides with verification)
-- iCruise WMPHShipCodes: Voyager=5, Explorer=6, Adventure=7, Navigator=96, Mariner=141
+- iCruise WMPHShipCodes: Voyager=5, Explorer=6, Adventure=7, Navigator=96, Mariner=141, Freedom=182, Liberty=222, Independence=236
 
 ---
 
