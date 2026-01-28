@@ -50,36 +50,59 @@ Primary: https://www.cruisedeckplans.com/ships/stateroom-details.php?ship={ship-
 
 ## Progress Tracking
 
-### Current Ship: Radiance of the Seas
-- Total cabins: 1,061
-- Verified so far: 75
-- Remaining: 986
+### Royal Caribbean Fleet Status (29 ships total)
 
-### Deck Progress (Radiance of the Seas)
-| Deck | Total Cabins | Verified | Remaining |
-|------|--------------|----------|-----------|
-| 2    | TBD          | 4        | TBD       |
-| 3    | TBD          | 8        | TBD       |
-| 4    | TBD          | 6        | TBD       |
-| 7    | TBD          | 8        | TBD       |
-| 8    | TBD          | 15       | TBD       |
-| 9    | TBD          | 4        | TBD       |
-| 10   | TBD          | 30       | TBD       |
+#### Ships Completed (6)
+| Ship | Class | Cabins | Completion Date |
+|------|-------|--------|-----------------|
+| Radiance of the Seas | Radiance | 618 | 2026-01-25 |
+| Brilliance of the Seas | Radiance | 655 | 2026-01-25 |
+| Serenade of the Seas | Radiance | 873 | 2026-01-25 |
+| Jewel of the Seas | Radiance | 810 | 2026-01-28 |
+| Grandeur of the Seas | Vision | 662 | 2026-01-28 |
+| Enchantment of the Seas | Vision | ~540 | 2026-01-28 |
 
-## Ships In Progress
-1. Jewel of the Seas - 0/~650 verified (RESTARTED - previous data was pattern-based)
-2. Voyager of the Seas - 27/~3,100 verified
+#### Ships In Progress (1)
+| Ship | Class | Progress | Notes |
+|------|-------|----------|-------|
+| Voyager of the Seas | Voyager | 27/~3,100 | Large ship - ongoing |
 
-## Ships Completed
-1. Radiance of the Seas - 618 cabins verified (COMPLETE)
-2. Brilliance of the Seas - 655 cabins verified (COMPLETE)
-3. Serenade of the Seas - 873 cabins verified (COMPLETE)
+#### Ships Remaining (22)
+**Vision Class (smaller, ~800 cabins):**
+- Rhapsody of the Seas
+- Vision of the Seas
+
+**Voyager Class (~3,100 cabins):**
+- Adventure of the Seas
+- Explorer of the Seas
+- Mariner of the Seas
+- Navigator of the Seas
+
+**Freedom Class (~3,600 cabins):**
+- Freedom of the Seas
+- Independence of the Seas
+- Liberty of the Seas
+
+**Oasis Class (~5,400+ cabins):**
+- Allure of the Seas
+- Harmony of the Seas
+- Oasis of the Seas
+- Symphony of the Seas
+- Wonder of the Seas
+- Utopia of the Seas
+
+**Quantum Class (~4,100 cabins):**
+- Anthem of the Seas
+- Ovation of the Seas
+- Quantum of the Seas
+- Spectrum of the Seas
+- Odyssey of the Seas
+
+**Icon Class (~5,600 cabins):**
+- Icon of the Seas
+- Star of the Seas
 
 ## Next Steps
-Continue Radiance of the Seas:
-1. Get complete cabin list for Deck 2
-2. Verify each cabin on Deck 2
-3. Move to Deck 3
-4. Continue until all 1,061 cabins verified
-5. Mark ship as COMPLETED
-6. Move to next ship
+1. Complete remaining Vision class ships (Rhapsody, Vision) - smaller ships ~800 cabins each
+2. Continue Voyager class verification
+3. Progress to larger classes
