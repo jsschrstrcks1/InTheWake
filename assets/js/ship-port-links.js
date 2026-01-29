@@ -1,6 +1,6 @@
 /**
  * Ship-Port Cross-Linking Module
- * Version: 1.13.0
+ * Version: 1.14.0
  *
  * Provides bidirectional linking between ship and port pages:
  * - Port pages show "Ships That Visit Here"
@@ -387,9 +387,12 @@
 
     let html = `
       <h2 id="ports-itinerary-title">Ports on ${shipData.name}'s Itineraries</h2>
-      <p style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a);">
+      <p style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a);">
         ${shipData.name} typically sails from <strong>${homeports.map(formatPortName).join(', ')}</strong>
         on ${regions.map(r => r.replace(/-/g, ' ')).join(', ')} cruises.
+      </p>
+      <p style="margin-bottom: 1rem; font-size: 0.95rem; color: var(--ink, #1a2a3a);">
+        <strong>Plan your shore days:</strong> Each port guide includes weather forecasts, best time to visit, what to pack, and local tips from cruisers who've been there.
       </p>
       <div class="port-links" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
     `;
@@ -410,7 +413,7 @@
       </div>
       <p class="tiny" style="color: var(--ink-light, #6b8a9a);">
         Itineraries vary by season. Check <a href="${lineInfo.bookingUrl}${shipSlug}" target="_blank" rel="noopener">${lineInfo.name}</a> for current sailings.
-        <br><a href="/ports.html">Browse all 380+ port guides →</a>
+        <br><a href="/ports.html">Explore all 380+ port guides with weather, tips & excursions →</a>
       </p>
     `;
 
