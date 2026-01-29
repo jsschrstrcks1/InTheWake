@@ -56,7 +56,7 @@ Required:
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="index, follow">
 <meta name="version" content="3.007.010">
-<title>Grandeur of the Seas — Deck Plans, Live Tracker, Dining & Videos | In the Wake</title>
+<title>Grandeur of the Seas | Royal Caribbean — Deck Plans, Live Tracker, Dining & Videos | In the Wake</title>
 <meta name="description" content="...">
 <meta name="theme-color" content="#0e6e8e"> <!-- optional but recommended -->
 ```
@@ -74,7 +74,7 @@ Required:
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="In the Wake">
 <meta property="og:url" content="https://cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html">
-<meta property="og:title" content="Grandeur of the Seas — Deck Plans, Live Tracker, Dining & Videos">
+<meta property="og:title" content="Grandeur of the Seas | Royal Caribbean — Deck Plans, Live Tracker, Dining & Videos">
 <meta property="og:description" content="All the essentials for Grandeur of the Seas: live map (auto-refresh), dining, stats, and videos.">
 <meta property="og:image" content="https://cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.010">
 <meta name="twitter:card" content="summary_large_image">
