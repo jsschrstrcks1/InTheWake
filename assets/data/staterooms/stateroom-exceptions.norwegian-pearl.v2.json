@@ -1,0 +1,71 @@
+{
+  "ship_name": "Norwegian Pearl",
+  "ship_class": "Jewel",
+  "launch_year": 2006,
+  "last_refurbishment": 2021,
+  "data_version": "2.0",
+  "last_updated": "2026-01-29",
+  "audit_notes": "2026-01-29: Cabin-by-cabin verification via CruiseDeckPlans. Deck 8 lifeboat obstructions, Club Suite bathtub removals verified. Sister ship to Norwegian Jewel.",
+  "total_exceptions": 3,
+  "cabin_decks": "4, 5, 8, 9, 10, 11, 14, 15",
+  "methodology": "Individual cabin verification via cruisedeckplans.com stateroom-details lookup. 404 responses indicate non-existent cabins.",
+  "trust_note": "Verified via CruiseDeckPlans individual cabin lookups. Jewel class ship with Haven suites.",
+  "exceptions": [
+    {
+      "rooms": "8100, 8102, 8600, 8602",
+      "flag": "VIEW_OBSTRUCTED_100_PERCENT",
+      "severity": "critical",
+      "source": "cruisedeckplans.com",
+      "confidence": "verified",
+      "notes": "Deck 8 handicap-accessible oceanview cabins with 100% obstructed views due to lifeboats. L-shaped layout with beds that cannot be joined. Hard chair seating only."
+    },
+    {
+      "rooms": "8100, 8102, 8600, 8602",
+      "flag": "BATHROOM_OPEN_PLAN",
+      "severity": "low",
+      "source": "cruisedeckplans.com",
+      "confidence": "verified",
+      "notes": "Handicap-accessible oceanview cabins have bathroom as one large room with no dividers"
+    },
+    {
+      "rooms": "11100, 11500",
+      "flag": "NO_BATHTUB_POST_2021",
+      "severity": "moderate",
+      "source": "cruisedeckplans.com",
+      "confidence": "verified",
+      "notes": "Club Suites (Mini-Suites) - bathtubs being removed as of December 2021. Some cabins may still have tubs."
+    }
+  ],
+  "category_overrides": {
+    "_verification_source": "cruisedeckplans.com individual cabin lookups",
+    "_verification_date": "2026-01-29",
+    "_verification_note": "Cabin categories verified via individual page lookups. Jewel class ship (sister to Norwegian Jewel).",
+    "Suite": [
+      "9000",
+      "11100", "11500",
+      "14000",
+      "15000"
+    ],
+    "Balcony": [
+    ],
+    "Ocean View": [
+      "4500",
+      "5000",
+      "8100", "8102", "8600", "8602"
+    ],
+    "Interior": [
+      "9055"
+    ]
+  },
+  "handicap_accessible": [
+    "8100", "8102", "8600", "8602"
+  ],
+  "verification_notes": [
+    "2026-01-29: Verified deck 8 obstructed views - handicap oceanview cabins 8100, 8102, 8600, 8602 have 100% obstructed views",
+    "2026-01-29: Handicap cabins have open-plan bathroom with no dividers, L-shaped layout, beds cannot be joined",
+    "2026-01-29: Club Suites (11100, 11500) undergoing bathtub removal as of December 2021",
+    "2026-01-29: Sister ship to Norwegian Jewel with similar cabin layout",
+    "2026-01-29: Haven suites on decks 14-15"
+  ],
+  "removed_exceptions": []
+}
