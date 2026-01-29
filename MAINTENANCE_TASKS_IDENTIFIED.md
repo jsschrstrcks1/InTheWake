@@ -419,12 +419,32 @@ Active plan files in `.claude/`:
 
 ## Summary Statistics
 
-| Category | Total | Passing | Failing | Error Count |
-|----------|-------|---------|---------|-------------|
-| Ship Pages | 311 | 106 (34%) | 205 (66%) | 981 blocking |
-| Port Pages | 380 | 89 (23%) | 291 (77%) | Unknown |
-| ICP-Lite | 1,036 | 1,036 (100%) | 0 | 0 |
-| Vanilla Stories | 157 ships | 0 | 157 | ~1,570 stories needed |
+### Unified Validator Results (2026-01-29)
+
+| Category | Total | Passing | Failing | Pass Rate |
+|----------|-------|---------|---------|-----------|
+| **All Pages** | 977 | 277 | 700 | **28%** |
+| Port Pages | 380 | 125 | 255 | 33% |
+| Ship Pages | 299 | 75 | 224 | 25% |
+| Venue Pages | 280 | 62 | 218 | 22% |
+| Index Pages | 15 | 14 | 1 | 93% |
+| Article Pages | 3 | 2 | 1 | 67% |
+
+### Content Debt
+
+| Category | Count | Notes |
+|----------|-------|-------|
+| ICP-Lite Compliance | 100% | All 1,036 pages compliant |
+| Vanilla Stories | ~1,570 | Needed across 157 ships (12 cruise lines) |
+| Missing Images | 50+ | References to non-existent files |
+
+### Common Validation Failures
+
+1. **Missing local images** - References to `/assets/capn-ken.png` and ship images that don't exist
+2. **Type-specific validator failures** - Ship/port/venue validators need cheerio dependency
+3. **Missing analytics scripts** - Google Analytics or Umami missing on some pages
+4. **Missing canonical URLs** - Several pages without canonical link tags
+5. **Short meta descriptions** - Pages with missing or too-short descriptions
 
 ### Top 5 Immediate Actions
 
