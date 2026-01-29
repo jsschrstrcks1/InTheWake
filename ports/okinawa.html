@@ -116,6 +116,26 @@ Soli Deo Gloria
 
       <p class="last-reviewed">Last reviewed: January 2026</p>
 
+
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" aria-label="Weather and Best Time to Visit" open>
+        <details class="section-collapse" open>
+          <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+          <div class="collapse-body">
+            <div id="port-weather-widget"
+             data-port-id="okinawa"
+             data-port-name="Okinawa"
+             data-lat="26.2124"
+             data-lon="127.6809"
+             data-region="Asia">
+          <noscript>
+            <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions, seasonal guide, and 48-hour forecast.</em></p>
+          </noscript>
+            </div>
+          </div>
+        </details>
+      </details>
+
       <h1>Okinawa: Where Ancient Ryukyu Meets Tropical Paradise</h1>
 
       <div class="logbook-entry clearfix">
@@ -241,5 +261,7 @@ Soli Deo Gloria
   <script src="/assets/js/modules/port-map.js" defer></script>
   <script src="/assets/js/nearby-ports.js" defer></script>
   <script>if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') { PortMap.init({ containerId: 'port-map', portSlug: 'okinawa' }); }</script>
+  <!-- Port Weather Widget -->
+  <script type="module" src="/assets/js/port-weather.js"></script>
 </body>
 </html>
