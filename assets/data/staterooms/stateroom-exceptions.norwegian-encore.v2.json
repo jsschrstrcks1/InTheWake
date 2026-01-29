@@ -5,116 +5,33 @@
   "last_refurbishment": null,
   "data_version": "2.0",
   "last_updated": "2026-01-29",
-  "audit_notes": "2026-01-29: Initial cabin verification based on deck plan analysis and cruise expert sources. Room-by-room verification in progress.",
-  "total_exceptions": 6,
-  "cabin_decks": "5, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18",
-  "methodology": "Room-by-room verification via CruiseDeckPlans, CruiseMapper, and cruise expert sources",
-  "trust_note": "Exception data based on deck plan venue locations and community reports. Specific cabin numbers subject to refinement.",
-  "category_overrides": {
-    "_verification_source": "CruiseMapper, NCL Deck Plans",
-    "_verification_date": "2026-01-29",
-    "_verification_note": "Breakaway Plus class cabin layout: first 1-2 digits=deck (5,8-15,17,18), remaining digits=position."
-  },
+  "audit_notes": "2026-01-29: Cabin-by-cabin verification via CruiseDeckPlans. Breakaway Plus class ship.",
+  "total_exceptions": 1,
+  "cabin_decks": "5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19",
+  "methodology": "Individual cabin verification via cruisedeckplans.com stateroom-details lookup. 404 responses indicate non-existent cabins.",
+  "trust_note": "Verified via CruiseDeckPlans individual cabin lookups. Breakaway Plus class ship (sister to Escape, Joy, Bliss).",
   "exceptions": [
     {
-      "id": "ENCORE-001",
-      "rooms": "8100-8200,8700-8800",
-      "flag": "NOISE_THEATER_BELOW",
-      "trust_score": 82,
-      "ai_citation_score": 80,
-      "consensus_level": "high",
-      "report_count": 18,
-      "date_range": "2019-2026",
-      "refit_adjustment": null,
-      "verified_by": "Deck plan analysis",
-      "evidence_summary": "Deck 8 forward cabins located directly above the Encore Theater (Deck 6-7, 800-seat main show lounge). Bass from productions and late-night shows may transmit through deck. Theater spans two levels below.",
-      "sources": [
-        {"site": "CruiseMapper", "url": "https://www.cruisemapper.com/deckplans/Norwegian-Encore-1518", "count": 1},
-        {"site": "NCL", "url": "https://www.ncl.com/cruise-ships/norwegian-encore/deck-plans", "count": 1}
-      ]
-    },
-    {
-      "id": "ENCORE-002",
-      "rooms": "8250-8350,8850-8950",
-      "flag": "NOISE_NIGHTCLUB_BELOW",
-      "trust_score": 85,
-      "ai_citation_score": 82,
-      "consensus_level": "high",
-      "report_count": 22,
-      "date_range": "2019-2026",
-      "refit_adjustment": null,
-      "verified_by": "Deck plan analysis",
-      "evidence_summary": "Deck 8 midship cabins above Social Comedy & Night Club (Deck 6). Late-night bass from club and comedy shows until 2 AM. Multiple cruise forum reports of noise issues.",
-      "sources": [
-        {"site": "CruiseMapper", "url": "https://www.cruisemapper.com/deckplans/Norwegian-Encore-1518/deck06-5673", "count": 1},
-        {"site": "CruiseCritic", "url": "https://boards.cruisecritic.com/topic/2872198-norwegian-encore-deck-8-state-rooms-noise/", "count": 1}
-      ]
-    },
-    {
-      "id": "ENCORE-003",
-      "rooms": "15100-15200,15700-15800",
-      "flag": "NOISE_FITNESS_ABOVE",
-      "trust_score": 85,
-      "ai_citation_score": 83,
-      "consensus_level": "high",
-      "report_count": 15,
-      "date_range": "2019-2026",
-      "refit_adjustment": null,
-      "verified_by": "Deck plan analysis",
-      "evidence_summary": "Deck 15 forward cabins directly below Pulse Fitness Center (Deck 16). Free weights area noise, treadmill vibration, and early morning/late night crew usage reported.",
-      "sources": [
-        {"site": "CruiseMapper", "url": "https://www.cruisemapper.com/cabins/Norwegian-Encore-1518", "count": 1},
-        {"site": "CruiseMummy", "url": "https://www.cruisemummy.co.uk/ncl-cabins-to-avoid/", "count": 1}
-      ]
-    },
-    {
-      "id": "ENCORE-004",
-      "rooms": "15300-15500,15900-16100",
-      "flag": "NOISE_POOL_ABOVE",
-      "trust_score": 80,
-      "ai_citation_score": 78,
-      "consensus_level": "medium",
-      "report_count": 12,
-      "date_range": "2019-2026",
-      "refit_adjustment": null,
-      "verified_by": "Deck plan analysis",
-      "evidence_summary": "Deck 15 midship cabins below main pool and Kids Aqua Park (Deck 16). Early morning deck chair setup noise, pool activity during day, occasional entertainment events.",
-      "sources": [
-        {"site": "CruiseMapper", "url": "https://www.cruisemapper.com/deckplans/Norwegian-Encore-1518", "count": 1}
-      ]
-    },
-    {
-      "id": "ENCORE-005",
-      "rooms": "5100-5200,5700-5800",
-      "flag": "MOTION_LOW_DECK",
-      "trust_score": 75,
-      "ai_citation_score": 72,
-      "consensus_level": "medium",
-      "report_count": 8,
-      "date_range": "2019-2026",
-      "refit_adjustment": null,
-      "verified_by": "General cruise guidance",
-      "evidence_summary": "Deck 5 cabins (lowest passenger deck) may experience more pronounced motion and engine vibration, particularly in forward positions. Some reports of 'washing machine' sensation during rough seas.",
-      "sources": [
-        {"site": "CruiseMummy", "url": "https://www.cruisemummy.co.uk/ncl-cabins-to-avoid/", "count": 1}
-      ]
-    },
-    {
-      "id": "ENCORE-006",
-      "rooms": "Studio cabins: 10100-10140,10700-10740,11100-11140,11700-11740,12100-12140,12700-12740",
-      "flag": "CONNECTING_DOOR",
-      "trust_score": 70,
-      "ai_citation_score": 68,
-      "consensus_level": "low",
-      "report_count": 5,
-      "date_range": "2019-2026",
-      "refit_adjustment": null,
-      "verified_by": "General NCL guidance",
-      "evidence_summary": "Studio cabins on Decks 10-12 may have interconnecting doors with adjacent cabins. Sound insulation through these doors varies. Note: Studios have exclusive Studio Lounge access which partially offsets this concern.",
-      "sources": [
-        {"site": "CruiseMummy", "url": "https://www.cruisemummy.co.uk/ncl-cabins-to-avoid/", "count": 1}
-      ]
+      "rooms": "5138, 5140, 5738, 5740",
+      "flag": "NO_BATHTUB",
+      "severity": "moderate",
+      "source": "cruisedeckplans.com",
+      "confidence": "verified",
+      "notes": "Family Oceanview cabins 5138, 5140, 5738, 5740 do not have bathtubs unlike other Family Oceanview cabins. These are handicap-accessible (363 sq ft)."
     }
+  ],
+  "category_overrides": {
+    "_verification_source": "cruisedeckplans.com individual cabin lookups",
+    "_verification_date": "2026-01-29",
+    "_verification_note": "Cabin categories verified via individual page lookups. Breakaway Plus class ship built 2019 (2043 cabins)."
+  },
+  "handicap_accessible": [
+    "5138", "5140", "5738", "5740"
+  ],
+  "verification_notes": [
+    "2026-01-29: Same exception pattern as sister ships (Escape, Joy, Bliss)",
+    "2026-01-29: Family Oceanview handicap cabins 5138, 5140, 5738, 5740 have no bathtub",
+    "2026-01-29: Newest Breakaway Plus class ship, 2043 staterooms"
   ],
   "removed_exceptions": []
 }
