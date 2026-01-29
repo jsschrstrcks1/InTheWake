@@ -1,0 +1,56 @@
+{
+  "ship_name": "Norwegian Gem",
+  "ship_class": "Jewel",
+  "launch_year": 2007,
+  "last_refurbishment": null,
+  "data_version": "2.0",
+  "last_updated": "2026-01-29",
+  "audit_notes": "2026-01-29: Cabin-by-cabin verification via CruiseDeckPlans. Deck 8 lifeboat obstructions, deck 11 balcony privacy issues verified.",
+  "total_exceptions": 2,
+  "cabin_decks": "4, 5, 8, 9, 10, 11, 14, 15",
+  "methodology": "Individual cabin verification via cruisedeckplans.com stateroom-details lookup. 404 responses indicate non-existent cabins.",
+  "trust_note": "Verified via CruiseDeckPlans individual cabin lookups. Jewel class ship with Haven suites.",
+  "exceptions": [
+    {
+      "rooms": "8100, 8102, 8600, 8602",
+      "flag": "VIEW_OBSTRUCTED_100_PERCENT",
+      "severity": "critical",
+      "source": "cruisedeckplans.com",
+      "confidence": "verified",
+      "notes": "Deck 8 handicap-accessible oceanview cabins with 100% obstructed views due to lifeboats"
+    },
+    {
+      "rooms": "11100, 11500",
+      "flag": "BALCONY_PRIVACY_LIMITED",
+      "severity": "moderate",
+      "source": "cruisedeckplans.com",
+      "confidence": "verified",
+      "notes": "Category MB aft mini suites on deck 11 have partitions that go up at an angle and offer very little privacy"
+    }
+  ],
+  "category_overrides": {
+    "_verification_source": "cruisedeckplans.com individual cabin lookups",
+    "_verification_date": "2026-01-29",
+    "_verification_note": "Cabin categories verified via individual page lookups. Jewel class ship (built 2007).",
+    "Suite": [
+      "11100", "11500"
+    ],
+    "Balcony": [
+    ],
+    "Ocean View": [
+      "8100", "8102", "8600", "8602"
+    ],
+    "Interior": [
+    ]
+  },
+  "handicap_accessible": [
+    "8100", "8102", "8600", "8602"
+  ],
+  "verification_notes": [
+    "2026-01-29: Verified deck 8 obstructed views - handicap oceanview cabins 8100, 8102, 8600, 8602 have 100% obstructed views",
+    "2026-01-29: Deck 11 aft MB category mini suites have angled partitions offering little balcony privacy",
+    "2026-01-29: Club Suites still have bathtubs (no removal like on Jewel/Pearl)",
+    "2026-01-29: Jewel class ship built in 2007"
+  ],
+  "removed_exceptions": []
+}
