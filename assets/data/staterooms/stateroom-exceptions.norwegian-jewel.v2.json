@@ -1,0 +1,84 @@
+{
+  "ship_name": "Norwegian Jewel",
+  "ship_class": "Jewel",
+  "launch_year": 2005,
+  "last_refurbishment": 2021,
+  "data_version": "2.0",
+  "last_updated": "2026-01-29",
+  "audit_notes": "2026-01-29: Cabin-by-cabin verification via CruiseDeckPlans. Deck 8 lifeboat obstructions, bathtub removals verified.",
+  "total_exceptions": 4,
+  "cabin_decks": "4, 5, 8, 9, 10, 11, 14, 15",
+  "methodology": "Individual cabin verification via cruisedeckplans.com stateroom-details lookup. 404 responses indicate non-existent cabins.",
+  "trust_note": "Verified via CruiseDeckPlans individual cabin lookups. Jewel class ship with Haven suites.",
+  "exceptions": [
+    {
+      "rooms": "8100, 8102, 8600, 8602",
+      "flag": "VIEW_OBSTRUCTED_100_PERCENT",
+      "severity": "critical",
+      "source": "cruisedeckplans.com",
+      "confidence": "verified",
+      "notes": "Deck 8 handicap-accessible oceanview cabins with 100% obstructed views due to lifeboats. Some have frosted windows that cannot be looked through."
+    },
+    {
+      "rooms": "8100, 8102, 8600, 8602",
+      "flag": "FROSTED_WINDOW",
+      "severity": "critical",
+      "source": "cruisedeckplans.com",
+      "confidence": "verified",
+      "notes": "Category OK and OX cabins may have frosted windows that cannot be looked through, in addition to lifeboat obstruction"
+    },
+    {
+      "rooms": "9000, 9002, 9500, 10000, 10500",
+      "flag": "NO_BATHTUB_POST_2021",
+      "severity": "moderate",
+      "source": "cruisedeckplans.com",
+      "confidence": "verified",
+      "notes": "Penthouse suites no longer have bathtubs after December 22, 2021 refurbishment"
+    },
+    {
+      "rooms": "11100, 11500",
+      "flag": "NO_BATHTUB_POST_2021",
+      "severity": "moderate",
+      "source": "cruisedeckplans.com",
+      "confidence": "verified",
+      "notes": "Club Suites (Mini-Suites) no longer have bathtubs after December 22, 2021 refurbishment"
+    }
+  ],
+  "category_overrides": {
+    "_verification_source": "cruisedeckplans.com individual cabin lookups",
+    "_verification_date": "2026-01-29",
+    "_verification_note": "Cabin categories verified via individual page lookups. Jewel class ship.",
+    "Suite": [
+      "9000", "9002", "9500",
+      "10000", "10500",
+      "11100", "11500",
+      "14000",
+      "15000"
+    ],
+    "Balcony": [
+      "9050", "9100", "9600", "9602",
+      "10100", "10600", "10602"
+    ],
+    "Ocean View": [
+      "4500", "4502", "4600",
+      "5000", "5100", "5500",
+      "8100", "8102", "8104", "8106", "8108", "8110", "8112", "8114", "8116", "8118", "8120",
+      "8600", "8602", "8604", "8606", "8608", "8610", "8612"
+    ],
+    "Interior": [
+      "9055",
+      "11055"
+    ]
+  },
+  "handicap_accessible": [
+    "8100", "8102", "8600", "8602"
+  ],
+  "verification_notes": [
+    "2026-01-29: Verified deck 8 obstructed views - handicap oceanview cabins 8100, 8102, 8600, 8602 have 100% obstructed views with frosted windows",
+    "2026-01-29: Verified 2021 refurbishment removed bathtubs from Penthouse and Club Suite categories",
+    "2026-01-29: Category OK and OX cabins have lifeboat obstructions",
+    "2026-01-29: Deck 4, 5 are oceanview; Deck 9-11 have balconies and suites; Deck 14-15 are Haven suites",
+    "2026-01-29: Decks 6, 7 appear to have no staterooms (public areas)"
+  ],
+  "removed_exceptions": []
+}
