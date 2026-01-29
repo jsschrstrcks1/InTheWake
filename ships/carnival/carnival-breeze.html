@@ -137,32 +137,60 @@
       </button>
       <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-        <div class="nav-dropdown" data-nav="planning">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
+                <!-- Planning Dropdown -->
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
           <div class="dropdown-menu" role="menu">
-            <a href="/planning.html">Planning (overview)</a>
+            <a href="/first-cruise.html">Your First Cruise</a>
             <a href="/ships.html">Ships</a>
-            <a href="/ships/quiz.html">Ship Quiz</a>
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a href="/ports.html">Ports</a>
-            <a href="/internet-at-sea.html">Internet at Sea</a>
-            <a href="/drink-packages.html">Drink Packages</a>
-            <a href="/drink-calculator.html">Drink Calculator</a>
-            <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/ports.html">Ports</a>
             <a href="/packing-lists.html">Packing Lists</a>
             <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
-        <div class="nav-dropdown" data-nav="travel">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">&#9662;</span></button>
+
+        <!-- Tools Dropdown -->
+        <div class="nav-dropdown" id="nav-tools">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Tools <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/cruise-lines/quiz.html">Cruise Line Quiz</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/tools/port-tracker.html">Port Logbook</a>
+            <a href="/tools/ship-tracker.html">Ship Logbook</a>
+          </div>
+        </div>
+
+        <!-- Onboard Dropdown -->
+        <div class="nav-dropdown" id="nav-onboard">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Onboard <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
+            <a href="/articles.html">Articles</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
           <div class="dropdown-menu" role="menu">
             <a href="/travel.html">Travel (overview)</a>
             <a href="/solo.html">Solo</a>
           </div>
         </div>
-        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
-        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
@@ -410,7 +438,14 @@ Dining Venues on Carnival Breeze <a href="/restaurants.html" class="section-labe
         <tr><td><strong>IMO</strong></td><td>9548450</td></tr>
       </table>
     </div>
-        <section class="card author-card-vertical" aria-labelledby="author-heading">
+              <!-- Ship Quiz CTA -->
+      <section class="card quiz-cta" style="background: linear-gradient(135deg, #e0f4f8, #fff); border-left: 4px solid #0e6e8e; padding: 1rem;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #083041;">Exploring Options?</h3>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: #5a7a8a;">Take our quick quiz to find ships that match your travel style.</p>
+        <a href="/ships/quiz.html" class="pill" style="font-size: 0.85rem;">Ship Quiz →</a>
+      </section>
+
+<section class="card author-card-vertical" aria-labelledby="author-heading">
       <h3 id="author-heading">About the Author</h3>
       <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
         <picture>

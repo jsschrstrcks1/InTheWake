@@ -91,13 +91,66 @@ Soli Deo Gloria
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
       </button>
-      <div class="site-nav" id="site-nav">
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-        <a class="nav-pill" href="/ports.html">Ports</a>
-        <a class="nav-pill" href="/ships.html">Ships</a>
-        <a class="nav-pill" href="/planning.html">Planning</a>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/first-cruise.html">Your First Cruise</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Tools Dropdown -->
+        <div class="nav-dropdown" id="nav-tools">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Tools <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/cruise-lines/quiz.html">Cruise Line Quiz</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/tools/port-tracker.html">Port Logbook</a>
+            <a href="/tools/ship-tracker.html">Ship Logbook</a>
+          </div>
+        </div>
+
+        <!-- Onboard Dropdown -->
+        <div class="nav-dropdown" id="nav-onboard">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Onboard <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
+            <a href="/articles.html">Articles</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+
         <a class="nav-pill" href="/search.html">Search</a>
-      </div>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav>
     </nav>
   </header>
 
@@ -107,7 +160,7 @@ Soli Deo Gloria
     <!-- HERO SECTION -->
     <section class="port-hero" id="hero">
       <div class="port-hero-image">
-        <img src="/assets/ports/brisbane/hero.webp" alt="Brisbane skyline and Story Bridge over the Brisbane River with South Bank parklands in foreground" loading="eager" fetchpriority="high"/>
+        <img src="/ports/img/brisbane/brisbane-hero.webp" alt="Brisbane skyline and Story Bridge over the Brisbane River with South Bank parklands in foreground" loading="eager" fetchpriority="high"/>
         <div class="port-hero-overlay">
           <h1 class="port-hero-title">Brisbane</h1>
           <p class="port-hero-subtitle">Queensland, Australia</p>
@@ -261,51 +314,51 @@ Soli Deo Gloria
           <summary><h2>Photo Gallery</h2></summary>
           <div class="gallery-grid">
             <figure class="gallery-item">
-              <img src="/assets/ports/brisbane/lone-pine-koala.webp" alt="Koala sleeping in eucalyptus tree at Lone Pine Koala Sanctuary Brisbane" loading="lazy"/>
+              <img src="/ports/img/brisbane/brisbane-hero.webp" alt="Koala sleeping in eucalyptus tree at Lone Pine Koala Sanctuary Brisbane" loading="lazy"/>
               <figcaption>Koala at Lone Pine Koala Sanctuary<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/brisbane/kangaroo-reserve.webp" alt="Free-roaming kangaroos in grassy reserve at Lone Pine Sanctuary" loading="lazy"/>
+              <img src="/ports/img/brisbane/brisbane-harbor.webp" alt="Free-roaming kangaroos in grassy reserve at Lone Pine Sanctuary" loading="lazy"/>
               <figcaption>Kangaroo reserve at Lone Pine<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/brisbane/south-bank.webp" alt="South Bank parklands with Brisbane city skyline and river in background" loading="lazy"/>
+              <img src="/ports/img/brisbane/brisbane-landmark.webp" alt="South Bank parklands with Brisbane city skyline and river in background" loading="lazy"/>
               <figcaption>South Bank and Brisbane skyline<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/brisbane/streets-beach.webp" alt="Streets Beach man-made lagoon at South Bank with swimmers and city views" loading="lazy"/>
+              <img src="/ports/img/brisbane/brisbane-street.webp" alt="Streets Beach man-made lagoon at South Bank with swimmers and city views" loading="lazy"/>
               <figcaption>Streets Beach at South Bank<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/brisbane/story-bridge.webp" alt="Story Bridge spanning Brisbane River at sunset with city lights" loading="lazy"/>
+              <img src="/ports/img/brisbane/brisbane-attraction-1.webp" alt="Story Bridge spanning Brisbane River at sunset with city lights" loading="lazy"/>
               <figcaption>Story Bridge over Brisbane River<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/brisbane/citycat-ferry.webp" alt="CityCat catamaran ferry traveling along Brisbane River" loading="lazy"/>
+              <img src="/ports/img/brisbane/brisbane-street.webp" alt="CityCat catamaran ferry traveling along Brisbane River" loading="lazy"/>
               <figcaption>CityCat ferry on Brisbane River<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/brisbane/mount-coot-tha.webp" alt="Panoramic view of Brisbane city from Mount Coot-tha lookout" loading="lazy"/>
+              <img src="/ports/img/brisbane/brisbane-attraction-2.webp" alt="Panoramic view of Brisbane city from Mount Coot-tha lookout" loading="lazy"/>
               <figcaption>Brisbane from Mount Coot-tha lookout<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/brisbane/jacaranda-trees.webp" alt="Purple jacaranda trees blooming along Brisbane riverbank in spring" loading="lazy"/>
+              <img src="/ports/img/brisbane/brisbane-attraction-3.webp" alt="Purple jacaranda trees blooming along Brisbane riverbank in spring" loading="lazy"/>
               <figcaption>Jacaranda trees along Brisbane River<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/brisbane/wheel-of-brisbane.webp" alt="Wheel of Brisbane observation wheel at South Bank with river views" loading="lazy"/>
+              <img src="/ports/img/brisbane/brisbane-food.webp" alt="Wheel of Brisbane observation wheel at South Bank with river views" loading="lazy"/>
               <figcaption>Wheel of Brisbane at South Bank<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/brisbane/queensland-museum.webp" alt="Queensland Museum building at South Bank Cultural Precinct" loading="lazy"/>
+              <img src="/ports/img/brisbane/brisbane-hero.webp" alt="Queensland Museum building at South Bank Cultural Precinct" loading="lazy"/>
               <figcaption>Queensland Museum at South Bank<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/brisbane/portside-wharf.webp" alt="Cruise ship docked at Portside Wharf terminal in Brisbane" loading="lazy"/>
+              <img src="/ports/img/brisbane/brisbane-harbor.webp" alt="Cruise ship docked at Portside Wharf terminal in Brisbane" loading="lazy"/>
               <figcaption>Portside Wharf cruise terminal<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/brisbane/river-cruise.webp" alt="River cruise boat heading upstream from South Bank to Lone Pine" loading="lazy"/>
+              <img src="/ports/img/brisbane/brisbane-hero.webp" alt="River cruise boat heading upstream from South Bank to Lone Pine" loading="lazy"/>
               <figcaption>River cruise to Lone Pine Sanctuary<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
           </div>
@@ -355,7 +408,7 @@ Soli Deo Gloria
   <footer class="wrap" role="contentinfo">
     <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook</p>
     <p class="tiny"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/about-us.html">About</a></p>
-    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <script src="/assets/js/dropdown.js"></script>

@@ -2,21 +2,388 @@
 
 ## Soli Deo Gloria
 
-Last Updated: 2026-01-18
+Last Updated: 2026-01-24
 
 ---
 
-## Homepage Improvement Initiative
+## Session Work: Navigation & Content Expansion (2026-01-24)
+
+### Navigation Reorganization ✅ COMPLETE
+
+**Branch:** `claude/audit-competitor-gaps-0zTZ0`
+**Commits:** 5 commits pushed
+
+Reorganized site-wide navigation for user retention with new dropdown structure:
+- **Planning:** Your First Cruise, Ships, Cruise Lines, Ports, Packing Lists, Accessibility
+- **Tools:** Ship Quiz, Cruise Line Quiz, Drink Calculator, Stateroom Check, Port Logbook, Ship Logbook
+- **Onboard:** Restaurants & Menus, Drink Packages, Internet at Sea, Articles
+- **Travel:** Travel (overview), Solo
+
+| Task | Files Updated | Status |
+|------|---------------|--------|
+| Update pages with `id="nav-planning"` dropdowns | 512 | ✅ DONE |
+| Update pages with simple nav (no dropdowns) | 23 | ✅ DONE |
+| Migrate port pages from `main-nav` template | 32 | ✅ DONE |
+| Migrate port pages from `nav-links` template | 7 | ✅ DONE |
+| Fix broken HTML files (missing body tags) | 5 | ✅ DONE |
+| Fix remaining pages with simple nav | 3 | ✅ DONE |
+
+**Broken Files Fixed:**
+- `authors/ken-baker.html` - Missing body structure, added nav
+- `authors/tina-maulsby.html` - Missing body structure, added nav
+- `disability-at-sea.html` - Missing body structure, added nav
+- `ships/carnival/carnival-adventure.html` - Missing body structure, added nav
+- `solo/in-the-wake-of-grief-meta.html` - Skipped (meta file, not a rendered page)
+
+**Scripts Created:**
+- `scripts/update-nav.py` - Updated 512 pages
+- `scripts/update-simple-nav.py` - Updated 23 pages
+- `scripts/migrate-port-template.py` - Migrated 32 port pages
+- `scripts/migrate-port-template-v2.py` - Migrated 7 port pages
+- `scripts/fix-broken-files.py` - Fixed 5 broken HTML files
+- `scripts/fix-remaining-nav.py` - Fixed 3 remaining pages
+
+---
+
+### Author Pages E-E-A-T Content Expansion ✅ COMPLETE
+
+Expanded author pages with rich content for Google E-E-A-T compliance:
+
+| Page | Before | After | Status |
+|------|--------|-------|--------|
+| `authors/ken-baker.html` | ~100 words | ~500 words | ✅ PASS validation |
+| `authors/tina-maulsby.html` | ~80 words | ~450 words | ✅ PASS validation |
+| `disability-at-sea.html` | Stub (50 words) | ~400 words | ✅ PASS validation |
+
+**Content Added:**
+- Rich biographical sections with cruising experience
+- Detailed expertise breakdowns
+- Featured articles sections
+- Philosophy/connect sections
+- JSON-LD Person schemas (E-E-A-T)
+- JSON-LD WebPage schemas (ICP-Lite v1.4 compliance)
+- Proper canonical URLs, OpenGraph, Twitter cards
+
+**Validation Fixes Applied:**
+- Added WebPage JSON-LD schemas to all 3 pages
+- Fixed malformed `<title>` tag in disability-at-sea.html (had anchor tag inside)
+- Ensured JSON-LD descriptions match ai-summary meta tags
+
+---
+
+### PR 963 Conflict Analysis
+
+**Status:** Extensive conflicts due to divergent branch histories
+
+PR 963 (canonical URL fixes for 22 port pages) is based on a different branch with extensive changes including:
+- New `.claude/` plugins and commands
+- Many new image files
+- Port page updates
+
+**Recommendation:** PR 963 should be merged separately by the maintainer. The nav reorganization work (PR 962) was already merged to main. Cherry-pick/rebase approaches resulted in 1000+ file conflicts.
+
+---
+
+## Work From Previous Claude Threads (Discovered via Context Review)
+
+This section tracks work that was started but not completed in previous conversation threads.
+
+---
+
+### 1. Ship Quiz V2 Expansion ✅ MOSTLY COMPLETE
+
+**Plan File:** `.claude/plan-quiz-v2-expansion.md`
+**Status:** IMPLEMENTED ✅ (verified 2026-01-24)
+
+**What exists:**
+- `ships/allshipquiz.html` — Full quiz with all 15 cruise lines
+- `assets/data/ship-quiz-data-v2.json` — Complete data for all 15 lines
+- Pill selector UI (57 references)
+- "You Might Also Like" section (18 references)
+- Mobile hamburger menu (implemented)
+- Brand colors per cruise line (implemented)
+- Dress code question (line 1716: "How do you feel about dressing up?")
+- CDC scores populated
+
+| Task | Status |
+|------|--------|
+| Build `ships/allshipquiz.html` with pill selector UI | ✅ DONE |
+| Create `assets/data/ship-quiz-data-v2.json` with all cruise line data | ✅ DONE (15 lines) |
+| Implement brand-aware color coding | ✅ DONE |
+| Implement "You Might Also Like" section | ✅ DONE |
+| Implement "Why This Ship?" explainer | NOT STARTED |
+| Implement mobile hamburger menu with escape rope | ✅ DONE |
+| Implement lazy loading for performance | UNKNOWN |
+| Populate all CDC scores in ship data | ✅ DONE |
+| Verify ship page coverage (create stubs as needed) | ✅ FIXED (NCL, Carnival, MSC, Costa, Regent paths corrected) |
+| Run edge case test personas | NOT STARTED |
+| Soft launch to Facebook group | UNKNOWN |
+
+---
+
+### 2. Quiz Edge Cases & Improvements ✅ CRITICAL BUGS FIXED
+
+**Plan File:** `.claude/plan-quiz-edge-cases-and-improvements.md`
+**Status:** Critical bugs FIXED ✅ | Enhancement features pending
+
+**CRITICAL BUG #1:** ✅ FIXED (verified 2026-01-24)
+- **Location:** `ships/allshipquiz.html:2245-2247`
+- **Fix applied:** Now uses `Object.keys(quizData.scoring_weights)`
+
+**CRITICAL BUG #2:** ✅ FIXED (verified 2026-01-24)
+- **Location:** `ships/allshipquiz.html:2451`
+- **Fix applied:** Now uses `Object.keys(quizData.scoring_weights).filter(...)`
+
+| Task | Status |
+|------|--------|
+| Fix linesToScore to include all 15 lines | ✅ DONE |
+| Fix "Also Like" to show all other lines | ✅ DONE |
+| Add null safety for lineData access | NOT STARTED |
+| Implement 10-ship limit (user request) | NOT STARTED |
+| Add Comparison Drawer from Ship Atlas | NOT STARTED |
+
+---
+
+### 3. Affiliate Link Deployment 🟡 PARTIAL
+
+**Plan File:** `.claude/plan-affiliate-deployment.md`
+**Status:** Phase 1 DONE ✅ | Phases 2-3 NOT STARTED (verified 2026-01-24)
+
+**Phase 1 (Infrastructure):**
+| Task | Status |
+|------|--------|
+| Create `/affiliate-disclosure.html` | ✅ DONE (12KB, exists) |
+| Update trust badges site-wide | UNKNOWN (needs verification) |
+| Create CSS classes for affiliate links | UNKNOWN |
+
+**Phase 2 (New Content):**
+| Task | Status |
+|------|--------|
+| Write `/articles/cruise-duck-tradition.html` | NOT STARTED |
+| Write `/articles/cruise-cabin-organization.html` | NOT STARTED |
+| Write `/articles/cruise-photography-tech.html` | NOT STARTED |
+
+**Phase 3 (Enhance Existing):**
+| Task | Status |
+|------|--------|
+| Add affiliate links to `/packing-lists.html` | NOT STARTED |
+| Add tech recommendations to `/internet-at-sea.html` | NOT STARTED |
+
+**50+ products with affiliate links identified in plan file**
+
+---
+
+### 4. Port Weather Guide Feature ✅ MOSTLY COMPLETE
+
+**Plan File:** `.claude/plan-port-weather-guide.md`
+**Status:** IMPLEMENTED ✅ (verified 2026-01-24) — 300/380 ports have weather
+
+| Task | Status |
+|------|--------|
+| Create `/assets/data/ports/seasonal-guides.json` | ✅ DONE (65 lines) |
+| Create `/assets/data/ports/regional-climate-defaults.json` | ✅ DONE (exists) |
+| Create `/assets/js/modules/weather.js` | UNKNOWN |
+| Create `/assets/js/port-weather.js` | ✅ DONE (373 lines) |
+| Modify `/assets/styles.css` for weather widgets | ✅ DONE (implied by 300 ports working) |
+| Add weather section to all 333 port pages | ✅ 300/380 DONE (79%) |
+| Create Tier 1 guides (~50 top ports) | UNKNOWN |
+
+**Remaining:** 80 port pages need weather section added
+
+---
+
+### 5. Quiz UX Bugs 🟡 PARTIAL
+
+**Plan File:** `quiz-bugfix-plan.md`
+**Status:** Ship links FIXED ✅ | Other bugs pending
+
+| Bug | Description | Priority | Status |
+|-----|-------------|----------|--------|
+| Ship links broken (NCL, Carnival, MSC, Costa, Regent) | ✅ FIXED 2026-01-24: Corrected paths for 190/192 ships (99%) | P1 | ✅ FIXED |
+| Can't scroll cruise line list on iPhone | Dropdown has no max-height, extends past screen | P1 | UNVERIFIED |
+| Back button restarts quiz | No history state management | P2 | UNVERIFIED |
+
+**Remaining:** 2 future ships without pages (costa-serena, seven-seas-prestige)
+
+**Feature Request:** Multi-select cruise lines (defer to future)
+
+---
+
+### 6. Quiz Regional Features ✅ PARTIAL
+
+**Plan File:** `quiz-regional-plan.md`
+**Status:** Dress code DONE ✅ | Regional NOT STARTED (verified 2026-01-24)
+
+| Feature | Description | Status |
+|---------|-------------|--------|
+| Dress code question | Line 1716: "How do you feel about dressing up?" with formal/smart/casual options | ✅ DONE |
+| Dress code data | All 15 cruise lines have `dress_code` and `dress_description` fields | ✅ DONE |
+| Regional availability filter | Penalize lines that don't sail from user's region | NOT STARTED |
+| Auto-detect user region | Use timezone to suggest home region | NOT STARTED |
+
+---
+
+### 7. Stateroom Checker Data — Room-by-Room Audits ✅ RCL COMPLETE
+
+**Status:** 2026-01-28 — ALL 29 RCL ships fully audited (29/29 complete)
+
+**Recent Progress (2026-01-28):**
+- ✅ Created 241 baseline stateroom exception files for ALL cruise lines
+- ✅ Total coverage: 270 ships (Carnival, Celebrity, Norwegian, Princess, MSC, Holland America, Costa, Cunard, Explora, Oceania, Regent, Seabourn, Silversea, Virgin)
+- ✅ Vision-class RCL ships fully audited with category_overrides (4/4 complete)
+- ✅ Radiance-class RCL ships fully audited (4/4 complete): Radiance (639), Brilliance (710), Serenade (871), Jewel (810)
+- ✅ Voyager-class RCL ships fully audited (5/5 complete): Voyager (1,719), Explorer (1,691), Adventure (1,712), Navigator (1,709), Mariner (1,697)
+- ✅ Freedom-class RCL ships fully audited (3/3 complete): Freedom (2,031), Liberty (1,962), Independence (1,968)
+- ✅ Oasis-class RCL ships fully audited (6/6 complete): Oasis (2,961), Allure (2,964), Harmony (2,839), Symphony (2,803), Wonder (2,935), Utopia (2,965)
+- ✅ Icon-class RCL ships fully audited (2/2 complete): Star (2,789), Icon (2,817)
+- ✅ Quantum-class RCL ships fully audited (5/5 complete): Quantum (2,117), Anthem (2,117), Ovation (2,135), Spectrum (2,154), Odyssey (2,166)
+
+**Baseline File Strategy:**
+New ships get "safe baseline" files with:
+- Ship metadata (name, class, launch year)
+- Empty exceptions array (no false positives)
+- Placeholder for category_overrides (falls back to heuristic)
+
+This allows the Stateroom Checker to work for all ships. Accuracy improves as room-by-room audits are completed.
+
+**Room Type Classification Fix:**
+The `inferCategory()` heuristic is wrong for many cabins. The fix is `category_overrides` in each ship's exception file, which maps specific cabin numbers to their correct type. Ships with audited overrides show correct categories.
+
+**RCL Audit Progress (29 ships):**
+
+| Ship Class | Ship | Status | Notes |
+|------------|------|--------|-------|
+| **Vision** | Grandeur of the Seas | ✅ AUDITED | category_overrides complete |
+| **Vision** | Vision of the Seas | ✅ AUDITED | category_overrides complete |
+| **Vision** | Enchantment of the Seas | ✅ AUDITED | category_overrides complete |
+| **Vision** | Rhapsody of the Seas | ✅ AUDITED | category_overrides complete |
+| **Radiance** | Radiance of the Seas | ✅ AUDITED | 639 cabins via iCruise |
+| **Radiance** | Brilliance of the Seas | ✅ AUDITED | 710 cabins via iCruise |
+| **Radiance** | Serenade of the Seas | ✅ AUDITED | 871 cabins via iCruise |
+| **Radiance** | Jewel of the Seas | ✅ AUDITED | 810 cabins via iCruise |
+| **Voyager** | Voyager of the Seas | ✅ AUDITED | 1,719 cabins via iCruise |
+| **Voyager** | Explorer of the Seas | ✅ AUDITED | 1,691 cabins via iCruise |
+| **Voyager** | Adventure of the Seas | ✅ AUDITED | 1,712 cabins via iCruise |
+| **Voyager** | Navigator of the Seas | ✅ AUDITED | 1,709 cabins via iCruise |
+| **Voyager** | Mariner of the Seas | ✅ AUDITED | 1,697 cabins via iCruise |
+| **Freedom** | Freedom of the Seas | ✅ AUDITED | 2,031 cabins via iCruise |
+| **Freedom** | Liberty of the Seas | ✅ AUDITED | 1,962 cabins via iCruise |
+| **Freedom** | Independence of the Seas | ✅ AUDITED | 1,968 cabins via iCruise |
+| **Oasis** | Oasis of the Seas | ✅ AUDITED | 2,961 cabins via iCruise |
+| **Oasis** | Allure of the Seas | ✅ AUDITED | 2,964 cabins via iCruise |
+| **Oasis** | Harmony of the Seas | ✅ AUDITED | 2,839 cabins via iCruise |
+| **Oasis** | Symphony of the Seas | ✅ AUDITED | 2,803 cabins via iCruise |
+| **Oasis** | Wonder of the Seas | ✅ AUDITED | 2,935 cabins via iCruise |
+| **Oasis** | Utopia of the Seas | ✅ AUDITED | 2,965 cabins via iCruise |
+| **Quantum** | Quantum of the Seas | ✅ AUDITED | 2,117 cabins via iCruise |
+| **Quantum** | Anthem of the Seas | ✅ AUDITED | 2,117 cabins via iCruise |
+| **Quantum** | Ovation of the Seas | ✅ AUDITED | 2,135 cabins via iCruise |
+| **Quantum** | Spectrum of the Seas | ✅ AUDITED | 2,154 cabins via iCruise |
+| **Quantum** | Odyssey of the Seas | ✅ AUDITED | 2,166 cabins via iCruise |
+| **Icon** | Icon of the Seas | ✅ AUDITED | 2,817 cabins via iCruise |
+| **Icon** | Star of the Seas | ✅ AUDITED | 2,789 cabins via iCruise |
+
+**Tasks:**
+
+| Task | Status |
+|------|--------|
+| Create baseline files for all cruise lines | ✅ DONE (241 files, 2026-01-25) |
+| Audit Vision-class ships | ✅ DONE (4/4 ships) |
+| Audit Radiance-class ships | ✅ DONE (4/4 ships) |
+| Audit Voyager-class ships | ✅ DONE (5/5 ships) |
+| Audit Freedom-class ships | ✅ DONE (3/3 ships) |
+| Audit Oasis-class ships | ✅ DONE (6/6 ships) |
+| Audit Quantum-class ships | ✅ DONE (5/5 ships) |
+| Audit Icon-class ships | ✅ DONE (2/2 ships) |
+| Test stateroom checker after all RCL audits | READY TO TEST |
+
+**Technical Notes:**
+- Primary cabin data source: [iCruise](https://www.icruise.com) cabin lists (WMPHShipCode-based)
+- Deck plan sources: [CruiseDeckPlans](https://www.cruisedeckplans.com), [CruiseMapper](https://www.cruisemapper.com)
+- category_overrides maps cabin numbers to: Interior, Ocean View, Balcony, Suite
+- Promenade View (2T, CP) and Virtual Balcony (2U, 4U) cabins classified as Interior per project convention
+- Voyager-class cabin numbering: 1xxx = Decks 10-12, 2xxx = Deck 2, 3xxx = Deck 3, 6-9xxx = Decks 6-9
+- Sister ships within a class often share layouts (can copy overrides with verification)
+- iCruise WMPHShipCodes: Voyager=5, Explorer=6, Adventure=7, Navigator=96, Mariner=141, Freedom=182, Liberty=222, Independence=236, Oasis=292, Allure=293, Quantum=445, Anthem=446, Ovation=533, Harmony=532, Symphony=597, Spectrum=667, Odyssey=688, Wonder=708, Icon=791, Utopia=812, Star=828
+
+---
+
+### 8. Competitor Gap Analysis — Quick Wins 🟡 HIGH IMPACT
+
+**Source:** `COMPETITOR_GAP_AUDIT_2026_01_17.md`
+**Status:** 6/7 P1 items DONE, 1 PARTIAL (verified 2026-01-24)
+
+**P1 Quick Wins (Low Effort, High Impact):**
+| Task | Status | Addresses |
+|------|--------|-----------|
+| "Works Offline" marketing on port pages | ✅ DONE (376 ports, 2026-01-24) | Cruiseline.com, IQCruising |
+| "No Ads" trust messaging on about-us.html | ✅ DONE | Cruise Critic, CruiseMapper |
+| Tender Port Index + badge (`/ports/tender-ports.html`) | ✅ DONE | WhatsInPort |
+| "From the Pier" distance callout box component | PARTIAL (some ports) | WhatsInPort, IQCruising |
+| "Ships That Visit Here" section on port pages | ✅ DONE (371/380 ports, 15 cruise lines, 193 ships) | UNIQUE - no competitor has this |
+| First-Timer Hub page | ✅ DONE (`first-cruise.html` 27KB) | Cruise Critic |
+| Pre-Cruise 30-Day Countdown checklist | ✅ DONE (`countdown.html` 2026-01-24) | Cruise Critic Roll Call |
+
+**P2 Strategic (Medium Effort):**
+| Task | Status | Addresses |
+|------|--------|-----------|
+| **Expand "Ships That Visit" to all 15 cruise lines** | ✅ DONE (15/15 lines: RCL, Carnival, Celebrity, NCL, Princess, HAL, MSC, Virgin, Costa, Cunard, Oceania, Regent, Seabourn, Silversea, Explora) | UNIQUE differentiator |
+| Print CSS + PDF generation for port pages | NOT STARTED | WhatsInPort, IQCruising |
+| Transport cost callout component | NOT STARTED | WhatsInPort, Cruise Crocodile |
+| Accessibility sections on port pages | NOT STARTED | UNIQUE - market gap |
+| DIY vs. Ship Excursion cost comparisons | NOT STARTED | WhatsInPort, Cruise Crocodile |
+| Honest assessment "Real Talk" sections | NOT STARTED | Cruise Critic, CruiseMapper |
+
+**"Ships That Visit Here" Expansion Plan:** ✅ COMPLETE
+- Current: 371 ports mapped, 193 ships across 15 cruise lines
+- Progress: 15/15 cruise lines complete (Disney excluded per user preference)
+- Data file: `assets/data/ship-deployments.json` (v1.14.0)
+- JS module: `assets/js/ship-port-links.js` (v1.13.0 - multi-cruise-line support)
+- Cruise lines done: ✅ Royal Caribbean (29), ✅ Carnival (26), ✅ Celebrity (16), ✅ Norwegian (20), ✅ Princess (17), ✅ Holland America (11), ✅ MSC (22), ✅ Virgin (4), ✅ Costa (9), ✅ Cunard (4), ✅ Oceania (8), ✅ Regent (6), ✅ Seabourn (7), ✅ Silversea (12), ✅ Explora (2)
+- Cruise lines remaining: None
+- **Scenic routes added (2026-01-25):** Inside Passage (28), Norwegian Fjords (17), Chilean Fjords/Glacier Alley/Strait of Magellan/Cape Horn (9), Antarctica/Drake Passage (11), Doubtful Sound (13), Gatun Lake (16), Port Everglades (19), Port Miami (70)
+- **9 unmapped pages remain:** Land tours (Beijing, Denali, Fairbanks, Kyoto), aggregate pages (Scotland, South Pacific, Tender Ports), and ft-lauderdale (duplicate of port-everglades)
+
+**Unique Differentiators to Protect:**
+- Ship-Port Integration ⭐⭐⭐ (expand with bidirectional linking)
+- First-Person Storytelling ⭐⭐⭐ (ensure every port has logbook)
+- Interactive Tools ⭐⭐⭐ (Ship Quiz, Drink Calculator, etc.)
+- Gamification ⭐⭐⭐ (Port/Ship Logbooks, achievements)
+- Ad-Free Trust ⭐⭐ (needs explicit marketing)
+- Accessibility Leadership ⭐⭐ (become THE resource)
+- Faith-Based Perspective ⭐ (pastoral content)
+
+---
+
+### 9. From Thread Audit (2025-11-19) — Remaining Items
+
+**Source:** `admin/THREAD_AUDIT_2025_11_19.md`
+
+**High Priority:**
+| Task | Status |
+|------|--------|
+| 8 corrupted JSON files (manual review needed) | NOT STARTED |
+| 401 missing alt attributes (accessibility) | PARTIAL (261 still failing validation) |
+| 44 dining hero images (all RCL ships) | NOT STARTED |
+| 12 Disney/MSC ship pages (broken links) | NOT STARTED |
+
+**Medium Priority:**
+| Task | Status |
+|------|--------|
+| 50 pages with "coming soon" text | NOT STARTED |
+| Write "Rest & Recovery" article | NOT STARTED |
+| Write "Family Challenges" article | NOT STARTED |
+| Write "Healing Relationships" article | NOT STARTED |
+| 2 historic logbooks (nordic-prince, sun-viking) | ✅ DONE |
+
+---
+
+## Homepage Improvement Initiative ✅ COMPLETE
 
 **Context:** Analytics show heavy bounce rates from homepage and tool pages. ChatGPT audit identified missing intent-based navigation and tool prominence issues.
+**Status:** ALL TASKS COMPLETE as of 2026-01-18
 
-### Goals
-- Reduce homepage bounce by helping visitors route faster
-- Elevate interactive tools above content cards
-- Create soft cross-links from tool pages to reduce dead-end visits
-- Maintain calm, trust-first brand voice (no urgency-driven CTAs)
-
-### Tasks
+### Tasks (All Done)
 
 | Task | Status | Priority |
 |------|--------|----------|
@@ -31,24 +398,25 @@ Last Updated: 2026-01-18
 | Replace placeholder Key Facts with Site Highlights + Search | DONE | MEDIUM |
 | Standardize trust badge site-wide (958 pages) | DONE | HIGH |
 
-### Design Principles
-- Intent-based routing: "What are you planning?" not "Here's everything"
-- Tools visually distinct from content cards
-- No urgency language ("Don't miss out!") - keep trust-first voice
-- Light touch on faith angle - findable but unobtrusive
-- Acknowledge Royal Caribbean focus (for now)
-
 ---
 
-## Current Status
+## Current Validation Status (as of 2026-01-24)
 
+### Ship Pages
 | Metric | Value |
 |--------|-------|
-| Total Ship Pages | 309 |
-| Pages Passing Validation | 36 (12%) |
-| Pages Failing Validation | 273 (88%) |
-| Total Blocking Errors | 2,101 |
-| Total Warnings | 2,399 |
+| Total Ship Pages | 311 |
+| Pages Passing Validation | 106 (34%) |
+| Pages Failing Validation | 205 (66%) |
+| Total Blocking Errors | 981 |
+| Total Warnings | 2,429 |
+
+### Port Pages
+| Metric | Value |
+|--------|-------|
+| Total Port Pages | 380 |
+| Pages Passing Validation | 89 (23%) |
+| Pages Failing Validation | 291 (77%) |
 
 ---
 
@@ -280,15 +648,38 @@ Search YouTube for:
 
 ---
 
-## Vanilla Stories Needing Updates
+## Vanilla Stories Needing Updates 🔴 MASSIVE CONTENT DEBT
 
-Stories marked as "vanilla" have generic content that needs enhancement with:
+**Full Inventory:** `admin/VANILLA-STORIES.md`
+
+Stories marked as "vanilla" are generic templates repeated across entire cruise lines. They need complete rewrites with:
 - Ship-specific details
 - Service recovery narrative
 - Emotional moments
+- Real passenger perspectives
 - Internal links to ship features
 
-**See:** `admin/VANILLA-STORIES.md` for full list
+### Scope of Problem
+
+| Cruise Line | Ships | Stories Needed (10/ship) | Priority |
+|-------------|-------|--------------------------|----------|
+| Holland America | 46 | 460 | HIGH |
+| MSC | 24 | 240 | HIGH |
+| Norwegian | 20 | 200 | HIGH |
+| Princess | 17 | 170 | HIGH |
+| Silversea | 10 | 100 | MEDIUM |
+| Costa | 9 | 90 | MEDIUM |
+| Oceania | 8 | 80 | MEDIUM |
+| Regent | 7 | 70 | MEDIUM |
+| Seabourn | 6 | 60 | MEDIUM |
+| Virgin Voyages | 4 | 40 | MEDIUM |
+| Cunard | 4 | 40 | MEDIUM |
+| Explora | 2 | 20 | LOW |
+| **TOTAL** | **157** | **~1,570** | — |
+
+### Cruise Lines with QUALITY Content (No Update Needed)
+- **Royal Caribbean:** All 49 ships have authentic content ✅
+- **Carnival:** All 37 ships have authentic content ✅
 
 ---
 
@@ -318,10 +709,69 @@ node admin/validate-ship-page.js ships/celebrity-cruises/*.html
 
 ## Progress Tracking
 
+### Ship Pages
 | Date | Passing | Failing | Errors | Warnings | Notes |
 |------|---------|---------|--------|----------|-------|
+| 2026-01-24 | 106 (34%) | 205 (66%) | 981 | 2,429 | Fresh validation run |
 | 2026-01-03 | 36 | 273 | 2,101 | 2,399 | After validator fix + stub pages |
 | 2025-12-27 | 9 | 300 | 2,488 | 2,500 | Before latest fixes |
+
+### Port Pages
+| Date | Passing | Failing | Notes |
+|------|---------|---------|-------|
+| 2026-01-24 | 89 (23%) | 291 (77%) | Fresh validation run |
+
+---
+
+## Master Priority Summary (All Threads)
+
+### 🔴 CRITICAL (Fix First)
+1. **Stateroom Checker Data** — Many rooms assigned wrong categories (user-reported, needs audit)
+2. **Ship Validation Crisis** — 205/311 ships failing (66%) with 981 blocking errors
+3. **Port Validation Crisis** — 291/380 ports failing (77%)
+
+### ✅ RECENTLY COMPLETED (Verified 2026-01-24)
+- ~~Quiz Ship Links~~ — Fixed paths for NCL, Carnival, MSC, Costa, Regent (190/192 ships, 99%)
+- ~~Quiz Critical Bugs~~ — `linesToScore` and "Also Like" now use dynamic line list
+- ~~Quiz V2 Expansion~~ — allshipquiz.html exists with all 15 cruise lines
+- ~~Port Weather Guide~~ — 300/380 ports have weather (79%)
+- ~~First-Timer Hub~~ — `first-cruise.html` exists (27KB)
+- ~~Affiliate Disclosure~~ — `affiliate-disclosure.html` exists (12KB)
+- ~~Quiz Dress Code~~ — Question exists at line 1716
+- ~~30-Day Countdown Checklist~~ — `countdown.html` with 35 interactive tasks (2026-01-24)
+- ~~Works Offline Badge~~ — 376 port pages now show "Works offline" in trust badge (2026-01-24)
+- ~~Ships That Visit Here~~ — ✅ COMPLETE (357/380 ports, 193 ships across 15 cruise lines)
+
+### 🟡 HIGH PRIORITY (Remaining Work)
+5. **Quiz UX Bugs** — iPhone scroll issue, back button (NCL links is #1 above)
+6. ~~**Ships That Visit Expansion**~~ — ✅ COMPLETE (15 cruise lines, 193 ships across 357 ports)
+7. **Quiz Regional Features** — Regional availability filter (dress code done)
+8. **Port Weather Remaining** — 80 ports still need weather section
+
+### 🟠 MEDIUM PRIORITY (Content & Features)
+9. **Competitor Gap P2 Strategic** — Print CSS, Transport costs, Accessibility sections
+10. **Vanilla Stories** — ~1,570 stories needed across 157 ships (12 cruise lines)
+11. **Missing Articles** — Rest & Recovery, Family Challenges, Healing Relationships
+12. **Affiliate Phase 2-3** — New articles + enhance existing pages
+
+### 🔵 LOW PRIORITY (Future Enhancement)
+13. **Dining Hero Images** — 44 RCL ships
+14. **Corrupted JSON Files** — 8 files need manual review
+15. **Disney/MSC Broken Links** — 12 ship pages (Disney dir doesn't exist, MSC has 25 pages)
+
+---
+
+## Plan Files Reference
+
+| Feature | Plan File | Status |
+|---------|-----------|--------|
+| Competitor Gap Analysis | `COMPETITOR_GAP_AUDIT_2026_01_17.md` | Partial (2/7 P1 done) |
+| Ship Quiz V2 | `.claude/plan-quiz-v2-expansion.md` | Ready |
+| Quiz Edge Cases | `.claude/plan-quiz-edge-cases-and-improvements.md` | Bugs documented |
+| Quiz UX Bugs | `quiz-bugfix-plan.md` | User-reported bugs |
+| Quiz Regional Features | `quiz-regional-plan.md` | Ready |
+| Affiliate Links | `.claude/plan-affiliate-deployment.md` | Draft |
+| Port Weather | `.claude/plan-port-weather-guide.md` | Ready |
 
 ---
 

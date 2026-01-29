@@ -17,7 +17,7 @@ Soli Deo Gloria
   <meta property="og:title" content="Cherbourg Port Guide — D-Day Beaches & Titanic History"/>
   <meta property="og:description" content="First-person logbook guide to Cherbourg, France — submarine museum, D-Day beaches, and crucial maritime history."/>
   <meta property="og:url" content="https://cruisinginthewake.com/ports/cherbourg.html"/>
-  <meta property="og:image" content="https://cruisinginthewake.com/assets/ports/cherbourg/hero.webp"/>
+  <meta property="og:image" content="https://cruisinginthewake.com/ports/img/cherbourg/cherbourg-hero.webp"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <link rel="stylesheet" href="/assets/styles.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
@@ -65,7 +65,7 @@ Soli Deo Gloria
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Cherbourg Port Guide — D-Day Beaches & Titanic History"/>
   <meta name="twitter:description" content="First-person logbook guide to Cherbourg — submarine museum, D-Day beaches, and crucial maritime history."/>
-  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/ports/cherbourg/hero.webp"/>
+  <meta name="twitter:image" content="https://cruisinginthewake.com/ports/img/cherbourg/cherbourg-hero.webp"/>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>
     window.dataLayer=window.dataLayer||[];
@@ -77,15 +77,79 @@ Soli Deo Gloria
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <header class="site-header">
-    <nav class="main-nav" aria-label="Main navigation">
-      <a href="/" class="nav-logo">In the Wake</a>
-      <a href="/ports.html">Ports</a>
-      <a href="/planning.html">Planning</a>
-      <a href="/about-us.html">About</a>
+
+  <header class="hero-header" role="banner">
+    <nav class="navbar" aria-label="Main navigation">
+      <div class="brand">
+        <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+      </div>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/first-cruise.html">Your First Cruise</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Tools Dropdown -->
+        <div class="nav-dropdown" id="nav-tools">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Tools <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/cruise-lines/quiz.html">Cruise Line Quiz</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/tools/port-tracker.html">Port Logbook</a>
+            <a href="/tools/ship-tracker.html">Ship Logbook</a>
+          </div>
+        </div>
+
+        <!-- Onboard Dropdown -->
+        <div class="nav-dropdown" id="nav-onboard">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Onboard <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
+            <a href="/articles.html">Articles</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav>
     </nav>
   </header>
 
+<a href="#main-content" class="skip-link">Skip to main content</a>
   <main id="main-content">
     <article class="port-guide">
       <nav aria-label="Breadcrumb" class="breadcrumb">
@@ -97,7 +161,7 @@ Soli Deo Gloria
       </nav>
 
       <section class="port-hero" aria-label="Cherbourg hero section">
-        <img src="/assets/ports/cherbourg/hero.webp" alt="Cherbourg harbor with the Art Deco Cité de la Mer transatlantic terminal and French flag flying" class="hero-image" width="1200" height="600" loading="eager" fetchpriority="high"/>
+        <img src="/ports/img/cherbourg/cherbourg-hero.webp" alt="Cherbourg harbor with the Art Deco Cité de la Mer transatlantic terminal and French flag flying" class="hero-image" width="1200" height="600" loading="eager" fetchpriority="high"/>
         <div class="hero-overlay">
           <h1>Cherbourg</h1>
           <p class="hero-subtitle">Gateway to D-Day History</p>
@@ -109,7 +173,7 @@ Soli Deo Gloria
 
       <details class="port-section logbook" open>
         <summary><h2>Captain's Logbook</h2></summary>
-        <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+        <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
         <div class="logbook-entry">
           <p>I stood on the outer breakwater at Cherbourg as morning fog lifted off the harbor, watching our ship navigate the entrance to what Napoleon called "the Gibraltar of France." The harbor stretched before me — not a natural bay but an engineering marvel, the largest artificial harbor in the world when completed in 1853. Stone breakwaters extend nearly four kilometers, built across decades by thousands of workers, many of whom never saw the project finished. This is a port that exists through sheer determination, carved from the Cotentin Peninsula to give France a deep-water gateway to the Atlantic.</p>
 
@@ -172,7 +236,7 @@ Soli Deo Gloria
 
       <details class="port-section food" open>
         <summary><h2>Local Flavors</h2></summary>
-        <img src="/assets/ports/cherbourg/moules.webp" alt="Classic Norman moules-frites mussels and french fries with cider" loading="lazy"/>
+        <img src="/ports/img/cherbourg/cherbourg-hero.webp" alt="Classic Norman moules-frites mussels and french fries with cider" loading="lazy"/>
         <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
         <p><strong>Moules-Frites:</strong> Mussels steamed with cream, cider, and shallots, served with crispy fries. The Norman classic. €14-20 at harborside restaurants.</p>
         <p><strong>Normandy Cider:</strong> The region's signature drink — dry, slightly sparkling, perfect with seafood. €3-5 per glass, €8-15 per bottle. Try pommeau (apple aperitif) and calvados (apple brandy) as well.</p>
@@ -221,47 +285,47 @@ Soli Deo Gloria
         <summary><h2>Photo Gallery</h2></summary>
         <div class="gallery-grid">
           <figure>
-            <img src="/assets/ports/cherbourg/cite-mer.webp" alt="Art Deco facade of Cité de la Mer former transatlantic terminal" loading="lazy"/>
+            <img src="/ports/img/cherbourg/cherbourg-harbor.webp" alt="Art Deco facade of Cité de la Mer former transatlantic terminal" loading="lazy"/>
             <figcaption>Cité de la Mer<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cherbourg/submarine.webp" alt="Nuclear submarine Le Redoutable at Cité de la Mer museum" loading="lazy"/>
+            <img src="/ports/img/cherbourg/cherbourg-landmark.webp" alt="Nuclear submarine Le Redoutable at Cité de la Mer museum" loading="lazy"/>
             <figcaption>Submarine Le Redoutable<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cherbourg/utah.webp" alt="Utah Beach wide sands with D-Day memorial monument" loading="lazy"/>
+            <img src="/ports/img/cherbourg/cherbourg-attraction-1.webp" alt="Utah Beach wide sands with D-Day memorial monument" loading="lazy"/>
             <figcaption>Utah Beach<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cherbourg/cemetery.webp" alt="White crosses at Normandy American Cemetery overlooking Omaha Beach" loading="lazy"/>
+            <img src="/ports/img/cherbourg/cherbourg-attraction-2.webp" alt="White crosses at Normandy American Cemetery overlooking Omaha Beach" loading="lazy"/>
             <figcaption>American Cemetery<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cherbourg/ste-mere.webp" alt="Sainte-Mère-Église church with paratrooper mannequin on steeple" loading="lazy"/>
+            <img src="/ports/img/cherbourg/cherbourg-attraction-3.webp" alt="Sainte-Mère-Église church with paratrooper mannequin on steeple" loading="lazy"/>
             <figcaption>Sainte-Mère-Église<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cherbourg/harbor.webp" alt="Cherbourg harbor with fishing boats and breakwater" loading="lazy"/>
+            <img src="/ports/img/cherbourg/cherbourg-harbor.webp" alt="Cherbourg harbor with fishing boats and breakwater" loading="lazy"/>
             <figcaption>Cherbourg harbor<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cherbourg/market.webp" alt="Norman market stall with cheeses and local produce" loading="lazy"/>
+            <img src="/ports/img/cherbourg/cherbourg-food.webp" alt="Norman market stall with cheeses and local produce" loading="lazy"/>
             <figcaption>Norman market<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cherbourg/moules.webp" alt="Moules-frites mussels and french fries Norman style" loading="lazy"/>
+            <img src="/ports/img/cherbourg/cherbourg-hero.webp" alt="Moules-frites mussels and french fries Norman style" loading="lazy"/>
             <figcaption>Moules-frites<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cherbourg/titanic.webp" alt="Titanic exhibit display at Cité de la Mer museum" loading="lazy"/>
+            <img src="/ports/img/cherbourg/cherbourg-street.webp" alt="Titanic exhibit display at Cité de la Mer museum" loading="lazy"/>
             <figcaption>Titanic exhibit<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cherbourg/normandy.webp" alt="Normandy hedgerow countryside bocage landscape" loading="lazy"/>
+            <img src="/ports/img/cherbourg/cherbourg-hero.webp" alt="Normandy hedgerow countryside bocage landscape" loading="lazy"/>
             <figcaption>Norman countryside<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cherbourg/cider.webp" alt="Glass of Normandy cider with apple orchards beyond" loading="lazy"/>
+            <img src="/ports/img/cherbourg/cherbourg-hero.webp" alt="Glass of Normandy cider with apple orchards beyond" loading="lazy"/>
             <figcaption>Normandy cider<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
         </div>
@@ -292,7 +356,7 @@ Soli Deo Gloria
       <a href="/terms.html">Terms</a>
       <a href="/about-us.html">About</a>
     </nav>
-    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

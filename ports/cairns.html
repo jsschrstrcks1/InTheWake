@@ -73,15 +73,79 @@ Soli Deo Gloria
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <header class="site-header">
-    <nav class="main-nav" aria-label="Main navigation">
-      <a href="/" class="nav-logo">In the Wake</a>
-      <a href="/ports.html">Ports</a>
-      <a href="/planning.html">Planning</a>
-      <a href="/about-us.html">About</a>
+
+  <header class="hero-header" role="banner">
+    <nav class="navbar" aria-label="Main navigation">
+      <div class="brand">
+        <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+      </div>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/first-cruise.html">Your First Cruise</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Tools Dropdown -->
+        <div class="nav-dropdown" id="nav-tools">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Tools <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/cruise-lines/quiz.html">Cruise Line Quiz</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/tools/port-tracker.html">Port Logbook</a>
+            <a href="/tools/ship-tracker.html">Ship Logbook</a>
+          </div>
+        </div>
+
+        <!-- Onboard Dropdown -->
+        <div class="nav-dropdown" id="nav-onboard">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Onboard <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
+            <a href="/articles.html">Articles</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav>
     </nav>
   </header>
 
+<a href="#main-content" class="skip-link">Skip to main content</a>
   <main id="main-content">
     <article class="port-guide">
       <nav aria-label="Breadcrumb" class="breadcrumb">
@@ -93,7 +157,7 @@ Soli Deo Gloria
       </nav>
 
       <section class="port-hero" aria-label="Cairns hero section">
-        <img src="/assets/ports/cairns/hero.webp" alt="Aerial view of the Great Barrier Reef near Cairns showing turquoise waters and coral formations" class="hero-image" width="1200" height="600" loading="eager" fetchpriority="high"/>
+        <img src="/ports/img/cairns/cairns-hero.webp" alt="Aerial view of the Great Barrier Reef near Cairns showing turquoise waters and coral formations" class="hero-image" width="1200" height="600" loading="eager" fetchpriority="high"/>
         <div class="hero-overlay">
           <h1>Cairns</h1>
           <p class="hero-subtitle">Gateway to Two World Heritage Sites</p>
@@ -105,7 +169,7 @@ Soli Deo Gloria
 
       <details class="port-section logbook" open>
         <summary><h2>Captain's Logbook</h2></summary>
-        <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+        <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
         <div class="logbook-entry">
           <p>The catamaran sliced through Trinity Bay at 7:30 in the morning, and I gripped the rail as Cairns disappeared behind us. Ninety minutes of open ocean separated me from the outer Great Barrier Reef — a destination I'd dreamed about since childhood, since those first Jacques Cousteau documentaries showed me a world beneath the waves that seemed impossible, too beautiful to be real. The boat rose and fell with the swell, and I tasted salt on my lips, felt the tropical humidity pressing against my skin. However, nothing could have prepared me for what waited at the reef.</p>
 
@@ -125,7 +189,7 @@ Soli Deo Gloria
 
       <details class="port-section cruise-port" open>
         <summary><h2>Cruise Port</h2></summary>
-        <img src="/assets/ports/cairns/cruise-terminal.webp" alt="Cairns cruise terminal with ship docked at Wharf Street pier and palm trees lining the waterfront" loading="lazy"/>
+        <img src="/ports/img/cairns/cairns-harbor.webp" alt="Cairns cruise terminal with ship docked at Wharf Street pier and palm trees lining the waterfront" loading="lazy"/>
         <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
         <p><strong>Location Reality:</strong> Cairns cruise terminal (Wharf Street, Wharves 2/3) sits right downtown, about 1.5 km from the Esplanade. You walk off the ship and into the city — no expensive transfers required. However, the channel is narrow; some larger vessels must anchor in Trinity Bay and tender passengers ashore. Check your cruise line's announcement for your specific ship.</p>
         <p><strong>Terminal Facilities:</strong> The terminal building has basic amenities — restrooms, tourism information, and taxi queue. The Reef Fleet Terminal for outer reef day trips is separately located about 800 meters south along the waterfront. Most serious Cairns experiences require booking transportation or tours in advance.</p>
@@ -134,7 +198,7 @@ Soli Deo Gloria
 
       <details class="port-section getting-around" open>
         <summary><h2>Getting Around</h2></summary>
-        <img src="/assets/ports/cairns/esplanade.webp" alt="Cairns Esplanade boardwalk with palm trees, lagoon swimming area, and Trinity Inlet views" loading="lazy"/>
+        <img src="/ports/img/cairns/cairns-landmark.webp" alt="Cairns Esplanade boardwalk with palm trees, lagoon swimming area, and Trinity Inlet views" loading="lazy"/>
         <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
         <p><strong>Walking:</strong> Downtown Cairns is flat and compact — perfect for walking between the terminal, Esplanade, and restaurants. The 1.5 km stroll to the lagoon takes 20 minutes at a leisurely pace. Waterfront boardwalks are wheelchair accessible throughout. Low stamina level for downtown exploration; the real attractions require transportation.</p>
         <p><strong>Reef Tours:</strong> Fast catamarans depart from the Reef Fleet Terminal for 8-9 hour days at the outer reef. Book through ship excursions (guaranteed return but premium pricing) or independent operators like Reef Magic, Quicksilver, or Sunlover ($180-$280 AUD). Most include snorkel gear, lunch, and multiple reef sites. Go independent if your ship is in port 10+ hours; book ahead essential for cruise ship days.</p>
@@ -151,7 +215,7 @@ Soli Deo Gloria
 
       <details class="port-section excursions" open>
         <summary><h2>Shore Excursions</h2></summary>
-        <img src="/assets/ports/cairns/reef-snorkeling.webp" alt="Snorkelers floating above colorful coral formations at the Great Barrier Reef outer reef" loading="lazy"/>
+        <img src="/ports/img/cairns/cairns-attraction-1.webp" alt="Snorkelers floating above colorful coral formations at the Great Barrier Reef outer reef" loading="lazy"/>
         <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
 
         <h3>Great Barrier Reef Day Trip</h3>
@@ -172,7 +236,7 @@ Soli Deo Gloria
 
       <details class="port-section food" open>
         <summary><h2>Local Flavors</h2></summary>
-        <img src="/assets/ports/cairns/seafood.webp" alt="Fresh barramundi fish and chips with lemon at a Cairns waterfront restaurant" loading="lazy"/>
+        <img src="/ports/img/cairns/cairns-food.webp" alt="Fresh barramundi fish and chips with lemon at a Cairns waterfront restaurant" loading="lazy"/>
         <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
         <p><strong>Barramundi:</strong> Queensland's signature fish appears on every menu — grilled, battered, or pan-fried. Fresh local catch costs $20-$30 AUD at waterfront restaurants. Dundee's and Ochre Restaurant both serve excellent preparations.</p>
         <p><strong>Tropical Fruits:</strong> Mango, papaya, and exotic fruits like rambutan thrive in the tropical climate. The weekend produce hall on Grafton Street (Fri-Sun mornings) offers the freshest selection at local prices — $3-$8 AUD per kilo depending on season.</p>
@@ -190,7 +254,7 @@ Soli Deo Gloria
 
       <details class="port-section depth-soundings" open>
         <summary><h2>Depth Soundings</h2></summary>
-        <img src="/assets/ports/cairns/daintree.webp" alt="Daintree Rainforest dense green canopy with ancient ferns and palm trees" loading="lazy"/>
+        <img src="/ports/img/cairns/cairns-attraction-2.webp" alt="Daintree Rainforest dense green canopy with ancient ferns and palm trees" loading="lazy"/>
         <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
         <p>Cairns exists because of what lies beyond it. Founded in 1876 as an export port for gold discoveries at the Hodgkinson River, the settlement struggled initially — nearby Port Douglas seemed better positioned. But the railway connection to the tablelands secured Cairns' future, and gradually the rough mining town transformed. Sugar cane replaced gold as the primary industry through the twentieth century, and then tourism replaced sugar as travelers discovered what the Yidinji and Djabugay peoples had known for 50,000 years: this intersection of reef and rainforest holds wonders beyond human comprehension.</p>
         <p>The Great Barrier Reef is dying. Coral bleaching events in 2016, 2017, 2020, and 2022 devastated large sections, and warming oceans threaten continued destruction. What you see today may not exist for your grandchildren. This urgency gives reef visits a bittersweet quality — gratitude for witnessing something magnificent, grief for what we are losing. The Daintree, meanwhile, survived 180 million years of change. Whether it survives the next century depends on choices we make now.</p>
@@ -219,47 +283,47 @@ Soli Deo Gloria
         <summary><h2 id="gallery-heading">Photo Gallery</h2></summary>
         <div class="gallery-grid">
           <figure>
-            <img src="/assets/ports/cairns/coral-garden.webp" alt="Vibrant staghorn coral formations with tropical fish swimming between branches" loading="lazy"/>
+            <img src="/ports/img/cairns/cairns-attraction-3.webp" alt="Vibrant staghorn coral formations with tropical fish swimming between branches" loading="lazy"/>
             <figcaption>Staghorn coral gardens at outer reef<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cairns/sea-turtle.webp" alt="Green sea turtle swimming gracefully above coral reef formations" loading="lazy"/>
+            <img src="/ports/img/cairns/cairns-street.webp" alt="Green sea turtle swimming gracefully above coral reef formations" loading="lazy"/>
             <figcaption>Sea turtle encounter at the reef<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cairns/cape-tribulation.webp" alt="Cape Tribulation where Daintree Rainforest meets the Coral Sea" loading="lazy"/>
+            <img src="/ports/img/cairns/cairns-hero.webp" alt="Cape Tribulation where Daintree Rainforest meets the Coral Sea" loading="lazy"/>
             <figcaption>Cape Tribulation where forest meets reef<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cairns/crocodile.webp" alt="Saltwater crocodile basking on muddy riverbank in the Daintree River" loading="lazy"/>
+            <img src="/ports/img/cairns/cairns-hero.webp" alt="Saltwater crocodile basking on muddy riverbank in the Daintree River" loading="lazy"/>
             <figcaption>Saltwater crocodile in the Daintree<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cairns/kuranda-railway.webp" alt="Historic Kuranda Scenic Railway train crossing bridge through lush rainforest" loading="lazy"/>
+            <img src="/ports/img/cairns/cairns-hero.webp" alt="Historic Kuranda Scenic Railway train crossing bridge through lush rainforest" loading="lazy"/>
             <figcaption>Kuranda Scenic Railway through Barron Gorge<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cairns/skyrail.webp" alt="Skyrail Rainforest Cableway gondola floating above dense tropical rainforest canopy" loading="lazy"/>
+            <img src="/ports/img/cairns/cairns-hero.webp" alt="Skyrail Rainforest Cableway gondola floating above dense tropical rainforest canopy" loading="lazy"/>
             <figcaption>Skyrail cableway above the rainforest<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cairns/lagoon.webp" alt="Cairns Esplanade lagoon swimming area with palm trees and city skyline" loading="lazy"/>
+            <img src="/ports/img/cairns/cairns-hero.webp" alt="Cairns Esplanade lagoon swimming area with palm trees and city skyline" loading="lazy"/>
             <figcaption>The free Esplanade lagoon pool<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cairns/clownfish.webp" alt="Clownfish nestled in pink sea anemone tentacles at the Great Barrier Reef" loading="lazy"/>
+            <img src="/ports/img/cairns/cairns-hero.webp" alt="Clownfish nestled in pink sea anemone tentacles at the Great Barrier Reef" loading="lazy"/>
             <figcaption>Clownfish in protective anemone<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cairns/daintree-walk.webp" alt="Boardwalk trail winding through ancient Daintree Rainforest fern groves" loading="lazy"/>
+            <img src="/ports/img/cairns/cairns-hero.webp" alt="Boardwalk trail winding through ancient Daintree Rainforest fern groves" loading="lazy"/>
             <figcaption>Boardwalk through the ancient Daintree<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cairns/sunset.webp" alt="Tropical sunset over Trinity Bay with flying foxes silhouetted against orange sky" loading="lazy"/>
+            <img src="/ports/img/cairns/cairns-hero.webp" alt="Tropical sunset over Trinity Bay with flying foxes silhouetted against orange sky" loading="lazy"/>
             <figcaption>Flying foxes at sunset over Trinity Bay<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
           <figure>
-            <img src="/assets/ports/cairns/giant-clam.webp" alt="Giant clam with electric blue mantle and ridged shell on coral reef" loading="lazy"/>
+            <img src="/ports/img/cairns/cairns-hero.webp" alt="Giant clam with electric blue mantle and ridged shell on coral reef" loading="lazy"/>
             <figcaption>Giant clam with electric-blue mantle<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
           </figure>
         </div>
@@ -312,7 +376,7 @@ Soli Deo Gloria
       <a href="/terms.html">Terms</a>
       <a href="/about-us.html">About</a>
     </nav>
-    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

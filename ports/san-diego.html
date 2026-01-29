@@ -137,32 +137,60 @@ Soli Deo Gloria
       </button>
       <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-        <div class="nav-dropdown" data-nav="planning">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
+                <!-- Planning Dropdown -->
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
           <div class="dropdown-menu" role="menu">
-            <a href="/planning.html">Planning (overview)</a>
+            <a href="/first-cruise.html">Your First Cruise</a>
             <a href="/ships.html">Ships</a>
-            <a href="/ships/quiz.html">Ship Quiz</a>
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a href="/ports.html">Ports</a>
-            <a href="/internet-at-sea.html">Internet at Sea</a>
-            <a href="/drink-packages.html">Drink Packages</a>
-            <a href="/drink-calculator.html">Drink Calculator</a>
-            <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/ports.html">Ports</a>
             <a href="/packing-lists.html">Packing Lists</a>
             <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
-        <div class="nav-dropdown" data-nav="travel">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">&#9662;</span></button>
+
+        <!-- Tools Dropdown -->
+        <div class="nav-dropdown" id="nav-tools">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Tools <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/cruise-lines/quiz.html">Cruise Line Quiz</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/tools/port-tracker.html">Port Logbook</a>
+            <a href="/tools/ship-tracker.html">Ship Logbook</a>
+          </div>
+        </div>
+
+        <!-- Onboard Dropdown -->
+        <div class="nav-dropdown" id="nav-onboard">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Onboard <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
+            <a href="/articles.html">Articles</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
           <div class="dropdown-menu" role="menu">
             <a href="/travel.html">Travel (overview)</a>
             <a href="/solo.html">Solo</a>
           </div>
         </div>
-        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
-        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
@@ -406,7 +434,7 @@ Soli Deo Gloria
         <section class="port-section">
           <h3>Frequently Asked Questions</h3>
           <p><strong>Q: Is the San Diego airport really that close?</strong><br/>A: Yes! SAN is right downtown, one of the most convenient airport-port connections anywhere.</p>
-          <p><strong>Q: What cruise lines sail from San Diego?</strong><br/>A: <a href="/cruise-lines/holland-america.html">Holland America</a>, <a href="/cruise-lines/disney.html">Disney</a>, and others offer seasonal Mexican Riviera and coastal sailings.</p>
+          <p><strong>Q: What cruise lines sail from San Diego?</strong><br/>A: <a href="/cruise-lines/holland-america.html">Holland America</a> and other lines offer seasonal Mexican Riviera and coastal sailings.</p>
           <p><strong>Q: Best fish tacos near the port?</strong><br/>A: Countless options — try the Brigantine on the water or venture to Old Town for authentic style.</p>
           <p><strong>Q: How far is the cruise terminal from downtown?</strong><br/>A: The B Street Cruise Terminal is right downtown on the Embarcadero, within walking distance of the Gaslamp Quarter and USS Midway Museum.</p>
         </section>
@@ -495,7 +523,7 @@ Soli Deo Gloria
     </section>
 </main>
 
-  <footer class="wrap" role="contentinfo"><p>© 2025 In the Wake</p>  <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+  <footer class="wrap" role="contentinfo"><p>© 2025 In the Wake</p>  <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
   <script>window.currentPortId = 'san-diego';</script>
   <script src="/assets/js/nearby-ports.js"></script>
@@ -590,5 +618,6 @@ Soli Deo Gloria
   <script src="/assets/js/whimsical-port-units.js"></script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script src="/assets/js/ship-port-links.js" defer></script>
 </body>
 </html>

@@ -91,13 +91,66 @@ Soli Deo Gloria
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
       </button>
-      <div class="site-nav" id="site-nav">
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-        <a class="nav-pill" href="/ports.html">Ports</a>
-        <a class="nav-pill" href="/ships.html">Ships</a>
-        <a class="nav-pill" href="/planning.html">Planning</a>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/first-cruise.html">Your First Cruise</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Tools Dropdown -->
+        <div class="nav-dropdown" id="nav-tools">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Tools <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/cruise-lines/quiz.html">Cruise Line Quiz</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/tools/port-tracker.html">Port Logbook</a>
+            <a href="/tools/ship-tracker.html">Ship Logbook</a>
+          </div>
+        </div>
+
+        <!-- Onboard Dropdown -->
+        <div class="nav-dropdown" id="nav-onboard">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Onboard <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
+            <a href="/articles.html">Articles</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+
         <a class="nav-pill" href="/search.html">Search</a>
-      </div>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav>
     </nav>
   </header>
 
@@ -107,7 +160,7 @@ Soli Deo Gloria
     <!-- HERO SECTION -->
     <section class="port-hero" id="hero">
       <div class="port-hero-image">
-        <img src="/assets/ports/boston/hero.webp" alt="Historic red brick buildings along the Freedom Trail in Boston with fall foliage and church steeples against blue sky" loading="eager" fetchpriority="high"/>
+        <img src="/ports/img/boston/boston-hero.webp" alt="Historic red brick buildings along the Freedom Trail in Boston with fall foliage and church steeples against blue sky" loading="eager" fetchpriority="high"/>
         <div class="port-hero-overlay">
           <h1 class="port-hero-title">Boston</h1>
           <p class="port-hero-subtitle">Massachusetts, USA</p>
@@ -261,51 +314,51 @@ Soli Deo Gloria
           <summary><h2>Photo Gallery</h2></summary>
           <div class="gallery-grid">
             <figure class="gallery-item">
-              <img src="/assets/ports/boston/freedom-trail.webp" alt="Red brick Freedom Trail line winding through historic Boston streets with colonial buildings" loading="lazy"/>
+              <img src="/ports/img/boston/boston-hero.webp" alt="Red brick Freedom Trail line winding through historic Boston streets with colonial buildings" loading="lazy"/>
               <figcaption>Freedom Trail through downtown Boston<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/boston/paul-revere-house.webp" alt="Wooden colonial Paul Revere House with diamond-pane windows in Boston North End" loading="lazy"/>
+              <img src="/ports/img/boston/boston-harbor.webp" alt="Wooden colonial Paul Revere House with diamond-pane windows in Boston North End" loading="lazy"/>
               <figcaption>Paul Revere's House — oldest in downtown Boston<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/boston/old-north-church.webp" alt="White steeple of Old North Church where lanterns signaled one if by land two if by sea" loading="lazy"/>
+              <img src="/ports/img/boston/boston-landmark.webp" alt="White steeple of Old North Church where lanterns signaled one if by land two if by sea" loading="lazy"/>
               <figcaption>Old North Church — two lanterns hung here<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/boston/granary-burying-ground.webp" alt="Ancient weathered headstones in Granary Burying Ground with fall foliage" loading="lazy"/>
+              <img src="/ports/img/boston/boston-attraction-1.webp" alt="Ancient weathered headstones in Granary Burying Ground with fall foliage" loading="lazy"/>
               <figcaption>Granary Burying Ground — patriots rest here<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/boston/faneuil-hall.webp" alt="Faneuil Hall with crowds and street performers in downtown Boston" loading="lazy"/>
+              <img src="/ports/img/boston/boston-attraction-2.webp" alt="Faneuil Hall with crowds and street performers in downtown Boston" loading="lazy"/>
               <figcaption>Faneuil Hall — Cradle of Liberty<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/boston/uss-constitution.webp" alt="USS Constitution tall ship at Charlestown Navy Yard with American flag flying" loading="lazy"/>
+              <img src="/ports/img/boston/boston-attraction-3.webp" alt="USS Constitution tall ship at Charlestown Navy Yard with American flag flying" loading="lazy"/>
               <figcaption>USS Constitution — Old Ironsides<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/boston/north-end.webp" alt="Narrow street in Boston North End Little Italy with Italian restaurant signs" loading="lazy"/>
+              <img src="/ports/img/boston/boston-hero.webp" alt="Narrow street in Boston North End Little Italy with Italian restaurant signs" loading="lazy"/>
               <figcaption>North End — Boston's Little Italy<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/boston/fenway-park.webp" alt="Green Monster left field wall at Fenway Park baseball stadium" loading="lazy"/>
+              <img src="/ports/img/boston/boston-hero.webp" alt="Green Monster left field wall at Fenway Park baseball stadium" loading="lazy"/>
               <figcaption>Fenway Park and the Green Monster<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/boston/boston-common.webp" alt="Boston Common park with fall trees and city skyline in background" loading="lazy"/>
+              <img src="/ports/img/boston/boston-hero.webp" alt="Boston Common park with fall trees and city skyline in background" loading="lazy"/>
               <figcaption>Boston Common — America's oldest park<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/boston/quincy-market.webp" alt="Interior of Quincy food hall with crowds enjoying clam chowder" loading="lazy"/>
+              <img src="/ports/img/boston/boston-hero.webp" alt="Interior of Quincy food hall with crowds enjoying clam chowder" loading="lazy"/>
               <figcaption>Faneuil Hall food court interior<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/boston/massachusetts-state-house.webp" alt="Gold dome of Massachusetts State House on Beacon Hill" loading="lazy"/>
+              <img src="/ports/img/boston/boston-hero.webp" alt="Gold dome of Massachusetts State House on Beacon Hill" loading="lazy"/>
               <figcaption>Massachusetts State House gold dome<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
             <figure class="gallery-item">
-              <img src="/assets/ports/boston/harbor-view.webp" alt="Boston Harbor waterfront with sailboats and city skyline" loading="lazy"/>
+              <img src="/ports/img/boston/boston-harbor.webp" alt="Boston Harbor waterfront with sailboats and city skyline" loading="lazy"/>
               <figcaption>Boston Harbor waterfront<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption>
             </figure>
           </div>
@@ -355,7 +408,7 @@ Soli Deo Gloria
   <footer class="wrap" role="contentinfo">
     <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook</p>
     <p class="tiny"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/about-us.html">About</a></p>
-    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <script src="/assets/js/dropdown.js"></script>

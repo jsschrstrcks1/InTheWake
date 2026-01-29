@@ -110,7 +110,7 @@ answer-first: Radiance of the Seas is a mid-sized Radiance Class ship offering g
 
 | Tag | Required | Constraints |
 |-----|----------|-------------|
-| `title` | Yes | Pattern: `{Ship Name} — Deck Plans, Live Tracker, Dining & Videos \| In the Wake (V1.Beta)` |
+| `title` | Yes | Pattern: `{Ship Name} \| {Cruise Line} — Deck Plans, Live Tracker, Dining & Videos \| In the Wake` |
 | `description` | Yes | Must match `ai-summary` |
 | `canonical` | Yes | Full URL to page |
 | `robots` | Yes | `index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1` |
@@ -121,7 +121,7 @@ answer-first: Radiance of the Seas is a mid-sized Radiance Class ship offering g
 |----------|----------|-------|
 | `og:type` | Yes | `website` |
 | `og:site_name` | Yes | `In the Wake` |
-| `og:title` | Yes | Ship title |
+| `og:title` | Yes | `{Ship Name} \| {Cruise Line} — Deck Plans, Live Tracker, Dining & Videos` |
 | `og:description` | Yes | Summary |
 | `og:url` | Yes | Canonical URL |
 | `og:locale` | Yes | `en_US` |
@@ -129,12 +129,12 @@ answer-first: Radiance of the Seas is a mid-sized Radiance Class ship offering g
 
 ### 6. Twitter Card Tags (REQUIRED)
 
-| Property | Required |
-|----------|----------|
-| `twitter:card` | Yes (`summary_large_image`) |
-| `twitter:title` | Yes |
-| `twitter:description` | Yes |
-| `twitter:image` | Yes |
+| Property | Required | Value |
+|----------|----------|-------|
+| `twitter:card` | Yes | `summary_large_image` |
+| `twitter:title` | Yes | `{Ship Name} \| {Cruise Line} — Deck Plans, Live Tracker, Dining & Videos` |
+| `twitter:description` | Yes | Summary |
+| `twitter:image` | Yes | Ship image URL |
 
 ### 7. JSON-LD Schema Requirements (REQUIRED)
 

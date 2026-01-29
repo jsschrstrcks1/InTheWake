@@ -1,11 +1,12 @@
 /**
  * Ship-Port Cross-Linking Module
- * Version: 1.0.0
+ * Version: 1.13.0
  *
  * Provides bidirectional linking between ship and port pages:
  * - Port pages show "Ships That Visit Here"
  * - Ship pages show "Ports on This Ship's Itineraries"
  *
+ * Supported cruise lines: Royal Caribbean, Carnival, Celebrity, Norwegian, Princess, Holland America, MSC, Virgin Voyages, Costa Cruises, Cunard, Oceania, Regent, Seabourn, Silversea, Explora Journeys
  * Data source: /assets/data/ship-deployments.json
  */
 
@@ -14,6 +15,100 @@
 
   const DEPLOYMENTS_URL = '/assets/data/ship-deployments.json';
   const SHIPS_URL = '/assets/data/ships.json';
+
+  // Supported cruise lines with their URL paths and display info
+  const CRUISE_LINES = {
+    'rcl': {
+      name: 'Royal Caribbean',
+      path: '/ships/rcl/',
+      bookingUrl: 'https://www.royalcaribbean.com/cruise-ships/',
+      allShipsUrl: '/ships.html'
+    },
+    'carnival': {
+      name: 'Carnival Cruise Line',
+      path: '/ships/carnival/',
+      bookingUrl: 'https://www.carnival.com/cruise-ships/',
+      allShipsUrl: '/ships.html'
+    },
+    'celebrity': {
+      name: 'Celebrity Cruises',
+      path: '/ships/celebrity-cruises/',
+      bookingUrl: 'https://www.celebritycruises.com/cruise-ships/',
+      allShipsUrl: '/ships.html'
+    },
+    'ncl': {
+      name: 'Norwegian Cruise Line',
+      path: '/ships/ncl/',
+      bookingUrl: 'https://www.ncl.com/cruise-ships/',
+      allShipsUrl: '/ships.html'
+    },
+    'princess': {
+      name: 'Princess Cruises',
+      path: '/ships/princess/',
+      bookingUrl: 'https://www.princess.com/ships-and-experience/ships/',
+      allShipsUrl: '/ships.html'
+    },
+    'hal': {
+      name: 'Holland America Line',
+      path: '/ships/hal/',
+      bookingUrl: 'https://www.hollandamerica.com/en_US/cruise-ships.html',
+      allShipsUrl: '/ships.html'
+    },
+    'msc': {
+      name: 'MSC Cruises',
+      path: '/ships/msc/',
+      bookingUrl: 'https://www.msccruises.com/cruise-ships',
+      allShipsUrl: '/ships.html'
+    },
+    'virgin': {
+      name: 'Virgin Voyages',
+      path: '/ships/virgin/',
+      bookingUrl: 'https://www.virginvoyages.com/ships',
+      allShipsUrl: '/ships.html'
+    },
+    'costa': {
+      name: 'Costa Cruises',
+      path: '/ships/costa/',
+      bookingUrl: 'https://www.costacruises.com/ships.html',
+      allShipsUrl: '/ships.html'
+    },
+    'cunard': {
+      name: 'Cunard',
+      path: '/ships/cunard/',
+      bookingUrl: 'https://www.cunard.com/en-gb/cruise-ships',
+      allShipsUrl: '/ships.html'
+    },
+    'oceania': {
+      name: 'Oceania Cruises',
+      path: '/ships/oceania/',
+      bookingUrl: 'https://www.oceaniacruises.com/ships/',
+      allShipsUrl: '/ships.html'
+    },
+    'regent': {
+      name: 'Regent Seven Seas',
+      path: '/ships/regent/',
+      bookingUrl: 'https://www.rssc.com/ships',
+      allShipsUrl: '/ships.html'
+    },
+    'seabourn': {
+      name: 'Seabourn',
+      path: '/ships/seabourn/',
+      bookingUrl: 'https://www.seabourn.com/en_US/cruise-ships.html',
+      allShipsUrl: '/ships.html'
+    },
+    'silversea': {
+      name: 'Silversea Cruises',
+      path: '/ships/silversea/',
+      bookingUrl: 'https://www.silversea.com/ships.html',
+      allShipsUrl: '/ships.html'
+    },
+    'explora': {
+      name: 'Explora Journeys',
+      path: '/ships/explora/',
+      bookingUrl: 'https://explorajourneys.com/ships/',
+      allShipsUrl: '/ships.html'
+    }
+  };
 
   // Detect page type from URL
   function getPageContext() {
@@ -27,11 +122,13 @@
       }
     }
 
-    // Ship page: /ships/rcl/icon-of-the-seas.html
-    if (path.startsWith('/ships/rcl/') && path.endsWith('.html')) {
-      const slug = path.replace('/ships/rcl/', '').replace('.html', '');
-      if (slug && !slug.includes('index')) {
-        return { type: 'ship', slug: slug };
+    // Ship page: /ships/{cruise-line}/{ship-name}.html
+    for (const [lineId, lineInfo] of Object.entries(CRUISE_LINES)) {
+      if (path.startsWith(lineInfo.path) && path.endsWith('.html')) {
+        const slug = path.replace(lineInfo.path, '').replace('.html', '');
+        if (slug && !slug.includes('index')) {
+          return { type: 'ship', slug: slug, cruiseLine: lineId };
+        }
       }
     }
 
@@ -50,6 +147,12 @@
   function formatPortName(slug) {
     const specialNames = {
       'cococay': 'Perfect Day at CocoCay',
+      'half-moon-cay': 'Half Moon Cay',
+      'grand-turk': 'Grand Turk',
+      'amber-cove': 'Amber Cove',
+      'mahogany-bay': 'Mahogany Bay',
+      'catalina-island': 'Catalina Island',
+      'airlie-beach': 'Airlie Beach',
       'st-thomas': 'St. Thomas',
       'st-maarten': 'St. Maarten',
       'st-kitts': 'St. Kitts',
@@ -57,6 +160,8 @@
       'cape-liberty': 'Cape Liberty (Bayonne)',
       'port-canaveral': 'Port Canaveral',
       'fort-lauderdale': 'Fort Lauderdale',
+      'long-beach': 'Long Beach',
+      'new-orleans': 'New Orleans',
       'bar-harbor': 'Bar Harbor',
       'icy-strait-point': 'Icy Strait Point',
       'glacier-bay': 'Glacier Bay',
@@ -76,7 +181,26 @@
       'new-caledonia': 'New Caledonia',
       'los-angeles': 'Los Angeles',
       'san-diego': 'San Diego',
-      'san-francisco': 'San Francisco'
+      'san-francisco': 'San Francisco',
+      'buenos-aires': 'Buenos Aires',
+      'punta-arenas': 'Punta Arenas',
+      'san-cristobal': 'San Cristóbal',
+      'great-stirrup-cay': 'Great Stirrup Cay',
+      'new-york': 'New York',
+      'ocean-cay': 'Ocean Cay MSC Marine Reserve',
+      'abu-dhabi': 'Abu Dhabi',
+      'bimini': 'The Beach Club at Bimini',
+      'key-west': 'Key West',
+      'palma-de-mallorca': 'Palma de Mallorca',
+      'st-croix': 'St. Croix',
+      'puerto-plata': 'Puerto Plata',
+      'civitavecchia': 'Civitavecchia (Rome)',
+      'punta-del-este': 'Punta del Este',
+      'la-spezia': 'La Spezia',
+      'quebec-city': 'Quebec City',
+      'cape-town': 'Cape Town',
+      'sydney-australia': 'Sydney, Australia',
+      'monte-carlo': 'Monte Carlo'
     };
 
     if (specialNames[slug]) return specialNames[slug];
@@ -107,55 +231,121 @@
     section.className = 'card';
     section.setAttribute('aria-labelledby', 'ships-visiting-title');
 
-    // Group ships by class for better organization
-    const shipsByClass = {};
+    // Group ships by cruise line, then by class
+    const shipsByCruiseLine = {};
     shipSlugs.forEach(slug => {
       const shipData = ships[slug];
       if (shipData) {
+        const cruiseLine = shipData.cruise_line || 'rcl'; // Default to RCL for backward compatibility
         const shipClass = shipData.class || 'Other';
-        if (!shipsByClass[shipClass]) shipsByClass[shipClass] = [];
-        shipsByClass[shipClass].push({
+
+        if (!shipsByCruiseLine[cruiseLine]) {
+          shipsByCruiseLine[cruiseLine] = {};
+        }
+        if (!shipsByCruiseLine[cruiseLine][shipClass]) {
+          shipsByCruiseLine[cruiseLine][shipClass] = [];
+        }
+
+        shipsByCruiseLine[cruiseLine][shipClass].push({
           slug: slug,
-          name: shipData.name || formatShipName(slug)
+          name: shipData.name || formatShipName(slug),
+          class: shipClass
         });
       }
     });
 
+    // Class order for sorting (larger ships first)
+    const classOrders = {
+      'rcl': ['Icon', 'Oasis', 'Quantum', 'Freedom', 'Voyager', 'Radiance', 'Vision', 'Other'],
+      'carnival': ['Excel', 'Vista', 'Dream', 'Concordia', 'Venice', 'Destiny', 'Conquest', 'Spirit', 'Fantasy', 'Other'],
+      'celebrity': ['Edge', 'Solstice', 'Millennium', 'Expedition', 'Other'],
+      'ncl': ['Prima', 'Breakaway Plus', 'Breakaway', 'Epic', 'Jewel', 'Dawn', 'Sun', 'Spirit', 'Sky', 'America', 'Other'],
+      'princess': ['Sphere', 'Royal', 'Grand', 'Coral', 'Other'],
+      'hal': ['Pinnacle', 'Signature', 'Vista', 'R', 'Other'],
+      'msc': ['World', 'Meraviglia Plus', 'Seaside EVO', 'Meraviglia', 'Seaside', 'Fantasia', 'Musica', 'Lirica', 'Other'],
+      'virgin': ['Lady', 'Other'],
+      'costa': ['Excellence', 'Venice', 'Diadema', 'Concordia', 'Spirit', 'Other'],
+      'cunard': ['Ocean Liner', 'Queen', 'Other'],
+      'oceania': ['Allura', 'Vista', 'Oceania', 'R-Class', 'Other'],
+      'regent': ['Grandeur', 'Splendor', 'Explorer', 'Voyager', 'Mariner', 'Navigator', 'Other'],
+      'seabourn': ['Encore', 'Odyssey', 'Expedition', 'Other'],
+      'silversea': ['Nova', 'Muse', 'Spirit', 'Shadow', 'Wind', 'Expedition', 'Other'],
+      'explora': ['Explora', 'Other']
+    };
+
+    // Brand colors for cruise lines
+    const brandColors = {
+      'rcl': { bg: '#e6f4f8', border: '#b8d4e3', hover: '#d0e8f0', text: '#0e6e8e' },
+      'carnival': { bg: '#fff3e6', border: '#e3c8b8', hover: '#ffe6cc', text: '#c74a35' },
+      'celebrity': { bg: '#f0f0f5', border: '#c0c0d0', hover: '#e0e0eb', text: '#1a1a4e' },
+      'ncl': { bg: '#e6f0ff', border: '#b8c8e3', hover: '#d0e0f5', text: '#003087' },
+      'princess': { bg: '#e6f2ef', border: '#b8d4cd', hover: '#d0e8e3', text: '#00665e' },
+      'hal': { bg: '#e8eef5', border: '#c0cee0', hover: '#d8e4f0', text: '#1a3a5c' },
+      'msc': { bg: '#e6e9f0', border: '#b8c0d0', hover: '#d0d5e5', text: '#1a2a4a' },
+      'virgin': { bg: '#fce8e8', border: '#e8c0c0', hover: '#f5d5d5', text: '#cc0000' },
+      'costa': { bg: '#fff8e6', border: '#e8d8b0', hover: '#fff0cc', text: '#c09000' },
+      'cunard': { bg: '#f5e8e8', border: '#d8b0b0', hover: '#f0d8d8', text: '#8b0000' },
+      'oceania': { bg: '#f5f0e8', border: '#d8c8b0', hover: '#f0e8d8', text: '#8b6914' },
+      'regent': { bg: '#e8ecf5', border: '#b0b8d8', hover: '#d8e0f0', text: '#1a2a5e' },
+      'seabourn': { bg: '#e8f0e8', border: '#b0d0b0', hover: '#d8e8d8', text: '#1a4a2e' },
+      'silversea': { bg: '#f0f0f0', border: '#c0c0c0', hover: '#e8e8e8', text: '#404040' },
+      'explora': { bg: '#f0eef5', border: '#c8c0d8', hover: '#e8e4f0', text: '#2a1a4e' }
+    };
+
     let html = `
       <h3 id="ships-visiting-title">Ships That Visit Here</h3>
       <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-        Royal Caribbean ships with ${formatPortName(portSlug)} on their itineraries:
+        Cruise ships with ${formatPortName(portSlug)} on their itineraries:
       </p>
-      <div class="ship-links" style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
     `;
 
-    // Sort by class size (Oasis first, then Quantum, etc.)
-    const classOrder = ['Icon', 'Oasis', 'Quantum', 'Freedom', 'Voyager', 'Radiance', 'Vision', 'Other'];
-    const sortedClasses = Object.keys(shipsByClass).sort((a, b) => {
-      return classOrder.indexOf(a) - classOrder.indexOf(b);
-    });
+    // Render each cruise line's ships
+    const cruiseLineOrder = ['rcl', 'celebrity', 'princess', 'hal', 'cunard', 'oceania', 'regent', 'seabourn', 'silversea', 'explora', 'ncl', 'msc', 'costa', 'virgin', 'carnival']; // Define display order
+    const activeCruiseLines = cruiseLineOrder.filter(cl => shipsByCruiseLine[cl]);
 
-    sortedClasses.forEach(shipClass => {
-      shipsByClass[shipClass]
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .forEach(ship => {
-          html += `
-            <a href="/ships/rcl/${ship.slug}.html"
-               class="ship-link-pill"
-               style="display: inline-block; padding: 0.35rem 0.75rem; background: #e6f4f8; border: 1px solid #b8d4e3; border-radius: 999px; font-size: 0.8rem; text-decoration: none; color: var(--sea, #0e6e8e); transition: background 0.2s;"
-               onmouseover="this.style.background='#d0e8f0'"
-               onmouseout="this.style.background='#e6f4f8'"
-               title="${ship.name} (${shipClass} Class)">
-              ${ship.name}
-            </a>
-          `;
-        });
+    activeCruiseLines.forEach((cruiseLineId, index) => {
+      const lineInfo = CRUISE_LINES[cruiseLineId];
+      const colors = brandColors[cruiseLineId] || brandColors['rcl'];
+      const classOrder = classOrders[cruiseLineId] || classOrders['rcl'];
+      const shipsByClass = shipsByCruiseLine[cruiseLineId];
+
+      if (activeCruiseLines.length > 1) {
+        html += `
+          <p style="margin: ${index > 0 ? '1rem' : '0'} 0 0.5rem 0; font-weight: 600; font-size: 0.9rem; color: ${colors.text};">
+            ${lineInfo.name}
+          </p>
+        `;
+      }
+
+      html += `<div class="ship-links" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">`;
+
+      const sortedClasses = Object.keys(shipsByClass).sort((a, b) => {
+        return classOrder.indexOf(a) - classOrder.indexOf(b);
+      });
+
+      sortedClasses.forEach(shipClass => {
+        shipsByClass[shipClass]
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .forEach(ship => {
+            html += `
+              <a href="${lineInfo.path}${ship.slug}.html"
+                 class="ship-link-pill"
+                 style="display: inline-block; padding: 0.35rem 0.75rem; background: ${colors.bg}; border: 1px solid ${colors.border}; border-radius: 999px; font-size: 0.8rem; text-decoration: none; color: ${colors.text}; transition: background 0.2s;"
+                 onmouseover="this.style.background='${colors.hover}'"
+                 onmouseout="this.style.background='${colors.bg}'"
+                 title="${ship.name} (${shipClass} Class)">
+                ${ship.name}
+              </a>
+            `;
+          });
+      });
+
+      html += `</div>`;
     });
 
     html += `
-      </div>
       <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);">
-        <a href="/ships.html">View all Royal Caribbean ships →</a>
+        <a href="/ships.html">Browse all cruise ships →</a>
       </p>
     `;
 
@@ -170,7 +360,7 @@
   }
 
   // Render "Ports on This Ship" for ship pages
-  function renderPortsForShip(shipSlug, deployments) {
+  function renderPortsForShip(shipSlug, deployments, cruiseLine) {
     const ships = deployments.ships || {};
     const shipData = ships[shipSlug];
 
@@ -181,6 +371,9 @@
     const mainContent = document.querySelector('.col-1 article') || document.querySelector('.col-1');
 
     if (!mainContent) return;
+
+    // Get cruise line info
+    const lineInfo = CRUISE_LINES[cruiseLine] || CRUISE_LINES['rcl'];
 
     // Create the section
     const section = document.createElement('section');
@@ -216,8 +409,8 @@
     html += `
       </div>
       <p class="tiny" style="color: var(--ink-light, #6b8a9a);">
-        Itineraries vary by season. Check <a href="https://www.royalcaribbean.com/cruise-ships/${shipSlug}" target="_blank" rel="noopener">Royal Caribbean</a> for current sailings.
-        <br><a href="/ports.html">Browse all 333 port guides →</a>
+        Itineraries vary by season. Check <a href="${lineInfo.bookingUrl}${shipSlug}" target="_blank" rel="noopener">${lineInfo.name}</a> for current sailings.
+        <br><a href="/ports.html">Browse all 380+ port guides →</a>
       </p>
     `;
 
@@ -244,7 +437,7 @@
       if (context.type === 'port') {
         renderShipsForPort(context.slug, deployments);
       } else if (context.type === 'ship') {
-        renderPortsForShip(context.slug, deployments);
+        renderPortsForShip(context.slug, deployments, context.cruiseLine || 'rcl');
       }
     } catch (err) {
       console.log('Ship-port links: Could not load deployment data', err);

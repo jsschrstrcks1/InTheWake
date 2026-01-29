@@ -13,12 +13,12 @@ This document details the enhanced Claude Code system installed on this reposito
 
 ### Installed Components
 
-**Total Skill Rules:** 7 (defined in skill-rules.json)
+**Total Skill Rules:** 8 (defined in skill-rules.json)
 - 3 with dedicated skill directories (standards, skill-developer, frontend-dev-guidelines)
-- 4 rule-based triggers only (seo-optimizer, accessibility-auditor, content-strategy, performance-analyzer)
+- 5 rule-based triggers only (seo-optimizer, accessibility-auditor, content-strategy, performance-analyzer, ship-page-validator)
 **Total Plugins:** 5 (cruise-relevant only)
 **Total Commands:** 4 (workflow utilities)
-**Total Hooks:** 2 (auto-activation system)
+**Total Hooks:** 3 (auto-activation system + ship page validation)
 **Configuration Files:** 2 (skill-rules.json, settings.json)
 
 ---
@@ -51,31 +51,44 @@ This document details the enhanced Claude Code system installed on this reposito
    - Resources in `.claude/skills/standards/`
    - ICP-Lite / ITW-Lite protocol compliance
 
-**Rule-Based Skill Triggers (4):**
+2. **skill-developer** (FOM Adapted)
+   - Meta-skill for creating and managing Claude Code skills
+   - Resources in `.claude/skills/skill-developer/`
+
+3. **frontend-dev-guidelines** (FOM Adapted)
+   - HTML/CSS/JavaScript best practices for static sites
+   - Resources in `.claude/skills/frontend-dev-guidelines/`
+
+**Rule-Based Skill Triggers (5):**
 
 These are defined in `skill-rules.json` as activation triggers with guardrails, but don't have dedicated SKILL.md directories:
 
-2. **seo-optimizer** (FOM Adapted → ITW-Lite)
+4. **seo-optimizer** (FOM Adapted → ITW-Lite)
    - SEO optimization with ITW-Lite guardrails
    - Technical SEO focus (schema.org, semantic HTML, meta tags)
    - Cruise-specific schema: Article, Place, TravelAction
    - REJECTS: Keyword stuffing, readability compromises, AI-hostile practices
 
-3. **accessibility-auditor** (FOM Adapted)
+5. **accessibility-auditor** (FOM Adapted)
    - WCAG AA compliance checking
    - Cruise accessibility considerations
    - Screen reader, keyboard navigation, color contrast
 
-4. **content-strategy** (FOM Adapted → Cruise Content)
+6. **content-strategy** (FOM Adapted → Cruise Content)
    - Travel storytelling over marketing-speak
    - Planning guidance sections
    - Faith-scented reflections when appropriate
    - Natural, conversational descriptions
 
-5. **performance-analyzer** (FOM Adapted)
+7. **performance-analyzer** (FOM Adapted)
    - Core Web Vitals optimization
    - Image optimization for ship/port photos
    - LCP, FID, CLS monitoring
+
+8. **ship-page-validator** (CITW Original)
+   - Auto-validates ship pages against SHIP_PAGE_CHECKLIST_v3.010
+   - Checks theological foundation, AI-breadcrumbs, ICP-Lite v1.4, JSON-LD, WCAG
+   - Post-write hook: `.claude/hooks/ship-page-validator.sh`
 
 **Purpose:** Domain-specific expertise for cruise planning site development
 
@@ -138,7 +151,7 @@ These are defined in `skill-rules.json` as activation triggers with guardrails, 
 
 The `.claude/skill-rules.json` has been customized for cruise planning with **ITW-Lite v3.010 guardrails**:
 
-### Active Skill Rules (7 Total):
+### Active Skill Rules (8 Total):
 
 **Skills with Directories (3):**
 
@@ -159,7 +172,7 @@ The `.claude/skill-rules.json` has been customized for cruise planning with **IT
    - Purpose: HTML/CSS/JS best practices
    - Resources: `.claude/skills/frontend-dev-guidelines/`
 
-**Rule-Based Triggers (4):**
+**Rule-Based Triggers (5):**
 
 4. **seo-optimizer** (High Priority) ⚠️ **WITH ITW-LITE GUARDRAILS**
    - Triggers: SEO, meta tags, schema.org, structured data
@@ -191,6 +204,15 @@ The `.claude/skill-rules.json` has been customized for cruise planning with **IT
 7. **performance-analyzer** (Medium Priority) - FOM Adapted
    - Triggers: performance, optimize, lighthouse, Core Web Vitals
    - Purpose: Web performance optimization
+
+8. **ship-page-validator** (High Priority) - CITW Original
+   - Triggers: "ship page", "create ship", "validate ship", ship checklist
+   - Files: ships/**/*.html (excludes ships/index.html, ships.html)
+   - Purpose: Auto-validates ship pages against SHIP_PAGE_CHECKLIST_v3.010
+   - **Guardrails:**
+     - ✅ Soli Deo Gloria invocation, AI-breadcrumbs, ICP-Lite v1.4 meta tags
+     - ✅ 7 JSON-LD blocks, WCAG accessibility, all content sections
+   - Post-write hook: `.claude/hooks/ship-page-validator.sh`
 
 ---
 
@@ -307,16 +329,16 @@ ls -la .claude/plugins/
 # Check commands (4 expected)
 ls -la .claude/commands/
 
-# Check hooks (2 expected)
+# Check hooks (3 expected)
 ls -la .claude/hooks/
 
-# Verify skill rules in configuration (7 expected)
+# Verify skill rules in configuration (8 expected)
 cat .claude/skill-rules.json | jq '.skills | keys'
 ```
 
 **Expected output:**
 - Skill directories: 3 (standards, skill-developer, frontend-dev-guidelines)
-- Skill rules in JSON: 7 (standards, skill-developer, frontend-dev-guidelines, seo-optimizer, accessibility-auditor, content-strategy, performance-analyzer)
+- Skill rules in JSON: 8 (standards, skill-developer, frontend-dev-guidelines, seo-optimizer, accessibility-auditor, content-strategy, performance-analyzer, ship-page-validator)
 
 ---
 
@@ -356,13 +378,28 @@ cat .claude/skill-rules.json | jq '.skills | keys'
 
 ## Version History
 
+**v1.1.4** (2026-01-28)
+- Fixed Layer 2 section: Added skill-developer and frontend-dev-guidelines to "Skills with Dedicated Directories" listing
+- Fixed Layer 2 section: Corrected "Rule-Based Skill Triggers" from (4) to (5), added ship-page-validator
+- Numbered all 8 skills sequentially in Layer 2 for clarity
+
+**v1.1.3** (2026-01-25)
+- Documentation update: Fixed remaining "7 skills" references to "8 skills" in ONBOARDING.md
+- Clarified CITW original skill count: 2 (standards + ship-page-validator)
+
+**v1.1.2** (2026-01-25)
+- Documentation update: Corrected skill count from 7 to 8 (includes ship-page-validator)
+- Documentation update: Corrected hooks count from 2 to 3
+- Added ship-page-validator documentation throughout
+- Fixed ICP-Lite version reference to v1.4
+
 **v1.1.1** (2025-12-01)
 - Documentation clarification: Distinguish between skill directories (3) and skill rules (7)
 - Updated onboarding and installation docs for accuracy
 
 **v1.1.0** (2025-11-24)
 - Initial merge of FOM enhancements into CITW
-- 7 skill rules total: 3 with directories (standards, skill-developer, frontend-dev-guidelines) + 4 rule-based triggers
+- 8 skill rules total: 3 with directories (standards, skill-developer, frontend-dev-guidelines) + 5 rule-based triggers
 - ITW-Lite v3.010 philosophy implemented
 - Cruise-specific path and schema adaptations
 

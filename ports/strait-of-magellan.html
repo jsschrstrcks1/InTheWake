@@ -120,7 +120,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       }
     </script>
 
-    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/assets/styles.css" />
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""
@@ -139,21 +139,80 @@ ITW-Lite v3.010 | ICP-Lite v1.4
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 </head>
   <body>
-    <header>
-      <nav class="navbar">
-        <a href="/" class="logo">In The Wake</a>
-        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
-        <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
-        <ul class="nav-links">
-          <li><a href="/ships.html">Ships</a></li>
-          <li><a href="/ports.html">Ports</a></li>
-          <li><a href="/tips/">Tips</a></li>
-          <li><a href="/news/">News</a></li>
-        </ul>
-      </nav>
-    </header>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <main class="port-guide">
+  <header class="hero-header" role="banner">
+    <nav class="navbar" aria-label="Main navigation">
+      <div class="brand">
+        <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+      </div>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/first-cruise.html">Your First Cruise</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Tools Dropdown -->
+        <div class="nav-dropdown" id="nav-tools">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Tools <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/cruise-lines/quiz.html">Cruise Line Quiz</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/tools/port-tracker.html">Port Logbook</a>
+            <a href="/tools/ship-tracker.html">Ship Logbook</a>
+          </div>
+        </div>
+
+        <!-- Onboard Dropdown -->
+        <div class="nav-dropdown" id="nav-onboard">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Onboard <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
+            <a href="/articles.html">Articles</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav>
+    </nav>
+  </header>
+
+<main class="port-guide">
       <article class="port-content">
         <header class="port-header">
           <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -344,7 +403,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       <p class="disclaimer">
         Not affiliated with Royal Caribbean International.
       </p>
-      <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+      <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -361,5 +420,6 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         L.marker([-52.78, -74.72]).addTo(map).bindPopup("Pacific Exit");
       });
     </script>
-  </body>
+    <script src="/assets/js/ship-port-links.js" defer></script>
+</body>
 </html>

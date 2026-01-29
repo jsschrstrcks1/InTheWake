@@ -277,25 +277,80 @@
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
   <!-- Site Header -->
-  <header class="site-header" role="banner">
-    <div class="navbar">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="hero-header" role="banner">
+    <nav class="navbar" aria-label="Main navigation">
       <div class="brand">
-        <a href="/">
-          <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async" loading="eager">
-        </a>
-        <span class="version-badge">V1.Beta</span>
+        <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
       </div>
-      <nav class="site-nav" aria-label="Main navigation">
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-        <a class="nav-pill" href="/ships.html">Ships</a>
-        <a class="nav-pill" href="/planning.html">Planning</a>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/first-cruise.html">Your First Cruise</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Tools Dropdown -->
+        <div class="nav-dropdown" id="nav-tools">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Tools <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/cruise-lines/quiz.html">Cruise Line Quiz</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/tools/port-tracker.html">Port Logbook</a>
+            <a href="/tools/ship-tracker.html">Ship Logbook</a>
+          </div>
+        </div>
+
+        <!-- Onboard Dropdown -->
+        <div class="nav-dropdown" id="nav-onboard">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Onboard <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
+            <a href="/articles.html">Articles</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
-    </div>
+    </nav>
   </header>
 
-  <!-- Future Ship Banner -->
+<!-- Future Ship Banner -->
   <div class="future-banner" role="complementary" aria-label="Future ship notice">
     <h2>Future Ship — On Order</h2>
     <p>Carnival Tropicale is scheduled for delivery in 2028. Information on this page is based on the Excel-class platform and is subject to change.</p>
@@ -581,7 +636,14 @@
         </section>
 
         <!-- Author Card -->
-        <section class="card author-card-vertical" aria-labelledby="author-title">
+              <!-- Ship Quiz CTA -->
+      <section class="card quiz-cta" style="background: linear-gradient(135deg, #e0f4f8, #fff); border-left: 4px solid #0e6e8e; padding: 1rem;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #083041;">Exploring Options?</h3>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: #5a7a8a;">Take our quick quiz to find ships that match your travel style.</p>
+        <a href="/ships/quiz.html" class="pill" style="font-size: 0.85rem;">Ship Quiz →</a>
+      </section>
+
+<section class="card author-card-vertical" aria-labelledby="author-title">
           <h3 id="author-title">About the Author</h3>
           <a href="/authors/ken-baker.html"><img class="author-avatar" src="/authors/img/ken1_96.webp" width="96" height="96" alt="Ken Baker cruise research analyst and author of In The Wake ship reviews" loading="lazy"/></a>
           <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>

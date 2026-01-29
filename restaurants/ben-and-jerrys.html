@@ -20,6 +20,15 @@ All work on this project is offered as a gift to God.
      target-audience: Cruise dining planners, families, specialty dining seekers
      answer-first: Ben & Jerry's — Ice cream shop with premium flavors
      -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WZP891PZXJ');
+</script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ben & Jerry's — Royal Caribbean | In the Wake</title>
@@ -115,7 +124,7 @@ All work on this project is offered as a gift to God.
       "name": "Do I need reservations for Ben & Jerry's?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Reservations are recommended for specialty dining. You can book through the cruise planner or onboard."
+        "text": "No reservations needed — just walk up to the counter anytime you're craving something sweet. You can book through the cruise planner or onboard."
       }
     },
     {
@@ -123,7 +132,7 @@ All work on this project is offered as a gift to God.
       "name": "What is the dress code for Ben & Jerry's?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Dress codes vary by venue. Most specialty restaurants request smart casual attire."
+        "text": "Come as you are. Pool attire and casual clothes are fine — it's a relaxed grab-and-go spot."
       }
     },
     {
@@ -131,7 +140,7 @@ All work on this project is offered as a gift to God.
       "name": "Is Ben & Jerry's included in my cruise fare?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Complimentary vs. specialty pricing varies by venue. Specialty restaurants typically have a cover charge or a la carte pricing."
+        "text": "Items are priced a la carte. Ice cream, shakes, and treats typically range from $4-8 each.Items are priced a la carte. Ice cream, shakes, and treats typically range from $4-8 each."
       }
     }
   ]
@@ -166,24 +175,46 @@ All work on this project is offered as a gift to God.
           <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
 
-        <!-- Planning Dropdown -->
+                <!-- Planning Dropdown -->
         <div class="nav-dropdown" id="nav-planning">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Planning <span class="caret">&#9662;</span>
           </button>
           <div class="dropdown-menu" role="menu">
-            <a href="/planning.html">Planning (overview)</a>
+            <a href="/first-cruise.html">Your First Cruise</a>
             <a href="/ships.html">Ships</a>
-            <a href="/ships/quiz.html">Ship Quiz</a>
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a href="/ports.html">Ports</a>
-            <a href="/internet-at-sea.html">Internet at Sea</a>
-            <a href="/drink-packages.html">Drink Packages</a>
-            <a href="/drink-calculator.html">Drink Calculator</a>
-            <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/ports.html">Ports</a>
             <a href="/packing-lists.html">Packing Lists</a>
             <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Tools Dropdown -->
+        <div class="nav-dropdown" id="nav-tools">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Tools <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/cruise-lines/quiz.html">Cruise Line Quiz</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/tools/port-tracker.html">Port Logbook</a>
+            <a href="/tools/ship-tracker.html">Ship Logbook</a>
+          </div>
+        </div>
+
+        <!-- Onboard Dropdown -->
+        <div class="nav-dropdown" id="nav-onboard">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Onboard <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
+            <a href="/articles.html">Articles</a>
           </div>
         </div>
 
@@ -198,8 +229,6 @@ All work on this project is offered as a gift to God.
           </div>
         </div>
 
-        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
-        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav></div>
@@ -246,7 +275,7 @@ All work on this project is offered as a gift to God.
 
   <!-- Special Accommodations -->
   <section class="card" id="accommodations">
-    <img src="/assets/images/restaurants/photos/croissant.webp" alt="" aria-hidden="true">
+    <img src="/assets/images/restaurants/photos/buffet.webp" alt="" aria-hidden="true">
     <div class="card__content">
       <h2>Special Accommodations</h2>
       <div class="allergen-micro" role="note" aria-label="Allergen and dietary information">
@@ -257,7 +286,7 @@ All work on this project is offered as a gift to God.
 
   <!-- Where You'll Find It -->
   <section class="card" id="availability">
-    <img src="/assets/images/restaurants/photos/croissant.webp" alt="" aria-hidden="true">
+    <img src="/assets/images/restaurants/photos/formal-dining.webp" alt="" aria-hidden="true">
     <div class="card__content">
       <h2>Where You'll Find It</h2>
       <p>Available on the following Royal Caribbean ships:</p>
@@ -271,7 +300,7 @@ All work on this project is offered as a gift to God.
 
   <!-- The Logbook — Real Guest Soundings -->
   <section class="card note-kens-logbook" id="logbook">
-    <img src="/assets/images/restaurants/photos/croissant.webp" alt="" aria-hidden="true">
+    <img src="/assets/images/restaurants/photos/bar-lounge.webp" alt="" aria-hidden="true">
     <div class="card__content prose">
       <h2>The Logbook — Real Guest Soundings</h2>
 
@@ -284,19 +313,19 @@ All work on this project is offered as a gift to God.
 
       <h3>Ben & Jerry's Review: Guest Experience Summary</h3>
 
-      <p><em>Introduction.</em> Ben & Jerry's consistently receives positive feedback from Royal Caribbean guests. This composite review reflects common themes from multiple sailings and ships across the fleet.</p>
+      <p><em>Introduction.</em> The beloved Vermont ice cream brand has a home at sea. Ben & Jerry's on Royal Caribbean serves the same premium flavors you know and love, perfect for poolside treats or late-night cravings.</p>
 
       <h4>Food &amp; Drinks</h4>
-      <p>The food was well-prepared and presented beautifully. Portions were generous and flavors were balanced. The menu offered good variety with options for different tastes and dietary needs.</p>
+      <p>All the classic flavors are here — Cherry Garcia, Half Baked, Phish Food, Chocolate Fudge Brownie, and rotating seasonal options. Cones, cups, sundaes, and milkshakes available. Extra charge applies (not included in cruise fare).</p>
 
       <h4>Service</h4>
-      <p>Service was attentive and friendly. Our server was knowledgeable about the menu and made helpful recommendations. Pacing was comfortable — not rushed, not too slow.</p>
+      <p>Counter service is quick and friendly. During peak afternoon hours, expect a short line. Staff are happy to offer samples if you're deciding between flavors.</p>
 
       <h4>Atmosphere / Ambiance</h4>
-      <p>The atmosphere was inviting with tasteful decor that enhanced the dining experience. Comfortable seating and appropriate lighting made for an enjoyable meal.</p>
+      <p>Small, casual ice cream parlor setup, usually located on the Boardwalk or Royal Promenade. Bright, cheerful branding matches the Ben & Jerry's vibe. Grab and go or enjoy at nearby seating.</p>
 
       <h4>Conclusion</h4>
-      <p><strong>Rating: 4/5.</strong> Ben & Jerry's delivers a quality experience that meets guest expectations. Worth visiting during your cruise.</p>
+      <p><strong>Rating: 4/5.</strong> If you love Ben & Jerry's on land, you'll love it at sea. The extra charge is worth it for premium ice cream cravings.</p>
 
       <p class="tiny" style="margin-top:.75rem;">Exploring more venues? <a href="/restaurants.html">Return to the Restaurants hub →</a></p>
 
@@ -311,7 +340,7 @@ All work on this project is offered as a gift to God.
           "provider": { "@type": "Organization", "name": "Royal Caribbean International" }
         },
         "name": "Ben & Jerry's Review: Guest Experience Summary",
-        "reviewBody": "Composite review from multiple guest experiences across Royal Caribbean fleet sailings in 2024-2025.",
+        "reviewBody": "Ben & Jerry's on Royal Caribbean serves premium ice cream flavors, sundaes, and milkshakes. Extra charge venue — perfect for poolside treats and dessert cravings.",
         "reviewRating": { "@type": "Rating", "ratingValue": "4", "bestRating": "5", "worstRating": "1" },
         "author": { "@type": "Person", "name": "Guest Soundings (Multiple Sailings)" },
         "isPartOf": { "@type": "WebPage", "url": "https://cruisinginthewake.com/restaurants/ben-and-jerrys.html" }
@@ -322,7 +351,7 @@ All work on this project is offered as a gift to God.
 
   <!-- Sources -->
   <section class="card" id="sources">
-    <img src="/assets/images/restaurants/photos/croissant.webp" alt="" aria-hidden="true">
+    <img src="/assets/images/restaurants/photos/cocktail.webp" alt="" aria-hidden="true">
     <div class="card__content">
       <h2>Sources &amp; Attribution</h2>
       <ul>
@@ -338,22 +367,22 @@ All work on this project is offered as a gift to God.
 
       <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Do I need reservations for Ben & Jerry's?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Reservations are recommended for specialty dining. You can book through the cruise planner before sailing or onboard via the app or guest services.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">No reservations needed — just walk up to the counter anytime you're craving something sweet.</p>
       </details>
 
       <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What is the dress code for Ben & Jerry's?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Dress codes vary by venue. Check the dress code section on this page for specific requirements. Most specialty restaurants request smart casual attire.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Come as you are. Pool attire and casual clothes are fine — it's a relaxed grab-and-go spot.</p>
       </details>
 
       <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Is Ben & Jerry's included in my cruise fare?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Complimentary vs. specialty pricing varies by venue. Check the pricing information on this page. Specialty restaurants typically have a cover charge or a la carte pricing.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Items are priced a la carte. Ice cream, shakes, and treats typically range from $4-8 each.</p>
       </details>
 
       <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
         <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Which ships have Ben & Jerry's?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Availability varies by ship and class. Check the ships section on this page or the Royal Caribbean website for current fleet availability.</p>
+        <p style="margin: 0.5rem 0; padding-left: 1rem;">Check the "Where You'll Find It" section above for the current list of ships featuring Ben & Jerry's.</p>
       </details>
     </section>
 </div>
