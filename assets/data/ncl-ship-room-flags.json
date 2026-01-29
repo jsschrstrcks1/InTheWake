@@ -1,0 +1,1485 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "cruise_line": "Norwegian Cruise Line",
+    "description": "NCL stateroom type definitions by ship class with dimensions and features",
+    "last_updated": "2026-01-29",
+    "notes": "NCL uses distinctive naming: The Haven (suite complex), Studios (solo cabins), Spa categories"
+  },
+  "_ncl_category_codes": {
+    "description": "NCL uses letter-based category codes. Common prefixes:",
+    "H": "Haven suites",
+    "S": "Suites/Suite-tier",
+    "M": "Mini-Suite / Club Balcony Suite",
+    "B": "Balcony",
+    "O": "Oceanview",
+    "I": "Inside/Interior",
+    "SA": "Spa",
+    "ST": "Studio"
+  },
+  "norwegian-prima": {
+    "meta": {
+      "ship_name": "Norwegian Prima",
+      "ship_class": "Prima Class",
+      "avg_cabin_width_ft": 11
+    },
+    "stateroom_types": [
+      {
+        "code": "INTERIOR_STD",
+        "short_label": "Inside",
+        "marketing_name": "Inside Stateroom",
+        "category_group": "interior",
+        "ncl_categories": ["IA", "IB", "IC", "ID", "IE", "IF"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 15,
+        "avg_area_sqft": 158,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Comfortable interior stateroom with two lower beds convertible to queen, sitting area, full bathroom."
+      },
+      {
+        "code": "STUDIO",
+        "short_label": "Studio",
+        "marketing_name": "Studio Stateroom",
+        "category_group": "interior",
+        "ncl_categories": ["SA", "SB"],
+        "avg_width_ft": 9,
+        "avg_length_ft": 11,
+        "avg_area_sqft": 99,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "1 guest",
+        "description": "Solo traveler cabin with access to Studio Lounge. Full-size bed, private bathroom, modern design."
+      },
+      {
+        "code": "OV_PORTHOLE",
+        "short_label": "Oceanview Porthole",
+        "marketing_name": "Oceanview Stateroom (Porthole)",
+        "category_group": "oceanview",
+        "ncl_categories": ["OF", "OG"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 15,
+        "avg_area_sqft": 161,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview cabin with porthole window, two lower beds convertible to queen."
+      },
+      {
+        "code": "OV_WINDOW",
+        "short_label": "Oceanview Picture Window",
+        "marketing_name": "Oceanview Stateroom (Picture Window)",
+        "category_group": "oceanview",
+        "ncl_categories": ["OA", "OB", "OC", "OD", "OE"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 16,
+        "avg_area_sqft": 175,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview with large picture window for natural light and ocean views."
+      },
+      {
+        "code": "BAL_STD",
+        "short_label": "Balcony",
+        "marketing_name": "Balcony Stateroom",
+        "category_group": "balcony",
+        "ncl_categories": ["BA", "BB", "BC", "BD", "BE", "BF", "BG"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 17,
+        "avg_area_sqft": 185,
+        "avg_balcony_sqft": 45,
+        "typical_occupancy": "2-4 guests",
+        "description": "Private balcony stateroom with floor-to-ceiling glass doors, outdoor seating."
+      },
+      {
+        "code": "CLUB_BAL",
+        "short_label": "Club Balcony Suite",
+        "marketing_name": "Club Balcony Suite",
+        "category_group": "suite",
+        "ncl_categories": ["MA", "MB", "MC"],
+        "avg_width_ft": 12,
+        "avg_length_ft": 20,
+        "avg_area_sqft": 237,
+        "avg_balcony_sqft": 55,
+        "typical_occupancy": "2-4 guests",
+        "description": "Enhanced balcony with suite-level amenities, priority embarkation, premium bathrobes."
+      },
+      {
+        "code": "AFT_PENTHOUSE",
+        "short_label": "Aft-Facing Penthouse",
+        "marketing_name": "Aft-Facing Penthouse with Large Balcony",
+        "category_group": "suite",
+        "ncl_categories": ["S1", "S2"],
+        "avg_width_ft": 14,
+        "avg_length_ft": 23,
+        "avg_area_sqft": 324,
+        "avg_balcony_sqft": 97,
+        "typical_occupancy": "2-4 guests",
+        "description": "Penthouse with expansive aft-facing balcony offering wake views, separate living area."
+      },
+      {
+        "code": "PENTHOUSE",
+        "short_label": "Penthouse Suite",
+        "marketing_name": "Penthouse with Large Balcony",
+        "category_group": "suite",
+        "ncl_categories": ["S3", "S4", "S5", "S6"],
+        "avg_width_ft": 13,
+        "avg_length_ft": 22,
+        "avg_area_sqft": 286,
+        "avg_balcony_sqft": 75,
+        "typical_occupancy": "2-4 guests",
+        "description": "Suite with large balcony, premium bathroom amenities, concierge service."
+      },
+      {
+        "code": "HAVEN_PENTHOUSE",
+        "short_label": "Haven Penthouse",
+        "marketing_name": "The Haven Penthouse with Balcony",
+        "category_group": "haven",
+        "ncl_categories": ["H5", "H6"],
+        "avg_width_ft": 14,
+        "avg_length_ft": 24,
+        "avg_area_sqft": 333,
+        "avg_balcony_sqft": 90,
+        "typical_occupancy": "2-4 guests",
+        "description": "The Haven suite with exclusive access to Haven courtyard, sundeck, restaurant, and concierge."
+      },
+      {
+        "code": "HAVEN_PREMIER",
+        "short_label": "Haven Premier Owner's Suite",
+        "marketing_name": "The Haven Premier Owner's Suite with Large Balcony",
+        "category_group": "haven",
+        "ncl_categories": ["H3", "H4"],
+        "avg_width_ft": 16,
+        "avg_length_ft": 32,
+        "avg_area_sqft": 525,
+        "avg_balcony_sqft": 110,
+        "typical_occupancy": "2-4 guests",
+        "description": "Premier Haven suite with separate living and dining, butler service, expansive balcony."
+      },
+      {
+        "code": "HAVEN_DELUXE_OWNER",
+        "short_label": "Haven Deluxe Owner's Suite",
+        "marketing_name": "The Haven Deluxe Owner's Suite with Large Balcony",
+        "category_group": "haven",
+        "ncl_categories": ["H1", "H2"],
+        "avg_width_ft": 21,
+        "avg_length_ft": 45,
+        "avg_area_sqft": 958,
+        "avg_balcony_sqft": 178,
+        "typical_occupancy": "2-6 guests",
+        "description": "Top Haven suite with multiple bedrooms, whirlpool tub, expansive outdoor space, 24/7 butler."
+      }
+    ]
+  },
+  "norwegian-viva": {
+    "meta": {
+      "ship_name": "Norwegian Viva",
+      "ship_class": "Prima Class",
+      "avg_cabin_width_ft": 11,
+      "inherit_from": "norwegian-prima"
+    }
+  },
+  "norwegian-aqua": {
+    "meta": {
+      "ship_name": "Norwegian Aqua",
+      "ship_class": "Prima Plus Class",
+      "avg_cabin_width_ft": 11,
+      "notes": "Prima Plus design with additional venues; similar cabin types to Prima Class"
+    },
+    "stateroom_types": [
+      {
+        "code": "INTERIOR_STD",
+        "short_label": "Inside",
+        "marketing_name": "Inside Stateroom",
+        "category_group": "interior",
+        "ncl_categories": ["IA", "IB", "IC", "ID", "IE", "IF"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 15,
+        "avg_area_sqft": 158,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Comfortable interior stateroom with two lower beds convertible to queen, sitting area."
+      },
+      {
+        "code": "STUDIO",
+        "short_label": "Studio",
+        "marketing_name": "Studio Stateroom",
+        "category_group": "interior",
+        "ncl_categories": ["SA", "SB"],
+        "avg_width_ft": 9,
+        "avg_length_ft": 11,
+        "avg_area_sqft": 99,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "1 guest",
+        "description": "Solo traveler cabin with Studio Lounge access."
+      },
+      {
+        "code": "OV_WINDOW",
+        "short_label": "Oceanview",
+        "marketing_name": "Oceanview Stateroom",
+        "category_group": "oceanview",
+        "ncl_categories": ["OA", "OB", "OC", "OD", "OE", "OF"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 16,
+        "avg_area_sqft": 175,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview with picture window."
+      },
+      {
+        "code": "BAL_STD",
+        "short_label": "Balcony",
+        "marketing_name": "Balcony Stateroom",
+        "category_group": "balcony",
+        "ncl_categories": ["BA", "BB", "BC", "BD", "BE", "BF", "BG"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 17,
+        "avg_area_sqft": 185,
+        "avg_balcony_sqft": 45,
+        "typical_occupancy": "2-4 guests",
+        "description": "Private balcony stateroom."
+      },
+      {
+        "code": "CLUB_BAL",
+        "short_label": "Club Balcony Suite",
+        "marketing_name": "Club Balcony Suite",
+        "category_group": "suite",
+        "ncl_categories": ["MA", "MB", "MC"],
+        "avg_width_ft": 12,
+        "avg_length_ft": 20,
+        "avg_area_sqft": 237,
+        "avg_balcony_sqft": 55,
+        "typical_occupancy": "2-4 guests",
+        "description": "Enhanced balcony with suite amenities."
+      },
+      {
+        "code": "HAVEN_PENTHOUSE",
+        "short_label": "Haven Penthouse",
+        "marketing_name": "The Haven Penthouse with Balcony",
+        "category_group": "haven",
+        "ncl_categories": ["H5", "H6"],
+        "avg_width_ft": 14,
+        "avg_length_ft": 24,
+        "avg_area_sqft": 333,
+        "avg_balcony_sqft": 90,
+        "typical_occupancy": "2-4 guests",
+        "description": "Haven suite with exclusive complex access."
+      },
+      {
+        "code": "HAVEN_DELUXE_OWNER",
+        "short_label": "Haven Deluxe Owner's Suite",
+        "marketing_name": "The Haven Deluxe Owner's Suite",
+        "category_group": "haven",
+        "ncl_categories": ["H1", "H2"],
+        "avg_width_ft": 21,
+        "avg_length_ft": 45,
+        "avg_area_sqft": 958,
+        "avg_balcony_sqft": 178,
+        "typical_occupancy": "2-6 guests",
+        "description": "Top Haven suite with butler service."
+      }
+    ]
+  },
+  "norwegian-encore": {
+    "meta": {
+      "ship_name": "Norwegian Encore",
+      "ship_class": "Breakaway Plus Class",
+      "avg_cabin_width_ft": 11
+    },
+    "stateroom_types": [
+      {
+        "code": "INTERIOR_STD",
+        "short_label": "Inside",
+        "marketing_name": "Inside Stateroom",
+        "category_group": "interior",
+        "ncl_categories": ["IA", "IB", "IC", "ID", "IE", "IF", "IG", "IH"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 13,
+        "avg_area_sqft": 135,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Comfortable interior cabin with convertible bedding."
+      },
+      {
+        "code": "STUDIO",
+        "short_label": "Studio",
+        "marketing_name": "Studio Stateroom",
+        "category_group": "interior",
+        "ncl_categories": ["SA", "SB", "SC", "SD"],
+        "avg_width_ft": 8,
+        "avg_length_ft": 12,
+        "avg_area_sqft": 100,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "1 guest",
+        "description": "Solo cabin with Studio Lounge access and full-size bed."
+      },
+      {
+        "code": "OV_PORTHOLE",
+        "short_label": "Oceanview Porthole",
+        "marketing_name": "Oceanview Stateroom (Porthole)",
+        "category_group": "oceanview",
+        "ncl_categories": ["OX", "OZ"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 14,
+        "avg_area_sqft": 143,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview with porthole window(s)."
+      },
+      {
+        "code": "OV_WINDOW",
+        "short_label": "Oceanview Picture Window",
+        "marketing_name": "Oceanview Stateroom (Picture Window)",
+        "category_group": "oceanview",
+        "ncl_categories": ["OA", "OB", "OC", "OD", "OE", "OF", "OK"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 15,
+        "avg_area_sqft": 161,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview with large picture window."
+      },
+      {
+        "code": "BAL_STD",
+        "short_label": "Balcony",
+        "marketing_name": "Balcony Stateroom",
+        "category_group": "balcony",
+        "ncl_categories": ["BA", "BB", "BC", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BK"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 16,
+        "avg_area_sqft": 175,
+        "avg_balcony_sqft": 41,
+        "typical_occupancy": "2-4 guests",
+        "description": "Private balcony with floor-to-ceiling glass doors."
+      },
+      {
+        "code": "SPA_BAL",
+        "short_label": "Spa Balcony",
+        "marketing_name": "Spa Balcony Stateroom",
+        "category_group": "balcony",
+        "ncl_categories": ["B8"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 16,
+        "avg_area_sqft": 175,
+        "avg_balcony_sqft": 41,
+        "typical_occupancy": "2-4 guests",
+        "description": "Balcony with Thermal Spa access, spa bathrobes, fitness classes."
+      },
+      {
+        "code": "MINI_SUITE",
+        "short_label": "Mini-Suite",
+        "marketing_name": "Mini-Suite with Balcony",
+        "category_group": "suite",
+        "ncl_categories": ["M1", "M2", "M3", "M4", "M5", "M6", "MX"],
+        "avg_width_ft": 12,
+        "avg_length_ft": 18,
+        "avg_area_sqft": 222,
+        "avg_balcony_sqft": 54,
+        "typical_occupancy": "2-4 guests",
+        "description": "Larger cabin with enhanced bathroom, sitting area, concierge service."
+      },
+      {
+        "code": "CLUB_BAL",
+        "short_label": "Club Balcony Suite",
+        "marketing_name": "Club Balcony Suite",
+        "category_group": "suite",
+        "ncl_categories": ["MA", "MB", "MC"],
+        "avg_width_ft": 13,
+        "avg_length_ft": 20,
+        "avg_area_sqft": 260,
+        "avg_balcony_sqft": 65,
+        "typical_occupancy": "2-4 guests",
+        "description": "Suite-tier balcony with priority embarkation, premium amenities."
+      },
+      {
+        "code": "SPA_SUITE",
+        "short_label": "Spa Suite",
+        "marketing_name": "Spa Suite with Balcony",
+        "category_group": "suite",
+        "ncl_categories": ["SG", "SJ"],
+        "avg_width_ft": 14,
+        "avg_length_ft": 23,
+        "avg_area_sqft": 322,
+        "avg_balcony_sqft": 75,
+        "typical_occupancy": "2-4 guests",
+        "description": "Suite with Thermal Spa access, premium bath amenities, balcony."
+      },
+      {
+        "code": "AFT_PENTHOUSE",
+        "short_label": "Aft-Facing Penthouse",
+        "marketing_name": "Aft-Facing Penthouse with Large Balcony",
+        "category_group": "suite",
+        "ncl_categories": ["S1", "S2"],
+        "avg_width_ft": 14,
+        "avg_length_ft": 24,
+        "avg_area_sqft": 330,
+        "avg_balcony_sqft": 110,
+        "typical_occupancy": "2-4 guests",
+        "description": "Penthouse with wake views, expansive aft balcony."
+      },
+      {
+        "code": "PENTHOUSE",
+        "short_label": "Penthouse Suite",
+        "marketing_name": "Penthouse with Large Balcony",
+        "category_group": "suite",
+        "ncl_categories": ["S3", "S4", "S5", "S6", "S7", "S8", "S9"],
+        "avg_width_ft": 13,
+        "avg_length_ft": 23,
+        "avg_area_sqft": 300,
+        "avg_balcony_sqft": 85,
+        "typical_occupancy": "2-4 guests",
+        "description": "Suite with living area, premium amenities."
+      },
+      {
+        "code": "HAVEN_PENTHOUSE",
+        "short_label": "Haven Penthouse",
+        "marketing_name": "The Haven Penthouse with Balcony",
+        "category_group": "haven",
+        "ncl_categories": ["H6", "H7", "H8", "H9"],
+        "avg_width_ft": 14,
+        "avg_length_ft": 25,
+        "avg_area_sqft": 335,
+        "avg_balcony_sqft": 95,
+        "typical_occupancy": "2-4 guests",
+        "description": "Haven suite with access to private courtyard, restaurant, sundeck, and concierge."
+      },
+      {
+        "code": "HAVEN_SPA_SUITE",
+        "short_label": "Haven Spa Suite",
+        "marketing_name": "The Haven Spa Suite with Balcony",
+        "category_group": "haven",
+        "ncl_categories": ["HH"],
+        "avg_width_ft": 15,
+        "avg_length_ft": 26,
+        "avg_area_sqft": 390,
+        "avg_balcony_sqft": 95,
+        "typical_occupancy": "2-4 guests",
+        "description": "Haven suite with Thermal Spa access, enhanced bath."
+      },
+      {
+        "code": "HAVEN_OWNER",
+        "short_label": "Haven Owner's Suite",
+        "marketing_name": "The Haven Owner's Suite with Large Balcony",
+        "category_group": "haven",
+        "ncl_categories": ["H4", "H5"],
+        "avg_width_ft": 17,
+        "avg_length_ft": 33,
+        "avg_area_sqft": 545,
+        "avg_balcony_sqft": 125,
+        "typical_occupancy": "2-4 guests",
+        "description": "Haven suite with separate living room, dining, butler service."
+      },
+      {
+        "code": "HAVEN_DELUXE_OWNER",
+        "short_label": "Haven Deluxe Owner's Suite",
+        "marketing_name": "The Haven Deluxe Owner's Suite with Large Balcony",
+        "category_group": "haven",
+        "ncl_categories": ["H2", "H3"],
+        "avg_width_ft": 20,
+        "avg_length_ft": 45,
+        "avg_area_sqft": 901,
+        "avg_balcony_sqft": 190,
+        "typical_occupancy": "2-6 guests",
+        "description": "Top Haven suite with multiple rooms, whirlpool, 24/7 butler."
+      },
+      {
+        "code": "HAVEN_2BR_FAMILY",
+        "short_label": "Haven 2-Bedroom Family Villa",
+        "marketing_name": "The Haven 2-Bedroom Family Villa with Balcony",
+        "category_group": "haven",
+        "ncl_categories": ["H1"],
+        "avg_width_ft": 22,
+        "avg_length_ft": 52,
+        "avg_area_sqft": 1130,
+        "avg_balcony_sqft": 250,
+        "typical_occupancy": "up to 6 guests",
+        "description": "Ultimate Haven family suite with two master bedrooms, kids' room, living/dining."
+      }
+    ]
+  },
+  "norwegian-bliss": {
+    "meta": {
+      "ship_name": "Norwegian Bliss",
+      "ship_class": "Breakaway Plus Class",
+      "avg_cabin_width_ft": 11,
+      "inherit_from": "norwegian-encore"
+    }
+  },
+  "norwegian-joy": {
+    "meta": {
+      "ship_name": "Norwegian Joy",
+      "ship_class": "Breakaway Plus Class",
+      "avg_cabin_width_ft": 11,
+      "inherit_from": "norwegian-encore",
+      "notes": "Originally built for Chinese market (2017), redesigned for North America (2019)"
+    }
+  },
+  "norwegian-escape": {
+    "meta": {
+      "ship_name": "Norwegian Escape",
+      "ship_class": "Breakaway Plus Class",
+      "avg_cabin_width_ft": 11,
+      "inherit_from": "norwegian-encore",
+      "notes": "First Breakaway Plus ship (2015)"
+    }
+  },
+  "norwegian-getaway": {
+    "meta": {
+      "ship_name": "Norwegian Getaway",
+      "ship_class": "Breakaway Class",
+      "avg_cabin_width_ft": 10
+    },
+    "stateroom_types": [
+      {
+        "code": "INTERIOR_STD",
+        "short_label": "Inside",
+        "marketing_name": "Inside Stateroom",
+        "category_group": "interior",
+        "ncl_categories": ["IA", "IB", "IC", "ID", "IE", "IF", "IG", "IH"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 13,
+        "avg_area_sqft": 134,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Interior cabin with two convertible beds."
+      },
+      {
+        "code": "STUDIO",
+        "short_label": "Studio",
+        "marketing_name": "Studio Stateroom",
+        "category_group": "interior",
+        "ncl_categories": ["SA", "SB", "SC"],
+        "avg_width_ft": 8,
+        "avg_length_ft": 12,
+        "avg_area_sqft": 100,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "1 guest",
+        "description": "Solo cabin with Studio Lounge access."
+      },
+      {
+        "code": "OV_WINDOW",
+        "short_label": "Oceanview",
+        "marketing_name": "Oceanview Stateroom",
+        "category_group": "oceanview",
+        "ncl_categories": ["OA", "OB", "OC", "OD", "OE", "OF", "OG"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 14,
+        "avg_area_sqft": 143,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview with picture window."
+      },
+      {
+        "code": "BAL_STD",
+        "short_label": "Balcony",
+        "marketing_name": "Balcony Stateroom",
+        "category_group": "balcony",
+        "ncl_categories": ["BA", "BB", "BC", "BD", "BE", "BF", "BG", "BH", "BI"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 15,
+        "avg_area_sqft": 156,
+        "avg_balcony_sqft": 41,
+        "typical_occupancy": "2-4 guests",
+        "description": "Private balcony stateroom."
+      },
+      {
+        "code": "SPA_BAL",
+        "short_label": "Spa Balcony",
+        "marketing_name": "Spa Balcony Stateroom",
+        "category_group": "balcony",
+        "ncl_categories": ["B8"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 15,
+        "avg_area_sqft": 156,
+        "avg_balcony_sqft": 41,
+        "typical_occupancy": "2-4 guests",
+        "description": "Balcony with Thermal Spa access."
+      },
+      {
+        "code": "MINI_SUITE",
+        "short_label": "Mini-Suite",
+        "marketing_name": "Mini-Suite with Balcony",
+        "category_group": "suite",
+        "ncl_categories": ["M1", "M2", "M3", "M4", "M5", "M6", "MX"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 18,
+        "avg_area_sqft": 198,
+        "avg_balcony_sqft": 54,
+        "typical_occupancy": "2-4 guests",
+        "description": "Enhanced cabin with sitting area, concierge."
+      },
+      {
+        "code": "HAVEN_PENTHOUSE",
+        "short_label": "Haven Penthouse",
+        "marketing_name": "The Haven Penthouse with Balcony",
+        "category_group": "haven",
+        "ncl_categories": ["H6", "H7", "H8", "H9"],
+        "avg_width_ft": 13,
+        "avg_length_ft": 23,
+        "avg_area_sqft": 295,
+        "avg_balcony_sqft": 85,
+        "typical_occupancy": "2-4 guests",
+        "description": "Haven suite with private complex access."
+      },
+      {
+        "code": "HAVEN_OWNER",
+        "short_label": "Haven Owner's Suite",
+        "marketing_name": "The Haven Owner's Suite with Large Balcony",
+        "category_group": "haven",
+        "ncl_categories": ["H4", "H5"],
+        "avg_width_ft": 16,
+        "avg_length_ft": 31,
+        "avg_area_sqft": 498,
+        "avg_balcony_sqft": 119,
+        "typical_occupancy": "2-4 guests",
+        "description": "Haven suite with living room, butler service."
+      },
+      {
+        "code": "HAVEN_DELUXE_OWNER",
+        "short_label": "Haven Deluxe Owner's Suite",
+        "marketing_name": "The Haven Deluxe Owner's Suite",
+        "category_group": "haven",
+        "ncl_categories": ["H2", "H3"],
+        "avg_width_ft": 19,
+        "avg_length_ft": 42,
+        "avg_area_sqft": 800,
+        "avg_balcony_sqft": 176,
+        "typical_occupancy": "2-6 guests",
+        "description": "Top Haven suite with whirlpool, 24/7 butler."
+      },
+      {
+        "code": "HAVEN_2BR_FAMILY",
+        "short_label": "Haven 2-Bedroom Family Villa",
+        "marketing_name": "The Haven 2-Bedroom Family Villa",
+        "category_group": "haven",
+        "ncl_categories": ["H1"],
+        "avg_width_ft": 21,
+        "avg_length_ft": 48,
+        "avg_area_sqft": 1008,
+        "avg_balcony_sqft": 233,
+        "typical_occupancy": "up to 6 guests",
+        "description": "Ultimate Haven family suite."
+      }
+    ]
+  },
+  "norwegian-breakaway": {
+    "meta": {
+      "ship_name": "Norwegian Breakaway",
+      "ship_class": "Breakaway Class",
+      "avg_cabin_width_ft": 10,
+      "inherit_from": "norwegian-getaway"
+    }
+  },
+  "norwegian-epic": {
+    "meta": {
+      "ship_name": "Norwegian Epic",
+      "ship_class": "Epic Class",
+      "avg_cabin_width_ft": 10,
+      "notes": "Unique cabin designs including Studios and curved balconies"
+    },
+    "stateroom_types": [
+      {
+        "code": "INTERIOR_STD",
+        "short_label": "Inside",
+        "marketing_name": "Inside Stateroom",
+        "category_group": "interior",
+        "ncl_categories": ["IA", "IB", "IC", "ID", "IE", "IF"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 13,
+        "avg_area_sqft": 128,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Interior with unique wave-inspired design, convertible beds."
+      },
+      {
+        "code": "STUDIO",
+        "short_label": "Studio",
+        "marketing_name": "Studio Stateroom",
+        "category_group": "interior",
+        "ncl_categories": ["SA", "SB", "SC", "SD", "SE", "SF"],
+        "avg_width_ft": 8,
+        "avg_length_ft": 12,
+        "avg_area_sqft": 100,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "1 guest",
+        "description": "NCL pioneered Studios on Epic - solo cabins with lounge access."
+      },
+      {
+        "code": "OV_WINDOW",
+        "short_label": "Oceanview",
+        "marketing_name": "Oceanview Stateroom",
+        "category_group": "oceanview",
+        "ncl_categories": ["OA", "OB", "OC", "OD", "OE", "OF"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 14,
+        "avg_area_sqft": 143,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview with picture window."
+      },
+      {
+        "code": "BAL_STD",
+        "short_label": "Balcony",
+        "marketing_name": "Balcony Stateroom",
+        "category_group": "balcony",
+        "ncl_categories": ["BA", "BB", "BC", "BD", "BE", "BF", "BG"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 15,
+        "avg_area_sqft": 156,
+        "avg_balcony_sqft": 44,
+        "typical_occupancy": "2-4 guests",
+        "description": "Curved balcony design unique to Epic."
+      },
+      {
+        "code": "SPA_BAL",
+        "short_label": "Spa Balcony",
+        "marketing_name": "Spa Balcony Stateroom",
+        "category_group": "balcony",
+        "ncl_categories": ["B8"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 15,
+        "avg_area_sqft": 156,
+        "avg_balcony_sqft": 44,
+        "typical_occupancy": "2-4 guests",
+        "description": "Balcony with Thermal Spa access."
+      },
+      {
+        "code": "MINI_SUITE",
+        "short_label": "Mini-Suite",
+        "marketing_name": "Mini-Suite with Balcony",
+        "category_group": "suite",
+        "ncl_categories": ["MA", "MB", "MC", "MD", "ME", "MF"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 17,
+        "avg_area_sqft": 189,
+        "avg_balcony_sqft": 50,
+        "typical_occupancy": "2-4 guests",
+        "description": "Enhanced cabin with sitting area."
+      },
+      {
+        "code": "PENTHOUSE",
+        "short_label": "Penthouse Suite",
+        "marketing_name": "Penthouse Suite",
+        "category_group": "suite",
+        "ncl_categories": ["S1", "S2", "S3", "S4", "S5"],
+        "avg_width_ft": 13,
+        "avg_length_ft": 22,
+        "avg_area_sqft": 286,
+        "avg_balcony_sqft": 75,
+        "typical_occupancy": "2-4 guests",
+        "description": "Suite with living area, premium amenities."
+      },
+      {
+        "code": "HAVEN_COURTYARD_PENTHOUSE",
+        "short_label": "Haven Courtyard Penthouse",
+        "marketing_name": "The Haven Courtyard Penthouse",
+        "category_group": "haven",
+        "ncl_categories": ["H5", "H6", "H7"],
+        "avg_width_ft": 13,
+        "avg_length_ft": 23,
+        "avg_area_sqft": 292,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Haven suite overlooking private courtyard."
+      },
+      {
+        "code": "HAVEN_PENTHOUSE",
+        "short_label": "Haven Penthouse",
+        "marketing_name": "The Haven Penthouse with Balcony",
+        "category_group": "haven",
+        "ncl_categories": ["H8", "H9"],
+        "avg_width_ft": 14,
+        "avg_length_ft": 24,
+        "avg_area_sqft": 329,
+        "avg_balcony_sqft": 90,
+        "typical_occupancy": "2-4 guests",
+        "description": "Haven penthouse with private balcony."
+      },
+      {
+        "code": "HAVEN_OWNER",
+        "short_label": "Haven Owner's Suite",
+        "marketing_name": "The Haven Owner's Suite",
+        "category_group": "haven",
+        "ncl_categories": ["H4"],
+        "avg_width_ft": 16,
+        "avg_length_ft": 32,
+        "avg_area_sqft": 501,
+        "avg_balcony_sqft": 115,
+        "typical_occupancy": "2-4 guests",
+        "description": "Haven suite with separate living/dining, butler service."
+      },
+      {
+        "code": "HAVEN_DELUXE_OWNER",
+        "short_label": "Haven Deluxe Owner's Suite",
+        "marketing_name": "The Haven Deluxe Owner's Suite",
+        "category_group": "haven",
+        "ncl_categories": ["H2", "H3"],
+        "avg_width_ft": 19,
+        "avg_length_ft": 44,
+        "avg_area_sqft": 823,
+        "avg_balcony_sqft": 168,
+        "typical_occupancy": "2-6 guests",
+        "description": "Top Haven suite with whirlpool, 24/7 butler."
+      },
+      {
+        "code": "HAVEN_2BR_FAMILY",
+        "short_label": "Haven 2-Bedroom Family Villa",
+        "marketing_name": "The Haven 2-Bedroom Family Villa",
+        "category_group": "haven",
+        "ncl_categories": ["H1"],
+        "avg_width_ft": 22,
+        "avg_length_ft": 50,
+        "avg_area_sqft": 1100,
+        "avg_balcony_sqft": 240,
+        "typical_occupancy": "up to 6 guests",
+        "description": "Ultimate Haven family villa."
+      }
+    ]
+  },
+  "norwegian-gem": {
+    "meta": {
+      "ship_name": "Norwegian Gem",
+      "ship_class": "Jewel Class",
+      "avg_cabin_width_ft": 10
+    },
+    "stateroom_types": [
+      {
+        "code": "INTERIOR_STD",
+        "short_label": "Inside",
+        "marketing_name": "Inside Stateroom",
+        "category_group": "interior",
+        "ncl_categories": ["IA", "IB", "IC", "ID", "IE", "IF"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 14,
+        "avg_area_sqft": 142,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Interior cabin with convertible beds."
+      },
+      {
+        "code": "OV_PORTHOLE",
+        "short_label": "Oceanview Porthole",
+        "marketing_name": "Oceanview Stateroom (Porthole)",
+        "category_group": "oceanview",
+        "ncl_categories": ["OX", "OZ"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 13,
+        "avg_area_sqft": 130,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview with porthole window."
+      },
+      {
+        "code": "OV_WINDOW",
+        "short_label": "Oceanview Picture Window",
+        "marketing_name": "Oceanview Stateroom (Picture Window)",
+        "category_group": "oceanview",
+        "ncl_categories": ["OA", "OB", "OC", "OD", "OE", "OF", "OG"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 15,
+        "avg_area_sqft": 150,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview with picture window."
+      },
+      {
+        "code": "BAL_STD",
+        "short_label": "Balcony",
+        "marketing_name": "Balcony Stateroom",
+        "category_group": "balcony",
+        "ncl_categories": ["BA", "BB", "BC", "BD", "BE", "BF"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 16,
+        "avg_area_sqft": 161,
+        "avg_balcony_sqft": 48,
+        "typical_occupancy": "2-4 guests",
+        "description": "Private balcony stateroom."
+      },
+      {
+        "code": "MINI_SUITE",
+        "short_label": "Mini-Suite",
+        "marketing_name": "Mini-Suite with Balcony",
+        "category_group": "suite",
+        "ncl_categories": ["M1", "M2", "M3", "M4"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 19,
+        "avg_area_sqft": 206,
+        "avg_balcony_sqft": 56,
+        "typical_occupancy": "2-4 guests",
+        "description": "Enhanced cabin with sitting area."
+      },
+      {
+        "code": "PENTHOUSE",
+        "short_label": "Penthouse Suite",
+        "marketing_name": "Penthouse Suite with Balcony",
+        "category_group": "suite",
+        "ncl_categories": ["S1", "S2", "S3", "S4"],
+        "avg_width_ft": 12,
+        "avg_length_ft": 22,
+        "avg_area_sqft": 268,
+        "avg_balcony_sqft": 70,
+        "typical_occupancy": "2-4 guests",
+        "description": "Suite with living area, butler service."
+      },
+      {
+        "code": "OWNER_SUITE",
+        "short_label": "Owner's Suite",
+        "marketing_name": "Owner's Suite",
+        "category_group": "suite",
+        "ncl_categories": ["SA", "SB"],
+        "avg_width_ft": 14,
+        "avg_length_ft": 28,
+        "avg_area_sqft": 390,
+        "avg_balcony_sqft": 95,
+        "typical_occupancy": "2-4 guests",
+        "description": "Suite with separate bedroom, whirlpool, butler."
+      },
+      {
+        "code": "DELUXE_OWNER",
+        "short_label": "Deluxe Owner's Suite",
+        "marketing_name": "Deluxe Owner's Suite",
+        "category_group": "suite",
+        "ncl_categories": ["SC"],
+        "avg_width_ft": 16,
+        "avg_length_ft": 35,
+        "avg_area_sqft": 562,
+        "avg_balcony_sqft": 138,
+        "typical_occupancy": "2-6 guests",
+        "description": "Top suite with living room, dining, 24/7 butler."
+      },
+      {
+        "code": "GARDEN_VILLA",
+        "short_label": "Garden Villa",
+        "marketing_name": "Garden Villa (3 Bedroom)",
+        "category_group": "suite",
+        "ncl_categories": ["A1"],
+        "avg_width_ft": 25,
+        "avg_length_ft": 57,
+        "avg_area_sqft": 4390,
+        "avg_balcony_sqft": 1100,
+        "typical_occupancy": "up to 8 guests",
+        "description": "Iconic top-deck villa with 3 bedrooms, living/dining, private garden, hot tub, 24/7 butler."
+      }
+    ]
+  },
+  "norwegian-pearl": {
+    "meta": {
+      "ship_name": "Norwegian Pearl",
+      "ship_class": "Jewel Class",
+      "avg_cabin_width_ft": 10,
+      "inherit_from": "norwegian-gem"
+    }
+  },
+  "norwegian-jade": {
+    "meta": {
+      "ship_name": "Norwegian Jade",
+      "ship_class": "Jewel Class",
+      "avg_cabin_width_ft": 10,
+      "inherit_from": "norwegian-gem",
+      "notes": "Originally Pride of Hawaii (2006), renamed Norwegian Jade in 2008"
+    }
+  },
+  "norwegian-jewel": {
+    "meta": {
+      "ship_name": "Norwegian Jewel",
+      "ship_class": "Jewel Class",
+      "avg_cabin_width_ft": 10,
+      "inherit_from": "norwegian-gem"
+    }
+  },
+  "pride-of-america": {
+    "meta": {
+      "ship_name": "Pride of America",
+      "ship_class": "Pride of America Class",
+      "avg_cabin_width_ft": 10,
+      "notes": "US-flagged ship with unique American-themed decor; Hawaii year-round"
+    },
+    "stateroom_types": [
+      {
+        "code": "INTERIOR_STD",
+        "short_label": "Inside",
+        "marketing_name": "Inside Stateroom",
+        "category_group": "interior",
+        "ncl_categories": ["IA", "IB", "IC", "ID", "IE", "IF"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 14,
+        "avg_area_sqft": 135,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Interior cabin with American-themed decor."
+      },
+      {
+        "code": "OV_PORTHOLE",
+        "short_label": "Oceanview Porthole",
+        "marketing_name": "Oceanview Stateroom (Porthole)",
+        "category_group": "oceanview",
+        "ncl_categories": ["OX", "OZ"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 13,
+        "avg_area_sqft": 127,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview with porthole."
+      },
+      {
+        "code": "OV_WINDOW",
+        "short_label": "Oceanview Picture Window",
+        "marketing_name": "Oceanview Stateroom (Picture Window)",
+        "category_group": "oceanview",
+        "ncl_categories": ["OA", "OB", "OC", "OD", "OF"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 15,
+        "avg_area_sqft": 147,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview with large window."
+      },
+      {
+        "code": "BAL_STD",
+        "short_label": "Balcony",
+        "marketing_name": "Balcony Stateroom",
+        "category_group": "balcony",
+        "ncl_categories": ["BA", "BB", "BC", "BD", "BE", "BF", "BG"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 16,
+        "avg_area_sqft": 158,
+        "avg_balcony_sqft": 45,
+        "typical_occupancy": "2-4 guests",
+        "description": "Private balcony with Hawaii views."
+      },
+      {
+        "code": "MINI_SUITE",
+        "short_label": "Mini-Suite",
+        "marketing_name": "Mini-Suite with Balcony",
+        "category_group": "suite",
+        "ncl_categories": ["M1", "M2", "M3"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 18,
+        "avg_area_sqft": 195,
+        "avg_balcony_sqft": 52,
+        "typical_occupancy": "2-4 guests",
+        "description": "Enhanced cabin with sitting area."
+      },
+      {
+        "code": "PENTHOUSE",
+        "short_label": "Penthouse Suite",
+        "marketing_name": "Penthouse Suite",
+        "category_group": "suite",
+        "ncl_categories": ["S1", "S2", "S3"],
+        "avg_width_ft": 12,
+        "avg_length_ft": 22,
+        "avg_area_sqft": 265,
+        "avg_balcony_sqft": 68,
+        "typical_occupancy": "2-4 guests",
+        "description": "Suite with living area, butler service."
+      },
+      {
+        "code": "OWNER_SUITE",
+        "short_label": "Owner's Suite",
+        "marketing_name": "Owner's Suite",
+        "category_group": "suite",
+        "ncl_categories": ["SA", "SB"],
+        "avg_width_ft": 14,
+        "avg_length_ft": 27,
+        "avg_area_sqft": 375,
+        "avg_balcony_sqft": 90,
+        "typical_occupancy": "2-4 guests",
+        "description": "Suite with separate bedroom, whirlpool."
+      },
+      {
+        "code": "DELUXE_OWNER",
+        "short_label": "Deluxe Owner's Suite",
+        "marketing_name": "Deluxe Owner's Suite",
+        "category_group": "suite",
+        "ncl_categories": ["SC"],
+        "avg_width_ft": 16,
+        "avg_length_ft": 34,
+        "avg_area_sqft": 550,
+        "avg_balcony_sqft": 135,
+        "typical_occupancy": "2-6 guests",
+        "description": "Top suite with full amenities, butler."
+      },
+      {
+        "code": "GRAND_SUITE",
+        "short_label": "Grand Suite",
+        "marketing_name": "Grand Suite",
+        "category_group": "suite",
+        "ncl_categories": ["A1", "A2"],
+        "avg_width_ft": 18,
+        "avg_length_ft": 40,
+        "avg_area_sqft": 723,
+        "avg_balcony_sqft": 170,
+        "typical_occupancy": "up to 6 guests",
+        "description": "Signature large suite with Hawaii views."
+      }
+    ]
+  },
+  "norwegian-dawn": {
+    "meta": {
+      "ship_name": "Norwegian Dawn",
+      "ship_class": "Dawn Class",
+      "avg_cabin_width_ft": 10
+    },
+    "stateroom_types": [
+      {
+        "code": "INTERIOR_STD",
+        "short_label": "Inside",
+        "marketing_name": "Inside Stateroom",
+        "category_group": "interior",
+        "ncl_categories": ["IA", "IB", "IC", "ID", "IE", "IF"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 14,
+        "avg_area_sqft": 142,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Interior cabin with convertible beds."
+      },
+      {
+        "code": "OV_PORTHOLE",
+        "short_label": "Oceanview Porthole",
+        "marketing_name": "Oceanview Stateroom (Porthole)",
+        "category_group": "oceanview",
+        "ncl_categories": ["OX", "OZ"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 13,
+        "avg_area_sqft": 130,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview with porthole."
+      },
+      {
+        "code": "OV_WINDOW",
+        "short_label": "Oceanview Picture Window",
+        "marketing_name": "Oceanview Stateroom",
+        "category_group": "oceanview",
+        "ncl_categories": ["OA", "OB", "OC", "OD", "OE", "OF", "OG"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 15,
+        "avg_area_sqft": 148,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview with picture window."
+      },
+      {
+        "code": "BAL_STD",
+        "short_label": "Balcony",
+        "marketing_name": "Balcony Stateroom",
+        "category_group": "balcony",
+        "ncl_categories": ["BA", "BB", "BC", "BD", "BE", "BF"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 16,
+        "avg_area_sqft": 158,
+        "avg_balcony_sqft": 46,
+        "typical_occupancy": "2-4 guests",
+        "description": "Private balcony stateroom."
+      },
+      {
+        "code": "MINI_SUITE",
+        "short_label": "Mini-Suite",
+        "marketing_name": "Mini-Suite with Balcony",
+        "category_group": "suite",
+        "ncl_categories": ["M1", "M2", "M3", "M4"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 19,
+        "avg_area_sqft": 206,
+        "avg_balcony_sqft": 55,
+        "typical_occupancy": "2-4 guests",
+        "description": "Enhanced cabin with sitting area."
+      },
+      {
+        "code": "PENTHOUSE",
+        "short_label": "Penthouse Suite",
+        "marketing_name": "Penthouse Suite",
+        "category_group": "suite",
+        "ncl_categories": ["S1", "S2", "S3", "S4"],
+        "avg_width_ft": 12,
+        "avg_length_ft": 22,
+        "avg_area_sqft": 264,
+        "avg_balcony_sqft": 68,
+        "typical_occupancy": "2-4 guests",
+        "description": "Suite with living area, butler service."
+      },
+      {
+        "code": "OWNER_SUITE",
+        "short_label": "Owner's Suite",
+        "marketing_name": "Owner's Suite",
+        "category_group": "suite",
+        "ncl_categories": ["SA", "SB"],
+        "avg_width_ft": 14,
+        "avg_length_ft": 28,
+        "avg_area_sqft": 388,
+        "avg_balcony_sqft": 92,
+        "typical_occupancy": "2-4 guests",
+        "description": "Suite with separate bedroom, whirlpool."
+      },
+      {
+        "code": "DELUXE_OWNER",
+        "short_label": "Deluxe Owner's Suite",
+        "marketing_name": "Deluxe Owner's Suite",
+        "category_group": "suite",
+        "ncl_categories": ["SC"],
+        "avg_width_ft": 16,
+        "avg_length_ft": 35,
+        "avg_area_sqft": 557,
+        "avg_balcony_sqft": 136,
+        "typical_occupancy": "2-6 guests",
+        "description": "Top suite with 24/7 butler."
+      },
+      {
+        "code": "GARDEN_VILLA",
+        "short_label": "Garden Villa",
+        "marketing_name": "Garden Villa (3 Bedroom)",
+        "category_group": "suite",
+        "ncl_categories": ["A1"],
+        "avg_width_ft": 24,
+        "avg_length_ft": 55,
+        "avg_area_sqft": 4390,
+        "avg_balcony_sqft": 1100,
+        "typical_occupancy": "up to 8 guests",
+        "description": "Iconic top-deck villa with 3 bedrooms, private garden, hot tub."
+      }
+    ]
+  },
+  "norwegian-star": {
+    "meta": {
+      "ship_name": "Norwegian Star",
+      "ship_class": "Dawn Class",
+      "avg_cabin_width_ft": 10,
+      "inherit_from": "norwegian-dawn"
+    }
+  },
+  "norwegian-sun": {
+    "meta": {
+      "ship_name": "Norwegian Sun",
+      "ship_class": "Sun Class",
+      "avg_cabin_width_ft": 10
+    },
+    "stateroom_types": [
+      {
+        "code": "INTERIOR_STD",
+        "short_label": "Inside",
+        "marketing_name": "Inside Stateroom",
+        "category_group": "interior",
+        "ncl_categories": ["IA", "IB", "IC", "ID", "IE", "IF"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 14,
+        "avg_area_sqft": 140,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Interior cabin with convertible beds."
+      },
+      {
+        "code": "OV_PORTHOLE",
+        "short_label": "Oceanview Porthole",
+        "marketing_name": "Oceanview Stateroom (Porthole)",
+        "category_group": "oceanview",
+        "ncl_categories": ["OX", "OZ"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 13,
+        "avg_area_sqft": 128,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview with porthole."
+      },
+      {
+        "code": "OV_WINDOW",
+        "short_label": "Oceanview Picture Window",
+        "marketing_name": "Oceanview Stateroom",
+        "category_group": "oceanview",
+        "ncl_categories": ["OA", "OB", "OC", "OD", "OE", "OF"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 14,
+        "avg_area_sqft": 144,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview with picture window."
+      },
+      {
+        "code": "BAL_STD",
+        "short_label": "Balcony",
+        "marketing_name": "Balcony Stateroom",
+        "category_group": "balcony",
+        "ncl_categories": ["BA", "BB", "BC", "BD", "BE"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 15,
+        "avg_area_sqft": 154,
+        "avg_balcony_sqft": 43,
+        "typical_occupancy": "2-4 guests",
+        "description": "Private balcony stateroom."
+      },
+      {
+        "code": "MINI_SUITE",
+        "short_label": "Mini-Suite",
+        "marketing_name": "Mini-Suite with Balcony",
+        "category_group": "suite",
+        "ncl_categories": ["M1", "M2", "M3"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 18,
+        "avg_area_sqft": 198,
+        "avg_balcony_sqft": 52,
+        "typical_occupancy": "2-4 guests",
+        "description": "Enhanced cabin with sitting area."
+      },
+      {
+        "code": "PENTHOUSE",
+        "short_label": "Penthouse Suite",
+        "marketing_name": "Penthouse Suite",
+        "category_group": "suite",
+        "ncl_categories": ["S1", "S2", "S3"],
+        "avg_width_ft": 12,
+        "avg_length_ft": 21,
+        "avg_area_sqft": 252,
+        "avg_balcony_sqft": 65,
+        "typical_occupancy": "2-4 guests",
+        "description": "Suite with living area."
+      },
+      {
+        "code": "OWNER_SUITE",
+        "short_label": "Owner's Suite",
+        "marketing_name": "Owner's Suite",
+        "category_group": "suite",
+        "ncl_categories": ["SA", "SB"],
+        "avg_width_ft": 14,
+        "avg_length_ft": 26,
+        "avg_area_sqft": 365,
+        "avg_balcony_sqft": 85,
+        "typical_occupancy": "2-4 guests",
+        "description": "Suite with separate bedroom."
+      },
+      {
+        "code": "DELUXE_OWNER",
+        "short_label": "Deluxe Owner's Suite",
+        "marketing_name": "Deluxe Owner's Suite",
+        "category_group": "suite",
+        "ncl_categories": ["SC"],
+        "avg_width_ft": 16,
+        "avg_length_ft": 32,
+        "avg_area_sqft": 510,
+        "avg_balcony_sqft": 125,
+        "typical_occupancy": "2-4 guests",
+        "description": "Top suite with butler service."
+      }
+    ]
+  },
+  "norwegian-sky": {
+    "meta": {
+      "ship_name": "Norwegian Sky",
+      "ship_class": "Sun Class",
+      "avg_cabin_width_ft": 10,
+      "inherit_from": "norwegian-sun",
+      "notes": "Popular for short Bahamas cruises from Miami"
+    }
+  },
+  "norwegian-spirit": {
+    "meta": {
+      "ship_name": "Norwegian Spirit",
+      "ship_class": "Spirit Class",
+      "avg_cabin_width_ft": 10,
+      "notes": "Originally SuperStar Leo (1998); underwent $100M refurbishment in 2020"
+    },
+    "stateroom_types": [
+      {
+        "code": "INTERIOR_STD",
+        "short_label": "Inside",
+        "marketing_name": "Inside Stateroom",
+        "category_group": "interior",
+        "ncl_categories": ["IA", "IB", "IC", "ID", "IE", "IF"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 14,
+        "avg_area_sqft": 140,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Interior cabin with convertible beds; refreshed in 2020 renovation."
+      },
+      {
+        "code": "OV_PORTHOLE",
+        "short_label": "Oceanview Porthole",
+        "marketing_name": "Oceanview Stateroom (Porthole)",
+        "category_group": "oceanview",
+        "ncl_categories": ["OX", "OZ"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 13,
+        "avg_area_sqft": 130,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview with porthole."
+      },
+      {
+        "code": "OV_WINDOW",
+        "short_label": "Oceanview Picture Window",
+        "marketing_name": "Oceanview Stateroom",
+        "category_group": "oceanview",
+        "ncl_categories": ["OA", "OB", "OC", "OD", "OE", "OF"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 14,
+        "avg_area_sqft": 145,
+        "avg_balcony_sqft": 0,
+        "typical_occupancy": "2-4 guests",
+        "description": "Oceanview with picture window."
+      },
+      {
+        "code": "BAL_STD",
+        "short_label": "Balcony",
+        "marketing_name": "Balcony Stateroom",
+        "category_group": "balcony",
+        "ncl_categories": ["BA", "BB", "BC", "BD", "BE", "BF"],
+        "avg_width_ft": 10,
+        "avg_length_ft": 15,
+        "avg_area_sqft": 155,
+        "avg_balcony_sqft": 44,
+        "typical_occupancy": "2-4 guests",
+        "description": "Private balcony stateroom."
+      },
+      {
+        "code": "MINI_SUITE",
+        "short_label": "Mini-Suite",
+        "marketing_name": "Mini-Suite with Balcony",
+        "category_group": "suite",
+        "ncl_categories": ["M1", "M2", "M3"],
+        "avg_width_ft": 11,
+        "avg_length_ft": 18,
+        "avg_area_sqft": 200,
+        "avg_balcony_sqft": 52,
+        "typical_occupancy": "2-4 guests",
+        "description": "Enhanced cabin with sitting area."
+      },
+      {
+        "code": "PENTHOUSE",
+        "short_label": "Penthouse Suite",
+        "marketing_name": "Penthouse Suite",
+        "category_group": "suite",
+        "ncl_categories": ["S1", "S2", "S3"],
+        "avg_width_ft": 12,
+        "avg_length_ft": 21,
+        "avg_area_sqft": 255,
+        "avg_balcony_sqft": 65,
+        "typical_occupancy": "2-4 guests",
+        "description": "Suite with living area."
+      },
+      {
+        "code": "OWNER_SUITE",
+        "short_label": "Owner's Suite",
+        "marketing_name": "Owner's Suite",
+        "category_group": "suite",
+        "ncl_categories": ["SA", "SB"],
+        "avg_width_ft": 14,
+        "avg_length_ft": 26,
+        "avg_area_sqft": 368,
+        "avg_balcony_sqft": 88,
+        "typical_occupancy": "2-4 guests",
+        "description": "Suite with separate bedroom."
+      },
+      {
+        "code": "DELUXE_OWNER",
+        "short_label": "Deluxe Owner's Suite",
+        "marketing_name": "Deluxe Owner's Suite",
+        "category_group": "suite",
+        "ncl_categories": ["SC"],
+        "avg_width_ft": 16,
+        "avg_length_ft": 33,
+        "avg_area_sqft": 525,
+        "avg_balcony_sqft": 128,
+        "typical_occupancy": "2-4 guests",
+        "description": "Top suite with butler service."
+      }
+    ]
+  }
+}
