@@ -1,0 +1,61 @@
+{
+  "ship_name": "Norwegian Dawn",
+  "ship_class": "Dawn",
+  "launch_year": 2002,
+  "last_refurbishment": null,
+  "data_version": "2.0",
+  "last_updated": "2026-01-29",
+  "audit_notes": "2026-01-29: Cabin-by-cabin verification via CruiseDeckPlans. Deck 8 lifeboat obstructions verified.",
+  "total_exceptions": 2,
+  "cabin_decks": "4, 5, 8, 9, 10, 11, 12",
+  "methodology": "Individual cabin verification via cruisedeckplans.com stateroom-details lookup. 404 responses indicate non-existent cabins.",
+  "trust_note": "Verified via CruiseDeckPlans individual cabin lookups. Dawn class ship (sister to Norwegian Star).",
+  "exceptions": [
+    {
+      "rooms": "8100, 8102, 8106, 8108, 8600, 8602",
+      "flag": "VIEW_OBSTRUCTED_90_PERCENT",
+      "severity": "critical",
+      "source": "cruisedeckplans.com",
+      "confidence": "verified",
+      "notes": "Deck 8 oceanview cabins (category OK/OX) with 90% obstructed views due to lifeboats. Porthole windows."
+    },
+    {
+      "rooms": "8120, 8122, 8126, 8128, 8620, 8622, 8626, 8628",
+      "flag": "VIEW_OBSTRUCTED_90_PERCENT",
+      "severity": "critical",
+      "source": "cruisedeckplans.com",
+      "confidence": "verified",
+      "notes": "Deck 8 handicap-accessible oceanview cabins with 90% obstructed views due to lifeboats. Picture windows, 196 sq ft."
+    }
+  ],
+  "category_overrides": {
+    "_verification_source": "cruisedeckplans.com individual cabin lookups",
+    "_verification_date": "2026-01-29",
+    "_verification_note": "Cabin categories verified via individual page lookups. Dawn class ship built 2002.",
+    "Suite": [
+      "9000"
+    ],
+    "Balcony": [
+    ],
+    "Ocean View": [
+      "5000",
+      "8100", "8102", "8106", "8108",
+      "8120", "8122", "8126", "8128",
+      "8600", "8602",
+      "8620", "8622", "8626", "8628"
+    ],
+    "Interior": [
+    ]
+  },
+  "handicap_accessible": [
+    "8120", "8122", "8126", "8128",
+    "8620", "8622", "8626", "8628"
+  ],
+  "verification_notes": [
+    "2026-01-29: Verified deck 8 obstructed views - category OK/OX oceanview cabins have 90% obstruction from lifeboats",
+    "2026-01-29: 8 handicap-accessible cabins on deck 8 (8120-8128 starboard, 8620-8628 port)",
+    "2026-01-29: Dawn class ship built 2002, sister to Norwegian Star",
+    "2026-01-29: Total 1170 staterooms per CruiseDeckPlans (differs from 1243 in some sources)"
+  ],
+  "removed_exceptions": []
+}
