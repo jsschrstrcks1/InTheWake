@@ -217,10 +217,10 @@ decisions-informed: Where to eat during Clearwater Beach visit
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
 
-  <!-- ICP-Lite v1.0 Protocol -->
+  <!-- ICP-Lite v1.4 Protocol -->
   <meta name="ai-summary" content="Ship profile for Koinonia, our 2003 Mainship 390 Trawler"/>
   <meta name="last-reviewed" content="2025-11-24"/>
-  <meta name="content-protocol" content="ICP-Lite v1.0"/>
+  <meta name="content-protocol" content="ICP-Lite v1.4"/>
 
   <title>Koinonia - Our Ship | In the Wake</title>
 </head>

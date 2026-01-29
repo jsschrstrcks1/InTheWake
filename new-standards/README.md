@@ -3,7 +3,7 @@
 **Generated:** 2025-11-23
 **Status:** Official consolidated standards repository
 **Source:** Rebuilt from 913 fragments → 137 unique files → 7 critical master documents
-**Current Site Version:** v3.010.300
+**Current Site Version:** v3.010.305
 
 ---
 
@@ -20,7 +20,7 @@ This directory contains the **official, consolidated standards** for In the Wake
 ```
 new-standards/
 ├── README.md                           (this file)
-├── VERSION_TIMELINE.md                 (evolution history v2.228 → v3.010.300)
+├── VERSION_TIMELINE.md                 (evolution history v2.228 → v3.010.305)
 ├── foundation/                         (extracted baseline standards v3.001-v3.009)
 │   ├── SHIP_PAGE_STANDARDS_v3.007.010.md        (860 lines - comprehensive)
 │   ├── Unified_Modular_Standards_v3.007.010.md   (complete superset)
@@ -61,7 +61,7 @@ new-standards/
 ## Version Strategy
 
 **Foundation (v3.007-v3.009):** Extracted from historical fragments, proven in use
-**Current (v3.010.300):** Live implementation with AI-first SEO enhancements
+**Current (v3.010.305):** Live implementation with AI-first SEO enhancements
 **Evolution:** Additive, not destructive - new features extend baseline
 
 ---
@@ -75,7 +75,7 @@ See `../CONFLICT_RESOLUTIONS.md` for details.
 **Priority (if conflicts arise):**
 1. ITW-Lite specification (highest authority)
 2. Current live implementation (what works)
-3. Newest version number (v3.010.300 > v3.009)
+3. Newest version number (v3.010.305 > v3.009)
 4. Most complete specification
 5. Most specific to page type
 
@@ -237,12 +237,12 @@ This is **non-negotiable** and supersedes all technical considerations.
 
 ---
 
-## v3.010.300 Innovations
+## v3.010.305 Innovations
 
 Current implementation includes these enhancements beyond extracted standards:
 
-### ICP-Lite v1.0 Protocol
-AI-first metadata for LLM consumption
+### ICP-Lite Protocol (v1.0 → v1.4)
+AI-first metadata for LLM consumption (current version: v1.4, see `.claude/skills/standards/resources/icp-lite-protocol.md`)
 
 ### AI-Breadcrumbs
 Structured comments providing context for AI assistants
@@ -288,9 +288,8 @@ See `v3.010/` directory for complete specifications.
 ✅ **Task 6 COMPLETE:** 137/137 unique files extracted
 ✅ **Task 7 COMPLETE:** 266 HTML files verified against standards
 ✅ **Task 8 COMPLETE:** Zero conflicts found
-✅ **Task 9 IN PROGRESS:** Building /new-standards/ directory
-
-**Next:** Task 10 - Update admin/claude/ documentation to reference /new-standards/
+✅ **Task 9 COMPLETE:** /new-standards/ directory built and populated
+✅ **Task 10 COMPLETE:** Documentation updated to reference /new-standards/
 
 ---
 

@@ -4,17 +4,46 @@
   "launch_year": 2010,
   "last_refurbishment": null,
   "data_version": "2.0",
-  "last_updated": "2026-01-25",
-  "audit_notes": "2026-01-25: Baseline file created. No cabin-specific data yet - community reports welcome.",
-  "total_exceptions": 0,
-  "cabin_decks": "TBD",
-  "methodology": "Baseline file - awaiting community cabin reports",
-  "trust_note": "This is a baseline file. Submit cabin feedback to improve accuracy.",
+  "last_updated": "2026-01-29",
+  "audit_notes": "2026-01-29: Cabin-by-cabin verification via CruiseDeckPlans. Epic class ship with unique bathroom layout.",
+  "total_exceptions": 1,
+  "cabin_decks": "5, 8, 9, 10, 11, 12, 13, 15, 16",
+  "methodology": "Individual cabin verification via cruisedeckplans.com stateroom-details lookup. 404 responses indicate non-existent cabins.",
+  "trust_note": "Verified via CruiseDeckPlans individual cabin lookups. Epic class ship with 2124 staterooms. Unique bathroom layout with separated facilities.",
+  "exceptions": [
+    {
+      "rooms": "all interior cabins",
+      "flag": "BATHROOM_UNIQUE_LAYOUT",
+      "severity": "info",
+      "source": "cruisedeckplans.com",
+      "confidence": "verified",
+      "notes": "Norwegian Epic features unique bath design where shower, toilet, and vanity sink are separate parts of the room"
+    }
+  ],
   "category_overrides": {
-    "_verification_source": "Pending cabin verification",
-    "_verification_date": "2026-01-25",
-    "_verification_note": "No category overrides defined yet. Cabin lookup uses heuristic fallback."
+    "_verification_source": "cruisedeckplans.com individual cabin lookups",
+    "_verification_date": "2026-01-29",
+    "_verification_note": "Cabin categories verified via individual page lookups. Epic class ship built 2010.",
+    "Suite": [
+      "8186", "8188", "9100"
+    ],
+    "Balcony": [
+      "9200", "10202", "11200", "12200"
+    ],
+    "Ocean View": [
+    ],
+    "Interior": [
+      "10100", "10200", "11202"
+    ]
   },
-  "exceptions": [],
+  "handicap_accessible": [
+    "8186", "8188", "10200"
+  ],
+  "verification_notes": [
+    "2026-01-29: Norwegian Epic has unique bathroom layout with separated shower/toilet/vanity",
+    "2026-01-29: Handicap-accessible cabins found at 8186, 8188 (Club Suites) and 10200 (Interior)",
+    "2026-01-29: Epic class ship built 2010, 2124 staterooms, 155K gross tons",
+    "2026-01-29: Only NCL ship with this unique cabin design"
+  ],
   "removed_exceptions": []
 }
