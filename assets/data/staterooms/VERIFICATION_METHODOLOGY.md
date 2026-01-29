@@ -35,51 +35,138 @@ Primary: https://www.cruisedeckplans.com/ships/stateroom-details.php?ship={ship-
 - Interior
 
 ### 5. Exception Types
+**View Obstructions:**
 - VIEW_PARTIAL_OVERHANG
 - VIEW_OBSTRUCTED_LIFEBOAT
 - VIEW_OBSTRUCTED_STRUCTURAL
+
+**Noise Issues:**
 - NOISE_POOL_ABOVE
 - NOISE_MULTIDECK_ATRIUM
 - NOISE_ELEVATOR_TRAFFIC
 - NOISE_THEATER_BELOW
+- NOISE_NIGHTCLUB_BELOW
+- NOISE_FITNESS_ABOVE
 - NOISE_GALLEY_ABOVE
-- CONNECTING_DOOR
+- NOISE_RESTAURANT_ABOVE
+
+**Motion/Location:**
 - MOTION_FORWARD
 - MOTION_AFT
 - MOTION_HIGH_DECK
+- MOTION_LOW_DECK
+
+**Other:**
+- CONNECTING_DOOR
 
 ## Progress Tracking
 
-### Current Ship: Radiance of the Seas
-- Total cabins: 1,061
-- Verified so far: 75
-- Remaining: 986
+### Royal Caribbean Fleet Status (29 ships total)
 
-### Deck Progress (Radiance of the Seas)
-| Deck | Total Cabins | Verified | Remaining |
-|------|--------------|----------|-----------|
-| 2    | TBD          | 4        | TBD       |
-| 3    | TBD          | 8        | TBD       |
-| 4    | TBD          | 6        | TBD       |
-| 7    | TBD          | 8        | TBD       |
-| 8    | TBD          | 15       | TBD       |
-| 9    | TBD          | 4        | TBD       |
-| 10   | TBD          | 30       | TBD       |
+#### Ships Completed (6)
+| Ship | Class | Cabins | Completion Date |
+|------|-------|--------|-----------------|
+| Radiance of the Seas | Radiance | 618 | 2026-01-25 |
+| Brilliance of the Seas | Radiance | 655 | 2026-01-25 |
+| Serenade of the Seas | Radiance | 873 | 2026-01-25 |
+| Jewel of the Seas | Radiance | 810 | 2026-01-28 |
+| Grandeur of the Seas | Vision | 662 | 2026-01-28 |
+| Enchantment of the Seas | Vision | ~540 | 2026-01-28 |
 
-## Ships In Progress
-1. Jewel of the Seas - 0/~650 verified (RESTARTED - previous data was pattern-based)
-2. Voyager of the Seas - 27/~3,100 verified
+#### Ships In Progress (1)
+| Ship | Class | Progress | Notes |
+|------|-------|----------|-------|
+| Voyager of the Seas | Voyager | 27/~3,100 | Large ship - ongoing |
 
-## Ships Completed
-1. Radiance of the Seas - 618 cabins verified (COMPLETE)
-2. Brilliance of the Seas - 655 cabins verified (COMPLETE)
-3. Serenade of the Seas - 873 cabins verified (COMPLETE)
+#### Ships Remaining (22)
+**Vision Class (smaller, ~800 cabins):**
+- Rhapsody of the Seas
+- Vision of the Seas
+
+**Voyager Class (~3,100 cabins):**
+- Adventure of the Seas
+- Explorer of the Seas
+- Mariner of the Seas
+- Navigator of the Seas
+
+**Freedom Class (~3,600 cabins):**
+- Freedom of the Seas
+- Independence of the Seas
+- Liberty of the Seas
+
+**Oasis Class (~5,400+ cabins):**
+- Allure of the Seas
+- Harmony of the Seas
+- Oasis of the Seas
+- Symphony of the Seas
+- Wonder of the Seas
+- Utopia of the Seas
+
+**Quantum Class (~4,100 cabins):**
+- Anthem of the Seas
+- Ovation of the Seas
+- Quantum of the Seas
+- Spectrum of the Seas
+- Odyssey of the Seas
+
+**Icon Class (~5,600 cabins):**
+- Icon of the Seas
+- Star of the Seas
+
+---
+
+### Norwegian Cruise Line Fleet Status (19 ships total)
+
+#### Ships Verified (3)
+| Ship | Class | Cabins | Completion Date |
+|------|-------|--------|-----------------|
+| Norwegian Prima | Prima | 1,649 | 2026-01-29 |
+| Norwegian Viva | Prima | 1,649 | 2026-01-29 |
+| Norwegian Encore | Breakaway Plus | 2,043 | 2026-01-29 |
+
+#### Ships In Progress (3)
+| Ship | Class | Status | Notes |
+|------|-------|--------|-------|
+| Norwegian Bliss | Breakaway Plus | Initial | Sister ship to Encore |
+| Norwegian Joy | Breakaway Plus | Initial | Sister ship to Encore |
+| Norwegian Escape | Breakaway Plus | Initial | Sister ship to Encore |
+
+#### Ships Remaining (13)
+**Prima Plus Class (~1,850 cabins):**
+- Norwegian Aqua
+
+**Breakaway Class (~2,000 cabins):**
+- Norwegian Getaway
+- Norwegian Breakaway
+
+**Epic Class (~2,100 cabins):**
+- Norwegian Epic
+
+**Jewel Class (~1,200 cabins):**
+- Norwegian Gem
+- Norwegian Pearl
+- Norwegian Jade
+- Norwegian Jewel
+
+**Pride of America Class (~1,100 cabins):**
+- Pride of America
+
+**Dawn Class (~1,200 cabins):**
+- Norwegian Dawn
+- Norwegian Star
+
+**Sun Class (~1,000 cabins):**
+- Norwegian Sun
+- Norwegian Sky
+
+**Spirit Class (~1,000 cabins):**
+- Norwegian Spirit
+
+---
 
 ## Next Steps
-Continue Radiance of the Seas:
-1. Get complete cabin list for Deck 2
-2. Verify each cabin on Deck 2
-3. Move to Deck 3
-4. Continue until all 1,061 cabins verified
-5. Mark ship as COMPLETED
-6. Move to next ship
+1. Complete remaining Vision class ships (Rhapsody, Vision) - smaller ships ~800 cabins each
+2. Continue Voyager class verification
+3. Progress to larger classes
+4. Complete Breakaway Plus class verification (NCL)
+5. Begin NCL Jewel class ships (smaller, ~1,200 cabins)

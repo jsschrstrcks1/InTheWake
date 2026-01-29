@@ -80,16 +80,16 @@ This is the foundation. Everything else builds on our commitment to honor God th
 - ✅ UTF-8 charset: `<meta charset="utf-8">`
 - ✅ Viewport meta tag for responsive design
 
-#### ICP-Lite v1.0 Protocol (Priority 4)
-- 📝 **ai-summary**: Brief description for AI consumption
+#### ICP-Lite v1.4 Protocol (Priority 4)
+- 📝 **ai-summary**: Brief description for AI consumption (max 250 chars, first ~155 standalone)
 - 📅 **last-reviewed**: YYYY-MM-DD format
-- 🔖 **content-protocol**: "ICP-Lite v1.0"
+- 🔖 **content-protocol**: "ICP-Lite v1.4"
 
 **Required meta tags**:
 ```html
-<meta name="ai-summary" content="Brief page description"/>
+<meta name="ai-summary" content="Brief page description (max 250 chars, first ~155 must be standalone sentence)"/>
 <meta name="last-reviewed" content="2025-11-24"/>
-<meta name="content-protocol" content="ICP-Lite v1.0"/>
+<meta name="content-protocol" content="ICP-Lite v1.4"/>
 ```
 
 [See `resources/icp-lite-protocol.md` for complete specification]
@@ -230,7 +230,7 @@ This is the foundation. Everything else builds on our commitment to honor God th
 - `resources/css-standards.md` (~300 lines) - Full CSS requirements
 
 ### Protocol Specifications
-- `resources/icp-lite-protocol.md` (~250 lines) - ICP-Lite v1.0 complete spec
+- `resources/icp-lite-protocol.md` (~250 lines) - ICP-Lite v1.4 complete spec
 - `resources/ai-breadcrumbs-spec.md` (~200 lines) - AI-Breadcrumbs format
 - `resources/wcag-aa-checklist.md` (~350 lines) - Accessibility guide
 
@@ -381,7 +381,7 @@ Standards use graduated enforcement:
 - HTML: 1.0.0
 - JavaScript: 1.0.0
 - CSS: 1.0.0
-- ICP-Lite Protocol: 1.0
+- ICP-Lite Protocol: 1.4
 - AI-Breadcrumbs: 1.0
 - WCAG: 2.1 Level AA
 

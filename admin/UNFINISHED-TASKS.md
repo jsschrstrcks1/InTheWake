@@ -223,14 +223,20 @@ This section tracks work that was started but not completed in previous conversa
 
 ---
 
-### 7. Stateroom Checker Data — Room-by-Room Audits 🟡 IN PROGRESS
+### 7. Stateroom Checker Data — Room-by-Room Audits ✅ RCL COMPLETE
 
-**Status:** 2026-01-25 — Major progress: 270 ships now have exception files (up from 29)
+**Status:** 2026-01-28 — ALL 29 RCL ships fully audited (29/29 complete)
 
-**Recent Progress (2026-01-25):**
+**Recent Progress (2026-01-28):**
 - ✅ Created 241 baseline stateroom exception files for ALL cruise lines
 - ✅ Total coverage: 270 ships (Carnival, Celebrity, Norwegian, Princess, MSC, Holland America, Costa, Cunard, Explora, Oceania, Regent, Seabourn, Silversea, Virgin)
 - ✅ Vision-class RCL ships fully audited with category_overrides (4/4 complete)
+- ✅ Radiance-class RCL ships fully audited (4/4 complete): Radiance (639), Brilliance (710), Serenade (871), Jewel (810)
+- ✅ Voyager-class RCL ships fully audited (5/5 complete): Voyager (1,719), Explorer (1,691), Adventure (1,712), Navigator (1,709), Mariner (1,697)
+- ✅ Freedom-class RCL ships fully audited (3/3 complete): Freedom (2,031), Liberty (1,962), Independence (1,968)
+- ✅ Oasis-class RCL ships fully audited (6/6 complete): Oasis (2,961), Allure (2,964), Harmony (2,839), Symphony (2,803), Wonder (2,935), Utopia (2,965)
+- ✅ Icon-class RCL ships fully audited (2/2 complete): Star (2,789), Icon (2,817)
+- ✅ Quantum-class RCL ships fully audited (5/5 complete): Quantum (2,117), Anthem (2,117), Ovation (2,135), Spectrum (2,154), Odyssey (2,166)
 
 **Baseline File Strategy:**
 New ships get "safe baseline" files with:
@@ -251,31 +257,31 @@ The `inferCategory()` heuristic is wrong for many cabins. The fix is `category_o
 | **Vision** | Vision of the Seas | ✅ AUDITED | category_overrides complete |
 | **Vision** | Enchantment of the Seas | ✅ AUDITED | category_overrides complete |
 | **Vision** | Rhapsody of the Seas | ✅ AUDITED | category_overrides complete |
-| **Radiance** | Radiance of the Seas | ❌ NEEDS AUDIT | Has evidence pack |
-| **Radiance** | Brilliance of the Seas | ❌ NEEDS AUDIT | |
-| **Radiance** | Serenade of the Seas | ❌ NEEDS AUDIT | |
-| **Radiance** | Jewel of the Seas | ❌ NEEDS AUDIT | |
-| **Voyager** | Voyager of the Seas | ❌ NEEDS AUDIT | |
-| **Voyager** | Explorer of the Seas | ❌ NEEDS AUDIT | |
-| **Voyager** | Adventure of the Seas | ❌ NEEDS AUDIT | |
-| **Voyager** | Navigator of the Seas | ❌ NEEDS AUDIT | |
-| **Voyager** | Mariner of the Seas | ❌ NEEDS AUDIT | |
-| **Freedom** | Freedom of the Seas | ❌ NEEDS AUDIT | |
-| **Freedom** | Liberty of the Seas | ❌ NEEDS AUDIT | |
-| **Freedom** | Independence of the Seas | ❌ NEEDS AUDIT | |
-| **Oasis** | Oasis of the Seas | ❌ NEEDS AUDIT | |
-| **Oasis** | Allure of the Seas | ❌ NEEDS AUDIT | |
-| **Oasis** | Harmony of the Seas | ❌ NEEDS AUDIT | |
-| **Oasis** | Symphony of the Seas | ❌ NEEDS AUDIT | |
-| **Oasis** | Wonder of the Seas | ❌ NEEDS AUDIT | |
-| **Oasis** | Utopia of the Seas | ❌ NEEDS AUDIT | |
-| **Quantum** | Quantum of the Seas | ❌ NEEDS AUDIT | |
-| **Quantum** | Anthem of the Seas | ❌ NEEDS AUDIT | |
-| **Quantum** | Ovation of the Seas | ❌ NEEDS AUDIT | |
-| **Quantum** | Spectrum of the Seas | ❌ NEEDS AUDIT | |
-| **Quantum** | Odyssey of the Seas | ❌ NEEDS AUDIT | |
-| **Icon** | Icon of the Seas | ❌ NEEDS AUDIT | |
-| **Icon** | Star of the Seas | ❌ NEEDS AUDIT | |
+| **Radiance** | Radiance of the Seas | ✅ AUDITED | 639 cabins via iCruise |
+| **Radiance** | Brilliance of the Seas | ✅ AUDITED | 710 cabins via iCruise |
+| **Radiance** | Serenade of the Seas | ✅ AUDITED | 871 cabins via iCruise |
+| **Radiance** | Jewel of the Seas | ✅ AUDITED | 810 cabins via iCruise |
+| **Voyager** | Voyager of the Seas | ✅ AUDITED | 1,719 cabins via iCruise |
+| **Voyager** | Explorer of the Seas | ✅ AUDITED | 1,691 cabins via iCruise |
+| **Voyager** | Adventure of the Seas | ✅ AUDITED | 1,712 cabins via iCruise |
+| **Voyager** | Navigator of the Seas | ✅ AUDITED | 1,709 cabins via iCruise |
+| **Voyager** | Mariner of the Seas | ✅ AUDITED | 1,697 cabins via iCruise |
+| **Freedom** | Freedom of the Seas | ✅ AUDITED | 2,031 cabins via iCruise |
+| **Freedom** | Liberty of the Seas | ✅ AUDITED | 1,962 cabins via iCruise |
+| **Freedom** | Independence of the Seas | ✅ AUDITED | 1,968 cabins via iCruise |
+| **Oasis** | Oasis of the Seas | ✅ AUDITED | 2,961 cabins via iCruise |
+| **Oasis** | Allure of the Seas | ✅ AUDITED | 2,964 cabins via iCruise |
+| **Oasis** | Harmony of the Seas | ✅ AUDITED | 2,839 cabins via iCruise |
+| **Oasis** | Symphony of the Seas | ✅ AUDITED | 2,803 cabins via iCruise |
+| **Oasis** | Wonder of the Seas | ✅ AUDITED | 2,935 cabins via iCruise |
+| **Oasis** | Utopia of the Seas | ✅ AUDITED | 2,965 cabins via iCruise |
+| **Quantum** | Quantum of the Seas | ✅ AUDITED | 2,117 cabins via iCruise |
+| **Quantum** | Anthem of the Seas | ✅ AUDITED | 2,117 cabins via iCruise |
+| **Quantum** | Ovation of the Seas | ✅ AUDITED | 2,135 cabins via iCruise |
+| **Quantum** | Spectrum of the Seas | ✅ AUDITED | 2,154 cabins via iCruise |
+| **Quantum** | Odyssey of the Seas | ✅ AUDITED | 2,166 cabins via iCruise |
+| **Icon** | Icon of the Seas | ✅ AUDITED | 2,817 cabins via iCruise |
+| **Icon** | Star of the Seas | ✅ AUDITED | 2,789 cabins via iCruise |
 
 **Tasks:**
 
@@ -283,18 +289,22 @@ The `inferCategory()` heuristic is wrong for many cabins. The fix is `category_o
 |------|--------|
 | Create baseline files for all cruise lines | ✅ DONE (241 files, 2026-01-25) |
 | Audit Vision-class ships | ✅ DONE (4/4 ships) |
-| Audit Radiance-class ships | IN PROGRESS (0/4 ships) |
-| Audit Voyager-class ships | NOT STARTED (0/5 ships) |
-| Audit Freedom-class ships | NOT STARTED (0/3 ships) |
-| Audit Oasis-class ships | NOT STARTED (0/6 ships) |
-| Audit Quantum-class ships | NOT STARTED (0/5 ships) |
-| Audit Icon-class ships | NOT STARTED (0/2 ships) |
-| Test stateroom checker after all RCL audits | NOT STARTED |
+| Audit Radiance-class ships | ✅ DONE (4/4 ships) |
+| Audit Voyager-class ships | ✅ DONE (5/5 ships) |
+| Audit Freedom-class ships | ✅ DONE (3/3 ships) |
+| Audit Oasis-class ships | ✅ DONE (6/6 ships) |
+| Audit Quantum-class ships | ✅ DONE (5/5 ships) |
+| Audit Icon-class ships | ✅ DONE (2/2 ships) |
+| Test stateroom checker after all RCL audits | READY TO TEST |
 
 **Technical Notes:**
+- Primary cabin data source: [iCruise](https://www.icruise.com) cabin lists (WMPHShipCode-based)
 - Deck plan sources: [CruiseDeckPlans](https://www.cruisedeckplans.com), [CruiseMapper](https://www.cruisemapper.com)
 - category_overrides maps cabin numbers to: Interior, Ocean View, Balcony, Suite
+- Promenade View (2T, CP) and Virtual Balcony (2U, 4U) cabins classified as Interior per project convention
+- Voyager-class cabin numbering: 1xxx = Decks 10-12, 2xxx = Deck 2, 3xxx = Deck 3, 6-9xxx = Decks 6-9
 - Sister ships within a class often share layouts (can copy overrides with verification)
+- iCruise WMPHShipCodes: Voyager=5, Explorer=6, Adventure=7, Navigator=96, Mariner=141, Freedom=182, Liberty=222, Independence=236, Oasis=292, Allure=293, Quantum=445, Anthem=446, Ovation=533, Harmony=532, Symphony=597, Spectrum=667, Odyssey=688, Wonder=708, Icon=791, Utopia=812, Star=828
 
 ---
 

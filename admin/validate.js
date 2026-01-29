@@ -14,7 +14,7 @@
  * - ship: Ship profile pages (validate-ship-page.js)
  * - ship-historic: Historic/retired ship pages (validate-historic-ship-page.js)
  * - port: Port/destination pages (validate-port-page-v2.js)
- * - venue: Venue pages (validate-venue-page.sh)
+ * - venue: Venue pages (validate-venue-page-v2.js)
  * - article: Blog/article pages (validate-recent-articles.js)
  * - index: Index/listing pages (basic validation only)
  */
@@ -50,7 +50,7 @@ const VALIDATORS = {
   'ship-historic': 'validate-historic-ship-page.js',
   'port': 'validate-port-page-v2.js',
   'article': 'validate-recent-articles.js',
-  'venue': 'validate-venue-page.sh',
+  'venue': 'validate-venue-page-v2.js',
   'index': null  // Basic validation only
 };
 
@@ -61,6 +61,7 @@ const PATH_PATTERNS = [
   { pattern: /^ports\/index\.html$/, type: 'index' },
   { pattern: /^ports\/.*\.html$/, type: 'port' },
   { pattern: /^cruise-lines\/.*\.html$/, type: 'index' },  // Cruise line pages use basic validation
+  { pattern: /^restaurants\/.*\.html$/, type: 'venue' },
   { pattern: /^venues\/.*\.html$/, type: 'venue' },
   { pattern: /^articles\/.*\.html$/, type: 'article' },
   { pattern: /^blog\/.*\.html$/, type: 'article' },
@@ -151,7 +152,7 @@ async function runValidator(validatorScript, filepath, options = {}) {
 
     proc.on('close', (code) => {
       resolve({
-        success: code === 0,
+        success: code === 0 || code === 2,  // 0 = pass, 2 = warnings only (still a pass)
         exitCode: code,
         output: stdout,
         error: stderr
@@ -401,6 +402,7 @@ async function main() {
     allPages: args.includes('--all'),
     allShips: args.includes('--all-ships'),
     allPorts: args.includes('--all-ports'),
+    allVenues: args.includes('--all-venues'),
     jsonOutput: args.includes('--json-output'),
     quiet: args.includes('--quiet'),
     verbose: args.includes('--verbose'),
@@ -414,6 +416,7 @@ async function main() {
     const patterns = [
       join(PROJECT_ROOT, 'ships/**/*.html'),
       join(PROJECT_ROOT, 'ports/*.html'),
+      join(PROJECT_ROOT, 'restaurants/*.html'),
       join(PROJECT_ROOT, 'venues/**/*.html'),
       join(PROJECT_ROOT, 'articles/**/*.html')
     ];
@@ -425,6 +428,8 @@ async function main() {
     filesToValidate = await glob(join(PROJECT_ROOT, 'ships/**/*.html'));
   } else if (options.allPorts) {
     filesToValidate = await glob(join(PROJECT_ROOT, 'ports/*.html'));
+  } else if (options.allVenues) {
+    filesToValidate = await glob(join(PROJECT_ROOT, 'restaurants/*.html'));
   } else if (options.files.length > 0) {
     filesToValidate = options.files.map(f =>
       f.startsWith('/') ? f : join(PROJECT_ROOT, f)
@@ -438,6 +443,7 @@ async function main() {
     console.log('  --all          Validate all pages (ships, ports, venues, articles)');
     console.log('  --all-ships    Validate all ship pages');
     console.log('  --all-ports    Validate all port pages');
+    console.log('  --all-venues   Validate all venue/restaurant pages');
     console.log('  --json-output  Output results as JSON');
     console.log('  --quiet        Minimal output');
     console.log('  --verbose      Show type-specific validator output');

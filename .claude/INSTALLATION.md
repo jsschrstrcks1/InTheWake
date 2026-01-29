@@ -51,31 +51,44 @@ This document details the enhanced Claude Code system installed on this reposito
    - Resources in `.claude/skills/standards/`
    - ICP-Lite / ITW-Lite protocol compliance
 
-**Rule-Based Skill Triggers (4):**
+2. **skill-developer** (FOM Adapted)
+   - Meta-skill for creating and managing Claude Code skills
+   - Resources in `.claude/skills/skill-developer/`
+
+3. **frontend-dev-guidelines** (FOM Adapted)
+   - HTML/CSS/JavaScript best practices for static sites
+   - Resources in `.claude/skills/frontend-dev-guidelines/`
+
+**Rule-Based Skill Triggers (5):**
 
 These are defined in `skill-rules.json` as activation triggers with guardrails, but don't have dedicated SKILL.md directories:
 
-2. **seo-optimizer** (FOM Adapted → ITW-Lite)
+4. **seo-optimizer** (FOM Adapted → ITW-Lite)
    - SEO optimization with ITW-Lite guardrails
    - Technical SEO focus (schema.org, semantic HTML, meta tags)
    - Cruise-specific schema: Article, Place, TravelAction
    - REJECTS: Keyword stuffing, readability compromises, AI-hostile practices
 
-3. **accessibility-auditor** (FOM Adapted)
+5. **accessibility-auditor** (FOM Adapted)
    - WCAG AA compliance checking
    - Cruise accessibility considerations
    - Screen reader, keyboard navigation, color contrast
 
-4. **content-strategy** (FOM Adapted → Cruise Content)
+6. **content-strategy** (FOM Adapted → Cruise Content)
    - Travel storytelling over marketing-speak
    - Planning guidance sections
    - Faith-scented reflections when appropriate
    - Natural, conversational descriptions
 
-5. **performance-analyzer** (FOM Adapted)
+7. **performance-analyzer** (FOM Adapted)
    - Core Web Vitals optimization
    - Image optimization for ship/port photos
    - LCP, FID, CLS monitoring
+
+8. **ship-page-validator** (CITW Original)
+   - Auto-validates ship pages against SHIP_PAGE_CHECKLIST_v3.010
+   - Checks theological foundation, AI-breadcrumbs, ICP-Lite v1.4, JSON-LD, WCAG
+   - Post-write hook: `.claude/hooks/ship-page-validator.sh`
 
 **Purpose:** Domain-specific expertise for cruise planning site development
 
@@ -364,6 +377,11 @@ cat .claude/skill-rules.json | jq '.skills | keys'
 ---
 
 ## Version History
+
+**v1.1.4** (2026-01-28)
+- Fixed Layer 2 section: Added skill-developer and frontend-dev-guidelines to "Skills with Dedicated Directories" listing
+- Fixed Layer 2 section: Corrected "Rule-Based Skill Triggers" from (4) to (5), added ship-page-validator
+- Numbered all 8 skills sequentially in Layer 2 for clarity
 
 **v1.1.3** (2026-01-25)
 - Documentation update: Fixed remaining "7 skills" references to "8 skills" in ONBOARDING.md

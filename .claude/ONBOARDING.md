@@ -390,6 +390,13 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 
 ## 🔄 Version History
 
+**v1.1.4** (2026-01-28) — Cross-document consistency review
+- Fixed INSTALLATION.md Layer 2: added all 3 dedicated directory skills, corrected rule-based count to 5
+- Fixed STANDARDS.md: updated ICP-Lite v1.0 references to v1.4 throughout
+- Fixed ai-breadcrumbs-spec.md: updated ICP-Lite example code from v1.0 to v1.4
+- Fixed FOM_STANDARDS_ALIGNMENT.md: updated hooks count from 2 to 3, added review note
+- Fixed new-standards/README.md: updated site version to v3.010.305, task statuses to COMPLETE
+
 **v1.1.3** (2026-01-25) — Documentation consistency update
 - Fixed remaining "7 skills" references to "8 skills" throughout document
 - Clarified CITW original skill count: 2 (standards + ship-page-validator)
