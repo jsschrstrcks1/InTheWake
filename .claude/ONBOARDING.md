@@ -1,8 +1,8 @@
 # Claude Code System Onboarding — In the Wake
 
 **For:** New Claude sessions working on In the Wake
-**Date:** 2025-11-24
-**System Version:** ITW-Lite v3.010 with FOM enhancements
+**Date:** 2026-01-29
+**System Version:** ITW-Lite v3.010.305 with FOM enhancements
 
 ---
 
@@ -389,6 +389,13 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 ---
 
 ## 🔄 Version History
+
+**v1.1.5** (2026-01-29) — Cross-document data consistency update
+- Fixed claude.md: Updated validation stats from 36 (12%) to 106 (34%) passing, 2,101 to 981 blocking errors, 309 to 311 ship pages, 400+ to 380 port pages
+- Fixed MAINTENANCE_TASKS.md: Updated ship deployments coverage from 55 ships/2 lines to 193 ships/15 lines
+- Fixed MAINTENANCE_TASKS.md: Updated trust badge text to match actual site implementation (affiliate disclosure)
+- Fixed MAINTENANCE_TASKS.md: Updated remaining cruise lines from 13 to 0 (all 15 implemented)
+- Fixed MAINTENANCE_TASKS.md: Updated last-updated date to 2026-01-29
 
 **v1.1.4** (2026-01-28) — Cross-document consistency review
 - Fixed INSTALLATION.md Layer 2: added all 3 dedicated directory skills, corrected rule-based count to 5
