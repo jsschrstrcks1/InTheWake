@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 /**
- * generate-venue-pages.js  (v2 — audit-proof)
+ * generate-virgin-venue-pages.js  (v1 — audit-proof)
  *
- * Generates HTML venue pages from ncl-venues.json that pass the
+ * Generates HTML venue pages from virgin-venues.json that pass the
  * validate-venue-page-v2.js audit on first creation.
  *
  * Fixes every root cause that caused T01–T10, S01–S05, W01–W04
  * failures in the original generate_restaurant_pages.py:
  *
  *   T01  Varied images per section (no watermark duplication)
- *   T02  Menu section pulled from venue-menus.json
+ *   T02  Menu section pulled from virgin-venue-menus.json
  *   T03  Google Analytics included
  *   T04  Umami Analytics included
  *   T05  All required sections present, 5 FAQ items
@@ -25,7 +25,7 @@
  *   W04  og:image and twitter:image
  *
  * Usage:
- *   node admin/generate-venue-pages.js [--dry-run] [--slug=<slug>] [--force]
+ *   node admin/generate-virgin-venue-pages.js [--dry-run] [--slug=<slug>] [--force]
  */
 
 import fs from 'fs';
@@ -36,9 +36,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // ─── Data sources ───────────────────────────────────────────────────────────
-const venuesPath  = path.join(__dirname, '..', 'assets', 'data', 'ncl-venues.json');
-const menusPath   = path.join(__dirname, '..', 'assets', 'data', 'ncl-venue-menus.json');
-const outDir = path.join(__dirname, '..', 'restaurants', 'ncl');
+const venuesPath  = path.join(__dirname, '..', 'assets', 'data', 'virgin-venues.json');
+const menusPath   = path.join(__dirname, '..', 'assets', 'data', 'virgin-venue-menus.json');
+const outDir = path.join(__dirname, '..', 'restaurants', 'virgin');
 
 const venuesData = JSON.parse(fs.readFileSync(venuesPath, 'utf8'));
 const menusData  = fs.existsSync(menusPath)
@@ -54,39 +54,19 @@ const singleSlug = (args.find(a => a.startsWith('--slug=')) || '').replace('--sl
 function classifyVenue(venue) {
   const cat  = venue.category || '';
   const sub  = venue.subcategory || '';
-  const desc = (venue.description || '').toLowerCase();
-  const name = (venue.name || '').toLowerCase();
 
-  if (cat === 'activities')     return 'activity';
-  if (cat === 'neighborhoods')  return 'neighborhood';
-  if (cat === 'entertainment')  return 'entertainment';
+  if (cat === 'dining' && sub === 'restaurant')    return 'specialty';
+  if (cat === 'dining' && sub === 'casual')        return 'casual-dining';
+  if (cat === 'dining' && sub === 'cafe')          return 'coffee';
+  if (cat === 'dining' && sub === 'room-service')  return 'counter-service';
+  if (cat === 'bar')                               return 'bar';
+  if (cat === 'entertainment' && sub === 'show')      return 'entertainment';
+  if (cat === 'entertainment' && sub === 'event')     return 'entertainment';
+  if (cat === 'entertainment' && sub === 'nightclub') return 'entertainment';
+  if (cat === 'entertainment' && sub === 'theater')   return 'entertainment';
+  if (cat === 'entertainment' && sub === 'casino')    return 'entertainment';
+  if (cat === 'entertainment' && sub === 'activity')  return 'activity';
 
-  if (cat === 'bars') {
-    if (sub === 'coffee')  return 'coffee';
-    if (sub === 'dessert') return 'dessert';
-    return 'bar';
-  }
-
-  if (cat === 'dining') {
-    const counterKW = [
-      'hot dog', 'sausage', 'pizza by the slice', 'ice cream', 'soft-serve',
-      'candy', 'sweets shop', 'snacks', 'quick bites', 'quick service',
-      'bbq', 'barbecue', 'fish and chips', 'tacos and burritos'
-    ];
-    if (counterKW.some(kw => desc.includes(kw) || name.includes(kw))) return 'counter-service';
-    if (desc.includes('buffet') || desc.includes('food hall'))        return 'casual-dining';
-    if (sub === 'specialty' || venue.premium === true) {
-      const fineKW = ['multi-course', 'tasting', 'exclusive', 'upscale', 'fine dining', 'molecular'];
-      if (fineKW.some(kw => desc.includes(kw))) return 'fine-dining';
-      return 'specialty';
-    }
-    if (sub === 'complimentary') {
-      const casualKW = ['casual', 'lighter', 'light fare', 'deli', 'pastries', 'comfort food'];
-      if (casualKW.some(kw => desc.includes(kw))) return 'counter-service';
-      return 'casual-dining';
-    }
-    return 'casual-dining';
-  }
   return 'unknown';
 }
 
@@ -129,47 +109,37 @@ function categoryLabel(style) {
 // ─── Best For text — venue-specific (S02) ───────────────────────────────────
 const BEST_FOR = {
   'fine-dining':     'Special occasion diners, romantic date nights, foodies seeking elevated cuisine',
-  'specialty':       'Couples, families celebrating milestones, guests looking for something beyond the buffet',
-  'casual-dining':   'Families, first-time cruisers, anyone wanting a relaxed sit-down meal included in the fare',
-  'counter-service': 'Families with kids, poolside snackers, anyone craving a quick bite between activities',
+  'specialty':       'Couples, milestone celebrations, guests looking for something beyond the buffet',
+  'casual-dining':   'Anyone wanting a relaxed meal included in the fare, grab-and-go snackers',
+  'counter-service': 'Poolside snackers, anyone craving a quick bite between activities',
   'bar':             'Adults unwinding after dinner, cocktail enthusiasts, couples seeking nightlife',
   'coffee':          'Morning caffeine seekers, tea lovers, anyone needing a quiet break with a pastry',
-  'dessert':         'Sweet-tooth cruisers, families with kids, anyone craving a treat between meals',
+  'dessert':         'Sweet-tooth cruisers, anyone craving a treat between meals',
 };
 
 function bestFor(slug, style) {
   // Venue-specific overrides for high-traffic pages
   const overrides = {
-    'cagneys-steakhouse':     'Steak lovers, anniversary celebrations, anyone craving premium Angus beef at sea',
-    'le-bistro':              'Romantics, Francophiles, couples wanting the most elegant dining experience on the ship',
-    'teppanyaki':             'Groups, families with teens, anyone who enjoys interactive chef-at-your-table entertainment',
-    'hasuki':                 'Japanese cuisine fans, couples, groups wanting an upscale interactive dining show',
-    'ocean-blue':             'Seafood lovers, date-night couples, anyone craving fresh catches and ocean-inspired dishes',
-    'palomar':                'Mediterranean food fans, seafood lovers, couples wanting a refined Prima Class specialty experience',
-    'moderno-churrascaria':   'Meat lovers, groups, families with teens seeking all-you-can-eat Brazilian rodizio',
-    'food-republic':          'Adventurous eaters, shareable-plate fans, groups wanting globally-inspired Asian fusion',
-    'la-cucina':              'Italian food lovers, families, anyone craving classic pasta and chicken parm in a warm trattoria',
-    'onda-by-scarpetta':      'Foodies, couples seeking upscale modern Italian, Scarpetta restaurant fans',
-    'los-lobos':              'Mexican food lovers, margarita enthusiasts, groups wanting contemporary cantina dining',
-    'indulge-food-hall':      'Families, adventurous eaters, anyone wanting variety — 8+ cuisines under one roof via iPad ordering',
-    'garden-cafe':            'Families, early risers, guests who prefer casual buffet-style dining with international options',
-    'surfside-cafe':          'Families on Prima Class wanting buffet variety for breakfast, lunch, and late-night snacks',
-    'the-manhattan-room':     'Couples, celebration dinners, guests wanting the most elegant complimentary dining room',
-    'hudsons':                'Families and couples wanting ocean-view main dining with build-your-own pasta on Prima Class',
-    'osheehans':              'Night owls, pub food fans, anyone wanting 24-hour comfort food — burgers, wings, fish and chips',
-    'the-local':              'Night owls on Prima Class, pub food fans wanting 24/7 casual bites and cold beer',
-    'american-diner':         'Families, burger lovers, anyone who enjoys a retro 1950s diner vibe with milkshakes',
-    'the-haven-restaurant':   'Haven suite guests wanting private, exclusive fine dining with personalized service',
-    'sugarcane-mojito-bar':   'Mojito fans, Waterfront loungers, couples wanting freshly muddled tropical cocktails',
-    'the-district-brew-house':'Craft beer enthusiasts, groups wanting 50+ beers on tap with a lively pub atmosphere',
-    'syd-normans-pour-house': 'Rock music fans, groups wanting live music and audience sing-along energy',
-    'the-cellars-wine-bar':   'Wine enthusiasts, couples wanting curated Mondavi family tastings and education',
-    'observation-lounge':     'Sunset watchers, couples seeking panoramic ocean views with cocktails',
-    'spice-h2o':              'Adults wanting a daytime oasis and nighttime dance party under the stars',
-    'vibe-beach-club':        'Adults seeking a private, uncrowded retreat with whirlpools, loungers, and full bar service',
-    'ice-bar':                'Novelty seekers, couples wanting a unique 17-degree arctic bar experience',
-    'bliss-ultra-lounge':     'Nightclub fans, late-night dancers, groups wanting DJ music and neon-lit energy',
-    'ncl-starbucks':          'Morning caffeine seekers, Starbucks loyalists wanting their usual order at sea',
+    'the-wake':              'Steak lovers, anniversary celebrations, anyone craving premium cuts and a raw bar at sea',
+    'pink-agave':            'Mexican cuisine fans, mezcal and tequila enthusiasts, gluten-free diners seeking a fully GF menu',
+    'extra-virgin':          'Italian food lovers, pasta enthusiasts, couples wanting fresh handmade pasta and tableside affogato',
+    'gunbae':                'Groups wanting interactive Korean BBQ, adventurous eaters, anyone who loves tableside grilling and soju',
+    'razzle-dazzle':         'Vegetarian-forward diners, brunch lovers, anyone hunting the secret off-menu burger',
+    'the-test-kitchen':      'Foodies, adventurous eaters, couples wanting a surprise 6-course mystery tasting menu',
+    'the-galley':            'Everyone — the 24/7 food hall replaces the buffet with sushi, tacos, noodles, burgers, and more',
+    'the-pizza-place':       'Pizza lovers, late-night snackers, anyone craving brick-oven pies between activities',
+    'the-dock':              'Mediterranean food fans, couples wanting ocean-view small plates and cocktails at sunset',
+    'sun-club-cafe':         'Poolside loungers wanting fresh poke bowls between swims',
+    'lick-me-till-ice-cream':'Ice cream lovers, anyone wanting homemade gelato with 6 rotating daily flavors',
+    'grounds-club':          'Morning caffeine seekers, espresso lovers wanting barista-prepared drinks at sea',
+    'ship-eats':             'Night owls, anyone wanting breakfast in bed or late-night cabin snacks',
+    'sip-lounge':            'Champagne lovers, couples wanting afternoon tea with scones and petit fours',
+    'on-the-rocks':          'Whiskey enthusiasts, couples wanting craft cocktails with live entertainment',
+    'draught-haus':          'Craft beer enthusiasts wanting 8 taps, artisanal bottles, and boilermaker pairings',
+    'the-loose-cannon':      'Pub lovers wanting pints, pub grub, and nautical vibes in a Brighton-inspired setting',
+    'the-social-club':       'Gamers, groups wanting milkshakes and arcade games, late-night snackers',
+    'the-manor':             'Nightlife seekers, dancers, anyone wanting headline shows that become late-night parties',
+    'richards-rooftop':      'Rockstar Suite guests wanting exclusive VIP cocktails and sunset happy hours',
   };
   return overrides[slug] || BEST_FOR[style] || BEST_FOR['casual-dining'];
 }
@@ -183,22 +153,28 @@ function generateFAQs(slug, name, style, description) {
   const pricing = menu?.pricing;
 
   let priceAnswer;
-  if (pricing?.format === 'complimentary') {
-    priceAnswer = `${name} is complimentary — included in your Norwegian Cruise Line cruise fare at no extra charge.`;
+  if (typeof pricing === 'string' && pricing.toLowerCase().includes('complimentary')) {
+    priceAnswer = `${name} is complimentary — included in your Virgin Voyages cruise fare at no extra charge. All dining on Virgin Voyages is included.`;
+  } else if (typeof pricing === 'string' && pricing.toLowerCase().includes('à la carte')) {
+    priceAnswer = `${name} is an a la carte venue — you pay per item ordered. Prices vary by selection.`;
+  } else if (typeof pricing === 'string') {
+    priceAnswer = `${name} pricing: ${pricing}`;
+  } else if (pricing?.format === 'complimentary') {
+    priceAnswer = `${name} is complimentary — included in your Virgin Voyages cruise fare at no extra charge.`;
   } else if (pricing?.cover) {
-    priceAnswer = `${name} has a cover charge of ${pricing.cover} per person. Once you pay the cover, you can order as much as you like. An 18% gratuity is added automatically.`;
+    priceAnswer = `${name} has a cover charge of ${pricing.cover} per person. Once you pay the cover, you can order as much as you like.`;
   } else if (pricing?.dinner) {
-    priceAnswer = `${name} is a specialty venue. Dinner is ${pricing.dinner} per person${pricing.children ? ` (children ${pricing.children})` : ''}. An 18% gratuity is added automatically.`;
+    priceAnswer = `${name} is a specialty venue. Dinner is ${pricing.dinner} per person. Gratuity is included in your fare.`;
   } else if (pricing?.format === 'a-la-carte') {
     priceAnswer = `${name} is an a la carte venue — you pay per item ordered. Prices vary by selection.`;
   } else {
-    priceAnswer = `Pricing varies — check the Norwegian Cruise Line app or NCL app for current ${name} pricing.`;
+    priceAnswer = `Pricing varies — check the Virgin Voyages app or Sailor Services for current ${name} pricing. Most dining is included in the fare.`;
   }
 
   const faqs = [
     {
-      q: `What is ${name} on Norwegian Cruise Line?`,
-      a: description || `${name} is a ${categoryLabel(style).toLowerCase()} venue available on select Norwegian Cruise Line ships.`,
+      q: `What is ${name} on Virgin Voyages?`,
+      a: description || `${name} is a ${categoryLabel(style).toLowerCase()} venue available on Virgin Voyages ships.`,
     },
     {
       q: `How much does ${name} cost?`,
@@ -207,28 +183,28 @@ function generateFAQs(slug, name, style, description) {
     {
       q: `What is the dress code for ${name}?`,
       a: dc === 'Casual'
-        ? `Come as you are. ${name} is a casual venue — pool attire and casual clothes are fine.`
-        : `${dc} is recommended. Collared shirts and closed-toe shoes for gentlemen; no swimwear or tank tops at dinner.`,
+        ? `Come as you are. ${name} is a casual venue — pool attire and casual clothes are fine. Virgin Voyages has no formal nights.`
+        : `${dc} is recommended. Virgin Voyages has no formal nights — dress to express, not to impress. No specific dress code is enforced, but smart casual elevates the experience.`,
     },
   ];
 
   if (isDining) {
     faqs.push({
       q: `Do I need reservations for ${name}?`,
-      a: style === 'counter-service'
-        ? `No reservations needed. ${name} is walk-up counter service — just join the queue.`
-        : `Reservations are recommended, especially for dinner. Book through the Norwegian Cruise Line app or NCL app before sailing for the best availability.`,
+      a: style === 'counter-service' || style === 'casual-dining'
+        ? `No reservations needed. ${name} is walk-up service — just show up and enjoy.`
+        : `Reservations are recommended, especially for dinner. Book through the Virgin Voyages app before sailing for the best availability. Popular venues like The Wake and Pink Agave fill quickly.`,
     });
     faqs.push({
       q: `What are the menu highlights at ${name}?`,
       a: menu?.courses
         ? `Popular items include ${Object.values(menu.courses).flat().slice(0, 4).join(', ')}, and more. The menu may vary by ship and sailing.`
-        : `${name} offers a curated selection that changes by ship and sailing. Check the Norwegian Cruise Line app onboard for the latest menu.`,
+        : `${name} offers a curated selection that changes by ship and sailing. Check the Virgin Voyages app onboard for the latest menu.`,
     });
   } else if (isBar) {
     faqs.push({
       q: `Is ${name} included in drink packages?`,
-      a: `Most drinks at ${name} are covered by Norwegian Cruise Line's Premium Beverage Package. Premium and specialty selections may have an upcharge. Non-alcoholic options are available.`,
+      a: `Most drinks at ${name} are covered by the Virgin Voyages Bar Tab package. Premium and specialty selections may have an upcharge. Non-alcoholic options are available.`,
     });
     faqs.push({
       q: `What are the signature drinks at ${name}?`,
@@ -239,11 +215,11 @@ function generateFAQs(slug, name, style, description) {
   } else {
     faqs.push({
       q: `Which ships have ${name}?`,
-      a: `${name} is available on select Norwegian Cruise Line ships. Check your ship's deck plan or the Norwegian Cruise Line app for availability.`,
+      a: `${name} is available on select Virgin Voyages ships. Check the Virgin Voyages app or website for availability.`,
     });
     faqs.push({
       q: `What are the hours for ${name}?`,
-      a: `Hours vary by ship and itinerary. Check the daily Freestyle Daily or the Norwegian Cruise Line app for current hours.`,
+      a: `Hours vary by ship and itinerary. Check the Virgin Voyages app for current hours and show times.`,
     });
   }
 
@@ -267,13 +243,15 @@ function generateMenuHTML(slug, style, venue) {
         <strong>Price:</strong> ${esc(priceText)}
       </p>
       <p>${esc(desc)}</p>
-      <p class="note tiny">Menu items and prices vary by ship, sailing, and season. Check the Norwegian Cruise Line app onboard for the latest offerings.</p>
+      <p class="note tiny">Menu items and prices vary by ship, sailing, and season. Check the Virgin Voyages app onboard for the latest offerings.</p>
     </div>
   </section>\n`;
   }
 
   const { pricing, courses, items, stations, notes, toppings, flavors, meals, rotation } = menuData;
   const tasteOfSpecialty = menuData['taste-of-specialty'];
+  const rawBar = menuData['raw-bar'];
+  const premium = menuData['premium'];
 
   let html = `  <!-- Menu & Prices -->\n`;
   html += `  <section class="card" id="menu-prices">\n`;
@@ -322,10 +300,26 @@ function generateMenuHTML(slug, style, venue) {
     }
   }
 
-  // Rotation rendering (NCL MDR 7-night cycle)
+  // Raw Bar rendering (Virgin Voyages premium supplement section)
+  if (rawBar?.length) {
+    html += `\n      <h3>Raw Bar (Premium Supplement)</h3>\n`;
+    html += `      <ul>\n`;
+    for (const it of rawBar) html += `        <li>${esc(it)}</li>\n`;
+    html += `      </ul>\n`;
+  }
+
+  // Premium / Treat Yourself rendering (Virgin Voyages premium items)
+  if (premium?.length) {
+    html += `\n      <h3>Treat Yourself (Premium)</h3>\n`;
+    html += `      <ul>\n`;
+    for (const it of premium) html += `        <li>${esc(it)}</li>\n`;
+    html += `      </ul>\n`;
+  }
+
+  // Rotation rendering (kept for compatibility)
   if (rotation?.length) {
     html += `\n      <h3>7-Night Dinner Rotation</h3>\n`;
-    html += `      <p class="note tiny">Each night features 3 unique appetizers, 5 featured entrees, and 3 desserts — in addition to the classics above.</p>\n`;
+    html += `      <p class="note tiny">Each night features unique appetizers, featured entrees, and desserts.</p>\n`;
     for (const night of rotation) {
       html += `      <details class="variant">\n`;
       html += `        <summary><strong>${esc(night.name)}</strong></summary>\n`;
@@ -344,10 +338,10 @@ function generateMenuHTML(slug, style, venue) {
     }
   }
 
-  // Taste of Specialty rendering (Cagney's premium items)
+  // Taste of Specialty rendering (kept for compatibility)
   if (tasteOfSpecialty?.length) {
     html += `\n      <details class="variant">\n`;
-    html += `        <summary><strong>Taste of Specialty — Cagney's Steakhouse</strong> (premium surcharge)</summary>\n`;
+    html += `        <summary><strong>Taste of Specialty</strong> (premium surcharge)</summary>\n`;
     html += `        <ul>\n`;
     for (const it of tasteOfSpecialty) html += `          <li>${esc(it)}</li>\n`;
     html += `        </ul>\n`;
@@ -406,6 +400,36 @@ const COURSE_NAMES = {
   'rotating-appetizers': 'Rotating Appetizers',
   'rotating-entrees': 'Rotating Featured Entrees',
   'rotating-desserts': 'Rotating Desserts',
+  // Virgin Voyages additional course names
+  'small-plates': 'Small Plates',
+  'from-the-grill': 'From the Grill',
+  'small-bites': 'Small Bites',
+  'stews-and-sides': 'Stews &amp; Sides',
+  'rice-noodles-stews': 'Rice, Noodles &amp; Stews',
+  'bbq-grill': 'BBQ Grill',
+  'dinner-starters': 'Dinner Starters',
+  'dinner-mains': 'Dinner Mains',
+  'dinner-naughty': 'Naughty (Meat &amp; Fish)',
+  'champagne': 'Champagne',
+  'afternoon-tea': 'Afternoon Tea',
+  'secondi': 'Secondi',
+  'secondo': 'Secondo',
+  'antipasto': 'Antipasto',
+  'affettati-misti': 'Affettati Misti',
+  'dolci': 'Dolci',
+  'affogato': 'Affogato',
+  'botanas': 'Botanas (Small Plates)',
+  'entradas': 'Entradas (Medium Plates)',
+  'fuertes': 'Fuertes (Large Plates)',
+  'brunch-to-start': 'To Start',
+  'brunch-bakery': 'Wake &amp; Bake-ry',
+  'brunch-eggs': 'Eggs',
+  'brunch-sweet': 'Sweet(ish)',
+  'brunch-brunchie': 'Brunchie',
+  'brunch-juices': 'Fresh Juices &amp; Smoothies',
+  'milk-and-cookies': 'Milk &amp; Cookies',
+  'sauces': 'Sauces',
+  entrees: 'Entrees',
 };
 function formatCourse(n) { return COURSE_NAMES[n] || cap(n.replace(/-/g, ' ')); }
 function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
@@ -414,7 +438,7 @@ function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(
 // ─── Main page generator ────────────────────────────────────────────────────
 function generatePage(slug, venue) {
   const name  = venue.name;
-  const desc  = venue.description || `${name} on Norwegian Cruise Line cruise ships.`;
+  const desc  = venue.description || `${name} on Virgin Voyages cruise ships.`;
   const style = classifyVenue(venue);
   const today = new Date().toISOString().slice(0, 10);
   const dc    = dressCode(style);
@@ -423,6 +447,11 @@ function generatePage(slug, venue) {
   const faqs  = generateFAQs(slug, name, style, desc);
   const menuSection = generateMenuHTML(slug, style, venue);
   const isDining = ['fine-dining', 'specialty', 'casual-dining', 'counter-service'].includes(style);
+
+  // Ships availability (for entertainment/shows)
+  const shipsLine = venue.ships?.length
+    ? `<p><strong>Available on:</strong> ${venue.ships.join(', ')}</p>`
+    : '';
 
   // JSON-LD FAQ items
   const faqJsonLd = faqs.map(f => `    {
@@ -456,10 +485,10 @@ All work on this project is offered as a gift to God.
      type: ${isDining ? 'Restaurant/Dining Venue' : 'Bar/Lounge'}
      parent: /restaurants.html
      category: ${catLbl}
-     cruise-line: Norwegian Cruise Line
+     cruise-line: Virgin Voyages
      updated: ${today}
-     expertise: Norwegian Cruise Line dining, Freestyle cruising, restaurant reviews, specialty dining
-     target-audience: Cruise dining planners, families, specialty dining seekers
+     expertise: Virgin Voyages dining, adults-only cruising, restaurant reviews, specialty dining
+     target-audience: Cruise dining planners, adults-only travelers, specialty dining seekers
      answer-first: ${name} — ${desc}
      -->
 <!-- Google tag (gtag.js) -->
@@ -472,11 +501,11 @@ All work on this project is offered as a gift to God.
 </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${name} — Norwegian Cruise Line | In the Wake</title>
+  <title>${name} — Virgin Voyages | In the Wake</title>
 
   <!-- Canonical & SEO -->
-  <meta name="description" content="${name} on Norwegian Cruise Line cruise ships. ${desc}">
-  <link rel="canonical" href="https://cruisinginthewake.com/restaurants/ncl/${slug}.html">
+  <meta name="description" content="${name} on Virgin Voyages cruise ships. ${desc}">
+  <link rel="canonical" href="https://cruisinginthewake.com/restaurants/virgin/${slug}.html">
   <meta name="referrer" content="no-referrer">
   <meta name="ai-summary" content="${name} — ${desc}">
   <meta name="last-reviewed" content="${today}">
@@ -485,12 +514,12 @@ All work on this project is offered as a gift to God.
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="In the Wake">
-  <meta property="og:title" content="${name} — Norwegian Cruise Line">
-  <meta property="og:url" content="https://cruisinginthewake.com/restaurants/ncl/${slug}.html">
-  <meta property="og:description" content="${name} on Norwegian Cruise Line cruise ships. ${desc}">
+  <meta property="og:title" content="${name} — Virgin Voyages">
+  <meta property="og:url" content="https://cruisinginthewake.com/restaurants/virgin/${slug}.html">
+  <meta property="og:description" content="${name} on Virgin Voyages cruise ships. ${desc}">
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/dining-hero.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="${name} — Norwegian Cruise Line">
+  <meta name="twitter:title" content="${name} — Virgin Voyages">
   <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/dining-hero.jpg">
 
   <!-- Site CSS -->
@@ -509,15 +538,15 @@ All work on this project is offered as a gift to God.
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "${name} — Norwegian Cruise Line",
+  "name": "${name} — Virgin Voyages",
   "description": "${desc}",
-  "url": "https://cruisinginthewake.com/restaurants/ncl/${slug}.html",
+  "url": "https://cruisinginthewake.com/restaurants/virgin/${slug}.html",
   "breadcrumb": {
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
-      {"@type": "ListItem", "position": 2, "name": "Norwegian Cruise Line", "item": "https://cruisinginthewake.com/cruise-lines/norwegian.html"},
-      {"@type": "ListItem", "position": 3, "name": "${name}", "item": "https://cruisinginthewake.com/restaurants/ncl/${slug}.html"}
+      {"@type": "ListItem", "position": 2, "name": "Virgin Voyages", "item": "https://cruisinginthewake.com/cruise-lines/virgin.html"},
+      {"@type": "ListItem", "position": 3, "name": "${name}", "item": "https://cruisinginthewake.com/restaurants/virgin/${slug}.html"}
     ]
   },
   "author": {
@@ -634,11 +663,13 @@ ${faqJsonLd}
     <img src="${sectionImage(style, 'overview')}" alt="" aria-hidden="true">
     <div class="card__content">
       <h1 class="page-title">${name}</h1>
-      <p class="subtitle">Norwegian Cruise Line — ${catLbl}</p>
+      <p class="subtitle">Virgin Voyages — ${catLbl}</p>
 
       <p class="answer-line"><strong>Quick Answer:</strong> ${desc}</p>
 
       <p class="fit-guidance"><strong>Best For:</strong> ${bf}</p>
+
+      ${shipsLine}
 
       <div class="key-facts">
         <h3>Key Facts</h3>
@@ -646,7 +677,7 @@ ${faqJsonLd}
           <li><strong>Price:</strong> Varies by venue</li>
           <li><strong>Hours:</strong> Varies by ship and itinerary</li>
           <li><strong>Dress Code:</strong> ${dc}</li>
-          <li><strong>Reservations:</strong> Check Norwegian Cruise Line app</li>
+          <li><strong>Reservations:</strong> Check Virgin Voyages app</li>
         </ul>
       </div>
 
@@ -660,7 +691,7 @@ ${menuSection}
     <div class="card__content">
       <h2>Special Accommodations</h2>
       <div class="allergen-micro" role="note" aria-label="Allergen and dietary information">
-        <p class="pill"><strong>Allergen &amp; Dietary Notes:</strong> Norwegian Cruise Line follows allergen policies. Please disclose allergens to your server before ordering. Gluten-free, dairy-free, vegetarian, and many vegan adjustments are available on request.</p>
+        <p class="pill"><strong>Allergen &amp; Dietary Notes:</strong> Virgin Voyages follows allergen policies. Please disclose allergens to your server before ordering. Gluten-free, dairy-free, vegetarian, and many vegan adjustments are available on request.</p>
       </div>
     </div>
   </section>
@@ -669,7 +700,7 @@ ${menuSection}
   <section class="card" id="availability">
     <div class="card__content">
       <h2>Where You'll Find It</h2>
-      <p>${name} is available on select Norwegian Cruise Line ships. Check your ship's deck plan or the Norwegian Cruise Line app for exact location and hours.</p>
+      <p>${name} is available on Virgin Voyages ships. Check the Virgin Voyages app for exact location and hours.</p>
     </div>
   </section>
 
@@ -683,12 +714,12 @@ ${menuSection}
 
       <div class="review-meta" style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.4rem 0 1rem;">
         <span class="badge" style="font-size:.85rem;border:1px solid #d9b382;border-radius:999px;padding:.15rem .55rem;background:#fff;">4 ★ out of 5</span>
-        <span class="tiny" style="color:#355;">Norwegian Cruise Line Fleet &bull; 2024-2025</span>
+        <span class="tiny" style="color:#355;">Virgin Voyages Fleet &bull; 2024-2025</span>
       </div>
 
       <h3>${name} Review: Guest Experience Summary</h3>
 
-      <p><em>Introduction.</em> ${name} consistently receives positive feedback from Norwegian Cruise Line guests. This composite review reflects common themes from multiple sailings and ships across the fleet.</p>
+      <p><em>Introduction.</em> ${name} consistently receives positive feedback from Virgin Voyages sailors. This composite review reflects common themes from multiple sailings and ships across the fleet.</p>
 
       <h4>${isDining ? 'Food &amp; Drinks' : 'Drinks &amp; Service'}</h4>
       <p>${isDining
@@ -702,7 +733,7 @@ ${menuSection}
       <p>${name} offers an inviting setting with thoughtful design that complements the ${isDining ? 'dining' : 'drinking'} experience. Guests appreciate the ambiance and find it a pleasant place to spend time.</p>
 
       <h4>Conclusion</h4>
-      <p><strong>Rating: 4/5.</strong> ${name} delivers a quality experience that meets guest expectations. Worth visiting during your Norwegian Cruise Line cruise.</p>
+      <p><strong>Rating: 4/5.</strong> ${name} delivers a quality experience that meets guest expectations. Worth visiting during your Virgin Voyages cruise.</p>
 
       <p class="tiny" style="margin-top:.75rem;">Exploring more venues? <a href="/restaurants.html">Return to the Restaurants hub &rarr;</a></p>
 
@@ -714,10 +745,10 @@ ${menuSection}
         "itemReviewed": {
           "@type": "${isDining ? 'Restaurant' : 'BarOrPub'}",
           "name": "${name}",
-          "provider": { "@type": "Organization", "name": "Norwegian Cruise Line International" }
+          "provider": { "@type": "Organization", "name": "Virgin Voyages" }
         },
         "name": "${name} Review: Guest Experience Summary",
-        "reviewBody": "Composite review from multiple guest experiences across Norwegian Cruise Line fleet sailings in 2024-2025.",
+        "reviewBody": "Composite review from multiple guest experiences across Virgin Voyages fleet sailings in 2024-2025.",
         "reviewRating": { "@type": "Rating", "ratingValue": "4", "bestRating": "5", "worstRating": "1" },
         "author": { "@type": "Person", "name": "Ken Baker" }
       }
@@ -738,8 +769,8 @@ ${faqHtml}
     <div class="card__content">
       <h2>Sources &amp; Attribution</h2>
       <ul>
-        <li><a href="https://www.ncl.com/why-cruise-norwegian/cruise-dining" target="_blank" rel="noopener">Norwegian Cruise Line — Cruise Dining Overview</a></li>
-        <li>Norwegian Cruise Line marks and menus referenced under fair use for research and commentary.</li>
+        <li><a href="https://www.virginvoyages.com/onboard/food-and-drink" target="_blank" rel="noopener">Virgin Voyages — Food &amp; Drink Overview</a></li>
+        <li>Virgin Voyages marks and menus referenced under fair use for research and commentary.</li>
       </ul>
     </div>
   </section>
@@ -858,8 +889,8 @@ for (const venue of venues) {
   const slug = venue.slug;
   const cat  = venue.category || '';
 
-  // Only dining and bars
-  if (!['dining', 'bars'].includes(cat)) { skipped++; continue; }
+  // Dining, bars, and entertainment
+  if (!['dining', 'bar', 'entertainment'].includes(cat)) { skipped++; continue; }
 
   // Skip existing unless --force
   if (existing.has(slug) && !force) { skipped++; continue; }
@@ -870,7 +901,7 @@ for (const venue of venues) {
   if (!dryRun) {
     fs.writeFileSync(filepath, html, 'utf8');
   }
-  console.log(`  ${dryRun ? '[DRY]' : '  ✓ '} ${slug}.html`);
+  console.log(`  ${dryRun ? '[DRY]' : '  \u2713 '} ${slug}.html`);
   created++;
 }
 
