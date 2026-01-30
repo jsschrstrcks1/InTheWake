@@ -14,9 +14,9 @@ This audit verifies the implementation status of competitor gap-closing initiati
 | Category | Completed | Pending | Progress |
 |----------|-----------|---------|----------|
 | P1 Quick Wins | 5 | 3 | 62% |
-| P2 Strategic Items | 0 | 6 | 0% |
+| P2 Strategic Items | 1 | 5 | 17% |
 | P3 Future Items | 0 | 2 | 0% |
-| **Total** | **5** | **11** | **31%** |
+| **Total** | **6** | **10** | **38%** |
 
 ### Key Findings
 
@@ -177,7 +177,7 @@ This audit verifies the implementation status of competitor gap-closing initiati
 
 | Item | Status | Notes |
 |------|--------|-------|
-| Transport Cost Callout Component | NOT IMPLEMENTED | No `.transport-costs` CSS component |
+| Transport Cost Callout Component | IMPLEMENTED (10 ports) | `.transport-costs` CSS component + HTML tables on 10 Caribbean ports (Cozumel, Nassau, Grand Cayman, St. Thomas, St. Maarten, San Juan, Aruba, Roatan, Montego Bay, Belize) |
 | Accessibility Sections on Port Pages | NOT IMPLEMENTED | Tender ports page has accessibility info, but not on individual port pages |
 | DIY vs. Ship Excursion Comparisons | NOT IMPLEMENTED | No comparison callouts exist |
 | Port Page Structure Audit | NOT IMPLEMENTED | Structure varies across 291 ports |
@@ -213,7 +213,7 @@ This audit verifies the implementation status of competitor gap-closing initiati
 | "Ships That Visit Here" | No | No | — |
 | Ports with ship integration | 0 | 0 | — |
 | Print CSS (comprehensive) | No | Partial | +0.5 |
-| Transport cost component | No | No | — |
+| Transport cost component | No | Yes (10 ports) | +1 |
 
 ---
 
@@ -258,7 +258,7 @@ This audit verifies the implementation status of competitor gap-closing initiati
 - [ ] Print CSS Enhancement (P1)
 
 ### Queued
-- [ ] Transport Cost Component (P2)
+- [x] Transport Cost Component (P2) — deployed to 10 Caribbean ports (Jan 30, 2026)
 - [ ] Accessibility Sections on Port Pages (P2)
 - [ ] DIY vs. Excursion Comparisons (P2)
 - [ ] Port Page Structure Standardization (P2)
