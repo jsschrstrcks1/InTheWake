@@ -1,6 +1,6 @@
 # Ship Image Attribution Tracking
 
-**Last Updated:** 2025-11-16
+**Last Updated:** 2026-01-30
 
 ## Attribution Requirements
 
@@ -39,29 +39,118 @@ Every image used on ship pages MUST have proper attribution:
 
 ---
 
-## Ships Needing Attribution Updates
+## Automated Image Fetcher
 
-### ✅ Correct Attribution (Reference Example)
-**Radiance of the Seas** - Has proper Wiki Commons attributions:
-- 3 Wiki Commons images properly attributed with author, file URL, license
-- FOM images properly attributed
+Images are fetched from **Wikimedia Commons** using the automated script:
+
+```bash
+# Fetch images for a single ship
+python3 admin/fetch-wiki-ship-images.py "Ship Name" --cruise-line rcl --max 6
+
+# Batch fetch from a JSON list
+python3 admin/fetch-wiki-ship-images.py --batch admin/priority-ships-for-images.json --max 6
+```
+
+The fetcher:
+1. Searches Wikimedia Commons API for ship images
+2. Filters by acceptable licenses (CC BY, CC BY-SA, CC0, Public Domain, GFDL)
+3. Checks minimum image dimensions (800x400)
+4. Downloads to `/assets/ships/`
+5. Generates per-ship attribution JSON in `/assets/ships/{ship-slug}-wiki-attributions.json`
+
+The HTML updater adds images and attributions to ship pages:
+```bash
+node admin/update-ship-pages-with-wiki-images.js
+```
 
 ---
 
-### ⚠️ Placeholder/Incorrect Attributions (Need Update)
+## Ships with Wikimedia Commons Images (2026-01-30 Batch)
 
-**Symphony of the Seas**
-- **Images used:**
-  - symphony-of-the-seas1.jpeg
-  - symphony-of-the-seas2.jpg
-  - symphony-of-the-seas3.jpg
-- **Current status:** Has placeholder attributions (wrong ship references)
-- **Action needed:** Replace with actual Wiki Commons attribution for uploaded images
+### Royal Caribbean International (RCL)
 
-**Adventure of the Seas**
-- **Images used:** User uploaded (unknown filenames)
-- **Current status:** Has placeholder attributions referencing wrong images
-- **Action needed:** Get proper Wiki Commons URLs and attributions from user
+| Ship | Images | Licenses |
+|------|--------|----------|
+| **Adventure of the Seas** | 4 | CC BY-SA 4.0, CC BY-SA 3.0, CC BY 4.0 |
+| **Anthem of the Seas** | 4 | CC BY-SA 4.0 |
+| **Brilliance of the Seas** | 6 | CC BY 4.0, CC BY 3.0, CC BY-SA 3.0, CC BY-SA 4.0 |
+| **Explorer of the Seas** | 4 | CC BY-SA 4.0, CC BY 2.0 |
+| **Harmony of the Seas** | 4 | CC BY 4.0, CC BY-SA 4.0, CC BY-SA 3.0 |
+| **Independence of the Seas** | 6 | CC BY-SA 4.0, CC BY 4.0, CC BY-SA 2.0 |
+| **Legend of the Seas** | 4 | Public domain, CC BY 2.0, CC BY-SA 3.0 |
+| **Quantum of the Seas** | 6 | CC BY-SA 4.0, CC BY 4.0, CC BY 2.0 |
+| **Rhapsody of the Seas** | 6 | CC BY-SA 3.0, CC BY 2.0, CC BY-SA 2.0 |
+| **Serenade of the Seas** | 6 | CC BY 4.0, CC BY-SA 3.0, CC BY 3.0, CC0 |
+| **Symphony of the Seas** | 6 | CC BY-SA 4.0, CC BY 4.0, CC BY 2.0 |
+| **Utopia of the Seas** | 6 | CC BY-SA 4.0, CC0 |
+| **Vision of the Seas** | 6 | CC BY-SA 4.0, CC BY 2.0, CC BY 4.0 |
+| **Voyager of the Seas** | 4 | CC BY 4.0, CC BY-SA 3.0, CC BY 2.0 |
+
+### Carnival Cruise Line
+
+| Ship | Images | Licenses |
+|------|--------|----------|
+| **Carnival Celebration** | 4 | CC BY-SA 4.0, CC BY-SA 2.0 |
+| **Carnival Conquest** | 4 | CC BY-SA 3.0, CC BY 2.0, CC BY-SA 2.0 |
+| **Carnival Dream** | 4 | CC BY-SA 3.0, CC BY-SA 4.0, CC BY 2.0 |
+| **Carnival Freedom** | 4 | CC BY-SA 4.0, CC BY-SA 3.0, CC BY 4.0 |
+| **Carnival Glory** | 4 | CC BY-SA 4.0, Public domain |
+| **Carnival Horizon** | 4 | CC BY-SA 4.0, CC BY 2.0 |
+| **Carnival Jubilee** | 6 | CC BY-SA 4.0, CC BY 2.0 |
+| **Carnival Liberty** | 4 | CC BY-SA 4.0, CC BY 4.0, CC0 |
+| **Carnival Miracle** | 4 | CC BY-SA 3.0, CC BY-SA 4.0, CC BY 4.0, CC BY 3.0 |
+| **Carnival Panorama** | 4 | CC BY-SA 4.0, CC0, CC BY 2.0 |
+| **Carnival Valor** | 4 | CC BY 2.0, CC0 |
+
+### Celebrity Cruises
+
+| Ship | Images | Licenses |
+|------|--------|----------|
+| **Celebrity Millennium** | 4 | CC BY-SA 2.0, CC BY-SA 4.0, CC BY 2.0 |
+
+### Explora Journeys
+
+| Ship | Images | Licenses |
+|------|--------|----------|
+| **Explora I** | 4 | CC BY-SA 4.0 |
+
+### Holland America Line
+
+| Ship | Images | Licenses |
+|------|--------|----------|
+| **Nieuw Amsterdam** | 4 | CC BY-SA 4.0, CC BY 2.0, CC0 |
+
+**Total: 27 ships updated with 127 Wikimedia Commons images**
+
+---
+
+## Detailed Attribution Records
+
+Full attribution data for each ship is stored as JSON in:
+```
+/assets/ships/{ship-slug}-wiki-attributions.json
+```
+
+Each JSON file contains:
+- Ship name and cruise line
+- Fetch timestamp
+- Per-image: filename, path, Wikimedia Commons source URL, artist, license, license URL, original title, and description
+
+---
+
+## Ships with Existing FOM (Flickers of Majesty) Attribution
+
+The following ships have properly attributed FOM images:
+- Radiance of the Seas
+- Harmony of the Seas
+- Brilliance of the Seas
+- Most RCL ships with `-FOM-` prefixed image files
+
+---
+
+## Ships Still Needing Attribution Updates
+
+### Placeholder/Incorrect Attributions
 
 **Enchantment of the Seas**
 - **Images uploaded:**
@@ -70,17 +159,9 @@ Every image used on ship pages MUST have proper attribution:
   - Bahamas_Cruise_-_ship_exterior_-_June_2018_(2140).jpg
   - Bahamas_Cruise_-_ship_exterior_-_June_2018_(3251).jpg
   - Enchantment_of_the_Seas.jpg
-- **Current status:** Probably has placeholder attributions
 - **Action needed:** Add proper Wiki Commons attributions for these 5 images
 
-**Explorer of the Seas**
-- **Images used:** User uploaded (unknown filenames)
-- **Current status:** Unknown
-- **Action needed:** Get proper Wiki Commons URLs and attributions
-
----
-
-### ❌ Ships Missing Attribution Section Entirely
+### Ships Missing Attribution Section Entirely
 
 1. **discovery-class-ship-tbn** - Future ship (no images needed)
 2. **nordic-prince** - Historic ship, no swiper yet
@@ -138,14 +219,13 @@ Every image used on ship pages MUST have proper attribution:
 - **CC BY-SA 2.0:** `https://creativecommons.org/licenses/by-sa/2.0/`
 - **CC BY-SA 3.0:** `https://creativecommons.org/licenses/by-sa/3.0/`
 - **CC BY-SA 4.0:** `https://creativecommons.org/licenses/by-sa/4.0/`
+- **CC0 1.0:** `https://creativecommons.org/publicdomain/zero/1.0/`
 
 ---
 
 ## TODO
 
-- [ ] Get Wiki Commons URLs for Symphony of the Seas images (3 images)
-- [ ] Get Wiki Commons URLs for Adventure of the Seas images
-- [ ] Get Wiki Commons URLs for Enchantment of the Seas images (5 images)
-- [ ] Get Wiki Commons URLs for Explorer of the Seas images
-- [ ] Update attribution sections with correct data
+- [ ] Add proper Wiki Commons attributions for Enchantment of the Seas (5 images)
 - [ ] Add attribution sections to nordic-prince and sun-viking when images are added
+- [ ] Fetch images for remaining stub ship pages as they are developed
+- [ ] Run `python3 admin/fetch-wiki-ship-images.py` for newly added ships
