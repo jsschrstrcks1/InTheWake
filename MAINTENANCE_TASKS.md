@@ -1,7 +1,7 @@
 # Routine Maintenance Tasks
 
 **For:** In the Wake (cruisinginthewake.com)
-**Last Updated:** 2026-01-24
+**Last Updated:** 2026-01-29
 **Version:** ITW-Lite v3.010
 
 ---
@@ -412,7 +412,7 @@ node admin/batch-fix-org-jsonld-v3.js
 
 **Required Badge:**
 ```html
-<p class="trust-badge">✓ No ads. No tracking. No affiliate links.</p>
+<p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
 ```
 
 **Check:** The ICP-Lite validator checks for this automatically.
@@ -872,10 +872,10 @@ These must match exactly. This is non-negotiable for Google/AI freshness signals
 **Data File:** `assets/data/ship-deployments.json`
 **JS Module:** `assets/js/ship-port-links.js`
 
-**Current Coverage (as of 2026-01-24):**
-- 55 ships (29 Royal Caribbean + 26 Carnival)
-- 70 ports with cross-links
-- 2 of 15 cruise lines implemented
+**Current Coverage (as of 2026-01-29):**
+- 193 ships across 15 cruise lines (Royal Caribbean, Carnival, Celebrity, Norwegian, Princess, Holland America, MSC, Virgin, Costa, Cunard, Oceania, Regent, Seabourn, Silversea, Explora)
+- 371 ports with cross-links
+- 15 of 15 cruise lines implemented
 
 **When to Update:**
 1. **Cruise line announces new ship deployments** (typically October for next year)
@@ -938,8 +938,8 @@ python3 -c "import json; d=json.load(open('assets/data/ship-deployments.json'));
 
 **Frequency:** As resources allow (see admin/UNFINISHED-TASKS.md for priority list)
 
-**Remaining Cruise Lines (13):**
-Celebrity, NCL, Princess, Holland America, MSC, Costa, Cunard, Disney, Virgin Voyages, Oceania, Regent, Seabourn, Silversea, Explora
+**Remaining Cruise Lines (0):**
+All 15 cruise lines have been implemented. Disney is excluded per user preference.
 
 **Steps to Add a New Cruise Line:**
 
