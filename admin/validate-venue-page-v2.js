@@ -65,16 +65,22 @@ let VENUE_DATA = null;
 
 function loadVenueData() {
   if (VENUE_DATA) return VENUE_DATA;
-  const dataPath = join(PROJECT_ROOT, 'assets/data/venues-v2.json');
-  if (!existsSync(dataPath)) return null;
-  try {
-    const raw = JSON.parse(readFileSync(dataPath, 'utf-8'));
-    VENUE_DATA = {};
-    for (const v of raw.venues || []) {
-      VENUE_DATA[v.slug] = v;
-    }
-    return VENUE_DATA;
-  } catch { return null; }
+  VENUE_DATA = {};
+  // Load all venue data files (RCL + NCL + future lines)
+  const dataFiles = [
+    join(PROJECT_ROOT, 'assets/data/venues-v2.json'),
+    join(PROJECT_ROOT, 'assets/data/ncl-venues.json'),
+  ];
+  for (const dataPath of dataFiles) {
+    if (!existsSync(dataPath)) continue;
+    try {
+      const raw = JSON.parse(readFileSync(dataPath, 'utf-8'));
+      for (const v of raw.venues || []) {
+        VENUE_DATA[v.slug] = v;
+      }
+    } catch { /* skip unreadable files */ }
+  }
+  return Object.keys(VENUE_DATA).length ? VENUE_DATA : null;
 }
 
 /**
