@@ -179,10 +179,10 @@ All work on this project is offered as a gift to God.
 
 | Metric | Value |
 |--------|-------|
-| Ship Pages | 309 |
-| Passing Validation | 36 (12%) |
-| Blocking Errors | 2,101 |
-| Port Pages | 400+ |
+| Ship Pages | 311 |
+| Passing Validation | 106 (34%) |
+| Blocking Errors | 981 |
+| Port Pages | 380 |
 
 See [admin/UNFINISHED-TASKS.md](admin/UNFINISHED-TASKS.md) for detailed status.
 
