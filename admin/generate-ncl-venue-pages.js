@@ -367,6 +367,10 @@ const COURSE_NAMES = {
   'bbq-plates': 'BBQ Plates', appetizers: 'Appetizers',
   'rice-noodles': 'Rice &amp; Noodles', experience: 'Experience',
   breakfast: 'Breakfast', lunch: 'Lunch', 'all-day': 'All Day',
+  'classic-entrees': 'Classic Entrees (Every Night)',
+  'rotating-appetizers': 'Rotating Appetizers',
+  'rotating-entrees': 'Rotating Featured Entrees',
+  'rotating-desserts': 'Rotating Desserts',
 };
 function formatCourse(n) { return COURSE_NAMES[n] || cap(n.replace(/-/g, ' ')); }
 function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
