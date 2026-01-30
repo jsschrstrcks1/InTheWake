@@ -272,7 +272,8 @@ function generateMenuHTML(slug, style, venue) {
   </section>\n`;
   }
 
-  const { pricing, courses, items, stations, notes, toppings, flavors, meals } = menuData;
+  const { pricing, courses, items, stations, notes, toppings, flavors, meals, rotation } = menuData;
+  const tasteOfSpecialty = menuData['taste-of-specialty'];
 
   let html = `  <!-- Menu & Prices -->\n`;
   html += `  <section class="card" id="menu-prices">\n`;
@@ -319,6 +320,38 @@ function generateMenuHTML(slug, style, venue) {
       }
       html += `      </details>\n`;
     }
+  }
+
+  // Rotation rendering (NCL MDR 7-night cycle)
+  if (rotation?.length) {
+    html += `\n      <h3>7-Night Dinner Rotation</h3>\n`;
+    html += `      <p class="note tiny">Each night features 3 unique appetizers, 5 featured entrees, and 3 desserts — in addition to the classics above.</p>\n`;
+    for (const night of rotation) {
+      html += `      <details class="variant">\n`;
+      html += `        <summary><strong>${esc(night.name)}</strong></summary>\n`;
+      html += `        <div class="grid grid-3">\n`;
+      html += `          <div>\n            <h4>Appetizers</h4>\n            <ul>\n`;
+      for (const it of night.appetizers) html += `              <li>${esc(it)}</li>\n`;
+      html += `            </ul>\n          </div>\n`;
+      html += `          <div>\n            <h4>Featured Entrees</h4>\n            <ul>\n`;
+      for (const it of night.entrees) html += `              <li>${esc(it)}</li>\n`;
+      html += `            </ul>\n          </div>\n`;
+      html += `          <div>\n            <h4>Desserts</h4>\n            <ul>\n`;
+      for (const it of night.desserts) html += `              <li>${esc(it)}</li>\n`;
+      html += `            </ul>\n          </div>\n`;
+      html += `        </div>\n`;
+      html += `      </details>\n`;
+    }
+  }
+
+  // Taste of Specialty rendering (Cagney's premium items)
+  if (tasteOfSpecialty?.length) {
+    html += `\n      <details class="variant">\n`;
+    html += `        <summary><strong>Taste of Specialty — Cagney's Steakhouse</strong> (premium surcharge)</summary>\n`;
+    html += `        <ul>\n`;
+    for (const it of tasteOfSpecialty) html += `          <li>${esc(it)}</li>\n`;
+    html += `        </ul>\n`;
+    html += `      </details>\n`;
   }
 
   if (notes?.length) {
@@ -368,6 +401,8 @@ const COURSE_NAMES = {
   'rice-noodles': 'Rice &amp; Noodles', experience: 'Experience',
   breakfast: 'Breakfast', lunch: 'Lunch', 'all-day': 'All Day',
   'classic-entrees': 'Classic Entrees (Every Night)',
+  'every-night-appetizers': 'Every-Night Appetizers',
+  'every-night-desserts': 'Every-Night Desserts',
   'rotating-appetizers': 'Rotating Appetizers',
   'rotating-entrees': 'Rotating Featured Entrees',
   'rotating-desserts': 'Rotating Desserts',
