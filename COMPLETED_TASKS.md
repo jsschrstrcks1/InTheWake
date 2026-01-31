@@ -43,6 +43,15 @@ When a task is completed:
 - [x] Fixed empty alt text on dynamically generated images
 **Result:** Site meets WCAG 2.1 Level A and Level AA requirements
 
+### Ship Page CSS Rollout — 100% Coverage - COMPLETE (2026-01-31)
+**Status:** COMPLETE
+**Lane:** 🟢 Green (CSS standardization)
+**Branch:** `claude/review-previous-work-ZMk3b`
+- [x] Added `ship-page.css` (v3.010.300) link to 162 ship pages across 14 cruise lines
+- [x] Carnival (40), MSC (24), Norwegian (20), Princess (17), Silversea (12), Costa (9), Oceania (8), Seabourn (7), Regent (7), Explora-Journeys (6), Cunard (4), Virgin Voyages (4), HAL (2), Explora (2)
+- [x] All class selectors in ship-page.css are namespaced (.hero-ship, .ship-sidebar, etc.) — zero visual impact on pages not yet using those classes
+**Result:** 292/292 ship pages (100%) now link ship-page.css, up from 130/293 (44%)
+
 ### CSS Inline Style Consolidation — Phase 1 - COMPLETE (2026-01-31)
 **Status:** COMPLETE
 **Lane:** 🟢 Green (CSS deduplication)

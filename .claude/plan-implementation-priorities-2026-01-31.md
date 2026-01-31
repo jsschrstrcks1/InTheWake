@@ -161,7 +161,7 @@ Key: CORS fix (8 functions), warmCalculatorShell prefetch, cache refresh UI.
 
 | Metric | Current (deep audit 2026-01-31) | Target |
 |--------|---------|--------|
-| Ship pages with ship-page.css | 130/293 (44%) | 293/293 (100%) |
+| Ship pages with ship-page.css | 292/292 (100%) ✅ | ✅ Done |
 | Port pages with maps | 375/380 (99%) ✅ | 380/380 (100%) |
 | Venue pages remediated | 215/215 (100%) ✅ | ✅ Done |
 | Ports with weather seasonal data | 1/380 (<1%) | 50+ (13%+) |
