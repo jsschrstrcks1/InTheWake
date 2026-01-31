@@ -715,24 +715,24 @@ JSON-LD schema. Reduces page weight and improves LCP scores.
 4. ✅ ~~Ships That Visit Here~~ COMPLETE (193 ships, 15 lines, 380 ports, bidirectional)
 5. ✅ ~~Port expansion~~ COMPLETE (380 pages, up from 147)
 6. ✅ ~~ICP-Lite rollout~~ COMPLETE (100% of pages)
-7. ⏳ **Venue audit Phase 2** — 215 venue pages need remediation (wrong tone, missing menus, duplicated images)
+7. ✅ ~~Venue audit Phase 2~~ COMPLETE (0 generic text, 0 hotdog.webp, all have menus; validator in validate.js)
 8. ⏳ **CSS consolidation Phases 3-5** — ~50K duplicate CSS lines remain across 478 files
 
 ### P1 - High Priority (Do These Soon)
-9. ⏳ **Port map completion** — 105 of 291 ports still need Leaflet maps (64% done)
-10. ⏳ **Competitor gap quick wins** — "From the Pier" distances, Print CSS, transport costs (6/16 done)
-11. ⏳ **Ship page standardization** — Create ship-page.css, standardize across cruise lines
+9. ✅ ~~Port map completion~~ ESSENTIALLY COMPLETE — 375/380 (99%) have Leaflet maps, only 5 remain
+10. ⏳ **Ship page CSS rollout** — `ship-page.css` exists (448 lines, v3.010.300), adopted by 130/293 (44%). Roll out to NCL, Princess, MSC, Carnival (~163 pages)
+11. ⏳ **Competitor gap remaining items** — ~56% done (9/16+). Key gaps: "From the Pier" distances, transport cost tables, port day planner, budget calculator
 12. ⏳ **Site-wide hero/logo standardization** — Inconsistent across hub pages
 
 ### P2 - Medium Priority
-13. ⏳ Service Worker v14 upgrade (CORS fix, prefetch, cache UI)
-14. ⏳ Port weather guide rollout (4/333 ports have weather data)
-15. ⏳ Stateroom Checker expansion (3 of 28+ RCL ships audited)
+13. ⏳ Service Worker v14 upgrade (CORS fix, prefetch, cache UI) — currently v13.2.0
+14. ⏳ **Port weather seasonal data** — Infrastructure deployed (JS on 380 pages, section on 375), but `seasonal-guides.json` has data for only 1 port (Cozumel)
+15. ✅ ~~Stateroom Checker~~ MASSIVELY EXPANDED — 270 exception JSON files across ALL cruise lines
 
 ### P3-P4 - Future / Requires User Decision
-16. 🔴 Pastoral articles: Healing Relationships, Rest for Wounded Healers (Red lane — human decides)
-17. 🔴 Affiliate link deployment (user decision: deploy or keep ad-free messaging?)
-18. Quiz V2 multi-line expansion
+16. 🔴 Pastoral articles: Healing Relationships, Rest for Wounded Healers (Red lane — human decides). Note: 7 solo articles already exist.
+17. 🔴 Affiliate link deployment (user decision: deploy or keep ad-free messaging?) — `affiliate-disclosure.html` already created
+18. ✅ ~~Quiz V2~~ MOSTLY COMPLETE — `ship-quiz-data-v2.json` model v2.1 covers 15 cruise lines
 19. Multi-cruise-line tracker expansion
 
 **See:** `UNFINISHED_TASKS.md` for complete task list with details

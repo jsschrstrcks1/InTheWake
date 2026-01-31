@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-The project has 7,858 files across 587 directories, 374+ port pages, 311+ ship pages, 215 restaurant pages, and a sophisticated Claude Code skill system (8 rules, 5 plugins, 3 hooks). After reviewing all prior work, **13 major work streams are incomplete**. This plan prioritizes them by impact, effort, and strategic value.
+The project has 7,858 files across 587 directories, 380 port pages, 293+ ship pages, 215 restaurant pages, and a sophisticated Claude Code skill system (8 rules, 5 plugins, 3 hooks). After deep ground-truth verification (2026-01-31), many previously-reported "incomplete" items are actually done. **~6 genuinely incomplete work streams remain**. This plan prioritizes them by impact, effort, and strategic value.
 
 ---
 
@@ -34,18 +34,8 @@ The project has 7,858 files across 587 directories, 374+ port pages, 311+ ship p
 
 ---
 
-### 3. Venue Audit Phase 2 — Template Fix + Bulk Remediation
-**Priority:** HIGH — 215 pages have "semantic lies" undermining trust
-**Effort:** MEDIUM (validator already built, patterns identified)
-**Lane:** Green (template/technical fix)
-
-**Tasks:**
-1. Fix `generate_restaurant_pages.py` template: add menu section, fix tone matching by venue type
-2. Bulk-fix the 5 most egregious pages (Dog House, etc.) as pilot
-3. Remove duplicated stock images from generated pages
-4. Run `validate-venue-page-v2.js` to track remediation progress
-
-**Estimated scope:** 2-3 sessions
+### ~~3. Venue Audit Phase 2~~ ✅ ALREADY COMPLETE
+**Verified 2026-01-31:** 0 generic text, 0 hotdog.webp, all have real menus. Validator v2 integrated into unified `admin/validate.js`.
 
 ---
 
@@ -65,54 +55,41 @@ The project has 7,858 files across 587 directories, 374+ port pages, 311+ ship p
 
 ---
 
-### 5. Port Map Completion — Remaining 105 Ports
-**Priority:** MEDIUM-HIGH — 64% done, finish the job
-**Effort:** MEDIUM (pattern established, just more ports)
-**Lane:** Green
-
-**Tasks:**
-1. Create map manifests for 105 remaining ports
-2. Catalog ~500-700 POIs across those ports
-3. Add Leaflet maps to port pages
-4. Roll out mobile responsiveness CSS v2.0.0 to all ports
-
-**Estimated scope:** 3-4 sessions (batch by region)
+### ~~5. Port Map Completion~~ ✅ ESSENTIALLY COMPLETE
+**Verified 2026-01-31:** 375/380 (99%) port pages have Leaflet maps. Only 5 pages remain. Not a meaningful work stream.
 
 ---
 
-### 6. Competitor Gap Quick Wins (Remaining 10 Items)
+### 6. Competitor Gap Quick Wins (Remaining ~7 Items)
 **Priority:** MEDIUM-HIGH — Competitive differentiation
 **Effort:** MIXED
 **Lane:** Green/Yellow
 
-**In priority order:**
-1. "From the Pier" distance component — design + pilot on 10 Caribbean ports
-2. Port Print CSS — clean single-page print output
-3. Transport cost callout table component
-4. "Add to My Logbook" button on port pages
-5. "Real Talk" honest assessment callouts
-6. DIY vs. Excursion comparison callouts
-7. Accessibility sections on port pages
-8. Region completion achievements
-9. Port Day Planner worksheet
-10. Cruise Budget Calculator
+**Verified complete:** first-cruise.html, countdown.html, affiliate-disclosure.html, accessibility on 376/380 ports, print CSS (exists in multiple CSS files), transport data on 10 ports, 7 solo articles
 
-**Estimated scope:** 4-6 sessions (spread across multiple sprints)
+**Genuinely remaining:**
+1. "From the Pier" distance component — design + pilot on 10 Caribbean ports
+2. "Add to My Logbook" button on port pages
+3. "Real Talk" honest assessment callouts
+4. DIY vs. Excursion comparison callouts
+5. Region completion achievements
+6. Port Day Planner worksheet
+7. Cruise Budget Calculator
+
+**Estimated scope:** 3-4 sessions
 
 ---
 
 ## Tier 3: Medium Impact, Higher Effort (Plan Ahead)
 
-### 7. Ship Page Standardization (311+ pages)
+### 7. Ship Page CSS Rollout (163 remaining pages)
 **Priority:** MEDIUM — Visual consistency
-**Effort:** HIGH
+**Effort:** MEDIUM (CSS exists, just needs adoption)
 **Lane:** Green
 
-**Approach:** Create `ship-page.css` first, then batch-update by cruise line.
-1. Phase 1: Extract shared CSS
-2. Phase 2: 50 RCL ship pages
-3. Phase 3: 48 Carnival ship pages
-4. Phase 4: Header standardization site-wide
+**Verified 2026-01-31:** `ship-page.css` already exists (448 lines, v3.010.300). 130/293 (44%) adopted.
+- RCL 49/50 (98%), HAL 44/47 (94%), Celebrity 29/30 (97%), Carnival 8/49 (16%)
+**Remaining:** Roll out to NCL (0/21), Princess (0/18), MSC (0/25), remaining Carnival (41), others
 
 ---
 
@@ -134,12 +111,12 @@ Key: CORS fix (8 functions), warmCalculatorShell prefetch, cache refresh UI.
 
 ---
 
-### 10. Port Weather Guide Rollout
-**Priority:** MEDIUM — 329/333 ports lack weather data
-**Effort:** HIGH (data research for 329 ports)
+### 10. Port Weather Seasonal Data Population
+**Priority:** MEDIUM — Infrastructure deployed, data missing
+**Effort:** HIGH (research for 379 ports)
 **Lane:** Green/Yellow
 
-Start with top 20 high-traffic ports, then batch by region.
+**Verified 2026-01-31:** `port-weather.js` (373 lines) loaded on 380 pages, `weather-guide` section on 375 pages, but `seasonal-guides.json` has data for only 1 port (Cozumel). Start with top 20 high-traffic ports, then batch by region.
 
 ---
 
@@ -157,12 +134,10 @@ Start with top 20 high-traffic ports, then batch by region.
 **Lane:** Red
 - Healing Relationships at Sea
 - Rest for Wounded Healers
-- Solo Travel Safety Tips
+- (Note: 7 solo articles already exist; Solo Travel Safety Tips may be covered)
 
-### 13. Quiz V2 Multi-Line Expansion
-**Priority:** LOW for now
-**Lane:** Yellow
-**Blocked by:** Multi-line content expansion (currently RCL-focused)
+### ~~13. Quiz V2 Multi-Line Expansion~~ ✅ MOSTLY COMPLETE
+**Verified 2026-01-31:** `ship-quiz-data-v2.json` model v2.1 covers 15 cruise lines. Only ongoing maintenance needed.
 
 ---
 
@@ -170,30 +145,32 @@ Start with top 20 high-traffic ports, then batch by region.
 
 | Session | Work | Tier |
 |---------|------|------|
-| ~~**Next**~~ | ~~"Ships That Visit Here" UI~~ ✅ Already complete | ~~Tier 1~~ |
-| ~~**+1**~~ | Documentation fixes ✅ Done this session | ~~Tier 1~~ |
-| **+2** | Venue audit Phase 2 pilot (5 worst pages) | Tier 1 |
-| **+3** | CSS .page-grid resolution | Tier 2 |
-| **+4** | "From the Pier" + Print CSS components | Tier 2 |
-| **+5** | Port maps batch (Europe) | Tier 2 |
-| **+6** | Port maps batch (Caribbean + misc) | Tier 2 |
-| **+7** | Ship page standardization Phase 1 | Tier 3 |
-| **+8** | Hero/logo standardization | Tier 3 |
+| ~~**1-2**~~ | ~~Ships That Visit, Docs, Venue audit, Port maps, Quiz, Stateroom~~ ✅ All verified complete | ~~Done~~ |
+| **Next** | CSS .page-grid resolution (Phases 3-5) | Tier 1 |
+| **+1** | Ship page CSS rollout — NCL, Princess, MSC batch (~80 pages) | Tier 2 |
+| **+2** | Ship page CSS rollout — Carnival, remaining lines (~83 pages) | Tier 2 |
+| **+3** | Competitor gap: "From the Pier" + logbook buttons | Tier 2 |
+| **+4** | Competitor gap: Real Talk + DIY vs Excursion callouts | Tier 2 |
+| **+5** | Port weather data: Top 20 Caribbean ports | Tier 3 |
+| **+6** | Hero/logo standardization | Tier 3 |
+| **+7** | Service Worker v14 upgrade | Tier 3 |
 
 ---
 
 ## Key Metrics to Track
 
-| Metric | Current (verified 2026-01-31) | Target |
+| Metric | Current (deep audit 2026-01-31) | Target |
 |--------|---------|--------|
-| Ship validation passing | 106/297 (36%) | 250+ (80%) |
+| Ship pages with ship-page.css | 130/293 (44%) | 293/293 (100%) |
 | Port pages with maps | 375/380 (99%) ✅ | 380/380 (100%) |
-| Venue pages remediated | ~215/215 (99%) ✅ | 215/215 (100%) |
-| Ports with weather guides | 4/333 (1%) | 50+ (15%+) |
+| Venue pages remediated | 215/215 (100%) ✅ | ✅ Done |
+| Ports with weather seasonal data | 1/380 (<1%) | 50+ (13%+) |
 | Restaurant `<style>` blocks | 124 remaining | 0 |
 | Ship `<style>` blocks | 13 remaining | 0 |
-| Competitor gap initiatives | 7/16 (44%) | 12/16 (75%) |
+| Competitor gap initiatives | 9/16 (~56%) | 14/16 (88%) |
 | "Ships That Visit" UI deployed | 380/380 (100%) ✅ | ✅ Done |
+| Stateroom exception JSONs | 270 across all lines ✅ | ✅ Done |
+| Quiz v2 cruise line coverage | 15/15 (100%) ✅ | ✅ Done |
 
 ---
 
