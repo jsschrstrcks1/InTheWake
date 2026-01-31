@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2026-01-14 (Housekeeping: moved 20+ completed tasks to COMPLETED_TASKS.md)
+**Last Updated:** 2026-01-31 (Thread Review: comprehensive audit of all previous threads and unfinished work)
 
 > 📁 **Looking for completed work?** See [COMPLETED_TASKS.md](COMPLETED_TASKS.md) for the historical archive of finished tasks.
 
@@ -27,6 +27,164 @@ Tasks are classified by AI-safety level:
 ### Protected Zones
 Files containing `<!-- ai:guard -->` blocks require human review regardless of lane.
 Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
+
+---
+
+## 📋 Thread Review & Unfinished Work Discoveries (2026-01-31)
+
+**Audited by:** Claude AI (comprehensive cross-thread review)
+**Scope:** All previous threads, all 8 remote branches, 1,077 PRs, all documentation files
+**Method:** Read ONBOARDING.md, claude.md, admin/claude/CLAUDE.md, MAINTENANCE_TASKS.md, IN_PROGRESS_TASKS.md, COMPLETED_TASKS.md, all .claude plans, all competitor audits, skill-rules.json, settings.json, and PR history via GitHub API.
+
+### Branch Status (All Merged — No Orphaned Work)
+
+All 7 feature branches are stale merge-commit-only branches with **zero unmerged file changes** against main:
+
+| Branch | Last Activity | Status |
+|--------|--------------|--------|
+| `claude/affiliate-deployment-plan-Twqff` | 2026-01-30 | Merged, 9 commits behind main, 0 file diffs |
+| `claude/audit-competitor-gaps-0zTZ0` | 2026-01-25 | Merged, stale |
+| `claude/audit-ship-pages-UsCC9` | 2026-01-30 | Merged via PR #1076 |
+| `claude/audit-venues-gD9fq` | 2026-01-30 | Merged via PR #1077 |
+| `claude/identify-maintenance-tasks-FN2lh` | stale | Merged, stale |
+| `claude/review-context-onboarding-ZZauz` | 2026-01-30 | Merged, 9 commits behind main, 0 file diffs |
+| `claude/validate-ship-pages-5Z2jp` | stale | Merged, stale |
+
+**Conclusion:** No code was lost or orphaned. All work was merged via PRs. These branches can be safely deleted.
+
+### Work Started But NOT Finished (Across All Threads)
+
+The following items were **explicitly started** in previous threads. Each has been verified against the actual codebase on 2026-01-31.
+
+#### 1. ~~Venue Audit — Phase 2~~ ✅ COMPLETE
+**Verified 2026-01-31:** All major template issues remediated. 0 generic text, 0 hotdog.webp, 0 missing analytics, all have menu-prices.
+- [x] Venue validator v2 integrated into unified `admin/validate.js` (reads `restaurants/*.html` path pattern)
+**Remaining minor item:**
+- [ ] 93 pages have "Smart Casual" dress code — most legitimate, but counter-service venues may need review
+
+#### 2. Affiliate Link Deployment — User Decision Needed
+**Plan file:** `.claude/plan-affiliate-deployment.md`
+**Infrastructure already in place:** `affiliate-disclosure.html` exists, trust badges already updated to reference it.
+**What remains:**
+- [ ] User decision needed: deploy Amazon affiliate links or keep current ad-free positioning?
+- [ ] If proceeding: duck tradition article, packing list integration, site-wide badge text tweaks
+
+#### 3. Port Weather Guide — Infrastructure Complete, Data Missing
+**Plan file:** `.claude/plan-port-weather-guide.md`
+**Verified 2026-01-31:** Far more done than reported:
+- [x] `port-weather.js` (373 lines) — weather widget loader, deployed to **all 380 port pages**
+- [x] `id="weather-guide"` section exists on **375 port pages**
+- [x] `seasonal-guides.json` file exists with data structure
+- **The gap:** `seasonal-guides.json` only has data for **1 port (cozumel)**. 374 pages render the section but have no data.
+**What remains:**
+- [ ] Populate `seasonal-guides.json` with seasonal data for 374 ports (best months, temperature ranges, cruise notes)
+- [ ] Priority: Top 20 Caribbean + Alaska ports first
+
+#### 4. ~~Quiz V2 Multi-Line Expansion~~ ✅ MOSTLY COMPLETE
+**Verified 2026-01-31:** Quiz data v2 already covers 15 cruise lines.
+- [x] `ship-quiz-data-v2.json` (model v2.1, dated 2026-01-03): supports rcl, carnival, ncl, msc, celebrity, princess, holland, cunard, costa, virgin, oceania, regent, seabourn, silversea, explora
+- [x] `cruise-lines/quiz.html` exists
+**Remaining:**
+- [ ] Edge case fixes per `.claude/plan-quiz-edge-cases-and-improvements.md`
+
+#### 5. ~~"Ships That Visit Here" Feature~~ ✅ FULLY DEPLOYED
+(Verified — see previous entry)
+
+#### 6. ~~Stateroom Checker Cabin Audits~~ ✅ MASSIVELY EXPANDED
+**Verified 2026-01-31:** Initial claim of "only 3 of 28+ done" was completely wrong.
+- [x] **270 stateroom exception JSON files** across ALL cruise lines (RCL, Carnival, Celebrity, NCL, Princess, HAL, MSC, Virgin, Costa, Cunard, Oceania, Regent, Seabourn, Silversea, Explora)
+- [x] Includes historical ships (Carnivale 1956, Holiday 1985, etc.) and future ships (Star of the Seas, unnamed project ships)
+- [x] Verification methodology documented (`VERIFICATION_METHODOLOGY.md`)
+- [x] Competitor audit completed (`COMPETITOR_AUDIT_2026-01-29.md`)
+**Remaining:**
+- [ ] Verify quality of auto-generated exception files vs manually audited ones (Grandeur, Vision, Rhapsody were hand-verified)
+
+#### 7. CSS Consolidation — Phase 3-5 Partially Complete
+**Verified 2026-01-31:**
+- Port pages with `<style>` blocks: **1** of 380
+- Ship pages with `<style>` blocks: **13** of 293 (1 per cruise line with pages — these appear to be cruise-line-specific style overrides)
+- Restaurant pages: **124 of 280** (including all 78 NCL + all 46 Virgin venue pages)
+- Total site-wide: **139 files** with `<style>` blocks
+- Inline `style=` attributes: **22,577** across all HTML files
+**What remains:**
+- [ ] Determine if per-cruise-line `<style>` blocks in ship pages are intentional overrides or removable
+- [ ] Remove `<style>` blocks from 124 restaurant pages (NCL + Virgin are systematic)
+- [ ] Phase 5: Inline `style=` attribute cleanup (22,577 → target <5,000)
+
+#### 8. Ship Page Standardization — Partially Complete (not "barely started")
+**Verified 2026-01-31:** Several claims were wrong:
+- [x] `ship-page.css` ALREADY EXISTS (448 lines, v3.010.300) with hero, card, section, gallery, and FAQ components
+- [x] **130 of 293** ship pages (44%) already link `ship-page.css`
+- [x] Adoption by line: RCL 49/50 (98%), HAL 44/47 (94%), Celebrity 29/30 (97%), Carnival 8/49 (16%)
+- [x] `nordic-prince.html` exists (787 lines) and `sun-viking.html` exists (853 lines) — NOT skeletons
+- **`legend-1995` and `oasis-tbn-2028` do not exist as files** (not skeleton pages — they simply were never created)
+**What remains:**
+- [ ] Roll out `ship-page.css` to NCL (0/21), Princess (0/18), MSC (0/25), Virgin (0/5), Costa (0/10), Cunard (0/5), Oceania (0/9), Regent (0/8), Seabourn (0/8), Silversea (0/13), Explora (0/3+7)
+- [ ] Complete Carnival adoption (8/49 → 49/49)
+- [ ] Total remaining: ~163 ship pages need `ship-page.css` link
+
+#### 9. Competitor Gap Quick Wins — More Complete Than Reported
+**Verified 2026-01-31:** Several initiatives already done but not tracked:
+- [x] Ships That Visit Here — COMPLETE
+- [x] Tender Port Index — `tender-ports.html` exists
+- [x] First-Timer Hub — `first-cruise.html` exists (557 lines)
+- [x] 30-Day Countdown — `countdown.html` exists (825 lines)
+- [x] Trust messaging — about-us.html has "No ads" language
+- [x] Affiliate disclosure page — exists
+- [x] Accessibility on port pages — **376 of 380** ports have accessibility content
+- [x] Transport cost data — present on **10 port pages** (partial, not 0)
+- [x] Print CSS — exists in `port-map.css`, `calculator.css`, `item-cards.css`, `ships-dynamic.css`
+**What remains (9/16+ done = ~56%):**
+- [ ] "From the Pier" walking distance component (0 ports)
+- [ ] "Add to My Logbook" button on port pages (0 ports)
+- [ ] Region completion achievements (0 implemented)
+- [ ] DIY vs. Excursion comparison callouts (0 ports)
+- [ ] "Real Talk" honest assessment callouts (0 ports)
+- [ ] Transport cost expansion (10/380 — needs 370 more ports)
+- [ ] Comprehensive Print CSS for port pages (partial, not complete)
+
+#### 10. ~~Port Map Integration~~ ✅ ESSENTIALLY COMPLETE (99%)
+(Verified — see previous entry)
+
+#### 11. Service Worker v14 — Not Started
+**Verified 2026-01-31:** SW is v13.2.0. 0 CORS response type checks found.
+- [ ] CORS response caching fix (confirmed: 0 `response.type === 'cors'` checks in sw.js)
+- [ ] `staleIfErrorTimestamped` strategy for FX API caching
+- [ ] `warmCalculatorShell` predictive prefetch
+- [ ] `FORCE_DATA_REFRESH` and `GET_CACHE_STATS` message handlers
+- [ ] UI integration: "Refresh Rates" button, cache age display, toast notifications
+
+#### 12. Pastoral Articles — Not Written
+**Status:** 🔴 Red lane (human decides)
+- [ ] Healing Relationships at Sea (~3,000 words) — not created
+- [ ] Rest for Wounded Healers (~2,500 words) — not created
+- [x] In the Wake of Grief — EXISTS (722 lines, Grade A+)
+- [x] Solo Cruiser's Companion — EXISTS
+- [x] Freedom of Your Own Wake — EXISTS
+- [x] Why I Started Solo Cruising — EXISTS
+- [x] Accessible Cruising — EXISTS
+- [x] Practical Guide to Solo Cruising — EXISTS
+- [x] Visiting the US Before Your Cruise — EXISTS
+
+#### 13. Site-Wide Pattern Standardization — Partially Complete
+**What remains:**
+- [ ] Header hero size inconsistent across hub pages
+- [ ] Logo size standardization
+- [ ] solo.html article loading (28 article references, uses fetch for fragments)
+- [ ] index.html FAQ positioning
+
+### Documentation Inconsistencies Discovered
+
+| Issue | Location | Fix Needed |
+|-------|----------|------------|
+| admin/claude/CLAUDE.md references ICP-Lite v1.0, not v1.4 | admin/claude/CLAUDE.md:392,424 | Update to v1.4 |
+| admin/claude/CLAUDE.md says 147 port pages; actual count is 374+ | admin/claude/CLAUDE.md:186,192,220 | Update counts |
+| admin/claude/CLAUDE.md says 28 RCL ships in Stateroom Checker; need verification | admin/claude/CLAUDE.md:1969 | Verify current count |
+| admin/claude/CLAUDE.md priorities section (line 709) is outdated (2025-11-23) | admin/claude/CLAUDE.md:709 | Update priorities |
+| claude.md (root) says 311 ship pages; may need verification | claude.md:181 | Verify count |
+| claude.md references `admin/UNFINISHED-TASKS.md` which doesn't exist | claude.md:33 | Should reference `UNFINISHED_TASKS.md` |
+| IN_PROGRESS_TASKS.md says "No tasks currently in progress" but multiple items are active | IN_PROGRESS_TASKS.md:39 | Update active work |
+| ONBOARDING.md version is v1.1.5 (2026-01-29) — cross-doc data mostly consistent | .claude/ONBOARDING.md | Minor updates only |
 
 ---
 

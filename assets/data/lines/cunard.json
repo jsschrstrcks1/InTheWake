@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.1",
+  "updated": "2026-01-31",
+  "lineId": "cunard",
+  "rules": {
+    "gratuity": 0.15,
+    "epsilon": 0.02,
+    "caps": { "premiumAlcohol": 16 }
+  },
+  "items": [
+    { "id": "soda",         "label": "Soda (can/fountain)",    "price": 2.50,  "rangeMin": 2.00, "rangeMax": 3.00 },
+    { "id": "coffee",       "label": "Premium Coffee",         "price": 4.50,  "rangeMin": 3.50, "rangeMax": 5.50 },
+    { "id": "teaprem",      "label": "Specialty Tea",          "price": 3.00,  "rangeMin": 2.50, "rangeMax": 3.50 },
+    { "id": "freshjuice",   "label": "Fresh-Squeezed Juice",   "price": 5.50,  "rangeMin": 4.50, "rangeMax": 6.50 },
+    { "id": "mocktail",     "label": "Mocktail",               "price": 7.00,  "rangeMin": 5.50, "rangeMax": 8.50 },
+    { "id": "energy",       "label": "Energy Drink",           "price": 4.00,  "rangeMin": 3.50, "rangeMax": 4.50 },
+    { "id": "milkshake",    "label": "Milkshake / Smoothie",   "price": 5.50,  "rangeMin": 4.50, "rangeMax": 6.50 },
+    { "id": "bottledwater", "label": "Bottled Water (500 ml)", "price": 2.00,  "rangeMin": 1.50, "rangeMax": 2.50 },
+    { "id": "beer",         "label": "Beer",                   "price": 6.50,  "rangeMin": 5.00, "rangeMax": 8.00 },
+    { "id": "wine",         "label": "Wine (glass)",           "price": 8.50,  "rangeMin": 6.50, "rangeMax": 12.00 },
+    { "id": "cocktail",     "label": "Cocktail",               "price": 10.50, "rangeMin": 8.00, "rangeMax": 13.00 },
+    { "id": "spirits",      "label": "Spirits / Shot (+mixer)","price": 9.00,  "rangeMin": 7.00, "rangeMax": 12.00 },
+    { "id": "tapwater",     "label": "Tap Water",              "price": 0, "free": true },
+    { "id": "lemonade",     "label": "Lemonade (basic)",       "price": 0, "free": true },
+    { "id": "basictea",     "label": "Basic Tea (hot/cold)",   "price": 0, "free": true },
+    { "id": "juiceconc",    "label": "Juice (concentrate)",    "price": 0, "free": true }
+  ],
+  "sets": {
+    "soda":    ["soda"],
+    "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","milkshake","bottledwater","tapwater","lemonade","basictea","juiceconc","energy"],
+    "alcohol": ["beer","wine","cocktail","spirits"]
+  },
+  "packages": {
+    "softDrinks": {
+      "name": "Soft Drink Package",
+      "price": 11.00,
+      "range": "$8–$14/day (+15% service charge)",
+      "priceMin": 8.00,
+      "priceMax": 14.00,
+      "priceMid": 11.00,
+      "includes": [
+        "Fountain soda & premium coffees",
+        "Specialty teas & fresh juices",
+        "Mocktails & smoothies",
+        "Bottled water"
+      ]
+    },
+    "beersWines": {
+      "name": "Beers & Wines Package",
+      "price": 72.00,
+      "range": "$62–$82/day (+15% service charge)",
+      "priceMin": 62.00,
+      "priceMax": 82.00,
+      "priceMid": 72.00,
+      "includes": [
+        "All Soft Drink Package items",
+        "House & select wines by the glass",
+        "Draught & bottled beers",
+        "Sparkling wine & Prosecco"
+      ]
+    },
+    "allInclusive": {
+      "name": "All-Inclusive Drinks Package",
+      "price": 85.50,
+      "range": "$72–$99/day (+15% service charge)",
+      "priceMin": 72.00,
+      "priceMax": 99.00,
+      "priceMid": 85.50,
+      "includes": [
+        "All Beers & Wines items",
+        "Cocktails & spirits up to $16 each",
+        "Premium cocktails at all bars",
+        "20% off bottles of wine from the cellar list"
+      ]
+    }
+  },
+  "_notes": {
+    "source": "cunard.com, cruisecritic.com — verified 2026-01-31",
+    "apples_to_apples": "Cunard uses a 15% service charge (not 12.5%). Prices shown in USD. Multiple tiers available — Soft Drink, Beers & Wines, and All-Inclusive. Included value = (per-drink base × 1.15)."
+  }
+}
