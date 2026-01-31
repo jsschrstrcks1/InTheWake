@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.1",
-  "updated": "2025-11-03",
+  "updated": "2026-01-31",
   "lineId": "princess",
   "rules": {
     "gratuity": 0.18,
     "epsilon": 0.02,
-    "caps": { "premierAlcohol": 18 }
+    "caps": { "plusAlcohol": 15, "premierAlcohol": 20 }
   },
   "items": [
     { "id": "soda",         "label": "Soda (can/fountain)",    "price": 3.50,  "rangeMin": 3.00, "rangeMax": 4.00 },
@@ -34,12 +34,12 @@
     "plus": {
       "name": "Plus Beverage Package",
       "price": 64.99,
-      "range": "$54.99–$84.99/day",
+      "range": "$54.99–$74.99/day (+18% gratuity)",
       "priceMin": 54.99,
-      "priceMax": 84.99,
+      "priceMax": 74.99,
       "priceMid": 64.99,
       "includes": [
-        "Beer, wine & cocktails up to $12 each",
+        "Beer, wine & cocktails up to $15 each",
         "Premium coffees & specialty teas",
         "Fresh juices & smoothies",
         "Fountain soda & bottled water",
@@ -48,14 +48,14 @@
     },
     "premier": {
       "name": "Premier Beverage Package",
-      "price": 79.99,
-      "range": "$69.99–$109.99/day",
-      "priceMin": 69.99,
-      "priceMax": 109.99,
-      "priceMid": 79.99,
+      "price": 84.99,
+      "range": "$74.99–$99.99/day (+18% gratuity)",
+      "priceMin": 74.99,
+      "priceMax": 99.99,
+      "priceMid": 84.99,
       "includes": [
         "All Plus Package items",
-        "Beer, wine, cocktails & spirits up to $18 each",
+        "Beer, wine, cocktails & spirits up to $20 each",
         "Premium cocktails at all specialty bars",
         "Unlimited MedallionNet Wi-Fi (included in Premier bundle)",
         "Crew appreciation included"
@@ -64,7 +64,7 @@
     "zeroProof": {
       "name": "Zero-Proof Beverage Package",
       "price": 29.99,
-      "range": "$23–$38/day",
+      "range": "$23–$38/day (+18% gratuity)",
       "priceMin": 23.00,
       "priceMax": 38.00,
       "priceMid": 29.99,
@@ -77,6 +77,7 @@
     }
   },
   "_notes": {
-    "apples_to_apples": "Included value is now calculated as avoided à-la-carte spend = (per-drink base × 1.18) so comparisons to package daily price are consistent."
+    "source": "princess.com, cruisecritic.com — verified 2026-01-31",
+    "apples_to_apples": "Princess gratuity is 18%. Plus cap $15, Premier cap $20. Premier bundle includes Wi-Fi + crew appreciation. Included value = (per-drink base × 1.18)."
   }
 }

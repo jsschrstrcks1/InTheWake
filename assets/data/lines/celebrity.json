@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.1",
-  "updated": "2025-11-03",
+  "updated": "2026-01-31",
   "lineId": "celebrity",
   "rules": {
-    "gratuity": 0.18,
+    "gratuity": 0.20,
     "epsilon": 0.02,
-    "caps": { "premiumAlcohol": 17 }
+    "caps": { "classicAlcohol": 10, "premiumAlcohol": 17 }
   },
   "items": [
     { "id": "soda",         "label": "Soda (can/fountain)",    "price": 3.50,  "rangeMin": 3.00, "rangeMax": 4.00 },
@@ -33,39 +33,41 @@
   "packages": {
     "classic": {
       "name": "Classic Beverage Package",
-      "price": 39.00,
-      "range": "$32–$49/day",
-      "priceMin": 32.00,
-      "priceMax": 49.00,
-      "priceMid": 39.00,
+      "price": 89.00,
+      "range": "$79–$99/day (+20% gratuity)",
+      "priceMin": 79.00,
+      "priceMax": 99.00,
+      "priceMid": 89.00,
       "includes": [
-        "Fountain soda & specialty coffees",
-        "Premium teas & fresh juices",
+        "Beer, wine & cocktails up to $10 each",
+        "Premium coffees at Café al Bacio",
+        "Specialty teas & fresh juices",
         "Mocktails & smoothies",
-        "Bottled water & energy drinks"
+        "Bottled water & energy drinks",
+        "Fountain soda"
       ]
     },
     "premium": {
       "name": "Premium Beverage Package",
-      "price": 85.00,
-      "range": "$69–$115/day",
-      "priceMin": 69.00,
-      "priceMax": 115.00,
-      "priceMid": 85.00,
+      "price": 109.00,
+      "range": "$99–$125/day (+20% gratuity)",
+      "priceMin": 99.00,
+      "priceMax": 125.00,
+      "priceMid": 109.00,
       "includes": [
         "All Classic Package items",
         "Beer, wine, cocktails & spirits up to $17 each",
-        "Premium coffees at Café al Bacio",
+        "Premium cocktails at all specialty bars",
         "20% off bottles of wine"
       ]
     },
     "zeroProof": {
       "name": "Zero-Proof Package",
-      "price": 29.00,
-      "range": "$22–$35/day",
-      "priceMin": 22.00,
-      "priceMax": 35.00,
-      "priceMid": 29.00,
+      "price": 30.00,
+      "range": "$25–$38/day (+20% gratuity)",
+      "priceMin": 25.00,
+      "priceMax": 38.00,
+      "priceMid": 30.00,
       "includes": [
         "Fountain soda & specialty coffees",
         "Premium teas & fresh juices",
@@ -75,6 +77,7 @@
     }
   },
   "_notes": {
-    "apples_to_apples": "Included value is now calculated as avoided à-la-carte spend = (per-drink base × 1.18) so comparisons to package daily price are consistent."
+    "source": "celebritycruises.com, cruisecritic.com — verified 2026-01-31",
+    "apples_to_apples": "Celebrity raised gratuity from 18% to 20% in 2025. Classic cap $10, Premium cap $17. Included value = (per-drink base × 1.20)."
   }
 }

@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.1",
-  "updated": "2025-11-03",
+  "updated": "2026-01-31",
   "lineId": "holland-america",
   "rules": {
     "gratuity": 0.18,
     "epsilon": 0.02,
-    "caps": { "eliteAlcohol": 15 }
+    "caps": { "eliteAlcohol": 16 }
   },
   "items": [
     { "id": "soda",         "label": "Soda (can/fountain)",    "price": 3.00,  "rangeMin": 2.50, "rangeMax": 3.50 },
@@ -33,11 +33,11 @@
   "packages": {
     "quencher": {
       "name": "Quencher Package",
-      "price": 19.99,
-      "range": "$15–$25/day",
-      "priceMin": 15.00,
-      "priceMax": 25.00,
-      "priceMid": 19.99,
+      "price": 17.95,
+      "range": "$14.95–$19.95/day (+18% gratuity)",
+      "priceMin": 14.95,
+      "priceMax": 19.95,
+      "priceMid": 17.95,
       "includes": [
         "Fountain soda & premium coffees",
         "Specialty teas & fresh juices",
@@ -47,20 +47,35 @@
     },
     "elite": {
       "name": "Elite Beverage Package",
-      "price": 64.99,
-      "range": "$52–$89/day",
-      "priceMin": 52.00,
-      "priceMax": 89.00,
-      "priceMid": 64.99,
+      "price": 59.95,
+      "range": "$55.95–$65.95/day (+18% gratuity)",
+      "priceMin": 55.95,
+      "priceMax": 65.95,
+      "priceMid": 59.95,
       "includes": [
         "All Quencher Package items",
-        "Beer, wine, cocktails & spirits up to $15 each",
+        "Beer, wine, cocktails & spirits up to $16 each",
         "Premium cocktails at all bars",
         "25% off bottles of wine"
+      ]
+    },
+    "signature": {
+      "name": "Signature Beverage Package",
+      "price": 60.95,
+      "range": "$56.95–$66.95/day (+18% gratuity)",
+      "priceMin": 56.95,
+      "priceMax": 66.95,
+      "priceMid": 60.95,
+      "includes": [
+        "All Elite Package items",
+        "Higher per-drink cap than Elite",
+        "Select premium spirits & wines",
+        "Available on select sailings"
       ]
     }
   },
   "_notes": {
-    "apples_to_apples": "Included value is now calculated as avoided à-la-carte spend = (per-drink base × 1.18) so comparisons to package daily price are consistent."
+    "source": "hollandamerica.com, cruisecritic.com — verified 2026-01-31",
+    "apples_to_apples": "HAL gratuity is 18%. Elite cap $16. Quencher is non-alcoholic only. Signature package available on select sailings at slightly higher tier. Included value = (per-drink base × 1.18)."
   }
 }

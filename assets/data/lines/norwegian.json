@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.1",
-  "updated": "2025-11-03",
+  "updated": "2026-01-31",
   "lineId": "norwegian",
   "rules": {
     "gratuity": 0.20,
     "epsilon": 0.02,
-    "caps": { "premiumPlusAlcohol": 15 }
+    "caps": { "unlimitedAlcohol": 15 }
   },
   "items": [
     { "id": "soda",         "label": "Soda (can/fountain)",    "price": 3.50,  "rangeMin": 3.00, "rangeMax": 4.00 },
@@ -31,37 +31,25 @@
     "alcohol": ["beer","wine","cocktail","spirits"]
   },
   "packages": {
-    "premium": {
-      "name": "Premium Beverage Package",
-      "price": 39.00,
-      "range": "$29–$49/day",
-      "priceMin": 29.00,
-      "priceMax": 49.00,
-      "priceMid": 39.00,
+    "unlimited": {
+      "name": "Unlimited Open Bar",
+      "price": 109.00,
+      "range": "$89–$129/day (+20% gratuity)",
+      "priceMin": 89.00,
+      "priceMax": 129.00,
+      "priceMid": 109.00,
       "includes": [
-        "Fountain soda & Coca-Cola Freestyle",
+        "Beer, wine, cocktails & spirits up to $15 each",
         "Premium coffees & specialty teas",
         "Fresh juices, smoothies & mocktails",
-        "Bottled water",
-        "Energy drinks"
-      ]
-    },
-    "premiumPlus": {
-      "name": "Premium Plus Beverage Package",
-      "price": 89.00,
-      "range": "$69–$129/day",
-      "priceMin": 69.00,
-      "priceMax": 129.00,
-      "priceMid": 89.00,
-      "includes": [
-        "All Premium Package items",
-        "Beer, wine, cocktails & spirits up to $15 each",
-        "Unlimited Open Bar at select venues",
+        "Fountain soda & bottled water",
+        "Energy drinks",
         "20% off bottles of wine"
       ]
     }
   },
   "_notes": {
-    "apples_to_apples": "Included value is now calculated as avoided à-la-carte spend = (per-drink base × 1.20) so comparisons to package daily price are consistent."
+    "source": "ncl.com, cruisecritic.com — verified 2026-01-31",
+    "apples_to_apples": "NCL discontinued the separate Premium and Premium Plus packages. Now offers a single Unlimited Open Bar package. Gratuity is 20%. No separate non-alcoholic-only package exists. Included value = (per-drink base × 1.20)."
   }
 }
