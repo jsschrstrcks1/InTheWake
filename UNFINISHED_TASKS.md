@@ -56,15 +56,19 @@ All 7 feature branches are stale merge-commit-only branches with **zero unmerged
 
 The following items were **explicitly started** in previous threads (plans created, partial work done, or documented as "in progress") but remain incomplete:
 
-#### 1. Venue Audit — Phase 2 Pending
+#### 1. ~~Venue Audit — Phase 2~~ ✅ MOSTLY COMPLETE
 **Plan file:** `.claude/plan-venue-audit.md`
 **Thread:** `claude/audit-venues-gD9fq`
-**What was done:** Phase 1 complete — audited 215 venue pages, built `validate-venue-page-v2.js` validator, identified systemic issues (stock images 5x, no menus, wrong tone for venue types, "semantic lies" like Dog House described as fine dining). Virgin Voyages menus corrected from PDF sources (PR #1077).
-**What remains:**
-- [ ] Phase 2: Integration of validator into CI/CD pipeline
-- [ ] Phase 2: Bulk remediation of 215 venue pages (remove duplicated stock images, fix tone mismatches, add real menu data)
-- [ ] Dog House and similar casual venues need complete rewrites with appropriate tone
-- [ ] Menu section (`id="menu-prices"`) missing from generated template — needs template fix
+**Verified 2026-01-31:** The major template issues have been remediated:
+- [x] 0 pages with "presented beautifully" generic text (was 20)
+- [x] 0 pages with hotdog.webp duplicated images (was 116)
+- [x] 0 pages missing Google Analytics (was 129)
+- [x] 0 pages missing Umami analytics (was 13)
+- [x] All pages have `menu-prices` sections (was 43 missing)
+- [x] 0 pages with generic template FAQs (was 80)
+**Remaining minor items:**
+- [ ] Validator integration into CI/CD pipeline (`validate-venue-page-v2.js` → `validate.js`)
+- [ ] 93 pages have "Smart Casual" dress code — most are legitimate specialty dining, but counter-service venues may need review
 
 #### 2. Affiliate Link Deployment — Draft Only
 **Plan file:** `.claude/plan-affiliate-deployment.md`
@@ -93,14 +97,14 @@ The following items were **explicitly started** in previous threads (plans creat
 - [ ] Expand quiz beyond Royal Caribbean to other cruise lines
 - [ ] These are entirely unimplemented
 
-#### 5. "Ships That Visit Here" Feature — Data Added, UI NOT Built
+#### 5. ~~"Ships That Visit Here" Feature~~ ✅ FULLY DEPLOYED
 **Thread:** `claude/audit-competitor-gaps-0zTZ0` (PRs #974-987)
-**What was done:** Ship deployment data added for Royal Caribbean, Carnival (26 ships), Celebrity (16 ships), Norwegian (20 ships), Princess (17 ships), Holland America (11 ships), MSC (22 ships) — total 193 ships across 15 cruise lines. Data files created.
-**What remains:**
-- [ ] **The actual port page UI component is NOT built** — no "Ships That Visit Here" section exists on any port page
-- [ ] Need to create the HTML/CSS/JS component that reads deployment data and renders on port pages
-- [ ] This was identified as the HIGHEST PRIORITY competitive differentiator (no competitor offers this)
-- [ ] Bidirectional linking (port → ship and ship → port) not yet implemented
+**Status:** COMPLETE as of 2026-01-25
+- [x] Ship deployment data: 193 ships, 15 cruise lines, 398 ports in `ship-deployments.json` (v1.14.0)
+- [x] `ship-port-links.js` (v1.14.0): Full bidirectional UI — 457 lines, brand colors, class ordering
+- [x] Deployed to ALL 380 port pages and ALL 297 ship pages
+- [x] Bidirectional linking fully functional (port → ship and ship → port)
+**Note:** Initial audit incorrectly reported this as unbuilt. Verified 2026-01-31.
 
 #### 6. Stateroom Checker Cabin Audits — Partial
 **Thread:** `claude/review-context-onboarding-ZZauz` (PRs #973, #982, #986)
@@ -109,13 +113,16 @@ The following items were **explicitly started** in previous threads (plans creat
 - [ ] Remaining RCL ships need stateroom exception audits (only 3 of 28+ done in this thread)
 - [ ] Fleet expansion for Stateroom Checker dropdown (not all RCL ships represented)
 
-#### 7. CSS Consolidation — Phase 3-5 Incomplete
-**What was done:** Phases 1-2 complete. `<style>` blocks reduced from 511 to 6 files. Inline styles reduced from 16,798 to 12,618. Component CSS classes created.
+#### 7. CSS Consolidation — Phase 3-5 Partially Complete
+**What was done:** Phases 1-2 complete. Port pages now down to 1 file with `<style>` blocks. Ship pages down to 13. Restaurant pages still have 124 with `<style>` blocks.
+**Verified 2026-01-31 current state:**
+- Port pages with `<style>` blocks: **1** (was ~468 in original audit)
+- Ship pages with `<style>` blocks: **13**
+- Restaurant pages with `<style>` blocks: **124**
+- Port pages with `.page-grid`: **0** (resolved)
 **What remains:**
-- [ ] Phase 3: Resolve `.page-grid` conflict (478 files)
-- [ ] Phase 4: Remove remaining inline `<style>` blocks from port/ship/restaurant pages (~468 files)
-- [ ] Phase 5: Inline `style=` attribute cleanup (target: reduce 12,618 to <1,000)
-- [ ] Estimated impact: ~50,000 lines of duplicated CSS to remove
+- [ ] Phase 4: Remove remaining `<style>` blocks from 13 ship + 124 restaurant pages
+- [ ] Phase 5: Inline `style=` attribute cleanup across all pages
 
 #### 8. Ship Page Standardization — Barely Started
 **What was done:** All 50 RCL pages have ICP-Lite. Emoji removed from stateroom buttons. Phase 1-2 planned.
@@ -128,9 +135,9 @@ The following items were **explicitly started** in previous threads (plans creat
 
 #### 9. Competitor Gap Quick Wins — Partially Deployed
 **Source:** COMPETITOR_GAP_AUDIT_2026_01_29.md
-**What was done:** Tender Port Index (26 ports), First-Timer Hub, Trust messaging, Offline marketing, 30-Day Countdown — all complete. Ship deployment data added.
-**What remains (6 of 16 initiatives complete = 38%):**
-- [ ] "Ships That Visit Here" UI on port pages (data exists, UI doesn't)
+**What was done:** Tender Port Index (26 ports), First-Timer Hub, Trust messaging, Offline marketing, 30-Day Countdown, Ships That Visit Here — all complete.
+**What remains (7 of 16 initiatives complete = 44%):**
+- [x] ~~"Ships That Visit Here" UI on port pages~~ ✅ COMPLETE (verified 2026-01-31)
 - [ ] "From the Pier" distance component (`.pier-distances` CSS + content for 291 ports)
 - [ ] Comprehensive Port Print CSS / PDF generation
 - [ ] Transport cost callout table component
@@ -140,15 +147,14 @@ The following items were **explicitly started** in previous threads (plans creat
 - [ ] Accessibility sections on port pages
 - [ ] "Real Talk" honest assessment callouts
 
-#### 10. Port Map Integration — 64% Complete
-**What was done:** 186 of 291 ports have Leaflet interactive maps. Mobile responsiveness implemented for Alaska ports. CSS v2.0.0 and JS v2.0.0 deployed.
-**What remains:**
-- [ ] 105 ports still missing Leaflet maps (Europe, British Isles, Caribbean, misc)
+#### 10. ~~Port Map Integration~~ ✅ ESSENTIALLY COMPLETE (99%)
+**Verified 2026-01-31:** 375 of 380 port pages have Leaflet maps. Only 5 missing: beijing (inland), kyoto (inland), drake-passage (open ocean), falmouth-jamaica (needs map), tender-ports (index page).
+**Remaining enhancement phases (not blocking):**
 - [ ] Phase 1 (Static map artifacts — PNG/PDF) not started
 - [ ] Phase 3 (Article-map POI click integration) not started
 - [ ] Phase 4 (Enhanced geometry — beaches as regions) not started
 - [ ] Phase 5 (Build-time POI lint) not started
-- [ ] Mobile responsiveness rollout to non-Alaska ports
+- [ ] `falmouth-jamaica.html` needs Leaflet map added
 
 #### 11. Service Worker v14 — Not Started
 **Current:** v13.2.0

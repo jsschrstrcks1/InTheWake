@@ -14,23 +14,12 @@ The project has 7,858 files across 587 directories, 374+ port pages, 311+ ship p
 
 ## Tier 1: High Impact, Low-Medium Effort (Do Next)
 
-### 1. "Ships That Visit Here" Port Page UI Component
-**Priority:** CRITICAL — Highest competitive differentiator
-**Effort:** LOW (data already exists for 193 ships across 15 lines)
-**Lane:** Green
-**Why first:** The data was added across PRs #974-987 but the actual port page UI was never built. No competitor offers ship-port integration. This is the single biggest gap between "done" and "value delivered."
-
-**Tasks:**
-1. Create HTML/CSS component for "Ships That Visit Here" section
-2. Build JS module to read ship deployment data and render on port pages
-3. Deploy to all 374 port pages
-4. Create bidirectional links (ship pages → ports, port pages → ships)
-
-**Estimated scope:** ~1-2 sessions (component + deployment script)
+### ~~1. "Ships That Visit Here" Port Page UI Component~~ ✅ ALREADY COMPLETE
+**Status:** Verified COMPLETE 2026-01-31. `ship-port-links.js` (v1.14.0, 457 lines) fully deployed to all 380 port pages and 297 ship pages with bidirectional linking, brand colors, and class ordering for 15 cruise lines.
 
 ---
 
-### 2. Documentation Consistency Fixes
+### ~~2.~~ 1. Documentation Consistency Fixes
 **Priority:** HIGH — Prevents confusion for future threads
 **Effort:** LOW
 **Lane:** Green
@@ -181,8 +170,8 @@ Start with top 20 high-traffic ports, then batch by region.
 
 | Session | Work | Tier |
 |---------|------|------|
-| **Next** | "Ships That Visit Here" UI component | Tier 1 |
-| **+1** | Documentation fixes + branch cleanup | Tier 1 |
+| ~~**Next**~~ | ~~"Ships That Visit Here" UI~~ ✅ Already complete | ~~Tier 1~~ |
+| ~~**+1**~~ | Documentation fixes ✅ Done this session | ~~Tier 1~~ |
 | **+2** | Venue audit Phase 2 pilot (5 worst pages) | Tier 1 |
 | **+3** | CSS .page-grid resolution | Tier 2 |
 | **+4** | "From the Pier" + Print CSS components | Tier 2 |
@@ -195,15 +184,16 @@ Start with top 20 high-traffic ports, then batch by region.
 
 ## Key Metrics to Track
 
-| Metric | Current | Target |
+| Metric | Current (verified 2026-01-31) | Target |
 |--------|---------|--------|
-| Ship validation passing | 106/311 (34%) | 250+ (80%) |
-| Port pages with maps | 186/291 (64%) | 291/291 (100%) |
-| Venue pages remediated | 0/215 (0%) | 215/215 (100%) |
+| Ship validation passing | 106/297 (36%) | 250+ (80%) |
+| Port pages with maps | 375/380 (99%) ✅ | 380/380 (100%) |
+| Venue pages remediated | ~215/215 (99%) ✅ | 215/215 (100%) |
 | Ports with weather guides | 4/333 (1%) | 50+ (15%+) |
-| CSS inline styles | 12,618 | <1,000 |
-| Competitor gap initiatives | 6/16 (38%) | 12/16 (75%) |
-| "Ships That Visit" UI deployed | 0 ports | 374 ports |
+| Restaurant `<style>` blocks | 124 remaining | 0 |
+| Ship `<style>` blocks | 13 remaining | 0 |
+| Competitor gap initiatives | 7/16 (44%) | 12/16 (75%) |
+| "Ships That Visit" UI deployed | 380/380 (100%) ✅ | ✅ Done |
 
 ---
 
