@@ -72,6 +72,8 @@ FORMAT:
 
 | Thread ID | Task | Status | Date |
 |-----------|------|--------|------|
+| claude/audit-venues-gD9fq | Logbook enrichment — Gentle Truth reviews | IN PROGRESS | 2026-01-31 |
+| claude/review-previous-work-ZMk3b | Deep audit, JPG elimination, CSS consolidation, ship-page.css rollout, guardrail, docs | IN PROGRESS | 2026-01-31 |
 | claude/review-previous-work-ZMk3b | Deep audit, JPG elimination, CSS consolidation, ship-page.css rollout, guardrail, docs | IN PROGRESS | 2026-01-31 |
 | claude/audit-venues-gD9fq | Logbook enrichment — Gentle Truth reviews | IN PROGRESS | 2026-01-31 |
 | claude/review-previous-work-ZMk3b | Deep audit, JPG elimination | IN PROGRESS | 2026-01-31 |
