@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.1",
+  "updated": "2026-01-31",
+  "lineId": "holland-america",
+  "rules": {
+    "gratuity": 0.18,
+    "epsilon": 0.02,
+    "caps": { "eliteAlcohol": 16 }
+  },
+  "items": [
+    { "id": "soda",         "label": "Soda (can/fountain)",    "price": 3.00,  "rangeMin": 2.50, "rangeMax": 3.50 },
+    { "id": "coffee",       "label": "Premium Coffee",         "price": 5.00,  "rangeMin": 4.00, "rangeMax": 6.00 },
+    { "id": "teaprem",      "label": "Specialty Tea",          "price": 2.50,  "rangeMin": 2.00, "rangeMax": 3.00 },
+    { "id": "freshjuice",   "label": "Fresh-Squeezed Juice",   "price": 6.50,  "rangeMin": 5.50, "rangeMax": 7.50 },
+    { "id": "mocktail",     "label": "Mocktail",               "price": 7.00,  "rangeMin": 5.50, "rangeMax": 8.50 },
+    { "id": "energy",       "label": "Energy Drink",           "price": 5.00,  "rangeMin": 4.50, "rangeMax": 5.50 },
+    { "id": "milkshake",    "label": "Milkshake / Smoothie",   "price": 6.50,  "rangeMin": 5.00, "rangeMax": 8.00 },
+    { "id": "bottledwater", "label": "Bottled Water (500 ml)", "price": 2.50,  "rangeMin": 2.00, "rangeMax": 3.00 },
+    { "id": "beer",         "label": "Beer",                   "price": 7.50,  "rangeMin": 6.00, "rangeMax": 9.00 },
+    { "id": "wine",         "label": "Wine (glass)",           "price": 10.00, "rangeMin": 8.00, "rangeMax": 14.00 },
+    { "id": "cocktail",     "label": "Cocktail",               "price": 12.00, "rangeMin": 9.50, "rangeMax": 15.00 },
+    { "id": "spirits",      "label": "Spirits / Shot (+mixer)","price": 10.50, "rangeMin": 8.50, "rangeMax": 13.00 },
+    { "id": "tapwater",     "label": "Tap Water",              "price": 0, "free": true },
+    { "id": "lemonade",     "label": "Lemonade (basic)",       "price": 0, "free": true },
+    { "id": "basictea",     "label": "Basic Tea (hot/cold)",   "price": 0, "free": true },
+    { "id": "juiceconc",    "label": "Juice (concentrate)",    "price": 0, "free": true }
+  ],
+  "sets": {
+    "soda":    ["soda"],
+    "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","milkshake","bottledwater","tapwater","lemonade","basictea","juiceconc","energy"],
+    "alcohol": ["beer","wine","cocktail","spirits"]
+  },
+  "packages": {
+    "quencher": {
+      "name": "Quencher Package",
+      "price": 17.95,
+      "range": "$14.95–$19.95/day (+18% gratuity)",
+      "priceMin": 14.95,
+      "priceMax": 19.95,
+      "priceMid": 17.95,
+      "includes": [
+        "Fountain soda & premium coffees",
+        "Specialty teas & fresh juices",
+        "Mocktails & smoothies",
+        "Bottled water & energy drinks"
+      ]
+    },
+    "elite": {
+      "name": "Elite Beverage Package",
+      "price": 59.95,
+      "range": "$55.95–$65.95/day (+18% gratuity)",
+      "priceMin": 55.95,
+      "priceMax": 65.95,
+      "priceMid": 59.95,
+      "includes": [
+        "All Quencher Package items",
+        "Beer, wine, cocktails & spirits up to $16 each",
+        "Premium cocktails at all bars",
+        "25% off bottles of wine"
+      ]
+    },
+    "signature": {
+      "name": "Signature Beverage Package",
+      "price": 60.95,
+      "range": "$56.95–$66.95/day (+18% gratuity)",
+      "priceMin": 56.95,
+      "priceMax": 66.95,
+      "priceMid": 60.95,
+      "includes": [
+        "All Elite Package items",
+        "Higher per-drink cap than Elite",
+        "Select premium spirits & wines",
+        "Available on select sailings"
+      ]
+    }
+  },
+  "_notes": {
+    "source": "hollandamerica.com, cruisecritic.com — verified 2026-01-31",
+    "apples_to_apples": "HAL gratuity is 18%. Elite cap $16. Quencher is non-alcoholic only. Signature package available on select sailings at slightly higher tier. Included value = (per-drink base × 1.18)."
+  }
+}
