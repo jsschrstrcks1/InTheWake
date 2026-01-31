@@ -1,10 +1,10 @@
-/* Service Worker v14.0.0 - In the Wake
+/* Service Worker v14.2.0 - In the Wake
  * Site-wide unified caching strategy with offline support
  * Supports: Ships, Ports, Restaurants, Planning Tools, Drink Calculator
  * Soli Deo Gloria ✝️
  */
 
-const VERSION = '14.0.0';
+const VERSION = '14.2.0';
 const CACHE_PREFIX = 'itw-site';
 
 /* Network state (updated by client via NETWORK_INFO message) */
@@ -21,6 +21,7 @@ const CACHES = {
   IMAGES: `${CACHE_PREFIX}-images-${VERSION}`,
   DATA: `${CACHE_PREFIX}-data-${VERSION}`,
   FONTS: `${CACHE_PREFIX}-fonts-${VERSION}`,
+  TILES: `${CACHE_PREFIX}-tiles-${VERSION}`,
   META: `${CACHE_PREFIX}-meta-${VERSION}`
 };
 
@@ -30,6 +31,7 @@ const CONFIG = {
   maxImages: 600,          // 444 ship images + 2,906 WebP total, caching subset
   maxData: 150,            // Map manifests + JSON data files
   maxFonts: 30,
+  maxTiles: 3000,            // OSM map tiles for offline port maps (~3k tiles covers visited ports at z10-16)
   staleMaxAge: 60 * 60 * 1000, // 1 hour
   fxApiMaxAge: 12 * 60 * 60 * 1000, // 12 hours — exchange rates don't change often
   calcDataMaxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
@@ -111,6 +113,12 @@ self.addEventListener('fetch', (event) => {
     // Allow CDN assets
     if (url.hostname.includes('cdn.jsdelivr.net')) {
       event.respondWith(cacheFirstStrategy(request, CACHES.ASSETS, CONFIG.maxAssets));
+      return;
+    }
+
+    // Allow OpenStreetMap tiles for offline port maps (cache-first — tiles rarely change)
+    if (url.hostname.endsWith('tile.openstreetmap.org')) {
+      event.respondWith(cacheFirstStrategy(request, CACHES.TILES, CONFIG.maxTiles));
       return;
     }
 
