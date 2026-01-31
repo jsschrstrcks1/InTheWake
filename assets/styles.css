@@ -534,6 +534,13 @@ figure.hero img + img,
 .card .vf-map,
 .card iframe.live-map { width: 100%; border: 0; border-radius: 12px; }
 
+/* Card watermark image (decorative bg) */
+.card > img[aria-hidden] {
+  position: absolute; inset: 0; margin: auto;
+  opacity: .08; max-width: 60%; pointer-events: none; z-index: 0;
+}
+.card .card__content { position: relative; z-index: 1; }
+
 /* ===== Author/Avatar Cards ===== */
 .avatar, .journal-avatar, .author-avatar {
   width: 40px;

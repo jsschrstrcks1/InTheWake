@@ -43,6 +43,16 @@ When a task is completed:
 - [x] Fixed empty alt text on dynamically generated images
 **Result:** Site meets WCAG 2.1 Level A and Level AA requirements
 
+### CSS Inline Style Consolidation — Phase 1 - COMPLETE (2026-01-31)
+**Status:** COMPLETE
+**Lane:** 🟢 Green (CSS deduplication)
+**Branch:** `claude/review-previous-work-ZMk3b`
+- [x] Added `.card > img[aria-hidden]` and `.card .card__content` rules to `assets/styles.css` (watermark component)
+- [x] Removed identical 3-line inline `<style>` blocks from 124 restaurant pages (all had same `.card` watermark CSS now covered by shared stylesheet)
+- [x] Consolidated Carnival fleet index from 4 `<style>` blocks (with `.page-grid`/`.rail`/`.author-card-vertical` duplicated 4x) down to 2 blocks with unique rules only
+- [x] Skipped ship-list fleet index pages (12 files) — `.ship-list` class name conflicts with different component in styles.css
+**Result:** 124 inline style blocks eliminated, Carnival index reduced by ~140 lines of duplicate CSS. Zero visual changes.
+
 ### JPG/JPEG Image Elimination - COMPLETE (2026-01-31)
 **Status:** COMPLETE
 **Lane:** 🟢 Green (performance optimization)
