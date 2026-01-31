@@ -3,7 +3,7 @@
 > Thread: "Audit the Venues"
 > Branch: `claude/audit-venues-gD9fq`
 > Date: 2026-01-28
-> Status: **Phase 1 complete** (audit + validator built), Phase 2 pending (integration + fixes)
+> Status: **Phase 1 complete** (audit + validator built), **Phase 2 complete** (integration + fixes + 472/472 passing)
 
 ---
 
@@ -296,28 +296,36 @@ Update `admin/generate_restaurant_pages.py` to:
 
 ## 9. Pickup Instructions for Next Thread
 
-### Where we left off
-- Phase 1 (audit + validator) is **COMPLETE**
-- The v2 validator at `admin/validate-venue-page-v2.js` is built and tested
-- It correctly identifies 9 errors on boardwalk-dog-house.html and 0 errors on chops.html
-- Batch validation run: 139 failed, 76 warnings, 0 clean pass
+### Phase 2 Complete (2026-01-31)
 
-### What needs doing next
+- **472 venue pages** across 5 cruise lines — **100% pass rate, 0 errors**
+- All only W01 warnings (stock images, content sourcing limitation)
+- Validator integrated into unified `validate.js` with subdirectory support
+- Batch script `scripts/batch-validate-venues.js` outputs `data/validated-venues.json`
+- Classifier improved: specialty/buffet checks now precede counter-service keywords
+- 12 misclassifications fixed (teppanyaki, Korean BBQ, buffets with "snacks" in description)
+- 2 content fixes: the-deli (wrong stock image), lick-me-till-ice-cream (dress code + image)
 
-1. **Integration** (Section 6 above):
-   - Update `admin/validate.js` VALIDATORS map and PATH_PATTERNS
-   - Fix `--all` glob to include `restaurants/*.html`
-   - Create `scripts/batch-validate-venues.js`
-   - Expand or create venue post-write hook
+### What was completed
 
-2. **Remediation** (Section 7 above):
-   - Fix the 4 worst partially-upgraded pages first
-   - Add GA to 29 partially-upgraded pages
-   - Fix counter-service semantic issues (20 pages)
-   - Then work through bars (60 pages) and dining (40 pages)
+1. **Integration** (Section 6):
+   - [x] `validate.js` VALIDATORS map already had v2 mapped
+   - [x] PATH_PATTERNS already had `restaurants/` pattern
+   - [x] Fixed `--all` and `--all-venues` globs to include `restaurants/**/*.html`
+   - [x] Created `scripts/batch-validate-venues.js` → `data/validated-venues.json`
 
-3. **Generator upgrade**:
-   - Update `admin/generate_restaurant_pages.py` so future pages don't have these problems
+2. **Remediation** (Section 7):
+   - [x] All 4 P1 partially-upgraded pages fixed (prior commits)
+   - [x] All 29 pages got GA (prior commits)
+   - [x] All 20 counter-service semantic issues fixed (prior commits)
+   - [x] All 60 template bar pages fixed (prior commits)
+   - [x] All 40 template dining pages fixed (prior commits)
+   - [x] 257 new venue pages added (Carnival 23, MSC 45, Virgin 46, NCL improvements)
+
+3. **Remaining**:
+   - [ ] Generator upgrade (`admin/generate_restaurant_pages.py`) — not yet done
+   - [ ] 85 "unknown" style venues need adding to `venues-v2.json`
+   - [ ] W01: venue-specific images require content sourcing (not a code task)
 
 ### Quick-start commands
 ```bash
