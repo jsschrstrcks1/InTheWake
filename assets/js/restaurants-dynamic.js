@@ -1,19 +1,75 @@
 /**
- * Restaurants Dynamic Module v1.0.0
+ * Restaurants Dynamic Module v2.0.0
  * Soli Deo Gloria
  *
  * Features:
- * - Loads venue data from venues-v2.json
- * - Groups venues by category (dining, bars)
- * - Shows which ships have each venue
- * - Filter by category
- * - Links to individual restaurant pages
+ * - Cruise line switching pills (RCL, NCL, Carnival, MSC, Virgin)
+ * - Loads venue data per cruise line from separate JSON files
+ * - Groups venues by category (dining, bars, entertainment)
+ * - Category and cost filter pills
+ * - Fuzzy search with Levenshtein distance
+ * - Ships-per-venue chips (RCL only — other lines lack ship mapping)
+ * - Links to individual restaurant pages with correct path prefix
  */
 
 (function() {
   'use strict';
 
-  // Category display names and icons
+  // ─── Cruise line definitions ─────────────────────────────────────────────
+  const CRUISE_LINES = [
+    {
+      key: 'rcl',
+      label: 'Royal Caribbean',
+      shortLabel: 'Royal Caribbean',
+      dataFile: '/assets/data/venues-v2.json',
+      dishesFile: '/assets/data/venue-dishes.json',
+      urlPrefix: '/restaurants/',          // RCL pages live at /restaurants/slug.html
+      hasShips: true,                      // venues-v2.json includes a ships object
+      categories: ['dining', 'bars']
+    },
+    {
+      key: 'ncl',
+      label: 'Norwegian Cruise Line',
+      shortLabel: 'Norwegian',
+      dataFile: '/assets/data/ncl-venues.json',
+      dishesFile: null,
+      urlPrefix: '/restaurants/ncl/',
+      hasShips: false,
+      categories: ['dining', 'bars']
+    },
+    {
+      key: 'carnival',
+      label: 'Carnival Cruise Line',
+      shortLabel: 'Carnival',
+      dataFile: '/assets/data/carnival-venues.json',
+      dishesFile: null,
+      urlPrefix: '/restaurants/carnival/',
+      hasShips: false,
+      categories: ['dining', 'bars']
+    },
+    {
+      key: 'msc',
+      label: 'MSC Cruises',
+      shortLabel: 'MSC',
+      dataFile: '/assets/data/msc-venues.json',
+      dishesFile: null,
+      urlPrefix: '/restaurants/msc/',
+      hasShips: false,
+      categories: ['dining']
+    },
+    {
+      key: 'virgin',
+      label: 'Virgin Voyages',
+      shortLabel: 'Virgin Voyages',
+      dataFile: '/assets/data/virgin-venues.json',
+      dishesFile: null,
+      urlPrefix: '/restaurants/virgin/',
+      hasShips: false,
+      categories: ['dining', 'bars', 'entertainment']
+    }
+  ];
+
+  // ─── Category display names and icons ────────────────────────────────────
   const CATEGORY_INFO = {
     'dining': {
       name: 'Dining',
@@ -37,22 +93,14 @@
     }
   };
 
-  // Only show dining and bars categories for restaurants page
-  const SHOW_CATEGORIES = ['dining', 'bars'];
-
-  // Venue images - photos from Wikimedia Commons (CC licensed)
+  // ─── Venue images (RCL-focused; other lines fall through to defaults) ────
   const VENUE_IMAGES = {
-    // Main Dining Rooms
     'mdr': '/assets/images/restaurants/photos/formal-dining.webp',
     'the-dining-room': '/assets/images/restaurants/photos/formal-dining.webp',
     'adagio-dining-room': '/assets/images/restaurants/photos/formal-dining.webp',
-
-    // Buffet/Markets
     'windjammer': '/assets/images/restaurants/photos/buffet.webp',
     'surfside-eatery': '/assets/images/restaurants/photos/buffet.webp',
     'aquadome-market': '/assets/images/restaurants/photos/buffet.webp',
-
-    // Cafes/Bakeries
     'park-cafe': '/assets/images/restaurants/photos/croissant.webp',
     'solarium-bistro': '/assets/images/restaurants/photos/croissant.webp',
     'pearl-cafe': '/assets/images/restaurants/photos/croissant.webp',
@@ -62,33 +110,23 @@
     'starbucks': '/assets/images/restaurants/photos/croissant.webp',
     'rye-and-bean': '/assets/images/restaurants/photos/croissant.webp',
     'latte-tudes': '/assets/images/restaurants/photos/croissant.webp',
-
-    // Casual/American
     'surfside-bites': '/assets/images/restaurants/photos/hotdog.webp',
     'basecamp': '/assets/images/restaurants/photos/hotdog.webp',
     'portside-bbq': '/assets/images/restaurants/photos/hotdog.webp',
     'johnny-rockets': '/assets/images/restaurants/photos/hotdog.webp',
     'dog-house': '/assets/images/restaurants/photos/hotdog.webp',
-
-    // Pizza
     'sorrentos': '/assets/images/restaurants/photos/pizza.webp',
     'playmakers': '/assets/images/restaurants/photos/pizza.webp',
-
-    // Mexican
     'el-loco-fresh': '/assets/images/restaurants/photos/tacos.webp',
     'sabor': '/assets/images/restaurants/photos/tacos.webp',
     'sabor-taqueria': '/assets/images/restaurants/photos/tacos.webp',
     'cantina-fresca': '/assets/images/restaurants/photos/tacos.webp',
-
-    // Asian/Seafood
     'izumi': '/assets/images/restaurants/photos/sushi.webp',
     'izumi-in-the-park': '/assets/images/restaurants/photos/sushi.webp',
     'sichuan-red': '/assets/images/restaurants/photos/sushi.webp',
     'hot-pot': '/assets/images/restaurants/photos/sushi.webp',
     'hooked-seafood': '/assets/images/restaurants/photos/sushi.webp',
     'pier-7': '/assets/images/restaurants/photos/sushi.webp',
-
-    // Italian/Fine Dining
     'giovannis': '/assets/images/restaurants/photos/italian.webp',
     'giovannis-italian-kitchen': '/assets/images/restaurants/photos/italian.webp',
     'jamies-italian': '/assets/images/restaurants/photos/italian.webp',
@@ -98,15 +136,11 @@
     'empire-supper-club': '/assets/images/restaurants/photos/italian.webp',
     'lincoln-park-supper-club': '/assets/images/restaurants/photos/italian.webp',
     'samba-grill': '/assets/images/restaurants/photos/italian.webp',
-
-    // Specialty/Formal
     'chops': '/assets/images/restaurants/photos/formal-dining.webp',
     'chefs-table': '/assets/images/restaurants/photos/formal-dining.webp',
     'chic': '/assets/images/restaurants/photos/formal-dining.webp',
     'coastal-kitchen': '/assets/images/restaurants/photos/formal-dining.webp',
     'room-service': '/assets/images/restaurants/photos/formal-dining.webp',
-
-    // Bars - Cocktail Lounges
     'schooner-bar': '/assets/images/restaurants/photos/cocktail-lounge.webp',
     'boleros': '/assets/images/restaurants/photos/cocktail-lounge.webp',
     'viking-crown-lounge': '/assets/images/restaurants/photos/cocktail-lounge.webp',
@@ -120,8 +154,6 @@
     'cloud-17': '/assets/images/restaurants/photos/cocktail-lounge.webp',
     'dazzles': '/assets/images/restaurants/photos/cocktail-lounge.webp',
     '1400-lobby-bar': '/assets/images/restaurants/photos/cocktail-lounge.webp',
-
-    // Bars - Casual
     'vintages': '/assets/images/restaurants/photos/bar-lounge.webp',
     'bionic-bar': '/assets/images/restaurants/photos/bar-lounge.webp',
     'sky-bar': '/assets/images/restaurants/photos/bar-lounge.webp',
@@ -133,19 +165,15 @@
     'on-air': '/assets/images/restaurants/photos/bar-lounge.webp',
     'trellis-bar': '/assets/images/restaurants/photos/bar-lounge.webp',
     'the-overlook': '/assets/images/restaurants/photos/bar-lounge.webp',
-
-    // Bars - Cocktails/Tropical
     'bubbles': '/assets/images/restaurants/photos/cocktail.webp',
     'champagne-bar': '/assets/images/restaurants/photos/cocktail.webp',
     'swim-and-tonic': '/assets/images/restaurants/photos/cocktail.webp',
     'pesky-parrot': '/assets/images/restaurants/photos/cocktail.webp',
     'lemon-post': '/assets/images/restaurants/photos/cocktail.webp',
-
-    // Default placeholder
     '_default': '/assets/images/restaurants/photos/formal-dining.webp'
   };
 
-  // CTA/pitch text for venues (what makes this venue special)
+  // ─── CTA/pitch text for notable venues ───────────────────────────────────
   const VENUE_CTAS = {
     'chops': 'Premium steakhouse experience with USDA Prime beef. Perfect for special occasions and those craving a classic American steakhouse.',
     'giovannis': 'Family-style Italian with generous portions. Great for groups who want to share dishes and linger over wine.',
@@ -172,21 +200,19 @@
     '_default': 'Explore this venue to discover what makes it special on your cruise.'
   };
 
-  let venuesData = null;
-  let dishesData = null;
-  let currentFilter = 'all';
+  // ─── State ───────────────────────────────────────────────────────────────
+  let activeLine = CRUISE_LINES[0];   // Default to RCL
+  let lineCache = {};                  // Cache loaded data per line key
+  let dishesData = null;               // Dishes data (RCL only)
 
-  /**
-   * Fuzzy matching using Levenshtein distance
-   */
+  // ─── Utility functions ───────────────────────────────────────────────────
+
   function levenshteinDistance(str1, str2) {
     const m = str1.length;
     const n = str2.length;
     const dp = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
-
     for (let i = 0; i <= m; i++) dp[i][0] = i;
     for (let j = 0; j <= n; j++) dp[0][j] = j;
-
     for (let i = 1; i <= m; i++) {
       for (let j = 1; j <= n; j++) {
         if (str1[i - 1] === str2[j - 1]) {
@@ -199,288 +225,284 @@
     return dp[m][n];
   }
 
-  /**
-   * Check if query fuzzy-matches target
-   */
-  function fuzzyMatch(query, target, threshold = 0.3) {
+  function fuzzyMatch(query, target, threshold) {
     if (!query || !target) return false;
-
-    const q = query.toLowerCase().trim();
-    const t = target.toLowerCase();
-
-    // Exact substring match
+    threshold = threshold || 0.3;
+    var q = query.toLowerCase().trim();
+    var t = target.toLowerCase();
     if (t.includes(q)) return true;
-
-    // Word-by-word matching
-    const targetWords = t.split(/[\s\-]+/);
-    for (const word of targetWords) {
-      if (word.startsWith(q)) return true;
-      if (word.includes(q)) return true;
+    var targetWords = t.split(/[\s\-]+/);
+    for (var i = 0; i < targetWords.length; i++) {
+      if (targetWords[i].startsWith(q)) return true;
+      if (targetWords[i].includes(q)) return true;
     }
-
-    // Fuzzy match using Levenshtein for short queries
     if (q.length >= 3) {
-      for (const word of targetWords) {
-        const distance = levenshteinDistance(q, word.substring(0, q.length + 2));
-        const maxLen = Math.max(q.length, word.length);
+      for (var j = 0; j < targetWords.length; j++) {
+        var distance = levenshteinDistance(q, targetWords[j].substring(0, q.length + 2));
+        var maxLen = Math.max(q.length, targetWords[j].length);
         if (distance / maxLen <= threshold) return true;
       }
-
-      // Also check against full target
-      const distance = levenshteinDistance(q, t.substring(0, q.length + 3));
-      if (distance <= Math.ceil(q.length * threshold)) return true;
+      var dist2 = levenshteinDistance(q, t.substring(0, q.length + 3));
+      if (dist2 <= Math.ceil(q.length * threshold)) return true;
     }
-
     return false;
   }
 
-  /**
-   * Escape HTML entities to prevent XSS
-   */
   function escapeHtml(text) {
     if (!text) return '';
-    const div = document.createElement('div');
+    var div = document.createElement('div');
     div.textContent = String(text);
     return div.innerHTML;
   }
 
   /**
-   * Get image for a venue
+   * Normalize category names across cruise lines.
+   * Some data files use "bar" (singular) instead of "bars".
    */
+  function normalizeCategory(category) {
+    if (category === 'bar') return 'bars';
+    return category;
+  }
+
   function getVenueImage(slug) {
     return VENUE_IMAGES[slug] || VENUE_IMAGES['_default'];
   }
 
-  /**
-   * Get CTA text for a venue
-   */
   function getVenueCTA(slug, description) {
     return VENUE_CTAS[slug] || description || VENUE_CTAS['_default'];
   }
 
-  /**
-   * Get ships that have a specific venue
-   */
   function getShipsWithVenue(venueSlug, shipsData) {
-    const ships = [];
-    for (const [shipSlug, shipInfo] of Object.entries(shipsData)) {
+    if (!shipsData) return [];
+    var ships = [];
+    for (var shipSlug in shipsData) {
+      var shipInfo = shipsData[shipSlug];
       if (shipInfo.venues && shipInfo.venues.includes(venueSlug)) {
-        ships.push({
-          slug: shipSlug,
-          name: shipInfo.name,
-          class: shipInfo.class
-        });
+        ships.push({ slug: shipSlug, name: shipInfo.name, class: shipInfo.class });
       }
     }
     return ships;
   }
 
-  /**
-   * Format ship name for display (shorter version)
-   */
   function formatShipName(name) {
     return name.replace(' of the Seas', '');
   }
 
-  /**
-   * Get dish keywords for a venue from dishesData
-   */
   function getVenueDishes(venueSlug) {
-    if (!dishesData || !dishesData.venues || !dishesData.venues[venueSlug]) {
-      return [];
-    }
-    const venueData = dishesData.venues[venueSlug];
-    const dishes = venueData.dishes || [];
-    const cuisine = venueData.cuisine || [];
-    return [...dishes, ...cuisine];
+    if (!dishesData || !dishesData.venues || !dishesData.venues[venueSlug]) return [];
+    var venueInfo = dishesData.venues[venueSlug];
+    return [].concat(venueInfo.dishes || [], venueInfo.cuisine || []);
   }
 
-  /**
-   * Create venue card HTML
-   */
-  function createVenueCard(venue, ships, consolidatedNames = []) {
-    const imageUrl = getVenueImage(venue.slug);
-    const pageUrl = `/restaurants/${venue.slug}.html`;
-    const cta = getVenueCTA(venue.slug, venue.description);
-    const categoryClass = venue.category || 'dining';
-
-    // Show first 3 ships, then "+N more"
-    const maxShips = 3;
-    const displayShips = ships.slice(0, maxShips);
-    const moreCount = ships.length - maxShips;
-
-    const shipsHtml = displayShips.length > 0 ? `
-      <div class="ships-available">
-        ${displayShips.map(s => `<span class="ship-chip">${escapeHtml(formatShipName(s.name))}</span>`).join('')}
-        ${moreCount > 0 ? `<span class="chip more">+${moreCount} more</span>` : ''}
-      </div>
-    ` : '';
-
-    // Combine consolidated venue names and dish keywords for search
-    const dishKeywords = getVenueDishes(venue.slug);
-    const allKeywords = [...consolidatedNames, ...dishKeywords];
-    const searchKeywords = allKeywords.length > 0
-      ? `data-search-keywords="${allKeywords.join(' ').replace(/"/g, '&quot;')}"`
-      : '';
-
-    return `
-      <article class="item-card" data-venue="${escapeHtml(venue.slug)}" data-category="${escapeHtml(categoryClass)}" ${searchKeywords}>
-        <a href="${escapeHtml(pageUrl)}" class="item-card-link">
-          <div class="item-card-image">
-            <img src="${escapeHtml(imageUrl)}"
-                 alt="${escapeHtml(venue.name)}"
-                 loading="lazy"
-                 decoding="async"
-                 onerror="this.onerror=null;this.src='${VENUE_IMAGES['_default']}'" />
-            <span class="item-card-badge ${escapeHtml(categoryClass)}">${escapeHtml(venue.subcategory || venue.category)}</span>
-          </div>
-          <div class="item-card-content">
-            <h3 class="item-card-title">${escapeHtml(venue.name)}</h3>
-            <div class="item-card-meta">
-              ${venue.cost ? `<span class="badge">${escapeHtml(venue.cost)}</span>` : ''}
-              ${venue.premium ? '<span class="badge">Specialty</span>' : '<span class="badge">Included</span>'}
-            </div>
-            <p class="item-card-cta">${escapeHtml(cta)}</p>
-            ${shipsHtml}
-          </div>
-        </a>
-      </article>
-    `;
-  }
-
-  /**
-   * Get consolidated venue names for a parent venue
-   */
   function getConsolidatedNames(venueSlug, allVenues) {
     return allVenues
-      .filter(v => v.consolidate_into === venueSlug)
-      .map(v => v.name)
+      .filter(function(v) { return v.consolidate_into === venueSlug; })
+      .map(function(v) { return v.name; })
       .join(' ');
   }
 
-  /**
-   * Create category section HTML
-   */
-  function createCategorySection(categoryKey, venues, shipsData, allVenues) {
-    const info = CATEGORY_INFO[categoryKey] || { name: categoryKey, icon: '📍', description: '' };
+  // ─── Rendering ───────────────────────────────────────────────────────────
 
-    const venueCards = venues.map(venue => {
-      const ships = getShipsWithVenue(venue.slug, shipsData);
-      const consolidatedNames = getConsolidatedNames(venue.slug, allVenues);
-      return createVenueCard(venue, ships, consolidatedNames ? [consolidatedNames] : []);
+  function createVenueCard(venue, ships, consolidatedNames, urlPrefix) {
+    var imageUrl = getVenueImage(venue.slug);
+    var pageUrl = urlPrefix + venue.slug + '.html';
+    var cta = getVenueCTA(venue.slug, venue.description);
+    var categoryClass = normalizeCategory(venue.category || 'dining');
+
+    var maxShips = 3;
+    var displayShips = ships.slice(0, maxShips);
+    var moreCount = ships.length - maxShips;
+
+    var shipsHtml = displayShips.length > 0 ?
+      '<div class="ships-available">' +
+        displayShips.map(function(s) { return '<span class="ship-chip">' + escapeHtml(formatShipName(s.name)) + '</span>'; }).join('') +
+        (moreCount > 0 ? '<span class="chip more">+' + moreCount + ' more</span>' : '') +
+      '</div>' : '';
+
+    var dishKeywords = getVenueDishes(venue.slug);
+    var allKeywords = (consolidatedNames ? [consolidatedNames] : []).concat(dishKeywords);
+    var searchAttr = allKeywords.length > 0
+      ? ' data-search-keywords="' + allKeywords.join(' ').replace(/"/g, '&quot;') + '"'
+      : '';
+
+    return '<article class="item-card" data-venue="' + escapeHtml(venue.slug) + '" data-category="' + escapeHtml(categoryClass) + '"' + searchAttr + '>' +
+      '<a href="' + escapeHtml(pageUrl) + '" class="item-card-link">' +
+        '<div class="item-card-image">' +
+          '<img src="' + escapeHtml(imageUrl) + '" alt="' + escapeHtml(venue.name) + '" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'' + VENUE_IMAGES['_default'] + '\'" />' +
+          '<span class="item-card-badge ' + escapeHtml(categoryClass) + '">' + escapeHtml(venue.subcategory || venue.category) + '</span>' +
+        '</div>' +
+        '<div class="item-card-content">' +
+          '<h3 class="item-card-title">' + escapeHtml(venue.name) + '</h3>' +
+          '<div class="item-card-meta">' +
+            (venue.cost ? '<span class="badge">' + escapeHtml(venue.cost) + '</span>' : '') +
+            (venue.premium ? '<span class="badge">Specialty</span>' : '<span class="badge">Included</span>') +
+          '</div>' +
+          '<p class="item-card-cta">' + escapeHtml(cta) + '</p>' +
+          shipsHtml +
+        '</div>' +
+      '</a>' +
+    '</article>';
+  }
+
+  function createCategorySection(categoryKey, venues, shipsData, allVenues, urlPrefix) {
+    var info = CATEGORY_INFO[categoryKey] || { name: categoryKey, icon: '📍', description: '' };
+
+    var venueCards = venues.map(function(venue) {
+      var ships = getShipsWithVenue(venue.slug, shipsData);
+      var consolidated = getConsolidatedNames(venue.slug, allVenues);
+      return createVenueCard(venue, ships, consolidated, urlPrefix);
     }).join('');
 
-    return `
-      <section class="category-section" data-category="${categoryKey}" data-collapsed="false">
-        <div class="category-header" role="button" tabindex="0" aria-expanded="true">
-          <h2 class="category-title">
-            <span aria-hidden="true">${info.icon}</span>
-            ${info.name}
-            <span class="category-count">${venues.length} venue${venues.length !== 1 ? 's' : ''}</span>
-          </h2>
-          <span class="category-toggle" aria-hidden="true">▼</span>
-        </div>
-        <div class="category-content">
-          <p class="tiny muted" style="margin-bottom: 1rem;">${info.description}</p>
-          <div class="item-grid">
-            ${venueCards}
-          </div>
-        </div>
-      </section>
-    `;
+    return '<section class="category-section" data-category="' + categoryKey + '" data-collapsed="false">' +
+      '<div class="category-header" role="button" tabindex="0" aria-expanded="true">' +
+        '<h2 class="category-title">' +
+          '<span aria-hidden="true">' + info.icon + '</span> ' +
+          info.name +
+          ' <span class="category-count">' + venues.length + ' venue' + (venues.length !== 1 ? 's' : '') + '</span>' +
+        '</h2>' +
+        '<span class="category-toggle" aria-hidden="true">▼</span>' +
+      '</div>' +
+      '<div class="category-content">' +
+        '<p class="tiny muted" style="margin-bottom: 1rem;">' + info.description + '</p>' +
+        '<div class="item-grid">' + venueCards + '</div>' +
+      '</div>' +
+    '</section>';
   }
 
   /**
-   * Create filter bar HTML
+   * Build the cruise line pills row.
+   */
+  function createCruiseLinePills() {
+    var pills = CRUISE_LINES.map(function(line) {
+      var activeClass = line.key === activeLine.key ? ' active' : '';
+      return '<button class="filter-pill' + activeClass + '" data-line="' + line.key + '" type="button">' +
+        escapeHtml(line.shortLabel) + '</button>';
+    });
+
+    return '<div class="filter-bar cruise-line-bar" role="group" aria-label="Select cruise line">' +
+      '<div class="filter-row">' + pills.join('') + '</div>' +
+    '</div>';
+  }
+
+  /**
+   * Build the category + cost filter pills for the active line.
    */
   function createFilterBar(categories) {
-    // All filters in logical order: All, Dining, Bars, Included, Premium
-    const allFilters = [
-      `<button class="filter-pill active" data-filter="all" data-filter-type="category" type="button">All</button>`,
-      `<button class="filter-pill" data-filter="dining" data-filter-type="category" type="button">🍽️ Dining</button>`,
-      `<button class="filter-pill" data-filter="bars" data-filter-type="category" type="button">🍸 Bars & Lounges</button>`,
-      `<button class="filter-pill" data-filter="included" data-filter-type="cost" type="button">✓ Included</button>`,
-      `<button class="filter-pill" data-filter="premium" data-filter-type="cost" type="button">💰 Premium</button>`
+    var pills = [
+      '<button class="filter-pill active" data-filter="all" data-filter-type="category" type="button">All</button>'
     ];
 
-    return `
-      <div class="filter-bar" role="group" aria-label="Filter venues">
-        <div class="filter-row">
-          ${allFilters.join('')}
-        </div>
-      </div>
-    `;
+    if (categories.includes('dining')) {
+      pills.push('<button class="filter-pill" data-filter="dining" data-filter-type="category" type="button">🍽️ Dining</button>');
+    }
+    if (categories.includes('bars')) {
+      pills.push('<button class="filter-pill" data-filter="bars" data-filter-type="category" type="button">🍸 Bars & Lounges</button>');
+    }
+    if (categories.includes('entertainment')) {
+      pills.push('<button class="filter-pill" data-filter="entertainment" data-filter-type="category" type="button">🎭 Entertainment</button>');
+    }
+
+    // Cost filters only if the line has a mix of included/premium
+    pills.push('<button class="filter-pill" data-filter="included" data-filter-type="cost" type="button">✓ Included</button>');
+    pills.push('<button class="filter-pill" data-filter="premium" data-filter-type="cost" type="button">💰 Premium</button>');
+
+    return '<div class="filter-bar" role="group" aria-label="Filter venues">' +
+      '<div class="filter-row">' + pills.join('') + '</div>' +
+    '</div>';
   }
 
   /**
-   * Render venues to container
+   * Main render function — builds venue cards for the active cruise line.
    */
-  function renderVenues(venuesArray, shipsData, allVenues) {
-    const container = document.getElementById('venuesContainer');
+  function renderVenues(venuesArray, shipsData, allVenues, lineConfig) {
+    var container = document.getElementById('venuesContainer');
     if (!container) return;
 
-    // Group venues by category
-    const grouped = {};
-    for (const venue of venuesArray) {
-      const category = venue.category || 'other';
-      if (!SHOW_CATEGORIES.includes(category)) continue;
+    var categories = lineConfig.categories;
+    var urlPrefix = lineConfig.urlPrefix;
 
-      if (!grouped[category]) {
-        grouped[category] = [];
-      }
+    // Group venues by normalized category
+    var grouped = {};
+    for (var i = 0; i < venuesArray.length; i++) {
+      var venue = venuesArray[i];
+      var category = normalizeCategory(venue.category || 'other');
+      if (!categories.includes(category)) continue;
+      if (!grouped[category]) grouped[category] = [];
       grouped[category].push(venue);
     }
 
-    // Sort venues within each category alphabetically
-    for (const category of Object.keys(grouped)) {
-      grouped[category].sort((a, b) => a.name.localeCompare(b.name));
+    // Sort alphabetically within each category
+    for (var cat in grouped) {
+      grouped[cat].sort(function(a, b) { return a.name.localeCompare(b.name); });
     }
 
     // Build HTML
-    const filterBar = createFilterBar(SHOW_CATEGORIES);
-    const sections = SHOW_CATEGORIES
-      .filter(cat => grouped[cat] && grouped[cat].length > 0)
-      .map(cat => createCategorySection(cat, grouped[cat], shipsData, allVenues))
+    var cruiseLinePills = createCruiseLinePills();
+    var filterBar = createFilterBar(categories);
+    var sections = categories
+      .filter(function(c) { return grouped[c] && grouped[c].length > 0; })
+      .map(function(c) { return createCategorySection(c, grouped[c], shipsData, allVenues, urlPrefix); })
       .join('');
 
-    container.innerHTML = filterBar + sections;
+    container.innerHTML = cruiseLinePills + filterBar + sections;
 
     // Initialize interactions
+    initializeCruiseLinePills();
     initializeFilters();
     initializeCollapsibles();
     initializeSearch();
-    announceLoaded(venuesArray.length);
+    announceLoaded(venuesArray.length, lineConfig.label);
   }
 
-  /**
-   * Initialize filter buttons
-   */
-  function initializeFilters() {
-    const categoryPills = document.querySelectorAll('.filter-pill[data-filter-type="category"]');
-    const costPills = document.querySelectorAll('.filter-pill[data-filter-type="cost"]');
-    const venueCards = document.querySelectorAll('.item-card');
-    const sections = document.querySelectorAll('.category-section');
+  // ─── Cruise line pill interaction ────────────────────────────────────────
 
-    let activeCategory = 'all';
-    let activeCostFilters = new Set(); // Can have multiple: included, premium
+  function initializeCruiseLinePills() {
+    var pills = document.querySelectorAll('.cruise-line-bar .filter-pill[data-line]');
+    pills.forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        var key = pill.getAttribute('data-line');
+        var line = CRUISE_LINES.find(function(l) { return l.key === key; });
+        if (!line || line.key === activeLine.key) return;
+
+        activeLine = line;
+
+        // Update active state visually
+        pills.forEach(function(p) { p.classList.remove('active'); });
+        pill.classList.add('active');
+
+        // Clear search
+        var searchInput = document.getElementById('venueSearch');
+        if (searchInput) searchInput.value = '';
+
+        // Load and render the selected line
+        loadAndRenderLine(line);
+      });
+    });
+  }
+
+  // ─── Category/cost filter interaction ────────────────────────────────────
+
+  function initializeFilters() {
+    var categoryPills = document.querySelectorAll('.filter-bar:not(.cruise-line-bar) .filter-pill[data-filter-type="category"]');
+    var costPills = document.querySelectorAll('.filter-bar:not(.cruise-line-bar) .filter-pill[data-filter-type="cost"]');
+    var venueCards = document.querySelectorAll('.item-card');
+    var sections = document.querySelectorAll('.category-section');
+
+    var activeCategory = 'all';
+    var activeCostFilters = new Set();
 
     function applyFilters() {
-      let visibleCount = 0;
-      const categoryCounts = {};
+      var categoryCounts = {};
 
-      venueCards.forEach(card => {
-        const cardCategory = card.dataset.category;
-        // Check all badges for "Specialty" text (not just the first one)
-        const badges = Array.from(card.querySelectorAll('.badge:not(.item-card-badge)'));
-        const isPremium = badges.some(badge => badge.textContent.trim() === 'Specialty');
+      venueCards.forEach(function(card) {
+        var cardCategory = card.dataset.category;
+        var badges = Array.from(card.querySelectorAll('.badge:not(.item-card-badge)'));
+        var isPremium = badges.some(function(badge) { return badge.textContent.trim() === 'Specialty'; });
 
-        // Check category filter (mutually exclusive)
-        const categoryMatch = activeCategory === 'all' || cardCategory === activeCategory;
+        var categoryMatch = activeCategory === 'all' || cardCategory === activeCategory;
 
-        // Check cost filters (can stack)
-        let costMatch = true;
+        var costMatch = true;
         if (activeCostFilters.size > 0) {
-          // If any cost filters active, must match at least one
           if (activeCostFilters.has('included') && !isPremium) {
             costMatch = true;
           } else if (activeCostFilters.has('premium') && isPremium) {
@@ -490,22 +512,18 @@
           }
         }
 
-        const shouldShow = categoryMatch && costMatch;
-
+        var shouldShow = categoryMatch && costMatch;
         if (shouldShow) {
           card.classList.remove('filter-hidden');
-          visibleCount++;
           categoryCounts[cardCategory] = (categoryCounts[cardCategory] || 0) + 1;
         } else {
           card.classList.add('filter-hidden');
         }
       });
 
-      // Update section visibility
-      sections.forEach(section => {
-        const category = section.dataset.category;
-        const visibleInSection = categoryCounts[category] || 0;
-
+      sections.forEach(function(section) {
+        var category = section.dataset.category;
+        var visibleInSection = categoryCounts[category] || 0;
         if (visibleInSection > 0) {
           section.style.display = '';
           section.classList.remove('filter-empty');
@@ -518,32 +536,26 @@
       });
     }
 
-    // Category pill clicks (toggle behavior - click again to go back to All)
-    categoryPills.forEach(pill => {
-      pill.addEventListener('click', () => {
-        const clickedFilter = pill.dataset.filter;
-
-        // If clicking the same non-All filter, toggle back to All
+    categoryPills.forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        var clickedFilter = pill.dataset.filter;
         if (clickedFilter !== 'all' && activeCategory === clickedFilter) {
           activeCategory = 'all';
-          categoryPills.forEach(p => p.classList.remove('active'));
-          const allPill = document.querySelector('.filter-pill[data-filter="all"]');
+          categoryPills.forEach(function(p) { p.classList.remove('active'); });
+          var allPill = document.querySelector('.filter-bar:not(.cruise-line-bar) .filter-pill[data-filter="all"]');
           if (allPill) allPill.classList.add('active');
         } else {
           activeCategory = clickedFilter;
-          categoryPills.forEach(p => p.classList.remove('active'));
+          categoryPills.forEach(function(p) { p.classList.remove('active'); });
           pill.classList.add('active');
         }
-
         applyFilters();
       });
     });
 
-    // Cost filter pill clicks (can stack multiple)
-    costPills.forEach(pill => {
-      pill.addEventListener('click', () => {
-        const filter = pill.dataset.filter;
-
+    costPills.forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        var filter = pill.dataset.filter;
         if (activeCostFilters.has(filter)) {
           activeCostFilters.delete(filter);
           pill.classList.remove('active');
@@ -551,32 +563,28 @@
           activeCostFilters.add(filter);
           pill.classList.add('active');
         }
-
         applyFilters();
       });
     });
   }
 
-  /**
-   * Initialize collapsible sections
-   */
+  // ─── Collapsible sections ────────────────────────────────────────────────
+
   function initializeCollapsibles() {
-    const headers = document.querySelectorAll('.category-header');
+    var headers = document.querySelectorAll('.category-header');
 
-    headers.forEach(header => {
-      const section = header.closest('.category-section');
-      const content = section.querySelector('.category-content');
+    headers.forEach(function(header) {
+      var section = header.closest('.category-section');
+      var content = section.querySelector('.category-content');
 
-      // Set initial max-height
-      requestAnimationFrame(() => {
+      requestAnimationFrame(function() {
         content.style.maxHeight = content.scrollHeight + 'px';
       });
 
-      header.addEventListener('click', () => {
-        const isCollapsed = section.dataset.collapsed === 'true';
+      header.addEventListener('click', function() {
+        var isCollapsed = section.dataset.collapsed === 'true';
         section.dataset.collapsed = !isCollapsed;
         header.setAttribute('aria-expanded', isCollapsed);
-
         if (isCollapsed) {
           content.style.maxHeight = content.scrollHeight + 'px';
         } else {
@@ -584,8 +592,7 @@
         }
       });
 
-      // Keyboard support
-      header.addEventListener('keydown', (e) => {
+      header.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           header.click();
@@ -594,75 +601,65 @@
     });
   }
 
-  /**
-   * Announce to screen readers
-   */
-  function announceLoaded(count) {
-    const status = document.getElementById('a11y-status');
+  // ─── Accessibility announcement ──────────────────────────────────────────
+
+  function announceLoaded(count, lineName) {
+    var status = document.getElementById('a11y-status');
     if (status) {
-      status.textContent = `${count} venues available`;
+      status.textContent = count + ' ' + lineName + ' venues available';
     }
   }
 
-  /**
-   * Initialize search functionality
-   */
+  // ─── Search ──────────────────────────────────────────────────────────────
+
   function initializeSearch() {
-    const searchInput = document.getElementById('venueSearch');
-    const clearBtn = document.getElementById('clearVenueSearch');
-    const resultsInfo = document.getElementById('venueSearchResults');
+    var searchInput = document.getElementById('venueSearch');
+    var clearBtn = document.getElementById('clearVenueSearch');
+    var resultsInfo = document.getElementById('venueSearchResults');
 
     if (!searchInput) return;
 
-    let debounceTimer;
+    var debounceTimer;
 
     function performSearch(query) {
-      const trimmedQuery = query.trim();
-      const venueCards = document.querySelectorAll('.item-card[data-venue]');
-      const categorySections = document.querySelectorAll('.category-section');
+      var trimmedQuery = query.trim();
+      var venueCards = document.querySelectorAll('.item-card[data-venue]');
+      var categorySections = document.querySelectorAll('.category-section');
 
-      // Clear button visibility
       if (clearBtn) {
         clearBtn.style.display = trimmedQuery ? 'block' : 'none';
       }
 
-      // If no query, show everything
       if (!trimmedQuery) {
-        venueCards.forEach(card => card.classList.remove('search-hidden'));
-        categorySections.forEach(section => {
-          section.classList.remove('search-empty');
-        });
+        venueCards.forEach(function(card) { card.classList.remove('search-hidden'); });
+        categorySections.forEach(function(section) { section.classList.remove('search-empty'); });
         if (resultsInfo) resultsInfo.textContent = '';
         return;
       }
 
-      let matchCount = 0;
-      const matchedCategories = new Set();
+      var matchCount = 0;
+      var matchedCategories = new Set();
 
-      // Check each venue
-      venueCards.forEach(card => {
-        const venueSlug = card.getAttribute('data-venue');
-        const category = card.getAttribute('data-category');
-        const searchKeywords = card.getAttribute('data-search-keywords') || '';
+      venueCards.forEach(function(card) {
+        var venueSlug = card.getAttribute('data-venue');
+        var category = card.getAttribute('data-category');
+        var searchKeywords = card.getAttribute('data-search-keywords') || '';
 
-        // Build search text from venue data
-        const titleEl = card.querySelector('.item-card-title');
-        const ctaEl = card.querySelector('.item-card-cta');
-        const shipsEl = card.querySelector('.ships-available');
+        var titleEl = card.querySelector('.item-card-title');
+        var ctaEl = card.querySelector('.item-card-cta');
+        var shipsEl = card.querySelector('.ships-available');
 
-        const searchParts = [
+        var searchParts = [
           titleEl ? titleEl.textContent : '',
           venueSlug ? venueSlug.replace(/-/g, ' ') : '',
           category || '',
           ctaEl ? ctaEl.textContent : '',
           shipsEl ? shipsEl.textContent : '',
-          searchKeywords  // Include consolidated venue names, dishes, and cuisine keywords
+          searchKeywords
         ];
-        const searchText = searchParts.join(' ').toLowerCase();
+        var searchText = searchParts.join(' ').toLowerCase();
 
-        const isMatch = fuzzyMatch(trimmedQuery, searchText);
-
-        if (isMatch) {
+        if (fuzzyMatch(trimmedQuery, searchText)) {
           card.classList.remove('search-hidden');
           matchCount++;
           if (category) matchedCategories.add(category);
@@ -671,10 +668,8 @@
         }
       });
 
-      // Hide/show category sections based on visible venues
-      categorySections.forEach(section => {
-        const visibleVenues = section.querySelectorAll('.item-card:not(.search-hidden)');
-
+      categorySections.forEach(function(section) {
+        var visibleVenues = section.querySelectorAll('.item-card:not(.search-hidden)');
         if (visibleVenues.length === 0) {
           section.classList.add('search-empty');
         } else {
@@ -682,47 +677,35 @@
         }
       });
 
-      // Update results info
       if (resultsInfo) {
         if (matchCount === 0) {
-          resultsInfo.innerHTML = `<strong>No venues found for "${escapeHtml(trimmedQuery)}"</strong> — try a different spelling`;
+          resultsInfo.innerHTML = '<strong>No venues found for "' + escapeHtml(trimmedQuery) + '"</strong> — try a different spelling';
         } else {
-          const catNames = {
-            'dining': 'Dining',
-            'bars': 'Bars & Lounges'
-          };
-          const categoryText = matchedCategories.size === 1
-            ? `in ${catNames[Array.from(matchedCategories)[0]] || Array.from(matchedCategories)[0]}`
-            : matchedCategories.size > 1
-              ? `across ${matchedCategories.size} categories`
-              : '';
-          resultsInfo.textContent = `Found ${matchCount} venue${matchCount !== 1 ? 's' : ''} ${categoryText}`;
+          var catText = matchedCategories.size > 1
+            ? ' across ' + matchedCategories.size + ' categories'
+            : '';
+          resultsInfo.textContent = 'Found ' + matchCount + ' venue' + (matchCount !== 1 ? 's' : '') + catText;
         }
       }
     }
 
-    // Debounced search on input
-    searchInput.addEventListener('input', (e) => {
+    searchInput.addEventListener('input', function(e) {
       clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
+      debounceTimer = setTimeout(function() {
         performSearch(e.target.value);
       }, 150);
     });
 
-    // Clear button
     if (clearBtn) {
-      clearBtn.addEventListener('click', () => {
+      clearBtn.addEventListener('click', function() {
         searchInput.value = '';
         performSearch('');
         searchInput.focus();
       });
     }
 
-    // Handle Enter key (prevent form submission if in form)
-    searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-      }
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') e.preventDefault();
       if (e.key === 'Escape') {
         searchInput.value = '';
         performSearch('');
@@ -730,62 +713,84 @@
     });
   }
 
-  /**
-   * Load venues data and dish data
-   */
-  async function loadVenuesData() {
-    try {
-      // Load venues and dishes data in parallel
-      const [venuesResponse, dishesResponse] = await Promise.all([
-        fetch('/assets/data/venues-v2.json'),
-        fetch('/assets/data/venue-dishes.json').catch(() => null)
-      ]);
-
-      if (!venuesResponse.ok) throw new Error('Failed to load venues data');
-      venuesData = await venuesResponse.json();
-
-      // Load dishes data (optional - search still works without it)
-      if (dishesResponse && dishesResponse.ok) {
-        dishesData = await dishesResponse.json();
-      }
-
-      // Filter to only dining and bars, exclude consolidated venues
-      const filteredVenues = venuesData.venues.filter(v =>
-        SHOW_CATEGORIES.includes(v.category) && !v.consolidate_into
-      );
-
-      renderVenues(filteredVenues, venuesData.ships, venuesData.venues);
-    } catch (error) {
-
-      showError();
-    }
-  }
+  // ─── Data loading ────────────────────────────────────────────────────────
 
   /**
-   * Show error state
+   * Load data for a specific cruise line and render it.
    */
-  function showError() {
-    const container = document.getElementById('venuesContainer');
-    if (container) {
-      container.innerHTML = `
-        <div class="no-results">
-          <p>Unable to load venue data. Please try refreshing the page.</p>
-        </div>
-      `;
-    }
-  }
-
-  /**
-   * Initialize
-   */
-  function init() {
-    const container = document.getElementById('venuesContainer');
+  async function loadAndRenderLine(lineConfig) {
+    var container = document.getElementById('venuesContainer');
     if (!container) return;
 
-    loadVenuesData();
+    // Show loading state — preserve the cruise line pills
+    var cruiseLinePillsHtml = container.querySelector('.cruise-line-bar');
+    var pillsHtml = cruiseLinePillsHtml ? cruiseLinePillsHtml.outerHTML : createCruiseLinePills();
+    container.innerHTML = pillsHtml + '<div class="items-loading">Loading ' + escapeHtml(lineConfig.label) + ' venues</div>';
+    initializeCruiseLinePills();
+
+    try {
+      // Use cache if available
+      if (lineCache[lineConfig.key]) {
+        var cached = lineCache[lineConfig.key];
+        renderVenues(cached.filtered, cached.ships, cached.allVenues, lineConfig);
+        return;
+      }
+
+      // Fetch data
+      var fetches = [fetch(lineConfig.dataFile)];
+      if (lineConfig.dishesFile) {
+        fetches.push(fetch(lineConfig.dishesFile).catch(function() { return null; }));
+      }
+
+      var responses = await Promise.all(fetches);
+      var venuesResponse = responses[0];
+
+      if (!venuesResponse.ok) throw new Error('Failed to load ' + lineConfig.label + ' venue data');
+      var data = await venuesResponse.json();
+
+      // Load dishes data if available (RCL only)
+      if (lineConfig.dishesFile && responses[1] && responses[1].ok) {
+        dishesData = await responses[1].json();
+      } else if (!lineConfig.dishesFile) {
+        dishesData = null;
+      }
+
+      var shipsData = data.ships || null;
+      var allVenues = data.venues || [];
+
+      // Filter: only show configured categories, exclude consolidated venues
+      var filtered = allVenues.filter(function(v) {
+        var cat = normalizeCategory(v.category || 'other');
+        return lineConfig.categories.includes(cat) && !v.consolidate_into;
+      });
+
+      // Cache
+      lineCache[lineConfig.key] = { filtered: filtered, ships: shipsData, allVenues: allVenues };
+
+      renderVenues(filtered, shipsData, allVenues, lineConfig);
+    } catch (_) {
+      showError(lineConfig.label);
+    }
   }
 
-  // Initialize when DOM is ready
+  function showError(lineName) {
+    var container = document.getElementById('venuesContainer');
+    if (container) {
+      var pillsHtml = createCruiseLinePills();
+      container.innerHTML = pillsHtml +
+        '<div class="no-results"><p>Unable to load ' + escapeHtml(lineName || '') + ' venue data. Please try refreshing the page.</p></div>';
+      initializeCruiseLinePills();
+    }
+  }
+
+  // ─── Initialize ──────────────────────────────────────────────────────────
+
+  function init() {
+    var container = document.getElementById('venuesContainer');
+    if (!container) return;
+    loadAndRenderLine(activeLine);
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
