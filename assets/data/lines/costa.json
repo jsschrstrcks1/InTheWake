@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "1.1",
+  "updated": "2025-11-03",
+  "lineId": "costa",
+  "rules": {
+    "gratuity": 0.00,
+    "epsilon": 0.02,
+    "caps": { "intenditoreAlcohol": 15 }
+  },
+  "items": [
+    { "id": "soda",         "label": "Soda (can/fountain)",    "price": 2.50,  "rangeMin": 2.00, "rangeMax": 3.00 },
+    { "id": "coffee",       "label": "Premium Coffee",         "price": 4.00,  "rangeMin": 3.00, "rangeMax": 5.00 },
+    { "id": "teaprem",      "label": "Specialty Tea",          "price": 2.00,  "rangeMin": 1.50, "rangeMax": 2.50 },
+    { "id": "freshjuice",   "label": "Fresh-Squeezed Juice",   "price": 5.00,  "rangeMin": 4.00, "rangeMax": 6.00 },
+    { "id": "mocktail",     "label": "Mocktail",               "price": 6.00,  "rangeMin": 4.50, "rangeMax": 7.50 },
+    { "id": "energy",       "label": "Energy Drink",           "price": 4.00,  "rangeMin": 3.50, "rangeMax": 4.50 },
+    { "id": "milkshake",    "label": "Milkshake / Smoothie",   "price": 5.50,  "rangeMin": 4.00, "rangeMax": 7.00 },
+    { "id": "bottledwater", "label": "Bottled Water (500 ml)", "price": 2.00,  "rangeMin": 1.50, "rangeMax": 2.50 },
+    { "id": "beer",         "label": "Beer",                   "price": 6.50,  "rangeMin": 5.00, "rangeMax": 8.00 },
+    { "id": "wine",         "label": "Wine (glass)",           "price": 8.00,  "rangeMin": 6.00, "rangeMax": 12.00 },
+    { "id": "cocktail",     "label": "Cocktail",               "price": 10.00, "rangeMin": 7.50, "rangeMax": 13.00 },
+    { "id": "spirits",      "label": "Spirits / Shot (+mixer)","price": 8.50,  "rangeMin": 6.50, "rangeMax": 11.00 },
+    { "id": "tapwater",     "label": "Tap Water",              "price": 0, "free": true },
+    { "id": "lemonade",     "label": "Lemonade (basic)",       "price": 0, "free": true },
+    { "id": "basictea",     "label": "Basic Tea (hot/cold)",   "price": 0, "free": true },
+    { "id": "juiceconc",    "label": "Juice (concentrate)",    "price": 0, "free": true }
+  ],
+  "sets": {
+    "soda":    ["soda"],
+    "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","milkshake","bottledwater","tapwater","lemonade","basictea","juiceconc","energy"],
+    "alcohol": ["beer","wine","cocktail","spirits"]
+  },
+  "packages": {
+    "myDrinks": {
+      "name": "My Drinks Package",
+      "price": 26.00,
+      "range": "€20–€35/day",
+      "priceMin": 20.00,
+      "priceMax": 35.00,
+      "priceMid": 26.00,
+      "includes": [
+        "Fountain soda & premium coffees",
+        "Specialty teas & fresh juices",
+        "Mocktails & smoothies",
+        "Bottled water"
+      ]
+    },
+    "intenditore": {
+      "name": "Intenditore Package",
+      "price": 49.00,
+      "range": "€39–€65/day",
+      "priceMin": 39.00,
+      "priceMax": 65.00,
+      "priceMid": 49.00,
+      "includes": [
+        "All My Drinks items",
+        "Beer, wine, cocktails & spirits up to €15 each",
+        "Premium Italian wines by the glass",
+        "Cocktails at all bars including specialty venues"
+      ]
+    }
+  },
+  "_notes": {
+    "apples_to_apples": "Gratuity is included in Costa pricing (European model). Prices shown in EUR."
+  }
+}
