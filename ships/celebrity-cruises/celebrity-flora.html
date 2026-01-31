@@ -295,6 +295,31 @@ All work on this project is offered as a gift to God.
     <!-- First Look Section -->
     <section class="card" aria-labelledby="first-look">
       <h2 id="first-look">A First Look</h2>
+      <div class="swiper firstlook" aria-label="Celebrity Flora photo gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-flora_01.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Celebrity Flora at Hoek van Holland" loading="lazy">
+              <figcaption class="tiny">Celebrity Flora at Hoek van Holland — kees torn (CC BY-SA 2.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-flora_02.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Celebrity Flora at Shipyard De Hoop" loading="lazy">
+              <figcaption class="tiny">Celebrity Flora at Shipyard De Hoop — Shipyard De Hoop (CC BY-SA 4.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-flora_03.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Celebrity Flora departing Hoek van Holland with tug escort" loading="lazy">
+              <figcaption class="tiny">Celebrity Flora departing Hoek van Holland with tug escort — kees torn (CC BY-SA 2.0)</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
+      </div>
       <div class="grid-2" style="gap: 1.5rem;">
         <div>
           <p>Celebrity Flora is the first ship in the cruise industry designed from scratch specifically for the Galápagos Islands. Launched in 2019, her outward-facing design maximizes wildlife viewing with floor-to-ceiling windows in every suite, an open-air Observatory, and a unique "glamping" experience on the top deck under the stars. At just 100 guests with a remarkable 1:1 guest-to-crew ratio, she delivers an intimate expedition experience wrapped in Celebrity's modern-luxury polish.</p>
@@ -345,6 +370,67 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 
+    <section class="card" aria-labelledby="video-highlights">
+      <h2 id="video-highlights">Watch: Celebrity Flora Highlights</h2>
+      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
+      <div class="swiper videos" aria-label="Featured video carousel">
+        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
+    </section>
+
+    <script>
+    (function(){
+      const mount=document.getElementById('featuredVideos');
+      const fallback=document.getElementById('videoFallback');
+      if(!mount) return;
+      function abs(p){try{return new URL(p,location.href).href}catch(_){return p}}
+      function getVideoURL(id,provider){
+        if(provider==='youtube'||!provider) return 'https://www.youtube-nocookie.com/embed/'+id+'?rel=0';
+        return null;
+      }
+      function renderVideos(arr){
+        if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
+        mount.innerHTML=arr.slice(0,12).map(v=>{
+          const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
+          const title=String(v.title||'Celebrity Flora').replace(/</g,'&lt;');
+          return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
+        }).join('');
+        if(mount.children.length&&window.Swiper){
+          setTimeout(()=>{
+            try{
+              new Swiper('.swiper.videos',{
+                loop:false,rewind:false,lazy:true,watchOverflow:true,
+                pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
+                navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
+                a11y:{enabled:true}
+              });
+            }catch(_){}
+          },150);
+        }
+      }
+      function fetchVideoData(){
+        const SOURCES=[abs('/assets/data/videos/celebrity-cruises/celebrity-flora.json')];
+        function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+          return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+        return tryFetch();
+      }
+      function flattenVideos(data){
+        if(!data||!data.videos) return [];
+        if(Array.isArray(data.videos)) return data.videos;
+        let vids=[];
+        for(const cat of Object.values(data.videos)){
+          if(Array.isArray(cat)) vids=vids.concat(cat);
+        }
+        return vids;
+      }
+      fetchVideoData().then(data=>{ if(data) renderVideos(flattenVideos(data)); });
+    })();
+    </script>
+
     
     <!-- Deck Plans & Tracker Grid -->
     <div class="grid-2">
@@ -355,7 +441,7 @@ All work on this project is offered as a gift to God.
         </div>
       </section>
 
-      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="TBD" data-name="CELEBRITYFLORA">
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9837925" data-name="CELEBRITYFLORA">
         <h2 id="liveTrackHeading">Live Ship Tracker</h2>
         <div id="ship-tracker-container">
           <p>Track Celebrity Flora's current position and voyage details.</p>

@@ -295,6 +295,61 @@ All work on this project is offered as a gift to God.
     <!-- First Look Section -->
     <section class="card" aria-labelledby="first-look">
       <h2 id="first-look">A First Look</h2>
+      <div class="swiper firstlook" aria-label="Eurodam photo gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/eurodam_01.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MS Eurodam in Glacier Bay, Alaska" loading="lazy">
+              <figcaption class="tiny">MS Eurodam in Glacier Bay, Alaska — Gordon Leggett (CC BY-SA 4.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/eurodam_02.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Eurodam at Hoek van Holland" loading="lazy">
+              <figcaption class="tiny">Eurodam at Hoek van Holland — Frans Berkelaar (CC BY 2.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/eurodam_03.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Eurodam in Saranda, Albania" loading="lazy">
+              <figcaption class="tiny">Eurodam in Saranda, Albania — Stephen Daniel Kellett (CC BY-SA 2.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/eurodam_04.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Eurodam on Gastineau Channel near Juneau, Alaska" loading="lazy">
+              <figcaption class="tiny">Eurodam on Gastineau Channel near Juneau, Alaska — Gillfoto (CC BY-SA 4.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/eurodam_05.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Eurodam and Icon of the Seas in Philipsburg, Sint Maarten" loading="lazy">
+              <figcaption class="tiny">Eurodam and Icon of the Seas in Philipsburg, Sint Maarten — Concord (CC BY-SA 4.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/eurodam_06.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MS Eurodam at Port of Rotterdam cruise terminal" loading="lazy">
+              <figcaption class="tiny">MS Eurodam at Port of Rotterdam cruise terminal — Frans Berkelaar (CC BY 2.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/eurodam_07.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Eurodam alongside San Juan, Puerto Rico" loading="lazy">
+              <figcaption class="tiny">Eurodam alongside San Juan, Puerto Rico — Michael Elleray (CC BY 2.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/eurodam_08.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Eurodam passing Hoek van Holland outbound from Rotterdam" loading="lazy">
+              <figcaption class="tiny">Eurodam passing Hoek van Holland outbound from Rotterdam — Welkinridge (Public domain)</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
+      </div>
       <div class="grid-2" style="gap: 1.5rem;">
         <div>
           <p>Eurodam debuted in 2008 as the lead ship of Holland America's Signature class — a design evolution that introduced several firsts for the line. She was HAL's first ship with the Loft suites (two-story penthouses on the Navigation Deck), the first with Tamarind pan-Asian restaurant, and the first to feature Billboard Onboard — a live music venue with dueling pianos and band performances that became one of HAL's most popular entertainment innovations. At 936 feet and 86,273 GT, she was also the largest HAL ship when built.</p>
@@ -345,6 +400,67 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 
+    <section class="card" aria-labelledby="video-highlights">
+      <h2 id="video-highlights">Watch: Eurodam Highlights</h2>
+      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
+      <div class="swiper videos" aria-label="Featured video carousel">
+        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
+    </section>
+
+    <script>
+    (function(){
+      const mount=document.getElementById('featuredVideos');
+      const fallback=document.getElementById('videoFallback');
+      if(!mount) return;
+      function abs(p){try{return new URL(p,location.href).href}catch(_){return p}}
+      function getVideoURL(id,provider){
+        if(provider==='youtube'||!provider) return 'https://www.youtube-nocookie.com/embed/'+id+'?rel=0';
+        return null;
+      }
+      function renderVideos(arr){
+        if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
+        mount.innerHTML=arr.slice(0,12).map(v=>{
+          const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
+          const title=String(v.title||'Eurodam').replace(/</g,'&lt;');
+          return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
+        }).join('');
+        if(mount.children.length&&window.Swiper){
+          setTimeout(()=>{
+            try{
+              new Swiper('.swiper.videos',{
+                loop:false,rewind:false,lazy:true,watchOverflow:true,
+                pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
+                navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
+                a11y:{enabled:true}
+              });
+            }catch(_){}
+          },150);
+        }
+      }
+      function fetchVideoData(){
+        const SOURCES=[abs('/assets/data/videos/holland-america-line/eurodam.json')];
+        function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+          return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+        return tryFetch();
+      }
+      function flattenVideos(data){
+        if(!data||!data.videos) return [];
+        if(Array.isArray(data.videos)) return data.videos;
+        let vids=[];
+        for(const cat of Object.values(data.videos)){
+          if(Array.isArray(cat)) vids=vids.concat(cat);
+        }
+        return vids;
+      }
+      fetchVideoData().then(data=>{ if(data) renderVideos(flattenVideos(data)); });
+    })();
+    </script>
+
     
     <!-- Deck Plans & Tracker Grid -->
     <div class="grid-2">
@@ -355,7 +471,7 @@ All work on this project is offered as a gift to God.
         </div>
       </section>
 
-      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="TBD" data-name="EURODAM">
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9378448" data-name="EURODAM">
         <h2 id="liveTrackHeading">Live Ship Tracker</h2>
         <div id="ship-tracker-container">
           <p>Track Eurodam's current position and voyage details.</p>

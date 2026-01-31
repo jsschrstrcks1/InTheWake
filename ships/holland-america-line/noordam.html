@@ -295,6 +295,61 @@ All work on this project is offered as a gift to God.
     <!-- First Look Section -->
     <section class="card" aria-labelledby="first-look">
       <h2 id="first-look">A First Look</h2>
+      <div class="swiper firstlook" aria-label="Noordam photo gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/noordam_01.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MS Noordam departing Split, Croatia" loading="lazy">
+              <figcaption class="tiny">MS Noordam departing Split, Croatia — Ivan T. (CC BY-SA 3.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/noordam_02.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Noordam berthed at Picton, New Zealand" loading="lazy">
+              <figcaption class="tiny">Noordam berthed at Picton, New Zealand — Lcmortensen (CC BY-SA 4.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/noordam_03.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Noordam at Marseille, France" loading="lazy">
+              <figcaption class="tiny">Noordam at Marseille, France — Corentin Lewis (CC BY-SA 3.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/noordam_04.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MV Noordam" loading="lazy">
+              <figcaption class="tiny">MV Noordam — Simon_sees (CC BY 2.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/noordam_05.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Holland America Line&#x27;s Noordam" loading="lazy">
+              <figcaption class="tiny">Holland America Line&#x27;s Noordam — Dennis den Hamer (CC BY-SA 4.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/noordam_06.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MS Noordam in Grand Turk, Turks and Caicos" loading="lazy">
+              <figcaption class="tiny">MS Noordam in Grand Turk, Turks and Caicos — MilkoholicBear (Public domain)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/noordam_07.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Noordam in Sydney Harbour with Harbour Bridge, 2025" loading="lazy">
+              <figcaption class="tiny">Noordam in Sydney Harbour with Harbour Bridge, 2025 — Edwin H (CC BY-SA 4.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/noordam_08.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MS Noordam departing Half Moon Cay, Bahamas" loading="lazy">
+              <figcaption class="tiny">MS Noordam departing Half Moon Cay, Bahamas — Michael Elleray (CC BY 2.0)</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
+      </div>
       <div class="grid-2" style="gap: 1.5rem;">
         <div>
           <p>Noordam entered service in 2006 as the fourth and final Vista-class ship, completing a quartet that became the backbone of Holland America's fleet for nearly two decades. At 82,318 GT and 936 feet, she carries 1,918 guests with the uncrowded, spacious feel that defines HAL's mid-size premium experience. Her multi-million-dollar art collection spans Dutch Golden Age paintings to contemporary sculptures, continuing HAL's tradition as one of the cruise industry's most significant floating art galleries.</p>
@@ -345,6 +400,67 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 
+    <section class="card" aria-labelledby="video-highlights">
+      <h2 id="video-highlights">Watch: Noordam Highlights</h2>
+      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
+      <div class="swiper videos" aria-label="Featured video carousel">
+        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
+    </section>
+
+    <script>
+    (function(){
+      const mount=document.getElementById('featuredVideos');
+      const fallback=document.getElementById('videoFallback');
+      if(!mount) return;
+      function abs(p){try{return new URL(p,location.href).href}catch(_){return p}}
+      function getVideoURL(id,provider){
+        if(provider==='youtube'||!provider) return 'https://www.youtube-nocookie.com/embed/'+id+'?rel=0';
+        return null;
+      }
+      function renderVideos(arr){
+        if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
+        mount.innerHTML=arr.slice(0,12).map(v=>{
+          const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
+          const title=String(v.title||'Noordam').replace(/</g,'&lt;');
+          return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
+        }).join('');
+        if(mount.children.length&&window.Swiper){
+          setTimeout(()=>{
+            try{
+              new Swiper('.swiper.videos',{
+                loop:false,rewind:false,lazy:true,watchOverflow:true,
+                pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
+                navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
+                a11y:{enabled:true}
+              });
+            }catch(_){}
+          },150);
+        }
+      }
+      function fetchVideoData(){
+        const SOURCES=[abs('/assets/data/videos/holland-america-line/noordam.json')];
+        function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+          return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+        return tryFetch();
+      }
+      function flattenVideos(data){
+        if(!data||!data.videos) return [];
+        if(Array.isArray(data.videos)) return data.videos;
+        let vids=[];
+        for(const cat of Object.values(data.videos)){
+          if(Array.isArray(cat)) vids=vids.concat(cat);
+        }
+        return vids;
+      }
+      fetchVideoData().then(data=>{ if(data) renderVideos(flattenVideos(data)); });
+    })();
+    </script>
+
     
     <!-- Deck Plans & Tracker Grid -->
     <div class="grid-2">
@@ -355,7 +471,7 @@ All work on this project is offered as a gift to God.
         </div>
       </section>
 
-      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="TBD" data-name="NOORDAM">
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9230115" data-name="NOORDAM">
         <h2 id="liveTrackHeading">Live Ship Tracker</h2>
         <div id="ship-tracker-container">
           <p>Track Noordam's current position and voyage details.</p>

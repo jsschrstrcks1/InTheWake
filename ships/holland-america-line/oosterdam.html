@@ -295,6 +295,61 @@ All work on this project is offered as a gift to God.
     <!-- First Look Section -->
     <section class="card" aria-labelledby="first-look">
       <h2 id="first-look">A First Look</h2>
+      <div class="swiper firstlook" aria-label="Oosterdam photo gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/oosterdam_01.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MS Oosterdam anchored in Cabo San Lucas" loading="lazy">
+              <figcaption class="tiny">MS Oosterdam anchored in Cabo San Lucas — Sebastian Wessels (CC BY 2.5)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/oosterdam_02.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Holland America Oosterdam cruise ship" loading="lazy">
+              <figcaption class="tiny">Holland America Oosterdam cruise ship — pcwiles (CC BY 3.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/oosterdam_03.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Oosterdam moored at Port of Rhodes, Greece" loading="lazy">
+              <figcaption class="tiny">Oosterdam moored at Port of Rhodes, Greece — Pjotr Mahhonin (CC BY-SA 4.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/oosterdam_04.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MS Oosterdam in Alanya, Turkey (2024)" loading="lazy">
+              <figcaption class="tiny">MS Oosterdam in Alanya, Turkey (2024) — Julian Lupyan (CC0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/oosterdam_05.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MS Oosterdam at Princes Wharf, Auckland, New Zealand" loading="lazy">
+              <figcaption class="tiny">MS Oosterdam at Princes Wharf, Auckland, New Zealand — Bahnfrend (CC BY-SA 3.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/oosterdam_06.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MS Oosterdam at San Diego, California" loading="lazy">
+              <figcaption class="tiny">MS Oosterdam at San Diego, California — Jean-Philippe Boulet (CC BY 3.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/oosterdam_07.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MS Oosterdam at Limassol, Cyprus (2024)" loading="lazy">
+              <figcaption class="tiny">MS Oosterdam at Limassol, Cyprus (2024) — Julian Lupyan (CC0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/oosterdam_08.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MS Oosterdam departing Limassol, Cyprus (2024)" loading="lazy">
+              <figcaption class="tiny">MS Oosterdam departing Limassol, Cyprus (2024) — Julian Lupyan (CC0)</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
+      </div>
       <div class="grid-2" style="gap: 1.5rem;">
         <div>
           <p>Oosterdam launched in 2003 as the second Vista-class ship, following sister Zuiderdam. The Vista class introduced a larger hull design for Holland America that would serve as the foundation for nearly two decades of shipbuilding. At 936 feet and 82,305 GT, she carries 1,848 guests with a guest-to-crew ratio of about 2.2:1 — maintaining the uncrowded feel that HAL loyalists appreciate. She has received multiple upgrades over the years including the addition of Billboard Onboard, enhanced dining options, and refreshed staterooms.</p>
@@ -345,6 +400,67 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 
+    <section class="card" aria-labelledby="video-highlights">
+      <h2 id="video-highlights">Watch: Oosterdam Highlights</h2>
+      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
+      <div class="swiper videos" aria-label="Featured video carousel">
+        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
+    </section>
+
+    <script>
+    (function(){
+      const mount=document.getElementById('featuredVideos');
+      const fallback=document.getElementById('videoFallback');
+      if(!mount) return;
+      function abs(p){try{return new URL(p,location.href).href}catch(_){return p}}
+      function getVideoURL(id,provider){
+        if(provider==='youtube'||!provider) return 'https://www.youtube-nocookie.com/embed/'+id+'?rel=0';
+        return null;
+      }
+      function renderVideos(arr){
+        if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
+        mount.innerHTML=arr.slice(0,12).map(v=>{
+          const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
+          const title=String(v.title||'Oosterdam').replace(/</g,'&lt;');
+          return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
+        }).join('');
+        if(mount.children.length&&window.Swiper){
+          setTimeout(()=>{
+            try{
+              new Swiper('.swiper.videos',{
+                loop:false,rewind:false,lazy:true,watchOverflow:true,
+                pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
+                navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
+                a11y:{enabled:true}
+              });
+            }catch(_){}
+          },150);
+        }
+      }
+      function fetchVideoData(){
+        const SOURCES=[abs('/assets/data/videos/holland-america-line/oosterdam.json')];
+        function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+          return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+        return tryFetch();
+      }
+      function flattenVideos(data){
+        if(!data||!data.videos) return [];
+        if(Array.isArray(data.videos)) return data.videos;
+        let vids=[];
+        for(const cat of Object.values(data.videos)){
+          if(Array.isArray(cat)) vids=vids.concat(cat);
+        }
+        return vids;
+      }
+      fetchVideoData().then(data=>{ if(data) renderVideos(flattenVideos(data)); });
+    })();
+    </script>
+
     
     <!-- Deck Plans & Tracker Grid -->
     <div class="grid-2">
@@ -355,7 +471,7 @@ All work on this project is offered as a gift to God.
         </div>
       </section>
 
-      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="TBD" data-name="OOSTERDAM">
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9221281" data-name="OOSTERDAM">
         <h2 id="liveTrackHeading">Live Ship Tracker</h2>
         <div id="ship-tracker-container">
           <p>Track Oosterdam's current position and voyage details.</p>
