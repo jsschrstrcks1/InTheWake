@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-The project has 7,858 files across 587 directories, 380 port pages, 293+ ship pages, 215 restaurant pages, and a sophisticated Claude Code skill system (8 rules, 5 plugins, 3 hooks). After deep ground-truth verification (2026-01-31), many previously-reported "incomplete" items are actually done. **~6 genuinely incomplete work streams remain**. This plan prioritizes them by impact, effort, and strategic value.
+The project has 7,858 files across 587 directories, 380 port pages, 293+ ship pages, 215 restaurant pages, and a sophisticated Claude Code skill system (9 rules, 5 plugins, 3 hooks). After deep ground-truth verification (2026-01-31), many previously-reported "incomplete" items are actually done. **~6 genuinely incomplete work streams remain**. This plan prioritizes them by impact, effort, and strategic value.
 
 ---
 
@@ -164,16 +164,9 @@ Key: CORS fix (8 functions), warmCalculatorShell prefetch, cache refresh UI.
 
 ---
 
-## Stale Branches to Delete
+## ~~Stale Branches to Delete~~ ✅ ALREADY CLEANED UP
 
-These 7 branches have no unmerged changes and can be cleaned up:
-- `claude/affiliate-deployment-plan-Twqff`
-- `claude/audit-competitor-gaps-0zTZ0`
-- `claude/audit-ship-pages-UsCC9`
-- `claude/audit-venues-gD9fq`
-- `claude/identify-maintenance-tasks-FN2lh`
-- `claude/review-context-onboarding-ZZauz`
-- `claude/validate-ship-pages-5Z2jp`
+Verified 2026-01-31: Only 2 remote branches exist (`origin/main`, `origin/claude/review-previous-work-ZMk3b`). The 7 previously-listed stale branches have already been deleted.
 
 ---
 
