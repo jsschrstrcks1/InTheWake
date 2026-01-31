@@ -95,6 +95,45 @@ h3 { font-size: 1.25rem; line-height: 1.4; }
   .transport-costs-table th, .transport-costs-table td { padding: 0.35rem 0.4rem; }
 }
 
+/* Ships That Visit Here Component (Competitor Gap P1) */
+.ships-visiting .ship-links { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; }
+.ships-visiting .cruise-line-label { margin: 0.75rem 0 0.4rem; font-weight: 600; font-size: 0.88rem; }
+.ships-visiting .cruise-line-label:first-of-type { margin-top: 0; }
+.ship-link-pill { display: inline-block; padding: 0.3rem 0.65rem; border-radius: 999px; font-size: 0.78rem; text-decoration: none; border: 1px solid #cde8f0; background: var(--foam, #e6f4f8); color: var(--sea, #0e6e8e); transition: background 0.2s, transform 0.15s; }
+.ship-link-pill:hover { background: #d0e8f0; transform: translateY(-1px); }
+.ship-link-pill[data-line="carnival"] { background: #fff3e6; border-color: #e3c8b8; color: #c74a35; }
+.ship-link-pill[data-line="carnival"]:hover { background: #ffe6cc; }
+.ship-link-pill[data-line="celebrity"] { background: #f0f0f5; border-color: #c0c0d0; color: #1a1a4e; }
+.ship-link-pill[data-line="celebrity"]:hover { background: #e0e0eb; }
+.ship-link-pill[data-line="ncl"] { background: #e6f0ff; border-color: #b8c8e3; color: #003087; }
+.ship-link-pill[data-line="ncl"]:hover { background: #d0e0f5; }
+.ship-link-pill[data-line="princess"] { background: #e6f2ef; border-color: #b8d4cd; color: #00665e; }
+.ship-link-pill[data-line="princess"]:hover { background: #d0e8e3; }
+.ship-link-pill[data-line="hal"] { background: #e8eef5; border-color: #c0cee0; color: #1a3a5c; }
+.ship-link-pill[data-line="hal"]:hover { background: #d8e4f0; }
+.ship-link-pill[data-line="msc"] { background: #e6e9f0; border-color: #b8c0d0; color: #1a2a4a; }
+.ship-link-pill[data-line="msc"]:hover { background: #d0d5e5; }
+.ship-link-pill[data-line="virgin"] { background: #fce8e8; border-color: #e8c0c0; color: #cc0000; }
+.ship-link-pill[data-line="virgin"]:hover { background: #f5d5d5; }
+.ship-link-pill[data-line="costa"] { background: #fff8e6; border-color: #e8d8b0; color: #c09000; }
+.ship-link-pill[data-line="costa"]:hover { background: #fff0cc; }
+.ship-link-pill[data-line="cunard"] { background: #f5e8e8; border-color: #d8b0b0; color: #8b0000; }
+.ship-link-pill[data-line="cunard"]:hover { background: #f0d8d8; }
+.ship-link-pill[data-line="oceania"] { background: #f5f0e8; border-color: #d8c8b0; color: #8b6914; }
+.ship-link-pill[data-line="oceania"]:hover { background: #f0e8d8; }
+.ship-link-pill[data-line="regent"] { background: #e8ecf5; border-color: #b0b8d8; color: #1a2a5e; }
+.ship-link-pill[data-line="regent"]:hover { background: #d8e0f0; }
+.ship-link-pill[data-line="seabourn"] { background: #e8f0e8; border-color: #b0d0b0; color: #1a4a2e; }
+.ship-link-pill[data-line="seabourn"]:hover { background: #d8e8d8; }
+.ship-link-pill[data-line="silversea"] { background: #f0f0f0; border-color: #c0c0c0; color: #404040; }
+.ship-link-pill[data-line="silversea"]:hover { background: #e8e8e8; }
+.ship-link-pill[data-line="explora"] { background: #f0eef5; border-color: #c8c0d8; color: #2a1a4e; }
+.ship-link-pill[data-line="explora"]:hover { background: #e8e4f0; }
+@media (max-width: 600px) {
+  .ships-visiting .ship-links { gap: 0.3rem; }
+  .ship-link-pill { font-size: 0.74rem; padding: 0.25rem 0.55rem; }
+}
+
 /* Image Utilities (900+ uses) */
 .img-cover { width: 100%; height: 100%; object-fit: cover; }
 .rounded-lg { border-radius: 12px; }

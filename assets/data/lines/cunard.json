@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "1.1",
+  "updated": "2026-01-31",
+  "lineId": "cunard",
+  "rules": {
+    "gratuity": 0.15,
+    "epsilon": 0.02,
+    "caps": {}
+  },
+  "items": [
+    { "id": "soda",         "label": "Soda (can/fountain)",    "price": 3.50,  "rangeMin": 2.00, "rangeMax": 4.50 },
+    { "id": "coffee",       "label": "Premium Coffee",         "price": 4.00,  "rangeMin": 4.00, "rangeMax": 4.00 },
+    { "id": "teaprem",      "label": "Specialty Tea",          "price": 4.00,  "rangeMin": 4.00, "rangeMax": 4.00 },
+    { "id": "freshjuice",   "label": "Fresh-Squeezed Juice",   "price": 4.00,  "rangeMin": 4.00, "rangeMax": 4.00 },
+    { "id": "mocktail",     "label": "Mocktail",               "price": 11.50, "rangeMin": 8.60, "rangeMax": 12.50 },
+    { "id": "energy",       "label": "Energy Drink",           "price": 5.00,  "rangeMin": 5.00, "rangeMax": 5.00 },
+    { "id": "milkshake",    "label": "Milkshake / Smoothie",   "price": 6.00,  "rangeMin": 5.00, "rangeMax": 7.00 },
+    { "id": "bottledwater", "label": "Bottled Water (500 ml)", "price": 2.50,  "rangeMin": 2.50, "rangeMax": 5.00 },
+    { "id": "beer",         "label": "Beer",                   "price": 6.50,  "rangeMin": 6.00, "rangeMax": 8.30 },
+    { "id": "wine",         "label": "Wine (glass)",           "price": 10.00, "rangeMin": 8.50, "rangeMax": 16.00 },
+    { "id": "cocktail",     "label": "Cocktail",               "price": 13.50, "rangeMin": 10.00, "rangeMax": 17.50 },
+    { "id": "spirits",      "label": "Spirits / Shot (+mixer)","price": 7.00,  "rangeMin": 6.50, "rangeMax": 14.00 },
+    { "id": "tapwater",     "label": "Tap Water",              "price": 0, "free": true },
+    { "id": "lemonade",     "label": "Lemonade (basic)",       "price": 0, "free": true },
+    { "id": "basictea",     "label": "Basic Tea (hot/cold)",   "price": 0, "free": true },
+    { "id": "juiceconc",    "label": "Juice (concentrate)",    "price": 0, "free": true }
+  ],
+  "sets": {
+    "soda":    ["soda"],
+    "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","milkshake","bottledwater","tapwater","lemonade","basictea","juiceconc","energy"],
+    "alcohol": ["beer","wine","cocktail","spirits"]
+  },
+  "packages": {
+    "softDrink": {
+      "name": "Soft Drink Package",
+      "price": 11.00,
+      "range": "$11/day (+15% service charge)",
+      "priceMin": 11.00,
+      "priceMax": 11.00,
+      "priceMid": 11.00,
+      "includes": [
+        "Unlimited soft drinks & mixers",
+        "Bottled water",
+        "Specialty coffees & teas",
+        "Fresh juices"
+      ]
+    },
+    "beersWines": {
+      "name": "Beers & Wines Package",
+      "price": 72.00,
+      "range": "$72/day (+15% service charge)",
+      "priceMin": 72.00,
+      "priceMax": 72.00,
+      "priceMid": 72.00,
+      "includes": [
+        "All Soft Drink Package items",
+        "Draught and bottled beers",
+        "Selected wines by the glass",
+        "House cocktails"
+      ]
+    },
+    "allInclusive": {
+      "name": "All-Inclusive Drinks Package",
+      "price": 85.50,
+      "range": "$85.50/day (+15% service charge)",
+      "priceMin": 85.50,
+      "priceMax": 85.50,
+      "priceMid": 85.50,
+      "includes": [
+        "All Beers & Wines Package items",
+        "Premium spirits & cocktails",
+        "Premium wines by the glass",
+        "Champagne cocktails"
+      ]
+    }
+  },
+  "_notes": {
+    "source": "paulandcarolelovetotravel.com, emmacruises.com, cunard.com (official bar menu PDF), cruisemummy.co.uk, cruisecritic.com — verified 2026-01-31",
+    "itemSources": "Beer $6-$6.50 bottled 330ml/$7.10 craft pint/$8.30 avg (PaulAndCarole menu photos, EmmaCruises). Wine $8.50-$15.50/glass 175ml (PaulAndCarole). Cocktails $10-$17.50 Bloody Mary-to-champagne/$11.50 avg (PaulAndCarole, EmmaCruises). Spirits $6.50 standard 25ml/$7-$8 premium/$14-$24 50ml premium (PaulAndCarole). Soda $2-$4.50 fountain-to-can (PaulAndCarole). Coffee ~$4 Illy (multiple sources). Water $2.50-$5 Harrogate-to-Perrier (PaulAndCarole). Energy $5 Red Bull (PaulAndCarole). Mocktails $8.60-$12.50 (PaulAndCarole, EmmaCruises). Juice $4/250ml (PaulAndCarole). Tea ~$4 Illy (multiple sources). Prices in USD, +15% service charge.",
+    "apples_to_apples": "Cunard service charge is 15%. Three package tiers. Prices in USD. Complimentary: water, tea, coffee, juice at meals. Tea/coffee in all staterooms. Included value = (per-drink base × 1.15)."
+  }
+}

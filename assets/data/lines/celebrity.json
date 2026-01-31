@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "1.1",
+  "updated": "2026-01-31",
+  "lineId": "celebrity",
+  "rules": {
+    "gratuity": 0.20,
+    "epsilon": 0.02,
+    "caps": { "classicAlcohol": 12, "premiumAlcohol": 19 }
+  },
+  "items": [
+    { "id": "soda",         "label": "Soda (can/fountain)",    "price": 3.00,  "rangeMin": 3.00, "rangeMax": 3.00 },
+    { "id": "coffee",       "label": "Premium Coffee",         "price": 6.00,  "rangeMin": 5.00, "rangeMax": 8.00 },
+    { "id": "teaprem",      "label": "Specialty Tea",          "price": 6.00,  "rangeMin": 5.00, "rangeMax": 6.00 },
+    { "id": "freshjuice",   "label": "Fresh-Squeezed Juice",   "price": 9.00,  "rangeMin": 9.00, "rangeMax": 9.00 },
+    { "id": "mocktail",     "label": "Mocktail",               "price": 6.00,  "rangeMin": 6.00, "rangeMax": 9.00 },
+    { "id": "energy",       "label": "Energy Drink",           "price": 7.00,  "rangeMin": 7.00, "rangeMax": 7.00 },
+    { "id": "milkshake",    "label": "Milkshake / Smoothie",   "price": 9.00,  "rangeMin": 7.00, "rangeMax": 9.00 },
+    { "id": "bottledwater", "label": "Bottled Water (500 ml)", "price": 3.00,  "rangeMin": 3.00, "rangeMax": 5.00 },
+    { "id": "beer",         "label": "Beer",                   "price": 9.00,  "rangeMin": 8.00, "rangeMax": 11.00 },
+    { "id": "wine",         "label": "Wine (glass)",           "price": 11.00, "rangeMin": 9.00, "rangeMax": 17.00 },
+    { "id": "cocktail",     "label": "Cocktail",               "price": 15.00, "rangeMin": 10.00, "rangeMax": 19.00 },
+    { "id": "spirits",      "label": "Spirits / Shot (+mixer)","price": 12.00, "rangeMin": 10.00, "rangeMax": 19.00 },
+    { "id": "tapwater",     "label": "Tap Water",              "price": 0, "free": true },
+    { "id": "lemonade",     "label": "Lemonade (basic)",       "price": 0, "free": true },
+    { "id": "basictea",     "label": "Basic Tea (hot/cold)",   "price": 0, "free": true },
+    { "id": "juiceconc",    "label": "Juice (concentrate)",    "price": 0, "free": true }
+  ],
+  "sets": {
+    "soda":    ["soda"],
+    "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","milkshake","bottledwater","tapwater","lemonade","basictea","juiceconc","energy"],
+    "alcohol": ["beer","wine","cocktail","spirits"]
+  },
+  "packages": {
+    "classic": {
+      "name": "Classic Beverage Package",
+      "price": 89.00,
+      "range": "$79–$99/day (+20% gratuity)",
+      "priceMin": 79.00,
+      "priceMax": 99.00,
+      "priceMid": 89.00,
+      "includes": [
+        "Beer, wine & cocktails up to $12 each",
+        "Premium coffees at Café al Bacio",
+        "Specialty teas & fresh juices",
+        "Mocktails & smoothies",
+        "Bottled water & energy drinks",
+        "Fountain soda"
+      ]
+    },
+    "premium": {
+      "name": "Premium Beverage Package",
+      "price": 109.00,
+      "range": "$99–$125/day (+20% gratuity)",
+      "priceMin": 99.00,
+      "priceMax": 125.00,
+      "priceMid": 109.00,
+      "includes": [
+        "All Classic Package items",
+        "Beer, wine, cocktails & spirits up to $19 each",
+        "Premium cocktails at all specialty bars",
+        "20% off bottles of wine"
+      ]
+    },
+    "zeroProof": {
+      "name": "Zero-Proof Package",
+      "price": 30.00,
+      "range": "$25–$38/day (+20% gratuity)",
+      "priceMin": 25.00,
+      "priceMax": 38.00,
+      "priceMid": 30.00,
+      "includes": [
+        "Fountain soda & specialty coffees",
+        "Premium teas & fresh juices",
+        "Craft mocktails & zero-proof cocktails",
+        "Bottled water & energy drinks"
+      ]
+    }
+  },
+  "_notes": {
+    "source": "profcruise.com, candidcruisetravel.com, eatsleepcruise.com, cruisecritic.com, celebritycruises.com — verified 2026-01-31",
+    "itemSources": "Beer $8 domestic/$9 import/$11 craft (ProfCruise 2025, CandidCruise). Wine $9-$17/glass standard (CruiseCritic Mar 2024 menu, FreestyleTravelers). Cocktails $10-$17 standard/$19-$22 premium (ProfCruise, EatSleepCruise Summit bars, CruiseCritic). Spirits $10-$19 (ProfCruise). Soda $3 (CruiseCritic). Coffee $5-$8 Café al Bacio (FreestyleTravelers, CruiseCritic). Water $3-$5 basic/Evian (CruiseCritic). Energy $7 Red Bull (CruiseCritic). Mocktails $6-$9 (WavesAndCobblestones). Smoothie/juice $9 Spa Cafe (CruiseCritic). Tea $5-$6 specialty (CruiseCritic).",
+    "apples_to_apples": "Celebrity raised gratuity to 20% and caps to Classic $12 / Premium $19 in March 2025. Included value = (per-drink base × 1.20)."
+  }
+}

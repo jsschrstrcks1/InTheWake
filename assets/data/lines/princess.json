@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "1.1",
+  "updated": "2026-01-31",
+  "lineId": "princess",
+  "rules": {
+    "gratuity": 0.18,
+    "epsilon": 0.02,
+    "caps": { "plusAlcohol": 15, "premierAlcohol": 20 }
+  },
+  "items": [
+    { "id": "soda",         "label": "Soda (can/fountain)",    "price": 2.50,  "rangeMin": 2.00, "rangeMax": 2.50 },
+    { "id": "coffee",       "label": "Premium Coffee",         "price": 4.00,  "rangeMin": 3.00, "rangeMax": 5.00 },
+    { "id": "teaprem",      "label": "Specialty Tea",          "price": 4.00,  "rangeMin": 3.00, "rangeMax": 4.00 },
+    { "id": "freshjuice",   "label": "Fresh-Squeezed Juice",   "price": 8.00,  "rangeMin": 8.00, "rangeMax": 8.00 },
+    { "id": "mocktail",     "label": "Mocktail",               "price": 7.00,  "rangeMin": 5.00, "rangeMax": 8.00 },
+    { "id": "energy",       "label": "Energy Drink",           "price": 5.50,  "rangeMin": 5.00, "rangeMax": 6.00 },
+    { "id": "milkshake",    "label": "Milkshake / Smoothie",   "price": 10.00, "rangeMin": 8.00, "rangeMax": 10.00 },
+    { "id": "bottledwater", "label": "Bottled Water (500 ml)", "price": 2.00,  "rangeMin": 2.00, "rangeMax": 4.00 },
+    { "id": "beer",         "label": "Beer",                   "price": 6.75,  "rangeMin": 6.25, "rangeMax": 7.50 },
+    { "id": "wine",         "label": "Wine (glass)",           "price": 11.00, "rangeMin": 9.00, "rangeMax": 17.00 },
+    { "id": "cocktail",     "label": "Cocktail",               "price": 8.75,  "rangeMin": 7.50, "rangeMax": 10.00 },
+    { "id": "spirits",      "label": "Spirits / Shot (+mixer)","price": 8.50,  "rangeMin": 5.75, "rangeMax": 15.00 },
+    { "id": "tapwater",     "label": "Tap Water",              "price": 0, "free": true },
+    { "id": "lemonade",     "label": "Lemonade (basic)",       "price": 0, "free": true },
+    { "id": "basictea",     "label": "Basic Tea (hot/cold)",   "price": 0, "free": true },
+    { "id": "juiceconc",    "label": "Juice (concentrate)",    "price": 0, "free": true }
+  ],
+  "sets": {
+    "soda":    ["soda"],
+    "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","milkshake","bottledwater","tapwater","lemonade","basictea","juiceconc","energy"],
+    "alcohol": ["beer","wine","cocktail","spirits"]
+  },
+  "packages": {
+    "plus": {
+      "name": "Plus Beverage Package",
+      "price": 64.99,
+      "range": "$54.99–$74.99/day (+18% gratuity)",
+      "priceMin": 54.99,
+      "priceMax": 74.99,
+      "priceMid": 64.99,
+      "includes": [
+        "Beer, wine & cocktails up to $15 each",
+        "Premium coffees & specialty teas",
+        "Fresh juices & smoothies",
+        "Fountain soda & bottled water",
+        "25% off bottles of wine"
+      ]
+    },
+    "premier": {
+      "name": "Premier Beverage Package",
+      "price": 84.99,
+      "range": "$74.99–$99.99/day (+18% gratuity)",
+      "priceMin": 74.99,
+      "priceMax": 99.99,
+      "priceMid": 84.99,
+      "includes": [
+        "All Plus Package items",
+        "Beer, wine, cocktails & spirits up to $20 each",
+        "Premium cocktails at all specialty bars",
+        "Unlimited MedallionNet Wi-Fi (included in Premier bundle)",
+        "Crew appreciation included"
+      ]
+    },
+    "zeroProof": {
+      "name": "Zero-Proof Beverage Package",
+      "price": 29.99,
+      "range": "$23–$38/day (+18% gratuity)",
+      "priceMin": 23.00,
+      "priceMax": 38.00,
+      "priceMid": 29.99,
+      "includes": [
+        "Fountain soda & premium coffees",
+        "Specialty teas & fresh juices",
+        "Mocktails & zero-proof cocktails",
+        "Bottled water & energy drinks"
+      ]
+    }
+  },
+  "_notes": {
+    "source": "cruiselifestyle.co.uk, shinecruise.com, princess.com, thepointsguy.com, cruisemapper.com — verified 2026-01-31",
+    "itemSources": "Beer $6.25-$6.75 (CruiseLifestyle fleetwide menu — Budweiser/Coors $6.25, Corona/Guinness $6.75). Wine $9-$17/glass (CruiseLifestyle full wine list — 60+ wines itemized). Cocktails $7.50-$10 signature/$11-$21 champagne (CruiseLifestyle — Mojito $7.50, Moscow Mule $8.50, Mai Tai $8.75, Long Island $10). Spirits $5.75-$10.75 well-to-premium (CruiseMapper Bellini's bar). Soda $2.50 (ThePointsGuy). Coffee $3-$5 Coffee Counter (Princess official PDF). Water $2/bottle from 12-pack (Cruise.Blog, Quiltripping). Smoothies $10 (ThePointsGuy). Juice $8 fresh (ThePointsGuy). Tea $3-$4 (ThePointsGuy).",
+    "apples_to_apples": "Princess gratuity is 18%. Plus cap $15, Premier cap $20. Premier bundle includes Wi-Fi + crew appreciation. Included value = (per-drink base × 1.18)."
+  }
+}

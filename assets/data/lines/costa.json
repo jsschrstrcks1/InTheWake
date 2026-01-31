@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "1.1",
+  "updated": "2026-01-31",
+  "lineId": "costa",
+  "rules": {
+    "gratuity": 0.15,
+    "epsilon": 0.02,
+    "caps": {},
+    "currency": "EUR"
+  },
+  "items": [
+    { "id": "soda",         "label": "Soda (can/fountain)",    "price": 3.00,  "rangeMin": 2.60, "rangeMax": 3.00 },
+    { "id": "coffee",       "label": "Premium Coffee",         "price": 2.70,  "rangeMin": 2.20, "rangeMax": 3.50 },
+    { "id": "teaprem",      "label": "Specialty Tea",          "price": 2.70,  "rangeMin": 2.70, "rangeMax": 2.70 },
+    { "id": "freshjuice",   "label": "Fresh-Squeezed Juice",   "price": 3.00,  "rangeMin": 2.60, "rangeMax": 3.00 },
+    { "id": "mocktail",     "label": "Mocktail",               "price": 6.25,  "rangeMin": 6.00, "rangeMax": 6.50 },
+    { "id": "energy",       "label": "Energy Drink",           "price": 3.50,  "rangeMin": 3.50, "rangeMax": 3.50 },
+    { "id": "milkshake",    "label": "Milkshake / Smoothie",   "price": 5.00,  "rangeMin": 4.00, "rangeMax": 6.00 },
+    { "id": "bottledwater", "label": "Bottled Water (500 ml)", "price": 1.40,  "rangeMin": 0.80, "rangeMax": 3.40 },
+    { "id": "beer",         "label": "Beer",                   "price": 5.00,  "rangeMin": 4.00, "rangeMax": 5.00 },
+    { "id": "wine",         "label": "Wine (glass)",           "price": 5.50,  "rangeMin": 5.50, "rangeMax": 5.50 },
+    { "id": "cocktail",     "label": "Cocktail",               "price": 8.20,  "rangeMin": 6.50, "rangeMax": 9.30 },
+    { "id": "spirits",      "label": "Spirits / Shot (+mixer)","price": 6.10,  "rangeMin": 6.10, "rangeMax": 6.50 },
+    { "id": "tapwater",     "label": "Tap Water",              "price": 0, "free": true },
+    { "id": "lemonade",     "label": "Lemonade (basic)",       "price": 0, "free": true },
+    { "id": "basictea",     "label": "Basic Tea (hot/cold)",   "price": 0, "free": true },
+    { "id": "juiceconc",    "label": "Juice (concentrate)",    "price": 0, "free": true }
+  ],
+  "sets": {
+    "soda":    ["soda"],
+    "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","milkshake","bottledwater","tapwater","lemonade","basictea","juiceconc","energy"],
+    "alcohol": ["beer","wine","cocktail","spirits"]
+  },
+  "packages": {
+    "myDrinks": {
+      "name": "My Drinks",
+      "price": 33.00,
+      "range": "€31.50–€34.29/day (+15% service charge)",
+      "priceMin": 31.50,
+      "priceMax": 34.29,
+      "priceMid": 33.00,
+      "includes": [
+        "Cocktails, beer, wine & spirits",
+        "Non-alcoholic drinks & specialty coffees",
+        "Water & soft drinks"
+      ]
+    },
+    "myDrinksPlus": {
+      "name": "My Drinks Plus",
+      "price": 46.50,
+      "range": "€45–€48/day (+15% service charge)",
+      "priceMin": 45.00,
+      "priceMax": 48.00,
+      "priceMid": 46.50,
+      "includes": [
+        "All My Drinks items",
+        "Premium cocktails & spirits",
+        "Higher per-drink cap",
+        "Premium wine selections"
+      ]
+    }
+  },
+  "_notes": {
+    "source": "cruisemapper.com, oggiabordo.com, fandecosta.com, emmacruises.com — verified 2026-01-31",
+    "itemSources": "Beer €4 draft 25cl/€5 draft 40cl (CruiseMapper). Wine €5.50/glass (CruiseMapper). Cocktails €6.50 bestsellers/€8.20 classic-tropical/€9.30 tropical 2025 (CruiseMapper, OggiABordo). Spirits €6.10-€6.50 (CruiseMapper). Soda €2.60-€3 (CruiseMapper). Coffee €2.20-€3.50 espresso-to-shakerato (CruiseMapper, OggiABordo 2025 update). Water €0.80 glass/€1.40 bottle/€3.40 2025 update (CruiseMapper, OggiABordo). Energy €3.50 Red Bull (CruiseMapper). Mocktails €6-€6.50 (CruiseMapper). Tea €2.70 (CruiseMapper). Juice €2.60-€3 (CruiseMapper). All EUR prices, +15% service.",
+    "apples_to_apples": "Costa prices in EUR. 15% service charge added. No drinks included in base fare. Free water/juice/coffee only at buffet during breakfast. Included value = (per-drink base × 1.15)."
+  }
+}

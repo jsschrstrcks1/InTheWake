@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1.1",
+  "updated": "2026-01-31",
+  "lineId": "oceania",
+  "rules": {
+    "gratuity": 0.00,
+    "epsilon": 0.02,
+    "caps": {}
+  },
+  "items": [
+    { "id": "soda",         "label": "Soda (can/fountain)",    "price": 0, "free": true },
+    { "id": "coffee",       "label": "Premium Coffee",         "price": 0, "free": true },
+    { "id": "teaprem",      "label": "Specialty Tea",          "price": 0, "free": true },
+    { "id": "freshjuice",   "label": "Fresh-Squeezed Juice",   "price": 0, "free": true },
+    { "id": "mocktail",     "label": "Mocktail",               "price": 12.00, "rangeMin": 12.00, "rangeMax": 12.00 },
+    { "id": "energy",       "label": "Energy Drink",           "price": 5.00,  "rangeMin": 5.00, "rangeMax": 5.00 },
+    { "id": "milkshake",    "label": "Milkshake / Smoothie",   "price": 0, "free": true },
+    { "id": "bottledwater", "label": "Bottled Water (Vero)",   "price": 0, "free": true },
+    { "id": "beer",         "label": "Beer",                   "price": 7.25,  "rangeMin": 5.00, "rangeMax": 8.00 },
+    { "id": "wine",         "label": "Wine (glass)",           "price": 10.00, "rangeMin": 8.00, "rangeMax": 16.00 },
+    { "id": "cocktail",     "label": "Cocktail",               "price": 11.25, "rangeMin": 10.00, "rangeMax": 15.00 },
+    { "id": "spirits",      "label": "Spirits / Shot (+mixer)","price": 11.50, "rangeMin": 8.00, "rangeMax": 15.00 },
+    { "id": "tapwater",     "label": "Tap Water",              "price": 0, "free": true },
+    { "id": "lemonade",     "label": "Lemonade (basic)",       "price": 0, "free": true },
+    { "id": "basictea",     "label": "Basic Tea (hot/cold)",   "price": 0, "free": true },
+    { "id": "juiceconc",    "label": "Juice (concentrate)",    "price": 0, "free": true }
+  ],
+  "sets": {
+    "soda":    ["soda"],
+    "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","milkshake","bottledwater","tapwater","lemonade","basictea","juiceconc","energy"],
+    "alcohol": ["beer","wine","cocktail","spirits"]
+  },
+  "packages": {
+    "prestigeSelect": {
+      "name": "Prestige Select Beverage Package",
+      "price": 59.95,
+      "range": "$59.95 pre-cruise / $69.95 onboard (gratuity included)",
+      "priceMin": 59.95,
+      "priceMax": 69.95,
+      "priceMid": 59.95,
+      "includes": [
+        "Unlimited beer, wine, cocktails & spirits",
+        "Premium & craft cocktails",
+        "All non-alcoholic beverages (already included in fare)",
+        "15% discount on wine bottles",
+        "Gratuities included"
+      ]
+    }
+  },
+  "_notes": {
+    "source": "cruisediscover.com, cruisesolutioner.com, oceaniacruises.com, thepointsguy.com, theluxurycruisereview.com, cruisecritic.com — verified 2026-01-31",
+    "itemSources": "Beer $5-$8 range, Budweiser $6.50/Corona $7.50/Heineken $7.50 (CruiseDiscover). Wine $8-$16/glass, standard $10 (CruiseDiscover). Cocktails $10-$15 standard, Margarita/Mai Tai $11-$11.25 (CruiseDiscover, Oceania official bar menu PDF). Spirits $11.50 standard vodka martini/$12-$13 premium (CruiseDiscover Martinis Bar). Mocktails $12 (ThePointsGuy). Energy $5 est. Soda/coffee/tea/juice/water/smoothies all FREE under Your World Included (Jan 2025, oceaniacruises.com). Evian/Perrier premium water NOT included.",
+    "apples_to_apples": "Oceania Your World Included (Jan 2025): soda, specialty coffee, tea, fresh juice, smoothies, Vero water all complimentary. Alcohol is à la carte or via Prestige Select package. Gratuities included in package. House Select package no longer sold separately."
+  }
+}

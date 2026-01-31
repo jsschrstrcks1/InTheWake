@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "1.1",
+  "updated": "2026-01-31",
+  "lineId": "norwegian",
+  "rules": {
+    "gratuity": 0.20,
+    "epsilon": 0.02,
+    "caps": { "unlimitedAlcohol": 15 }
+  },
+  "items": [
+    { "id": "soda",         "label": "Soda (can/fountain)",    "price": 3.50,  "rangeMin": 3.50, "rangeMax": 3.50 },
+    { "id": "coffee",       "label": "Premium Coffee",         "price": 5.95,  "rangeMin": 3.85, "rangeMax": 7.25 },
+    { "id": "teaprem",      "label": "Specialty Tea",          "price": 5.95,  "rangeMin": 5.95, "rangeMax": 5.95 },
+    { "id": "freshjuice",   "label": "Fresh-Squeezed Juice",   "price": 5.25,  "rangeMin": 4.75, "rangeMax": 9.00 },
+    { "id": "mocktail",     "label": "Mocktail",               "price": 12.50, "rangeMin": 12.50, "rangeMax": 12.50 },
+    { "id": "energy",       "label": "Energy Drink",           "price": 6.50,  "rangeMin": 6.25, "rangeMax": 6.50 },
+    { "id": "milkshake",    "label": "Milkshake",              "price": 7.00,  "rangeMin": 5.50, "rangeMax": 8.50 },
+    { "id": "bottledwater", "label": "Bottled Water (500 ml)", "price": 4.50,  "rangeMin": 4.50, "rangeMax": 4.50 },
+    { "id": "beer",         "label": "Beer",                   "price": 7.50,  "rangeMin": 6.00, "rangeMax": 10.00 },
+    { "id": "wine",         "label": "Wine (glass)",           "price": 10.00, "rangeMin": 10.00, "rangeMax": 23.00 },
+    { "id": "cocktail",     "label": "Cocktail",               "price": 12.50, "rangeMin": 11.95, "rangeMax": 17.95 },
+    { "id": "spirits",      "label": "Spirits / Shot (+mixer)","price": 12.50, "rangeMin": 12.50, "rangeMax": 15.00 },
+    { "id": "tapwater",     "label": "Tap Water",              "price": 0, "free": true },
+    { "id": "lemonade",     "label": "Lemonade (basic)",       "price": 0, "free": true },
+    { "id": "basictea",     "label": "Basic Tea (hot/cold)",   "price": 0, "free": true },
+    { "id": "juiceconc",    "label": "Juice (concentrate)",    "price": 0, "free": true }
+  ],
+  "sets": {
+    "soda":    ["soda"],
+    "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","milkshake","bottledwater","tapwater","lemonade","basictea","juiceconc","energy"],
+    "alcohol": ["beer","wine","cocktail","spirits"]
+  },
+  "packages": {
+    "unlimited": {
+      "name": "Unlimited Open Bar",
+      "price": 109.00,
+      "range": "$89–$129/day (+20% gratuity)",
+      "priceMin": 89.00,
+      "priceMax": 129.00,
+      "priceMid": 109.00,
+      "includes": [
+        "Beer, wine, cocktails & spirits up to $15 each",
+        "Premium coffees & specialty teas",
+        "Fresh juices, smoothies & mocktails",
+        "Fountain soda & bottled water",
+        "Energy drinks",
+        "20% off bottles of wine"
+      ]
+    }
+  },
+  "_notes": {
+    "source": "profcruise.com, shinecruise.com, ncl.com, cruisecritic.com — verified 2026-01-31",
+    "itemSources": "Beer $7 standard/$7.50 baseline (ProfCruise, ShineCruise menu photos, CruiseCritic Dec 2024). Wine $10-$23/glass (ShineCruise, FreestyleTravelers wine list). Cocktails $12.50 standard/$13-$17.95 premium (ProfCruise, ShineCruise). Spirits $12.50/$15 More at Sea menu (CruiseCritic). Soda $3.50 fountain (ShineCruise). Coffee $3.85-$7.25 Starbucks Grande (NorwegianCruiseBlog Feb 2025). Water $4.50/can (multiple sources). Energy $6.25-$6.50 Red Bull (ShineCruise). Mocktails $12.50 same as cocktails (ProfCruise). Tea $5.95 Starbucks Chai (NorwegianCruiseBlog). Juice $5.25 Vitality (CruiseRadio).",
+    "apples_to_apples": "NCL discontinued Premium and Premium Plus packages. Single Unlimited Open Bar. Gratuity 20%. Starbucks NOT included in package. Included value = (per-drink base × 1.20)."
+  }
+}
