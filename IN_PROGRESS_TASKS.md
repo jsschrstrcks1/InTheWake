@@ -43,6 +43,13 @@ FORMAT:
 **Status:** Deep audit, JPG elimination, restaurant CSS extraction, ship-page.css rollout (292/297), "careful not clever" guardrail, documentation consistency fixes — all complete. Branch ready for merge.
 **Notes:** Remaining work: CSS `.ship-list` class conflict (12 files), competitor gap quick wins, port weather data.
 
+### Logbook Enrichment — "Gentle Truth" Reviews (Phase 1)
+**Thread:** `claude/audit-venues-gD9fq`
+**Started:** 2026-01-31
+**Files:** 26 venue HTML files across NCL, Carnival, MSC, Virgin Voyages
+**Status:** Complete. 26 flagship venue logbooks enriched with specific dish recommendations, honest "Gentle Truth" critiques, and differentiated ratings.
+**Notes:** Replaced identical boilerplate entries with venue-specific reviews. Ratings now range 3.7–4.5 (previously all 4.0). 85 boilerplate venues remain across the fleet — this was Phase 1 targeting highest-impact flagships.
+
 ---
 
 ## Recently Completed (Move to COMPLETED_TASKS.md after user confirmation)
@@ -65,6 +72,7 @@ FORMAT:
 
 | Thread ID | Task | Status | Date |
 |-----------|------|--------|------|
+| claude/audit-venues-gD9fq | Logbook enrichment — Gentle Truth reviews | IN PROGRESS | 2026-01-31 |
 | claude/review-previous-work-ZMk3b | Deep audit, JPG elimination, CSS consolidation, ship-page.css rollout, guardrail, docs | IN PROGRESS | 2026-01-31 |
 | claude/review-onboarding-setup-01JpVFgKzWRBKvXaxcS1pC9N | Onboarding review, schema fix | COMPLETE | 2025-12-01 |
 | claude/fix-dropdown-menu-01XJq5FhAaie7QptqwRY7wfd | Dropdown menu fix | COMPLETE | 2025-11-28 |
