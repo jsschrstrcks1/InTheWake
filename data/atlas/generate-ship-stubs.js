@@ -460,7 +460,7 @@ Soli Deo Gloria
 
     <section class="card">
       <h2>Fleet</h2>
-      <ul class="ship-list">
+      <ul class="fleet-directory">
             ${shipList}
       </ul>
     </section>

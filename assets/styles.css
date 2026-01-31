@@ -1061,10 +1061,30 @@ figure.hero img + img,
 .filter-button:hover { background: var(--foam); border-color: var(--accent); }
 .filter-button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-/* Ship/Port List */
+/* Ship/Port List (logbook trackers) */
 .ship-list, .port-list {
   display: grid;
   gap: 0.75rem;
+}
+
+/* Fleet Directory (cruise line index pages) */
+.fleet-directory {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.fleet-directory li a {
+  display: block;
+  padding: 1rem;
+  background: var(--bg-alt, #f5f5f5);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background .2s;
+}
+.fleet-directory li a:hover {
+  background: var(--bg-hover, #e0e0e0);
 }
 .ship-item, .port-item {
   display: grid;

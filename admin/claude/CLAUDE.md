@@ -1,6 +1,6 @@
 # Claude AI Assistant Guide - In the Wake
 
-**Version:** 1.2.0
+**Version:** 1.2.2
 **Last Updated:** 2026-01-31
 **Purpose:** Comprehensive onboarding and reference guide for Claude AI assistants working on the In the Wake codebase
 
@@ -274,7 +274,7 @@ All pages should include:
 
 ### 1. Performance Optimization
 
-#### Service Worker (v13.0.0)
+#### Service Worker (v14.0.0)
 - Cache-first strategy for images
 - Network-first for HTML/JSON
 - Current limits:
@@ -389,7 +389,7 @@ When a ship, port, or venue is missing an image, follow this order of operations
 <meta name="description" content="[Descriptive content]">
 <meta name="version" content="v3.006.006">
 <meta name="content-protocol" content="ICP-Lite v1.4">
-<meta name="ai:summary" content="[AI-friendly summary]">
+<meta name="ai-summary" content="[AI-friendly summary]">
 <meta name="last-reviewed" content="2025-11-23">
 ```
 
@@ -422,7 +422,7 @@ AI-first content protocol that helps AI assistants understand and cite content c
 #### Level 1: Meta Tags (96% complete - 1,115/1,167 pages)
 ```html
 <meta name="content-protocol" content="ICP-Lite v1.4">
-<meta name="ai:summary" content="Comprehensive guide for [topic]">
+<meta name="ai-summary" content="Comprehensive guide for [topic]">
 <meta name="last-reviewed" content="2025-11-23">
 ```
 
@@ -624,7 +624,7 @@ element.innerHTML = userInput;  // XSS vulnerability!
 **Trust Claims:**
 - Footer trust badge MUST match actual site behavior
 - If analytics are used, Privacy Policy must disclose them
-- Current accurate badge: "✓ No ads. Minimal analytics. No affiliate links."
+- Current accurate badge: "✓ No ads. Minimal analytics. Independent of cruise lines. Affiliate Disclosure"
 
 **Protected by .htaccess:**
 - Python files (`.py`, `.pyc`, `.pyo`) - blocked
@@ -724,7 +724,7 @@ JSON-LD schema. Reduces page weight and improves LCP scores.
 12. ⏳ **Site-wide hero/logo standardization** — Inconsistent across hub pages
 
 ### P2 - Medium Priority
-13. ⏳ Service Worker v14 upgrade (CORS fix, prefetch, cache UI) — currently v13.2.0
+13. ✅ ~~Service Worker v14 upgrade~~ COMPLETE — sw.js 13.2.0 → 14.0.0 (predictive prefetch, FX API stale cache, precache-manifest updated)
 14. ⏳ **Port weather seasonal data** — Infrastructure deployed (JS on 380 pages, section on 375), but `seasonal-guides.json` has data for only 1 port (Cozumel)
 15. ✅ ~~Stateroom Checker~~ MASSIVELY EXPANDED — 270 exception JSON files across ALL cruise lines
 
@@ -791,7 +791,7 @@ Before marking any task complete, verify:
 **HTML Files:**
 - [ ] DOCTYPE present
 - [ ] Absolute URLs used (https://cruisinginthewake.com/...)
-- [ ] Meta tags complete (version, content-protocol, ai:summary)
+- [ ] Meta tags complete (version, content-protocol, ai-summary)
 - [ ] No console statements left in inline JavaScript
 - [ ] No lorem ipsum or placeholder text
 - [ ] All images have alt attributes
@@ -850,6 +850,7 @@ Before marking any task complete, verify:
 ---
 
 **Version History:**
+- v1.2.2 (2026-01-31) - Documentation consistency pass: fixed SW version 13.0.0→14.0.0, fixed ai:summary→ai-summary (ICP-Lite v1.4), updated trust badge text to match site, marked SW v14 upgrade complete in priorities
 - v1.2.1 (2026-01-31) - Documentation consistency pass: fixed page/image counts to ground-truth (port-tracker 147→380, ICP-Lite 544→1115, ship images 82→444, site pages 561→1167), marked ship-page.css rollout complete (292/297), updated CSS consolidation status, removed stale JPG references
 - v1.2.0 (2026-01-31) - Updated priorities to reflect 2026-01-31 thread review; fixed ICP-Lite version (v1.0→v1.4); updated port count (147→380); updated Ship Logbook count; marked completed work streams
 - v1.1.0 (2026-01-03) - Added analytics requirement (Section 0), security standards section, trust claim accuracy rules
