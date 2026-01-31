@@ -45,7 +45,7 @@ InTheWake/
 ├── admin/              # Maintenance scripts and tools
 ├── new-standards/      # Site standards documentation
 ├── .claude/            # Claude Code skill system
-│   ├── skills/         # 3 skill directories
+│   ├── skills/         # 4 skill directories
 │   ├── plugins/        # 5 SEO/accessibility plugins
 │   ├── commands/       # 4 commands (/commit, /create-pr, etc.)
 │   └── hooks/          # Auto-activation hooks
@@ -180,11 +180,13 @@ All work on this project is offered as a gift to God.
 | Metric | Value |
 |--------|-------|
 | Ship Pages | 297 |
-| Passing Validation | 106 (34%) |
-| Blocking Errors | 981 |
+| Passing Validation | 106 (34%) *(last measured — validator needs cheerio)* |
+| Blocking Errors | 981 *(last measured)* |
 | Port Pages | 380 |
-| Restaurant/Venue Pages | 215 |
-| Ship Deployments | 193 ships, 15 cruise lines, 398 ports |
+| Restaurant/Venue Pages | 404 |
+| Ship pages with ship-page.css | 292/297 |
+| Ship Deployments | 193 ships, 15 cruise lines, 380 ports |
+| JPG/JPEG images | 0 (eliminated 2026-01-31) |
 
 See [UNFINISHED_TASKS.md](UNFINISHED_TASKS.md) for detailed status.
 

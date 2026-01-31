@@ -36,12 +36,12 @@ FORMAT:
 **Notes:** Any blockers or important context
 -->
 
-### Review Previous Work & Image Optimization
+### Review Previous Work, Image Optimization, CSS Consolidation & Documentation
 **Thread:** `claude/review-previous-work-ZMk3b`
 **Started:** 2026-01-31
-**Files:** UNFINISHED_TASKS.md, COMPLETED_TASKS.md, admin/claude/CLAUDE.md, .claude/plan-implementation-priorities-2026-01-31.md, 137 image/HTML files
-**Status:** Deep audit complete, JPG elimination complete. Branch ready for merge.
-**Notes:** All project tracking docs updated to ground-truth. Next priority: CSS consolidation Phases 3-5.
+**Files:** UNFINISHED_TASKS.md, COMPLETED_TASKS.md, IN_PROGRESS_TASKS.md, admin/claude/CLAUDE.md, claude.md, .claude/plan-implementation-priorities-2026-01-31.md, .claude/skill-rules.json, .claude/skills/careful-not-clever/CAREFUL.md, assets/styles.css, 162 ship HTML files, 124 restaurant HTML files, ships/carnival/index.html, 59 deleted image files
+**Status:** Deep audit, JPG elimination, restaurant CSS extraction, ship-page.css rollout (292/297), "careful not clever" guardrail, documentation consistency fixes — all complete. Branch ready for merge.
+**Notes:** Remaining work: CSS `.ship-list` class conflict (12 files), competitor gap quick wins, port weather data.
 
 ### Logbook Enrichment — "Gentle Truth" Reviews (Phase 1)
 **Thread:** `claude/audit-venues-gD9fq`
@@ -72,6 +72,7 @@ FORMAT:
 
 | Thread ID | Task | Status | Date |
 |-----------|------|--------|------|
+| claude/review-previous-work-ZMk3b | Deep audit, JPG elimination, CSS consolidation, ship-page.css rollout, guardrail, docs | IN PROGRESS | 2026-01-31 |
 | claude/audit-venues-gD9fq | Logbook enrichment — Gentle Truth reviews | IN PROGRESS | 2026-01-31 |
 | claude/review-previous-work-ZMk3b | Deep audit, JPG elimination | IN PROGRESS | 2026-01-31 |
 | claude/review-onboarding-setup-01JpVFgKzWRBKvXaxcS1pC9N | Onboarding review, schema fix | COMPLETE | 2025-12-01 |

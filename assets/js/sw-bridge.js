@@ -1,12 +1,13 @@
-/* sw-bridge.js v12.0.0 — Service Worker Registration & Bridge
- * Handles SW lifecycle, updates, and client-SW communication
+/* sw-bridge.js v14.2.0 — Service Worker Registration & Bridge
+ * Handles SW lifecycle, updates, client-SW communication,
+ * and progressive offline caching (link/image scanning)
  * Soli Deo Gloria ✝️
  */
 
 (function () {
   'use strict';
 
-  const VERSION = '12.0.0';
+  const VERSION = '14.2.0';
 
   if (!('serviceWorker' in navigator)) {
     console.log('[SW-Bridge] Service Workers not supported');
@@ -164,6 +165,123 @@
       }
     }
   };
+
+  /* ---------- Progressive Offline Caching ---------- */
+  /* After each page load, scan for same-origin links and key images,
+   * then send them to the SW for background caching. This means every
+   * page the user visits progressively caches linked pages — ports
+   * link ships, ships link tools, tools link ports. By the time a
+   * cruiser boards, most of the site is available offline. */
+
+  function scanAndSeed() {
+    const sw = navigator.serviceWorker.controller;
+    if (!sw) return; // No active SW yet
+
+    // Respect save-data preference
+    const conn = navigator.connection || {};
+    if (conn.saveData) return;
+
+    // Collect same-origin HTML links
+    const origin = location.origin;
+    const seen = new Set();
+    const pageUrls = [];
+    const imageUrls = [];
+
+    // Scan all <a> links for same-origin HTML pages
+    const links = document.querySelectorAll('a[href]');
+    for (const a of links) {
+      try {
+        const url = new URL(a.href, origin);
+        // Same origin only
+        if (url.origin !== origin) continue;
+        // HTML pages only (skip anchors, JS, JSON, images, etc.)
+        const path = url.pathname;
+        if (!path.endsWith('.html') && !path.endsWith('/') && path !== '/') continue;
+        // Skip admin, assets, offline, 404
+        if (path.startsWith('/admin/') || path.startsWith('/assets/') ||
+            path === '/offline.html' || path === '/404.html') continue;
+        // Normalize: strip hash and query
+        const normalized = url.origin + url.pathname;
+        if (seen.has(normalized)) continue;
+        seen.add(normalized);
+        pageUrls.push(url.pathname);
+      } catch (e) { /* skip malformed */ }
+    }
+
+    // Scan for key images (hero images, ship images, large content images)
+    const images = document.querySelectorAll(
+      'img[src], source[srcset], [style*="background-image"]'
+    );
+    for (const el of images) {
+      try {
+        let src = el.src || el.srcset || '';
+        // Extract URL from srcset (take first entry)
+        if (el.srcset) {
+          src = el.srcset.split(',')[0].trim().split(/\s+/)[0];
+        }
+        // Extract from inline background-image
+        if (!src && el.style?.backgroundImage) {
+          const match = el.style.backgroundImage.match(/url\(['"]?([^'")\s]+)/);
+          if (match) src = match[1];
+        }
+        if (!src) continue;
+        const url = new URL(src, origin);
+        if (url.origin !== origin) continue;
+        // Only cache WebP/JPG/PNG images (skip SVGs, icons)
+        if (!/\.(webp|jpg|jpeg|png)(\?.*)?$/i.test(url.pathname)) continue;
+        const normalized = url.origin + url.pathname;
+        if (seen.has(normalized)) continue;
+        seen.add(normalized);
+        imageUrls.push(url.pathname);
+      } catch (e) { /* skip */ }
+    }
+
+    // Send pages first (high priority), then images (normal priority)
+    if (pageUrls.length > 0) {
+      sw.postMessage({ type: 'SEED_URLS', urls: pageUrls, priority: 'normal' });
+    }
+    if (imageUrls.length > 0) {
+      sw.postMessage({ type: 'SEED_URLS', urls: imageUrls, priority: 'low' });
+    }
+
+    if (pageUrls.length + imageUrls.length > 0) {
+      console.log('[SW-Bridge] Seeding ' + pageUrls.length + ' pages, ' +
+                  imageUrls.length + ' images for offline');
+    }
+  }
+
+  // Run after page is fully loaded and idle
+  if (document.readyState === 'complete') {
+    // Use requestIdleCallback if available, otherwise setTimeout
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(scanAndSeed, { timeout: 5000 });
+    } else {
+      setTimeout(scanAndSeed, 2000);
+    }
+  } else {
+    window.addEventListener('load', function () {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(scanAndSeed, { timeout: 5000 });
+      } else {
+        setTimeout(scanAndSeed, 2000);
+      }
+    });
+  }
+
+  // Also send network info to SW for adaptive caching decisions
+  if (navigator.connection) {
+    const sendNetworkInfo = function () {
+      const conn = navigator.connection;
+      navigator.serviceWorker.controller?.postMessage({
+        type: 'NETWORK_INFO',
+        effectiveType: conn.effectiveType || '4g',
+        downlink: conn.downlink || 10,
+        saveData: !!conn.saveData
+      });
+    };
+    navigator.serviceWorker.ready.then(sendNetworkInfo);
+    navigator.connection.addEventListener('change', sendNetworkInfo);
+  }
 
   console.log('[SW-Bridge] v' + VERSION + ' loaded');
 })();

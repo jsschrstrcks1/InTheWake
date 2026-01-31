@@ -189,7 +189,7 @@ These guardrails override all optimization concerns. A technically imperfect pag
 │   ├── articles/              # Solo travel articles
 │   └── logbook/               # Personal stories
 ├── tools/                     # Interactive tools
-│   ├── port-tracker.html      # Port checklist (147 ports)
+│   ├── port-tracker.html      # Port checklist (380 ports)
 │   └── ship-tracker.html      # Ship checklist
 ├── assets/
 │   ├── css/                   # Stylesheets
@@ -278,9 +278,9 @@ All pages should include:
 - Cache-first strategy for images
 - Network-first for HTML/JSON
 - Current limits:
-  - `maxPages: 400` (site has 561 pages)
+  - `maxPages: 400` (site has 1,167+ HTML pages)
   - `maxAssets: 150`
-  - `maxImages: 600` (currently 285 ship images)
+  - `maxImages: 600` (currently 444 ship images, 2,906 WebP total)
   - `maxData: 100` (76 JSON files)
 
 #### Caching Strategy
@@ -419,7 +419,7 @@ AI-first content protocol that helps AI assistants understand and cite content c
 
 **Implementation Levels:**
 
-#### Level 1: Meta Tags (97% complete - 544/561 pages)
+#### Level 1: Meta Tags (96% complete - 1,115/1,167 pages)
 ```html
 <meta name="content-protocol" content="ICP-Lite v1.4">
 <meta name="ai:summary" content="Comprehensive guide for [topic]">
@@ -517,11 +517,10 @@ AI-first content protocol that helps AI assistants understand and cite content c
 **Current Standard:** WebP format (77% smaller than JPEG)
 
 **Status:**
-- ✅ 82 main ship images converted to WebP
-- ✅ 8 thumbnails in `/assets/ships/thumbs/`
+- ✅ 444 ship images in WebP format (2,906 WebP site-wide)
+- ✅ 0 JPG/JPEG files remain in repository (eliminated 2026-01-31)
 - ✅ All HTML meta tags updated (og:image, twitter:image)
 - ✅ All JSON-LD schemas use .webp
-- ⏳ 19 ships still need images from Wiki Commons
 
 ### Image Discovery Pattern
 
@@ -716,11 +715,11 @@ JSON-LD schema. Reduces page weight and improves LCP scores.
 5. ✅ ~~Port expansion~~ COMPLETE (380 pages, up from 147)
 6. ✅ ~~ICP-Lite rollout~~ COMPLETE (100% of pages)
 7. ✅ ~~Venue audit Phase 2~~ COMPLETE (0 generic text, 0 hotdog.webp, all have menus; validator in validate.js)
-8. ⏳ **CSS consolidation Phases 3-5** — ~50K duplicate CSS lines remain across 478 files
+8. ⏳ **CSS consolidation (remaining)** — 12 ship fleet index `.ship-list` inline blocks remain (class name conflict), ~12 misc page-specific styles
 
 ### P1 - High Priority (Do These Soon)
 9. ✅ ~~Port map completion~~ ESSENTIALLY COMPLETE — 375/380 (99%) have Leaflet maps, only 5 remain
-10. ⏳ **Ship page CSS rollout** — `ship-page.css` exists (448 lines, v3.010.300), adopted by 130/293 (44%). Roll out to NCL, Princess, MSC, Carnival (~163 pages)
+10. ✅ ~~Ship page CSS rollout~~ COMPLETE — `ship-page.css` (v3.010.300) linked on 292/297 ship pages (5 non-standard root files excluded)
 11. ⏳ **Competitor gap remaining items** — ~56% done (9/16+). Key gaps: "From the Pier" distances, transport cost tables, port day planner, budget calculator
 12. ⏳ **Site-wide hero/logo standardization** — Inconsistent across hub pages
 
@@ -851,6 +850,7 @@ Before marking any task complete, verify:
 ---
 
 **Version History:**
+- v1.2.1 (2026-01-31) - Documentation consistency pass: fixed page/image counts to ground-truth (port-tracker 147→380, ICP-Lite 544→1115, ship images 82→444, site pages 561→1167), marked ship-page.css rollout complete (292/297), updated CSS consolidation status, removed stale JPG references
 - v1.2.0 (2026-01-31) - Updated priorities to reflect 2026-01-31 thread review; fixed ICP-Lite version (v1.0→v1.4); updated port count (147→380); updated Ship Logbook count; marked completed work streams
 - v1.1.0 (2026-01-03) - Added analytics requirement (Section 0), security standards section, trust claim accuracy rules
 - v1.0.0 (2025-11-23) - Initial comprehensive Claude guide created

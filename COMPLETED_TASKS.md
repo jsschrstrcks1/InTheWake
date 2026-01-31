@@ -43,6 +43,42 @@ When a task is completed:
 - [x] Fixed empty alt text on dynamically generated images
 **Result:** Site meets WCAG 2.1 Level A and Level AA requirements
 
+### Service Worker v14.0.0 Upgrade - COMPLETE (2026-01-31)
+**Status:** COMPLETE
+**Lane:** Green
+- [x] Version bump 13.2.0 → 14.0.0 (sw.js, sw-bridge.js, precache-manifest.json)
+- [x] Added warmCalculatorShell predictive prefetch (7 calculator assets)
+- [x] Added fxApiMaxAge (12hr) for exchange rate cache
+- [x] Updated CONFIG comments to current site counts
+- [x] Added calculator.css and calculator-math-module.js to precache manifest
+- [x] CORS type check NOT applied — analyzed and determined current code is correct
+**Result:** SW v14.0.0, calculator pages prefetch on homepage/planning visits
+
+### Sitemap Regeneration - COMPLETE (2026-01-31)
+**Status:** COMPLETE
+**Lane:** Green
+- [x] Fixed generate_sitemap.py to use git ls-tree (sparse checkout safe)
+- [x] Regenerated sitemap.xml: 947 → 1,154 URLs
+- [x] Updated robots.txt count comments (380 ports, 297 ships, 404 restaurants)
+**Result:** All 1,154 public pages in sitemap, generator works with any checkout state
+
+### Documentation Consistency Fixes - COMPLETE (2026-01-31)
+**Status:** COMPLETE
+**Lane:** Green
+- [x] CLAUDE.md: port-tracker 147→380, ICP-Lite 544→1115, ship images 82→444, pages 561→1167
+- [x] claude.md: skills 3→4, restaurants 215→404, added ship-page.css + JPG metrics
+- [x] IN_PROGRESS_TASKS.md: expanded work description for current branch
+- [x] Plan file: skill rules 8→9, stale branches marked already deleted
+- [x] Stale branches: verified already cleaned up (only 2 remote branches exist)
+**Result:** All tracking docs match ground-truth verified data
+
+### "Careful Not Clever" Guardrail - COMPLETE (2026-01-31)
+**Status:** COMPLETE
+**Lane:** Green
+- [x] Created .claude/skills/careful-not-clever/CAREFUL.md (principles document)
+- [x] Added skill rule to .claude/skill-rules.json (priority: critical, triggers on all edits)
+**Result:** Integrity guardrail loads into every future session on first file edit
+
 ### Ship Page CSS Rollout — 100% Coverage - COMPLETE (2026-01-31)
 **Status:** COMPLETE
 **Lane:** 🟢 Green (CSS standardization)
