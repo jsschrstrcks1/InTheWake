@@ -95,6 +95,25 @@ h3 { font-size: 1.25rem; line-height: 1.4; }
   .transport-costs-table th, .transport-costs-table td { padding: 0.35rem 0.4rem; }
 }
 
+/* From the Pier — Walking Distance Component */
+.from-the-pier { margin: 1.25rem 0; padding: 1rem 1.25rem; background: var(--foam, #e6f4f8); border-radius: 10px; border: 1px solid #cde8f0; }
+.from-the-pier h3 { font-size: 1.1rem; margin: 0 0 0.75rem; color: var(--sea, #0a3d62); }
+.pier-distances { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; }
+.pier-distance-item { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid #dce8ee; }
+.pier-distance-item:last-child { border-bottom: none; }
+.pier-dest { font-weight: 600; color: var(--ink, #083041); font-size: 0.92rem; }
+.pier-detail { font-size: 0.82rem; color: var(--text-muted, #2a4a5a); margin-top: 0.15rem; }
+.pier-time { white-space: nowrap; text-align: right; font-size: 0.88rem; font-weight: 600; color: var(--sea, #0a3d62); }
+.pier-time .walk-icon { margin-right: 0.25rem; }
+.pier-bar { grid-column: 1 / -1; height: 4px; background: #dce8ee; border-radius: 2px; overflow: hidden; }
+.pier-bar-fill { height: 100%; border-radius: 2px; background: var(--teal, #0077b6); transition: width 0.3s ease; }
+.pier-note { margin: 0.6rem 0 0; font-size: 0.82rem; color: var(--text-muted, #2a4a5a); font-style: italic; }
+@media (max-width: 600px) {
+  .from-the-pier { padding: 0.75rem; }
+  .pier-distance-item { grid-template-columns: 1fr; }
+  .pier-time { text-align: left; }
+}
+
 /* Ships That Visit Here Component (Competitor Gap P1) */
 .ships-visiting .ship-links { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; }
 .ships-visiting .cruise-line-label { margin: 0.75rem 0 0.4rem; font-weight: 600; font-size: 0.88rem; }
