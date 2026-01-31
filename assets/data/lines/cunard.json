@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.1",
-  "updated": "2025-11-03",
+  "updated": "2026-01-31",
   "lineId": "cunard",
   "rules": {
-    "gratuity": 0.125,
+    "gratuity": 0.15,
     "epsilon": 0.02,
-    "caps": { "premiumAlcohol": 15 }
+    "caps": { "premiumAlcohol": 16 }
   },
   "items": [
     { "id": "soda",         "label": "Soda (can/fountain)",    "price": 2.50,  "rangeMin": 2.00, "rangeMax": 3.00 },
@@ -32,9 +32,9 @@
   },
   "packages": {
     "softDrinks": {
-      "name": "Soft Drinks Package",
+      "name": "Soft Drink Package",
       "price": 11.00,
-      "range": "£8–£14/day",
+      "range": "$8–$14/day (+15% service charge)",
       "priceMin": 8.00,
       "priceMax": 14.00,
       "priceMid": 11.00,
@@ -45,35 +45,37 @@
         "Bottled water"
       ]
     },
-    "wine": {
-      "name": "Wine Package",
-      "price": 25.00,
-      "range": "£19–£32/day",
-      "priceMin": 19.00,
-      "priceMax": 32.00,
-      "priceMid": 25.00,
+    "beersWines": {
+      "name": "Beers & Wines Package",
+      "price": 72.00,
+      "range": "$62–$82/day (+15% service charge)",
+      "priceMin": 62.00,
+      "priceMax": 82.00,
+      "priceMid": 72.00,
       "includes": [
-        "All Soft Drinks Package items",
-        "House wine by the glass (red, white, rosé)",
+        "All Soft Drink Package items",
+        "House & select wines by the glass",
+        "Draught & bottled beers",
         "Sparkling wine & Prosecco"
       ]
     },
-    "premium": {
-      "name": "Premium Drinks Package",
-      "price": 45.00,
-      "range": "£35–£59/day",
-      "priceMin": 35.00,
-      "priceMax": 59.00,
-      "priceMid": 45.00,
+    "allInclusive": {
+      "name": "All-Inclusive Drinks Package",
+      "price": 85.50,
+      "range": "$72–$99/day (+15% service charge)",
+      "priceMin": 72.00,
+      "priceMax": 99.00,
+      "priceMid": 85.50,
       "includes": [
-        "All Wine Package items",
-        "Beer, cocktails & spirits up to £15 each",
+        "All Beers & Wines items",
+        "Cocktails & spirits up to $16 each",
         "Premium cocktails at all bars",
         "20% off bottles of wine from the cellar list"
       ]
     }
   },
   "_notes": {
-    "apples_to_apples": "Prices shown in GBP. Gratuity at 12.5% reflects UK service charge standard."
+    "source": "cunard.com, cruisecritic.com — verified 2026-01-31",
+    "apples_to_apples": "Cunard uses a 15% service charge (not 12.5%). Prices shown in USD. Multiple tiers available — Soft Drink, Beers & Wines, and All-Inclusive. Included value = (per-drink base × 1.15)."
   }
 }

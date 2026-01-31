@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.1",
-  "updated": "2025-11-03",
+  "updated": "2026-01-31",
   "lineId": "costa",
   "rules": {
     "gratuity": 0.00,
     "epsilon": 0.02,
-    "caps": { "intenditoreAlcohol": 15 }
+    "caps": { "myDrinksPlusAlcohol": 13 }
   },
   "items": [
     { "id": "soda",         "label": "Soda (can/fountain)",    "price": 2.50,  "rangeMin": 2.00, "rangeMax": 3.00 },
@@ -32,35 +32,36 @@
   },
   "packages": {
     "myDrinks": {
-      "name": "My Drinks Package",
-      "price": 26.00,
-      "range": "€20–€35/day",
-      "priceMin": 20.00,
-      "priceMax": 35.00,
-      "priceMid": 26.00,
+      "name": "My Drinks",
+      "price": 33.00,
+      "range": "€31.50–€34.29/day (gratuity included)",
+      "priceMin": 31.50,
+      "priceMax": 34.29,
+      "priceMid": 33.00,
       "includes": [
         "Fountain soda & premium coffees",
         "Specialty teas & fresh juices",
         "Mocktails & smoothies",
-        "Bottled water"
+        "Bottled water & energy drinks"
       ]
     },
-    "intenditore": {
-      "name": "Intenditore Package",
-      "price": 49.00,
-      "range": "€39–€65/day",
-      "priceMin": 39.00,
-      "priceMax": 65.00,
-      "priceMid": 49.00,
+    "myDrinksPlus": {
+      "name": "My Drinks Plus",
+      "price": 46.50,
+      "range": "€45–€48/day (gratuity included)",
+      "priceMin": 45.00,
+      "priceMax": 48.00,
+      "priceMid": 46.50,
       "includes": [
         "All My Drinks items",
-        "Beer, wine, cocktails & spirits up to €15 each",
+        "Beer, wine, cocktails & spirits up to €13 each",
         "Premium Italian wines by the glass",
         "Cocktails at all bars including specialty venues"
       ]
     }
   },
   "_notes": {
-    "apples_to_apples": "Gratuity is included in Costa pricing (European model). Prices shown in EUR."
+    "source": "costacruises.com, cruisecritic.com — verified 2026-01-31",
+    "apples_to_apples": "Gratuity is included in Costa pricing (European model). Prices shown in EUR. My Drinks is non-alcoholic, My Drinks Plus includes alcohol up to €13/drink. The former 'Intenditore' branding has been replaced by 'My Drinks Plus'."
   }
 }

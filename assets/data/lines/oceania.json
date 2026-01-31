@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "updated": "2025-11-03",
+  "updated": "2026-01-31",
   "lineId": "oceania",
   "rules": {
-    "gratuity": 0.18,
+    "gratuity": 0.00,
     "epsilon": 0.02,
     "caps": { "prestigeAlcohol": 25 }
   },
   "items": [
-    { "id": "soda",         "label": "Soda (can/fountain)",    "price": 3.50,  "rangeMin": 3.00, "rangeMax": 4.00 },
+    { "id": "soda",         "label": "Soda (can/fountain)",    "price": 0, "free": true },
     { "id": "coffee",       "label": "Premium Coffee",         "price": 0, "free": true },
     { "id": "teaprem",      "label": "Specialty Tea",          "price": 0, "free": true },
     { "id": "freshjuice",   "label": "Fresh-Squeezed Juice",   "price": 0, "free": true },
@@ -31,36 +31,24 @@
     "alcohol": ["beer","wine","cocktail","spirits"]
   },
   "packages": {
-    "houseSelect": {
-      "name": "House Select Beverage Package",
-      "price": 40.00,
-      "range": "$30–$50/day",
-      "priceMin": 30.00,
-      "priceMax": 50.00,
-      "priceMid": 40.00,
-      "includes": [
-        "House wines by the glass",
-        "Select beers & house spirits",
-        "House cocktails at all bars",
-        "Note: Coffee, tea, juice, water already included for all guests"
-      ]
-    },
     "prestigeSelect": {
       "name": "Prestige Select Beverage Package",
-      "price": 60.00,
-      "range": "$50–$75/day",
-      "priceMin": 50.00,
-      "priceMax": 75.00,
-      "priceMid": 60.00,
+      "price": 64.95,
+      "range": "$59.95–$69.95/day (gratuities included)",
+      "priceMin": 59.95,
+      "priceMax": 69.95,
+      "priceMid": 64.95,
       "includes": [
-        "All House Select items",
         "Premium wines, champagnes & spirits up to $25 each",
         "Premium cocktails at all bars",
-        "Vintage wines by the glass"
+        "Vintage wines by the glass",
+        "Gratuities included in package price",
+        "Note: Coffee, tea, juice, water, soda already included for all guests"
       ]
     }
   },
   "_notes": {
-    "apples_to_apples": "Oceania includes specialty coffee, tea, juice, bottled water, and smoothies for all guests. Drink packages cover alcoholic beverages only."
+    "source": "oceaniacruises.com, cruisecritic.com — verified 2026-01-31",
+    "apples_to_apples": "Oceania includes specialty coffee, tea, juice, bottled water, soda, and smoothies for all guests. House Select package discontinued as a standalone. Prestige Select covers alcoholic beverages only. Gratuities included in package price."
   }
 }
