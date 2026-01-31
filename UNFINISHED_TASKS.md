@@ -54,112 +54,101 @@ All 7 feature branches are stale merge-commit-only branches with **zero unmerged
 
 ### Work Started But NOT Finished (Across All Threads)
 
-The following items were **explicitly started** in previous threads (plans created, partial work done, or documented as "in progress") but remain incomplete:
+The following items were **explicitly started** in previous threads. Each has been verified against the actual codebase on 2026-01-31.
 
-#### 1. ~~Venue Audit — Phase 2~~ ✅ MOSTLY COMPLETE
-**Plan file:** `.claude/plan-venue-audit.md`
-**Thread:** `claude/audit-venues-gD9fq`
-**Verified 2026-01-31:** The major template issues have been remediated:
-- [x] 0 pages with "presented beautifully" generic text (was 20)
-- [x] 0 pages with hotdog.webp duplicated images (was 116)
-- [x] 0 pages missing Google Analytics (was 129)
-- [x] 0 pages missing Umami analytics (was 13)
-- [x] All pages have `menu-prices` sections (was 43 missing)
-- [x] 0 pages with generic template FAQs (was 80)
-**Remaining minor items:**
-- [ ] Validator integration into CI/CD pipeline (`validate-venue-page-v2.js` → `validate.js`)
-- [ ] 93 pages have "Smart Casual" dress code — most are legitimate specialty dining, but counter-service venues may need review
+#### 1. ~~Venue Audit — Phase 2~~ ✅ COMPLETE
+**Verified 2026-01-31:** All major template issues remediated. 0 generic text, 0 hotdog.webp, 0 missing analytics, all have menu-prices.
+- [x] Venue validator v2 integrated into unified `admin/validate.js` (reads `restaurants/*.html` path pattern)
+**Remaining minor item:**
+- [ ] 93 pages have "Smart Casual" dress code — most legitimate, but counter-service venues may need review
 
-#### 2. Affiliate Link Deployment — Draft Only
+#### 2. Affiliate Link Deployment — User Decision Needed
 **Plan file:** `.claude/plan-affiliate-deployment.md`
-**Thread:** `claude/affiliate-deployment-plan-Twqff`
-**What was done:** Plan drafted with full inventory of Amazon affiliate links (ducks, faith items, travel gear, packing essentials), placement strategy, and FTC disclosure requirements. Trust badge conflict identified ("No affiliate links" messaging on multiple pages).
+**Infrastructure already in place:** `affiliate-disclosure.html` exists, trust badges already updated to reference it.
 **What remains:**
-- [ ] User decision needed: proceed with affiliate deployment or keep ad-free messaging?
-- [ ] If proceeding: update trust badges site-wide, create affiliate-disclosure.html, add FTC disclosures
-- [ ] Duck tradition article needs to be written (primary placement for duck product links)
-- [ ] Packing lists page needs affiliate product integration
+- [ ] User decision needed: deploy Amazon affiliate links or keep current ad-free positioning?
+- [ ] If proceeding: duck tradition article, packing list integration, site-wide badge text tweaks
 
-#### 3. Port Weather Guide — Plan Only, No Implementation
+#### 3. Port Weather Guide — Infrastructure Complete, Data Missing
 **Plan file:** `.claude/plan-port-weather-guide.md`
-**What was done:** Architecture planned (seasonal-guides.json data structure, API integration pattern, UI component design). Only 4 of 333 ports have weather guides (1.2%).
+**Verified 2026-01-31:** Far more done than reported:
+- [x] `port-weather.js` (373 lines) — weather widget loader, deployed to **all 380 port pages**
+- [x] `id="weather-guide"` section exists on **375 port pages**
+- [x] `seasonal-guides.json` file exists with data structure
+- **The gap:** `seasonal-guides.json` only has data for **1 port (cozumel)**. 374 pages render the section but have no data.
 **What remains:**
-- [ ] Create `/assets/data/ports/seasonal-guides.json` with data for 329 ports
-- [ ] Build weather widget UI component
-- [ ] Integrate into port page template
-- [ ] Priority ports: Caribbean (nassau, grand-cayman, st-thomas), Alaska (juneau, ketchikan, skagway), Europe (barcelona, civitavecchia, naples)
+- [ ] Populate `seasonal-guides.json` with seasonal data for 374 ports (best months, temperature ranges, cruise notes)
+- [ ] Priority: Top 20 Caribbean + Alaska ports first
 
-#### 4. Quiz Edge Cases & V2 Expansion — Plans Only
-**Plan files:** `.claude/plan-quiz-edge-cases-and-improvements.md`, `.claude/plan-quiz-v2-expansion.md`
-**What was done:** Plans written for quiz improvements and multi-line expansion.
-**What remains:**
-- [ ] Implement edge case fixes documented in plan
-- [ ] Expand quiz beyond Royal Caribbean to other cruise lines
-- [ ] These are entirely unimplemented
+#### 4. ~~Quiz V2 Multi-Line Expansion~~ ✅ MOSTLY COMPLETE
+**Verified 2026-01-31:** Quiz data v2 already covers 15 cruise lines.
+- [x] `ship-quiz-data-v2.json` (model v2.1, dated 2026-01-03): supports rcl, carnival, ncl, msc, celebrity, princess, holland, cunard, costa, virgin, oceania, regent, seabourn, silversea, explora
+- [x] `cruise-lines/quiz.html` exists
+**Remaining:**
+- [ ] Edge case fixes per `.claude/plan-quiz-edge-cases-and-improvements.md`
 
 #### 5. ~~"Ships That Visit Here" Feature~~ ✅ FULLY DEPLOYED
-**Thread:** `claude/audit-competitor-gaps-0zTZ0` (PRs #974-987)
-**Status:** COMPLETE as of 2026-01-25
-- [x] Ship deployment data: 193 ships, 15 cruise lines, 398 ports in `ship-deployments.json` (v1.14.0)
-- [x] `ship-port-links.js` (v1.14.0): Full bidirectional UI — 457 lines, brand colors, class ordering
-- [x] Deployed to ALL 380 port pages and ALL 297 ship pages
-- [x] Bidirectional linking fully functional (port → ship and ship → port)
-**Note:** Initial audit incorrectly reported this as unbuilt. Verified 2026-01-31.
+(Verified — see previous entry)
 
-#### 6. Stateroom Checker Cabin Audits — Partial
-**Thread:** `claude/review-context-onboarding-ZZauz` (PRs #973, #982, #986)
-**What was done:** Room-by-room audits completed for Grandeur, Vision, and Rhapsody of the Seas.
-**What remains:**
-- [ ] Remaining RCL ships need stateroom exception audits (only 3 of 28+ done in this thread)
-- [ ] Fleet expansion for Stateroom Checker dropdown (not all RCL ships represented)
+#### 6. ~~Stateroom Checker Cabin Audits~~ ✅ MASSIVELY EXPANDED
+**Verified 2026-01-31:** Initial claim of "only 3 of 28+ done" was completely wrong.
+- [x] **270 stateroom exception JSON files** across ALL cruise lines (RCL, Carnival, Celebrity, NCL, Princess, HAL, MSC, Virgin, Costa, Cunard, Oceania, Regent, Seabourn, Silversea, Explora)
+- [x] Includes historical ships (Carnivale 1956, Holiday 1985, etc.) and future ships (Star of the Seas, unnamed project ships)
+- [x] Verification methodology documented (`VERIFICATION_METHODOLOGY.md`)
+- [x] Competitor audit completed (`COMPETITOR_AUDIT_2026-01-29.md`)
+**Remaining:**
+- [ ] Verify quality of auto-generated exception files vs manually audited ones (Grandeur, Vision, Rhapsody were hand-verified)
 
 #### 7. CSS Consolidation — Phase 3-5 Partially Complete
-**What was done:** Phases 1-2 complete. Port pages now down to 1 file with `<style>` blocks. Ship pages down to 13. Restaurant pages still have 124 with `<style>` blocks.
-**Verified 2026-01-31 current state:**
-- Port pages with `<style>` blocks: **1** (was ~468 in original audit)
-- Ship pages with `<style>` blocks: **13**
-- Restaurant pages with `<style>` blocks: **124**
-- Port pages with `.page-grid`: **0** (resolved)
+**Verified 2026-01-31:**
+- Port pages with `<style>` blocks: **1** of 380
+- Ship pages with `<style>` blocks: **13** of 293 (1 per cruise line with pages — these appear to be cruise-line-specific style overrides)
+- Restaurant pages: **124 of 280** (including all 78 NCL + all 46 Virgin venue pages)
+- Total site-wide: **139 files** with `<style>` blocks
+- Inline `style=` attributes: **22,577** across all HTML files
 **What remains:**
-- [ ] Phase 4: Remove remaining `<style>` blocks from 13 ship + 124 restaurant pages
-- [ ] Phase 5: Inline `style=` attribute cleanup across all pages
+- [ ] Determine if per-cruise-line `<style>` blocks in ship pages are intentional overrides or removable
+- [ ] Remove `<style>` blocks from 124 restaurant pages (NCL + Virgin are systematic)
+- [ ] Phase 5: Inline `style=` attribute cleanup (22,577 → target <5,000)
 
-#### 8. Ship Page Standardization — Barely Started
-**What was done:** All 50 RCL pages have ICP-Lite. Emoji removed from stateroom buttons. Phase 1-2 planned.
+#### 8. Ship Page Standardization — Partially Complete (not "barely started")
+**Verified 2026-01-31:** Several claims were wrong:
+- [x] `ship-page.css` ALREADY EXISTS (448 lines, v3.010.300) with hero, card, section, gallery, and FAQ components
+- [x] **130 of 293** ship pages (44%) already link `ship-page.css`
+- [x] Adoption by line: RCL 49/50 (98%), HAL 44/47 (94%), Celebrity 29/30 (97%), Carnival 8/49 (16%)
+- [x] `nordic-prince.html` exists (787 lines) and `sun-viking.html` exists (853 lines) — NOT skeletons
+- **`legend-1995` and `oasis-tbn-2028` do not exist as files** (not skeleton pages — they simply were never created)
 **What remains:**
-- [ ] Create `/assets/ship-page.css` with standardized components
-- [ ] Standardize 50 RCL ship pages (hero, carousel, section order)
-- [ ] Standardize 48 Carnival ship pages
-- [ ] Header standardization site-wide
-- [ ] 4 skeleton ship pages need full rebuilds (legend-1995, nordic-prince, oasis-tbn-2028, sun-viking)
+- [ ] Roll out `ship-page.css` to NCL (0/21), Princess (0/18), MSC (0/25), Virgin (0/5), Costa (0/10), Cunard (0/5), Oceania (0/9), Regent (0/8), Seabourn (0/8), Silversea (0/13), Explora (0/3+7)
+- [ ] Complete Carnival adoption (8/49 → 49/49)
+- [ ] Total remaining: ~163 ship pages need `ship-page.css` link
 
-#### 9. Competitor Gap Quick Wins — Partially Deployed
-**Source:** COMPETITOR_GAP_AUDIT_2026_01_29.md
-**What was done:** Tender Port Index (26 ports), First-Timer Hub, Trust messaging, Offline marketing, 30-Day Countdown, Ships That Visit Here — all complete.
-**What remains (7 of 16 initiatives complete = 44%):**
-- [x] ~~"Ships That Visit Here" UI on port pages~~ ✅ COMPLETE (verified 2026-01-31)
-- [ ] "From the Pier" distance component (`.pier-distances` CSS + content for 291 ports)
-- [ ] Comprehensive Port Print CSS / PDF generation
-- [ ] Transport cost callout table component
-- [ ] "Add to My Logbook" button on port pages
-- [ ] Region completion achievements
-- [ ] DIY vs. Excursion comparison callouts
-- [ ] Accessibility sections on port pages
-- [ ] "Real Talk" honest assessment callouts
+#### 9. Competitor Gap Quick Wins — More Complete Than Reported
+**Verified 2026-01-31:** Several initiatives already done but not tracked:
+- [x] Ships That Visit Here — COMPLETE
+- [x] Tender Port Index — `tender-ports.html` exists
+- [x] First-Timer Hub — `first-cruise.html` exists (557 lines)
+- [x] 30-Day Countdown — `countdown.html` exists (825 lines)
+- [x] Trust messaging — about-us.html has "No ads" language
+- [x] Affiliate disclosure page — exists
+- [x] Accessibility on port pages — **376 of 380** ports have accessibility content
+- [x] Transport cost data — present on **10 port pages** (partial, not 0)
+- [x] Print CSS — exists in `port-map.css`, `calculator.css`, `item-cards.css`, `ships-dynamic.css`
+**What remains (9/16+ done = ~56%):**
+- [ ] "From the Pier" walking distance component (0 ports)
+- [ ] "Add to My Logbook" button on port pages (0 ports)
+- [ ] Region completion achievements (0 implemented)
+- [ ] DIY vs. Excursion comparison callouts (0 ports)
+- [ ] "Real Talk" honest assessment callouts (0 ports)
+- [ ] Transport cost expansion (10/380 — needs 370 more ports)
+- [ ] Comprehensive Print CSS for port pages (partial, not complete)
 
 #### 10. ~~Port Map Integration~~ ✅ ESSENTIALLY COMPLETE (99%)
-**Verified 2026-01-31:** 375 of 380 port pages have Leaflet maps. Only 5 missing: beijing (inland), kyoto (inland), drake-passage (open ocean), falmouth-jamaica (needs map), tender-ports (index page).
-**Remaining enhancement phases (not blocking):**
-- [ ] Phase 1 (Static map artifacts — PNG/PDF) not started
-- [ ] Phase 3 (Article-map POI click integration) not started
-- [ ] Phase 4 (Enhanced geometry — beaches as regions) not started
-- [ ] Phase 5 (Build-time POI lint) not started
-- [ ] `falmouth-jamaica.html` needs Leaflet map added
+(Verified — see previous entry)
 
 #### 11. Service Worker v14 — Not Started
-**Current:** v13.2.0
-**What remains:**
-- [ ] CORS response caching fix (8 cache functions missing `response.type === 'cors'` check)
+**Verified 2026-01-31:** SW is v13.2.0. 0 CORS response type checks found.
+- [ ] CORS response caching fix (confirmed: 0 `response.type === 'cors'` checks in sw.js)
 - [ ] `staleIfErrorTimestamped` strategy for FX API caching
 - [ ] `warmCalculatorShell` predictive prefetch
 - [ ] `FORCE_DATA_REFRESH` and `GET_CACHE_STATS` message handlers
@@ -167,20 +156,22 @@ The following items were **explicitly started** in previous threads (plans creat
 
 #### 12. Pastoral Articles — Not Written
 **Status:** 🔴 Red lane (human decides)
-- [ ] Healing Relationships at Sea (~3,000 words) — 15+ logbook references, not created
-- [ ] Rest for Wounded Healers (~2,500 words) — 10+ logbook references, not created
-- [ ] Solo Travel Safety Tips — practical safety content gap
-- [ ] Solo Cruising comprehensive expansion
+- [ ] Healing Relationships at Sea (~3,000 words) — not created
+- [ ] Rest for Wounded Healers (~2,500 words) — not created
+- [x] In the Wake of Grief — EXISTS (722 lines, Grade A+)
+- [x] Solo Cruiser's Companion — EXISTS
+- [x] Freedom of Your Own Wake — EXISTS
+- [x] Why I Started Solo Cruising — EXISTS
+- [x] Accessible Cruising — EXISTS
+- [x] Practical Guide to Solo Cruising — EXISTS
+- [x] Visiting the US Before Your Cruise — EXISTS
 
-#### 13. Site-Wide Pattern Standardization — Largely Incomplete
-**What was done:** Right rail Quick Answer/Best For/Key Facts added to all hub pages. Article card CSS classes created.
+#### 13. Site-Wide Pattern Standardization — Partially Complete
 **What remains:**
-- [ ] Author/Article cards still don't match index.html pattern on most hub pages
-- [ ] Header hero size inconsistent across pages (ships, solo, travel, cruise-lines, ship-tracker all different)
-- [ ] Logo size standardization needed
-- [ ] solo.html: article fragments not loading, CSS filter making hero muted
-- [ ] index.html: FAQ needs moving, logo goes outside viewable area
-- [ ] Multiple pages need hero/logo alignment fixes
+- [ ] Header hero size inconsistent across hub pages
+- [ ] Logo size standardization
+- [ ] solo.html article loading (28 article references, uses fetch for fragments)
+- [ ] index.html FAQ positioning
 
 ### Documentation Inconsistencies Discovered
 
