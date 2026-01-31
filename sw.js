@@ -203,6 +203,11 @@ self.addEventListener('message', (event) => {
       event.waitUntil(seedUrls(urls || [], priority || 'normal'));
       break;
 
+    case 'SEED_TILES':
+      // Prefetch OSM map tiles for offline port maps
+      event.waitUntil(seedTiles(event.data.tiles || [], event.data.portId || ''));
+      break;
+
     case 'NETWORK_INFO':
       // Update network state for adaptive caching strategies
       networkInfo = {
@@ -674,6 +679,65 @@ async function seedUrls(urls, priority = 'normal') {
     if (priority === 'low') {
       await new Promise(r => setTimeout(r, 100));
     }
+  }
+}
+
+/* Proactive map tile caching — fetches OSM tiles for offline port maps.
+ * Respects OSM tile usage policy: max 2 concurrent, 200ms inter-batch delay,
+ * per-invocation cap of 100 tiles. */
+async function seedTiles(tileUrls, portId) {
+  if (!tileUrls.length) return;
+  if (networkInfo.saveData) {
+    console.log('[SW] Skipping tile seed — save-data mode');
+    return;
+  }
+  if (networkInfo.effectiveType === '2g' || networkInfo.effectiveType === 'slow-2g') {
+    console.log('[SW] Skipping tile seed — slow connection');
+    return;
+  }
+
+  const cache = await caches.open(CACHES.TILES);
+  const maxPerSession = 100; // OSM policy: no bulk downloads
+  let fetched = 0;
+  let skipped = 0;
+
+  // Max 2 concurrent requests (OSM tile usage policy)
+  for (let i = 0; i < tileUrls.length && fetched < maxPerSession; i += 2) {
+    const batch = tileUrls.slice(i, i + 2);
+    await Promise.all(batch.map(async (url) => {
+      try {
+        const existing = await cache.match(url);
+        if (existing) {
+          updateLRU(CACHES.TILES, url);
+          skipped++;
+          return;
+        }
+        const response = await fetchWithTimeout(new Request(url, { mode: 'cors' }), CONFIG.fetchTimeout);
+        if (response && response.ok) {
+          await cache.put(url, response);
+          updateLRU(CACHES.TILES, url);
+          fetched++;
+        }
+      } catch (e) {
+        // Silently skip failed tiles
+      }
+    }));
+    // 200ms delay between batches — OSM politeness
+    if (i + 2 < tileUrls.length) {
+      await new Promise(r => setTimeout(r, 200));
+    }
+  }
+
+  pruneCache(CACHES.TILES, CONFIG.maxTiles);
+
+  if (fetched > 0 || skipped > 0) {
+    console.log('[SW] Tile seed complete — fetched: ' + fetched + ', already cached: ' + skipped +
+                (portId ? ' (' + portId + ')' : ''));
+  }
+
+  // Notify client that tiles are cached for this port
+  if (portId && fetched > 0) {
+    notifyClients({ type: 'TILES_CACHED', portId: portId, fetched: fetched, total: fetched + skipped });
   }
 }
 
