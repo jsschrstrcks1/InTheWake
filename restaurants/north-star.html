@@ -275,10 +275,14 @@ All work on this project is offered as a gift to God.
       <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
       <p class="tiny">Founder of In the Wake; cruiser and collector of horizon lines.</p>
     </section>
-    <section class="card" aria-labelledby="recent-rail-title">
-      <h3 id="recent-rail-title">Recent Stories</h3>
-      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-    </section>
+          <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      </section>
   </aside>
 </main>
 
@@ -290,14 +294,112 @@ All work on this project is offered as a gift to God.
   </footer>
 
 <script src="/assets/js/dropdown.js" defer></script>
+
+
 <script>
-(function(){
-  const rail=document.getElementById('recent-rail');if(!rail)return;
-  fetch('/assets/data/articles/index.json').then(r=>r.json()).then(data=>{
-    const articles=(data||[]).filter(a=>a.status==='published').sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,6);
-    rail.innerHTML=articles.map(a=>'<a class="rail-item" href="'+a.url+'">'+a.title+'</a>').join('');
-  }).catch(()=>{});
-})();
-</script>
+  (function(){
+    "use strict";
+
+    (async function recentRail(){
+      const rail = document.getElementById('recent-rail');
+      if(!rail) return;
+
+      const fallback = document.getElementById('recent-rail-fallback');
+      if(fallback) fallback.style.display = '';
+
+      async function fetchJSONWithFallback(urls){
+        for (const u of urls){
+          try{
+            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
+            if (res.ok) return await res.json();
+          }catch(err){}
+        }
+        return null;
+      }
+
+      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
+
+      function setImageWithFallback(imgEl, primary, altPaths=[]){
+        if(!imgEl) return;
+        const stamp='v=3.010.300';
+        const tried=new Set();
+        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
+        function tryNext(){
+          const next=queue.shift();
+          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
+          if(tried.has(next)) return tryNext();
+          tried.add(next);
+          imgEl.src=next;
+        }
+        imgEl.onerror=tryNext;
+        tryNext();
+      }
+
+      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
+      if(!raw) {
+        if(fallback) {
+          fallback.textContent = 'Unable to load articles';
+          fallback.style.display = '';
+        }
+        return;
+      }
+
+      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
+      if(!items.length) return;
+
+      const here = location.pathname.replace(/\/+$/,'');
+      const view = items.filter(p=>{
+        const href = pick(p,['url','path'],'#');
+        const norm = (href||'').replace(/\/+$/,'');
+        return norm && norm !== here;
+      }).slice(0,6);
+
+      rail.innerHTML = view.map(p=>{
+        const title = pick(p,['title','name'],'Article');
+        const href  = pick(p,['url','path'],'#');
+        const excerpt = pick(p,['excerpt','description'],'');
+        return `
+          <article class="card article-card">
+            <div class="article-card-grid">
+              <div class="article-thumb-wrap">
+                <img class="article-thumb" alt="" decoding="async" loading="lazy">
+              </div>
+              <div class="article-card-body">
+                <h4><a href="${href}">${title}</a></h4>
+                ${excerpt ? `<p class="tiny excerpt">${excerpt}</p>` : ''}
+              </div>
+            </div>
+            <a href="${href}" class="pill read-more">Read Article \u2192</a>
+          </article>`;
+      }).join('');
+
+      const cards = [...rail.querySelectorAll('article.card')];
+      cards.forEach((card,i)=>{
+        const p = view[i] || {};
+        const el = card.querySelector('img.article-thumb');
+        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
+        if(!primary){
+          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
+          const guess = slugify(pick(p,['url','path'],'')) || slugify(pick(p,['title','name'],''));
+          if(guess) primary = `/assets/articles/${guess}/cover.jpg`;
+        }
+        const alts = [];
+        if(primary){
+          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
+          alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
+        }
+        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
+      });
+
+      if(fallback) fallback.style.display = 'none';
+
+      const status = document.getElementById('a11y-status');
+      if(status) {
+        status.textContent = `${view.length} recent articles loaded`;
+      }
+    })();
+  })();
+  </script>
+
 </body>
 </html>
