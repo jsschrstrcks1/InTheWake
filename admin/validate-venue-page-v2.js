@@ -17,6 +17,7 @@
  *   T08  Missing JSON-LD schemas
  *   T09  Missing WCAG accessibility elements
  *   T10  Missing navigation elements
+ *   T11  Missing local images (referenced files that don't exist on disk)
  *
  * Semantic checks (content quality & coherence):
  *   S01  Generic template review text detected
@@ -466,6 +467,30 @@ class VenueValidator {
     else this.warn('T10', 'Dropdown menus not found');
   }
 
+  // ── T11: Missing local images ───────────────────────────────────────────
+  checkMissingLocalImages() {
+    const images = this.extractAllImageSrcs();
+    const missing = [];
+
+    for (const src of images) {
+      // Only check local (absolute-path) images, not external URLs
+      if (!src.startsWith('/') || src.startsWith('//')) continue;
+
+      const cleanSrc = src.split('?')[0].split('#')[0];
+      const imgPath = join(PROJECT_ROOT, cleanSrc);
+      if (!existsSync(imgPath)) {
+        missing.push(src);
+      }
+    }
+
+    if (missing.length > 0) {
+      const display = missing.slice(0, 3).join(', ') + (missing.length > 3 ? '...' : '');
+      this.fail('T11', `${missing.length} local image(s) not found: ${display}`);
+    } else {
+      this.pass('T11', 'All local image references resolve to existing files');
+    }
+  }
+
   // ── S01: Generic template review text ────────────────────────────────────
   checkGenericReview() {
     const found = [];
@@ -653,6 +678,7 @@ class VenueValidator {
     this.checkJSONLD();                   // T08
     this.checkAccessibility();            // T09
     this.checkNavigation();               // T10
+    this.checkMissingLocalImages();        // T11
 
     // Semantic checks
     this.checkGenericReview();            // S01
@@ -864,7 +890,7 @@ async function main() {
     console.log('  node admin/validate-venue-page-v2.js --json-output <page.html>');
     console.log('');
     console.log('Checks:');
-    console.log('  T01-T10  Technical (structural, analytics, sections)');
+    console.log('  T01-T11  Technical (structural, analytics, sections, images)');
     console.log('  S01-S06  Semantic (content quality, coherence, tone)');
     console.log('  W01-W05  Quality warnings');
     process.exit(1);
