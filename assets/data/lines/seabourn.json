@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "1.1",
+  "updated": "2025-11-03",
+  "lineId": "seabourn",
+  "rules": {
+    "gratuity": 0.00,
+    "epsilon": 0.02,
+    "caps": {}
+  },
+  "items": [
+    { "id": "soda",         "label": "Soda (can/fountain)",    "price": 0, "free": true },
+    { "id": "coffee",       "label": "Premium Coffee",         "price": 0, "free": true },
+    { "id": "teaprem",      "label": "Specialty Tea",          "price": 0, "free": true },
+    { "id": "freshjuice",   "label": "Fresh-Squeezed Juice",   "price": 0, "free": true },
+    { "id": "mocktail",     "label": "Mocktail",               "price": 0, "free": true },
+    { "id": "energy",       "label": "Energy Drink",           "price": 5.00,  "rangeMin": 4.50, "rangeMax": 5.50 },
+    { "id": "milkshake",    "label": "Milkshake / Smoothie",   "price": 0, "free": true },
+    { "id": "bottledwater", "label": "Bottled Water (500 ml)", "price": 0, "free": true },
+    { "id": "beer",         "label": "Beer",                   "price": 0, "free": true },
+    { "id": "wine",         "label": "Wine (glass)",           "price": 0, "free": true },
+    { "id": "cocktail",     "label": "Cocktail",               "price": 0, "free": true },
+    { "id": "spirits",      "label": "Spirits / Shot (+mixer)","price": 0, "free": true },
+    { "id": "premiumwine",  "label": "Premium Wine (glass)",   "price": 16.00, "rangeMin": 12.00, "rangeMax": 40.00 },
+    { "id": "premiumspirits","label": "Premium Spirits",       "price": 15.00, "rangeMin": 11.00, "rangeMax": 30.00 },
+    { "id": "tapwater",     "label": "Tap Water",              "price": 0, "free": true },
+    { "id": "lemonade",     "label": "Lemonade (basic)",       "price": 0, "free": true },
+    { "id": "basictea",     "label": "Basic Tea (hot/cold)",   "price": 0, "free": true },
+    { "id": "juiceconc",    "label": "Juice (concentrate)",    "price": 0, "free": true }
+  ],
+  "sets": {
+    "soda":    ["soda"],
+    "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","milkshake","bottledwater","tapwater","lemonade","basictea","juiceconc","energy"],
+    "alcohol": ["beer","wine","cocktail","spirits"],
+    "premium": ["premiumwine","premiumspirits"]
+  },
+  "packages": {
+    "included": {
+      "name": "All-Inclusive (Included)",
+      "price": 0,
+      "range": "Included in fare",
+      "priceMin": 0,
+      "priceMax": 0,
+      "priceMid": 0,
+      "includes": [
+        "Unlimited beer, wine, cocktails & spirits",
+        "Open bars throughout the ship",
+        "Premium coffees, teas & specialty drinks",
+        "Fresh juices, smoothies & mocktails",
+        "Bottled water & soft drinks",
+        "In-suite bar stocked with preferences",
+        "Gratuities included"
+      ]
+    },
+    "premiumUpgrade": {
+      "name": "Premium & Vintage Collection",
+      "price": 0,
+      "range": "À la carte only",
+      "priceMin": 0,
+      "priceMax": 0,
+      "priceMid": 0,
+      "includes": [
+        "Rare & vintage wines by the glass or bottle",
+        "Ultra-premium spirits & aged single malts",
+        "Prestige champagnes",
+        "Priced individually — not included in fare"
+      ]
+    }
+  },
+  "_notes": {
+    "apples_to_apples": "Seabourn is all-inclusive: beer, wine, spirits, coffee, water all included. In-suite bar stocked to preference. Only ultra-premium selections incur additional charges. Gratuities included."
+  }
+}
