@@ -1,4 +1,4 @@
-/* sw-bridge.js v14.1.0 — Service Worker Registration & Bridge
+/* sw-bridge.js v14.2.0 — Service Worker Registration & Bridge
  * Handles SW lifecycle, updates, client-SW communication,
  * and progressive offline caching (link/image scanning)
  * Soli Deo Gloria ✝️
@@ -7,7 +7,7 @@
 (function () {
   'use strict';
 
-  const VERSION = '14.1.0';
+  const VERSION = '14.2.0';
 
   if (!('serviceWorker' in navigator)) {
     console.log('[SW-Bridge] Service Workers not supported');
