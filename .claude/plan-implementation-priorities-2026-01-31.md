@@ -95,12 +95,8 @@ Fix: index.html, ships.html, solo.html, travel.html, cruise-lines.html, ship-tra
 
 ---
 
-### 9. Service Worker v14 Upgrade
-**Priority:** MEDIUM — Offline reliability for drink calculator
-**Effort:** MEDIUM
-**Lane:** Green
-
-Key: CORS fix (8 functions), warmCalculatorShell prefetch, cache refresh UI.
+### ~~9. Service Worker v14 Upgrade~~ ✅ COMPLETE
+**Completed 2026-01-31:** Upgraded sw.js 13.2.0 → 14.0.0. Added warmCalculatorShell predictive prefetch (7 calculator assets cached on homepage/planning visits). Added 12hr FX API stale cache. Updated precache-manifest.json and sw-bridge.js. CORS type check analyzed and determined unnecessary (response.ok already covers CORS).
 
 ---
 
@@ -139,11 +135,11 @@ Key: CORS fix (8 functions), warmCalculatorShell prefetch, cache refresh UI.
 | Session | Work | Tier |
 |---------|------|------|
 | ~~**1-3**~~ | ~~Audit, docs, venue, maps, quiz, stateroom, CSS consolidation (restaurants + Carnival), ship-page.css rollout (292/292)~~ ✅ All done | ~~Done~~ |
+| ~~**4**~~ | ~~SW v14.0.0, sitemap regen (1,154 URLs), docs consistency, guardrail~~ ✅ Done | ~~Done~~ |
 | **Next** | Competitor gap: "From the Pier" + logbook buttons | Tier 2 |
 | **+1** | Competitor gap: Real Talk + DIY vs Excursion callouts | Tier 2 |
 | **+2** | Port weather data: Top 20 Caribbean ports | Tier 3 |
 | **+3** | Hero/logo standardization | Tier 3 |
-| **+4** | Service Worker v14 upgrade | Tier 3 |
 
 ---
 
