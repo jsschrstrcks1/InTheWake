@@ -30,7 +30,7 @@ This is a static HTML/CSS/JavaScript cruise planning website with an AI-first me
 | **ICP-Lite Protocol** | AI metadata specification | [.claude/skills/standards/resources/icp-lite-protocol.md](.claude/skills/standards/resources/icp-lite-protocol.md) |
 | **Theological Foundation** | Invocation requirements | [.claude/skills/standards/resources/theological-foundation.md](.claude/skills/standards/resources/theological-foundation.md) |
 | **Ship Page Standards** | Ship page template | [new-standards/foundation/SHIP_PAGE_STANDARDS_v3.007.010.md](new-standards/foundation/SHIP_PAGE_STANDARDS_v3.007.010.md) |
-| **Unfinished Tasks** | Current work backlog | [admin/UNFINISHED-TASKS.md](admin/UNFINISHED-TASKS.md) |
+| **Unfinished Tasks** | Current work backlog | [UNFINISHED_TASKS.md](UNFINISHED_TASKS.md) |
 
 ---
 
@@ -38,8 +38,8 @@ This is a static HTML/CSS/JavaScript cruise planning website with an AI-first me
 
 ```
 InTheWake/
-├── ships/              # 309 ship pages by cruise line
-├── ports/              # 400+ port guide pages
+├── ships/              # 297 ship pages across 15 cruise lines
+├── ports/              # 380 port guide pages
 ├── restaurants/        # Dining venue pages
 ├── assets/             # CSS, JS, images, data
 ├── admin/              # Maintenance scripts and tools
@@ -179,12 +179,14 @@ All work on this project is offered as a gift to God.
 
 | Metric | Value |
 |--------|-------|
-| Ship Pages | 311 |
+| Ship Pages | 297 |
 | Passing Validation | 106 (34%) |
 | Blocking Errors | 981 |
 | Port Pages | 380 |
+| Restaurant/Venue Pages | 215 |
+| Ship Deployments | 193 ships, 15 cruise lines, 398 ports |
 
-See [admin/UNFINISHED-TASKS.md](admin/UNFINISHED-TASKS.md) for detailed status.
+See [UNFINISHED_TASKS.md](UNFINISHED_TASKS.md) for detailed status.
 
 ---
 
