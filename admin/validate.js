@@ -417,6 +417,7 @@ async function main() {
       join(PROJECT_ROOT, 'ships/**/*.html'),
       join(PROJECT_ROOT, 'ports/*.html'),
       join(PROJECT_ROOT, 'restaurants/*.html'),
+      join(PROJECT_ROOT, 'restaurants/**/*.html'),
       join(PROJECT_ROOT, 'venues/**/*.html'),
       join(PROJECT_ROOT, 'articles/**/*.html')
     ];
@@ -429,7 +430,14 @@ async function main() {
   } else if (options.allPorts) {
     filesToValidate = await glob(join(PROJECT_ROOT, 'ports/*.html'));
   } else if (options.allVenues) {
-    filesToValidate = await glob(join(PROJECT_ROOT, 'restaurants/*.html'));
+    const venuePatterns = [
+      join(PROJECT_ROOT, 'restaurants/*.html'),
+      join(PROJECT_ROOT, 'restaurants/**/*.html')
+    ];
+    for (const pattern of venuePatterns) {
+      const files = await glob(pattern);
+      filesToValidate.push(...files);
+    }
   } else if (options.files.length > 0) {
     filesToValidate = options.files.map(f =>
       f.startsWith('/') ? f : join(PROJECT_ROOT, f)

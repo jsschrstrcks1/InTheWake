@@ -438,7 +438,10 @@
       const deployments = await response.json();
 
       if (context.type === 'port') {
-        renderShipsForPort(context.slug, deployments);
+        // Skip if static section already exists (server-rendered)
+        if (!document.getElementById('ships-visiting-title')) {
+          renderShipsForPort(context.slug, deployments);
+        }
       } else if (context.type === 'ship') {
         renderPortsForShip(context.slug, deployments, context.cruiseLine || 'rcl');
       }

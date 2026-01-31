@@ -17,6 +17,7 @@
  *   T08  Missing JSON-LD schemas
  *   T09  Missing WCAG accessibility elements
  *   T10  Missing navigation elements
+ *   T11  Missing local images (referenced files that don't exist on disk)
  *
  * Semantic checks (content quality & coherence):
  *   S01  Generic template review text detected
@@ -70,6 +71,9 @@ function loadVenueData() {
   const dataFiles = [
     join(PROJECT_ROOT, 'assets/data/venues-v2.json'),
     join(PROJECT_ROOT, 'assets/data/ncl-venues.json'),
+    join(PROJECT_ROOT, 'assets/data/carnival-venues.json'),
+    join(PROJECT_ROOT, 'assets/data/msc-venues.json'),
+    join(PROJECT_ROOT, 'assets/data/virgin-venues.json'),
   ];
   for (const dataPath of dataFiles) {
     if (!existsSync(dataPath)) continue;
@@ -112,26 +116,36 @@ function classifyVenue(slug, venueData) {
 
   // Dining
   if (cat === 'dining') {
-    // Counter-service / walk-up indicators
-    const counterKeywords = [
-      'hot dog', 'sausage', 'pizza by the slice', 'ice cream', 'soft-serve',
-      'candy', 'sweets shop', 'snacks', 'quick bites', 'quick service',
-      'bbq', 'barbecue', 'fish and chips', 'tacos and burritos'
-    ];
-    if (counterKeywords.some(kw => desc.includes(kw) || name.includes(kw))) {
-      return 'counter-service';
-    }
-
-    // Buffet indicators
-    if (desc.includes('buffet') || desc.includes('food hall') || desc.includes('multiple stations')) {
-      return 'casual-dining';
-    }
-
-    // Fine dining / specialty
+    // Fine dining / specialty (check FIRST — premium venues should never be counter-service)
     if (sub === 'specialty' || meta.premium === true) {
       const fineKeywords = ['multi-course', 'tasting', 'exclusive', 'upscale', 'fine dining', 'molecular'];
       if (fineKeywords.some(kw => desc.includes(kw))) return 'fine-dining';
       return 'specialty';
+    }
+
+    // Sit-down restaurants with interactive/tableside service (teppanyaki, Korean BBQ, etc.)
+    if (sub === 'restaurant') {
+      const fineKeywords = ['multi-course', 'tasting', 'exclusive', 'upscale', 'fine dining', 'molecular'];
+      if (fineKeywords.some(kw => desc.includes(kw))) return 'fine-dining';
+      if (desc.includes('tableside') || desc.includes('interactive') || desc.includes('sit-down')) return 'specialty';
+      return 'casual-dining';
+    }
+
+    // Buffet indicators (check before counter-service — buffets mention "snacks" but aren't counters)
+    if (desc.includes('buffet') || desc.includes('food hall') || desc.includes('multiple stations')) {
+      return 'casual-dining';
+    }
+
+    // Counter-service / walk-up indicators (only for casual/complimentary subcategories)
+    const counterKeywords = [
+      'hot dog', 'sausage', 'pizza by the slice', 'ice cream', 'soft-serve',
+      'candy', 'sweets shop', 'quick bites', 'quick service',
+      'fish and chips', 'tacos and burritos'
+    ];
+    // Only classify as counter-service if the PRIMARY purpose is counter-service
+    // (removed 'snacks', 'bbq' — too broad; buffets mention snacks, smokehouse BBQ is sit-down)
+    if (counterKeywords.some(kw => desc.includes(kw) || name.includes(kw))) {
+      return 'counter-service';
     }
 
     // Complimentary dining
@@ -453,6 +467,30 @@ class VenueValidator {
     else this.warn('T10', 'Dropdown menus not found');
   }
 
+  // ── T11: Missing local images ───────────────────────────────────────────
+  checkMissingLocalImages() {
+    const images = this.extractAllImageSrcs();
+    const missing = [];
+
+    for (const src of images) {
+      // Only check local (absolute-path) images, not external URLs
+      if (!src.startsWith('/') || src.startsWith('//')) continue;
+
+      const cleanSrc = src.split('?')[0].split('#')[0];
+      const imgPath = join(PROJECT_ROOT, cleanSrc);
+      if (!existsSync(imgPath)) {
+        missing.push(src);
+      }
+    }
+
+    if (missing.length > 0) {
+      const display = missing.slice(0, 3).join(', ') + (missing.length > 3 ? '...' : '');
+      this.fail('T11', `${missing.length} local image(s) not found: ${display}`);
+    } else {
+      this.pass('T11', 'All local image references resolve to existing files');
+    }
+  }
+
   // ── S01: Generic template review text ────────────────────────────────────
   checkGenericReview() {
     const found = [];
@@ -640,6 +678,7 @@ class VenueValidator {
     this.checkJSONLD();                   // T08
     this.checkAccessibility();            // T09
     this.checkNavigation();               // T10
+    this.checkMissingLocalImages();        // T11
 
     // Semantic checks
     this.checkGenericReview();            // S01
@@ -735,12 +774,23 @@ class VenueValidator {
 
 // ─── Batch mode ──────────────────────────────────────────────────────────────
 
+function collectHtmlFiles(dir) {
+  const entries = readdirSync(dir, { withFileTypes: true });
+  let files = [];
+  for (const entry of entries) {
+    const fullPath = join(dir, entry.name);
+    if (entry.isDirectory()) {
+      files = files.concat(collectHtmlFiles(fullPath));
+    } else if (entry.name.endsWith('.html')) {
+      files.push(fullPath);
+    }
+  }
+  return files;
+}
+
 async function batchValidate(dir, options = {}) {
   const absDir = dir.startsWith('/') ? dir : join(PROJECT_ROOT, dir);
-  const files = readdirSync(absDir)
-    .filter(f => f.endsWith('.html'))
-    .map(f => join(absDir, f))
-    .sort();
+  const files = collectHtmlFiles(absDir).sort();
 
   console.log(`\n${c.bold}Venue Batch Validation${c.reset}`);
   console.log(`Scanning ${files.length} venue pages in ${relative(PROJECT_ROOT, absDir)}/\n`);
@@ -840,7 +890,7 @@ async function main() {
     console.log('  node admin/validate-venue-page-v2.js --json-output <page.html>');
     console.log('');
     console.log('Checks:');
-    console.log('  T01-T10  Technical (structural, analytics, sections)');
+    console.log('  T01-T11  Technical (structural, analytics, sections, images)');
     console.log('  S01-S06  Semantic (content quality, coherence, tone)');
     console.log('  W01-W05  Quality warnings');
     process.exit(1);

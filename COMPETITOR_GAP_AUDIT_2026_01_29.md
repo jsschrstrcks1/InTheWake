@@ -13,10 +13,10 @@ This audit verifies the implementation status of competitor gap-closing initiati
 
 | Category | Completed | Pending | Progress |
 |----------|-----------|---------|----------|
-| P1 Quick Wins | 5 | 3 | 62% |
+| P1 Quick Wins | 6 | 2 | 75% |
 | P2 Strategic Items | 1 | 5 | 17% |
 | P3 Future Items | 0 | 2 | 0% |
-| **Total** | **6** | **10** | **38%** |
+| **Total** | **7** | **9** | **44%** |
 
 ### Key Findings
 
@@ -26,11 +26,11 @@ This audit verifies the implementation status of competitor gap-closing initiati
 3. "No Ads" Trust Messaging
 4. "Works Offline" Marketing
 5. 30-Day Countdown Checklist
+6. "Ships That Visit Here" Section (369 port pages, Jan 31 2026)
 
 **Critical Gaps Remaining (P1):**
 1. "From the Pier" Distance Component
-2. "Ships That Visit Here" Section
-3. Comprehensive Print CSS for Ports
+2. Comprehensive Print CSS for Ports
 
 ---
 
@@ -110,17 +110,20 @@ This audit verifies the implementation status of competitor gap-closing initiati
 ---
 
 #### 5. "Ships That Visit Here" Section
-**Status:** NOT IMPLEMENTED
-**Gap Details:**
-- No port pages contain "Ships That Visit Here" sections
-- Ship deployment data exists in `ports.csv` but not integrated into port pages
-- This is a **unique differentiator** — no competitor has ship-port integration
+**Status:** COMPLETE (Jan 31, 2026)
+**Evidence:**
+- Static "Ships That Visit Here" sections injected into 369 port pages
+- Ships grouped by cruise line (15 lines) with branded pill-link buttons
+- Sorted by ship class within each cruise line (largest first)
+- CSS component `.ships-visiting` + `.ship-link-pill[data-line]` in `/assets/styles.css`
+- Bidirectional linking: port → ship pages (ship → port via JS `ship-port-links.js`)
+- `ship-port-links.js` updated with duplicate-prevention check
+- Data source: `/assets/data/ship-deployments.json` (193 ships, 398 ports)
+- Injection script: `/scripts/inject-ships-visiting.js` (idempotent, re-runnable)
 
-**Required Tasks:**
-- [ ] Add "Ships That Visit Here" section template to port pages
-- [ ] Pull ship data from deployment info (ports.csv)
-- [ ] Show ship thumbnails with links to ship pages
-- [ ] Enable bidirectional linking (port → ship, ship → port)
+**Pages Not Injected (10):**
+- 9 ports with no deployment data in ship-deployments.json
+- 1 redirect page (falmouth-jamaica.html → jamaica.html)
 
 **Competitive Advantage:** This feature addresses a gap that NO competitor fills.
 
@@ -190,7 +193,7 @@ This audit verifies the implementation status of competitor gap-closing initiati
 
 | Differentiator | Status | Evidence |
 |----------------|--------|----------|
-| Ship-Port Integration | PLANNED (not deployed) | Data exists; "Ships That Visit Here" pending |
+| Ship-Port Integration | ACTIVE (deployed Jan 31) | 369 port pages with static "Ships That Visit Here" sections; ship pages via JS |
 | First-Person Storytelling | ACTIVE | Logbook pages, author bios, personal narratives |
 | Interactive Tools | ACTIVE | Ship Quiz, Cruise Line Quiz, Drink Calculator, Stateroom Checker |
 | Gamification | ACTIVE | Port Logbook, Ship Logbook with tracking |
@@ -210,8 +213,8 @@ This audit verifies the implementation status of competitor gap-closing initiati
 | Trust badge on pages | No | Yes | +1 |
 | 30-Day Countdown | No | Yes | +1 |
 | "From the Pier" component | No | No | — |
-| "Ships That Visit Here" | No | No | — |
-| Ports with ship integration | 0 | 0 | — |
+| "Ships That Visit Here" | No | Yes (369 ports) | +1 |
+| Ports with ship integration | 0 | 369 | +369 |
 | Print CSS (comprehensive) | No | Partial | +0.5 |
 | Transport cost component | No | Yes (10 ports) | +1 |
 
@@ -253,7 +256,7 @@ This audit verifies the implementation status of competitor gap-closing initiati
 - [x] 30-Day Countdown Checklist
 
 ### In Progress
-- [ ] "Ships That Visit Here" Section (P1)
+- [x] "Ships That Visit Here" Section (P1) — deployed to 369 port pages (Jan 31, 2026)
 - [ ] "From the Pier" Distance Component (P1)
 - [ ] Print CSS Enhancement (P1)
 
