@@ -70,6 +70,9 @@ function loadVenueData() {
   const dataFiles = [
     join(PROJECT_ROOT, 'assets/data/venues-v2.json'),
     join(PROJECT_ROOT, 'assets/data/ncl-venues.json'),
+    join(PROJECT_ROOT, 'assets/data/carnival-venues.json'),
+    join(PROJECT_ROOT, 'assets/data/msc-venues.json'),
+    join(PROJECT_ROOT, 'assets/data/virgin-venues.json'),
   ];
   for (const dataPath of dataFiles) {
     if (!existsSync(dataPath)) continue;
@@ -112,26 +115,36 @@ function classifyVenue(slug, venueData) {
 
   // Dining
   if (cat === 'dining') {
-    // Counter-service / walk-up indicators
-    const counterKeywords = [
-      'hot dog', 'sausage', 'pizza by the slice', 'ice cream', 'soft-serve',
-      'candy', 'sweets shop', 'snacks', 'quick bites', 'quick service',
-      'bbq', 'barbecue', 'fish and chips', 'tacos and burritos'
-    ];
-    if (counterKeywords.some(kw => desc.includes(kw) || name.includes(kw))) {
-      return 'counter-service';
-    }
-
-    // Buffet indicators
-    if (desc.includes('buffet') || desc.includes('food hall') || desc.includes('multiple stations')) {
-      return 'casual-dining';
-    }
-
-    // Fine dining / specialty
+    // Fine dining / specialty (check FIRST — premium venues should never be counter-service)
     if (sub === 'specialty' || meta.premium === true) {
       const fineKeywords = ['multi-course', 'tasting', 'exclusive', 'upscale', 'fine dining', 'molecular'];
       if (fineKeywords.some(kw => desc.includes(kw))) return 'fine-dining';
       return 'specialty';
+    }
+
+    // Sit-down restaurants with interactive/tableside service (teppanyaki, Korean BBQ, etc.)
+    if (sub === 'restaurant') {
+      const fineKeywords = ['multi-course', 'tasting', 'exclusive', 'upscale', 'fine dining', 'molecular'];
+      if (fineKeywords.some(kw => desc.includes(kw))) return 'fine-dining';
+      if (desc.includes('tableside') || desc.includes('interactive') || desc.includes('sit-down')) return 'specialty';
+      return 'casual-dining';
+    }
+
+    // Buffet indicators (check before counter-service — buffets mention "snacks" but aren't counters)
+    if (desc.includes('buffet') || desc.includes('food hall') || desc.includes('multiple stations')) {
+      return 'casual-dining';
+    }
+
+    // Counter-service / walk-up indicators (only for casual/complimentary subcategories)
+    const counterKeywords = [
+      'hot dog', 'sausage', 'pizza by the slice', 'ice cream', 'soft-serve',
+      'candy', 'sweets shop', 'quick bites', 'quick service',
+      'fish and chips', 'tacos and burritos'
+    ];
+    // Only classify as counter-service if the PRIMARY purpose is counter-service
+    // (removed 'snacks', 'bbq' — too broad; buffets mention snacks, smokehouse BBQ is sit-down)
+    if (counterKeywords.some(kw => desc.includes(kw) || name.includes(kw))) {
+      return 'counter-service';
     }
 
     // Complimentary dining
@@ -735,12 +748,23 @@ class VenueValidator {
 
 // ─── Batch mode ──────────────────────────────────────────────────────────────
 
+function collectHtmlFiles(dir) {
+  const entries = readdirSync(dir, { withFileTypes: true });
+  let files = [];
+  for (const entry of entries) {
+    const fullPath = join(dir, entry.name);
+    if (entry.isDirectory()) {
+      files = files.concat(collectHtmlFiles(fullPath));
+    } else if (entry.name.endsWith('.html')) {
+      files.push(fullPath);
+    }
+  }
+  return files;
+}
+
 async function batchValidate(dir, options = {}) {
   const absDir = dir.startsWith('/') ? dir : join(PROJECT_ROOT, dir);
-  const files = readdirSync(absDir)
-    .filter(f => f.endsWith('.html'))
-    .map(f => join(absDir, f))
-    .sort();
+  const files = collectHtmlFiles(absDir).sort();
 
   console.log(`\n${c.bold}Venue Batch Validation${c.reset}`);
   console.log(`Scanning ${files.length} venue pages in ${relative(PROJECT_ROOT, absDir)}/\n`);
