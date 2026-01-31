@@ -102,6 +102,23 @@ h3 { font-size: 1.25rem; line-height: 1.4; }
 .logbook-btn--added:hover { background: #005f8a; border-color: #005f8a; }
 #logbook-btn-container { margin: 0.75rem 0; }
 
+/* Real Talk — Honest Assessment Callout */
+.real-talk { margin: 1.25rem 0; padding: 1rem 1.25rem; background: #fef9e7; border-left: 4px solid var(--rope, #d9b382); border-radius: 0 8px 8px 0; font-size: 0.92rem; line-height: 1.6; }
+.real-talk strong { color: var(--sea, #0a3d62); }
+.real-talk::before { content: "Real Talk: "; font-weight: 700; color: var(--rope, #d9b382); }
+@media (max-width: 600px) { .real-talk { padding: 0.75rem 1rem; font-size: 0.88rem; } }
+
+/* DIY vs. Excursion Comparison */
+.diy-vs-excursion { margin: 1.25rem 0; padding: 1rem 1.25rem; background: var(--foam, #e6f4f8); border-radius: 10px; border: 1px solid #cde8f0; }
+.diy-vs-excursion h4 { font-size: 1rem; margin: 0 0 0.75rem; color: var(--sea, #0a3d62); }
+.diy-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.diy-option, .excursion-option { padding: 0.75rem; border-radius: 8px; }
+.diy-option { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.excursion-option { background: #fef3c7; border: 1px solid #fde68a; }
+.diy-option h5, .excursion-option h5 { margin: 0 0 0.5rem; font-size: 0.92rem; }
+.diy-option ul, .excursion-option ul { margin: 0; padding-left: 1.2rem; font-size: 0.85rem; line-height: 1.5; }
+@media (max-width: 600px) { .diy-compare { grid-template-columns: 1fr; } }
+
 /* From the Pier — Walking Distance Component */
 .from-the-pier { margin: 1.25rem 0; padding: 1rem 1.25rem; background: var(--foam, #e6f4f8); border-radius: 10px; border: 1px solid #cde8f0; }
 .from-the-pier h3 { font-size: 1.1rem; margin: 0 0 0.75rem; color: var(--sea, #0a3d62); }
