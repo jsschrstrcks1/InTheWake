@@ -43,6 +43,25 @@ When a task is completed:
 - [x] Fixed empty alt text on dynamically generated images
 **Result:** Site meets WCAG 2.1 Level A and Level AA requirements
 
+### Ship Page CSS Rollout — 100% Coverage - COMPLETE (2026-01-31)
+**Status:** COMPLETE
+**Lane:** 🟢 Green (CSS standardization)
+**Branch:** `claude/review-previous-work-ZMk3b`
+- [x] Added `ship-page.css` (v3.010.300) link to 162 ship pages across 14 cruise lines
+- [x] Carnival (40), MSC (24), Norwegian (20), Princess (17), Silversea (12), Costa (9), Oceania (8), Seabourn (7), Regent (7), Explora-Journeys (6), Cunard (4), Virgin Voyages (4), HAL (2), Explora (2)
+- [x] All class selectors in ship-page.css are namespaced (.hero-ship, .ship-sidebar, etc.) — zero visual impact on pages not yet using those classes
+**Result:** 292/292 ship pages (100%) now link ship-page.css, up from 130/293 (44%)
+
+### CSS Inline Style Consolidation — Phase 1 - COMPLETE (2026-01-31)
+**Status:** COMPLETE
+**Lane:** 🟢 Green (CSS deduplication)
+**Branch:** `claude/review-previous-work-ZMk3b`
+- [x] Added `.card > img[aria-hidden]` and `.card .card__content` rules to `assets/styles.css` (watermark component)
+- [x] Removed identical 3-line inline `<style>` blocks from 124 restaurant pages (all had same `.card` watermark CSS now covered by shared stylesheet)
+- [x] Consolidated Carnival fleet index from 4 `<style>` blocks (with `.page-grid`/`.rail`/`.author-card-vertical` duplicated 4x) down to 2 blocks with unique rules only
+- [x] Skipped ship-list fleet index pages (12 files) — `.ship-list` class name conflicts with different component in styles.css
+**Result:** 124 inline style blocks eliminated, Carnival index reduced by ~140 lines of duplicate CSS. Zero visual changes.
+
 ### JPG/JPEG Image Elimination - COMPLETE (2026-01-31)
 **Status:** COMPLETE
 **Lane:** 🟢 Green (performance optimization)
