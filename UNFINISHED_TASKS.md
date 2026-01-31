@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2026-01-14 (Housekeeping: moved 20+ completed tasks to COMPLETED_TASKS.md)
+**Last Updated:** 2026-01-31 (Thread Review: comprehensive audit of all previous threads and unfinished work)
 
 > 📁 **Looking for completed work?** See [COMPLETED_TASKS.md](COMPLETED_TASKS.md) for the historical archive of finished tasks.
 
@@ -27,6 +27,167 @@ Tasks are classified by AI-safety level:
 ### Protected Zones
 Files containing `<!-- ai:guard -->` blocks require human review regardless of lane.
 Pastoral articles (grief, healing, wounded healers) are always 🔴 Red.
+
+---
+
+## 📋 Thread Review & Unfinished Work Discoveries (2026-01-31)
+
+**Audited by:** Claude AI (comprehensive cross-thread review)
+**Scope:** All previous threads, all 8 remote branches, 1,077 PRs, all documentation files
+**Method:** Read ONBOARDING.md, claude.md, admin/claude/CLAUDE.md, MAINTENANCE_TASKS.md, IN_PROGRESS_TASKS.md, COMPLETED_TASKS.md, all .claude plans, all competitor audits, skill-rules.json, settings.json, and PR history via GitHub API.
+
+### Branch Status (All Merged — No Orphaned Work)
+
+All 7 feature branches are stale merge-commit-only branches with **zero unmerged file changes** against main:
+
+| Branch | Last Activity | Status |
+|--------|--------------|--------|
+| `claude/affiliate-deployment-plan-Twqff` | 2026-01-30 | Merged, 9 commits behind main, 0 file diffs |
+| `claude/audit-competitor-gaps-0zTZ0` | 2026-01-25 | Merged, stale |
+| `claude/audit-ship-pages-UsCC9` | 2026-01-30 | Merged via PR #1076 |
+| `claude/audit-venues-gD9fq` | 2026-01-30 | Merged via PR #1077 |
+| `claude/identify-maintenance-tasks-FN2lh` | stale | Merged, stale |
+| `claude/review-context-onboarding-ZZauz` | 2026-01-30 | Merged, 9 commits behind main, 0 file diffs |
+| `claude/validate-ship-pages-5Z2jp` | stale | Merged, stale |
+
+**Conclusion:** No code was lost or orphaned. All work was merged via PRs. These branches can be safely deleted.
+
+### Work Started But NOT Finished (Across All Threads)
+
+The following items were **explicitly started** in previous threads (plans created, partial work done, or documented as "in progress") but remain incomplete:
+
+#### 1. Venue Audit — Phase 2 Pending
+**Plan file:** `.claude/plan-venue-audit.md`
+**Thread:** `claude/audit-venues-gD9fq`
+**What was done:** Phase 1 complete — audited 215 venue pages, built `validate-venue-page-v2.js` validator, identified systemic issues (stock images 5x, no menus, wrong tone for venue types, "semantic lies" like Dog House described as fine dining). Virgin Voyages menus corrected from PDF sources (PR #1077).
+**What remains:**
+- [ ] Phase 2: Integration of validator into CI/CD pipeline
+- [ ] Phase 2: Bulk remediation of 215 venue pages (remove duplicated stock images, fix tone mismatches, add real menu data)
+- [ ] Dog House and similar casual venues need complete rewrites with appropriate tone
+- [ ] Menu section (`id="menu-prices"`) missing from generated template — needs template fix
+
+#### 2. Affiliate Link Deployment — Draft Only
+**Plan file:** `.claude/plan-affiliate-deployment.md`
+**Thread:** `claude/affiliate-deployment-plan-Twqff`
+**What was done:** Plan drafted with full inventory of Amazon affiliate links (ducks, faith items, travel gear, packing essentials), placement strategy, and FTC disclosure requirements. Trust badge conflict identified ("No affiliate links" messaging on multiple pages).
+**What remains:**
+- [ ] User decision needed: proceed with affiliate deployment or keep ad-free messaging?
+- [ ] If proceeding: update trust badges site-wide, create affiliate-disclosure.html, add FTC disclosures
+- [ ] Duck tradition article needs to be written (primary placement for duck product links)
+- [ ] Packing lists page needs affiliate product integration
+
+#### 3. Port Weather Guide — Plan Only, No Implementation
+**Plan file:** `.claude/plan-port-weather-guide.md`
+**What was done:** Architecture planned (seasonal-guides.json data structure, API integration pattern, UI component design). Only 4 of 333 ports have weather guides (1.2%).
+**What remains:**
+- [ ] Create `/assets/data/ports/seasonal-guides.json` with data for 329 ports
+- [ ] Build weather widget UI component
+- [ ] Integrate into port page template
+- [ ] Priority ports: Caribbean (nassau, grand-cayman, st-thomas), Alaska (juneau, ketchikan, skagway), Europe (barcelona, civitavecchia, naples)
+
+#### 4. Quiz Edge Cases & V2 Expansion — Plans Only
+**Plan files:** `.claude/plan-quiz-edge-cases-and-improvements.md`, `.claude/plan-quiz-v2-expansion.md`
+**What was done:** Plans written for quiz improvements and multi-line expansion.
+**What remains:**
+- [ ] Implement edge case fixes documented in plan
+- [ ] Expand quiz beyond Royal Caribbean to other cruise lines
+- [ ] These are entirely unimplemented
+
+#### 5. "Ships That Visit Here" Feature — Data Added, UI NOT Built
+**Thread:** `claude/audit-competitor-gaps-0zTZ0` (PRs #974-987)
+**What was done:** Ship deployment data added for Royal Caribbean, Carnival (26 ships), Celebrity (16 ships), Norwegian (20 ships), Princess (17 ships), Holland America (11 ships), MSC (22 ships) — total 193 ships across 15 cruise lines. Data files created.
+**What remains:**
+- [ ] **The actual port page UI component is NOT built** — no "Ships That Visit Here" section exists on any port page
+- [ ] Need to create the HTML/CSS/JS component that reads deployment data and renders on port pages
+- [ ] This was identified as the HIGHEST PRIORITY competitive differentiator (no competitor offers this)
+- [ ] Bidirectional linking (port → ship and ship → port) not yet implemented
+
+#### 6. Stateroom Checker Cabin Audits — Partial
+**Thread:** `claude/review-context-onboarding-ZZauz` (PRs #973, #982, #986)
+**What was done:** Room-by-room audits completed for Grandeur, Vision, and Rhapsody of the Seas.
+**What remains:**
+- [ ] Remaining RCL ships need stateroom exception audits (only 3 of 28+ done in this thread)
+- [ ] Fleet expansion for Stateroom Checker dropdown (not all RCL ships represented)
+
+#### 7. CSS Consolidation — Phase 3-5 Incomplete
+**What was done:** Phases 1-2 complete. `<style>` blocks reduced from 511 to 6 files. Inline styles reduced from 16,798 to 12,618. Component CSS classes created.
+**What remains:**
+- [ ] Phase 3: Resolve `.page-grid` conflict (478 files)
+- [ ] Phase 4: Remove remaining inline `<style>` blocks from port/ship/restaurant pages (~468 files)
+- [ ] Phase 5: Inline `style=` attribute cleanup (target: reduce 12,618 to <1,000)
+- [ ] Estimated impact: ~50,000 lines of duplicated CSS to remove
+
+#### 8. Ship Page Standardization — Barely Started
+**What was done:** All 50 RCL pages have ICP-Lite. Emoji removed from stateroom buttons. Phase 1-2 planned.
+**What remains:**
+- [ ] Create `/assets/ship-page.css` with standardized components
+- [ ] Standardize 50 RCL ship pages (hero, carousel, section order)
+- [ ] Standardize 48 Carnival ship pages
+- [ ] Header standardization site-wide
+- [ ] 4 skeleton ship pages need full rebuilds (legend-1995, nordic-prince, oasis-tbn-2028, sun-viking)
+
+#### 9. Competitor Gap Quick Wins — Partially Deployed
+**Source:** COMPETITOR_GAP_AUDIT_2026_01_29.md
+**What was done:** Tender Port Index (26 ports), First-Timer Hub, Trust messaging, Offline marketing, 30-Day Countdown — all complete. Ship deployment data added.
+**What remains (6 of 16 initiatives complete = 38%):**
+- [ ] "Ships That Visit Here" UI on port pages (data exists, UI doesn't)
+- [ ] "From the Pier" distance component (`.pier-distances` CSS + content for 291 ports)
+- [ ] Comprehensive Port Print CSS / PDF generation
+- [ ] Transport cost callout table component
+- [ ] "Add to My Logbook" button on port pages
+- [ ] Region completion achievements
+- [ ] DIY vs. Excursion comparison callouts
+- [ ] Accessibility sections on port pages
+- [ ] "Real Talk" honest assessment callouts
+
+#### 10. Port Map Integration — 64% Complete
+**What was done:** 186 of 291 ports have Leaflet interactive maps. Mobile responsiveness implemented for Alaska ports. CSS v2.0.0 and JS v2.0.0 deployed.
+**What remains:**
+- [ ] 105 ports still missing Leaflet maps (Europe, British Isles, Caribbean, misc)
+- [ ] Phase 1 (Static map artifacts — PNG/PDF) not started
+- [ ] Phase 3 (Article-map POI click integration) not started
+- [ ] Phase 4 (Enhanced geometry — beaches as regions) not started
+- [ ] Phase 5 (Build-time POI lint) not started
+- [ ] Mobile responsiveness rollout to non-Alaska ports
+
+#### 11. Service Worker v14 — Not Started
+**Current:** v13.2.0
+**What remains:**
+- [ ] CORS response caching fix (8 cache functions missing `response.type === 'cors'` check)
+- [ ] `staleIfErrorTimestamped` strategy for FX API caching
+- [ ] `warmCalculatorShell` predictive prefetch
+- [ ] `FORCE_DATA_REFRESH` and `GET_CACHE_STATS` message handlers
+- [ ] UI integration: "Refresh Rates" button, cache age display, toast notifications
+
+#### 12. Pastoral Articles — Not Written
+**Status:** 🔴 Red lane (human decides)
+- [ ] Healing Relationships at Sea (~3,000 words) — 15+ logbook references, not created
+- [ ] Rest for Wounded Healers (~2,500 words) — 10+ logbook references, not created
+- [ ] Solo Travel Safety Tips — practical safety content gap
+- [ ] Solo Cruising comprehensive expansion
+
+#### 13. Site-Wide Pattern Standardization — Largely Incomplete
+**What was done:** Right rail Quick Answer/Best For/Key Facts added to all hub pages. Article card CSS classes created.
+**What remains:**
+- [ ] Author/Article cards still don't match index.html pattern on most hub pages
+- [ ] Header hero size inconsistent across pages (ships, solo, travel, cruise-lines, ship-tracker all different)
+- [ ] Logo size standardization needed
+- [ ] solo.html: article fragments not loading, CSS filter making hero muted
+- [ ] index.html: FAQ needs moving, logo goes outside viewable area
+- [ ] Multiple pages need hero/logo alignment fixes
+
+### Documentation Inconsistencies Discovered
+
+| Issue | Location | Fix Needed |
+|-------|----------|------------|
+| admin/claude/CLAUDE.md references ICP-Lite v1.0, not v1.4 | admin/claude/CLAUDE.md:392,424 | Update to v1.4 |
+| admin/claude/CLAUDE.md says 147 port pages; actual count is 374+ | admin/claude/CLAUDE.md:186,192,220 | Update counts |
+| admin/claude/CLAUDE.md says 28 RCL ships in Stateroom Checker; need verification | admin/claude/CLAUDE.md:1969 | Verify current count |
+| admin/claude/CLAUDE.md priorities section (line 709) is outdated (2025-11-23) | admin/claude/CLAUDE.md:709 | Update priorities |
+| claude.md (root) says 311 ship pages; may need verification | claude.md:181 | Verify count |
+| claude.md references `admin/UNFINISHED-TASKS.md` which doesn't exist | claude.md:33 | Should reference `UNFINISHED_TASKS.md` |
+| IN_PROGRESS_TASKS.md says "No tasks currently in progress" but multiple items are active | IN_PROGRESS_TASKS.md:39 | Update active work |
+| ONBOARDING.md version is v1.1.5 (2026-01-29) — cross-doc data mostly consistent | .claude/ONBOARDING.md | Minor updates only |
 
 ---
 
