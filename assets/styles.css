@@ -80,6 +80,24 @@ h3 { font-size: 1.25rem; line-height: 1.4; }
 .answer-line { margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px; }
 .cta-highlight { background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-left: 4px solid var(--accent, #0e6e8e); }
 
+/* "From the Pier" Distance Component (Competitor Gap P1) */
+.pier-distances { margin: 1.25rem 0; padding: 1rem 1.25rem; background: #fdf8f0; border-radius: 10px; border: 1px solid #e8dcc8; }
+.pier-distances h3 { font-size: 1.1rem; margin: 0 0 0.15rem; color: var(--sea, #0a3d62); }
+.pier-distances .pier-note-from { font-size: 0.82rem; color: var(--text-muted, #2a4a5a); margin: 0 0 0.75rem; font-style: italic; }
+.pier-distances-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.pier-distances-table th { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 2px solid var(--rope, #d9b382); color: var(--sea, #0a3d62); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.pier-distances-table td { padding: 0.45rem 0.6rem; border-bottom: 1px solid #e8dcc8; color: var(--ink, #083041); }
+.pier-distances-table tr:last-child td { border-bottom: none; }
+.pier-distances-table tr:hover td { background: rgba(255,255,255,.5); }
+.pier-distances .walkable { color: #2a7a3a; font-weight: 600; }
+.pier-distances .taxi-needed { color: var(--text-muted, #2a4a5a); }
+.pier-distances .pier-tip { margin: 0.6rem 0 0; font-size: 0.82rem; color: var(--text-muted, #2a4a5a); font-style: italic; }
+@media (max-width: 600px) {
+  .pier-distances { padding: 0.75rem; }
+  .pier-distances-table { font-size: 0.85rem; }
+  .pier-distances-table th, .pier-distances-table td { padding: 0.35rem 0.4rem; }
+}
+
 /* Transport Cost Component (Competitor Gap P2) */
 .transport-costs { margin: 1.25rem 0; padding: 1rem 1.25rem; background: var(--foam, #e6f4f8); border-radius: 10px; border: 1px solid #cde8f0; }
 .transport-costs h3 { font-size: 1.1rem; margin: 0 0 0.75rem; color: var(--sea, #0a3d62); }
