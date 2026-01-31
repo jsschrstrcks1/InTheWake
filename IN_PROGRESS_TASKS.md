@@ -1,7 +1,7 @@
 # In-Progress Tasks
 
 **Purpose:** Thread coordination file to prevent conflicts between concurrent Claude threads.
-**Last Updated:** 2025-12-01
+**Last Updated:** 2026-01-31
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -36,7 +36,12 @@ FORMAT:
 **Notes:** Any blockers or important context
 -->
 
-*No tasks currently in progress*
+### Review Previous Work & Image Optimization
+**Thread:** `claude/review-previous-work-ZMk3b`
+**Started:** 2026-01-31
+**Files:** UNFINISHED_TASKS.md, COMPLETED_TASKS.md, admin/claude/CLAUDE.md, .claude/plan-implementation-priorities-2026-01-31.md, 137 image/HTML files
+**Status:** Deep audit complete, JPG elimination complete. Branch ready for merge.
+**Notes:** All project tracking docs updated to ground-truth. Next priority: CSS consolidation Phases 3-5.
 
 ---
 
@@ -60,6 +65,7 @@ FORMAT:
 
 | Thread ID | Task | Status | Date |
 |-----------|------|--------|------|
+| claude/review-previous-work-ZMk3b | Deep audit, JPG elimination | IN PROGRESS | 2026-01-31 |
 | claude/review-onboarding-setup-01JpVFgKzWRBKvXaxcS1pC9N | Onboarding review, schema fix | COMPLETE | 2025-12-01 |
 | claude/fix-dropdown-menu-01XJq5FhAaie7QptqwRY7wfd | Dropdown menu fix | COMPLETE | 2025-11-28 |
 

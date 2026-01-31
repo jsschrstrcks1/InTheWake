@@ -1,7 +1,7 @@
 # Completed Tasks
 
 **Purpose:** Historical archive of all completed work. Tasks are added here when marked complete by user confirmation.
-**Last Updated:** 2026-01-14
+**Last Updated:** 2026-01-31
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -42,6 +42,25 @@ When a task is completed:
 - [x] Added accessible labels to search inputs
 - [x] Fixed empty alt text on dynamically generated images
 **Result:** Site meets WCAG 2.1 Level A and Level AA requirements
+
+### JPG/JPEG Image Elimination - COMPLETE (2026-01-31)
+**Status:** COMPLETE
+**Lane:** 🟢 Green (performance optimization)
+**Branch:** `claude/review-previous-work-ZMk3b`
+- [x] Phase 1: Deleted 23 unreferenced JPG/JPEG files that had WebP counterparts (8.7 MB saved)
+- [x] Phase 2: Converted 14 Royal Beach Club Nassau gallery JPGs to WebP at 1200px/q80 (29.7 MB → 1.5 MB, 95% reduction), updated HTML references, deleted originals
+- [x] Phase 3: Converted 13 remaining referenced JPGs to WebP — Cordelia food court (2.8MB→129KB, 44 ship pages), 8 solo article images, 3 Alaska hero-originals, 1 Adventure of the Seas photo. Updated 65 references across 50 HTML files, deleted originals
+**Result:** 0 JPG/JPEG files remain in repository. ~42 MB removed. 137 files changed.
+
+### Deep Ground-Truth Audit of Unfinished Work - COMPLETE (2026-01-31)
+**Status:** COMPLETE
+**Lane:** 🟢 Green (documentation audit)
+**Branch:** `claude/review-previous-work-ZMk3b`
+- [x] Verified all 13 claimed unfinished work streams against actual codebase
+- [x] Corrected major inaccuracies: venue audit (complete, not pending), port maps (99%, not 64%), stateroom checker (270 files, not 3), ship-page.css (exists, not "needs creation"), quiz V2 (15 cruise lines, not unimplemented)
+- [x] Updated UNFINISHED_TASKS.md, admin/claude/CLAUDE.md priorities, implementation plan
+- [x] Reduced genuine remaining work streams from 13 to ~6
+**Result:** All project tracking documents now reflect ground-truth state of codebase
 
 ### Norfolk Homeport Page - COMPLETE (2026-01-11)
 **Status:** COMPLETE
