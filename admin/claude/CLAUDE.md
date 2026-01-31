@@ -1,7 +1,7 @@
 # Claude AI Assistant Guide - In the Wake
 
-**Version:** 1.1.0
-**Last Updated:** 2026-01-03
+**Version:** 1.2.0
+**Last Updated:** 2026-01-31
 **Purpose:** Comprehensive onboarding and reference guide for Claude AI assistants working on the In the Wake codebase
 
 ---
@@ -183,7 +183,7 @@ These guardrails override all optimization concerns. A technically imperfect pag
 │   ├── carnival-cruise-line/  # Carnival fleet
 │   ├── celebrity-cruises/     # Celebrity fleet
 │   └── holland-america-line/  # HAL fleet
-├── ports/                     # 147 port pages
+├── ports/                     # 380 port pages
 ├── restaurants/               # Dining venue pages
 ├── solo/                      # Solo travel content
 │   ├── articles/              # Solo travel articles
@@ -217,7 +217,7 @@ These guardrails override all optimization concerns. A technically imperfect pag
 - Ship logbooks: `/assets/data/logbook/rcl/<slug>.json`
 
 **Tools:**
-- Port Logbook: `/tools/port-tracker.html` (147 Royal Caribbean ports)
+- Port Logbook: `/tools/port-tracker.html` (380+ ports across all cruise lines)
 - Ship Logbook: `/tools/ship-tracker.html` (50+ ships)
 
 ---
@@ -388,7 +388,7 @@ When a ship, port, or venue is missing an image, follow this order of operations
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="[Descriptive content]">
 <meta name="version" content="v3.006.006">
-<meta name="content-protocol" content="ICP-Lite v1.0">
+<meta name="content-protocol" content="ICP-Lite v1.4">
 <meta name="ai:summary" content="[AI-friendly summary]">
 <meta name="last-reviewed" content="2025-11-23">
 ```
@@ -421,7 +421,7 @@ AI-first content protocol that helps AI assistants understand and cite content c
 
 #### Level 1: Meta Tags (97% complete - 544/561 pages)
 ```html
-<meta name="content-protocol" content="ICP-Lite v1.0">
+<meta name="content-protocol" content="ICP-Lite v1.4">
 <meta name="ai:summary" content="Comprehensive guide for [topic]">
 <meta name="last-reviewed" content="2025-11-23">
 ```
@@ -706,35 +706,34 @@ JSON-LD schema. Reduces page weight and improves LCP scores.
 
 ---
 
-## 🎯 Current Priorities (Updated 2025-11-23)
+## 🎯 Current Priorities (Updated 2026-01-31)
 
 ### P0 - Critical (Do These First)
 1. ✅ ~~Port Logbook~~ COMPLETE
 2. ✅ ~~Ship Logbook~~ COMPLETE
 3. ✅ ~~Ship Cards Redesign~~ COMPLETE
-4. ⏳ **Fix placeholder attributions** (Symphony, Adventure, Enchantment, Explorer)
-5. ⏳ **Download Wiki Commons images** for 19 ships
-6. ⏳ **Create protocol docs** (ITW-LITE_PROTOCOL, STANDARDS_INDEX, CLAUDE.md) - IN PROGRESS
+4. ✅ ~~Ships That Visit Here~~ COMPLETE (193 ships, 15 lines, 380 ports, bidirectional)
+5. ✅ ~~Port expansion~~ COMPLETE (380 pages, up from 147)
+6. ✅ ~~ICP-Lite rollout~~ COMPLETE (100% of pages)
+7. ✅ ~~Venue audit Phase 2~~ COMPLETE (0 generic text, 0 hotdog.webp, all have menus; validator in validate.js)
+8. ⏳ **CSS consolidation Phases 3-5** — ~50K duplicate CSS lines remain across 478 files
 
 ### P1 - High Priority (Do These Soon)
-7. ✅ ~~In the Wake of Grief article~~ COMPLETE (Grade A+)
-8. ✅ ~~Hawaii port batch~~ COMPLETE
-9. ⏳ **Expand Solo Cruising article** (20 logbook references)
-10. ⏳ **Write Healing Relationships article** (15+ logbook references)
-11. ⏳ **Write Rest & Recovery article** (25 logbook references)
-12. ⏳ **Complete placeholder content pages** (drinks.html, ports.html, restaurants.html)
+9. ✅ ~~Port map completion~~ ESSENTIALLY COMPLETE — 375/380 (99%) have Leaflet maps, only 5 remain
+10. ⏳ **Ship page CSS rollout** — `ship-page.css` exists (448 lines, v3.010.300), adopted by 130/293 (44%). Roll out to NCL, Princess, MSC, Carnival (~163 pages)
+11. ⏳ **Competitor gap remaining items** — ~56% done (9/16+). Key gaps: "From the Pier" distances, transport cost tables, port day planner, budget calculator
+12. ⏳ **Site-wide hero/logo standardization** — Inconsistent across hub pages
 
 ### P2 - Medium Priority
-13. Middle East port batch (4 ports)
-14. Caribbean completion (8-10 ports)
-15. Historic logbooks (nordic-prince, sun-viking)
-16. ICP-Lite rollout (content-level enhancements)
+13. ⏳ Service Worker v14 upgrade (CORS fix, prefetch, cache UI) — currently v13.2.0
+14. ⏳ **Port weather seasonal data** — Infrastructure deployed (JS on 380 pages, section on 375), but `seasonal-guides.json` has data for only 1 port (Cozumel)
+15. ✅ ~~Stateroom Checker~~ MASSIVELY EXPANDED — 270 exception JSON files across ALL cruise lines
 
-### P3-P4 - Future Expansion
-17. Multi-cruise-line tracker
-18. Asia/Australia port expansion
-19. Carnival Cruise Line expansion (150-200 ports)
-20. Virgin Voyages expansion
+### P3-P4 - Future / Requires User Decision
+16. 🔴 Pastoral articles: Healing Relationships, Rest for Wounded Healers (Red lane — human decides). Note: 7 solo articles already exist.
+17. 🔴 Affiliate link deployment (user decision: deploy or keep ad-free messaging?) — `affiliate-disclosure.html` already created
+18. ✅ ~~Quiz V2~~ MOSTLY COMPLETE — `ship-quiz-data-v2.json` model v2.1 covers 15 cruise lines
+19. Multi-cruise-line tracker expansion
 
 **See:** `UNFINISHED_TASKS.md` for complete task list with details
 
@@ -852,5 +851,6 @@ Before marking any task complete, verify:
 ---
 
 **Version History:**
+- v1.2.0 (2026-01-31) - Updated priorities to reflect 2026-01-31 thread review; fixed ICP-Lite version (v1.0→v1.4); updated port count (147→380); updated Ship Logbook count; marked completed work streams
 - v1.1.0 (2026-01-03) - Added analytics requirement (Section 0), security standards section, trust claim accuracy rules
 - v1.0.0 (2025-11-23) - Initial comprehensive Claude guide created
