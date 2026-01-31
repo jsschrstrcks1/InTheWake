@@ -320,6 +320,8 @@ TBN/unnamed ships are exempt from full validation until they enter service. Once
 
 The video requirement stays as-is (Option A). Each cruise line's ships will need actual YouTube video research to create video JSON manifests. This is the most labor-intensive fix in the audit but is required for quality. No shortcuts — the videos must be real, categorized, and verified.
 
+**TBN EXEMPTION (2026-01-31):** TBN/unnamed ships are exempt from video requirements under the same terms as D1. Video validation errors are downgraded to warnings for TBN ships until they enter service. Once a ship is delivered and sailing, it must have a complete video manifest passing full validation. See **Appendix C** for exemption expiry dates.
+
 ### D3: What to do with duplicate/legacy pages?
 - `ships/explora/` vs `ships/explora-journeys/` (duplicate directory)
 - `carnival-tropicale.html` vs `tropicale-1981.html` (same ship?)
@@ -342,7 +344,7 @@ Index pages will get their own dedicated validator (`validate-fleet-index.js`). 
 
 ## Quick Wins Summary
 
-If decisions D1 (exempt TBN), D2 (videos as warning), and D4 (exclude index) are adopted:
+With decisions D1 (exempt TBN), D2 (videos blocking, TBN exempt per D1), and D4 (exclude index) adopted:
 
 | Action | Pages Fixed | New Pass Rate |
 |--------|-------------|---------------|

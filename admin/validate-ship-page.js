@@ -1694,7 +1694,7 @@ async function validateLogbook(slug, cruiseLine = 'rcl', isHistoric = false) {
 /**
  * Validate videos JSON
  */
-async function validateVideos(slug, cruiseLine = 'rcl', isHistoric = false) {
+async function validateVideos(slug, cruiseLine = 'rcl', isHistoric = false, isTBN = false) {
   const errors = [];
   const warnings = [];
   const videoPath = join(PROJECT_ROOT, 'assets', 'data', 'videos', cruiseLine, `${slug}.json`);
@@ -1755,11 +1755,21 @@ async function validateVideos(slug, cruiseLine = 'rcl', isHistoric = false) {
       });
     }
 
-    // Historic ships have relaxed video requirements
+    // Historic and TBN ships have relaxed video requirements (D1/D2 exemption)
     if (isHistoric) {
       // For historic ships, just check the file exists (already validated above)
       if (totalVideos === 0) {
         warnings.push({ section: 'videos', rule: 'historic_no_videos', message: 'Historic ship has no videos (acceptable for retired ships)', severity: 'WARNING' });
+      }
+    } else if (isTBN) {
+      // TBN ships exempt from video requirements per D2 (same terms as D1)
+      if (totalVideos === 0) {
+        warnings.push({ section: 'videos', rule: 'tbn_no_videos', message: 'TBN ship has no videos (exempt until ship enters service — D2/D1)', severity: 'WARNING' });
+      } else if (totalVideos < 10) {
+        warnings.push({ section: 'videos', rule: 'tbn_few_videos', message: `TBN ship has only ${totalVideos} videos (exempt until ship enters service — D2/D1)`, severity: 'WARNING' });
+      }
+      if (missingCategories.length > 0) {
+        warnings.push({ section: 'videos', rule: 'tbn_missing_categories', message: `TBN ship missing video categories: ${missingCategories.join(', ')} (exempt until ship enters service)`, severity: 'WARNING' });
       }
     } else {
       if (totalVideos < 10) {
@@ -1776,6 +1786,10 @@ async function validateVideos(slug, cruiseLine = 'rcl', isHistoric = false) {
     return { valid: errors.length === 0, errors, warnings, data: { totalVideos, missingCategories, fakeVideos } };
 
   } catch (e) {
+    if (isTBN) {
+      warnings.push({ section: 'videos', rule: 'missing_file', message: 'Videos JSON not found (TBN ship exempt until entering service — D2/D1)', severity: 'WARNING' });
+      return { valid: true, errors, warnings, data: {} };
+    }
     errors.push({ section: 'videos', rule: 'missing_file', message: `Videos JSON not found`, severity: 'BLOCKING' });
     return { valid: false, errors, warnings, data: {} };
   }
@@ -2108,7 +2122,7 @@ async function validateShipPage(filepath) {
 
     // Async validations (pass cruiseLine for correct data paths)
     const logbookResult = await validateLogbook(slug, cruiseLine, isHistoric);
-    const videoResult = await validateVideos(slug, cruiseLine, isHistoric);
+    const videoResult = await validateVideos(slug, cruiseLine, isHistoric, isTBN);
     const articlesResult = await validateArticles();
 
     // Calculate preliminary score for discoverability checks
