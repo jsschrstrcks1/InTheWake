@@ -41,17 +41,16 @@ The project has 7,858 files across 587 directories, 380 port pages, 293+ ship pa
 
 ## Tier 2: High Impact, Medium Effort (Near-Term)
 
-### 4. CSS Consolidation Phase 3 — Resolve .page-grid Conflict
-**Priority:** HIGH — Blocks Phase 4-5 which remove 50K+ duplicate lines
-**Effort:** MEDIUM
-**Lane:** Green
+### 4. CSS Consolidation — PARTIALLY COMPLETE
+**Completed 2026-01-31:**
+- [x] `.page-grid` canonical definition already exists in styles.css (line 318)
+- [x] Restaurant card watermark CSS extracted to styles.css, 124 inline blocks removed
+- [x] Carnival index deduplicated from 4 `<style>` blocks to 2
+- [x] Carnival `.page-grid` override (`1fr 320px`) is intentional — kept as inline
 
-**Tasks:**
-1. Audit and define canonical `.page-grid` in styles.css
-2. Remove redundant `.page-grid` from all `<style>` blocks (478 files)
-3. Verify no visual regressions
-
-**Estimated scope:** 1-2 sessions
+**Remaining:**
+- [ ] 12 ship fleet index pages still have `.ship-list` inline blocks (class name conflict with logbook `.ship-list` in styles.css — needs rename or scoping)
+- [ ] ~12 misc pages have unique inline styles (solo.html, first-cruise.html, etc.) — genuinely page-specific, may not need extraction
 
 ---
 
@@ -82,14 +81,8 @@ The project has 7,858 files across 587 directories, 380 port pages, 293+ ship pa
 
 ## Tier 3: Medium Impact, Higher Effort (Plan Ahead)
 
-### 7. Ship Page CSS Rollout (163 remaining pages)
-**Priority:** MEDIUM — Visual consistency
-**Effort:** MEDIUM (CSS exists, just needs adoption)
-**Lane:** Green
-
-**Verified 2026-01-31:** `ship-page.css` already exists (448 lines, v3.010.300). 130/293 (44%) adopted.
-- RCL 49/50 (98%), HAL 44/47 (94%), Celebrity 29/30 (97%), Carnival 8/49 (16%)
-**Remaining:** Roll out to NCL (0/21), Princess (0/18), MSC (0/25), remaining Carnival (41), others
+### ~~7. Ship Page CSS Rollout~~ ✅ COMPLETE
+**Completed 2026-01-31:** `ship-page.css` (v3.010.300) linked on 292/292 ship pages (100%). 162 pages added across 14 cruise lines. All selectors namespaced — zero visual impact on pages not yet using those classes.
 
 ---
 
@@ -145,15 +138,12 @@ Key: CORS fix (8 functions), warmCalculatorShell prefetch, cache refresh UI.
 
 | Session | Work | Tier |
 |---------|------|------|
-| ~~**1-2**~~ | ~~Ships That Visit, Docs, Venue audit, Port maps, Quiz, Stateroom~~ ✅ All verified complete | ~~Done~~ |
-| **Next** | CSS .page-grid resolution (Phases 3-5) | Tier 1 |
-| **+1** | Ship page CSS rollout — NCL, Princess, MSC batch (~80 pages) | Tier 2 |
-| **+2** | Ship page CSS rollout — Carnival, remaining lines (~83 pages) | Tier 2 |
-| **+3** | Competitor gap: "From the Pier" + logbook buttons | Tier 2 |
-| **+4** | Competitor gap: Real Talk + DIY vs Excursion callouts | Tier 2 |
-| **+5** | Port weather data: Top 20 Caribbean ports | Tier 3 |
-| **+6** | Hero/logo standardization | Tier 3 |
-| **+7** | Service Worker v14 upgrade | Tier 3 |
+| ~~**1-3**~~ | ~~Audit, docs, venue, maps, quiz, stateroom, CSS consolidation (restaurants + Carnival), ship-page.css rollout (292/292)~~ ✅ All done | ~~Done~~ |
+| **Next** | Competitor gap: "From the Pier" + logbook buttons | Tier 2 |
+| **+1** | Competitor gap: Real Talk + DIY vs Excursion callouts | Tier 2 |
+| **+2** | Port weather data: Top 20 Caribbean ports | Tier 3 |
+| **+3** | Hero/logo standardization | Tier 3 |
+| **+4** | Service Worker v14 upgrade | Tier 3 |
 
 ---
 
