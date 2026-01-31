@@ -1,10 +1,10 @@
-/* Service Worker v13.1.0 - In the Wake
+/* Service Worker v14.0.0 - In the Wake
  * Site-wide unified caching strategy with offline support
  * Supports: Ships, Ports, Restaurants, Planning Tools, Drink Calculator
  * Soli Deo Gloria ✝️
  */
 
-const VERSION = '13.2.0';
+const VERSION = '14.0.0';
 const CACHE_PREFIX = 'itw-site';
 
 /* Network state (updated by client via NETWORK_INFO message) */
@@ -25,12 +25,13 @@ const CACHES = {
 };
 
 const CONFIG = {
-  maxPages: 800,           // Updated 2026-01-02: Site has 738+ indexed pages (333 ports, 171 ships, 207 restaurants, etc.)
-  maxAssets: 150,          // Increased for growing CSS/JS modules
-  maxImages: 600,          // Currently 285 ship images, allowing for growth
-  maxData: 150,            // Updated 2025-12-14: 105 map manifests + 76 JSON files
+  maxPages: 1200,          // Updated 2026-01-31: Site has 1,167 HTML pages (380 ports, 297 ships, 404 restaurants, etc.)
+  maxAssets: 150,          // CSS/JS modules
+  maxImages: 600,          // 444 ship images + 2,906 WebP total, caching subset
+  maxData: 150,            // Map manifests + JSON data files
   maxFonts: 30,
   staleMaxAge: 60 * 60 * 1000, // 1 hour
+  fxApiMaxAge: 12 * 60 * 60 * 1000, // 12 hours — exchange rates don't change often
   calcDataMaxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   shipImagesMaxAge: 30 * 24 * 60 * 60 * 1000, // 30 days (ship images rarely change)
   fetchTimeout: 8000
@@ -257,9 +258,10 @@ async function staleWhileRevalidate(request, cacheName, maxItems) {
   return (await fetchPromise) || new Response('', { status: 504 });
 }
 
-async function staleIfError(request, cacheName, maxItems) {
+async function staleIfError(request, cacheName, maxItems, maxAge) {
   const cache = await caches.open(cacheName);
   const key = normalizeRequest(request);
+  const staleLimit = maxAge || CONFIG.staleMaxAge;
 
   try {
     const response = await fetchWithTimeout(request, CONFIG.fetchTimeout);
@@ -274,7 +276,7 @@ async function staleIfError(request, cacheName, maxItems) {
     const cached = await cache.match(key);
     if (cached) {
       const age = await getAge(cached);
-      if (age < CONFIG.staleMaxAge) {
+      if (age < staleLimit) {
         updateLRU(cacheName, key.url);
         return cached;
       }
@@ -288,6 +290,13 @@ async function staleIfError(request, cacheName, maxItems) {
 async function handleHTMLRequest(request, event) {
   const cache = await caches.open(CACHES.PAGES);
   const key = normalizeRequest(request);
+
+  // Predictive prefetch: warm calculator shell when visiting related pages
+  const pathname = new URL(request.url).pathname;
+  if (pathname === '/' || pathname === '/index.html' || pathname === '/planning.html' ||
+      pathname === '/drink-packages.html') {
+    event.waitUntil(warmCalculatorShell());
+  }
 
   try {
     // Try preload response first
@@ -359,7 +368,7 @@ async function handleCalculatorData(request, event) {
 }
 
 async function handleFXRequest(request) {
-  return staleIfError(request, CACHES.DATA, CONFIG.maxData);
+  return staleIfError(request, CACHES.DATA, CONFIG.maxData, CONFIG.fxApiMaxAge);
 }
 
 async function handleHealthCheck() {
@@ -501,6 +510,52 @@ async function copyPrecacheToRuntime() {
     await Promise.all(
       items.map(({ request, response }) => cache.put(request, response))
     );
+  }
+}
+
+/* Predictive prefetch: when user visits planning.html or homepage,
+ * warm the calculator shell so drink-calculator.html loads instantly. */
+const CALC_SHELL_URLS = [
+  '/drink-calculator.html',
+  '/drink-packages.html',
+  '/assets/js/calculator.js',
+  '/assets/js/calculator-ui.js',
+  '/assets/js/calculator-math.js',
+  '/assets/js/calculator-worker.js',
+  '/assets/css/calculator.css'
+];
+let calcShellWarmed = false;
+
+async function warmCalculatorShell() {
+  if (calcShellWarmed) return;
+  calcShellWarmed = true;
+
+  // Skip on slow or metered connections
+  if (networkInfo.saveData || networkInfo.effectiveType === '2g') return;
+
+  for (const url of CALC_SHELL_URLS) {
+    try {
+      const fullUrl = new URL(url, location.origin).href;
+      const parsedUrl = new URL(fullUrl);
+
+      // Determine target cache
+      const isPage = parsedUrl.pathname.endsWith('.html');
+      const cacheName = isPage ? CACHES.PAGES : CACHES.ASSETS;
+      const maxItems = isPage ? CONFIG.maxPages : CONFIG.maxAssets;
+
+      const cache = await caches.open(cacheName);
+      const existing = await cache.match(fullUrl);
+      if (existing) continue; // Already cached
+
+      const response = await fetchWithTimeout(new Request(fullUrl), CONFIG.fetchTimeout);
+      if (response && (response.ok || response.type === 'opaque')) {
+        await cache.put(fullUrl, response);
+        updateLRU(cacheName, fullUrl);
+        pruneCache(cacheName, maxItems);
+      }
+    } catch (e) {
+      // Skip failed prefetches — non-critical
+    }
   }
 }
 
