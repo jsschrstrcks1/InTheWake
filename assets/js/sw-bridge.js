@@ -323,6 +323,21 @@
     });
   }
 
+  function prefetchWeatherData() {
+    // Proactively warm the cache with seasonal-guides.json on port pages.
+    // The file is 1.2 MB but changes rarely — staleWhileRevalidate in
+    // the SW means subsequent port pages get instant cache hits.
+    var portEl = document.querySelector('[data-port-id]');
+    if (!portEl) return;
+
+    var conn = navigator.connection || {};
+    if (conn.saveData) return;
+
+    // Use a low-priority fetch that the SW will cache
+    fetch('/assets/data/ports/seasonal-guides.json', { priority: 'low' })
+      .catch(function () { /* silent — weather widget handles its own fetch */ });
+  }
+
   function prefetchPortTiles() {
     var sw = navigator.serviceWorker.controller;
     if (!sw) return;
@@ -436,10 +451,12 @@
   function scheduleBackgroundTasks() {
     if ('requestIdleCallback' in window) {
       requestIdleCallback(scanAndSeed, { timeout: 5000 });
+      requestIdleCallback(prefetchWeatherData, { timeout: 8000 });
       requestIdleCallback(prefetchPortTiles, { timeout: 10000 });
       requestIdleCallback(prefetchNearbyPortTiles, { timeout: 15000 });
     } else {
       setTimeout(scanAndSeed, 2000);
+      setTimeout(prefetchWeatherData, 4000);
       setTimeout(prefetchPortTiles, 5000);
       setTimeout(prefetchNearbyPortTiles, 10000);
     }
