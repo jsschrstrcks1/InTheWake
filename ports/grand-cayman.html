@@ -229,6 +229,7 @@ Soli Deo Gloria
 
         <!-- LOGBOOK SECTION - 800+ words, 10+ first-person pronouns -->
                 <p class="last-reviewed">Last reviewed: January 2026</p>
+                <div id="logbook-btn-container"></div>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
         <details class="port-section" id="weather-guide" open>
@@ -387,22 +388,35 @@ Soli Deo Gloria
           </ul>
             </details>
 
-        <!-- FROM THE PIER DISTANCES -->
-        <div class="pier-distances" id="pier-distances" aria-label="Walking distances from Grand Cayman tender pier to attractions">
+        <!-- REAL TALK -->
+        <p class="real-talk">The $2.50 shared taxi to Seven Mile Beach is one of the best deals in the Caribbean. Don't pay $40+ for a ship beach excursion when you can get there independently for pocket change and spend the savings on a beach chair and rum punch.</p>
+
+        <!-- FROM THE PIER -->
+        <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Grand Cayman tender landing">
           <h3>From the Pier</h3>
-          <p class="pier-note-from">Distances from George Town tender landing (tender port)</p>
-          <table class="pier-distances-table">
-            <thead><tr><th>Destination</th><th>Distance</th><th>Walk Time</th><th>Taxi</th></tr></thead>
-            <tbody>
-              <tr><td>George Town shops &amp; restaurants</td><td class="walkable">Adjacent</td><td class="walkable">5–10 min</td><td>—</td></tr>
-              <tr><td>National Museum</td><td class="walkable">0.2 mi</td><td class="walkable">5 min</td><td>—</td></tr>
-              <tr><td>Smith Cove (beach)</td><td class="walkable">0.5 mi</td><td class="walkable">10 min</td><td>—</td></tr>
-              <tr><td>Seven Mile Beach</td><td class="taxi-needed">3 mi</td><td class="taxi-needed">Not practical</td><td>$2.50–12/pp</td></tr>
-              <tr><td>Rum Point / Kaibo</td><td class="taxi-needed">25 mi</td><td class="taxi-needed">Not walkable</td><td>Water taxi $30–40 RT</td></tr>
-              <tr><td>Stingray City sandbar</td><td class="taxi-needed">Offshore</td><td class="taxi-needed">Boat only</td><td>Excursion $40–60</td></tr>
-            </tbody>
-          </table>
-          <p class="pier-tip">George Town is flat and fully walkable. Smith Cove is the closest beach on foot with good snorkeling.</p>
+          <ul class="pier-distances">
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Downtown George Town</span><div class="pier-detail">Shopping, duty-free, restaurants</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Seven Mile Beach</span><div class="pier-detail">Famous beach strip — shared taxi</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 10 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Stingray City Sandbar</span><div class="pier-detail">Iconic excursion — boat tour required</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 30 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Rum Point / Kaibo Beach</span><div class="pier-detail">Quiet north shore — water taxi</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 25 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:42%"></div></div>
+            </li>
+          </ul>
+          <p class="pier-note">Tender port — 5-10 min tender ride from ship. Shared taxis to Seven Mile Beach are $2.50-5 per person.</p>
         </div>
 
         <!-- TRANSPORT COSTS -->
@@ -447,6 +461,31 @@ Soli Deo Gloria
         <details class="port-section" id="excursions" open>
             <summary><h2>Top Excursions &amp; Things to Do</h2></summary>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: Ship excursions offer guaranteed return to the vessel but cost more. Independent bookings with operators like Captain Marvin's or Native Way are typically 30-40% cheaper with smaller group sizes. For Stingray City, book ahead through ship or reputable independent operator during peak season — this attraction sells out weeks in advance. Beach days and downtown can be done independently without advance booking.</p>
+
+          <!-- DIY vs. Excursion -->
+          <div class="diy-vs-excursion">
+            <h4>DIY vs. Ship Excursion: Stingray City</h4>
+            <div class="diy-compare">
+              <div class="diy-option">
+                <h5>Independent Boat ($39-55/person)</h5>
+                <ul>
+                  <li>Book from George Town waterfront</li>
+                  <li>Smaller boats, less crowded sandbar</li>
+                  <li>Often includes a snorkel stop</li>
+                  <li>Must be back to tender on time</li>
+                </ul>
+              </div>
+              <div class="excursion-option">
+                <h5>Ship Excursion ($60-80/person)</h5>
+                <ul>
+                  <li>Guaranteed return to ship</li>
+                  <li>Larger catamaran, more amenities</li>
+                  <li>Equipment and safety briefing included</li>
+                  <li>Premium for peace of mind</li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
           <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Stingray City Sandbar</h4>
           <p>The island's signature experience — standing waist-deep on a shallow sandbar while wild southern stingrays glide around you. You can hold them, feed them, even "kiss" them for good luck. Independent tours run $39-60 per person; ship excursions run $70-90. Allow 2-4 hours depending on whether you add Starfish Point or snorkeling. Book ahead during winter cruise season as this is the most popular attraction in the Cayman Islands.</p>
@@ -718,6 +757,7 @@ Soli Deo Gloria
   </footer>
 
   <script src="/assets/js/dropdown.js"></script>
+  <script src="/assets/js/port-logbook-btn.js" defer></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
 
