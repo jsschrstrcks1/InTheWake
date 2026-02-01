@@ -59,8 +59,10 @@ The following items were **explicitly started** in previous threads. Each has be
 #### 1. ~~Venue Audit — Phase 2~~ ✅ COMPLETE
 **Verified 2026-01-31:** All major template issues remediated. 0 generic text, 0 hotdog.webp, 0 missing analytics, all have menu-prices.
 - [x] Venue validator v2 integrated into unified `admin/validate.js` (reads `restaurants/*.html` path pattern)
-**Remaining minor item:**
-- [ ] 93 pages have "Smart Casual" dress code — most legitimate, but counter-service venues may need review
+**Remaining minor items:** ✅ ALL RESOLVED (2026-02-01)
+- [x] 5 counter-service venues had incorrect "Smart Casual" dress codes — fixed to "Casual"
+- [x] 85 "unknown" venues classified into metadata (72 RCL entertainment, 3 RCL activities, plus category fixes for Virgin/Carnival bars)
+- [x] 0 unknown venues remaining, 0 failures, 472/472 pass
 
 #### 2. Affiliate Link Deployment — User Decision Needed
 **Plan file:** `.claude/plan-affiliate-deployment.md`
