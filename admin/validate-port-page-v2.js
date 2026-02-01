@@ -1544,6 +1544,61 @@ function validateAuthorDisclaimer($) {
 }
 
 /**
+ * Validate "From the Pier" distance component presence
+ * Every port page should have a From the Pier section with walking/transport
+ * distances from the cruise pier to key destinations.
+ */
+function validateFromThePier($) {
+  const errors = [];
+  const warnings = [];
+
+  const fromThePier = $('.from-the-pier, #from-the-pier');
+
+  if (fromThePier.length === 0) {
+    warnings.push({
+      section: 'from_the_pier',
+      rule: 'missing_pier_distances',
+      message: 'Missing "From the Pier" distance component. Every port page should include walking/transport times from the cruise pier to key destinations.',
+      severity: 'WARNING'
+    });
+    return { valid: true, errors, warnings, data: { hasComponent: false, destinationCount: 0 } };
+  }
+
+  // Check that it has at least 3 destinations
+  const destinations = fromThePier.find('.pier-distance-item');
+  if (destinations.length < 3) {
+    warnings.push({
+      section: 'from_the_pier',
+      rule: 'insufficient_destinations',
+      message: `From the Pier has ${destinations.length} destination(s), recommended minimum is 3`,
+      severity: 'WARNING'
+    });
+  }
+
+  // Check that it has a pier-note
+  const pierNote = fromThePier.find('.pier-note');
+  if (pierNote.length === 0) {
+    warnings.push({
+      section: 'from_the_pier',
+      rule: 'missing_pier_note',
+      message: 'From the Pier section should include a pier-note with context about which pier times are measured from',
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: true,
+    errors,
+    warnings,
+    data: {
+      hasComponent: true,
+      destinationCount: destinations.length,
+      hasPierNote: pierNote.length > 0
+    }
+  };
+}
+
+/**
  * Validate trust badge in footer
  */
 function validateTrustBadge($) {
@@ -1658,6 +1713,7 @@ async function validatePortPage(filepath) {
     const trustBadgeResult = validateTrustBadge($);
     const lastReviewedResult = validateLastReviewedStamp($);
     const collapsibleResult = validateCollapsibleStructure($);
+    const fromThePierResult = validateFromThePier($);
     const siteIntegrationResult = await validateSiteIntegration(filepath);
 
     // Collect all errors
@@ -1687,6 +1743,7 @@ async function validatePortPage(filepath) {
     results.warnings.push(...uniqueNamesResult.warnings);
     results.warnings.push(...authorDisclaimerResult.warnings);
     results.warnings.push(...lastReviewedResult.warnings);
+    results.warnings.push(...fromThePierResult.warnings);
 
     // Collect info
     results.info.push(...logbookResult.info);
@@ -1716,6 +1773,7 @@ async function validatePortPage(filepath) {
     results.logbook_narrative = logbookResult.data;
     results.content_purity = contentPurityResult.data;
     results.unique_names = uniqueNamesResult.data;
+    results.from_the_pier = fromThePierResult.data;
     results.site_integration = siteIntegrationResult.data;
 
   } catch (error) {
