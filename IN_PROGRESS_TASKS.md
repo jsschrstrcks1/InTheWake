@@ -1,7 +1,7 @@
 # In-Progress Tasks
 
 **Purpose:** Thread coordination file to prevent conflicts between concurrent Claude threads.
-**Last Updated:** 2026-01-31
+**Last Updated:** 2026-01-31 (cleaned up by claude/identify-maintenance-tasks-FN2lh)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -36,19 +36,12 @@ FORMAT:
 **Notes:** Any blockers or important context
 -->
 
-### Review Previous Work, Image Optimization, CSS Consolidation & Documentation
-**Thread:** `claude/review-previous-work-ZMk3b`
+### Documentation Consistency, CSS Consolidation & Competitor Gap Features
+**Thread:** `claude/identify-maintenance-tasks-FN2lh`
 **Started:** 2026-01-31
-**Files:** UNFINISHED_TASKS.md, COMPLETED_TASKS.md, IN_PROGRESS_TASKS.md, admin/claude/CLAUDE.md, claude.md, .claude/plan-implementation-priorities-2026-01-31.md, .claude/skill-rules.json, .claude/skills/careful-not-clever/CAREFUL.md, assets/styles.css, 162 ship HTML files, 124 restaurant HTML files, ships/carnival/index.html, 59 deleted image files
-**Status:** Deep audit, JPG elimination, restaurant CSS extraction, ship-page.css rollout (292/297), "careful not clever" guardrail, documentation consistency fixes — all complete. Branch ready for merge.
-**Notes:** Remaining work: CSS `.ship-list` class conflict (12 files), competitor gap quick wins, port weather data.
-
-### Logbook Enrichment — "Gentle Truth" Reviews (Phase 1)
-**Thread:** `claude/audit-venues-gD9fq`
-**Started:** 2026-01-31
-**Files:** 26 venue HTML files across NCL, Carnival, MSC, Virgin Voyages
-**Status:** Complete. 26 flagship venue logbooks enriched with specific dish recommendations, honest "Gentle Truth" critiques, and differentiated ratings.
-**Notes:** Replaced identical boilerplate entries with venue-specific reviews. Ratings now range 3.7–4.5 (previously all 4.0). 85 boilerplate venues remain across the fleet — this was Phase 1 targeting highest-impact flagships.
+**Files:** admin/claude/CLAUDE.md, IN_PROGRESS_TASKS.md, ships/*/index.html (CSS consolidation), ports/ (competitor gap features)
+**Status:** Starting — Tier 1 doc fixes, then Tier 2 CSS + competitor gap work.
+**Notes:** Continuation of priorities from plan-implementation-priorities-2026-01-31.md.
 
 ---
 
@@ -72,11 +65,9 @@ FORMAT:
 
 | Thread ID | Task | Status | Date |
 |-----------|------|--------|------|
-| claude/audit-venues-gD9fq | Logbook enrichment — Gentle Truth reviews | IN PROGRESS | 2026-01-31 |
-| claude/review-previous-work-ZMk3b | Deep audit, JPG elimination, CSS consolidation, ship-page.css rollout, guardrail, docs | IN PROGRESS | 2026-01-31 |
-| claude/review-previous-work-ZMk3b | Deep audit, JPG elimination, CSS consolidation, ship-page.css rollout, guardrail, docs | IN PROGRESS | 2026-01-31 |
-| claude/audit-venues-gD9fq | Logbook enrichment — Gentle Truth reviews | IN PROGRESS | 2026-01-31 |
-| claude/review-previous-work-ZMk3b | Deep audit, JPG elimination | IN PROGRESS | 2026-01-31 |
+| claude/identify-maintenance-tasks-FN2lh | Doc consistency, CSS consolidation, competitor gap features | IN PROGRESS | 2026-01-31 |
+| claude/audit-venues-gD9fq | Logbook enrichment — Gentle Truth reviews | COMPLETE | 2026-01-31 |
+| claude/review-previous-work-ZMk3b | Deep audit, JPG elimination, CSS consolidation, ship-page.css rollout, guardrail, docs | COMPLETE | 2026-01-31 |
 | claude/review-onboarding-setup-01JpVFgKzWRBKvXaxcS1pC9N | Onboarding review, schema fix | COMPLETE | 2025-12-01 |
 | claude/fix-dropdown-menu-01XJq5FhAaie7QptqwRY7wfd | Dropdown menu fix | COMPLETE | 2025-11-28 |
 
