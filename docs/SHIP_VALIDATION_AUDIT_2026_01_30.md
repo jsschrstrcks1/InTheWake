@@ -306,11 +306,21 @@ The vast majority of non-RCL failures share identical error profiles. They were 
 - **Option B:** Require TBN ships to pass with placeholder content
 - **Recommendation:** Option A — these ships don't exist yet; relaxed criteria make sense
 
+**DECISION (2026-01-31): OPTION A — Exempt until ships are released.**
+
+TBN/unnamed ships are exempt from full validation until they enter service. Once a ship is delivered and sailing, its page must pass full validation. See **Appendix C: TBN Ship Release Date Research** below for researched delivery dates and exemption expiry schedule.
+
 ### D2: Should the video requirement apply to all cruise lines?
 - **Option A:** Require 10+ videos across 8 categories for all lines (current behavior)
 - **Option B:** Reduce video requirements for luxury/expedition lines (smaller ships = fewer videos available)
 - **Option C:** Make videos a warning instead of a blocking error for non-RCL lines
 - **Recommendation:** Option C — videos are the single largest blocker and most effort-intensive fix. Making them warnings would immediately pass ~60 pages.
+
+**DECISION (2026-01-31): NO POLICY CHANGE — Videos remain a blocking error. They will need to be researched.**
+
+The video requirement stays as-is (Option A). Each cruise line's ships will need actual YouTube video research to create video JSON manifests. This is the most labor-intensive fix in the audit but is required for quality. No shortcuts — the videos must be real, categorized, and verified.
+
+**TBN EXEMPTION (2026-01-31):** TBN/unnamed ships are exempt from video requirements under the same terms as D1. Video validation errors are downgraded to warnings for TBN ships until they enter service. Once a ship is delivered and sailing, it must have a complete video manifest passing full validation. See **Appendix C** for exemption expiry dates.
 
 ### D3: What to do with duplicate/legacy pages?
 - `ships/explora/` vs `ships/explora-journeys/` (duplicate directory)
@@ -318,15 +328,23 @@ The vast majority of non-RCL failures share identical error profiles. They were 
 - `legend-of-the-seas.html` vs `legend-of-the-seas-1995-built.html` vs `legend-of-the-seas-icon-class-entering-service-in-2026.html`
 - **Recommendation:** Consolidate duplicates, redirect old URLs
 
+**DECISION (2026-01-31): DOCUMENT AND DEFER — Will be discussed later.**
+
+Full duplicate/legacy page analysis has been completed and documented in **Appendix D: Duplicate & Legacy Page Analysis** below. No action taken yet — consolidation strategy to be decided in a future session.
+
 ### D4: Should index pages have their own validator?
 - Currently scoring 0/100 on the ship validator (wrong validator type)
 - **Recommendation:** Create `validate-fleet-index.js` or exclude from ship validation
+
+**DECISION (2026-01-31): YES — Create a fleet-index validator.**
+
+Index pages will get their own dedicated validator (`validate-fleet-index.js`). They should be excluded from the ship page validator's `--all-ships` sweep immediately, and a purpose-built fleet-index validator should be created to check fleet index pages against appropriate criteria (cruise line branding, ship listing completeness, navigation links, etc.).
 
 ---
 
 ## Quick Wins Summary
 
-If decisions D1 (exempt TBN), D2 (videos as warning), and D4 (exclude index) are adopted:
+With decisions D1 (exempt TBN), D2 (videos blocking, TBN exempt per D1), and D4 (exclude index) adopted:
 
 | Action | Pages Fixed | New Pass Rate |
 |--------|-------------|---------------|
@@ -404,6 +422,153 @@ Severely broken pages: `msc-world-america`, `carnival-tropicale`, `carnival-adve
 | `html_structure/unclosed_section` | Error | — | Opening/closing section tags must match |
 | `word_counts/page_too_short` | Error | <500 words | Static content must be 500+ words |
 | `logbook/few_stories` | Error | <10 stories | Must have 10+ logbook stories |
+
+---
+
+## Appendix C: TBN Ship Release Date Research
+
+*Researched 2026-01-31 via web sources. See sources list at end of appendix.*
+
+### Confirmed Ordered Ships (Exempt Until Delivery)
+
+| Ship Page | Ship Identity | Expected Delivery | Builder | Construction Status | Exemption Expires |
+|-----------|--------------|-------------------|---------|--------------------|--------------------|
+| `rcl/legend-of-the-seas-icon-class-entering-service-in-2026.html` | Legend of the Seas (Icon Class #3) | **July 2026** | Meyer Turku, Finland | Float out Sep 2025; outfitting underway | **July 2026** |
+| `rcl/icon-class-ship-tbn-2027.html` | Icon Class #4 (unnamed) | **2027** | Meyer Turku, Finland | First block placed in dry dock Aug 2024 | **2027** |
+| `rcl/oasis-class-ship-tbn-2028.html` | Oasis Class #7 (unnamed) | **2028** | Chantiers de l'Atlantique, France | Steel cut Oct 2025 | **2028** |
+| `rcl/icon-class-ship-tbn-2028.html` | Icon Class #5 (unnamed) | **2028** | Meyer Turku, Finland | Option exercised Sep 2025; not yet under construction | **2028** |
+| `rcl/discovery-class-ship-tbn.html` | Discovery Class #1 (unnamed) | **2029** | Chantiers de l'Atlantique, France | Announced Jan 29, 2026; smaller, destination-focused ships | **2029** |
+| `carnival/unnamed-project-ace-1.html` | Project ACE Ship 1 (unnamed) | **2029** | Fincantieri, Italy | In design phase; ~230,000 GT, ~8,000 guests | **2029** |
+| `carnival/unnamed-project-ace-2.html` | Project ACE Ship 2 (unnamed) | **2031** | Fincantieri, Italy | In design phase | **2031** |
+| `carnival/unnamed-project-ace-3.html` | Project ACE Ship 3 (unnamed) | **2033** | Fincantieri, Italy | In design phase | **2033** |
+
+### Ships With Updated Names (Page Rename Needed)
+
+| Ship Page | Current Name | Actual Name | Status |
+|-----------|-------------|-------------|--------|
+| `celebrity/unnamed-edge-class.html` | Unnamed Edge Class | **Celebrity Xcite** | Named Oct 2025; steel cut Oct 2025; delivery 2028 |
+
+### Ships With Questionable Validity (May Not Correspond to Real Orders)
+
+| Ship Page | Claimed Identity | Research Finding | Recommendation |
+|-----------|-----------------|-----------------|----------------|
+| `rcl/star-class-ship-tbn-2028.html` | Star Class TBN 2028 | **No "Star class" exists** as a ship class. "Star of the Seas" is Icon Class #2 (already in service Aug 2025). "Star Class" refers to a suite category. | Likely erroneous — investigate and possibly remove or redirect |
+| `rcl/quantum-ultra-class-ship-tbn-2028.html` | Quantum Ultra Class TBN 2028 | **No new Quantum Ultra ships ordered.** Existing ships are being refurbished instead. The 2028 slot is taken by Oasis #7 and Icon #5. | Likely erroneous — investigate and possibly remove |
+| `rcl/quantum-ultra-class-ship-tbn-2029.html` | Quantum Ultra Class TBN 2029 | **No new Quantum Ultra ships ordered.** The 2029 slot is taken by Discovery Class #1. | Likely erroneous — investigate and possibly remove |
+| `celebrity/unnamed-river-class-x6.html` | Unnamed River Class X6 | "X6" designation not found in any public sources. Celebrity River Cruises fleet uses names like Compass, Seeker, Wanderer, Roamer, Boundless. | Internal codename? Needs clarification |
+| `celebrity/unnamed-project-nirvana.html` | Unnamed Project Nirvana | Still in "dreaming stage" per Celebrity president (Nov 2024). **No shipyard selected, no order placed.** | Not yet ordered — exempt indefinitely until ordered |
+
+### Summary: Exemption Timeline
+
+```
+July 2026    Legend of the Seas (Icon #3) enters service → MUST pass validation
+2027         Icon Class #4 enters service → MUST pass validation
+2028         Oasis #7, Icon #5, Celebrity Xcite enter service → MUST pass validation
+2029         Discovery #1, Project ACE #1 enter service → MUST pass validation
+2031         Project ACE #2 enters service → MUST pass validation
+2033         Project ACE #3 enters service → MUST pass validation
+TBD          Project Nirvana (not yet ordered)
+REMOVE?      Star Class TBN 2028, Quantum Ultra TBN 2028/2029 (no corresponding orders)
+```
+
+### Sources
+- Royal Caribbean Blog: "Everything new coming to Royal Caribbean in 2026, 2027 & 2028"
+- Cruise Critic: "Royal Caribbean Orders 5th Icon Class Ship" (Sep 2025)
+- Cruise Critic: "Royal Caribbean Confirms Order of New Discovery Class" (Jan 2026)
+- Cruise Hive: "Steel Cutting Held for Royal Caribbean's Next Oasis-Class Ship" (Oct 2025)
+- Cruise Blog: "Carnival's Project Ace — What to Expect" (Aug 2025)
+- Seatrade Cruise: "Celebrity Xcel Delivered, Construction Begins on Celebrity Xcite" (Oct 2025)
+- Cruise Blog: "Celebrity Cruises Reveals New Project Nirvana Ship Class" (Nov 2024)
+- PR Newswire: "Celebrity River Cruises Announces 10 More Ships" (Jan 2026)
+
+---
+
+## Appendix D: Duplicate & Legacy Page Analysis
+
+*Researched 2026-01-31. Deferred for owner discussion per Decision D3.*
+
+### Confirmed Duplicates (Same Ship, Multiple Pages)
+
+#### 1. `ships/explora/` vs `ships/explora-journeys/` — Legacy Directory
+
+| Legacy (ships/explora/) | Current (ships/explora-journeys/) | Ship |
+|--------------------------|--------------------------------------|------|
+| `explora-i.html` (33K) | `explora-i.html` (29K) | Explora I |
+| `explora-ii.html` (30K) | `explora-ii.html` (29K) | Explora II |
+| `index.html` (7.3K) | `index.html` | Fleet index |
+
+**Finding:** `ships/explora/` is the legacy directory. The `ships/explora-journeys/` directory is authoritative with 6 ships (I-VI) and proper sibling cross-linking. The legacy directory only knows about 2 ships.
+
+**Recommended action (deferred):** Remove `ships/explora/` and redirect to `ships/explora-journeys/`.
+
+#### 2. `ships/rcl/legend-of-the-seas.html` vs `ships/rcl/legend-of-the-seas-1995-built.html`
+
+| File | Size | Content |
+|------|------|---------|
+| `legend-of-the-seas.html` (55K) | Current operational page | Voyager Class, 1995, currently in service |
+| `legend-of-the-seas-1995-built.html` (52K) | Near-duplicate | Same ship, similar content |
+
+**Finding:** Both cover the same 1995 Voyager Class ship. Content has diverged slightly (55K vs 52K). Neither is clearly the "canonical" version.
+
+**Note:** The *new* Legend of the Seas (Icon Class, 2026) is a separate ship at `legend-of-the-seas-icon-class-entering-service-in-2026.html` — that one is NOT a duplicate.
+
+**Recommended action (deferred):** Consolidate into one page, redirect the other.
+
+#### 3. `ships/carnival/mardi-gras.html` vs `ships/carnival/carnival-mardi-gras.html`
+
+| File | Size | Content |
+|------|------|---------|
+| `carnival-mardi-gras.html` (52K) | More complete | Current Excel-class Mardi Gras (2021) |
+| `mardi-gras.html` (28K) | Less complete | Appears to be same Excel-class ship |
+
+**Finding:** Both appear to cover the same current Excel-class ship (launched 2021). The `carnival-mardi-gras.html` version is more complete. Note: `mardi-gras-1972.html` is a *separate* historic ship (Carnival's founding vessel) — NOT a duplicate.
+
+**Recommended action (deferred):** Consolidate into `carnival-mardi-gras.html`, redirect `mardi-gras.html`.
+
+### NOT Duplicates (Ship Name Reuse Across Generations)
+
+These pairs look like duplicates by name but are intentionally separate pages for different-era ships:
+
+| Modern Ship | Historic Ship | Same Ship? |
+|-------------|--------------|------------|
+| `carnival-tropicale.html` (Excel-class, 2028 future) | `tropicale-1981.html` (TSS Tropicale, scrapped 2021) | **No** — 45+ years apart |
+| `carnival-celebration.html` (Excel-class, 2022) | `celebration-1987.html` (Holiday Class, scrapped 2021) | **No** — 35+ years apart |
+| `carnival-festivale.html` (Excel-class, 2027 future) | `festivale-1961.html` (converted liner, scrapped 2003) | **No** — 60+ years apart |
+| `carnival-jubilee.html` (Excel-class, 2023) | `jubilee-1986.html` (Holiday Class, scrapped 2017) | **No** — 37+ years apart |
+
+**Naming convention confirmed:** `carnival-[name].html` = modern/active ship; `[name]-[year].html` = historic ship.
+
+### Total Duplicate Count
+
+| Category | Pages | Action Status |
+|----------|-------|---------------|
+| Confirmed duplicates | 5 pages (2 Explora legacy + Explora legacy index + 1 Legend + 1 Mardi Gras) | Deferred |
+| Not duplicates (name reuse) | 8 pages (4 pairs) | No action needed |
+
+---
+
+## Appendix E: Decision Summary
+
+| Decision | Question | Answer | Date | Impact |
+|----------|----------|--------|------|--------|
+| D1 | TBN/unnamed ship validation | **Exempt until ship enters service** | 2026-01-31 | Removes ~14 pages from failure denominator; re-add as ships launch |
+| D2 | Video requirement policy | **No change — videos must be researched** | 2026-01-31 | Videos remain blocking errors; YouTube research required per cruise line |
+| D3 | Duplicate/legacy pages | **Document and defer** | 2026-01-31 | 5 confirmed duplicate pages identified; consolidation strategy TBD |
+| D4 | Fleet index validator | **Yes — create dedicated validator** | 2026-01-31 | Exclude 16 index pages from ship validator; build `validate-fleet-index.js` |
+
+### Revised Quick Wins With Decisions Applied
+
+With D1 (exempt TBN) and D4 (exclude index) adopted, but D2 unchanged (videos stay blocking):
+
+| Action | Pages Fixed | New Pass Rate |
+|--------|-------------|---------------|
+| Exclude index + utility pages | Removes 21 from denominator | 154/293 = 52.6% |
+| Exempt TBN/unnamed pages | Removes ~14 from denominator | 154/279 = 55.2% |
+| Exempt questionable pages (Star Class, Quantum Ultra TBN) | Removes ~3 more | 154/276 = 55.8% |
+| Fix section order (scriptable) | ~40 pages pass | ~194/276 = 70.3% |
+| Add images to pages below threshold | ~30 more pages pass | ~224/276 = 81.2% |
+| Research & create video manifests | ~50 more pages pass | ~274/276 = 99.3% |
+| Fix remaining one-offs | ~2 more pages pass | **276/276 = 100%** |
 
 ---
 

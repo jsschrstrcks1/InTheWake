@@ -233,6 +233,7 @@ All work on this project is offered as a gift to God.
 
     <article class="card">
       <p class="last-reviewed">Last reviewed: January 2026</p>
+      <div id="logbook-btn-container"></div>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
         <details class="port-section" id="weather-guide" open>
@@ -381,6 +382,42 @@ All work on this project is offered as a gift to God.
           <p>For most cruise visitors, a combination of walking downtown and shared taxis to Maho Beach or the French side offers the best value. Book ahead through your ship's shore excursion desk for guaranteed transportation if visiting multiple destinations.</p>
         </details>
 
+      <!-- REAL TALK -->
+      <p class="real-talk">Maho Beach (the plane-spotting beach) is genuinely thrilling, but the $20 shared taxi each way adds up for a family. Consider spending the morning at Great Bay Beach (15-min walk, free) and saving Maho for the afternoon when the big planes land.</p>
+
+      <!-- FROM THE PIER -->
+      <div class="from-the-pier" id="from-the-pier" aria-label="Walking distances from St. Maarten cruise pier">
+        <h3>From the Pier</h3>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Downtown Philipsburg</span><div class="pier-detail">Front Street shopping, restaurants</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 2 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:3%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Great Bay Beach</span><div class="pier-detail">Closest beach — right along Front Street</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Maho Beach</span><div class="pier-detail">Famous plane-spotting beach (Dutch side)</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:33%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Orient Beach</span><div class="pier-detail">French side — popular beach destination</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 25 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:42%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Marigot Market</span><div class="pier-detail">French side — open-air market and Fort Louis</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 30 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Terminal is in downtown Philipsburg. No border controls between Dutch and French sides.</p>
+      </div>
+
       <!-- TRANSPORT COSTS -->
       <div class="transport-costs" id="transport-costs" aria-label="Transport costs from St. Maarten cruise pier">
         <h3>Transport Costs from the Pier</h3>
@@ -420,6 +457,31 @@ All work on this project is offered as a gift to God.
         <details class="port-section" id="excursions" open>
           <summary><h2>Excursions &amp; Things to Do</h2></summary>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking tip: Reserve ship excursions for guaranteed return to the pier. Independent travelers should book ahead for Orient Beach clubs during peak season.</p>
+
+          <!-- DIY vs. Excursion -->
+          <div class="diy-vs-excursion">
+            <h4>DIY vs. Ship Excursion: Maho Beach</h4>
+            <div class="diy-compare">
+              <div class="diy-option">
+                <h5>DIY Taxi ($20 shared each way)</h5>
+                <ul>
+                  <li>Grab a spot at Sunset Bar for free</li>
+                  <li>Stay for as many landings as you want</li>
+                  <li>Grab lunch at Sunset Bar ($15-25)</li>
+                  <li>Total: ~$55/person for a full experience</li>
+                </ul>
+              </div>
+              <div class="excursion-option">
+                <h5>Ship Beach Tour ($65-90/person)</h5>
+                <ul>
+                  <li>Usually combines Maho + Orient Beach</li>
+                  <li>Transport and guide included</li>
+                  <li>Fixed schedule, less time at each beach</li>
+                  <li>Good if you want to see both sides</li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
           <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Maho Beach Plane Spotting</h4>
           <p>The iconic "Airplane Beach" where jumbo jets descend barely 100 feet overhead on final approach to Princess Juliana Airport. Watch landings from the sand or Sunset Beach Bar, which posts daily flight schedules. Low to moderate energy. $20 per person shared taxi from port (15-20 minutes), or $2 by public bus. Free beach access. Stay behind the fence during takeoffs — jet blast has caused injuries. The thrill of 747s thundering overhead is unforgettable.</p>
@@ -748,6 +810,7 @@ All work on this project is offered as a gift to God.
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+  <script src="/assets/js/port-logbook-btn.js" defer></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
 
   <!-- In-App Browser Detection & Escape Banner -->

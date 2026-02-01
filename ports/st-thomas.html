@@ -285,6 +285,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </section>
 
       <p class="last-reviewed">Last reviewed: January 2026</p>
+      <div id="logbook-btn-container"></div>
 
       <!-- LOGBOOK SECTION -->
       <section id="logbook">
@@ -347,6 +348,42 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p>For accessibility, Havensight terminal is fully accessible with ramps and accessible restrooms. Safari taxis can be challenging for wheelchairs; request a regular accessible taxi at the pier. Most downtown streets are flat for comfortable walking, though the famous 99 Steps and hilly neighborhoods require climbing. Beach wheelchairs may be available at Magens Bay — ask at the entrance.</p>
       </details>
 
+      <!-- REAL TALK -->
+      <p class="real-talk">The Paradise Point Skyride is walking distance from Havensight and gives you one of the best views in the Caribbean for $24. Skip the $60+ ship excursion version that includes the same ride with an added bus tour you don't need.</p>
+
+      <!-- FROM THE PIER -->
+      <div class="from-the-pier" id="from-the-pier" aria-label="Walking distances from St. Thomas cruise pier">
+        <h3>From the Pier</h3>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Havensight Mall</span><div class="pier-detail">Shopping and dining at the cruise terminal</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 2 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:3%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Paradise Point Skyride</span><div class="pier-detail">Scenic tramway with panoramic views</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Historic Downtown Charlotte Amalie</span><div class="pier-detail">Duty-free shops, Fort Christian — 1 mile from Havensight</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 20 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:33%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Magens Bay Beach</span><div class="pier-detail">Top-rated beach on the island</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Coral World Ocean Park</span><div class="pier-detail">Marine park, undersea observatory</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:33%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">From Havensight pier. Crown Bay pier is 2 miles farther — add $5-8 taxi to reach downtown.</p>
+      </div>
+
       <!-- TRANSPORT COSTS -->
       <div class="transport-costs" id="transport-costs" aria-label="Transport costs from St. Thomas cruise pier">
         <h3>Transport Costs from the Pier</h3>
@@ -384,6 +421,31 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <!-- EXCURSIONS SECTION -->
       <details class="port-section" id="excursions" open>
         <summary><h2>Excursions &amp; Activities</h2></summary>
+
+        <!-- DIY vs. Excursion -->
+        <div class="diy-vs-excursion">
+          <h4>DIY vs. Ship Excursion: Magens Bay Beach</h4>
+          <div class="diy-compare">
+            <div class="diy-option">
+              <h5>DIY Taxi ($10/person each way)</h5>
+              <ul>
+                <li>$5 beach entrance fee</li>
+                <li>Stay as long as you want</li>
+                <li>Chair/umbrella rentals available</li>
+                <li>Total: ~$25/person for the day</li>
+              </ul>
+            </div>
+            <div class="excursion-option">
+              <h5>Ship Beach Excursion ($55-75/person)</h5>
+              <ul>
+                <li>Round-trip transport included</li>
+                <li>Beach chairs often included</li>
+                <li>Fixed return time (less flexibility)</li>
+                <li>Guaranteed return to ship</li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
         <h3>Beach Days</h3>
         <p><strong>Magens Bay Beach</strong> consistently ranks among the top 10 beaches in the world according to National Geographic. Three-quarters of a mile of powdery white sand curves around a heart-shaped bay flanked by lush green hillsides. The protected configuration keeps water remarkably calm — ideal for floating and families. Entrance fee $5, chair and umbrella rental $15/day. Book ahead through your ship excursion desk for guaranteed return, or take a safari taxi independently ($10/person each way).</p>
@@ -771,6 +833,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- Dropdown Navigation -->
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+  <script src="/assets/js/port-logbook-btn.js" defer></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
 
   <!-- In-App Browser Detection & Escape Banner -->

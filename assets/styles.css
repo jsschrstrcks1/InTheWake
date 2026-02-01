@@ -95,6 +95,49 @@ h3 { font-size: 1.25rem; line-height: 1.4; }
   .transport-costs-table th, .transport-costs-table td { padding: 0.35rem 0.4rem; }
 }
 
+/* Port Logbook Button */
+.logbook-btn { display: inline-block; padding: 0.6rem 1.2rem; font-size: 0.92rem; font-weight: 600; color: var(--sea, #0a3d62); background: #fff; border: 2px solid var(--teal, #0077b6); border-radius: 8px; cursor: pointer; transition: all 0.2s ease; }
+.logbook-btn:hover { background: var(--foam, #e6f4f8); }
+.logbook-btn--added { color: #fff; background: var(--teal, #0077b6); border-color: var(--teal, #0077b6); }
+.logbook-btn--added:hover { background: #005f8a; border-color: #005f8a; }
+#logbook-btn-container { margin: 0.75rem 0; }
+
+/* Real Talk — Honest Assessment Callout */
+.real-talk { margin: 1.25rem 0; padding: 1rem 1.25rem; background: #fef9e7; border-left: 4px solid var(--rope, #d9b382); border-radius: 0 8px 8px 0; font-size: 0.92rem; line-height: 1.6; }
+.real-talk strong { color: var(--sea, #0a3d62); }
+.real-talk::before { content: "Real Talk: "; font-weight: 700; color: var(--rope, #d9b382); }
+@media (max-width: 600px) { .real-talk { padding: 0.75rem 1rem; font-size: 0.88rem; } }
+
+/* DIY vs. Excursion Comparison */
+.diy-vs-excursion { margin: 1.25rem 0; padding: 1rem 1.25rem; background: var(--foam, #e6f4f8); border-radius: 10px; border: 1px solid #cde8f0; }
+.diy-vs-excursion h4 { font-size: 1rem; margin: 0 0 0.75rem; color: var(--sea, #0a3d62); }
+.diy-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.diy-option, .excursion-option { padding: 0.75rem; border-radius: 8px; }
+.diy-option { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.excursion-option { background: #fef3c7; border: 1px solid #fde68a; }
+.diy-option h5, .excursion-option h5 { margin: 0 0 0.5rem; font-size: 0.92rem; }
+.diy-option ul, .excursion-option ul { margin: 0; padding-left: 1.2rem; font-size: 0.85rem; line-height: 1.5; }
+@media (max-width: 600px) { .diy-compare { grid-template-columns: 1fr; } }
+
+/* From the Pier — Walking Distance Component */
+.from-the-pier { margin: 1.25rem 0; padding: 1rem 1.25rem; background: var(--foam, #e6f4f8); border-radius: 10px; border: 1px solid #cde8f0; }
+.from-the-pier h3 { font-size: 1.1rem; margin: 0 0 0.75rem; color: var(--sea, #0a3d62); }
+.pier-distances { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; }
+.pier-distance-item { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid #dce8ee; }
+.pier-distance-item:last-child { border-bottom: none; }
+.pier-dest { font-weight: 600; color: var(--ink, #083041); font-size: 0.92rem; }
+.pier-detail { font-size: 0.82rem; color: var(--text-muted, #2a4a5a); margin-top: 0.15rem; }
+.pier-time { white-space: nowrap; text-align: right; font-size: 0.88rem; font-weight: 600; color: var(--sea, #0a3d62); }
+.pier-time .walk-icon { margin-right: 0.25rem; }
+.pier-bar { grid-column: 1 / -1; height: 4px; background: #dce8ee; border-radius: 2px; overflow: hidden; }
+.pier-bar-fill { height: 100%; border-radius: 2px; background: var(--teal, #0077b6); transition: width 0.3s ease; }
+.pier-note { margin: 0.6rem 0 0; font-size: 0.82rem; color: var(--text-muted, #2a4a5a); font-style: italic; }
+@media (max-width: 600px) {
+  .from-the-pier { padding: 0.75rem; }
+  .pier-distance-item { grid-template-columns: 1fr; }
+  .pier-time { text-align: left; }
+}
+
 /* Ships That Visit Here Component (Competitor Gap P1) */
 .ships-visiting .ship-links { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; }
 .ships-visiting .cruise-line-label { margin: 0.75rem 0 0.4rem; font-weight: 600; font-size: 0.88rem; }
@@ -1061,10 +1104,30 @@ figure.hero img + img,
 .filter-button:hover { background: var(--foam); border-color: var(--accent); }
 .filter-button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-/* Ship/Port List */
+/* Ship/Port List (logbook trackers) */
 .ship-list, .port-list {
   display: grid;
   gap: 0.75rem;
+}
+
+/* Fleet Directory (cruise line index pages) */
+.fleet-directory {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.fleet-directory li a {
+  display: block;
+  padding: 1rem;
+  background: var(--bg-alt, #f5f5f5);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background .2s;
+}
+.fleet-directory li a:hover {
+  background: var(--bg-hover, #e0e0e0);
 }
 .ship-item, .port-item {
   display: grid;
