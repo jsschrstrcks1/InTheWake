@@ -51,108 +51,99 @@ No entry proceeds without it.
 
 ## 3. Structural Spine of the Entry
 
-Each logbook entry follows the same internal rhythm, even if the length varies.
+Each logbook entry follows the same 7-section structure established in the Radiance of the Seas gold standard (`/ships/rcl/assets/radiance-of-the-seas.json`). All sections use these exact `##` headings, in this order:
 
-### A. Opening -- "Taking the Measure"
+### A. `## Full disclosure`
 
-One short section setting context:
-
-- When the ship was encountered (season, itinerary type, crowd level if known)
-- What kind of traveler this entry best serves (quiet cruiser, family-heavy, accessibility-focused, etc.)
-- No adjectives without grounding.
-- No hype language.
-
-This answers: "What kind of voyage is this, really?"
+The disclosure statement (see Section 2 above). Always first. Always present.
 
 ---
 
-### B. The Ship as Lived Space
+### B. `## The Crew and Staff`
 
-Describe how the ship feels while moving through it, not how it looks in brochures.
+The main narrative body. Crew member interactions, names, personal touches, and hospitality moments.
 
-Include, where applicable:
+- Specific crew members by name and role
+- Small calibrations: the waiter who remembers, the barista who stops asking
+- Dining experience woven in through crew interactions
+- Ship-as-lived-space details folded into the crew narrative
 
-- Flow and congestion (elevators, corridors, choke points)
-- Noise patterns (day vs night, venues that bleed sound)
-- Light, sightlines, and orientation
-- How easy it is to "escape" crowds
+This is not a review of "service." It is a record of the humans who operate the ship and how they made the voyage feel.
 
-Avoid deck-by-deck recitations.
-Focus on experience over inventory.
-
----
-
-### C. Cabins & Rest (Only What's Known)
-
-- Only discuss cabin categories personally experienced or widely corroborated.
-- Focus on:
-  - Storage reality
-  - Sleep quality
-  - Climate control
-  - Accessibility friction points
-
-If you haven't slept there, say so plainly.
+~150-200 words.
 
 ---
 
-### D. Dining Reality (Not Menus)
+### C. `## Embarkation & Disembarkation`
 
-Discuss pace, pressure, and personality of dining:
+Port details, sailing itinerary dates, booking context, emotional tone of arrival and departure.
 
-- MDR tempo
-- Specialty restaurant stress vs ease
-- Buffet navigation and peak pain points
-- Menus and prices live elsewhere -- here we log how it feels to eat onboard.
+- Route and season
+- Why this ship was chosen
+- What embarkation and disembarkation felt like
+- Crowd level, logistical friction
 
-Always include the pricing disclaimer when prices are referenced:
-
-> "Prices are subject to change at any time without notice. These represent what they were the last time I sailed."
+~75-100 words.
 
 ---
 
-### E. Accessibility & Friction Notes (Always Included)
+### D. `## The Real Talk`
 
-Every logbook entry includes a Disability Commentary, even if brief.
+The longest section. Honest challenges, cabin reality, dining friction, and personal growth or realization. This is the emotional climax.
 
-- Elevators, thresholds, seating realities
-- Staff awareness and follow-through
-- Quiet spaces vs overstimulation
-- Where the ship helps -- and where it quietly hinders
+- Ship condition (age, wear, dated elements)
+- Cabin truth (what the refurbishment touched and what it didn't)
+- Dining arc over the full voyage (early highs, late repetition)
+- Who this ship serves and who it doesn't
+- The emotional pivot: where a negative becomes something honest and human
 
-This is observational, not activist.
-Calm, precise, respectful.
-
----
-
-### F. Who This Ship Is For -- and Who It Isn't
-
-This section matters more than praise.
-
-Clearly state:
-
-- Who will likely love this ship
-- Who may struggle or feel out of place
-- What expectations must be adjusted before boarding
-
-No ship is "for everyone."
-Say that out loud.
+~200-250 words.
 
 ---
 
-### G. The Wake -- Closing Reflection
+### E. `## Accessibility on the Seas`
 
-End with a short reflective paragraph:
+Physical design features, crew accommodations, accessibility philosophy.
+
+- Wide corridors, elevators, tender port realities
+- Crew offering assistance without being asked
+- Seating, wheelchair, walker, cane, hearing, sensory observations
+- Where the ship helps and where design limits remain
+
+Practical but affirming -- care, not charity.
+
+~50-75 words.
+
+---
+
+### F. `## A Female Crewmate's Perspective`
+
+A **named female crew member's** personal backstory and a meaningful interaction with the persona.
+
+Requirements:
+- Always a female crew member (never a passenger)
+- Always named, with home location
+- Personal sacrifice or wisdom shared (family separation, financial goals, quiet resilience)
+- A meaningful exchange that deepens the narrative
+- Each crewmate name and location must be unique across all personas for that ship
+
+This section humanizes the crew and reveals something deeper about life at sea.
+
+~75-125 words.
+
+---
+
+### G. `## Closing Thoughts`
+
+Reflection on the voyage's impact, philosophical takeaway, how the ship changed perspective.
 
 - What lingered after disembarkation
-- What surprised you
-- What you would warn a friend about
-- What you would quietly recommend
+- The human residue of the voyage
+- No calls to action, no "book now"
 
-This is the human residue of the voyage.
+Hopeful, transformative, often poetic -- the emotional resolution.
 
-No calls to action.
-No "book now."
-Just the wake.
+~75-100 words.
 
 ---
 
