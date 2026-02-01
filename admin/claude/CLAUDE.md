@@ -1,7 +1,7 @@
 # Claude AI Assistant Guide - In the Wake
 
-**Version:** 1.2.2
-**Last Updated:** 2026-01-31
+**Version:** 1.2.3
+**Last Updated:** 2026-02-01
 **Purpose:** Comprehensive onboarding and reference guide for Claude AI assistants working on the In the Wake codebase
 
 ---
@@ -278,9 +278,9 @@ All pages should include:
 - Cache-first strategy for images
 - Network-first for HTML/JSON
 - Current limits:
-  - `maxPages: 400` (site has 1,167+ HTML pages)
+  - `maxPages: 400` (site has 1,195+ HTML pages)
   - `maxAssets: 150`
-  - `maxImages: 600` (currently 444 ship images, 2,906 WebP total)
+  - `maxImages: 600` (currently 444 ship images, 2,345 WebP total)
   - `maxData: 100` (76 JSON files)
 
 #### Caching Strategy
@@ -419,7 +419,7 @@ AI-first content protocol that helps AI assistants understand and cite content c
 
 **Implementation Levels:**
 
-#### Level 1: Meta Tags (96% complete - 1,115/1,167 pages)
+#### Level 1: Meta Tags (96% complete - 1,147/1,195 pages)
 ```html
 <meta name="content-protocol" content="ICP-Lite v1.4">
 <meta name="ai-summary" content="Comprehensive guide for [topic]">
@@ -517,7 +517,7 @@ AI-first content protocol that helps AI assistants understand and cite content c
 **Current Standard:** WebP format (77% smaller than JPEG)
 
 **Status:**
-- ✅ 444 ship images in WebP format (2,906 WebP site-wide)
+- ✅ 444 ship images in WebP format (2,345 WebP site-wide)
 - ✅ 0 JPG/JPEG files remain in repository (eliminated 2026-01-31)
 - ✅ All HTML meta tags updated (og:image, twitter:image)
 - ✅ All JSON-LD schemas use .webp
@@ -705,7 +705,7 @@ JSON-LD schema. Reduces page weight and improves LCP scores.
 
 ---
 
-## 🎯 Current Priorities (Updated 2026-01-31)
+## 🎯 Current Priorities (Updated 2026-02-01)
 
 ### P0 - Critical (Do These First)
 1. ✅ ~~Port Logbook~~ COMPLETE
@@ -719,13 +719,13 @@ JSON-LD schema. Reduces page weight and improves LCP scores.
 
 ### P1 - High Priority (Do These Soon)
 9. ✅ ~~Port map completion~~ ESSENTIALLY COMPLETE — 375/380 (99%) have Leaflet maps, only 5 remain
-10. ✅ ~~Ship page CSS rollout~~ COMPLETE — `ship-page.css` (v3.010.300) linked on 292/297 ship pages (5 non-standard root files excluded)
+10. ⏳ **Ship page CSS rollout** — `ship-page.css` linked on 292/309 ship pages (17 remaining: newer cruise line additions)
 11. ⏳ **Competitor gap remaining items** — ~56% done (9/16+). Key gaps: "From the Pier" distances, transport cost tables, port day planner, budget calculator
 12. ⏳ **Site-wide hero/logo standardization** — Inconsistent across hub pages
 
 ### P2 - Medium Priority
 13. ✅ ~~Service Worker v14 upgrade~~ COMPLETE — sw.js 13.2.0 → 14.0.0 (predictive prefetch, FX API stale cache, precache-manifest updated)
-14. ⏳ **Port weather seasonal data** — Infrastructure deployed (JS on 380 pages, section on 375), but `seasonal-guides.json` has data for only 1 port (Cozumel)
+14. ✅ ~~Port weather seasonal data~~ COMPLETE — `seasonal-guides.json` has Tier 1 data for 381 ports; SW caching optimized with staleWhileRevalidate + prefetch in sw-bridge.js
 15. ✅ ~~Stateroom Checker~~ MASSIVELY EXPANDED — 270 exception JSON files across ALL cruise lines
 
 ### P3-P4 - Future / Requires User Decision
@@ -850,6 +850,7 @@ Before marking any task complete, verify:
 ---
 
 **Version History:**
+- v1.2.3 (2026-02-01) - Updated seasonal-guides.json status (1→381 ports), corrected ship-page.css count (292/309), updated site-wide page count (1,167→1,195), WebP count (2,906→2,345), fixed image alt text accessibility (356 instances), updated all port last-reviewed dates to 2026-02-01
 - v1.2.2 (2026-01-31) - Documentation consistency pass: fixed SW version 13.0.0→14.0.0, fixed ai:summary→ai-summary (ICP-Lite v1.4), updated trust badge text to match site, marked SW v14 upgrade complete in priorities
 - v1.2.1 (2026-01-31) - Documentation consistency pass: fixed page/image counts to ground-truth (port-tracker 147→380, ICP-Lite 544→1115, ship images 82→444, site pages 561→1167), marked ship-page.css rollout complete (292/297), updated CSS consolidation status, removed stale JPG references
 - v1.2.0 (2026-01-31) - Updated priorities to reflect 2026-01-31 thread review; fixed ICP-Lite version (v1.0→v1.4); updated port count (147→380); updated Ship Logbook count; marked completed work streams
