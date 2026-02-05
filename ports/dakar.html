@@ -29,6 +29,7 @@ Soli Deo Gloria
   </script>
   <link rel="stylesheet" href="/assets/styles.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -469,18 +470,13 @@ Soli Deo Gloria
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var map = L.map('port-map').setView([14.6928, -17.4467], 12);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-    L.marker([14.6928, -17.4467]).addTo(map).bindPopup('<strong>Port of Dakar</strong><br>Cruise terminal');
-    L.marker([14.6667, -17.3983]).addTo(map).bindPopup('<strong>Gorée Island</strong><br>UNESCO World Heritage site');
-    L.marker([14.7167, -17.4500]).addTo(map).bindPopup('<strong>African Renaissance Monument</strong><br>160-foot bronze statue');
-    L.marker([14.6892, -17.4389]).addTo(map).bindPopup('<strong>Grand Mosque</strong><br>Green-tiled dome');
-    L.marker([14.8417, -17.2333]).addTo(map).bindPopup('<strong>Lac Rose</strong><br>Pink Lake - 1 hour northeast');
-  });
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'dakar' });
+      }
+    });
   </script>
   <script type="application/ld+json">
   {

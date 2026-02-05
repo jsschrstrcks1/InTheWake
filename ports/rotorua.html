@@ -39,7 +39,6 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha256-tbZgvCu5LpcZm0sEX34h7KOTB/oIe4voW7AGzH2Ds0s=" crossorigin="anonymous" />
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   
@@ -54,7 +53,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-</head>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  </head>
   <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -298,6 +299,35 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           <section class="disclaimers">
             <p class="disclaimer"><strong>Author's Note:</strong> Rotorua excursions are long but rewarding. The combination of geology and culture is unique in the world. Don't skip it for Tauranga beach time.</p>
           </section>
+
+<!-- FROM THE PIER -->
+<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Tauranga to Rotorua">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Tauranga Town Center</span><div class="pier-detail">Walk or shuttle from port</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Mount Maunganui</span><div class="pier-detail">Taxi or bus · beach town and volcanic cone hike</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Rotorua (Geothermal & Māori Culture)</span><div class="pier-detail">Ship excursion or taxi · 1 hr inland</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚐</span> 1 hr</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:65%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Hobbiton Movie Set</span><div class="pier-detail">Ship excursion · 1.5 hrs · Matamata</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚐</span> 1.5 hrs</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:75%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Ships dock at Tauranga — New Zealand's largest export port. Rotorua's geothermal wonders and Māori cultural experiences are 1 hour inland by excursion bus.</p>
+</div>
+
         </article>
 
         <aside class="port-rail">
@@ -366,21 +396,17 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       </div>
       <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
     </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha256-XJrs/DDkVkUZ29zdzFOkGCJ9zHVo5hnpdi3c7HYJ7Uc=" crossorigin="anonymous"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (document.getElementById("port-map")) {
-          const map = L.map("port-map").setView([-38.14, 176.25], 11);
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {attribution: "&copy; OSM"}).addTo(map);
-          L.marker([-38.1622, 176.2506]).addTo(map).bindPopup("<strong>Te Puia</strong><br>Geothermal & Maori Culture");
-          L.marker([-38.3528, 176.3686]).addTo(map).bindPopup("<strong>Wai-O-Tapu</strong><br>Colorful Geothermal");
-          L.marker([-37.6744, 176.1833]).addTo(map).bindPopup("<strong>Tauranga</strong><br>Cruise Port");
-        }
-      });
-    </script>
     <script src="/assets/js/ship-port-links.js" defer></script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'rotorua' });
+      }
+    });
+  </script>
 </body>
 </html>

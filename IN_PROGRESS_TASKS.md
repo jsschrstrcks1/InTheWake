@@ -1,7 +1,7 @@
 # In-Progress Tasks
 
 **Purpose:** Thread coordination file to prevent conflicts between concurrent Claude threads.
-**Last Updated:** 2026-01-31 (cleaned up by claude/identify-maintenance-tasks-FN2lh)
+**Last Updated:** 2026-02-05 (cleaned up by claude/onboard-and-audit-PvzvO)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -36,12 +36,12 @@ FORMAT:
 **Notes:** Any blockers or important context
 -->
 
-### Documentation Consistency, CSS Consolidation & Competitor Gap Features
-**Thread:** `claude/identify-maintenance-tasks-FN2lh`
-**Started:** 2026-01-31
-**Files:** admin/claude/CLAUDE.md, IN_PROGRESS_TASKS.md, ships/*/index.html (CSS consolidation), ports/ (competitor gap features)
-**Status:** Starting — Tier 1 doc fixes, then Tier 2 CSS + competitor gap work.
-**Notes:** Continuation of priorities from plan-implementation-priorities-2026-01-31.md.
+### Onboard, Audit & Backlog Execution
+**Thread:** `claude/onboard-and-audit-PvzvO`
+**Started:** 2026-02-05
+**Files:** UNFINISHED_TASKS.md, admin/claude/CLAUDE.md, claude.md, IN_PROGRESS_TASKS.md, ports/*.html
+**Status:** Active — From the Pier complete (376/376), full codebase audit complete, documentation consistency fixes in progress.
+**Notes:** PR #1139 merged. Continuing with remaining Green-lane backlog items.
 
 ---
 
@@ -65,7 +65,8 @@ FORMAT:
 
 | Thread ID | Task | Status | Date |
 |-----------|------|--------|------|
-| claude/identify-maintenance-tasks-FN2lh | Doc consistency, CSS consolidation, competitor gap features | IN PROGRESS | 2026-01-31 |
+| claude/identify-maintenance-tasks-FN2lh | Doc consistency, CSS consolidation, competitor gap features | COMPLETE (merged) | 2026-01-31 |
+| claude/onboard-and-audit-PvzvO | From the Pier (376 ports), codebase audit, doc fixes | IN PROGRESS | 2026-02-05 |
 | claude/audit-venues-gD9fq | Logbook enrichment — Gentle Truth reviews | COMPLETE | 2026-01-31 |
 | claude/review-previous-work-ZMk3b | Deep audit, JPG elimination, CSS consolidation, ship-page.css rollout, guardrail, docs | COMPLETE | 2026-01-31 |
 | claude/review-onboarding-setup-01JpVFgKzWRBKvXaxcS1pC9N | Onboarding review, schema fix | COMPLETE | 2025-12-01 |

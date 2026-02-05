@@ -133,7 +133,7 @@ node admin/validate-ship-page.js --all-ships 2>&1 | grep -E "(FAQ|story|content)
 node admin/validate-ship-page.js --all-ships 2>&1 | grep "persona"
 ```
 
-**Reference:** `admin/UNFINISHED-TASKS.md` for current status
+**Reference:** `UNFINISHED_TASKS.md` for current status
 
 ---
 
@@ -729,7 +729,7 @@ node admin/batch-fix-lazy-images.js
 ./admin/update-unfinished-tasks.sh
 ```
 
-**Output:** Updates `admin/UNFINISHED-TASKS.md` with current validation status.
+**Output:** Updates `UNFINISHED_TASKS.md` with current validation status.
 
 ---
 
@@ -936,7 +936,7 @@ python3 -c "import json; d=json.load(open('assets/data/ship-deployments.json'));
 
 ### 10.2 Adding New Cruise Lines
 
-**Frequency:** As resources allow (see admin/UNFINISHED-TASKS.md for priority list)
+**Frequency:** As resources allow (see UNFINISHED_TASKS.md for priority list)
 
 **Remaining Cruise Lines (0):**
 All 15 cruise lines have been implemented. Disney is excluded per user preference.
@@ -1051,7 +1051,7 @@ const specialNames = {
 - **Theological Foundation:** `.claude/skills/standards/resources/theological-foundation.md`
 
 ### Task Tracking
-- **Unfinished Tasks:** `admin/UNFINISHED-TASKS.md`
+- **Unfinished Tasks:** `UNFINISHED_TASKS.md`
 - **Vanilla Stories:** `admin/VANILLA-STORIES.md`
 - **Port Disclaimer Registry:** `admin/port-disclaimer-registry.json`
 

@@ -1,7 +1,7 @@
 # Claude AI Assistant Guide - In the Wake
 
-**Version:** 1.2.3
-**Last Updated:** 2026-02-01
+**Version:** 1.2.4
+**Last Updated:** 2026-02-05
 **Purpose:** Comprehensive onboarding and reference guide for Claude AI assistants working on the In the Wake codebase
 
 ---
@@ -705,7 +705,7 @@ JSON-LD schema. Reduces page weight and improves LCP scores.
 
 ---
 
-## 🎯 Current Priorities (Updated 2026-02-01)
+## 🎯 Current Priorities (Updated 2026-02-05)
 
 ### P0 - Critical (Do These First)
 1. ✅ ~~Port Logbook~~ COMPLETE
@@ -715,17 +715,17 @@ JSON-LD schema. Reduces page weight and improves LCP scores.
 5. ✅ ~~Port expansion~~ COMPLETE (380 pages, up from 147)
 6. ✅ ~~ICP-Lite rollout~~ COMPLETE (100% of pages)
 7. ✅ ~~Venue audit Phase 2~~ COMPLETE (0 generic text, 0 hotdog.webp, all have menus; validator in validate.js)
-8. ⏳ **CSS consolidation (remaining)** — 12 ship fleet index `.ship-list` inline blocks remain (class name conflict), ~12 misc page-specific styles
+8. ⏳ **CSS consolidation (remaining)** — 18 files with `<style>` blocks (tools/admin/templates only); 31,128 inline `style=` attributes need Phase 5 cleanup
 
 ### P1 - High Priority (Do These Soon)
-9. ✅ ~~Port map completion~~ ESSENTIALLY COMPLETE — 375/380 (99%) have Leaflet maps, only 5 remain
-10. ⏳ **Ship page CSS rollout** — `ship-page.css` linked on 292/309 ship pages (17 remaining: newer cruise line additions)
-11. ⏳ **Competitor gap remaining items** — ~56% done (9/16+). Key gaps: "From the Pier" distances, transport cost tables, port day planner, budget calculator
+9. ✅ ~~Port map completion~~ ESSENTIALLY COMPLETE — 367/380 (96.6%) use standard PortMap module; 13 remaining are redirects/passages/special pages
+10. ✅ ~~Ship page CSS rollout~~ COMPLETE — `ship-page.css` linked on 292/292 ship pages in cruise line directories (100%)
+11. ✅ ~~Competitor gap: "From the Pier"~~ COMPLETE — 376/376 real port pages have distance/transport component (2026-02-05)
 12. ⏳ **Site-wide hero/logo standardization** — Inconsistent across hub pages
 
 ### P2 - Medium Priority
-13. ✅ ~~Service Worker v14 upgrade~~ COMPLETE — sw.js 13.2.0 → 14.0.0 (predictive prefetch, FX API stale cache, precache-manifest updated)
-14. ✅ ~~Port weather seasonal data~~ COMPLETE — `seasonal-guides.json` has Tier 1 data for 381 ports; SW caching optimized with staleWhileRevalidate + prefetch in sw-bridge.js
+13. ✅ ~~Service Worker v14 upgrade~~ COMPLETE — sw.js upgraded to v14.2.0
+14. ✅ ~~Port weather seasonal data~~ COMPLETE — `seasonal-guides.json` has Tier 1 data for 380 ports; port-weather.js deployed to all 380 pages; 375/376 real ports have weather guide section
 15. ✅ ~~Stateroom Checker~~ MASSIVELY EXPANDED — 270 exception JSON files across ALL cruise lines
 
 ### P3-P4 - Future / Requires User Decision
@@ -850,6 +850,7 @@ Before marking any task complete, verify:
 ---
 
 **Version History:**
+- v1.2.4 (2026-02-05) - Corrected priorities against codebase audit: Leaflet maps 375→334 (88%), ship-page.css 292/309→292/292 (100%), "From the Pier" marked COMPLETE (376/376), SW version 14.0.0→14.2.0, seasonal data 381→380 ports, CSS consolidation updated to verified counts (18 style blocks, 31,128 inline attributes)
 - v1.2.3 (2026-02-01) - Updated seasonal-guides.json status (1→381 ports), corrected ship-page.css count (292/309), updated site-wide page count (1,167→1,195), WebP count (2,906→2,345), fixed image alt text accessibility (356 instances), updated all port last-reviewed dates to 2026-02-01
 - v1.2.2 (2026-01-31) - Documentation consistency pass: fixed SW version 13.0.0→14.0.0, fixed ai:summary→ai-summary (ICP-Lite v1.4), updated trust badge text to match site, marked SW v14 upgrade complete in priorities
 - v1.2.1 (2026-01-31) - Documentation consistency pass: fixed page/image counts to ground-truth (port-tracker 147→380, ICP-Lite 544→1115, ship images 82→444, site pages 561→1167), marked ship-page.css rollout complete (292/297), updated CSS consolidation status, removed stale JPG references
