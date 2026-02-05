@@ -8,7 +8,7 @@ Soli Deo Gloria
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <!-- ICP-Lite v1.4 -->
   <meta name="ai-summary" content="Dakar is Africa's westernmost point with powerful slave trade legacy at Gorée Island. African Renaissance Monument, Lac Rose pink waters, Teranga hospitality, and vibrant West African culture."/>
-  <meta name="last-reviewed" content="2025-12-26"/>
+  <meta name="last-reviewed" content="2026-02-01"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
   <title>Dakar Port Guide — Africa's Western Edge | In the Wake</title>
   <meta name="description" content="First-person logbook guide to Dakar, Senegal — Gorée Island UNESCO site, African Renaissance Monument, Lac Rose Pink Lake, Teranga hospitality."/>
@@ -29,6 +29,7 @@ Soli Deo Gloria
   </script>
   <link rel="stylesheet" href="/assets/styles.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -46,7 +47,7 @@ Soli Deo Gloria
     "@type": "WebPage",
     "name": "Dakar Port Guide — Africa's Western Edge | In the Wake",
     "description": "Dakar is Africa's westernmost point with powerful slave trade legacy at Gorée Island. African Renaissance Monument, Lac Rose pink waters, Teranga hospitality, and vibrant West African culture.",
-    "dateModified": "2025-12-26",
+    "dateModified": "2026-02-01",
     "mainEntity": {
       "@type": "Place",
       "name": "Dakar",
@@ -125,7 +126,7 @@ Soli Deo Gloria
         <p class="port-hero-subtitle">Africa's Western Edge &amp; Gateway to Senegal</p>
       </section>
 
-      <p class="last-reviewed">Last reviewed: December 2025</p>
+      <p class="last-reviewed">Last reviewed: February 2026</p>
 
       <!-- LOGBOOK SECTION -->
       <details class="port-section" id="logbook" open>
@@ -345,6 +346,40 @@ Soli Deo Gloria
         </details>
       </details>
 
+
+      <!-- FROM THE PIER -->
+      <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Port of Dakar">
+        <h3>From the Pier</h3>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Gorée Island (Door of No Return)</span><div class="pier-detail">20-min ferry (5,200 CFA/$8.50 round trip) + 500 CFA House of Slaves entry</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 35 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:23%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">African Renaissance Monument</span><div class="pier-detail">3,000 CFA (~$5) — 49 m bronze statue, tallest in Africa</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:10%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">IFAN Museum of African Arts</span><div class="pier-detail">3,000 CFA — in the Plateau district</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 12 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Plateau District</span><div class="pier-detail">Colonial-era downtown — markets, street food, vibrant chaos</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 12 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Lac Rose (Pink Lake)</span><div class="pier-detail">1 hour NE — independent $40–60, ship excursion $70–90 with lunch</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 60 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Taxis 5,000–10,000 CFA ($8–16) for city rides — negotiate before boarding. Gorée Island ferry hourly 6am–midnight. Car rapides (colorful shared minibuses) are an experience in themselves. City tours $30–40 independent.</p>
+      </div>
+
     </article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
@@ -435,18 +470,13 @@ Soli Deo Gloria
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var map = L.map('port-map').setView([14.6928, -17.4467], 12);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-    L.marker([14.6928, -17.4467]).addTo(map).bindPopup('<strong>Port of Dakar</strong><br>Cruise terminal');
-    L.marker([14.6667, -17.3983]).addTo(map).bindPopup('<strong>Gorée Island</strong><br>UNESCO World Heritage site');
-    L.marker([14.7167, -17.4500]).addTo(map).bindPopup('<strong>African Renaissance Monument</strong><br>160-foot bronze statue');
-    L.marker([14.6892, -17.4389]).addTo(map).bindPopup('<strong>Grand Mosque</strong><br>Green-tiled dome');
-    L.marker([14.8417, -17.2333]).addTo(map).bindPopup('<strong>Lac Rose</strong><br>Pink Lake - 1 hour northeast');
-  });
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'dakar' });
+      }
+    });
   </script>
   <script type="application/ld+json">
   {

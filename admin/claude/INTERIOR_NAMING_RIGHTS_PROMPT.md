@@ -56,7 +56,7 @@ the Interior array.
 
 Before you touch a single file, you must read and internalize:
 
-1. `admin/UNFINISHED-TASKS.md` — the full project context doc. Read it
+1. `UNFINISHED_TASKS.md` — the full project context doc. Read it
    completely. It has iCruise WMPHShipCodes, cabin numbering conventions,
    class groupings, and the classification rules.
 
