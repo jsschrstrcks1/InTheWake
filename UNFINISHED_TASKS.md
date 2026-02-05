@@ -29,7 +29,7 @@
 | **port-weather.js** deployed | **380/380** ports (100%) | ✅ COMPLETE |
 | **seasonal-guides.json** data | **380 ports** (59,536 lines) | ✅ COMPLETE |
 | **Weather guide sections** | **375/376** real ports (99.7%) | ✅ ESSENTIALLY COMPLETE |
-| **Leaflet maps** (port-map.js) | **334/380** ports (88%) | 46 remaining |
+| **Leaflet maps** (port-map.js) | **367/380** ports (96.6%) | ✅ ESSENTIALLY COMPLETE — 13 remaining are redirects/passages/special |
 | **ship-page.css** linked | **293/293** ships (100%) | ✅ COMPLETE |
 | **Accessibility content** | **376/380** ports (99%) | ✅ ESSENTIALLY COMPLETE |
 | **Service Worker** | **v14.2.0** | ✅ Upgraded from v13.2.0 |
@@ -916,45 +916,17 @@ These homeports are on the RCL list but not in the tracker's PORTS_DB:
 | Metric | Count |
 |--------|-------|
 | Total Port Pages | 380 |
-| Ports with Leaflet Maps (port-map.js) | 334 (88%) |
-| Ports Without Maps | 46 (12%) |
-| Map Manifest Files | ~105+ (needs recount) |
+| Ports with PortMap.init (standard module) | 367 (96.6%) |
+| Ports without PortMap (expected) | 13 (3 redirects, 7 passages, 2 special, 1 custom) |
+| Map Manifest Files | 365 |
 | POIs in Index | ~800+ |
 
-#### Remaining Ports Without Leaflet Maps (105 ports)
+#### Remaining Ports Without Standard PortMap Module (13 — all expected)
 
-**Europe - Western (14):**
-ajaccio, amalfi, bilbao, cadiz, genoa, gijon, honfleur, ibiza, la-coruna, livorno, malaga, marseille, palma, porto
-
-**Europe - Northern (17):**
-alesund, gdansk, gothenburg, hamburg, helsinki, kiel, le-havre, liverpool, newcastle, oslo, riga, southampton, stavanger, stockholm, tallinn, warnemunde, zeebrugge
-
-**Europe - Mediterranean (13):**
-cagliari, cartagena-spain, cephalonia, heraklion, koper, kusadasi, messina, ravenna, split, taormina, trieste, valencia, valletta
-
-**British Isles (10):**
-belfast, cork, holyhead, invergordon, kirkwall, lerwick, newport, portland, waterford, scotland
-
-**Scandinavia (2):**
-norwegian-fjords, tromso
-
-**Caribbean & Central America (8):**
-belize, bonaire, dominica, grand-turk, grenada, guadeloupe, martinique, roatan
-
-**South America & Africa (6):**
-callao, casablanca, durban, luanda, mindelo, praia
-
-**North America - East Coast (8):**
-charlottetown, halifax, portland-maine, quebec-city, saguenay, saint-john, san-juan, sydney-ns
-
-**North America - West Coast (4):**
-victoria-bc, whittier, panama-canal, progreso
-
-**Asia & Pacific (11):**
-christchurch, hurghada, incheon, kota-kinabalu, lautoka, melbourne, port-moresby, sihanoukville, tangier, tunis, yangon
-
-**Miscellaneous (12):**
-cartagena, cherbourg, mobile, reykjavik, samana, st-kitts, st-petersburg, tortola, vigo, villefranche, virgin-gorda, zadar
+**Redirects (3):** beijing, falmouth-jamaica, kyoto — redirect to other port pages, no map needed
+**Scenic passages (7):** cape-horn, chilean-fjords, drake-passage, gatun-lake, glacier-alley, inside-passage, strait-of-magellan — waterways/transits, no fixed POIs
+**Special pages (2):** denali (land excursion), tender-ports (tendering guide) — not port pages
+**Custom Leaflet (1):** royal-beach-club-nassau — has working inline L.map() with custom markers
 
 #### Watch Items (Quality Standards)
 - **Attribution:** OpenStreetMap © must appear on map AND inside PDF/PNG
