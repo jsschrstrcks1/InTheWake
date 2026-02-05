@@ -235,16 +235,18 @@ The following items were **explicitly started** in previous threads. Each has be
 
 ### Documentation Inconsistencies Discovered
 
-| Issue | Location | Fix Needed |
-|-------|----------|------------|
-| admin/claude/CLAUDE.md references ICP-Lite v1.0, not v1.4 | admin/claude/CLAUDE.md:392,424 | Update to v1.4 |
-| admin/claude/CLAUDE.md says 147 port pages; actual count is 374+ | admin/claude/CLAUDE.md:186,192,220 | Update counts |
-| admin/claude/CLAUDE.md says 28 RCL ships in Stateroom Checker; need verification | admin/claude/CLAUDE.md:1969 | Verify current count |
-| admin/claude/CLAUDE.md priorities section (line 709) is outdated (2025-11-23) | admin/claude/CLAUDE.md:709 | Update priorities |
-| claude.md (root) says 311 ship pages; may need verification | claude.md:181 | Verify count |
-| claude.md references `admin/UNFINISHED-TASKS.md` which doesn't exist | claude.md:33 | Should reference `UNFINISHED_TASKS.md` |
-| IN_PROGRESS_TASKS.md says "No tasks currently in progress" but multiple items are active | IN_PROGRESS_TASKS.md:39 | Update active work |
-| ONBOARDING.md version is v1.1.5 (2026-01-29) — cross-doc data mostly consistent | .claude/ONBOARDING.md | Minor updates only |
+| Issue | Location | Status |
+|-------|----------|--------|
+| ~~CLAUDE.md references ICP-Lite v1.0~~ | admin/claude/CLAUDE.md | ✅ Fixed in v1.2.0 (2026-01-31) |
+| ~~CLAUDE.md says 147 port pages~~ | admin/claude/CLAUDE.md | ✅ Fixed in v1.2.0 — now says 380 |
+| ~~CLAUDE.md says 28 RCL ships in Stateroom Checker~~ | admin/claude/CLAUDE.md | ✅ Already correct — says 270 exception files |
+| ~~CLAUDE.md priorities section outdated~~ | admin/claude/CLAUDE.md:708 | ✅ Fixed 2026-02-05 (v1.2.4) — all counts verified against codebase |
+| ~~claude.md says 297 ship pages~~ | claude.md:41,182 | ✅ Fixed 2026-02-05 — now says 292 (verified count in cruise line dirs) |
+| ~~claude.md says 404 restaurant pages~~ | claude.md:186 | ✅ Fixed 2026-02-05 — now says 472 (verified) |
+| ~~claude.md says ship-page.css 292/297~~ | claude.md:187 | ✅ Fixed 2026-02-05 — now says 292/292 (100%) |
+| ~~`admin/UNFINISHED-TASKS.md` wrong path~~ | MAINTENANCE_TASKS.md, MAINTENANCE_TASKS_IDENTIFIED.md, INTERIOR_NAMING_RIGHTS_PROMPT.md | ✅ Fixed 2026-02-05 — all 6 references corrected to `UNFINISHED_TASKS.md` |
+| ~~IN_PROGRESS_TASKS.md stale entry~~ | IN_PROGRESS_TASKS.md | ✅ Fixed 2026-02-05 — updated to current thread |
+| ONBOARDING.md version is v1.1.5 (2026-01-29) | .claude/ONBOARDING.md | Minor — cross-doc data mostly consistent |
 
 ---
 
