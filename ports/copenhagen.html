@@ -21,7 +21,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       name="ai-summary"
       content="Copenhagen is the world's happiest city with fairy tale charm. Explore colorful Nyhavn (1670), Tivoli Gardens (1843), Little Mermaid statue (1913), and Danish hygge culture. Walk or bike everywhere easily."
     />
-    <meta name="last-reviewed" content="2026-01-03" />
+    <meta name="last-reviewed" content="2026-02-01" />
     <meta name="content-protocol" content="ICP-Lite v1.4" />
     <meta
       name="keywords"
@@ -61,7 +61,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           "name": "Copenhagen",
           "geo": { "@type": "GeoCoordinates", "latitude": 55.6761, "longitude": 12.5683 }
         },
-        "dateModified": "2026-01-03"
+        "dateModified": "2026-02-01"
       }
     </script>
 
@@ -93,6 +93,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
     <link rel="stylesheet" href="/assets/assets/styles.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
@@ -351,7 +352,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               <li><strong>Safety:</strong> Extremely safe. Petty theft rare but watch bags in crowded areas</li>
               <li><strong>WiFi:</strong> Free WiFi widely available in cafes, attractions, and many public spaces</li>
             </ul>
-            <p class="last-reviewed">Last reviewed: January 2026</p>
+            <p class="last-reviewed">Last reviewed: February 2026</p>
           </div>
         </details>
 
@@ -434,6 +435,40 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           <p><strong>Seasonal Note:</strong> Tivoli Gardens operates mid-April through September, plus Halloween and Christmas seasons. Check dates before your visit.</p>
           <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
         </aside>
+
+      <!-- FROM THE PIER -->
+      <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Langelinie pier Copenhagen">
+        <h3>From the Pier</h3>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">The Little Mermaid</span><div class="pier-detail">Free — the world's most underwhelming statue (you'll love it anyway)</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:4%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Nyhavn</span><div class="pier-detail">Colorful canal houses — coffee €5–7, canal boat tours ~€15 (1 hr)</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 25 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Tivoli Gardens</span><div class="pier-detail">€25 admission — open mid-Apr through Sep, plus Halloween/Christmas</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 35 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:23%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Christiania Freetown</span><div class="pier-detail">Self-governing neighborhood — free to explore, no photos on Pusher Street</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 30 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Kronborg Castle (Hamlet's Castle)</span><div class="pier-detail">45 min north by train — ~$20 round-trip, ship excursion €80–100</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚂</span> 45 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:38%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Langelinie pier is 2 km from city center. Complete walking circuit: Little Mermaid → Kastellet → Nyhavn → Strøget → Tivoli = 4–5 hours. Cycle tours €8–15 (4 hrs). Hop-on bus €30/day. Rosenborg Castle ~€15. Lunch €15–20.</p>
+      </div>
+
       </article>
 
       <!-- Rail Sidebar -->
@@ -551,18 +586,14 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var map = L.map("port-map").setView([55.685, 12.590], 14);
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          attribution: "&copy; OpenStreetMap contributors",
-        }).addTo(map);
-        L.marker([55.6929, 12.5995]).addTo(map).bindPopup("Langelinie Pier");
-        L.marker([55.6929, 12.5993]).addTo(map).bindPopup("Little Mermaid");
-        L.marker([55.6802, 12.5891]).addTo(map).bindPopup("Nyhavn");
-        L.marker([55.6736, 12.5681]).addTo(map).bindPopup("Tivoli Gardens");
-      });
-    </script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'copenhagen' });
+      }
+    });
+  </script>
     <script src="/assets/js/ship-port-links.js" defer></script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>

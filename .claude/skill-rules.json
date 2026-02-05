@@ -414,6 +414,70 @@
         "validation_script": "./admin/validate-ship-page.sh",
         "checklist_reference": "new-standards/v3.010/SHIP_PAGE_CHECKLIST_v3.010.md"
       }
+    },
+
+    "careful-not-clever": {
+      "enabled": true,
+      "type": "guardrail",
+      "enforcement": "warn",
+      "priority": "critical",
+      "description": "Integrity guardrail: enforces careful, verified, documented work over clever shortcuts. Read before editing. Document as you go. Verify before reporting. Leave things alone when risk outweighs benefit.",
+
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/*.html",
+          "**/*.css",
+          "**/*.js",
+          "**/*.json",
+          "**/*.md"
+        ],
+        "exclude": [
+          "node_modules/**",
+          ".git/**"
+        ]
+      },
+
+      "toolTriggers": [
+        "Edit",
+        "Write",
+        "MultiEdit"
+      ],
+
+      "autoLoad": {
+        "mainFile": ".claude/skills/careful-not-clever/CAREFUL.md",
+        "maxLines": 200,
+        "loadOnFirstFileEdit": true
+      },
+
+      "activationMessage": "Careful, not clever. Read first. Document as you go. Verify before reporting.",
+
+      "guardrails": {
+        "before_modify": [
+          "Have you READ this file in the current session?",
+          "Have you checked for class name / reference conflicts?",
+          "Have you stated and verified your assumptions?"
+        ],
+        "during_modify": [
+          "Are you updating tracking files alongside the work (not after)?",
+          "Are you making one logical change at a time?",
+          "After bulk changes, did you spot-check 2-3 files?"
+        ],
+        "after_modify": [
+          "Is every claim in your commit message verifiable?",
+          "Did you update all cross-references (plan files, metrics, tracking docs)?",
+          "Would the user trust this work if they checked every file?"
+        ],
+        "must_reject": [
+          "Editing files without reading them first",
+          "Batching unrelated changes without documentation",
+          "Assuming class names are unique without grepping",
+          "Saying 'done' without verifying the result",
+          "Making improvements the user didn't ask for",
+          "Silently skipping problems instead of reporting them",
+          "Updating metrics in one file but not others"
+        ],
+        "philosophy": "Integrity over speed. Verified over assumed. Documented over remembered. Careful over clever."
+      }
     }
   },
 
@@ -427,9 +491,9 @@
   "notes": {
     "project": "In the Wake - Cruise planning site (merged with FOM enhancements)",
     "protocol": "ITW-Lite v3.010 (adapted from FOM-Lite v1.0)",
-    "total_skills": 8,
+    "total_skills": 9,
     "skill_sources": {
-      "citw_original": ["standards", "ship-page-validator"],
+      "citw_original": ["standards", "ship-page-validator", "careful-not-clever"],
       "fom_adapted": [
         "skill-developer",
         "frontend-dev-guidelines",

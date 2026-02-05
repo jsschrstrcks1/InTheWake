@@ -38,14 +38,14 @@ This is a static HTML/CSS/JavaScript cruise planning website with an AI-first me
 
 ```
 InTheWake/
-├── ships/              # 297 ship pages across 15 cruise lines
+├── ships/              # 292 ship pages across 16 cruise lines
 ├── ports/              # 380 port guide pages
 ├── restaurants/        # Dining venue pages
 ├── assets/             # CSS, JS, images, data
 ├── admin/              # Maintenance scripts and tools
 ├── new-standards/      # Site standards documentation
 ├── .claude/            # Claude Code skill system
-│   ├── skills/         # 3 skill directories
+│   ├── skills/         # 4 skill directories
 │   ├── plugins/        # 5 SEO/accessibility plugins
 │   ├── commands/       # 4 commands (/commit, /create-pr, etc.)
 │   └── hooks/          # Auto-activation hooks
@@ -179,12 +179,13 @@ All work on this project is offered as a gift to God.
 
 | Metric | Value |
 |--------|-------|
-| Ship Pages | 297 |
-| Passing Validation | 106 (34%) |
-| Blocking Errors | 981 |
+| Ship Pages | 292 (in 16 cruise line directories) |
 | Port Pages | 380 |
-| Restaurant/Venue Pages | 215 |
-| Ship Deployments | 193 ships, 15 cruise lines, 398 ports |
+| Restaurant/Venue Pages | 472 |
+| Ship pages with ship-page.css | 292/292 (100%) |
+| Ship Deployments | 193 ships, 16 cruise lines, 380 ports |
+| From the Pier component | 376/376 real ports (100%) |
+| JPG/JPEG images | 0 (eliminated 2026-01-31) |
 
 See [UNFINISHED_TASKS.md](UNFINISHED_TASKS.md) for detailed status.
 

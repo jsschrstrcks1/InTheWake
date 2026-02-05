@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-The project has 7,858 files across 587 directories, 380 port pages, 293+ ship pages, 215 restaurant pages, and a sophisticated Claude Code skill system (8 rules, 5 plugins, 3 hooks). After deep ground-truth verification (2026-01-31), many previously-reported "incomplete" items are actually done. **~6 genuinely incomplete work streams remain**. This plan prioritizes them by impact, effort, and strategic value.
+The project has 7,858 files across 587 directories, 380 port pages, 293+ ship pages, 215 restaurant pages, and a sophisticated Claude Code skill system (9 rules, 5 plugins, 3 hooks). After deep ground-truth verification (2026-01-31), many previously-reported "incomplete" items are actually done. **~6 genuinely incomplete work streams remain**. This plan prioritizes them by impact, effort, and strategic value.
 
 ---
 
@@ -95,12 +95,8 @@ Fix: index.html, ships.html, solo.html, travel.html, cruise-lines.html, ship-tra
 
 ---
 
-### 9. Service Worker v14 Upgrade
-**Priority:** MEDIUM — Offline reliability for drink calculator
-**Effort:** MEDIUM
-**Lane:** Green
-
-Key: CORS fix (8 functions), warmCalculatorShell prefetch, cache refresh UI.
+### ~~9. Service Worker v14 Upgrade~~ ✅ COMPLETE
+**Completed 2026-01-31:** Upgraded sw.js 13.2.0 → 14.0.0. Added warmCalculatorShell predictive prefetch (7 calculator assets cached on homepage/planning visits). Added 12hr FX API stale cache. Updated precache-manifest.json and sw-bridge.js. CORS type check analyzed and determined unnecessary (response.ok already covers CORS).
 
 ---
 
@@ -139,11 +135,11 @@ Key: CORS fix (8 functions), warmCalculatorShell prefetch, cache refresh UI.
 | Session | Work | Tier |
 |---------|------|------|
 | ~~**1-3**~~ | ~~Audit, docs, venue, maps, quiz, stateroom, CSS consolidation (restaurants + Carnival), ship-page.css rollout (292/292)~~ ✅ All done | ~~Done~~ |
+| ~~**4**~~ | ~~SW v14.0.0, sitemap regen (1,154 URLs), docs consistency, guardrail~~ ✅ Done | ~~Done~~ |
 | **Next** | Competitor gap: "From the Pier" + logbook buttons | Tier 2 |
 | **+1** | Competitor gap: Real Talk + DIY vs Excursion callouts | Tier 2 |
 | **+2** | Port weather data: Top 20 Caribbean ports | Tier 3 |
 | **+3** | Hero/logo standardization | Tier 3 |
-| **+4** | Service Worker v14 upgrade | Tier 3 |
 
 ---
 
@@ -164,16 +160,9 @@ Key: CORS fix (8 functions), warmCalculatorShell prefetch, cache refresh UI.
 
 ---
 
-## Stale Branches to Delete
+## ~~Stale Branches to Delete~~ ✅ ALREADY CLEANED UP
 
-These 7 branches have no unmerged changes and can be cleaned up:
-- `claude/affiliate-deployment-plan-Twqff`
-- `claude/audit-competitor-gaps-0zTZ0`
-- `claude/audit-ship-pages-UsCC9`
-- `claude/audit-venues-gD9fq`
-- `claude/identify-maintenance-tasks-FN2lh`
-- `claude/review-context-onboarding-ZZauz`
-- `claude/validate-ship-pages-5Z2jp`
+Verified 2026-01-31: Only 2 remote branches exist (`origin/main`, `origin/claude/review-previous-work-ZMk3b`). The 7 previously-listed stale branches have already been deleted.
 
 ---
 

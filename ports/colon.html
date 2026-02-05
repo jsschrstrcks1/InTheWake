@@ -21,7 +21,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       name="ai-summary"
       content="Colón is Panama's Atlantic gateway to the Panama Canal. Experience Agua Clara Locks viewing platform, Fort San Lorenzo UNESCO site, Portobelo colonial ruins. Stay with organized tours - city has safety concerns."
     />
-    <meta name="last-reviewed" content="2026-01-03" />
+    <meta name="last-reviewed" content="2026-02-01" />
     <meta name="content-protocol" content="ICP-Lite v1.4" />
     <meta
       name="keywords"
@@ -61,7 +61,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           "name": "Colón",
           "geo": { "@type": "GeoCoordinates", "latitude": 9.3592, "longitude": -79.9009 }
         },
-        "dateModified": "2026-01-03"
+        "dateModified": "2026-02-01"
       }
     </script>
 
@@ -93,6 +93,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
     <link rel="stylesheet" href="/assets/assets/styles.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
@@ -345,7 +346,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               <li><strong>Tipping:</strong> 10-15% at restaurants, $5-$10 per person for tour guides</li>
               <li><strong>WiFi:</strong> Available at terminal and visitor centers but often slow and unreliable</li>
             </ul>
-            <p class="last-reviewed">Last reviewed: January 2026</p>
+            <p class="last-reviewed">Last reviewed: February 2026</p>
           </div>
         </details>
 
@@ -428,6 +429,40 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           <p><strong>Safety Note:</strong> Organized tours are essential for Colón. The city has genuine security concerns—stay with tour groups and within the terminal area.</p>
           <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
         </aside>
+
+          <!-- FROM THE PIER -->
+          <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Colon cruise port">
+            <h3>From the Pier</h3>
+            <ul class="pier-distances">
+              <li class="pier-distance-item">
+                <div><span class="pier-dest">Agua Clara Locks</span><div class="pier-detail">Watch Neopanamax ships transit — $60–80 (3–4 hrs)</div></div>
+                <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 20 min</span>
+                <div class="pier-bar"><div class="pier-bar-fill" style="width:13%"></div></div>
+              </li>
+              <li class="pier-distance-item">
+                <div><span class="pier-dest">Gatun Locks (1914 Original)</span><div class="pier-detail">$100–120 combined full-day with Agua Clara</div></div>
+                <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 25 min</span>
+                <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
+              </li>
+              <li class="pier-distance-item">
+                <div><span class="pier-dest">Fort San Lorenzo (UNESCO)</span><div class="pier-detail">Spanish colonial fortress — $70–90 (4–5 hrs)</div></div>
+                <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 40 min</span>
+                <div class="pier-bar"><div class="pier-bar-fill" style="width:27%"></div></div>
+              </li>
+              <li class="pier-distance-item">
+                <div><span class="pier-dest">Portobelo Colonial Village</span><div class="pier-detail">Spanish treasure port ruins — $60–80 (3–4 hrs)</div></div>
+                <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 45 min</span>
+                <div class="pier-bar"><div class="pier-bar-fill" style="width:30%"></div></div>
+              </li>
+              <li class="pier-distance-item">
+                <div><span class="pier-dest">Gamboa Rainforest Adventure</span><div class="pier-detail">$130–180 full day — aerial tram, wildlife exhibits, Chagres River</div></div>
+                <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 60 min</span>
+                <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
+              </li>
+            </ul>
+            <p class="pier-note">All destinations require organized tours — do not walk around Colon city independently. Private tours $200–400 for 4–6 hrs. Panama Canal transit takes 8–10 hours if your ship is transiting.</p>
+          </div>
+
       </article>
 
       <!-- Rail Sidebar -->
@@ -505,18 +540,14 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var map = L.map("port-map").setView([9.3592, -79.9009], 11);
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          attribution: "&copy; OpenStreetMap contributors",
-        }).addTo(map);
-        L.marker([9.3592, -79.9009]).addTo(map).bindPopup("Colón Cruise Terminal");
-        L.marker([9.2769, -79.9197]).addTo(map).bindPopup("Agua Clara Locks");
-        L.marker([9.2989, -79.9164]).addTo(map).bindPopup("Gatun Locks");
-        L.marker([9.5551, -79.6551]).addTo(map).bindPopup("Portobelo");
-      });
-    </script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'colon' });
+      }
+    });
+  </script>
     <script src="/assets/js/ship-port-links.js" defer></script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>

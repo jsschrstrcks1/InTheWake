@@ -21,7 +21,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       name="ai-summary"
       content="South Shetland Islands are first Antarctic landfall after Drake Passage. 11 major islands including volcanic Deception Island. Research stations, chinstrap penguin colonies. Gateway to Antarctic Peninsula. Nov-Mar season."
     />
-    <meta name="last-reviewed" content="2026-01-03" />
+    <meta name="last-reviewed" content="2026-02-01" />
     <meta name="content-protocol" content="ICP-Lite v1.4" />
     <meta
       name="keywords"
@@ -90,7 +90,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             "longitude": -58.5
           }
         },
-        "dateModified": "2026-01-03"
+        "dateModified": "2026-02-01"
       }
     </script>
 
@@ -125,6 +125,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""
     />
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
@@ -379,6 +380,35 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <strong>Landing Conditions:</strong> Weather in the South Shetlands is highly unpredictable. Landing sites and activities are determined by expedition leaders based on conditions.
           </p>
         </aside>
+
+<!-- FROM THE PIER -->
+<div class="from-the-pier" id="from-the-pier" aria-label="Travel distances from South Shetland Islands">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Whalers Bay (Deception Island)</span><div class="pier-detail">Your ship sails through Neptune's Bellows into a flooded volcanic caldera. You Zodiac to black sand.</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🌋</span> Zodiac</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:10%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Hot Springs Beach</span><div class="pier-detail">Dig into volcanic black sand — the water warms. You're swimming in Antarctica. Sort of.</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">♨️</span> 5 min walk</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Half Moon Island</span><div class="pier-detail">Chinstrap penguin colony on a crescent-shaped volcanic island</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🐧</span> Zodiac</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Abandoned Whaling Station</span><div class="pier-detail">Rusted boilers and flensing platforms at Whalers Bay — silent since 1931</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 3 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:5%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">There is no pier. Your ship enters the caldera of an active volcano through a gap 500 meters wide. Zodiac landings on black volcanic sand. Hot springs steam beside glaciers. This is Antarctica at its most surreal.</p>
+</div>
+
       </article>
 
       <!-- Rail Sidebar -->
@@ -484,19 +514,14 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var map = L.map("port-map").setView([-62.5, -59.5], 6);
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          attribution: "&copy; OpenStreetMap contributors",
-        }).addTo(map);
-        L.marker([-62.97, -60.55]).addTo(map).bindPopup("Deception Island");
-        L.marker([-62.21, -58.96]).addTo(map).bindPopup("King George Island");
-        L.marker([-62.59, -59.92]).addTo(map).bindPopup("Half Moon Island");
-        L.marker([-62.48, -60.05]).addTo(map).bindPopup("Livingston Island");
-        L.marker([-61.13, -55.12]).addTo(map).bindPopup("Elephant Island");
-      });
-    </script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'south-shetland-islands' });
+      }
+    });
+  </script>
     <script src="/assets/js/ship-port-links.js" defer></script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
