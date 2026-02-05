@@ -495,6 +495,14 @@ Soli Deo Gloria
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'harvest-caye' });
+      }
+    });
+  </script>
   <script src="/assets/js/dropdown.js" defer></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
 
