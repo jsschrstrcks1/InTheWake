@@ -161,7 +161,14 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (isJSONRequest(url)) {
-    event.respondWith(staleIfError(request, CACHES.DATA, CONFIG.maxData));
+    // Static weather/climate reference data — serve from cache instantly,
+    // revalidate in background. These files are large (1.2 MB+) and
+    // change rarely, so staleWhileRevalidate avoids redundant downloads.
+    if (isStaticWeatherData(url)) {
+      event.respondWith(staleWhileRevalidate(request, CACHES.DATA, CONFIG.maxData));
+    } else {
+      event.respondWith(staleIfError(request, CACHES.DATA, CONFIG.maxData));
+    }
     return;
   }
 });
@@ -960,6 +967,11 @@ function isFontURL(url) {
 
 function isJSONRequest(url) {
   return url.pathname.endsWith('.json');
+}
+
+function isStaticWeatherData(url) {
+  return url.pathname === '/assets/data/ports/seasonal-guides.json' ||
+         url.pathname === '/assets/data/ports/regional-climate-defaults.json';
 }
 
 function isShipImage(url) {

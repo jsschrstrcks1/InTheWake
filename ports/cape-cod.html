@@ -20,7 +20,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       name="ai-summary"
       content="Cape Cod cruises typically anchor at Provincetown. Pilgrim landing site, whale watching hub, artist colony. Cape Cod National Seashore beaches stunning. Fall foliage cruises popular. Kennedy legacy at Hyannis separate destination."
     />
-    <meta name="last-reviewed" content="2026-01-03" />
+    <meta name="last-reviewed" content="2026-02-01" />
     <meta name="content-protocol" content="ICP-Lite v1.4" />
     <meta
       name="keywords"
@@ -37,7 +37,6 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha256-tbZgvCu5LpcZm0sEX34h7KOTB/oIe4voW7AGzH2Ds0s=" crossorigin="anonymous" />
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   
@@ -52,7 +51,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-</head>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  </head>
   <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -297,6 +298,40 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           <section class="disclaimers">
             <p class="disclaimer"><strong>Author's Note:</strong> Cape Cod rewards those who slow down. Walk Commercial Street, watch the whales, and remember that American history started with a boat full of hopeful strangers.</p>
           </section>
+
+          <!-- FROM THE PIER -->
+          <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Provincetown tender landing">
+            <h3>From the Pier</h3>
+            <ul class="pier-distances">
+              <li class="pier-distance-item">
+                <div><span class="pier-dest">Commercial Street</span><div class="pier-detail">Galleries, shops, restaurants — the heart of Provincetown</div></div>
+                <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 3 min</span>
+                <div class="pier-bar"><div class="pier-bar-fill" style="width:3%"></div></div>
+              </li>
+              <li class="pier-distance-item">
+                <div><span class="pier-dest">Pilgrim Monument</span><div class="pier-detail">252 ft tall — 116 steps and 60 ramps to the top</div></div>
+                <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
+                <div class="pier-bar"><div class="pier-bar-fill" style="width:7%"></div></div>
+              </li>
+              <li class="pier-distance-item">
+                <div><span class="pier-dest">Whale Watching (Stellwagen Bank)</span><div class="pier-detail">3–4 hr tours from MacMillan Pier — 95%+ success rate Apr–Oct</div></div>
+                <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 3–4 hrs</span>
+                <div class="pier-bar"><div class="pier-bar-fill" style="width:80%"></div></div>
+              </li>
+              <li class="pier-distance-item">
+                <div><span class="pier-dest">Race Point &amp; Herring Cove Beach</span><div class="pier-detail">Cape Cod National Seashore — 40 miles of beaches, dunes, marshes</div></div>
+                <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚲</span> 15 min</span>
+                <div class="pier-bar"><div class="pier-bar-fill" style="width:10%"></div></div>
+              </li>
+              <li class="pier-distance-item">
+                <div><span class="pier-dest">Hyannis (Kennedy Compound)</span><div class="pier-detail">~30 miles south — requires independent transport or ship excursion</div></div>
+                <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 60 min</span>
+                <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
+              </li>
+            </ul>
+            <p class="pier-note">Tender port — ships anchor off Provincetown, tender to MacMillan Pier. Province Lands bike trails connect to beaches. Peak whale season June–September.</p>
+          </div>
+
         </article>
 
         <aside class="port-rail">
@@ -348,21 +383,17 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       </div>
       <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
     </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha256-XJrs/DDkVkUZ29zdzFOkGCJ9zHVo5hnpdi3c7HYJ7Uc=" crossorigin="anonymous"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (document.getElementById("port-map")) {
-          const map = L.map("port-map").setView([42.0, -70.1], 9);
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {attribution: "&copy; OSM"}).addTo(map);
-          L.marker([42.0526, -70.1867]).addTo(map).bindPopup("<strong>Provincetown</strong><br>MacMillan Pier");
-          L.marker([42.0434, -70.2411]).addTo(map).bindPopup("<strong>Race Point</strong><br>Beach");
-          L.marker([41.6528, -70.2833]).addTo(map).bindPopup("<strong>Hyannis</strong><br>Kennedy Compound area");
-        }
-      });
-    </script>
     <script src="/assets/js/ship-port-links.js" defer></script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'cape-cod' });
+      }
+    });
+  </script>
 </body>
 </html>

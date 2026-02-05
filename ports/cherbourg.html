@@ -7,7 +7,7 @@ Soli Deo Gloria
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="ai-summary" content="Cherbourg was Titanic's final French stop in 1912 and a crucial D-Day liberation port. Explore Cité de la Mer submarine museum, Utah Beach D-Day sites, and the world's largest artificial harbor."/>
-  <meta name="last-reviewed" content="2026-01-06"/>
+  <meta name="last-reviewed" content="2026-02-01"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
   <title>Cherbourg Port Guide — D-Day Beaches & Titanic History | In the Wake</title>
   <meta name="description" content="First-person logbook guide to Cherbourg, France — largest artificial harbor, Cité de la Mer submarine museum, D-Day beaches, and Normandy history."/>
@@ -21,6 +21,7 @@ Soli Deo Gloria
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <link rel="stylesheet" href="/assets/styles.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -38,7 +39,7 @@ Soli Deo Gloria
     "@type": "WebPage",
     "name": "Cherbourg Port Guide",
     "description": "Cherbourg was Titanic's final French stop in 1912 and a crucial D-Day liberation port. Explore Cité de la Mer submarine museum, Utah Beach D-Day sites, and the world's largest artificial harbor.",
-    "dateModified": "2026-01-06",
+    "dateModified": "2026-02-01",
     "mainEntity": {
       "@type": "Place",
       "name": "Cherbourg",
@@ -189,7 +190,7 @@ Soli Deo Gloria
         </details>
       </details>
 
-      <p class="last-reviewed">Last reviewed: January 2026</p>
+      <p class="last-reviewed">Last reviewed: February 2026</p>
 
       <details class="port-section logbook" open>
         <summary><h2>Captain's Logbook</h2></summary>
@@ -413,6 +414,40 @@ Soli Deo Gloria
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
 </aside>
+
+      <!-- FROM THE PIER -->
+      <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Cherbourg cruise terminal">
+        <h3>From the Pier</h3>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Cité de la Mer</span><div class="pier-detail">Steps from terminal — €20 includes submarine Le Redoutable + Titanic exhibits</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 3 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:2%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Cherbourg Town Center</span><div class="pier-detail">Shops, restaurants, Norman architecture</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:10%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Utah Beach Museum</span><div class="pier-detail">45 min by car — ship excursion $150–200</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 45 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:38%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Omaha Beach &amp; American Cemetery</span><div class="pier-detail">~90 min — ship excursion $200–250</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 90 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:75%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Sainte-Mère-Église (Airborne Museum)</span><div class="pier-detail">Paratrooper history — included in D-Day ship excursions</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 45 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:38%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Rental car €60–80/day for independent D-Day touring. Full-day D-Day taxi tour €250–350. Moules-frites €14–20, Norman cheeses €4–8, fruits de mer €25–50, Normandy cider €3–5/glass.</p>
+      </div>
+
     </article>
   
     <!-- Planning Resources -->
@@ -441,13 +476,13 @@ Soli Deo Gloria
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/dropdown.js" defer></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
-  <script src="/assets/js/port-map.js" defer></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof initPortMap === 'function') {
-      initPortMap('cherbourg-port-map', { lat: 49.639, lng: -1.616, zoom: 13 });
-    }
-  });
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'cherbourg-port-map', portSlug: 'cherbourg' });
+      }
+    });
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
