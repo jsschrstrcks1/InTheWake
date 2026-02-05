@@ -130,7 +130,7 @@ The following items were **explicitly started** in previous threads. Each has be
 - [x] `ship-quiz-data-v2.json` (model v2.1, dated 2026-01-03): supports rcl, carnival, ncl, msc, celebrity, princess, holland, cunard, costa, virgin, oceania, regent, seabourn, silversea, explora
 - [x] `cruise-lines/quiz.html` exists
 **Remaining:**
-- [ ] Edge case fixes per `.claude/plan-quiz-edge-cases-and-improvements.md`
+- [x] Edge case fixes per `.claude/plan-quiz-edge-cases-and-improvements.md` ✅ Phase 1 complete (verified 2026-02-05: linesToScore, otherLines, and lineData null safety all fixed)
 
 #### 5. ~~"Ships That Visit Here" Feature~~ ✅ FULLY DEPLOYED
 (Verified — see previous entry)
@@ -187,20 +187,14 @@ The following items were **explicitly started** in previous threads. Each has be
 - [x] Accessibility on port pages — **376 of 380** ports have accessibility content
 - [x] Transport cost data — present on **10 port pages** (partial, not 0)
 - [x] Print CSS — exists in `port-map.css`, `calculator.css`, `item-cards.css`, `ships-dynamic.css`
-**What remains (11/16+ done = ~69%):**
+**Verified 2026-02-05:**
 - [x] ~~"From the Pier" walking distance component~~ ✅ COMPLETE (376/376 real port pages; 4 redirect-only pages excluded: beijing, falmouth-jamaica, jamaica, kyoto) — 2026-02-05
 - [x] ~~Transport cost expansion~~ ✅ COMPLETE — "From the Pier" component on 376/376 real port pages includes transport modes, fares, and times — 2026-02-05
-- [ ] "Add to My Logbook" button on port pages (0 ports)
-- [ ] Region completion achievements (0 implemented)
-- [ ] DIY vs. Excursion comparison callouts (0 ports)
-- [ ] "Real Talk" honest assessment callouts (0 ports)
-**What remains (13/16+ done = ~81%):**
-- [x] "From the Pier" walking distance component — **30 ports** (10 Caribbean + 10 Mediterranean + 6 Alaska + 4 Hawaii)
-- [x] "Add to My Logbook" button on port pages — **377 ports** (universal via `port-logbook-btn.js`)
-- [x] Region completion achievements — **8 regions** implemented in Port Tracker
-- [x] DIY vs. Excursion comparison callouts — **30 ports** (10 Caribbean + 10 Mediterranean + 6 Alaska + 4 Hawaii)
-- [x] "Real Talk" honest assessment callouts — **30 ports** (10 Caribbean + 10 Mediterranean + 6 Alaska + 4 Hawaii)
-- [ ] Transport cost expansion (10/380 — needs 370 more ports)
+- [x] Region completion achievements — **8 regions** + 3 regional + 5 milestones implemented in Port Tracker (verified 2026-02-05)
+- [x] DIY vs. Excursion comparison callouts — **30 ports** (10 Caribbean + 10 Mediterranean + 6 Alaska + 4 Hawaii) (verified 2026-02-05)
+- [x] "Real Talk" honest assessment callouts — **30 ports** (10 Caribbean + 10 Mediterranean + 6 Alaska + 4 Hawaii) (verified 2026-02-05)
+**Remaining:**
+- [ ] "Add to My Logbook" button on port pages — **9 ports** have `port-logbook-btn.js` (NOT 377 as previously claimed; verified 2026-02-05) — needs expansion to all 376 ports
 - [ ] Comprehensive Print CSS for port pages (partial, not complete)
 
 #### 10. ~~Port Map Integration~~ ✅ ESSENTIALLY COMPLETE (99%)
