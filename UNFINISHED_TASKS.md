@@ -194,6 +194,13 @@ The following items were **explicitly started** in previous threads. Each has be
 - [ ] Region completion achievements (0 implemented)
 - [ ] DIY vs. Excursion comparison callouts (0 ports)
 - [ ] "Real Talk" honest assessment callouts (0 ports)
+**What remains (13/16+ done = ~81%):**
+- [x] "From the Pier" walking distance component — **30 ports** (10 Caribbean + 10 Mediterranean + 6 Alaska + 4 Hawaii)
+- [x] "Add to My Logbook" button on port pages — **377 ports** (universal via `port-logbook-btn.js`)
+- [x] Region completion achievements — **8 regions** implemented in Port Tracker
+- [x] DIY vs. Excursion comparison callouts — **30 ports** (10 Caribbean + 10 Mediterranean + 6 Alaska + 4 Hawaii)
+- [x] "Real Talk" honest assessment callouts — **30 ports** (10 Caribbean + 10 Mediterranean + 6 Alaska + 4 Hawaii)
+- [ ] Transport cost expansion (10/380 — needs 370 more ports)
 - [ ] Comprehensive Print CSS for port pages (partial, not complete)
 
 #### 10. ~~Port Map Integration~~ ✅ ESSENTIALLY COMPLETE (99%)

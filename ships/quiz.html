@@ -2488,7 +2488,7 @@
             return `
               <${cardTag} ${hrefAttr} class="also-like-card${r.ship.page_exists ? '' : ' no-link'}">
                 <div class="ship-name">${r.ship.name}</div>
-                <div class="ship-line" style="color:${r.lineData.colors.primary}">${r.lineData.short_name}</div>
+                <div class="ship-line" style="color:${r.lineData?.colors?.primary || '#0e6e8e'}">${r.lineData?.short_name || line}</div>
                 <div class="ship-match">${matchPercent}% match</div>
               </${cardTag}>
             `;
