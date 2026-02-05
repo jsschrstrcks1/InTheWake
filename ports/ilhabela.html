@@ -21,7 +21,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       name="ai-summary"
       content="Ilhabela is Atlantic Forest-covered island near São Paulo. Tender port. 360+ waterfalls, diverse beaches, excellent sailing. Dense jungle interior. Casual beach vibe, less developed than Búzios. Mosquitoes notorious—bring repellent."
     />
-    <meta name="last-reviewed" content="2026-01-03" />
+    <meta name="last-reviewed" content="2026-02-01" />
     <meta name="content-protocol" content="ICP-Lite v1.4" />
     <meta
       name="keywords"
@@ -38,7 +38,6 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha256-tbZgvCu5LpcZm0sEX34h7KOTB/oIe4voW7AGzH2Ds0s=" crossorigin="anonymous" />
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   
@@ -53,7 +52,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-</head>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  </head>
   <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -270,6 +271,40 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           <section class="disclaimers">
             <p class="disclaimer"><strong>Author's Note:</strong> Ilhabela rewards nature lovers. Bring insect repellent, water shoes, and adventurous spirit.</p>
           </section>
+
+<!-- FROM THE PIER -->
+<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Ilhabela">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Vila (Town Centre)</span><div class="pier-detail">Colonial town — churches, restaurants, craft shops. Right at the tender landing</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:5%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Praia do Curral</span><div class="pier-detail">Popular beach with bars and restaurants — ~10 km from town</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:18%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Cachoeira da Toca</span><div class="pier-detail">Waterfall and natural pool in the Atlantic Forest — 30-min hike</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Praia de Castelhanos</span><div class="pier-detail">Wild beach on the ocean side — 4x4 required, unpaved road through jungle</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 45 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Snorkeling &amp; Diving</span><div class="pier-detail">Dozens of shipwrecks around the island — Ilhabela is the diving capital of São Paulo state</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🤿</span> varies</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:30%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Ships anchor offshore and tender to Vila. Ilhabela is Atlantic Forest–covered and spectacularly green. Black flies (borrachudos) are notorious — bring DEET repellent. Currency is Brazilian Real (BRL). The waterfalls and wild beaches are the main draws.</p>
+</div>
+
         </article>
 
         <aside class="port-rail">
@@ -321,21 +356,17 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       </div>
       <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
     </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha256-XJrs/DDkVkUZ29zdzFOkGCJ9zHVo5hnpdi3c7HYJ7Uc=" crossorigin="anonymous"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (document.getElementById("port-map")) {
-          const map = L.map("port-map").setView([-23.78, -45.36], 12);
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {attribution: "&copy; OSM"}).addTo(map);
-          L.marker([-23.7783, -45.3575]).addTo(map).bindPopup("<strong>Vila</strong><br>Tender Landing");
-          L.marker([-23.8472, -45.3122]).addTo(map).bindPopup("<strong>Praia do Curral</strong>");
-          L.marker([-23.8039, -45.3478]).addTo(map).bindPopup("<strong>Cachoeira da Toca</strong>");
-        }
-      });
-    </script>
     <script src="/assets/js/ship-port-links.js" defer></script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'ilhabela' });
+      }
+    });
+  </script>
 </body>
 </html>

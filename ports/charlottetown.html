@@ -7,7 +7,7 @@ Soli Deo Gloria
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="ai-summary" content="Charlottetown is the birthplace of Canadian Confederation where the Fathers of Confederation met in 1864. Visit Anne of Green Gables country, red sand beaches, Province House, and enjoy Cows ice cream."/>
-  <meta name="last-reviewed" content="2026-01-06"/>
+  <meta name="last-reviewed" content="2026-02-01"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
   <title>Charlottetown Port Guide — Birthplace of Canada | In the Wake</title>
   <meta name="description" content="First-person logbook guide to Charlottetown, PEI — birthplace of Canada, Anne of Green Gables, red sand beaches, and Island charm."/>
@@ -21,6 +21,7 @@ Soli Deo Gloria
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <link rel="stylesheet" href="/assets/styles.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -38,7 +39,7 @@ Soli Deo Gloria
     "@type": "WebPage",
     "name": "Charlottetown Port Guide",
     "description": "Charlottetown is the birthplace of Canadian Confederation where the Fathers of Confederation met in 1864. Visit Anne of Green Gables country, red sand beaches, Province House, and enjoy Cows ice cream.",
-    "dateModified": "2026-01-06",
+    "dateModified": "2026-02-01",
     "mainEntity": {
       "@type": "Place",
       "name": "Charlottetown",
@@ -189,7 +190,7 @@ Soli Deo Gloria
         </details>
       </details>
 
-      <p class="last-reviewed">Last reviewed: January 2026</p>
+      <p class="last-reviewed">Last reviewed: February 2026</p>
 
       <details class="port-section logbook" open>
         <summary><h2>Captain's Logbook</h2></summary>
@@ -389,6 +390,40 @@ Soli Deo Gloria
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
 </aside>
+
+      <!-- FROM THE PIER -->
+      <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Charlottetown cruise pier">
+        <h3>From the Pier</h3>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Downtown Charlottetown</span><div class="pier-detail">Province House (free), Victoria Row, shops and restaurants</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 12 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Cows Ice Cream</span><div class="pier-detail">Wowie Cowie flavor — CAD $6–9 per cone</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:7%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">PEI Lobster Dinner</span><div class="pier-detail">CAD $25–50 — the island specialty at waterfront restaurants</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 12 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Green Gables Heritage Place</span><div class="pier-detail">45 min each way — ship excursion CAD $80–120 or taxi CAD $100–140 round trip</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 45 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:38%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Confederation Bridge Viewpoint</span><div class="pier-detail">12.9 km bridge across Northumberland Strait — a drive-by marvel</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 60 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Direct dock in town — 10–15 min walk to everything. PEI mussels CAD $14–20/bowl. Walking tour $40–60 (ship). PEI culinary experiences CAD $30–60 independent, $90–150 ship.</p>
+      </div>
+
     </article>
   
     <!-- Planning Resources -->
@@ -417,13 +452,13 @@ Soli Deo Gloria
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/dropdown.js" defer></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
-  <script src="/assets/js/port-map.js" defer></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof initPortMap === 'function') {
-      initPortMap('charlottetown-port-map', { lat: 46.238, lng: -63.131, zoom: 14 });
-    }
-  });
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'charlottetown-port-map', portSlug: 'charlottetown' });
+      }
+    });
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>

@@ -1,10 +1,10 @@
-/* Service Worker v13.1.0 - In the Wake
+/* Service Worker v14.2.0 - In the Wake
  * Site-wide unified caching strategy with offline support
  * Supports: Ships, Ports, Restaurants, Planning Tools, Drink Calculator
  * Soli Deo Gloria ✝️
  */
 
-const VERSION = '13.2.0';
+const VERSION = '14.2.0';
 const CACHE_PREFIX = 'itw-site';
 
 /* Network state (updated by client via NETWORK_INFO message) */
@@ -21,16 +21,19 @@ const CACHES = {
   IMAGES: `${CACHE_PREFIX}-images-${VERSION}`,
   DATA: `${CACHE_PREFIX}-data-${VERSION}`,
   FONTS: `${CACHE_PREFIX}-fonts-${VERSION}`,
+  TILES: `${CACHE_PREFIX}-tiles-${VERSION}`,
   META: `${CACHE_PREFIX}-meta-${VERSION}`
 };
 
 const CONFIG = {
-  maxPages: 800,           // Updated 2026-01-02: Site has 738+ indexed pages (333 ports, 171 ships, 207 restaurants, etc.)
-  maxAssets: 150,          // Increased for growing CSS/JS modules
-  maxImages: 600,          // Currently 285 ship images, allowing for growth
-  maxData: 150,            // Updated 2025-12-14: 105 map manifests + 76 JSON files
+  maxPages: 1200,          // Updated 2026-01-31: Site has 1,167 HTML pages (380 ports, 297 ships, 404 restaurants, etc.)
+  maxAssets: 150,          // CSS/JS modules
+  maxImages: 600,          // 444 ship images + 2,906 WebP total, caching subset
+  maxData: 150,            // Map manifests + JSON data files
   maxFonts: 30,
+  maxTiles: 3000,            // OSM map tiles for offline port maps (~3k tiles covers visited ports at z10-16)
   staleMaxAge: 60 * 60 * 1000, // 1 hour
+  fxApiMaxAge: 12 * 60 * 60 * 1000, // 12 hours — exchange rates don't change often
   calcDataMaxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   shipImagesMaxAge: 30 * 24 * 60 * 60 * 1000, // 30 days (ship images rarely change)
   fetchTimeout: 8000
@@ -113,6 +116,12 @@ self.addEventListener('fetch', (event) => {
       return;
     }
 
+    // Allow OpenStreetMap tiles for offline port maps (cache-first — tiles rarely change)
+    if (url.hostname.endsWith('tile.openstreetmap.org')) {
+      event.respondWith(cacheFirstStrategy(request, CACHES.TILES, CONFIG.maxTiles));
+      return;
+    }
+
     return; // Block other cross-origin requests
   }
 
@@ -152,7 +161,14 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (isJSONRequest(url)) {
-    event.respondWith(staleIfError(request, CACHES.DATA, CONFIG.maxData));
+    // Static weather/climate reference data — serve from cache instantly,
+    // revalidate in background. These files are large (1.2 MB+) and
+    // change rarely, so staleWhileRevalidate avoids redundant downloads.
+    if (isStaticWeatherData(url)) {
+      event.respondWith(staleWhileRevalidate(request, CACHES.DATA, CONFIG.maxData));
+    } else {
+      event.respondWith(staleIfError(request, CACHES.DATA, CONFIG.maxData));
+    }
     return;
   }
 });
@@ -192,6 +208,11 @@ self.addEventListener('message', (event) => {
     case 'SEED_URLS':
       // Prefetch URLs sent from client (site-cache.js)
       event.waitUntil(seedUrls(urls || [], priority || 'normal'));
+      break;
+
+    case 'SEED_TILES':
+      // Prefetch OSM map tiles for offline port maps
+      event.waitUntil(seedTiles(event.data.tiles || [], event.data.portId || ''));
       break;
 
     case 'NETWORK_INFO':
@@ -257,9 +278,10 @@ async function staleWhileRevalidate(request, cacheName, maxItems) {
   return (await fetchPromise) || new Response('', { status: 504 });
 }
 
-async function staleIfError(request, cacheName, maxItems) {
+async function staleIfError(request, cacheName, maxItems, maxAge) {
   const cache = await caches.open(cacheName);
   const key = normalizeRequest(request);
+  const staleLimit = maxAge || CONFIG.staleMaxAge;
 
   try {
     const response = await fetchWithTimeout(request, CONFIG.fetchTimeout);
@@ -274,7 +296,7 @@ async function staleIfError(request, cacheName, maxItems) {
     const cached = await cache.match(key);
     if (cached) {
       const age = await getAge(cached);
-      if (age < CONFIG.staleMaxAge) {
+      if (age < staleLimit) {
         updateLRU(cacheName, key.url);
         return cached;
       }
@@ -288,6 +310,13 @@ async function staleIfError(request, cacheName, maxItems) {
 async function handleHTMLRequest(request, event) {
   const cache = await caches.open(CACHES.PAGES);
   const key = normalizeRequest(request);
+
+  // Predictive prefetch: warm calculator shell when visiting related pages
+  const pathname = new URL(request.url).pathname;
+  if (pathname === '/' || pathname === '/index.html' || pathname === '/planning.html' ||
+      pathname === '/drink-packages.html') {
+    event.waitUntil(warmCalculatorShell());
+  }
 
   try {
     // Try preload response first
@@ -359,7 +388,7 @@ async function handleCalculatorData(request, event) {
 }
 
 async function handleFXRequest(request) {
-  return staleIfError(request, CACHES.DATA, CONFIG.maxData);
+  return staleIfError(request, CACHES.DATA, CONFIG.maxData, CONFIG.fxApiMaxAge);
 }
 
 async function handleHealthCheck() {
@@ -504,6 +533,52 @@ async function copyPrecacheToRuntime() {
   }
 }
 
+/* Predictive prefetch: when user visits planning.html or homepage,
+ * warm the calculator shell so drink-calculator.html loads instantly. */
+const CALC_SHELL_URLS = [
+  '/drink-calculator.html',
+  '/drink-packages.html',
+  '/assets/js/calculator.js',
+  '/assets/js/calculator-ui.js',
+  '/assets/js/calculator-math.js',
+  '/assets/js/calculator-worker.js',
+  '/assets/css/calculator.css'
+];
+let calcShellWarmed = false;
+
+async function warmCalculatorShell() {
+  if (calcShellWarmed) return;
+  calcShellWarmed = true;
+
+  // Skip on slow or metered connections
+  if (networkInfo.saveData || networkInfo.effectiveType === '2g') return;
+
+  for (const url of CALC_SHELL_URLS) {
+    try {
+      const fullUrl = new URL(url, location.origin).href;
+      const parsedUrl = new URL(fullUrl);
+
+      // Determine target cache
+      const isPage = parsedUrl.pathname.endsWith('.html');
+      const cacheName = isPage ? CACHES.PAGES : CACHES.ASSETS;
+      const maxItems = isPage ? CONFIG.maxPages : CONFIG.maxAssets;
+
+      const cache = await caches.open(cacheName);
+      const existing = await cache.match(fullUrl);
+      if (existing) continue; // Already cached
+
+      const response = await fetchWithTimeout(new Request(fullUrl), CONFIG.fetchTimeout);
+      if (response && (response.ok || response.type === 'opaque')) {
+        await cache.put(fullUrl, response);
+        updateLRU(cacheName, fullUrl);
+        pruneCache(cacheName, maxItems);
+      }
+    } catch (e) {
+      // Skip failed prefetches — non-critical
+    }
+  }
+}
+
 async function refreshCalculatorData() {
   try {
     const url = new URL(CALC_DATA_PATH, location.origin).href;
@@ -611,6 +686,65 @@ async function seedUrls(urls, priority = 'normal') {
     if (priority === 'low') {
       await new Promise(r => setTimeout(r, 100));
     }
+  }
+}
+
+/* Proactive map tile caching — fetches OSM tiles for offline port maps.
+ * Respects OSM tile usage policy: max 2 concurrent, 200ms inter-batch delay,
+ * per-invocation cap of 100 tiles. */
+async function seedTiles(tileUrls, portId) {
+  if (!tileUrls.length) return;
+  if (networkInfo.saveData) {
+    console.log('[SW] Skipping tile seed — save-data mode');
+    return;
+  }
+  if (networkInfo.effectiveType === '2g' || networkInfo.effectiveType === 'slow-2g') {
+    console.log('[SW] Skipping tile seed — slow connection');
+    return;
+  }
+
+  const cache = await caches.open(CACHES.TILES);
+  const maxPerSession = 100; // OSM policy: no bulk downloads
+  let fetched = 0;
+  let skipped = 0;
+
+  // Max 2 concurrent requests (OSM tile usage policy)
+  for (let i = 0; i < tileUrls.length && fetched < maxPerSession; i += 2) {
+    const batch = tileUrls.slice(i, i + 2);
+    await Promise.all(batch.map(async (url) => {
+      try {
+        const existing = await cache.match(url);
+        if (existing) {
+          updateLRU(CACHES.TILES, url);
+          skipped++;
+          return;
+        }
+        const response = await fetchWithTimeout(new Request(url, { mode: 'cors' }), CONFIG.fetchTimeout);
+        if (response && response.ok) {
+          await cache.put(url, response);
+          updateLRU(CACHES.TILES, url);
+          fetched++;
+        }
+      } catch (e) {
+        // Silently skip failed tiles
+      }
+    }));
+    // 200ms delay between batches — OSM politeness
+    if (i + 2 < tileUrls.length) {
+      await new Promise(r => setTimeout(r, 200));
+    }
+  }
+
+  pruneCache(CACHES.TILES, CONFIG.maxTiles);
+
+  if (fetched > 0 || skipped > 0) {
+    console.log('[SW] Tile seed complete — fetched: ' + fetched + ', already cached: ' + skipped +
+                (portId ? ' (' + portId + ')' : ''));
+  }
+
+  // Notify client that tiles are cached for this port
+  if (portId && fetched > 0) {
+    notifyClients({ type: 'TILES_CACHED', portId: portId, fetched: fetched, total: fetched + skipped });
   }
 }
 
@@ -833,6 +967,11 @@ function isFontURL(url) {
 
 function isJSONRequest(url) {
   return url.pathname.endsWith('.json');
+}
+
+function isStaticWeatherData(url) {
+  return url.pathname === '/assets/data/ports/seasonal-guides.json' ||
+         url.pathname === '/assets/data/ports/regional-climate-defaults.json';
 }
 
 function isShipImage(url) {

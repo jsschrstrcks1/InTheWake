@@ -47,12 +47,11 @@ All venue pages pass validation with only W01 warnings (stock images — no venu
 
 | Style | Count | % of Total | Pass Rate |
 |-------|-------|------------|-----------|
-| Bar | 100 | 21.2% | 100% |
-| Unknown (not in venue data) | 85 | 18.0% | 100% |
+| Entertainment | 117 | 24.8% | 100% |
+| Bar | 115 | 24.4% | 100% |
 | Casual Dining | 83 | 17.6% | 100% |
 | Specialty | 60 | 12.7% | 100% |
-| Entertainment | 50 | 10.6% | 100% |
-| Activity | 34 | 7.2% | 100% |
+| Activity | 37 | 7.8% | 100% |
 | Counter-Service | 25 | 5.3% | 100% |
 | Fine Dining | 16 | 3.4% | 100% |
 | Neighborhood | 12 | 2.5% | 100% |
@@ -121,9 +120,20 @@ Every page uses stock photography (`buffet.webp`, `cocktail.webp`, `croissant.we
 
 **Resolution requires:** Licensing or creating venue-specific photographs. This is a content task, not a code task.
 
-### 85 "unknown" style venues
+### ~~85 "unknown" style venues~~ ✅ RESOLVED (2026-02-01)
 
-These 85 pages (mostly RCL shows and entertainment) are not in `venues-v2.json` and classified as "unknown." They still pass all checks but would benefit from being added to the venue metadata for better semantic validation.
+All 85 previously-unknown venues have been classified into venue metadata:
+- **72 RCL entertainment** shows/productions added to `venues-v2.json` (ice shows, Broadway musicals, AquaTheater, Two70 productions)
+- **3 RCL activities** (Boardwalk Carousel, Rock Climbing Wall, Dining Activities & Classes) added to `venues-v2.json`
+- **11 Virgin bars** already existed in `virgin-venues.json` — fixed `category: "bar"` → `"bars"` (plural) to match classifier
+- **1 Carnival bar** (Alchemy Bar) already existed in `carnival-venues.json` — same category fix
+- **1 RCL bar** (Casino Bar) already existed in `venues-v2.json`
+
+### Counter-service dress code corrections (2026-02-01)
+
+Fixed 5 counter-service venues that incorrectly had "Smart Casual" dress codes:
+- `basecamp.html`, `cafe-two70.html`, `park-cafe.html`, `surfside-eatery.html` — changed to "Casual"
+- `solarium-bistro.html` — changed from "smart casual after 5 PM" to "casual cruise resort wear"
 
 ---
 

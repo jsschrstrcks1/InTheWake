@@ -8,7 +8,7 @@ Soli Deo Gloria
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <!-- ICP-Lite v1.4 -->
   <meta name="ai-summary" content="Edinburgh ships dock at Leith or South Queensferry. Walk the Royal Mile to Edinburgh Castle, visit Royal Yacht Britannia, explore whisky bars, and climb Arthur's Seat."/>
-  <meta name="last-reviewed" content="2025-12-26"/>
+  <meta name="last-reviewed" content="2026-02-01"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
   <title>Edinburgh Port Guide — Castle, Royal Mile &amp; Whisky | In the Wake</title>
   <meta name="description" content="First-person logbook guide to Edinburgh, Scotland — Leith cruise terminal, Edinburgh Castle, Royal Mile, Royal Yacht Britannia, whisky tastings."/>
@@ -29,6 +29,7 @@ Soli Deo Gloria
   </script>
   <link rel="stylesheet" href="/assets/styles.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -46,7 +47,7 @@ Soli Deo Gloria
     "@type": "WebPage",
     "name": "Edinburgh Port Guide — Castle, Royal Mile &amp; Whisky | In the Wake",
     "description": "Edinburgh ships dock at Leith or South Queensferry. Walk the Royal Mile to Edinburgh Castle, visit Royal Yacht Britannia, explore whisky bars, and climb Arthur's Seat.",
-    "dateModified": "2025-12-26",
+    "dateModified": "2026-02-01",
     "mainEntity": {
       "@type": "Place",
       "name": "Edinburgh",
@@ -125,7 +126,7 @@ Soli Deo Gloria
         <p class="port-hero-subtitle">Scotland's Ancient Capital &amp; Gateway to the Highlands</p>
       </section>
 
-      <p class="last-reviewed">Last reviewed: December 2025</p>
+      <p class="last-reviewed">Last reviewed: February 2026</p>
 
       <!-- LOGBOOK SECTION -->
       <details class="port-section" id="logbook" open>
@@ -351,6 +352,40 @@ Soli Deo Gloria
         </details>
       </details>
 
+
+<!-- FROM THE PIER -->
+<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Leith or South Queensferry">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Royal Yacht Britannia</span><div class="pier-detail">Queen's floating palace at Ocean Terminal — £20, audio tour included. Walking distance from Leith berths</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Edinburgh Castle</span><div class="pier-detail">Dominating the skyline from Castle Rock — £19.50, allow 2–3 hours</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Royal Mile</span><div class="pier-detail">1.13-mile cobblestone street from Castle to Holyrood Palace — free to walk, half-day minimum</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Palace of Holyroodhouse</span><div class="pier-detail">The King's official Scottish residence — £18, at the foot of the Royal Mile</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 25 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:30%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Arthur's Seat</span><div class="pier-detail">251 m volcanic summit in Holyrood Park — free, 45-minute hike, panoramic views</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 25 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:30%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Ships dock at Leith (2 miles north of city centre) or South Queensferry (10 miles west, £25–30 taxi). From Leith: bus routes 11/22/34/35/36 to centre (£2, 15–20 min) or taxi £10–15. Lothian Bus day pass £5. If docked at South Queensferry, allow 25–30 min to reach the city.</p>
+</div>
+
     </article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
@@ -474,19 +509,13 @@ Soli Deo Gloria
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var map = L.map('port-map').setView([55.9533, -3.1883], 12);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-    L.marker([55.9766, -3.1720]).addTo(map).bindPopup('<strong>Leith</strong><br>Main cruise terminal');
-    L.marker([55.9486, -3.2008]).addTo(map).bindPopup('<strong>Edinburgh Castle</strong><br>Crown Jewels & views');
-    L.marker([55.9526, -3.1747]).addTo(map).bindPopup('<strong>Holyrood Palace</strong><br>Royal residence');
-    L.marker([55.9820, -3.1750]).addTo(map).bindPopup('<strong>Royal Yacht Britannia</strong><br>Queen\'s former yacht');
-    L.marker([55.9469, -3.1892]).addTo(map).bindPopup('<strong>National Museum</strong><br>Free admission');
-    L.marker([55.9897, -3.3930]).addTo(map).bindPopup('<strong>South Queensferry</strong><br>Alternate cruise dock');
-  });
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'edinburgh' });
+      }
+    });
   </script>
   <script type="application/ld+json">
   {

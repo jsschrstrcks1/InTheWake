@@ -295,6 +295,61 @@ All work on this project is offered as a gift to God.
     <!-- First Look Section -->
     <section class="card" aria-labelledby="first-look">
       <h2 id="first-look">A First Look</h2>
+      <div class="swiper firstlook" aria-label="Celebrity Millennium photo gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-millennium_01.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Celebrity Millennium in Philipsburg, St. Maarten" loading="lazy">
+              <figcaption class="tiny">Celebrity Millennium in Philipsburg, St. Maarten — MDCXLVI (CC BY-SA 4.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-millennium_02.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Celebrity Millennium at Ketchikan, Alaska" loading="lazy">
+              <figcaption class="tiny">Celebrity Millennium at Ketchikan, Alaska — Velkiira (CC BY-SA 2.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-millennium_03.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Celebrity Millennium docked at Juneau, Alaska (2023)" loading="lazy">
+              <figcaption class="tiny">Celebrity Millennium docked at Juneau, Alaska (2023) — Gillfoto (CC BY-SA 4.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-millennium_04.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Celebrity Millennium docked in Nassau, Bahamas" loading="lazy">
+              <figcaption class="tiny">Celebrity Millennium docked in Nassau, Bahamas — Captain-tucker (CC BY-SA 3.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-millennium_05.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Celebrity Millennium and other ships at Ketchikan, Alaska" loading="lazy">
+              <figcaption class="tiny">Celebrity Millennium and other ships at Ketchikan, Alaska — Diego Delso (CC BY-SA 4.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-millennium_06.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Celebrity Millennium at Seward, Alaska" loading="lazy">
+              <figcaption class="tiny">Celebrity Millennium at Seward, Alaska — Bernard Spragg. NZ (CC0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-millennium_07.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Celebrity Millennium at Auckland, New Zealand" loading="lazy">
+              <figcaption class="tiny">Celebrity Millennium at Auckland, New Zealand — Ingolfson (Public domain)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/celebrity-millennium_08.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Singapore skyline from Celebrity Millennium at Marina Bay" loading="lazy">
+              <figcaption class="tiny">Singapore skyline from Celebrity Millennium at Marina Bay — RL0919 (CC BY-SA 4.0)</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
+      </div>
       <div class="grid-2" style="gap: 1.5rem;">
         <div>
           <p>Celebrity Millennium made history in 2000 as the first ship in a class that redefined premium cruising. Her gas-turbine propulsion system was groundbreaking at launch, and the 2019 Revolution refit brought her firmly into the modern era with The Retreat — a dedicated suite-class sanctuary featuring private sundeck, lounge, and Luminae restaurant — plus fully redesigned staterooms and refreshed public areas throughout all 11 passenger decks.</p>
@@ -340,9 +395,7 @@ All work on this project is offered as a gift to God.
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">Ken's Logbook: Celebrity Millennium</h2>
-      <div id="logbook-container" data-ship="celebrity-millennium" data-line="celebrity-cruises">
-        <p class="placeholder">Stories and insights from cruisers who have sailed on Celebrity Millennium will appear here.</p>
-      </div>
+      <div id="logbook-stories" class="prose"></div>
     </section>
 
     <section class="card" aria-labelledby="video-highlights">
@@ -402,7 +455,7 @@ Location : Ketchikan, Alaska"
         </div>
       </section>
 
-      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="TBD" data-name="CELEBRITYMILLENNIUM">
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9189419" data-name="CELEBRITYMILLENNIUM">
         <h2 id="liveTrackHeading">Live Ship Tracker</h2>
         <div id="ship-tracker-container">
           <p>Track Celebrity Millennium's current position and voyage details.</p>
@@ -613,5 +666,53 @@ Location : Ketchikan, Alaska"
   })();
   </script>
   <script src="/assets/js/ship-port-links.js" defer></script>
+
+  <!-- ===== Logbook loader (safe absolute fetch + a11y carousel) ===== -->
+  <script>
+  (function initShipLogbook(){
+    const mount=document.getElementById('logbook-stories'); if(!mount) return;
+    function abs(p){try{return new URL(p,location.href).href}catch(_){return p}}
+    function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
+    function getShipContext(){
+      const m=location.pathname.match(/\/ships\/([^/]+)\/([^/.]+)/i);
+      const line=(m&&m[1])||''; const slug=(m&&m[2])||'';
+      return {line:line.toLowerCase(),slug:slug.toLowerCase()};
+    }
+    const ctx=getShipContext();
+    const SOURCES=[abs('/assets/data/logbook/'+ctx.line+'/'+ctx.slug+'.json'),abs('/assets/data/ships/'+ctx.line+'/'+ctx.slug+'.json')];
+    function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+      return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
+    function mdToHtml(src){let html=String(src||'').trim(); if(!html) return '';
+      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
+      html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html.replace(/^<p>\s*<\/p>/,'');}
+    const state={i:0,items:[]};
+    function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');
+      const body=String(p.markdown||p.body||p.content||p.html||p.text||p.story||p.notes||'').trim(); if(!body) return '';
+      return '<article class="story" aria-live="polite"><h3 tabindex="0">'+title+'</h3><div class="story-body">'+mdToHtml(body)+'</div></article>';}
+    function ensureNav(){
+      if(document.getElementById('logbook-nav')) return;
+      const nav=document.createElement('nav'); nav.id='logbook-nav'; nav.className='logbook-nav'; nav.setAttribute('aria-label','Logbook navigation');
+      const prev=document.createElement('button'); prev.type='button'; prev.className='logbook-btn logbook-prev'; prev.textContent='\u2039 Previous'; prev.setAttribute('aria-label','Previous story');
+      const next=document.createElement('button'); next.type='button'; next.className='logbook-btn logbook-next'; next.textContent='Next \u203a'; next.setAttribute('aria-label','Next story');
+      nav.append(prev,next); mount.before(nav);
+      prev.onclick=()=>{ state.i=clamp(state.i-1,0,state.items.length-1); renderCurrent(); };
+      next.onclick=()=>{ state.i=clamp(state.i+1,0,state.items.length-1); renderCurrent(); };
+    }
+    function renderCurrent(){
+      const i=state.i,arr=state.items; if(!arr.length){mount.innerHTML='<p class="tiny">No logbook entries yet.</p>'; return;}
+      const html=renderOne(arr[i]); mount.innerHTML=html;
+      const nav=document.getElementById('logbook-nav'); if(!nav) return;
+      nav.querySelector('.logbook-prev').disabled=(i===0);
+      nav.querySelector('.logbook-next').disabled=(i===arr.length-1);
+    }
+    fetchFirst().then(data=>{
+      if(!data) return;
+      const arr=data.personas||data.perspectives||data.logbook||data.stories||data.entries||[];
+      if(!arr.length) return;
+      state.items=arr; state.i=0; ensureNav(); renderCurrent();
+    });
+  })();
+  </script>
+
 </body>
 </html>

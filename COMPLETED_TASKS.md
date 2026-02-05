@@ -43,6 +43,42 @@ When a task is completed:
 - [x] Fixed empty alt text on dynamically generated images
 **Result:** Site meets WCAG 2.1 Level A and Level AA requirements
 
+### Service Worker v14.0.0 Upgrade - COMPLETE (2026-01-31)
+**Status:** COMPLETE
+**Lane:** Green
+- [x] Version bump 13.2.0 → 14.0.0 (sw.js, sw-bridge.js, precache-manifest.json)
+- [x] Added warmCalculatorShell predictive prefetch (7 calculator assets)
+- [x] Added fxApiMaxAge (12hr) for exchange rate cache
+- [x] Updated CONFIG comments to current site counts
+- [x] Added calculator.css and calculator-math-module.js to precache manifest
+- [x] CORS type check NOT applied — analyzed and determined current code is correct
+**Result:** SW v14.0.0, calculator pages prefetch on homepage/planning visits
+
+### Sitemap Regeneration - COMPLETE (2026-01-31)
+**Status:** COMPLETE
+**Lane:** Green
+- [x] Fixed generate_sitemap.py to use git ls-tree (sparse checkout safe)
+- [x] Regenerated sitemap.xml: 947 → 1,154 URLs
+- [x] Updated robots.txt count comments (380 ports, 297 ships, 404 restaurants)
+**Result:** All 1,154 public pages in sitemap, generator works with any checkout state
+
+### Documentation Consistency Fixes - COMPLETE (2026-01-31)
+**Status:** COMPLETE
+**Lane:** Green
+- [x] CLAUDE.md: port-tracker 147→380, ICP-Lite 544→1115, ship images 82→444, pages 561→1167
+- [x] claude.md: skills 3→4, restaurants 215→404, added ship-page.css + JPG metrics
+- [x] IN_PROGRESS_TASKS.md: expanded work description for current branch
+- [x] Plan file: skill rules 8→9, stale branches marked already deleted
+- [x] Stale branches: verified already cleaned up (only 2 remote branches exist)
+**Result:** All tracking docs match ground-truth verified data
+
+### "Careful Not Clever" Guardrail - COMPLETE (2026-01-31)
+**Status:** COMPLETE
+**Lane:** Green
+- [x] Created .claude/skills/careful-not-clever/CAREFUL.md (principles document)
+- [x] Added skill rule to .claude/skill-rules.json (priority: critical, triggers on all edits)
+**Result:** Integrity guardrail loads into every future session on first file edit
+
 ### Ship Page CSS Rollout — 100% Coverage - COMPLETE (2026-01-31)
 **Status:** COMPLETE
 **Lane:** 🟢 Green (CSS standardization)
@@ -493,6 +529,70 @@ Improvements implemented:
 | _headers | 1.6KB | Netlify cache headers | 2025-11-23 |
 | .htaccess | 2.2KB | Apache cache headers | 2025-11-23 |
 | nginx-cache-headers.conf | 1.4KB | nginx cache headers | 2025-11-23 |
+
+---
+
+## Logbook Enrichment — "Gentle Truth" Reviews (Phase 1) — 2026-01-31
+
+**Thread:** `claude/audit-venues-gD9fq`
+**Scope:** 26 flagship venue logbook entries across 4 cruise lines
+
+### What Was Done
+Replaced identical boilerplate logbook entries (generic "Guests praise the quality and presentation...") with venue-specific reviews containing:
+- **Specific dish recommendations** (e.g., "the 16-oz bone-in ribeye," "the cacio e pepe," "the tableside guacamole")
+- **"Gentle Truth" honest critiques** — explaining why venues earn their rating, not a perfect 5/5
+- **Differentiated ratings** — from 3.7 to 4.5 (previously all were a flat 4.0)
+- **Practical tips** (best time to visit, what to order, booking advice)
+- **Target audience guidance** (who the venue is best for)
+
+### Venues Enriched
+
+**NCL (8 venues):**
+| Venue | Old Rating | New Rating | Key Gentle Truth |
+|-------|-----------|-----------|-----------------|
+| Cagney's Steakhouse | 4.0 | 4.2 | Filet doesn't match the ribeye; busy embarkation nights can lag |
+| Le Bistro | 4.0 | 4.3 | Kitchen consistency varies ship-to-ship; Dover sole can disappoint |
+| Teppanyaki | 4.0 | 3.8 | More performance than food; paying specialty prices for hibachi |
+| Food Republic | 4.0 | 3.9 | Sneaky-expensive tapas pricing; occasional lukewarm plates |
+| Ocean Blue | 4.0 | 4.1 | Ship-to-ship variability; pasta dishes feel like afterthoughts |
+| The Local | 4.0 | 3.7 | Pub food, not fine dining; some items are afterthoughts |
+| Onda by Scarpetta | 4.0 | 4.2 | Portions lean small; non-pasta items don't carry same magic |
+| Moderno Churrascaria | 4.0 | 4.0 | Not every cut is a winner; pork and sausage are fillers |
+
+**Carnival (6 venues):**
+| Venue | Old Rating | New Rating | Key Gentle Truth |
+|-------|-----------|-----------|-----------------|
+| Big Chicken | 4.0 | 4.1 | Narrow menu; lines on sea days; repetitive by Day 5 |
+| Guy's Burger Joint | 4.0 | 4.0 | 20-30 min sea-day lines; patties can dry out at peak rush |
+| Cucina del Capitano | 4.0 | 4.0 | Comfort food only — not refined Italian; lighter dishes less consistent |
+| Bonsai Sushi | 4.0 | 3.8 | Fish freshness varies through voyage; bills add up fast |
+| Fahrenheit 555 | 4.0 | 4.3 | Non-steak options underwhelming; competes with land-based steakhouses at its price |
+| Emeril's Bistro 1396 | 4.0 | 4.1 | Non-Southern dishes less compelling; limited to one ship |
+
+**MSC (6 venues):**
+| Venue | Old Rating | New Rating | Key Gentle Truth |
+|-------|-----------|-----------|-----------------|
+| Eataly | 4.0 | 4.2 | À la carte pricing adds up; seafood dishes less consistent than pasta/pizza |
+| Butcher's Cut | 4.0 | 4.1 | Non-steak options merely adequate; desserts don't match entrées |
+| Kaito Sushi Bar | 4.0 | 3.9 | Fish freshness varies; specialty rolls compensate with sauce |
+| Ocean Cay | 4.0 | 3.8 | Night-to-night inconsistency; menu only partially convincing beyond core fish |
+| Hola! Tacos & Cantina | 4.0 | 3.7 | European interpretation of Mexican; burritos and nachos underperform |
+| Le Grill | 4.0 | 3.9 | Narrow menu; limited steak selection vs Butcher's Cut |
+
+**Virgin Voyages (6 venues):**
+| Venue | Old Rating | New Rating | Key Gentle Truth |
+|-------|-----------|-----------|-----------------|
+| The Test Kitchen | 4.0 | 4.4 | Mystery format means some dishes miss; 2.5 hrs not for everyone |
+| Razzle Dazzle | 4.0 | 4.0 | Vegan "replicas" don't always convince; breakfast unremarkable |
+| Gunbae | 4.0 | 4.3 | Experience depends on tablemates; DIY format not everyone's idea of relaxing |
+| Pink Agave | 4.0 | 4.4 | Some dishes don't match kitchen's best; desserts underdeveloped |
+| Extra Virgin | 4.0 | 4.2 | Non-pasta items uninspired; room can feel hectic on popular evenings |
+| The Wake | 4.0 | 4.5 | Non-steak options underwhelming; prime-time reservations hard to get |
+
+### Remaining Work
+- 85 boilerplate venues remain across the fleet (Phase 2 candidates)
+- Rating distribution is now: 3.7–4.5 range (was flat 4.0 for all)
+- JSON-LD schema ratings updated to match display badges on all 26 pages
 
 ---
 
