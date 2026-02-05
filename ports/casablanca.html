@@ -21,6 +21,7 @@ Soli Deo Gloria
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <link rel="stylesheet" href="/assets/styles.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -478,6 +479,40 @@ Soli Deo Gloria
         <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
         <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
       </section>
+
+      <!-- FROM THE PIER -->
+      <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Casablanca cruise terminal">
+        <h3>From the Pier</h3>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Hassan II Mosque</span><div class="pier-detail">130 MAD ($13) with required guide — ~1 hour tour</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 10 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:7%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Old Medina</span><div class="pier-detail">1–2 hours on foot — free to explore</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 12 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Rick's Café</span><div class="pier-detail">Casablanca-inspired restaurant — lunch $15–30 USD per main</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:10%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Downtown Art Deco Quarter</span><div class="pier-detail">Free walking tour — French colonial architecture</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:10%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Corniche Beach Clubs</span><div class="pier-detail">100–200 MAD ($10–20) with lounge chair — 2–3 hrs including meal</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:13%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Times from cruise terminal (4 km from city center). Taxi to center 30–50 MAD ($3–5). Tram 7 MAD ($0.70). Tagine $8–25, couscous $6–15, mint tea $1–3. Rabat 1 hr by train. Marrakech 2.5–3 hrs each way — too rushed for a port day (ship excursions $200–300).</p>
+      </div>
+
     </article>
   
     <!-- Planning Resources -->
@@ -507,6 +542,13 @@ Soli Deo Gloria
   <script src="/assets/js/dropdown.js" defer></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'casablanca' });
+      }
+    });
+  </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
 </body>

@@ -29,6 +29,7 @@ Soli Deo Gloria
   </script>
   <link rel="stylesheet" href="/assets/styles.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -453,6 +454,40 @@ Soli Deo Gloria
         </details>
       </details>
 
+
+<!-- FROM THE PIER -->
+<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Fortaleza cruise terminal">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Dragão do Mar Cultural Centre</span><div class="pier-detail">Art, museums, nightlife district — walkable from the port area</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 30 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Praia do Futuro</span><div class="pier-detail">Best city beach — barracas (beach bars) with fresh seafood. Taxi R$50 (~$10)</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Mercado Central</span><div class="pier-detail">Handicrafts, lace, cachaça, cashew nuts — the big souvenir market</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 10 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:12%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Beach Park</span><div class="pier-detail">Water park and resort — 30 km south. Ship excursion $85–120 or taxi R$100–150 (~$20–30)</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 50 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:55%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Cumbuco Beach</span><div class="pier-detail">Kitesurfing capital — dune buggy rides, sand dunes, lagoons</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 40 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:45%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Ships dock at Terminal Marítimo de Fortaleza, downtown. Dragão do Mar is walkable but taxis are cheap — R$15–20 ($3–4) around town. Fortaleza is hot year-round. Caipirinhas run about R$15 ($3). The beach scene here is the main event.</p>
+</div>
+
     </article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
@@ -524,18 +559,13 @@ Soli Deo Gloria
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var map = L.map('port-map').setView([-3.7172, -38.5433], 11);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-    L.marker([-3.7172, -38.5433]).addTo(map).bindPopup('<strong>Cruise Terminal</strong><br>Terminal Maritimo');
-    L.marker([-3.7450, -38.4550]).addTo(map).bindPopup('<strong>Praia do Futuro</strong><br>Lobster barracas');
-    L.marker([-3.7225, -38.5217]).addTo(map).bindPopup('<strong>Dragao do Mar</strong><br>Arts complex');
-    L.marker([-3.8380, -38.4000]).addTo(map).bindPopup('<strong>Beach Park</strong><br>30 km south');
-    L.marker([-3.7263, -38.5274]).addTo(map).bindPopup('<strong>Cathedral</strong><br>Downtown');
-  });
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'fortaleza' });
+      }
+    });
   </script>
   <script type="application/ld+json">
   {

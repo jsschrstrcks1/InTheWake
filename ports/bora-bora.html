@@ -226,8 +226,9 @@ Soli Deo Gloria
                       <li>Light layers for variable temperatures</li>
                       <li>Comfortable walking shoes for exploring</li>
                       <li>Rain jacket or compact umbrella</li>
-                      <li>Camera to capture the memories</li>
+                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
                     </ul>
+                    <p class="tiny" style="margin-top:0.5rem"><a href="/packing-lists.html">Full packing lists →</a></p>
                   </div>
                 </details>
 
@@ -325,8 +326,38 @@ Soli Deo Gloria
           <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
             </details>
 
-
-
+      <!-- FROM THE PIER -->
+      <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Bora Bora tender landing">
+        <h3>From the Pier</h3>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Vaitape Village</span><div class="pier-detail">Main settlement (~4,000 people) — shops, small restaurants</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 5–10 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Matira Beach</span><div class="pier-detail">Southern tip — white sand, shallow turquoise water</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:13%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Lagoonarium</span><div class="pier-detail">Natural aquarium — swim with rays, sharks, and turtles</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 20 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Faanui Bay (WWII Relics)</span><div class="pier-detail">Bunkers and cannons from the war era</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Mount Otemanu Viewpoints</span><div class="pier-detail">Sacred extinct volcano, 2,385 ft (727 m) — 32 km ring road circles the island</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 30 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Ships anchor in Pofai Bay — tender to Vaitape. No dock. Currency: CFP franc (tied to euro), USD sometimes accepted. Everything is expensive here — simple lunch $40–50, excursions $150+, beer $10+. Overwater bungalow day passes $200+. The ring road is 32 km total — island is small but spread out.</p>
+      </div>
 
       </article>
 
@@ -518,7 +549,7 @@ Soli Deo Gloria
         const authorName = a.author?.name || 'Unknown';
         const href = '/solo/' + a.slug + '.html';
         return '<a href="' + href + '" class="rail-item" style="display:flex;gap:0.75rem;align-items:center;padding:0.5rem 0;border-bottom:1px solid #e0e8f0;text-decoration:none;color:inherit;">' +
-          '<img src="' + thumb + '" alt="" width="56" height="56" style="border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy"/>' +
+          '<img src="' + thumb + '" alt="" aria-hidden="true" width="56" height="56" style="border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy"/>' +
           '<span style="display:flex;flex-direction:column;gap:0.15rem;min-width:0;">' +
             '<strong style="font-size:0.92rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + a.title + '</strong>' +
             '<span class="tiny" style="color:#5a7a8a;">by ' + authorName + '</span>' +

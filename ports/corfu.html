@@ -93,6 +93,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
     <link rel="stylesheet" href="/assets/assets/styles.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
@@ -432,6 +433,40 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           <p><strong>Seasonal Note:</strong> Summer afternoons can be extremely hot. Morning exploration and midday rest is the Mediterranean way.</p>
           <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
         </aside>
+
+      <!-- FROM THE PIER -->
+      <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Corfu cruise terminal">
+        <h3>From the Pier</h3>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Old Town &amp; Spianada</span><div class="pier-detail">Venetian streets, fortress views — walkable from pier</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:10%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Old Fortress</span><div class="pier-detail">€6 entry — panoramic views from the summit</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 20 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:13%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Kanoni &amp; Mouse Island</span><div class="pier-detail">Iconic viewpoint — free, 30-min walk from Old Town</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 40 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:27%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Achilleion Palace</span><div class="pier-detail">€10 — Empress Sisi's retreat. Taxi €25–30 round-trip with wait</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:13%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Paleokastritsa</span><div class="pier-detail">Monastery + turquoise bays — taxi €35–45 round trip, ship $60–80</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 40 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:27%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Terminal is 1 km from Old Town. Hop-on hop-off €20/day. Old Town circuit 3–4 hrs. Coffee €3–4, lunch €12–18. Afternoon heat is fierce in summer — morning exploration, midday rest is the Mediterranean way.</p>
+      </div>
+
       </article>
 
       <!-- Rail Sidebar -->
@@ -537,18 +572,14 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var map = L.map("port-map").setView([39.6243, 19.9217], 14);
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          attribution: "&copy; OpenStreetMap contributors",
-        }).addTo(map);
-        L.marker([39.6200, 19.9125]).addTo(map).bindPopup("Cruise Port");
-        L.marker([39.6243, 19.9283]).addTo(map).bindPopup("Old Fortress");
-        L.marker([39.6267, 19.9200]).addTo(map).bindPopup("Spianada Square");
-        L.marker([39.6299, 19.9150]).addTo(map).bindPopup("New Fortress");
-      });
-    </script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'corfu' });
+      }
+    });
+  </script>
     <script src="/assets/js/ship-port-links.js" defer></script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>

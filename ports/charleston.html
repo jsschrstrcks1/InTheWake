@@ -21,6 +21,7 @@ Soli Deo Gloria
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <link rel="stylesheet" href="/assets/styles.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -391,6 +392,40 @@ Soli Deo Gloria
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
 </aside>
+
+      <!-- FROM THE PIER -->
+      <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Charleston cruise terminal">
+        <h3>From the Pier</h3>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Historic District</span><div class="pier-detail">Rainbow Row, Battery, churches — walkable or free DASH trolley</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 25 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">City Market &amp; King Street</span><div class="pier-detail">Sweetgrass baskets, shops, pralines $2–4 each</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 20 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:13%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Carriage Tour</span><div class="pier-detail">1 hour through historic streets — $30–40/person</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 10 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:7%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Fort Sumter</span><div class="pier-detail">Ferry $25 adults — where the Civil War began</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 30 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Plantations (Middleton/Magnolia/Boone Hall)</span><div class="pier-detail">$20–30 entry each — taxi round-trip $40–50</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 25 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Port is 2 miles from downtown. Taxi/shuttle $10–15. Free DASH trolley loops historic district. She-crab soup $10–14, shrimp and grits $16–28. Gullah tours $30–40.</p>
+      </div>
+
     </article>
   
     <!-- Planning Resources -->
@@ -419,13 +454,13 @@ Soli Deo Gloria
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/dropdown.js" defer></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
-  <script src="/assets/js/port-map.js" defer></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof initPortMap === 'function') {
-      initPortMap('charleston-port-map', { lat: 32.7765, lng: -79.9311, zoom: 14 });
-    }
-  });
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'charleston-port-map', portSlug: 'charleston' });
+      }
+    });
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>

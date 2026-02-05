@@ -29,6 +29,7 @@ Soli Deo Gloria
   </script>
   <link rel="stylesheet" href="/assets/styles.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -348,6 +349,40 @@ Soli Deo Gloria
         </details>
       </details>
 
+
+      <!-- FROM THE PIER -->
+      <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Fort Hill Wharf Darwin">
+        <h3>From the Pier</h3>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Crocosaurus Cove</span><div class="pier-detail">$35 AUD general entry — Cage of Death croc encounter $170 AUD</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:7%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Waterfront Precinct</span><div class="pier-detail">Wave lagoon, restaurants, WWII Oil Storage Tunnels $15–20 AUD</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:7%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Mindil Beach Sunset Market</span><div class="pier-detail">Free entry, food $20–40 AUD — Thurs/Sun evenings in dry season</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:10%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Adelaide River Croc Cruise</span><div class="pier-detail">$120–150 AUD independent — jumping crocodiles, 1 hr south</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 60 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Kakadu National Park</span><div class="pier-detail">170 km — $200–270 AUD full-day tour, 3 hrs each way</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 3 hrs</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:100%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Fort Hill Wharf is downtown — 10 min walk to city center. Museum &amp; Art Gallery free. Hop-on hop-off $45 AUD. Barramundi $25–35. Car rental $70–100 AUD/day. Taxi to Mindil Beach $15–20 AUD.</p>
+      </div>
+
     </article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
@@ -468,18 +503,13 @@ Soli Deo Gloria
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var map = L.map('port-map').setView([-12.4634, 130.8456], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-    L.marker([-12.4634, 130.8456]).addTo(map).bindPopup('<strong>Fort Hill Wharf</strong><br>Cruise terminal');
-    L.marker([-12.4600, 130.8420]).addTo(map).bindPopup('<strong>Crocosaurus Cove</strong><br>Saltwater crocodile encounters');
-    L.marker([-12.4650, 130.8480]).addTo(map).bindPopup('<strong>Darwin Waterfront</strong><br>Wave lagoon and restaurants');
-    L.marker([-12.4284, 130.8432]).addTo(map).bindPopup('<strong>Mindil Beach</strong><br>Sunset gathering spot');
-    L.marker([-12.4375, 130.8238]).addTo(map).bindPopup('<strong>MAGNT Museum</strong><br>Cyclone Tracy exhibit');
-  });
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'darwin' });
+      }
+    });
   </script>
   <script type="application/ld+json">
   {

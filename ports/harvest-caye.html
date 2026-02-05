@@ -437,6 +437,40 @@ Soli Deo Gloria
 
 
 
+
+<!-- FROM THE PIER -->
+<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Harvest Caye">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">The Beach</span><div class="pier-detail">7-acre lagoon beach — chairs, bars, pool complex. You're already here</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 2 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:3%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Wildlife Sanctuary</span><div class="pier-detail">Toucans, jaguars, macaws — on-island nature preserve</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:5%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Zipline Course</span><div class="pier-detail">Over the island canopy — $79–99 per person</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:5%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Belize Barrier Reef</span><div class="pier-detail">Second-largest barrier reef in the world — snorkeling excursion from the island</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 15 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:18%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Mainland Belize (Mayan Ruins)</span><div class="pier-detail">Nimm Li Punit, Lubaantun — ancient Maya sites. Shore excursion from island</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 30+ min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Harvest Caye is Norwegian Cruise Line's private 75-acre island, 30 miles off mainland Belize. Ships dock directly. Everything on-island is included except excursions and premium food/drink. Mainland trips require a boat transfer first.</p>
+</div>
+
       </article>
     </div>
   
@@ -461,6 +495,14 @@ Soli Deo Gloria
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'harvest-caye' });
+      }
+    });
+  </script>
   <script src="/assets/js/dropdown.js" defer></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
 
@@ -509,7 +551,7 @@ Soli Deo Gloria
         const authorName = a.author?.name || 'Unknown';
         const href = '/solo/' + a.slug + '.html';
         return '<a href="' + href + '" class="rail-item" style="display:flex;gap:0.75rem;align-items:center;padding:0.5rem 0;border-bottom:1px solid #e0e8f0;text-decoration:none;color:inherit;">' +
-          '<img src="' + thumb + '" alt="" width="56" height="56" style="border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy"/>' +
+          '<img src="' + thumb + '" alt="" aria-hidden="true" width="56" height="56" style="border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy"/>' +
           '<span style="display:flex;flex-direction:column;gap:0.15rem;min-width:0;">' +
             '<strong style="font-size:0.92rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + a.title + '</strong>' +
             '<span class="tiny" style="color:#5a7a8a;">by ' + authorName + '</span>' +

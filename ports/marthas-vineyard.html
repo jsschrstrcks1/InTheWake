@@ -38,7 +38,6 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha256-tbZgvCu5LpcZm0sEX34h7KOTB/oIe4voW7AGzH2Ds0s=" crossorigin="anonymous" />
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   
@@ -53,7 +52,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-</head>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  </head>
   <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -287,6 +288,35 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           <section class="disclaimers">
             <p class="disclaimer"><strong>Author's Note:</strong> Martha's Vineyard rewards wandering. Skip the organized tour and explore the cottages and harbors at your own pace.</p>
           </section>
+
+<!-- FROM THE PIER -->
+<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Martha's Vineyard tender landing">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Gingerbread Cottages (Oak Bluffs)</span><div class="pier-detail">Walk from tender landing</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Flying Horses Carousel</span><div class="pier-detail">Walk — oldest operating carousel in US (1876)</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Edgartown</span><div class="pier-detail">Bus or taxi · whaling captain mansions</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Aquinnah Cliffs</span><div class="pier-detail">Bus or taxi · clay cliffs and lighthouse</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 45 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:55%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Tender port — check if your ship uses Oak Bluffs or Vineyard Haven landing. Oak Bluffs puts you steps from the gingerbread cottages and carousel.</p>
+</div>
+
         </article>
 
         <aside class="port-rail">
@@ -338,22 +368,17 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       </div>
       <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
     </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha256-XJrs/DDkVkUZ29zdzFOkGCJ9zHVo5hnpdi3c7HYJ7Uc=" crossorigin="anonymous"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (document.getElementById("port-map")) {
-          const map = L.map("port-map").setView([41.42, -70.6], 11);
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {attribution: "&copy; OSM"}).addTo(map);
-          L.marker([41.4535, -70.6048]).addTo(map).bindPopup("<strong>Vineyard Haven</strong><br>Tender Landing");
-          L.marker([41.4574, -70.5597]).addTo(map).bindPopup("<strong>Oak Bluffs</strong><br>Gingerbread Cottages");
-          L.marker([41.3884, -70.5134]).addTo(map).bindPopup("<strong>Edgartown</strong>");
-          L.marker([41.3489, -70.8342]).addTo(map).bindPopup("<strong>Gay Head Cliffs</strong>");
-        }
-      });
-    </script>
     <script src="/assets/js/ship-port-links.js" defer></script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'marthas-vineyard' });
+      }
+    });
+  </script>
 </body>
 </html>

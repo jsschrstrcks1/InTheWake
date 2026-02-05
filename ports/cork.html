@@ -29,6 +29,7 @@ Soli Deo Gloria
   </script>
   <link rel="stylesheet" href="/assets/styles.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -347,6 +348,40 @@ Soli Deo Gloria
         </details>
       </details>
 
+
+      <!-- FROM THE PIER -->
+      <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Cobh cruise terminal">
+        <h3>From the Pier</h3>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Titanic Experience Cobh</span><div class="pier-detail">€12 — walking distance from pier, in the original departure hall</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:4%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">St. Colman's Cathedral</span><div class="pier-detail">Free entry (donations welcome) — steep streets up from the waterfront</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:7%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Cork City &amp; English Market</span><div class="pier-detail">Train €7 return (25 min) — market free entry, budget €15–30 for food</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚂</span> 25 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Blarney Castle</span><div class="pier-detail">€18 independently, ship excursion €70–90 — kiss the stone, 15 miles from Cobh</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 30 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Jameson Midleton Distillery</span><div class="pier-detail">€25–30 per person — original distillery, 20 min east of Cobh</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:13%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Direct berth at Cobh. Cobh Heritage Centre €11. Taxi to Cork/Blarney €40–50 each way. Irish breakfast €12–16, seafood chowder €10–14, pub meals €15–25. Cobh itself rewards a 2–3 hr stroll on the steep, colorful streets.</p>
+      </div>
+
     </article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
@@ -470,17 +505,13 @@ Soli Deo Gloria
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var map = L.map('port-map').setView([51.8503, -8.2944], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-    L.marker([51.8503, -8.2944]).addTo(map).bindPopup('<strong>Cruise Terminal</strong><br>Cobh deep-water berth');
-    L.marker([51.8528, -8.2946]).addTo(map).bindPopup('<strong>Titanic Experience</strong><br>Original White Star Line office');
-    L.marker([51.8544, -8.2969]).addTo(map).bindPopup('<strong>St Colman\'s Cathedral</strong><br>Gothic masterpiece with 49 bells');
-    L.marker([51.9291, -8.5706]).addTo(map).bindPopup('<strong>Blarney Castle</strong><br>15 miles from Cobh');
-  });
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'cork' });
+      }
+    });
   </script>
   <script type="application/ld+json">
   {

@@ -147,10 +147,6 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
-    />
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   
@@ -165,7 +161,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-</head>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  </head>
   <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -580,6 +578,40 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               factors. Always confirm current pricing before booking.
             </p>
           </section>
+
+<!-- FROM THE PIER -->
+<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Port Klang">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Batu Caves</span><div class="pier-detail">272 rainbow steps to Hindu temple caves — free entry, iconic golden statue</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 45 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Petronas Twin Towers</span><div class="pier-detail">452 m — skybridge and observation deck. Book ahead</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 50 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:55%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Merdeka Square</span><div class="pier-detail">Where Malaysian independence was declared — Sultan Abdul Samad Building, cricket green</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 50 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:55%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Jalan Alor Food Street</span><div class="pier-detail">KL's famous hawker street — satay, char kway teow, durian. Budget $5–10 per meal</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 50 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:55%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Islamic Arts Museum</span><div class="pier-detail">Stunning collection of Islamic art from across the Muslim world — near the Lake Gardens</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 50 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:55%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Ships dock at Boustead Cruise Centre in Port Klang, 45 km from KL centre (45–90 min depending on traffic). Ship excursions: $100–150. Grab ride-share: $25–40. KTM train: ~$3 but slower. Traffic is serious — leave early, budget extra for the return. KL's street food alone is worth the journey.</p>
+</div>
+
         </article>
 
         <!-- Rail / Sidebar -->
@@ -720,33 +752,6 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       </div>
       <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
     </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha256-XJrs/DDkVkUZ29zdzFOkGCJ9zHVo5hnpdi3c7HYJ7Uc=" crossorigin="anonymous"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (document.getElementById("port-map")) {
-          const map = L.map("port-map").setView([3.0, 101.5], 10);
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution: "&copy; OpenStreetMap contributors",
-          }).addTo(map);
-
-          // Port Klang
-          L.marker([3.0, 101.4])
-            .addTo(map)
-            .bindPopup("<strong>Port Klang</strong><br>Cruise Terminal");
-
-          // Kuala Lumpur
-          L.marker([3.157, 101.7117])
-            .addTo(map)
-            .bindPopup("<strong>Kuala Lumpur</strong><br>City Center & Petronas Towers");
-
-          // Batu Caves
-          L.marker([3.2378, 101.6839])
-            .addTo(map)
-            .bindPopup("<strong>Batu Caves</strong><br>Hindu Temple Complex");
-        }
-      });
-    </script>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/sw.js");
@@ -755,5 +760,14 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     <script src="/assets/js/ship-port-links.js" defer></script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'kuala-lumpur' });
+      }
+    });
+  </script>
 </body>
 </html>

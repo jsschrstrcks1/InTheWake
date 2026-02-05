@@ -135,10 +135,6 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
-    />
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   
@@ -153,7 +149,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-</head>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  </head>
   <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -544,6 +542,35 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               vary based on season and currency fluctuations.
             </p>
           </section>
+
+<!-- FROM THE PIER -->
+<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Trinidad">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Port of Spain Downtown</span><div class="pier-detail">Walk from the port — Independence Square, Queen's Park Savannah</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Maracas Bay Beach</span><div class="pier-detail">Taxi over the mountains — famous for shark and bake</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 40 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Caroni Bird Sanctuary</span><div class="pier-detail">Boat tour at sunset — thousands of scarlet ibis returning to roost</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 30 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Magnificent Seven (colonial mansions)</span><div class="pier-detail">Walk or taxi to Queen's Park Savannah — seven grand colonial buildings</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Ships dock at Port of Spain. Trinidad is the birthplace of Carnival, calypso, and steel pan — culture runs year-round. The most multicultural island in the Caribbean. Shark and bake at Maracas Bay is non-negotiable.</p>
+</div>
+
         </article>
 
         <!-- Rail / Sidebar -->
@@ -672,34 +699,6 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       </div>
       <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
     </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha256-XJrs/DDkVkUZ29zdzFOkGCJ9zHVo5hnpdi3c7HYJ7Uc=" crossorigin="anonymous"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (document.getElementById("port-map")) {
-          const map = L.map("port-map").setView([10.65, -61.4], 10);
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution: "&copy; OpenStreetMap contributors",
-          }).addTo(map);
-
-          L.marker([10.6596, -61.5086])
-            .addTo(map)
-            .bindPopup("<strong>Port of Spain</strong><br>Cruise Port");
-
-          L.marker([10.759, -61.434])
-            .addTo(map)
-            .bindPopup("<strong>Maracas Bay</strong><br>Famous Beach & Shark and Bake");
-
-          L.marker([10.565, -61.455])
-            .addTo(map)
-            .bindPopup("<strong>Caroni Swamp</strong><br>Scarlet Ibis Tours");
-
-          L.marker([10.716, -61.298])
-            .addTo(map)
-            .bindPopup("<strong>Asa Wright</strong><br>Nature Centre");
-        }
-      });
-    </script>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/sw.js");
@@ -708,5 +707,14 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     <script src="/assets/js/ship-port-links.js" defer></script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'trinidad' });
+      }
+    });
+  </script>
 </body>
 </html>

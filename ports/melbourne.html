@@ -426,6 +426,35 @@ Soli Deo Gloria
 
 
 
+
+<!-- FROM THE PIER -->
+<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Melbourne Station Pier">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">CBD & Laneways</span><div class="pier-detail">Tram Route 109 or taxi · ~$15–20 AUD</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚊</span> 10 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Hosier Lane (Street Art)</span><div class="pier-detail">Tram to CBD then walk — iconic graffiti</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚊</span> 15 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Queen Victoria Market</span><div class="pier-detail">Tram or taxi from CBD</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚊</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">St Kilda Beach</span><div class="pier-detail">Tram from pier area · penguins at dusk</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚊</span> 15 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Station Pier is 4 km from CBD. Tram Route 109 from nearby Middle Park or taxi/Uber (~$15–20 AUD, 10 min). Walking possible but 45–50 min.</p>
+</div>
+
       </article>
     </div>
 
@@ -611,7 +640,7 @@ Soli Deo Gloria
         const authorName = a.author?.name || 'Unknown';
         const href = '/solo/' + a.slug + '.html';
         return '<a href="' + href + '" class="rail-item" style="display:flex;gap:0.75rem;align-items:center;padding:0.5rem 0;border-bottom:1px solid #e0e8f0;text-decoration:none;color:inherit;">' +
-          '<img src="' + thumb + '" alt="" width="56" height="56" style="border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy"/>' +
+          '<img src="' + thumb + '" alt="" aria-hidden="true" width="56" height="56" style="border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy"/>' +
           '<span style="display:flex;flex-direction:column;gap:0.15rem;min-width:0;">' +
             '<strong style="font-size:0.92rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + a.title + '</strong>' +
             '<span class="tiny" style="color:#5a7a8a;">by ' + authorName + '</span>' +

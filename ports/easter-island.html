@@ -29,6 +29,7 @@ Soli Deo Gloria
   </script>
   <link rel="stylesheet" href="/assets/styles.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -349,6 +350,40 @@ Soli Deo Gloria
         </details>
       </details>
 
+
+<!-- FROM THE PIER -->
+<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Hanga Roa">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Ahu Tahai</span><div class="pier-detail">Moai platform overlooking the sea — walkable from town, best at sunset</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:10%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Rano Raraku</span><div class="pier-detail">The quarry where nearly all moai were carved — 400 statues in various stages. Park ticket $80</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 30 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Ahu Tongariki</span><div class="pier-detail">15 moai in a row — the iconic image. 1 km from Rano Raraku</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 35 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:45%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Orongo Ceremonial Village</span><div class="pier-detail">Birdman cult site on the crater rim — dramatic cliff edge. 6 km from town</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Anakena Beach</span><div class="pier-detail">White sand beach with palm trees and restored moai — 20 km, often the lunch stop</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 30 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Ships anchor offshore at Hanga Roa; tenders take ~20 min and are weather-dependent. National Park ticket required ($80, covers all sites). Full-day 4x4 tours $100–150. The nearest continent is 3,700 km away — this is the most remote inhabited island on Earth.</p>
+</div>
+
     </article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
@@ -439,19 +474,13 @@ Soli Deo Gloria
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var map = L.map('port-map').setView([-27.1127, -109.3497], 11);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-    L.marker([-27.1497, -109.4286]).addTo(map).bindPopup('<strong>Hanga Roa Harbor</strong><br>Tender landing');
-    L.marker([-27.1222, -109.2889]).addTo(map).bindPopup('<strong>Rano Raraku</strong><br>Moai quarry');
-    L.marker([-27.1258, -109.2772]).addTo(map).bindPopup('<strong>Ahu Tongariki</strong><br>15 restored moai');
-    L.marker([-27.1894, -109.4425]).addTo(map).bindPopup('<strong>Orongo</strong><br>Birdman village');
-    L.marker([-27.0742, -109.3222]).addTo(map).bindPopup('<strong>Anakena Beach</strong><br>White sand & moai');
-    L.marker([-27.1400, -109.4330]).addTo(map).bindPopup('<strong>Ahu Tahai</strong><br>Moai with restored eyes');
-  });
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'easter-island' });
+      }
+    });
   </script>
   <script type="application/ld+json">
   {
