@@ -718,7 +718,7 @@ JSON-LD schema. Reduces page weight and improves LCP scores.
 8. ⏳ **CSS consolidation (remaining)** — 18 files with `<style>` blocks (tools/admin/templates only); 31,128 inline `style=` attributes need Phase 5 cleanup
 
 ### P1 - High Priority (Do These Soon)
-9. ⏳ **Port map completion** — 334/380 (88%) have Leaflet maps, 46 remaining
+9. ✅ ~~Port map completion~~ ESSENTIALLY COMPLETE — 367/380 (96.6%) use standard PortMap module; 13 remaining are redirects/passages/special pages
 10. ✅ ~~Ship page CSS rollout~~ COMPLETE — `ship-page.css` linked on 292/292 ship pages in cruise line directories (100%)
 11. ✅ ~~Competitor gap: "From the Pier"~~ COMPLETE — 376/376 real port pages have distance/transport component (2026-02-05)
 12. ⏳ **Site-wide hero/logo standardization** — Inconsistent across hub pages
