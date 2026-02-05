@@ -21,7 +21,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       name="ai-summary"
       content="Jakarta ships dock at Tanjung Priok, 20km from city. Megacity of 11M people. Old Batavia colonial district, National Monument, street food markets. Traffic notorious—allow extra time. Gateway to Yogyakarta/Borobudur on extended stays."
     />
-    <meta name="last-reviewed" content="2026-01-03" />
+    <meta name="last-reviewed" content="2026-02-01" />
     <meta name="content-protocol" content="ICP-Lite v1.4" />
     <meta
       name="keywords"
@@ -38,7 +38,6 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha256-tbZgvCu5LpcZm0sEX34h7KOTB/oIe4voW7AGzH2Ds0s=" crossorigin="anonymous" />
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   
@@ -53,7 +52,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-</head>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  </head>
   <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -274,6 +275,40 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           <section class="disclaimers">
             <p class="disclaimer"><strong>Author's Note:</strong> Jakarta traffic is unpredictable. Build flexibility into your plans and return early to the ship.</p>
           </section>
+
+<!-- FROM THE PIER -->
+<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Tanjung Priok Port">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Old Batavia (Kota Tua)</span><div class="pier-detail">Dutch colonial quarter — Fatahillah Square, museums, café culture</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 30 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:35%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">National Monument (Monas)</span><div class="pier-detail">132 m obelisk with gold flame — Merdeka Square, city panorama from the top</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 45 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Istiqlal Mosque</span><div class="pier-detail">Largest mosque in Southeast Asia — free to visit, across from the cathedral</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 45 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">National Museum</span><div class="pier-detail">Indonesia's finest — Hindu-Buddhist gold, textiles, ethnographic collections</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 45 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Traffic</span><div class="pier-detail">Jakarta's traffic is legendary — 45 min on the map can become 2+ hours in reality</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> ∞</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:100%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Ships dock at Tanjung Priok, a commercial port 20 km north of the city centre. Ship excursions or arranged transfers strongly recommended — Jakarta's traffic is not an exaggeration. Morning and evening rush hours are worst. Allow extra buffer time for the return.</p>
+</div>
+
         </article>
 
         <aside class="port-rail">
@@ -359,21 +394,17 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       </div>
       <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
     </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha256-XJrs/DDkVkUZ29zdzFOkGCJ9zHVo5hnpdi3c7HYJ7Uc=" crossorigin="anonymous"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (document.getElementById("port-map")) {
-          const map = L.map("port-map").setView([-6.13, 106.85], 11);
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {attribution: "&copy; OSM"}).addTo(map);
-          L.marker([-6.1, 106.88]).addTo(map).bindPopup("<strong>Tanjung Priok</strong><br>Cruise Port");
-          L.marker([-6.1375, 106.8133]).addTo(map).bindPopup("<strong>Old Batavia</strong><br>Kota Tua");
-          L.marker([-6.1754, 106.8272]).addTo(map).bindPopup("<strong>Monas</strong><br>National Monument");
-        }
-      });
-    </script>
     <script src="/assets/js/ship-port-links.js" defer></script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'jakarta' });
+      }
+    });
+  </script>
 </body>
 </html>

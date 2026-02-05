@@ -7,7 +7,7 @@ Soli Deo Gloria
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="ai-summary" content="Cephalonia is Greece's largest Ionian island with 50,000 years of history. Experience Melissani Cave's crystal lake, Myrtos Beach, Drogarati Cave, and Fiscardo's Venetian charm."/>
-  <meta name="last-reviewed" content="2026-01-06"/>
+  <meta name="last-reviewed" content="2026-02-01"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
   <title>Cephalonia Port Guide — Greece's Largest Ionian Island | In the Wake</title>
   <meta name="description" content="First-person logbook guide to Cephalonia — Greece's largest Ionian island with Melissani Cave, Myrtos Beach, and 50,000 years of history."/>
@@ -21,6 +21,7 @@ Soli Deo Gloria
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <link rel="stylesheet" href="/assets/styles.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -38,7 +39,7 @@ Soli Deo Gloria
     "@type": "WebPage",
     "name": "Cephalonia Port Guide",
     "description": "Cephalonia is Greece's largest Ionian island with 50,000 years of history. Experience Melissani Cave's crystal lake, Myrtos Beach, Drogarati Cave, and Fiscardo's Venetian charm.",
-    "dateModified": "2026-01-06",
+    "dateModified": "2026-02-01",
     "mainEntity": {
       "@type": "Place",
       "name": "Cephalonia",
@@ -189,7 +190,7 @@ Soli Deo Gloria
         </details>
       </details>
 
-      <p class="last-reviewed">Last reviewed: January 2026</p>
+      <p class="last-reviewed">Last reviewed: February 2026</p>
 
       <details class="port-section logbook" open>
         <summary><h2>Captain's Logbook</h2></summary>
@@ -398,6 +399,40 @@ Soli Deo Gloria
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
 </aside>
+
+      <!-- FROM THE PIER -->
+      <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Argostoli cruise pier">
+        <h3>From the Pier</h3>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Argostoli Town Center</span><div class="pier-detail">Waterfront cafés, shops — walking distance from pier</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:4%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Melissani Cave</span><div class="pier-detail">Underground lake with rowboat tour — €8 entry. Taxi half-day €40–60</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 35 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:23%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Drogarati Cave</span><div class="pier-detail">150 steep steps down — €6 entry, 150 million years old</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 35 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:23%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Myrtos Beach</span><div class="pier-detail">Dramatic white cliffs — no lounger rentals, bring supplies. Parking €3–5</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 45 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:30%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Fiscardo (Venetian Village)</span><div class="pier-detail">Horseshoe harbor — restaurants €15–30, over 1 hr north</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 75 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Direct dock at Argostoli. Car rental €45–70/day. Taxi full-day €80–100. Robola wine tasting €10–15. 8–10 hr port day covers both caves plus beach or villages. Ship cave/beach combo €65–90. Kreatopita €8–12, grilled octopus €12–18, mandolato nougat €3–5.</p>
+      </div>
+
     </article>
   
     <!-- Planning Resources -->
@@ -426,13 +461,13 @@ Soli Deo Gloria
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/dropdown.js" defer></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
-  <script src="/assets/js/port-map.js" defer></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof initPortMap === 'function') {
-      initPortMap('cephalonia-port-map', { lat: 38.1753, lng: 20.5690, zoom: 11 });
-    }
-  });
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'cephalonia-port-map', portSlug: 'cephalonia' });
+      }
+    });
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>

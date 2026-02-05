@@ -21,7 +21,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       name="ai-summary"
       content="Santa Marta is Colombia's oldest city, docks at modern marina. Sierra Nevada backdrop stunning—world's highest coastal mountain. Tayrona National Park has pristine beaches. Historic center walkable. Tender possible for large ships."
     />
-    <meta name="last-reviewed" content="2026-01-03" />
+    <meta name="last-reviewed" content="2026-02-01" />
     <meta name="content-protocol" content="ICP-Lite v1.4" />
     <meta
       name="keywords"
@@ -86,7 +86,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             "latitude": 11.2408,
             "longitude": -74.2110
           ,
-        "dateModified": "2026-01-03"
+        "dateModified": "2026-02-01"
       },
           "address": {
             "@type": "PostalAddress",
@@ -136,10 +136,6 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
-    />
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   
@@ -154,7 +150,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-</head>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  </head>
   <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -541,6 +539,35 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               vary based on season and currency fluctuations.
             </p>
           </section>
+
+<!-- FROM THE PIER -->
+<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Santa Marta cruise port">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Historic Center & Cathedral</span><div class="pier-detail">Walk from port</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Rodadero Beach</span><div class="pier-detail">Taxi · 10 min south · main beach area</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 10 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Tayrona National Park</span><div class="pier-detail">Excursion · 45 min · pristine Caribbean jungle beaches</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚐</span> 45 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:55%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Quinta de San Pedro Alejandrino</span><div class="pier-detail">Taxi · where Simón Bolívar died, 1830</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Port walkable to historic center. South America's oldest surviving city (founded 1525). Tayrona National Park is the star excursion.</p>
+</div>
+
         </article>
 
         <!-- Rail / Sidebar -->
@@ -696,38 +723,6 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       </div>
       <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
     </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha256-XJrs/DDkVkUZ29zdzFOkGCJ9zHVo5hnpdi3c7HYJ7Uc=" crossorigin="anonymous"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (document.getElementById("port-map")) {
-          const map = L.map("port-map").setView([11.24, -74.2], 11);
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution: "&copy; OpenStreetMap contributors",
-          }).addTo(map);
-
-          L.marker([11.2408, -74.211])
-            .addTo(map)
-            .bindPopup("<strong>Santa Marta Marina</strong><br>Cruise Port");
-
-          L.marker([11.238, -74.189])
-            .addTo(map)
-            .bindPopup("<strong>Centro Histórico</strong><br>Historic Center");
-
-          L.marker([11.2, -74.23])
-            .addTo(map)
-            .bindPopup("<strong>Quinta de San Pedro</strong><br>Bolívar Museum");
-
-          L.marker([11.2, -74.142])
-            .addTo(map)
-            .bindPopup("<strong>El Rodadero</strong><br>Beach Resort Area");
-
-          L.marker([11.31, -74.03])
-            .addTo(map)
-            .bindPopup("<strong>Tayrona NP</strong><br>National Park Entrance");
-        }
-      });
-    </script>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/sw.js");
@@ -736,5 +731,14 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     <script src="/assets/js/ship-port-links.js" defer></script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
+        PortMap.init({ containerId: 'port-map', portSlug: 'santa-marta' });
+      }
+    });
+  </script>
 </body>
 </html>
