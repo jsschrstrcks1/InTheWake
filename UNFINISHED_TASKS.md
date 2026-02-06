@@ -193,7 +193,7 @@ The following items were **explicitly started** in previous threads. Each has be
 - [x] Region completion achievements — **8 regions** + 3 regional + 5 milestones implemented in Port Tracker (verified 2026-02-05)
 - [x] DIY vs. Excursion comparison callouts — **30 ports** (10 Caribbean + 10 Mediterranean + 6 Alaska + 4 Hawaii) (verified 2026-02-05)
 - [x] "Real Talk" honest assessment callouts — **30 ports** (10 Caribbean + 10 Mediterranean + 6 Alaska + 4 Hawaii) (verified 2026-02-05)
-- [x] "Add to My Logbook" button on port pages — **314 ports** have `port-logbook-btn.js` deployed (2026-02-05); 56 skipped: 3 redirects, ~10 passages/land destinations, ~43 different template structure needing manual attention
+- [x] "Add to My Logbook" button on port pages — **368 ports** have `port-logbook-btn.js` deployed (2026-02-06); 12 correctly excluded: 3 redirects, 6 scenic passages, 1 reference page, 2 private cruise line destinations
 **Remaining:**
 - [ ] Comprehensive Print CSS for port pages (partial, not complete)
 
@@ -2031,7 +2031,7 @@ These represent In The Wake's competitive advantages — areas where WhatsInPort
 **In The Wake strength:** Port Logbook + Ship Logbook with achievement badges, percentile rankings
 **Opportunity:** Deepen emotional investment through progress tracking
 **Tasks:**
-- [x] Add "Add to My Logbook" button on each port page — **314 ports** deployed (2026-02-05)
+- [x] Add "Add to My Logbook" button on each port page — **368 ports** deployed (2026-02-06)
 - [x] Show user's visited status on port pages (if tracked) — toggle button shows "Added" state
 - [x] Create region completion achievements (Caribbean Bingo, etc.) — 8 regions + 3 regional + 5 milestones in Port Tracker
 - [ ] Phase 2: "My Cruising Journey" world map visualization (see Leaflet roadmap)
@@ -3564,14 +3564,14 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 
 #### P2 — Strategic Features
 
-##### 11. ~~"Add to My Logbook" Button on Port Pages~~ ✅ MOSTLY COMPLETE
+##### 11. ~~"Add to My Logbook" Button on Port Pages~~ ✅ COMPLETE
 **Source:** WhatsInPort B3, Cruise Critic B6
 **Effort:** Medium | **Impact:** Medium
-- [x] Add "Add to My Logbook" button on each port page — **314 ports** deployed (2026-02-05)
+- [x] Add "Add to My Logbook" button on each port page — **368 ports** deployed (2026-02-06)
 - [x] Integrate with existing Port Logbook localStorage — uses `visited-ports` key
 - [x] Show visited indicator if port already in logbook — toggle button shows "Added" state
 - [x] Provide "View My Logbook" link after adding — script links to Port Tracker
-**Remaining:** 56 ports skipped (redirects, passages, different template structure)
+**Excluded (12):** 3 redirects (beijing, falmouth-jamaica, kyoto), 6 scenic passages (inside-passage, drake-passage, chilean-fjords, glacier-alley, strait-of-magellan, south-shetland-islands), 1 reference page (tender-ports), 2 private destinations (harvest-caye, royal-beach-club-nassau)
 
 ##### 12. DIY vs. Ship Excursion Comparison
 **Source:** WhatsInPort B9
