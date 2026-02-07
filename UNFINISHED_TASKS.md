@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2026-02-05 (Full codebase audit — every claim verified against actual files)
+**Last Updated:** 2026-02-07 (Full codebase audit — every claim verified against actual files)
 
 > 📁 **Looking for completed work?** See [COMPLETED_TASKS.md](COMPLETED_TASKS.md) for the historical archive of finished tasks.
 
@@ -17,8 +17,8 @@
 | Asset | Count | Notes |
 |-------|-------|-------|
 | Port pages | **380** | 376 real + 4 redirects (beijing, falmouth-jamaica, jamaica, kyoto) |
-| Ship pages | **293** | Across 16 cruise line directories |
-| Restaurant/Venue pages | **472** | RCL: 280, NCL: 78, Virgin: 46, MSC: 45, Carnival: 23 — 10 lines have 0 |
+| Ship pages | **292** | Across 16 cruise line directories |
+| Restaurant/Venue pages | **472** | Flat directory (NCL: 78, Virgin: 46, MSC: 45, Carnival: 23 subdirs; 280 in root) |
 | Total HTML files with Soli Deo Gloria | **1,233** | |
 | Stateroom exception JSON files | **270** | In `assets/data/staterooms/` |
 
@@ -30,18 +30,18 @@
 | **seasonal-guides.json** data | **380 ports** (59,536 lines) | ✅ COMPLETE |
 | **Weather guide sections** | **375/376** real ports (99.7%) | ✅ ESSENTIALLY COMPLETE |
 | **Leaflet maps** (port-map.js) | **367/380** ports (96.6%) | ✅ ESSENTIALLY COMPLETE — 13 remaining are redirects/passages/special |
-| **ship-page.css** linked | **293/293** ships (100%) | ✅ COMPLETE |
+| **ship-page.css** linked | **292/292** ships (100%) | ✅ COMPLETE |
 | **Accessibility content** | **376/380** ports (99%) | ✅ ESSENTIALLY COMPLETE |
 | **Service Worker** | **v14.2.0** | ✅ Upgraded from v13.2.0 |
 
 ### CSS Health (verified)
 | Metric | Count | Trend |
 |--------|-------|-------|
-| Files with `<style>` blocks | **18** | Down from 511 (96% reduction) |
+| Files with `<style>` blocks | **25** | Down from 511 (95% reduction) |
 | Port pages with `<style>` | **1** (redirect only) | ✅ |
 | Ship pages with `<style>` | **0** individual ships | ✅ |
 | Restaurant pages with `<style>` | **0** | ✅ |
-| Inline `style=` attributes | **~17,500** | Phase 5 pass 1 complete (45% reduction) |
+| Inline `style=` attributes | **~15,600** | Phase 5 passes 1+2 complete (51% reduction) |
 
 ### Major Corrections to Previous Audits
 1. **Weather data**: Previous audit said "only 1 port (cozumel)" had data. **Wrong.** All 380 ports have seasonal data in a 59,536-line JSON file.
@@ -228,29 +228,32 @@ The following items were **explicitly started** in previous threads. Each has be
 - Port pages with `<style>` blocks: **1** of 380 (only `falmouth-jamaica.html`, a redirect page)
 - Ship pages with `<style>` blocks: **0** of 293 individual ship pages (only 2 index files + 1 venues.html)
 - Restaurant pages with `<style>` blocks: **0** of 280 ✅ ALL CLEANED
-- Total site-wide: **18 files** with `<style>` blocks (down from 139 → 99% reduction)
-- Inline `style=` attributes: **~17,500** across all HTML files (down from 31,128 — Phase 5 pass 1 replaced 11,971 with CSS classes)
-**Files still with `<style>` blocks (18 — mostly tools/admin/templates):**
+- Total site-wide: **25 files** with `<style>` blocks (down from 511 → 95% reduction)
+- Inline `style=` attributes: **~15,600** across all HTML files (down from 31,128 — Phase 5 passes 1+2 replaced 12,600+ with CSS classes)
+**Files still with `<style>` blocks (25 — tools/admin/templates/special pages):**
   - `.claude/skills/standards/resources/examples/perfect-html-page.html` (template)
   - `admin/reports/articles.html`, `admin/reports/sw-health.html` (admin tools)
-  - `countdown.html`, `first-cruise.html`, `offline.html` (special pages)
+  - `countdown.html`, `first-cruise.html`, `offline.html`, `solo.html` (special pages)
   - `cruise-lines/quiz.html`, `ships/allshipquiz.html`, `ships/quiz.html` (quiz tools)
   - `ports/falmouth-jamaica.html` (redirect page)
-  - `ships/oceania/index.html`, `ships/regent/index.html` (cruise line indexes)
-  - `ships/rcl/venues.html`, `ships/template.html` (venues/template)
+  - `ships/carnival/index.html`, `ships/oceania/index.html`, `ships/regent/index.html` (cruise line indexes)
+  - `ships/carnival/unnamed-project-ace-1.html`, `ships/carnival/unnamed-project-ace-2.html`, `ships/carnival/unnamed-project-ace-3.html` (future ships)
+  - `ships/msc/msc-world-america.html` (ship page with custom styles)
+  - `ships/rcl/venues.html`, `ships/template.html`, `ships/rooms.html` (venues/template/rooms)
   - `stateroom-check.html` (interactive tool)
   - `tools/cruise-budget-calculator.html`, `tools/port-day-planner.html`, `tools/release-notes.html` (tools)
 **What remains:**
-- [x] Phase 5 pass 1: Replaced 11,971 inline styles with CSS classes (31,128 → ~17,500) ✅ 2026-02-05
-- [x] Evaluated 18 remaining `<style>` blocks: all appropriate (tools/admin/templates) ✅ 2026-02-05
-- [ ] Phase 5 pass 2: Further reduce remaining ~17,500 inline styles (medium-frequency patterns)
+- [x] Phase 5 pass 1: Replaced 11,971 inline styles with CSS classes (31,128 → ~19,000) ✅ 2026-02-05
+- [x] Phase 5 pass 2: Replaced 650 more margin-top styles (mt-2, mt-075) ✅ 2026-02-07
+- [x] Evaluated 25 remaining `<style>` blocks: all appropriate (tools/admin/templates) ✅ 2026-02-07
+- [ ] Phase 5 pass 3: Further reduce remaining ~15,600 inline styles (remaining are intentional overrides or mixed patterns)
 
 #### 8. ~~Ship Page Standardization~~ ✅ CSS ROLLOUT COMPLETE
 **Verified 2026-02-05:** All ship pages now link ship-page.css.
 - [x] `ship-page.css` EXISTS with hero, card, section, gallery, and FAQ components
-- [x] **293 of 293** ship pages (100%) link `ship-page.css` ✅
+- [x] **292 of 292** ship pages (100%) link `ship-page.css` ✅
 - [x] Adoption by line: ALL cruise lines at 100%
-  - RCL: 50, Carnival: 48, HAL: 46, Celebrity: 29, MSC: 24, NCL: 20, Princess: 17, Silversea: 12, Costa: 9, Oceania: 8, Regent: 7, Seabourn: 7, Explora-Journeys: 6, Cunard: 4, Virgin: 4, Explora: 2
+  - RCL: 49, Carnival: 48, HAL: 46, Celebrity: 29, MSC: 24, NCL: 20, Princess: 17, Silversea: 12, Costa: 9, Oceania: 8, Regent: 7, Seabourn: 7, Explora-Journeys: 6, Cunard: 4, Virgin: 4, Explora: 2
 **Remaining (non-CSS standardization work):**
 - [ ] Standardize carousel markup to `<figure>` pattern across all lines
 - [ ] Align section order: First Look → Dining → Videos → Deck Plans/Tracker → FAQ
