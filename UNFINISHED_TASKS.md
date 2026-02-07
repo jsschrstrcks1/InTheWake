@@ -18,7 +18,7 @@
 |-------|-------|-------|
 | Port pages | **380** | 376 real + 4 redirects (beijing, falmouth-jamaica, jamaica, kyoto) |
 | Ship pages | **293** | Across 16 cruise line directories |
-| Restaurant/Venue pages | **280** | |
+| Restaurant/Venue pages | **472** | RCL: 280, NCL: 78, Virgin: 46, MSC: 45, Carnival: 23 — 10 lines have 0 |
 | Total HTML files with Soli Deo Gloria | **1,233** | |
 | Stateroom exception JSON files | **270** | In `assets/data/staterooms/` |
 
@@ -50,6 +50,70 @@
 4. **norfolk.html**: Previous audit said "CONFIRMED missing." **Wrong.** File exists (44KB).
 5. **From the Pier**: Previous audit said "0 ports." **Corrected.** Now 376/376 real ports (completed 2026-02-05).
 6. **Port count**: Various places said 291, 333, 374. **Actual count: 380.**
+
+---
+
+## 🚢 Cruise Line Parity Gap Analysis (2026-02-07)
+
+**Audited by:** Claude AI
+**Purpose:** Identify features that exist for RCL but are missing or incomplete for other cruise lines.
+
+### RCL-Exclusive Features (Major Gaps)
+
+| Feature | RCL Status | Other Lines Status | Gap Severity |
+|---------|------------|-------------------|--------------|
+| **Restaurant/Venue Pages** | 280 pages | Celebrity: 0, HAL: 0, Princess: 0, Costa: 0, Silversea: 0, Oceania: 0, Regent: 0, Seabourn: 0, Cunard: 0, Explora: 0 | 🔴 **MAJOR** |
+| **Ship Tracker Tool** | 50+ ships in SHIPS_DB | Hardcoded RCL-only | 🔴 **MAJOR** |
+| **Drink Calculator** | Full tool with Crown & Anchor | RCL-only ("Royal Caribbean Drink Calculator") | 🔴 **MAJOR** |
+| **Stateroom Checker UI** | Full functionality | UI locked: "Currently supporting Royal Caribbean ships" | 🔴 **MAJOR** |
+
+### Restaurant/Venue Coverage by Line
+
+| Cruise Line | Ship Pages | Restaurant Pages | Parity Gap |
+|-------------|------------|------------------|------------|
+| **RCL** | 51 | **280** | ✅ Baseline |
+| NCL | 21 | 78 | Partial |
+| Virgin | 5 | 46 | Good ratio |
+| MSC | 25 | 45 | Partial |
+| Carnival | 49 | 23 | **Needs ~200+ more** |
+| **Celebrity** | 30 | **0** | 🔴 Missing entirely |
+| **Holland America** | 47 | **0** | 🔴 Missing entirely |
+| **Princess** | 18 | **0** | 🔴 Missing entirely |
+| **Costa** | 10 | **0** | 🔴 Missing entirely |
+| **Silversea** | 13 | **0** | 🔴 Missing entirely |
+| **Oceania** | 9 | **0** | 🔴 Missing entirely |
+| **Regent** | 8 | **0** | 🔴 Missing entirely |
+| **Seabourn** | 8 | **0** | 🔴 Missing entirely |
+| **Cunard** | 5 | **0** | 🔴 Missing entirely |
+| **Explora** | 10 | **0** | 🔴 Missing entirely |
+
+### Features with Multi-Line Coverage (Varying Completeness)
+
+| Feature | Coverage | Gap Analysis |
+|---------|----------|--------------|
+| Ship Pages | 293 across 16 lines | ✅ All major lines covered |
+| Ship Videos | 4-45 per line | ✅ Good distribution |
+| Stateroom Data (JSON) | 270 files across 7+ lines | ✅ Data exists (UI needs unlock) |
+| Quiz V2 | 15 cruise lines | ✅ Complete |
+| **Deployments** | 193 ships across 15 lines | 🟡 **Partial** — HAL: 11/47, Carnival: 26/49, RCL: 29/51 |
+
+### Missing Cruise Lines Entirely
+
+| Cruise Line | Fleet Size | Market | Priority |
+|-------------|-----------|--------|----------|
+| **Disney Cruise Line** | 6 ships | US/Global | High |
+| **Viking Ocean** | 11 ships | US/Global | High |
+| **Viking Expedition** | 2 ships | US | Medium |
+| AIDA Cruises | 11 ships | German | Low |
+| P&O UK | 7 ships | British | Low |
+| TUI/Mein Schiff | 6+ ships | German | Low |
+
+### Priority Recommendations
+
+1. **🟡 [Y] Unlock Stateroom Checker for other lines** — Data already exists for 270 ships, just need to enable cruise line selector
+2. **🟡 [Y] Expand Ship Tracker to multi-line** — Load from fleets.json instead of hardcoded SHIPS_DB
+3. **🟡 [Y] Create Drink Calculators for Carnival, NCL, Celebrity** — Different package structures per line
+4. **🟡 [Y] Restaurant pages for Celebrity & Holland America** — Highest ship count with zero restaurant coverage
 
 ---
 
