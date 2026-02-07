@@ -89,6 +89,23 @@
   RewriteRule ^cruise-lines/rcl\.html$ /cruise-lines/royal-caribbean.html [R=301,L]
   RewriteRule ^solo/visitingtheunitedstates\.html$ /solo/visiting-the-united-states-before-your-cruise.html [R=301,L]
   RewriteRule ^drinks\.html$ /drink-packages.html [R=301,L]
+  RewriteRule ^packing\.html$ /packing-lists.html [R=301,L]
+  RewriteRule ^contact\.html$ /about-us.html [R=301,L]
+  RewriteRule ^about\.html$ /about-us.html [R=301,L]
+
+  # Phantom author/about paths
+  RewriteRule ^authors/tina\.html$ /authors/tina-maulsby.html [R=301,L]
+  RewriteRule ^about/ken-baker\.html$ /authors/ken-baker.html [R=301,L]
+
+  # Phantom directories that don't exist
+  RewriteRule ^contact/?$ /about-us.html [R=301,L]
+  RewriteRule ^stories/?$ /articles.html [R=301,L]
+  RewriteRule ^stories/.*$ /articles.html [R=301,L]
+  RewriteRule ^news/?$ /index.html [R=301,L]
+  RewriteRule ^newsletter/?$ /index.html [R=301,L]
+
+  # Ship at root level (should be in /ships/rcl/)
+  RewriteRule ^ships/enchantment-of-the-seas\.html$ /ships/rcl/enchantment-of-the-seas.html [R=301,L]
 
   # Ship directory index redirects (carnival-cruise-line/index.html is phantom)
   RewriteRule ^ships/carnival-cruise-line/index\.html$ /ships/carnival/ [R=301,L]
@@ -136,13 +153,17 @@
   RewriteRule ^videos/?$ /ships.html [R=301,L]
   RewriteRule ^solo/?$ /solo.html [R=301,L]
 
+  # Ports directory to main page
+  RewriteRule ^ports/?$ /ports.html [R=301,L]
+
   # ============================================================
   # ASSET FILE BLOCKS (return 410 Gone for Google to de-index)
   # ============================================================
 
-  # Block JSON files in ship asset directories (these should not be indexed)
+  # Block JSON files in various directories (these should not be indexed)
   RewriteRule ^ships/rcl/assets/.*\.json$ - [G,L]
   RewriteRule ^videos/.*\.json$ - [G,L]
+  RewriteRule ^travel/articles/.*\.json$ - [G,L]
 </IfModule>
 
 # ============================================================
