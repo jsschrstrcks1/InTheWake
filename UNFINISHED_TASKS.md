@@ -62,6 +62,7 @@
 
 | Feature | RCL Status | Other Lines Status | Gap Severity |
 |---------|------------|-------------------|--------------|
+| **ships.html Hub Page** | "Royal Caribbean Fleet" with full fleet display | Other lines only in /cruise-lines/*.html (not main nav) | 🔴 **MAJOR** |
 | **Restaurant/Venue Pages** | 280 pages | Celebrity: 0, HAL: 0, Princess: 0, Costa: 0, Silversea: 0, Oceania: 0, Regent: 0, Seabourn: 0, Cunard: 0, Explora: 0 | 🔴 **MAJOR** |
 | **Ship Tracker Tool** | 50+ ships in SHIPS_DB | Hardcoded RCL-only | 🔴 **MAJOR** |
 | **Drink Calculator** | Full tool with Crown & Anchor | RCL-only ("Royal Caribbean Drink Calculator") | 🔴 **MAJOR** |
@@ -97,6 +98,18 @@
 | Quiz V2 | 15 cruise lines | ✅ Complete |
 | **Deployments** | 193 ships across 15 lines | 🟡 **Partial** — HAL: 11/47, Carnival: 26/49, RCL: 29/51 |
 
+### Data File Parity Gaps
+
+| Data File | RCL | NCL | Carnival | MSC | Virgin | Celebrity | HAL | Princess | Others |
+|-----------|-----|-----|----------|-----|--------|-----------|-----|----------|--------|
+| `*_ships_meta.json` | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| `*_classes.json` | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| `*_bars_by_class.json` | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| `*_bars_core.json` | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| `*-venue-menus.json` | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
+| `*-venues.json` | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
+| `*-ship-room-flags.json` | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+
 ### Missing Cruise Lines Entirely
 
 | Cruise Line | Fleet Size | Market | Priority |
@@ -110,10 +123,11 @@
 
 ### Priority Recommendations
 
-1. **🟡 [Y] Unlock Stateroom Checker for other lines** — Data already exists for 270 ships, just need to enable cruise line selector
-2. **🟡 [Y] Expand Ship Tracker to multi-line** — Load from fleets.json instead of hardcoded SHIPS_DB
-3. **🟡 [Y] Create Drink Calculators for Carnival, NCL, Celebrity** — Different package structures per line
-4. **🟡 [Y] Restaurant pages for Celebrity & Holland America** — Highest ship count with zero restaurant coverage
+1. **🟡 [Y] Expand ships.html to multi-line hub** — Currently "Royal Caribbean Fleet" only; should list all 16 cruise lines with 293 ships
+2. **🟡 [Y] Unlock Stateroom Checker for other lines** — Data already exists for 270 ships, just need to enable cruise line selector
+3. **🟡 [Y] Expand Ship Tracker to multi-line** — Load from fleets.json instead of hardcoded SHIPS_DB
+4. **🟡 [Y] Create Drink Calculators for Carnival, NCL, Celebrity** — Different package structures per line
+5. **🟡 [Y] Restaurant pages for Celebrity & Holland America** — Highest ship count with zero restaurant coverage
 
 ---
 
