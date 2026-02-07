@@ -1925,6 +1925,7 @@ Soli Deo Gloria
           : `<span class="port-name">${port.name}</span>`;
         item.innerHTML = `
           <input type="checkbox" class="port-checkbox" data-port="${port.id}"
+                 aria-label="Mark ${port.name} as visited"
                  ${visitedPorts.has(port.id) ? 'checked' : ''}>
           ${portNameHtml}
           <span class="port-country">${port.country}</span>
