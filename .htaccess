@@ -65,13 +65,11 @@
   # HTTPS & CANONICAL REDIRECTS
   # ============================================================
 
-  # Force HTTPS (redirect all HTTP traffic to HTTPS)
-  RewriteCond %{HTTPS} off
-  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
-
-  # Remove www subdomain (canonicalize to non-www)
-  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+  # Force HTTPS and non-www in a single redirect (avoid redirect chains)
+  # Handles: http://*, http://www.*, https://www.* → https://cruisinginthewake.com/*
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} ^www\.cruisinginthewake\.com$ [NC]
+  RewriteRule ^(.*)$ https://cruisinginthewake.com/$1 [R=301,L]
 
   # Redirect legacy ship URL patterns
   # carnival-cruise-line → carnival (only phantom path that needs redirecting)
