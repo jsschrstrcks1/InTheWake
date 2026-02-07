@@ -66,6 +66,7 @@
 | **Restaurant/Venue Pages** | 280 pages | Celebrity: 0, HAL: 0, Princess: 0, Costa: 0, Silversea: 0, Oceania: 0, Regent: 0, Seabourn: 0, Cunard: 0, Explora: 0 | 🔴 **MAJOR** |
 | **Ship Tracker Tool** | 50+ ships in SHIPS_DB | Hardcoded RCL-only | 🔴 **MAJOR** |
 | **Drink Calculator** | Full tool with Crown & Anchor | RCL-only ("Royal Caribbean Drink Calculator") | 🔴 **MAJOR** |
+| **Drink Packages Guide** | Complete guide (drink-packages.html) | RCL-only ("Royal Caribbean Drink Packages Guide") | 🔴 **MAJOR** |
 | **Stateroom Checker UI** | Full functionality | UI locked: "Currently supporting Royal Caribbean ships" | 🔴 **MAJOR** |
 
 ### Restaurant/Venue Coverage by Line
