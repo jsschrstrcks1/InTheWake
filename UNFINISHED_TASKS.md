@@ -130,7 +130,7 @@ The following items were **explicitly started** in previous threads. Each has be
 - [x] `ship-quiz-data-v2.json` (model v2.1, dated 2026-01-03): supports rcl, carnival, ncl, msc, celebrity, princess, holland, cunard, costa, virgin, oceania, regent, seabourn, silversea, explora
 - [x] `cruise-lines/quiz.html` exists
 **Remaining:**
-- [ ] Edge case fixes per `.claude/plan-quiz-edge-cases-and-improvements.md`
+- [x] Edge case fixes per `.claude/plan-quiz-edge-cases-and-improvements.md` ✅ Phase 1 complete (verified 2026-02-05: linesToScore, otherLines, and lineData null safety all fixed)
 
 #### 5. ~~"Ships That Visit Here" Feature~~ ✅ FULLY DEPLOYED
 (Verified — see previous entry)
@@ -188,20 +188,14 @@ The following items were **explicitly started** in previous threads. Each has be
 - [x] Accessibility on port pages — **376 of 380** ports have accessibility content
 - [x] Transport cost data — present on **10 port pages** (partial, not 0)
 - [x] Print CSS — exists in `port-map.css`, `calculator.css`, `item-cards.css`, `ships-dynamic.css`
-**What remains (11/16+ done = ~69%):**
+**Verified 2026-02-05:**
 - [x] ~~"From the Pier" walking distance component~~ ✅ COMPLETE (376/376 real port pages; 4 redirect-only pages excluded: beijing, falmouth-jamaica, jamaica, kyoto) — 2026-02-05
 - [x] ~~Transport cost expansion~~ ✅ COMPLETE — "From the Pier" component on 376/376 real port pages includes transport modes, fares, and times — 2026-02-05
-- [ ] "Add to My Logbook" button on port pages (0 ports)
-- [ ] Region completion achievements (0 implemented)
-- [ ] DIY vs. Excursion comparison callouts (0 ports)
-- [ ] "Real Talk" honest assessment callouts (0 ports)
-**What remains (13/16+ done = ~81%):**
-- [x] "From the Pier" walking distance component — **30 ports** (10 Caribbean + 10 Mediterranean + 6 Alaska + 4 Hawaii)
-- [x] "Add to My Logbook" button on port pages — **377 ports** (universal via `port-logbook-btn.js`)
-- [x] Region completion achievements — **8 regions** implemented in Port Tracker
-- [x] DIY vs. Excursion comparison callouts — **30 ports** (10 Caribbean + 10 Mediterranean + 6 Alaska + 4 Hawaii)
-- [x] "Real Talk" honest assessment callouts — **30 ports** (10 Caribbean + 10 Mediterranean + 6 Alaska + 4 Hawaii)
-- [ ] Transport cost expansion (10/380 — needs 370 more ports)
+- [x] Region completion achievements — **8 regions** + 3 regional + 5 milestones implemented in Port Tracker (verified 2026-02-05)
+- [x] DIY vs. Excursion comparison callouts — **30 ports** (10 Caribbean + 10 Mediterranean + 6 Alaska + 4 Hawaii) (verified 2026-02-05)
+- [x] "Real Talk" honest assessment callouts — **30 ports** (10 Caribbean + 10 Mediterranean + 6 Alaska + 4 Hawaii) (verified 2026-02-05)
+- [x] "Add to My Logbook" button on port pages — **368 ports** have `port-logbook-btn.js` deployed (2026-02-06); 12 correctly excluded: 3 redirects, 6 scenic passages, 1 reference page, 2 private cruise line destinations
+**Remaining:**
 - [ ] Comprehensive Print CSS for port pages (partial, not complete)
 
 #### 10. ~~Port Map Integration~~ ✅ ESSENTIALLY COMPLETE (99%)
@@ -2038,9 +2032,9 @@ These represent In The Wake's competitive advantages — areas where WhatsInPort
 **In The Wake strength:** Port Logbook + Ship Logbook with achievement badges, percentile rankings
 **Opportunity:** Deepen emotional investment through progress tracking
 **Tasks:**
-- [ ] Add "Add to My Logbook" button on each port page
-- [ ] Show user's visited status on port pages (if tracked)
-- [ ] Create region completion achievements (Caribbean Bingo, etc.)
+- [x] Add "Add to My Logbook" button on each port page — **368 ports** deployed (2026-02-06)
+- [x] Show user's visited status on port pages (if tracked) — toggle button shows "Added" state
+- [x] Create region completion achievements (Caribbean Bingo, etc.) — 8 regions + 3 regional + 5 milestones in Port Tracker
 - [ ] Phase 2: "My Cruising Journey" world map visualization (see Leaflet roadmap)
 
 ##### B4. Restaurant & Dining Venue Depth ⭐ UNIQUE FEATURE
@@ -3571,13 +3565,14 @@ The CHAFF items are rejected because they require real-time data infrastructure 
 
 #### P2 — Strategic Features
 
-##### 11. "Add to My Logbook" Button on Port Pages
+##### 11. ~~"Add to My Logbook" Button on Port Pages~~ ✅ COMPLETE
 **Source:** WhatsInPort B3, Cruise Critic B6
 **Effort:** Medium | **Impact:** Medium
-- [ ] Add "Add to My Logbook" button on each port page
-- [ ] Integrate with existing Port Logbook localStorage
-- [ ] Show visited indicator if port already in logbook
-- [ ] Provide "View My Logbook" link after adding
+- [x] Add "Add to My Logbook" button on each port page — **368 ports** deployed (2026-02-06)
+- [x] Integrate with existing Port Logbook localStorage — uses `visited-ports` key
+- [x] Show visited indicator if port already in logbook — toggle button shows "Added" state
+- [x] Provide "View My Logbook" link after adding — script links to Port Tracker
+**Excluded (12):** 3 redirects (beijing, falmouth-jamaica, kyoto), 6 scenic passages (inside-passage, drake-passage, chilean-fjords, glacier-alley, strait-of-magellan, south-shetland-islands), 1 reference page (tender-ports), 2 private destinations (harvest-caye, royal-beach-club-nassau)
 
 ##### 12. DIY vs. Ship Excursion Comparison
 **Source:** WhatsInPort B9

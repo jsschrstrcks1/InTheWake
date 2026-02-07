@@ -26,7 +26,7 @@
 
   <!-- ICP-Lite v1.4 Meta Tags -->
   <meta name="ai-summary" content="Interactive quiz to help cruise travelers find the right cruise line based on travel style, budget, and preferences. Covers 15 lines: Royal Caribbean, Carnival, Norwegian, MSC, Celebrity, Princess, Holland America, Cunard, Costa, Virgin Voyages, Oceania, Regent Seven Seas, Seabourn, Silversea, and Explora Journeys." />
-  <meta name="last-reviewed" content="2026-01-21" />
+  <meta name="last-reviewed" content="2026-02-06" />
   <meta name="content-protocol" content="ICP-Lite v1.4" />
 
   <!-- Core -->
@@ -462,36 +462,63 @@
       </button>
       <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-        <div class="nav-dropdown">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
+
+        <!-- Planning Dropdown -->
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
           <div class="dropdown-menu" role="menu">
-            <a href="/planning.html">Planning (overview)</a>
+            <a href="/first-cruise.html">Your First Cruise</a>
             <a href="/ships.html">Ships</a>
-            <a href="/ships/quiz.html">Ship Quiz</a>
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
             <a href="/ports.html">Ports</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
-        <div class="nav-dropdown">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Cruise Lines <span class="caret">&#9662;</span></button>
+
+        <!-- Tools Dropdown -->
+        <div class="nav-dropdown" id="nav-tools">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Tools <span class="caret">&#9662;</span>
+          </button>
           <div class="dropdown-menu" role="menu">
-            <a href="/cruise-lines.html">Compare Cruise Lines</a>
+            <a href="/ships/quiz.html">Ship Quiz</a>
             <a href="/cruise-lines/quiz.html" aria-current="page">Cruise Line Quiz</a>
-            <a href="/cruise-lines/royal-caribbean.html">Royal Caribbean</a>
-            <a href="/cruise-lines/carnival.html">Carnival</a>
-            <a href="/cruise-lines/celebrity.html">Celebrity</a>
-          </div>
-        </div>
-        <div class="nav-dropdown">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Tools <span class="caret">&#9662;</span></button>
-          <div class="dropdown-menu" role="menu">
             <a href="/drink-calculator.html">Drink Calculator</a>
             <a href="/stateroom-check.html">Stateroom Check</a>
-            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/tools/port-tracker.html">Port Logbook</a>
+            <a href="/tools/ship-tracker.html">Ship Logbook</a>
           </div>
         </div>
-        <a class="nav-pill" href="/solo.html">Solo</a>
-        <a class="nav-pill" href="/first-cruise.html">First Cruise</a>
+
+        <!-- Onboard Dropdown -->
+        <div class="nav-dropdown" id="nav-onboard">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Onboard <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
+            <a href="/articles.html">Articles</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
     </div>
   </header>
@@ -754,14 +781,15 @@
 
   <!-- FOOTER -->
   <footer class="wrap" role="contentinfo">
-    <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
+    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny mt-05">
-      <a href="/privacy.html">Privacy</a> &middot;
-      <a href="/terms.html">Terms</a> &middot;
-      <a href="/about-us.html">About</a> &middot;
-      <a href="/accessibility.html">Accessibility</a>
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
+      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
-    <p class="trust-badge">&#10003; No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="tiny center visually-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+    <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- Quiz Logic -->
