@@ -18,7 +18,7 @@
 | Port pages | 380 |
 | Ship pages | 292 |
 | Restaurant pages | 472 |
-| Inline styles | ~17,800 |
+| Inline styles | ~16,800 |
 | Files with `<style>` | 25 |
 
 ---
