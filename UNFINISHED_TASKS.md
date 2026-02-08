@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Queue of tasks waiting to be worked on. Check IN_PROGRESS_TASKS.md before starting.
-**Last Updated:** 2026-02-07 (Full codebase audit — every claim verified against actual files)
+**Last Updated:** 2026-02-08 (Full codebase audit — every claim verified against actual files)
 
 > 📁 **Looking for completed work?** See [COMPLETED_TASKS.md](COMPLETED_TASKS.md) for the historical archive of finished tasks.
 
@@ -41,12 +41,12 @@
 | Port pages with `<style>` | **1** (redirect only) | ✅ |
 | Ship pages with `<style>` | **0** individual ships | ✅ |
 | Restaurant pages with `<style>` | **0** | ✅ |
-| Inline `style=` attributes | **~15,600** | Phase 5 passes 1+2 complete (51% reduction) |
+| Inline `style=` attributes | **~17,800** | Phase 5 passes 1+2 complete (43% reduction) |
 
 ### Major Corrections to Previous Audits
 1. **Weather data**: Previous audit said "only 1 port (cozumel)" had data. **Wrong.** All 380 ports have seasonal data in a 59,536-line JSON file.
 2. **Service Worker**: Previous audit said "v13.2.0, not started." **Wrong.** Already upgraded to v14.2.0.
-3. **Ship page CSS**: Previous audit said "130/293 (44%)." **Wrong.** Now 293/293 (100%).
+3. **Ship page CSS**: Previous audit said "130/293 (44%)." **Wrong.** Now 292/292 (100%).
 4. **norfolk.html**: Previous audit said "CONFIRMED missing." **Wrong.** File exists (44KB).
 5. **From the Pier**: Previous audit said "0 ports." **Corrected.** Now 376/376 real ports (completed 2026-02-05).
 6. **Port count**: Various places said 291, 333, 374. **Actual count: 380.**
@@ -73,31 +73,31 @@
 
 | Cruise Line | Ship Pages | Restaurant Pages | Parity Gap |
 |-------------|------------|------------------|------------|
-| **RCL** | 51 | **280** | ✅ Baseline |
-| NCL | 21 | 78 | Partial |
-| Virgin | 5 | 46 | Good ratio |
-| MSC | 25 | 45 | Partial |
-| Carnival | 49 | 23 | **Needs ~200+ more** |
-| **Celebrity** | 30 | **0** | 🔴 Missing entirely |
-| **Holland America** | 47 | **0** | 🔴 Missing entirely |
-| **Princess** | 18 | **0** | 🔴 Missing entirely |
-| **Costa** | 10 | **0** | 🔴 Missing entirely |
-| **Silversea** | 13 | **0** | 🔴 Missing entirely |
-| **Oceania** | 9 | **0** | 🔴 Missing entirely |
-| **Regent** | 8 | **0** | 🔴 Missing entirely |
-| **Seabourn** | 8 | **0** | 🔴 Missing entirely |
-| **Cunard** | 5 | **0** | 🔴 Missing entirely |
-| **Explora** | 10 | **0** | 🔴 Missing entirely |
+| **RCL** | 49 | **280** | ✅ Baseline |
+| NCL | 20 | 78 | Partial |
+| Virgin | 4 | 46 | Good ratio |
+| MSC | 24 | 45 | Partial |
+| Carnival | 48 | 23 | **Needs ~200+ more** |
+| **Celebrity** | 29 | **0** | 🔴 Missing entirely |
+| **Holland America** | 46 | **0** | 🔴 Missing entirely |
+| **Princess** | 17 | **0** | 🔴 Missing entirely |
+| **Costa** | 9 | **0** | 🔴 Missing entirely |
+| **Silversea** | 12 | **0** | 🔴 Missing entirely |
+| **Oceania** | 8 | **0** | 🔴 Missing entirely |
+| **Regent** | 7 | **0** | 🔴 Missing entirely |
+| **Seabourn** | 7 | **0** | 🔴 Missing entirely |
+| **Cunard** | 4 | **0** | 🔴 Missing entirely |
+| **Explora** | 8 | **0** | 🔴 Missing entirely |
 
 ### Features with Multi-Line Coverage (Varying Completeness)
 
 | Feature | Coverage | Gap Analysis |
 |---------|----------|--------------|
-| Ship Pages | 293 across 16 lines | ✅ All major lines covered |
+| Ship Pages | 292 across 16 lines | ✅ All major lines covered |
 | Ship Videos | 4-45 per line | ✅ Good distribution |
 | Stateroom Data (JSON) | 270 files across 7+ lines | ✅ Data exists (UI needs unlock) |
 | Quiz V2 | 15 cruise lines | ✅ Complete |
-| **Deployments** | 193 ships across 15 lines | 🟡 **Partial** — HAL: 11/47, Carnival: 26/49, RCL: 29/51 |
+| **Deployments** | 193 ships across 15 lines | 🟡 **Partial** — HAL: 11/46, Carnival: 26/48, RCL: 29/49 |
 
 ### Data File Parity Gaps
 
@@ -124,7 +124,7 @@
 
 ### Priority Recommendations
 
-1. **🟡 [Y] Expand ships.html to multi-line hub** — Currently "Royal Caribbean Fleet" only; should list all 16 cruise lines with 293 ships
+1. **🟡 [Y] Expand ships.html to multi-line hub** — Currently "Royal Caribbean Fleet" only; should list all 16 cruise lines with 292 ships
 2. **🟡 [Y] Unlock Stateroom Checker for other lines** — Data already exists for 270 ships, just need to enable cruise line selector
 3. **🟡 [Y] Expand Ship Tracker to multi-line** — Load from fleets.json instead of hardcoded SHIPS_DB
 4. **🟡 [Y] Create Drink Calculators for Carnival, NCL, Celebrity** — Different package structures per line
@@ -198,7 +198,7 @@ The following items were **explicitly started** in previous threads. Each has be
 **Plan file:** `.claude/plan-port-weather-guide.md`
 **Verified 2026-02-05:** Previous audit was wrong about data gap.
 - [x] `port-weather.js` (14,748 bytes) — weather widget loader, deployed to **all 380 port pages** (100%)
-- [x] `id="weather-guide"` section exists on **375 port pages** (5 redirect pages excluded)
+- [x] `id="weather-guide"` section exists on **376 port pages** (4 redirect pages excluded)
 - [x] `seasonal-guides.json` at `assets/data/ports/seasonal-guides.json` — **59,536 lines, 380 ports with data**
 - **Previous claim of "only 1 port (cozumel)" was completely wrong.** All 380 ports have seasonal data.
 **Remaining:**
@@ -226,10 +226,10 @@ The following items were **explicitly started** in previous threads. Each has be
 #### 7. CSS Consolidation — Phases 3-4 MASSIVELY IMPROVED, Phase 5 Remaining
 **Verified 2026-02-05:** Previous audit counts were stale.
 - Port pages with `<style>` blocks: **1** of 380 (only `falmouth-jamaica.html`, a redirect page)
-- Ship pages with `<style>` blocks: **0** of 293 individual ship pages (only 2 index files + 1 venues.html)
-- Restaurant pages with `<style>` blocks: **0** of 280 ✅ ALL CLEANED
+- Ship pages with `<style>` blocks: **4** of 292 individual ship pages (3 unnamed-project-ace + msc-world-america; plus 3 index files + venues.html)
+- Restaurant pages with `<style>` blocks: **0** of 472 ✅ ALL CLEANED
 - Total site-wide: **25 files** with `<style>` blocks (down from 511 → 95% reduction)
-- Inline `style=` attributes: **~15,600** across all HTML files (down from 31,128 — Phase 5 passes 1+2 replaced 12,600+ with CSS classes)
+- Inline `style=` attributes: **~17,800** across all HTML files (down from 31,128 — Phase 5 passes 1+2 replaced ~13,300 with CSS classes)
 **Files still with `<style>` blocks (25 — tools/admin/templates/special pages):**
   - `.claude/skills/standards/resources/examples/perfect-html-page.html` (template)
   - `admin/reports/articles.html`, `admin/reports/sw-health.html` (admin tools)
@@ -246,7 +246,7 @@ The following items were **explicitly started** in previous threads. Each has be
 - [x] Phase 5 pass 1: Replaced 11,971 inline styles with CSS classes (31,128 → ~19,000) ✅ 2026-02-05
 - [x] Phase 5 pass 2: Replaced 650 more margin-top styles (mt-2, mt-075) ✅ 2026-02-07
 - [x] Evaluated 25 remaining `<style>` blocks: all appropriate (tools/admin/templates) ✅ 2026-02-07
-- [ ] Phase 5 pass 3: Further reduce remaining ~15,600 inline styles (remaining are intentional overrides or mixed patterns)
+- [ ] Phase 5 pass 3: Further reduce remaining ~17,800 inline styles (remaining are intentional overrides or mixed patterns)
 
 #### 8. ~~Ship Page Standardization~~ ✅ CSS ROLLOUT COMPLETE
 **Verified 2026-02-05:** All ship pages now link ship-page.css.
@@ -262,8 +262,8 @@ The following items were **explicitly started** in previous threads. Each has be
 #### 9. Competitor Gap Quick Wins — More Complete Than Reported
 **Verified 2026-01-31:** Several initiatives already done but not tracked:
 - [x] Ships That Visit Here — COMPLETE
-- [x] Tender Port Index — `tender-ports.html` exists
-- [x] First-Timer Hub — `first-cruise.html` exists (557 lines)
+- [x] Tender Port Index — `ports/tender-ports.html` exists
+- [x] First-Timer Hub — `first-cruise.html` exists (577 lines)
 - [x] 30-Day Countdown — `countdown.html` exists (825 lines)
 - [x] Trust messaging — about-us.html has "No ads" language
 - [x] Affiliate disclosure page — exists
@@ -1407,15 +1407,15 @@ After downloading, must add attribution sections to HTML.
 
 **Estimated Impact:** Remove ~50,000+ lines of duplicated CSS
 
-### 🟢 [G] Ship Page Standardization (293 pages)
+### 🟢 [G] Ship Page Standardization (292 pages)
 **Lane:** 🟢 Green (pattern normalization, AI-safe)
 **Reference:** packing-lists.html header pattern
 
 #### ~~Phase 1: Extract Shared CSS~~ ✅ COMPLETE (verified 2026-02-05)
 - [x] ~~Create /assets/ship-page.css~~ ✅ EXISTS with hero, card, section, gallery, and FAQ components
-- [x] ~~Replace inline styles in ship pages with CSS link~~ ✅ 293/293 ship pages link ship-page.css (100%)
+- [x] ~~Replace inline styles in ship pages with CSS link~~ ✅ 292/292 ship pages link ship-page.css (100%)
 
-#### Phase 2: RCL Ships (50 pages)
+#### Phase 2: RCL Ships (49 pages)
 - [ ] Fix author avatar to circle (remove inline border-radius overrides)
 - [ ] Standardize carousel markup to `<figure>` pattern
 - [ ] Align section order: First Look → Dining → Videos → Deck Plans/Tracker → FAQ
