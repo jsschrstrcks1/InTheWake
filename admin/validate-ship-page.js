@@ -2069,6 +2069,54 @@ async function validateShipAtlas(slug, cruiseLine, shipName, score, isTBN, isHis
 /**
  * Validate a single ship page
  */
+/**
+ * Validate Print Guide Button
+ * Requires: <button class="print-guide-btn"> inside <main>, right before </main>
+ * Generator rule: print button is the last element before </main> closes
+ */
+function validatePrintButton($, html) {
+  const errors = [];
+  const warnings = [];
+  const btn = $('main button.print-guide-btn');
+  if (btn.length === 0) {
+    errors.push({
+      section: 'print_button',
+      rule: 'missing',
+      message: 'Missing print guide button (button.print-guide-btn) inside <main>',
+      severity: 'BLOCKING'
+    });
+  } else {
+    // Verify it has correct onclick and aria-label
+    if (!btn.attr('onclick') || !btn.attr('onclick').includes('window.print')) {
+      warnings.push({
+        section: 'print_button',
+        rule: 'onclick',
+        message: 'Print button missing onclick="window.print()"',
+        severity: 'WARNING'
+      });
+    }
+    if (!btn.attr('aria-label')) {
+      warnings.push({
+        section: 'print_button',
+        rule: 'aria_label',
+        message: 'Print button missing aria-label attribute',
+        severity: 'WARNING'
+      });
+    }
+    // Verify it is positioned right before </main>
+    const mainClosingPattern = /class="print-guide-btn"[\s\S]*?<\/button>\s*<\/main>/;
+    if (!mainClosingPattern.test(html)) {
+      warnings.push({
+        section: 'print_button',
+        rule: 'position',
+        message: 'Print button should be the last element before </main>',
+        severity: 'WARNING'
+      });
+    }
+  }
+  return { valid: errors.length === 0, errors, warnings, data: { hasPrintButton: btn.length > 0 } };
+}
+
 async function validateShipPage(filepath) {
   const relPath = relative(PROJECT_ROOT, filepath);
   const slug = basename(filepath, '.html');
@@ -2119,6 +2167,7 @@ async function validateShipPage(filepath) {
     const shipStatsResult = validateShipStatsJSON($);
     const diningResult = validateDiningJSON($);
     const wordCountResult = validateWordCounts($, isHistoric);
+    const printButtonResult = validatePrintButton($, html);
 
     // Async validations (pass cruiseLine for correct data paths)
     const logbookResult = await validateLogbook(slug, cruiseLine, isHistoric);
@@ -2169,6 +2218,7 @@ async function validateShipPage(filepath) {
       ...htmlStructureResult.errors, ...viewportResult.errors,
       ...contentPurityResult.errors, ...shipStatsResult.errors,
       ...diningResult.errors, ...wordCountResult.errors,
+      ...printButtonResult.errors,
       ...searchIndexResult.errors, ...shipAtlasResult.errors
     );
 
@@ -2185,6 +2235,7 @@ async function validateShipPage(filepath) {
       ...htmlStructureResult.warnings, ...viewportResult.warnings,
       ...contentPurityResult.warnings, ...shipStatsResult.warnings,
       ...diningResult.warnings, ...wordCountResult.warnings,
+      ...printButtonResult.warnings,
       ...searchIndexResult.warnings, ...shipAtlasResult.warnings
     );
 
@@ -2205,6 +2256,7 @@ async function validateShipPage(filepath) {
     results.videos = videoResult.data;
     results.articles = articlesResult.data;
     results.wcag = wcagResult.data;
+    results.print_button = printButtonResult.data;
     results.navigation = navResult.data;
     results.html_structure = htmlStructureResult.data;
     results.viewport = viewportResult.data;

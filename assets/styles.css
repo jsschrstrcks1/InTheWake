@@ -2378,6 +2378,46 @@ h3.seasonal-section-title::after {
 }
 
 /* =============================================
+   Print Guide FAB (Floating Action Button)
+   Appears on port and ship pages.
+   Hidden during print. Accessible (44px touch target).
+   ============================================= */
+.print-guide-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent, #0e6e8e);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: background 0.2s, transform 0.2s;
+  min-height: 44px;
+  min-width: 44px;
+}
+.print-guide-btn:hover,
+.print-guide-btn:focus-visible {
+  background: var(--sea, #083041);
+  transform: translateY(-1px);
+  outline: 2px solid var(--accent, #0e6e8e);
+  outline-offset: 2px;
+}
+.print-guide-btn svg { flex-shrink: 0; }
+@media (max-width: 600px) {
+  .print-guide-btn span { display: none; }
+  .print-guide-btn { padding: 0.75rem; border-radius: 50%; }
+}
+
+/* =============================================
    Port Page Print CSS — Comprehensive
    Purpose: Clean single-page output for port guides.
    Optimized for cruise travelers printing guides
@@ -2420,6 +2460,7 @@ h3.seasonal-section-title::after {
   .btn,
   .pill,
   .nav-pill,
+  .print-guide-btn,
   [aria-label="Breadcrumb"] { display: none !important; }
 
   /* --- Single-column layout --- */
@@ -2508,6 +2549,59 @@ h3.seasonal-section-title::after {
   /* --- Page margins --- */
   @page { margin: 1.5cm 1.5cm 2cm 1.5cm; }
   @page :first { margin-top: 1cm; }
+}
+
+/* =============================================
+   Ship Page Print CSS — Comprehensive
+   Purpose: Clean single-page output for ship profiles.
+   Optimized for cruise travelers reviewing ship
+   details before booking or boarding.
+   ============================================= */
+@media print {
+  /* --- Ship-specific: hide non-essential --- */
+  .note-kens-logbook,
+  .related-ships,
+  .related-classes,
+  .itinerary,
+  .quiz-cta,
+  .attributions,
+  [id="video-highlights"],
+  [id="planning-resources"],
+  [data-imo] {
+    display: none !important;
+  }
+
+  /* --- Ship intro --- */
+  .page-intro .page-title { font-size: 18pt; margin: 0 0 0.3cm; color: #000; }
+  .page-intro .answer-line { font-size: 10pt; color: #333; margin: 0 0 0.4cm; }
+
+  /* --- Ship stats card --- */
+  .ship-stats { background: #f5f5f5 !important; border: 1pt solid #ccc !important; padding: 0.3cm !important; margin: 0.3cm 0 !important; page-break-inside: avoid; }
+  .ship-stats h3 { font-size: 12pt; margin: 0 0 0.2cm; border-bottom: 1pt solid #999; padding-bottom: 0.1cm; }
+  .ship-stats dt { font-weight: 600; }
+  .ship-stats dd { margin: 0 0 0.15cm; }
+
+  /* --- Dining section --- */
+  #dining-card { page-break-inside: avoid; }
+  #dining-card h2 { font-size: 13pt; border-bottom: 1pt solid #999; padding-bottom: 0.1cm; margin: 0.5cm 0 0.2cm; }
+  .venues-list { font-size: 9pt; padding-left: 1em; }
+
+  /* --- Deck plans --- */
+  [id="deck-plans"] { page-break-inside: avoid; }
+  [id="deck-plans"] h2 { font-size: 13pt; border-bottom: 1pt solid #999; padding-bottom: 0.1cm; }
+
+  /* --- FAQ: force expanded --- */
+  .faq details.faq-item { display: block !important; }
+  .faq details.faq-item > *:not(summary) { display: block !important; }
+  .faq details.faq-item summary { font-weight: 600; font-size: 10pt; }
+  .faq details.faq-item summary::marker { display: none !important; content: none !important; }
+
+  /* --- Grid-2: single column for print --- */
+  .grid-2 { display: block !important; }
+  .grid-2 > * { margin-bottom: 0.4cm; }
+
+  /* --- First Look card --- */
+  [id="first-look"] { font-size: 13pt; border-bottom: 1pt solid #999; padding-bottom: 0.1cm; page-break-after: avoid; }
 }
 
 /* ===== END Unified Styles ===== */
