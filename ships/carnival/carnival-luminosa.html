@@ -521,7 +521,7 @@ Dining Venues on Carnival Luminosa <a href="/restaurants.html" style="font-size:
       <section class="card quiz-cta" style="background: linear-gradient(135deg, #e0f4f8, #fff); border-left: 4px solid #0e6e8e; padding: 1rem;">
         <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #083041;">Exploring Options?</h3>
         <p class="tiny" style="margin-bottom: 0.75rem; color: #5a7a8a;">Take our quick quiz to find ships that match your travel style.</p>
-        <a href="/ships/quiz.html" class="pill" style="font-size: 0.85rem;">Ship Quiz →</a>
+        <a href="/ships/quiz.html" class="pill text-sm" >Ship Quiz →</a>
       </section>
 
 <section class="card author-card-vertical" aria-labelledby="author-heading">
@@ -572,7 +572,7 @@ Dining Venues on Carnival Luminosa <a href="/restaurants.html" style="font-size:
 <footer role="contentinfo">
   <p><strong>In the Wake</strong> — A Cruise Traveler's Logbook</p>
   <p>© 2025 In the Wake. All rights reserved.</p>
-  <p style="margin-top: 1rem;">
+  <p class="mt-1">
     <a href="/privacy.html">Privacy</a> ·
     <a href="/terms.html">Terms</a> ·
     <a href="/accessibility.html">Accessibility</a> ·
@@ -600,7 +600,7 @@ Dining Venues on Carnival Luminosa <a href="/restaurants.html" style="font-size:
     if(n)n.onclick=()=>{page++;render();};
   }
   fetch('/assets/data/articles/index.json').then(r=>r.json()).then(data=>{
-    articles=(data||[]).filter(a=>a.status==='published').sort((a,b)=>new Date(b.date)-new Date(a.date));
+    articles=(data.articles||data||[]).filter(a=>a.status==='published').sort((a,b)=>new Date(b.date)-new Date(a.date));
     if(fb)fb.style.display='none';
     if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
   }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});

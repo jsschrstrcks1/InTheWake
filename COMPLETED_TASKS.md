@@ -599,3 +599,68 @@ Replaced identical boilerplate logbook entries (generic "Guests praise the quali
 **END OF COMPLETED TASKS**
 
 This file is append-only. New completions are added at the bottom of the relevant section.
+
+---
+
+## February 2026 Completions (Migrated from UNFINISHED_TASKS.md)
+
+**Migrated:** 2026-02-08
+
+#### 1. ~~Venue Audit — Phase 2~~ ✅ COMPLETE
+**Verified 2026-01-31:** All major template issues remediated. 0 generic text, 0 hotdog.webp, 0 missing analytics, all have menu-prices.
+- [x] Venue validator v2 integrated into unified `admin/validate.js` (reads `restaurants/*.html` path pattern)
+**Remaining minor items:** ✅ ALL RESOLVED (2026-02-01)
+- [x] 5 counter-service venues had incorrect "Smart Casual" dress codes — fixed to "Casual"
+- [x] 85 "unknown" venues classified into metadata (72 RCL entertainment, 3 RCL activities, plus category fixes for Virgin/Carnival bars)
+- [x] 0 unknown venues remaining, 0 failures, 472/472 pass
+
+#### 4. ~~Quiz V2 Multi-Line Expansion~~ ✅ MOSTLY COMPLETE
+**Verified 2026-01-31:** Quiz data v2 already covers 15 cruise lines.
+- [x] `ship-quiz-data-v2.json` (model v2.1, dated 2026-01-03): supports rcl, carnival, ncl, msc, celebrity, princess, holland, cunard, costa, virgin, oceania, regent, seabourn, silversea, explora
+- [x] `cruise-lines/quiz.html` exists
+**Remaining:**
+- [x] Edge case fixes per `.claude/plan-quiz-edge-cases-and-improvements.md` ✅ Phase 1 complete (verified 2026-02-05: linesToScore, otherLines, and lineData null safety all fixed)
+
+#### ~~Phase 4: Remove Inline `<style>` Blocks~~ ✅ ESSENTIALLY COMPLETE (verified 2026-02-05)
+- [x] ~~Port pages: Remove redundant `<style>` blocks~~ ✅ Only 1 remains (falmouth-jamaica.html, redirect page)
+- [x] ~~Ship pages: Remove redundant `<style>` blocks~~ ✅ 0 individual ship pages have `<style>` (only 2 index files + venues.html)
+- [x] ~~Restaurant pages: Remove redundant `<style>` blocks~~ ✅ 0 of 280 restaurant pages have `<style>` blocks
+- [x] 18 files total site-wide still have `<style>` blocks — all are tools, admin, templates, or special pages
+
+#### ~~Phase 1: Extract Shared CSS~~ ✅ COMPLETE (verified 2026-02-05)
+- [x] ~~Create /assets/ship-page.css~~ ✅ EXISTS with hero, card, section, gallery, and FAQ components
+- [x] ~~Replace inline styles in ship pages with CSS link~~ ✅ 292/292 ship pages link ship-page.css (100%)
+
+#### ✅ DONE: All Ship Pages - Distance Feature
+**Status:** COMPLETE - Whimsical distance units added to all 50 ship pages (2025-12-01)
+- [x] Integrate fun-distance-units.json feature on ships pages
+- [x] Review documentation for this feature
+- All 50 RCL ship pages now display 3 random whimsical units
+- No duplicates on same page, refreshes on each page load
+- Uses shared whimsical-port-units.js component
+
+#### ✅ DONE: 14 NEW Homeport Pages - ICP-Lite Complete (2025-12-01)
+**Status:** COMPLETE - All 14 homeport pages have Quick Answer
+- [x] ✅ baltimore.html
+- [x] ✅ cape-liberty.html
+- [x] ✅ galveston.html
+- [x] ✅ los-angeles.html
+- [x] ✅ melbourne.html
+- [x] ✅ mobile.html
+- [x] ✅ new-orleans.html
+- [x] ✅ port-canaveral.html
+- [x] ✅ port-everglades.html
+- [x] ✅ port-miami.html
+- [x] ✅ san-diego.html
+- [x] ✅ seattle.html
+- [x] ✅ tampa.html
+- [x] ✅ vancouver.html
+
+#### ✅ DONE: Distance Units Feature
+**Status:** COMPLETE - Whimsical distance units added to all ship and port pages (2025-12-01)
+- [x] Integrated fun-distance-units.json feature on ships pages
+- [x] All 50 RCL ship pages display 3 random whimsical units
+- [x] All 161 port pages have whimsical distance units
+- [x] Uses shared whimsical-port-units.js component
+**Note:** User mentioned (2026-01-07) distance measurement JSON doesn't seem in use - may need re-verification
+
