@@ -726,7 +726,7 @@ Features & Dining</h2>
       if(n)n.onclick=()=>{page++;render();};
     }
     fetch('/assets/data/articles/index.json').then(r=>r.json()).then(data=>{
-      articles=(data||[]).filter(a=>a.status==='published').sort((a,b)=>new Date(b.date)-new Date(a.date));
+      articles=(data.articles||data||[]).filter(a=>a.status==='published').sort((a,b)=>new Date(b.date)-new Date(a.date));
       if(fb)fb.style.display='none';
       if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
     }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
