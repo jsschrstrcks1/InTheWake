@@ -132,6 +132,159 @@
 
 ---
 
+## 🎯 Competitor Analysis — Strategic Tasks (2026-02-08)
+
+**Source:** Comprehensive competitor audit (120+ competitors across 15 categories) + AI chorus evaluation
+**Documents:** `COMPETITOR_COMPREHENSIVE_LIST_2026_02_08.md`, `AI_CHORUS_EVALUATION_2026_02_08.md`
+**Prior audits:** `COMPETITOR_GAP_AUDIT_2026_01_17.md`, `COMPETITOR_GAP_AUDIT_2026_01_29.md`
+**Method:** Every recommendation verified against actual codebase before inclusion
+
+### Strategic Position Summary
+
+**Verified unique advantages (moats):**
+1. Venue/restaurant database (472 pages across 16 lines — market-leading, no competitor close)
+2. Tool density (9 integrated tools — no single competitor has more than 2)
+3. Ship-port cross-linking (369 ports, bidirectional — unique in market)
+4. Ship quiz + Cruise line quiz combination (unique)
+5. Port + Ship logbook gamification (unique)
+6. Faith-integrated editorial content (unique — competitors are booking/charter operators only)
+7. Ad-free trust model (nearly unique in space)
+8. AI-first metadata (ICP-Lite, llms.txt, ai-summary, AI-breadcrumbs, JSON-LD mirroring)
+9. Content freshness discipline (ICP-Lite review cadence, last-reviewed dates, monthly stale audits)
+
+**Verified scale gaps (accept, don't chase):**
+1. Ship count: 293 vs CruiseMapper's 976
+2. Port count: 380 vs WhatsInPort's 1,200
+3. Stateroom data: vs CruiseDeckPlans' 267,150 rooms with photos
+4. Community: No forums vs Cruise Critic's 46M+ posts
+5. Brand recognition: vs Cruise Critic, Cruzely (mainstream media citations)
+6. Video presence: No YouTube vs Emma Cruises (410K), Life Well Cruised (460K)
+
+### P1 Tasks — From Competitor Analysis
+
+#### 🟢 [G] Comprehensive Print CSS for Port Pages
+**Status:** Partial (basic print styles exist in port-map.css, calculator.css, ships-dynamic.css)
+**Priority:** P1 — enables offline printed guides, addresses WhatsInPort/IQCruising strength
+**Lane:** 🟢 Green (technical CSS work)
+**Competes with:** WhatsInPort (printable maps), IQCruising (PDF downloads), Tom's Port Guides (downloadable PDFs)
+**Tasks:**
+- [ ] Design comprehensive port-specific `@media print` rules
+- [ ] Clean single-page output: hide nav, footer, ads, scripts; show content, From the Pier, map
+- [ ] Add "Print This Guide" button to port page template
+- [ ] Include From the Pier distances, transport costs, and top POIs in print layout
+- [ ] Test print output across 5 representative ports (Cozumel, Nassau, Barcelona, Juneau, St. Thomas)
+- [ ] Ensure map prints cleanly with attribution
+
+#### 🟢 [G] AI-Readiness Polish
+**Status:** Foundation in place (ICP-Lite, llms.txt, ai-summary, AI-breadcrumbs, JSON-LD)
+**Priority:** P1 — positions site for AI-powered search era (Google AI Overviews, ChatGPT, Perplexity)
+**Lane:** 🟢 Green (metadata/SEO work)
+**Strategic insight:** While competitors fight for 2022-era Google SERPs, CITW is optimized for inference-time visibility
+**Tasks:**
+- [ ] Update llms.txt to reflect 9 tools (currently says 4), correct ship/port/venue counts, and current version
+- [ ] Audit ai-summary quality on top 20 highest-traffic pages — ensure answer-first, concise, accurate
+- [ ] Verify JSON-LD description exactly mirrors ai-summary on all hub pages (index, ships, ports, restaurants, planning, tools)
+- [ ] Ensure AI-breadcrumbs are present on all entity pages (ships, ports, venues)
+- [ ] Update llms.txt "Recent Updates" section (currently stops at Nov 2025)
+- [ ] Add the 3 missing tools (budget calculator, port day planner, ship size atlas) to llms.txt tool list
+
+#### 🟡 [Y] Marketing Copy Update — Reflect Actual Capabilities
+**Status:** Under-reported in public-facing copy
+**Priority:** P1 — corrects misalignment between capabilities and public story
+**Lane:** 🟡 Yellow (content changes need review)
+**Key correction:** Site says "6 tools" in various places; actual count is **9**
+**Tasks:**
+- [ ] Update about-us.html to list all 9 tools and correct asset counts (293 ships, 380 ports, 472 venues)
+- [ ] Update index.html tool references if they undercount
+- [ ] Update planning.html tool directory to include budget calculator, port day planner, ship size atlas
+- [ ] Review tools.html (if exists) for completeness
+- [ ] Ensure trust messaging reflects current reality: "9 planning tools, 293 ships, 380 ports, 472 dining venues"
+
+### P2 Tasks — From Competitor Analysis
+
+#### 🟡 [Y] Vanilla Story Replacement (1,570 stories needed)
+**Status:** ~157 ships have generic template stories; ~1,570 total stories need quality replacements
+**Priority:** P2 (ongoing, high volume) — the real content debt
+**Lane:** 🟡 Yellow (content creation, requires quality review)
+**Strategic insight:** Template stories actively weaken site authority — "conversion dilution and trust dilution"
+**Why it matters:** Logbook stories are the soul of the site; generic stories damage the "calm authority from real experience" brand
+**Priority order (highest ship count with vanilla stories):**
+1. Holland America (46 ships) — 🔴 HIGH
+2. MSC (24 ships) — 🔴 HIGH
+3. Norwegian (20 ships) — 🔴 HIGH
+4. Princess (17 ships) — 🔴 HIGH
+5. Carnival (49 ships, but 23 venue pages exist) — MEDIUM
+6. Celebrity (30 ships, 0 venue pages) — MEDIUM
+7. Others — as resources allow
+**Vanilla story characteristics (BAD):** Generic titles, "Community Contributor" author, 100-150 words, no ship-specific venues, no emotional narrative
+**Quality story characteristics (GOOD):** Specific ship venues, real author, 300-600 words, emotional pivot, faith-scented, unique persona
+**Reference:** `admin/VANILLA-STORIES.md` for full inventory
+**Tasks:**
+- [ ] Audit current vanilla story count by cruise line (verify 157 ships / 1,570 stories figure)
+- [ ] Create quality story template with required elements (ship-specific venue, persona, emotional pivot, 300+ words)
+- [ ] Begin Holland America replacement (46 ships, ~460 stories)
+- [ ] Begin MSC replacement (24 ships, ~240 stories)
+- [ ] Begin Norwegian replacement (20 ships, ~200 stories)
+- [ ] Begin Princess replacement (17 ships, ~170 stories)
+
+#### 🟡 [Y] DIY vs. Excursion Comparison Expansion
+**Status:** 30 ports have DIY vs. excursion callouts (verified 2026-02-05)
+**Priority:** P2 — practical decision support no competitor offers well
+**Lane:** 🟡 Yellow (content/pricing research needed)
+**Competes with:** WhatsInPort, Cruise Crocodile, Shore Excursions Group
+**Tasks:**
+- [ ] Expand DIY vs. excursion comparisons from 30 ports to top 50 ports
+- [ ] Format: "Ship excursion: $X | DIY: $Y | You save: $Z" with logistics notes
+- [ ] Add timing/transport/admission context to each comparison
+- [ ] Target next 20 ports: remaining Caribbean, popular Mediterranean, Northern Europe
+
+#### 🟢 [G] "Real Talk" Honest Assessment Expansion
+**Status:** 30 ports have "Real Talk" callouts (verified 2026-02-05)
+**Priority:** P2 — honest disqualification is structurally impossible for ad-funded competitors
+**Lane:** 🟢 Green (factual assessment, AI-safe)
+**Strategic insight:** Ad-free governance enables candid content competitors can't publish
+**Tasks:**
+- [ ] Expand "Real Talk" sections from 30 ports to top 50 ports
+- [ ] Include "Skip this port if..." honest guidance where appropriate
+- [ ] Add "Best for / Not ideal for" profile guidance per port
+
+### Strategic "Don't Chase" List (Explicit Decisions)
+
+These items were evaluated during the competitor analysis and **explicitly rejected**:
+
+| Feature | Why Not | Competitor Reference |
+|---------|---------|---------------------|
+| Port count arms race (1,200+) | Depth > breadth; execution quality matters more | WhatsInPort |
+| Ship count arms race (976+) | Same — quality of 293 pages beats 976 thin pages | CruiseMapper |
+| Forums/user reviews | Dilutes single trusted voice; massive moderation burden | Cruise Critic (46M posts) |
+| Real-time ship tracking | Different product category; requires live data feeds | CruiseMapper, VesselFinder |
+| Native mobile app | PWA is sufficient and lower maintenance | ShipMate, cruise line apps |
+| Cruise booking/deals | Commercial conflict with ad-free governance | CruisePlum, CruiseWatch, OTAs |
+| News/trend coverage | Requires volume/speed that conflicts with calm authority | Cruise Hive, Cruise Radio |
+| YouTube/TikTok video channel | Personality-based medium; doesn't translate to offline utility | Emma Cruises, Life Well Cruised |
+| Profile-based voyage paths | Operationally impossible for one maintainer at 1,150+ pages | AI chorus suggestion |
+| New product categories ("OS" labeling) | Site's voice is pastoral, not clinical; tools serve people, not frameworks | AI chorus suggestion |
+
+### Completed Competitor Gap Items (Historical)
+
+| Item | Completed | Evidence |
+|------|-----------|----------|
+| Tender Port Index + Badge | 2026-01 | `/ports/tender-ports.html` (26 ports) |
+| First-Timer Hub Page | 2026-01 | `/first-cruise.html` (557 lines) |
+| "No Ads" Trust Messaging | 2026-01 | about-us.html + footer trust badges |
+| "Works Offline" Marketing | 2026-01 | Port footer badges + trust messaging |
+| 30-Day Countdown Checklist | 2026-01 | `/countdown.html` (825 lines) |
+| "Ships That Visit Here" | 2026-01 | 369 port pages with static sections |
+| Transport Cost Component | 2026-01 | 10 Caribbean ports (initial), then expanded via From the Pier |
+| "From the Pier" Distance Component | 2026-02-05 | 376/376 real port pages |
+| DIY vs. Excursion (initial) | 2026-02-05 | 30 ports |
+| "Real Talk" Honest Assessments (initial) | 2026-02-05 | 30 ports |
+| "Add to My Logbook" Button | 2026-02-06 | 368 port pages |
+| Affiliate Disclosure / Governance | 2026-01 | `affiliate-disclosure.html` + `about-us.html` |
+| Ship-Port Cross-Linking | 2026-01 | 193 ships, 369 ports, bidirectional |
+
+---
+
 ## 🚦 Task Classification (G/Y/R Lanes)
 
 Tasks are classified by AI-safety level:

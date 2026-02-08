@@ -43,6 +43,13 @@ FORMAT:
 **Status:** Active — From the Pier complete (376/376), full codebase audit complete, documentation consistency fixes in progress.
 **Notes:** PR #1139 merged. Continuing with remaining Green-lane backlog items.
 
+### Competitor Analysis & AI Chorus Evaluation
+**Thread:** `claude/review-docs-codebase-IJvuW`
+**Started:** 2026-02-08
+**Files:** COMPETITOR_COMPREHENSIVE_LIST_2026_02_08.md, AI_CHORUS_EVALUATION_2026_02_08.md, UNFINISHED_TASKS.md, IN_PROGRESS_TASKS.md
+**Status:** Complete — Competitor list (120+ across 15 categories), AI chorus wheat/chaff evaluation, UNFINISHED_TASKS.md updated with new strategic tasks.
+**Notes:** Key findings: tool count is 9 (not 6), AI-readiness is an underappreciated moat, vanilla stories (1,570) are the real content debt. Priority stack: print CSS, AI polish, marketing update, vanilla story replacement.
+
 ---
 
 ## Recently Completed (Move to COMPLETED_TASKS.md after user confirmation)
@@ -66,6 +73,7 @@ FORMAT:
 | Thread ID | Task | Status | Date |
 |-----------|------|--------|------|
 | claude/identify-maintenance-tasks-FN2lh | Doc consistency, CSS consolidation, competitor gap features | COMPLETE (merged) | 2026-01-31 |
+| claude/review-docs-codebase-IJvuW | Competitor analysis (120+), AI chorus evaluation, task update | COMPLETE | 2026-02-08 |
 | claude/onboard-and-audit-PvzvO | From the Pier (376 ports), codebase audit, doc fixes | IN PROGRESS | 2026-02-05 |
 | claude/audit-venues-gD9fq | Logbook enrichment — Gentle Truth reviews | COMPLETE | 2026-01-31 |
 | claude/review-previous-work-ZMk3b | Deep audit, JPG elimination, CSS consolidation, ship-page.css rollout, guardrail, docs | COMPLETE | 2026-01-31 |
