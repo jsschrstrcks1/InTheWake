@@ -116,12 +116,8 @@ fi
 
 # Check required fields
 if echo "$CONTENT" | grep -q "entity:"; then
-    # Check entity is not generic "Ship"
-    if echo "$CONTENT" | grep -E "entity:\s*Ship\s*$" > /dev/null; then
-        check_fail "entity field is generic 'Ship' — should be ship's proper name"
-    else
-        check_pass "entity field present with proper name"
-    fi
+    # entity: Ship is CORRECT per spec (name: field carries the ship name)
+    check_pass "entity field present"
 else
     check_fail "entity field MISSING (required)"
 fi
@@ -390,9 +386,13 @@ else
 fi
 
 # Check that ship images exist in /assets/ships/
-SHIP_IMAGES=$(echo "$CONTENT" | grep -oE 'src="/assets/ships/[^"]+' | sed 's/src="//' || true)
+# Strip ?v= query strings before checking file existence
+# Use while-read to handle filenames with spaces
 MISSING_IMAGES=0
-for img in $SHIP_IMAGES; do
+SHIP_IMAGE_COUNT=0
+while IFS= read -r img; do
+    [ -z "$img" ] && continue
+    SHIP_IMAGE_COUNT=$((SHIP_IMAGE_COUNT + 1))
     FULL_PATH="$(dirname "$FILE")/../../$img"
     if [ ! -f "$FULL_PATH" ]; then
         # Try from repo root
@@ -402,10 +402,10 @@ for img in $SHIP_IMAGES; do
             MISSING_IMAGES=$((MISSING_IMAGES + 1))
         fi
     fi
-done
-if [ "$MISSING_IMAGES" -eq 0 ] && [ -n "$SHIP_IMAGES" ]; then
+done <<< "$(echo "$CONTENT" | grep -oE 'src="/assets/ships/[^"]+' | sed 's/src="//; s/\?v=[^"]*$//' || true)"
+if [ "$MISSING_IMAGES" -eq 0 ] && [ "$SHIP_IMAGE_COUNT" -gt 0 ]; then
     check_pass "All referenced ship images exist locally"
-elif [ -z "$SHIP_IMAGES" ]; then
+elif [ "$SHIP_IMAGE_COUNT" -eq 0 ]; then
     check_warn "No ship images found in /assets/ships/"
 fi
 
