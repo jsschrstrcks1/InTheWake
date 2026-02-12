@@ -166,6 +166,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -211,7 +214,7 @@ Soli Deo Gloria
     <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Walvis Bay (Namibia)</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero">
+      <section class="port-hero" id="hero">
         <div class="port-hero-image">
           <img src="/assets/brand/placeholder-port.webp" alt="Pink flamingos wading in Walvis Bay lagoon with desert dunes in the distance, Namibia" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
           <div class="port-hero-overlay">
@@ -219,7 +222,7 @@ Soli Deo Gloria
           </div>
         </div>
         <p class="port-hero-credit">Photo: In the Wake</p>
-      </div>
+      </section>
 
       <article class="card">
         <h1>Walvis Bay: Where the Desert Drinks the Ocean</h1>
@@ -238,8 +241,8 @@ Soli Deo Gloria
           <p>Closer to town, Sandwich Harbour delivers surreal beauty on a shorter leash. Here, massive dunes march directly into the Atlantic, creating a collision zone where desert meets crashing surf. Four-wheel-drive excursions navigate the beach at low tide, threading between foam and sand mountains. Jackals patrol the tideline. Flamingos wade in freshwater seeps where the dunes leach moisture. The contrast is almost violent — bone-dry Sahara on one side, cold ocean on the other, separated by a strip of sand narrow enough to walk across.</p>
         </div>
 
-        <section class="port-section">
-          <h3>Port Essentials</h3>
+        <section class="port-section" id="cruise_port">
+          <h3>The Cruise Port</h3>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
           <ul>
             <li><strong>Terminal:</strong> Walvis Bay commercial port — working cargo/fishing harbor; industrial setting with organized excursions</li>
@@ -252,12 +255,12 @@ Soli Deo Gloria
           </ul>
         </section>
 
-        <section class="port-section">
-          <h3>Top Experiences</h3>
+        <section class="port-section" id="excursions">
+          <h3>Excursions &amp; Activities</h3>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time.</p>
 
           <h4  class="mt-1">Sossusvlei and Deadvlei (Full Day)</h4>
-          <p>The iconic red sand dunes of the Namib Desert — Big Daddy (380m), Dune 45 (85m), and the haunting white clay pan of Deadvlei with 900-year-old dead trees. Requires 12-14 hour excursion (4-5 hours drive each way). Sunrise arrival essential for photography and cooler climbing. Book cruise excursion or reputable operator. Bring water, sun protection, sturdy shoes. Life-changing landscape.</p>
+          <p>The iconic red sand dunes of the Namib Desert — Big Daddy (380m), Dune 45 (85m), and the haunting white clay pan of Deadvlei with 900-year-old dead trees. Requires 12-14 hour excursion (4-5 hours drive each way). Sunrise arrival essential for photography and cooler climbing. Book cruise excursion or reputable operator. Bring water, sun protection, sturdy shoes. Unforgettable landscape.</p>
 
           <h4  class="mt-1">Flamingo Lagoon and Pelican Point</h4>
           <p>Walvis Bay's shallow lagoon hosts 50,000+ flamingos (lesser and greater species), pelicans, cormorants, and waders. Pink clouds of birds feeding in synchronized motion. Pelican Point lighthouse and Cape fur seal colony (60,000 seals) accessible by boat or 4x4. Half-day boat tours include seal encounters. Binoculars recommended. Accessible and spectacular.</p>
@@ -283,7 +286,7 @@ Soli Deo Gloria
           </div>
             </details>
 
-        <section class="port-section">
+        <section class="port-section" id="getting_around">
           <h3>Getting Around</h3>
           <ul>
             <li><strong>Organized Tours:</strong> Highly recommended. Desert requires specialized vehicles, local knowledge, permits. Cruise excursions or reputable operators essential for Sossusvlei, Sandwich Harbour.</li>
@@ -307,8 +310,8 @@ Soli Deo Gloria
           </ul>
         </section>
 
-        <section class="port-section">
-          <h3>Pro Tips</h3>
+        <section class="port-section" id="depth_soundings">
+          <h3>Depth Soundings Ashore</h3>
           <ul>
             <li>Sossusvlei is 4-5 hours each way — full-day excursion (12-14 hours). Bring water, snacks, sun protection, comfortable shoes. Worth every minute but exhausting.</li>
             <li>Sunrise at the dunes is magical but means 3-4am departure. Consider if you can handle the early start and long day.</li>
@@ -461,7 +464,7 @@ Soli Deo Gloria
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Walvis Bay">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Walvis Bay">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -486,7 +489,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Ships dock at Walvis Bay port. The Namib Desert begins at the edge of town — the oldest desert on Earth. Flamingo kayaking in the lagoon and the Sandwich Harbour 4x4 are the signature excursions. Cape fur seals at Pelican Point by the thousands.</p>
-</div>
+</nav>
 
       </article>
     </div>
@@ -550,6 +553,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
   <footer class="wrap" role="contentinfo">

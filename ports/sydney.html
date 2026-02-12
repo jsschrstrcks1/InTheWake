@@ -12,7 +12,7 @@ All work on this project is offered as a gift to God.
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- ICP-Lite v1.4 Meta Tags -->
   <meta name="ai-summary" content="Sydney features Opera House, Harbour Bridge, Bondi Beach, and spectacular harbour entrance. Australia's highest-rated cruise port with world-class attractions." />
-  <meta name="last-reviewed" content="2026-02-01" />
+  <meta name="last-reviewed" content="2026-02-12" />
   <meta name="content-protocol" content="ICP-Lite v1.4" />
 
   <title>Sydney Cruise Port Guide – In the Wake</title>
@@ -25,6 +25,16 @@ All work on this project is offered as a gift to God.
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/port-hero.jpg"/>
 
   <meta name="description" content="Sydney features Opera House, Harbour Bridge, Bondi Beach, and spectacular harbour entrance. Australia's highest-rated cruise port with world-class attractions." />
+  <!-- ai-breadcrumbs
+     entity: Sydney
+     type: Port Guide
+     parent: /ports.html
+     category: Asia-Pacific / Australia
+     updated: 2026-02-12
+     expertise: Cruise travel, port guides
+     target-audience: Cruise travelers, vacation planners
+     answer-first: Sydney features Opera House, Harbour Bridge, Bondi Beach, and spectacular harbour entrance. Australia's highest-rated cruise port with world-class attractions.
+     -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <!-- Service Worker Registration -->
   <script>
@@ -60,7 +70,7 @@ All work on this project is offered as a gift to God.
     "name": "Sydney Cruise Port Guide",
     "url": "https://cruisinginthewake.com/ports/sydney.html",
     "description": "Sydney features Opera House, Harbour Bridge, Bondi Beach, and spectacular harbour entrance. Australia's highest-rated cruise port with world-class attractions.",
-    "dateModified": "2026-02-01",
+    "dateModified": "2026-02-12",
     "mainEntity": {
       "@type": "Place",
       "name": "Sydney",
@@ -200,6 +210,9 @@ All work on this project is offered as a gift to God.
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -405,10 +418,13 @@ All work on this project is offered as a gift to God.
         </details>
 
       <!-- Navigation -->
-      <section>
-        <h2>Getting Around</h2>
+      <details open>
+        <summary><h2>Getting Around</h2></summary>
         <p><strong>Ovation</strong> and <strong>Quantum</strong> dock at Circular Quay (step off and you're at the Opera House) or White Bay (15-minute shuttle or ferry). Everything is walkable or quick ferry.</p>
-      </section>
+      </details>
+
+      <!-- REAL TALK -->
+      <p class="real-talk">Circular Quay terminal is the dream scenario — step off and the Opera House is literally in front of you. White Bay terminal is the reality for larger ships, and while free shuttles run to Circular Quay, the 15-20 minute ride adds up over the day. The Opera House is more impressive outside than inside unless you catch a performance — save the tour fee and walk around the exterior instead. Bondi Beach is a quick bus ride from Circular Quay and worth every minute, but go early as the bus back fills up in the afternoon.</p>
 
       <!-- Word of Warning -->
       <section style="background:#fef9e7;border-left:5px solid #f4d03f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
@@ -416,16 +432,17 @@ All work on this project is offered as a gift to God.
       </section>
 
       <!-- FAQ -->
-      <section>
-        <h2>Frequently Asked Questions</h2>
+      <details open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
         <details><summary>Should I book the Opera House tour in advance?</summary><p>Yes, definitely book ahead – tours fill up quickly on cruise ship days. The guided tour is worth it to see backstage and learn the incredible construction story.</p></details>
         <details><summary>Is the Harbour Bridge climb worth it?</summary><p>If you're not afraid of heights and have the budget ($150–300+), it's unforgettable. The views are spectacular and you get a great photo at the top.</p></details>
         <details><summary>How do I get to Bondi Beach from the cruise terminal?</summary><p>From Circular Quay, take a bus (30–40 minutes) or taxi/Uber ($30–40). The Bondi to Bronte coastal walk is free and absolutely stunning.</p></details>
+      </details>
 
     
     <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
+    <details class="port-section photo-gallery" id="gallery" open>
+      <summary><h2>Photo Gallery</h2></summary>
       <div class="gallery-grid">
         <figure class="gallery-item">
           <img src="img/sydney/sydney-1.webp" alt="Harbor view of Sydney, Australia" loading="lazy">
@@ -456,16 +473,16 @@ All work on this project is offered as a gift to God.
           </figcaption>
         </figure>
       </div>
-    </section>
+    </details>
 
     <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
+    <details class="port-section image-credits" open>
+      <summary><h2>Image Credits</h2></summary>
       <ul>
         <li><strong>sydney-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>sydney-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>sydney-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>sydney-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
       </ul>
       <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
+    </details>
 
     <!-- Interactive Port Map -->
     <section class="port-section">
@@ -497,7 +514,7 @@ All work on this project is offered as a gift to God.
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Sydney, Australia">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Sydney, Australia">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -527,7 +544,7 @@ All work on this project is offered as a gift to God.
     </li>
   </ul>
   <p class="pier-note">Ships dock at Circular Quay (Overseas Passenger Terminal) or White Bay. Circular Quay puts you right between the Opera House and the Harbour Bridge — one of the world's great cruise arrivals. White Bay is farther out; free shuttle buses run to the city.</p>
-</div>
+</nav>
 
       </article>
     <!-- Nearby Ports Rail -->
@@ -667,6 +684,11 @@ All work on this project is offered as a gift to God.
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
     <footer class="wrap" role="contentinfo">

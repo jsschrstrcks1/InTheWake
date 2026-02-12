@@ -204,6 +204,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -393,7 +396,7 @@ Soli Deo Gloria
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Vancouver">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Vancouver">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -418,13 +421,14 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Ships dock at Canada Place — the iconic white-sailed terminal in the heart of downtown. Alaska cruises depart from here. Spend extra days in Vancouver; one is not enough. Best Asian food in North America. Mountains, ocean, and city in a single frame.</p>
-</div>
+</nav>
 
       </article>
 
     <!-- First-Person Logbook Entry -->
     <article class="card logbook-entry">
-      <h2>My Vancouver Logbook</h2>
+<details open>
+      <summary><h2>My Vancouver Logbook</h2></summary>
 
       <p>Vancouver's Canada Place terminal is one of the most spectacular cruise embarkation points in the world — five white sails reaching skyward, surrounded by mountains, water, and one of North America's most beautiful cities. This is the northern gateway for Alaska cruises, offering one-way itineraries to and from Seattle that let you see more of the Inside Passage without backtracking.</p>
 
@@ -437,7 +441,8 @@ Soli Deo Gloria
       <p>What makes Vancouver special is how effortlessly it blends urban sophistication with raw natural beauty. You can have world-class sushi for lunch, take a seaplane to a wilderness lodge for tea, and be back for craft cocktails on a rooftop overlooking the harbor by sunset. The mountains are always there, watching over everything, reminding you that the wilderness is never far away.</p>
 
       <p>If you're embarking on an Alaska cruise from Vancouver, I cannot stress this enough: arrive early. Two or three extra days in this city will be among the best of your entire trip. The cruise is incredible, but Vancouver is not just a departure point — it's a destination in its own right.</p>
-    </article>
+    </details>
+</article>
 
     <!-- Navigation & Practical Info -->
     <article class="card">
@@ -452,7 +457,7 @@ Soli Deo Gloria
         </ul>
       </section>
 
-      <section class="port-section">
+      <section class="port-section" id="getting_around">
         <h3>Getting Around Vancouver</h3>
         <ul>
           <li><strong>SkyTrain:</strong> Three lines serve metro Vancouver — Canada Line (airport/Richmond), Expo Line (east), Millennium Line (east/north)</li>
@@ -487,8 +492,8 @@ Soli Deo Gloria
         </ul>
       </section>
 
-      <section class="port-section">
-        <h3>Practical Tips</h3>
+      <section class="port-section" id="depth_soundings">
+        <h3>Depth Soundings Ashore</h3>
         <ul>
           <li><strong>Currency:</strong> Canadian dollars (CAD). US dollars often accepted but at poor exchange rates</li>
           <li><strong>Weather:</strong> Mild but changeable; May-September are best with highs 65-75°F. Pack a rain layer</li>
@@ -652,6 +657,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
   <!-- FOOTER -->

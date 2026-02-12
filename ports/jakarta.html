@@ -96,6 +96,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -142,11 +145,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
       <div class="container port-layout">
         <article class="port-content">
-          <section class="logbook-entry">
-            <div class="logbook-entry__header">
-              <span class="logbook-entry__icon">📔</span>
-              <h2>From the Logbook</h2>
-            </div>
+          <details class="logbook-entry" open>
+            <summary><h2>From the Logbook</h2></summary>
             <div class="logbook-entry__content">
               <p>
                 Jakarta assaults the senses with the subtlety of a brass band.
@@ -165,7 +165,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
                 devoted her life to perfecting this single dish.
               </p>
             </div>
-          </section>
+          </details>
 
 
       <!-- WEATHER & BEST TIME TO VISIT -->
@@ -187,8 +187,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         </details>
       </details>
 
-          <section class="port-section" id="cruise-port">
-            <h2>The Cruise Port</h2>
+          <details class="port-section" id="cruise-port" open>
+            <summary><h2>The Cruise Port</h2></summary>
             <p>
               Cruise ships dock at Tanjung Priok, Indonesia's busiest commercial
               port, located about 20km north of central Jakarta. The port is
@@ -202,7 +202,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               worst. Air-conditioned transport is essential given heat and
               humidity.
             </p>
-          </section>
+          </details>
 
           <section class="port-section" id="attractions">
             <h2>What to See</h2>
@@ -234,8 +234,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             </p>
           </section>
 
-          <section class="port-section" id="food">
-            <h2>Indonesian Cuisine</h2>
+          <details class="port-section" id="food" open>
+            <summary><h2>Indonesian Cuisine</h2></summary>
             <ul>
               <li><strong>Nasi Goreng</strong>: Fried rice, Indonesia's national dish.</li>
               <li><strong>Satay</strong>: Grilled skewers with peanut sauce.</li>
@@ -244,10 +244,10 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               <li><strong>Es Cendol</strong>: Sweet iced dessert with coconut milk.</li>
             </ul>
             <p>Street food markets (pasar malam) offer authentic experiences; ship excursions may include curated food tours.</p>
-          </section>
+          </details>
 
-          <section class="port-section" id="practical">
-            <h2>Practical Information</h2>
+          <details class="port-section" id="practical" open>
+            <summary><h2>Practical Information</h2></summary>
             <h3>Money</h3>
             <p>Indonesian Rupiah (IDR). Approximately 15,500 IDR = 1 USD (2025). Large numbers—a meal might cost 50,000 IDR. Cards accepted at malls/hotels; cash for street vendors. ATMs widely available.</p>
             <h3>Weather</h3>
@@ -256,28 +256,28 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <p>Exercise normal precautions. Petty theft occurs in crowded areas. Use registered taxis or Grab/Gojek ride-hailing apps. Avoid isolated areas at night.</p>
             <h3>Language</h3>
             <p>Bahasa Indonesia. Limited English outside tourist services. Translation apps helpful.</p>
-          </section>
+          </details>
 
           <section class="port-section" id="map">
             <h2>Port Map</h2>
             <div id="port-map" class="port-map" style="height: 400px"></div>
           </section>
 
-          <section class="port-section" id="faq">
-            <h2>FAQs</h2>
+          <details class="port-section" id="faq" open>
+            <summary><h2>FAQs</h2></summary>
             <div class="faq-list">
               <details class="faq-item"><summary>How far is the port from the city?</summary><p>Tanjung Priok is about 20km from central Jakarta. Allow 45 minutes to 2+ hours depending on traffic.</p></details>
               <details class="faq-item"><summary>Is Jakarta worth visiting?</summary><p>Yes, for those interested in urban culture, colonial history, and authentic Indonesian life. It's chaotic but rewarding. Old Batavia is the highlight for cruise visitors.</p></details>
               <details class="faq-item"><summary>Can I visit Borobudur from Jakarta?</summary><p>Not on a regular port call—Borobudur is in Yogyakarta, 450km away (1-hour flight). Some cruise lines offer overnight excursions or pre/post cruise extensions.</p></details>
             </div>
-          </section>
+          </details>
 
           <section class="disclaimers">
             <p class="disclaimer"><strong>Author's Note:</strong> Jakarta traffic is unpredictable. Build flexibility into your plans and return early to the ship.</p>
           </section>
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Tanjung Priok Port">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Tanjung Priok Port">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -307,7 +307,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </li>
   </ul>
   <p class="pier-note">Ships dock at Tanjung Priok, a commercial port 20 km north of the city centre. Ship excursions or arranged transfers strongly recommended — Jakarta's traffic is not an exaggeration. Morning and evening rush hours are worst. Allow extra buffer time for the return.</p>
-</div>
+</nav>
                 <div id="logbook-btn-container"></div>
 
         </article>
@@ -386,6 +386,11 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
     <footer class="site-footer">

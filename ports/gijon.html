@@ -193,6 +193,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -240,7 +243,7 @@ Soli Deo Gloria
   <main class="wrap page-grid" id="main-content" role="main">
     <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Gijón</li></ol></nav>
     <div style="grid-column: 1; grid-row: 1;">
-    <div class="port-hero">
+    <section class="port-hero" id="hero">
         <div class="port-hero-image">
           <img src="/ports/img/gijon/gijon-1.webp" alt="Gijón panoramic view" loading="eager" fetchpriority="high"/>
           <div class="port-hero-overlay">
@@ -248,7 +251,7 @@ Soli Deo Gloria
           </div>
         </div>
         <p class="port-hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
-      </div>
+      </section>
 
     <article class="card"><h1>Gijón: My Green Coast Awakening</h1>
       <div class="logbook-entry">
@@ -275,8 +278,8 @@ Soli Deo Gloria
         </div>
       </div>
 
-      <section class="port-section">
-        <h3>Port Essentials</h3>
+      <section class="port-section" id="cruise_port">
+        <h3>The Cruise Port</h3>
         <p><strong>Port Location:</strong> Ships dock at El Musel, Gijón's industrial port about 6 kilometers north of the city center. The port provides free shuttle buses to Plaza Mayor in the heart of town, a journey of approximately 15 minutes.</p>
         <p><strong>Currency:</strong> Euro (EUR). ATMs are widely available throughout the city center. Credit cards are accepted at most restaurants and shops, though smaller establishments and market vendors may prefer cash.</p>
         <p><strong>Language:</strong> Spanish (Castellano) and Asturian (Asturianu) are both spoken. English is less common than in major tourist cities, but you'll find English speakers in tourist areas and younger generations. Learning a few Spanish phrases enhances your experience.</p>
@@ -284,8 +287,8 @@ Soli Deo Gloria
         <p><strong>What Makes Gijón Special:</strong> Unlike heavily touristed Spanish ports, Gijón remains refreshingly authentic. You'll encounter genuine local culture, Celtic-influenced traditions, and a slower pace that invites wandering rather than rushing. The city combines Roman ruins, industrial heritage, and contemporary art against a backdrop of beaches and green hills.</p>
       </section>
 
-      <section class="port-section">
-        <h3>Top Experiences</h3>
+      <section class="port-section" id="excursions">
+        <h3>Excursions &amp; Activities</h3>
 
         <h4>Elogio del Horizonte (In Praise of the Horizon)</h4>
         <p>Eduardo Chillida's 1990 masterpiece crowns the Cerro de Santa Catalina headland. The massive sculpture — ten tons of weathering steel formed into curved, embracing arms — creates an acoustic chamber where ocean winds produce haunting tones. Walk inside, face the horizon, and listen. The sculpture has become Gijón's symbol, and rightly so. It captures something essential about this coast: the meeting of land and sea, the pull of the unknown, the way emptiness can feel sacred. Free to visit, incredible at any time, but magical at sunset.</p>
@@ -314,7 +317,7 @@ Soli Deo Gloria
         <p class="tiny" style="margin-top: 0.5rem; font-style: italic; color: #678;">Interactive map showing cruise terminal, main attractions, and transportation options in Gijón.</p>
       </section>
 
-      <section class="port-section">
+      <section class="port-section" id="getting_around">
         <h3>Getting Around</h3>
         <p><strong>From the Ship:</strong> Free shuttle buses run from El Musel port to Plaza Mayor in the city center. The journey takes about 15 minutes. Shuttles typically run continuously during port hours, though check with your cruise line for specific schedules.</p>
         <p><strong>Walking:</strong> Once in the city center, Gijón is highly walkable. San Lorenzo Beach, Cimadevilla, the Roman baths, and central shopping areas are all within easy walking distance of each other. The city is relatively flat along the coast, though the old quarter has some hills.</p>
@@ -333,8 +336,8 @@ Soli Deo Gloria
         <p><strong>Where to Eat:</strong> The streets around Cimadevilla and Plaza Mayor offer countless options. For traditional sidrerías, head to Casa Trabanco or Tierra Astur. For seafood, try restaurants along the marina. For pintxos (Asturian-style tapas), wander Calle Corrida and duck into any bar that looks busy with locals.</p>
       </section>
 
-      <section class="port-section">
-        <h3>Pro Tips</h3>
+      <section class="port-section" id="depth_soundings">
+        <h3>Depth Soundings Ashore</h3>
         <p><strong>Embrace the Weather:</strong> Asturias earned its green landscape through regular rain. Pack a light waterproof jacket even on sunny mornings. Locals say "Asturias has four seasons in one day" — and they're not exaggerating. The changeable weather adds to the Celtic atmosphere.</p>
         <p><strong>Skip the Mediterranean Expectations:</strong> Gijón isn't Spain's sun-and-sangria south. The cultural influences here are Celtic, the climate is Atlantic, and the vibe is more Ireland than Ibiza. Adjust your expectations and embrace what makes this coast unique.</p>
         <p><strong>Try the Cider Ritual:</strong> Even if you're not normally a cider drinker, experiencing escanciar in a traditional sidrería is essential to understanding Asturian culture. The ritual, the communal atmosphere, and the local pride in their regional drink create an experience you won't find elsewhere in Spain.</p>
@@ -476,8 +479,8 @@ Soli Deo Gloria
             </details>
 
 <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
+    <details class="port-section photo-gallery" id="gallery" open>
+      <summary><h2>Photo Gallery</h2></summary>
       <div class="gallery-grid">
         <figure class="gallery-item">
           <img src="img/gijon/gijon-1.webp" alt="Harbor view of Gijón, Spain" loading="lazy">
@@ -508,11 +511,11 @@ Soli Deo Gloria
           </figcaption>
         </figure>
       </div>
-    </section>
+    </details>
 
     <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
+    <details class="port-section image-credits" open>
+      <summary><h2>Image Credits</h2></summary>
       <ul>
         <li><strong>gijon-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
         <li><strong>gijon-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
@@ -520,7 +523,7 @@ Soli Deo Gloria
         <li><strong>gijon-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
       </ul>
       <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
+    </details>
 
     <!-- Author's Note -->
     <section class="port-section author-disclaimer" style="margin-top: 2.5rem; padding: 1.25rem; background: #fffef7; border-left: 4px solid #d9b382; border-radius: 8px;">
@@ -552,7 +555,7 @@ Soli Deo Gloria
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Gijón cruise terminal">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Gijón cruise terminal">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -582,7 +585,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Ships dock at El Musel Port, 6 km from the city centre. Free shuttle buses usually run to town; otherwise city bus €1.30 or taxi €8–12. Gijón is cider and seafood territory — order sidra and fabada asturiana. Bike rentals available in the city.</p>
-</div>
+</nav>
 
       </article>
   </div>
@@ -720,6 +723,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
     <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>

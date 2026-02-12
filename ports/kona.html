@@ -188,6 +188,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -243,7 +246,7 @@ Soli Deo Gloria
     <!-- UNDER CONSTRUCTION NOTICE - END -->
 
     <div style="grid-column: 1; grid-row: 1;">
-    <div class="port-hero">
+    <section class="port-hero" id="hero">
         <div class="port-hero-image">
           <img src="/ports/img/kona/kona-1.webp" alt="Kona panoramic view" loading="eager" fetchpriority="high"/>
           <div class="port-hero-overlay">
@@ -251,7 +254,7 @@ Soli Deo Gloria
           </div>
         </div>
         <p class="port-hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
-      </div>
+      </section>
 
     <article class="card"><h1>Kailua-Kona: Coffee and Mantas</h1>
       <div class="logbook-entry">
@@ -275,7 +278,7 @@ Soli Deo Gloria
         </div>
       </div>
 
-      <section class="port-section">
+      <section class="port-section" id="getting_around">
         <h3>Getting Around Kailua-Kona</h3>
         <p><strong>Tender Service:</strong> Ships anchor in the bay and use tenders to shuttle passengers directly to Kailua Pier in the heart of town. The process is efficient and brings you right to the center of the action.</p>
 
@@ -286,8 +289,8 @@ Soli Deo Gloria
         <p><strong>Car Rentals:</strong> If you prefer your own wheels, several national agencies including Enterprise, Thrifty, and Dollar have locations near the pier for easy pickup.</p>
       </section>
 
-      <section class="port-section">
-        <h3>What to See & Do</h3>
+      <section class="port-section" id="excursions">
+        <h3>Excursions &amp; Activities</h3>
         <p><strong>Snorkeling:</strong> Two outstanding spots draw underwater enthusiasts – Kahaluu Bay offers easy access and abundant marine life, while Kealakekua Bay is renowned for its crystal-clear waters and dramatic underwater landscapes.</p>
 
         <p><strong>Beach Time:</strong> Magic Sands Beach lives up to its name with brilliant white sand that sometimes disappears with seasonal tides – a local phenomenon worth witnessing.</p>
@@ -308,7 +311,7 @@ Soli Deo Gloria
         <p><strong>Major Retailers:</strong> For everyday needs or forgotten items, Target and other familiar chains are within reach of the port area.</p>
       </section>
 
-      <section class="port-section">
+      <section class="port-section" id="depth_soundings">
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
         <p><strong>Tendering:</strong> Tender ports always have the chance of swells – the Kona tenders are well-practiced and the process rarely delays the day.</p>
@@ -440,8 +443,8 @@ Soli Deo Gloria
             </details>
 
 <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
+    <details class="port-section photo-gallery" id="gallery" open>
+      <summary><h2>Photo Gallery</h2></summary>
       <div class="gallery-grid">
         <figure class="gallery-item">
           <img src="img/kona/kona-1.webp" alt="Harbor view of Kona, Hawaii" loading="lazy">
@@ -451,16 +454,16 @@ Soli Deo Gloria
           </figcaption>
         </figure>
       </div>
-    </section>
+    </details>
 
     <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
+    <details class="port-section image-credits" open>
+      <summary><h2>Image Credits</h2></summary>
       <ul>
         <li><strong>kona-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
       </ul>
       <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
+    </details>
 
   
         <!-- VOLATILE DATA DISCLAIMER -->
@@ -485,7 +488,7 @@ Soli Deo Gloria
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Kailua Pier">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Kailua Pier">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -514,8 +517,8 @@ Soli Deo Gloria
       <div class="pier-bar"><div class="pier-bar-fill" style="width:35%"></div></div>
     </li>
   </ul>
-  <p class="pier-note">Ships tender to Kailua Pier — the village is right there. Free trolley runs along Ali'i Drive. Car rental recommended for coffee farms and snorkeling bays. Kona is the dry side of the Big Island — sunny when Hilo is raining. The manta ray night snorkel is a once-in-a-lifetime experience.</p>
-</div>
+  <p class="pier-note">Ships tender to Kailua Pier — the village is right there. Free trolley runs along Ali'i Drive. Car rental recommended for coffee farms and snorkeling bays. Kona is the dry side of the Big Island — sunny when Hilo is raining. The manta ray night snorkel is an unforgettable experience.</p>
+</nav>
 
       </article>
   </div>
@@ -610,6 +613,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
     

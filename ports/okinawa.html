@@ -108,6 +108,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -191,23 +194,23 @@ Soli Deo Gloria
         </div>
       </div>
 
-      <section class="port-section">
-        <h2>The Cruise Port & Naha</h2>
+      <details class="port-section" open>
+        <summary><h2>The Cruise Port & Naha</h2></summary>
         <p>Ships dock at Naha Cruise Terminal on Okinawa's main island. The terminal is a 10-15 minute walk (or short taxi ride) to Kokusai Street (Kokusai-dori), Naha's main tourist and shopping thoroughfare. This mile-long avenue offers souvenirs, local crafts, restaurants serving Okinawan specialties, and people-watching galore.</p>
         <p>Naha is a modern city, rebuilt after wartime destruction. The main attractions require transportation: Shuri Castle (20 minutes by taxi or monorail), the Peace Memorial Park (30-40 minutes south), the Churaumi Aquarium (about 2 hours north on the island's other end — typically a full-day excursion).</p>
-      </section>
+      </details>
 
-      <section class="port-section">
-        <h2>Shuri Castle & Ryukyu Heritage</h2>
+      <details class="port-section" open>
+        <summary><h2>Shuri Castle & Ryukyu Heritage</h2></summary>
         <p>Shuri Castle served as the royal palace of the Ryukyu Kingdom from the 15th century until 1879. The vermillion main hall, reconstructed after WWII destruction and designated a UNESCO World Heritage Site, tragically burned again in October 2019. Reconstruction is ongoing, expected to complete around 2026. The grounds, gates, and several structures remain open — the castle's hilltop setting still provides excellent views over Naha and insight into Ryukyu royal history.</p>
         <p>The Ryukyuan culture lives on in Okinawa's distinctive traditions: Eisa dancing during Obon season, the sanshin (three-stringed instrument) accompanying folk songs, the bright bingata textiles, and a cuisine featuring bitter melon (goya), purple sweet potato (beni-imo), and pork in various preparations.</p>
-      </section>
+      </details>
 
-      <section class="port-section">
-        <h2>WWII History & Peace Memorial</h2>
+      <details class="port-section" open>
+        <summary><h2>WWII History & Peace Memorial</h2></summary>
         <p>The Peace Memorial Park at Mabuni, on the island's southern tip, commemorates the Battle of Okinawa. The Cornerstone of Peace lists all who died — regardless of nationality. The Himeyuri Peace Museum tells the story of schoolgirl nurses caught in the battle. These sites are sobering and important, particularly for visitors from the US and Japan.</p>
         <p>Former Japanese Navy Underground Headquarters, tunnels dug by hand where Japanese commanders spent their final days, offers a claustrophobic glimpse into the battle's end. Ship excursions to these sites provide historical context that independent visits sometimes lack.</p>
-      </section>
+      </details>
 
       <section class="port-section">
         <h2>Beaches & Diving</h2>
@@ -221,13 +224,13 @@ Soli Deo Gloria
         <p class="map-note" style="font-size: 0.85rem; color: #666; text-align: center;">Tap markers to explore Okinawa</p>
       </section>
 
-      <section class="port-section faq-section">
-        <h2>Frequently Asked Questions</h2>
+      <details class="port-section faq-section" id="faq" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
         <details class="faq-item"><summary>Where do ships dock?</summary><p>Naha Cruise Terminal, 10-15 minute walk to Kokusai Street shopping area. Taxi or monorail to other attractions.</p></details>
         <details class="faq-item"><summary>Is Shuri Castle open after the fire?</summary><p>Grounds and some structures are open. The main hall is under reconstruction (expected completion ~2026). Still worth visiting for the UNESCO site and views.</p></details>
         <details class="faq-item"><summary>How is Okinawa different from mainland Japan?</summary><p>Distinct history (independent Ryukyu Kingdom until 1879), subtropical climate, unique cuisine, different dialect, and a more relaxed pace. It feels like a different country in many ways.</p></details>
         <details class="faq-item"><summary>Can I go diving?</summary><p>World-class diving is available but typically requires advance booking. Half-day snorkel trips from Naha are sometimes available on shorter notice. Kerama Islands and Blue Cave are top destinations.</p></details>
-      </section>
+      </details>
 
       <section class="card disclaimer-card" style="margin-top: 2rem; border-left: 3px solid #d9b382; background: #f7fdff; padding: 1rem;">
         <p class="tiny" style="margin: 0; color: #3d5a6a; line-height: 1.6;"><strong>Until I have sailed this port myself, these notes are soundings in another's wake.</strong></p>
@@ -238,7 +241,7 @@ Soli Deo Gloria
       </aside>
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Naha cruise terminal">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Naha cruise terminal">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -263,7 +266,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Naha Cruise Terminal. Kokusai Street walkable. Okinawa was the independent Ryukyu Kingdom until 1879 — distinct cuisine, music, and culture from mainland Japan.</p>
-</div>
+</nav>
 
     </article>
 
@@ -360,6 +363,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
   <footer class="site-footer">

@@ -96,7 +96,7 @@ All work on this project is offered as a gift to God.
         "name": "Which South Pacific island is best for first-timers?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Bora Bora is the iconic once-in-a-lifetime choice. Fiji is more affordable with incredible snorkeling and culture. Moorea is quieter and equally beautiful with easier access from Tahiti."
+          "text": "Bora Bora is the iconic unforgettable choice. Fiji is more affordable with incredible snorkeling and culture. Moorea is quieter and equally beautiful with easier access from Tahiti."
         }
       },
       {
@@ -184,6 +184,9 @@ All work on this project is offered as a gift to God.
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -362,8 +365,8 @@ All work on this project is offered as a gift to God.
       </section>
 
       <!-- Logbook Entry -->
-      <section>
-        <h2>My South Pacific Day – A First-Person Account</h2>
+      <details open>
+        <summary><h2>My South Pacific Day – A First-Person Account</h2></summary>
         <p>Overwater bungalows, lagoons so turquoise they look photoshopped, and smiles that melt your heart – the South Pacific is cruising's end-game (5.0 across the board).</p>
 
         <p>In <strong>Bora Bora</strong> my perfect day is the jet-ski circumnavigation or a private lagoon tour with stingrays and sharks (they're friendly!). <strong>Moorea's</strong> Belvedere lookout and pineapple fields are stunning. <strong>Tahiti's</strong> black-sand beaches and waterfalls feel otherworldly.</p>
@@ -378,13 +381,13 @@ All work on this project is offered as a gift to God.
         </div>
 
         <p><strong>Fiji's</strong> cloud-break surfing and kava ceremonies connect you to ancient traditions. <strong>Vanuatu's</strong> blue holes and active volcanoes are adventures waiting to happen. <strong>Nouméa's</strong> French-Pacific fusion croissants and protected lagoons blend European café culture with Melanesian warmth. Every island feels like winning the lottery.</p>
-      </section>
+      </details>
 
       <!-- Navigation -->
-      <section>
-        <h2>Getting Around</h2>
+      <details open>
+        <summary><h2>Getting Around</h2></summary>
         <p>Most South Pacific ports are <strong>tender ports</strong> with crystal-clear water rides to shore – the tender is half the fun. Book excursions through the ship or local operators at the dock. Water taxis and small boats are the primary transport between islands and attractions.</p>
-      </section>
+      </details>
 
       <!-- Word of Warning -->
       <section style="background:#fef9e7;border-left:5px solid #f4d03f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
@@ -398,12 +401,13 @@ All work on this project is offered as a gift to God.
       </section>
 
       <!-- FAQ -->
-      <section>
-        <h2>Frequently Asked Questions</h2>
+      <details open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
         <details><summary>Is Bora Bora really as beautiful as the photos?</summary><p>More beautiful. The colors are so vivid they look enhanced, but it's all real. A lagoon tour with snorkeling is non-negotiable – you'll swim with rays and reef sharks in water so clear it's surreal.</p></details>
         <details><summary>What's a kava ceremony like in Fiji?</summary><p>Kava is a mildly sedative root drink central to Fijian culture. The ceremony is welcoming and communal. The taste is earthy (like muddy water, honestly) but the experience is unforgettable and the numbness is real.</p></details>
-        <details><summary>Which South Pacific island is best for first-timers?</summary><p>Bora Bora is the iconic once-in-a-lifetime choice. Fiji is more affordable with incredible snorkeling and culture. Moorea is quieter and equally beautiful with easier access from Tahiti.</p></details>
+        <details><summary>Which South Pacific island is best for first-timers?</summary><p>Bora Bora is the iconic unforgettable choice. Fiji is more affordable with incredible snorkeling and culture. Moorea is quieter and equally beautiful with easier access from Tahiti.</p></details>
         <details><summary>Are the South Pacific islands tender ports?</summary><p>Most South Pacific ports are tender ports with crystal-clear water rides to shore. The tender is half the fun. Book excursions through the ship or local operators at the dock.</p></details>
+      </details>
 
     <!-- Interactive Port Map -->
     <section class="port-section">
@@ -435,7 +439,7 @@ All work on this project is offered as a gift to God.
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel from South Pacific ports">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel from South Pacific ports">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -460,7 +464,7 @@ All work on this project is offered as a gift to God.
     </li>
   </ul>
   <p class="pier-note">Most South Pacific ports are tender ports. The crystal-clear water ride to shore is half the fun. Book excursions through the ship or local operators at the dock. Time moves differently here — plan accordingly.</p>
-</div>
+</nav>
 
       </article>
     <!-- Nearby Ports Rail -->
@@ -521,6 +525,11 @@ All work on this project is offered as a gift to God.
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
     <footer class="wrap" role="contentinfo">

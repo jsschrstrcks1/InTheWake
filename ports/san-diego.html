@@ -164,6 +164,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -210,7 +213,7 @@ Soli Deo Gloria
     <div style="grid-column: 1;">
       <article class="card">
         <div style="position: relative; margin-bottom: 1.5rem;">
-          <div class="port-hero">America's Finest City</div>
+          <section class="port-hero" id="hero">America's Finest City</section>
           <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: Georgia, serif; font-size: clamp(3rem, 10vw, 6rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); letter-spacing: 0.1em; text-transform: uppercase;">San Diego</div>
         </div>
 
@@ -336,7 +339,7 @@ Soli Deo Gloria
           </ul>
         </section>
 
-        <section class="port-section">
+        <section class="port-section" id="getting_around">
           <h3>Getting Around San Diego</h3>
           <ul>
             <li><strong>On Foot:</strong> Downtown is compact and easily walkable — Gaslamp Quarter just blocks from the terminal</li>
@@ -389,8 +392,8 @@ Soli Deo Gloria
           <p>The harbor has been central to San Diego's identity for over a century. The Navy established a base here in 1901, and the city remains the largest naval fleet concentration in the world. The USS Midway, now a floating museum steps from the cruise terminal, served from 1945 to 1992 — the longest-serving American aircraft carrier of the 20th century.</p>
         </section>
 
-        <section class="port-section">
-          <h3>Practical Tips</h3>
+        <section class="port-section" id="depth_soundings">
+          <h3>Depth Soundings Ashore</h3>
           <ul>
             <li><strong>Weather:</strong> San Diego's claim to "best weather in America" is not an exaggeration — average temps 60-75°F year-round with minimal rain</li>
             <li><strong>Tide Pool Timing:</strong> Cabrillo's tide pools are best at low tide (0.7 feet or below); check <a href="https://www.nps.gov/cabr/learn/nature/full-year-tide-table.htm" target="_blank" rel="noopener">NPS tide tables</a> — best viewing is fall/winter during daylight hours</li>
@@ -462,7 +465,7 @@ Soli Deo Gloria
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from San Diego cruise terminal">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from San Diego cruise terminal">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -487,7 +490,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">B Street Cruise Terminal on the Embarcadero — walk to Gaslamp Quarter and USS Midway. One of the best-located cruise terminals in North America.</p>
-</div>
+</nav>
 
       </article>
     </div>
@@ -571,6 +574,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
   <footer class="wrap" role="contentinfo"><p>© 2025 In the Wake</p>  <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>

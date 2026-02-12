@@ -149,7 +149,7 @@ Soli Deo Gloria
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="lazy"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="eager" fetchpriority="high"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
       <!-- Mobile hamburger button -->
@@ -189,6 +189,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -231,6 +234,9 @@ Soli Deo Gloria
 
     <main class="port-detail-container" id="main-content">
         <article class="port-detail-content">
+<details open>
+<details open>
+<details open>
             <div class="logbook-entry">
                 <p class="dateline"><strong>Port of Incheon, South Korea</strong> — Morning mist over the Yellow Sea</p>
 
@@ -293,7 +299,7 @@ Soli Deo Gloria
                     </div>
             </details>
 
-                <h2>Getting Around</h2>
+                <summary><h2>Getting Around</h2></summary>
 
                 <p>The Seoul Metropolitan Subway extends to Incheon, and it's by far the best way to move between the port city and the capital. Line 1 runs from Incheon through Seoul Station and beyond—clean, efficient, cheap, with announcements in English. From the cruise terminal, you'll need a taxi or shuttle bus to reach the nearest station, but once you're on the subway network, navigation is straightforward. Get a T-money card (rechargeable transit card) if you plan multiple trips; they work on buses and subways and save both money and hassle.</p>
 
@@ -301,7 +307,7 @@ Soli Deo Gloria
 
                 <p>Walking is pleasant in specific neighborhoods—Chinatown, the Open Port area, Wolmido Island—but Incheon is spread out, and the port areas aren't pedestrian-friendly. Plan your transportation between sites rather than assuming you can walk.</p>
 
-                <h2>Local Food & Drink</h2>
+                <summary><h2>Local Food & Drink</h2></summary>
 
                 <p>Jajangmyeon is the signature dish, but Incheon's port location means excellent seafood. The restaurants along Wolmido's waterfront serve everything from grilled mackerel to raw fish platters, with sea squirt and sea cucumber for the adventurous. Point at tanks, negotiate prices (they're usually per person or per dish), and be prepared for generous portions served with the standard array of banchan side dishes.</p>
 
@@ -329,7 +335,7 @@ Soli Deo Gloria
                     <li><strong>Cash for markets and street food:</strong> while cards work most places, traditional markets and street vendors prefer cash. The amounts are small, so a couple of ten-thousand won notes go a long way.</li>
                 </ul>
 
-                <h2>FAQ</h2>
+                <summary><h2>FAQ</h2></summary>
 
                 <dl class="faq">
                     <dt>How do I get from Incheon Port to Seoul?</dt>
@@ -538,7 +544,7 @@ Soli Deo Gloria
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Incheon Port">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Incheon Port">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -568,10 +574,13 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Ships dock at Incheon Port. Subway Line 1 connects to Seoul (1 hour). Get a T-money card for transit. Kakao T app works like Uber. Currency is Korean Won (KRW). If you only have one day, Seoul is worth the journey — but Incheon's Chinatown is a worthy consolation.</p>
-</div>
+</nav>
                 <div id="logbook-btn-container"></div>
 
-      </article>
+      </details>
+</details>
+</details>
+</article>
 
         <aside class="port-detail-sidebar">
             <div class="sidebar-card at-a-glance">
@@ -636,6 +645,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
     <footer>

@@ -163,6 +163,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -208,7 +211,7 @@ Soli Deo Gloria
     <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Montevideo</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero">
+      <section class="port-hero" id="hero">
         <div class="port-hero-image">
           <img src="/assets/brand/placeholder-port.webp" alt="Montevideo's historic Ciudad Vieja colonial architecture and Río de la Plata waterfront" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
           <div class="port-hero-overlay">
@@ -216,7 +219,7 @@ Soli Deo Gloria
           </div>
         </div>
         <p class="port-hero-credit">Photo: In the Wake</p>
-      </div>
+      </section>
 
       <article class="card">
         <h1>Montevideo: The Quiet Charm You Weren't Expecting</h1>
@@ -233,8 +236,8 @@ Soli Deo Gloria
           <p>The city doesn't demand your attention the way some ports do. There's no Eiffel Tower, no Acropolis, no must-see checklist. Instead, Montevideo invites you to wander — through Plaza Independencia where the Palacio Salvo towers in eccentric art deco glory, along the old city walls where the Gateway of the Citadel still stands, into Teatro Solís where the acoustics rival any opera house in Europe. The rhythm here is gentle, welcoming, deeply human.</p>
         </div>
 
-        <section class="port-section">
-          <h3>Port Essentials</h3>
+        <section class="port-section" id="cruise_port">
+          <h3>The Cruise Port</h3>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
           <ul>
             <li><strong>Terminal:</strong> Port of Montevideo in Ciudad Vieja — walk directly into the historic old town from the ship</li>
@@ -247,8 +250,8 @@ Soli Deo Gloria
           </ul>
         </section>
 
-        <section class="port-section">
-          <h3>Top Experiences</h3>
+        <section class="port-section" id="excursions">
+          <h3>Excursions &amp; Activities</h3>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time.</p>
 
           <h4  class="mt-1">Mercado del Puerto</h4>
@@ -270,7 +273,7 @@ Soli Deo Gloria
           <p>Montevideo hosts the world's longest carnival — forty days of music and celebration. This museum in Ciudad Vieja showcases costumes, instruments, and the African-influenced candombe drumming tradition. Small but fascinating. About $3 entry.</p>
         </section>
 
-        <section class="port-section">
+        <section class="port-section" id="getting_around">
           <h3>Getting Around</h3>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Transportation tips for Montevideo.</p>
           <ul>
@@ -393,8 +396,8 @@ Soli Deo Gloria
           </div>
             </details>
 
-        <section class="port-section">
-          <h3>Pro Tips</h3>
+        <section class="port-section" id="depth_soundings">
+          <h3>Depth Soundings Ashore</h3>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Insider advice from experience.</p>
           <ul>
             <li><strong>Mercado del Puerto is Saturday magic:</strong> While open most days, Saturday brings craft vendors, antiques, and the best energy. Go hungry.</li>
@@ -458,7 +461,7 @@ Soli Deo Gloria
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Montevideo cruise terminal">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Montevideo cruise terminal">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -483,7 +486,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Port of Montevideo in Ciudad Vieja — walk directly from ship into the historic old town. One of the most convenient cruise terminals anywhere. USD widely accepted.</p>
-</div>
+</nav>
 
       </article>
     </div>
@@ -564,6 +567,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
   <footer class="wrap" role="contentinfo">

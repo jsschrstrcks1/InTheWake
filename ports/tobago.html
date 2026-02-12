@@ -194,6 +194,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -249,11 +252,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       <div class="container port-layout">
         <article class="port-content">
           <!-- Logbook Entry -->
-          <section class="logbook-entry" aria-label="Personal narrative">
-            <div class="logbook-entry__header">
-              <span class="logbook-entry__icon">📔</span>
-              <h2>From the Logbook</h2>
-            </div>
+          <details class="logbook-entry" aria-label="Personal narrative" open>
+            <summary><h2>From the Logbook</h2></summary>
             <div class="logbook-entry__content">
               <p>
                 They say Robinson Crusoe was stranded here—or at least Daniel
@@ -274,11 +274,11 @@ ITW-Lite v3.010 | ICP-Lite v1.4
                 came up laughing. Maybe not younger, but certainly more alive.
               </p>
             </div>
-          </section>
+          </details>
 
           <!-- Main Content -->
-          <section class="port-section" id="cruise-port">
-            <h2>The Cruise Port</h2>
+          <details class="port-section" id="cruise-port" open>
+            <summary><h2>The Cruise Port</h2></summary>
             <p>
               Cruise ships dock at the Scarborough Cruise Port, a functional
               facility on Tobago's southern coast. The port offers basic
@@ -293,7 +293,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               market sells local produce and crafts. But most visitors head
               directly to Tobago's beaches and natural attractions.
             </p>
-          </section>
+          </details>
 
 
       <!-- WEATHER & BEST TIME TO VISIT -->
@@ -403,8 +403,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             </p>
           </section>
 
-          <section class="port-section" id="practical">
-            <h2>Practical Information</h2>
+          <details class="port-section" id="practical" open>
+            <summary><h2>Practical Information</h2></summary>
             <h3>Getting Around</h3>
             <p>
               Taxis wait at the cruise terminal. Agree on fares before
@@ -435,7 +435,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               beach. The laid-back atmosphere reflects genuine island
               hospitality.
             </p>
-          </section>
+          </details>
 
           <!-- Port Map -->
           <section class="port-section" id="map">
@@ -449,8 +449,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           </section>
 
           <!-- FAQ Section -->
-          <section class="port-section" id="faq">
-            <h2>Frequently Asked Questions</h2>
+          <details class="port-section" id="faq" open>
+            <summary><h2>Frequently Asked Questions</h2></summary>
             <div class="faq-list">
               <details class="faq-item">
                 <summary>Where do cruise ships dock in Tobago?</summary>
@@ -489,7 +489,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
                 </p>
               </details>
             </div>
-          </section>
+          </details>
 
           <!-- Disclaimers -->
           <section class="disclaimers">
@@ -505,7 +505,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           </section>
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Tobago">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Tobago">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -530,7 +530,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </li>
   </ul>
   <p class="pier-note">Ships dock at Scarborough. Tobago is the quieter sister island — laid-back Caribbean without the cruise-port crowds. Taxis use set fares. Pigeon Point is the postcard beach. The rainforest has been protected since before the American Revolution.</p>
-</div>
+</nav>
                 <div id="logbook-btn-container"></div>
 
         </article>
@@ -642,6 +642,11 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
     <footer class="site-footer">

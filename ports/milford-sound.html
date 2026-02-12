@@ -200,6 +200,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -384,12 +387,12 @@ Soli Deo Gloria
         <p>The cons: weather can scrub visibility entirely, though many argue mist and rain enhance the mystery.</p>
       </div>
 
-      <section class="port-section">
+      <section class="port-section" id="getting_around">
         <h3>Getting Around Milford Sound</h3>
         <p>You never leave the ship — scenic cruising only. Best viewing is from open decks, forward observation areas, or your balcony if you have one. Stake out a spot on the port side going in (sunrise light), starboard coming out. Bring rain gear and layers; it rains here over 200 days per year, and you'll want to be outside anyway.</p>
       </section>
 
-      <section class="port-section">
+      <section class="port-section" id="depth_soundings">
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
         <p>Though there is no shore access from cruise ships, pack weather-appropriate gear for deck viewing. A waterproof jacket and binoculars are essential. The fjord's dark waters reflect surrounding peaks perfectly on calm days — have your camera ready. Coffee and breakfast on deck as you enter at dawn is unforgettable.</p>
@@ -423,8 +426,8 @@ Soli Deo Gloria
       </section>
 
     <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
+    <details class="port-section photo-gallery" id="gallery" open>
+      <summary><h2>Photo Gallery</h2></summary>
       <div class="gallery-grid">
         <figure class="gallery-item">
           <img src="img/milford-sound/milford-sound-1.webp" alt="Dramatic fjord view of Milford Sound with towering cliffs" loading="lazy">
@@ -455,16 +458,16 @@ Soli Deo Gloria
           </figcaption>
         </figure>
       </div>
-    </section>
+    </details>
 
     <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
+    <details class="port-section image-credits" open>
+      <summary><h2>Image Credits</h2></summary>
       <ul>
         <li><strong>milford-sound-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>milford-sound-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>milford-sound-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>milford-sound-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
       </ul>
       <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
+    </details>
 
   
         <!-- VOLATILE DATA DISCLAIMER -->
@@ -489,7 +492,7 @@ Soli Deo Gloria
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Distances in Milford Sound">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Distances in Milford Sound">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -514,7 +517,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Scenic cruising only — no docking, no tendering. Rudyard Kipling called this the eighth wonder of the world. It rains 200 days a year here. The waterfalls need it.</p>
-</div>
+</nav>
 
       </article>
   </div>
@@ -604,6 +607,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
     <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>

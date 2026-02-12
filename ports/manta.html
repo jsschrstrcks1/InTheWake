@@ -167,6 +167,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -353,8 +356,8 @@ Soli Deo Gloria
         <p>I left Manta in the late afternoon, the ship pulling away from the port as the tuna boats returned from their runs. The sun was low, turning the water gold, and the last thing I saw was a pod of dolphins riding our bow wave, their bodies arcing through the light. Manta is not polished. It's not easy. But it's real in ways that many cruise ports are not, and that realness stays with you long after the visit ends. I carry it with me still: the taste of ceviche, the sight of a whale breaching, the feel of a handwoven hat, the rhythm of a city that works the ocean for its living and knows that the sea gives and takes in equal measure.</p>
       </div>
 
-      <section class="port-section">
-        <h3>Port Essentials</h3>
+      <section class="port-section" id="cruise_port">
+        <h3>The Cruise Port</h3>
         <ul>
           <li><strong>Docking Location:</strong> Port of Manta, approximately 2 km from city center (5–10 minutes by taxi)</li>
           <li><strong>Currency:</strong> US Dollar (USD) — Ecuador uses the US dollar as its official currency</li>
@@ -404,7 +407,7 @@ Soli Deo Gloria
         </div>
             </details>
 
-      <section class="port-section">
+      <section class="port-section" id="getting_around">
         <h3>Getting Around</h3>
         <ul>
           <li><strong>Walking:</strong> The port is about 2 km from downtown Manta. The Malecón and Murciélago Beach are within walking distance from the city center.</li>
@@ -429,8 +432,8 @@ Soli Deo Gloria
         </ul>
       </section>
 
-      <section class="port-section">
-        <h3>Pro Tips</h3>
+      <section class="port-section" id="depth_soundings">
+        <h3>Depth Soundings Ashore</h3>
         <ul>
           <li><strong>Galápagos Gateway:</strong> Manta is one of the closest mainland ports to the Galápagos Islands. Many cruisers use Manta as a pre- or post-cruise stop. Flights to Galápagos depart from Guayaquil or Quito, not Manta, so plan accordingly.</li>
           <li><strong>Whale Season:</strong> June through September is peak humpback whale season. Book whale watching tours in advance during these months as they fill up quickly.</li>
@@ -444,8 +447,8 @@ Soli Deo Gloria
       </section>
 
     <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
+    <details class="port-section photo-gallery" id="gallery" open>
+      <summary><h2>Photo Gallery</h2></summary>
       <div class="gallery-grid">
         <figure class="gallery-item">
           <img fetchpriority="high" src="img/manta/manta-1.webp" alt="Manta harbor and tuna fishing fleet, Ecuador" loading="eager">
@@ -476,16 +479,16 @@ Soli Deo Gloria
           </figcaption>
         </figure>
       </div>
-    </section>
+    </details>
 
     <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
+    <details class="port-section image-credits" open>
+      <summary><h2>Image Credits</h2></summary>
       <ul>
         <li><strong>manta-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>manta-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>manta-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>manta-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
       </ul>
       <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
+    </details>
 
     <section class="port-section author-note-disclaimer">
       <h3>Author's Note</h3>
@@ -494,7 +497,7 @@ Soli Deo Gloria
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Manta cruise port">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Manta cruise port">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -519,7 +522,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Port is 2 km from downtown. Taxis inexpensive ($2–5 within city). Negotiate fare or ask for taxímetro. Whale watching season Jun–Sep.</p>
-</div>
+</nav>
 
   </article>
 
@@ -712,6 +715,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
     <footer class="wrap" role="contentinfo">

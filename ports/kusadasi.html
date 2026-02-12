@@ -30,7 +30,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="referrer" content="no-referrer-when-downgrade"/>
   <meta name="ai-summary" content="Kusadasi is Turkey's gateway to Ephesus, one of the world's best-preserved ancient cities. Walk marble streets where St. Paul preached, stand before the Library of Celsus (117 AD), and sit in the 25,000-seat Great Theatre.">
-  <meta name="last-reviewed" content="2026-02-01">
+  <meta name="last-reviewed" content="2026-02-12">
   <meta name="content-protocol" content="ICP-Lite v1.4">
 
   <!-- SEO -->
@@ -93,7 +93,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     "name": "Kusadasi & Ephesus — Turkey's Ancient Wonder Port Guide",
     "description": "Kusadasi is Turkey's gateway to Ephesus, one of the world's best-preserved ancient cities. Walk marble streets where St. Paul preached, stand before the Library of Celsus (117 AD), and sit in the 25,000-seat Great Theatre.",
     "url": "https://cruisinginthewake.com/ports/kusadasi.html",
-    "dateModified": "2026-02-01",
+    "dateModified": "2026-02-12",
     "mainEntity": {
       "@type": "Place",
       "name": "Kusadasi",
@@ -238,6 +238,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -287,7 +290,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
     <div style="grid-column: 1; grid-row: 1;">
     <!-- Port Header -->
-    <div class="port-hero">
+    <section class="port-hero" id="hero">
         <div class="port-hero-image">
           <img src="/ports/img/kusadasi/kusadasi-3.webp" alt="Kusadasi panoramic view" loading="eager" fetchpriority="high"/>
           <div class="port-hero-overlay">
@@ -295,7 +298,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           </div>
         </div>
         <p class="port-hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
-      </div>
+      </section>
 
     <article class="card"><h1>Kusadasi &amp; Ephesus, Turkey</h1>
       <p style="font-size: 0.95rem; color: #456; margin-bottom: 0;">
@@ -308,8 +311,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </figure>
     
     <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
+    <details class="port-section photo-gallery" id="gallery" open>
+      <summary><h2>Photo Gallery</h2></summary>
       <div class="gallery-grid">
         <figure class="gallery-item">
           <img src="img/kusadasi/kusadasi-1.webp" alt="Harbor view of Kuşadası, Turkey" loading="lazy">
@@ -340,7 +343,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           </figcaption>
         </figure>
       </div>
-    </section>
+    </details>
 
             <p class="last-reviewed">Last reviewed: February 2026</p>
                 <div id="logbook-btn-container"></div>
@@ -441,13 +444,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             </details>
 
 <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
+    <details class="port-section image-credits" open>
+      <summary><h2>Image Credits</h2></summary>
       <ul>
         <li><strong>kusadasi-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>kusadasi-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>kusadasi-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>kusadasi-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
       </ul>
       <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
+    </details>
 
   
         <!-- VOLATILE DATA DISCLAIMER -->
@@ -472,7 +475,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Kusadasi cruise terminal">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Kusadasi cruise terminal">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -502,13 +505,14 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </li>
   </ul>
   <p class="pier-note">Ships dock at Kusadasi cruise terminal. Taxi to Ephesus: €50–70 round trip. Dolmuş minibus to Selçuk: €3–4 per person. Kusadasi exists because of Ephesus — the ancient city is the reason you're here. Go early to beat the heat and the crowds. Carpet shops will find you.</p>
-</div>
+</nav>
 
       </article>
 
     <!-- First-Person Logbook Entry -->
     <article class="card logbook-entry">
-      <h2>My Kusadasi Logbook</h2>
+<details open>
+      <summary><h2>My Kusadasi Logbook</h2></summary>
 
       <p>Every single time our Royal Caribbean ship glides into Kusadasi and I catch my first glimpse of that beautiful turquoise Aegean coastline with the castle on Pigeon Island, I feel a rush of excitement because I know I'm about to have one of the most mind-blowing historical days of my entire cruise. Ephesus is hands-down the best-preserved ancient city in the eastern Mediterranean — maybe in the world — and cruisers consistently rank Kusadasi as the number one or two port in the entire Mediterranean region. I've been seven times now, and I still get goosebumps walking through those gates.</p>
 
@@ -533,8 +537,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <p>Ephesus isn't just ruins. It's a living connection to the ancient world that leaves me speechless every single visit. It's walking in the footsteps of the Apostle Paul, of Roman emperors, of merchants and pilgrims and slaves. It's standing before a library that held the accumulated wisdom of civilizations and imagining the scholars who once climbed those steps. It's sitting in a theatre where 25,000 voices once roared and feeling the echo of their humanity across the centuries. If your Mediterranean cruise stops in Kusadasi, this is the port to prioritize above everything else. Get off the ship early. Take your time. Let the marble and the mosaics and the weight of two millennia settle into you. Let yourself feel small in the best possible way — small in time, but connected to something vast and enduring. What Ephesus taught me is this: we are not the first to wonder, to worship, to walk these streets seeking meaning. And that's not humbling—it's comforting. You won't regret it.</p>
     
     <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
+    <details class="port-section photo-gallery" open>
+      <summary><h2>Photo Gallery</h2></summary>
       <div class="gallery-grid">
         <figure class="gallery-item">
           <img src="img/kusadasi/kusadasi-1.webp" alt="Harbor view of Kuşadası, Turkey" loading="lazy">
@@ -565,21 +569,22 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           </figcaption>
         </figure>
       </div>
-    </section>
+    </details>
 
     <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
+    <details class="port-section image-credits" open>
+      <summary><h2>Image Credits</h2></summary>
       <ul>
         <li><strong>kusadasi-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>kusadasi-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>kusadasi-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>kusadasi-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
       </ul>
       <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
+    </details>
 
-  </article>
+  </details>
+</article>
 
     <!-- Navigation Section -->
-    <section class="port-section">
+    <section class="port-section" id="getting_around">
       <h3>Getting Around Kusadasi</h3>
       <p>Royal Caribbean docks within a 5-minute walk <span class="distance-fun">approximately 33 school buses, 16 blue whales end-to-end, or 352 emperor penguins stacked skyward</span> of Kusadasi town center — you can see the bazaar gates from the ship. Ephesus requires transportation:</p>
       <ul>
@@ -592,11 +597,14 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </section>
 
     <!-- Word of Warning -->
-    <section class="port-section">
+    <section class="port-section" id="depth_soundings">
       <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
       <p>The enthusiastic merchants and carpet sellers are sharing centuries-old Turkish hospitality traditions — a friendly "maybe next time" and a warm smile turns every interaction into a cultural exchange and often a new friend offering you tea. The genuine warmth is real, the haggling is expected, and walking away is never rude. And go early to Ephesus — by 10 a.m. the tour buses arrive and the magic of having the marble streets to yourself disappears.</p>
     </section>
+
+      <!-- REAL TALK -->
+      <p class="real-talk">Ephesus is the reason you're here, but visiting at midday in summer means 100°F+ heat with almost no shade on the main walkway. Book the earliest excursion available or take a taxi at port opening — the ruins are manageable at 8am and miserable by noon. The leather shops between Kusadasi and Ephesus are factory outlet experiences designed to separate you from your money; a polite "no thank you" works better than engaging. Downtown Kusadasi itself is a pleasant 10-minute walk from port with good Turkish food at half the port-area prices.</p>
 
       <!-- Interactive Port Map -->
       <details class="port-section port-map-section" id="port-map-section" open>
@@ -622,8 +630,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </aside>
 
     <!-- FAQ Section -->
-    <section class="card faq mt-2">
-      <h2>Frequently Asked Questions</h2>
+    <details class="card faq mt-2" open>
+      <summary><h2>Frequently Asked Questions</h2></summary>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
         <summary style="cursor: pointer; font-weight: 600;">Are the Terrace Houses worth the extra fee?</summary>
@@ -644,6 +652,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <summary style="cursor: pointer; font-weight: 600;">How much time do I need at Ephesus?</summary>
         <p  class="list-indent">Plan 2–3 hours minimum for the main site plus Terrace Houses. Add 30–45 minutes each for the House of Virgin Mary and Ephesus Museum if you're including those. Full-day tours that include lunch in Selçuk and the museum are ideal.</p>
       </details>
+    </details>
 
   </div><!-- end main column wrapper -->
 
@@ -749,6 +758,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
   <!-- FOOTER -->

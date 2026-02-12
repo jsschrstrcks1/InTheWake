@@ -138,7 +138,7 @@ Soli Deo Gloria
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="lazy"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="eager" fetchpriority="high"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
       <!-- Mobile hamburger button -->
@@ -178,6 +178,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -323,8 +326,8 @@ Soli Deo Gloria
                         <p>For organized tours, several companies operate from Praia offering half-day and full-day excursions to Cidade Velha, Tarrafal, and the mountainous interior. Ship excursions cover the major highlights efficiently, though independent exploration allows more flexibility and authentic interaction with local life.</p>
             </details>
 
-                    <section id="food-drink" class="guide-section">
-                        <h2>Local Food & Drink</h2>
+                    <details id="food-drink" class="guide-section" open>
+                        <summary><h2>Local Food & Drink</h2></summary>
                         <p>Cape Verdean cuisine reflects the islands' history as a crossroads: African ingredients and techniques mingling with Portuguese traditions. <strong>Cachupa</strong> is the national dish—a slow-cooked stew of corn, beans, and fish or meat, often served as "cachupa refogada" (refried) for breakfast with eggs. I tried it at a simple restaurant near Sucupira Market and understood immediately why this humble dish inspires such devotion; it's comfort food that tells the story of making much from little.</p>
 
                         <p><strong>Fresh seafood</strong> dominates menus: tuna, grouper, and lagosta (lobster) grilled or stewed with tomatoes, onions, and peppers. The catch here is Atlantic-fresh, simply prepared to let quality speak. <strong>Pastel</strong>—fried pastries filled with spiced tuna or meat—make perfect street food, crispy and savory. For something sweet, seek out <strong>doce de papaia</strong> (papaya jam) or <strong>pudim</strong> (Portuguese-style flan).</p>
@@ -332,7 +335,7 @@ Soli Deo Gloria
                         <p>To drink, <strong>grogue</strong> is the local sugarcane rum, potent and unaged. It's the base for <strong>ponche</strong>, a sweetened version flavored with local fruits. <strong>Strela</strong> is the Cape Verdean beer, light and drinkable in the heat. Coffee is taken strong and sweet in the Portuguese style. At market stalls and beach vendors, fresh coconut water provides natural, perfect hydration.</p>
 
                         <p>For atmosphere, the restaurants around Praça Alexandre Albuquerque in Platô offer a mix of local and international menus with colonial-building ambiance. For authentic, inexpensive Cape Verdean cooking, follow locals to the small restaurants near Sucupira—no English menus, just genuine home-style cachupa and fresh fish.</p>
-                    </section>
+                    </details>
 
                     <section id="pro-tips" class="guide-section">
                         <h2>Pro Tips for Praia</h2>
@@ -486,7 +489,7 @@ Soli Deo Gloria
         </section>
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Praia cruise port">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Praia cruise port">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -511,7 +514,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Porto da Praia, 2 km from the Plateau district. Taxis at port entrance with fixed rates. Currency: Cape Verdean Escudo (CVE); euros accepted in tourist areas.</p>
-</div>
+</nav>
                 <div id="logbook-btn-container"></div>
 
                 </article>
@@ -629,6 +632,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
     <footer class="site-footer">

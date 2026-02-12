@@ -180,6 +180,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -216,6 +219,7 @@ Soli Deo Gloria
   <main class="wrap page-grid" id="main-content" role="main">
     <div class="container main-container">
         <article class="port-content" id="main-content">
+<details open>
 
             <!-- Hero Section -->
             <section class="port-hero" id="hero" aria-label="Durban cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
@@ -333,7 +337,7 @@ Soli Deo Gloria
             <h1>Durban, South Africa</h1>
             <p class="hero-subtitle" style="font-size: 1.1rem; color: #666; margin-bottom: 1.5rem;">Sunny Beaches and Zulu Heritage</p>
 
-            <h2>Captain's Logbook</h2>
+            <summary><h2>Captain's Logbook</h2></summary>
 
             <div class="logbook-entry">
                 <p class="entry-date">Port Call: Durban, KwaZulu-Natal</p>
@@ -350,8 +354,8 @@ Soli Deo Gloria
                 </div>
             </div>
 
-            <section id="port-essentials" class="content-section">
-                <h2>The Cruise Port</h2>
+            <details id="port-essentials" class="content-section" open>
+                <summary><h2>The Cruise Port</h2></summary>
                 <p>The Durban Cruise Terminal sits in the working harbor, a functional gateway that gets you on your way quickly. Most ships dock within easy reach of the city center, and the terminal usually arranges shuttle services to the beachfront—though a taxi or Uber works just as well and gives you more flexibility.</p>
 
                 <p>You'll need South African Rand for most transactions, though many tourist establishments accept credit cards. ATMs are plentiful along the Golden Mile and in shopping centers. The currency exchange at the terminal typically offers reasonable rates, or you can withdraw from ATMs in town.</p>
@@ -359,7 +363,7 @@ Soli Deo Gloria
                 <p>Durban's subtropical climate means warm weather year-round, with summer (December-February) bringing heat and afternoon thunderstorms, and winter (June-August) offering mild, dry days ideal for exploring. The Indian Ocean stays swimmable in all seasons—locals joke that they don't own wetsuits.</p>
 
                 <p>English is widely spoken, along with Zulu and a rich tapestry of other languages. South Africans are generally friendly and helpful to visitors, though standard urban caution applies—stick to well-traveled areas, don't flash valuables, and use registered taxis or ride services rather than unmarked vehicles.</p>
-            </section>
+            </details>
 
             <section id="top-experiences" class="content-section">
                 <h2>Top Experiences</h2>
@@ -415,8 +419,8 @@ Soli Deo Gloria
                 <p>If you're heading to the Valley of 1000 Hills or other inland attractions, I strongly recommend booking a tour or hiring a private driver for the day. The roads can be confusing for visitors, and having a knowledgeable guide enhances the experience significantly.</p>
             </details>
 
-            <section id="food-drink" class="content-section">
-                <h2>Local Food & Drink</h2>
+            <details id="food-drink" class="content-section" open>
+                <summary><h2>Local Food & Drink</h2></summary>
                 <p>Durban's food scene reflects its cultural diversity, with Indian cuisine taking center stage alongside traditional South African dishes and fresh seafood from the Indian Ocean. The city's Indian community has been here for over 150 years, and their culinary influence is deep and delicious.</p>
 
                 <p><strong>Bunny chow</strong> is the dish you absolutely must try—it's Durban's signature contribution to world cuisine. This curry-in-bread creation was invented by Indian workers who needed a portable lunch. Order yours at Victoria Street Market or any number of Indian restaurants throughout the city. It comes as a quarter, half, or full loaf, and you can choose your curry filling—lamb, chicken, bean, or vegetable. Eat it with your hands, using chunks of the scooped-out bread to mop up curry.</p>
@@ -426,7 +430,7 @@ Soli Deo Gloria
                 <p>For seafood, the line-fish of the day is always a good bet. South African waters produce exceptional catches, and Durban's restaurants know how to prepare them. Prawns are particularly good here, often served peri-peri style with Portuguese-inspired spicing.</p>
 
                 <p>South African wines are world-class, and most restaurants offer good selections from the Cape. Try a Chenin Blanc or Pinotage with your meal. For something uniquely local, ask for a <em>Lion Lager</em> or <em>Castle</em>—the local beers that go down easy in the subtropical heat.</p>
-            </section>
+            </details>
 
             <section id="pro-tips" class="content-section">
                 <h2>Pro Tips</h2>
@@ -511,7 +515,7 @@ Soli Deo Gloria
             </section>
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Durban cruise terminal">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Durban cruise terminal">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -541,9 +545,10 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Ships dock at Durban Cruise Terminal in the working harbour. Use registered taxis, Uber, or Bolt — fares are reasonable by international standards. Currency is South African Rand; ATMs give better rates than exchange bureaux. Water temperature stays 21–25°C year-round.</p>
-</div>
+</nav>
 
-        </article>
+        </details>
+</article>
 
         <aside class="sidebar">
             <div class="sidebar-card at-a-glance">
@@ -641,7 +646,12 @@ Soli Deo Gloria
 
         </aside>
     </div>
-  </main>
+    <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
+</main>
 
     <footer class="site-footer">
         <div class="container">

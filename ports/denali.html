@@ -95,6 +95,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -146,11 +149,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <p><strong>Land Extension:</strong> Denali is not a cruise port. This guide covers Denali as a pre/post cruise land extension, typically accessed by train or motorcoach from Anchorage or Whittier.</p>
           </div>
 
-          <section class="logbook-entry">
-            <div class="logbook-entry__header">
-              <span class="logbook-entry__icon">📔</span>
-              <h2>From the Logbook</h2>
-            </div>
+          <details class="logbook-entry" open>
+            <summary><h2>From the Logbook</h2></summary>
             <div class="logbook-entry__content">
               <p>
                 The Athabaskan people called it Denali—"The High One"—and at
@@ -169,7 +169,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
                 We were in her office, and she had work to do.
               </p>
             </div>
-          </section>
+          </details>
 
 
       <!-- WEATHER & BEST TIME TO VISIT -->
@@ -270,8 +270,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             </p>
           </section>
 
-          <section class="port-section" id="practical">
-            <h2>Practical Information</h2>
+          <details class="port-section" id="practical" open>
+            <summary><h2>Practical Information</h2></summary>
             <h3>Best Time</h3>
             <p>Late June through August. September offers fall colors and fewer crowds but services start closing.</p>
             <h3>What to Bring</h3>
@@ -288,28 +288,28 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               along the Parks Highway. Options range from rustic to luxury.
               Book early—summer fills months in advance.
             </p>
-          </section>
+          </details>
 
           <section class="port-section" id="map">
             <h2>Location Map</h2>
             <div id="port-map" class="port-map" style="height: 400px"></div>
           </section>
 
-          <section class="port-section" id="faq">
-            <h2>FAQs</h2>
+          <details class="port-section" id="faq" open>
+            <summary><h2>FAQs</h2></summary>
             <div class="faq-list">
               <details class="faq-item"><summary>Will I see Denali (the mountain)?</summary><p>Maybe. Clouds obscure the summit about 70% of summer days. Clear views are a gift, not a guarantee. The wildlife and wilderness experience is rewarding regardless.</p></details>
               <details class="faq-item"><summary>How many days should I add?</summary><p>Cruisetours typically add 2-4 days. Minimum 2 nights to experience one full park day. More time allows deeper exploration.</p></details>
               <details class="faq-item"><summary>Is the long bus ride worth it?</summary><p>Yes. The wildlife viewing, landscape, and experience of accessing true wilderness justify the time. Shorter tours exist but miss the best wildlife areas.</p></details>
             </div>
-          </section>
+          </details>
 
           <section class="disclaimers">
             <p class="disclaimer"><strong>Author's Note:</strong> Denali rewards patience. Weather changes. Wildlife appears on its own schedule. The mountain reveals itself when it chooses. This is wilderness on wilderness terms.</p>
           </section>
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Denali">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Denali">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -339,7 +339,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </li>
   </ul>
   <p class="pier-note">Denali is a land extension — your ship stays in Seward or Whittier. Most cruise-tour packages include the Alaska Railroad between the port and the park. The park road is restricted beyond Mile 15; transit buses ($60) run to Eielson and Wonder Lake.</p>
-</div>
+</nav>
                 <div id="logbook-btn-container"></div>
 
         </article>
@@ -375,6 +375,11 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
     <footer class="site-footer">

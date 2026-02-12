@@ -166,6 +166,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -358,8 +361,8 @@ Soli Deo Gloria
         <p>I returned to my ship as the city lights began to flicker across the river, the Cerro Santa Ana glowing like a constellation on the hillside. Guayaquil is not a perfect city — poverty persists, inequality remains visible, and the tropical heat can be relentless. But it's a city that fought for itself and won. And when you walk the Malecón, climb the steps of Las Peñas, and share a park bench with an iguana, you feel that victory in the air, warm and alive and worth pausing for.</p>
       </div>
 
-      <section class="port-section">
-        <h3>Port Essentials</h3>
+      <section class="port-section" id="cruise_port">
+        <h3>The Cruise Port</h3>
         <ul>
           <li><strong>Docking Location:</strong> Puerto Marítimo de Guayaquil (Guayaquil Maritime Port), about 7 km south of city center (15–30 minutes depending on traffic)</li>
           <li><strong>Currency:</strong> US Dollar (USD) — Ecuador uses US currency exclusively since 2000</li>
@@ -369,7 +372,7 @@ Soli Deo Gloria
         </ul>
       </section>
 
-      <section class="port-section">
+      <section class="port-section" id="excursions">
         <h3>Top Experiences in Guayaquil</h3>
 
         <h4>1. Malecón 2000 Riverfront Promenade</h4>
@@ -401,7 +404,7 @@ Soli Deo Gloria
         <p class="tiny" style="margin-top: 0.5rem; color: #666;">Map shows Guayaquil Port and major attractions including Malecón 2000, Las Peñas, and Parque de las Iguanas.</p>
       </section>
 
-      <section class="port-section">
+      <section class="port-section" id="getting_around">
         <h3>Getting Around</h3>
         <ul>
           <li><strong>Ship Excursions:</strong> Most cruise lines offer city tours covering Malecón 2000, Las Peñas, and Parque de las Iguanas. Convenient and safe for first-time visitors.</li>
@@ -426,8 +429,8 @@ Soli Deo Gloria
         </ul>
       </section>
 
-      <section class="port-section">
-        <h3>Pro Tips</h3>
+      <section class="port-section" id="depth_soundings">
+        <h3>Depth Soundings Ashore</h3>
         <ul>
           <li><strong>Galápagos Gateway:</strong> Guayaquil is the primary departure point for Galápagos cruises and flights. If continuing to the islands, you'll need at least one overnight in Guayaquil (most flights leave early morning).</li>
           <li><strong>Currency:</strong> Ecuador uses US dollars exclusively since 2000. Bring small bills ($1, $5, $10) as change can be limited. Credit cards accepted in tourist areas.</li>
@@ -459,8 +462,8 @@ Soli Deo Gloria
             </details>
 
     <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
+    <details class="port-section photo-gallery" id="gallery" open>
+      <summary><h2>Photo Gallery</h2></summary>
       <div class="gallery-grid">
         <figure class="gallery-item">
           <img fetchpriority="high" src="img/guayaquil/guayaquil-1.webp" alt="Malecón 2000 waterfront promenade, Guayaquil, Ecuador" loading="eager">
@@ -491,20 +494,20 @@ Soli Deo Gloria
           </figcaption>
         </figure>
       </div>
-    </section>
+    </details>
 
     <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
+    <details class="port-section image-credits" open>
+      <summary><h2>Image Credits</h2></summary>
       <ul>
         <li><strong>guayaquil-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>guayaquil-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>guayaquil-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>guayaquil-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
       </ul>
       <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
+    </details>
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Guayaquil cruise terminal">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Guayaquil cruise terminal">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -534,7 +537,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Ships dock at Puerto Marítimo de Guayaquil, 7 km south of the city centre (15–30 min). Taxis $10–15 to centre; Uber works well. Ecuador uses the US dollar. The Malecón and Las Peñas are the highlights. For the 444 steps, go early before the heat.</p>
-</div>
+</nav>
 
   </article>
 
@@ -731,6 +734,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
     <footer class="wrap" role="contentinfo">

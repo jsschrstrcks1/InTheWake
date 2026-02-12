@@ -205,6 +205,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -270,11 +273,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           </div>
 
           <!-- Logbook Entry -->
-          <section class="logbook-entry" aria-label="Personal narrative">
-            <div class="logbook-entry__header">
-              <span class="logbook-entry__icon">📔</span>
-              <h2>From the Logbook</h2>
-            </div>
+          <details class="logbook-entry" aria-label="Personal narrative" open>
+            <summary><h2>From the Logbook</h2></summary>
             <div class="logbook-entry__content">
               <p>
                 The Osorno volcano materialized out of morning clouds like a
@@ -296,11 +296,11 @@ ITW-Lite v3.010 | ICP-Lite v1.4
                 stood there eating the Pacific while rain began to fall.
               </p>
             </div>
-          </section>
+          </details>
 
           <!-- Main Content -->
-          <section class="port-section" id="cruise-port">
-            <h2>The Cruise Port</h2>
+          <details class="port-section" id="cruise-port" open>
+            <summary><h2>The Cruise Port</h2></summary>
             <p>
               Puerto Montt sits at the northern edge of Chilean Patagonia, where
               the Central Valley finally meets the sea after 1,000 kilometers.
@@ -319,7 +319,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               waterfront. However, most visitors head directly to the Lake
               District attractions, which require transportation.
             </p>
-          </section>
+          </details>
 
 
       <!-- WEATHER & BEST TIME TO VISIT -->
@@ -383,8 +383,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             </p>
           </section>
 
-          <section class="port-section" id="angelmo">
-            <h2>Angelmó Market</h2>
+          <details class="port-section" id="angelmo" open>
+            <summary><h2>Angelmó Market</h2></summary>
             <p>
               Even if you take an excursion, try to visit Angelmó before
               returning to the ship. This waterfront market is the best
@@ -420,10 +420,10 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               The market also sells crafts, woolens, and souvenirs—bargaining is
               acceptable but not aggressive.
             </p>
-          </section>
+          </details>
 
-          <section class="port-section" id="excursions">
-            <h2>Excursion Options</h2>
+          <details class="port-section" id="excursions" open>
+            <summary><h2>Excursion Options</h2></summary>
             <h3>Ship Excursions</h3>
             <ul>
               <li>
@@ -452,10 +452,10 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               arranged through local tour operators—book in advance during peak
               season.
             </p>
-          </section>
+          </details>
 
-          <section class="port-section" id="practical">
-            <h2>Practical Information</h2>
+          <details class="port-section" id="practical" open>
+            <summary><h2>Practical Information</h2></summary>
             <h3>Money</h3>
             <p>
               Chilean Peso (CLP) is the local currency. Approximately 900 CLP =
@@ -485,7 +485,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               prioritize Frutillar (2 hours plus transit) over Puerto Montt
               city. Angelmó market can be explored in 1-2 hours.
             </p>
-          </section>
+          </details>
 
           <!-- Port Map -->
           <section class="port-section" id="map">
@@ -499,8 +499,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           </section>
 
           <!-- FAQ Section -->
-          <section class="port-section" id="faq">
-            <h2>Frequently Asked Questions</h2>
+          <details class="port-section" id="faq" open>
+            <summary><h2>Frequently Asked Questions</h2></summary>
             <div class="faq-list">
               <details class="faq-item">
                 <summary>Is Puerto Montt a tender port?</summary>
@@ -549,7 +549,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
                 </p>
               </details>
             </div>
-          </section>
+          </details>
 
           <!-- Disclaimers -->
           <section class="disclaimers">
@@ -567,7 +567,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           </section>
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Puerto Montt cruise port">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Puerto Montt cruise port">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -592,7 +592,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </li>
   </ul>
   <p class="pier-note">Gateway to Chilean Lake District. Can be dock or tender depending on conditions. Angelmó market walkable — don't miss the curanto (traditional stew). Excursions essential for volcano and lakes.</p>
-</div>
+</nav>
                 <div id="logbook-btn-container"></div>
 
         </article>
@@ -701,6 +701,11 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
     <footer class="site-footer">

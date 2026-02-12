@@ -170,6 +170,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -215,7 +218,7 @@ Soli Deo Gloria
     <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Cochin (Kochi), India</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero">
+      <section class="port-hero" id="hero">
         <div class="port-hero-image">
           <img src="/assets/brand/placeholder-port.webp" alt="Chinese fishing nets and colonial architecture in Fort Kochi, India" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
           <div class="port-hero-overlay">
@@ -223,7 +226,7 @@ Soli Deo Gloria
           </div>
         </div>
         <p class="port-hero-credit">Photo: In the Wake</p>
-      </div>
+      </section>
 
       
       <p class="last-reviewed">Last reviewed: February 2026</p>
@@ -339,8 +342,8 @@ Soli Deo Gloria
           <p>If you only have time for one neighborhood, make it Mattancherry. This is where the spice trade still happens — not in sanitized shops but in dusty warehouses where merchants haggle over cardamom grades and pepper moisture content, where the air is so thick with cinnamon dust you can taste it, where business is conducted in Malayalam, Tamil, Hindi, and pidgin English depending on who's buying. The Paradesi Synagogue sits in the heart of this chaos, its 450-year-old hand-painted Chinese tiles cool beneath your bare feet, its Belgian chandeliers hanging like frozen tears above Torah scrolls older than most European nation-states. The Jewish community here now numbers fewer than ten people, but they've kept the lights burning for centuries.</p>
         </div>
 
-        <section class="port-section">
-          <h3>Port Essentials</h3>
+        <section class="port-section" id="cruise_port">
+          <h3>The Cruise Port</h3>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
           <ul>
             <li><strong>Terminal:</strong> Cochin Port Trust cruise terminal at Ernakulam Wharf or Samudrika terminal at Willingdon Island; modern facilities with ATMs, shops, and tourist information</li>
@@ -353,8 +356,8 @@ Soli Deo Gloria
           </ul>
         </section>
 
-        <section class="port-section">
-          <h3>Top Experiences</h3>
+        <section class="port-section" id="excursions">
+          <h3>Excursions &amp; Activities</h3>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time.</p>
 
           <h4  class="mt-1">Chinese Fishing Nets</h4>
@@ -398,7 +401,7 @@ Soli Deo Gloria
           </div>
             </details>
 
-        <section class="port-section">
+        <section class="port-section" id="getting_around">
           <h3>Getting Around</h3>
           <ul>
             <li><strong>Taxis:</strong> Prepaid taxi booths at cruise terminal offer fixed-rate rides to Fort Kochi (~400-600 INR / $5-7) and other attractions. Negotiate fare before departure if using non-prepaid taxis. App-based rides (Uber, Ola) available but limited near port.</li>
@@ -435,8 +438,8 @@ Soli Deo Gloria
           </ul>
         </section>
 
-        <section class="port-section">
-          <h3>Pro Tips</h3>
+        <section class="port-section" id="depth_soundings">
+          <h3>Depth Soundings Ashore</h3>
           <ul>
             <li>Remove shoes before entering synagogue, Hindu temples, and some mosques. Dress modestly (shoulders/knees covered) for religious sites. Carry socks for hot pavement.</li>
             <li>Negotiate auto-rickshaw and taxi fares BEFORE getting in. Initial quote often 2-3x fair price. Politely but firmly counter-offer. Prepaid taxis at cruise terminal eliminate bargaining.</li>
@@ -492,7 +495,7 @@ Soli Deo Gloria
 
 
       <!-- FROM THE PIER -->
-      <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Cochin cruise terminal">
+      <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Cochin cruise terminal">
         <h3>From the Pier</h3>
         <ul class="pier-distances">
           <li class="pier-distance-item">
@@ -522,7 +525,7 @@ Soli Deo Gloria
           </li>
         </ul>
         <p class="pier-note">Terminal to Fort Kochi 20–30 min by taxi or auto-rickshaw. Ferry option 20–30 min (~10 INR), scenic. Athirapally Waterfalls $70–100. Spice markets in Mattancherry. Kerala cuisine is exceptional — don't miss the fish curry.</p>
-      </div>
+      </nav>
 
       </article>
     </div>
@@ -619,6 +622,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
   <footer class="wrap" role="contentinfo">

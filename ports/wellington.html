@@ -183,6 +183,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -228,7 +231,7 @@ Soli Deo Gloria
     <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Wellington</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero">
+      <section class="port-hero" id="hero">
         <div class="port-hero-image">
           <img src="/ports/img/wellington/cable-car.webp" alt="Wellington's iconic red cable car ascending through lush green hillside" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
           <div class="port-hero-overlay">
@@ -236,7 +239,7 @@ Soli Deo Gloria
           </div>
         </div>
         <p class="port-hero-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Wellington" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
-      </div>
+      </section>
 
       <article class="card">
         <h1>Wellington: New Zealand's Compact Creative Capital</h1>
@@ -259,8 +262,8 @@ Soli Deo Gloria
           <p>Even the government buildings here carry character. The Beehive — that distinctive circular structure beside Parliament — was designed by British architect Sir Basil Spence and completed in 1981. Love it or find it odd (Wellingtonians debate this), it's unmistakably Wellington: practical, bold, and utterly itself.</p>
         </div>
 
-        <section class="port-section">
-          <h3>Port Essentials</h3>
+        <section class="port-section" id="cruise_port">
+          <h3>The Cruise Port</h3>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
           <ul>
             <li><strong>Terminal:</strong> Aotea Quay — about 2 km from downtown (20-25 min scenic walk or shuttle)</li>
@@ -273,8 +276,8 @@ Soli Deo Gloria
           </ul>
         </section>
 
-        <section class="port-section">
-          <h3>Top Experiences</h3>
+        <section class="port-section" id="excursions">
+          <h3>Excursions &amp; Activities</h3>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time.</p>
 
           <h4  class="mt-1">Te Papa Tongarewa</h4>
@@ -460,7 +463,7 @@ Soli Deo Gloria
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Wellington">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Wellington">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -485,7 +488,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Ships dock at Aotea Quay or CentrePort, a short walk or shuttle to the waterfront. Wellington is compact and walkable. More restaurants per capita than New York. The wind is legendary — hold your hat. Te Papa alone justifies the port call.</p>
-</div>
+</nav>
 
       </article>
     </div>
@@ -565,6 +568,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
   <footer class="wrap" role="contentinfo">

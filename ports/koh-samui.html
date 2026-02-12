@@ -164,6 +164,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -209,7 +212,7 @@ Soli Deo Gloria
     <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Koh Samui, Thailand</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero">
+      <section class="port-hero" id="hero">
         <div class="port-hero-image">
           <img src="/assets/brand/placeholder-port.webp" alt="Golden Big Buddha statue overlooking turquoise waters of Koh Samui, Thailand" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
           <div class="port-hero-overlay">
@@ -217,7 +220,7 @@ Soli Deo Gloria
           </div>
         </div>
         <p class="port-hero-credit">Photo: In the Wake</p>
-      </div>
+      </section>
 
       
       <p class="last-reviewed">Last reviewed: February 2026</p>
@@ -343,8 +346,8 @@ Soli Deo Gloria
           <p>But the temples — the temples are what make Samui more than just another pretty beach. Wat Plai Laem sits on the northeastern shore, its Chinese-Thai architecture a riot of red and gold, featuring an 18-armed statue of Guanyin, the goddess of compassion and mercy, rising above a lake filled with catfish the size of small dogs that swarm when visitors toss food pellets. Nearby, Wat Khunaram houses the mummified remains of Loung Pordaeng, a revered monk who passed in 1973 while meditating. He sits there still, preserved behind glass, wearing sunglasses someone thoughtfully added to shield his spirit from flash photography. It's strange and sacred all at once.</p>
         </div>
 
-        <section class="port-section">
-          <h3>Port Essentials</h3>
+        <section class="port-section" id="cruise_port">
+          <h3>The Cruise Port</h3>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you tender ashore.</p>
           <ul>
             <li><strong>Terminal:</strong> Tender port — ships anchor offshore; tender boats to Nathon Pier (10 min ride)</li>
@@ -357,8 +360,8 @@ Soli Deo Gloria
           </ul>
         </section>
 
-        <section class="port-section">
-          <h3>Top Experiences</h3>
+        <section class="port-section" id="excursions">
+          <h3>Excursions &amp; Activities</h3>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time on this island of Buddhas and beaches.</p>
 
           <h4  class="mt-1">Big Buddha Temple (Wat Phra Yai)</h4>
@@ -388,7 +391,7 @@ Soli Deo Gloria
           </div>
             </details>
 
-        <section class="port-section">
+        <section class="port-section" id="getting_around">
           <h3>Getting Around</h3>
           <ul>
             <li><strong>Walking:</strong> Nathon Town walkable from pier (10-15 min). Beaches and temples require transportation. Sidewalks limited outside Nathon.</li>
@@ -411,8 +414,8 @@ Soli Deo Gloria
           </ul>
         </section>
 
-        <section class="port-section">
-          <h3>Pro Tips</h3>
+        <section class="port-section" id="depth_soundings">
+          <h3>Depth Soundings Ashore</h3>
           <ul>
             <li>Dress modestly for temples — shoulders and knees covered. Bring a light scarf or sarong. Shoes removed before entering temple buildings.</li>
             <li>Taxi drivers don't use meters — negotiate the full price before getting in. Ask locals or ship staff for current fair prices.</li>
@@ -464,7 +467,7 @@ Soli Deo Gloria
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Nathon Pier">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Nathon Pier">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -478,7 +481,7 @@ Soli Deo Gloria
       <div class="pier-bar"><div class="pier-bar-fill" style="width:35%"></div></div>
     </li>
     <li class="pier-distance-item">
-      <div><span class="pier-dest">Chaweng Beach</span><div class="pier-detail">Main beach strip — white sand, water sports, nightlife</div></div>
+      <div><span class="pier-dest">Chaweng Beach</span><div class="pier-detail">Main beach strip — white sand, water sports, evening scene</div></div>
       <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 25 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:30%"></div></div>
     </li>
@@ -494,7 +497,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Ships tender to Nathon Pier (10 min from anchor). Songthaew shared minibuses: 50 baht. Taxis: 300–700 baht depending on distance. Scooter rental: 200 baht/day (if you're confident). Temples require covered shoulders and knees. Thai massage: 300–500 baht/hour ($9–15).</p>
-</div>
+</nav>
 
       </article>
     </div>
@@ -562,6 +565,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
   <footer class="wrap" role="contentinfo">

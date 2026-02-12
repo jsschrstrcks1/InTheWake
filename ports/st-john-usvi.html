@@ -160,6 +160,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -245,13 +248,13 @@ Soli Deo Gloria
         </div>
       </div>
 
-      <section class="port-section">
-        <h2>Getting to St. John</h2>
+      <details class="port-section" open>
+        <summary><h2>Getting to St. John</h2></summary>
         <p>From your cruise ship docked at St. Thomas, you have two main options. The independent route: taxi from the cruise pier to Red Hook ($15/person, about 30 minutes), then passenger ferry to Cruz Bay ($7.50 each way, departures every hour, 20 minutes crossing). The ship excursion route: book through your cruise line for a package that includes transportation and often Trunk Bay admission.</p>
         <p>The ferry deposits you in Cruz Bay, St. John's only real town. From here, open-air safari buses (locally called "taxis") run to beaches around the island. Trunk Bay runs about $8-10/person each way; Cinnamon Bay similarly priced. Alternatively, rent a Jeep if you're comfortable driving on the left side of narrow, steep, winding roads with no guardrails. Most visitors find the taxi system perfectly adequate for a day's beach exploration.</p>
-      </section>
+      </details>
 
-      <section class="port-section">
+      <section class="port-section" id="excursions">
         <h2>Trunk Bay: The Underwater Trail</h2>
         <p>Trunk Bay consistently ranks among the world's most beautiful beaches — and it earns that reputation honestly. A perfect crescent of white sand, backed by sea grape trees, with calm turquoise water protected by an offshore reef. The National Park charges $5/person for beach access (cash or card), which includes use of changing facilities and the beach.</p>
         <p>The underwater snorkel trail is the highlight: a 225-yard path marked with interpretive signs describing the coral and marine life you're swimming above. Snorkel gear rentals ($8-12) are available on the beach. Even without the trail, the snorkeling here is exceptional — sea turtles, rays, and rainbow-colored fish inhabit these protected waters.</p>
@@ -271,13 +274,13 @@ Soli Deo Gloria
         <p class="map-note" style="font-size: 0.85rem; color: #666; text-align: center;">Tap markers to explore St. John</p>
       </section>
 
-      <section class="port-section faq-section">
-        <h2>Frequently Asked Questions</h2>
+      <details class="port-section faq-section" id="faq" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
         <details class="faq-item"><summary>Do cruise ships dock at St. John?</summary><p>No. Cruise ships dock at St. Thomas. Getting to St. John requires a taxi to Red Hook ($15/person) and ferry to Cruz Bay ($7.50 each way, 20 minutes). Book a ship excursion for seamless transport, or go independently for flexibility.</p></details>
         <details class="faq-item"><summary>Do I need a passport for St. John?</summary><p>No. St. John is a U.S. territory — U.S. citizens travel as they would domestically. U.S. dollars are the currency, and no customs/immigration applies.</p></details>
         <details class="faq-item"><summary>Is Trunk Bay worth the hype?</summary><p>Yes. The underwater snorkel trail, pristine beach, and protected waters live up to the reputation. Go early to beat the crowds. $5 park entrance fee includes facilities.</p></details>
         <details class="faq-item"><summary>Should I rent a car on St. John?</summary><p>Only if you're comfortable driving on the left, on narrow and steep roads. Safari taxis run to all major beaches and are adequate for most day visits. Jeep rentals run $80-120/day.</p></details>
-      </section>
+      </details>
 
       <!-- Author Disclaimer -->
       <section class="card disclaimer-card" style="margin-top: 2rem; border-left: 3px solid #d9b382; background: #f7fdff; padding: 1rem;">
@@ -292,7 +295,7 @@ Soli Deo Gloria
       </aside>
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from St. John USVI">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from St. John USVI">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -317,7 +320,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Cruise ships dock at St. Thomas, not St. John. Take a taxi to Red Hook ($15/person) then the passenger ferry to Cruz Bay ($7.50 each way, 20 min). Two-thirds of the island is national park. Open-air safari taxis run set routes.</p>
-</div>
+</nav>
 
     </article>
 
@@ -445,6 +448,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
   <footer class="site-footer">

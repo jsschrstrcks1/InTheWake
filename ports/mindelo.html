@@ -139,7 +139,7 @@ Soli Deo Gloria
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="lazy"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="eager" fetchpriority="high"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
       <!-- Mobile hamburger button -->
@@ -179,6 +179,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -315,8 +318,8 @@ Soli Deo Gloria
                     <p>If you're feeling adventurous, you can rent a car and explore the island. São Vicente is small enough to circumnavigate in a few hours. The roads are decent, though signage can be sparse. The beaches on the windward side are dramatic and often deserted.</p>
             </details>
 
-                <section id="food-drink">
-                    <h2>Local Food & Drink</h2>
+                <details id="food-drink" open>
+                    <summary><h2>Local Food & Drink</h2></summary>
                     <p>Cape Verdean cuisine reflects the island's history—Portuguese, West African, and Brazilian influences mingled into something unique. Cachupa is the national dish, a slow-cooked stew of corn, beans, and fish or meat, often served as breakfast (cachupa refogada, refried from the night before). I tried it at a small restaurant near the market and found it hearty and satisfying, the kind of food that sustained generations of fishermen and farmers.</p>
 
                     <p>Fresh fish and seafood are, predictably, excellent. Tuna, grouper, wahoo, and octopus appear on every menu. Grilled or in caldeirada (fish stew), the quality is outstanding. At lunch I had grilled tuna with djagacida (a bean and corn dish) and it was simple and perfect.</p>
@@ -324,7 +327,7 @@ Soli Deo Gloria
                     <p>For drinks, try grogue—the local sugarcane spirit, strong and fiery. Ponche is grogue mixed with molasses and lime, much smoother. Cape Verdean coffee is good, often Portuguese-style espresso. And local beer—Strela is the main brand—is crisp and refreshing in the heat.</p>
 
                     <p>Don't leave without trying pastéis—savory pastries filled with tuna or meat, sold at bakeries and street stalls. I ate mine sitting on a bench watching the harbor, and it was one of those perfect small moments of travel.</p>
-                </section>
+                </details>
 
                 <section id="pro-tips">
                     <h2>Pro Tips for Mindelo</h2>
@@ -481,7 +484,7 @@ Soli Deo Gloria
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Mindelo tender landing">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Mindelo tender landing">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -506,7 +509,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Tender port — ships anchor in Porto Grande and shuttle to the main wharf, steps from town. Everything walkable. Currency: Cape Verdean Escudo (CVE); euros widely accepted.</p>
-</div>
+</nav>
                 <div id="logbook-btn-container"></div>
 
             </article>
@@ -622,6 +625,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
     <footer class="site-footer">
