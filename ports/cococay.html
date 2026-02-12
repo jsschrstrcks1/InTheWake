@@ -293,7 +293,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">CocoCay</li></ol></nav>
 
     <section class="col-1">
-      <div class="port-hero">
+      <section class="port-hero" id="hero">
         <div class="port-hero-image">
           <img src="/ports/img/cococay/cococay-1.webp" alt="Perfect Day at CocoCay aerial view showing turquoise waters and white sand beaches" loading="eager" fetchpriority="high"/>
           <div class="port-hero-overlay">
@@ -301,7 +301,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           </div>
         </div>
         <p class="port-hero-credit">Photo: <a href="https://commons.wikimedia.org/w/index.php?search=Cococay&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</p>
-      </div>
+      </section>
 
     <article class="card">
       <h2>CocoCay: Where Royal Caribbean Built Paradise and Handed Me the Keys</h2>
@@ -334,7 +334,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 
       <!-- FROM THE PIER -->
-      <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from CocoCay pier">
+      <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from CocoCay pier">
         <h3>From the Pier</h3>
         <ul class="pier-distances">
           <li class="pier-distance-item">
@@ -364,7 +364,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           </li>
         </ul>
         <p class="pier-note">Royal Caribbean private island. Free trams connect all areas on flat paved paths. Beaches, pools, loungers, lunch all included. Premium add-ons: Coco Beach Club $90–120, zipline $35–45, jet ski $100–150, cabanas $500–800, beach beds $200–250.</p>
-      </div>
+      </nav>
 
       </article>
 
@@ -517,7 +517,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 <!-- First-Person Logbook Entry -->
     <article class="card logbook-entry">
-      <h2>My CocoCay Logbook</h2>
+<details open>
+      <summary><h2>My CocoCay Logbook</h2></summary>
 
       <img class="inline-image" src="/ports/img/cococay/cococay-1.webp" alt="Perfect Day at CocoCay aerial view showing turquoise waters and white sand beaches" loading="lazy"/>
 
@@ -556,7 +557,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <p>CocoCay has earned its reputation. The aggregate reviews from thousands of cruisers across Cruise Critic, Reddit, and post-cruise surveys consistently put it at 4.8–5.0 stars, and I understand why. It's the private island experience perfected — Royal Caribbean threw an extraordinary amount of money and thought at this place, and it shows in every detail. From the moment you walk off the ship to the moment you reluctantly walk back on, everything just works.</p>
 
       <p class="logbook-reflection">Looking back, CocoCay has taught me that sometimes the manufactured experience can still deliver genuine emotion. This is a place designed down to the last detail, yet that sunset moment in the lagoon was as real as any I've had in authentically remote places. Perhaps that's the lesson — that joy isn't less valid because someone planned for it. Royal Caribbean built a stage, but the performance is yours.</p>
-    </article>
+    </details>
+</article>
 
     <!-- Port Guide Sections -->
     <article class="card">
@@ -619,7 +621,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </section>
 
     <!-- Navigation Section -->
-    <section class="port-section">
+    <section class="port-section" id="getting_around">
       <h3>Getting Around CocoCay</h3>
       <p>One of the easiest ports you'll ever navigate. Your ship docks directly at the private pier — walk off the gangway and you're on the island within minutes. Everything is connected by wide, flat paved paths and free trams that run constantly throughout the day.</p>
       <ul>
@@ -759,7 +761,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </section>
 
     <!-- Word of Warning -->
-    <section class="port-section">
+    <section class="port-section" id="depth_soundings">
       <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
       <p>On busy days with two or three ships in port, the island buzzes with fantastic energy — embrace it as an opportunity to people-watch, soak up the vibrant atmosphere, and feel the collective joy of thousands of happy cruisers while still finding plenty of quiet corners (head to South Beach or Chill Island early for prime shaded spots). Booking cabanas or waterpark tickets in advance through the Cruise Planner simply guarantees you the best seats in this tropical playground.</p>
@@ -788,8 +790,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             </details>
 
     <!-- FAQ Section -->
-    <section class="card faq mt-2">
-      <h2>Frequently Asked Questions</h2>
+    <details class="card faq mt-2" open>
+      <summary><h2>Frequently Asked Questions</h2></summary>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
         <summary style="cursor: pointer; font-weight: 600;">Do I need to tender at CocoCay?</summary>
@@ -857,7 +859,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </details>
 
       <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-  </section>
+  </details>
 
   <aside class="rail col-2">
     <!-- At a Glance (collapsible) -->

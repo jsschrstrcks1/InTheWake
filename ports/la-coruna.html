@@ -241,7 +241,7 @@ Soli Deo Gloria
   <main class="wrap page-grid" id="main-content" role="main">
     <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">La Coruña</li></ol></nav>
     <div style="grid-column: 1; grid-row: 1;">
-    <div class="port-hero">
+    <section class="port-hero" id="hero">
         <div class="port-hero-image">
           <img src="/ports/img/la-coruna/la-coruna-3.webp" alt="La Coruna panoramic view" loading="eager" fetchpriority="high"/>
           <div class="port-hero-overlay">
@@ -249,7 +249,7 @@ Soli Deo Gloria
           </div>
         </div>
         <p class="port-hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
-      </div>
+      </section>
 
     <article class="card"><h1>La Coruña: My City of Glass</h1>
       <div class="logbook-entry">
@@ -273,7 +273,7 @@ Soli Deo Gloria
         </div>
       </div>
 
-      <section class="port-section">
+      <section class="port-section" id="getting_around">
         <h3>Getting Around La Coruña</h3>
         <p>Ship docks 10-minute walk from old town and lighthouse.</p>
 
@@ -283,7 +283,7 @@ Soli Deo Gloria
       </figure>
       </section>
 
-      <section class="port-section">
+      <section class="port-section" id="depth_soundings">
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
         <p>The path around the Tower is exposed to wind – a light jacket makes the dramatic views even more exhilarating.</p>
@@ -419,8 +419,8 @@ Soli Deo Gloria
             </details>
 
     <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
+    <details class="port-section photo-gallery" id="gallery" open>
+      <summary><h2>Photo Gallery</h2></summary>
       <div class="gallery-grid">
         <figure class="gallery-item">
           <img src="img/la-coruna/la-coruna-1.webp" alt="Harbor view of La Coruña, Spain" loading="lazy">
@@ -451,16 +451,16 @@ Soli Deo Gloria
           </figcaption>
         </figure>
       </div>
-    </section>
+    </details>
 
     <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
+    <details class="port-section image-credits" open>
+      <summary><h2>Image Credits</h2></summary>
       <ul>
         <li><strong>la-coruna-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>la-coruna-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>la-coruna-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>la-coruna-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
       </ul>
       <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
+    </details>
 
   
         <!-- VOLATILE DATA DISCLAIMER -->
@@ -485,7 +485,7 @@ Soli Deo Gloria
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from A Coruña cruise terminal">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from A Coruña cruise terminal">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -515,7 +515,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Ships dock near the city centre — everything is walkable. A Coruña is Galicia's port city, known for the Torre de Hércules and glass galerías. Pulpo a feira (octopus), pimientos de padrón, and Albariño wine are the Galician essentials. Santiago de Compostela is a doable day trip.</p>
-</div>
+</nav>
 
       </article>
   </div>

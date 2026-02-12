@@ -242,7 +242,7 @@ Soli Deo Gloria
   <main class="wrap page-grid" id="main-content" role="main">
     <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Gibraltar</li></ol></nav>
     <div style="grid-column: 1; grid-row: 1;">
-    <div class="port-hero">
+    <section class="port-hero" id="hero">
         <div class="port-hero-image">
           <img src="/ports/img/gibraltar/gibraltar-3.webp" alt="Gibraltar panoramic view" loading="eager" fetchpriority="high"/>
           <div class="port-hero-overlay">
@@ -250,7 +250,7 @@ Soli Deo Gloria
           </div>
         </div>
         <p class="port-hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
-      </div>
+      </section>
 
     <article class="card"><h1>Gibraltar: My British Rock in the Sun</h1>
       <div class="logbook-entry">
@@ -278,12 +278,12 @@ Soli Deo Gloria
         </div>
       </div>
 
-      <section class="port-section">
+      <section class="port-section" id="getting_around">
         <h3>Getting Around Gibraltar</h3>
         <p>Ship docks 10-minute walk from Casemates Square <span class="distance-fun">roughly 9 football fields, 32 blue whales in a row, or 704 emperor penguins forming a questionable tower</span> – everything is walkable or cheap cable car up the Rock.</p>
       </section>
 
-      <section class="port-section">
+      <section class="port-section" id="depth_soundings">
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
         <p><strong>Currency & Language:</strong> British pounds (GBP) are official, but euros are widely accepted. English is the official language, though you'll hear plenty of Spanish—a reminder that Spain is literally across the runway.</p>
@@ -449,8 +449,8 @@ Soli Deo Gloria
             </details>
 
     <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
+    <details class="port-section photo-gallery" id="gallery" open>
+      <summary><h2>Photo Gallery</h2></summary>
       <div class="gallery-grid">
         <figure class="gallery-item">
           <img src="img/gibraltar/gibraltar-1.webp" alt="Harbor view of Gibraltar" loading="lazy">
@@ -481,16 +481,16 @@ Soli Deo Gloria
           </figcaption>
         </figure>
       </div>
-    </section>
+    </details>
 
     <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
+    <details class="port-section image-credits" open>
+      <summary><h2>Image Credits</h2></summary>
       <ul>
         <li><strong>gibraltar-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>gibraltar-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>gibraltar-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>gibraltar-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
       </ul>
       <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
+    </details>
 
     <!-- Author's Note -->
     <section class="port-section author-disclaimer" style="margin-top: 2.5rem; padding: 1.25rem; background: #fffef7; border-left: 4px solid #d9b382; border-radius: 8px;">
@@ -522,7 +522,7 @@ Soli Deo Gloria
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Gibraltar cruise terminal">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Gibraltar cruise terminal">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -552,7 +552,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Ships dock at the Western Arm or North Mole. Gibraltar is tiny — 6.7 km² — and walkable. Taxi tours of the Upper Rock run £25–30. Currency is Gibraltar Pound (at parity with GBP); Sterling accepted everywhere. Do not feed the macaques. They will take your stuff regardless.</p>
-</div>
+</nav>
 
       </article>
   </div>
