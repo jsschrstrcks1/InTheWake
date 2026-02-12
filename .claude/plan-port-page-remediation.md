@@ -1,8 +1,60 @@
 # Port Page Remediation Plan
 
 **Created:** 2026-02-12
+**Updated:** 2026-02-12
 **Validator:** `admin/validate-port-page-v2.js` (ITC v1.1 + LOGBOOK_ENTRY_STANDARDS v2.300)
 **Baseline:** 71/380 pass (18.7%), 309/380 fail (81.3%)
+
+---
+
+## Work Completed (2026-02-12): section_order/missing_required_sections Fix
+
+**Result:** Reduced `missing_required_sections` from **248 → 164** pages (84 pages fixed, 34% reduction)
+
+### What was done:
+1. **Hero detection (145 fixed, 64 remaining):**
+   - Converted 156 `<div class="port-hero">` → `<section class="port-hero" id="hero">` (element change + id addition)
+   - Added `id="hero"` to 14 `<section class="port-hero">` elements lacking it
+   - 64 pages have NO port-hero element at all (need hero images)
+
+2. **Depth soundings (82 fixed, 91 remaining):**
+   - Renamed 69 `<h3>Pro Tips</h3>` → `<h3>Depth Soundings Ashore</h3>` + added id
+   - Renamed 8 `<h2>Practical Tips/Realities</h2>` → `<h2>Depth Soundings Ashore</h2>` + added id
+   - Added `id="depth_soundings"` to 68 sections with existing correct heading
+   - 91 pages genuinely lack any depth soundings content
+
+3. **Excursions (47 fixed, 78 remaining):**
+   - Renamed 84 `<h3>Top Experiences</h3>` → `<h3>Excursions &amp; Activities</h3>` + added id
+   - Added `id="excursions"` to 17 port-specific activity sections heuristically
+   - 78 pages have no recognizable excursions/activity section
+
+4. **Cruise port (45 fixed, 61 remaining):**
+   - Renamed 90 `<h3>Port Essentials</h3>` → `<h3>The Cruise Port</h3>` + added id
+   - Added `id="cruise_port"` to 2 sections with existing correct heading
+   - 61 pages lack cruise port content
+
+5. **Getting around (added IDs to 157, 46 still absent):**
+   - Added `id="getting_around"` to 155 existing "Getting Around" sections
+   - 46 pages have no getting around section
+
+6. **Gallery & FAQ IDs added**: 71 gallery + 7 FAQ sections tagged
+
+### What remains (164 pages):
+The remaining missing sections represent **genuine content gaps** — the HTML sections don't exist on these pages at all. Fixing requires creating new port-specific content, not structural changes.
+
+| Missing Section | Pages | Fix Required |
+|-----------------|-------|-------------|
+| depth_soundings | 91 | Write practical tips per port |
+| excursions | 78 | Write activity recommendations per port |
+| hero | 64 | Source hero images per port |
+| cruise_port | 61 | Write cruise terminal info per port |
+| getting_around | 46 | Write transport info per port |
+| gallery | 4 | Source gallery images |
+| logbook | 3 | Write logbook narratives |
+| faq | 3 | Write FAQ content |
+
+### Note on pass rate:
+The pass rate remains 71/380 because the v2 validator checks ~60 different blocking error categories. Pages that had `missing_required_sections` also have many other blocking errors (word count minimums, logbook narrative quality, content purity, etc.). The structural fixes resolved one category of errors but cannot make these pages pass alone.
 
 ---
 
