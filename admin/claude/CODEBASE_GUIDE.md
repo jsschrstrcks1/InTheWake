@@ -1,7 +1,7 @@
 # Codebase Guide - In the Wake
 
-**Version:** 1.0.0
-**Last Updated:** 2025-11-23
+**Version:** 1.1.0
+**Last Updated:** 2026-02-12
 **Purpose:** Comprehensive guide to repository structure, code patterns, and development conventions
 
 ---
@@ -23,8 +23,8 @@ InTheWake/
 ├── travel.html                     # General travel info
 ├── search.html                     # Site search (23KB)
 ├── sitemap.xml                     # SEO sitemap (108KB)
-├── sw.js                          # Service Worker (v13.0.0)
-├── precache-manifest.json          # Precache config (v13.0.0)
+├── sw.js                          # Service Worker (v14.2.0)
+├── precache-manifest.json          # Precache config (v14.2.0)
 ├── _headers                        # Netlify cache headers
 ├── .htaccess                       # Apache cache headers
 ├── nginx-cache-headers.conf        # nginx cache headers
@@ -34,15 +34,25 @@ InTheWake/
 ├── CACHE_HEADERS_README.md        # Cache configuration docs
 ├── SESSION_AUDIT_2025_11_23.md    # Latest audit report
 │
-├── ships/                          # Ship pages
+├── ships/                          # Ship pages (298 across 15 lines)
 │   ├── index.html                 # Ships hub (NOT ships.html)
 │   ├── rcl/                       # Royal Caribbean (50 ships)
-│   ├── carnival-cruise-line/      # Carnival fleet (47 ships)
-│   ├── carnival/                  # Carnival alternate (58 ships)
+│   ├── carnival-cruise-line/      # Carnival fleet (48 ships)
 │   ├── celebrity-cruises/         # Celebrity fleet (29 ships)
-│   └── holland-america-line/      # HAL fleet (44 ships)
+│   ├── holland-america-line/      # HAL fleet (46 ships)
+│   ├── norwegian/                 # Norwegian (20 ships)
+│   ├── princess/                  # Princess (17 ships)
+│   ├── msc/                       # MSC Cruises (24 ships)
+│   ├── silversea/                 # Silversea (12 ships)
+│   ├── costa/                     # Costa (9 ships)
+│   ├── oceania/                   # Oceania (8 ships)
+│   ├── regent/                    # Regent Seven Seas (7 ships)
+│   ├── seabourn/                  # Seabourn (7 ships)
+│   ├── explora-journeys/          # Explora Journeys (6 ships)
+│   ├── cunard/                    # Cunard (4 ships)
+│   └── virgin-voyages/            # Virgin Voyages (4 ships)
 │
-├── ports/                          # Port pages (147 ports)
+├── ports/                          # Port pages (380 ports)
 │   ├── cozumel.html
 │   ├── honolulu.html
 │   └── ...
@@ -66,7 +76,7 @@ InTheWake/
 │   ├── holland-america.html
 │   └── msc.html
 │
-├── restaurants/                    # Dining venue pages (25 pages)
+├── restaurants/                    # Dining venue pages (472 pages)
 │   ├── chefs-table.html
 │   ├── chops.html
 │   └── ...
@@ -76,7 +86,7 @@ InTheWake/
 │
 ├── assets/                         # Static assets
 │   ├── css/                       # Stylesheets
-│   │   ├── styles.css?v=3.0       # Main stylesheet (versioned)
+│   │   ├── styles.css?v=3.010.400  # Main stylesheet (versioned)
 │   │   └── item-cards.css         # Ship cards (v1.0.0, 467 lines)
 │   ├── js/                        # JavaScript modules
 │   │   ├── site-cache.js          # Client-side cache (7-day TTL)
@@ -88,21 +98,23 @@ InTheWake/
 │   │   ├── fleet_index.json       # Ship fleet data (version aware)
 │   │   ├── venues.json            # Dining venues (version aware)
 │   │   ├── personas.json          # User personas (version aware)
-│   │   ├── logbook/               # Ship logbooks
-│   │   │   └── rcl/               # RCL logbooks (40 ships)
-│   │   │       ├── radiance-of-the-seas.json
-│   │   │       ├── nordic-prince.json  # Historic (NEW 2025-11-23)
-│   │   │       └── sun-viking.json     # Historic (NEW 2025-11-23)
+│   │   ├── logbook/               # Ship logbooks (285 files across all lines)
+│   │   │   ├── rcl/               # RCL logbooks
+│   │   │   ├── carnival/          # Carnival logbooks
+│   │   │   ├── celebrity/         # Celebrity logbooks
+│   │   │   ├── norwegian/         # NCL logbooks
+│   │   │   ├── holland-america/   # HAL logbooks
+│   │   │   └── [10+ more lines]   # All 15 cruise lines represented
 │   │   └── ports/                 # Port master lists
 │   │       ├── royal-caribbean-ports-master-list.md  # 350+ ports
 │   │       ├── carnival-cruise-line-ports-master-list.md  # 320+ ports
 │   │       ├── virgin-voyages-ports-master-list.md    # ~120 ports
 │   │       ├── msc-cruises-ports-master-list.md       # 380+ ports
 │   │       └── norwegian-cruise-line-ports-master-list.md  # 420+ ports
-│   ├── ships/                     # Ship images (WebP format)
+│   ├── ships/                     # Ship images (536 WebP files)
 │   │   ├── radiance-of-the-seas.webp
 │   │   ├── radiance-of-the-seas1.webp
-│   │   └── thumbs/                # Pre-sized thumbnails (8 images)
+│   │   └── thumbs/                # Pre-sized thumbnails
 │   ├── videos/                    # Video manifests
 │   │   └── rc_ship_videos.json    # Ship tour videos (version aware)
 │   └── logo_wake.png              # Site logo (MUST stay PNG)
@@ -324,13 +336,13 @@ InTheWake/
 
 ## 🎨 CSS Architecture
 
-### Main Stylesheet (`assets/styles.css?v=3.0`)
+### Main Stylesheet (`assets/styles.css?v=3.010.400`)
 
-**CRITICAL:** Always include version query `?v=3.0` to bust cache
+**CRITICAL:** Always include version query `?v=3.010.400` to bust cache
 
 **Loading:**
 ```html
-<link rel="stylesheet" href="/assets/styles.css?v=3.0">
+<link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
 ```
 
 **Structure:**
@@ -459,17 +471,17 @@ const fleetData = await SiteCache.getJSON(
 
 ### Service Worker (`sw.js`)
 
-**Version:** v13.0.0
+**Version:** v14.2.0
 **Strategy:** Cache-first for images, network-first for HTML/JSON
 
 **Configuration:**
 ```javascript
 const CONFIG = {
-  version: '13.0.0',
-  maxPages: 400,      // Site has 561 pages
+  version: '14.2.0',
+  maxPages: 400,      // Site has 1,241 pages
   maxAssets: 150,
-  maxImages: 600,     // Currently 285 ship images
-  maxData: 100        // Currently 76 JSON files
+  maxImages: 600,     // Currently 536 ship images (2,998 WebP site-wide)
+  maxData: 100        // 1,278 JSON files in assets/data/
 };
 ```
 
@@ -477,7 +489,7 @@ const CONFIG = {
 - Images: Cache-first (long-lived, rarely change)
 - HTML: Network-first (content updates frequently)
 - JSON: Network-first with SiteCache (version-aware)
-- CSS/JS: Cache-first with version busting (?v=3.0)
+- CSS/JS: Cache-first with version busting (?v=3.010.400)
 
 **Registration (before `</body>`):**
 ```html
@@ -535,7 +547,7 @@ const randomImage = shipImages['radiance-of-the-seas'][
 <!-- ✅ CORRECT -->
 <a href="https://cruisinginthewake.com/ships/index.html">Ships</a>
 <img src="https://cruisinginthewake.com/assets/ships/radiance.webp" alt="...">
-<link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=3.0">
+<link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=3.010.400">
 
 <!-- ❌ WRONG -->
 <a href="/ships/index.html">Ships</a>
@@ -753,7 +765,7 @@ dropdownToggle.addEventListener('mouseleave', () => {
 - [ ] WebP images used (not JPEG/PNG except logo)
 - [ ] Images lazy loaded (except hero)
 - [ ] Hero images have fetchpriority="high"
-- [ ] CSS has version query (?v=3.0)
+- [ ] CSS has version query (?v=3.010.400)
 - [ ] Service Worker registered
 - [ ] SiteCache pre-warm snippet included
 - [ ] No blocking JavaScript (use defer/async)
@@ -926,17 +938,17 @@ python3 comprehensive_site_audit.py
 - Version field triggers cache invalidation when data changes
 - Works alongside Service Worker for comprehensive caching
 
-### Why Service Worker v13.0.0?
+### Why Service Worker v14.2.0?
 
-**Decision:** Increase cache limits from v12 defaults
+**Decision:** Increase cache limits and improve caching strategies
 
-**Changes:**
-- maxPages: 100 → 400 (site has 561 pages)
-- maxData: 50 → 100 (currently 76 JSON files)
-- maxImages: 500 → 600 (currently 285 images)
+**Current limits:**
+- maxPages: 400 (site has 1,241 pages)
+- maxData: 100 (1,278 JSON files in assets/data/)
+- maxImages: 600 (536 ship images, 2,998 WebP site-wide)
 
 **Rationale:**
-- Site outgrew v12 limits
+- Site has grown substantially (1,241 HTML pages, 298 ships, 380 ports, 472 venues)
 - Prevents cache eviction thrashing
 - Improves offline experience
 - Future-proofs for expansion
@@ -1136,13 +1148,13 @@ python3 comprehensive_site_audit.py
 `/admin/claude/CLAUDE.md`
 
 **CSS version query:**
-`?v=3.0`
+`?v=3.010.400`
 
 **Service Worker version:**
-`v13.0.0`
+`v14.2.0`
 
 **Template version:**
-`v3.010.300`
+`v3.010.305`
 
 **Canonical domain:**
 `https://cruisinginthewake.com`
@@ -1156,4 +1168,5 @@ python3 comprehensive_site_audit.py
 ---
 
 **Version History:**
+- v1.1.0 (2026-02-12) - Comprehensive accuracy update: ship pages 230→298 (15 cruise lines), ports 147→380, restaurants 25→472, logbooks 40→285, ship images 285→536, WebP 2,345→2,998, SW v13→v14.2.0, CSS ?v=3.0→?v=3.010.400, total pages 561→1,241
 - v1.0.0 (2025-11-23) - Initial comprehensive codebase guide created

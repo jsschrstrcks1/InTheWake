@@ -1,7 +1,7 @@
 # Standards Index - In the Wake
 
-**Version:** 1.0.0
-**Last Updated:** 2025-11-23
+**Version:** 1.1.0
+**Last Updated:** 2026-02-12
 **Purpose:** Master index of all standards, protocols, and conventions for the In the Wake website
 
 ---
@@ -193,7 +193,7 @@ These standards apply to **every page** on the site.
 - ✅ Success metrics and tracking
 
 **Status:**
-- Level 1: 97% complete (544/561 pages)
+- Level 1: 99% complete (1,229/1,241 pages)
 - Level 2: Pilot phase (Radiance of the Seas)
 - Level 3: Planned
 
@@ -304,15 +304,15 @@ These standards apply to **every page** on the site.
 
 ### 12. Unfinished Tasks (CRITICAL - PRIMARY TASK TRACKER)
 **File:** `/UNFINISHED_TASKS.md`
-**Version:** Updated 2025-11-23
+**Version:** Updated 2026-02-08
 **Scope:** Comprehensive task list with priorities
-**Status:** **APPEND-ONLY** - Never delete, only add and update
+**Status:** Restructured from 4,836 → ~800 lines (2026-02-08)
 
 **Key Sections:**
 - ✅ Comprehensive Audit #4 (file-by-file verification)
-- ✅ Port expansion tasks (147 ports, master lists)
+- ✅ Port expansion tasks (380 ports complete)
 - ✅ Image tasks (Wiki Commons downloads, attribution)
-- ✅ Ship logbook tasks (40 complete, 2 historic pending)
+- ✅ Ship logbook tasks (285 logbook files across 15 cruise lines)
 - ✅ Template & SEO tasks
 - ✅ Content tasks (5 article categories)
 - ✅ UI/UX tasks (navigation, ship cards)
@@ -475,7 +475,7 @@ XX. **Fix broken image links in 5 port pages** - Discovered during audit (2025-1
 **Scope:** Comprehensive port lists by cruise line
 
 **Files:**
-- ✅ **Royal Caribbean:** `royal-caribbean-ports-master-list.md` (350+ ports, 147 created, 42%)
+- ✅ **Royal Caribbean:** `royal-caribbean-ports-master-list.md` (350+ ports, 380 port pages site-wide)
 - ✅ **Carnival:** `carnival-cruise-line-ports-master-list.md` (320+ ports, Phase 1-5 expansion)
 - ✅ **Virgin Voyages:** `virgin-voyages-ports-master-list.md` (~120 ports, adults-only)
 - ✅ **MSC Cruises:** `msc-cruises-ports-master-list.md` (380+ ports, European focus)
@@ -531,12 +531,12 @@ XX. **Fix broken image links in 5 port pages** - Discovered during audit (2025-1
 - Maintaining visual consistency
 
 ### 21. Template Version
-**Current:** v3.010.300
-**Coverage:** 478 files (85%+ of site)
+**Current:** v3.010.305
+**Coverage:** 1,241 HTML pages across site
 
 **Key Requirements:**
-- ✅ CSS version query: `?v=3.0`
-- ✅ Meta version tag: `<meta name="version" content="v3.006.006">`
+- ✅ CSS version query: `?v=3.010.400`
+- ✅ Meta version tag: `<meta name="version" content="v3.010.305">`
 - ✅ Cache buster increments: `.001` per batch
 - ✅ Consistent navigation structure
 - ✅ Service Worker registration
@@ -628,8 +628,8 @@ Before marking any work complete, verify compliance with these standards:
 - [ ] Absolute URLs (https://cruisinginthewake.com/...)
 - [ ] DOCTYPE declaration
 - [ ] Meta tags (charset, viewport, description, version)
-- [ ] ICP-Lite meta tags (content-protocol, ai:summary, last-reviewed)
-- [ ] CSS with version query (?v=3.0)
+- [ ] ICP-Lite meta tags (content-protocol, ai-summary, last-reviewed)
+- [ ] CSS with version query (?v=3.010.400)
 - [ ] Service Worker registration snippet
 - [ ] SiteCache pre-warm snippet
 - [ ] Skip-link for accessibility
@@ -746,6 +746,11 @@ Before marking any work complete, verify compliance with these standards:
 ---
 
 ## 🔄 Version History
+
+**v1.1.0 (2026-02-12):**
+- Accuracy audit: ICP-Lite 544/561→1,229/1,241, ports 147→380, logbooks 40→285, template v3.010.300→v3.010.305, CSS ?v=3.0→?v=3.010.400
+- Fixed ai:summary→ai-summary (ICP-Lite v1.4 syntax)
+- Updated UNFINISHED_TASKS.md references to reflect 2026-02-08 restructure
 
 **v1.0.0 (2025-11-23):**
 - Initial comprehensive standards index
