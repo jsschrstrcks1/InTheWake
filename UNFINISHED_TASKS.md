@@ -11,15 +11,20 @@
 
 ---
 
-## 📊 Current Codebase Status (2026-02-08)
+## 📊 Current Codebase Status (2026-02-12)
 
 | Asset | Count |
 |-------|-------|
 | Port pages | 380 |
-| Ship pages | 292 |
+| Ship pages | 298 |
 | Restaurant pages | 472 |
-| Inline styles | ~16,800 |
+| Total HTML pages | 1,241 |
+| WebP images | 2,998 |
+| Logbook JSON files | 285 |
+| Inline styles | ~16,040 |
 | Files with `<style>` | 25 |
+| ICP-Lite coverage | 1,229/1,241 (99%) |
+| Soli Deo Gloria coverage | 1,233/1,241 (99.4%) |
 
 ---
 
@@ -27,7 +32,7 @@
 
 | Cruise Line | Ships | Restaurants | Gap |
 |-------------|-------|-------------|-----|
-| RCL | 49 | 280 | ✅ Baseline |
+| RCL | 50 | 280 | ✅ Baseline |
 | NCL | 20 | 78 | Partial |
 | Virgin | 4 | 46 | Good ratio |
 | MSC | 24 | 45 | Partial |
