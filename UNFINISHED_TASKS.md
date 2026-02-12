@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Active task queue. Only pending work lives here.
-**Last Updated:** 2026-02-08 (Restructured from 4,836 → ~800 lines)
+**Last Updated:** 2026-02-12
 **Maintained by:** Claude AI
 
 > **Archives:**
@@ -23,8 +23,8 @@
 | Logbook JSON files | 285 |
 | Inline styles | ~16,040 |
 | Files with `<style>` | 25 |
-| ICP-Lite coverage | 1,229/1,241 (99%) |
-| Soli Deo Gloria coverage | 1,233/1,241 (99.4%) |
+| ICP-Lite coverage | 1,231/1,241 (99.2%) |
+| Soli Deo Gloria coverage | 1,239/1,241 (99.8%) |
 
 ---
 
