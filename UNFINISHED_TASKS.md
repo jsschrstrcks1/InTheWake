@@ -82,7 +82,7 @@
 
 #### ✅ [G] AI-Readiness Polish — COMPLETE (2026-02-12)
 **Status:** Complete — llms.txt already reflects 9 tools, correct counts (298/380/472), and Feb 2026 updates. JSON-LD description matches ai-summary exactly on all 8 hub pages. Stale counts fixed on ports.html (333→380) and restaurants.html (445→472).
-**Remaining:** AI-breadcrumbs presence audit on all entity pages (Green lane, separate pass)
+**AI-breadcrumbs progress (2026-02-12):** Added to 20 high-traffic ports (21→41/380, 10.8%). Ships 301/315 (95%), restaurants 472/472 (100%). Remaining: 339 port pages still need breadcrumbs (Green lane, future batch passes).
 
 #### ✅ [Y] Marketing Copy Update — COMPLETE (2026-02-12)
 **Status:** Complete — corrected stale counts and tool references across public-facing pages.
