@@ -92,7 +92,7 @@
 - [x] planning.html: Added Budget Calculator, Port Day Planner, Ship Size Atlas to "Start Planning" grid
 - [x] ports.html: Updated all count references from 333→380, removed Royal Caribbean-only framing
 - [x] restaurants.html: Updated all count references from 445→472
-**Remaining:** Nav dropdown still shows 6 of 9 tools (inline across 1,241 pages — separate bulk operation)
+- [x] Nav dropdown: Added Budget Calculator, Port Day Planner, Ship Size Atlas to Tools dropdown across 1,203 pages
 
 ### P2 Tasks — From Competitor Analysis
 
