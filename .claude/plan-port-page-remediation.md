@@ -1,10 +1,10 @@
 # Port Page Remediation Plan
 
 **Created:** 2026-02-12
-**Updated:** 2026-02-12
+**Updated:** 2026-02-12 (after collapsible section fix)
 **Validator:** `admin/validate-port-page-v2.js` (ITC v1.1 + LOGBOOK_ENTRY_STANDARDS v2.300)
 **Baseline:** 71/380 pass (18.7%), 309/380 fail (81.3%)
-**Current:** 126/380 pass (33.2%), 254/380 fail (66.8%)
+**Current:** 126/380 pass (33.2%), 254/380 fail (66.8%) — collapsible_required fully eliminated
 
 ---
 
@@ -95,40 +95,125 @@ The original plan assumed Phase 1 required HTML section reordering. Investigatio
 
 ---
 
-## Validation Results Summary
+## Work Completed (2026-02-12): Phase 2 — Collapsible Sections
 
-| Score Range | Count | % of Failures |
-|-------------|-------|---------------|
-| 90-100      | 38    | 12.3%         |
-| 80-89       | 16    | 5.2%          |
-| 70-79       | 1     | 0.3%          |
-| 50-69       | 0     | 0%            |
-| 0-49        | 254   | 82.2%         |
-| **Total Failing** | **309** | |
-| **Total Passing** | **71**  | |
+**Result:** Eliminated all `collapsible_required` errors: **137 → 0** pages affected
+
+The v2 validator's `validateCollapsibleStructure` function requires that any `<h2>` inside `<main>` matching a COLLAPSIBLE_REQUIRED section pattern must have both `<summary>` and `<details>` ancestors. COLLAPSIBLE_REQUIRED sections are: `logbook`, `cruise_port`, `getting_around`, `excursions`, `history`, `cultural`, `shopping`, `food`, `notices`, `depth_soundings`, `practical`, `faq`, `gallery`, `credits`.
+
+### Error distribution (before fix):
+| Section Type | Instances | Description |
+|-------------|-----------|-------------|
+| gallery     | 144       | Photo Gallery h2 not in details/summary |
+| faq         | 70        | FAQ h2 not in details/summary |
+| logbook     | 44        | Logbook h2 not in details/summary |
+| credits     | 31        | Image Credits h2 not in details/summary |
+| excursions  | 26        | Excursions h2 not in details/summary |
+| cruise_port | 19        | Cruise Port h2 not in details/summary |
+| depth_soundings | 18    | Depth Soundings h2 not in details/summary |
+| getting_around | 14     | Getting Around h2 not in details/summary |
+| food        | 9         | Food h2 not in details/summary |
+| shopping    | 8         | Shopping h2 not in details/summary |
+| history     | 7         | History h2 not in details/summary |
+| cultural    | 4         | Cultural h2 not in details/summary |
+| practical   | 2         | Practical h2 not in details/summary |
+| notices     | 2         | Notices h2 not in details/summary |
+| **Total**   | **398**   | Across **137 pages** |
+
+### What was done:
+
+1. **Main conversion script (`admin/fix-collapsible-sections.cjs`) — 363 sections across 131 files:**
+   - Uses cheerio to detect non-collapsible `<h2>` elements matching COLLAPSIBLE_REQUIRED patterns
+   - Identifies container element (section/article) via parent traversal
+   - Three conversion patterns:
+     - **Pattern A:** `<section class="port-section"><h2>Title</h2>...content...</section>` → `<details class="port-section" open><summary><h2>Title</h2></summary>...content...</details>`
+     - **Pattern B:** `<article class="card logbook-entry"><h2>Title</h2>...` → `<details open>` inserted inside article, h2 wrapped in `<summary>`
+     - **Pattern C:** `<section><div class="logbook-entry__header"><h2>Title</h2></div>...` → div replaced with `<summary>`, section→details
+   - Uses string manipulation (not cheerio serialization) to preserve original HTML formatting
+
+2. **Bare FAQ section fix (27 files):**
+   - 27 pages had duplicate FAQ sections: a proper `<details class="port-section" id="faq">` AND an older bare `<section>` with `<h2>Frequently Asked Questions</h2>` (unclosed, not collapsible)
+   - Converted the bare sections: `<section>` → `<details open>`, wrapped h2 in `<summary>`, added closing `</details>`
+   - Pages: tokyo, tianjin, sydney, south-pacific, singapore, shanghai, scotland, royal-beach-club-nassau, phuket, philipsburg, papeete, palau, oslo, osaka, mumbai, manila, la-spezia, istanbul, hong-kong, hobart, ho-chi-minh, harvest-caye, geiranger, fremantle, flam, busan, bora-bora
+
+3. **Lautoka excursions manual fix (1 file):**
+   - `ports/lautoka.html`: `<section id="excursions" class="content-section">` had nested content and was unclosed
+   - Converted to `<details id="excursions" class="port-section" open>`, wrapped h2 in `<summary>`, added missing `</details>` closing tag
+
+4. **Final 5 remaining pages (5 files):**
+   - olden, labadee, kusadasi, gatun-lake, cococay — all had duplicate bare FAQ sections missed by the first batch fix
+   - kusadasi also had duplicate bare gallery and image credits sections
+   - All converted to `<details>` with `<summary>` wrapping `<h2>`
+
+### Spot-check results:
+- zadar.html: PASS (all sections properly collapsible)
+- trinidad.html: PASS (logbook entry correctly converted)
+- vancouver.html: PASS (all 6 converted sections valid)
+- tokyo.html: PASS (duplicate FAQ is pre-existing content duplication, not a structural error)
+
+### Pass rate impact:
+- **collapsible_required errors eliminated: 137 → 0 pages**
+- Pass count unchanged at 126/380 — the 137 affected pages all have many other blocking errors (content minimums, missing sections, etc.)
+- However, removing `collapsible_required` reduces the error burden on those pages, moving them closer to passing
+
+### Files created:
+- `admin/fix-collapsible-sections.cjs` — reusable conversion script (handles all three patterns)
 
 ---
 
-## Blocking Errors by Frequency
+## Validation Results Summary (Current)
 
-| Error Code | Count | Description |
+| Score Range | Count | % of Failures |
+|-------------|-------|---------------|
+| 90-100      | 0     | 0%            |
+| 80-89       | 0     | 0%            |
+| 50-79       | 0     | 0%            |
+| 40-49       | 2     | 0.8%          |
+| 20-29       | 3     | 1.2%          |
+| 10-19       | 2     | 0.8%          |
+| 0-9         | 247   | 97.2%         |
+| **Total Failing** | **254** | |
+| **Total Passing** | **126** | |
+
+---
+
+## Blocking Errors by Frequency (Current — 254 failing pages)
+
+| Error Rule | Count | Description |
 |------------|-------|-------------|
-| `section_order/missing_required_sections` | 248 | Missing hero, excursions, depth_soundings, etc. |
-| `hero/hero_missing_image_credit` | 142 | Hero image has no credit/attribution link |
-| `hero/hero_missing` | 90 | No `class="port-hero"` section at all |
-| `icp_lite/datemodified_mismatch` | 24 | JSON-LD dateModified doesn't match last-reviewed |
-| `icp_lite/missing_faqpage` | 20 | Missing FAQPage JSON-LD schema |
-| `icp_lite/missing_webpage` | 19 | Missing WebPage JSON-LD schema |
-| `icp_lite/missing_mainentity` | 19 | Missing mainEntity in JSON-LD |
-| `icp_lite/description_mismatch` | 19 | Meta description doesn't match JSON-LD |
-| `hero/hero_missing_image` | 10 | Hero section exists but has no `<img>` |
-| `hero/hero_missing_overlay` | 7 | Hero section missing text overlay |
-| `icp_lite/ai_summary_length` | 4 | ai-summary too short (<150 chars) |
-| `site_integration/not_in_ports_html` | 3 | Not listed in ports.html hub page |
-| `icp_lite/missing_breadcrumbs` | 2 | Missing BreadcrumbList JSON-LD |
-| `icp_lite/protocol_version` | 1 | Wrong ICP-Lite version string |
-| `hero/hero_not_webp` | 1 | Hero image not in WebP format |
-| `port_images/missing_port_img_directory` | 1 | No `/ports/img/{slug}/` directory |
+| `out_of_order` | 249 | Sections detected out of canonical order |
+| `booking_guidance` | 246 | Missing booking/reservation guidance |
+| `logbook_minimum` | 236 | Logbook section below word count minimum |
+| `emotional_pivot_missing` | 236 | Logbook missing emotional pivot |
+| `getting_around_minimum` | 233 | Getting around section below word count |
+| `first_person_minimum` | 228 | Insufficient first-person narrative |
+| `reflection_missing` | 226 | Logbook missing reflection/insight |
+| `first_person_voice` | 224 | Logbook not in first-person voice |
+| `excursions_minimum` | 214 | Excursions section below word count |
+| `minimum_images` | 199 | Not enough images |
+| `accessibility_notes` | 180 | Missing accessibility information |
+| `cruise_port_minimum` | 178 | Cruise port section below word count |
+| `depth_soundings_minimum` | 176 | Depth soundings section below word count |
+| `missing_required_sections` | 167 | Missing hero, excursions, depth_soundings, etc. |
+| `diy_price_mentions` | 143 | Missing DIY pricing information |
+| `hero_missing_image_credit` | 142 | Hero image has no credit/attribution link |
+| `missing_port_img_directory` | 101 | No `/ports/img/{slug}/` directory |
+| `hero_missing` | 91 | No `class="port-hero"` section at all |
+| `total_minimum` | 77 | Page below total word count minimum |
+| `missing_credits` | 75 | No image credits section |
+| `faq_minimum` | 40 | FAQ section below minimum |
+| `datemodified_mismatch` | 24 | JSON-LD dateModified doesn't match last-reviewed |
+| `forbidden_hype` | 23 | Contains forbidden hype/brochure language |
+| `missing_faqpage` | 21 | Missing FAQPage JSON-LD schema |
+| `missing_webpage` | 20 | Missing WebPage JSON-LD schema |
+| `missing_mainentity` | 20 | Missing mainEntity in JSON-LD |
+| `description_mismatch` | 19 | Meta description doesn't match JSON-LD |
+| `hero_image_loading` | 13 | Hero image loading attribute issue |
+| `hero_missing_image` | 10 | Hero section exists but has no `<img>` |
+| `forbidden_gambling` | 8 | Contains forbidden gambling references |
+| `hero_missing_overlay` | 7 | Hero section missing text overlay |
+| `forbidden_drinking` | 5 | Contains forbidden drinking references |
+| `collapsible_required` | **0** | ~~Sections not using details/summary~~ **RESOLVED** |
 
 ## Warnings by Frequency
 
@@ -258,12 +343,12 @@ Pages that may not be standard port pages:
 
 ## Metrics to Track
 
-| Metric | Baseline | After Ph1 (actual) | After Ph2 | After Ph3 | Target |
-|--------|----------|---------------------|-----------|-----------|--------|
-| Pages passing v2 | 71 | **126** | ~140+ | ~300+ | 380 |
-| Pass rate | 18.7% | **33.2%** | ~37%+ | 79%+ | 100% |
-| Score 90+ failing | 38 | **0** | 0 | 0 | 0 |
-| Score 80-89 failing | 16 | **0** | 0 | 0 | 0 |
+| Metric | Baseline | After Ph1 | After Ph2 (collapsible) | After Ph3 | Target |
+|--------|----------|-----------|-------------------------|-----------|--------|
+| Pages passing v2 | 71 | **126** | **126** | ~300+ | 380 |
+| Pass rate | 18.7% | **33.2%** | **33.2%** | 79%+ | 100% |
+| Score 90+ failing | 38 | **0** | **0** | 0 | 0 |
+| collapsible_required | 137 | 137 | **0** | 0 | 0 |
 
 ---
 
