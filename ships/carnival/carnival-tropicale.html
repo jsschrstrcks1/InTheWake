@@ -641,7 +641,7 @@
       <section class="card quiz-cta" style="background: linear-gradient(135deg, #e0f4f8, #fff); border-left: 4px solid #0e6e8e; padding: 1rem;">
         <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #083041;">Exploring Options?</h3>
         <p class="tiny" style="margin-bottom: 0.75rem; color: #5a7a8a;">Take our quick quiz to find ships that match your travel style.</p>
-        <a href="/ships/quiz.html" class="pill" style="font-size: 0.85rem;">Ship Quiz →</a>
+        <a href="/ships/quiz.html" class="pill text-sm" >Ship Quiz →</a>
       </section>
 
 <section class="card author-card-vertical" aria-labelledby="author-title">
@@ -672,29 +672,29 @@
     <section class="card faq" id="faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions</h2>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">What dining options are available on Carnival Tropicale?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Carnival Tropicale offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship.</p>
+      <details  class="section-divider">
+        <summary>What dining options are available on Carnival Tropicale?</summary>
+        <p  class="list-indent">Carnival Tropicale offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship.</p>
       </details>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How do I find the deck plans for Carnival Tropicale?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Deck plans are available through the links on this page. You can also find official deck plans on the <a href="https://www.carnival.com" target="_blank" rel="noopener">Carnival Cruise Line</a> website or in the cruise planner app.</p>
+      <details  class="section-divider">
+        <summary>How do I find the deck plans for Carnival Tropicale?</summary>
+        <p  class="list-indent">Deck plans are available through the links on this page. You can also find official deck plans on the <a href="https://www.carnival.com" target="_blank" rel="noopener">Carnival Cruise Line</a> website or in the cruise planner app.</p>
       </details>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Where does Carnival Tropicale sail?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Ship deployments vary by season. Check the <a href="https://www.carnival.com" target="_blank" rel="noopener">Carnival Cruise Line</a> website for current itineraries and departure ports for Carnival Tropicale.</p>
+      <details  class="section-divider">
+        <summary>Where does Carnival Tropicale sail?</summary>
+        <p  class="list-indent">Ship deployments vary by season. Check the <a href="https://www.carnival.com" target="_blank" rel="noopener">Carnival Cruise Line</a> website for current itineraries and departure ports for Carnival Tropicale.</p>
       </details>
 
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">How can I track Carnival Tropicale's current location?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">Use the live ship tracker section on this page to see the ship's current position, speed, and next port in real-time when available.</p>
+      <details  class="section-divider">
+        <summary>How can I track Carnival Tropicale's current location?</summary>
+        <p  class="list-indent">Use the live ship tracker section on this page to see the ship's current position, speed, and next port in real-time when available.</p>
       </details>
 
       <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
-        <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem 0;">Is this information official?</summary>
-        <p style="margin: 0.5rem 0; padding-left: 1rem;">This page provides planning resources and community insights. Always confirm details with <a href="https://www.carnival.com" target="_blank" rel="noopener">Carnival Cruise Line</a> or your travel advisor before booking.</p>
+        <summary>Is this information official?</summary>
+        <p  class="list-indent">This page provides planning resources and community insights. Always confirm details with <a href="https://www.carnival.com" target="_blank" rel="noopener">Carnival Cruise Line</a> or your travel advisor before booking.</p>
       </details>
     </section>
 
@@ -714,6 +714,11 @@
         <li><a href="/articles/cruise-tech-photography-guide.html">Tech &amp; Photography Guide</a></li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
   <!-- Attribution Section -->
@@ -760,7 +765,7 @@
       if(n)n.onclick=()=>{page++;render();};
     }
     fetch('/assets/data/articles/index.json').then(r=>r.json()).then(data=>{
-      articles=(data||[]).filter(a=>a.status==='published').sort((a,b)=>new Date(b.date)-new Date(a.date));
+      articles=(data.articles||data||[]).filter(a=>a.status==='published').sort((a,b)=>new Date(b.date)-new Date(a.date));
       if(fb)fb.style.display='none';
       if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
     }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});

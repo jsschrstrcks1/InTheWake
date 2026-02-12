@@ -89,32 +89,61 @@ Soli Deo Gloria
       </button>
       <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
+
+        <!-- Planning Dropdown -->
         <div class="nav-dropdown" id="nav-planning">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
           <div class="dropdown-menu" role="menu">
-            <a href="/planning.html">Planning (overview)</a>
+            <a href="/first-cruise.html">Your First Cruise</a>
             <a href="/ships.html">Ships</a>
-            <a href="/ships/quiz.html">Ship Quiz</a>
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a href="/ports.html">Ports</a>
-            <a href="/internet-at-sea.html">Internet at Sea</a>
-            <a href="/drink-packages.html">Drink Packages</a>
-            <a href="/drink-calculator.html">Drink Calculator</a>
-            <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/ports.html">Ports</a>
             <a href="/packing-lists.html">Packing Lists</a>
             <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
+
+        <!-- Tools Dropdown -->
+        <div class="nav-dropdown" id="nav-tools">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Tools <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/cruise-lines/quiz.html">Cruise Line Quiz</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/tools/port-tracker.html">Port Logbook</a>
+            <a href="/tools/ship-tracker.html">Ship Logbook</a>
+          </div>
+        </div>
+
+        <!-- Onboard Dropdown -->
+        <div class="nav-dropdown" id="nav-onboard">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Onboard <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
+            <a href="/articles.html">Articles</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
         <div class="nav-dropdown" id="nav-travel">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">&#9662;</span></button>
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
           <div class="dropdown-menu" role="menu">
             <a href="/travel.html">Travel (overview)</a>
             <a href="/solo.html">Solo</a>
           </div>
         </div>
-        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
-        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
@@ -129,7 +158,7 @@ Soli Deo Gloria
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Venice</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Venice</li></ol></nav>
 
   <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
@@ -145,6 +174,7 @@ Soli Deo Gloria
       </section>
 
               <p class="last-reviewed">Last reviewed: February 2026</p>
+                <div id="logbook-btn-container"></div>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
         <details class="port-section" id="weather-guide" open>
@@ -216,7 +246,7 @@ Soli Deo Gloria
                       <li>Rain jacket or compact umbrella</li>
                       <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
                     </ul>
-                    <p class="tiny" style="margin-top:0.5rem"><a href="/packing-lists.html">Full packing lists →</a></p>
+                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
                   </div>
                 </details>
 
@@ -314,7 +344,7 @@ Soli Deo Gloria
             <summary><h2>Top Excursions &amp; Things to Do</h2></summary>
         <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: St. Mark's Basilica is free but lines are long—book ahead for skip-the-line tickets online. Doge's Palace requires advance reservations during peak season. Ship excursions offer guided experiences with guaranteed return to port. Independent exploration via vaporetto works well for confident travelers. Gondola rides don't need booking—gondoliers wait at stands throughout the city.</p>
 
-        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">St. Mark's Square &amp; Basilica (free-$15)</h4>
+        <h4  class="mt-1">St. Mark's Square &amp; Basilica (free-$15)</h4>
         <p>ESSENTIAL for any Venice visit. The square (Piazza San Marco) is Venice's civic and spiritual heart, surrounded by the Basilica, Campanile bell tower, and Doge's Palace. The Basilica entrance is free but queues can exceed an hour—skip-the-line tickets worth the €6 investment. Interior mosaics covering 8,000 square meters of gold-ground Byzantine splendor will take your breath away. The Campanile offers panoramic views (€10, elevator available). Allow 2-3 hours for the complex.</p>
 
         <figure class="logbook-image">
@@ -322,19 +352,19 @@ Soli Deo Gloria
           <figcaption>Doge's Palace's Gothic splendor — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
         </figure>
 
-        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Doge's Palace ($30-40)</h4>
+        <h4  class="mt-1">Doge's Palace ($30-40)</h4>
         <p>ESSENTIAL for history and art lovers. The pink-and-white Gothic palace served as Venice's seat of power for centuries. Tour the lavish council chambers with ceiling paintings by Tintoretto and Veronese, cross the Bridge of Sighs to the prisons, and learn how this maritime republic functioned. Book timed-entry tickets at palazzoducale.visitmuve.it—wait times can be brutal during peak season. Allow 2 hours minimum.</p>
 
-        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Gondola Ride ($80-100)</h4>
+        <h4  class="mt-1">Gondola Ride ($80-100)</h4>
         <p>Undeniably touristy, undeniably magical. No advance reservation needed—simply approach a gondolier at any stand throughout the city. The official rate is €80 for 40 minutes (up to 6 people), €100 after 7 PM. Prices are fixed—don't pay more. Request the quieter back canals rather than the crowded Grand Canal for the most atmospheric experience. Sharing a gondola with other passengers reduces per-person cost. An iconic Venice experience worth the splurge for most visitors.</p>
 
-        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Murano &amp; Burano Islands ($20-30)</h4>
+        <h4  class="mt-1">Murano &amp; Burano Islands ($20-30)</h4>
         <p>Vaporetto Line 12 connects these lagoon islands for independent exploration. No advance booking required—simply purchase vaporetto tickets and go. Murano offers glass-making demonstrations (free at showrooms, small fee for artisan workshops) and centuries-old tradition. Burano dazzles with rainbow-painted houses and lace-making heritage. Half a day covers both comfortably. A refreshing escape from Venice's most crowded areas while remaining quintessentially Venetian.</p>
 
-        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Grand Canal Vaporetto Ride ($10)</h4>
+        <h4  class="mt-1">Grand Canal Vaporetto Ride ($10)</h4>
         <p>The budget alternative to water taxis. Take Line 1 from Piazzale Roma to San Marco—it stops at every station, taking 45 minutes to traverse the full canal past Renaissance palaces, the Rialto Bridge, and Gothic warehouses. Stand at the front or back for best views. A €10 single ticket buys the same views a €100 water taxi provides. Best in morning or late afternoon light.</p>
 
-        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Get Lost in Cannaregio or Dorsoduro (free)</h4>
+        <h4  class="mt-1">Get Lost in Cannaregio or Dorsoduro (free)</h4>
         <p>Venice's quieter neighborhoods offer respite from St. Mark's crowds. Cannaregio, the northern sestiere, features the Jewish Ghetto (the world's first, giving us the word), local cafés, and authentic residential atmosphere. Dorsoduro houses the Accademia gallery and Peggy Guggenheim Collection. Simply wandering reveals hidden squares, neighborhood churches, and the everyday Venice tourists rarely see.</p>
 
           <!-- DIY vs. Excursion -->
@@ -386,7 +416,7 @@ Soli Deo Gloria
               <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
             </li>
             <li class="pier-distance-item">
-              <div><span class="pier-dest">Murano (Glass Island)</span><div class="pier-detail">Vaporetto from Fondamente Nove</div></div>
+              <div><span class="pier-dest">Murano (Glass Island)</span><div class="pier-detail">Vaporetto from Piazzale Roma via Fondamente Nove — glass-blowing demonstrations</div></div>
               <span class="pier-time"><span class="walk-icon" aria-hidden="true">⛴️</span> 50 min</span>
               <div class="pier-bar"><div class="pier-bar-fill" style="width:45%"></div></div>
             </li>
@@ -558,36 +588,36 @@ Soli Deo Gloria
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
         <h3 id="ships-visiting-title">Ships That Visit Here</h3>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Venice on their itineraries:</p>
-        <p class="cruise-line-label" style="color: var(--ink, #1a2a3a);">Royal Caribbean</p>
+        <p class="cruise-line-label">Royal Caribbean</p>
         <div class="ship-links">
           <a href="/ships/rcl/explorer-of-the-seas.html" class="ship-link-pill" data-line="rcl" title="Explorer of the Seas (Voyager Class)">Explorer of the Seas</a>
           <a href="/ships/rcl/brilliance-of-the-seas.html" class="ship-link-pill" data-line="rcl" title="Brilliance of the Seas (Radiance Class)">Brilliance of the Seas</a>
         </div>
-        <p class="cruise-line-label" style="color: var(--ink, #1a2a3a);">Celebrity Cruises</p>
+        <p class="cruise-line-label">Celebrity Cruises</p>
         <div class="ship-links">
           <a href="/ships/celebrity-cruises/celebrity-constellation.html" class="ship-link-pill" data-line="celebrity" title="Celebrity Constellation (Millennium Class)">Celebrity Constellation</a>
         </div>
-        <p class="cruise-line-label" style="color: var(--ink, #1a2a3a);">Oceania Cruises</p>
+        <p class="cruise-line-label">Oceania Cruises</p>
         <div class="ship-links">
           <a href="/ships/oceania/oceania-sirena.html" class="ship-link-pill" data-line="oceania" title="Sirena (R-Class Class)">Sirena</a>
         </div>
-        <p class="cruise-line-label" style="color: var(--ink, #1a2a3a);">Explora Journeys</p>
+        <p class="cruise-line-label">Explora Journeys</p>
         <div class="ship-links">
           <a href="/ships/explora/explora-i.html" class="ship-link-pill" data-line="explora" title="Explora I (Explora Class)">Explora I</a>
           <a href="/ships/explora/explora-ii.html" class="ship-link-pill" data-line="explora" title="Explora II (Explora Class)">Explora II</a>
         </div>
-        <p class="cruise-line-label" style="color: var(--ink, #1a2a3a);">Norwegian Cruise Line</p>
+        <p class="cruise-line-label">Norwegian Cruise Line</p>
         <div class="ship-links">
           <a href="/ships/ncl/norwegian-jade.html" class="ship-link-pill" data-line="ncl" title="Norwegian Jade (Jewel Class)">Norwegian Jade</a>
         </div>
-        <p class="cruise-line-label" style="color: var(--ink, #1a2a3a);">MSC Cruises</p>
+        <p class="cruise-line-label">MSC Cruises</p>
         <div class="ship-links">
           <a href="/ships/msc/msc-magnifica.html" class="ship-link-pill" data-line="msc" title="MSC Magnifica (Musica Class)">MSC Magnifica</a>
           <a href="/ships/msc/msc-musica.html" class="ship-link-pill" data-line="msc" title="MSC Musica (Musica Class)">MSC Musica</a>
           <a href="/ships/msc/msc-poesia.html" class="ship-link-pill" data-line="msc" title="MSC Poesia (Musica Class)">MSC Poesia</a>
           <a href="/ships/msc/msc-sinfonia.html" class="ship-link-pill" data-line="msc" title="MSC Sinfonia (Lirica Class)">MSC Sinfonia</a>
         </div>
-        <p class="cruise-line-label" style="color: var(--ink, #1a2a3a);">Costa Cruises</p>
+        <p class="cruise-line-label">Costa Cruises</p>
         <div class="ship-links">
           <a href="/ships/costa/costa-diadema.html" class="ship-link-pill" data-line="costa" title="Costa Diadema (Diadema Class)">Costa Diadema</a>
           <a href="/ships/costa/costa-deliziosa.html" class="ship-link-pill" data-line="costa" title="Costa Deliziosa (Spirit Class)">Costa Deliziosa</a>
@@ -598,17 +628,17 @@ Soli Deo Gloria
 
     <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
       <h3 id="recent-rail-title">Recent Stories</h3>
-      <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+      <p class="tiny content-text">
         Real cruising experiences, practical guides, and heartfelt reflections from our community.
       </p>
       <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-      <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
     </section>
 
     <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
   </aside>
 
-  <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+  <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
   
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
@@ -621,11 +651,16 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
   <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-    <p class="tiny" style="margin-top: 0.5rem;">
+    <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·
       <a href="/about-us.html">About</a> ·
@@ -638,6 +673,7 @@ Soli Deo Gloria
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/dropdown.js" defer></script>
+  <script src="/assets/js/port-logbook-btn.js" defer></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/modules/port-map.js" defer></script>

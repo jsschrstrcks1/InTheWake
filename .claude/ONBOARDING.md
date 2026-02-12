@@ -15,7 +15,7 @@ You're working on **In the Wake**, a cruise planning website with an enhanced Cl
 1. **Skills auto-activate** based on what you're doing (editing HTML triggers SEO/accessibility skills)
 2. **ITW-Lite v3.010 philosophy**: AI-first, Human-first, Google second
 3. **Theological foundation is IMMUTABLE**: Soli Deo Gloria invocation required on all pages
-4. **8 skill rules total**: 3 with dedicated directories (standards, skill-developer, frontend-dev-guidelines) + 5 rule-based triggers in skill-rules.json (seo-optimizer, accessibility-auditor, content-strategy, performance-analyzer, ship-page-validator)
+4. **9 skill rules total**: 3 with dedicated directories (standards, skill-developer, frontend-dev-guidelines) + 5 rule-based triggers in skill-rules.json (seo-optimizer, accessibility-auditor, content-strategy, performance-analyzer, ship-page-validator)
 5. **Read this first**: `.claude/skill-rules.json` (skill activation rules) and `new-standards/README.md` (site standards)
 
 ---
@@ -25,7 +25,7 @@ You're working on **In the Wake**, a cruise planning website with an enhanced Cl
 ### 1. Start Here - The System:
 ```bash
 .claude/INSTALLATION.md           # Complete system documentation
-.claude/skill-rules.json          # Skill activation rules (8 skills)
+.claude/skill-rules.json          # Skill activation rules (9 skills)
 FOM_STANDARDS_ALIGNMENT.md        # How FOM integration aligns with CITW standards
 ```
 
@@ -70,21 +70,31 @@ new-standards/foundation/WCAG_2.1_AA_STANDARDS_v3.100.md  # Accessibility
 
 ## 🛠️ The 8 Skill Rules
 
-The system includes 8 skill rules defined in `.claude/skill-rules.json`. Three have dedicated skill directories with documentation; five are rule-based triggers only.
+The system includes 9 skill rules defined in `.claude/skill-rules.json`. Four have dedicated skill directories with documentation (standards, skill-developer, frontend-dev-guidelines, careful-not-clever); five are rule-based triggers only.
 
-### Skills with Dedicated Directories (3)
+### Skills with Dedicated Directories (4)
 
-#### 1. **standards** (CITW Original - High Priority)
+#### 1. **careful-not-clever** (CITW Original - CRITICAL Priority) ⚠️ **MANDATORY GUARDRAIL**
+**Triggers:** ALL file modifications (Edit, Write, MultiEdit)
+**Triggers Files:** **/*.html, **/*.css, **/*.js, **/*.json, **/*.md
+**Purpose:** Integrity guardrail: enforces careful, verified, documented work over clever shortcuts
+**Resources:** `.claude/skills/careful-not-clever/CAREFUL.md`
+**Guardrails:**
+- ✅ REQUIRED: Read before editing, verify before reporting, document as you go
+- ❌ REJECT: Editing without reading, batching without documentation, guessing instead of checking
+- 📌 INJECTED: Via session-start-guardrail.sh hook on EVERY prompt
+
+#### 2. **standards** (CITW Original - High Priority)
 **Triggers:** Editing HTML, CSS, JS, JSON, MD files
 **Purpose:** Standards enforcement with theological foundation
 **Resources:** `.claude/skills/standards/STANDARDS.md`
 
-#### 2. **skill-developer** (FOM - High Priority)
+#### 3. **skill-developer** (FOM - High Priority)
 **Triggers:** Keywords like "skill system", "create skill", "skill rules"
 **Purpose:** Meta-skill for managing Claude Code skills
 **Resources:** `.claude/skills/skill-developer/SKILL.md`
 
-#### 3. **frontend-dev-guidelines** (FOM - High Priority)
+#### 4. **frontend-dev-guidelines** (FOM - High Priority)
 **Triggers:** HTML, CSS, JavaScript, accessibility, WCAG keywords
 **Triggers Files:** *.html, *.css, *.js
 **Purpose:** HTML/CSS/JS best practices for static sites
@@ -94,7 +104,7 @@ The system includes 8 skill rules defined in `.claude/skill-rules.json`. Three h
 
 These skills are defined as activation rules in `skill-rules.json` with guardrails and triggers, but don't have dedicated SKILL.md directories. They influence behavior through their rule definitions.
 
-#### 4. **seo-optimizer** (FOM→ITW - High Priority) ⚠️ **WITH GUARDRAILS**
+#### 5. **seo-optimizer** (FOM→ITW - High Priority) ⚠️ **WITH GUARDRAILS**
 **Triggers:** SEO, meta tags, schema.org, structured data, ICP-Lite, ITW-Lite
 **Triggers Files:** *.html, ships/**, ports/**, restaurants/**
 **Purpose:** Technical SEO that benefits AI + humans + search engines
@@ -102,12 +112,12 @@ These skills are defined as activation rules in `skill-rules.json` with guardrai
 - ❌ REJECT: Keyword stuffing, removing AI-first meta tags, sacrificing readability
 - ✅ ACCEPT: schema.org, semantic HTML, ICP-Lite compliance, natural descriptions
 
-#### 5. **accessibility-auditor** (FOM→ITW - High Priority)
+#### 6. **accessibility-auditor** (FOM→ITW - High Priority)
 **Triggers:** accessibility, a11y, WCAG, aria, screen reader
 **Triggers Files:** *.html
 **Purpose:** WCAG AA compliance for cruise planning site
 
-#### 6. **content-strategy** (FOM→ITW - High Priority) ⚠️ **WITH GUARDRAILS**
+#### 7. **content-strategy** (FOM→ITW - High Priority) ⚠️ **WITH GUARDRAILS**
 **Triggers:** content, description, cruise, ship, port, storytelling
 **Triggers Files:** ships/**, ports/**, restaurants/**, solo/**
 **Purpose:** Travel storytelling aligned with ITW-Lite philosophy
@@ -115,11 +125,11 @@ These skills are defined as activation rules in `skill-rules.json` with guardrai
 - ❌ REJECT: Keyword-stuffed descriptions, robotic SEO copy, removing planning guidance
 - ✅ ACCEPT: Natural descriptions, travel storytelling, faith-scented reflections
 
-#### 7. **performance-analyzer** (FOM→ITW - Medium Priority)
+#### 8. **performance-analyzer** (FOM→ITW - Medium Priority)
 **Triggers:** performance, optimize, lighthouse, Core Web Vitals, LCP, FID, CLS
 **Purpose:** Web performance optimization
 
-#### 8. **ship-page-validator** (CITW Original - High Priority)
+#### 9. **ship-page-validator** (CITW Original - High Priority)
 **Triggers:** "ship page", "create ship", "validate ship", ship checklist
 **Triggers Files:** ships/**/*.html (excludes ships/index.html, ships.html)
 **Purpose:** Auto-validates ship pages against SHIP_PAGE_CHECKLIST_v3.010 standards
@@ -156,11 +166,24 @@ Located in `.claude/commands/`:
 ## 🪝 Hooks (3 auto-activation)
 
 Located in `.claude/hooks/`:
-1. **skill-activation-prompt.sh** — Intelligently loads skills based on context
+1. **session-start-guardrail.sh** — **CRITICAL:** Injects CAREFUL.md guardrail into EVERY session. This hook forces all Claude sessions to see the careful-not-clever rules before any action. Pure bash, no dependencies, cannot fail silently.
 2. **post-tool-use-tracker.sh** — Tracks tool usage to optimize future loads
 3. **ship-page-validator.sh** — Auto-validates ship pages against v3.010 checklist after Write/Edit
 
 **Configured in:** `.claude/settings.json`
+
+### ⚠️ Session Start Guardrail (CRITICAL)
+
+The `session-start-guardrail.sh` hook exists because:
+- Previous hook (`skill-activation-prompt.sh`) referenced a missing TypeScript file
+- Claude sessions were starting without knowledge of project rules
+- The careful-not-clever guardrail was being ignored
+
+**What it does:**
+- Runs on EVERY UserPromptSubmit (every prompt you send)
+- Outputs the full CAREFUL.md content to Claude's context
+- Reminds Claude to read CLAUDE.md and ONBOARDING.md
+- Fails LOUDLY if CAREFUL.md is missing (not silently)
 
 ---
 
@@ -347,7 +370,7 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 **What happened:**
 - FOM (Flickers of Majesty) had a 6-layer Claude Code enhancement system
 - We merged the "wheat" (cruise-relevant components) into CITW
-- Result: 8 skill rules total (2 CITW original + 6 FOM adapted)
+- Result: 9 skill rules total (2 CITW original + 6 FOM adapted)
 
 **Key adaptations:**
 - FOM-Lite v1.0 → ITW-Lite v3.010
@@ -390,6 +413,15 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 
 ## 🔄 Version History
 
+**v1.2.0** (2026-02-06) — CRITICAL: Fixed broken hook system, added careful-not-clever guardrail
+- FIXED: skill-activation-prompt.sh was calling missing skill-activation-prompt.ts file
+- ADDED: session-start-guardrail.sh — new hook that injects CAREFUL.md into EVERY session
+- ADDED: careful-not-clever skill now listed as #1 with CRITICAL priority
+- UPDATED: Skill count from 8 to 9 (4 with directories, 5 rule-based)
+- UPDATED: CITW original skills now include careful-not-clever (3 total: standards, ship-page-validator, careful-not-clever)
+- UPDATED: settings.json to use session-start-guardrail.sh instead of broken hook
+- REASON: Claude sessions were starting without knowledge of project rules, causing repeated violations
+
 **v1.1.5** (2026-01-29) — Cross-document data consistency update
 - Fixed claude.md: Updated validation stats from 36 (12%) to 106 (34%) passing, 2,101 to 981 blocking errors, 309 to 311 ship pages, 400+ to 380 port pages
 - Fixed MAINTENANCE_TASKS.md: Updated ship deployments coverage from 55 ships/2 lines to 193 ships/15 lines
@@ -405,7 +437,7 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 - Fixed new-standards/README.md: updated site version to v3.010.305, task statuses to COMPLETE
 
 **v1.1.3** (2026-01-25) — Documentation consistency update
-- Fixed remaining "7 skills" references to "8 skills" throughout document
+- Fixed remaining "7 skills" references to "9 skills" throughout document
 - Clarified CITW original skill count: 2 (standards + ship-page-validator)
 
 **v1.1.2** (2026-01-25) — Documentation accuracy update
@@ -450,7 +482,17 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 
 ## 🎯 TL;DR — What You Need to Know
 
-1. **8 skill rules** auto-activate based on context: 3 with skill directories + 5 rule-based triggers
+**⚠️ CAREFUL-NOT-CLEVER GUARDRAIL (READ THIS FIRST)**
+The careful-not-clever skill is CRITICAL priority. It means:
+- Read before editing. Never modify a file you haven't read.
+- Document as you go. Update tracking files alongside work, not after.
+- Verify then report. Don't say "done" until you've confirmed.
+- One logical change at a time. No batching unrelated changes.
+- Leave things alone when risk > benefit. And say why you skipped it.
+
+**See:** `.claude/skills/careful-not-clever/CAREFUL.md`
+
+1. **9 skill rules** auto-activate based on context: 3 with skill directories + 6 rule-based triggers (including careful-not-clever at CRITICAL priority)
 2. **ITW-Lite v3.010**: AI-first, Human-first, Google second
 3. **Theological foundation is immutable**: Soli Deo Gloria on every page
 4. **ICP-Lite v1.4 protocol required**: ai-summary (dual-cap), last-reviewed, content-protocol meta tags
@@ -472,8 +514,11 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 ## Quick Reference Commands
 
 ```bash
-# View skill configuration (8 skills expected)
+# View skill configuration (9 skills: 4 with directories, 5 rule-based)
 cat .claude/skill-rules.json | jq '.skills | keys'
+
+# Read the CRITICAL guardrail
+cat .claude/skills/careful-not-clever/CAREFUL.md
 
 # Check standards structure
 ls -la new-standards/

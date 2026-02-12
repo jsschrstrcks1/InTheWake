@@ -289,7 +289,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 <!-- MAIN CONTENT -->
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Jamaica (Falmouth)</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Jamaica (Falmouth)</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
@@ -305,8 +305,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </section>
 
       <p class="last-reviewed">Last reviewed: February 2026</p>
-
-
+                <div id="logbook-btn-container"></div>
 
       <!-- WEATHER & BEST TIME TO VISIT -->
       <details class="port-section" id="weather-guide" aria-label="Weather and Best Time to Visit" open>
@@ -424,7 +423,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <!-- Dunn's River Falls Detailed Section -->
     <section class="port-section">
       <h3>Dunn's River Falls: Jamaica's Signature Experience</h3>
-      <p>Among Jamaica's natural wonders, Dunn's River Falls stands as the undisputed crown jewel. This spectacular 600-foot cascade tumbles down naturally terraced limestone formations directly toward the Caribbean Sea, creating one of the few climbable waterfalls anywhere in the world. The falls flow continuously from mountain springs, creating a stunning white veil against the lush tropical vegetation that frames both sides.</p>
+      <p>Among Jamaica's natural wonders, Dunn's River Falls stands as the undisputed crown jewel. This spectacular 180-foot cascade tumbles down naturally terraced limestone formations directly toward the Caribbean Sea, creating one of the few climbable waterfalls anywhere in the world. The falls flow continuously from mountain springs, creating a stunning white veil against the lush tropical vegetation that frames both sides.</p>
 
       <p>The journey begins at sea level, where visitors remove shoes and wade into the cool mountain water flowing over smooth rocks. Professional guides organize climbers into human chains, linking hands to form stable lines that ascend together through the rushing current. The terraced structure creates natural stepping zones where you can pause to catch your breath, snap photos, and feel the power of water surging around your legs. Natural pools punctuate the climb, offering opportunities for swimming and basking in the mineral-rich water before continuing upward.</p>
 
@@ -613,11 +612,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <!-- Recent Articles rail (collapsible) -->
     <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        <p class="tiny content-text">
           Real cruising experiences, practical guides, and heartfelt reflections from our community.
         </p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
       </section>
 
   
@@ -627,12 +626,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   </aside>
 
-    <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+    <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
 
     <!-- Image Attribution Section -->
     <section class="card" style="margin-top: 2rem; background: #f7fdff;">
       <h3>Image Credits</h3>
-      <p class="tiny" style="margin-bottom: 0.75rem;">Images from Wikimedia Commons, used under Creative Commons licenses:</p>
+      <p class="tiny mb-075" >Images from Wikimedia Commons, used under Creative Commons licenses:</p>
       <ul class="tiny" style="line-height: 1.8; padding-left: 1.25rem;">
         <li><strong>Allure of the Seas in Falmouth:</strong> Photo by Jorge in Brazil, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</li>
         <li><strong>Cruise ship at Falmouth:</strong> Photo by Jorge in Brazil, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</li>
@@ -652,24 +651,30 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
   <!-- FOOTER -->
     <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-    <p class="tiny" style="margin-top: 0.5rem;">
+    <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·
       <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
-    <p class="tiny center" style="opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+    <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
     <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- Dropdown Navigation -->
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
+  <script src="/assets/js/port-logbook-btn.js" defer></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
 
   <!-- In-App Browser Detection & Escape Banner -->

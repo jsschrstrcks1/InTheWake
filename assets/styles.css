@@ -203,12 +203,18 @@ h3 { font-size: 1.25rem; line-height: 1.4; }
 /* Margin Utilities (900+ uses) */
 .mt-0 { margin-top: 0; }
 .mt-05 { margin-top: 0.5rem; }
+.mt-075 { margin-top: 0.75rem; }
 .mt-1 { margin-top: 1rem; }
 .mt-15 { margin-top: 1.5rem; }
 .mt-2 { margin-top: 2rem; }
 .mb-0 { margin-bottom: 0; }
 .mb-05 { margin-bottom: 0.5rem; }
+.mb-075 { margin-bottom: 0.75rem; }
 .mb-1 { margin-bottom: 1rem; }
+
+/* Text Utilities */
+.text-sm { font-size: 0.85rem; }
+.text-muted { color: #5a7a8a; }
 
 /* Grid Column Helpers (600+ uses) */
 .col-1 { grid-column: 1; min-width: 0; max-width: 100%; }
@@ -235,6 +241,13 @@ h3 { font-size: 1.25rem; line-height: 1.4; }
   clip: rect(0 0 0 0) !important;
   white-space: nowrap !important;
   border: 0 !important;
+}
+
+/* Hidden dedication text - not for screen readers (has aria-hidden="true") */
+.dedication-hidden {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
 }
 
 /* ===== Skip Link (WCAG) ===== */
@@ -2367,6 +2380,233 @@ h3.seasonal-section-title::after {
   .section-collapse > .collapse-body {
     display: block !important;
   }
+}
+
+/* =============================================
+   Print Guide FAB (Floating Action Button)
+   Appears on port and ship pages.
+   Hidden during print. Accessible (44px touch target).
+   ============================================= */
+.print-guide-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent, #0e6e8e);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: background 0.2s, transform 0.2s;
+  min-height: 44px;
+  min-width: 44px;
+}
+.print-guide-btn:hover,
+.print-guide-btn:focus-visible {
+  background: var(--sea, #083041);
+  transform: translateY(-1px);
+  outline: 2px solid var(--accent, #0e6e8e);
+  outline-offset: 2px;
+}
+.print-guide-btn svg { flex-shrink: 0; }
+@media (max-width: 600px) {
+  .print-guide-btn span { display: none; }
+  .print-guide-btn { padding: 0.75rem; border-radius: 50%; }
+}
+
+/* =============================================
+   Port Page Print CSS — Comprehensive
+   Purpose: Clean single-page output for port guides.
+   Optimized for cruise travelers printing guides
+   before leaving the ship.
+   ============================================= */
+@media print {
+  /* --- Base print reset --- */
+  * { box-shadow: none !important; text-shadow: none !important; }
+  body { font-size: 11pt; line-height: 1.5; color: #000; background: #fff; margin: 0; padding: 0; }
+  a { color: #000; text-decoration: underline; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #555; word-break: break-all; }
+  a[href^="/"]::after { content: none; } /* Don't print internal link URLs */
+
+  /* --- Hide non-essential elements --- */
+  .hero-header,
+  .navbar,
+  .site-nav,
+  .nav-dropdown,
+  .skip-link,
+  .rail,
+  footer,
+  .trust-badge,
+  .breadcrumb,
+  #logbook-btn-container,
+  .port-logbook-btn,
+  .port-map-actions,
+  .leaflet-control-zoom,
+  .leaflet-control-fullscreen,
+  .photo-gallery,
+  .image-credits,
+  #whimsical-units-container,
+  #recent-rail,
+  #recent-rail-fallback,
+  #nearby-ports,
+  .ships-visiting,
+  .author-card-vertical,
+  .disclaimer-volatile-data,
+  .weather-noscript-note,
+  script,
+  .btn,
+  .pill,
+  .nav-pill,
+  .print-guide-btn,
+  [aria-label="Breadcrumb"] { display: none !important; }
+
+  /* --- Single-column layout --- */
+  .page-grid { display: block !important; }
+  .wrap { max-width: 100%; padding: 0 0.5cm; }
+  main { display: block !important; }
+
+  /* --- Port title prominence --- */
+  .port-hero { margin: 0 !important; border-radius: 0 !important; page-break-after: avoid; }
+  .port-hero h1 { font-size: 18pt; margin: 0 0 0.3cm; color: #000; }
+  .port-hero img { max-height: 5cm; width: 100%; object-fit: cover; }
+
+  /* --- Card cleanup --- */
+  .card { border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 0 0.5cm !important; background: #fff !important; page-break-inside: avoid; }
+
+  /* --- Section headings --- */
+  .port-section { border: none; margin: 0 0 0.4cm; padding: 0; }
+  .port-section summary, .port-section > h2, .port-section > h3 {
+    font-size: 13pt; font-weight: 700; color: #000; margin: 0.5cm 0 0.2cm;
+    border-bottom: 1pt solid #999; padding-bottom: 0.1cm;
+    page-break-after: avoid;
+  }
+  .port-section summary::marker, .port-section summary::after { display: none !important; content: none !important; }
+  details.port-section { display: block !important; }
+  details.port-section > *:not(summary) { display: block !important; }
+  details.port-section[open] > summary ~ * { display: block !important; }
+
+  /* --- From the Pier (critical for travelers) --- */
+  .from-the-pier { background: #f5f5f5 !important; border: 1pt solid #ccc !important; padding: 0.3cm !important; margin: 0.3cm 0 !important; page-break-inside: avoid; }
+  .from-the-pier h3 { font-size: 12pt; border-bottom: none; margin: 0 0 0.2cm; }
+  .pier-distances { gap: 0.2cm; }
+  .pier-distance-item { padding: 0.15cm 0; border-bottom: 0.5pt solid #ddd; }
+  .pier-dest { font-weight: 600; }
+  .pier-bar { display: none; } /* Bars don't print well — times are sufficient */
+  .pier-note { font-size: 8pt; color: #555; margin-top: 0.2cm; }
+
+  /* --- Transport costs --- */
+  .transport-costs { background: #f5f5f5 !important; border: 1pt solid #ccc !important; padding: 0.3cm !important; margin: 0.3cm 0 !important; page-break-inside: avoid; }
+  .transport-costs h3 { font-size: 12pt; border-bottom: none; margin: 0 0 0.2cm; }
+  .transport-costs-table { font-size: 9pt; }
+  .transport-costs-table th { border-bottom: 1pt solid #999; }
+  .transport-costs-table td { border-bottom: 0.5pt solid #ddd; }
+  .transport-note { font-size: 8pt; color: #555; }
+
+  /* --- DIY vs Excursion comparison --- */
+  .diy-vs-excursion { background: #f5f5f5 !important; border: 1pt solid #ccc !important; padding: 0.3cm !important; page-break-inside: avoid; }
+  .diy-compare { grid-template-columns: 1fr 1fr; gap: 0.3cm; }
+  .diy-option { border: 0.5pt solid #ccc; padding: 0.2cm; }
+
+  /* --- Real Talk --- */
+  .real-talk { background: #f9f9f0 !important; border-left: 3pt solid #999 !important; padding: 0.2cm 0.3cm !important; margin: 0.3cm 0 !important; font-size: 10pt; page-break-inside: avoid; }
+
+  /* --- Map: fixed height for print --- */
+  .port-map-container { height: 8cm !important; border: 1pt solid #ccc; page-break-inside: avoid; }
+  .port-map-legend { font-size: 8pt; box-shadow: none; border: 0.5pt solid #ccc; }
+
+  /* --- Weather widget: compact --- */
+  #port-weather-widget { max-height: 8cm; overflow: hidden; }
+  .weather-forecast-grid { font-size: 8pt; }
+
+  /* --- FAQ: always expanded --- */
+  details.port-section#faq details { display: block !important; }
+  details.port-section#faq details[open] summary ~ * { display: block !important; }
+  details.port-section#faq summary { font-weight: 600; font-size: 10pt; }
+
+  /* --- Quick Facts sidebar → print inline at top --- */
+  .rail > section#glance-heading, .rail > [aria-labelledby="glance-heading"] { display: block !important; page-break-after: avoid; }
+
+  /* --- Tables general --- */
+  table { border-collapse: collapse; width: 100%; font-size: 9pt; }
+  th, td { padding: 0.1cm 0.2cm; border-bottom: 0.5pt solid #ddd; text-align: left; }
+  th { border-bottom: 1pt solid #999; font-weight: 600; }
+
+  /* --- Page break hints --- */
+  h1, h2, h3 { page-break-after: avoid; }
+  img { page-break-inside: avoid; max-width: 100%; }
+  .port-section { page-break-inside: avoid; }
+
+  /* --- Print footer attribution --- */
+  body::after {
+    content: "Printed from cruisinginthewake.com · No ads · Independent of cruise lines · Soli Deo Gloria";
+    display: block; text-align: center; font-size: 8pt; color: #888;
+    margin-top: 0.5cm; padding-top: 0.3cm; border-top: 0.5pt solid #ccc;
+  }
+
+  /* --- Page margins --- */
+  @page { margin: 1.5cm 1.5cm 2cm 1.5cm; }
+  @page :first { margin-top: 1cm; }
+}
+
+/* =============================================
+   Ship Page Print CSS — Comprehensive
+   Purpose: Clean single-page output for ship profiles.
+   Optimized for cruise travelers reviewing ship
+   details before booking or boarding.
+   ============================================= */
+@media print {
+  /* --- Ship-specific: hide non-essential --- */
+  .note-kens-logbook,
+  .related-ships,
+  .related-classes,
+  .itinerary,
+  .quiz-cta,
+  .attributions,
+  [id="video-highlights"],
+  [id="planning-resources"],
+  [data-imo] {
+    display: none !important;
+  }
+
+  /* --- Ship intro --- */
+  .page-intro .page-title { font-size: 18pt; margin: 0 0 0.3cm; color: #000; }
+  .page-intro .answer-line { font-size: 10pt; color: #333; margin: 0 0 0.4cm; }
+
+  /* --- Ship stats card --- */
+  .ship-stats { background: #f5f5f5 !important; border: 1pt solid #ccc !important; padding: 0.3cm !important; margin: 0.3cm 0 !important; page-break-inside: avoid; }
+  .ship-stats h3 { font-size: 12pt; margin: 0 0 0.2cm; border-bottom: 1pt solid #999; padding-bottom: 0.1cm; }
+  .ship-stats dt { font-weight: 600; }
+  .ship-stats dd { margin: 0 0 0.15cm; }
+
+  /* --- Dining section --- */
+  #dining-card { page-break-inside: avoid; }
+  #dining-card h2 { font-size: 13pt; border-bottom: 1pt solid #999; padding-bottom: 0.1cm; margin: 0.5cm 0 0.2cm; }
+  .venues-list { font-size: 9pt; padding-left: 1em; }
+
+  /* --- Deck plans --- */
+  [id="deck-plans"] { page-break-inside: avoid; }
+  [id="deck-plans"] h2 { font-size: 13pt; border-bottom: 1pt solid #999; padding-bottom: 0.1cm; }
+
+  /* --- FAQ: force expanded --- */
+  .faq details.faq-item { display: block !important; }
+  .faq details.faq-item > *:not(summary) { display: block !important; }
+  .faq details.faq-item summary { font-weight: 600; font-size: 10pt; }
+  .faq details.faq-item summary::marker { display: none !important; content: none !important; }
+
+  /* --- Grid-2: single column for print --- */
+  .grid-2 { display: block !important; }
+  .grid-2 > * { margin-bottom: 0.4cm; }
+
+  /* --- First Look card --- */
+  [id="first-look"] { font-size: 13pt; border-bottom: 1pt solid #999; padding-bottom: 0.1cm; page-break-after: avoid; }
 }
 
 /* ===== END Unified Styles ===== */

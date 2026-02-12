@@ -89,32 +89,61 @@ Soli Deo Gloria
       </button>
       <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
+
+        <!-- Planning Dropdown -->
         <div class="nav-dropdown" id="nav-planning">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
           <div class="dropdown-menu" role="menu">
-            <a href="/planning.html">Planning (overview)</a>
+            <a href="/first-cruise.html">Your First Cruise</a>
             <a href="/ships.html">Ships</a>
-            <a href="/ships/quiz.html">Ship Quiz</a>
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
-            <a href="/ports.html">Ports</a>
-            <a href="/internet-at-sea.html">Internet at Sea</a>
-            <a href="/drink-packages.html">Drink Packages</a>
-            <a href="/drink-calculator.html">Drink Calculator</a>
-            <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/ports.html">Ports</a>
             <a href="/packing-lists.html">Packing Lists</a>
             <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
+
+        <!-- Tools Dropdown -->
+        <div class="nav-dropdown" id="nav-tools">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Tools <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/cruise-lines/quiz.html">Cruise Line Quiz</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/tools/port-tracker.html">Port Logbook</a>
+            <a href="/tools/ship-tracker.html">Ship Logbook</a>
+          </div>
+        </div>
+
+        <!-- Onboard Dropdown -->
+        <div class="nav-dropdown" id="nav-onboard">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Onboard <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
+            <a href="/articles.html">Articles</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
         <div class="nav-dropdown" id="nav-travel">
-          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Travel <span class="caret">&#9662;</span></button>
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
           <div class="dropdown-menu" role="menu">
             <a href="/travel.html">Travel (overview)</a>
             <a href="/solo.html">Solo</a>
           </div>
         </div>
-        <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
-        <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
+
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
@@ -129,7 +158,7 @@ Soli Deo Gloria
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li style="display: inline;"><a href="/">Home</a> &rsaquo; </li><li style="display: inline;"><a href="/ports.html">Ports</a> &rsaquo; </li><li style="display: inline;" aria-current="page">Progreso</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Progreso</li></ol></nav>
 
   <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
@@ -145,6 +174,7 @@ Soli Deo Gloria
       </section>
 
               <p class="last-reviewed">Last reviewed: February 2026</p>
+                <div id="logbook-btn-container"></div>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
         <details class="port-section" id="weather-guide" open>
@@ -216,7 +246,7 @@ Soli Deo Gloria
                       <li>Rain jacket or compact umbrella</li>
                       <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
                     </ul>
-                    <p class="tiny" style="margin-top:0.5rem"><a href="/packing-lists.html">Full packing lists →</a></p>
+                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
                   </div>
                 </details>
 
@@ -314,7 +344,7 @@ Soli Deo Gloria
             <summary><h2>Top Excursions &amp; Things to Do</h2></summary>
         <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: Ship excursions strongly recommended for Chichen Itza due to 4+ hour round-trip travel time—guaranteed return matters when you're 2 hours from the ship. For Merida and local cenotes, independent transport works if you're comfortable with time management. Beach days and Progreso town exploration work well independently. Book Chichen Itza tours well in advance; they sell out.</p>
 
-        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Chichen Itza ($125-200)</h4>
+        <h4  class="mt-1">Chichen Itza ($125-200)</h4>
         <p>ESSENTIAL if you've never visited. One of the New Seven Wonders of the World, this UNESCO site preserves the Maya civilization's most iconic pyramid—El Castillo. The 2-hour journey each way limits time at the ruins to 2-3 hours, but the experience justifies the travel. Arrive to witness the pyramid, Temple of Warriors, Great Ball Court, and Sacred Cenote. Ship excursions run $150-200 including guide, transport, entrance fees, and lunch. Independent taxi runs $150-180 plus $35 entrance fee. Arrive early to beat both heat and crowds; bring water, sunscreen, comfortable shoes.</p>
 
         <figure class="logbook-image">
@@ -322,19 +352,19 @@ Soli Deo Gloria
           <figcaption>The Temple of Warriors reveals Maya engineering genius — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
         </figure>
 
-        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Merida City Tour ($75-120)</h4>
+        <h4  class="mt-1">Merida City Tour ($75-120)</h4>
         <p>The "White City" offers colonial architecture, cathedral, central plaza, and authentic Yucatecan culture 45 minutes from port. Walking tours explore the historic center, Paseo de Montejo (grand boulevard with mansions from the henequen era), and local markets. Ship excursions run $75-100; independent taxi ($35-45) plus self-guided walk saves money. Try cochinita pibil (slow-roasted pork) and sopa de lima (lime soup) at restaurants around the plaza. More accessible than Chichen Itza with easier time management.</p>
 
-        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Cenote Swimming ($60-100)</h4>
+        <h4  class="mt-1">Cenote Swimming ($60-100)</h4>
         <p>Swim in sacred underground sinkholes the Maya considered portals to the underworld. Crystal-clear water, often 50+ feet visibility, fills these collapsed limestone caves throughout the Yucatan. Ship excursions visit Dzibilchaltun (ruins plus cenote, $80-100) or dedicated cenote parks ($60-80). Some cenotes have excellent infrastructure; others are raw natural settings. Most require stair access; water shoes recommended. Combine with Merida or smaller ruins for a full day experience.</p>
 
-        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Uxmal Ruins ($120-160)</h4>
+        <h4  class="mt-1">Uxmal Ruins ($120-160)</h4>
         <p>Less crowded alternative to Chichen Itza with arguably more beautiful architecture. This UNESCO site features the Pyramid of the Magician with its distinctive rounded corners and the Governor's Palace, considered one of the finest examples of Puuc architecture. Ship excursions run $120-160; approximately 90 minutes from Progreso. Can combine with cenote stops. Serious archaeology enthusiasts may prefer this to the more touristy Chichen Itza experience.</p>
 
-        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Progreso Beach Day ($5-25)</h4>
+        <h4  class="mt-1">Progreso Beach Day ($5-25)</h4>
         <p>For passengers skipping the inland sites, Progreso's malecon offers calm Gulf waters, seafood restaurants, and beach time. Not a destination beach by Caribbean standards, but authentic local atmosphere. Beach clubs rent chairs and umbrellas ($10-15); restaurants serve fresh ceviche ($8-15) and cold cerveza. Walk the malecon, watch pelicans, absorb small-town Mexican life. Transport to town via pier tram (free) plus short walk.</p>
 
-        <h4 style="margin-top: 1rem; color: var(--ink, #1a2a3a);">Chicxulub Crater Site ($45-75)</h4>
+        <h4  class="mt-1">Chicxulub Crater Site ($45-75)</h4>
         <p>Stand at ground zero of the asteroid impact that ended the dinosaur era 66 million years ago. The crater lies buried beneath the surface, but interpretive centers and museums tell the story. Science enthusiasts appreciate the geological and paleontological significance. Often combined with cenote visits. Ship excursions $60-80; independent accessible via taxi ($30-40). Not essential for most visitors, but fascinating for those interested in Earth's history.</p>
             </details>
 
@@ -501,7 +531,7 @@ Soli Deo Gloria
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
         <h3 id="ships-visiting-title">Ships That Visit Here</h3>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Progreso on their itineraries:</p>
-        <p class="cruise-line-label" style="color: var(--ink, #1a2a3a);">Royal Caribbean</p>
+        <p class="cruise-line-label">Royal Caribbean</p>
         <div class="ship-links">
           <a href="/ships/rcl/icon-of-the-seas.html" class="ship-link-pill" data-line="rcl" title="Icon of the Seas (Icon Class)">Icon of the Seas</a>
           <a href="/ships/rcl/star-of-the-seas.html" class="ship-link-pill" data-line="rcl" title="Star of the Seas (Icon Class)">Star of the Seas</a>
@@ -512,16 +542,16 @@ Soli Deo Gloria
           <a href="/ships/rcl/enchantment-of-the-seas.html" class="ship-link-pill" data-line="rcl" title="Enchantment of the Seas (Vision Class)">Enchantment of the Seas</a>
           <a href="/ships/rcl/rhapsody-of-the-seas.html" class="ship-link-pill" data-line="rcl" title="Rhapsody of the Seas (Vision Class)">Rhapsody of the Seas</a>
         </div>
-        <p class="cruise-line-label" style="color: var(--ink, #1a2a3a);">Celebrity Cruises</p>
+        <p class="cruise-line-label">Celebrity Cruises</p>
         <div class="ship-links">
           <a href="/ships/celebrity-cruises/celebrity-apex.html" class="ship-link-pill" data-line="celebrity" title="Celebrity Apex (Edge Class)">Celebrity Apex</a>
           <a href="/ships/celebrity-cruises/celebrity-xcel.html" class="ship-link-pill" data-line="celebrity" title="Celebrity Xcel (Edge Class)">Celebrity Xcel</a>
         </div>
-        <p class="cruise-line-label" style="color: var(--ink, #1a2a3a);">Princess Cruises</p>
+        <p class="cruise-line-label">Princess Cruises</p>
         <div class="ship-links">
           <a href="/ships/princess/caribbean-princess.html" class="ship-link-pill" data-line="princess" title="Caribbean Princess (Grand Class)">Caribbean Princess</a>
         </div>
-        <p class="cruise-line-label" style="color: var(--ink, #1a2a3a);">Norwegian Cruise Line</p>
+        <p class="cruise-line-label">Norwegian Cruise Line</p>
         <div class="ship-links">
           <a href="/ships/ncl/norwegian-aqua.html" class="ship-link-pill" data-line="ncl" title="Norwegian Aqua (Prima Class)">Norwegian Aqua</a>
           <a href="/ships/ncl/norwegian-prima.html" class="ship-link-pill" data-line="ncl" title="Norwegian Prima (Prima Class)">Norwegian Prima</a>
@@ -530,12 +560,12 @@ Soli Deo Gloria
           <a href="/ships/ncl/norwegian-breakaway.html" class="ship-link-pill" data-line="ncl" title="Norwegian Breakaway (Breakaway Class)">Norwegian Breakaway</a>
           <a href="/ships/ncl/norwegian-pearl.html" class="ship-link-pill" data-line="ncl" title="Norwegian Pearl (Jewel Class)">Norwegian Pearl</a>
         </div>
-        <p class="cruise-line-label" style="color: var(--ink, #1a2a3a);">MSC Cruises</p>
+        <p class="cruise-line-label">MSC Cruises</p>
         <div class="ship-links">
           <a href="/ships/msc/msc-world-america.html" class="ship-link-pill" data-line="msc" title="MSC World America (World Class)">MSC World America</a>
           <a href="/ships/msc/msc-seascape.html" class="ship-link-pill" data-line="msc" title="MSC Seascape (Seaside EVO Class)">MSC Seascape</a>
         </div>
-        <p class="cruise-line-label" style="color: var(--ink, #1a2a3a);">Carnival Cruise Line</p>
+        <p class="cruise-line-label">Carnival Cruise Line</p>
         <div class="ship-links">
           <a href="/ships/carnival/carnival-celebration.html" class="ship-link-pill" data-line="carnival" title="Carnival Celebration (Excel Class)">Carnival Celebration</a>
           <a href="/ships/carnival/carnival-jubilee.html" class="ship-link-pill" data-line="carnival" title="Carnival Jubilee (Excel Class)">Carnival Jubilee</a>
@@ -558,17 +588,17 @@ Soli Deo Gloria
 
     <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
       <h3 id="recent-rail-title">Recent Stories</h3>
-      <p class="tiny" style="margin-bottom: 1rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+      <p class="tiny content-text">
         Real cruising experiences, practical guides, and heartfelt reflections from our community.
       </p>
       <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-      <p id="recent-rail-fallback" class="tiny" style="display:none">Loading articles…</p>
+      <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
     </section>
 
     <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
   </aside>
 
-  <p style="margin-top: 2rem;"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+  <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
   
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
@@ -581,11 +611,16 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+  <!-- Print Guide Button -->
+  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span>Print Guide</span>
+  </button>
 </main>
 
   <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-    <p class="tiny" style="margin-top: 0.5rem;">
+    <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·
       <a href="/about-us.html">About</a> ·
@@ -598,6 +633,7 @@ Soli Deo Gloria
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/dropdown.js" defer></script>
+  <script src="/assets/js/port-logbook-btn.js" defer></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/modules/port-map.js" defer></script>

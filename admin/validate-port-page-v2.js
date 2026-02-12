@@ -1683,6 +1683,52 @@ function validateCollapsibleStructure($) {
 /**
  * Validate a single port page
  */
+/**
+ * Validate Print Guide Button
+ * Requires: <button class="print-guide-btn"> inside <main>, right before </main>
+ * Generator rule: print button is the last element before </main> closes
+ */
+function validatePrintButton($, html) {
+  const errors = [];
+  const warnings = [];
+  const btn = $('main button.print-guide-btn');
+  if (btn.length === 0) {
+    errors.push({
+      section: 'print_button',
+      rule: 'missing',
+      message: 'Missing print guide button (button.print-guide-btn) inside <main>',
+      severity: 'BLOCKING'
+    });
+  } else {
+    if (!btn.attr('onclick') || !btn.attr('onclick').includes('window.print')) {
+      warnings.push({
+        section: 'print_button',
+        rule: 'onclick',
+        message: 'Print button missing onclick="window.print()"',
+        severity: 'WARNING'
+      });
+    }
+    if (!btn.attr('aria-label')) {
+      warnings.push({
+        section: 'print_button',
+        rule: 'aria_label',
+        message: 'Print button missing aria-label attribute',
+        severity: 'WARNING'
+      });
+    }
+    const mainClosingPattern = /class="print-guide-btn"[\s\S]*?<\/button>\s*<\/main>/;
+    if (!mainClosingPattern.test(html)) {
+      warnings.push({
+        section: 'print_button',
+        rule: 'position',
+        message: 'Print button should be the last element before </main>',
+        severity: 'WARNING'
+      });
+    }
+  }
+  return { valid: errors.length === 0, errors, warnings, data: { hasPrintButton: btn.length > 0 } };
+}
+
 async function validatePortPage(filepath) {
   const relPath = relative(PROJECT_ROOT, filepath);
   const results = {
@@ -1714,6 +1760,7 @@ async function validatePortPage(filepath) {
     const lastReviewedResult = validateLastReviewedStamp($);
     const collapsibleResult = validateCollapsibleStructure($);
     const fromThePierResult = validateFromThePier($);
+    const printButtonResult = validatePrintButton($, html);
     const siteIntegrationResult = await validateSiteIntegration(filepath);
 
     // Collect all errors
@@ -1729,6 +1776,7 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...contentPurityResult.errors);
     results.blocking_errors.push(...trustBadgeResult.errors);
     results.blocking_errors.push(...collapsibleResult.errors);
+    results.blocking_errors.push(...printButtonResult.errors);
 
     // Collect all warnings
     results.warnings.push(...analyticsResult.warnings);
@@ -1744,6 +1792,7 @@ async function validatePortPage(filepath) {
     results.warnings.push(...authorDisclaimerResult.warnings);
     results.warnings.push(...lastReviewedResult.warnings);
     results.warnings.push(...fromThePierResult.warnings);
+    results.warnings.push(...printButtonResult.warnings);
 
     // Collect info
     results.info.push(...logbookResult.info);
@@ -1774,6 +1823,7 @@ async function validatePortPage(filepath) {
     results.content_purity = contentPurityResult.data;
     results.unique_names = uniqueNamesResult.data;
     results.from_the_pier = fromThePierResult.data;
+    results.print_button = printButtonResult.data;
     results.site_integration = siteIntegrationResult.data;
 
   } catch (error) {
