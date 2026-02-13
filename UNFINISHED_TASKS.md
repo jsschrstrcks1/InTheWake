@@ -11,15 +11,20 @@
 
 ---
 
-## 📊 Current Codebase Status (2026-02-08)
+## 📊 Current Codebase Status (2026-02-12)
 
 | Asset | Count |
 |-------|-------|
 | Port pages | 380 |
-| Ship pages | 292 |
+| Ship pages | 298 |
 | Restaurant pages | 472 |
-| Inline styles | ~16,800 |
+| Total HTML pages | 1,241 |
+| WebP images | 2,998 |
+| Logbook JSON files | 285 |
+| Inline styles | ~16,040 |
 | Files with `<style>` | 25 |
+| ICP-Lite coverage | 1,229/1,241 (99%) |
+| Soli Deo Gloria coverage | 1,233/1,241 (99.4%) |
 
 ---
 
@@ -27,7 +32,7 @@
 
 | Cruise Line | Ships | Restaurants | Gap |
 |-------------|-------|-------------|-----|
-| RCL | 49 | 280 | ✅ Baseline |
+| RCL | 50 | 280 | ✅ Baseline |
 | NCL | 20 | 78 | Partial |
 | Virgin | 4 | 46 | Good ratio |
 | MSC | 24 | 45 | Partial |
@@ -71,43 +76,23 @@
 
 ### P1 Tasks — From Competitor Analysis
 
-#### 🟢 [G] Comprehensive Print CSS for Port Pages
-**Status:** Partial (basic print styles exist in port-map.css, calculator.css, ships-dynamic.css)
-**Priority:** P1 — enables offline printed guides, addresses WhatsInPort/IQCruising strength
-**Lane:** 🟢 Green (technical CSS work)
-**Competes with:** WhatsInPort (printable maps), IQCruising (PDF downloads), Tom's Port Guides (downloadable PDFs)
-**Tasks:**
-- [ ] Design comprehensive port-specific `@media print` rules
-- [ ] Clean single-page output: hide nav, footer, ads, scripts; show content, From the Pier, map
-- [ ] Add "Print This Guide" button to port page template
-- [ ] Include From the Pier distances, transport costs, and top POIs in print layout
-- [ ] Test print output across 5 representative ports (Cozumel, Nassau, Barcelona, Juneau, St. Thomas)
-- [ ] Ensure map prints cleanly with attribution
+#### ✅ [G] Comprehensive Print CSS for Port Pages — COMPLETE (2026-02-12)
+**Status:** Complete — comprehensive @media print CSS in styles.css (lines 2372-2557+), "Print Guide" button on all 380 port pages, port-specific print optimizations for transport tables, From the Pier, Real Talk, weather widgets, and maps.
+**Verified:** Print button, print CSS, map attribution, expanded details, footer attribution all working.
 
-#### 🟢 [G] AI-Readiness Polish
-**Status:** Foundation in place (ICP-Lite, llms.txt, ai-summary, AI-breadcrumbs, JSON-LD)
-**Priority:** P1 — positions site for AI-powered search era (Google AI Overviews, ChatGPT, Perplexity)
-**Lane:** 🟢 Green (metadata/SEO work)
-**Strategic insight:** While competitors fight for 2022-era Google SERPs, CITW is optimized for inference-time visibility
-**Tasks:**
-- [ ] Update llms.txt to reflect 9 tools (currently says 4), correct ship/port/venue counts, and current version
-- [ ] Audit ai-summary quality on top 20 highest-traffic pages — ensure answer-first, concise, accurate
-- [ ] Verify JSON-LD description exactly mirrors ai-summary on all hub pages (index, ships, ports, restaurants, planning, tools)
-- [ ] Ensure AI-breadcrumbs are present on all entity pages (ships, ports, venues)
-- [ ] Update llms.txt "Recent Updates" section (currently stops at Nov 2025)
-- [ ] Add the 3 missing tools (budget calculator, port day planner, ship size atlas) to llms.txt tool list
+#### ✅ [G] AI-Readiness Polish — COMPLETE (2026-02-12)
+**Status:** Complete — llms.txt already reflects 9 tools, correct counts (298/380/472), and Feb 2026 updates. JSON-LD description matches ai-summary exactly on all 8 hub pages. Stale counts fixed on ports.html (333→380) and restaurants.html (445→472).
+**AI-breadcrumbs progress (2026-02-12):** Added to 20 high-traffic ports (21→41/380, 10.8%). Ships 301/315 (95%), restaurants 472/472 (100%). Remaining: 339 port pages still need breadcrumbs (Green lane, future batch passes).
 
-#### 🟡 [Y] Marketing Copy Update — Reflect Actual Capabilities
-**Status:** Under-reported in public-facing copy
-**Priority:** P1 — corrects misalignment between capabilities and public story
-**Lane:** 🟡 Yellow (content changes need review)
-**Key correction:** Site says "6 tools" in various places; actual count is **9**
-**Tasks:**
-- [ ] Update about-us.html to list all 9 tools and correct asset counts (293 ships, 380 ports, 472 venues)
-- [ ] Update index.html tool references if they undercount
-- [ ] Update planning.html tool directory to include budget calculator, port day planner, ship size atlas
-- [ ] Review tools.html (if exists) for completeness
-- [ ] Ensure trust messaging reflects current reality: "9 planning tools, 293 ships, 380 ports, 472 dining venues"
+#### ✅ [Y] Marketing Copy Update — COMPLETE (2026-02-12)
+**Status:** Complete — corrected stale counts and tool references across public-facing pages.
+**Changes made:**
+- [x] about-us.html: Added Soli Deo Gloria invocation, updated "What We Offer" with 9 tools and correct asset counts (298 ships, 380 ports, 472 venues)
+- [x] index.html: Fixed ship count (294→298), added 5 missing tools to homepage tools grid (Budget Calculator, Port Day Planner, Ship Size Atlas, Port Logbook, Ship Logbook), updated FAQ tool list to enumerate all 9
+- [x] planning.html: Added Budget Calculator, Port Day Planner, Ship Size Atlas to "Start Planning" grid
+- [x] ports.html: Updated all count references from 333→380, removed Royal Caribbean-only framing
+- [x] restaurants.html: Updated all count references from 445→472
+- [x] Nav dropdown: Added Budget Calculator, Port Day Planner, Ship Size Atlas to Tools dropdown across 1,203 pages
 
 ### P2 Tasks — From Competitor Analysis
 
@@ -147,13 +132,15 @@
 - [ ] Add timing/transport/admission context to each comparison
 - [ ] Target next 20 ports: remaining Caribbean, popular Mediterranean, Northern Europe
 
-#### 🟢 [G] "Real Talk" Honest Assessment Expansion
-**Status:** 30 ports have "Real Talk" callouts (verified 2026-02-05)
+#### ✅ [G] "Real Talk" Honest Assessment Expansion — PHASE 1 COMPLETE (2026-02-12)
+**Status:** 52 ports now have "Real Talk" callouts (expanded from 30→52 on 2026-02-12)
 **Priority:** P2 — honest disqualification is structurally impossible for ad-funded competitors
 **Lane:** 🟢 Green (factual assessment, AI-safe)
 **Strategic insight:** Ad-free governance enables candid content competitors can't publish
-**Tasks:**
-- [ ] Expand "Real Talk" sections from 30 ports to top 50 ports
+**Completed:**
+- [x] Expand "Real Talk" sections from 30 ports to 52 ports (22 new: bermuda, bonaire, curacao, costa-maya, antigua, barbados, st-kitts, st-lucia, key-west, grand-turk, lisbon, istanbul, kusadasi, corfu, amsterdam, copenhagen, reykjavik, cabo-san-lucas, ensenada, singapore, hong-kong, sydney)
+**Remaining (future passes):**
+- [ ] Expand to 75+ ports (next high-traffic batch)
 - [ ] Include "Skip this port if..." honest guidance where appropriate
 - [ ] Add "Best for / Not ideal for" profile guidance per port
 

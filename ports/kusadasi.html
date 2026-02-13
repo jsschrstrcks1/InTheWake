@@ -30,7 +30,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="referrer" content="no-referrer-when-downgrade"/>
   <meta name="ai-summary" content="Kusadasi is Turkey's gateway to Ephesus, one of the world's best-preserved ancient cities. Walk marble streets where St. Paul preached, stand before the Library of Celsus (117 AD), and sit in the 25,000-seat Great Theatre.">
-  <meta name="last-reviewed" content="2026-02-01">
+  <meta name="last-reviewed" content="2026-02-12">
   <meta name="content-protocol" content="ICP-Lite v1.4">
 
   <!-- SEO -->
@@ -93,7 +93,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     "name": "Kusadasi & Ephesus — Turkey's Ancient Wonder Port Guide",
     "description": "Kusadasi is Turkey's gateway to Ephesus, one of the world's best-preserved ancient cities. Walk marble streets where St. Paul preached, stand before the Library of Celsus (117 AD), and sit in the 25,000-seat Great Theatre.",
     "url": "https://cruisinginthewake.com/ports/kusadasi.html",
-    "dateModified": "2026-02-01",
+    "dateModified": "2026-02-12",
     "mainEntity": {
       "@type": "Place",
       "name": "Kusadasi",
@@ -238,6 +238,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -520,6 +523,26 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <!-- Excursions & Shore Tours -->
     <details class="port-section" id="excursions" open>
       <summary><h2>Excursions &amp; Shore Tours</h2></summary>
+      <!-- REAL TALK -->
+      <p class="real-talk">Ephesus is the reason you're here, but visiting at midday in summer means 100°F+ heat with almost no shade on the main walkway. Book the earliest excursion available or take a taxi at port opening — the ruins are manageable at 8am and miserable by noon. The leather shops between Kusadasi and Ephesus are factory outlet experiences designed to separate you from your money; a polite "no thank you" works better than engaging. Downtown Kusadasi itself is a pleasant 10-minute walk from port with good Turkish food at half the port-area prices.</p>
+
+      <!-- Interactive Port Map -->
+      <details class="port-section port-map-section" id="port-map-section" open>
+            <summary><h3>Kuşadası Area Map</h2></summary>
+        <p class="map-intro">Interactive map showing cruise terminal and Kuşadası attractions. Click any marker for details.</p>
+        <div id="kusadasi-port-map" class="port-map-container" role="application" aria-label="Interactive map of Kuşadası port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=37.8579&mlon=27.2610#map=12/37.8579/27.2610" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('kusadasi-port-map')._portMap?.fitBounds(document.getElementById('kusadasi-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+            </details>
 
       <figure class="logbook-image float-right">
         <img src="img/kusadasi/kusadasi-5.webp" alt="Ancient ruins at Ephesus near Kusadasi, Turkey" loading="lazy">
