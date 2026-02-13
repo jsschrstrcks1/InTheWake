@@ -56,7 +56,7 @@ updated: 2025-12-27
 
   <!-- ICP-Lite v1.0: AI-First Metadata -->
   <meta name="ai-summary" content="Brilliance of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake."/>
-  <meta name="last-reviewed" content="2025-12-27"/>
+  <meta name="last-reviewed" content="2026-02-13"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
 
   <!-- Title & SEO -->
@@ -187,7 +187,7 @@ updated: 2025-12-27
     "name": "Brilliance of the Seas — Deck Plans, Live Tracker, Dining & Videos",
     "url": "https://cruisinginthewake.com/ships/rcl/brilliance-of-the-seas.html",
     "description": "Brilliance of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake.",
-    "dateModified": "2025-12-27",
+    "dateModified": "2026-02-13",
     "mainEntity": {
       "@type": "Thing",
       "name": "Brilliance of the Seas"
@@ -976,7 +976,7 @@ updated: 2025-12-27
       }
     }
     function fetchVideoData(){
-      const SOURCES=[abs('/assets/data/videos/rcl/brilliance-of-the-seas.json'),abs('/assets/data/videos/brilliance-of-the-seas.json'),abs('/ships/rcl/assets/brilliance-of-the-seas-videos.json')];
+      const SOURCES=[abs('/assets/data/videos/rcl/brilliance-of-the-seas.json'),abs('/ships/rcl/assets/brilliance-of-the-seas-videos.json')];
       function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
         return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
       return tryFetch();
