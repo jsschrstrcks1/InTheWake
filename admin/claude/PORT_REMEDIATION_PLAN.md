@@ -92,17 +92,33 @@ Top 10 by word count (best candidates for next wave):
 9. **Hero fixes** — Add `class="port-hero"`, ensure `<figure>` with `<figcaption>` containing credit `<a>` link
 10. **Class name avoidance** — Change `port-subsection` to `port-detail`, avoid pattern-matching words
 
+## Progress Tracker
+
+| Page | Tier | Before | After | Session | Date |
+|------|------|--------|-------|---------|------|
+| cococay | prior | 38 | 100 | prior session | 2026-02-11 |
+| fortaleza | prior | 34 | 98 | prior session | 2026-02-11 |
+| mombasa | prior | 42 | 98 | prior session | 2026-02-11 |
+| lautoka | 1 | 88 | 98 | session 2 | 2026-02-12 |
+| olden | 1 | 88 | 98 | session 2 | 2026-02-12 |
+| luanda | 2 | 16 | 88 | session 2 | 2026-02-12 |
+| royal-beach-club-nassau | 2 | 0 | 96 | session 3 | 2026-02-13 |
+| yangon | 2 | 2 | 96 | session 3 | 2026-02-13 |
+| port-moresby | 2 | 10 | — | in progress | — |
+| durban | 2 | 0 | — | pending | — |
+| sharm-el-sheikh | 2 | 2 | — | pending | — |
+
+**Pages passing:** 137 of 380 (36%)
+**Pages fixed this effort:** 8 so far
+
 ## Execution Plan
 
-### Phase 1: Tier 1 Quick Wins (2 pages)
-- Create placeholder images for lautoka (8 images) and olden (8 images)
-- Expected: 88→96+ each
+### Phase 1: Tier 1 Quick Wins (2 pages) — COMPLETE
+- lautoka 88→98, olden 88→98
 
-### Phase 2: Tier 2 Medium Fixes (6 pages)
-- luanda, port-moresby, durban, royal-beach-club-nassau, sharm-el-sheikh, yangon
-- Apply structural fixes: section wrappers, ordering, hero, booking keywords, accessibility
-- Expand word counts where needed
-- Expected: each page to 90+
+### Phase 2: Tier 2 Medium Fixes (6 pages) — IN PROGRESS
+- luanda 16→88 ✓, royal-beach-club-nassau 0→96 ✓, yangon 2→96 ✓
+- port-moresby, durban, sharm-el-sheikh — remaining
 
 ### Phase 3: Tier 3 Highest-Value Pages (10 pages)
 - Start with pages having most existing content: roatan, kusadasi, sihanoukville, taipei, labadee, etc.
