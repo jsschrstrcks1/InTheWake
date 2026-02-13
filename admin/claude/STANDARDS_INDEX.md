@@ -193,7 +193,7 @@ These standards apply to **every page** on the site.
 - ✅ Success metrics and tracking
 
 **Status:**
-- Level 1: 99% complete (1,229/1,241 pages)
+- Level 1: 99.4% complete (1,231/1,238 pages)
 - Level 2: Pilot phase (Radiance of the Seas)
 - Level 3: Planned
 
@@ -532,7 +532,7 @@ XX. **Fix broken image links in 5 port pages** - Discovered during audit (2025-1
 
 ### 21. Template Version
 **Current:** v3.010.305
-**Coverage:** 1,241 HTML pages across site
+**Coverage:** 1,238 HTML pages across site
 
 **Key Requirements:**
 - ✅ CSS version query: `?v=3.010.400`
