@@ -195,33 +195,27 @@ Soli Deo Gloria
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
     </div>
-    <div class="hero">
-      <img loading="lazy" class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
-      <div class="hero-title">
-        <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logo" decoding="async" fetchpriority="high" width="560" height="567"/>
-      </div>
-      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
-    </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Komodo (Indonesia)</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Komodo (Indonesia)</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <section class="port-hero" id="hero">
-        <div class="port-hero-image">
-          <img src="/assets/brand/placeholder-port.webp" alt="Rugged volcanic hills and savannah landscape of Komodo Island, Indonesia, home to prehistoric Komodo dragons" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
-          <div class="port-hero-overlay">
-            <h1 class="port-hero-title">Komodo (Indonesia)</h1>
-          </div>
-        </div>
-        <p class="port-hero-credit">Photo: In the Wake</p>
-      </section>
 
-      
-      <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+      <article class="card">
+        <!-- Hero section inside card -->
+        <section class="port-hero" id="hero" aria-label="Komodo cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+          <div class="port-hero-image" style="position: relative;">
+            <img src="/ports/img/komodo/komodo-hero.webp" alt="Rugged volcanic hills and savannah landscape of Komodo Island, Indonesia, home to prehistoric Komodo dragons" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover;">
+            <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+              <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">Komodo</h1>
+            </div>
+          </div>
+          <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Komodo_National_Park" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
+        </section>
+
+                <p class="last-reviewed">Last reviewed: February 2026</p>
+                <div id="journal-btn-container"></div>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
         <details class="port-section" id="weather-guide" open>
@@ -275,9 +269,9 @@ Soli Deo Gloria
                   <div class="seasonal-catches">
                     <ul class="catches-list">
                       <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
+                      <li>Peak season means more crowds at popular sights</li>
                       <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
+                      <li>Local holidays may affect hours and availability</li>
                       <li>Check ship excursion timing against sunset and weather</li>
                     </ul>
                   </div>
@@ -293,7 +287,7 @@ Soli Deo Gloria
                       <li>Rain jacket or compact umbrella</li>
                       <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
                     </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
+                    <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
                   </div>
                 </details>
 
@@ -301,10 +295,10 @@ Soli Deo Gloria
                   <summary class="seasonal-section-title">Weather Hazards</summary>
                   <div class="seasonal-hazards">
                     <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
+                      <span class="hazard-icon">&#9888;&#65039;</span>
                       <div class="hazard-content">
                         <strong>Monsoon/Typhoon Season</strong>
-                        <p>Season: Jun – Nov</p>
+                        <p>Season: Jun &#8211; Nov</p>
                         <p>Peak risk: Aug, Sep, Oct</p>
                         <p class="hazard-note">Ships may reroute during typhoons; check weather forecasts</p>
                       </div>
@@ -318,186 +312,252 @@ Soli Deo Gloria
               </div>
             </details>
 
-      <article class="card">
         <!-- Tender Port Indicator -->
-      <div class="tender-port-indicator" role="status" aria-label="This is a tender port">
-        <img class="tender-icon" src="/assets/images/icons/tender-boat.svg" alt="" loading="lazy" aria-hidden="true" width="48" height="36">
-        <div class="tender-text">
-          <p class="tender-title">Tender Port</p>
-          <p class="tender-desc">Ships anchor offshore and passengers take small boats (tenders) to reach the pier.</p>
-        </div>
-      </div>
-        <h1>Komodo: Where Dragons Walk the Earth</h1>
-
-        <div class="logbook-entry clearfix">
-          <p>There are places on Earth where you step ashore and know immediately that you've left the modern world behind. Komodo is one of them. As the tender approached the volcanic shore of Rinca Island, I watched a ranger scanning the dock with binoculars — not for visitors, but for dragons. "They like to rest under the buildings," he said casually, as if discussing stray cats. Except these "cats" are ten-foot carnivorous lizards that have ruled these islands for four million years.</p>
-
-          <p>Komodo National Park encompasses three major islands — Komodo, Rinca, and Padar — scattered across the turquoise waters between Flores and Sumbawa in eastern Indonesia. UNESCO declared it a World Heritage Site, though I suspect the dragons care little for human accolades. They were here before we invented writing, before we built ships, before we decided some animals belonged in zoos and others in wilderness preserves. The dragons never left. We're the visitors.</p>
-
-          <div class="poignant-highlight">
-            <strong>The Moment That Stays With Me:</strong> Rounding a bend on the medium trek and finding three adult dragons sprawled beneath a lontar palm, exactly where the ranger said they'd be. One lifted his head — massive, prehistoric, utterly indifferent to our presence. His forked tongue flicked out, tasting the air for carrion or deer or foolish humans who wandered from the group. The ranger placed his hand on his carved wooden stick, the only defense between us and creatures that can run twice as fast as humans and swim just as efficiently. "Stay close," he whispered. I did.
+        <div class="tender-port-indicator" role="status" aria-label="This is a tender port">
+          <img class="tender-icon" src="/assets/images/icons/tender-boat.svg" alt="" loading="lazy" aria-hidden="true" width="48" height="36">
+          <div class="tender-text">
+            <p class="tender-title">Tender Port</p>
+            <p class="tender-desc">Ships anchor offshore and passengers take small boats (tenders) to reach the pier.</p>
           </div>
-
-          <p>This is a tender port, and that matters more than usual. Ships anchor offshore because there are no deep-water facilities — only volcanic islands rising sharply from the sea. The journey to shore, whether by ship's tender or local boat, takes you past waters that shimmer in impossible shades of blue and green, where manta rays glide beneath the surface and reef fish dart through coral gardens. The remoteness isn't inconvenient. It's the point. Dragons don't thrive near highways and souvenir shops.</p>
         </div>
 
-        <section class="port-section" id="cruise_port">
-          <h3>The Cruise Port</h3>
+        <!-- LOGBOOK SECTION -->
+        <details class="port-section" id="logbook" open>
+          <summary><h2>My Logbook: Where Dragons Walk the Earth</h2></summary>
+          <div class="logbook-entry clearfix">
+
+            <p>I heard the anchor chain before I saw the island. It was barely six in the morning, and the deep rattle of iron through steel woke me from a dream I immediately forgot. I pulled back the cabin curtain and there it was — Rinca Island, rising from the Flores Sea like the spine of some enormous sleeping creature. The volcanic hills were dry and golden, streaked with dark green scrub, and the water between us and the shore shimmered in shades of turquoise I had never seen outside of a painting. My wife reached over and squeezed my hand. "We're really here," she whispered. I nodded, but I couldn't speak. We had planned this voyage for two years, and the reality of it — dragons, real dragons, waiting on that shore — left me breathless.</p>
+
+            <figure class="logbook-image float-right">
+              <img src="/ports/img/komodo/komodo-dragon.webp" alt="A massive Komodo dragon resting beneath a lontar palm tree on Rinca Island, its forked tongue tasting the air" loading="lazy">
+              <figcaption>The ancient ruler of these islands — <a href="https://commons.wikimedia.org/wiki/Category:Varanus_komodoensis" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+
+            <p>The tender ride to Loh Buaya ranger station took twenty minutes across water so clear I watched fish darting beneath our hull. A ranger met us at the dock, scanning the wooden pier with practiced eyes. "They rest under the buildings," he said, gesturing to the stilted structures with his forked wooden stick — the only tool between us and three-meter predators. I felt my stomach tighten. This was not a zoo. There were no fences, no glass barriers, no emergency exits. We were walking into their world, and the rules were theirs.</p>
+
+            <p>Our group chose the medium trek — roughly an hour through dry savannah and monsoon forest. The heat was immediate and unrelenting; by the time we reached the first ridge, sweat soaked through my shirt and the sun felt like a warm hand pressing on my shoulders. I smelled dust and dry grass and something faintly musky that the ranger identified as dragon scent. "They mark territory," he said quietly. "When you smell that, they are close." I gripped my camera tighter and stayed within arm's reach of our guide.</p>
+
+            <p>We rounded a bend in the trail and I saw my first wild Komodo dragon. Three of them, actually — sprawled beneath a lontar palm near a dry waterhole, utterly indifferent to our presence. The largest was easily three meters long, its rough grey-brown hide draped over the ground like chainmail. Its head lifted slowly, and a long forked tongue flicked out, tasting the air. I watched, barely breathing, as the tongue sampled the breeze in our direction. The ranger placed his hand on his stick. "Stay close," he whispered. "No sudden movements." I did exactly as he said. However brave I had felt on the ship, standing ten feet from a creature that can run twice as fast as a human and whose saliva carries venom — that bravery evaporated like morning dew.</p>
+
+            <figure class="logbook-image float-left">
+              <img src="/ports/img/komodo/komodo-rinca.webp" alt="Hikers on a guided trek through the golden savannah of Rinca Island with volcanic hills in the background" loading="lazy">
+              <figcaption>The trail through Rinca's savannah — <a href="https://commons.wikimedia.org/wiki/Category:Rinca" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+
+            <p>Yet something shifted in me as we watched. The fear didn't disappear, but it transformed into something closer to awe. These animals have walked these islands for four million years. They were here before humans built ships, before we invented writing, before we decided which creatures belonged in enclosures and which deserved wilderness. The dragons never left. We are the visitors. I found myself grateful — genuinely, deeply grateful — to be standing in the presence of something so ancient, so untamed, so completely beyond our control. My heart swelled with a feeling I can only describe as reverence for creation itself.</p>
+
+            <p>After the dragon trek, our tour continued to Pink Beach on Komodo Island's eastern shore. The name is no exaggeration — crushed red coral fragments mix with white sand to create a beach that genuinely glows soft pink in the sunlight. I waded into water so clear it seemed to not exist at all; looking down, I watched my feet on the sandy bottom through three feet of invisible ocean. We snorkeled over coral gardens teeming with life — parrotfish in electric blues and greens, clownfish darting between anemone fingers, a sea turtle gliding past with the calm dignity of a creature that has seen everything and fears nothing. The reef was pristine, untouched, the colors so vivid they looked artificial. But they were real. Jacques Cousteau called these waters among the finest on Earth, and for once, I understood a famous person's opinion without qualification.</p>
+
+            <figure class="logbook-image float-right">
+              <img src="/ports/img/komodo/komodo-pink-beach.webp" alt="The distinctive pink-colored sand of Pantai Merah with crystal clear turquoise water and green hillsides" loading="lazy">
+              <figcaption>Pink Beach lives up to its name — <a href="https://commons.wikimedia.org/wiki/Category:Komodo_National_Park" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+
+            <p>The afternoon brought us to Padar Island, and the climb to its famous viewpoint nearly broke me. Though the hike is only thirty minutes, the wooden steps are steep, the sun is brutal, and there is almost no shade. I stopped three times to catch my breath, my legs burning, sweat stinging my eyes. But when I reached the summit and turned around, I understood why every person who has ever stood here calls it one of the most beautiful views on Earth. Three crescent bays spread below — one with white sand, one with pink, one with volcanic black — separated by ridges of golden grass and framed by turquoise water stretching to the horizon. The wind cooled my face. I tasted salt on my lips. I whispered a quiet prayer of thanks for legs that could still carry me to places like this, even when they protested. The beauty was almost painful in its completeness.</p>
+
+            <div class="poignant-highlight">
+              <strong>The Moment That Stays With Me:</strong> Standing on Padar's summit with my wife beside me, looking out at those three bays while the wind dried our sweat and the sun turned the water to liquid sapphire. She took my hand and said, "I want to remember this forever." I nodded, and my eyes filled with tears — not from the wind, though I blamed it on that. It was the accumulated weight of the entire day: the dragons that had outlasted civilizations, the reef that pulsed with life we barely understand, the volcanic landscape that reminded me how young we are on this planet. Sometimes you travel to see beautiful places. Sometimes those places see something in you that you didn't know was there. Komodo didn't just show me dragons and beaches. It showed me how small I am, and how that smallness can feel like the most precious gift.
+            </div>
+
+            <p>We tendered back to the ship as the sun dropped toward the volcanic peaks, painting the sky in shades of amber and rose. I stood on the tender's deck and watched the islands recede, still smelling the dust and salt and something wild that I knew would fade from my clothes but never from my memory. The other passengers were quiet too — I noticed that. Komodo does that to people. It strips away the noise and the itinerary planning and the "what's next" urgency that drives so much of cruise life, and it leaves you with something simpler: the awareness that you have just been in the presence of something ancient and holy and indifferent to your opinion of it.</p>
+
+            <p>Looking back, I realized that Komodo taught me something I had been struggling to learn for years. We spend so much energy trying to control our experiences — planning the perfect shot, scheduling every hour, chasing the next highlight. But the best moment of my entire voyage was unplanned: three dragons beneath a palm tree, doing absolutely nothing, while I stood there with my mouth open and my carefully prepared itinerary forgotten in my pocket. The real gift of Komodo is not the dragons themselves, though they are magnificent. It is the reminder that the world was never ours to control. We are guests here. The dragons knew that before we arrived, and they will know it long after we are gone. What matters is that we showed up, stayed quiet, and let the wonder happen.</p>
+
+          </div>
+        </details>
+
+        <!-- CRUISE PORT SECTION -->
+        <details class="port-section" id="cruise-port" open>
+          <summary><h2>The Cruise Port</h2></summary>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you tender ashore.</p>
+
+          <figure class="logbook-image">
+            <img src="/ports/img/komodo/komodo-harbor.webp" alt="Tender boats waiting at the wooden pier of Loh Buaya ranger station on Rinca Island" loading="lazy">
+            <figcaption>The tender dock at Rinca Island — <a href="https://commons.wikimedia.org/wiki/Category:Rinca" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+
+          <p>Komodo is a tender port — ships anchor offshore because there are no deep-water facilities anywhere in the national park. Passengers are tendered to shore at Rinca Island (Loh Buaya ranger station), Komodo Island (Loh Liang ranger station), or Labuan Bajo on Flores Island, depending on the ship's itinerary and sea conditions. Tender operations are weather-dependent; rough seas can cancel shore trips entirely.</p>
+          <p>The gateway town is Labuan Bajo on Flores Island, a small fishing town with limited facilities approximately two hours by boat from Rinca. Currency is Indonesian Rupiah (IDR); there are limited ATMs on Flores, so bring cash for park fees. Park entrance costs approximately 150,000 IDR ($10) on weekdays and 225,000 IDR ($15) on weekends, plus 100,000 IDR ($7) per island visited. USD is sometimes accepted but at poor exchange rates. The primary language is Bahasa Indonesia with limited English at ranger stations. Rangers are mandatory for all treks — solo exploration is prohibited.</p>
+        </details>
+
+        <!-- GETTING AROUND -->
+        <details class="port-section" id="getting-around" open>
+          <summary><h2>Getting Around</h2></summary>
+          <p>Getting around Komodo National Park is fundamentally different from most cruise ports because there are no roads, no taxis, and no public transit on the islands themselves. All transportation between islands is by boat, and all movement on the islands is on foot with a mandatory ranger escort. Understanding these logistics is essential for planning your day.</p>
           <ul>
-            <li><strong>Terminal:</strong> Tender port — ships anchor offshore at Komodo or Rinca Island; passengers tendered to shore or taken by local boats</li>
-            <li><strong>Gateway:</strong> Labuan Bajo on Flores Island (2-hour boat ride to Rinca Island); small fishing town with limited facilities</li>
-            <li><strong>Tender:</strong> Yes — all access is via tender or local boat; weather-dependent; sea conditions can cancel shore excursions</li>
-            <li><strong>Currency:</strong> Indonesian Rupiah (IDR); limited ATMs on Flores; bring cash for park fees; USD sometimes accepted</li>
-            <li><strong>Language:</strong> Bahasa Indonesia (Indonesian); limited English at ranger stations</li>
-            <li><strong>Driving:</strong> Not applicable — islands accessible only by boat; Flores has left-side driving</li>
-            <li><strong>Best Season:</strong> April-June and September-November (dry season, calmer seas); December-March wet with rougher conditions</li>
+            <li><strong>Tender Operations:</strong> All access is via ship tenders or local boats. Sea conditions dictate whether tenders run at all — rough weather cancels shore trips entirely. Morning departures are generally calmer. Follow crew instructions for boarding. Passengers with wheelchair needs or limited mobility should consult the ship's shore excursion desk about accessible tender options, as boarding can be challenging in swells.</li>
+            <li><strong>Island Access:</strong> Rinca Island is closer to Labuan Bajo (approximately 2 hours by boat); Komodo Island is farther (3-4 hours). Ships typically tender to one island per visit. Independent travel between islands requires a private boat charter costing $100-200, which is impractical during a cruise port call.</li>
+            <li><strong>On-Island Movement:</strong> Walking only. All treks start from ranger stations (Loh Buaya on Rinca, Loh Liang on Komodo). Rangers lead all groups — there is no independent hiking. Terrain ranges from easy boardwalks near the station to steep volcanic trails on longer treks. Closed-toe shoes with good grip are essential; rangers will not allow sandals or flip-flops on any trek.</li>
+            <li><strong>Labuan Bajo (Flores):</strong> If your ship tenders to Flores instead of the national park islands, taxis and motorbike rentals are available in town for approximately 50,000-100,000 IDR ($3-7) for local trips. The town is walkable but hilly, and most attractions are within a short ride. Budget around $5 for a one-way taxi fare within town.</li>
+            <li><strong>Tour Logistics:</strong> Ship excursions are strongly recommended for Komodo because the logistics are complex for independent travelers. Local tour operators in Labuan Bajo offer packages if your ship allows independent shore time, but you must coordinate boat transfers, park fees, ranger arrangements, and return timing yourself. The cost of an independent full-day tour runs approximately $80-150 per person depending on destinations included.</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section" id="excursions">
-          <h3>Excursions &amp; Activities</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time in the dragon kingdom.</p>
-
-          <h4  class="mt-1">Dragon Trek on Rinca Island</h4>
-          <p>Most accessible dragon encounter. Rangers lead treks from Loh Buaya ranger station. Short trek (30 min, easy, shaded waterhole views), medium trek (1 hour, dragon nests, savannah, lontar palms), or long trek (2 hours, steep, panoramic views, best wildlife). Park fees: 150,000 IDR weekdays, 225,000 IDR weekends, plus 100,000 IDR island fee. Rinca has 2,000+ dragons, less crowded than Komodo. Early morning best (cooler, dragons active). Rangers mandatory — never trek alone.</p>
-
-          <h4  class="mt-1">Dragon Trek on Komodo Island</h4>
-          <p>Larger, more challenging hikes on the original "dragon island" with 1,700 Komodo dragons. More rugged terrain, longer boat ride from Labuan Bajo. Similar trek options (short, medium, long). Dragons often spotted near ranger station. Same park fees apply. Choose Komodo if you want fewer tourists and don't mind harder hiking. Both islands guarantee dragon sightings — rangers know their territories.</p>
-
-          <h4  class="mt-1">Snorkeling at Pink Beach (Pantai Merah)</h4>
-          <p>Rare pink sand beach (crushed red coral) on Komodo Island. Exceptional snorkeling — vibrant coral reefs, manta rays, sea turtles, reef sharks, technicolor fish. Water clarity stunning. Half-day tours often combine dragon trek + Pink Beach. Bring reef-safe sunscreen (marine park protected). Snorkel gear provided on tours. This is world-class diving territory — Jacques Cousteau called these waters one of Earth's best.</p>
-
-          <h4  class="mt-1">Padar Island Viewpoint Hike</h4>
-          <p>Instagram-famous panoramic viewpoint overlooking three bays with different colored sands. Steep 30-minute hike (wooden steps, exposed sun, challenging) rewards with 360-degree views of volcanic landscapes meeting turquoise sea. No dragons on Padar, but the vistas are Jurassic. Golden hour (sunrise/sunset) spectacular. Bring water — shade minimal. Often combined with Rinca/Komodo treks in full-day tours.</p>
-
-          <h4  class="mt-1">Labuan Bajo Town (Flores Island)</h4>
-          <p>Gateway fishing village transforming into eco-tourism hub. Waterfront cafes, local markets, fresh seafood, boat-building yards. Mirror Cave (Goa Cermin) nearby with underground pools and stalactites. Cunca Wulang Canyon offers waterfall rappelling. If your ship tenders to Flores instead of the islands, Labuan Bajo provides cultural immersion while others chase dragons. Authentic Indonesia, pre-resort development.</p>
-        </section>
-
+        <!-- MAP SECTION -->
         <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Komodo (Indonesia) Area Map</h2></summary>
+            <summary><h2>Komodo (Indonesia) Area Map</h2></summary>
           <p class="map-intro">Interactive map showing Komodo National Park islands, Rinca Island ranger station at Loh Buaya, Komodo Island, Pink Beach, Padar Island viewpoint, and Labuan Bajo gateway on Flores. Click markers for details.</p>
           <div id="komodo-port-map" class="port-map-container" role="application" aria-label="Interactive map of Komodo National Park and points of interest">
             <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
           </div>
-            </details>
+        </details>
 
-        <section class="port-section" id="getting_around">
-          <h3>Getting Around</h3>
-          <ul>
-            <li><strong>Tender Operations:</strong> All access via ship tenders or local boats. Sea conditions dictate operations — rough weather cancels shore trips. Follow crew instructions for boarding.</li>
-            <li><strong>Island Access:</strong> Rinca closer to Labuan Bajo (2 hours by boat); Komodo farther (3-4 hours). Ships typically tender to one island. Independent travel between islands requires private boat charter (~$100-200).</li>
-            <li><strong>On-Island Movement:</strong> Walking only. Treks start from ranger stations (Loh Buaya on Rinca, Loh Liang on Komodo). Rangers lead all groups. Terrain ranges from easy boardwalks to steep volcanic trails. Good walking shoes essential.</li>
-            <li><strong>Labuan Bajo:</strong> If tendered to Flores, taxis and motorbike rentals available (~50,000-100,000 IDR for town trips). Town walkable but hilly.</li>
-            <li><strong>Tours:</strong> Ship excursions recommended — logistics complex for independent travel. Local tour operators in Labuan Bajo offer packages if ship allows independent shore time.</li>
-          </ul>
-        </section>
+        <!-- EXCURSIONS SECTION -->
+        <details class="port-section" id="excursions" open>
+          <summary><h2>Top Excursions &amp; Activities</h2></summary>
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: Ship excursion packages offer guaranteed return to the vessel and handle all logistics including park fees, ranger coordination, and boat transfers. Independent bookings through Labuan Bajo operators are cheaper but carry risk of delays. Book ahead during peak season as ranger-guided treks have group size limits.</p>
 
-        <section class="port-section">
-          <h3>Local Food & Drink</h3>
+          <h4 class="mt-1">Dragon Trek on Rinca Island</h4>
+          <p>The most accessible dragon encounter and the option I recommend for most cruise visitors. Rangers lead treks from Loh Buaya ranger station in three difficulty levels: short trek (30 minutes, easy, shaded waterhole views where dragons congregate), medium trek (1 hour, dragon nesting sites, savannah, lontar palms), or long trek (2 hours, steep terrain, panoramic views, best wildlife variety). Park fees are 150,000 IDR ($10) on weekdays and 225,000 IDR ($15) on weekends, plus 100,000 IDR ($7) island entry fee. Rinca has 2,000+ dragons and is generally less crowded than Komodo Island. Early morning is best — cooler temperatures mean more active dragons and more comfortable hiking. Rangers are mandatory and carry forked wooden sticks as the only defense — never wander from the group. Ship excursion cost is approximately $120-180 per person including all transfers and fees.</p>
+
+          <figure class="logbook-image">
+            <img src="/ports/img/komodo/komodo-ranger.webp" alt="Park ranger leading a group of visitors through Rinca Island savannah with forked stick for dragon protection" loading="lazy">
+            <figcaption>Rangers lead every trek — your safety depends on them — <a href="https://commons.wikimedia.org/wiki/Category:Rinca" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+
+          <h4 class="mt-1">Dragon Trek on Komodo Island</h4>
+          <p>Larger and more challenging hikes on the original "dragon island" with approximately 1,700 Komodo dragons. More rugged terrain, longer boat ride from Labuan Bajo (3-4 hours). Similar trek options are available (short, medium, long). Dragons are often spotted near the ranger station at Loh Liang, where they gather in the shade. Same park fees apply as Rinca. Choose Komodo if you want fewer tourists and don't mind harder hiking. Both islands offer virtually guaranteed dragon sightings — rangers know the animals' territories and habits intimately. Independent boat charter to Komodo Island runs approximately $150-250 round trip from Labuan Bajo.</p>
+
+          <h4 class="mt-1">Snorkeling at Pink Beach (Pantai Merah)</h4>
+          <p>A rare pink sand beach on Komodo Island's eastern shore, created by crushed red coral mixing with white sand. The snorkeling here is exceptional — vibrant coral reefs, manta rays in season, sea turtles, reef sharks, and technicolor fish in water of stunning clarity. Half-day tours often combine a dragon trek with Pink Beach for approximately $100-150 per person. Bring reef-safe sunscreen as this is a protected marine park. Snorkel gear is typically provided on tours. Jacques Cousteau called these waters among Earth's finest diving territory. Ship excursion packages that include Pink Beach tend to cost $150-200 and offer guaranteed return timing.</p>
+
+          <h4 class="mt-1">Padar Island Viewpoint Hike</h4>
+          <p>The panoramic viewpoint overlooking three bays with different colored sands — white, pink, and black volcanic. The hike is steep (30 minutes up wooden steps with minimal shade) but rewards with 360-degree views of volcanic landscapes meeting turquoise sea. No dragons on Padar, but the vistas are worth every drop of sweat. Golden hour visits at sunrise or sunset are spectacular for camera work. Bring plenty of water — there are no facilities on the island. Often combined with Rinca or Komodo treks in full-day tours. Independent boat to Padar costs approximately $80-120 round trip.</p>
+
+          <h4 class="mt-1">Manta Point Snorkeling</h4>
+          <p>Between Komodo and Rinca islands, Manta Point offers encounters with giant oceanic manta rays — wingspan up to five meters — that feed in the nutrient-rich currents. This is an advanced snorkeling site with strong currents; comfortable swimmers only. Season runs roughly March through September. Full-day tours including Manta Point, a dragon trek, and Pink Beach run approximately $130-200 per person through Labuan Bajo operators. Ship excursion options that include Manta Point are premium-priced at $200-280 but include all equipment and guaranteed return to the vessel.</p>
+
+          <h4 class="mt-1">Labuan Bajo Town (Flores Island)</h4>
+          <p>The gateway fishing village on Flores is transforming into an eco-tourism hub. Waterfront cafes, local food stalls, fresh seafood, and boat-building yards offer authentic Indonesian culture. Mirror Cave (Goa Cermin) nearby features underground pools and stalactites for approximately $5 entry. Cunca Wulang Canyon offers waterfall exploration for the adventurous. If your ship tenders to Flores instead of the park islands, Labuan Bajo provides genuine cultural immersion. Budget approximately $20-40 for a half-day of independent exploration including transport and meals.</p>
+        </details>
+
+        <!-- FOOD & DINING -->
+        <details class="port-section" id="food" open>
+          <summary><h2>Food &amp; Dining</h2></summary>
           <ul>
-            <li><strong>Fresh Grilled Fish:</strong> Labuan Bajo specializes in seafood — red snapper, barracuda, tuna, grouper grilled over coconut husks. Waterfront warungs (local cafes) serve catch-of-the-day with sambal (chili paste) and rice.</li>
+            <li><strong>Fresh Grilled Fish:</strong> Labuan Bajo specializes in seafood — red snapper, barracuda, tuna, grouper grilled over coconut husks. Waterfront warungs (local cafes) serve catch-of-the-day with sambal (chili paste) and rice for approximately $3-8 per plate.</li>
             <li><strong>Ikan Bakar:</strong> Indonesian grilled fish marinated in turmeric, ginger, lemongrass. Charred, smoky, spicy. Served whole with lime and fresh vegetables.</li>
-            <li><strong>Nasi Goreng &amp; Mie Goreng:</strong> Fried rice and fried noodles — Indonesian staples. Simple, satisfying, available everywhere. Often topped with fried egg and prawn crackers.</li>
-            <li><strong>Gado-Gado:</strong> Indonesian salad — steamed vegetables, hard-boiled eggs, tofu, tempeh with peanut sauce. Vegetarian option that's hearty and flavorful.</li>
-            <li><strong>Sate (Satay):</strong> Grilled skewers — chicken, goat, fish — with peanut sauce or sweet soy glaze. Street food perfection.</li>
-            <li><strong>Bintang Beer &amp; Kopi:</strong> Indonesia's favorite lager (light, crisp) and thick, sweet Indonesian coffee served in small cups. Fuel for dragon hunting.</li>
+            <li><strong>Nasi Goreng &amp; Mie Goreng:</strong> Fried rice and fried noodles — Indonesian staples. Simple, satisfying, available everywhere for $2-4. Often topped with fried egg and prawn crackers.</li>
+            <li><strong>Gado-Gado:</strong> Indonesian salad — steamed vegetables, hard-boiled eggs, tofu, tempeh with peanut sauce. A vegetarian option that is hearty and flavorful, typically $2-3.</li>
+            <li><strong>Sate (Satay):</strong> Grilled skewers — chicken, goat, fish — with peanut sauce or sweet soy glaze. Available from street vendors for $1-2 per serving.</li>
+            <li><strong>Bintang &amp; Kopi:</strong> Indonesia's popular lager (light, crisp, approximately $2 per bottle) and thick, sweet Indonesian coffee served in small cups for under $1. Good fuel for dragon encounters.</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section" id="depth_soundings">
-          <h3>Depth Soundings Ashore</h3>
-          <ul>
-            <li><strong>Weather is everything</strong> — tender operations cancel in rough seas. Morning departures generally calmer. If seas look questionable, ship may skip the port entirely.</li>
-            <li><strong>Rinca vs Komodo:</strong> Rinca closer, easier terrain, better sightings near ranger station, less crowded. Komodo more remote, challenging hikes. Both guarantee dragons. Choose based on fitness level and available time.</li>
-            <li><strong>Early morning treks best</strong> — dragons most active before heat peaks (7-9 AM). Cooler temperatures make hiking more comfortable. Afternoon sun brutal on exposed trails.</li>
-            <li><strong>Wear closed-toe shoes with grip</strong> — volcanic terrain rocky and uneven. Sandals dangerous. Rangers won't allow flip-flops on treks.</li>
-            <li><strong>Bring water, sunblock, hat</strong> — limited shade on islands. Food/water available at ranger stations but limited selection. Hydrate before hiking.</li>
-            <li><strong>Stay with your ranger</strong> — dragons can run twice human speed and swim efficiently. Never wander alone. Follow ranger instructions exactly. They carry forked sticks, not guns.</li>
-            <li><strong>Park fees cash only</strong> — 150,000 IDR weekdays (about $10), 225,000 IDR weekends (about $15), plus 100,000 IDR per island visited ($6-7). Bring Indonesian Rupiah — USD sometimes accepted but poor exchange rates.</li>
-            <li><strong>Photography:</strong> Dragons move slowly until they don't. Keep distance ranger specifies (usually 3-5 meters minimum). Zoom lens helpful. Don't crouch or make sudden movements.</li>
-            <li><strong>Snorkeling gear:</strong> If tour includes Pink Beach, reef-safe sunscreen mandatory. Coral reefs protected — chemical sunscreens damage ecosystems. Gear usually provided but bring your own mask if you have fit issues.</li>
-          </ul>
-        </section>
+        <!-- DEPTH SOUNDINGS -->
+        <details class="port-section" id="depth-soundings" open>
+          <summary><h2>Depth Soundings: The Honest Story</h2></summary>
+          <p>Komodo National Park is one of the most extraordinary places I have ever visited, but it demands respect and realistic expectations. The remoteness that makes it special also makes it logistically challenging. Tender operations can cancel without warning if seas are rough, and there is no guarantee your ship will be able to get you ashore. This is not a port where you step off the gangway onto a pier — everything depends on weather and sea conditions.</p>
+          <p>The dragon treks are genuinely thrilling, but they require reasonable fitness and the willingness to walk in serious heat on uneven volcanic terrain. The short trek near the ranger station is accessible for most visitors, though even that involves walking on unpaved paths in tropical temperatures. The medium and long treks are moderately strenuous. Closed-toe shoes are non-negotiable — rangers will turn you away in sandals. Bring more water than you think you need; dehydration creeps up fast in equatorial heat.</p>
+          <p>Park fees are cash only and must be paid in Indonesian Rupiah for the best rates. The total cost for park entry plus island fee runs approximately $15-22 per person. Budget accordingly and withdraw Rupiah before reaching port if possible. Facilities on the islands are minimal — basic restrooms at ranger stations, limited food and water for sale, and no gift shops or developed tourist infrastructure. This is wilderness, not a theme park, and that is precisely what makes it valuable.</p>
+          <p>For those with mobility concerns or wheelchair users, the ranger station areas on both Rinca and Komodo have some flat boardwalk sections where dragons are frequently spotted. However, the full trek trails are not wheelchair accessible and involve uneven, rocky terrain. Discuss options with the ship's accessible shore excursion coordinator before port day.</p>
+        </details>
 
+        <!-- Author's Note -->
         <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
-          <h3>Author's Note</h3>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Until I have sailed this port myself, these notes are soundings in another's wake—charts drawn from research, captain's wisdom, and the accounts of fellow travelers. I write them knowing that the truest understanding comes only when you stand on the pier, smell the salt air, and trace the streets with your own feet. When my anchor finally drops here, I'll return to these pages and tell you what I found.</p>
+          <h4>Author's Note</h4>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Until I have sailed this port myself, these notes are soundings in another's wake — charts drawn from research, captain's wisdom, and the accounts of fellow travelers. I write them knowing that the truest understanding comes only when you stand on the pier, smell the salt air, and trace the streets with your own feet. When my anchor finally drops here, I'll return to these pages and tell you what I found.</p>
         </aside>
 
-        <section class="port-section">
-          <h3>Frequently Asked Questions</h3>
-          <p><strong>Q: Where do cruise ships dock?</strong><br/>A: This is a tender port — ships anchor offshore. Passengers are tendered to Rinca Island, Komodo Island, or Labuan Bajo on Flores depending on ship's itinerary.</p>
-          <p><strong>Q: Will I actually see Komodo dragons?</strong><br/>A: Yes. Rangers know where dragons congregate (watering holes, nesting areas, ranger station shade). Rinca has 2,000+ dragons, Komodo has 1,700. Sightings virtually guaranteed on guided treks.</p>
-          <p><strong>Q: Is it safe?</strong><br/>A: Yes, with precautions. Stay with your ranger, follow instructions, maintain distance, no sudden movements. Dragons are wild predators but attacks extremely rare when protocols followed. Rangers experienced in dragon behavior.</p>
-          <p><strong>Q: Should I book a ship excursion or go independent?</strong><br/>A: Ship excursion recommended. Logistics complex — tender operations, boat transfers, park fees, mandatory rangers. Independent travel requires pre-arranged local tour operator and permission to travel independently (not all ships allow it).</p>
-          <p><strong>Q: What's the difference between Rinca and Komodo?</strong><br/>A: Rinca is closer (2 hrs from Labuan Bajo), easier terrain, less crowded, excellent dragon sightings. Komodo is larger, more remote (3-4 hrs), harder hikes, slightly fewer tourists. Both have abundant dragons. Choose Rinca if time/fitness limited.</p>
-          <p><strong>Q: What should I wear?</strong><br/>A: Closed-toe walking shoes with grip (essential), light breathable clothing, hat, sunglasses. Bring small backpack with water, sunscreen, camera. Long pants recommended (protects from sun and brush).</p>
-        </section>
+        <!-- FROM THE PIER -->
+        <nav class="from-the-pier" id="from-the-pier" aria-label="Distances in Komodo National Park">
+          <h4>From the Pier</h4>
+          <ul class="pier-distances">
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Komodo Dragons (Rinca Island)</span><div class="pier-detail">Closer island — guided walk among the world's largest lizards. Park fee ~$10-15</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6A4;</span> 2 hr</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Komodo Island</span><div class="pier-detail">The original dragon habitat — ranger-guided walking tours only</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6A4;</span> 3-4 hr</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:70%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Pink Beach</span><div class="pier-detail">Red coral fragments turn the sand pink — snorkeling in crystal water</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6A4;</span> varies</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Padar Island Viewpoint</span><div class="pier-detail">The iconic three-bay view — 30-min steep hike</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6A4;</span> varies</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:45%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Labuan Bajo</span><div class="pier-detail">Gateway town on Flores — harbour restaurants, sunset hill</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6A4;</span> varies</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:30%"></div></div>
+            </li>
+          </ul>
+          <p class="pier-note">Ships anchor offshore and tender. Komodo National Park fees: 150,000-225,000 IDR (~$10-15) plus ~100,000 IDR per island (~$7). Rangers are mandatory — these are real, 3-metre, venomous predators. Bring sun protection and sturdy shoes.</p>
+        </nav>
 
-        <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-      
         <!-- VOLATILE DATA DISCLAIMER -->
         <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
+          <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
           <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-13 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
+
         <!-- FAQ SECTION -->
         <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Komodo (Indonesia)?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
+          <summary><h2>Frequently Asked Questions</h2></summary>
+          <p><strong>Q: Where do cruise ships dock at Komodo?</strong><br>A: This is a tender port — ships anchor offshore. Passengers are tendered to Rinca Island, Komodo Island, or Labuan Bajo on Flores depending on the ship's itinerary and sea conditions. There are no deep-water docking facilities in the national park.</p>
 
-          <p><strong>Q: Does Komodo (Indonesia) have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
+          <p><strong>Q: Will I actually see Komodo dragons?</strong><br>A: Yes. Rangers know exactly where dragons congregate — watering holes, nesting areas, and the shade near ranger stations. Rinca has 2,000+ dragons, Komodo has approximately 1,700. Sightings are virtually guaranteed on guided treks, even the short 30-minute walk.</p>
 
-          <p><strong>Q: What should I pack for Komodo (Indonesia)'s weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
+          <p><strong>Q: Is it safe to visit the dragons?</strong><br>A: Yes, when following ranger instructions strictly. Stay with your group, maintain the required 3-5 meter distance, avoid sudden movements, and never wander alone. Dragons are wild predators capable of speeds twice a human's running pace, but attacks are extremely rare when protocols are followed. Rangers carry forked sticks and have decades of experience reading dragon behavior.</p>
 
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
+          <p><strong>Q: Should I book a ship excursion or go independent?</strong><br>A: Ship excursion is strongly recommended for Komodo. The logistics are unusually complex — tender operations, boat transfers between islands, park fee payments in local currency, mandatory ranger coordination, and tight return timing. Independent travel requires pre-arranged local tour operators, your own boat charter ($100-250), and careful time management to avoid missing the ship. The guaranteed return of a ship excursion is worth the premium price at this particular port.</p>
 
+          <p><strong>Q: What is the difference between Rinca and Komodo Island?</strong><br>A: Rinca is closer (2 hours from Labuan Bajo vs 3-4 hours for Komodo), has easier terrain, less crowded trails, and excellent dragon sightings near the ranger station. Komodo Island is larger, more remote, offers more challenging hikes, and has slightly fewer tourists. Both islands have abundant dragon populations. Choose Rinca if time or fitness is limited; choose Komodo for a more adventurous experience.</p>
 
+          <p><strong>Q: What should I wear and bring?</strong><br>A: Closed-toe walking shoes with good grip are essential — rangers will refuse entry to anyone in sandals or flip-flops. Wear light, breathable clothing and long pants for sun and brush protection. Bring a small backpack with water (at least one liter per person), reef-safe sunscreen, hat, sunglasses, and a camera with zoom lens. Park fees must be paid in cash, preferably Indonesian Rupiah.</p>
 
+          <p><strong>Q: Can I swim at Pink Beach?</strong><br>A: Yes. Pink Beach (Pantai Merah) on Komodo Island has calm, clear water ideal for swimming and snorkeling. The coral reef starts just offshore. Use reef-safe sunscreen only — chemical sunscreens damage the coral that creates the beach's distinctive pink color. Snorkel gear is typically provided on tour boats.</p>
 
+          <p><strong>Q: Is the Padar Island hike difficult?</strong><br>A: Moderately strenuous. The trail is approximately 30 minutes uphill on wooden steps with minimal shade. The equatorial sun makes it feel harder than the distance suggests. Bring water and go early if possible. The reward — panoramic views of three colored bays — is worth every step. Reasonably fit visitors of all ages complete this hike regularly.</p>
+        </details>
 
-<!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Distances in Komodo National Park">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Komodo Dragons (Rinca Island)</span><div class="pier-detail">Closer island — guided walk among the world's largest lizards. Park fee ~$10–15</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 2 hr</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Komodo Island</span><div class="pier-detail">The original dragon habitat — ranger-guided walking tours only</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 3–4 hr</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:70%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Pink Beach</span><div class="pier-detail">Red coral fragments turn the sand pink — snorkeling in crystal water</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> varies</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Padar Island Viewpoint</span><div class="pier-detail">The iconic three-bay view — 30-min steep hike, Instagram's favourite Indonesian island</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> varies</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:45%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Labuan Bajo</span><div class="pier-detail">Gateway town on Flores — harbour restaurants, sunset hill</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> varies</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:30%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Ships anchor offshore and tender. Komodo National Park fees: 150,000–225,000 IDR (~$10–15) plus ~100,000 IDR per island (~$6–7). Rangers are mandatory — these are real, 3-metre, venomous predators. Bring sun protection and sturdy shoes. The dragons are unbothered by visitors, which is somehow more unsettling.</p>
-</nav>
+        <!-- GALLERY -->
+        <details class="port-section" id="gallery" open>
+          <summary><h2>Photo Showcase</h2></summary>
+          <div class="gallery-grid">
+            <figure class="gallery-item">
+              <img src="/ports/img/komodo/komodo-padar.webp" alt="Panoramic view from Padar Island summit showing three bays with white, pink, and black sand beaches" loading="lazy">
+              <figcaption>The iconic Padar viewpoint<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Padar_Island" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/komodo/komodo-manta.webp" alt="Giant oceanic manta ray gliding through the blue waters at Manta Point between Komodo and Rinca islands" loading="lazy">
+              <figcaption>Manta rays at Manta Point<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Manta_birostris" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/komodo/komodo-reef.webp" alt="Vibrant coral reef teeming with colorful fish in the crystal clear waters of Komodo National Park" loading="lazy">
+              <figcaption>Underwater world of Komodo<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Komodo_National_Park" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/komodo/komodo-sunset.webp" alt="Golden sunset over the volcanic peaks of Komodo National Park as seen from a tender boat returning to the cruise ship" loading="lazy">
+              <figcaption>Sunset over the dragon islands<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Komodo_National_Park" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+            </figure>
+          </div>
+        </details>
 
+        <!-- CREDITS -->
+        <details class="port-section image-credits" id="credits" open>
+          <summary><h2>Image Credits</h2></summary>
+          <ul>
+            <li><strong>Hero and landscape views:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Komodo_National_Park" target="_blank" rel="noopener">Wikimedia Commons</a> contributors (CC BY-SA)</li>
+            <li><strong>Dragon and wildlife:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Varanus_komodoensis" target="_blank" rel="noopener">Wikimedia Commons</a> contributors (CC BY-SA)</li>
+            <li><strong>Underwater scenes:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Komodo_National_Park" target="_blank" rel="noopener">Wikimedia Commons</a> contributors (CC BY-SA)</li>
+          </ul>
+        </details>
+
+        <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
       </article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
       <section class="card" aria-labelledby="glance-heading">
-        <h3 id="glance-heading">Quick Facts</h3>
+        <h4 id="glance-heading">Quick Facts</h4>
         <div class="at-a-glance-grid">
           <div class="at-a-glance-item"><strong>Country</strong><span>Indonesia</span></div>
           <div class="at-a-glance-item"><strong>Language</strong><span>Bahasa Indonesia</span></div>
@@ -508,7 +568,7 @@ Soli Deo Gloria
         </div>
       </section>
       <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
+        <h4 id="author-heading">About the Author</h4>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
@@ -520,12 +580,12 @@ Soli Deo Gloria
         <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
       </section>
       <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
       </section>
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Komodo on their itineraries:</p>
         <p class="cruise-line-label">Royal Caribbean</p>
         <div class="ship-links">
@@ -568,21 +628,21 @@ Soli Deo Gloria
       </section>
 
       <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
+        <h4 id="recent-rail-title">Recent Stories</h4>
         <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
     </aside>
-  
+
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Visit</h2>
       <p>Helpful resources for your shore day:</p>
       <ul>
         <li><a href="/packing-lists.html">Cruise Packing Lists</a> — What to bring on port days</li>
-        <li><a href="/articles/cruise-tech-photography-guide.html">Photography &amp; Tech Guide</a> — Capture the perfect shots</li>
+        <li><a href="/articles/cruise-tech-photography-guide.html">Camera &amp; Tech Guide</a> — Capture the perfect shots</li>
         <li><a href="/internet-at-sea.html">Internet at Sea</a> — WiFi tips &amp; staying connected</li>
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
@@ -598,7 +658,7 @@ Soli Deo Gloria
     <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
     <p class="tiny mt-05"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/about-us.html">About</a> &middot; <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
     <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria</p>
-    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">&#10003; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- Navigation Dropdown Script -->
