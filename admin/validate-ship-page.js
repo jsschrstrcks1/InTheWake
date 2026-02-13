@@ -775,8 +775,11 @@ function validateDiningJSON($) {
 
 /**
  * Validate total page word count
- * Note: Ship pages use dynamic content loading (logbook, videos) so static word count
- * will be lower than actual rendered content. We use a lower threshold for static HTML.
+ * Ship pages use dynamic content loading (logbook, videos) so static word count
+ * will be lower than actual rendered content. We validate:
+ * 1. Static HTML has adequate baseline content (≥500 words, ≥300 for historic)
+ * 2. At least one logbook entry exists in the static HTML as a noscript fallback
+ * 3. Dynamic logbook/video JSON adequacy is validated separately by validateLogbook/validateVideos
  */
 function validateWordCounts($, isHistoric = false) {
   const errors = [];
@@ -788,11 +791,8 @@ function validateWordCounts($, isHistoric = false) {
   const pageText = mainContent.text();
   const totalWords = countWords(pageText);
 
-  // Ship pages have dynamic content (logbook stories, videos loaded via JS)
-  // Use lower static threshold but warn if very low
-  // Historic ships have even lower threshold (less content available)
+  // Static content thresholds — dynamic content (logbook, videos) is validated separately
   const STATIC_MIN = isHistoric ? 300 : 500;
-  const EXPECTED_MIN = WORD_COUNT_REQUIREMENTS.total_page.min;
 
   if (totalWords < STATIC_MIN) {
     if (isHistoric) {
@@ -810,13 +810,6 @@ function validateWordCounts($, isHistoric = false) {
         severity: 'BLOCKING'
       });
     }
-  } else if (totalWords < EXPECTED_MIN) {
-    warnings.push({
-      section: 'word_counts',
-      rule: 'low_static_content',
-      message: `Static page content (${totalWords} words) - note: logbook/videos load dynamically`,
-      severity: 'WARNING'
-    });
   } else if (totalWords > WORD_COUNT_REQUIREMENTS.total_page.max) {
     warnings.push({
       section: 'word_counts',
@@ -824,6 +817,27 @@ function validateWordCounts($, isHistoric = false) {
       message: `Total page content (${totalWords} words) exceeds maximum ${WORD_COUNT_REQUIREMENTS.total_page.max}`,
       severity: 'WARNING'
     });
+  }
+
+  // Check for at least one static logbook entry as noscript fallback
+  // Users without JavaScript should still see meaningful content
+  const logbookMount = $('#logbook-stories');
+  if (logbookMount.length > 0) {
+    const logbookStaticContent = logbookMount.text().trim();
+    const logbookStaticWords = countWords(logbookStaticContent);
+    const hasNoscriptLogbook = $('noscript').filter((i, el) => {
+      const text = $(el).text().toLowerCase();
+      return text.includes('logbook') || text.includes('story') || text.includes('tale');
+    }).length > 0;
+
+    if (logbookStaticWords < 100 && !hasNoscriptLogbook) {
+      errors.push({
+        section: 'word_counts',
+        rule: 'no_static_logbook',
+        message: 'Logbook section has no static content for users without JavaScript — add at least one inline story or a <noscript> fallback',
+        severity: 'BLOCKING'
+      });
+    }
   }
 
   // Check FAQ section word count
@@ -842,7 +856,7 @@ function validateWordCounts($, isHistoric = false) {
     }
   }
 
-  return { valid: errors.length === 0, errors, warnings, data: { totalWords } };
+  return { valid: errors.length === 0, errors, warnings, data: { totalWords, hasStaticLogbook: logbookMount.length > 0 } };
 }
 
 /**
@@ -1599,13 +1613,14 @@ function validateViewport($, html) {
   // Check for grid-2 sections which need proper responsive handling
   const grid2Sections = $('.grid-2');
   if (grid2Sections.length > 0) {
-    // Check if CSS likely handles this (we can't validate CSS, but we can check for common issues)
+    // Check if CSS likely handles this — global styles.css includes .grid-2 responsive rules
     const hasGridStyle = html.includes('.grid-2') || html.includes('grid-template');
-    if (!hasGridStyle) {
+    const hasGlobalStylesheet = html.includes('styles.css');
+    if (!hasGridStyle && !hasGlobalStylesheet) {
       warnings.push({
         section: 'viewport',
         rule: 'grid_responsive',
-        message: 'grid-2 sections found - ensure CSS handles mobile viewport',
+        message: 'grid-2 sections found but no responsive CSS detected (no styles.css or inline grid rules)',
         severity: 'WARNING'
       });
     }
