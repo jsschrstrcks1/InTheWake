@@ -1,7 +1,7 @@
 # Claude Code System Onboarding — In the Wake
 
 **For:** New Claude sessions working on In the Wake
-**Date:** 2026-01-29
+**Date:** 2026-02-13
 **System Version:** ITW-Lite v3.010.305 with FOM enhancements
 
 ---
@@ -15,7 +15,7 @@ You're working on **In the Wake**, a cruise planning website with an enhanced Cl
 1. **Skills auto-activate** based on what you're doing (editing HTML triggers SEO/accessibility skills)
 2. **ITW-Lite v3.010 philosophy**: AI-first, Human-first, Google second
 3. **Theological foundation is IMMUTABLE**: Soli Deo Gloria invocation required on all pages
-4. **9 skill rules total**: 3 with dedicated directories (standards, skill-developer, frontend-dev-guidelines) + 5 rule-based triggers in skill-rules.json (seo-optimizer, accessibility-auditor, content-strategy, performance-analyzer, ship-page-validator)
+4. **9 skill rules total**: 4 with dedicated directories (careful-not-clever, standards, skill-developer, frontend-dev-guidelines) + 5 rule-based triggers in skill-rules.json (seo-optimizer, accessibility-auditor, content-strategy, performance-analyzer, ship-page-validator)
 5. **Read this first**: `.claude/skill-rules.json` (skill activation rules) and `new-standards/README.md` (site standards)
 
 ---
@@ -68,7 +68,7 @@ new-standards/foundation/WCAG_2.1_AA_STANDARDS_v3.100.md  # Accessibility
 
 ---
 
-## 🛠️ The 8 Skill Rules
+## 🛠️ The 9 Skill Rules
 
 The system includes 9 skill rules defined in `.claude/skill-rules.json`. Four have dedicated skill directories with documentation (standards, skill-developer, frontend-dev-guidelines, careful-not-clever); five are rule-based triggers only.
 

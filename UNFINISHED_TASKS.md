@@ -18,13 +18,13 @@
 | Port pages | 380 |
 | Ship pages | 298 |
 | Restaurant pages | 472 |
-| Total HTML pages | 1,241 |
-| WebP images | 2,998 |
+| Total HTML pages | 1,238 |
+| WebP images | 3,131 |
 | Logbook JSON files | 285 |
-| Inline styles | ~16,040 |
+| Inline styles | ~16,022 |
 | Files with `<style>` | 25 |
-| ICP-Lite coverage | 1,231/1,241 (99.2%) |
-| Soli Deo Gloria coverage | 1,239/1,241 (99.8%) |
+| ICP-Lite coverage | 1,231/1,238 (99.4%) |
+| Soli Deo Gloria coverage | 1,234/1,238 (99.7%) |
 
 ---
 
@@ -140,7 +140,7 @@
 - [ ] Target next 20 ports: remaining Caribbean, popular Mediterranean, Northern Europe
 
 #### ✅ [G] "Real Talk" Honest Assessment Expansion — PHASE 1 COMPLETE (2026-02-12)
-**Status:** 52 ports now have "Real Talk" callouts (expanded from 30→52 on 2026-02-12)
+**Status:** 67 ports now have "Real Talk" or honest assessment callouts (verified 2026-02-13 via codebase grep)
 **Priority:** P2 — honest disqualification is structurally impossible for ad-funded competitors
 **Lane:** 🟢 Green (factual assessment, AI-safe)
 **Strategic insight:** Ad-free governance enables candid content competitors can't publish

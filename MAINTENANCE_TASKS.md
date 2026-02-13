@@ -1,7 +1,7 @@
 # Routine Maintenance Tasks
 
 **For:** In the Wake (cruisinginthewake.com)
-**Last Updated:** 2026-01-29
+**Last Updated:** 2026-02-13
 **Version:** ITW-Lite v3.010
 
 ---
@@ -223,10 +223,10 @@ done
 
 **What:** Replace generic template stories with authentic, ship-specific content.
 
-**Current Status:**
-- ~157 ships have "vanilla" template stories
-- ~1,570 total stories need to be written
-- Cruise lines affected: Holland America, Princess, MSC, Norwegian, Costa, Oceania, Regent, Seabourn, Silversea, Virgin, Cunard, Explora
+**Current Status (updated 2026-02-13):**
+- ~8 ships have ~20-24 vanilla/institutional-author stories remaining
+- Cruise lines affected: Costa (4 ships), Explora (4 ships — mostly future/unbuilt)
+- All other cruise lines verified 100% quality: RCL, Carnival, Celebrity, NCL, HAL, Princess, MSC, Oceania, Regent, Seabourn, Silversea, Virgin, Cunard
 
 **Vanilla Story Characteristics (BAD):**
 - Generic titles like "First Impressions of [Ship Name]"
@@ -247,12 +247,9 @@ done
 
 **Reference:** `admin/VANILLA-STORIES.md` for full inventory
 
-**Priority Order:**
-1. Holland America (46 ships - HIGH)
-2. MSC (24 ships - HIGH)
-3. Norwegian (20 ships - HIGH)
-4. Princess (17 ships - HIGH)
-5. Other cruise lines (MEDIUM)
+**Priority Order (remaining):**
+1. Costa (4 ships — Favolosa, Firenze, Fortuna, Pacifica)
+2. Explora III-VI (4 future ships — lower priority, mostly unbuilt)
 
 ---
 

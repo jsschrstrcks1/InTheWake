@@ -478,10 +478,10 @@ const fleetData = await SiteCache.getJSON(
 ```javascript
 const CONFIG = {
   version: '14.2.0',
-  maxPages: 400,      // Site has 1,241 pages
+  maxPages: 400,      // Site has 1,238 pages
   maxAssets: 150,
-  maxImages: 600,     // Currently 536 ship images (2,998 WebP site-wide)
-  maxData: 100        // 1,278 JSON files in assets/data/
+  maxImages: 600,     // Currently 661 ship images (3,131 WebP site-wide)
+  maxData: 100        // 2,455 JSON files in assets/data/
 };
 ```
 
@@ -943,12 +943,12 @@ python3 comprehensive_site_audit.py
 **Decision:** Increase cache limits and improve caching strategies
 
 **Current limits:**
-- maxPages: 400 (site has 1,241 pages)
-- maxData: 100 (1,278 JSON files in assets/data/)
-- maxImages: 600 (536 ship images, 2,998 WebP site-wide)
+- maxPages: 400 (site has 1,238 pages)
+- maxData: 100 (2,455 JSON files in assets/data/)
+- maxImages: 600 (661 ship images, 3,131 WebP site-wide)
 
 **Rationale:**
-- Site has grown substantially (1,241 HTML pages, 298 ships, 380 ports, 472 venues)
+- Site has grown substantially (1,238 HTML pages, 298 ships, 380 ports, 472 venues)
 - Prevents cache eviction thrashing
 - Improves offline experience
 - Future-proofs for expansion
