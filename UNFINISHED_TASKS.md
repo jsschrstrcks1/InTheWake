@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Active task queue. Only pending work lives here.
-**Last Updated:** 2026-02-12
+**Last Updated:** 2026-02-13
 **Maintained by:** Claude AI
 
 > **Archives:**
@@ -11,7 +11,7 @@
 
 ---
 
-## 📊 Current Codebase Status (2026-02-12)
+## 📊 Current Codebase Status (2026-02-13)
 
 | Asset | Count |
 |-------|-------|
@@ -42,7 +42,8 @@
 | Princess | 17 | 0 | 🔴 Missing |
 | + 7 more lines | 54 | 0 | 🔴 Missing |
 
-**Missing cruise lines entirely:** Disney (6 ships), Viking Ocean (11 ships)
+**Missing cruise lines entirely:** Viking Ocean (11 ships) — open to adding
+**Intentionally excluded:** Disney Cruise Line (owner decision — theological disagreement with Disney's "follow your heart" philosophy; Jeremiah 17:9)
 
 ---
 
@@ -96,30 +97,36 @@
 
 ### P2 Tasks — From Competitor Analysis
 
-#### 🟡 [Y] Vanilla Story Replacement (1,570 stories needed)
-**Status:** ~157 ships have generic template stories; ~1,570 total stories need quality replacements
-**Priority:** P2 (ongoing, high volume) — the real content debt
+#### 🟡 [Y] Vanilla Story Replacement (~20-24 stories remaining)
+**Status:** CORRECTED 2026-02-13 — original estimate of 157 ships / 1,570 stories was wrong. Actual scope: only 44 vanilla stories across 13 ships before this session. 20 replaced on 2026-02-13.
+**Priority:** P2 (nearly complete) — remaining backlog is manageable
 **Lane:** 🟡 Yellow (content creation, requires quality review)
 **Strategic insight:** Template stories actively weaken site authority — "conversion dilution and trust dilution"
 **Why it matters:** Logbook stories are the soul of the site; generic stories damage the "calm authority from real experience" brand
-**Priority order (highest ship count with vanilla stories):**
-1. Holland America (46 ships) — 🔴 HIGH
-2. MSC (24 ships) — 🔴 HIGH
-3. Norwegian (20 ships) — 🔴 HIGH
-4. Princess (17 ships) — 🔴 HIGH
-5. Carnival (49 ships, but 23 venue pages exist) — MEDIUM
-6. Celebrity (30 ships, 0 venue pages) — MEDIUM
-7. Others — as resources allow
-**Vanilla story characteristics (BAD):** Generic titles, "Community Contributor" author, 100-150 words, no ship-specific venues, no emotional narrative
-**Quality story characteristics (GOOD):** Specific ship venues, real author, 300-600 words, emotional pivot, faith-scented, unique persona
-**Reference:** `admin/VANILLA-STORIES.md` for full inventory
-**Tasks:**
-- [ ] Audit current vanilla story count by cruise line (verify 157 ships / 1,570 stories figure)
-- [ ] Create quality story template with required elements (ship-specific venue, persona, emotional pivot, 300+ words)
-- [ ] Begin Holland America replacement (46 ships, ~460 stories)
-- [ ] Begin MSC replacement (24 ships, ~240 stories)
-- [ ] Begin Norwegian replacement (20 ships, ~200 stories)
-- [ ] Begin Princess replacement (17 ships, ~170 stories)
+**Completed 2026-02-13 (20 stories replaced):**
+- [x] Audit actual vanilla story count (was 44, not 1,570)
+- [x] Norwegian Star — 11 vanilla stories replaced with quality entries
+- [x] Oceania Sirena — 3 institutional-author stories replaced
+- [x] Oceania Vista — 2 institutional-author stories replaced
+- [x] Costa Smeralda — 3 institutional-author stories replaced
+- [x] Costa Toscana — 1 institutional-author story replaced
+**Already quality (no vanilla) — verified 2026-02-13:**
+- [x] Holland America (46 ships) — ALL quality
+- [x] MSC (24 ships) — ALL quality
+- [x] Norwegian (20 ships) — ALL quality (Star was last holdout)
+- [x] Princess (17 ships) — ALL quality
+- [x] Carnival (45 ships) — ALL quality
+- [x] Celebrity (26 ships) — ALL quality
+- [x] RCL (49 ships) — ALL quality
+- [x] Regent, Seabourn, Silversea, Virgin, Cunard — ALL quality
+**Remaining (~20-24 stories across 8 ships):**
+- [ ] Costa Favolosa — 2-3 institutional-author stories
+- [ ] Costa Firenze — 3 institutional-author stories
+- [ ] Costa Fortuna — 2 institutional-author stories
+- [ ] Costa Pacifica — 3 institutional-author stories
+- [ ] Explora III-VI — 10 fleet dev team stories (4 ships, mostly future/unbuilt)
+**Quality story characteristics (GOOD):** Specific ship venues, real author, 400-800 words, emotional pivot, faith-scented, unique persona
+**Reference:** `admin/VANILLA-STORIES.md` for full inventory (updated 2026-02-13)
 
 #### 🟡 [Y] DIY vs. Excursion Comparison Expansion
 **Status:** 30 ports have DIY vs. excursion callouts (verified 2026-02-05)
