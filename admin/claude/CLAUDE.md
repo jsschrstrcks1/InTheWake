@@ -1,6 +1,6 @@
 # Claude AI Assistant Guide - In the Wake
 
-**Version:** 1.2.5
+**Version:** 1.2.6
 **Last Updated:** 2026-02-13
 **Purpose:** Comprehensive onboarding and reference guide for Claude AI assistants working on the In the Wake codebase
 
