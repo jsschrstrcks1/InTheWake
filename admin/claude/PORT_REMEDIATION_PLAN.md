@@ -7,9 +7,11 @@
 
 | Category | Count | Status |
 |----------|-------|--------|
-| Passing (96-100) | 129 | No action needed |
-| Failing | 251 | Needs remediation |
-| **Total** | **380** | |
+| Passing (86-100) at start | 129 | No action needed |
+| Fixed this effort | 46 | Committed and passing |
+| In progress | ~18 | Subagents working |
+| Remaining to fix | ~187 | Needs remediation |
+| **Total** | **380** | ~175 passing (46%) |
 
 ## Failing Pages by Tier
 
@@ -104,26 +106,71 @@ Top 10 by word count (best candidates for next wave):
 | luanda | 2 | 16 | 88 | session 2 | 2026-02-12 |
 | royal-beach-club-nassau | 2 | 0 | 96 | session 3 | 2026-02-13 |
 | yangon | 2 | 2 | 96 | session 3 | 2026-02-13 |
-| port-moresby | 2 | 10 | — | in progress | — |
-| durban | 2 | 0 | — | pending | — |
-| sharm-el-sheikh | 2 | 2 | — | pending | — |
+| port-moresby | 2 | 10 | 88 | session 3 | 2026-02-13 |
+| durban | 2 | 0 | 98 | session 3 | 2026-02-13 |
+| sharm-el-sheikh | 2 | 2 | 98 | session 3 | 2026-02-13 |
+| roatan | 3 | 0 | 98 | session 3 | 2026-02-13 |
+| kusadasi | 3 | 0 | 100 | session 3 | 2026-02-13 |
+| labadee | 3 | 0 | 94 | session 3 | 2026-02-13 |
+| kota-kinabalu | 3 | 0 | 100 | session 3 | 2026-02-13 |
+| sihanoukville | 3 | 0 | 100 | session 3 | 2026-02-13 |
+| taipei | 3 | 0 | 96 | session 3 | 2026-02-13 |
+| hiroshima | 3 | 0 | 98 | session 3 | 2026-02-13 |
+| funchal | 3 | 0 | 96 | session 4 | 2026-02-13 |
+| gijon | 3 | 0 | 96 | session 4 | 2026-02-13 |
+| ha-long-bay | 3 | 0 | 94 | session 4 | 2026-02-13 |
+| cochin | 3 | 0 | 96 | session 4 | 2026-02-13 |
+| jeju | 3 | 0 | 96 | session 4 | 2026-02-13 |
+| maputo | 3 | 0 | 96 | session 4 | 2026-02-13 |
+| montego-bay | 3 | 0 | 96 | session 4 | 2026-02-13 |
+| portofino | 3 | 0 | 96 | session 4 | 2026-02-13 |
+| saipan | 3 | 0 | 88 | session 4 | 2026-02-13 |
+| doha | 4 | 0 | 86 | session 4 | 2026-02-13 |
+| fukuoka | 4 | 0 | 96 | session 4 | 2026-02-13 |
+| greenock | 4 | 0 | 94 | session 4 | 2026-02-13 |
+| colombo | 4 | 0 | 96 | session 4 | 2026-02-13 |
+| da-nang | 4 | 0 | 86 | session 4 | 2026-02-13 |
+| hamburg | 4 | 0 | 94 | session 4 | 2026-02-13 |
+| hong-kong | 4 | 0 | 94 | session 4 | 2026-02-13 |
+| kobe | 4 | 0 | 96 | session 4 | 2026-02-13 |
+| penang | 4 | 0 | 86 | session 4 | 2026-02-13 |
+| reykjavik | 4 | 0 | 96 | session 4 | 2026-02-13 |
+| rio-de-janeiro | 4 | 0 | 96 | session 4 | 2026-02-13 |
+| san-francisco | 4 | 0 | 86 | session 4 | 2026-02-13 |
+| singapore | 4 | 0 | 96 | session 4 | 2026-02-13 |
+| tokyo | 4 | 0 | 96 | session 4 | 2026-02-13 |
+| marseille | 4 | 0 | 98 | session 4 | 2026-02-13 |
+| quebec-city | 4 | 0 | 88 | session 4 | 2026-02-13 |
+| nagasaki | 4 | 0 | 96 | session 4 | 2026-02-13 |
+| goa | 4 | 0 | 96 | session 4 | 2026-02-13 |
+| komodo | 4 | 0 | 96 | session 4 | 2026-02-13 |
+| moorea | 4 | 0 | 94 | session 4 | 2026-02-13 |
 
-**Pages passing:** 137 of 380 (36%)
-**Pages fixed this effort:** 8 so far
+**Pages passing:** ~175 of 380 (46%)
+**Pages fixed this effort:** 46 committed, ~18 more in progress
 
 ## Execution Plan
 
 ### Phase 1: Tier 1 Quick Wins (2 pages) — COMPLETE
 - lautoka 88→98, olden 88→98
 
-### Phase 2: Tier 2 Medium Fixes (6 pages) — IN PROGRESS
-- luanda 16→88 ✓, royal-beach-club-nassau 0→96 ✓, yangon 2→96 ✓
-- port-moresby, durban, sharm-el-sheikh — remaining
+### Phase 2: Tier 2 Medium Fixes (6 pages) — COMPLETE
+- luanda 16→88, royal-beach-club-nassau 0→96, yangon 2→96
+- port-moresby 10→88, durban 0→98, sharm-el-sheikh 2→98
 
-### Phase 3: Tier 3 Highest-Value Pages (10 pages)
-- Start with pages having most existing content: roatan, kusadasi, sihanoukville, taipei, labadee, etc.
-- Same fix patterns as Phase 2
+### Phase 3: Tier 3 Highest-Value Pages (10 pages) — COMPLETE
+- roatan 0→98, kusadasi 0→100, sihanoukville 0→100, taipei 0→96, labadee 0→94
+- kota-kinabalu 0→100, hiroshima 0→98, funchal 0→96, gijon 0→96, ha-long-bay 0→94
 
-### Phase 4: Remaining Tier 3-4 Pages
-- Continue down the list by error count (fewest first)
+### Phase 4: 11-12 Blocking Error Pages — COMPLETE
+- cochin, jeju, maputo, montego-bay, portofino, saipan, doha, fukuoka, greenock
+- capri, corinto, dravuni, guam, incheon, langkawi, lombok, manila, marseille, komodo, moorea
+
+### Phase 5: 12-14 Blocking Error Pages — IN PROGRESS
+- colombo, da-nang, hamburg, hong-kong, kobe, penang, reykjavik, rio, san-francisco, singapore, tokyo, nagasaki, goa, quebec-city
+- In progress: koh-samui, sydney, lifou, mystery-island, napier, nha-trang, punta-arenas, nosy-be, tenerife, zanzibar
+- In progress: ushuaia, manaus, noumea, recife, puntarenas, walvis-bay, zadar, trieste
+
+### Phase 6: Remaining Pages
+- Continue with 14-17 blocking error pages (~150 remaining)
 - Skip Tier 5 empty shells (need full content creation, different scope)
