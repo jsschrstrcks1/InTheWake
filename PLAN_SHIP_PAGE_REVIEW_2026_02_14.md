@@ -6,37 +6,31 @@
 
 ---
 
-## Phase 1: HTML Validity & Code Cleanup (No Decisions Needed)
+## Phase 1: HTML Validity & Code Cleanup — COMPLETED
 
-### 1A. Fix Duplicate `class` Attributes
-- **Scope:** 50 files, ~146 occurrences (48 RCL ships, 1 Carnival, template)
-- **Fix:** Merge duplicate `class` attributes into single attribute per element
-- **Examples:**
-  - `class="tiny content-text" class="mb-075"` → `class="tiny content-text mb-075"`
-  - `class="card" id="whimsical-units-container" class="whimsical-units-container"` → `class="card whimsical-units-container" id="whimsical-units-container"`
-  - `class="rail-nav" aria-label="..." class="rail-nav mb-05"` → `class="rail-nav mb-05" aria-label="..."`
-  - `class="tiny" class="loading-text"` → `class="tiny loading-text"`
-- **Spot-check:** Verify 3 random files after bulk fix
+### 1A. Fix Duplicate `class` Attributes — COMPLETED
+- **Result:** 1 remaining file fixed (carnival-magic.html, 4 occurrences). Prior sessions fixed 49 other files.
+- **Verified:** 0 duplicate class attributes remain across all ship pages.
 
-### 1B. Remove `(V1.Beta)` from Title Tags
-- **Scope:** 71 pages with `(V1.Beta)` in `<title>`
-- **Fix:** Strip `(V1.Beta)` from title tags and `og:title` tags
-- **Rationale:** Signals "early-stage site" to users and AI, weakening authority
+### 1B. Remove `(V1.Beta)` from Title Tags — COMPLETED
+- **Result:** 249 files cleaned. ` (V1.Beta)` stripped from `<title>` tags across all ship pages.
+- **Method:** Script (`admin/fix-v1beta.cjs`) + 2 manual inline-style fixes (carnival-vista, carnival-celebration).
+- **Verified:** 0 visible V1.Beta references remain (1 HTML comment in grandeur-of-the-seas.html is invisible).
 
-### 1C. Remove `V1.Beta` Version Badge from Navbar
-- **Scope:** ~1,159 instances of `<span class="tiny version-badge">V1.Beta</span>`
-- **Decision needed:** Remove entirely, or replace with production version?
-- **Recommendation:** Remove the badge entirely — version numbers in navbar are unusual for production sites and add no user value
+### 1C. Remove `V1.Beta` Version Badge from Navbar — COMPLETED
+- **Result:** 247 version badge `<span>` elements removed across all ship pages.
+- **Decision:** Removed entirely (no replacement). Version numbers in navbar are unusual for production sites.
+- **Variant formats handled:** `class="tiny version-badge"` with/without `aria-label`, `class="version-badge"`, inline-styled spans.
 
 ---
 
-## Phase 2: Structured Data / SEO (Some Decisions Needed)
+## Phase 2: Structured Data / SEO — COMPLETED
 
-### 2A. Add Article Schema
-- **What:** Add `@type: Article` JSON-LD to ship pages alongside existing schemas
-- **Fields:** `headline`, `author`, `publisher`, `datePublished`, `dateModified`, `image`, `mainEntityOfPage`
-- **Rationale:** Ship pages have editorial voice, author attribution, and publication dates — this signals editorial content to Google, strengthening E-E-A-T
-- **Implementation:** Add to template + all ship pages
+### 2A. Add Article Schema — COMPLETED
+- **Result:** 291/293 ship pages now have `@type: Article` JSON-LD with headline, description, dateModified, author (Ken Baker), and publisher (In the Wake).
+- **Data sources:** headline from `<title>`, description from `ai-summary` meta, dateModified from `last-reviewed` meta.
+- **Skipped (2):** `grandeur-of-the-seas.html` (redirect page with malformed title), `oasis-class-ship-tbn-2028.html` (TBN ship with HTML in title).
+- **Script:** `admin/add-article-schema.cjs`
 
 ### 2B. Review Schema Rating Audit — RESOLVED
 - **Decision (2026-02-14):** Remove `ratingValue` entirely from all ship pages
@@ -44,36 +38,29 @@
 - **Rationale:** Hard-coded ratings with no documented methodology risk Google suppressing rich results
 - **Future:** Ratings may be re-added with documented editorial methodology
 
-### 2C. Keyword Reinforcement in Subheaders
-- **What:** Add subtle keyword-rich subheaders throughout ship pages
-- **Examples:**
-  - "Dining" → "Dining Options on [Ship Name]"
-  - "Videos" → "[Ship Name] Tour Videos & Walkthroughs"
-  - "Deck Plans" → "[Ship Name] Deck Plans"
-- **Scope:** Template change + propagate to live pages
-- **Risk level:** Low — purely additive
+### 2C. Keyword Reinforcement in Subheaders — COMPLETED
+- **Result:** 631 heading improvements across 292 files:
+  - "A First Look" → "A First Look at [Ship Name]" (64 fixes)
+  - "Deck Plans" / "Ship Map (Deck Plans)" → "[Ship Name] Deck Plans" (275 fixes)
+  - "Frequently Asked Questions" → "Frequently Asked Questions About [Ship Name]" (292 fixes)
+- **Script:** `admin/add-keyword-subheaders.cjs`
 
 ---
 
-## Phase 3: AI-First & Content Improvements
+## Phase 3: AI-First & Content Improvements — COMPLETED
 
-### 3A. Add Declarative Fact Block
-- **What:** Add a tight fact-dense paragraph near the top of each ship page
-- **Example:**
-  > Radiance of the Seas is a Radiance Class cruise ship operated by Royal Caribbean International. She entered service in 2001, measures 90,090 gross tons, and carries approximately 2,466 guests at double occupancy.
-- **Source data:** Already in `ai-breadcrumbs` comment and ship stats JSON
-- **Implementation:** Add as visible `<p>` element after the answer-first paragraph
-- **Benefit:** LLMs prefer tight declarative paragraphs for answer extraction
+### 3A. Add Declarative Fact Block — COMPLETED
+- **Result:** 285/293 ship pages now have a visible `<p class="fact-block">` paragraph with ship class, cruise line, year, tonnage, and guest capacity.
+- **Data source:** `ship-stats-fallback` inline JSON in each page.
+- **Placement:** Before the `answer-line` CTA, after the H1 title.
+- **Skipped (8):** 7 pages missing ship-stats-fallback, 1 page missing answer-line anchor.
+- **Script:** `admin/add-fact-block.cjs`
 
-### 3B. Tool Visibility — Contextual Sidebar Links
-- **What:** Add "Quick Tools" or "Related Tools" card to `col-1` sidebar on ship pages
-- **Which tools to cross-sell contextually:**
-  - Ship Size Atlas (directly relevant to ship comparison)
-  - Drink Calculator (relevant to cruise planning)
-  - Ship Quiz (already in sidebar as CTA)
-  - Budget Calculator (planning context)
-- **Implementation:** Add a `<section class="card">` in the sidebar with contextual tool links
-- **Benefit:** Tools become discoverable without requiring nav menu exploration
+### 3B. Tool Visibility — Contextual Sidebar Links — COMPLETED
+- **Result:** 277/293 ship pages now have a "Planning Tools" card in the right sidebar with links to Ship Size Atlas, Budget Calculator, Drink Package Calculator, and Port Day Planner.
+- **Placement:** After the Ship Quiz CTA, before the Author card.
+- **Skipped (16):** Pages without the quiz-cta sidebar structure.
+- **Script:** `admin/add-tool-sidebar.cjs`
 
 ---
 
@@ -111,19 +98,19 @@
 
 ## Implementation Order
 
-| Priority | Task | Files | Effort | Needs Decision? |
-|----------|------|-------|--------|-----------------|
-| P0 | Fix duplicate class attributes | 50 | Medium | No |
-| P0 | Remove (V1.Beta) from titles | 71 | Medium | No |
-| P1 | Add Article schema | Template + ships | Medium | No |
-| P1 | Add declarative fact block | Template + ships | Medium | No |
-| P1 | Tool visibility sidebar | Template + ships | Low | No |
-| P2 | Keyword-rich subheaders | Template + ships | Low | No |
-| ~~P2~~ | ~~Review schema rating audit~~ | ~~Template + ships~~ | ~~Done~~ | ~~Resolved 2026-02-14~~ |
-| P2 | Remove navbar version badge | ~1,159 pages | Medium | Recommend yes |
-| P3 | aria-hidden decision | All pages | Low | Yes (Ken) |
-| P3 | Version governance unification | Entire codebase | High | Yes (Ken) |
-| P3 | Performance audit | N/A | Low (measurement) | No |
+| Priority | Task | Files | Status | Notes |
+|----------|------|-------|--------|-------|
+| ~~P0~~ | ~~Fix duplicate class attributes~~ | ~~1~~ | **DONE** | carnival-magic.html (4 attrs merged) |
+| ~~P0~~ | ~~Remove (V1.Beta) from titles~~ | ~~249~~ | **DONE** | Script + 2 manual inline fixes |
+| ~~P0~~ | ~~Remove navbar version badge~~ | ~~247~~ | **DONE** | Removed entirely (no replacement) |
+| ~~P1~~ | ~~Add Article schema~~ | ~~291~~ | **DONE** | 2 skipped (malformed titles) |
+| ~~P1~~ | ~~Add declarative fact block~~ | ~~285~~ | **DONE** | 8 skipped (missing stats/anchor) |
+| ~~P1~~ | ~~Tool visibility sidebar~~ | ~~277~~ | **DONE** | 16 skipped (no quiz-cta) |
+| ~~P2~~ | ~~Keyword-rich subheaders~~ | ~~292~~ | **DONE** | 631 headings improved |
+| ~~P2~~ | ~~Review schema rating audit~~ | ~~293~~ | **DONE** | Resolved 2026-02-14 |
+| P3 | aria-hidden decision | All pages | **Pending** | Needs Ken's input |
+| P3 | Version governance unification | Entire codebase | **Pending** | Needs Ken's input |
+| P3 | Performance audit | N/A | **Pending** | Measurement first |
 
 ---
 
