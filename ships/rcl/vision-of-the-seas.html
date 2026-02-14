@@ -53,7 +53,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- ICP-Lite v1.0 Meta Tags -->
   <meta name="ai-summary" content="Vision of the Seas is a Vision Class ship (78,717 GT, 2,036 guests, launched 1998) featuring panoramic ocean views through signature glass walls and worldwide itineraries."/>
-  <meta name="last-reviewed" content="2025-12-27"/>
+  <meta name="last-reviewed" content="2026-02-14"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
 
   <!-- Title & SEO -->
@@ -185,7 +185,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     "description": "Vision of the Seas is a Vision Class ship (78,717 GT, 2,036 guests, launched 1998) featuring panoramic ocean views through signature glass walls and worldwide itineraries.",
     "url": "https://cruisinginthewake.com/ships/rcl/vision-of-the-seas.html",
     "datePublished": "2024-01-01",
-    "dateModified": "2025-12-27",
+    "dateModified": "2026-02-14",
     "inLanguage": "en-US",
     "isPartOf": {
       "@type": "WebSite",
@@ -243,6 +243,14 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Vision's namesake glass walls offer unparalleled ocean views throughout the ship, creating an airy, light-filled atmosphere. Her mid-size layout is perfect for cruisers who want Royal Caribbean quality without overwhelming crowds."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I see Vision of the Seas's current location?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the live ship tracker on this page to see Vision of the Seas's current position, speed, and next port in real-time."
         }
       }
     ]
@@ -370,6 +378,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -720,6 +731,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <summary>What makes Vision of the Seas unique?</summary>
         <p>Vision's namesake glass walls offer unparalleled ocean views throughout the ship, creating an airy, light-filled atmosphere. Her mid-size layout is perfect for cruisers who want Royal Caribbean quality without overwhelming crowds.</p>
       </details>
+
+      <details>
+        <summary>How can I see Vision of the Seas's current location?</summary>
+        <p>Use the <a href="#liveTrackHeading">live ship tracker</a> on this page to see Vision of the Seas's current position, speed, and next port in real-time.</p>
+      </details>
     </section>
     </section><!-- End Main Content Column -->
 
@@ -978,7 +994,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       }
     }
     function fetchVideoData(){
-      const SOURCES=[abs('/assets/data/videos/rcl/vision-of-the-seas.json'),abs('/assets/data/videos/vision-of-the-seas.json'),abs('/ships/rcl/assets/vision-of-the-seas-videos.json')];
+      const SOURCES=[abs('/assets/data/videos/rcl/vision-of-the-seas.json'),abs('/ships/rcl/assets/vision-of-the-seas-videos.json')];
       function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
         return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
       return tryFetch();

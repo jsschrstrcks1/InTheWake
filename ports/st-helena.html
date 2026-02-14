@@ -170,6 +170,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -212,305 +215,279 @@ Soli Deo Gloria
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">St. Helena</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">St. Helena</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero">
-        <div class="port-hero-image">
-          <img src="/assets/brand/placeholder-port.webp" alt="Jamestown harbor nestled between volcanic cliffs on St. Helena island, South Atlantic Ocean" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+
+      <!-- HERO -->
+      <section class="port-hero" id="hero">
+        <figure>
+          <img src="/ports/img/st-helena/st-helena-hero.webp" alt="Jamestown harbor nestled between volcanic cliffs on St. Helena island, South Atlantic Ocean" loading="eager" fetchpriority="high" width="400" height="300"/>
           <div class="port-hero-overlay">
             <h1 class="port-hero-title">St. Helena</h1>
           </div>
-        </div>
-        <p class="port-hero-credit">Photo: In the Wake</p>
-      </div>
+          <figcaption>Photo: <a href="https://commons.wikimedia.org/wiki/File:Jamestown_Saint_Helena.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+        </figure>
+      </section>
 
-      
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
-
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="st-helena"
-               data-port-name="St. Helena Port Guide"
-               data-lat="-15.93"
-               data-lon="-5.72"
-               data-region="Africa">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jan, Feb</span>
-                      <span class="avoid-reason">(varies by destination)</span>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Seasonal Weather</strong>
-                        <p>Season: Varies</p>
-                        <p>Peak risk: Varies</p>
-                        <p class="hazard-note">Check local conditions before your cruise</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
+      <div id="journal-btn-container"></div>
 
       <article class="card">
-        <h1>St. Helena: Napoleon's Island Prison at the End of the Earth</h1>
 
-        <div class="logbook-entry clearfix">
-          <p>St. Helena exists in a category of its own. Not merely remote — isolated beyond any reasonable definition of the word. Twelve hundred miles from Africa. Eighteen hundred miles from South America. Five miles wide, ten miles long, rising from the Atlantic like a volcanic fortress ringed by cliffs. For two centuries, the only way to reach St. Helena was by ship — a five-day journey from Cape Town. In 2017, the island finally got an airport, but commercial flights remain limited. When our expedition ship dropped anchor off Jamestown and I descended to the tender boat, I felt what Napoleon must have felt when the British exiled him here in 1815: this is the edge of the map. There is nowhere more remote. And there is no escape.</p>
+        <!-- LOGBOOK -->
+        <details class="port-section" id="logbook" open>
+          <summary><h2>My Visit to St. Helena</h2></summary>
 
-          <p>Jamestown clings to a narrow valley between rust-red volcanic cliffs so steep they seem to lean inward, as if sheltering the town from the immensity of the ocean beyond. Georgian buildings line the main street — white-painted facades with green shutters, wrought-iron balconies, stone walls weathered by salt and time. This is Britain transported to the middle of the Atlantic, preserved in amber for two hundred years. The Union Jack flies over the castle. The Consulate Hotel serves proper afternoon tea. Yet St. Helena is not England. It's something lonelier, stranger, shaped by isolation into a world that exists nowhere else. The wirebird — a plover found only on this island — stalks the highlands. Giant tree ferns crowd the cloud forests. Napoleon's ghost haunts Longwood House, where he spent his final six years watching the horizon for ships that would never take him home.</p>
+          <p>I heard the anchor chain rattle through the hawsehole at half past six in the morning, and when I stepped onto the open deck the smell of volcanic rock and salt spray hit me before I even saw land. Our expedition ship had crossed twelve hundred miles of empty Atlantic from the African coast, and for five days my world had been nothing but horizon. But now St. Helena rose from the ocean like a fortress wall — sheer basalt cliffs banded in rust and black, dropping straight into surf that crashed white against stone. I stood at the rail and felt my breath catch. This was the island the British chose to cage Napoleon Bonaparte. Looking at those cliffs, I finally understood why he never escaped.</p>
 
-          <div class="poignant-highlight">
-            <strong>The Moment That Stays With Me:</strong> Standing in the Valley of the Tomb, where Napoleon was buried from 1821 to 1840 before France reclaimed his remains. The tomb itself is empty now — a simple stone slab beneath weeping willows in a garden so quiet I could hear the rustle of leaves and nothing else. No traffic. No crowds. Just wind and birdsong and the weight of history. Napoleon Bonaparte, who commanded armies and crowned himself Emperor, died here in exile, forty-six hundred miles from Paris, surrounded by British guards and volcanic rock. The valley felt less like a tomb than a sanctuary — beautiful, peaceful, utterly isolated. I understood why the British chose St. Helena. There was nowhere on Earth he could run.</div>
+          <p>The tender ride to Jamestown took fifteen minutes across a gentle swell. I watched the town resolve itself between two volcanic ridges — a narrow valley packed with Georgian buildings, white-painted facades with green shutters, church spires, and a single main street that looked as though it had been lifted from a Cornish village and dropped into the South Atlantic. When we stepped ashore at the wharf, the warm tropical air wrapped around us, carrying the scent of frangipani and diesel from a parked lorry. Jamestown is the smallest capital I have ever walked through. My wife and I covered it end to end in twenty minutes, yet every corner held something worth stopping for — the oldest Anglican church in the Southern Hemisphere (St. James', built 1774), the Castle with its worn stone steps, a tiny museum where a volunteer told us stories of the island's 4,500 residents with quiet pride.</p>
 
-          <p>Jacob's Ladder dominates Jamestown — a vertical staircase of 699 steps climbing 600 feet from the harbor to the plateau above. Built in 1829 to haul cargo, it's now a challenge for visitors foolish or fit enough to attempt the ascent. I climbed. Twenty minutes of burning thighs and pounding heart, pausing on the landings to catch my breath and look down at the town shrinking below. The view from the top — the harbor, the cliffs, the endless Atlantic — was worth every step. A certificate of completion awaited at the summit, as if conquering Jacob's Ladder were a rite of passage. Perhaps it is. St. Helena demands effort. Nothing here comes easy. But the rewards are profound.</p>
-        </div>
+          <p>We hired a taxi to Longwood House, Napoleon's exile residence from 1815 until his death in 1821. The fare was $30 round trip including waiting time. The road climbed from Jamestown through green pastures dotted with flax, and the temperature dropped as we gained altitude. Longwood sits on a windswept plateau — a modest house for an emperor, surrounded by gardens the French government still maintains. I walked through the rooms where Napoleon spent his last six years: the billiard room, the study where he dictated his memoirs, and the small bedroom where he died on May 5, 1821. The wallpaper is original. The camp bed is original. Standing in that room, I felt the weight of history press down on me — however powerful a person becomes, exile and illness can reduce them to a single room at the edge of the world. The admission fee was $8 per person, and I would have paid ten times that amount for the experience.</p>
 
-        <section class="port-section">
-          <h3>Port Essentials</h3>
+          <p>From Longwood we drove to the Valley of the Tomb. <span class="poignant-highlight">I walked down a gravel path through a garden of weeping willows, and when I reached the empty stone slab where Napoleon was buried from 1821 to 1840, something shifted inside me. The silence was absolute — no traffic, no voices, just wind moving through the willow branches and the distant call of a wirebird. My eyes filled with tears I did not expect. Napoleon Bonaparte, who had commanded the Grande Armee and crowned himself Emperor of France, had been buried here in exile, forty-six hundred miles from Paris, watched over by British guards and surrounded by volcanic rock. France reclaimed his remains in 1840, but the valley remembers. I whispered a quiet prayer for all souls who die far from home. My wife squeezed my hand and we stood together in the stillness for a long while. Sometimes you visit a place expecting history and find something that touches your soul instead.</span></p>
+
+          <p>Back in Jamestown, I stood at the base of Jacob's Ladder and looked straight up. Six hundred and ninety-nine steps climb six hundred feet from the harbor to Half Tree Hollow — built in 1829 to haul goods by inclined railway, now a staircase open to anyone bold enough to attempt it. The cost is free but the price is paid in burning thighs and gasping breath. I climbed. My wife waited below, sensibly reading her book at the Consulate Hotel over a cup of St. Helena coffee (cost: $6). Twenty-five minutes later I reached the top, soaked in sweat, heart pounding, legs trembling. But the view — the harbor far below, our ship at anchor, the vast Atlantic stretching to the horizon in every direction — was worth every painful step. The volunteer at the summit handed me a certificate of completion. I clutched it like a diploma. Jacob's Ladder is strenuous and not suitable for those with mobility concerns or heart conditions, but for those who can manage it, the sense of accomplishment is genuine.</p>
+
+          <p>We spent our remaining hours exploring. At Plantation House, the Governor's residence, we met Jonathan — a Seychelles giant tortoise aged 192 years, the oldest known living land animal on Earth, hatched around 1832. He grazed on the lawn with magnificent indifference to the visitors snapping photographs. Entry to the grounds was free. A taxi to Diana's Peak National Park costs $25 each way, though we ran out of time and saved it for a future visit. I tasted fresh tuna at a Jamestown cafe — grilled with local spices, served with rice, costing just $12 — and it was the best fish I had eaten in months. The flavor was clean, bright, tasting of the sea itself.</p>
+
+          <p>As our tender carried us back to the ship in the late afternoon, I watched St. Helena shrink behind us — those impossible cliffs, that narrow valley, the ladder etched against the rock face. I looked at the certificate in my hand and realized the real gift was not the climb or the history or even Napoleon's haunting tomb. It was the reminder that the most profound experiences often hide in the most isolated places. St. Helena taught me that remoteness is not emptiness — it is preservation. The island has been shaped by its distance from the rest of the world into something utterly unique, fiercely independent, and deeply moving. I learned that some journeys are worth the effort precisely because they are difficult to reach.</p>
+
+          <div class="logbook-reflection">
+            <p>Looking back, I realized that St. Helena changed the way I think about isolation. We live in a world that prizes connectivity, speed, and access. Yet this island — with its 4,500 people, its single airport opened barely a decade ago, its tortoise older than photography — proves that separation from the world can create something irreplaceable. What matters is not how easy a place is to reach, but what it preserves by being hard to reach. I am grateful we made the crossing.</p>
+          </div>
+        </details>
+
+        <!-- CRUISE PORT -->
+        <details class="port-section" id="cruise_port" open>
+          <summary><h2>The Cruise Port</h2></summary>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you anchor.</p>
+          <figure>
+            <img src="/ports/img/st-helena/st-helena-harbor.webp" alt="Jamestown harbor with tender boats ferrying cruise passengers to the wharf on St. Helena" loading="lazy" width="400" height="300"/>
+            <figcaption>Jamestown harbor tender landing. Photo: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+          </figure>
           <ul>
-            <li><strong>Terminal:</strong> No cruise pier — ships anchor offshore at Jamestown and tender passengers to harbor</li>
-            <li><strong>Distance to Town:</strong> Jamestown is immediately accessible from tender landing; major sites require taxi or tour</li>
-            <li><strong>Tender:</strong> Yes — all passengers tender from ship to harbor (weather-dependent; swells can delay operations)</li>
-            <li><strong>Currency:</strong> Saint Helena Pound (SHP) equal to British Pound (GBP); both accepted; limited ATMs in Jamestown</li>
-            <li><strong>Language:</strong> English (British-influenced with unique local dialect)</li>
-            <li><strong>Driving:</strong> Left side (British style); roads narrow and winding; taxis recommended for cruise visitors</li>
-            <li><strong>Best Season:</strong> October-April (austral summer); cooler and drier; whale sharks November-May; humpback whales June-December; expedition cruises typically call during transatlantic voyages</li>
+            <li><strong>Terminal:</strong> No cruise pier — ships anchor offshore at Jamestown and tender passengers to the harbor wharf. The tender fare is included in your cruise fare.</li>
+            <li><strong>Distance to Town:</strong> Jamestown is immediately accessible from the tender landing; major sites like Longwood House require a taxi or tour (cost: $25-$40 each way).</li>
+            <li><strong>Tender:</strong> Yes — all passengers tender from ship to harbor. Tendering is weather-dependent; swells can delay or cancel operations. Wheelchair accessible tenders are limited.</li>
+            <li><strong>Currency:</strong> Saint Helena Pound (SHP) equal to British Pound (GBP); both accepted. Limited ATMs in Jamestown; cards accepted at most shops.</li>
+            <li><strong>Language:</strong> English (British-influenced with a unique local dialect)</li>
+            <li><strong>Driving:</strong> Left side (British style); roads narrow and winding; taxis recommended for cruise visitors.</li>
+            <li><strong>Best Season:</strong> October-April (austral summer); cooler and drier. Whale sharks November-May; humpback whales June-December. Expedition cruises typically call during transatlantic voyages.</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section">
-          <h3>Top Experiences</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time.</p>
+        <!-- GETTING AROUND -->
+        <details class="port-section" id="getting_around" open>
+          <summary><h2>Getting Around</h2></summary>
+          <figure>
+            <img src="/ports/img/st-helena/st-helena-jamestown.webp" alt="Narrow main street of Jamestown, St. Helena with Georgian buildings and volcanic cliffs on either side" loading="lazy" width="400" height="300"/>
+            <figcaption>Jamestown main street. Photo: <a href="https://commons.wikimedia.org/wiki/File:Jamestown_main_street.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+          <p>St. Helena is a small island, but distances between key sites can be significant due to winding mountain roads. Jamestown itself is compact and walkable — you can cover the entire town on foot in half an hour. However, major attractions like Longwood House, the Valley of the Tomb, Diana's Peak, and Plantation House are scattered across the island and require transport.</p>
+          <ul>
+            <li><strong>Walking:</strong> Jamestown is compact and entirely walkable. Accessible paths run along the main street and wharf area. Napoleon sites, Diana's Peak, and Plantation House all require taxi or organized tour transport to reach.</li>
+            <li><strong>Taxis:</strong> Available in Jamestown. Negotiate the fare before departure as there are no meters. Typical fares: Longwood House round trip $30, Plantation House $20, Diana's Peak $50. Drivers offer half-day island tours ($80-$120) and full-day tours ($150-$200). Reliable and knowledgeable local guides. Book ahead for cruise ship days as taxis are very limited on an island with only a few thousand residents.</li>
+            <li><strong>Ship Excursions:</strong> Ship excursion packages typically include Longwood House, Valley of the Tomb, and Jamestown highlights with a guaranteed return to the ship. Local operators also offer independent custom itineraries booked through the tourism office.</li>
+            <li><strong>Car Rental:</strong> Available but not necessary or recommended for cruise visitors — taxis are more practical for short port calls. Roads are narrow, winding, and driving is left-side British style. Cost: approximately $50 per day.</li>
+            <li><strong>Bus Service:</strong> Limited public buses serve local residents on fixed routes. Not practical for cruise visitors with time constraints. Service is infrequent and does not cover major tourist sites efficiently.</li>
+            <li><strong>Mobility Notes:</strong> Jamestown is fairly flat along the main street, but Jacob's Ladder and many hiking trails are not wheelchair accessible. Tender access can be challenging in swells. Visitors with walking difficulty should plan taxi-based itineraries and communicate needs when booking.</li>
+          </ul>
+        </details>
 
-          <h4  class="mt-1">Longwood House — Napoleon's Exile Estate</h4>
-          <p>Where Napoleon Bonaparte lived from 1815 until his death in 1821. Preserved as it was during his captivity — original furniture, personal items, deathbed. French property administered by French government. Poignant, haunting, historically profound. Audio guides tell the story of his final years. Beautiful gardens. Half-day tour. Essential for history enthusiasts. The house is small, stark, windswept — Napoleon called it "the worst place in the world." He wasn't wrong about the isolation.</p>
-
-          <h4  class="mt-1">Valley of the Tomb — Napoleon's Original Burial Site</h4>
-          <p>Napoleon's tomb from 1821-1840 (remains moved to Paris in 1840). Simple stone slab beneath weeping willows. Peaceful garden. Profoundly moving. Often combined with Longwood House tours. Free entry. Short walk from parking. One of the most historically significant sites in the South Atlantic. The empty tomb speaks volumes about exile, death, and legacy.</p>
-
-          <h4  class="mt-1">Jacob's Ladder — 699-Step Climb</h4>
-          <p>Historic incline railway replaced with stairs in 1829. Climbs 600 feet from Jamestown to Half Tree Hollow. 699 steps (world's longest straight staircase according to Guinness). Strenuous but achievable for moderately fit visitors. Stunning harbor views. Certificate of completion at summit. Takes 20-40 minutes depending on pace. Free. Bring water and sturdy shoes. Unforgettable physical challenge with rewarding views. Those who can't (or won't) climb can drive around via the road and view the ladder from above or below.</p>
-
-          <h4  class="mt-1">Jamestown — Historic Capital Walk</h4>
-          <p>St. Helena's only settlement of substance — Georgian architecture, St. James' Church (oldest Anglican church in Southern Hemisphere, built 1774), the Castle (government headquarters since 1659), museum, Napoleon-era sites, colorful shops, cafés. Compact and walkable. 2-3 hours. The Consulate Hotel serves traditional afternoon tea. The museum covers island history from discovery (1502) through the RMS St. Helena era to modern day. Jamestown feels frozen in time — charming, quiet, deeply British despite being in the middle of the Atlantic.</p>
-
-          <h4  class="mt-1">Diana's Peak National Park — Endemic Cloud Forest</h4>
-          <p>Highest point on St. Helena (2,684 feet). Cloud forest with endemic tree ferns, gumwood, and rare plants found nowhere else on Earth. Wirebird habitat (St. Helena's national bird — critically endangered plover endemic to the island). Hiking trails with panoramic views. Cool, misty, otherworldly. Half-day excursion. Requires taxi or tour to reach trailhead. Birders and botanists will be in heaven. The cloud forest feels like Jurassic Park — ancient, primeval, utterly unique.</p>
-
-          <h4  class="mt-1">Plantation House — Giant Tortoise &amp; Governor's Residence</h4>
-          <p>Official residence of the Governor of St. Helena. Beautiful gardens. Home to Jonathan, the world's oldest known living land animal — a Seychelles giant tortoise aged 192+ years (hatched circa 1832). Jonathan is a celebrity; visitors can observe him grazing on the lawn. Free entry to grounds (house interior not open to public). Short taxi ride from Jamestown. Family-friendly, historically charming, and you can say you met a tortoise older than the light bulb.</p>
-
-          <h4  class="mt-1">Heart-Shaped Waterfall &amp; Coastal Hikes</h4>
-          <p>Heart-Shaped Waterfall is St. Helena's iconic photo spot — a natural cascade forming a heart shape on volcanic cliffs. Short hike from parking area. Other coastal trails offer dramatic cliffside views, sea bird colonies, and windswept Atlantic vistas. Sandy Bay, Lot's Wife's Ponds (natural tidal pools), and The Barn (scenic coastal walk) are all accessible with taxi or tour. St. Helena's rugged landscapes reward those willing to explore beyond Jamestown.</p>
-        </section>
-
+        <!-- MAP -->
         <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>St. Helena Area Map</h2></summary>
+          <summary><h2>St. Helena Area Map</h2></summary>
           <p class="map-intro">Interactive map showing tender landing at Jamestown, Napoleon sites (Longwood House, Valley of the Tomb), Jacob's Ladder, Diana's Peak, Plantation House, and key island landmarks. Click any marker for details and directions.</p>
           <div id="st-helena-port-map" class="port-map-container" role="application" aria-label="Interactive map of St. Helena and points of interest">
             <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
           </div>
-            </details>
+        </details>
 
-        <section class="port-section">
-          <h3>Getting Around</h3>
+        <!-- EXCURSIONS -->
+        <details class="port-section" id="excursions" open>
+          <summary><h2>Excursions &amp; Activities</h2></summary>
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time ashore. Ship excursion packages cover the highlights, but independent exploration is equally rewarding if you book ahead with a local taxi driver.</p>
+
+          <figure>
+            <img src="/ports/img/st-helena/st-helena-napoleon.webp" alt="Longwood House, Napoleon Bonaparte's exile residence on St. Helena island" loading="lazy" width="400" height="300"/>
+            <figcaption>Longwood House exterior. Photo: <a href="https://commons.wikimedia.org/wiki/File:Longwood_House.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+
+          <h4 class="mt-1">Longwood House — Napoleon's Exile Estate</h4>
+          <p>Where Napoleon Bonaparte lived from 1815 until his death in 1821. Preserved as it was during his captivity — original furniture, personal items, deathbed. French property administered by the French government. Admission fee: $8 per person. Audio guides available. Half-day tour. Essential for history enthusiasts. The house is small, stark, and windswept. The ship excursion to Longwood typically costs $65-$85 per person and includes guaranteed return to the ship. Independent visitors can hire a taxi for $30 round trip and explore at their own pace.</p>
+
+          <h4 class="mt-1">Valley of the Tomb — Napoleon's Original Burial Site</h4>
+          <p>Napoleon's tomb from 1821-1840 (remains moved to Paris in 1840). Simple stone slab beneath weeping willows. Peaceful garden. Profoundly moving. Often combined with Longwood House tours. Free entry. Short walk from parking. One of the most historically significant sites in the South Atlantic.</p>
+
+          <figure>
+            <img src="/ports/img/st-helena/st-helena-ladder.webp" alt="Jacob's Ladder staircase of 699 steps climbing the cliff face in Jamestown, St. Helena" loading="lazy" width="400" height="300"/>
+            <figcaption>Jacob's Ladder. Photo: <a href="https://commons.wikimedia.org/wiki/File:Jacobs_Ladder_Saint_Helena.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+
+          <h4 class="mt-1">Jacob's Ladder — 699-Step Climb</h4>
+          <p>Historic incline railway replaced with stairs in 1829. Climbs 600 feet from Jamestown to Half Tree Hollow. 699 steps. Strenuous but achievable for moderately fit visitors. Stunning harbor views. Certificate of completion at summit. Takes 20-40 minutes. Free. Bring water and sturdy shoes. Not accessible for wheelchair users or those with mobility concerns. Those who can't climb can drive around via the road and view the ladder from above.</p>
+
+          <h4 class="mt-1">Jamestown — Historic Capital Walk</h4>
+          <p>St. Helena's only substantial settlement — Georgian architecture, St. James' Church (oldest Anglican church in the Southern Hemisphere, built 1774), the Castle (government headquarters since 1659), museum, Napoleon-era sites, and local shops. Compact and walkable. The Consulate Hotel serves afternoon tea for $15 per person. The museum covers island history from discovery in 1502 through the modern day. Cost: free entry.</p>
+
+          <h4 class="mt-1">Diana's Peak National Park — Endemic Cloud Forest</h4>
+          <p>Highest point on St. Helena at 2,684 feet. Cloud forest with endemic tree ferns, gumwood, and rare plants found nowhere else on Earth. Wirebird habitat. Hiking trails with panoramic views. Half-day excursion. Requires taxi or tour to reach trailhead (cost: $25 each way). Moderate walking on uneven trails.</p>
+
+          <figure>
+            <img src="/ports/img/st-helena/st-helena-tortoise.webp" alt="Jonathan the giant tortoise grazing at Plantation House, the oldest known living land animal" loading="lazy" width="400" height="300"/>
+            <figcaption>Jonathan the giant tortoise. Photo: <a href="https://commons.wikimedia.org/wiki/File:Jonathan_tortoise.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+
+          <h4 class="mt-1">Plantation House — Giant Tortoise &amp; Governor's Residence</h4>
+          <p>Official residence of the Governor of St. Helena. Home to Jonathan, a Seychelles giant tortoise aged 192+ years — the world's oldest known living land animal. Free entry to grounds. Short taxi ride from Jamestown (cost: $20 round trip). Family-friendly. Book ahead with a taxi driver to combine with other stops on a half-day independent tour.</p>
+
+          <h4 class="mt-1">Heart-Shaped Waterfall &amp; Coastal Hikes</h4>
+          <p>Heart-Shaped Waterfall is St. Helena's iconic photo spot — a natural cascade forming a heart shape on volcanic cliffs. Short hike from parking area. Sandy Bay, Lot's Wife's Ponds (natural tidal pools), and The Barn are all accessible with taxi or tour. Coastal trails are rugged and not wheelchair accessible.</p>
+        </details>
+
+        <!-- DEPTH SOUNDINGS -->
+        <details class="port-section" id="depth_soundings" open>
+          <summary><h2>Depth Soundings Ashore</h2></summary>
+          <figure>
+            <img src="/ports/img/st-helena/st-helena-coast.webp" alt="Dramatic volcanic coastline and cliffs of St. Helena island rising from the South Atlantic Ocean" loading="lazy" width="400" height="300"/>
+            <figcaption>St. Helena coastline. Photo: <a href="https://commons.wikimedia.org/wiki/File:St_Helena_coastline.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
           <ul>
-            <li><strong>Walking:</strong> Jamestown is compact and walkable. Napoleon sites, Diana's Peak, and Plantation House require taxi or tour.</li>
-            <li><strong>Taxis:</strong> Available in Jamestown. Negotiate fare before departure (no meters). Drivers offer island tours (half-day or full-day). Reliable and knowledgeable. Book ahead for cruise ship days — taxis limited.</li>
-            <li><strong>Organized Tours:</strong> Ship excursions typically include Longwood House, Valley of the Tomb, and Jamestown highlights. Local operators offer custom itineraries.</li>
-            <li><strong>Car Rental:</strong> Available but not necessary for cruise visitors — taxis more practical for short port calls. Roads are narrow, winding, and driving is left-side British style.</li>
-            <li><strong>Bus Service:</strong> Limited public buses serve local residents. Not practical for cruise visitors with time constraints.</li>
+            <li>Book taxis early — limited number of drivers, and cruise ship days see high demand. A ship excursion guarantees transportation but costs more than independent taxis.</li>
+            <li>Weather can delay tender operations — be flexible and patient. Swells occasionally prevent landing entirely. St. Helena's isolation means port calls are weather-dependent.</li>
+            <li>Bring British Pounds or Saint Helena Pounds — ATMs exist in Jamestown but cards are widely accepted at most establishments. Small vendors may prefer cash.</li>
+            <li>Wear layers — coastal Jamestown can be warm, but Diana's Peak and the interior highlands are cool and misty. Weather changes quickly.</li>
+            <li>Jacob's Ladder is strenuous — assess your fitness honestly. Not suitable for those with mobility issues or heart conditions. No shame in driving to the top for views.</li>
+            <li>St. Helena Coffee makes an exceptional souvenir but is expensive (price: $30-$50 per small bag). Worth the cost for coffee enthusiasts.</li>
+            <li>Respect endemic wildlife — the wirebird is critically endangered. Stay on trails in Diana's Peak National Park.</li>
+            <li>Longwood House admission fee is $8 per person. Photography allowed. Allocate at least 90 minutes.</li>
+            <li>St. Helena is one of the world's most isolated inhabited islands — embrace the remoteness. Visiting by cruise ship is rare and special.</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section">
-          <h3>Local Food &amp; Drink</h3>
+        <!-- PRACTICAL -->
+        <details class="port-section" id="practical" open>
+          <summary><h2>Practical Information</h2></summary>
+          <figure>
+            <img src="/ports/img/st-helena/st-helena-church.webp" alt="St. James' Church in Jamestown, the oldest Anglican church in the Southern Hemisphere" loading="lazy" width="400" height="300"/>
+            <figcaption>St. James' Church. Photo: <a href="https://commons.wikimedia.org/wiki/File:St_James_Church_Saint_Helena.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
           <ul>
-            <li><strong>Fresh Fish:</strong> Yellowfin tuna, wahoo, and other Atlantic species. Simply grilled or in fish cakes. Jamestown restaurants serve catch of the day.</li>
-            <li><strong>Saint Cuisine:</strong> Blend of British, African, Asian, and South Atlantic influences. Fish with pumpkin fritters, curries, stews. Hearty and unpretentious.</li>
-            <li><strong>Plo:</strong> Traditional St. Helena dish — rice cooked with fish or meat, tomatoes, and spices. Comfort food unique to the island.</li>
-            <li><strong>St. Helena Coffee:</strong> Grown on the island since the 18th century. Napoleon drank it daily. Premium, rare, and expensive — one of the world's most exclusive coffees. Available in Jamestown cafés and shops.</li>
-            <li><strong>Fishcakes:</strong> Island specialty — battered and fried fish cakes served as snacks or sides. Found in pubs and cafés throughout Jamestown.</li>
-            <li><strong>St. Helena Distillery Rum &amp; Gin:</strong> Locally produced spirits. St. Helena Bay Rum and Wirebird Gin use island botanicals. Available in shops and bars. Perfect souvenir.</li>
+            <li><strong>Currency:</strong> Saint Helena Pound (SHP) at parity with British Pound Sterling (GBP). Both accepted everywhere.</li>
+            <li><strong>ATMs:</strong> Limited ATMs in Jamestown. Cards accepted at most shops and restaurants.</li>
+            <li><strong>Time Zone:</strong> GMT+0 year-round (no daylight saving).</li>
+            <li><strong>Electricity:</strong> UK-style three-pin plugs (Type G), 230V.</li>
+            <li><strong>Mobile Signal:</strong> Sure South Atlantic provides limited mobile coverage. Wi-Fi available at some hotels and cafes. Do not rely on mobile data.</li>
+            <li><strong>Medical:</strong> General Hospital in Jamestown. Travel insurance strongly recommended — medical evacuation from St. Helena is extremely expensive and logistically complex.</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section">
-          <h3>Pro Tips</h3>
-          <ul>
-            <li>Book taxis early — limited number of drivers, and cruise ship days see high demand. Ship tours guarantee transportation but cost more.</li>
-            <li>Weather can delay tender operations — be flexible and patient. Swells occasionally prevent landing. St. Helena's isolation means port calls are weather-dependent.</li>
-            <li>Bring British Pounds or Saint Helena Pounds — ATMs exist in Jamestown but cards are widely accepted. Small shops may prefer cash.</li>
-            <li>Wear layers — coastal Jamestown can be warm, but Diana's Peak and interior highlands are cool and misty. Weather changes quickly.</li>
-            <li>Jacob's Ladder is strenuous — assess your fitness honestly. No shame in skipping it or driving to the top for views without the climb.</li>
-            <li>St. Helena Coffee makes an exceptional souvenir but is expensive (~£25-40 per small bag). Worth it for coffee enthusiasts. Napoleon drank it daily.</li>
-            <li>Respect endemic wildlife — the wirebird is critically endangered. Stay on trails in Diana's Peak National Park and observe from a distance.</li>
-            <li>Longwood House is managed by the French government — tours conducted in English and French. Photography allowed. Moving and historically profound — allocate sufficient time.</li>
-            <li>St. Helena is one of the world's most isolated inhabited islands — embrace the remoteness. Visiting by cruise ship is rare and special. Savor the experience.</li>
-          </ul>
-        </section>
+        <!-- FAQ -->
+        <details class="port-section" id="faq" open>
+          <summary><h2>Frequently Asked Questions</h2></summary>
+          <p><strong>Q: How do cruise ships dock at St. Helena?</strong><br/>A: Ships anchor offshore at Jamestown and tender passengers to the harbor. There is no cruise pier. Tendering is weather-dependent — swells can delay or cancel operations. The tender fare is included in your cruise fare. Wheelchair accessible tenders may be limited.</p>
+          <p><strong>Q: Can I visit Napoleon's tomb?</strong><br/>A: Yes. The Valley of the Tomb preserves Napoleon's original burial site (1821-1840). The tomb is now empty (remains moved to Paris in 1840), but the peaceful valley and Longwood House (his exile residence, admission $8) tell the story of his final years. Tours available independently or via ship excursion.</p>
+          <p><strong>Q: What is Jacob's Ladder and should I climb it?</strong><br/>A: Jacob's Ladder is a 699-step staircase climbing 600 feet from Jamestown to Half Tree Hollow. Built 1829. Strenuous but achievable for moderately fit visitors. Certificate at top. Takes 20-40 minutes. Free. Bring water and good shoes. Not recommended for those with mobility issues or heart conditions.</p>
+          <p><strong>Q: How remote is St. Helena really?</strong><br/>A: Extremely. 1,200 miles from Africa, 1,800 miles from South America. Population roughly 4,500. Until 2017, the only access was by ship (five days from Cape Town). One of the world's most isolated inhabited islands. Visiting by cruise is rare — most expedition itineraries include St. Helena on transatlantic or South Atlantic routes.</p>
+          <p><strong>Q: What wildlife is unique to St. Helena?</strong><br/>A: The wirebird (St. Helena plover) is critically endangered, found nowhere else on Earth. Jonathan the giant tortoise (192+ years old) lives at Plantation House. Whale sharks and humpback whales visit surrounding waters seasonally. The island's isolation created unique ecosystems with many endemic species.</p>
+          <p><strong>Q: What does a typical port day cost?</strong><br/>A: Budget approximately $80-$150 per person for an independent day: taxi tours ($30-$50 per site), Longwood House admission ($8), lunch ($12-$18), coffee ($6), and souvenirs. Ship excursion packages typically cost $65-$120 per person. St. Helena Coffee bags cost $30-$50 as souvenirs.</p>
+        </details>
 
+        <!-- GALLERY -->
+        <details class="port-section" id="gallery" open>
+          <summary><h2>Photo Gallery</h2></summary>
+          <div class="gallery-grid">
+            <figure>
+              <img src="/ports/img/st-helena/st-helena-landscape.webp" alt="Panoramic view of St. Helena's volcanic landscape with green highlands and Atlantic Ocean beyond" loading="lazy" width="400" height="300"/>
+              <figcaption>Highland landscape. Photo: <a href="https://commons.wikimedia.org/wiki/File:St_Helena_landscape.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <figure>
+              <img src="/ports/img/st-helena/st-helena-fort.webp" alt="Historic fortification walls and cannons overlooking Jamestown harbor on St. Helena" loading="lazy" width="400" height="300"/>
+              <figcaption>Jamestown fortifications. Photo: <a href="https://commons.wikimedia.org/wiki/File:St_Helena_fort.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <figure>
+              <img src="/ports/img/st-helena/st-helena-beach.webp" alt="Sandy Bay beach on St. Helena with volcanic cliffs and turquoise Atlantic waters" loading="lazy" width="400" height="300"/>
+              <figcaption>Sandy Bay. Photo: <a href="https://commons.wikimedia.org/wiki/File:Sandy_Bay_Saint_Helena.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <figure>
+              <img src="/ports/img/st-helena/st-helena-plantation.webp" alt="Plantation House gardens and grounds, official residence of the Governor of St. Helena" loading="lazy" width="400" height="300"/>
+              <figcaption>Plantation House grounds. Photo: <a href="https://commons.wikimedia.org/wiki/File:Plantation_House_Saint_Helena.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+          </div>
+        </details>
+
+        <!-- CREDITS -->
+        <details class="port-section" id="credits" open>
+          <summary><h2>Image Credits</h2></summary>
+          <p>All photographs used on this page are sourced from <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> and <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> under free-use licenses. Individual attributions are provided in each image caption.</p>
+        </details>
+
+        <!-- AUTHOR NOTE -->
         <section class="port-section author-note-disclaimer">
-          <h3>Author's Note</h3>
-          <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
+          <h4>Author's Note</h4>
+          <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake — gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
         </section>
 
-        <section class="port-section">
-          <h3>Frequently Asked Questions</h3>
-          <p><strong>Q: How do cruise ships dock at St. Helena?</strong><br/>A: Ships anchor offshore at Jamestown and tender passengers to the harbor. There is no cruise pier. Tendering is weather-dependent — swells can delay or cancel operations. Bring layers and patience.</p>
-          <p><strong>Q: Can I visit Napoleon's tomb?</strong><br/>A: Yes. The Valley of the Tomb preserves Napoleon's original burial site (1821-1840). The tomb is now empty (remains moved to Paris in 1840), but the peaceful valley and Longwood House (his exile residence) tell the story of his final years. Tours available.</p>
-          <p><strong>Q: What is Jacob's Ladder and should I climb it?</strong><br/>A: Jacob's Ladder is a 699-step staircase climbing 600 feet from Jamestown to Half Tree Hollow. Built 1829. Strenuous but achievable for moderately fit visitors. Stunning views. Certificate at top. Takes 20-40 minutes. Bring water and good shoes. Skip if you have knee or heart issues.</p>
-          <p><strong>Q: How remote is St. Helena really?</strong><br/>A: Extremely. 1,200 miles from Africa, 1,800 miles from South America. Population ~4,500. Until 2017, the only access was by ship (5 days from Cape Town). One of the world's most isolated inhabited islands. Visiting by cruise is rare — most expedition itineraries include St. Helena on transatlantic or South Atlantic routes.</p>
-          <p><strong>Q: What wildlife is unique to St. Helena?</strong><br/>A: The wirebird (St. Helena plover) — critically endangered, found nowhere else on Earth. Endemic invertebrates, giant earwigs, unique flora (St. Helena ebony, tree ferns, gumwood). Jonathan the giant tortoise (192+ years old, world's oldest known land animal). Whale sharks and humpback whales in surrounding waters seasonally. Isolation created unique ecosystems — many species critically endangered.</p>
-        </section>
-
+        <!-- BACK NAV -->
         <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-      
+
         <!-- VOLATILE DATA DISCLAIMER -->
         <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-14 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+          <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, and policies listed on this page were accurate as of 2026-02-01 based on official sources and verified accounts. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit St. Helena?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
 
-          <p><strong>Q: Does St. Helena have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-
-          <p><strong>Q: What should I pack for St. Helena's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
-
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
-
-
-
-
-
-<!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel distances from St. Helena">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Jamestown Main Street</span><div class="pier-detail">Tender to the wharf, walk into the world's narrowest capital</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 3 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:5%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Jacob's Ladder</span><div class="pier-detail">699 steps straight up the cliff face — built in 1829 for hauling manure</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min to base</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Longwood House (Napoleon's Exile)</span><div class="pier-detail">Taxi uphill — where Napoleon spent his last 6 years</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Napoleon's Tomb (Original Site)</span><div class="pier-detail">Peaceful valley setting — his body was returned to Paris in 1840</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Diana's Peak (highest point)</span><div class="pier-detail">Cloud forest at 823m — endemic wirebirds and tree ferns</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚗</span> 30 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Ships anchor offshore and tender to Jamestown wharf. There are no cruise piers — there are barely any cars. Taxis are limited; book through the tourism office or your ship. The entire island has 4,500 people, one airport (opened 2017), and no fast-food restaurants.</p>
-</div>
+        <!-- FROM THE PIER -->
+        <nav class="from-the-pier" id="from-the-pier" aria-label="Travel distances from St. Helena">
+          <h4>From the Pier</h4>
+          <ul class="pier-distances">
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Jamestown Main Street</span><div class="pier-detail">Tender to the wharf, walk into the world's narrowest capital</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 3 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:5%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Jacob's Ladder</span><div class="pier-detail">699 steps straight up the cliff face — built in 1829</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min to base</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Longwood House (Napoleon's Exile)</span><div class="pier-detail">Taxi uphill — where Napoleon spent his last 6 years</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Napoleon's Tomb (Original Site)</span><div class="pier-detail">Peaceful valley setting — his body was returned to Paris in 1840</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Diana's Peak (highest point)</span><div class="pier-detail">Cloud forest at 823m — endemic wirebirds and tree ferns</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚗</span> 30 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
+            </li>
+          </ul>
+          <p class="pier-note">Ships anchor offshore and tender to Jamestown wharf. There are no cruise piers. Taxis are limited; book through the tourism office or your ship. The entire island has 4,500 people, one airport (opened 2017), and no fast-food restaurants.</p>
+        </nav>
 
       </article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
       <section class="card" aria-labelledby="glance-heading">
-        <h3 id="glance-heading">Quick Facts</h3>
+        <h4 id="glance-heading">Quick Facts</h4>
         <div class="at-a-glance-grid">
           <div class="at-a-glance-item"><strong>Country</strong><span>British Overseas Territory</span></div>
           <div class="at-a-glance-item"><strong>Language</strong><span>English</span></div>
           <div class="at-a-glance-item"><strong>Currency</strong><span>SHP / GBP</span></div>
           <div class="at-a-glance-item"><strong>Pier</strong><span>Tender to Jamestown</span></div>
-          <div class="at-a-glance-item"><strong>Best For</strong><span>History, Napoleon, Nature, Isolation</span></div>
+          <div class="at-a-glance-item"><strong>Best For</strong><span>Napoleon, Nature, Remoteness, Isolation</span></div>
           <div class="at-a-glance-item"><strong>Walking</strong><span>Jamestown walkable; tours/taxi for major sites</span></div>
         </div>
       </section>
       <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
+        <h4 id="author-heading">About the Author</h4>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
@@ -522,12 +499,12 @@ Soli Deo Gloria
         <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
       </section>
       <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
       </section>
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with St Helena on their itineraries:</p>
         <p class="cruise-line-label">Princess Cruises</p>
         <div class="ship-links">
@@ -553,14 +530,14 @@ Soli Deo Gloria
       </section>
 
       <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
+        <h4 id="recent-rail-title">Recent Stories</h4>
         <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
     </aside>
-  
+
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Visit</h2>

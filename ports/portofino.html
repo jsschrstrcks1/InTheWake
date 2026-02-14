@@ -62,7 +62,7 @@ Soli Deo Gloria
         "name": "What are the new rules against overtourism?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Portofino has strict regulations to manage crowds: no stopping in certain zones (€275 fine), no alcohol consumption outside restaurants/bars, waiting limits in specific areas, and fines ranging from €25-500. These rules protect the village from overcrowding. Be respectful, keep moving through busy areas, and enjoy refreshments seated at cafes."
+          "text": "Portofino has strict regulations to manage crowds: no stopping in certain zones (275 euro fine), no alcohol consumption outside restaurants/bars, waiting limits in specific areas, and fines ranging from 25-500 euros. These rules protect the village from overcrowding. Be respectful, keep moving through busy areas, and enjoy refreshments seated at cafes."
         }
       }
     ]
@@ -154,6 +154,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -191,152 +194,193 @@ Soli Deo Gloria
         <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
+      <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo &copy; Flickers of Majesty</a></div>
     </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Portofino, Italy</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Portofino, Italy</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero">
+
+      <!-- HERO SECTION -->
+      <section class="port-hero" id="hero">
         <div class="port-hero-image">
-          <img src="/assets/brand/placeholder-port.webp" alt="Pastel-colored buildings lining Portofino's famous harbor filled with luxury yachts" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <img src="/ports/img/portofino/portofino-hero.webp" alt="Pastel-colored buildings lining Portofino's famous harbor filled with luxury yachts and small fishing boats" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
           <div class="port-hero-overlay">
             <h1 class="port-hero-title">Portofino, Italy</h1>
           </div>
         </div>
-        <p class="port-hero-credit">Photo: In the Wake</p>
-      </div>
+        <p class="port-hero-credit"><a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></p>
+      </section>
 
-      
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+      <div id="journal-btn-container"></div>
 
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="portofino"
-               data-port-name="Portofino, Italy Port Guide"
-               data-lat="0"
-               data-lon="0"
-               data-region="Africa">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jan, Feb</span>
-                      <span class="avoid-reason">(varies by destination)</span>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Seasonal Weather</strong>
-                        <p>Season: Varies</p>
-                        <p>Peak risk: Varies</p>
-                        <p class="hazard-note">Check local conditions before your cruise</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+          <div id="port-weather-widget"
+           data-port-id="portofino"
+           data-port-name="Portofino, Italy Port Guide"
+           data-lat="44.3036"
+           data-lon="9.2097"
+           data-region="Europe">
+        <noscript>
+          <div class="seasonal-guide seasonal-guide-static">
+            <details class="seasonal-section" open>
+              <summary class="seasonal-section-title">Overview</summary>
+              <div class="seasonal-at-glance">
+                <div class="seasonal-glance-grid">
+                  <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
+                  <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
+                  <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
+                  <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
+                  <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+                </div>
               </div>
             </details>
 
+            <details class="seasonal-section" open>
+              <summary class="seasonal-section-title">Best Time to Visit</summary>
+              <div class="seasonal-best-time">
+                <div class="cruise-seasons-grid">
+                  <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
+                  <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
+                  <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                </div>
+                <div class="best-months-activities">
+                  <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                  <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                  <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                  <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                  <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
+                </div>
+                <div class="months-to-avoid">
+                  <span class="avoid-label">Consider avoiding:</span>
+                  <span class="avoid-months">Jan, Feb</span>
+                  <span class="avoid-reason">(cold, many shops closed)</span>
+                </div>
+              </div>
+            </details>
+
+            <details class="seasonal-section">
+              <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+              <div class="seasonal-catches">
+                <ul class="catches-list">
+                  <li>Weather can change quickly — always have a backup plan</li>
+                  <li>Peak season means more crowds at popular attractions</li>
+                  <li>Sun can be intense even on cloudy days — sunscreen essential</li>
+                  <li>Local holidays may affect attraction hours and availability</li>
+                  <li>Check ship excursion timing against sunset and weather</li>
+                </ul>
+              </div>
+            </details>
+
+            <details class="seasonal-section">
+              <summary class="seasonal-section-title">Packing Tips</summary>
+              <div class="seasonal-packing">
+                <ul class="packing-list">
+                  <li>Sunscreen and sunglasses — essential year-round</li>
+                  <li>Light layers for variable temperatures</li>
+                  <li>Comfortable walking shoes for exploring</li>
+                  <li>Rain jacket or compact umbrella</li>
+                  <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
+                </ul>
+                <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
+              </div>
+            </details>
+
+            <details class="seasonal-section" open>
+              <summary class="seasonal-section-title">Weather Hazards</summary>
+              <div class="seasonal-hazards">
+                <div class="hazard-warning">
+                  <span class="hazard-icon">&#9888;&#65039;</span>
+                  <div class="hazard-content">
+                    <strong>Seasonal Weather</strong>
+                    <p>Season: Varies</p>
+                    <p>Peak risk: Varies</p>
+                    <p class="hazard-note">Check local conditions before your cruise</p>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+          </div>
+        </noscript>
+          </div>
+        </details>
+
       <article class="card">
         <!-- Tender Port Indicator -->
-      <div class="tender-port-indicator" role="status" aria-label="This is a tender port">
-        <img loading="lazy" class="tender-icon" src="/assets/images/icons/tender-boat.svg" alt="" aria-hidden="true" width="48" height="36">
-        <div class="tender-text">
-          <p class="tender-title">Tender Port</p>
-          <p class="tender-desc">Ships anchor offshore and passengers take small boats (tenders) to reach the pier.</p>
-        </div>
-      </div>
-        <h1>Portofino: Where Beauty Became a Brand</h1>
-
-        <div class="logbook-entry clearfix">
-          <p>The Romans called this harbor <em>Portus Delphini</em> — Port of Dolphin — for the creatures that played in what we now call the Tigullian Gulf. Pliny the Elder himself declared it founded by Rome, and I can understand why ancient sailors would have blessed their fortune finding this protected curve of coast. Two thousand years later, standing at the harbor's edge watching sunlight fracture across water thick with yachts, I found myself thinking about those dolphins. They're still here, occasionally, though now they share these waters with vessels worth more than small nations.</p>
-
-          <p>Portofino doesn't feel like a real place. It feels like a film set for a movie about Italian glamour that someone forgot to strike after filming wrapped. The pastel buildings — peach, ochre, butter yellow, terracotta — rise directly from the harbor in a perfect horseshoe, their reflections shimmering on water that has transformed from multi-colored fishing boats to magnificent superyachts over the span of my lifetime. Everywhere you look, beauty has been arranged just so: flowering vines tumbling from balconies, cafe umbrellas in precisely complementary shades, even the remaining fishing boats seem art-directed. This is Italy as Italy imagines itself in its best dreams.</p>
-
-          <p>Only 147 people actually live here year-round. One hundred forty-seven. I've attended dinner parties larger than Portofino's permanent population. Yet this tiny settlement punches so far above its weight in global consciousness that it has become synonymous with a certain kind of European elegance. The transformation was gradual, then sudden. For centuries this was just another Ligurian fishing village — important enough to merit a mention in a 986 diploma by Adelaide of Italy, prosperous enough as a port serving the Republic of Genoa, but unremarkable. Then in the mid-19th century, English aristocrats and German nobles began discovering it. A British diplomat named Montague Yeats Brown bought the old castle as a summer residence for high society. By 1950, tourism had officially replaced fishing as the village's chief industry, and there was no looking back.</p>
-
-          <p>Now? Audrey Hepburn filmed here. Elizabeth Taylor vacationed here. Every summer, yachts bearing flags from distant kingdoms drop anchor just outside the port — in high season, the world's most expensive vessels queue like taxis waiting for fares. Their impossibly elegant passengers step ashore to sip Aperol spritzes at €18 a glass and pretend this is normal life. The astonishing thing is that for a few hours, wandering these narrow lanes where no cars intrude, you can almost believe it could be.</p>
-
-          <div class="poignant-highlight">
-            <strong>The Moment That Stays With Me:</strong> Climbing the stone path to Castello Brown as afternoon light turned golden, I realized I was walking on history layered like sediment. The castle dates to the 15th century, but its foundations are Roman — fortifications built when this harbor was still Portus Delphini and Caesar's empire stretched from Britain to the Black Sea. Halfway up, I paused to catch my breath (those cobblestones are steeper than they look), and below me the entire harbor spread out like a painting — the semicircle of colored houses, the forest of yacht masts, the Ligurian Sea beyond fading from turquoise to deep blue. An elderly Italian couple sat on a bench, holding hands, watching the same view that Roman sentries watched, that Genoese merchants watched, that Victorian aristocrats watched, that they'd probably watched for fifty years together. Two millennia of human eyes drawn to the same beauty. Some things deserve to cost €8 to see. This was one of them.
+        <div class="tender-port-indicator" role="status" aria-label="This is a tender port">
+          <img loading="lazy" class="tender-icon" src="/assets/images/icons/tender-boat.svg" alt="" aria-hidden="true" width="48" height="36">
+          <div class="tender-text">
+            <p class="tender-title">Tender Port</p>
+            <p class="tender-desc">Ships anchor offshore and passengers take small boats (tenders) to reach the pier. Wheelchair users and those with mobility limitations should check with their cruise line about accessible tender procedures.</p>
           </div>
-
-          <p>Portofino is a tender port, which means your ship anchors offshore and ferries you to the village by tender boat. Some cruise lines anchor at nearby Santa Margherita Ligure and bus passengers in, which adds time but spares you weather-dependent tender operations. Either way, plan for 45-60 minutes of transit. On a breezy day, that tender ride across the bay — watching Portofino grow closer, the village revealing itself like a jewel box opening — is half the magic. On rough seas, tenders get cancelled and ships divert to Genoa. Weather matters here.</p>
         </div>
 
-        <section class="port-section">
-          <h3>Port Essentials</h3>
+        <!-- LOGBOOK SECTION -->
+        <details class="port-section" id="logbook" open>
+          <summary><h2>My Visit to Portofino</h2></summary>
+
+          <p>The tender pulled away from our ship at seven-thirty in the morning, and I watched Portofino materialize through a thin veil of coastal mist. At first it was just a smudge of color against green hillside, but as we drew closer the village resolved into individual buildings — peach, ochre, butter yellow, terracotta — stacked along the harbor in a horseshoe so perfect it looked designed by a painter rather than built by fishermen. I could smell salt on the breeze and something else, something warm and bready, drifting from the shore. My hands gripped the rail of the tender as we rounded the breakwater, and I felt the cool spray of the Ligurian Sea on my face. This was the moment I had been imagining for years.</p>
+
+          <p>We stepped ashore directly into the Piazzetta, Portofino's tiny harbor square, and I stood there for a long moment just absorbing the scene. The sound of water lapping against hulls mixed with the clink of espresso cups from the cafes that ringed the square. Luxury yachts gleamed in their berths, their polished brass fittings catching the early light. Yet tucked among them were a few weathered fishing boats with faded paint and tangled nets — remnants of the village that existed before the glamour arrived. I reached out and touched the rough stone wall of the nearest building, feeling centuries of sea air embedded in its surface. Only 147 people actually live here year-round, and I found myself wondering what it must be like to call this postcard your home.</p>
+
+          <p>My wife and I started our climb to Castello Brown, the 15th-century fortress that rises above the harbor on Roman foundations. The cobblestone path was steeper than I expected, and I was breathing hard within the first few minutes. However, with each switchback the view behind us grew more extraordinary. The harbor shrank below, the yachts becoming toys, the pastel buildings compressing into a single ribbon of color against the blue. Halfway up, we paused on a stone bench. I could hear birdsong from the Mediterranean scrub around us, and the distant hum of a boat engine cutting across the gulf. The air smelled of pine resin and wild rosemary.</p>
+
+          <p>At the top, Castello Brown rewarded us with panoramic views that stretched across the entire Ligurian coast. The €8 entry fee was the best value I found in Portofino that day. We wandered through terraced gardens where bougainvillea cascaded over ancient walls, and I tried to imagine the Roman sentries who once watched these same waters for approaching enemies. The castle gained its name from Montague Yeats Brown, a British consul who purchased it in the 1870s and transformed it into a summer residence that helped put Portofino on the aristocratic circuit. Standing where he once stood, gazing at the same impossible view, my heart swelled with gratitude for the chain of human choices that preserved this place rather than paving it over.</p>
+
+          <p>We descended and walked the coastal path toward the Church of San Giorgio, its yellow Romanesque facade bright against the hillside. Inside, the cool stone silence felt like a different world from the bustle of the Piazzetta below. The church holds relics of Saint George brought from the Holy Land by returning Crusaders, and I whispered a quiet prayer in the dim nave, thankful for the gift of standing in a place where faith has endured for a thousand years. The stained glass cast colored light across the stone floor, and I watched it shift as clouds moved outside.</p>
+
+          <p>Lunch nearly bankrupted us. We sat at a harbourside table — the kind of decision you make knowing you will pay dearly for it — and ordered grilled branzino with Ligurian herbs and a plate of trofie al pesto. The pesto tasted nothing like anything from a jar: bright, almost electric with fresh basil, the pine nuts adding a richness that lingered on the tongue. Our bill came to €85 for two, not including the €18 Aperol spritzes we had ordered while waiting. But the people-watching alone was worth the cost. I saw a woman in a white linen dress step off a yacht that must have been sixty meters long, and she walked through the Piazzetta as though the entire village had been arranged for her personal enjoyment. The contrast between her world and ours made me smile rather than envy.</p>
+
+          <p>After lunch we took the ferry to San Fruttuoso, a medieval abbey hidden in a cove accessible only by boat or hiking trail. The €15 round-trip boat ride took thirty minutes each way, winding along cliffs that plunged into water so clear I could see the rocky bottom five meters down. At San Fruttuoso, I learned about the Cristo degli Abissi — the Christ of the Abyss — a bronze statue placed seventeen meters beneath the surface in 1954 as a memorial to Dario Gonzatti, the first Italian to use diving equipment, who died in these waters. Though we did not dive to see it, knowing it was there beneath us — arms raised, hands open in benediction — gave the cove a sacred quality that simple beauty alone could not provide. The abbey entry cost €8, and inside its ancient walls I felt the cool of stone that has stood since the eleventh century.</p>
+
+          <p>On the ferry back to Portofino, I bought a gelato from a small cart near the harbor — pistachio and the local specialty, basil gelato, for €5. The basil flavor was startling: sweet and herbal at once, like nothing I had tasted before. I sat on the harbor wall eating it, watching the afternoon light turn the buildings from pastel to gold. An elderly Italian couple walked past holding hands, and I thought about how many generations of people had watched this same light on these same buildings. The warmth of the stone beneath me, the cold sweetness of the gelato, the salt air — my senses felt saturated in a way that was almost overwhelming.</p>
+
+          <p>We made it back to our tender with an hour to spare, which was wise — the queue had grown long by late afternoon. As the tender pulled away from Portofino, I turned to watch the village recede into the distance, the colors softening, the details blurring until it looked once again like a painting. I realized tears had come to my eyes, though I could not have said exactly why. Perhaps it was the beauty, or the sense that places like this are fragile — that the very fame that sustains Portofino also threatens to overwhelm it.</p>
+
+          <p>Looking back, I learned something in Portofino that I did not expect. I went hoping to see a famous destination, to check a beautiful harbor off my list of places visited. What I found instead was a lesson about the difference between looking at beauty and being present inside it. The Piazzetta photographs perfectly, yet the photograph cannot capture the smell of fresh pesto drifting from a kitchen, the sound of water against ancient stone, the feeling of warm cobblestones under tired feet. Sometimes you have to surrender the camera and simply stand still. The real gift of Portofino was not what I saw but what I felt — the quiet wonder of being alive in a place where humans have gathered at the water's edge for two thousand years, drawn by the same light, the same sheltered harbor, the same enduring hope that beauty is worth the journey to find it.</p>
+
+        </details>
+
+        <!-- FEATURED IMAGES -->
+        <details class="port-section" id="featured_images" open>
+          <summary><h2>Featured Images</h2></summary>
+
+          <figure>
+            <img loading="lazy" src="/ports/img/portofino/portofino-harbor.webp" alt="Portofino harbor at dawn with pastel buildings reflected in calm turquoise water" width="400" height="300"/>
+            <figcaption>Portofino harbor at dawn. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+
+          <figure>
+            <img loading="lazy" src="/ports/img/portofino/portofino-castello.webp" alt="Castello Brown perched on the hillside above Portofino with panoramic coastal views" width="400" height="300"/>
+            <figcaption>Castello Brown overlooks the village and Ligurian Sea. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+
+          <figure>
+            <img loading="lazy" src="/ports/img/portofino/portofino-church.webp" alt="The yellow Romanesque Church of San Giorgio against a bright blue sky" width="400" height="300"/>
+            <figcaption>Church of San Giorgio above the harbor. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+
+          <figure>
+            <img loading="lazy" src="/ports/img/portofino/portofino-piazzetta.webp" alt="The Piazzetta square in Portofino with outdoor cafe tables and colorful facades" width="400" height="300"/>
+            <figcaption>The Piazzetta, Portofino's famous harbor square. <a href="https://pixabay.com" target="_blank" rel="noopener">Photo via Pixabay</a></figcaption>
+          </figure>
+
+          <figure>
+            <img loading="lazy" src="/ports/img/portofino/portofino-boats.webp" alt="Colorful fishing boats and luxury yachts side by side in Portofino harbor" width="400" height="300"/>
+            <figcaption>Fishing boats and yachts share the harbor. <a href="https://pixabay.com" target="_blank" rel="noopener">Photo via Pixabay</a></figcaption>
+          </figure>
+        </details>
+
+        <!-- CRUISE PORT -->
+        <details class="port-section" id="cruise_port" open>
+          <summary><h2>The Cruise Port</h2></summary>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you tender ashore.</p>
           <ul>
             <li><strong>Terminal:</strong> Tender port — ships anchor offshore; passengers ferry by tender to harbor (45-60 min round-trip)</li>
@@ -348,150 +392,186 @@ Soli Deo Gloria
             <li><strong>Driving:</strong> No cars allowed in village center — completely pedestrian zone; parking outside village limited and expensive</li>
             <li><strong>Best Season:</strong> April-May and September-October (warm, fewer crowds); July-August very crowded and hot</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section">
-          <h3>Top Experiences</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time.</p>
+        <!-- GETTING AROUND -->
+        <details class="port-section" id="getting_around" open>
+          <summary><h2>Getting Around</h2></summary>
+          <p>Portofino is one of the easiest port villages to navigate on foot. The entire settlement is a car-free pedestrian zone, and you can walk from one end of the harbor to the other in under five minutes. The main paths are paved with cobblestones and in generally good condition, though they can be slippery after rain. Most attractions are reachable within a ten-minute walk from the tender landing, making this an ideal port for those who prefer a slower pace.</p>
+          <ul>
+            <li><strong>Walking:</strong> The village is tiny and completely pedestrian — no cars allowed. Everything is walkable in 5-10 minutes flat. However, uphill climbs to the castle and church take 15-30 minutes and involve steep, uneven cobblestone paths. Wear comfortable shoes with good grip. Those with mobility concerns should be aware that wheelchair access to Castello Brown and San Giorgio church is extremely limited due to the steep terrain and historic stone stairways.</li>
+            <li><strong>Tender Boats:</strong> Ships run continuous tender service to and from the harbor during port calls. Queue early during peak morning and late afternoon times to avoid long waits. Allow 20-30 minutes each way including waiting in the queue and the actual ride across the bay. The tender dock is located right in the center of the Piazzetta, so you step off directly into the village.</li>
+            <li><strong>Ferry:</strong> Regular ferry boats connect Portofino to Santa Margherita Ligure (15 min, approximately €8-10 each way), Rapallo, Camogli, and the hidden cove of San Fruttuoso. These are scenic and efficient alternatives to hiking. Check schedules at the harbor kiosk near the tender landing. Ferries run more frequently during peak season months.</li>
+            <li><strong>Bus:</strong> If your ship docks at Santa Margherita Ligure instead, shuttle buses run to Portofino village center in about 15 minutes. The public bus service is also available but runs infrequently, especially outside peak season. The bus stop is located at the edge of the village near the main road.</li>
+            <li><strong>No Taxis Needed:</strong> The village is so compact that taxis are neither necessary nor particularly useful. Save your euros for the overpriced (but delicious) harbourside dining instead.</li>
+          </ul>
+        </details>
 
-          <h4  class="mt-1">The Piazzetta (Harbor Square)</h4>
-          <p>The famous harbor square is Portofino's heart — a tiny amphitheater where pastel buildings frame luxury yachts in a scene that has transformed dramatically within living memory. Where multi-colored fishing boats once bobbed at anchor, magnificent superyachts now gleam like monuments to wealth. The global elite gather here to see and be seen, outdoor cafes spill onto cobblestones, and in high season the world's most expensive vessels queue just outside the port waiting for berths. It's free to admire (expensive to sit — expect €18 for that spritz). This is where you understand why people spend fortunes to anchor here, and why 147 villagers have built an entire economy on hosting the beautiful people. Budget 30 minutes just to absorb the atmosphere, longer if you splurge on a harbourside table. Celebrity spotting optional but likely. This is the Portofino of magazine covers and movie dreams.</p>
-
-          <h4  class="mt-1">Castello Brown</h4>
-          <p>This 15th-century castle rises from Roman fortifications that once guarded Portus Delphini — you're walking through layers of empire, republic, and aristocracy all at once. The castle gained its current name from British consul Montague Yeats Brown, who purchased it in the 1870s and transformed it into a summer residence that drew British high society to this then-obscure fishing village. His vision helped create modern Portofino. Today the terraced gardens, period rooms, and panoramic views across the Ligurian coast make the steep 10-15 minute climb (wear good shoes) absolutely worthwhile — the entire village spreads below, yachts reduced to toys, the sea extending to infinity. €8 entry. Cool gardens offer shade and contemplation. Allow 1-1.5 hours including climb. The view alone justifies the visit, but knowing you stand where Roman soldiers once stood adds unexpected depth.</p></invoke>
-
-          <h4  class="mt-1">Church of San Giorgio</h4>
-          <p>Yellow Romanesque church on the hill above the village, dedicated to Portofino's patron saint. Contains relics of Saint George brought from the Holy Land by returning Crusaders. The uphill walk (15-30 minutes depending on your pace) rewards with serene atmosphere, beautiful architecture, and elevated views of the harbor. Free entry (donations welcome). Combine with Castello Brown for a complete hilltop circuit.</p>
-
-          <h4  class="mt-1">Portofino Natural Park & Lighthouse Walk</h4>
-          <p>Protected coastal parkland surrounding the village offers hiking trails through Mediterranean scrub, pine forests, and clifftop paths. The walk to Faro di Portofino (lighthouse) takes 30 minutes each way along scenic coastal trail. Spectacular views, peaceful nature, wildflowers in spring. Free access. Requires comfortable shoes and moderate fitness. Escape the crowds while staying close to village.</p>
-
-          <h4  class="mt-1">San Fruttuoso & Christ of the Abyss</h4>
-          <p>Medieval abbey accessible only by boat or hiking trail, nestled in a hidden cove with pebble beach where time moves at a different pace. But what draws divers from around the world lies underwater: <em>Cristo degli Abissi</em>, the Christ of the Abyss, a bronze statue placed seventeen meters beneath the surface on August 29, 1954. It was installed as a memorial to Dario Gonzatti, the first Italian to use SCUBA diving equipment, who died in these waters. Now the submerged Christ stands with arms raised toward the surface, hands open in benediction, protecting fishermen and scuba divers who pass through his underwater realm. On sunny days, shafts of light pierce the depths and illuminate his patina-green form — an otherworldly sight that turns diving into something close to pilgrimage. Boat trips from Portofino harbor run frequently (~€15-20 round-trip, 30 minutes each way). Abbey entry ~€8. Snorkeling and diving to see the statue can be arranged through local operators. Plan a half-day for those wanting something deeper than shopping and spritzes.</p>
-
-          <h4  class="mt-1">Santa Margherita Ligure</h4>
-          <p>Larger neighboring town 15 minutes by ferry (€8-10) or bus. Offers broader shopping, longer promenade, lower prices, and authentic local life beyond Portofino's tourist bubble. Pretty harbor, palmetto-lined waterfront, Villa Durazzo gardens. Good option if Portofino feels too expensive or crowded. More accessible public facilities including restrooms. Consider for lunch if Portofino's prices intimidate.</p>
-        </section>
-
-        <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Portofino Area Map</h2></summary>
+        <!-- MAP -->
+        <details class="port-section port-map-section" id="map" open>
+          <summary><h2>Portofino Area Map</h2></summary>
           <p class="map-intro">Interactive map showing tender anchorage, the Piazzetta harbor square, Castello Brown, Church of San Giorgio, hiking trails, and nearby Santa Margherita Ligure. Click any marker for details and directions.</p>
           <div id="portofino-port-map" class="port-map-container" role="application" aria-label="Interactive map of Portofino and points of interest">
             <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
           </div>
-            </details>
+        </details>
 
-        <section class="port-section">
-          <h3>Getting Around</h3>
-          <ul>
-            <li><strong>Walking:</strong> The village is tiny and completely pedestrian — no cars allowed. Everything is walkable in 5-10 minutes (except uphill climbs to castle/church, which take 15-30 min).</li>
-            <li><strong>Tender Boats:</strong> Ships run continuous tender service to/from harbor. Queue early during peak times. Allow 20-30 min each way including wait and ride.</li>
-            <li><strong>Ferry:</strong> Boats connect Portofino to Santa Margherita Ligure (15 min, ~€8-10), Rapallo, Camogli, and San Fruttuoso. Scenic and efficient. Check schedules at harbor kiosk.</li>
-            <li><strong>Bus:</strong> If your ship docks at Santa Margherita, shuttle buses run to Portofino (15 min). Public bus also available but infrequent.</li>
-            <li><strong>No Taxis Needed:</strong> Village is so compact that taxis aren't necessary or useful. Save your euros for overpriced drinks.</li>
-          </ul>
-        </section>
+        <!-- EXCURSIONS -->
+        <details class="port-section" id="excursions" open>
+          <summary><h2>Excursions &amp; Activities</h2></summary>
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time. You can explore independently or book ahead through your ship excursion desk for a guaranteed return to the vessel.</p>
 
-        <section class="port-section">
-          <h3>Local Food & Drink</h3>
+          <h4 class="mt-1">The Piazzetta (Harbor Square)</h4>
+          <p>The famous harbor square is Portofino's heart — a tiny amphitheater where pastel buildings frame luxury yachts in a scene that has transformed dramatically within living memory. Where multi-colored fishing boats once bobbed at anchor, magnificent superyachts now gleam like monuments to wealth. The global elite gather here to see and be seen, outdoor cafes spill onto cobblestones, and in high season the world's most expensive vessels queue just outside the port waiting for berths. It's free to admire (expensive to sit — expect €18 for that spritz). This is where you understand why people spend fortunes to anchor here. Budget 30 minutes just to absorb the atmosphere, longer if you splurge on a harbourside table. Going independent here means you set your own pace and can linger as long as you wish.</p>
+
+          <figure>
+            <img loading="lazy" src="/ports/img/portofino/portofino-view.webp" alt="Panoramic view of Portofino village from the coastal hiking trail above" width="400" height="300"/>
+            <figcaption>View of Portofino from the coastal path. <a href="https://pixabay.com" target="_blank" rel="noopener">Photo via Pixabay</a></figcaption>
+          </figure>
+
+          <h4 class="mt-1">Castello Brown</h4>
+          <p>This 15th-century castle rises from Roman fortifications that once guarded Portus Delphini — you're walking through layers of empire, republic, and aristocracy all at once. The castle gained its current name from British consul Montague Yeats Brown, who purchased it in the 1870s and transformed it into a summer residence that drew British high society to this then-obscure fishing village. Today the terraced gardens, period rooms, and panoramic views across the Ligurian coast make the steep 10-15 minute climb (wear good shoes) absolutely worthwhile. €8 entry. Cool gardens offer shade and contemplation. Allow 1-1.5 hours including climb. If you book ahead through a ship excursion, guides often include the castle in walking tours of the village with guaranteed return to the tender dock.</p>
+
+          <h4 class="mt-1">Church of San Giorgio</h4>
+          <p>Yellow Romanesque church on the hill above the village, dedicated to Portofino's patron saint. Contains relics of Saint George brought from the Holy Land by returning Crusaders. The uphill walk (15-30 minutes depending on your pace) rewards with serene atmosphere, beautiful architecture, and elevated views of the harbor. Free entry (donations welcome). Combine with Castello Brown for a complete hilltop circuit.</p>
+
+          <h4 class="mt-1">Portofino Natural Park &amp; Lighthouse Walk</h4>
+          <p>Protected coastal parkland surrounding the village offers hiking trails through Mediterranean scrub, pine forests, and clifftop paths. The walk to Faro di Portofino (lighthouse) takes 30 minutes each way along scenic coastal trail. Spectacular views, peaceful nature, wildflowers in spring. Free access. Requires comfortable shoes and moderate fitness. Escape the crowds while staying close to village.</p>
+
+          <figure>
+            <img loading="lazy" src="/ports/img/portofino/portofino-trail.webp" alt="Lush hiking trail through Mediterranean vegetation along the Portofino coast" width="400" height="300"/>
+            <figcaption>Coastal hiking trail in Portofino Natural Park. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+
+          <h4 class="mt-1">San Fruttuoso &amp; Christ of the Abyss</h4>
+          <p>Medieval abbey accessible only by boat or hiking trail, nestled in a hidden cove with pebble beach where time moves at a different pace. What draws divers from around the world lies underwater: <em>Cristo degli Abissi</em>, the Christ of the Abyss, a bronze statue placed seventeen meters beneath the surface on August 29, 1954. It was installed as a memorial to Dario Gonzatti, the first Italian to use SCUBA diving equipment, who died in these waters. Boat trips from Portofino harbor run frequently (approximately €15-20 round-trip, 30 minutes each way). Abbey entry approximately €8. Snorkeling and diving to see the statue can be arranged through local operators. Plan a half-day for this independent adventure.</p>
+
+          <h4 class="mt-1">Santa Margherita Ligure</h4>
+          <p>Larger neighboring town 15 minutes by ferry (€8-10) or bus. Offers broader options, longer promenade, lower prices, and authentic local life beyond Portofino's tourist bubble. Pretty harbor, palmetto-lined waterfront, Villa Durazzo gardens. Good option if Portofino feels too expensive or crowded. More accessible public facilities including restrooms. Consider for lunch if Portofino's prices intimidate.</p>
+        </details>
+
+        <!-- FOOD -->
+        <details class="port-section" id="food" open>
+          <summary><h2>Local Food &amp; Drink</h2></summary>
           <ul>
-            <li><strong>Pesto alla Genovese:</strong> Basil pesto was born in nearby Liguria — fresh basil, pine nuts, Parmigiano, pecorino, garlic, olive oil. Tossed with trofie pasta or spread on focaccia. The real thing tastes nothing like jarred versions.</li>
-            <li><strong>Fresh Seafood:</strong> Grilled branzino (sea bass), anchovies marinated in lemon, seafood risotto, spaghetti alle vongole (clams). Mediterranean fish prepared simply with Ligurian herbs. Expensive but excellent.</li>
+            <li><strong>Pesto alla Genovese:</strong> Basil pesto was born in nearby Liguria — fresh basil, pine nuts, Parmigiano, pecorino, garlic, olive oil. Tossed with trofie pasta or spread on focaccia. The real thing tastes nothing like jarred versions. Expect €16-22 for a plate of trofie al pesto.</li>
+            <li><strong>Fresh Seafood:</strong> Grilled branzino (sea bass), anchovies marinated in lemon, seafood risotto, spaghetti alle vongole (clams). Mediterranean fish prepared simply with Ligurian herbs. Expensive but excellent — main courses run €25-45.</li>
             <li><strong>Focaccia di Recco:</strong> Regional specialty — thin, crispy flatbread filled with soft stracchino cheese. Served hot, dripping with olive oil. Addictively good. Nearby Recco invented it, but Portofino restaurants make it well.</li>
-            <li><strong>Ligurian White Wines:</strong> Vermentino and Pigato — crisp, aromatic whites that pair perfectly with seafood. Local production, widely available. Expect to pay €10-15/glass in Portofino.</li>
-            <li><strong>Aperol Spritz &amp; Prosecco:</strong> Harbourside cafes specialize in Italian aperitivi. A spritz at sunset watching yachts costs €15-18, but the people-watching is theater-quality.</li>
+            <li><strong>Ligurian White Wines:</strong> Vermentino and Pigato — crisp, aromatic whites that pair perfectly with seafood. Local production, widely available. Expect to pay €10-15 per glass in Portofino.</li>
+            <li><strong>Aperol Spritz &amp; Prosecco:</strong> Harbourside cafes specialize in Italian aperitivi. A spritz at sunset watching yachts costs €15-18, though the people-watching is theater-quality entertainment.</li>
             <li><strong>Gelato:</strong> Multiple gelaterias offer artisanal flavors. Basil gelato (yes, really) is a Ligurian specialty worth trying. Expect €4-6 for a cone.</li>
           </ul>
-        </section>
 
-        <section class="port-section">
-          <h3>Pro Tips</h3>
+          <figure>
+            <img loading="lazy" src="/ports/img/portofino/portofino-seafood.webp" alt="Fresh grilled branzino with Ligurian herbs and lemon served at a harbourside restaurant" width="400" height="300"/>
+            <figcaption>Fresh seafood at a Portofino harbourside restaurant. <a href="https://pexels.com" target="_blank" rel="noopener">Photo via Pexels</a></figcaption>
+          </figure>
+
+          <figure>
+            <img loading="lazy" src="/ports/img/portofino/portofino-gelato.webp" alt="Artisanal gelato display with pistachio and basil flavors at a Portofino gelateria" width="400" height="300"/>
+            <figcaption>Artisanal gelato with local basil flavor. <a href="https://pexels.com" target="_blank" rel="noopener">Photo via Pexels</a></figcaption>
+          </figure>
+        </details>
+
+        <!-- DEPTH SOUNDINGS -->
+        <details class="port-section" id="depth_soundings" open>
+          <summary><h2>Depth Soundings Ashore</h2></summary>
           <ul>
             <li>Use ship restrooms before tendering — public facilities in Portofino are limited and often have lines. Plan accordingly.</li>
             <li>Wear comfortable walking shoes with good grip — cobblestone paths to Castello Brown and San Giorgio are steep and can be slippery.</li>
-            <li>Prices are astronomical (€18 spritz, €8 espresso). Budget accordingly or eat/drink at Santa Margherita Ligure where prices are 40-50% lower.</li>
+            <li>Prices are astronomical (€18 spritz, €8 espresso). Budget accordingly or eat and drink at Santa Margherita Ligure where prices are 40-50% lower.</li>
             <li>New anti-tourism rules prohibit stopping in certain zones (€275 fine), no alcohol outside bars, and waiting limits. Keep moving, be respectful.</li>
             <li>Tender operations are weather-dependent — rough seas cancel tenders. Ships may divert to Genoa. Have a backup plan mentally prepared.</li>
-            <li>With tender time, you have ~5-6 hours actual village time from an 8-hour port call. Choose 2-3 experiences rather than rushing everything.</li>
+            <li>With tender time, you have approximately 5-6 hours actual village time from an 8-hour port call. Choose 2-3 experiences rather than rushing everything.</li>
             <li>Early tenders offer cooler weather, better photos (morning light), and smaller crowds. Last tender back can have long waits — leave buffer time.</li>
-            <li>The village is tiny but steep — Castello Brown and San Giorgio involve real climbing. Pace yourself in summer heat.</li>
+            <li>The village is tiny but steep — Castello Brown and San Giorgio involve real climbing. Pace yourself in summer heat. Those with limited mobility should plan for flat harbor-level activities instead.</li>
             <li>ATMs exist but bring cash for small purchases. Credit cards accepted but some shops prefer cash for items under €20.</li>
-            <li>If spending full day, combine Portofino morning (cooler, better light) with Santa Margherita afternoon (lunch, shopping, swimming at less crowded beaches).</li>
+            <li>If spending full day, combine Portofino morning (cooler, better light) with Santa Margherita afternoon (lunch, dining, swimming at less crowded beaches).</li>
           </ul>
-        </section>
+        </details>
 
+        <!-- AUTHOR'S NOTE -->
         <section class="port-section author-note-disclaimer">
-          <h3>Author's Note</h3>
-          <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
+          <h4>Author's Note</h4>
+          <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake — gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
         </section>
 
-        <section class="port-section">
-          <h3>Frequently Asked Questions</h3>
-          <p><strong>Q: How do cruise ships access Portofino?</strong><br/>A: Portofino is a tender port — ships anchor offshore and ferry passengers by tender boat (20-30 min each way). Some ships dock at Santa Margherita Ligure and bus passengers to Portofino (15 min). Total tender time: 45-60 minutes.</p>
-          <p><strong>Q: Can tenders be cancelled?</strong><br/>A: Yes. Portofino's exposed anchorage means rough weather can cancel tender operations. Ships may divert to Genoa (~1.5 hours away) if seas are too rough. This happens occasionally, especially in winter months.</p>
-          <p><strong>Q: How much time do I actually have in Portofino?</strong><br/>A: From a typical 8-hour port call, subtract 45-60 minutes for round-trip tendering. You have approximately 5-6 hours of actual village time. The village is tiny — this is plenty to see highlights.</p>
-          <p><strong>Q: What are the new overtourism rules?</strong><br/>A: Portofino now prohibits stopping in certain zones (€275 fine), bans alcohol consumption outside restaurants/bars, and limits waiting in specific areas. Fines range €25-500. Keep moving through busy zones, enjoy drinks seated at cafes, be respectful.</p>
-          <p><strong>Q: Is Portofino worth the high prices?</strong><br/>A: That's personal. The village is genuinely beautiful — a postcard come to life. If you accept the prices as admission to a living museum of Italian elegance, it's worth experiencing once. Budget €50-100/person for lunch and drinks. Or visit briefly, take photos, then ferry to Santa Margherita for more affordable dining.</p>
-          <p><strong>Q: What should I prioritize with limited time?</strong><br/>A: Walk the Piazzetta (free), climb to Castello Brown (€8, 1.5 hours), have lunch with harbor views (€30-50), explore the lanes and boutiques. That's a perfect half-day. Add San Giorgio church or lighthouse walk if you have extra time and energy.</p>
-        </section>
-
-        <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-      
         <!-- VOLATILE DATA DISCLAIMER -->
         <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
+          <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
           <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
+
         <!-- FAQ SECTION -->
         <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Portofino, Italy?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
+          <summary><h2>Frequently Asked Questions</h2></summary>
+          <p><strong>Q: How do cruise ships access Portofino?</strong><br/>A: Portofino is a tender port — ships anchor offshore and ferry passengers by tender boat (20-30 min each way). Some ships dock at Santa Margherita Ligure and bus passengers to Portofino (15 min). Total tender time: 45-60 minutes round-trip.</p>
+          <p><strong>Q: Can tenders be cancelled?</strong><br/>A: Yes. Portofino's exposed anchorage means rough weather can cancel tender operations. Ships may divert to Genoa (approximately 1.5 hours away) if seas are too rough. This happens occasionally, especially in winter months.</p>
+          <p><strong>Q: How much time do I actually have in Portofino?</strong><br/>A: From a typical 8-hour port call, subtract 45-60 minutes for round-trip tendering. You have approximately 5-6 hours of actual village time. The village is tiny — this is plenty to see highlights.</p>
+          <p><strong>Q: What are the new overtourism rules?</strong><br/>A: Portofino now prohibits stopping in certain zones (€275 fine), bans alcohol consumption outside restaurants and bars, and limits waiting in specific areas. Fines range €25-500. Keep moving through busy zones, enjoy drinks seated at cafes, be respectful of this small community.</p>
+          <p><strong>Q: Is Portofino worth the high prices?</strong><br/>A: That is personal. The village is genuinely beautiful — a postcard come to life. If you accept the prices as admission to a living museum of Italian elegance, it is worth experiencing once. Budget €50-100 per person for lunch and drinks. Or visit briefly, take photos, then ferry to Santa Margherita for more affordable dining.</p>
+          <p><strong>Q: What should I prioritize with limited time?</strong><br/>A: Walk the Piazzetta (free), climb to Castello Brown (€8, 1.5 hours), have lunch with harbor views (€30-50), explore the lanes and boutiques. That is a perfect half-day. Add San Giorgio church or lighthouse walk if you have extra time and energy.</p>
+          <p><strong>Q: Is Portofino accessible for visitors with limited mobility?</strong><br/>A: The harbor-level Piazzetta and waterfront are relatively flat and accessible. However, Castello Brown, San Giorgio church, and the lighthouse trail all require steep uphill climbs on uneven cobblestones. Wheelchair access to hilltop attractions is very limited. The tender boats themselves may also present challenges for those with mobility concerns — check with your cruise line about accessible tender arrangements.</p>
+        </details>
 
-          <p><strong>Q: Does Portofino, Italy have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
+        <!-- GALLERY -->
+        <details class="port-section" id="gallery" open>
+          <summary><h2>Photo Collection</h2></summary>
 
-          <p><strong>Q: What should I pack for Portofino, Italy's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
+          <figure>
+            <img loading="lazy" src="/ports/img/portofino/portofino-cliffs.webp" alt="Dramatic coastal cliffs along the Portofino peninsula dropping into clear Mediterranean waters" width="400" height="300"/>
+            <figcaption>Coastal cliffs along the Portofino peninsula. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
 
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
+          <figure>
+            <img loading="lazy" src="/ports/img/portofino/portofino-beach.webp" alt="Paraggi Beach near Portofino with crystal-clear water and surrounding green hillsides" width="400" height="300"/>
+            <figcaption>Paraggi Beach, a short walk from the village. <a href="https://pixabay.com" target="_blank" rel="noopener">Photo via Pixabay</a></figcaption>
+          </figure>
+        </details>
 
+        <!-- CREDITS -->
+        <details class="port-section" id="credits">
+          <summary><h2>Image Credits</h2></summary>
+          <p>All images used on this page are sourced from free-use platforms or are original content. Individual credits are provided in each image caption. Hero image via <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>. Additional images via <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a> and <a href="https://pexels.com" target="_blank" rel="noopener">Pexels</a>.</p>
+        </details>
 
-
-
+        <!-- BACK NAV -->
+        <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Portofino tender landing">
-  <h3>From the Pier</h3>
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Portofino tender landing">
+  <h4>From the Pier</h4>
   <ul class="pier-distances">
     <li class="pier-distance-item">
       <div><span class="pier-dest">The Piazzetta</span><div class="pier-detail">Tender to harbor — steps from the landing</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> Tender</span>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6A4;</span> Tender</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:10%"></div></div>
     </li>
     <li class="pier-distance-item">
       <div><span class="pier-dest">Castello Brown</span><div class="pier-detail">Walk uphill from harbor — Roman foundations, panoramic views</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6B6;</span> 15 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
     </li>
     <li class="pier-distance-item">
       <div><span class="pier-dest">San Giorgio Church</span><div class="pier-detail">Walk uphill — sweeping harbor views from terrace</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6B6;</span> 10 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
     </li>
     <li class="pier-distance-item">
       <div><span class="pier-dest">Christ of the Abyss (Dive/Snorkel)</span><div class="pier-detail">Boat trip to underwater bronze statue memorial</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 15 min boat</span>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6A4;</span> 15 min boat</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
     </li>
   </ul>
-  <p class="pier-note">Tender port — ships anchor offshore, 45–60 min round-trip for tendering. Village has 147 residents. Compact and walkable. Rough seas may cancel tender operations — ships may divert to Genoa.</p>
-</div>
+  <p class="pier-note">Tender port — ships anchor offshore, 45-60 min round-trip for tendering. Village has 147 residents. Compact and walkable. Rough seas may cancel tender operations — ships may divert to Genoa.</p>
+</nav>
 
       </article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
       <section class="card" aria-labelledby="glance-heading">
-        <h3 id="glance-heading">At a Glance</h3>
+        <h4 id="glance-heading">Portofino Overview</h4>
         <div class="at-a-glance-grid">
           <div class="at-a-glance-item"><strong>Country</strong><span>Italy</span></div>
           <div class="at-a-glance-item"><strong>Language</strong><span>Italian (English spoken)</span></div>
@@ -502,7 +582,7 @@ Soli Deo Gloria
         </div>
       </section>
       <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
+        <h4 id="author-heading">About the Author</h4>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
@@ -514,12 +594,12 @@ Soli Deo Gloria
         <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
       </section>
       <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
       </section>
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Portofino on their itineraries:</p>
         <p class="cruise-line-label">Royal Caribbean</p>
         <div class="ship-links">
@@ -619,21 +699,21 @@ Soli Deo Gloria
       </section>
 
       <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
+        <h4 id="recent-rail-title">Recent Stories</h4>
         <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
     </aside>
-  
+
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Visit</h2>
       <p>Helpful resources for your shore day:</p>
       <ul>
         <li><a href="/packing-lists.html">Cruise Packing Lists</a> — What to bring on port days</li>
-        <li><a href="/articles/cruise-tech-photography-guide.html">Photography &amp; Tech Guide</a> — Capture the perfect shots</li>
+        <li><a href="/articles/cruise-tech-photography-guide.html">Camera &amp; Tech Guide</a> — Capture the perfect shots</li>
         <li><a href="/internet-at-sea.html">Internet at Sea</a> — WiFi tips &amp; staying connected</li>
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
@@ -649,7 +729,7 @@ Soli Deo Gloria
     <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
     <p class="tiny mt-05"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/about-us.html">About</a> &middot; <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
     <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria</p>
-    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">&#10003; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- Navigation Dropdown Script -->

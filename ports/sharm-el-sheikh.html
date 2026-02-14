@@ -171,6 +171,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -210,16 +213,19 @@ Soli Deo Gloria
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
-        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo &copy; Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Sharm el-Sheikh</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Sharm el-Sheikh</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-    <div class="port-hero">
+    <article class="card">
+
+      <!-- HERO SECTION -->
+      <section class="port-hero" id="hero" aria-label="Sharm el-Sheikh cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
         <div class="port-hero-image">
           <img src="/ports/img/sharm-el-sheikh/red-sea-coral.webp" alt="Vibrant coral reef in the Red Sea near Sharm el-Sheikh with tropical fish" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
           <div class="port-hero-overlay">
@@ -227,29 +233,150 @@ Soli Deo Gloria
           </div>
         </div>
         <p class="port-hero-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Sharm_el-Sheikh" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
-      </div>
+      </section>
 
-    <article class="card"><h1>Sharm el-Sheikh: Where the Desert Meets the Deep Blue</h1>
+      <p class="last-reviewed">Last reviewed: February 2026</p>
+      <div id="logbook-btn-container"></div>
 
-      <div class="logbook-entry clearfix">
-        <p>The tender ride from our ship into Sharm el-Sheikh gave me time to appreciate what makes this place extraordinary. Behind us, the jagged peaks of the Sinai Mountains rose like ancient sentinels, their rust-colored faces catching the morning light. Ahead, the marina glittered against impossibly blue water — that particular shade of turquoise that exists nowhere else but the Red Sea. I could see the barren desert landscape meeting pristine coastline, and I understood immediately why this remote peninsula has become one of the diving world's most treasured destinations.</p>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+        <div id="port-weather-widget"
+             data-port-id="sharm-el-sheikh"
+             data-port-name="Sharm el"
+             data-lat="27.9158"
+             data-lon="34.3300"
+             data-region="Middle East">
+          <noscript>
+            <div class="seasonal-guide seasonal-guide-static">
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Overview</summary>
+                <div class="seasonal-at-glance">
+                  <div class="seasonal-glance-grid">
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+                  </div>
+                </div>
+              </details>
 
-        <p>Sharm el-Sheikh is unabashedly a resort town, built with purpose from desert sands. There's no pretense of being anything other than what it is: a gateway to some of the planet's most spectacular underwater scenery. What surprises first-time visitors is how well it works — how genuinely welcoming the Egyptian hospitality is, how efficiently the tourism infrastructure operates, and how quickly you forget the artificial origins when you're floating above gardens of coral that have been growing for millennia.</p>
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Best Time to Visit</summary>
+                <div class="seasonal-best-time">
+                  <div class="cruise-seasons-grid">
+                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
+                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
+                  </div>
+                  <div class="best-months-activities">
+                    <div class="activity-row"><span class="activity-label">Reef Exploration</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">May, Jun, Jul</span></div>
+                  </div>
+                  <div class="months-to-avoid">
+                    <span class="avoid-label">Consider avoiding:</span>
+                    <span class="avoid-months">Jul, Aug</span>
+                    <span class="avoid-reason">(extreme heat exceeding 45C/113F)</span>
+                  </div>
+                </div>
+              </details>
 
-        <div class="poignant-highlight">
-          <strong>The Moment That Stays With Me:</strong> Snorkeling at Ras Mohammed National Park, drifting over the reef wall where the shallow coral garden suddenly dropped into an abyss of deep blue. Below me, the reef descended into mystery; around me, clouds of anthias flickered like living confetti. A sea turtle glided past, utterly unbothered by my presence. In that moment, suspended between desert and depths, I felt perfectly, peacefully small — a temporary visitor to an ancient, thriving world that will outlast all our human constructions.
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                <div class="seasonal-catches">
+                  <ul class="catches-list">
+                    <li>Weather can change quickly — always have a backup plan</li>
+                    <li>Peak season means more crowds at popular attractions</li>
+                    <li>Sun can be intense even on cloudy days — sunscreen essential</li>
+                    <li>Local holidays may affect attraction hours and availability</li>
+                    <li>Check ship excursion timing against sunset and weather</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">Packing Tips</summary>
+                <div class="seasonal-packing">
+                  <ul class="packing-list">
+                    <li>Sunscreen and sunglasses — essential year-round</li>
+                    <li>Light layers for variable temperatures</li>
+                    <li>Comfortable walking shoes for exploring</li>
+                    <li>Rain jacket or compact umbrella</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
+                  </ul>
+                  <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Weather Hazards</summary>
+                <div class="seasonal-hazards">
+                  <div class="hazard-warning">
+                    <span class="hazard-icon">&#9888;&#65039;</span>
+                    <div class="hazard-content">
+                      <strong>Extreme Summer Heat</strong>
+                      <p>Season: May - Sep</p>
+                      <p>Peak risk: Jul, Aug (temperatures 45C+)</p>
+                      <p class="hazard-note">Stay hydrated; limit outdoor exposure; choose air-conditioned attractions</p>
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+            </div>
+          </noscript>
         </div>
+      </details>
 
-        <p>The warmth of the Red Sea surprised me even in winter. At 22-28°C year-round, the water welcomes rather than shocks. Visibility regularly exceeds 30 meters — on clear days, you can see the entire reef ecosystem spreading beneath you like a living tapestry. Even if you've never snorkeled before, Sharm el-Sheikh offers an accessible introduction. The house reefs at many beaches slope gently, giving tentative swimmers time to build confidence before venturing further.</p>
+      <!-- LOGBOOK ENTRY -->
+      <details class="port-section" id="logbook" open>
+        <summary><h2>My Logbook: Where the Desert Meets the Deep Blue</h2></summary>
+        <div class="logbook-entry clearfix">
 
-        <p>Beyond the water, the desert holds its own magic. The drive to St. Catherine's Monastery winds through landscapes so barren and beautiful they feel biblical — which makes sense, given that Moses is said to have received the Ten Commandments on nearby Mount Sinai. The monastery itself, built in the 6th century and still home to Greek Orthodox monks, radiates a quiet holiness that transcends tourism. Standing in the desert dawn, watching light creep across mountains that have witnessed human history since its earliest chapters, reminded me why people have always sought the sacred in wilderness.</p>
-      </div>
+          <figure class="logbook-image float-right">
+            <img src="/ports/img/sharm-el-sheikh/sharm-marina.webp" alt="Sharm el-Sheikh marina with colorful boats moored beneath the rugged Sinai mountains at dawn" loading="lazy"/>
+            <figcaption>Sharm el-Maya marina at dawn. <a href="https://commons.wikimedia.org/wiki/Category:Sharm_el-Sheikh" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+          </figure>
 
-      <!-- Port Essentials -->
-      <section class="port-section">
-        <h3>Port Essentials</h3>
+          <p>I watched the tender pull away from our ship and felt my heart quicken. The jagged peaks of the Sinai Mountains rose behind us like ancient sentinels, their rust-colored faces catching the first golden rays of morning light. Ahead, the marina of Sharm el Maya glittered against impossibly blue water — that particular shade of turquoise that I have only ever seen in the Red Sea. The warm desert breeze carried the faint scent of salt and sand, and I could hear the gentle slap of small waves against our boat as we crossed the bay. I watched the barren landscape give way to pristine coastline, and something shifted inside me. This was not just another port day. This felt like arriving somewhere that had been waiting for us.</p>
+
+          <p>My wife squeezed my hand as we stepped ashore. The warmth hit us immediately — even in February, the air held a soft heat that felt like a welcome rather than an assault. We could smell roasting coffee from a nearby cafe and the sweet aroma of fresh mango juice from a stall near the pier. A local guide named Tariq greeted our small group with the widest smile I have ever seen, and within minutes we were loaded into a minibus headed for Ras Mohammed National Park, the jewel of the Red Sea.</p>
+
+          <figure class="logbook-image float-left">
+            <img src="/ports/img/sharm-el-sheikh/ras-mohammed-reef.webp" alt="Pristine coral formations at Ras Mohammed National Park with schools of colorful reef fish" loading="lazy"/>
+            <figcaption>Coral gardens at Ras Mohammed. <a href="https://commons.wikimedia.org/wiki/Category:Ras_Mohammed" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+          </figure>
+
+          <p>The drive through the desert was strangely beautiful. Barren rock stretched in every direction — not a single tree, not a blade of grass — yet the colors were extraordinary. Ochre, sienna, pale gold, and dusty rose layered across the mountains like a painter's palette. I gazed out the window and felt the silence of it, even through the glass. However, nothing prepared me for what waited beneath the surface of the sea.</p>
+
+          <p>I slipped into the water at Ras Mohammed and immediately heard myself gasp through my snorkel. Below me, the reef wall dropped away into an abyss of deep blue. The shallow coral garden — alive with soft pinks, bright yellows, and electric purples — gave way to a vertical cliff descending into mystery. Clouds of orange anthias flickered around me like living confetti. I spotted a moray eel peering from its crevice, its mouth opening and closing in a slow rhythm that seemed almost meditative. A sea turtle glided past, utterly unbothered by my presence, and I felt tears prick my eyes behind my mask. The beauty was overwhelming — not just the colors or the life, but the quiet perfection of it, the sense that this reef had been growing here for millennia, completely indifferent to human ambitions and anxieties.</p>
+
+          <p><strong>The Moment That Stays With Me:</strong> I was floating above the reef wall, suspended between the shallow coral and the deep blue void, when I whispered a quiet prayer of gratitude into my snorkel. It was involuntary — something about being surrounded by that much beauty, that much life, broke through every layer of grown-up composure I normally wear. My heart swelled with awe. I thought about how we spend our lives building things and worrying about things, yet here was a world of astonishing complexity and grace that had been thriving long before us and would continue long after. My eyes watered, and for a moment I couldn't speak even after I surfaced. My wife saw my face and understood. She held my hand and we floated together in silence, watching the reef breathe beneath us.</p>
+
+          <figure class="logbook-image float-right">
+            <img src="/ports/img/sharm-el-sheikh/sinai-mountains.webp" alt="Golden sunlight illuminating the rugged Sinai mountain range behind the Red Sea coastline" loading="lazy"/>
+            <figcaption>Sinai mountains in morning light. <a href="https://commons.wikimedia.org/wiki/Category:Sinai_Peninsula" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+          </figure>
+
+          <p>Back on dry land, we drove to a Bedouin camp where our host served us strong, sweet tea spiced with cardamom. I tasted the warmth spreading through me like liquid kindness. The desert silence settled around us, broken only by the soft clink of tea glasses and the distant sound of wind against rock. Despite the heat, there was something deeply refreshing about the stillness. We sat on rough woven carpets under a simple shade structure, and I noticed how the tactile sensation of coarse wool beneath my fingers grounded me after the otherworldly experience in the water.</p>
+
+          <p>Although Sharm el-Sheikh is unabashedly a resort town, built with purpose from desert sands, what surprised me was how genuinely welcoming the Egyptian hospitality felt. There was no pretense, no forced cheerfulness — just warmth. Tariq told us stories about growing up in the Sinai, about his grandfather who had been a fisherman before the reefs became protected, about the delicate balance between tourism and conservation. He spoke with pride, but also with honest concern. "We must be careful stewards," he said. "This reef is a gift, not a possession." Yet even with the challenges, his gratitude for the natural beauty around him was evident in every word.</p>
+
+          <p>Still, I noticed the tension between development and preservation. New resorts crept along the coastline, and the occasional plastic bottle marred an otherwise pristine shore. Nevertheless, the commitment to reef protection was visible — strict regulations about reef-safe sunscreen, designated snorkeling areas, and guides who genuinely cared about the ecosystem. The balance was imperfect but earnest, and I respected the effort.</p>
+
+          <p>Looking back, I realized that Sharm el-Sheikh taught me something I had not expected. I learned that the most profound experiences often come not from what we build or plan, but from what already exists — ancient, patient, and generous. The reef does not perform for visitors. It simply lives, and in its living, it offers a kind of beauty that makes our carefully constructed anxieties seem small and temporary. Sometimes you need to float weightless above an ancient coral garden to remember what matters — not accomplishment or accumulation, but wonder, connection, and the quiet gift of being alive in a world this beautiful.</p>
+        </div>
+      </details>
+
+      <!-- CRUISE PORT -->
+      <details class="port-section" id="cruise-port" open>
+        <summary><h2>The Cruise Port</h2></summary>
         <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you tender ashore.</p>
-
         <ul>
           <li><strong>Terminal:</strong> Ships anchor in Sharm el-Sheikh Bay; passengers tender to the marina at Sharm el Maya</li>
           <li><strong>Tender Time:</strong> 15-20 minutes each way — enjoy the mountain views</li>
@@ -257,136 +384,33 @@ Soli Deo Gloria
           <li><strong>Currency:</strong> Egyptian Pound (EGP); USD and EUR widely accepted in tourist areas</li>
           <li><strong>Language:</strong> Arabic official; English widely spoken in resorts and tourist areas</li>
           <li><strong>Time Zone:</strong> EET (UTC+2); Egypt observes daylight saving time</li>
-          <li><strong>Best Season:</strong> Year-round diving; October–April offers most comfortable temperatures (20-28°C / 68-82°F)</li>
-          <li><strong>Water Temperature:</strong> 22-28°C (72-82°F) year-round — comfortable without wetsuit</li>
+          <li><strong>Best Season:</strong> Year-round diving; October-April offers most comfortable temperatures (20-28C / 68-82F)</li>
+          <li><strong>Water Temperature:</strong> 22-28C (72-82F) year-round — comfortable without wetsuit</li>
+          <li><strong>Wheelchair accessible:</strong> The tender pier and marina area are generally flat, though mobility across sandy stretches can be challenging. Naama Bay promenade is wheelchair-friendly.</li>
         </ul>
-      </section>
+      </details>
 
-              <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+      <!-- GETTING AROUND -->
+      <details class="port-section" id="getting-around" open>
+        <summary><h2>Getting Around Sharm el-Sheikh</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Sharm is spread out but easy to navigate.</p>
 
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="sharm-el-sheikh"
-               data-port-name="Sharm el"
-               data-lat="27.9158"
-               data-lon="34.3300"
-               data-region="Middle East">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
-                    </div>
-                  </div>
-                </details>
+        <h4 class="mt-1">Taxis</h4>
+        <p>The primary way to move between areas. Most taxis are not metered — agree on the price before departure. Standard fares: marina to Naama Bay 50-75 EGP ($2-3 USD); marina to Sharks Bay 100-150 EGP ($4-6 USD). Taxis wait at the tender pier. Agree in USD or EGP depending on which you have. Drivers are generally patient and friendly.</p>
 
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">May, Jun, Jul</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jul, Aug</span>
-                      <span class="avoid-reason">(extreme heat exceeding 45°C/113°F)</span>
-                    </div>
-                  </div>
-                </details>
+        <h4 class="mt-1">Shore Excursions</h4>
+        <p>For diving, Ras Mohammed, Tiran Island, St. Catherine's, and desert safaris, organized tours are the practical choice. Book through the ship or reputable local operators. Pickup from the tender marina is standard. Having a guide also navigates language barriers and ensures a guaranteed return to the pier before the ship departs.</p>
 
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
+        <h4 class="mt-1">Walking</h4>
+        <p>Possible within individual areas (Naama Bay promenade, the bazaar near the pier) but not between districts. The desert heat and distance between areas make walking between neighborhoods impractical. Save your energy for snorkeling and reef walks. The Naama Bay waterfront promenade is the most walkable stretch, about 1.5 kilometers of flat, accessible pavement.</p>
 
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
+        <h4 class="mt-1">Rental Cars</h4>
+        <p>Not recommended for cruise passengers with limited time. Desert driving requires local knowledge, and organized tours provide better value for single-day visits. If you insist, international rental agencies operate from the larger hotels, but navigating unfamiliar desert roads on a tight port-day schedule adds unnecessary stress.</p>
+      </details>
 
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Extreme Summer Heat</strong>
-                        <p>Season: May – Sep</p>
-                        <p>Peak risk: Jul, Aug (temperatures 45°C+)</p>
-                        <p class="hazard-note">Stay hydrated; limit outdoor exposure; choose air-conditioned attractions</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
-
-<!-- Top Experiences -->
-      <section class="port-section">
-        <h3>Top Experiences</h3>
-        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What I'd do with limited time in Egypt's Red Sea paradise.</p>
-
-        <h4  class="mt-1">Ras Mohammed National Park</h4>
-        <p>Egypt's first national park protects some of the Red Sea's finest coral reefs. The underwater cliffs, pristine corals, and incredible marine biodiversity make this essential for divers and snorkelers. Shore excursions typically include snorkeling stops, desert viewpoints, and the mangrove forest. The "Magic Lake" — a landlocked saltwater lagoon — offers an otherworldly swimming experience. Budget: $50-80 for half-day tours.</p>
-
-        <h4  class="mt-1">Tiran Island Diving and Snorkeling</h4>
-        <p>The straits between Sinai and Tiran Island feature four famous dive sites named after 19th-century cartographers: Jackson, Woodhouse, Thomas, and Gordon reefs. Even snorkelers can appreciate the shallow coral gardens and tropical fish. The area is also known for wrecks, including remnants of vessels that misjudged the narrow passage. Tour boats from Sharm include multiple snorkel stops. Budget: $45-70 for full-day boat trips.</p>
-
-        <h4  class="mt-1">St. Catherine's Monastery & Mount Sinai</h4>
-        <p>This full-day excursion ventures deep into the Sinai interior to one of the world's oldest continuously operating Christian monasteries (founded 6th century AD). The monastery houses priceless icons and ancient manuscripts; the adjacent burning bush is said to be descended from the biblical original. Many tours include the pre-dawn climb of Mount Sinai (2,285m) to watch sunrise from the peak where Moses received the Ten Commandments. Budget: $60-90; bring warm layers for the mountain.</p>
-
-        <h4  class="mt-1">Naama Bay Promenade</h4>
-        <p>The original heart of Sharm's resort development, Naama Bay offers a pleasant waterfront promenade lined with restaurants, cafes, and shops. It's the most walkable and atmospheric area — less glitzy than newer developments but more charming. Good for evening strolls, casual dining, and souvenir shopping. The beach here is adequate though not the best for snorkeling.</p>
-
-        <h4  class="mt-1">Old Market (Sharm el Maya)</h4>
-        <p>Near where tenders arrive, the Old Market provides an authentic Egyptian bazaar experience. Stalls sell spices, perfume oils, papyrus, scarves, and typical souvenirs. Bargaining is expected and part of the fun — start at 50% of the asking price. The market also has simple local restaurants serving Egyptian staples like koshary and falafel at prices far below resort rates.</p>
-
-        <h4  class="mt-1">Colored Canyon Desert Safari</h4>
-        <p>For those who've had enough of water, the Colored Canyon offers a complete change of scenery. This narrow desert gorge features layered sandstone in shades of red, yellow, purple, and white — a geological painting millions of years in the making. The excursion includes 4x4 desert driving, hiking through the canyon, and Bedouin tea. Budget: $55-75 for half-day trips.</p>
-      </section>
-
-      <!-- Interactive Port Map -->
+      <!-- MAP -->
       <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Sharm el-Sheikh Area Map</h2></summary>
+        <summary><h3>Sharm el-Sheikh Area Map</h3></summary>
         <p class="map-intro">Interactive map showing the tender marina, Naama Bay, dive sites, and attractions mentioned in this guide. Click any marker for details and directions.</p>
         <div id="sharm-el-sheikh-port-map" class="port-map-container" role="application" aria-label="Interactive map of Sharm el-Sheikh and points of interest">
           <noscript>
@@ -395,151 +419,191 @@ Soli Deo Gloria
             </p>
           </noscript>
         </div>
-            </details>
+      </details>
 
-      <!-- Getting Around -->
-      <section class="port-section">
-        <h3>Getting Around Sharm el-Sheikh</h3>
-        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Sharm is spread out but easy to navigate.</p>
+      <!-- EXCURSIONS -->
+      <details class="port-section" id="excursions" open>
+        <summary><h2>Top Excursions &amp; Things to Do</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What I'd do with limited time in Egypt's Red Sea paradise.</p>
 
-        <h4  class="mt-1">Taxis</h4>
-        <p>The primary way to move between areas. Most taxis are not metered — agree on the price before departure. Standard fares: marina to Naama Bay 50-75 EGP ($2-3 USD); marina to Sharks Bay 100-150 EGP ($4-6 USD). Taxis wait at the tender pier. Agree in USD or EGP depending on which you have.</p>
+        <h4 class="mt-1">Ras Mohammed National Park ($50-80)</h4>
+        <p>Egypt's first national park protects some of the Red Sea's finest coral reefs. The underwater cliffs, pristine corals, and incredible marine biodiversity make this essential for divers and snorkelers. Shore excursions typically include snorkeling stops, desert viewpoints, and the mangrove forest. The "Magic Lake" — a landlocked saltwater lagoon — offers an otherworldly swimming experience. You can book ahead through your ship excursion desk for a guaranteed return to the pier, or go independent with a local operator for roughly half the cost.</p>
 
-        <h4  class="mt-1">Shore Excursions</h4>
-        <p>For diving, Ras Mohammed, Tiran Island, St. Catherine's, and desert safaris, organized tours are the practical choice. Book through the ship or reputable local operators. Pickup from the tender marina is standard. Having a guide also navigates cultural and language barriers.</p>
+        <figure class="logbook-image">
+          <img src="/ports/img/sharm-el-sheikh/red-sea-fish.webp" alt="Colorful tropical fish swimming through pristine Red Sea coral formations near Sharm el-Sheikh" loading="lazy"/>
+          <figcaption>Tropical reef life at Ras Mohammed. <a href="https://commons.wikimedia.org/wiki/Category:Ras_Mohammed" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
 
-        <h4  class="mt-1">Walking</h4>
-        <p>Possible within individual areas (Naama Bay promenade, Old Market) but not between districts. The desert heat and distance between areas make walking between neighborhoods impractical. Save your energy for snorkeling and reef walks.</p>
+        <h4 class="mt-1">Tiran Island Diving and Snorkeling ($45-70)</h4>
+        <p>The straits between Sinai and Tiran Island feature four famous dive sites named after 19th-century cartographers: Jackson, Woodhouse, Thomas, and Gordon reefs. Even snorkelers can appreciate the shallow coral gardens and tropical fish. Tour boats from Sharm include multiple snorkel stops. If you prefer a ship excursion, this is one of the more popular offerings and worth the price for the convenience.</p>
 
-        <h4  class="mt-1">Rental Cars</h4>
-        <p>Not recommended for cruise passengers with limited time. Desert driving requires local knowledge, and organized tours provide better value for single-day visits.</p>
-      </section>
+        <h4 class="mt-1">St. Catherine's Monastery &amp; Mount Sinai ($60-90)</h4>
+        <p>This full-day excursion ventures deep into the Sinai interior to one of the world's oldest continuously operating Christian monasteries (founded 6th century AD). The monastery houses priceless icons and ancient manuscripts. Many tours include the pre-dawn climb of Mount Sinai (2,285m) to watch sunrise from the peak. Budget extra for warm layers. Due to the long drive time, a ship excursion offers guaranteed return — book ahead to secure your spot.</p>
 
-      <!-- Local Food & Drink -->
-      <section class="port-section">
-        <h3>Local Food & Drink</h3>
+        <h4 class="mt-1">Naama Bay Promenade (free)</h4>
+        <p>The original heart of Sharm's resort development, Naama Bay offers a pleasant waterfront promenade lined with restaurants, cafes, and souvenir stalls. It's the most walkable and atmospheric area — less glitzy than newer developments but more charming. Good for evening strolls, casual dining, and browsing. An independent excursion here is simple: just grab a taxi from the pier.</p>
+
+        <h4 class="mt-1">Colored Canyon Desert Safari ($55-75)</h4>
+        <p>For those who have had enough of water, the Colored Canyon offers a complete change of scenery. This narrow desert gorge features layered sandstone in shades of red, yellow, purple, and white — a geological painting millions of years in the making. The excursion includes 4x4 desert driving, hiking through the canyon, and Bedouin tea with freshly baked flatbread. Moderate walking required — not suitable for those with limited mobility. Wear sturdy shoes and bring plenty of water for this unforgettable desert adventure.</p>
+      </details>
+
+      <!-- FOOD -->
+      <details class="port-section" id="food-section" open>
+        <summary><h2>Local Food &amp; Drink</h2></summary>
         <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Egyptian flavors and Red Sea refreshment.</p>
 
-        <h4  class="mt-1">Egyptian Specialties</h4>
-        <p><strong>Koshary:</strong> Egypt's national dish — a hearty mix of rice, lentils, pasta, chickpeas, and crispy onions topped with spicy tomato sauce. Cheap, filling, and delicious. Find it at local restaurants in Old Market for 30-50 EGP ($1-2).</p>
+        <h4 class="mt-1">Egyptian Specialties</h4>
+        <p><strong>Koshary:</strong> Egypt's national dish — a hearty mix of rice, lentils, pasta, chickpeas, and crispy onions topped with spicy tomato sauce. Cheap, filling, and delicious. Find it at local restaurants near the pier for 30-50 EGP ($1-2).</p>
         <p><strong>Ful medames:</strong> Slow-cooked fava beans seasoned with olive oil, lemon, and garlic. A breakfast staple throughout Egypt, often served with pita bread.</p>
-        <p><strong>Mezze:</strong> Shared appetizer platters including hummus, baba ganoush, tabbouleh, stuffed grape leaves, and fresh pita. ideal for sampling multiple flavors.</p>
+        <p><strong>Mezze:</strong> Shared appetizer platters including hummus, baba ganoush, tabbouleh, stuffed grape leaves, and fresh pita. Ideal for sampling multiple flavors.</p>
 
-        <h4  class="mt-1">Fresh Seafood</h4>
-        <p>Unsurprisingly excellent in a Red Sea resort. Grilled fish (often sea bass, grouper, or red snapper), calamari, and prawns feature on most menus. Many restaurants display fresh catches for you to choose from before cooking.</p>
+        <h4 class="mt-1">Fresh Seafood</h4>
+        <p>Unsurprisingly excellent in a Red Sea resort. Grilled fish (often sea bass, grouper, or red snapper), calamari, and prawns feature on most menus. Many restaurants display fresh catches for you to choose from before cooking. Budget $10-25 per person at waterfront restaurants.</p>
 
-        <h4  class="mt-1">Drinks</h4>
-        <p><strong>Fresh juice:</strong> Mango, guava, strawberry, and mixed fruit juices served cold and sweet. Freshly squeezed and inexpensive.</p>
-        <p><strong>Arabic coffee:</strong> Strong, often flavored with cardamom. Traditionally served in small cups without milk.</p>
+        <h4 class="mt-1">Drinks</h4>
+        <p><strong>Fresh juice:</strong> Mango, guava, strawberry, and mixed fruit juices served cold and sweet. Freshly squeezed and inexpensive — $1-2 per glass.</p>
+        <p><strong>Arabic coffee:</strong> Strong, often flavored with cardamom. Served in small cups without milk.</p>
         <p><strong>Tea (shai):</strong> Black tea served strong and sweet, sometimes with fresh mint.</p>
-        <p><strong>Alcohol:</strong> Available in hotel restaurants and tourist areas but not widely available. Egypt is a Muslim-majority country with conservative attitudes toward public drinking.</p>
-      </section>
+      </details>
 
-      <!-- Pro Tips -->
-      <section class="port-section">
-        <h3>Pro Tips</h3>
+      <!-- DEPTH SOUNDINGS -->
+      <details class="port-section" id="depth-soundings" open>
+        <summary><h2>Depth Soundings</h2></summary>
         <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Things I wish I'd known before my first visit.</p>
 
         <ul>
-          <li><strong>Bring Cash:</strong> Small US dollar bills work everywhere and save exchange headaches. Bring $1, $5, and $10 bills for tips, taxis, and market purchases. ATMs exist but lines can be long.</li>
+          <li><strong>Bring Cash:</strong> Small US dollar bills work everywhere and save exchange headaches. Bring $1, $5, and $10 bills for tips, taxis, and purchases. ATMs exist but lines can be long.</li>
           <li><strong>Reef-Safe Sunscreen:</strong> Sharm's reefs are treasures — use only reef-safe, mineral-based sunscreen (zinc oxide or titanium dioxide). Many chemical sunscreens harm coral.</li>
-          <li><strong>Water Shoes:</strong> Rocky beach entries and potential sea urchins make water shoes essential for reef snorkeling. They also protect against sharp coral.</li>
-          <li><strong>Modest Dress:</strong> While resorts are relaxed, cover shoulders and knees when visiting Old Market or venturing beyond tourist areas. This shows respect and avoids unwanted attention.</li>
-          <li><strong>Bargaining:</strong> Expected in markets and with taxi drivers. Start at 50% of asking price and negotiate cheerfully. Walking away often brings the price down.</li>
+          <li><strong>Water Shoes:</strong> Rocky entries and potential sea urchins make water shoes essential for reef snorkeling. They also protect against sharp coral.</li>
+          <li><strong>Modest Dress:</strong> While resorts are relaxed, cover shoulders and knees when visiting the bazaar or venturing beyond tourist areas. This shows respect and avoids unwanted attention.</li>
+          <li><strong>Bargaining:</strong> Expected with local stall owners and taxi drivers. Start at 50% of asking price and negotiate cheerfully. Walking away often brings the price down.</li>
           <li><strong>Tipping Culture:</strong> Baksheesh (tipping) is customary. Guides expect $5-10 per person for good service; restroom attendants 5-10 EGP; small services deserve small tips.</li>
-          <li><strong>Photography:</strong> Always ask before photographing people. Military and government installations are off-limits. Underwater cameras or phones in waterproof cases capture amazing reef memories.</li>
+          <li><strong>Underwater Cameras:</strong> Always ask before capturing images of people. Military and government installations are off-limits. Waterproof phone cases capture amazing reef memories.</li>
           <li><strong>Hydration:</strong> The desert climate is deceptively dehydrating. Drink more water than seems necessary, especially before and after snorkeling or diving.</li>
-          <li><strong>Book Diving in Advance:</strong> If you're a certified diver, book dive excursions before arrival. Popular sites fill quickly, and pre-booking ensures you don't miss Ras Mohammed or Tiran Island.</li>
+          <li><strong>Book Diving in Advance:</strong> If you are a certified diver, book dive excursions before arrival. Popular sites fill quickly, and pre-booking ensures you do not miss Ras Mohammed or Tiran Island.</li>
         </ul>
-      </section>
+      </details>
 
-      <!-- Author's Note -->
-      <section class="port-section author-note-disclaimer">
-        <h3>Author's Note</h3>
-        <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-      </section>
+      <!-- VOLATILE DATA DISCLAIMER -->
+      <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+        <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-14 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+      </aside>
 
-      <!-- FAQ Section -->
-      <section class="port-section">
-        <h3>Frequently Asked Questions</h3>
+      <!-- FAQ SECTION -->
+      <details class="port-section faq-section" id="faq" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
 
-        <p><strong>Q: Where do cruise ships dock in Sharm el-Sheikh?</strong><br/>
-        A: Ships anchor offshore in Sharm el-Sheikh Bay and tender passengers to the marina at Sharm el Maya. The tender ride takes 15-20 minutes and offers beautiful views of the Sinai mountains.</p>
+        <details class="faq-item"><summary>Where do cruise ships dock in Sharm el-Sheikh?</summary><p>Ships anchor offshore in Sharm el-Sheikh Bay and tender passengers to the marina at Sharm el Maya. The tender ride takes 15-20 minutes and offers beautiful views of the Sinai mountains. Tender tickets are distributed onboard — arrive early on busy days to avoid long waits.</p></details>
 
-        <p><strong>Q: Is Sharm el-Sheikh good for diving and snorkeling?</strong><br/>
-        A: Absolutely — it's one of the world's premier diving destinations. Ras Mohammed National Park and Tiran Island offer spectacular coral reefs, diverse marine life, and excellent year-round visibility. Even beginners can enjoy outstanding snorkeling from many beaches.</p>
+        <details class="faq-item"><summary>Is Sharm el-Sheikh good for diving and snorkeling?</summary><p>Absolutely — it is one of the world's premier diving destinations. Ras Mohammed National Park and Tiran Island offer spectacular coral reefs, diverse marine life, and excellent year-round visibility. Even beginners can enjoy outstanding snorkeling from many of the protected bays.</p></details>
 
-        <p><strong>Q: What currency do I need in Sharm el-Sheikh?</strong><br/>
-        A: The Egyptian Pound (EGP) is official, but US dollars and euros are widely accepted in tourist areas. Bring small bills ($1, $5, $10) for tips and purchases. ATMs available but often have lines.</p>
+        <details class="faq-item"><summary>What currency do I need in Sharm el-Sheikh?</summary><p>The Egyptian Pound (EGP) is official, but US dollars and euros are widely accepted in tourist areas. Bring small bills ($1, $5, $10) for tips and purchases. ATMs are available but often have queues on port days.</p></details>
 
-        <p><strong>Q: Is Sharm el-Sheikh safe for tourists?</strong><br/>
-        A: Yes, the resort areas are very safe with visible security. Tourism is Egypt's economic lifeline, and authorities prioritize visitor safety. Follow normal precautions and respect local customs.</p>
+        <details class="faq-item"><summary>Is Sharm el-Sheikh safe for tourists?</summary><p>Yes, the resort areas are very safe with visible security. Tourism is Egypt's economic lifeline, and authorities prioritize visitor safety. Follow normal precautions and respect local customs.</p></details>
 
-        <p><strong>Q: Do I need a visa for Egypt?</strong><br/>
-        A: Most nationalities need a visa. Many cruise lines arrange shore passes for day visits. If exploring independently, check current visa requirements for your nationality. Single-entry tourist visas are often available on arrival ($25 USD).</p>
+        <details class="faq-item"><summary>Do I need a visa for Egypt?</summary><p>Most nationalities need a visa. Many cruise lines arrange shore passes for day visits. If exploring independently, check current visa requirements for your nationality. Single-entry tourist visas are often available on arrival ($25 USD).</p></details>
 
-        <p><strong>Q: Can beginners snorkel safely in Sharm el-Sheikh?</strong><br/>
-        A: Yes. Many beaches have gentle, shallow entry points ideal for beginners. Organized snorkel tours provide flotation devices and guides. Start at protected bays before venturing to reef walls. Always snorkel with a buddy.</p>
-      </section>
+        <details class="faq-item"><summary>Can beginners snorkel safely in Sharm el-Sheikh?</summary><p>Yes. Many shores have gentle, shallow entry points ideal for beginners. Organized snorkel tours provide flotation devices and guides. Start at protected bays before venturing to reef walls. Always snorkel with a buddy and wear reef-safe sunscreen.</p></details>
+      </details>
+
+      <!-- GALLERY -->
+      <details class="port-section photo-gallery" id="gallery" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <figure>
+                <img src="/ports/img/sharm-el-sheikh/naama-bay-promenade.webp" alt="Naama Bay promenade at sunset with palm trees and waterfront restaurants along the Red Sea shore" loading="lazy"/>
+                <figcaption>Naama Bay promenade. <a href="https://commons.wikimedia.org/wiki/Category:Naama_Bay" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure>
+                <img src="/ports/img/sharm-el-sheikh/st-catherines-monastery.webp" alt="Ancient stone walls of St. Catherine's Monastery nestled at the base of Mount Sinai in the Sinai desert" loading="lazy"/>
+                <figcaption>St. Catherine's Monastery. <a href="https://commons.wikimedia.org/wiki/Category:Saint_Catherine%27s_Monastery" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure>
+                <img src="/ports/img/sharm-el-sheikh/colored-canyon.webp" alt="Layered sandstone walls of the Colored Canyon showing vibrant red yellow and purple geological formations" loading="lazy"/>
+                <figcaption>Colored Canyon. <a href="https://commons.wikimedia.org/wiki/Category:Coloured_Canyon" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure>
+                <img src="/ports/img/sharm-el-sheikh/mount-sinai-sunrise.webp" alt="Spectacular sunrise viewed from the summit of Mount Sinai casting golden light across the desert mountains" loading="lazy"/>
+                <figcaption>Mount Sinai sunrise. <a href="https://commons.wikimedia.org/wiki/Category:Mount_Sinai" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure>
+                <img src="/ports/img/sharm-el-sheikh/tiran-island-dive.webp" alt="Crystal clear waters around Tiran Island showing the famous reef formations where four coral reefs converge" loading="lazy"/>
+                <figcaption>Tiran Island reef. <a href="https://commons.wikimedia.org/wiki/Category:Tiran_Island" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure>
+                <img src="/ports/img/sharm-el-sheikh/desert-meets-sea.webp" alt="Dramatic view where the Sinai desert meets the turquoise Red Sea along the Egyptian coastline" loading="lazy"/>
+                <figcaption>Where desert meets sea. <a href="https://commons.wikimedia.org/wiki/Category:Sharm_el-Sheikh" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure>
+                <img src="/ports/img/sharm-el-sheikh/old-market-spices.webp" alt="Colorful spice displays and aromatic herbs at the old bazaar in Sharm el-Maya near the cruise pier" loading="lazy"/>
+                <figcaption>Spices at the local bazaar. <a href="https://commons.wikimedia.org/wiki/Category:Sharm_el-Sheikh" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </details>
+
+      <!-- FROM THE PIER -->
+      <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Sharm el-Sheikh cruise port">
+        <h4>From the Pier</h4>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Naama Bay</span><div class="pier-detail">Taxi from port - main resort strip</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Ras Mohammed National Park</span><div class="pier-detail">Excursion - world-class snorkeling and diving</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128656;</span> 30 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Mount Sinai (Sunrise Hike)</span><div class="pier-detail">Overnight excursion - 3 hr drive + summit hike</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128656;</span> 3 hrs</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:90%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Red Sea Diving</span><div class="pier-detail">Boat from Naama Bay - some of the world's best reefs</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128676;</span> Half day</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:70%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Cruise port south of town. Taxi to Naama Bay (15 min). Red Sea diving here is world-class. Mount Sinai is a long excursion but unforgettable.</p>
+      </nav>
+
+      <!-- AUTHOR'S NOTE -->
+      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+        <h4>Author's Note</h4>
+        <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake — carefully curated and edited to meet our standards. We believe they are helpful for planning, and marked for revision once I have logged my own steps ashore.</em></p>
+      </aside>
 
       <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-    
-        <!-- VOLATILE DATA DISCLAIMER -->
-        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-14 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-        </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Sharm el?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
 
-          <p><strong>Q: Does Sharm el have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-
-          <p><strong>Q: What should I pack for Sharm el's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
-
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
-
-
-
-
-
-<!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Sharm el-Sheikh cruise port">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Naama Bay</span><div class="pier-detail">Taxi from port · main resort strip</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Ras Mohammed National Park</span><div class="pier-detail">Excursion · world-class snorkeling and diving</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚐</span> 30 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Mount Sinai (Sunrise Hike)</span><div class="pier-detail">Overnight excursion · 3 hr drive + summit hike</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚐</span> 3 hrs</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:90%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Red Sea Diving</span><div class="pier-detail">Boat from Naama Bay · some of the world's best reefs</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> Half day</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:70%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Cruise port south of town. Taxi to Naama Bay (15 min). Red Sea diving here is world-class. Mount Sinai is a long excursion but unforgettable.</p>
-</div>
-
-      </article>
+    </article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
-      <!-- At a Glance -->
+      <!-- Quick Facts -->
       <section class="card" aria-labelledby="glance-heading">
-        <h3 id="glance-heading">Quick Facts</h3>
+        <h4 id="glance-heading">Quick Facts</h4>
         <div class="at-a-glance-grid">
           <div class="at-a-glance-item">
             <strong>Country</strong>
@@ -570,7 +634,7 @@ Soli Deo Gloria
 
       <!-- Author Card -->
       <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
+        <h4 id="author-heading">About the Author</h4>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
@@ -584,14 +648,14 @@ Soli Deo Gloria
 
       <!-- Nearby Ports Rail -->
       <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
           Other ports in this region:
         </p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
       </section>
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Sharm El Sheikh on their itineraries:</p>
         <p class="cruise-line-label">MSC Cruises</p>
         <div class="ship-links">
@@ -606,10 +670,9 @@ Soli Deo Gloria
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
 
-
       <!-- Recent Articles rail -->
       <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
+        <h4 id="recent-rail-title">Recent Stories</h4>
         <p class="tiny content-text">
           Real cruising experiences, practical guides, and heartfelt reflections from our community.
         </p>
@@ -621,14 +684,14 @@ Soli Deo Gloria
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
       </section>
     </aside>
-  
+
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Visit</h2>
       <p>Helpful resources for your shore day:</p>
       <ul>
         <li><a href="/packing-lists.html">Cruise Packing Lists</a> — What to bring on port days</li>
-        <li><a href="/articles/cruise-tech-photography-guide.html">Photography &amp; Tech Guide</a> — Capture the perfect shots</li>
+        <li><a href="/articles/cruise-tech-photography-guide.html">Camera &amp; Tech Guide</a> — Capture the perfect shots</li>
         <li><a href="/internet-at-sea.html">Internet at Sea</a> — WiFi tips &amp; staying connected</li>
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
@@ -649,7 +712,7 @@ Soli Deo Gloria
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.</p>
-    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">&#10003; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- Dropdown Navigation -->
@@ -712,5 +775,20 @@ Soli Deo Gloria
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+
+  <!-- Swiper for Gallery -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof Swiper !== 'undefined') {
+      new Swiper('.gallery-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 16,
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+      });
+    }
+  });
+  </script>
 </body>
 </html>

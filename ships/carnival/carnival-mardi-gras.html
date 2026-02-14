@@ -56,7 +56,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- ICP-Lite v1.0: AI-First Metadata -->
   <meta name="ai-summary" content="Carnival Mardi Gras: Lead Excel-class (2021), 180,000 GT, 5,282 guests. First BOLT roller coaster at sea. LNG-powered. Port Canaveral homeport. French Quarter zone. Kathie Lee Gifford godmother. IMO 9837444."/>
-  <meta name="last-reviewed" content="2025-12-03"/>
+  <meta name="last-reviewed" content="2026-02-13"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
 
   <!-- Title & SEO -->
@@ -187,7 +187,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     "name": "Carnival Mardi Gras — Deck Plans, Live Tracker, Dining & Videos",
     "url": "https://cruisinginthewake.com/ships/carnival/carnival-mardi-gras.html",
     "description": "Carnival Mardi Gras: Lead Excel-class (2021), 180,000 GT, 5,282 guests. First BOLT roller coaster at sea. LNG-powered. Port Canaveral homeport. French Quarter zone. Kathie Lee Gifford godmother. IMO 9837444.",
-    "dateModified": "2025-12-03",
+    "dateModified": "2026-02-13",
     "mainEntity": {
       "@type": "Thing",
       "name": "Carnival Mardi Gras",
@@ -361,6 +361,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -862,7 +865,7 @@ Dining Venues on Carnival Mardi Gras <a href="/restaurants.html" style="font-siz
       }
     }
     function fetchVideoData(){
-      const SOURCES=[abs('/assets/data/videos/carnival/carnival-mardi-gras.json'),abs('/assets/data/videos/carnival-mardi-gras.json')];
+      const SOURCES=[abs('/assets/data/videos/carnival/carnival-mardi-gras.json')];
       function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
         return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
       return tryFetch();

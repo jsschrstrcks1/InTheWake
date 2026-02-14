@@ -144,7 +144,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
   <header class="hero-header" role="banner">
     <nav class="navbar" aria-label="Main navigation">
       <div class="brand">
-        <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <img loading="eager" fetchpriority="high" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
       </div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
@@ -179,6 +179,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -230,8 +233,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         </header>
 
         <!-- Logbook Entry -->
-        <section class="logbook-entry">
-          <h2>From the Logbook</h2>
+        <details class="logbook-entry" open>
+          <summary><h2>From the Logbook</h2></summary>
           <blockquote>
             <p>
               "The ship slowed as we approached the first glacier — Romanche — its blue-white face rising straight from the dark channel water. The silence was absolute. Then came the crack, like rifle shots echoing off the mountains, followed by a thunderous rumble as a section of ice calved into the sea. Passengers gasped. Over the next hours, we passed six more glaciers, each distinct: the broad sweep of Italia, the fractured seracs of España, the impossibly blue ice of Holanda. The captain positioned the ship for optimal viewing of each. By the time we reached Pía Glacier at the end of the alley, we'd used up three camera batteries."
@@ -241,7 +244,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           <p class="highlight">
             <strong>Highlight:</strong> The turquoise blue of the glacial ice, more vivid than any photograph can capture, glowing against the grey Patagonian sky.
           </p>
-        </section>
+        </details>
 
         <!-- Main Content Sections -->
         <section class="port-section">
@@ -316,8 +319,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           </ul>
         </section>
 
-        <section class="port-section">
-          <h2>Practical Information</h2>
+        <details class="port-section" open>
+          <summary><h2>Practical Information</h2></summary>
           <ul>
             <li><strong>Location</strong> — Alberto de Agostini National Park, Chile</li>
             <li><strong>Access</strong> — Cruise ship only; no road access</li>
@@ -326,7 +329,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <li><strong>Temperature</strong> — 30-50°F (-1 to 10°C) on deck near glaciers</li>
             <li><strong>Expedition options</strong> — Some ships offer Zodiac landings near Pía Glacier</li>
           </ul>
-        </section>
+        </details>
 
         <!-- Port Map -->
         <section class="port-section">
@@ -335,8 +338,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         </section>
 
         <!-- FAQ Section -->
-        <section class="port-faq">
-          <h2>Frequently Asked Questions</h2>
+        <details class="port-faq" open>
+          <summary><h2>Frequently Asked Questions</h2></summary>
           <details>
             <summary>How many glaciers are in Glacier Alley?</summary>
             <p>
@@ -361,7 +364,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               Sailing westward from Ushuaia, the glaciers are on the starboard (right) side. Sailing eastward toward Ushuaia, they're on the port (left) side. Most ships reposition to give all passengers views; check with cruise staff.
             </p>
           </details>
-        </section>
+        </details>
 
         <!-- Disclaimers -->
         <aside class="disclaimers">
@@ -371,7 +374,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         </aside>
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Distances in Glacier Alley">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Distances in Glacier Alley">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -401,7 +404,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </li>
   </ul>
   <p class="pier-note">Glacier Alley is scenic cruising through the Beagle Channel — no stops, no landings. Seven glaciers (Pía, Holanda, España, Italia, Francia, Alemania, Romanche) flow down from the Darwin Cordillera. Transit takes 4–6 hours. Starboard side heading west, port side heading east.</p>
-</div>
+</nav>
 
       </article>
 

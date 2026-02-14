@@ -139,7 +139,7 @@ Soli Deo Gloria
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="lazy"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="eager" fetchpriority="high"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
       <!-- Mobile hamburger button -->
@@ -179,6 +179,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -219,78 +222,203 @@ Soli Deo Gloria
             <span>Mindelo</span>
         </nav>
 
-        <div class="hero-port" style="background-image: url('/ports/img/mindelo/mindelo-hero.webp');">
-            <div class="hero-overlay">
-                <h1>Mindelo, Cape Verde</h1>
-                <p class="hero-tagline">Cultural Heart of the Atlantic</p>
-            </div>
+      <div class="content-wrapper">
+        <article class="card">
+          <h1>Mindelo: Where Morna Music Meets the Atlantic Wind</h1>
+
+      <!-- ===== HERO ===== -->
+      <section class="port-hero" id="hero">
+        <div class="port-hero-image">
+          <img src="/ports/img/mindelo/mindelo-hero.webp" alt="Panoramic view of Mindelo harbor with colorful Portuguese colonial buildings lining the waterfront of Porto Grande bay on São Vicente island" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <div class="port-hero-overlay">
+            <h1 class="port-hero-title">Mindelo, Cape Verde</h1>
+          </div>
         </div>
+        <p class="port-hero-credit"><a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></p>
+      </section>
 
-        <div class="content-wrapper">
-            <article class="port-content logbook-entry">
-                <header class="article-header">
-                    <p class="port-location">São Vicente Island, Cape Verde</p>
-                    <p class="last-visited">Visited: March 2023</p>
-                </header>
+      <p class="last-reviewed">Last reviewed: February 2026</p>
+      <div id="journal-btn-container"></div>
 
-                <div class="opening-reflection">
-                    <p>I arrived in Mindelo on a morning when the harmattan wind carried Saharan dust across the Atlantic, softening the sun into a pale amber disc above Porto Grande. Our tender approached the wharf past freighters and fishing boats, and even before stepping ashore I could hear it—the music. It drifted from somewhere in the colonial streets beyond the waterfront, a woman's voice singing morna, that distinctly Cape Verdean blend of longing and hope that Cesária Évora carried to the world.</p>
-
-                    <p>Mindelo isn't just a port of call on the Atlantic crossing between Europe and South America. It's the cultural soul of Cape Verde, a place where Portuguese colonial architecture meets African rhythms, where British coal station history mingles with Creole identity, and where every corner seems to pulse with music. This is the city that gave us the "Barefoot Diva," and walking these streets, I understood why her voice carried such depth—it was born from this very dust, these volcanic stones, this shimmering harbor light.</p>
-                </div>
-
-                <div class="poignant-highlight">
-                    <h3>The Moment That Stays With Me:</h3>
-                    <p>Late afternoon at a small café on Rua de Lisboa. An old man sat by the window with a guitar, playing morna for no one in particular—just for the music itself. The sunlight through the colonial shutters striped the tile floor. A woman at the next table hummed along while stirring her coffee. No performance, no audience, just life infused with song. In that moment I understood that music here isn't entertainment—it's the very air Mindelo breathes.</p>
-                </div>
-
-                <section id="port-essentials">
-                    <h2>Port Essentials</h2>
-                    <p>Mindelo sits on the magnificent natural harbor of Porto Grande on São Vicente island, the second most populated island in the Cape Verde archipelago. The harbor is deep and sheltered, protected by volcanic hills that give the bay its secure anchorage. Ships anchor in the bay and tender passengers directly to the main wharf, depositing you in the heart of town—no shuttles needed, no long pier walks. You step off the tender and you're already in Mindelo.</p>
-
-                    <p>This harbor has history. In the days of coal-powered ships crossing the Atlantic, Mindelo was a crucial refueling station, managed by the British. That legacy lingers in the waterfront architecture and the cosmopolitan character of the town. Today the port serves cruise ships, cargo vessels, and the fishing fleet that supplies the famous Mercado de Peixe. The working harbor energy gives Mindelo an authenticity that some cruise ports have lost.</p>
-
-                    <p>The town itself spreads along the waterfront and climbs gently into the volcanic hills. Everything you'll want to see is walkable from the port: Praça Nova with its colonial buildings, the replica Torre de Belém, the fish market, the cultural center dedicated to Cesária Évora, and the cobbled streets where morna and coladeira music spill from open doorways. The currency is the Cape Verdean Escudo (CVE), though euros are widely accepted. Portuguese is the official language, but you'll hear Cape Verdean Creole everywhere—a melodious blend I found as rhythmic as the music.</p>
-                </section>
-
-                <section id="top-experiences">
-                    <h2>Top Experiences in Mindelo</h2>
-
-                    <div class="experience-item">
-                        <h4>Walk Rua de Lisboa and Praça Nova</h4>
-                        <p>The colonial heart of Mindelo runs along Rua de Lisboa and centers on Praça Nova, a square lined with pastel-colored Portuguese colonial buildings, their shuttered windows and wrought-iron balconies speaking of another era. I walked these streets in the morning when the light was still gentle, watching shopkeepers sweep their storefronts and old men arranging chairs at outdoor cafés. The architecture is weathered but proud—peeling paint reveals layers of history, and every building seems to hold stories of sailors, merchants, and musicians who passed through this Atlantic crossroads.</p>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+        <div class="collapse-body">
+          <div id="port-weather-widget"
+               data-port-id="mindelo"
+               data-port-name="Mindelo"
+               data-lat="16.8900"
+               data-lon="-24.9800"
+               data-region="Atlantic Islands">
+            <noscript>
+              <div class="seasonal-guide seasonal-guide-static">
+                <details class="seasonal-section" open>
+                  <summary class="seasonal-section-title">At a Glance</summary>
+                  <div class="seasonal-at-glance">
+                    <div class="seasonal-glance-grid">
+                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">68-82°F (20-28°C) year-round</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Moderate, 65-75%</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Rare; brief showers Aug-Oct</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Trade winds; harmattan dust Dec-Feb</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">11-13 hours depending on season</span></div>
                     </div>
-
-                    <div class="experience-item">
-                        <h4>Visit the Centro Cultural do Mindelo (Cesária Évora Museum)</h4>
-                        <p>You cannot understand Mindelo without understanding Cesária Évora, and the cultural center dedicated to her memory is a pilgrimage for anyone who's ever been moved by her voice. Born in Mindelo in 1941, she rose from singing in local bars to international fame, always performing barefoot in solidarity with the poor women of Cape Verde. The center displays photographs, costumes, recordings, and personal effects. I stood before a photo of her young, already with that knowing gaze, and felt the connection between this woman and these streets. Her music is Mindelo made audible.</p>
+                  </div>
+                </details>
+                <details class="seasonal-section" open>
+                  <summary class="seasonal-section-title">Best Time to Visit</summary>
+                  <div class="seasonal-best-time">
+                    <div class="cruise-seasons-grid">
+                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar, Apr, May</span></div>
+                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Jun, Oct</span></div>
+                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Jul, Aug, Sep</span></div>
                     </div>
-
-                    <div class="experience-item">
-                        <h4>Experience the Mercado de Peixe (Fish Market)</h4>
-                        <p>The fish market near the harbor is where Mindelo's Atlantic identity becomes visceral. I arrived mid-morning when the catch was being laid out—tuna, grouper, wahoo, octopus—on tables slick with sea water. Fishermen called out prices, customers haggled in Creole, and the whole place smelled of salt and fresh catch. Women in bright head wraps cleaned fish with practiced efficiency. This isn't sanitized or touristic; it's the real economic heart of a fishing community. I bought grilled fish from a vendor outside and ate it standing up, watching the harbor and feeling genuinely part of the place.</p>
+                    <div class="best-months-activities">
+                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar, Apr, May, Jun</span></div>
+                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar, Apr, May</span></div>
+                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar, Apr, May</span></div>
+                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Jul, Aug, Sep</span></div>
                     </div>
-
-                    <div class="experience-item">
-                        <h4>See the Torre de Belém Replica</h4>
-                        <p>On the waterfront stands a small replica of Lisbon's famous Torre de Belém, a symbol of the Portuguese maritime heritage that shaped Cape Verde. It's not large or particularly grand, but it's poignant—a reminder that these islands, 500 kilometers off the West African coast, were stepping stones in the age of exploration, and remain culturally tied to Portugal while forging their own Creole identity. I sat on a bench nearby and watched local kids playing soccer while ferries came and went. The tower stands as both monument and question: what does it mean to be Cape Verdean, neither fully African nor European, but something distinctly itself?</p>
+                    <div class="months-to-avoid">
+                      <strong>Months to approach with caution:</strong> Aug, Sep (hotter, more humid)
                     </div>
-
-                    <div class="experience-item">
-                        <h4>Climb Monte Verde for the View</h4>
-                        <p>If you have time and energy, take a taxi or aluguer (shared minibus) up Monte Verde, the highest point on São Vicente at 750 meters. The road winds up through increasingly barren volcanic landscape—this is an arid island, and the vegetation thins to scrub and rock as you ascend. At the top, the view is breathtaking: the entire island spread below, Porto Grande gleaming blue, Mindelo's pastel buildings clustered at the water's edge, and on clear days you can see neighboring islands in the archipelago. The wind up here is fierce and constant. I understood why Cape Verde feels like a place suspended between continents, alone in the Atlantic immensity.</p>
+                  </div>
+                </details>
+                <details class="seasonal-section">
+                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                  <ul class="catches-list">
+                    <li><strong>Harmattan dust:</strong> Dec-Feb brings Saharan dust that can reduce visibility and affect air quality</li>
+                    <li><strong>Very little rain:</strong> Cape Verde is arid — do not expect tropical showers</li>
+                    <li><strong>Carnival crowds:</strong> February/March Carnival brings festive but crowded conditions</li>
+                  </ul>
+                </details>
+                <details class="seasonal-section">
+                  <summary class="seasonal-section-title">Packing Tips</summary>
+                  <ul class="packing-list">
+                    <li>Lightweight, breathable clothing</li>
+                    <li>Sunscreen and hat — strong Atlantic sun</li>
+                    <li>Light layers for cooler evenings</li>
+                    <li>Comfortable walking shoes for cobblestone streets</li>
+                    <li>Water bottle — stay hydrated in the arid climate</li>
+                  </ul>
+                </details>
+                <details class="seasonal-section">
+                  <summary class="seasonal-section-title">Weather Hazards</summary>
+                  <div class="hazard-warning">
+                    <span class="hazard-icon">&#9888;&#65039;</span>
+                    <div class="hazard-content">
+                      <strong>Harmattan Winds</strong>
+                      <p>Season: Dec - Feb</p>
+                      <p>Peak risk: Jan, Feb</p>
+                      <p class="hazard-note">Saharan dust carried by harmattan winds can reduce visibility and affect those with respiratory sensitivities. Cape Verde sits outside the main hurricane belt, though rare tropical storms can occur Aug-Oct.</p>
                     </div>
+                  </div>
+                </details>
+              </div>
+            </noscript>
+          </div>
+        </div>
+      </details>
 
-                    <div class="experience-item">
-                        <h4>Listen to Live Music in the Evening</h4>
-                        <p>If your ship stays late or overnights, do not miss the chance to experience Mindelo's music scene after dark. This town comes alive with morna and coladeira, the soulful and upbeat rhythms that define Cape Verdean music. I found myself at a small bar near the cultural center where a three-piece band—guitar, cavaquinho, and voice—played to a room of locals and a handful of travelers. The singer's voice carried that same sodade (longing) that Cesária made famous. People swayed, sang along, bought each other rounds of grogue (local sugarcane spirit). It wasn't a show; it was community, and I felt privileged to witness it.</p>
-                    </div>
-                </section>
+      <!-- ===== LOGBOOK ===== -->
+      <details class="port-section" id="logbook" open>
+        <summary><h2>My Visit to Mindelo</h2></summary>
+        <div class="logbook-entry clearfix">
 
-      <!-- Interactive Port Map -->
+          <p>I arrived in Mindelo on a morning when the harmattan wind carried Saharan dust across the Atlantic, softening the sun into a pale amber disc above Porto Grande. Our tender approached the wharf past rusted freighters and brightly painted fishing boats, and even before I stepped ashore I could hear it — the music. A woman's voice drifted from somewhere in the colonial streets beyond the waterfront, singing morna, that distinctly Cape Verdean blend of longing and hope that Cesária Évora carried to the world. The sound was fragile and clear, floating over the harbor water like something released rather than performed, and I stood still on the tender's deck and listened until the melody dissolved into the noise of the port. My hands gripped the railing, and I felt the rough warmth of the metal beneath my palms. Something in me already knew that this place would not be easy to leave.</p>
+
+          <figure>
+            <img src="/ports/img/mindelo/mindelo-harbor.webp" alt="Mindelo harbor panorama showing Porto Grande bay with fishing boats and the volcanic hills of São Vicente rising behind the waterfront" loading="lazy" width="400" height="300"/>
+            <figcaption>Porto Grande harbor viewed from the approaching tender. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+
+          <p>The wharf deposited us directly into the heart of town, and I walked along the waterfront toward Praça Nova with the morning still cool on my skin. Mindelo is not large, and within five minutes the colonial center opened before me — a square lined with pastel-colored Portuguese buildings, their shuttered windows and wrought-iron balconies faded but dignified, speaking of an era when this harbor was a vital coaling station for ships crossing between continents. I watched shopkeepers sweep their storefronts with straw brooms, the bristles scraping rhythmically on the cobblestones. Old men arranged plastic chairs at outdoor cafés, settling into positions they had clearly occupied every morning for decades. The architecture was weathered but proud — peeling paint revealing layers of history, ochre over blue over white, each layer a generation. I ran my fingers along a wall and felt the grit of old plaster crumbling beneath my touch, and I thought about how many sailors had walked these same stones, pausing in this same square, before continuing their Atlantic crossing to Brazil or back to Lisbon.</p>
+
+          <figure>
+            <img src="/ports/img/mindelo/mindelo-street.webp" alt="Narrow cobblestone street in Mindelo lined with colorful Portuguese colonial buildings and wrought-iron balconies" loading="lazy" width="400" height="300"/>
+            <figcaption>Colonial streetscape along Rua de Lisboa in the heart of Mindelo. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+
+          <p>My first real destination was the fish market near the harbor, and I smelled it before I saw it — salt, sea water, and the raw mineral scent of fresh catch laid out on wet stone. The Mercado de Peixe was alive with sound and color. Fishermen called out prices in Cape Verdean Creole, a melodious language I found as rhythmic as the music. Women in bright head wraps cleaned tuna and grouper with practiced efficiency, their knives flashing in the morning light, scales catching the sun like tiny coins scattered across the tables. I stood close enough to feel the cold mist rising from the ice, watching an octopus being lifted from a bucket, its tentacles curling and uncurling in slow motion. The market was not sanitized or touristic; it was the real economic heart of a fishing community, and I felt the honest weight of that. A vendor outside grilled fresh fish over charcoal, and I bought a plate — wahoo, simply prepared with lime and salt — and ate it standing up, the smoky flavor spreading across my tongue while I watched the harbor and the tender boats shuttling passengers from our ship. The fish was so fresh it tasted of the ocean itself, clean and bright, and I savored every bite.</p>
+
+          <figure>
+            <img src="/ports/img/mindelo/mindelo-food.webp" alt="Fresh grilled fish served on a plate at the Mindelo fish market with lime and local accompaniments" loading="lazy" width="400" height="300"/>
+            <figcaption>Grilled wahoo from a vendor outside the Mercado de Peixe. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+
+          <p>From the market I walked to the Centro Cultural do Mindelo, the museum dedicated to Cesária Évora. You cannot understand this town without understanding her. Born here in 1941, she rose from singing in local bars to international fame, always performing barefoot in solidarity with the poor women of Cape Verde. The museum was quiet when I entered — just me and a young attendant who nodded and let me wander. Photographs lined the walls: Cesária young, already with that knowing gaze; Cesária on stage at the Olympia in Paris; Cesária back home in Mindelo, sitting at a café table with a cigarette and a glass of grogue, the local sugarcane spirit. I stood before a photograph of her in her final years, her face deeply lined but her eyes still holding that unmistakable light, and something shifted inside me. Here was a woman who had endured poverty, obscurity, and heartbreak, yet she had transformed her suffering into music so beautiful it reached every continent. I thought about the courage it takes to keep singing when no one is listening, and I whispered a quiet prayer of gratitude for the artists who give their lives to beauty without any guarantee of reward. The attendant looked at me and smiled as though he understood what I was feeling without needing words.</p>
+
+          <figure>
+            <img src="/ports/img/mindelo/mindelo-landmark.webp" alt="The Torre de Belém replica on Mindelo's waterfront with the harbor and volcanic hills visible in the background" loading="lazy" width="400" height="300"/>
+            <figcaption>The Torre de Belém replica, a symbol of Portuguese maritime heritage in Mindelo. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+
+          <p>I walked to the waterfront replica of Lisbon's Torre de Belém and sat on a bench nearby, watching local children playing football on the dusty ground while ferries came and went across the harbor. The tower is not large or grand, but it is poignant — a reminder that these islands, five hundred kilometers off the West African coast, were stepping stones in the age of exploration, and remain culturally tied to Portugal while forging their own Creole identity. I sat there for a long time, feeling the warm breeze on my face, tasting the salt on my lips, listening to the children's laughter mingling with the distant sound of a guitar from an open doorway. It was one of those moments where time slows and the world feels both impossibly vast and intimately close.</p>
+
+          <p>In the afternoon I took an aluguer — a shared minibus, fare about 50 escudos — up the winding road to Monte Verde, the highest point on São Vicente at seven hundred and fifty meters. The vegetation thinned as we climbed, green scrub giving way to bare volcanic rock, and the air grew cooler and sharper with altitude. At the summit the wind was fierce and constant, pressing against me like a hand on my chest. But the view was breathtaking: the entire island spread below, Porto Grande gleaming blue, Mindelo's pastel buildings clustered at the water's edge like a painter's palette, and on the horizon the dark silhouettes of neighboring islands floating in Atlantic haze. I stood there alone, the wind roaring in my ears, and I understood why Cape Verde feels like a place suspended between continents — neither fully African nor European, but something distinctly itself, born from volcanic fire and shaped by the sea. The isolation was not lonely; it was clarifying. I felt small in the best possible way.</p>
+
+          <figure>
+            <img src="/ports/img/mindelo/mindelo-panorama.webp" alt="Sweeping panoramic view from Monte Verde summit showing Mindelo, Porto Grande bay, and neighboring islands on the horizon" loading="lazy" width="400" height="300"/>
+            <figcaption>The view from Monte Verde summit, 750 meters above São Vicente. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+
+          <p>That evening, back in town, I found myself at a small café on Rua de Lisboa. An old man sat by the window with a guitar, playing morna for no one in particular — just for the music itself. The sunlight through the colonial shutters striped the tile floor in bands of gold and shadow. A woman at the next table hummed along while stirring her coffee, the spoon clinking softly against the ceramic cup. I ordered a ponche — grogue mixed with molasses and lime — and the warmth of it spread through my chest as the old man played. No performance, no audience, no applause. Just life infused with song. I watched his fingers move across the strings, gnarled and certain, and I heard in his playing the same sodade — that untranslatable Cape Verdean longing — that Cesária had made famous. I thought about what it means to create beauty not for recognition but because beauty is what you are. The music here is not entertainment. It is the very air Mindelo breathes.</p>
+
+          <p>Looking back, I realize what Mindelo taught me. It is a place where culture is not performed for visitors but lived by its people — in the fish market at dawn, in the old man's guitar at dusk, in the children's football game beneath the Torre de Belém. I learned that the most authentic places are not the ones that try to impress you but the ones that simply invite you in and let you witness how they live. The lesson was quiet and it took me by surprise: sometimes the greatest gift a place can offer is not a spectacle but a song, not a monument but a moment of shared silence, not a destination but a feeling you carry home in the marrow of your bones. I sailed from Mindelo as the sun set behind the volcanic hills, painting the harbor gold and copper, and I felt my heart swell with gratitude for having been allowed, even briefly, to breathe the same air as a place that understands what it means to endure with grace.</p>
+
+        </div>
+      </details>
+
+      <!-- ===== FEATURED IMAGES ===== -->
+      <details class="port-section" id="featured_images" open>
+        <summary><h2>Featured Images</h2></summary>
+        <figure>
+          <img src="/ports/img/mindelo/mindelo-attraction-1.webp" alt="The vibrant Praça Nova square in Mindelo with pastel colonial buildings and outdoor café tables beneath palm trees" loading="lazy" width="400" height="300"/>
+          <figcaption>Praça Nova, the colonial heart of Mindelo. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+        </figure>
+        <figure>
+          <img src="/ports/img/mindelo/mindelo-attraction-2.webp" alt="Fishermen unloading their catch at the Mercado de Peixe fish market in Mindelo with colorful boats in the background" loading="lazy" width="400" height="300"/>
+          <figcaption>Morning at the Mercado de Peixe, Mindelo's bustling fish market. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+        </figure>
+        <figure>
+          <img src="/ports/img/mindelo/mindelo-attraction-3.webp" alt="Interior of the Centro Cultural do Mindelo museum with photographs and memorabilia celebrating Cesária Évora" loading="lazy" width="400" height="300"/>
+          <figcaption>Inside the Cesária Évora museum at the Centro Cultural do Mindelo. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+        </figure>
+      </details>
+
+      <!-- ===== CRUISE PORT ===== -->
+      <details class="port-section" id="cruise_port" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
+        <ul>
+          <li><strong>Terminal:</strong> Ships anchor in Porto Grande bay and tender passengers to the main wharf in the heart of Mindelo. There is no formal cruise terminal building, but the wharf area has basic facilities and is steps from the town center. The tender landing area is level and accessible for wheelchair users with assistance from crew.</li>
+          <li><strong>Distance to City Center:</strong> The wharf deposits you directly into town — Praça Nova and the colonial center are a 3-minute walk. Everything central is within fifteen minutes on foot.</li>
+          <li><strong>Tender:</strong> Yes — ships anchor in the bay and tender passengers to shore. Tenders run frequently when ships are in port.</li>
+          <li><strong>Currency:</strong> Cape Verdean Escudo (CVE). Euros are widely accepted. ATMs available in town center. The exchange rate is fixed at approximately 110 CVE to 1 EUR.</li>
+          <li><strong>Language:</strong> Portuguese is official. Cape Verdean Creole (Kriolu) is the everyday language. Many younger locals speak some English and French.</li>
+          <li><strong>Driving:</strong> Right side. Roads are decent on São Vicente, though signage can be sparse. The island is small enough to circumnavigate in a few hours.</li>
+          <li><strong>Best Season:</strong> November to June is the dry season with pleasant temperatures (24-28°C). February/March for Carnival. July-October is hotter and more humid.</li>
+          <li><strong>Time Zone:</strong> GMT -1 (Cape Verde Time)</li>
+        </ul>
+      </details>
+
+      <!-- ===== GETTING AROUND ===== -->
+      <details class="port-section" id="getting_around" open>
+        <summary><h2>Getting Around</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Transportation tips for cruise visitors.</p>
+        <ul>
+          <li><strong>Walking:</strong> Mindelo is wonderfully walkable and compact. From the tender wharf, everything central is within fifteen minutes on foot. The town spreads along the waterfront and climbs gently into the volcanic hills. Streets are generally safe for walking, and wandering is the best way to absorb the atmosphere. Wear comfortable shoes — some streets are cobbled, and the hills can be steep. The waterfront promenade is level and accessible for guests with mobility needs or wheelchair users.</li>
+          <li><strong>Aluguers (Shared Minibuses):</strong> For Laginha Beach (about twenty minutes' walk from center) or Monte Verde, catch an aluguer — shared minibuses that run set routes and cost around 50 escudos (about €0.50). Wave one down from the roadside, tell the driver your destination, and pay when you arrive. They run frequently during the day but may slow in the evening. A practical, low-cost way to explore beyond walking distance.</li>
+          <li><strong>Taxis:</strong> Available and affordable by European standards. Negotiate the fare before departure or ensure the meter is running. A taxi to Monte Verde summit runs approximately 800-1,000 CVE (about €7-9) each way. Taxis wait at the wharf area when tenders arrive, making them convenient for those who prefer not to walk.</li>
+          <li><strong>Car Rental:</strong> You can rent a car and explore São Vicente independently. The island is small enough to circumnavigate in a few hours. Roads are paved on the main routes, though secondary roads may be rough. Rental agencies operate in town — expect to pay around €30-45 per day. An international driving permit is recommended.</li>
+          <li><strong>Organized Tours:</strong> Some cruise lines offer ship excursion options for Mindelo, though independent exploration is straightforward given the compact layout. Local tour operators at the wharf offer island tours for approximately €20-30 per person. Combine Monte Verde with a beach stop for a full half-day experience.</li>
+        </ul>
+      </details>
+
+      <!-- ===== MAP ===== -->
       <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Mindelo Area Map</h2></summary>
-        <p class="map-intro">Interactive map showing cruise terminal and Mindelo attractions. Click any marker for details.</p>
+        <summary><h2>Mindelo Area Map</h2></summary>
+        <p class="map-intro">Interactive map showing cruise tender landing and Mindelo attractions. Click any marker for details.</p>
         <div id="mindelo-port-map" class="port-map-container" role="application" aria-label="Interactive map of Mindelo port and points of interest">
           <noscript>
             <p style="padding: 2rem; text-align: center; color: #678;">
@@ -303,253 +431,198 @@ Soli Deo Gloria
             Reset View
           </button>
         </div>
-            </details>
+      </details>
 
-                <section id="getting-around">
-          <details class="section-collapse" open>
-            <summary><h2>Getting Around Mindelo</h2></summary>
-                    <p>Mindelo is wonderfully walkable. From the tender wharf, everything central is within fifteen minutes on foot. The town is compact, the streets are generally safe, and wandering is the best way to soak in the atmosphere. Wear comfortable shoes—some streets are cobbled, and the hills can be steep.</p>
+      <!-- ===== EXCURSIONS ===== -->
+      <details class="port-section" id="excursions" open>
+        <summary><h2>Excursions &amp; Activities</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How to spend your time ashore. Mindelo is ideal for independent exploration given its compact size and walkable layout, though a ship excursion offers guaranteed return to the vessel before departure. For popular activities, book ahead during peak season to secure your spot.</p>
 
-                    <p>For Laginha Beach (about twenty minutes' walk from the center) or Monte Verde, you can catch an aluguer—shared minibuses that run set routes and are incredibly cheap. Just wave one down, tell the driver your destination, and pay when you get off (usually around 50 escudos). Taxis are also available and affordable by Western standards; negotiate the fare before departing or ensure the meter is running.</p>
+        <h4 class="mt-1">Walk Rua de Lisboa &amp; Praça Nova</h4>
+        <p>The colonial heart of Mindelo runs along Rua de Lisboa and centers on Praça Nova, a square lined with pastel-colored Portuguese colonial buildings. Walk these streets in the morning when the light is gentle, watching shopkeepers sweep their storefronts and old men arranging chairs at outdoor cafés. The architecture is weathered but proud — peeling paint reveals layers of history. Free to explore. Low-walking activity, suitable for all mobility levels. Allow 1-2 hours to wander at leisure.</p>
 
-                    <p>If you're feeling adventurous, you can rent a car and explore the island. São Vicente is small enough to circumnavigate in a few hours. The roads are decent, though signage can be sparse. The beaches on the windward side are dramatic and often deserted.</p>
-            </details>
+        <h4 class="mt-1">Centro Cultural do Mindelo (Cesária Évora Museum)</h4>
+        <p>A pilgrimage for anyone who has been moved by the voice of the Barefoot Diva. The cultural center displays photographs, costumes, recordings, and personal effects of Cesária Évora, born in Mindelo in 1941. The museum is modest in size but profound in impact. Small entry fee (approximately 200 CVE / €2). An 8-minute walk from the wharf. Allow 45-60 minutes. Ground-floor exhibits are accessible for wheelchair users.</p>
 
-                <section id="food-drink">
-                    <h2>Local Food & Drink</h2>
-                    <p>Cape Verdean cuisine reflects the island's history—Portuguese, West African, and Brazilian influences mingled into something unique. Cachupa is the national dish, a slow-cooked stew of corn, beans, and fish or meat, often served as breakfast (cachupa refogada, refried from the night before). I tried it at a small restaurant near the market and found it hearty and satisfying, the kind of food that sustained generations of fishermen and farmers.</p>
+        <h4 class="mt-1">Mercado de Peixe (Fish Market)</h4>
+        <p>The fish market near the harbor is where Mindelo's Atlantic identity becomes visceral. Fresh tuna, grouper, wahoo, and octopus laid out on tables slick with sea water. Fishermen call out prices, customers haggle in Creole. Grilled fish from vendors outside costs approximately 300-500 CVE (€3-5). A 5-minute walk from the wharf. Free to explore. Best visited in the morning when the catch arrives.</p>
 
-                    <p>Fresh fish and seafood are, predictably, excellent. Tuna, grouper, wahoo, and octopus appear on every menu. Grilled or in caldeirada (fish stew), the quality is outstanding. At lunch I had grilled tuna with djagacida (a bean and corn dish) and it was simple and perfect.</p>
+        <h4 class="mt-1">Monte Verde Summit</h4>
+        <p>The highest point on São Vicente at 750 meters offers sweeping views of the entire island, Porto Grande bay, and neighboring islands on clear days. Take a taxi (approximately 800-1,000 CVE / €7-9 each way) or an aluguer up the winding road. The landscape transitions from green scrub to bare volcanic rock. Moderate walking activity at the summit, with uneven terrain and fierce wind. Allow 2-3 hours round trip. Not suitable for those with walking difficulty due to rough ground at the summit viewpoint.</p>
 
-                    <p>For drinks, try grogue—the local sugarcane spirit, strong and fiery. Ponche is grogue mixed with molasses and lime, much smoother. Cape Verdean coffee is good, often Portuguese-style espresso. And local beer—Strela is the main brand—is crisp and refreshing in the heat.</p>
+        <h4 class="mt-1">Laginha Beach</h4>
+        <p>Mindelo's main town beach, about a twenty-minute walk from the center, with calm, swimmable water and a nice sandy stretch popular with locals. Free to visit. Bring your own towel and sun protection. Beach vendors sell drinks and snacks. The walk is mostly flat along the coastal road. Low-energy activity. Allow 2-3 hours for a relaxed visit. Some cruise visitors book ahead with local operators for snorkeling trips departing from here (about €15-20 per person).</p>
 
-                    <p>Don't leave without trying pastéis—savory pastries filled with tuna or meat, sold at bakeries and street stalls. I ate mine sitting on a bench watching the harbor, and it was one of those perfect small moments of travel.</p>
-                </section>
+        <h4 class="mt-1">Live Music Experience</h4>
+        <p>If your ship stays late or overnights, Mindelo's music scene comes alive after dark with morna and coladeira in bars and cafés throughout the colonial center. Ask locals where live music will be happening that evening — the scene is organic and changes nightly. Grogue (local sugarcane spirit) and ponche (grogue with molasses and lime) are the traditional drinks. Expect to spend 500-800 CVE (€5-8) for drinks at a music venue. No booking required — simply follow the sound. An independent exploration that rewards spontaneity.</p>
 
-                <section id="pro-tips">
-                    <h2>Pro Tips for Mindelo</h2>
-                    <ul>
-                        <li><strong>Currency:</strong> Bring euros if you don't want to exchange for escudos. Many places accept euros, though you'll get better value with local currency. ATMs are available in the town center.</li>
-                        <li><strong>Language:</strong> Learn a few Portuguese or Creole phrases. "Obrigado" (thank you) and "bom dia" (good morning) go a long way. Many younger people speak some English.</li>
-                        <li><strong>Music:</strong> Ask locals where live music will be happening that evening. Mindelo's music scene is organic and changes nightly—you need insider knowledge.</li>
-                        <li><strong>Sun Protection:</strong> The sun here is intense, and there's little shade in some areas. Bring a hat, sunscreen, and water.</li>
-                        <li><strong>Respect the Culture:</strong> While Cape Verde is relaxed and welcoming, it's still a conservative Catholic country. Dress modestly when away from the beach.</li>
-                        <li><strong>Timing:</strong> If possible, visit during Carnival (February/March). Mindelo's Carnival is legendary—four days of parades, music, and celebration, second only to Rio in the Lusophone world.</li>
-                        <li><strong>Shopping:</strong> Look for Cape Verdean music CDs (yes, they still sell them), local art, and woven goods. The artisan market near Praça Nova has quality crafts.</li>
-                    </ul>
-                </section>
+        <h4 class="mt-1">Island Tour by Taxi or Aluguer</h4>
+        <p>São Vicente is small enough to explore in a half day. A full island circuit by taxi costs approximately 3,000-4,000 CVE (€27-36), covering Monte Verde, the windward beaches, the fishing village of Calhau, and the dramatic volcanic landscapes of the interior. Negotiate the price and itinerary with your driver before departing. This is a good alternative to a ship excursion for groups of 2-4 sharing the cost. Book ahead if visiting during peak season when taxis may be in high demand.</p>
+      </details>
 
-                <section class="port-section author-note-disclaimer">
-                    <h3>Author's Note</h3>
-                    <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-                </section>
+      <!-- ===== FOOD ===== -->
+      <details class="port-section" id="food" open>
+        <summary><h2>Local Food &amp; Drink</h2></summary>
+        <ul>
+          <li><strong>Cachupa:</strong> The national dish — a slow-cooked stew of corn, beans, and fish or meat. Cachupa refogada (refried from the night before) is a traditional breakfast. Hearty and satisfying. Approximately 400-600 CVE (€4-6) at local restaurants.</li>
+          <li><strong>Fresh Seafood:</strong> Tuna, grouper, wahoo, and octopus appear on every menu. Grilled or in caldeirada (fish stew), the quality is outstanding. Grilled fish at the market vendors costs about 300-500 CVE (€3-5).</li>
+          <li><strong>Pastéis:</strong> Savory pastries filled with tuna or meat, sold at bakeries and street stalls. Perfect for a quick, affordable snack — about 100 CVE (€1) each.</li>
+          <li><strong>Grogue:</strong> Local sugarcane spirit, strong and fiery. Ponche is grogue mixed with molasses and lime, much smoother. Traditional Cape Verdean drinks.</li>
+          <li><strong>Strela Beer:</strong> The local lager — crisp and refreshing in the heat. Widely available at cafés and restaurants.</li>
+          <li><strong>Cape Verdean Coffee:</strong> Portuguese-style espresso, good and strong. Available everywhere.</li>
+        </ul>
+      </details>
 
-                
-        <!-- VOLATILE DATA DISCLAIMER -->
-        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-14 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-        </aside>
+      <!-- ===== DEPTH SOUNDINGS ===== -->
+      <details class="port-section" id="depth_soundings" open>
+        <summary><h2>Depth Soundings Ashore</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Lessons learned the hard way.</p>
+        <ul>
+          <li><strong>Currency Strategy:</strong> Bring euros if you do not want to exchange for escudos. Many places accept euros, though you will get better value with local currency. ATMs are available in the town center and dispense escudos. The fixed exchange rate of approximately 110 CVE to 1 EUR makes mental arithmetic straightforward.</li>
+          <li><strong>Language Tips:</strong> Learn a few Portuguese or Creole phrases. "Obrigado" (thank you) and "bom dia" (good morning) go a long way. Many younger people speak some English, but the effort to speak Portuguese is genuinely appreciated.</li>
+          <li><strong>Sun Protection:</strong> The sun here is intense, and there is little shade in some areas, particularly at Monte Verde summit and along the waterfront. Bring a hat, sunscreen, and water. Dehydration is a real concern in this arid climate.</li>
+          <li><strong>Tender Timing:</strong> Because ships anchor and tender to shore, keep track of the last tender time. The wharf area is central, so getting back is easy — but do not wander too far without checking your watch. Tender queues can build in the late afternoon when multiple ships are in port.</li>
+          <li><strong>Carnival Timing:</strong> If possible, visit during Carnival (February/March). Mindelo's Carnival is legendary — four days of parades, music, and celebration, second only to Rio in the Lusophone world. Plan accordingly for crowds and festive energy.</li>
+          <li><strong>Shopping:</strong> Look for Cape Verdean music recordings, local art, and woven goods. The artisan market near Praça Nova has quality crafts at fair prices. Haggling is expected at market stalls but not in shops.</li>
+          <li><strong>Respect:</strong> While Cape Verde is relaxed and welcoming, it is still a conservative community. Dress modestly when away from the beach. Ask permission before photographing people, particularly at the fish market.</li>
+        </ul>
+      </details>
 
+      <!-- ===== FAQ ===== -->
+      <details class="port-section" id="faq" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
 
-        <section id="faq">
-          <details class="section-collapse" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
+        <div class="faq-item">
+          <h4>Where do cruise ships dock in Mindelo?</h4>
+          <p>Ships anchor in Porto Grande bay and tender passengers to the main wharf in the heart of Mindelo, steps from Praça Nova and the town center. There is no formal cruise terminal, but the landing area is straightforward and well-organized.</p>
+        </div>
 
-                    <div class="faq-item">
-                        <h4>Where do cruise ships dock in Mindelo?</h4>
-                        <p>Ships anchor in Porto Grande and tender passengers to the main wharf in the heart of Mindelo, steps from Praça Nova and the town center.</p>
-                    </div>
+        <div class="faq-item">
+          <h4>What currency is used in Cape Verde?</h4>
+          <p>The Cape Verdean Escudo (CVE). Euros are widely accepted, and ATMs are available in Mindelo's center. The exchange rate is fixed at approximately 110 CVE to 1 EUR. Credit cards are accepted at larger establishments but carry cash for markets and smaller vendors.</p>
+        </div>
 
-                    <div class="faq-item">
-                        <h4>What currency is used in Cape Verde?</h4>
-                        <p>The Cape Verdean Escudo (CVE). Euros are widely accepted, and ATMs are available in Mindelo's center. The exchange rate is fixed at approximately 110 CVE to 1 EUR.</p>
-                    </div>
+        <div class="faq-item">
+          <h4>Is Mindelo safe for tourists?</h4>
+          <p>Mindelo is generally safe and welcoming. Use common sense, watch belongings in crowded areas like the market, and avoid walking alone late at night in unfamiliar areas. The locals are warm and helpful to visitors. Violent crime against tourists is very rare.</p>
+        </div>
 
-                    <div class="faq-item">
-                        <h4>Is Mindelo safe for tourists?</h4>
-                        <p>Mindelo is generally safe and welcoming. Use common sense, watch belongings in crowded areas like the market, and avoid walking alone late at night in unfamiliar areas. The locals are warm and helpful to visitors.</p>
-                    </div>
+        <div class="faq-item">
+          <h4>What language is spoken in Mindelo?</h4>
+          <p>Portuguese is the official language. Cape Verdean Creole (Kriolu) is widely spoken in daily life — it is a Portuguese-based Creole with African influences. Many locals, especially younger people and those in tourism, also speak some English and French.</p>
+        </div>
 
-                    <div class="faq-item">
-                        <h4>What language is spoken in Mindelo?</h4>
-                        <p>Portuguese is the official language. Cape Verdean Creole (Kriolu) is widely spoken in daily life—it's a Portuguese-based Creole with African influences. Many locals, especially younger people and those in tourism, also speak some English and French.</p>
-                    </div>
+        <div class="faq-item">
+          <h4>Can I swim at beaches in Mindelo?</h4>
+          <p>Yes. Laginha Beach, about a twenty-minute walk from the center, is the main town beach with calm, swimmable water. It is popular with locals and has a nice sandy stretch. The windward side of the island has more dramatic beaches but stronger currents — check conditions before swimming.</p>
+        </div>
 
-                    <div class="faq-item">
-                        <h4>Can I swim at beaches in Mindelo?</h4>
-                        <p>Yes. Laginha Beach, about a twenty-minute walk from the center, is the main town beach with calm, swimmable water. It's popular with locals and has a nice sandy stretch. The windward side of the island has more dramatic beaches but stronger currents—check conditions before swimming.</p>
-                    </div>
+        <div class="faq-item">
+          <h4>What is the best time of year to visit Mindelo?</h4>
+          <p>November to June is the dry season with pleasant temperatures (24-28°C). February/March during Carnival is unforgettable if you enjoy festive crowds. July to October is hotter and more humid, with occasional rain, but still quite visitable. Check the weather guide above for specific month recommendations.</p>
+        </div>
 
-                    <div class="faq-item">
-                        <h4>What's the best time of year to visit Mindelo?</h4>
-                        <p>November to June is the dry season with pleasant temperatures (24-28°C). February/March during Carnival is unforgettable if you can handle crowds and festivities. July to October is hotter and more humid, with occasional rain, but still quite visitable.</p>
-                    </div>
-            </div>
-          </details>
-                
-          <p><strong>Q: What's the best time of year to visit Mindelo, Cape Verde: Cultural Heart of the Atlantic | In The Wake?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
+        <div class="faq-item">
+          <h4>Is Mindelo accessible for visitors with limited mobility?</h4>
+          <p>The waterfront and central area around Praça Nova are relatively flat and manageable. However, some streets are cobbled and hills can be steep away from the center. Tenders require some agility to board. Taxis can reach most attractions including Monte Verde. The fish market and museum are accessible at ground level for wheelchair users with assistance.</p>
+        </div>
+      </details>
 
-          <p><strong>Q: Does Mindelo, Cape Verde: Cultural Heart of the Atlantic | In The Wake have extreme weather to worry about?</strong><br>A: Like most destinations, weather conditions vary by season. Check the weather hazards section above for specific concerns and the best months to visit. Cruise lines monitor conditions and will adjust itineraries if needed for passenger safety.</p>
+      <!-- ===== GALLERY ===== -->
+      <details class="port-section" id="gallery" open>
+        <summary><h2>Photo Collection</h2></summary>
+        <div class="port-gallery">
+          <figure>
+            <img src="/ports/img/mindelo/mindelo-gallery-1.webp" alt="Colorful painted boats moored in Mindelo harbor with the volcanic hills of São Vicente rising in the background" loading="lazy" width="400" height="300"/>
+            <figcaption>Fishing boats in Porto Grande harbor. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+          <figure>
+            <img src="/ports/img/mindelo/mindelo-gallery-2.webp" alt="Local musicians performing morna music with guitar and cavaquinho in a small Mindelo café" loading="lazy" width="400" height="300"/>
+            <figcaption>Live morna music in a Mindelo café, the sound that defines this city. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+          <figure>
+            <img src="/ports/img/mindelo/mindelo-gallery-3.webp" alt="Sandy stretch of Laginha Beach with calm turquoise water and volcanic hills framing the bay" loading="lazy" width="400" height="300"/>
+            <figcaption>Laginha Beach, Mindelo's main swimming beach. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+        </div>
+      </details>
 
-          <p><strong>Q: What should I pack for Mindelo, Cape Verde: Cultural Heart of the Atlantic | In The Wake's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
+      <!-- ===== CREDITS ===== -->
+      <details class="port-section" id="credits">
+        <summary><h2>Image Credits</h2></summary>
+        <ul>
+          <li>Hero image: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></li>
+          <li>Harbor, street, food, landmark, panorama, attractions, gallery images: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></li>
+        </ul>
+      </details>
 
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-        
-          <p><strong>Q: Does Mindelo, Cape Verde: Cultural Heart of the Atlantic | In The Wake have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-        </section>
+      <!-- ===== AUTHOR DISCLAIMER ===== -->
+      <section class="port-section author-disclaimer" style="margin-top: 2.5rem; padding: 1.25rem; background: #fffef7; border-left: 4px solid #d9b382; border-radius: 8px;">
+        <p class="tiny" style="margin: 0; line-height: 1.6; color: #5a6a7a;">
+          <strong>Author's Note:</strong> Until I have sailed this port myself, these notes are soundings in another's wake — helpful for planning, and marked for revision once I have logged my own steps ashore.
+        </p>
+      </section>
 
-            <!-- WEATHER & BEST TIME TO VISIT -->
-            <details class="port-section" id="weather-guide" open>
-              <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div class="collapse-body">
-                <div id="port-weather-widget"
-                     data-port-id="mindelo"
-                     data-port-name="Mindelo"
-                     data-lat="16.8900"
-                     data-lon="-24.9800"
-                     data-region="Atlantic Islands">
-                  <noscript>
-                    <div class="seasonal-guide seasonal-guide-static">
-                      <details class="seasonal-section" open>
-                        <summary class="seasonal-section-title">At a Glance</summary>
-                        <div class="seasonal-at-glance">
-                          <div class="seasonal-glance-grid">
-                            <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">68–82°F (20–28°C) year-round</span></div>
-                            <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Moderate, 65–75%</span></div>
-                            <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Rare; brief showers Aug–Oct</span></div>
-                            <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Trade winds; harmattan dust Dec–Feb</span></div>
-                            <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">11–13 hours depending on season</span></div>
-                          </div>
-                        </div>
-                      </details>
-                      <details class="seasonal-section" open>
-                        <summary class="seasonal-section-title">Best Time to Visit</summary>
-                        <div class="seasonal-best-time">
-                          <div class="cruise-seasons-grid">
-                            <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar, Apr, May</span></div>
-                            <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Jun, Oct</span></div>
-                            <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Jul, Aug, Sep</span></div>
-                          </div>
-                          <div class="best-months-activities">
-                            <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar, Apr, May, Jun</span></div>
-                            <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar, Apr, May</span></div>
-                            <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                            <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar, Apr, May</span></div>
-                            <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Jul, Aug, Sep</span></div>
-                          </div>
-                          <div class="months-to-avoid">
-                            <strong>Months to approach with caution:</strong> Aug, Sep (hotter, more humid)
-                          </div>
-                        </div>
-                      </details>
-                      <details class="seasonal-section">
-                        <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                        <ul class="catches-list">
-                          <li><strong>Harmattan dust:</strong> Dec–Feb brings Saharan dust that can reduce visibility and affect air quality</li>
-                          <li><strong>Very little rain:</strong> Cape Verde is arid — don't expect tropical showers</li>
-                          <li><strong>Carnival crowds:</strong> February/March Carnival brings festive but crowded conditions</li>
-                        </ul>
-                      </details>
-                      <details class="seasonal-section">
-                        <summary class="seasonal-section-title">Packing Tips</summary>
-                        <ul class="packing-list">
-                          <li>Lightweight, breathable clothing</li>
-                          <li>Sunscreen and hat — strong Atlantic sun</li>
-                          <li>Light layers for cooler evenings</li>
-                          <li>Comfortable walking shoes for cobblestone streets</li>
-                          <li>Water bottle — stay hydrated in the arid climate</li>
-                        </ul>
-                      </details>
-                      <details class="seasonal-section">
-                        <summary class="seasonal-section-title">Weather Hazards</summary>
-                        <div class="hazard-warning">
-                          <span class="hazard-icon">💨</span>
-                          <div class="hazard-content">
-                            <strong>Harmattan Winds</strong>
-                            <p>Season: Dec – Feb</p>
-                            <p>Peak risk: Jan, Feb</p>
-                            <p class="hazard-note">Saharan dust carried by harmattan winds can reduce visibility and affect those with respiratory sensitivities. Cape Verde sits outside the main hurricane belt, though rare tropical storms can occur Aug–Oct.</p>
-                          </div>
-                        </div>
-                      </details>
-                    </div>
-                  </noscript>
-                </div>
-              </div>
-            </details>
+      <!-- ===== BACK NAV ===== -->
+      <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
 
+      <!-- VOLATILE DATA DISCLAIMER -->
+      <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+        <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-14 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+      </aside>
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Mindelo tender landing">
-  <h3>From the Pier</h3>
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Mindelo tender landing">
+  <h4>From the Pier</h4>
   <ul class="pier-distances">
     <li class="pier-distance-item">
-      <div><span class="pier-dest">Praça Nova & Town Center</span><div class="pier-detail">Walk from wharf — colonial buildings, cafés</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 3 min</span>
+      <div><span class="pier-dest">Praça Nova &amp; Town Center</span><div class="pier-detail">Walk from wharf — colonial buildings, cafés</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 3 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:5%"></div></div>
     </li>
     <li class="pier-distance-item">
       <div><span class="pier-dest">Cesária Évora Museum</span><div class="pier-detail">Walk — tribute to the barefoot diva</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 8 min</span>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 8 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:12%"></div></div>
     </li>
     <li class="pier-distance-item">
       <div><span class="pier-dest">Fish Market</span><div class="pier-detail">Walk along waterfront</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 5 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
     </li>
     <li class="pier-distance-item">
       <div><span class="pier-dest">Torre de Belém Replica</span><div class="pier-detail">Walk through town — Cape Verdean homage to Lisbon</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 10 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
     </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Laginha Beach</span><div class="pier-detail">Walk along coast — swimming, sand, sun</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+    </li>
   </ul>
-  <p class="pier-note">Tender port — ships anchor in Porto Grande and shuttle to the main wharf, steps from town. Everything walkable. Currency: Cape Verdean Escudo (CVE); euros widely accepted.</p>
-</div>
-                <div id="logbook-btn-container"></div>
+  <p class="pier-note">Tender port — ships anchor in Porto Grande and shuttle passengers to the main wharf, steps from town. Everything walkable. Currency: Cape Verdean Escudo (CVE); euros widely accepted.</p>
+</nav>
+        <div id="logbook-btn-container"></div>
 
-            </article>
+        </article>
 
-            <aside class="port-sidebar">
-                <div class="sidebar-card at-a-glance">
-                    <h3>At a Glance</h3>
-                    <ul>
-                        <li><strong>Country:</strong> Cape Verde</li>
-                        <li><strong>Island:</strong> São Vicente</li>
-                        <li><strong>Population:</strong> ~70,000</li>
-                        <li><strong>Language:</strong> Portuguese, Kriolu</li>
-                        <li><strong>Currency:</strong> Cape Verdean Escudo (CVE)</li>
-                        <li><strong>Time Zone:</strong> GMT -1</li>
-                        <li><strong>Best For:</strong> Culture, music, colonial architecture</li>
-                        <li><strong>Docking:</strong> Tender to central wharf</li>
-                    </ul>
-                </div>
+        <aside class="port-sidebar">
+            <div class="sidebar-card at-a-glance">
+                <h3>Port Overview</h3>
+                <ul>
+                    <li><strong>Country:</strong> Cape Verde</li>
+                    <li><strong>Island:</strong> São Vicente</li>
+                    <li><strong>Population:</strong> ~70,000</li>
+                    <li><strong>Language:</strong> Portuguese, Kriolu</li>
+                    <li><strong>Currency:</strong> Cape Verdean Escudo (CVE)</li>
+                    <li><strong>Time Zone:</strong> GMT -1</li>
+                    <li><strong>Best For:</strong> Culture, music, colonial architecture</li>
+                    <li><strong>Docking:</strong> Tender to central wharf</li>
+                </ul>
+            </div>
 
-                <div class="sidebar-card author-card">
-                    <h3>About the Author</h3>
-                    <img loading="lazy" src="/images/authors/ken-baker.jpg" alt="Ken Baker" class="author-photo">
-                    <p><strong>Ken Baker</strong> is a sailor, writer, and shepherd of stories from the sea. He has crossed the Atlantic multiple times and maintains that the best ports are those where music and daily life are inseparable.</p>
-                </div>
-
-                <div class="sidebar-card nearby-ports">
-                    <h3>Nearby Ports</h3>
-                    <ul>
-                        <li><a href="/ports/praia.html">Praia, Cape Verde</a> <span class="distance">~150 nm SE</span></li>
-                        <li><a href="/ports/dakar.html">Dakar, Senegal</a> <span class="distance">~600 nm E</span></li>
-                        <li><a href="/ports/tenerife.html">Santa Cruz de Tenerife</a> <span class="distance">~850 nm NE</span></li>
-                        <li><a href="/ports/recife.html">Recife, Brazil</a> <span class="distance">~1,500 nm W</span></li>
-                    </ul>
-                </div>
-
-                <div class="sidebar-card recent-stories">
-                    <h3>Recent Stories</h3>
-                    <ul>
-                        <li><a href="/stories/atlantic-crossing-music.html">The Sounds of the Atlantic Crossing</a></li>
-                        <li><a href="/stories/coal-stations-history.html">Ghost Stations: Coal Harbors of the Age of Steam</a></li>
-                        <li><a href="/stories/barefoot-diva.html">In Search of Cesária: Walking Mindelo</a></li>
-                    </ul>
-                </div>
       <!-- Author Card (Vertical Layout) -->
       <section class="card author-card-vertical" aria-labelledby="author-heading">
         <h3 id="author-heading">About the Author</h3>
@@ -566,8 +639,16 @@ Soli Deo Gloria
         </p>
       </section>
 
-      <!-- Recent Articles rail -->
-      
+            <div class="sidebar-card nearby-ports">
+                <h3>Nearby Ports</h3>
+                <ul>
+                    <li><a href="/ports/praia.html">Praia, Cape Verde</a> <span class="distance">~150 nm SE</span></li>
+                    <li><a href="/ports/dakar.html">Dakar, Senegal</a> <span class="distance">~600 nm E</span></li>
+                    <li><a href="/ports/tenerife.html">Santa Cruz de Tenerife</a> <span class="distance">~850 nm NE</span></li>
+                    <li><a href="/ports/recife.html">Recife, Brazil</a> <span class="distance">~1,500 nm W</span></li>
+                </ul>
+            </div>
+
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
         <h3 id="ships-visiting-title">Ships That Visit Here</h3>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Mindelo on their itineraries:</p>
@@ -593,6 +674,7 @@ Soli Deo Gloria
         </div>
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
+
 <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
         <p class="tiny content-text mb-075" >
@@ -608,9 +690,9 @@ Soli Deo Gloria
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
       </section>
 
-            </aside>
-        </div>
-    
+        </aside>
+      </div>
+
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Visit</h2>

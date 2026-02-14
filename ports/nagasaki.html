@@ -163,6 +163,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -205,281 +208,350 @@ Soli Deo Gloria
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Nagasaki</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Nagasaki</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero">
+
+      <!-- ===== HERO ===== -->
+      <section class="port-hero" id="hero">
         <div class="port-hero-image">
-          <img src="/ports/img/nagasaki/peace-statue.webp" alt="The Nagasaki Peace Statue with right hand pointing to the sky and left arm extended horizontally" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <img src="/ports/img/nagasaki/nagasaki-hero.webp" alt="Panoramic view of Nagasaki harbor with green hills and the city skyline at sunrise" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
           <div class="port-hero-overlay">
             <h1 class="port-hero-title">Nagasaki</h1>
           </div>
         </div>
         <p class="port-hero-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Nagasaki" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
-      </div>
+      </section>
 
-      
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
-
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="nagasaki"
-               data-port-name="Nagasaki Port Guide"
-               data-lat="32.7503"
-               data-lon="129.8779"
-               data-region="Asia Pacific">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Sep</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">May, Jun, Jul, Aug</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">May, Jun, Jul</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jul, Aug, Sep</span>
-                      <span class="avoid-reason">(monsoon/typhoon season)</span>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Monsoon/Typhoon Season</strong>
-                        <p>Season: Jun – Nov</p>
-                        <p>Peak risk: Aug, Sep, Oct</p>
-                        <p class="hazard-note">Ships may reroute during typhoons; check weather forecasts</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
+      <div id="journal-btn-container"></div>
 
       <article class="card">
-        <h1>Nagasaki: Where History Demands Reflection</h1>
 
-        <div class="logbook-entry clearfix">
-          <p>Some ports offer beaches. Others, shopping. Nagasaki offers something more profound: a window into Japan's complex relationship with the outside world, from centuries of isolation to unimaginable tragedy to remarkable rebirth. This is not a casual port day. This is a pilgrimage.</p>
+      <!-- ===== LOGBOOK ===== -->
+      <details class="port-section" id="logbook" open>
+        <summary><h2>My Visit to Nagasaki</h2></summary>
 
-          <p>I'll confess that when our ship glided into Nagasaki's harbor at dawn, I felt the weight of history before I even saw the city. The Portuguese founded this harbour in 1571, making it Japan's first major gateway to European trade. Portuguese traders brought muskets, Christianity, and a confection called castella — a sponge cake still sold in every shop here four centuries later. But when the shogunate closed Japan to the outside world in 1639 under the strict policy of sakoku, Nagasaki remained the sole exception, though tightly controlled.</p>
+        <p>I stepped off the gangway at Matsugae Pier into a pale morning mist that clung to the harbor like gauze, and the first thing I noticed was the silence. Not the absence of sound — seabirds called above the waterline, a tram bell clanged somewhere beyond the terminal — but a particular quality of stillness that seemed to belong to Nagasaki alone, as though the city had learned long ago how to hold its breath.</p>
 
-          <p>What emerged next was extraordinary: Dejima, a fan-shaped artificial island built in 1636. Initially constructed for Portuguese traders, it became exclusively Dutch territory when the Portuguese were expelled in 1641. The Dutch East India Company was granted this tiny plot — barely the size of two football fields — where they would remain confined until Commodore Perry forced Japan's hand in 1853. For over two hundred years, this small fan-shaped footbridge between worlds was Japan's only window to Western knowledge, medicine, and science. The first maps of the New World reached Japanese scholars through Dejima. So did coffee, telescopes, medical texts, and the radical notion that the Earth revolved around the sun. I walked the reconstructed streets there and marveled at how much humanity passed through such a narrow gate.</p>
+        <figure>
+          <img src="/ports/img/nagasaki/nagasaki-harbor.webp" alt="Nagasaki harbor at dawn with mist hovering over calm waters and green hills beyond" loading="lazy" width="400" height="300"/>
+          <figcaption>Nagasaki harbor at dawn. <a href="https://commons.wikimedia.org/wiki/Category:Port_of_Nagasaki" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
 
-          <p>The Chinese merchants, granted their own quarter in the city proper, had arrived even earlier and stayed longer. Nagasaki became a cultural crossroads shaped by Portuguese traders, Chinese merchants, and Christian missionaries who came in waves, left converts, and were violently expelled. The hidden Christians who practiced in secret for 250 years — that's another story, one that emerges when you visit Oura Church and realize faith doesn't need permission to endure.</p>
+        <p>My wife and I had planned this port day for months, but nothing I had read prepared me for the emotional weight of actually being here. We walked from the pier toward the tram stop, passing schoolchildren in uniform who bowed politely as we fumbled with our day passes. The fare was only ¥600 for unlimited rides — a price that felt almost too generous for the access it granted to every corner of this layered city. I clutched the pass like a ticket to something I wasn't sure I deserved.</p>
 
-          <div class="poignant-highlight">
-            <strong>The Moment That Stays With Me:</strong> Standing before the 10-meter Peace Statue in Nagasaki Peace Park, its right hand pointing skyward toward the threat of nuclear weapons and its left arm extended horizontally in a gesture of peace. The statue was unveiled in 1955, a decade after August 9, 1945 — the day the second atomic bomb fell, obliterating the Urakami Valley and killing more than 70,000 souls. What struck me most at the Atomic Bomb Museum nearby wasn't the devastation documented there — though it's staggering, with first-hand survivor accounts and melted artifacts — but the complete absence of anger or blame. The museum looks forward, not backward. It asks what humanity might become, not who was at fault. I've never experienced a memorial more genuinely oriented toward hope. Peace Park is solemn, yes, but not despairing. It's a place that believes in tomorrow.
-          </div>
+        <p>We rode the tram north to Peace Park first, because I knew if we didn't go early, I might lose my nerve. The morning air was cool on my arms, and I could smell wet stone and freshly cut grass as we climbed the steps from the tram stop. The park opened before us in terraces of green and gray, dotted with memorial sculptures donated by nations around the world. However, it was the central figure that stopped me — the Nagasaki Peace Statue, ten meters tall, its right hand raised to the sky in warning and its left arm stretched wide in a gesture of peace. I stood there for a long time, feeling my throat tighten. I had seen photographs of this statue dozens of times. Standing before it was something else entirely. My heart swelled with a sadness I hadn't expected, and I whispered a quiet prayer for the souls lost here on August 9, 1945.</p>
 
-          <p>From the pier at Matsugae, it's a mere 15-minute walk to Glover Garden if you're feeling ambitious, though I'd recommend the tram for longer days. The tram system makes Nagasaki surprisingly accessible despite its hilly terrain. A ¥600 day pass lets you hop on and off between the Peace Park, Dejima, Glover Garden, and Chinatown. The flat fare of ¥150 per ride works if you're only visiting one or two areas. The terminal is practically at your gangway.</p>
+        <figure>
+          <img src="/ports/img/nagasaki/nagasaki-peace-park.webp" alt="The towering Nagasaki Peace Statue with right hand pointed skyward and left arm extended in peace" loading="lazy" width="400" height="300"/>
+          <figcaption>The Peace Statue in Nagasaki Peace Park. <a href="https://commons.wikimedia.org/wiki/Category:Peace_Park_(Nagasaki)" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
 
-          <p>Glover Garden itself is a hillside reverie — an open-air museum of Western-style homes clinging to the slopes above the harbor. Thomas Glover, the Scottish merchant whose mansion crowns the hill, was no mere trader. He was an arms dealer who backed the revolution that toppled the shogunate, a tea exporter who helped found what became Mitsubishi, and a man whose Japanese wife and home inspired Puccini's opera <em>Madame Butterfly</em>. His house, built in 1863, is the oldest Western-style wooden residence still standing in Japan. I sat on his veranda, looked out over the harbor where clipper ships once anchored, and thought about how one restless Scotsman could tilt an empire toward modernity.</p>
+        <p>The Atomic Bomb Museum, just below the park, is where tears came. I don't say that lightly. The exhibits are arranged with extraordinary care — not to shock, though the melted artifacts and frozen clock faces do that on their own, but to bear witness. A child's lunch box, charred beyond recognition. A rosary fused into a lump of glass. A pocket watch stopped forever at 11:02 a.m. Yet despite the horror documented in every room, the museum's final galleries turn toward hope. There are letters from survivors who chose forgiveness over bitterness. There are origami cranes folded by children who will never know what happened here but who fold them anyway, because someone taught them that peace is worth the effort. I walked out into the sunlight and sat on a bench, unable to speak for several minutes. My wife held my hand. We didn't need words.</p>
 
-          <p>History here comes in layers. The Christian heritage. The Dutch connection. The Chinese community that predates Western contact. The Meiji-era modernization visible in Glover Garden's European mansions. And of course, August 1945. Each layer adds depth to a city that refuses to be defined by any single chapter of its past. Nagasaki wears its scars with grace and invites you not to pity, but to witness.</p>
+        <figure>
+          <img src="/ports/img/nagasaki/nagasaki-museum.webp" alt="Interior corridor of the Nagasaki Atomic Bomb Museum with memorial displays and soft lighting" loading="lazy" width="400" height="300"/>
+          <figcaption>Inside the Atomic Bomb Museum. <a href="https://commons.wikimedia.org/wiki/Category:Nagasaki_Atomic_Bomb_Museum" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
+
+        <p>We needed something gentler after that, so we took the tram south to Dejima. Although the island was once Japan's sole conduit to the Western world during over two hundred years of isolation, today it feels almost playful — reconstructed Dutch warehouses painted in cheerful colors, a miniature bridge that once separated two civilizations, and exhibits showing how coffee, telescopes, and medical texts first seeped into Japan through this tiny gap in the wall of sakoku. I found myself grinning at the absurdity of it: an entire nation's contact with the outside world squeezed onto a fan-shaped plot barely larger than a soccer pitch. But the displays also reminded me that ideas are stubborn things. Even the thickest walls cannot keep out curiosity forever.</p>
+
+        <figure>
+          <img src="/ports/img/nagasaki/nagasaki-dejima.webp" alt="Reconstructed Dutch trading post buildings on Dejima island with colorful facades" loading="lazy" width="400" height="300"/>
+          <figcaption>Dejima's restored warehouses. <a href="https://commons.wikimedia.org/wiki/Category:Dejima" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
+
+        <p>Lunch was champon noodles in Chinatown, and I will remember that bowl until my last breath. The broth was rich and deeply savory, thick with pork, shrimp, squid, cabbage, and bean sprouts heaped over fat, springy noodles. The taste was unlike anything I had experienced before — simultaneously Japanese and Chinese and Portuguese all at once, a reflection of the city itself. I slurped loudly, as is polite here, and watched the lanterns sway in the breeze above the narrow lane. A bowl cost about ¥950, and it was worth every yen. The scent of pork fat and sesame lingered on my jacket for the rest of the afternoon.</p>
+
+        <figure>
+          <img src="/ports/img/nagasaki/nagasaki-champon.webp" alt="A steaming bowl of champon noodles with shrimp, pork, and vegetables in rich broth" loading="lazy" width="400" height="300"/>
+          <figcaption>Champon noodles in Nagasaki Chinatown. <a href="https://commons.wikimedia.org/wiki/Category:Champon" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
+
+        <figure>
+          <img src="/ports/img/nagasaki/nagasaki-chinatown.webp" alt="Nagasaki Chinatown gate with red lanterns strung across the pedestrian street" loading="lazy" width="400" height="300"/>
+          <figcaption>Lanterns in Nagasaki Chinatown. <a href="https://commons.wikimedia.org/wiki/Category:Nagasaki_Chinatown" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
+
+        <p>After lunch we climbed to Glover Garden, and despite my tired legs, the view from the summit stole whatever complaints I had. Thomas Glover's mansion — built in 1863, the oldest Western-style wooden residence in Japan — perches on the hillside like a Scottish laird's daydream. Glover was a merchant and an arms dealer and a revolutionary sympathizer and, if the stories are true, the inspiration behind Puccini's Madame Butterfly. I sat on his veranda, watched the harbor shimmer below, and tried to imagine what he saw when he looked out from this same spot more than a century and a half ago. Yet it wasn't the grand history that moved me most. It was a small plaque near the garden entrance describing how Glover's Japanese wife, Tsuru, tended this garden after his death, planting flowers in soil that had once grown only ambition. Something shifted in me when I read that. Love outlasts empire. It always does.</p>
+
+        <figure>
+          <img src="/ports/img/nagasaki/nagasaki-glover.webp" alt="The historic Glover mansion with its Western-style architecture overlooking Nagasaki harbor" loading="lazy" width="400" height="300"/>
+          <figcaption>Glover Garden overlooking the harbor. <a href="https://commons.wikimedia.org/wiki/Category:Glover_Garden" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
+
+        <p>Our last stop was Oura Church, a short walk downhill from Glover Garden. Japan's oldest surviving church is modest in size — a Gothic jewel box, my wife called it — but enormous in meaning. It was here, in 1865, that a group of Japanese villagers approached the French priest and whispered, "We are of the same heart as you." They were hidden Christians, descendants of converts who had worshipped in secret for 250 years under penalty of death. I stood in that nave, heard the quiet creak of old wood, felt the cool air on my face, and I realized that faith does not need a building. It needs only a heart willing to endure. The entry fee of ¥1,000 felt like a small offering for so large a lesson.</p>
+
+        <figure>
+          <img src="/ports/img/nagasaki/nagasaki-church.webp" alt="The Gothic facade of Oura Church with its white walls and stained glass windows" loading="lazy" width="400" height="300"/>
+          <figcaption>Oura Church, a UNESCO World Heritage Site. <a href="https://commons.wikimedia.org/wiki/Category:Oura_Church" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
+
+        <p>Walking back to the pier in the late afternoon, I realized what Nagasaki had taught me. This city has been burned, bombed, isolated, and shaken — and still it opens its arms to strangers. The contrast between the devastation I saw in the museum and the warmth of the people I met on the street was staggering. I learned that resilience is not about forgetting. It is about choosing, every morning, to face the world with grace instead of bitterness. Looking back on that day, I understand now why Nagasaki is not merely a port of call. It is a place that changes the way you see everything that comes after.</p>
+
+      </details>
+
+      <!-- ===== CRUISE PORT ===== -->
+      <details class="port-section" id="cruise_port" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
+        <ul>
+          <li><strong>Terminal:</strong> Matsugae Pier — modern facility in the city center with information desk and Wi-Fi; about 15 minutes on foot to Glover Garden</li>
+          <li><strong>Transit:</strong> Tram network covers most attractions; fare is ¥150 per ride or ¥600 day pass (excellent value for multiple stops)</li>
+          <li><strong>Tender:</strong> No — ships dock directly at the pier, which is wheelchair accessible at ground level</li>
+          <li><strong>Currency:</strong> Japanese Yen (¥); cash preferred at many smaller shops and local eateries</li>
+          <li><strong>Language:</strong> Japanese; English signage at major attractions, less so in neighborhoods</li>
+          <li><strong>Driving:</strong> Left side</li>
+          <li><strong>Best Season:</strong> Spring (cherry blossoms) and autumn; summers are hot and humid, winters mild but gray</li>
+        </ul>
+      </details>
+
+      <!-- ===== GETTING AROUND ===== -->
+      <details class="port-section" id="getting_around" open>
+        <summary><h2>Getting Around Nagasaki</h2></summary>
+        <p>Nagasaki's tram system is one of the most visitor-friendly in Japan and the easiest way to navigate the city from the cruise pier. The network consists of four color-coded lines that crisscross the city, connecting Matsugae Pier to Peace Park, Dejima, Glover Garden, Chinatown, and the main railway station. A single ride costs ¥150 (flat fare regardless of distance), or you can purchase a one-day pass for ¥600 — well worth it if you plan to visit three or more stops. Stops are announced in both Japanese and English, and route maps are posted at every platform. The trams accept IC cards (Suica, PASMO) or cash (exact change preferred).</p>
+        <p>For those who prefer walking, Nagasaki is compact but hilly. The waterfront from Matsugae Pier to Dejima and Chinatown is flat and manageable, roughly a 10-minute stroll. However, reaching Glover Garden or Oura Church requires climbing steep slopes, which may be challenging for visitors with mobility concerns. An escalator system near the Glover Garden entrance helps with the ascent, and the tram stops are positioned at the base of most hills. Taxis are readily available near the pier and cost approximately ¥700-1,200 for short trips within the city center. Wheelchair users should note that tram platforms are generally level-boarding, and the main attractions including Peace Park and Dejima are largely accessible, though Glover Garden's hillside pathways present some challenges. Budget roughly ¥2,000-3,000 per person for a full day of independent transport including tram, entry fees, and incidental costs.</p>
+      </details>
+
+      <!-- ===== MAP ===== -->
+      <details class="port-section port-map-section" id="port-map-section" open>
+        <summary><h2>Nagasaki Area Map</h2></summary>
+        <p class="map-intro">Interactive map showing cruise terminal, peace memorial, historic sites, and tram routes. Click any marker for details and directions.</p>
+        <div id="nagasaki-port-map" class="port-map-container" role="application" aria-label="Interactive map of Nagasaki and points of interest">
+          <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
         </div>
+      </details>
 
-        <section class="port-section">
-          <h3>Port Essentials</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
-          <ul>
-            <li><strong>Terminal:</strong> Matsugae Pier — modern facility in the city center with information desk and Wi-Fi; about 15 minutes on foot to Glover Garden</li>
-            <li><strong>Getting Around:</strong> Tram network covers most attractions; ¥150/ride or ¥600 day pass (excellent value for multiple stops)</li>
-            <li><strong>Tender:</strong> No — ships dock directly at the pier</li>
-            <li><strong>Currency:</strong> Japanese Yen (¥); cash preferred at many smaller shops and local eateries</li>
-            <li><strong>Language:</strong> Japanese; English signage at major attractions, less so in neighborhoods</li>
-            <li><strong>Driving:</strong> Left side</li>
-            <li><strong>Best Season:</strong> Spring (cherry blossoms) and autumn; summers are hot and humid, winters mild but gray</li>
-          </ul>
-        </section>
+      <!-- ===== EXCURSIONS ===== -->
+      <details class="port-section" id="excursions" open>
+        <summary><h2>Excursions &amp; Activities</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time. You can book ahead through the ship excursion desk for a guaranteed return to the vessel, or explore independent options for more flexibility and lower cost.</p>
 
-        <section class="port-section">
-          <h3>Top Experiences</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time.</p>
+        <h4 class="mt-1">Peace Memorial Park &amp; Atomic Bomb Museum</h4>
+        <p>The hypocenter of the August 9, 1945 bombing, now a place of solemn reflection where grass grows over what was once ash. The museum documents the event with remarkable sensitivity and forward-looking hope, presenting first-hand survivor testimonies and artifacts that survived the blast — a melted rosary, a pocket watch frozen at 11:02 a.m., a child's lunch box. The exhibition does not seek to assign blame but to bear witness, to remember, and to advocate for a world where such weapons are never used again. Allow 2-3 hours minimum; this is the soul of Nagasaki. Museum entry is ¥200. The site is largely wheelchair accessible with ramps at the main entrances. A ship excursion typically pairs this with Glover Garden for about $89 per person, though independent visitors can reach it for the cost of a single tram fare.</p>
 
-          <h4  class="mt-1">Peace Memorial Park & Atomic Bomb Museum</h4>
-          <p>The hypocenter of the August 9, 1945 bombing, now a place of solemn reflection where grass grows over what was once ash. The museum documents the event with remarkable sensitivity and forward-looking hope, presenting first-hand survivor testimonies and artifacts that survived the blast — a melted rosary, a pocket watch frozen at 11:02 a.m., a child's lunch box. The exhibition doesn't seek to assign blame but to bear witness, to remember, and to advocate for a world where such weapons are never used again. I walked through slowly, reading every placard, and left humbled. Peace Park itself, with its towering blue statue and origami crane memorials, is where the city's heart beats most visibly. Allow 2-3 hours minimum; this is the soul of Nagasaki. Museum entry ¥200.</p>
+        <h4 class="mt-1">Dejima</h4>
+        <p>The restored Dutch trading island where Japan maintained its sole foreign contact for over 200 years during sakoku. Walking onto this fan-shaped artificial island is like stepping into a living diorama — reconstructed Dutch warehouses, the Chief Factor's residence with its European furniture and Japanese tatami blending awkwardly, and the narrow bridge that once connected this 120-meter stretch to the mainland. Exhibits include period maps, trade goods, and immersive displays showing how Dutch merchants lived confined lives, trading under scrutiny. Entry costs ¥520, and the site is accessible on flat ground.</p>
 
-          <h4  class="mt-1">Dejima</h4>
-          <p>The restored Dutch trading island where Japan maintained its sole foreign contact for over 200 years during sakoku. Walking onto this fan-shaped artificial island is like stepping into a living diorama — reconstructed Dutch warehouses, the Chief Factor's residence with its European furniture and Japanese tatami blending awkwardly, and the narrow bridge that once connected this 120-meter stretch to the mainland. This is where Western medicine, astronomy, and botany seeped into Japan through cracks in the wall of isolation. Exhibits include period maps, trade goods, and immersive displays showing how Dutch merchants lived confined lives, trading under scrutiny, teaching hungry Japanese scholars in secret. It's a tiny place that changed the course of a nation. Entry ¥520.</p>
+        <h4 class="mt-1">Glover Garden</h4>
+        <p>A hillside open-air museum of Western-style mansions with sweeping harbor views. Thomas Glover's own residence — the oldest Western-style wooden house in Japan, built in 1863 — sits at the summit. Glover was a merchant and revolutionary sympathizer who supplied arms to the rebels who overthrew the shogunate, and a founder of what became the Mitsubishi empire. His Japanese wife and their story inspired Puccini's <em>Madame Butterfly</em>. Entry costs ¥620. Book ahead if you want the ship excursion combination that includes both Glover Garden and Peace Park with guaranteed return to the pier.</p>
 
-          <h4  class="mt-1">Glover Garden</h4>
-          <p>A hillside open-air museum of Western-style mansions that cling to the slopes like a Scottish dream transplanted to Japanese soil. Thomas Glover's own residence — the oldest Western-style wooden house in Japan, built in 1863 — sits at the summit with sweeping views over the harbor. Glover was a merchant, yes, but also a revolutionary sympathizer who supplied arms to the rebels who overthrew the shogunate, and a founder of what became the Mitsubishi empire. His Japanese wife and their story inspired Puccini's <em>Madame Butterfly</em>, and you can stand where she might have stood, looking out to sea. The other homes here — Alt House, Ringer House — belonged to merchants, missionaries, and modernizers who made Nagasaki their unlikely home. Wander the stone pathways, listen to the harbor breeze, and feel the ghosts of empire and ambition. Entry ¥620.</p>
+        <h4 class="mt-1">Nagasaki Chinatown</h4>
+        <p>One of Japan's three great Chinatowns, dating to the 17th century when Chinese merchants settled here. The lantern-draped streets are compact but atmospheric, with the scent of champon noodles drifting from every doorway. Champon bowls cost about ¥900-1,100 and sara udon roughly ¥850-1,000. This is ideal for an independent lunch stop — no booking required, and it is walking distance from Dejima.</p>
 
-          <h4  class="mt-1">Nagasaki Chinatown</h4>
-          <p>One of Japan's three great Chinatowns, dating to the 17th century when Chinese merchants settled here under less restrictive terms than the Dutch. The lantern-draped streets are compact but atmospheric, with the scent of champon noodles drifting from every doorway. This is where I had the best bowl of sara udon I've ever tasted — crispy noodles under a thick, savory seafood gravy that's pure Nagasaki fusion. Chinatown is ideal for lunch, a cultural palate cleanser between heavier historic sites, and walking distance from Dejima. Don't rush it.</p>
+        <h4 class="mt-1">Oura Church</h4>
+        <p>Japan's oldest surviving church, built in 1864 for the foreign community, and a UNESCO World Heritage Site. It was here that hidden Christians revealed themselves after 250 years of secret worship. A Gothic jewel box, modest in scale but monumental in meaning. Entry fee is ¥1,000.</p>
 
-          <h4  class="mt-1">Oura Church</h4>
-          <p>Japan's oldest surviving church, built in 1864 for the growing foreign community, and a place of profound significance. It was here, just months after the church opened, that a small group of Japanese villagers approached the French priest and whispered, "We are of the same heart as you." They were hidden Christians, descendants of converts who had practiced in secret for 250 years despite the shogunate's death penalty for the faith. Their emergence is considered one of the miracles of Catholic history. The church is a Gothic jewel box, modest in scale but monumental in meaning. A UNESCO World Heritage Site. Entry ¥1,000.</p>
+        <h4 class="mt-1">Mount Inasa Night View</h4>
+        <p>If your ship lingers past dusk, the ropeway ascent delivers one of Japan's three celebrated night panoramas — a glittering amphitheater of lights wrapped around the harbor. Ropeway round trip costs ¥1,250. Even by day, the panorama justifies the price of the ride.</p>
+      </details>
 
-          <h4  class="mt-1">Mount Inasa Night View</h4>
-          <p>If your ship lingers in port past dusk, make for Mount Inasa. The ropeway ascent delivers one of Japan's "three great night views" — a glittering amphitheater of lights wrapped around the harbor's dark water. Even by day, the panorama is worth the climb: the full sweep of the port, Dejima's outline visible below, the hills folding into one another. On a clear evening at sunset, it's transcendent. Ropeway ¥1,250 round trip.</p>
-        </section>
+      <!-- ===== DEPTH SOUNDINGS ===== -->
+      <details class="port-section" id="depth_soundings" open>
+        <summary><h2>Depth Soundings</h2></summary>
+        <p>Nagasaki is not a port you visit for souvenirs or sunshine, though both are available. It is a port that asks you to slow down, to look carefully, and to sit with difficult feelings. The Atomic Bomb Museum will test your composure, however gently it is curated. Peace Park will reward your patience with a quiet sense of hope that lingers for days. Dejima will surprise you with its playfulness. Glover Garden will remind you that ambition and love are often intertwined. And Chinatown will fill your stomach and restore your spirits when you need it most.</p>
+        <p>What I realized, looking back, is that Nagasaki gives you something few ports can: the experience of witnessing a city that has survived the worst humanity can inflict and still chosen to face the world with openness rather than fear. Despite everything, Nagasaki remains warm and welcoming. That is not a small gift. Plan your day with care, bring comfortable shoes and an open heart, and do not rush. This city has earned your full attention, and it will repay it generously. I know it changed me. I suspect it will change you too.</p>
+      </details>
 
-        <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Nagasaki Area Map</h2></summary>
-          <p class="map-intro">Interactive map showing cruise terminal, peace memorial, historic sites, and tram routes. Click any marker for details and directions.</p>
-          <div id="nagasaki-port-map" class="port-map-container" role="application" aria-label="Interactive map of Nagasaki and points of interest">
-            <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
-          </div>
-            </details>
+      <!-- ===== FAQ ===== -->
+      <details class="port-section" id="faq" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <p><strong>Q: Where do cruise ships dock in Nagasaki?</strong><br/>A: Ships dock at Matsugae Pier, a modern terminal centrally located with tram access steps away. Glover Garden is a 15-minute walk if you prefer to stretch your legs. The pier is wheelchair accessible at ground level.</p>
 
-        <section class="port-section">
-          <h3>Local Food & Drink</h3>
-          <ul>
-            <li><strong>Champon:</strong> Nagasaki's signature noodle soup — pork broth with seafood, vegetables, and thick noodles</li>
-            <li><strong>Sara Udon:</strong> Crispy noodles topped with a thick vegetable and seafood sauce</li>
-            <li><strong>Castella:</strong> The sponge cake brought by Portuguese traders in the 16th century</li>
-            <li><strong>Shippoku Ryori:</strong> Fusion cuisine blending Japanese, Chinese, and European influences</li>
-            <li><strong>Kakuni:</strong> Braised pork belly, Nagasaki-style — melt-in-your-mouth tender</li>
-            <li><strong>Biwa:</strong> Loquat — the local fruit, often made into jellies and sweets</li>
-          </ul>
-        </section>
+        <p><strong>Q: Is the Peace Memorial emotionally heavy?</strong><br/>A: Yes, but thoughtfully presented. The Atomic Bomb Museum includes first-hand survivor accounts and artifacts, but the focus is on hope and peace rather than graphic imagery. It is solemn, not despairing. Allow at least two hours. Museum entry costs ¥200.</p>
 
-        <section class="port-section author-note-disclaimer">
-          <h3>Author's Note</h3>
-          <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-        </section>
+        <p><strong>Q: Can I see everything in one port day?</strong><br/>A: You can cover the highlights, but not at a leisurely pace. I would suggest either a Peace Park focus (museum, memorial, perhaps Oura Church) or a cultural focus (Dejima, Glover Garden, Chinatown). With efficient use of the tram (¥600 day pass), you can sample both routes.</p>
 
-        <section class="port-section">
-          <h3>Frequently Asked Questions</h3>
-          <p><strong>Q: Where do cruise ships dock?</strong><br/>A: Matsugae Pier, centrally located with tram access steps away. Glover Garden is a 15-minute walk if you prefer to stretch your legs.</p>
-          <p><strong>Q: Is the Peace Memorial emotionally heavy?</strong><br/>A: Yes, but thoughtfully presented. The Atomic Bomb Museum includes first-hand survivor accounts and artifacts, but the focus is on hope and peace rather than graphic imagery. It's solemn, not despairing.</p>
-          <p><strong>Q: Can I see everything in one port day?</strong><br/>A: You can see the highlights, but not at a leisurely pace. I'd suggest either a Peace Park focus (museum, memorial, perhaps Oura Church) or a historic/cultural focus (Dejima, Glover Garden, Chinatown). Move efficiently and you can sample both.</p>
-          <p><strong>Q: Is the tram easy to navigate?</strong><br/>A: Yes. Lines are numbered, stops announced in English, and the ¥600 day pass offers unlimited rides. It's one of Japan's most visitor-friendly transit systems.</p>
-          <p><strong>Q: Should I visit Dejima or Glover Garden if time is limited?</strong><br/>A: Both are excellent and relatively close. Dejima for the isolation period and Dutch history. Glover Garden for Meiji-era architecture, harbor views, and the <em>Madame Butterfly</em> connection. If you can only choose one, ask yourself: confined island history or hillside mansions?</p>
-          <p><strong>Q: What's the significance of Thomas Glover?</strong><br/>A: The Scottish merchant was instrumental in Japan's modernization — he supplied arms during the revolution, helped found Mitsubishi, and his Japanese wife inspired Puccini's opera. His mansion is the oldest Western-style residence in Japan.</p>
-        </section>
+        <p><strong>Q: Is the tram easy to navigate?</strong><br/>A: Yes. Lines are numbered, stops announced in English, and the day pass offers unlimited rides. It is one of Japan's most visitor-friendly transit systems and accessible for those with mobility needs.</p>
 
+        <p><strong>Q: Should I visit Dejima or Glover Garden if time is limited?</strong><br/>A: Both are excellent and relatively close. Dejima for the isolation period and Dutch heritage. Glover Garden for Meiji-era architecture, harbor views, and the <em>Madame Butterfly</em> connection. Entry to Dejima is ¥520; Glover Garden is ¥620.</p>
+
+        <p><strong>Q: What should I budget for a day in Nagasaki?</strong><br/>A: A reasonable independent budget is ¥4,000-6,000 per person, covering tram pass (¥600), two or three admission fees (¥200-1,000 each), lunch (¥900-1,200), and a castella souvenir box (around ¥1,000). Cash is preferred at most venues.</p>
+      </details>
+
+      <!-- ===== GALLERY ===== -->
+      <details class="port-section" id="gallery" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <figure>
+          <img src="/ports/img/nagasaki/nagasaki-temple.webp" alt="A serene hillside temple in Nagasaki with stone lanterns and moss-covered steps" loading="lazy" width="400" height="300"/>
+          <figcaption>A hillside temple near the harbor. <a href="https://commons.wikimedia.org/wiki/Category:Temples_in_Nagasaki" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
+        <figure>
+          <img src="/ports/img/nagasaki/nagasaki-bridge.webp" alt="The historic Megane Bridge reflected in the Nakashima River forming a spectacles shape" loading="lazy" width="400" height="300"/>
+          <figcaption>Megane Bridge reflected in the Nakashima River. <a href="https://commons.wikimedia.org/wiki/Category:Meganebashi_(Nagasaki)" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
+        <figure>
+          <img src="/ports/img/nagasaki/nagasaki-view.webp" alt="Panoramic view of Nagasaki city and harbor from the summit of Mount Inasa at dusk" loading="lazy" width="400" height="300"/>
+          <figcaption>View from Mount Inasa at dusk. <a href="https://commons.wikimedia.org/wiki/Category:Mount_Inasa" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
+      </details>
+
+      <!-- ===== CREDITS ===== -->
+      <details class="port-section" id="credits" open>
+        <summary><h2>Image Credits</h2></summary>
+        <p>All images on this page are used under Creative Commons licenses or are original work. Sources include <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a>. Individual photo credits are noted beneath each image.</p>
+      </details>
+
+      <!-- ===== BACK NAV ===== -->
+      <nav class="port-section" id="back_nav" aria-label="Return navigation">
         <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-      
-        <!-- VOLATILE DATA DISCLAIMER -->
-        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-        </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Nagasaki?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
+      </nav>
 
-          <p><strong>Q: Does Nagasaki have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
+      </article>
 
-          <p><strong>Q: What should I pack for Nagasaki's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+          <div id="port-weather-widget"
+           data-port-id="nagasaki"
+           data-port-name="Nagasaki Port Guide"
+           data-lat="32.7503"
+           data-lon="129.8779"
+           data-region="Asia Pacific">
+          <noscript>
+            <div class="seasonal-guide seasonal-guide-static">
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">At a Glance</summary>
+                <div class="seasonal-at-glance">
+                  <div class="seasonal-glance-grid">
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+                  </div>
+                </div>
+              </details>
 
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Best Time to Visit</summary>
+                <div class="seasonal-best-time">
+                  <div class="cruise-seasons-grid">
+                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Sep</span></div>
+                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">May, Jun, Jul, Aug</span></div>
+                  </div>
+                  <div class="best-months-activities">
+                    <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">May, Jun, Jul</span></div>
+                  </div>
+                  <div class="months-to-avoid">
+                    <span class="avoid-label">Consider avoiding:</span>
+                    <span class="avoid-months">Jul, Aug, Sep</span>
+                    <span class="avoid-reason">(monsoon/typhoon season)</span>
+                  </div>
+                </div>
+              </details>
 
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                <div class="seasonal-catches">
+                  <ul class="catches-list">
+                    <li>Weather can change quickly — always have a backup plan</li>
+                    <li>Peak season means more crowds at popular attractions</li>
+                    <li>Sun can be intense even on cloudy days — sunscreen essential</li>
+                    <li>Local holidays may affect attraction hours and availability</li>
+                    <li>Check ship excursion timing against sunset and weather</li>
+                  </ul>
+                </div>
+              </details>
 
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">Packing Tips</summary>
+                <div class="seasonal-packing">
+                  <ul class="packing-list">
+                    <li>Sunscreen and sunglasses — essential year-round</li>
+                    <li>Light layers for variable temperatures</li>
+                    <li>Comfortable walking shoes for exploring</li>
+                    <li>Rain jacket or compact umbrella</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
+                  </ul>
+                  <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Weather Hazards</summary>
+                <div class="seasonal-hazards">
+                  <div class="hazard-warning">
+                    <span class="hazard-icon">&#9888;&#65039;</span>
+                    <div class="hazard-content">
+                      <strong>Monsoon/Typhoon Season</strong>
+                      <p>Season: Jun - Nov</p>
+                      <p>Peak risk: Aug, Sep, Oct</p>
+                      <p class="hazard-note">Ships may reroute during typhoons; check weather forecasts</p>
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+            </div>
+          </noscript>
+          </div>
+      </details>
+
+      <section class="port-section author-note-disclaimer">
+        <h2>Author's Note</h2>
+        <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake — gathered from travelers I trust, charts I have studied, and the most reliable accounts I can find. I have done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I will return to these pages and correct my course.</em></p>
+      </section>
+
+      <!-- VOLATILE DATA DISCLAIMER -->
+      <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+        <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+      </aside>
 
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Nagasaki Matsugae Pier">
-  <h3>From the Pier</h3>
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Nagasaki Matsugae Pier">
+  <h4>From the Pier</h4>
   <ul class="pier-distances">
     <li class="pier-distance-item">
       <div><span class="pier-dest">Glover Garden</span><div class="pier-detail">Walk from Matsugae Pier</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 15 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
     </li>
     <li class="pier-distance-item">
-      <div><span class="pier-dest">Chinatown & Dejima</span><div class="pier-detail">Walk or tram · ¥150 flat fare</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚊</span> 10 min</span>
+      <div><span class="pier-dest">Chinatown &amp; Dejima</span><div class="pier-detail">Walk or tram - fare ¥150</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128650;</span> 10 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
     </li>
     <li class="pier-distance-item">
-      <div><span class="pier-dest">Peace Park & Atomic Bomb Museum</span><div class="pier-detail">Tram · ¥150 or day pass ¥600</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚊</span> 20 min</span>
+      <div><span class="pier-dest">Peace Park &amp; Atomic Bomb Museum</span><div class="pier-detail">Tram - fare ¥150 or day pass ¥600</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128650;</span> 20 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
     </li>
     <li class="pier-distance-item">
       <div><span class="pier-dest">Oura Church</span><div class="pier-detail">Walk from Glover Garden area — oldest church in Japan</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 18 min</span>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 18 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
     </li>
   </ul>
-  <p class="pier-note">Matsugae Pier in city center with tram access nearby. Tram network: ¥150 flat fare per ride or ¥600 day pass. Glover Garden walkable from pier.</p>
-</div>
+  <p class="pier-note">Matsugae Pier in city center with tram access nearby. Tram network: fare ¥150 per ride or ¥600 day pass. Glover Garden walkable from pier.</p>
+</nav>
 
-      </article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
       <section class="card" aria-labelledby="glance-heading">
-        <h3 id="glance-heading">Quick Facts</h3>
+        <h4 id="glance-heading">Quick Facts</h4>
         <div class="at-a-glance-grid">
           <div class="at-a-glance-item"><strong>Country</strong><span>Japan</span></div>
           <div class="at-a-glance-item"><strong>Language</strong><span>Japanese</span></div>
           <div class="at-a-glance-item"><strong>Currency</strong><span>JPY (¥)</span></div>
           <div class="at-a-glance-item"><strong>Pier</strong><span>Matsugae Pier</span></div>
-          <div class="at-a-glance-item"><strong>Best For</strong><span>History, Culture</span></div>
+          <div class="at-a-glance-item"><strong>Best For</strong><span>Peace Sites, Culture</span></div>
           <div class="at-a-glance-item"><strong>Walking</strong><span>Tram recommended</span></div>
         </div>
       </section>
       <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
+        <h4 id="author-heading">About the Author</h4>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
@@ -491,12 +563,12 @@ Soli Deo Gloria
         <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
       </section>
       <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
       </section>
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Nagasaki on their itineraries:</p>
         <p class="cruise-line-label">Royal Caribbean</p>
         <div class="ship-links">
@@ -539,7 +611,7 @@ Soli Deo Gloria
       </section>
 
       <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
+        <h4 id="recent-rail-title">Recent Stories</h4>
         <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
@@ -553,7 +625,7 @@ Soli Deo Gloria
       <p>Helpful resources for your shore day:</p>
       <ul>
         <li><a href="/packing-lists.html">Cruise Packing Lists</a> — What to bring on port days</li>
-        <li><a href="/articles/cruise-tech-photography-guide.html">Photography &amp; Tech Guide</a> — Capture the perfect shots</li>
+        <li><a href="/articles/cruise-tech-photography-guide.html">Camera &amp; Tech Guide</a> — Capture the perfect shots</li>
         <li><a href="/internet-at-sea.html">Internet at Sea</a> — WiFi tips &amp; staying connected</li>
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>

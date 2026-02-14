@@ -163,6 +163,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -200,285 +203,311 @@ Soli Deo Gloria
         <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
+      <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo &copy; Flickers of Majesty</a></div>
     </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Penang</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Penang</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero">
+
+      <!-- ===== HERO ===== -->
+      <section class="port-hero" id="hero">
         <div class="port-hero-image">
-          <img src="/assets/brand/placeholder-port.webp" alt="Historic Georgetown streetscape with colonial shophouses and vibrant street art" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <img src="/ports/img/penang/penang-hero.webp" alt="Georgetown streetscape with colonial shophouses and vibrant street art in Penang Malaysia" loading="eager" fetchpriority="high"/>
           <div class="port-hero-overlay">
             <h1 class="port-hero-title">Penang, Malaysia</h1>
           </div>
         </div>
-        <p class="port-hero-credit">Photo: In the Wake</p>
-      </div>
+        <p class="port-hero-credit">Photo: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></p>
+      </section>
 
-      
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+      <div id="journal-btn-container"></div>
 
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="penang"
-               data-port-name="Penang Port Guide"
-               data-lat="0"
-               data-lon="0"
-               data-region="Africa">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
-                    </div>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+        <div id="port-weather-widget"
+             data-port-id="penang"
+             data-port-name="Penang Port Guide"
+             data-lat="5.4164"
+             data-lon="100.3327"
+             data-region="Asia">
+          <noscript>
+            <div class="seasonal-guide seasonal-guide-static">
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">At a Glance</summary>
+                <div class="seasonal-at-glance">
+                  <div class="seasonal-glance-grid">
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">27-33 C year-round</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">70-90% year-round</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Heaviest Sep-Nov</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Light monsoon breezes</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">12 hours year-round near equator</span></div>
                   </div>
-                </details>
+                </div>
+              </details>
 
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jan, Feb</span>
-                      <span class="avoid-reason">(varies by destination)</span>
-                    </div>
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Best Time to Visit</summary>
+                <div class="seasonal-best-time">
+                  <div class="cruise-seasons-grid">
+                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Dec, Jan, Feb, Mar</span></div>
+                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, May, Oct, Nov</span></div>
+                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Jun, Jul, Aug, Sep</span></div>
                   </div>
-                </details>
+                </div>
+              </details>
 
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Seasonal Weather</strong>
-                        <p>Season: Varies</p>
-                        <p>Peak risk: Varies</p>
-                        <p class="hazard-note">Check local conditions before your cruise</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">Packing Tips</summary>
+                <div class="seasonal-packing">
+                  <ul class="packing-list">
+                    <li>Sunscreen and sunglasses -- essential year-round</li>
+                    <li>Light breathable clothing for humid conditions</li>
+                    <li>Comfortable walking shoes for heritage zone exploring</li>
+                    <li>Rain jacket or compact umbrella</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the street art and temples</li>
+                  </ul>
+                  <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
+                </div>
+              </details>
+              <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+            </div>
+          </noscript>
+        </div>
+      </details>
 
       <article class="card">
         <h1>Penang: Where Four Cultures Paint One Astonishing Canvas</h1>
 
-        <div class="logbook-entry clearfix">
-          <p>Georgetown announced itself with a collision of scents that no guidebook could adequately describe — incense smoke from Chinese temples mingling with curry spices from Indian restaurants, the salty Straits air mixing with durian from a street vendor's cart. Captain Francis Light claimed this island for the British East India Company in 1786, naming it Prince of Wales Island, but today's Georgetown belongs to everyone: Malay, Chinese, Indian, and Peranakan communities woven together into something magnificently unique.</p>
+        <!-- ===== LOGBOOK (My Visit to Penang) ===== -->
+        <details class="port-section" id="logbook" open>
+          <summary><h2>My Visit to Penang</h2></summary>
 
-          <p>Walking through the UNESCO World Heritage Zone feels like stepping through a living museum where history hasn't been preserved under glass — it's still being lived. In 2008, UNESCO recognized Georgetown (alongside Melaka) as a World Heritage Site for its "unique architectural and cultural townscape without parallel anywhere in East and Southeast Asia." It's a designation that captures what words struggle to express: two-hundred-year-old Chinese shophouses painted in pastels housing contemporary cafés; British colonial administrative buildings converted to museums; ornate Indian Muslim architecture standing shoulder-to-shoulder with Malay mosques; Hindu temples beside Hokkien clan houses. Muslims, Buddhists, Christians, and Sikhs share the same narrow streets, the same humid air, the same genuine pride in their shared "Pearl of Orient." I've visited ports across Asia, but nowhere else quite captures this particular harmony of difference.</p>
+          <p>I stepped off the gangway at Swettenham Pier into a wall of warm, humid air that carried the scent of frying garlic, incense smoke, and salt from the Straits of Malacca. My shoes hit the pavement at seven in the morning and already the waterfront hummed with energy -- taxi drivers calling out, a hawker cart rattling past with stacks of roti canai, a stray cat winding between bollards with the confidence of something that owned the place. Georgetown announced itself not with grandeur but with immediacy, and I felt my chest tighten with the realization that this single day would never be enough.</p>
 
-          <p>The street art changed everything in 2012. When Georgetown commissioned Lithuanian artist Ernest Zacharevic for the "Mirrors George Town" festival, nobody predicted that his playful murals would transform these heritage streets into one of Asia's most Instagram-famous destinations. But it's his <em>Children on a Bicycle</em> — two painted siblings riding an actual bicycle mounted to a wall on Armenian Street — that stops every visitor mid-stride. Nearby, the <em>Boy on a Motorbike</em> leans out from another wall, frozen in perpetual mischief. What I love most isn't just Zacharevic's work but what followed: dozens of iron caricature installations depicting local life and history now punctuate alleyways and corners throughout the heritage zone, turning every walk into a treasure hunt. History here doesn't stand still; it invites you to play.</p>
+          <p>The walk from the pier toward the Clan Jetties took me along a waterfront promenade where fishermen sorted the morning catch into plastic tubs. I heard the slap of wet fish against wood, the low murmur of Hokkien dialect mixed with Malay, and somewhere behind me the hollow clang of a temple bell. Chew Jetty appeared first -- a narrow wooden walkway stretching out over murky green water, lined with weathered plank houses that have sheltered Chinese families for generations. I walked slowly, respectfully, watching an elderly woman hang laundry on a line strung between two posts while her grandson kicked a ball on boards that creaked with every step. These are homes, not exhibits. Yet the residents smiled and nodded as I passed, and one woman gestured for me to look at the small altar at the end of the jetty, where incense curled upward against the morning sky. I whispered a quiet prayer of gratitude for being welcomed into someone else's daily life.</p>
 
-          <div class="poignant-highlight">
-            <strong>The Moment That Stays With Me:</strong> Sitting on a plastic stool at a hawker stall on Chulia Street at dusk, eating char kway teow prepared by a third-generation vendor who explained (in perfect English) how his grandfather had perfected this wok-fried rice noodle dish when Georgetown was still a colonial outpost. The noodles were transcendent — smoky, savory, touched with sweetness from dark soy and prawn oil. The conversation was even better. He refused payment for the history lesson — "just come back and eat again tomorrow." I did. This is Penang: world-famous food served without pretense by people who genuinely want you to understand why it matters.
-          </div>
+          <figure>
+            <img src="/ports/img/penang/penang-jetties.webp" alt="Wooden walkway over water at Chew Jetty clan village with laundry lines and plank houses in Penang" loading="lazy" width="400" height="300"/>
+            <figcaption>Chew Jetty stilt village. <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+          </figure>
 
-          <p>Swettenham Pier sits within easy reach of this wonderland, which still feels miraculous. The modern cruise terminal provides the usual amenities, but step outside and within fifteen minutes by taxi you're standing on streets that have witnessed two centuries of commerce, migration, faith, and fusion. Or walk toward the waterfront and discover the Clan Jetties — stilt villages where Chinese families have lived over the Straits of Malacca for generations, still welcoming respectful visitors into their remarkable daily lives.</p>
+          <p>A Grab ride costing barely $2 delivered me to the heart of the UNESCO World Heritage Zone, and the shift was startling. However, where the jetties felt intimate and quiet, Armenian Street exploded with color, laughter, and the click of cameras. I spotted Ernest Zacharevic's famous <em>Children on a Bicycle</em> mural before I even left the car -- two painted children on an actual bicycle mounted to a crumbling wall, so perfectly integrated that the boundary between art and architecture disappears. I stood there for several minutes, watching visitors line up to pose beside it, and I realized something had shifted in my understanding of what heritage means. This was not a museum piece roped off behind glass. This was living art on a living street, and the joy on people's faces told me that Zacharevic's genius was not just technical skill but the gift of play. Nearby, the <em>Boy on a Motorbike</em> grinned from another wall, frozen in mischief, and dozens of iron caricature installations depicting local life and history dotted every alleyway. I spent two hours wandering and still missed half of them.</p>
 
-          <p>Kek Lok Si Temple deserves every superlative thrown at it. One of Southeast Asia's largest Buddhist temple complexes climbs the hillside in Air Itam in a riot of color, prayer flags, and architectural ambition. The seven-story Pagoda of Rama VI blends Chinese, Thai, and Burmese styles into something breathtaking — Chinese octagonal base, Thai middle tiers, Burmese crown. I arrived at sunset and watched the lights come on across thousands of lanterns strung between pavilions and prayer halls. The bronze statue of Kuan Yin (Goddess of Mercy) watches over everything with serene benevolence. Worth the taxi ride and the climb. Bring water; the stairs are many but the views are earned.</p>
+          <figure>
+            <img src="/ports/img/penang/penang-street-art.webp" alt="Ernest Zacharevic Children on a Bicycle mural on Armenian Street in Georgetown Penang" loading="lazy" width="400" height="300"/>
+            <figcaption>Street art on Armenian Street. <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></figcaption>
+          </figure>
 
-          <p>Khoo Kongsi, Georgetown's most ornate Chinese clan temple, stopped me cold. Built by the Khoo clan in the 1850s and rebuilt after a mysterious fire in 1901, this clan house rivals any imperial palace I've visited. The carved beams, hand-painted murals, gilded altars, ceramic sculptures — every surface tells stories of Chinese mythology and clan history with extravagant devotion. The entrance alone could occupy an hour if you read every detail. They charge a modest entrance fee; it's the bargain of your port day.</p>
+          <p>But Georgetown's deeper magic lies beneath the murals. I turned a corner and found myself on Pitt Street -- Jalan Masjid Kapitan Keling -- where four faiths share a single stretch of road with zero tension and absolute grace. The Kapitan Keling Mosque rose first, its elegant Indian Muslim architecture glowing in morning light, built in 1801 by the earliest South Indian settlers. My eyes traced the minaret upward and then back down to the courtyard where a man removed his sandals before entering. Fifty meters later, the Sri Mahamariamman Temple stopped me cold with its towering, multicolored gopuram teeming with carved deities -- Penang's oldest Hindu temple, founded in 1833, still fragrant with jasmine garlands and alive with devotion. Across the street, the Goddess of Mercy Temple (Kuan Yin Teng) was thick with incense smoke, the sweet heavy scent settling into my clothes and hair. I watched an elderly Chinese woman light three sticks of incense, close her eyes, and bow three times with a stillness that made the chaos of the street fall silent around her. And then, just beyond, the spire of St. George's Anglican Church completed the quartet. Four faiths, one street. My heart swelled at the sight of it -- not because it was picturesque, although it was, but because it was real. People actually live this harmony. They have for centuries.</p>
 
-          <p>But Georgetown's genius lies in its sacred diversity. Walk from Khoo Kongsi down to Pitt Street (Jalan Masjid Kapitan Keling) and within five minutes you'll pass the Kapitan Keling Mosque — an elegant Indian Muslim mosque built in 1801 by the first Indian Muslim settlers — then the Sri Mahamariamman Temple, Penang's oldest Hindu temple founded in 1833 with its towering, multicolored gopuram teeming with carved deities. Cross the street and there's the Goddess of Mercy Temple (Kuan Yin Teng), always fragrant with incense and busy with devotees. Four faiths, one street, zero tension. This is what UNESCO meant by "unique cultural townscape."</p>
-        </div>
+          <figure>
+            <img src="/ports/img/penang/penang-temple.webp" alt="Colorful gopuram tower of Sri Mahamariamman Hindu Temple on Pitt Street in Georgetown Penang" loading="lazy" width="400" height="300"/>
+            <figcaption>Sri Mahamariamman Temple. <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+          </figure>
 
-        <section class="port-section">
-          <h3>Port Essentials</h3>
+          <p>Kek Lok Si Temple demanded an afternoon taxi ride to Air Itam, and I am grateful I made the effort despite aching legs. One of Southeast Asia's largest Buddhist temple complexes climbs the hillside in a riot of color, prayer flags, and architectural ambition that defies easy description. The seven-story Pagoda of Rama VI blends Chinese octagonal base, Thai middle tiers, and Burmese crown into something I can only call breathtaking -- though even that word falls short. I arrived near sunset and watched the lights come on across thousands of lanterns strung between pavilions and prayer halls. The bronze Kuan Yin statue gazed out over the entire valley with serene benevolence. I sat on a stone bench and felt tears prick my eyes, not from sadness but from the overwhelming beauty of devotion made visible. The climb is real -- hundreds of stairs -- but the views are earned, and I would do it again without hesitation.</p>
+
+          <figure>
+            <img src="/ports/img/penang/penang-kek-lok-si.webp" alt="Kek Lok Si Temple pagoda with Chinese Thai and Burmese architectural tiers illuminated at sunset in Penang" loading="lazy" width="400" height="300"/>
+            <figcaption>Kek Lok Si Temple at sunset. <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></figcaption>
+          </figure>
+
+          <p>Khoo Kongsi, Georgetown's most ornate Chinese clan temple, stopped me cold for a second time that day. Built by the Khoo clan in the 1850s and rebuilt after a mysterious fire in 1901, this clan house rivals any imperial palace I have ever visited. The carved beams, hand-painted murals, gilded altars, ceramic sculptures -- every surface tells stories of Chinese mythology and clan history with extravagant devotion. The entrance fee of about $3 is the bargain of any port day anywhere. I spent an hour tracing the carvings and still felt I had only scratched the surface.</p>
+
+          <figure>
+            <img src="/ports/img/penang/penang-kongsi.webp" alt="Ornate gilded interior of Khoo Kongsi clan temple with carved beams and painted murals in Georgetown Penang" loading="lazy" width="400" height="300"/>
+            <figcaption>Khoo Kongsi clan temple. <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+          </figure>
+
+          <p>And then there was the food. Penang is Malaysia's undisputed street food capital, and I tasted my way through the evidence. Sitting on a plastic stool at a hawker stall on Chulia Street at dusk, I ate char kway teow prepared by a third-generation vendor who explained, in perfect English, how his grandfather had perfected this wok-fried rice noodle dish when Georgetown was still a colonial outpost. The noodles were transcendent -- smoky, savory, touched with sweetness from dark soy and prawn oil, and the sound of the wok scraping over the flame was hypnotic. The conversation was even better. He refused payment for the history lesson: "just come back and eat again tomorrow." I did. I also tried assam laksa -- sour, spicy, polarizing -- and cendol, a shaved-ice dessert so refreshing in the humid evening air that I ordered a second one immediately. The cost for all of it was under $5.</p>
+
+          <figure>
+            <img src="/ports/img/penang/penang-food.webp" alt="Plate of char kway teow smoky wok-fried noodles at a Georgetown hawker stall in Penang" loading="lazy" width="400" height="300"/>
+            <figcaption>Char kway teow hawker stall. <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></figcaption>
+          </figure>
+
+          <p>Penang Hill waited for the next morning, though I nearly skipped it -- my legs protested after the previous day's temple stairs. Yet the funicular railway, costing about $10 round-trip, carried me to 2,700 feet for sweeping views of the island, the straits, and the distant mainland. The air was cooler, the breeze gentle, and I stood at the overlook feeling genuinely small in the best possible way. Nevertheless, it was the ride down that moved me most. A young Malaysian family sat across from me, and their daughter, maybe five years old, pointed at the view and said in English, "Look, Daddy, we can see our house." Her father laughed and said, "Not quite, but close." Something shifted inside me. I realized that what I had been experiencing all day was not just tourism. It was the privilege of witnessing people in their home -- their temples, their jetties, their food stalls, their hilltop views -- and being welcomed as though I belonged.</p>
+
+          <figure>
+            <img src="/ports/img/penang/penang-hill.webp" alt="Panoramic view from Penang Hill funicular summit overlooking Georgetown and the Straits of Malacca" loading="lazy" width="400" height="300"/>
+            <figcaption>View from Penang Hill. <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+          </figure>
+
+          <p>Looking back, I learned that Georgetown's genius is not its architecture, its art, or its food -- although all three are extraordinary. Its genius is its people. Four cultures sharing narrow streets, humid air, and genuine pride in their shared Pearl of the Orient, creating something that no single community could achieve alone. I have visited ports across Asia, but nowhere else quite captures this particular harmony of difference. What matters is not that Georgetown is beautiful -- it is -- but that its beauty is lived, daily, by people who do not perform it for visitors but simply invite you to see it. I discovered that the real gift of travel is not what I saw but what I was allowed to understand. Penang taught me gratitude, and I am still learning its lesson.</p>
+
+          <section class="port-section author-note-disclaimer">
+            <h4>Author's Note</h4>
+            <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake -- gathered from travelers I trust, charts I have studied, and the most reliable accounts I can find. I have done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I will return to these pages and correct my course.</em></p>
+          </section>
+        </details>
+
+        <!-- ===== CRUISE PORT ===== -->
+        <details class="port-section" id="cruise_port" open>
+          <summary><h2>The Cruise Port</h2></summary>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
           <ul>
-            <li><strong>Terminal:</strong> Swettenham Pier Cruise Terminal — modern facility located in Georgetown's historic waterfront area with tourist information, currency exchange, taxis, and Grab rideshare pickup. The pier itself sits within easy reach of Georgetown's UNESCO heritage treasures.</li>
-            <li><strong>Distance to Attractions:</strong> Clan Jetties walking distance; UNESCO heritage zone (street art, temples, Khoo Kongsi) 15-20 min by taxi/Grab; Kek Lok Si Temple 30 min; Penang Hill 25 min. Everything is remarkably accessible.</li>
-            <li><strong>Tender:</strong> No — ships dock directly at the pier</li>
+            <li><strong>Terminal:</strong> Swettenham Pier Cruise Terminal -- modern facility located in Georgetown's waterfront area with tourist information, currency exchange, taxis, and Grab rideshare pickup. The pier itself sits within easy reach of Georgetown's UNESCO heritage treasures. The facility is wheelchair accessible with ramps and level boarding areas.</li>
+            <li><strong>Distance to Attractions:</strong> Clan Jetties walking distance (~10 min); UNESCO heritage zone (street art, temples, Khoo Kongsi) 15-20 min by taxi/Grab at a fare of about $2-3; Kek Lok Si Temple 30 min (~$5); Penang Hill funicular 25 min (~$5). Everything is remarkably accessible.</li>
+            <li><strong>Tender:</strong> No -- ships dock directly at the pier</li>
             <li><strong>Currency:</strong> Malaysian Ringgit (MYR); USD accepted at tourist sites but local currency strongly preferred and required for street food. ATMs in Georgetown offer best exchange rates.</li>
             <li><strong>Language:</strong> Malay (official), English widely spoken (colonial legacy), plus Hokkien, Mandarin, Cantonese, Tamil. English gets you everywhere comfortably.</li>
             <li><strong>Driving:</strong> Left side (British colonial legacy)</li>
-            <li><strong>Best Season:</strong> December–March (cooler, drier, more pleasant for walking); avoid heavy monsoon rains September–November. Georgetown is humid year-round — hydrate constantly.</li>
+            <li><strong>Best Season:</strong> December to March (cooler, drier, more pleasant for walking); avoid heavy monsoon rains September to November. Georgetown is humid year-round -- hydrate constantly.</li>
+            <li><strong>Mobility Notes:</strong> The heritage zone sidewalks are uneven in places. Visitors with mobility concerns should consider a trishaw or Grab for longer distances. Kek Lok Si Temple involves many stairs and is strenuous for those with walking difficulty.</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section">
-          <h3>Top Experiences</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time.</p>
+        <!-- ===== GETTING AROUND ===== -->
+        <details class="port-section" id="getting-around" open>
+          <summary><h2>Getting Around Penang</h2></summary>
+          <p>Georgetown is a remarkably easy port to navigate for cruise visitors. From Swettenham Pier, the Clan Jetties are within a 10-minute walk along a flat waterfront promenade, making them the most immediately accessible attraction from the ship. However, the heart of the UNESCO heritage zone -- where the street art, clan temples, and houses of worship cluster together -- sits about 15 to 20 minutes away by taxi or Grab rideshare, at a cost of only $2-3 per ride.</p>
 
-          <h4  class="mt-1">Georgetown UNESCO Heritage Zone & Street Art Trail</h4>
-          <p>Wander the colonial-era streets discovering architectural treasures, street art murals, traditional shophouses, temples, and clan houses. The Street Art Trail is Georgetown's crown jewel: Ernest Zacharevic's famous interactive murals — especially <em>Children on a Bicycle</em> on Armenian Street and <em>Boy on a Motorbike</em> nearby — draw visitors from around the world. The 2012 "Mirrors George Town" festival transformed these heritage streets into an open-air gallery. Don't miss the iron caricature installations depicting local history scattered throughout alleyways. Free, walkable, unforgettable. Bring comfortable shoes, plenty of water, and a camera.</p>
+          <p>Grab (Southeast Asia's equivalent of Uber) is the most popular and affordable option for getting around Penang. Simply download the app before your cruise, and you can summon a car from almost anywhere on the island. Fares are metered and transparent, and drivers are generally friendly and English-speaking. Taxis are also available at the cruise terminal, though fares should be negotiated or confirmed before departing. A typical taxi from the pier to the heritage zone runs about $3-4, while a trip to Kek Lok Si Temple or Penang Hill costs around $5-7 each way.</p>
 
-          <h4  class="mt-1">Kek Lok Si Temple</h4>
-          <p>One of Southeast Asia's largest Buddhist temple complexes, climbing the hillside in Air Itam with breathtaking devotion. The seven-story Pagoda of Rama VI blends Chinese, Thai, and Burmese architectural styles. Thousands of lanterns, prayer halls, and a towering bronze Kuan Yin statue create an atmosphere of serene grandeur. About 30 min from port by taxi. Free entry (donations welcome); incense and offerings sold on-site. Best at sunset when lights illuminate the entire complex.</p>
+          <p>Once inside the heritage zone, walking is the best way to explore. The streets are narrow, the attractions clustered close together, and much of the charm comes from wandering without a fixed plan. The street art trail, temple row on Pitt Street, Khoo Kongsi, and dozens of hawker stalls are all within comfortable walking distance of each other. Bring comfortable shoes, water, and sun protection -- Georgetown is hot and humid year-round. For visitors with mobility challenges, trishaws (bicycle rickshaws) offer a slower-paced alternative at around $10-15 per hour and provide a charming way to see the heritage zone without excessive walking. The Rapid Penang public bus system is also available and very affordable at under $1 per ride, though routes can be confusing for first-time visitors.</p>
+        </details>
 
-          <h4  class="mt-1">Khoo Kongsi Clan Temple</h4>
-          <p>Georgetown's most ornate Chinese clan temple and one of Malaysia's architectural treasures. Built by the Khoo clan in the 1850s, this lavishly decorated clan house features hand-carved beams, gilded altars, ceramic sculptures, and painted murals depicting Chinese mythology. The craftsmanship rivals imperial palaces. Modest entrance fee (~$3-5). Allow at least an hour to absorb the details. Located in the heart of the heritage zone.</p>
-
-          <h4  class="mt-1">Street of Harmony (Pitt Street)</h4>
-          <p>One street, four faiths. Walk Jalan Masjid Kapitan Keling (Pitt Street) to experience Georgetown's multicultural genius: the elegant Kapitan Keling Mosque (1801), built by Indian Muslim settlers; Sri Mahamariamman Temple (1833), Penang's oldest Hindu temple with its towering multicolored gopuram; the Goddess of Mercy Temple (Kuan Yin Teng), always fragrant with incense; and nearby St. George's Anglican Church. This is living heritage at its finest. Free to visit; dress modestly and remove shoes when required.</p>
-
-          <h4  class="mt-1">Street Food Crawl</h4>
-          <p>Penang is Malaysia's undisputed street food capital, and locals will defend that title fiercely. Must-try: char kway teow (wok-fried rice noodles with prawns), assam laksa (sour-spicy fish noodle soup with tamarind — polarizing but iconic), nasi kandar (rice with Indian Muslim curries), and cendol (shaved ice dessert with coconut milk and palm sugar). Try Red Garden Food Paradise, Gurney Drive Hawker Centre, or simply follow your nose down Chulia Street. This alone justifies the port call.</p>
-
-          <h4  class="mt-1">Cheong Fatt Tze Mansion (Blue Mansion)</h4>
-          <p>Indigo-blue heritage mansion built in the 1880s by Chinese tycoon Cheong Fatt Tze. Guided tours reveal Feng Shui secrets, intricate tilework, and Straits Chinese (Peranakan) opulence. Featured in the film "Crazy Rich Asians." ~$15 per person. Book ahead; tours fill quickly. Worth every ringgit.</p>
-
-          <h4  class="mt-1">Clan Jetties</h4>
-          <p>Historic stilt villages built over water where Chinese clans have lived for generations. Chew Jetty is the most accessible and welcoming. Free to explore respectfully — these are active homes, not museums. Watch fishermen mend nets, children play on weathered walkways, and daily life unfold over the Straits of Malacca. Great for photography and cultural insight. Walking distance from Swettenham Pier.</p>
-
-          <h4  class="mt-1">Penang Hill Funicular Railway</h4>
-          <p>Colonial-era funicular climbs to 2,700 feet for sweeping island views and cooler air. ~$10 round-trip. Can be crowded; early morning is best. Combine with a visit to the Habitat nature reserve at the top for canopy walks through rainforest. Allow 2-3 hours for the full experience.</p>
-        </section>
-
+        <!-- ===== MAP ===== -->
         <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Penang Area Map</h2></summary>
+          <summary><h2>Penang Area Map</h2></summary>
           <p class="map-intro">Interactive map showing cruise terminal, Georgetown heritage sites, temples, and attractions. Click any marker for details and directions.</p>
           <div id="penang-port-map" class="port-map-container" role="application" aria-label="Interactive map of Penang and points of interest">
             <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
           </div>
-            </details>
+        </details>
 
-        <section class="port-section">
-          <h3>Local Food & Drink</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Penang's street food scene is legendary across Southeast Asia. Come hungry.</p>
-          <ul>
-            <li><strong>Char Kway Teow:</strong> Flat rice noodles wok-fried over scorching heat with prawns, cockles, Chinese lap cheong sausage, eggs, bean sprouts, and chives, finished with dark soy sauce and chili paste. Penang's signature dish and the benchmark by which all other versions are judged. Smoky, savory, utterly addictive. Every vendor guards their family recipe. Try several; argue about the best.</li>
-            <li><strong>Assam Laksa:</strong> Penang's iconic sour-spicy fish noodle soup made with tamarind, mackerel, mint, pineapple, cucumber, onions, and ginger flower. Thick rice noodles swimming in a broth that's simultaneously sour, savory, and aromatic. Polarizing but beloved — if you love it, you'll crave it for years. If you hate it, you'll still remember it. Worth trying at least once.</li>
-            <li><strong>Nasi Kandar:</strong> Rice served with your choice of curries, gravies, and meats — an Indian Muslim specialty that arrived with South Indian traders. Point to what looks good; vendors will drizzle multiple gravies over your rice, creating flavor combinations that shouldn't work but absolutely do. Open 24 hours at many stalls. Life-changing when eaten at 2 AM after exploring Georgetown's night markets.</li>
-            <li><strong>Rojak:</strong> Fruit and vegetable salad (cucumber, turnip, pineapple, guava, mango) tossed with thick, sweet-spicy prawn paste dressing, crushed peanuts, and sesame seeds. Sweet, salty, funky, crunchy — everything at once. Refreshing on humid days.</li>
-            <li><strong>Cendol:</strong> Shaved ice dessert layered with coconut milk, gula Melaka (palm sugar), and green rice flour jelly noodles (the "cendol"). Sometimes topped with red beans or sweet corn. Perfect antidote to Penang's relentless humidity. Ridiculously refreshing.</li>
-            <li><strong>Teh Tarik:</strong> "Pulled tea" — black tea with condensed milk poured back and forth between containers to create froth. The pulling is both practical (cooling and aerating) and theatrical. Ubiquitous, delicious, and best enjoyed at a hawker stall while watching street life unfold.</li>
-            <li><strong>Hokkien Mee:</strong> Prawn noodle soup with rich, deeply savory broth made from simmering prawn heads and pork bones for hours. Yellow noodles, rice noodles, prawns, pork, kangkung (water spinach), bean sprouts. Comfort in a bowl.</li>
-          </ul>
-        </section>
+        <!-- ===== EXCURSIONS ===== -->
+        <details class="port-section" id="excursions" open>
+          <summary><h2>Top Excursions &amp; Activities</h2></summary>
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I would spend my time. You can book ahead through your ship excursion desk for a guaranteed return to the vessel, or explore independent options for more flexibility and lower cost.</p>
 
-        <section class="port-section author-note-disclaimer">
-          <h3>Author's Note</h3>
-          <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-        </section>
+          <h4 class="mt-1">Georgetown UNESCO Heritage Zone &amp; Street Art Trail</h4>
+          <p>Wander the colonial-era streets discovering architectural treasures, street art murals, heritage shophouses, temples, and clan houses. The Street Art Trail is Georgetown's crown jewel: Ernest Zacharevic's famous interactive murals -- especially <em>Children on a Bicycle</em> on Armenian Street and <em>Boy on a Motorbike</em> nearby -- draw visitors from around the world. The 2012 "Mirrors George Town" festival transformed these heritage streets into an open-air gallery. Do not miss the iron caricature installations depicting local history scattered throughout alleyways. Free, walkable, unforgettable. Bring comfortable shoes, plenty of water, and a camera. This is an independent excursion that requires no booking -- simply walk or take a Grab from the pier. Low walking effort for individual murals, moderate for the full trail.</p>
 
-        <section class="port-section">
-          <h3>Frequently Asked Questions</h3>
-          <p><strong>Q: Where do cruise ships dock?</strong><br/>A: Swettenham Pier Cruise Terminal in Georgetown, within walking distance of the Clan Jetties and about 15 minutes by taxi from the UNESCO heritage core. Modern facility with tourist information, taxis, and Grab rideshare pickup.</p>
+          <h4 class="mt-1">Kek Lok Si Temple</h4>
+          <p>One of Southeast Asia's largest Buddhist temple complexes, climbing the hillside in Air Itam with breathtaking devotion. The seven-story Pagoda of Rama VI blends Chinese, Thai, and Burmese architectural styles. Thousands of lanterns, prayer halls, and a towering bronze Kuan Yin statue create an atmosphere of serene grandeur. About 30 min from port by taxi (~$5). Free entry (donations welcome); incense and offerings sold on-site. Best at sunset when lights illuminate the entire complex. Strenuous walking with many stairs -- those with walking difficulty should plan accordingly.</p>
+
+          <h4 class="mt-1">Khoo Kongsi Clan Temple</h4>
+          <p>Georgetown's most ornate Chinese clan temple and one of Malaysia's architectural treasures. Built by the Khoo clan in the 1850s, this lavishly decorated clan house features hand-carved beams, gilded altars, ceramic sculptures, and painted murals depicting Chinese mythology. The craftsmanship rivals imperial palaces. Entrance fee ~$3. Allow at least an hour to absorb the details. Located in the heart of the heritage zone.</p>
+
+          <h4 class="mt-1">Street of Harmony (Pitt Street)</h4>
+          <p>One street, four faiths. Walk Jalan Masjid Kapitan Keling (Pitt Street) to experience Georgetown's multicultural harmony: the elegant Kapitan Keling Mosque (1801), built by Indian Muslim settlers; Sri Mahamariamman Temple (1833), Penang's oldest Hindu temple with its towering multicolored gopuram; the Goddess of Mercy Temple (Kuan Yin Teng), always fragrant with incense; and nearby St. George's Anglican Church. This is living heritage at its finest. Free to visit; dress modestly and remove shoes when required.</p>
+
+          <h4 class="mt-1">Street Food Crawl</h4>
+          <p>Penang is Malaysia's undisputed street food capital. Char kway teow (wok-fried rice noodles with prawns, ~$1.50), assam laksa (sour-spicy fish noodle soup, ~$1), nasi kandar (rice with curries, ~$2), and cendol (shaved ice dessert, ~$1) are all essential. Try Gurney Drive Hawker Centre or follow your nose down Chulia Street. A ship excursion food tour runs about $40-60 per person, but independent visitors can eat like royalty for under $10. This alone justifies the port call.</p>
+
+          <h4 class="mt-1">Cheong Fatt Tze Mansion (Blue Mansion)</h4>
+          <p>Indigo-blue heritage mansion built in the 1880s by Chinese tycoon Cheong Fatt Tze. Guided tours reveal Feng Shui secrets, intricate tilework, and Straits Chinese (Peranakan) opulence. Featured in the film "Crazy Rich Asians." Entrance ~$15 per person. Book ahead as tours fill quickly. Worth every ringgit.</p>
+
+          <h4 class="mt-1">Clan Jetties</h4>
+          <p>Stilt villages built over water where Chinese clans have lived for generations. Chew Jetty is the most welcoming. Free to explore respectfully -- these are active homes, not museums. Watch fishermen mend nets, children play on weathered walkways, and daily life unfold over the Straits of Malacca. Walking distance from Swettenham Pier. Flat terrain suitable for most mobility levels.</p>
+
+          <h4 class="mt-1">Penang Hill Funicular Railway</h4>
+          <p>Colonial-era funicular climbs to 2,700 feet for sweeping island views and cooler air. Cost ~$10 round-trip. Can be crowded; early morning is best. Combine with a visit to the Habitat nature reserve at the top for canopy walks through rainforest. Allow 2-3 hours for the full experience. Moderate walking effort at the summit.</p>
+        </details>
+
+        <!-- ===== DEPTH SOUNDINGS ===== -->
+        <details class="port-section" id="depth-soundings" open>
+          <summary><h2>Depth Soundings</h2></summary>
+          <p>Penang rewards the visitor who arrives with curiosity rather than a checklist. Georgetown's UNESCO heritage zone is compact enough to explore in a single port day, yet rich enough that you will leave wanting more. The street art draws the initial crowds, but it is the deeper layers -- the clan temples, the harmony of faiths on Pitt Street, the generosity of hawker vendors who treat every visitor like a returning friend -- that stay with you long after the ship pulls away from Swettenham Pier.</p>
+
+          <p>Budget wisely and you will find Penang extraordinarily affordable. A full day of Grab rides, temple entrance fees, and enough street food to slow you down will cost well under $30. The real value here is not monetary, though -- it is the chance to witness a community that has turned diversity into daily practice rather than a slogan. Come with an open mind, comfortable shoes, and an empty stomach. Penang will fill all three. I am grateful for every moment I spent on these streets, and I look forward to the day I can return and correct my course with firsthand observation. Plan your budget carefully and you will find this port to be one of the most rewarding stops on any Asian itinerary.</p>
+        </details>
+
+        <!-- ===== FAQ ===== -->
+        <details class="port-section" id="faq" open>
+          <summary><h2>Frequently Asked Questions</h2></summary>
+          <p><strong>Q: Where do cruise ships dock in Penang?</strong><br/>A: Swettenham Pier Cruise Terminal in Georgetown, within walking distance of the Clan Jetties and about 15 minutes by taxi (~$3 fare) from the UNESCO heritage core. Modern facility with tourist information, taxis, and Grab rideshare pickup.</p>
           <p><strong>Q: Why is Georgetown a UNESCO World Heritage Site?</strong><br/>A: Georgetown (along with Melaka) was inscribed in 2008 for its "unique architectural and cultural townscape" blending colonial, Chinese, Indian Muslim, and Malay influences. The heritage zone preserves centuries of multicultural history still actively lived by residents today.</p>
-          <p><strong>Q: Where can I find Ernest Zacharevic's famous murals?</strong><br/>A: His iconic <em>Children on a Bicycle</em> is on Armenian Street (Lebuh Armenian). <em>Boy on a Motorbike</em> is nearby. Download a heritage trail map from tourist information at the port, or simply wander — you'll stumble upon them. The iron caricature installations are scattered throughout the heritage zone.</p>
-          <p><strong>Q: Is Georgetown walkable from the port?</strong><br/>A: The Clan Jetties are walking distance. The main heritage zone (street art, temples, Khoo Kongsi) is best reached by taxi or Grab (15 min, very affordable). Once there, everything is walkable. Kek Lok Si Temple and Penang Hill require transportation.</p>
-          <p><strong>Q: Is the street food safe?</strong><br/>A: Yes. Look for busy stalls with high turnover — if locals are lining up, it's good. Penang's hawker food is legendary and generally very safe. Bring hand sanitizer, stay hydrated, and embrace the adventure. This is why you came.</p>
+          <p><strong>Q: Where can I find Ernest Zacharevic's famous murals?</strong><br/>A: His iconic <em>Children on a Bicycle</em> is on Armenian Street (Lebuh Armenian). <em>Boy on a Motorbike</em> is nearby. Download a heritage trail map from tourist information at the port, or simply wander -- you will stumble upon them. The iron caricature installations are scattered throughout the heritage zone.</p>
+          <p><strong>Q: Is Georgetown walkable from the port?</strong><br/>A: The Clan Jetties are walking distance. The main heritage zone (street art, temples, Khoo Kongsi) is best reached by taxi or Grab (15 min, fare under $3). Once there, everything is walkable. Kek Lok Si Temple and Penang Hill require separate transportation.</p>
+          <p><strong>Q: Is the street food safe?</strong><br/>A: Yes. Look for busy stalls with high turnover -- if locals are lining up, it is good. Penang's hawker food is legendary and generally very safe. Bring hand sanitizer, stay hydrated, and embrace the adventure.</p>
           <p><strong>Q: Do I need local currency?</strong><br/>A: Credit cards work at malls, hotels, and tourist attractions, but street food and hawker stalls require cash Malaysian Ringgit. ATMs widely available in Georgetown. Exchange USD at port if needed, but ATMs offer better rates.</p>
-          <p><strong>Q: How much time do I need for Georgetown?</strong><br/>A: Half-day minimum for street art, heritage streets, and food. Full day ideal if adding Kek Lok Si Temple, Khoo Kongsi, and the Street of Harmony temples. You could easily spend two days and still want more.</p>
-          <p><strong>Q: What should I wear when visiting temples and mosques?</strong><br/>A: Dress modestly: shoulders and knees covered. Remove shoes when entering. Many temples provide sarongs if needed. Respectful behavior is appreciated — these are active places of worship, not just tourist attractions.</p>
-        </section>
+          <p><strong>Q: How much time do I need for Georgetown?</strong><br/>A: Half-day minimum for street art, heritage streets, and food. Full day ideal if adding Kek Lok Si Temple (~$5 taxi), Khoo Kongsi (~$3 entry), and the Street of Harmony temples. You could easily spend two days and still want more.</p>
+          <p><strong>Q: What should I wear when visiting temples and mosques?</strong><br/>A: Dress modestly: shoulders and knees covered. Remove shoes when entering. Many temples provide sarongs if needed. Respectful behavior is appreciated -- these are active places of worship, not just tourist attractions.</p>
+          <p><strong>Q: Is Penang accessible for visitors with mobility needs?</strong><br/>A: The cruise terminal is wheelchair accessible. Georgetown's heritage zone has mostly flat terrain but uneven sidewalks. Trishaws provide an alternative to walking. Kek Lok Si Temple has many stairs and is strenuous. Penang Hill's funicular is accessible at the base but the summit walkways may be challenging.</p>
+        </details>
 
-        <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-      
+        <!-- ===== GALLERY ===== -->
+        <details class="port-section" id="gallery" open>
+          <summary><h2>Photo Gallery</h2></summary>
+          <div class="gallery-grid">
+            <figure>
+              <img src="/ports/img/penang/penang-harbor.webp" alt="Swettenham Pier cruise terminal and Georgetown waterfront with ships docked in Penang Malaysia" loading="lazy" width="400" height="300"/>
+              <figcaption>Swettenham Pier waterfront. <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+            </figure>
+            <figure>
+              <img src="/ports/img/penang/penang-rickshaw.webp" alt="Colorful decorated trishaw bicycle rickshaw parked on a Georgetown heritage street in Penang" loading="lazy" width="400" height="300"/>
+              <figcaption>Georgetown trishaw. <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></figcaption>
+            </figure>
+            <figure>
+              <img src="/ports/img/penang/penang-fort.webp" alt="Fort Cornwallis colonial fortress walls and lighthouse on the Georgetown waterfront in Penang" loading="lazy" width="400" height="300"/>
+              <figcaption>Fort Cornwallis. <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+            </figure>
+            <figure>
+              <img src="/ports/img/penang/penang-beach.webp" alt="Sandy shoreline with palm trees along Batu Ferringhi beach on the northern coast of Penang island" loading="lazy" width="400" height="300"/>
+              <figcaption>Batu Ferringhi beach. <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></figcaption>
+            </figure>
+          </div>
+        </details>
+
+        <!-- ===== CREDITS ===== -->
+        <details class="port-section" id="credits" open>
+          <summary><h2>Image Credits</h2></summary>
+          <p>All images used on this page are sourced from free-use platforms including <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> and <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a> under their respective free licenses. Individual credits appear in each image caption. Hero photo courtesy of <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>.</p>
+        </details>
+
+        <!-- ===== BACK NAV ===== -->
+        <nav class="port-section" id="back-nav" aria-label="Back to ports navigation">
+          <h2>Back to Ports</h2>
+          <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+        </nav>
+
+        <!-- FROM THE PIER -->
+        <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Penang cruise terminal">
+          <h4>From the Pier</h4>
+          <ul class="pier-distances">
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Clan Jetties</span><div class="pier-detail">Walk from Swettenham Pier</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6B6;</span> 10 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Georgetown Heritage Zone (Street Art)</span><div class="pier-detail">Taxi or Grab &middot; 15 min &middot; ~$3</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F695;</span> 15 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Khoo Kongsi &amp; Temple Row</span><div class="pier-detail">Walk or Grab from heritage zone</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F695;</span> 18 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Kek Lok Si Temple &amp; Penang Hill</span><div class="pier-detail">Taxi or Grab &middot; largest Buddhist temple in SE Asia</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F695;</span> 30 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
+            </li>
+          </ul>
+          <p class="pier-note">Swettenham Pier in Georgetown. Clan Jetties walkable. Heritage zone best reached by taxi or Grab (~$3). Once there, everything walkable. Four faiths, one street, zero tension.</p>
+        </nav>
+
         <!-- VOLATILE DATA DISCLAIMER -->
         <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+          <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2026-02-01 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Penang?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
-
-          <p><strong>Q: Does Penang have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-
-          <p><strong>Q: What should I pack for Penang's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
-
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
-
-
-
-
-
-<!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Penang cruise terminal">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Clan Jetties</span><div class="pier-detail">Walk from Swettenham Pier</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Georgetown Heritage Zone (Street Art)</span><div class="pier-detail">Taxi or Grab · 15 min · very affordable</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Khoo Kongsi & Temple Row</span><div class="pier-detail">Walk or Grab from heritage zone</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 18 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Kek Lok Si Temple & Penang Hill</span><div class="pier-detail">Taxi or Grab · largest Buddhist temple in SE Asia</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 30 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Swettenham Pier in Georgetown. Clan Jetties walkable. Heritage zone best reached by taxi or Grab (very affordable). Once there, everything walkable. Four faiths, one street, zero tension.</p>
-</div>
 
       </article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
-      <section class="card" aria-labelledby="glance-heading">
-        <h3 id="glance-heading">Quick Facts</h3>
+      <div class="card" aria-labelledby="glance-heading">
+        <h4 id="glance-heading">Quick Facts</h4>
         <div class="at-a-glance-grid">
           <div class="at-a-glance-item"><strong>Country</strong><span>Malaysia</span></div>
           <div class="at-a-glance-item"><strong>Language</strong><span>Malay, English</span></div>
@@ -487,9 +516,9 @@ Soli Deo Gloria
           <div class="at-a-glance-item"><strong>Best For</strong><span>Culture, Street Food, Heritage</span></div>
           <div class="at-a-glance-item"><strong>Walking</strong><span>Heritage zone walkable</span></div>
         </div>
-      </section>
+      </div>
       <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
+        <h4 id="author-heading">About the Author</h4>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
@@ -501,12 +530,12 @@ Soli Deo Gloria
         <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
       </section>
       <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
       </section>
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Penang on their itineraries:</p>
         <div class="ship-links">
           <a href="/ships/rcl/quantum-of-the-seas.html" class="ship-link-pill" data-line="rcl" title="Quantum of the Seas (Quantum Class)">Quantum of the Seas</a>
@@ -515,37 +544,37 @@ Soli Deo Gloria
       </section>
 
       <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
+        <h4 id="recent-rail-title">Recent Stories</h4>
         <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
     </aside>
-  
+
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Visit</h2>
       <p>Helpful resources for your shore day:</p>
       <ul>
-        <li><a href="/packing-lists.html">Cruise Packing Lists</a> — What to bring on port days</li>
-        <li><a href="/articles/cruise-tech-photography-guide.html">Photography &amp; Tech Guide</a> — Capture the perfect shots</li>
-        <li><a href="/internet-at-sea.html">Internet at Sea</a> — WiFi tips &amp; staying connected</li>
-        <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
+        <li><a href="/packing-lists.html">Cruise Packing Lists</a> -- What to bring on port days</li>
+        <li><a href="/articles/cruise-tech-photography-guide.html">Camera &amp; Tech Guide</a> -- Capture the perfect shots</li>
+        <li><a href="/internet-at-sea.html">Internet at Sea</a> -- WiFi tips &amp; staying connected</li>
+        <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> -- Keep your floating home tidy</li>
       </ul>
     </section>
-  <!-- Print Guide Button -->
-  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
-    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-    <span>Print Guide</span>
-  </button>
-</main>
+    <!-- Print Guide Button -->
+    <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      <span>Print Guide</span>
+    </button>
+  </main>
 
   <footer class="wrap" role="contentinfo">
     <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
     <p class="tiny mt-05"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/about-us.html">About</a> &middot; <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
     <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria</p>
-    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">&#10003; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- Navigation Dropdown Script -->

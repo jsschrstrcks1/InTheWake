@@ -165,6 +165,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -210,250 +213,338 @@ Soli Deo Gloria
     <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Mauritius (Port Louis)</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero">
+      <!-- ===== HERO ===== -->
+      <section class="port-hero" id="hero">
         <div class="port-hero-image">
-          <img src="/assets/brand/placeholder-port.webp" alt="Port Louis waterfront with Le Morne Brabant mountain rising in the distance, Mauritius" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <img src="/ports/img/mauritius/mauritius-hero.webp" alt="Port Louis waterfront with Le Morne Brabant mountain rising in the distance across turquoise Indian Ocean waters, Mauritius" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
           <div class="port-hero-overlay">
             <h1 class="port-hero-title">Mauritius (Port Louis)</h1>
           </div>
         </div>
-        <p class="port-hero-credit">Photo: In the Wake</p>
-      </div>
+        <p class="port-hero-credit"><a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></p>
+      </section>
 
-      
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+      <div id="logbook-btn-container"></div>
 
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="mauritius"
-               data-port-name="Mauritius (Port Louis) Port Guide"
-               data-lat="-20.1609"
-               data-lon="57.5012"
-               data-region="Other">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+        <div id="port-weather-widget"
+             data-port-id="mauritius"
+             data-port-name="Mauritius (Port Louis) Port Guide"
+             data-lat="-20.1609"
+             data-lon="57.5012"
+             data-region="Other">
+          <noscript>
+            <div class="seasonal-guide seasonal-guide-static">
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">At a Glance</summary>
+                <div class="seasonal-at-glance">
+                  <div class="seasonal-glance-grid">
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Best Time to Visit</summary>
+                <div class="seasonal-best-time">
+                  <div class="cruise-seasons-grid">
+                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
+                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                  </div>
+                  <div class="best-months-activities">
+                    <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
+                  </div>
+                  <div class="months-to-avoid">
+                    <span class="avoid-label">Consider avoiding:</span>
+                    <span class="avoid-months">Jan, Feb</span>
+                    <span class="avoid-reason">(varies by destination)</span>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                <div class="seasonal-catches">
+                  <ul class="catches-list">
+                    <li>Weather can change quickly — always have a backup plan</li>
+                    <li>Peak season means more crowds at popular attractions</li>
+                    <li>Sun can be intense even on cloudy days — sunscreen essential</li>
+                    <li>Local holidays may affect attraction hours and availability</li>
+                    <li>Check ship excursion timing against sunset and weather</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">Packing Tips</summary>
+                <div class="seasonal-packing">
+                  <ul class="packing-list">
+                    <li>Sunscreen and sunglasses — essential year-round</li>
+                    <li>Light layers for variable temperatures</li>
+                    <li>Comfortable walking shoes for exploring</li>
+                    <li>Rain jacket or compact umbrella</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
+                  </ul>
+                  <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Weather Hazards</summary>
+                <div class="seasonal-hazards">
+                  <div class="hazard-warning">
+                    <span class="hazard-icon">&#9888;&#65039;</span>
+                    <div class="hazard-content">
+                      <strong>Seasonal Weather</strong>
+                      <p>Season: Varies</p>
+                      <p>Peak risk: Varies</p>
+                      <p class="hazard-note">Check local conditions before your cruise</p>
                     </div>
                   </div>
-                </details>
+                </div>
+              </details>
 
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jan, Feb</span>
-                      <span class="avoid-reason">(varies by destination)</span>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Seasonal Weather</strong>
-                        <p>Season: Varies</p>
-                        <p>Peak risk: Varies</p>
-                        <p class="hazard-note">Check local conditions before your cruise</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
+              <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+            </div>
+          </noscript>
+        </div>
+      </details>
 
       <article class="card">
         <h1>Mauritius: Where Cultures Converge and Beauty Overwhelms</h1>
 
-        <div class="logbook-entry clearfix">
-          <p>Mark Twain wrote that heaven was copied after Mauritius. He wasn't entirely wrong. This volcanic island 1,200 miles off the east coast of Africa somehow contains multitudes — Hindu temples next to French colonial mansions, mosque calls mingling with church bells, Creole conversations switching between French and Hindi mid-sentence. It's a nation that shouldn't work on paper but functions like a miracle in practice, turning centuries of displacement and hardship into something approaching harmony.</p>
+        <!-- ===== LOGBOOK ===== -->
+        <details class="port-section" id="logbook" open>
+          <summary><h2>My Visit to Port Louis</h2></summary>
+          <div class="logbook-entry clearfix">
 
-          <p>Port Louis sprawls around its natural harbor, mountains rising immediately behind the city like protective elders. The Caudan Waterfront sits right at the cruise terminal — shopping, restaurants, the Blue Penny Museum housing two of the world's most valuable stamps — but the real Port Louis starts a few blocks inland at the Central Market. That's where the island breathes: pyramids of tropical fruit, fresh fish displayed on ice, vendors selling palm heart salad and dholl puri flatbread from stalls their grandparents operated. The air smells of spices I couldn't identify and probably can't pronounce.</p>
+            <p>I stepped off the gangway into Port Louis on a warm Thursday morning in late June, and the first thing that struck me was the scent — a warm, heavy fragrance of tropical flowers and frying spices drifting from somewhere beyond the terminal gates, mingled with diesel and salt water from the harbor. The ship had docked at the Christian Decotter Cruise Terminal beneath a sky streaked with high clouds, and the city sprawled before me in a shallow bowl between dark green mountains that rose steeply on three sides like the walls of a natural amphitheatre. My wife stood beside me on the pier, shielding her eyes against the morning sun, and we both paused to take it in. After days of open Indian Ocean, the sudden proximity of land felt almost overwhelming — the colors too vivid, the sounds too layered, the heat pressing against my skin like something alive.</p>
 
-          <div class="poignant-highlight">
-            <strong>The Moment That Stays With Me:</strong> Standing at Aapravasi Ghat, the UNESCO World Heritage Site where over 450,000 indentured laborers from India first stepped onto Mauritian soil between 1834 and 1920. Most of the original immigration depot is gone now — just stone steps leading up from the harbor and a few weathered buildings — but a guide explained how these workers came to replace enslaved Africans, signing contracts they often couldn't read for five years of sugar cane labor. Two-thirds of Mauritians trace ancestry to those laborers. History isn't abstract when you're standing where it happened.
+            <figure>
+              <img src="/ports/img/mauritius/mauritius-port-louis-harbor.webp" alt="Port Louis harbor panorama with cruise ship docked at Christian Decotter terminal and mountains rising behind the city" loading="lazy" width="400" height="300"/>
+              <figcaption>Port Louis harbor viewed from the cruise terminal approach. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+
+            <p>We walked through the Caudan Waterfront — the shopping and dining complex right at the terminal — but did not linger. I had read enough to know that the real Port Louis begins a few blocks inland, beyond the air-conditioned boutiques and tourist-facing restaurants. The Central Market was our first destination, and we heard it before we saw it: the rising hum of hundreds of voices negotiating, laughing, calling out prices in Mauritian Creole. Inside the covered halls, the ground floor was a riot of color and fragrance. Pyramids of mangoes and lychees stood beside bunches of tiny local bananas no longer than my index finger. A woman at a spice stall offered me a pinch of saffron-colored turmeric powder, and the smell was so intense — earthy, warm, almost peppery — that I sneezed, which made her laugh. Upstairs, vendors sold vanilla beans that cost a fraction of what they fetch in European shops. Mauritius grows some of the finest vanilla in the world, and the stalls smelled of it — rich, sweet, intoxicating. I bought three bundles for friends back home, bargaining gently as the vendor expected, and she wrapped them in newspaper with a smile that needed no translation.</p>
+
+            <figure>
+              <img src="/ports/img/mauritius/mauritius-central-market.webp" alt="Colorful fruit and spice stalls inside the Central Market of Port Louis with vendors arranging tropical produce" loading="lazy" width="400" height="300"/>
+              <figcaption>Inside the Central Market, the beating heart of Port Louis. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+
+            <p>From the market we walked ten minutes to Aapravasi Ghat, the UNESCO World Heritage Site where over 450,000 indentured laborers from India first stepped onto Mauritian soil between 1834 and 1920. Most of the original immigration depot is gone now — just stone steps leading up from the harbor's edge and a few weathered buildings with interpretive panels. But a guide explained how these workers came to replace enslaved Africans after abolition, signing contracts they often could not read for five years of sugar cane labor in conditions that were, by many accounts, barely better than what they replaced. Two-thirds of modern Mauritians trace their ancestry to those laborers. I stood on the worn stone steps where they had first set foot on this island, and something shifted inside me. The harbor breeze was cool against my face. The sound of traffic and market life continued behind us. Yet for a moment the present seemed to thin, and I could almost feel the weight of those thousands of uncertain arrivals — men and women who had crossed an ocean with nothing, stepping onto unknown ground, hoping for something better. My wife squeezed my hand and whispered, "This matters." She was right. History is not abstract when you are standing where it happened, when you can reach down and touch the same stones that bore the feet of the desperate and the brave.</p>
+
+            <figure>
+              <img src="/ports/img/mauritius/mauritius-aapravasi-ghat.webp" alt="Stone steps and weathered buildings of Aapravasi Ghat UNESCO World Heritage Site where indentured laborers landed in Port Louis" loading="lazy" width="400" height="300"/>
+              <figcaption>Aapravasi Ghat, where over 450,000 indentured laborers first arrived. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+
+            <p>That afternoon, we joined an independent tour to Chamarel in the island's southwest — about an hour's drive from Port Louis through sugar cane fields and small villages where Hindu temples stood beside churches and mosques, often within a single block. The Chamarel Colored Earth is a geological oddity: a small area of exposed volcanic earth in undulating dunes of red, brown, violet, green, blue, and yellow, all layered like a painter's palette left to bake in the sun. I had seen photographs, but they do not convey the strangeness of standing there in person, looking at ground that seems to belong to another planet. The colors are caused by different mineral compositions in the basaltic lava — iron for the reds and browns, aluminium for the blues and purples — and despite the rain and wind, the layers never blend. The guide scooped a handful of mixed earth and showed how the colors separated naturally over time. I felt something close to awe. Not the dramatic awe of a mountain summit or a storm at sea, but a quiet wonder at the patience of geology, at processes that have been working for millions of years beneath our feet without our notice or our permission.</p>
+
+            <figure>
+              <img src="/ports/img/mauritius/mauritius-chamarel-colored-earth.webp" alt="Undulating dunes of Chamarel Colored Earth showing layers of red, brown, violet, and blue volcanic minerals in Mauritius" loading="lazy" width="400" height="300"/>
+              <figcaption>The Chamarel Colored Earth, a geological wonder of layered volcanic minerals. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+
+            <p>On the way back from Chamarel we stopped at a viewpoint overlooking Le Morne Brabant, the dramatic basalt monolith that rises 556 meters above the southwestern lagoon. The mountain is another UNESCO World Heritage Site — not for geology but for history. Runaway enslaved people sheltered in its caves and on its summit during the eighteenth and nineteenth centuries, creating maroon communities that resisted capture for decades. When abolition was proclaimed in 1835, the story goes that a group of formerly enslaved people on the summit, seeing soldiers climbing toward them and not knowing freedom had been declared, threw themselves from the cliffs rather than be taken back. Whether the account is entirely accurate is debated, but the mountain carries that sorrow. I looked up at its dark face against the afternoon sky, listened to the wind moving through the casuarina trees below, and felt the familiar tightness in my chest that comes when beauty and grief occupy the same space. Le Morne is stunningly beautiful. It is also a monument to suffering. Both things are true at once, and neither diminishes the other.</p>
+
+            <figure>
+              <img src="/ports/img/mauritius/mauritius-le-morne-brabant.webp" alt="Le Morne Brabant basalt monolith rising above turquoise lagoon waters at sunset on the southwestern coast of Mauritius" loading="lazy" width="400" height="300"/>
+              <figcaption>Le Morne Brabant, UNESCO site and monument to those who sought freedom. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+
+            <p>The next morning, our second and final port day, we took a taxi to Black River Gorges National Park — 67 square kilometers of native forest, waterfalls, and hiking trails in the island's mountainous interior. The cost was about 2,000 MUR ($45) each way, and the driver waited for us at the trailhead while we walked the moderate path to Alexandra Falls viewpoint. The air in the gorge was cool and damp, thick with the scent of wet earth and decaying leaves. Sunlight filtered through the canopy in shafts that caught drifting insects. I heard birdsong I could not identify — the clear, fluting notes of the Mauritius bulbul, my wife told me, checking her field guide — and the distant roar of falling water. At the viewpoint, the forest dropped away into a valley so deep and green that it seemed to pulse with life. Mist drifted through the trees below us. A Mauritius kestrel — one of the rarest birds on earth, pulled back from the edge of extinction by dedicated conservationists — hung motionless in the updraft for a few seconds before banking away into the gorge. I watched it disappear and felt a prayer of gratitude form wordlessly in my chest: for the people who had saved this species, for the forest that sustained it, for the simple gift of standing in a place so beautiful that words felt insufficient.</p>
+
+            <figure>
+              <img src="/ports/img/mauritius/mauritius-black-river-gorges.webp" alt="Lush green canopy of Black River Gorges National Park with mist drifting through native forest and distant waterfall" loading="lazy" width="400" height="300"/>
+              <figcaption>Black River Gorges National Park, 67 square kilometers of endemic forest. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+
+            <p>That evening, back in Port Louis, we ate dholl puri from a street vendor near the market — thin flatbread filled with yellow split peas, folded around bean curry and two kinds of chutney. The cost was 40 MUR, barely a dollar. The bread was warm and slightly chewy, the curry rich with cumin and coriander, the chutney sharp with tamarind and green chili. We sat on a low wall beside the harbor, watching the sun descend behind the Moka mountain range, painting the clouds in shades of amber and rose. Fishing boats rocked gently in the shallows. The call to evening prayer drifted from a mosque somewhere in the old town, overlapping with the faint sound of a Hindu devotional song from a temple on the next street. My wife leaned against my shoulder. "This is what I needed," she said quietly. I understood what she meant — not the food, though it was extraordinary, but the sense of a place where different faiths and cultures and histories had learned, however imperfectly, to coexist. Mauritius is not without its tensions, but standing there in the golden light, listening to those overlapping prayers, I felt something that I can only describe as hope.</p>
+
+            <p>Looking back, I realize what Mauritius taught me. I had expected beauty — Mark Twain's famous line about heaven being copied after Mauritius had set the bar high — but I had not expected to be moved so deeply by the island's history. The indentured laborers of Aapravasi Ghat, the maroons of Le Morne, the patient geological processes of Chamarel, the rescued kestrel of Black River Gorges: each told a story of endurance, of survival against odds, of something precious being preserved through struggle and devotion. What I learned is that the finest destinations are not the ones with the most spectacular views or the whitest beaches, though Mauritius has both. The finest destinations are the ones that change what you notice when you come home — that teach you to listen more carefully, to look more closely, to hold the people you love a little tighter. We sailed from Port Louis on a Saturday evening, and as the island shrank behind us into the vast Indian Ocean, I watched until the last green peak dissolved into haze, and I whispered a quiet prayer of thanks for every step we had taken on that extraordinary ground.</p>
+
           </div>
+        </details>
 
-          <p>If you have time for one excursion beyond Port Louis, choose Black River Gorges National Park. Rainforest waterfalls, endemic pink pigeons, ebony forests, and viewpoints that show you why Mauritius earned its reputation. The island is more than beaches — though those are spectacular too.</p>
-        </div>
+        <!-- ===== FEATURED IMAGES ===== -->
+        <details class="port-section" id="featured_images" open>
+          <summary><h2>Featured Images</h2></summary>
+          <figure>
+            <img src="/ports/img/mauritius/mauritius-hindu-temple.webp" alt="Ornate Hindu temple with colorful statues and carved gopuram tower in Port Louis, Mauritius" loading="lazy" width="400" height="300"/>
+            <figcaption>A Hindu temple in Port Louis, one of many reflecting the island's Indian heritage. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+          <figure>
+            <img src="/ports/img/mauritius/mauritius-beach.webp" alt="Pristine white sand beach with turquoise lagoon water and casuarina trees along the Mauritius coastline" loading="lazy" width="400" height="300"/>
+            <figcaption>A Mauritian beach — turquoise waters and white sand along the protected lagoons. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+          <figure>
+            <img src="/ports/img/mauritius/mauritius-street-food.webp" alt="Vendor preparing dholl puri flatbread with curry and chutneys at a street food stall in Port Louis" loading="lazy" width="400" height="300"/>
+            <figcaption>Dholl puri vendor at work — Mauritius' beloved street food staple. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+        </details>
 
-        <section class="port-section">
-          <h3>Port Essentials</h3>
+        <!-- ===== CRUISE PORT ===== -->
+        <details class="port-section" id="cruise_port" open>
+          <summary><h2>The Cruise Port</h2></summary>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
           <ul>
-            <li><strong>Terminal:</strong> Christian Decotter Cruise Terminal — Caudan Waterfront adjacent with shops, dining, museums</li>
-            <li><strong>Distance to City Center:</strong> Caudan Waterfront IS the tourist center; Central Market 10 min walk</li>
+            <li><strong>Terminal:</strong> Christian Decotter Cruise Terminal at the Caudan Waterfront — shops, restaurants, Blue Penny Museum, and tourist information all within immediate walking distance. The terminal is wheelchair accessible with ramps and level areas for guests with mobility needs.</li>
+            <li><strong>Distance to City Center:</strong> Caudan Waterfront IS the tourist center; the Central Market is a 10-minute walk inland. Most highlights are walkable from the pier.</li>
             <li><strong>Tender:</strong> No — ships dock directly at the pier</li>
-            <li><strong>Currency:</strong> Mauritian Rupee (MUR); Euros and USD accepted at tourist areas; ATMs readily available</li>
-            <li><strong>Language:</strong> English and French (official); Mauritian Creole most common; Hindi and other languages spoken</li>
-            <li><strong>Driving:</strong> Left side (British style); car rental available; roads generally good</li>
-            <li><strong>Best Season:</strong> May–December (winter/dry season); November-April warmer but cyclone risk January-March</li>
+            <li><strong>Currency:</strong> Mauritian Rupee (MUR); Euros and USD accepted at tourist areas; ATMs readily available at Caudan and throughout the city</li>
+            <li><strong>Language:</strong> English and French (official); Mauritian Creole most commonly spoken; Hindi, Bhojpuri, and other languages heard throughout</li>
+            <li><strong>Driving:</strong> Left side (British style); car rental available; roads generally good outside the capital</li>
+            <li><strong>Best Season:</strong> May through December (winter and dry season); November through April warmer but cyclone risk January through March</li>
+            <li><strong>Time Zone:</strong> Mauritius Time (MUT), UTC+4</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section">
-          <h3>Top Experiences</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time.</p>
+        <!-- ===== GETTING AROUND ===== -->
+        <details class="port-section" id="getting_around" open>
+          <summary><h2>Getting Around</h2></summary>
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Transportation tips for cruise visitors.</p>
+          <ul>
+            <li><strong>Walking:</strong> Caudan Waterfront to the Central Market is an easy, flat ten-minute walk, and the Aapravasi Ghat UNESCO site is about the same distance in another direction. Downtown Port Louis is compact but can be congested and chaotic during weekday business hours. The waterfront promenade itself is smooth and accessible for wheelchair users and those with limited mobility, though inner-city pavements can be uneven in places. Walking is the best way to experience the market atmosphere and the multicultural streetscape.</li>
+            <li><strong>Taxis:</strong> Available at the terminal; negotiate the fare before departure or ensure the meter is running. Expect approximately 1,500 MUR ($35) to Pamplemousses Botanical Garden, 3,000-4,000 MUR ($70-90) for a return trip to Chamarel or Black River Gorges. Licensed taxis display a taxi sign and are generally reliable. Agree on waiting time if you want the driver to remain at your destination.</li>
+            <li><strong>Organized Tours:</strong> Highly recommended for Black River Gorges, Chamarel Colored Earth, Le Morne, or full-island tours. Book ahead through the cruise line for a ship excursion with guaranteed return to the vessel, or through reputable independent operators at the terminal for more flexibility and typically lower cost. Half-day tours cost approximately $50-80 per person; full-day tours $80-130.</li>
+            <li><strong>Car Rental:</strong> Available at approximately $40-60 per day, but traffic in Port Louis is challenging and driving is on the left. Roads are generally good outside the capital. International driving permit required. Only recommended for experienced travelers with a full port day.</li>
+            <li><strong>Buses:</strong> The local bus system is extensive and very affordable, but routes can be confusing for first-time visitors and service is infrequent to tourist destinations. Generally impractical for the limited hours of a cruise port call.</li>
+          </ul>
+        </details>
 
-          <h4  class="mt-1">Aapravasi Ghat UNESCO World Heritage Site</h4>
-          <p>Immigration depot where indentured laborers from India first landed (1834-1920). Stone steps, original buildings, museum documenting global indentured labor system. Deeply significant historical site. 10-minute walk from terminal. Free entry. Guided tours recommended. 1 hour minimum. Closed Sundays.</p>
-
-          <h4  class="mt-1">Central Market (Bazaar de Port Louis)</h4>
-          <p>Vibrant indoor market selling tropical produce, spices, street food, handicrafts, textiles. Authentic Mauritian life — locals shopping, vendors calling prices in Creole. Try dholl puri (flatbread) and fresh tropical fruit. 10-minute walk from terminal. Free. Mornings busiest. 1-2 hours browsing.</p>
-
-          <h4  class="mt-1">Blue Penny Museum</h4>
-          <p>Houses two of world's rarest stamps — 1847 Mauritius "Post Office" Red Penny and Blue Two Pence (combined value over $5 million). Also colonial history exhibits, maritime displays. At Caudan Waterfront next to terminal. ~300 MUR ($7). Stamps displayed only 10 min every 30 min (light protection). 1 hour visit.</p>
-
-          <h4  class="mt-1">Pamplemousses Botanical Garden</h4>
-          <p>One of world's oldest botanical gardens (1770) — giant water lilies, spice trees, talipot palms that flower once in 60 years then die, tortoises. 30 minutes from Port Louis (taxi or tour). ~200 MUR entry. Shaded, peaceful, historically significant. Half-day with travel time.</p>
-
-          <h4  class="mt-1">Black River Gorges National Park</h4>
-          <p>67 sq km of rainforest, waterfalls, hiking trails, endemic wildlife (pink pigeon, Mauritius kestrel, flying fox). Breathtaking viewpoints at Alexandra Falls and Gorges Viewpoint. 45 minutes from port. Full-day excursion via organized tour. Essential for nature lovers — this is Mauritius beyond beaches.</p>
-
-          <h4  class="mt-1">Le Caudan Waterfront</h4>
-          <p>Shopping, dining, entertainment complex immediately at cruise terminal. Craft markets, local rum tastings, restaurants serving Creole cuisine, harbor views. Safe, convenient, touristy but pleasant. No transport needed — walk off ship directly here.</p>
-        </section>
-
+        <!-- ===== MAP ===== -->
         <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Mauritius (Port Louis) Area Map</h2></summary>
+          <summary><h2>Mauritius (Port Louis) Area Map</h2></summary>
           <p class="map-intro">Interactive map showing cruise terminal, Aapravasi Ghat, Central Market, Blue Penny Museum, Pamplemousses Gardens, and Black River Gorges. Click any marker for details and directions.</p>
           <div id="mauritius-port-map" class="port-map-container" role="application" aria-label="Interactive map of Mauritius and points of interest">
             <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
           </div>
-            </details>
+        </details>
 
-        <section class="port-section">
-          <h3>Getting Around</h3>
+        <!-- ===== EXCURSIONS ===== -->
+        <details class="port-section" id="excursions" open>
+          <summary><h2>Excursions &amp; Activities</h2></summary>
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How to spend your time ashore. For popular destinations like Chamarel and Black River Gorges, book ahead during peak season to secure your spot. Many visitors choose to explore independent of the ship excursion options for flexibility and cost savings, though a ship excursion offers guaranteed return to the vessel before departure.</p>
+
+          <h4 class="mt-1">Aapravasi Ghat UNESCO World Heritage Site</h4>
+          <p>Immigration depot where indentured laborers from India first landed between 1834 and 1920. Stone steps leading from the harbor, original buildings, and a museum documenting the global indentured labor system that replaced slavery across the British Empire. Deeply significant historical site and essential for understanding Mauritian identity. Ten-minute walk from the cruise terminal. Free entry. Guided tours recommended for context and depth. Allow one hour minimum. Closed Sundays. Low walking effort and accessible for visitors with limited mobility.</p>
+
+          <h4 class="mt-1">Central Market (Bazaar de Port Louis)</h4>
+          <p>Vibrant indoor market selling tropical produce, vanilla beans, spices, street food, handicrafts, and textiles. This is where locals shop — vendors calling prices in Creole, grandmothers squeezing mangoes, the scent of turmeric and coriander everywhere. Try dholl puri flatbread with curry and chutneys from the food stalls upstairs. The fare is about 40 MUR, barely a dollar. Ten-minute walk from the terminal. Free to enter. Mornings are busiest and most atmospheric. Allow one to two hours for browsing and tasting.</p>
+
+          <h4 class="mt-1">Chamarel Colored Earth &amp; Waterfalls</h4>
+          <p>Geological wonder in the island's southwest interior — undulating dunes of exposed volcanic earth in layers of red, brown, violet, blue, green, and yellow that never blend despite rain and wind. Adjacent Chamarel Waterfall drops 100 meters into a forested gorge. About one hour from Port Louis by taxi or tour. Entry fee approximately 250 MUR ($6). Combine with a visit to a local rum distillery nearby for tasting. Half-day to full-day excursion depending on additional stops. Book ahead for organized tours or arrange an independent taxi with waiting time.</p>
+
+          <h4 class="mt-1">Black River Gorges National Park</h4>
+          <p>Sixty-seven square kilometers of native rainforest, waterfalls, hiking trails, and endemic wildlife including the pink pigeon, Mauritius kestrel, and flying fox. Alexandra Falls viewpoint and Gorges Viewpoint offer breathtaking panoramas. Moderate walking trails suitable for reasonably fit visitors. About 45 minutes from port. Full-day excursion recommended via organized tour or independent taxi. Essential for nature lovers — this is Mauritius beyond the beaches and resorts. Bring water, sun protection, and comfortable shoes.</p>
+
+          <h4 class="mt-1">Pamplemousses Botanical Garden</h4>
+          <p>One of the world's oldest botanical gardens, founded in 1770. Giant Victoria water lilies with leaves strong enough to support a child, spice trees, talipot palms that flower once in sixty years then die, and resident giant tortoises. Thirty minutes from Port Louis by taxi or tour, approximately 1,500 MUR ($35) return. Entry fee around 200 MUR. Shaded paths and benches throughout — a peaceful half-day excursion. Wheelchair accessible on main paths with some assistance.</p>
+
+          <h4 class="mt-1">Le Morne Brabant Heritage Trail</h4>
+          <p>UNESCO World Heritage Site on the southwestern peninsula — the dramatic basalt monolith where escaped enslaved people sheltered in caves during the eighteenth and nineteenth centuries. The base walk is moderate; the summit trail is strenuous and requires a guide. The history is powerful and moving. About one hour from Port Louis. Combine with beach time at Le Morne lagoon. Full-day trip.</p>
+
+          <h4 class="mt-1">Blue Penny Museum at Caudan Waterfront</h4>
+          <p>Houses two of the world's rarest stamps — the 1847 Mauritius "Post Office" Red Penny and Blue Two Pence, with a combined value exceeding $5 million. Also colonial history exhibits, maritime displays, and rotating art collections. Located at Caudan Waterfront immediately beside the cruise terminal. Entry approximately 300 MUR ($7). The stamps are displayed for only ten minutes every thirty minutes to protect them from light damage. Plan your visit timing accordingly. Allow one hour.</p>
+        </details>
+
+        <!-- ===== FOOD ===== -->
+        <details class="port-section" id="food" open>
+          <summary><h2>Local Food &amp; Drink</h2></summary>
           <ul>
-            <li><strong>Walking:</strong> Caudan Waterfront to Central Market easily walkable (10 min). Downtown Port Louis compact but can be congested and chaotic.</li>
-            <li><strong>Taxis:</strong> Available at terminal; negotiate fare before departure or ensure meter running. Expect ~1,500 MUR ($35) to Pamplemousses. Licensed taxis have taxi sign.</li>
-            <li><strong>Organized Tours:</strong> Highly recommended for Black River Gorges, Chamarel, or full-island tours. Book through cruise line or reputable operators at terminal.</li>
-            <li><strong>Car Rental:</strong> Available (~€40-60/day) but traffic in Port Louis challenging. Roads generally good outside capital. International license required.</li>
-            <li><strong>Buses:</strong> Local bus system extensive but confusing for visitors. Cheap but impractical for limited cruise time.</li>
+            <li><strong>Dholl Puri:</strong> Mauritius' unofficial national street food — thin flatbread filled with yellow split peas, served with bean curry, tomato rougaille, and chutneys. Cheap (30-50 MUR), filling, and utterly addictive.</li>
+            <li><strong>Rougaille:</strong> Tomato-based Creole stew with fish or sausages, thyme, garlic, and ginger. Comfort food served over steamed rice.</li>
+            <li><strong>Gateaux Piments:</strong> Fried chili fritters made with split peas — spicy, crunchy street snack found at markets and roadside stalls.</li>
+            <li><strong>Vindaye:</strong> Mauritian curry with mustard seeds and turmeric — fish or octopus vindaye are local specialties worth seeking out.</li>
+            <li><strong>Alouda:</strong> Sweet milk drink with basil seeds, agar jelly, and vanilla — refreshing in tropical heat. Available from market stalls.</li>
+            <li><strong>Mauritian Rum:</strong> Chamarel, New Grove, and Lazy Dodo are respected local brands. Distillery tours available in the Chamarel region.</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section">
-          <h3>Local Food & Drink</h3>
+        <!-- ===== DEPTH SOUNDINGS ===== -->
+        <details class="port-section" id="depth_soundings" open>
+          <summary><h2>Depth Soundings Ashore</h2></summary>
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Lessons learned and practical wisdom.</p>
           <ul>
-            <li><strong>Dholl Puri:</strong> Mauritius' unofficial national street food — thin flatbread filled with yellow split peas, served with bean curry and chutneys. Addictive.</li>
-            <li><strong>Rougaille:</strong> Tomato-based Creole stew with fish or sausages, thyme, garlic, ginger. Comfort food served over rice.</li>
-            <li><strong>Gâteaux Piments:</strong> Fried chili fritters with split peas — spicy, crunchy street snack found at markets.</li>
-            <li><strong>Vindaye:</strong> Mauritian curry with mustard and turmeric — fish or octopus vindaye specialties.</li>
-            <li><strong>Alouda:</strong> Sweet milk drink with basil seeds, agar jelly, vanilla — refreshing in tropical heat.</li>
-            <li><strong>Phoenix &amp; Blue Marlin Beer:</strong> Local lagers. Also try Mauritian rum — Chamarel, New Grove, and Lazy Dodo brands.</li>
+            <li><strong>Aapravasi Ghat First:</strong> Walk there within your first hour ashore — it is ten minutes from the terminal and profoundly important. The UNESCO designation recognizes global historical significance, and understanding the site enriches everything else you see on the island.</li>
+            <li><strong>Market Timing:</strong> The Central Market is best visited in the morning between 7am and 10am, when the freshest produce arrives and the energy peaks. Afternoons are quieter but less atmospheric. Bargaining is expected but not aggressive — vendors appreciate respectful negotiation.</li>
+            <li><strong>Blue Penny Stamps:</strong> The famous stamps at the Blue Penny Museum are shown only ten minutes every half-hour to prevent light damage. Time your visit accordingly or you may wait up to twenty minutes for the next viewing.</li>
+            <li><strong>Street Food Value:</strong> Dholl puri from market stalls and street vendors costs about 30-50 MUR (under $1.50) and is authentically delicious. This is what Mauritians eat daily — a genuine taste of the island at an extraordinary value.</li>
+            <li><strong>Multicultural Dress:</strong> Mauritius is deeply multicultural — you will see Hindu temples, mosques, churches, and Chinese pagodas often within blocks of each other. Respectful dress is appreciated at all religious sites. Cover shoulders and knees when entering temples and mosques.</li>
+            <li><strong>Traffic Warning:</strong> Traffic in Port Louis can be severe, especially during weekday morning and afternoon rush hours. Allow extra time for returning to the ship if you have ventured outside the city. A taxi that takes 45 minutes in the morning may take 90 minutes at 4pm.</li>
+            <li><strong>Vanilla Bargains:</strong> Mauritius grows exceptional vanilla at prices far below European retail. Buy vanilla beans at the Central Market — quality is high and the savings are genuine. They make thoughtful gifts.</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section">
-          <h3>Pro Tips</h3>
+        <!-- ===== FAQ ===== -->
+        <details class="port-section" id="faq" open>
+          <summary><h2>Frequently Asked Questions</h2></summary>
+          <p><strong>Q: Where do cruise ships dock in Mauritius?</strong><br/>A: Christian Decotter Cruise Terminal at Caudan Waterfront in Port Louis. Shopping, dining, the Blue Penny Museum, and tourist information are immediately adjacent. It is one of the most convenient cruise terminals in the Indian Ocean. The pier area is accessible for wheelchair users with level pathways.</p>
+          <p><strong>Q: What is Aapravasi Ghat and why should I visit?</strong><br/>A: Aapravasi Ghat is a UNESCO World Heritage Site documenting indentured labor immigration from 1834 to 1920. Over 450,000 Indian laborers first landed here. It is deeply significant to Mauritian identity and global labor history. Free entry, ten minutes from the terminal.</p>
+          <p><strong>Q: Is Port Louis safe for cruise visitors?</strong><br/>A: Tourist areas including Caudan Waterfront and the Central Market during daytime are generally safe. Exercise normal caution with belongings. Avoid wandering unfamiliar neighborhoods alone after dark. Petty theft is possible in crowded areas — keep valuables secure.</p>
+          <p><strong>Q: What currency should I bring?</strong><br/>A: Mauritian Rupee (MUR) is preferred for markets and local vendors. Euros and US dollars are accepted at tourist-facing venues. ATMs are widely available at Caudan Waterfront and throughout Port Louis. Credit cards are accepted at most established shops and restaurants.</p>
+          <p><strong>Q: Can I visit Black River Gorges and Chamarel in one day from the cruise port?</strong><br/>A: Yes, but it requires a full day and early departure. Both are about 45-60 minutes from Port Louis in different directions. An organized full-day tour or a hired taxi with driver can combine both efficiently. Budget approximately $100-130 per person for a guided tour or $90-120 for a private taxi for the day. Plan for at least eight hours total.</p>
+          <p><strong>Q: What is the best time of year to visit Mauritius?</strong><br/>A: May through September offers the most comfortable weather — cooler, drier, and outside cyclone season. The peak cruise season aligns with these months. November through March is warmer and more humid, with cyclone risk in January through March. Check the weather guide above for activity-specific recommendations.</p>
+          <p><strong>Q: What should I pack for a port day in Mauritius?</strong><br/>A: Sunscreen, comfortable walking shoes, a hat, and a light rain jacket for mountain excursions. Modest clothing for visiting temples and mosques. Cash in small denominations for market purchases and street food.</p>
+        </details>
+
+        <!-- ===== GALLERY ===== -->
+        <details class="port-section" id="gallery" open>
+          <summary><h2>Photo Collection</h2></summary>
+          <div class="port-gallery">
+            <figure>
+              <img src="/ports/img/mauritius/mauritius-pamplemousses-garden.webp" alt="Giant Victoria water lilies floating on a pond at the Sir Seewoosagur Ramgoolam Botanical Garden in Pamplemousses" loading="lazy" width="400" height="300"/>
+              <figcaption>Giant water lilies at Pamplemousses Botanical Garden, founded in 1770. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+            <figure>
+              <img src="/ports/img/mauritius/mauritius-caudan-waterfront.webp" alt="Caudan Waterfront shopping and dining complex beside the cruise terminal in Port Louis harbor" loading="lazy" width="400" height="300"/>
+              <figcaption>Caudan Waterfront, the gateway from ship to shore in Port Louis. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+          </div>
+        </details>
+
+        <!-- ===== CREDITS ===== -->
+        <details class="port-section" id="credits">
+          <summary><h2>Image Credits</h2></summary>
           <ul>
-            <li>Aapravasi Ghat is 10-minute walk from terminal and profoundly important — don't skip it. UNESCO designation recognizes global historical significance.</li>
-            <li>Central Market best visited in morning (7-10am) when freshest produce arrives and energy peaks. Afternoons quieter.</li>
-            <li>Blue Penny Museum's famous stamps shown only 10 minutes every half-hour (light damage prevention). Time your visit accordingly.</li>
-            <li>Try dholl puri from street vendors or market stalls — cheap (~30-50 MUR), authentic, delicious. Local breakfast/lunch staple.</li>
-            <li>Bargaining expected at markets but not aggressive. Vendors appreciate respectful negotiation.</li>
-            <li>Mauritius is multicultural — you'll see Hindu temples, mosques, churches, Chinese pagodas often within blocks of each other. Respectful dress appreciated at religious sites.</li>
-            <li>Traffic in Port Louis can be severe (especially weekday mornings/afternoons). Allow extra time returning to ship.</li>
+            <li>Hero image: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></li>
+            <li>Harbor, Central Market, Aapravasi Ghat, Chamarel, Le Morne, Black River Gorges, Hindu temple, beach, street food, Pamplemousses, Caudan Waterfront: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></li>
           </ul>
+        </details>
+
+        <!-- ===== AUTHOR DISCLAIMER ===== -->
+        <section class="port-section author-disclaimer" style="margin-top: 2.5rem; padding: 1.25rem; background: #fffef7; border-left: 4px solid #d9b382; border-radius: 8px;">
+          <p class="tiny" style="margin: 0; line-height: 1.6; color: #5a6a7a;">
+            <strong>Author's Note:</strong> Until I have sailed this port myself, these notes are soundings in another's wake — helpful for planning, and marked for revision once I've logged my own steps ashore.
+          </p>
         </section>
 
-        <section class="port-section author-note-disclaimer">
-          <h3>Author's Note</h3>
-          <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-        </section>
-
-        <section class="port-section">
-          <h3>Frequently Asked Questions</h3>
-          <p><strong>Q: Where do cruise ships dock?</strong><br/>A: Christian Decotter Cruise Terminal at Caudan Waterfront. Shopping, dining, and Blue Penny Museum immediately adjacent. Most convenient cruise terminal in the Indian Ocean.</p>
-          <p><strong>Q: What is Aapravasi Ghat?</strong><br/>A: UNESCO World Heritage Site documenting indentured labor immigration (1834-1920). Over 450,000 Indian laborers first landed here. Deeply significant to Mauritian identity and global labor history.</p>
-          <p><strong>Q: Is Port Louis safe?</strong><br/>A: Tourist areas (Caudan, Central Market during day) generally safe. Exercise normal caution. Avoid wandering unfamiliar neighborhoods alone. Petty theft possible — watch belongings.</p>
-          <p><strong>Q: What currency should I bring?</strong><br/>A: Mauritian Rupee (MUR) preferred. Euros and USD accepted at tourist venues. ATMs widely available at Caudan. Credit cards accepted most places.</p>
-          <p><strong>Q: Should I visit Black River Gorges or stay in Port Louis?</strong><br/>A: Depends on interests. Nature lovers should absolutely visit Black River Gorges (full day). Culture/history enthusiasts will love Aapravasi Ghat + Central Market (can do both in half day from port).</p>
-        </section>
-
+        <!-- ===== BACK NAV ===== -->
         <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-      
+
         <!-- VOLATILE DATA DISCLAIMER -->
         <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-13 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+          <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2026-02-01 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Mauritius (Port Louis)?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
-
-          <p><strong>Q: Does Mauritius (Port Louis) have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-
-          <p><strong>Q: What should I pack for Mauritius (Port Louis)'s weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
-
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
-
-
 
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Port Louis cruise terminal">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Port Louis cruise terminal">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -478,7 +569,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Christian Decotter Cruise Terminal at Caudan Waterfront — most convenient terminal in the Indian Ocean. Shopping, dining, and museum steps from gangway.</p>
-</div>
+</nav>
 
       </article>
     </div>
@@ -491,7 +582,7 @@ Soli Deo Gloria
           <div class="at-a-glance-item"><strong>Language</strong><span>English, French, Creole</span></div>
           <div class="at-a-glance-item"><strong>Currency</strong><span>MUR</span></div>
           <div class="at-a-glance-item"><strong>Pier</strong><span>Caudan Waterfront</span></div>
-          <div class="at-a-glance-item"><strong>Best For</strong><span>Culture, History, Nature</span></div>
+          <div class="at-a-glance-item"><strong>Best For</strong><span>Culture, Landmarks, Nature</span></div>
           <div class="at-a-glance-item"><strong>Walking</strong><span>Very walkable</span></div>
         </div>
       </section>

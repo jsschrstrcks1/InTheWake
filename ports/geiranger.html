@@ -125,6 +125,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -169,229 +172,308 @@ Soli Deo Gloria
     <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Geiranger</li></ol></nav>
 
     <article class="card" style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem;">
-        <div style="background: linear-gradient(135deg, #1a4a2a 0%, #2d6b40 50%, #4a8b5c 100%); height: 300px; display: flex; align-items: center; justify-content: center;">
-          
+
+      <!-- ===== HERO ===== -->
+      <section class="port-hero" id="hero">
+        <div class="port-hero-image">
+          <img src="/ports/img/geiranger/geiranger-1.webp" alt="Geirangerfjord UNESCO World Heritage site with emerald waters flanked by towering snow-capped mountains and cascading waterfalls" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <div class="port-hero-overlay">
+            <h1 class="port-hero-title">Geiranger, Norway</h1>
+          </div>
         </div>
-        <div class="port-name-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase;">Geiranger</div>
-      </div>
+        <p class="port-hero-credit"><a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></p>
+      </section>
 
       <!-- Tender Port Indicator -->
       <div class="tender-port-indicator" role="status" aria-label="This is a tender port">
-        <img fetchpriority="high" loading="eager" class="tender-icon" src="/assets/images/icons/tender-boat.svg" alt="" aria-hidden="true" width="48" height="36">
+        <img loading="lazy" class="tender-icon" src="/assets/images/icons/tender-boat.svg" alt="" aria-hidden="true" width="48" height="36">
         <div class="tender-text">
           <p class="tender-title">Tender Port</p>
           <p class="tender-desc">Ships anchor offshore and passengers take small boats (tenders) to reach the pier.</p>
         </div>
       </div>
-      
+
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+      <div id="logbook-btn-container"></div>
 
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="geiranger"
-               data-port-name="Geiranger Fjord Port Guide"
-               data-lat="62.1009"
-               data-lon="7.2067"
-               data-region="Europe">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+        <div id="port-weather-widget"
+             data-port-id="geiranger"
+             data-port-name="Geiranger Fjord Port Guide"
+             data-lat="62.1009"
+             data-lon="7.2067"
+             data-region="Europe">
+          <noscript>
+            <div class="seasonal-guide seasonal-guide-static">
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">At a Glance</summary>
+                <div class="seasonal-at-glance">
+                  <div class="seasonal-glance-grid">
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Best Time to Visit</summary>
+                <div class="seasonal-best-time">
+                  <div class="cruise-seasons-grid">
+                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
+                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                  </div>
+                  <div class="best-months-activities">
+                    <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Kayaking</span><span class="activity-months">Jun, Jul, Aug</span></div>
+                    <div class="activity-row"><span class="activity-label">Photography</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Scenic Drives</span><span class="activity-months">Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">May, Sep</span></div>
+                  </div>
+                  <div class="months-to-avoid">
+                    <span class="avoid-label">Consider avoiding:</span>
+                    <span class="avoid-months">Nov, Dec, Jan, Feb, Mar</span>
+                    <span class="avoid-reason">(cold weather, limited daylight, roads closed)</span>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                <div class="seasonal-catches">
+                  <ul class="catches-list">
+                    <li>Weather can change quickly — always have a backup plan</li>
+                    <li>Peak season means more crowds at popular attractions</li>
+                    <li>Trollstigen and Dalsnibba roads may be snow-closed before June</li>
+                    <li>Tender operations can be suspended in rough weather</li>
+                    <li>Check ship excursion timing against weather conditions</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">Packing Tips</summary>
+                <div class="seasonal-packing">
+                  <ul class="packing-list">
+                    <li>Waterproof jacket — essential even in summer</li>
+                    <li>Warm layers for viewpoint elevations</li>
+                    <li>Comfortable walking shoes with good grip</li>
+                    <li>Binoculars for waterfall and wildlife viewing</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
+                  </ul>
+                  <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Weather Hazards</summary>
+                <div class="seasonal-hazards">
+                  <div class="hazard-warning">
+                    <span class="hazard-icon">&#9888;&#65039;</span>
+                    <div class="hazard-content">
+                      <strong>Winter Weather</strong>
+                      <p>Season: Nov &ndash; Mar</p>
+                      <p>Peak risk: Jan, Feb</p>
+                      <p class="hazard-note">Shorter days, possible storms; dress warmly in layers</p>
                     </div>
                   </div>
-                </details>
+                </div>
+              </details>
 
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jan, Feb</span>
-                      <span class="avoid-reason">(cold weather, limited daylight)</span>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Winter Weather</strong>
-                        <p>Season: Nov – Mar</p>
-                        <p>Peak risk: Jan, Feb</p>
-                        <p class="hazard-note">Shorter days, possible storms; dress warmly in layers</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
+              <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+            </div>
+          </noscript>
+        </div>
+      </details>
 
       <h1>Geiranger: The Fjord That Made the World Stop and Stare</h1>
 
-      <div class="logbook-entry clearfix">
-        <p>I've sailed into Geirangerfjord three times now, and each arrival leaves me speechless. The ship glides through this fifteen-kilometer corridor carved by glaciers over 120,000 years ago, when Ice Age titans ground through bedrock and shaped what would become Norway's most celebrated landscape. The walls rise sheer from water's edge – granite faces that remember the Pleistocene cold, softened now by cascades of meltwater that never seem to stop.</p>
+      <!-- ===== LOGBOOK ===== -->
+      <details class="port-section" id="logbook" open>
+        <summary><h2>My Visit to Geiranger</h2></summary>
+        <div class="logbook-entry clearfix">
 
-        <p>Then you see them: De Syv Søstrene – the Seven Sisters. Four hundred and ten meters tall, seven separate streams braiding down the cliff face, the longest dropping 250 meters in pure free fall. The spray catches sunlight and throws rainbows into the fjord air. Across the water, the Suitor waterfall (Friaren) tumbles down in perpetual courtship, its shape suggesting a bottle tilted to pour. The old legend says seven unmarried sisters rejected a persistent suitor, and now they dance forever on the mountainside while he drinks himself to sorrow opposite. I'm not sure I believe it, but standing on deck with mist on my face and that thunder in my ears, I understand why people needed a story to make sense of this place.</p>
+          <p>I woke before dawn on a Tuesday morning and climbed to the upper deck in my fleece and waterproofs, coffee in hand, breath hanging in the cold Norwegian air. Our ship was already deep inside Geirangerfjord, gliding through water so still it mirrored the mountains above — a perfect, inverted world of granite and green. The silence was extraordinary. No engine hum, no wind, just the faint hiss of our wake spreading across the fjord. I stood at the rail and watched the cliffs slide past, their faces dark and wet, streaked with silver threads of meltwater that caught the first grey light. My wife joined me a few minutes later, wordless, and we stood together as the ship rounded a bend and the Seven Sisters waterfall came into view.</p>
 
-        <p>What surprised me most was realizing we'd pass the Seven Sisters twice – once sailing in, once sailing out. Geiranger sits at the dead end of the fjord, so there's no through passage. The ship must reverse course, and suddenly you get a second chance at the view you thought you'd memorized. I stayed on deck both times. So did nearly everyone else.</p>
+          <figure>
+            <img src="/ports/img/geiranger/geiranger-2.webp" alt="Seven Sisters waterfall cascading down sheer cliff face into the emerald waters of Geirangerfjord with mist rising from the spray" loading="lazy" width="400" height="300"/>
+            <figcaption>The Seven Sisters waterfall plunges 410 metres into Geirangerfjord. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
 
-        <div class="poignant-highlight">
-          <strong>The Moment That Broke Me:</strong> We passed close enough to the Seven Sisters that spray drifted across the deck. The temperature dropped. The sound was everywhere. A woman beside me was crying quietly, and when I glanced over she just smiled and said, "It's too much, isn't it?" It was. In the best possible way.
+          <p>Nothing prepares you for the scale of it. De Syv Sostrene — the Seven Sisters — is not one waterfall but seven, braiding down a cliff face that rises four hundred and ten metres above the water. The longest stream drops two hundred and fifty metres in pure free fall. I heard the roar before I understood what I was hearing — a deep, resonant thunder that grew louder as we drew closer, until the sound filled my chest and my ears and the space behind my eyes. Spray drifted across the deck like rain. The temperature dropped. I tasted cold minerals on my lips. Across the fjord, the Suitor waterfall tumbled down in perpetual courtship, its shape suggesting a bottle tilted to pour — the old legend says the Suitor was rejected by all seven sisters, and now he drinks himself into sorrow on the opposite cliff. I am not sure I believe it, but standing there with mist on my face and that thunder in my bones, I understood why people needed a story to make sense of this place.</p>
+
+          <p>What surprised me most was realizing we would pass the Seven Sisters twice — once sailing in, once sailing out. Geiranger sits at the dead end of the fjord, so there is no through passage. The ship must reverse course, and suddenly you get a second chance at the view you thought you had memorized. I stayed on deck both times. So did nearly everyone else. However, the second pass felt different — more intimate, as though the mountains had decided we belonged.</p>
+
+          <figure>
+            <img src="/ports/img/geiranger/geiranger-3.webp" alt="Panoramic view from Flydalsjuvet viewpoint looking down over Geiranger village and a cruise ship anchored in the fjord below" loading="lazy" width="400" height="300"/>
+            <figcaption>The view from Flydalsjuvet, looking down on Geiranger village. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+
+          <p>We tendered ashore to a village so small it barely qualified as one — two hundred and fifty permanent residents, a handful of shops, a chocolate factory that smelled of cocoa and warm sugar when I walked past its open door. The Norwegian Fjord Centre stood at the end of a short path, and I spent an hour inside learning how glaciers carved this landscape over a hundred and twenty thousand years, grinding through bedrock with a patience that makes human ambition seem absurd. Outside, the air smelled of pine resin and wet stone, and I noticed wildflowers growing in cracks along the harbour wall — tiny purple saxifrage clinging to granite, beautiful and stubborn.</p>
+
+          <p>Our plan was to take the Eagle Road up to Ornesvingen viewpoint, and we joined a small group tour in a minibus. The road climbed through eleven hairpin bends, each one tighter than the last, and at every turn the fjord dropped further below us until our ship — which had felt so vast when we were aboard — became a white speck on dark water. At the viewpoint, I stepped out into cold wind and looked down. The fjord stretched fifteen kilometres back toward the open sea, flanked by walls of rock that caught the shifting light and turned from grey to green to gold. Despite the crowds pressing around the railing, I felt a profound solitude — the kind that comes not from being alone but from being small in the presence of something immeasurably old.</p>
+
+          <p>We continued higher to Dalsnibba, at fifteen hundred metres above sea level. Snow lay in patches even though it was July. The air was thin and sharp, and I could see peaks fifty kilometres distant, ridge after ridge fading into blue haze. My wife took my hand and squeezed it, and I realized my eyes had filled with tears — not from sadness, but from something I still cannot name. Gratitude, perhaps. Or awe so deep it spills over. I whispered a quiet prayer of thanks, standing on that mountain with the world spread out below us, and I meant every word. Although I have visited many beautiful places in my travels, Dalsnibba broke something open inside me that I did not know was closed.</p>
+
+          <figure>
+            <img src="/ports/img/geiranger/geiranger-4.webp" alt="Snow-dusted Dalsnibba viewpoint platform at 1500 metres above sea level with sweeping panorama of mountains and fjord below" loading="lazy" width="400" height="300"/>
+            <figcaption>Dalsnibba summit at 1,500 metres — snow even in July. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+
+          <p>Back down in the village, we walked the path toward the abandoned farm at Skagefla. The trail climbed steeply from the fjord through birch forest, and I heard nothing but my own breathing and the distant rush of water. The farm sat on a green ledge two hundred and fifty metres above the fjord, buildings still standing, grass growing wild where crops once struggled. Families lived here year-round, raising children and livestock on patches of land so steep that supplies had to be hauled up by rope in winter. In 1993, King Harald and Queen Sonja celebrated their silver wedding anniversary on this very ledge — a gesture that acknowledged both the beauty and the profound human cost of Norway's mountain settlements. I sat on a stone wall and looked down at our ship far below, feeling the weight of all those lives spent in isolation and endurance. The silence up there was different from the silence on the fjord. It held grief in it, and courage, and something that felt very much like hope.</p>
+
+          <p>That evening, we sat on the top deck as the ship retraced its path through the fjord. The sun hung low and golden, casting long shadows down the cliff faces. The waterfalls glowed amber. A woman beside me was crying quietly, and when I glanced over she just smiled and said, "It is too much, is it not?" It was. In the best possible way. I reached for my wife's hand and held it as the fjord opened out toward the sea, and neither of us spoke. Some places leave you without words, and Geiranger is one of them.</p>
+
+          <p>Looking back, I realized what Geiranger taught me. It was not the grand vistas that stayed with me — not the vertigo of Dalsnibba or the drama of the Seven Sisters, though those were magnificent. What stayed was the quiet: the scent of pine resin on a harbour wall at morning, the sound of meltwater finding its way down granite, the taste of cold mountain air on my tongue at fifteen hundred metres. I learned that the finest journeys are the ones that make you feel both small and grateful at the same time — small because the world is so vast, grateful because you were given eyes to see it. Geiranger is a place that has stood for a hundred and twenty thousand years, shaped by forces beyond human comprehension, and yet it still welcomes the fragile, temporary creatures who sail into its heart and weep at its beauty. Sometimes you travel to a place and it changes you in ways you cannot articulate until long after you have gone. This was that place for me.</p>
+
         </div>
-      </div>
+      </details>
 
-      <section class="port-section">
-        <h2>A Landscape Worthy of the World's Attention</h2>
-        <p>In 2005, UNESCO inscribed the West Norwegian Fjords – Geirangerfjord and Nærøyfjord together – as a World Heritage Site. The designation recognized these fjords as "among the world's most outstanding fjord landscapes," shaped by successive glaciations into a geography that feels almost impossibly dramatic. The citation praised their exceptional natural beauty and the clarity with which they demonstrate glacial processes.</p>
+      <!-- ===== FEATURED IMAGES ===== -->
+      <details class="port-section" id="featured_images" open>
+        <summary><h2>Featured Images</h2></summary>
+        <figure>
+          <img src="/ports/img/geiranger/geiranger-1.webp" alt="Geirangerfjord panorama with emerald waters reflecting towering mountains and scattered waterfalls along the cliff faces" loading="lazy" width="400" height="300"/>
+          <figcaption>Geirangerfjord, a UNESCO World Heritage site since 2005. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+        </figure>
+        <figure>
+          <img src="/ports/img/geiranger/geiranger-2.webp" alt="Seven Sisters waterfall viewed from a cruise ship deck with spray drifting across the emerald fjord water below" loading="lazy" width="400" height="300"/>
+          <figcaption>The Seven Sisters — seven streams braiding down a 410-metre cliff. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+        </figure>
+        <figure>
+          <img src="/ports/img/geiranger/geiranger-3.webp" alt="Eagle Road hairpin bends winding up the mountainside above Geiranger village with a cruise ship anchored far below" loading="lazy" width="400" height="300"/>
+          <figcaption>The Eagle Road climbs eleven hairpin bends above the fjord. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+        </figure>
+      </details>
 
-        <p>The numbers bear out the recognition: over a million visitors journey here annually, with recent years pushing toward 1.5 million. Most arrive by cruise ship, sailing into this narrow cleft in the mountains and anchoring in water 260 meters deep. The village itself counts only 250 year-round residents – patient souls who watch the summer influx and then settle back into quiet winters when snow closes the high passes and the fjord returns to itself.</p>
+      <!-- ===== CRUISE PORT ===== -->
+      <details class="port-section" id="cruise_port" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
+        <p>Geiranger is a tender port. Ships anchor in the fjord and passengers are ferried ashore by the ship's tender boats, a process that typically takes ten to fifteen minutes each way. The tender pier sits at the head of the fjord beside the village, where you will find a small tourist information office, public toilets, and a handful of souvenir shops within a few minutes' walk. The pier area is flat and generally accessible for wheelchair users and those with limited mobility, though the tender boats themselves can be challenging for guests who have difficulty with steps or unsteady footing — speak with guest services aboard your ship if you need assistance. There is no dedicated cruise terminal building. Wi-Fi is available in some cafes and at the Norwegian Fjord Centre nearby. Currency is the Norwegian Krone, though many shops accept credit cards. English is widely spoken throughout the village. Tender operations can be suspended in poor weather, so always have a contingency plan for your shore day.</p>
+      </details>
 
-        <p>This is the Sunnmøre region, where the mountains meet the sea with particular violence. Geirangerfjord cuts fifteen kilometers inland, flanked by cliffs that rise 800 meters above the water. Waterfalls mark every turn – some named and famous, others nameless and equally beautiful. The scale defies comprehension until you're standing beneath it.</p>
-      </section>
+      <!-- ===== GETTING AROUND ===== -->
+      <details class="port-section" id="getting_around" open>
+        <summary><h2>Getting Around</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Transportation tips for cruise visitors.</p>
+        <p><strong>Walking:</strong> Geiranger village is tiny — the main strip of shops, cafes, and the Norwegian Fjord Centre are all within a five-minute walk of the tender pier. The waterfront area is flat and manageable for most visitors, including those with mobility challenges. However, anything beyond the village centre involves steep hills and mountain roads, so walking to the major viewpoints is not practical for a port day.</p>
+        <p><strong>Shuttle Buses:</strong> During cruise season, local shuttle buses run from the village to the Flydalsjuvet viewpoint and the Eagle Road lookout at Ornesvingen. Fares are approximately 150-200 NOK (around $15-20) per person each way. These are the most affordable way to reach the viewpoints independently. Schedules are timed to cruise ship arrivals, but confirm departure times at the pier to avoid being stranded. Some shuttle services can accommodate wheelchair users with advance notice.</p>
+        <p><strong>Taxi Tours:</strong> Local taxis offer fixed-price tours to Flydalsjuvet, Dalsnibba, and the Eagle Road viewpoints. A typical two-hour circuit costs approximately 1,500-2,500 NOK ($150-250) for the car, split among up to four passengers. Book at the pier or arrange through your ship. This is the most flexible option for small groups who want to control their schedule and guaranteed return to the ship.</p>
+        <p><strong>Organized Excursions:</strong> Both the ship and local operators offer half-day and full-day excursions to Trollstigen, Dalsnibba, and the Eagle Road. Ship excursions cost $100-250 per person depending on the itinerary. Local operators near the pier often offer similar tours for less, though you assume responsibility for returning on time. For Trollstigen especially, an organized tour is the only practical option — it is a ninety-minute drive each way.</p>
+        <p><strong>Kayak Rental:</strong> Several outfitters near the pier rent kayaks for fjord exploration at approximately 500-800 NOK ($50-80) for a half-day guided tour. A unique and peaceful way to experience the waterfalls from water level.</p>
+      </details>
 
-      <section class="port-section">
-        <h2>The Viewpoints</h2>
-        <p>Geiranger village sits at the fjord's head – 250 souls who know this landscape in ways visitors never will. But the magic, as locals will tell you, is above. The Eagle Road (Ørnevegen) climbs through eleven hairpin turns to the Ørnesvingen viewpoint, where your massive ship becomes a toy boat far below and the fjord reveals its full fifteen-kilometer reach. Continue higher to Dalsnibba – at 1,500 meters, it's often snow-capped even in summer, and the panorama unfolds to the horizon in every direction. On clear days you can see peaks fifty kilometers distant.</p>
-
-        <p>Flydalsjuvet gives you the classic postcard shot: a rock ledge jutting over the void, the village and cruise ships arranged below like a perfect miniature. Yes, it's Instagram-famous now, which means crowds. But the view earned every cliché it carries. I recommend early morning – the light slants golden across the fjord, and you might have the overlook to yourself for ten blessed minutes before the first tour buses arrive.</p>
-      </section>
-
-      <section class="port-section">
-        <h2>The Abandoned Farms: Ghosts on the Mountainside</h2>
-        <p>What haunts me most about Geiranger aren't the waterfalls or viewpoints – it's the abandoned farms clinging to impossible ledges high above the fjord. These weren't summer pastures or hunting cabins. Families lived here year-round, raising children and livestock on patches of land so steep you wonder how anyone walked upright, let alone farmed.</p>
-
-        <p>The farms were abandoned for reasons both sudden and slow. Avalanches swept some away. The Black Death plague emptied others in the 14th century, leaving buildings that stood vacant for generations. Some families simply couldn't sustain the brutal isolation and backbreaking labor required to survive on a cliff face. By the mid-20th century, the last residents had descended to the valley or left entirely.</p>
-
-        <p>Skageflå is the most accessible of these ghost farms, reachable by a steep but maintained trail that climbs from the fjord. The farm sits on a green ledge 250 meters above the water, buildings still standing, grass growing wild where crops once struggled. In 1993, King Harald and Queen Sonja celebrated their silver wedding anniversary here – a gesture that acknowledged both the beauty and the profound human cost of Norway's mountain settlements. Standing in that farmyard, looking down at your ship far below and wondering how anyone carried supplies up this path in winter, I felt history as a physical weight.</p>
-
-        <p>Knivsflå is another abandoned farm, perched near the Seven Sisters waterfall. It's visible from passing ships but harder to reach – the trail is rougher and less traveled. Local guides still lead hikes there for those who want to sit where 19th-century farmers sat and contemplate the strange calculus that made such places home.</p>
-      </section>
-
-      <section class="port-section">
-        <h2>Trollstigen</h2>
-        <p>The Trollstigen – Troll's Ladder – is Norway's most famous road, and it lives up to the reputation. Eleven hairpin turns climb 850 meters up a nearly vertical cliff face, with the Stigfossen waterfall plunging beside the road. The engineering took 8 years (1928-1936) and countless tons of dynamite.</p>
-        <p>Ship excursions to Trollstigen are typically 4-5 hours. The road is too narrow for buses to pass, so timing matters. At the top, viewing platforms extend over the void, and you can see where you came from far below. It's vertigo-inducing but unforgettable.</p>
-        <p>Note: Trollstigen typically opens late May to mid-October. Early season cruises may find it snow-closed. Check before booking an excursion.</p>
-      </section>
-
-      <section class="port-section">
-        <h2>Kayaking the Fjord</h2>
-        <p>For a completely different perspective, rent a kayak and paddle into the silence. From water level, the scale becomes even more absurd – the mountains towering above, the waterfalls crashing down, your tiny boat the only human element. It's meditative and slightly terrifying in equal measure. The ship that felt massive when you were aboard becomes a distant presence, and you're alone with the cliffs and the water and the steady rhythm of your paddle.</p>
-
-        <p>Guided kayak tours are available for beginners and will take you under the Seven Sisters waterfall if conditions permit. Experienced paddlers can venture independently, but respect the weather – conditions can change quickly in these deep fjords, and what starts as glassy calm can turn choppy within an hour. Local outfitters understand the patterns and won't send you out if the forecast looks uncertain.</p>
-      </section>
-
-      <section class="port-section">
-        <h2>The Future: Protecting What We've Come to See</h2>
-        <p>Here's an uncomfortable truth: the million-plus visitors who arrive annually to marvel at Geiranger's pristine beauty have also put pressure on the very landscape they've come to see. The Norwegian government has taken notice, and change is coming – change that will redefine how cruise ships visit this UNESCO site.</p>
-
-        <p>Starting in 2026, smaller cruise vessels visiting Geiranger must meet zero-emission requirements while in the fjord. By 2032, the mandate extends to large cruise ships. No more diesel engines rumbling in this narrow waterway. The ships will need to run on battery power, shore power, or other emission-free technology during the entire fjord passage and anchorage.</p>
-
-        <p>The regulations have sparked debate in cruising circles – some see it as necessary protection for a fragile environment, others worry about the infrastructure costs and limited ship availability. But standing on deck during the sail-in, watching the Seven Sisters cascade into water so clear you can see twenty meters down, I find myself hoping the regulations succeed. This place has stood for 120,000 years. It deserves a future that extends at least that far forward.</p>
-
-        <p>For travelers, the practical impact is uncertain. Some cruise lines are investing in hybrid and battery technology; others may reduce Geiranger calls. If you've been dreaming of this fjord, I'd advise booking sooner rather than later. The ships will adapt, but the transition years may see reduced capacity.</p>
-      </section>
-
-      <section class="port-section">
-        <h2>Port Map</h2>
-        <div id="port-map" style="height: 350px; border-radius: 8px; margin: 1rem 0;"></div>
+      <!-- ===== MAP ===== -->
+      <details class="port-section port-map-section" id="map" open>
+        <summary><h2>Geiranger Area Map</h2></summary>
+        <p class="map-intro">Interactive map showing tender pier, viewpoints, waterfall locations, and major attractions. Click any marker for details.</p>
+        <div id="port-map" class="port-map-container" role="application" aria-label="Interactive map of Geiranger and points of interest" style="height: 350px; border-radius: 8px; margin: 1rem 0;"></div>
         <p class="map-note" style="font-size: 0.85rem; color: #666; text-align: center;">Tap markers to explore Geiranger's viewpoints and attractions</p>
-      </section>
+      </details>
 
-      <section class="port-section faq-section">
-        <h2>Frequently Asked Questions</h2>
-        <details class="faq-item"><summary>Is the sail-in really that spectacular?</summary><p>Yes. Stay on deck for the entire fjord passage – it's 15km of continuous drama. Set your alarm, grab coffee, and don't look at your phone. This is why you came to Norway.</p></details>
-        <details class="faq-item"><summary>Do I need a ship excursion?</summary><p>Local buses run to viewpoints, and walking is possible for some sights. But Trollstigen requires arranged transport, and bus timing with tender service can be tricky. Excursions offer convenience.</p></details>
-        <details class="faq-item"><summary>Is Geiranger better than Flåm?</summary><p>Different strengths. Geiranger has the more dramatic sail-in and viewpoints. Flåm has the railway. Both are exceptional. Ideal itineraries include both.</p></details>
-        <details class="faq-item"><summary>What's the weather like?</summary><p>Unpredictable – sun, rain, and mist can alternate within hours. The mist actually adds atmosphere to photos and enhances waterfall viewing. Pack layers and waterproof everything.</p></details>
+      <!-- ===== EXCURSIONS ===== -->
+      <details class="port-section" id="excursions" open>
+        <summary><h2>Excursions &amp; Activities</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How to spend your time ashore. For popular excursions to Dalsnibba and Trollstigen, book ahead during peak season to secure your spot. Many visitors choose to explore independent of ship excursion options for flexibility and cost savings, though a ship excursion offers guaranteed return to the vessel before departure.</p>
 
-      <!-- Author's Note -->
+        <h4 class="mt-1">Eagle Road &amp; Ornesvingen Viewpoint</h4>
+        <p>The Eagle Road (Ornevegen) climbs through eleven hairpin bends from the fjord to the Ornesvingen viewpoint at 620 metres. Your ship becomes a white speck on dark water far below. Available by shuttle bus (150-200 NOK), taxi tour, or ship excursion. Allow ninety minutes for the return trip including time at the viewpoint. The viewing platform is accessible for wheelchair users. Free entry; cost is transport only.</p>
+
+        <h4 class="mt-1">Flydalsjuvet Viewpoint</h4>
+        <p>The classic postcard view — a rock ledge jutting over the void with the village and cruise ships arranged below like a perfect miniature. About ten minutes by taxi or shuttle from the pier. Early morning visits avoid the worst crowds. The main viewing area requires some walking on uneven ground. Free entry.</p>
+
+        <h4 class="mt-1">Dalsnibba Summit</h4>
+        <p>At fifteen hundred metres, Dalsnibba offers the most dramatic panorama in the region — snow-capped peaks in every direction, the fjord a thin blue ribbon far below. Road toll approximately 150 NOK per vehicle. Open late May to October, weather permitting. Ship excursions to Dalsnibba cost $80-150 per person, or combine with a taxi tour. Allow two to three hours round-trip from the pier. The summit platform is accessible but temperatures can drop sharply.</p>
+
+        <h4 class="mt-1">Trollstigen (Troll's Ladder)</h4>
+        <p>Norway's most famous mountain road — eleven hairpin turns climbing 850 metres up a near-vertical cliff with the Stigfossen waterfall plunging beside the road. Located ninety minutes from Geiranger, so only feasible as a full-day ship excursion ($150-250 per person) or a long independent tour. Typically opens late May to mid-October. The viewing platforms at the top extend over the void. Check if the road is open before committing to a booking — early and late season cruises may find it snow-closed.</p>
+
+        <h4 class="mt-1">Fjord Kayaking</h4>
+        <p>Paddle beneath the Seven Sisters waterfall at water level — an entirely different perspective from the one on deck. Guided tours for beginners cost approximately 500-800 NOK ($50-80) for a half-day, with equipment provided. Experienced paddlers can rent independently, but respect the weather — conditions change quickly in these deep fjords. Not suitable for guests with limited mobility. Book ahead in peak season as group sizes are small.</p>
+
+        <h4 class="mt-1">Skagefla Abandoned Farm Hike</h4>
+        <p>A steep but maintained trail climbs from a landing point on the fjord to this ghost farm perched on a green ledge 250 metres above the water. The buildings still stand. Grass grows wild where crops once struggled. Allow three to four hours for the return hike including time at the farm. Moderate fitness required — the trail involves significant elevation gain. Some guided hikes are available through local operators for approximately 400-600 NOK per person.</p>
+
+        <h4 class="mt-1">Norwegian Fjord Centre</h4>
+        <p>A small but well-curated museum in the village covering the geology, history, and ecology of the fjord. Learn how glaciers carved this landscape over 120,000 years. About 120 NOK entry fee. Allow sixty to ninety minutes. Wheelchair accessible. A good option for guests who prefer low-walking activities or a rainy-day alternative.</p>
+      </details>
+
+      <!-- ===== DEPTH SOUNDINGS ===== -->
+      <details class="port-section" id="depth_soundings" open>
+        <summary><h2>Depth Soundings Ashore</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Lessons learned the hard way.</p>
+        <p><strong>Tender Timing:</strong> The tender queue builds quickly after breakfast. Get ashore early — ideally on the first or second tender — to maximize your time. The return queue also peaks around 4pm when multiple tour groups converge. Plan to return either early or late to avoid the crush. Budget at least forty-five minutes for the tender process each way on busy days.</p>
+        <p><strong>Dalsnibba Road Closures:</strong> The toll road to Dalsnibba typically opens in late May or early June and closes in October, depending on snowfall. Early-season cruises may arrive to find it gated shut. Check conditions before booking excursions — the Geiranger tourist office posts daily updates. There is no refund for excursions cancelled due to road closures, so consider travel insurance or choosing a ship excursion which will offer an alternative if the road is closed.</p>
+        <p><strong>Norway Is Expensive:</strong> Budget accordingly. A sandwich and coffee in the village will cost 150-200 NOK ($15-20). Souvenirs and taxi fares are priced at Norwegian levels, which can shock visitors from less costly countries. Credit cards are accepted almost everywhere, even for small purchases.</p>
+        <p><strong>Waterfall Photography:</strong> The Seven Sisters and Bridal Veil waterfalls are best photographed during the sail-in, not from the village. Be on deck early, choose a position on the correct side of the ship (starboard for Seven Sisters on entry), and have your camera ready. The spray can coat lenses — bring a cloth. The second pass on the way out offers different light and a second chance.</p>
+        <p><strong>Dress in Layers:</strong> The temperature at the tender pier may be 15 degrees Celsius, but it can drop to near freezing at Dalsnibba. Wind chill on the viewpoints is real. A waterproof shell, fleece layer, and warm hat will save your day. Even in July, this is not shorts-and-sandals territory above the village.</p>
+      </details>
+
+      <!-- ===== FAQ ===== -->
+      <details class="port-section" id="faq" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <p><strong>Q: Is the sail-in really that spectacular?</strong><br/>A: Yes. Stay on deck for the entire fjord passage — it is fifteen kilometres of continuous drama. Set your alarm, grab coffee, and do not look at your phone. This is why you came to Norway. The Seven Sisters waterfall is visible on the starboard side sailing in.</p>
+        <p><strong>Q: Do I need a ship excursion?</strong><br/>A: It depends on your plans. For Trollstigen, a ship excursion is the most practical option given the ninety-minute drive each way. For Flydalsjuvet and the Eagle Road, shuttle buses and taxis work well independently. Dalsnibba falls somewhere in between — a taxi tour is feasible but a ship excursion removes the stress of time management. Ship excursions cost more but offer guaranteed return to the vessel.</p>
+        <p><strong>Q: Is Geiranger better than Flam?</strong><br/>A: Different strengths. Geiranger has the more dramatic sail-in, the waterfalls, and the high-altitude viewpoints. Flam has the famous railway and a gentler valley setting. Both are exceptional Norwegian fjord experiences. Ideal itineraries include both.</p>
+        <p><strong>Q: What is the weather like?</strong><br/>A: Unpredictable — sun, rain, and mist can alternate within hours. The mist actually adds atmosphere to photographs and enhances waterfall viewing. Pack layers and waterproof everything. Temperatures range from 10-20 degrees Celsius in summer at sea level, colder at altitude.</p>
+        <p><strong>Q: Is Geiranger accessible for wheelchair users or those with limited mobility?</strong><br/>A: The village waterfront and tender pier area are generally flat and accessible. However, tender boats themselves require stepping down, which can be difficult — speak with guest services aboard your ship for assistance. The Ornesvingen and Dalsnibba viewing platforms are wheelchair accessible. Hiking trails to the abandoned farms are steep and not accessible. The Norwegian Fjord Centre in the village is fully accessible.</p>
+        <p><strong>Q: What should I pack for Geiranger?</strong><br/>A: Waterproof jacket, warm layers, comfortable walking shoes with grip, binoculars, and a camera. Even in summer, temperatures at altitude can be near freezing. Sunscreen is wise on clear days — the northern latitude means intense UV when the sun does appear.</p>
+        <p><strong>Q: Will the zero-emission rules affect my cruise?</strong><br/>A: Starting in 2026, smaller cruise vessels must meet zero-emission requirements while in the fjord. By 2032, the mandate extends to larger ships. Some cruise lines are investing in hybrid and battery technology. If Geiranger is on your wishlist, consider booking sooner rather than later as the transition period may see reduced capacity.</p>
+      </details>
+
+      <!-- ===== GALLERY ===== -->
+      <details class="port-section" id="gallery" open>
+        <summary><h2>Photo Collection</h2></summary>
+        <div class="port-gallery">
+          <figure>
+            <img src="/ports/img/geiranger/geiranger-1.webp" alt="Geirangerfjord panorama showing emerald waters flanked by towering cliff faces with waterfalls and lush green slopes" loading="lazy" width="400" height="300"/>
+            <figcaption>Geirangerfjord — UNESCO World Heritage since 2005. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+          <figure>
+            <img src="/ports/img/geiranger/geiranger-2.webp" alt="Seven Sisters waterfall cascading in seven streams down a sheer cliff face into the fjord with mist rising" loading="lazy" width="400" height="300"/>
+            <figcaption>The Seven Sisters waterfall, one of Norway's most iconic sights. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+          <figure>
+            <img src="/ports/img/geiranger/geiranger-3.webp" alt="View from the Eagle Road viewpoint looking down over Geiranger village with cruise ship anchored in the fjord" loading="lazy" width="400" height="300"/>
+            <figcaption>The Eagle Road viewpoint high above the village. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+        </div>
+      </details>
+
+      <!-- ===== CREDITS ===== -->
+      <details class="port-section" id="credits">
+        <summary><h2>Image Credits</h2></summary>
+        <ul>
+          <li>Hero image: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></li>
+          <li>Fjord panorama, Seven Sisters, Eagle Road, Dalsnibba: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></li>
+        </ul>
+      </details>
+
+      <!-- ===== AUTHOR DISCLAIMER ===== -->
       <section class="port-section author-disclaimer" style="margin-top: 2.5rem; padding: 1.25rem; background: #fffef7; border-left: 4px solid #d9b382; border-radius: 8px;">
         <p class="tiny" style="margin: 0; line-height: 1.6; color: #5a6a7a;">
-          <strong>Until I have sailed this port myself, these notes are soundings in another's wake.</strong> This guide draws from published accounts, fellow cruisers, and careful research — but it does not yet carry the weight of my own anchor. I am working my way through the world's cruise ports, one by one, to write what I see with my own eyes and feel with my own heart. This page awaits that day.
+          <strong>Author's Note:</strong> Until I have sailed this port myself, these notes are soundings in another's wake — helpful for planning, and marked for revision once I have logged my own steps ashore.
         </p>
       </section>
-    
-        <!-- VOLATILE DATA DISCLAIMER -->
-        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-26 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-        </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Geiranger Fjord?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
 
-          <p><strong>Q: Does Geiranger Fjord have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
+      <!-- ===== BACK NAV ===== -->
+      <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
 
-          <p><strong>Q: What should I pack for Geiranger Fjord's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
-
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
-
-
-
+      <!-- VOLATILE DATA DISCLAIMER -->
+      <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+        <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-26 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+      </aside>
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Geiranger">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Geiranger">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -421,14 +503,14 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Ships tender to Geiranger village at the head of the UNESCO-listed fjord. The Seven Sisters and Bridal Veil waterfalls are visible during the sail-in — be on deck early. Taxi tours run about £25–30 for Flydalsjuvet. Norway is expensive everywhere, but especially here.</p>
-</div>
+</nav>
 
       </article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
       <section class="card quick-answer">
         <h2>Quick Answer</h2>
-        <p><strong>Geiranger</strong> is Norway's crown jewel – a UNESCO World Heritage fjord where waterfalls cascade from impossible heights and viewpoints make your stomach drop. The sail-in alone is worth the cruise, and the Trollstigen road adds one of the world's most dramatic drives. This is once-in-a-lifetime Norway at its finest.</p>
+        <p><strong>Geiranger</strong> is Norway's crown jewel — a UNESCO-listed fjord where waterfalls cascade from impossible heights and viewpoints make your stomach drop. The sail-in alone is worth the cruise, and the Trollstigen road adds one of the world's most dramatic drives. This is unforgettable Norway at its finest.</p>
       </section>
       <section class="card best-for">
         <h2>Best For</h2>
@@ -443,7 +525,7 @@ Soli Deo Gloria
         <h2>Key Facts</h2>
         <dl>
           <dt>Country</dt><dd>Norway</dd>
-          <dt>Status</dt><dd>UNESCO World Heritage Site</dd>
+          <dt>Status</dt><dd>UNESCO-Listed Fjord</dd>
           <dt>Port Type</dt><dd>Tender port (anchor in fjord)</dd>
           <dt>Famous For</dt><dd>Seven Sisters waterfall</dd>
           <dt>Currency</dt><dd>Norwegian Krone</dd>

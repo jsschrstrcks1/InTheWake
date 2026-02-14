@@ -81,7 +81,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             "name": "Can I visit the pyramids from Port Said?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes, but it's a long day. Cairo is 3-4 hours each way by road. Ship excursions typically include the Pyramids, Sphinx, and Egyptian Museum in a 10-12 hour tour. Essential for once-in-a-lifetime travelers; exhausting but worthwhile."
+              "text": "Yes, but it's a long day. Cairo is 3-4 hours each way by road. Ship excursions typically include the Pyramids, Sphinx, and Egyptian Museum in a 10-12 hour tour. Essential for extraordinary travelers; exhausting but worthwhile."
             }
           },
           {
@@ -166,6 +166,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -219,11 +222,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
       <div class="container port-layout">
         <article class="port-content">
-          <section class="logbook-entry" aria-label="Personal narrative">
-            <div class="logbook-entry__header">
-              <span class="logbook-entry__icon">📔</span>
-              <h2>From the Logbook</h2>
-            </div>
+          <details class="logbook-entry" aria-label="Personal narrative" open>
+            <summary><h2>From the Logbook</h2></summary>
             <div class="logbook-entry__content">
               <p>
                 The ship entered the canal at dawn, sliding between Africa on
@@ -247,7 +247,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
                 forty-five centuries.
               </p>
             </div>
-          </section>
+          </details>
 
 
       <!-- WEATHER & BEST TIME TO VISIT -->
@@ -269,8 +269,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         </details>
       </details>
 
-          <section class="port-section" id="cruise-port">
-            <h2>The Cruise Port</h2>
+          <details class="port-section" id="cruise-port" open>
+            <summary><h2>The Cruise Port</h2></summary>
             <p>
               Port Said sits at the Mediterranean entrance to the Suez Canal,
               one of the world's most strategic waterways. The port serves both
@@ -282,10 +282,10 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               Security is tight. Most passengers book ship excursions to Cairo
               or explore the immediate port area before reboarding.
             </p>
-          </section>
+          </details>
 
-          <section class="port-section" id="cairo">
-            <h2>Cairo & Pyramids Excursion</h2>
+          <details class="port-section" id="cairo" open>
+            <summary><h2>Cairo & Pyramids Excursion</h2></summary>
             <p>
               The pyramids are the reason most travelers visit Port Said. Cairo
               is approximately 200km (125 miles) south—a 3-4 hour drive each
@@ -306,7 +306,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               Private tours through reputable agencies are an alternative but
               require careful vetting.
             </p>
-          </section>
+          </details>
 
           <section class="port-section" id="port-said-city">
             <h2>Port Said City</h2>
@@ -325,8 +325,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             </ul>
           </section>
 
-          <section class="port-section" id="practical">
-            <h2>Practical Information</h2>
+          <details class="port-section" id="practical" open>
+            <summary><h2>Practical Information</h2></summary>
             <h3>Money</h3>
             <p>
               Egyptian Pound (EGP). Approximately 30 EGP = 1 USD (2025). USD
@@ -353,19 +353,19 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               <li>Photography inside tombs often requires separate tickets.</li>
               <li>Wear comfortable shoes—you'll walk on sand and uneven stone.</li>
             </ul>
-          </section>
+          </details>
 
           <section class="port-section" id="map">
             <h2>Port Map</h2>
             <div id="port-map" class="port-map" style="height: 400px"></div>
           </section>
 
-          <section class="port-section" id="faq">
-            <h2>Frequently Asked Questions</h2>
+          <details class="port-section" id="faq" open>
+            <summary><h2>Frequently Asked Questions</h2></summary>
             <div class="faq-list">
               <details class="faq-item">
                 <summary>Can I visit the pyramids from Port Said?</summary>
-                <p>Yes, but it's a long day. Cairo is 3-4 hours each way. Ship excursions typically run 10-12 hours. Exhausting but worthwhile for once-in-a-lifetime travelers.</p>
+                <p>Yes, but it's a long day. Cairo is 3-4 hours each way. Ship excursions typically run 10-12 hours. Exhausting but worthwhile as a rare opportunity.</p>
               </details>
               <details class="faq-item">
                 <summary>Is Port Said safe?</summary>
@@ -376,14 +376,14 @@ ITW-Lite v3.010 | ICP-Lite v1.4
                 <p>Yes. Ships dock at the canal's Mediterranean entrance. If your ship transits the canal, the 12-hour passage is a world-cruising highlight.</p>
               </details>
             </div>
-          </section>
+          </details>
 
           <section class="disclaimers">
             <p class="disclaimer"><strong>Author's Note:</strong> Egypt travel conditions can change. Verify current safety advisories and excursion availability with your cruise line.</p>
           </section>
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Port Said cruise terminal">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Port Said cruise terminal">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -408,7 +408,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </li>
   </ul>
   <p class="pier-note">Mediterranean entrance to the Suez Canal. Cairo is a long day trip (3–4 hrs each way) — excursions recommended over independent travel. Security improved but guided tours advised.</p>
-</div>
+</nav>
                 <div id="logbook-btn-container"></div>
 
         </article>
@@ -416,7 +416,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         <aside class="port-rail">
           <div class="rail-section quick-answer">
             <h3>Quick Answer</h3>
-            <p>Port Said is your gateway to the pyramids. Book a ship excursion to Cairo/Giza—it's a long day but a once-in-a-lifetime experience.</p>
+            <p>Port Said is your gateway to the pyramids. Book a ship excursion to Cairo/Giza—it's a long day but an unforgettable experience.</p>
           </div>
           <div class="rail-section best-for">
             <h3>Best For</h3>

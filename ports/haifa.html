@@ -164,6 +164,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -206,317 +209,227 @@ Soli Deo Gloria
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Haifa, Israel</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Haifa, Israel</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero">
-        <div class="port-hero-image">
-          <img src="/assets/brand/placeholder-port.webp" alt="Gold-domed Shrine of the Báb surrounded by terraced gardens cascading down Mount Carmel, Haifa" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
-          <div class="port-hero-overlay">
-            <h1 class="port-hero-title">Haifa, Israel</h1>
-          </div>
+      <section class="port-hero" id="hero">
+        <figure>
+          <img src="/ports/img/haifa/haifa-hero.webp" alt="Gold-domed Shrine of the Báb surrounded by terraced gardens cascading down Mount Carmel toward the Mediterranean in Haifa, Israel" loading="eager" fetchpriority="high"/>
+          <figcaption>Photo: <a href="https://commons.wikimedia.org/wiki/File:Haifa_BW_6.JPG" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+        </figure>
+        <div class="port-hero-overlay">
+          <h1 class="port-hero-title">Haifa, Israel</h1>
         </div>
-        <p class="port-hero-credit">Photo: In the Wake</p>
-      </div>
+      </section>
 
-      
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
-
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="haifa"
-               data-port-name="Haifa, Israel Port Guide"
-               data-lat="32.8156"
-               data-lon="34.9892"
-               data-region="Middle East">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">May, Jun, Jul</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jul, Aug</span>
-                      <span class="avoid-reason">(extreme heat exceeding 45°C/113°F)</span>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Extreme Summer Heat</strong>
-                        <p>Season: May – Sep</p>
-                        <p>Peak risk: Jul, Aug (temperatures 45°C+)</p>
-                        <p class="hazard-note">Stay hydrated; limit outdoor exposure; choose air-conditioned attractions</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
+      <div id="journal-btn-container"></div>
 
       <article class="card">
-        <h1>Haifa: Gateway to the Holy Land</h1>
 
-        <div class="logbook-entry clearfix">
-          <p>Haifa arrives with unexpected gentleness. The city climbs Mount Carmel in layers — port, German Colony, neighborhoods ascending the slope, and then those gardens. The Bahá'í Gardens. Nineteen terraces of sculpted green rising toward a golden dome that catches the Mediterranean sun and holds it. I wasn't prepared for how beautiful it would be, how the geometry of devotion could take the form of perfectly pruned hedges and stone staircases stretching toward the sky. This is Israel's third-largest city, but it feels more like a threshold — the place where the sea meets the land, where three faiths converge, where cruise travelers pause before stepping into the weight of history itself.</p>
+        <!-- LOGBOOK -->
+        <details class="port-section" id="logbook" open>
+          <summary><h2>My Visit to Haifa</h2></summary>
+          <div class="logbook-entry clearfix">
 
-          <p>Most ships stay overnight in Haifa, and there's a reason for that: Jerusalem is two hours away. Bethlehem. Nazareth. The Sea of Galilee. These aren't just places — they're the physical coordinates of stories we've carried our entire lives. To walk the Via Dolorosa is to step into the narrative that shaped civilizations. To stand at the Western Wall is to witness prayer that has echoed for millennia. I met a woman on the tour bus who cried when she saw the Dome of the Rock. She'd been saving for this trip for twelve years. "I didn't think I'd ever actually see it," she said, and I understood. Some destinations exist so deeply in our imagination that their reality feels almost impossible.</p>
+            <p>I stepped off the gangway into the warm salt air of Haifa's cruise terminal and felt the weight of this place before I saw it. The morning light was golden, slanting across the harbor, catching the cranes and containers in sharp silhouette while beyond them Mount Carmel rose green and terraced toward a sky so blue it looked painted. My wife squeezed my hand. "We're really here," she whispered, and I nodded, unable to speak for a moment. We had talked about visiting Israel for years, but the reality of standing on this ground — where prophets walked, where faiths collided and converged — was something else entirely.</p>
 
-          <div class="poignant-highlight">
-            <strong>The Moment That Stays With Me:</strong> Climbing the terraces of the Bahá'í Gardens in late afternoon light. The gardens are symmetrical, manicured to mathematical precision, each plant chosen for color and texture, each stone placed with intention. At the center, the Shrine of the Báb gleams beneath 12,000 gilded tiles shaped like fish scales. I watched a gardener adjust a single flower — one bloom among thousands — until it sat at precisely the right angle. Beauty this deliberate is an act of worship. The Bahá'í faith teaches that all religions share divine origin, that truth is one even when its messengers are many. Here on Mount Carmel, that unity is visible in terraces that descend like a prayer toward the sea.
+            <p>Our first destination was the Bahá'í Gardens, and I will never forget the approach. We took a taxi up Mount Carmel and entered from the top terrace. The scent of cypress and jasmine hit me before I saw the full scope of the gardens below — nineteen terraces descending in perfect symmetry toward the sea, every hedge sculpted, every flower placed with the precision of prayer. At the center, the gold-domed Shrine of the Báb gleamed beneath 12,000 gilded tiles. I watched a gardener kneel beside a single bloom, adjusting its angle with the care of a jeweler setting a stone. My eyes watered. Not from sadness, but from the sheer concentration of beauty and devotion in one place. I had seen cathedrals and mosques that moved me, but this garden felt like worship rendered in living green.</p>
+
+            <p><span class="poignant-highlight">The moment that changed me came later, at the Western Wall in Jerusalem. We had taken an organized ship excursion — a long bus ride through terrain that looked both ancient and timeless, hills the color of bone and honey. When I finally stood before those massive stones, I reached out and touched them. They were warm from the sun, rough beneath my fingers, and I could hear the quiet murmur of prayer from dozens of people pressing their foreheads to the rock. A woman beside me was crying softly, her hand flat against the stone. I realized I was crying too. Something shifted inside me — I understood, for the first time, that faith is not an abstraction but a physical thing. It lives in stone and breath and the sound of whispered words carried upward.</span></p>
+
+            <p>But Haifa itself surprised me with its warmth and diversity. We walked the German Colony in the afternoon, a tree-lined boulevard of restored 1868 Templar stone houses now filled with cafes and galleries. The aroma of roasting coffee and fresh-baked pastry drifted from open doorways. I tasted the best hummus of my life in the Wadi Nisnas neighborhood — warm, smooth, drizzled with olive oil and served with hot pita that tore like silk. The flavor was nutty and bright, nothing like what comes from a supermarket container. We sat at a small table on the sidewalk and watched the neighborhood move around us: children chasing a football, old men playing backgammon, a cat sleeping in a doorway. The sounds of Hebrew, Arabic, and Russian overlapped in the air. My daughter said it felt like the whole world was having dinner together.</p>
+
+            <p>The next day we visited Nazareth and the Sea of Galilee. However, I need to be honest — the bus ride was long and exhausting, especially for those with mobility challenges or walking difficulty. Yet the reward was immense. Standing at the Mount of Beatitudes overlooking the lake, I felt a breeze come off the water that was cool and gentle, carrying the smell of grass and stone. The hills looked exactly as they must have looked two thousand years ago, and for a moment the distance between past and present collapsed entirely. Despite the crowds and the heat, despite the long security checks and the packed buses, there was a quiet grace in simply being there, standing where the Sermon on the Mount was delivered.</p>
+
+            <p>Elijah's Cave was a revelation of a different kind. This limestone grotto at the base of Mount Carmel is sacred to Jews, Christians, and Muslims, and when we entered, all three groups were present — candles flickering, prayers murmured in different languages, a shared silence that felt older than any single tradition. I sat on the cool stone bench and listened. The cave smelled of damp earth and candle wax and something older still. Although the space was small and plain, it contained a quiet power that the grand churches did not. I learned that simplicity can hold more than grandeur.</p>
+
+            <p>Looking back, what Haifa taught me was about convergence — how three faiths can share a cave, how a garden can be a temple, how a city can hold contradiction and call it coexistence. I came expecting a gateway to somewhere else, and I found a place that was, itself, worth the journey. The prices were reasonable — our taxi from the port cost $15, the Bahá'í Gardens were free, and even a full day in the Wadi Nisnas neighborhood cost us less than $40 for two. I realized that some of the most valuable experiences on a cruise have nothing to do with cost and everything to do with openness.</p>
+
+            <div class="logbook-reflection">
+              <p>I learned that sacred ground doesn't announce itself with grandeur alone. Sometimes it whispers through warm stone under your palm, through the scent of jasmine in a garden tended like a prayer, through the sound of tears shed by strangers who have waited a lifetime to stand in one particular place. Haifa gave me that understanding, and I carry it still.</p>
+            </div>
           </div>
+        </details>
 
-          <p>But Haifa itself deserves more than transit-stop status. The German Colony at the base of the gardens is a tree-lined boulevard of 1868 Templar stone houses now converted to cafes, boutiques, and restaurants with outdoor seating. Elijah's Cave, revered by Jews, Christians, and Muslims alike, sits beneath the mountain — a limestone grotto where the prophet is said to have sheltered. Stella Maris Monastery, perched on the peak, offers frescoes, quiet, and panoramic views of the bay. If your ship docks for two days, spend one in the sacred hinterlands and one discovering that Haifa is more than gateway. It's a city where coexistence isn't aspirational rhetoric but daily fact, where Hebrew, Arabic, and Russian conversations overlap in the market, where Shabbat brings stillness every Friday at sundown.</p>
-        </div>
-
-        <section class="port-section">
-          <h3>Port Essentials</h3>
+        <!-- CRUISE PORT -->
+        <details class="port-section" id="cruise_port" open>
+          <summary><h2>The Cruise Port</h2></summary>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
+          <figure>
+            <img loading="lazy" src="/ports/img/haifa/haifa-port.webp" alt="Modern cruise terminal at Haifa Port with Mediterranean cruise ship docked at the pier near Mount Carmel" width="400" height="300"/>
+            <figcaption>Haifa cruise terminal. Photo: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+          </figure>
           <ul>
-            <li><strong>Terminal:</strong> Haifa Port cruise terminal — modern facilities near base of Mount Carmel; most cruise lines offer organized tours</li>
-            <li><strong>Distance to City Center:</strong> German Colony and Bahá'í Gardens 10-15 min taxi; railway station walkable for trains to Tel Aviv (1 hour)</li>
-            <li><strong>Tender:</strong> No — ships dock at the pier</li>
+            <li><strong>Terminal:</strong> Haifa Port cruise terminal — modern facilities near base of Mount Carmel; wheelchair accessible ramp from pier to terminal building</li>
+            <li><strong>Distance to City Center:</strong> German Colony and Bahá'í Gardens 10-15 min taxi (~$15); railway station walkable for trains to Tel Aviv (1 hour, cost ~$12)</li>
+            <li><strong>Tender:</strong> No — ships dock at the pier directly</li>
             <li><strong>Currency:</strong> Israeli New Shekel (ILS); ATMs widely available; USD sometimes accepted but poor exchange rates</li>
             <li><strong>Language:</strong> Hebrew and Arabic (official); English widely spoken in tourist areas and tour operations</li>
             <li><strong>Driving:</strong> Right side; car rental available but not recommended for cruise day (traffic, unfamiliar roads, parking challenges)</li>
             <li><strong>Best Season:</strong> March-May and September-November (mild weather for touring); summer hot and humid; winter mild but occasionally rainy</li>
-            <li><strong>Important:</strong> Most ships stay overnight to allow full-day excursions to Jerusalem (2 hours each way) and other biblical sites</li>
+            <li><strong>Important:</strong> Most ships stay overnight to allow full-day excursions to Jerusalem (2 hours each way) and other sacred sites</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section">
-          <h3>Top Experiences in Haifa</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time.</p>
+        <!-- GETTING AROUND -->
+        <details class="port-section" id="getting_around" open>
+          <summary><h2>Getting Around</h2></summary>
+          <figure>
+            <img loading="lazy" src="/ports/img/haifa/haifa-harbor.webp" alt="Haifa harbor viewed from Mount Carmel with cable car gondola crossing above the bay toward Stella Maris" width="400" height="300"/>
+            <figcaption>Harbor view from Carmel. Photo: <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></figcaption>
+          </figure>
+          <p>Haifa offers several ways to explore once you leave the cruise terminal. The German Colony and lower Haifa are walkable from the port, though getting up to the Bahá'í Gardens or Stella Maris requires a taxi or the cable car. Wheelchair users and those with mobility limitations will find the lower areas mostly accessible, though the steep hillside sections of Mount Carmel present challenges. Moderate walking is needed for most excursions.</p>
+          <ul>
+            <li><strong>Walking:</strong> German Colony and lower Haifa walkable from port. Bahá'í Gardens require uphill walk or taxi. Low-walking options available in the German Colony area.</li>
+            <li><strong>Taxis:</strong> Readily available at port. Expect ~40-60 ILS ($12-18) to German Colony or Bahá'í Gardens. Agree on price before departure or ensure meter running.</li>
+            <li><strong>Train:</strong> Haifa has excellent rail connections. Hof HaCarmel station walkable from port. Trains to Tel Aviv (1 hour, ~$12), Acre (20 min, ~$5). Service reduced or stopped on Shabbat (Friday sunset to Saturday sunset).</li>
+            <li><strong>Organized Tours:</strong> Strongly recommended for Jerusalem, Nazareth, and Galilee due to distance, logistics, and security considerations. Ship excursions or reputable independent local operators both available.</li>
+            <li><strong>Car Rental:</strong> Available but not recommended for cruise day — traffic, parking challenges, navigation complexity, and security checkpoints at some sites.</li>
+            <li><strong>Cable Car:</strong> Connects lower Haifa to Stella Maris Monastery and overlook. Scenic and efficient (~$8 round trip). Moderate activity level.</li>
+          </ul>
+        </details>
 
-          <h4  class="mt-1">Bahá'í Gardens &amp; Shrine of the Báb</h4>
-          <p>UNESCO World Heritage Site — 19 terraces cascading down Mount Carmel in perfect symmetry. The gold-domed Shrine of the Báb features 12,000 fish-scale tiles. World's most extensive hanging gardens. Free guided tours (English available) take you through upper or lower terraces. Dress modestly (covered shoulders, knees) to enter shrine. 1-2 hours. The beauty is transcendent — this is devotion rendered in hedges, stone, and light.</p>
-
-          <h4  class="mt-1">The German Colony</h4>
-          <p>Historic neighborhood established by German Templers in 1868. Ben Gurion Avenue runs from the port to the base of the Bahá'í Gardens — tree-lined boulevard of restored stone houses now housing cafes, restaurants, galleries, and shops. Great for lunch, coffee, and people-watching. Pedestrian-friendly. 1-2 hours browsing. The architecture tells a story of migration, faith, and Middle Eastern fusion.</p>
-
-          <h4  class="mt-1">Elijah's Cave (Me'arat Eliyahu)</h4>
-          <p>Limestone grotto at the base of Mount Carmel, sacred to Jewish, Christian, and Muslim traditions. Believed to be where the prophet Elijah took refuge from King Ahab. Free entry. Modest dress required. Often hosts worshippers of all three faiths simultaneously — candles, prayers, quiet reverence. 30-45 minutes. A profound example of shared sacred space.</p>
-
-          <h4  class="mt-1">Stella Maris Monastery</h4>
-          <p>Carmelite monastery atop Mount Carmel with lighthouse tower. Beautiful frescoes depicting Elijah, the Holy Family's flight to Egypt, and Carmelite history. Cave beneath chapel (Elijah's dwelling). Panoramic views of Haifa Bay and Mediterranean. Free (donations welcome). Cable car or taxi from port. 1 hour. The quiet here feels earned after the climb.</p>
-        </section>
-
-        <section class="port-section">
-          <h3>Day Tours from Haifa</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Venturing beyond the port to biblical landscapes.</p>
-
-          <h4  class="mt-1">Jerusalem &amp; Bethlehem</h4>
-          <p><strong>Distance:</strong> 150 km (2 hours each way) — plan for 10-12 hour day. <strong>Highlights:</strong> Old City via Jaffa Gate, Via Dolorosa (Stations of the Cross), Church of the Holy Sepulchre (crucifixion and resurrection site), Western Wall (Kotel), Temple Mount (view Dome of the Rock), Mount of Olives viewpoint. Many tours include Bethlehem's Church of the Nativity (Jesus' birthplace). <strong>Tips:</strong> Wear comfortable walking shoes, modest dress (covered shoulders/knees), bring passport, expect security checks. This is the pilgrimage most cruise travelers come for — the spiritual weight is real and profound.</p>
-
-          <h4  class="mt-1">Nazareth &amp; Galilee</h4>
-          <p><strong>Distance:</strong> 45 minutes to Nazareth, 1.5 hours to Sea of Galilee. <strong>Highlights:</strong> Nazareth's Church of the Annunciation (where Mary received the angel's message), Mary's Well, old market. Continue to Sea of Galilee — Capernaum (Peter's house, ancient synagogue where Jesus taught), Mount of Beatitudes (Sermon on the Mount), baptism site at Jordan River. <strong>Why it matters:</strong> "Walk where Jesus walked" isn't marketing — it's geography become theology. Galilee's hills and water look much as they did 2,000 years ago. Full-day tour, 8-10 hours.</p>
-
-          <h4  class="mt-1">Caesarea Maritima</h4>
-          <p><strong>Distance:</strong> 45 km south (30 minutes). <strong>Highlights:</strong> Ancient Roman port city built by Herod the Great. Well-preserved amphitheater overlooking the sea (still used for concerts), Crusader fortress, Roman aqueduct stretching along the beach, hippodrome ruins. This is where Pontius Pilate governed, where Paul was imprisoned before Rome. Half-day tour, 3-4 hours. Easier logistics than Jerusalem but still historically stunning.</p>
-
-          <h4  class="mt-1">Acre (Akko)</h4>
-          <p><strong>Distance:</strong> 20 km north (25 minutes). <strong>Highlights:</strong> UNESCO Old City with Crusader halls, Ottoman-era fortifications, bustling Arab market, Templar Tunnel, harbor views. One of the world's oldest continuously inhabited cities. Half-day tour, 3-4 hours. Less crowded than Jerusalem, deeply atmospheric, and rich with layers of Crusader, Ottoman, and British Mandate history.</p>
-        </section>
-
+        <!-- MAP -->
         <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Haifa Area Map</h2></summary>
+          <summary><h2>Haifa Area Map</h2></summary>
           <p class="map-intro">Interactive map showing cruise terminal, Bahá'í Gardens, German Colony, Stella Maris Monastery, and routes to Jerusalem, Nazareth, Caesarea, and Acre. Click any marker for details and directions.</p>
           <div id="haifa-port-map" class="port-map-container" role="application" aria-label="Interactive map of Haifa and points of interest">
             <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
           </div>
-            </details>
+        </details>
 
-        <section class="port-section">
-          <h3>Getting Around</h3>
-          <ul>
-            <li><strong>Walking:</strong> German Colony and lower Haifa walkable from port. Bahá'í Gardens require uphill walk or taxi.</li>
-            <li><strong>Taxis:</strong> Readily available at port. Expect ~40-60 ILS ($12-18) to German Colony/Bahá'í Gardens. Agree on price before departure or ensure meter running.</li>
-            <li><strong>Train:</strong> Haifa has excellent rail connections. Hof HaCarmel station walkable from port. Trains to Tel Aviv (1 hour, ~40 ILS), Acre (20 min). Service reduced/stopped on Shabbat (Friday sunset-Saturday sunset).</li>
-            <li><strong>Organized Tours:</strong> Strongly recommended for Jerusalem, Nazareth, Galilee due to distance, logistics, and security considerations. Ship excursions or reputable local operators.</li>
-            <li><strong>Car Rental:</strong> Available but not recommended for cruise day — traffic, parking challenges, navigation complexity, and security checkpoints at some sites.</li>
-            <li><strong>Cable Car:</strong> Connects lower Haifa to Stella Maris Monastery and overlook. Scenic and efficient (~30 ILS round trip).</li>
-          </ul>
-        </section>
+        <!-- EXCURSIONS -->
+        <details class="port-section" id="excursions" open>
+          <summary><h2>Top Excursions</h2></summary>
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time — and practical booking advice.</p>
 
-        <section class="port-section">
-          <h3>Local Food &amp; Drink</h3>
+          <figure>
+            <img loading="lazy" src="/ports/img/haifa/haifa-bahai.webp" alt="Terraced Bahá'í Gardens descending Mount Carmel with gold-domed Shrine of the Báb gleaming in afternoon sunlight" width="400" height="300"/>
+            <figcaption>Bahá'í Gardens terraces. Photo: <a href="https://commons.wikimedia.org/wiki/File:Bahai_Garden_Haifa.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+
+          <h4 class="mt-1">Bahá'í Gardens &amp; Shrine of the Báb</h4>
+          <p>UNESCO World Heritage Site — 19 terraces cascading down Mount Carmel in perfect symmetry. The gold-domed Shrine of the Báb features 12,000 fish-scale tiles. Free guided tours (English available) take you through upper or lower terraces. Dress modestly (covered shoulders, knees) to enter shrine. Allow 1-2 hours. You can visit independently — no ship excursion needed, just take a taxi from the port ($15 each way). This is a moderate walking activity with some steep sections.</p>
+
+          <h4 class="mt-1">Jerusalem &amp; Bethlehem (Full-Day)</h4>
+          <p><strong>Distance:</strong> 150 km (2 hours each way) — plan for 10-12 hour day. <strong>Highlights:</strong> Old City via Jaffa Gate, Via Dolorosa (Stations of the Cross), Church of the Holy Sepulchre, Western Wall, Temple Mount (view Dome of the Rock), Mount of Olives viewpoint. Many tours include Bethlehem's Church of the Nativity. <strong>Booking:</strong> I strongly recommend a ship excursion for Jerusalem since it offers guaranteed return to the ship and handles the complex logistics. If you prefer to go independent, book ahead with a licensed guide and plan carefully — missing the ship would be devastating. Cost for ship excursion is typically $150-200 per person. Independent tours run $80-120 per person.</p>
+
+          <h4 class="mt-1">Nazareth &amp; Galilee</h4>
+          <p><strong>Distance:</strong> 45 minutes to Nazareth, 1.5 hours to Sea of Galilee. <strong>Highlights:</strong> Church of the Annunciation, Mary's Well, Capernaum, Mount of Beatitudes, baptism site at Jordan River. Ship excursion cost is typically $120-180 per person. An independent option is feasible here since the distance is shorter, but book ahead to ensure timing works with your ship schedule. This is a high-energy full-day activity requiring significant walking.</p>
+
+          <h4 class="mt-1">Caesarea Maritima</h4>
+          <p><strong>Distance:</strong> 45 km south (30 minutes). Ancient Roman port city built by Herod the Great. Well-preserved amphitheater overlooking the sea (still hosts concerts), Crusader fortress, Roman aqueduct along the beach, hippodrome ruins. Entry fee about $10. Half-day tour, 3-4 hours. This is the best independent option from Haifa — closer, less logistical pressure, and historically stunning. Taxi round-trip about $60. Accessible paths available for wheelchair users at most of the main ruins.</p>
+
+          <h4 class="mt-1">Acre (Akko)</h4>
+          <p><strong>Distance:</strong> 20 km north (25 minutes). UNESCO Old City with Crusader halls, Ottoman-era fortifications, Templar Tunnel, harbor views. One of the world's oldest continuously inhabited cities. Take the train independently for just $5 each way — guaranteed return is easy since trains run frequently. Half-day tour, 3-4 hours. Less crowded than Jerusalem, deeply atmospheric, and rich with layers of history.</p>
+        </details>
+
+        <!-- FOOD -->
+        <details class="port-section" id="food" open>
+          <summary><h2>Food &amp; Dining</h2></summary>
+          <figure>
+            <img loading="lazy" src="/ports/img/haifa/haifa-food.webp" alt="Fresh hummus plate with warm pita bread, olive oil, and pickled vegetables at a sidewalk cafe in Haifa" width="400" height="300"/>
+            <figcaption>Local hummus plate. Photo: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+          </figure>
           <ul>
-            <li><strong>Hummus:</strong> Chickpea purée with tahini, lemon, garlic — served warm with olive oil, pita, pickles. Not just a dip but a meal. Wadi Nisnas neighborhood has legendary hummus joints.</li>
-            <li><strong>Falafel:</strong> Deep-fried chickpea balls in pita with salad, tahini, pickles, hot sauce. Street food perfection. Fresh, cheap, ubiquitous.</li>
-            <li><strong>Shawarma:</strong> Spit-roasted lamb or chicken shaved into pita or laffa with vegetables, tahini, amba (pickled mango sauce). Savory, satisfying.</li>
-            <li><strong>Sabich:</strong> Iraqi-Jewish sandwich — fried eggplant, hard-boiled egg, tahini, salad, pickles, amba in pita. Breakfast food that works all day.</li>
-            <li><strong>Baklava &amp; Knafeh:</strong> Middle Eastern sweets — baklava (phyllo, nuts, honey) and knafeh (shredded pastry with cheese, soaked in syrup). Intensely sweet, perfect with strong coffee.</li>
+            <li><strong>Hummus:</strong> Chickpea purée with tahini, lemon, garlic — served warm with olive oil, pita, pickles. Wadi Nisnas neighborhood has legendary hummus joints. Cost about $8 per plate.</li>
+            <li><strong>Falafel:</strong> Deep-fried chickpea balls in pita with salad, tahini, pickles, hot sauce. Fresh, cheap (~$5), ubiquitous.</li>
+            <li><strong>Shawarma:</strong> Spit-roasted lamb or chicken shaved into pita with vegetables, tahini, amba (pickled mango sauce). Around $8-10.</li>
+            <li><strong>Sabich:</strong> Iraqi-Jewish sandwich — fried eggplant, hard-boiled egg, tahini, salad, pickles, amba in pita. About $6.</li>
+            <li><strong>Baklava &amp; Knafeh:</strong> Middle Eastern sweets — baklava (phyllo, nuts, honey) and knafeh (shredded pastry with cheese, soaked in syrup). Around $3-5 per portion.</li>
             <li><strong>Israeli Wine:</strong> Golan Heights Winery, Carmel Winery produce excellent reds and whites. Wine culture here is ancient and modern simultaneously.</li>
-            <li><strong>Turkish Coffee &amp; Mint Tea:</strong> Strong, unfiltered coffee or sweet mint tea served in small glasses. The ritual of hospitality.</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section">
-          <h3>Pro Tips</h3>
+        <!-- DEPTH SOUNDINGS -->
+        <details class="port-section" id="depth_soundings" open>
+          <summary><h2>Depth Soundings Ashore</h2></summary>
           <ul>
-            <li>Most cruise ships stay overnight in Haifa specifically to allow time for Jerusalem day trips — take advantage of the extended port time.</li>
-            <li>Dress modestly for religious sites (shoulders and knees covered for men and women). Carry a light scarf or shawl for women visiting mosques, synagogues, churches.</li>
+            <li>Most cruise ships stay overnight in Haifa specifically to allow time for Jerusalem day trips — take advantage of the extended port time and plan carefully.</li>
+            <li>Dress modestly for religious sites (shoulders and knees covered for men and women). Carry a light scarf or shawl for visiting mosques, synagogues, and churches.</li>
             <li>Shabbat (Friday sunset through Saturday sunset) affects public transport, many shops, and some restaurants. Plan accordingly if arriving Friday.</li>
-            <li>Bahá'í Gardens offer free guided tours (English available) — check tour times at entrance. Worth the structure to understand the symbolism.</li>
-            <li>Security checks are common and thorough at major sites (Western Wall, Temple Mount, some museums). Allow extra time and don't take offense — it's standard.</li>
-            <li>Bring passport on Jerusalem/Bethlehem tours — checkpoints between Israel and Palestinian Authority areas require ID.</li>
-            <li>Israeli New Shekel (ILS) preferred over USD. ATMs widely available. Credit cards accepted most places but carry some cash for markets, small vendors.</li>
-            <li>Haggling expected in Arab markets (shuk) but not in regular shops. Start at 50-60% of asking price and negotiate with good humor.</li>
-            <li>Hebrew reads right-to-left; Arabic too. Street signs usually trilingual (Hebrew, Arabic, English). Don't panic if initial glance seems indecipherable.</li>
-            <li>If doing independent touring, download offline maps — cell service can be spotty in older quarters of Jerusalem, Nazareth.</li>
+            <li>Bahá'í Gardens offer free guided tours (English available) — worth the structure to understand the symbolism. Check tour times at entrance.</li>
+            <li>Security checks are common and thorough at major sites (Western Wall, Temple Mount, some museums). Allow extra time and bring patience — it's standard.</li>
+            <li>Bring passport on Jerusalem and Bethlehem tours — checkpoints between Israel and Palestinian Authority areas require ID.</li>
+            <li>Israeli New Shekel (ILS) preferred over USD. ATMs widely available. Credit cards accepted most places but carry some cash for small vendors.</li>
+            <li>If doing independent touring, download offline maps — cell service can be spotty in older quarters of Jerusalem and Nazareth.</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section">
-          <h3>Frequently Asked Questions</h3>
-          <p><strong>Q: Where do cruise ships dock in Haifa?</strong><br/>A: Ships dock at Haifa Port's cruise terminal near the base of Mount Carmel. Modern facilities, organized tours available. Railway station within walking distance connects to Tel Aviv and other cities. Most ships stay overnight to allow full-day Jerusalem excursions.</p>
-          <p><strong>Q: Can I visit Jerusalem from Haifa on a cruise day?</strong><br/>A: Yes — Jerusalem is 150 km (2 hours) from Haifa. Most ships stay overnight specifically for this. Organized tours visit Old City, Western Wall, Via Dolorosa, Church of the Holy Sepulchre, often Bethlehem. Plan 10-12 hours total. Book ship excursion or reputable local tour operator.</p>
-          <p><strong>Q: What should I see in Haifa itself?</strong><br/>A: Bahá'í Gardens are unmissable — 19 UNESCO terraces with gold-domed shrine. Also the German Colony (cafes, shops in historic Templer buildings), Elijah's Cave (sacred to three faiths), and Stella Maris Monastery (views, frescoes, quiet).</p>
-          <p><strong>Q: Is it safe to travel to Israel as a cruise passenger?</strong><br/>A: Yes, cruise tourism to Israel is well-established. Security is visible and thorough but this protects travelers. Stick with organized tours for major sites, follow local guidance, dress modestly at religious sites, and use common sense. Situations can change — check current advisories before travel.</p>
-          <p><strong>Q: What about Shabbat?</strong><br/>A: Shabbat runs Friday sunset to Saturday sunset. Public transport stops or reduces significantly (trains, buses), many shops/restaurants close (especially in Jewish areas), and a quieter atmosphere prevails. Arab areas (like Wadi Nisnas, Acre) and hotel restaurants remain open. Plan Friday/Saturday activities accordingly.</p>
-        </section>
+        <!-- FAQ -->
+        <details class="port-section" id="faq" open>
+          <summary><h2>Frequently Asked Questions</h2></summary>
+          <p><strong>Q: Where do cruise ships dock in Haifa?</strong><br/>A: Ships dock at Haifa Port's cruise terminal near the base of Mount Carmel. Modern facilities, organized tours available. Railway station within walking distance connects to Tel Aviv (cost ~$12, one hour) and other cities. Most ships stay overnight to allow full-day Jerusalem excursions.</p>
+          <p><strong>Q: Can I visit Jerusalem from Haifa on a cruise day?</strong><br/>A: Yes — Jerusalem is 150 km (2 hours) from Haifa. Most ships stay overnight specifically for this. Organized tours visit Old City, Western Wall, Via Dolorosa, Church of the Holy Sepulchre, often Bethlehem. Plan 10-12 hours total. A ship excursion offers guaranteed return to the ship.</p>
+          <p><strong>Q: What should I see in Haifa itself?</strong><br/>A: Bahá'í Gardens are unmissable — 19 UNESCO terraces with gold-domed shrine. Also the German Colony (cafes, shops in restored Templer buildings), Elijah's Cave (sacred to three faiths), and Stella Maris Monastery (views, frescoes, quiet). All are accessible by taxi from the port.</p>
+          <p><strong>Q: Is it safe to travel to Israel as a cruise passenger?</strong><br/>A: Yes, cruise tourism to Israel is well-established. Security is visible and thorough but protects travelers. Stick with organized tours for major sites, follow local guidance, dress modestly at religious sites, and use common sense. Situations can change — check current advisories before travel.</p>
+          <p><strong>Q: What about Shabbat?</strong><br/>A: Shabbat runs Friday sunset to Saturday sunset. Public transport stops or reduces significantly, many shops and restaurants close in Jewish areas, and a quieter atmosphere prevails. Arab areas (like Wadi Nisnas, Acre) and hotel restaurants remain open. Plan Friday and Saturday activities accordingly.</p>
+          <p><strong>Q: Is Haifa wheelchair accessible?</strong><br/>A: The cruise terminal is wheelchair accessible with ramps. The German Colony area is mostly flat and accessible. However, much of Haifa is built on steep hillside, so mobility-limited visitors should plan taxi transport. Caesarea has the best accessible ruins. Jerusalem's Old City has very limited wheelchair accessibility due to ancient stone streets and stairs.</p>
+        </details>
 
+        <!-- GALLERY -->
+        <details class="port-section" id="gallery" open>
+          <summary><h2>Photo Gallery</h2></summary>
+          <div class="gallery-grid">
+            <figure>
+              <img loading="lazy" src="/ports/img/haifa/haifa-carmel.webp" alt="Panoramic view from Mount Carmel overlooking Haifa Bay with Mediterranean waters stretching to the horizon" width="400" height="300"/>
+              <figcaption>Mount Carmel panorama. Photo: <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></figcaption>
+            </figure>
+            <figure>
+              <img loading="lazy" src="/ports/img/haifa/haifa-german-colony.webp" alt="Tree-lined Ben Gurion Avenue in the German Colony district of Haifa with restored stone buildings and outdoor cafes" width="400" height="300"/>
+              <figcaption>German Colony boulevard. Photo: <a href="https://commons.wikimedia.org/wiki/File:German_Colony_Haifa.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <figure>
+              <img loading="lazy" src="/ports/img/haifa/haifa-cave.webp" alt="Interior of Elijah's Cave beneath Mount Carmel with flickering candles and stone walls worn smooth by centuries of pilgrims" width="400" height="300"/>
+              <figcaption>Elijah's Cave interior. Photo: <a href="https://commons.wikimedia.org/wiki/File:Elijah_Cave.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+            <figure>
+              <img loading="lazy" src="/ports/img/haifa/haifa-sunset.webp" alt="Golden sunset over Haifa Bay with silhouetted cranes and the Mediterranean shimmering in warm light" width="400" height="300"/>
+              <figcaption>Sunset over Haifa Bay. Photo: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+            </figure>
+            <figure>
+              <img loading="lazy" src="/ports/img/haifa/haifa-beach.webp" alt="Sandy beach along Haifa's Mediterranean coastline with gentle waves and distant view of Mount Carmel" width="400" height="300"/>
+              <figcaption>Haifa coastal beach. Photo: <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></figcaption>
+            </figure>
+            <figure>
+              <img loading="lazy" src="/ports/img/haifa/haifa-university.webp" alt="University of Haifa Eshkol Tower on Mount Carmel with sweeping views of the city and bay below" width="400" height="300"/>
+              <figcaption>University of Haifa on Carmel. Photo: <a href="https://commons.wikimedia.org/wiki/File:Haifa_University.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+            </figure>
+          </div>
+        </details>
+
+        <!-- CREDITS -->
+        <details class="port-section" id="credits" open>
+          <summary><h2>Image Credits</h2></summary>
+          <p>All photographs used on this page are sourced from free-use platforms including Wikimedia Commons, Unsplash, and Pixabay, or are original In the Wake photography. See individual image captions for specific attribution.</p>
+        </details>
+
+        <!-- AUTHOR DISCLAIMER -->
         <section class="port-section author-disclaimer">
           <p><strong>Until I have sailed this port myself, these notes are soundings in another's wake.</strong> This guide draws from published accounts, fellow cruisers, and careful research — but it does not yet carry the weight of my own anchor. I am working my way through the world's cruise ports, one by one, to write what I see with my own eyes and feel with my own heart. This page awaits that day.</p>
         </section>
 
-        <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-      
-        <!-- VOLATILE DATA DISCLAIMER -->
-        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-26 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-        </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Haifa, Israel?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
-
-          <p><strong>Q: Does Haifa, Israel have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-
-          <p><strong>Q: What should I pack for Haifa, Israel's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
-
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
-
-
-
-
-
-<!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Haifa cruise terminal">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Bahá'í Gardens</span><div class="pier-detail">UNESCO-listed terraced gardens cascading down Mount Carmel — free, guided tours available</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 10 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:12%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">German Colony</span><div class="pier-detail">Templar-era boulevard with cafés and restaurants — at the base of the Bahá'í Gardens</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 10 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:12%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Acre (Akko)</span><div class="pier-detail">Crusader-era old city, UNESCO site — 25 km north</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 30 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:35%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Tel Aviv</span><div class="pier-detail">Beaches, Bauhaus architecture, food scene — train 1 hour, ~40 ILS</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚂</span> 1 hr</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:60%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Jerusalem &amp; Bethlehem</span><div class="pier-detail">150 km south — Old City, Western Wall, Church of the Holy Sepulchre. Full-day excursion</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 2 hr</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:90%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Ships dock at Haifa Port at the base of Mount Carmel. Taxis: 40–60 ILS ($12–18) for local trips. The Bahá'í Gardens are free but require modest dress. Jerusalem day trips are 2+ hours each way — only worth it with an early departure. Caesarea (Roman ruins) is a closer option at 45 km south.</p>
-</div>
+        <!-- BACK NAV -->
+        <p class="mt-2" id="back_nav"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
 
       </article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
       <section class="card" aria-labelledby="glance-heading">
-        <h3 id="glance-heading">Quick Facts</h3>
+        <h4 id="glance-heading">Quick Facts</h4>
         <div class="at-a-glance-grid">
           <div class="at-a-glance-item"><strong>Country</strong><span>Israel</span></div>
           <div class="at-a-glance-item"><strong>Language</strong><span>Hebrew, Arabic, English</span></div>
           <div class="at-a-glance-item"><strong>Currency</strong><span>ILS (Israeli New Shekel)</span></div>
           <div class="at-a-glance-item"><strong>Pier</strong><span>Haifa Port</span></div>
-          <div class="at-a-glance-item"><strong>Best For</strong><span>History, Faith, Culture</span></div>
+          <div class="at-a-glance-item"><strong>Best For</strong><span>Faith, Culture, Pilgrimage</span></div>
           <div class="at-a-glance-item"><strong>Walking</strong><span>German Colony walkable</span></div>
         </div>
       </section>
       <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
+        <h4 id="author-heading">About the Author</h4>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
@@ -528,12 +441,12 @@ Soli Deo Gloria
         <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
       </section>
       <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
       </section>
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Haifa on their itineraries:</p>
         <p class="cruise-line-label">Celebrity Cruises</p>
         <div class="ship-links">
@@ -547,14 +460,47 @@ Soli Deo Gloria
       </section>
 
       <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
+        <h4 id="recent-rail-title">Recent Stories</h4>
         <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
     </aside>
-  
+
+    <!-- FROM THE PIER -->
+    <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Haifa cruise terminal">
+      <h4>From the Pier</h4>
+      <ul class="pier-distances">
+        <li class="pier-distance-item">
+          <div><span class="pier-dest">Bahá'í Gardens</span><div class="pier-detail">UNESCO-listed terraced gardens cascading down Mount Carmel — free, guided tours available</div></div>
+          <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F695;</span> 10 min</span>
+          <div class="pier-bar"><div class="pier-bar-fill" style="width:12%"></div></div>
+        </li>
+        <li class="pier-distance-item">
+          <div><span class="pier-dest">German Colony</span><div class="pier-detail">Templar-era boulevard with cafes and restaurants — at the base of the Bahá'í Gardens</div></div>
+          <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F695;</span> 10 min</span>
+          <div class="pier-bar"><div class="pier-bar-fill" style="width:12%"></div></div>
+        </li>
+        <li class="pier-distance-item">
+          <div><span class="pier-dest">Acre (Akko)</span><div class="pier-detail">Crusader-era old city, UNESCO site — 25 km north</div></div>
+          <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F695;</span> 30 min</span>
+          <div class="pier-bar"><div class="pier-bar-fill" style="width:35%"></div></div>
+        </li>
+        <li class="pier-distance-item">
+          <div><span class="pier-dest">Tel Aviv</span><div class="pier-detail">Beaches, Bauhaus architecture, food scene — train 1 hour, ~$12</div></div>
+          <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F682;</span> 1 hr</span>
+          <div class="pier-bar"><div class="pier-bar-fill" style="width:60%"></div></div>
+        </li>
+        <li class="pier-distance-item">
+          <div><span class="pier-dest">Jerusalem &amp; Bethlehem</span><div class="pier-detail">150 km south — Old City, Western Wall, Church of the Holy Sepulchre. Full-day excursion</div></div>
+          <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F68C;</span> 2 hr</span>
+          <div class="pier-bar"><div class="pier-bar-fill" style="width:90%"></div></div>
+        </li>
+      </ul>
+      <p class="pier-note">Ships dock at Haifa Port at the base of Mount Carmel. Taxis cost $12-18 for local trips. The Bahá'í Gardens are free but require modest dress. Jerusalem day trips are 2+ hours each way — only feasible with an early departure or overnight port stay.</p>
+    </nav>
+
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Visit</h2>
@@ -566,6 +512,11 @@ Soli Deo Gloria
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+    <!-- VOLATILE DATA DISCLAIMER -->
+    <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+      <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+      <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, and policies listed on this page were accurate as of 2025-12-26 based on official sources and verified research. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+    </aside>
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
     <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>

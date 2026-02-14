@@ -33,7 +33,6 @@ All work on this project is offered as a gift to God.
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
 
-  <!-- Global CSS -->
   <!-- Service Worker Registration -->
   <script>
   if('serviceWorker' in navigator){
@@ -140,10 +139,10 @@ All work on this project is offered as a gift to God.
           <span></span>
         </span>
       </button>
-            <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
 
-                <!-- Planning Dropdown -->
+        <!-- Planning Dropdown -->
         <div class="nav-dropdown" id="nav-planning">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Planning <span class="caret">&#9662;</span>
@@ -170,6 +169,9 @@ All work on this project is offered as a gift to God.
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -199,48 +201,38 @@ All work on this project is offered as a gift to God.
 
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
-      </nav></div>
-
-    <!-- Hero -->
-    <div class="hero">
-      <img loading="lazy" class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
-      <div class="hero-title">
-        <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logo" decoding="async" fetchpriority="high" width="560" height="567"/>
-      </div>
-      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit">
-        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
-      </div>
+      </nav>
     </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Marseille</li></ol></nav>
+
     <div style="grid-column: 1; grid-row: 1;">
-    <article<!-- Breadcrumb -->
-    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;">
-      <ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;">
-        <li  class="inline"><a href="/">Home</a> &rsaquo; </li>
-        <li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li>
-        <li  aria-current="page" class="inline">Marseille</li>
-      </ol>
-    </nav>
 
-     class="card">
-      <!-- Port Hero with gradient background -->
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #0055a4 0%, #7b68ee 35%, #e6e6fa 70%, #f0f8ff 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
-        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Marseille</div>
-      </div>
+      <article class="card">
+        <!-- Hero section inside card -->
+        <section class="port-hero" id="hero" aria-label="Marseille cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+          <div class="port-hero-image" style="position: relative;">
+            <img src="/ports/img/marseille/marseille-hero.webp" alt="Panoramic view of Marseille Vieux-Port harbor with fishing boats and Notre-Dame de la Garde basilica on the hilltop" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover;">
+            <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+              <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">Marseille</h1>
+            </div>
+          </div>
+          <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Vieux-Port_de_Marseille" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
+        </section>
 
-      
-      <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+        <p class="last-reviewed">Last reviewed: February 2026</p>
+        <div id="journal-btn-container"></div>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
+        <details class="port-section" id="weather-guide" aria-label="Weather and Best Time to Visit" open>
+          <details class="section-collapse" open>
             <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+            <div class="collapse-body">
               <div id="port-weather-widget"
                data-port-id="marseille"
-               data-port-name="Marseille Port Guide"
+               data-port-name="Marseille"
                data-lat="43.2965"
                data-lon="5.3698"
                data-region="Europe">
@@ -250,11 +242,11 @@ All work on this project is offered as a gift to God.
                   <summary class="seasonal-section-title">At a Glance</summary>
                   <div class="seasonal-at-glance">
                     <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">45-90°F depending on season</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Moderate — Mediterranean climate</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Low rainfall; wettest in autumn</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Mistral wind can be strong, especially winter</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-15 hours depending on season</span></div>
                     </div>
                   </div>
                 </details>
@@ -277,7 +269,7 @@ All work on this project is offered as a gift to God.
                     <div class="months-to-avoid">
                       <span class="avoid-label">Consider avoiding:</span>
                       <span class="avoid-months">Jan, Feb</span>
-                      <span class="avoid-reason">(cold weather, limited daylight)</span>
+                      <span class="avoid-reason">(cold weather, limited daylight, mistral wind)</span>
                     </div>
                   </div>
                 </details>
@@ -286,8 +278,8 @@ All work on this project is offered as a gift to God.
                   <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
                   <div class="seasonal-catches">
                     <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
+                      <li>The mistral wind can drop temperatures dramatically even in summer</li>
+                      <li>Peak season means more crowds at the Calanques and Notre-Dame de la Garde</li>
                       <li>Sun can be intense even on cloudy days — sunscreen essential</li>
                       <li>Local holidays may affect attraction hours and availability</li>
                       <li>Check ship excursion timing against sunset and weather</li>
@@ -300,12 +292,12 @@ All work on this project is offered as a gift to God.
                   <div class="seasonal-packing">
                     <ul class="packing-list">
                       <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
+                      <li>Light layers for variable temperatures and the mistral</li>
+                      <li>Comfortable walking shoes for cobblestone streets and Le Panier</li>
                       <li>Rain jacket or compact umbrella</li>
                       <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
                     </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
+                    <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
                   </div>
                 </details>
 
@@ -313,12 +305,12 @@ All work on this project is offered as a gift to God.
                   <summary class="seasonal-section-title">Weather Hazards</summary>
                   <div class="seasonal-hazards">
                     <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
+                      <span class="hazard-icon">&#9888;&#65039;</span>
                       <div class="hazard-content">
-                        <strong>Winter Weather</strong>
-                        <p>Season: Nov – Mar</p>
+                        <strong>Mistral Wind</strong>
+                        <p>Season: Year-round, strongest Nov – Mar</p>
                         <p>Peak risk: Jan, Feb</p>
-                        <p class="hazard-note">Shorter days, possible storms; dress warmly in layers</p>
+                        <p class="hazard-note">Cold, dry northerly wind can reach 60+ mph; dress warmly in layers and secure hats</p>
                       </div>
                     </div>
                   </div>
@@ -328,313 +320,383 @@ All work on this project is offered as a gift to God.
               </div>
             </noscript>
               </div>
-            </details>
+            </div>
+          </details>
+        </details>
 
+        <!-- LOGBOOK SECTION -->
         <details class="port-section" id="logbook" open>
           <details class="section-collapse" open>
             <summary><h2>My Logbook: France's Oldest, Most Authentic City</h2></summary>
             <div class="collapse-body">
               <div class="logbook-entry clearfix">
-        <p>Marseille isn't pretty in the way Nice is pretty. It doesn't polish itself for tourists the way Paris does. It's rough at the edges, honest in its contradictions, and completely authentic — which is exactly why I've come to love it. France's oldest city wears its 2,600 years of history not as a museum piece but as a living, working port where fishermen still sell their catch at the Quai des Belges every morning and where the narrow streets of Le Panier still feel more North African than European.</p>
+        <p>I stepped off the shuttle bus at the edge of the Vieux-Port on a morning when the mistral wind had scrubbed the sky to a hard, brilliant blue, and the first thing I noticed was the smell — salt and fish and diesel and something sweet drifting from a bakery somewhere behind me. Marseille hit me with all of its contradictions at once: fishing boats bobbing beside luxury yachts, North African spice stalls next to French patisseries, ancient stone rubbing shoulders with modern glass. My ship had docked at one of the modern cruise terminals north of the Old Port, and from the moment I set foot on the quay, I knew this city was different from every other Mediterranean port I had visited.</p>
 
-      <figure class="logbook-image float-right">
-        <img fetchpriority="high" src="img/marseille/marseille-1.webp" alt="Marseille harbor view" loading="eager">
-        <figcaption>Marseille — <a href="https://commons.wikimedia.org/w/index.php?search=Marseille&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
+        <figure class="logbook-image float-right">
+          <img src="/ports/img/marseille/marseille-vieux-port.webp" alt="Morning light over Marseille Vieux-Port with colorful fishing boats reflected in calm harbor water" loading="lazy">
+          <figcaption>Vieux-Port morning light — <a href="https://commons.wikimedia.org/wiki/Category:Vieux-Port_de_Marseille" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
 
-        <p>My ship docked at one of the modern cruise terminals, and I could see Notre-Dame de la Garde immediately — that golden Madonna atop the basilica stands 500 feet above the city (roughly 100 average adults stacked head-to-toe, or about 2,500 baguettes tall, or the height of 50 pétanque players standing on each other's shoulders, or approximately the elevation needed to see all of Marseille's 2,600 years of history at once), watching over Marseille like she has since 1864. I knew I'd end up there eventually, but first I walked down to the Old Port. The Vieux-Port has been the beating heart of this city since Greek traders from Phocaea sailed into this natural harbor around 600 BC and founded Massalia. The layout remains what it's been for millennia: a rectangular inlet of blue water surrounded by cafés, boats, and the eternal rhythm of Mediterranean life. The Nazis destroyed most of the original harbor buildings in 1943, but the ancient spirit of the place — of ships arriving with news from distant lands, of merchants haggling over spices and silk, of fishermen mending nets at dawn — that remains unchanged across 2,600 years.</p>
+        <p>Marseille is not polished. It does not present itself the way Nice does, with its tidy promenade and pastel facades. It does not perform for visitors the way Paris performs. But there is an honesty to this city that I found deeply moving — a refusal to pretend, a stubborn authenticity that comes from being France's oldest settlement, founded by Greek traders from Phocaea around 600 BC. I walked along the Quai des Belges where fishermen were selling their morning catch — rascasse, congre, Saint-Pierre — and I watched an old woman in a floral dress inspect each fish with the seriousness of a surgeon. This is where bouillabaisse begins, that legendary saffron fish stew that Marseille guards fiercely. I had mine later that afternoon at a small restaurant near Fort Saint-Jean, and it arrived in two courses: the rich, aromatic, rust-colored broth first with croutons and rouille, then the fish arranged on a separate platter. The broth tasted of the sea itself — deep, complex, warming. It cost me €55 and was worth every centime.</p>
 
-        <p>The morning fish market at the eastern end of the port was winding down when I arrived, but the stalls still overflowed with the morning's catch: rascasse, Saint-Pierre, congre, and a dozen fish I couldn't name. This is where bouillabaisse begins — that legendary Provençal fish stew that Marseille guards jealously. There's even a charter signed by the city's restaurants promising to make it only the traditional way. I had mine later at a place near the Fort Saint-Jean, and it arrived in two courses: the saffron-colored broth first with croutons and rouille (that garlicky, rust-colored spread), then the fish separately. Rich, aromatic, absolutely worth the €50 it cost.</p>
+        <p>From the port I walked up through Le Panier, Marseille's oldest neighborhood, and my senses were overwhelmed. The narrow streets climbed in switchbacks — stairs, alleys, laundry lines strung between buildings, street art blazing across every surface in colors so vivid they seemed to pulse. I could hear Arabic music floating from an open window, could smell cumin and coriander from a doorway, could feel the rough limestone walls cool beneath my fingertips when I steadied myself on a steep turn. The Germans razed this neighborhood in 1943, calling it a haven for resistance fighters. It was rebuilt, but it kept its soul — a tangle of cultures and centuries that refuses to be tidied up. I found the Centre de la Vieille Charite, a seventeenth-century almshouse now converted to museums, and sat alone in its baroque chapel courtyard. Outside, everything was noise and motion; inside, perfect silence. I whispered a quiet prayer of gratitude for the peace of that moment.</p>
 
-        <p>After lunch, I walked along the waterfront to the Fort Saint-Jean and the MuCEM — the Museum of European and Mediterranean Civilizations. The museum's modern architecture is striking: a latticework concrete cube that seems to float above the water, connected to the 12th-century fortress by a dramatic footbridge suspended over the sea. I didn't go inside (cruise time is always too short), but I walked the ramparts of the ancient fort and stood on that bridge between centuries — medieval stone on one side, contemporary design on the other. It's a perfect metaphor for Marseille itself: a city that honors its past without being trapped by it, that builds boldly while standing on foundations laid by Greeks twenty-six centuries ago.</p>
+        <figure class="logbook-image float-left">
+          <img src="/ports/img/marseille/marseille-notre-dame.webp" alt="Notre-Dame de la Garde basilica rising above Marseille with its golden Madonna statue catching sunlight" loading="lazy">
+          <figcaption>Notre-Dame de la Garde above the city — <a href="https://commons.wikimedia.org/wiki/Category:Notre-Dame_de_la_Garde" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
 
-      <figure class="logbook-image float-left">
-        <img src="img/marseille/marseille-2.webp" alt="Marseille waterfront" loading="lazy">
-        <figcaption>Marseille scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Marseille&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
+        <p>I took the tourist train up to Notre-Dame de la Garde because I am not above such things when the alternative is climbing five hundred feet in Provencal heat. The fare was about €8. The basilica itself is a riot of Byzantine mosaics — gold and azure tiles covering every surface — and ex-voto offerings from sailors saved from shipwrecks line the walls: model ships, paintings of storms at sea, humble inscriptions of thanks stretching back centuries. I stood among those offerings and felt the weight of all those prayers — for safe passage, for return, for one more glimpse of this harbor after months away. Some of those sailors never came home. My heart swelled with something I could not quite name, standing in that space where so much hope and grief had gathered across the generations.</p>
 
-        <p>From the port I walked up through Le Panier, Marseille's oldest neighborhood. The streets are a jumble — stairs, alleys, laundry lines, street art on every surface, North African spices drifting from windows. This was the neighborhood that the Germans razed in 1943, calling it a haven for resistance fighters and "undesirables." It was rebuilt but kept its soul. I found the Centre de la Vieille Charité, a 17th-century almshouse now converted into museums, and sat in its baroque chapel courtyard in silence. Outside, everything was chaos; inside, perfect calm.</p>
+        <p>But the real reward at Notre-Dame is the view. Marseille sprawled below me in every direction — the rectangular blue inlet of the Vieux-Port, the white limestone massif of the Calanques stretching east, the islands of Frioul and the Chateau d'If sitting in the harbor like sentinels. That fortress on its rocky island became a state prison in the sixteenth century, and Alexandre Dumas made it immortal as the place where Edmond Dantes was unjustly imprisoned for fourteen years. Ferries run from the Old Port to the island — about €11 round trip, twenty minutes each way — and there is something haunting about standing in those stone cells looking back at the city, so close to freedom yet utterly removed from it.</p>
 
-        <p>I took the little tourist train up to Notre-Dame de la Garde because I'm not above such things when the alternative is climbing 500 feet in Provençal heat. The basilica itself is a riot of Byzantine mosaics and ex-voto offerings from sailors saved from shipwrecks — model ships, paintings of storms, humble thanks from centuries of maritime survival. But the real reward is the view: Marseille sprawled below, the islands of Frioul and the Château d'If in the harbor, the white limestone massif of the Calanques stretching east. That fortress on its rocky island — the Château d'If — became a state prison in the 16th century, and Alexandre Dumas made it immortal in "The Count of Monte Cristo" as the place where Edmond Dantès was unjustly imprisoned for fourteen years. Ferries run from the Old Port if you have time (about 20 minutes each way), and there's something haunting about standing in those stone cells looking back at the city, so close to freedom yet utterly removed from it.</p>
+        <p>I spent my last hour at the MuCEM — the Museum of European and Mediterranean Civilizations — which connects to the twelfth-century Fort Saint-Jean by a dramatic footbridge suspended over the sea. The museum's modern architecture is striking: a latticework concrete cube that seems to float above the water, medieval stone on one side and contemporary design on the other. I did not go inside (cruise time is always too short), but I walked the ramparts and stood on that bridge between centuries. It felt like a perfect metaphor for Marseille itself: a city that honors its past without being trapped by it, that builds boldly while standing on foundations laid by Greeks twenty-six centuries ago.</p>
 
         <div class="poignant-highlight">
-          <strong>The Moment That Stays With Me:</strong> Standing at the top of Notre-Dame de la Garde at sunset, the mistral wind surprisingly gentle, watching the Mediterranean turn from blue to gold to pink. Below me, the city pulsed with its complicated life — the good and the rough, the ancient and the migrant, the magnificent and the struggling. I thought about how many sailors had looked up at this basilica from ships entering the harbor, seeing the golden Madonna catch the last light, knowing they were home. My heart ached with the weight of all those prayers—for safe passage, for return, for one more glimpse of this harbor after months at sea. Some never came back. But for twenty-six centuries, this hill has kept watch. I realized that's what makes Marseille profound: not its monuments, but its witness.
+          <strong>The Moment That Stays With Me:</strong> Standing at the top of Notre-Dame de la Garde as the afternoon light shifted from gold to amber, I looked down at the Vieux-Port and saw a single fishing boat making its way home through the harbor mouth. The mistral had dropped to a gentle breeze. Below me the city pulsed with its complicated life — the rough and the beautiful, the ancient and the modern, the magnificent and the struggling. I thought about the twenty-six centuries of sailors who had looked up at this hill, searching for the golden Madonna, knowing they were nearly home. Tears came then — not from sadness but from the sheer accumulated weight of all those homecomings, all those prayers answered and unanswered. I realized that what makes Marseille profound is not its monuments but its witness. This city has watched over the sea for longer than almost any other in Europe, and it has never once looked away. Looking back, I understood something new: the places that change us most are not the prettiest ones. They are the ones that refuse to hide what they are.
         </div>
-
-        <p>If you have time for a day trip, Aix-en-Provence is 30 kilometers north (that's roughly 18.6 miles, or about 3,000 servings of bouillabaisse laid end-to-end, or the length of 30,000 croissants in a row, or the distance you'd travel if you stopped for pastis 1,247 times) — the elegant counterpart to Marseille's roughness. Cézanne's hometown has plane tree-lined boulevards, fountains on every corner, and a café culture that rivals Paris. The Cours Mirabeau is one of France's most beautiful streets. In summer, you can visit the lavender fields of the Luberon from here, though peak bloom is typically mid-June to mid-July.</p>
-
-        <p>The Calanques — those dramatic limestone fjord-like inlets east of Marseille — are another option, now protected as the Calanques National Park. You can take a boat tour from the Old Port or, if you're fit and prepared, hike into them. The water in these Mediterranean fjords is an impossible turquoise — the kind of blue you expect in the Caribbean, not Europe — set against sheer white limestone cliffs that plunge straight into the sea. The park extends along 20 kilometers of coastline (that's roughly 12.4 miles, or about 2,000 bottles of rosé laid end-to-end, or the length of 20,000 lavender stems in a row, or approximately the distance a very determined French sailor could row while drinking pastis), a wilderness of stone and water just minutes from France's second-largest city. In the right light, it's the most spectacular scenery in Mediterranean France.</p>
-
-        <p>Marseille isn't for everyone. It's not refined, it's not easy, and it doesn't try to be what it isn't. But it's real. It's a city where Greeks, Romans, Arabs, Africans, and French have layered their cultures over millennia. It's where bouillabaisse was invented because fishermen needed to use their unsellable catch. It's where the Marseillaise — France's national anthem — got its name because volunteers from this city were the ones who sang it marching to Paris during the Revolution. That spirit remains: independent, proud, and alive.</p>
               </div>
             </div>
           </details>
         </details>
 
-        <!-- DIY vs. Excursion -->
-        <div class="diy-vs-excursion">
-          <h4>DIY vs. Ship Excursion: Calanques Boat Tour</h4>
-          <div class="diy-compare">
-            <div class="diy-option">
-              <h5>DIY from Old Port (€20-30/person)</h5>
-              <ul>
-                <li>Shuttle to Old Port (free/small fee), then boat tour €20-30</li>
-                <li>Multiple operators with 2-3 hour departures</li>
-                <li>Combine with bouillabaisse lunch at the port</li>
-                <li>Flexible — choose your own departure time</li>
-              </ul>
+        <!-- FEATURED IMAGES -->
+        <details class="port-section" id="featured-images" open>
+          <details class="section-collapse" open>
+            <summary><h2>Featured Images</h2></summary>
+            <div class="collapse-body">
+          <figure class="logbook-image">
+            <img src="/ports/img/marseille/marseille-calanques.webp" alt="Turquoise waters of the Calanques National Park near Marseille with white limestone cliffs" loading="lazy">
+            <figcaption>Calanques National Park — <a href="https://commons.wikimedia.org/wiki/Category:Calanques" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+          </figure>
+          <figure class="logbook-image">
+            <img src="/ports/img/marseille/marseille-mucem.webp" alt="MuCEM museum modern latticework facade connected to Fort Saint-Jean by footbridge over the Mediterranean" loading="lazy">
+            <figcaption>MuCEM and Fort Saint-Jean — <a href="https://commons.wikimedia.org/wiki/Category:MuCEM" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+          </figure>
             </div>
-            <div class="excursion-option">
-              <h5>Ship Excursion (€70-100/person)</h5>
-              <ul>
-                <li>Transport from terminal to boat included</li>
-                <li>Guided commentary on geology and history</li>
-                <li>Often includes swimming stop in a calanque</li>
-                <li>Guaranteed return timing for the ship</li>
-              </ul>
+          </details>
+        </details>
+
+        <!-- CRUISE PORT SECTION -->
+        <details class="port-section" id="cruise-port" open>
+          <details class="section-collapse" open>
+            <summary><h2>The Cruise Port</h2></summary>
+            <div class="collapse-body">
+          <p>Marseille's cruise terminals are located at the Marseille Provence Cruise Terminal complex, situated about two to three kilometers north of the Vieux-Port. Most major cruise lines dock here, including Royal Caribbean, Celebrity, Princess, MSC, and Costa. The terminals are modern and well-equipped with basic amenities, currency exchange, and tourist information desks. Shuttle buses typically run from the terminal to the Old Port area, provided either free or for a small fee by the cruise line. Alternatively, taxis from the terminal to the Vieux-Port cost approximately €10-15.</p>
+
+          <p>The port area itself is wheelchair accessible, though the cobblestone streets of the old city and the steep climb to Notre-Dame de la Garde present mobility challenges. Travelers with mobility needs should plan for accessible transport options — the tourist train and taxis can accommodate most needs with advance notice. The Metro system is also accessible and connects major attractions efficiently. Currency is the Euro, and credit cards are widely accepted throughout the city, though smaller vendors and some cafes prefer cash.</p>
             </div>
-          </div>
-        </div>
+          </details>
+        </details>
+
+        <!-- GETTING AROUND -->
+        <details class="port-section" id="getting-around" open>
+          <details class="section-collapse" open>
+            <summary><h2>Getting Around</h2></summary>
+            <div class="collapse-body">
+          <p>Most cruise ships dock at the modern terminals north of the Old Port. From there, multiple transportation options connect you to Marseille's attractions:</p>
+          <ul>
+            <li><strong>Old Port (Vieux-Port):</strong> Shuttle bus from terminal (free or small fee) to the port, approximately 10-15 minutes by bus. From the Old Port, most central attractions are within walking distance. The port area is flat and pedestrian-friendly, making it an ideal starting point for exploration on foot.</li>
+            <li><strong>Notre-Dame de la Garde:</strong> Tourist train from Old Port (approximately €8), bus number 60, or taxi (€12-15). The walk is steep and challenging in warm weather — I strongly recommend taking transport up and walking down to save energy for the rest of your day.</li>
+            <li><strong>Metro System (€1.70 per ticket):</strong> Excellent and efficient. A single ticket is valid for one hour of transfers across metro, bus, and tram. Line 1 connects Gare Saint-Charles train station to the Old Port in just a few minutes. Line 2 extends along the coast. Clean, safe, and straightforward to navigate even for first-time visitors.</li>
+            <li><strong>Aix-en-Provence (30 km north):</strong> Train from Gare Saint-Charles takes approximately 30 minutes and costs around €9. Frequent departures make this an easy independent day trip. You can also book a ship excursion for convenience and guaranteed return to the vessel.</li>
+            <li><strong>Calanques:</strong> Boat tours depart from Old Port (€20-30 for 2-3 hour tours). Hiking requires advance planning and sturdy shoes. The national park limits daily visitors during peak season, so book ahead.</li>
+            <li><strong>Lavender Fields:</strong> Only accessible via organized excursion or rental car; typically 1-2 hours from Marseille in the Luberon region. Peak bloom is mid-June to mid-July.</li>
+          </ul>
+          <p><strong>Tip:</strong> Purchase a day pass for public transport (€5.20) if you plan multiple trips — it covers unlimited metro, bus, and tram rides and represents excellent value compared to individual fares.</p>
+            </div>
+          </details>
+        </details>
 
         <!-- REAL TALK -->
         <p class="real-talk">Marseille is grittier than the Riviera ports — that is its charm, not a flaw. The Old Port bouillabaisse restaurants range from tourist traps to genuine (ask where the locals eat, not where the menus are in English). The metro is cheap (€1.70) and gets you everywhere. Notre-Dame de la Garde is worth the climb for views, but take the bus up and walk down.</p>
 
-        <section class="port-section">
-        <h3>Getting Around Marseille</h3>
-        <p>Most ships dock at the modern cruise terminals north of the Old Port. From there:</p>
-        <ul>
-          <li><strong>Old Port (Vieux-Port):</strong> Shuttle bus from terminal (free or small fee) to the port, then walk. About 10–15 minutes by bus.</li>
-          <li><strong>Notre-Dame de la Garde:</strong> Tourist train from Old Port (~€8), bus #60, or taxi (€12–15). The walk is steep and hot.</li>
-          <li><strong>Aix-en-Provence (30 km):</strong> Train from Gare Saint-Charles (30 minutes, ~€9) or bus. Book ship excursion for convenience.</li>
-          <li><strong>Calanques:</strong> Boat tours depart from Old Port (€20–30 for 2–3 hours). Hiking requires planning and good shoes.</li>
-          <li><strong>Lavender fields:</strong> Only accessible by excursion or rental car; typically 1–2 hours from Marseille.</li>
-        </ul>
-        <p><strong>Tip:</strong> The Metro is excellent and a €1.70 ticket is valid for one hour of transfers. Line 1 connects the train station to the Old Port.</p>
-      </section>
+        <!-- FROM THE PIER -->
+        <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Marseille cruise terminal">
+          <h4>From the Pier</h4>
+          <ul class="pier-distances">
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Old Port (Vieux-Port)</span><div class="pier-detail">Shuttle bus from terminal &middot; free or small fee</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128652;</span> 10-15 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Notre-Dame de la Garde</span><div class="pier-detail">Tourist train from Old Port ~€10 &middot; or taxi €12-15</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 20 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">MuCEM (Museum)</span><div class="pier-detail">Walk from Old Port &middot; stunning waterfront architecture</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 15 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Aix-en-Provence</span><div class="pier-detail">Train from Gare Saint-Charles &middot; ~€9 &middot; 30 min</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128646;</span> 40 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:45%"></div></div>
+            </li>
+          </ul>
+          <p class="pier-note">Cruise terminals are 2-3 km from Old Port. Shuttle buses provided by ship or taxi (€10-15). The walk is steep to Notre-Dame — take transport.</p>
+        </nav>
 
-      <section class="port-section">
-        <h3>Positively Framed Word of Warning</h3>
-        <p>Marseille rewards the street-smart traveler who stays aware of their surroundings. Like any large port city, it has areas with petty crime — watch bags in crowds and on the Metro. That said, the main tourist areas (Old Port, Le Panier, Notre-Dame de la Garde) are generally safe during the day. The city's grittiness is part of its authenticity; approach it with open eyes and appropriate caution, and you'll find an experience that the polished Riviera ports simply cannot offer.</p>
-      </section>
-    
-    <!-- Interactive Port Map -->
-    <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Marseille Port Map</h2></summary>
-      <p class="map-intro">Interactive map showing cruise terminal and Marseille attractions. Click any marker for details.</p>
-      <div id="marseille-port-map" class="port-map-container" role="application" aria-label="Interactive map of Marseille port and points of interest">
-        <noscript>
-          <p style="padding: 2rem; text-align: center; color: #678;">
-            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=43.300&mlon=5.367#map=13/43.27/5.38" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+        <!-- MAP SECTION -->
+        <details class="port-section port-map-section" id="port-map-section" open>
+          <details class="section-collapse" open>
+            <summary><h2>Marseille Port Map</h2></summary>
+            <div class="collapse-body">
+          <p class="map-intro">Interactive map showing cruise terminal and Marseille attractions. Click any marker for details.</p>
+          <div id="marseille-port-map" class="port-map-container" role="application" aria-label="Interactive map of Marseille port and points of interest">
+            <noscript>
+              <p style="padding: 2rem; text-align: center; color: #678;">
+                Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=43.300&mlon=5.367#map=13/43.27/5.38" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+              </p>
+            </noscript>
+          </div>
+          <div class="port-map-actions">
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('marseille-port-map')._portMap?.fitBounds(document.getElementById('marseille-port-map')._portMap.getBounds())">
+              Reset View
+            </button>
+          </div>
+            </div>
+          </details>
+        </details>
+
+        <!-- EXCURSIONS SECTION -->
+        <details class="port-section" id="excursions" open>
+          <details class="section-collapse" open>
+            <summary><h2>Top Excursions &amp; Things to Do</h2></summary>
+            <div class="collapse-body">
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: Ship excursions offer guaranteed return to the vessel but cost more. Independent bookings are cheaper but carry risk of missing all-aboard if transportation delays occur. For distant attractions like Aix-en-Provence or lavender fields, book ahead through ship or a reputable independent operator for peace of mind.</p>
+
+          <!-- DIY vs. Excursion -->
+          <div class="diy-vs-excursion">
+            <h4>DIY vs. Ship Excursion: Calanques Boat Tour</h4>
+            <div class="diy-compare">
+              <div class="diy-option">
+                <h5>DIY from Old Port (€20-30/person)</h5>
+                <ul>
+                  <li>Shuttle to Old Port (free/small fee), then independent boat tour €20-30</li>
+                  <li>Multiple operators with 2-3 hour departures throughout the day</li>
+                  <li>Combine with bouillabaisse lunch at the port afterward</li>
+                  <li>Flexible — choose your own departure time and operator</li>
+                </ul>
+              </div>
+              <div class="excursion-option">
+                <h5>Ship Excursion (€70-100/person)</h5>
+                <ul>
+                  <li>Transport from terminal to boat included in price</li>
+                  <li>Guided commentary on geology and history of the Calanques</li>
+                  <li>Often includes swimming stop in a calanque</li>
+                  <li>Guaranteed return timing for the ship</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <h4 class="mt-1">Calanques National Park Boat Tour</h4>
+          <p>The Calanques are dramatic limestone fjord-like inlets stretching east of Marseille along twenty kilometers of coastline, now protected as a national park. The water is an impossible turquoise — the kind of blue you expect in the Caribbean, not France — set against sheer white limestone cliffs that plunge straight into the sea. Boat tours depart from the Old Port and typically visit three to five calanques over two to three hours. Cost is €20-30 for independent tours, €70-100 for ship excursions. In the right light, this is the most spectacular scenery in Mediterranean France. Book ahead during peak season as tours fill quickly.</p>
+
+          <figure class="logbook-image">
+            <img src="/ports/img/marseille/marseille-coastline.webp" alt="Dramatic white limestone cliffs of the Calanques plunging into turquoise Mediterranean water near Marseille" loading="lazy">
+            <figcaption>Calanques coastline — <a href="https://commons.wikimedia.org/wiki/Category:Calanques" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+          </figure>
+
+          <h4 class="mt-1">Notre-Dame de la Garde</h4>
+          <p>The golden Madonna atop this Romano-Byzantine basilica has watched over Marseille and its sailors since 1864. The interior dazzles with mosaics and centuries of ex-voto offerings from maritime survivors. The panoramic view from the terrace spans the entire city, the harbor islands, and the Calanques. Tourist train from Old Port costs about €8; bus number 60 is €1.70. Free entry to the basilica itself. Allow 1.5 to 2 hours for the visit including transport.</p>
+
+          <h4 class="mt-1">Chateau d'If (€11 ferry round trip)</h4>
+          <p>The island fortress made famous by Alexandre Dumas in "The Count of Monte Cristo." Ferries depart from the Old Port every 30-45 minutes and take about 20 minutes each way. Entry to the chateau is €6 on top of the ferry fare. Walking through the cells where real prisoners were held — and imagining Edmond Dantes plotting his escape — is genuinely atmospheric. Allow 2-3 hours for the complete round trip and visit.</p>
+
+          <h4 class="mt-1">Aix-en-Provence Day Trip</h4>
+          <p>Cezanne's elegant hometown sits 30 kilometers north of Marseille — the refined counterpart to Marseille's roughness. Plane tree-lined boulevards, fountains on every corner, and cafe culture that rivals Paris. The Cours Mirabeau is one of France's most beautiful streets. Train from Gare Saint-Charles takes about 30 minutes (€9 each way). In summer, you can reach the lavender fields of the Luberon from Aix, though peak bloom is typically mid-June to mid-July. Ship excursion price is €80-120; independent travel by train is far cheaper but requires self-management of time.</p>
+
+          <h4 class="mt-1">MuCEM and Fort Saint-Jean</h4>
+          <p>The Museum of European and Mediterranean Civilizations connects to the twelfth-century Fort Saint-Jean via a dramatic suspended footbridge over the sea. Even if you do not enter the museum (entry €11, free first Sunday of month), the rooftop terrace and fort ramparts offer stunning views and are free to access. Located within walking distance of the Old Port. Allow 1-2 hours.</p>
+
+          <h4 class="mt-1">Le Panier Neighborhood Walk</h4>
+          <p>Marseille's oldest neighborhood is a jumble of narrow streets, street art, North African spice shops, and hidden courtyards. Free to explore on foot from the Old Port. The Centre de la Vieille Charite — a beautifully restored seventeenth-century almshouse with museums — charges €6-12 depending on exhibitions. Allow 1-2 hours for wandering. Moderate walking with some steep sections and stairs.</p>
+            </div>
+          </details>
+        </details>
+
+        <!-- FOOD & DINING -->
+        <details class="port-section" id="food" open>
+          <details class="section-collapse" open>
+            <summary><h2>Food &amp; Dining</h2></summary>
+            <div class="collapse-body">
+          <p>Marseille's cuisine reflects its multicultural heritage — French, North African, and Mediterranean flavors blend seamlessly across the city's restaurants and food stalls:</p>
+          <ul>
+            <li><strong>Bouillabaisse (€40-65/person):</strong> The city's signature dish — a rich saffron fish stew served in two courses. Look for restaurants that are part of the Charte de la Bouillabaisse for the authentic preparation. Chez Fonfon and Le Miramar are respected options near the Old Port.</li>
+            <li><strong>Navettes de Marseille (€2-4):</strong> Boat-shaped biscuits flavored with orange blossom water, baked since 1781 at the Four des Navettes bakery near the Abbaye Saint-Victor.</li>
+            <li><strong>North African cuisine (€8-15):</strong> Couscous, tagines, and merguez sausages are everywhere in Le Panier and around the Porte d'Aix. Some of the best North African food outside of Africa itself.</li>
+            <li><strong>Pastis:</strong> The anise-flavored aperitif born in Marseille. Order it at any cafe and watch the clear liquid turn cloudy white when water is added. A small glass costs about €3-5.</li>
+          </ul>
+            </div>
+          </details>
+        </details>
+
+        <!-- NOTICES -->
+        <details class="port-section" id="notices" open>
+          <details class="section-collapse" open>
+            <summary><h2>Important Notices</h2></summary>
+            <div class="collapse-body">
+          <ul>
+            <li><strong>Mistral Wind:</strong> This cold, dry northerly wind can appear without warning and drop temperatures significantly. Even in summer, carry a light jacket. In winter, the mistral can reach gale force — check forecasts and dress accordingly.</li>
+            <li><strong>Petty Crime:</strong> Like any large Mediterranean port city, Marseille has areas with pickpocket activity. Watch bags in crowds and on the Metro. The main tourist areas (Old Port, Le Panier, Notre-Dame de la Garde) are generally safe during the day. Stay aware of your surroundings and keep valuables secured.</li>
+            <li><strong>Sundays and Holidays:</strong> Many smaller shops and restaurants close on Sundays and French public holidays. The Old Port area and major attractions remain open, but plan accordingly for dining and shopping.</li>
+            <li><strong>Currency:</strong> Euro is standard. Credit cards widely accepted, though small cafes and vendors in Le Panier sometimes prefer cash. ATMs are readily available throughout the city.</li>
+          </ul>
+            </div>
+          </details>
+        </details>
+
+        <!-- DEPTH SOUNDINGS -->
+        <details class="port-section" id="depth-soundings" open>
+          <details class="section-collapse" open>
+            <summary><h2>Depth Soundings: Final Thoughts</h2></summary>
+            <div class="collapse-body">
+          <p>Marseille is not for everyone, and it does not try to be. It is not refined the way Nice is refined, not elegant the way Paris is elegant, not picturesque the way Santorini is picturesque. But it is real in a way that few Mediterranean cruise ports can match. This is a city where Greeks, Romans, Arabs, Africans, and French have layered their cultures over millennia, and you can feel every one of those layers in the food, the architecture, the language on the streets, and the complicated beauty of a working port that has never stopped working since 600 BC.</p>
+
+          <p>The bouillabaisse alone justifies a visit — but so does the view from Notre-Dame de la Garde, the turquoise impossibility of the Calanques, the street art labyrinth of Le Panier, and the haunting silence of the Chateau d'If. Marseille rewards the curious traveler who approaches it with open eyes and a willingness to be surprised. It gave me one of my most profound moments in all my years of cruise travel — that quiet recognition at Notre-Dame that the places which change us most are the honest ones, not the polished ones.</p>
+
+          <p>For first-timers, I recommend the Old Port and Notre-Dame de la Garde as essentials, with a Calanques boat tour if time allows. For repeat visitors, the MuCEM's exhibitions, a day trip to Aix-en-Provence, and a deep dive into Le Panier's hidden courtyards reveal layers of this city that a single port call can only begin to uncover. Marseille has given me something new every time I have visited.</p>
+            </div>
+          </details>
+        </details>
+
+        <!-- Author's Note -->
+        <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+          <h4>Author's Note</h4>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+            <em>Until I have sailed this port myself, these notes are soundings in another's wake — gathered from travelers I trust, charts I have studied, and the most reliable accounts I can find. I have done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I will return to these pages and correct my course.</em>
           </p>
-        </noscript>
-      </div>
-      <div class="port-map-actions">
-        <button type="button" class="btn btn-secondary" onclick="document.getElementById('marseille-port-map')._portMap?.fitBounds(document.getElementById('marseille-port-map')._portMap.getBounds())">
-          Reset View
-        </button>
-      </div>
-            </details>
+        </aside>
 
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/marseille/marseille-1.webp" alt="Harbor view of Marseille, France" loading="lazy">
-          <figcaption>
-            Harbor view of Marseille, France
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/marseille/marseille-2.webp" alt="Waterfront scenery of Marseille, France" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Marseille, France
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/marseille/marseille-3.webp" alt="Port panorama of Marseille, France" loading="lazy">
-          <figcaption>
-            Port panorama of Marseille, France
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/marseille/marseille-4.webp" alt="Coastal landscape of Marseille, France" loading="lazy">
-          <figcaption>
-            Coastal landscape of Marseille, France
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
+        <!-- PRACTICAL -->
+        <details class="port-section" id="practical" open>
+          <details class="section-collapse" open>
+            <summary><h2>Practical Information at a Glance</h2></summary>
+            <div class="collapse-body">
+          <div class="quick-reference">
+            <ul>
+              <li><strong>Country:</strong> France (Bouches-du-Rhone department)</li>
+              <li><strong>Language:</strong> French (English spoken in tourist areas)</li>
+              <li><strong>Currency:</strong> Euro (EUR)</li>
+              <li><strong>Time Zone:</strong> Central European Time (CET / UTC+1)</li>
+              <li><strong>Emergency:</strong> 112 (European standard)</li>
+              <li><strong>Tipping:</strong> Service included in French restaurants; small tips (€1-2) for exceptional service appreciated</li>
+              <li><strong>Water:</strong> Tap water is safe to drink throughout France</li>
+              <li><strong>Dress Code:</strong> Smart casual for restaurants; comfortable walking shoes essential for cobblestones</li>
+              <li><strong>WiFi:</strong> Available at cafes, restaurants, and the cruise terminal; many public spaces offer free WiFi</li>
+            </ul>
+          </div>
+            </div>
+          </details>
+        </details>
 
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>marseille-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>marseille-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>marseille-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>marseille-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-
-    <section class="port-section author-note-disclaimer">
-      <h3>Author's Note</h3>
-      <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-    </section>
-
-
-<!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Marseille cruise terminal">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Old Port (Vieux-Port)</span><div class="pier-detail">Shuttle bus from terminal · free or small fee</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 10–15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Notre-Dame de la Garde</span><div class="pier-detail">Tourist train from Old Port ~€10 · or taxi €12–15</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">MuCEM (Museum)</span><div class="pier-detail">Walk from Old Port · stunning waterfront architecture</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Aix-en-Provence</span><div class="pier-detail">Train from Gare Saint-Charles · ~€9 · 40 min</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚆</span> 40 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:45%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Cruise terminals are 2–3 km from Old Port. Shuttle buses provided by ship or taxi (€10–15). The walk is steep to Notre-Dame — take transport.</p>
-</div>
-
-  </article>
-
-    <!-- FAQ Section -->
-    
         <!-- VOLATILE DATA DISCLAIMER -->
         <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
+          <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
           <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-14 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
 
-
-        <section class="card" id="faq" style="margin-top: 2rem;">
+        <!-- FAQ -->
+        <details class="port-section" id="faq" open>
           <details class="section-collapse" open>
             <summary><h2>Frequently Asked Questions</h2></summary>
+            <div class="collapse-body">
+          <p><strong>Q: How far is the cruise port from the Old Port?</strong><br>A: The modern cruise terminals are about 2-3 km from the Old Port. Ships usually provide shuttle buses, or you can take a taxi (€10-15). The metro does not reach the terminal directly, but shuttles connect you to the system efficiently.</p>
 
-      <details style="margin: 0.75rem 0; padding: 0.75rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600;">How far is the cruise port from the Old Port?</summary>
-        <p style="margin: 0.5rem 0 0; padding-left: 1rem;">The modern cruise terminals are about 2–3 km from the Old Port. Ships usually provide shuttle buses, or you can take a taxi (€10–15).</p>
-      </details>
+          <p><strong>Q: Is bouillabaisse worth the cost?</strong><br>A: Yes, but only at a reputable restaurant. Authentic bouillabaisse costs €40-65 per person and is meant to be a special meal served in two courses. Look for places that are part of the Charte de la Bouillabaisse — this charter guarantees the traditional preparation method with fresh local fish. Avoid tourist-trap versions that cost less but use frozen ingredients.</p>
 
-      <details style="margin: 0.75rem 0; padding: 0.75rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600;">Is bouillabaisse worth it?</summary>
-        <p style="margin: 0.5rem 0 0; padding-left: 1rem;">Yes, but only at a reputable restaurant. Traditional bouillabaisse costs €40–60+ and is meant to be a special meal. Look for places that serve it in two courses and are part of the Charte de la Bouillabaisse.</p>
-      </details>
+          <p><strong>Q: Can I visit the Chateau d'If?</strong><br>A: Yes, ferries run from the Old Port to the island every 30-45 minutes (€11 round trip ferry, plus €6 chateau entry, about 20 minutes each way). It is the famous prison from "The Count of Monte Cristo." Allow 2-3 hours for the complete round trip and visit. The island has limited shade, so bring water and sun protection.</p>
 
-      <details style="margin: 0.75rem 0; padding: 0.75rem 0; border-bottom: 1px solid #e0e8f0;">
-        <summary style="cursor: pointer; font-weight: 600;">Can I see the Château d'If?</summary>
-        <p style="margin: 0.5rem 0 0; padding-left: 1rem;">Yes, ferries run from the Old Port to the island (€11 round trip, 20 minutes). It's the famous prison from "The Count of Monte Cristo." Allow 2–3 hours for the round trip and visit.</p>
-      </details>
+          <p><strong>Q: When do the lavender fields bloom?</strong><br>A: Peak bloom is typically mid-June to mid-July, depending on the year. The fields are 1-2 hours from Marseille in the Luberon and Valensole regions. Harvest usually happens in late July. This is only accessible via organized excursion or rental car from Marseille.</p>
 
-      <details style="margin: 0.75rem 0; padding: 0.75rem 0;">
-        <summary style="cursor: pointer; font-weight: 600;">When do the lavender fields bloom?</summary>
-        <p style="margin: 0.5rem 0 0; padding-left: 1rem;">Peak bloom is typically mid-June to mid-July, depending on the year. The fields are 1–2 hours from Marseille in the Luberon region. Harvest usually happens in late July.</p>
-      </details>
+          <p><strong>Q: Is Marseille safe for cruise passengers?</strong><br>A: The main tourist areas — Old Port, Le Panier, Notre-Dame de la Garde, MuCEM — are generally safe during the day. Like any large city, use common sense: watch your belongings in crowds, stay in well-traveled areas, and be alert on the Metro. The city's grittiness is part of its authenticity; approach it with open eyes and appropriate caution.</p>
+
+          <p><strong>Q: What is the best way to reach Notre-Dame de la Garde?</strong><br>A: The tourist train from the Old Port costs about €8 and is the easiest option. Bus number 60 costs €1.70. Taxis charge approximately €12-15. I recommend taking transport up and walking down — the descent offers beautiful views without the exhausting climb. The walk up is steep and can take 30-45 minutes in the heat.</p>
             </div>
           </details>
-    
-          <p><strong>Q: What's the best time of year to visit Marseille Port Guide?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
+        </details>
 
-          <p><strong>Q: Does Marseille Port Guide have extreme weather to worry about?</strong><br>A: Like most destinations, weather conditions vary by season. Check the weather hazards section above for specific concerns and the best months to visit. Cruise lines monitor conditions and will adjust itineraries if needed for passenger safety.</p>
+        <!-- GALLERY -->
+        <details class="port-section photo-gallery" id="gallery" open>
+          <details class="section-collapse" open>
+            <summary><h2>Photo Gallery</h2></summary>
+            <div class="collapse-body">
+          <div class="gallery-grid">
+            <figure class="gallery-item">
+              <img src="/ports/img/marseille/marseille-harbor.webp" alt="Panoramic view of Marseille harbor with boats and waterfront buildings under blue sky" loading="lazy">
+              <figcaption>Harbor panorama<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Harbour_of_Marseille" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/marseille/marseille-fort.webp" alt="Fort Saint-Jean at the entrance to Marseille Old Port with historic stone walls and tower" loading="lazy">
+              <figcaption>Fort Saint-Jean<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Fort_Saint-Jean_(Marseille)" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/marseille/marseille-church.webp" alt="Interior of Notre-Dame de la Garde basilica showing Byzantine mosaics and votive offerings" loading="lazy">
+              <figcaption>Notre-Dame de la Garde interior<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Notre-Dame_de_la_Garde" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/marseille/marseille-frioul.webp" alt="Frioul Islands off the coast of Marseille with clear Mediterranean water and rocky shoreline" loading="lazy">
+              <figcaption>Frioul Islands<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Frioul_archipelago" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+            </figure>
+          </div>
+            </div>
+          </details>
+        </details>
 
-          <p><strong>Q: What should I pack for Marseille Port Guide's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
+        <!-- CREDITS -->
+        <details class="port-section image-credits" id="credits" open>
+          <details class="section-collapse" open>
+            <summary><h2>Image Credits</h2></summary>
+            <div class="collapse-body">
+          <ul>
+            <li><strong>Hero and featured photographs:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Vieux-Port_de_Marseille" target="_blank" rel="noopener">Wikimedia Commons</a> contributors (CC BY-SA)</li>
+            <li><strong>Calanques coastline:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Calanques" target="_blank" rel="noopener">Wikimedia Commons</a> contributors (CC BY-SA)</li>
+            <li><strong>Notre-Dame de la Garde:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Notre-Dame_de_la_Garde" target="_blank" rel="noopener">Wikimedia Commons</a> contributors (CC BY-SA)</li>
+            <li><strong>MuCEM:</strong> <a href="https://commons.wikimedia.org/wiki/Category:MuCEM" target="_blank" rel="noopener">Wikimedia Commons</a> contributors (CC BY-SA)</li>
+          </ul>
+            </div>
+          </details>
+        </details>
 
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-        
-          <p><strong>Q: Does Marseille have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-        </section>
+        <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+      </article>
+    </div>
 
-    <!-- JSON-LD: FAQPage -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How far is the cruise port from the Old Port?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The modern cruise terminals are about 2–3 km from the Old Port. Ships usually provide shuttle buses, or you can take a taxi."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is bouillabaisse worth it?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, but only at a reputable restaurant. Traditional bouillabaisse costs €40–60+ and is meant to be a special meal."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I see the Château d'If?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, ferries run from the Old Port to the island (€11 round trip, 20 minutes). It's the famous prison from The Count of Monte Cristo."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "When do the lavender fields bloom?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Peak bloom is typically mid-June to mid-July, depending on the year. The fields are 1–2 hours from Marseille in the Luberon region."
-          }
-        }
-      ]
-    }
-    </script>
+    <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+      <section class="page-intro" style="margin: 0 0 1rem 0;">
+        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+          <strong>Quick Answer:</strong> Marseille is France's oldest city (founded 600 BCE) and a gritty, authentic Mediterranean port. The Old Port (Vieux-Port), Notre-Dame de la Garde basilica, and authentic bouillabaisse are highlights. Day trips to Aix-en-Provence, lavender fields, and the Calanques are possible.
+        </p>
+      </section>
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h4 id="author-heading">About the Author</h4>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake cruise travel logbook" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny">
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        </p>
+      </section>
 
-    <!-- Back to Ports -->
-  <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
-    <section class="page-intro" style="margin: 0 0 1rem 0;">
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Marseille is France's oldest city (founded 600 BCE) and a gritty, authentic Mediterranean port. The Old Port (Vieux-Port), Notre-Dame de la Garde basilica, and authentic bouillabaisse are highlights. Day trips to Aix-en-Provence, lavender fields, and the Calanques are possible.
-      </p>
-    </section>
-        <section class="card author-card-vertical" aria-labelledby="author-heading">
-      <h3 id="author-heading">About the Author</h3>
-      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-        <picture>
-          <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
-          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake cruise travel logbook" decoding="async" loading="lazy"/>
-        </picture>
-      </a>
-      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-      <p class="tiny">
-        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-      </p>
-    </section>
-
-    <!-- Nearby Ports Rail -->
-    <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
+      <!-- Nearby Ports Rail -->
+      <section class="card" aria-labelledby="nearby-ports-title">
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
           Other ports in this region:
         </p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
       </section>
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Marseille on their itineraries:</p>
         <p class="cruise-line-label">Royal Caribbean</p>
         <div class="ship-links">
@@ -669,49 +731,6 @@ All work on this project is offered as a gift to God.
           <a href="/ships/cunard/queen-elizabeth.html" class="ship-link-pill" data-line="cunard" title="Queen Elizabeth (Queen Class)">Queen Elizabeth</a>
           <a href="/ships/cunard/queen-victoria.html" class="ship-link-pill" data-line="cunard" title="Queen Victoria (Queen Class)">Queen Victoria</a>
         </div>
-        <p class="cruise-line-label">Oceania Cruises</p>
-        <div class="ship-links">
-          <a href="/ships/oceania/oceania-allura.html" class="ship-link-pill" data-line="oceania" title="Allura (Allura Class)">Allura</a>
-          <a href="/ships/oceania/oceania-vista.html" class="ship-link-pill" data-line="oceania" title="Vista (Vista Class)">Vista</a>
-          <a href="/ships/oceania/oceania-marina.html" class="ship-link-pill" data-line="oceania" title="Marina (Oceania Class)">Marina</a>
-          <a href="/ships/oceania/oceania-riviera.html" class="ship-link-pill" data-line="oceania" title="Riviera (Oceania Class)">Riviera</a>
-          <a href="/ships/oceania/oceania-nautica.html" class="ship-link-pill" data-line="oceania" title="Nautica (R-Class Class)">Nautica</a>
-          <a href="/ships/oceania/oceania-sirena.html" class="ship-link-pill" data-line="oceania" title="Sirena (R-Class Class)">Sirena</a>
-        </div>
-        <p class="cruise-line-label">Regent Seven Seas</p>
-        <div class="ship-links">
-          <a href="/ships/regent/seven-seas-grandeur.html" class="ship-link-pill" data-line="regent" title="Seven Seas Grandeur (Grandeur Class)">Seven Seas Grandeur</a>
-          <a href="/ships/regent/seven-seas-splendor.html" class="ship-link-pill" data-line="regent" title="Seven Seas Splendor (Splendor Class)">Seven Seas Splendor</a>
-          <a href="/ships/regent/seven-seas-voyager.html" class="ship-link-pill" data-line="regent" title="Seven Seas Voyager (Voyager Class)">Seven Seas Voyager</a>
-          <a href="/ships/regent/seven-seas-navigator.html" class="ship-link-pill" data-line="regent" title="Seven Seas Navigator (Navigator Class)">Seven Seas Navigator</a>
-        </div>
-        <p class="cruise-line-label">Seabourn</p>
-        <div class="ship-links">
-          <a href="/ships/seabourn/seabourn-ovation.html" class="ship-link-pill" data-line="seabourn" title="Seabourn Ovation (Encore Class)">Seabourn Ovation</a>
-          <a href="/ships/seabourn/seabourn-quest.html" class="ship-link-pill" data-line="seabourn" title="Seabourn Quest (Odyssey Class)">Seabourn Quest</a>
-          <a href="/ships/seabourn/seabourn-sojourn.html" class="ship-link-pill" data-line="seabourn" title="Seabourn Sojourn (Odyssey Class)">Seabourn Sojourn</a>
-        </div>
-        <p class="cruise-line-label">Silversea Cruises</p>
-        <div class="ship-links">
-          <a href="/ships/silversea/silver-nova.html" class="ship-link-pill" data-line="silversea" title="Silver Nova (Nova Class)">Silver Nova</a>
-          <a href="/ships/silversea/silver-ray.html" class="ship-link-pill" data-line="silversea" title="Silver Ray (Nova Class)">Silver Ray</a>
-          <a href="/ships/silversea/silver-dawn.html" class="ship-link-pill" data-line="silversea" title="Silver Dawn (Muse Class)">Silver Dawn</a>
-          <a href="/ships/silversea/silver-moon.html" class="ship-link-pill" data-line="silversea" title="Silver Moon (Muse Class)">Silver Moon</a>
-          <a href="/ships/silversea/silver-spirit.html" class="ship-link-pill" data-line="silversea" title="Silver Spirit (Spirit Class)">Silver Spirit</a>
-          <a href="/ships/silversea/silver-whisper.html" class="ship-link-pill" data-line="silversea" title="Silver Whisper (Shadow Class)">Silver Whisper</a>
-          <a href="/ships/silversea/silver-wind.html" class="ship-link-pill" data-line="silversea" title="Silver Wind (Wind Class)">Silver Wind</a>
-        </div>
-        <p class="cruise-line-label">Explora Journeys</p>
-        <div class="ship-links">
-          <a href="/ships/explora/explora-i.html" class="ship-link-pill" data-line="explora" title="Explora I (Explora Class)">Explora I</a>
-          <a href="/ships/explora/explora-ii.html" class="ship-link-pill" data-line="explora" title="Explora II (Explora Class)">Explora II</a>
-        </div>
-        <p class="cruise-line-label">Norwegian Cruise Line</p>
-        <div class="ship-links">
-          <a href="/ships/ncl/norwegian-viva.html" class="ship-link-pill" data-line="ncl" title="Norwegian Viva (Prima Class)">Norwegian Viva</a>
-          <a href="/ships/ncl/norwegian-epic.html" class="ship-link-pill" data-line="ncl" title="Norwegian Epic (Epic Class)">Norwegian Epic</a>
-          <a href="/ships/ncl/norwegian-spirit.html" class="ship-link-pill" data-line="ncl" title="Norwegian Spirit (Spirit Class)">Norwegian Spirit</a>
-        </div>
         <p class="cruise-line-label">MSC Cruises</p>
         <div class="ship-links">
           <a href="/ships/msc/msc-world-europa.html" class="ship-link-pill" data-line="msc" title="MSC World Europa (World Class)">MSC World Europa</a>
@@ -722,44 +741,26 @@ All work on this project is offered as a gift to God.
         <div class="ship-links">
           <a href="/ships/costa/costa-smeralda.html" class="ship-link-pill" data-line="costa" title="Costa Smeralda (Excellence Class)">Costa Smeralda</a>
           <a href="/ships/costa/costa-toscana.html" class="ship-link-pill" data-line="costa" title="Costa Toscana (Excellence Class)">Costa Toscana</a>
-          <a href="/ships/costa/costa-favolosa.html" class="ship-link-pill" data-line="costa" title="Costa Favolosa (Concordia Class)">Costa Favolosa</a>
-          <a href="/ships/costa/costa-pacifica.html" class="ship-link-pill" data-line="costa" title="Costa Pacifica (Concordia Class)">Costa Pacifica</a>
-          <a href="/ships/costa/costa-deliziosa.html" class="ship-link-pill" data-line="costa" title="Costa Deliziosa (Spirit Class)">Costa Deliziosa</a>
-        </div>
-        <p class="cruise-line-label">Virgin Voyages</p>
-        <div class="ship-links">
-          <a href="/ships/virgin/valiant-lady.html" class="ship-link-pill" data-line="virgin" title="Valiant Lady (Lady Class)">Valiant Lady</a>
         </div>
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
 
-
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny content-text">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h4 id="recent-rail-title">Recent Stories</h4>
+        <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
-    
-  
-    <!-- Whimsical Distance Units -->
-    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
-    </section>
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
+    </aside>
 
-  </aside>
-
-    <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-  
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Visit</h2>
       <p>Helpful resources for your shore day:</p>
       <ul>
         <li><a href="/packing-lists.html">Cruise Packing Lists</a> — What to bring on port days</li>
-        <li><a href="/articles/cruise-tech-photography-guide.html">Photography &amp; Tech Guide</a> — Capture the perfect shots</li>
+        <li><a href="/articles/cruise-tech-photography-guide.html">Camera &amp; Tech Guide</a> — Capture the perfect shots</li>
         <li><a href="/internet-at-sea.html">Internet at Sea</a> — WiFi tips &amp; staying connected</li>
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
@@ -771,202 +772,87 @@ All work on this project is offered as a gift to God.
   </button>
 </main>
 
-    <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How far is the cruise port from the Old Port?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The modern cruise terminals are about 2-3 km from the Old Port. Ships usually provide shuttle buses, or you can take a taxi."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is bouillabaisse worth the cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, but only at a reputable restaurant. Authentic bouillabaisse costs €40-65 and is meant to be a special meal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I visit the Chateau d'If?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, ferries run from the Old Port to the island (€11 round trip, 20 minutes). It is the famous prison from The Count of Monte Cristo."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When do the lavender fields bloom?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Peak bloom is typically mid-June to mid-July, depending on the year. The fields are 1-2 hours from Marseille in the Luberon region."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <footer class="wrap" role="contentinfo">
+    <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
     <p class="tiny mt-05">
-      <a href="/privacy.html">Privacy</a> ·
-      <a href="/terms.html">Terms</a> ·
-      <a href="/about-us.html">About</a> ·
+      <a href="/privacy.html">Privacy</a> &middot;
+      <a href="/terms.html">Terms</a> &middot;
+      <a href="/about-us.html">About</a> &middot;
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
-    <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria</p>
+    <p class="trust-badge">&#10003; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
-  <script>
-    // Load recent articles
-    (async function() {
-      try {
-        const response = await fetch('/assets/data/articles/index.json');
-        const articles = await response.json();
-        const rail = document.getElementById('recent-rail');
-
-        if (rail && articles && articles.length > 0) {
-          rail.innerHTML = articles.slice(0, 5).map(article => `
-            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
-                <a href="${article.url}">${article.title}</a>
-              </h4>
-              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
-            </div>
-          `).join('');
-        }
-      } catch (err) {
-        console.log('Could not load articles:', err);
-      }
-    })();
-  </script>
-
-  <script>
-  (function(){
-    "use strict";
-
-    /* ===== Recent Articles Rail ===== */
-    (async function recentRail(){
-      const rail = document.getElementById('recent-rail');
-      if(!rail) return;
-
-      const fallback = document.getElementById('recent-rail-fallback');
-      if(fallback) fallback.style.display = '';
-
-      async function fetchJSONWithFallback(urls){
-        for (const u of urls){
-          try{
-            const res = await fetch(u, { credentials: 'omit', cache: 'no-cache' });
-            if (res.ok) return await res.json();
-          }catch(err){
-
-          }
-        }
-        return null;
-      }
-
-      const pick = (obj, keys, fallback=null)=>{ for(const k of keys){ if(obj && obj[k] != null) return obj[k]; } return fallback; };
-
-      function setImageWithFallback(imgEl, primary, altPaths=[]){
-        if(!imgEl) return;
-        const stamp='v=3.010.400';
-        const tried=new Set();
-        const queue=[primary,...altPaths].filter(Boolean).map(p => p.includes('?')?p+'&'+stamp:p+'?'+stamp);
-        function tryNext(){
-          const next=queue.shift();
-          if(!next){ imgEl.removeAttribute && imgEl.removeAttribute('onerror'); return; }
-          if(tried.has(next)) return tryNext();
-          tried.add(next);
-          imgEl.src=next;
-        }
-        imgEl.onerror=tryNext;
-        tryNext();
-      }
-
-      const raw = await fetchJSONWithFallback(['/assets/data/articles/index.json','/assets/data/articles.json']);
-      if(!raw) {
-        if(fallback) {
-          fallback.textContent = 'Unable to load articles';
-          fallback.style.display = '';
-        }
-        return;
-      }
-
-      const items = Array.isArray(raw?.articles) ? raw.articles : (Array.isArray(raw) ? raw : []);
-      if(!items.length) return;
-
-      const here = location.pathname.replace(/\/+$/,'');
-      const view = items.filter(p=>{
-        const href = pick(p,['url','path'],'#');
-        const norm = (href||'').replace(/\/+$/,'');
-        return norm && norm !== here;
-      }).slice(0,6);
-
-      rail.innerHTML = view.map(p=>{
-        const title = pick(p,['title','name'],'Article');
-        const href  = pick(p,['url','path'],'#');
-        const excerpt = pick(p,['excerpt','description'],'');
-        return `
-          <article class="card article-card">
-            <div class="article-card-grid">
-              <div class="article-thumb-wrap">
-                <img class="article-thumb" alt="" aria-hidden="true" decoding="async" loading="lazy">
-              </div>
-              <div class="article-card-body">
-                <h4><a href="\${href}">\${title}</a></h4>
-                \${excerpt ? `<p class="tiny excerpt">\${excerpt}</p>` : ''}
-              </div>
-            </div>
-            <a href="\${href}" class="pill read-more">Read Article →</a></article>`;
-      }).join('');
-
-      const cards = [...rail.querySelectorAll('article.card')];
-      cards.forEach((card,i)=>{
-        const p = view[i] || {};
-        const el = card.querySelector('img.article-thumb');
-        const href  = (pick(p,['url','path'],'')||'').toLowerCase();
-        const title = (pick(p,['title','name'],'')||'').toLowerCase();
-
-        let primary = pick(p, ['thumb','thumbnail','image','cover','img'], null);
-
-        // FORCE override for Top-20
-        if (/(top-20|first-?cruise-?questions)/.test(href) || /top\s*20.*first.*cruise.*questions/.test(title)){
-          primary = '/assets/articles/thumbs/top-20-questions/cover.webp';
-        }
-        // Friendly specifics
-        if(!primary && (/freedom-of-your-own-wake/.test(href) || /freedom of your own wake/.test(title))){
-          primary = '/assets/articles/thumbs/freedom-of-your-own-wake.webp';
-        }
-        if(!primary && (/why-i-started-solo-cruising/.test(href) || /why i started solo cruising/.test(title))){
-          primary = '/assets/articles/thumbs/why-i-started-solo-cruising.webp';
-        }
-        if(!primary && (/\/travel(\.html)?$/.test(href) || /\btravel\b/.test(title))){
-          primary = '/assets/articles/travel/cover.jpg';
-        }
-
-        // Heuristic fallback
-        if(!primary){
-          const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
-          const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
-        }
-
-        const alts = [];
-        if(primary){
-          const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
-        }
-        setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
-      });
-
-      if(fallback) fallback.style.display = 'none';
-
-      // Announce to screen readers
-      const status = document.getElementById('a11y-status');
-      if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
-      }
-    })();
-  })();
-  </script>
-
-  <!-- Nearby Ports Script -->
-  <script>window.currentPortId = 'marseille';</script>
-  <script src="/assets/js/nearby-ports.js"></script>
-
-  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/port-logbook-btn.js" defer></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
-
-  <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
-
-  <!-- Whimsical Distance Units Script -->
+  <script>
+  (async function recentRail(){
+    const rail = document.getElementById('recent-rail'); if(!rail) return;
+    try {
+      const response = await fetch('/assets/data/articles/index.json');
+      const data = await response.json();
+      const items = Array.isArray(data) ? data : (data.articles || []);
+      if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
+    } catch (err) { console.log('Could not load articles:', err); }
+  })();
+  </script>
+  <script>window.currentPortId = 'marseille';</script>
+  <script src="/assets/js/nearby-ports.js"></script>
   <script src="/assets/js/whimsical-port-units.js"></script>
-
-  <!-- Leaflet JS for interactive maps -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/modules/port-map.js"></script>
-
-  <!-- Initialize Marseille Port Map -->
   <script>
   document.addEventListener('DOMContentLoaded', function() {
     if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
-      PortMap.init({
-        containerId: 'marseille-port-map',
-        portSlug: 'marseille'
-      });
+      PortMap.init({ containerId: 'marseille-port-map', portSlug: 'marseille' });
     }
   });
   </script>
-
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
 </body>

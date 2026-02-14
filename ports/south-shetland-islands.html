@@ -145,7 +145,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
   <header class="hero-header" role="banner">
     <nav class="navbar" aria-label="Main navigation">
       <div class="brand">
-        <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <img loading="eager" fetchpriority="high" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
       </div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
@@ -180,6 +180,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -230,8 +233,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         </header>
 
         <!-- Logbook Entry -->
-        <section class="logbook-entry">
-          <h2>From the Logbook</h2>
+        <details class="logbook-entry" open>
+          <summary><h2>From the Logbook</h2></summary>
           <blockquote>
             <p>
               "As we approached Neptune's Bellows — the narrow entrance to Deception Island's caldera — the captain cut engines and the ship went silent. The volcanic cliffs towered on both sides, the passage just wide enough for our hull. Inside, the caldera opened into an otherworldly bay: black sand beaches, rusting whaling tanks, steam rising from the water's edge. Passengers were already stripping to swimsuits, eager to dig trenches in the sand where geothermal heat meets Antarctic cold. You swim in Antarctica at an active volcano. It's as surreal as it sounds."
@@ -241,10 +244,10 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           <p class="highlight">
             <strong>Highlight:</strong> Digging a hole in the black volcanic sand at Pendulum Cove and sinking into warm geothermal water while snow-capped peaks encircle the caldera.
           </p>
-        </section>
+        </details>
 
         <!-- Main Content Sections -->
-        <section class="port-section">
+        <section class="port-section" id="excursions">
           <h2>Major Islands & Landing Sites</h2>
           <ul>
             <li><strong>Deception Island</strong> — Active volcano, flooded caldera, geothermal beaches, abandoned whaling station at Whalers Bay, chinstrap penguins at Baily Head</li>
@@ -322,8 +325,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           <p>Station visits depend on prior arrangement and operational schedules.</p>
         </section>
 
-        <section class="port-section">
-          <h2>Shackleton History</h2>
+        <details class="port-section" open>
+          <summary><h2>Shackleton History</h2></summary>
           <p>
             Elephant Island holds special significance in Antarctic exploration:
           </p>
@@ -332,10 +335,10 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <li><strong>Pardo Bust</strong> — Bronze memorial to Chilean pilot Luis Pardo, who rescued the stranded men</li>
             <li><strong>Difficult landings</strong> — High seas and rocky coastline often prevent Zodiac landings; scenic cruising typical</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section">
-          <h2>Practical Information</h2>
+        <details class="port-section" open>
+          <summary><h2>Practical Information</h2></summary>
           <ul>
             <li><strong>Location</strong> — 75 miles north of Antarctic Peninsula</li>
             <li><strong>First landfall</strong> — Often first landing site after crossing Drake Passage</li>
@@ -343,7 +346,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <li><strong>Swimming</strong> — Possible at Deception Island's geothermal beaches (bring swimsuit!)</li>
             <li><strong>Landings</strong> — Via Zodiac; wet landings common</li>
           </ul>
-        </section>
+        </details>
 
         <!-- Port Map -->
         <section class="port-section">
@@ -352,8 +355,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         </section>
 
         <!-- FAQ Section -->
-        <section class="port-faq">
-          <h2>Frequently Asked Questions</h2>
+        <details class="port-faq" open>
+          <summary><h2>Frequently Asked Questions</h2></summary>
           <details>
             <summary>What is Deception Island?</summary>
             <p>
@@ -372,7 +375,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               Visits depend on prior arrangement and weather. King George Island has the most stations, some of which occasionally welcome cruise passengers. Arrangements are made through expedition staff, not passengers.
             </p>
           </details>
-        </section>
+        </details>
 
         <!-- Disclaimers -->
         <aside class="disclaimers">
@@ -382,7 +385,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         </aside>
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel distances from South Shetland Islands">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel distances from South Shetland Islands">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -407,7 +410,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </li>
   </ul>
   <p class="pier-note">There is no pier. Your ship enters the caldera of an active volcano through a gap 500 meters wide. Zodiac landings on black volcanic sand. Hot springs steam beside glaciers. This is Antarctica at its most surreal.</p>
-</div>
+</nav>
 
       </article>
 

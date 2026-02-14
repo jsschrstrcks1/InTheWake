@@ -53,7 +53,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- ICP-Lite v1.0 Meta Tags -->
   <meta name="ai-summary" content="Adventure of the Seas is a Voyager Class ship (137,276 GT, 3,114 guests, launched 2001) featuring the iconic Royal Promenade, ice skating rink, rock climbing wall, and worldwide itineraries."/>
-  <meta name="last-reviewed" content="2025-12-27"/>
+  <meta name="last-reviewed" content="2026-02-14"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
 
   <!-- Title & SEO -->
@@ -185,7 +185,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     "description": "Adventure of the Seas is a Voyager Class ship (137,276 GT, 3,114 guests, launched 2001) featuring the iconic Royal Promenade, ice skating rink, rock climbing wall, and worldwide itineraries.",
     "url": "https://cruisinginthewake.com/ships/rcl/adventure-of-the-seas.html",
     "datePublished": "2024-01-01",
-    "dateModified": "2025-12-27",
+    "dateModified": "2026-02-14",
     "inLanguage": "en-US",
     "isPartOf": {
       "@type": "WebSite",
@@ -243,6 +243,14 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Adventure features the iconic Royal Promenade with shops and restaurants, full-size ice skating rink, rock climbing wall, mini-golf course, and diverse worldwide itineraries from Alaska to Australia."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I see Adventure of the Seas' current location?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the live ship tracker on this page to see Adventure of the Seas' current position, speed, and next port in real-time."
         }
       }
     ]
@@ -371,6 +379,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -486,7 +497,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <div class="swiper-slide">
               <figure>
                 <img
-                  src="/assets/ships/Adventure_of_the_Seas_docked_in_Aruba_2024.webp"
+                  src="/assets/ships/Adventure_of_the_Seas_docked_in_Aruba_2024.jpg"
                   alt="Adventure of the Seas — Adventure of the Seas seen docked in Oranjestad, Aruba, on Oct. 15, 2024."
                   loading="lazy"
                   decoding="async">
@@ -700,6 +711,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <details>
         <summary>What are the signature features of Adventure of the Seas?</summary>
         <p>Adventure features the iconic Royal Promenade with shops and restaurants, full-size ice skating rink, rock climbing wall, mini-golf course, and diverse worldwide itineraries from Alaska to Australia.</p>
+      </details>
+
+      <details>
+        <summary>How can I see Adventure of the Seas' current location?</summary>
+        <p>Use the <a href="#liveTrackHeading">live ship tracker</a> on this page to see Adventure of the Seas' current position, speed, and next port in real-time.</p>
       </details>
     </section>
     </div><!-- End Main Content Column -->
@@ -924,7 +940,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       }
     }
     function fetchVideoData(){
-      const SOURCES=[abs('/assets/data/videos/rcl/adventure-of-the-seas.json'),abs('/assets/data/videos/adventure-of-the-seas.json'),abs('/ships/rcl/assets/adventure-of-the-seas-videos.json')];
+      const SOURCES=[abs('/assets/data/videos/rcl/adventure-of-the-seas.json'),abs('/ships/rcl/assets/adventure-of-the-seas-videos.json')];
       function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
         return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
       return tryFetch();

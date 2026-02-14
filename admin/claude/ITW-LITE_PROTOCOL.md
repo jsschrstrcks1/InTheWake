@@ -2,8 +2,8 @@
 
 **In the Wake Content Protocol**
 **Version:** v3.010.lite
-**Last Updated:** 2025-11-23
-**Status:** Pilot phase (Radiance of the Seas ship page)
+**Last Updated:** 2026-02-14
+**Status:** Level 1 at 99.5% (1,232/1,238 pages; 6 remaining are article fragments without `<head>`); Level 2 pilot phase
 
 ---
 
@@ -20,7 +20,7 @@
 
 ### Relationship to ICP (Informed Consent Protocol)
 
-ITW-Lite implements the principles of ICP-Lite v1.0 while being tailored specifically for grief-focused cruise planning content. It extends ICP with domain-specific elements like:
+ITW-Lite implements the principles of ICP-Lite v1.4 while being tailored specifically for grief-focused cruise planning content. It extends ICP with domain-specific elements like:
 
 - **Fit-guidance sections:** Who this ship/port/cruise is for
 - **Scripture references:** Faith integration for grief content
@@ -33,29 +33,26 @@ ITW-Lite implements the principles of ICP-Lite v1.0 while being tailored specifi
 
 ITW-Lite has three progressive implementation levels. Each level builds on the previous one.
 
-### Level 1: Meta Tags (CURRENT - 97% Complete)
+### Level 1: Meta Tags (CURRENT - 99% Complete)
 
-**Status:** 544 of 561 pages (97%)
+**Status:** 1,232 of 1,238 pages (99.5%) — 6 remaining are article fragments without `<head>`
 
 **Required meta tags:**
 ```html
-<meta name="content-protocol" content="ICP-Lite v1.0">
-<meta name="ai:summary" content="Brief, factual summary for AI assistants (150-200 chars)">
-<meta name="last-reviewed" content="2025-11-23">
+<meta name="content-protocol" content="ICP-Lite v1.4">
+<meta name="ai-summary" content="Brief, factual summary (max 250 chars, first 155 standalone)">
+<meta name="last-reviewed" content="2026-02-12">
 ```
 
-**Optional meta tags:**
-```html
-<meta name="ai:target-audience" content="Widows, solo travelers, accessibility-focused cruisers">
-<meta name="ai:primary-topics" content="Grief travel, accessible cruising, solo after loss">
-<meta name="ai:content-sensitivity" content="grief, loss, disability">
-```
+**ICP-Lite v1.4 Dual-Cap Rule:**
+- Max 250 characters total
+- First ~155 characters must be a complete standalone sentence
+- JSON-LD `description` must EXACTLY match `ai-summary`
+- JSON-LD `dateModified` must EXACTLY match `last-reviewed`
 
-**Pages still needing Level 1 (17 pages):**
-- 10 Asia/Pacific port pages
-- 4 solo/articles pages
-- 1 solo/in-the-wake-of-grief.html
-- 2 tracker tools (port-tracker.html, ship-tracker.html)
+**Pages still needing Level 1 (12 pages):**
+- Identified via grep: 12 pages missing `content-protocol` meta tag
+- 8 pages missing Soli Deo Gloria invocation
 
 **Implementation:**
 ```bash
@@ -827,6 +824,12 @@ If ITW-Lite implementation causes problems:
 4. **Update protocol** with "DON'T" guidance
 
 ### Version History
+
+**v3.010.lite-r2 (2026-02-12):**
+- Accuracy audit: updated ICP-Lite v1.0→v1.4 references, ai:summary→ai-summary syntax
+- Level 1 coverage updated: 544/561→1,229/1,241 (99%)
+- Added dual-cap rule documentation (250 char max, first 155 standalone)
+- Added JSON-LD mirroring requirement (description=ai-summary, dateModified=last-reviewed)
 
 **v3.010.lite (2025-11-23):**
 - Initial protocol documentation

@@ -100,6 +100,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -146,11 +149,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
       <div class="container port-layout">
         <article class="port-content">
-          <section class="logbook-entry">
-            <div class="logbook-entry__header">
-              <span class="logbook-entry__icon">📔</span>
-              <h2>From the Logbook</h2>
-            </div>
+          <details class="logbook-entry" open>
+            <summary><h2>From the Logbook</h2></summary>
             <div class="logbook-entry__content">
               <p>
                 The world's smallest capital—population 14,000—wears its grass
@@ -171,7 +171,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
                 they stayed aloft.
               </p>
             </div>
-          </section>
+          </details>
 
 
       <!-- WEATHER & BEST TIME TO VISIT -->
@@ -193,8 +193,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         </details>
       </details>
 
-          <section class="port-section" id="cruise-port">
-            <h2>The Cruise Port</h2>
+          <details class="port-section" id="cruise-port" open>
+            <summary><h2>The Cruise Port</h2></summary>
             <p>
               Ships dock at Tórshavn harbor, usually directly at the pier. The
               town is immediately walkable from the cruise terminal. Larger
@@ -205,7 +205,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               This is authentic North Atlantic life, not a cruise-optimized
               destination.
             </p>
-          </section>
+          </details>
 
           <section class="port-section" id="attractions">
             <h2>What to See</h2>
@@ -235,8 +235,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             </ul>
           </section>
 
-          <section class="port-section" id="practical">
-            <h2>Practical Information</h2>
+          <details class="port-section" id="practical" open>
+            <summary><h2>Practical Information</h2></summary>
             <h3>Money</h3>
             <p>Faroese Króna (linked to Danish Krone). Cards accepted everywhere. Prices similar to Scandinavia (expensive).</p>
             <h3>Weather</h3>
@@ -245,28 +245,28 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <p>Faroese (related to Icelandic) and Danish. English widely spoken.</p>
             <h3>Puffin Season</h3>
             <p>May through mid-August. Outside this window, birds are at sea.</p>
-          </section>
+          </details>
 
           <section class="port-section" id="map">
             <h2>Port Map</h2>
             <div id="port-map" class="port-map" style="height: 400px"></div>
           </section>
 
-          <section class="port-section" id="faq">
-            <h2>FAQs</h2>
+          <details class="port-section" id="faq" open>
+            <summary><h2>FAQs</h2></summary>
             <div class="faq-list">
               <details class="faq-item"><summary>Can I see puffins from Tórshavn?</summary><p>Not directly in town. Mykines Island is famous for puffins but requires helicopter or boat (weather dependent). Vestmanna cliff tours also see seabirds.</p></details>
               <details class="faq-item"><summary>Is Tórshavn walkable?</summary><p>Yes, the town is compact. Tinganes, Skansin, and the main streets are all within easy walking distance of the port.</p></details>
               <details class="faq-item"><summary>What's unique about Faroese architecture?</summary><p>Traditional grass (turf) roofs insulate against North Atlantic weather. They're still maintained on historic buildings and some modern homes.</p></details>
             </div>
-          </section>
+          </details>
 
           <section class="disclaimers">
             <p class="disclaimer"><strong>Author's Note:</strong> Faroese weather is notoriously unpredictable. Excursions may be cancelled. Flexibility essential.</p>
           </section>
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Tórshavn">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Tórshavn">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -291,7 +291,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </li>
   </ul>
   <p class="pier-note">Ships dock at Tórshavn harbor. The world's smallest capital is entirely walkable. Weather changes every 15 minutes — bring layers. The Faroe Islands have more sheep than people (80,000 vs 54,000).</p>
-</div>
+</nav>
                 <div id="logbook-btn-container"></div>
 
         </article>

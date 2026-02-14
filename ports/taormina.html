@@ -181,6 +181,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -228,7 +231,7 @@ Soli Deo Gloria
   <main class="wrap page-grid" id="main-content" role="main">
     <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Taormina</li></ol></nav>
     <div style="grid-column: 1; grid-row: 1;">
-    <div class="port-hero">
+    <section class="port-hero" id="hero">
         <div class="port-hero-image">
           <img src="/ports/img/taormina/taormina-3.webp" alt="Taormina panoramic view" loading="eager" fetchpriority="high"/>
           <div class="port-hero-overlay">
@@ -236,7 +239,7 @@ Soli Deo Gloria
           </div>
         </div>
         <p class="port-hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
-      </div>
+      </section>
 
     <article class="card"><h1>Taormina: My Sicilian Perfection</h1>
       <div class="logbook-entry">
@@ -269,12 +272,12 @@ Soli Deo Gloria
         </div>
       </div>
 
-      <section class="port-section">
+      <section class="port-section" id="getting_around">
         <h3>Getting Around Taormina</h3>
         <p>Most cruise ships anchor in the port of Taormina-Giardini Naxos and tender passengers to the marina below the town. From there, you have three choices for reaching Taormina's clifftop historic center: the cable car (funivia) is quickest and most scenic, rising through gardens and offering expanding views; local buses wind up the hillside road and drop you near Porta Messina; or taxis will take you directly to wherever you need to go. Some ships dock in Messina instead and offer excursions or public transportation to Taormina — it's about 45 minutes by car or train. However you arrive, the town itself is blissfully pedestrian. Once you reach the historic center, everything worth seeing lies along or near Corso Umberto, the main street that threads through the heart of Taormina from gate to gate. Comfortable walking shoes are essential — the cobblestones are ancient and uneven, and the side streets climb steep staircases toward hidden viewpoints and gardens.</p>
       </section>
 
-      <section class="port-section">
+      <section class="port-section" id="depth_soundings">
         <h3>Depth Soundings Ashore</h3>
         <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
         <p><strong>Arrive early at the Teatro Greco:</strong> The theater opens at 9 a.m. and by 10:30 the tour buses arrive in force. That golden hour between opening and crowds is when you'll have the stage and those Etna views mostly to yourself. Entry is around €10 and worth every cent.</p>
@@ -417,8 +420,8 @@ Soli Deo Gloria
             </details>
 
     <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
+    <details class="port-section photo-gallery" id="gallery" open>
+      <summary><h2>Photo Gallery</h2></summary>
       <div class="gallery-grid">
         <figure class="gallery-item">
           <img src="img/taormina/taormina-1.webp" alt="Harbor view of Taormina, Sicily" loading="lazy">
@@ -442,16 +445,16 @@ Soli Deo Gloria
           </figcaption>
         </figure>
       </div>
-    </section>
+    </details>
 
     <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
+    <details class="port-section image-credits" open>
+      <summary><h2>Image Credits</h2></summary>
       <ul>
         <li><strong>taormina-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>taormina-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>taormina-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
       </ul>
       <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
+    </details>
 
   
         <!-- VOLATILE DATA DISCLAIMER -->
@@ -476,7 +479,7 @@ Soli Deo Gloria
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Taormina">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Taormina">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -501,7 +504,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Ships dock at Naxos port below the cliffs. Taormina is perched above — take the cable car (€3 each way) or a taxi up the winding road. The Greek Theatre views of Etna are worth every minute of the climb.</p>
-</div>
+</nav>
 
       </article>
   </div>

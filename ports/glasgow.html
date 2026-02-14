@@ -99,6 +99,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -145,11 +148,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
       <div class="container port-layout">
         <article class="port-content">
-          <section class="logbook-entry">
-            <div class="logbook-entry__header">
-              <span class="logbook-entry__icon">📔</span>
-              <h2>From the Logbook</h2>
-            </div>
+          <details class="logbook-entry" open>
+            <summary><h2>From the Logbook</h2></summary>
             <div class="logbook-entry__content">
               <p>
                 Glasgow surprised me. I'd expected Edinburgh's polished rival—
@@ -168,7 +168,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
                 don't rush it here.
               </p>
             </div>
-          </section>
+          </details>
 
 
       <!-- WEATHER & BEST TIME TO VISIT -->
@@ -190,8 +190,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         </details>
       </details>
 
-          <section class="port-section" id="cruise-port">
-            <h2>The Cruise Port</h2>
+          <details class="port-section" id="cruise-port" open>
+            <summary><h2>The Cruise Port</h2></summary>
             <p>
               Cruise ships dock at Greenock Ocean Terminal on the Firth of
               Clyde, approximately 40 kilometers (25 miles) west of Glasgow
@@ -203,7 +203,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               about 45 minutes and offers an affordable independent option
               (approximately £10 return).
             </p>
-          </section>
+          </details>
 
           <section class="port-section" id="attractions">
             <h2>Glasgow Highlights</h2>
@@ -242,36 +242,36 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <p>Renaissance royal palace and Wallace Monument for Scottish history enthusiasts.</p>
           </section>
 
-          <section class="port-section" id="practical">
-            <h2>Practical Information</h2>
+          <details class="port-section" id="practical" open>
+            <summary><h2>Practical Information</h2></summary>
             <h3>Money</h3>
             <p>British Pound (GBP). Scottish notes are valid throughout UK despite occasional confusion in England. Cards widely accepted.</p>
             <h3>Weather</h3>
             <p>Mild but wet year-round. Summers 15-20°C (60-68°F). Pack layers and rain gear regardless of forecast.</p>
             <h3>Getting Around</h3>
             <p>Glasgow has excellent public transport. The "Clockwork Orange" subway serves the city center. Trains and buses connect to regional attractions.</p>
-          </section>
+          </details>
 
           <section class="port-section" id="map">
             <h2>Port Map</h2>
             <div id="port-map" class="port-map" style="height: 400px"></div>
           </section>
 
-          <section class="port-section" id="faq">
-            <h2>Frequently Asked Questions</h2>
+          <details class="port-section" id="faq" open>
+            <summary><h2>Frequently Asked Questions</h2></summary>
             <div class="faq-list">
               <details class="faq-item"><summary>How far is Greenock from Glasgow?</summary><p>40km / 25 miles. Train takes 45 minutes; bus/taxi about 40 minutes without traffic.</p></details>
               <details class="faq-item"><summary>Can I visit Edinburgh on a cruise day?</summary><p>Yes, it's 1 hour by train from Glasgow. Allow 3-4 hours minimum in Edinburgh. Ship excursions available.</p></details>
               <details class="faq-item"><summary>Is the Kelvingrove Museum really free?</summary><p>Yes, admission is free though donations are welcome. One of Britain's best free museums.</p></details>
             </div>
-          </section>
+          </details>
 
           <section class="disclaimers">
             <p class="disclaimer"><strong>Author's Note:</strong> Information reflects conditions during our visit. Verify details with your cruise line.</p>
           </section>
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Greenock Ocean Terminal">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Greenock Ocean Terminal">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -301,7 +301,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </li>
   </ul>
   <p class="pier-note">Ships dock at Greenock Ocean Terminal, 40 km west of Glasgow. ScotRail trains to Glasgow Central run frequently (~£10 return, 45 min). Glasgow's best museums are free. If you're choosing between Glasgow and Edinburgh, Glasgow has the better food and friendlier locals — but Edinburgh has the castle.</p>
-</div>
+</nav>
                 <div id="logbook-btn-container"></div>
 
         </article>

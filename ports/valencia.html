@@ -207,6 +207,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -261,7 +264,7 @@ Soli Deo Gloria
     </nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-    <div class="port-hero">
+    <section class="port-hero" id="hero">
         <div class="port-hero-image">
           <img src="/ports/img/valencia/valencia-3.webp" alt="Valencia panoramic view" loading="eager" fetchpriority="high"/>
           <div class="port-hero-overlay">
@@ -269,7 +272,7 @@ Soli Deo Gloria
           </div>
         </div>
         <p class="port-hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
-      </div>
+      </section>
 
     <article class="card"><h1>Valencia: Where Ancient Valor Meets Tomorrow's Vision</h1>
 
@@ -299,7 +302,7 @@ Soli Deo Gloria
         <p>Valencia feels young, innovative, and delicious — easily one of the most underrated cities in Europe. Spain's third-largest city with over 824,000 residents, it was named European Green Capital in 2024 and World Design Capital in 2022, honors that reflect its bold commitment to sustainability and beauty. The blend of futuristic architecture and medieval old town shouldn't work, but it absolutely does, creating a city that honors its past while racing toward its future with courage, creativity, and — yes — that ancient Roman valour still beating in its heart.</p>
       </div>
 
-      <section class="port-section">
+      <section class="port-section" id="getting_around">
         <h3>Getting Around Valencia</h3>
         <p>Ships dock just 4–5 km from the city center. The free port shuttle drops you at the marina, then it's easy to get anywhere.</p>
         <ul>
@@ -432,8 +435,8 @@ Soli Deo Gloria
             </details>
 
     <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
+    <details class="port-section photo-gallery" id="gallery" open>
+      <summary><h2>Photo Gallery</h2></summary>
       <div class="gallery-grid">
         <figure class="gallery-item">
           <img src="img/valencia/valencia-1.webp" alt="Harbor view of Valencia, Spain" loading="lazy">
@@ -464,20 +467,20 @@ Soli Deo Gloria
           </figcaption>
         </figure>
       </div>
-    </section>
+    </details>
 
     <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
+    <details class="port-section image-credits" open>
+      <summary><h2>Image Credits</h2></summary>
       <ul>
         <li><strong>valencia-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>valencia-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>valencia-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>valencia-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
       </ul>
       <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
+    </details>
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Valencia">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Valencia">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -502,7 +505,7 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Ships dock at Valencia's port, about 20 minutes from the old town by bus or taxi. This is where paella was invented — eat it at lunch, never dinner, and never with chorizo. The City of Arts and Sciences is worth the trip alone.</p>
-</div>
+</nav>
 
   </article>
   </div>

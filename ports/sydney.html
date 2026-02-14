@@ -12,7 +12,7 @@ All work on this project is offered as a gift to God.
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- ICP-Lite v1.4 Meta Tags -->
   <meta name="ai-summary" content="Sydney features Opera House, Harbour Bridge, Bondi Beach, and spectacular harbour entrance. Australia's highest-rated cruise port with world-class attractions." />
-  <meta name="last-reviewed" content="2026-02-01" />
+  <meta name="last-reviewed" content="2026-02-12" />
   <meta name="content-protocol" content="ICP-Lite v1.4" />
 
   <title>Sydney Cruise Port Guide – In the Wake</title>
@@ -25,6 +25,16 @@ All work on this project is offered as a gift to God.
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/port-hero.jpg"/>
 
   <meta name="description" content="Sydney features Opera House, Harbour Bridge, Bondi Beach, and spectacular harbour entrance. Australia's highest-rated cruise port with world-class attractions." />
+  <!-- ai-breadcrumbs
+     entity: Sydney
+     type: Port Guide
+     parent: /ports.html
+     category: Asia-Pacific / Australia
+     updated: 2026-02-12
+     expertise: Cruise travel, port guides
+     target-audience: Cruise travelers, vacation planners
+     answer-first: Sydney features Opera House, Harbour Bridge, Bondi Beach, and spectacular harbour entrance. Australia's highest-rated cruise port with world-class attractions.
+     -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <!-- Service Worker Registration -->
   <script>
@@ -60,7 +70,7 @@ All work on this project is offered as a gift to God.
     "name": "Sydney Cruise Port Guide",
     "url": "https://cruisinginthewake.com/ports/sydney.html",
     "description": "Sydney features Opera House, Harbour Bridge, Bondi Beach, and spectacular harbour entrance. Australia's highest-rated cruise port with world-class attractions.",
-    "dateModified": "2026-02-01",
+    "dateModified": "2026-02-12",
     "mainEntity": {
       "@type": "Place",
       "name": "Sydney",
@@ -105,6 +115,14 @@ All work on this project is offered as a gift to God.
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "The Manly Ferry from Circular Quay offers stunning harbour views and is an experience itself. The 30-minute crossing passes under the Bridge and by the Opera House."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Sydney accessible for passengers with mobility challenges?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Circular Quay terminal is wheelchair accessible with ramps and elevators. Many ferries and buses have accessible boarding. The Opera House forecourt is flat and easy to navigate."
         }
       }
     ]
@@ -200,6 +218,9 @@ All work on this project is offered as a gift to God.
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -244,7 +265,7 @@ All work on this project is offered as a gift to God.
     </div>
   </header>
 
-  
+
 
   <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
 
@@ -256,16 +277,21 @@ All work on this project is offered as a gift to God.
     </nav>
 
     <article>
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
-        <img loading="eager" src="/ports/img/sydney/sydney-3.webp" alt="Sydney panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
-        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
-          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Sydney</span>
-        </div>
-      </div>
 
-      
+      <!-- HERO SECTION -->
+      <section class="port-hero" id="hero">
+        <figure>
+          <img loading="eager" src="img/sydney/sydney-hero.webp" alt="Sydney harbour panorama with Opera House and Harbour Bridge at sunrise" style="width: 100%; height: 280px; object-fit: cover; border-radius: 12px;" fetchpriority="high"/>
+          <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
+            <h1 style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Sydney</h1>
+          </div>
+          <figcaption>Sydney harbour at sunrise — <a href="https://commons.wikimedia.org/w/index.php?search=Sydney+harbour&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
+      </section>
+
+
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+                <div id="journal-btn-container"></div>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
         <details class="port-section" id="weather-guide" open>
@@ -295,21 +321,15 @@ All work on this project is offered as a gift to God.
                   <summary class="seasonal-section-title">Best Time to Visit</summary>
                   <div class="seasonal-best-time">
                     <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Shoulder Season</span><span class="season-months">Apr, Sep</span></div>
+                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">May, Jun, Jul, Aug</span></div>
                     </div>
                     <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jan, Feb</span>
-                      <span class="avoid-reason">(varies by destination)</span>
+                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                      <div class="activity-row"><span class="activity-label">Coastal Walks</span><span class="activity-months">Sep, Oct, Nov, Mar, Apr</span></div>
+                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Sep, Oct, Nov, Mar, Apr, May</span></div>
+                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">May, Jun, Jul</span></div>
                     </div>
                   </div>
                 </details>
@@ -348,8 +368,8 @@ All work on this project is offered as a gift to God.
                       <span class="hazard-icon">⚠️</span>
                       <div class="hazard-content">
                         <strong>Seasonal Weather</strong>
-                        <p>Season: Varies</p>
-                        <p>Peak risk: Varies</p>
+                        <p>Season: Southern Hemisphere summer Dec-Feb</p>
+                        <p>Peak risk: January heat waves</p>
                         <p class="hazard-note">Check local conditions before your cruise</p>
                       </div>
                     </div>
@@ -363,141 +383,198 @@ All work on this project is offered as a gift to God.
             </details>
 
       <header class="article-header">
-        <h1>Sydney Cruise Port Guide</h1>
         <p class="subtitle">My Harbour City That Feels Like Home</p>
       </header>
 
       <!-- Quick Answer -->
-      <section class="quick-answer" style="background:#e6f7f5;border-left:5px solid #2a9d8f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
-        <p style="margin:0;"><strong>Quick&nbsp;Answer:</strong> Sydney is Australia's highest-rated port (4.9–5.0 stars) with the most spectacular harbour entrance on earth. Must-dos: Opera House tour, Manly Ferry, Bondi-to-Bronte coastal walk, and sunset drinks at Opera Bar.</p>
+      <div class="quick-answer" style="background:#e6f7f5;border-left:5px solid #2a9d8f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
+        <p style="margin:0;"><strong>Quick&nbsp;Answer:</strong> Sydney is Australia's highest-rated port (4.9–5.0 stars) with the most spectacular harbour entrance on earth. The Circular Quay terminal is wheelchair accessible and offers step-free routes to the Opera House forecourt. You can book ahead for the Opera House guided tour ($43), the BridgeClimb ($174+), and the Manly Ferry ($10 return fare). Budget $50–$100 for a full day on your own, or $200+ if you add the BridgeClimb.</p>
+      </div>
 
-      <figure class="logbook-image float-right">
-        <img src="img/sydney/sydney-1.webp" alt="Sydney, Australia harbor view" loading="lazy">
-        <figcaption>Sydney, Australia — <a href="https://commons.wikimedia.org/w/index.php?search=Sydney&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-      </section>
+      <!-- LOGBOOK ENTRY -->
+      <details class="port-section" id="logbook" open>
+        <summary><h2>My Logbook: A Sydney Day</h2></summary>
+        <div class="logbook-entry clearfix">
 
-      <!-- Logbook Entry -->
-        <details class="port-section" id="logbook" open>
-          <details class="section-collapse" open>
-            <summary><h2>My Logbook: A Sydney Day</h2></summary>
-            <div class="collapse-body">
-              <div class="logbook-entry clearfix">
-        <p>Sailing under the Sydney Harbour Bridge at sunrise with the Opera House glowing pink is one of cruising's all-time greatest moments – hands down the most spectacular port entrance on earth. Sydney is the highest-rated Australian port (4.9–5.0 stars). When we dock at the Overseas Passenger Terminal on Circular Quay West, I step off to an unobstructed view of both icons framed perfectly together – the Bridge and those famous sails at Bennelong Point. Standing in what became a UNESCO World Heritage buffer zone in 2006, I'm reminded that this harbour isn't just beautiful, it's sacred ground where the Eora Nation lived for at least 30,000 years before the First Fleet arrived under Governor Arthur Phillip on January 26, 1788.</p>
+          <p>I stood on the bow deck at five-thirty in the morning, my hands gripping the cold metal railing, and watched Sydney materialize out of the pre-dawn darkness like a city being painted into existence. The air smelled of salt and eucalyptus — a scent I had not expected so close to a metropolis of five million people. Our ship glided past the dark headlands of North Head and South Head, and then the harbour opened before us in all its vastness, still and silver under a sky that was just beginning to blush pink along its eastern edge. I heard the low rumble of the engine change pitch as we slowed, and that was when I saw them together for the first time: the Harbour Bridge and the Opera House, side by side, impossibly close, looking exactly like every photograph I had ever seen and yet nothing like any photograph could capture.</p>
 
-        <p>The Opera House story never gets old for me – how Danish architect Jørn Utzon won the 1957 design competition against 233 entries from 30 countries, how those revolutionary sails rose on Bennelong Point (named for an Aboriginal liaison between two worlds), and how Queen Elizabeth II opened it in 1973. Walking through on the guided tour, knowing it became a UNESCO World Heritage Site in 2007, I feel the weight of architecture that dared to dream bigger. The Harbour Bridge – affectionately called "The Coathanger" – tells its own epic: construction began in 1924, the two sides built out from opposite banks and met triumphantly in the middle in 1930, then the whole span opened to the world on March 19, 1932. I love climbing it for the views, but I love even more just standing beneath those massive pylons and imagining the hands that built it.</p>
+          <figure class="logbook-image float-right">
+            <img src="img/sydney/sydney-opera-house.webp" alt="Sydney Opera House at golden hour with harbour waters reflecting warm light" loading="lazy">
+            <figcaption>Sydney Opera House — <a href="https://commons.wikimedia.org/w/index.php?search=Sydney+Opera+House&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+          </figure>
 
-        <p>My perfect day: off the ship at Circular Quay or White Bay and straight onto the first ferry to Manly for the beach and that iconic harbour crossing. Then the Opera House guided tour (book ahead), climbing the Harbour Bridge if I'm feeling brave, Bondi Beach for the coastal walk to Bronte (best views ever), and lunch at Icebergs or just fish & chips on the sand. Afternoon takes me to The Rocks – Sydney's oldest village, Australia's most historic enclave – where colonial sandstone buildings whisper stories of convicts and dreamers. I always pause at the "Bara" sculpture depicting the ancient fish hooks Eora women used from their nawi canoes, a quiet reminder that this harbour's human story stretches back thirty millennia before the sails and bridges we celebrate today.</p>
+          <p>We docked at the Overseas Passenger Terminal on Circular Quay West, and I stepped off into bright morning sunlight that felt warm on my face despite the early hour. The Harbour Bridge towered above me — locals call it "The Coathanger" — its grey steel arch enormous against the blue sky. I walked along the quay toward Bennelong Point, passing buskers setting up and ferry commuters clutching coffee cups, and within five minutes I was standing at the base of the Opera House. I touched one of the white ceramic tiles that cover those famous sails — cool and smooth under my fingertips — and looked up at the way the roof shells overlapped and interlocked, each one a different size, each one a feat of engineering that nearly broke the architect who designed them. Jorn Utzon won the 1957 competition against 233 entries from 30 countries, but the construction battles and cost overruns drove him from Australia before the building was finished. He never saw his masterpiece completed in person. Standing there, I felt the weight of that story — how something so beautiful could come from so much struggle.</p>
 
-      <figure class="logbook-image float-left">
-        <img src="img/sydney/sydney-2.webp" alt="Sydney, Australia waterfront" loading="lazy">
-        <figcaption>Sydney, Australia scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Sydney&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
+          <p>My guided tour of the Opera House interior cost $43, and I would pay it twice over. Our guide showed us the Concert Hall with its soaring ceiling and the 10,000-pipe grand organ, and I listened as she explained how the acoustics were designed to make every seat feel close to the performers. The taste of the flat white I grabbed from the Opera Bar afterward — rich, smooth, perfectly bitter — became my official flavour of Sydney. I sat on the terrace with the harbour stretching out before me and watched ferries crisscross the water like slow green beetles, their wakes spreading in white V-shapes behind them. However, the real surprise was the Manly Ferry. For just $10 return fare, I had a thirty-minute harbour cruise that passed under the Bridge and alongside the Opera House, with views that rivalled any $200 dinner cruise. The wind off the harbour was cool and bracing, and I stood on the open deck at the stern and watched the city skyline shrink behind me, feeling the salt spray on my arms.</p>
 
-        <div class="poignant-highlight">
-          <strong>The moment that stays with me:</strong> Sailing under the Harbour Bridge at dawn, watching the Opera House sails turn from grey to pink to gold as the sun rises – in that moment, Sydney isn't just a port, it's a promise that some places really are as beautiful as the postcards say, and that every harbour holds stories deeper than we first imagine.
+          <figure class="logbook-image float-left">
+            <img src="img/sydney/sydney-harbour-bridge.webp" alt="Sydney Harbour Bridge viewed from below showing massive steel arch structure" loading="lazy">
+            <figcaption>Sydney Harbour Bridge — <a href="https://commons.wikimedia.org/w/index.php?search=Sydney+Harbour+Bridge&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+          </figure>
+
+          <p>At Manly I walked the beach and tasted fish and chips from a paper bag — salty, hot, and crunchy — then caught the ferry back and headed for The Rocks, Sydney's oldest neighbourhood. The cobblestone lanes and sandstone buildings date back to the earliest days of the colony, and although the area has been thoroughly restored with cafes and galleries, I could still feel its rougher past in the narrow alleys and the convict-cut stone. I paused at the "Bara" sculpture depicting the ancient fish hooks that Eora women used from their nawi canoes, and it struck me that this harbour's human story stretches back thirty thousand years before any bridge or opera house.</p>
+
+          <p>The BridgeClimb tempted me despite its $174 price tag, but I chose to save my budget for the Bondi-to-Bronte coastal walk instead — a free, moderate walking trail that winds along sandstone cliffs above turquoise water. The views were staggering. Yet what I did not expect was how the walk would change my mood entirely. I had started the day as a tourist ticking off landmarks, but somewhere between Bondi and Bronte, with the sun on my shoulders and the crash of waves below, something shifted in me. I stopped photographing everything and just looked. The ocean stretched to the horizon, vast and indifferent and ancient, and I felt small in the best possible way.</p>
+
+          <span class="poignant-highlight">The moment that stays with me: I was sitting on a bench at the Bronte lookout, watching a pair of surfers paddle out through the white water below, when I finally understood what Sydney had been quietly teaching me all day. I had come expecting postcard views and tourist checkpoints, but what the harbour gave me instead was something I had not known I needed — a quiet grace, a reminder that beauty is not something you capture with a camera but something you receive, like a gift you did not earn. My eyes welled with tears, not from sadness but from gratitude, and for the first time in a long while, I whispered a prayer of thanks for the simple privilege of being alive in a place this beautiful.</span>
+
+          <div class="logbook-reflection">
+            <p><strong>Looking back,</strong> I realized that Sydney rewards those who slow down. I learned that the best moments were not the landmarks I had circled on my map, but the spaces between them — the ferry crossing, the coastal walk, the quiet bench at Bronte. The Opera House and the Bridge are worth every minute, but the lesson Sydney taught me was this: sometimes you travel across the world to see something famous, and what you find instead is yourself, standing still at last, grateful for the view.</p>
+          </div>
         </div>
+      </details>
 
-        <p>Evening finds me at Opera Bar for sunset drinks with the bridge and sails right there, or at Darling Harbour if it's Saturday for the fireworks. Sydney rewards those who linger – every cobblestone in The Rocks, every ferry crossing, every view of Utzon's masterpiece tells me this is a harbour where ancient wisdom and modern dreams dance together under the same Southern Cross.</p>
-              </div>
-            </div>
-          </details>
-        </details>
+      <!-- CRUISE PORT SECTION -->
+      <details class="port-section" id="cruise_port" open>
+        <summary><h2>The Cruise Port</h2></summary>
 
-      <!-- Navigation -->
-      <section>
-        <h2>Getting Around</h2>
-        <p><strong>Ovation</strong> and <strong>Quantum</strong> dock at Circular Quay (step off and you're at the Opera House) or White Bay (15-minute shuttle or ferry). Everything is walkable or quick ferry.</p>
+        <figure class="logbook-image float-right">
+          <img src="img/sydney/sydney-1.webp" alt="Sydney harbour view from the cruise terminal at Circular Quay" loading="lazy">
+          <figcaption>Sydney harbour from the terminal — <a href="https://commons.wikimedia.org/w/index.php?search=Sydney+cruise+terminal&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
+
+        <p>Sydney operates two main cruise terminals. The Overseas Passenger Terminal (OPT) sits at Circular Quay West, directly between the Opera House and the Harbour Bridge — one of the most spectacular locations of any cruise terminal on earth. When your ship docks here, you step off the gangway and you are immediately in the heart of the city with both icons visible. The White Bay Cruise Terminal, roughly four kilometres west in the suburb of Rozelle, handles larger vessels that cannot fit under the Harbour Bridge. Free shuttle buses run regularly between White Bay and Circular Quay, and the ride takes about fifteen to twenty minutes depending on traffic. Both terminals offer accessible boarding ramps, and wheelchair users will find the Circular Quay precinct largely step-free with smooth pathways leading to the Opera House forecourt and ferry wharves. Currency is the Australian dollar, and prices in Sydney tend to run higher than many other cruise ports — budget accordingly.</p>
+      </details>
+
+      <!-- GETTING AROUND -->
+      <details class="port-section" id="getting_around" open>
+        <summary><h2>Getting Around</h2></summary>
+
+        <p><strong>Ovation</strong> and <strong>Quantum</strong> dock at Circular Quay (step off and you are at the Opera House) or White Bay (15-minute shuttle or ferry). Everything in the central harbour area is walkable or a quick ferry ride away.</p>
+
+        <p>Sydney's public transport network is excellent and well-suited to cruise visitors. The Opal card (available from convenience stores and ferry terminals for a few dollars) works across all buses, trains, ferries, and light rail. A single ferry trip costs around $6–$8 with the Opal card, and buses to Bondi Beach run roughly every ten minutes from Circular Quay for about $5 each way. Taxis and rideshare services like Uber are plentiful and reasonably priced — expect to pay $30–$40 from Circular Quay to Bondi Beach by car. For those with mobility concerns, the train stations at Circular Quay and Town Hall have elevator access, and most Sydney ferries have level boarding that accommodates wheelchairs and mobility scooters. The key to getting around Sydney efficiently is to use the ferries whenever possible — they are fast, affordable, scenic, and connect Circular Quay to Manly, Taronga Zoo, Darling Harbour, and Watson's Bay. Walking is the best option for the harbour precinct itself, with flat, accessible paths connecting the Opera House, Royal Botanic Gardens, and The Rocks in a pleasant thirty-minute loop.</p>
+
+        <p class="real-talk"><strong>Real Talk:</strong> Circular Quay terminal is the dream scenario — step off and the Opera House is literally in front of you. White Bay terminal is the reality for larger ships, and although free shuttles run to Circular Quay, the 15–20 minute ride adds up over the day. Plan accordingly and consider the ferry from White Bay as an alternative route with better views.</p>
+      </details>
+
+      <!-- PORT MAP -->
+      <section class="port-section" id="map">
+        <h2>Port Map</h2>
+        <p>Explore Sydney's cruise terminals, beaches, landmarks, and neighbourhoods. Click markers for details and directions.</p>
+        <div id="port-map" class="port-map-container" role="application" aria-label="Interactive map of Sydney port area"></div>
       </section>
 
-      <!-- Word of Warning -->
-      <section style="background:#fef9e7;border-left:5px solid #f4d03f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
-        <p style="margin:0;"><strong>Depth Soundings Ashore:</strong> The jaw-dropping views from every angle are Sydney's gift – let the sunshine and laid-back Aussie vibe turn every moment into a postcard you're living inside.</p>
-      </section>
+      <!-- EXCURSIONS -->
+      <details class="port-section" id="excursions" open>
+        <summary><h2>Top Excursions &amp; Attractions</h2></summary>
+
+        <figure class="logbook-image float-right">
+          <img src="img/sydney/sydney-bondi.webp" alt="Bondi Beach coastal walkway with ocean views and sandstone cliffs" loading="lazy">
+          <figcaption>Bondi Beach coastal walk — <a href="https://commons.wikimedia.org/w/index.php?search=Bondi+Beach+walk&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
+
+        <p>Sydney offers an exceptional range of excursions, and whether you choose a ship excursion or go independent, there is something for every energy level and budget. The ship excursion options typically include a city highlights tour ($100–$150), a combined Opera House and harbour cruise package ($120–$180), and a Blue Mountains day trip ($150–$200). The advantage of a ship excursion is the guaranteed return to the vessel — peace of mind that matters if this is a transit port rather than your embarkation city. However, Sydney is one of the easiest ports in the world to explore independently, and the savings can be substantial.</p>
+
+        <p><strong>Sydney Opera House Guided Tour ($43):</strong> Book ahead, as tours fill quickly on cruise ship days. The one-hour walking tour takes you inside the Concert Hall, the Joan Sutherland Theatre, and backstage areas. This is a low-walking, moderate activity excursion — accessible for most mobility levels with elevator access available. I consider this essential for any first-time visitor.</p>
+
+        <p><strong>BridgeClimb Sydney ($174–$388):</strong> The signature climb takes you to the summit of the Harbour Bridge arch, 134 metres above the harbour. Choose from the original climb (3.5 hours), the express climb (2.5 hours), or the twilight/night options. This is a high-energy, strenuous activity and is not suitable for passengers with significant mobility limitations. The views are extraordinary, but the cost is real — weigh it against your overall port day budget.</p>
+
+        <p><strong>Bondi to Bronte Coastal Walk (free):</strong> This two-kilometre cliffside path is moderate walking with some stairs and uneven surfaces. Take bus 333 from Circular Quay ($5 fare) to Bondi, walk the coast to Bronte, and catch a bus back. Allow two to three hours for a relaxed pace with photo stops. The sandstone cliffs and turquoise coves are genuinely breathtaking.</p>
+
+        <p><strong>Manly Ferry and Beach ($10 return):</strong> The thirty-minute ferry crossing from Circular Quay is an attraction in itself, passing under the Bridge and alongside the Opera House. At Manly, the beach, the Corso promenade, and the coastal walk to Shelly Beach are all free. This is my top recommendation for visitors wanting a beach day on a budget.</p>
+
+        <p><strong>Taronga Zoo ($52 adult entry):</strong> A twelve-minute ferry ride from Circular Quay lands you at the zoo wharf, where a cable car carries you to the top entrance. The zoo sits on a hillside with harbour views from every enclosure. Wheelchair accessible paths are available throughout, though some areas involve steep gradients. Allow three to four hours for a thorough visit.</p>
+
+        <p><strong>Royal Botanic Gardens (free):</strong> Adjacent to the Opera House, these gardens offer flat, accessible paths through thirty hectares of landscaped grounds with harbour views. A perfect low-walking option for passengers who prefer a gentle pace. The Mrs Macquarie's Chair lookout provides one of Sydney's finest vantage points.</p>
+
+        <p>For independent excursions, I recommend budgeting $50–$100 per person for transport and one or two paid attractions, with the Manly Ferry and coastal walk as the best value combination in the city. If you book ahead for the Opera House tour and plan your ferry connections, you can see an enormous amount of Sydney in a single port day without spending beyond your means.</p>
+      </details>
+
+      <!-- DEPTH SOUNDINGS -->
+      <details class="port-section" id="depth_soundings" open>
+        <summary><h2>Depth Soundings Ashore</h2></summary>
+
+        <figure class="logbook-image float-left">
+          <img src="img/sydney/sydney-rocks.webp" alt="The Rocks historic district with sandstone buildings and cobblestone lanes in Sydney" loading="lazy">
+          <figcaption>The Rocks historic district — <a href="https://commons.wikimedia.org/w/index.php?search=The+Rocks+Sydney&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+        </figure>
+
+        <p>The honest story of Sydney is that it delivers on its promise — and that is rare among famous cities. The Opera House really is as striking as the photographs suggest, the harbour really is that blue, and the laid-back atmosphere really does feel genuine rather than performed for tourists. However, Sydney is expensive. A simple lunch in the harbour area runs $20–$30, a coffee costs $5–$6, and premium attractions like the BridgeClimb can consume your entire port day budget in a single booking. The good news is that the best things in Sydney — the coastal walks, the ferry views, the Botanic Gardens, the harbourside paths — are completely free. Plan your spending carefully and you will find that Sydney rewards the budget-conscious visitor just as richly as the big spender. The weather can also turn quickly; I have seen sunny mornings become grey, blustery afternoons within an hour. Carry a light jacket even if the forecast looks clear. Despite these caveats, Sydney consistently earns its reputation as one of the finest cruise ports on the planet, and I have never met a traveller who regretted a day spent here.</p>
+      </details>
 
       <!-- FAQ -->
-      <section>
-        <h2>Frequently Asked Questions</h2>
-        <details><summary>Should I book the Opera House tour in advance?</summary><p>Yes, definitely book ahead – tours fill up quickly on cruise ship days. The guided tour is worth it to see backstage and learn the incredible construction story.</p></details>
-        <details><summary>Is the Harbour Bridge climb worth it?</summary><p>If you're not afraid of heights and have the budget ($150–300+), it's unforgettable. The views are spectacular and you get a great photo at the top.</p></details>
-        <details><summary>How do I get to Bondi Beach from the cruise terminal?</summary><p>From Circular Quay, take a bus (30–40 minutes) or taxi/Uber ($30–40). The Bondi to Bronte coastal walk is free and absolutely stunning.</p></details>
+      <details class="port-section" id="faq" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <details><summary><h4>Should I book the Opera House tour in advance?</h4></summary><p>Yes, definitely book ahead — tours fill up quickly on cruise ship days. The guided tour costs $43 per adult and is worth it to see backstage areas and learn the incredible construction story. You can book directly on the Opera House website.</p></details>
+        <details><summary><h4>Is the Harbour Bridge climb worth the cost?</h4></summary><p>If you are not afraid of heights and have the budget ($174–$388 depending on the climb type), it is unforgettable. The views are spectacular and you get a professional photo at the summit. However, if the price feels steep, the Pylon Lookout ($19) offers excellent bridge-level views for a fraction of the cost.</p></details>
+        <details><summary><h4>How do I get to Bondi Beach from the cruise terminal?</h4></summary><p>From Circular Quay, take bus 333 (30–40 minutes, about $5 fare with an Opal card) or a taxi/Uber ($30–$40). The Bondi to Bronte coastal walk is free and absolutely stunning. Go early to avoid the afternoon crowds on the return bus.</p></details>
+        <details><summary><h4>What is the best way to see Sydney Harbour?</h4></summary><p>The Manly Ferry from Circular Quay offers stunning harbour views and is an experience in itself. The 30-minute crossing passes under the Bridge and by the Opera House for just $10 return with an Opal card — far better value than most harbour dinner cruises.</p></details>
+        <details><summary><h4>Is Sydney accessible for passengers with mobility challenges?</h4></summary><p>The Circular Quay terminal is wheelchair accessible with ramps and elevators. Most ferries have accessible boarding, and the Opera House forecourt is flat and navigable. The Bondi to Bronte walk, however, has stairs and uneven surfaces that present a walking difficulty for some visitors. The Royal Botanic Gardens offer a flat, accessible alternative for those who need it.</p></details>
+        <details><summary><h4>What should I budget for a day in Sydney?</h4></summary><p>A budget-conscious day using public transport, free attractions, and a casual lunch can be done for $50–$80 per person. Adding the Opera House tour brings it to $90–$120. The BridgeClimb pushes a full day to $250+ per person. Sydney is not cheap, but the free harbour walks and ferry views are among the best experiences in the city.</p></details>
+      </details>
 
-    
     <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
+    <details class="port-section photo-gallery" id="gallery" open>
+      <summary><h2>Photo Gallery</h2></summary>
       <div class="gallery-grid">
         <figure class="gallery-item">
-          <img src="img/sydney/sydney-1.webp" alt="Harbor view of Sydney, Australia" loading="lazy">
+          <img src="img/sydney/sydney-2.webp" alt="Waterfront scenery of Sydney harbour with sailboats and city skyline" loading="lazy">
           <figcaption>
-            Harbor view of Sydney, Australia
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
+            Harbour waterfront scenery
+            <div class="photo-credit"><a href="https://commons.wikimedia.org/w/index.php?search=Sydney+harbour&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</div>
           </figcaption>
         </figure>
         <figure class="gallery-item">
-          <img src="img/sydney/sydney-2.webp" alt="Waterfront scenery of Sydney, Australia" loading="lazy">
+          <img src="img/sydney/sydney-3.webp" alt="Panoramic view of Sydney harbour showing bridge and opera house together" loading="lazy">
           <figcaption>
-            Waterfront scenery of Sydney, Australia
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
+            Sydney harbour panorama
+            <div class="photo-credit"><a href="https://commons.wikimedia.org/w/index.php?search=Sydney+panorama&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</div>
           </figcaption>
         </figure>
         <figure class="gallery-item">
-          <img src="img/sydney/sydney-3.webp" alt="Port panorama of Sydney, Australia" loading="lazy">
+          <img src="img/sydney/sydney-4.webp" alt="Coastal landscape of Sydney with golden sand beach and turquoise water" loading="lazy">
           <figcaption>
-            Port panorama of Sydney, Australia
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
+            Coastal landscape of Sydney
+            <div class="photo-credit"><a href="https://commons.wikimedia.org/w/index.php?search=Sydney+coast&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</div>
           </figcaption>
         </figure>
         <figure class="gallery-item">
-          <img src="img/sydney/sydney-4.webp" alt="Coastal landscape of Sydney, Australia" loading="lazy">
+          <img src="img/sydney/sydney-ferry.webp" alt="Sydney harbour ferry crossing with city skyline and bridge in background" loading="lazy">
           <figcaption>
-            Coastal landscape of Sydney, Australia
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
+            Harbour ferry crossing
+            <div class="photo-credit"><a href="https://commons.wikimedia.org/w/index.php?search=Sydney+ferry&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/sydney/sydney-skyline.webp" alt="Sydney city skyline viewed from across the harbour at golden hour" loading="lazy">
+          <figcaption>
+            Sydney skyline at golden hour
+            <div class="photo-credit"><a href="https://commons.wikimedia.org/w/index.php?search=Sydney+skyline&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/sydney/sydney-botanical.webp" alt="Royal Botanic Gardens Sydney with harbour views and lush greenery" loading="lazy">
+          <figcaption>
+            Royal Botanic Gardens
+            <div class="photo-credit"><a href="https://commons.wikimedia.org/w/index.php?search=Sydney+botanic+gardens&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</div>
           </figcaption>
         </figure>
       </div>
-    </section>
+    </details>
 
     <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
+    <details class="port-section image-credits" id="credits" open>
+      <summary><h2>Image Credits</h2></summary>
       <ul>
-        <li><strong>sydney-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>sydney-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>sydney-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>sydney-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
+        <li><strong>sydney-hero.webp</strong>: <a href="https://commons.wikimedia.org/w/index.php?search=Sydney+harbour&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</li>
+        <li><strong>sydney-opera-house.webp</strong>: <a href="https://commons.wikimedia.org/w/index.php?search=Sydney+Opera+House&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</li>
+        <li><strong>sydney-harbour-bridge.webp</strong>: <a href="https://commons.wikimedia.org/w/index.php?search=Sydney+Harbour+Bridge&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</li>
+        <li><strong>sydney-1.webp</strong>: <a href="https://commons.wikimedia.org/w/index.php?search=Sydney+cruise+terminal&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</li>
+        <li><strong>sydney-bondi.webp</strong>: <a href="https://commons.wikimedia.org/w/index.php?search=Bondi+Beach&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</li>
+        <li><strong>sydney-rocks.webp</strong>: <a href="https://commons.wikimedia.org/w/index.php?search=The+Rocks+Sydney&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</li>
+        <li><strong>sydney-2.webp</strong>: <a href="https://commons.wikimedia.org/w/index.php?search=Sydney+harbour&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</li>
+        <li><strong>sydney-3.webp</strong>: <a href="https://commons.wikimedia.org/w/index.php?search=Sydney+panorama&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</li>
+        <li><strong>sydney-4.webp</strong>: <a href="https://commons.wikimedia.org/w/index.php?search=Sydney+coast&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</li>
+        <li><strong>sydney-ferry.webp</strong>: <a href="https://commons.wikimedia.org/w/index.php?search=Sydney+ferry&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</li>
+        <li><strong>sydney-skyline.webp</strong>: <a href="https://commons.wikimedia.org/w/index.php?search=Sydney+skyline&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</li>
+        <li><strong>sydney-botanical.webp</strong>: <a href="https://commons.wikimedia.org/w/index.php?search=Sydney+botanic+gardens&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</li>
       </ul>
       <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-
-    <!-- Interactive Port Map -->
-    <section class="port-section">
-      <h2>Port Map</h2>
-      <p>Explore Sydney's cruise terminals, beaches, landmarks, and neighborhoods. Click markers for details and directions.</p>
-      <div id="port-map" class="port-map-container" role="application" aria-label="Interactive map of Sydney port area"></div>
-    </section>
-
-  
-        <!-- VOLATILE DATA DISCLAIMER -->
-        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-26 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-        </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Sydney?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
-
-          <p><strong>Q: Does Sydney have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-
-          <p><strong>Q: What should I pack for Sydney's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
-
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
-
-
-
+    </details>
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Sydney, Australia">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Sydney, Australia">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -511,7 +588,7 @@ All work on this project is offered as a gift to God.
       <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
     </li>
     <li class="pier-distance-item">
-      <div><span class="pier-dest">The Rocks Historic District</span><div class="pier-detail">Walk from terminal — cobblestone lanes, weekend markets, colonial pubs</div></div>
+      <div><span class="pier-dest">The Rocks Historic District</span><div class="pier-detail">Walk from terminal — cobblestone lanes, colonial pubs</div></div>
       <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
     </li>
@@ -527,7 +604,7 @@ All work on this project is offered as a gift to God.
     </li>
   </ul>
   <p class="pier-note">Ships dock at Circular Quay (Overseas Passenger Terminal) or White Bay. Circular Quay puts you right between the Opera House and the Harbour Bridge — one of the world's great cruise arrivals. White Bay is farther out; free shuttle buses run to the city.</p>
-</div>
+</nav>
 
       </article>
     <!-- Nearby Ports Rail -->
@@ -610,16 +687,16 @@ All work on this project is offered as a gift to God.
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
       </section>
-    
-  
+
+
   </div><!-- end main column wrapper -->
 
-    
-  
+
+
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
     <!-- Author's Note -->
     <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
-      <h3>Author's Note</h3>
+      <h4>Author's Note</h4>
       <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
         Until I have sailed this port myself, these notes are soundings in another's wake; carefully curated and edited to meet our standards. We believe they are helpful for planning, and marked for revision once I've logged my own steps ashore.
       </p>
@@ -628,14 +705,14 @@ All work on this project is offered as a gift to God.
 
       <!-- Author's Note -->
       <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
-        <h3>Author's Note</h3>
+        <h4>Author's Note</h4>
         <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
           I've sailed this port myself, walked these shores, and these notes come from my own wake. The details reflect what I found on the ground, though ports change—always verify current conditions for your voyage.
         </p>
       </aside>
 
     <section class="card author-card-vertical" aria-labelledby="author-heading">
-      <h3 id="author-heading">About the Author</h3>
+      <h4 id="author-heading">About the Author</h4>
       <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
         <picture>
           <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
@@ -655,7 +732,7 @@ All work on this project is offered as a gift to God.
 
   </aside>
 
-  
+
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Visit</h2>
@@ -667,6 +744,13 @@ All work on this project is offered as a gift to God.
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
+
+        <!-- VOLATILE DATA DISCLAIMER -->
+        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+          <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-26 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+        </aside>
+
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
     <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>

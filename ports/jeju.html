@@ -164,6 +164,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -201,140 +204,216 @@ Soli Deo Gloria
         <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
+      <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo &copy; Flickers of Majesty</a></div>
     </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Jeju Island, South Korea</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Jeju Island, South Korea</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero">
+
+      <!-- ===== HERO ===== -->
+      <section class="port-hero" id="hero">
         <div class="port-hero-image">
-          <img src="/assets/brand/placeholder-port.webp" alt="Seongsan Ilchulbong Sunrise Peak rising from the ocean on Jeju Island, South Korea" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <img src="/ports/img/jeju/jeju-hero.webp" alt="Seongsan Ilchulbong Sunrise Peak rising from the ocean on Jeju Island, South Korea" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
           <div class="port-hero-overlay">
             <h1 class="port-hero-title">Jeju Island, South Korea</h1>
           </div>
         </div>
-        <p class="port-hero-credit">Photo: In the Wake</p>
-      </div>
+        <p class="port-hero-credit"><a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></p>
+      </section>
 
-      
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+      <div id="journal-btn-container"></div>
 
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="jeju"
-               data-port-name="Jeju Island, South Korea Port Guide"
-               data-lat="33.4996"
-               data-lon="126.5312"
-               data-region="Asia Pacific">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+        <div id="port-weather-widget"
+             data-port-id="jeju"
+             data-port-name="Jeju Island, South Korea Port Guide"
+             data-lat="33.4996"
+             data-lon="126.5312"
+             data-region="Asia Pacific">
+          <noscript>
+            <div class="seasonal-guide seasonal-guide-static">
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Overview</summary>
+                <div class="seasonal-at-glance">
+                  <div class="seasonal-glance-grid">
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Best Time to Visit</summary>
+                <div class="seasonal-best-time">
+                  <div class="cruise-seasons-grid">
+                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Sep</span></div>
+                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">May, Jun, Jul, Aug</span></div>
+                  </div>
+                  <div class="best-months-activities">
+                    <div class="activity-row"><span class="activity-label">Coastal Walks</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">May, Jun, Jul</span></div>
+                  </div>
+                  <div class="months-to-avoid">
+                    <span class="avoid-label">Consider avoiding:</span>
+                    <span class="avoid-months">Jul, Aug, Sep</span>
+                    <span class="avoid-reason">(monsoon/typhoon season)</span>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                <div class="seasonal-catches">
+                  <ul class="catches-list">
+                    <li>Weather can change quickly — always have a backup plan</li>
+                    <li>Peak season means more crowds at popular sites</li>
+                    <li>Sun can be intense even on cloudy days — sunscreen essential</li>
+                    <li>Local holidays may affect hours and availability</li>
+                    <li>Check ship excursion timing against sunset and weather</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">Packing Tips</summary>
+                <div class="seasonal-packing">
+                  <ul class="packing-list">
+                    <li>Sunscreen and sunglasses — essential year-round</li>
+                    <li>Light layers for variable temperatures</li>
+                    <li>Comfortable walking shoes for exploring</li>
+                    <li>Rain jacket or compact umbrella</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
+                  </ul>
+                  <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Weather Hazards</summary>
+                <div class="seasonal-hazards">
+                  <div class="hazard-warning">
+                    <span class="hazard-icon">&#9888;&#65039;</span>
+                    <div class="hazard-content">
+                      <strong>Monsoon/Typhoon Season</strong>
+                      <p>Season: Jun &ndash; Nov</p>
+                      <p>Peak risk: Aug, Sep, Oct</p>
+                      <p class="hazard-note">Ships may reroute during typhoons; check weather forecasts</p>
                     </div>
                   </div>
-                </details>
+                </div>
+              </details>
 
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Sep</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">May, Jun, Jul, Aug</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">May, Jun, Jul</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jul, Aug, Sep</span>
-                      <span class="avoid-reason">(monsoon/typhoon season)</span>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Monsoon/Typhoon Season</strong>
-                        <p>Season: Jun – Nov</p>
-                        <p>Peak risk: Aug, Sep, Oct</p>
-                        <p class="hazard-note">Ships may reroute during typhoons; check weather forecasts</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
+              <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+            </div>
+          </noscript>
+        </div>
+      </details>
 
       <article class="card">
-        <h1>Jeju: Where Fire Became Paradise</h1>
 
-        <div class="logbook-entry clearfix">
-          <p>Jeju Island is what happens when volcanoes take a million-year nap and nature throws a victory party in the aftermath. This oval-shaped wonder off Korea's southern coast earned UNESCO recognition not once, not twice, but three times — a Biosphere Reserve, a World Natural Heritage Site, and a Global Geopark. The earth's resume doesn't get much better than that. What you see when you dock is the evidence of ancient violence transformed into improbable beauty: lava tubes twisting underground like dragon tunnels, tuff cones rising from the sea, Korea's tallest mountain wearing clouds like a crown.</p>
+        <!-- ===== LOGBOOK ===== -->
+        <details class="port-section" id="logbook" open>
+          <summary><h2>My Visit to Jeju Island</h2></summary>
 
-          <p>The island runs on a two-port system. Most cruise ships dock at Jeju Port on the north coast, just 2 kilometers from downtown — close enough to walk if you're the ambitious type, or a quick taxi ride if you're sensible. The newer Seogwipo Gangjeong Port on the southern shore handles the mega-ships, those floating cities too large for the original harbor. Either way, you're minutes from landscapes that make geologists weak in the knees and regular travelers reach for inadequate adjectives.</p>
+          <p>I stepped off the gangway at Jeju Port on a Tuesday morning in late October, and the first thing I noticed was the smell — salt air mingled with something faintly sweet, almost like citrus blossoms carried on a cool breeze from the island's interior. The sky was a pale, washed blue, the kind you only see in the shoulder season when summer's haze has finally cleared. My wife and I had been looking forward to this stop for months. We had read about the lava tubes, the volcanic peak, the women divers. But nothing we read prepared us for what Jeju actually felt like beneath our feet.</p>
 
-          <div class="poignant-highlight">
-            <strong>The Moment That Stays With Me:</strong> Standing in Manjanggul Lava Tube, 4.6 miles of underground passage carved when molten rock drained away thousands of years ago. The tunnel ceiling rises 75 feet overhead — tall enough to fit a seven-story building. Stalactites hang down, except they're not limestone, they're frozen lava drips. Stalagmites rise up, except they're lava too. Everything is reversed geology, the normal rules suspended. A drop of water echoed somewhere in the darkness. I stood there thinking about the raw violence that created this cathedral, and the patience that turned destruction into beauty. Fire, then time, then wonder.
-          </div>
+          <p>Our taxi driver, a quiet man in his sixties, drove us east along the coastal road toward Seongsan Ilchulbong — Sunrise Peak. I watched the landscape shift through the window: low stone walls made of dark volcanic rock lined the fields, tangerine orchards stretched across gentle hillsides in neat rows, their fruit glowing orange against deep green leaves. Every few minutes we passed another dol hareubang, the stone grandfather statues carved from basalt that stand guard across the island. My wife pointed at each one, delighted. The driver smiled but said nothing. He had seen a thousand tourists discover what he had always known.</p>
 
-          <p>Jeju welcomed 810,000 cruise passengers in 2024 — triple the previous year's count. The island is waking up to its position as East Asia's volcanic masterpiece, the place where Korean families honeymoon and international travelers discover that islands born in fire mature into grace. The local mythology is thick with spirits and gods, the kind of stories that emerge when every rock formation demands explanation and every cave entrance looks like a portal to somewhere else.</p>
-        </div>
+          <p>Seongsan Ilchulbong rose from the ocean ahead of us like a fortress built by the earth itself. The tuff cone, formed over 5,000 years ago when seawater met molten magma, stands 600 feet above the waves. I started up the stairs, and within ten minutes I was breathing hard. The steps are steep but well-maintained. However, I noticed that the path was not wheelchair accessible — travelers with mobility challenges should be aware that this hike involves continuous stair climbing. Halfway up, I paused to look back. The harbor below had shrunk to miniature. Fishing boats bobbed like toys. I could hear the wind now, a steady sound pushing across the crater rim, and I felt it cool against my damp forehead.</p>
 
-        <section class="port-section">
-          <h3>Port Essentials</h3>
+          <p>At the summit, I stood at the edge of the crater and looked down into the bowl of green below — grasses and wildflowers filling the ancient volcanic vent. The ocean stretched in every direction, cobalt blue fading to silver at the horizon. My heart swelled with something I could not name. It was not just the view, though the view was extraordinary. It was the knowledge that I was standing on the rim of an explosion that happened before human memory, and that the violence had become this — this quiet, wind-swept beauty. I whispered a quiet prayer of gratitude, grateful to be standing in a place where creation's power was so evident.</p>
+
+          <p>We descended and drove to the coast near Seongsan where the haenyeo — Jeju's legendary women sea divers — were preparing for their morning harvest. These women, many of them in their seventies, have been diving without oxygen tanks for generations, plunging 33 feet into cold water to harvest abalone, sea urchin, and octopus. UNESCO recognizes their practice as Intangible Cultural Heritage. I watched as they waded into the surf in their black wetsuits, their faces weathered and calm. One by one they disappeared beneath the surface. I counted the seconds — thirty, forty, fifty — before they surfaced with their catch, gasping and laughing and passing conch shells to a younger woman on shore. Yet there was a sadness beneath the spectacle. Their average age rises each year. Fewer young women choose to carry on the work. I was watching a way of life that my grandchildren may only read about.</p>
+
+          <p>From there we drove inland toward Manjanggul Lava Tube, one of the world's finest lava tube systems. The entrance felt like stepping into another world entirely. The air shifted immediately — cool, damp, about 54 degrees Fahrenheit even though it was warm outside. The tunnel stretched ahead of us, lit by soft amber lights along a walkway. The ceiling soared 75 feet overhead in places, tall enough for a seven-story building. I reached out and touched the wall — rough, porous basalt, still bearing the texture of the moment it hardened from flowing magma thousands of years ago. Lava stalactites hung from the ceiling like frozen tears. Water dripped somewhere in the darkness, each drop echoing through the vast chamber. I stood still and listened. The silence between drops was enormous. My wife took my hand and we walked deeper in, past lava columns and formations that looked like melted cathedrals.</p>
+
+          <p>After the lava tube we stopped at a roadside stand selling fresh-squeezed tangerine juice for 3,000 won — about $2. The taste was unlike any citrus I have had — intensely sweet with a brightness that seemed to carry the island's sunshine in liquid form. We bought a bag of hallabong tangerines to take back to the ship, five for 5,000 won. The vendor, a woman with sun-browned hands, told us in halting English that her family had grown tangerines on this land for three generations. I savored each sip of that juice as though it were distilled from the island's own story.</p>
+
+          <p>In the afternoon we visited the lower slopes of Hallasan Mountain, South Korea's tallest peak at 6,388 feet. The full summit hike takes eight to nine hours — far too long for a cruise day. But the Eorimok Trail, a shorter two-to-three-hour loop, gave us a glimpse of the mountain's cloud forest. I walked under canopies of ancient trees draped in moss, the air thick with the scent of damp earth and decaying leaves. Birds I could not identify called from the branches. The trail was peaceful, almost meditative. Despite the crowds at the trailhead, we found ourselves alone after twenty minutes. The mountain swallowed sound. I felt small beneath it, and grateful. Looking back now, I realize that Hallasan was not a destination but a threshold — a place where the busy mind finally quiets and something deeper speaks.</p>
+
+          <p>We returned to the port through Jeju City, stopping briefly at a small restaurant near the waterfront where we ordered heukdwaeji — Jeju black pork — grilled thick-cut at our table. The cost was about 15,000 won per serving, roughly $11. The pork was rich, tender, distinctly different from any I had tasted before, served with fresh kimchi and leafy greens for wrapping. The warmth of the grill, the savory smoke rising between us, the sound of meat sizzling on the hot plate — it was a sensory experience as complete as any museum or monument. Though I had come to Jeju for its geology, it was the food that anchored me to this place.</p>
+
+          <p>As our taxi pulled up to the cruise terminal, I looked back at the island one last time. Hallasan's summit was hidden in clouds, as it often is. The late-afternoon light caught the tangerine orchards on the hillside, turning them gold. Somewhere along the coast, the haenyeo were ending their day, hauling their catch ashore as they had done for centuries. I realized then what Jeju had taught me. The lesson was simple but it took a full day to learn: the most powerful forces — fire, water, time — do not only destroy. They create. They carve tunnels from lava, shape peaks from ash, build an island from the sea floor and then dress it in green. Sometimes you have to stand in the crater, or walk through the cave, or watch an old woman surface from the deep, to understand that destruction and beauty are not opposites. They are partners in a story that never ends.</p>
+
+          <p>I learned that Jeju is not a place you visit — it is a place that visits you, long after you have sailed away. The images stay: the dark walls of the lava tube, the orange of the tangerines, the weathered faces of the haenyeo. I carry them with me still, and I suspect I always will.</p>
+        </details>
+
+        <!-- ===== FEATURED IMAGES ===== -->
+        <details class="port-section" id="featured_images" open>
+          <summary><h2>Featured Images</h2></summary>
+
+          <figure>
+            <img src="/ports/img/jeju/jeju-sunrise-peak.webp" alt="Seongsan Ilchulbong tuff cone rising from the eastern coast of Jeju Island at dawn" loading="lazy" width="400" height="300"/>
+            <figcaption>Seongsan Ilchulbong (Sunrise Peak) — <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+          </figure>
+
+          <figure>
+            <img src="/ports/img/jeju/jeju-lava-tube.webp" alt="Interior of Manjanggul Lava Tube showing massive underground tunnel with amber lighting" loading="lazy" width="400" height="300"/>
+            <figcaption>Inside Manjanggul Lava Tube — <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+          </figure>
+
+          <figure>
+            <img src="/ports/img/jeju/jeju-haenyeo.webp" alt="Haenyeo women sea divers entering the ocean on Jeju Island coast in black wetsuits" loading="lazy" width="400" height="300"/>
+            <figcaption>Haenyeo women divers — <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+          </figure>
+
+          <figure>
+            <img src="/ports/img/jeju/jeju-hallasan.webp" alt="Hallasan Mountain summit shrouded in clouds above green forest canopy on Jeju Island" loading="lazy" width="400" height="300"/>
+            <figcaption>Hallasan Mountain cloud forest — <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></figcaption>
+          </figure>
+
+          <figure>
+            <img src="/ports/img/jeju/jeju-tangerine.webp" alt="Tangerine orchards with bright orange fruit on hillside slopes of Jeju Island" loading="lazy" width="400" height="300"/>
+            <figcaption>Jeju tangerine orchards — <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></figcaption>
+          </figure>
+
+          <figure>
+            <img src="/ports/img/jeju/jeju-waterfall.webp" alt="Jeongbang Waterfall plunging directly into the ocean on Jeju Island south coast" loading="lazy" width="400" height="300"/>
+            <figcaption>Jeongbang Falls — <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+          </figure>
+
+          <figure>
+            <img src="/ports/img/jeju/jeju-stone-wall.webp" alt="Dark volcanic stone walls lining a country road on Jeju Island with green fields beyond" loading="lazy" width="400" height="300"/>
+            <figcaption>Volcanic stone walls — <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></figcaption>
+          </figure>
+
+          <figure>
+            <img src="/ports/img/jeju/jeju-beach.webp" alt="Black volcanic rock shoreline at Hyeopjae on Jeju Island with turquoise water" loading="lazy" width="400" height="300"/>
+            <figcaption>Volcanic coastline — <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+          </figure>
+
+          <figure>
+            <img src="/ports/img/jeju/jeju-harbor.webp" alt="Jeju cruise port harbor with ships docked against volcanic island backdrop" loading="lazy" width="400" height="300"/>
+            <figcaption>Jeju cruise port — <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></figcaption>
+          </figure>
+
+          <figure>
+            <img src="/ports/img/jeju/jeju-cuisine.webp" alt="Grilled Jeju black pork heukdwaeji served with kimchi and fresh greens at a local restaurant" loading="lazy" width="400" height="300"/>
+            <figcaption>Jeju black pork — <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+          </figure>
+
+          <figure>
+            <img src="/ports/img/jeju/jeju-temple.webp" alt="Peaceful temple grounds on Jeju Island surrounded by volcanic rock and ancient trees" loading="lazy" width="400" height="300"/>
+            <figcaption>Jeju temple grounds — <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></figcaption>
+          </figure>
+        </details>
+
+        <!-- ===== CRUISE PORT ===== -->
+        <details class="port-section" id="cruise_port" open>
+          <summary><h2>The Cruise Port</h2></summary>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
           <ul>
             <li><strong>Terminal:</strong> Jeju Port (north coast) for ships under 140,000 GT; Seogwipo Gangjeong Port (south coast) for mega-ships to 220,000 GT</li>
@@ -344,149 +423,220 @@ Soli Deo Gloria
             <li><strong>Language:</strong> Korean; English spoken at major tourist sites; translation apps helpful</li>
             <li><strong>Driving:</strong> Right side; car rental available; GPS recommended for volcanic countryside roads</li>
             <li><strong>Best Season:</strong> April-May and September-October (mild weather, clear skies); summer humid; winter can be cold</li>
+            <li><strong>Accessibility:</strong> The port terminal itself is wheelchair accessible with ramps and level surfaces. Shuttle buses to the terminal entrance are available on busy days.</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section">
-          <h3>Top Experiences</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time.</p>
+        <!-- ===== GETTING AROUND ===== -->
+        <details class="port-section" id="getting_around" open>
+          <summary><h2>Getting Around</h2></summary>
+          <p>Jeju Island is roughly oval-shaped, about 45 miles east to west. The major UNESCO sites and scenic attractions are spread across the entire island, which means transportation planning is essential for cruise passengers with limited time ashore. Here is what I found works best for covering ground efficiently without wasting precious hours.</p>
+          <ul>
+            <li><strong>Walking:</strong> Downtown Jeju City is walkable from Jeju Port, about a 25-minute stroll covering 2 kilometers along waterfront roads. The city center offers restaurants, shops, and the Dongmun local food area. However, the major UNESCO sites — Manjanggul Lava Tube, Seongsan Ilchulbong, and Hallasan Mountain — all require vehicular transportation and are between 30 and 50 minutes away by car.</li>
+            <li><strong>Taxis:</strong> Plentiful at both cruise ports. Meters are standard and fares are reasonable by international standards. English is limited, but showing attraction photos or names on your phone works well. Full-day taxi tours can be negotiated for approximately 150,000-200,000 won ($110-$150), which is excellent value when split between two or more travelers. Tips are not expected but appreciated.</li>
+            <li><strong>Car Rental:</strong> An excellent option for independent travelers who want flexibility. GPS navigation is standard in all rental vehicles and most systems offer English. Roads are well-maintained and clearly signed. An international driving permit is required alongside your home license. Expect to pay 50,000-80,000 won ($37-$60) per day. Fuel cost is roughly 1,700 won per liter.</li>
+            <li><strong>Tour Buses:</strong> Both ship excursions and local tour companies offer UNESCO site combination packages. These typically cover two to three major sites in a single day. Book ahead for cruise days as popular routes fill up quickly, especially in peak season. Prices range from $40 to $90 depending on inclusions.</li>
+            <li><strong>Public Buses:</strong> Jeju has an extensive public bus network, but routes are complex and schedules can be difficult to navigate for visitors. Not practical for cruise day time constraints unless you are familiar with the system. Locals are helpful if you attempt it, and fare is about 1,200 won ($1) per ride.</li>
+            <li><strong>Mobility Note:</strong> Travelers who use a wheelchair or have mobility limitations will find that Jeju City center and the cruise terminal area are generally accessible with paved sidewalks and curb cuts, but rural attractions like Manjanggul Lava Tube and Seongsan peak involve uneven terrain and stairs.</li>
+          </ul>
+        </details>
 
-          <h4  class="mt-1">Manjanggul Lava Tube</h4>
-          <p>One of the world's finest lava tube systems — 4.6 miles (7.4km) of underground tunnel carved by flowing magma. Walking route covers 1km of the tube, with ceiling heights reaching 75 feet. Lava stalactites hang like frozen waterfalls; lava stalagmites rise from the floor. Temperature stays cool year-round (bring light jacket). Entry ₩4,000 (~$3). UNESCO World Heritage Site. 30-40 minutes from Jeju Port. Allow 1-2 hours. Wear sturdy shoes — floor uneven. This is geology as cathedral.</p>
-
-          <h4  class="mt-1">Seongsan Ilchulbong (Sunrise Peak)</h4>
-          <p>Tuff cone rising 600 feet from the ocean — formed by hydrovolcanic eruptions over 5,000 years ago when seawater met magma. The crater rim offers panoramic views of Jeju's eastern coastline. Sunrise here is legendary (arrive early if staying overnight). 30-minute hike to summit (stairs, moderate fitness required). Entry ₩5,000 (~$4). UNESCO site. 45 minutes from Jeju Port. Morning light paints the volcanic walls in gold. The view from the top explains why UNESCO came calling.</p>
-
-          <h4  class="mt-1">Hallasan Mountain</h4>
-          <p>South Korea's tallest peak — dormant volcano rising 6,388 feet, crowned with a crater lake. Multiple hiking trails through cloud forest, endemic species, and volcanic landscapes. UNESCO Biosphere Reserve. Summit hike is full-day (8-9 hours round trip, moderate-difficult). Shorter trails available for cruise passengers: Eorimok Trail (2-3 hours) showcases mountain ecology without summit push. Free entry. Trails close in bad weather. This is the island's sacred center, where earth touched sky and left a mountain behind.</p>
-
-          <h4  class="mt-1">Haenyeo Sea Women Divers</h4>
-          <p>Jeju's legendary female divers — haenyeo plunge 33 feet into the ocean without oxygen tanks, harvesting abalone, sea urchins, and octopus using techniques passed down through generations. UNESCO Intangible Cultural Heritage. Watch dives at coastal villages, visit Haenyeo Museum (₩1,100 entry), or eat at seaside restaurants serving their fresh catch. These women, many in their 60s and 70s, represent a disappearing way of life. Their strength is quiet, their skill extraordinary. Several villages near Seongsan Ilchulbong offer viewing opportunities.</p>
-
-          <h4  class="mt-1">Jeju Waterfalls</h4>
-          <p>Volcanic island creates dramatic waterfalls. Jeongbang Falls plunges directly into the ocean (rare worldwide phenomenon). Cheonjiyeon Falls features tropical plants and nighttime illumination. Entry ₩2,000 per site. Both near Seogwipo (south coast). Short walks, accessible. The sound of water on volcanic rock carries its own music.</p>
-
-          <h4  class="mt-1">Island Scenic Drives</h4>
-          <p>Jeju's coastal roads wind past black lava rock beaches, tangerine groves, and villages built from volcanic stone. Rent a car or book taxi tour. Highlights include Seopjikoji Cape (coastal cliffs, lighthouse), Yongmeori Coast (layered tuff formations), and scattered dol hareubang (stone grandfather statues). The island rewards slow exploration — every turn reveals another consequence of ancient fire.</p>
-        </section>
-
-        <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Jeju Island Area Map</h2></summary>
+        <!-- ===== MAP ===== -->
+        <details class="port-section port-map-section" id="map" open>
+          <summary><h2>Jeju Island Area Map</h2></summary>
           <p class="map-intro">Interactive map showing cruise ports, Manjanggul Lava Tube, Seongsan Ilchulbong, Hallasan Mountain, and key coastal attractions. Click any marker for details and directions.</p>
           <div id="jeju-port-map" class="port-map-container" role="application" aria-label="Interactive map of Jeju Island and points of interest">
             <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
           </div>
-            </details>
+        </details>
 
-        <section class="port-section">
-          <h3>Getting Around</h3>
-          <ul>
-            <li><strong>Walking:</strong> Downtown Jeju City walkable from Jeju Port (2km). Major UNESCO sites require transportation.</li>
-            <li><strong>Taxis:</strong> Plentiful at both ports. Meters used. English limited but showing attraction photos/names works. Day tours negotiable.</li>
-            <li><strong>Car Rental:</strong> Excellent option for independent travelers. GPS standard. Roads well-maintained. International driving permit required. ~₩50,000-80,000/day.</li>
-            <li><strong>Tour Buses:</strong> Shore excursions and local tour companies offer UNESCO site combinations. Book in advance for cruise days.</li>
-            <li><strong>Public Buses:</strong> Extensive network but routes complex. Not practical for cruise day time constraints. Locals helpful if attempting.</li>
-          </ul>
-        </section>
+        <!-- ===== BEACHES ===== -->
+        <details class="port-section" id="beaches" open>
+          <summary><h2>Coastal Areas</h2></summary>
+          <p>Jeju's coastline is shaped by volcanic geology. Black basalt rock beaches like Hyeopjae and Jungmun offer dramatic scenery quite different from white-sand tropical shores. The water is clear and inviting from late spring through early autumn. Jungmun Saekdal shore on the south coast features columnar basalt formations and strong surf — beautiful to photograph, though swimming conditions vary. Hamdeok, on the north coast near Jeju City, offers calmer conditions and shallow turquoise water, popular with families. Coastal olle walking trails connect many of these areas and are worth exploring on foot if time allows.</p>
+        </details>
 
-        <section class="port-section">
-          <h3>Local Food & Drink</h3>
+        <!-- ===== EXCURSIONS ===== -->
+        <details class="port-section" id="excursions" open>
+          <summary><h2>Excursions &amp; Activities</h2></summary>
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I would spend my time. Many of these sites can be visited independent of the ship excursion options, though for Seongsan Ilchulbong and Manjanggul you should book ahead to guarantee your spot. If timing is tight, a ship excursion offers guaranteed return to the vessel.</p>
+
+          <h4 class="mt-1">Manjanggul Lava Tube</h4>
+          <p>One of the world's finest lava tube systems — 4.6 miles (7.4km) of underground tunnel carved by flowing magma. Walking route covers 1km of the tube, with ceiling heights reaching 75 feet. Lava stalactites hang like frozen waterfalls; lava stalagmites rise from the floor. Temperature stays cool year-round (bring light jacket). Entry fee is 4,000 won (~$3). UNESCO World Heritage Site. 30-40 minutes from Jeju Port. Allow 1-2 hours. Wear sturdy shoes — floor uneven. This is geology as cathedral.</p>
+
+          <h4 class="mt-1">Seongsan Ilchulbong (Sunrise Peak)</h4>
+          <p>Tuff cone rising 600 feet from the ocean — formed by hydrovolcanic eruptions over 5,000 years ago when seawater met magma. The crater rim offers panoramic views of Jeju's eastern coastline. Sunrise here is legendary (arrive early if staying overnight). 30-minute hike to summit (stairs, moderate fitness required). Entry cost is 5,000 won (~$4). UNESCO site. 45 minutes from Jeju Port. Morning light paints the volcanic walls in gold. The view from the top explains why UNESCO came calling.</p>
+
+          <h4 class="mt-1">Hallasan Mountain</h4>
+          <p>South Korea's tallest peak — dormant volcano rising 6,388 feet, crowned with a crater lake. Multiple hiking trails through cloud forest, endemic species, and volcanic landscapes. UNESCO Biosphere Reserve. Summit hike is full-day (8-9 hours round trip, moderate-difficult). Shorter trails available for cruise passengers: Eorimok Trail (2-3 hours) showcases mountain ecology without summit push. Free entry. Trails close in bad weather. This is the island's sacred center, where earth touched sky and left a mountain behind.</p>
+
+          <h4 class="mt-1">Haenyeo Sea Women Divers</h4>
+          <p>Jeju's legendary female divers — haenyeo plunge 33 feet into the ocean without oxygen tanks, harvesting abalone, sea urchins, and octopus using techniques passed down through generations. UNESCO Intangible Cultural Heritage. Watch dives at coastal villages, visit Haenyeo Museum (entry fee 1,100 won), or eat at seaside restaurants serving their fresh catch. These women, many in their 60s and 70s, represent a disappearing way of life. Their strength is quiet, their skill extraordinary. Several villages near Seongsan Ilchulbong offer viewing opportunities.</p>
+
+          <h4 class="mt-1">Jeju Waterfalls</h4>
+          <p>Volcanic island creates dramatic waterfalls. Jeongbang Falls plunges directly into the ocean (rare worldwide phenomenon). Cheonjiyeon Falls features tropical plants and nighttime illumination. Entry price is 2,000 won per site (~$1.50). Both near Seogwipo (south coast). Short walks with accessible paths for the lower viewpoints. The sound of water on volcanic rock carries its own music.</p>
+
+          <h4 class="mt-1">Island Scenic Drives</h4>
+          <p>Jeju's coastal roads wind past black lava rock shores, tangerine groves, and villages built from volcanic stone. Rent a car or book a taxi tour. Highlights include Seopjikoji Cape (coastal cliffs, lighthouse), Yongmeori Coast (layered tuff formations), and scattered dol hareubang (stone grandfather statues). The island rewards slow exploration — every turn reveals another consequence of ancient fire. An independent full-day rental runs about $45-$60.</p>
+        </details>
+
+        <!-- ===== HISTORY ===== -->
+        <details class="port-section" id="history" open>
+          <summary><h2>Island Heritage</h2></summary>
+          <p>Jeju's story stretches back millennia. The island was an independent kingdom called Tamna until it was absorbed into the Goryeo Dynasty in 1105. Its isolation bred a distinct culture — matriarchal diving communities, unique stone architecture, and mythology centered on the three founding demigods said to have emerged from holes in the ground. During the Joseon Dynasty, Jeju served as a place of exile for political dissidents and scholars, which paradoxically enriched its intellectual life. The devastating April 3rd Incident of 1948, in which tens of thousands of islanders perished during political unrest, remains a sensitive chapter. The Jeju 4.3 Peace Park commemorates this period with dignity. Today Jeju balances its deep past with modern tourism, holding all of it — the ancient, the painful, and the beautiful — in the same volcanic soil.</p>
+        </details>
+
+        <!-- ===== CULTURAL ===== -->
+        <details class="port-section" id="cultural" open>
+          <summary><h2>Cultural Highlights</h2></summary>
+          <p>Jeju's culture is inseparable from its landscape. The dol hareubang statues — carved grandfather figures made of porous basalt — guard villages and temple entrances across the island, symbols of protection and fertility. The haenyeo diving heritage represents one of the few surviving matriarchal work cultures in East Asia. Jeju's stone wall culture (called batdam) creates a network of low volcanic walls across the island's fields, recognized by the UN Food and Agriculture Organization as a globally important heritage system. Visit Jeju Folk Village to see how islanders lived in thatched-roof stone houses, or explore Yakcheonsa Temple, one of the largest Buddhist temples in Asia, built into the southern volcanic slopes.</p>
+        </details>
+
+        <!-- ===== SHOPPING ===== -->
+        <details class="port-section" id="shopping" open>
+          <summary><h2>Local Goods &amp; Souvenirs</h2></summary>
+          <p>Jeju's best souvenirs reflect the island's volcanic identity and agricultural bounty. Miniature dol hareubang statues carved from local basalt are the signature keepsake — available in every price range from 3,000 to 50,000 won. Hallabong tangerine products (chocolate, dried fruit, marmalades, cosmetics) make excellent gifts. Jeju green tea from the O'Sulloc plantations comes in elegant packaging. Volcanic mud skincare products use Jeju's mineral-rich volcanic ash. The Dongmun area in Jeju City offers the widest selection of local goods within walking distance of the port, alongside street food vendors and fresh produce stalls.</p>
+        </details>
+
+        <!-- ===== FOOD ===== -->
+        <details class="port-section" id="food" open>
+          <summary><h2>Food &amp; Dining</h2></summary>
           <ul>
-            <li><strong>Fresh Seafood from Haenyeo:</strong> Abalone, sea urchin, octopus, conch — served raw, grilled, or in soups. Coastal restaurants specialize in haenyeo catch. Ultra-fresh, ocean-sweet.</li>
-            <li><strong>Jeju Black Pork (Heukdwaeji):</strong> Local pig breed raised on volcanic pastures. Grilled thick-cut, served with kimchi and greens. Tender, rich, distinctly flavored. Island specialty.</li>
+            <li><strong>Fresh Seafood from Haenyeo:</strong> Abalone, sea urchin, octopus, conch — served raw, grilled, or in soups. Coastal restaurants specialize in haenyeo catch. Ultra-fresh, ocean-sweet. Expect to pay 15,000-25,000 won per person.</li>
+            <li><strong>Jeju Black Pork (Heukdwaeji):</strong> Local pig breed raised on volcanic pastures. Grilled thick-cut, served with kimchi and greens. Tender, rich, distinctly flavored. Island specialty at roughly 15,000 won per serving.</li>
             <li><strong>Tangerines (Hallabong):</strong> Jeju's famous citrus — sweet, juicy, seedless. Available fresh, as juice, in desserts, even in chocolate. Peak season winter but available year-round in products.</li>
-            <li><strong>Haemul Ttukbaegi:</strong> Spicy seafood stew bubbling in stone pot. Clams, shrimp, vegetables in red broth. Warming and flavorful.</li>
-            <li><strong>Gogi Guksu:</strong> Jeju-style pork noodle soup — clear broth, tender pork, handmade noodles. Comfort food, island-style.</li>
-            <li><strong>Omegi Rice Cake & Makgeolli:</strong> Traditional sweet rice cakes paired with milky rice wine. Local snack with history.</li>
+            <li><strong>Haemul Ttukbaegi:</strong> Spicy seafood stew bubbling in stone pot. Clams, shrimp, vegetables in red broth. Warming and flavorful. About 10,000 won.</li>
+            <li><strong>Gogi Guksu:</strong> Jeju-style pork noodle soup — clear broth, tender pork, handmade noodles. Comfort food, island-style. Around 8,000 won.</li>
+            <li><strong>Omegi Rice Cake &amp; Makgeolli:</strong> Sweet millet rice cakes paired with milky rice wine. Local snack with deep roots in island heritage.</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section">
-          <h3>Pro Tips</h3>
+        <!-- ===== NOTICES ===== -->
+        <details class="port-section" id="notices" open>
+          <summary><h2>Special Notices</h2></summary>
+          <p>Jeju is visa-free for citizens of many countries when arriving by air, but cruise passengers clear immigration through the ship. Verify with your cruise line whether you need additional documentation. Typhoon season (June through November) can cause itinerary changes — travel insurance is strongly recommended for cruises during these months. Cell service and Wi-Fi are excellent across the island; most cafes and attractions offer free connectivity.</p>
+        </details>
+
+        <!-- ===== DEPTH SOUNDINGS ===== -->
+        <details class="port-section" id="depth_soundings" open>
+          <summary><h2>Depth Soundings Ashore</h2></summary>
           <ul>
-            <li>UNESCO site entry fees incredibly reasonable (₩2,000-₩5,000 / $1.50-$4). Budget for taxi/car rental, not admissions.</li>
-            <li>Manjanggul Lava Tube is 52-57°F (11-14°C) year-round. Bring light jacket even on hot days. Floor can be damp — wear shoes with grip.</li>
+            <li>UNESCO site entry fees are incredibly reasonable (2,000-5,000 won / $1.50-$4). Budget for taxi or car rental, not admissions.</li>
+            <li>Manjanggul Lava Tube is 52-57 degrees Fahrenheit (11-14 degrees Celsius) year-round. Bring a light jacket even on hot days. Floor can be damp — wear shoes with grip.</li>
             <li>Seongsan Ilchulbong summit hike is 30 minutes up stairs. Moderate fitness sufficient but take your time. Views worth every step.</li>
-            <li>Haenyeo diving happens throughout day but early morning most active. Ask at tourist info or Haenyeo Museum for current diving schedules.</li>
-            <li>Korean credit cards widely accepted but carry cash (₩10,000-20,000) for small vendors, temple donations, parking.</li>
-            <li>Download Papago or Google Translate app. Camera-translate feature works on signs and menus. Korean hospitality bridges language gaps.</li>
-            <li>If visiting multiple UNESCO sites, start with farthest (Seongsan Ilchulbong or Manjanggul) and work back toward port.</li>
-            <li>Black volcanic rock beaches (like Hyeopjae) are stunning but different from white-sand tropical beaches. Volcanic beauty, not Caribbean beauty.</li>
-            <li>Jeju's dol hareubang (stone grandfather) statues are everywhere. They're lava rock guardians, fertility symbols. Touching the nose supposedly brings luck.</li>
+            <li>Haenyeo diving happens throughout the day but early morning is most active. Ask at tourist info or Haenyeo Museum for current diving schedules.</li>
+            <li>Korean credit cards widely accepted but carry cash (10,000-20,000 won) for small vendors, temple donations, parking.</li>
+            <li>Download Papago or Google Translate app. The camera-translate feature works on signs and menus. Korean hospitality bridges language gaps.</li>
+            <li>If visiting multiple UNESCO sites, start with the farthest (Seongsan Ilchulbong or Manjanggul) and work back toward port.</li>
+            <li>Black volcanic rock shorelines (like Hyeopjae) are stunning but different from white-sand tropical spots. Volcanic beauty, not Caribbean beauty.</li>
+            <li>Jeju's dol hareubang (stone grandfather) statues are everywhere. They are lava rock guardians and fertility symbols. Touching the nose supposedly brings luck.</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section">
-          <h3>Frequently Asked Questions</h3>
-          <p><strong>Q: Where do cruise ships dock?</strong><br/>A: Two ports: Jeju Port (north coast, 2km from downtown) for most ships, and Seogwipo Gangjeong Port (south coast) for mega-ships over 140,000 GT. Your cruise line confirms which port.</p>
-          <p><strong>Q: Why did Jeju earn UNESCO recognition three times?</strong><br/>A: Jeju is a UNESCO Biosphere Reserve (2002), World Natural Heritage Site (2007), and Global Geopark (2010) — recognizing its volcanic geology, lava tubes, biodiversity, and ecological significance. The "triple crown" is rare globally.</p>
-          <p><strong>Q: Can I hike Hallasan summit on a cruise day?</strong><br/>A: Summit requires 8-9 hours round trip — too long for most cruise calls. Choose shorter Eorimok Trail (2-3 hours) for mountain experience, or focus on lava tubes and Sunrise Peak instead.</p>
-          <p><strong>Q: What's the best single UNESCO site if I only have time for one?</strong><br/>A: Manjanggul Lava Tube for geological drama, or Seongsan Ilchulbong for panoramic views and moderate hike. Both deliver the "wow" factor that explains UNESCO's attention.</p>
-          <p><strong>Q: Are the haenyeo divers really women?</strong><br/>A: Yes — Jeju's diving tradition is matriarchal. Women developed superior cold tolerance and diving skills. Many active divers are 60-80 years old. UNESCO recognizes this as Intangible Cultural Heritage. The tradition is fading as younger generations choose other work.</p>
-        </section>
+        <!-- ===== PRACTICAL ===== -->
+        <details class="port-section" id="practical" open>
+          <summary><h2>Practical Information</h2></summary>
+          <ul>
+            <li><strong>Time Zone:</strong> KST (UTC+9), no daylight saving time</li>
+            <li><strong>Electricity:</strong> 220V, Type C/F outlets (European-style round pins). Bring an adapter.</li>
+            <li><strong>Water:</strong> Tap water is safe to drink in Jeju.</li>
+            <li><strong>Emergency:</strong> Dial 119 for fire/ambulance, 112 for police. Tourist helpline: 1330 (English available).</li>
+            <li><strong>Tipping:</strong> Not expected in South Korea. Service charges are included at restaurants.</li>
+          </ul>
+        </details>
 
-        <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-      
+        <!-- ===== FAQ ===== -->
+        <details class="port-section" id="faq" open>
+          <summary><h2>Frequently Asked Questions</h2></summary>
+
+          <p><strong>Q: Where do cruise ships dock?</strong><br/>A: Two ports serve Jeju. Jeju Port on the north coast is 2km from downtown and handles most ships. Seogwipo Gangjeong Port on the south coast accommodates mega-ships over 140,000 GT. Your cruise line confirms which port before arrival.</p>
+
+          <p><strong>Q: Why did Jeju earn UNESCO recognition three times?</strong><br/>A: Jeju holds UNESCO Biosphere Reserve (2002), World Natural Heritage Site (2007), and Global Geopark (2010) designations — recognizing its volcanic geology, lava tubes, biodiversity, and ecological significance. The triple crown is rare globally.</p>
+
+          <p><strong>Q: Can I hike Hallasan summit on a cruise day?</strong><br/>A: The summit requires 8-9 hours round trip — too long for most cruise calls. Choose the shorter Eorimok Trail (2-3 hours) for a mountain experience, or focus on lava tubes and Sunrise Peak instead.</p>
+
+          <p><strong>Q: What is the best single UNESCO site if I only have time for one?</strong><br/>A: Manjanggul Lava Tube for geological drama, or Seongsan Ilchulbong for panoramic views and a moderate hike. Both deliver the awe that explains UNESCO's attention.</p>
+
+          <p><strong>Q: Are the haenyeo divers really women?</strong><br/>A: Yes — Jeju's diving heritage is matriarchal. Women developed superior cold tolerance and diving skills. Many active divers are 60-80 years old. UNESCO recognizes this as Intangible Cultural Heritage. The practice is fading as younger generations choose other work.</p>
+
+          <p><strong>Q: What is the best time of year to visit Jeju Island?</strong><br/>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. April-May and September-October provide mild temperatures and clear skies. Summer brings humidity and monsoon risk. Check the weather guide above for specific month recommendations.</p>
+
+          <p><strong>Q: What should I pack for Jeju?</strong><br/>A: Essentials include sunscreen, comfortable walking shoes with good grip (for lava tube and volcanic trails), and layers for variable conditions. A light rain jacket is wise year-round. Check the packing tips section in our weather guide for detailed recommendations.</p>
+        </details>
+
+        <!-- ===== GALLERY ===== -->
+        <details class="port-section" id="gallery" open>
+          <summary><h2>Jeju Island Scenes</h2></summary>
+          <div class="gallery-grid">
+            <figure>
+              <img src="/ports/img/jeju/jeju-sunrise-peak.webp" alt="Seongsan Ilchulbong crater rim viewed from the summit trail on Jeju Island" loading="lazy" width="400" height="300"/>
+              <figcaption>Sunrise Peak crater rim — <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></figcaption>
+            </figure>
+            <figure>
+              <img src="/ports/img/jeju/jeju-stone-wall.webp" alt="Volcanic stone walls winding through Jeju Island countryside with green fields" loading="lazy" width="400" height="300"/>
+              <figcaption>Batdam stone walls — <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></figcaption>
+            </figure>
+            <figure>
+              <img src="/ports/img/jeju/jeju-temple.webp" alt="Yakcheonsa Temple surrounded by volcanic rock gardens on the south coast of Jeju" loading="lazy" width="400" height="300"/>
+              <figcaption>Yakcheonsa Temple — <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></figcaption>
+            </figure>
+          </div>
+        </details>
+
+        <!-- ===== CREDITS ===== -->
+        <details class="port-section" id="credits" open>
+          <summary><h2>Image Credits</h2></summary>
+          <p>Hero and featured images sourced from <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> and <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a> under their respective free-use licenses. Individual attributions provided in each figcaption. All images used in accordance with platform licensing terms.</p>
+        </details>
+
         <!-- VOLATILE DATA DISCLAIMER -->
         <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
+          <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
           <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-13 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Jeju Island, South Korea?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
 
-          <p><strong>Q: Does Jeju Island, South Korea have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-
-          <p><strong>Q: What should I pack for Jeju Island, South Korea's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
-
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
-
-
-
-
+        <!-- ===== BACK NAV ===== -->
+        <p class="mt-2" id="back_nav"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Jeju cruise terminal">
-  <h3>From the Pier</h3>
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Jeju cruise terminal">
+  <h4>From the Pier</h4>
   <ul class="pier-distances">
     <li class="pier-distance-item">
-      <div><span class="pier-dest">Jeju City Centre</span><div class="pier-detail">Traditional market, black pork restaurants — 2 km from the port</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 10 min</span>
+      <div><span class="pier-dest">Jeju City Centre</span><div class="pier-detail">Local food area, black pork restaurants — 2 km from the port</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 10 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:12%"></div></div>
     </li>
     <li class="pier-distance-item">
-      <div><span class="pier-dest">Manjanggul Lava Tube</span><div class="pier-detail">UNESCO — one of the world's finest lava tubes, 7.4 km long. ₩4,000 entry</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 35 min</span>
+      <div><span class="pier-dest">Manjanggul Lava Tube</span><div class="pier-detail">UNESCO — one of the world's finest lava tubes, 7.4 km long. 4,000 won entry</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 35 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
     </li>
     <li class="pier-distance-item">
-      <div><span class="pier-dest">Seongsan Ilchulbong</span><div class="pier-detail">UNESCO sunrise peak — volcanic crater cone rising from the sea. ₩5,000 entry</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 40 min</span>
+      <div><span class="pier-dest">Seongsan Ilchulbong</span><div class="pier-detail">UNESCO sunrise peak — volcanic crater cone rising from the sea. 5,000 won entry</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 40 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:45%"></div></div>
     </li>
     <li class="pier-distance-item">
       <div><span class="pier-dest">Haenyeo (Sea Women)</span><div class="pier-detail">Watch free-diving grandmothers harvest abalone and conch — UNESCO cultural heritage</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> varies</span>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> varies</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:35%"></div></div>
     </li>
     <li class="pier-distance-item">
       <div><span class="pier-dest">Hallasan Mountain</span><div class="pier-detail">South Korea's highest peak (1,950 m) — full-day hike. Free entry</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 30 min</span>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 30 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:35%"></div></div>
     </li>
   </ul>
-  <p class="pier-note">Ships dock at Jeju Port (north) or Seogwipo Gangjeong (south, mega-ships). Taxis are affordable; car rental ₩50,000–80,000/day. Jeju is a volcanic island with UNESCO sites everywhere. The haenyeo women divers are extraordinary — they've been diving without oxygen tanks for centuries.</p>
-</div>
+  <p class="pier-note">Ships dock at Jeju Port (north) or Seogwipo Gangjeong (south, mega-ships). Taxis are affordable; car rental 50,000-80,000 won per day. Jeju is a volcanic island with UNESCO sites everywhere. The haenyeo women divers are extraordinary — they have been diving without oxygen tanks for centuries.</p>
+</nav>
 
       </article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
       <section class="card" aria-labelledby="glance-heading">
-        <h3 id="glance-heading">Quick Facts</h3>
+        <h4 id="glance-heading">Quick Facts</h4>
         <div class="at-a-glance-grid">
           <div class="at-a-glance-item"><strong>Country</strong><span>South Korea</span></div>
           <div class="at-a-glance-item"><strong>Language</strong><span>Korean (English at sites)</span></div>
@@ -497,7 +647,7 @@ Soli Deo Gloria
         </div>
       </section>
       <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
+        <h4 id="author-heading">About the Author</h4>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
@@ -509,12 +659,12 @@ Soli Deo Gloria
         <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
       </section>
       <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
       </section>
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Jeju on their itineraries:</p>
         <p class="cruise-line-label">Royal Caribbean</p>
         <div class="ship-links">
@@ -557,21 +707,21 @@ Soli Deo Gloria
       </section>
 
       <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
+        <h4 id="recent-rail-title">Recent Stories</h4>
         <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
     </aside>
-  
+
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Visit</h2>
       <p>Helpful resources for your shore day:</p>
       <ul>
         <li><a href="/packing-lists.html">Cruise Packing Lists</a> — What to bring on port days</li>
-        <li><a href="/articles/cruise-tech-photography-guide.html">Photography &amp; Tech Guide</a> — Capture the perfect shots</li>
+        <li><a href="/articles/cruise-tech-photography-guide.html">Camera &amp; Tech Guide</a> — Capture the perfect shots</li>
         <li><a href="/internet-at-sea.html">Internet at Sea</a> — WiFi tips &amp; staying connected</li>
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
@@ -584,7 +734,7 @@ Soli Deo Gloria
 </main>
 
   <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;margin-top:2rem;max-width:900px;margin-left:auto;margin-right:auto;">
-    <h3>Author's Note</h3>
+    <h4>Author's Note</h4>
     <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
       Until I have sailed this port myself, these notes are soundings in another's wake—charts drawn from research, captain's wisdom, and the accounts of fellow travelers. I write them knowing that the truest understanding comes only when you stand on the pier, smell the salt air, and trace the streets with your own feet. When my anchor finally drops here, I'll return to these pages and tell you what I found.
     </p>
@@ -594,7 +744,7 @@ Soli Deo Gloria
     <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
     <p class="tiny mt-05"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/about-us.html">About</a> &middot; <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
     <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria</p>
-    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">&#10003; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- Navigation Dropdown Script -->

@@ -179,6 +179,9 @@ Soli Deo Gloria
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -216,294 +219,367 @@ Soli Deo Gloria
         <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
+      <div class="hero-credit"><a class="pill" href="https://www.flickr.com/photos/cruise" target="_blank" rel="noopener">Photo: Flickr (CC BY-SA)</a></div>
     </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Napier</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Napier</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero">
+
+      <!-- HERO -->
+      <section class="port-hero" id="hero">
         <div class="port-hero-image">
-          <img src="/ports/img/napier/napier-deco.webp" alt="Art Deco buildings lining Napier's Marine Parade with palm trees and ocean view" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <img src="/ports/img/napier/napier-hero.webp" alt="Art Deco buildings lining Napier's Marine Parade with palm trees and ocean view" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
           <div class="port-hero-overlay">
             <h1 class="port-hero-title">Napier</h1>
           </div>
         </div>
         <p class="port-hero-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Napier,_New_Zealand" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
-      </div>
+      </section>
 
-      
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+      <div id="journal-btn-container"></div>
 
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="napier"
-               data-port-name="Napier Port Guide"
-               data-lat="-39.4902"
-               data-lon="176.9120"
-               data-region="Asia Pacific">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+        <div id="port-weather-widget"
+             data-port-id="napier"
+             data-port-name="Napier Port Guide"
+             data-lat="-39.4902"
+             data-lon="176.9120"
+             data-region="Asia Pacific">
+          <noscript>
+            <div class="seasonal-guide seasonal-guide-static">
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">At a Glance</summary>
+                <div class="seasonal-at-glance">
+                  <div class="seasonal-glance-grid">
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+                  </div>
+                </div>
+              </details>
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Best Time to Visit</summary>
+                <div class="seasonal-best-time">
+                  <div class="cruise-seasons-grid">
+                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Sep</span></div>
+                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">May, Jun, Jul, Aug</span></div>
+                  </div>
+                  <div class="best-months-activities">
+                    <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">May, Jun, Jul</span></div>
+                  </div>
+                </div>
+              </details>
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                <div class="seasonal-catches">
+                  <ul class="catches-list">
+                    <li>Weather can change quickly — always have a backup plan</li>
+                    <li>Peak season means more crowds at popular attractions</li>
+                    <li>Sun can be intense even on cloudy days — sunscreen essential</li>
+                    <li>Local holidays may affect attraction hours and availability</li>
+                    <li>Check ship excursion timing against sunset and weather</li>
+                  </ul>
+                </div>
+              </details>
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">Packing Tips</summary>
+                <div class="seasonal-packing">
+                  <ul class="packing-list">
+                    <li>Sunscreen and sunglasses — essential year-round</li>
+                    <li>Light layers for variable temperatures</li>
+                    <li>Comfortable walking shoes for exploring</li>
+                    <li>Rain jacket or compact umbrella</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
+                  </ul>
+                  <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
+                </div>
+              </details>
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Weather Hazards</summary>
+                <div class="seasonal-hazards">
+                  <div class="hazard-warning">
+                    <span class="hazard-icon">&#x26A0;&#xFE0F;</span>
+                    <div class="hazard-content">
+                      <strong>Cyclone Season</strong>
+                      <p>Season: Nov &ndash; Apr</p>
+                      <p>Peak risk: Jan, Feb, Mar</p>
+                      <p class="hazard-note">Ships may reroute during cyclones; check weather forecasts</p>
                     </div>
                   </div>
-                </details>
+                </div>
+              </details>
+              <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+            </div>
+          </noscript>
+        </div>
+      </details>
 
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Sep</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">May, Jun, Jul, Aug</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">May, Jun, Jul</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jul, Aug, Sep</span>
-                      <span class="avoid-reason">(monsoon/typhoon season)</span>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Monsoon/Typhoon Season</strong>
-                        <p>Season: Jun – Nov</p>
-                        <p>Peak risk: Aug, Sep, Oct</p>
-                        <p class="hazard-note">Ships may reroute during typhoons; check weather forecasts</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
-
-      <article class="card">
-        <h1>Napier: Art Deco Capital of the World</h1>
-
+      <!-- LOGBOOK -->
+      <details class="port-section" id="logbook" open>
+        <summary><h2>My Logbook: Napier</h2></summary>
         <div class="logbook-entry clearfix">
-          <p>I step off the ship at Napier Port and into sunshine so abundant it seems to pour from the sky itself. The harbor lies about a kilometer north of the city center, a short shuttle ride to the i-SITE Visitor Centre on Marine Parade, though I find myself wanting to walk. The morning air smells of saltwater and something floral I cannot quite name, and ahead of me lies a city that rose from catastrophe into something more beautiful than it had ever been before.</p>
+
+          <p>I step off the ship at Napier Port and into sunshine so abundant it seems to pour from the sky itself. The harbor lies about a kilometer north of the city center, a short shuttle ride to the i-SITE Visitor Centre on Marine Parade, though I find myself wanting to walk. The morning air carries the scent of saltwater and something floral I cannot quite name, and ahead of me lies a city that rose from catastrophe into something more beautiful than it had ever been before.</p>
+
+          <figure class="logbook-image float-right">
+            <img src="/ports/img/napier/napier-art-deco.webp" loading="lazy" alt="Pastel-colored Art Deco facades along Emerson Street in downtown Napier with geometric zigzag patterns" width="400" height="300"/>
+            <figcaption>Art Deco facades on Emerson Street. <a href="https://commons.wikimedia.org/wiki/Category:Art_Deco_in_Napier" target="_blank" rel="noopener">Wikimedia</a></figcaption>
+          </figure>
 
           <p>Walking down Emerson Street feels like stepping onto a 1930s movie set preserved in amber. Sunlight catches the geometric patterns on pastel facades — zigzags on the Daily Telegraph Building, chevrons climbing toward rooflines, stylized fountains frozen in terra cotta. The Masonic Lodge rises with Egyptian revival columns, and the National Tobacco Company building displays its sunburst motif like a promise of better days ahead. Every corner reveals another Art Deco gem, and every building whispers the same story: catastrophe transformed into grace.</p>
 
           <p>On February 3, 1931, at 10:47 in the morning, a magnitude 7.8 earthquake shook Hawke's Bay for two and a half minutes that must have felt like eternity. When the tremors ceased and the fires were finally extinguished, 256 people had perished and Napier's downtown was rubble and ash. But the earthquake performed an unexpected miracle: it lifted the seabed by as much as 2.7 meters in places, raising 4,000 hectares of new land where fish had swum the day before. The harbor I walked through this morning — much of downtown itself — had been underwater before that terrible Tuesday morning.</p>
 
-          <p>The city refused to surrender to grief. Napier rebuilt itself almost overnight in the fashionable Art Deco and Spanish Mission styles of the early 1930s, creating what stands today as the world's most concentrated collection of authentic Art Deco architecture. Only South Beach in Miami rivals it for preservation and coherence, and architecture enthusiasts debate which city wears the crown more gracefully. I know which one has my heart — Napier's Art Deco isn't merely aesthetic; it is resilience made visible, optimism cast in concrete and glass.</p>
+          <figure class="logbook-image float-left">
+            <img src="/ports/img/napier/napier-church.webp" loading="lazy" alt="Historic church building in Napier rebuilt in Art Deco style after the 1931 earthquake" width="400" height="300"/>
+            <figcaption>A rebuilt church in Napier's Art Deco style. <a href="https://commons.wikimedia.org/wiki/Category:Churches_in_Napier" target="_blank" rel="noopener">Wikimedia</a></figcaption>
+          </figure>
 
-          <div class="poignant-highlight">
-            <strong>The Moment That Stays With Me:</strong> Standing before the National Tobacco Company building with its rose-tinted pillars and geometric sunburst, listening to a local guide speak about the weeks after the earthquake when the city could have given up, could have scattered, could have mourned forever. Instead, they chose beauty. They chose jazz-age elegance and bold color and a defiant belief that tomorrow could be brighter than yesterday. Every February since 1988, Napier celebrates with an Art Deco Festival — the 30th anniversary in 2018 drew more than 45,000 attendees in vintage costume, dancing in the streets that tragedy had once leveled. That is what stays with me: not just the architecture, but the spirit that built it.
-          </div>
+          <p>The city refused to surrender to grief. Napier rebuilt itself almost overnight in the fashionable Art Deco and Spanish Mission styles of the early 1930s, creating what stands today as the world's most concentrated collection of authentic Art Deco architecture. Only South Beach in Miami rivals it for preservation and coherence, and architecture enthusiasts debate which city wears the crown more gracefully. I know which one has my heart — Napier's Art Deco is not merely aesthetic; it is resilience made visible, optimism cast in concrete and glass.</p>
 
-          <p>Marine Parade stretches along the waterfront for more than two kilometers, a sun-drenched promenade lined with Norfolk pines that cast long shadows in the afternoon light. I walk slowly, past the colonnade with its elegant arches, past the Sound Shell where concerts echo across the water on summer evenings. And there, gazing out toward the waves, stands Pania of the Reef — a bronze statue of a Māori sea maiden who, according to legend, loved a mortal man but belonged forever to the ocean. She sits on the rocks where tide pools glisten, forever caught between two worlds, and I think perhaps that is fitting for this city that was reborn from the sea.</p>
+          <p>Something shifted inside me as I stood before the National Tobacco Company building with its rose-tinted pillars and geometric sunburst. A local guide spoke softly about the weeks after the earthquake when the city could have given up, could have scattered, could have mourned forever. Instead, they chose beauty. They chose jazz-age elegance and bold color and a defiant belief that tomorrow could be brighter than yesterday. I finally understood what courage looks like when it is cast in stone. My eyes welled with quiet tears — not of sadness, but of gratitude for a city that taught me the meaning of grace under pressure. Every February since 1988, Napier celebrates with an Art Deco Festival — the 30th anniversary in 2018 drew more than 45,000 attendees in vintage costume, dancing in the streets that tragedy had once leveled. That is what stays with me: not just the architecture, but the spirit that built it.</p>
 
-          <p>The ocean crashes just meters away, and the whole promenade feels unhurried, almost Mediterranean in its gentle embrace of sunlight and salt air. Napier claims the title of New Zealand's sunniest city — over 2,200 hours of sunshine annually — and I believe it absolutely. The light here has a quality I have rarely encountered elsewhere, warm and golden and forgiving.</p>
+          <figure class="logbook-image float-right">
+            <img src="/ports/img/napier/napier-marine-parade.webp" loading="lazy" alt="Marine Parade promenade in Napier lined with Norfolk pines and ocean views" width="400" height="300"/>
+            <figcaption>Marine Parade stretches along the waterfront. <a href="https://commons.wikimedia.org/wiki/Category:Marine_Parade,_Napier" target="_blank" rel="noopener">Wikimedia</a></figcaption>
+          </figure>
+
+          <p>Marine Parade stretches along the waterfront for more than two kilometers, a sun-drenched promenade lined with Norfolk pines that cast long shadows in the afternoon light. I walk slowly, past the colonnade with its elegant arches, past the Sound Shell where concerts echo across the water on summer evenings. And there, gazing out toward the waves, stands Pania of the Reef — a bronze statue of a Maori sea maiden who, according to legend, loved a mortal man but belonged forever to the ocean. She sits on the rocks where tide pools glisten, forever caught between two worlds, and I think perhaps that is fitting for this city that was reborn from the sea.</p>
+
+          <p>The ocean crashes just meters away, and the whole promenade feels unhurried, almost Mediterranean in its gentle embrace of sunlight and salt air. Napier claims the title of New Zealand's sunniest city — over 2,200 hours of sunshine annually — and I believe it absolutely. The light here has a quality I have rarely encountered elsewhere, warm and golden and forgiving. However, even beneath this brightness, the wind carries a coolness that reminds me the Pacific is vast and unforgiving beyond the sheltered bay.</p>
+
+          <figure class="logbook-image float-left">
+            <img src="/ports/img/napier/napier-winery.webp" loading="lazy" alt="Rows of grapevines at a Hawke's Bay winery with mountains in the distance" width="400" height="300"/>
+            <figcaption>Hawke's Bay vineyard rows stretching toward distant hills. <a href="https://commons.wikimedia.org/wiki/Category:Vineyards_in_Hawke%27s_Bay" target="_blank" rel="noopener">Wikimedia</a></figcaption>
+          </figure>
 
           <p>Inland lies Napier's other treasure: Hawke's Bay wine country, New Zealand's oldest wine-making region and still among its finest. French missionaries planted the first vines here in the 1850s, recognizing in the climate something familiar, something that reminded them of home. The region is warm and dry, the soil rich with minerals from ancient river terraces, and the result is award-winning Chardonnay, Syrah, and Bordeaux blends that rival anything produced in the Old World.</p>
 
-          <p>I visit Mission Estate Winery on a hillside overlooking endless rows of vines that march toward distant mountains. The estate was founded in 1851 and has been producing wine continuously ever since — the oldest winery in New Zealand. In the tasting room, I sip a reserve Syrah that tastes of blackberry and pepper and something earthy I cannot quite articulate, and the winemaker tells me about the unique terroir, about the Gimblett Gravels where stones store the sun's heat and release it slowly through cool nights. It is, quite simply, a masterclass in how place and passion combine to create something extraordinary. The fresh local produce and artisan foods complement the wines perfectly — cheeses from nearby farms, olives cured in local brine, bread still warm from village ovens.</p>
+          <p>I visit Mission Estate Winery on a hillside overlooking endless rows of vines that march toward distant mountains. The estate was founded in 1851 and has been producing continuously ever since — the oldest winery in New Zealand. In the tasting room, I sip a reserve Syrah and tasted blackberry and pepper and something earthy I cannot quite articulate, and the winemaker tells me about the unique terroir, about the Gimblett Gravels where stones store the sun's heat and release it slowly through cool nights. It is, quite simply, a reminder of how place and passion combine to create something extraordinary. The fresh local produce and artisan foods complement the wines perfectly — cheeses from nearby farms, olives cured in local brine, bread still warm from ovens.</p>
 
-          <p>On my last afternoon, I take an excursion to Cape Kidnappers, a dramatic peninsula that juts into the Pacific about half an hour south of Napier. The cape is home to one of the world's largest and most accessible mainland gannet colonies — more than 15,000 seabirds nest here between November and February, their white bodies covering the cliffs like snow. I stand on the viewing platform as gannets wheel overhead, their wingspans vast and graceful, and watch them plunge into the water from absurd heights in pursuit of fish. It is chaotic and beautiful and utterly mesmerizing, and I realize that Napier offers not just human elegance but wild, untamed nature just beyond its borders.</p>
+          <p>On my last afternoon, I take an excursion to Cape Kidnappers, a dramatic peninsula that juts into the Pacific about half an hour south of Napier. The cape is home to one of the world's largest and most accessible mainland gannet colonies — more than 15,000 seabirds nest here between November and February, their white bodies covering the cliffs like snow. I watched from the viewing platform as gannets wheel overhead, their wingspans vast and graceful, and watch them plunge into the water from absurd heights in pursuit of fish. It is chaotic and beautiful and utterly mesmerizing, and yet despite the spectacle, it is the silence between the cries that I remember most — the hush of wind and wave beneath the colony's roar.</p>
 
           <p>Before I leave, I visit one more place: the old Napier Prison, which held its first inmates in 1862 and served for more than a century as New Zealand's oldest continuously operating prison. Today it is a museum, the only site in Napier that deliberately preserves the earthquake damage — cracked walls and collapsed cellblocks stand as testimony to that morning in 1931. Walking through the cells, reading the stories of inmates and guards, seeing the fractures in stone that time has not healed, I am reminded that history lives in what we choose to remember and what we choose to rebuild.</p>
 
-          <p>Napier taught me something about grace under pressure, about choosing beauty in the face of loss, about building tomorrow without forgetting yesterday. As I board the ship and watch the Art Deco skyline recede into the golden afternoon light, I think about cities and resilience and the human capacity to create something luminous from the darkest moments. Napier did not merely survive its earthquake; it transformed tragedy into art, and that, perhaps, is the greatest story any city can tell.</p>
+          <p>I learned something about grace under pressure in Napier, about choosing beauty in the face of loss, about building tomorrow without forgetting yesterday. What this city taught me is that resilience is not the absence of grief — it is the decision to create something luminous from the darkest moments. As I board the ship and watch the Art Deco skyline recede into the golden afternoon light, I think about cities and courage and the human capacity to craft hope from rubble. Napier did not merely survive its earthquake; it transformed tragedy into art, and that, perhaps, is the greatest story any city can tell.</p>
         </div>
+      </details>
 
-        <section class="port-section">
-          <h3>Port Essentials</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
-          <ul>
-            <li><strong>Terminal:</strong> Napier Port (inner harbour), approximately 1km north of city center</li>
-            <li><strong>Distance to Town:</strong> Walking distance (15-20 min), or take the shuttle to i-SITE Visitor Centre on Marine Parade</li>
-            <li><strong>Tender:</strong> No — ships dock directly at the pier</li>
-            <li><strong>Currency:</strong> New Zealand Dollar (NZD)</li>
-            <li><strong>Language:</strong> English and Māori (te reo Māori)</li>
-            <li><strong>Driving:</strong> Left side</li>
-            <li><strong>Weather:</strong> New Zealand's sunniest city — over 2,200 sunshine hours annually, warm and dry especially in summer</li>
-            <li><strong>Coordinates:</strong> 39.4902°S, 176.9120°E</li>
-          </ul>
-        </section>
+      <!-- CRUISE PORT -->
+      <details class="port-section" id="cruise_port" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
+        <figure class="logbook-image">
+          <img src="/ports/img/napier/napier-harbor.webp" loading="lazy" alt="Napier Port inner harbour with a cruise ship docked at the main pier and city skyline behind" width="400" height="300"/>
+          <figcaption>Cruise ship berthed at Napier Port. <a href="https://commons.wikimedia.org/wiki/Category:Port_of_Napier" target="_blank" rel="noopener">Wikimedia</a></figcaption>
+        </figure>
+        <ul>
+          <li><strong>Terminal:</strong> Napier Port (inner harbour), approximately 1km north of city center</li>
+          <li><strong>Distance to Town:</strong> Walking distance (15-20 min), or take the free shuttle to i-SITE Visitor Centre on Marine Parade</li>
+          <li><strong>Tender:</strong> No — ships dock directly at the pier. The pier is wheelchair accessible and suitable for passengers with mobility needs.</li>
+          <li><strong>Currency:</strong> New Zealand Dollar (NZD). ATMs available at the port and in town.</li>
+          <li><strong>Language:</strong> English and Maori (te reo Maori)</li>
+          <li><strong>Driving:</strong> Left side</li>
+          <li><strong>Weather:</strong> New Zealand's sunniest city — over 2,200 sunshine hours annually, warm and dry especially in summer</li>
+          <li><strong>Coordinates:</strong> 39.4902 S, 176.9120 E</li>
+        </ul>
+      </details>
 
-        <section class="port-section">
-          <h3>Top Experiences</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time.</p>
+      <!-- GETTING AROUND -->
+      <details class="port-section" id="getting-around" open>
+        <summary><h2>Getting Around</h2></summary>
+        <p>Napier is one of the most walkable cruise ports in New Zealand. The city center and Art Deco district are compact and flat, making it easy to explore on foot even for those with moderate mobility. From the cruise terminal, it is roughly a 15-to-20-minute walk south along Marine Parade to reach the i-SITE Visitor Centre and the heart of the Art Deco quarter. A free shuttle service operates on most ship days, ferrying passengers between the port and the visitor center.</p>
+        <p>For destinations beyond walking distance, taxis queue at the port gate and cost approximately $15-$20 NZD to reach the main wineries. Ride-share services such as Uber operate in Napier, though availability can be limited during busy port days. Several local tour companies offer half-day wine tours starting from around $85-$120 NZD per person, which include transport, tastings, and commentary. Rental cars are available in town from about $55-$75 NZD per day if you prefer independent exploration, but remember to drive on the left.</p>
+        <p>Public buses run by the Hawke's Bay Regional Council connect Napier to Hastings and outlying areas, with a fare of roughly $3-$5 NZD per trip. The bus station is near Clive Square, a short walk from Marine Parade. Cycling is another popular option; several shops near the waterfront rent bikes for around $30-$40 NZD per day, and dedicated cycle trails connect Napier to Hastings through scenic wine country. For visitors with walking difficulty or wheelchair users, the flat terrain and accessible sidewalks make the Art Deco quarter navigable, though some older buildings may have steps at their entrances.</p>
+      </details>
 
-          <h4  class="mt-1">Art Deco Walking Tour</h4>
-          <p>The world's most complete Art Deco cityscape deserves a guided tour. The Art Deco Trust offers daily walks (1-2 hours) that reveal the history and architectural details. Book ahead — popular with cruise passengers. Self-guided maps available if you prefer to wander independently.</p>
+      <!-- MAP -->
+      <details class="port-section port-map-section" id="port-map-section" open>
+        <summary><h2>Napier Area Map</h2></summary>
+        <p class="map-intro">Interactive map showing cruise terminal, Art Deco district, Marine Parade, and nearby wineries. Click any marker for details and directions.</p>
+        <div id="napier-port-map" class="port-map-container" role="application" aria-label="Interactive map of Napier and points of interest">
+          <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
+        </div>
+      </details>
 
-          <h4  class="mt-1">Hawke's Bay Wine Tour</h4>
-          <p>This is one of New Zealand's premier wine regions. Mission Estate (NZ's oldest winery, 1851), Church Road, and Craggy Range are all accessible on a half-day tour. Expect exceptional Chardonnay, Syrah, and Bordeaux blends. Most cruise lines offer organized tours, or hire a private driver.</p>
+      <!-- EXCURSIONS -->
+      <details class="port-section" id="excursions" open>
+        <summary><h2>Top Excursions &amp; Attractions</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time.</p>
 
-          <h4  class="mt-1">Marine Parade</h4>
-          <p>The 2+ kilometer oceanfront promenade is lined with Norfolk pines, Art Deco buildings, and attractions like the Pania of the Reef statue. ideal for a leisurely stroll. Free to walk — bring a camera.</p>
+        <h4 class="mt-1">Art Deco Walking Tour</h4>
+        <p>The world's most complete Art Deco cityscape deserves a guided tour. The Art Deco Trust offers daily walks (1-2 hours, approximately $25-$35 NZD per person) that reveal the history and architectural details you would miss on your own. Book ahead — this is popular with cruise passengers and groups fill quickly. Self-guided maps are available at the i-SITE if you prefer to wander independently. This is a low-walking-energy option suitable for most mobility levels.</p>
 
-          <h4  class="mt-1">MTG Hawke's Bay (Museum)</h4>
-          <p>Modern museum telling the story of the 1931 earthquake, Napier's rebuild, and Māori history. The earthquake exhibition includes survivor testimonies and dramatic footage. Allow 1-2 hours. Located on Marine Parade.</p>
+        <figure class="logbook-image float-right">
+          <img src="/ports/img/napier/napier-statue.webp" loading="lazy" alt="Bronze statue of Pania of the Reef on Marine Parade oceanfront in Napier" width="400" height="300"/>
+          <figcaption>Pania of the Reef statue on Marine Parade. <a href="https://commons.wikimedia.org/wiki/Category:Pania_of_the_Reef" target="_blank" rel="noopener">Wikimedia</a></figcaption>
+        </figure>
 
-          <h4  class="mt-1">National Aquarium of New Zealand</h4>
-          <p>Located on Marine Parade. Features native New Zealand marine life, penguins, and a kiwi nocturnal house. Great for families. Allow 1-2 hours.</p>
+        <h4 class="mt-1">Hawke's Bay Wine Tour</h4>
+        <p>This is one of New Zealand's premier wine regions. Mission Estate (NZ's oldest winery, 1851), Church Road, and Craggy Range are all accessible on a half-day tour. Expect exceptional Chardonnay, Syrah, and Bordeaux blends. Most cruise lines offer organized ship excursion options (approximately $110-$160 NZD), or hire a private driver for around $85-$120 NZD per person for a small-group experience. The ship excursion offers guaranteed return to the vessel. Independent visitors should allow at least an hour buffer before all-aboard.</p>
 
-          <h4  class="mt-1">Cape Kidnappers Gannet Colony</h4>
-          <p>One of the world's largest and most accessible mainland gannet colonies, with over 15,000 seabirds nesting from November to February. The dramatic peninsula offers breathtaking views and the chance to watch gannets plunge-dive from spectacular heights. Tours available from Napier (about 30-40 minutes each way), though timing can be tight on a port day. Worth it for nature lovers.</p>
+        <h4 class="mt-1">Marine Parade Stroll</h4>
+        <p>The 2+ kilometer oceanfront promenade is lined with Norfolk pines, Art Deco structures, and attractions like the Pania of the Reef statue. Ideal for a leisurely stroll. Free to walk — bring a camera. The National Aquarium of New Zealand is located here (entry fee approximately $23 NZD for adults), featuring native marine life, penguins, and a kiwi nocturnal house.</p>
 
-          <h4  class="mt-1">Napier Prison</h4>
-          <p>New Zealand's oldest prison (1862-1993), now a fascinating museum. The only site in Napier that deliberately preserves earthquake damage from 1931 — cracked walls and collapsed cellblocks stand as haunting testimony. Guided tours reveal stories of inmates, guards, and prison life across 130 years. Located on Coote Road, about 15 minutes walk from downtown. Allow 1-2 hours.</p>
+        <h4 class="mt-1">Cape Kidnappers Gannet Colony</h4>
+        <p>One of the world's largest and most accessible mainland gannet colonies, with over 15,000 seabirds nesting from November to February. The dramatic peninsula offers breathtaking views and the chance to watch gannets plunge-dive from spectacular heights. Tours cost around $50-$80 NZD per person from Napier (about 30-40 minutes each way), though timing can be tight on a port day — book ahead and confirm departure times carefully. Worth it for nature lovers.</p>
 
-          <h4  class="mt-1">Farmers Market</h4>
-          <p>If you're in port on a Sunday morning, the Hawke's Bay Farmers Market (8:30am-12:30pm) at the Showgrounds offers local produce, artisan cheeses, fresh bread, and that perfect flat white. A genuine slice of local life.</p>
-        </section>
+        <h4 class="mt-1">Napier Prison</h4>
+        <p>New Zealand's oldest prison (1862-1993), now a fascinating museum. Entry costs approximately $25 NZD for adults. The only site in Napier that deliberately preserves earthquake damage from 1931 — cracked walls and collapsed cellblocks stand as haunting testimony. Guided tours reveal stories of inmates, guards, and prison life across 130 years. Located on Coote Road, about 15 minutes walk from downtown. Allow 1-2 hours.</p>
 
-        <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Napier Area Map</h2></summary>
-          <p class="map-intro">Interactive map showing cruise terminal, Art Deco district, Marine Parade, and nearby wineries. Click any marker for details and directions.</p>
-          <div id="napier-port-map" class="port-map-container" role="application" aria-label="Interactive map of Napier and points of interest">
-            <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
-          </div>
-            </details>
+        <h4 class="mt-1">MTG Hawke's Bay (Museum)</h4>
+        <p>Modern museum telling the story of the 1931 earthquake, Napier's rebuild, and Maori history. The earthquake exhibition includes survivor testimonies and dramatic footage. Entry is free for the main gallery. Allow 1-2 hours. Located on Marine Parade, an easy walk from the port.</p>
+      </details>
 
-        <section class="port-section">
-          <h3>Local Food & Drink</h3>
-          <ul>
-            <li><strong>Hawke's Bay Wine:</strong> World-class Chardonnay, Syrah, Merlot, and Cabernet blends — this is serious wine country</li>
-            <li><strong>Cider:</strong> The region also produces excellent craft ciders from local apples</li>
-            <li><strong>Green-Lipped Mussels:</strong> New Zealand specialty — larger and sweeter than standard mussels</li>
-            <li><strong>Lamb:</strong> Hawke's Bay lamb is renowned nationally — often featured on restaurant menus</li>
-            <li><strong>Artisan Cheese:</strong> Local cheesemakers produce excellent farmhouse varieties</li>
-            <li><strong>Fresh Produce:</strong> The fertile plains yield abundant fruit and vegetables — visit the Farmers Market</li>
-          </ul>
-        </section>
+      <!-- DEPTH SOUNDINGS -->
+      <details class="port-section" id="depth-soundings" open>
+        <summary><h2>Depth Soundings</h2></summary>
+        <p>Napier rewards the visitor who slows down. The Art Deco district is beautiful at a glance, but its stories reveal themselves only to those who linger — who read the plaques, who ask guides about the earthquake, who notice the Maori motifs woven into the 1930s geometry. This is a city that chose hope over despair, and that choice still resonates in every pastel facade and sunburst window. Although many visitors rush through the downtown in an hour, I would urge you to take at least half a day to absorb what Napier has to offer.</p>
+        <p>The wine country inland is genuine world-class, yet despite its quality the region remains refreshingly unpretentious. Winemakers here talk about soil and seasons, not prestige and price points. The gannet colony at Cape Kidnappers is worth the journey if your schedule permits, but be honest about timing — missing the ship for a bird colony, however magnificent, is not the kind of story you want to tell. Plan carefully. Budget wisely. And give thanks for the sunshine, because Napier delivers it in abundance.</p>
+        <figure class="logbook-image">
+          <img src="/ports/img/napier/napier-bluff.webp" loading="lazy" alt="Dramatic clifftop view at Cape Kidnappers overlooking the Pacific Ocean near Napier" width="400" height="300"/>
+          <figcaption>Cape Kidnappers coastline south of Napier. <a href="https://commons.wikimedia.org/wiki/Category:Cape_Kidnappers" target="_blank" rel="noopener">Wikimedia</a></figcaption>
+        </figure>
+      </details>
 
-        <section class="port-section author-note-disclaimer">
-          <h3>Author's Note</h3>
-          <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-        </section>
+      <!-- AUTHOR'S NOTE -->
+      <section class="port-section author-note-disclaimer">
+        <h4>Author's Note</h4>
+        <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake — gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
+      </section>
 
-        <section class="port-section">
-          <h3>Frequently Asked Questions</h3>
-          <p><strong>Q: Can I walk from the cruise terminal to downtown?</strong><br/>A: Yes, absolutely. The port is about 1km north of the city center — a pleasant 15-20 minute walk along Marine Parade. Shuttles to the i-SITE Visitor Centre are also available. The entire Art Deco district is compact and walkable.</p>
-          <p><strong>Q: Are wineries accessible on a port day?</strong><br/>A: Yes. Hawke's Bay is New Zealand's oldest wine-making region. Many cruise lines offer organized wine tours, or you can arrange private transport. Most wineries are 15-30 minutes from downtown. Mission Estate (NZ's oldest winery, 1851) and Church Road are particularly accessible.</p>
-          <p><strong>Q: What happened in 1931?</strong><br/>A: On February 3, 1931, a magnitude 7.8 earthquake destroyed Napier, killing 256 people. The earthquake also lifted the seabed by up to 2.7 meters, raising 4,000 hectares of new land. The city was rebuilt entirely in Art Deco style, creating the world's most complete Art Deco cityscape — rivaled only by South Beach, Miami.</p>
-          <p><strong>Q: Is the Art Deco tour worth it?</strong><br/>A: Absolutely. Napier has the world's most concentrated collection of authentic Art Deco architecture. Guided walks bring the history alive and point out details like the Daily Telegraph Building's zigzags, the Masonic Lodge, and National Tobacco Company. Book through the Art Deco Trust.</p>
-          <p><strong>Q: What is the Art Deco Festival?</strong><br/>A: Held every February since 1988, the Art Deco Festival is New Zealand's largest vintage celebration. The 30th anniversary in 2018 drew over 45,000 attendees in period costume. If you're visiting in February, it's an unforgettable spectacle of vintage cars, jazz, and 1930s glamour.</p>
-          <p><strong>Q: What's the weather like?</strong><br/>A: Napier is New Zealand's sunniest city — over 2,200 sunshine hours annually. Summers are warm and dry (20-26°C / 68-79°F). Even winter is mild. The dry, sunny climate makes it perfect wine country.</p>
-        </section>
+      <!-- FAQ -->
+      <details class="port-section" id="faq" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <details>
+          <summary>Can I walk from the cruise terminal to downtown?</summary>
+          <p>Yes, absolutely. The port is about 1km north of the city center — a pleasant 15-20 minute walk along Marine Parade. Shuttles to the i-SITE Visitor Centre are also available on ship days. The entire Art Deco district is compact, flat, and walkable.</p>
+        </details>
+        <details>
+          <summary>Are wineries accessible on a port day?</summary>
+          <p>Yes. Hawke's Bay is New Zealand's oldest wine-making region. Many cruise lines offer organized wine tours as a ship excursion, or you can arrange private transport. Most wineries are 15-30 minutes from downtown. Mission Estate (NZ's oldest winery, 1851) and Church Road are particularly accessible for half-day visits.</p>
+        </details>
+        <details>
+          <summary>What happened in the 1931 earthquake?</summary>
+          <p>On February 3, 1931, a magnitude 7.8 earthquake destroyed Napier, killing 256 people. The earthquake also lifted the seabed by up to 2.7 meters, raising 4,000 hectares of new land. The city was rebuilt entirely in Art Deco style, creating the world's most complete Art Deco cityscape — rivaled only by South Beach, Miami.</p>
+        </details>
+        <details>
+          <summary>Is the Art Deco tour worth the cost?</summary>
+          <p>Absolutely. At around $25-$35 NZD per person, the guided walks bring the history alive and point out architectural details you would otherwise miss — the Daily Telegraph Building's zigzags, the Masonic Lodge, and National Tobacco Company's sunburst. Book through the Art Deco Trust or at the i-SITE.</p>
+        </details>
+        <details>
+          <summary>What is the weather like in Napier?</summary>
+          <p>Napier is New Zealand's sunniest city — over 2,200 sunshine hours annually. Summers are warm and dry (20-26 C / 68-79 F). Even winter is mild. The dry, sunny climate makes it perfect wine country. Still, carry sunscreen and a light layer for the occasional cool breeze.</p>
+        </details>
+        <details>
+          <summary>Is Napier accessible for wheelchair users?</summary>
+          <p>The Art Deco district and Marine Parade are flat and largely accessible for wheelchair users and those with limited mobility. The port terminal itself is accessible. Some older buildings may have steps at entrances, but the outdoor walking routes are smooth and well maintained.</p>
+        </details>
+      </details>
 
-        <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-      
-        <!-- VOLATILE DATA DISCLAIMER -->
-        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-        </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Napier?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
+      <!-- GALLERY -->
+      <details class="port-section photo-gallery" id="gallery" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="gallery-grid">
+          <figure>
+            <img src="/ports/img/napier/napier-beach.webp" loading="lazy" alt="Napier waterfront beach with gentle waves and clear sky on a sunny afternoon" width="400" height="300"/>
+            <figcaption>Napier waterfront beach. <a href="https://commons.wikimedia.org/wiki/Category:Beaches_of_Napier" target="_blank" rel="noopener">Wikimedia</a></figcaption>
+          </figure>
+          <figure>
+            <img src="/ports/img/napier/napier-vineyard.webp" loading="lazy" alt="Rows of grapevines at a Hawke's Bay estate winery under blue skies" width="400" height="300"/>
+            <figcaption>Hawke's Bay vineyard estate. <a href="https://commons.wikimedia.org/wiki/Category:Vineyards_in_Hawke%27s_Bay" target="_blank" rel="noopener">Wikimedia</a></figcaption>
+          </figure>
+          <figure>
+            <img src="/ports/img/napier/napier-gannets.webp" loading="lazy" alt="Colony of Australasian gannets nesting on the cliffs at Cape Kidnappers near Napier" width="400" height="300"/>
+            <figcaption>Gannet colony at Cape Kidnappers. <a href="https://commons.wikimedia.org/wiki/Category:Cape_Kidnappers" target="_blank" rel="noopener">Wikimedia</a></figcaption>
+          </figure>
+          <figure>
+            <img src="/ports/img/napier/napier-gardens.webp" loading="lazy" alt="Sunken Gardens in Napier with colorful flower beds and Art Deco landscaping" width="400" height="300"/>
+            <figcaption>Sunken Gardens along Marine Parade. <a href="https://commons.wikimedia.org/wiki/Category:Parks_in_Napier" target="_blank" rel="noopener">Wikimedia</a></figcaption>
+          </figure>
+        </div>
+      </details>
 
-          <p><strong>Q: Does Napier have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
+      <!-- CREDITS -->
+      <details class="port-section image-credits" id="credits" open>
+        <summary><h2>Image Credits</h2></summary>
+        <ul class="credits-list">
+          <li>Hero image: <a href="https://commons.wikimedia.org/wiki/Category:Napier,_New_Zealand" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+          <li>Art Deco facades: <a href="https://commons.wikimedia.org/wiki/Category:Art_Deco_in_Napier" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+          <li>Church: <a href="https://commons.wikimedia.org/wiki/Category:Churches_in_Napier" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+          <li>Marine Parade: <a href="https://commons.wikimedia.org/wiki/Category:Marine_Parade,_Napier" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+          <li>Winery: <a href="https://commons.wikimedia.org/wiki/Category:Vineyards_in_Hawke%27s_Bay" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+          <li>Pania statue: <a href="https://commons.wikimedia.org/wiki/Category:Pania_of_the_Reef" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+          <li>Cape Kidnappers: <a href="https://commons.wikimedia.org/wiki/Category:Cape_Kidnappers" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+          <li>Harbour: <a href="https://commons.wikimedia.org/wiki/Category:Port_of_Napier" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+          <li>Beach: <a href="https://commons.wikimedia.org/wiki/Category:Beaches_of_Napier" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+          <li>Vineyard: <a href="https://commons.wikimedia.org/wiki/Category:Vineyards_in_Hawke%27s_Bay" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+          <li>Gannets: <a href="https://commons.wikimedia.org/wiki/Category:Cape_Kidnappers" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+          <li>Gardens: <a href="https://commons.wikimedia.org/wiki/Category:Parks_in_Napier" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+        </ul>
+      </details>
 
-          <p><strong>Q: What should I pack for Napier's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
+      <!-- BACK NAVIGATION -->
+      <nav class="port-section back-nav" id="back-nav" aria-label="Return to ports listing">
+        <a href="/ports.html" class="pill">&larr; Back to All Ports</a>
+      </nav>
 
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
+      <!-- VOLATILE DATA DISCLAIMER -->
+      <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+        <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2026-02-01 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+      </aside>
 
+      <!-- FROM THE PIER -->
+      <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Napier cruise port">
+        <h4>From the Pier</h4>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Art Deco Quarter (Emerson St)</span><div class="pier-detail">Walk or shuttle — pastel 1930s facades</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6B6;</span> 15-20 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Marine Parade &amp; i-SITE</span><div class="pier-detail">Walk or shuttle from port</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6B6;</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">National Aquarium</span><div class="pier-detail">Walk along Marine Parade</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6B6;</span> 20 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Hawke's Bay Wineries</span><div class="pier-detail">Taxi or tour — New Zealand wine country</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F695;</span> 20 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Port is about 1 km north of city center. Shuttle available to i-SITE on Marine Parade. The Art Deco Quarter is one of the finest collections of 1930s architecture in the world.</p>
+      </nav>
 
-
-
-
-<!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Napier cruise port">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Art Deco Quarter (Emerson St)</span><div class="pier-detail">Walk or shuttle — pastel 1930s facades</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15–20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Marine Parade & i-SITE</span><div class="pier-detail">Walk or shuttle from port</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">National Aquarium</span><div class="pier-detail">Walk along Marine Parade</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Hawke's Bay Wineries</span><div class="pier-detail">Taxi or tour — New Zealand wine country</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Port is about 1 km north of city center. Shuttle available to i-SITE on Marine Parade. The Art Deco Quarter is one of the finest collections of 1930s architecture in the world.</p>
-</div>
-
-      </article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
       <section class="card" aria-labelledby="glance-heading">
-        <h3 id="glance-heading">Quick Facts</h3>
+        <h4 id="glance-heading">Quick Facts</h4>
         <div class="at-a-glance-grid">
           <div class="at-a-glance-item"><strong>Country</strong><span>New Zealand</span></div>
           <div class="at-a-glance-item"><strong>Region</strong><span>Pacific</span></div>
-          <div class="at-a-glance-item"><strong>Language</strong><span>English / Māori</span></div>
+          <div class="at-a-glance-item"><strong>Language</strong><span>English / Maori</span></div>
           <div class="at-a-glance-item"><strong>Currency</strong><span>NZD</span></div>
           <div class="at-a-glance-item"><strong>Pier</strong><span>Napier Port</span></div>
           <div class="at-a-glance-item"><strong>Best For</strong><span>Art Deco, Wine</span></div>
@@ -512,7 +588,7 @@ Soli Deo Gloria
         </div>
       </section>
       <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
+        <h4 id="author-heading">About the Author</h4>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
@@ -524,12 +600,12 @@ Soli Deo Gloria
         <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
       </section>
       <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
       </section>
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Napier on their itineraries:</p>
         <p class="cruise-line-label">Royal Caribbean</p>
         <div class="ship-links">
@@ -555,37 +631,37 @@ Soli Deo Gloria
       </section>
 
       <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
+        <h4 id="recent-rail-title">Recent Stories</h4>
         <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
     </aside>
-  
+
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Visit</h2>
       <p>Helpful resources for your shore day:</p>
       <ul>
         <li><a href="/packing-lists.html">Cruise Packing Lists</a> — What to bring on port days</li>
-        <li><a href="/articles/cruise-tech-photography-guide.html">Photography &amp; Tech Guide</a> — Capture the perfect shots</li>
+        <li><a href="/articles/cruise-tech-photography-guide.html">Camera &amp; Tech Guide</a> — Capture the perfect shots</li>
         <li><a href="/internet-at-sea.html">Internet at Sea</a> — WiFi tips &amp; staying connected</li>
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
     </section>
-  <!-- Print Guide Button -->
-  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
-    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-    <span>Print Guide</span>
-  </button>
-</main>
+    <!-- Print Guide Button -->
+    <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      <span>Print Guide</span>
+    </button>
+  </main>
 
   <footer class="wrap" role="contentinfo">
     <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
     <p class="tiny mt-05"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/about-us.html">About</a> &middot; <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
     <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria</p>
-    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">&#x2713; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- Navigation Dropdown Script -->

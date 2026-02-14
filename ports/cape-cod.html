@@ -95,6 +95,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -146,11 +149,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <p><strong>Tender Port:</strong> Most cruises anchor at Provincetown and tender to MacMillan Pier. Larger ships may call at other Cape locations.</p>
           </div>
 
-          <section class="logbook-entry">
-            <div class="logbook-entry__header">
-              <span class="logbook-entry__icon">📔</span>
-              <h2>From the Logbook</h2>
-            </div>
+          <details class="logbook-entry" open>
+            <summary><h2>From the Logbook</h2></summary>
             <div class="logbook-entry__content">
               <p>
                 The Pilgrims landed here first—not at Plymouth Rock, but at
@@ -171,7 +171,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
                 creatures too, though they lacked our sense of wonder.
               </p>
             </div>
-          </section>
+          </details>
 
 
       <!-- WEATHER & BEST TIME TO VISIT -->
@@ -193,8 +193,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         </details>
       </details>
 
-          <section class="port-section" id="cruise-port">
-            <h2>The Cruise Port</h2>
+          <details class="port-section" id="cruise-port" open>
+            <summary><h2>The Cruise Port</h2></summary>
             <p>
               Cape Cod cruises most commonly anchor at Provincetown, tendering
               to MacMillan Pier at the heart of the town's Commercial Street.
@@ -205,7 +205,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               Some cruises visit other Cape Cod locations or offer excursions
               to Hyannis (Kennedy compound area) and the outer beaches.
             </p>
-          </section>
+          </details>
 
           <section class="port-section" id="provincetown">
             <h2>Provincetown</h2>
@@ -260,8 +260,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <p>Beaches are accessible by bicycle, taxi, or excursion from Provincetown.</p>
           </section>
 
-          <section class="port-section" id="practical">
-            <h2>Practical Information</h2>
+          <details class="port-section" id="practical" open>
+            <summary><h2>Practical Information</h2></summary>
             <h3>Best Season</h3>
             <p>
               Summer (June-August) is warmest but crowded. Fall foliage cruises
@@ -279,28 +279,28 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               Maritime climate. Summers 20-27°C (68-80°F). Fall brings cooler
               temperatures and changeable conditions. Always bring layers.
             </p>
-          </section>
+          </details>
 
           <section class="port-section" id="map">
             <h2>Port Map</h2>
             <div id="port-map" class="port-map" style="height: 400px"></div>
           </section>
 
-          <section class="port-section" id="faq">
-            <h2>FAQs</h2>
+          <details class="port-section" id="faq" open>
+            <summary><h2>FAQs</h2></summary>
             <div class="faq-list">
               <details class="faq-item"><summary>Can I see the Kennedy compound from Cape Cod?</summary><p>The Kennedy Compound is in Hyannis, about 30 miles from Provincetown. It's visible only by boat tour from Hyannis Harbor, not from Provincetown. Ship excursions may include this option.</p></details>
               <details class="faq-item"><summary>Will I definitely see whales?</summary><p>In season (April-October), whale sightings occur on 95%+ of trips. Humpbacks are most common. The experience is nearly guaranteed.</p></details>
               <details class="faq-item"><summary>Is Provincetown family-friendly?</summary><p>Yes. Despite its reputation as an LGBTQ+ destination, Provincetown is welcoming to all. The beaches, whale watches, and Pilgrim Monument appeal to families.</p></details>
             </div>
-          </section>
+          </details>
 
           <section class="disclaimers">
             <p class="disclaimer"><strong>Author's Note:</strong> Cape Cod rewards those who slow down. Walk Commercial Street, watch the whales, and remember that American history started with a boat full of hopeful strangers.</p>
           </section>
 
           <!-- FROM THE PIER -->
-          <div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Provincetown tender landing">
+          <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Provincetown tender landing">
             <h3>From the Pier</h3>
             <ul class="pier-distances">
               <li class="pier-distance-item">
@@ -330,7 +330,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               </li>
             </ul>
             <p class="pier-note">Tender port — ships anchor off Provincetown, tender to MacMillan Pier. Province Lands bike trails connect to beaches. Peak whale season June–September.</p>
-          </div>
+          </nav>
                 <div id="logbook-btn-container"></div>
 
         </article>

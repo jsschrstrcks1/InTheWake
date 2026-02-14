@@ -10,20 +10,19 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 <html lang="en" class="no-js">
 <head>
 <!-- ai-breadcrumbs
-entity: Ship
-name: Brilliance of the Seas
+     entity: Ship
+     name: Brilliance of the Seas
      type: Ship Information Page
-class: Radiance Class
-operator: Royal Caribbean
-parent: /ships.html
-siblings: /ships/rcl/radiance-of-the-seas.html, /ships/rcl/serenade-of-the-seas.html, /ships/rcl/jewel-of-the-seas.html
-related: /ships.html, /cruise-lines/royal-caribbean.html, /ports.html, /drink-calculator.html
-subject: Brilliance of the Seas is a Radiance-class Royal Caribbean ship offering deck plans, live ship tracking, dining venue details, and video tours to help cruisers plan their voyage
-intended-reader: Cruisers researching Brilliance of the Seas or comparing Royal Caribbean ships
-core-facts: launched 2002; 90,090 GT; about 2,466 guests at double occupancy; glass-wall design emphasizing ocean views, global itineraries
-decisions-informed: whether Brilliance of the Seas's size, layout, and vibe fit your travel style; how it compares to sister ships; whether its itineraries align with your plans
-updated: 2025-12-27
--->
+     parent: /ships.html
+     category: Royal Caribbean Fleet
+     cruise-line: Royal Caribbean
+     ship-class: Radiance Class
+     siblings: /ships/rcl/radiance-of-the-seas.html, /ships/rcl/serenade-of-the-seas.html, /ships/rcl/jewel-of-the-seas.html
+     updated: 2026-02-14
+     expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons
+     target-audience: Cruisers researching Brilliance of the Seas or comparing Royal Caribbean ships
+     answer-first: Brilliance of the Seas is a Radiance-class Royal Caribbean ship launched in 2002, at 90,090 GT carrying about 2,466 guests, known for its glass-wall design emphasizing ocean views and global itineraries.
+     -->
   <!-- ======================================================
        In the Wake — Brilliance of the Seas • Royal Caribbean
        Version: 3.010.300  |  Soli Deo Gloria ✝️
@@ -56,7 +55,7 @@ updated: 2025-12-27
 
   <!-- ICP-Lite v1.0: AI-First Metadata -->
   <meta name="ai-summary" content="Brilliance of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake."/>
-  <meta name="last-reviewed" content="2025-12-27"/>
+  <meta name="last-reviewed" content="2026-02-14"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
 
   <!-- Title & SEO -->
@@ -187,7 +186,7 @@ updated: 2025-12-27
     "name": "Brilliance of the Seas — Deck Plans, Live Tracker, Dining & Videos",
     "url": "https://cruisinginthewake.com/ships/rcl/brilliance-of-the-seas.html",
     "description": "Brilliance of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake.",
-    "dateModified": "2025-12-27",
+    "dateModified": "2026-02-14",
     "mainEntity": {
       "@type": "Thing",
       "name": "Brilliance of the Seas"
@@ -366,6 +365,9 @@ updated: 2025-12-27
             <a href="/stateroom-check.html">Stateroom Check</a>
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
 
@@ -973,7 +975,7 @@ updated: 2025-12-27
       }
     }
     function fetchVideoData(){
-      const SOURCES=[abs('/assets/data/videos/rcl/brilliance-of-the-seas.json'),abs('/assets/data/videos/brilliance-of-the-seas.json'),abs('/ships/rcl/assets/brilliance-of-the-seas-videos.json')];
+      const SOURCES=[abs('/assets/data/videos/rcl/brilliance-of-the-seas.json'),abs('/ships/rcl/assets/brilliance-of-the-seas-videos.json')];
       function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
         return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
       return tryFetch();
