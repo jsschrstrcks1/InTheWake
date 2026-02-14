@@ -24,7 +24,7 @@
 | Inline styles | ~16,022 |
 | Files with `<style>` | 25 |
 | ICP-Lite coverage | 1,232/1,238 (99.5%) — 6 remaining are article fragments without `<head>` |
-| Soli Deo Gloria coverage | 1,235/1,238 (99.8%) — 3 remaining are article fragments without `<head>` |
+| Soli Deo Gloria coverage | 1,238/1,238 (100%) |
 
 ---
 

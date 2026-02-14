@@ -111,7 +111,7 @@ InTheWake/
 │   │       ├── virgin-voyages-ports-master-list.md    # ~120 ports
 │   │       ├── msc-cruises-ports-master-list.md       # 380+ ports
 │   │       └── norwegian-cruise-line-ports-master-list.md  # 420+ ports
-│   ├── ships/                     # Ship images (536 WebP files)
+│   ├── ships/                     # Ship images (669 WebP files)
 │   │   ├── radiance-of-the-seas.webp
 │   │   ├── radiance-of-the-seas1.webp
 │   │   └── thumbs/                # Pre-sized thumbnails
@@ -1168,5 +1168,6 @@ python3 comprehensive_site_audit.py
 ---
 
 **Version History:**
+- v1.2.0 (2026-02-14) - Metrics correction: ship images 536→669, total pages 1,241→1,238, WebP 2,998→3,131
 - v1.1.0 (2026-02-12) - Comprehensive accuracy update: ship pages 230→298 (15 cruise lines), ports 147→380, restaurants 25→472, logbooks 40→285, ship images 285→536, WebP 2,345→2,998, SW v13→v14.2.0, CSS ?v=3.0→?v=3.010.400, total pages 561→1,241
 - v1.0.0 (2025-11-23) - Initial comprehensive codebase guide created
