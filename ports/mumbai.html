@@ -267,245 +267,312 @@ All work on this project is offered as a gift to God.
       <span aria-current="page">Mumbai</span>
     </nav>
 
-    <article>
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
-        <img loading="eager" src="/ports/img/mumbai/mumbai-3.webp" alt="Mumbai panoramic view" style="width: 100%; height: 100%; object-fit: cover;" fetchpriority="high"/>
-        <div class="port-name-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);">
-          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Mumbai</span>
-        </div>
-      </div>
+    <article class="card">
+      <h1>Mumbai Cruise Port Guide</h1>
 
-      
+      <!-- ===== HERO ===== -->
+      <section class="port-hero" id="hero">
+        <div class="port-hero-image">
+          <img src="/ports/img/mumbai/mumbai-3.webp" alt="Panoramic view of Mumbai waterfront with the Gateway of India arch and boats in the Arabian Sea harbor" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <div class="port-hero-overlay">
+            <h1 class="port-hero-title">Mumbai, India</h1>
+          </div>
+        </div>
+        <p class="port-hero-credit"><a href="https://commons.wikimedia.org/w/index.php?search=Mumbai+skyline&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></p>
+      </section>
+
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+      <div id="logbook-btn-container"></div>
 
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="mumbai"
-               data-port-name="Mumbai Cruise Port Guide"
-               data-lat="18.9220"
-               data-lon="72.8347"
-               data-region="Asia Pacific">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+        <div id="port-weather-widget"
+             data-port-id="mumbai"
+             data-port-name="Mumbai Cruise Port Guide"
+             data-lat="18.9220"
+             data-lon="72.8347"
+             data-region="Asia Pacific">
+          <noscript>
+            <div class="seasonal-guide seasonal-guide-static">
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">At a Glance</summary>
+                <div class="seasonal-at-glance">
+                  <div class="seasonal-glance-grid">
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Best Time to Visit</summary>
+                <div class="seasonal-best-time">
+                  <div class="cruise-seasons-grid">
+                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Sep</span></div>
+                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">May, Jun, Jul, Aug</span></div>
+                  </div>
+                  <div class="best-months-activities">
+                    <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">May, Jun, Jul</span></div>
+                  </div>
+                  <div class="months-to-avoid">
+                    <span class="avoid-label">Consider avoiding:</span>
+                    <span class="avoid-months">Jul, Aug, Sep</span>
+                    <span class="avoid-reason">(monsoon/typhoon season)</span>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                <div class="seasonal-catches">
+                  <ul class="catches-list">
+                    <li>Weather can change quickly — always have a backup plan</li>
+                    <li>Peak season means more crowds at popular attractions</li>
+                    <li>Sun can be intense even on cloudy days — sunscreen essential</li>
+                    <li>Local holidays may affect attraction hours and availability</li>
+                    <li>Check ship excursion timing against sunset and weather</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">Packing Tips</summary>
+                <div class="seasonal-packing">
+                  <ul class="packing-list">
+                    <li>Sunscreen and sunglasses — essential year-round</li>
+                    <li>Light layers for variable temperatures</li>
+                    <li>Comfortable walking shoes for exploring</li>
+                    <li>Rain jacket or compact umbrella</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
+                  </ul>
+                  <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Weather Hazards</summary>
+                <div class="seasonal-hazards">
+                  <div class="hazard-warning">
+                    <span class="hazard-icon">&#9888;&#65039;</span>
+                    <div class="hazard-content">
+                      <strong>Monsoon/Typhoon Season</strong>
+                      <p>Season: Jun &ndash; Nov</p>
+                      <p>Peak risk: Aug, Sep, Oct</p>
+                      <p class="hazard-note">Ships may reroute during typhoons; check weather forecasts</p>
                     </div>
                   </div>
-                </details>
+                </div>
+              </details>
 
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Sep</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">May, Jun, Jul, Aug</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">May, Jun, Jul</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jul, Aug, Sep</span>
-                      <span class="avoid-reason">(monsoon/typhoon season)</span>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Monsoon/Typhoon Season</strong>
-                        <p>Season: Jun – Nov</p>
-                        <p>Peak risk: Aug, Sep, Oct</p>
-                        <p class="hazard-note">Ships may reroute during typhoons; check weather forecasts</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
-
-      <header class="article-header">
-        <h1>Mumbai Cruise Port Guide</h1>
-        <p class="subtitle">My Gateway to India – Where Colonial Grandeur Meets Unstoppable Energy</p>
-      </header>
-
-      <!-- Quick Answer -->
-      <section class="quick-answer" style="background:#e6f7f5;border-left:5px solid #2a9d8f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
-        <p style="margin:0;"><strong>Quick&nbsp;Answer:</strong> Mumbai is India's largest city and financial capital, where the Gateway of India monument stands steps from your ship. Must-dos: Elephanta Caves UNESCO site (1-hour ferry), the Taj Mahal Palace Hotel for tea, street food at Crawford Market, and walking the colonial architecture of Colaba. The city is overwhelming, beautiful, and unlike anywhere else on Earth.</p>
-
-      <figure class="logbook-image float-right">
-        <img src="img/mumbai/mumbai-1.webp" alt="Mumbai harbor view" loading="lazy">
-        <figcaption>Mumbai — <a href="https://commons.wikimedia.org/w/index.php?search=Mumbai&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-      </section>
-
-      <!-- Logbook Entry -->
-      <details open>
-        <summary><h2>My Mumbai Day – A First-Person Account</h2></summary>
-        <p>The first time I stepped off the gangway in Mumbai and saw the Gateway of India rising against the Arabian Sea morning light, with the honey-colored domes of the Taj Mahal Palace Hotel just beyond, I understood why they call this the Gateway to India. This is a city of 20 million souls, India's financial capital, and the beating heart of Bollywood – and it all begins right where your ship docks.</p>
-
-        <p>My perfect Mumbai day starts at 8 a.m. on the ferry to Elephanta Caves – a UNESCO World Heritage Site on an island in Mumbai Harbor. The 1-hour boat ride is an experience itself, with vendors selling chai and samosas, seagulls overhead, and the city skyline receding behind you. The caves contain massive 7th-century rock-cut temples dedicated to Shiva, including the stunning three-headed Trimurti sculpture that's 20 feet tall and carved from a single rock face.</p>
-
-      <figure class="logbook-image float-left">
-        <img src="img/mumbai/mumbai-2.webp" alt="Mumbai waterfront" loading="lazy">
-        <figcaption>Mumbai scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Mumbai&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-
-        <div class="poignant-highlight">
-          <strong>The moment that stays with me:</strong> Standing in the dim, cool silence of the Elephanta cave temple, watching sunlight filter through the entrance onto the ancient Trimurti sculpture, while monkeys chatter outside and incense smoke drifts upward – India's timeless spirituality and artistic genius made manifest in stone.
+              <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+            </div>
+          </noscript>
         </div>
-
-        <p>Back on the mainland by noon, I always walk the Colaba neighborhood – the Afghan Church with its stunning stained glass, the colonial architecture along Colaba Causeway, and street vendors selling everything from books to bangles. Lunch is butter chicken and garlic naan at Leopold Cafe (a Mumbai institution since 1871) or fresh seafood at Trishna in Fort.</p>
-
-        <p>Afternoon tea at the Taj Mahal Palace Hotel is an absolute must – even if you just walk through the lobby, the 1903 Indo-Saracenic architecture and the history (this is where the 2008 Mumbai attacks occurred, and the hotel's staff showed incredible bravery) are profound. Crawford Market for spices, textiles, and chaos. The Marine Drive promenade at sunset, watching Mumbai's upper-middle-class families stroll the Queen's Necklace of lights. Vada pav (spicy potato sandwich) from street vendors. The sensory overload, the colors, the sounds, the smells – Mumbai is India distilled to its most concentrated essence.</p>
       </details>
 
-      <!-- Navigation -->
-      <details open>
+      <!-- ===== LOGBOOK ===== -->
+      <details class="port-section" id="logbook" open>
+        <summary><h2>My Visit to Mumbai</h2></summary>
+        <div class="logbook-entry clearfix">
+
+          <p>I stepped off the gangway into Mumbai on a bright January morning, and the first thing that reached me was the scent — warm cardamom and roasting cumin drifting from a chai stall near the port gate, tangled with diesel smoke and the faint salt breath of the Arabian Sea. The air was already thick with heat despite the early hour. My wife stood beside me on the quay, and we both stared upward at the great honey-colored basalt arch of the Gateway of India rising at the end of the waterfront road, framed by a sky so intensely blue it felt almost artificial. After four days at sea from Dubai, the silence of open water was replaced in an instant by the sound of a city that never pauses — horns, voices, the distant clatter of a commuter train, a vendor calling out prices for fresh coconut water. I reached for my wife's hand. Something told me this place was going to change us.</p>
+
+          <figure>
+            <img src="/ports/img/mumbai/mumbai-1.webp" alt="Mumbai harbor view with fishing boats and city skyline beyond the waterfront" loading="lazy" width="400" height="300"/>
+            <figcaption>Mumbai harbor from the cruise port approach. <a href="https://commons.wikimedia.org/w/index.php?search=Mumbai+harbor&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+
+          <p>We walked from the port toward the Gateway of India, and within five minutes we were standing beneath its arch, watching small ferries bob in the harbor and pigeons wheel in the warm updrafts. The Taj Mahal Palace Hotel rose to our left — its Indo-Saracenic dome and red-tiled facade glowing in the morning light, as elegant as a cathedral but alive with the bustle of doormen in white turbans and guests arriving for breakfast. I had read about this hotel for years, about its role during the 2008 attacks and the extraordinary courage of its staff who stayed to protect guests. Standing before it, I felt the weight of that history — the beauty and the sorrow woven together, inseparable. My breath caught for a moment, and I whispered a quiet prayer of gratitude for the people who rebuilt, who chose to keep the doors open, who refused to let terror have the final word.</p>
+
+          <p>Our plan was to catch the eight o'clock ferry to Elephanta Caves, and we made it with minutes to spare. The boat was crowded — families with children, a group of university students laughing together, an elderly couple sharing samosas wrapped in newspaper. Seagulls trailed the stern. The city skyline receded behind us, skyscrapers and temples and construction cranes all jumbled together in that way that is uniquely Mumbai. The crossing took about an hour, and I spent much of it leaning on the rail, watching the water change color from murky green near the docks to a clearer, deeper shade as we moved into the open harbor. A boy selling chai poured me a cup from a battered aluminum kettle — sweet, milky, spiced with ginger and cardamom. It cost ten rupees. It was the best chai I have ever tasted, though perhaps that was the salt air and the anticipation talking.</p>
+
+          <figure>
+            <img src="/ports/img/mumbai/mumbai-2.webp" alt="Mumbai waterfront promenade with colonial architecture buildings and palm trees along the shoreline" loading="lazy" width="400" height="300"/>
+            <figcaption>The waterfront promenade near Colaba, south Mumbai. <a href="https://commons.wikimedia.org/w/index.php?search=Mumbai+Colaba&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+
+          <p>Elephanta Island is small and green, and you climb a long stone staircase flanked by vendors selling trinkets and monkeys watching from the banyan trees. But when you finally enter the main cave temple, everything changes. The sound drops away. The cool stone darkness wraps around you. And then you see it — the Trimurti, the three-faced sculpture of Shiva carved from a single wall of basalt in the seventh century, standing twenty feet tall. The central face is serene, almost meditative. The left face is fierce. The right face is tender, feminine, gentle. I stood there for a long time, unable to speak, while sunlight filtered through the cave entrance and fell in pale shafts across the ancient stone floor. Incense smoke drifted upward from a small offering. I heard my wife draw a slow breath beside me. Something shifted inside me in that dim silence — a recognition that human beings had created this thing of profound beauty fourteen hundred years ago, with nothing but chisels and faith and patience. I thought about my own impatience, my restlessness, my tendency to rush through experiences without truly absorbing them. The Trimurti seemed to rebuke all of that, gently, without words.</p>
+
+          <p>Back on the mainland by noon, we took an Uber to Crawford Market — the great Victorian market building designed by the same firm that built the Palace of Westminster. The cost was about $3 for a twenty-minute ride through traffic that defied every rule I had ever learned about driving. Yet our driver navigated it with calm precision, weaving between auto-rickshaws and buses and ox-carts as though conducting an orchestra only he could hear. Crawford Market itself was overwhelming in the best way. The ground floor was a riot of spices — turmeric in brilliant yellow mounds, chili powder in deep red pyramids, bags of cardamom and cinnamon and star anise filling the air with fragrance so thick I could taste it. I bought a small bag of Kashmiri saffron for my mother, and the vendor wrapped it in brown paper with a care and precision that felt ceremonial.</p>
+
+          <figure>
+            <img src="/ports/img/mumbai/mumbai-4.webp" alt="Coastal landscape view of Mumbai showing the curved Marine Drive road along the Arabian Sea shore" loading="lazy" width="400" height="300"/>
+            <figcaption>Marine Drive and the Queen's Necklace curve along the Arabian Sea. <a href="https://commons.wikimedia.org/w/index.php?search=Mumbai+Marine+Drive&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+
+          <p>We had lunch at Leopold Cafe, a Mumbai institution since 1871 — butter chicken with garlic naan, cold Kingfisher lemonade, and a plate of bhel puri that was crunchy and tangy and sweet all at once. The cost was about $8 each, which felt almost absurdly generous for food this good. However, the real meal came later, from a street cart near Chowpatty Beach — vada pav, the spicy potato fritter sandwiched in a soft bun with green chutney and garlic powder. I watched the vendor assemble it with the swift, practiced hands of someone who has made ten thousand of these, and when I bit into it the flavors were so vivid and so layered — the crisp exterior giving way to soft, spiced potato, the heat of the chili balanced by the cool tang of chutney — that I closed my eyes and stood still on the pavement for a moment, lost in the simple perfection of street food eaten standing up in a city of twenty million people.</p>
+
+          <p>In the late afternoon we walked Marine Drive, the great curved promenade that Mumbaikars call the Queen's Necklace because of the way its streetlights look at night — a sweep of golden lights curving along the Arabian Sea like a strand of jewels. The sun was lowering, turning the water to bronze and copper, and families were out in force — children running along the seawall, couples sitting close together on the concrete tetrapods, elderly men in white kurtas watching the waves. I noticed a young woman in a wheelchair being pushed by her father along the accessible waterfront path, both of them laughing at something, and the warmth of that image stayed with me. Despite everything I had read about Mumbai's challenges — the poverty, the overcrowding, the inequality — what I saw that evening was a city that belonged to its people, all of them, and they belonged to it.</p>
+
+          <p>We walked to Chhatrapati Shivaji Terminus as the last light faded — the great Victorian Gothic railway station that is itself a UNESCO World Heritage Site, its stone facade lit golden against the darkening sky, gargoyles and peacocks and lions carved into every cornice. Thousands of commuters streamed through its arched entrance on their way home, and the sound of footsteps on stone echoed like a heartbeat. I stood on the pavement and watched them pass, each one carrying a story I would never know, heading to homes I would never see, and I felt something I can only describe as awe — not at the building, magnificent though it was, but at the sheer scale of ordinary human life flowing through it every single day.</p>
+
+          <p>Looking back, I realized what Mumbai taught me. It is not a city that asks to be admired from a distance. It demands that you step into it, taste it, smell it, let it jostle you, let it overwhelm you. I learned that the finest travel experiences are not always the comfortable ones. Sometimes the gift is in the disorientation — in being stripped of your assumptions and left standing on a busy pavement with a vada pav in your hand, humbled and grateful and profoundly alive. My wife said it best as we walked back toward the ship that evening, the Gateway of India lit amber against the darkness. "I did not expect to love it this much," she said. Neither had I. And I think that is precisely the point — Mumbai does not wait for your expectations. It simply arrives, fully itself, and dares you to be changed.</p>
+
+        </div>
+      </details>
+
+      <!-- ===== FEATURED IMAGES ===== -->
+      <details class="port-section" id="featured_images" open>
+        <summary><h2>Featured Images</h2></summary>
+        <figure>
+          <img src="/ports/img/mumbai/mumbai-1.webp" alt="Mumbai harbor with traditional fishing boats moored in the foreground and the dense city skyline rising behind" loading="lazy" width="400" height="300"/>
+          <figcaption>Mumbai harbor and the working waterfront that greets every arriving cruise ship. <a href="https://commons.wikimedia.org/w/index.php?search=Mumbai+harbor&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+        </figure>
+        <figure>
+          <img src="/ports/img/mumbai/mumbai-4.webp" alt="Marine Drive coastal road curving along Mumbai's Arabian Sea shoreline with Art Deco buildings in the background" loading="lazy" width="400" height="300"/>
+          <figcaption>Marine Drive, known as the Queen's Necklace for its curving sweep of lights at dusk. <a href="https://commons.wikimedia.org/w/index.php?search=Mumbai+Marine+Drive&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+        </figure>
+        <figure>
+          <img src="/ports/img/mumbai/mumbai-2.webp" alt="Colonial-era buildings and palm-lined streets in Mumbai's Colaba district near the waterfront" loading="lazy" width="400" height="300"/>
+          <figcaption>Colaba district, the walkable heart of south Mumbai. <a href="https://commons.wikimedia.org/w/index.php?search=Mumbai+Colaba&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+        </figure>
+      </details>
+
+      <!-- ===== CRUISE PORT ===== -->
+      <details class="port-section" id="cruise_port" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
+        <ul>
+          <li><strong>Terminal:</strong> Mumbai Port Trust operates the cruise terminal at Ballard Pier (also known as the International Cruise Terminal). Facilities include a customs and immigration hall, currency exchange, and a tourist information desk. The terminal area is wheelchair accessible with ramp access from the pier to the building, though surfaces can be uneven in places.</li>
+          <li><strong>Distance to City Center:</strong> The Gateway of India and Colaba district are a 5-10 minute taxi ride or a 15-minute walk from Ballard Pier. Most of south Mumbai's highlights are within easy reach of the port.</li>
+          <li><strong>Tender:</strong> No — ships dock directly at the pier. Passengers clear immigration on board or at the terminal building.</li>
+          <li><strong>Currency:</strong> Indian Rupee (INR). ATMs available near the port gate and throughout south Mumbai. Credit cards accepted at hotels, larger restaurants, and shops, but carry cash for street food, markets, and taxis.</li>
+          <li><strong>Language:</strong> Hindi and Marathi are primary languages; English is widely spoken in tourist areas, hotels, and by Uber/Ola drivers.</li>
+          <li><strong>Best Season:</strong> October through March offers cooler, drier weather. Avoid June through September (monsoon season with heavy rains). The fare for a standard cruise-season port call typically falls between November and February.</li>
+          <li><strong>Time Zone:</strong> India Standard Time (IST), UTC+5:30.</li>
+        </ul>
+      </details>
+
+      <!-- ===== GETTING AROUND ===== -->
+      <details class="port-section" id="getting_around" open>
         <summary><h2>Getting Around</h2></summary>
-        <p>Most cruise ships dock at <strong>Ballard Pier</strong> or nearby berths in the Mumbai Port, which puts you a literal 5-minute walk from the Gateway of India and Colaba. Use <strong>Uber</strong> or <strong>Ola</strong> (India's ride-sharing apps) exclusively – they're cheap ($2–5 for most trips), air-conditioned, and eliminate haggling with taxi drivers. The Mumbai Metro is clean and efficient for longer distances (like to Bandra or the airport), but Colaba and South Mumbai are best explored on foot or by app-based car.</p>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Transportation tips for cruise visitors.</p>
+        <ul>
+          <li><strong>Walking:</strong> South Mumbai — Colaba, the Gateway of India, the Taj Mahal Palace Hotel, and the Afghan Church — is compact and walkable from the cruise terminal. Pavements can be uneven and crowded, so wear comfortable shoes. The waterfront promenade is relatively flat and accessible for those with mobility needs, although some side streets have steps and curbs.</li>
+          <li><strong>Uber and Ola:</strong> By far the best option for cruise visitors. Both ride-hailing apps work throughout Mumbai. Rides are cheap — $2 to $5 for most trips within south Mumbai — air-conditioned, and eliminate the stress of haggling with traditional taxi drivers. Download the app and set up payment before you arrive. Fare from port to Crawford Market is about $2 to $3.</li>
+          <li><strong>Local Trains:</strong> Mumbai's suburban railway is the lifeblood of the city, carrying over seven million people daily. The Churchgate and CST stations are close to the cruise port. However, trains are extremely crowded during rush hours (8-10am and 5-8pm) and not recommended for first-time visitors unfamiliar with the system. Off-peak rides are manageable and cost just a few rupees.</li>
+          <li><strong>Mumbai Metro:</strong> The newer metro lines serve areas farther from the port, such as Andheri and Bandra. Clean, efficient, and air-conditioned. Useful if you plan to venture into the suburbs, but most cruise-day attractions are in the walkable south.</li>
+          <li><strong>Auto-Rickshaws:</strong> Not available in the southernmost tip of Mumbai (Colaba to Fort). Available north of Bandra. Cheap and fun, but unfamiliar territory for most cruise visitors.</li>
+          <li><strong>Ferries:</strong> The ferry to Elephanta Caves departs from the Gateway of India, about a 10-minute taxi ride from the port. Cost is approximately $3 to $5 round-trip. First ferry at 9am, last return at 5:30pm. The journey takes about one hour each way.</li>
+        </ul>
       </details>
 
-      <!-- Word of Warning -->
-      <section style="background:#fef9e7;border-left:5px solid #f4d03f;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:8px;">
-        <p style="margin:0;"><strong>Depth Soundings Ashore:</strong> Mumbai is intense, crowded, and sensory-overwhelming in the best possible way. Embrace the chaos, don't drink tap water, use only bottled water for brushing teeth, and stick to busy restaurants and food stalls. The city rewards the adventurous but requires common sense and flexibility.</p>
-      </section>
+      <!-- ===== MAP ===== -->
+      <details class="port-section port-map-section" id="map" open>
+        <summary><h2>Mumbai Area Map</h2></summary>
+        <p class="map-intro">Interactive map showing the cruise terminal at Ballard Pier, Gateway of India, Colaba, Crawford Market, Marine Drive, Chhatrapati Shivaji Terminus, and Elephanta Caves ferry point. Click any marker for details and directions.</p>
+        <div id="port-map" class="port-map-container" role="application" aria-label="Interactive map of Mumbai port area">
+          <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
+        </div>
+      </details>
 
-      <!-- Author's Note -->
-      <section class="port-section author-note-disclaimer">
-        <h3>Author's Note</h3>
-        <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-      </section>
+      <!-- ===== EXCURSIONS ===== -->
+      <details class="port-section" id="excursions" open>
+        <summary><h2>Excursions &amp; Activities</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How to spend your time ashore. For popular destinations like Elephanta Caves, book ahead during peak season to avoid long queues at the ferry. Many visitors choose to explore independent of the ship excursion options for flexibility and cost savings, though a ship excursion offers guaranteed return to the vessel before departure.</p>
 
-      <!-- FAQ -->
-      <details open>
+        <h4 class="mt-1">Elephanta Caves (UNESCO World Heritage Site)</h4>
+        <p>Ferry from Gateway of India — about one hour each way, plus two to three hours on the island. The seventh-century rock-cut cave temples dedicated to Shiva contain the magnificent Trimurti sculpture, one of India's finest ancient carvings. Wear comfortable shoes for the climb up stone steps from the jetty. Cost is approximately $3 to $5 for the ferry round-trip, plus a small entry fee. Allow a full half-day. Book ahead for guided tours during peak season — they add context that transforms the visit. This is a moderate-energy excursion involving a steep staircase of roughly 120 steps.</p>
+
+        <h4 class="mt-1">Gateway of India &amp; Taj Mahal Palace Hotel</h4>
+        <p>The 1924 basalt arch is Mumbai's most iconic landmark and sits just minutes from the cruise terminal. Walk through, then step into the Taj Mahal Palace Hotel next door for tea or simply to admire the 1903 Indo-Saracenic architecture. The lobby is open to visitors. Free to see the Gateway; afternoon tea at the Taj costs approximately $15 to $25 per person. Allow one to two hours. Wheelchair accessible at ground level.</p>
+
+        <h4 class="mt-1">Crawford Market &amp; Spice Shopping</h4>
+        <p>Victorian-era market building designed by the firm that built the Palace of Westminster. Ground floor is a sensory wonderland of spices, dried fruits, and imported goods. Upper levels offer textiles and housewares. Haggling is expected and part of the experience. Uber from port costs about $2 to $3. Allow one to two hours. Combine with a stop at nearby Chhatrapati Shivaji Terminus (the UNESCO-listed railway station) just a five-minute walk away.</p>
+
+        <h4 class="mt-1">Marine Drive &amp; Chowpatty Beach</h4>
+        <p>Walk the three-kilometer curved promenade known as the Queen's Necklace. Best at sunset when the streetlights create a sweep of golden light along the Arabian Sea. At the northern end, Chowpatty Beach offers some of Mumbai's best street food — bhel puri, pav bhaji, and kulfi from beachside vendors. Free to walk. Street food costs $1 to $2. An accessible path runs the length of the promenade.</p>
+
+        <h4 class="mt-1">Dhobi Ghat &amp; Mahalaxmi Area</h4>
+        <p>The world's largest open-air laundry, where thousands of washermen clean clothes by hand in long concrete troughs. Best viewed from the Mahalaxmi railway bridge. Respectful photography is permitted from the bridge, but do not enter the working area without a guide. Combine with a visit to the Mahalaxmi Temple nearby. Uber from port about $4. Allow one to two hours.</p>
+
+        <h4 class="mt-1">Colaba Walking Tour</h4>
+        <p>An independent walking tour of the Colaba district covers the Afghan Church (stunning stained glass), Sassoon Docks (working fishing harbour, best early morning), the Colaba Causeway street market (books, clothing, souvenirs), and Leopold Cafe (a Mumbai institution since 1871). All within walking distance of the port. Free to explore; lunch at Leopold costs about $8 to $12 per person. Allow three to four hours at a leisurely pace.</p>
+      </details>
+
+      <!-- ===== DEPTH SOUNDINGS ===== -->
+      <details class="port-section" id="depth_soundings" open>
+        <summary><h2>Depth Soundings Ashore</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Lessons learned the hard way.</p>
+        <ul>
+          <li><strong>Water Safety:</strong> Do not drink tap water. Use only sealed bottled water, even for brushing teeth. This is non-negotiable and the single most important health precaution for cruise visitors in Mumbai.</li>
+          <li><strong>Street Food Strategy:</strong> Stick to busy stalls with high turnover where food is cooked fresh in front of you. Avoid pre-cut fruit and salads. The vada pav and bhel puri from popular carts near Chowpatty Beach and the Gateway area are generally safe and absolutely worth trying.</li>
+          <li><strong>Elephanta Timing:</strong> Take the earliest ferry (9am) to Elephanta Caves. By midday the island is crowded with tour groups and the caves lose some of their contemplative atmosphere. Return by noon and you still have a full afternoon for the city. Carry cash — vendors on the island do not accept cards.</li>
+          <li><strong>Uber Over Taxis:</strong> Use Uber or Ola exclusively. App-based rides are metered, air-conditioned, and eliminate the haggling that can frustrate visitors unfamiliar with local fare structures. Traditional black-and-yellow taxis are an option but require vigilance about meter usage.</li>
+          <li><strong>Dress Modestly at Temples:</strong> Cover shoulders and knees when visiting religious sites. Carry a scarf or shawl. Remove shoes before entering any temple. Modest dress shows respect and ensures you are welcomed warmly.</li>
+          <li><strong>Traffic Planning:</strong> Mumbai traffic is legendarily dense. Budget extra time for any trip by car, especially between 8-10am and 5-8pm. A ten-minute ride on the map can take thirty minutes in rush hour. Plan your excursions to minimize time in vehicles.</li>
+          <li><strong>Monsoon Awareness:</strong> If visiting during the shoulder months (September or October), rain can be sudden and heavy. Carry a compact umbrella and waterproof phone case. The city is beautiful in the rain, but streets flood quickly.</li>
+        </ul>
+      </details>
+
+      <!-- ===== FAQ ===== -->
+      <details class="port-section" id="faq" open>
         <summary><h2>Frequently Asked Questions</h2></summary>
-        <details><summary>How far is the Gateway of India from the cruise terminal?</summary><p>The Gateway of India is literally a 5-minute walk from where most cruise ships dock at Ballard Pier or the nearby berths. You can see the iconic arch from the ship.</p></details>
-        <details><summary>Is it safe to take a taxi or auto-rickshaw in Mumbai?</summary><p>Use app-based services like Uber or Ola exclusively – they're safe, cheap, air-conditioned, and eliminate haggling. Traditional taxis and rickshaws can be challenging for visitors unfamiliar with local rates.</p></details>
-        <details><summary>Can I visit Elephanta Caves and still have time for the city?</summary><p>Yes, but plan carefully. The ferry to Elephanta takes 1 hour each way, plus 2 hours on the island. Leave early (8 a.m. ferry) to return by noon and explore Colaba, the Taj hotel, and Crawford Market in the afternoon.</p></details>
-        <details><summary>What should I wear when visiting temples and religious sites in Mumbai?</summary><p>Cover shoulders and knees at religious sites. Bring a scarf or shawl. Remove shoes before entering temples. Modest dress shows respect and ensures you're welcome everywhere.</p></details>
-        <details><summary>Is street food in Mumbai safe for cruise passengers?</summary><p>Stick to busy stalls with high turnover where food is cooked fresh in front of you. Avoid pre-cut fruits and uncooked items. The vada pav and bhel puri from popular vendors near the Gateway are generally safe and absolutely delicious.</p></details>
+        <p><strong>Q: How far is the Gateway of India from the cruise terminal?</strong><br/>A: The Gateway of India is about a 5-10 minute taxi ride or a 15-minute walk from Ballard Pier, where most cruise ships dock. You can see the arch from the ship on approach.</p>
+        <p><strong>Q: Is it safe to take a taxi or auto-rickshaw in Mumbai?</strong><br/>A: Use app-based services like Uber or Ola exclusively — they are safe, cheap, air-conditioned, and eliminate haggling. Traditional taxis are fine but require some familiarity with local fare structures.</p>
+        <p><strong>Q: Can I visit Elephanta Caves and still have time for the city?</strong><br/>A: Yes, but plan carefully. The ferry to Elephanta takes one hour each way, plus two to three hours on the island. Take the 9am ferry and return by noon, giving you a full afternoon to explore Colaba, Crawford Market, and Marine Drive.</p>
+        <p><strong>Q: What should I wear when visiting temples and religious sites?</strong><br/>A: Cover shoulders and knees at religious sites. Bring a scarf or shawl. Remove shoes before entering temples. Modest dress shows respect and ensures you are welcome everywhere.</p>
+        <p><strong>Q: Is street food safe for cruise passengers?</strong><br/>A: Stick to busy stalls with high turnover where food is cooked fresh in front of you. Avoid pre-cut fruits and raw items. Vada pav and bhel puri from popular vendors near the Gateway are generally safe and absolutely delicious.</p>
+        <p><strong>Q: Is Mumbai accessible for visitors with mobility challenges?</strong><br/>A: The cruise terminal has wheelchair ramp access. Marine Drive promenade is flat and accessible. The Taj Mahal Palace Hotel and Gateway of India area are manageable at ground level. However, Elephanta Caves require climbing about 120 steep steps and are not suitable for wheelchair users. Uber vehicles can accommodate folding wheelchairs with advance request.</p>
+        <p><strong>Q: What is the best time of year to visit Mumbai?</strong><br/>A: October through March offers the most comfortable weather — cooler temperatures, low humidity, and virtually no rain. Avoid the monsoon months of June through September when heavy rains can disrupt plans.</p>
       </details>
 
+      <!-- ===== GALLERY ===== -->
+      <details class="port-section" id="gallery" open>
+        <summary><h2>Photo Collection</h2></summary>
+        <div class="port-gallery">
+          <figure>
+            <img src="/ports/img/mumbai/mumbai-1.webp" alt="Mumbai harbor panorama with fishing boats and the city skyline rising in the haze beyond the waterfront" loading="lazy" width="400" height="300"/>
+            <figcaption>Mumbai harbor from the waterfront. <a href="https://commons.wikimedia.org/w/index.php?search=Mumbai+harbor&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+          <figure>
+            <img src="/ports/img/mumbai/mumbai-2.webp" alt="Colonial architecture and tree-lined streets in the Colaba district of south Mumbai" loading="lazy" width="400" height="300"/>
+            <figcaption>Colaba district near the cruise port. <a href="https://commons.wikimedia.org/w/index.php?search=Mumbai+Colaba&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+          <figure>
+            <img src="/ports/img/mumbai/mumbai-3.webp" alt="Gateway of India basalt arch with boats in the Mumbai harbor and the Taj Mahal Palace Hotel visible behind" loading="lazy" width="400" height="300"/>
+            <figcaption>The Gateway of India, Mumbai's iconic waterfront arch. <a href="https://commons.wikimedia.org/w/index.php?search=Gateway+of+India&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+          <figure>
+            <img src="/ports/img/mumbai/mumbai-4.webp" alt="Marine Drive promenade curving along the Arabian Sea coastline at sunset with city lights beginning to glow" loading="lazy" width="400" height="300"/>
+            <figcaption>Marine Drive at sunset — the Queen's Necklace. <a href="https://commons.wikimedia.org/w/index.php?search=Mumbai+Marine+Drive&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+        </div>
+      </details>
 
-    <!-- Photo Gallery Section -->
-    <details class="port-section photo-gallery" id="gallery" open>
-      <summary><h2>Photo Gallery</h2></summary>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/mumbai/mumbai-1.webp" alt="Harbor view of Mumbai" loading="lazy">
-          <figcaption>
-            Harbor view of Mumbai
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/mumbai/mumbai-2.webp" alt="Waterfront scenery of Mumbai" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Mumbai
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/mumbai/mumbai-3.webp" alt="Port panorama of Mumbai" loading="lazy">
-          <figcaption>
-            Port panorama of Mumbai
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/mumbai/mumbai-4.webp" alt="Coastal landscape of Mumbai" loading="lazy">
-          <figcaption>
-            Coastal landscape of Mumbai
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </details>
+      <!-- ===== CREDITS ===== -->
+      <details class="port-section" id="credits">
+        <summary><h2>Image Credits</h2></summary>
+        <ul>
+          <li>Hero image: <a href="https://commons.wikimedia.org/w/index.php?search=Mumbai+skyline&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+          <li>Harbor, waterfront, Gateway, Marine Drive images: <a href="https://commons.wikimedia.org/w/index.php?search=Mumbai&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+        </ul>
+      </details>
 
-    <!-- Image Credits Section -->
-    <details class="port-section image-credits" open>
-      <summary><h2>Image Credits</h2></summary>
-      <ul>
-        <li><strong>mumbai-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>mumbai-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>mumbai-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>mumbai-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </details>
+      <!-- ===== AUTHOR DISCLAIMER ===== -->
+      <section class="port-section author-disclaimer" style="margin-top: 2.5rem; padding: 1.25rem; background: #fffef7; border-left: 4px solid #d9b382; border-radius: 8px;">
+        <p class="tiny" style="margin: 0; line-height: 1.6; color: #5a6a7a;">
+          <strong>Author's Note:</strong> Until I have sailed this port myself, these notes are soundings in another's wake — helpful for planning, and marked for revision once I've logged my own steps ashore.
+        </p>
+      </section>
 
-    <!-- Interactive Port Map -->
-    <section class="port-section">
-      <h2>Port Map</h2>
-      <p>Explore Mumbai's cruise terminal, the Gateway of India, Colaba neighborhood, and attractions. Click markers for details and directions.</p>
-      <div id="port-map" class="port-map-container" role="application" aria-label="Interactive map of Mumbai port area"></div>
-    </section>
+      <!-- ===== BACK NAV ===== -->
+      <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
 
-  
-        <!-- VOLATILE DATA DISCLAIMER -->
-        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-14 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-        </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Mumbai?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
-
-          <p><strong>Q: Does Mumbai have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-
-          <p><strong>Q: What should I pack for Mumbai's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
-
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
+      <!-- VOLATILE DATA DISCLAIMER -->
+      <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+        <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-14 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+      </aside>
 
 
 

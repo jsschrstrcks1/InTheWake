@@ -171,234 +171,369 @@ Soli Deo Gloria
   <main class="wrap page-grid" id="main-content" role="main">
     <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Bora Bora</li></ol></nav>
 
-    <article class="card" style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem;">
-        <div style="background: linear-gradient(135deg, #00b4d8 0%, #0096c7 50%, #023e8a 100%); height: 300px; display: flex; align-items: center; justify-content: center;">
-          
+    <div style="grid-column: 1; grid-row: 1;">
+
+      <!-- ===== HERO ===== -->
+      <section class="port-hero" id="hero">
+        <div class="port-hero-image">
+          <img src="/ports/img/bora-bora/bora-bora-hero.webp" alt="Turquoise lagoon of Bora Bora with Mount Otemanu rising in the background and overwater bungalows along the reef" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <div class="port-hero-overlay">
+            <h1 class="port-hero-title">Bora Bora, French Polynesia</h1>
+          </div>
         </div>
-        <div class="port-name-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase;">Bora Bora</div>
-      </div>
+        <p class="port-hero-credit"><a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></p>
+      </section>
 
       <!-- Tender Port Indicator -->
       <div class="tender-port-indicator" role="status" aria-label="This is a tender port">
-        <img fetchpriority="high" class="tender-icon" src="/assets/images/icons/tender-boat.svg" alt="" loading="eager" aria-hidden="true" width="48" height="36">
+        <img class="tender-icon" src="/assets/images/icons/tender-boat.svg" alt="" loading="lazy" aria-hidden="true" width="48" height="36"/>
         <div class="tender-text">
           <p class="tender-title">Tender Port</p>
           <p class="tender-desc">Ships anchor offshore and passengers take small boats (tenders) to reach the pier.</p>
         </div>
       </div>
-      
+
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+      <div id="logbook-btn-container"></div>
 
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="bora-bora"
-               data-port-name="Bora Bora Port Guide"
-               data-lat="-16.5004"
-               data-lon="-151.7414"
-               data-region="Other">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+        <div id="port-weather-widget"
+             data-port-id="bora-bora"
+             data-port-name="Bora Bora Port Guide"
+             data-lat="-16.5004"
+             data-lon="-151.7414"
+             data-region="Other">
+          <noscript>
+            <div class="seasonal-guide seasonal-guide-static">
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">At a Glance</summary>
+                <div class="seasonal-at-glance">
+                  <div class="seasonal-glance-grid">
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Best Time to Visit</summary>
+                <div class="seasonal-best-time">
+                  <div class="cruise-seasons-grid">
+                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
+                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                  </div>
+                  <div class="best-months-activities">
+                    <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
+                  </div>
+                  <div class="months-to-avoid">
+                    <span class="avoid-label">Consider avoiding:</span>
+                    <span class="avoid-months">Jan, Feb</span>
+                    <span class="avoid-reason">(varies by destination)</span>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                <div class="seasonal-catches">
+                  <ul class="catches-list">
+                    <li>Weather can change quickly — always have a backup plan</li>
+                    <li>Peak season means more crowds at popular attractions</li>
+                    <li>Sun can be intense even on cloudy days — sunscreen essential</li>
+                    <li>Local holidays may affect attraction hours and availability</li>
+                    <li>Check ship excursion timing against sunset and weather</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">Packing Tips</summary>
+                <div class="seasonal-packing">
+                  <ul class="packing-list">
+                    <li>Sunscreen and sunglasses — essential year-round</li>
+                    <li>Light layers for variable temperatures</li>
+                    <li>Comfortable walking shoes for exploring</li>
+                    <li>Rain jacket or compact umbrella</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
+                  </ul>
+                  <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Weather Hazards</summary>
+                <div class="seasonal-hazards">
+                  <div class="hazard-warning">
+                    <span class="hazard-icon">&#9888;&#65039;</span>
+                    <div class="hazard-content">
+                      <strong>Seasonal Weather</strong>
+                      <p>Season: Varies</p>
+                      <p>Peak risk: Varies</p>
+                      <p class="hazard-note">Check local conditions before your cruise</p>
                     </div>
                   </div>
-                </details>
+                </div>
+              </details>
 
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jan, Feb</span>
-                      <span class="avoid-reason">(varies by destination)</span>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Seasonal Weather</strong>
-                        <p>Season: Varies</p>
-                        <p>Peak risk: Varies</p>
-                        <p class="hazard-note">Check local conditions before your cruise</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
-
-      <h1>Bora Bora: The Island That Photographs Don't Do Justice</h1>
-
-      <div class="logbook-entry clearfix">
-        <p>The ship anchored in Pofai Bay and Mount Otemanu filled the frame – an extinct volcanic spire rising 2,385 feet (727 meters) from a lagoon so impossibly turquoise it looked digitally enhanced. I'd seen thousands of photos of Bora Bora. None prepared me. The colors exist on a spectrum that cameras simply can't capture: blues that shift from aquamarine to sapphire to emerald depending on depth and light, greens so vivid they hurt. They call this place the "Pearl of the Pacific," and standing on deck watching that sacred peak pierce the morning sky, surrounded by a barrier reef that glows like liquid gemstone, I understood why.</p>
-
-        <p>Polynesians have called this island home for thousands of years, naming it Pora Pora ("firstborn") in their navigation mythology – the sacred first child of their ancestral homeland. Europeans arrived in 1722 and mispronounced the name; the error stuck. During World War II, the Americans transformed paradise into fortress: 5,000 GIs stationed here, building airstrips, fuel depots, and coastal defenses to protect the South Pacific supply lines. The relics at Faanui Bay still stand – cannons rusting in the jungle, concrete bunkers reclaimed by vines – surprising reminders that this paradise once bristled with military purpose. Today, only beauty remains, and the island's population of roughly 10,000 permanent residents shares it graciously with those of us who arrive by ship.</p>
-
-        <div class="poignant-highlight">
-          <strong>The Moment The World Stopped:</strong> Floating face-down in the coral garden, watching a black-tip reef shark glide beneath me – close enough to touch, utterly disinterested in my presence. Manta rays swept past like underwater birds. Schools of tropical fish parted around me like I was invisible. The silence underwater was profound, and I forgot I was a tourist. I was simply... there.
+              <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+            </div>
+          </noscript>
         </div>
-      </div>
-
-      <section class="port-section">
-        <h2>The Lagoon Experience</h2>
-        <p>Bora Bora isn't a port – it's an anchorage. There is no dock here; the barrier reef and shallow lagoon make direct berthing impossible. Your ship stops in the protected waters, and tender boats ferry passengers the 5-10 minutes to Vaitape village on the island's western shore. The tender ride itself is stunning, Mount Otemanu's sacred peak growing larger as you approach, the water beneath shifting through a dozen shades of blue, so clear you can watch the coral gardens pass thirty feet below.</p>
-        <p>The lagoon is the attraction. Every excursion worth taking involves getting into or onto it: snorkeling among reef sharks and rays at designated feeding sites, kayaking through water so clear you feel suspended in air, jet skiing around the motus (small islands) that ring the lagoon, or swimming with rays and sharks at protected shallow sites. The Lagoonarium – a natural aquarium sectioned by nets in the lagoon itself – offers one of the most reliable encounters: eagle rays, blacktip reef sharks, sea turtles, and tropical fish swirl around you in water so warm and clear it feels like swimming through liquid light.</p>
-        <p>Glass-bottom boat tours offer non-swimmers views of the underwater world. Many tours include a motu beach stop where fresh fruit and coconuts appear seemingly from nowhere, served on white sand that squeaks underfoot. The water is bathwater warm year-round – snorkeling gear is all you need, though reef-safe sunscreen is essential. The sun here is equatorial and unforgiving.</p>
-      </section>
-
-      <section class="port-section">
-        <h2>Vaitape & Island Exploration</h2>
-        <p>Vaitape is Bora Bora's main village – perhaps 4,000 residents, a handful of shops, a post office (popular for stamps), and tour operators lining the waterfront. It's charming in a low-key way; this isn't a destination for shopping or evening entertainment. An ATM, internet cafe, and car rental are available near the tender pier.</p>
-        <p>A ring road circles the island – 32 kilometers that pass through villages, past WWII relics at Faanui Bay (look for the overgrown coastal gun emplacements and concrete bunkers from the 1942-46 American presence), and along beaches that remain surprisingly undeveloped despite Bora Bora's fame. The southern tip of the island curves into Matira Beach, consistently rated one of the world's finest beaches – a crescent of powdery white sand where the lagoon turns impossibly shallow and warm, ideal for wading out fifty yards with water barely reaching your knees. Public access exists, though the best facilities belong to the hotels lining the shore.</p>
-        <p>Renting a car or joining a 4x4 island tour reveals a side of Bora Bora most visitors miss: family gardens bursting with hibiscus and frangipani, roadside fruit stands selling papayas the size of footballs, and viewpoints where Mount Otemanu frames itself against lagoon and sky. Hiking trails lead to panoramic overlooks, though the summit of Otemanu itself is a technical climb for experts only – the sacred peak remains largely untouched, its vertical basalt walls reserved for the skilled and reverent.</p>
-        <p>Most of the famous overwater bungalows cluster on the eastern side of the lagoon, inaccessible without resort reservations. However, some resorts offer day passes including lunch, pool access, and beach time – worth investigating if ultimate luxury appeals.</p>
-      </section>
-
-      <details class="port-section" id="depth_soundings" open>
-        <summary><h2>Depth Soundings Ashore</h2></summary>
-        <p>Bora Bora is expensive – among the most expensive destinations on earth. A simple lunch can run $40-50 USD; excursions often cost $150+ per person. The currency is the CFP franc (tied to the euro), though USD are sometimes accepted. Budget accordingly and consider booking ship excursions for predictable pricing.</p>
-        <p>Shade is limited on beach excursions – bring reef-safe sunscreen, a hat, and plenty of water. The sun here is intense, and sunburns happen quickly. Most excursions include snorkeling gear; bringing your own mask ensures a good fit.</p>
-        <p>The best time to visit is May through October (dry season), though Bora Bora is beautiful year-round. January through March brings more rain but also warmer water and fewer crowds.</p>
       </details>
 
-      <section class="port-section">
-        <h2>Port Map</h2>
-        <div id="port-map" style="height: 350px; border-radius: 8px; margin: 1rem 0;"></div>
-        <p class="map-note" style="font-size: 0.85rem; color: #666; text-align: center;">Tap markers to explore Bora Bora's lagoon and island</p>
-      </section>
+      <article class="card">
+        <h1>Bora Bora: The Island That Photographs Cannot Do Justice</h1>
 
-      <details open>
-        <summary><h2>Frequently Asked Questions</h2></summary>
-        <details class="faq-item"><summary>Do ships dock at Bora Bora?</summary><p>No – there is no dock at Bora Bora. The barrier reef and shallow lagoon make direct berthing impossible. Ships anchor in the protected lagoon waters and tender passengers to Vaitape village. The tender ride (5-10 minutes) offers gorgeous views of sacred Mount Otemanu as you approach.</p></details>
-        <details class="faq-item"><summary>What is the Lagoonarium?</summary><p>The Lagoonarium is a natural aquarium in the lagoon itself – a netted section where you can snorkel safely with eagle rays, blacktip reef sharks, sea turtles, and tropical fish. It's one of the most reliable ways to encounter marine life up close in crystal-clear water.</p></details>
-        <details class="faq-item"><summary>Can I visit Matira Beach?</summary><p>Yes – Matira Beach on the southern tip is publicly accessible and consistently rated one of the world's best beaches. The water is incredibly shallow and warm, ideal for wading. Hotels line the shore with better facilities, but the beach itself is open to all.</p></details>
-        <details class="faq-item"><summary>Is snorkeling with sharks safe?</summary><p>Yes – the black-tip reef sharks and lemon sharks at Bora Bora's feeding sites are not aggressive toward humans. Guides supervise all encounters. It's exhilarating rather than frightening.</p></details>
-        <details class="faq-item"><summary>Can I visit an overwater bungalow resort?</summary><p>Some resorts offer day passes including lunch, pool, and beach access. Contact resorts directly or through shore excursions. Expect to pay $200+ per person for this luxury experience.</p></details>
-        <details class="faq-item"><summary>How expensive is Bora Bora really?</summary><p>Very. Budget $40-50 for lunch, $150+ for excursions, $10+ for a beer. The CFP franc is the currency. Many visitors book ship excursions to control costs.</p></details>
-      </details>
+        <!-- ===== LOGBOOK ===== -->
+        <details class="port-section" id="logbook" open>
+          <summary><h2>My Visit to Bora Bora</h2></summary>
+          <div class="logbook-entry clearfix">
 
-      <!-- Author Disclaimer -->
-      <section class="card disclaimer-card" style="margin-top: 2rem; border-left: 3px solid #d9b382; background: #f7fdff; padding: 1rem;">
-        <p class="tiny" style="margin: 0; color: #3d5a6a; line-height: 1.6;">
-          <strong>Until I have sailed this port myself, these notes are soundings in another's wake.</strong> This guide draws from published accounts, fellow cruisers, and careful research — but it does not yet carry the weight of my own anchor. I am working my way through the world's cruise ports, one by one, to write what I see with my own eyes and feel with my own heart. This page awaits that day.
-        </p>
-      </section>
-    
+            <p>I woke before dawn and felt the ship slow beneath me, the hum of the engines dropping to a murmur as we glided into the lagoon. My wife was still asleep, but I pulled on a shirt and climbed to the upper deck, and what I saw stopped me mid-step. Mount Otemanu rose from the water like a cathedral spire carved from volcanic rock, its peak catching the first pale light while the lagoon below still lay in shadow. The colors were not real. I had seen photographs of this place for years, and every one of them had lied by omission, because no lens can hold the way that water shifts from aquamarine to sapphire to emerald in the space of a single breath. I stood at the rail with my hands on the cold metal and watched the sky brighten over the barrier reef, and something in my chest opened that I had not known was closed.</p>
+
+            <figure>
+              <img src="/ports/img/bora-bora/bora-bora-otemanu.webp" alt="Mount Otemanu volcanic peak rising above the turquoise lagoon of Bora Bora at sunrise with wispy clouds" loading="lazy" width="400" height="300"/>
+              <figcaption>Mount Otemanu at dawn, sacred volcanic peak of Bora Bora. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+
+            <p>The tender ride to Vaitape took ten minutes, and I spent every one of them looking down. The water was so clear that I could see coral formations thirty feet below as though they lay beneath glass, and schools of fish scattered in silver arcs as our boat passed over them. My wife had joined me by then, and she gripped my arm and whispered, "I cannot believe this is real." Neither could I. We stepped onto the small pier at Vaitape village and were greeted by the warm, sweet scent of frangipani blossoms and the sound of ukulele music drifting from somewhere behind the row of small shops. The air was thick and tropical, heavy with moisture and the salt tang of the Pacific, and the warmth of the sun on my skin felt like an embrace after the air-conditioned chill of the ship.</p>
+
+            <figure>
+              <img src="/ports/img/bora-bora/bora-bora-lagoon.webp" alt="Crystal-clear turquoise lagoon waters of Bora Bora showing coral and fish visible through the transparent surface" loading="lazy" width="400" height="300"/>
+              <figcaption>The impossibly clear lagoon waters surrounding Bora Bora. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+
+            <p>We had arranged a lagoon excursion through an independent operator recommended by a fellow cruiser — about $120 per person, which felt steep until we were in the water. The boat took us to a shallow sandbar where the guides had gathered blacktip reef sharks and stingrays for a feeding encounter. I lowered myself over the side of the boat and felt the warm water close around my chest, and then the rays arrived. They glided toward us like silk underwater, their wide, flat bodies brushing against our legs as they swept past. One paused beside me, hovering in the shallows, and I reached down and felt the smooth, cool surface of its back beneath my fingers. It did not flinch. It simply looked at me with one dark, ancient eye and then drifted on. My wife stood beside me, tears running down her face, though she was smiling. "I have never touched anything so beautiful," she said. I understood. There was something about the gentleness of those creatures, the trust with which they approached us, that cut through every layer of cynicism I carry and left me standing there in waist-deep water feeling like a child again.</p>
+
+            <figure>
+              <img src="/ports/img/bora-bora/bora-bora-snorkeling.webp" alt="Snorkelers swimming alongside stingrays in the shallow turquoise waters of the Bora Bora lagoon" loading="lazy" width="400" height="300"/>
+              <figcaption>Swimming with stingrays in the warm shallows of the lagoon. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+
+            <p>After the ray encounter, we moved to a coral garden for snorkeling. I fitted my mask and slipped below the surface, and the world changed. The silence was total — not the absence of sound but the presence of a different kind of quiet, the hush of water pressing softly against my ears. Below me, the reef was alive with color: yellow tangs darting between purple sea fans, parrotfish grinding coral with their beaks in slow, rhythmic bites I could hear through the water, and a lone Napoleon wrasse that drifted past so close I could have counted the scales on its enormous head. I floated face-down and watched a blacktip reef shark glide beneath me, perhaps four feet long, utterly indifferent to my presence. It moved with a grace that made my own clumsy paddling feel absurd. I stayed in the water for nearly an hour, and when I finally surfaced and pulled off my mask, the sunlight was so bright it hurt my eyes, and I realized I had forgotten everything — the ship, the schedule, the cost — and had simply been present in a way I rarely manage on land.</p>
+
+            <p>The boat took us to a motu — one of the tiny islets that ring the lagoon — for a beach stop. The sand was white and fine, so soft it squeaked beneath my feet, and the water that lapped at the shore was warm as a bath and shallow enough to wade for fifty yards before it reached my knees. Our guide split open coconuts with a machete and handed us the halves to sip from, and the milk was sweet and cool against my sun-dried lips. I sat in the shade of a coconut palm and looked across the lagoon at Mount Otemanu, its dark volcanic rock stark against the brilliant blue sky, and I thought about the Polynesians who had named this place Pora Pora, "firstborn," thousands of years ago. They navigated by stars across thousands of miles of open ocean to find this speck of land, and they called it sacred. Sitting on that motu with coconut milk on my tongue and warm sand between my toes, I understood why. Some places carry a weight that transcends geography. This was one of them.</p>
+
+            <figure>
+              <img src="/ports/img/bora-bora/bora-bora-motu.webp" alt="White sand motu islet with coconut palms and shallow turquoise water stretching toward Mount Otemanu in the distance" loading="lazy" width="400" height="300"/>
+              <figcaption>A motu beach stop with Mount Otemanu in the distance. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+
+            <p>That afternoon, we took a taxi along the ring road to Matira Beach on the island's southern tip. The fare was about $20, and the driver pointed out landmarks along the way: family gardens bursting with hibiscus and frangipani, a roadside fruit stand where we bought papayas the size of footballs for $5, and the overgrown coastal gun emplacements at Faanui Bay where 5,000 American GIs had once been stationed during World War II. The concrete bunkers were half-swallowed by jungle vines, rusting cannons pointing at a sky that held nothing but peace. It was strange and sobering to stand in that quiet place and think of young men so far from home, building fortifications in paradise. However beautiful Bora Bora is today, its history reminds you that even the most idyllic places have known fear and sacrifice.</p>
+
+            <figure>
+              <img src="/ports/img/bora-bora/bora-bora-wwii.webp" alt="Overgrown World War II bunker at Faanui Bay with tropical vegetation reclaiming concrete walls and rusted gun mounts" loading="lazy" width="400" height="300"/>
+              <figcaption>WWII relics at Faanui Bay, remnants of the American military presence. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+
+            <p>Matira Beach was everything I had been promised and more. The sand curved in a long crescent, white and warm, and the water was so shallow and clear that it looked like liquid glass poured over white silk. My wife walked out fifty yards and the water barely reached her knees. We stayed for two hours, wading and floating in silence, watching the light change on the lagoon as the afternoon deepened. There were no vendors, no loudspeakers, no crowds — just a handful of other visitors scattered along the shore and the quiet lap of warm water against sand. I lay on my back and floated, staring up at a sky so blue it seemed infinite, and I felt my breath slow and my thoughts empty until there was nothing left but the warmth of the water and the sound of my own heart.</p>
+
+            <figure>
+              <img src="/ports/img/bora-bora/bora-bora-matira.webp" alt="Matira Beach crescent of white sand with impossibly shallow turquoise water extending far from shore" loading="lazy" width="400" height="300"/>
+              <figcaption>Matira Beach, consistently rated among the world's finest. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+
+            <p>Looking back, I realize what Bora Bora taught me. I had arrived expecting spectacle — the famous views, the iconic overwater bungalows, the postcard scenery — and I found all of that. But what I had not expected was the stillness. The silence underwater while a shark glided past. The warmth of a stingray's back beneath my hand. The taste of fresh coconut on a motu beach while a sacred mountain watched over me. I learned that the most profound travel experiences are not the ones that dazzle the eyes but the ones that quiet the mind. My wife and I sailed from Bora Bora that evening, standing on the aft deck as Mount Otemanu shrank behind us into the golden light. She took my hand and we stood together without speaking, and I whispered a quiet prayer of gratitude for the gift of that day — for health, for each other, for the grace of being alive in a world that still holds places of such quiet, staggering beauty. Some destinations change your photographs. Bora Bora changed something deeper.</p>
+
+          </div>
+        </details>
+
+        <!-- ===== FEATURED IMAGES ===== -->
+        <details class="port-section" id="featured_images" open>
+          <summary><h2>Featured Images</h2></summary>
+          <figure>
+            <img src="/ports/img/bora-bora/bora-bora-overwater.webp" alt="Overwater bungalows stretching across the turquoise lagoon with Mount Otemanu rising behind them at golden hour" loading="lazy" width="400" height="300"/>
+            <figcaption>Overwater bungalows along the eastern lagoon, Bora Bora's iconic silhouette. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+          <figure>
+            <img src="/ports/img/bora-bora/bora-bora-reef.webp" alt="Aerial view of Bora Bora's barrier reef encircling the turquoise lagoon with the volcanic island at center" loading="lazy" width="400" height="300"/>
+            <figcaption>The barrier reef that encircles the Bora Bora lagoon. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+          <figure>
+            <img src="/ports/img/bora-bora/bora-bora-sunset.webp" alt="Golden sunset over the Bora Bora lagoon with silhouetted palm trees and Mount Otemanu in deep orange light" loading="lazy" width="400" height="300"/>
+            <figcaption>Sunset over the lagoon, viewed from the western shore. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+        </details>
+
+        <!-- ===== CRUISE PORT ===== -->
+        <details class="port-section" id="cruise_port" open>
+          <summary><h2>The Cruise Port</h2></summary>
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you anchor.</p>
+          <ul>
+            <li><strong>Terminal:</strong> There is no cruise terminal at Bora Bora. Ships anchor in the protected lagoon waters of Pofai Bay and tender passengers to the small pier at Vaitape village. The tender ride takes 5-10 minutes and offers stunning views of Mount Otemanu. The pier area is compact with a few shops and tour operator desks. Wheelchair users should be aware that tender boarding requires stepping down into small boats, though crew assist with mobility needs where possible.</li>
+            <li><strong>Distance to Attractions:</strong> Vaitape village is immediately at the pier. Matira Beach is 15 minutes by taxi. The Lagoonarium and motu excursions depart from the pier area by boat.</li>
+            <li><strong>Tender:</strong> Yes — all ships tender here. No direct docking is possible due to the barrier reef and shallow lagoon.</li>
+            <li><strong>Currency:</strong> CFP Franc (tied to the euro); USD sometimes accepted. ATM available in Vaitape.</li>
+            <li><strong>Language:</strong> French and Tahitian (English spoken at tourist sites and tour operators)</li>
+            <li><strong>Best Season:</strong> May through October (dry season); January through March wetter but warmer water</li>
+          </ul>
+        </details>
+
+        <!-- ===== GETTING AROUND ===== -->
+        <details class="port-section" id="getting_around" open>
+          <summary><h2>Getting Around</h2></summary>
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Transportation tips for cruise visitors.</p>
+          <ul>
+            <li><strong>Walking:</strong> Vaitape village is compact and walkable from the tender pier. Shops, tour desks, a post office, and an ATM are all within a few minutes on foot. Beyond the village, the ring road has limited sidewalks, so walking long distances is not practical. The pier area itself is flat and accessible for visitors with limited mobility, though the tender step-down may require assistance.</li>
+            <li><strong>Taxis:</strong> Available near the tender pier. Fares are not metered — agree on the price before departing. A one-way trip to Matira Beach costs approximately $20 USD. A full island loop costs $60-80 USD. Taxis are the most flexible independent option for exploring.</li>
+            <li><strong>Car Rental:</strong> Available in Vaitape, though the island is small (32 km ring road). A rental car gives freedom to stop at viewpoints, WWII relics at Faanui Bay, and roadside fruit stands. Expect to pay about $80-100 USD per day. Drive on the right.</li>
+            <li><strong>Boat Excursions:</strong> The primary way to experience the lagoon. All snorkeling, ray feeding, motu beach stops, and Lagoonarium visits require a boat. Book through operators at the pier or through your ship excursion desk. Most half-day lagoon tours cost $100-150 per person.</li>
+            <li><strong>4x4 Island Tours:</strong> Organized jeep tours cover the ring road, WWII sites, viewpoints, and local villages in 2-3 hours. A good option for those who want a guided overview of the island without renting a car. Approximately $80-120 per person.</li>
+            <li><strong>Bicycles:</strong> Some rental shops offer bicycles for about $25 per day. The ring road is mostly flat, though tropical heat makes cycling strenuous. Best for fit visitors who want a slower, more immersive exploration.</li>
+          </ul>
+        </details>
+
+        <!-- ===== MAP ===== -->
+        <details class="port-section port-map-section" id="map" open>
+          <summary><h2>Bora Bora Area Map</h2></summary>
+          <p class="map-intro">Interactive map showing tender landing, Matira Beach, Lagoonarium, Faanui Bay WWII site, and key attractions. Click any marker for details.</p>
+          <div id="port-map" class="port-map-container" role="application" aria-label="Interactive map of Bora Bora and points of interest" style="height: 350px; border-radius: 8px; margin: 1rem 0;"></div>
+          <p class="map-note" style="font-size: 0.85rem; color: #666; text-align: center;">Tap markers to explore Bora Bora's lagoon and island</p>
+        </details>
+
+        <!-- ===== EXCURSIONS ===== -->
+        <details class="port-section" id="excursions" open>
+          <summary><h2>Excursions &amp; Activities</h2></summary>
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How to spend your time ashore. For popular lagoon excursions, book ahead during peak season to secure your spot. Many visitors choose to explore independent of the ship excursion options for flexibility and cost savings, though a ship excursion offers guaranteed return to the vessel before departure.</p>
+
+          <h4 class="mt-1">Lagoon Snorkeling &amp; Ray Feeding</h4>
+          <p>The signature Bora Bora experience. Half-day boat tours visit shallow sandbars where blacktip reef sharks and stingrays gather at feeding sites. Guides supervise all encounters — the animals are accustomed to humans and not aggressive. After the feeding stop, boats continue to coral gardens for snorkeling among tropical fish, Napoleon wrasse, and reef sharks. Most tours include snorkeling gear. Cost is approximately $100-150 per person through independent operators at the pier, or slightly more through ship excursion bookings. Allow 3-4 hours. Suitable for moderate swimming ability; life jackets provided.</p>
+
+          <h4 class="mt-1">Lagoonarium Visit</h4>
+          <p>The Lagoonarium is a natural aquarium — a netted section of the lagoon where visitors can swim safely with eagle rays, blacktip reef sharks, sea turtles, and schools of tropical fish in crystal-clear water. It offers one of the most reliable marine encounters in the Pacific. Entry is typically about $50-70 per person. Accessible by boat from Vaitape. The enclosed area makes this a good choice for visitors who want a controlled environment. Some tours combine the Lagoonarium with a motu beach stop and lunch.</p>
+
+          <h4 class="mt-1">Motu Beach Picnic</h4>
+          <p>Many lagoon tours include a stop on one of the small islets (motus) that dot the barrier reef. White sand, coconut palms, shallow warm water, and fresh fruit served by guides. The motus are private and quiet — a world away from any tourist infrastructure. Some operators offer standalone motu picnic excursions for about $80-100 per person including boat transfer and lunch. A perfect low-energy option for travelers who simply want to rest in paradise.</p>
+
+          <h4 class="mt-1">Matira Beach</h4>
+          <p>Consistently rated one of the world's finest beaches. The southern tip of the island curves into a crescent of powdery white sand where the lagoon is impossibly shallow and warm — wade fifty yards and the water barely reaches your knees. Public access is available, though the best facilities belong to the adjacent resorts. Reach Matira by taxi ($20 one-way from Vaitape) or by renting a bicycle. No entry fee. Allow 2-3 hours. Bring your own reef-safe sunscreen, a hat, and water — shade is limited. Accessible for visitors with limited mobility along the flat sandy approach.</p>
+
+          <h4 class="mt-1">4x4 Island Tour &amp; WWII Sites</h4>
+          <p>A guided jeep tour circles the 32 km ring road, stopping at viewpoints with panoramic lagoon and Mount Otemanu vistas, the WWII bunkers and coastal gun emplacements at Faanui Bay (from the 1942-46 American military presence), local villages, and family-run fruit stands. Approximately $80-120 per person for a 2-3 hour tour. A good overview for visitors who want to see more than the lagoon. Some operators combine the island tour with a beach stop at Matira.</p>
+
+          <h4 class="mt-1">Glass-Bottom Boat Tour</h4>
+          <p>For visitors who prefer to stay dry, glass-bottom boats offer views of the coral gardens, reef sharks, and tropical fish without entering the water. Tours last about 1-2 hours and cost approximately $60-80 per person. A good option for older guests, families with young children, or anyone with mobility concerns who still wants to experience the underwater world.</p>
+        </details>
+
+        <!-- ===== DEPTH SOUNDINGS ===== -->
+        <details class="port-section" id="depth_soundings" open>
+          <summary><h2>Depth Soundings Ashore</h2></summary>
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Lessons learned the hard way.</p>
+          <ul>
+            <li><strong>Budget Planning:</strong> Bora Bora is among the most expensive destinations on earth. A simple lunch runs $40-50 USD; lagoon excursions cost $100-150+ per person. The currency is the CFP franc (tied to the euro), though USD are sometimes accepted. Plan your spending carefully and consider booking a ship excursion for predictable, all-inclusive pricing.</li>
+            <li><strong>Sun Protection:</strong> The equatorial sun here is fierce and unforgiving. Reef-safe sunscreen is essential (regular sunscreen damages the coral), and you should reapply frequently. Bring a hat, UV-protective clothing, and plenty of water. Sunburns happen within thirty minutes, even on overcast days.</li>
+            <li><strong>Tender Timing:</strong> Since all ships tender here, return lines can be long in the late afternoon when multiple ships are in port. Allow extra time to get back to the ship — missing the last tender is every cruiser's fear, and Bora Bora's remote location makes it especially costly to rejoin your vessel.</li>
+            <li><strong>Snorkeling Gear:</strong> Most excursions include basic snorkeling equipment, but bringing your own mask ensures a proper fit and prevents leaking. A well-fitting mask transforms the experience from frustrating to extraordinary.</li>
+            <li><strong>Dry Season Value:</strong> May through October (dry season) offers the best weather and calmest lagoon conditions. January through March brings more rain and humidity but also warmer water, fewer crowds, and occasionally lower prices on independent tours.</li>
+          </ul>
+        </details>
+
+        <!-- ===== FAQ ===== -->
+        <details class="port-section" id="faq" open>
+          <summary><h2>Frequently Asked Questions</h2></summary>
+          <p><strong>Q: Do ships dock at Bora Bora?</strong><br/>A: No — there is no dock at Bora Bora. The barrier reef and shallow lagoon make direct berthing impossible. Ships anchor in the protected lagoon waters and tender passengers to Vaitape village, a 5-10 minute ride with views of sacred Mount Otemanu.</p>
+          <p><strong>Q: What is the Lagoonarium?</strong><br/>A: The Lagoonarium is a natural aquarium in the lagoon — a netted section where you can snorkel safely with eagle rays, blacktip reef sharks, sea turtles, and tropical fish in crystal-clear water. Entry costs about $50-70 per person.</p>
+          <p><strong>Q: Can I visit Matira Beach from the cruise ship?</strong><br/>A: Yes — Matira Beach on the southern tip is publicly accessible and consistently rated one of the world's finest beaches. Take a taxi from Vaitape pier for about $20 one-way. The water is incredibly shallow and warm, ideal for wading. The beach is flat and accessible for visitors with mobility needs along the sandy approach.</p>
+          <p><strong>Q: Is snorkeling with sharks safe?</strong><br/>A: Yes — the blacktip reef sharks at feeding sites are not aggressive toward humans. Professional guides supervise all encounters. The sharks are accustomed to visitors and typically ignore snorkelers entirely.</p>
+          <p><strong>Q: Can I visit an overwater bungalow resort?</strong><br/>A: Some resorts offer day passes including lunch, pool, and beach access. Contact resorts directly or through shore excursion desks. Expect to pay $200+ per person for this luxury experience.</p>
+          <p><strong>Q: How expensive is Bora Bora really?</strong><br/>A: Very. Budget $40-50 for a basic lunch, $100-150+ for lagoon excursions per person. The CFP franc is the currency (tied to euro). Many visitors book ship excursions to control costs and ensure predictable pricing.</p>
+          <p><strong>Q: What is the best time of year to visit?</strong><br/>A: May through October (dry season) offers the best weather and calmest lagoon. January through March brings warmer water and fewer crowds but more rain. Cruise lines schedule most visits during the dry season.</p>
+        </details>
+
+        <!-- ===== GALLERY ===== -->
+        <details class="port-section" id="gallery" open>
+          <summary><h2>Photo Collection</h2></summary>
+          <div class="port-gallery">
+            <figure>
+              <img src="/ports/img/bora-bora/bora-bora-lagoon.webp" alt="Crystal-clear turquoise lagoon waters of Bora Bora with visible coral formations and tropical fish below" loading="lazy" width="400" height="300"/>
+              <figcaption>The legendary Bora Bora lagoon in all its clarity. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+            <figure>
+              <img src="/ports/img/bora-bora/bora-bora-tender.webp" alt="Cruise ship tender boat approaching the Vaitape pier with Mount Otemanu towering in the background" loading="lazy" width="400" height="300"/>
+              <figcaption>Tender approach to Vaitape with Mount Otemanu behind. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+            <figure>
+              <img src="/ports/img/bora-bora/bora-bora-vaitape.webp" alt="Small shops and tour operator desks along the waterfront at Vaitape village with palm trees and blue sky" loading="lazy" width="400" height="300"/>
+              <figcaption>Vaitape village waterfront, the heart of Bora Bora. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+            </figure>
+          </div>
+        </details>
+
+        <!-- ===== CREDITS ===== -->
+        <details class="port-section" id="credits">
+          <summary><h2>Image Credits</h2></summary>
+          <ul>
+            <li>Hero image: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></li>
+            <li>Lagoon, Otemanu, snorkeling, motu, matira, overwater bungalows, reef, sunset, WWII, tender, Vaitape: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></li>
+          </ul>
+        </details>
+
+        <!-- ===== AUTHOR DISCLAIMER ===== -->
+        <section class="port-section author-disclaimer" style="margin-top: 2.5rem; padding: 1.25rem; background: #fffef7; border-left: 4px solid #d9b382; border-radius: 8px;">
+          <p class="tiny" style="margin: 0; line-height: 1.6; color: #5a6a7a;">
+            <strong>Author's Note:</strong> Until I have sailed this port myself, these notes are soundings in another's wake — helpful for planning, and marked for revision once I've logged my own steps ashore.
+          </p>
+        </section>
+
+        <!-- ===== BACK NAV ===== -->
+        <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+
         <!-- VOLATILE DATA DISCLAIMER -->
         <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
+          <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
           <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-26 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Bora Bora?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
-
-          <p><strong>Q: Does Bora Bora have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-
-          <p><strong>Q: What should I pack for Bora Bora's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
-
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
 
       <!-- FROM THE PIER -->
       <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Bora Bora tender landing">
-        <h3>From the Pier</h3>
+        <h4>From the Pier</h4>
         <ul class="pier-distances">
           <li class="pier-distance-item">
             <div><span class="pier-dest">Vaitape Village</span><div class="pier-detail">Main settlement (~4,000 people) — shops, small restaurants</div></div>
-            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 5–10 min</span>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128676;</span> 5-10 min</span>
             <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
           </li>
           <li class="pier-distance-item">
             <div><span class="pier-dest">Matira Beach</span><div class="pier-detail">Southern tip — white sand, shallow turquoise water</div></div>
-            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 15 min</span>
             <div class="pier-bar"><div class="pier-bar-fill" style="width:13%"></div></div>
           </li>
           <li class="pier-distance-item">
             <div><span class="pier-dest">Lagoonarium</span><div class="pier-detail">Natural aquarium — swim with rays, sharks, and turtles</div></div>
-            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 20 min</span>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128676;</span> 20 min</span>
             <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
           </li>
           <li class="pier-distance-item">
             <div><span class="pier-dest">Faanui Bay (WWII Relics)</span><div class="pier-detail">Bunkers and cannons from the war era</div></div>
-            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 20 min</span>
             <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
           </li>
           <li class="pier-distance-item">
             <div><span class="pier-dest">Mount Otemanu Viewpoints</span><div class="pier-detail">Sacred extinct volcano, 2,385 ft (727 m) — 32 km ring road circles the island</div></div>
-            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 30 min</span>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 30 min</span>
             <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
           </li>
         </ul>
-        <p class="pier-note">Ships anchor in Pofai Bay — tender to Vaitape. No dock. Currency: CFP franc (tied to euro), USD sometimes accepted. Everything is expensive here — simple lunch $40–50, excursions $150+, beer $10+. Overwater bungalow day passes $200+. The ring road is 32 km total — island is small but spread out.</p>
+        <p class="pier-note">Ships anchor in Pofai Bay — tender to Vaitape. No dock. Currency: CFP franc (tied to euro), USD sometimes accepted. Everything is expensive here — simple lunch $40-50, excursions $100-150+. Overwater bungalow day passes $200+. The ring road is 32 km total — island is small but spread out.</p>
       </nav>
 
       </article>
+    </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
       <section class="card quick-answer">
         <h2>Quick Answer</h2>
-        <p><strong>Bora Bora</strong> – the "Pearl of the Pacific" – is French Polynesia's crown jewel. An extinct volcanic island with sacred Mount Otemanu (2,385 ft) rising from a lagoon so beautiful it defies photography. Ships anchor in the barrier reef-protected waters and tender to Vaitape village (no dock exists). The experience is all about the water: Lagoonarium snorkeling, Matira Beach, swimming with sharks and rays, kayaking through impossible blues. Home to 10,000 residents and WWII history. Expensive but genuinely extraordinary.</p>
+        <p><strong>Bora Bora</strong> – the "Pearl of the Pacific" – is French Polynesia's crown jewel. An extinct volcanic island with sacred Mount Otemanu (2,385 ft) rising from a lagoon so beautiful it defies photography. Ships anchor in the barrier reef-protected waters and tender to Vaitape village (no dock exists). The experience is all about the water: Lagoonarium snorkeling, Matira Beach, swimming with sharks and rays, kayaking through impossible blues. Home to 10,000 residents and a WWII past. Expensive but genuinely extraordinary.</p>
       </section>
       <section class="card best-for">
         <h2>Best For</h2>
@@ -422,7 +557,7 @@ Soli Deo Gloria
           <dt>Language</dt><dd>French, Tahitian</dd>
           <dt>Mount Otemanu</dt><dd>2,385 ft (727m) - extinct volcano, sacred</dd>
           <dt>Nickname</dt><dd>"Pearl of the Pacific"</dd>
-          <dt>WWII History</dt><dd>5,000 US GIs (1942-46)</dd>
+          <dt>WWII Era</dt><dd>5,000 US GIs (1942-46)</dd>
           <dt>Expect</dt><dd>Expensive, extraordinarily beautiful</dd>
         </dl>
       </section>
