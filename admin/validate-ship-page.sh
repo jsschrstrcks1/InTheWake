@@ -403,12 +403,12 @@ else
     check_pass "SDG footer not hidden from assistive technology"
 fi
 
-# Check for images without alt
-IMG_WITHOUT_ALT=$(echo "$CONTENT" | grep -c '<img[^>]*[^"]>' | grep -v 'alt=' || echo "0")
+# Check for images without alt (join lines to handle multiline img tags)
+IMG_WITHOUT_ALT=$(echo "$CONTENT" | tr '\n' ' ' | grep -oE '<img [^>]+>' | grep -cv 'alt=' || echo "0")
 if [ "$IMG_WITHOUT_ALT" -gt 0 ]; then
-    check_warn "Some images may be missing alt attributes"
+    check_warn "$IMG_WITHOUT_ALT image(s) missing alt attributes"
 else
-    check_pass "Images appear to have alt attributes"
+    check_pass "All images have alt attributes"
 fi
 
 # ============================================================================

@@ -2,7 +2,7 @@
 
 **Date:** 2026-02-14
 **Scope:** 31 active RCL ships (excludes TBN, historic, index.html, venues.html)
-**Current state:** 2 passing (90%), 29 failing — 37 blocking errors, 247 warnings
+**Current state (post-Phase 1):** All RCL ships at 0 errors, 0 warnings (bash validator)
 **Target:** 100/100 on all 31 active ships (0 errors, 0 warnings)
 **Scoring:** `100 - (errors × 10) - (warnings × 2)`
 
@@ -47,11 +47,16 @@ These are the same pattern across all/most active ships. Fix in template, propag
 - **Fix:** Add `<a href="/planning.html">` to nav dropdown
 - **Removes:** 29 × `navigation/some_missing_nav` warnings
 
-### Phase 1 Impact
-- **Errors removed:** 29 (all blocking errors except 8 on Legend ships)
-- **Warnings removed:** 184
-- **Net score gain per typical ship:** +10 (error) + ~12 (6 warnings × 2) = +22 points
-- **Expected post-Phase-1 scores:** Most ships → 94–98
+### 1G. Fix False-Positive Alt Attribute Warning in Bash Validator
+- **Scope:** `admin/validate-ship-page.sh` line 407
+- **Bug:** Regex `<img[^>]*[^"]>` matched all self-closing `/>` tags (the `/` matched `[^"]`), then piped a count to `grep -v 'alt='` which always passed through
+- **Fix:** Join lines with `tr '\n' ' '`, extract img tags with `grep -oE`, count those truly missing `alt=`
+- **Removes:** false-positive `images/missing_alt` warning on every ship page
+
+### Phase 1 Impact — COMPLETED
+- **Errors removed:** 29 blocking errors (noscript logbook — done in prior session)
+- **Warnings removed:** All — 1A–1D fixed 4 real warnings; 1G fixed 1 false positive
+- **Result:** All RCL ships now at 0 errors, 0 warnings (bash validator)
 
 ---
 
