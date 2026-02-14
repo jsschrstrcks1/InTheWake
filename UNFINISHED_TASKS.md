@@ -188,6 +188,48 @@ These items were evaluated during the competitor analysis and **explicitly rejec
 
 ---
 
+### 🟡 [Y] Alaska Cruise Port Gaps (NEW — 2026-02-14)
+**Status:** Audit complete — 15 Alaska port/scenic pages exist, 12+ locations missing
+**Priority:** P2 — small-ship ports and scenic areas expand Alaska coverage depth
+**Lane:** 🟡 Yellow (content creation, requires quality review)
+**Source:** Alaska cruise port reference audit (Feb 2026)
+
+**Existing Alaska pages (15):**
+- ✅ Juneau, Ketchikan, Sitka, Skagway, Haines, Seward, Whittier, Anchorage
+- ✅ Icy Strait Point (Hoonah), Tracy Arm, Endicott Arm
+- ✅ Glacier Bay, Hubbard Glacier, Glacier Alley, Inside Passage
+
+**Missing Alternative & Small-Ship Ports (5):**
+- [ ] `wrangell.html` — One of Alaska's oldest towns; Anan Bear Observatory access
+- [ ] `petersburg.html` — "Little Norway"; working fishing village; rarely visited by mega-ships
+- [ ] `homer.html` — Kenai Peninsula; Homer Spit; famous halibut fishing
+- [ ] `kodiak.html` — Kodiak Island; massive brown bears; Alutiiq history
+- [ ] `valdez.html` — Trans-Alaska Pipeline terminus; steepest coastal mountains
+
+**Missing Scenic Cruising Areas (2):**
+- [ ] `college-fjord.html` — Massive concentration of glaciers named after Ivy League schools
+- [ ] `misty-fjords.html` — Near Ketchikan; 3,000-foot vertical granite cliffs
+
+**Missing Remote & Expedition Ports (3):**
+- [ ] `dutch-harbor.html` — Deep in Aleutian Islands; famous from Deadliest Catch
+- [ ] `nome.html` — Bering Sea; finish line of the Iditarod
+- [ ] `kake.html` — Tiny Tlingit village on Kupreanof Island
+
+**Missing Departure Hubs (3):**
+- [ ] `seattle.html` — Primary hub for 7-day Alaska round-trips
+- [ ] `vancouver.html` — Primary hub for Inside Passage and Cross-Gulf one-way cruises
+- [ ] `san-francisco.html` — Some longer "voyage" itineraries depart from here
+
+**Missing Canadian PVSA Stops (2):**
+- [ ] `victoria.html` — Frequently visited on final night of Seattle round-trips
+- [ ] `prince-rupert.html` — Common stop between Inside Passage and open gulf
+
+**Also completed during this audit:**
+- [x] Ketchikan: Added Ward Cove terminal information (newer terminal ~20 min from downtown)
+- [x] Haines: Added river rafting excursion (Chilkat River, Class I-II)
+
+---
+
 ## 🚦 Task Lanes
 
 | Lane | Meaning | Examples |
