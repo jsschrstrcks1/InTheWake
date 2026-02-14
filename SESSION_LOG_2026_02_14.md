@@ -191,23 +191,24 @@
 **Commit:** `ffed3834` — FIX: Add missing /planning.html link to navigation (302 ships)
 **Status:** ✅ COMPLETE, pushed to origin/claude/review-docs-codebase-IJvuW
 
-## Remaining Critical Fixes (This Session)
+## Critical Fix #3: Generic Review Text — ANALYSIS COMPLETE (Deferred)
 
-**#3: Generic Review Text (208 pages) — HIGH**
-- Issue: JSON-LD reviews use template text instead of real editorial
-- Next: Identify actual template patterns, replace with real content
-- Estimate: High complexity (manual review needed)
+**Issue:** 208 ship pages flagged for generic/template JSON-LD review text
+**Investigation:** Analyzed 207 ships with exact same template pattern
+**Template Found:** "[Ship Name] from [Cruise Line] offers memorable cruise experiences with excellent amenities and service."
+**Affected Ships:** 207 out of 315 (65.7%)
+**Solution Complexity:** HIGH
+- Requires unique editorial content for each ship
+- Time estimate: 17-35 hours (5-10 min per ship × 207 ships)
+- Exceeds reasonable scope for single session
 
-## Next Steps (This Session)
+**Recommendation:**
+- Defer Phase 3 to next session
+- Suggest phased approach: Tier 1 (RCL 50 ships) → Tier 2 (Norwegian 20, Carnival 48) → Tier 3 (others)
+- Tier 1 estimate: 4-8 hours (manageable)
 
-**TODO (if time permits):**
-- [ ] Analyze generic review text on sample ships
-- [ ] Identify template patterns in JSON-LD reviews
-- [ ] Determine source for real editorial content
-- [ ] Design replacement strategy for 208 pages
-
-**Dependencies:**
-- Phase 2 complete. Phase 3 blocked until patterns identified.
+**Documentation:** Created PHASE_3_GENERIC_REVIEW_ANALYSIS_2026_02_14.md with full analysis and recommendations
+**Status:** ✅ DEFERRED (awaiting user decision on priority)
 
 ---
 
@@ -226,15 +227,17 @@
 
 ---
 
-**Session Status:** PHASE 2 COMPLETE → PHASE 3 ANALYSIS (if time permits)
-**Session Health:** ✅ Following careful-not-clever guardrail
-**Documentation Quality:** ✅ Detailed, verified, sources cited
+**Session Status:** PHASE 2 COMPLETE → PHASE 3 ANALYZED & DEFERRED
+**Session Health:** ✅ Following careful-not-clever guardrail throughout
+**Documentation Quality:** ✅ Detailed, verified, sources cited, recommendations included
 
-**Work Summary This Session:**
-- 224 files fixed (aria-hidden)
-- 302 files fixed (navigation)
-- 526 total files modified, tested, committed, pushed
-- 2 of 3 critical fixes complete
+**Final Work Summary:**
+- **Phase 1:** Removed aria-hidden from Soli Deo Gloria (224 ships) — ✅ COMMITTED & PUSHED
+- **Phase 2:** Added /planning.html navigation link (302 ships) — ✅ COMMITTED & PUSHED
+- **Phase 3:** Generic review text analyzed (207 ships identified) — ✅ DEFERRED (awaiting user priority)
+- **Total Files Modified:** 526 files across Phases 1 & 2
+- **Total Commits:** 3 (2 fix commits + 1 tracking docs commit)
+- **Tracking Documents:** SESSION_LOG_2026_02_14.md, SHIP_VALIDATION_FIX_PROGRESS_2026_02_14.md, PHASE_3_GENERIC_REVIEW_ANALYSIS_2026_02_14.md
 
 ---
 
