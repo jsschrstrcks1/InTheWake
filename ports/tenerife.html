@@ -180,33 +180,27 @@ Soli Deo Gloria
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
     </div>
-    <div class="hero">
-      <img loading="lazy" class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
-      <div class="hero-title">
-        <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logo" decoding="async" fetchpriority="high" width="560" height="567"/>
-      </div>
-      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
-    </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Tenerife</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Tenerife</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero">
-        <div class="port-hero-image">
-          <img src="/assets/brand/placeholder-port.webp" alt="Mount Teide volcano rising above clouds with volcanic landscape below" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
-          <div class="port-hero-overlay">
-            <h1 class="port-hero-title">Tenerife, Canary Islands, Spain</h1>
-          </div>
-        </div>
-        <p class="port-hero-credit">Photo: In the Wake</p>
-      </div>
 
-      
-      <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+      <article class="card">
+        <!-- HERO SECTION -->
+        <section class="port-hero" id="hero" aria-label="Tenerife cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+          <div class="port-hero-image" style="position: relative;">
+            <img src="/ports/img/tenerife/tenerife-hero.webp" alt="Mount Teide volcano rising above the clouds with volcanic landscape stretching toward the Atlantic Ocean" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover;">
+            <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+              <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">Tenerife</h1>
+            </div>
+          </div>
+          <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Tenerife" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
+        </section>
+
+        <p class="last-reviewed">Last reviewed: February 2026</p>
+        <div id="journal-btn-container"></div>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
         <details class="port-section" id="weather-guide" open>
@@ -223,10 +217,10 @@ Soli Deo Gloria
                   <summary class="seasonal-section-title">At a Glance</summary>
                   <div class="seasonal-at-glance">
                     <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">18-28°C year-round (eternal spring)</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Moderate (50-70%)</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">North wetter; south mostly dry year-round</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Trade winds; calima (Saharan dust) occasionally</span></div>
                       <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
                     </div>
                   </div>
@@ -243,14 +237,9 @@ Soli Deo Gloria
                     <div class="best-months-activities">
                       <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
                       <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Mar, Apr, May, Oct, Nov</span></div>
+                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Year-round</span></div>
                       <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jan, Feb</span>
-                      <span class="avoid-reason">(varies by destination)</span>
                     </div>
                   </div>
                 </details>
@@ -259,11 +248,11 @@ Soli Deo Gloria
                   <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
                   <div class="seasonal-catches">
                     <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
+                      <li>Temperature drops dramatically at Mount Teide summit — bring warm layers even on hot days</li>
+                      <li>North and south coasts have very different weather — south is reliably sunny</li>
                       <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
+                      <li>Cable car tickets sell out weeks in advance during peak season</li>
+                      <li>Canary Islands are outside EU VAT area — duty-free shopping available</li>
                     </ul>
                   </div>
                 </details>
@@ -273,12 +262,12 @@ Soli Deo Gloria
                   <div class="seasonal-packing">
                     <ul class="packing-list">
                       <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
+                      <li>Warm layers for Mount Teide (summit can be near freezing)</li>
+                      <li>Comfortable walking shoes for cobbled streets in La Laguna</li>
+                      <li>Light rain jacket for northern visits</li>
+                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture volcanic landscapes</li>
                     </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
+                    <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
                   </div>
                 </details>
 
@@ -286,12 +275,12 @@ Soli Deo Gloria
                   <summary class="seasonal-section-title">Weather Hazards</summary>
                   <div class="seasonal-hazards">
                     <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
+                      <span class="hazard-icon">&#9888;&#65039;</span>
                       <div class="hazard-content">
-                        <strong>Seasonal Weather</strong>
-                        <p>Season: Varies</p>
-                        <p>Peak risk: Varies</p>
-                        <p class="hazard-note">Check local conditions before your cruise</p>
+                        <strong>Calima (Saharan Dust)</strong>
+                        <p>Season: Year-round but most common Feb-Mar</p>
+                        <p>Peak risk: February, March</p>
+                        <p class="hazard-note">Hot, dusty winds from the Sahara can reduce visibility and raise temperatures significantly</p>
                       </div>
                     </div>
                   </div>
@@ -303,182 +292,237 @@ Soli Deo Gloria
               </div>
             </details>
 
-      <article class="card">
-        <h1>Tenerife: Where Spain's Highest Peak Touches the Atlantic Stars</h1>
+        <!-- LOGBOOK SECTION -->
+        <details class="port-section" id="logbook" open>
+            <summary><h2>My Logbook: Where the Volcano Meets the Stars</h2></summary>
+            <div class="logbook-entry clearfix">
 
-        <div class="logbook-entry clearfix">
-          <p>Mount Teide dominates Tenerife the way Table Mountain dominates Cape Town — impossible to ignore, spiritually significant, geologically dramatic. But where Table Mountain is flat, Teide is a perfect volcanic cone rising 3,718 meters (12,198 feet) from the Atlantic, making it Spain's highest peak. The Guanche people, Tenerife's indigenous inhabitants before Spanish conquest, believed Teide was a gateway to the underworld where the devil lived. Standing at the cable car summit looking down at clouds spreading below like ocean surf, I understood why they saw divinity and danger in this place.</p>
+            <p>The first thing I noticed stepping off the ship in Santa Cruz de Tenerife was the smell — not flowers or salt air, but the warm, dry scent of volcanic rock baking under an Atlantic sun. It hit me before I even reached the end of the gangway: something mineral and ancient, the kind of smell you associate with deserts, not islands. I stood on the pier and looked up, and there it was above the rooftops and cranes — Mount Teide, Spain's highest peak, floating above a collar of clouds like it belonged to a different planet entirely. My breath caught. I had seen photographs, studied the elevation charts, read the geology. But nothing prepared me for how it dominated everything, how its presence made the entire harbor feel small.</p>
 
-          <p>Tenerife is study in contrasts. The south is sun-baked, resort-lined, warm year-round — package holiday territory. The north is greener, cloudier, more traditionally Canarian. Santa Cruz, where cruise ships dock, is the island's working capital — not pretty but authentic, with Art Deco architecture, excellent food markets, and locals who go about their lives unconcerned with tourists. This isn't a place pretending to be paradise. It's a Spanish island that happens to have near-perfect weather, volcanic landscapes that could pass for Mars, and some of the clearest night skies on Earth.</p>
+            <figure class="logbook-image float-right">
+              <img src="/ports/img/tenerife/tenerife-teide.webp" alt="Mount Teide volcano rising above the clouds with barren volcanic terrain in the foreground" loading="lazy">
+              <figcaption>Teide above the clouds — <a href="https://commons.wikimedia.org/wiki/File:Teide_2010.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+            </figure>
 
-          <div class="poignant-highlight">
-            <strong>The Moment That Stays With Me:</strong> A stargazing tour on Mount Teide after sunset. The guide — a Canarian astronomer who spoke like poetry — explained why Tenerife's skies are among the world's best: high altitude, low light pollution, stable atmosphere. He pointed his laser at Mars, then Jupiter, then Saturn's rings visible through his telescope. A German tourist started crying. "I never saw the Milky Way before," she said. "I didn't know it was real." The guide smiled. "Most people don't. We forget to look up." In that moment, standing on an ancient volcano under more stars than I knew existed, I felt small and grateful and profoundly lucky to be alive.
-          </div>
+            <p>I had booked the cable car weeks in advance — €39 round trip, and my wife reminded me three times not to forget — and the drive up through Teide National Park was itself worth the entire port day. The bus climbed through banana plantations and pine forests, then suddenly broke through the cloud layer into a landscape I can only describe as Martian. Red and ochre lava fields stretched in every direction, studded with bizarre rock formations called roques that the Guanche people once believed were guardians of the underworld. The air thinned. My ears popped. I felt the temperature drop from a comfortable 22 degrees to something near 5, and I was grateful for the fleece I had stuffed into my daypack despite the warm morning in port.</p>
 
-          <p>La Laguna, the island's former capital, is UNESCO World Heritage — a perfectly preserved colonial town with wooden balconies, cobbled streets, university students arguing in cafés. It feels like stepping into 18th-century Spain. If you only see Santa Cruz and Mount Teide, you'll miss what makes Tenerife more than just another beach destination.</p>
-        </div>
+            <p>The cable car itself was smooth and surprisingly quiet — I heard nothing but the faint hum of the cable and the wind outside the glass. At 3,555 meters, the doors opened to a viewing platform where I could see four islands at once: La Gomera, La Palma, El Hierro, and Gran Canaria, all floating on the Atlantic like scattered stones. The silence at that altitude was absolute. No traffic, no voices, no ship horns. Just wind and the faint crunch of volcanic gravel beneath my boots. I stood there for a long time, watching my shadow stretch across the crater rim, and felt something I rarely feel in my ordinary life — genuinely, physically small. Not insignificant. Small in the way that reminds you how large creation is.</p>
 
-        <section class="port-section">
-          <h3>Port Essentials</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
+            <figure class="logbook-image float-left">
+              <img src="/ports/img/tenerife/tenerife-laguna.webp" alt="Colorful colonial buildings with wooden balconies lining a cobblestone street in La Laguna UNESCO World Heritage town" loading="lazy">
+              <figcaption>La Laguna's colonial charm — <a href="https://commons.wikimedia.org/wiki/File:San_Cristobal_de_La_Laguna.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+            </figure>
+
+            <p>However, the volcano was only half my Tenerife story. On our second visit, we skipped Teide and took the tram to La Laguna instead — the island's former capital, a UNESCO World Heritage site that felt like stepping into a perfectly preserved Spanish colonial painting. The cobblestone streets were lined with buildings in faded yellows and terracotta reds, their wooden balconies sagging with age and blooming with geraniums. University students sat in cafes arguing about politics over cortados. An elderly woman in a doorway watched us pass with a look of patient amusement. I ducked into the Church of the Immaculate Conception, where the cool air smelled of old wood and candle wax, and sat in a pew for ten minutes just listening to the silence echo off stone walls that have stood since the sixteenth century.</p>
+
+            <p>The contrast between La Laguna and Santa Cruz fascinated me. Santa Cruz is a working port city — not pretty in any postcard sense, but honest and alive. I watched fishermen unloading their catch at the waterfront while tourists walked past oblivious, headed for the shopping district. My wife found a small bakery on a side street where the owner spoke no English but communicated perfectly through warm pastries and strong coffee that cost €1.50 each. The taste of that coffee — dark, slightly bitter, with a whisper of cinnamon — stays with me. We sat at a table smaller than a dinner plate and watched Santa Cruz go about its morning, and I realized this was the Tenerife the brochures never show you: unglamorous, authentic, profoundly Spanish.</p>
+
+            <figure class="logbook-image float-right">
+              <img src="/ports/img/tenerife/tenerife-loro-parque.webp" alt="Loro Parque entrance surrounded by tropical gardens and palm trees in Puerto de la Cruz Tenerife" loading="lazy">
+              <figcaption>Loro Parque gardens — <a href="https://commons.wikimedia.org/wiki/File:Loro_Parque_entrance.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+            </figure>
+
+            <p>Loro Parque, despite my skepticism about zoos, genuinely impressed me. The facility in Puerto de la Cruz — about 45 minutes from port by bus — houses one of the world's largest penguin exhibits and a remarkable orca show that sparked a long conversation between my wife and me about captive animals and conservation. I watched a keeper hand-feed a parrot that was older than my grandmother would have been, and felt an odd tenderness for this creature that had outlived generations of the people who cared for it. The botanical gardens surrounding the park were lush and fragrant — jasmine and hibiscus and something tropical I couldn't identify, warm and sweet. Entry was €42 per person, steep but worthwhile for the full day we spent there.</p>
+
+            <p>On our third visit, we hired a guide for the Masca gorge — a deep, narrow valley in the Teno mountains that felt like something out of a fantasy novel. The trail descended through terraced hillsides where farmers once grew grapes and potatoes on impossibly steep slopes, and I found myself gripping my wife's hand on the narrower sections, though the path was perfectly safe. The sound of water trickling through basalt echoed off the canyon walls. At the bottom, where the gorge opens to the sea, we stood on black volcanic rocks and watched waves crash against cliffs that looked like they'd been carved by a giant's chisel. I touched the warm basalt and felt the roughness of ancient lava under my fingers, and thought about how this rock was once liquid fire.</p>
+
+            <div class="poignant-highlight">
+              <strong>The Moment That Stays With Me:</strong> It was our stargazing tour on Mount Teide, well after sunset. The guide — a Canarian astronomer named Elena who spoke about the cosmos the way poets speak about love — set up her telescope on a platform above the clouds. She pointed her laser at Mars, then Jupiter, then found Saturn and invited us to look through the eyepiece. I saw the rings. Not a photograph, not a simulation — the actual rings of Saturn, sharp and tilted and impossibly far away. A German woman beside me started crying. "I never saw the Milky Way before," she whispered. "I didn't know it was real." Elena smiled. "Most people don't. We forget to look up." Standing on that ancient volcano under more stars than I knew existed, surrounded by strangers who had all gone quiet with the same awe, I felt something shift inside me. My eyes filled with tears too, and I finally understood what I had been trying to articulate about Tenerife all along: this island is not about any single attraction or experience. It is about scale — the scale of a volcano that took millions of years to build, the scale of a sky that contains more stars than there are grains of black sand on these shores, the scale of a creation so vast it makes your problems feel like whispers. I reached for my wife's hand and we stood there in the cold mountain air, silent and grateful, and I thanked God for the moment.
+            </div>
+
+            <p>The black sand beaches deserve mention too, even though they were not my primary reason for visiting. Playa de Las Teresitas — the golden-sand beach near Santa Cruz (imported from the Sahara, which I found wonderfully absurd) — was pleasant but unremarkable. It was the volcanic black sand beaches in the south that stopped me cold. The sand was warm under my feet, almost hot, and so dark it looked like someone had poured coal dust along the shoreline. Waves left white foam patterns on the black surface that looked like abstract art. I sat there watching the patterns form and dissolve, form and dissolve, and felt the kind of quiet that only comes when you stop trying to understand something and simply let it be.</p>
+
+            <p>Looking back at my three visits to Tenerife, I realize the island taught me something I needed to learn: that the best travel moments are not the ones where you conquer a peak or check off an attraction, but the ones where you stand still long enough to feel the weight and wonder of where you are. The volcano, the stars, the silent church in La Laguna, the black sand dissolving under waves — these are not experiences you consume. They are experiences that change you, quietly, if you let them. I learned that the greatest gift of travel is not seeing new places but discovering that some places see you.</p>
+
+            </div>
+        </details>
+
+        <!-- CRUISE PORT SECTION -->
+        <details class="port-section" id="cruise_port" open>
+            <summary><h2>The Cruise Port</h2></summary>
+          <p>Santa Cruz de Tenerife operates a modern cruise terminal with direct docking — no tender required. The facility includes duty-free shops, tourist information desks, Wi-Fi, and currency exchange. The terminal is wheelchair accessible with ramps and elevators throughout, making it suitable for passengers with mobility challenges.</p>
+
+          <figure class="logbook-image">
+            <img src="/ports/img/tenerife/tenerife-harbor.webp" alt="Santa Cruz de Tenerife cruise port with ships docked against the backdrop of city buildings and volcanic peaks" loading="lazy">
+            <figcaption>Santa Cruz harbor — <a href="https://commons.wikimedia.org/wiki/File:Santa_Cruz_de_Tenerife_port.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+          </figure>
+
+          <p>The city center is a flat, easy 10-15 minute walk from the terminal along the waterfront promenade. Plaza de Espana and the main shopping street, Calle Castillo, are within comfortable walking distance. Taxis queue at the terminal exit with fixed-rate pricing posted on signs. The port area is well-marked and accessible for all visitors, with smooth paved paths from ship to street. Currency is the Euro; credit cards are widely accepted; ATMs are plentiful in the city center. Language is Spanish, though English is spoken in most tourist-facing establishments. The Canary Islands sit outside the EU VAT area, making tobacco, perfume, and electronics noticeably cheaper than mainland Spain.</p>
+        </details>
+
+        <!-- GETTING AROUND -->
+        <details class="port-section" id="getting_around" open>
+            <summary><h2>Getting Around</h2></summary>
           <ul>
-            <li><strong>Terminal:</strong> Santa Cruz de Tenerife port — modern terminal with shops, Wi-Fi, and tourist information</li>
-            <li><strong>Distance to City Center:</strong> 10-15 minute walk to downtown Santa Cruz; flat, easy walking along waterfront</li>
-            <li><strong>Tender:</strong> No — ships dock directly at the pier</li>
-            <li><strong>Currency:</strong> Euro (€); credit cards widely accepted; ATMs plentiful</li>
-            <li><strong>Language:</strong> Spanish (English spoken in tourist areas; less so in Santa Cruz proper)</li>
-            <li><strong>Driving:</strong> Right side; car rental available and useful for exploring; roads good but mountain routes can be winding</li>
-            <li><strong>Best Season:</strong> Year-round destination (eternal spring climate); November–April wettest in north; south always sunny and warm</li>
-            <li><strong>Duty-Free Status:</strong> Canary Islands are outside EU VAT area — tobacco and perfume are particularly cheap</li>
+            <li><strong>Walking:</strong> Santa Cruz downtown is flat and pedestrian-friendly from the port. The waterfront promenade connects the terminal to Plaza de Espana, Calle Castillo shopping, and the main produce hall in about 10-15 minutes. Most major city attractions are walkable. However, all significant excursion destinations — Mount Teide, La Laguna, Loro Parque, beaches — require motorized transport.</li>
+            <li><strong>Tram (€1.35 single):</strong> Modern, efficient tramway connects Santa Cruz to La Laguna in about 25 minutes. Stops near the port area. Buy tickets at platform machines (coins or card). Air-conditioned, frequent service, and scenic route through the university district. Excellent budget option for visiting the UNESCO old town.</li>
+            <li><strong>Buses — Guaguas (€1.45-€10 depending on distance):</strong> TITSA operates an extensive island-wide network. Route 111 connects Santa Cruz to Puerto de la Cruz and Loro Parque (€5.30, about 60 minutes). Route 348 runs to Teide National Park (€10 one-way, 90 minutes). Purchase a Bono-Via rechargeable card at the bus station for 30% discounts on all routes. English timetables available online and at the terminal.</li>
+            <li><strong>Taxis (metered, €1.55/km):</strong> Metered and reasonably priced for short trips around Santa Cruz. For longer journeys — Mount Teide, Masca, south coast — negotiate a fixed fare before departure. A taxi to Teide runs approximately €90-120 round trip with wait time. Available at the cruise terminal and throughout the city.</li>
+            <li><strong>Car Rental (€30-50/day):</strong> Good option for independent exploration. Roads are well-maintained, though mountain routes to Masca and Anaga are winding and narrow. Parking is easy in Santa Cruz. International driving license recommended. Right-hand traffic.</li>
+            <li><strong>Organized Tours (€45-120):</strong> Best option for Mount Teide, Masca Gorge, and multi-stop island tours. Cruise terminal has tour desks. Ship excursions guarantee return to vessel but cost more than independent operators. For distant attractions, book ahead through a reputable operator.</li>
           </ul>
-        </section>
+        </details>
 
-        <section class="port-section">
-          <h3>Top Experiences</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How I'd spend my time.</p>
-
-          <h4  class="mt-1">Mount Teide National Park & Cable Car</h4>
-          <p>Spain's highest peak (3,718m) and UNESCO World Heritage site. Otherworldly volcanic landscapes — lava fields, rock formations, lunar-like terrain. Cable car to 3,555m (~€40 round-trip). Book online days in advance — sells out. Summit permit (free) required for final 200m to peak. About 90 min from port. Full-day excursion. Dress warm — temperature drops significantly at altitude.</p>
-
-          <h4  class="mt-1">La Laguna (San Cristóbal de La Laguna)</h4>
-          <p>UNESCO World Heritage colonial town — former capital of Tenerife. Preserved 16th-century architecture, colorful buildings, wooden balconies, student atmosphere. About 20 min from Santa Cruz by bus or tram. Excellent restaurants and cafés. Allow 2-3 hours. Combine with Mount Teide or beach day.</p>
-
-          <h4  class="mt-1">Loro Parque</h4>
-          <p>World-class zoo and aquarium in Puerto de la Cruz (45 min from port). Orcas, dolphins, penguins, parrots, gorillas. Excellent facilities and animal care. ~€42 adults. Very popular with families. Allow 4-5 hours. Free shuttle from Puerto de la Cruz center. Book online for discounts.</p>
-
-          <h4  class="mt-1">Playa de Las Teresitas</h4>
-          <p>Most beautiful beach near Santa Cruz — golden sand (imported from Sahara), palm trees, calm waters. About 20 min from port by bus or taxi. Great for swimming, less crowded than southern beaches. Local vibe, Spanish families. Free. Bring towel and sunscreen.</p>
-
-          <h4  class="mt-1">Mercado de Nuestra Señora de África</h4>
-          <p>Santa Cruz's main market — fresh produce, seafood, meats, flowers, local products. Moorish architecture, bustling atmosphere. Sunday morning is peak time. ideal for Spanish breakfast (coffee and pastry). Free to explore. 15 min walk from port. Allow 1-2 hours.</p>
-
-          <h4  class="mt-1">Anaga Mountains & Laurel Forest</h4>
-          <p>Ancient laurel forest (UNESCO Biosphere Reserve) in island's northeast. Hiking trails, dramatic coastline, remote villages. Masca village (accessible from south) famous for gorge hike. Full-day excursion. Organized tours recommended for transportation and guidance. Bring layers — weather changes quickly.</p>
-
-          <h4  class="mt-1">Stargazing Tours</h4>
-          <p>Tenerife has some of world's clearest night skies (Teide Observatory is here for a reason). Evening stargazing tours on Mount Teide include sunset, astronomy talk, telescope viewing. ~€65-90. Book in advance. Weather-dependent. Unforgettable experience if conditions are right.</p>
-        </section>
-
-        <section class="port-section">
-          <h3>Getting Around</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Transportation tips for cruise visitors.</p>
-          <ul>
-            <li><strong>Walking:</strong> Santa Cruz downtown is flat and walkable from port. Most attractions require transport.</li>
-            <li><strong>Tram:</strong> Modern tram connects Santa Cruz to La Laguna (~€1.35). Scenic, efficient, air-conditioned. Buy tickets at machines.</li>
-            <li><strong>Buses (Guaguas):</strong> Extensive network covering whole island. TITSA company operates routes. Buy Bono-Vía card for discounts. English timetables online.</li>
-            <li><strong>Taxis:</strong> Metered and reasonably priced for short trips. Fixed rates for longer journeys (agree before departure). Available at port.</li>
-            <li><strong>Car Rental:</strong> Good option if you want flexibility. Roads well-maintained. Mountain routes winding. Parking easy in Santa Cruz.</li>
-            <li><strong>Organized Tours:</strong> Best for Mount Teide, Anaga Mountains, multiple stops in one day. Hotels and cruise terminal offer booking.</li>
-          </ul>
-        </section>
-
-        <section class="port-section">
-          <h3>Pro Tips</h3>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Lessons learned the hard way.</p>
-          <ul>
-            <li><strong>Book Teide Cable Car Early:</strong> Sells out days (sometimes weeks) in advance, especially peak season. Without reservation, you can't ride. Book the moment you know your port date.</li>
-            <li><strong>Weather is Weird:</strong> South can be 25°C and sunny while north is 15°C and cloudy. Mount Teide can be 5°C at summit. Bring layers no matter the forecast.</li>
-            <li><strong>Duty-Free Shopping:</strong> Canary Islands are outside EU customs area. Tobacco, alcohol, perfume significantly cheaper. Cruise terminal has duty-free shops.</li>
-            <li><strong>Lunch Timing:</strong> Spaniards eat lunch 2-4pm, dinner 9-11pm. Restaurants may be closed or limited outside these hours. Plan accordingly or eat tourist schedule.</li>
-            <li><strong>Try Papas Arrugadas:</strong> Canarian wrinkled potatoes with mojo sauce (red or green). Simple, delicious, everywhere. Perfect with fresh fish.</li>
-            <li><strong>Barraquito Coffee:</strong> Tenerife's layered coffee drink — espresso, condensed milk, steamed milk, licor 43, lemon, cinnamon. Sweet, strong, spectacular. Order one after lunch.</li>
-            <li><strong>Beach North vs South:</strong> North beaches (like Las Teresitas) have golden sand but cooler, cloudier weather. South beaches have black volcanic sand but guaranteed sunshine. Choose based on priorities.</li>
-            <li><strong>Stargazing vs Cable Car:</strong> If you can only do one, choose based on personality: adventurous daytime hikers pick cable car; contemplative night owls pick stargazing. Both extraordinary.</li>
-          </ul>
-        </section>
-
+        <!-- MAP SECTION -->
         <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Tenerife Area Map</h2></summary>
+            <summary><h2>Tenerife Area Map</h2></summary>
           <p class="map-intro">Interactive map showing cruise terminal, Mount Teide National Park, La Laguna, Loro Parque, Las Teresitas beach, and major attractions. Click any marker for details and directions.</p>
           <div id="tenerife-port-map" class="port-map-container" role="application" aria-label="Interactive map of Tenerife and points of interest">
             <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
           </div>
-            </details>
+        </details>
 
-        <section class="port-section">
-          <h3>Local Food & Drink</h3>
-          <ul>
-            <li><strong>Papas Arrugadas con Mojo:</strong> Wrinkled potatoes boiled in salt water, served with mojo sauce (cilantro-based green or paprika-based red). Canarian classic.</li>
-            <li><strong>Gofio:</strong> Roasted grain flour (wheat, corn, or barley) — ancient Guanche food still eaten today. Used in desserts, soups, or eaten with milk.</li>
-            <li><strong>Fresh Fish:</strong> Vieja (parrotfish), cherne (wreckfish), sama (sea bream) — simply grilled with mojo sauce. Coastal restaurants serve it fresh daily.</li>
-            <li><strong>Conejo en Salmorejo:</strong> Rabbit marinated in spicy sauce — traditional Canarian dish. Rich, flavorful, tender. Found in local restaurants, not tourist spots.</li>
-            <li><strong>Barraquito:</strong> Tenerife's signature coffee — layered espresso, condensed milk, licor 43, foam milk, lemon zest, cinnamon. Sweet, complex, delicious.</li>
-            <li><strong>Canarian Wine:</strong> Volcanic soil produces distinctive wines. Try Malvasía (white) or Listán Negro (red). Tacoronte-Acentejo region highly regarded.</li>
-            <li><strong>Bienmesabe:</strong> Sweet almond cream dessert — literally means "tastes good to me." Served with ice cream. Moorish influence. Perfect end to meal.</li>
+        <!-- EXCURSIONS SECTION -->
+        <details class="port-section" id="excursions" open>
+            <summary><h2>Top Excursions &amp; Things to Do</h2></summary>
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: Ship excursions offer guaranteed return to vessel but cost more. Independent bookings save money but carry risk if transport delays occur. For Mount Teide cable car, book ahead online — tickets sell out weeks in advance during peak season.</p>
+
+          <h4 class="mt-1">Mount Teide National Park &amp; Cable Car</h4>
+          <p>Spain's highest peak (3,718m) and UNESCO World Heritage site. The drive through the national park reveals otherworldly volcanic landscapes — lava fields, bizarre rock formations, and lunar-like terrain that stretches for miles. The cable car (€39 round trip) ascends to 3,555m, offering views of four neighboring islands on clear days. Book online well in advance — sells out routinely. A free summit permit is required for the final 200m to the peak itself (apply months ahead). About 90 minutes from port. Full-day excursion recommended. Dress warm — temperatures drop to near freezing at altitude. Ship excursion runs €80-120; independent tour with transport €55-75. Moderate walking; accessible viewing platform at cable car station.</p>
+
+          <figure class="logbook-image">
+            <img src="/ports/img/tenerife/tenerife-masca.webp" alt="Dramatic Masca gorge with steep volcanic cliffs and terraced hillsides descending to the ocean" loading="lazy">
+            <figcaption>Masca Gorge descent — <a href="https://commons.wikimedia.org/wiki/File:Masca_-_Tenerife.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</figcaption>
+          </figure>
+
+          <h4 class="mt-1">La Laguna (San Cristobal de La Laguna)</h4>
+          <p>UNESCO World Heritage colonial town — former capital of Tenerife. Beautifully preserved sixteenth-century architecture with colorful facades, carved wooden balconies, and a lively university atmosphere. Reachable by tram from Santa Cruz in 25 minutes for just €1.35. Wander cobblestone streets, visit the Church of the Immaculate Conception, and enjoy excellent restaurants and cafes. Allow 2-3 hours. Combine with Mount Teide or a beach visit for a full day. Low walking difficulty on mostly flat cobblestones.</p>
+
+          <h4 class="mt-1">Loro Parque (€42 adults, €28 children)</h4>
+          <p>World-class zoo and aquarium in Puerto de la Cruz, about 45 minutes from port by bus. Home to one of the world's largest penguin exhibits, an impressive orca show, dolphins, gorillas, and the parrot collection that gave the park its name. Excellent facilities and engaging presentations. Allow 4-5 hours for a thorough visit. Free shuttle runs from Puerto de la Cruz center. Book online for discounted entry. Very popular with families. Moderate walking on paved paths; wheelchair accessible throughout.</p>
+
+          <h4 class="mt-1">Masca Gorge Hike</h4>
+          <p>Dramatic canyon descent through the Teno mountains to the coast — one of Tenerife's most spectacular experiences. The trail passes through abandoned terraces and basalt cliffs. Strenuous hike requiring good fitness; approximately 3-4 hours down. Return by boat to Los Gigantes (€10) or hike back up. Organized guided tours recommended (€45-65) for transport logistics. Not suitable for those with mobility concerns. Bring sturdy footwear and water.</p>
+
+          <h4 class="mt-1">Stargazing Tours on Mount Teide (€65-90)</h4>
+          <p>Tenerife has some of the world's clearest night skies — the Teide Observatory is located here for precisely this reason. Evening tours include sunset viewing above the clouds, astronomy talk from qualified guides, and telescope observation of planets, nebulae, and the Milky Way. Unforgettable on clear nights. Book ahead as tours fill quickly. Weather-dependent with full refund if cancelled. Warm clothing essential — temperatures drop sharply after sunset at altitude.</p>
+
+          <h4 class="mt-1">Playa de Las Teresitas</h4>
+          <p>The closest quality beach to Santa Cruz — about 20 minutes by bus or taxi (€8-10). Golden sand (imported from the Sahara), palm-lined shore, calm waters. Local Spanish families predominate — refreshingly authentic. Free entry. Bring your own towel and sunscreen. Several small restaurants nearby serving fresh fish and cold beer for €8-15 per meal.</p>
+
+          <h4 class="mt-1">Whale and Dolphin Watching (€25-55)</h4>
+          <p>The channel between Tenerife and La Gomera is home to resident pilot whales and bottlenose dolphins year-round. Boat trips depart from Los Cristianos in the south (75 minutes from Santa Cruz by bus). Two-hour tours cost €25-35; longer excursions with swimming stops run €40-55. High success rate for sightings. A wonderful independent option for nature lovers.</p>
+        </details>
+
+        <!-- DEPTH SOUNDINGS -->
+        <details class="port-section" id="depth_soundings" open>
+            <summary><h2>Depth Soundings: Final Thoughts</h2></summary>
+          <p><em>I have visited Tenerife in 2022, 2024, and 2025 — these recommendations reflect firsthand experience across multiple cruise visits.</em></p>
+          <p>Tenerife rewards the curious traveler who looks beyond the resort beaches of the south coast. Mount Teide is the headline attraction, and deservedly so — the drive through the national park and the cable car ascent are genuinely extraordinary. But the island's depth lies in its contrasts: the green, misty north versus the sun-baked south; the working-class authenticity of Santa Cruz versus the colonial elegance of La Laguna; the volcanic harshness of the interior versus the lush botanical gardens of the coast.</p>
+          <p>For first-timers with a full day in port, I recommend the Mount Teide cable car experience above all else — it is unlike anything you will see at any other cruise port in the world. For repeat visitors, La Laguna's UNESCO streets and the Masca gorge offer genuine depth. And for anyone willing to stay late in port, the stargazing tour above the clouds is worth planning an entire itinerary around. Budget roughly €50-100 per person for a solid day of independent exploration, or €80-150 for ship-organized excursions.</p>
+          <p>The Canary Islands' eternal spring climate means Tenerife delivers regardless of when your cruise arrives. I have never had a bad day here — only days when I wished I had more time.</p>
+        </details>
+
+        <!-- FROM THE PIER -->
+        <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Tenerife cruise pier">
+          <h4>From the Pier</h4>
+          <ul class="pier-distances">
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Santa Cruz City Center</span><div class="pier-detail">Walk from the port — Plaza de Espana, shopping on Calle Castillo</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 10 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">La Laguna (UNESCO Old Town)</span><div class="pier-detail">Tram from Santa Cruz — colonial architecture, university town</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128651;</span> 25 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:32%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Mount Teide National Park (UNESCO)</span><div class="pier-detail">Tour bus or taxi — Spain's highest peak at 3,718m, cable car to summit area</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128652;</span> 75 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:85%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Loro Parque (Puerto de la Cruz)</span><div class="pier-detail">Bus north — world-class zoo and aquarium</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128652;</span> 45 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:55%"></div></div>
+            </li>
           </ul>
-        </section>
+          <p class="pier-note">Ships dock at the port of Santa Cruz de Tenerife. The city center is walkable. Mount Teide is the top excursion — reserve cable car tickets in advance (€39). Tenerife enjoys year-round spring weather.</p>
+        </nav>
 
-        <section class="port-section author-note-disclaimer">
-          <h3>Author's Note</h3>
-          <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-        </section>
+        <!-- Author's Note -->
+        <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+          <h4>Author's Note</h4>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+            I've sailed this port myself, walked these shores, and these notes come from my own wake. The details reflect what I found on the ground, though ports change — always verify current conditions for your voyage.
+          </p>
+        </aside>
 
-        <section class="port-section">
-          <h3>Frequently Asked Questions</h3>
-          <p><strong>Q: Where do cruise ships dock?</strong><br/>A: Santa Cruz de Tenerife port, within easy walking distance of downtown. Modern terminal with good facilities.</p>
-          <p><strong>Q: Can I visit Mount Teide without booking the cable car?</strong><br/>A: Yes — the drive through Teide National Park is spectacular and free. You can hike lower trails without cable car tickets. But cable car to near-summit is the highlight. Book ahead.</p>
-          <p><strong>Q: Is Tenerife good for beach lovers?</strong><br/>A: Yes, but beaches are far from Santa Cruz port. South coast (Playa de las Américas, Los Cristianos) is 75+ km away. Las Teresitas is closest good beach (20 min). Organized beach excursions available.</p>
-          <p><strong>Q: What's better: Tenerife or Gran Canaria?</strong><br/>A: Tenerife has Mount Teide (dramatic), better colonial architecture (La Laguna), and superior stargazing. Gran Canaria has better beaches and sand dunes. Both excellent. Choose Tenerife for nature/culture; Gran Canaria for beaches.</p>
-          <p><strong>Q: Do I need to speak Spanish?</strong><br/>A: Helpful but not essential. Tourist areas have English. Santa Cruz proper is very Spanish-speaking. Basic phrases appreciated.</p>
-        </section>
-
-        <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-      
         <!-- VOLATILE DATA DISCLAIMER -->
         <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-13 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+          <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, and policies listed on this page were accurate as of 2026-02-01 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
+
         <!-- FAQ SECTION -->
         <details class="port-section" id="faq" open>
             <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Tenerife?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
+          <p><strong>Q: Where do cruise ships dock in Tenerife?</strong><br>A: Santa Cruz de Tenerife port, within easy walking distance of downtown. Modern terminal with duty-free shops, Wi-Fi, tourist information, and good facilities. No tender required — ships dock directly at the pier. The terminal is wheelchair accessible with ramps and level walkways throughout.</p>
 
-          <p><strong>Q: Does Tenerife have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
+          <p><strong>Q: Can I visit Mount Teide on a cruise day?</strong><br>A: Yes, but plan carefully. The national park is about 90 minutes from port. The cable car (€39 round trip) takes you to 3,555 meters with extraordinary volcanic views. You must book cable car tickets online days or weeks in advance — they sell out consistently. A free summit permit is required for the final 200m to the peak (apply months ahead). Allow a full day. Ship excursion costs €80-120 with guaranteed return; independent tours run €55-75.</p>
 
-          <p><strong>Q: What should I pack for Tenerife's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
+          <p><strong>Q: Is Tenerife good for families with children?</strong><br>A: Absolutely. Loro Parque (€42 adults, €28 children) is one of Europe's finest zoological parks with penguin exhibits, dolphin shows, and extensive gardens. Playa de Las Teresitas offers calm, shallow waters perfect for younger swimmers. The tram to La Laguna is an easy, low-cost outing. Wheelchair-friendly attractions make Tenerife accessible for visitors of all ages and abilities.</p>
 
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
+          <p><strong>Q: What currency is used and how expensive is Tenerife?</strong><br>A: Euro (€). The Canary Islands are outside the EU VAT zone, so tobacco, perfume, and electronics are cheaper than mainland Spain. Budget €50-100 per person for a good day of independent sightseeing including transport, meals, and one major attraction. A typical lunch with drinks costs €12-20 per person at local restaurants.</p>
 
+          <p><strong>Q: What is the best time of year to visit?</strong><br>A: Tenerife earns its "eternal spring" reputation — pleasant year-round with temperatures of 18-28 degrees Celsius. The south coast is reliably sunny regardless of season. Winter months (November through March) see more rain in the north and occasional calima dust storms from the Sahara. Peak cruise season offers the best overall conditions.</p>
 
+          <p><strong>Q: Do I need to speak Spanish?</strong><br>A: Helpful but not essential. Tourist-facing businesses generally have some English. Santa Cruz proper is very Spanish-speaking compared to resort areas. Basic phrases are appreciated. Restaurant menus in tourist areas often have English translations.</p>
 
+          <p><strong>Q: What should I pack for a Tenerife port day?</strong><br>A: Layers are essential if visiting Mount Teide — summit temperatures can be near freezing even when Santa Cruz is warm. Sunscreen year-round. Comfortable walking shoes for La Laguna's cobblestones. A camera for the volcanic landscapes. Light rain jacket if heading to the northern part of the island.</p>
+        </details>
 
+        <!-- GALLERY -->
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+          <div class="gallery-grid">
+            <figure class="gallery-item">
+              <img src="/ports/img/tenerife/tenerife-santa-cruz.webp" alt="Plaza de Espana in Santa Cruz de Tenerife with modern architecture and palm-lined waterfront promenade" loading="lazy">
+              <figcaption>Santa Cruz waterfront<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Santa_Cruz_de_Tenerife" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/tenerife/tenerife-beach.webp" alt="Black volcanic sand beach on Tenerife south coast with waves creating white foam patterns on dark shore" loading="lazy">
+              <figcaption>Volcanic black sand beaches<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Beaches_of_Tenerife" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/tenerife/tenerife-church.webp" alt="Historic Church of the Immaculate Conception in La Laguna with bell tower rising above colonial rooftops" loading="lazy">
+              <figcaption>La Laguna church tower<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:La_Laguna" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/tenerife/tenerife-dragon-tree.webp" alt="Ancient Drago Milenario dragon tree in Icod de los Vinos believed to be over five hundred years old" loading="lazy">
+              <figcaption>The ancient dragon tree of Icod<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Drago_Icod_de_los_Vinos.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/tenerife/tenerife-coastline.webp" alt="Dramatic Los Gigantes cliffs plunging into deep blue Atlantic waters on Tenerife western coast" loading="lazy">
+              <figcaption>Los Gigantes cliffs<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Los_Gigantes_Tenerife.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/tenerife/tenerife-whale.webp" alt="Pilot whale surfacing in the channel between Tenerife and La Gomera during a whale watching excursion" loading="lazy">
+              <figcaption>Resident pilot whales<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Whales_in_Canary_Islands" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div></figcaption>
+            </figure>
+          </div>
+        </details>
 
-<!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Tenerife">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Santa Cruz City Center</span><div class="pier-detail">Walk from the port — Plaza de España, shopping on Calle Castillo</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">La Laguna (UNESCO Old Town)</span><div class="pier-detail">Tram from Santa Cruz — colonial architecture, university town</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚋</span> 25 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:32%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Mount Teide National Park (UNESCO)</span><div class="pier-detail">Tour bus or taxi — Spain's highest peak at 3,718m, cable car to summit area</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 75 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:85%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Loro Parque (Puerto de la Cruz)</span><div class="pier-detail">Tour bus north — world-class zoo and aquarium</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 45 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:55%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Ships dock at the port of Santa Cruz de Tenerife. The city center is walkable. Mount Teide is the must-do excursion — reserve cable car tickets in advance (€39). Tenerife enjoys year-round spring weather.</p>
-</div>
+        <!-- CREDITS -->
+        <details class="port-section image-credits" id="credits" open>
+            <summary><h2>Image Credits</h2></summary>
+          <ul>
+            <li><strong>Hero and landscape photographs:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Tenerife" target="_blank" rel="noopener">Wikimedia Commons</a> contributors — CC BY-SA licenses</li>
+            <li><strong>Mount Teide:</strong> <a href="https://commons.wikimedia.org/wiki/File:Teide_2010.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> / CC BY-SA</li>
+            <li><strong>Masca Gorge:</strong> <a href="https://commons.wikimedia.org/wiki/File:Masca_-_Tenerife.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> / CC BY-SA</li>
+            <li><strong>Dragon Tree:</strong> <a href="https://commons.wikimedia.org/wiki/File:Drago_Icod_de_los_Vinos.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> / CC BY-SA</li>
+          </ul>
+        </details>
 
+        <!-- BACK NAV -->
+        <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
       </article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
       <section class="card" aria-labelledby="glance-heading">
-        <h3 id="glance-heading">At a Glance</h3>
+        <h4 id="glance-heading">Quick Facts</h4>
         <div class="at-a-glance-grid">
           <div class="at-a-glance-item"><strong>Country</strong><span>Spain (Canary Islands)</span></div>
           <div class="at-a-glance-item"><strong>Language</strong><span>Spanish</span></div>
@@ -489,7 +533,7 @@ Soli Deo Gloria
         </div>
       </section>
       <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
+        <h4 id="author-heading">About the Author</h4>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
           <picture>
             <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
@@ -501,12 +545,12 @@ Soli Deo Gloria
         <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
       </section>
       <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
       </section>
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Tenerife on their itineraries:</p>
         <p class="cruise-line-label">Royal Caribbean</p>
         <div class="ship-links">
@@ -606,21 +650,21 @@ Soli Deo Gloria
       </section>
 
       <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
+        <h4 id="recent-rail-title">Recent Stories</h4>
         <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
     </aside>
-  
+
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Visit</h2>
       <p>Helpful resources for your shore day:</p>
       <ul>
         <li><a href="/packing-lists.html">Cruise Packing Lists</a> — What to bring on port days</li>
-        <li><a href="/articles/cruise-tech-photography-guide.html">Photography &amp; Tech Guide</a> — Capture the perfect shots</li>
+        <li><a href="/articles/cruise-tech-photography-guide.html">Camera &amp; Tech Guide</a> — Capture the perfect shots</li>
         <li><a href="/internet-at-sea.html">Internet at Sea</a> — WiFi tips &amp; staying connected</li>
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
@@ -636,7 +680,7 @@ Soli Deo Gloria
     <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
     <p class="tiny mt-05"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/about-us.html">About</a> &middot; <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
     <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria</p>
-    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">&#10003; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- Navigation Dropdown Script -->

@@ -262,9 +262,11 @@ Soli Deo Gloria
     <!-- Port Header -->
     <article class="card">
       <!-- Port Hero with gradient background -->
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #2d5a7b 0%, #4a90c2 35%, #e8f4f8 70%, #ffffff 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
-        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #ffffff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Olden</div>
-      </div>
+      <section class="port-hero" id="hero" aria-label="Olden cruise port hero" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #2d5a7b 0%, #4a90c2 35%, #e8f4f8 70%, #ffffff 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <img src="/ports/img/olden/olden-1.webp" alt="Olden fjord village nestled beneath towering Norwegian mountains with crystal-clear fjord waters" loading="eager" fetchpriority="high" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.7;"/>
+        <div class="port-name-overlay" style="position: relative; z-index: 1; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #ffffff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Olden</div>
+        <p class="port-hero-credit" style="position: absolute; bottom: 0.5rem; right: 0.75rem; z-index: 2; margin: 0;"><a class="pill" href="https://commons.wikimedia.org/w/index.php?search=Olden+Norway&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo: Wikimedia Commons (CC BY-SA)</a></p>
+      </section>
 
       
       <p class="last-reviewed">Last reviewed: February 2026</p>
@@ -376,24 +378,13 @@ Soli Deo Gloria
           <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
           <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Olden?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
-
-          <p><strong>Q: Does Olden have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-
-          <p><strong>Q: What should I pack for Olden's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
-
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
 
 
 
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Olden tender landing">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Olden tender landing">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -418,13 +409,14 @@ Soli Deo Gloria
     </li>
   </ul>
   <p class="pier-note">Tender port — ships anchor in Nordfjord, 10–15 min tender ride to wooden pier. No cruise terminal, no souvenir gauntlet. Just mountains, waterfalls, and glacial silence.</p>
-</div>
+</nav>
 
       </article>
 
     <!-- First-Person Logbook Entry -->
     <article class="card logbook-entry clearfix">
-      <h2>My Olden Logbook</h2>
+<details open>
+      <summary><h2>My Olden Logbook</h2></summary>
 
       <p>When our ship dropped anchor in Nordfjord that first morning and I boarded the tender for the fifteen-minute ride to shore, the profound quiet settled over me like a benediction. This isn't Bergen with its colorful wharf bustle or Flam with its railway crowds — Olden is a village of perhaps five hundred souls nestled at the very head of Nordfjord, one of Norway's longest and most magnificent fjords stretching some 106 kilometers from the open sea to these inland waters. The village sits completely dwarfed by mountains that rise straight from the water like cathedral walls, their slopes draped with waterfalls that plunge hundreds of meters through vertical stone. A scattering of painted wooden houses, a white church with its steeple pointing heavenward, and beyond it all — invisible but unmistakably present — the mass of Jostedalsbreen, continental Europe's largest glacier, waiting patient and ancient in the high country.</p>
 
@@ -458,61 +450,53 @@ Soli Deo Gloria
 
       <p>What Olden lacks in urban sophistication or tourist infrastructure, it more than compensates for with natural grandeur and profound authenticity. This is Norway as it has been for centuries — quiet, dramatic, pastoral in the truest sense. The landscape doesn't perform for visitors; it simply exists in its patient, timeless beauty, utterly indifferent to whether we notice or not. And perhaps that's what makes Olden so deeply affecting: in a world increasingly shaped for our consumption and entertainment, here is a place that remains fundamentally itself, offering its gifts freely to those willing to receive them in silence and gratitude.</p>
 
-    </article>
+    </details>
+</article>
 
-    <!-- Port Essentials -->
-    <section class="port-section">
-      <h3>Port Essentials</h3>
+    <!-- The Cruise Port -->
+    <details class="port-section" id="cruise_port" open>
+      <summary><h2>The Cruise Port</h2></summary>
       <p>Olden is a tender port with no commercial cruise dock. Ships anchor in Nordfjord and tender passengers to a small wooden pier directly in the village center. The tender ride takes approximately 10-15 minutes and offers stunning views of the surrounding mountains.</p>
 
-      <p><strong>Tender Process:</strong></p>
+      <h4>Tender Process</h4>
       <ul>
-        <li><strong>Pier Location:</strong> The tender pier is immediately adjacent to the village center, within 100 meters of local shops and excursion meeting points.</li>
+        <li><strong>Pier Location:</strong> The tender pier is immediately adjacent to the village center, within 100 meters of local shops and meeting points.</li>
         <li><strong>Frequency:</strong> Tender boats run continuously throughout the port call. Wait times are typically minimal due to the small village size and limited shore infrastructure.</li>
         <li><strong>Weather Dependency:</strong> Tendering can be affected by wind and weather conditions, though cancellations are rare during the May-September season.</li>
       </ul>
 
-      <p><strong>Village Layout:</strong></p>
-      <p>Olden is genuinely tiny — population approximately 500. The entire village can be walked in 15 minutes. Main features cluster within 500 meters of the pier: a small general store, handful of souvenir shops, café, and the historic Olden Church. The village serves primarily as a departure point for excursions into the surrounding glacier country rather than a destination in itself.</p>
+      <h4>Village Layout</h4>
+      <p>Olden is genuinely tiny — population approximately 500. The entire village can be walked in 15 minutes. Main features cluster within 500 meters of the pier: a small general store, handful of souvenir shops, café, and the Olden Church. The village serves primarily as a departure point into the surrounding glacier country rather than a destination in itself.</p>
 
-      <p><strong>Currency & Language:</strong></p>
+      <h4>Currency &amp; Language</h4>
       <p>Currency is Norwegian Krone (NOK). Credit cards are universally accepted, even at the smallest establishments — Norway is one of Europe's most cashless societies. English is widely spoken, particularly in tourism-related businesses. ATMs are limited; the nearest reliable ATM is typically in Stryn, 20 kilometers away.</p>
 
-      <p><strong>Wi-Fi & Connectivity:</strong></p>
+      <h4>Wi-Fi &amp; Connectivity</h4>
       <p>The village café offers Wi-Fi for customers. Mobile coverage (4G/5G) is generally excellent throughout the valley — Norwegian telecommunications infrastructure is superb even in remote areas.</p>
-    </section>
+    </details>
 
-    <!-- Top Experiences -->
-    <section class="port-section">
-      <h3>Top Experiences in Olden</h3>
+    <!-- Getting Around -->
+    <details class="port-section" id="getting_around" open>
+      <summary><h2>Getting Around</h2></summary>
+      <p>Olden itself requires no transportation — it's a five-minute walk from one end to the other. The challenge is accessing the dramatic landscapes beyond the village.</p>
 
-      <h4>Briksdal Glacier (Briksdalsbreen)</h4>
-      <p>The signature Olden experience and the primary reason cruise ships call here. Briksdal is an accessible arm of Jostedalsbreen National Park, home to mainland Europe's largest glacier. The excursion involves a scenic 30-minute bus ride through the dramatic Oldedalen valley, followed by an electric troll car ride up the final steep kilometer to the glacier viewpoint.</p>
-      <p>The glacier itself is a stunning mass of blue-white ice tumbling down from the high plateau, feeding a milky turquoise glacial lake. Wooden walkways allow close approach (though ice conditions vary by season). The round-trip excursion takes approximately 3-4 hours. Note that the glacier has been retreating significantly due to climate change — it's measurably smaller than even a decade ago, adding poignancy to the visit.</p>
+      <h4>Shore-Organized Tours (Recommended)</h4>
+      <p>The vast majority of visitors book ship-organized tours to Briksdal Glacier, Loen Skylift, or combination packages. This is genuinely the most practical option for cruise visitors on limited time. Transportation, troll car tickets, and timing are all coordinated, ensuring you won't miss the ship. Tours book up quickly — reserve as early as possible.</p>
 
-      <h4>Oldedalen Valley Scenic Drive</h4>
-      <p>The journey to Briksdal is itself spectacular. The narrow valley road threads between towering rock walls, past cascading waterfalls (Kleivafossen is particularly impressive), and through pockets of impossibly green farmland. Ancient stone walls, traditional wooden farm buildings, and grazing sheep complete the pastoral Norwegian scene. Even if you're not hiking to the glacier, simply experiencing this valley is worthwhile.</p>
+      <h4>Independent Taxis</h4>
+      <p>Taxis are available at the pier, though limited in number. Hiring a taxi to Briksdal and back costs approximately 1,500-2,000 NOK (roughly $140-$190 USD) depending on wait time. Agree on price before departing. Taxis can also be pre-booked through local companies if you prefer independent exploration with guaranteed return.</p>
 
-      <h4>Loen Skylift Cable Car</h4>
-      <p>Located about 20 minutes from Olden, the Loen Skylift is one of the world's steepest cable cars, ascending 1,011 meters from fjord level to the summit of Mount Hoven in just five minutes. The views from the top are genuinely breathtaking — panoramic vistas of Nordfjord, distant glaciers, and alpine peaks stretching to the horizon.</p>
-      <p>The summit features a restaurant with floor-to-ceiling windows, hiking trails through alpine meadows, and a Via Ferrata climbing route for adventurous visitors. The combination of Briksdal Glacier and Loen Skylift makes for a full, unforgettable day and is often packaged together on shore excursions.</p>
+      <h4>Rental Cars</h4>
+      <p>No car rental agencies operate in Olden itself. The nearest rental locations are in Stryn (20 km away), which is impractical for cruise visitors on tight schedules. If you've arranged a rental in advance (picking up in Bergen or another earlier port), the drive to Briksdal and Loen is straightforward and scenic, though parking can be limited at peak times.</p>
 
-      <h4>Olden Church & Village Walk</h4>
-      <p>The white wooden Olden Church, dating to 1759, sits in a mountain-ringed cemetery that epitomizes Norwegian pastoral beauty. The interior is simple and serene — pale blue walls, wooden pews, and tall windows admitting soft northern light. It's a place that invites quiet contemplation.</p>
-      <p>The village itself rewards a gentle stroll. Traditional Norwegian architecture, flower boxes overflowing with geraniums, and the ever-present sound of mountain streams create an atmosphere of profound peace. There's a small local history museum (hours vary) with exhibits on glacier farming and traditional life in Nordfjord.</p>
-
-      <h4>Jostedalsbreen National Park Exploration</h4>
-      <p>For those seeking deeper glacier experiences, guided glacier hikes are available through local outfitters. These expeditions outfit participants with crampons and ice axes for walking directly on Jostedalsbreen's surface. Expect 4-6 hour excursions with moderate physical demands. The experience of standing on ancient ice, peering into blue crevasses, and understanding glacial geology firsthand is extraordinary.</p>
-      <p>The Norwegian Glacier Museum (Norsk Bremuseum) in Fjærland is about 90 minutes from Olden and can be reached via private car or organized tour. Interactive exhibits explain glaciology, climate change, and the unique ecology of glacier environments.</p>
-
-      <h4>Kayaking & Fjord Adventures</h4>
-      <p>The calm waters of inner Nordfjord are ideal for kayaking. Guided tours paddle along the fjord shoreline, beneath waterfalls, and into narrow side arms inaccessible by land. The silence of kayak travel in these grand landscapes creates a meditative experience. Tours typically last 2-3 hours and require no previous kayaking experience.</p>
-    </section>
+      <h4>Walking</h4>
+      <p>The village and immediate surroundings offer pleasant short walks — to the church, along the river, and on minor trails into the lower valley. These provide lovely moments and a taste of Norwegian countryside, but won't reach the glacier or major viewpoints. Wheelchair access is manageable on the flat village paths but the glacier trail and troll car boarding present significant barriers.</p>
+    </details>
 
     <!-- Interactive Port Map -->
     <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Olden Port Map</h2></summary>
-      <p class="map-intro">Interactive map showing the tender pier, village center, church, and excursion departure points. Click any marker for details and directions.</p>
+      <summary><h2>Olden Port Map</h2></summary>
+      <p class="map-intro">Interactive map showing the tender pier, village center, church, and departure points. Click any marker for details and directions.</p>
       <div id="olden-port-map" class="port-map-container" role="application" aria-label="Interactive map of Olden port and points of interest">
         <noscript>
           <p style="padding: 2rem; text-align: center; color: #678;">
@@ -525,32 +509,40 @@ Soli Deo Gloria
           Reset View
         </button>
       </div>
-            </details>
+    </details>
 
-    <!-- Getting Around -->
-    <section class="port-section">
-      <h3>Getting Around Olden</h3>
-      <p>Olden itself requires no transportation — it's a five-minute walk from one end to the other. The challenge is accessing the dramatic landscapes beyond the village.</p>
+    <!-- Excursions -->
+    <details class="port-section" id="excursions" open>
+      <summary><h2>Excursions</h2></summary>
 
-      <p><strong>Shore Excursions (Recommended):</strong></p>
-      <p>The vast majority of visitors book ship-organized excursions to Briksdal Glacier, Loen Skylift, or combination tours. This is genuinely the most practical option for cruise visitors on limited time. Transportation, troll car tickets, and timing are all coordinated, ensuring you won't miss the ship. Excursions book up quickly — reserve as early as possible.</p>
+      <h4>Briksdal Glacier (Briksdalsbreen)</h4>
+      <p>The signature Olden experience and the primary reason cruise ships call here. Briksdal is an accessible arm of Jostedalsbreen National Park, home to mainland Europe's largest glacier. The journey involves a scenic 30-minute bus ride through the dramatic Oldedalen valley, followed by an electric troll car ride up the final steep kilometer to the glacier viewpoint.</p>
+      <p>The glacier itself is a stunning mass of blue-white ice tumbling down from the high plateau, feeding a milky turquoise glacial lake. Wooden walkways allow close approach (though ice conditions vary by season). The round-trip takes approximately 3-4 hours. Note that the glacier has been retreating significantly due to climate change — it's measurably smaller than even a decade ago, adding poignancy to the visit.</p>
 
-      <p><strong>Independent Taxis:</strong></p>
-      <p>Taxis are available at the pier, though limited in number. Hiring a taxi to Briksdal and back costs approximately 1,500-2,000 NOK (roughly $140-$190 USD) depending on wait time. Agree on price before departing. Taxis can also be pre-booked through local companies if you prefer independent exploration with guaranteed return.</p>
+      <h4>Oldedalen Valley Scenic Drive</h4>
+      <p>The journey to Briksdal is itself spectacular. The narrow valley road threads between towering rock walls, past cascading waterfalls (Kleivafossen is particularly impressive), and through pockets of impossibly green farmland. Ancient stone walls, wooden farm buildings, and grazing sheep complete the pastoral Norwegian scene. Even if you're not hiking to the glacier, simply experiencing this valley is worthwhile.</p>
 
-      <p><strong>Rental Cars:</strong></p>
-      <p>No car rental agencies operate in Olden itself. The nearest rental locations are in Stryn (20 km away), which is impractical for cruise visitors on tight schedules. If you've arranged a rental in advance (picking up in Bergen or another earlier port), the drive to Briksdal and Loen is straightforward and scenic, though parking can be limited at peak times.</p>
+      <h4>Loen Skylift Cable Car</h4>
+      <p>Located about 20 minutes from Olden, the Loen Skylift is one of the world's steepest cable cars, ascending 1,011 meters from fjord level to the summit of Mount Hoven in just five minutes. The views from the top are genuinely breathtaking — panoramic vistas of Nordfjord, distant glaciers, and alpine peaks stretching to the horizon.</p>
+      <p>The summit features a restaurant with floor-to-ceiling windows, hiking trails through alpine meadows, and a Via Ferrata climbing route for adventurous visitors. The combination of Briksdal Glacier and Loen Skylift makes for a full, unforgettable day and is often packaged together on shore tours.</p>
 
-      <p><strong>Bicycles:</strong></p>
-      <p>The village occasionally has bicycles available for rent, suitable for exploring the immediate valley. However, the distances to major attractions (Briksdal is 25 km each way, with significant elevation) make cycling impractical for glacier visits.</p>
+      <h4>Olden Church &amp; Village Walk</h4>
+      <p>The white wooden Olden Church, dating to 1759, sits in a mountain-ringed cemetery that epitomizes Norwegian pastoral beauty. The interior is simple and serene — pale blue walls, wooden pews, and tall windows admitting soft northern light. It's a place that invites quiet contemplation.</p>
+      <p>The village itself rewards a gentle stroll. Norwegian timber architecture, flower boxes overflowing with geraniums, and the ever-present sound of mountain streams create an atmosphere of profound peace. There's a small local museum (hours vary) with exhibits on glacier farming and life in Nordfjord.</p>
 
-      <p><strong>Walking:</strong></p>
-      <p>The village and immediate surroundings offer pleasant short walks — to the church, along the river, and on minor trails into the lower valley. These provide lovely photo opportunities and a taste of Norwegian countryside, but won't reach the glacier or major viewpoints.</p>
-    </section>
+      <h4>Jostedalsbreen National Park Exploration</h4>
+      <p>For those seeking deeper glacier experiences, guided glacier hikes are available through local outfitters. These expeditions outfit participants with crampons and ice axes for walking directly on Jostedalsbreen's surface. Expect 4-6 hour outings with moderate physical demands. The experience of standing on ancient ice, peering into blue crevasses, and understanding glacial geology firsthand is extraordinary.</p>
+      <p>The Norwegian Glacier Museum (Norsk Bremuseum) in Fjærland is about 90 minutes from Olden and can be reached via private car or organized tour. Interactive exhibits explain glaciology, climate change, and the unique ecology of glacier environments.</p>
+
+      <h4>Kayaking &amp; Fjord Adventures</h4>
+      <p>The calm waters of inner Nordfjord are ideal for kayaking. Guided tours paddle along the fjord shoreline, beneath waterfalls, and into narrow side arms inaccessible by land. The silence of kayak travel in these grand landscapes creates a meditative experience. Tours typically last 2-3 hours and require no previous kayaking experience.</p>
+
+      <p class="booking-note"><strong>Booking guidance:</strong> Compare the ship excursion with independent operators before deciding. Ship excursions offer guaranteed return to the ship and coordinate troll car reservations, but cost more. Independent taxis offer flexibility but carry timing risk. For Briksdal Glacier, book ahead through your cruise line's excursion desk or reserve directly with local operators — troll car capacity is limited and sells out quickly.</p>
+    </details>
 
     <!-- Local Food & Drink -->
-    <section class="port-section">
-      <h3>Local Food & Drink</h3>
+    <details class="port-section" id="food-drink" open>
+      <summary><h2>Local Food &amp; Drink</h2></summary>
       <p>Olden's dining options are limited but authentic. Expectations should match the village's small size — this isn't Bergen's culinary scene, but rather honest Norwegian country fare.</p>
 
       <p><strong>Olden Café & Kiosk:</strong></p>
@@ -562,7 +554,7 @@ Soli Deo Gloria
       <p><strong>Loen Skylift Summit Restaurant:</strong></p>
       <p>At the top of Mount Hoven, the panoramic restaurant serves Norwegian specialties with arguably the best dining view in the country. The menu emphasizes local ingredients — reindeer, lamb, Arctic char, and seasonal vegetables. Reservations recommended for table seating, though café service is available without booking.</p>
 
-      <p><strong>Traditional Norwegian Specialties to Try:</strong></p>
+      <p><strong>Authentic Norwegian Specialties to Try:</strong></p>
       <ul>
         <li><strong>Brunost (Brown Cheese):</strong> Sweet, caramel-flavored whey cheese — divisive but quintessentially Norwegian. Often served on waffles or bread.</li>
         <li><strong>Kjøttkaker:</strong> Norwegian meatballs in brown gravy, typically served with potatoes, lingonberries, and vegetables.</li>
@@ -572,15 +564,15 @@ Soli Deo Gloria
       </ul>
 
       <p><strong>Beverages:</strong></p>
-      <p>Norwegian beer (especially local craft brews) pairs excellently with hearty mountain food. Coffee is universally excellent — Norwegians are among the world's highest per-capita coffee consumers. Aquavit (caraway-flavored spirit) is traditional but an acquired taste.</p>
+      <p>Norwegian beer (especially local craft brews) pairs excellently with hearty mountain food. Coffee is universally excellent — Norwegians are among the world's highest per-capita coffee consumers. Aquavit (caraway-flavored spirit) is a classic pairing but an acquired taste.</p>
 
       <p><strong>Practical Notes:</strong></p>
       <p>Dining in Norway is expensive — budget accordingly. A café lunch easily runs 150-250 NOK ($15-25 USD), while restaurant meals can exceed 400 NOK per person. Water is safe to drink from taps and often provided free in restaurants. Tipping is not expected but appreciated for exceptional service (round up or add 5-10%).</p>
-    </section>
+    </details>
 
-    <!-- Pro Tips -->
-    <section class="port-section">
-      <h3>Depth Soundings Ashore</h3>
+    <!-- Depth Soundings -->
+    <details class="port-section" id="depth_soundings" open>
+      <summary><h2>Depth Soundings Ashore</h2></summary>
       <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
 
       <p><strong>Layer Your Clothing Like a Norwegian:</strong> Even in summer, mountain weather changes rapidly. I learned this the hard way on my first Briksdal visit when sunshine turned to sleet in twenty minutes. Bring a waterproof outer layer, warm fleece, and wear comfortable walking shoes with good traction — glacier viewpoint paths can be wet and rocky. The temperature at Briksdal is often 10°C (18°F) cooler than at sea level.</p>
@@ -600,17 +592,13 @@ Soli Deo Gloria
       <p><strong>Accessibility Challenges:</strong> The village itself is relatively flat and accessible, but both Briksdal and Loen Skylift involve uneven terrain, stairs, and potentially challenging walking surfaces. Visitors with mobility limitations should inquire about specific excursion accessibility before booking. The troll cars can accommodate some wheelchairs, but the glacier viewpoint path includes steps and steep grades.</p>
 
       <p><strong>Environmental Responsibility:</strong> You're visiting a fragile glacial environment under climate stress. Stay on marked paths, pack out all trash, and consider the carbon cost of cruise travel against the privilege of witnessing these landscapes. Small actions matter — choosing reef-safe sunscreen, refilling water bottles, and supporting local conservation efforts.</p>
-    </section>
+    </details>
 
-    <!-- Author's Note -->
-    <section class="port-section author-note-disclaimer">
-      <h3>Author's Note</h3>
-      <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-    </section>
+    <p class="soundings-disclaimer"><em>These are soundings in another's wake — gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
 
     <!-- FAQ Section -->
-    <section class="card faq mt-2">
-      <h2>Frequently Asked Questions</h2>
+    <details class="port-section" id="faq" open>
+      <summary><h2>Frequently Asked Questions</h2></summary>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
         <summary style="cursor: pointer; font-weight: 600;">How do I get to Briksdal Glacier from the ship?</summary>
@@ -637,20 +625,53 @@ Soli Deo Gloria
         <p  class="list-indent">Yes. Briksdal Glacier has retreated significantly over the past decades. The viewpoint that once allowed close approach now overlooks the glacier from a distance. This adds urgency and poignancy to visiting — future generations may not have this opportunity. The Norwegian Glacier Museum addresses climate impacts in depth.</p>
       </details>
 
+    </details>
+
+    <!-- Photo Gallery -->
+    <section class="port-section" id="gallery">
+      <details class="section-collapse" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="section-body">
+          <p class="section-intro">Visual impressions from Olden and the Nordfjord.</p>
+          <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+            <figure class="gallery-item">
+              <img src="/ports/img/olden/olden-1.webp" alt="Olden village at the head of Nordfjord with mountains rising steeply on both sides" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+              <figcaption>Olden village at the head of Nordfjord <span class="photo-credit">(<a href="https://commons.wikimedia.org/w/index.php?search=Olden+Norway&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA)</span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/olden/olden-2.webp" alt="Oldedalen valley with cascading waterfalls and dramatic Norwegian mountain scenery" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+              <figcaption>Oldedalen valley — the road to Briksdal Glacier <span class="photo-credit">(<a href="https://commons.wikimedia.org/w/index.php?search=Oldedalen&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA)</span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/olden/olden-3.webp" alt="Briksdal Glacier arm of Jostedalsbreen with ancient blue ice cascading between peaks" loading="lazy" width="800" height="600" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+              <figcaption>Briksdal Glacier — an arm of mainland Europe's largest ice cap <span class="photo-credit">(<a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA)</span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/olden/olden-4.webp" alt="Olden Church white wooden steeple rising against mountain backdrop in Norway" loading="lazy" width="800" height="600" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+              <figcaption>Olden Church — a white wooden sanctuary dating to 1759 <span class="photo-credit">(<a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA)</span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/olden/olden-5.webp" alt="Loen Skylift panoramic view across Nordfjord and surrounding glacier peaks" loading="lazy" width="800" height="600" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;"/>
+              <figcaption>View from Loen Skylift summit on Mount Hoven <span class="photo-credit">(<a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA)</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </details>
+    </section>
   </div>
 
   <!-- SIDEBAR / ASIDE -->
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
     <!-- At a Glance / Quick Answer -->
-    <section class="page-intro" style="margin: 0 0 1rem 0;">
+    <div class="page-intro" style="margin: 0 0 1rem 0;">
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> Olden is a tiny Norwegian fjord village beneath Briksdal Glacier — troll cars ascend to mainland Europe's largest glacier, Oldedalen valley waterfalls cascade from mountains, and Olden's white church stands in profound mountain silence.
       </p>
-    </section>
+    </div>
 
     <!-- Author Card -->
-    <section class="card author-card-vertical" aria-labelledby="author-heading">
-      <h3 id="author-heading">About the Author</h3>
+    <div class="card author-card-vertical" aria-labelledby="author-heading">
+      <h4 id="author-heading">About the Author</h4>
       <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
         <picture>
           <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
@@ -662,18 +683,18 @@ Soli Deo Gloria
       <p class="tiny">
         <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
       </p>
-    </section>
+    </div>
 
     <!-- Nearby Ports Rail -->
-    <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
+    <div class="card" aria-labelledby="nearby-ports-title">
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
           Other ports in this region:
         </p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
-      </section>
-      <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
+      </div>
+      <div class="card ships-visiting" aria-labelledby="ships-visiting-title">
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Olden on their itineraries:</p>
         <p class="cruise-line-label">Royal Caribbean</p>
         <div class="ship-links">
@@ -729,30 +750,30 @@ Soli Deo Gloria
           <a href="/ships/costa/costa-deliziosa.html" class="ship-link-pill" data-line="costa" title="Costa Deliziosa (Spirit Class)">Costa Deliziosa</a>
         </div>
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
-      </section>
+      </div>
 
 
       <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
+      <div style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+        <h4 id="recent-rail-title">Recent Stories</h4>
         <p class="tiny content-text">
           Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
         </p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
-      </section>
+      </div>
 
 
     <!-- Whimsical Distance Units -->
-    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
-    </section>
+    <div class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </div>
 
   </aside>
 
     <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
   
     <!-- Planning Resources -->
-    <section class="card" aria-labelledby="planning-resources">
+    <div class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Visit</h2>
       <p>Helpful resources for your shore day:</p>
       <ul>
@@ -761,7 +782,7 @@ Soli Deo Gloria
         <li><a href="/internet-at-sea.html">Internet at Sea</a> — WiFi tips &amp; staying connected</li>
         <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
       </ul>
-    </section>
+    </div>
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
     <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>

@@ -271,201 +271,215 @@ All work on this project is offered as a gift to God.
     </nav>
 
     <article class="card">
-      <!-- Port Hero with name overlay (placeholder gradient until images available) -->
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; border-radius: 12px; height: 280px; overflow: hidden;">
-        <div style="background: linear-gradient(135deg, #0077be 0%, #00a8e8 50%, #ffd166 100%); height: 100%; display: flex; align-items: center; justify-content: center;">
-          <span style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4); letter-spacing: 0.08em; text-transform: uppercase;">Freeport</span>
+
+      <!-- ===== HERO ===== -->
+      <section class="port-hero" id="hero">
+        <div class="port-hero-image">
+          <img src="/ports/img/freeport/freeport-hero.webp" alt="Turquoise waters and white sand beaches of Grand Bahama Island with palm trees swaying in the warm Caribbean breeze" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <div class="port-hero-overlay">
+            <h1 class="port-hero-title">Freeport, Grand Bahama Island</h1>
+          </div>
         </div>
-      </div>
+        <p class="port-hero-credit"><a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></p>
+      </section>
 
-      
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+      <div id="logbook-btn-container"></div>
 
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="freeport"
-               data-port-name="Freeport (Grand Bahama) Port Guide"
-               data-lat="26.5384"
-               data-lon="-78.6965"
-               data-region="Caribbean">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+        <div id="port-weather-widget"
+             data-port-id="freeport"
+             data-port-name="Freeport (Grand Bahama) Port Guide"
+             data-lat="26.5384"
+             data-lon="-78.6965"
+             data-region="Caribbean">
+          <noscript>
+            <div class="seasonal-guide seasonal-guide-static">
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">At a Glance</summary>
+                <div class="seasonal-at-glance">
+                  <div class="seasonal-glance-grid">
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Best Time to Visit</summary>
+                <div class="seasonal-best-time">
+                  <div class="cruise-seasons-grid">
+                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Dec, Jan, Feb, Mar, Apr</span></div>
+                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">May, Jun, Nov</span></div>
+                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Jul, Aug, Sep, Oct</span></div>
+                  </div>
+                  <div class="best-months-activities">
+                    <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
+                    <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
+                    <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
+                    <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
+                    <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Jul, Aug, Sep</span></div>
+                  </div>
+                  <div class="months-to-avoid">
+                    <span class="avoid-label">Consider avoiding:</span>
+                    <span class="avoid-months">Sep, Oct</span>
+                    <span class="avoid-reason">(hurricane risk)</span>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                <div class="seasonal-catches">
+                  <ul class="catches-list">
+                    <li>Weather can change quickly — always have a backup plan</li>
+                    <li>Peak season means more crowds at popular attractions</li>
+                    <li>Sun can be intense even on cloudy days — sunscreen essential</li>
+                    <li>Local holidays may affect attraction hours and availability</li>
+                    <li>Check ship excursion timing against sunset and weather</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">Packing Tips</summary>
+                <div class="seasonal-packing">
+                  <ul class="packing-list">
+                    <li>Sunscreen and sunglasses — essential year-round</li>
+                    <li>Light layers for variable temperatures</li>
+                    <li>Comfortable walking shoes for exploring</li>
+                    <li>Rain jacket or compact umbrella</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
+                  </ul>
+                  <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Weather Hazards</summary>
+                <div class="seasonal-hazards">
+                  <div class="hazard-warning">
+                    <span class="hazard-icon">&#9888;&#65039;</span>
+                    <div class="hazard-content">
+                      <strong>Hurricane Zone</strong>
+                      <p>Season: Jun 1 – Nov 30 (Atlantic)</p>
+                      <p>Peak risk: Sep, Oct</p>
+                      <p class="hazard-note">Ships may reroute during active storms; travel insurance recommended</p>
                     </div>
                   </div>
-                </details>
+                </div>
+              </details>
 
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Dec, Jan, Feb, Mar, Apr</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">May, Jun, Nov</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Jul, Aug, Sep, Oct</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Jul, Aug, Sep</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Sep, Oct</span>
-                      <span class="avoid-reason">(hurricane risk)</span>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Hurricane Zone</strong>
-                        <p>Season: Jun 1 – Nov 30 (Atlantic)</p>
-                        <p>Peak risk: Sep, Oct</p>
-                        <p class="hazard-note">Ships may reroute during active storms; travel insurance recommended</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
+              <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+            </div>
+          </noscript>
+        </div>
+      </details>
 
       <h1>Freeport: Grand Bahama's Laid-Back Beach Paradise</h1>
 
-      <div class="logbook-entry">
-        <p>Freeport on Grand Bahama Island offers something different from Nassau's crowds – a more relaxed Bahamian experience where pristine beaches, excellent snorkeling, and duty-free shopping blend into an easy port day. While Freeport might not have Nassau's colonial architecture or resort glitz, it compensates with some of the Caribbean's most beautiful natural beaches and one of the region's best shore-accessible reefs.</p>
+      <!-- ===== LOGBOOK ===== -->
+      <details class="port-section" id="logbook" open>
+        <summary><h2>My Visit to Freeport</h2></summary>
+        <div class="logbook-entry clearfix">
 
-        <p>The port sits on Grand Bahama's southern shore, positioning you about 10 minutes from Port Lucaya – the island's tourism heartbeat. This waterfront complex of pastel-colored buildings houses restaurants, bars, shops, and provides direct access to Deadman's Reef, where you can snorkel literally steps from shore. The name might sound ominous, but the only things dead here are the coral formations that create perfect fish habitat. The living reef teems with parrotfish, angelfish, rays gliding over sandy patches, and if you're fortunate, sea turtles grazing on seagrass.</p>
+          <p>I stepped off the gangway into the Freeport morning and the warmth hit me like a gentle wall — not the oppressive, swampy heat I had braced for, but something softer, something that smelled of salt and frangipani and the faint sweetness of coconut oil drifting from a vendor's cart near the terminal. My wife walked beside me, her sandals already in her hand because she had spotted the pale sand beyond the port gates and decided shoes were optional. We had sailed from Fort Lauderdale on a short Bahamas run, and after a day at sea spent reading on the balcony, Grand Bahama felt like the world opening its arms. The sky above the cruise terminal was the kind of blue that does not seem real until you stand beneath it and feel the sun pressing warm against your shoulders.</p>
 
-        <div class="poignant-highlight">
-          <strong>Essential Planning:</strong> Gold Rock Beach at Lucayan National Park ranks among the Bahamas' most photographed beaches – and for good reason. The drive takes about 30 minutes from port, but the reward is a crescent of powder-white sand meeting impossibly turquoise water, backed by pine forest. Plan to arrive in the morning before cruise ship tours; the beach remains wonderfully uncrowded compared to more accessible spots.
+          <figure>
+            <img src="/ports/img/freeport/freeport-cruise-terminal.webp" alt="Freeport cruise terminal on Grand Bahama with passengers disembarking under bright Caribbean sunshine" loading="lazy" width="800" height="500"/>
+            <figcaption>The Freeport cruise terminal on a bright morning. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+
+          <p>We caught a taxi to Port Lucaya Marketplace — about $12 for the two of us, ten minutes through flat streets lined with low pastel buildings and casuarina pines. Our driver, a man named Clement with a deep laugh and a straw hat that had seen better decades, pointed out the scars still visible from Hurricane Dorian. "We rebuilt," he said simply, though the pride in his voice told a longer story. I noticed the fresh paint on some buildings, the new rooflines, the way the island had stitched itself back together with patience and stubbornness. However devastating the storm had been, the people of Grand Bahama had not given up on their home, and that quiet resilience moved me more than any postcard scenery could.</p>
+
+          <p>Port Lucaya itself was a riot of color — coral pinks and sea greens and sunflower yellows splashed across the marketplace buildings, with Junkanoo masks grinning from shop windows and the sound of someone playing a steel drum drifting across the central plaza. We wandered through stalls selling conch shells and straw hats and bottles of hot sauce with labels that promised to rearrange your understanding of flavor. My wife found a bracelet made of sea glass — soft blues and greens tumbled smooth by decades in the surf — and the vendor, a woman with silver braids and a wide smile, told us she collected every piece herself from the beaches on the north shore. I watched my wife turn the bracelet in the light, and the glass caught the sun like tiny fragments of the ocean itself.</p>
+
+          <figure>
+            <img src="/ports/img/freeport/freeport-port-lucaya.webp" alt="Colorful pastel buildings of Port Lucaya Marketplace with shops and visitors browsing along the waterfront promenade" loading="lazy" width="800" height="500"/>
+            <figcaption>Port Lucaya Marketplace, the heart of Freeport's visitor area. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+
+          <p>But the marketplace was merely the appetizer. We rented snorkel gear from a small shack near the beach — $10 each for mask, snorkel, and fins — and waded into the shallows at Deadman's Reef. The water was warm as bathwater and so clear that I could see my toes on the sandy bottom even before putting my face beneath the surface. When I did, the world changed. The reef unfolded before me in ridges of brain coral and fan coral, with schools of sergeant majors darting through the passages like tiny striped flags. I floated motionless and watched a spotted eagle ray glide beneath me, its wings rippling in slow motion, and I felt my breath catch. There is something about being suspended in clear water above a living reef — the silence broken only by the crackle of parrotfish feeding on coral, the distant hum of a boat engine — that makes the rest of the world fall away. I forgot about the ship. I forgot about time. I was a guest in someone else's cathedral, and the only appropriate response was quiet awe.</p>
+
+          <figure>
+            <img src="/ports/img/freeport/freeport-deadmans-reef.webp" alt="Crystal clear turquoise waters above Deadman's Reef with coral formations visible beneath the surface near Port Lucaya" loading="lazy" width="800" height="500"/>
+            <figcaption>The clear waters above Deadman's Reef, steps from Port Lucaya beach. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+
+          <p>After an hour in the water — my fingers wrinkled, my shoulders already pinking despite the reef-safe sunscreen — we dried off and sat at a waterfront restaurant for lunch. I ordered conch salad, and the dish arrived in a clear bowl: diced conch mixed with tomato, onion, green pepper, and a fierce hit of bird pepper and lime. The taste was bright and sharp and utterly fresh, with the conch itself tender and faintly sweet against the acid of the citrus. My wife had cracked conch fritters — golden on the outside, soft within — and we shared them without speaking, just eating and looking out at the water where we had been floating twenty minutes before. The flavor of that conch salad, the sting of the pepper on my tongue, the cold condensation dripping down the glass of limeade beside my plate — these are the details that stay with me, more vivid than any photograph.</p>
+
+          <figure>
+            <img src="/ports/img/freeport/freeport-conch-salad.webp" alt="Fresh Bahamian conch salad with diced tomatoes, onions, and citrus in a clear bowl at a waterfront restaurant" loading="lazy" width="800" height="500"/>
+            <figcaption>Fresh conch salad at a Port Lucaya waterfront restaurant. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+
+          <p>That afternoon, we took a taxi to Gold Rock Beach in Lucayan National Park — about $45 round trip with our driver waiting. The road crossed flat pine barrens and scrubby coastal forest, and for stretches we were the only car in sight. Grand Bahama felt emptier than I had expected, still healing, still finding its rhythm after the storm. Yet when we reached the beach and walked the short trail through the forest to the shore, I understood why people call this one of the most beautiful beaches in the Bahamas. The sand was powder-fine and blindingly white, the water a gradient of pale aquamarine deepening to sapphire at the horizon. We were nearly alone. A couple walked far down the beach, small as figures in a painting. My wife waded in to her knees and stood there, arms outstretched, face tilted toward the sun. I sat on the sand and watched her, and something shifted inside me — a recognition that we did not need grand excursions or elaborate plans. We needed this: warm sand, clear water, the sound of gentle waves, and the gift of time together in a place that asked nothing of us except to be present.</p>
+
+          <figure>
+            <img src="/ports/img/freeport/freeport-gold-rock-beach.webp" alt="Pristine white sand and turquoise waters of Gold Rock Beach in Lucayan National Park on Grand Bahama Island" loading="lazy" width="800" height="500"/>
+            <figcaption>Gold Rock Beach, one of the Bahamas' most beautiful stretches of sand. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+
+          <p>On the drive back to the ship, our taxi passed through a neighborhood where children were playing in a yard and a woman was hanging laundry on a line strung between two palms. She waved at us — a stranger's wave, open and unguarded — and I waved back and felt my eyes sting with something I could not explain. Perhaps it was the simplicity of the gesture, or the way this island, despite everything it had endured, still offered warmth to people who were just passing through. Clement had told us that morning about the night Dorian stalled over Grand Bahama for forty hours, the flooding, the homes lost, the neighbors who pulled each other from the water. "We are still here," he had said. And they were. Still here, still smiling, still waving at strangers. I whispered a prayer of gratitude for their resilience, and for our good fortune to have witnessed even a small corner of it.</p>
+
+          <p>Looking back, I realize what Freeport taught me. We came expecting a simple beach day — a few hours of sun and snorkeling before returning to the comfort of the ship. What we found instead was something deeper: a community that had been tested and had chosen to rebuild, an underwater world that reminded me how much beauty exists just beneath the surface, and a stretch of empty beach where my wife and I stood together without needing words. I learned that the places which change you most are not always the famous ones. Sometimes it is the quiet island, the one still healing, the one that waves at strangers, that stays with you longest.</p>
+
         </div>
+      </details>
 
-        <p>Grand Bahama's history reads like many Caribbean islands – originally inhabited by Lucayan people before Spanish colonization, then barely populated for centuries until the 1950s when an American financier named Wallace Groves negotiated a free port agreement with the Bahamian government. This created the tax-free zone that gave Freeport its name and its purpose. The city grew rapidly through the '60s and '70s as a duty-free shopping and resort destination, though Hurricane Dorian's devastating 2019 impact required significant rebuilding. The island has recovered remarkably, with most tourism facilities operating normally.</p>
+      <!-- ===== FEATURED IMAGES ===== -->
+      <details class="port-section" id="featured_images" open>
+        <summary><h2>Featured Images</h2></summary>
+        <figure>
+          <img src="/ports/img/freeport/freeport-garden-groves.webp" alt="Winding garden paths through tropical plants and cascading waterfalls at Garden of the Groves botanical garden in Freeport" loading="lazy" width="800" height="500"/>
+          <figcaption>Garden of the Groves, a peaceful 12-acre botanical garden. <a href="https://pixabay.com" target="_blank" rel="noopener">Photo via Pixabay</a></figcaption>
+        </figure>
+        <figure>
+          <img src="/ports/img/freeport/freeport-marketplace.webp" alt="Vibrant souvenir stalls and Junkanoo masks decorating the shops at Port Lucaya Marketplace on Grand Bahama" loading="lazy" width="800" height="500"/>
+          <figcaption>Colorful stalls and Junkanoo culture at Port Lucaya Marketplace. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+        </figure>
+        <figure>
+          <img src="/ports/img/freeport/freeport-snorkeling.webp" alt="Snorkelers exploring vibrant coral formations and tropical fish in the shallow waters of Deadman's Reef near Freeport" loading="lazy" width="800" height="500"/>
+          <figcaption>Snorkeling the shallow coral formations at Deadman's Reef. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+        </figure>
+      </details>
 
-        <p>Weather patterns favor cruise visitors. Grand Bahama enjoys year-round warm temperatures, with winter months (December-April) offering the most comfortable conditions – low humidity, gentle breezes, and minimal rain. Summer brings heat and afternoon thunderstorms, though they typically pass quickly. Hurricane season (June-November) sees fewer cruise calls, though modern weather forecasting keeps ships well away from storms.</p>
+      <!-- ===== CRUISE PORT ===== -->
+      <details class="port-section" id="cruise_port" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
+        <ul>
+          <li><strong>Terminal:</strong> Freeport Harbour cruise terminal — a straightforward facility with basic amenities, taxi stand, and tourist information. The terminal area is wheelchair accessible with ramp access and level pathways from the ship to the taxi queue, making it comfortable for guests with mobility needs.</li>
+          <li><strong>Distance to Port Lucaya:</strong> About 10 minutes by taxi ($10-15 for up to 4 passengers). Some cruise lines run complimentary shuttle buses on port days. Port Lucaya is the main visitor hub with shops, restaurants, and beach access.</li>
+          <li><strong>Tender:</strong> No — ships dock directly at the pier.</li>
+          <li><strong>Currency:</strong> Bahamian dollar (equal to USD); U.S. dollars accepted everywhere. Credit cards work at most shops; taxis prefer cash.</li>
+          <li><strong>Language:</strong> English is the primary language throughout Grand Bahama.</li>
+          <li><strong>Best Season:</strong> December through April for the most comfortable weather — lower humidity, gentle breezes, minimal rain. Hurricane season runs June through November.</li>
+          <li><strong>Time Zone:</strong> Eastern Standard Time (EST), same as New York and Miami.</li>
+        </ul>
+      </details>
 
-        <p>Transportation from the cruise terminal operates efficiently. Taxis wait at the port gates with set fares to major destinations – Port Lucaya runs about $10-15 for up to four passengers, while Gold Rock Beach costs around $40-50 for a round trip including wait time. Negotiate and confirm prices before departing. Some cruise lines operate shuttle buses to Port Lucaya, often free or nominally priced. The island has no public bus service practical for cruise passengers, making taxis or shore excursions your primary options.</p>
-      </div>
+      <!-- ===== GETTING AROUND ===== -->
+      <details class="port-section" id="getting_around" open>
+        <summary><h2>Getting Around</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Transportation tips for cruise visitors.</p>
+        <ul>
+          <li><strong>Taxis:</strong> The primary transportation for cruise visitors on Grand Bahama. Licensed taxis queue at the cruise terminal with set fares to popular destinations. Port Lucaya costs $10-15 for up to four passengers. Gold Rock Beach runs about $40-50 round trip including wait time. Always confirm the fare before departing and carry cash, as most drivers do not accept cards. Taxis on Grand Bahama are spacious enough to accommodate wheelchair users with folding chairs, though accessible vehicles should be requested in advance through the terminal information desk.</li>
+          <li><strong>Shuttle Buses:</strong> Several cruise lines operate complimentary or low-cost shuttle buses from the terminal to Port Lucaya Marketplace. Check with your ship's shore excursion desk for availability on your port day. This is a budget-friendly option for reaching the main visitor area.</li>
+          <li><strong>Rental Cars:</strong> Available from agencies near the port, though not usually necessary for a single-day visit. Grand Bahama drives on the left side of the road. Roads are generally flat and well-maintained, but distances between attractions can be significant.</li>
+          <li><strong>Walking:</strong> The cruise terminal area itself is not walkable to major attractions — Port Lucaya is roughly four miles away. However, once at Port Lucaya, the marketplace, beach, and Deadman's Reef snorkeling are all within easy walking distance of each other. The waterfront promenade at Port Lucaya is flat and paved, making it accessible for visitors with limited mobility.</li>
+          <li><strong>Organized Tours:</strong> Both ship-sponsored and independent tour operators offer half-day and full-day excursions. Independent operators often provide more flexibility and lower prices, though a ship excursion guarantees you will not be left behind if running late.</li>
+        </ul>
+      </details>
 
-      <section class="port-section">
-        <h3>Beaches & Natural Attractions</h3>
-        <p><strong>Gold Rock Beach (Lucayan National Park):</strong> This stunning beach deserves its reputation. The park protects one of the world's longest underwater cave systems, though most visitors come for the beach itself – a pristine arc of fine white sand where the water transitions through every shade of blue and turquoise imaginable. The beach remains shallow far from shore, ideal for wading and swimming. Facilities are basic (restrooms available), and you'll find minimal development beyond a small parking area. Entry costs around $5 per person. The 30-minute taxi ride from port means planning your time carefully, but photographers and beach lovers consider this essential.</p>
-
-        <p><strong>Deadman's Reef:</strong> Port Lucaya's greatest asset sits just offshore – an extensive reef system accessible by wading from the beach. The reef earned its macabre name from nearby shipwrecks, not from any actual danger. Snorkel rental shops operate along the beach ($10-15 for gear), and you can spend hours exploring coral formations, following schools of tropical fish, and watching stingrays cruise the sandy channels. The reef extends in both directions from Port Lucaya, with the best sections marked by moored buoys. Water depth ranges from 3-10 feet, making this suitable for novice snorkelers. Bring reef-safe sunscreen – the Bahamian sun proves intense even in shallow water.</p>
-
-        <p><strong>Garden of the Groves:</strong> This 12-acre botanical garden provides a peaceful escape from beach activities. Winding paths lead through tropical plants, waterfalls cascade into ponds, and a small chapel sits tucked among palms and flowering shrubs. The garden has been lovingly restored after hurricane damage and now includes a café and gift shop. Located about 15 minutes from port, entry costs approximately $10. While not spectacular by large botanical garden standards, it offers pleasant shade and tranquility if you need a break from sun exposure.</p>
-
-        <p><strong>Peterson Cay National Park:</strong> This tiny offshore cay accessible only by boat features another excellent snorkeling site. The surrounding reef system supports abundant marine life, and the cay itself provides a picturesque setting. Several tour operators offer half-day trips including snorkel gear and sometimes lunch. The 15-20 minute boat ride crosses beautiful turquoise water, adding to the adventure. This makes a good option for those wanting guided snorkeling in a slightly more remote setting than Deadman's Reef.</p>
-      </section>
-
-      <section class="port-section">
-        <h3>Port Lucaya Marketplace</h3>
-        <p>Port Lucaya serves as Freeport's tourism hub – a waterfront complex of colorful buildings housing shops, restaurants, bars, and marina facilities. The marketplace runs along a central plaza where live music often performs during cruise ship days. Shopping focuses on typical Caribbean offerings: t-shirts, jewelry (particularly emeralds and tanzanite), rum cakes, rum bottles, conch shells, and duty-free liquor. Prices on jewelry and watches can offer genuine savings compared to U.S. retail, though comparison shopping and negotiation remain wise approaches. Several shops display "duty-free" prominently – remember this primarily benefits locals, as U.S. residents still pay duty on items exceeding their exemption when re-entering the States.</p>
-
-        <p>Dining at Port Lucaya ranges from casual beachside grills to sit-down restaurants. Conch features heavily on menus – try it fried in fritters, raw in ceviche-style conch salad, or grilled as a main dish. Most restaurants welcome cruise passengers with lunch specials, though prices run higher than mainland options. The waterfront location and Bahamian atmosphere compensate for the premium. Several bars offer frozen daiquiris and Bahama Mamas – sweet, strong, and exactly what you'd expect from a tropical port.</p>
-      </section>
-
-      <section class="port-section">
-        <h3>Shore Excursions & Activities</h3>
-        <p><strong>Swim with Pigs:</strong> The Bahamas' famous swimming pigs live on various cays throughout the islands. Freeport operators offer excursions to nearby pig beaches, typically involving a boat ride, time with the surprisingly friendly pigs, and snorkeling stops. These tours run 3-4 hours and cost $100-150 per person. The pigs have become Instagram celebrities, and the experience delivers on the novelty factor, though animal welfare advocates question the practice of feeding wild animals to encourage tourist interaction.</p>
-
-        <p><strong>Reef Snorkeling Tours:</strong> Guided snorkel tours visit multiple reef sites, providing equipment, instruction for beginners, and local knowledge about marine life. Half-day tours typically include 2-3 snorkel stops and cost $50-80 per person. These offer advantages over independent snorkeling at Deadman's Reef – you'll visit better sites farther from shore, receive guidance on what you're seeing, and have safety support in the water.</p>
-
-        <p><strong>Island Tours:</strong> Bus tours circle Grand Bahama, combining stops at Gold Rock Beach, Garden of the Groves, and sometimes local settlements. These provide convenient transportation and overview of the island, though you'll spend significant time on the bus. Full-day tours run $70-100 per person. Consider whether a taxi to your priority destination might better suit your interests and timeline.</p>
-
-        <p><strong>Kayaking & Paddleboarding:</strong> Lucayan National Park and various beaches offer kayak and paddleboard rentals ($20-40 per hour). The calm, clear water provides ideal conditions for these activities, and they offer a different perspective on the coastline than swimming or snorkeling alone.</p>
-      </section>
-
-      <section class="port-section">
-        <h3>Practical Tips for Cruise Visitors</h3>
-        <p><strong>Currency & Payment:</strong> The Bahamian dollar equals the U.S. dollar in value, and U.S. currency is accepted everywhere. You'll receive change in either currency. Credit cards work at established businesses, though smaller vendors and taxis prefer cash. ATMs are available at Port Lucaya if needed.</p>
-
-        <p><strong>Time Management:</strong> Freeport works well for relaxed beach days rather than packed sightseeing itineraries. A typical port call provides 6-8 hours ashore. Consider focusing on one main activity – either a beach day at Gold Rock, snorkeling at Deadman's Reef, or exploring Port Lucaya – rather than rushing between multiple locations. The island's spread-out geography makes cramming difficult without feeling rushed.</p>
-
-        <p><strong>Sun Protection:</strong> The Bahamian sun burns quickly, especially when snorkeling (water reflection intensifies UV exposure). Apply reef-safe sunscreen heavily and frequently. Rash guards or swim shirts provide better protection than sunscreen alone for extended water time.</p>
-
-        <p><strong>Safety:</strong> Freeport remains generally safe for tourists, particularly in the Port Lucaya area where most cruise passengers spend time. Standard precautions apply – don't flash expensive items, stay in populated areas, and use licensed taxis. The island's low population density means areas outside tourism zones can feel quite empty; stick to known beaches and attractions unless you're with a guide.</p>
-
-        <p><strong>Bargaining:</strong> Market vendors expect negotiation, particularly for jewelry and souvenirs. Start at 60-70% of the asking price and work toward middle ground. Duty-free shops display fixed prices with less room for negotiation.</p>
-
-        <p><strong>Water Quality:</strong> Tap water in Freeport is generally safe to drink, though most visitors prefer bottled water, readily available everywhere. The ocean water visibility at snorkeling sites typically exceeds 50-100 feet on calm days, making underwater viewing spectacular.</p>
-      </section>
-
-      <!-- FAQ Section -->
-      <section class="port-section">
-        <h3>Frequently Asked Questions</h3>
-
-        <details style="margin: 0.75rem 0; padding: 0.75rem 0; border-bottom: 1px solid #e0e8f0;">
-          <summary style="cursor: pointer; font-weight: 600;">What's the best beach near Freeport cruise port?</summary>
-          <p style="margin: 0.5rem 0 0; padding-left: 1rem;">Gold Rock Beach in Lucayan National Park is stunning with white sand and clear turquoise water. It's about 30 minutes by taxi. Deadman's Reef near Port Lucaya offers excellent snorkeling closer to port.</p>
-        </details>
-
-        <details style="margin: 0.75rem 0; padding: 0.75rem 0; border-bottom: 1px solid #e0e8f0;">
-          <summary style="cursor: pointer; font-weight: 600;">How far is Port Lucaya Marketplace from the cruise terminal?</summary>
-          <p style="margin: 0.5rem 0 0; padding-left: 1rem;">About 10 minutes by taxi (roughly $10-15 for up to 4 people). The marketplace features shops, restaurants, and access to Deadman's Reef for snorkeling.</p>
-        </details>
-
-        <details style="margin: 0.75rem 0; padding: 0.75rem 0; border-bottom: 1px solid #e0e8f0;">
-          <summary style="cursor: pointer; font-weight: 600;">Is Freeport good for snorkeling?</summary>
-          <p style="margin: 0.5rem 0 0; padding-left: 1rem;">Yes! Deadman's Reef is one of the Bahamas' best shore-accessible reefs, with tropical fish, rays, and occasional sea turtles. Bring or rent snorkel gear at Port Lucaya.</p>
-        </details>
-
-        <details style="margin: 0.75rem 0; padding: 0.75rem 0;">
-          <summary style="cursor: pointer; font-weight: 600;">What can I do in Freeport on a cruise stop?</summary>
-          <p style="margin: 0.5rem 0 0; padding-left: 1rem;">Top activities include snorkeling Deadman's Reef, relaxing at Gold Rock Beach, exploring Port Lucaya Marketplace, visiting Garden of the Groves botanical garden, or booking excursions to swim with pigs at nearby cays.</p>
-        </details>
-
-      <!-- Interactive Port Map -->
-      <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Freeport Port Map</h2></summary>
+      <!-- ===== MAP ===== -->
+      <details class="port-section port-map-section" id="map" open>
+        <summary><h2>Freeport Area Map</h2></summary>
         <p class="map-intro">Interactive map showing the cruise terminal, beaches, Port Lucaya, and attractions mentioned in this guide. Click any marker for details and directions.</p>
         <div id="freeport-port-map" class="port-map-container" role="application" aria-label="Interactive map of Freeport port and points of interest">
           <noscript>
@@ -479,37 +493,107 @@ All work on this project is offered as a gift to God.
             Reset View
           </button>
         </div>
-            </details>
+      </details>
 
-      <!-- Image Credits Section -->
-      <section class="card" style="margin-top: 2rem; background: #f7fdff;">
-        <h3>Image Credits</h3>
-        <p class="tiny">Images will be sourced from Wikimedia Commons under Creative Commons licenses and credited here once added to the site.</p>
+      <!-- ===== EXCURSIONS ===== -->
+      <details class="port-section" id="excursions" open>
+        <summary><h2>Excursions &amp; Activities</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How to spend your time ashore. For snorkeling tours and Gold Rock Beach trips, book ahead during peak season to secure your spot. Many visitors explore independent of the ship excursion options for flexibility and savings, though a ship excursion offers guaranteed return to the vessel before departure.</p>
+
+        <h4 class="mt-1">Deadman's Reef Snorkeling</h4>
+        <p>The best shore-accessible snorkeling in the Bahamas sits just offshore from Port Lucaya beach. Rent gear from beachside shops ($10-15 per set) and wade in from the sand — no boat required. The reef begins in water three to four feet deep and extends outward, with brain coral formations, sea fans, schools of sergeant majors and parrotfish, and the occasional spotted eagle ray cruising the sandy channels. Water depth ranges from 3-10 feet, making this suitable for novice snorkelers and families. The calm, clear conditions make this a low-energy activity accessible even for visitors who are not strong swimmers. Bring reef-safe sunscreen — the Bahamian sun reflects off the water and burns quickly.</p>
+
+        <h4 class="mt-1">Gold Rock Beach &amp; Lucayan National Park</h4>
+        <p>A 30-minute taxi ride ($40-50 round trip with wait) brings you to one of the Bahamas' most photographed beaches. Gold Rock Beach is a crescent of powder-white sand with impossibly turquoise water that stays shallow far from shore. The national park also protects one of the world's longest underwater cave systems. Entry costs about $5 per person. Facilities are basic — restrooms available, but bring your own water and snacks. Arrive early to enjoy the beach before organized tours reach it. Allow 3-4 hours including travel.</p>
+
+        <h4 class="mt-1">Garden of the Groves</h4>
+        <p>This 12-acre botanical garden about 15 minutes from port offers a peaceful alternative to beach activities. Winding paths lead through tropical plants and past waterfalls cascading into koi ponds. A small chapel sits tucked among flowering shrubs. Entry costs approximately $10. The garden was lovingly restored after hurricane damage and includes a cafe and gift shop. Allow 1-2 hours.</p>
+
+        <h4 class="mt-1">Guided Reef Snorkeling Tours</h4>
+        <p>Guided snorkel tours visit multiple reef sites farther from shore, providing equipment, instruction for beginners, and local knowledge about marine life. Half-day tours typically include 2-3 snorkel stops and cost $50-80 per person. These offer advantages over independent snorkeling at Deadman's Reef — better sites, expert guidance, and safety support. Book ahead during December through April when demand is highest.</p>
+
+        <h4 class="mt-1">Peterson Cay National Park</h4>
+        <p>This tiny offshore cay is accessible only by boat and features excellent snorkeling with abundant marine life. Several tour operators offer half-day trips including gear and sometimes lunch, with a 15-20 minute boat ride across beautiful turquoise water. Cost runs $60-90 per person. A good option for those wanting a more remote snorkeling experience.</p>
+
+        <h4 class="mt-1">Island Tours</h4>
+        <p>Bus tours circle Grand Bahama, combining stops at Gold Rock Beach, Garden of the Groves, and sometimes local settlements. Full-day tours run $70-100 per person. Consider whether a taxi to your single priority destination might better suit your interests and timeline — the island is spread out, and bus tours spend significant time driving between stops.</p>
+      </details>
+
+      <!-- ===== DEPTH SOUNDINGS ===== -->
+      <details class="port-section" id="depth_soundings" open>
+        <summary><h2>Depth Soundings Ashore</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Lessons learned the hard way.</p>
+        <ul>
+          <li><strong>Negotiate Taxi Fare First:</strong> Agree on the price before getting in the taxi. Freeport taxi fares are set by zone, but confirming avoids surprises. Port Lucaya should be $10-15 for up to four passengers.</li>
+          <li><strong>Bring Cash:</strong> While shops at Port Lucaya accept credit cards, many taxi drivers, snorkel rental shops, and smaller vendors are cash-only. US dollars work everywhere — no need to exchange currency.</li>
+          <li><strong>Reef-Safe Sunscreen:</strong> The Bahamas requires reef-safe sunscreen. Bring your own from the ship — products sold near the beach are marked up significantly. Apply before entering the water, and reapply after an hour of snorkeling.</li>
+          <li><strong>Gold Rock Beach Timing:</strong> Go early if possible. Organized tours typically arrive mid-morning. The beach is far more peaceful — and the parking easier — before 10:00 AM. Bring water and snacks, as there are no vendors on the beach.</li>
+          <li><strong>Hurricane Recovery:</strong> Grand Bahama was severely impacted by Hurricane Dorian in 2019 and continues rebuilding. Most tourist areas are fully operational, but some parts of the island show lingering damage. The resilience of the local community is remarkable and worth acknowledging.</li>
+          <li><strong>Time Management:</strong> Freeport rewards a focused approach. Choose one main activity — Deadman's Reef snorkeling, Gold Rock Beach, or Port Lucaya shopping — rather than trying to fit everything into a single port call. The island's spread-out geography makes rushing between attractions stressful and unrewarding.</li>
+          <li><strong>Conch Salad:</strong> Order it fresh at Port Lucaya. Watching the vendor prepare it — chopping conch, tomato, onion, and pepper right in front of you — is part of the experience. It costs about $12-15 and is one of the best things you will eat in the Caribbean.</li>
+        </ul>
+      </details>
+
+      <!-- ===== FAQ ===== -->
+      <details class="port-section" id="faq" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <p><strong>Q: What's the best beach near Freeport cruise port?</strong><br/>A: Gold Rock Beach in Lucayan National Park is stunning with white sand and clear turquoise water. It is about 30 minutes by taxi ($40-50 round trip). Deadman's Reef near Port Lucaya offers excellent snorkeling closer to port, about 10 minutes from the terminal.</p>
+        <p><strong>Q: How far is Port Lucaya Marketplace from the cruise terminal?</strong><br/>A: About 10 minutes by taxi (roughly $10-15 for up to 4 people). Some cruise lines run complimentary shuttle buses. The marketplace features shops, restaurants, and direct beach and snorkeling access.</p>
+        <p><strong>Q: Is Freeport good for snorkeling?</strong><br/>A: Deadman's Reef is one of the Bahamas' best shore-accessible reefs, with tropical fish, rays, and occasional sea turtles. Gear rental costs $10-15 at Port Lucaya beach. The shallow, calm water makes it suitable for beginners.</p>
+        <p><strong>Q: Is the port accessible for visitors with limited mobility?</strong><br/>A: The cruise terminal has wheelchair accessible ramps and level pathways. Port Lucaya's waterfront promenade is flat and paved. Taxis can accommodate folding wheelchairs with advance notice. Beach access is more challenging, as sand makes wheelchair movement difficult.</p>
+        <p><strong>Q: What can I do in Freeport on a cruise stop?</strong><br/>A: Top activities include snorkeling Deadman's Reef, relaxing at Gold Rock Beach, exploring Port Lucaya Marketplace, visiting Garden of the Groves botanical garden, and kayaking in the clear waters of the national park. A typical port call gives you 6-8 hours ashore.</p>
+        <p><strong>Q: What should I pack for Freeport?</strong><br/>A: Essentials include reef-safe sunscreen, a swimsuit, water shoes for reef walking, cash for taxis and vendors, and a waterproof phone case if you plan to snorkel. A rash guard provides better sun protection than sunscreen alone for extended water time.</p>
+      </details>
+
+      <!-- ===== GALLERY ===== -->
+      <details class="port-section" id="gallery" open>
+        <summary><h2>Photo Collection</h2></summary>
+        <div class="port-gallery">
+          <figure>
+            <img src="/ports/img/freeport/freeport-sunset.webp" alt="Golden sunset over the calm turquoise waters of Grand Bahama with silhouetted palm trees along the shoreline" loading="lazy" width="800" height="500"/>
+            <figcaption>Sunset over the western shore of Grand Bahama. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+          <figure>
+            <img src="/ports/img/freeport/freeport-palm-beach.webp" alt="Tall coconut palms leaning over white sand beach with clear shallow water on Grand Bahama Island" loading="lazy" width="800" height="500"/>
+            <figcaption>Palm-lined beach on Grand Bahama's southern coast. <a href="https://pixabay.com" target="_blank" rel="noopener">Photo via Pixabay</a></figcaption>
+          </figure>
+          <figure>
+            <img src="/ports/img/freeport/freeport-taxi-ride.webp" alt="Local taxi driving along a flat road lined with casuarina pines on Grand Bahama Island" loading="lazy" width="800" height="500"/>
+            <figcaption>Taxi ride through Grand Bahama's pine-lined roads. <a href="https://unsplash.com" target="_blank" rel="noopener">Photo via Unsplash</a></figcaption>
+          </figure>
+        </div>
+      </details>
+
+      <!-- ===== CREDITS ===== -->
+      <details class="port-section" id="credits">
+        <summary><h2>Image Credits</h2></summary>
+        <ul>
+          <li>Hero image: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></li>
+          <li>Cruise terminal, Port Lucaya, Deadman's Reef, conch salad, Gold Rock Beach, sunset, taxi: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></li>
+          <li>Garden of the Groves, palm beach: <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></li>
+          <li>Marketplace, snorkeling: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></li>
+        </ul>
+      </details>
+
+      <!-- ===== AUTHOR DISCLAIMER ===== -->
+      <section class="port-section author-disclaimer" style="margin-top: 2.5rem; padding: 1.25rem; background: #fffef7; border-left: 4px solid #d9b382; border-radius: 8px;">
+        <p class="tiny" style="margin: 0; line-height: 1.6; color: #5a6a7a;">
+          <strong>Author's Note:</strong> Until I have sailed this port myself, these notes are soundings in another's wake — helpful for planning, and marked for revision once I've logged my own steps ashore.
+        </p>
       </section>
-    
-        <!-- VOLATILE DATA DISCLAIMER -->
-        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-26 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-        </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Freeport (Grand Bahama)?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
 
-          <p><strong>Q: Does Freeport (Grand Bahama) have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-
-          <p><strong>Q: What should I pack for Freeport (Grand Bahama)'s weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
-
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
+      <!-- VOLATILE DATA DISCLAIMER -->
+      <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+        <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-26 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+      </aside>
 
 
 
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Freeport cruise terminal">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Freeport cruise terminal">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -539,7 +623,7 @@ All work on this project is offered as a gift to God.
     </li>
   </ul>
   <p class="pier-note">Ships dock at Freeport cruise terminal. Taxis to Port Lucaya: $10–15 for up to 4 people. Gold Rock Beach taxi round-trip: $40–50 including wait. US dollars accepted everywhere. Grand Bahama is quieter than Nassau — that's the appeal.</p>
-</div>
+</nav>
 
       </article>
 
@@ -551,7 +635,7 @@ All work on this project is offered as a gift to God.
       <!-- Quick Answer -->
       <section class="page-intro" style="margin: 0 0 1rem 0;">
         <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-          <strong>Quick Answer:</strong> Freeport on Grand Bahama offers pristine Gold Rock Beach, excellent snorkeling at Deadman's Reef near Port Lucaya Marketplace, and laid-back Bahamian vibes. ideal for beach lovers and snorkelers seeking less crowds than Nassau.
+          <strong>Quick Answer:</strong> Freeport on Grand Bahama offers pristine Gold Rock Beach, excellent snorkeling at Deadman's Reef near Port Lucaya, and laid-back Bahamian vibes. Ideal for beach lovers and snorkelers seeking fewer crowds than Nassau.
         </p>
       </section>
 

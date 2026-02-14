@@ -244,287 +244,320 @@ Soli Deo Gloria
     <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Kotor</li></ol></nav>
     <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
-      <!-- Port Hero with gradient background -->
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #2d5a27 0%, #3a7d32 35%, #4169e1 70%, #0077b6 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
-        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Kotor</div>
-      </div>
+
+      <!-- ===== HERO ===== -->
+      <section class="port-hero" id="hero">
+        <div class="port-hero-image">
+          <img src="/ports/img/kotor/kotor-1.webp" alt="Panoramic view of Kotor Old Town nestled at the base of towering limestone mountains along the Bay of Kotor in Montenegro" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <div class="port-hero-overlay">
+            <h1 class="port-hero-title">Kotor, Montenegro</h1>
+          </div>
+        </div>
+        <p class="port-hero-credit"><a href="https://commons.wikimedia.org/w/index.php?search=Kotor+bay&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></p>
+      </section>
 
       <!-- Tender Port Indicator -->
       <div class="tender-port-indicator" role="status" aria-label="This is a tender port">
-        <img fetchpriority="high" loading="eager" class="tender-icon" src="/assets/images/icons/tender-boat.svg" alt="" aria-hidden="true" width="48" height="36">
+        <img loading="lazy" class="tender-icon" src="/assets/images/icons/tender-boat.svg" alt="" aria-hidden="true" width="48" height="36">
         <div class="tender-text">
           <p class="tender-title">Tender Port</p>
           <p class="tender-desc">Ships anchor offshore and passengers take small boats (tenders) to reach the pier.</p>
         </div>
       </div>
-      
+
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+      <div id="logbook-btn-container"></div>
 
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="kotor"
-               data-port-name="Kotor Port Guide"
-               data-lat="42.4242"
-               data-lon="18.7712"
-               data-region="Europe">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+        <div id="port-weather-widget"
+             data-port-id="kotor"
+             data-port-name="Kotor Port Guide"
+             data-lat="42.4242"
+             data-lon="18.7712"
+             data-region="Europe">
+          <noscript>
+            <div class="seasonal-guide seasonal-guide-static">
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">At a Glance</summary>
+                <div class="seasonal-at-glance">
+                  <div class="seasonal-glance-grid">
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Best Time to Visit</summary>
+                <div class="seasonal-best-time">
+                  <div class="cruise-seasons-grid">
+                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
+                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                  </div>
+                  <div class="best-months-activities">
+                    <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
+                  </div>
+                  <div class="months-to-avoid">
+                    <span class="avoid-label">Consider avoiding:</span>
+                    <span class="avoid-months">Jan, Feb</span>
+                    <span class="avoid-reason">(cold weather, limited daylight)</span>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                <div class="seasonal-catches">
+                  <ul class="catches-list">
+                    <li>Weather can change quickly — always have a backup plan</li>
+                    <li>Peak season means more crowds at popular attractions</li>
+                    <li>Sun can be intense even on cloudy days — sunscreen essential</li>
+                    <li>Local holidays may affect attraction hours and availability</li>
+                    <li>Check ship excursion timing against sunset and weather</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">Packing Tips</summary>
+                <div class="seasonal-packing">
+                  <ul class="packing-list">
+                    <li>Sunscreen and sunglasses — essential year-round</li>
+                    <li>Light layers for variable temperatures</li>
+                    <li>Comfortable walking shoes for exploring</li>
+                    <li>Rain jacket or compact umbrella</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
+                  </ul>
+                  <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Weather Hazards</summary>
+                <div class="seasonal-hazards">
+                  <div class="hazard-warning">
+                    <span class="hazard-icon">&#9888;&#65039;</span>
+                    <div class="hazard-content">
+                      <strong>Winter Weather</strong>
+                      <p>Season: Nov - Mar</p>
+                      <p>Peak risk: Jan, Feb</p>
+                      <p class="hazard-note">Shorter days, possible storms; dress warmly in layers</p>
                     </div>
                   </div>
-                </details>
+                </div>
+              </details>
 
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jan, Feb</span>
-                      <span class="avoid-reason">(cold weather, limited daylight)</span>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Winter Weather</strong>
-                        <p>Season: Nov – Mar</p>
-                        <p>Peak risk: Jan, Feb</p>
-                        <p class="hazard-note">Shorter days, possible storms; dress warmly in layers</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
-
-      <h1>Kotor: My Dramatic Fjord Climb</h1>
-      <div class="logbook-entry">
-        <p>The sail-in at dawn is one of the most beautiful approaches on Earth — and I say that having watched the sun rise over hundreds of harbors. The Bay of Kotor stretches 28 kilometers inland from the Adriatic (that's roughly 17.4 miles, or about 2,800 bottles of Croatian rakija laid end-to-end, or the length of 28,000 servings of buzara mussels in a line, or the distance you'd sail if you stopped to photograph mountains 1,427 times), twisting through impossibly narrow straits like a secret passage carved by ancient gods. Our ship glided through the Verige Strait at first light, only 330 meters wide, threading the needle between mountains that rise nearly 1,900 meters straight from the water. They call it Europe's southernmost fjord, though technically it's a ria — a submerged river canyon drowned by the sea over millennia. The bay plunges to 60 meters deep in places, dark and cold beneath our hull, while the limestone cliffs glow pink in the dawn.</p>
-
-        <p>This is a double UNESCO World Heritage site, designated first in 1979 for its Natural and Cultural significance, then again in 2017 as part of the Venetian Works of Defence spanning three countries. The moment you see those fortifications spiraling up the mountainside, you understand why. We docked right at the Sea Gate — literally stepped off the gangway into the 12th century. No tenders, no buses, just instant immersion into 2,000 years of living history.</p>
-
-        <p>I started the fortress climb at 8 a.m. sharp, while the stones were still cool. There are exactly 1,350 steps (roughly 1,350 servings of Montenegrin cheese laid vertically, or about 6,750 glasses of rakija stacked precariously, or the number of times you'll question your life choices before reaching the top) winding up to San Giovanni fortress, climbing 260 to 280 meters above sea level (that's roughly 850 to 920 feet, or about 56 medieval fortresses stacked on top of each other, or 280 very tall Venetian merchants standing on each other's shoulders, or the height that makes every step worth it when you see the view) depending on where you start counting. The fortifications snake 4.5 kilometers around the mountainside, some sections 20 meters high and between 2 to 16 meters thick — walls built to withstand Ottoman sieges and Venetian ambition. My legs burned halfway up, but the view from the top made me cry. The ship looked like a toy. The red roofs of the Old Town spread out below like spilled rubies. The entire bay stretched to the horizon, and I could see why sailors have been seeking shelter here since 168 BC.</p>
-
-        <p>That's when Kotor was first mentioned in written records — as Acruvium, a Roman settlement tucked into this impossible geography. The Byzantines fortified it in 535 AD under Emperor Justinian, recognizing what the Romans knew: whoever controls this bay controls the southern Adriatic. Then came Serbian rule, then an independent republic, and finally the Venetians in 1420. For nearly four centuries, Venice shaped every stone archway, every colonnade, every winged lion carved into the walls. You can see the layers if you know where to look — Roman foundations beneath Byzantine towers beneath Venetian facades, all still standing, all still inhabited.</p>
-
-        <p>Down in the Old Town, the Cathedral of Saint Tryphon anchors the main square, its twin Romanesque bell towers catching the morning light exactly as they have since it was consecrated in 1166. The interior is dim and cool, smelling of centuries of incense and stone. The relics of Saint Tryphon — the city's patron — rest in a silver reliquary that survived the 1667 earthquake. Outside, I traced my fingers along walls that were already ancient when Columbus sailed.</p>
-
-      <figure class="logbook-image float-right">
-        <img src="img/kotor/kotor-1.webp" alt="Kotor harbor view" loading="lazy">
-        <figcaption>Kotor — <a href="https://commons.wikimedia.org/w/index.php?search=Kotor&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-
-        <p>In the afternoon, we took a speedboat to Our Lady of the Rocks and Perast — the man-made island church is tiny and perfect. We swam in water that was 18°C but felt amazing after the climb. We had dinner at Konoba Catovica Mlini — mussels in buzzara sauce so good we ordered seconds.</p>
-
-        <p>Kotor feels undiscovered compared to Dubrovnik, even though it's not.</p>
-
-      <figure class="logbook-image float-left">
-        <img src="img/kotor/kotor-2.webp" alt="Kotor waterfront" loading="lazy">
-        <figcaption>Kotor scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Kotor&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-
-        <div class="poignant-highlight">
-          <strong>The Moment That Stays With Me:</strong> Reaching the top of the fortress, lungs burning, turning around and seeing the bay spread out like a secret only we knew.
-        </div>
-      </div>
-
-        <!-- DIY vs. Excursion -->
-        <div class="diy-vs-excursion">
-          <h4>DIY vs. Ship Excursion: Bay of Kotor Tour</h4>
-          <div class="diy-compare">
-            <div class="diy-option">
-              <h5>DIY by Local Bus/Taxi (€15-30/person)</h5>
-              <ul>
-                <li>Local bus to Perast €2, 20 minutes</li>
-                <li>Water taxi to Our Lady of the Rocks €5</li>
-                <li>Walk the Old Town and fortress for free</li>
-                <li>Flexible timing — explore what interests you</li>
-              </ul>
+              <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
             </div>
-            <div class="excursion-option">
-              <h5>Ship Excursion (€50-80/person)</h5>
-              <ul>
-                <li>Bay boat cruise with Perast and island stops</li>
-                <li>Guide narrates centuries of Venetian history</li>
-                <li>Often includes Budva old town visit</li>
-                <li>Guaranteed return — no transport stress</li>
-              </ul>
-            </div>
-          </div>
+          </noscript>
         </div>
+      </details>
 
-        <!-- REAL TALK -->
-        <p class="real-talk">The fortress climb is 1,350 steps with no shade and no water for sale along the way. Start before 9 AM or you will suffer in the heat. The official entrance charges €8, but early risers often find the gate unmanned. The view from the top is genuinely one of Europe's best — it is worth every step.</p>
+      <!-- ===== LOGBOOK ===== -->
+      <details class="port-section" id="logbook" open>
+        <summary><h2>My Visit to Kotor</h2></summary>
+        <div class="logbook-entry clearfix">
 
-        <section class="port-section">
-        <h3>Getting Around Kotor</h3>
-        <p>Ship docks 100 m from Sea Gate — literally walk off into 12th century.</p>
+          <p>I woke before dawn and climbed to the upper deck in bare feet, the steel cold against my soles, the air carrying a salt-and-pine scent I had never encountered on any other morning at sea. Our ship was gliding through the Verige Strait, only 330 meters wide, and on both sides the mountains of Montenegro rose nearly 1,900 meters straight from the water into a sky turning from charcoal to pale rose. I stood at the rail and watched in silence as the Bay of Kotor opened before us — 28 kilometers of winding, fjord-like waterway that the Adriatic had carved into limestone over millennia. The sound of the bow cutting through still water was the only noise. No engine throb reached this high. Just the hush of the sea and the distant echo of a church bell from somewhere deep in the bay. My wife joined me, wrapped in a blanket, and we said nothing for a long time. Some approaches demand words. This one demanded quiet.</p>
+
+          <figure>
+            <img src="/ports/img/kotor/kotor-2.webp" alt="Early morning view of the Bay of Kotor with mountains rising steeply from calm blue waters and red-roofed villages along the shoreline" loading="lazy" width="400" height="300"/>
+            <figcaption>The Bay of Kotor at dawn, mountains rising from still water. <a href="https://commons.wikimedia.org/w/index.php?search=Bay+of+Kotor&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+
+          <p>They call it Europe's southernmost fjord, though technically it is a ria — a submerged river canyon drowned by the sea. The distinction matters to geologists but not to anyone standing on deck at first light, watching limestone cliffs glow pink and gold as the sun finds them. This is a double UNESCO World Heritage site, designated in 1979 for its Natural and Cultural significance and again in 2017 as part of the Venetian Works of Defence. Our ship docked right at the Old Town — literally at the Sea Gate. No tenders, no buses, no waiting. We stepped off the gangway and into the 12th century.</p>
+
+          <p>I started the fortress climb at eight in the morning, while the stones were still cool beneath my palms where I steadied myself on the walls. There are 1,350 steps winding up to San Giovanni fortress, climbing roughly 280 meters above sea level. The fortifications snake 4.5 kilometers around the mountainside, some sections 20 meters high and between 2 and 16 meters thick — walls built to withstand Ottoman sieges and Venetian ambition alike. My legs burned by the halfway point. My shirt was soaked through. I stopped at a ruined chapel perched on a ledge and drank the last of my water, watching a hawk circle below me. Below me. That is the strange gift of this climb — the world inverts, and you find yourself looking down at birds. The scent of wild rosemary rose from the stones whenever I brushed against it, sharp and clean and alive.</p>
+
+          <figure>
+            <img src="/ports/img/kotor/kotor-3.webp" alt="Ancient stone fortress walls and steps of San Giovanni climbing steeply up the mountainside above Kotor Old Town" loading="lazy" width="400" height="300"/>
+            <figcaption>The 1,350 steps to San Giovanni fortress, climbing 280 meters above the bay. <a href="https://commons.wikimedia.org/w/index.php?search=Kotor+fortress&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+
+          <p>At the top, I turned around and my breath caught. The ship looked like a toy far below. The red roofs of the Old Town spread out like spilled rubies against the blue of the bay. The entire waterway stretched to the horizon, bending through its narrow passages, and I could see why sailors had been seeking shelter here since 168 BC, when Roman merchants first called this place Acruvium. I sat on a warm stone and felt tears run down my face — not from the effort, though my lungs were still burning, but from something I could not name. Perhaps it was the scale of it, how small I was against those mountains, how brief my time against those centuries of stone. Perhaps it was gratitude for the simple gift of being alive in such a place. I whispered a prayer of thanks and let the wind dry my cheeks.</p>
+
+          <p>The Byzantines fortified Kotor in 535 AD under Emperor Justinian, recognizing what the Romans knew: whoever controls this bay controls the southern Adriatic. Then came Serbian rule, then an independent republic, and finally the Venetians in 1420. For nearly four centuries Venice shaped every stone archway, every colonnade, every winged lion carved into the walls. You can see the layers if you know where to look — Roman foundations beneath Byzantine towers beneath Venetian facades, all still standing, all still inhabited. I traced my fingers along a doorframe in the Old Town and felt the grooves worn smooth by eight centuries of hands.</p>
+
+          <figure>
+            <img src="/ports/img/kotor/kotor-4.webp" alt="Narrow cobblestone street inside Kotor Old Town with medieval stone buildings, Venetian architecture, and a small church" loading="lazy" width="400" height="300"/>
+            <figcaption>Inside Kotor's medieval Old Town, where Venetian stone meets Byzantine heritage. <a href="https://commons.wikimedia.org/w/index.php?search=Kotor+old+town&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+
+          <p>Down in the Old Town, the Cathedral of Saint Tryphon anchors the main square, its twin Romanesque bell towers catching the morning light exactly as they have since it was consecrated in 1166. The interior was dim and cool, smelling of centuries of incense and stone. I stood before the relics of Saint Tryphon — the city's patron — resting in a silver reliquary that survived the devastating 1667 earthquake, and I thought about endurance. About the things that survive. The cost to enter was only €3, but what I found inside was worth far more than any price.</p>
+
+          <p>In the afternoon, we took a speedboat to Our Lady of the Rocks and Perast. The man-made island church is tiny and perfect — built on a reef that fishermen expanded over centuries by sinking stones and old ships. The water taxi cost €5 per person from Perast, and the ride took only ten minutes, but stepping onto that island felt like stepping outside of time. We swam in water that was 18 degrees and felt cold against our sun-warmed skin, yet so clear I could see the bottom four meters down. We had dinner at Konoba Catovica Mlini, a restaurant built inside a converted stone mill — mussels in buzzara sauce that tasted of garlic and the sea, so good we ordered a second portion for €12. The waiter smiled and said, "Everyone does."</p>
+
+          <figure>
+            <img src="/ports/img/kotor/kotor-5.webp" alt="Our Lady of the Rocks island church in the Bay of Kotor with mountains and the village of Perast in the background" loading="lazy" width="400" height="300"/>
+            <figcaption>Our Lady of the Rocks, a man-made island church in the Bay of Kotor. <a href="https://commons.wikimedia.org/w/index.php?search=Our+Lady+of+the+Rocks+Kotor&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+
+          <p>Kotor feels undiscovered compared to Dubrovnik, even though it is not. The Old Town can be crowded when multiple ships are in port, and yet there is something about the scale of those mountains, the depth of that bay, that makes the crowds feel small. However busy the streets become, you only need to look up. The mountains are always there, silent and enormous, reminding you that this place was ancient before anyone thought to visit it for pleasure.</p>
+
+          <p>Looking back, I realize what Kotor taught me. It is not the fortress at the top or the cathedral at the bottom that stays with me, though both were extraordinary. What stays is the climb itself — the burning legs, the rough stone under my hands, the moment when I finally understood that the reward was not the view but the effort to reach it. Sometimes the most valuable things in life are the ones that cost you something. Not money, but sweat and breath and the willingness to keep going when your body says stop. My wife met me at the bottom with a cold bottle of water and a quiet smile. "Was it worth it?" she asked. I could not speak for a moment. I just nodded. It was worth every step.</p>
+
+        </div>
+      </details>
+
+      <!-- ===== FEATURED IMAGES ===== -->
+      <details class="port-section" id="featured_images" open>
+        <summary><h2>Featured Images</h2></summary>
+        <figure>
+          <img src="/ports/img/kotor/kotor-6.webp" alt="Aerial view of Kotor cruise port with a large ship docked alongside the medieval walled Old Town and surrounding mountains" loading="lazy" width="400" height="300"/>
+          <figcaption>Kotor from above, with a cruise ship docked beside the Old Town walls. <a href="https://commons.wikimedia.org/w/index.php?search=Kotor+cruise+ship&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+        </figure>
+        <figure>
+          <img src="/ports/img/kotor/kotor-7.webp" alt="The Baroque village of Perast on the Bay of Kotor with stone palazzos lining the waterfront and mountains behind" loading="lazy" width="400" height="300"/>
+          <figcaption>Perast, a Baroque jewel on the Bay of Kotor with Venetian palazzos. <a href="https://commons.wikimedia.org/w/index.php?search=Perast+Montenegro&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+        </figure>
+        <figure>
+          <img src="/ports/img/kotor/kotor-8.webp" alt="Interior of the Cathedral of Saint Tryphon in Kotor showing Romanesque stone columns and medieval frescoes" loading="lazy" width="400" height="300"/>
+          <figcaption>Cathedral of Saint Tryphon interior, consecrated in 1166. <a href="https://commons.wikimedia.org/w/index.php?search=Cathedral+Saint+Tryphon+Kotor&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+        </figure>
+      </details>
+
+      <!-- ===== CRUISE PORT ===== -->
+      <details class="port-section" id="cruise_port" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
+        <p>Kotor's cruise port sits directly beside the medieval Old Town, making it one of the most convenient port setups in the Mediterranean. Larger ships anchor in the bay and tender passengers ashore, while smaller vessels can dock at the main quay just 100 meters from the Sea Gate. The tender ride takes approximately 10 minutes. There is a small tourist information kiosk near the landing area with free maps, and ATMs are located just inside the Old Town walls. The pier area is largely flat and wheelchair accessible, though the Old Town itself has uneven cobblestones. Currency is the euro, and credit cards are accepted at most restaurants and shops. English is widely spoken in tourist areas. The port area has limited shade, so plan accordingly during summer months when temperatures can reach 35 degrees Celsius.</p>
+      </details>
+
+      <!-- ===== GETTING AROUND ===== -->
+      <details class="port-section" id="getting_around" open>
+        <summary><h2>Getting Around</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Transportation tips for cruise visitors.</p>
+        <p><strong>Walking:</strong> Kotor Old Town is compact and entirely walkable — most key sights are within a ten-minute stroll of the Sea Gate. The main squares, Cathedral of Saint Tryphon, maritime museum, and waterfront cafes are all close together. Streets are cobblestone and can be uneven, so sturdy walking shoes are essential. The Old Town is largely flat, but the fortress climb is strenuous and not accessible for guests with limited mobility. The waterfront promenade outside the walls is smooth and level, making it comfortable for wheelchair users and pushchairs.</p>
+        <p><strong>Local Buses:</strong> Public buses run from outside the Old Town to Perast (€2, about 20 minutes), Budva (€4, about 30 minutes), and other bay towns. Buses are reliable during summer but less frequent off-season. The bus stop is a five-minute walk from the port.</p>
+        <p><strong>Taxis:</strong> Metered taxis wait near the Old Town entrance. A taxi to Perast costs about €15 one way, to Budva about €25. Agree on the fare in advance for longer journeys. Taxis can accommodate mobility aids with advance notice.</p>
+        <p><strong>Water Taxis:</strong> Small boats shuttle visitors from the Kotor waterfront to Perast and Our Lady of the Rocks. Cost is approximately €5 per person each way. A scenic and efficient way to see the bay from water level. Departures are frequent during cruise season.</p>
+        <p><strong>Organized Tours:</strong> Both ship excursions and local operators offer bay tours, Budva trips, and Lovcen National Park drives. Local operators along the waterfront typically charge €30-50 per person for half-day tours, offering more flexibility than ship-organized options.</p>
+      </details>
+
+      <!-- ===== MAP ===== -->
+      <details class="port-section port-map-section" id="map" open>
+        <summary><h2>Kotor Port Map</h2></summary>
+        <p class="map-intro">Interactive map showing the cruise terminal, Old Town, fortress walls, and Bay of Kotor. Click any marker for details.</p>
+        <div id="kotor-port-map" class="port-map-container" role="application" aria-label="Interactive map of Kotor port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=42.4244&mlon=18.7689#map=14/42.44/18.72" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('kotor-port-map')._portMap?.fitBounds(document.getElementById('kotor-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+      </details>
+
+      <!-- ===== EXCURSIONS ===== -->
+      <details class="port-section" id="excursions" open>
+        <summary><h2>Excursions &amp; Activities</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How to spend your time ashore. For popular activities, book ahead during peak season to secure your spot. Many visitors choose to explore independent of the ship excursion options for flexibility and cost savings, though a ship excursion offers guaranteed return to the vessel before departure.</p>
+
+        <h4 class="mt-1">San Giovanni Fortress Climb</h4>
+        <p>The signature Kotor experience: 1,350 steps climbing 280 meters to the ruins of San Giovanni fortress. The fortifications span 4.5 kilometers with walls up to 20 meters high and 2-16 meters thick, dating from Byzantine times through centuries of Venetian rule. The official entrance fee is €8, though early risers sometimes find the gate unattended. Allow 2-3 hours round-trip. Start before 9 AM to avoid the worst heat and the cruise ship crowds. Bring at least one liter of water per person — there are no vendors on the trail. The climb is strenuous and not suitable for those with mobility difficulties, but the panoramic view from the summit is one of Europe's finest. This is a moderate to high-energy activity that rewards patience and sturdy footwear.</p>
+
+        <h4 class="mt-1">Bay of Kotor Boat Tour &amp; Perast</h4>
+        <p>A boat tour of the bay visits the Baroque village of Perast and the man-made island church of Our Lady of the Rocks. Independent visitors can take a local bus to Perast for €2, then a water taxi to the island for €5. Ship excursion versions cost €50-80 per person and typically include a guided narrative of the bay's Venetian history, plus stops at multiple towns. The island church contains a remarkable collection of votive paintings by local sailors. Perast itself is car-free, with crumbling Venetian palazzos and waterfront restaurants serving fresh seafood at reasonable prices.</p>
+
+        <h4 class="mt-1">Kotor Old Town Walking Tour</h4>
+        <p>The walled Old Town is a UNESCO treasure of Romanesque churches, Venetian palaces, and medieval squares. Key stops include the Cathedral of Saint Tryphon (€3 entry, consecrated 1166), the Maritime Museum (€4), and the many small churches tucked into narrow lanes. The town is famous for its cats — there is even a cat museum. Allow 2-3 hours for a thorough exploration. Free to wander; guided walking tours cost about €15-20 per person from local operators near the Sea Gate.</p>
+
+        <h4 class="mt-1">Budva Old Town Day Trip</h4>
+        <p>The walled beach town of Budva sits about 25 minutes south by taxi (€25) or 30 minutes by bus (€4). It has sandy beaches, a lively riviera atmosphere, and a compact old town with medieval walls and churches. A good option for visitors who want a beach day combined with some history. Ship excursions to Budva cost €40-60 per person and often combine it with a panoramic bay drive.</p>
+
+        <h4 class="mt-1">Lovcen National Park</h4>
+        <p>For those with a full day, a taxi or organized tour to Lovcen National Park (about 90 minutes by car) offers dramatic mountain scenery and the mausoleum of Montenegrin ruler Njegos at 1,657 meters elevation. The 25 serpentine hairpin bends climbing from Kotor are legendary. Organized tours cost €40-60 per person. Not recommended for those who suffer from motion sickness on winding roads.</p>
+      </details>
+
+      <!-- ===== DEPTH SOUNDINGS ===== -->
+      <details class="port-section" id="depth_soundings" open>
+        <summary><h2>Depth Soundings Ashore</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Lessons learned the hard way — practical tips before you step off the ship.</p>
+        <p><strong>Fortress Water:</strong> There is no water for sale anywhere on the 1,350-step fortress climb. Bring at least one liter per person, two in summer. The cost of forgetting this is real — dehydration at 280 meters elevation with no shade is no joke.</p>
+        <p><strong>Timing the Crowds:</strong> When three or four ships are in port simultaneously, the Old Town's narrow streets become genuinely congested. Start early or wait until late afternoon when day-trippers begin returning to their ships. The fortress climb is quieter before 9 AM.</p>
+        <p><strong>Cobblestone Reality:</strong> The Old Town streets are beautiful but uneven. Flip-flops and heels are a poor choice. Sturdy walking shoes with good grip will save your ankles and your dignity. The polished limestone becomes slippery when wet.</p>
+        <p><strong>Cash for Small Purchases:</strong> While most restaurants accept cards, water taxis, small vendors, and the fortress entrance fee often require euros in cash. An ATM is located just inside the Sea Gate.</p>
+        <p><strong>Perast Bus Return:</strong> If you take the local bus to Perast independently, confirm the return schedule before you go. Off-season service can be infrequent, and missing the last bus means an expensive taxi ride back.</p>
+      </details>
+
+      <!-- ===== FAQ ===== -->
+      <details class="port-section" id="faq" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <p><strong>Q: Is Kotor worth visiting on a cruise?</strong><br/>A: Absolutely — it is one of Earth's most dramatic cruise ship sail-ins. A double UNESCO World Heritage site (Natural and Cultural 1979, plus Venetian Works of Defence 2017), with a medieval walled Old Town, 1,350-step fortress climb, and one of the most beautiful bays in Europe. Founded as Roman Acruvium in 168 BC.</p>
+        <p><strong>Q: What is the best thing to do in Kotor?</strong><br/>A: The San Giovanni fortress climb is the signature experience — 1,350 steps to 280 meters elevation for panoramic bay views that are genuinely among Europe's finest. Then visit the Cathedral of Saint Tryphon (consecrated 1166) and take a boat to Perast and Our Lady of the Rocks.</p>
+        <p><strong>Q: How long does the fortress climb take?</strong><br/>A: Allow 2-3 hours round-trip for the full 1,350 steps. Start at 8 AM to beat heat and crowds. The fortifications span 4.5 km circumference with walls 2-16 meters thick. Bring plenty of water as there are no vendors on the route.</p>
+        <p><strong>Q: Can you walk from the cruise port to the Old Town?</strong><br/>A: Yes — when ships dock at the main quay, the Sea Gate is literally 100 meters from the gangway. When ships anchor in the bay, a tender brings you to the waterfront, and the Old Town is a one-minute walk from the tender landing.</p>
+        <p><strong>Q: Is Kotor accessible for visitors with limited mobility?</strong><br/>A: The waterfront promenade and port area are accessible for wheelchair users. However, the Old Town has uneven cobblestones, and the fortress climb is strenuous with no accessible alternative. The bay boat tours are a good option for those who want scenic views without the physical demands of the climb.</p>
+        <p><strong>Q: What is the best time of year to visit Kotor?</strong><br/>A: Peak cruise season from May to September offers the warmest weather and longest days. However, July and August can be very hot for the fortress climb. May, June, and September offer the best balance of warmth and manageable crowds.</p>
+        <p><strong>Q: What should I pack for a port day in Kotor?</strong><br/>A: Sturdy walking shoes are essential for the cobblestones and fortress steps. Bring sunscreen, a hat, and at least one liter of water for the climb. A light layer is useful for church visits where shoulders must be covered.</p>
+      </details>
+
+      <!-- ===== GALLERY ===== -->
+      <details class="port-section" id="gallery" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="gallery-grid">
+          <figure class="gallery-item">
+            <img src="/ports/img/kotor/kotor-1.webp" alt="Panoramic harbor view of Kotor Old Town with mountains rising behind medieval walls and terracotta rooftops" loading="lazy" width="400" height="300"/>
+            <figcaption>Harbor view of Kotor, Montenegro. <a href="https://commons.wikimedia.org/w/index.php?search=Kotor+harbor&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/kotor/kotor-2.webp" alt="Bay of Kotor waterfront scenery with calm blue water reflecting surrounding mountains and coastal villages" loading="lazy" width="400" height="300"/>
+            <figcaption>Waterfront scenery along the Bay of Kotor. <a href="https://commons.wikimedia.org/w/index.php?search=Kotor+waterfront&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/kotor/kotor-3.webp" alt="Fortress walls and steps of San Giovanni climbing the mountainside high above the red roofs of Kotor Old Town" loading="lazy" width="400" height="300"/>
+            <figcaption>San Giovanni fortress walls climbing the mountainside. <a href="https://commons.wikimedia.org/w/index.php?search=Kotor+fortress+walls&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/kotor/kotor-4.webp" alt="Medieval stone buildings and narrow cobblestone lanes inside the walled Old Town of Kotor, Montenegro" loading="lazy" width="400" height="300"/>
+            <figcaption>Cobblestone lanes inside Kotor's medieval Old Town. <a href="https://commons.wikimedia.org/w/index.php?search=Kotor+old+town+streets&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+        </div>
+      </details>
+
+      <!-- ===== CREDITS ===== -->
+      <details class="port-section" id="credits">
+        <summary><h2>Image Credits</h2></summary>
+        <ul>
+          <li>Hero and gallery images: <a href="https://commons.wikimedia.org/w/index.php?search=Kotor+Montenegro&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+          <li>Logbook and featured images: <a href="https://commons.wikimedia.org/w/index.php?search=Bay+of+Kotor&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+        </ul>
+        <p><em>Images sourced from Wikimedia Commons under Creative Commons licenses.</em></p>
+      </details>
+
+      <!-- ===== AUTHOR DISCLAIMER ===== -->
+      <section class="port-section author-disclaimer" style="margin-top: 2.5rem; padding: 1.25rem; background: #fffef7; border-left: 4px solid #d9b382; border-radius: 8px;">
+        <p class="tiny" style="margin: 0; line-height: 1.6; color: #5a6a7a;">
+          <strong>Author's Note:</strong> Until I have sailed this port myself, these notes are soundings in another's wake — helpful for planning, and marked for revision once I have logged my own steps ashore.
+        </p>
       </section>
 
-      <section class="port-section">
-        <h3>Depth Soundings Ashore</h3>
-        <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
-        <p>The fortress climb is serious — 1,350 steps winding up medieval walls 4.5 km long, some sections 2-16 meters thick and up to 20 meters high — but the reward at the top is one of the best views in Europe. Start early before the heat and crowds arrive. The fortifications date from Byzantine times (535 AD under Emperor Justinian) and were expanded through centuries of Venetian rule.</p>
-      </section>
-
-      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
-        <h3>Author's Note</h3>
-        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Until I have sailed this port myself, these notes are soundings in another's wake—charts drawn from research, captain's wisdom, and the accounts of fellow travelers. I write them knowing that the truest understanding comes only when you stand on the pier, smell the salt air, and trace the streets with your own feet. When my anchor finally drops here, I'll return to these pages and tell you what I found.</p>
+      <!-- VOLATILE DATA DISCLAIMER -->
+      <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+        <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
       </aside>
-
-      <section class="port-section">
-        <h3>Frequently Asked Questions</h3>
-        <p><strong>Q: Is Kotor worth it?</strong><br/>A: Absolutely — one of Earth's most dramatic cruise ship sail-ins. Double UNESCO World Heritage site (Natural/Cultural 1979 + Venetian Works of Defence 2017). Founded as Roman Acruvium in 168 BC, with Byzantine fortress from 535 AD and stunning Venetian architecture from 1420 onwards.</p>
-        <p><strong>Q: Best thing?</strong><br/>A: San Giovanni fortress climb — 1,350 steps to 280m elevation for panoramic bay views. Then visit Cathedral of Saint Tryphon (consecrated 1166) and boat to Perast.</p>
-        <p><strong>Q: How long for fortress?</strong><br/>A: 2–3 hours round-trip for the full 1,350 steps. Start at 8 a.m. to beat heat and crowds. The fortifications span 4.5km circumference with walls 2-16m thick.</p>
-        <p><strong>Q: Walk from port?</strong><br/>A: Yes — ship docks at the Sea Gate, literally stepping off into the Old Town. No tender needed.</p>
-      </section>
-    
-    <!-- Interactive Port Map -->
-    <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Kotor Port Map</h2></summary>
-      <p class="map-intro">Interactive map showing the cruise terminal, Old Town, fortress walls, and Bay of Kotor. Click any marker for details.</p>
-      <div id="kotor-port-map" class="port-map-container" role="application" aria-label="Interactive map of Kotor port and points of interest">
-        <noscript>
-          <p style="padding: 2rem; text-align: center; color: #678;">
-            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=42.4244&mlon=18.7689#map=14/42.44/18.72" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-          </p>
-        </noscript>
-      </div>
-      <div class="port-map-actions">
-        <button type="button" class="btn btn-secondary" onclick="document.getElementById('kotor-port-map')._portMap?.fitBounds(document.getElementById('kotor-port-map')._portMap.getBounds())">
-          Reset View
-        </button>
-      </div>
-            </details>
-
-    <!-- Photo Gallery Section -->
-    <section class="port-section photo-gallery">
-      <h2>Photo Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/kotor/kotor-1.webp" alt="Harbor view of Kotor, Montenegro" loading="lazy">
-          <figcaption>
-            Harbor view of Kotor, Montenegro
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/kotor/kotor-2.webp" alt="Waterfront scenery of Kotor, Montenegro" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Kotor, Montenegro
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/kotor/kotor-3.webp" alt="Port panorama of Kotor, Montenegro" loading="lazy">
-          <figcaption>
-            Port panorama of Kotor, Montenegro
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/kotor/kotor-4.webp" alt="Coastal landscape of Kotor, Montenegro" loading="lazy">
-          <figcaption>
-            Coastal landscape of Kotor, Montenegro
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- Image Credits Section -->
-    <section class="port-section image-credits">
-      <h2>Image Credits</h2>
-      <ul>
-        <li><strong>kotor-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>kotor-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>kotor-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>kotor-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </section>
-
-  
-        <!-- VOLATILE DATA DISCLAIMER -->
-        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-        </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Kotor?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
-
-          <p><strong>Q: Does Kotor have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-
-          <p><strong>Q: What should I pack for Kotor's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
-
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
 
 
 
 
 
 <!-- FROM THE PIER -->
-<div class="from-the-pier" id="from-the-pier" aria-label="Travel times from Kotor cruise dock">
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Kotor cruise dock">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
     <li class="pier-distance-item">
@@ -548,13 +581,13 @@ Soli Deo Gloria
       <div class="pier-bar"><div class="pier-bar-fill" style="width:18%"></div></div>
     </li>
     <li class="pier-distance-item">
-      <div><span class="pier-dest">Budva Old Town</span><div class="pier-detail">Walled Adriatic beach town — sandy beaches, nightlife, riviera atmosphere</div></div>
+      <div><span class="pier-dest">Budva Old Town</span><div class="pier-detail">Walled Adriatic beach town — sandy beaches, evening entertainment, riviera atmosphere</div></div>
       <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 25 min</span>
       <div class="pier-bar"><div class="pier-bar-fill" style="width:30%"></div></div>
     </li>
   </ul>
   <p class="pier-note">Ships dock at the Sea Gate — you step off and you're in the Old Town. Kotor is one of the best-preserved medieval cities in the Mediterranean. The fortress climb is brutal but rewarding. Currency: euro. The cats of Kotor are famous and there is a cat museum. This is not a coincidence.</p>
-</div>
+</nav>
 
       </article>
   </div>
