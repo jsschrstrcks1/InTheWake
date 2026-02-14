@@ -353,10 +353,11 @@ When a ship, port, or venue is missing an image, follow this order of operations
      - License name and URL
      - Source (WikiMedia)
 
-5. **Only if WikiMedia has nothing usable**
-   - Fall back to an internal placeholder image that follows standards
+5. **If WikiMedia has nothing usable**
+   - Do NOT use a placeholder image. Placeholder images are a BLOCKING ERROR on any page.
+   - Omit the image entirely or hide the image container for that entity.
    - Mark this in `UNFINISHED_TASKS.md` or the appropriate tracking file as
-     “NEEDS REAL IMAGE – WikiMedia search found nothing.”
+     "NEEDS REAL IMAGE – WikiMedia search found nothing."
 ### 2. Accessibility (WCAG 2.1 AA)
 
 **Required Elements:**
@@ -572,6 +573,7 @@ AI-first content protocol that helps AI assistants understand and cite content c
 - ❌ NEVER remove the "Cruise Lines" link from primary nav
 
 ### Images
+- ❌ NEVER use placeholder images on any page (BLOCKING ERROR — no exceptions, no fallbacks)
 - ❌ NEVER convert logo_wake.png to WebP
 - ❌ NEVER use JPEG/JPG for new ship images (use WebP)
 - ❌ NEVER skip image attribution for Wiki Commons images
@@ -794,6 +796,7 @@ Before marking any task complete, verify:
 - [ ] Meta tags complete (version, content-protocol, ai-summary)
 - [ ] No console statements left in inline JavaScript
 - [ ] No lorem ipsum or placeholder text
+- [ ] No placeholder images (BLOCKING ERROR)
 - [ ] All images have alt attributes
 - [ ] Skip-link present and functional
 - [ ] Breadcrumb navigation correct
