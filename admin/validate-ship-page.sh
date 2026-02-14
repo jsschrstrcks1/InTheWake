@@ -311,7 +311,12 @@ for schema in "${SCHEMA_TYPES[@]}"; do
     fi
 done
 
-# ratingValue checks removed — ratings stripped from all ship pages 2026-02-14
+# Check Review ratingValue is a number (not quoted)
+if echo "$CONTENT" | grep -E '"ratingValue":\s*"[0-9]' > /dev/null; then
+    check_fail "Review ratingValue is a STRING — must be NUMBER (no quotes)"
+elif echo "$CONTENT" | grep -E '"ratingValue":\s*[0-9]' > /dev/null; then
+    check_pass "Review ratingValue is a NUMBER"
+fi
 
 # v2.3: Check for generic/templated reviewBody text
 if echo "$CONTENT" | grep -q 'offers memorable cruise experiences with excellent amenities'; then
@@ -320,7 +325,11 @@ else
     check_pass "reviewBody is not generic template text"
 fi
 
-# v2.3: ratingValue warning removed — ratings stripped from all ship pages 2026-02-14
+# v2.3: Flag unverified ratingValue (all current ratings need editorial verification)
+if echo "$CONTENT" | grep -qE '"ratingValue":\s*[0-9]'; then
+    RATING_VAL=$(echo "$CONTENT" | grep -oE '"ratingValue":\s*[0-9.]+' | head -1 | grep -oE '[0-9.]+$')
+    check_warn "Review has ratingValue $RATING_VAL — must be based on real editorial assessment, not templated"
+fi
 
 # Check BreadcrumbList has 4 items
 BREADCRUMB_COUNT=$(echo "$CONTENT" | grep -c '"@type": "ListItem"' || true)
