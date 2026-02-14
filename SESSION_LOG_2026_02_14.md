@@ -167,13 +167,37 @@
 
 ---
 
+## Critical Fix #1: Accessibility (aria-hidden on Soli Deo Gloria) — COMPLETE ✅
+
+**Issue:** 224 ship pages had aria-hidden="true" applied to Soli Deo Gloria paragraphs
+**Root Cause:** Theological invocation was hidden from screen readers (accessibility violation)
+**Solution:** Removed aria-hidden="true" attribute from all 224 affected pages
+**Testing:**
+- Pre-fix: 226 accessibility warnings in validation
+- Post-fix: aria-hidden warnings eliminated
+- Verified on sample ships (carnival-breeze, silver-spirit, seabourn-quest)
+**Commit:** b9d2ca67 — FIX: Remove aria-hidden from Soli Deo Gloria (224 ship pages)
+**Status:** ✅ COMPLETE, pushed to origin/claude/review-docs-codebase-IJvuW
+
+## Remaining Critical Fixes (This Session)
+
+**#2: Missing Navigation (302 pages) — CRITICAL**
+- Issue: 302 pages missing navigation items
+- Next: Analyze which nav items are missing, create fix
+- Estimate: Moderate complexity
+
+**#3: Generic Review Text (208 pages) — HIGH**
+- Issue: JSON-LD reviews use template text instead of real editorial
+- Next: Identify template patterns, replace with real content
+- Estimate: High complexity (manual review needed)
+
 ## Next Steps (This Session)
 
-**Remaining TODO:**
-- [ ] Update MEMORY.md with session findings
-- [ ] Complete this SESSION_LOG (you are reading it being written)
-- [ ] Commit session work with clear message
-- [ ] Prepare for next session task assignment (P2 priority?)
+**Immediate TODO:**
+- [ ] Analyze missing navigation issue (302 pages)
+- [ ] Identify which specific nav items are missing
+- [ ] Create and test fix script for navigation
+- [ ] Continue with generic review text if time permits
 
 **Dependencies:**
 - None blocking — ready for user feedback/direction
