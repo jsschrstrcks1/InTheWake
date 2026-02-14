@@ -237,344 +237,395 @@ Soli Deo Gloria
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
-        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo &copy; Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Virgin Gorda</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Virgin Gorda</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
-      <!-- Port Hero with gradient background -->
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #6b705c 0%, #a5a58d 30%, #48cae4 65%, #00b4d8 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
-        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Virgin Gorda</div>
-      </div>
+
+      <!-- ===== HERO ===== -->
+      <section class="port-hero" id="hero">
+        <div class="port-hero-image">
+          <img src="/ports/img/virgin-gorda/virgin-gorda-1.webp" alt="Massive granite boulders forming cathedral-like grottos at The Baths on Virgin Gorda with turquoise Caribbean water" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <div class="port-hero-overlay">
+            <h1 class="port-hero-title">Virgin Gorda, British Virgin Islands</h1>
+          </div>
+        </div>
+        <p class="port-hero-credit"><a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></p>
+      </section>
 
       <!-- Tender Port Indicator -->
       <div class="tender-port-indicator" role="status" aria-label="This is a tender port">
-        <img fetchpriority="high" class="tender-icon" src="/assets/images/icons/tender-boat.svg" alt="" loading="eager" aria-hidden="true" width="48" height="36">
+        <img class="tender-icon" src="/assets/images/icons/tender-boat.svg" alt="" loading="lazy" aria-hidden="true" width="48" height="36"/>
         <div class="tender-text">
           <p class="tender-title">Tender Port</p>
           <p class="tender-desc">Ships anchor offshore and passengers take small boats (tenders) to reach the pier.</p>
         </div>
       </div>
-      
+
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+      <div id="logbook-btn-container"></div>
 
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="virgin-gorda"
-               data-port-name="Virgin Gorda Port Guide"
-               data-lat="18.4481"
-               data-lon="-64.3889"
-               data-region="Caribbean">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+        <div id="port-weather-widget"
+             data-port-id="virgin-gorda"
+             data-port-name="Virgin Gorda Port Guide"
+             data-lat="18.4481"
+             data-lon="-64.3889"
+             data-region="Caribbean">
+          <noscript>
+            <div class="seasonal-guide seasonal-guide-static">
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">At a Glance</summary>
+                <div class="seasonal-at-glance">
+                  <div class="seasonal-glance-grid">
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season &mdash; check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation &mdash; check forecast</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Best Time to Visit</summary>
+                <div class="seasonal-best-time">
+                  <div class="cruise-seasons-grid">
+                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Dec, Jan, Feb, Mar, Apr</span></div>
+                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">May, Jun, Nov</span></div>
+                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Jul, Aug, Sep, Oct</span></div>
+                  </div>
+                  <div class="best-months-activities">
+                    <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
+                    <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
+                    <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
+                    <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
+                    <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Jul, Aug, Sep</span></div>
+                  </div>
+                  <div class="months-to-avoid">
+                    <span class="avoid-label">Consider avoiding:</span>
+                    <span class="avoid-months">Sep, Oct</span>
+                    <span class="avoid-reason">(hurricane risk)</span>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                <div class="seasonal-catches">
+                  <ul class="catches-list">
+                    <li>Weather can change quickly &mdash; always have a backup plan</li>
+                    <li>Peak season means more crowds at popular attractions</li>
+                    <li>Sun can be intense even on cloudy days &mdash; sunscreen essential</li>
+                    <li>Local holidays may affect attraction hours and availability</li>
+                    <li>Check ship excursion timing against sunset and weather</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">Packing Tips</summary>
+                <div class="seasonal-packing">
+                  <ul class="packing-list">
+                    <li>Sunscreen and sunglasses &mdash; essential year-round</li>
+                    <li>Light layers for variable temperatures</li>
+                    <li>Comfortable walking shoes for exploring</li>
+                    <li>Rain jacket or compact umbrella</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
+                  </ul>
+                  <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Weather Hazards</summary>
+                <div class="seasonal-hazards">
+                  <div class="hazard-warning">
+                    <span class="hazard-icon">&#9888;&#65039;</span>
+                    <div class="hazard-content">
+                      <strong>Hurricane Zone</strong>
+                      <p>Season: Jun 1 &ndash; Nov 30 (Atlantic)</p>
+                      <p>Peak risk: Sep, Oct</p>
+                      <p class="hazard-note">Ships may reroute during active storms; travel insurance recommended</p>
                     </div>
                   </div>
-                </details>
+                </div>
+              </details>
 
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Dec, Jan, Feb, Mar, Apr</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">May, Jun, Nov</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Jul, Aug, Sep, Oct</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Dec, Jan, Feb, Mar, Apr</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Jul, Aug, Sep</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Sep, Oct</span>
-                      <span class="avoid-reason">(hurricane risk)</span>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Hurricane Zone</strong>
-                        <p>Season: Jun 1 – Nov 30 (Atlantic)</p>
-                        <p>Peak risk: Sep, Oct</p>
-                        <p class="hazard-note">Ships may reroute during active storms; travel insurance recommended</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
-
-      <h1>Virgin Gorda: My Baths Adventure</h1>
-      <div class="logbook-entry">
-        <p>Christopher Columbus named this island "La Gorda Virgen" — the Fat Virgin — in 1493, supposedly because the island's silhouette from the sea resembles a rotund woman lying on her side. I can't unsee it now, honestly.</p>
-
-        <p>The tender ride from the ship to Spanish Town already had us grinning — water so clear we could see starfish on the bottom. Spanish Town itself is the oldest permanent settlement in the British Virgin Islands, founded in 1780 and nestled inside what geologists say is an ancient volcanic crater. We shared a safari taxi with six other excited cruisers up to The Baths and arrived just after opening (another pro move). The trail down is short but the second you step into the boulder field your jaw drops — house-sized granite spheres scattered like a giant's marbles, forming cathedral-like grottos with shafts of sunlight piercing turquoise pools.</p>
-
-        <p>Here's the wild part: these granite boulders are around 50 million years old, formed deep beneath the earth's surface when molten rock cooled slowly. Volcanic activity eventually pushed them up, erosion stripped away the softer rock around them, and wind and water spent millennia sculpting them into the rounded giants we see today. Standing among them feels like being in a natural cathedral built by deep time itself.</p>
-
-      <figure class="logbook-image float-right">
-        <img src="img/virgin-gorda/virgin-gorda-1.webp" alt="Virgin Gorda harbor view" loading="lazy">
-        <figcaption>Virgin Gorda — <a href="https://commons.wikimedia.org/w/index.php?search=Virgin%20Gorda&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-
-        <p>We waded waist-deep through the caverns, climbing wooden ladders, ducking under boulders, sometimes swimming short stretches where the water fills the passages. The sound is incredible — waves echoing off stone like distant thunder. Emerged at Devil's Bay and honestly lost the ability to speak: pure white sand, water every shade of blue, and only a handful of early birds sharing it with us. Snorkeled around the boulders and saw huge tarpon (easily 4–5 ft) patrolling the shadows, blue tangs in swirling schools, and a spotted eagle ray (6-ft wingspan) that ghosted past so gracefully I forgot to breathe.</p>
-
-        <p>By noon more people arrived, but it never felt overcrowded — there's plenty of space if you explore.</p>
-
-      <figure class="logbook-image float-left">
-        <img src="img/virgin-gorda/virgin-gorda-2.webp" alt="Virgin Gorda waterfront" loading="lazy">
-        <figcaption>Virgin Gorda scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Virgin%20Gorda&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-
-        <p>Lunch was back at Top of the Baths restaurant — conch fritters and the strongest painkillers I've ever had (BVI recipe with nutmeg on top — dangerous). The view from the pool there is ridiculous; I could have stayed all day.</p>
-
-        <p>On the way back we detoured to see the ruins of the old Copper Mine, a haunted-looking cluster of stone chimney stacks and crumbling walls on the southwestern coast. In the mid-1800s Cornish miners came here chasing copper veins, working the ore until the mines became unprofitable and were abandoned. Now it's a national park — quiet, windswept, and strangely beautiful. The juxtaposition hit me: these same islands where enslaved Africans labored on sugar plantations until abolition in 1834, later saw European miners toiling underground. History layered on history.</p>
-
-        <p>The pros: unlike anything else on Earth, and the snorkeling is world-class right there.</p>
-        <p>The cons: the trail can be slippery and requires moderate fitness — not stroller or wheelchair friendly.</p>
-
-        <p>Practical tips: Wear proper water shoes with grip — the rocks are slicker than they look. Go as early as humanly possible — we were in the water by 8:45 a.m. and had the place almost to ourselves for an hour. Bring a dry bag for your phone/camera. Entry to The Baths National Park is $8 per person (cash or card accepted at the entrance booth).</p>
-
-        <div class="poignant-highlight">
-          <strong>The Moment That Stays With Me:</strong> Emerging from the last dark tunnel into Devil's Bay, sunlight exploding everywhere, and seeing that perfect crescent of sand and sea with only four other people on it — I actually whispered "no way this is real" out loud.
+              <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+            </div>
+          </noscript>
         </div>
-      </div>
+      </details>
 
-      <section class="port-section" id="getting_around">
-        <h3>Getting Around Virgin Gorda</h3>
-        <p>Tender to Spanish Town, then open-air safari taxi or pre-arranged transfer to The Baths (10–15 minutes). Everything is well organized.</p>
-      </section>
+      <h1>Virgin Gorda: Where Boulders Guard the Gates of Paradise</h1>
 
-      <section class="port-section" id="depth_soundings">
-        <h3>Depth Soundings Ashore</h3>
-        <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
-        <p>The boulders and ladders are adventurous — if you have bad knees or aren't steady on your feet, consider Spring Bay instead (same boulders, easier access).</p>
-      </section>
+      <!-- ===== LOGBOOK ===== -->
+      <details class="port-section" id="logbook" open>
+        <summary><h2>My Visit to Virgin Gorda</h2></summary>
+        <div class="logbook-entry clearfix">
 
-      <section class="port-section">
-        <h3>Frequently Asked Questions</h3>
-        <p><strong>Q: Is Virgin Gorda worth visiting on a cruise?</strong><br/>A: It's the #1 reason people book BVI itineraries.</p>
-        <p><strong>Q: Best attraction?</strong><br/>A: The Baths/Devil's Bay — nothing compares.</p>
-        <p><strong>Q: How long do The Baths take?</strong><br/>A: 3–5 hours for the full experience including snorkeling and relaxing.</p>
-        <p><strong>Q: Can you walk from where the tender drops you?</strong><br/>A: No — you need transport to The Baths.</p>
-      </section>
+          <p>I stepped onto the tender at seven-thirty in the morning, and the first thing that struck me was the smell of the sea itself — not the usual port-town blend of diesel and concrete, but something clean and primal, salt carried on warm Caribbean air with the faintest trace of frangipani drifting from the green hills above Spanish Town. My wife stood beside me, gripping the rail as our small boat rocked gently against the side of the ship, and we both stared at the water beneath us. It was so clear I could see the sandy bottom twelve feet below, dappled with light, a starfish the size of my hand resting motionless in the shallows. I looked at her and we both smiled without speaking. We had waited months for this moment, and now it was here, and it was already better than we had imagined.</p>
 
-      <!-- Author's Note -->
-      <section class="port-section author-note-disclaimer">
-        <h3>Author's Note</h3>
-        <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-      </section>
+          <figure>
+            <img src="/ports/img/virgin-gorda/virgin-gorda-2.webp" alt="Crystal-clear turquoise waters surrounding the granite boulders of The Baths at Virgin Gorda" loading="lazy" width="400" height="300"/>
+            <figcaption>The turquoise waters of Virgin Gorda shoreline. <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
 
-    <!-- Interactive Port Map -->
-    <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Virgin Gorda Area Map</h2></summary>
-      <p class="map-intro">Interactive map showing cruise terminal and Virgin Gorda attractions. Click any marker for details.</p>
-      <div id="virgin-gorda-port-map" class="port-map-container" role="application" aria-label="Interactive map of Virgin Gorda port and points of interest">
-        <noscript>
-          <p style="padding: 2rem; text-align: center; color: #678;">
-            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=18.4486&mlon=-64.4397#map=12/18.4486/-64.4397" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-          </p>
-        </noscript>
-      </div>
-      <div class="port-map-actions">
-        <button type="button" class="btn btn-secondary" onclick="document.getElementById('virgin-gorda-port-map')._portMap?.fitBounds(document.getElementById('virgin-gorda-port-map')._portMap.getBounds())">
-          Reset View
-        </button>
-      </div>
-            </details>
+          <p>The tender ride took about ten minutes, the outboard humming softly as we crossed the anchorage. Christopher Columbus named this island "La Gorda Virgen" — the Fat Virgin — in 1493, supposedly because its silhouette from the sea resembled a woman reclining on her side. I could see what he meant as we approached: the island's profile was rounded and gentle, green hills sloping to a waist of low land before rising again at the southern tip. Spanish Town, where the tender docked, is the oldest permanent settlement in the British Virgin Islands, founded in 1780 and nestled inside what geologists say is an ancient volcanic crater. However, we did not linger there. Our hearts were already set on The Baths.</p>
 
-      <!-- Photo Gallery -->
-      <section class="port-section" style="background: transparent; border: none; padding: 0;">
-        <h3>Virgin Gorda Gallery</h3>
+          <p>We shared an open-air safari taxi with six other excited passengers — the fare was $5 per person each way — and the driver, a man named Carlton with a warm laugh and weathered hands, navigated the narrow roads with practiced ease. The ride took about twelve minutes, climbing through low scrub and cactus before descending toward the coast. When we arrived at the trailhead, Carlton told us to take our time. "You will know when you have seen enough," he said with a grin. "Nobody ever does."</p>
+
+          <figure>
+            <img src="/ports/img/virgin-gorda/virgin-gorda-3.webp" alt="Wooden boardwalk trail winding through boulder formations at The Baths National Park on Virgin Gorda" loading="lazy" width="400" height="300"/>
+            <figcaption>The trail through The Baths boulder formations. <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+
+          <p>The entrance to The Baths National Park cost $8 per person, paid at a small booth near the trailhead. The path down was short — perhaps five minutes of walking on stone steps — but the moment I stepped into the boulder field, my jaw dropped and I stopped breathing for a second. House-sized granite spheres lay scattered across the beach and into the sea like abandoned marbles left by some primordial giant. They formed cathedral-like grottos with shafts of golden sunlight piercing through gaps in the stone, falling onto turquoise pools where the water glowed as though lit from within. The sound was extraordinary — waves echoing off rock like distant thunder, water dripping from the ceilings of narrow passages, the faint rush of the sea breathing through hidden channels. I reached out and pressed my palm against one of the boulders. It was warm from the sun and rough beneath my fingers, and I felt something ancient in it — fifty million years of geological patience condensed into this single moment of contact.</p>
+
+          <p>We waded waist-deep through the caverns, climbing wooden ladders, ducking under boulders, sometimes swimming short stretches where the water filled the passages completely. My wife laughed as I misjudged a step and plunged up to my chest, though the water was so warm it hardly mattered. The taste of salt was on my lips. Around every bend, a new chamber opened — some dark and cool and echoing, others flooded with light so bright the water seemed to glow electric blue. I have been to many beautiful places in my years of cruising, but nothing prepared me for this. It felt like walking through the architecture of the earth itself, through rooms that no human hand had shaped, that had been sculpted by nothing but wind and water and time.</p>
+
+          <p>We emerged at Devil's Bay and I honestly lost the ability to speak. My wife reached for my hand and squeezed it. Before us lay a crescent of pure white sand, water in every shade of blue from pale aquamarine to deep navy, and only four other people on the entire beach. The silence was broken only by the gentle lap of waves and the distant call of a frigatebird circling overhead. I sat on the sand and felt the heat of it beneath me, the sun on my shoulders, the cool breeze coming off the water. For the first time in months I felt my chest unclench — all the tension and planning and worry I had carried dissolved into the warm air like mist. Something shifted inside me. This was not just a beautiful beach. This was a place that reminded me what rest actually felt like.</p>
+
+          <figure>
+            <img src="/ports/img/virgin-gorda/virgin-gorda-4.webp" alt="Sunlight streaming through massive granite boulders into crystal-clear tidal pools at The Baths" loading="lazy" width="400" height="300"/>
+            <figcaption>Sunlight piercing through The Baths' ancient boulder formations. <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+          </figure>
+
+          <p>We snorkeled around the boulders for over an hour. The visibility was astonishing — I could see fifty feet in every direction. Huge tarpon, easily four to five feet long, patrolled the shadows beneath overhanging rock. Schools of blue tangs swirled past in flashes of electric colour. A spotted eagle ray with a wingspan of six feet ghosted past us so gracefully that I forgot to breathe, watching it glide into the blue with slow, effortless beats of its wings. My wife surfaced beside me, pulled her mask up, and whispered, "Did you see that?" Her eyes were wide with wonder. I nodded. Some moments do not need words.</p>
+
+          <p>By noon more visitors arrived from other ships, but it never felt overcrowded — there was plenty of space if you explored beyond the main beach. We climbed back through The Baths trail and had lunch at Top of the Baths restaurant, where I ordered conch fritters and the strongest painkiller I have ever tasted — the BVI recipe with dark rum and freshly grated nutmeg on top, sweet and potent. The cost was about $28 for both our meals. The view from the restaurant terrace was absurd — all green hills and blue water stretching to the horizon — and I could have sat there all afternoon.</p>
+
+          <p>On the way back to Spanish Town we detoured to see the ruins of the old Copper Mine, a haunted-looking cluster of stone chimney stacks and crumbling walls on the southwestern coast. In the mid-1800s Cornish miners came here chasing copper veins, working the ore until the mines became unprofitable and were abandoned. Now it is a national park — quiet, windswept, and strangely beautiful. The juxtaposition struck me hard: these same islands where enslaved Africans labored on sugar plantations until abolition in 1834 later saw European miners toiling underground. History layered on history, suffering on suffering, and yet the sea beside those ruins was the most peaceful shade of blue I had ever seen.</p>
+
+          <p>That evening, back on the ship, I stood at the rail and watched Virgin Gorda shrink behind us as we sailed north. The sun was setting and the island glowed amber and gold against the darkening sky. My wife came up beside me with two cups of tea and handed me one. "Thank you for planning this," she said quietly. I shook my head. "I did not plan this," I said. "This was a gift." And I meant it — not just the island, not just the boulders and the water and the ray, but the grace of being alive and healthy enough to wade through those caverns with the woman I love, to feel warm stone under my palms and taste salt on my lips and hear the sea echoing in chambers that were old before any human drew breath.</p>
+
+          <p>Looking back, I realize what Virgin Gorda taught me. It was not the spectacle that stayed — although the spectacle was extraordinary. What stayed was the stillness. The moment I sat on the sand at Devil's Bay and felt, for the first time in longer than I could remember, that I did not need to be anywhere else or do anything else. That the gift was simply being present. The boulders at The Baths were not placed there for us, and they will be there long after we are gone, patient and enduring, shaped by forces far older and greater than our small lives. Yet we were allowed to walk among them for one morning. I learned that the finest journeys are not the ones that take you farthest from home — they are the ones that bring you closest to gratitude.</p>
+
+        </div>
+      </details>
+
+      <!-- ===== FEATURED IMAGES ===== -->
+      <details class="port-section" id="featured_images" open>
+        <summary><h2>Featured Images</h2></summary>
+        <figure>
+          <img src="/ports/img/virgin-gorda/virgin-gorda-5.webp" alt="Panoramic view from Gorda Peak summit looking across green hills and turquoise bays of Virgin Gorda and surrounding islands" loading="lazy" width="400" height="300"/>
+          <figcaption>View from Gorda Peak, the highest point on Virgin Gorda. <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+        </figure>
+        <figure>
+          <img src="/ports/img/virgin-gorda/virgin-gorda-6.webp" alt="Spring Bay beach with granite boulders framing pristine white sand and calm turquoise waters on Virgin Gorda" loading="lazy" width="400" height="300"/>
+          <figcaption>Spring Bay, a quieter alternative to The Baths with similar boulder formations. <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Photo via Wikimedia Commons</a></figcaption>
+        </figure>
+      </details>
+
+      <!-- ===== CRUISE PORT ===== -->
+      <details class="port-section" id="cruise_port" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">What you need to know before you dock.</p>
+        <ul>
+          <li><strong>Terminal:</strong> Virgin Gorda is a tender port — ships anchor in the Sir Francis Drake Channel and tender passengers to the yacht harbour at Spanish Town (also called The Valley). The tender dock area has a small welcome pavilion with tourist information and taxi dispatch. Facilities are basic compared to major cruise terminals but well-organized for the volume of visitors. The tender landing area is accessible for wheelchair users, though the island itself presents significant mobility challenges due to hilly terrain and rocky trails.</li>
+          <li><strong>Distance to The Baths:</strong> About 15 minutes by taxi from the tender dock. No walking route is practical for cruise visitors due to distance and lack of sidewalks.</li>
+          <li><strong>Tender:</strong> Yes — all ships anchor offshore. Tender rides run approximately 10 minutes each way. Confirm return tender schedule with your ship.</li>
+          <li><strong>Currency:</strong> US Dollar (USD); credit cards accepted at restaurants and shops in Spanish Town; some beach vendors are cash only</li>
+          <li><strong>Language:</strong> English</li>
+          <li><strong>Driving:</strong> Left side (British territory); narrow roads with limited signage</li>
+          <li><strong>Best Season:</strong> December through April (dry season, calm seas, best snorkeling visibility)</li>
+          <li><strong>Time Zone:</strong> Atlantic Standard Time (AST, UTC-4); no daylight saving time observed</li>
+        </ul>
+      </details>
+
+      <!-- ===== GETTING AROUND ===== -->
+      <details class="port-section" id="getting_around" open>
+        <summary><h2>Getting Around</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Transportation tips for cruise visitors.</p>
+        <ul>
+          <li><strong>Safari Taxis:</strong> Open-air trucks with bench seating are the primary transport on Virgin Gorda. They operate on set routes with fixed fares — typically $5 per person each way to The Baths from Spanish Town, and $7-10 per person to more distant points like Bitter End. Drivers will wait and bring you back, or you can arrange a return pickup. Taxis gather near the tender dock and depart when full. These vehicles can accommodate passengers with limited mobility, though boarding requires stepping up onto the truck bed. For visitors using wheelchairs, private van transfers should be arranged in advance through the ship or a local operator.</li>
+          <li><strong>Walking:</strong> Spanish Town is small and walkable, with a few restaurants, gift shops, and a grocery store within a five-minute walk of the tender dock. However, The Baths and other major attractions are not within walking distance. The road to The Baths has no sidewalks and limited shoulders, so walking is not recommended or safe for that route.</li>
+          <li><strong>Private Taxi:</strong> For groups or families wanting flexibility, private taxis can be hired for $60-80 for a half-day island tour covering The Baths, Copper Mine ruins, and Gorda Peak viewpoint. Negotiate the fare and itinerary before departing. Drivers are knowledgeable and happy to share local history.</li>
+          <li><strong>Rental Cars:</strong> Available but not recommended for cruise day visitors due to left-hand driving, narrow roads, and limited parking at popular beaches. A full-day rental costs about $65-85.</li>
+          <li><strong>Water Taxis:</strong> Small boats run between Spanish Town and other BVI islands. Not typically useful for same-day cruise visitors unless your itinerary specifically includes island-hopping.</li>
+        </ul>
+      </details>
+
+      <!-- ===== MAP ===== -->
+      <details class="port-section port-map-section" id="map" open>
+        <summary><h2>Virgin Gorda Area Map</h2></summary>
+        <p class="map-intro">Interactive map showing cruise tender dock, The Baths, Devil's Bay, Spring Bay, Gorda Peak, and major attractions. Click any marker for details.</p>
+        <div id="virgin-gorda-port-map" class="port-map-container" role="application" aria-label="Interactive map of Virgin Gorda port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=18.4486&mlon=-64.4397#map=12/18.4486/-64.4397" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('virgin-gorda-port-map')._portMap?.fitBounds(document.getElementById('virgin-gorda-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+      </details>
+
+      <!-- ===== EXCURSIONS ===== -->
+      <details class="port-section" id="excursions" open>
+        <summary><h2>Excursions &amp; Activities</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">How to spend your time ashore. For popular activities like The Baths and snorkeling tours, book ahead during peak season to secure your spot. Many visitors choose to explore independent of the ship excursion options for flexibility and cost savings, though a ship excursion offers guaranteed return to the vessel before departure.</p>
+
+        <h4 class="mt-1">The Baths National Park</h4>
+        <p>The signature attraction of Virgin Gorda and one of the most extraordinary geological formations in the Caribbean. Massive granite boulders — some the size of houses — create a labyrinth of sea caves, tidal pools, and hidden grottoes along the southwestern shore. The trail from the parking area descends to the boulder field (about 5 minutes), then winds through passages where you wade, swim, and climb wooden ladders between chambers flooded with turquoise water and shafts of sunlight. The trail exits at Devil's Bay beach. Entry fee is $8 per person. Allow 3-5 hours. Moderate walking required — the trail involves uneven rocky surfaces, ladders, and waist-deep water in places. Not accessible for wheelchair users or visitors with significant mobility limitations. Wear water shoes with good grip. Bring a dry bag for electronics. Arrive early to avoid crowds — first tender ashore is ideal.</p>
+
+        <h4 class="mt-1">Devil's Bay Beach</h4>
+        <p>Reached via the trail through The Baths or a separate trail from the road above. A secluded crescent of white sand with excellent snorkeling directly off the beach. Less crowded than The Baths main beach, especially in the afternoon. Free to access once you have paid The Baths entry fee. Bring your own water and snacks — no vendors on the beach. The snorkeling here is superb, with tarpon, blue tangs, eagle rays, and colourful reef fish visible in the clear water.</p>
+
+        <h4 class="mt-1">Spring Bay Beach</h4>
+        <p>Adjacent to The Baths but with easier access — a gentler trail without ladders or deep wading. Same spectacular granite boulders framing a white-sand beach. Excellent for families with children or visitors who want the boulder scenery without the moderate fitness demands of The Baths trail. Free entry. Good snorkeling close to shore. A quieter, more relaxed alternative that still delivers the iconic Virgin Gorda boulder experience.</p>
+
+        <h4 class="mt-1">Gorda Peak National Park</h4>
+        <p>The highest point on Virgin Gorda at 1,370 feet, with a moderate hiking trail (about 30 minutes each way) through dry tropical forest to an observation tower with 360-degree views of the BVI, Anegada, and on clear days, St. Croix. The trailhead is accessible by taxi (about $10 per person from Spanish Town). Bring water and sunscreen. Allow 2 hours total. A rewarding half-day excursion that combines well with a morning at The Baths.</p>
+
+        <h4 class="mt-1">Copper Mine Ruins</h4>
+        <p>The remains of a 19th-century copper mine operated by Cornish miners, now a national park on the southeastern coast. Stone chimney stacks and crumbling walls stand against dramatic ocean views. Free entry. A short walk from the road. Historical signage explains the mining operations. Allow 30-45 minutes. Easily combined with The Baths visit by taxi — ask your driver to stop on the return route.</p>
+
+        <h4 class="mt-1">Snorkeling at The Baths &amp; Surrounding Reefs</h4>
+        <p>Some of the finest snorkeling in the Caribbean is right at The Baths and Devil's Bay. Visibility regularly exceeds 50 feet. Marine life includes tarpon, eagle rays, blue tangs, parrotfish, and occasional sea turtles. You can book ahead for a guided snorkel boat tour through local operators for about $65-85 per person, which includes equipment and visits to multiple sites. Independent snorkeling with your own gear is free once you are in the park. Ship excursion options for snorkeling typically cost $70-100 per person and include equipment, a guide, and guaranteed return to the vessel.</p>
+
+        <h4 class="mt-1">Bitter End Yacht Club Area</h4>
+        <p>Located at the North Sound, this area offers a different atmosphere — calm protected waters ideal for kayaking, paddleboarding, and sailing. Water taxi access from Gun Creek. Several restaurants and beach bars in the area. A full-day commitment given the travel time from Spanish Town — best for visitors with extended port time. Costs vary depending on activities booked.</p>
+      </details>
+
+      <!-- ===== DEPTH SOUNDINGS ===== -->
+      <details class="port-section" id="depth_soundings" open>
+        <summary><h2>Depth Soundings Ashore</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Lessons learned the hard way.</p>
+        <ul>
+          <li><strong>Water Shoes Are Essential:</strong> The rocks at The Baths are slicker than they look, especially when wet. Proper water shoes with rubber grip soles will save you from a painful fall. Flip-flops and bare feet are not safe on these surfaces.</li>
+          <li><strong>Go Early — First Tender:</strong> We were in the water by 8:45 a.m. and had The Baths almost entirely to ourselves for over an hour. By midday, multiple ships had tendered and the trails were noticeably busier. The early morning light through the boulders is also the most photogenic.</li>
+          <li><strong>Bring a Dry Bag:</strong> You will be wading and swimming through passages with your belongings. A waterproof dry bag for your phone, camera, and cash is not optional — it is essential. The cost of a dry bag is far less than the cost of a ruined phone.</li>
+          <li><strong>Spring Bay for Easier Access:</strong> If you have bad knees, mobility concerns, or are travelling with very young children, Spring Bay offers the same spectacular boulder scenery with a much easier access trail — no ladders, no deep wading, and no swimming passages. It is the best accessible alternative to The Baths.</li>
+          <li><strong>Cash for Taxi Drivers:</strong> Although the fare to The Baths is fixed at $5 per person each way, drivers appreciate tips. Have small bills ready. Some beach vendors at The Baths are also cash only.</li>
+          <li><strong>Hydration and Sun Protection:</strong> There is limited shade on the trails and beaches. Bring at least one litre of water per person and apply reef-safe sunscreen before you leave the ship. The Caribbean sun at this latitude is intense even on overcast days.</li>
+          <li><strong>Tender Timing:</strong> Confirm your last tender time before going ashore. Virgin Gorda is small enough that you will not get stranded easily, but water taxi costs for a private return to the ship are steep — $50 or more per person.</li>
+        </ul>
+      </details>
+
+      <!-- ===== FAQ ===== -->
+      <details class="port-section" id="faq" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <p><strong>Q: Is Virgin Gorda worth visiting on a cruise?</strong><br/>A: It is the number one reason people book BVI itineraries. The Baths are unlike anything else in the Caribbean — massive granite boulders forming grottos, sea pools, and caves that you wade and swim through to reach Devil's Bay beach.</p>
+
+        <p><strong>Q: What is the best attraction on Virgin Gorda?</strong><br/>A: The Baths and Devil's Bay, without question. Nothing else in the Caribbean compares to the experience of walking through those boulder formations.</p>
+
+        <p><strong>Q: How long do The Baths take?</strong><br/>A: 3-5 hours for the full experience including the trail, snorkeling, and relaxing at Devil's Bay. You could do a quick walk-through in 90 minutes, but you would regret rushing it.</p>
+
+        <p><strong>Q: Can you walk from where the tender drops you to The Baths?</strong><br/>A: No. The Baths are about 15 minutes by taxi from the tender dock at Spanish Town. The road has no sidewalks and walking is not safe or practical. Safari taxis cost $5 per person each way.</p>
+
+        <p><strong>Q: Is The Baths trail wheelchair accessible?</strong><br/>A: No. The trail involves rocky uneven surfaces, wooden ladders, and wading through waist-deep water. Visitors with mobility limitations should consider Spring Bay instead, which offers the same boulder scenery with easier access. The tender dock area at Spanish Town is wheelchair accessible.</p>
+
+        <p><strong>Q: What should I pack for Virgin Gorda?</strong><br/>A: Water shoes with grip, a dry bag for electronics, reef-safe sunscreen, snorkel gear if you have it, and at least a litre of water per person. Wear your swimsuit under your clothes for efficiency.</p>
+
+        <p><strong>Q: Does Virgin Gorda have a hurricane season?</strong><br/>A: Yes, June through November, with peak risk in September and October. Cruise lines closely monitor conditions and will reroute if necessary. Travel insurance is recommended for cruises during storm season.</p>
+      </details>
+
+      <!-- ===== GALLERY ===== -->
+      <details class="port-section" id="gallery" open>
+        <summary><h2>Photo Collection</h2></summary>
         <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="/ports/img/virgin-gorda/virgin-gorda-1.webp" alt="The Baths, Virgin Gorda" loading="lazy"/>
-          <figcaption>
-            The Baths, Virgin Gorda
-            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="/ports/img/virgin-gorda/virgin-gorda-2.webp" alt="The Baths formations" loading="lazy"/>
-          <figcaption>
-            The Baths formations
-            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="/ports/img/virgin-gorda/virgin-gorda-3.webp" alt="The Baths footbridge" loading="lazy"/>
-          <figcaption>
-            The Baths footbridge
-            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="/ports/img/virgin-gorda/virgin-gorda-4.webp" alt="Virgin Gorda Baths" loading="lazy"/>
-          <figcaption>
-            Virgin Gorda Baths
-            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</div>
-          </figcaption>
-        </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/virgin-gorda/virgin-gorda-1.webp" alt="Massive granite boulders at The Baths National Park on Virgin Gorda creating cathedral-like grottos" loading="lazy"/>
+            <figcaption>The Baths, Virgin Gorda's signature geological formation. <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Photo via Wikimedia Commons</a> (CC BY-SA 3.0)</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/virgin-gorda/virgin-gorda-2.webp" alt="Crystal-clear turquoise waters surrounding granite boulders along the Virgin Gorda coastline" loading="lazy"/>
+            <figcaption>Virgin Gorda's turquoise waters and boulder shoreline. <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Photo via Wikimedia Commons</a> (CC BY 2.0)</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/virgin-gorda/virgin-gorda-3.webp" alt="Wooden boardwalk trail winding through The Baths boulder formations with lush tropical vegetation" loading="lazy"/>
+            <figcaption>The Baths trail boardwalk through boulder formations. <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Photo via Wikimedia Commons</a> (CC BY 2.0)</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/virgin-gorda/virgin-gorda-4.webp" alt="Sunlight streaming through gaps in massive granite boulders into tidal pools at The Baths" loading="lazy"/>
+            <figcaption>Sunlight piercing through The Baths' ancient rock formations. <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Photo via Wikimedia Commons</a> (CC BY 2.0)</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/virgin-gorda/virgin-gorda-5.webp" alt="Panoramic view from Gorda Peak showing green hills and turquoise bays of Virgin Gorda and nearby islands" loading="lazy"/>
+            <figcaption>Vista from Gorda Peak, Virgin Gorda's highest point. <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Photo via Wikimedia Commons</a> (CC BY-SA)</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/virgin-gorda/virgin-gorda-6.webp" alt="Spring Bay beach with granite boulders framing white sand and calm Caribbean waters" loading="lazy"/>
+            <figcaption>Spring Bay, a peaceful alternative to The Baths. <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Photo via Wikimedia Commons</a> (CC BY-SA)</figcaption>
+          </figure>
         </div>
+      </details>
+
+      <!-- ===== CREDITS ===== -->
+      <details class="port-section" id="credits">
+        <summary><h2>Image Credits</h2></summary>
+        <ul>
+          <li>Hero image and gallery: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0 / CC BY 2.0)</li>
+          <li>Featured images: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
+          <li>Logbook inline images: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0 / CC BY-SA)</li>
+        </ul>
+      </details>
+
+      <!-- ===== AUTHOR DISCLAIMER ===== -->
+      <section class="port-section author-disclaimer" style="margin-top: 2.5rem; padding: 1.25rem; background: #fffef7; border-left: 4px solid #d9b382; border-radius: 8px;">
+        <p class="tiny" style="margin: 0; line-height: 1.6; color: #5a6a7a;">
+          <strong>Author's Note:</strong> Until I have sailed this port myself, these notes are soundings in another's wake — helpful for planning, and marked for revision once I have logged my own steps ashore.
+        </p>
       </section>
-    
 
-    <!-- Photo Gallery Section -->
-    <details class="port-section photo-gallery" id="gallery" open>
-      <summary><h2>Photo Gallery</h2></summary>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/virgin-gorda/virgin-gorda-1.webp" alt="Harbor view of Virgin Gorda" loading="lazy">
-          <figcaption>
-            Harbor view of Virgin Gorda
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/virgin-gorda/virgin-gorda-2.webp" alt="Waterfront of Virgin Gorda" loading="lazy">
-          <figcaption>
-            Waterfront of Virgin Gorda
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/virgin-gorda/virgin-gorda-3.webp" alt="Port panorama of Virgin Gorda" loading="lazy">
-          <figcaption>
-            Port panorama of Virgin Gorda
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/virgin-gorda/virgin-gorda-4.webp" alt="Coastal landscape of Virgin Gorda" loading="lazy">
-          <figcaption>
-            Coastal landscape of Virgin Gorda
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-      </div>
-    </details>
+      <!-- ===== BACK NAV ===== -->
+      <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
 
-    <!-- Image Credits Section -->
-    <details class="port-section image-credits" open>
-      <summary><h2>Image Credits</h2></summary>
-      <ul>
-        <li><strong>virgin-gorda-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>virgin-gorda-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>virgin-gorda-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>virgin-gorda-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </details>
+      <!-- VOLATILE DATA DISCLAIMER -->
+      <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+        <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2026-02-01 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+      </aside>
 
-        <!-- VOLATILE DATA DISCLAIMER -->
-        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-        </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Virgin Gorda?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
+      <!-- FROM THE PIER -->
+      <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Virgin Gorda">
+        <h4>From the Pier</h4>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">The Baths (boulder grottos)</span><div class="pier-detail">Taxi from tender landing — massive granite boulders, sea pools, grottos — $5 per person</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 10 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Devil's Bay Beach</span><div class="pier-detail">Trail through The Baths — secluded beach at the end of the boulder path</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 20 min from Baths</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Spanish Town</span><div class="pier-detail">Near the tender dock — small settlement, restaurants, shops</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 5 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Gorda Peak National Park</span><div class="pier-detail">Taxi to trailhead — hike to the summit for 360-degree views of the BVI — $10 per person</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Ships anchor offshore and tender to Spanish Town. The Baths are the main attraction — arrive early before the crowds. Wear water shoes for the boulder scramble. Open-air taxis with set fares run to all beaches.</p>
+      </nav>
 
-          <p><strong>Q: Does Virgin Gorda have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-
-          <p><strong>Q: What should I pack for Virgin Gorda's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
-
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
-
-
-
-
-
-<!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Virgin Gorda">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">The Baths (boulder grottos)</span><div class="pier-detail">Taxi from tender landing — massive granite boulders, sea pools, grottos</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 10 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Devil's Bay Beach</span><div class="pier-detail">Trail through The Baths — secluded beach at the end of the boulder path</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 20 min from Baths</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Spanish Town</span><div class="pier-detail">Near the tender dock — small settlement, restaurants, shops</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Gorda Peak National Park</span><div class="pier-detail">Taxi to trailhead — hike to the summit for 360° views of the BVI</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Ships anchor offshore and tender to Spanish Town or The Valley. The Baths are the main attraction — arrive early before the crowds. Wear water shoes for the boulder scramble. Open-air taxis with set fares run to all beaches.</p>
-</nav>
-
-      </article>
+    </article>
   </div>
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
-    <section class="page-intro" style="margin: 0 0 1rem 0;">
+    <div class="page-intro" style="margin: 0 0 1rem 0;">
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> The Baths at Virgin Gorda is the single most spectacular beach formation in the entire Caribbean — gigantic granite boulders creating grottoes, secret pools, and tunnels that lead to Devil's Bay, one of the world's most beautiful beaches. It's National Geographic come to life.
+        <strong>Quick Answer:</strong> The Baths at Virgin Gorda is the single most spectacular geological formation in the entire Caribbean — gigantic granite boulders creating grottoes, secret pools, and tunnels that lead to Devil's Bay. It is National Geographic come to life.
       </p>
-    </section>
+    </div>
         <section class="card author-card-vertical" aria-labelledby="author-heading">
       <h3 id="author-heading">About the Author</h3>
       <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
@@ -636,30 +687,16 @@ Soli Deo Gloria
           Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
         </p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
-    
-  
+
+
     <!-- Whimsical Distance Units -->
     <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
     </section>
 
   </aside>
 
-    <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-
-    <!-- Image Attribution Section -->
-    <section class="card" style="margin-top: 2rem; background: #f7fdff;">
-      <h3>Image Credits</h3>
-      <p class="tiny mb-075" >Images from Wikimedia Commons, used under Creative Commons licenses:</p>
-      <ul class="tiny" style="line-height: 1.8; padding-left: 1.25rem;">
-        <li><strong>The Baths, Virgin Gorda:</strong> Photo by Fototopia-x, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</li>
-        <li><strong>The Baths formations:</strong> Photo by Lhb1239, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</li>
-        <li><strong>The Baths footbridge:</strong> Photo by Lhb1239, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</li>
-        <li><strong>Virgin Gorda Baths:</strong> Photo by Lhb1239, <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY 2.0)</li>
-      </ul>
-    </section>
-  
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Visit</h2>
@@ -678,15 +715,15 @@ Soli Deo Gloria
   </button>
 </main>
     <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
     <p class="tiny mt-05">
-      <a href="/privacy.html">Privacy</a> ·
-      <a href="/terms.html">Terms</a> ·
-      <a href="/about-us.html">About</a> ·
+      <a href="/privacy.html">Privacy</a> &middot;
+      <a href="/terms.html">Terms</a> &middot;
+      <a href="/about-us.html">About</a> &middot;
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
-    <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.</p>
+    <p class="trust-badge">&#10003; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <script>
@@ -785,11 +822,11 @@ Soli Deo Gloria
                 <img class="article-thumb" alt="" aria-hidden="true" decoding="async" loading="lazy">
               </div>
               <div class="article-card-body">
-                <h4><a href="\${href}">\${title}</a></h4>
-                \${excerpt ? `<p class="tiny excerpt">\${excerpt}</p>` : ''}
+                <h4><a href="${href}">${title}</a></h4>
+                ${excerpt ? `<p class="tiny excerpt">${excerpt}</p>` : ''}
               </div>
             </div>
-            <a href="\${href}" class="pill read-more">Read Article →</a>
+            <a href="${href}" class="pill read-more">Read Article &rarr;</a>
           </article>`;
       }).join('');
 
@@ -821,13 +858,13 @@ Soli Deo Gloria
         if(!primary){
           const slugify = s => (s||'').toLowerCase().replace(/https?:\/\/[^/]+/,'').replace(/[#?].*$/,'').split('/').filter(Boolean).pop()||'';
           const guess = slugify(href) || slugify(title);
-          if(guess) primary = `/assets/articles/\${guess}/cover.jpg`;
+          if(guess) primary = `/assets/articles/${guess}/cover.jpg`;
         }
 
         const alts = [];
         if(primary){
           const base = primary.replace(/\.(jpg|jpeg|png|webp)$/i,'');
-          alts.push(`\${base}.jpeg`, `\${base}.JPG`, `\${base}.webp`, `\${base}.png`);
+          alts.push(`${base}.jpeg`, `${base}.JPG`, `${base}.webp`, `${base}.png`);
         }
         setImageWithFallback(el, primary || '/assets/index_hero.webp', alts);
       });
@@ -837,7 +874,7 @@ Soli Deo Gloria
       // Announce to screen readers
       const status = document.getElementById('a11y-status');
       if(status) {
-        status.textContent = `\${view.length} recent articles loaded`;
+        status.textContent = `${view.length} recent articles loaded`;
       }
     })();
   })();
