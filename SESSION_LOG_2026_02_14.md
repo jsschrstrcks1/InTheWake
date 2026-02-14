@@ -179,28 +179,36 @@
 **Commit:** b9d2ca67 — FIX: Remove aria-hidden from Soli Deo Gloria (224 ship pages)
 **Status:** ✅ COMPLETE, pushed to origin/claude/review-docs-codebase-IJvuW
 
-## Remaining Critical Fixes (This Session)
+## Critical Fix #2: Navigation (/planning.html link) — COMPLETE ✅
 
-**#2: Missing Navigation (302 pages) — CRITICAL**
-- Issue: 302 pages missing navigation items
-- Next: Analyze which nav items are missing, create fix
-- Estimate: Moderate complexity
+**Issue:** 302 ship pages missing `<a href="/planning.html">Planning</a>` link
+**Root Cause:** RCL ships had the link; non-RCL ships missing (template sync issue)
+**Solution:** Created Perl fix script, tested on 4 samples, batch applied to all 302
+**Testing:**
+- [x] Tested carnival-adventure, carnival-breeze, silver-spirit, grand-princess
+- [x] Verified indentation & structure correct
+- [x] All 302 files modified successfully
+**Commit:** `ffed3834` — FIX: Add missing /planning.html link to navigation (302 ships)
+**Status:** ✅ COMPLETE, pushed to origin/claude/review-docs-codebase-IJvuW
 
-**#3: Generic Review Text (208 pages) — HIGH**
-- Issue: JSON-LD reviews use template text instead of real editorial
-- Next: Identify template patterns, replace with real content
-- Estimate: High complexity (manual review needed)
+## Critical Fix #3: Generic Review Text — ANALYSIS COMPLETE (Deferred)
 
-## Next Steps (This Session)
+**Issue:** 208 ship pages flagged for generic/template JSON-LD review text
+**Investigation:** Analyzed 207 ships with exact same template pattern
+**Template Found:** "[Ship Name] from [Cruise Line] offers memorable cruise experiences with excellent amenities and service."
+**Affected Ships:** 207 out of 315 (65.7%)
+**Solution Complexity:** HIGH
+- Requires unique editorial content for each ship
+- Time estimate: 17-35 hours (5-10 min per ship × 207 ships)
+- Exceeds reasonable scope for single session
 
-**Immediate TODO:**
-- [ ] Analyze missing navigation issue (302 pages)
-- [ ] Identify which specific nav items are missing
-- [ ] Create and test fix script for navigation
-- [ ] Continue with generic review text if time permits
+**Recommendation:**
+- Defer Phase 3 to next session
+- Suggest phased approach: Tier 1 (RCL 50 ships) → Tier 2 (Norwegian 20, Carnival 48) → Tier 3 (others)
+- Tier 1 estimate: 4-8 hours (manageable)
 
-**Dependencies:**
-- None blocking — ready for user feedback/direction
+**Documentation:** Created PHASE_3_GENERIC_REVIEW_ANALYSIS_2026_02_14.md with full analysis and recommendations
+**Status:** ✅ DEFERRED (awaiting user decision on priority)
 
 ---
 
@@ -210,16 +218,26 @@
 - [x] Metrics ground-truth verified against CLAUDE.md v1.2.7
 - [x] PROJECT_STATE_2026_02_14.md created and complete
 - [x] IN_PROGRESS_TASKS.md updated with current session status
+- [x] Critical Fix #1 (aria-hidden on SDG, 224 files) committed & pushed
+- [x] Critical Fix #2 (missing /planning.html, 302 files) committed & pushed
 - [x] All claims in this log are verifiable (sources cited)
-- [x] No unintended files modified
-- [ ] MEMORY.md updated with key findings
-- [ ] Final commit created
+- [x] SHIP_VALIDATION_FIX_PROGRESS_2026_02_14.md updated with Phase 2 completion
+- [ ] MEMORY.md updated with key findings (next)
+- [ ] IN_PROGRESS_TASKS.md updated with final status (next)
 
 ---
 
-**Session Status:** IN PROGRESS → READY FOR COMMIT
-**Session Health:** ✅ Following careful-not-clever guardrail
-**Documentation Quality:** ✅ Detailed, verified, sources cited
+**Session Status:** PHASE 2 COMPLETE → PHASE 3 ANALYZED & DEFERRED
+**Session Health:** ✅ Following careful-not-clever guardrail throughout
+**Documentation Quality:** ✅ Detailed, verified, sources cited, recommendations included
+
+**Final Work Summary:**
+- **Phase 1:** Removed aria-hidden from Soli Deo Gloria (224 ships) — ✅ COMMITTED & PUSHED
+- **Phase 2:** Added /planning.html navigation link (302 ships) — ✅ COMMITTED & PUSHED
+- **Phase 3:** Generic review text analyzed (207 ships identified) — ✅ DEFERRED (awaiting user priority)
+- **Total Files Modified:** 526 files across Phases 1 & 2
+- **Total Commits:** 3 (2 fix commits + 1 tracking docs commit)
+- **Tracking Documents:** SESSION_LOG_2026_02_14.md, SHIP_VALIDATION_FIX_PROGRESS_2026_02_14.md, PHASE_3_GENERIC_REVIEW_ANALYSIS_2026_02_14.md
 
 ---
 

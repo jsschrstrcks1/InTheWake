@@ -43,22 +43,35 @@ FORMAT:
 **Status:** Active — From the Pier complete (376/376), full codebase audit complete, documentation consistency fixes in progress.
 **Notes:** PR #1139 merged. Continuing with remaining Green-lane backlog items.
 
-### Documentation & Session Wrap-up (Session 2 - In Progress)
+### Ship Validation Fixes (Session 2 - Phase 2 Complete)
 **Thread:** `claude/review-docs-codebase-IJvuW`
 **Started:** 2026-02-08 (previous session)
 **Resumed:** 2026-02-14 (this session)
-**Files:** admin/claude/CLAUDE.md, .claude/ONBOARDING.md, .claude/skill-rules.json, PROJECT_STATE_2026_02_14.md, IN_PROGRESS_TASKS.md, MEMORY.md
-**Status:** IN PROGRESS — Reading critical docs, creating comprehensive project state documentation, updating all tracking files.
-**Completed this session:**
-- [x] Read admin/claude/CLAUDE.md (v1.2.7)
-- [x] Read .claude/ONBOARDING.md (v1.2.0)
-- [x] Read .claude/skill-rules.json (v1.1.0)
-- [x] Create PROJECT_STATE_2026_02_14.md (14 sections, comprehensive state doc)
-- [ ] Update IN_PROGRESS_TASKS.md with accurate thread info
-- [ ] Update MEMORY.md with session findings
-- [ ] Create SESSION_LOG_2026_02_14.md documenting all work
+**Files:** 526 modified total (224 aria-hidden + 302 navigation + tracking docs)
+**Status:** IN PROGRESS — Critical Fix #1 & #2 complete, Phase 3 evaluating
 
-**Notes:** Following careful-not-clever guardrail: documenting as I go, verifying before reporting, reading before editing.
+**Completed this session:**
+- [x] Read admin/claude/CLAUDE.md, .claude/ONBOARDING.md, .claude/skill-rules.json
+- [x] Create PROJECT_STATE_2026_02_14.md (14 sections, comprehensive)
+- [x] Create SESSION_LOG_2026_02_14.md (work log with timestamped progress)
+- [x] **CRITICAL FIX #1:** Accessibility — Remove aria-hidden from Soli Deo Gloria (224 ships)
+  - Commit: `b9d2ca67` — FIX: Remove aria-hidden from Soli Deo Gloria
+  - Status: ✅ COMMITTED & PUSHED
+- [x] **CRITICAL FIX #2:** Navigation — Add /planning.html link (302 ships)
+  - Created Perl fix script (/tmp/apply_planning_fix.pl)
+  - Tested on 4 sample ships (carnival-adventure, carnival-breeze, silver-spirit, grand-princess)
+  - Batch applied to all 302 affected files
+  - Commit: `ffed3834` — FIX: Add missing /planning.html link to navigation (302 ships)
+  - Status: ✅ COMMITTED & PUSHED
+- [x] Update SHIP_VALIDATION_FIX_PROGRESS_2026_02_14.md (Phase 1 & 2 complete)
+- [x] Update SESSION_LOG_2026_02_14.md with completion status
+
+**Pending (Next Steps):**
+- [ ] Analyze CRITICAL FIX #3: Generic review text (208 ships) — BLOCKED on template analysis
+- [ ] Update MEMORY.md with session key findings
+- [ ] Final session wrap-up commit
+
+**Notes:** Following careful-not-clever guardrail: read before edit, test before batch, document alongside work, verify before reporting.
 
 ---
 
