@@ -7,13 +7,15 @@
 
 ---
 
-## Current State
+## Current State (After Phase 1)
 
 | Metric | Count |
 |--------|-------|
 | Total port pages | 380 |
-| Currently passing | 207 (54.5%) |
-| Currently failing | 173 (45.5%) |
+| Currently passing | 267 (70.3%) |
+| Currently failing | 113 (29.7%) |
+| Baseline (before Phase 1) | 207 (54.5%) |
+| Phase 1 gain | +60 pages |
 
 ---
 
@@ -265,9 +267,11 @@ After each work session, update this table:
 | Date | Phase | Pages Fixed | Passing | Notes |
 |------|-------|-------------|---------|-------|
 | 2026-02-14 | Baseline | 0 | 207/380 | Initial measurement |
-| | Phase 1a | | /380 | Heading mismatch fix |
-| | Phase 1b | | /380 | Stray section fix |
-| | Phase 1c-d | | /380 | Stray details/article fix |
+| 2026-02-14 | Phase 1a | 87 | 247/380 | Fix h3/h2 heading mismatch in map summary |
+| 2026-02-14 | Phase 1b | 36 | 247/380 | Remove 39 stray </section> closing tags |
+| 2026-02-14 | Phase 1c | 8 | 247/380 | Fix unbalanced <details> tags (5 stray closers, 3 missing closers) |
+| 2026-02-14 | Phase 1d | 1 | 247/380 | Add missing </article> to jamaica.html |
+| 2026-02-14 | Phase 1e | 20 | 267/380 | Add 93 missing </section> closers for content sections |
 | | Phase 2a | | /380 | Console.log cleanup |
 | | Phase 2b | | /380 | Meta author addition |
 | | Phase 3 | | /380 | Content creation (ongoing) |
