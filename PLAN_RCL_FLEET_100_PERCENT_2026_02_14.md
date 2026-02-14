@@ -91,14 +91,11 @@ These are the same pattern across all/most active ships. Fix in template, propag
 
 ## Phase 3: Decisions Needed from Ken
 
-### 3A. Editorial Ratings (31 ships) — REQUIRED FOR 100%
-- **Issue:** All 31 ships have `ratingValue` in JSON-LD with no documented editorial basis
-- **Options:**
-  1. **Ken provides real ratings** — per-ship editorial score based on personal experience + review signals
-  2. **Remove ratingValue entirely** — safest if ratings can't be verified
-  3. **Document methodology** — create a public rating methodology page, then scores are defensible
-- **Impact:** Removes 31 × `json_ld/unverified_rating` warnings
-- **Note:** This is the single largest remaining warning category. Without resolving this, no ship can reach 100%.
+### 3A. Editorial Ratings (31 ships) — RESOLVED
+- **Decision (2026-02-14):** Remove ratingValue entirely from all ship pages
+- **Action taken:** Removed `reviewRating` block from all 293 ship page JSON-LD; updated both validators
+- **Impact:** 31 × `json_ld/unverified_rating` warnings eliminated
+- **Future:** Ratings may be re-added with documented editorial methodology
 
 ### 3B. Missing Video Categories (15 ships)
 - **Issue:** Ships missing `food` and/or `accessible` video categories in the video manifest
@@ -160,7 +157,7 @@ These are the same pattern across all/most active ships. Fix in template, propag
 | 2B | Remove brochure language | 4 | Low (4 word replacements) | No |
 | 2C | Fix short ai-summary | 1 | Low | No |
 | 2D | Fix short alt text | 1 | Low | No |
-| 3A | Editorial ratings | 31 | **Ken decision** | **Yes** |
+| ~~3A~~ | ~~Editorial ratings~~ | ~~293~~ | ~~Done~~ | ~~Resolved 2026-02-14~~ |
 | 3B | Source missing videos | 15 | Medium–High (YouTube) | Ken approval |
 | 3C | Write missing persona stories | 5 | High (creative writing) | Ken approval |
 | 3D | Legend taxonomy | 3 | Low (classification) | **Ken decision** |
@@ -190,7 +187,7 @@ After all phases, each active RCL ship page will have:
 - Historic ships (sovereign, song-of-norway, etc.) — different validation rules
 - TBN ships (future ships) — not in active fleet
 - Non-ship pages (index.html, venues.html) — different page type
-- Rating methodology — Ken's editorial decision
+- Rating methodology — ratings removed 2026-02-14; may be re-added later with editorial basis
 - Logbook story content — pastoral content follows LOGBOOK_ENTRY_STANDARDS_v2, Ken reviews
 
 ---

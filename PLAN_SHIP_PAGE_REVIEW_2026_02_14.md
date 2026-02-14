@@ -38,17 +38,11 @@
 - **Rationale:** Ship pages have editorial voice, author attribution, and publication dates — this signals editorial content to Google, strengthening E-E-A-T
 - **Implementation:** Add to template + all ship pages
 
-### 2B. Review Schema Rating Audit
-- **Issue:** Hard-coded `"ratingValue": 4.6` — where does this come from?
-- **Decision needed from Ken:**
-  - Is this Ken's personal editorial rating? → Label it as editorial review, not aggregate
-  - Is it derived from a methodology? → Document the methodology on-page
-  - Should it vary per ship? → Currently static across all ships
-- **Risk:** Google can suppress rich results for synthetic/unverifiable ratings
-- **Fix options:**
-  1. Make it a clearly-labeled editorial `"Review"` with `"author"` pointing to Ken (already partially done)
-  2. Remove `ratingValue` entirely if it's arbitrary
-  3. Create per-ship ratings based on documented criteria
+### 2B. Review Schema Rating Audit — RESOLVED
+- **Decision (2026-02-14):** Remove `ratingValue` entirely from all ship pages
+- **Action taken:** Removed `reviewRating` block from all 293 ship page JSON-LD; updated both validators
+- **Rationale:** Hard-coded ratings with no documented methodology risk Google suppressing rich results
+- **Future:** Ratings may be re-added with documented editorial methodology
 
 ### 2C. Keyword Reinforcement in Subheaders
 - **What:** Add subtle keyword-rich subheaders throughout ship pages
@@ -125,7 +119,7 @@
 | P1 | Add declarative fact block | Template + ships | Medium | No |
 | P1 | Tool visibility sidebar | Template + ships | Low | No |
 | P2 | Keyword-rich subheaders | Template + ships | Low | No |
-| P2 | Review schema rating audit | Template + ships | Low | Yes (Ken) |
+| ~~P2~~ | ~~Review schema rating audit~~ | ~~Template + ships~~ | ~~Done~~ | ~~Resolved 2026-02-14~~ |
 | P2 | Remove navbar version badge | ~1,159 pages | Medium | Recommend yes |
 | P3 | aria-hidden decision | All pages | Low | Yes (Ken) |
 | P3 | Version governance unification | Entire codebase | High | Yes (Ken) |
@@ -138,7 +132,7 @@
 - Strip JS loaders — need performance data first
 - Redesign version governance — too large for this session
 - Modify the URL normalizer — duplicate selector issue was NOT confirmed in JS
-- Change rating methodology — that's Ken's editorial decision
+- Rating methodology — ratings removed 2026-02-14; may be re-added later with editorial basis
 
 ---
 

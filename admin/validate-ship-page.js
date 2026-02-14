@@ -13,7 +13,7 @@
  * - V1.Beta navbar version badge detection
  * - aria-hidden on Soli Deo Gloria footer (should be accessible)
  * - Generic/templated reviewBody text detection (AI chorus)
- * - Unverified ratingValue detection (must be real editorial assessment)
+ * - Unverified ratingValue detection (removed — ratings stripped from all ships 2026-02-14)
  *
  * v2.2 Enhancements:
  * - Discoverability validation: search.html, ships.html, ship atlas
@@ -563,17 +563,8 @@ function validateJSONLD($, filepath) {
       });
     }
 
-    // Check for hard-coded/static ratingValue without real basis
-    const rating = review.reviewRating;
-    if (rating && rating.ratingValue) {
-      // Flag any rating — until real ratings are sourced, all are suspect
-      warnings.push({
-        section: 'json_ld',
-        rule: 'unverified_rating',
-        message: `Review has ratingValue ${rating.ratingValue} — must be based on real editorial assessment, not templated`,
-        severity: 'WARNING'
-      });
-    }
+    // reviewRating block was removed from all ship pages on 2026-02-14
+    // Ratings may be re-added later with documented editorial methodology
   }
 
   return { valid: errors.length === 0, errors, warnings, data: { schemas_found: foundTypes.length, types: foundTypes } };
