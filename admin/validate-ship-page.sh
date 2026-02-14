@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================================
-# Ship Page Validator — v3.010.300
+# Ship Page Validator — v3.010.301
 #
 # Validates ship pages against SHIP_PAGE_CHECKLIST_v3.010.md standards.
 # Usage: ./admin/validate-ship-page.sh <path-to-ship-page.html>
@@ -43,7 +43,7 @@ if [ ! -f "$FILE" ]; then
 fi
 
 echo "============================================================================"
-echo "  Ship Page Validator — v3.010.300"
+echo "  Ship Page Validator — v3.010.301"
 echo "  File: $FILE"
 echo "============================================================================"
 echo ""
@@ -225,6 +225,14 @@ else
     check_warn "Multiple H1 tags found ($H1_COUNT) — should be exactly 1"
 fi
 
+# Check for duplicate class attributes on same element (v2.3 external review)
+DUPE_CLASS_COUNT=$(echo "$CONTENT" | grep -cE 'class="[^"]*"[^>]*class="' || echo "0")
+if [ "$DUPE_CLASS_COUNT" -gt 0 ]; then
+    check_warn "$DUPE_CLASS_COUNT element(s) have duplicate class attributes — second class is silently ignored"
+else
+    check_pass "No duplicate class attributes"
+fi
+
 # ============================================================================
 # Section 5: SEO Meta Tags
 # ============================================================================
@@ -234,6 +242,20 @@ if echo "$CONTENT" | grep -q "<title>"; then
     check_pass "title tag present"
 else
     check_fail "title tag MISSING"
+fi
+
+# v2.3: Check for (V1.Beta) in title
+if echo "$CONTENT" | grep -q '(V1\.Beta)'; then
+    check_warn "Title contains (V1.Beta) — signals unfinished site to users and AI"
+else
+    check_pass "No beta tag in title"
+fi
+
+# v2.3: Check for V1.Beta navbar version badge
+if echo "$CONTENT" | grep -q 'version-badge.*V1\.Beta\|V1\.Beta.*version-badge'; then
+    check_warn "Navbar contains V1.Beta version badge — remove for production"
+else
+    check_pass "No V1.Beta navbar badge"
 fi
 
 if echo "$CONTENT" | grep -q 'rel="canonical"'; then
@@ -294,6 +316,19 @@ if echo "$CONTENT" | grep -E '"ratingValue":\s*"[0-9]' > /dev/null; then
     check_fail "Review ratingValue is a STRING — must be NUMBER (no quotes)"
 elif echo "$CONTENT" | grep -E '"ratingValue":\s*[0-9]' > /dev/null; then
     check_pass "Review ratingValue is a NUMBER"
+fi
+
+# v2.3: Check for generic/templated reviewBody text
+if echo "$CONTENT" | grep -q 'offers memorable cruise experiences with excellent amenities'; then
+    check_warn "Review contains generic templated text — reviewBody should reflect real editorial assessment"
+else
+    check_pass "reviewBody is not generic template text"
+fi
+
+# v2.3: Flag unverified ratingValue (all current ratings need editorial verification)
+if echo "$CONTENT" | grep -qE '"ratingValue":\s*[0-9]'; then
+    RATING_VAL=$(echo "$CONTENT" | grep -oE '"ratingValue":\s*[0-9.]+' | head -1 | grep -oE '[0-9.]+$')
+    check_warn "Review has ratingValue $RATING_VAL — must be based on real editorial assessment, not templated"
 fi
 
 # Check BreadcrumbList has 4 items
@@ -361,12 +396,19 @@ if echo "$CONTENT" | grep -q 'tabindex="-1"' | grep -q "main"; then
     check_pass "Main has tabindex=\"-1\""
 fi
 
-# Check for images without alt
-IMG_WITHOUT_ALT=$(echo "$CONTENT" | grep -c '<img[^>]*[^"]>' | grep -v 'alt=' || echo "0")
-if [ "$IMG_WITHOUT_ALT" -gt 0 ]; then
-    check_warn "Some images may be missing alt attributes"
+# v2.3: Check for aria-hidden on SDG footer dedication (should be accessible)
+if echo "$CONTENT" | grep -q 'aria-hidden="true".*Soli Deo Gloria\|Soli Deo Gloria.*aria-hidden="true"'; then
+    check_warn "Soli Deo Gloria footer dedication has aria-hidden=\"true\" — should be accessible to all users"
 else
-    check_pass "Images appear to have alt attributes"
+    check_pass "SDG footer not hidden from assistive technology"
+fi
+
+# Check for images without alt (join lines to handle multiline img tags)
+IMG_WITHOUT_ALT=$(echo "$CONTENT" | tr '\n' ' ' | grep -oE '<img [^>]+>' | grep -cv 'alt=' || echo "0")
+if [ "$IMG_WITHOUT_ALT" -gt 0 ]; then
+    check_warn "$IMG_WITHOUT_ALT image(s) missing alt attributes"
+else
+    check_pass "All images have alt attributes"
 fi
 
 # ============================================================================

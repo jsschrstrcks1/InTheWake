@@ -1,11 +1,19 @@
 #!/usr/bin/env node
 /**
- * Ship Page Validator - ITW-SHIP-002 v2.2
+ * Ship Page Validator - ITW-SHIP-002 v2.3
  * Soli Deo Gloria
  *
  * Comprehensive validator for ship pages following the Ship Page Standard v2.0.
  * Validates: ICP-Lite v1.4, JSON-LD schemas, section ordering, content consistency,
  * word counts, video requirements, logbook stories, navigation, WCAG, deduplication.
+ *
+ * v2.3 Enhancements (External Review Findings — Gemini/ChatGPT):
+ * - Duplicate class attributes detection (invalid HTML, styles silently lost)
+ * - (V1.Beta) in title tag detection
+ * - V1.Beta navbar version badge detection
+ * - aria-hidden on Soli Deo Gloria footer (should be accessible)
+ * - Generic/templated reviewBody text detection (AI chorus)
+ * - Unverified ratingValue detection (must be real editorial assessment)
  *
  * v2.2 Enhancements:
  * - Discoverability validation: search.html, ships.html, ship atlas
@@ -533,6 +541,38 @@ function validateJSONLD($, filepath) {
           severity: 'BLOCKING'
         });
       }
+    }
+  }
+
+  // v2.3: Validate review authenticity (no generic/hallucinated ratings)
+  if (review) {
+    // Check for generic templated reviewBody text
+    const reviewBody = (review.reviewBody || '').toLowerCase();
+    const genericPatterns = [
+      'offers memorable cruise experiences with excellent amenities',
+      'offers memorable cruise experiences with excellent',
+      'memorable cruise experiences with excellent amenities and service'
+    ];
+    const isGenericReview = genericPatterns.some(p => reviewBody.includes(p));
+    if (isGenericReview) {
+      warnings.push({
+        section: 'json_ld',
+        rule: 'generic_review_text',
+        message: 'Review contains generic templated text — reviewBody should reflect real editorial assessment',
+        severity: 'WARNING'
+      });
+    }
+
+    // Check for hard-coded/static ratingValue without real basis
+    const rating = review.reviewRating;
+    if (rating && rating.ratingValue) {
+      // Flag any rating — until real ratings are sourced, all are suspect
+      warnings.push({
+        section: 'json_ld',
+        rule: 'unverified_rating',
+        message: `Review has ratingValue ${rating.ratingValue} — must be based on real editorial assessment, not templated`,
+        severity: 'WARNING'
+      });
     }
   }
 
@@ -2132,6 +2172,80 @@ function validatePrintButton($, html) {
   return { valid: errors.length === 0, errors, warnings, data: { hasPrintButton: btn.length > 0 } };
 }
 
+/**
+ * Validate external review findings (v2.3)
+ * Checks identified by Gemini/ChatGPT review of ship page template:
+ * - Duplicate class attributes on same element (invalid HTML, styles silently lost)
+ * - (V1.Beta) in title tags (signals unfinished site)
+ * - V1.Beta version badge in navbar (unnecessary for production)
+ * - aria-hidden on SDG footer dedication (should be accessible per Ken's decision)
+ */
+function validateExternalReviewFindings($, html) {
+  const errors = [];
+  const warnings = [];
+  const data = {
+    duplicateClassCount: 0,
+    hasBetaTitle: false,
+    hasBetaBadge: false,
+    sdgAriaHidden: false
+  };
+
+  // 1. Duplicate class attributes on same element
+  // Match any opening tag that contains class="..." followed by another class="..."
+  const duplicateClassRegex = /class="[^"]*"[^>]*class="/gi;
+  const duplicateMatches = html.match(duplicateClassRegex) || [];
+  data.duplicateClassCount = duplicateMatches.length;
+  if (duplicateMatches.length > 0) {
+    warnings.push({
+      section: 'html_validity',
+      rule: 'duplicate_class_attr',
+      message: `${duplicateMatches.length} element(s) have duplicate class attributes — second class is silently ignored by browsers`,
+      severity: 'WARNING'
+    });
+  }
+
+  // 2. (V1.Beta) in <title> tag
+  const title = $('title').text() || '';
+  data.hasBetaTitle = /\(V1\.Beta\)/i.test(title);
+  if (data.hasBetaTitle) {
+    warnings.push({
+      section: 'html_validity',
+      rule: 'beta_in_title',
+      message: `Title contains "(V1.Beta)" — signals unfinished site to users and AI`,
+      severity: 'WARNING'
+    });
+  }
+
+  // 3. V1.Beta version badge in navbar
+  const versionBadge = $('span.version-badge');
+  data.hasBetaBadge = versionBadge.length > 0 && /V1\.Beta/i.test(versionBadge.text());
+  if (data.hasBetaBadge) {
+    warnings.push({
+      section: 'html_validity',
+      rule: 'beta_navbar_badge',
+      message: 'Navbar contains V1.Beta version badge — remove for production',
+      severity: 'WARNING'
+    });
+  }
+
+  // 4. aria-hidden on SDG footer dedication (should be accessible)
+  const sdgElements = $('[aria-hidden="true"]').filter((i, el) => {
+    const text = $(el).text().toLowerCase();
+    return text.includes('soli deo gloria');
+  });
+  data.sdgAriaHidden = sdgElements.length > 0;
+  if (data.sdgAriaHidden) {
+    warnings.push({
+      section: 'accessibility',
+      rule: 'sdg_aria_hidden',
+      message: 'Soli Deo Gloria footer dedication has aria-hidden="true" — should be accessible to all users',
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings, data };
+}
+
 async function validateShipPage(filepath) {
   const relPath = relative(PROJECT_ROOT, filepath);
   const slug = basename(filepath, '.html');
@@ -2184,6 +2298,9 @@ async function validateShipPage(filepath) {
     const wordCountResult = validateWordCounts($, isHistoric);
     const printButtonResult = validatePrintButton($, html);
 
+    // v2.3 external review findings
+    const externalReviewResult = validateExternalReviewFindings($, html);
+
     // Async validations (pass cruiseLine for correct data paths)
     const logbookResult = await validateLogbook(slug, cruiseLine, isHistoric);
     const videoResult = await validateVideos(slug, cruiseLine, isHistoric, isTBN);
@@ -2200,7 +2317,8 @@ async function validateShipPage(filepath) {
       ...logbookResult.errors, ...videoResult.errors, ...articlesResult.errors,
       ...htmlStructureResult.errors, ...viewportResult.errors,
       ...contentPurityResult.errors, ...shipStatsResult.errors,
-      ...diningResult.errors, ...wordCountResult.errors
+      ...diningResult.errors, ...wordCountResult.errors,
+      ...externalReviewResult.errors
     ];
     const preliminaryWarnings = [
       ...analyticsResult.warnings, ...soliDeoGloriaResult.warnings,
@@ -2212,7 +2330,8 @@ async function validateShipPage(filepath) {
       ...logbookResult.warnings, ...videoResult.warnings, ...articlesResult.warnings,
       ...htmlStructureResult.warnings, ...viewportResult.warnings,
       ...contentPurityResult.warnings, ...shipStatsResult.warnings,
-      ...diningResult.warnings, ...wordCountResult.warnings
+      ...diningResult.warnings, ...wordCountResult.warnings,
+      ...externalReviewResult.warnings
     ];
     const preliminaryScore = Math.max(0, 100 - (preliminaryErrors.length * 10) - (preliminaryWarnings.length * 2));
 
@@ -2234,7 +2353,8 @@ async function validateShipPage(filepath) {
       ...contentPurityResult.errors, ...shipStatsResult.errors,
       ...diningResult.errors, ...wordCountResult.errors,
       ...printButtonResult.errors,
-      ...searchIndexResult.errors, ...shipAtlasResult.errors
+      ...searchIndexResult.errors, ...shipAtlasResult.errors,
+      ...externalReviewResult.errors
     );
 
     // Collect warnings
@@ -2251,7 +2371,8 @@ async function validateShipPage(filepath) {
       ...contentPurityResult.warnings, ...shipStatsResult.warnings,
       ...diningResult.warnings, ...wordCountResult.warnings,
       ...printButtonResult.warnings,
-      ...searchIndexResult.warnings, ...shipAtlasResult.warnings
+      ...searchIndexResult.warnings, ...shipAtlasResult.warnings,
+      ...externalReviewResult.warnings
     );
 
     // Calculate score
@@ -2283,6 +2404,7 @@ async function validateShipPage(filepath) {
       search_index: searchIndexResult.data,
       ship_atlas: shipAtlasResult.data
     };
+    results.external_review = externalReviewResult.data;
 
   } catch (error) {
     results.blocking_errors.push({ section: 'parse', rule: 'file_read', message: `Failed to parse: ${error.message}`, severity: 'BLOCKING' });
