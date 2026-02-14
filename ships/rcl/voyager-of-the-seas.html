@@ -38,7 +38,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="referrer" content="no-referrer-when-downgrade"/>
   <meta name="ai-summary" content="Voyager of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake.">
-  <meta name="last-reviewed" content="2025-12-27">
+  <meta name="last-reviewed" content="2026-02-14">
   <meta name="content-protocol" content="ICP-Lite v1.4">
 
   <!-- SEO: Robots & Crawling -->
@@ -244,7 +244,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     "url": "https://cruisinginthewake.com/ships/rcl/voyager-of-the-seas.html",
     "description": "Voyager of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake.",
     "datePublished": "2024-01-01",
-    "dateModified": "2025-12-27",
+    "dateModified": "2026-02-14",
     "inLanguage": "en-US",
     "isPartOf": {
       "@type": "WebSite",
@@ -285,6 +285,22 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Ship deployments vary by season. Check the Royal Caribbean website for current itineraries."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this information official?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This page provides planning resources and community insights. Always confirm details with Royal Caribbean or your travel advisor before booking."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I see Voyager of the Seas's current location?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the live ship tracker on this page to see Voyager of the Seas's current position, speed, and next port in real-time."
       }
     }
   ]
@@ -755,6 +771,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <summary>Is this information official?</summary>
         <p class="faq-answer">This page provides planning resources and community insights. Always confirm details with Royal Caribbean or your travel advisor before booking.</p>
       </details>
+
+      <details class="faq-item">
+        <summary>How can I see Voyager of the Seas's current location?</summary>
+        <p class="faq-answer">Use the <a href="#liveTrackHeading">live ship tracker</a> on this page to see Voyager of the Seas's current position, speed, and next port in real-time.</p>
+      </details>
     </section>
 
     <!-- Attribution -->
@@ -901,7 +922,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       }
     }
     function fetchVideoData(){
-      const SOURCES=[abs('/assets/data/videos/rcl/voyager-of-the-seas.json'),abs('/assets/data/videos/voyager-of-the-seas.json'),abs('/ships/rcl/assets/voyager-of-the-seas-videos.json')];
+      const SOURCES=[abs('/assets/data/videos/rcl/voyager-of-the-seas.json'),abs('/ships/rcl/assets/voyager-of-the-seas-videos.json')];
       function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
         return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
       return tryFetch();

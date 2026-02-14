@@ -193,7 +193,7 @@ These standards apply to **every page** on the site.
 - ✅ Success metrics and tracking
 
 **Status:**
-- Level 1: 99% complete (1,229/1,241 pages)
+- Level 1: 99.5% complete (1,232/1,238 pages)
 - Level 2: Pilot phase (Radiance of the Seas)
 - Level 3: Planned
 
@@ -532,7 +532,7 @@ XX. **Fix broken image links in 5 port pages** - Discovered during audit (2025-1
 
 ### 21. Template Version
 **Current:** v3.010.305
-**Coverage:** 1,241 HTML pages across site
+**Coverage:** 1,238 HTML pages across site
 
 **Key Requirements:**
 - ✅ CSS version query: `?v=3.010.400`
@@ -746,6 +746,9 @@ Before marking any work complete, verify compliance with these standards:
 ---
 
 ## 🔄 Version History
+
+**v1.2.0 (2026-02-14):**
+- Metrics correction: ICP-Lite 1,229/1,241→1,232/1,238, total pages 1,241→1,238, ship images 536→669
 
 **v1.1.0 (2026-02-12):**
 - Accuracy audit: ICP-Lite 544/561→1,229/1,241, ports 147→380, logbooks 40→285, template v3.010.300→v3.010.305, CSS ?v=3.0→?v=3.010.400

@@ -111,7 +111,7 @@ InTheWake/
 │   │       ├── virgin-voyages-ports-master-list.md    # ~120 ports
 │   │       ├── msc-cruises-ports-master-list.md       # 380+ ports
 │   │       └── norwegian-cruise-line-ports-master-list.md  # 420+ ports
-│   ├── ships/                     # Ship images (536 WebP files)
+│   ├── ships/                     # Ship images (669 WebP files)
 │   │   ├── radiance-of-the-seas.webp
 │   │   ├── radiance-of-the-seas1.webp
 │   │   └── thumbs/                # Pre-sized thumbnails
@@ -478,10 +478,10 @@ const fleetData = await SiteCache.getJSON(
 ```javascript
 const CONFIG = {
   version: '14.2.0',
-  maxPages: 400,      // Site has 1,241 pages
+  maxPages: 400,      // Site has 1,238 pages
   maxAssets: 150,
-  maxImages: 600,     // Currently 536 ship images (2,998 WebP site-wide)
-  maxData: 100        // 1,278 JSON files in assets/data/
+  maxImages: 600,     // Currently 661 ship images (3,131 WebP site-wide)
+  maxData: 100        // 2,455 JSON files in assets/data/
 };
 ```
 
@@ -943,12 +943,12 @@ python3 comprehensive_site_audit.py
 **Decision:** Increase cache limits and improve caching strategies
 
 **Current limits:**
-- maxPages: 400 (site has 1,241 pages)
-- maxData: 100 (1,278 JSON files in assets/data/)
-- maxImages: 600 (536 ship images, 2,998 WebP site-wide)
+- maxPages: 400 (site has 1,238 pages)
+- maxData: 100 (2,455 JSON files in assets/data/)
+- maxImages: 600 (661 ship images, 3,131 WebP site-wide)
 
 **Rationale:**
-- Site has grown substantially (1,241 HTML pages, 298 ships, 380 ports, 472 venues)
+- Site has grown substantially (1,238 HTML pages, 298 ships, 380 ports, 472 venues)
 - Prevents cache eviction thrashing
 - Improves offline experience
 - Future-proofs for expansion
@@ -1168,5 +1168,6 @@ python3 comprehensive_site_audit.py
 ---
 
 **Version History:**
+- v1.2.0 (2026-02-14) - Metrics correction: ship images 536→669, total pages 1,241→1,238, WebP 2,998→3,131
 - v1.1.0 (2026-02-12) - Comprehensive accuracy update: ship pages 230→298 (15 cruise lines), ports 147→380, restaurants 25→472, logbooks 40→285, ship images 285→536, WebP 2,345→2,998, SW v13→v14.2.0, CSS ?v=3.0→?v=3.010.400, total pages 561→1,241
 - v1.0.0 (2025-11-23) - Initial comprehensive codebase guide created
