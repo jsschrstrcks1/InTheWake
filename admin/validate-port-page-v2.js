@@ -105,10 +105,10 @@ const SECTION_PATTERNS = {
   map: /map|interactive.?map|port.?map/i,
   beaches: /beaches?|beach guide|coastal/i,
   excursions: /(top )?excursions?|attractions?|things to (do|see)|activities/i,
-  history: /history|historical|heritage/i,
-  cultural: /cultural? (features?|highlights?|experiences?)|traditions?/i,
-  shopping: /shopping|retail|markets?/i,
-  food: /food|dining|restaurants?|eating|cuisine/i,
+  history: /\bhistory\b|\bhistorical\b|\bheritage\b/i,
+  cultural: /cultural? (features?|highlights?|experiences?)|\btraditions?\b(?!ally)/i,
+  shopping: /\bshopping\b|\bretail\b/i,
+  food: /\bfood\b(?! culture)|\bdining\b|\brestaurants?\b|\bcuisine\b/i,
   notices: /(special )?notices?|warnings?|alerts?|important|know before/i,
   depth_soundings: /depth soundings|final thoughts?|in conclusion|the (real|honest) story/i,
   practical: /practical (information|info)|quick reference|at a glance|summary/i,
@@ -680,11 +680,18 @@ function validateSectionOrder($) {
   }
 
   // Detect sections by scanning headings and IDs
+  // For headings (h2/h3), use text content; for sections/divs, only use id/class
+  // to avoid false positives from body text matching section patterns
   $('main h2, main h3, main section, main div[id], main div[class*="section"]').each((i, elem) => {
     const $elem = $(elem);
-    const $clone = $elem.clone();
-    $clone.find('noscript').remove();
-    const text = $clone.text().toLowerCase();
+    const tagName = (elem.tagName || elem.name || '').toLowerCase();
+    const isHeading = tagName === 'h2' || tagName === 'h3';
+    let text = '';
+    if (isHeading) {
+      const $clone = $elem.clone();
+      $clone.find('noscript').remove();
+      text = $clone.text().toLowerCase();
+    }
     const id = $elem.attr('id') || '';
     const className = $elem.attr('class') || '';
     const combined = `${text} ${id} ${className}`;
@@ -1828,6 +1835,18 @@ async function validatePortPage(filepath) {
   try {
     const html = await readFile(filepath, 'utf-8');
     const $ = load(html);
+
+    // Skip redirect pages (meta http-equiv="refresh")
+    const isRedirect = $('meta[http-equiv="refresh"]').length > 0;
+    if (isRedirect) {
+      results.info.push({
+        section: 'redirect',
+        rule: 'redirect_page',
+        message: 'Redirect page detected — validation skipped',
+        severity: 'INFO'
+      });
+      return results;
+    }
 
     // Run all validations
     const analyticsResult = validateAnalytics($, html);
