@@ -88,9 +88,10 @@ These are the same pattern across all/most active ships. Fix in template, propag
 - **Fix:** Expand image alt text to be more descriptive
 - **Removes:** 1 × `images/short_alt` warning
 
-### Phase 2 Impact
-- **Warnings removed:** 14
-- **Expected post-Phase-2 scores:** Most ships → 96–100
+### Phase 2 Impact — COMPLETED
+- **Warnings removed:** 14 (8 FAQ, 4 brochure, 1 ai-summary, 1 short-alt)
+- **Method:** Added 1 new FAQ Q&A per ship (both JSON-LD and HTML), replaced "perfect for" with natural language, expanded ai-summary and alt text
+- **Result:** All 8 FAQ ships now over 200 words, 0 brochure warnings, 0 short-alt warnings
 
 ---
 
