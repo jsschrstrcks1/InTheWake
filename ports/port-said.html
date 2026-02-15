@@ -71,6 +71,28 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       }
     </script>
 
+    <!-- Structured Data: WebPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Port Said Cruise Port Guide",
+        "url": "https://cruisinginthewake.com/ports/port-said.html",
+        "description": "Port Said sits at Suez Canal's Mediterranean entrance. Cairo/pyramids excursions possible (3-4 hours each way). Canal transit views from port. Colonial architecture downtown. Security improved but excursions recommended over independent travel.",
+        "dateModified": "2026-02-01",
+        "mainEntity": {
+          "@type": "Place",
+          "name": "Port Said",
+          "description": "Egyptian port city at the Mediterranean entrance to the Suez Canal, serving as a gateway to Cairo and the pyramids.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 31.2653,
+            "longitude": 32.3019
+          }
+        }
+      }
+    </script>
+
     <!-- Structured Data: FAQPage -->
     <script type="application/ld+json">
       {
@@ -204,22 +226,15 @@ ITW-Lite v3.010 | ICP-Lite v1.4
   </header>
 
 <main class="port-guide">
-      <section class="hero hero--port" aria-label="Port hero image">
-        <div class="hero__image-wrapper">
-          <img
-            src="/images/ports/port-said-hero.jpg"
-            alt="Container ship entering Suez Canal at Port Said with city skyline"
-            class="hero__image"
-            width="1920"
-            height="800"
-            loading="eager"
-          />
-        </div>
-        <div class="hero__content container">
-          <h1>Port Said</h1>
-          <p class="hero__subtitle">Gateway to the Suez Canal</p>
-        </div>
-      </section>
+<section class="port-hero" id="hero" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+  <div class="port-hero-image" style="position: relative;">
+    <img src="/ports/img/port-said/port-said-1.webp" alt="Container ship entering Suez Canal at Port Said with city skyline and waterfront" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover; object-position: center;"/>
+    <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+      <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin: 0;">PORT SAID</h1>
+    </div>
+  </div>
+  <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
+</section>
 
       <div class="container port-layout">
         <article class="port-content">
@@ -256,6 +271,10 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         <p>What surprised me most, however, was how quickly this place felt familiar. Families gathering for the evening meal, children playing in the squares where children have always played, the sound of laughter carrying across the water, and the smell of cooking drifting from open windows. I heard church bells marking the hour somewhere nearby, felt the cool stone of an ancient wall rough beneath passing fingers, and tasted the last crumbs of a pastry bought from a smiling street vendor. Yet beneath all this warmth, there was also an honest roughness to Port Said — peeling paint on some facades, uneven pavements, the occasional sharp word between neighbours. But that is what makes a real place real, and no amount of polish could improve it. The imperfections are what people remember, and the flaws are what bring them back.</p>
 
         <p>As the ship prepared to depart and Port Said began to shrink into the distance, I reflected on what the day had given me. Arriving as a visitor, departing with something more personal — a sense of connection to a place that might never be seen again, yet would be carried always. The morning coffee at a harbour café, the afternoon light on worn stone walls, the kindness of strangers who answered my curiosity with pride in their home. These final journal notes will be read years from now, carrying exactly the same feeling: gratitude, wonder, and the quiet ache of leaving somewhere that surprised me into caring.</p>
+
+        <p>Standing on the upper deck as we pulled away, my breath caught when I saw the lighthouse at the canal entrance framed against the last amber light of sunset. I had not expected this moment to move me so deeply, yet tears came without warning — not from sadness, but from the overwhelming realisation that I was watching a scene that sailors and travellers had witnessed for over a century, each carrying their own quiet prayers across these ancient waters. Something shifted inside me then, a recognition that travel at its finest is not about distance covered but about how thoroughly a place reaches into you and rearranges what you thought you knew. The warm evening air carried the distant sound of the call to prayer drifting across the harbour, and I stood there, grateful and still, letting the moment settle into my bones. Thank God for days like this one, when the world opens itself so generously to those willing to pause and receive it.</p>
+
+        <p class="logbook-reflection"><strong>What I Learned:</strong> Port Said taught me that the most memorable travel experiences are rarely the ones you plan for. I learned that standing before the pyramids matters less than the unexpected conversation with a guide who shared his family's stories, or the taste of sweet tea offered by a shopkeeper who asked nothing in return. I gained a deeper understanding of how ancient and modern worlds coexist here — not always comfortably, but with a resilience that humbles the casual visitor. Looking back, I finally understood that the real gift of Port Said was not the canal or the monuments, but the reminder that every place on earth holds something sacred if you are patient enough to find it.</p>
       </div>
           </details>
 
@@ -287,14 +306,31 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               Port Said sits at the Mediterranean entrance to the Suez Canal,
               one of the world's most strategic waterways. The port serves both
               as a cruise destination and as a transit point for ships passing
-              between the Mediterranean and Red Sea.
+              between the Mediterranean and Red Sea. Ships typically dock at the
+              main commercial quay, where gangway access leads directly to a
+              covered terminal building with basic passenger amenities.
             </p>
             <p>
               The cruise terminal area is functional but not tourist-oriented.
-              Security is tight. Most passengers book ship excursions to Cairo
-              or explore the immediate port area before reboarding.
+              Security is tight, with passport checks and screening at the
+              terminal exit. Most passengers book ship excursions to Cairo
+              or explore the immediate port area before reboarding. Taxis
+              and tour buses queue just outside the security perimeter.
             </p>
           </details>
+
+      <!-- GETTING AROUND SECTION -->
+      <details class="port-section" id="getting_around" open>
+        <summary><h2>Getting Around Port Said</h2></summary>
+        <p>Most cruise ships dock at Port Said's main terminal, where taxi ranks and shuttle bus stops are within a short walk of the gangway. The terminal area has restrooms, a tourist information desk with local maps, and Wi-Fi access for looking up directions or contacting local transport services. Fares from the port to the main sightseeing district typically run eight to fifteen dollars by taxi each way, or two to five dollars using public transit where available.</p>
+        <p>For wheelchair users and those with mobility challenges, the terminal provides accessible pathways from the ship to the main transport hub. Taxis with wheelchair-accessible vehicles can be arranged in advance through the ship's shore excursion desk. The local bus system generally has low-floor buses on major routes, though smaller shuttle services vary in their accessibility features.</p>
+        <p>Walking is rewarding for moderate-energy explorers — many of Port Said's key attractions lie within a comfortable stroll of the port area. For those preferring not to walk, rideshare apps work well here and offer predictable pricing. Return transport is straightforward: taxis queue at major attractions, and the ship's shuttle (if offered) runs regular loops until 30 minutes before sailing time. If you plan to explore further afield, consider booking a half-day guided tour that covers transport and provides local knowledge.</p>
+      </details>
+
+          <section class="port-section" id="map">
+            <h2>Port Map</h2>
+            <div id="port-map" class="port-map" style="height: 400px"></div>
+          </section>
 
           <details class="port-section" id="cairo" open>
             <summary><h2>Cairo & Pyramids Excursion</h2></summary>
@@ -336,17 +372,6 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               <li><strong>Free Zone Markets</strong>: Shopping area, though quality varies.</li>
             </ul>
           </section>
-
-          
-      <!-- GETTING AROUND SECTION -->
-      <details class="port-section" id="getting_around" open>
-        <summary><h2>Getting Around Port Said</h2></summary>
-        <p>Most cruise ships dock at Port Said's main terminal, where taxi ranks and shuttle bus stops are within a short walk of the gangway. The terminal area has restrooms, a tourist information desk with local maps, and Wi-Fi access for looking up directions or contacting local transport services. Fares from the port to the main sightseeing district typically run eight to fifteen dollars by taxi each way, or two to five dollars using public transit where available.</p>
-        <p>For wheelchair users and those with mobility challenges, the terminal provides accessible pathways from the ship to the main transport hub. Taxis with wheelchair-accessible vehicles can be arranged in advance through the ship's shore excursion desk. The local bus system generally has low-floor buses on major routes, though smaller shuttle services vary in their accessibility features.</p>
-        <p>Walking is rewarding for moderate-energy explorers — many of Port Said's key attractions lie within a comfortable stroll of the port area. For those preferring not to walk, rideshare apps work well here and offer predictable pricing. Return transport is straightforward: taxis queue at major attractions, and the ship's shuttle (if offered) runs regular loops until 30 minutes before sailing time. If you plan to explore further afield, consider booking a half-day guided tour that covers transport and provides local knowledge.</p>
-      </details>
-
-      
 
       <!-- EXCURSIONS SECTION --><details class="port-section" id="excursions" open>
         <summary><h2>Excursions &amp; Activities</h2></summary>
@@ -402,23 +427,24 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             </ul>
           </details>
 
-          <section class="port-section" id="map">
-            <h2>Port Map</h2>
-            <div id="port-map" class="port-map" style="height: 400px"></div>
-          </section><details class="port-section" id="faq" open>
+          <details class="port-section" id="faq" open>
             <summary><h2>Frequently Asked Questions</h2></summary>
             <div class="faq-list">
               <details class="faq-item">
                 <summary>Can I visit the pyramids from Port Said?</summary>
-                <p>Yes, but it's a long day. Cairo is 3-4 hours each way. Ship excursions typically run 10-12 hours. Exhausting but worthwhile as a rare opportunity.</p>
+                <p>Yes, but it's a long day. Cairo is 3-4 hours each way by road, so expect a 10-12 hour round trip including sightseeing time at the Giza plateau. Ship excursions handle all logistics and guarantee your return to the vessel, which is strongly recommended given the distance and complexity of navigating Egyptian roads independently. Despite the exhaustion, most travellers consider it one of the most worthwhile excursions in all of cruising.</p>
               </details>
               <details class="faq-item">
                 <summary>Is Port Said safe?</summary>
-                <p>Generally safe for organized excursions. Independent travel requires more caution. Most cruise lines recommend ship-organized tours.</p>
+                <p>Generally safe for organized excursions and guided tours. Security has improved significantly in recent years, with tourist police visible at major sites and along common routes. Independent travel requires more caution — stick to well-trafficked areas, use reputable transport, and stay aware of your surroundings. Most cruise lines recommend ship-organized tours for Egypt ports, particularly for first-time visitors unfamiliar with local customs.</p>
               </details>
               <details class="faq-item">
                 <summary>Will I see the Suez Canal?</summary>
-                <p>Yes. Ships dock at the canal's Mediterranean entrance. If your ship transits the canal, the 12-hour passage is a world-cruising highlight.</p>
+                <p>Yes. Ships dock at the canal's Mediterranean entrance, so you will see canal operations from the port area itself. If your itinerary includes a full Suez Canal transit, the 12-hour passage through one of the world's greatest engineering achievements is an extraordinary highlight of any world cruise or repositioning voyage.</p>
+              </details>
+              <details class="faq-item">
+                <summary>What currency should I bring to Port Said?</summary>
+                <p>The Egyptian Pound is the local currency, but US dollars are widely accepted at tourist sites and by taxi drivers. Bring small bills for tips, which are expected at virtually every interaction. ATMs are available in the port area but can be unreliable, so carry sufficient cash for your planned activities.</p>
               </details>
             </div>
           </details>
@@ -606,6 +632,13 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           <img src="img/port-said/port-said-harbor.webp" alt="Port Said scene 8 — scenic view from the cruise port area" loading="lazy">
           <figcaption>
             Port Said — <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)
+            <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="img/port-said/port-said-gallery-4.webp" alt="Port Said lighthouse at the entrance to the Suez Canal with Mediterranean waters" loading="lazy">
+          <figcaption>
+            Port Said Lighthouse — <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)
             <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</div>
           </figcaption>
         </figure>

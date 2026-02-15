@@ -78,6 +78,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         "@type": "WebPage",
         "name": "Trinidad Cruise Port Guide",
         "description": "Trinidad ships dock at Port of Spain. Carnival birthplace with year-round calypso culture. Maracas Bay famous for shark and bake. Caroni Swamp has scarlet ibis at sunset. Most multicultural Caribbean island.",
+        "dateModified": "2026-02-01",
         "mainEntity": {
           "@type": "Place",
           "name": "Port of Spain",
@@ -86,9 +87,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             "@type": "GeoCoordinates",
             "latitude": 10.6596,
             "longitude": -61.5086
-          ,
-        "dateModified": "2026-02-01"
-      },
+          },
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "Port of Spain",
@@ -232,21 +231,14 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
 <main class="port-guide">
       <!-- Hero Section -->
-      <section class="hero hero--port" aria-label="Port hero image">
-        <div class="hero__image-wrapper">
-          <img
-            src="/images/ports/trinidad-hero.jpg"
-            alt="Colorful Carnival masqueraders in elaborate feathered costumes dancing through Port of Spain streets"
-            class="hero__image"
-            width="1920"
-            height="800"
-            loading="eager"
-          />
+      <section class="port-hero" id="hero" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+        <div class="port-hero-image" style="position: relative;">
+          <img src="/ports/img/trinidad/trinidad-1.webp" alt="Colorful Carnival masqueraders in elaborate feathered costumes dancing through Port of Spain streets" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover; object-position: center;"/>
+          <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin: 0;">Trinidad</h1>
+          </div>
         </div>
-        <div class="hero__content container">
-          <h1>Trinidad</h1>
-          <p class="hero__subtitle">Birthplace of Carnival</p>
-        </div>
+        <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
       </section>
 
       <div class="container port-layout">
@@ -309,7 +301,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
               destination—it's a working, vibrant nation with its own identity.
               The oil-rich economy means locals aren't dependent on cruise
               tourism, which can make for refreshingly authentic interactions.
-              You're a guest, not a customer.
+              You're a guest, not a customer. Taxi ranks and local guides wait just outside the terminal gates for those exploring independently.
             </p>
           </details>
 
@@ -363,7 +355,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           </section>
 
           <details class="port-section" id="attractions" open>
-            <summary><h2>Top Attractions</h2></summary>
+            <summary><h2>Highlights of Trinidad</h2></summary>
 
             <h3>Maracas Bay</h3>
             <p>
@@ -413,7 +405,12 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         <p>Walking is rewarding for moderate-energy explorers — many of Trinidad's key attractions lie within a comfortable stroll of the port area. For those preferring not to walk, rideshare apps work well here and offer predictable pricing. Return transport is straightforward: taxis queue at major attractions, and the ship's shuttle (if offered) runs regular loops until 30 minutes before sailing time. If you plan to explore further afield, consider booking a half-day guided tour that covers transport and provides local knowledge.</p>
       </details>
 
-      
+      <!-- Port Map -->
+      <section class="port-section" id="map">
+        <h2>Port Map</h2>
+        <div id="port-map" class="port-map" style="height: 400px" aria-label="Map showing Trinidad cruise port and attractions"></div>
+      </section>
+
 
 
       <!-- EXCURSIONS SECTION --><details class="port-section" id="excursions" open>
@@ -533,17 +530,6 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             </ul>
           </details>
 
-          <!-- Port Map -->
-          <section class="port-section" id="map">
-            <h2>Port Map</h2>
-            <div
-              id="port-map"
-              class="port-map"
-              style="height: 400px"
-              aria-label="Map showing Trinidad cruise port and attractions"
-            ></div>
-          </section>
-
           <!-- FAQ Section --><details class="port-section" id="faq" open>
             <summary><h2>Frequently Asked Questions</h2></summary>
             <div class="faq-list">
@@ -580,6 +566,12 @@ ITW-Lite v3.010 | ICP-Lite v1.4
                   destinations. Stick to tourist areas, use official taxis, and
                   avoid displaying valuables. Most cruise visitors have safe,
                   enjoyable experiences with basic precautions.
+                </p>
+              </details>
+              <details class="faq-item">
+                <summary>What currency is used in Trinidad?</summary>
+                <p>
+                  The Trinidad and Tobago dollar (TTD) is the local currency, but US dollars are widely accepted at most tourist-oriented businesses, restaurants, and taxi services. Credit cards work at larger establishments, though smaller vendors and market stalls prefer cash. ATMs are available near the port terminal and throughout Port of Spain for withdrawing local currency at competitive exchange rates.
                 </p>
               </details>
             </div>
