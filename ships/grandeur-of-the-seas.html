@@ -97,7 +97,7 @@ All work on this project is offered as a gift to God.
       "url":"https://cruisinginthewake.com/ships/rcl/grandeur-of-the-seas.html",
       "image":"https://cruisinginthewake.com/assets/ships/grandeur/hero.jpg?v=3.007.010",
       "description":"Vision-class cruise operated by Royal Caribbean International."}}
-  }</script>
+  </script>
 
   <!-- ===== CSS (versioned) ===== -->
   <link rel="preload" as="style" href="https://cruisinginthewake.com/assets/styles.css?v=3.006.008"/>
@@ -438,6 +438,19 @@ All work on this project is offered as a gift to God.
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook — Tales From the Wake</h2>
       <div id="logbook-stories" class="prose">
+        <noscript>
+          <article class="story">
+            <h3>The Grandmother Who Sailed for the First Time at 82</h3>
+            <div class="story-body">
+              <p><strong>Eighty-two years old, and I'd never left solid ground.</strong></p>
+              <p>Not by choice — by fear. Airplanes terrified me since childhood. Ships seemed reckless. For eighty-two years, my world had been contained within driving distance of my home in Pennsylvania.</p>
+              <p>But when my granddaughter graduated nursing school, she begged: "Grandma, please. One cruise. Just you and me." She chose <a href="/ships/rcl/grandeur-of-the-seas.html">Grandeur</a> specifically, after researching for months. "Smaller," she explained. "You won't get lost. Won't feel overwhelmed."</p>
+              <p>I stood in Caribbean water for the first time in my life. Warm. Clear. Gentle around my ankles. I was crying before I realized I was crying — not from fear but from the overwhelming realization that I'd waited eighty-two years for this moment.</p>
+              <p><strong>The lesson:</strong> It's never too late to try something new. The ocean waited eighty-two years for me, and it wasn't disappointed.</p>
+              <p class="tiny">— Mildred B.</p>
+            </div>
+          </article>
+        </noscript>
         <p class="tiny">Loading real guest perspectives…</p>
       </div>
       <script type="application/json" id="logbook-data">{
@@ -618,21 +631,6 @@ All work on this project is offered as a gift to God.
       }</script>
     </section>
 
-    <!-- Image Attributions -->
-    <section class="card attributions" aria-labelledby="attribs">
-      <h2 id="attribs">Image Attributions</h2>
-      <ul>
-        <li>
-          Grandeur gallery images: ©
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
-          — <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener noreferrer">Instagram</a>. All rights reserved. Used with permission.
-        </li>
-        <li>Dining hero (<em>Cordelia&nbsp;Empress&nbsp;Food&nbsp;Court</em>): © Wikimedia Commons, CC BY-SA 4.0.</li>
-        <li>Header/Wordmark: © In the Wake.</li>
-      </ul>
-      <p class="tiny">All rights reserved where applicable.</p>
-    </section>
-  
     <!-- ICP-Lite FAQ Section -->
     <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
       <h2 style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions About Grandeur of the Seas</h2>
@@ -657,13 +655,30 @@ All work on this project is offered as a gift to God.
         <p  class="list-indent">This page provides planning resources and community insights. Always confirm details with Royal Caribbean or your travel advisor before booking.</p>
       </details>
     </section>
+
+    <!-- Image Attributions -->
+    <section class="card attributions" aria-labelledby="attribs">
+      <h2 id="attribs">Image Attributions</h2>
+      <ul>
+        <li>
+          Grandeur gallery images: ©
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener noreferrer">Flickers of Majesty</a>
+          — <a href="https://www.instagram.com/flickersofmajesty/" target="_blank" rel="noopener noreferrer">Instagram</a>. All rights reserved. Used with permission.
+        </li>
+        <li>Dining hero (<em>Cordelia&nbsp;Empress&nbsp;Food&nbsp;Court</em>): © Wikimedia Commons, CC BY-SA 4.0.</li>
+        <li>Header/Wordmark: © In the Wake.</li>
+      </ul>
+      <p class="tiny">All rights reserved where applicable.</p>
+    </section>
       <!-- Recent Articles rail -->
       <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
         <p class="tiny content-text">
           Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
         </p>
+        <nav id="recent-rail-nav-top" class="rail-nav mb-05" aria-label="Article pagination"></nav>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <nav id="recent-rail-nav-bottom" class="rail-nav mt-075" aria-label="Article pagination"></nav>
         <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
       </section>
 
@@ -732,13 +747,13 @@ All work on this project is offered as a gift to God.
     when(function(){
       try{
         new Swiper('.swiper.firstlook',{
-          loop:false,lazy:true,watchOverflow:true,
+          loop:false,rewind:false,lazy:true,watchOverflow:true,
           pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
           navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
           a11y:{enabled:true}
         });
         new Swiper('.swiper.videos',{
-          loop:false,lazy:true,watchOverflow:true,
+          loop:false,rewind:false,lazy:true,watchOverflow:true,
           pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
           navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
           a11y:{enabled:true}
