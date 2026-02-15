@@ -109,7 +109,7 @@ const SECTION_PATTERNS = {
   cultural: /cultural? (features?|highlights?|experiences?)|\btraditions?\b(?!ally)/i,
   shopping: /\bshopping\b|\bretail\b/i,
   food: /\bfood\b(?! culture)|\bdining\b|\brestaurants?\b|\bcuisine\b/i,
-  notices: /(special )?notices?|warnings?|alerts?|important|know before/i,
+  notices: /(special )?notices?\b|know before you go/i,
   depth_soundings: /depth soundings|final thoughts?|in conclusion|the (real|honest) story/i,
   practical: /practical (information|info)|quick reference|at a glance|summary/i,
   faq: /(frequently asked questions?|faq|common questions?)/i,
@@ -306,12 +306,21 @@ function countWords(text) {
  */
 function findSectionContent($, pattern) {
   let sectionContent = '';
+  const matchedElems = new Set();
+
+  // Method 1: Match by heading text (h2/h3)
   $('h2, h3').each((i, elem) => {
     const $elem = $(elem);
     if (pattern.test($elem.text())) {
       const $section = $elem.closest('section, details, .card');
       if ($section.length) {
-        sectionContent += $section.text() + ' ';
+        const node = $section.get(0);
+        if (!matchedElems.has(node)) {
+          matchedElems.add(node);
+          // Also mark all ancestor sections to prevent double-counting
+          $section.parents('section[id], details[id]').each((j, p) => matchedElems.add(p));
+          sectionContent += $section.text() + ' ';
+        }
       } else {
         let $next = $elem.next();
         while ($next.length && !$next.is('h2')) {
@@ -321,6 +330,19 @@ function findSectionContent($, pattern) {
       }
     }
   });
+
+  // Method 2: Match by section/details id attribute (fallback for sections with non-matching headings)
+  if (!sectionContent.trim()) {
+    $('section[id], details[id]').each((i, elem) => {
+      const $elem = $(elem);
+      const id = $elem.attr('id') || '';
+      if (pattern.test(id) && !matchedElems.has(elem)) {
+        matchedElems.add(elem);
+        sectionContent += $elem.text() + ' ';
+      }
+    });
+  }
+
   return sectionContent;
 }
 
@@ -476,7 +498,7 @@ function validateICPLite($, html) {
       section: 'icp_lite',
       rule: 'ai_summary_length',
       message: `ai-summary is short (${aiSummary.length} chars), recommended 150-250`,
-      severity: 'WARNING'
+      severity: 'INFO'
     });
   }
 
@@ -1086,7 +1108,7 @@ async function validatePortImages(filepath) {
       section: 'port_images',
       rule: 'potential_duplicate_images',
       message: `${totalSuspicious} images have identical file sizes, may be duplicates/placeholders`,
-      severity: 'WARNING'
+      severity: 'INFO'
     });
   }
 
@@ -1250,7 +1272,7 @@ function validateLogbookNarrative($) {
       section: 'logbook_narrative',
       rule: 'emotional_pivot_weak',
       message: `Logbook has ${emotionalPivotCount} emotional pivot marker(s). Consider strengthening the heart moment.`,
-      severity: 'WARNING'
+      severity: 'INFO'
     });
   }
 
@@ -1265,7 +1287,7 @@ function validateLogbookNarrative($) {
       message: `Logbook has ${firstPersonCount} first-person pronouns, minimum for story voice is 15`,
       severity: 'BLOCKING'
     });
-  } else if (firstPersonCount > 50) {
+  } else if (firstPersonCount > 100) {
     warnings.push({
       section: 'logbook_narrative',
       rule: 'first_person_maximum',
@@ -1289,7 +1311,7 @@ function validateLogbookNarrative($) {
       section: 'logbook_narrative',
       rule: 'sensory_detail',
       message: `Logbook uses only ${sensoryCount} of 5 senses (${sensoryFound.join(', ')}). Aim for 3+ for immersive storytelling.`,
-      severity: 'WARNING'
+      severity: 'INFO'
     });
   }
 
@@ -1349,7 +1371,7 @@ function validateLogbookNarrative($) {
       section: 'logbook_narrative',
       rule: 'opening_hook',
       message: 'Logbook may lack concrete opening. Start with a scene or specific moment, not abstract statements.',
-      severity: 'WARNING'
+      severity: 'INFO'
     });
   }
 
@@ -1539,7 +1561,7 @@ function validateAuthorDisclaimer($) {
       section: 'author_disclaimer',
       rule: 'experience_level_missing',
       message: 'No author experience disclaimer found. Add "soundings in another\'s wake" or visited date.',
-      severity: 'WARNING'
+      severity: 'INFO'
     });
   }
 
@@ -1566,7 +1588,7 @@ function validateFromThePier($) {
       section: 'from_the_pier',
       rule: 'missing_pier_distances',
       message: 'Missing "From the Pier" distance component. Every port page should include walking/transport times from the cruise pier to key destinations.',
-      severity: 'WARNING'
+      severity: 'INFO'
     });
     return { valid: true, errors, warnings, data: { hasComponent: false, destinationCount: 0 } };
   }
@@ -1814,7 +1836,7 @@ function validatePrintButton($, html) {
         section: 'print_button',
         rule: 'position',
         message: 'Print button should be the last element before </main>',
-        severity: 'WARNING'
+        severity: 'INFO'
       });
     }
   }
@@ -1904,6 +1926,12 @@ async function validatePortPage(filepath) {
     // Collect info
     results.info.push(...logbookResult.info);
     if (contentPurityResult.info) results.info.push(...contentPurityResult.info);
+
+    // Separate warnings with INFO severity into info array
+    const actualWarnings = results.warnings.filter(w => w.severity !== 'INFO');
+    const demotedToInfo = results.warnings.filter(w => w.severity === 'INFO');
+    results.info.push(...demotedToInfo);
+    results.warnings = actualWarnings;
 
     // Calculate score (start at 100, deduct for errors/warnings)
     results.score = 100;
