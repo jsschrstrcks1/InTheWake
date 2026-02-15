@@ -109,7 +109,7 @@ const SECTION_PATTERNS = {
   cultural: /cultural? (features?|highlights?|experiences?)|\btraditions?\b(?!ally)/i,
   shopping: /\bshopping\b|\bretail\b/i,
   food: /\bfood\b(?! culture)|\bdining\b|\brestaurants?\b|\bcuisine\b/i,
-  notices: /(special )?notices?\b|know before you go/i,
+  notices: /(special )?notices?|warnings?|alerts?|important|know before/i,
   depth_soundings: /depth soundings|final thoughts?|in conclusion|the (real|honest) story/i,
   practical: /practical (information|info)|quick reference|at a glance|summary/i,
   faq: /(frequently asked questions?|faq|common questions?)/i,
@@ -498,7 +498,7 @@ function validateICPLite($, html) {
       section: 'icp_lite',
       rule: 'ai_summary_length',
       message: `ai-summary is short (${aiSummary.length} chars), recommended 150-250`,
-      severity: 'INFO'
+      severity: 'WARNING'
     });
   }
 
@@ -1108,7 +1108,7 @@ async function validatePortImages(filepath) {
       section: 'port_images',
       rule: 'potential_duplicate_images',
       message: `${totalSuspicious} images have identical file sizes, may be duplicates/placeholders`,
-      severity: 'INFO'
+      severity: 'WARNING'
     });
   }
 
@@ -1272,7 +1272,7 @@ function validateLogbookNarrative($) {
       section: 'logbook_narrative',
       rule: 'emotional_pivot_weak',
       message: `Logbook has ${emotionalPivotCount} emotional pivot marker(s). Consider strengthening the heart moment.`,
-      severity: 'INFO'
+      severity: 'WARNING'
     });
   }
 
@@ -1287,7 +1287,7 @@ function validateLogbookNarrative($) {
       message: `Logbook has ${firstPersonCount} first-person pronouns, minimum for story voice is 15`,
       severity: 'BLOCKING'
     });
-  } else if (firstPersonCount > 100) {
+  } else if (firstPersonCount > 50) {
     warnings.push({
       section: 'logbook_narrative',
       rule: 'first_person_maximum',
@@ -1311,7 +1311,7 @@ function validateLogbookNarrative($) {
       section: 'logbook_narrative',
       rule: 'sensory_detail',
       message: `Logbook uses only ${sensoryCount} of 5 senses (${sensoryFound.join(', ')}). Aim for 3+ for immersive storytelling.`,
-      severity: 'INFO'
+      severity: 'WARNING'
     });
   }
 
@@ -1371,7 +1371,7 @@ function validateLogbookNarrative($) {
       section: 'logbook_narrative',
       rule: 'opening_hook',
       message: 'Logbook may lack concrete opening. Start with a scene or specific moment, not abstract statements.',
-      severity: 'INFO'
+      severity: 'WARNING'
     });
   }
 
@@ -1561,7 +1561,7 @@ function validateAuthorDisclaimer($) {
       section: 'author_disclaimer',
       rule: 'experience_level_missing',
       message: 'No author experience disclaimer found. Add "soundings in another\'s wake" or visited date.',
-      severity: 'INFO'
+      severity: 'WARNING'
     });
   }
 
@@ -1588,7 +1588,7 @@ function validateFromThePier($) {
       section: 'from_the_pier',
       rule: 'missing_pier_distances',
       message: 'Missing "From the Pier" distance component. Every port page should include walking/transport times from the cruise pier to key destinations.',
-      severity: 'INFO'
+      severity: 'WARNING'
     });
     return { valid: true, errors, warnings, data: { hasComponent: false, destinationCount: 0 } };
   }
@@ -1836,7 +1836,7 @@ function validatePrintButton($, html) {
         section: 'print_button',
         rule: 'position',
         message: 'Print button should be the last element before </main>',
-        severity: 'INFO'
+        severity: 'WARNING'
       });
     }
   }
@@ -1926,12 +1926,6 @@ async function validatePortPage(filepath) {
     // Collect info
     results.info.push(...logbookResult.info);
     if (contentPurityResult.info) results.info.push(...contentPurityResult.info);
-
-    // Separate warnings with INFO severity into info array
-    const actualWarnings = results.warnings.filter(w => w.severity !== 'INFO');
-    const demotedToInfo = results.warnings.filter(w => w.severity === 'INFO');
-    results.info.push(...demotedToInfo);
-    results.warnings = actualWarnings;
 
     // Calculate score (start at 100, deduct for errors/warnings)
     results.score = 100;
