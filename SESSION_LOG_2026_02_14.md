@@ -227,17 +227,40 @@
 
 ---
 
-**Session Status:** PHASE 2 COMPLETE → PHASE 3 ANALYZED & DEFERRED
-**Session Health:** ✅ Following careful-not-clever guardrail throughout
-**Documentation Quality:** ✅ Detailed, verified, sources cited, recommendations included
+**Session 2 Status (Feb 14):** PHASE 2 COMPLETE → PHASE 3 ANALYZED & DEFERRED
 
-**Final Work Summary:**
-- **Phase 1:** Removed aria-hidden from Soli Deo Gloria (224 ships) — ✅ COMMITTED & PUSHED
-- **Phase 2:** Added /planning.html navigation link (302 ships) — ✅ COMMITTED & PUSHED
-- **Phase 3:** Generic review text analyzed (207 ships identified) — ✅ DEFERRED (awaiting user priority)
-- **Total Files Modified:** 526 files across Phases 1 & 2
-- **Total Commits:** 3 (2 fix commits + 1 tracking docs commit)
-- **Tracking Documents:** SESSION_LOG_2026_02_14.md, SHIP_VALIDATION_FIX_PROGRESS_2026_02_14.md, PHASE_3_GENERIC_REVIEW_ANALYSIS_2026_02_14.md
+---
+
+## Session 3 Work (2026-02-15)
+
+### Phase 4: Compass Rose Accessibility Fix
+- **Issue:** 212 ships had decorative compass_rose.svg with `alt=""` but no `aria-hidden="true"`
+- **Fix:** Node.js script added `aria-hidden="true"` to all 212 files (222 instances)
+- **Testing:** Verified on 4 sample ships; cross-checked no double-adding on already-fixed files
+- **Impact:** +96 ships passing (23 → 119)
+
+### Phase 5: Noscript Logbook Fallback
+- **Issue:** 56 ships with empty `#logbook-stories` div, no content for no-JS users
+- **Fix:** Extracted first story from each ship's logbook JSON, inserted as `<noscript>` block
+- **Manual:** 2 Celebrity ships (personas-based JSON) fixed by hand
+- **Testing:** Verified rcl/voyager-of-the-seas went from FAIL (90) to PASS (100)
+- **Impact:** +38 more ships passing (119 → 157)
+
+### Combined Commit
+- **Commit:** `ff02b351` — FIX: Accessibility — aria-hidden on compass rose + noscript logbook
+- **Files:** 257 modified
+- **Pushed:** Yes ✅
+
+---
+
+**Final Work Summary (All Sessions):**
+- **Phase 1:** Removed aria-hidden from Soli Deo Gloria (224 ships) — ✅
+- **Phase 2:** Added /planning.html navigation link (302 ships) — ✅
+- **Phase 3:** Generic review text analyzed (207 ships) — ✅ DEFERRED
+- **Phase 4:** Added aria-hidden to compass_rose.svg (212 ships) — ✅
+- **Phase 5:** Added noscript logbook fallback (56 ships) — ✅
+- **Total Files Modified:** 785+ across Phases 1-5
+- **Net Result:** 23 → 157 ships passing (+134), errors 1,069 → 799 (-270)
 
 ---
 
