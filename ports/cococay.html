@@ -1018,7 +1018,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         if(fallback) fallback.style.display = 'none';
       }
     } catch (err) {
-      console.log('Could not load articles:', err);
+      
       if(fallback) fallback.textContent = 'Unable to load articles';
     }
   })();
@@ -1061,7 +1061,7 @@ document.addEventListener('DOMContentLoaded', function() {
         navigation: { nextEl: '.swiper.cococay-gallery .swiper-button-next', prevEl: '.swiper.cococay-gallery .swiper-button-prev' },
         a11y: { enabled: true }
       });
-    } catch(e) { console.log('Swiper init failed:', e); }
+    } catch(e) {  }
   });
 })();
 </script>
