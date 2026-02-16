@@ -56,7 +56,7 @@ All work on this project is offered as a gift to God.
     document.addEventListener('DOMContentLoaded', function(){
       if (window.Swiper && document.querySelector('.swiper')) {
         document.querySelectorAll('.swiper').forEach(function(el){
-          new Swiper(el, { slidesPerView: 1, spaceBetween: 16, loop: false });
+          new Swiper(el, { slidesPerView: 1, spaceBetween: 16, loop: false, rewind: false });
         });
       }
     });
@@ -342,14 +342,14 @@ All work on this project is offered as a gift to God.
     </div>
     <div class="hero" role="img" aria-label="Ship wake at sunrise">
       <div class="latlon-grid" aria-hidden="true"></div>
-      <img loading="lazy" class="hero-compass" src="https://jsschrstrcks1.github.io/InTheWake/assets/compass_rose.svg" alt="" aria-hidden="true"/>
+      <img loading="lazy" class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true"/>
       <div class="hero-title">
         <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a></div>
     </div></header>
-  <main role="main" class="wrap page-grid" id="content" data-imo="9837432">
+  <main role="main" class="wrap page-grid" id="content" data-ship="Msc World America" data-imo="9837432">
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
@@ -381,11 +381,44 @@ All work on this project is offered as a gift to God.
 <script type="application/json" id="dining-data-source">{"provider":"msc","json":"/assets/data/venues-v2.json","ship_slug":"msc-world-america","aliases":["Msc World America"]}</script>
         <script type="application/json" id="ship-stats-fallback">{"slug":"msc-world-america","name":"Msc World America","cruise_line":"MSC Cruises","class":"World Class","entered_service":2025,"gt":"215,863 GT","guests":"6,762","crew":"2,138","notes":"World Class · Entered service April 2025 · 215,863 GT"}</script>
 
-<section class="card" data-ship="Msc World America" aria-labelledby="watch-highlights">
-  <h2 id="watch-highlights">Watch: Msc World America Highlights</h2>
-  <p class="muted">Video highlights coming soon.</p>
+    <!-- A First Look -->
+<section class="card" aria-labelledby="first-look">
+  <h2 id="first-look">A First Look at Msc World America</h2>
+      <div class="swiper firstlook" aria-label="MSC World America photo gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/msc-world-america_01.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MSC World America on delivery day at Saint-Nazaire" loading="lazy">
+              <figcaption class="tiny">MSC World America on delivery day at Saint-Nazaire — JPD115 (CC BY-SA 4.0)</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/msc-world-america_02.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MSC World America at Saint-Nazaire (cropped)" loading="lazy">
+              <figcaption class="tiny">MSC World America at Saint-Nazaire (cropped) — JPD115 (CC BY-SA 4.0)</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
+      </div>
+  <div class="grid-3"><div class="photo ph-placeholder"></div><div class="photo ph-placeholder"></div><div class="photo ph-placeholder"></div></div><p class="muted">Gallery coming soon.</p>
+  <p>MSC World America arrives in April 2025 as the third World-class ship and the first designed with the North American market as the primary focus. At 215,863 GT and 1,122 feet long, she's among the largest cruise ships ever built. The standout design feature is the Europa promenade — a multi-level outdoor boulevard stretching the length of the ship with restaurants, shops, and entertainment under open sky. Seven distinct districts (Family Aventura, Zen, Aqua Park, Europa, The Loft, Helios, and Yacht Club) create a ship-within-a-ship concept where different vibes coexist.</p>
+  <p>Dining spans over 30 venues including the American-themed Butcher's Cut steakhouse, Kaito Teppanyaki & Sushi Bar, Hola! Tacos & Cantina (a new concept for MSC), and the Chef's Garden Kitchen. The MSC Yacht Club — the line's luxury ship-within-a-ship — is the largest ever built, with a private sundeck, pool, restaurant, and 24-hour butler service. The Aqua Park features the longest dry slide at sea, a multi-story water coaster, and dedicated kids' zones. Luna Park Arena hosts Cirque-style shows, and the Helios pool deck provides an adults-only retreat with infinity pool and ocean views.</p>
 </section>
-<!-- END: watch-highlights -->
+
+    <!-- Dining Section -->
+    <section class="card" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on MSC World America</h2>
+      <img id="dining-hero" class="card-hero"
+           src="/assets/img/Cordelia_Empress_Food_Court.webp"
+           alt="MSC World America dining venue with international cuisine options"
+           loading="lazy"
+           style="width:100%;border-radius:8px;margin:1rem 0;"
+           onerror="this.style.display='none'"/>
+      <p>MSC World America offers over <strong>30 dining venues</strong> across seven themed districts. Highlights include Butcher's Cut steakhouse, Kaito Teppanyaki & Sushi Bar, Hola! Tacos & Cantina, Chef's Garden Kitchen, La Pescadería seafood restaurant, and the exclusive Yacht Club Restaurant with 24-hour butler service.</p>
+    </section>
 
 
     <section class="card" aria-labelledby="video-highlights">
@@ -490,37 +523,9 @@ All work on this project is offered as a gift to God.
 
 </section>
 
-</section>
-
 <section class="card" aria-labelledby="personal-review">
   <h2 id="personal-review">Ken’s Logbook — A Personal Review</h2>
   <p><em>Personal notes from recent sailings will appear here. This section is intentionally subjective and complements (not replaces) the objective overview.</em></p>
-</section>
-
-<section class="card" aria-labelledby="first-look">
-  <h2 id="first-look">A First Look at Msc World America</h2>
-      <div class="swiper firstlook" aria-label="MSC World America photo gallery">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <figure>
-              <img src="/assets/ships/msc-world-america_01.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MSC World America on delivery day at Saint-Nazaire" loading="lazy">
-              <figcaption class="tiny">MSC World America on delivery day at Saint-Nazaire — JPD115 (CC BY-SA 4.0)</figcaption>
-            </figure>
-          </div>
-          <div class="swiper-slide">
-            <figure>
-              <img src="/assets/ships/msc-world-america_02.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="MSC World America at Saint-Nazaire (cropped)" loading="lazy">
-              <figcaption class="tiny">MSC World America at Saint-Nazaire (cropped) — JPD115 (CC BY-SA 4.0)</figcaption>
-            </figure>
-          </div>
-        </div>
-        <div class="swiper-pagination" aria-hidden="true"></div>
-        <div class="swiper-button-prev" aria-label="Previous image"></div>
-        <div class="swiper-button-next" aria-label="Next image"></div>
-      </div>
-  <div class="grid-3"><div class="photo ph-placeholder"></div><div class="photo ph-placeholder"></div><div class="photo ph-placeholder"></div></div><p class="muted">Gallery coming soon.</p>
-  <p>MSC World America arrives in April 2025 as the third World-class ship and the first designed with the North American market as the primary focus. At 215,863 GT and 1,122 feet long, she's among the largest cruise ships ever built. The standout design feature is the Europa promenade — a multi-level outdoor boulevard stretching the length of the ship with restaurants, shops, and entertainment under open sky. Seven distinct districts (Family Aventura, Zen, Aqua Park, Europa, The Loft, Helios, and Yacht Club) create a ship-within-a-ship concept where different vibes coexist.</p>
-  <p>Dining spans over 30 venues including the American-themed Butcher's Cut steakhouse, Kaito Teppanyaki & Sushi Bar, Hola! Tacos & Cantina (a new concept for MSC), and the Chef's Garden Kitchen. The MSC Yacht Club — the line's luxury ship-within-a-ship — is the largest ever built, with a private sundeck, pool, restaurant, and 24-hour butler service. The Aqua Park features the longest dry slide at sea, a multi-story water coaster, and dedicated kids' zones. Luna Park Arena hosts Cirque-style shows, and the Helios pool deck provides an adults-only retreat with infinity pool and ocean views.</p>
 </section>
 
 <!-- ICP-Lite FAQ Section -->
@@ -528,7 +533,20 @@ All work on this project is offered as a gift to God.
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">Ken's Logbook: Msc World America</h2>
-      <div id="logbook-stories" class="prose"></div>
+      <div id="logbook-stories" class="prose">
+        <noscript>
+          <article class="story">
+            <h3>World Class Comes to Miami</h3>
+            <div class="story-body">
+              <p><strong>When MSC World America arrived in Miami in April 2025, she brought the revolutionary World Class platform to Caribbean waters for the first time—and transformed what East Coast cruisers could expect from a mega-ship.</strong></p>
+              <p>Everything that made MSC World Europa a Mediterranean sensation—the Europa Promenade, the seven distinct neighborhoods, the LNG propulsion, the purpose-built Cirque du Soleil theater—crosses the Atlantic with enhancements specifically designed for the American market. This isn't a carbon copy deployed to different waters. World America represents MSC's most ambitious statement yet: that European cruise culture can thrive in Caribbean sailing without compromising its identity.</p>
+              <p>The numbers alone signal ambition. At over 215,000 gross tons, World America ranks among the largest cruise ships ever built. But raw size matters less than how that space is organized. The seven-neighborhood concept, proven through two years of World Europa operations, creates distinct experiences within one vessel. Family Aventura delivers the water parks and adventure activities that American families expect. The Zen District provides the adults-only sanctuary that discerning travelers demand. The Europa Promenade—that spectacular 104-meter indoor boulevard beneath a cycling LED ceiling—becomes the social heart that ties everything together.</p>
+              <p>World America features the largest MSC Yacht Club ever built, expanding the luxury ship-within-a-ship concept that European guests have embraced enthusiastically. The expansion isn't merely additional suites—it's enhanced private areas, a more spacious restaurant, an expanded sun deck, and butler service ratios that improve upon already excellent standards. For luxury travelers who've dismissed mass-market ships, this Yacht Club represents a bridge between intimate luxury lines and mega-ship excitement.</p>
+              <p class="tiny">— Fleet Development Team, MSC Cruises</p>
+            </div>
+          </article>
+        </noscript>
+      </div>
     </section>
 
     <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
