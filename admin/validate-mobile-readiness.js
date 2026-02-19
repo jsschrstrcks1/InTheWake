@@ -58,10 +58,11 @@ const colors = {
 
 // Table classes that may overflow at narrow viewports
 // Per Mobile Standard v1.000 Section 8.1
+// Note: 'key-facts' removed — it's a narrow 2-column table (label + value)
+// that never overflows. 92 of 94 ship pages use <div>, only 2 use <table>.
 const OVERFLOW_TABLE_CLASSES = [
   'pier-distances-table',
   'transport-costs-table',
-  'key-facts',
   'stats-grid'
 ];
 

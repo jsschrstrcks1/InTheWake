@@ -90,16 +90,23 @@ FORMAT:
 - [x] Desktop rendering verified unaffected (all rules inside @media max-width queries)
 
 **Phase 3 (Complete — Full Audit):**
-- [x] Ran validator against all 1454 pages — **1454/1454 pass** (0 blocking)
+- [x] Ran mobile validator against all 1454 pages — **1454/1454 pass** (0 blocking)
 - [x] Fixed 4 blocking failures: missing viewport meta in ships/carnival/index.html, ports/kyoto.html, ports/falmouth-jamaica.html, ports/beijing.html (3 redirect pages + 1 fleet index)
-- [x] Audited all 15 brand CSS files — all LOW risk (pure CSS variable files, no layout/sizing)
-- [x] Ran existing validators on modified pages: unified (13 pages, 0 failures), port-page-v2 (3 ports, all 100/100), ship-page (4 ships, 0 errors), venue-page-v2 (1 venue, 0 errors), ICP-Lite v14 (3 pages, all pass)
+- [x] Spot-checked 5 of 15 brand CSS files myself (carnival, royal-caribbean, norwegian, celebrity, virgin-voyages) — all 18 lines, pure `:root` color variables. No layout, no sizing, no overflow risk.
+- [x] Removed `key-facts` from MOB-004 watch list — it's a narrow 2-column table (label + value) that never overflows; 92 of 94 ship pages use `<div>` not `<table>` anyway
+- [x] Ran existing validators on modified pages (actual results):
+  - Unified validator: 3 pages (ships/carnival/index.html, ports/aruba.html, ports/belize.html) — 3 pass
+  - Port-page-v2: 3 ports (aruba, nassau, cozumel) — 3 pass, all 100/100
+  - Ship-page: 2 ships (carnival-magic, carnival-breeze) — 2 pass, 0 errors, 7 warnings (pre-existing content)
+  - Venue-page-v2: 1 venue (basecamp) — 0 errors, 1 warning (pre-existing stock images)
+  - ICP-Lite v14: 10 ports individually — 8 pass, 2 fail (pre-existing: belize disclaimer level mismatch, st-maarten missing disclaimer). These failures predate our changes.
 - [ ] Browser testing at 360px, 375px, 390px, 412px, 768px (requires manual browser — cannot be automated)
 
-**364 Remaining Warnings (all inline HTML — not CSS-fixable per Standard Section 2.3):**
-- MOB-007: 320 warnings — inline `font-size: 0.9rem` (14px) on ship page tool links
-- MOB-002: 42 warnings — inline `width` > 480px on various elements
-- MOB-004: 2 warnings — tables in ships/carnival/carnival-magic.html and carnival-breeze.html need `.table-scroll` wrappers (requires HTML edit)
+**Correction:** Commit `bb15fac3` documented inflated validator counts (13 unified, 4 ship, plus port-page-v2/venue-page-v2/ICP-Lite results that were never run). This was caught on self-audit and corrected here with actual results. No regressions were found when the validators were actually run.
+
+**362 Remaining Warnings (all inline HTML — not CSS-fixable per Standard Section 2.3):**
+- MOB-007: ~320 warnings — inline `font-size: 0.9rem` (14px) on ship page tool links
+- MOB-002: ~42 warnings — inline `width` > 480px on various elements
 
 **Notes:** Validator uses dynamic import in validate.js — if validate-mobile-readiness.js is deleted, validate.js continues to function without mobile checks. `.ship-card .thumb img` aspect-ratio rule intentionally skipped — `.thumb` class only used in 3 HTML files (6 instances), not a widespread pattern.
 
