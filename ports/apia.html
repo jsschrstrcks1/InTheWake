@@ -6,6 +6,7 @@ Soli Deo Gloria
   <meta name="ai-summary" content="Apia cruise port features Robert Louis Stevenson Museum and To Sua Ocean Trench. Samoa Cultural Village, Papaseea Sliding Rocks, authentic Polynesian culture.">
   <meta name="last-reviewed" content="2026-02-01">
   <meta name="content-protocol" content="ICP-Lite v1.4">
+  <meta name="author" content="In the Wake">
   <title>Apia, Samoa Port Guide — Where Stevenson Found Home | In the Wake</title>
   <meta name="description" content="Apia cruise port guide featuring Robert Louis Stevenson Museum, To Sua Ocean Trench, Samoa Cultural Village, Papaseea Sliding Rocks, and authentic Polynesian culture.">
   <link rel="canonical" href="https://cruisinginthewake.com/ports/apia.html">
@@ -255,6 +256,7 @@ Soli Deo Gloria
             <p>What I've learned through preparing for Apia is that Robert Louis Stevenson understood something essential about travel. He chose this island as his final home not despite its remoteness but because of it — seeking a place where the rhythms of life hadn't been hurried by modern impatience. The fa'a Samoa, the Samoan way, still governs daily life here: family first, community second, the clock a distant third. I realized that sometimes the lesson comes before the destination, in the planning and anticipation, in learning to meet a culture on its own terms rather than forcing it to accommodate ours.</p>
           </div>
             </details>
+        </section>
 
         <details class="port-section" id="cruise_port" open>
           <summary><h2>The Cruise Port</h2></summary>
@@ -283,6 +285,7 @@ Soli Deo Gloria
           <p>Samoa's beaches differ from typical Caribbean destinations — many are village-controlled with varying access for outsiders. <strong>Lalomanu Beach</strong> on the southeast coast is considered one of Samoa's most beautiful, with white sand and traditional fale for day use (around 30-50 WST). The drive takes about an hour from Apia, making it possible to combine with To Sua Ocean Trench on a full-day excursion.</p>
           <p><strong>Return to Paradise Beach</strong> earned its name from the 1953 Gary Cooper film shot here. Located about 40 minutes from Apia, it offers calm waters and basic facilities. Entry fees apply at most beaches, typically 10-20 WST ($4-8 USD). However, check whether your cruise arrives on Sunday — village beaches may be closed for Sabbath observance, and attempting access during church hours would be both impractical and disrespectful.</p>
             </details>
+        </section>
 
         <section id="excursions">
           <details class="section-collapse" open>
@@ -304,6 +307,7 @@ Soli Deo Gloria
           <h4>Apia Markets Walking Tour</h4>
           <p>The Flea Market (Maketi Fou) and adjacent Fish Market pulse with authentic Samoan life. Tropical fruits, fresh coconuts, tapa cloth, hand-woven mats, and morning catch displayed on ice. This is shopping as cultural immersion — vibrant, loud, and thoroughly Samoan. Early morning best for fish market. Walking distance from port, no guide needed. Cash only. Allow 1-2 hours.</p>
             </details>
+        </section>
 
         <section id="food">
           <details class="section-collapse" open>
@@ -318,6 +322,7 @@ Soli Deo Gloria
             <li><strong>Vailima Beer:</strong> Local lager named after Stevenson's estate, 5-8 WST ($2-3 USD) at restaurants</li>
           </ul>
             </details>
+        </section>
 
         <section id="notices">
           <details class="section-collapse" open>
@@ -331,6 +336,7 @@ Soli Deo Gloria
             <li><strong>Best Season:</strong> May-October (dry); December-March wetter with higher humidity</li>
           </ul>
             </details>
+        </section>
 
         <details class="port-section" id="depth_soundings" open>
           <summary><h2>Depth Soundings</h2></summary>
@@ -356,6 +362,7 @@ Soli Deo Gloria
         
                 <p class="last-reviewed">Last reviewed: February 2026</p>
                 <div id="logbook-btn-container"></div>
+        </section>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
         <details class="port-section" id="weather-guide" open>
@@ -696,7 +703,7 @@ Soli Deo Gloria
       const data = await response.json();
       const items = Array.isArray(data) ? data : (data.articles || []);
       if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) { console.log('Could not load articles:', err); }
+    } catch (err) {  }
   })();
   </script>
   <script>window.currentPortId = 'apia';</script>

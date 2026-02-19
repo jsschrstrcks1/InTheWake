@@ -6,6 +6,7 @@ Soli Deo Gloria
   <meta name="ai-summary" content="Aruba is One Happy Island outside the hurricane belt. Eagle Beach, Oranjestad Dutch colonial downtown, Arikok National Park desert landscapes, Caribbean sunshine.">
   <meta name="last-reviewed" content="2026-02-01">
   <meta name="content-protocol" content="ICP-Lite v1.4">
+  <meta name="author" content="In the Wake">
   <title>Aruba Port Guide — Eagle Beach &amp; One Happy Island | In the Wake</title>
   <meta name="description" content="Aruba cruise port guide featuring Eagle Beach, Oranjestad Dutch colonial downtown, Arikok National Park desert landscapes, and Caribbean sunshine outside the hurricane belt.">
   <link rel="canonical" href="https://cruisinginthewake.com/ports/aruba.html">
@@ -251,6 +252,7 @@ Soli Deo Gloria
             <p>Baby Beach on the southern tip offers the best snorkeling I've found in Aruba — a shallow, protected lagoon with calm water and abundant marine life. The drive takes about 45 minutes from the cruise port through the island's rugged interior, and most visitors arrive by rental car or organized tour. I went independently, stopping at San Nicolas (the island's second city) for a local lunch. Chair rentals at Baby Beach run about $10, and the snorkeling gear rental shack charges around $15 for mask, snorkel, and fins. Wheelchair users will find the beach accessible via a paved path, though the sand itself requires mobility consideration.</p>
           </div>
             </details>
+        </section>
 
         <details class="port-section" id="cruise_port" open>
           <summary><h2>The Cruise Port</h2></summary>
@@ -336,6 +338,7 @@ Soli Deo Gloria
           <p><strong>Baby Beach</strong> on the southern tip provides the island's best snorkeling in a protected lagoon with calm, crystal-clear water. The 45-minute drive from the cruise port is worth it for snorkelers and families with young children. Facilities are basic — a snack bar and rental shack — but the swimming conditions are exceptional. Accessible via paved pathway.</p>
           <p><strong>Surfside Beach</strong> sits just 15 minutes' walk from the cruise terminal, making it the most convenient beach option. The sand is good, the water calm, and the sunset views spectacular. No rental facilities, so bring your own towel. ideal for passengers with limited time who want beach experience without transportation hassles.</p>
             </details>
+        </section>
 
         <section id="excursions">
           <details class="section-collapse" open>
@@ -382,6 +385,7 @@ Soli Deo Gloria
           <h4>Catamaran Sail &amp; Snorkel</h4>
           <p>Sail the coast, snorkel at reef sites, and enjoy open bar on the return. Ship excursions run $75-110. Popular option that combines relaxing sailing, swimming, and socializing. Morning departures typically offer clearer snorkeling conditions. Most tours visit the Antilla shipwreck, one of the Caribbean's largest accessible wrecks. Book ahead as catamaran tours fill very quickly during peak cruise season months.</p>
             </details>
+        </section>
 
         <section id="food">
           <details class="section-collapse" open>
@@ -395,6 +399,7 @@ Soli Deo Gloria
             <li><strong>Coecoei Liqueur:</strong> Aruban liqueur made from agave, used in cocktails and available duty-free</li>
           </ul>
             </details>
+        </section>
 
         <section id="notices">
           <details class="section-collapse" open>
@@ -408,6 +413,7 @@ Soli Deo Gloria
             <li><strong>Tipping:</strong> 15-18% customary in restaurants; taxis don't require tips but appreciate small amounts</li>
           </ul>
             </details>
+        </section>
 
         <details class="port-section" id="depth_soundings" open>
           <summary><h2>Depth Soundings</h2></summary>
@@ -434,6 +440,7 @@ Soli Deo Gloria
         
                 <p class="last-reviewed">Last reviewed: February 2026</p>
                 <div id="logbook-btn-container"></div>
+        </section>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
         <details class="port-section" id="weather-guide" open>
@@ -782,7 +789,7 @@ Soli Deo Gloria
       const data = await response.json();
       const items = Array.isArray(data) ? data : (data.articles || []);
       if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) { console.log('Could not load articles:', err); }
+    } catch (err) {  }
   })();
   </script>
   <script>window.currentPortId = 'aruba';</script>

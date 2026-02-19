@@ -9,6 +9,7 @@ Soli Deo Gloria
   <meta name="ai-summary" content="Ponta Delgada is the Azores' capital with volcanic landscapes and whale watching. Visit Sete Cidades crater lakes, hot springs, pineapple plantations, and Mid-Atlantic paradise."/>
   <meta name="last-reviewed" content="2026-02-01"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
+  <meta name="author" content="In the Wake">
   <title>Ponta Delgada Port Guide — Azores Gateway & Atlantic Jewel | In the Wake</title>
   <meta name="description" content="First-person logbook guide to Ponta Delgada, Azores — stunning Sete Cidades twin lakes, year-round whale watching, volcanic Furnas Valley, geothermal wonders, and the mid-Atlantic crossing everyone should experience."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/ponta-delgada.html"/>
@@ -213,12 +214,12 @@ Soli Deo Gloria
     <div style="grid-column: 1; grid-row: 1;">
       <section class="port-hero" id="hero">
         <div class="port-hero-image">
-          <img src="/assets/brand/placeholder-port.webp" alt="Volcanic crater lakes and lush green coastline of São Miguel Island, Azores" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <img src="/ports/img/ponta-delgada/ponta-delgada-hero.webp" alt="Beach and mountain view in Ponta Delgada, Azores, Portugal" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
           <div class="port-hero-overlay">
             <h1 class="port-hero-title">Ponta Delgada, Azores</h1>
           </div>
         </div>
-        <p class="port-hero-credit">Photo: In the Wake</p>
+        <p class="port-hero-credit">Photo: <a href="https://unsplash.com/@mickkirch" target="_blank" rel="noopener">Mick Kirchman</a>, <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash License</a></p>
       </section>
 
       
@@ -373,7 +374,7 @@ Soli Deo Gloria
         </section>
 
         <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Ponta Delgada Area Map</h2></summary>
+            <summary><h3>Ponta Delgada Area Map</h3></summary>
           <p class="map-intro">Interactive map showing cruise terminal, Sete Cidades crater lakes, Furnas Valley, and São Miguel Island highlights. Click any marker for details.</p>
           <div id="ponta-delgada-port-map" class="port-map-container" role="application" aria-label="Interactive map of Ponta Delgada and points of interest">
             <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
@@ -571,7 +572,7 @@ Soli Deo Gloria
       const data = await response.json();
       const items = Array.isArray(data) ? data : (data.articles || []);
       if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) { console.log('Could not load articles:', err); }
+    } catch (err) {  }
   })();
   </script>
   <script>window.currentPortId = 'ponta-delgada';</script>

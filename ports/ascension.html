@@ -6,6 +6,7 @@ Soli Deo Gloria
   <meta name="ai-summary" content="Ascension Island is one of the most remote ports in the South Atlantic. Discover Green Mountain cloud forest, sea turtle nesting beaches, and volcanic landscapes.">
   <meta name="last-reviewed" content="2026-02-01">
   <meta name="content-protocol" content="ICP-Lite v1.4">
+  <meta name="author" content="In the Wake">
   <title>Ascension Island Port Guide — Darwin's Volcanic Wonder | In the Wake</title>
   <meta name="description" content="Ascension Island cruise port guide featuring Green Mountain cloud forest, sea turtle nesting beaches, volcanic landscapes, and one of the most remote ports in the South Atlantic.">
   <link rel="canonical" href="https://cruisinginthewake.com/ports/ascension.html">
@@ -253,6 +254,7 @@ Soli Deo Gloria
           <p class="logbook-reflection">Looking back, Ascension has reminded me that humans can create beauty in the most unlikely places. A forest on bare volcanic rock. A military base that becomes a nature reserve. Turtles navigating mysteries we may never solve. Sometimes the most remote destinations teach the most enduring lessons about persistence and wonder.</p>
           </div>
             </details>
+        </section>
 
         <details class="port-section" id="cruise_port" open>
           <summary><h2>The Cruise Port</h2></summary>
@@ -282,6 +284,7 @@ Soli Deo Gloria
           <p><strong>English Bay</strong> near Georgetown offers the most accessible swimming, though the rocky volcanic coastline requires careful entry. The water is clear and warm, with occasional sea turtle sightings. No facilities exist — bring everything you need including drinking water. The bay provides a pleasant alternative when turtle beaches are closed for conservation.</p>
           <p><strong>Comfortless Cove</strong> takes its name from the island's isolation and lack of resources. The beach is small and rocky but notable as the original landing point for early settlers. Swimming is possible in calm conditions, though the volcanic rocks make beach shoes advisable. About 20 minutes by 4x4 from Georgetown.</p>
             </details>
+        </section>
 
         <section id="excursions">
           <details class="section-collapse" open>
@@ -303,6 +306,7 @@ Soli Deo Gloria
           <h4>Georgetown Walking Tour</h4>
           <p>Self-guided or ranger-led walks through the only settlement, visiting the island museum (£5 admission), the post office, and Anglican church. Free to explore independently, or guided walks available for £10-15 per person. The museum covers military communications, volcanic geology, Darwin's visit, and island culture. Allow 2-3 hours. Good backup activity if weather prevents mountain or beach excursions.</p>
             </details>
+        </section>
 
         <section id="food">
           <details class="section-collapse" open>
@@ -315,6 +319,7 @@ Soli Deo Gloria
             <li><strong>Provisions:</strong> Two Boats Village shop stocks British basics at inflated prices reflecting shipping costs. Don't rely on island supplies — bring what you need from the ship</li>
           </ul>
             </details>
+        </section>
 
         <section id="notices">
           <details class="section-collapse" open>
@@ -329,6 +334,7 @@ Soli Deo Gloria
             <li><strong>Medical:</strong> Basic clinic only — bring necessary medications. Ship's medical services are your only advanced care option</li>
           </ul>
             </details>
+        </section>
 
         <details class="port-section" id="depth_soundings" open>
           <summary><h2>Depth Soundings</h2></summary>
@@ -354,6 +360,7 @@ Soli Deo Gloria
         
                 <p class="last-reviewed">Last reviewed: February 2026</p>
                 <div id="logbook-btn-container"></div>
+        </section>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
         <details class="port-section" id="weather-guide" open>
@@ -699,7 +706,7 @@ Soli Deo Gloria
       const data = await response.json();
       const items = Array.isArray(data) ? data : (data.articles || []);
       if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-  } catch (err) { console.log('Could not load articles:', err); }
+  } catch (err) {  }
   })();
   </script>
   <script>window.currentPortId = 'ascension';</script>

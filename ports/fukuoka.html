@@ -9,6 +9,7 @@ Soli Deo Gloria
   <meta name="ai-summary" content="Fukuoka has Japan's most obsessive ramen culture with Hakata tonkotsu. Experience thriving yatai food stalls, Kushida and Sumiyoshi shrines, and Shofukuji, Japan's first Zen temple."/>
   <meta name="last-reviewed" content="2026-02-01"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
+  <meta name="author" content="In the Wake">
   <title>Fukuoka Port Guide — Hakata Ramen, Zen Temples &amp; Yatai Culture | In the Wake</title>
   <meta name="description" content="First-person logbook guide to Fukuoka — Hakata Port's rich trading history with China and Korea, authentic tonkotsu ramen with kaedama noodle refills, yatai food stalls on Nakasu Island, Kushida Shrine's Yamakasa festival, and Sumiyoshi's ancient Shinto heritage."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/fukuoka.html"/>
@@ -683,7 +684,7 @@ Soli Deo Gloria
       const data = await response.json();
       const items = Array.isArray(data) ? data : (data.articles || []);
       if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) { console.log('Could not load articles:', err); }
+    } catch (err) {  }
   })();
   </script>
   <script>window.currentPortId = 'fukuoka';</script>

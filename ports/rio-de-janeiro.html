@@ -9,6 +9,7 @@ Soli Deo Gloria
   <meta name="ai-summary" content="Rio de Janeiro features Christ the Redeemer and Sugarloaf Mountain. Experience Copacabana Beach, Ipanema, Carnival energy, samba culture, and Brazil's marvelous city."/>
   <meta name="last-reviewed" content="2026-02-01"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
+  <meta name="author" content="In the Wake">
   <title>Rio de Janeiro Port Guide — Christ the Redeemer &amp; Cidade Maravilhosa | In the Wake</title>
   <meta name="description" content="First-person logbook guide to Rio de Janeiro cruise port — Christ the Redeemer atop Corcovado, Sugarloaf's cable car to 1,296-foot summit, Copacabana's golden sands, Carnival's samba heartbeat, and why Cariocas call it Cidade Maravilhosa since 1565."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/rio-de-janeiro.html"/>
@@ -534,7 +535,7 @@ Soli Deo Gloria
       const data = await response.json();
       const items = Array.isArray(data) ? data : (data.articles || []);
       if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) { console.log('Could not load articles:', err); }
+    } catch (err) {  }
   })();
   </script>
   <script>window.currentPortId = 'rio-de-janeiro';</script>

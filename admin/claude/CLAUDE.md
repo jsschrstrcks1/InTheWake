@@ -320,28 +320,49 @@ All pages should include:
      width="1200"
      height="675">
 ```
-### Image Sourcing Workflow (WikiMedia First)
+### Image Sourcing Workflow (Free Licensed Images)
 
 When a ship, port, or venue is missing an image, follow this order of operations:
 
 1. **Check local assets first**
    - `/assets/ships/thumbs/`
    - `/assets/ships/`
-   - `/ports/img/` 
+   - `/ports/img/`
    - `*.jpg, or *.jpeg, or *.png, or *.webp` (if present)
 
-2. **If no suitable local image exists, ALWAYS try the WikiMedia API**
-   - Use the Wikimedia API to search for a properly licensed image:
-     - Prefer recent, high-resolution photos of the correct ship/port/venue
-     - License must allow reuse with attribution (e.g., CC BY, CC BY-SA)
-   - Download the image locally (do not hotlink WikiMedia URLs in production HTML)
+2. **If no suitable local image exists, try these free sources in order:**
+
+   **a. Wikimedia Commons (preferred for ships and landmarks)**
+   - Use the Wikimedia API to search for a properly licensed image
+   - Also check the Wikipedia article for the entity — embedded images link back to Commons
+   - Prefer recent, high-resolution photos; license must allow reuse (CC BY, CC BY-SA, public domain)
+   - Download locally (never hotlink)
+
+   **b. Unsplash (preferred for port cities and destinations)**
+   - Free for commercial use, no attribution legally required (but we attribute anyway)
+   - API: `https://api.unsplash.com/` or browse `unsplash.com/s/photos/[destination]`
+   - Excellent for scenic port/city photos
+
+   **c. Pexels / Pixabay (backup for destinations and scenics)**
+   - Free for commercial use with generous licenses
+   - Good coverage of popular cruise destinations
+   - Pexels API: `https://api.pexels.com/v1/search`
+   - Pixabay API: `https://pixabay.com/api/`
+
+   **d. Flickr Creative Commons (backup for ships and niche ports)**
+   - Large archive of CC-licensed cruise ship and port photos
+   - Filter by license: CC BY, CC BY-SA (not NC or ND for our use)
+   - Flickr API supports license-filtered search
+   - Many specialist ship photographers post here
+
+   **Any legal source of free images is fair game** — the above are starting points, not an exhaustive list.
 
 3. **Convert and store**
    - Convert downloaded images to **WebP** (unless transparency is required → then PNG)
    - Save to the appropriate folder:
      - Ships → `/assets/ships/`
      - Ship thumbnails → `/assets/ships/thumbs/`
-     - Ports → `/assets/ports/`
+     - Ports → `/assets/ports/` or `/ports/img/[port-slug]/`
      - Venues → `/assets/restaurants/`
 
 4. **Add attribution**
@@ -351,12 +372,13 @@ When a ship, port, or venue is missing an image, follow this order of operations
      - File name
      - Author name and URL
      - License name and URL
-     - Source (WikiMedia)
+     - Source (WikiMedia, Unsplash, Pexels, Pixabay, Flickr, etc.)
 
-5. **Only if WikiMedia has nothing usable**
-   - Fall back to an internal placeholder image that follows standards
+5. **If NO free source has a usable image**
+   - Do NOT use a placeholder image. Placeholder images are a BLOCKING ERROR on any page.
+   - Omit the image entirely or hide the image container for that entity.
    - Mark this in `UNFINISHED_TASKS.md` or the appropriate tracking file as
-     “NEEDS REAL IMAGE – WikiMedia search found nothing.”
+     "NEEDS REAL IMAGE – all free sources searched, nothing found."
 ### 2. Accessibility (WCAG 2.1 AA)
 
 **Required Elements:**
@@ -572,6 +594,7 @@ AI-first content protocol that helps AI assistants understand and cite content c
 - ❌ NEVER remove the "Cruise Lines" link from primary nav
 
 ### Images
+- ❌ NEVER use placeholder images on any page (BLOCKING ERROR — no exceptions, no fallbacks)
 - ❌ NEVER convert logo_wake.png to WebP
 - ❌ NEVER use JPEG/JPG for new ship images (use WebP)
 - ❌ NEVER skip image attribution for Wiki Commons images
@@ -794,6 +817,7 @@ Before marking any task complete, verify:
 - [ ] Meta tags complete (version, content-protocol, ai-summary)
 - [ ] No console statements left in inline JavaScript
 - [ ] No lorem ipsum or placeholder text
+- [ ] No placeholder images (BLOCKING ERROR)
 - [ ] All images have alt attributes
 - [ ] Skip-link present and functional
 - [ ] Breadcrumb navigation correct

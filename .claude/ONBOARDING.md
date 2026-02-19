@@ -329,6 +329,7 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 7. **Exceed 250 char summary or break dual-cap rule** — First 155 must be standalone
 8. **Compromise accessibility** — WCAG AA is non-negotiable
 9. **Sacrifice UX for SEO** — Human-first principle
+10. **Use placeholder images on ANY page** — BLOCKING ERROR, no exceptions. Omit the image or hide the container if no real image is available.
 
 ### ✅ Do:
 1. **Check skill-rules.json** before major changes

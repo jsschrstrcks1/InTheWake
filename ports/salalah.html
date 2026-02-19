@@ -9,6 +9,7 @@ Soli Deo Gloria
   <meta name="ai-summary" content="Salalah is Oman's frankincense capital with unique monsoon greenery. Experience ancient incense trade routes, Sultan Qaboos Mosque, beaches, desert meets sea, and Arabian heritage."/>
   <meta name="last-reviewed" content="2026-02-01"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
+  <meta name="author" content="In the Wake">
   <title>Salalah Port Guide — Frankincense Capital & Khareef Monsoon | In the Wake</title>
   <meta name="description" content="First-person logbook guide to Salalah — the perfume capital of Arabia, UNESCO frankincense sites, Al Baleed archaeological park, and the magical khareef monsoon season."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/salalah.html"/>
@@ -662,7 +663,7 @@ Soli Deo Gloria
       const data = await response.json();
       const items = Array.isArray(data) ? data : (data.articles || []);
       if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) { console.log('Could not load articles:', err); }
+    } catch (err) {  }
   })();
   </script>
   <script>window.currentPortId = 'salalah';</script>

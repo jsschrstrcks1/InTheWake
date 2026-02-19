@@ -9,6 +9,7 @@ Soli Deo Gloria
   <meta name="ai-summary" content="Lanzarote is the Canary Islands' volcanic masterpiece shaped by César Manrique. Explore Timanfaya lava fields, Jameos del Agua caves, wine country, and black sand beaches."/>
   <meta name="last-reviewed" content="2026-02-01"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
+  <meta name="author" content="In the Wake">
   <title>Lanzarote (Arrecife) Port Guide — Island Born of Fire | In the Wake</title>
   <meta name="description" content="First-person logbook guide to Arrecife, Lanzarote — stunning Timanfaya National Park volcanic landscape, Jameos del Agua caves, César Manrique's architectural legacy, La Geria wine region, and discovering the Canary Islands' most dramatic scenery.">
   <link rel="canonical" href="https://cruisinginthewake.com/ports/lanzarote.html">
@@ -384,7 +385,7 @@ Soli Deo Gloria
 
         <!-- MAP SECTION -->
         <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Lanzarote Area Map</h2></summary>
+            <summary><h3>Lanzarote Area Map</h3></summary>
           <p class="map-intro">Interactive map showing cruise terminal, Timanfaya National Park, Jameos del Agua, La Geria wine region, and other attractions. Click markers for details.</p>
           <div id="lanzarote-port-map" class="port-map-container" role="application" aria-label="Interactive map of Lanzarote and points of interest">
             <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
@@ -527,7 +528,6 @@ Soli Deo Gloria
           <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
         
           <p><strong>Q: Does Lanzarote (Arrecife) have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-        </section>
 
         <!-- PHOTO GALLERY - Required section with 11+ images total on page -->
         <details class="port-section photo-gallery" id="gallery" open>
@@ -753,7 +753,7 @@ Soli Deo Gloria
       const data = await response.json();
       const items = Array.isArray(data) ? data : (data.articles || []);
       if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) { console.log('Could not load articles:', err); }
+    } catch (err) {  }
   })();
   </script>
   <script>window.currentPortId = 'lanzarote';</script>

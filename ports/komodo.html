@@ -9,6 +9,7 @@ Soli Deo Gloria
   <meta name="ai-summary" content="Komodo is home to the world's largest lizards in a UNESCO park. Encounter Komodo dragons, snorkel Pink Beach, explore Padar Island viewpoints, and pristine Indonesian waters."/>
   <meta name="last-reviewed" content="2026-02-01"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
+  <meta name="author" content="In the Wake">
   <title>Komodo (Indonesia) Port Guide — Where Dragons Still Reign | In the Wake</title>
   <meta name="description" content="First-person logbook guide to Komodo, Indonesia — tender port to Komodo National Park, face-to-face encounters with prehistoric dragons on Rinca and Komodo islands, volcanic landscapes, and trekking through one of Earth's last untamed wilderness areas."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/komodo.html"/>
@@ -679,7 +680,7 @@ Soli Deo Gloria
       const data = await response.json();
       const items = Array.isArray(data) ? data : (data.articles || []);
       if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) { console.log('Could not load articles:', err); }
+    } catch (err) {  }
   })();
   </script>
   <script>window.currentPortId = 'komodo';</script>

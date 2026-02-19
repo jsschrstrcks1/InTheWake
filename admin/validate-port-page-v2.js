@@ -105,10 +105,10 @@ const SECTION_PATTERNS = {
   map: /map|interactive.?map|port.?map/i,
   beaches: /beaches?|beach guide|coastal/i,
   excursions: /(top )?excursions?|attractions?|things to (do|see)|activities/i,
-  history: /history|historical|heritage/i,
-  cultural: /cultural? (features?|highlights?|experiences?)|traditions?/i,
-  shopping: /shopping|retail|markets?/i,
-  food: /food|dining|restaurants?|eating|cuisine/i,
+  history: /\bhistory\b|\bhistorical\b|\bheritage\b/i,
+  cultural: /cultural? (features?|highlights?|experiences?)|\btraditions?\b(?!ally)/i,
+  shopping: /\bshopping\b|\bretail\b/i,
+  food: /\bfood\b(?! culture)|\bdining\b|\brestaurants?\b|\bcuisine\b/i,
   notices: /(special )?notices?|warnings?|alerts?|important|know before/i,
   depth_soundings: /depth soundings|final thoughts?|in conclusion|the (real|honest) story/i,
   practical: /practical (information|info)|quick reference|at a glance|summary/i,
@@ -306,12 +306,21 @@ function countWords(text) {
  */
 function findSectionContent($, pattern) {
   let sectionContent = '';
+  const matchedElems = new Set();
+
+  // Method 1: Match by heading text (h2/h3)
   $('h2, h3').each((i, elem) => {
     const $elem = $(elem);
     if (pattern.test($elem.text())) {
       const $section = $elem.closest('section, details, .card');
       if ($section.length) {
-        sectionContent += $section.text() + ' ';
+        const node = $section.get(0);
+        if (!matchedElems.has(node)) {
+          matchedElems.add(node);
+          // Also mark all ancestor sections to prevent double-counting
+          $section.parents('section[id], details[id]').each((j, p) => matchedElems.add(p));
+          sectionContent += $section.text() + ' ';
+        }
       } else {
         let $next = $elem.next();
         while ($next.length && !$next.is('h2')) {
@@ -321,6 +330,19 @@ function findSectionContent($, pattern) {
       }
     }
   });
+
+  // Method 2: Match by section/details id attribute (fallback for sections with non-matching headings)
+  if (!sectionContent.trim()) {
+    $('section[id], details[id]').each((i, elem) => {
+      const $elem = $(elem);
+      const id = $elem.attr('id') || '';
+      if (pattern.test(id) && !matchedElems.has(elem)) {
+        matchedElems.add(elem);
+        sectionContent += $elem.text() + ' ';
+      }
+    });
+  }
+
   return sectionContent;
 }
 
@@ -680,11 +702,18 @@ function validateSectionOrder($) {
   }
 
   // Detect sections by scanning headings and IDs
+  // For headings (h2/h3), use text content; for sections/divs, only use id/class
+  // to avoid false positives from body text matching section patterns
   $('main h2, main h3, main section, main div[id], main div[class*="section"]').each((i, elem) => {
     const $elem = $(elem);
-    const $clone = $elem.clone();
-    $clone.find('noscript').remove();
-    const text = $clone.text().toLowerCase();
+    const tagName = (elem.tagName || elem.name || '').toLowerCase();
+    const isHeading = tagName === 'h2' || tagName === 'h3';
+    let text = '';
+    if (isHeading) {
+      const $clone = $elem.clone();
+      $clone.find('noscript').remove();
+      text = $clone.text().toLowerCase();
+    }
     const id = $elem.attr('id') || '';
     const className = $elem.attr('class') || '';
     const combined = `${text} ${id} ${className}`;
@@ -1599,6 +1628,91 @@ function validateFromThePier($) {
 }
 
 /**
+ * Validate HTML structural integrity
+ * Catches: mismatched heading tags, inline console.log, missing meta author,
+ * stray closing tags for section/details elements
+ */
+function validateHTMLIntegrity($, html) {
+  const errors = [];
+  const warnings = [];
+
+  // 1. Check heading tag balance (h1-h6)
+  for (let level = 1; level <= 6; level++) {
+    const openPattern = new RegExp(`<h${level}[\\s>]`, 'gi');
+    const closePattern = new RegExp(`</h${level}>`, 'gi');
+    const openCount = (html.match(openPattern) || []).length;
+    const closeCount = (html.match(closePattern) || []).length;
+
+    if (openCount !== closeCount) {
+      errors.push({
+        section: 'html_integrity',
+        rule: `heading_h${level}_mismatch`,
+        message: `Mismatched <h${level}> tags: ${openCount} opening vs ${closeCount} closing. Check for cross-level nesting (e.g. <h3>...</h2>)`,
+        severity: 'BLOCKING'
+      });
+    }
+  }
+
+  // 2. Check for console.log in inline <script> blocks within HTML
+  const inlineScriptBlocks = html.match(/<script(?![^>]*src=)[^>]*>[\s\S]*?<\/script>/gi) || [];
+  let consoleLogCount = 0;
+  for (const block of inlineScriptBlocks) {
+    // Skip JSON-LD scripts
+    if (block.includes('application/ld+json') || block.includes('application/json')) continue;
+    const matches = block.match(/console\.(log|warn|error|debug|info)\s*\(/g) || [];
+    consoleLogCount += matches.length;
+  }
+
+  if (consoleLogCount > 0) {
+    warnings.push({
+      section: 'html_integrity',
+      rule: 'inline_console_log',
+      message: `Found ${consoleLogCount} console.log/warn/error statement(s) in inline <script> blocks. Remove for production.`,
+      severity: 'WARNING'
+    });
+  }
+
+  // 3. Check for <meta name="author"> tag
+  const authorMeta = $('meta[name="author"]').attr('content') || '';
+  if (!authorMeta) {
+    warnings.push({
+      section: 'html_integrity',
+      rule: 'missing_meta_author',
+      message: 'Missing <meta name="author"> tag. Add for E-E-A-T signals.',
+      severity: 'WARNING'
+    });
+  }
+
+  // 4. Check balance of structural elements (section, details)
+  const structuralTags = ['section', 'details', 'article', 'aside', 'nav'];
+  for (const tag of structuralTags) {
+    const openPattern = new RegExp(`<${tag}[\\s>]`, 'gi');
+    const closePattern = new RegExp(`</${tag}>`, 'gi');
+    const openCount = (html.match(openPattern) || []).length;
+    const closeCount = (html.match(closePattern) || []).length;
+
+    if (openCount !== closeCount) {
+      errors.push({
+        section: 'html_integrity',
+        rule: `stray_${tag}_tag`,
+        message: `Unbalanced <${tag}> tags: ${openCount} opening vs ${closeCount} closing. Check for stray closing tags or unclosed elements.`,
+        severity: 'BLOCKING'
+      });
+    }
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: {
+      has_meta_author: !!authorMeta,
+      inline_console_logs: consoleLogCount
+    }
+  };
+}
+
+/**
  * Validate trust badge in footer
  */
 function validateTrustBadge($) {
@@ -1744,6 +1858,18 @@ async function validatePortPage(filepath) {
     const html = await readFile(filepath, 'utf-8');
     const $ = load(html);
 
+    // Skip redirect pages (meta http-equiv="refresh")
+    const isRedirect = $('meta[http-equiv="refresh"]').length > 0;
+    if (isRedirect) {
+      results.info.push({
+        section: 'redirect',
+        rule: 'redirect_page',
+        message: 'Redirect page detected — validation skipped',
+        severity: 'INFO'
+      });
+      return results;
+    }
+
     // Run all validations
     const analyticsResult = validateAnalytics($, html);
     const icpResult = validateICPLite($, html);
@@ -1762,6 +1888,7 @@ async function validatePortPage(filepath) {
     const fromThePierResult = validateFromThePier($);
     const printButtonResult = validatePrintButton($, html);
     const siteIntegrationResult = await validateSiteIntegration(filepath);
+    const htmlIntegrityResult = validateHTMLIntegrity($, html);
 
     // Collect all errors
     results.blocking_errors.push(...siteIntegrationResult.errors);
@@ -1777,6 +1904,7 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...trustBadgeResult.errors);
     results.blocking_errors.push(...collapsibleResult.errors);
     results.blocking_errors.push(...printButtonResult.errors);
+    results.blocking_errors.push(...htmlIntegrityResult.errors);
 
     // Collect all warnings
     results.warnings.push(...analyticsResult.warnings);
@@ -1793,6 +1921,7 @@ async function validatePortPage(filepath) {
     results.warnings.push(...lastReviewedResult.warnings);
     results.warnings.push(...fromThePierResult.warnings);
     results.warnings.push(...printButtonResult.warnings);
+    results.warnings.push(...htmlIntegrityResult.warnings);
 
     // Collect info
     results.info.push(...logbookResult.info);
@@ -1825,6 +1954,7 @@ async function validatePortPage(filepath) {
     results.from_the_pier = fromThePierResult.data;
     results.print_button = printButtonResult.data;
     results.site_integration = siteIntegrationResult.data;
+    results.html_integrity = htmlIntegrityResult.data;
 
   } catch (error) {
     results.blocking_errors.push({

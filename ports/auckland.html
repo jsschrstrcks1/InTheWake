@@ -9,6 +9,7 @@ Soli Deo Gloria
   <meta name="ai-summary" content="Auckland cruise port guide — New Zealand's City of Sails. Sky Tower views, Waiheke Island wine tours, Maori cultural performances, volcanic landscapes."/>
   <meta name="last-reviewed" content="2026-02-01"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
+  <meta name="author" content="In the Wake">
   <title>Auckland Cruise Port Guide — City of Sails | In the Wake</title>
   <meta name="description" content="Auckland cruise port guide featuring Sky Tower views, Waiheke Island wine tours, Maori cultural performances, volcanic landscapes, and New Zealand's City of Sails adventure."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/auckland.html"/>
@@ -248,6 +249,7 @@ Soli Deo Gloria
             <p>The Viaduct Harbour area surrounding the cruise terminal offers everything within walking distance: America's Cup sailing experiences (NZ$175-225 for two hours), waterfront restaurants serving fresh seafood, craft breweries with local selections, and the New Zealand Maritime Museum (NZ$20 admission). I spent my final evening at an outdoor table watching the sunset paint the harbour gold, nursing a local craft beer and contemplating how Auckland manages to feel both cosmopolitan and laid-back simultaneously. The famous Kiwi friendliness isn't marketing — it's genuine, and it transforms a port visit into something that feels more like coming home than passing through.</p>
           </div>
             </details>
+        </section>
 
         <details class="port-section" id="cruise_port" open>
           <summary><h2>The Cruise Port</h2></summary>
@@ -277,6 +279,7 @@ Soli Deo Gloria
           <p><strong>Oneroa Beach</strong> on Waiheke Island combines swimming with easy access to wineries and restaurants. The main village sits above the beach with cafes, galleries, and the hop-on hop-off bus stop. Water is calm and suitable for families. The beach is about a 5-minute walk downhill from the village — accessible but steep for wheelchairs.</p>
           <p><strong>Cheltenham Beach</strong> in Devonport offers a quieter alternative with views of Rangitoto. About 15 minutes walk from the Devonport ferry terminal past North Head. The beach has no facilities, so bring water and snacks. Good for swimming when tide is in, and the walk combines nicely with North Head exploration.</p>
             </details>
+        </section>
 
         <section id="excursions">
           <details class="section-collapse" open>
@@ -298,6 +301,7 @@ Soli Deo Gloria
           <h4>America's Cup Sailing Experience</h4>
           <p>Sail Auckland's harbour aboard actual America's Cup racing yachts. Ship excursions run NZ$200-275 per person for 2-hour experiences. Independent booking through NZL Sailing costs NZ$175-225 per person. Participants can help crew the yacht or simply enjoy the ride. Departures from Viaduct Harbour, steps from the cruise terminal. Book ahead during summer sailing season. Not recommended for those with mobility limitations — yacht access requires climbing.</p>
             </details>
+        </section>
 
         <section id="food">
           <details class="section-collapse" open>
@@ -311,6 +315,7 @@ Soli Deo Gloria
             <li><strong>New Zealand Wine:</strong> Waiheke Syrah, Marlborough Sauvignon Blanc, Central Otago Pinot Noir. Glasses from NZ$12-20 at restaurants</li>
           </ul>
             </details>
+        </section>
 
         <section id="notices">
           <details class="section-collapse" open>
@@ -324,6 +329,7 @@ Soli Deo Gloria
             <li><strong>Sun Protection:</strong> UV intensity is extreme due to ozone layer conditions; sunscreen essential even on cloudy days</li>
           </ul>
             </details>
+        </section>
 
         <details class="port-section" id="depth_soundings" open>
           <summary><h2>Depth Soundings</h2></summary>
@@ -349,6 +355,7 @@ Soli Deo Gloria
         
                 <p class="last-reviewed">Last reviewed: February 2026</p>
                 <div id="logbook-btn-container"></div>
+        </section>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
         <details class="port-section" id="weather-guide" open>
@@ -720,7 +727,7 @@ Soli Deo Gloria
       const data = await response.json();
       const items = Array.isArray(data) ? data : (data.articles || []);
       if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-  } catch (err) { console.log('Could not load articles:', err); }
+  } catch (err) {  }
   })();
   </script>
   <script>window.currentPortId = 'auckland';</script>

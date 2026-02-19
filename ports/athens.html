@@ -9,6 +9,7 @@ Soli Deo Gloria
   <meta name="ai-summary" content="Athens cruise port guide featuring the Acropolis, Parthenon, Ancient Agora, Plaka neighborhood, and the birthplace of Western democracy and philosophy."/>
   <meta name="last-reviewed" content="2026-02-01"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
+  <meta name="author" content="In the Wake">
   <title>Athens (Piraeus) Port Guide — Acropolis & Ancient Agora | In the Wake</title>
   <meta name="description" content="Athens cruise port guide featuring the Acropolis, Parthenon, Ancient Agora, Plaka neighborhood, and the birthplace of Western democracy and philosophy."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/athens.html"/>
@@ -252,6 +253,7 @@ Soli Deo Gloria
             <p>Looking back, what Athens taught me was humility before time. I realized that standing where Socrates questioned his students, where Pericles dreamed of perfect democracy, where ideas were born that still shape how we think—this isn't tourism. It's pilgrimage. I learned that some places carry weight beyond their beauty, that certain stones hold conversations that echo across millennia. The lesson Athens offers is simple but profound: we are inheritors, not inventors, of much that we treasure. Understanding that inheritance, feeling its reality in sun-warmed marble under your palm, changes something about how you see everything else.</p>
           </div>
             </details>
+        </section>
 
         <details class="port-section" id="cruise_port" open>
           <summary><h2>The Cruise Port</h2></summary>
@@ -281,6 +283,7 @@ Soli Deo Gloria
           <p><strong>Glyfada Beach</strong> provides another Athens Riviera option closer to the city, about 18 kilometers from Piraeus. The area has evolved into an upscale suburb with beach clubs, cafes, and shopping. Beach access varies — some sections are free, others charge admission to organized facilities. Tram access makes Glyfada relatively convenient for cruise visitors with flexible schedules.</p>
           <p><strong>Lake Vouliagmeni</strong> offers a unique alternative — a thermal lake fed by underground springs maintaining water temperatures around 24°C year-round. The mineral-rich waters are said to have therapeutic properties. Admission runs about €15, and the setting is peaceful and scenic. Located near Vouliagmeni Beach and accessible by the same transportation. Worth considering if you prefer calm water swimming to beach crowds.</p>
             </details>
+        </section>
 
         <section id="excursions">
           <details class="section-collapse" open>
@@ -327,6 +330,7 @@ Soli Deo Gloria
             </div>
           </div>
             </details>
+        </section>
 
         <!-- REAL TALK -->
         <p class="real-talk">Piraeus is 10 km from central Athens — not walkable. The metro is cheap and fast (€1.20, 35 min to Monastiraki). In summer the Acropolis hill is brutally hot with zero shade — go first thing in the morning. The €30 combined ticket covers the Acropolis plus six other ancient sites and is valid for 5 days, so it is the best deal even for a single day.</p>
@@ -343,6 +347,7 @@ Soli Deo Gloria
             <li><strong>Greek Coffee:</strong> Strong, unfiltered coffee served with grounds at bottom of cup. Sip slowly at kafeneio cafes for €2-4</li>
           </ul>
             </details>
+        </section>
 
         <section id="notices">
           <details class="section-collapse" open>
@@ -356,6 +361,7 @@ Soli Deo Gloria
             <li><strong>Tipping:</strong> 10-15% at restaurants if service not included; round up taxi fares</li>
           </ul>
             </details>
+        </section>
 
         <details class="port-section" id="depth_soundings" open>
           <summary><h2>Depth Soundings</h2></summary>
@@ -381,6 +387,7 @@ Soli Deo Gloria
         
                 <p class="last-reviewed">Last reviewed: February 2026</p>
                 <div id="logbook-btn-container"></div>
+        </section>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
         <details class="port-section" id="weather-guide" open>
@@ -761,7 +768,7 @@ Soli Deo Gloria
       const data = await response.json();
       const items = Array.isArray(data) ? data : (data.articles || []);
       if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-  } catch (err) { console.log('Could not load articles:', err); }
+  } catch (err) {  }
   })();
   </script>
   <script>window.currentPortId = 'athens';</script>

@@ -9,6 +9,7 @@ Soli Deo Gloria
   <meta name="ai-summary" content="Capri is the legendary Italian island in the Bay of Naples where Roman Emperor Tiberius built his imperial retreat in 27 AD. Experience the Blue Grotto's ethereal glow, Monte Solaro's chairlift, and La Piazzetta café culture."/>
   <meta name="last-reviewed" content="2026-02-01"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
+  <meta name="author" content="In the Wake">
   <title>Capri, Italy Port Guide — Island of Dreams | In the Wake</title>
   <meta name="description" content="First-person logbook guide to Capri — Blue Grotto sea cave with glowing azure water, Monte Solaro panoramas, La Piazzetta's dolce vita lifestyle, Faraglioni rock formations, and the island paradise that captivated emperors and artists."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/capri.html"/>
@@ -749,7 +750,7 @@ Soli Deo Gloria
       const data = await response.json();
       const items = Array.isArray(data) ? data : (data.articles || []);
       if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) { console.log('Could not load articles:', err); }
+    } catch (err) {  }
   })();
   </script>
   <script>window.currentPortId = 'capri';</script>

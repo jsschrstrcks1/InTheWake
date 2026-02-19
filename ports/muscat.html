@@ -9,6 +9,7 @@ Soli Deo Gloria
   <meta name="ai-summary" content="Muscat is Oman's pristine capital with Sultan Qaboos Grand Mosque. Explore Mutrah Souk, Royal Opera House, frankincense trails, golden beaches, and Arabian hospitality."/>
   <meta name="last-reviewed" content="2026-02-01"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
+  <meta name="author" content="In the Wake">
   <title>Muscat Port Guide — Mutrah Souq & Arabian Heritage | In the Wake</title>
   <meta name="description" content="First-person logbook guide to Muscat — Sultan Qaboos Grand Mosque, the legendary Mutrah Souq, frankincense heritage, and discovering Oman's graceful Arabian capital."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/muscat.html"/>
@@ -375,7 +376,7 @@ Soli Deo Gloria
         </section>
 
         <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Muscat Area Map</h2></summary>
+            <summary><h3>Muscat Area Map</h3></summary>
           <p class="map-intro">Interactive map showing cruise terminal, souq, mosque, and attractions. Click any marker for details and directions.</p>
           <div id="muscat-port-map" class="port-map-container" role="application" aria-label="Interactive map of Muscat and points of interest">
             <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
@@ -550,7 +551,7 @@ Soli Deo Gloria
       const data = await response.json();
       const items = Array.isArray(data) ? data : (data.articles || []);
       if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) { console.log('Could not load articles:', err); }
+    } catch (err) {  }
   })();
   </script>
   <script>window.currentPortId = 'muscat';</script>

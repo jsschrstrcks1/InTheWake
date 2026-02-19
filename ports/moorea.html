@@ -9,6 +9,7 @@ Soli Deo Gloria
   <meta name="ai-summary" content="Moorea is French Polynesia's heart-shaped island with dramatic volcanic peaks. Experience Belvedere Lookout, Opunohu Bay, pineapple plantations, lagoon snorkeling, and Polynesian culture."/>
   <meta name="last-reviewed" content="2026-02-01"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
+  <meta name="author" content="In the Wake">
   <title>Moorea (French Polynesia) Port Guide — Volcanic Paradise | In the Wake</title>
   <meta name="description" content="First-person logbook guide to Moorea, French Polynesia — Belvedere Lookout over Cook's Bay and Opunohu Bay, lagoon tours with stingrays and blacktip reef sharks, black pearl shopping, Tiki Village cultural experiences, and exploring the heart-shaped volcanic island."/>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/moorea.html"/>
@@ -676,7 +677,7 @@ Soli Deo Gloria
       const data = await response.json();
       const items = Array.isArray(data) ? data : (data.articles || []);
       if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0f0f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) { console.log('Could not load articles:', err); }
+    } catch (err) {  }
   })();
   </script>
   <script>window.currentPortId = 'moorea';</script>

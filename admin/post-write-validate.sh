@@ -300,6 +300,47 @@ for file in $FILES; do
         ((TOTAL_ERRORS++))
       fi
 
+      # Heading tag balance (h1-h6)
+      HEADING_OK=true
+      for HLEVEL in 1 2 3 4 5 6; do
+        OPEN_H=$(grep -oE "<h${HLEVEL}[[:space:]>]" "$file" | wc -l || echo 0)
+        CLOSE_H=$(grep -o "</h${HLEVEL}>" "$file" | wc -l || echo 0)
+        if [ "$OPEN_H" -ne "$CLOSE_H" ]; then
+          echo -e "   ${RED}✗${NC} Mismatched <h${HLEVEL}> tags ($OPEN_H opening, $CLOSE_H closing)"
+          ((TOTAL_ERRORS++))
+          HEADING_OK=false
+        fi
+      done
+      if $HEADING_OK; then
+        echo -e "   ${GREEN}✓${NC} Balanced heading tags (h1-h6)"
+      fi
+
+      # Structural tag balance (section, details, article, aside, nav)
+      for STAG in section details article aside nav; do
+        OPEN_S=$(grep -oE "<${STAG}[[:space:]>]" "$file" | wc -l || echo 0)
+        CLOSE_S=$(grep -o "</${STAG}>" "$file" | wc -l || echo 0)
+        if [ "$OPEN_S" -ne "$CLOSE_S" ]; then
+          echo -e "   ${RED}✗${NC} Unbalanced <${STAG}> tags ($OPEN_S opening, $CLOSE_S closing)"
+          ((TOTAL_ERRORS++))
+        fi
+      done
+
+      # Console.log in inline scripts (not in external .js files loaded via src)
+      if grep -Pzo '(?s)<script(?![^>]*src=)[^>]*>.*?</script>' "$file" 2>/dev/null | grep -q 'console\.\(log\|warn\|error\|debug\)' 2>/dev/null; then
+        echo -e "   ${YELLOW}⚠${NC}  Found console.log/warn/error in inline <script> block(s)"
+        ((TOTAL_WARNINGS++))
+      else
+        echo -e "   ${GREEN}✓${NC} No console.log in inline scripts"
+      fi
+
+      # Meta author tag check
+      if grep -q 'name="author"' "$file" 2>/dev/null; then
+        echo -e "   ${GREEN}✓${NC} Meta author tag present"
+      else
+        echo -e "   ${YELLOW}⚠${NC}  Missing <meta name=\"author\"> tag"
+        ((TOTAL_WARNINGS++))
+      fi
+
       # Trust badge check (all pages)
       if grep -q 'class="trust-badge"' "$file" 2>/dev/null; then
         echo -e "   ${GREEN}✓${NC} Trust badge present in footer"
