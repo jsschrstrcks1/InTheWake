@@ -70,25 +70,32 @@ FORMAT:
 
 **Notes:** All batch-automatable code/structural fixes have been exhausted. Remaining failures require content creation (images, editorial text, videos).
 
-### Mobile Readiness Validator (Phase 1 Complete, Phase 2 Pending)
+### Mobile Standard v1.000 Implementation (Phases 1-2 Complete, Phase 3 Pending)
 **Thread:** `claude/review-codebase-validators-n0YNf`
 **Started:** 2026-02-19
-**Files:** admin/validate-mobile-readiness.js (new), admin/validate.js (modified)
-**Status:** Phase 1 COMPLETE — Validator built and integrated. Phase 2 (CSS hardening) pending.
+**Files:** admin/validate-mobile-readiness.js (new), admin/validate.js (modified), assets/styles.css (modified), assets/css/ship-page.css (modified), 10 port HTML files (modified)
+**Status:** Phases 1-2 COMPLETE. Phase 3 (full audit at all device widths) pending.
 
-**Phase 1 (Complete):**
+**Phase 1 (Complete — Validator):**
 - [x] Created `admin/validate-mobile-readiness.js` (8 checks: MOB-001 through MOB-008)
 - [x] Integrated into unified `admin/validate.js` via dynamic import (graceful degradation if absent)
-- [x] Baseline audit: 0 blocking failures, 6 pages with warnings (table overflow, inline font sizes)
-- [x] Standalone CLI: `node admin/validate-mobile-readiness.js <file> --verbose`
+- [x] Baseline audit: 0 blocking failures, 6 pages with warnings
 
-**Phase 2 (Pending):**
-- [ ] Add MOBILE HARDENING CSS section to assets/styles.css
-- [ ] Add .table-scroll wrappers to port page transport-costs-table elements
-- [ ] Address inline font-size warnings (ship nav links at 0.9rem, index tool links at 0.8-0.9rem)
-- [ ] Re-run baseline audit to verify improvements
+**Phase 2 (Complete — CSS Implementation):**
+- [x] Added MOBILE HARDENING v1.000 section to assets/styles.css (before print section)
+- [x] Rules: rail reflow (979.98px), touch targets (768px), typography clamp() (480px), hero containment (480px), stats-grid collapse (360px)
+- [x] Added `.table-scroll` class and wrappers to 10 port page transport-costs-table elements
+- [x] Added tracker container mobile height to ship-page.css (350px at 480px)
+- [x] Post-implementation audit: MOB-004 warnings resolved (0 from 2), MOB-008 resolved (0 from 7)
+- [x] Desktop rendering verified unaffected (all rules inside @media max-width queries)
 
-**Notes:** Validator uses dynamic import in validate.js — if validate-mobile-readiness.js is deleted, validate.js continues to function without mobile checks.
+**Phase 3 (Pending — Full Audit):**
+- [ ] Run validator against all pages (`--all`)
+- [ ] Audit all 15 brand CSS files for mobile overflow
+- [ ] Test at 360px, 375px, 390px, 412px, 768px (requires browser)
+- [ ] Remaining MOB-007 font-size warnings (inline HTML — not CSS-fixable)
+
+**Notes:** Validator uses dynamic import in validate.js — if validate-mobile-readiness.js is deleted, validate.js continues to function without mobile checks. `.ship-card .thumb img` aspect-ratio rule intentionally skipped — `.thumb` class only used in 3 HTML files (6 instances), not a widespread pattern.
 
 ---
 
@@ -115,7 +122,7 @@ FORMAT:
 | claude/identify-maintenance-tasks-FN2lh | Doc consistency, CSS consolidation, competitor gap features | COMPLETE (merged) | 2026-01-31 |
 | claude/review-docs-codebase-IJvuW | Competitor analysis (120+), AI chorus evaluation, task update | COMPLETE | 2026-02-08 |
 | claude/onboard-and-audit-PvzvO | From the Pier (376 ports), codebase audit, doc fixes | IN PROGRESS | 2026-02-05 |
-| claude/review-codebase-validators-n0YNf | Mobile readiness validator (Phase 1 complete, Phase 2 pending) | IN PROGRESS | 2026-02-19 |
+| claude/review-codebase-validators-n0YNf | Mobile Standard v1.000 (Phases 1-2 complete, Phase 3 pending) | IN PROGRESS | 2026-02-19 |
 | claude/audit-venues-gD9fq | Logbook enrichment — Gentle Truth reviews | COMPLETE | 2026-01-31 |
 | claude/review-previous-work-ZMk3b | Deep audit, JPG elimination, CSS consolidation, ship-page.css rollout, guardrail, docs | COMPLETE | 2026-01-31 |
 | claude/review-onboarding-setup-01JpVFgKzWRBKvXaxcS1pC9N | Onboarding review, schema fix | COMPLETE | 2025-12-01 |

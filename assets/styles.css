@@ -2369,6 +2369,78 @@ h3.seasonal-section-title::after {
   }
 }
 
+/* =========================================================================
+   MOBILE HARDENING v1.000 (2026-02-19)
+   Standard: new-standards/v3.010/MOBILE_STANDARDS_v1.000.md
+   ========================================================================= */
+
+/* --- Table scroll wrapper (Section 8.1) --- */
+/* Zero visual change on desktop. Enables horizontal scroll on narrow viewports. */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* --- 979.98px: Rail stacking, grid collapse (Section 7.1) --- */
+@media (max-width: 979.98px) {
+  /* Right rail visual distinction when stacked below content */
+  .page-grid > .rail,
+  .page-grid > aside {
+    border-top: 2px solid var(--rope);
+    padding-top: 1.5rem;
+    margin-top: 1rem;
+  }
+}
+
+/* --- 768px: Touch targets (Section 6) --- */
+@media (max-width: 768px) {
+  /* Dropdown links: enforce 44px minimum touch target */
+  .site-nav .dropdown-menu a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* FAQ toggles: enforce 44px minimum touch target */
+  .faq-item summary {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Footer links in .tiny text: enforce 44px minimum touch target */
+  footer .tiny a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
+/* --- 480px: Small phone layout (Section 5, 7) --- */
+@media (max-width: 480px) {
+  /* Typography: clamp() heading sizes for narrow viewports (Section 5.2) */
+  h1 { font-size: clamp(1.4rem, 6vw, 2rem); }
+  h2 { font-size: clamp(1.15rem, 4.5vw, 1.5rem); }
+  h3 { font-size: clamp(1rem, 3.5vw, 1.25rem); }
+
+  /* Hero image containment (Section 7.4) */
+  .hero-header img,
+  .hero-ship img,
+  .hero img,
+  [class*="hero"] img {
+    max-height: 50vh;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+/* --- 360px: Micro viewport floor (Section 3, 8.2) --- */
+@media (max-width: 360px) {
+  /* Stats grid: collapse to single column at micro viewport */
+  .stats-grid { grid-template-columns: 1fr; }
+}
+
+/* =========================================================================
+   END MOBILE HARDENING
+   ========================================================================= */
+
 /* Print: always show expanded */
 @media print {
   .section-collapse {
