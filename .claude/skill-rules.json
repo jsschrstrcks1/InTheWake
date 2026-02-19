@@ -338,7 +338,7 @@
       "activationMessage": "✒️ Like-a-human voice guide activated. Window Pane Principle in effect — prose must disappear.",
       "coActivation": {
         "always_with": ["careful-not-clever"],
-        "note": "Port content edits fire both Careful (process + technical integrity) and Like-a-human (voice). Careful governs HOW we work. Like-a-human governs HOW IT READS."
+        "note": "ALL content edits (ports, ships, restaurants, logbooks, root pages) fire both Careful and Like-a-human. Careful governs HOW we work. Like-a-human governs HOW IT READS."
       }
     },
 
@@ -516,12 +516,13 @@
       "PostToolUse_Edit_Write": [
         "post-tool-use-tracker.sh → tracks edited files/repos",
         "ship-page-validator.sh → validates ship pages",
-        "port-content-voice-hook.sh → injects Like-a-human voice guide for ports/**/*.html ONLY"
+        "content-voice-hook.sh → injects Like-a-human voice guide for ALL content writes"
       ],
       "activation_matrix": {
         "any_file_edit": ["careful-not-clever (process)", "careful-not-clever (technical)"],
-        "port_html_edit": ["careful-not-clever (process)", "careful-not-clever (technical)", "content-strategy/Like-a-human (voice)"],
-        "ship_html_edit": ["careful-not-clever (process)", "careful-not-clever (technical)", "ship-page-validator"]
+        "content_html_edit": ["careful-not-clever (process)", "careful-not-clever (technical)", "content-strategy/Like-a-human (voice)"],
+        "content_types": ["ports/**/*.html", "ships/**/*.html", "restaurants/**/*.html", "cruise-lines/**/*.html", "solo/**/*.html", "**/logbooks/**/*.json", "root content pages"],
+        "ship_html_edit_extra": "ship-page-validator (in addition to above)"
       }
     },
     "skill_sources": {
