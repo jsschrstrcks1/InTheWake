@@ -273,9 +273,14 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <main class="wrap page-grid" id="main-content" role="main" tabindex="-1" style="max-width: 900px; margin: 0 auto; padding: 2rem 1rem;">
     <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
-        <!-- Hero: NEEDS REAL IMAGE — placeholder removed per CLAUDE.md -->
-        <section class="port-hero" id="hero" aria-label="Kodiak cruise port hero" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden; background: linear-gradient(135deg, #2c5f4a 0%, #1a3a4a 100%); min-height: 200px; display: flex; align-items: center; justify-content: center;">
-          <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 8vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">Kodiak</h1>
+        <section class="port-hero" id="hero" aria-label="Kodiak cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+          <div class="port-hero-image" style="position: relative;">
+            <img src="/ports/img/kodiak/kodiak-hero.webp" alt="Kodiak harbor with fishing boats moored along the docks and green mountains rising behind the town" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover;"/>
+            <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+              <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 8vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">Kodiak</h1>
+            </div>
+          </div>
+          <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://www.flickr.com/photos/joetography/53732419774/" target="_blank" rel="noopener">Joetography LLC / Flickr</a> (CC BY-SA 2.0)</p>
         </section>
 
       <h1>Kodiak, Alaska</h1>
@@ -595,7 +600,52 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           <p><strong>Q: Does Kodiak have a hurricane or storm season?</strong><br>A: Kodiak does not experience hurricanes, but winter storms (October through March) can bring high winds and heavy seas. The cruise season (May-September) avoids the worst weather, though rain and fog are always possible. Cruise lines closely monitor conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended.</p>
         </section>
 
-    <!-- Gallery: NEEDS REAL IMAGES — placeholder images removed per CLAUDE.md (BLOCKING ERROR) -->
+    <!-- Photo Gallery Section -->
+    <section id="gallery" class="card mt-2">
+      <details class="section-collapse" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="collapse-body">
+      <div class="swiper port-gallery" aria-label="Kodiak photo carousel">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/kodiak/kodiak-1.webp" alt="View of Kodiak harbor with boats and waterfront buildings against a mountain backdrop" loading="lazy" decoding="async">
+              <figcaption>Kodiak harbor <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/joetography/53732517725/" target="_blank" rel="noopener">Joetography LLC / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/kodiak/kodiak-2.webp" alt="Kodiak harbor waterfront with commercial fishing vessels and coastal mountains" loading="lazy" decoding="async">
+              <figcaption>Kodiak waterfront <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/joetography/53732420244/" target="_blank" rel="noopener">Joetography LLC / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/kodiak/kodiak-3.webp" alt="Commercial fishing seiners working the waters near Kodiak Island" loading="lazy" decoding="async">
+              <figcaption>Seiners at work near Kodiak <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/jkbrooks85/9324694738/" target="_blank" rel="noopener">jkbrooks85 / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/kodiak/kodiak-4.webp" alt="Kodiak brown bear rolling playfully in green grass" loading="lazy" decoding="async">
+              <figcaption>Kodiak brown bear <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/bfrannkphoto/3683171688/" target="_blank" rel="noopener">Beverly &amp; Pack / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/kodiak/kodiak-5.webp" alt="Scenic view of Womens Bay on Kodiak Island with calm waters and green hills" loading="lazy" decoding="async">
+              <figcaption>Womens Bay, Kodiak Island <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/usfws_headquarters/5123475709/" target="_blank" rel="noopener">U.S. Fish and Wildlife Service / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+      </div>
+      <p class="tiny" style="margin-top: 1rem; color: #678;"><em>Images sourced from Flickr under Creative Commons licenses (CC BY 2.0, CC BY-SA 2.0).</em></p>
+        </div>
+      </details>
+    </section>
 
     </div>
 
@@ -720,6 +770,26 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/whimsical-port-units.js"></script>
+
+  <!-- Initialize Photo Gallery Swiper -->
+  <script>
+  (function() {
+    function initSwiper() {
+      if (typeof Swiper !== 'undefined') {
+        new Swiper('.port-gallery', {
+          slidesPerView: 1,
+          spaceBetween: 20,
+          loop: true,
+          pagination: { el: '.swiper-pagination', clickable: true },
+          navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+          breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+        });
+      } else { setTimeout(initSwiper, 100); }
+    }
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initSwiper); }
+    else { initSwiper(); }
+  })();
+  </script>
 
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
