@@ -462,7 +462,7 @@ function checkFontSizeFloor($) {
 
   $('[style]').each((i, elem) => {
     const style = $(elem).attr('style') || '';
-    const fontMatch = style.match(/font-size\s*:\s*(\d+(?:\.\d+)?)(px|rem|em)/i);
+    const fontMatch = style.match(/font-size\s*:\s*(\d*\.?\d+)(px|rem|em)/i);
     if (!fontMatch) return;
 
     const value = parseFloat(fontMatch[1]);
@@ -484,6 +484,8 @@ function checkFontSizeFloor($) {
                         $(elem).closest('.breadcrumb-nav').length > 0;
       if (!isExempt) {
         const text = $(elem).text().trim().substring(0, 40);
+        // Exempt theological invocation (standard Section 2.3: do not modify)
+        if (text === 'Soli Deo Gloria') return;
         violations.push(`<${tag}> has font-size: ${fontMatch[1]}${fontMatch[2]} (${pxSize.toFixed(0)}px) — "${text}"`);
       }
     }
