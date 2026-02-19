@@ -269,9 +269,9 @@
     "content-strategy": {
       "enabled": true,
       "type": "domain",
-      "enforcement": "suggest",
+      "enforcement": "warn",
       "priority": "high",
-      "description": "Content strategy for cruise planning content aligned with ITW-Lite v3.010 philosophy. Prioritizes authentic, natural language that serves humans first while maintaining AI comprehension. Travel storytelling over marketing-speak.",
+      "description": "Content strategy for cruise planning content aligned with ITW-Lite v3.010 philosophy. Prioritizes authentic, natural language that serves humans first while maintaining AI comprehension. Travel storytelling over marketing-speak. Voice enforcement via Like-a-human skill.",
       "guardrails": {
         "must_reject": [
           "Keyword-stuffed descriptions",
@@ -324,6 +324,21 @@
           "<meta name=\"ai:summary\"",
           "<meta name=\"content-protocol\""
         ]
+      },
+      "toolTriggers": [
+        "Edit",
+        "Write",
+        "MultiEdit"
+      ],
+      "autoLoad": {
+        "mainFile": ".claude/skills/Humanization/Like-a-human.md",
+        "maxLines": 200,
+        "loadOnFirstFileEdit": true
+      },
+      "activationMessage": "✒️ Like-a-human voice guide activated. Window Pane Principle in effect — prose must disappear.",
+      "coActivation": {
+        "always_with": ["careful-not-clever"],
+        "note": "Port content edits fire both Careful (process + technical integrity) and Like-a-human (voice). Careful governs HOW we work. Like-a-human governs HOW IT READS."
       }
     },
 
@@ -422,7 +437,7 @@
       "type": "guardrail",
       "enforcement": "warn",
       "priority": "critical",
-      "description": "Integrity guardrail: enforces careful, verified, documented work over clever shortcuts. Read before editing. Document as you go. Verify before reporting. Leave things alone when risk outweighs benefit.",
+      "description": "Integrity guardrail: enforces careful, verified, documented work over clever shortcuts. Two layers: (1) Process discipline — read before editing, verify, document. (2) Technical discipline — semantic equivalence, pattern verification, pre-commit checks. Both fire on every write via session-start-guardrail.sh.",
 
       "fileTriggers": {
         "pathPatterns": [
@@ -446,11 +461,13 @@
 
       "autoLoad": {
         "mainFile": ".claude/skills/careful-not-clever/CAREFUL.md",
+        "supplementaryFile": "CAREFUL.md",
         "maxLines": 200,
-        "loadOnFirstFileEdit": true
+        "loadOnFirstFileEdit": true,
+        "note": "Process guardrail (mainFile) + Technical guardrail (supplementaryFile) both injected via session-start-guardrail.sh on every prompt"
       },
 
-      "activationMessage": "Careful, not clever. Read first. Document as you go. Verify before reporting.",
+      "activationMessage": "Careful, not clever. Both guardrails active: process discipline + technical verification.",
 
       "guardrails": {
         "before_modify": [
@@ -494,6 +511,19 @@
     "project": "In the Wake - Cruise planning site (merged with FOM enhancements)",
     "protocol": "ITW-Lite v3.010 (adapted from FOM-Lite v1.0)",
     "total_skills": 9,
+    "hook_wiring": {
+      "UserPromptSubmit": "session-start-guardrail.sh → injects BOTH Careful files (process v1.0 + technical root)",
+      "PostToolUse_Edit_Write": [
+        "post-tool-use-tracker.sh → tracks edited files/repos",
+        "ship-page-validator.sh → validates ship pages",
+        "port-content-voice-hook.sh → injects Like-a-human voice guide for ports/**/*.html ONLY"
+      ],
+      "activation_matrix": {
+        "any_file_edit": ["careful-not-clever (process)", "careful-not-clever (technical)"],
+        "port_html_edit": ["careful-not-clever (process)", "careful-not-clever (technical)", "content-strategy/Like-a-human (voice)"],
+        "ship_html_edit": ["careful-not-clever (process)", "careful-not-clever (technical)", "ship-page-validator"]
+      }
+    },
     "skill_sources": {
       "citw_original": ["standards", "ship-page-validator", "careful-not-clever"],
       "fom_adapted": [

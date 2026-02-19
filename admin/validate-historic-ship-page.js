@@ -24,6 +24,7 @@ import { join, dirname, relative, basename } from 'path';
 import { fileURLToPath } from 'url';
 import { load } from 'cheerio';
 import { glob } from 'glob';
+import { validateVoiceQuality } from './lib/voice-quality-checks.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -866,6 +867,9 @@ async function validateHistoricShipPage(filepath) {
     const videoResult = await validateVideos(slug);
     const articlesResult = await validateArticles();
 
+    // Like-a-human voice quality checks
+    const voiceQualityResult = validateVoiceQuality($('body').text());
+
     // Collect errors
     results.blocking_errors.push(
       ...breadcrumbResult.errors, ...icpResult.errors, ...jsonldResult.errors,
@@ -873,7 +877,8 @@ async function validateHistoricShipPage(filepath) {
       ...sectionResult.errors, ...dataResult.errors,
       ...faqResult.errors, ...imageResult.errors, ...jsResult.errors,
       ...logbookResult.errors, ...videoResult.errors, ...articlesResult.errors,
-      ...htmlStructureResult.errors, ...viewportResult.errors, ...titleResult.errors
+      ...htmlStructureResult.errors, ...viewportResult.errors, ...titleResult.errors,
+      ...voiceQualityResult.errors
     );
 
     // Collect warnings
@@ -883,7 +888,8 @@ async function validateHistoricShipPage(filepath) {
       ...sectionResult.warnings, ...dataResult.warnings,
       ...faqResult.warnings, ...imageResult.warnings, ...jsResult.warnings,
       ...logbookResult.warnings, ...videoResult.warnings, ...articlesResult.warnings,
-      ...htmlStructureResult.warnings, ...viewportResult.warnings, ...titleResult.warnings
+      ...htmlStructureResult.warnings, ...viewportResult.warnings, ...titleResult.warnings,
+      ...voiceQualityResult.warnings
     );
 
     // Calculate score
@@ -898,6 +904,7 @@ async function validateHistoricShipPage(filepath) {
     results.faq = faqResult.data;
     results.images = imageResult.data;
     results.logbook = logbookResult.data;
+    results.voice_quality = voiceQualityResult.data;
     results.videos = videoResult.data;
     results.articles = articlesResult.data;
     results.wcag = wcagResult.data;

@@ -46,6 +46,7 @@ import { join, dirname, relative, basename } from 'path';
 import { fileURLToPath } from 'url';
 import { load } from 'cheerio';
 import { glob } from 'glob';
+import { validateVoiceQuality } from './lib/voice-quality-checks.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -2298,6 +2299,9 @@ async function validateShipPage(filepath) {
     const wordCountResult = validateWordCounts($, isHistoric);
     const printButtonResult = validatePrintButton($, html);
 
+    // Like-a-human voice quality checks
+    const voiceQualityResult = validateVoiceQuality($('body').text());
+
     // v2.3 external review findings
     const externalReviewResult = validateExternalReviewFindings($, html);
 
@@ -2318,7 +2322,7 @@ async function validateShipPage(filepath) {
       ...htmlStructureResult.errors, ...viewportResult.errors,
       ...contentPurityResult.errors, ...shipStatsResult.errors,
       ...diningResult.errors, ...wordCountResult.errors,
-      ...externalReviewResult.errors
+      ...externalReviewResult.errors, ...voiceQualityResult.errors
     ];
     const preliminaryWarnings = [
       ...analyticsResult.warnings, ...soliDeoGloriaResult.warnings,
@@ -2331,7 +2335,7 @@ async function validateShipPage(filepath) {
       ...htmlStructureResult.warnings, ...viewportResult.warnings,
       ...contentPurityResult.warnings, ...shipStatsResult.warnings,
       ...diningResult.warnings, ...wordCountResult.warnings,
-      ...externalReviewResult.warnings
+      ...externalReviewResult.warnings, ...voiceQualityResult.warnings
     ];
     const preliminaryScore = Math.max(0, 100 - (preliminaryErrors.length * 10) - (preliminaryWarnings.length * 2));
 
@@ -2354,7 +2358,7 @@ async function validateShipPage(filepath) {
       ...diningResult.errors, ...wordCountResult.errors,
       ...printButtonResult.errors,
       ...searchIndexResult.errors, ...shipAtlasResult.errors,
-      ...externalReviewResult.errors
+      ...externalReviewResult.errors, ...voiceQualityResult.errors
     );
 
     // Collect warnings
@@ -2372,7 +2376,7 @@ async function validateShipPage(filepath) {
       ...diningResult.warnings, ...wordCountResult.warnings,
       ...printButtonResult.warnings,
       ...searchIndexResult.warnings, ...shipAtlasResult.warnings,
-      ...externalReviewResult.warnings
+      ...externalReviewResult.warnings, ...voiceQualityResult.warnings
     );
 
     // Calculate score
@@ -2397,6 +2401,7 @@ async function validateShipPage(filepath) {
     results.html_structure = htmlStructureResult.data;
     results.viewport = viewportResult.data;
     results.content_purity = contentPurityResult.data;
+    results.voice_quality = voiceQualityResult.data;
     results.word_counts = wordCountResult.data;
     results.clean_console = cleanConsoleResult.data;
     results.inline_json = { stats: shipStatsResult.data, dining: diningResult.data };
