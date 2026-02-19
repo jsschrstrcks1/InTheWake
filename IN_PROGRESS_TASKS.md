@@ -1,7 +1,7 @@
 # In-Progress Tasks
 
 **Purpose:** Thread coordination file to prevent conflicts between concurrent Claude threads.
-**Last Updated:** 2026-02-19 (mobile readiness validator added by claude/review-codebase-validators-n0YNf)
+**Last Updated:** 2026-02-19 (Phase 3 audit complete by claude/review-codebase-validators-n0YNf)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -70,11 +70,11 @@ FORMAT:
 
 **Notes:** All batch-automatable code/structural fixes have been exhausted. Remaining failures require content creation (images, editorial text, videos).
 
-### Mobile Standard v1.000 Implementation (Phases 1-2 Complete, Phase 3 Pending)
+### Mobile Standard v1.000 Implementation (Phases 1-3 Complete)
 **Thread:** `claude/review-codebase-validators-n0YNf`
 **Started:** 2026-02-19
-**Files:** admin/validate-mobile-readiness.js (new), admin/validate.js (modified), assets/styles.css (modified), assets/css/ship-page.css (modified), 10 port HTML files (modified)
-**Status:** Phases 1-2 COMPLETE. Phase 3 (full audit at all device widths) pending.
+**Files:** admin/validate-mobile-readiness.js (new), admin/validate.js (modified), assets/styles.css (modified), assets/css/ship-page.css (modified), 10 port HTML files (modified), 4 HTML files (viewport meta fix)
+**Status:** Phases 1-3 COMPLETE. Browser testing at specific widths remains (requires manual browser).
 
 **Phase 1 (Complete — Validator):**
 - [x] Created `admin/validate-mobile-readiness.js` (8 checks: MOB-001 through MOB-008)
@@ -89,11 +89,17 @@ FORMAT:
 - [x] Post-implementation audit: MOB-004 warnings resolved (0 from 2), MOB-008 resolved (0 from 7)
 - [x] Desktop rendering verified unaffected (all rules inside @media max-width queries)
 
-**Phase 3 (Pending — Full Audit):**
-- [ ] Run validator against all pages (`--all`)
-- [ ] Audit all 15 brand CSS files for mobile overflow
-- [ ] Test at 360px, 375px, 390px, 412px, 768px (requires browser)
-- [ ] Remaining MOB-007 font-size warnings (inline HTML — not CSS-fixable)
+**Phase 3 (Complete — Full Audit):**
+- [x] Ran validator against all 1454 pages — **1454/1454 pass** (0 blocking)
+- [x] Fixed 4 blocking failures: missing viewport meta in ships/carnival/index.html, ports/kyoto.html, ports/falmouth-jamaica.html, ports/beijing.html (3 redirect pages + 1 fleet index)
+- [x] Audited all 15 brand CSS files — all LOW risk (pure CSS variable files, no layout/sizing)
+- [x] Ran existing validators on modified pages: unified (13 pages, 0 failures), port-page-v2 (3 ports, all 100/100), ship-page (4 ships, 0 errors), venue-page-v2 (1 venue, 0 errors), ICP-Lite v14 (3 pages, all pass)
+- [ ] Browser testing at 360px, 375px, 390px, 412px, 768px (requires manual browser — cannot be automated)
+
+**364 Remaining Warnings (all inline HTML — not CSS-fixable per Standard Section 2.3):**
+- MOB-007: 320 warnings — inline `font-size: 0.9rem` (14px) on ship page tool links
+- MOB-002: 42 warnings — inline `width` > 480px on various elements
+- MOB-004: 2 warnings — tables in ships/carnival/carnival-magic.html and carnival-breeze.html need `.table-scroll` wrappers (requires HTML edit)
 
 **Notes:** Validator uses dynamic import in validate.js — if validate-mobile-readiness.js is deleted, validate.js continues to function without mobile checks. `.ship-card .thumb img` aspect-ratio rule intentionally skipped — `.thumb` class only used in 3 HTML files (6 instances), not a widespread pattern.
 
@@ -122,7 +128,7 @@ FORMAT:
 | claude/identify-maintenance-tasks-FN2lh | Doc consistency, CSS consolidation, competitor gap features | COMPLETE (merged) | 2026-01-31 |
 | claude/review-docs-codebase-IJvuW | Competitor analysis (120+), AI chorus evaluation, task update | COMPLETE | 2026-02-08 |
 | claude/onboard-and-audit-PvzvO | From the Pier (376 ports), codebase audit, doc fixes | IN PROGRESS | 2026-02-05 |
-| claude/review-codebase-validators-n0YNf | Mobile Standard v1.000 (Phases 1-2 complete, Phase 3 pending) | IN PROGRESS | 2026-02-19 |
+| claude/review-codebase-validators-n0YNf | Mobile Standard v1.000 (Phases 1-3 complete, browser testing pending) | IN PROGRESS | 2026-02-19 |
 | claude/audit-venues-gD9fq | Logbook enrichment — Gentle Truth reviews | COMPLETE | 2026-01-31 |
 | claude/review-previous-work-ZMk3b | Deep audit, JPG elimination, CSS consolidation, ship-page.css rollout, guardrail, docs | COMPLETE | 2026-01-31 |
 | claude/review-onboarding-setup-01JpVFgKzWRBKvXaxcS1pC9N | Onboarding review, schema fix | COMPLETE | 2025-12-01 |
