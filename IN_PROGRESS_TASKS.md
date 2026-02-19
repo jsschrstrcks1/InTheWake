@@ -1,7 +1,7 @@
 # In-Progress Tasks
 
 **Purpose:** Thread coordination file to prevent conflicts between concurrent Claude threads.
-**Last Updated:** 2026-02-05 (cleaned up by claude/onboard-and-audit-PvzvO)
+**Last Updated:** 2026-02-19 (mobile readiness validator added by claude/review-codebase-validators-n0YNf)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -70,6 +70,26 @@ FORMAT:
 
 **Notes:** All batch-automatable code/structural fixes have been exhausted. Remaining failures require content creation (images, editorial text, videos).
 
+### Mobile Readiness Validator (Phase 1 Complete, Phase 2 Pending)
+**Thread:** `claude/review-codebase-validators-n0YNf`
+**Started:** 2026-02-19
+**Files:** admin/validate-mobile-readiness.js (new), admin/validate.js (modified)
+**Status:** Phase 1 COMPLETE — Validator built and integrated. Phase 2 (CSS hardening) pending.
+
+**Phase 1 (Complete):**
+- [x] Created `admin/validate-mobile-readiness.js` (8 checks: MOB-001 through MOB-008)
+- [x] Integrated into unified `admin/validate.js` via dynamic import (graceful degradation if absent)
+- [x] Baseline audit: 0 blocking failures, 6 pages with warnings (table overflow, inline font sizes)
+- [x] Standalone CLI: `node admin/validate-mobile-readiness.js <file> --verbose`
+
+**Phase 2 (Pending):**
+- [ ] Add MOBILE HARDENING CSS section to assets/styles.css
+- [ ] Add .table-scroll wrappers to port page transport-costs-table elements
+- [ ] Address inline font-size warnings (ship nav links at 0.9rem, index tool links at 0.8-0.9rem)
+- [ ] Re-run baseline audit to verify improvements
+
+**Notes:** Validator uses dynamic import in validate.js — if validate-mobile-readiness.js is deleted, validate.js continues to function without mobile checks.
+
 ---
 
 ## Recently Completed (Move to COMPLETED_TASKS.md after user confirmation)
@@ -95,6 +115,7 @@ FORMAT:
 | claude/identify-maintenance-tasks-FN2lh | Doc consistency, CSS consolidation, competitor gap features | COMPLETE (merged) | 2026-01-31 |
 | claude/review-docs-codebase-IJvuW | Competitor analysis (120+), AI chorus evaluation, task update | COMPLETE | 2026-02-08 |
 | claude/onboard-and-audit-PvzvO | From the Pier (376 ports), codebase audit, doc fixes | IN PROGRESS | 2026-02-05 |
+| claude/review-codebase-validators-n0YNf | Mobile readiness validator (Phase 1 complete, Phase 2 pending) | IN PROGRESS | 2026-02-19 |
 | claude/audit-venues-gD9fq | Logbook enrichment — Gentle Truth reviews | COMPLETE | 2026-01-31 |
 | claude/review-previous-work-ZMk3b | Deep audit, JPG elimination, CSS consolidation, ship-page.css rollout, guardrail, docs | COMPLETE | 2026-01-31 |
 | claude/review-onboarding-setup-01JpVFgKzWRBKvXaxcS1pC9N | Onboarding review, schema fix | COMPLETE | 2025-12-01 |

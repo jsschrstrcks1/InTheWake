@@ -33,6 +33,7 @@ new-standards/
 │   ├── ICP_LITE_v1.0_PROTOCOL.md
 │   ├── AI_BREADCRUMBS_SPECIFICATION.md
 │   ├── FUN_DISTANCE_UNITS_STANDARDS_v1.0.md
+│   ├── MOBILE_STANDARDS_v1.000.md          (NEW: mobile responsiveness standard)
 │   └── MULTI_BRAND_DATA_CONTRACTS.md
 └── addenda/                            (supplemental standards)
     ├── INVOCATION_REQUIREMENTS.md
@@ -255,6 +256,9 @@ critical/high/normal tiers for service worker optimization
 
 ### Multi-Brand Data Contracts
 Expanded beyond Royal Caribbean (Carnival, MSC supported)
+
+### Mobile Standards v1.000 (NEW — 2026-02-19)
+Enforceable mobile responsiveness standard for all pages. Defines breakpoint hierarchy, CSS location rules, touch target requirements, typography minimums, and validator checks. Replaces ad-hoc mobile handling.
 
 See `v3.010/` directory for complete specifications.
 
