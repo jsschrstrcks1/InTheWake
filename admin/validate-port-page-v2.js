@@ -19,6 +19,7 @@ import { join, dirname, relative, basename } from 'path';
 import { fileURLToPath } from 'url';
 import { load } from 'cheerio';
 import { glob } from 'glob';
+import { validateVoiceQuality } from './lib/voice-quality-checks.js';
 
 // Known placeholder image hashes (these should not be used on any port page)
 const PLACEHOLDER_HASHES = new Set([
@@ -1880,6 +1881,7 @@ async function validatePortPage(filepath) {
     const rubricResult = validateRubric($);
     const logbookResult = validateLogbookNarrative($);
     const contentPurityResult = validateContentPurity($);
+    const voiceQualityResult = validateVoiceQuality($('body').text());
     const uniqueNamesResult = validateUniqueNames($);
     const authorDisclaimerResult = validateAuthorDisclaimer($);
     const trustBadgeResult = validateTrustBadge($);
@@ -1901,6 +1903,7 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...rubricResult.errors);
     results.blocking_errors.push(...logbookResult.errors);
     results.blocking_errors.push(...contentPurityResult.errors);
+    results.blocking_errors.push(...voiceQualityResult.errors);
     results.blocking_errors.push(...trustBadgeResult.errors);
     results.blocking_errors.push(...collapsibleResult.errors);
     results.blocking_errors.push(...printButtonResult.errors);
@@ -1916,6 +1919,7 @@ async function validatePortPage(filepath) {
     results.warnings.push(...rubricResult.warnings);
     results.warnings.push(...logbookResult.warnings);
     results.warnings.push(...contentPurityResult.warnings);
+    results.warnings.push(...voiceQualityResult.warnings);
     results.warnings.push(...uniqueNamesResult.warnings);
     results.warnings.push(...authorDisclaimerResult.warnings);
     results.warnings.push(...lastReviewedResult.warnings);
@@ -1926,6 +1930,7 @@ async function validatePortPage(filepath) {
     // Collect info
     results.info.push(...logbookResult.info);
     if (contentPurityResult.info) results.info.push(...contentPurityResult.info);
+    if (voiceQualityResult.info) results.info.push(...voiceQualityResult.info);
 
     // Calculate score (start at 100, deduct for errors/warnings)
     results.score = 100;
@@ -1950,6 +1955,7 @@ async function validatePortPage(filepath) {
     results.rubric = rubricResult.data;
     results.logbook_narrative = logbookResult.data;
     results.content_purity = contentPurityResult.data;
+    results.voice_quality = voiceQualityResult.data;
     results.unique_names = uniqueNamesResult.data;
     results.from_the_pier = fromThePierResult.data;
     results.print_button = printButtonResult.data;
@@ -2063,6 +2069,20 @@ function printResults(results, options) {
     console.log(`  Stamina Level Mentions: ${results.content_purity?.stamina_level_mentions || 0}`);
     if (results.unique_names?.names_found?.length > 0) {
       console.log(`  Persona Names Detected: ${results.unique_names.names_found.join(', ')}`);
+    }
+    console.log();
+
+    console.log(`${colors.bold}Voice Quality (Like-a-Human):${colors.reset}`);
+    if (results.voice_quality?.skipped) {
+      console.log(`  Skipped (${results.voice_quality.wordCount} words — below threshold)`);
+    } else {
+      console.log(`  Promotional Drift (V01): ${results.voice_quality?.promotional_drift || 0}`);
+      console.log(`  AI Chorus (V02): ${results.voice_quality?.ai_chorus || 0}`);
+      console.log(`  Authority Violations (V03): ${results.voice_quality?.authority_violations || 0}`);
+      console.log(`  Window Pane (V04): ${results.voice_quality?.window_pane_violations || 0}`);
+      console.log(`  Warmth Violations (V05): ${results.voice_quality?.warmth_violations || 0}`);
+      console.log(`  Corporate Filler (V06): ${results.voice_quality?.corporate_filler || 0}`);
+      console.log(`  Total Findings: ${results.voice_quality?.totalFindings || 0}`);
     }
     console.log();
 

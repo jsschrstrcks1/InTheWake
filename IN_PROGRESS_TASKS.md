@@ -36,6 +36,32 @@ FORMAT:
 **Notes:** Any blockers or important context
 -->
 
+### Alaska Port Repair — Priority Sprint
+**Thread:** `claude/review-docs-and-repo-GnDW5`
+**Started:** 2026-02-19
+**Files:** ports/glacier-bay.html, ports/kodiak.html, ports/wrangell.html, ports/valdez.html, ports/homer.html, ports/petersburg.html, ports/misty-fjords.html, ports/college-fjord.html, ports/inside-passage.html, ports/denali.html, ports/fairbanks.html
+**Status:** Active — Fixing 10 failing Alaska ports one at a time. User traveling to Alaska soon.
+**Workflow:** validate → read errors → read file → fix errors + voice issues → re-validate → commit → next port
+**Standards:** PORT-PAGE-STANDARD.md (ITC v1.1), Like-a-human.md (voice V01-V06), CAREFUL.md (both layers)
+**Prior work this session:**
+- Wired Like-a-human voice checks into all 4 validators site-wide (d74174ef)
+- Broadened voice hook to fire on all content writes (74f96bc6)
+- Fixed haifa.html 90→100 (b84939f5), tracy-arm.html 84→100 (96d883c3)
+- Running total: 241/387 ports passing
+**Alaska triage (10 failing ports):**
+- [ ] glacier-bay.html (82) — 1 blocking error, 4 voice warnings
+- [ ] kodiak.html (44) — 5 errors
+- [ ] wrangell.html (38) — 6 errors
+- [ ] valdez.html (34) — 6 errors
+- [ ] homer.html (24) — 7 errors
+- [ ] petersburg.html (16) — 8 errors
+- [ ] misty-fjords.html (0) — skeleton
+- [ ] college-fjord.html (0) — skeleton
+- [ ] inside-passage.html (0) — skeleton
+- [ ] denali.html (0) — skeleton
+- [ ] fairbanks.html (0) — skeleton
+**Notes:** User emphasized: "be careful not clever, document everything so claude next can understand."
+
 ### Onboard, Audit & Backlog Execution
 **Thread:** `claude/onboard-and-audit-PvzvO`
 **Started:** 2026-02-05
