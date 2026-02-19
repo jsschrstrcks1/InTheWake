@@ -30,6 +30,7 @@ This is a static HTML/CSS/JavaScript cruise planning website with an AI-first me
 | **ICP-Lite Protocol** | AI metadata specification | [.claude/skills/standards/resources/icp-lite-protocol.md](.claude/skills/standards/resources/icp-lite-protocol.md) |
 | **Theological Foundation** | Invocation requirements | [.claude/skills/standards/resources/theological-foundation.md](.claude/skills/standards/resources/theological-foundation.md) |
 | **Ship Page Standards** | Ship page template | [new-standards/foundation/SHIP_PAGE_STANDARDS_v3.007.010.md](new-standards/foundation/SHIP_PAGE_STANDARDS_v3.007.010.md) |
+| **Mobile Standard** | Mobile responsiveness rules | [new-standards/v3.010/MOBILE_STANDARDS_v1.000.md](new-standards/v3.010/MOBILE_STANDARDS_v1.000.md) |
 | **Unfinished Tasks** | Current work backlog | [UNFINISHED_TASKS.md](UNFINISHED_TASKS.md) |
 
 ---
@@ -65,6 +66,9 @@ node admin/validate-icp-lite-v14.js --all
 # Validate ship pages
 node admin/validate-ship-page.js ships/rcl/adventure-of-the-seas.html
 node admin/validate-ship-page.js --all-ships
+
+# Validate mobile readiness (once created — Phase 1 of Mobile Standard)
+node admin/validate-mobile-readiness.js <file>
 
 # Post-write validation
 ./admin/post-write-validate.sh <file>
