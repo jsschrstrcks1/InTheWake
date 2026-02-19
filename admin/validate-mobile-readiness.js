@@ -145,8 +145,8 @@ function checkInlineFixedWidths($) {
 
   $('[style]').each((i, elem) => {
     const style = $(elem).attr('style') || '';
-    // Match width: Npx patterns
-    const widthMatch = style.match(/width\s*:\s*(\d+)px/i);
+    // Match width: Npx but NOT max-width: Npx (max-width is responsive)
+    const widthMatch = style.match(/(?<!max-)width\s*:\s*(\d+)px/i);
     if (widthMatch) {
       const width = parseInt(widthMatch[1], 10);
       if (width > 480) {
@@ -457,7 +457,8 @@ function checkFontSizeFloor($) {
   // Exclude: .tiny, .small, .version-badge, .image-credit (intentional small text)
   const exemptClasses = ['tiny', 'small', 'version-badge', 'image-credit', 'port-hero-credit',
                           'credit', 'breadcrumb', 'breadcrumb-list', 'pagination-info',
-                          'stat-key', 'badge', 'glance-label', 'visually-hidden'];
+                          'stat-key', 'badge', 'glance-label', 'visually-hidden', 'map-note'];
+  const exemptTags = ['figcaption'];
 
   $('[style]').each((i, elem) => {
     const style = $(elem).attr('style') || '';
@@ -476,11 +477,12 @@ function checkFontSizeFloor($) {
     if (pxSize < 15) {
       // Check if element has an exempt class or is inside exempt context
       const cls = $(elem).attr('class') || '';
+      const tag = elem.tagName || 'unknown';
       const isExempt = exemptClasses.some(ec => cls.includes(ec)) ||
+                        exemptTags.includes(tag) ||
                         $(elem).closest('nav[aria-label="Breadcrumb"]').length > 0 ||
                         $(elem).closest('.breadcrumb-nav').length > 0;
       if (!isExempt) {
-        const tag = elem.tagName || 'unknown';
         const text = $(elem).text().trim().substring(0, 40);
         violations.push(`<${tag}> has font-size: ${fontMatch[1]}${fontMatch[2]} (${pxSize.toFixed(0)}px) — "${text}"`);
       }
