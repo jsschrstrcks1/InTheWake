@@ -583,6 +583,17 @@ AI-first content protocol that helps AI assistants understand and cite content c
 
 ## 🚫 Critical "NEVER DO" Rules
 
+### Validator Integrity (INVIOLABLE)
+
+**NEVER GAME THE VALIDATOR.**
+
+- ❌ NEVER reverse-engineer validator regex patterns and insert trigger words to pass automated checks
+- ❌ NEVER write prose targeted at machine pattern-matching instead of human readers
+- ❌ NEVER treat the validator as a target to optimize against — it is a safety net, not a goal
+- If content passes the validator but was written *for* the validator rather than *for the reader*, it is wrong
+- Write for humans first. If the prose is genuine and follows the voice standard (like-a-human.md), it will pass on its own merit
+- Violation of this rule is a **BLOCKING integrity failure** — no exceptions
+
 ### Absolute URLs
 - ❌ NEVER use relative URLs in production HTML
 - ❌ NEVER use HTTP (always HTTPS)
