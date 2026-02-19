@@ -662,6 +662,95 @@ class VenueValidator {
     else this.warn('W04', 'twitter:image meta tag missing');
   }
 
+  // ── T12: Trust badge (cross-pollinated from ship/port validators) ────────
+  checkTrustBadge() {
+    if (this.has('class="trust-badge"')) {
+      this.pass('T12', 'Trust badge present');
+    } else {
+      this.fail('T12', 'Trust badge MISSING — required: <p class="trust-badge">');
+    }
+  }
+
+  // ── T13: Print button (cross-pollinated from ship/port validators) ─────
+  checkPrintButton() {
+    if (this.has('class="print-guide-btn"')) {
+      this.pass('T13', 'Print Guide button present');
+    } else {
+      this.warn('T13', 'Print Guide button missing');
+    }
+  }
+
+  // ── T14: Console.log & JS typos (cross-pollinated from ship validator) ─
+  checkInlineScripts() {
+    const inlineScriptBlocks = this.html.match(/<script(?![^>]*src=)[^>]*>[\s\S]*?<\/script>/gi) || [];
+    let consoleCount = 0;
+    const typoIssues = [];
+
+    const jsTypoPatterns = [
+      { pattern: /\.addEventListner\(/, message: 'addEventListner should be addEventListener' },
+      { pattern: /\.innerHtml\s*=/, message: 'innerHtml should be innerHTML' },
+      { pattern: /\.classlist\./, message: 'classlist should be classList' },
+      { pattern: /document\.getElementByID\(/, message: 'getElementByID should be getElementById' },
+      { pattern: /\.queryselector\(/i, message: 'queryselector should be querySelector' },
+      { pattern: /\.appendchild\(/, message: 'appendchild should be appendChild' },
+      { pattern: /\.setattribute\(/, message: 'setattribute should be setAttribute' }
+    ];
+
+    for (const block of inlineScriptBlocks) {
+      if (block.includes('application/ld+json') || block.includes('application/json')) continue;
+      const jsContent = block.replace(/<script[^>]*>/i, '').replace(/<\/script>/i, '');
+
+      const matches = jsContent.match(/console\.(log|warn|error|debug|info)\s*\(/g) || [];
+      consoleCount += matches.length;
+
+      for (const { pattern, message } of jsTypoPatterns) {
+        if (pattern.test(jsContent)) typoIssues.push(message);
+      }
+    }
+
+    if (consoleCount > 0) {
+      this.warn('T14', `${consoleCount} console statement(s) found in inline scripts — remove for production`);
+    } else {
+      this.pass('T14', 'No console statements in inline scripts');
+    }
+
+    if (typoIssues.length > 0) {
+      this.fail('T14', `JS API typo: ${typoIssues.join('; ')}`);
+    }
+  }
+
+  // ── T15: HTML structural integrity (cross-pollinated from ship/port) ───
+  checkHTMLIntegrity() {
+    // Check heading tag balance (h1-h6)
+    for (let level = 1; level <= 6; level++) {
+      const openPattern = new RegExp(`<h${level}[\\s>]`, 'gi');
+      const closePattern = new RegExp(`</h${level}>`, 'gi');
+      const openCount = (this.html.match(openPattern) || []).length;
+      const closeCount = (this.html.match(closePattern) || []).length;
+
+      if (openCount !== closeCount) {
+        this.fail('T15', `Mismatched <h${level}> tags: ${openCount} opening vs ${closeCount} closing`);
+      }
+    }
+
+    // Check balance of structural elements
+    const structuralTags = ['section', 'details', 'article', 'aside', 'nav'];
+    for (const tag of structuralTags) {
+      const openPattern = new RegExp(`<${tag}[\\s>]`, 'gi');
+      const closePattern = new RegExp(`</${tag}>`, 'gi');
+      const openCount = (this.html.match(openPattern) || []).length;
+      const closeCount = (this.html.match(closePattern) || []).length;
+
+      if (openCount !== closeCount) {
+        this.fail('T15', `Unbalanced <${tag}> tags: ${openCount} opening vs ${closeCount} closing`);
+      }
+    }
+
+    if (this.errors.every(e => e.code !== 'T15')) {
+      this.pass('T15', 'HTML structural integrity OK');
+    }
+  }
+
   // ── Run all checks ──────────────────────────────────────────────────────
   async validate() {
     this.html = await readFile(this.filepath, 'utf-8');
@@ -679,6 +768,10 @@ class VenueValidator {
     this.checkAccessibility();            // T09
     this.checkNavigation();               // T10
     this.checkMissingLocalImages();        // T11
+    this.checkTrustBadge();               // T12
+    this.checkPrintButton();              // T13
+    this.checkInlineScripts();            // T14
+    this.checkHTMLIntegrity();            // T15
 
     // Semantic checks
     this.checkGenericReview();            // S01

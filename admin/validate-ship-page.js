@@ -451,6 +451,13 @@ function validateICPLite($) {
     errors.push({ section: 'icp_lite', rule: 'last_reviewed_missing', message: 'last-reviewed meta tag is missing', severity: 'BLOCKING' });
   } else if (!/^\d{4}-\d{2}-\d{2}$/.test(lastReviewed)) {
     errors.push({ section: 'icp_lite', rule: 'last_reviewed_format', message: `last-reviewed must be YYYY-MM-DD`, severity: 'BLOCKING' });
+  } else {
+    // Staleness detection (cross-pollinated from venue validator W05)
+    const reviewed = new Date(lastReviewed);
+    const daysDiff = (new Date() - reviewed) / (1000 * 60 * 60 * 24);
+    if (daysDiff > 180) {
+      warnings.push({ section: 'icp_lite', rule: 'stale_review', message: `last-reviewed date is ${Math.floor(daysDiff)} days old (${lastReviewed}) — content may be stale`, severity: 'WARNING' });
+    }
   }
 
   if ($('meta[name="ai-summary"]').length > 1) {
@@ -1237,6 +1244,37 @@ function validateContentConsistency($, filepath) {
 }
 
 /**
+ * Validate content promises vs. delivery (cross-pollinated from venue validator S06)
+ * Checks if meta description promises features the page doesn't actually contain.
+ */
+function validateContentPromises($) {
+  const errors = [];
+  const warnings = [];
+  const description = ($('meta[name="description"]').attr('content') || '').toLowerCase();
+  const bodyText = $('body').text().toLowerCase();
+
+  // Map of promises in meta description → required content signals on page
+  const promiseChecks = [
+    { keyword: 'deck plan', signals: ['deck-plans', 'deck plan', 'deckplan'], message: 'Meta description mentions "deck plans" but no deck plan section found' },
+    { keyword: 'live tracker', signals: ['tracker', 'marinetraffic', 'where is'], message: 'Meta description mentions "live tracker" but no tracker section found' },
+    { keyword: 'video', signals: ['youtube.com', 'youtube-nocookie.com', 'video-grid', 'ship-videos'], message: 'Meta description mentions "video" but no video content found' },
+    { keyword: 'dining', signals: ['dining', 'restaurant', 'venue'], message: 'Meta description mentions "dining" but no dining section found' },
+    { keyword: 'logbook', signals: ['logbook', 'tales from the wake', 'crew-stories'], message: 'Meta description mentions "logbook" but no logbook section found' }
+  ];
+
+  for (const check of promiseChecks) {
+    if (description.includes(check.keyword)) {
+      const hasContent = check.signals.some(sig => bodyText.includes(sig) || $.html().toLowerCase().includes(sig));
+      if (!hasContent) {
+        warnings.push({ section: 'content_promises', rule: 'unfulfilled_promise', message: check.message, severity: 'WARNING' });
+      }
+    }
+  }
+
+  return { valid: errors.length === 0, errors, warnings, data: {} };
+}
+
+/**
  * Validate FAQ section
  */
 function validateFAQ($) {
@@ -1738,7 +1776,57 @@ async function validateLogbook(slug, cruiseLine = 'rcl', isHistoric = false) {
       warnings.push({ section: 'logbook', rule: 'short_stories', message: `${shortStories} stories under 300 words`, severity: 'WARNING' });
     }
 
-    return { valid: errors.length === 0, errors, warnings, data: { storyCount: stories.length, hasPersonas, shortStories } };
+    // Narrative quality checks (cross-pollinated from port validator)
+    // Check that stories contain emotional pivot markers, sensory details, and reflection
+    let storiesWithoutEmotion = 0;
+    let storiesWithoutReflection = 0;
+    let sensoryProfile = { visual: 0, auditory: 0, tactile: 0, olfactory: 0, gustatory: 0 };
+
+    const SENSORY_PATTERNS = {
+      visual: /\b(saw|watched|looked|gazed|glimpsed|noticed|spotted|observed|stared|glanced)\b/i,
+      auditory: /\b(heard|listened|sound|noise|silence|quiet|whisper|roar|crash|echo)\b/i,
+      tactile: /\b(felt|touched|cold|warm|hot|cool|breeze|wind|rough|smooth|soft)\b/i,
+      olfactory: /\b(smell|scent|aroma|fragrance|whiff|odor|stench)\b/i,
+      gustatory: /\b(taste|tasted|flavor|sweet|salty|bitter|sour|savory|delicious)\b/i
+    };
+
+    const LESSON_MARKERS = [
+      /the lesson:/i, /what .* taught me/i, /I (learned|realized|understood|discovered)/i,
+      /looking back/i, /in retrospect/i, /the (real|true) (gift|lesson|meaning)/i,
+      /sometimes you/i, /what matters (is|was)/i
+    ];
+
+    stories.forEach(s => {
+      const text = s.markdown || '';
+      if (text.length < 100) return; // Skip very short/empty stories
+
+      // Check emotional pivot markers (EMOTIONAL_PIVOT_MARKERS defined at top of file)
+      const hasEmotion = EMOTIONAL_PIVOT_MARKERS.some(p => p.test(text));
+      if (!hasEmotion) storiesWithoutEmotion++;
+
+      // Check reflection/lesson markers
+      const hasReflection = LESSON_MARKERS.some(p => p.test(text));
+      if (!hasReflection) storiesWithoutReflection++;
+
+      // Accumulate sensory coverage across all stories
+      for (const [sense, pattern] of Object.entries(SENSORY_PATTERNS)) {
+        if (pattern.test(text)) sensoryProfile[sense]++;
+      }
+    });
+
+    const sensesUsed = Object.entries(sensoryProfile).filter(([, count]) => count > 0).map(([sense]) => sense);
+
+    if (storiesWithoutEmotion > stories.length / 2) {
+      warnings.push({ section: 'logbook', rule: 'weak_emotional_content', message: `${storiesWithoutEmotion}/${stories.length} stories lack emotional pivot markers (tears, heart reactions, whispers, etc.)`, severity: 'WARNING' });
+    }
+    if (storiesWithoutReflection > stories.length / 2) {
+      warnings.push({ section: 'logbook', rule: 'missing_reflection', message: `${storiesWithoutReflection}/${stories.length} stories lack lesson/reflection markers ("I learned", "looking back", etc.)`, severity: 'WARNING' });
+    }
+    if (sensesUsed.length < 3) {
+      warnings.push({ section: 'logbook', rule: 'limited_sensory_detail', message: `Logbook stories only engage ${sensesUsed.length}/5 senses (${sensesUsed.join(', ') || 'none'}). Aim for 3+ senses across stories.`, severity: 'WARNING' });
+    }
+
+    return { valid: errors.length === 0, errors, warnings, data: { storyCount: stories.length, hasPersonas, shortStories, sensesUsed, storiesWithoutEmotion, storiesWithoutReflection } };
 
   } catch (e) {
     errors.push({ section: 'logbook', rule: 'missing_file', message: `Logbook JSON not found: ${logbookPath}`, severity: 'BLOCKING' });
@@ -2301,6 +2389,9 @@ async function validateShipPage(filepath) {
     // v2.3 external review findings
     const externalReviewResult = validateExternalReviewFindings($, html);
 
+    // Content-promise-vs-delivery (cross-pollinated from venue validator S06)
+    const contentPromisesResult = validateContentPromises($);
+
     // Async validations (pass cruiseLine for correct data paths)
     const logbookResult = await validateLogbook(slug, cruiseLine, isHistoric);
     const videoResult = await validateVideos(slug, cruiseLine, isHistoric, isTBN);
@@ -2318,7 +2409,7 @@ async function validateShipPage(filepath) {
       ...htmlStructureResult.errors, ...viewportResult.errors,
       ...contentPurityResult.errors, ...shipStatsResult.errors,
       ...diningResult.errors, ...wordCountResult.errors,
-      ...externalReviewResult.errors
+      ...externalReviewResult.errors, ...contentPromisesResult.errors
     ];
     const preliminaryWarnings = [
       ...analyticsResult.warnings, ...soliDeoGloriaResult.warnings,
@@ -2331,7 +2422,7 @@ async function validateShipPage(filepath) {
       ...htmlStructureResult.warnings, ...viewportResult.warnings,
       ...contentPurityResult.warnings, ...shipStatsResult.warnings,
       ...diningResult.warnings, ...wordCountResult.warnings,
-      ...externalReviewResult.warnings
+      ...externalReviewResult.warnings, ...contentPromisesResult.warnings
     ];
     const preliminaryScore = Math.max(0, 100 - (preliminaryErrors.length * 10) - (preliminaryWarnings.length * 2));
 
@@ -2354,7 +2445,8 @@ async function validateShipPage(filepath) {
       ...diningResult.errors, ...wordCountResult.errors,
       ...printButtonResult.errors,
       ...searchIndexResult.errors, ...shipAtlasResult.errors,
-      ...externalReviewResult.errors
+      ...externalReviewResult.errors,
+      ...contentPromisesResult.errors
     );
 
     // Collect warnings
@@ -2372,7 +2464,8 @@ async function validateShipPage(filepath) {
       ...diningResult.warnings, ...wordCountResult.warnings,
       ...printButtonResult.warnings,
       ...searchIndexResult.warnings, ...shipAtlasResult.warnings,
-      ...externalReviewResult.warnings
+      ...externalReviewResult.warnings,
+      ...contentPromisesResult.warnings
     );
 
     // Calculate score

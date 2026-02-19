@@ -516,6 +516,18 @@ function validateICPLite($, html) {
       message: `last-reviewed must be YYYY-MM-DD format, found "${lastReviewed}"`,
       severity: 'BLOCKING'
     });
+  } else {
+    // Staleness detection (cross-pollinated from venue validator W05)
+    const reviewed = new Date(lastReviewed);
+    const daysDiff = (new Date() - reviewed) / (1000 * 60 * 60 * 24);
+    if (daysDiff > 180) {
+      warnings.push({
+        section: 'icp_lite',
+        rule: 'stale_review',
+        message: `last-reviewed date is ${Math.floor(daysDiff)} days old (${lastReviewed}) — content may be stale`,
+        severity: 'WARNING'
+      });
+    }
   }
 
   const jsonldScripts = $('script[type="application/ld+json"]');
@@ -1157,7 +1169,12 @@ function validateRubric($) {
 
   const fullText = $('body').text().toLowerCase();
   const accessibilityKeywords = ['wheelchair', 'mobility', 'accessible', 'tender', 'walking difficulty'];
-  const accessibilityMentions = accessibilityKeywords.filter(kw => fullText.includes(kw));
+  const accessibilityMentions = accessibilityKeywords.filter(kw => {
+    // Use word-boundary regex to avoid substring false positives
+    // e.g., "bartender" matching "tender", "stalking" matching "walking"
+    const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`\\b${escaped}\\b`, 'i').test(fullText);
+  });
 
   if (accessibilityMentions.length < 2) {
     errors.push({
@@ -1168,7 +1185,7 @@ function validateRubric($) {
     });
   }
 
-  const priceMatches = fullText.match(/\$\d+|€\d+|\b(price|cost|fee|fare)\b/gi) || [];
+  const priceMatches = fullText.match(/\$[\d,]+(?:\.\d{1,2})?|€[\d,]+(?:\.\d{1,2})?|\b(price|cost|fee|fare)\b/gi) || [];
   const priceMentions = priceMatches.length;
 
   if (priceMentions < 5) {
@@ -1182,7 +1199,10 @@ function validateRubric($) {
 
   const excursionsText = findSectionContent($, SECTION_PATTERNS.excursions);
   const bookingKeywords = ['ship excursion', 'independent', 'guaranteed return', 'book ahead'];
-  const bookingMentions = bookingKeywords.filter(kw => excursionsText.toLowerCase().includes(kw));
+  const bookingMentions = bookingKeywords.filter(kw => {
+    const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`\\b${escaped}\\b`, 'i').test(excursionsText);
+  });
 
   if (bookingMentions.length < 2) {
     errors.push({
@@ -1670,6 +1690,32 @@ function validateHTMLIntegrity($, html) {
       message: `Found ${consoleLogCount} console.log/warn/error statement(s) in inline <script> blocks. Remove for production.`,
       severity: 'WARNING'
     });
+  }
+
+  // 2b. Check for common JS API typos (cross-pollinated from ship validator)
+  const jsTypoPatterns = [
+    { pattern: /\.addEventListner\(/, message: 'Typo: addEventListner should be addEventListener' },
+    { pattern: /\.innerHtml\s*=/, message: 'Typo: innerHtml should be innerHTML' },
+    { pattern: /\.classlist\./, message: 'Typo: classlist should be classList' },
+    { pattern: /document\.getElementByID\(/, message: 'Typo: getElementByID should be getElementById' },
+    { pattern: /\.getElementByClassName\(/, message: 'Typo: getElementByClassName should be getElementsByClassName' },
+    { pattern: /\.queryselector\(/i, message: 'Typo: queryselector should be querySelector (check case)' },
+    { pattern: /\.appendchild\(/, message: 'Typo: appendchild should be appendChild' },
+    { pattern: /\.setattribute\(/, message: 'Typo: setattribute should be setAttribute' }
+  ];
+  for (const block of inlineScriptBlocks) {
+    if (block.includes('application/ld+json') || block.includes('application/json')) continue;
+    const jsContent = block.replace(/<script[^>]*>/i, '').replace(/<\/script>/i, '');
+    for (const { pattern, message } of jsTypoPatterns) {
+      if (pattern.test(jsContent)) {
+        errors.push({
+          section: 'html_integrity',
+          rule: 'js_api_typo',
+          message,
+          severity: 'BLOCKING'
+        });
+      }
+    }
   }
 
   // 3. Check for <meta name="author"> tag
