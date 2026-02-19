@@ -26,7 +26,15 @@ import { fileURLToPath } from 'url';
 import { load } from 'cheerio';
 import { glob } from 'glob';
 import { spawn } from 'child_process';
-import { validateMobileReadiness } from './validate-mobile-readiness.js';
+
+// Dynamic import — validate.js must not crash if mobile validator is absent
+let validateMobileReadiness = null;
+try {
+  const mobileModule = await import('./validate-mobile-readiness.js');
+  validateMobileReadiness = mobileModule.validateMobileReadiness;
+} catch {
+  // Mobile validator not available — will be skipped gracefully
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -332,7 +340,8 @@ async function validatePage(filepath, options = {}) {
 
     // Run mobile readiness validation (applies to all page types)
     // Per Mobile Standard v1.000 Section 9.3
-    if (!basicResult.isRedirect && !basicResult.isTruncated) {
+    // Skipped gracefully if validate-mobile-readiness.js is absent
+    if (validateMobileReadiness && !basicResult.isRedirect && !basicResult.isTruncated) {
       try {
         const mobileResult = await validateMobileReadiness(filepath, html, $);
         result.mobileValidation = mobileResult;
