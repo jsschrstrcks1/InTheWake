@@ -736,7 +736,6 @@ async function main() {
     const patterns = [
       join(PROJECT_ROOT, 'ships/**/*.html'),
       join(PROJECT_ROOT, 'ports/*.html'),
-      join(PROJECT_ROOT, 'restaurants/*.html'),
       join(PROJECT_ROOT, 'restaurants/**/*.html')
     ];
     for (const pattern of patterns) {
@@ -749,7 +748,6 @@ async function main() {
     filesToValidate = await glob(join(PROJECT_ROOT, 'ports/*.html'));
   } else if (options.allVenues) {
     const patterns = [
-      join(PROJECT_ROOT, 'restaurants/*.html'),
       join(PROJECT_ROOT, 'restaurants/**/*.html')
     ];
     for (const pattern of patterns) {
