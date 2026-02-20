@@ -453,20 +453,40 @@ Soli Deo Gloria
     </article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
-      <section class="card quick-answer">
-        <h2>Quick Answer</h2>
-        <p><strong>Bar Harbor</strong> is your gateway to Acadia National Park — Cadillac Mountain, Thunder Hole, Jordan Pond popovers, and Maine lobster. Tender port; book Oli's Trolley early. Island Explorer shuttle is free (June-October). Peak foliage September-October.</p>
+      <section class="page-intro mb-1">
+        <p class="answer-line"><strong>Quick Answer:</strong> Bar Harbor is your gateway to Acadia National Park — Cadillac Mountain, Thunder Hole, Jordan Pond popovers, and Maine lobster. Tender port; book Oli's Trolley early. Island Explorer shuttle is free (June-October). Peak foliage September-October.</p>
       </section>
-      <section class="card best-for">
-        <h2>Best For</h2>
-        <ul>
-          <li>National park scenery</li>
-          <li>Fall foliage</li>
-          <li>Maine lobster</li>
-          <li>Coastal hiking</li>
-          <li>Photography</li>
-        </ul>
+
+      <section class="card" aria-labelledby="glance-heading">
+        <h3 id="glance-heading">Port Snapshot</h3>
+        <div class="at-a-glance-grid">
+          <div class="at-a-glance-item"><strong>Location</strong><span>Maine, USA</span></div>
+          <div class="at-a-glance-item"><strong>Port Type</strong><span>Tender port (ships anchor in Frenchman Bay)</span></div>
+          <div class="at-a-glance-item"><strong>Currency</strong><span>US Dollar (USD)</span></div>
+          <div class="at-a-glance-item"><strong>Language</strong><span>English</span></div>
+          <div class="at-a-glance-item"><strong>Best For</strong><span>National park scenery, fall foliage, Maine lobster</span></div>
+          <div class="at-a-glance-item"><strong>Walking</strong><span>Downtown walkable; Acadia requires shuttle or tour</span></div>
+        </div>
       </section>
+
+      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+        <h3>Author's Note</h3>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">I visited Bar Harbor in October 2023 during fall foliage season. Observations reflect personal experience; verify current conditions before travel.</p>
+      </aside>
+
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp">
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake cruise travel logbook" decoding="async" loading="lazy">
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
+      </section>
+
       <section class="card key-facts">
         <h2>Key Facts</h2>
         <dl>
@@ -478,8 +498,10 @@ Soli Deo Gloria
           <dt>Park Entry</dt><dd>$35/vehicle</dd>
         </dl>
       </section>
-      <section class="card nearby-ports">
-        <h2>Nearby Ports</h2>
+
+      <section class="card" aria-labelledby="nearby-ports-title">
+        <h3 id="nearby-ports-title">Nearby Ports</h3>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
         <ul>
           <li><a href="/ports/boston.html">Boston</a></li>
           <li><a href="/ports/portland-maine.html">Portland (Maine)</a></li>
@@ -487,7 +509,7 @@ Soli Deo Gloria
           <li><a href="/ports/halifax.html">Halifax</a></li>
         </ul>
       </section>
-    
+
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
         <h3 id="ships-visiting-title">Ships That Visit Here</h3>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Bar Harbor on their itineraries:</p>
@@ -517,7 +539,18 @@ Soli Deo Gloria
         </div>
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
-</aside>
+
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny content-text">Real cruising experiences and practical guides.</p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
+      </section>
+
+      <!-- Whimsical Distance Units -->
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+      </section>
+    </aside>
 
     <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
   
@@ -564,5 +597,33 @@ Soli Deo Gloria
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+
+  <script>
+  (async function recentRail(){
+    const rail = document.getElementById('recent-rail');
+    if(!rail) return;
+    const fallback = document.getElementById('recent-rail-fallback');
+    if(fallback) fallback.style.display = '';
+    try {
+      const response = await fetch('/assets/data/articles/index.json');
+      const data = await response.json();
+      const items = Array.isArray(data) ? data : (data.articles || []);
+      if (items.length > 0) {
+        rail.innerHTML = items.slice(0, 5).map(article => `
+          <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
+            <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${article.url || article.path}">${article.title || article.name}</a></h4>
+            <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.excerpt || article.description || ''}</p>
+          </div>
+        `).join('');
+        if(fallback) fallback.style.display = 'none';
+      }
+    } catch (err) {
+      if(fallback) fallback.textContent = 'Unable to load articles';
+    }
+  })();
+  </script>
+
+  <script>window.currentPortId = 'bar-harbor';</script>
+  <script src="/assets/js/nearby-ports.js"></script>
 </body>
 </html>
