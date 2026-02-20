@@ -448,6 +448,24 @@ Soli Deo Gloria
     </article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+      <section class="page-intro" style="margin: 0 0 1rem 0;">
+        <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+          <strong>Quick Answer:</strong> Bangkok via Laem Chabang demands a two-hour drive each way, but the Grand Palace, Wat Arun's porcelain spires, and Chinatown's legendary street food reward every kilometer of the journey.
+        </p>
+      </section>
+
+      <section class="card" aria-labelledby="glance-heading">
+        <h3 id="glance-heading">Port Snapshot</h3>
+        <div class="at-a-glance-grid">
+          <div class="at-a-glance-item"><strong>Country</strong><span>Thailand</span></div>
+          <div class="at-a-glance-item"><strong>Port</strong><span>Laem Chabang</span></div>
+          <div class="at-a-glance-item"><strong>Currency</strong><span>Thai Baht (THB)</span></div>
+          <div class="at-a-glance-item"><strong>Language</strong><span>Thai / English in tourist areas</span></div>
+          <div class="at-a-glance-item"><strong>Best For</strong><span>Temples, street food, cultural immersion</span></div>
+          <div class="at-a-glance-item"><strong>Walking</strong><span>Challenging (heat, uneven surfaces)</span></div>
+        </div>
+      </section>
+
       <section class="card quick-answer">
         <h2>Quick Answer</h2>
         <p><strong>Bangkok</strong> via Laem Chabang (2hr drive) delivers Thailand's most sacred temples: Grand Palace ($15), Wat Arun ($3), Wat Pho ($10). Street food in Chinatown is legendary. Book private van for flexibility or ship excursion for guaranteed return. Dress code strictly enforced.</p>
@@ -473,8 +491,34 @@ Soli Deo Gloria
           <dt>Dress Code</dt><dd>Cover up</dd>
         </dl>
       </section>
-      <section class="card nearby-ports">
-        <h2>Nearby Ports</h2>
+
+      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+        <h3>Author's Note</h3>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+          I visited Bangkok in 2023 via Laem Chabang on a Southeast Asia cruise. These observations reflect personal experience; verify current conditions before travel.
+        </p>
+      </aside>
+
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake cruise travel logbook" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny">
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        </p>
+      </section>
+
+      <section class="card nearby-ports" aria-labelledby="nearby-ports-title">
+        <h3 id="nearby-ports-title">Nearby Ports</h3>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+          Other ports in this region:
+        </p>
         <ul>
           <li><a href="/ports/ho-chi-minh.html">Ho Chi Minh City</a></li>
           <li><a href="/ports/singapore.html">Singapore</a></li>
@@ -482,7 +526,7 @@ Soli Deo Gloria
           <li><a href="/ports/koh-samui.html">Koh Samui</a></li>
         </ul>
       </section>
-    
+
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
         <h3 id="ships-visiting-title">Ships That Visit Here</h3>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Bangkok on their itineraries:</p>
@@ -524,6 +568,20 @@ Soli Deo Gloria
           <a href="/ships/costa/costa-venezia.html" class="ship-link-pill" data-line="costa" title="Costa Venezia (Venice Class)">Costa Venezia</a>
         </div>
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
+      </section>
+
+      <!-- Recent Articles rail -->
+      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny content-text">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
+        </p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
+      </section>
+
+      <!-- Whimsical Distance Units -->
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
       </section>
 </aside>
 
@@ -572,5 +630,30 @@ Soli Deo Gloria
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script>
+    // Load recent articles
+    (async function() {
+      try {
+        const response = await fetch('/assets/data/articles/index.json');
+        const articles = await response.json();
+        const rail = document.getElementById('recent-rail');
+
+        if (rail && articles && articles.length > 0) {
+          rail.innerHTML = articles.slice(0, 5).map(article => `
+            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
+              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
+                <a href="${article.url}">${article.title}</a>
+              </h4>
+              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+
+      }
+    })();
+  </script>
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-port-units.js"></script>
 </body>
 </html>

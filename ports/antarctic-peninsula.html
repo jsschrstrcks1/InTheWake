@@ -180,7 +180,10 @@ Soli Deo Gloria
         <p class="port-hero-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
       </section>
 
-      
+      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+        <strong>Quick Answer:</strong> The Antarctic Peninsula is the most accessible region of Earth's last wilderness — expedition cruises from Ushuaia deliver Zodiac landings among thousands of penguins, calving glaciers, and pristine bays where wildlife has never learned to fear humans.
+      </p>
+
       <!-- WEATHER & BEST TIME TO VISIT -->
       <details class="port-section" id="weather-guide" aria-label="Weather and Best Time to Visit" open>
         <details class="section-collapse" open>
@@ -469,6 +472,17 @@ Soli Deo Gloria
           <li>Transformative travel</li>
         </ul>
       </section>
+      <section class="card" aria-labelledby="glance-heading">
+        <h3 id="glance-heading">Port Snapshot</h3>
+        <div class="at-a-glance-grid">
+          <div class="at-a-glance-item"><strong>Location</strong><span>Antarctica</span></div>
+          <div class="at-a-glance-item"><strong>Access</strong><span>Zodiac landings from expedition ship at anchor</span></div>
+          <div class="at-a-glance-item"><strong>Currency</strong><span>N/A</span></div>
+          <div class="at-a-glance-item"><strong>Language</strong><span>N/A</span></div>
+          <div class="at-a-glance-item"><strong>Best For</strong><span>Penguin colonies, glaciers, expedition adventure</span></div>
+          <div class="at-a-glance-item"><strong>Walking</strong><span>Uneven terrain — snow, pebbles, mud; no wheelchair access</span></div>
+        </div>
+      </section>
       <section class="card key-facts">
         <h2>Key Facts</h2>
         <dl>
@@ -527,6 +541,43 @@ Soli Deo Gloria
         </div>
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
+
+    <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+      <h3>Author's Note</h3>
+      <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+        Until I have sailed this port myself, these notes are soundings in another's wake—helpful for planning, and marked for revision once I've logged my own steps ashore.
+      </p>
+    </aside>
+
+    <section class="card author-card-vertical" aria-labelledby="author-heading">
+      <h3 id="author-heading">About the Author</h3>
+      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+        <picture>
+          <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake cruise travel logbook" decoding="async" loading="lazy"/>
+        </picture>
+      </a>
+      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+      <p class="tiny">
+        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+      </p>
+    </section>
+
+    <!-- Recent Articles rail -->
+    <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <p class="tiny content-text">
+        Real cruising experiences, helpful guides, and heartfelt reflections from our community.
+      </p>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
+    </section>
+
+    <!-- Whimsical Distance Units -->
+    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    </section>
+
 </aside>
 
     <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
@@ -559,6 +610,30 @@ Soli Deo Gloria
     </p>
     <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
+
+  <script>
+    // Load recent articles
+    (async function() {
+      try {
+        const response = await fetch('/assets/data/articles/index.json');
+        const articles = await response.json();
+        const rail = document.getElementById('recent-rail');
+
+        if (rail && articles && articles.length > 0) {
+          rail.innerHTML = articles.slice(0, 5).map(article => `
+            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
+              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
+                <a href="${article.url}">${article.title}</a>
+              </h4>
+              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+
+      }
+    })();
+  </script>
 
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/port-logbook-btn.js" defer></script>
