@@ -21,9 +21,16 @@ import { load } from 'cheerio';
 import { glob } from 'glob';
 import { validateVoiceQuality } from './lib/voice-quality-checks.js';
 
-// Known placeholder image hashes (these should not be used on any port page)
+// Known placeholder/misplaced image hashes (these should not be used on any port page)
 const PLACEHOLDER_HASHES = new Set([
-  'd7a4721e321920f7f6414c7a7fe865f0'  // cozumel-fom-1.webp placeholder
+  'd7a4721e321920f7f6414c7a7fe865f0',  // cozumel-fom-1.webp placeholder
+  '4b9d69a96202f44cbca8a25d1181efc9',  // Cozumel beach misplaced as cabo-san-lucas-2
+  '029e14d0478fdc132dbbfa5615b778cd',  // Cozumel heart sculpture misplaced as cabo-san-lucas-3
+  '26a6a85722f17d6edf577d1d3eba7f99',  // Cozumel sign misplaced as cabo-san-lucas-4
+  '4741a1ab51641aba424d50caa6d6ea75',  // Cozumel welcome sign misplaced as cabo-san-lucas-5
+  '9b3a36826a1e0f735573c535af3c5a5c',  // Cozumel compass rose misplaced as cabo-san-lucas-6
+  '62950b86e712bc8c381a7fe076ee8bad',  // Cozumel terminal misplaced as cabo-san-lucas-7
+  'bf40387ac298a8ee1cdc7c4c1d550c5f',  // Cozumel letters misplaced as cabo-san-lucas-8
 ]);
 
 const __filename = fileURLToPath(import.meta.url);
@@ -1094,6 +1101,33 @@ async function validatePortImages(filepath) {
       message: `${placeholderCount} placeholder image(s) detected in ports/img/${filename}/: ${placeholderImages.slice(0, 3).join(', ')}${placeholderCount > 3 ? '...' : ''}. Each port must have unique, port-specific images.`,
       severity: 'BLOCKING'
     });
+  }
+
+  // Check for missing attribution files (every non-hero image should have provenance)
+  const webpImages = imageFiles.filter(f => f.endsWith('.webp'));
+  let missingAttrCount = 0;
+  const missingAttrImages = [];
+
+  for (const imgFile of webpImages) {
+    // Check for attr.json in both naming conventions: name-attr.json and name.webp.attr.json
+    const baseName = imgFile.replace(/\.webp$/, '');
+    const attrPath1 = join(portImgDir, `${baseName}-attr.json`);
+    const attrPath2 = join(portImgDir, `${imgFile}.attr.json`);
+
+    if (!existsSync(attrPath1) && !existsSync(attrPath2)) {
+      missingAttrCount++;
+      missingAttrImages.push(imgFile);
+    }
+  }
+
+  if (missingAttrCount > 0) {
+    const severity = missingAttrCount > Math.ceil(webpImages.length / 2) ? 'BLOCKING' : 'WARNING';
+    const msg = `${missingAttrCount} image(s) missing attribution files (-attr.json): ${missingAttrImages.slice(0, 3).join(', ')}${missingAttrCount > 3 ? ` and ${missingAttrCount - 3} more` : ''}. Every port image needs documented provenance.`;
+    if (severity === 'BLOCKING') {
+      errors.push({ section: 'port_images', rule: 'missing_attribution_files', message: msg, severity });
+    } else {
+      warnings.push({ section: 'port_images', rule: 'missing_attribution_files', message: msg, severity });
+    }
   }
 
   // Check for images with identical file sizes (potential duplicates)
