@@ -781,7 +781,10 @@ function validateRubric($) {
   // 2. Accessibility Notes
   const fullText = $('body').text().toLowerCase();
   const accessibilityKeywords = ['wheelchair', 'mobility', 'accessible', 'tender', 'walking difficulty'];
-  const accessibilityMentions = accessibilityKeywords.filter(kw => fullText.includes(kw));
+  const accessibilityMentions = accessibilityKeywords.filter(kw => {
+    const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`\\b${escaped}\\b`, 'i').test(fullText);
+  });
 
   if (accessibilityMentions.length < 2) {
     errors.push({
@@ -793,7 +796,7 @@ function validateRubric($) {
   }
 
   // 3. DIY Options - Price mentions
-  const priceMatches = fullText.match(/\$\d+|€\d+|\b(price|cost|fee|fare)\b/gi) || [];
+  const priceMatches = fullText.match(/\$[\d,]+(?:\.\d{1,2})?|€[\d,]+(?:\.\d{1,2})?|\b(price|cost|fee|fare)\b/gi) || [];
   const priceMentions = priceMatches.length;
 
   if (priceMentions < 5) {
@@ -808,7 +811,10 @@ function validateRubric($) {
   // 4. Booking Guidance
   const excursionsText = findSection(SECTION_PATTERNS.excursions);
   const bookingKeywords = ['ship excursion', 'independent', 'guaranteed return', 'book ahead'];
-  const bookingMentions = bookingKeywords.filter(kw => excursionsText.toLowerCase().includes(kw));
+  const bookingMentions = bookingKeywords.filter(kw => {
+    const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`\\b${escaped}\\b`, 'i').test(excursionsText);
+  });
 
   if (bookingMentions.length < 2) {
     errors.push({

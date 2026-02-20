@@ -517,6 +517,18 @@ function validateICPLite($, html) {
       message: `last-reviewed must be YYYY-MM-DD format, found "${lastReviewed}"`,
       severity: 'BLOCKING'
     });
+  } else {
+    // Staleness detection (cross-pollinated from venue validator W05)
+    const reviewed = new Date(lastReviewed);
+    const daysDiff = (new Date() - reviewed) / (1000 * 60 * 60 * 24);
+    if (daysDiff > 180) {
+      warnings.push({
+        section: 'icp_lite',
+        rule: 'stale_review',
+        message: `last-reviewed date is ${Math.floor(daysDiff)} days old (${lastReviewed}) — content may be stale`,
+        severity: 'WARNING'
+      });
+    }
   }
 
   const jsonldScripts = $('script[type="application/ld+json"]');
@@ -1158,7 +1170,12 @@ function validateRubric($) {
 
   const fullText = $('body').text().toLowerCase();
   const accessibilityKeywords = ['wheelchair', 'mobility', 'accessible', 'tender', 'walking difficulty'];
-  const accessibilityMentions = accessibilityKeywords.filter(kw => fullText.includes(kw));
+  const accessibilityMentions = accessibilityKeywords.filter(kw => {
+    // Use word-boundary regex to avoid substring false positives
+    // e.g., "bartender" matching "tender", "stalking" matching "walking"
+    const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`\\b${escaped}\\b`, 'i').test(fullText);
+  });
 
   if (accessibilityMentions.length < 2) {
     errors.push({
@@ -1169,7 +1186,7 @@ function validateRubric($) {
     });
   }
 
-  const priceMatches = fullText.match(/\$\d+|€\d+|\b(price|cost|fee|fare)\b/gi) || [];
+  const priceMatches = fullText.match(/\$[\d,]+(?:\.\d{1,2})?|€[\d,]+(?:\.\d{1,2})?|\b(price|cost|fee|fare)\b/gi) || [];
   const priceMentions = priceMatches.length;
 
   if (priceMentions < 5) {
@@ -1183,7 +1200,10 @@ function validateRubric($) {
 
   const excursionsText = findSectionContent($, SECTION_PATTERNS.excursions);
   const bookingKeywords = ['ship excursion', 'independent', 'guaranteed return', 'book ahead'];
-  const bookingMentions = bookingKeywords.filter(kw => excursionsText.toLowerCase().includes(kw));
+  const bookingMentions = bookingKeywords.filter(kw => {
+    const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`\\b${escaped}\\b`, 'i').test(excursionsText);
+  });
 
   if (bookingMentions.length < 2) {
     errors.push({
@@ -1673,6 +1693,32 @@ function validateHTMLIntegrity($, html) {
     });
   }
 
+  // 2b. Check for common JS API typos (cross-pollinated from ship validator)
+  const jsTypoPatterns = [
+    { pattern: /\.addEventListner\(/, message: 'Typo: addEventListner should be addEventListener' },
+    { pattern: /\.innerHtml\s*=/, message: 'Typo: innerHtml should be innerHTML' },
+    { pattern: /\.classlist\./, message: 'Typo: classlist should be classList' },
+    { pattern: /document\.getElementByID\(/, message: 'Typo: getElementByID should be getElementById' },
+    { pattern: /\.getElementByClassName\(/, message: 'Typo: getElementByClassName should be getElementsByClassName' },
+    { pattern: /\.queryselector\(/i, message: 'Typo: queryselector should be querySelector (check case)' },
+    { pattern: /\.appendchild\(/, message: 'Typo: appendchild should be appendChild' },
+    { pattern: /\.setattribute\(/, message: 'Typo: setattribute should be setAttribute' }
+  ];
+  for (const block of inlineScriptBlocks) {
+    if (block.includes('application/ld+json') || block.includes('application/json')) continue;
+    const jsContent = block.replace(/<script[^>]*>/i, '').replace(/<\/script>/i, '');
+    for (const { pattern, message } of jsTypoPatterns) {
+      if (pattern.test(jsContent)) {
+        errors.push({
+          section: 'html_integrity',
+          rule: 'js_api_typo',
+          message,
+          severity: 'BLOCKING'
+        });
+      }
+    }
+  }
+
   // 3. Check for <meta name="author"> tag
   const authorMeta = $('meta[name="author"]').attr('content') || '';
   if (!authorMeta) {
@@ -1844,6 +1890,359 @@ function validatePrintButton($, html) {
   return { valid: errors.length === 0, errors, warnings, data: { hasPrintButton: btn.length > 0 } };
 }
 
+// =============================================================================
+// STANDARDS v3.010 CROSS-POLLINATION CHECKS
+// =============================================================================
+
+/**
+ * Validate sidebar/rail sections (PORT_PAGE_STANDARD v3.010 §sidebar)
+ * Port pages must have 7 sidebar sections in order:
+ * Quick Answer, At a Glance, Author's Note Disclaimer, About the Author,
+ * Nearby Ports, Recent Stories, Whimsical Units
+ */
+function validateSidebar($) {
+  const errors = [];
+  const warnings = [];
+
+  const REQUIRED_SIDEBAR_SECTIONS = [
+    { id: 'quick-answer',    pattern: /quick.?answer|answer-line/i,        label: 'Quick Answer' },
+    { id: 'at-a-glance',     pattern: /at.a.glance|port.snapshot/i,        label: 'At a Glance' },
+    { id: 'author-note',     pattern: /author('s)?.?note|disclaimer/i,     label: "Author's Note Disclaimer" },
+    { id: 'about-author',    pattern: /about.the.author|author-card/i,     label: 'About the Author' },
+    { id: 'nearby-ports',    pattern: /nearby.ports?|other.ports/i,        label: 'Nearby Ports' },
+    { id: 'recent-stories',  pattern: /recent.stories|recent-rail/i,       label: 'Recent Stories' },
+    { id: 'whimsical-units', pattern: /whimsical.?units?|distance.?units/i, label: 'Whimsical Units' }
+  ];
+
+  // Look for sidebar/rail container
+  const sidebar = $('aside, .sidebar, .rail, .right-rail, .col-2');
+  if (sidebar.length === 0) {
+    errors.push({
+      section: 'sidebar',
+      rule: 'missing_sidebar',
+      message: 'No sidebar/rail container found (aside, .sidebar, .rail, .col-2)',
+      severity: 'BLOCKING'
+    });
+    return { valid: false, errors, warnings, data: { hasSidebar: false } };
+  }
+
+  const sidebarHtml = sidebar.html() || '';
+  const sidebarText = sidebar.text() || '';
+  const detected = [];
+  const missing = [];
+
+  for (const section of REQUIRED_SIDEBAR_SECTIONS) {
+    const hasById = sidebar.find(`#${section.id}, [id*="${section.id}"]`).length > 0;
+    const hasByClass = sidebar.find(`[class*="${section.id}"]`).length > 0;
+    const hasByText = section.pattern.test(sidebarText) || section.pattern.test(sidebarHtml);
+
+    if (hasById || hasByClass || hasByText) {
+      detected.push(section.label);
+    } else {
+      missing.push(section.label);
+    }
+  }
+
+  if (missing.length > 0) {
+    errors.push({
+      section: 'sidebar',
+      rule: 'missing_sidebar_sections',
+      message: `Sidebar missing ${missing.length} required section(s): ${missing.join(', ')}`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: { hasSidebar: true, detected, missing }
+  };
+}
+
+/**
+ * Validate Swiper CDN fallback pattern (PORT_PAGE_STANDARD v3.010)
+ * Must have primary Swiper + CDN fallback with window.__swiperReady flag
+ */
+function validateSwiperFallback($, html) {
+  const errors = [];
+  const warnings = [];
+
+  // Check if page uses Swiper at all
+  const hasSwiper = html.includes('swiper') || html.includes('Swiper');
+  if (!hasSwiper) {
+    return { valid: true, errors, warnings, data: { usesSwiper: false } };
+  }
+
+  // Check for local Swiper bundle
+  const hasLocalSwiper = html.includes('swiper-bundle') || html.includes('/assets/js/swiper');
+
+  // Check for CDN fallback
+  const hasCDNFallback = html.includes('cdn.jsdelivr.net') || html.includes('cdnjs.cloudflare.com') || html.includes('unpkg.com');
+
+  // Check for __swiperReady flag
+  const hasSwiperReady = html.includes('__swiperReady') || html.includes('swiperReady');
+
+  if (hasLocalSwiper && !hasCDNFallback) {
+    warnings.push({
+      section: 'swiper',
+      rule: 'missing_cdn_fallback',
+      message: 'Swiper loaded locally but no CDN fallback found. Add CDN fallback for resilience.',
+      severity: 'WARNING'
+    });
+  }
+
+  if (!hasSwiperReady && (hasLocalSwiper || hasCDNFallback)) {
+    warnings.push({
+      section: 'swiper',
+      rule: 'missing_swiper_ready',
+      message: 'Swiper scripts found but no window.__swiperReady flag. Add ready flag for load-order safety.',
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: true,
+    errors,
+    warnings,
+    data: { usesSwiper: true, hasLocalSwiper, hasCDNFallback, hasSwiperReady }
+  };
+}
+
+/**
+ * Validate Service Worker registration (MOBILE_STANDARDS v1.000)
+ * Pages should register /sw.js for offline support
+ */
+function validateServiceWorker(html) {
+  const errors = [];
+  const warnings = [];
+
+  const hasSWRegister = html.includes('serviceWorker.register') || html.includes('serviceWorker');
+  const hasSWFile = html.includes("'/sw.js'") || html.includes('"/sw.js"') || html.includes('/sw.js');
+
+  if (!hasSWRegister) {
+    warnings.push({
+      section: 'service_worker',
+      rule: 'missing_sw_registration',
+      message: 'No Service Worker registration found. Add navigator.serviceWorker.register(\'/sw.js\') for offline support.',
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: true,
+    errors,
+    warnings,
+    data: { hasServiceWorker: hasSWRegister, hasSWFile }
+  };
+}
+
+/**
+ * Validate FAQ answer length (PORT_PAGE_STANDARD v3.010: each answer ≤80 words)
+ */
+function validateFAQAnswerLength($) {
+  const errors = [];
+  const warnings = [];
+
+  const faqSection = $('details').closest('section[id*="faq"], details');
+  const faqDetails = $('details');
+  let longAnswers = 0;
+  const longAnswerDetails = [];
+
+  faqDetails.each((i, elem) => {
+    const $detail = $(elem);
+    const summary = $detail.find('summary').text().trim();
+    // Get answer text (everything after the summary)
+    const fullText = $detail.text();
+    const summaryText = $detail.find('summary').text();
+    const answerText = fullText.replace(summaryText, '').trim();
+    const wordCount = countWords(answerText);
+
+    if (wordCount > 80) {
+      longAnswers++;
+      longAnswerDetails.push({ question: summary.substring(0, 60), words: wordCount });
+    }
+  });
+
+  if (longAnswers > 0) {
+    const examples = longAnswerDetails.slice(0, 2).map(d => `"${d.question}..." (${d.words} words)`).join('; ');
+    warnings.push({
+      section: 'faq',
+      rule: 'answer_too_long',
+      message: `${longAnswers} FAQ answer(s) exceed 80-word limit: ${examples}`,
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: true,
+    errors,
+    warnings,
+    data: { totalFAQs: faqDetails.length, longAnswers, longAnswerDetails }
+  };
+}
+
+/**
+ * Validate answer-line and key-facts presence (ICP-Lite v1.4 / PORT_PAGE_STANDARD v3.010)
+ * Every port page should have a quick answer-line and a key-facts box
+ */
+function validateAnswerLineKeyFacts($) {
+  const errors = [];
+  const warnings = [];
+
+  const hasAnswerLine = $('.answer-line').length > 0 || $('[class*="answer-line"]').length > 0;
+  const hasKeyFacts = $('.key-facts').length > 0 || $('[class*="key-facts"]').length > 0;
+
+  if (!hasAnswerLine) {
+    errors.push({
+      section: 'content_structure',
+      rule: 'missing_answer_line',
+      message: 'Missing answer-line element. Every port page needs a quick one-line answer.',
+      severity: 'BLOCKING'
+    });
+  }
+
+  if (!hasKeyFacts) {
+    errors.push({
+      section: 'content_structure',
+      rule: 'missing_key_facts',
+      message: 'Missing key-facts element. Every port page needs a key facts summary.',
+      severity: 'BLOCKING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: { hasAnswerLine, hasKeyFacts }
+  };
+}
+
+/**
+ * Validate Soli Deo Gloria position (must be in first 3 lines, before <!doctype html>)
+ * Per CLAUDE.md and site standards, SDG is the spiritual foundation comment.
+ */
+function validateSDGPosition(html) {
+  const errors = [];
+  const warnings = [];
+
+  const lines = html.split('\n').slice(0, 5); // Check first 5 lines
+  const first3 = lines.slice(0, 3).join('\n');
+
+  const hasSDG = /soli\s+deo\s+gloria/i.test(html);
+  const sdgInFirst3 = /soli\s+deo\s+gloria/i.test(first3);
+
+  if (!hasSDG) {
+    errors.push({
+      section: 'soli_deo_gloria',
+      rule: 'missing_sdg',
+      message: 'Missing "Soli Deo Gloria" dedication anywhere in file',
+      severity: 'BLOCKING'
+    });
+  } else if (!sdgInFirst3) {
+    warnings.push({
+      section: 'soli_deo_gloria',
+      rule: 'sdg_position',
+      message: 'Soli Deo Gloria found but not in first 3 lines. Should appear before <!doctype html>.',
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: { hasSDG, sdgInFirst3 }
+  };
+}
+
+/**
+ * Validate canonical URL format (must be absolute https://cruisinginthewake.com/...)
+ */
+function validateCanonicalURL($) {
+  const errors = [];
+  const warnings = [];
+
+  const canonical = $('link[rel="canonical"]').attr('href') || '';
+
+  if (!canonical) {
+    errors.push({
+      section: 'canonical',
+      rule: 'missing_canonical',
+      message: 'Missing <link rel="canonical"> tag',
+      severity: 'BLOCKING'
+    });
+  } else if (!canonical.startsWith('https://cruisinginthewake.com/')) {
+    errors.push({
+      section: 'canonical',
+      rule: 'invalid_canonical_format',
+      message: `Canonical URL must be absolute https://cruisinginthewake.com/ format, found "${canonical}"`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: { canonical }
+  };
+}
+
+/**
+ * Validate POI manifest (PORT_PAGE_STANDARD v3.010)
+ * Port pages should have a corresponding map manifest with minimum 10 POI
+ */
+async function validatePOIManifest(filepath) {
+  const errors = [];
+  const warnings = [];
+
+  const filename = basename(filepath, '.html');
+  const mapPath = join(PROJECT_ROOT, 'assets', 'data', 'maps', `${filename}.map.json`);
+
+  if (!existsSync(mapPath)) {
+    warnings.push({
+      section: 'poi_manifest',
+      rule: 'missing_map_manifest',
+      message: `No POI manifest found at assets/data/maps/${filename}.map.json`,
+      severity: 'WARNING'
+    });
+    return { valid: true, errors, warnings, data: { hasManifest: false } };
+  }
+
+  try {
+    const content = readFileSync(mapPath, 'utf-8');
+    const data = JSON.parse(content);
+    const pois = data.pois || data.points || data.markers || [];
+    const poiCount = Array.isArray(pois) ? pois.length : 0;
+
+    if (poiCount < 10) {
+      warnings.push({
+        section: 'poi_manifest',
+        rule: 'insufficient_pois',
+        message: `POI manifest has ${poiCount} point(s), minimum recommended is 10`,
+        severity: 'WARNING'
+      });
+    }
+
+    return {
+      valid: true,
+      errors,
+      warnings,
+      data: { hasManifest: true, poiCount }
+    };
+  } catch (e) {
+    warnings.push({
+      section: 'poi_manifest',
+      rule: 'invalid_manifest',
+      message: `POI manifest parse error: ${e.message}`,
+      severity: 'WARNING'
+    });
+    return { valid: true, errors, warnings, data: { hasManifest: true, parseError: true } };
+  }
+}
+
 async function validatePortPage(filepath) {
   const relPath = relative(PROJECT_ROOT, filepath);
   const results = {
@@ -1892,6 +2291,16 @@ async function validatePortPage(filepath) {
     const siteIntegrationResult = await validateSiteIntegration(filepath);
     const htmlIntegrityResult = validateHTMLIntegrity($, html);
 
+    // v3.010 standards cross-pollination checks
+    const sidebarResult = validateSidebar($);
+    const swiperFallbackResult = validateSwiperFallback($, html);
+    const serviceWorkerResult = validateServiceWorker(html);
+    const faqAnswerLengthResult = validateFAQAnswerLength($);
+    const answerLineResult = validateAnswerLineKeyFacts($);
+    const sdgPositionResult = validateSDGPosition(html);
+    const canonicalResult = validateCanonicalURL($);
+    const poiManifestResult = await validatePOIManifest(filepath);
+
     // Collect all errors
     results.blocking_errors.push(...siteIntegrationResult.errors);
     results.blocking_errors.push(...analyticsResult.errors);
@@ -1908,6 +2317,10 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...collapsibleResult.errors);
     results.blocking_errors.push(...printButtonResult.errors);
     results.blocking_errors.push(...htmlIntegrityResult.errors);
+    results.blocking_errors.push(...sidebarResult.errors);
+    results.blocking_errors.push(...answerLineResult.errors);
+    results.blocking_errors.push(...sdgPositionResult.errors);
+    results.blocking_errors.push(...canonicalResult.errors);
 
     // Collect all warnings
     results.warnings.push(...analyticsResult.warnings);
@@ -1926,6 +2339,12 @@ async function validatePortPage(filepath) {
     results.warnings.push(...fromThePierResult.warnings);
     results.warnings.push(...printButtonResult.warnings);
     results.warnings.push(...htmlIntegrityResult.warnings);
+    results.warnings.push(...sidebarResult.warnings);
+    results.warnings.push(...swiperFallbackResult.warnings);
+    results.warnings.push(...serviceWorkerResult.warnings);
+    results.warnings.push(...faqAnswerLengthResult.warnings);
+    results.warnings.push(...sdgPositionResult.warnings);
+    results.warnings.push(...poiManifestResult.warnings);
 
     // Collect info
     results.info.push(...logbookResult.info);
@@ -1961,6 +2380,14 @@ async function validatePortPage(filepath) {
     results.print_button = printButtonResult.data;
     results.site_integration = siteIntegrationResult.data;
     results.html_integrity = htmlIntegrityResult.data;
+    results.sidebar = sidebarResult.data;
+    results.swiper_fallback = swiperFallbackResult.data;
+    results.service_worker = serviceWorkerResult.data;
+    results.faq_answer_length = faqAnswerLengthResult.data;
+    results.answer_line_key_facts = answerLineResult.data;
+    results.sdg_position = sdgPositionResult.data;
+    results.canonical = canonicalResult.data;
+    results.poi_manifest = poiManifestResult.data;
 
   } catch (error) {
     results.blocking_errors.push({
