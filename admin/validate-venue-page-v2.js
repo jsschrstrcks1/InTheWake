@@ -54,6 +54,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const PROJECT_ROOT = join(__dirname, '..');
 
+// Dynamic import for mobile readiness validator (MOBILE_STANDARDS v1.000 says MUST)
+let validateMobileReadiness = null;
+try {
+  const mobileModule = await import('./validate-mobile-readiness.js');
+  validateMobileReadiness = mobileModule.validateMobileReadiness;
+} catch {
+  // Non-fatal — venue validator still works without mobile validator
+}
+
 // ─── Colors ──────────────────────────────────────────────────────────────────
 const c = {
   reset: '\x1b[0m', red: '\x1b[31m', green: '\x1b[32m',
@@ -751,6 +760,76 @@ class VenueValidator {
     }
   }
 
+  // ── T16: Service Worker registration (MOBILE_STANDARDS v1.000) ──────────
+  checkServiceWorker() {
+    if (this.has('serviceWorker.register') || this.has('serviceWorker')) {
+      this.pass('T16', 'Service Worker registration found');
+    } else {
+      this.warn('T16', 'No Service Worker registration found. Add navigator.serviceWorker.register(\'/sw.js\') for offline support.');
+    }
+  }
+
+  // ── T17: FAQ answer length (≤80 words per answer) ─────────────────────
+  checkFAQAnswerLength() {
+    // Extract FAQ details elements
+    const faqMatch = this.html.match(/id="faq"[\s\S]*?(?=<section|<\/main|$)/);
+    if (!faqMatch) return;
+
+    const faqHtml = faqMatch[0];
+    const detailsBlocks = faqHtml.match(/<details[\s\S]*?<\/details>/gi) || [];
+    let longAnswers = 0;
+
+    for (const block of detailsBlocks) {
+      // Extract answer text (everything after </summary>)
+      const answerMatch = block.match(/<\/summary>([\s\S]*?)<\/details>/i);
+      if (!answerMatch) continue;
+
+      const answerText = answerMatch[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+      const wordCount = answerText.split(/\s+/).filter(w => w.length > 0).length;
+
+      if (wordCount > 80) longAnswers++;
+    }
+
+    if (longAnswers > 0) {
+      this.warn('T17', `${longAnswers} FAQ answer(s) exceed 80-word limit. Keep answers concise.`);
+    } else if (detailsBlocks.length > 0) {
+      this.pass('T17', 'All FAQ answers within 80-word limit');
+    }
+  }
+
+  // ── T18: Canonical URL absolute format ─────────────────────────────────
+  checkCanonicalURL() {
+    const canonicalMatch = this.html.match(/rel="canonical"\s+href="([^"]+)"/);
+    if (!canonicalMatch) {
+      this.fail('T18', 'Missing <link rel="canonical"> tag');
+      return;
+    }
+
+    const canonical = canonicalMatch[1];
+    if (!canonical.startsWith('https://cruisinginthewake.com/')) {
+      this.fail('T18', `Canonical URL must be absolute https://cruisinginthewake.com/ format, found "${canonical}"`);
+    } else {
+      this.pass('T18', 'Canonical URL is absolute format');
+    }
+  }
+
+  // ── T19: SDG position check (lines 1-3, before <!doctype html>) ───────
+  checkSDGPosition() {
+    const first3Lines = this.html.split('\n').slice(0, 3).join('\n');
+    const sdgInFirst3 = /soli\s+deo\s+gloria/i.test(first3Lines);
+
+    if (!this.has('Soli Deo Gloria')) {
+      // T06 already catches this
+      return;
+    }
+
+    if (!sdgInFirst3) {
+      this.warn('T19', 'Soli Deo Gloria found but not in first 3 lines. Should appear before <!doctype html>.');
+    } else {
+      this.pass('T19', 'Soli Deo Gloria in correct position (first 3 lines)');
+    }
+  }
+
   // ── Run all checks ──────────────────────────────────────────────────────
   async validate() {
     this.html = await readFile(this.filepath, 'utf-8');
@@ -772,6 +851,10 @@ class VenueValidator {
     this.checkPrintButton();              // T13
     this.checkInlineScripts();            // T14
     this.checkHTMLIntegrity();            // T15
+    this.checkServiceWorker();            // T16
+    this.checkFAQAnswerLength();          // T17
+    this.checkCanonicalURL();             // T18
+    this.checkSDGPosition();              // T19
 
     // Semantic checks
     this.checkGenericReview();            // S01
@@ -786,6 +869,25 @@ class VenueValidator {
     this.checkTemplateLength();           // W02
     this.checkAuthorRail();               // W03
     this.checkSocialImages();             // W04
+
+    // Mobile readiness integration (MOBILE_STANDARDS v1.000 says MUST)
+    if (validateMobileReadiness) {
+      try {
+        const mobileResult = await validateMobileReadiness(this.filepath, this.html, null);
+        if (mobileResult.blocking && mobileResult.blocking.length > 0) {
+          for (const check of mobileResult.blocking) {
+            this.fail(check.code || 'MOB', check.message);
+          }
+        }
+        if (mobileResult.warnings && mobileResult.warnings.length > 0) {
+          for (const check of mobileResult.warnings) {
+            this.warn(check.code || 'MOB', check.message);
+          }
+        }
+      } catch {
+        // Non-fatal — mobile validation failure should not block venue checks
+      }
+    }
   }
 
   // ── Output ───────────────────────────────────────────────────────────────
@@ -983,9 +1085,10 @@ async function main() {
     console.log('  node admin/validate-venue-page-v2.js --json-output <page.html>');
     console.log('');
     console.log('Checks:');
-    console.log('  T01-T11  Technical (structural, analytics, sections, images)');
+    console.log('  T01-T19  Technical (structural, analytics, sections, images, mobile)');
     console.log('  S01-S06  Semantic (content quality, coherence, tone)');
     console.log('  W01-W05  Quality warnings');
+    console.log('  MOB-*    Mobile readiness (from MOBILE_STANDARDS v1.000)');
     process.exit(1);
   }
 

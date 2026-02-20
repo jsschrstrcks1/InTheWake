@@ -167,6 +167,11 @@ const FORBIDDEN_PATTERNS = [
   { pattern: /\bdeliver[s]?\b.*innovation/i, category: 'brochure', severity: 'warning' },
   { pattern: /see our .* guide/i, category: 'self-promo', severity: 'warning' },
   { pattern: /check our .* calculator/i, category: 'self-promo', severity: 'warning' },
+  // Marketing adjective bans (per v3.010 — no brochure-speak)
+  { pattern: /\bluxury\b/i, category: 'marketing', severity: 'warning' },
+  { pattern: /\biconic\b/i, category: 'marketing', severity: 'warning' },
+  { pattern: /\bworld[- ]?class\b/i, category: 'marketing', severity: 'warning' },
+  { pattern: /\bunparalleled\b/i, category: 'marketing', severity: 'warning' },
   // Drinking/nightlife (blocking)
   { pattern: /\b(bar hop|bar-hop|pub crawl|pub-crawl)\b/i, category: 'drinking' },
   { pattern: /\b(get drunk|getting drunk|wasted|hammered)\b/i, category: 'drinking' },
@@ -344,6 +349,18 @@ function validateSoliDeoGloria(html) {
     });
   }
 
+  // Check SDG is in first 3 lines (before <!doctype html>) per v3.010
+  const first3Lines = html.split('\n').slice(0, 3).join('\n');
+  const sdgInFirst3 = /soli\s+deo\s+gloria/i.test(first3Lines);
+  if (hasSoliDeoGloria && !sdgInFirst3) {
+    warnings.push({
+      section: 'soli_deo_gloria',
+      rule: 'sdg_position',
+      message: 'Soli Deo Gloria found but not in first 3 lines. Should appear before <!doctype html>.',
+      severity: 'WARNING'
+    });
+  }
+
   // Check for standard comment block format
   const hasStandardFormat = html.includes('Soli Deo Gloria') &&
     (html.includes('Proverbs 3:5') || html.includes('Colossians 3:23'));
@@ -357,7 +374,7 @@ function validateSoliDeoGloria(html) {
     });
   }
 
-  return { valid: errors.length === 0, errors, warnings, data: { hasSoliDeoGloria, hasStandardFormat } };
+  return { valid: errors.length === 0, errors, warnings, data: { hasSoliDeoGloria, hasStandardFormat, sdgInFirst3 } };
 }
 
 /**
@@ -1826,7 +1843,136 @@ async function validateLogbook(slug, cruiseLine = 'rcl', isHistoric = false) {
       warnings.push({ section: 'logbook', rule: 'limited_sensory_detail', message: `Logbook stories only engage ${sensesUsed.length}/5 senses (${sensesUsed.join(', ') || 'none'}). Aim for 3+ senses across stories.`, severity: 'WARNING' });
     }
 
-    return { valid: errors.length === 0, errors, warnings, data: { storyCount: stories.length, hasPersonas, shortStories, sensesUsed, storiesWithoutEmotion, storiesWithoutReflection } };
+    // ── v3.010 Logbook spine validation (7 required sections) ──
+    const REQUIRED_SPINE_SECTIONS = [
+      { pattern: /full\s+disclosure/i, label: 'Full Disclosure' },
+      { pattern: /crew\s+(and|&)\s+staff/i, label: 'The Crew and Staff' },
+      { pattern: /embark|disembark/i, label: 'Embarkation & Disembarkation' },
+      { pattern: /real\s+talk/i, label: 'The Real Talk' },
+      { pattern: /accessibility\s+(on|at)\s+the\s+seas?/i, label: 'Accessibility on the Seas' },
+      { pattern: /female\s+crewmate/i, label: "A Female Crewmate's Perspective" },
+      { pattern: /closing\s+thoughts?/i, label: 'Closing Thoughts' }
+    ];
+
+    const allStoryText = stories.map(s => s.markdown || s.title || '').join(' ');
+    const allHeaders = stories.map(s => s.title || s.section || '').join(' ');
+    const spineDetected = [];
+    const spineMissing = [];
+
+    for (const sec of REQUIRED_SPINE_SECTIONS) {
+      if (sec.pattern.test(allHeaders) || sec.pattern.test(allStoryText)) {
+        spineDetected.push(sec.label);
+      } else {
+        spineMissing.push(sec.label);
+      }
+    }
+
+    if (spineMissing.length > 0) {
+      warnings.push({
+        section: 'logbook',
+        rule: 'spine_sections_missing',
+        message: `Logbook missing ${spineMissing.length} spine section(s): ${spineMissing.join(', ')}`,
+        severity: 'WARNING'
+      });
+    }
+
+    // ── v3.010 Disclosure type validation (A/B/C) ──
+    const DISCLOSURE_TYPES = {
+      A: /type[- ]?a|sailed|firsthand|personal experience/i,
+      B: /type[- ]?b|research[- ]based|haven't sailed|not yet visited/i,
+      C: /type[- ]?c|mixed|partial experience/i
+    };
+
+    let disclosureType = null;
+    for (const [type, pattern] of Object.entries(DISCLOSURE_TYPES)) {
+      if (pattern.test(allStoryText) || pattern.test(allHeaders)) {
+        disclosureType = type;
+        break;
+      }
+    }
+
+    if (!disclosureType) {
+      warnings.push({
+        section: 'logbook',
+        rule: 'missing_disclosure_type',
+        message: 'No disclosure type (A/B/C) detected. Logbook should declare if stories are firsthand (A), research-based (B), or mixed (C).',
+        severity: 'WARNING'
+      });
+    }
+
+    // ── v3.010 No emojis in logbook ──
+    const emojiPattern = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{200D}\u{20E3}]/gu;
+    let storiesWithEmojis = 0;
+    stories.forEach(s => {
+      const text = s.markdown || '';
+      if (emojiPattern.test(text)) storiesWithEmojis++;
+    });
+
+    if (storiesWithEmojis > 0) {
+      errors.push({
+        section: 'logbook',
+        rule: 'no_emojis',
+        message: `${storiesWithEmojis} logbook story/stories contain emoji characters. Logbook entries must use prose, not emojis.`,
+        severity: 'BLOCKING'
+      });
+    }
+
+    // ── v3.010 Female crewmate validation ──
+    let hasFemaleCrewmate = false;
+    let femaleCrewmateNamed = false;
+    let femaleCrewmateLocation = false;
+
+    stories.forEach(s => {
+      const text = s.markdown || '';
+      const title = s.title || '';
+      if (/female\s+crewmate/i.test(title) || /female\s+crewmate/i.test(text)) {
+        hasFemaleCrewmate = true;
+        // Check if named (a proper noun after "crewmate" or a name pattern)
+        if (/crewmate['']?s?\s+perspective.*?[A-Z][a-z]+/i.test(text) || /\bher name\b|\bnamed\s+[A-Z]/i.test(text) || /\b(she|her)\b.*\b(from|based in|lives in|hails from)\b/i.test(text)) {
+          femaleCrewmateNamed = true;
+        }
+        // Check for home location
+        if (/\b(from|based in|lives in|hails from|hometown|home country)\b/i.test(text)) {
+          femaleCrewmateLocation = true;
+        }
+      }
+    });
+
+    if (!hasFemaleCrewmate) {
+      warnings.push({
+        section: 'logbook',
+        rule: 'missing_female_crewmate',
+        message: "No 'A Female Crewmate's Perspective' section found in logbook stories",
+        severity: 'WARNING'
+      });
+    } else {
+      if (!femaleCrewmateNamed) {
+        warnings.push({
+          section: 'logbook',
+          rule: 'female_crewmate_unnamed',
+          message: 'Female crewmate section exists but crewmate does not appear to be named',
+          severity: 'WARNING'
+        });
+      }
+      if (!femaleCrewmateLocation) {
+        warnings.push({
+          section: 'logbook',
+          rule: 'female_crewmate_no_location',
+          message: 'Female crewmate section exists but no home location mentioned',
+          severity: 'WARNING'
+        });
+      }
+    }
+
+    return {
+      valid: errors.length === 0, errors, warnings,
+      data: {
+        storyCount: stories.length, hasPersonas, shortStories, sensesUsed,
+        storiesWithoutEmotion, storiesWithoutReflection,
+        spineDetected, spineMissing, disclosureType,
+        storiesWithEmojis, hasFemaleCrewmate, femaleCrewmateNamed, femaleCrewmateLocation
+      }
+    };
 
   } catch (e) {
     errors.push({ section: 'logbook', rule: 'missing_file', message: `Logbook JSON not found: ${logbookPath}`, severity: 'BLOCKING' });
@@ -2334,6 +2480,84 @@ function validateExternalReviewFindings($, html) {
   return { valid: errors.length === 0, errors, warnings, data };
 }
 
+// =============================================================================
+// STANDARDS v3.010 CROSS-POLLINATION CHECKS
+// =============================================================================
+
+/**
+ * Validate Service Worker registration (MOBILE_STANDARDS v1.000)
+ */
+function validateServiceWorkerShip(html) {
+  const warnings = [];
+  const hasSWRegister = html.includes('serviceWorker.register') || html.includes('serviceWorker');
+
+  if (!hasSWRegister) {
+    warnings.push({
+      section: 'service_worker',
+      rule: 'missing_sw_registration',
+      message: 'No Service Worker registration found. Add navigator.serviceWorker.register(\'/sw.js\') for offline support.',
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: true, errors: [], warnings, data: { hasServiceWorker: hasSWRegister } };
+}
+
+/**
+ * Validate canonical URL format (must be absolute https://cruisinginthewake.com/...)
+ */
+function validateCanonicalURLShip($) {
+  const errors = [];
+  const canonical = $('link[rel="canonical"]').attr('href') || '';
+
+  if (!canonical) {
+    errors.push({
+      section: 'canonical',
+      rule: 'missing_canonical',
+      message: 'Missing <link rel="canonical"> tag',
+      severity: 'BLOCKING'
+    });
+  } else if (!canonical.startsWith('https://cruisinginthewake.com/')) {
+    errors.push({
+      section: 'canonical',
+      rule: 'invalid_canonical_format',
+      message: `Canonical URL must be absolute https://cruisinginthewake.com/ format, found "${canonical}"`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings: [], data: { canonical } };
+}
+
+/**
+ * Validate answer-line and key-facts presence (ICP-Lite / ship standard)
+ */
+function validateAnswerLineKeyFactsShip($) {
+  const errors = [];
+  const hasAnswerLine = $('.answer-line').length > 0 || $('[class*="answer-line"]').length > 0;
+  const hasKeyFacts = $('.key-facts').length > 0 || $('[class*="key-facts"]').length > 0;
+
+  if (!hasAnswerLine) {
+    errors.push({
+      section: 'content_structure',
+      rule: 'missing_answer_line',
+      message: 'Missing answer-line element. Every ship page needs a quick one-line answer.',
+      severity: 'BLOCKING'
+    });
+  }
+
+  if (!hasKeyFacts) {
+    errors.push({
+      section: 'content_structure',
+      rule: 'missing_key_facts',
+      message: 'Missing key-facts element. Every ship page needs a key facts summary.',
+      severity: 'BLOCKING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings: [], data: { hasAnswerLine, hasKeyFacts } };
+}
+
 async function validateShipPage(filepath) {
   const relPath = relative(PROJECT_ROOT, filepath);
   const slug = basename(filepath, '.html');
@@ -2392,6 +2616,11 @@ async function validateShipPage(filepath) {
     // Content-promise-vs-delivery (cross-pollinated from venue validator S06)
     const contentPromisesResult = validateContentPromises($);
 
+    // v3.010 standards cross-pollination checks
+    const serviceWorkerResult = validateServiceWorkerShip(html);
+    const canonicalResult = validateCanonicalURLShip($);
+    const answerLineResult = validateAnswerLineKeyFactsShip($);
+
     // Async validations (pass cruiseLine for correct data paths)
     const logbookResult = await validateLogbook(slug, cruiseLine, isHistoric);
     const videoResult = await validateVideos(slug, cruiseLine, isHistoric, isTBN);
@@ -2409,7 +2638,8 @@ async function validateShipPage(filepath) {
       ...htmlStructureResult.errors, ...viewportResult.errors,
       ...contentPurityResult.errors, ...shipStatsResult.errors,
       ...diningResult.errors, ...wordCountResult.errors,
-      ...externalReviewResult.errors, ...contentPromisesResult.errors
+      ...externalReviewResult.errors, ...contentPromisesResult.errors,
+      ...canonicalResult.errors, ...answerLineResult.errors
     ];
     const preliminaryWarnings = [
       ...analyticsResult.warnings, ...soliDeoGloriaResult.warnings,
@@ -2422,7 +2652,8 @@ async function validateShipPage(filepath) {
       ...htmlStructureResult.warnings, ...viewportResult.warnings,
       ...contentPurityResult.warnings, ...shipStatsResult.warnings,
       ...diningResult.warnings, ...wordCountResult.warnings,
-      ...externalReviewResult.warnings, ...contentPromisesResult.warnings
+      ...externalReviewResult.warnings, ...contentPromisesResult.warnings,
+      ...serviceWorkerResult.warnings
     ];
     const preliminaryScore = Math.max(0, 100 - (preliminaryErrors.length * 10) - (preliminaryWarnings.length * 2));
 
@@ -2446,7 +2677,9 @@ async function validateShipPage(filepath) {
       ...printButtonResult.errors,
       ...searchIndexResult.errors, ...shipAtlasResult.errors,
       ...externalReviewResult.errors,
-      ...contentPromisesResult.errors
+      ...contentPromisesResult.errors,
+      ...canonicalResult.errors,
+      ...answerLineResult.errors
     );
 
     // Collect warnings
@@ -2465,7 +2698,8 @@ async function validateShipPage(filepath) {
       ...printButtonResult.warnings,
       ...searchIndexResult.warnings, ...shipAtlasResult.warnings,
       ...externalReviewResult.warnings,
-      ...contentPromisesResult.warnings
+      ...contentPromisesResult.warnings,
+      ...serviceWorkerResult.warnings
     );
 
     // Calculate score
@@ -2498,6 +2732,9 @@ async function validateShipPage(filepath) {
       ship_atlas: shipAtlasResult.data
     };
     results.external_review = externalReviewResult.data;
+    results.service_worker = serviceWorkerResult.data;
+    results.canonical = canonicalResult.data;
+    results.answer_line_key_facts = answerLineResult.data;
 
   } catch (error) {
     results.blocking_errors.push({ section: 'parse', rule: 'file_read', message: `Failed to parse: ${error.message}`, severity: 'BLOCKING' });
