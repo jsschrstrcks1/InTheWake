@@ -91,6 +91,32 @@ async function buildCrossPortHashMap() {
   return _crossPortHashMap;
 }
 
+// Human-reviewed allowlist: cross-port duplicates that have been manually
+// verified as intentional. Loaded from admin/cross-port-image-allowlist.json.
+// Format: Set of hashes that a human has approved.
+let _allowedDuplicateHashes = null;
+
+function loadAllowedDuplicates() {
+  if (_allowedDuplicateHashes) return _allowedDuplicateHashes;
+
+  _allowedDuplicateHashes = new Set();
+  const allowlistPath = join(dirname(fileURLToPath(import.meta.url)), 'cross-port-image-allowlist.json');
+  try {
+    const data = JSON.parse(readFileSync(allowlistPath, 'utf-8'));
+    if (Array.isArray(data.reviewed)) {
+      for (const entry of data.reviewed) {
+        if (entry.hash) {
+          _allowedDuplicateHashes.add(entry.hash);
+        }
+      }
+    }
+  } catch (e) {
+    // Allowlist missing or malformed — treat all duplicates as unreviewed
+  }
+
+  return _allowedDuplicateHashes;
+}
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const PROJECT_ROOT = join(__dirname, '..');
@@ -1138,9 +1164,12 @@ async function validatePortImages(filepath) {
   const placeholderImages = [];
   let crossPortCount = 0;
   const crossPortImages = [];
+  let allowedDupeCount = 0;
+  const allowedDupeImages = [];
 
   // Build dynamic cross-port hash map (cached after first call)
   const crossPortMap = await buildCrossPortHashMap();
+  const allowedHashes = loadAllowedDuplicates();
 
   for (const imgFile of imageFiles) {
     const imgPath = join(portImgDir, imgFile);
@@ -1156,11 +1185,17 @@ async function validatePortImages(filepath) {
       // Check if this image hash appears in other port directories
       const dupePortMap = crossPortMap.get(hash);
       if (dupePortMap) {
-        // Get other ports that have this same image (excluding current port)
         const otherPorts = [...dupePortMap.keys()].filter(p => p !== filename);
         if (otherPorts.length > 0) {
-          crossPortCount++;
-          crossPortImages.push(`${imgFile} (also in ${otherPorts.join(', ')})`);
+          if (allowedHashes.has(hash)) {
+            // Human-reviewed and approved — downgrade to info
+            allowedDupeCount++;
+            allowedDupeImages.push(`${imgFile} (shared with ${otherPorts.join(', ')})`);
+          } else {
+            // Unreviewed — BLOCKING
+            crossPortCount++;
+            crossPortImages.push(`${imgFile} (also in ${otherPorts.join(', ')})`);
+          }
         }
       }
     } catch (e) {
@@ -1181,8 +1216,17 @@ async function validatePortImages(filepath) {
     errors.push({
       section: 'port_images',
       rule: 'cross_port_images_detected',
-      message: `${crossPortCount} image(s) duplicated across ports in ports/img/${filename}/: ${crossPortImages.slice(0, 3).join(', ')}${crossPortCount > 3 ? ` and ${crossPortCount - 3} more` : ''}. Each port must have unique images — duplicates require human review.`,
+      message: `${crossPortCount} image(s) duplicated across ports in ports/img/${filename}/: ${crossPortImages.slice(0, 3).join(', ')}${crossPortCount > 3 ? ` and ${crossPortCount - 3} more` : ''}. Each port must have unique images — duplicates require human review. To approve, add hash to admin/cross-port-image-allowlist.json.`,
       severity: 'BLOCKING'
+    });
+  }
+
+  if (allowedDupeCount > 0) {
+    warnings.push({
+      section: 'port_images',
+      rule: 'allowed_cross_port_images',
+      message: `${allowedDupeCount} image(s) shared with other ports (human-reviewed, approved): ${allowedDupeImages.slice(0, 3).join(', ')}${allowedDupeCount > 3 ? ` and ${allowedDupeCount - 3} more` : ''}.`,
+      severity: 'INFO'
     });
   }
 
