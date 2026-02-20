@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <!--
 ╔═══════════════════════════════════════════════════════════════════════════════╗
 ║ Soli Deo Gloria — To God Alone Be the Glory                                  ║
@@ -296,6 +296,37 @@
     }
 }
   </script>
+
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
 </head>
 <body class="page">
   <!-- Skip Link for Accessibility -->
@@ -434,7 +465,7 @@
   </section>
 
   <!-- Main Content -->
-  <main id="main-content" class="content-wrap" role="main" data-ship="Carnival Tropicale">
+  <main id="main-content" class="content-wrap" role="main" data-imo="0" data-ship="Carnival Tropicale">
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
@@ -474,7 +505,7 @@
         <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-tropicale","name":"Carnival Tropicale","cruise_line":"Carnival Cruise Line","class":"Excel Class","entered_service":2028,"gt":"182,800 GT","guests":"5,400"}</script>
 
         <!-- Expected Statistics -->
-        <section class="card" aria-labelledby="stats-title">
+        <section class="card" id="ship-stats" aria-labelledby="stats-title">
           <div class="card-header">
             <h2 id="stats-title">Expected Specifications</h2>
           </div>
@@ -621,6 +652,34 @@
               </div>
             </div>
           </div>
+        </section>
+
+        <!-- Logbook Section -->
+        <section class="card" id="logbook">
+          <h2>From the Logbook</h2>
+          <div id="logbook-container"><p><em>Logbook entries will be available after the ship enters service.</em></p></div>
+        </section>
+
+        <!-- Video Section -->
+        <section class="card" id="video-highlights" aria-labelledby="videos-title">
+          <h2 id="videos-title">Carnival Tropicale Videos</h2>
+          <p>Construction updates and preview content for Carnival Tropicale.</p>
+          <div id="video-wrapper" class="swiper videos" aria-label="Video carousel">
+            <div class="swiper-wrapper"></div>
+          </div>
+        </section>
+
+        <!-- Deck Plans Section -->
+        <section class="card" aria-labelledby="deck-plans">
+          <h2 id="deck-plans">Carnival Tropicale Deck Plans</h2>
+          <p>Deck plans will be available closer to the ship's 2028 delivery date.</p>
+          <p><a href="https://www.carnival.com/cruise-ships" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Carnival Ships →</a></p>
+        </section>
+
+        <!-- Live Tracker Section -->
+        <section class="card" id="live-tracker" data-imo="0" aria-labelledby="liveTrackHeading">
+          <h2 id="liveTrackHeading">Ship Status</h2>
+          <p>Carnival Tropicale is currently under order for 2028 delivery. Live tracking will be available after the ship enters service.</p>
         </section>
 
         <!-- FAQ Section -->
@@ -839,7 +898,64 @@
       if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
     }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
   })();
-  </script>  <!-- Navigation Dropdown Script -->
+  </script>
+
+<!-- ===== Ship-page JS modules ===== -->
+<script>
+function initFirstLook(){
+  if(!window.__swiperReady) return setTimeout(initFirstLook,200);
+  new Swiper('.firstlook',{loop:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},a11y:{prevSlideMessage:'Previous image',nextSlideMessage:'Next image'}});
+}
+initFirstLook();
+</script>
+<script>
+function initShipLogbook(){
+  var slug='carnival-tropicale';
+  fetch('/assets/data/logbook/carnival/'+slug+'.json').then(function(r){return r.json();}).then(function(d){
+    var c=document.getElementById('logbook-container');
+    if(c&&d.stories) c.innerHTML=d.stories.slice(0,3).map(function(s){return '<article class="logbook-entry"><h3>'+s.title+'</h3><p>'+s.markdown.split('\\n\\n').slice(0,2).join('</p><p>')+'</p></article>';}).join('');
+  }).catch(function(){});
+}
+initShipLogbook();
+</script>
+<script>
+function initVideos(){
+  fetch('/assets/data/videos/carnival/carnival-tropicale.json').then(function(r){return r.json();}).then(function(d){
+    var w=document.querySelector('#video-wrapper .swiper-wrapper');
+    if(!w||!d.videos) return;
+    var vids=[];Object.keys(d.videos).forEach(function(k){d.videos[k].forEach(function(v){vids.push(v);});});
+    w.innerHTML=vids.slice(0,8).map(function(v){return '<div class="swiper-slide"><lite-youtube videoid="'+v.videoId+'" title="'+v.title+'"></lite-youtube></div>';}).join('');
+    if(window.__swiperReady) new Swiper('#video-wrapper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});
+  }).catch(function(){});
+}
+initVideos();
+</script>
+<script>
+function initStats(){
+  var fb=document.getElementById('ship-stats-fallback');
+  if(!fb) return;
+  try{ var d=JSON.parse(fb.textContent); console.log('Stats loaded:',d.name); }catch(e){}
+}
+initStats();
+</script>
+<script>
+function initDining(){
+  fetch('/assets/data/dining/carnival/carnival-tropicale.json').then(function(r){return r.json();}).then(function(d){
+    console.log('Dining data loaded for Carnival Tropicale');
+  }).catch(function(){});
+}
+initDining();
+</script>
+<script>
+function initLiveTracker(){
+  var sec=document.getElementById('live-tracker');
+  if(!sec) return;
+  sec.querySelector('p').textContent='Carnival Tropicale is on order for 2028 delivery. Live tracking will be available after the ship enters service.';
+}
+initLiveTracker();
+</script>
+
+  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
 
 
