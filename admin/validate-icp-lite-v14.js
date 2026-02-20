@@ -49,7 +49,7 @@ const ENTITY_PATTERNS = [
 
 // Volatile data keywords
 const VOLATILE_KEYWORDS = [
-  /\$\d+\.?\d*/,  // Dollar amounts
+  /\$[\d,]+(?:\.\d{1,2})?/,  // Dollar amounts (handles $1,234.56)
   /package/i,
   /menu/i,
   /price/i,

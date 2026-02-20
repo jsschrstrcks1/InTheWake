@@ -58,10 +58,11 @@ const colors = {
 
 // Table classes that may overflow at narrow viewports
 // Per Mobile Standard v1.000 Section 8.1
+// Note: 'key-facts' removed — it's a narrow 2-column table (label + value)
+// that never overflows. 92 of 94 ship pages use <div>, only 2 use <table>.
 const OVERFLOW_TABLE_CLASSES = [
   'pier-distances-table',
   'transport-costs-table',
-  'key-facts',
   'stats-grid'
 ];
 
@@ -144,8 +145,8 @@ function checkInlineFixedWidths($) {
 
   $('[style]').each((i, elem) => {
     const style = $(elem).attr('style') || '';
-    // Match width: Npx patterns
-    const widthMatch = style.match(/width\s*:\s*(\d+)px/i);
+    // Match width: Npx but NOT max-width: Npx (max-width is responsive)
+    const widthMatch = style.match(/(?<!max-)width\s*:\s*(\d+)px/i);
     if (widthMatch) {
       const width = parseInt(widthMatch[1], 10);
       if (width > 480) {
@@ -456,11 +457,12 @@ function checkFontSizeFloor($) {
   // Exclude: .tiny, .small, .version-badge, .image-credit (intentional small text)
   const exemptClasses = ['tiny', 'small', 'version-badge', 'image-credit', 'port-hero-credit',
                           'credit', 'breadcrumb', 'breadcrumb-list', 'pagination-info',
-                          'stat-key', 'badge', 'glance-label', 'visually-hidden'];
+                          'stat-key', 'badge', 'glance-label', 'visually-hidden', 'map-note'];
+  const exemptTags = ['figcaption'];
 
   $('[style]').each((i, elem) => {
     const style = $(elem).attr('style') || '';
-    const fontMatch = style.match(/font-size\s*:\s*(\d+(?:\.\d+)?)(px|rem|em)/i);
+    const fontMatch = style.match(/font-size\s*:\s*(\d*\.?\d+)(px|rem|em)/i);
     if (!fontMatch) return;
 
     const value = parseFloat(fontMatch[1]);
@@ -475,12 +477,15 @@ function checkFontSizeFloor($) {
     if (pxSize < 15) {
       // Check if element has an exempt class or is inside exempt context
       const cls = $(elem).attr('class') || '';
+      const tag = elem.tagName || 'unknown';
       const isExempt = exemptClasses.some(ec => cls.includes(ec)) ||
+                        exemptTags.includes(tag) ||
                         $(elem).closest('nav[aria-label="Breadcrumb"]').length > 0 ||
                         $(elem).closest('.breadcrumb-nav').length > 0;
       if (!isExempt) {
-        const tag = elem.tagName || 'unknown';
         const text = $(elem).text().trim().substring(0, 40);
+        // Exempt theological invocation (standard Section 2.3: do not modify)
+        if (text === 'Soli Deo Gloria') return;
         violations.push(`<${tag}> has font-size: ${fontMatch[1]}${fontMatch[2]} (${pxSize.toFixed(0)}px) — "${text}"`);
       }
     }
@@ -733,7 +738,6 @@ async function main() {
     const patterns = [
       join(PROJECT_ROOT, 'ships/**/*.html'),
       join(PROJECT_ROOT, 'ports/*.html'),
-      join(PROJECT_ROOT, 'restaurants/*.html'),
       join(PROJECT_ROOT, 'restaurants/**/*.html')
     ];
     for (const pattern of patterns) {
@@ -746,7 +750,6 @@ async function main() {
     filesToValidate = await glob(join(PROJECT_ROOT, 'ports/*.html'));
   } else if (options.allVenues) {
     const patterns = [
-      join(PROJECT_ROOT, 'restaurants/*.html'),
       join(PROJECT_ROOT, 'restaurants/**/*.html')
     ];
     for (const pattern of patterns) {

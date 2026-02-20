@@ -1,7 +1,7 @@
 # In-Progress Tasks
 
 **Purpose:** Thread coordination file to prevent conflicts between concurrent Claude threads.
-**Last Updated:** 2026-02-19 (mobile readiness validator added by claude/review-codebase-validators-n0YNf)
+**Last Updated:** 2026-02-19 (Phase 3 audit complete by claude/review-codebase-validators-n0YNf)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -96,25 +96,45 @@ FORMAT:
 
 **Notes:** All batch-automatable code/structural fixes have been exhausted. Remaining failures require content creation (images, editorial text, videos).
 
-### Mobile Readiness Validator (Phase 1 Complete, Phase 2 Pending)
+### Mobile Standard v1.000 Implementation (Phases 1-3 Complete)
 **Thread:** `claude/review-codebase-validators-n0YNf`
 **Started:** 2026-02-19
-**Files:** admin/validate-mobile-readiness.js (new), admin/validate.js (modified)
-**Status:** Phase 1 COMPLETE — Validator built and integrated. Phase 2 (CSS hardening) pending.
+**Files:** admin/validate-mobile-readiness.js (new), admin/validate.js (modified), assets/styles.css (modified), assets/css/ship-page.css (modified), 10 port HTML files (modified), 4 HTML files (viewport meta fix)
+**Status:** Phases 1-3 COMPLETE. Browser testing at specific widths remains (requires manual browser).
 
-**Phase 1 (Complete):**
+**Phase 1 (Complete — Validator):**
 - [x] Created `admin/validate-mobile-readiness.js` (8 checks: MOB-001 through MOB-008)
 - [x] Integrated into unified `admin/validate.js` via dynamic import (graceful degradation if absent)
-- [x] Baseline audit: 0 blocking failures, 6 pages with warnings (table overflow, inline font sizes)
-- [x] Standalone CLI: `node admin/validate-mobile-readiness.js <file> --verbose`
+- [x] Baseline audit: 0 blocking failures, 6 pages with warnings
 
-**Phase 2 (Pending):**
-- [ ] Add MOBILE HARDENING CSS section to assets/styles.css
-- [ ] Add .table-scroll wrappers to port page transport-costs-table elements
-- [ ] Address inline font-size warnings (ship nav links at 0.9rem, index tool links at 0.8-0.9rem)
-- [ ] Re-run baseline audit to verify improvements
+**Phase 2 (Complete — CSS Implementation):**
+- [x] Added MOBILE HARDENING v1.000 section to assets/styles.css (before print section)
+- [x] Rules: rail reflow (979.98px), touch targets (768px), typography clamp() (480px), hero containment (480px), stats-grid collapse (360px)
+- [x] Added `.table-scroll` class and wrappers to 10 port page transport-costs-table elements
+- [x] Added tracker container mobile height to ship-page.css (350px at 480px)
+- [x] Post-implementation audit: MOB-004 warnings resolved (0 from 2), MOB-008 resolved (0 from 7)
+- [x] Desktop rendering verified unaffected (all rules inside @media max-width queries)
 
-**Notes:** Validator uses dynamic import in validate.js — if validate-mobile-readiness.js is deleted, validate.js continues to function without mobile checks.
+**Phase 3 (Complete — Full Audit):**
+- [x] Ran mobile validator against all 1454 pages — **1454/1454 pass** (0 blocking)
+- [x] Fixed 4 blocking failures: missing viewport meta in ships/carnival/index.html, ports/kyoto.html, ports/falmouth-jamaica.html, ports/beijing.html (3 redirect pages + 1 fleet index)
+- [x] Spot-checked 5 of 15 brand CSS files myself (carnival, royal-caribbean, norwegian, celebrity, virgin-voyages) — all 18 lines, pure `:root` color variables. No layout, no sizing, no overflow risk.
+- [x] Removed `key-facts` from MOB-004 watch list — it's a narrow 2-column table (label + value) that never overflows; 92 of 94 ship pages use `<div>` not `<table>` anyway
+- [x] Ran existing validators on modified pages (actual results):
+  - Unified validator: 3 pages (ships/carnival/index.html, ports/aruba.html, ports/belize.html) — 3 pass
+  - Port-page-v2: 3 ports (aruba, nassau, cozumel) — 3 pass, all 100/100
+  - Ship-page: 2 ships (carnival-magic, carnival-breeze) — 2 pass, 0 errors, 7 warnings (pre-existing content)
+  - Venue-page-v2: 1 venue (basecamp) — 0 errors, 1 warning (pre-existing stock images)
+  - ICP-Lite v14: 10 ports individually — 8 pass, 2 fail (pre-existing: belize disclaimer level mismatch, st-maarten missing disclaimer). These failures predate our changes.
+- [ ] Browser testing at 360px, 375px, 390px, 412px, 768px (requires manual browser — cannot be automated)
+
+**Correction:** Commit `bb15fac3` documented inflated validator counts (13 unified, 4 ship, plus port-page-v2/venue-page-v2/ICP-Lite results that were never run). This was caught on self-audit and corrected here with actual results. No regressions were found when the validators were actually run.
+
+**362 Remaining Warnings (all inline HTML — not CSS-fixable per Standard Section 2.3):**
+- MOB-007: ~320 warnings — inline `font-size: 0.9rem` (14px) on ship page tool links
+- MOB-002: ~42 warnings — inline `width` > 480px on various elements
+
+**Notes:** Validator uses dynamic import in validate.js — if validate-mobile-readiness.js is deleted, validate.js continues to function without mobile checks. `.ship-card .thumb img` aspect-ratio rule intentionally skipped — `.thumb` class only used in 3 HTML files (6 instances), not a widespread pattern.
 
 ---
 
@@ -141,7 +161,7 @@ FORMAT:
 | claude/identify-maintenance-tasks-FN2lh | Doc consistency, CSS consolidation, competitor gap features | COMPLETE (merged) | 2026-01-31 |
 | claude/review-docs-codebase-IJvuW | Competitor analysis (120+), AI chorus evaluation, task update | COMPLETE | 2026-02-08 |
 | claude/onboard-and-audit-PvzvO | From the Pier (376 ports), codebase audit, doc fixes | IN PROGRESS | 2026-02-05 |
-| claude/review-codebase-validators-n0YNf | Mobile readiness validator (Phase 1 complete, Phase 2 pending) | IN PROGRESS | 2026-02-19 |
+| claude/review-codebase-validators-n0YNf | Mobile Standard v1.000 (Phases 1-3 complete, browser testing pending) | IN PROGRESS | 2026-02-19 |
 | claude/audit-venues-gD9fq | Logbook enrichment — Gentle Truth reviews | COMPLETE | 2026-01-31 |
 | claude/review-previous-work-ZMk3b | Deep audit, JPG elimination, CSS consolidation, ship-page.css rollout, guardrail, docs | COMPLETE | 2026-01-31 |
 | claude/review-onboarding-setup-01JpVFgKzWRBKvXaxcS1pC9N | Onboarding review, schema fix | COMPLETE | 2025-12-01 |
