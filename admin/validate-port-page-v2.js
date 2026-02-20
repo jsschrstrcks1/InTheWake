@@ -21,16 +21,23 @@ import { load } from 'cheerio';
 import { glob } from 'glob';
 import { validateVoiceQuality } from './lib/voice-quality-checks.js';
 
-// Known placeholder/misplaced image hashes (these should not be used on any port page)
+// Known placeholder image hashes (should not appear on ANY port page)
 const PLACEHOLDER_HASHES = new Set([
-  'd7a4721e321920f7f6414c7a7fe865f0',  // cozumel-fom-1.webp placeholder
-  '4b9d69a96202f44cbca8a25d1181efc9',  // Cozumel beach misplaced as cabo-san-lucas-2
-  '029e14d0478fdc132dbbfa5615b778cd',  // Cozumel heart sculpture misplaced as cabo-san-lucas-3
-  '26a6a85722f17d6edf577d1d3eba7f99',  // Cozumel sign misplaced as cabo-san-lucas-4
-  '4741a1ab51641aba424d50caa6d6ea75',  // Cozumel welcome sign misplaced as cabo-san-lucas-5
-  '9b3a36826a1e0f735573c535af3c5a5c',  // Cozumel compass rose misplaced as cabo-san-lucas-6
-  '62950b86e712bc8c381a7fe076ee8bad',  // Cozumel terminal misplaced as cabo-san-lucas-7
-  'bf40387ac298a8ee1cdc7c4c1d550c5f',  // Cozumel letters misplaced as cabo-san-lucas-8
+  'd7a4721e321920f7f6414c7a7fe865f0',  // generic placeholder image
+]);
+
+// Port-owned image hashes: maps hash → owning port slug.
+// If these hashes appear in a DIFFERENT port's directory, it's a BLOCKING error.
+// They are legitimate in their own port's directory.
+const PORT_OWNED_IMAGES = new Map([
+  ['981fbfa7520b7d94f62304a81457346f', 'cozumel'],  // cozumel-fom-1.webp
+  ['4b9d69a96202f44cbca8a25d1181efc9', 'cozumel'],  // cozumel-fom-2.webp
+  ['029e14d0478fdc132dbbfa5615b778cd', 'cozumel'],  // cozumel-fom-3.webp
+  ['26a6a85722f17d6edf577d1d3eba7f99', 'cozumel'],  // cozumel-fom-4.webp
+  ['4741a1ab51641aba424d50caa6d6ea75', 'cozumel'],  // cozumel-fom-5.webp
+  ['9b3a36826a1e0f735573c535af3c5a5c', 'cozumel'],  // cozumel-fom-6.webp
+  ['62950b86e712bc8c381a7fe076ee8bad', 'cozumel'],  // cozumel-fom-7.webp
+  ['bf40387ac298a8ee1cdc7c4c1d550c5f', 'cozumel'],  // cozumel-fom-8.webp
 ]);
 
 const __filename = fileURLToPath(import.meta.url);
@@ -1075,9 +1082,11 @@ async function validatePortImages(filepath) {
     return { valid: false, errors, warnings, data: {} };
   }
 
-  // Check each image for placeholder hash
+  // Check each image for placeholder hash and cross-port contamination
   let placeholderCount = 0;
   const placeholderImages = [];
+  let crossPortCount = 0;
+  const crossPortImages = [];
 
   for (const imgFile of imageFiles) {
     const imgPath = join(portImgDir, imgFile);
@@ -1089,6 +1098,13 @@ async function validatePortImages(filepath) {
         placeholderCount++;
         placeholderImages.push(imgFile);
       }
+
+      // Check if this image belongs to a different port
+      const owningPort = PORT_OWNED_IMAGES.get(hash);
+      if (owningPort && owningPort !== filename) {
+        crossPortCount++;
+        crossPortImages.push(`${imgFile} (belongs to ${owningPort})`);
+      }
     } catch (e) {
       // Skip files that can't be read
     }
@@ -1099,6 +1115,15 @@ async function validatePortImages(filepath) {
       section: 'port_images',
       rule: 'placeholder_images_detected',
       message: `${placeholderCount} placeholder image(s) detected in ports/img/${filename}/: ${placeholderImages.slice(0, 3).join(', ')}${placeholderCount > 3 ? '...' : ''}. Each port must have unique, port-specific images.`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  if (crossPortCount > 0) {
+    errors.push({
+      section: 'port_images',
+      rule: 'cross_port_images_detected',
+      message: `${crossPortCount} image(s) from other ports found in ports/img/${filename}/: ${crossPortImages.slice(0, 3).join(', ')}${crossPortCount > 3 ? ` and ${crossPortCount - 3} more` : ''}. Images must be unique to each port.`,
       severity: 'BLOCKING'
     });
   }
