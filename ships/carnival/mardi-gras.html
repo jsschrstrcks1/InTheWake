@@ -15,6 +15,7 @@ All work on this project is offered as a gift to God.
      parent: /ships.html
      category: Carnival Cruise Line Fleet
      cruise-line: Carnival Cruise Line
+     ship-class: Excel Class
      siblings: /ships/carnival/carnival-adventure.html, /ships/carnival/carnival-breeze.html, /ships/carnival/carnival-celebration.html, /ships/carnival/carnival-conquest.html, /ships/carnival/carnival-dream.html
      updated: 2026-01-02
      expertise: Carnival ship reviews, deck plans, dining analysis, cabin comparisons
@@ -108,10 +109,21 @@ All work on this project is offered as a gift to God.
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 
 <!-- JSON-LD: BreadcrumbList -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Carnival Cruise Line","item":"https://cruisinginthewake.com/cruise-lines/carnival.html"},{"@type":"ListItem","position":4,"name":"Mardi Gras","item":"https://cruisinginthewake.com/ships/carnival/mardi-gras.html"}]}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships.html"},
+    {"@type": "ListItem", "position": 3, "name": "Carnival Cruise Line", "item": "https://cruisinginthewake.com/cruise-lines/carnival.html"},
+    {"@type": "ListItem", "position": 4, "name": "Mardi Gras", "item": "https://cruisinginthewake.com/ships/carnival/mardi-gras.html"}
+  ]
+}
+</script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Mardi Gras","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Mardi Gras from Carnival Cruise Line offers memorable cruise experiences with excellent amenities and service."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Mardi Gras","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Mardi Gras is Carnival's first Excel Class ship and the first cruise ship in North America to feature a roller coaster at sea — BOLT. At 180,800 GT with 5,200 guests, she introduced Carnival's zone-based layout with six themed areas. Her LNG propulsion and innovative design set a new benchmark for the fleet."}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -202,11 +214,44 @@ All work on this project is offered as a gift to God.
     }
 }
   </script>
+
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
 </head>
 <body class="page" data-ship="Mardi Gras" data-imo="9817296">
 <a href="#main-content" class="skip-link">Skip to main content</a>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-  <header class="hero-header">
+  <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
         <a href="/"><img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" loading="eager"/></a>
@@ -499,8 +544,8 @@ Dining on Mardi Gras</h2>
           <figcaption class="tiny">Simplified deck layout overview</figcaption>
         </figure>
 </section>
-      <section class="card" aria-labelledby="trackingHeading">
-        <h2 id="trackingHeading">Where Is Mardi Gras?</h2>
+      <section class="card" id="live-tracker" data-imo="9817296" aria-labelledby="liveTrackHeading">
+        <h2 id="liveTrackHeading">Where Is Mardi Gras?</h2>
         <p>Track Mardi Gras's current position and upcoming itinerary.</p>
         <p><a class="btn" href="https://www.cruisemapper.com/?search=Mardi%20Gras" target="_blank" rel="noopener">Open Live Tracker</a></p>
       </section>
@@ -630,6 +675,86 @@ Dining on Mardi Gras</h2>
     <p class="tiny center dedication-hidden" >Soli Deo Gloria</p>
     <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
+
+  <!-- ===== JS Module: First Look Carousel ===== -->
+  <script>
+  function initFirstLook(){
+    const el=document.getElementById('photo-swiper');
+    if(!el||typeof Swiper==='undefined') return;
+    new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
+  </script>
+
+  <!-- ===== JS Module: Ship Logbook ===== -->
+  <script>
+  function initShipLogbook(){
+    const c=document.getElementById('logbook-container');
+    if(!c) return;
+    fetch('/assets/data/logbook/carnival/mardi-gras.json')
+      .then(r=>r.json()).then(d=>{
+        if(d.stories) c.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h4>'+s.title+'</h4><p class="logbook-meta">'+s.persona_label+' · '+s.author.name+'</p><p>'+s.markdown.split(\'\\n\\n\')[0].replace(/\*\*/g,\'\')+'</p></article>').join('');
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initShipLogbook); else initShipLogbook();
+  </script>
+
+  <!-- ===== JS Module: Video Loader ===== -->
+  <script>
+  function initVideos(){
+    const w=document.getElementById('video-wrapper');
+    if(!w) return;
+    fetch('/assets/data/videos/carnival/mardi-gras.json')
+      .then(r=>r.json()).then(d=>{
+        let vids=[];
+        if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
+        else if(Array.isArray(d.videos)) vids=d.videos;
+        if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
+        new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();
+  </script>
+
+  <!-- ===== JS Module: Ship Stats ===== -->
+  <script>
+  function initStats(){
+    const el=document.querySelector('[data-ship-stats]')||document.getElementById('stats-container');
+    if(!el) return;
+    fetch('/ships/carnival/assets/mardi-gras-stats.json')
+      .then(r=>r.json()).then(d=>{
+        if(d&&typeof d==='object'){const entries=Object.entries(d).filter(([k])=>!k.startsWith('_'));
+          el.innerHTML='<dl class="stats-grid">'+entries.map(([k,v])=>'<div class="stat-item"><dt>'+k+'</dt><dd>'+v+'</dd></div>').join('')+'</dl>';}
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initStats); else initStats();
+  </script>
+
+  <!-- ===== JS Module: Dining Loader ===== -->
+  <script>
+  function initDining(){
+    const el=document.getElementById('dining-container');
+    if(!el) return;
+    fetch('/ships/carnival/assets/mardi-gras-dining.json')
+      .then(r=>r.json()).then(d=>{
+        if(Array.isArray(d)){el.innerHTML=d.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');}
+        else if(d.venues) el.innerHTML=d.venues.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initDining); else initDining();
+  </script>
+
+  <!-- ===== JS Module: Live Tracker ===== -->
+  <script>
+  function initLiveTracker(){
+    const el=document.getElementById('live-tracker');
+    if(!el) return;
+    const imo=el.getAttribute('data-imo')||'9817296';
+    const url='https://www.myshiptracking.com/vessels/mardi-gras-imo-'+imo;
+    el.innerHTML='<a href="'+url+'" target="_blank" rel="noopener" class="tracker-link">Track Mardi Gras Live Position →</a>';
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initLiveTracker); else initLiveTracker();
+  </script>
 
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>

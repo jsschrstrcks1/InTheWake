@@ -40,7 +40,18 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"In the Wake","url":"https://cruisinginthewake.com","logo":"https://cruisinginthewake.com/assets/logo_wake_512.png"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Carnival","item":"https://cruisinginthewake.com/ships.html#carnival"},{"@type":"ListItem","position":4,"name":"Carnival Imagination"}]}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships.html"},
+    {"@type": "ListItem", "position": 3, "name": "Carnival Cruise Line", "item": "https://cruisinginthewake.com/cruise-lines/carnival.html"},
+    {"@type": "ListItem", "position": 4, "name": "Carnival Imagination", "item": "https://cruisinginthewake.com/ships/carnival/carnival-imagination.html"}
+  ]
+}
+</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Carnival Imagination","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival Imagination was Long Beach's ship. For 25 years she delivered affordable Mexican Riviera cruises from California, introducing West Coast families to cruising."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","jobTitle":"Cruise Travel Writer","description":"Wheelchair-accessible cruise specialist documenting the passenger experience across Carnival's fleet."}</script>
 <script type="application/ld+json">
@@ -61,7 +72,54 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
     }
   }
   </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where was Carnival Imagination homeported?","acceptedAnswer":{"@type":"Answer","text":"Imagination was Long Beach, California's signature cruise ship for 25 years, sailing Mexican Riviera itineraries."}},{"@type":"Question","name":"Who was Carnival Imagination's godmother?","acceptedAnswer":{"@type":"Answer","text":"Jodi Dickinson christened Carnival Imagination in 1995, representing Southern California cruisers."}}]}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Where was Carnival Imagination homeported?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Imagination was Long Beach, California's signature cruise ship for 25 years, sailing Mexican Riviera itineraries."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who was Carnival Imagination's godmother?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Jodi Dickinson christened Carnival Imagination in 1995, representing Southern California cruisers."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When was Carnival Imagination retired?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Carnival Imagination was retired in 2020 during the COVID-19 pandemic and subsequently sold for scrapping after 25 years of service."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What class was Carnival Imagination?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Carnival Imagination was a Fantasy Class ship — the fifth of eight sister ships. At 70,367 GT with 2,040 guests, she was built at Kvaerner Masa-Yards in Helsinki."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What was Carnival Imagination's theme?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Carnival Imagination featured a mythological and classical theme, with décor inspired by ancient civilizations and legendary tales."
+      }
+    }
+  ]
+}
+</script>
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
@@ -111,13 +169,46 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
     }
 }
   </script>
+
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
   <header class="hero-header ship-page" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="lazy"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="eager" fetchpriority="high"/>
 </div>
       <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
@@ -236,8 +327,8 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
         </section>
 
 <!-- Dining Section -->
-<section class="card" id="dining" aria-labelledby="dining-heading">
-<h2 id="dining-heading"><img id="dining-hero" class="card-hero"
+<section class="card" id="dining-card" aria-labelledby="diningHeading">
+<h2 id="diningHeading"><img id="dining-hero" class="card-hero"
              src="/assets/img/Cordelia_Empress_Food_Court.webp"
              alt="Carnival Imagination dining venue" loading="lazy"/>
 Dining Venues</h2>
@@ -273,8 +364,8 @@ Dining Venues</h2>
 <div class="timeline-item"><span class="timeline-year">2020</span><span>COVID-19 pandemic ends regular service</span></div>
 <div class="timeline-item"><span class="timeline-year">2023</span><span>Arrived Aliaga, Turkey — 25 years of service ends</span></div>
 </section>
-<section class="card">
-<h2>From the Logbook</h2>
+<section class="card" aria-labelledby="logbook">
+<h2 id="logbook">From the Logbook</h2>
 <div id="logbook-container"><p><em>Loading memorial stories...</em></p></div>
 </section>
 
@@ -347,6 +438,21 @@ Dining Venues</h2>
 
     <!-- Attribution Section -->
     
+    <!-- Video Highlights -->
+    <section class="card" id="video-highlights" aria-labelledby="videos-title">
+      <h2 id="videos-title">Carnival Imagination Videos</h2>
+      <p>Archival ship tours and passenger memories from Carnival Imagination's career.</p>
+      <div id="video-wrapper" class="swiper videos" aria-label="Video carousel">
+        <div class="swiper-wrapper"></div>
+      </div>
+    </section>
+
+    <!-- Live Tracker (Retired) -->
+    <section class="card" id="live-tracker" data-imo="9053878" aria-labelledby="liveTrackHeading">
+      <h2 id="liveTrackHeading">Ship Status</h2>
+      <p>Carnival Imagination was retired in 2020 and sold for scrapping. Live tracking is no longer available.</p>
+    </section>
+
     <!-- FAQ Section -->
     <section class="card faq" id="faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions About Carnival Imagination</h2>
@@ -400,7 +506,7 @@ Dining Venues</h2>
   </button>
 </main>
 
-<footer class="footer"><p>© 2025 In The Wake — Cruise encyclopedic planning built AI-first, human-first, Google second.</p><p style="font-size:.75rem;margin-top:.5rem">Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+<footer class="footer" role="contentinfo"><p>© 2025 In The Wake — Cruise encyclopedic planning built AI-first, human-first, Google second.</p><p style="font-size:.75rem;margin-top:.5rem">Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
 <script>fetch('/assets/data/logbook/carnival/carnival-imagination.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h3>${s.title}</h3><p style="font-size:.85rem;color:#64748b;margin:.25rem 0">${s.persona_label}</p><div>${s.markdown.split('\n\n').slice(0,2).map(p=>'<p>'+p.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')+'</p>').join('')}</div></article>`).join('');}).catch(()=>{document.getElementById('logbook-container').innerHTML='<p>Stories coming soon.</p>';});</script>
@@ -427,7 +533,87 @@ Dining Venues</h2>
     if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
   }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
 })();
-</script>  <!-- Navigation Dropdown Script -->
+</script>
+
+  <!-- ===== JS Module: First Look Carousel ===== -->
+  <script>
+  function initFirstLook(){
+    const el=document.getElementById('photo-swiper');
+    if(!el||typeof Swiper==='undefined') return;
+    new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
+  </script>
+
+  <!-- ===== JS Module: Ship Logbook ===== -->
+  <script>
+  function initShipLogbook(){
+    const c=document.getElementById('logbook-container');
+    if(!c) return;
+    fetch('/assets/data/logbook/carnival/carnival-imagination.json')
+      .then(r=>r.json()).then(d=>{
+        if(d.stories) c.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h4>'+s.title+'</h4><p class="logbook-meta">'+s.persona_label+' · '+s.author.name+'</p><p>'+s.markdown.split(\'\\n\\n\')[0].replace(/\*\*/g,\'\')+'</p></article>').join('');
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initShipLogbook); else initShipLogbook();
+  </script>
+
+  <!-- ===== JS Module: Video Loader ===== -->
+  <script>
+  function initVideos(){
+    const w=document.getElementById('video-wrapper');
+    if(!w) return;
+    fetch('/assets/data/videos/carnival/carnival-imagination.json')
+      .then(r=>r.json()).then(d=>{
+        let vids=[];
+        if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
+        else if(Array.isArray(d.videos)) vids=d.videos;
+        if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
+        new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();
+  </script>
+
+  <!-- ===== JS Module: Ship Stats ===== -->
+  <script>
+  function initStats(){
+    const el=document.querySelector('[data-ship-stats]')||document.getElementById('stats-container');
+    if(!el) return;
+    fetch('/ships/carnival/assets/carnival-imagination-stats.json')
+      .then(r=>r.json()).then(d=>{
+        if(d&&typeof d==='object'){const entries=Object.entries(d).filter(([k])=>!k.startsWith('_'));
+          el.innerHTML='<dl class="stats-grid">'+entries.map(([k,v])=>'<div class="stat-item"><dt>'+k+'</dt><dd>'+v+'</dd></div>').join('')+'</dl>';}
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initStats); else initStats();
+  </script>
+
+  <!-- ===== JS Module: Dining Loader ===== -->
+  <script>
+  function initDining(){
+    const el=document.getElementById('dining-container');
+    if(!el) return;
+    fetch('/ships/carnival/assets/carnival-imagination-dining.json')
+      .then(r=>r.json()).then(d=>{
+        if(Array.isArray(d)){el.innerHTML=d.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');}
+        else if(d.venues) el.innerHTML=d.venues.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initDining); else initDining();
+  </script>
+
+  <!-- ===== JS Module: Live Tracker ===== -->
+  <script>
+  function initLiveTracker(){
+    const el=document.getElementById('live-tracker');
+    if(!el) return;
+    el.innerHTML='<p>Carnival Imagination was retired in 2020. Live tracking is no longer available.</p>';
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initLiveTracker); else initLiveTracker();
+  </script>
+
+  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
 
 

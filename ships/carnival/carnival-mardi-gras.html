@@ -340,12 +340,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- ARIA live regions for a11y announcements -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
   <!-- HEADER -->
   <header class="hero-header" role="banner">
     <div class="navbar">
       <a href="/" class="brand" aria-label="In the Wake home">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake logo" loading="eager">
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake logo" loading="eager" fetchpriority="high">
 </a>
       <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
@@ -981,6 +982,70 @@ Dining Venues on Carnival Mardi Gras <a href="/restaurants.html" style="font-siz
     function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
       return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
     tryFetch().then(data=>{ if(data) renderStats(data); });
+  })();
+  </script>
+
+  <!-- ===== Dining loader ===== -->
+  <script>
+  (function initDining(){
+    const mount=document.getElementById('dining-content'); if(!mount) return;
+    const sourceEl=document.getElementById('dining-data-source');
+    if(!sourceEl) return;
+    function abs(p){return (window._abs?_abs(p):p);}
+    let config={};
+    try{ config=JSON.parse(sourceEl.textContent||'{}'); }catch(_){}
+    function renderVenues(ship,venues){
+      if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining data is loading...</p>'; return; }
+      const byCategory={};
+      venues.forEach(v=>{
+        const cat=v.category||'other';
+        if(!byCategory[cat]) byCategory[cat]=[];
+        byCategory[cat].push(v);
+      });
+      const catOrder=['mdr','specialty','casual','bar'];
+      const catLabels={mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',other:'Other Venues'};
+      let html='';
+      catOrder.concat(Object.keys(byCategory).filter(c=>!catOrder.includes(c))).forEach(cat=>{
+        const arr=byCategory[cat]; if(!arr) return;
+        html+='<h3>'+catLabels[cat]+'</h3><ul class="venues-list">';
+        arr.forEach(v=>{
+          const name=String(v.name||v.slug).replace(/</g,'&lt;');
+          const desc=String(v.description||'').replace(/</g,'&lt;');
+          const price=(v.price||v.cost)?'<span class="venue-price">'+(v.price||v.cost)+'</span>':'';
+          const slug=v.slug?String(v.slug).replace(/</g,'&lt;'):'';
+          const nameLink=slug?'<a href="'+abs('/restaurants/'+slug+'.html')+'">'+name+'</a>':name;
+          html+='<li><strong>'+nameLink+'</strong>'+price+(desc?' — '+desc:'')+'</li>';
+        });
+        html+='</ul>';
+      });
+      mount.innerHTML=html;
+    }
+    if(typeof window.getShipVenues==='function'){
+      const slug=config.ship_slug||'carnival-mardi-gras';
+      window.getShipVenues(slug).then(result=>{
+        if(result&&result.venues) renderVenues(result.ship,result.venues);
+      }).catch(()=>{});
+    }
+  })();
+  </script>
+
+  <!-- ===== Live tracker (VesselFinder iframe: auto-centers on ship by IMO) ===== -->
+  <script>
+  (function initLiveTracker(){
+    const card=document.querySelector('.card.itinerary[data-imo]');
+    if(!card) return;
+    const imo=card.getAttribute('data-imo');
+    const container=document.getElementById('vf-tracker-container');
+    if(!imo||!container) return;
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'width:100%;height:500px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = 'width:100%;height:100%;border:0;';
+    iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
+    iframe.setAttribute('loading', 'lazy');
+    iframe.src = 'https://www.vesselfinder.com/aismap?imo=' + imo + '&zoom=10&track=true&names=true';
+    wrapper.appendChild(iframe);
+    container.appendChild(wrapper);
   })();
   </script>
 
