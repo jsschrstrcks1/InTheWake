@@ -2618,6 +2618,7 @@ function validateAnswerLineKeyFactsShip($) {
 
 // =============================================================================
 // v2.5 VALIDATION FUNCTIONS (Port Validator Principle Import)
+// v2.4 VALIDATION FUNCTIONS (Principle Import)
 // =============================================================================
 
 /**
@@ -2825,6 +2826,7 @@ async function validateShipPage(filepath) {
     const answerLineResult = validateAnswerLineKeyFactsShip($);
 
     // v2.5 principle import validations
+    // v2.4 principle import validations
     const templateRemnantResult = validateTemplateRemnants($, html);
     const accessibilityKeywordResult = validateAccessibilityKeywords($);
 
@@ -2848,6 +2850,7 @@ async function validateShipPage(filepath) {
       ...diningResult.errors, ...wordCountResult.errors,
       ...externalReviewResult.errors, ...contentPromisesResult.errors,
       ...canonicalResult.errors, ...answerLineResult.errors,
+      ...voiceQualityResult.errors,
       ...templateRemnantResult.errors, ...shipImageResult.errors,
       ...accessibilityKeywordResult.errors
     ];
@@ -2864,6 +2867,7 @@ async function validateShipPage(filepath) {
       ...diningResult.warnings, ...wordCountResult.warnings,
       ...externalReviewResult.warnings, ...contentPromisesResult.warnings,
       ...serviceWorkerResult.warnings,
+      ...voiceQualityResult.warnings,
       ...templateRemnantResult.warnings, ...shipImageResult.warnings,
       ...accessibilityKeywordResult.warnings
     ];
@@ -2892,6 +2896,7 @@ async function validateShipPage(filepath) {
       ...contentPromisesResult.errors,
       ...canonicalResult.errors,
       ...answerLineResult.errors,
+      ...voiceQualityResult.errors,
       ...templateRemnantResult.errors, ...shipImageResult.errors,
       ...accessibilityKeywordResult.errors
     );
@@ -2914,6 +2919,7 @@ async function validateShipPage(filepath) {
       ...externalReviewResult.warnings,
       ...contentPromisesResult.warnings,
       ...serviceWorkerResult.warnings,
+      ...voiceQualityResult.warnings,
       ...templateRemnantResult.warnings, ...shipImageResult.warnings,
       ...accessibilityKeywordResult.warnings
     );
