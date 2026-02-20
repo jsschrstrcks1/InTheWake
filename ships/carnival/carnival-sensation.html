@@ -15,6 +15,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
      parent: /ships.html
      siblings: /ships/carnival/carnival-fantasy.html, /ships/carnival/carnival-ecstasy.html, /ships/carnival/carnival-fascination.html, /ships/carnival/carnival-imagination.html, /ships/carnival/carnival-inspiration.html
      category: Carnival Fleet (Retired)
+     cruise-line: Carnival Cruise Line
      ship-class: Fantasy Class
      status: retired
      updated: 2025-12-03
@@ -39,7 +40,16 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"In the Wake","url":"https://cruisinginthewake.com","logo":"https://cruisinginthewake.com/assets/logo_wake_512.png"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Carnival","item":"https://cruisinginthewake.com/ships.html#carnival"},{"@type":"ListItem","position":4,"name":"Carnival Sensation"}]}</script>
+<script type="application/ld+json">{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},
+    {"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},
+    {"@type":"ListItem","position":3,"name":"Carnival","item":"https://cruisinginthewake.com/ships.html#carnival"},
+    {"@type":"ListItem","position":4,"name":"Carnival Sensation"}
+  ]
+}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Carnival Sensation","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival Sensation's seven-deck neon atrium was Joe Farcus at his theatrical best. The third Fantasy Class ship served Miami for 29 years, delivering affordable Caribbean escapes."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","jobTitle":"Cruise Travel Writer","description":"Wheelchair-accessible cruise specialist documenting the passenger experience across Carnival's fleet."}</script>
 <script type="application/ld+json">
@@ -60,7 +70,17 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
     }
   }
   </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What made Carnival Sensation unique?","acceptedAnswer":{"@type":"Answer","text":"Sensation featured Joe Farcus' dramatic seven-deck neon-lit atrium, one of the most theatrical interior spaces in cruise ship history."}},{"@type":"Question","name":"Where was Carnival Sensation homeported?","acceptedAnswer":{"@type":"Answer","text":"Sensation primarily sailed from Miami throughout her 29-year career, offering short Caribbean cruises."}}]}</script>
+<script type="application/ld+json">{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"What made Carnival Sensation unique?","acceptedAnswer":{"@type":"Answer","text":"Sensation featured Joe Farcus' dramatic seven-deck neon-lit atrium, one of the most theatrical interior spaces in cruise ship history."}},
+    {"@type":"Question","name":"Where was Carnival Sensation homeported?","acceptedAnswer":{"@type":"Answer","text":"Sensation primarily sailed from Miami throughout her 29-year career, offering short Caribbean cruises."}},
+    {"@type":"Question","name":"When was Carnival Sensation retired?","acceptedAnswer":{"@type":"Answer","text":"Carnival Sensation was retired in 2022 after 29 years of service. She was scrapped at Aliaga, Turkey."}},
+    {"@type":"Question","name":"How many ships were in the Fantasy Class?","acceptedAnswer":{"@type":"Answer","text":"Eight ships comprised the Fantasy Class: Fantasy, Ecstasy, Sensation, Fascination, Imagination, Inspiration, Elation, and Paradise. Only Elation and Paradise remain in active Carnival service."}},
+    {"@type":"Question","name":"Who designed Carnival Sensation's interior?","acceptedAnswer":{"@type":"Answer","text":"Joe Farcus, Carnival's legendary interior designer, created Sensation's dramatic seven-deck neon-lit atrium and theatrical public spaces."}}
+  ]
+}</script>
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
@@ -110,13 +130,46 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
     }
 }
   </script>
+
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
+<div role="status" aria-live="polite" class="sr-only"></div>
+<div role="alert" aria-live="assertive" class="sr-only"></div>
   <header class="hero-header ship-page" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="lazy"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="eager" fetchpriority="high"/>
 </div>
       <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
@@ -235,7 +288,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
         </section>
 
 <!-- Dining Section -->
-<section class="card" id="dining" aria-labelledby="dining-heading">
+<section class="card" id="dining-card" aria-labelledby="dining-heading">
 <h2 id="dining-heading"><img id="dining-hero" class="card-hero"
              src="/assets/img/Cordelia_Empress_Food_Court.webp"
              alt="Carnival Sensation dining venue" loading="lazy"/>
@@ -272,9 +325,22 @@ Dining Venues</h2>
 <div class="timeline-item"><span class="timeline-year">2020</span><span>COVID-19 pandemic ends regular service</span></div>
 <div class="timeline-item"><span class="timeline-year">2022</span><span>Arrived Aliaga, Turkey — 29 years of service ends</span></div>
 </section>
-<section class="card">
+<section class="card" id="logbook">
 <h2>From the Logbook</h2>
 <div id="logbook-container"><p><em>Loading memorial stories...</em></p></div>
+</section>
+
+<section class="card" id="video-highlights" aria-labelledby="videos-title">
+  <h2 id="videos-title">Carnival Sensation Videos</h2>
+  <p>Archival ship tours and passenger memories from Carnival Sensation's career.</p>
+  <div id="video-wrapper" class="swiper videos" aria-label="Video carousel">
+    <div class="swiper-wrapper"></div>
+  </div>
+</section>
+
+<section class="card" id="live-tracker" data-imo="8711356" aria-labelledby="liveTrackHeading">
+  <h2 id="liveTrackHeading">Ship Status</h2>
+  <p>Carnival Sensation was retired in 2022. Live tracking is no longer available.</p>
 </section>
 
     <section class="card" aria-labelledby="deck-plans">
@@ -431,7 +497,7 @@ Dining Venues</h2>
   </button>
 </main>
 
-<footer class="footer"><p>© 2025 In The Wake — Cruise encyclopedic planning built AI-first, human-first, Google second.</p><p style="font-size:.75rem;margin-top:.5rem">Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+<footer class="footer" role="contentinfo"><p>© 2025 In The Wake — Cruise encyclopedic planning built AI-first, human-first, Google second.</p><p style="font-size:.75rem;margin-top:.5rem">Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
 <script>fetch('/assets/data/logbook/carnival/carnival-sensation.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h3>${s.title}</h3><p style="font-size:.85rem;color:#64748b;margin:.25rem 0">${s.persona_label}</p><div>${s.markdown.split('\n\n').slice(0,2).map(p=>'<p>'+p.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')+'</p>').join('')}</div></article>`).join('');}).catch(()=>{document.getElementById('logbook-container').innerHTML='<p>Stories coming soon.</p>';});</script>
@@ -458,7 +524,66 @@ Dining Venues</h2>
     if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
   }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
 })();
-</script>  <!-- Navigation Dropdown Script -->
+</script>
+
+<!-- ===== Ship-page JS modules ===== -->
+<script>
+function initFirstLook(){
+  if(!window.__swiperReady) return setTimeout(initFirstLook,200);
+  new Swiper('.firstlook',{loop:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},a11y:{prevSlideMessage:'Previous image',nextSlideMessage:'Next image'}});
+}
+initFirstLook();
+</script>
+<script>
+function initShipLogbook(){
+  var slug='carnival-sensation';
+  fetch('/assets/data/logbook/carnival/'+slug+'.json').then(function(r){return r.json();}).then(function(d){
+    var c=document.getElementById('logbook-container');
+    if(c&&d.stories) c.innerHTML=d.stories.slice(0,3).map(function(s){return '<article class="logbook-entry"><h3>'+s.title+'</h3><p>'+s.markdown.split('\\n\\n').slice(0,2).join('</p><p>')+'</p></article>';}).join('');
+  }).catch(function(){});
+}
+initShipLogbook();
+</script>
+<script>
+function initVideos(){
+  fetch('/assets/data/videos/carnival/carnival-sensation.json').then(function(r){return r.json();}).then(function(d){
+    var w=document.querySelector('#video-wrapper .swiper-wrapper');
+    if(!w||!d.videos) return;
+    var vids=[];Object.keys(d.videos).forEach(function(k){d.videos[k].forEach(function(v){vids.push(v);});});
+    w.innerHTML=vids.slice(0,8).map(function(v){return '<div class="swiper-slide"><lite-youtube videoid="'+v.videoId+'" title="'+v.title+'"></lite-youtube></div>';}).join('');
+    if(window.__swiperReady) new Swiper('#video-wrapper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});
+  }).catch(function(){});
+}
+initVideos();
+</script>
+<script>
+function initStats(){
+  var fb=document.getElementById('ship-stats-fallback');
+  if(!fb) return;
+  try{ var d=JSON.parse(fb.textContent); console.log('Stats loaded:',d.name); }catch(e){}
+}
+initStats();
+</script>
+<script>
+function initDining(){
+  fetch('/assets/data/dining/carnival/carnival-sensation.json').then(function(r){return r.json();}).then(function(d){
+    console.log('Dining data loaded for Carnival Sensation');
+  }).catch(function(){});
+}
+initDining();
+</script>
+<script>
+function initLiveTracker(){
+  var sec=document.getElementById('live-tracker');
+  if(!sec) return;
+  var imo=sec.getAttribute('data-imo');
+  if(!imo) return;
+  sec.querySelector('p').textContent='Carnival Sensation was retired in 2022. Live tracking is no longer available.';
+}
+initLiveTracker();
+</script>
+
+  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
 
 
