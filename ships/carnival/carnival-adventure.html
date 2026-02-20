@@ -288,16 +288,49 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     }
 }
   </script>
+
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
 </head>
 
 <body class="page ship-page">
 
   <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div role="status" aria-live="polite" class="sr-only"></div>
+  <div role="alert" aria-live="assertive" class="sr-only"></div>
 
   <header class="hero-header" role="banner">
     <nav class="navbar" aria-label="Main navigation">
       <div class="brand">
-        <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <img loading="eager" fetchpriority="high" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
       </div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
@@ -370,7 +403,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </header>
 
 
-  <main class="wrap page-grid" id="main-content" role="main">
+  <main class="wrap page-grid" id="main-content" role="main" data-imo="9192351" data-ship="Carnival Adventure">
     <article class="card ship-content">
       <h1>Carnival Adventure</h1>
       <p class="ship-class">Grand Class (Ex-Princess) · Carnival Cruise Line</p>
@@ -408,7 +441,79 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         </ul>
       </section>
 
-      <p><em>Full ship details, deck plans, dining guides, and live tracker coming soon.</em></p>
+      <!-- Ship Stats -->
+      <section class="card" id="ship-stats">
+        <h2>Ship Stats</h2>
+        <div class="stats-grid">
+          <div class="stat-item"><div class="stat-value">108,865</div><div class="stat-label">Gross Tons</div></div>
+          <div class="stat-item"><div class="stat-value">2,600</div><div class="stat-label">Guests</div></div>
+          <div class="stat-item"><div class="stat-value">1,100</div><div class="stat-label">Crew</div></div>
+          <div class="stat-item"><div class="stat-value">2001</div><div class="stat-label">Built</div></div>
+          <div class="stat-item"><div class="stat-value">17</div><div class="stat-label">Decks</div></div>
+          <div class="stat-item"><div class="stat-value">1,300</div><div class="stat-label">Staterooms</div></div>
+        </div>
+      </section>
+
+      <!-- Dining Section -->
+      <section class="card" id="dining-card" aria-labelledby="diningHeading">
+        <h2 id="diningHeading"><img id="dining-hero" class="card-hero" src="/assets/img/Cordelia_Empress_Food_Court.webp" alt="Carnival Adventure dining venue" loading="lazy"/>
+        Dining Venues</h2>
+        <p>Carnival Adventure offers multiple dining venues including the main dining room, Lido Marketplace buffet, Guy's Burger Joint, BlueIguana Cantina, pizzeria, and specialty restaurants. The ship's Grand Class layout provides a wide range of casual and formal dining options.</p>
+      </section>
+
+      <!-- Logbook Section -->
+      <section class="card" id="logbook">
+        <h2>From the Logbook</h2>
+        <div id="logbook-container"><p><em>Loading logbook entries...</em></p></div>
+      </section>
+
+      <!-- Video Section -->
+      <section class="card" id="video-highlights" aria-labelledby="videos-title">
+        <h2 id="videos-title">Carnival Adventure Videos</h2>
+        <p>Ship tours, cabin walkthroughs, and passenger reviews for Carnival Adventure.</p>
+        <div id="video-wrapper" class="swiper videos" aria-label="Video carousel">
+          <div class="swiper-wrapper"></div>
+        </div>
+      </section>
+
+      <!-- Deck Plans Section -->
+      <section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">Carnival Adventure Deck Plans</h2>
+        <p>View the official deck plans to explore cabin locations, dining venues, pools, and entertainment areas.</p>
+        <p><a href="https://www.carnival.com/cruise-ships/carnival-adventure" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official Deck Plans →</a></p>
+      </section>
+
+      <!-- Live Tracker Section -->
+      <section class="card" id="live-tracker" data-imo="9192351" aria-labelledby="liveTrackHeading">
+        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
+        <p>Track Carnival Adventure's current position, speed, and next port in real-time.</p>
+        <div class="tracker-frame" id="tracker-container"></div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="card faq" id="faq" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Frequently Asked Questions About Carnival Adventure</h2>
+        <details class="section-divider">
+          <summary>What makes Carnival Adventure unique?</summary>
+          <p class="list-indent">Carnival Adventure is a former Princess Cruises ship (Golden Princess) that brings Grand Class elegance to Carnival's fleet, featuring Movies Under the Stars and multiple pools.</p>
+        </details>
+        <details class="section-divider">
+          <summary>Where does Carnival Adventure sail from?</summary>
+          <p class="list-indent">Carnival Adventure operates from Mobile, Alabama for Gulf Coast cruises and from Sydney, Australia for South Pacific itineraries.</p>
+        </details>
+        <details class="section-divider">
+          <summary>What is Carnival Adventure's history?</summary>
+          <p class="list-indent">Built in 2001 as Golden Princess by Fincantieri, she sailed as Pacific Adventure for P&amp;O Cruises Australia from 2021 to 2025, then joined Carnival Cruise Line in March 2025.</p>
+        </details>
+        <details class="section-divider">
+          <summary>What dining options are available?</summary>
+          <p class="list-indent">Carnival Adventure offers the main dining room, Lido Marketplace buffet, Guy's Burger Joint, BlueIguana Cantina, pizzeria, and various specialty restaurants.</p>
+        </details>
+        <details class="section-divider">
+          <summary>How large is Carnival Adventure?</summary>
+          <p class="list-indent">At 108,865 gross tons with capacity for 2,600 guests across 17 decks, Carnival Adventure is a mid-sized Grand Class ship.</p>
+        </details>
+      </section>
 
       <!-- Attribution -->
       <section class="card attributions" aria-labelledby="attribution-heading">
@@ -422,6 +527,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         </ul>
       </section>
     </article>
+    <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-adventure","name":"Carnival Adventure","cruise_line":"Carnival Cruise Line","class":"Grand Class (Ex-Princess)","entered_service":2001,"gt":"108,865 GT","guests":"2,600"}</script>
     <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
     <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
@@ -429,11 +535,69 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </button>
 </main>
 
-<footer class="wrap">
+<footer class="wrap" role="contentinfo">
     <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook</p>
     <p class="tiny"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a></p>
     <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
+
+<!-- ===== Ship-page JS modules ===== -->
+<script>
+function initFirstLook(){
+  if(!window.__swiperReady) return setTimeout(initFirstLook,200);
+  new Swiper('.firstlook',{loop:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},a11y:{prevSlideMessage:'Previous image',nextSlideMessage:'Next image'}});
+}
+initFirstLook();
+</script>
+<script>
+function initShipLogbook(){
+  var slug='carnival-adventure';
+  fetch('/assets/data/logbook/carnival/'+slug+'.json').then(function(r){return r.json();}).then(function(d){
+    var c=document.getElementById('logbook-container');
+    if(c&&d.stories) c.innerHTML=d.stories.slice(0,3).map(function(s){return '<article class="logbook-entry"><h3>'+s.title+'</h3><p>'+s.markdown.split('\\n\\n').slice(0,2).join('</p><p>')+'</p></article>';}).join('');
+  }).catch(function(){});
+}
+initShipLogbook();
+</script>
+<script>
+function initVideos(){
+  fetch('/assets/data/videos/carnival/carnival-adventure.json').then(function(r){return r.json();}).then(function(d){
+    var w=document.querySelector('#video-wrapper .swiper-wrapper');
+    if(!w||!d.videos) return;
+    var vids=[];Object.keys(d.videos).forEach(function(k){d.videos[k].forEach(function(v){vids.push(v);});});
+    w.innerHTML=vids.slice(0,8).map(function(v){return '<div class="swiper-slide"><lite-youtube videoid="'+v.videoId+'" title="'+v.title+'"></lite-youtube></div>';}).join('');
+    if(window.__swiperReady) new Swiper('#video-wrapper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});
+  }).catch(function(){});
+}
+initVideos();
+</script>
+<script>
+function initStats(){
+  var fb=document.getElementById('ship-stats-fallback');
+  if(!fb) return;
+  try{ var d=JSON.parse(fb.textContent); console.log('Stats loaded:',d.name); }catch(e){}
+}
+initStats();
+</script>
+<script>
+function initDining(){
+  fetch('/assets/data/dining/carnival/carnival-adventure.json').then(function(r){return r.json();}).then(function(d){
+    console.log('Dining data loaded for Carnival Adventure');
+  }).catch(function(){});
+}
+initDining();
+</script>
+<script>
+function initLiveTracker(){
+  var sec=document.getElementById('live-tracker');
+  if(!sec) return;
+  var imo=sec.getAttribute('data-imo');
+  if(!imo) return;
+  var container=document.getElementById('tracker-container');
+  if(container) container.innerHTML='<iframe src="https://www.marinetraffic.com/en/ais/embed/zoom:10/centery:25/centerx:-90/maptype:0/shownames:true/mmsi:0/shipid:0/fleet:/fleet_id:/vtypes:/showmenu:/remember:false" width="100%" height="400" frameborder="0" title="Carnival Adventure live position"></iframe>';
+}
+initLiveTracker();
+</script>
 
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
