@@ -24,21 +24,72 @@ import { validateVoiceQuality } from './lib/voice-quality-checks.js';
 // Known placeholder image hashes (should not appear on ANY port page)
 const PLACEHOLDER_HASHES = new Set([
   'd7a4721e321920f7f6414c7a7fe865f0',  // generic placeholder image
+  'cdf8bd1f00cbe19173712e81050c669c',  // "Image Coming Soon" gray geometric placeholder
+  '3c0a625569b86226396f24fc471590ae',  // solid blue rectangle placeholder
 ]);
 
-// Port-owned image hashes: maps hash → owning port slug.
-// If these hashes appear in a DIFFERENT port's directory, it's a BLOCKING error.
-// They are legitimate in their own port's directory.
-const PORT_OWNED_IMAGES = new Map([
-  ['981fbfa7520b7d94f62304a81457346f', 'cozumel'],  // cozumel-fom-1.webp
-  ['4b9d69a96202f44cbca8a25d1181efc9', 'cozumel'],  // cozumel-fom-2.webp
-  ['029e14d0478fdc132dbbfa5615b778cd', 'cozumel'],  // cozumel-fom-3.webp
-  ['26a6a85722f17d6edf577d1d3eba7f99', 'cozumel'],  // cozumel-fom-4.webp
-  ['4741a1ab51641aba424d50caa6d6ea75', 'cozumel'],  // cozumel-fom-5.webp
-  ['9b3a36826a1e0f735573c535af3c5a5c', 'cozumel'],  // cozumel-fom-6.webp
-  ['62950b86e712bc8c381a7fe076ee8bad', 'cozumel'],  // cozumel-fom-7.webp
-  ['bf40387ac298a8ee1cdc7c4c1d550c5f', 'cozumel'],  // cozumel-fom-8.webp
-]);
+// Dynamic cross-port hash map: built at runtime by scanning all port image dirs.
+// Maps hash → Set<port_slug> for every .webp that appears in 2+ port directories.
+// Cached after first build so it only runs once per validator session.
+let _crossPortHashMap = null;
+
+async function buildCrossPortHashMap() {
+  if (_crossPortHashMap) return _crossPortHashMap;
+
+  const portImgBase = join(PROJECT_ROOT, 'ports', 'img');
+  const hashToPorts = new Map(); // hash → Map<port_slug, [filenames]>
+
+  let portDirs;
+  try {
+    portDirs = await readdir(portImgBase);
+  } catch (e) {
+    _crossPortHashMap = new Map();
+    return _crossPortHashMap;
+  }
+
+  for (const portSlug of portDirs) {
+    const portDir = join(portImgBase, portSlug);
+    try {
+      const dirStat = await stat(portDir);
+      if (!dirStat.isDirectory()) continue;
+    } catch (e) { continue; }
+
+    let files;
+    try {
+      files = await readdir(portDir);
+    } catch (e) { continue; }
+
+    for (const file of files) {
+      if (!file.endsWith('.webp')) continue;
+      try {
+        const imgBuffer = readFileSync(join(portDir, file));
+        const hash = createHash('md5').update(imgBuffer).digest('hex');
+
+        // Skip known placeholders (handled separately)
+        if (PLACEHOLDER_HASHES.has(hash)) continue;
+
+        if (!hashToPorts.has(hash)) {
+          hashToPorts.set(hash, new Map());
+        }
+        const portMap = hashToPorts.get(hash);
+        if (!portMap.has(portSlug)) {
+          portMap.set(portSlug, []);
+        }
+        portMap.get(portSlug).push(file);
+      } catch (e) { /* skip unreadable files */ }
+    }
+  }
+
+  // Keep only hashes that appear in 2+ different port directories
+  _crossPortHashMap = new Map();
+  for (const [hash, portMap] of hashToPorts) {
+    if (portMap.size > 1) {
+      _crossPortHashMap.set(hash, portMap);
+    }
+  }
+
+  return _crossPortHashMap;
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -1088,6 +1139,9 @@ async function validatePortImages(filepath) {
   let crossPortCount = 0;
   const crossPortImages = [];
 
+  // Build dynamic cross-port hash map (cached after first call)
+  const crossPortMap = await buildCrossPortHashMap();
+
   for (const imgFile of imageFiles) {
     const imgPath = join(portImgDir, imgFile);
     try {
@@ -1099,11 +1153,15 @@ async function validatePortImages(filepath) {
         placeholderImages.push(imgFile);
       }
 
-      // Check if this image belongs to a different port
-      const owningPort = PORT_OWNED_IMAGES.get(hash);
-      if (owningPort && owningPort !== filename) {
-        crossPortCount++;
-        crossPortImages.push(`${imgFile} (belongs to ${owningPort})`);
+      // Check if this image hash appears in other port directories
+      const dupePortMap = crossPortMap.get(hash);
+      if (dupePortMap) {
+        // Get other ports that have this same image (excluding current port)
+        const otherPorts = [...dupePortMap.keys()].filter(p => p !== filename);
+        if (otherPorts.length > 0) {
+          crossPortCount++;
+          crossPortImages.push(`${imgFile} (also in ${otherPorts.join(', ')})`);
+        }
       }
     } catch (e) {
       // Skip files that can't be read
@@ -1123,7 +1181,7 @@ async function validatePortImages(filepath) {
     errors.push({
       section: 'port_images',
       rule: 'cross_port_images_detected',
-      message: `${crossPortCount} image(s) from other ports found in ports/img/${filename}/: ${crossPortImages.slice(0, 3).join(', ')}${crossPortCount > 3 ? ` and ${crossPortCount - 3} more` : ''}. Images must be unique to each port.`,
+      message: `${crossPortCount} image(s) duplicated across ports in ports/img/${filename}/: ${crossPortImages.slice(0, 3).join(', ')}${crossPortCount > 3 ? ` and ${crossPortCount - 3} more` : ''}. Each port must have unique images — duplicates require human review.`,
       severity: 'BLOCKING'
     });
   }
