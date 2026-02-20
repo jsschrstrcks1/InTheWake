@@ -21,10 +21,101 @@ import { load } from 'cheerio';
 import { glob } from 'glob';
 import { validateVoiceQuality } from './lib/voice-quality-checks.js';
 
-// Known placeholder image hashes (these should not be used on any port page)
+// Known placeholder image hashes (should not appear on ANY port page)
 const PLACEHOLDER_HASHES = new Set([
-  'd7a4721e321920f7f6414c7a7fe865f0'  // cozumel-fom-1.webp placeholder
+  'd7a4721e321920f7f6414c7a7fe865f0',  // generic placeholder image
+  'cdf8bd1f00cbe19173712e81050c669c',  // "Image Coming Soon" gray geometric placeholder
+  '3c0a625569b86226396f24fc471590ae',  // solid blue rectangle placeholder
 ]);
+
+// Dynamic cross-port hash map: built at runtime by scanning all port image dirs.
+// Maps hash → Set<port_slug> for every .webp that appears in 2+ port directories.
+// Cached after first build so it only runs once per validator session.
+let _crossPortHashMap = null;
+
+async function buildCrossPortHashMap() {
+  if (_crossPortHashMap) return _crossPortHashMap;
+
+  const portImgBase = join(PROJECT_ROOT, 'ports', 'img');
+  const hashToPorts = new Map(); // hash → Map<port_slug, [filenames]>
+
+  let portDirs;
+  try {
+    portDirs = await readdir(portImgBase);
+  } catch (e) {
+    _crossPortHashMap = new Map();
+    return _crossPortHashMap;
+  }
+
+  for (const portSlug of portDirs) {
+    const portDir = join(portImgBase, portSlug);
+    try {
+      const dirStat = await stat(portDir);
+      if (!dirStat.isDirectory()) continue;
+    } catch (e) { continue; }
+
+    let files;
+    try {
+      files = await readdir(portDir);
+    } catch (e) { continue; }
+
+    for (const file of files) {
+      if (!file.endsWith('.webp')) continue;
+      try {
+        const imgBuffer = readFileSync(join(portDir, file));
+        const hash = createHash('md5').update(imgBuffer).digest('hex');
+
+        // Skip known placeholders (handled separately)
+        if (PLACEHOLDER_HASHES.has(hash)) continue;
+
+        if (!hashToPorts.has(hash)) {
+          hashToPorts.set(hash, new Map());
+        }
+        const portMap = hashToPorts.get(hash);
+        if (!portMap.has(portSlug)) {
+          portMap.set(portSlug, []);
+        }
+        portMap.get(portSlug).push(file);
+      } catch (e) { /* skip unreadable files */ }
+    }
+  }
+
+  // Keep only hashes that appear in 2+ different port directories
+  _crossPortHashMap = new Map();
+  for (const [hash, portMap] of hashToPorts) {
+    if (portMap.size > 1) {
+      _crossPortHashMap.set(hash, portMap);
+    }
+  }
+
+  return _crossPortHashMap;
+}
+
+// Human-reviewed allowlist: cross-port duplicates that have been manually
+// verified as intentional. Loaded from admin/cross-port-image-allowlist.json.
+// Format: Set of hashes that a human has approved.
+let _allowedDuplicateHashes = null;
+
+function loadAllowedDuplicates() {
+  if (_allowedDuplicateHashes) return _allowedDuplicateHashes;
+
+  _allowedDuplicateHashes = new Set();
+  const allowlistPath = join(dirname(fileURLToPath(import.meta.url)), 'cross-port-image-allowlist.json');
+  try {
+    const data = JSON.parse(readFileSync(allowlistPath, 'utf-8'));
+    if (Array.isArray(data.reviewed)) {
+      for (const entry of data.reviewed) {
+        if (entry.hash) {
+          _allowedDuplicateHashes.add(entry.hash);
+        }
+      }
+    }
+  } catch (e) {
+    // Allowlist missing or malformed — treat all duplicates as unreviewed
+  }
+
+  return _allowedDuplicateHashes;
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -1068,9 +1159,17 @@ async function validatePortImages(filepath) {
     return { valid: false, errors, warnings, data: {} };
   }
 
-  // Check each image for placeholder hash
+  // Check each image for placeholder hash and cross-port contamination
   let placeholderCount = 0;
   const placeholderImages = [];
+  let crossPortCount = 0;
+  const crossPortImages = [];
+  let allowedDupeCount = 0;
+  const allowedDupeImages = [];
+
+  // Build dynamic cross-port hash map (cached after first call)
+  const crossPortMap = await buildCrossPortHashMap();
+  const allowedHashes = loadAllowedDuplicates();
 
   for (const imgFile of imageFiles) {
     const imgPath = join(portImgDir, imgFile);
@@ -1081,6 +1180,23 @@ async function validatePortImages(filepath) {
       if (PLACEHOLDER_HASHES.has(hash)) {
         placeholderCount++;
         placeholderImages.push(imgFile);
+      }
+
+      // Check if this image hash appears in other port directories
+      const dupePortMap = crossPortMap.get(hash);
+      if (dupePortMap) {
+        const otherPorts = [...dupePortMap.keys()].filter(p => p !== filename);
+        if (otherPorts.length > 0) {
+          if (allowedHashes.has(hash)) {
+            // Human-reviewed and approved — downgrade to info
+            allowedDupeCount++;
+            allowedDupeImages.push(`${imgFile} (shared with ${otherPorts.join(', ')})`);
+          } else {
+            // Unreviewed — BLOCKING
+            crossPortCount++;
+            crossPortImages.push(`${imgFile} (also in ${otherPorts.join(', ')})`);
+          }
+        }
       }
     } catch (e) {
       // Skip files that can't be read
@@ -1094,6 +1210,51 @@ async function validatePortImages(filepath) {
       message: `${placeholderCount} placeholder image(s) detected in ports/img/${filename}/: ${placeholderImages.slice(0, 3).join(', ')}${placeholderCount > 3 ? '...' : ''}. Each port must have unique, port-specific images.`,
       severity: 'BLOCKING'
     });
+  }
+
+  if (crossPortCount > 0) {
+    errors.push({
+      section: 'port_images',
+      rule: 'cross_port_images_detected',
+      message: `${crossPortCount} image(s) duplicated across ports in ports/img/${filename}/: ${crossPortImages.slice(0, 3).join(', ')}${crossPortCount > 3 ? ` and ${crossPortCount - 3} more` : ''}. Each port must have unique images — duplicates require human review. To approve, add hash to admin/cross-port-image-allowlist.json.`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  if (allowedDupeCount > 0) {
+    warnings.push({
+      section: 'port_images',
+      rule: 'allowed_cross_port_images',
+      message: `${allowedDupeCount} image(s) shared with other ports (human-reviewed, approved): ${allowedDupeImages.slice(0, 3).join(', ')}${allowedDupeCount > 3 ? ` and ${allowedDupeCount - 3} more` : ''}.`,
+      severity: 'INFO'
+    });
+  }
+
+  // Check for missing attribution files (every non-hero image should have provenance)
+  const webpImages = imageFiles.filter(f => f.endsWith('.webp'));
+  let missingAttrCount = 0;
+  const missingAttrImages = [];
+
+  for (const imgFile of webpImages) {
+    // Check for attr.json in both naming conventions: name-attr.json and name.webp.attr.json
+    const baseName = imgFile.replace(/\.webp$/, '');
+    const attrPath1 = join(portImgDir, `${baseName}-attr.json`);
+    const attrPath2 = join(portImgDir, `${imgFile}.attr.json`);
+
+    if (!existsSync(attrPath1) && !existsSync(attrPath2)) {
+      missingAttrCount++;
+      missingAttrImages.push(imgFile);
+    }
+  }
+
+  if (missingAttrCount > 0) {
+    const severity = missingAttrCount > Math.ceil(webpImages.length / 2) ? 'BLOCKING' : 'WARNING';
+    const msg = `${missingAttrCount} image(s) missing attribution files (-attr.json): ${missingAttrImages.slice(0, 3).join(', ')}${missingAttrCount > 3 ? ` and ${missingAttrCount - 3} more` : ''}. Every port image needs documented provenance.`;
+    if (severity === 'BLOCKING') {
+      errors.push({ section: 'port_images', rule: 'missing_attribution_files', message: msg, severity });
+    } else {
+      warnings.push({ section: 'port_images', rule: 'missing_attribution_files', message: msg, severity });
+    }
   }
 
   // Check for images with identical file sizes (potential duplicates)
