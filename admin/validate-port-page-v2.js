@@ -92,21 +92,22 @@ async function buildCrossPortHashMap() {
 }
 
 // Human-reviewed allowlist: cross-port duplicates that have been manually
-// verified as intentional. Loaded from admin/cross-port-image-allowlist.json.
-// Format: Set of hashes that a human has approved.
-let _allowedDuplicateHashes = null;
+// verified and assigned to a specific port. Loaded from
+// admin/cross-port-image-allowlist.json.
+// Format: Map of hash → approvedPort (the one port where this image belongs).
+let _allowedDuplicateMap = null;
 
 function loadAllowedDuplicates() {
-  if (_allowedDuplicateHashes) return _allowedDuplicateHashes;
+  if (_allowedDuplicateMap) return _allowedDuplicateMap;
 
-  _allowedDuplicateHashes = new Set();
+  _allowedDuplicateMap = new Map(); // hash → approvedPort
   const allowlistPath = join(dirname(fileURLToPath(import.meta.url)), 'cross-port-image-allowlist.json');
   try {
     const data = JSON.parse(readFileSync(allowlistPath, 'utf-8'));
     if (Array.isArray(data.reviewed)) {
       for (const entry of data.reviewed) {
-        if (entry.hash) {
-          _allowedDuplicateHashes.add(entry.hash);
+        if (entry.hash && entry.approvedPort) {
+          _allowedDuplicateMap.set(entry.hash, entry.approvedPort);
         }
       }
     }
@@ -114,7 +115,7 @@ function loadAllowedDuplicates() {
     // Allowlist missing or malformed — treat all duplicates as unreviewed
   }
 
-  return _allowedDuplicateHashes;
+  return _allowedDuplicateMap;
 }
 
 const __filename = fileURLToPath(import.meta.url);
@@ -1169,7 +1170,7 @@ async function validatePortImages(filepath) {
 
   // Build dynamic cross-port hash map (cached after first call)
   const crossPortMap = await buildCrossPortHashMap();
-  const allowedHashes = loadAllowedDuplicates();
+  const allowedMap = loadAllowedDuplicates();
 
   for (const imgFile of imageFiles) {
     const imgPath = join(portImgDir, imgFile);
@@ -1187,10 +1188,15 @@ async function validatePortImages(filepath) {
       if (dupePortMap) {
         const otherPorts = [...dupePortMap.keys()].filter(p => p !== filename);
         if (otherPorts.length > 0) {
-          if (allowedHashes.has(hash)) {
-            // Human-reviewed and approved — downgrade to info
+          const approvedPort = allowedMap.get(hash);
+          if (approvedPort === filename) {
+            // This port is the approved owner — downgrade to info
             allowedDupeCount++;
-            allowedDupeImages.push(`${imgFile} (shared with ${otherPorts.join(', ')})`);
+            allowedDupeImages.push(`${imgFile} (approved owner; also in ${otherPorts.join(', ')})`);
+          } else if (approvedPort && approvedPort !== filename) {
+            // Reviewed but belongs to a DIFFERENT port — BLOCKING (wrong port)
+            crossPortCount++;
+            crossPortImages.push(`${imgFile} (belongs to ${approvedPort}, not this port; also in ${otherPorts.join(', ')})`);
           } else {
             // Unreviewed — BLOCKING
             crossPortCount++;
