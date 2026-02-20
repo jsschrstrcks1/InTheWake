@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
 ████████████████████████████████████████████████████████████████████████████████
-██  SOLI DEO GLORIA — To God alone be the glory                satisfies: SR1 ██
+██  Soli Deo Gloria — To God alone be the glory                satisfies: SR1 ██
 ██  All work on this project is offered as an act of worship.                 ██
 ██  "Trust in the LORD with all your heart..." — Proverbs 3:5                 ██
 ██  "Whatever you do, work heartily..." — Colossians 3:23                     ██
@@ -53,7 +53,19 @@
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"In the Wake","url":"https://cruisinginthewake.com","logo":"https://cruisinginthewake.com/assets/logo_wake_512.png"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Carnival","item":"https://cruisinginthewake.com/ships.html#carnival"},{"@type":"ListItem","position":4,"name":"Carnival Legend","item":"https://cruisinginthewake.com/ships/carnival/carnival-legend.html"}]}</script>
+<!-- JSON-LD: BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships.html"},
+    {"@type": "ListItem", "position": 3, "name": "Carnival", "item": "https://cruisinginthewake.com/ships.html#carnival"},
+    {"@type": "ListItem", "position": 4, "name": "Carnival Legend", "item": "https://cruisinginthewake.com/ships/carnival/carnival-legend.html"}
+  ]
+}
+</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Product","name":"Carnival Legend","brand":{"@type":"Brand","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Legend pioneered onboard weddings for Carnival. Her intimate Spirit-class size is perfect for destination weddings at sea."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","url":"https://cruisinginthewake.com/authors/ken-baker.html","jobTitle":"Cruise Research Analyst","knowsAbout":["Cruise Ships","Carnival Cruise Line","Spirit Class"]}</script>
 <script type="application/ld+json">
@@ -75,7 +87,20 @@
     }
   }
   </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Carnival Legend have a wedding chapel?","acceptedAnswer":{"@type":"Answer","text":"Yes! Legend was the first Carnival Fun Ship with an onboard wedding chapel, making her popular for destination weddings at sea."}},{"@type":"Question","name":"Who is the godmother of Carnival Legend?","acceptedAnswer":{"@type":"Answer","text":"Dame Judi Dench, the acclaimed British actress, christened Legend on August 21, 2002 in Harwich, England."}}]}</script>
+<!-- JSON-LD: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Does Carnival Legend have a wedding chapel?", "acceptedAnswer": {"@type": "Answer", "text": "Yes! Legend was the first Carnival Fun Ship with an onboard wedding chapel, making her popular for destination weddings at sea."}},
+    {"@type": "Question", "name": "Who is the godmother of Carnival Legend?", "acceptedAnswer": {"@type": "Answer", "text": "Dame Judi Dench, the acclaimed British actress, christened Legend on August 21, 2002 in Harwich, England."}},
+    {"@type": "Question", "name": "What class is Carnival Legend?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Legend is the third Spirit-class ship at 85,942 GT, built by Kvaerner Masa-Yards in Helsinki, Finland. The Spirit class includes Carnival Spirit (2001), Carnival Pride (2002), Carnival Legend (2002), and Carnival Miracle (2004)."}},
+    {"@type": "Question", "name": "Where does Carnival Legend sail from?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Legend alternates seasonally between Baltimore, Maryland and Tampa, Florida, offering Caribbean and Bahamas itineraries from both East Coast ports."}},
+    {"@type": "Question", "name": "How big is Carnival Legend?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Legend measures 85,942 gross tons, is 963 feet long, and carries 2,124 guests at double occupancy across 1,062 staterooms on 12 passenger decks."}}
+  ]
+}
+</script>
 
 <link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
@@ -128,13 +153,45 @@
     }
 }
   </script>
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
 </head>
 
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
 <header class="hero-header" role="banner">
-  <nav class="navbar"><div class="brand"><a href="/"><img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" loading="eager"/></a>
+  <nav class="navbar"><div class="brand"><a href="/"><img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" loading="eager" fetchpriority="high"/></a>
 </div>
       <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
@@ -242,8 +299,8 @@
 
 <div class="content-column">
     <!-- First Look Photo Gallery -->
-    <section class="card" aria-labelledby="gallery-title">
-      <h2 id="gallery-title">Photo Gallery</h2>
+    <section class="card" id="first-look" aria-labelledby="gallery-title">
+      <h2 id="gallery-title">First Look — Photo Gallery</h2>
       <div class="swiper" id="photo-swiper" aria-label="Carnival Legend photo gallery">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
@@ -461,14 +518,96 @@ Dining Venues</h2>
   </button>
 </main>
 
-<footer><p><strong>In the Wake</strong></p><p class="tiny">© 2025 · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p><p class="tiny" style="opacity:0;position:absolute" >Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+<footer role="contentinfo"><p><strong>In the Wake</strong></p><p class="tiny">© 2025 · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p><p class="tiny" style="opacity:0;position:absolute" >Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous"></script>
 <script>
 fetch('/assets/data/videos/carnival/carnival-legend.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
 fetch('/assets/data/logbook/carnival/carnival-legend.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h4>${s.title}</h4><p class="logbook-meta">${s.persona_label} · ${s.author.name}</p><p>${s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')}</p></article>`).join('');}).catch(()=>{});
-</script>  <!-- Navigation Dropdown Script -->
+</script>
+
+<!-- ===== JS Module: First Look Carousel ===== -->
+<script>
+function initFirstLook(){
+  const el=document.getElementById('photo-swiper');
+  if(!el||typeof Swiper==='undefined') return;
+  new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
+</script>
+
+<!-- ===== JS Module: Ship Logbook ===== -->
+<script>
+function initShipLogbook(){
+  const c=document.getElementById('logbook-container');
+  if(!c) return;
+  fetch('/assets/data/logbook/carnival/carnival-legend.json')
+    .then(r=>r.json()).then(d=>{
+      if(d.stories) c.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h4>'+s.title+'</h4><p class="logbook-meta">'+s.persona_label+' · '+s.author.name+'</p><p>'+s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')+'</p></article>').join('');
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initShipLogbook); else initShipLogbook();
+</script>
+
+<!-- ===== JS Module: Video Loader ===== -->
+<script>
+function initVideos(){
+  const w=document.getElementById('video-wrapper');
+  if(!w) return;
+  fetch('/assets/data/videos/carnival/carnival-legend.json')
+    .then(r=>r.json()).then(d=>{
+      let vids=[];
+      if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
+      else if(Array.isArray(d.videos)) vids=d.videos;
+      if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
+      new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();
+</script>
+
+<!-- ===== JS Module: Ship Stats ===== -->
+<script>
+function initStats(){
+  const el=document.querySelector('[data-ship-stats]')||document.getElementById('stats-container');
+  if(!el) return;
+  fetch('/ships/carnival/assets/carnival-legend-stats.json')
+    .then(r=>r.json()).then(d=>{
+      if(d&&typeof d==='object'){const entries=Object.entries(d).filter(([k])=>!k.startsWith('_'));
+        el.innerHTML='<dl class="stats-grid">'+entries.map(([k,v])=>'<div class="stat-item"><dt>'+k+'</dt><dd>'+v+'</dd></div>').join('')+'</dl>';}
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initStats); else initStats();
+</script>
+
+<!-- ===== JS Module: Dining Loader ===== -->
+<script>
+function initDining(){
+  const el=document.getElementById('dining-container');
+  if(!el) return;
+  fetch('/ships/carnival/assets/carnival-legend-dining.json')
+    .then(r=>r.json()).then(d=>{
+      if(Array.isArray(d)){el.innerHTML=d.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');}
+      else if(d.venues) el.innerHTML=d.venues.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initDining); else initDining();
+</script>
+
+<!-- ===== JS Module: Live Tracker ===== -->
+<script>
+function initLiveTracker(){
+  const el=document.getElementById('live-tracker');
+  if(!el) return;
+  const imo=el.getAttribute('data-imo')||'9224726';
+  const url='https://www.myshiptracking.com/vessels/carnival-legend-imo-'+imo;
+  el.innerHTML='<a href="'+url+'" target="_blank" rel="noopener" class="tracker-link">Track Carnival Legend Live Position →</a>';
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initLiveTracker); else initLiveTracker();
+</script>
+
+  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
 
 
