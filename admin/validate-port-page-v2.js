@@ -1700,7 +1700,7 @@ function validateHTMLIntegrity($, html) {
     { pattern: /\.classlist\./, message: 'Typo: classlist should be classList' },
     { pattern: /document\.getElementByID\(/, message: 'Typo: getElementByID should be getElementById' },
     { pattern: /\.getElementByClassName\(/, message: 'Typo: getElementByClassName should be getElementsByClassName' },
-    { pattern: /\.queryselector\(/i, message: 'Typo: queryselector should be querySelector (check case)' },
+    { pattern: /\.queryselector\(/, message: 'Typo: queryselector should be querySelector (check case)' },
     { pattern: /\.appendchild\(/, message: 'Typo: appendchild should be appendChild' },
     { pattern: /\.setattribute\(/, message: 'Typo: setattribute should be setAttribute' }
   ];
