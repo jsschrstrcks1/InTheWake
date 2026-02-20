@@ -1,1009 +1,260 @@
-==========================================
-  PORT PAGE VALIDATION - 10% SAMPLE REPORT
-==========================================
+================================================================================
+  10% SAMPLE VALIDATION REPORT — ALL PAGE CATEGORIES
+  Generated: 2026-02-20
+  Branch: claude/review-codebase-validators-n0YNf
+================================================================================
 
-Total files sampled: 39
-Passed (no errors, no warnings): 0
-Warnings only (valid but has warnings): 0
-Failed (has blocking errors): 39
+EXECUTIVE SUMMARY
+-----------------
+  Pages sampled: 119 (10% of 1,118 total across all categories)
+  Overall pass rate: 12.6% (15 of 119)
 
-==========================================
-  PER-FILE DETAILED RESULTS
-==========================================
+  Category        | Total | Sampled | Passed | Failed | Pass Rate
+  ----------------|-------|---------|--------|--------|----------
+  Ships           |   259 |      32 |      6 |     26 |    18.8%
+  Ports           |   387 |      39 |      0 |     39 |     0.0%
+  Venues          |   472 |      48 |      9 |     39 |    18.8%
 
---- ports/abu-dhabi.html ---
-  Score: 64
-  Valid: false
-  BLOCKING ERRORS (3):
-    [rubric/booking_guidance] Excursions section missing booking guidance keywords (found 1, need 2+)
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): At a Glance, Whimsical Units
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (3):
-    [port_images/potential_duplicate_images] 5 images have identical file sizes, may be duplicates/placeholders
-    [faq/answer_too_long] 10 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (394 words); "My Logbook: Where Spiritual Grandeur Meets Modern Arabia..." (849 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+================================================================================
+  SHIP PAGE VALIDATION (32 sampled of 259)
+================================================================================
 
---- ports/alexandria.html ---
-  Score: 76
-  Valid: false
-  BLOCKING ERRORS (2):
-    [sidebar/missing_sidebar_sections] Sidebar missing 5 required section(s): At a Glance, Author's Note Disclaimer, About the Author, Recent Stories, Whimsical Units
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-  WARNINGS (2):
-    [faq/answer_too_long] 9 FAQ answer(s) exceed 80-word limit: "Captain's Logbook: Alexandria..." (977 words); "The Cruise Port..." (116 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+Pass rate: 18.8% (6 passed, 26 failed)
+Score range: 0-86 | Average: 63.5 (excluding 2 non-ship pages scoring 0)
 
---- ports/aruba.html ---
-  Score: 66
-  Valid: false
-  BLOCKING ERRORS (3):
-    [sidebar/missing_sidebar_sections] Sidebar missing 1 required section(s): Quick Answer
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (2):
-    [faq/answer_too_long] 10 FAQ answer(s) exceed 80-word limit: "Captain's Logbook..." (820 words); "The Cruise Port..." (132 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+TOP BLOCKING ERRORS (by frequency):
+  #  | Count | Rule                              | Impact
+  ---|-------|-----------------------------------|-------
+   1 |    22 | content_structure/missing_key_facts | 68.8% of sample
+   2 |    16 | images/few_images                   | 50.0%
+   3 |     9 | videos/few_videos                   | 28.1%
+   4 |     9 | videos/missing_categories           | 28.1%
+   5 |     4 | data_attr/missing_data_imo          | 12.5%
+   6 |     3 | logbook/few_stories                 | 9.4%
+   7 |     2 | content_structure/missing_answer_line| 6.3%
 
---- ports/bay-of-islands.html ---
-  Score: 66
-  Valid: false
-  BLOCKING ERRORS (3):
-    [sidebar/missing_sidebar_sections] Sidebar missing 5 required section(s): Quick Answer, Author's Note Disclaimer, Nearby Ports, Recent Stories, Whimsical Units
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (2):
-    [faq/answer_too_long] 9 FAQ answer(s) exceed 80-word limit: "Captain's Logbook..." (829 words); "The Cruise Port..." (200 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+TOP WARNINGS (by frequency):
+  #  | Count | Rule                              | Impact
+  ---|-------|-----------------------------------|-------
+   1 |    30 | logbook/spine_sections_missing      | 93.8%
+   2 |    30 | logbook/missing_female_crewmate     | 93.8%
+   3 |    28 | logbook/weak_emotional_content      | 87.5%
+   4 |    21 | sections/missing_whimsical_units    | 65.6%
+   5 |    21 | json_ld/generic_review_text         | 65.6%
+   6 |    19 | sections/missing_grid2_firstlook    | 59.4%
+   7 |    19 | word_counts/faq_too_short           | 59.4%
+   8 |    17 | discoverability/atlas_not_ready     | 53.1%
+   9 |     9 | logbook/missing_personas            | 28.1%
+  10 |     7 | service_worker/missing_registration | 21.9%
 
---- ports/bora-bora.html ---
-  Score: 64
-  Valid: false
-  BLOCKING ERRORS (3):
-    [port_images/no_port_images] No images found in ports/img/bora-bora/
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): At a Glance, Author's Note Disclaimer
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-  WARNINGS (3):
-    [logbook_narrative/first_person_maximum] Logbook has 96 first-person pronouns, may be overly repetitive
-    [faq/answer_too_long] 7 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (300 words); "My Visit to Bora Bora..." (1421 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+PASSING SHIP PAGES (6):
+  - carnival-liberty.html     (score 82)
+  - carnival-spirit.html      (score 86)
+  - celebrity-apex.html       (score 84)
+  - koningsdam.html           (score 86)
+  - rijndam-ii.html           (score 82)
+  - veendam-ii.html           (score 82)
 
---- ports/cagliari.html ---
-  Score: 66
-  Valid: false
-  BLOCKING ERRORS (3):
-    [sidebar/missing_sidebar_sections] Sidebar missing 5 required section(s): Quick Answer, Author's Note Disclaimer, Nearby Ports, Recent Stories, Whimsical Units
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (2):
-    [faq/answer_too_long] 6 FAQ answer(s) exceed 80-word limit: "Captain's Logbook..." (966 words); "The Cruise Port..." (165 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+WORST SHIP PAGES (score 0 — non-standard pages):
+  - allshipquiz.html          (quiz page, not a ship page)
+  - cunard/index.html         (cruise line index, not a ship page)
 
---- ports/cartagena.html ---
-  Score: 62
-  Valid: false
-  BLOCKING ERRORS (3):
-    [sidebar/missing_sidebar_sections] Sidebar missing 6 required section(s): Quick Answer, At a Glance, About the Author, Nearby Ports, Recent Stories, Whimsical Units
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (4):
-    [author_disclaimer/experience_level_missing] No author experience disclaimer found. Add "soundings in another's wake" or visited date.
-    [service_worker/missing_sw_registration] No Service Worker registration found. Add navigator.serviceWorker.register('/sw.js') for offline support.
-    [faq/answer_too_long] 9 FAQ answer(s) exceed 80-word limit: "Captain's Logbook..." (952 words); "Cruise Port..." (122 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+KEY SHIP SHORTCOMINGS:
+  1. missing_key_facts is the #1 blocker (22/32, 68.8%). Adding a key-facts
+     element to all ship pages would convert many near-passing pages to passing.
+  2. Logbook spine sections missing on 93.8% of pages. The 7-section spine
+     (Full Disclosure, Crew & Staff, Embarkation, Real Talk, Accessibility,
+     Female Crewmate, Closing Thoughts) is almost never present.
+  3. Female crewmate perspective missing on 93.8% of pages. This is a
+     systemic content gap across all cruise lines.
+  4. Images and videos are the next biggest gaps — 50% have <8 images,
+     28% have zero videos.
+  5. The 6 passing pages score 82-86 but still carry 7-9 warnings each.
+     None reaches the 90% atlas-readiness threshold.
 
---- ports/cochin.html ---
-  Score: 62
-  Valid: false
-  BLOCKING ERRORS (3):
-    [sidebar/missing_sidebar_sections] Sidebar missing 1 required section(s): Quick Answer
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (4):
-    [logbook_narrative/first_person_maximum] Logbook has 82 first-person pronouns, may be overly repetitive
-    [swiper/missing_swiper_ready] Swiper scripts found but no window.__swiperReady flag. Add ready flag for load-order safety.
-    [faq/answer_too_long] 12 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (308 words); "My Logbook: Where Spice Traders Left Their Soul..." (1325 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+================================================================================
+  PORT PAGE VALIDATION (39 sampled of 387)
+================================================================================
 
---- ports/cozumel.html ---
-  Score: 66
-  Valid: false
-  BLOCKING ERRORS (3):
-    [sidebar/missing_sidebar_sections] Sidebar missing 1 required section(s): Quick Answer
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (2):
-    [faq/answer_too_long] 20 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (365 words); "Weather & Best Time to Visit..." (365 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+Pass rate: 0.0% (0 passed, 39 failed)
+Score range: 0-76 | Average: 41.1 | Median: 62
 
---- ports/drake-passage.html ---
-  Score: 0
-  Valid: false
-  BLOCKING ERRORS (26):
-    [icp_lite/ai_summary_length] ai-summary exceeds 250 characters (259 chars)
-    [icp_lite/missing_webpage] Missing WebPage JSON-LD schema
-    [icp_lite/missing_faqpage] Missing FAQPage JSON-LD schema
-    [icp_lite/missing_mainentity] WebPage JSON-LD must have mainEntity of type "Place" for port pages
-    [icp_lite/datemodified_mismatch] WebPage dateModified () must match last-reviewed (2026-02-01)
-    [icp_lite/description_mismatch] WebPage description must match ai-summary meta tag
-    [hero/hero_missing] Page must have a hero box section with class "port-hero"
-    [section_order/missing_required_sections] Missing required sections: cruise_port, getting_around, depth_soundings, gallery
-    [section_order/out_of_order] Sections out of order: excursions
-    [word_counts/logbook_minimum] Logbook entry has 124 words, minimum is 800
-    [word_counts/cruise_port_minimum] Cruise port section has 0 words, minimum is 100
-    [word_counts/getting_around_minimum] Getting Around section has 0 words, minimum is 200
-    [word_counts/excursions_minimum] Excursions section has 71 words, minimum is 400
-    [word_counts/depth_soundings_minimum] Depth Soundings section has 0 words, minimum is 150
-    [word_counts/faq_minimum] FAQ section has 89 words, minimum is 200
-    [word_counts/total_minimum] Total page has 1121 words, minimum is 2000
-    [images/minimum_images] Page has 2 images, minimum is 11
-    [rubric/first_person_voice] Logbook has 2 first-person pronouns, minimum is 10
-    [rubric/accessibility_notes] Only 1 accessibility keywords found, minimum is 2
-    [rubric/diy_price_mentions] Only 2 price mentions found, minimum is 5
-    [rubric/booking_guidance] Excursions section missing booking guidance keywords (found 0, need 2+)
-    [logbook_narrative/emotional_pivot_missing] Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-    [logbook_narrative/first_person_minimum] Logbook has 2 first-person pronouns, minimum for story voice is 15
-    [logbook_narrative/reflection_missing] Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-    [sidebar/missing_sidebar_sections] Sidebar missing 5 required section(s): At a Glance, Author's Note Disclaimer, About the Author, Recent Stories, Whimsical Units
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-  WARNINGS (8):
-    [rubric/contrast_language] Logbook has 0 contrast words, recommended minimum is 3
-    [logbook_narrative/sensory_detail] Logbook uses only 1 of 5 senses (tactile). Aim for 3+ for immersive storytelling.
-    [logbook_narrative/contrast_missing] Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-    [author_disclaimer/experience_level_missing] No author experience disclaimer found. Add "soundings in another's wake" or visited date.
-    [content/last_reviewed_stamp_missing] Missing visible "Last reviewed" stamp. Expected: <p class="last-reviewed">Last reviewed: [Month Year]</p>
-    [service_worker/missing_sw_registration] No Service Worker registration found. Add navigator.serviceWorker.register('/sw.js') for offline support.
-    [faq/answer_too_long] 2 FAQ answer(s) exceed 80-word limit: "From the Logbook..." (121 words); "FAQsWill I definitely get seasick?Can I fly to Antarctica in..." (89 words)
-    [poi_manifest/missing_map_manifest] No POI manifest found at assets/data/maps/drake-passage.map.json
+TWO TIERS OF PORT PAGES:
+  - "Nearly there" (scores 52-76): 20 pages — fail on structural omissions
+  - "Skeleton/stub" (scores 0-16):  19 pages — missing entire content sections
 
---- ports/ensenada.html ---
-  Score: 66
-  Valid: false
-  BLOCKING ERRORS (3):
-    [sidebar/missing_sidebar_sections] Sidebar missing 1 required section(s): Quick Answer
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (2):
-    [faq/answer_too_long] 10 FAQ answer(s) exceed 80-word limit: "Captain's Logbook..." (913 words); "The Cruise Port..." (160 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+TOP BLOCKING ERRORS (by frequency):
+  #  | Count | Rule                              | Impact
+  ---|-------|-----------------------------------|-------
+   1 |    39 | sidebar/missing_sidebar_sections    | 100.0%
+   2 |    32 | content_structure/missing_key_facts  | 82.1%
+   3 |    26 | content_structure/missing_answer_line| 66.7%
+   4 |    15 | rubric/booking_guidance              | 38.5%
+   5 |    14 | section_order/missing_required       | 35.9%
+   6 |    14 | logbook/emotional_pivot_missing      | 35.9%
+   7 |    13 | word_counts/logbook_minimum          | 33.3%
+   8 |    13 | word_counts/getting_around_minimum   | 33.3%
+   9 |    13 | word_counts/excursions_minimum       | 33.3%
+  10 |    13 | word_counts/depth_soundings_minimum  | 33.3%
+  11 |    12 | rubric/first_person_voice            | 30.8%
+  12 |    12 | images/minimum_images                | 30.8%
+  13 |    10 | hero/hero_missing                    | 25.6%
+  14 |     6 | html_integrity/js_api_typo           | 15.4%
 
---- ports/ft-lauderdale.html ---
-  Score: 74
-  Valid: false
-  BLOCKING ERRORS (2):
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): At a Glance, Whimsical Units
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (3):
-    [port_images/potential_duplicate_images] 5 images have identical file sizes, may be duplicates/placeholders
-    [faq/answer_too_long] 10 FAQ answer(s) exceed 80-word limit: "My Logbook: Venice of America..." (910 words); "The Cruise Port..." (119 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+TOP WARNINGS (by frequency):
+  #  | Count | Rule                              | Impact
+  ---|-------|-----------------------------------|-------
+   1 |    39 | faq/answer_too_long                 | 100.0%
+   2 |    36 | poi_manifest/insufficient_pois      | 92.3%
+   3 |    13 | logbook/first_person_maximum         | 33.3%
+   4 |    13 | rubric/contrast_language             | 33.3%
+   5 |    13 | logbook/sensory_detail               | 33.3%
+   6 |    13 | logbook/contrast_missing             | 33.3%
+   7 |    10 | logbook/opening_hook                 | 25.6%
+   8 |     9 | content_purity/stamina_levels        | 23.1%
 
---- ports/glacier-alley.html ---
-  Score: 0
-  Valid: false
-  BLOCKING ERRORS (21):
-    [hero/hero_missing] Page must have a hero box section with class "port-hero"
-    [section_order/missing_required_sections] Missing required sections: hero, cruise_port, getting_around, excursions, depth_soundings, gallery
-    [section_order/out_of_order] Sections out of order: map
-    [word_counts/logbook_minimum] Logbook entry has 139 words, minimum is 800
-    [word_counts/cruise_port_minimum] Cruise port section has 0 words, minimum is 100
-    [word_counts/getting_around_minimum] Getting Around section has 0 words, minimum is 200
-    [word_counts/excursions_minimum] Excursions section has 0 words, minimum is 400
-    [word_counts/depth_soundings_minimum] Depth Soundings section has 0 words, minimum is 150
-    [word_counts/faq_minimum] FAQ section has 173 words, minimum is 200
-    [word_counts/total_minimum] Total page has 1206 words, minimum is 2000
-    [images/minimum_images] Page has 1 images, minimum is 11
-    [rubric/first_person_voice] Logbook has 4 first-person pronouns, minimum is 10
-    [rubric/accessibility_notes] Only 0 accessibility keywords found, minimum is 2
-    [rubric/diy_price_mentions] Only 0 price mentions found, minimum is 5
-    [rubric/booking_guidance] Excursions section missing booking guidance keywords (found 0, need 2+)
-    [logbook_narrative/emotional_pivot_missing] Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-    [logbook_narrative/first_person_minimum] Logbook has 4 first-person pronouns, minimum for story voice is 15
-    [logbook_narrative/reflection_missing] Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-    [sidebar/missing_sidebar_sections] Sidebar missing 6 required section(s): At a Glance, Author's Note Disclaimer, About the Author, Nearby Ports, Recent Stories, Whimsical Units
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (11):
-    [port_images/potential_duplicate_images] 3 images have identical file sizes, may be duplicates/placeholders
-    [rubric/contrast_language] Logbook has 0 contrast words, recommended minimum is 3
-    [logbook_narrative/sensory_detail] Logbook uses only 1 of 5 senses (auditory). Aim for 3+ for immersive storytelling.
-    [logbook_narrative/contrast_missing] Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-    [content_purity/stewardship_framing] Only 2 stewardship markers found. Consider adding gratitude/value language.
-    [content_purity/stamina_levels] No stamina/accessibility level mentions. Consider adding low/moderate/high-energy options.
-    [author_disclaimer/experience_level_missing] No author experience disclaimer found. Add "soundings in another's wake" or visited date.
-    [content/last_reviewed_stamp_missing] Missing visible "Last reviewed" stamp. Expected: <p class="last-reviewed">Last reviewed: [Month Year]</p>
-    [service_worker/missing_sw_registration] No Service Worker registration found. Add navigator.serviceWorker.register('/sw.js') for offline support.
-    [faq/answer_too_long] 2 FAQ answer(s) exceed 80-word limit: "From the Logbook..." (136 words); "Frequently Asked QuestionsHow many glaciers are in Glacier A..." (173 words)
-    [poi_manifest/missing_map_manifest] No POI manifest found at assets/data/maps/glacier-alley.map.json
+BEST PORT PAGES (still failing):
+  - sitka.html           (score 76, 2 errors)
+  - alexandria.html      (score 76, 2 errors)
+  - ft-lauderdale.html   (score 74, 2 errors)
+  - venice.html          (score 74, 2 errors)
 
---- ports/guadeloupe.html ---
-  Score: 0
-  Valid: false
-  BLOCKING ERRORS (19):
-    [hero/hero_missing] Page must have a hero box section with class "port-hero"
-    [section_order/missing_required_sections] Missing required sections: hero, cruise_port, excursions
-    [section_order/out_of_order] Sections out of order: map
-    [word_counts/logbook_minimum] Logbook entry has 0 words, minimum is 800
-    [word_counts/cruise_port_minimum] Cruise port section has 0 words, minimum is 100
-    [word_counts/getting_around_minimum] Getting Around section has 40 words, minimum is 200
-    [word_counts/excursions_minimum] Excursions section has 0 words, minimum is 400
-    [word_counts/depth_soundings_minimum] Depth Soundings section has 39 words, minimum is 150
-    [images/missing_credits] 4 images missing photo credits in figcaption
-    [rubric/first_person_voice] Logbook has 0 first-person pronouns, minimum is 10
-    [rubric/accessibility_notes] Only 0 accessibility keywords found, minimum is 2
-    [rubric/diy_price_mentions] Only 2 price mentions found, minimum is 5
-    [rubric/booking_guidance] Excursions section missing booking guidance keywords (found 0, need 2+)
-    [logbook_narrative/emotional_pivot_missing] Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-    [logbook_narrative/first_person_minimum] Logbook has 0 first-person pronouns, minimum for story voice is 15
-    [logbook_narrative/reflection_missing] Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-    [html_integrity/js_api_typo] Typo: queryselector should be querySelector (check case)
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): At a Glance, Author's Note Disclaimer
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (8):
-    [images/short_alt] 2 images have alt text shorter than 20 characters
-    [rubric/contrast_language] Logbook has 0 contrast words, recommended minimum is 3
-    [logbook_narrative/sensory_detail] Logbook uses only 0 of 5 senses (). Aim for 3+ for immersive storytelling.
-    [logbook_narrative/contrast_missing] Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-    [logbook_narrative/opening_hook] Logbook may lack concrete opening. Start with a scene or specific moment, not abstract statements.
-    [content_purity/stamina_levels] No stamina/accessibility level mentions. Consider adding low/moderate/high-energy options.
-    [faq/answer_too_long] 2 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (309 words); "Frequently Asked Questions..." (170 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+WORST PORT PAGES (score 0 — skeleton pages):
+  - drake-passage.html   (26 errors, 8 warnings)
+  - glacier-alley.html   (21 errors, 11 warnings)
+  - guadeloupe.html      (19 errors, 8 warnings)
+  - helsinki.html        (21 errors, 8 warnings)
+  - kagoshima.html       (20 errors, 8 warnings)
+  - kona.html            (20 errors, 8 warnings)
+  - milford-sound.html   (19 errors, 8 warnings)
+  - newcastle.html       (19 errors, 8 warnings)
+  - osaka.html           (20 errors, 7 warnings)
+  - phuket.html          (18 errors, 6 warnings)
+  - port-said.html       (23 errors, 9 warnings)
+  - rhodes.html          (19 errors, 7 warnings)
+  - saguenay.html        (20 errors, 8 warnings)
 
---- ports/helsinki.html ---
-  Score: 0
-  Valid: false
-  BLOCKING ERRORS (21):
-    [hero/hero_missing] Page must have a hero box section with class "port-hero"
-    [section_order/missing_required_sections] Missing required sections: hero, cruise_port, excursions, depth_soundings
-    [section_order/out_of_order] Sections out of order: map, faq
-    [word_counts/logbook_minimum] Logbook entry has 0 words, minimum is 800
-    [word_counts/cruise_port_minimum] Cruise port section has 0 words, minimum is 100
-    [word_counts/getting_around_minimum] Getting Around section has 91 words, minimum is 200
-    [word_counts/excursions_minimum] Excursions section has 0 words, minimum is 400
-    [word_counts/depth_soundings_minimum] Depth Soundings section has 0 words, minimum is 150
-    [word_counts/faq_minimum] FAQ section has 173 words, minimum is 200
-    [images/minimum_images] Page has 10 images, minimum is 11
-    [images/missing_credits] 4 images missing photo credits in figcaption
-    [rubric/first_person_voice] Logbook has 0 first-person pronouns, minimum is 10
-    [rubric/accessibility_notes] Only 0 accessibility keywords found, minimum is 2
-    [rubric/diy_price_mentions] Only 3 price mentions found, minimum is 5
-    [rubric/booking_guidance] Excursions section missing booking guidance keywords (found 0, need 2+)
-    [logbook_narrative/emotional_pivot_missing] Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-    [logbook_narrative/first_person_minimum] Logbook has 0 first-person pronouns, minimum for story voice is 15
-    [logbook_narrative/reflection_missing] Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-    [html_integrity/js_api_typo] Typo: queryselector should be querySelector (check case)
-    [sidebar/missing_sidebar_sections] Sidebar missing 1 required section(s): At a Glance
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (8):
-    [images/short_alt] 1 images have alt text shorter than 20 characters
-    [rubric/contrast_language] Logbook has 0 contrast words, recommended minimum is 3
-    [logbook_narrative/sensory_detail] Logbook uses only 0 of 5 senses (). Aim for 3+ for immersive storytelling.
-    [logbook_narrative/contrast_missing] Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-    [logbook_narrative/opening_hook] Logbook may lack concrete opening. Start with a scene or specific moment, not abstract statements.
-    [content_purity/stamina_levels] No stamina/accessibility level mentions. Consider adding low/moderate/high-energy options.
-    [faq/answer_too_long] 2 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (307 words); "Frequently Asked Questions..." (170 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+KEY PORT SHORTCOMINGS:
+  1. 100% fail rate. Not a single port page passes validation.
+  2. missing_sidebar_sections is universal (100%). Most pages are missing
+     "At a Glance", "Author's Note Disclaimer", and "Whimsical Units".
+  3. missing_key_facts hits 82.1% and missing_answer_line hits 66.7%.
+     These are simple structural HTML elements missing from templates.
+  4. FAQ answers universally too long (100%). Every page has FAQ answers
+     exceeding the 80-word limit, some reaching 1400+ words.
+  5. POI manifests insufficient on 92.3% — most have 0 points of interest.
+  6. 13 skeleton pages (33%) are essentially empty stubs needing full
+     content creation, not just template fixes.
+  7. js_api_typo (queryselector vs querySelector) affects 15.4% of ports.
 
---- ports/hong-kong.html ---
-  Score: 52
-  Valid: false
-  BLOCKING ERRORS (4):
-    [html_integrity/js_api_typo] Typo: queryselector should be querySelector (check case)
-    [sidebar/missing_sidebar_sections] Sidebar missing 4 required section(s): Quick Answer, At a Glance, Nearby Ports, Recent Stories
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (4):
-    [icp_lite/ai_summary_length] ai-summary is short (148 chars), recommended 150-250
-    [logbook_narrative/first_person_maximum] Logbook has 76 first-person pronouns, may be overly repetitive
-    [faq/answer_too_long] 7 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (311 words); "My Logbook: A Hong Kong Day..." (1249 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+================================================================================
+  VENUE PAGE VALIDATION (48 sampled of 472)
+================================================================================
 
---- ports/incheon.html ---
-  Score: 64
-  Valid: false
-  BLOCKING ERRORS (3):
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): Quick Answer, Author's Note Disclaimer
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (3):
-    [logbook_narrative/first_person_maximum] Logbook has 68 first-person pronouns, may be overly repetitive
-    [faq/answer_too_long] 9 FAQ answer(s) exceed 80-word limit: "My Logbook: Through the Mist at Korea's Gateway..." (1318 words); "The Cruise Port..." (166 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+Pass rate: 18.8% (9 passed, 39 failed)
+Score range: All passing or single-error failure
 
---- ports/kagoshima.html ---
-  Score: 0
-  Valid: false
-  BLOCKING ERRORS (20):
-    [hero/hero_missing] Page must have a hero box section with class "port-hero"
-    [section_order/missing_required_sections] Missing required sections: hero, getting_around, depth_soundings, gallery
-    [section_order/out_of_order] Sections out of order: map
-    [word_counts/logbook_minimum] Logbook entry has 0 words, minimum is 800
-    [word_counts/getting_around_minimum] Getting Around section has 105 words, minimum is 200
-    [word_counts/excursions_minimum] Excursions section has 149 words, minimum is 400
-    [word_counts/depth_soundings_minimum] Depth Soundings section has 0 words, minimum is 150
-    [word_counts/faq_minimum] FAQ section has 118 words, minimum is 200
-    [word_counts/total_minimum] Total page has 1336 words, minimum is 2000
-    [images/minimum_images] Page has 4 images, minimum is 11
-    [port_images/no_port_images] No images found in ports/img/kagoshima/
-    [rubric/first_person_voice] Logbook has 0 first-person pronouns, minimum is 10
-    [rubric/accessibility_notes] Only 1 accessibility keywords found, minimum is 2
-    [rubric/diy_price_mentions] Only 2 price mentions found, minimum is 5
-    [rubric/booking_guidance] Excursions section missing booking guidance keywords (found 0, need 2+)
-    [logbook_narrative/emotional_pivot_missing] Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-    [logbook_narrative/first_person_minimum] Logbook has 0 first-person pronouns, minimum for story voice is 15
-    [logbook_narrative/reflection_missing] Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-    [sidebar/missing_sidebar_sections] Sidebar missing 4 required section(s): At a Glance, Author's Note Disclaimer, Recent Stories, Whimsical Units
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-  WARNINGS (8):
-    [images/short_alt] 1 images have alt text shorter than 20 characters
-    [rubric/contrast_language] Logbook has 0 contrast words, recommended minimum is 3
-    [logbook_narrative/sensory_detail] Logbook uses only 0 of 5 senses (). Aim for 3+ for immersive storytelling.
-    [logbook_narrative/contrast_missing] Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-    [logbook_narrative/opening_hook] Logbook may lack concrete opening. Start with a scene or specific moment, not abstract statements.
-    [content_purity/stewardship_framing] Only 2 stewardship markers found. Consider adding gratitude/value language.
-    [faq/answer_too_long] 4 FAQ answer(s) exceed 80-word limit: "The Cruise Port & Getting Around..." (99 words); "Sengan-en & Samurai Heritage..." (111 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+TOP BLOCKING ERRORS (by frequency):
+  #  | Count | Rule                              | Impact
+  ---|-------|-----------------------------------|-------
+   1 |    39 | T14: js_api_typo (queryselector)    | 81.3%
 
---- ports/kona.html ---
-  Score: 0
-  Valid: false
-  BLOCKING ERRORS (20):
-    [hero/hero_missing_image_credit] Hero image must include credit link (Wikimedia, Unsplash, Pexels, Pixabay, or Flickr)
-    [section_order/missing_required_sections] Missing required sections: cruise_port
-    [section_order/out_of_order] Sections out of order: map, logbook
-    [word_counts/logbook_minimum] Logbook entry has 0 words, minimum is 800
-    [word_counts/cruise_port_minimum] Cruise port section has 0 words, minimum is 100
-    [word_counts/getting_around_minimum] Getting Around section has 139 words, minimum is 200
-    [word_counts/excursions_minimum] Excursions section has 135 words, minimum is 400
-    [word_counts/depth_soundings_minimum] Depth Soundings section has 99 words, minimum is 150
-    [images/minimum_images] Page has 7 images, minimum is 11
-    [images/missing_credits] 1 images missing photo credits in figcaption
-    [rubric/first_person_voice] Logbook has 0 first-person pronouns, minimum is 10
-    [rubric/accessibility_notes] Only 1 accessibility keywords found, minimum is 2
-    [rubric/diy_price_mentions] Only 1 price mentions found, minimum is 5
-    [rubric/booking_guidance] Excursions section missing booking guidance keywords (found 0, need 2+)
-    [logbook_narrative/emotional_pivot_missing] Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-    [logbook_narrative/first_person_minimum] Logbook has 0 first-person pronouns, minimum for story voice is 15
-    [logbook_narrative/reflection_missing] Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-    [html_integrity/js_api_typo] Typo: queryselector should be querySelector (check case)
-    [sidebar/missing_sidebar_sections] Sidebar missing 1 required section(s): At a Glance
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (8):
-    [images/short_alt] 2 images have alt text shorter than 20 characters
-    [rubric/contrast_language] Logbook has 0 contrast words, recommended minimum is 3
-    [logbook_narrative/sensory_detail] Logbook uses only 0 of 5 senses (). Aim for 3+ for immersive storytelling.
-    [logbook_narrative/contrast_missing] Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-    [logbook_narrative/opening_hook] Logbook may lack concrete opening. Start with a scene or specific moment, not abstract statements.
-    [content_purity/stamina_levels] No stamina/accessibility level mentions. Consider adding low/moderate/high-energy options.
-    [faq/answer_too_long] 2 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (309 words); "Frequently Asked Questions..." (170 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+TOP WARNINGS (by frequency):
+  #  | Count | Rule                              | Impact
+  ---|-------|-----------------------------------|-------
+   1 |    48 | T13: Print Guide button missing     | 100.0%
+   2 |    48 | W01: No venue-specific images        | 100.0%
+   3 |    19 | T16: No Service Worker registration  | 39.6%
 
---- ports/langkawi.html ---
-  Score: 62
-  Valid: false
-  BLOCKING ERRORS (3):
-    [sidebar/missing_sidebar_sections] Sidebar missing 1 required section(s): Quick Answer
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (4):
-    [logbook_narrative/first_person_maximum] Logbook has 61 first-person pronouns, may be overly repetitive
-    [swiper/missing_swiper_ready] Swiper scripts found but no window.__swiperReady flag. Add ready flag for load-order safety.
-    [faq/answer_too_long] 7 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (310 words); "My Logbook: Stone and Sea at the Edge of Time..." (1153 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+PASSING VENUE PAGES (9 — all entertainment/neighborhood category):
+  - fast-forward.html, hiro.html, masquerade-theater.html,
+    pacifica-theater.html, shall-we-dance-lounge.html,
+    suite-enclave.html, the-attic.html, the-gift.html,
+    we-will-rock-you.html
 
---- ports/lombok.html ---
-  Score: 62
-  Valid: false
-  BLOCKING ERRORS (3):
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): Quick Answer, Author's Note Disclaimer
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (4):
-    [logbook_narrative/first_person_maximum] Logbook has 91 first-person pronouns, may be overly repetitive
-    [unique_names/names_detected] Detected persona names: Lombok. Verify uniqueness across all ports.
-    [faq/answer_too_long] 11 FAQ answer(s) exceed 80-word limit: "My Visit to Lombok..." (1303 words); "The Cruise Port..." (141 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+PASS/FAIL BY VENUE CATEGORY:
+  Category        | Sampled | Passed | Failed | Pass Rate
+  ----------------|---------|--------|--------|----------
+  bars            |      17 |      0 |     17 |     0.0%
+  dining          |      17 |      0 |     17 |     0.0%
+  entertainment   |      11 |      8 |      3 |    72.7%
+  activities      |       2 |      0 |      2 |     0.0%
+  neighborhoods   |       1 |      1 |      0 |   100.0%
 
---- ports/maputo.html ---
-  Score: 64
-  Valid: false
-  BLOCKING ERRORS (3):
-    [sidebar/missing_sidebar_sections] Sidebar missing 1 required section(s): Quick Answer
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (3):
-    [logbook_narrative/first_person_maximum] Logbook has 62 first-person pronouns, may be overly repetitive
-    [faq/answer_too_long] 8 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (299 words); "My Logbook: Where Portuguese Elegance Meets African Soul..." (1291 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+KEY VENUE SHORTCOMINGS:
+  1. A SINGLE BUG causes 100% of failures: `queryselector` instead of
+     `querySelector` (T14). This is a template-level typo. A batch
+     find-and-replace would bring pass rate from 18.8% to ~100%.
+  2. Print Guide button (T13) missing on every single page (100%).
+     This feature is completely absent from all venue templates.
+  3. Every page uses only stock/generic images (W01, 100%).
+     No venue-specific photography exists for any page.
+  4. Subdirectory pages (carnival/, msc/, ncl/, virgin/) lack
+     Service Worker registration (T16, 39.6%). Root-level pages
+     have it; subdirectory templates do not.
+  5. Semantic/content quality is strong — no S01-S06 errors.
+     The issues are purely technical and structural.
 
---- ports/milford-sound.html ---
-  Score: 0
-  Valid: false
-  BLOCKING ERRORS (19):
-    [hero/hero_missing] Page must have a hero box section with class "port-hero"
-    [section_order/missing_required_sections] Missing required sections: hero, cruise_port, excursions
-    [section_order/out_of_order] Sections out of order: map
-    [word_counts/logbook_minimum] Logbook entry has 0 words, minimum is 800
-    [word_counts/cruise_port_minimum] Cruise port section has 0 words, minimum is 100
-    [word_counts/getting_around_minimum] Getting Around section has 64 words, minimum is 200
-    [word_counts/excursions_minimum] Excursions section has 0 words, minimum is 400
-    [word_counts/depth_soundings_minimum] Depth Soundings section has 61 words, minimum is 150
-    [images/minimum_images] Page has 10 images, minimum is 11
-    [images/missing_credits] 4 images missing photo credits in figcaption
-    [rubric/first_person_voice] Logbook has 0 first-person pronouns, minimum is 10
-    [rubric/accessibility_notes] Only 0 accessibility keywords found, minimum is 2
-    [rubric/diy_price_mentions] Only 1 price mentions found, minimum is 5
-    [rubric/booking_guidance] Excursions section missing booking guidance keywords (found 0, need 2+)
-    [logbook_narrative/emotional_pivot_missing] Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-    [logbook_narrative/first_person_minimum] Logbook has 0 first-person pronouns, minimum for story voice is 15
-    [logbook_narrative/reflection_missing] Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): At a Glance, Author's Note Disclaimer
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (8):
-    [port_images/potential_duplicate_images] 4 images have identical file sizes, may be duplicates/placeholders
-    [rubric/contrast_language] Logbook has 0 contrast words, recommended minimum is 3
-    [logbook_narrative/sensory_detail] Logbook uses only 0 of 5 senses (). Aim for 3+ for immersive storytelling.
-    [logbook_narrative/contrast_missing] Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-    [logbook_narrative/opening_hook] Logbook may lack concrete opening. Start with a scene or specific moment, not abstract statements.
-    [content_purity/stamina_levels] No stamina/accessibility level mentions. Consider adding low/moderate/high-energy options.
-    [faq/answer_too_long] 2 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (311 words); "Frequently Asked Questions..." (173 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+================================================================================
+  CROSS-CATEGORY ANALYSIS
+================================================================================
 
---- ports/mumbai.html ---
-  Score: 52
-  Valid: false
-  BLOCKING ERRORS (4):
-    [html_integrity/js_api_typo] Typo: queryselector should be querySelector (check case)
-    [sidebar/missing_sidebar_sections] Sidebar missing 5 required section(s): Quick Answer, At a Glance, Author's Note Disclaimer, Nearby Ports, Recent Stories
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (4):
-    [port_images/potential_duplicate_images] 4 images have identical file sizes, may be duplicates/placeholders
-    [logbook_narrative/first_person_maximum] Logbook has 63 first-person pronouns, may be overly repetitive
-    [faq/answer_too_long] 7 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (310 words); "My Visit to Mumbai..." (1462 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+SYSTEMIC ISSUES (appear across 2+ categories):
+  1. missing_key_facts — Ships (68.8%), Ports (82.1%)
+  2. missing_answer_line — Ships (6.3%), Ports (66.7%)
+  3. queryselector typo — Ports (15.4%), Venues (81.3%)
+  4. Service Worker missing — Ships (21.9%), Venues (39.6%), Ports (7.7%)
+  5. Missing images/stock only — Ships (50%), Ports (30.8%), Venues (100%)
 
---- ports/newcastle.html ---
-  Score: 0
-  Valid: false
-  BLOCKING ERRORS (19):
-    [hero/hero_missing_image_credit] Hero image must include credit link (Wikimedia, Unsplash, Pexels, Pixabay, or Flickr)
-    [section_order/missing_required_sections] Missing required sections: cruise_port, excursions, gallery
-    [section_order/out_of_order] Sections out of order: logbook
-    [word_counts/logbook_minimum] Logbook entry has 0 words, minimum is 800
-    [word_counts/cruise_port_minimum] Cruise port section has 0 words, minimum is 100
-    [word_counts/getting_around_minimum] Getting Around section has 15 words, minimum is 200
-    [word_counts/excursions_minimum] Excursions section has 0 words, minimum is 400
-    [word_counts/depth_soundings_minimum] Depth Soundings section has 33 words, minimum is 150
-    [word_counts/total_minimum] Total page has 1465 words, minimum is 2000
-    [images/minimum_images] Page has 7 images, minimum is 11
-    [rubric/first_person_voice] Logbook has 0 first-person pronouns, minimum is 10
-    [rubric/accessibility_notes] Only 0 accessibility keywords found, minimum is 2
-    [rubric/diy_price_mentions] Only 1 price mentions found, minimum is 5
-    [rubric/booking_guidance] Excursions section missing booking guidance keywords (found 0, need 2+)
-    [logbook_narrative/emotional_pivot_missing] Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-    [logbook_narrative/first_person_minimum] Logbook has 0 first-person pronouns, minimum for story voice is 15
-    [logbook_narrative/reflection_missing] Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): At a Glance, Author's Note Disclaimer
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (8):
-    [images/short_alt] 1 images have alt text shorter than 20 characters
-    [rubric/contrast_language] Logbook has 0 contrast words, recommended minimum is 3
-    [logbook_narrative/sensory_detail] Logbook uses only 0 of 5 senses (). Aim for 3+ for immersive storytelling.
-    [logbook_narrative/contrast_missing] Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-    [logbook_narrative/opening_hook] Logbook may lack concrete opening. Start with a scene or specific moment, not abstract statements.
-    [content_purity/stamina_levels] No stamina/accessibility level mentions. Consider adding low/moderate/high-energy options.
-    [faq/answer_too_long] 2 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (307 words); "Frequently Asked Questions..." (170 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+QUICK WINS (highest impact, lowest effort):
+  1. Fix queryselector → querySelector across all venue + port templates
+     Impact: ~383 venue pages + ~60 port pages instantly fixed
+     Effort: 5 minutes (batch find-and-replace)
 
---- ports/osaka.html ---
-  Score: 0
-  Valid: false
-  BLOCKING ERRORS (20):
-    [hero/hero_missing] Page must have a hero box section with class "port-hero"
-    [section_order/missing_required_sections] Missing required sections: hero, cruise_port, getting_around, excursions, depth_soundings, gallery
-    [section_order/out_of_order] Sections out of order: map
-    [word_counts/logbook_minimum] Logbook entry has 0 words, minimum is 800
-    [word_counts/cruise_port_minimum] Cruise port section has 0 words, minimum is 100
-    [word_counts/getting_around_minimum] Getting Around section has 0 words, minimum is 200
-    [word_counts/excursions_minimum] Excursions section has 380 words, minimum is 400
-    [word_counts/depth_soundings_minimum] Depth Soundings section has 0 words, minimum is 150
-    [images/minimum_images] Page has 4 images, minimum is 11
-    [port_images/no_port_images] No images found in ports/img/osaka/
-    [rubric/first_person_voice] Logbook has 0 first-person pronouns, minimum is 10
-    [rubric/accessibility_notes] Only 1 accessibility keywords found, minimum is 2
-    [rubric/diy_price_mentions] Only 1 price mentions found, minimum is 5
-    [rubric/booking_guidance] Excursions section missing booking guidance keywords (found 0, need 2+)
-    [logbook_narrative/emotional_pivot_missing] Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-    [logbook_narrative/first_person_minimum] Logbook has 0 first-person pronouns, minimum for story voice is 15
-    [logbook_narrative/reflection_missing] Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-    [content_purity/forbidden_drinking] Content contains forbidden drinking references: "hammered"
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): At a Glance, Author's Note Disclaimer
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-  WARNINGS (7):
-    [rubric/contrast_language] Logbook has 0 contrast words, recommended minimum is 3
-    [logbook_narrative/sensory_detail] Logbook uses only 0 of 5 senses (). Aim for 3+ for immersive storytelling.
-    [logbook_narrative/contrast_missing] Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-    [logbook_narrative/opening_hook] Logbook may lack concrete opening. Start with a scene or specific moment, not abstract statements.
-    [content_purity/stamina_levels] No stamina/accessibility level mentions. Consider adding low/moderate/high-energy options.
-    [faq/answer_too_long] 7 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (311 words); "Dotonbori: Where History Flows Beneath Neon..." (374 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+  2. Add key-facts element to ship and port page templates
+     Impact: Fixes 22 ship errors + 32 port errors
+     Effort: 30 minutes (template modification)
 
---- ports/phuket.html ---
-  Score: 0
-  Valid: false
-  BLOCKING ERRORS (18):
-    [hero/hero_missing] Page must have a hero box section with class "port-hero"
-    [section_order/missing_required_sections] Missing required sections: hero, cruise_port, getting_around, excursions, depth_soundings, gallery
-    [section_order/out_of_order] Sections out of order: map
-    [word_counts/logbook_minimum] Logbook entry has 0 words, minimum is 800
-    [word_counts/cruise_port_minimum] Cruise port section has 0 words, minimum is 100
-    [word_counts/getting_around_minimum] Getting Around section has 0 words, minimum is 200
-    [word_counts/excursions_minimum] Excursions section has 0 words, minimum is 400
-    [word_counts/depth_soundings_minimum] Depth Soundings section has 0 words, minimum is 150
-    [images/minimum_images] Page has 4 images, minimum is 11
-    [port_images/no_port_images] No images found in ports/img/phuket/
-    [rubric/first_person_voice] Logbook has 0 first-person pronouns, minimum is 10
-    [rubric/diy_price_mentions] Only 2 price mentions found, minimum is 5
-    [rubric/booking_guidance] Excursions section missing booking guidance keywords (found 0, need 2+)
-    [logbook_narrative/emotional_pivot_missing] Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-    [logbook_narrative/first_person_minimum] Logbook has 0 first-person pronouns, minimum for story voice is 15
-    [logbook_narrative/reflection_missing] Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): At a Glance, Author's Note Disclaimer
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-  WARNINGS (6):
-    [rubric/contrast_language] Logbook has 0 contrast words, recommended minimum is 3
-    [logbook_narrative/sensory_detail] Logbook uses only 0 of 5 senses (). Aim for 3+ for immersive storytelling.
-    [logbook_narrative/contrast_missing] Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-    [logbook_narrative/opening_hook] Logbook may lack concrete opening. Start with a scene or specific moment, not abstract statements.
-    [faq/answer_too_long] 3 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (301 words); "Frequently Asked QuestionsWhere do cruise ships dock in Phuk..." (269 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+  3. Add answer-line element to port page templates
+     Impact: Fixes 26 port errors
+     Effort: 15 minutes (template modification)
 
---- ports/port-said.html ---
-  Score: 0
-  Valid: false
-  BLOCKING ERRORS (23):
-    [icp_lite/missing_webpage] Missing WebPage JSON-LD schema
-    [icp_lite/missing_mainentity] WebPage JSON-LD must have mainEntity of type "Place" for port pages
-    [icp_lite/datemodified_mismatch] WebPage dateModified () must match last-reviewed (2026-02-01)
-    [icp_lite/description_mismatch] WebPage description must match ai-summary meta tag
-    [hero/hero_missing] Page must have a hero box section with class "port-hero"
-    [section_order/missing_required_sections] Missing required sections: getting_around, depth_soundings, gallery
-    [section_order/out_of_order] Sections out of order: map
-    [word_counts/logbook_minimum] Logbook entry has 160 words, minimum is 800
-    [word_counts/cruise_port_minimum] Cruise port section has 70 words, minimum is 100
-    [word_counts/getting_around_minimum] Getting Around section has 0 words, minimum is 200
-    [word_counts/excursions_minimum] Excursions section has 126 words, minimum is 400
-    [word_counts/depth_soundings_minimum] Depth Soundings section has 0 words, minimum is 150
-    [word_counts/faq_minimum] FAQ section has 83 words, minimum is 200
-    [word_counts/total_minimum] Total page has 1007 words, minimum is 2000
-    [images/minimum_images] Page has 2 images, minimum is 11
-    [rubric/accessibility_notes] Only 0 accessibility keywords found, minimum is 2
-    [rubric/diy_price_mentions] Only 1 price mentions found, minimum is 5
-    [rubric/booking_guidance] Excursions section missing booking guidance keywords (found 0, need 2+)
-    [logbook_narrative/emotional_pivot_missing] Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-    [logbook_narrative/first_person_minimum] Logbook has 10 first-person pronouns, minimum for story voice is 15
-    [logbook_narrative/reflection_missing] Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-    [sidebar/missing_sidebar_sections] Sidebar missing 5 required section(s): At a Glance, Author's Note Disclaimer, About the Author, Recent Stories, Whimsical Units
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-  WARNINGS (9):
-    [rubric/contrast_language] Logbook has 0 contrast words, recommended minimum is 3
-    [logbook_narrative/sensory_detail] Logbook uses only 2 of 5 senses (visual, tactile). Aim for 3+ for immersive storytelling.
-    [logbook_narrative/contrast_missing] Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-    [content_purity/stewardship_framing] Only 2 stewardship markers found. Consider adding gratitude/value language.
-    [content_purity/stamina_levels] No stamina/accessibility level mentions. Consider adding low/moderate/high-energy options.
-    [author_disclaimer/experience_level_missing] No author experience disclaimer found. Add "soundings in another's wake" or visited date.
-    [content/last_reviewed_stamp_missing] Missing visible "Last reviewed" stamp. Expected: <p class="last-reviewed">Last reviewed: [Month Year]</p>
-    [faq/answer_too_long] 4 FAQ answer(s) exceed 80-word limit: "From the Logbook..." (157 words); "Cairo & Pyramids Excursion..." (122 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+  4. Add missing sidebar sections to port pages
+     Impact: Fixes all 39 port pages' universal error
+     Effort: 1-2 hours (template + content)
 
---- ports/puerto-madryn.html ---
-  Score: 54
-  Valid: false
-  BLOCKING ERRORS (4):
-    [port_images/no_port_images] No images found in ports/img/puerto-madryn/
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): Quick Answer, Author's Note Disclaimer
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (3):
-    [logbook_narrative/first_person_maximum] Logbook has 87 first-person pronouns, may be overly repetitive
-    [faq/answer_too_long] 9 FAQ answer(s) exceed 80-word limit: "My Visit to Puerto Madryn..." (1210 words); "The Cruise Port..." (139 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+  5. Add Service Worker registration to venue subdirectory templates
+     Impact: Fixes ~187 venue pages' T16 warning
+     Effort: 15 minutes (template update)
 
---- ports/rhodes.html ---
-  Score: 0
-  Valid: false
-  BLOCKING ERRORS (19):
-    [hero/hero_missing_image_credit] Hero image must include credit link (Wikimedia, Unsplash, Pexels, Pixabay, or Flickr)
-    [section_order/missing_required_sections] Missing required sections: cruise_port, excursions
-    [section_order/out_of_order] Sections out of order: logbook
-    [word_counts/logbook_minimum] Logbook entry has 0 words, minimum is 800
-    [word_counts/cruise_port_minimum] Cruise port section has 0 words, minimum is 100
-    [word_counts/getting_around_minimum] Getting Around section has 18 words, minimum is 200
-    [word_counts/excursions_minimum] Excursions section has 0 words, minimum is 400
-    [word_counts/depth_soundings_minimum] Depth Soundings section has 27 words, minimum is 150
-    [word_counts/total_minimum] Total page has 1876 words, minimum is 2000
-    [images/missing_credits] 4 images missing photo credits in figcaption
-    [rubric/first_person_voice] Logbook has 0 first-person pronouns, minimum is 10
-    [rubric/accessibility_notes] Only 1 accessibility keywords found, minimum is 2
-    [rubric/diy_price_mentions] Only 1 price mentions found, minimum is 5
-    [rubric/booking_guidance] Excursions section missing booking guidance keywords (found 0, need 2+)
-    [logbook_narrative/emotional_pivot_missing] Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-    [logbook_narrative/first_person_minimum] Logbook has 0 first-person pronouns, minimum for story voice is 15
-    [logbook_narrative/reflection_missing] Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): At a Glance, Author's Note Disclaimer
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (7):
-    [images/short_alt] 2 images have alt text shorter than 20 characters
-    [rubric/contrast_language] Logbook has 0 contrast words, recommended minimum is 3
-    [logbook_narrative/sensory_detail] Logbook uses only 0 of 5 senses (). Aim for 3+ for immersive storytelling.
-    [logbook_narrative/contrast_missing] Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-    [logbook_narrative/opening_hook] Logbook may lack concrete opening. Start with a scene or specific moment, not abstract statements.
-    [faq/answer_too_long] 2 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (307 words); "Frequently Asked Questions..." (170 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+CONTENT GAPS (require editorial work, not code fixes):
+  - Port FAQ answers need trimming to ≤80 words (100% of ports)
+  - Port POI manifests need 10+ points of interest (92.3% of ports)
+  - Ship logbook spine sections need creation (93.8% of ships)
+  - Ship female crewmate perspectives need writing (93.8% of ships)
+  - Venue-specific images need sourcing (100% of venues)
+  - 13 skeleton port pages need full content creation
 
---- ports/saguenay.html ---
-  Score: 0
-  Valid: false
-  BLOCKING ERRORS (20):
-    [hero/hero_missing_image_credit] Hero image must include credit link (Wikimedia, Unsplash, Pexels, Pixabay, or Flickr)
-    [section_order/missing_required_sections] Missing required sections: cruise_port, excursions, gallery
-    [section_order/out_of_order] Sections out of order: logbook
-    [word_counts/logbook_minimum] Logbook entry has 0 words, minimum is 800
-    [word_counts/cruise_port_minimum] Cruise port section has 0 words, minimum is 100
-    [word_counts/getting_around_minimum] Getting Around section has 8 words, minimum is 200
-    [word_counts/excursions_minimum] Excursions section has 0 words, minimum is 400
-    [word_counts/depth_soundings_minimum] Depth Soundings section has 28 words, minimum is 150
-    [word_counts/total_minimum] Total page has 1864 words, minimum is 2000
-    [images/minimum_images] Page has 7 images, minimum is 11
-    [rubric/first_person_voice] Logbook has 0 first-person pronouns, minimum is 10
-    [rubric/accessibility_notes] Only 0 accessibility keywords found, minimum is 2
-    [rubric/diy_price_mentions] Only 1 price mentions found, minimum is 5
-    [rubric/booking_guidance] Excursions section missing booking guidance keywords (found 0, need 2+)
-    [logbook_narrative/emotional_pivot_missing] Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-    [logbook_narrative/first_person_minimum] Logbook has 0 first-person pronouns, minimum for story voice is 15
-    [logbook_narrative/reflection_missing] Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-    [html_integrity/js_api_typo] Typo: queryselector should be querySelector (check case)
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): At a Glance, Author's Note Disclaimer
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (8):
-    [images/short_alt] 1 images have alt text shorter than 20 characters
-    [rubric/contrast_language] Logbook has 0 contrast words, recommended minimum is 3
-    [logbook_narrative/sensory_detail] Logbook uses only 0 of 5 senses (). Aim for 3+ for immersive storytelling.
-    [logbook_narrative/contrast_missing] Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-    [logbook_narrative/opening_hook] Logbook may lack concrete opening. Start with a scene or specific moment, not abstract statements.
-    [content_purity/stamina_levels] No stamina/accessibility level mentions. Consider adding low/moderate/high-energy options.
-    [faq/answer_too_long] 2 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (301 words); "Frequently Asked Questions..." (170 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+================================================================================
+  PROJECTED IMPACT OF TOP 3 FIXES
+================================================================================
 
---- ports/santorini.html ---
-  Score: 66
-  Valid: false
-  BLOCKING ERRORS (3):
-    [rubric/accessibility_notes] Only 1 accessibility keywords found, minimum is 2
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): At a Glance, Author's Note Disclaimer
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (2):
-    [faq/answer_too_long] 7 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (307 words); "My Logbook: Sailing Into the Caldera..." (1007 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+Fix 1: queryselector → querySelector (batch replace)
+  Before: Venues 18.8% pass | Ports 0%
+  After:  Venues ~100% pass | Ports: no change in pass rate (other errors)
 
---- ports/sitka.html ---
-  Score: 76
-  Valid: false
-  BLOCKING ERRORS (2):
-    [sidebar/missing_sidebar_sections] Sidebar missing 1 required section(s): At a Glance
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (2):
-    [faq/answer_too_long] 7 FAQ answer(s) exceed 80-word limit: "Captain's Logbook..." (959 words); "Weather & Best Time to Visit..." (313 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+Fix 2: Add key-facts + answer-line to ship/port templates
+  Before: Ships 18.8% pass | Ports 0%
+  After:  Ships ~56% pass   | Ports: ~10% pass (still blocked by sidebar)
 
---- ports/st-helena.html ---
-  Score: 54
-  Valid: false
-  BLOCKING ERRORS (4):
-    [port_images/no_port_images] No images found in ports/img/st-helena/
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): Quick Answer, Author's Note Disclaimer
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (3):
-    [logbook_narrative/first_person_maximum] Logbook has 59 first-person pronouns, may be overly repetitive
-    [faq/answer_too_long] 7 FAQ answer(s) exceed 80-word limit: "My Visit to St. Helena..." (1111 words); "The Cruise Port..." (153 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
+Fix 3: Add sidebar sections to port templates
+  Before: Ports 0%
+  After:  Ports ~51% pass (the "nearly there" tier would pass)
 
---- ports/suva.html ---
-  Score: 62
-  Valid: false
-  BLOCKING ERRORS (3):
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): Quick Answer, Author's Note Disclaimer
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (4):
-    [port_images/potential_duplicate_images] 3 images have identical file sizes, may be duplicates/placeholders
-    [logbook_narrative/first_person_maximum] Logbook has 54 first-person pronouns, may be overly repetitive
-    [faq/answer_too_long] 12 FAQ answer(s) exceed 80-word limit: "My Visit to Suva..." (1045 words); "The Cruise Port..." (195 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
-
---- ports/tenerife.html ---
-  Score: 62
-  Valid: false
-  BLOCKING ERRORS (3):
-    [sidebar/missing_sidebar_sections] Sidebar missing 1 required section(s): Quick Answer
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (4):
-    [logbook_narrative/first_person_maximum] Logbook has 79 first-person pronouns, may be overly repetitive
-    [unique_names/names_detected] Detected persona names: Elena. Verify uniqueness across all ports.
-    [faq/answer_too_long] 7 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (324 words); "My Logbook: Where the Volcano Meets the Stars..." (1436 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
-
---- ports/tristan-da-cunha.html ---
-  Score: 52
-  Valid: false
-  BLOCKING ERRORS (4):
-    [port_images/no_port_images] No images found in ports/img/tristan-da-cunha/
-    [sidebar/missing_sidebar_sections] Sidebar missing 2 required section(s): Quick Answer, Author's Note Disclaimer
-    [content_structure/missing_answer_line] Missing answer-line element. Every port page needs a quick one-line answer.
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (4):
-    [logbook_narrative/first_person_maximum] Logbook has 95 first-person pronouns, may be overly repetitive
-    [unique_names/names_detected] Detected persona names: James. Verify uniqueness across all ports.
-    [faq/answer_too_long] 6 FAQ answer(s) exceed 80-word limit: "My Logbook: The Edge of Everything..." (1440 words); "The Cruise Port..." (159 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
-
---- ports/venice.html ---
-  Score: 74
-  Valid: false
-  BLOCKING ERRORS (2):
-    [sidebar/missing_sidebar_sections] Sidebar missing 1 required section(s): At a Glance
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (3):
-    [swiper/missing_swiper_ready] Swiper scripts found but no window.__swiperReady flag. Add ready flag for load-order safety.
-    [faq/answer_too_long] 7 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (307 words); "My Logbook: A City That Shouldn't Exist..." (1012 words)
-    [poi_manifest/insufficient_pois] POI manifest has 0 point(s), minimum recommended is 10
-
---- ports/wrangell.html ---
-  Score: 16
-  Valid: false
-  BLOCKING ERRORS (8):
-    [hero/hero_missing] Page must have a hero box section with class "port-hero"
-    [section_order/missing_required_sections] Missing required sections: hero, gallery
-    [images/minimum_images] Page has 4 images, minimum is 11
-    [port_images/missing_port_img_directory] Port image directory not found: ports/img/wrangell/
-    [rubric/booking_guidance] Excursions section missing booking guidance keywords (found 1, need 2+)
-    [logbook_narrative/emotional_pivot_missing] Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-    [sidebar/missing_sidebar_sections] Sidebar missing 1 required section(s): At a Glance
-    [content_structure/missing_key_facts] Missing key-facts element. Every port page needs a key facts summary.
-  WARNINGS (2):
-    [faq/answer_too_long] 7 FAQ answer(s) exceed 80-word limit: "Captain's Logbook..." (1152 words); "Cruise Port..." (222 words)
-    [poi_manifest/missing_map_manifest] No POI manifest found at assets/data/maps/wrangell.map.json
-
-==========================================
-  ERROR FREQUENCY TABLE (by rule)
-==========================================
-
-  Count | Section/Rule | Example Message
-  ------|--------------|----------------
-     39 | sidebar/missing_sidebar_sections | Sidebar missing 2 required section(s): At a Glance, Whimsical Units
-     32 | content_structure/missing_key_facts | Missing key-facts element. Every port page needs a key facts summary.
-     26 | content_structure/missing_answer_line | Missing answer-line element. Every port page needs a quick one-line answer.
-     15 | rubric/booking_guidance | Excursions section missing booking guidance keywords (found 1, need 2+)
-     14 | section_order/missing_required_sections | Missing required sections: cruise_port, getting_around, depth_soundings, gallery
-     14 | logbook_narrative/emotional_pivot_missing | Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-     13 | section_order/out_of_order | Sections out of order: excursions
-     13 | word_counts/logbook_minimum | Logbook entry has 124 words, minimum is 800
-     13 | word_counts/getting_around_minimum | Getting Around section has 0 words, minimum is 200
-     13 | word_counts/excursions_minimum | Excursions section has 71 words, minimum is 400
-     13 | word_counts/depth_soundings_minimum | Depth Soundings section has 0 words, minimum is 150
-     13 | rubric/accessibility_notes | Only 1 accessibility keywords found, minimum is 2
-     13 | rubric/diy_price_mentions | Only 2 price mentions found, minimum is 5
-     13 | logbook_narrative/first_person_minimum | Logbook has 2 first-person pronouns, minimum for story voice is 15
-     13 | logbook_narrative/reflection_missing | Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-     12 | word_counts/cruise_port_minimum | Cruise port section has 0 words, minimum is 100
-     12 | images/minimum_images | Page has 2 images, minimum is 11
-     12 | rubric/first_person_voice | Logbook has 2 first-person pronouns, minimum is 10
-     10 | hero/hero_missing | Page must have a hero box section with class "port-hero"
-      7 | port_images/no_port_images | No images found in ports/img/bora-bora/
-      7 | word_counts/total_minimum | Total page has 1121 words, minimum is 2000
-      6 | html_integrity/js_api_typo | Typo: queryselector should be querySelector (check case)
-      5 | word_counts/faq_minimum | FAQ section has 89 words, minimum is 200
-      5 | images/missing_credits | 4 images missing photo credits in figcaption
-      4 | hero/hero_missing_image_credit | Hero image must include credit link (Wikimedia, Unsplash, Pexels, Pixabay, or Flickr)
-      2 | icp_lite/missing_webpage | Missing WebPage JSON-LD schema
-      2 | icp_lite/missing_mainentity | WebPage JSON-LD must have mainEntity of type "Place" for port pages
-      2 | icp_lite/datemodified_mismatch | WebPage dateModified () must match last-reviewed (2026-02-01)
-      2 | icp_lite/description_mismatch | WebPage description must match ai-summary meta tag
-      1 | icp_lite/ai_summary_length | ai-summary exceeds 250 characters (259 chars)
-      1 | icp_lite/missing_faqpage | Missing FAQPage JSON-LD schema
-      1 | content_purity/forbidden_drinking | Content contains forbidden drinking references: "hammered"
-      1 | port_images/missing_port_img_directory | Port image directory not found: ports/img/wrangell/
-
-==========================================
-  WARNING FREQUENCY TABLE (by rule)
-==========================================
-
-  Count | Section/Rule | Example Message
-  ------|--------------|----------------
-     39 | faq/answer_too_long | 10 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (394 words); "My Logbook: Where Spiritual Grandeur Meets Modern Arabia..." (849 words)
-     36 | poi_manifest/insufficient_pois | POI manifest has 0 point(s), minimum recommended is 10
-     13 | logbook_narrative/first_person_maximum | Logbook has 96 first-person pronouns, may be overly repetitive
-     13 | rubric/contrast_language | Logbook has 0 contrast words, recommended minimum is 3
-     13 | logbook_narrative/sensory_detail | Logbook uses only 1 of 5 senses (tactile). Aim for 3+ for immersive storytelling.
-     13 | logbook_narrative/contrast_missing | Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-     10 | logbook_narrative/opening_hook | Logbook may lack concrete opening. Start with a scene or specific moment, not abstract statements.
-      9 | content_purity/stamina_levels | No stamina/accessibility level mentions. Consider adding low/moderate/high-energy options.
-      7 | images/short_alt | 2 images have alt text shorter than 20 characters
-      6 | port_images/potential_duplicate_images | 5 images have identical file sizes, may be duplicates/placeholders
-      4 | author_disclaimer/experience_level_missing | No author experience disclaimer found. Add "soundings in another's wake" or visited date.
-      3 | service_worker/missing_sw_registration | No Service Worker registration found. Add navigator.serviceWorker.register('/sw.js') for offline support.
-      3 | swiper/missing_swiper_ready | Swiper scripts found but no window.__swiperReady flag. Add ready flag for load-order safety.
-      3 | content/last_reviewed_stamp_missing | Missing visible "Last reviewed" stamp. Expected: <p class="last-reviewed">Last reviewed: [Month Year]</p>
-      3 | poi_manifest/missing_map_manifest | No POI manifest found at assets/data/maps/drake-passage.map.json
-      3 | content_purity/stewardship_framing | Only 2 stewardship markers found. Consider adding gratitude/value language.
-      3 | unique_names/names_detected | Detected persona names: Lombok. Verify uniqueness across all ports.
-      1 | icp_lite/ai_summary_length | ai-summary is short (148 chars), recommended 150-250
-
-==========================================
-  TOP 5 WORST-SCORING FILES
-==========================================
-
-  1. ports/drake-passage.html (score: 0)
-     Errors: 26, Warnings: 8
-       [ERROR] icp_lite/ai_summary_length: ai-summary exceeds 250 characters (259 chars)
-       [ERROR] icp_lite/missing_webpage: Missing WebPage JSON-LD schema
-       [ERROR] icp_lite/missing_faqpage: Missing FAQPage JSON-LD schema
-       [ERROR] icp_lite/missing_mainentity: WebPage JSON-LD must have mainEntity of type "Place" for port pages
-       [ERROR] icp_lite/datemodified_mismatch: WebPage dateModified () must match last-reviewed (2026-02-01)
-       [ERROR] icp_lite/description_mismatch: WebPage description must match ai-summary meta tag
-       [ERROR] hero/hero_missing: Page must have a hero box section with class "port-hero"
-       [ERROR] section_order/missing_required_sections: Missing required sections: cruise_port, getting_around, depth_soundings, gallery
-       [ERROR] section_order/out_of_order: Sections out of order: excursions
-       [ERROR] word_counts/logbook_minimum: Logbook entry has 124 words, minimum is 800
-       [ERROR] word_counts/cruise_port_minimum: Cruise port section has 0 words, minimum is 100
-       [ERROR] word_counts/getting_around_minimum: Getting Around section has 0 words, minimum is 200
-       [ERROR] word_counts/excursions_minimum: Excursions section has 71 words, minimum is 400
-       [ERROR] word_counts/depth_soundings_minimum: Depth Soundings section has 0 words, minimum is 150
-       [ERROR] word_counts/faq_minimum: FAQ section has 89 words, minimum is 200
-       [ERROR] word_counts/total_minimum: Total page has 1121 words, minimum is 2000
-       [ERROR] images/minimum_images: Page has 2 images, minimum is 11
-       [ERROR] rubric/first_person_voice: Logbook has 2 first-person pronouns, minimum is 10
-       [ERROR] rubric/accessibility_notes: Only 1 accessibility keywords found, minimum is 2
-       [ERROR] rubric/diy_price_mentions: Only 2 price mentions found, minimum is 5
-       [ERROR] rubric/booking_guidance: Excursions section missing booking guidance keywords (found 0, need 2+)
-       [ERROR] logbook_narrative/emotional_pivot_missing: Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-       [ERROR] logbook_narrative/first_person_minimum: Logbook has 2 first-person pronouns, minimum for story voice is 15
-       [ERROR] logbook_narrative/reflection_missing: Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-       [ERROR] sidebar/missing_sidebar_sections: Sidebar missing 5 required section(s): At a Glance, Author's Note Disclaimer, About the Author, Recent Stories, Whimsical Units
-       [ERROR] content_structure/missing_answer_line: Missing answer-line element. Every port page needs a quick one-line answer.
-       [WARN]  rubric/contrast_language: Logbook has 0 contrast words, recommended minimum is 3
-       [WARN]  logbook_narrative/sensory_detail: Logbook uses only 1 of 5 senses (tactile). Aim for 3+ for immersive storytelling.
-       [WARN]  logbook_narrative/contrast_missing: Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-       [WARN]  author_disclaimer/experience_level_missing: No author experience disclaimer found. Add "soundings in another's wake" or visited date.
-       [WARN]  content/last_reviewed_stamp_missing: Missing visible "Last reviewed" stamp. Expected: <p class="last-reviewed">Last reviewed: [Month Year]</p>
-       [WARN]  service_worker/missing_sw_registration: No Service Worker registration found. Add navigator.serviceWorker.register('/sw.js') for offline support.
-       [WARN]  faq/answer_too_long: 2 FAQ answer(s) exceed 80-word limit: "From the Logbook..." (121 words); "FAQsWill I definitely get seasick?Can I fly to Antarctica in..." (89 words)
-       [WARN]  poi_manifest/missing_map_manifest: No POI manifest found at assets/data/maps/drake-passage.map.json
-  2. ports/glacier-alley.html (score: 0)
-     Errors: 21, Warnings: 11
-       [ERROR] hero/hero_missing: Page must have a hero box section with class "port-hero"
-       [ERROR] section_order/missing_required_sections: Missing required sections: hero, cruise_port, getting_around, excursions, depth_soundings, gallery
-       [ERROR] section_order/out_of_order: Sections out of order: map
-       [ERROR] word_counts/logbook_minimum: Logbook entry has 139 words, minimum is 800
-       [ERROR] word_counts/cruise_port_minimum: Cruise port section has 0 words, minimum is 100
-       [ERROR] word_counts/getting_around_minimum: Getting Around section has 0 words, minimum is 200
-       [ERROR] word_counts/excursions_minimum: Excursions section has 0 words, minimum is 400
-       [ERROR] word_counts/depth_soundings_minimum: Depth Soundings section has 0 words, minimum is 150
-       [ERROR] word_counts/faq_minimum: FAQ section has 173 words, minimum is 200
-       [ERROR] word_counts/total_minimum: Total page has 1206 words, minimum is 2000
-       [ERROR] images/minimum_images: Page has 1 images, minimum is 11
-       [ERROR] rubric/first_person_voice: Logbook has 4 first-person pronouns, minimum is 10
-       [ERROR] rubric/accessibility_notes: Only 0 accessibility keywords found, minimum is 2
-       [ERROR] rubric/diy_price_mentions: Only 0 price mentions found, minimum is 5
-       [ERROR] rubric/booking_guidance: Excursions section missing booking guidance keywords (found 0, need 2+)
-       [ERROR] logbook_narrative/emotional_pivot_missing: Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-       [ERROR] logbook_narrative/first_person_minimum: Logbook has 4 first-person pronouns, minimum for story voice is 15
-       [ERROR] logbook_narrative/reflection_missing: Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-       [ERROR] sidebar/missing_sidebar_sections: Sidebar missing 6 required section(s): At a Glance, Author's Note Disclaimer, About the Author, Nearby Ports, Recent Stories, Whimsical Units
-       [ERROR] content_structure/missing_answer_line: Missing answer-line element. Every port page needs a quick one-line answer.
-       [ERROR] content_structure/missing_key_facts: Missing key-facts element. Every port page needs a key facts summary.
-       [WARN]  port_images/potential_duplicate_images: 3 images have identical file sizes, may be duplicates/placeholders
-       [WARN]  rubric/contrast_language: Logbook has 0 contrast words, recommended minimum is 3
-       [WARN]  logbook_narrative/sensory_detail: Logbook uses only 1 of 5 senses (auditory). Aim for 3+ for immersive storytelling.
-       [WARN]  logbook_narrative/contrast_missing: Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-       [WARN]  content_purity/stewardship_framing: Only 2 stewardship markers found. Consider adding gratitude/value language.
-       [WARN]  content_purity/stamina_levels: No stamina/accessibility level mentions. Consider adding low/moderate/high-energy options.
-       [WARN]  author_disclaimer/experience_level_missing: No author experience disclaimer found. Add "soundings in another's wake" or visited date.
-       [WARN]  content/last_reviewed_stamp_missing: Missing visible "Last reviewed" stamp. Expected: <p class="last-reviewed">Last reviewed: [Month Year]</p>
-       [WARN]  service_worker/missing_sw_registration: No Service Worker registration found. Add navigator.serviceWorker.register('/sw.js') for offline support.
-       [WARN]  faq/answer_too_long: 2 FAQ answer(s) exceed 80-word limit: "From the Logbook..." (136 words); "Frequently Asked QuestionsHow many glaciers are in Glacier A..." (173 words)
-       [WARN]  poi_manifest/missing_map_manifest: No POI manifest found at assets/data/maps/glacier-alley.map.json
-  3. ports/guadeloupe.html (score: 0)
-     Errors: 19, Warnings: 8
-       [ERROR] hero/hero_missing: Page must have a hero box section with class "port-hero"
-       [ERROR] section_order/missing_required_sections: Missing required sections: hero, cruise_port, excursions
-       [ERROR] section_order/out_of_order: Sections out of order: map
-       [ERROR] word_counts/logbook_minimum: Logbook entry has 0 words, minimum is 800
-       [ERROR] word_counts/cruise_port_minimum: Cruise port section has 0 words, minimum is 100
-       [ERROR] word_counts/getting_around_minimum: Getting Around section has 40 words, minimum is 200
-       [ERROR] word_counts/excursions_minimum: Excursions section has 0 words, minimum is 400
-       [ERROR] word_counts/depth_soundings_minimum: Depth Soundings section has 39 words, minimum is 150
-       [ERROR] images/missing_credits: 4 images missing photo credits in figcaption
-       [ERROR] rubric/first_person_voice: Logbook has 0 first-person pronouns, minimum is 10
-       [ERROR] rubric/accessibility_notes: Only 0 accessibility keywords found, minimum is 2
-       [ERROR] rubric/diy_price_mentions: Only 2 price mentions found, minimum is 5
-       [ERROR] rubric/booking_guidance: Excursions section missing booking guidance keywords (found 0, need 2+)
-       [ERROR] logbook_narrative/emotional_pivot_missing: Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-       [ERROR] logbook_narrative/first_person_minimum: Logbook has 0 first-person pronouns, minimum for story voice is 15
-       [ERROR] logbook_narrative/reflection_missing: Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-       [ERROR] html_integrity/js_api_typo: Typo: queryselector should be querySelector (check case)
-       [ERROR] sidebar/missing_sidebar_sections: Sidebar missing 2 required section(s): At a Glance, Author's Note Disclaimer
-       [ERROR] content_structure/missing_key_facts: Missing key-facts element. Every port page needs a key facts summary.
-       [WARN]  images/short_alt: 2 images have alt text shorter than 20 characters
-       [WARN]  rubric/contrast_language: Logbook has 0 contrast words, recommended minimum is 3
-       [WARN]  logbook_narrative/sensory_detail: Logbook uses only 0 of 5 senses (). Aim for 3+ for immersive storytelling.
-       [WARN]  logbook_narrative/contrast_missing: Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-       [WARN]  logbook_narrative/opening_hook: Logbook may lack concrete opening. Start with a scene or specific moment, not abstract statements.
-       [WARN]  content_purity/stamina_levels: No stamina/accessibility level mentions. Consider adding low/moderate/high-energy options.
-       [WARN]  faq/answer_too_long: 2 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (309 words); "Frequently Asked Questions..." (170 words)
-       [WARN]  poi_manifest/insufficient_pois: POI manifest has 0 point(s), minimum recommended is 10
-  4. ports/helsinki.html (score: 0)
-     Errors: 21, Warnings: 8
-       [ERROR] hero/hero_missing: Page must have a hero box section with class "port-hero"
-       [ERROR] section_order/missing_required_sections: Missing required sections: hero, cruise_port, excursions, depth_soundings
-       [ERROR] section_order/out_of_order: Sections out of order: map, faq
-       [ERROR] word_counts/logbook_minimum: Logbook entry has 0 words, minimum is 800
-       [ERROR] word_counts/cruise_port_minimum: Cruise port section has 0 words, minimum is 100
-       [ERROR] word_counts/getting_around_minimum: Getting Around section has 91 words, minimum is 200
-       [ERROR] word_counts/excursions_minimum: Excursions section has 0 words, minimum is 400
-       [ERROR] word_counts/depth_soundings_minimum: Depth Soundings section has 0 words, minimum is 150
-       [ERROR] word_counts/faq_minimum: FAQ section has 173 words, minimum is 200
-       [ERROR] images/minimum_images: Page has 10 images, minimum is 11
-       [ERROR] images/missing_credits: 4 images missing photo credits in figcaption
-       [ERROR] rubric/first_person_voice: Logbook has 0 first-person pronouns, minimum is 10
-       [ERROR] rubric/accessibility_notes: Only 0 accessibility keywords found, minimum is 2
-       [ERROR] rubric/diy_price_mentions: Only 3 price mentions found, minimum is 5
-       [ERROR] rubric/booking_guidance: Excursions section missing booking guidance keywords (found 0, need 2+)
-       [ERROR] logbook_narrative/emotional_pivot_missing: Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-       [ERROR] logbook_narrative/first_person_minimum: Logbook has 0 first-person pronouns, minimum for story voice is 15
-       [ERROR] logbook_narrative/reflection_missing: Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-       [ERROR] html_integrity/js_api_typo: Typo: queryselector should be querySelector (check case)
-       [ERROR] sidebar/missing_sidebar_sections: Sidebar missing 1 required section(s): At a Glance
-       [ERROR] content_structure/missing_key_facts: Missing key-facts element. Every port page needs a key facts summary.
-       [WARN]  images/short_alt: 1 images have alt text shorter than 20 characters
-       [WARN]  rubric/contrast_language: Logbook has 0 contrast words, recommended minimum is 3
-       [WARN]  logbook_narrative/sensory_detail: Logbook uses only 0 of 5 senses (). Aim for 3+ for immersive storytelling.
-       [WARN]  logbook_narrative/contrast_missing: Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-       [WARN]  logbook_narrative/opening_hook: Logbook may lack concrete opening. Start with a scene or specific moment, not abstract statements.
-       [WARN]  content_purity/stamina_levels: No stamina/accessibility level mentions. Consider adding low/moderate/high-energy options.
-       [WARN]  faq/answer_too_long: 2 FAQ answer(s) exceed 80-word limit: "Weather & Best Time to Visit..." (307 words); "Frequently Asked Questions..." (170 words)
-       [WARN]  poi_manifest/insufficient_pois: POI manifest has 0 point(s), minimum recommended is 10
-  5. ports/kagoshima.html (score: 0)
-     Errors: 20, Warnings: 8
-       [ERROR] hero/hero_missing: Page must have a hero box section with class "port-hero"
-       [ERROR] section_order/missing_required_sections: Missing required sections: hero, getting_around, depth_soundings, gallery
-       [ERROR] section_order/out_of_order: Sections out of order: map
-       [ERROR] word_counts/logbook_minimum: Logbook entry has 0 words, minimum is 800
-       [ERROR] word_counts/getting_around_minimum: Getting Around section has 105 words, minimum is 200
-       [ERROR] word_counts/excursions_minimum: Excursions section has 149 words, minimum is 400
-       [ERROR] word_counts/depth_soundings_minimum: Depth Soundings section has 0 words, minimum is 150
-       [ERROR] word_counts/faq_minimum: FAQ section has 118 words, minimum is 200
-       [ERROR] word_counts/total_minimum: Total page has 1336 words, minimum is 2000
-       [ERROR] images/minimum_images: Page has 4 images, minimum is 11
-       [ERROR] port_images/no_port_images: No images found in ports/img/kagoshima/
-       [ERROR] rubric/first_person_voice: Logbook has 0 first-person pronouns, minimum is 10
-       [ERROR] rubric/accessibility_notes: Only 1 accessibility keywords found, minimum is 2
-       [ERROR] rubric/diy_price_mentions: Only 2 price mentions found, minimum is 5
-       [ERROR] rubric/booking_guidance: Excursions section missing booking guidance keywords (found 0, need 2+)
-       [ERROR] logbook_narrative/emotional_pivot_missing: Logbook missing emotional pivot/tear-jerker moment. Every logbook needs one heart-touching moment.
-       [ERROR] logbook_narrative/first_person_minimum: Logbook has 0 first-person pronouns, minimum for story voice is 15
-       [ERROR] logbook_narrative/reflection_missing: Logbook missing reflection/lesson. Every logbook must end with what was learned or gained.
-       [ERROR] sidebar/missing_sidebar_sections: Sidebar missing 4 required section(s): At a Glance, Author's Note Disclaimer, Recent Stories, Whimsical Units
-       [ERROR] content_structure/missing_answer_line: Missing answer-line element. Every port page needs a quick one-line answer.
-       [WARN]  images/short_alt: 1 images have alt text shorter than 20 characters
-       [WARN]  rubric/contrast_language: Logbook has 0 contrast words, recommended minimum is 3
-       [WARN]  logbook_narrative/sensory_detail: Logbook uses only 0 of 5 senses (). Aim for 3+ for immersive storytelling.
-       [WARN]  logbook_narrative/contrast_missing: Logbook has 0 contrast words ("but", "however", etc.). Honest writing needs tension.
-       [WARN]  logbook_narrative/opening_hook: Logbook may lack concrete opening. Start with a scene or specific moment, not abstract statements.
-       [WARN]  content_purity/stewardship_framing: Only 2 stewardship markers found. Consider adding gratitude/value language.
-       [WARN]  faq/answer_too_long: 4 FAQ answer(s) exceed 80-word limit: "The Cruise Port & Getting Around..." (99 words); "Sengan-en & Samurai Heritage..." (111 words)
-       [WARN]  poi_manifest/insufficient_pois: POI manifest has 0 point(s), minimum recommended is 10
+Combined (all 3 fixes):
+  Ships: 18.8% → ~56%
+  Ports: 0% → ~51%
+  Venues: 18.8% → ~100%
+  Overall: 12.6% → ~69%
 
 === END OF REPORT ===
