@@ -449,19 +449,35 @@ Soli Deo Gloria
     </article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
-      <section class="card quick-answer">
-        <h2>Quick Answer</h2>
-        <p><strong>Alexandria</strong> is Egypt's Mediterranean port and gateway to Cairo's pyramids (3 hours by road, $150-250 USD excursions). Founded by Alexander the Great in 331 BCE. Today: Bibliotheca Alexandrina ($5 USD), Citadel of Qaitbay ($3 USD), Catacombs of Kom el-Shoqafa ($6 USD). Ship excursions strongly recommended for Cairo trips. Book ahead for guaranteed return.</p>
+      <section class="page-intro mb-1">
+        <p class="answer-line"><strong>Quick Answer:</strong> Alexandria is Egypt's Mediterranean gateway to Cairo's pyramids (3 hours by road, $150–250 USD), the rebuilt Bibliotheca Alexandrina, and 2,300 years of Greco-Roman history — all reachable from the commercial cruise port via ship excursions or private guides.</p>
       </section>
-      <section class="card best-for">
-        <h2>Best For</h2>
-        <ul>
-          <li>Pyramid day trips</li>
-          <li>Ancient civilizations</li>
-          <li>Library enthusiasts</li>
-          <li>Landmark experiences</li>
-          <li>Archaeological exploration</li>
-        </ul>
+      <section class="card" aria-labelledby="glance-heading">
+        <h3 id="glance-heading">At a Glance</h3>
+        <div class="at-a-glance-grid">
+          <div class="at-a-glance-item"><strong>Country</strong><span>Egypt</span></div>
+          <div class="at-a-glance-item"><strong>Language</strong><span>Arabic / English</span></div>
+          <div class="at-a-glance-item"><strong>Currency</strong><span>Egyptian Pound (EGP)</span></div>
+          <div class="at-a-glance-item"><strong>Pier</strong><span>Commercial (not walkable)</span></div>
+          <div class="at-a-glance-item"><strong>Best For</strong><span>Pyramids, Ancient History</span></div>
+          <div class="at-a-glance-item"><strong>Walking</strong><span>Pier area limited; taxis/tours needed</span></div>
+        </div>
+      </section>
+      <section class="card" aria-labelledby="author-note-heading">
+        <h3 id="author-note-heading">Author's Note</h3>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">This port guide is based on research, official sources, and verified traveler accounts. We have not yet visited Alexandria firsthand. Where personal experience is absent, we say so — these are soundings in another's wake.</p>
+      </section>
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp">
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, In the Wake founder and author" decoding="async" loading="lazy">
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
       </section>
       <section class="card key-facts">
         <h2>Key Facts</h2>
@@ -483,7 +499,7 @@ Soli Deo Gloria
           <li><a href="/ports/rhodes.html">Rhodes</a></li>
         </ul>
       </section>
-    
+
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
         <h3 id="ships-visiting-title">Ships That Visit Here</h3>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Alexandria on their itineraries:</p>
@@ -499,7 +515,15 @@ Soli Deo Gloria
         </div>
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
-</aside>
+
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
+      </section>
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
+    </aside>
 
     <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
   
@@ -546,5 +570,22 @@ Soli Deo Gloria
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script>
+  (async function recentRail(){
+    const rail = document.getElementById('recent-rail'); if(!rail) return;
+    try {
+      const response = await fetch('/assets/data/articles/index.json');
+      const data = await response.json();
+      const articles = data.articles || data;
+      const recent = articles.slice(0, 4);
+      rail.innerHTML = recent.map(a =>
+        `<a href="${a.url}" class="rail-article-link">${a.title}</a>`
+      ).join('');
+    } catch(e) {
+      const fb = document.getElementById('recent-rail-fallback');
+      if(fb) { fb.textContent = 'Could not load recent stories.'; fb.classList.remove('hidden'); }
+    }
+  })();
+  </script>
 </body>
 </html>
