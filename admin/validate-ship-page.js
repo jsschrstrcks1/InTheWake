@@ -1,11 +1,22 @@
 #!/usr/bin/env node
 /**
- * Ship Page Validator - ITW-SHIP-002 v2.3
+ * Ship Page Validator - ITW-SHIP-002 v2.4
  * Soli Deo Gloria
  *
  * Comprehensive validator for ship pages following the Ship Page Standard v2.0.
  * Validates: ICP-Lite v1.4, JSON-LD schemas, section ordering, content consistency,
  * word counts, video requirements, logbook stories, navigation, WCAG, deduplication.
+ *
+ * v2.4 Enhancements (Principle Import — Port Validator + Careful Not Clever):
+ * - Placeholder image hash detection (from validate-port-page-v2.js)
+ * - Image deduplication by file size (from validate-port-page-v2.js)
+ * - Logbook narrative quality: sensory details, contrast words, first-person,
+ *   lesson markers (from port validator rubric / Like-a-Human principles)
+ * - Expanded content purity bans: nightlife, happy hour, YOLO, slang
+ * - Template remnant detection: Lorem ipsum, TODO, PLACEHOLDER
+ *   (Careful Not Clever principle — no unfinished content)
+ * - Stewardship framing markers (from port validator)
+ * - Accessibility keyword checks (from port validator rubric)
  *
  * v2.3 Enhancements (External Review Findings — Gemini/ChatGPT):
  * - Duplicate class attributes detection (invalid HTML, styles silently lost)
@@ -40,12 +51,14 @@
  * Master Video Manifest: /ships/rcl/rc_ship_videos.json
  */
 
-import { readFile, access } from 'fs/promises';
-import { existsSync } from 'fs';
+import { readFile, access, readdir, stat } from 'fs/promises';
+import { existsSync, readFileSync } from 'fs';
+import { createHash } from 'crypto';
 import { join, dirname, relative, basename } from 'path';
 import { fileURLToPath } from 'url';
 import { load } from 'cheerio';
 import { glob } from 'glob';
+import { validateVoiceQuality } from './lib/voice-quality-checks.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -174,11 +187,21 @@ const FORBIDDEN_PATTERNS = [
   { pattern: /\bunparalleled\b/i, category: 'marketing', severity: 'warning' },
   // Drinking/nightlife (blocking)
   { pattern: /\b(bar hop|bar-hop|pub crawl|pub-crawl)\b/i, category: 'drinking' },
-  { pattern: /\b(get drunk|getting drunk|wasted|hammered)\b/i, category: 'drinking' },
+  { pattern: /\b(get drunk|getting drunk|wasted|hammered|tipsy)\b/i, category: 'drinking' },
+  { pattern: /\b(nightlife|night life|nightclub|night club)\b/i, category: 'nightlife' },
+  { pattern: /\b(let loose|go wild|get wild|cut loose)\b/i, category: 'partying' },
+  { pattern: /\b(happy hour|cocktail hour|wine tasting|beer flight)\b/i, category: 'drinking', severity: 'warning' },
   // Gambling (warning with allowed context)
   { pattern: /\bcasino\b/i, category: 'gambling', severity: 'warning', allowed_context: /casino royale|virtual casino/i },
-  // Profanity (warning)
-  { pattern: /\b(damn|hell|crap|ass)\b/i, category: 'profanity', severity: 'warning' }
+  { pattern: /\b(gambling|gamble|betting|bet on)\b/i, category: 'gambling', severity: 'warning' },
+  { pattern: /\b(try your luck|slots|poker|blackjack|roulette)\b/i, category: 'gambling', severity: 'warning', allowed_context: /casino royale/i },
+  // Profanity and slang (warning)
+  { pattern: /\b(damn|hell|crap|ass)\b/i, category: 'profanity', severity: 'warning' },
+  { pattern: /\b(wtf|omg|lmao|lmfao)\b/i, category: 'slang', severity: 'warning' },
+  // Travel idolatry / hype (warning)
+  { pattern: /\b(bucket[ -]?list|once[- ]in[- ]a[- ]lifetime)\b/i, category: 'hype', severity: 'warning' },
+  { pattern: /\b(life[- ]?changing|transformative experience)\b/i, category: 'hype', severity: 'warning' },
+  { pattern: /\b(YOLO|living my best life)\b/i, category: 'hype', severity: 'warning' }
 ];
 
 // Faith-scented content markers (REQUIRED per standard)
@@ -197,6 +220,71 @@ const EMOTIONAL_PIVOT_MARKERS = [
   /finally (said|spoke|understood|saw)/i, /for the first time in/i,
   /something (shifted|changed|broke open)/i, /healing\b/i,
   /reconcil/i, /forgive/i, /thank (god|you|him|her)/i
+];
+
+// =============================================================================
+// PLACEHOLDER IMAGE HASHES (imported from validate-port-page-v2.js pattern)
+// Known placeholder/stock images that must not appear on any ship page
+// =============================================================================
+const PLACEHOLDER_HASHES = new Set([
+  'd7a4721e321920f7f6414c7a7fe865f0'  // cozumel-fom-1.webp placeholder (shared with port validator)
+]);
+
+// =============================================================================
+// LOGBOOK NARRATIVE QUALITY MARKERS (imported from port validator rubric)
+// =============================================================================
+
+// Sensory detail markers — logbook stories should engage multiple senses
+const SENSORY_MARKERS = {
+  visual: /\b(saw|watched|looked|gazed|glimpsed|noticed|spotted|observed|stared|glanced)\b/i,
+  auditory: /\b(heard|listened|sound|noise|silence|quiet|whisper|roar|crash|ring|echo)\b/i,
+  tactile: /\b(felt|touched|cold|warm|hot|cool|breeze|wind|rough|smooth|soft|hard)\b/i,
+  olfactory: /\b(smell|scent|aroma|fragrance|whiff|odor|stench)\b/i,
+  gustatory: /\b(taste|tasted|flavor|sweet|salty|bitter|sour|savory|delicious)\b/i
+};
+
+// Contrast/tension words for honest assessments
+const CONTRAST_WORDS = /\b(but|however|though|despite|although|yet|nevertheless|still|even so|on the other hand)\b/gi;
+
+// First-person pronouns
+const FIRST_PERSON_PRONOUNS = /\b(I|my|me|we|our|us|myself|ourselves)\b/gi;
+
+// Lesson/reflection markers
+const LESSON_MARKERS = [
+  /the lesson:/i,
+  /what .* taught me/i,
+  /I (learned|realized|understood|discovered)/i,
+  /looking back/i,
+  /in retrospect/i,
+  /the (real|true) (gift|lesson|meaning)/i,
+  /sometimes you/i,
+  /what matters (is|was)/i
+];
+
+// Stewardship framing markers
+const STEWARDSHIP_MARKERS = [
+  /\bworth\b/i, /\bvalue\b/i, /\bplan(ning)?\b/i, /\bbudget\b/i,
+  /\bsave\b/i, /\bsteward/i, /\bgratitude\b/i, /\bgrateful\b/i,
+  /\bthankful\b/i, /\bgift\b/i, /\bentrust/i
+];
+
+// =============================================================================
+// TEMPLATE REMNANT PATTERNS (Careful Not Clever principle)
+// Detect unfinished/placeholder content that slipped through
+// =============================================================================
+const TEMPLATE_REMNANT_PATTERNS = [
+  { pattern: /lorem ipsum/i, label: 'Lorem ipsum placeholder text' },
+  { pattern: /\[TODO\]/i, label: '[TODO] marker' },
+  { pattern: /\[FIXME\]/i, label: '[FIXME] marker' },
+  { pattern: /\[PLACEHOLDER\]/i, label: '[PLACEHOLDER] marker' },
+  { pattern: /\[INSERT[_ ].*?\]/i, label: '[INSERT_...] template variable' },
+  { pattern: /INSERT_SHIP_NAME/i, label: 'INSERT_SHIP_NAME template variable' },
+  { pattern: /INSERT_CRUISE_LINE/i, label: 'INSERT_CRUISE_LINE template variable' },
+  { pattern: /\{\{.*?\}\}/i, label: '{{...}} template placeholder' },
+  { pattern: /\$\{[A-Z_]+\}/i, label: '${VARIABLE} template placeholder' },
+  { pattern: /TBD_/i, label: 'TBD_ prefix placeholder' },
+  { pattern: /REPLACE_ME/i, label: 'REPLACE_ME marker' },
+  { pattern: /example\.com/i, label: 'example.com placeholder URL' }
 ];
 
 // Navigation items that MUST be present (per index.html gold standard)
@@ -2558,6 +2646,276 @@ function validateAnswerLineKeyFactsShip($) {
   return { valid: errors.length === 0, errors, warnings: [], data: { hasAnswerLine, hasKeyFacts } };
 }
 
+// =============================================================================
+// v2.4 VALIDATION FUNCTIONS (Principle Import)
+// =============================================================================
+
+/**
+ * Validate ship images for placeholders and duplicates
+ * Imported from validate-port-page-v2.js pattern
+ */
+async function validateShipImages(filepath, cruiseLine, slug) {
+  const errors = [];
+  const warnings = [];
+
+  // Ship images live in /assets/ships/{cruiseLine}/ or /assets/img/ships/{slug}/
+  const imgDirs = [
+    join(PROJECT_ROOT, 'assets', 'ships', cruiseLine),
+    join(PROJECT_ROOT, 'assets', 'img', 'ships', slug)
+  ];
+
+  let imageFiles = [];
+  let imgDir = null;
+
+  for (const dir of imgDirs) {
+    if (existsSync(dir)) {
+      imgDir = dir;
+      try {
+        const files = await readdir(dir);
+        imageFiles = files.filter(f =>
+          f.toLowerCase().includes(slug.replace(/-/g, '')) ||
+          f.toLowerCase().includes(slug)
+        ).filter(f => f.endsWith('.webp') || f.endsWith('.jpg') || f.endsWith('.png'));
+      } catch (e) {
+        // Skip unreadable directories
+      }
+      break;
+    }
+  }
+
+  if (!imgDir || imageFiles.length === 0) {
+    // Not blocking — ship images may be organized differently
+    return { valid: true, errors, warnings, data: { checked: false } };
+  }
+
+  // Check each image for placeholder hash
+  let placeholderCount = 0;
+  const placeholderImages = [];
+
+  for (const imgFile of imageFiles) {
+    const imgPath = join(imgDir, imgFile);
+    try {
+      const imgBuffer = readFileSync(imgPath);
+      const hash = createHash('md5').update(imgBuffer).digest('hex');
+      if (PLACEHOLDER_HASHES.has(hash)) {
+        placeholderCount++;
+        placeholderImages.push(imgFile);
+      }
+    } catch (e) {
+      // Skip files that can't be read
+    }
+  }
+
+  if (placeholderCount > 0) {
+    errors.push({
+      section: 'ship_images',
+      rule: 'placeholder_images_detected',
+      message: `${placeholderCount} placeholder image(s) detected: ${placeholderImages.slice(0, 3).join(', ')}${placeholderCount > 3 ? '...' : ''}. Each ship must have unique images.`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  // Check for images with identical file sizes (potential duplicates)
+  const sizeGroups = {};
+  for (const imgFile of imageFiles) {
+    const imgPath = join(imgDir, imgFile);
+    try {
+      const stats = await stat(imgPath);
+      const size = stats.size;
+      if (!sizeGroups[size]) sizeGroups[size] = [];
+      sizeGroups[size].push(imgFile);
+    } catch (e) {
+      // Skip files that can't be read
+    }
+  }
+
+  const duplicateSizeGroups = Object.entries(sizeGroups)
+    .filter(([size, files]) => files.length > 2)
+    .map(([size, files]) => files);
+
+  if (duplicateSizeGroups.length > 0) {
+    const totalSuspicious = duplicateSizeGroups.reduce((acc, g) => acc + g.length, 0);
+    warnings.push({
+      section: 'ship_images',
+      rule: 'potential_duplicate_images',
+      message: `${totalSuspicious} images have identical file sizes, may be duplicates/placeholders`,
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: {
+      checked: true,
+      total_ship_images: imageFiles.length,
+      placeholder_images: placeholderCount,
+      potential_duplicates: duplicateSizeGroups.length > 0
+    }
+  };
+}
+
+/**
+ * Validate logbook narrative quality
+ * Imported from port validator rubric (Four Pillars)
+ * Checks: sensory details, contrast words, first-person pronouns, lesson markers
+ */
+function validateLogbookNarrativeQuality(stories) {
+  const errors = [];
+  const warnings = [];
+
+  if (!stories || stories.length === 0) {
+    return { valid: true, errors, warnings, data: { checked: false } };
+  }
+
+  // Aggregate all story text
+  const allStoryText = stories.map(s => s.markdown || '').join(' ');
+  if (!allStoryText || allStoryText.length < 200) {
+    return { valid: true, errors, warnings, data: { checked: false, reason: 'insufficient text' } };
+  }
+
+  // 1. First-person pronouns (logbook must feel personal)
+  const firstPersonMatches = allStoryText.match(FIRST_PERSON_PRONOUNS) || [];
+  const firstPersonCount = firstPersonMatches.length;
+  if (firstPersonCount < 10) {
+    errors.push({
+      section: 'logbook_quality',
+      rule: 'first_person_voice',
+      message: `Logbook has ${firstPersonCount} first-person pronouns across all stories, minimum is 10`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  // 2. Contrast/tension words (honest assessments, not all-positive)
+  const contrastMatches = allStoryText.match(CONTRAST_WORDS) || [];
+  const contrastCount = contrastMatches.length;
+  if (contrastCount < 3) {
+    warnings.push({
+      section: 'logbook_quality',
+      rule: 'contrast_language',
+      message: `Logbook has ${contrastCount} contrast/tension words, recommended minimum is 3`,
+      severity: 'WARNING'
+    });
+  }
+
+  // 3. Sensory details (at least 2 of 5 senses should be engaged)
+  const sensoryHits = {};
+  let sensoryCount = 0;
+  for (const [sense, pattern] of Object.entries(SENSORY_MARKERS)) {
+    if (pattern.test(allStoryText)) {
+      sensoryHits[sense] = true;
+      sensoryCount++;
+    }
+  }
+  if (sensoryCount < 2) {
+    warnings.push({
+      section: 'logbook_quality',
+      rule: 'sensory_details',
+      message: `Logbook engages ${sensoryCount}/5 senses (${Object.keys(sensoryHits).join(', ') || 'none'}), recommended minimum is 2`,
+      severity: 'WARNING'
+    });
+  }
+
+  // 4. Lesson/reflection markers (at least one story should have a takeaway)
+  const hasLesson = LESSON_MARKERS.some(marker => marker.test(allStoryText));
+  if (!hasLesson) {
+    warnings.push({
+      section: 'logbook_quality',
+      rule: 'missing_lesson_markers',
+      message: 'No lesson/reflection markers found in logbook stories (e.g., "I learned", "looking back", "what matters")',
+      severity: 'WARNING'
+    });
+  }
+
+  // 5. Stewardship framing (at least one marker)
+  const hasStewardship = STEWARDSHIP_MARKERS.some(marker => marker.test(allStoryText));
+  if (!hasStewardship) {
+    warnings.push({
+      section: 'logbook_quality',
+      rule: 'missing_stewardship',
+      message: 'No stewardship framing found in logbook (e.g., worth, value, budget, grateful)',
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: {
+      checked: true,
+      firstPersonCount,
+      contrastCount,
+      sensoryCount,
+      sensoryHits,
+      hasLesson,
+      hasStewardship
+    }
+  };
+}
+
+/**
+ * Validate template remnants (Careful Not Clever principle)
+ * Detect placeholder text that slipped through the content pipeline
+ */
+function validateTemplateRemnants($, html) {
+  const errors = [];
+  const warnings = [];
+  const found = [];
+
+  const bodyText = $('body').text();
+
+  for (const rule of TEMPLATE_REMNANT_PATTERNS) {
+    if (rule.pattern.test(bodyText) || rule.pattern.test(html)) {
+      const match = bodyText.match(rule.pattern) || html.match(rule.pattern);
+      found.push(rule.label);
+      errors.push({
+        section: 'template_remnants',
+        rule: 'placeholder_content',
+        message: `Template remnant found: ${rule.label}${match ? ` ("${match[0].substring(0, 40)}")` : ''}`,
+        severity: 'BLOCKING'
+      });
+    }
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: { found, count: found.length }
+  };
+}
+
+/**
+ * Validate accessibility keyword presence
+ * Imported from port validator rubric — ship pages should mention accessibility
+ */
+function validateAccessibilityKeywords($) {
+  const errors = [];
+  const warnings = [];
+
+  const fullText = $('body').text().toLowerCase();
+  const accessibilityKeywords = ['wheelchair', 'mobility', 'accessible', 'accessibility', 'special needs', 'disability', 'ada'];
+  const accessibilityMentions = accessibilityKeywords.filter(kw => fullText.includes(kw));
+
+  if (accessibilityMentions.length < 1) {
+    warnings.push({
+      section: 'accessibility_content',
+      rule: 'missing_accessibility_keywords',
+      message: 'No accessibility keywords found in page content (wheelchair, mobility, accessible, etc.)',
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: { accessibilityMentions, count: accessibilityMentions.length }
+  };
+}
+
 async function validateShipPage(filepath) {
   const relPath = relative(PROJECT_ROOT, filepath);
   const slug = basename(filepath, '.html');
@@ -2610,6 +2968,9 @@ async function validateShipPage(filepath) {
     const wordCountResult = validateWordCounts($, isHistoric);
     const printButtonResult = validatePrintButton($, html);
 
+    // Like-a-human voice quality checks
+    const voiceQualityResult = validateVoiceQuality($('body').text());
+
     // v2.3 external review findings
     const externalReviewResult = validateExternalReviewFindings($, html);
 
@@ -2621,10 +2982,29 @@ async function validateShipPage(filepath) {
     const canonicalResult = validateCanonicalURLShip($);
     const answerLineResult = validateAnswerLineKeyFactsShip($);
 
+    // v2.4 principle import validations
+    const templateRemnantResult = validateTemplateRemnants($, html);
+    const accessibilityKeywordResult = validateAccessibilityKeywords($);
+
     // Async validations (pass cruiseLine for correct data paths)
     const logbookResult = await validateLogbook(slug, cruiseLine, isHistoric);
     const videoResult = await validateVideos(slug, cruiseLine, isHistoric, isTBN);
     const articlesResult = await validateArticles();
+    const shipImageResult = await validateShipImages(filepath, cruiseLine, slug);
+
+    // v2.4: Logbook narrative quality (needs logbook stories data)
+    let logbookNarrativeResult = { valid: true, errors: [], warnings: [], data: { checked: false } };
+    if (logbookResult.data.storyCount > 0) {
+      // Re-load logbook stories for narrative analysis
+      const logbookPath = join(PROJECT_ROOT, 'assets', 'data', 'logbook', cruiseLine, `${slug}.json`);
+      try {
+        const logbookContent = await readFile(logbookPath, 'utf-8');
+        const logbookData = JSON.parse(logbookContent);
+        logbookNarrativeResult = validateLogbookNarrativeQuality(logbookData.stories || []);
+      } catch (e) {
+        // Logbook already validated above; narrative check is supplementary
+      }
+    }
 
     // Calculate preliminary score for discoverability checks
     const preliminaryErrors = [
@@ -2639,7 +3019,10 @@ async function validateShipPage(filepath) {
       ...contentPurityResult.errors, ...shipStatsResult.errors,
       ...diningResult.errors, ...wordCountResult.errors,
       ...externalReviewResult.errors, ...contentPromisesResult.errors,
-      ...canonicalResult.errors, ...answerLineResult.errors
+      ...canonicalResult.errors, ...answerLineResult.errors,
+      ...voiceQualityResult.errors,
+      ...templateRemnantResult.errors, ...shipImageResult.errors,
+      ...logbookNarrativeResult.errors, ...accessibilityKeywordResult.errors
     ];
     const preliminaryWarnings = [
       ...analyticsResult.warnings, ...soliDeoGloriaResult.warnings,
@@ -2653,7 +3036,10 @@ async function validateShipPage(filepath) {
       ...contentPurityResult.warnings, ...shipStatsResult.warnings,
       ...diningResult.warnings, ...wordCountResult.warnings,
       ...externalReviewResult.warnings, ...contentPromisesResult.warnings,
-      ...serviceWorkerResult.warnings
+      ...serviceWorkerResult.warnings,
+      ...voiceQualityResult.warnings,
+      ...templateRemnantResult.warnings, ...shipImageResult.warnings,
+      ...logbookNarrativeResult.warnings, ...accessibilityKeywordResult.warnings
     ];
     const preliminaryScore = Math.max(0, 100 - (preliminaryErrors.length * 10) - (preliminaryWarnings.length * 2));
 
@@ -2679,7 +3065,10 @@ async function validateShipPage(filepath) {
       ...externalReviewResult.errors,
       ...contentPromisesResult.errors,
       ...canonicalResult.errors,
-      ...answerLineResult.errors
+      ...answerLineResult.errors,
+      ...voiceQualityResult.errors,
+      ...templateRemnantResult.errors, ...shipImageResult.errors,
+      ...logbookNarrativeResult.errors, ...accessibilityKeywordResult.errors
     );
 
     // Collect warnings
@@ -2699,7 +3088,10 @@ async function validateShipPage(filepath) {
       ...searchIndexResult.warnings, ...shipAtlasResult.warnings,
       ...externalReviewResult.warnings,
       ...contentPromisesResult.warnings,
-      ...serviceWorkerResult.warnings
+      ...serviceWorkerResult.warnings,
+      ...voiceQualityResult.warnings,
+      ...templateRemnantResult.warnings, ...shipImageResult.warnings,
+      ...logbookNarrativeResult.warnings, ...accessibilityKeywordResult.warnings
     );
 
     // Calculate score
@@ -2724,6 +3116,7 @@ async function validateShipPage(filepath) {
     results.html_structure = htmlStructureResult.data;
     results.viewport = viewportResult.data;
     results.content_purity = contentPurityResult.data;
+    results.voice_quality = voiceQualityResult.data;
     results.word_counts = wordCountResult.data;
     results.clean_console = cleanConsoleResult.data;
     results.inline_json = { stats: shipStatsResult.data, dining: diningResult.data };
@@ -2735,6 +3128,12 @@ async function validateShipPage(filepath) {
     results.service_worker = serviceWorkerResult.data;
     results.canonical = canonicalResult.data;
     results.answer_line_key_facts = answerLineResult.data;
+
+    // v2.4 data
+    results.template_remnants = templateRemnantResult.data;
+    results.ship_images = shipImageResult.data;
+    results.logbook_narrative = logbookNarrativeResult.data;
+    results.accessibility_keywords = accessibilityKeywordResult.data;
 
   } catch (error) {
     results.blocking_errors.push({ section: 'parse', rule: 'file_read', message: `Failed to parse: ${error.message}`, severity: 'BLOCKING' });
@@ -2754,7 +3153,7 @@ function printResults(results, options) {
     return results.valid;
   }
 
-  console.log(`\n${colors.bold}${colors.cyan}Ship Page Validation Report - ITW-SHIP-002 v2.0${colors.reset}`);
+  console.log(`\n${colors.bold}${colors.cyan}Ship Page Validation Report - ITW-SHIP-002 v2.4${colors.reset}`);
   console.log('='.repeat(80));
   console.log();
 
@@ -2850,7 +3249,7 @@ async function main() {
     if (options.jsonOutput) {
       console.log(JSON.stringify(results, null, 2));
     } else {
-      console.log(`\n${colors.bold}${colors.cyan}Ship Page Batch Validation - ITW-SHIP-002 v2.0${colors.reset}`);
+      console.log(`\n${colors.bold}${colors.cyan}Ship Page Batch Validation - ITW-SHIP-002 v2.4${colors.reset}`);
       console.log('='.repeat(80));
 
       let passed = 0, failed = 0, totalErrors = 0, totalWarnings = 0;

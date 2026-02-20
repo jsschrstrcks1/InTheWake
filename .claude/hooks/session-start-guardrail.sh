@@ -23,6 +23,7 @@ set -e
 # Get the project directory
 PROJECT_DIR="${CLAUDE_PROJECT_DIR:-$(pwd)}"
 CAREFUL_FILE="$PROJECT_DIR/.claude/skills/careful-not-clever/CAREFUL.md"
+CAREFUL_TECHNICAL="$PROJECT_DIR/CAREFUL.md"
 CLAUDE_FILE="$PROJECT_DIR/admin/claude/CLAUDE.md"
 
 # Consume stdin (required by hook protocol)
@@ -46,11 +47,21 @@ if [ ! -f "$CAREFUL_FILE" ]; then
     exit 0  # Exit 0 so Claude sees this message
 fi
 
-# Output the guardrail content
+# Output the process guardrail (v1.0 — read first, verify, document)
 echo "📋 CAREFUL-NOT-CLEVER GUARDRAIL (CRITICAL PRIORITY):"
 echo ""
 cat "$CAREFUL_FILE"
 echo ""
+
+# Output the technical guardrail (root — semantic equivalence, pattern verification)
+if [ -f "$CAREFUL_TECHNICAL" ]; then
+    echo ""
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "📋 CAREFUL TECHNICAL GUARDRAIL (VERIFICATION & PATTERNS):"
+    echo ""
+    cat "$CAREFUL_TECHNICAL"
+    echo ""
+fi
 
 # Add a reminder about CLAUDE.md
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

@@ -49,6 +49,7 @@ import { readFile } from 'fs/promises';
 import { existsSync, readdirSync, readFileSync } from 'fs';
 import { join, dirname, basename, relative } from 'path';
 import { fileURLToPath } from 'url';
+import { validateVoiceQuality } from './lib/voice-quality-checks.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -864,6 +865,9 @@ class VenueValidator {
     this.checkImageSemantics();           // S05
     this.checkContentPromises();          // S06
 
+    // Voice quality (Like-a-Human)
+    this.checkVoiceQuality();             // V01-V06
+
     // Quality warnings
     this.checkVenueSpecificImages();      // W01
     this.checkTemplateLength();           // W02
@@ -886,6 +890,33 @@ class VenueValidator {
         }
       } catch {
         // Non-fatal — mobile validation failure should not block venue checks
+      }
+    }
+  }
+
+  // ── V01-V06: Like-a-Human Voice Quality ──────────────────────────────────
+  checkVoiceQuality() {
+    // Extract body text from HTML (strip tags)
+    const bodyText = this.html.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    const result = validateVoiceQuality(bodyText, { minWordCount: 100 });
+
+    if (result.data.skipped) {
+      this.pass('V00', 'Voice checks skipped (below word threshold)');
+      return;
+    }
+
+    const total = result.data.totalFindings || 0;
+    if (total === 0) {
+      this.pass('V00', 'Voice quality checks passed — no issues detected');
+    } else {
+      // Report individual findings as warnings
+      for (const w of result.warnings) {
+        this.warn(w.rule, w.message);
       }
     }
   }
