@@ -701,7 +701,7 @@ class VenueValidator {
       { pattern: /\.innerHtml\s*=/, message: 'innerHtml should be innerHTML' },
       { pattern: /\.classlist\./, message: 'classlist should be classList' },
       { pattern: /document\.getElementByID\(/, message: 'getElementByID should be getElementById' },
-      { pattern: /\.queryselector\(/i, message: 'queryselector should be querySelector' },
+      { pattern: /\.queryselector\(/, message: 'queryselector should be querySelector' },
       { pattern: /\.appendchild\(/, message: 'appendchild should be appendChild' },
       { pattern: /\.setattribute\(/, message: 'setattribute should be setAttribute' }
     ];
