@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
 ████████████████████████████████████████████████████████████████████████████████
-██  SOLI DEO GLORIA — To God alone be the glory                satisfies: SR1 ██
+██  Soli Deo Gloria — To God alone be the glory                satisfies: SR1 ██
 ██                                                                            ██
 ██    "Trust in the LORD with all your heart, and do not lean on your own     ██
 ██     understanding. In all your ways acknowledge him, and he will make      ██
@@ -56,7 +56,18 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 
 <!-- JSON-LD: BreadcrumbList -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Carnival","item":"https://cruisinginthewake.com/ships.html#carnival"},{"@type":"ListItem","position":4,"name":"Carnival Breeze","item":"https://cruisinginthewake.com/ships/carnival/carnival-breeze.html"}]}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships.html"},
+    {"@type": "ListItem", "position": 3, "name": "Carnival", "item": "https://cruisinginthewake.com/ships.html#carnival"},
+    {"@type": "ListItem", "position": 4, "name": "Carnival Breeze", "item": "https://cruisinginthewake.com/ships/carnival/carnival-breeze.html"}
+  ]
+}
+</script>
 
 <!-- JSON-LD: Review -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Carnival Breeze","brand":{"@type":"Organization","name":"Carnival Cruise Line"},"vehicleIdentificationNumber":"IMO 9548450"},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival Breeze perfected the Dream-class formula for Texas cruisers. Her Galveston homeport makes Caribbean cruising accessible to millions while delivering the full Fun Ship experience.","datePublished":"2025-12-03"}</script>
@@ -90,7 +101,19 @@
   </script>
 
 <!-- JSON-LD: FAQPage -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where does Carnival Breeze sail from?","acceptedAnswer":{"@type":"Answer","text":"Carnival Breeze operates from Galveston, Texas, offering Western Caribbean, Eastern Caribbean, and Mexico itineraries convenient for Texas, Oklahoma, Louisiana, and nearby states."}},{"@type":"Question","name":"What class is Carnival Breeze?","acceptedAnswer":{"@type":"Answer","text":"Carnival Breeze is a Dream-class ship, the third and final vessel in the class after Carnival Dream (2009) and Carnival Magic (2011). All three were built by Fincantieri at Monfalcone."}},{"@type":"Question","name":"How big is Carnival Breeze?","acceptedAnswer":{"@type":"Answer","text":"Carnival Breeze measures 130,000 gross tons and is 1,004 feet long. She accommodates 3,690 guests at double occupancy across 1,845 staterooms on 15 guest decks."}}]}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Where does Carnival Breeze sail from?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Breeze operates from Galveston, Texas, offering Western Caribbean, Eastern Caribbean, and Mexico itineraries convenient for Texas, Oklahoma, Louisiana, and nearby states."}},
+    {"@type": "Question", "name": "What class is Carnival Breeze?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Breeze is a Dream-class ship, the third and final vessel in the class after Carnival Dream (2009) and Carnival Magic (2011). All three were built by Fincantieri at Monfalcone."}},
+    {"@type": "Question", "name": "How big is Carnival Breeze?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Breeze measures 130,000 gross tons and is 1,004 feet long. She accommodates 3,690 guests at double occupancy across 1,845 staterooms on 15 guest decks."}},
+    {"@type": "Question", "name": "When was Carnival Breeze built?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Breeze was built by Fincantieri at Monfalcone, Italy, and entered service in June 2012 as the third Dream-class vessel for Carnival Cruise Line."}},
+    {"@type": "Question", "name": "What are the best dining options on Carnival Breeze?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Breeze features Fahrenheit 555 steakhouse, Bonsai Sushi, the Blueiguana Cantina for Mexican fare, Guy's Burger Joint, and the Cucina del Capitano Italian restaurant, plus the two-deck Sapphire and Blush main dining rooms."}}
+  ]
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
@@ -145,12 +168,42 @@
     }
 }
   </script>
+
+  <!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+  <script>
+  (function(){
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+    document.addEventListener('DOMContentLoaded', function(){
+      const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+      document.querySelectorAll(sel).forEach(el=>{
+        const attr=el.hasAttribute('href')?'href':'src';
+        try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+      });
+    },{once:true});
+  })();
+  </script>
+
+  <!-- Swiper loader -->
+  <script>
+  (function(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
-
-
-<a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
   <header class="hero-header ship-page" role="banner">
     <div class="navbar">
       <div class="brand">
@@ -276,7 +329,7 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/Carnival_Breeze_001.jpg" alt="Carnival Breeze cruise ship at sea" loading="eager" decoding="async">
+              <img src="/assets/ships/Carnival_Breeze_001.jpg" alt="Carnival Breeze cruise ship at sea" loading="eager" decoding="async" fetchpriority="high">
               <figcaption class="tiny">Carnival Breeze. Photo: <a href="https://commons.wikimedia.org/wiki/File:Carnival_Breeze_(ship,_2012)_001.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> CC BY-SA 4.0</figcaption>
             </figure>
           </div>
@@ -613,7 +666,225 @@ document.addEventListener('DOMContentLoaded',function(){
   window.__articlesNav = renderPage;
   loadArticles();
 })();
-</script>  <!-- Navigation Dropdown Script -->
+</script>
+
+  <!-- ===== First Look carousel init ===== -->
+  <script>
+  (function initFirstLook(){
+    function go(){
+      if(typeof Swiper==='undefined'){
+        if(window.__swiperReady) return setTimeout(go,50);
+        return setTimeout(go,100);
+      }
+      try{
+        new Swiper('.swiper.firstlook',{
+          loop:false,rewind:false,lazy:true,watchOverflow:true,
+          pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
+          navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
+          a11y:{enabled:true}
+        });
+      }catch(_){}
+    }
+    go();
+  })();
+  </script>
+
+  <!-- ===== Ship Logbook loader ===== -->
+  <script>
+  (function initShipLogbook(){
+    const mount=document.getElementById('logbook-stories'); if(!mount) return;
+    function abs(p){return (window._abs?_abs(p):p);}
+    function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
+    function getShipContext(){
+      const stats=document.getElementById('ship-stats');
+      const attrSlug=(stats&&stats.getAttribute('data-slug'))||'';
+      const m=location.pathname.match(/\/ships\/([^/]+)\/([^/.]+)/i);
+      const line=(m&&m[1])||'carnival'; const inferred=(m&&m[2])||'';
+      return {line:line.toLowerCase(),slug:(attrSlug||inferred||'carnival-breeze').toLowerCase()};
+    }
+    const ctx=getShipContext();
+    const shortSlug=ctx.slug.split('-of-the-')[0]; const SOURCES=[abs('/ships/'+ctx.line+'/assets/'+ctx.slug+'.json'),abs('/ships/'+ctx.line+'/assets/'+shortSlug+'.json'),abs('/assets/data/logbook/'+ctx.line+'/'+ctx.slug+'.json'),abs('/assets/data/ships/'+ctx.line+'/'+ctx.slug+'.json')];
+    function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+      return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
+    function mdToHtml(src){let html=String(src||'').trim(); if(!html) return '';
+      html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
+      html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html.replace(/^<p>\s*<\/p>/,'');}
+    const state={i:0,items:[]};
+    function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');
+      const body=String(p.markdown||p.body||p.content||p.html||p.text||p.story||p.notes||'').trim(); if(!body) return '';
+      return '<article class="story" aria-live="polite"><h3 tabindex="0">'+title+'</h3><div class="story-body">'+mdToHtml(body)+'</div></article>';}
+    function ensureNav(){
+      if(document.getElementById('logbook-nav')) return;
+      const nav=document.createElement('nav'); nav.id='logbook-nav'; nav.className='logbook-nav'; nav.setAttribute('aria-label','Logbook navigation');
+      const prev=document.createElement('button'); prev.type='button'; prev.className='logbook-btn logbook-prev'; prev.textContent='‹ Previous'; prev.setAttribute('aria-label','Previous story');
+      const next=document.createElement('button'); next.type='button'; next.className='logbook-btn logbook-next'; next.textContent='Next ›'; next.setAttribute('aria-label','Next story');
+      nav.append(prev,next); mount.before(nav);
+      prev.onclick=()=>{ state.i=clamp(state.i-1,0,state.items.length-1); renderCurrent(); };
+      next.onclick=()=>{ state.i=clamp(state.i+1,0,state.items.length-1); renderCurrent(); };
+    }
+    function renderCurrent(){
+      const i=state.i,arr=state.items; if(!arr.length){mount.innerHTML='<p class="tiny">No logbook entries yet.</p>'; return;}
+      const html=renderOne(arr[i]); mount.innerHTML=html;
+      const nav=document.getElementById('logbook-nav'); if(!nav) return;
+      nav.querySelector('.logbook-prev').disabled=(i===0);
+      nav.querySelector('.logbook-next').disabled=(i===arr.length-1);
+    }
+    fetchFirst().then(data=>{
+      if(!data) return;
+      const arr=data.personas||data.perspectives||data.logbook||data.stories||data.entries||[];
+      if(!arr.length) return;
+      state.items=arr; state.i=0; ensureNav(); renderCurrent();
+    });
+  })();
+  </script>
+
+  <!-- ===== Video carousel loader ===== -->
+  <script>
+  (function initVideos(){
+    const mount=document.getElementById('featuredVideos'); if(!mount) return;
+    const fallback=document.getElementById('videoFallback');
+    function abs(p){return (window._abs?_abs(p):p);}
+    function getVideoURL(videoId,provider){
+      if(!videoId) return null;
+      if(provider==='youtube'||!provider) return 'https://www.youtube-nocookie.com/embed/'+videoId+'?rel=0&modestbranding=1';
+      if(provider==='vimeo') return 'https://player.vimeo.com/video/'+videoId+'?title=0&byline=0&portrait=0';
+      return null;
+    }
+    function renderVideos(arr){
+      if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
+      mount.innerHTML=arr.map(v=>{
+        const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
+        const title=String(v.title||'Carnival Breeze').replace(/</g,'&lt;');
+        return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
+      }).join('');
+      if(mount.children.length&&window.__swiperReady&&window.Swiper){
+        setTimeout(()=>{
+          try{
+            new Swiper('.swiper.videos',{
+              loop:false,rewind:false,lazy:true,watchOverflow:true,
+              pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
+              navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
+              a11y:{enabled:true}
+            });
+          }catch(_){}
+        },150);
+      }
+    }
+    function fetchVideoData(){
+      const SOURCES=[abs('/assets/data/videos/carnival/carnival-breeze.json'),abs('/ships/carnival/assets/carnival-breeze-videos.json')];
+      function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+        return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+      return tryFetch();
+    }
+    fetchVideoData().then(data=>{ if(data) renderVideos(data.videos||data); });
+  })();
+  </script>
+
+  <!-- ===== Ship stats loader ===== -->
+  <script>
+  (function initStats(){
+    const mount=document.getElementById('ship-stats'); if(!mount) return;
+    const fallbackEl=document.getElementById('ship-stats-fallback');
+    function abs(p){return (window._abs?_abs(p):p);}
+    function renderStats(obj){
+      if(!obj) return;
+      const keys=['class','entered_service','gt','guests','crew','length','beam','registry'];
+      const labels={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests',crew:'Crew',length:'Length',beam:'Beam',registry:'Registry'};
+      mount.innerHTML=keys.map(k=>{
+        const val=obj[k]; if(!val) return '';
+        let statHtml = '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;')+'</span>';
+        if((k==='length'||k==='beam') && window.funDistance){
+          const feetMatch = String(val).match(/(\d+(?:,\d+)?)\s*(?:ft|feet)/i);
+          if(feetMatch){
+            const feet = parseInt(feetMatch[1].replace(/,/g,''));
+            const conversion = k==='length' ? window.funDistance.shipLength(feet) : window.funDistance.shipBeam(feet);
+            if(conversion && (conversion.practical || conversion.absurd)){
+              const parts = [];
+              if(conversion.practical) parts.push(conversion.practical);
+              if(conversion.absurd) parts.push(conversion.absurd);
+              if(parts.length > 0){ statHtml += '<span class="stat-fun">'+parts.join(', or ')+'</span>'; }
+            }
+          }
+        }
+        statHtml += '</div>';
+        return statHtml;
+      }).join('');
+    }
+    if(fallbackEl){
+      try{ const fb=JSON.parse(fallbackEl.textContent||'{}'); if(fb) renderStats(fb); }catch(_){}
+    }
+    const SOURCES=[abs('/assets/data/ships/carnival-breeze.json'),abs('/ships/carnival/assets/carnival-breeze.json')];
+    function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+      return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+    tryFetch().then(data=>{ if(data) renderStats(data); });
+  })();
+  </script>
+
+  <!-- ===== Dining loader ===== -->
+  <script>
+  (function initDining(){
+    const mount=document.getElementById('dining-content'); if(!mount) return;
+    const sourceEl=document.getElementById('dining-data-source');
+    if(!sourceEl) return;
+    function abs(p){return (window._abs?_abs(p):p);}
+    let config={};
+    try{ config=JSON.parse(sourceEl.textContent||'{}'); }catch(_){}
+    function renderVenues(ship,venues){
+      if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining data is loading...</p>'; return; }
+      const byCategory={};
+      venues.forEach(v=>{
+        const cat=v.category||'other';
+        if(!byCategory[cat]) byCategory[cat]=[];
+        byCategory[cat].push(v);
+      });
+      const catOrder=['mdr','specialty','casual','bar'];
+      const catLabels={mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',other:'Other Venues'};
+      let html='';
+      catOrder.concat(Object.keys(byCategory).filter(c=>!catOrder.includes(c))).forEach(cat=>{
+        const arr=byCategory[cat]; if(!arr) return;
+        html+='<h3>'+catLabels[cat]+'</h3><ul class="venues-list">';
+        arr.forEach(v=>{
+          const name=String(v.name||v.slug).replace(/</g,'&lt;');
+          const desc=String(v.description||'').replace(/</g,'&lt;');
+          const price=(v.price||v.cost)?'<span class="venue-price">'+(v.price||v.cost)+'</span>':'';
+          const slug=v.slug?String(v.slug).replace(/</g,'&lt;'):'';
+          const nameLink=slug?'<a href="'+abs('/restaurants/'+slug+'.html')+'">'+name+'</a>':name;
+          html+='<li><strong>'+nameLink+'</strong>'+price+(desc?' — '+desc:'')+'</li>';
+        });
+        html+='</ul>';
+      });
+      mount.innerHTML=html;
+    }
+    if(typeof window.getShipVenues==='function'){
+      const slug=config.ship_slug||'carnival-breeze';
+      window.getShipVenues(slug).then(result=>{
+        if(result&&result.venues) renderVenues(result.ship,result.venues);
+      }).catch(()=>{});
+    }
+  })();
+  </script>
+
+  <!-- ===== Live tracker (VesselFinder iframe: auto-centers on ship by IMO) ===== -->
+  <script>
+  (function initLiveTracker(){
+    const card=document.querySelector('.card.itinerary[data-imo]');
+    if(!card) return;
+    const imo=card.getAttribute('data-imo');
+    const container=document.getElementById('vf-tracker-container');
+    if(!imo||!container) return;
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'width:100%;height:500px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = 'width:100%;height:100%;border:0;';
+    iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
+    iframe.setAttribute('loading', 'lazy');
+    iframe.src = 'https://www.vesselfinder.com/aismap?imo=' + imo + '&zoom=10&track=true&names=true';
+    wrapper.appendChild(iframe);
+    container.appendChild(wrapper);
+  })();
+  </script>
+
+  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
 
 
