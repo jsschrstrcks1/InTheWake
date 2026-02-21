@@ -725,34 +725,12 @@ Soli Deo Gloria
     </script>
 
     <!-- Recent Articles Loader -->
-    <script>
-    (function(){
-      const rail=document.getElementById('recent-rail'),fb=document.getElementById('recent-rail-fallback');
-      if(!rail)return;
-      const PER=6;let articles=[],page=0;
-      function render(){
-        const start=page*PER,slice=articles.slice(start,start+PER);
-        rail.innerHTML=slice.map(a=>'<a class="rail-item" href="'+a.url+'">'+a.title+'</a>').join('');
-        let nav=document.getElementById('recent-rail-nav');
-        if(!nav){nav=document.createElement('div');nav.id='recent-rail-nav';nav.style.cssText='display:flex;gap:.5rem;margin-top:.75rem;';rail.after(nav);}
-        const total=Math.ceil(articles.length/PER);
-        nav.innerHTML=(page>0?'<button id="rail-prev" style="flex:1;padding:.35rem;border:1px solid #ccc;background:#fff;border-radius:4px;cursor:pointer;">← Prev</button>':'')+
-          (page<total-1?'<button id="rail-next" style="flex:1;padding:.35rem;border:1px solid #ccc;background:#fff;border-radius:4px;cursor:pointer;">Next →</button>':'');
-        const p=document.getElementById('rail-prev'),n=document.getElementById('rail-next');
-        if(p)p.onclick=()=>{page--;render();};
-        if(n)n.onclick=()=>{page++;render();};
-      }
-      fetch('/assets/data/articles/index.json').then(r=>r.json()).then(data=>{
-        articles=(data.articles||data||[]).filter(a=>a.status==='published').sort((a,b)=>new Date(b.date)-new Date(a.date));
-        if(fb)fb.style.display='none';
-        if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
-      }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
-    })();
-    </script>
+
 
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/port-logbook-btn.js" defer></script>
+  <script src="/assets/js/article-rail.js"></script>
 </body>
 </html>

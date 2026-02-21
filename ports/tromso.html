@@ -767,30 +767,6 @@ Soli Deo Gloria
     <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
-  <script>
-    // Load recent articles
-    (async function() {
-      try {
-        const response = await fetch('/assets/data/articles/index.json');
-        const articles = await response.json();
-        const rail = document.getElementById('recent-rail');
-
-        if (rail && articles && articles.length > 0) {
-          rail.innerHTML = articles.slice(0, 5).map(article => `
-            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
-                <a href="${article.url}">${article.title}</a>
-              </h4>
-              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
-            </div>
-          `).join('');
-        }
-      } catch (err) {
-        
-      }
-    })();
-  </script>
-
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/port-logbook-btn.js" defer></script>
@@ -802,6 +778,7 @@ Soli Deo Gloria
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'tromso';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>

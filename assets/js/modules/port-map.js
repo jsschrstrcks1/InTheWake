@@ -190,11 +190,16 @@
         bounds.push([portPoi.lat, portPoi.lon]);
       }
 
+      // Build inline POI lookup from manifest (fallback when global index is incomplete)
+      const inlinePois = {};
+      (portManifest.pois || []).forEach(function(p) {
+        if (p && p.id) inlinePois[p.id] = p;
+      });
+
       // Add POI markers
       for (const poiId of portManifest.poi_ids || []) {
-        const poi = poiIndex[poiId];
+        const poi = poiIndex[poiId] || inlinePois[poiId];
         if (!poi) {
-          console.warn(`POI not found in index: ${poiId}`);
           continue;
         }
 
@@ -268,8 +273,13 @@
     // Collect unique POI types in this port
     const typesPresent = new Set(['port']); // Port is always shown
 
+    const inlinePois = {};
+    (portManifest.pois || []).forEach(function(p) {
+      if (p && p.id) inlinePois[p.id] = p;
+    });
+
     for (const poiId of portManifest.poi_ids || []) {
-      const poi = poiIndex[poiId];
+      const poi = poiIndex[poiId] || inlinePois[poiId];
       if (poi && poi.type) {
         typesPresent.add(poi.type);
       }

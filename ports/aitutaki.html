@@ -420,6 +420,14 @@ Soli Deo Gloria
     </article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+    <section class="card" aria-labelledby="nearby-ports-title">
+      <h3 id="nearby-ports-title">Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Other ports in this region:
+      </p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+    </section>
+
       <section class="page-intro" style="margin: 0 0 1rem 0;">
         <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
           <strong>Quick Answer:</strong> Aitutaki has the world's most beautiful lagoon. Tender port — ships anchor outside the reef. The lagoon cruise to One Foot Island is essential ($85-120 NZD). Get your passport stamped at the world's most remote post office. Tiny population (~1,800), authentic Polynesia, minimal facilities. Bring NZD cash — no ATMs.
@@ -534,7 +542,9 @@ Soli Deo Gloria
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>window.currentPortId = 'aitutaki';</script>
   <script src="/assets/js/nearby-ports.js" defer></script>
+  <script src="/assets/js/article-rail.js"></script>
   <script>if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') { PortMap.init({ containerId: 'port-map', portSlug: 'aitutaki' }); }</script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>

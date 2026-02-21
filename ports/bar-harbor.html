@@ -484,6 +484,14 @@ Soli Deo Gloria
       <!-- GALLERY SECTION --></article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+    <section class="card" aria-labelledby="nearby-ports-title">
+      <h3 id="nearby-ports-title">Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Other ports in this region:
+      </p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+    </section>
+
       <section class="page-intro mb-1">
         <p class="answer-line"><strong>Quick Answer:</strong> Bar Harbor is your gateway to Acadia National Park — Cadillac Mountain, Thunder Hole, Jordan Pond popovers, and Maine lobster. Tender port; book Oli's Trolley early. Island Explorer shuttle is free (June-October). Peak foliage September-October.</p>
       </section>
@@ -629,32 +637,8 @@ Soli Deo Gloria
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
 
-  <script>
-  (async function recentRail(){
-    const rail = document.getElementById('recent-rail');
-    if(!rail) return;
-    const fallback = document.getElementById('recent-rail-fallback');
-    if(fallback) fallback.style.display = '';
-    try {
-      const response = await fetch('/assets/data/articles/index.json');
-      const data = await response.json();
-      const items = Array.isArray(data) ? data : (data.articles || []);
-      if (items.length > 0) {
-        rail.innerHTML = items.slice(0, 5).map(article => `
-          <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-            <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${article.url || article.path}">${article.title || article.name}</a></h4>
-            <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.excerpt || article.description || ''}</p>
-          </div>
-        `).join('');
-        if(fallback) fallback.style.display = 'none';
-      }
-    } catch (err) {
-      if(fallback) fallback.textContent = 'Unable to load articles';
-    }
-  })();
-  </script>
-
   <script>window.currentPortId = 'bar-harbor';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
 </body>
 </html>
