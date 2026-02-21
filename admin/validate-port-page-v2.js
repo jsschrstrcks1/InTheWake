@@ -215,8 +215,8 @@ const SECTION_PATTERNS = {
 const EXPECTED_MAIN_ORDER = [
   'hero', 'logbook', 'featured_images', 'cruise_port', 'getting_around',
   'map', 'beaches', 'excursions', 'history', 'cultural', 'shopping',
-  'food', 'notices', 'depth_soundings', 'practical', 'faq', 'gallery',
-  'credits', 'back_nav'
+  'food', 'notices', 'depth_soundings', 'practical', 'gallery',
+  'credits', 'faq', 'back_nav'
 ];
 
 // Required sections (cannot be skipped)
