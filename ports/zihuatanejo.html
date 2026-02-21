@@ -188,7 +188,7 @@ Soli Deo Gloria
                data-port-name="Zihuatanejo Port Guide"
                data-lat="17.6404"
                data-lon="-101.5515"
-               data-region="Caribbean">
+               data-region="North America">
             <noscript>
               <div class="seasonal-guide seasonal-guide-static">
                 <details class="seasonal-section" open>
@@ -346,7 +346,7 @@ Soli Deo Gloria
       <!-- Excursions Section -->
       <details class="port-section" id="excursions" open>
             <summary><h2>Top Excursions &amp; Things to Do</h2></summary>
-        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: Zihuatanejo rewards independent exploration over organized excursions. Water taxis and regular taxis make all beaches accessible without ship-organized tours. For catamaran sailing and snorkeling packages, ship excursions offer convenience; book independently at the pier for 20-30% savings. Beach days require no planning—just grab a taxi or water taxi and go.</p>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: Zihuatanejo rewards independent exploration over organized excursions. Water taxis and regular taxis make all beaches accessible without ship-organized tours. For catamaran sailing and snorkeling packages, ship excursions offer convenience; book independently at the pier for 20-30% savings. A ship excursion offers guaranteed return for catamaran trips; for beaches, just grab a taxi or water taxi. Book ahead for snorkeling during busy season.</p>
 
         <h4  class="mt-1">Playa La Ropa Day (free to $30)</h4>
         <p>ESSENTIAL beach experience. A mile-long crescent of golden sand with calm swimming, beach restaurants, and palm shade. Taxi from pier runs $5-8. Beach chairs and umbrellas rent for $10-15/day at various palapas. Fresh ceviche and grilled fish at beachfront restaurants cost $8-15. Water taxis depart for Playa Las Gatas. The best all-around beach for swimming, relaxing, and people-watching. Plan to spend 2-3 hours minimum.</p>
@@ -509,6 +509,31 @@ Soli Deo Gloria
         <strong>Quick Answer:</strong> Zihuatanejo is the authentic Mexican fishing village Andy Dufresne dreamed about in Shawshank Redemption—tender landings, golden beaches at Playa La Ropa and Las Gatas, fresh seafood, and an unhurried pace that modern resorts can't replicate. Skip Ixtapa's manufactured perfection; stay in Zihua for the real thing.
       </p>
     </div>
+
+    <section class="card" aria-labelledby="glance-heading">
+      <h3 id="glance-heading">Port Snapshot</h3>
+      <div class="at-a-glance-grid">
+        <div class="at-a-glance-item"><strong>Location</strong><span>Pacific coast, Guerrero, Mexico</span></div>
+        <div class="at-a-glance-item"><strong>Access</strong><span>Tender port — 10-min ride to pier</span></div>
+        <div class="at-a-glance-item"><strong>Currency</strong><span>Mexican Peso (MXN); USD accepted</span></div>
+        <div class="at-a-glance-item"><strong>Language</strong><span>Spanish; limited English</span></div>
+        <div class="at-a-glance-item"><strong>Best For</strong><span>Beaches, seafood, authentic village</span></div>
+        <div class="at-a-glance-item"><strong>Walking</strong><span>Easy — compact town, flat terrain</span></div>
+      </div>
+    </section>
+
+    <section class="card key-facts">
+      <h3>Key Facts</h3>
+      <dl>
+        <dt>Port Type</dt><dd>Tender port (anchor in bay)</dd>
+        <dt>Tender Time</dt><dd>~10 minutes to municipal pier</dd>
+        <dt>Star Beach</dt><dd>Playa La Ropa (golden sand, calm water)</dd>
+        <dt>Famous For</dt><dd>Shawshank Redemption dream destination</dd>
+        <dt>Nearby Resort</dt><dd>Ixtapa (15 min by taxi)</dd>
+        <dt>Best Season</dt><dd>November–May (dry season)</dd>
+      </dl>
+    </section>
+
     <section class="card author-card-vertical" aria-labelledby="author-heading">
       <h3 id="author-heading">About the Author</h3>
       <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
@@ -628,14 +653,22 @@ Soli Deo Gloria
   <script src="/assets/js/recent-rail.js" defer></script>
   <script src="/assets/js/whimsical-port-units.js" defer></script>
   <script>
+    function initSwiper() {
+      if (typeof Swiper !== 'undefined') {
+        new Swiper('.gallery-swiper', {
+          loop: true,
+          pagination: { el: '.swiper-pagination', clickable: true },
+          navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+          keyboard: { enabled: true },
+          a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+        });
+        window.__swiperReady = true;
+      } else {
+        setTimeout(initSwiper, 100);
+      }
+    }
     document.addEventListener('DOMContentLoaded', function() {
-      new Swiper('.gallery-swiper', {
-        loop: true,
-        pagination: { el: '.swiper-pagination', clickable: true },
-        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-        keyboard: { enabled: true },
-        a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
-      });
+      initSwiper();
       if (typeof PortMap !== 'undefined') {
         PortMap.init({ containerId: 'port-map', portSlug: 'zihuatanejo' });
       }

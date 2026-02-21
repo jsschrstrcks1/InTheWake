@@ -188,7 +188,7 @@ Soli Deo Gloria
                data-port-name="Mazatlan Port Guide"
                data-lat="23.2494"
                data-lon="-106.4117"
-               data-region="Caribbean">
+               data-region="North America">
             <noscript>
               <div class="seasonal-guide seasonal-guide-static">
                 <details class="seasonal-section" open>
@@ -286,7 +286,7 @@ Soli Deo Gloria
             <figcaption>Plaza Machado anchors the restored Centro Historico — <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></figcaption>
           </figure>
 
-          <p>The Spanish claimed this coast in the 1530s, but it was German immigrants in the 1800s who truly developed the port into a commercial powerhouse. After Mexico's independence in 1821, Mazatlan briefly served as the capital of Sinaloa. That European influence lingers in the architecture—the opera houses, the plazas, the wrought-iron balconies—a layer of history most beach resorts simply don't possess. However, I found myself most captivated by how the city wears its history casually, continuing daily life among buildings that elsewhere would be roped off as museums.</p>
+          <p>The Spanish claimed this coast in the 1530s, but it was German immigrants in the 1800s who developed the port into a commercial powerhouse. After Mexico's independence in 1821, Mazatlan briefly served as the capital of Sinaloa. That European influence lingers in the architecture—the opera houses, the plazas, the wrought-iron balconies—a layer of history most beach resorts simply don't possess. However, I found myself most captivated by how the city wears its history casually, continuing daily life among buildings that elsewhere would be roped off as museums.</p>
 
           <p>The city's dual personality works entirely in your favor. Want all-inclusive resort vibes, beach clubs, and cerveza by the pool? The Golden Zone delivers exactly that experience. Want colonial architecture, serious Mexican cuisine, and cliff divers launching from 50-foot rocks? Centro Historico awaits with all of it. Most cruise passengers never leave the Golden Zone, which means the historic center rewards those who make the effort with uncrowded plazas and authentic encounters. I followed a distinctive blue cobblestone path from the port directly into Old Town—a welcoming one-mile walk that felt intentionally symbolic.</p>
 
@@ -348,7 +348,7 @@ Soli Deo Gloria
       <!-- Excursions Section -->
       <details class="port-section" id="excursions" open>
             <summary><h2>Top Excursions &amp; Things to Do</h2></summary>
-        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: Ship excursions guarantee return to vessel but cost 40-60% more. For Centro Historico and cliff divers, independent exploration works perfectly—just walk the blue cobblestone path. For Golden Zone beach days and Stone Island, independent transport is easy and saves money. Book El Faro hikes through ship only if you need a guide; otherwise, it's a straightforward self-guided walk.</p>
+        <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: Ship excursions guarantee return to vessel but cost 40-60% more. For Centro Historico and cliff divers, independent exploration works perfectly—just walk the blue cobblestone path. For Golden Zone beach days and Stone Island, independent transport is easy and saves money. A ship excursion provides guaranteed return to vessel for Stone Island or longer trips; otherwise, El Faro and Centro Historico need no booking—just walk. Book ahead for brewery tours during peak season.</p>
 
         <h4  class="mt-1">Centro Historico Walking Tour (free to $40)</h4>
         <p>ESSENTIAL for history lovers. Walk the blue cobblestone path from port into 500-year-old streets radiating from Plaza Machado. Explore the Teatro Angela Peralta (1874 opera house, often open for peek inside), Basilica of the Immaculate Conception, galleries, and restaurants. Self-guided is free; guided walking tours through ship run $35-45; local guides at the plaza offer similar tours for $20-30. The municipal market (Mercado Pino Suarez) sells fresh produce, seafood, and prepared foods at local prices—authentic rather than tourist-focused.</p>
@@ -511,6 +511,31 @@ Soli Deo Gloria
         <strong>Quick Answer:</strong> Mazatlan—the "Pearl of the Pacific"—offers both Golden Zone beach resort vibes and an authentically restored Centro Historico with 500-year-old buildings. A blue cobblestone path leads from port to Old Town. The 13-mile malecon, cliff divers at El Mirador, and one of the world's highest lighthouses at El Faro await those who venture beyond the obvious.
       </p>
     </section>
+
+    <section class="card" aria-labelledby="glance-heading">
+      <h3 id="glance-heading">Port Snapshot</h3>
+      <div class="at-a-glance-grid">
+        <div class="at-a-glance-item"><strong>Location</strong><span>Pacific coast, Sinaloa, Mexico</span></div>
+        <div class="at-a-glance-item"><strong>Access</strong><span>Dock — ships berth directly</span></div>
+        <div class="at-a-glance-item"><strong>Currency</strong><span>Mexican Peso (MXN); USD accepted</span></div>
+        <div class="at-a-glance-item"><strong>Language</strong><span>Spanish; some English in tourist areas</span></div>
+        <div class="at-a-glance-item"><strong>Best For</strong><span>Centro Historico, beaches, cliff divers</span></div>
+        <div class="at-a-glance-item"><strong>Walking</strong><span>Moderate — blue path to Old Town 20 min</span></div>
+      </div>
+    </section>
+
+    <section class="card key-facts">
+      <h3>Key Facts</h3>
+      <dl>
+        <dt>Port Type</dt><dd>Dock port (ships berth directly)</dd>
+        <dt>Walk to Town</dt><dd>20 min via blue cobblestone path</dd>
+        <dt>Star Attraction</dt><dd>Centro Historico (restored Old Town)</dd>
+        <dt>Lighthouse</dt><dd>El Faro — one of world's highest</dd>
+        <dt>Malecón</dt><dd>13-mile oceanfront boardwalk</dd>
+        <dt>Best Season</dt><dd>November–April (dry season)</dd>
+      </dl>
+    </section>
+
     <section class="card author-card-vertical" aria-labelledby="author-heading">
       <h3 id="author-heading">About the Author</h3>
       <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
@@ -630,14 +655,22 @@ Soli Deo Gloria
   <script src="/assets/js/recent-rail.js" defer></script>
   <script src="/assets/js/whimsical-port-units.js" defer></script>
   <script>
+    function initSwiper() {
+      if (typeof Swiper !== 'undefined') {
+        new Swiper('.gallery-swiper', {
+          loop: true,
+          pagination: { el: '.swiper-pagination', clickable: true },
+          navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+          keyboard: { enabled: true },
+          a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+        });
+        window.__swiperReady = true;
+      } else {
+        setTimeout(initSwiper, 100);
+      }
+    }
     document.addEventListener('DOMContentLoaded', function() {
-      new Swiper('.gallery-swiper', {
-        loop: true,
-        pagination: { el: '.swiper-pagination', clickable: true },
-        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-        keyboard: { enabled: true },
-        a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
-      });
+      initSwiper();
       if (typeof PortMap !== 'undefined') {
         PortMap.init({ containerId: 'port-map', portSlug: 'mazatlan' });
       }
