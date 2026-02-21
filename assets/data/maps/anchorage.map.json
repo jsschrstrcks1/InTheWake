@@ -4,7 +4,6 @@
     "generated": "2025-12-12T00:00:00Z",
     "source": "Researched from TripAdvisor, Viator, Alaska.org, and local guides"
   },
-
   "port_slug": "anchorage",
   "port_name": "Anchorage",
   "port_pin": {
@@ -12,15 +11,13 @@
     "lon": -149.8997,
     "label": "Downtown Anchorage"
   },
-
   "bbox_hint": {
-    "south": 60.70,
-    "west": -150.20,
+    "south": 60.7,
+    "west": -150.2,
     "north": 61.85,
-    "east": -147.50,
+    "east": -147.5,
     "note": "Covers Anchorage metro and key attractions including Matanuska Glacier, Portage Glacier, and Girdwood"
   },
-
   "poi_ids": [
     "anchorage-downtown",
     "ted-stevens-airport",
@@ -42,9 +39,86 @@
     "mooses-tooth",
     "simon-and-seaforts",
     "humpys-alehouse",
-    "fire-island-bakeshop"
+    "fire-island-bakeshop",
+    "port-of-anchorage",
+    "flattop-mountain-trail",
+    "lake-hood-seaplane-base",
+    "ship-creek-salmon-viewing",
+    "resolution-park-captain-cook",
+    "4th-avenue-historic-district"
   ],
-
+  "pois": [
+    {
+      "id": "port-of-anchorage",
+      "name": "Port of Anchorage",
+      "lat": 61.23,
+      "lon": -149.894,
+      "type": "port"
+    },
+    {
+      "id": "anchorage-museum",
+      "name": "Anchorage Museum",
+      "lat": 61.2166,
+      "lon": -149.884,
+      "type": "cultural"
+    },
+    {
+      "id": "tony-knowles-coastal-trail",
+      "name": "Tony Knowles Coastal Trail",
+      "lat": 61.22,
+      "lon": -149.91,
+      "type": "scenic"
+    },
+    {
+      "id": "alaska-wildlife-conservation-center",
+      "name": "Alaska Wildlife Conservation Center",
+      "lat": 60.8231,
+      "lon": -148.9758,
+      "type": "nature"
+    },
+    {
+      "id": "earthquake-park",
+      "name": "Earthquake Park",
+      "lat": 61.2085,
+      "lon": -149.95,
+      "type": "landmark"
+    },
+    {
+      "id": "flattop-mountain-trail",
+      "name": "Flattop Mountain Trail",
+      "lat": 61.138,
+      "lon": -149.686,
+      "type": "nature"
+    },
+    {
+      "id": "lake-hood-seaplane-base",
+      "name": "Lake Hood Seaplane Base",
+      "lat": 61.183,
+      "lon": -149.962,
+      "type": "landmark"
+    },
+    {
+      "id": "ship-creek-salmon-viewing",
+      "name": "Ship Creek Salmon Viewing",
+      "lat": 61.2295,
+      "lon": -149.8835,
+      "type": "nature"
+    },
+    {
+      "id": "resolution-park-captain-cook",
+      "name": "Resolution Park Captain Cook Monument",
+      "lat": 61.2193,
+      "lon": -149.9025,
+      "type": "landmark"
+    },
+    {
+      "id": "4th-avenue-historic-district",
+      "name": "4th Avenue Historic District",
+      "lat": 61.217,
+      "lon": -149.881,
+      "type": "shopping"
+    }
+  ],
   "label_overrides": {
     "alaska-wildlife-conservation-center": "Wildlife Center (30 min south - TOP RATED)",
     "matanuska-glacier": "Matanuska Glacier (2 hr - ice walks)",
@@ -52,11 +126,9 @@
     "girdwood-alyeska": "Girdwood/Alyeska (40 min - tram)",
     "tony-knowles-coastal-trail": "Coastal Trail (11 mi, moose viewing)"
   },
-
   "approximate_markers": [
     "matanuska-glacier"
   ],
-
   "transit_routes": [
     {
       "id": "whittier-transfer",
@@ -64,7 +136,10 @@
       "type": "bus",
       "cost": "$65-85",
       "duration": "1.5-2 hours",
-      "connects": ["anchorage-downtown", "ted-stevens-airport"],
+      "connects": [
+        "anchorage-downtown",
+        "ted-stevens-airport"
+      ],
       "note": "Park Connection, ACT, and other operators. Through Anton Anderson Memorial Tunnel."
     },
     {
@@ -73,7 +148,10 @@
       "type": "bus",
       "cost": "$65-95",
       "duration": "2.5-3 hours",
-      "connects": ["anchorage-downtown", "ted-stevens-airport"],
+      "connects": [
+        "anchorage-downtown",
+        "ted-stevens-airport"
+      ],
       "note": "Park Connection and other operators via Seward Highway."
     },
     {
@@ -82,7 +160,9 @@
       "type": "train",
       "cost": "$125-275",
       "duration": "4 hours",
-      "connects": ["alaska-railroad-depot-anchorage"],
+      "connects": [
+        "alaska-railroad-depot-anchorage"
+      ],
       "note": "Scenic coastal route. GoldStar glass-domed cars recommended."
     },
     {
@@ -91,7 +171,9 @@
       "type": "train",
       "cost": "$100-200",
       "duration": "2.5 hours",
-      "connects": ["alaska-railroad-depot-anchorage"],
+      "connects": [
+        "alaska-railroad-depot-anchorage"
+      ],
       "note": "Late departure (6:45 PM). Limited Whittier infrastructure for day wait."
     },
     {
@@ -104,38 +186,61 @@
       "note": "Mid-May through mid-September. Covers Earthquake Park, Lake Hood, Railroad Depot."
     }
   ],
-
   "featured_experiences": [
     {
       "name": "Glacier View Wildlife Adventure",
       "provider": "Welcome Anchorage Tours",
       "type": "tour",
       "duration": "6-8 hours",
-      "highlights": ["Alaska Wildlife Conservation Center", "Seward Highway scenic drive", "Glacier views"],
-      "awards": ["Viator Experience Award 2025 - Top 1% nationwide"],
+      "highlights": [
+        "Alaska Wildlife Conservation Center",
+        "Seward Highway scenic drive",
+        "Glacier views"
+      ],
+      "awards": [
+        "Viator Experience Award 2025 - Top 1% nationwide"
+      ],
       "note": "Consistently top-rated tour combining wildlife and scenery."
     },
     {
       "name": "Matanuska Glacier Ice Walk",
       "type": "adventure",
       "duration": "Full day",
-      "highlights": ["Walk on glacier ice", "Explore crevasses", "Blue ice pools"],
+      "highlights": [
+        "Walk on glacier ice",
+        "Explore crevasses",
+        "Blue ice pools"
+      ],
       "note": "Alaska's largest road-accessible glacier. Guided tours required."
     },
     {
       "name": "Flightseeing with Glacier Landing",
       "type": "flightseeing",
       "duration": "2-3 hours",
-      "providers": ["Rust's Flying Service", "various operators"],
-      "highlights": ["Denali views", "Glacier landing", "Aerial scenery"],
+      "providers": [
+        "Rust's Flying Service",
+        "various operators"
+      ],
+      "highlights": [
+        "Denali views",
+        "Glacier landing",
+        "Aerial scenery"
+      ],
       "note": "Weather dependent. Book in advance during cruise season."
     },
     {
       "name": "Bear Viewing Day Trip",
       "type": "flightseeing",
       "duration": "Full day",
-      "destinations": ["Lake Clark", "Katmai"],
-      "highlights": ["Wild brown bears", "Remote Alaska", "Floatplane flight"],
+      "destinations": [
+        "Lake Clark",
+        "Katmai"
+      ],
+      "highlights": [
+        "Wild brown bears",
+        "Remote Alaska",
+        "Floatplane flight"
+      ],
       "note": "Premium experience ($700+). Bucket-list for wildlife enthusiasts."
     }
   ]

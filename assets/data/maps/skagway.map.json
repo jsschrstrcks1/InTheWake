@@ -4,42 +4,117 @@
     "generated": "2025-12-13T00:00:00Z",
     "source": "Researched from Skagway tourism, White Pass Railroad, and NPS"
   },
-
   "port_slug": "skagway",
   "port_name": "Skagway",
   "port_pin": {
-    "lat": 59.4500,
+    "lat": 59.45,
     "lon": -135.3167,
     "label": "Skagway Cruise Ship Docks"
   },
-
   "bbox_hint": {
-    "south": 59.40,
-    "west": -135.40,
+    "south": 59.4,
+    "west": -135.4,
     "north": 59.55,
     "east": -135.25,
     "note": "Covers Skagway town, railroad, and Chilkoot Trail access"
   },
-
   "poi_ids": [
     "skagway-cruise-dock",
     "skagway-broadway",
     "white-pass-railroad",
     "chilkoot-trail",
     "red-onion-saloon",
-    "klondike-gold-rush-nhp"
+    "klondike-gold-rush-nhp",
+    "skagway-cruise-terminal",
+    "white-pass-yukon-route",
+    "klondike-gold-rush-nhp-vc",
+    "skagway-museum",
+    "broadway-historic-district",
+    "jeff-smiths-parlor-museum",
+    "gold-rush-cemetery",
+    "lower-dewey-lake-trail",
+    "skagway-brewing-company"
   ],
-
+  "pois": [
+    {
+      "id": "skagway-cruise-terminal",
+      "name": "Skagway Cruise Terminal",
+      "lat": 59.4483,
+      "lon": -135.3145,
+      "type": "port"
+    },
+    {
+      "id": "white-pass-yukon-route",
+      "name": "White Pass & Yukon Route Railway",
+      "lat": 59.457,
+      "lon": -135.302,
+      "type": "attraction"
+    },
+    {
+      "id": "klondike-gold-rush-nhp-vc",
+      "name": "Klondike Gold Rush NHP Visitor Center",
+      "lat": 59.4575,
+      "lon": -135.3142,
+      "type": "cultural"
+    },
+    {
+      "id": "red-onion-saloon",
+      "name": "Red Onion Saloon",
+      "lat": 59.458,
+      "lon": -135.315,
+      "type": "landmark"
+    },
+    {
+      "id": "skagway-museum",
+      "name": "Skagway Museum",
+      "lat": 59.4574,
+      "lon": -135.3167,
+      "type": "cultural"
+    },
+    {
+      "id": "broadway-historic-district",
+      "name": "Broadway Street Historic District",
+      "lat": 59.458,
+      "lon": -135.314,
+      "type": "scenic"
+    },
+    {
+      "id": "jeff-smiths-parlor-museum",
+      "name": "Jeff Smiths Parlor Museum",
+      "lat": 59.4577,
+      "lon": -135.314,
+      "type": "cultural"
+    },
+    {
+      "id": "gold-rush-cemetery",
+      "name": "Gold Rush Cemetery",
+      "lat": 59.454,
+      "lon": -135.296,
+      "type": "landmark"
+    },
+    {
+      "id": "lower-dewey-lake-trail",
+      "name": "Lower Dewey Lake Trail",
+      "lat": 59.455,
+      "lon": -135.305,
+      "type": "nature"
+    },
+    {
+      "id": "skagway-brewing-company",
+      "name": "Skagway Brewing Company",
+      "lat": 59.4585,
+      "lon": -135.3135,
+      "type": "dining"
+    }
+  ],
   "label_overrides": {
     "white-pass-railroad": "White Pass Railroad (must-do!)",
     "skagway-broadway": "Broadway Street (gold rush main street)",
     "chilkoot-trail": "Chilkoot Trail (historic gold rush route)"
   },
-
   "approximate_markers": [
     "chilkoot-trail"
   ],
-
   "transit_routes": [
     {
       "id": "walk-to-broadway",
@@ -47,7 +122,11 @@
       "type": "walking",
       "cost": "Free",
       "duration": "5-10 minutes",
-      "connects": ["skagway-cruise-dock", "skagway-broadway", "klondike-gold-rush-nhp"],
+      "connects": [
+        "skagway-cruise-dock",
+        "skagway-broadway",
+        "klondike-gold-rush-nhp"
+      ],
       "note": "All docks within easy walk of historic Broadway Street."
     },
     {
@@ -56,31 +135,45 @@
       "type": "train",
       "cost": "USD 140-250",
       "duration": "3-4 hours",
-      "connects": ["skagway-cruise-dock", "white-pass-railroad"],
+      "connects": [
+        "skagway-cruise-dock",
+        "white-pass-railroad"
+      ],
       "note": "Multiple trip options: Summit Excursion, Fraser, or Yukon Adventure. Book well ahead."
     }
   ],
-
   "featured_experiences": [
     {
       "name": "White Pass & Yukon Route Railroad",
       "type": "adventure",
       "duration": "3-4 hours",
-      "highlights": ["1898 narrow-gauge railroad", "3,000ft climb", "Stunning scenery"],
+      "highlights": [
+        "1898 narrow-gauge railroad",
+        "3,000ft climb",
+        "Stunning scenery"
+      ],
       "note": "THE signature Skagway experience. Multiple routes. Book far in advance - sells out."
     },
     {
       "name": "Gold Rush Historic District",
       "type": "cultural",
       "duration": "1-2 hours",
-      "highlights": ["Restored 1898 buildings", "Ranger programs", "Red Onion Saloon"],
+      "highlights": [
+        "Restored 1898 buildings",
+        "Ranger programs",
+        "Red Onion Saloon"
+      ],
       "note": "Broadway preserved as 1898 boomtown. Free NPS walking tour. Excellent museums."
     },
     {
       "name": "Chilkoot Trail Experience",
       "type": "nature",
       "duration": "Half day to multi-day",
-      "highlights": ["Historic stampeder route", "Ranger programs", "Dyea ghost town"],
+      "highlights": [
+        "Historic stampeder route",
+        "Ranger programs",
+        "Dyea ghost town"
+      ],
       "note": "Day trips to lower trail and Dyea available. Full trail is serious multi-day hike."
     }
   ]

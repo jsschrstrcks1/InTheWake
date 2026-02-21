@@ -4,7 +4,6 @@
     "generated": "2025-12-13T00:00:00Z",
     "source": "Researched from Sitka tourism, NPS, and Alaska cruise guides"
   },
-
   "port_slug": "sitka",
   "port_name": "Sitka",
   "port_pin": {
@@ -12,32 +11,106 @@
     "lon": -135.3417,
     "label": "Sitka Cruise Ship Lightering Dock"
   },
-
   "bbox_hint": {
-    "south": 57.00,
-    "west": -135.40,
-    "north": 57.10,
+    "south": 57,
+    "west": -135.4,
+    "north": 57.1,
     "east": -135.25,
     "note": "Covers downtown Sitka and surrounding attractions"
   },
-
   "poi_ids": [
     "sitka-cruise-dock",
     "st-michaels-cathedral",
     "sitka-national-historical-park",
     "alaska-raptor-center",
     "fortress-bears",
-    "sitka-downtown"
+    "sitka-downtown",
+    "sitka-cruise-tender-dock",
+    "fortress-of-the-bear",
+    "sitka-sound-science-center",
+    "sheldon-jackson-museum",
+    "russian-bishop-house",
+    "whale-park",
+    "castle-hill"
   ],
-
+  "pois": [
+    {
+      "id": "sitka-cruise-tender-dock",
+      "name": "Sitka Cruise Tender Dock",
+      "lat": 57.0488,
+      "lon": -135.33,
+      "type": "port"
+    },
+    {
+      "id": "sitka-national-historical-park",
+      "name": "Sitka National Historical Park",
+      "lat": 57.0468,
+      "lon": -135.3118,
+      "type": "cultural"
+    },
+    {
+      "id": "alaska-raptor-center",
+      "name": "Alaska Raptor Center",
+      "lat": 57.0477,
+      "lon": -135.3375,
+      "type": "nature"
+    },
+    {
+      "id": "st-michaels-cathedral",
+      "name": "St Michaels Cathedral",
+      "lat": 57.052,
+      "lon": -135.3373,
+      "type": "landmark"
+    },
+    {
+      "id": "fortress-of-the-bear",
+      "name": "Fortress of the Bear",
+      "lat": 57.028,
+      "lon": -135.365,
+      "type": "nature"
+    },
+    {
+      "id": "sitka-sound-science-center",
+      "name": "Sitka Sound Science Center",
+      "lat": 57.049,
+      "lon": -135.3405,
+      "type": "cultural"
+    },
+    {
+      "id": "sheldon-jackson-museum",
+      "name": "Sheldon Jackson Museum",
+      "lat": 57.0455,
+      "lon": -135.329,
+      "type": "cultural"
+    },
+    {
+      "id": "russian-bishop-house",
+      "name": "Russian Bishop House",
+      "lat": 57.051,
+      "lon": -135.3348,
+      "type": "landmark"
+    },
+    {
+      "id": "whale-park",
+      "name": "Whale Park",
+      "lat": 57.0538,
+      "lon": -135.348,
+      "type": "scenic"
+    },
+    {
+      "id": "castle-hill",
+      "name": "Castle Hill",
+      "lat": 57.053,
+      "lon": -135.338,
+      "type": "landmark"
+    }
+  ],
   "label_overrides": {
     "st-michaels-cathedral": "St. Michael's Cathedral (Russian Orthodox)",
     "sitka-national-historical-park": "Sitka NHP (totems & history)",
     "alaska-raptor-center": "Raptor Center (eagle encounters)"
   },
-
   "approximate_markers": [],
-
   "transit_routes": [
     {
       "id": "tender-to-shore",
@@ -45,7 +118,9 @@
       "type": "boat",
       "cost": "Included",
       "duration": "10-15 minutes",
-      "connects": ["sitka-cruise-dock"],
+      "connects": [
+        "sitka-cruise-dock"
+      ],
       "note": "Tender port - ships anchor in Sitka Sound. Tenders run continuously to O'Connell or Crescent Harbor."
     },
     {
@@ -54,31 +129,46 @@
       "type": "walking",
       "cost": "Free",
       "duration": "5-20 minutes to attractions",
-      "connects": ["sitka-cruise-dock", "st-michaels-cathedral", "sitka-national-historical-park"],
+      "connects": [
+        "sitka-cruise-dock",
+        "st-michaels-cathedral",
+        "sitka-national-historical-park"
+      ],
       "note": "Downtown and NHP very walkable from both tender locations."
     }
   ],
-
   "featured_experiences": [
     {
       "name": "Sitka National Historical Park",
       "type": "cultural",
       "duration": "1-2 hours",
-      "highlights": ["Totem pole trail", "1804 battleground", "Cultural center"],
+      "highlights": [
+        "Totem pole trail",
+        "1804 battleground",
+        "Cultural center"
+      ],
       "note": "Site of last major Tlingit resistance to Russians. Beautiful rainforest walk with totems."
     },
     {
       "name": "Alaska Raptor Center",
       "type": "wildlife",
       "duration": "1-2 hours",
-      "highlights": ["Bald eagle encounters", "Flight demonstrations", "Rehabilitation"],
+      "highlights": [
+        "Bald eagle encounters",
+        "Flight demonstrations",
+        "Rehabilitation"
+      ],
       "note": "Up-close with eagles and other raptors. Very popular - book ship excursion or taxi."
     },
     {
       "name": "Russian Heritage Walking",
       "type": "cultural",
       "duration": "2-3 hours",
-      "highlights": ["St. Michael's Cathedral", "Russian Bishop's House", "Unique history"],
+      "highlights": [
+        "St. Michael's Cathedral",
+        "Russian Bishop's House",
+        "Unique history"
+      ],
       "note": "Alaska's Russian capital before 1867 purchase. Cathedral icons from 1848."
     }
   ]
