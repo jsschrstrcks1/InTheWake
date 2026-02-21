@@ -306,6 +306,14 @@ Soli Deo Gloria
 </article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+    <section class="card" aria-labelledby="nearby-ports-title">
+      <h3 id="nearby-ports-title">Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Other ports in this region:
+      </p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+    </section>
+
       <section class="card quick-answer">
         <h2>Quick Answer</h2>
         <p><strong>Honningsvåg</strong> is the gateway to North Cape (Nordkapp), often called Europe's northernmost point. A 307-meter cliff 34 km from town, accessible by excursion or bus. Midnight sun May-July; Northern Lights in winter. Small Arctic fishing town with ~2,500 residents. Cold even in summer — bring layers.</p>
@@ -402,7 +410,16 @@ Soli Deo Gloria
         </div>
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
-</aside>
+
+    <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <p class="tiny content-text">
+        Real cruising experiences, practical guides, and heartfelt reflections from our community.
+      </p>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
+    </section>
+  </aside>
   
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
@@ -435,7 +452,9 @@ Soli Deo Gloria
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>window.currentPortId = 'honningsvag';</script>
   <script src="/assets/js/nearby-ports.js" defer></script>
+  <script src="/assets/js/article-rail.js"></script>
   <script>if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') { PortMap.init({ containerId: 'port-map', portSlug: 'honningsvag' }); }</script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>

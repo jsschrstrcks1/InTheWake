@@ -448,6 +448,14 @@ Soli Deo Gloria
       <!-- GALLERY SECTION --></article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+    <section class="card" aria-labelledby="nearby-ports-title">
+      <h3 id="nearby-ports-title">Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Other ports in this region:
+      </p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+    </section>
+
       <section class="page-intro mb-1">
         <p class="answer-line"><strong>Quick Answer:</strong> Alexandria is Egypt's Mediterranean gateway to Cairo's pyramids (3 hours by road, $150–250 USD), the rebuilt Bibliotheca Alexandrina, and 2,300 years of Greco-Roman history — all reachable from the commercial cruise port via ship excursions or private guides.</p>
       </section>
@@ -569,22 +577,8 @@ Soli Deo Gloria
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
-  <script>
-  (async function recentRail(){
-    const rail = document.getElementById('recent-rail'); if(!rail) return;
-    try {
-      const response = await fetch('/assets/data/articles/index.json');
-      const data = await response.json();
-      const articles = data.articles || data;
-      const recent = articles.slice(0, 4);
-      rail.innerHTML = recent.map(a =>
-        `<a href="${a.url}" class="rail-article-link">${a.title}</a>`
-      ).join('');
-    } catch(e) {
-      const fb = document.getElementById('recent-rail-fallback');
-      if(fb) { fb.textContent = 'Could not load recent stories.'; fb.classList.remove('hidden'); }
-    }
-  })();
-  </script>
+  <script>window.currentPortId = 'alexandria';</script>
+  <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
 </body>
 </html>

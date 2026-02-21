@@ -471,6 +471,14 @@ Soli Deo Gloria
       <!-- GALLERY SECTION --></article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+    <section class="card" aria-labelledby="nearby-ports-title">
+      <h3 id="nearby-ports-title">Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Other ports in this region:
+      </p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+    </section>
+
       <section class="page-intro" style="margin: 0 0 1rem 0;">
         <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
           <strong>Quick Answer:</strong> Bangkok via Laem Chabang demands a two-hour drive each way, but the Grand Palace, Wat Arun's porcelain spires, and Chinatown's legendary street food reward every kilometer of the journey.
@@ -653,30 +661,10 @@ Soli Deo Gloria
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
-  <script>
-    // Load recent articles
-    (async function() {
-      try {
-        const response = await fetch('/assets/data/articles/index.json');
-        const articles = await response.json();
-        const rail = document.getElementById('recent-rail');
-
-        if (rail && articles && articles.length > 0) {
-          rail.innerHTML = articles.slice(0, 5).map(article => `
-            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
-                <a href="${article.url}">${article.title}</a>
-              </h4>
-              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
-            </div>
-          `).join('');
-        }
-      } catch (err) {
-
-      }
-    })();
-  </script>
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+  <script>window.currentPortId = 'bangkok';</script>
+  <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
 </body>
 </html>

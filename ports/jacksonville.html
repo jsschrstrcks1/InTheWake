@@ -530,7 +530,16 @@ Soli Deo Gloria
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
 
-    </aside>
+    
+    <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <p class="tiny content-text">
+        Real cruising experiences, practical guides, and heartfelt reflections from our community.
+      </p>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
+    </section>
+  </aside>
 
     <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
   
@@ -566,18 +575,7 @@ Soli Deo Gloria
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script>window.currentPortId = 'jacksonville';</script>
   <script src="/assets/js/nearby-ports.js"></script>
-
-  <script>
-  (async function(){
-    const rail = document.getElementById('recent-rail');
-    if(!rail) return;
-    try {
-      const res = await fetch('/assets/data/articles/index.json');
-      const articles = await res.json();
-      rail.innerHTML = articles.slice(0, 4).map(a => '<div style="margin-bottom:.75rem;"><a href="' + a.url + '">' + a.title + '</a></div>').join('');
-    } catch(e) {}
-  })();
-  </script>
+  <script src="/assets/js/article-rail.js"></script>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/modules/port-map.js" defer></script>

@@ -450,6 +450,14 @@ Soli Deo Gloria
       <!-- GALLERY SECTION --><!-- CREDITS SECTION --></article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+    <section class="card" aria-labelledby="nearby-ports-title">
+      <h3 id="nearby-ports-title">Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Other ports in this region:
+      </p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+    </section>
+
       <section class="card quick-answer">
         <h2>Quick Answer</h2>
         <p><strong>Brunei</strong> is a wealthy oil-rich sultanate on Borneo's northern coast, ruled by the same royal family since 1363. Visit the stunning Omar Ali Saifuddien Mosque, explore Kampong Ayer water village (the world's largest stilt community), and discover royal treasures at the free Regalia Museum. Tender port 28 km from attractions. Dry country – no alcohol. Modest dress required. Incredibly safe and surprisingly affordable.</p>
@@ -556,7 +564,16 @@ Soli Deo Gloria
         </div>
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
-</aside>
+
+    <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <p class="tiny content-text">
+        Real cruising experiences, practical guides, and heartfelt reflections from our community.
+      </p>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
+    </section>
+  </aside>
   
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
@@ -589,7 +606,9 @@ Soli Deo Gloria
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>window.currentPortId = 'brunei';</script>
   <script src="/assets/js/nearby-ports.js" defer></script>
+  <script src="/assets/js/article-rail.js"></script>
   <script>
     if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
       PortMap.init({

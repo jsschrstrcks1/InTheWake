@@ -373,6 +373,14 @@ Soli Deo Gloria
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+    <section class="card" aria-labelledby="nearby-ports-title">
+      <h3 id="nearby-ports-title">Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Other ports in this region:
+      </p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+    </section>
+
       <section class="card" aria-labelledby="glance-heading">
         <h3 id="glance-heading">Quick Facts</h3>
         <div class="at-a-glance-grid">
@@ -447,7 +455,16 @@ Soli Deo Gloria
         </div>
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
-</aside>
+
+    <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <p class="tiny content-text">
+        Real cruising experiences, practical guides, and heartfelt reflections from our community.
+      </p>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
+    </section>
+  </aside>
   
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
@@ -480,6 +497,7 @@ Soli Deo Gloria
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script>window.currentPortId = 'royal-beach-club-antigua';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
   <script src="/assets/js/whimsical-port-units.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/modules/port-map.js"></script>
