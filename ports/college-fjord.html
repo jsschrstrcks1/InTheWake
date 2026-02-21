@@ -145,6 +145,22 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
 
+  <!-- Swiper CSS/JS -->
+  <script>
+  (function ensureSwiper(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
+
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="College Fjord — 26 Glaciers From Your Ship's Deck"/>
@@ -257,6 +273,15 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <main class="wrap page-grid" id="main-content" role="main" tabindex="-1" style="max-width: 900px; margin: 0 auto; padding: 2rem 1rem;">
     <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
+        <section class="port-hero" id="hero" aria-label="College Fjord scenic cruising hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+          <div class="port-hero-image" style="position: relative;">
+            <img src="/ports/img/college-fjord/college-fjord-hero.webp" alt="Harvard Glacier at the head of College Fjord with mountains and ice" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover;"/>
+            <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+              <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 8vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">College Fjord</h1>
+            </div>
+          </div>
+          <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://www.flickr.com/photos/prior2prayer/3199785874/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a> (CC BY 2.0)</p>
+        </section>
 
       <h1>College Fjord, Alaska</h1>
       <p style="font-size: 0.95rem; color: #456; margin-bottom: 0;">
@@ -266,18 +291,54 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         College Fjord is a scenic cruising passage. Your ship transits the fjord slowly while you take in the views from the deck. There is no port, no dock, and no going ashore.
       </p>
 
+<!-- FROM THE PIER -->
+<nav class="from-the-pier" id="from-the-pier" aria-label="Viewing positions during College Fjord scenic cruising">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Forward Observation Deck</span><div class="pier-detail">Best panoramic views of approaching glaciers and Harvard Glacier</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 2 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:3%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Starboard Promenade</span><div class="pier-detail">Best side for Harvard Glacier approach. Open-air viewing</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 1 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:2%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Upper Observation Lounge</span><div class="pier-detail">Indoor viewing with panoramic windows. Good for cold or wet conditions</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 3 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:4%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Pool Deck Hot Chocolate Station</span><div class="pier-detail">Complimentary beverages during glacier transit on most ships</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 4 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:5%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">College Fjord is a scenic cruising destination — your ship does not dock. Distances refer to walking times between viewing decks on a typical cruise ship. Arrive 15–20 minutes before the announced transit time for the best position.</p>
+</nav>
+
     </article>
 
     <section id="logbook" class="card logbook-entry">
           <details class="section-collapse" open>
             <summary><h2>Captain's Logbook</h2></summary>
 
+      <figure class="logbook-figure float-left" style="max-width:260px;margin:0 1.25rem 1rem 0;float:left;">
+        <img src="/ports/img/college-fjord/college-fjord-1.webp" alt="Glaciers lining the walls of College Fjord in Prince William Sound" loading="lazy" decoding="async" style="width:100%;border-radius:8px;"/>
+        <figcaption class="tiny" style="margin-top:0.35rem;color:#678;">College Fjord glaciers <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/prior2prayer/3199785874/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a></span></figcaption>
+      </figure>
       <p>The captain's voice came over the intercom around six in the morning — earlier than most announcements, earlier than most passengers wanted to hear anything at all. But he said the words "College Fjord" and "glaciers visible off the bow," and within minutes the upper decks were filling with people in bathrobes and parkas, coffee cups steaming in the cold air. I had set my alarm for this. I had been told by a fellow passenger, a retired geologist who had sailed this route four times, that College Fjord would be the single most extraordinary thing I would see in Alaska. He was right.</p>
 
       <p>The ship slowed to a crawl as we entered the fjord, and the world changed. Prince William Sound had already been beautiful — deep water, forested islands, that particular quality of northern light that makes every surface look rinsed clean. But College Fjord was something else entirely. The mountains rose up sharply on both sides, snow-capped and streaked with waterfalls, and between them — in every hanging valley, every carved-out cirque — there were glaciers. Blue-white rivers of ice pouring down from the peaks, some reaching all the way to the water, some retreating up their valleys. Twenty-six of them in a single passage. I lost count trying to identify them all and finally just stood there, letting the scale of it wash over me.</p>
 
       <p>The glaciers are named after colleges — Harvard, Yale, Smith, Bryn Mawr, Vassar, Wellesley, and others — courtesy of the 1899 Harriman Expedition, whose members named them after their respective alma maters. There is something wonderfully absurd about standing on a ship in the Alaskan wilderness, binoculars raised to your eyes, and hearing someone say, "That's Wellesley on the left." The larger glaciers on the northwest side bear men's college names; the smaller ones on the southeast side carry women's college names. A product of the era, perhaps, but the naming convention stuck.</p>
 
+      <figure class="logbook-figure float-right" style="max-width:260px;margin:0 0 1rem 1.25rem;float:right;">
+        <img src="/ports/img/college-fjord/college-fjord-3.webp" alt="Harvard Glacier calving ice into the water at the head of College Fjord" loading="lazy" decoding="async" style="width:100%;border-radius:8px;"/>
+        <figcaption class="tiny" style="margin-top:0.35rem;color:#678;">Harvard Glacier <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/prior2prayer/3199785874/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a></span></figcaption>
+      </figure>
       <p>Harvard Glacier is the star of the show, and it earns that distinction honestly. The ship turned slowly at the head of the fjord, positioning itself perhaps half a mile from the glacier's face, and the sheer scale of it hit me. One and a half miles wide. Over three hundred feet tall at the face — a vertical wall of ice, blue and white and ancient, groaning and cracking in ways you can hear across the water. We watched for nearly forty minutes. Twice during that time, enormous slabs of ice calved from the face and crashed into the sea, sending up plumes of white water and rolling waves that reached the ship as gentle swells. The sound arrived a second or two after the visual — a deep, percussive boom that echoed off the valley walls. Every person on deck gasped. I felt it in my chest.</p>
 
       <p>I had positioned myself on the starboard side based on a tip from the cruise director, and it was the right call for the approach to Harvard. But honestly, the glaciers surrounded us. Yale Glacier sat just to the east of Harvard, and along the port side, a procession of smaller glaciers — Smith, Bryn Mawr, Vassar — filled the hanging valleys with blue ice. I walked back and forth across the ship, port to starboard, trying to take it all in, feeling like a child at a fireworks display who cannot decide which direction to look. Binoculars helped enormously. Without them, the glaciers are stunning; with them, you can see the individual crevasses, the deep blue of compressed ice, the waterfall melt streaming down the faces.</p>
@@ -292,7 +353,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       <p>A few practical notes: dress warmly. The fjord is significantly colder than open water, and you will want to stay outside for the full passage. Bring binoculars — they transform the experience from impressive to intimate. If your ship offers a naturalist narration over the speakers, listen to it; ours was excellent, identifying each glacier by name and explaining the geology. The hot chocolate station the crew set up on the pool deck was a kind mercy. And charge your camera batteries the night before. You will use them.</p>
 
-      <p>College Fjord is not a port. You do not step ashore. You do not buy souvenirs or eat at a local restaurant or walk through a town. And yet it was the single most memorable part of our Alaska voyage — a place where the ship becomes a floating observation platform and nature puts on a show that no human production could match. I have been to grand cathedrals in Europe and stood before great works of art, and I tell you honestly: Harvard Glacier calving into the sea is as close to the sublime as I have come. What matters is not the photographs or the facts about glacier width and height. What matters is the silence after the ice falls, and the way a few hundred strangers stood together at a railing and felt the same thing at the same time. Some things cannot be improved upon. They can only be witnessed, and remembered, and held quietly in the heart.</p>
+      <p>College Fjord is not a port. You do not step ashore. You do not buy souvenirs or eat at a local restaurant or walk through a town. And yet it was the single most memorable part of our Alaska voyage — a place where the ship becomes a floating observation platform and nature puts on a show that no human production could match. I have been to grand cathedrals in Europe and stood before great works of art, and I tell you honestly: Harvard Glacier calving into the sea is as close to the sublime as I have come. What matters is not the photographs or the facts about glacier width and height. What matters is the silence after the ice falls, and the way a few hundred strangers stood together at a railing and felt the same thing at the same time. Some things cannot be improved upon. They can only be witnessed, and remembered, and held quietly in the heart. Something shifted in me that morning among the glaciers, and I carry it still.</p>
             </details>
     </section>
 
@@ -504,6 +565,58 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         </aside>
 
 
+    <section id="gallery" class="card mt-2">
+      <details class="section-collapse" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="collapse-body">
+      <div class="swiper port-gallery" aria-label="College Fjord photo carousel">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/college-fjord/college-fjord-1.webp" alt="Glaciers lining the walls of College Fjord" loading="lazy" decoding="async">
+              <figcaption>College Fjord glaciers <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/prior2prayer/3199785874/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/college-fjord/college-fjord-2.webp" alt="Harvard Glacier face with calving ice and blue crevasses" loading="lazy" decoding="async">
+              <figcaption>Harvard Glacier <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/prior2prayer/3199785874/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/college-fjord/college-fjord-3.webp" alt="Icebergs floating in the water near Harvard Glacier" loading="lazy" decoding="async">
+              <figcaption>Icebergs near Harvard <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/prior2prayer/3199785874/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/college-fjord/college-fjord-4.webp" alt="Snow-capped Chugach Mountains surrounding College Fjord" loading="lazy" decoding="async">
+              <figcaption>Chugach Mountains <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/prior2prayer/3199785874/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/college-fjord/college-fjord-5.webp" alt="Yale Glacier adjacent to Harvard in College Fjord" loading="lazy" decoding="async">
+              <figcaption>Yale Glacier <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/prior2prayer/3199785874/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/college-fjord/college-fjord-6.webp" alt="Ship passengers viewing glaciers from the deck during College Fjord transit" loading="lazy" decoding="async">
+              <figcaption>Viewing from the deck <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/prior2prayer/3199785874/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+      </div>
+      <p class="tiny" style="margin-top: 1rem; color: #678;"><em>Images sourced from Flickr under Creative Commons licenses (CC BY 2.0, CC BY-SA 2.0).</em></p>
+        </div>
+      </details>
+    </section>
+
         <section id="faq" class="card faq mt-2">
           <details class="section-collapse" open>
             <summary><h2>Frequently Asked Questions</h2></summary>
@@ -672,6 +785,26 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/whimsical-port-units.js"></script>
+  <!-- Initialize Photo Gallery Swiper -->
+  <script>
+  (function() {
+    function initSwiper() {
+      if (typeof Swiper !== 'undefined') {
+        new Swiper('.port-gallery', {
+          slidesPerView: 1,
+          spaceBetween: 20,
+          loop: true,
+          pagination: { el: '.swiper-pagination', clickable: true },
+          navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+          breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+        });
+      } else { setTimeout(initSwiper, 100); }
+    }
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initSwiper); }
+    else { initSwiper(); }
+  })();
+  </script>
+
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
 </body>

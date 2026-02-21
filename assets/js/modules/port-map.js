@@ -27,7 +27,15 @@
     shopping: { color: '#c2185b', icon: '🛍️', label: 'Shopping', zIndex: 600 },
     museum: { color: '#512da8', icon: '🏛️', label: 'Museum', zIndex: 600 },
     attraction: { color: '#00796b', icon: '⭐', label: 'Attraction', zIndex: 600 },
-    park: { color: '#689f38', icon: '🌳', label: 'Park', zIndex: 500 }
+    park: { color: '#689f38', icon: '🌳', label: 'Park', zIndex: 500 },
+    cultural: { color: '#6a1b9a', icon: '🎭', label: 'Cultural', zIndex: 600 },
+    scenic: { color: '#00838f', icon: '🌄', label: 'Scenic', zIndex: 500 },
+    dining: { color: '#e65100', icon: '🍽️', label: 'Dining', zIndex: 500 },
+    neighborhood: { color: '#455a64', icon: '🏘️', label: 'Neighborhood', zIndex: 400 },
+    historic: { color: '#795548', icon: '🏰', label: 'Historic', zIndex: 600 },
+    transport: { color: '#546e7a', icon: '🚌', label: 'Transport', zIndex: 400 },
+    market: { color: '#d84315', icon: '🏪', label: 'Market', zIndex: 500 },
+    marina: { color: '#01579b', icon: '⛵', label: 'Marina', zIndex: 600 }
   };
 
   // Default fallback

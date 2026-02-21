@@ -40,6 +40,7 @@ Soli Deo Gloria
   <link rel="stylesheet" href="/assets/styles.css"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" integrity="sha256-dMpqrlRo28kkeQw7TSGaCJuQo0utU6D3yjpz5ztvWrg=" crossorigin="anonymous"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -196,6 +197,39 @@ Soli Deo Gloria
 
               <p class="last-reviewed">Last reviewed: February 2026</p>
                 <div id="logbook-btn-container"></div>
+
+      <!-- FROM THE PIER -->
+      <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Cabo San Lucas tender landing">
+        <h3>From the Pier</h3>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Downtown Cabo</span><div class="pier-detail">Waterfront walk from Dock 5 at marina</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:10%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Medano Beach</span><div class="pier-detail">Water taxi $5–8 or 25-min walk around marina. Club minimums $30–60</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 5 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:4%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Land's End &amp; El Arco</span><div class="pier-detail">Glass-bottom boat $40–55, regular boat tour $35–50</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:10%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Whale Watching (Dec–Apr)</span><div class="pier-detail">$50–80 per person — seasonal humpback and gray whale tours</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 2–3 hrs</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:75%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">San José del Cabo</span><div class="pier-detail">Art district — shuttle $15–20 or taxi $30–40</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 30 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Tender port only — ~10 min tender to Dock 5 at marina. Sport fishing: half-day $350–500, full-day $600–900, budget panga $200–300. Vendor prices are starting points for negotiation. Carry small bills ($1, $5, $10).</p>
+      </nav>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
         <details class="port-section" id="weather-guide" open>
@@ -354,13 +388,13 @@ Soli Deo Gloria
       <p class="real-talk">Cabo is a tender port, which means small boats ferry you from ship to marina — and on rough-weather days, tendering can be delayed or canceled entirely. The wait can be 30-60 minutes during peak disembarkation. Medano Beach is the main swim beach but gets packed with cruise visitors and timeshare sales pitches by midmorning. Lover's Beach (accessible only by water taxi, $15-20 round trip) is dramatically more beautiful and less crowded, but has no facilities — bring your own water and snacks.</p>
 
       <!-- Map Section -->
-      <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Cabo San Lucas Area Map</h3></summary>
+      <section class="port-section port-map-section" id="port-map-section">
+        <h3>Cabo San Lucas Area Map</h3>
         <p class="map-intro">Interactive map showing tender pier, Medano, Land's End, and attractions. Click markers for details.</p>
         <div id="port-map" class="port-map-container" style="height: 350px; border-radius: 8px; margin: 1rem 0;" role="application" aria-label="Interactive map of Cabo San Lucas and points of interest">
           <noscript><p style="padding: 2rem; text-align: center; color: #678;">Enable JavaScript to view the interactive map.</p></noscript>
         </div>
-            </details>
+      </section>
 
       <!-- Beaches Section -->
       <details class="port-section" id="beaches" open>
@@ -404,26 +438,11 @@ Soli Deo Gloria
         </ul>
             </details>
 
-      <!-- FAQ Section -->
-      
         <!-- VOLATILE DATA DISCLAIMER -->
         <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
           <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
           <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-30 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
-
-
-        <details class="port-section faq-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-        <details class="faq-item"><summary>Is Cabo San Lucas a tender port?</summary><p>Yes—all cruise ships anchor in the bay and passengers reach shore via tender boats (approximately 10-minute ride). Tender tickets may be required on busy days; check with guest services. The tender ride itself offers excellent views of Land's End and anchored ships.</p></details>
-        <details class="faq-item"><summary>What's the best beach in Cabo?</summary><p>Medano Beach for swimming, beach clubs, and activity. The water is calm and swimmable, unlike Pacific-facing beaches. Lover's Beach (accessible only by boat) offers the novelty of standing between two oceans but has limited facilities. Avoid swimming on Pacific-facing beaches—dangerous currents cause drownings annually.</p></details>
-        <details class="faq-item"><summary>When is whale watching season?</summary><p>December through April, peaking in January-February. Humpback whales breed and calve in these warm waters, while gray whales migrate through. Tours run multiple times daily during season with high success rates, though sightings are never guaranteed with wild animals.</p></details>
-        <details class="faq-item"><summary>Is Cabo safe for cruise passengers?</summary><p>The tourist areas of Cabo San Lucas are safe. Exercise normal precautions—don't flash valuables, stick to populated areas, use official taxis or Uber. The cartel violence reported elsewhere in Mexico does not typically affect the Los Cabos tourist corridor.</p></details>
-        <details class="faq-item"><summary>How do I get to San José del Cabo?</summary><p>Taxi ($30-40 each way) or shuttle van ($15-20) from the marina. Journey takes about 30 minutes. San José offers art galleries, authentic restaurants, and a quieter colonial atmosphere.</p></details>
-        <details class="faq-item"><summary>What's the best time of year to visit Cabo?</summary><p>October through May offers warm, dry weather. Whale watching peaks December–April. Hurricane season runs June–November, with September being highest risk.</p></details>
-        <details class="faq-item"><summary>Does Cabo have hurricane risk?</summary><p>Hurricane season runs June–November, peaking in September. Cruise lines reroute when needed. Winter sailings avoid storm season. Travel insurance recommended for summer cruises.</p></details>
-        <details class="faq-item"><summary>What should I pack for Cabo?</summary><p>Sunscreen (reef-safe preferred), hat, sunglasses, swimsuit, and water shoes. Light clothing for desert heat. Small bills in USD or pesos for vendors and water taxis.</p></details>
-          </details>
 
       <!-- Gallery Section -->
       <details class="port-section photo-gallery" id="gallery" open>
@@ -475,38 +494,18 @@ Soli Deo Gloria
         </p>
       </aside>
 
-      <!-- FROM THE PIER -->
-      <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Cabo San Lucas tender landing">
-        <h3>From the Pier</h3>
-        <ul class="pier-distances">
-          <li class="pier-distance-item">
-            <div><span class="pier-dest">Downtown Cabo</span><div class="pier-detail">Waterfront walk from Dock 5 at marina</div></div>
-            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
-            <div class="pier-bar"><div class="pier-bar-fill" style="width:10%"></div></div>
-          </li>
-          <li class="pier-distance-item">
-            <div><span class="pier-dest">Medano Beach</span><div class="pier-detail">Water taxi $5–8 or 25-min walk around marina. Club minimums $30–60</div></div>
-            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 5 min</span>
-            <div class="pier-bar"><div class="pier-bar-fill" style="width:4%"></div></div>
-          </li>
-          <li class="pier-distance-item">
-            <div><span class="pier-dest">Land's End &amp; El Arco</span><div class="pier-detail">Glass-bottom boat $40–55, regular boat tour $35–50</div></div>
-            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 15 min</span>
-            <div class="pier-bar"><div class="pier-bar-fill" style="width:10%"></div></div>
-          </li>
-          <li class="pier-distance-item">
-            <div><span class="pier-dest">Whale Watching (Dec–Apr)</span><div class="pier-detail">$50–80 per person — seasonal humpback and gray whale tours</div></div>
-            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 2–3 hrs</span>
-            <div class="pier-bar"><div class="pier-bar-fill" style="width:75%"></div></div>
-          </li>
-          <li class="pier-distance-item">
-            <div><span class="pier-dest">San José del Cabo</span><div class="pier-detail">Art district — shuttle $15–20 or taxi $30–40</div></div>
-            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 30 min</span>
-            <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
-          </li>
-        </ul>
-        <p class="pier-note">Tender port only — ~10 min tender to Dock 5 at marina. Sport fishing: half-day $350–500, full-day $600–900, budget panga $200–300. Vendor prices are starting points for negotiation. Carry small bills ($1, $5, $10).</p>
-      </nav>
+      <!-- FAQ Section — always last -->
+      <details class="port-section faq-section" id="faq" open>
+            <summary><h2>Frequently Asked Questions</h2></summary>
+        <details class="faq-item"><summary>Is Cabo San Lucas a tender port?</summary><p>Yes—all cruise ships anchor in the bay and passengers reach shore via tender boats (approximately 10-minute ride). Tender tickets may be required on busy days; check with guest services. The tender ride itself offers excellent views of Land's End and anchored ships.</p></details>
+        <details class="faq-item"><summary>What's the best beach in Cabo?</summary><p>Medano Beach for swimming, beach clubs, and activity. The water is calm and swimmable, unlike Pacific-facing beaches. Lover's Beach (accessible only by boat) offers the novelty of standing between two oceans but has limited facilities. Avoid swimming on Pacific-facing beaches—dangerous currents cause drownings annually.</p></details>
+        <details class="faq-item"><summary>When is whale watching season?</summary><p>December through April, peaking in January-February. Humpback whales breed and calve in these warm waters, while gray whales migrate through. Tours run multiple times daily during season with high success rates, though sightings are never guaranteed with wild animals.</p></details>
+        <details class="faq-item"><summary>Is Cabo safe for cruise passengers?</summary><p>The tourist areas of Cabo San Lucas are safe. Exercise normal precautions—don't flash valuables, stick to populated areas, use official taxis or Uber. The cartel violence reported elsewhere in Mexico does not typically affect the Los Cabos tourist corridor.</p></details>
+        <details class="faq-item"><summary>How do I get to San José del Cabo?</summary><p>Taxi ($30-40 each way) or shuttle van ($15-20) from the marina. Journey takes about 30 minutes. San José offers art galleries, authentic restaurants, and a quieter colonial atmosphere.</p></details>
+        <details class="faq-item"><summary>What's the best time of year to visit Cabo?</summary><p>October through May offers warm, dry weather. Whale watching peaks December–April. Hurricane season runs June–November, with September being highest risk.</p></details>
+        <details class="faq-item"><summary>Does Cabo have hurricane risk?</summary><p>Hurricane season runs June–November, peaking in September. Cruise lines reroute when needed. Winter sailings avoid storm season. Travel insurance recommended for summer cruises.</p></details>
+        <details class="faq-item"><summary>What should I pack for Cabo?</summary><p>Sunscreen (reef-safe preferred), hat, sunglasses, swimsuit, and water shoes. Light clothing for desert heat. Small bills in USD or pesos for vendors and water taxis.</p></details>
+      </details>
 
     </article>
   </div>
@@ -652,14 +651,14 @@ Soli Deo Gloria
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="/assets/js/dropdown.js" defer></script>
+  <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/port-logbook-btn.js" defer></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
-  <script src="/assets/js/modules/port-map.js" defer></script>
-  <script src="/assets/js/nearby-ports.js" defer></script>
-  <script src="/assets/js/recent-rail.js" defer></script>
-  <script src="/assets/js/whimsical-port-units.js" defer></script>
+  <script>window.currentPortId = 'cabo-san-lucas';</script>
+  <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/whimsical-port-units.js"></script>
+  <script src="/assets/js/modules/port-map.js"></script>
   <script>
     function initSwiper() {
       if (typeof Swiper !== 'undefined') {
@@ -677,10 +676,27 @@ Soli Deo Gloria
     }
     document.addEventListener('DOMContentLoaded', function() {
       initSwiper();
-      if (typeof PortMap !== 'undefined') {
+      if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
         PortMap.init({ containerId: 'port-map', portSlug: 'cabo-san-lucas' });
       }
     });
+  </script>
+  <script>
+    (async function() {
+      try {
+        const response = await fetch('/assets/data/articles/index.json');
+        const data = await response.json();
+        const articles = data.articles || data;
+        const rail = document.getElementById('recent-rail');
+        if (rail && articles && articles.length > 0) {
+          rail.innerHTML = articles.slice(0, 5).map(function(article) {
+            return '<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">' +
+              '<h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="' + article.url + '">' + article.title + '</a></h4>' +
+              '<p style="margin: 0; font-size: 0.8rem; color: #666;">' + (article.date || '') + '</p></div>';
+          }).join('');
+        }
+      } catch (err) {}
+    })();
   </script>
 
   <script type="application/ld+json">
