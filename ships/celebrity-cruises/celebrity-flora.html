@@ -25,7 +25,7 @@ All work on this project is offered as a gift to God.
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="ai-summary" content="Celebrity Flora • Celebrity Cruises • In The Wake">
-  <meta name="last-reviewed" content="2025-11-19">
+  <meta name="last-reviewed" content="2026-02-20">
   <meta name="content-protocol" content="ICP-Lite v1.4">
 <title>Celebrity Flora • Celebrity Cruises • In The Wake</title>
 <meta name="description" content="Celebrity Flora • Celebrity Cruises • In The Wake"/>
@@ -76,7 +76,7 @@ All work on this project is offered as a gift to God.
     "name": "Celebrity Flora • Celebrity Cruises • In The Wake",
     "url": "https://cruisinginthewake.com/ships/celebrity-cruises/celebrity-flora.html",
     "description": "Celebrity Flora • Celebrity Cruises • In The Wake",
-    "dateModified": "2025-11-19",
+    "dateModified": "2026-02-20",
     "mainEntity": {
       "@type": "Thing",
       "name": "Celebrity Flora Active",
@@ -116,6 +116,22 @@ All work on this project is offered as a gift to God.
         "@type": "Answer",
         "text": "Celebrity Flora sails year-round 7-night Galápagos itineraries from Baltra Island, alternating between inner-loop and outer-loop routes to cover different islands."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "What makes Celebrity Flora different from other Celebrity ships?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Celebrity Flora is purpose-built for the Galápagos Islands, carrying only 100 guests with all-inclusive pricing, naturalist-led excursions, and eco-friendly features like dynamic positioning to avoid anchoring on delicate sea floors."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How big is Celebrity Flora?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Celebrity Flora is an intimate expedition ship at approximately 5,739 gross tons with a capacity of just 100 guests and 103 crew members, ensuring an exceptional crew-to-guest ratio for personalized service."
+      }
     }
   ]
 }
@@ -135,10 +151,21 @@ All work on this project is offered as a gift to God.
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 
 <!-- JSON-LD: BreadcrumbList -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Celebrity Cruises","item":"https://cruisinginthewake.com/cruise-lines/celebrity-cruises.html"},{"@type":"ListItem","position":4,"name":"Celebrity Flora","item":"https://cruisinginthewake.com/ships/celebrity-cruises/celebrity-flora.html"}]}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships.html"},
+    {"@type": "ListItem", "position": 3, "name": "Celebrity Cruises", "item": "https://cruisinginthewake.com/cruise-lines/celebrity-cruises.html"},
+    {"@type": "ListItem", "position": 4, "name": "Celebrity Flora", "item": "https://cruisinginthewake.com/ships/celebrity-cruises/celebrity-flora.html"}
+  ]
+}
+</script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Celebrity Flora","brand":{"@type":"Organization","name":"Celebrity Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Celebrity Flora from Celebrity Cruises offers memorable cruise experiences with excellent amenities and service."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Celebrity Flora","brand":{"@type":"Organization","name":"Celebrity Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Celebrity Flora is a purpose-built Galapagos expedition ship carrying just 100 guests, featuring all-inclusive dining, naturalist-led excursions, and eco-friendly design with dynamic positioning."}</script>
 
   <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
@@ -171,7 +198,7 @@ All work on this project is offered as a gift to God.
     "@type": "Article",
     "headline": "Celebrity Flora • Celebrity Cruises",
     "description": "Celebrity Flora • Celebrity Cruises • In The Wake",
-    "dateModified": "2025-11-19",
+    "dateModified": "2026-02-20",
     "author": {
         "@type": "Person",
         "name": "Ken Baker",
@@ -193,6 +220,37 @@ All work on this project is offered as a gift to God.
     }
 }
   </script>
+
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -305,7 +363,7 @@ All work on this project is offered as a gift to God.
     <section class="col-1" aria-label="Ship details">
 <!-- ICP-Lite Content Structure -->
     <section class="page-intro">
-      <h1>Celebrity Flora</h1>
+      <h2 class="overview-title" id="overview-title">Celebrity Flora</h2>
 
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Celebrity Flora is a Expedition Class cruise ship operated by Celebrity Cruises. She entered service in 2019, measures 5,739 gross tons, and carries approximately 100 guests at double occupancy.</p>
@@ -372,8 +430,8 @@ All work on this project is offered as a gift to God.
 <script type="application/json" id="dining-data-source">{"provider":"celebrity-cruises","json":"/assets/data/venues-v2.json","ship_slug":"celebrity-flora","aliases":["Celebrity Flora"]}</script>
         <script type="application/json" id="ship-stats-fallback">{"slug":"celebrity-flora","name":"Celebrity Flora","cruise_line":"Celebrity Cruises","class":"Expedition Class","entered_service":2019,"gt":"5,739 GT","guests":"100","crew":"78"}</script>
 
-  <section class="section card" data-ship="Celebrity Flora">
-    <h2>Dining</h2>
+  <section class="section card" id="dining-card" data-ship="Celebrity Flora" aria-labelledby="diningHeading">
+    <h2 id="diningHeading">Dining</h2>
     <img id="dining-hero" loading="lazy" src="/assets/img/Cordelia_Empress_Food_Court.webp" alt="Celebrity Cruises ship dining area with elegant modern decor" style="width:100%;height:auto;border-radius:12px;margin-bottom:12px;"/>
     
     <p class="small">If a venue list does not appear, it means this ship’s dining has not been verified yet.</p>
@@ -497,7 +555,7 @@ All work on this project is offered as a gift to God.
     </div>
 
     <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
-      <h2 style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions About Celebrity Flora</h2>
+      <h2 id="faq-heading" style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions About Celebrity Flora</h2>
 
       <details  class="section-divider">
         <summary>What dining options are available on Celebrity Flora?</summary>
@@ -622,6 +680,16 @@ All work on this project is offered as a gift to God.
   </button>
 </main>
 
+<!-- initFirstLook — Swiper for .firstlook carousel -->
+<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+<!-- initVideos — fetch video JSON, render thumbnails -->
+<script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/celebrity-cruises/celebrity-flora.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
+<!-- initStats — parse ship-stats-fallback JSON -->
+<script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
+<!-- initDining — fetch dining JSON -->
+<script>function initDining(){const src=document.getElementById('dining-data-source');if(!src)return;try{const cfg=JSON.parse(src.textContent);fetch(cfg.json).then(r=>r.json()).then(d=>{const venues=(d.venues||d||[]).filter(v=>v.ship_slug===cfg.ship_slug||((cfg.aliases||[]).includes(v.ship)));const ct=document.getElementById('dining-content');if(ct&&venues.length)ct.innerHTML=venues.map(v=>'<div class="venue-card"><h3>'+v.name+'</h3><p>'+v.description+'</p></div>').join('');}).catch(()=>{});}catch(_){}}</script>
+<!-- initLiveTracker — render tracking link -->
+<script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;}</script>
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
 
