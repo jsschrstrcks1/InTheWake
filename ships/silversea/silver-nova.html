@@ -17,7 +17,7 @@ All work on this project is offered as a gift to God.
      cruise-line: Silversea Cruises
      ship-class: Nova Class
      siblings: /ships/silversea/silver-ray.html
-     updated: 2026-01-02
+     updated: 2026-02-21
      expertise: Silversea ship reviews, deck plans, dining analysis, cabin comparisons
      target-audience: Silver Nova cruisers, ship comparison researchers, first-time cruisers
      answer-first: Discover Silver Nova: Nova Class ship from Silversea Cruises — dining highlights, crew warmth, live tracking, and planning tips inside.
@@ -41,7 +41,7 @@ All work on this project is offered as a gift to God.
   <link rel="canonical" href="https://cruisinginthewake.com/ships/silversea/silver-nova.html"/>
   <meta name="description" content="Discover Silver Nova: A Nova Class ship from Silversea Cruises. 54,700 GT, 728 guests, built 2023. Dining, entertainment, deck plans, and planning tips."/>
   <meta name="ai-summary" content="Discover Silver Nova: A Nova Class ship from Silversea Cruises. 54,700 GT, 728 guests, built 2023. Dining, entertainment, deck plans, and planning tips.">
-  <meta name="last-reviewed" content="2026-02-12">
+  <meta name="last-reviewed" content="2026-02-21">
   <meta name="content-protocol" content="ICP-Lite v1.4">
 
   <!-- OpenGraph / Twitter -->
@@ -81,7 +81,7 @@ All work on this project is offered as a gift to God.
     "name": "Silver Nova",
     "url": "https://cruisinginthewake.com/ships/silversea/silver-nova.html",
     "description": "Discover Silver Nova: A Nova Class ship from Silversea Cruises. 54,700 GT, 728 guests, built 2023. Dining, entertainment, deck plans, and planning tips.",
-    "dateModified": "2026-02-12",
+    "dateModified": "2026-02-21",
     "mainEntity": {
       "@type": "Thing",
       "name": "Silver Nova",
@@ -109,10 +109,21 @@ All work on this project is offered as a gift to God.
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 
 <!-- JSON-LD: BreadcrumbList -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Silversea Cruises","item":"https://cruisinginthewake.com/cruise-lines/silversea.html"},{"@type":"ListItem","position":4,"name":"Silver Nova","item":"https://cruisinginthewake.com/ships/silversea/silver-nova.html"}]}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},
+    {"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},
+    {"@type":"ListItem","position":3,"name":"Silversea","item":"https://cruisinginthewake.com/cruise-lines/silversea.html"},
+    {"@type":"ListItem","position":4,"name":"Silver Nova","item":"https://cruisinginthewake.com/ships/silversea/silver-nova.html"}
+  ]
+}
+</script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Silver Nova","brand":{"@type":"Organization","name":"Silversea Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Silver Nova from Silversea Cruises offers memorable cruise experiences with excellent amenities and service."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Silver Nova","brand":{"@type":"Organization","name":"Silversea Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Silver Nova is a 54,700-GT Nova Class ship for 728 guests, launched in 2023 with S.A.L.T. culinary immersion, butler service, and Silversea's most spacious all-suite design."}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -181,7 +192,7 @@ All work on this project is offered as a gift to God.
     "@type": "Article",
     "headline": "Silver Nova — Silversea Cruises Ship Guide",
     "description": "Discover Silver Nova: A Nova Class ship from Silversea Cruises. 54,700 GT, 728 guests, built 2023. Dining, entertainment, deck plans, and planning tips.",
-    "dateModified": "2026-02-12",
+    "dateModified": "2026-02-21",
     "author": {
         "@type": "Person",
         "name": "Ken Baker",
@@ -203,11 +214,42 @@ All work on this project is offered as a gift to God.
     }
 }
   </script>
+  <!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+  <script>
+  (function(){
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+    document.addEventListener('DOMContentLoaded', function(){
+      const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+      document.querySelectorAll(sel).forEach(el=>{
+        const attr=el.hasAttribute('href')?'href':'src';
+        try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+      });
+    },{once:true});
+  })();
+  </script>
+  <!-- Swiper loader -->
+  <script>
+  (function(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
+  <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
-  <header class="hero-header">
+  <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
         <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/></a>
@@ -503,8 +545,8 @@ Dining on Silver Nova</h2>
         </figure>
         <p><a class="btn" href="https://www.silversea.com/" target="_blank" rel="noopener">Visit Silversea Official Site</a></p>
       </section>
-      <section class="card" aria-labelledby="trackingHeading">
-        <h2 id="trackingHeading">Where Is Silver Nova?</h2>
+      <section class="card" aria-labelledby="liveTrackHeading">
+        <h2 id="liveTrackHeading">Where Is Silver Nova?</h2>
         <p>Track Silver Nova's current position and upcoming itinerary.</p>
         <p><a class="btn" href="https://www.cruisemapper.com/?search=Silver%20Nova" target="_blank" rel="noopener">Open Live Tracker</a></p>
       </section>
@@ -635,7 +677,25 @@ Dining on Silver Nova</h2>
     <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
-  <script src="/assets/js/dropdown.js"></script>
+  <!-- initFirstLook — Swiper for .firstlook carousel -->
+<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}
+</script>
+<!-- initVideos — fetch video JSON, render thumbnails -->
+<script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/silversea/silver-nova.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{const vids=Object.values(data.videos||{}).flat();if(!vids.length){w.innerHTML='<p>No videos available.</p>';return;}w.innerHTML=vids.slice(0,6).map(v=>`<div class="video-thumb"><iframe src="https://www.youtube-nocookie.com/embed/${v.videoId}?rel=0" title="${v.title}" loading="lazy" allowfullscreen></iframe></div>`).join('');}).catch(()=>{w.innerHTML='<p>Videos currently unavailable.</p>';});}
+</script>
+<!-- initStats — parse ship-stats-fallback JSON -->
+<script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);const t=document.getElementById('stats-table');if(t&&d){t.innerHTML=`<tr><th>Gross Tonnage</th><td>${d.gt}</td></tr><tr><th>Guests</th><td>${d.guests}</td></tr><tr><th>Crew</th><td>${d.crew}</td></tr><tr><th>Class</th><td>${d.class}</td></tr><tr><th>Entered Service</th><td>${d.entered_service}</td></tr>`;}}catch(e){}}
+</script>
+<!-- initDining — fetch dining JSON -->
+<script>function initDining(){const el=document.getElementById('dining-list');if(!el)return;fetch('/assets/data/dining/silversea/silver-nova.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.venues||[]).map(v=>`<li><strong>${v.name}</strong> — ${v.description}</li>`).join('');}). catch(()=>{});}
+</script>
+<!-- initLiveTracker — render tracking link -->
+<script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:${imo}" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
+</script>
+<!-- initShipLogbook — logbook loader -->
+<script>function initShipLogbook(){const el=document.getElementById('logbook-entries');if(!el)return;fetch('/assets/data/logbook/silversea/silver-nova.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.entries||[]).slice(0,5).map(e=>`<li>${e.date}: ${e.note}</li>`).join('');}). catch(()=>{});}
+</script>
+<script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
 </body>
