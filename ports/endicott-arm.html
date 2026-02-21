@@ -780,14 +780,22 @@ Soli Deo Gloria
   <script src="/assets/js/whimsical-port-units.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous"></script>
   <script>
+  function initSwiper() {
+    if (typeof Swiper !== 'undefined') {
+      new Swiper('.port-swiper', {
+        loop: true,
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        keyboard: { enabled: true },
+        a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+      });
+      window.__swiperReady = true;
+    } else {
+      setTimeout(initSwiper, 100);
+    }
+  }
   document.addEventListener('DOMContentLoaded', function() {
-    new Swiper('.port-swiper', {
-      loop: true,
-      pagination: { el: '.swiper-pagination', clickable: true },
-      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-      keyboard: { enabled: true },
-      a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
-    });
+    initSwiper();
   });
   </script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
