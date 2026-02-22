@@ -1,4 +1,10 @@
 {
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2026-02-22T00:00:00Z",
+    "source": "Researched from Martinique Tourism, cruise port guides, and local sources"
+  },
+
   "port_slug": "martinique",
   "port_name": "Martinique",
   "port_pin": {
@@ -6,22 +12,111 @@
     "lon": -61.0742,
     "label": "Fort-de-France Cruise Terminal"
   },
+
+  "bbox_hint": {
+    "south": 14.40,
+    "west": -61.25,
+    "north": 14.85,
+    "east": -60.80,
+    "note": "Covers Fort-de-France, Les Salines, Saint-Pierre, Mount Pelée"
+  },
+
   "poi_ids": [
-    "fort-de-france-cruise-terminal",
+    "martinique-cruise-terminal",
     "la-savane-park",
     "schoelcher-library",
     "st-louis-cathedral",
     "les-salines-beach",
     "saint-pierre-ruins",
     "mount-pelee",
-    "jardin-de-balata"
+    "jardin-de-balata",
+    "depaz-distillery",
+    "anse-dufour",
+    "fort-de-france-market"
   ],
-  "bbox_hint": {
-    "south": 14.40,
-    "west": -61.25,
-    "north": 14.85,
-    "east": -60.80
+
+  "pois": [
+    { "id": "martinique-cruise-terminal", "lat": 14.6042, "lon": -61.0742 },
+    { "id": "la-savane-park", "lat": 14.6060, "lon": -61.0710 },
+    { "id": "schoelcher-library", "lat": 14.6070, "lon": -61.0695 },
+    { "id": "st-louis-cathedral", "lat": 14.6063, "lon": -61.0683 },
+    { "id": "les-salines-beach", "lat": 14.4133, "lon": -60.8567 },
+    { "id": "saint-pierre-ruins", "lat": 14.7483, "lon": -61.1767 },
+    { "id": "mount-pelee", "lat": 14.8100, "lon": -61.1650 },
+    { "id": "jardin-de-balata", "lat": 14.6583, "lon": -61.0917 },
+    { "id": "depaz-distillery", "lat": 14.7600, "lon": -61.1700 },
+    { "id": "anse-dufour", "lat": 14.5333, "lon": -61.0917 },
+    { "id": "fort-de-france-market", "lat": 14.6072, "lon": -61.0718 }
+  ],
+
+  "label_overrides": {
+    "saint-pierre-ruins": "Saint-Pierre (Pompeii of the Caribbean)",
+    "depaz-distillery": "Depaz Distillery (rhum agricole)",
+    "les-salines-beach": "Les Salines (Caribbean's finest beach)"
   },
-  "notes": "French Caribbean island with Creole culture. Mount Pelée volcano, rum distilleries, and beautiful beaches.",
-  "generated": "2025-12-15T00:00:00Z"
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "walk-to-savane",
+      "name": "Walk to La Savane Park",
+      "type": "walking",
+      "cost": "Free",
+      "duration": "5-8 minutes",
+      "connects": ["martinique-cruise-terminal", "la-savane-park"],
+      "note": "Flat waterfront walk from Pointe Simon pier. Markets and shops along the way."
+    },
+    {
+      "id": "taxi-to-les-salines",
+      "name": "Taxi to Les Salines Beach",
+      "type": "taxi",
+      "cost": "EUR 60-80",
+      "duration": "45 minutes",
+      "connects": ["martinique-cruise-terminal", "les-salines-beach"],
+      "note": "Share taxi with other cruise passengers to split costs. Best beach on the island."
+    },
+    {
+      "id": "taxi-to-saint-pierre",
+      "name": "Taxi to Saint-Pierre",
+      "type": "taxi",
+      "cost": "EUR 40-50",
+      "duration": "30 minutes",
+      "connects": ["martinique-cruise-terminal", "saint-pierre-ruins"],
+      "note": "Combine with Depaz distillery nearby for a full day trip."
+    },
+    {
+      "id": "taxi-to-anse-dufour",
+      "name": "Taxi to Anse Dufour",
+      "type": "taxi",
+      "cost": "EUR 25-35",
+      "duration": "20 minutes",
+      "connects": ["martinique-cruise-terminal", "anse-dufour"],
+      "note": "Small beach village known for sea turtle sightings."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Les Salines Beach Day",
+      "type": "beach",
+      "duration": "Half day",
+      "highlights": ["White sand beach", "Coconut palms", "Turquoise water", "Beach vendors"],
+      "note": "Martinique's most beautiful beach. Fresh coconut from beach vendors $5."
+    },
+    {
+      "name": "Saint-Pierre & Depaz Distillery",
+      "type": "cultural",
+      "duration": "Full day",
+      "highlights": ["Volcano ruins", "1902 eruption history", "Rhum agricole tasting", "Mount Pelée views"],
+      "note": "Combine the Pompeii of the Caribbean with aged rum tasting. Museum entry €5, distillery €10."
+    },
+    {
+      "name": "Fort-de-France Walking Tour",
+      "type": "cultural",
+      "duration": "Half day",
+      "highlights": ["Schoelcher Library", "Covered market", "La Savane park", "French-Creole cuisine"],
+      "note": "Self-guided and free. Sample boudin créole at the market, buy vanilla pods."
+    }
+  ]
 }

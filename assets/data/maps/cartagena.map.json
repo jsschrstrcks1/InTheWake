@@ -1,4 +1,10 @@
 {
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2026-02-22T00:00:00Z",
+    "source": "Researched from ProColombia, CruiseCritic, and local guides"
+  },
+
   "port_slug": "cartagena",
   "port_name": "Cartagena",
   "port_pin": {
@@ -6,20 +12,93 @@
     "lon": -75.5393,
     "label": "Sociedad Portuaria Terminal"
   },
+
   "poi_ids": [
     "cartagena-cruise-terminal",
     "walled-city-cartagena",
     "getsemani-neighborhood",
     "castillo-san-felipe",
     "playa-blanca-cartagena",
-    "plaza-santo-domingo"
+    "plaza-santo-domingo",
+    "torre-del-reloj",
+    "cartagena-cathedral",
+    "san-pedro-claver",
+    "bocagrande-cartagena",
+    "plaza-trinidad"
   ],
+
+  "pois": [
+    { "id": "cartagena-cruise-terminal", "lat": 10.4195, "lon": -75.5393 },
+    { "id": "walled-city-cartagena", "lat": 10.4236, "lon": -75.5506 },
+    { "id": "getsemani-neighborhood", "lat": 10.4200, "lon": -75.5467 },
+    { "id": "castillo-san-felipe", "lat": 10.4225, "lon": -75.5411 },
+    { "id": "playa-blanca-cartagena", "lat": 10.2283, "lon": -75.5917 },
+    { "id": "plaza-santo-domingo", "lat": 10.4258, "lon": -75.5511 },
+    { "id": "torre-del-reloj", "lat": 10.4228, "lon": -75.5489 },
+    { "id": "cartagena-cathedral", "lat": 10.4250, "lon": -75.5517 },
+    { "id": "san-pedro-claver", "lat": 10.4233, "lon": -75.5500 },
+    { "id": "bocagrande-cartagena", "lat": 10.4000, "lon": -75.5583 },
+    { "id": "plaza-trinidad", "lat": 10.4200, "lon": -75.5467 }
+  ],
+
+  "label_overrides": {
+    "castillo-san-felipe": "Castillo San Felipe (fortress)",
+    "walled-city-cartagena": "Walled City (UNESCO)",
+    "torre-del-reloj": "Clock Tower Gate"
+  },
+
   "bbox_hint": {
-    "south": 10.35,
+    "south": 10.20,
     "west": -75.60,
     "north": 10.45,
-    "east": -75.48
+    "east": -75.48,
+    "note": "Covers cruise terminal, walled city, Castillo San Felipe, Bocagrande, Playa Blanca"
   },
-  "notes": "Terminal 5-min taxi to walled city. Walk the walls. Getsemaní street art essential. Castillo San Felipe largest Spanish fort in Americas.",
-  "generated": "2025-12-14T00:00:00Z"
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "taxi-to-walled-city",
+      "name": "Taxi to Walled City",
+      "type": "taxi",
+      "cost": "$2-4 USD",
+      "duration": "15 minutes",
+      "connects": ["cartagena-cruise-terminal", "torre-del-reloj"],
+      "note": "Enter through the Clock Tower gate. Negotiate fare before departing."
+    },
+    {
+      "id": "taxi-to-castillo",
+      "name": "Taxi to Castillo San Felipe",
+      "type": "taxi",
+      "cost": "$2-3 USD",
+      "duration": "10 minutes",
+      "connects": ["walled-city-cartagena", "castillo-san-felipe"],
+      "note": "Largest Spanish colonial fortress in the Americas. $6 USD entry."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Walled City Walking Tour",
+      "type": "cultural",
+      "duration": "2-3 hours",
+      "highlights": ["Colonial plazas", "Cathedral", "Hidden courtyards", "500 years of history"],
+      "note": "Independent guides at clock tower $20-40. Ship excursion $50-80."
+    },
+    {
+      "name": "Castillo San Felipe de Barajas",
+      "type": "history",
+      "duration": "1.5-2 hours",
+      "highlights": ["Tunnels", "Panoramic views", "Military engineering", "Colonial history"],
+      "note": "$6 entry. High stamina — steep ramps, hot sun. Bring water."
+    },
+    {
+      "name": "Getsemaní Street Art Tour",
+      "type": "cultural",
+      "duration": "1-2 hours",
+      "highlights": ["Murals", "Afro-Colombian heritage", "Artisan workshops", "Plaza de la Trinidad"],
+      "note": "Free self-guided walk. Best in afternoon for plaza atmosphere."
+    }
+  ]
 }
