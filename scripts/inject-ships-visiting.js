@@ -34,7 +34,7 @@ const CRUISE_LINES = {
   regent: { name: 'Regent Seven Seas', path: '/ships/regent/' },
   seabourn: { name: 'Seabourn', path: '/ships/seabourn/' },
   silversea: { name: 'Silversea Cruises', path: '/ships/silversea/' },
-  explora: { name: 'Explora Journeys', path: '/ships/explora/' }
+  explora: { name: 'Explora Journeys', path: '/ships/explora-journeys/' }
 };
 
 // Display order (Royal Caribbean family first, then others)

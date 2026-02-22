@@ -42,6 +42,16 @@ if [ ! -f "$FILE" ]; then
     exit 1
 fi
 
+# Exclusion list: files that live in ships/ but are NOT ship pages
+EXCLUDED_FILES="ships/rcl/venues.html"
+BASENAME=$(echo "$FILE" | sed 's|.*/ships/|ships/|')
+for EXCL in $EXCLUDED_FILES; do
+    if [ "$BASENAME" = "$EXCL" ]; then
+        echo -e "${YELLOW}Skipped: $FILE is in the exclusion list (not a ship page)${NC}"
+        exit 0
+    fi
+done
+
 echo "============================================================================"
 echo "  Ship Page Validator — v3.010.301"
 echo "  File: $FILE"

@@ -88,7 +88,7 @@ SHIPS_NEEDING_IMAGES = [
     "ships/explora-journeys/explora-v.html",
     "ships/explora-journeys/explora-vi.html",
     # Explora (duplicate dir)
-    "ships/explora/explora-ii.html",
+    "ships/explora-journeys/explora-ii.html",
     # Holland America
     "ships/holland-america-line/amsterdam.html",
     "ships/holland-america-line/edam.html",
