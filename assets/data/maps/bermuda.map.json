@@ -1,4 +1,10 @@
 {
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2025-12-14T00:00:00Z",
+    "source": "Researched from Bermuda Tourism, CruiseCritic, and local guides"
+  },
+
   "port_slug": "bermuda",
   "port_name": "Bermuda",
   "port_pin": {
@@ -6,6 +12,7 @@
     "lon": -64.8317,
     "label": "Royal Naval Dockyard"
   },
+
   "poi_ids": [
     "bermuda-dockyard",
     "horseshoe-bay",
@@ -13,14 +20,78 @@
     "hamilton-bermuda",
     "crystal-caves",
     "national-museum-bermuda",
-    "gibbs-hill-lighthouse"
+    "gibbs-hill-lighthouse",
+    "snorkel-park-bermuda",
+    "warwick-long-bay",
+    "tobacco-bay",
+    "bermuda-clocktower"
   ],
+
+  "pois": [
+    { "id": "bermuda-dockyard", "lat": 32.3283, "lon": -64.8317 },
+    { "id": "horseshoe-bay", "lat": 32.2500, "lon": -64.8342 },
+    { "id": "st-georges-bermuda", "lat": 32.3833, "lon": -64.6783 },
+    { "id": "hamilton-bermuda", "lat": 32.2950, "lon": -64.7833 },
+    { "id": "crystal-caves", "lat": 32.3500, "lon": -64.7250 },
+    { "id": "national-museum-bermuda", "lat": 32.3283, "lon": -64.8310 },
+    { "id": "gibbs-hill-lighthouse", "lat": 32.2533, "lon": -64.8350 },
+    { "id": "snorkel-park-bermuda", "lat": 32.3280, "lon": -64.8300 },
+    { "id": "warwick-long-bay", "lat": 32.2483, "lon": -64.8217 },
+    { "id": "tobacco-bay", "lat": 32.3867, "lon": -64.6683 },
+    { "id": "bermuda-clocktower", "lat": 32.3283, "lon": -64.8308 }
+  ],
+
   "bbox_hint": {
     "south": 32.23,
     "west": -64.85,
     "north": 32.39,
     "east": -64.67
   },
-  "notes": "Ferry and bus from Dockyard. Pink beaches and pastel buildings throughout.",
-  "generated": "2025-12-14T00:00:00Z"
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "ferry-to-hamilton",
+      "name": "Fast Ferry to Hamilton",
+      "type": "ferry",
+      "cost": "$5",
+      "duration": "20 minutes",
+      "connects": ["bermuda-dockyard", "hamilton-bermuda"],
+      "note": "Sea Express fast ferry. Beautiful Great Sound views. Runs frequently."
+    },
+    {
+      "id": "bus-to-horseshoe",
+      "name": "Bus #7 to Horseshoe Bay",
+      "type": "bus",
+      "cost": "$5 (tokens/passes)",
+      "duration": "30 minutes",
+      "connects": ["bermuda-dockyard", "horseshoe-bay"],
+      "note": "Regular service. Bus tokens or passes needed (no cash on bus)."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Horseshoe Bay Beach Day",
+      "type": "relaxation",
+      "duration": "Half to full day",
+      "highlights": ["Pink sand", "Turquoise water", "Rock formations"],
+      "note": "Bus #7 from Dockyard. Chairs $30–40. Walk to quiet Warwick Long Bay."
+    },
+    {
+      "name": "Hamilton Shopping & Dining",
+      "type": "cultural",
+      "duration": "Half day",
+      "highlights": ["Front Street shopping", "British-Caribbean dining", "Colonial architecture"],
+      "note": "20-min ferry ride. Upscale shopping and diverse restaurants."
+    },
+    {
+      "name": "Wreck Snorkeling",
+      "type": "adventure",
+      "duration": "Half day",
+      "highlights": ["300+ documented wrecks", "Crystal clear water", "Sea life"],
+      "note": "Ship excursions $60–100. Constellation and Montana wrecks most popular."
+    }
+  ]
 }
