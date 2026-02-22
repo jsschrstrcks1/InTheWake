@@ -1,4 +1,10 @@
 {
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2026-02-22T00:00:00Z",
+    "source": "Researched from port authority data, Trenitalia, and firsthand visits"
+  },
+
   "port_slug": "civitavecchia",
   "port_name": "Civitavecchia (Rome)",
   "port_pin": {
@@ -6,22 +12,95 @@
     "lon": 11.7958,
     "label": "Cruise Terminal"
   },
+
+  "bbox_hint": {
+    "south": 41.85,
+    "west": 11.75,
+    "north": 42.15,
+    "east": 12.55,
+    "note": "Covers Civitavecchia port and Rome attractions 80km southeast"
+  },
+
   "poi_ids": [
     "civitavecchia-cruise-terminal",
+    "fort-michelangelo-civitavecchia",
+    "civitavecchia-train-station",
     "rome-colosseum",
     "vatican-city",
     "trevi-fountain",
     "spanish-steps",
     "roman-forum",
     "pantheon-rome",
-    "trastevere"
+    "trastevere",
+    "st-peters-basilica"
   ],
-  "bbox_hint": {
-    "south": 41.85,
-    "west": 11.75,
-    "north": 42.15,
-    "east": 12.55
+
+  "label_overrides": {
+    "fort-michelangelo-civitavecchia": "Fort Michelangelo (designed by Michelangelo)",
+    "civitavecchia-train-station": "Civitavecchia Station (trains to Rome)",
+    "vatican-city": "Vatican Museums & Sistine Chapel",
+    "rome-colosseum": "Colosseum (50,000 seat amphitheater)",
+    "trastevere": "Trastevere (authentic Roman dining)"
   },
-  "notes": "Rome attractions are ~80km from port. Train or ship excursion required.",
-  "generated": "2025-12-14T00:00:00Z"
+
+  "pois": [
+    { "id": "civitavecchia-cruise-terminal", "name": "Civitavecchia Cruise Terminal", "lat": 42.0935, "lon": 11.7958, "type": "port" },
+    { "id": "fort-michelangelo-civitavecchia", "name": "Fort Michelangelo", "lat": 42.0930, "lon": 11.7900, "type": "attraction" },
+    { "id": "civitavecchia-train-station", "name": "Civitavecchia Train Station", "lat": 42.0920, "lon": 11.7970, "type": "transit" },
+    { "id": "rome-colosseum", "name": "Colosseum", "lat": 41.8902, "lon": 12.4922, "type": "attraction" },
+    { "id": "vatican-city", "name": "Vatican Museums & Sistine Chapel", "lat": 41.9065, "lon": 12.4536, "type": "attraction" },
+    { "id": "trevi-fountain", "name": "Trevi Fountain", "lat": 41.9009, "lon": 12.4833, "type": "scenic" },
+    { "id": "spanish-steps", "name": "Spanish Steps", "lat": 41.9060, "lon": 12.4828, "type": "scenic" },
+    { "id": "roman-forum", "name": "Roman Forum", "lat": 41.8925, "lon": 12.4853, "type": "attraction" },
+    { "id": "pantheon-rome", "name": "Pantheon", "lat": 41.8986, "lon": 12.4769, "type": "attraction" },
+    { "id": "trastevere", "name": "Trastevere Neighborhood", "lat": 41.8874, "lon": 12.4700, "type": "district" },
+    { "id": "st-peters-basilica", "name": "St. Peter's Basilica", "lat": 41.9022, "lon": 12.4539, "type": "cultural" }
+  ],
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "train-to-rome",
+      "name": "Regional Train to Rome",
+      "type": "train",
+      "cost": "EUR 5 each way",
+      "duration": "75-80 minutes",
+      "connects": ["civitavecchia-train-station", "rome-colosseum"],
+      "note": "Regional trains to Roma San Pietro or Roma Termini. Validate ticket before boarding."
+    },
+    {
+      "id": "walk-to-fort",
+      "name": "Walk to Fort Michelangelo",
+      "type": "walk",
+      "cost": "Free",
+      "duration": "15-20 minutes",
+      "connects": ["civitavecchia-cruise-terminal", "fort-michelangelo-civitavecchia"],
+      "note": "Pleasant walk from port gate to the Renaissance fortress."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Vatican Museums & Sistine Chapel",
+      "type": "cultural",
+      "duration": "3-4 hours",
+      "highlights": ["Sistine Chapel ceiling", "Raphael Rooms", "St. Peter's dome climb"],
+      "note": "Book timed tickets 2-3 months ahead at museivaticani.va. Dress code enforced."
+    },
+    {
+      "name": "Colosseum & Roman Forum",
+      "type": "cultural",
+      "duration": "2-3 hours",
+      "highlights": ["Gladiatorial arena", "Palatine Hill views", "Ancient civic center"],
+      "note": "Book at coopculture.it. Combined ticket covers all three sites."
+    },
+    {
+      "name": "Civitavecchia Local Day",
+      "type": "relaxation",
+      "duration": "Half day",
+      "highlights": ["Fort Michelangelo", "Fresh seafood", "Old town charm"],
+      "note": "Skip Rome for a relaxed Italian port day. Great for repeat visitors."
+    }
+  ]
 }
