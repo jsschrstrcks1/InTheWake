@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
 ████████████████████████████████████████████████████████████████████████████████
-██  SOLI DEO GLORIA — To God alone be the glory                satisfies: SR1 ██
+██  Soli Deo Gloria — To God alone be the glory                satisfies: SR1 ██
 ██  All work on this project is offered as an act of worship.                 ██
 ██  "Trust in the LORD with all your heart..." — Proverbs 3:5                 ██
 ██  "Whatever you do, work heartily..." — Colossians 3:23                     ██
@@ -53,7 +53,19 @@
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"In the Wake","url":"https://cruisinginthewake.com","logo":"https://cruisinginthewake.com/assets/logo_wake_512.png"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Carnival","item":"https://cruisinginthewake.com/ships.html#carnival"},{"@type":"ListItem","position":4,"name":"Carnival Miracle","item":"https://cruisinginthewake.com/ships/carnival/carnival-miracle.html"}]}</script>
+<!-- JSON-LD: BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships.html"},
+    {"@type": "ListItem", "position": 3, "name": "Carnival", "item": "https://cruisinginthewake.com/ships.html#carnival"},
+    {"@type": "ListItem", "position": 4, "name": "Carnival Miracle", "item": "https://cruisinginthewake.com/ships/carnival/carnival-miracle.html"}
+  ]
+}
+</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Product","name":"Carnival Miracle","brand":{"@type":"Brand","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"The final Spirit-class ship offers intimate Alaska adventures and Caribbean escapes with Fun Ship 2.0 upgrades."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","url":"https://cruisinginthewake.com/authors/ken-baker.html","jobTitle":"Cruise Research Analyst","knowsAbout":["Cruise Ships","Carnival Cruise Line","Spirit Class","Alaska Cruises"]}</script>
 <script type="application/ld+json">
@@ -75,7 +87,20 @@
     }
   }
   </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Carnival Miracle sail to Alaska?","acceptedAnswer":{"@type":"Answer","text":"Yes! Miracle sails Alaska's Inside Passage from Seattle during summer months, offering 7-day itineraries to Juneau, Ketchikan, and Glacier Bay."}},{"@type":"Question","name":"Who is the godmother of Carnival Miracle?","acceptedAnswer":{"@type":"Answer","text":"Jessica Lynch, the retired U.S. Army Private famous for her rescue during the Iraq War, christened Miracle in Jacksonville, Florida in 2004."}}]}</script>
+<!-- JSON-LD: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Does Carnival Miracle sail to Alaska?", "acceptedAnswer": {"@type": "Answer", "text": "Yes! Miracle sails Alaska's Inside Passage from Seattle during summer months, offering 7-day itineraries to Juneau, Ketchikan, and Glacier Bay."}},
+    {"@type": "Question", "name": "Who is the godmother of Carnival Miracle?", "acceptedAnswer": {"@type": "Answer", "text": "Jessica Lynch, the retired U.S. Army Private famous for her rescue during the Iraq War, christened Miracle in Jacksonville, Florida in 2004."}},
+    {"@type": "Question", "name": "What class is Carnival Miracle?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Miracle is the fourth and final Spirit-class ship, built by Kvaerner Masa-Yards in Helsinki, Finland. At 88,500 GT, the Spirit class includes Carnival Spirit (2001), Carnival Pride (2002), Carnival Legend (2002), and Carnival Miracle (2004)."}},
+    {"@type": "Question", "name": "How big is Carnival Miracle?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Miracle measures 88,500 gross tons, is 963 feet long, and carries 2,124 guests at double occupancy across 1,062 staterooms on 12 passenger decks."}},
+    {"@type": "Question", "name": "Where does Carnival Miracle sail from?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Miracle sails seasonally from multiple homeports: Seattle for Alaska summer sailings, and Tampa or Galveston for Caribbean and Bahamas itineraries during fall and winter."}}
+  ]
+}
+</script>
 
 <link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
@@ -128,13 +153,45 @@
     }
 }
   </script>
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
 </head>
 
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
 <header class="hero-header" role="banner">
-  <nav class="navbar"><div class="brand"><a href="/"><img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" loading="eager"/></a>
+  <nav class="navbar"><div class="brand"><a href="/"><img src="/assets/logo_wake_256.png" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" loading="eager" fetchpriority="high"/></a>
 </div>
       <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
@@ -421,10 +478,10 @@ Dining Venues</h2>
       <section class="card quick-tools" style="padding: 1rem;">
         <h3 style="margin: 0 0 0.75rem; font-size: 1rem; color: #083041;">Planning Tools</h3>
         <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
-          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Ship Size Atlas</a></li>
-          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Budget Calculator</a></li>
-          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Drink Package Calculator</a></li>
-          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Port Day Planner</a></li>
+          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none;">Ship Size Atlas</a></li>
+          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none;">Budget Calculator</a></li>
+          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none;">Drink Package Calculator</a></li>
+          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none;">Port Day Planner</a></li>
         </ul>
       </section>
 
@@ -584,14 +641,96 @@ Dining Venues</h2>
   </button>
 </main>
 
-<footer><p><strong>In the Wake</strong></p><p class="tiny">© 2025 · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p><p class="tiny" style="opacity:0;position:absolute" >Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+<footer role="contentinfo"><p><strong>In the Wake</strong></p><p class="tiny">© 2025 · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p><p class="tiny" style="opacity:0;position:absolute" >Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous"></script>
 <script>
 fetch('/assets/data/videos/carnival/carnival-miracle.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
 fetch('/assets/data/logbook/carnival/carnival-miracle.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h4>${s.title}</h4><p class="logbook-meta">${s.persona_label} · ${s.author.name}</p><p>${s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')}</p></article>`).join('');}).catch(()=>{});
-</script>  <!-- Navigation Dropdown Script -->
+</script>
+
+<!-- ===== JS Module: First Look Carousel ===== -->
+<script>
+function initFirstLook(){
+  const el=document.getElementById('photo-swiper');
+  if(!el||typeof Swiper==='undefined') return;
+  new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
+</script>
+
+<!-- ===== JS Module: Ship Logbook ===== -->
+<script>
+function initShipLogbook(){
+  const c=document.getElementById('logbook-container');
+  if(!c) return;
+  fetch('/assets/data/logbook/carnival/carnival-miracle.json')
+    .then(r=>r.json()).then(d=>{
+      if(d.stories) c.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h4>'+s.title+'</h4><p class="logbook-meta">'+s.persona_label+' · '+s.author.name+'</p><p>'+s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')+'</p></article>').join('');
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initShipLogbook); else initShipLogbook();
+</script>
+
+<!-- ===== JS Module: Video Loader ===== -->
+<script>
+function initVideos(){
+  const w=document.getElementById('video-wrapper');
+  if(!w) return;
+  fetch('/assets/data/videos/carnival/carnival-miracle.json')
+    .then(r=>r.json()).then(d=>{
+      let vids=[];
+      if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
+      else if(Array.isArray(d.videos)) vids=d.videos;
+      if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
+      new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();
+</script>
+
+<!-- ===== JS Module: Ship Stats ===== -->
+<script>
+function initStats(){
+  const el=document.querySelector('[data-ship-stats]')||document.getElementById('stats-container');
+  if(!el) return;
+  fetch('/ships/carnival/assets/carnival-miracle-stats.json')
+    .then(r=>r.json()).then(d=>{
+      if(d&&typeof d==='object'){const entries=Object.entries(d).filter(([k])=>!k.startsWith('_'));
+        el.innerHTML='<dl class="stats-grid">'+entries.map(([k,v])=>'<div class="stat-item"><dt>'+k+'</dt><dd>'+v+'</dd></div>').join('')+'</dl>';}
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initStats); else initStats();
+</script>
+
+<!-- ===== JS Module: Dining Loader ===== -->
+<script>
+function initDining(){
+  const el=document.getElementById('dining-container');
+  if(!el) return;
+  fetch('/ships/carnival/assets/carnival-miracle-dining.json')
+    .then(r=>r.json()).then(d=>{
+      if(Array.isArray(d)){el.innerHTML=d.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');}
+      else if(d.venues) el.innerHTML=d.venues.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initDining); else initDining();
+</script>
+
+<!-- ===== JS Module: Live Tracker ===== -->
+<script>
+function initLiveTracker(){
+  const el=document.getElementById('live-tracker');
+  if(!el) return;
+  const imo=el.getAttribute('data-imo')||'9237357';
+  const url='https://www.myshiptracking.com/vessels/carnival-miracle-imo-'+imo;
+  el.innerHTML='<a href="'+url+'" target="_blank" rel="noopener" class="tracker-link">Track Carnival Miracle Live Position →</a>';
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initLiveTracker); else initLiveTracker();
+</script>
+
+  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
 
 

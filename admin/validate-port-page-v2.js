@@ -19,11 +19,104 @@ import { join, dirname, relative, basename } from 'path';
 import { fileURLToPath } from 'url';
 import { load } from 'cheerio';
 import { glob } from 'glob';
+import { validateVoiceQuality } from './lib/voice-quality-checks.js';
 
-// Known placeholder image hashes (these should not be used on any port page)
+// Known placeholder image hashes (should not appear on ANY port page)
 const PLACEHOLDER_HASHES = new Set([
-  'd7a4721e321920f7f6414c7a7fe865f0'  // cozumel-fom-1.webp placeholder
+  'd7a4721e321920f7f6414c7a7fe865f0',  // generic placeholder image
+  'cdf8bd1f00cbe19173712e81050c669c',  // "Image Coming Soon" gray geometric placeholder
+  '3c0a625569b86226396f24fc471590ae',  // solid blue rectangle placeholder
 ]);
+
+// Dynamic cross-port hash map: built at runtime by scanning all port image dirs.
+// Maps hash → Set<port_slug> for every .webp that appears in 2+ port directories.
+// Cached after first build so it only runs once per validator session.
+let _crossPortHashMap = null;
+
+async function buildCrossPortHashMap() {
+  if (_crossPortHashMap) return _crossPortHashMap;
+
+  const portImgBase = join(PROJECT_ROOT, 'ports', 'img');
+  const hashToPorts = new Map(); // hash → Map<port_slug, [filenames]>
+
+  let portDirs;
+  try {
+    portDirs = await readdir(portImgBase);
+  } catch (e) {
+    _crossPortHashMap = new Map();
+    return _crossPortHashMap;
+  }
+
+  for (const portSlug of portDirs) {
+    const portDir = join(portImgBase, portSlug);
+    try {
+      const dirStat = await stat(portDir);
+      if (!dirStat.isDirectory()) continue;
+    } catch (e) { continue; }
+
+    let files;
+    try {
+      files = await readdir(portDir);
+    } catch (e) { continue; }
+
+    for (const file of files) {
+      if (!file.endsWith('.webp')) continue;
+      try {
+        const imgBuffer = readFileSync(join(portDir, file));
+        const hash = createHash('md5').update(imgBuffer).digest('hex');
+
+        // Skip known placeholders (handled separately)
+        if (PLACEHOLDER_HASHES.has(hash)) continue;
+
+        if (!hashToPorts.has(hash)) {
+          hashToPorts.set(hash, new Map());
+        }
+        const portMap = hashToPorts.get(hash);
+        if (!portMap.has(portSlug)) {
+          portMap.set(portSlug, []);
+        }
+        portMap.get(portSlug).push(file);
+      } catch (e) { /* skip unreadable files */ }
+    }
+  }
+
+  // Keep only hashes that appear in 2+ different port directories
+  _crossPortHashMap = new Map();
+  for (const [hash, portMap] of hashToPorts) {
+    if (portMap.size > 1) {
+      _crossPortHashMap.set(hash, portMap);
+    }
+  }
+
+  return _crossPortHashMap;
+}
+
+// Human-reviewed allowlist: cross-port duplicates that have been manually
+// verified and assigned to a specific port. Loaded from
+// admin/cross-port-image-allowlist.json.
+// Format: Map of hash → approvedPort (the one port where this image belongs).
+let _allowedDuplicateMap = null;
+
+function loadAllowedDuplicates() {
+  if (_allowedDuplicateMap) return _allowedDuplicateMap;
+
+  _allowedDuplicateMap = new Map(); // hash → approvedPort
+  const allowlistPath = join(dirname(fileURLToPath(import.meta.url)), 'cross-port-image-allowlist.json');
+  try {
+    const data = JSON.parse(readFileSync(allowlistPath, 'utf-8'));
+    if (Array.isArray(data.reviewed)) {
+      for (const entry of data.reviewed) {
+        if (entry.hash && entry.approvedPort) {
+          _allowedDuplicateMap.set(entry.hash, entry.approvedPort);
+        }
+      }
+    }
+  } catch (e) {
+    // Allowlist missing or malformed — treat all duplicates as unreviewed
+  }
+
+  return _allowedDuplicateMap;
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -122,8 +215,8 @@ const SECTION_PATTERNS = {
 const EXPECTED_MAIN_ORDER = [
   'hero', 'logbook', 'featured_images', 'cruise_port', 'getting_around',
   'map', 'beaches', 'excursions', 'history', 'cultural', 'shopping',
-  'food', 'notices', 'depth_soundings', 'practical', 'faq', 'gallery',
-  'credits', 'back_nav'
+  'food', 'notices', 'depth_soundings', 'practical', 'gallery',
+  'credits', 'faq', 'back_nav'
 ];
 
 // Required sections (cannot be skipped)
@@ -516,6 +609,18 @@ function validateICPLite($, html) {
       message: `last-reviewed must be YYYY-MM-DD format, found "${lastReviewed}"`,
       severity: 'BLOCKING'
     });
+  } else {
+    // Staleness detection (cross-pollinated from venue validator W05)
+    const reviewed = new Date(lastReviewed);
+    const daysDiff = (new Date() - reviewed) / (1000 * 60 * 60 * 24);
+    if (daysDiff > 180) {
+      warnings.push({
+        section: 'icp_lite',
+        rule: 'stale_review',
+        message: `last-reviewed date is ${Math.floor(daysDiff)} days old (${lastReviewed}) — content may be stale`,
+        severity: 'WARNING'
+      });
+    }
   }
 
   const jsonldScripts = $('script[type="application/ld+json"]');
@@ -1055,9 +1160,17 @@ async function validatePortImages(filepath) {
     return { valid: false, errors, warnings, data: {} };
   }
 
-  // Check each image for placeholder hash
+  // Check each image for placeholder hash and cross-port contamination
   let placeholderCount = 0;
   const placeholderImages = [];
+  let crossPortCount = 0;
+  const crossPortImages = [];
+  let allowedDupeCount = 0;
+  const allowedDupeImages = [];
+
+  // Build dynamic cross-port hash map (cached after first call)
+  const crossPortMap = await buildCrossPortHashMap();
+  const allowedMap = loadAllowedDuplicates();
 
   for (const imgFile of imageFiles) {
     const imgPath = join(portImgDir, imgFile);
@@ -1068,6 +1181,28 @@ async function validatePortImages(filepath) {
       if (PLACEHOLDER_HASHES.has(hash)) {
         placeholderCount++;
         placeholderImages.push(imgFile);
+      }
+
+      // Check if this image hash appears in other port directories
+      const dupePortMap = crossPortMap.get(hash);
+      if (dupePortMap) {
+        const otherPorts = [...dupePortMap.keys()].filter(p => p !== filename);
+        if (otherPorts.length > 0) {
+          const approvedPort = allowedMap.get(hash);
+          if (approvedPort === filename) {
+            // This port is the approved owner — downgrade to info
+            allowedDupeCount++;
+            allowedDupeImages.push(`${imgFile} (approved owner; also in ${otherPorts.join(', ')})`);
+          } else if (approvedPort && approvedPort !== filename) {
+            // Reviewed but belongs to a DIFFERENT port — BLOCKING (wrong port)
+            crossPortCount++;
+            crossPortImages.push(`${imgFile} (belongs to ${approvedPort}, not this port; also in ${otherPorts.join(', ')})`);
+          } else {
+            // Unreviewed — BLOCKING
+            crossPortCount++;
+            crossPortImages.push(`${imgFile} (also in ${otherPorts.join(', ')})`);
+          }
+        }
       }
     } catch (e) {
       // Skip files that can't be read
@@ -1081,6 +1216,51 @@ async function validatePortImages(filepath) {
       message: `${placeholderCount} placeholder image(s) detected in ports/img/${filename}/: ${placeholderImages.slice(0, 3).join(', ')}${placeholderCount > 3 ? '...' : ''}. Each port must have unique, port-specific images.`,
       severity: 'BLOCKING'
     });
+  }
+
+  if (crossPortCount > 0) {
+    errors.push({
+      section: 'port_images',
+      rule: 'cross_port_images_detected',
+      message: `${crossPortCount} image(s) duplicated across ports in ports/img/${filename}/: ${crossPortImages.slice(0, 3).join(', ')}${crossPortCount > 3 ? ` and ${crossPortCount - 3} more` : ''}. Each port must have unique images — duplicates require human review. To approve, add hash to admin/cross-port-image-allowlist.json.`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  if (allowedDupeCount > 0) {
+    warnings.push({
+      section: 'port_images',
+      rule: 'allowed_cross_port_images',
+      message: `${allowedDupeCount} image(s) shared with other ports (human-reviewed, approved): ${allowedDupeImages.slice(0, 3).join(', ')}${allowedDupeCount > 3 ? ` and ${allowedDupeCount - 3} more` : ''}.`,
+      severity: 'INFO'
+    });
+  }
+
+  // Check for missing attribution files (every non-hero image should have provenance)
+  const webpImages = imageFiles.filter(f => f.endsWith('.webp'));
+  let missingAttrCount = 0;
+  const missingAttrImages = [];
+
+  for (const imgFile of webpImages) {
+    // Check for attr.json in both naming conventions: name-attr.json and name.webp.attr.json
+    const baseName = imgFile.replace(/\.webp$/, '');
+    const attrPath1 = join(portImgDir, `${baseName}-attr.json`);
+    const attrPath2 = join(portImgDir, `${imgFile}.attr.json`);
+
+    if (!existsSync(attrPath1) && !existsSync(attrPath2)) {
+      missingAttrCount++;
+      missingAttrImages.push(imgFile);
+    }
+  }
+
+  if (missingAttrCount > 0) {
+    const severity = missingAttrCount > Math.ceil(webpImages.length / 2) ? 'BLOCKING' : 'WARNING';
+    const msg = `${missingAttrCount} image(s) missing attribution files (-attr.json): ${missingAttrImages.slice(0, 3).join(', ')}${missingAttrCount > 3 ? ` and ${missingAttrCount - 3} more` : ''}. Every port image needs documented provenance.`;
+    if (severity === 'BLOCKING') {
+      errors.push({ section: 'port_images', rule: 'missing_attribution_files', message: msg, severity });
+    } else {
+      warnings.push({ section: 'port_images', rule: 'missing_attribution_files', message: msg, severity });
+    }
   }
 
   // Check for images with identical file sizes (potential duplicates)
@@ -1157,7 +1337,12 @@ function validateRubric($) {
 
   const fullText = $('body').text().toLowerCase();
   const accessibilityKeywords = ['wheelchair', 'mobility', 'accessible', 'tender', 'walking difficulty'];
-  const accessibilityMentions = accessibilityKeywords.filter(kw => fullText.includes(kw));
+  const accessibilityMentions = accessibilityKeywords.filter(kw => {
+    // Use word-boundary regex to avoid substring false positives
+    // e.g., "bartender" matching "tender", "stalking" matching "walking"
+    const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`\\b${escaped}\\b`, 'i').test(fullText);
+  });
 
   if (accessibilityMentions.length < 2) {
     errors.push({
@@ -1168,7 +1353,7 @@ function validateRubric($) {
     });
   }
 
-  const priceMatches = fullText.match(/\$\d+|€\d+|\b(price|cost|fee|fare)\b/gi) || [];
+  const priceMatches = fullText.match(/\$[\d,]+(?:\.\d{1,2})?|€[\d,]+(?:\.\d{1,2})?|\b(price|cost|fee|fare)\b/gi) || [];
   const priceMentions = priceMatches.length;
 
   if (priceMentions < 5) {
@@ -1182,7 +1367,10 @@ function validateRubric($) {
 
   const excursionsText = findSectionContent($, SECTION_PATTERNS.excursions);
   const bookingKeywords = ['ship excursion', 'independent', 'guaranteed return', 'book ahead'];
-  const bookingMentions = bookingKeywords.filter(kw => excursionsText.toLowerCase().includes(kw));
+  const bookingMentions = bookingKeywords.filter(kw => {
+    const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`\\b${escaped}\\b`, 'i').test(excursionsText);
+  });
 
   if (bookingMentions.length < 2) {
     errors.push({
@@ -1672,6 +1860,32 @@ function validateHTMLIntegrity($, html) {
     });
   }
 
+  // 2b. Check for common JS API typos (cross-pollinated from ship validator)
+  const jsTypoPatterns = [
+    { pattern: /\.addEventListner\(/, message: 'Typo: addEventListner should be addEventListener' },
+    { pattern: /\.innerHtml\s*=/, message: 'Typo: innerHtml should be innerHTML' },
+    { pattern: /\.classlist\./, message: 'Typo: classlist should be classList' },
+    { pattern: /document\.getElementByID\(/, message: 'Typo: getElementByID should be getElementById' },
+    { pattern: /\.getElementByClassName\(/, message: 'Typo: getElementByClassName should be getElementsByClassName' },
+    { pattern: /\.queryselector\(/, message: 'Typo: queryselector should be querySelector (check case)' },
+    { pattern: /\.appendchild\(/, message: 'Typo: appendchild should be appendChild' },
+    { pattern: /\.setattribute\(/, message: 'Typo: setattribute should be setAttribute' }
+  ];
+  for (const block of inlineScriptBlocks) {
+    if (block.includes('application/ld+json') || block.includes('application/json')) continue;
+    const jsContent = block.replace(/<script[^>]*>/i, '').replace(/<\/script>/i, '');
+    for (const { pattern, message } of jsTypoPatterns) {
+      if (pattern.test(jsContent)) {
+        errors.push({
+          section: 'html_integrity',
+          rule: 'js_api_typo',
+          message,
+          severity: 'BLOCKING'
+        });
+      }
+    }
+  }
+
   // 3. Check for <meta name="author"> tag
   const authorMeta = $('meta[name="author"]').attr('content') || '';
   if (!authorMeta) {
@@ -1843,6 +2057,418 @@ function validatePrintButton($, html) {
   return { valid: errors.length === 0, errors, warnings, data: { hasPrintButton: btn.length > 0 } };
 }
 
+// =============================================================================
+// STANDARDS v3.010 CROSS-POLLINATION CHECKS
+// =============================================================================
+
+/**
+ * Validate sidebar/rail sections (PORT_PAGE_STANDARD v3.010 §sidebar)
+ * Port pages must have 7 sidebar sections in order:
+ * Quick Answer, At a Glance, Author's Note Disclaimer, About the Author,
+ * Nearby Ports, Recent Stories, Whimsical Units
+ */
+function validateSidebar($) {
+  const errors = [];
+  const warnings = [];
+
+  const REQUIRED_SIDEBAR_SECTIONS = [
+    { id: 'quick-answer',    pattern: /quick.?answer|answer-line/i,        label: 'Quick Answer' },
+    { id: 'at-a-glance',     pattern: /at.a.glance|port.snapshot/i,        label: 'At a Glance' },
+    { id: 'author-note',     pattern: /author('s)?.?note|disclaimer/i,     label: "Author's Note Disclaimer" },
+    { id: 'about-author',    pattern: /about.the.author|author-card/i,     label: 'About the Author' },
+    { id: 'nearby-ports',    pattern: /nearby.ports?|other.ports/i,        label: 'Nearby Ports' },
+    { id: 'recent-stories',  pattern: /recent.stories|recent-rail/i,       label: 'Recent Stories' },
+    { id: 'whimsical-units', pattern: /whimsical.?units?|distance.?units/i, label: 'Whimsical Units' }
+  ];
+
+  // Look for sidebar/rail container
+  const sidebar = $('aside, .sidebar, .rail, .right-rail, .col-2');
+  if (sidebar.length === 0) {
+    errors.push({
+      section: 'sidebar',
+      rule: 'missing_sidebar',
+      message: 'No sidebar/rail container found (aside, .sidebar, .rail, .col-2)',
+      severity: 'BLOCKING'
+    });
+    return { valid: false, errors, warnings, data: { hasSidebar: false } };
+  }
+
+  const sidebarHtml = sidebar.html() || '';
+  const sidebarText = sidebar.text() || '';
+  const detected = [];
+  const missing = [];
+
+  for (const section of REQUIRED_SIDEBAR_SECTIONS) {
+    const hasById = sidebar.find(`#${section.id}, [id*="${section.id}"]`).length > 0;
+    const hasByClass = sidebar.find(`[class*="${section.id}"]`).length > 0;
+    const hasByText = section.pattern.test(sidebarText) || section.pattern.test(sidebarHtml);
+
+    if (hasById || hasByClass || hasByText) {
+      detected.push(section.label);
+    } else {
+      missing.push(section.label);
+    }
+  }
+
+  if (missing.length > 0) {
+    errors.push({
+      section: 'sidebar',
+      rule: 'missing_sidebar_sections',
+      message: `Sidebar missing ${missing.length} required section(s): ${missing.join(', ')}`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: { hasSidebar: true, detected, missing }
+  };
+}
+
+/**
+ * Validate Swiper CDN fallback pattern (PORT_PAGE_STANDARD v3.010)
+ * Must have primary Swiper + CDN fallback with window.__swiperReady flag
+ */
+function validateSwiperFallback($, html) {
+  const errors = [];
+  const warnings = [];
+
+  // Check if page uses Swiper at all
+  const hasSwiper = html.includes('swiper') || html.includes('Swiper');
+  if (!hasSwiper) {
+    return { valid: true, errors, warnings, data: { usesSwiper: false } };
+  }
+
+  // Check for local Swiper bundle
+  const hasLocalSwiper = html.includes('swiper-bundle') || html.includes('/assets/js/swiper');
+
+  // Check for CDN fallback
+  const hasCDNFallback = html.includes('cdn.jsdelivr.net') || html.includes('cdnjs.cloudflare.com') || html.includes('unpkg.com');
+
+  // Check for __swiperReady flag
+  const hasSwiperReady = html.includes('__swiperReady') || html.includes('swiperReady');
+
+  if (hasLocalSwiper && !hasCDNFallback) {
+    warnings.push({
+      section: 'swiper',
+      rule: 'missing_cdn_fallback',
+      message: 'Swiper loaded locally but no CDN fallback found. Add CDN fallback for resilience.',
+      severity: 'WARNING'
+    });
+  }
+
+  if (!hasSwiperReady && (hasLocalSwiper || hasCDNFallback)) {
+    warnings.push({
+      section: 'swiper',
+      rule: 'missing_swiper_ready',
+      message: 'Swiper scripts found but no window.__swiperReady flag. Add ready flag for load-order safety.',
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: true,
+    errors,
+    warnings,
+    data: { usesSwiper: true, hasLocalSwiper, hasCDNFallback, hasSwiperReady }
+  };
+}
+
+/**
+ * Validate Service Worker registration (MOBILE_STANDARDS v1.000)
+ * Pages should register /sw.js for offline support
+ */
+function validateServiceWorker(html) {
+  const errors = [];
+  const warnings = [];
+
+  const hasSWRegister = html.includes('serviceWorker.register') || html.includes('serviceWorker');
+  const hasSWFile = html.includes("'/sw.js'") || html.includes('"/sw.js"') || html.includes('/sw.js');
+
+  if (!hasSWRegister) {
+    warnings.push({
+      section: 'service_worker',
+      rule: 'missing_sw_registration',
+      message: 'No Service Worker registration found. Add navigator.serviceWorker.register(\'/sw.js\') for offline support.',
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: true,
+    errors,
+    warnings,
+    data: { hasServiceWorker: hasSWRegister, hasSWFile }
+  };
+}
+
+/**
+ * Validate FAQ answer length (PORT_PAGE_STANDARD v3.010: each answer ≤80 words)
+ */
+function validateFAQAnswerLength($) {
+  const errors = [];
+  const warnings = [];
+
+  const faqSection = $('details').closest('section[id*="faq"], details');
+  const faqDetails = $('details');
+  let longAnswers = 0;
+  const longAnswerDetails = [];
+
+  faqDetails.each((i, elem) => {
+    const $detail = $(elem);
+    const summary = $detail.find('summary').text().trim();
+    // Get answer text (everything after the summary)
+    const fullText = $detail.text();
+    const summaryText = $detail.find('summary').text();
+    const answerText = fullText.replace(summaryText, '').trim();
+    const wordCount = countWords(answerText);
+
+    if (wordCount > 80) {
+      longAnswers++;
+      longAnswerDetails.push({ question: summary.substring(0, 60), words: wordCount });
+    }
+  });
+
+  if (longAnswers > 0) {
+    const examples = longAnswerDetails.slice(0, 2).map(d => `"${d.question}..." (${d.words} words)`).join('; ');
+    warnings.push({
+      section: 'faq',
+      rule: 'answer_too_long',
+      message: `${longAnswers} FAQ answer(s) exceed 80-word limit: ${examples}`,
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: true,
+    errors,
+    warnings,
+    data: { totalFAQs: faqDetails.length, longAnswers, longAnswerDetails }
+  };
+}
+
+/**
+ * Validate answer-line and key-facts presence (ICP-Lite v1.4 / PORT_PAGE_STANDARD v3.010)
+ * Every port page should have a quick answer-line and a key-facts box
+ */
+function validateAnswerLineKeyFacts($) {
+  const errors = [];
+  const warnings = [];
+
+  const hasAnswerLine = $('.answer-line').length > 0 || $('[class*="answer-line"]').length > 0;
+  const hasKeyFacts = $('.key-facts').length > 0 || $('[class*="key-facts"]').length > 0;
+
+  if (!hasAnswerLine) {
+    errors.push({
+      section: 'content_structure',
+      rule: 'missing_answer_line',
+      message: 'Missing answer-line element. Every port page needs a quick one-line answer.',
+      severity: 'BLOCKING'
+    });
+  }
+
+  if (!hasKeyFacts) {
+    errors.push({
+      section: 'content_structure',
+      rule: 'missing_key_facts',
+      message: 'Missing key-facts element. Every port page needs a key facts summary.',
+      severity: 'BLOCKING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: { hasAnswerLine, hasKeyFacts }
+  };
+}
+
+/**
+ * Validate Soli Deo Gloria position (must be in first 3 lines, before <!doctype html>)
+ * Per CLAUDE.md and site standards, SDG is the spiritual foundation comment.
+ */
+function validateSDGPosition(html) {
+  const errors = [];
+  const warnings = [];
+
+  const lines = html.split('\n').slice(0, 5); // Check first 5 lines
+  const first3 = lines.slice(0, 3).join('\n');
+
+  const hasSDG = /soli\s+deo\s+gloria/i.test(html);
+  const sdgInFirst3 = /soli\s+deo\s+gloria/i.test(first3);
+
+  if (!hasSDG) {
+    errors.push({
+      section: 'soli_deo_gloria',
+      rule: 'missing_sdg',
+      message: 'Missing "Soli Deo Gloria" dedication anywhere in file',
+      severity: 'BLOCKING'
+    });
+  } else if (!sdgInFirst3) {
+    warnings.push({
+      section: 'soli_deo_gloria',
+      rule: 'sdg_position',
+      message: 'Soli Deo Gloria found but not in first 3 lines. Should appear before <!doctype html>.',
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: { hasSDG, sdgInFirst3 }
+  };
+}
+
+/**
+ * Validate canonical URL format (must be absolute https://cruisinginthewake.com/...)
+ */
+function validateCanonicalURL($) {
+  const errors = [];
+  const warnings = [];
+
+  const canonical = $('link[rel="canonical"]').attr('href') || '';
+
+  if (!canonical) {
+    errors.push({
+      section: 'canonical',
+      rule: 'missing_canonical',
+      message: 'Missing <link rel="canonical"> tag',
+      severity: 'BLOCKING'
+    });
+  } else if (!canonical.startsWith('https://cruisinginthewake.com/')) {
+    errors.push({
+      section: 'canonical',
+      rule: 'invalid_canonical_format',
+      message: `Canonical URL must be absolute https://cruisinginthewake.com/ format, found "${canonical}"`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: { canonical }
+  };
+}
+
+/**
+ * Validate POI manifest (PORT_PAGE_STANDARD v3.010)
+ * Port pages should have a corresponding map manifest with minimum 10 POI
+ */
+async function validatePOIManifest(filepath) {
+  const errors = [];
+  const warnings = [];
+
+  const filename = basename(filepath, '.html');
+  const mapPath = join(PROJECT_ROOT, 'assets', 'data', 'maps', `${filename}.map.json`);
+
+  if (!existsSync(mapPath)) {
+    warnings.push({
+      section: 'poi_manifest',
+      rule: 'missing_map_manifest',
+      message: `No POI manifest found at assets/data/maps/${filename}.map.json`,
+      severity: 'WARNING'
+    });
+    return { valid: true, errors, warnings, data: { hasManifest: false } };
+  }
+
+  try {
+    const content = readFileSync(mapPath, 'utf-8');
+    const data = JSON.parse(content);
+
+    // The map module (port-map.js) renders POIs from TWO sources:
+    //   1. port_pin — always renders the cruise terminal pin
+    //   2. poi_ids — looked up in poi-index.json for lat/lon/type
+    // The pois array in the manifest is supplemental metadata.
+    // We check BOTH poi_ids resolution AND pois array count.
+
+    const poiIds = data.poi_ids || [];
+    const pois = data.pois || data.points || data.markers || [];
+    const poiCount = Array.isArray(pois) ? pois.length : 0;
+
+    // Primary check: resolved poi_ids in poi-index.json (what actually renders)
+    let resolvedCount = 0;
+    let missingIds = [];
+    const poiIndexPath = join(PROJECT_ROOT, 'assets', 'data', 'maps', 'poi-index.json');
+    if (existsSync(poiIndexPath)) {
+      try {
+        const poiIndexContent = readFileSync(poiIndexPath, 'utf-8');
+        const poiIndex = JSON.parse(poiIndexContent);
+        missingIds = poiIds.filter(id => !poiIndex[id]);
+        resolvedCount = poiIds.length - missingIds.length;
+      } catch (_) {
+        // poi-index.json parse error — fall back to pois array count
+        resolvedCount = poiCount;
+      }
+    } else {
+      resolvedCount = poiCount;
+    }
+
+    // Use the better of poi_ids resolution or pois array for the count
+    const effectivePoiCount = Math.max(resolvedCount, poiCount);
+
+    if (effectivePoiCount < 10) {
+      warnings.push({
+        section: 'poi_manifest',
+        rule: 'insufficient_pois',
+        message: `Map has ${effectivePoiCount} renderable point(s) (${resolvedCount} resolved poi_ids, ${poiCount} in pois array), minimum recommended is 10`,
+        severity: 'WARNING'
+      });
+    }
+
+    // Warn about unresolved poi_ids — these won't render on the map
+    if (missingIds.length > 0) {
+      warnings.push({
+        section: 'poi_manifest',
+        rule: 'unresolved_poi_ids',
+        message: `${missingIds.length} poi_id(s) not found in poi-index.json: ${missingIds.slice(0, 5).join(', ')}${missingIds.length > 5 ? ` and ${missingIds.length - 5} more` : ''}. Map markers will not render for these.`,
+        severity: 'WARNING'
+      });
+    }
+
+    // Warn if pois data exists but poi_ids is empty (map won't show markers)
+    if (poiCount > 0 && poiIds.length === 0) {
+      warnings.push({
+        section: 'poi_manifest',
+        rule: 'pois_without_poi_ids',
+        message: `Manifest has ${poiCount} pois but no poi_ids array. Map markers rely on poi_ids referencing poi-index.json.`,
+        severity: 'WARNING'
+      });
+    }
+
+    // Warn if poi_ids exist but no pois array (data not self-contained)
+    if (poiIds.length > 0 && poiCount === 0) {
+      warnings.push({
+        section: 'poi_manifest',
+        rule: 'poi_ids_without_pois',
+        message: `Manifest has ${poiIds.length} poi_ids but no pois array. Add a pois array with coordinates for data completeness.`,
+        severity: 'WARNING'
+      });
+    }
+
+    return {
+      valid: true,
+      errors,
+      warnings,
+      data: { hasManifest: true, poiCount, poiIdCount: poiIds.length, resolvedCount }
+    };
+  } catch (e) {
+    warnings.push({
+      section: 'poi_manifest',
+      rule: 'invalid_manifest',
+      message: `POI manifest parse error: ${e.message}`,
+      severity: 'WARNING'
+    });
+    return { valid: true, errors, warnings, data: { hasManifest: true, parseError: true } };
+  }
+}
+
 async function validatePortPage(filepath) {
   const relPath = relative(PROJECT_ROOT, filepath);
   const results = {
@@ -1880,6 +2506,7 @@ async function validatePortPage(filepath) {
     const rubricResult = validateRubric($);
     const logbookResult = validateLogbookNarrative($);
     const contentPurityResult = validateContentPurity($);
+    const voiceQualityResult = validateVoiceQuality($('body').text());
     const uniqueNamesResult = validateUniqueNames($);
     const authorDisclaimerResult = validateAuthorDisclaimer($);
     const trustBadgeResult = validateTrustBadge($);
@@ -1889,6 +2516,16 @@ async function validatePortPage(filepath) {
     const printButtonResult = validatePrintButton($, html);
     const siteIntegrationResult = await validateSiteIntegration(filepath);
     const htmlIntegrityResult = validateHTMLIntegrity($, html);
+
+    // v3.010 standards cross-pollination checks
+    const sidebarResult = validateSidebar($);
+    const swiperFallbackResult = validateSwiperFallback($, html);
+    const serviceWorkerResult = validateServiceWorker(html);
+    const faqAnswerLengthResult = validateFAQAnswerLength($);
+    const answerLineResult = validateAnswerLineKeyFacts($);
+    const sdgPositionResult = validateSDGPosition(html);
+    const canonicalResult = validateCanonicalURL($);
+    const poiManifestResult = await validatePOIManifest(filepath);
 
     // Collect all errors
     results.blocking_errors.push(...siteIntegrationResult.errors);
@@ -1901,10 +2538,15 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...rubricResult.errors);
     results.blocking_errors.push(...logbookResult.errors);
     results.blocking_errors.push(...contentPurityResult.errors);
+    results.blocking_errors.push(...voiceQualityResult.errors);
     results.blocking_errors.push(...trustBadgeResult.errors);
     results.blocking_errors.push(...collapsibleResult.errors);
     results.blocking_errors.push(...printButtonResult.errors);
     results.blocking_errors.push(...htmlIntegrityResult.errors);
+    results.blocking_errors.push(...sidebarResult.errors);
+    results.blocking_errors.push(...answerLineResult.errors);
+    results.blocking_errors.push(...sdgPositionResult.errors);
+    results.blocking_errors.push(...canonicalResult.errors);
 
     // Collect all warnings
     results.warnings.push(...analyticsResult.warnings);
@@ -1916,16 +2558,24 @@ async function validatePortPage(filepath) {
     results.warnings.push(...rubricResult.warnings);
     results.warnings.push(...logbookResult.warnings);
     results.warnings.push(...contentPurityResult.warnings);
+    results.warnings.push(...voiceQualityResult.warnings);
     results.warnings.push(...uniqueNamesResult.warnings);
     results.warnings.push(...authorDisclaimerResult.warnings);
     results.warnings.push(...lastReviewedResult.warnings);
     results.warnings.push(...fromThePierResult.warnings);
     results.warnings.push(...printButtonResult.warnings);
     results.warnings.push(...htmlIntegrityResult.warnings);
+    results.warnings.push(...sidebarResult.warnings);
+    results.warnings.push(...swiperFallbackResult.warnings);
+    results.warnings.push(...serviceWorkerResult.warnings);
+    results.warnings.push(...faqAnswerLengthResult.warnings);
+    results.warnings.push(...sdgPositionResult.warnings);
+    results.warnings.push(...poiManifestResult.warnings);
 
     // Collect info
     results.info.push(...logbookResult.info);
     if (contentPurityResult.info) results.info.push(...contentPurityResult.info);
+    if (voiceQualityResult.info) results.info.push(...voiceQualityResult.info);
 
     // Calculate score (start at 100, deduct for errors/warnings)
     results.score = 100;
@@ -1950,11 +2600,20 @@ async function validatePortPage(filepath) {
     results.rubric = rubricResult.data;
     results.logbook_narrative = logbookResult.data;
     results.content_purity = contentPurityResult.data;
+    results.voice_quality = voiceQualityResult.data;
     results.unique_names = uniqueNamesResult.data;
     results.from_the_pier = fromThePierResult.data;
     results.print_button = printButtonResult.data;
     results.site_integration = siteIntegrationResult.data;
     results.html_integrity = htmlIntegrityResult.data;
+    results.sidebar = sidebarResult.data;
+    results.swiper_fallback = swiperFallbackResult.data;
+    results.service_worker = serviceWorkerResult.data;
+    results.faq_answer_length = faqAnswerLengthResult.data;
+    results.answer_line_key_facts = answerLineResult.data;
+    results.sdg_position = sdgPositionResult.data;
+    results.canonical = canonicalResult.data;
+    results.poi_manifest = poiManifestResult.data;
 
   } catch (error) {
     results.blocking_errors.push({
@@ -2063,6 +2722,20 @@ function printResults(results, options) {
     console.log(`  Stamina Level Mentions: ${results.content_purity?.stamina_level_mentions || 0}`);
     if (results.unique_names?.names_found?.length > 0) {
       console.log(`  Persona Names Detected: ${results.unique_names.names_found.join(', ')}`);
+    }
+    console.log();
+
+    console.log(`${colors.bold}Voice Quality (Like-a-Human):${colors.reset}`);
+    if (results.voice_quality?.skipped) {
+      console.log(`  Skipped (${results.voice_quality.wordCount} words — below threshold)`);
+    } else {
+      console.log(`  Promotional Drift (V01): ${results.voice_quality?.promotional_drift || 0}`);
+      console.log(`  AI Chorus (V02): ${results.voice_quality?.ai_chorus || 0}`);
+      console.log(`  Authority Violations (V03): ${results.voice_quality?.authority_violations || 0}`);
+      console.log(`  Window Pane (V04): ${results.voice_quality?.window_pane_violations || 0}`);
+      console.log(`  Warmth Violations (V05): ${results.voice_quality?.warmth_violations || 0}`);
+      console.log(`  Corporate Filler (V06): ${results.voice_quality?.corporate_filler || 0}`);
+      console.log(`  Total Findings: ${results.voice_quality?.totalFindings || 0}`);
     }
     console.log();
 

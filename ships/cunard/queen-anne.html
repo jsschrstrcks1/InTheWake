@@ -41,7 +41,7 @@ All work on this project is offered as a gift to God.
   <link rel="canonical" href="https://cruisinginthewake.com/ships/cunard/queen-anne.html"/>
   <meta name="description" content="Discover Queen Anne: A Queen Anne Class ship from Cunard. 113,000 GT, 2,996 guests, built 2024. Dining, entertainment, deck plans, and planning tips."/>
   <meta name="ai-summary" content="Discover Queen Anne: A Queen Anne Class ship from Cunard. 113,000 GT, 2,996 guests, built 2024. Dining, entertainment, deck plans, and planning tips.">
-  <meta name="last-reviewed" content="2026-02-12">
+  <meta name="last-reviewed" content="2026-02-21">
   <meta name="content-protocol" content="ICP-Lite v1.4">
 
   <!-- OpenGraph / Twitter -->
@@ -81,7 +81,7 @@ All work on this project is offered as a gift to God.
     "name": "Queen Anne",
     "url": "https://cruisinginthewake.com/ships/cunard/queen-anne.html",
     "description": "Discover Queen Anne: A Queen Anne Class ship from Cunard. 113,000 GT, 2,996 guests, built 2024. Dining, entertainment, deck plans, and planning tips.",
-    "dateModified": "2026-02-12",
+    "dateModified": "2026-02-21",
     "mainEntity": {
       "@type": "Thing",
       "name": "Queen Anne",
@@ -109,10 +109,41 @@ All work on this project is offered as a gift to God.
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 
 <!-- JSON-LD: BreadcrumbList -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Cunard Line","item":"https://cruisinginthewake.com/cruise-lines/cunard.html"},{"@type":"ListItem","position":4,"name":"Queen Anne","item":"https://cruisinginthewake.com/ships/cunard/queen-anne.html"}]}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://cruisinginthewake.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Ships",
+      "item": "https://cruisinginthewake.com/ships.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cunard Line",
+      "item": "https://cruisinginthewake.com/cruise-lines/cunard.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Queen Anne",
+      "item": "https://cruisinginthewake.com/ships/cunard/queen-anne.html"
+    }
+  ]
+}
+</script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Queen Anne","brand":{"@type":"Organization","name":"Cunard Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Queen Anne from Cunard Line offers memorable cruise experiences with excellent amenities and service."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Queen Anne","brand":{"@type":"Organization","name":"Cunard Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Queen Anne is the newest Cunard ship, measuring 113,000 GT and accommodating 2,996 guests. Built in 2024, she is the first new Cunard vessel in over a decade, blending classic ocean liner heritage with modern luxury amenities and world-class dining."}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -181,7 +212,7 @@ All work on this project is offered as a gift to God.
     "@type": "Article",
     "headline": "Queen Anne — Cunard Ship Guide",
     "description": "Discover Queen Anne: A Queen Anne Class ship from Cunard. 113,000 GT, 2,996 guests, built 2024. Dining, entertainment, deck plans, and planning tips.",
-    "dateModified": "2026-02-12",
+    "dateModified": "2026-02-21",
     "author": {
         "@type": "Person",
         "name": "Ken Baker",
@@ -203,11 +234,44 @@ All work on this project is offered as a gift to God.
     }
 }
   </script>
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
+  <!-- ARIA Live Regions -->
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-  <header class="hero-header">
+  <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
         <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/></a>
@@ -503,8 +567,8 @@ Dining on Queen Anne</h2>
         </figure>
         <p><a class="btn" href="https://www.cunard.com/" target="_blank" rel="noopener">Visit Cunard Official Site</a></p>
       </section>
-      <section class="card" aria-labelledby="trackingHeading">
-        <h2 id="trackingHeading">Where Is Queen Anne?</h2>
+      <section class="card" aria-labelledby="liveTrackHeading">
+        <h2 id="liveTrackHeading">Where Is Queen Anne?</h2>
         <p>Track Queen Anne's current position and upcoming itinerary.</p>
         <p><a class="btn" href="https://www.cruisemapper.com/?search=Queen%20Anne" target="_blank" rel="noopener">Open Live Tracker</a></p>
       </section>
@@ -582,10 +646,10 @@ Dining on Queen Anne</h2>
       <section class="card quick-tools" style="padding: 1rem;">
         <h3 style="margin: 0 0 0.75rem; font-size: 1rem; color: #083041;">Planning Tools</h3>
         <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
-          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Ship Size Atlas</a></li>
-          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Budget Calculator</a></li>
-          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Drink Package Calculator</a></li>
-          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Port Day Planner</a></li>
+          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none;">Ship Size Atlas</a></li>
+          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none;">Budget Calculator</a></li>
+          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none;">Drink Package Calculator</a></li>
+          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none;">Port Day Planner</a></li>
         </ul>
       </section>
 
@@ -635,6 +699,18 @@ Dining on Queen Anne</h2>
     <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
+  <!-- initFirstLook — Swiper for .firstlook carousel -->
+  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+  <!-- initVideos — fetch video JSON, render thumbnails -->
+  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/cunard/queen-anne.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
+  <!-- initStats — parse ship-stats-fallback JSON -->
+  <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
+  <!-- initDining — fetch dining JSON -->
+  <script>function initDining(){const src=document.getElementById('dining-data-source');if(!src)return;try{const cfg=JSON.parse(src.textContent);fetch(cfg.json).then(r=>r.json()).then(d=>{const venues=(d.venues||d||[]).filter(v=>v.ship_slug===cfg.ship_slug||((cfg.aliases||[]).includes(v.ship)));const ct=document.getElementById('dining-content');if(ct&&venues.length)ct.innerHTML=venues.map(v=>'<div class="venue-card"><h3>'+v.name+'</h3><p>'+v.description+'</p></div>').join('');}).catch(()=>{});}catch(_){}}</script>
+  <!-- initLiveTracker — render tracking link -->
+  <script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;}</script>
+  <!-- initShipLogbook — logbook loader -->
+  <script>function initShipLogbook(){const c=document.getElementById('logbook-container');if(!c)return;const ship=c.getAttribute('data-ship');const line=c.getAttribute('data-line');if(!ship)return;fetch('/assets/data/logbook/'+line+'/'+ship+'.json').then(r=>{if(!r.ok)throw 0;return r.json();}).then(entries=>{if(!entries.length)return;c.innerHTML=entries.map(e=>'<article class="logbook-entry"><h3>'+e.title+'</h3><p>'+e.body+'</p><p class="tiny">'+e.date+'</p></article>').join('');}).catch(()=>{});}</script>
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>

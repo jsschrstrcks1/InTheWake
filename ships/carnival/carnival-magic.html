@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
 ████████████████████████████████████████████████████████████████████████████████
-██  SOLI DEO GLORIA — To God alone be the glory                satisfies: SR1 ██
+██  Soli Deo Gloria — To God alone be the glory                satisfies: SR1 ██
 ██                                                                            ██
 ██    "Trust in the LORD with all your heart, and do not lean on your own     ██
 ██     understanding. In all your ways acknowledge him, and he will make      ██
@@ -56,7 +56,18 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 
 <!-- JSON-LD: BreadcrumbList -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Carnival","item":"https://cruisinginthewake.com/ships.html#carnival"},{"@type":"ListItem","position":4,"name":"Carnival Magic","item":"https://cruisinginthewake.com/ships/carnival/carnival-magic.html"}]}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships.html"},
+    {"@type": "ListItem", "position": 3, "name": "Carnival", "item": "https://cruisinginthewake.com/ships.html#carnival"},
+    {"@type": "ListItem", "position": 4, "name": "Carnival Magic", "item": "https://cruisinginthewake.com/ships/carnival/carnival-magic.html"}
+  ]
+}
+</script>
 
 <!-- JSON-LD: Review -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Carnival Magic","brand":{"@type":"Organization","name":"Carnival Cruise Line"},"vehicleIdentificationNumber":"IMO 9378486"},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival Magic pioneered adventure at sea with the first SkyCourse ropes course. Her Dream-class proportions deliver impressive space ratios and the Lanai deck creates memorable al fresco dining.","datePublished":"2025-12-03"}</script>
@@ -90,7 +101,19 @@
   </script>
 
 <!-- JSON-LD: FAQPage -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the SkyCourse on Carnival Magic?","acceptedAnswer":{"@type":"Answer","text":"The SkyCourse is a suspended ropes course located about 80 feet above the deck. Carnival Magic was the first cruise ship to feature this aerial adventure, paving the way for similar attractions throughout the industry."}},{"@type":"Question","name":"Where does Carnival Magic sail from?","acceptedAnswer":{"@type":"Answer","text":"Carnival Magic operates from Norfolk, Virginia, offering Caribbean and Bahamas itineraries convenient for East Coast cruisers from Virginia, Maryland, DC, and surrounding states."}},{"@type":"Question","name":"How big is Carnival Magic?","acceptedAnswer":{"@type":"Answer","text":"Carnival Magic measures 130,000 gross tons and is 1,004 feet long. She accommodates 3,690 guests at double occupancy across 1,845 staterooms on 15 guest decks."}}]}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the SkyCourse on Carnival Magic?", "acceptedAnswer": {"@type": "Answer", "text": "The SkyCourse is a suspended ropes course located about 80 feet above the deck. Carnival Magic was the first cruise ship to feature this aerial adventure, paving the way for similar attractions throughout the industry."}},
+    {"@type": "Question", "name": "Where does Carnival Magic sail from?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Magic operates from Norfolk, Virginia, offering Caribbean and Bahamas itineraries convenient for East Coast cruisers from Virginia, Maryland, DC, and surrounding states."}},
+    {"@type": "Question", "name": "How big is Carnival Magic?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Magic measures 130,000 gross tons and is 1,004 feet long. She accommodates 3,690 guests at double occupancy across 1,845 staterooms on 15 guest decks."}},
+    {"@type": "Question", "name": "What class is Carnival Magic?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Magic is the second Dream-class ship, built in 2011 by Fincantieri at their Monfalcone shipyard. The Dream class also includes Carnival Dream (2009) and Carnival Breeze (2012)."}},
+    {"@type": "Question", "name": "What dining options are on Carnival Magic?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Magic features the Lanai outdoor dining promenade, Cucina del Capitano Italian restaurant, JiJi Asian Kitchen, Fahrenheit 555 steakhouse, Guy's Burger Joint, BlueIguana Cantina, and the two-deck Southern Lights main dining room."}}
+  ]
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
@@ -145,12 +168,42 @@
     }
 }
   </script>
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-
-<a href="#main-content" class="skip-link">Skip to main content</a>
   <header class="hero-header ship-page" role="banner">
     <div class="navbar">
       <div class="brand">
@@ -240,7 +293,7 @@
   </div>
 </header>
 
-<nav class="wrap" aria-label="Breadcrumb" class="breadcrumb-nav">
+<nav class="wrap breadcrumb-nav" aria-label="Breadcrumb">
   <ol class="breadcrumb-list">
     <li><a href="/">Home</a> ›</li>
     <li><a href="/ships.html">Ships</a> ›</li>
@@ -276,7 +329,7 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/Carnival_Magic_001.jpg" alt="Carnival Magic cruise ship at sea showing Dream-class profile" loading="eager" decoding="async">
+              <img src="/assets/ships/Carnival_Magic_001.jpg" alt="Carnival Magic cruise ship at sea showing Dream-class profile" loading="eager" decoding="async" fetchpriority="high">
               <figcaption class="tiny">Carnival Magic. Photo: <a href="https://commons.wikimedia.org/wiki/File:Carnival_Magic_(ship,_2011)_001.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> CC BY-SA 4.0</figcaption>
             </figure>
           </div>
@@ -320,7 +373,7 @@
              src="/assets/img/Cordelia_Empress_Food_Court.webp"
              alt="Carnival Magic dining venue" loading="lazy"
              onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
-Dining Venues on Carnival Magic <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+Dining Venues on Carnival Magic <a href="/restaurants.html" style="font-size: 1rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
       <p class="section-intro">Explore the dining options available on Carnival Magic, from complimentary venues to specialty restaurants.</p>
       <div class="dining-content" id="dining-content" aria-live="polite">
         <p class="tiny">Loading venue information...</p>
@@ -476,10 +529,10 @@ Dining Venues on Carnival Magic <a href="/restaurants.html" style="font-size: 0.
       <section class="card quick-tools" style="padding: 1rem;">
         <h3 style="margin: 0 0 0.75rem; font-size: 1rem; color: #083041;">Planning Tools</h3>
         <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
-          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Ship Size Atlas</a></li>
-          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Budget Calculator</a></li>
-          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Drink Package Calculator</a></li>
-          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Port Day Planner</a></li>
+          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none;">Ship Size Atlas</a></li>
+          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none;">Budget Calculator</a></li>
+          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none;">Drink Package Calculator</a></li>
+          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none;">Port Day Planner</a></li>
         </ul>
       </section>
 
@@ -605,7 +658,89 @@ document.addEventListener('DOMContentLoaded',function(){
   window.__articlesNav = renderPage;
   loadArticles();
 })();
-</script>  <!-- Navigation Dropdown Script -->
+</script>
+
+<!-- ===== JS Module: First Look Carousel ===== -->
+<script>
+function initFirstLook(){
+  const el=document.getElementById('photo-swiper');
+  if(!el||typeof Swiper==='undefined') return;
+  new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
+</script>
+
+<!-- ===== JS Module: Ship Logbook ===== -->
+<script>
+function initShipLogbook(){
+  const c=document.getElementById('logbook-container');
+  if(!c) return;
+  fetch('/assets/data/logbook/carnival/carnival-magic.json')
+    .then(r=>r.json()).then(d=>{
+      if(d.stories) c.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h4>'+s.title+'</h4><p class="logbook-meta">'+s.persona_label+' · '+s.author.name+'</p><p>'+s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')+'</p></article>').join('');
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initShipLogbook); else initShipLogbook();
+</script>
+
+<!-- ===== JS Module: Video Loader ===== -->
+<script>
+function initVideos(){
+  const w=document.getElementById('video-wrapper');
+  if(!w) return;
+  fetch('/assets/data/videos/carnival/carnival-magic.json')
+    .then(r=>r.json()).then(d=>{
+      let vids=[];
+      if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
+      else if(Array.isArray(d.videos)) vids=d.videos;
+      if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
+      new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();
+</script>
+
+<!-- ===== JS Module: Ship Stats ===== -->
+<script>
+function initStats(){
+  const el=document.querySelector('[data-ship-stats]')||document.getElementById('stats-container');
+  if(!el) return;
+  fetch('/ships/carnival/assets/carnival-magic-stats.json')
+    .then(r=>r.json()).then(d=>{
+      if(d&&typeof d==='object'){const entries=Object.entries(d).filter(([k])=>!k.startsWith('_'));
+        el.innerHTML='<dl class="stats-grid">'+entries.map(([k,v])=>'<div class="stat-item"><dt>'+k+'</dt><dd>'+v+'</dd></div>').join('')+'</dl>';}
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initStats); else initStats();
+</script>
+
+<!-- ===== JS Module: Dining Loader ===== -->
+<script>
+function initDining(){
+  const el=document.getElementById('dining-container');
+  if(!el) return;
+  fetch('/ships/carnival/assets/carnival-magic-dining.json')
+    .then(r=>r.json()).then(d=>{
+      if(Array.isArray(d)){el.innerHTML=d.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');}
+      else if(d.venues) el.innerHTML=d.venues.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initDining); else initDining();
+</script>
+
+<!-- ===== JS Module: Live Tracker ===== -->
+<script>
+function initLiveTracker(){
+  const el=document.getElementById('live-tracker');
+  if(!el) return;
+  const imo=el.getAttribute('data-imo')||'9378486';
+  const url='https://www.myshiptracking.com/vessels/carnival-magic-imo-'+imo;
+  el.innerHTML='<a href="'+url+'" target="_blank" rel="noopener" class="tracker-link">Track Carnival Magic Live Position →</a>';
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initLiveTracker); else initLiveTracker();
+</script>
+
+  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
 
 

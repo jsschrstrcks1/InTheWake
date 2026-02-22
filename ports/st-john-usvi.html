@@ -219,6 +219,34 @@ Soli Deo Gloria
                 <div id="logbook-btn-container"></div>
 
       <!-- WEATHER & BEST TIME TO VISIT -->
+      <!-- FROM THE PIER -->
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from St. John USVI">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Cruz Bay Town</span><div class="pier-detail">Ferry dock is in town — shops and restaurants are right there</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 2 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:5%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Trunk Bay (snorkel trail)</span><div class="pier-detail">Taxi from Cruz Bay — $5 park entrance, world-famous underwater trail</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Cinnamon Bay Beach</span><div class="pier-detail">Taxi or hike — longer beach, calmer waters, sugar mill ruins</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Annaberg Sugar Plantation Ruins</span><div class="pier-detail">Historic ruins in the national park — self-guided trail</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 25 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:32%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Cruise ships dock at St. Thomas, not St. John. Take a taxi to Red Hook ($15/person) then the passenger ferry to Cruz Bay ($7.50 each way, 20 min). Two-thirds of the island is national park. Open-air safari taxis run set routes.</p>
+</nav>
+
       <details class="port-section" id="weather-guide" aria-label="Weather and Best Time to Visit" open>
         <details class="section-collapse" open>
           <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
@@ -294,38 +322,17 @@ Soli Deo Gloria
         <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
         <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, and policies listed on this page were accurate as of 2026-01-03. These details are subject to change without notice.</p>
       </aside>
-
-<!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from St. John USVI">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Cruz Bay Town</span><div class="pier-detail">Ferry dock is in town — shops and restaurants are right there</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 2 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:5%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Trunk Bay (snorkel trail)</span><div class="pier-detail">Taxi from Cruz Bay — $5 park entrance, world-famous underwater trail</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Cinnamon Bay Beach</span><div class="pier-detail">Taxi or hike — longer beach, calmer waters, sugar mill ruins</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Annaberg Sugar Plantation Ruins</span><div class="pier-detail">Historic ruins in the national park — self-guided trail</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 25 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:32%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Cruise ships dock at St. Thomas, not St. John. Take a taxi to Red Hook ($15/person) then the passenger ferry to Cruz Bay ($7.50 each way, 20 min). Two-thirds of the island is national park. Open-air safari taxis run set routes.</p>
-</nav>
-
-    </article>
+</article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+    <section class="card" aria-labelledby="nearby-ports-title">
+      <h3 id="nearby-ports-title">Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Other ports in this region:
+      </p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+    </section>
+
       <section class="card quick-answer">
         <h2>Quick Answer</h2>
         <p><strong>St. John</strong> is the Caribbean's most protected island — two-thirds Virgin Islands National Park. No cruise ships dock here; ferry from St. Thomas to Cruz Bay. Trunk Bay offers a world-famous underwater snorkel trail. No passport needed (U.S. territory). Plan 4-5 hours minimum; the ferry logistics require early starts.</p>
@@ -436,7 +443,16 @@ Soli Deo Gloria
         </div>
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
-</aside>
+
+    <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <p class="tiny content-text">
+        Real cruising experiences, practical guides, and heartfelt reflections from our community.
+      </p>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
+    </section>
+  </aside>
   
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
@@ -469,7 +485,9 @@ Soli Deo Gloria
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>window.currentPortId = 'st-john-usvi';</script>
   <script src="/assets/js/nearby-ports.js" defer></script>
+  <script src="/assets/js/article-rail.js"></script>
   <script>
     if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
       PortMap.init({ containerId: 'port-map', portSlug: 'st-john-usvi' });

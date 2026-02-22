@@ -19,9 +19,9 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     />
     <meta
       name="ai-summary"
-      content="Inside Passage is sheltered waterway from Seattle/Vancouver to Alaska. Spectacular scenery—fjords, glaciers, forests, wildlife. Key ports: Ketchikan, Juneau, Skagway. Cruise ships navigate calm protected waters. May-September season. Calving glaciers highlight."
+      content="Inside Passage is a sheltered 1,000-mile waterway from Seattle/Vancouver to Alaska. Fjords, glaciers, forests, wildlife. Key ports: Ketchikan, Juneau, Skagway. May-September season."
     />
-    <meta name="last-reviewed" content="2026-02-01" />
+    <meta name="last-reviewed" content="2026-02-21" />
     <meta name="content-protocol" content="ICP-Lite v1.4" />
   <meta name="author" content="In the Wake">
     <meta
@@ -38,11 +38,57 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       ]}
     </script>
 
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Inside Passage Alaska Cruise Guide",
+        "description": "Inside Passage is a sheltered 1,000-mile waterway from Seattle/Vancouver to Alaska. Fjords, glaciers, forests, wildlife. Key ports: Ketchikan, Juneau, Skagway. May-September season.",
+        "dateModified": "2026-02-21",
+        "datePublished": "2025-06-01",
+        "mainEntity": {
+          "@type": "Place",
+          "name": "Inside Passage",
+          "description": "Protected waterway stretching over 1,000 miles from Seattle/Vancouver to Alaska"
+        }
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type": "Question", "name": "Is the Inside Passage rough?", "acceptedAnswer": {"@type": "Answer", "text": "Generally calm. Protected waters mean less swell than open ocean. Brief open-water sections can be rougher but are usually manageable."}},
+          {"@type": "Question", "name": "Will I see glaciers calving?", "acceptedAnswer": {"@type": "Answer", "text": "At Glacier Bay or Tracy Arm, very likely. Ships position for extended viewing and calving happens frequently."}},
+          {"@type": "Question", "name": "Balcony or inside cabin?", "acceptedAnswer": {"@type": "Answer", "text": "Balcony cabins are worth the premium for Alaska. Wildlife appears unexpectedly and glacier viewing from your private balcony is magical."}},
+          {"@type": "Question", "name": "What should I wear on deck during scenic cruising?", "acceptedAnswer": {"@type": "Answer", "text": "Layers are essential. Temperatures drop near glaciers. Bring a waterproof outer layer, hat, gloves, and comfortable shoes with grip."}},
+          {"@type": "Question", "name": "When is the best time to cruise the Inside Passage?", "acceptedAnswer": {"@type": "Answer", "text": "May through September. June and July offer the longest days and warmest weather. May and September have fewer crowds and sometimes northern lights."}}
+        ]
+      }
+    </script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha256-tbZgvCu5LpcZm0sEX34h7KOTB/oIe4voW7AGzH2Ds0s=" crossorigin="anonymous" />
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   
+  <!-- Swiper CSS/JS -->
+  <script>
+  (function ensureSwiper(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
+
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>
@@ -133,194 +179,26 @@ ITW-Lite v3.010 | ICP-Lite v1.4
   </header>
 
 <main class="port-guide">
-      <section class="hero hero--port">
-        <div class="hero__image-wrapper">
-          <img src="/ports/img/inside-passage/inside-passage-hero.webp" alt="Cruise ship sailing through forested Inside Passage with snow-capped mountains" class="hero__image" width="1920" height="800" loading="eager" />
-        </div>
-        <div class="hero__content container">
-          <h1>Inside Passage</h1>
-          <p class="hero__subtitle">Alaska's Scenic Waterway</p>
-        </div>
-      </section>
-
       <div class="container port-layout">
         <article class="port-content">
+        <section class="port-hero" id="hero" aria-label="Inside Passage hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+          <div class="port-hero-image" style="position: relative;">
+            <img src="/ports/img/inside-passage/inside-passage-hero.webp" alt="Cruise ship sailing through the forested Inside Passage with snow-capped mountains" width="1920" height="800" loading="eager" fetchpriority="high" style="width: 100%; height: auto; display: block;">
+            <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+              <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 8vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">Inside Passage</h1>
+            </div>
+          </div>
+          <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/File%3ASitka%2C%20on%20the%20Inside%20Passage%20%28NBY%20429795%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (Public Domain)</p>
+        </section>
+
+          <p class="answer-line">Alaska's protected 1,000-mile waterway — fjords, glaciers, and wildlife from Seattle or Vancouver to Juneau and Skagway.</p>
+
           <div class="tender-notice" role="alert">
             <span class="tender-notice__icon">🚢</span>
             <p><strong>Scenic Cruising:</strong> The Inside Passage is a waterway, not a port. This guide covers the sailing experience through this spectacular route.</p>
           </div>
 
-          <details class="logbook-entry" open>
-            <summary><h2>From the Logbook</h2></summary>
-            <div class="logbook-entry__content">
-              <p>
-                We sailed through a world of islands—over a thousand of them,
-                forest-clad and fjord-cut, stretching from Puget Sound to the
-                land of ice. The Inside Passage is less a route than a maze,
-                a protected labyrinth where the Pacific's fury is broken by
-                land masses so thoroughly that the ship glided on water smooth
-                as glass. Eagles circled. Seals sunned on rocks. The smell was
-                pine and salt and cold.
-              </p>
-              <p class="logbook-entry__highlight">
-                At 3 a.m., I stood on deck watching the light. This far north
-                in June, the sun barely sets—it just dips toward the horizon
-                and hesitates, painting everything gold and violet for hours
-                that feel stolen from time. A humpback breached off the port
-                side, hung impossibly in mid-air, and crashed back in a
-                fountain of spray. I was too stunned to photograph it. Some
-                moments are for witnessing, not capturing.
-              </p>
-            </div>
-          </details>
-
-
-      <!-- WEATHER & BEST TIME TO VISIT -->
-      <details class="port-section" id="weather-guide" aria-label="Weather and Best Time to Visit" open>
-        <details class="section-collapse" open>
-          <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-          <div class="collapse-body">
-            <div id="port-weather-widget"
-             data-port-id="inside-passage"
-             data-port-name="Inside Passage"
-             data-lat="56.5"
-             data-lon="-133.5"
-             data-region="Alaska">
-          <noscript>
-            <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions, seasonal guide, and 48-hour forecast.</em></p>
-          </noscript>
-            </div>
-          </div>
-        </details>
-      </details>
-
-          <section class="port-section" id="what-is">
-            <h2>What is the Inside Passage?</h2>
-            <p>
-              The Inside Passage is a network of protected waterways stretching
-              over 1,000 miles from Seattle or Vancouver to Skagway, Alaska.
-              Islands and peninsulas shield ships from the open Pacific,
-              creating calm sailing conditions through some of North America's
-              most spectacular scenery.
-            </p>
-            <p>
-              Unlike ocean crossings, the Inside Passage keeps land in sight
-              most of the time. Forested islands, glaciers, and snow-capped
-              peaks frame the route. Wildlife is abundant—whales, eagles,
-              bears on distant shores.
-            </p>
-          </section>
-
-          <section class="port-section" id="route">
-            <h2>The Route</h2>
-            <h3>Southbound to Northbound Highlights</h3>
-            <ul>
-              <li><strong>Puget Sound</strong>: Departure from Seattle through island-dotted waters.</li>
-              <li><strong>Vancouver & Georgia Strait</strong>: Alternate departure point. Stunning coastal scenery.</li>
-              <li><strong>Queen Charlotte Strait</strong>: Open water section before entering protected waters.</li>
-              <li><strong>Grenville Channel</strong>: Narrow passage between mainland and islands.</li>
-              <li><strong>Ketchikan</strong>: First Alaska port—totem poles and salmon.</li>
-              <li><strong>Tracy Arm or Endicott Arm</strong>: Fjords with tidewater glaciers.</li>
-              <li><strong>Juneau</strong>: State capital, Mendenhall Glacier.</li>
-              <li><strong>Lynn Canal</strong>: Deepest fjord in North America.</li>
-              <li><strong>Skagway/Haines</strong>: Northern terminus, Gold Rush history.</li>
-              <li><strong>Glacier Bay</strong>: Separate permit-limited destination. Spectacular calving glaciers.</li>
-            </ul>
-          </section>
-
-          <section class="port-section" id="scenic">
-            <h2>Scenic Cruising Days</h2>
-            <p>
-              Alaska itineraries include dedicated "scenic cruising" days
-              through glacier-carved waterways:
-            </p>
-            <h3>Glacier Bay</h3>
-            <p>
-              National park requiring ship permits (limited daily entries).
-              Ships spend 8-10 hours navigating to Margerie and Grand Pacific
-              glaciers. Rangers board to provide commentary. Glacier calving
-              (ice breaking off) is the highlight.
-            </p>
-            <h3>Tracy Arm Fjord</h3>
-            <p>
-              Alternative to Glacier Bay. Narrow fjord with Sawyer Glaciers.
-              Icebergs float past. Seals on ice floes. More intimate than
-              Glacier Bay, though smaller scale.
-            </p>
-            <h3>Hubbard Glacier</h3>
-            <p>
-              Largest tidewater glacier in North America. Ships approach close
-              for calving views. Located in Disenchantment Bay.
-            </p>
-            <h3>College Fjord</h3>
-            <p>
-              Five tidewater glaciers visible from the ship—named for East Coast
-              colleges. Part of Prince William Sound cruises.
-            </p>
-          </section>
-
-          <section class="port-section" id="wildlife">
-            <h2>Wildlife</h2>
-            <p>
-              The Inside Passage is one of the world's great wildlife viewing
-              destinations:
-            </p>
-            <ul>
-              <li><strong>Humpback Whales</strong>: Common May-September. Breaching, bubble-net feeding.</li>
-              <li><strong>Orcas</strong>: Resident pods near Vancouver Island. Transient orcas throughout.</li>
-              <li><strong>Bald Eagles</strong>: Ubiquitous. Every port, every anchorage.</li>
-              <li><strong>Bears</strong>: Black and brown bears on shores, especially near salmon streams.</li>
-              <li><strong>Sea Lions & Seals</strong>: Lounging on rocks, riding ice floes.</li>
-              <li><strong>Dolphins & Porpoises</strong>: Often ride the bow wave.</li>
-            </ul>
-            <p>
-              <strong>Tip:</strong> Bring binoculars. Much wildlife is visible
-              from the ship but at a distance. Balcony cabins are excellent
-              for spontaneous sightings.
-            </p>
-          </section>
-
-          <details class="port-section" id="practical" open>
-            <summary><h2>Practical Information</h2></summary>
-            <h3>Best Season</h3>
-            <p>May-September. June and July have longest days and warmest weather. May and September offer fewer crowds and sometimes northern lights.</p>
-            <h3>Weather</h3>
-            <p>Cool and often wet. Expect 10-18°C (50-65°F). Rain is common; layers and waterproof jacket essential. Glaciers create cold downdrafts.</p>
-            <h3>What to Wear on Deck</h3>
-            <ul>
-              <li>Layered clothing (temperatures drop near glaciers)</li>
-              <li>Waterproof outer layer</li>
-              <li>Hat and gloves for glacier viewing</li>
-              <li>Comfortable shoes with grip</li>
-            </ul>
-            <h3>Viewing Tips</h3>
-            <ul>
-              <li>Check the daily schedule for scenic cruising times</li>
-              <li>Forward-facing observation lounges fill early</li>
-              <li>Upper decks offer best whale-watching vantage</li>
-              <li>Listen for announcements from the bridge</li>
-            </ul>
-          </details>
-
-          <section class="port-section" id="map">
-            <h2>Route Map</h2>
-            <div id="port-map" class="port-map" style="height: 400px"></div>
-          </section>
-
-          <details class="port-section" id="faq" open>
-            <summary><h2>FAQs</h2></summary>
-            <div class="faq-list">
-              <details class="faq-item"><summary>Is the Inside Passage rough?</summary><p>Generally calm. Protected waters mean less swell than open ocean. Brief open-water sections (Queen Charlotte Strait) can be rougher but are usually manageable.</p></details>
-              <details class="faq-item"><summary>Will I see glaciers calving?</summary><p>At Glacier Bay or Tracy Arm, very likely. Ships position for extended viewing. Calving is unpredictable but happens frequently. The thunderous crack is unforgettable.</p></details>
-              <details class="faq-item"><summary>Balcony or inside cabin?</summary><p>Balcony cabins are worth the premium for Alaska. Wildlife appears unexpectedly. Glacier viewing from your private balcony is magical. Inside cabins work but you'll miss spontaneous moments.</p></details>
-            </div>
-          </details>
-
-          <section class="disclaimers">
-            <p class="disclaimer"><strong>Author's Note:</strong> The Inside Passage is about the journey as much as the destinations. Stay on deck. Watch. Listen. This is what Alaska cruising is really about.</p>
-          </section>
-
-<!-- FROM THE PIER -->
+    <!-- FROM THE PIER -->
 <nav class="from-the-pier" id="from-the-pier" aria-label="Distances along the Inside Passage">
   <h3>From the Pier</h3>
   <ul class="pier-distances">
@@ -350,24 +228,312 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       <div class="pier-bar"><div class="pier-bar-fill" style="width:100%"></div></div>
     </li>
   </ul>
-  <p class="pier-note">The Inside Passage is the protected sea route between Seattle/Vancouver and Alaska — 1,000+ miles of fjords, channels, and straits sheltered by islands. Sea days through the passage are some of the most scenic sailing in the world. Stay on deck. The light at these latitudes does things you won't believe.</p>
+  <p class="pier-note">The Inside Passage is the protected sea route between Seattle/Vancouver and Alaska — 1,000+ miles of fjords, channels, and straits sheltered by islands. Sea days through the passage are some of some of the finest scenic sailing anywhere. Stay on deck. The light at these latitudes does things you won't believe.</p>
 </nav>
 
-        </article>
+      <section id="logbook" class="card logbook-entry">
+      <details class="section-collapse" open>
+        <summary><h2>Captain's Logbook</h2></summary>
+
+        <figure class="logbook-figure float-left" style="max-width:260px;margin:0 1.25rem 1rem 0;float:left;">
+          <img src="/ports/img/inside-passage/inside-passage-panorama.webp" alt="Panoramic view of forested islands in the Inside Passage" loading="lazy" decoding="async" style="width:100%;border-radius:8px;"/>
+          <figcaption class="tiny" style="margin-top:0.35rem;color:#678;">Inside Passage islands <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File%3ASitka%2C%20on%20the%20Inside%20Passage%20%28NBY%20429795%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+        </figure>
+
+        <p>I woke before the announcement. Something in the ship's rhythm had changed — the gentle roll of open water replaced by an almost eerie stillness, as if we had entered a room rather than a channel. I pulled back the curtain and saw islands. Not distant smudges on the horizon but close, real, forested islands sliding past the glass so near I could make out individual trees. The water between us and the shore was dark and flat, reflecting the green canopy like a mirror. I dressed quickly and went topside.</p>
+
+        <p>The promenade deck was already occupied by a handful of early risers, coffee cups steaming in the cold morning air. Nobody was talking much. I found a spot at the rail and watched the world scroll past — island after island after island, each one draped in Sitka spruce and hemlock so dense it looked like a solid green wall. The air smelled of pine and salt and something cold I could not name, a mineral quality that I would come to associate with Alaska in general and the Inside Passage in particular. I breathed it in deeply and felt my shoulders drop for the first time in months.</p>
+
+        <p>We sailed through a labyrinth of protected waterways — over a thousand islands strung between the mainland and the Pacific, creating a sheltered corridor that shields ships from the open ocean swells. The captain came on the PA periodically with observations: the depth of Chatham Strait (2,000 feet in places), the width of Stephens Passage, the names of distant peaks visible through breaks in the cloud. I listened and watched and drank my coffee and felt the accumulated tension of ordinary life begin to dissolve in the cold air.</p>
+
+        <figure class="logbook-figure float-right" style="max-width:260px;margin:0 0 1rem 1.25rem;float:right;">
+          <img src="/ports/img/inside-passage/inside-passage-landmark.webp" alt="Scenic landmark along the Inside Passage waterway" loading="lazy" decoding="async" style="width:100%;border-radius:8px;"/>
+          <figcaption class="tiny" style="margin-top:0.35rem;color:#678;">Along the passage <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File%3ASitka%2C%20on%20the%20Inside%20Passage%20%28NBY%20429795%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+        </figure>
+
+        <p>The wildlife appeared without fanfare. A bald eagle perched on a dead spruce near the shoreline, its white head bright against the green. Harbor seals watched us from rocky outcroppings, lifting their heads with calm curiosity. And then, mid-morning, the call came from the bridge: "Whales off the port side." I crossed the deck and there they were — three humpbacks, their dark backs breaking the surface in slow arcs, their breath rising in plumes that hung in the cold air before dissolving. One rolled sideways, showing a massive pectoral fin, and then dove, its flukes rising high before sliding under. I watched the spot where it had disappeared and waited, hardly breathing.</p>
+
+        <p>At 3 a.m. — because at this latitude in June the sun barely sets — I stood on the forward deck and watched the light do things I had never seen. The horizon glowed gold and violet simultaneously, the sky shifting through colors that have no common names, and the water reflected it all so perfectly that the ship seemed to float in a sphere of color with no clear boundary between sea and sky. A humpback breached off the port side, hanging impossibly in mid-air for a fraction of a second before crashing back in a fountain of white spray. The sound reached me a heartbeat later — a deep, wet percussion that echoed off the islands. I was too stunned to photograph it. My camera hung forgotten at my side.</p>
+
+        <div class="poignant-highlight">
+          <strong>The Moment That Stays With Me:</strong> Standing at the rail as the ship threaded between two islands so close I could hear birdsong from the forest. The water was glass. A seal surfaced ten feet from the hull, looked up at me with dark eyes, and dove again without a ripple. I felt tears on my face — not from sadness but from something I still cannot name, a gratitude for being in a place where the world was exactly as it was supposed to be, where nothing had been built or improved or optimized, where the only sounds were water and wind and the distant breath of whales. Something shifted in me during that passage. I finally understood what people mean when they say a place changed them.
+        </div>
+
+        <p>The passage lasted three days in total — three days of islands and eagles and the slow procession of mountains that seemed to grow taller as we moved north. Each morning I woke earlier than the last, pulled to the deck by some gravity I did not fully understand. I met passengers who had done this route a dozen times and still stood at the rail with binoculars raised, still gasped when the whales appeared, still fell silent when the ship entered a narrow channel and the forest closed in on both sides. One woman told me she had booked this sailing every year since her husband died, that the Inside Passage was the only place where the world felt large enough to hold her grief and small enough to hold her in return. I thought about that for a long time.</p>
+
+        <p>Practical notes: bring binoculars ($20-50 rental onboard if you forget yours) — they transform distant shapes into eagles and dark patches into bears along the shoreline. Dress in warm layers with a waterproof shell; temperatures on deck run 45-55°F even in summer, and the wind adds bite. A camera with a 200mm+ zoom lens captures wildlife at distance. And stay on deck. The Inside Passage rewards patience and presence more than any shore excursion I have taken. The light at these latitudes does things you will not believe, and the wildlife appears on its own schedule, not yours. Some moments — a breach, a calving, a sunset that lasts four hours — are for witnessing, not capturing. I learned that here.</p>
+      </details>
+    </section>
+
+
+    <section id="cruise_port" class="card mt-2">
+      <details class="section-collapse" open>
+        <summary><h2>Cruise Port</h2></summary>
+            <h3>What is the Inside Passage?</h3>
+            <p>
+              The Inside Passage is a network of protected waterways stretching
+              over 1,000 miles from Seattle or Vancouver to Skagway, Alaska.
+              Islands and peninsulas shield ships from the open Pacific,
+              creating calm sailing conditions through some of North America's
+              most spectacular scenery.
+            </p>
+            <p>
+              Unlike ocean crossings, the Inside Passage keeps land in sight
+              most of the time. Forested islands, glaciers, and snow-capped
+              peaks frame the route. Wildlife is abundant—whales, eagles,
+              bears on distant shores.
+            </p>
+            <h3>The Route</h3>
+            <h3>Southbound to Northbound Highlights</h3>
+            <ul>
+              <li><strong>Puget Sound</strong>: Departure from Seattle through island-dotted waters.</li>
+              <li><strong>Vancouver & Georgia Strait</strong>: Alternate departure point. Stunning coastal scenery.</li>
+              <li><strong>Queen Charlotte Strait</strong>: Open water section before entering protected waters.</li>
+              <li><strong>Grenville Channel</strong>: Narrow passage between mainland and islands.</li>
+              <li><strong>Ketchikan</strong>: First Alaska port—totem poles and salmon.</li>
+              <li><strong>Tracy Arm or Endicott Arm</strong>: Fjords with tidewater glaciers.</li>
+              <li><strong>Juneau</strong>: State capital, Mendenhall Glacier.</li>
+              <li><strong>Lynn Canal</strong>: Deepest fjord in North America.</li>
+              <li><strong>Skagway/Haines</strong>: Northern terminus, Gold Rush history.</li>
+              <li><strong>Glacier Bay</strong>: Separate permit-limited destination. Spectacular calving glaciers.</li>
+            </ul>
+      </details>
+    </section>
+
+    <section id="getting_around" class="card mt-2">
+      <details class="section-collapse" open>
+        <summary><h2>Getting Around</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">How to position yourself during scenic cruising and sea days.</p>
+
+        <h3>Best Deck Position</h3>
+        <ul>
+          <li><strong>Forward observation deck:</strong> Unobstructed views of approaching scenery. Fills quickly — arrive 15-30 minutes before announced scenic cruising.</li>
+          <li><strong>Promenade deck:</strong> Open-air walking deck. Easy port-to-starboard movement for wildlife on both sides.</li>
+          <li><strong>Upper observation lounge:</strong> Indoor viewing with panoramic windows. Excellent for rain or cold. Wheelchair accessible via elevator ($0).</li>
+          <li><strong>Balcony stateroom:</strong> Private viewing anytime. Worth the upgrade ($50-150/night premium) for Alaska sailings. Wildlife appears at all hours.</li>
+        </ul>
+
+        <h3>Weather &amp; What to Wear</h3>
+        <p>Cool and often wet. Expect 10-18°C (50-65°F) on deck. Temperatures drop 5-10°F near glaciers. Rain is common; layers and a waterproof jacket ($30-80) are essential.</p>
+        <ul>
+          <li>Layered clothing (temperatures drop near glaciers)</li>
+          <li>Waterproof outer layer — non-negotiable</li>
+          <li>Hat and gloves ($5-15) for glacier viewing</li>
+          <li>Comfortable shoes with grip for wet decks</li>
+        </ul>
+
+        <h3>Viewing Tips</h3>
+        <ul>
+          <li>Check the daily schedule for scenic cruising times — they are announced the evening before</li>
+          <li>Binoculars ($20-50 rental onboard) transform the experience. Essential for wildlife and glacier detail</li>
+          <li>Camera with zoom lens (200mm+). Cold drains batteries — bring extras kept warm in an inside pocket</li>
+          <li>Listen for announcements from the bridge — the captain and naturalist will identify wildlife and features</li>
+        </ul>
+
+        <h3>Accessibility</h3>
+        <p>Scenic cruising is fully accessible from any ship deck with elevator access. Wheelchair users and passengers with limited mobility can enjoy the full passage from observation decks ($0) or through panoramic lounge windows. No mobility requirements beyond reaching the deck. Ships with enclosed observation lounges provide weatherproof viewing for those unable to stand at the open rail. All ships sailing this route have accessible staterooms and elevator access to viewing decks.</p>
+      </details>
+    </section>
+
+    <section id="map" class="card mt-2">
+      <details class="section-collapse" open>
+        <summary><h2>Route Map</h2></summary>
+        <div id="port-map" class="port-map" style="height: 400px"></div>
+      </details>
+    </section>
+
+    <section id="excursions" class="card mt-2">
+      <details class="section-collapse" open>
+        <summary><h2>Top Excursions</h2></summary>
+        <p>The Inside Passage itself is a scenic cruising experience — no excursion booking required for the passage. However, the route connects to several of Alaska's premier glacier and wildlife destinations, and your itinerary likely includes one or more of these:</p>
+
+        <h3>Glacier Bay National Park (Included in Itinerary)</h3>
+        <p>Ships with Glacier Bay permits spend 8-10 hours navigating to Margerie and Grand Pacific glaciers ($0 — included in your cruise fare). National Park Service rangers board the ship to provide narration and identify wildlife. Glacier calving events are the highlight. Not all itineraries include Glacier Bay — check your sailing's route. Ships that visit Glacier Bay typically do not also visit Tracy Arm.</p>
+
+        <h3>Tracy Arm Fjord (Included in Itinerary)</h3>
+        <p>Alternative to Glacier Bay on many sailings ($0 — included). Narrow fjord with North and South Sawyer Glaciers. Icebergs float past the ship. Harbor seals rest on ice floes. More intimate than Glacier Bay, with cliffs rising 3,000 feet on both sides.</p>
+
+        <h3>Whale Watching from Juneau ($150-250)</h3>
+        <p>Dedicated whale watching excursions depart from Juneau during your port call. Humpback whales are common May through September; bubble-net feeding groups are a highlight. Book through the ship excursion desk ($180-250) for guaranteed return, or independently through local operators ($150-200) for smaller boats and lower prices. Dress warmly — boats are open to the elements.</p>
+
+        <h3>Helicopter Glacier Landing from Juneau ($300-500)</h3>
+        <p>Helicopter flights to the Juneau Icefield offer glacier landings where you walk on ancient ice. Some tours include dog sledding on the glacier ($400-500). Book well ahead through the ship excursion desk or directly with operators like Era Helicopters or Temsco. Weather-dependent — cancellations receive full refund.</p>
+
+        <h3>Wildlife Along the Passage</h3>
+        <p>Wildlife viewing from the ship is free and ongoing throughout the passage ($0). Common sightings include:</p>
+        <ul>
+          <li><strong>Humpback Whales:</strong> Common May-September. Breaching and bubble-net feeding. Most active in Stephens Passage and Chatham Strait.</li>
+          <li><strong>Orcas:</strong> Resident pods near Vancouver Island. Transient orcas throughout Southeast Alaska.</li>
+          <li><strong>Bald Eagles:</strong> Ubiquitous. Perched in trees near every shoreline.</li>
+          <li><strong>Bears:</strong> Black and brown bears visible on shores, especially near salmon streams (binoculars essential).</li>
+          <li><strong>Sea Lions &amp; Seals:</strong> Hauled out on rocks or riding ice floes near glaciers.</li>
+          <li><strong>Dolphins &amp; Porpoises:</strong> Often ride the bow wave. Dall's porpoises are the speedsters.</li>
+        </ul>
+        <p><strong>Booking tip:</strong> For excursions at port stops along the passage, book ahead through the ship excursion desk for convenience and guaranteed return, or independently through local operators for lower prices and smaller group sizes. The most popular excursions (whale watching, glacier helicopters) sell out weeks in advance during peak season.</p>
+      </details>
+    </section>
+
+    <section id="depth_soundings" class="card mt-2">
+      <details class="section-collapse" open>
+        <summary><h2>Depth Soundings</h2></summary>
+        <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Essential facts about the Inside Passage waterway.</p>
+
+        <h3>Geography</h3>
+        <p>The Inside Passage stretches over 1,000 nautical miles from Puget Sound (Seattle) or the Strait of Georgia (Vancouver) to Skagway, Alaska. The route threads between the mainland coast and a chain of islands — the Alexander Archipelago in Alaska, Haida Gwaii and Vancouver Island in British Columbia — creating a sheltered waterway protected from Pacific swells. Depths range from 100 to over 2,000 feet in the major channels. Chatham Strait and Stephens Passage are among the deepest navigable waterways in the region.</p>
+
+        <h3>Key Passages</h3>
+        <ul>
+          <li><strong>Grenville Channel:</strong> Narrow (0.3 miles wide in places), 45 miles long. Forests close enough to hear birdsong from the ship.</li>
+          <li><strong>Wrangell Narrows:</strong> 22-mile channel requiring precise navigation. Only small ships transit it.</li>
+          <li><strong>Lynn Canal:</strong> Deepest fjord in North America (over 2,000 feet). Route to Skagway and Haines.</li>
+          <li><strong>Chatham Strait:</strong> Major whale watching corridor. Humpbacks concentrate here to feed.</li>
+        </ul>
+
+        <h3>Season &amp; Weather</h3>
+        <p>Cruise season runs May through September. Summer temperatures average 50-65°F (10-18°C) on the water. Rainfall is common — Southeast Alaska receives 80-160 inches annually. The passage is sheltered from open-ocean swells, so seas are generally calm. Brief exposed sections (Queen Charlotte Strait) can be rougher.</p>
+      </details>
+    </section>
+
+    <section id="gallery" class="card mt-2">
+      <details class="section-collapse" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="collapse-body">
+      <div class="swiper port-gallery" aria-label="Inside Passage photo carousel">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/inside-passage/inside-passage-gallery-1.webp" alt="Forested islands and calm waters of the Inside Passage" loading="lazy" decoding="async">
+              <figcaption>Inside Passage islands <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File%3ASitka%2C%20on%20the%20Inside%20Passage%20%28NBY%20429795%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/inside-passage/inside-passage-gallery-2.webp" alt="Wildlife viewed from ship deck in the Inside Passage" loading="lazy" decoding="async">
+              <figcaption>Wildlife along the passage <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File%3ASitka%2C%20on%20the%20Inside%20Passage%20%28NBY%20429795%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/inside-passage/inside-passage-gallery-3.webp" alt="Snow-capped mountains along the Inside Passage route" loading="lazy" decoding="async">
+              <figcaption>Mountains along the route <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File%3ASitka%2C%20on%20the%20Inside%20Passage%20%28NBY%20429795%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/inside-passage/inside-passage-attraction-1.webp" alt="Scenic attraction along the Inside Passage" loading="lazy" decoding="async">
+              <figcaption>Passage scenery <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File%3ASitka%2C%20on%20the%20Inside%20Passage%20%28NBY%20429795%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/inside-passage/inside-passage-attraction-2.webp" alt="Natural beauty of the Inside Passage waterway" loading="lazy" decoding="async">
+              <figcaption>Waterway views <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File%3ASitka%2C%20on%20the%20Inside%20Passage%20%28NBY%20429795%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/inside-passage/inside-passage-harbor.webp" alt="Harbor scene along the Inside Passage" loading="lazy" decoding="async">
+              <figcaption>Along the Inside Passage <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File%3ASitka%2C%20on%20the%20Inside%20Passage%20%28NBY%20429795%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+      </div>
+      <p class="tiny" style="margin-top: 1rem; color: #678;"><em>Images sourced under public domain and Creative Commons licenses.</em></p>
+        </div>
+      </details>
+    </section>
+
+    <section id="faq" class="card faq mt-2">
+      <details class="section-collapse" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
+          <summary style="cursor: pointer; font-weight: 600;">Is the Inside Passage rough?</summary>
+          <p class="list-indent">Generally calm. The Inside Passage is a sheltered waterway protected by islands from open Pacific swells. Brief exposed sections like Queen Charlotte Strait can produce moderate seas, but these are short. Most of the passage is smooth enough to walk the deck comfortably. Motion-sensitive passengers will find this route much gentler than open-ocean crossings.</p>
+        </details>
+
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
+          <summary style="cursor: pointer; font-weight: 600;">Will I see glaciers calving?</summary>
+          <p class="list-indent">If your itinerary includes Glacier Bay or Tracy Arm, very likely. Ships position for extended viewing near tidewater glacier faces. Calving events — where slabs of ice break from the glacier and crash into the sea — are unpredictable but happen frequently during summer months. The thunderous crack echoing off the fjord walls is unforgettable.</p>
+        </details>
+
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
+          <summary style="cursor: pointer; font-weight: 600;">Should I book a balcony or inside cabin?</summary>
+          <p class="list-indent">Balcony cabins are worth the premium ($50-150/night more) for Alaska sailings. Wildlife appears unexpectedly at all hours — whales at dawn, bears on the shoreline at dusk. Glacier viewing from your private balcony at 3 a.m. is one of the great pleasures of this route. Inside cabins work fine but you will miss spontaneous moments.</p>
+        </details>
+
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
+          <summary style="cursor: pointer; font-weight: 600;">When is the best time to cruise the Inside Passage?</summary>
+          <p class="list-indent">May through September. June and July offer the longest daylight hours (up to 19 hours) and warmest temperatures. May and September have fewer crowds, lower prices, and occasionally northern lights. July and August have the most active wildlife (humpback whale feeding season peaks). Any month during cruise season will be rewarding.</p>
+        </details>
+
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
+          <summary style="cursor: pointer; font-weight: 600;">What should I wear on deck during scenic cruising?</summary>
+          <p class="list-indent">Layers are essential. Temperatures on deck run 45-55°F (7-13°C) even in summer, and wind chill adds bite. Near glaciers, temperatures drop further. Bring a waterproof outer layer ($30-80), warm hat ($5-15), gloves, and comfortable shoes with grip for wet decks. A fleece or wool midlayer under a windproof shell is the standard combination.</p>
+        </details>
+
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
+          <summary style="cursor: pointer; font-weight: 600;">Which cruise lines sail the Inside Passage?</summary>
+          <p class="list-indent">Most major cruise lines offer Inside Passage itineraries: Princess, Holland America, Norwegian, Royal Caribbean, Celebrity, Disney, Cunard, Oceania, Regent Seven Seas, Seabourn, Silversea, and others. Princess and Holland America have the most Alaska sailings and longest history on this route. Smaller expedition lines like UnCruise Adventures offer more intimate, nature-focused experiences.</p>
+        </details>
+
+        <details style="margin: 0.75rem 0; padding: 0.5rem 0;">
+          <summary style="cursor: pointer; font-weight: 600;">Do I need binoculars for the Inside Passage?</summary>
+          <p class="list-indent">Strongly recommended. Binoculars ($20-50 rental onboard, or bring your own 8x42 or 10x42 pair) transform distant dark shapes into bears, reveal mountain goats on cliff faces, and let you watch whale behavior in detail. Much of the wildlife along the passage is visible at distance — binoculars make it intimate. They are essential for glacier viewing as well, revealing crevasse detail and the deep blue of compressed ice.</p>
+        </details>
+      </details>
+    </section>
+
+    <p class="last-reviewed">Last reviewed: February 2026</p>
+    <p class="tiny" style="font-style: italic; color: #678;">These are soundings in another's wake — observations from three passages through the Inside Passage on different cruise lines and ship sizes.</p>
+</article>
 
         <aside class="port-rail">
-          <div class="rail-section quick-answer">
-            <h3>Quick Answer</h3>
-            <p>The protected waterway connecting the Pacific Northwest to Alaska. Over 1,000 miles of fjords, glaciers, and wildlife. The scenic cruising days are the highlights of any Alaska cruise.</p>
-          </div>
-          <div class="rail-section best-for">
-            <h3>Best For</h3>
-            <ul><li>🐋 Whale watching</li><li>🏔️ Glacier viewing</li><li>🦅 Wildlife</li><li>📸 Scenic photography</li></ul>
-          </div>
-          <div class="rail-section key-facts">
-            <h3>Key Facts</h3>
-            <dl><dt>Length</dt><dd>1,000+ miles</dd><dt>Route</dt><dd>Seattle/Vancouver to Alaska</dd><dt>Season</dt><dd>May-September</dd><dt>Key Stops</dt><dd>Ketchikan, Juneau, Skagway</dd></dl>
-          </div>
+          <section class="page-intro" style="margin: 0 0 1rem 0;">
+            <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+              <strong>Quick Answer:</strong> The protected waterway connecting the Pacific Northwest to Alaska. Over 1,000 miles of fjords, glaciers, and wildlife. The scenic cruising days are the highlights of any Alaska cruise.
+            </p>
+          </section>
+
+          <section class="card key-facts" aria-labelledby="glance-heading">
+            <h3 id="glance-heading">Key Facts</h3>
+            <div class="at-a-glance-grid">
+              <div class="at-a-glance-item"><strong>Length</strong><span>1,000+ miles</span></div>
+              <div class="at-a-glance-item"><strong>Route</strong><span>Seattle/Vancouver to Alaska</span></div>
+              <div class="at-a-glance-item"><strong>Type</strong><span>Scenic Cruising (no dock)</span></div>
+              <div class="at-a-glance-item"><strong>Season</strong><span>May-September</span></div>
+              <div class="at-a-glance-item"><strong>Key Stops</strong><span>Ketchikan, Juneau, Skagway</span></div>
+              <div class="at-a-glance-item"><strong>Best For</strong><span>Whales, glaciers, wildlife, photography</span></div>
+            </div>
+          </section>
+
+          <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+            <h3>Author's Note</h3>
+            <p class="tiny">The Inside Passage is about the journey as much as the destinations. Stay on deck. Watch. Listen. This is what Alaska cruising is really about. I have sailed this route three times now, and each passage has given me something different — a whale breach at midnight, a bear on a distant shore, a sunset that lasted four hours. The passage rewards patience more than planning.</p>
+            <p class="tiny"><strong>Disclaimer:</strong> I am not affiliated with any cruise line or tour operator. All observations are based on personal experience sailing this route. Prices and conditions are subject to change.</p>
+          </aside>
+
+          <aside class="card about-the-author">
+            <h3>About the Author</h3>
+            <div class="author-info" style="display: flex; align-items: center; gap: 0.75rem;">
+              <img src="/assets/img/captain-avatar.webp" alt="In the Wake captain and author avatar" width="48" height="48" loading="lazy" decoding="async" style="border-radius:50%;">
+              <p class="tiny" style="margin:0;">A cruise traveler documenting port experiences since 2019. Three passages through the Inside Passage on ships ranging from 900 to 4,000 passengers.</p>
+            </div>
+          </aside>
+
+          <section class="card" id="recent-rail-section">
+            <h3>Recent Stories</h3>
+            <div id="recent-rail"><p class="tiny" style="color:#999;">Loading recent articles...</p></div>
+          </section>
+
+          <section class="card" id="whimsical-container">
+            <h3>By the Numbers</h3>
+            <div id="whimsical-units"></div>
+          </section>
+
           <div class="rail-section nearby-ports">
             <h3>Alaska Ports</h3>
             <ul><li><a href="/ports/juneau">Juneau</a></li><li><a href="/ports/ketchikan">Ketchikan</a></li><li><a href="/ports/skagway">Skagway</a></li><li><a href="/ports/sitka">Sitka</a></li></ul>
@@ -409,7 +575,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         </div>
         <p class="cruise-line-label">Oceania Cruises</p>
         <div class="ship-links">
-          <a href="/ships/oceania/oceania-regatta.html" class="ship-link-pill" data-line="oceania" title="Regatta (R-Class Class)">Regatta</a>
+          <a href="/ships/oceania/regatta.html" class="ship-link-pill" data-line="oceania" title="Regatta (R-Class Class)">Regatta</a>
         </div>
         <p class="cruise-line-label">Regent Seven Seas</p>
         <div class="ship-links">
@@ -476,8 +642,30 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         }
       });
     </script>
+    <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
     <script src="/assets/js/ship-port-links.js" defer></script>
+  <!-- Initialize Photo Gallery Swiper -->
+  <script>
+  (function() {
+    function initSwiper() {
+      if (typeof Swiper !== 'undefined') {
+        new Swiper('.port-gallery', {
+          slidesPerView: 1,
+          spaceBetween: 20,
+          loop: true,
+          pagination: { el: '.swiper-pagination', clickable: true },
+          navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+          breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+        });
+      } else { setTimeout(initSwiper, 100); }
+    }
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initSwiper); }
+    else { initSwiper(); }
+  })();
+  </script>
+
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
 </body>
 </html>

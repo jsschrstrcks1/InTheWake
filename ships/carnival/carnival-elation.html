@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <!--
 Soli Deo Gloria — All work offered to the glory of God.
 "Trust in the LORD with all your heart..." — Proverbs 3:5
@@ -41,7 +41,18 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"In The Wake","url":"https://cruisinginthewake.com","logo":"https://cruisinginthewake.com/assets/logo_wake_512.png","description":"A cruise encyclopedia built AI-first, human-first, Google second."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In The Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Carnival","item":"https://cruisinginthewake.com/ships/carnival/"},{"@type":"ListItem","position":4,"name":"Carnival Elation"}]}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships.html"},
+    {"@type": "ListItem", "position": 3, "name": "Carnival Cruise Line", "item": "https://cruisinginthewake.com/cruise-lines/carnival.html"},
+    {"@type": "ListItem", "position": 4, "name": "Carnival Elation", "item": "https://cruisinginthewake.com/ships/carnival/carnival-elation.html"}
+  ]
+}
+</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Product","name":"Carnival Elation","brand":{"@type":"Brand","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival Elation is the perfect gateway ship for first-time cruisers. As the AZIPOD pioneer, she handles beautifully and her Fun Ship 2.0 updates make her feel current despite her Fantasy Class heritage."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","url":"https://cruisinginthewake.com/authors/ken-baker.html","jobTitle":"Cruise Research Analyst","worksFor":{"@type":"Organization","name":"In The Wake"},"knowsAbout":["Cruise Ships","Fantasy Class","AZIPOD Propulsion","Jacksonville Cruises"]}</script>
 <script type="application/ld+json">
@@ -67,7 +78,54 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
     }
   }
   </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What makes Carnival Elation unique?","acceptedAnswer":{"@type":"Answer","text":"Carnival Elation was the first cruise ship ever equipped with AZIPOD propulsion (1998), giving her superior maneuverability. This technology is now standard on modern cruise ships."}},{"@type":"Question","name":"Where does Carnival Elation sail from?","acceptedAnswer":{"@type":"Answer","text":"Carnival Elation sails from Jacksonville, Florida, offering 4-5 day Bahamas cruises to Nassau and Half Moon Cay (Carnival's private island)."}},{"@type":"Question","name":"Who christened Carnival Elation?","acceptedAnswer":{"@type":"Answer","text":"Carnival Elation was christened by actress Teri Hatcher (Lois Lane in 'Lois & Clark') in New York City in 1998."}}]}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What makes Carnival Elation unique?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Carnival Elation was the first cruise ship ever equipped with AZIPOD propulsion (1998), giving her superior maneuverability. This technology is now standard on modern cruise ships."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where does Carnival Elation sail from?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Carnival Elation sails from Jacksonville, Florida, offering 4-5 day Bahamas cruises to Nassau and Half Moon Cay (Carnival's private island)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who christened Carnival Elation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Carnival Elation was christened by actress Teri Hatcher (Lois Lane in 'Lois & Clark') in New York City in 1998."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What class is Carnival Elation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Carnival Elation is a Fantasy Class ship, the eighth and final ship in the class. At 71,909 GT with capacity for 2,190 guests, she was the last Fantasy Class vessel built for Carnival."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I track Carnival Elation's current location?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the live ship tracker section on this page to see Carnival Elation's current position, speed, and heading in real-time via satellite tracking."
+      }
+    }
+  ]
+}
+</script>
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
@@ -128,13 +186,46 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
     }
 }
   </script>
+
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
 </head>
 <body class="page" data-ship="Carnival Elation" data-imo="9097022">
 <a href="#main" class="skip-link">Skip to content</a>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+<div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" loading="lazy"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" loading="eager" fetchpriority="high"/>
 </div>
       <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
@@ -235,7 +326,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
       </p>
     </section>
 <div class="main-col">
-<section class="card"><h2>Photo Gallery</h2>
+<section class="card" id="first-look"><h2>Photo Gallery</h2>
 <div class="swiper photo-swiper" id="photo-swiper" aria-label="Carnival Elation photo gallery"><div class="swiper-wrapper">
 <div class="swiper-slide"><img src="/assets/ships/carnival-elation1.webp" alt="Carnival Elation at sea" loading="eager"></div>
 <div class="swiper-slide"><img src="/assets/ships/carnival-elation2.webp" alt="Pool deck with waterslide" loading="lazy"></div>
@@ -277,7 +368,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
              src="/assets/img/Cordelia_Empress_Food_Court.webp"
              alt="Carnival Elation dining venue" loading="lazy"
              onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
-Dining Venues on Carnival Elation <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+Dining Venues on Carnival Elation <a href="/restaurants.html" style="font-size: 1rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
       <p class="section-intro">Explore the dining options available on Carnival Elation, from complimentary venues to specialty restaurants. The Fantasy-class layout provides intimate dining spaces with classic Carnival favorites.</p>
       <div class="dining-content" id="dining-content" aria-live="polite">
         <p class="tiny">Loading venue information...</p>
@@ -285,7 +376,7 @@ Dining Venues on Carnival Elation <a href="/restaurants.html" style="font-size: 
     </section>
 
 <section class="card"><h2>Fantasy Class Fleet</h2>
-<p style="margin:0 0 1rem;font-size:.9rem;color:#666">Seventh of eight Fantasy Class ships. The first cruise ship with AZIPOD propulsion. Only 2 of 8 sisters remain active.</p>
+<p style="margin:0 0 1rem;font-size:1rem;">Seventh of eight Fantasy Class ships. The first cruise ship with AZIPOD propulsion. Only 2 of 8 sisters remain active.</p>
 <div class="sister-ships">
 <a href="carnival-fantasy.html" class="sister-chip retired">Fantasy †</a>
 <a href="carnival-ecstasy.html" class="sister-chip retired">Ecstasy †</a>
@@ -368,10 +459,10 @@ Dining Venues on Carnival Elation <a href="/restaurants.html" style="font-size: 
       <section class="card quick-tools" style="padding: 1rem;">
         <h3 style="margin: 0 0 0.75rem; font-size: 1rem; color: #083041;">Planning Tools</h3>
         <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
-          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Ship Size Atlas</a></li>
-          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Budget Calculator</a></li>
-          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Drink Package Calculator</a></li>
-          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Port Day Planner</a></li>
+          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none;">Ship Size Atlas</a></li>
+          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none;">Budget Calculator</a></li>
+          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none;">Drink Package Calculator</a></li>
+          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none;">Port Day Planner</a></li>
         </ul>
       </section>
 
@@ -444,7 +535,7 @@ Dining Venues on Carnival Elation <a href="/restaurants.html" style="font-size: 
     <span>Print Guide</span>
   </button>
 </main>
-<footer class="wrap"><p>© 2025 In The Wake · A Cruise Encyclopedia · <span style="opacity:.6">Soli Deo Gloria</span></p>  <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+<footer class="wrap" role="contentinfo"><p>© 2025 In The Wake · A Cruise Encyclopedia · <span style="opacity:.6">Soli Deo Gloria</span></p>  <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous"></script>
 <script>
@@ -475,7 +566,89 @@ fetch('/assets/data/logbook/carnival/carnival-elation.json').then(r=>r.json()).t
     if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
   }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
 })();
-</script>  <!-- Navigation Dropdown Script -->
+</script>
+
+  <!-- ===== JS Module: First Look Carousel ===== -->
+  <script>
+  function initFirstLook(){
+    const el=document.getElementById('photo-swiper');
+    if(!el||typeof Swiper==='undefined') return;
+    new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
+  </script>
+
+  <!-- ===== JS Module: Ship Logbook ===== -->
+  <script>
+  function initShipLogbook(){
+    const c=document.getElementById('logbook-container');
+    if(!c) return;
+    fetch('/assets/data/logbook/carnival/carnival-elation.json')
+      .then(r=>r.json()).then(d=>{
+        if(d.stories) c.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h4>'+s.title+'</h4><p class="logbook-meta">'+s.persona_label+' · '+s.author.name+'</p><p>'+s.markdown.split(\'\\n\\n\')[0].replace(/\*\*/g,\'\')+'</p></article>').join('');
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initShipLogbook); else initShipLogbook();
+  </script>
+
+  <!-- ===== JS Module: Video Loader ===== -->
+  <script>
+  function initVideos(){
+    const w=document.getElementById('video-wrapper');
+    if(!w) return;
+    fetch('/assets/data/videos/carnival/carnival-elation.json')
+      .then(r=>r.json()).then(d=>{
+        let vids=[];
+        if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
+        else if(Array.isArray(d.videos)) vids=d.videos;
+        if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
+        new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();
+  </script>
+
+  <!-- ===== JS Module: Ship Stats ===== -->
+  <script>
+  function initStats(){
+    const el=document.querySelector('[data-ship-stats]')||document.getElementById('stats-container');
+    if(!el) return;
+    fetch('/ships/carnival/assets/carnival-elation-stats.json')
+      .then(r=>r.json()).then(d=>{
+        if(d&&typeof d==='object'){const entries=Object.entries(d).filter(([k])=>!k.startsWith('_'));
+          el.innerHTML='<dl class="stats-grid">'+entries.map(([k,v])=>'<div class="stat-item"><dt>'+k+'</dt><dd>'+v+'</dd></div>').join('')+'</dl>';}
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initStats); else initStats();
+  </script>
+
+  <!-- ===== JS Module: Dining Loader ===== -->
+  <script>
+  function initDining(){
+    const el=document.getElementById('dining-container');
+    if(!el) return;
+    fetch('/ships/carnival/assets/carnival-elation-dining.json')
+      .then(r=>r.json()).then(d=>{
+        if(Array.isArray(d)){el.innerHTML=d.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');}
+        else if(d.venues) el.innerHTML=d.venues.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initDining); else initDining();
+  </script>
+
+  <!-- ===== JS Module: Live Tracker ===== -->
+  <script>
+  function initLiveTracker(){
+    const el=document.getElementById('live-tracker');
+    if(!el) return;
+    const imo=el.getAttribute('data-imo')||'9097022';
+    const url='https://www.myshiptracking.com/vessels/carnival-elation-imo-'+imo;
+    el.innerHTML='<a href="'+url+'" target="_blank" rel="noopener" class="tracker-link">Track Carnival Elation Live Position →</a>';
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initLiveTracker); else initLiveTracker();
+  </script>
+
+  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
 
 

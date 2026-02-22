@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
 ████████████████████████████████████████████████████████████████████████████████
-██  SOLI DEO GLORIA — To God alone be the glory                satisfies: SR1 ██
+██  Soli Deo Gloria — To God alone be the glory                satisfies: SR1 ██
 ██  All work on this project is offered as an act of worship.                 ██
 ██  "Trust in the LORD with all your heart..." — Proverbs 3:5                 ██
 ██  "Whatever you do, work heartily..." — Colossians 3:23                     ██
@@ -255,6 +255,36 @@ if ('serviceWorker' in navigator) {
     }
 }
   </script>
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
 </head>
 
 <body class="page">
@@ -272,7 +302,7 @@ if ('serviceWorker' in navigator) {
              srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x"
              width="256" height="259"
              alt="In the Wake - Home"
-             decoding="async" loading="eager"/>
+             decoding="async" loading="eager" fetchpriority="high"/>
       </a>
 </div>
   </nav>
@@ -361,49 +391,49 @@ if ('serviceWorker' in navigator) {
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/carnival-firenze_01.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Firenze Venice-class cruise ship at sea with Italian-inspired design" loading="lazy">
+              <img src="/assets/ships/carnival-firenze_01.webp" alt="Carnival Firenze Venice-class cruise ship at sea with Italian-inspired design" loading="lazy">
               <figcaption class="tiny">Carnival Firenze - bringing Italian elegance to the West Coast</figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/carnival-firenze_02.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Firenze pool deck with Italian-themed design elements" loading="lazy">
+              <img src="/assets/ships/carnival-firenze_02.webp" alt="Carnival Firenze pool deck with Italian-themed design elements" loading="lazy">
               <figcaption class="tiny">Pool deck featuring Italian Renaissance-inspired design</figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/carnival-firenze_03.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Firenze Florentine atrium with artistic touches" loading="lazy">
+              <img src="/assets/ships/carnival-firenze_03.webp" alt="Carnival Firenze Florentine atrium with artistic touches" loading="lazy">
               <figcaption class="tiny">Grand atrium with Florentine artistic touches</figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/carnival-firenze_04.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Firenze docked at Long Beach California homeport" loading="lazy">
+              <img src="/assets/ships/carnival-firenze_04.webp" alt="Carnival Firenze docked at Long Beach California homeport" loading="lazy">
               <figcaption class="tiny">Carnival Firenze at her Long Beach, CA homeport</figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/carnival-firenze_05.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Firenze main dining room with Italian décor" loading="lazy">
+              <img src="/assets/ships/carnival-firenze_05.webp" alt="Carnival Firenze main dining room with Italian décor" loading="lazy">
               <figcaption class="tiny">Elegant main dining room with Italian ambiance</figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/carnival-firenze_06.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Firenze Serenity adults-only retreat" loading="lazy">
+              <img src="/assets/ships/carnival-firenze_06.webp" alt="Carnival Firenze Serenity adults-only retreat" loading="lazy">
               <figcaption class="tiny">Serenity adults-only retreat area</figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/carnival-firenze_07.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Firenze balcony stateroom with ocean views" loading="lazy">
+              <img src="/assets/ships/carnival-firenze_07.webp" alt="Carnival Firenze balcony stateroom with ocean views" loading="lazy">
               <figcaption class="tiny">Spacious balcony stateroom with ocean views</figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/carnival-firenze_08.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Firenze sailing the Mexican Riviera from Long Beach" loading="lazy">
+              <img src="/assets/ships/carnival-firenze_08.webp" alt="Carnival Firenze sailing the Mexican Riviera from Long Beach" loading="lazy">
               <figcaption class="tiny">Sailing the Mexican Riviera from Long Beach</figcaption>
             </figure>
           </div>
@@ -453,7 +483,7 @@ if ('serviceWorker' in navigator) {
              src="/assets/img/Cordelia_Empress_Food_Court.webp"
              alt="Carnival Firenze dining venue" loading="lazy"
              onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
-Dining Venues on Carnival Firenze <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+Dining Venues on Carnival Firenze <a href="/restaurants.html" style="font-size: 1rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
       <p class="section-intro">Explore the dining options available on Carnival Firenze, from complimentary venues to specialty restaurants.</p>
       <div class="dining-content" id="dining-content" aria-live="polite">
         <p class="tiny">Loading venue information...</p>
@@ -544,7 +574,7 @@ Dining Venues on Carnival Firenze <a href="/restaurants.html" style="font-size: 
         <img src="/assets/ships/carnival-venezia-thumb.webp"
              alt="Carnival Venezia at sea"
              loading="lazy"
-             onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
+            />
         <div>
           <strong>Carnival Venezia</strong>
           <span class="tiny" style="display: block;">2019 · Ex-Costa Venezia · New York</span>
@@ -669,10 +699,10 @@ Dining Venues on Carnival Firenze <a href="/restaurants.html" style="font-size: 
       <section class="card quick-tools" style="padding: 1rem;">
         <h3 style="margin: 0 0 0.75rem; font-size: 1rem; color: #083041;">Planning Tools</h3>
         <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
-          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Ship Size Atlas</a></li>
-          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Budget Calculator</a></li>
-          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Drink Package Calculator</a></li>
-          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Port Day Planner</a></li>
+          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none;">Ship Size Atlas</a></li>
+          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none;">Budget Calculator</a></li>
+          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none;">Drink Package Calculator</a></li>
+          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none;">Port Day Planner</a></li>
         </ul>
       </section>
 
@@ -865,6 +895,86 @@ Dining Venues on Carnival Firenze <a href="/restaurants.html" style="font-size: 
     if (!inside) closeAll();
   });
 })();
+</script>
+
+<!-- ===== JS Module: First Look Carousel ===== -->
+<script>
+function initFirstLook(){
+  const el=document.getElementById('photo-swiper');
+  if(!el||typeof Swiper==='undefined') return;
+  new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
+</script>
+
+<!-- ===== JS Module: Ship Logbook ===== -->
+<script>
+function initShipLogbook(){
+  const c=document.getElementById('logbook-container');
+  if(!c) return;
+  fetch('/assets/data/logbook/carnival/carnival-firenze.json')
+    .then(r=>r.json()).then(d=>{
+      if(d.stories) c.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h4>'+s.title+'</h4><p class="logbook-meta">'+s.persona_label+' · '+s.author.name+'</p><p>'+s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')+'</p></article>').join('');
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initShipLogbook); else initShipLogbook();
+</script>
+
+<!-- ===== JS Module: Video Loader ===== -->
+<script>
+function initVideos(){
+  const w=document.getElementById('video-wrapper');
+  if(!w) return;
+  fetch('/assets/data/videos/carnival/carnival-firenze.json')
+    .then(r=>r.json()).then(d=>{
+      let vids=[];
+      if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
+      else if(Array.isArray(d.videos)) vids=d.videos;
+      if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
+      new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();
+</script>
+
+<!-- ===== JS Module: Ship Stats ===== -->
+<script>
+function initStats(){
+  const el=document.querySelector('[data-ship-stats]')||document.getElementById('stats-container');
+  if(!el) return;
+  fetch('/ships/carnival/assets/carnival-firenze-stats.json')
+    .then(r=>r.json()).then(d=>{
+      if(d&&typeof d==='object'){const entries=Object.entries(d).filter(([k])=>!k.startsWith('_'));
+        el.innerHTML='<dl class="stats-grid">'+entries.map(([k,v])=>'<div class="stat-item"><dt>'+k+'</dt><dd>'+v+'</dd></div>').join('')+'</dl>';}
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initStats); else initStats();
+</script>
+
+<!-- ===== JS Module: Dining Loader ===== -->
+<script>
+function initDining(){
+  const el=document.getElementById('dining-container');
+  if(!el) return;
+  fetch('/ships/carnival/assets/carnival-firenze-dining.json')
+    .then(r=>r.json()).then(d=>{
+      if(Array.isArray(d)){el.innerHTML=d.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');}
+      else if(d.venues) el.innerHTML=d.venues.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initDining); else initDining();
+</script>
+
+<!-- ===== JS Module: Live Tracker ===== -->
+<script>
+function initLiveTracker(){
+  const el=document.getElementById('live-tracker');
+  if(!el) return;
+  const imo=el.getAttribute('data-imo')||'9337263';
+  const url='https://www.myshiptracking.com/vessels/carnival-firenze-imo-'+imo;
+  el.innerHTML='<a href="'+url+'" target="_blank" rel="noopener" class="tracker-link">Track Carnival Firenze Live Position →</a>';
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initLiveTracker); else initLiveTracker();
 </script>
 
 <script src="/assets/js/dropdown.js"></script>

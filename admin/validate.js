@@ -27,6 +27,15 @@ import { load } from 'cheerio';
 import { glob } from 'glob';
 import { spawn } from 'child_process';
 
+// Dynamic import — validate.js must not crash if mobile validator is absent
+let validateMobileReadiness = null;
+try {
+  const mobileModule = await import('./validate-mobile-readiness.js');
+  validateMobileReadiness = mobileModule.validateMobileReadiness;
+} catch {
+  // Mobile validator not available — will be skipped gracefully
+}
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const PROJECT_ROOT = join(__dirname, '..');
@@ -312,6 +321,7 @@ async function validatePage(filepath, options = {}) {
     detectionMethod: null,
     valid: true,
     basicValidation: { errors: [], warnings: [] },
+    mobileValidation: { valid: true, blocking: [], warnings: [] },
     typeValidation: { success: true, output: '' }
   };
 
@@ -328,12 +338,31 @@ async function validatePage(filepath, options = {}) {
     const basicResult = await runBasicValidation($, html, filepath);
     result.basicValidation = basicResult;
 
+    // Run mobile readiness validation (applies to all page types)
+    // Per Mobile Standard v1.000 Section 9.3
+    // Skipped gracefully if validate-mobile-readiness.js is absent
+    if (validateMobileReadiness && !basicResult.isRedirect && !basicResult.isTruncated) {
+      try {
+        const mobileResult = await validateMobileReadiness(filepath, html, $);
+        result.mobileValidation = mobileResult;
+      } catch (mobileError) {
+        // Non-fatal — mobile validation failure should not block other checks
+        result.mobileValidation.warnings.push({
+          id: 'MOB-ERR', severity: 'WARNING', pass: true,
+          message: `Mobile validation error: ${mobileError.message}`
+        });
+      }
+    }
+
     // Run type-specific validator if available
     const validatorScript = VALIDATORS[result.pageType];
+    // Mobile blocking errors contribute to overall pass/fail
+    const mobileBlocking = result.mobileValidation.blocking ? result.mobileValidation.blocking.length : 0;
+
     if (validatorScript) {
       const typeResult = await runValidator(validatorScript, filepath, options);
       result.typeValidation = typeResult;
-      result.valid = typeResult.success && basicResult.errors.length === 0;
+      result.valid = typeResult.success && basicResult.errors.length === 0 && mobileBlocking === 0;
     } else if (result.pageType === 'unknown') {
       result.typeValidation = {
         success: false,
@@ -342,8 +371,8 @@ async function validatePage(filepath, options = {}) {
       };
       result.valid = false;
     } else {
-      // Index pages - only basic validation
-      result.valid = basicResult.errors.length === 0;
+      // Index pages - only basic validation + mobile
+      result.valid = basicResult.errors.length === 0 && mobileBlocking === 0;
     }
 
   } catch (error) {
@@ -383,6 +412,24 @@ function printResult(result, options = {}) {
       result.basicValidation.warnings.forEach(warn => {
         console.log(`  ${colors.yellow}[basic/${warn.rule}]${colors.reset} ${warn.message}`);
       });
+    }
+
+    // Print mobile validation issues
+    if (result.mobileValidation) {
+      if (result.mobileValidation.blocking) {
+        result.mobileValidation.blocking.forEach(check => {
+          if (check.message) {
+            console.log(`  ${colors.red}[${check.id}] BLOCKING:${colors.reset} ${check.message}`);
+          }
+        });
+      }
+      if (result.mobileValidation.warnings) {
+        result.mobileValidation.warnings.forEach(check => {
+          if (check.message) {
+            console.log(`  ${colors.yellow}[${check.id}] WARNING:${colors.reset} ${check.message}`);
+          }
+        });
+      }
     }
 
     // Print type validation errors if failed

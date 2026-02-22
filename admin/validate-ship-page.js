@@ -1,11 +1,26 @@
 #!/usr/bin/env node
 /**
- * Ship Page Validator - ITW-SHIP-002 v2.3
+ * Ship Page Validator - ITW-SHIP-002 v2.5
  * Soli Deo Gloria
  *
  * Comprehensive validator for ship pages following the Ship Page Standard v2.0.
  * Validates: ICP-Lite v1.4, JSON-LD schemas, section ordering, content consistency,
  * word counts, video requirements, logbook stories, navigation, WCAG, deduplication.
+ *
+ * v2.5 Enhancements (Merged — Port Validator Principles + v3.010 Cross-Pollination):
+ * - Placeholder image hash detection (from validate-port-page-v2.js)
+ * - Image deduplication by file size (from validate-port-page-v2.js)
+ * - Template remnant detection: Lorem ipsum, TODO, PLACEHOLDER (Careful Not Clever)
+ * - Accessibility keyword checks (from port validator rubric)
+ * - Stewardship framing markers (from port validator)
+ * - Expanded content purity: nightlife, happy hour, YOLO, slang
+ * - Marketing adjective bans (luxury, iconic, world-class, unparalleled)
+ * - SDG position check (first 3 lines)
+ * - Staleness detection for last-reviewed (>180 days)
+ * - Content-promise-vs-delivery checks (from venue validator S06)
+ * - Service Worker, canonical URL, answer-line/key-facts checks
+ * - Deep logbook: spine validation, disclosure types, emoji ban, female crewmate
+ * - Logbook narrative quality: sensory details, emotional pivots, reflection
  *
  * v2.3 Enhancements (External Review Findings — Gemini/ChatGPT):
  * - Duplicate class attributes detection (invalid HTML, styles silently lost)
@@ -40,8 +55,9 @@
  * Master Video Manifest: /ships/rcl/rc_ship_videos.json
  */
 
-import { readFile, access } from 'fs/promises';
-import { existsSync } from 'fs';
+import { readFile, access, readdir, stat } from 'fs/promises';
+import { existsSync, readFileSync } from 'fs';
+import { createHash } from 'crypto';
 import { join, dirname, relative, basename } from 'path';
 import { fileURLToPath } from 'url';
 import { load } from 'cheerio';
@@ -167,13 +183,28 @@ const FORBIDDEN_PATTERNS = [
   { pattern: /\bdeliver[s]?\b.*innovation/i, category: 'brochure', severity: 'warning' },
   { pattern: /see our .* guide/i, category: 'self-promo', severity: 'warning' },
   { pattern: /check our .* calculator/i, category: 'self-promo', severity: 'warning' },
+  // Marketing adjective bans (per v3.010 — no brochure-speak)
+  { pattern: /\bluxury\b/i, category: 'marketing', severity: 'warning' },
+  { pattern: /\biconic\b/i, category: 'marketing', severity: 'warning' },
+  { pattern: /\bworld[- ]?class\b/i, category: 'marketing', severity: 'warning' },
+  { pattern: /\bunparalleled\b/i, category: 'marketing', severity: 'warning' },
   // Drinking/nightlife (blocking)
   { pattern: /\b(bar hop|bar-hop|pub crawl|pub-crawl)\b/i, category: 'drinking' },
-  { pattern: /\b(get drunk|getting drunk|wasted|hammered)\b/i, category: 'drinking' },
+  { pattern: /\b(get drunk|getting drunk|wasted|hammered|tipsy)\b/i, category: 'drinking' },
+  { pattern: /\b(nightlife|night life|nightclub|night club)\b/i, category: 'nightlife' },
+  { pattern: /\b(let loose|go wild|get wild|cut loose)\b/i, category: 'partying' },
+  { pattern: /\b(happy hour|cocktail hour|wine tasting|beer flight)\b/i, category: 'drinking', severity: 'warning' },
   // Gambling (warning with allowed context)
   { pattern: /\bcasino\b/i, category: 'gambling', severity: 'warning', allowed_context: /casino royale|virtual casino/i },
-  // Profanity (warning)
-  { pattern: /\b(damn|hell|crap|ass)\b/i, category: 'profanity', severity: 'warning' }
+  { pattern: /\b(gambling|gamble|betting|bet on)\b/i, category: 'gambling', severity: 'warning' },
+  { pattern: /\b(try your luck|slots|poker|blackjack|roulette)\b/i, category: 'gambling', severity: 'warning', allowed_context: /casino royale/i },
+  // Profanity and slang (warning)
+  { pattern: /\b(damn|hell|crap|ass)\b/i, category: 'profanity', severity: 'warning' },
+  { pattern: /\b(wtf|omg|lmao|lmfao)\b/i, category: 'slang', severity: 'warning' },
+  // Travel idolatry / hype (warning)
+  { pattern: /\b(bucket[ -]?list|once[- ]in[- ]a[- ]lifetime)\b/i, category: 'hype', severity: 'warning' },
+  { pattern: /\b(life[- ]?changing|transformative experience)\b/i, category: 'hype', severity: 'warning' },
+  { pattern: /\b(YOLO|living my best life)\b/i, category: 'hype', severity: 'warning' }
 ];
 
 // Faith-scented content markers (REQUIRED per standard)
@@ -192,6 +223,38 @@ const EMOTIONAL_PIVOT_MARKERS = [
   /finally (said|spoke|understood|saw)/i, /for the first time in/i,
   /something (shifted|changed|broke open)/i, /healing\b/i,
   /reconcil/i, /forgive/i, /thank (god|you|him|her)/i
+];
+
+// =============================================================================
+// v2.5 CONSTANTS (Principle Import — Port Validator + Careful Not Clever)
+// =============================================================================
+
+// Known placeholder image hashes (from validate-port-page-v2.js pattern)
+const PLACEHOLDER_HASHES = new Set([
+  'd7a4721e321920f7f6414c7a7fe865f0'  // cozumel-fom-1.webp placeholder
+]);
+
+// Stewardship framing markers (from port validator)
+const STEWARDSHIP_MARKERS = [
+  /\bworth\b/i, /\bvalue\b/i, /\bplan(ning)?\b/i, /\bbudget\b/i,
+  /\bsave\b/i, /\bsteward/i, /\bgratitude\b/i, /\bgrateful\b/i,
+  /\bthankful\b/i, /\bgift\b/i, /\bentrust/i
+];
+
+// Template remnant patterns (Careful Not Clever principle)
+const TEMPLATE_REMNANT_PATTERNS = [
+  { pattern: /lorem ipsum/i, label: 'Lorem ipsum placeholder text' },
+  { pattern: /\[TODO\]/i, label: '[TODO] marker' },
+  { pattern: /\[FIXME\]/i, label: '[FIXME] marker' },
+  { pattern: /\[PLACEHOLDER\]/i, label: '[PLACEHOLDER] marker' },
+  { pattern: /\[INSERT[_ ].*?\]/i, label: '[INSERT_...] template variable' },
+  { pattern: /INSERT_SHIP_NAME/i, label: 'INSERT_SHIP_NAME template variable' },
+  { pattern: /INSERT_CRUISE_LINE/i, label: 'INSERT_CRUISE_LINE template variable' },
+  { pattern: /\{\{.*?\}\}/i, label: '{{...}} template placeholder' },
+  { pattern: /\$\{[A-Z_]+\}/i, label: '${VARIABLE} template placeholder' },
+  { pattern: /TBD_/i, label: 'TBD_ prefix placeholder' },
+  { pattern: /REPLACE_ME/i, label: 'REPLACE_ME marker' },
+  { pattern: /example\.com/i, label: 'example.com placeholder URL' }
 ];
 
 // Navigation items that MUST be present (per index.html gold standard)
@@ -344,6 +407,18 @@ function validateSoliDeoGloria(html) {
     });
   }
 
+  // Check SDG is in first 3 lines (before <!doctype html>) per v3.010
+  const first3Lines = html.split('\n').slice(0, 3).join('\n');
+  const sdgInFirst3 = /soli\s+deo\s+gloria/i.test(first3Lines);
+  if (hasSoliDeoGloria && !sdgInFirst3) {
+    warnings.push({
+      section: 'soli_deo_gloria',
+      rule: 'sdg_position',
+      message: 'Soli Deo Gloria found but not in first 3 lines. Should appear before <!doctype html>.',
+      severity: 'WARNING'
+    });
+  }
+
   // Check for standard comment block format
   const hasStandardFormat = html.includes('Soli Deo Gloria') &&
     (html.includes('Proverbs 3:5') || html.includes('Colossians 3:23'));
@@ -357,7 +432,7 @@ function validateSoliDeoGloria(html) {
     });
   }
 
-  return { valid: errors.length === 0, errors, warnings, data: { hasSoliDeoGloria, hasStandardFormat } };
+  return { valid: errors.length === 0, errors, warnings, data: { hasSoliDeoGloria, hasStandardFormat, sdgInFirst3 } };
 }
 
 /**
@@ -451,6 +526,13 @@ function validateICPLite($) {
     errors.push({ section: 'icp_lite', rule: 'last_reviewed_missing', message: 'last-reviewed meta tag is missing', severity: 'BLOCKING' });
   } else if (!/^\d{4}-\d{2}-\d{2}$/.test(lastReviewed)) {
     errors.push({ section: 'icp_lite', rule: 'last_reviewed_format', message: `last-reviewed must be YYYY-MM-DD`, severity: 'BLOCKING' });
+  } else {
+    // Staleness detection (cross-pollinated from venue validator W05)
+    const reviewed = new Date(lastReviewed);
+    const daysDiff = (new Date() - reviewed) / (1000 * 60 * 60 * 24);
+    if (daysDiff > 180) {
+      warnings.push({ section: 'icp_lite', rule: 'stale_review', message: `last-reviewed date is ${Math.floor(daysDiff)} days old (${lastReviewed}) — content may be stale`, severity: 'WARNING' });
+    }
   }
 
   if ($('meta[name="ai-summary"]').length > 1) {
@@ -1237,6 +1319,37 @@ function validateContentConsistency($, filepath) {
 }
 
 /**
+ * Validate content promises vs. delivery (cross-pollinated from venue validator S06)
+ * Checks if meta description promises features the page doesn't actually contain.
+ */
+function validateContentPromises($) {
+  const errors = [];
+  const warnings = [];
+  const description = ($('meta[name="description"]').attr('content') || '').toLowerCase();
+  const bodyText = $('body').text().toLowerCase();
+
+  // Map of promises in meta description → required content signals on page
+  const promiseChecks = [
+    { keyword: 'deck plan', signals: ['deck-plans', 'deck plan', 'deckplan'], message: 'Meta description mentions "deck plans" but no deck plan section found' },
+    { keyword: 'live tracker', signals: ['tracker', 'marinetraffic', 'where is'], message: 'Meta description mentions "live tracker" but no tracker section found' },
+    { keyword: 'video', signals: ['youtube.com', 'youtube-nocookie.com', 'video-grid', 'ship-videos'], message: 'Meta description mentions "video" but no video content found' },
+    { keyword: 'dining', signals: ['dining', 'restaurant', 'venue'], message: 'Meta description mentions "dining" but no dining section found' },
+    { keyword: 'logbook', signals: ['logbook', 'tales from the wake', 'crew-stories'], message: 'Meta description mentions "logbook" but no logbook section found' }
+  ];
+
+  for (const check of promiseChecks) {
+    if (description.includes(check.keyword)) {
+      const hasContent = check.signals.some(sig => bodyText.includes(sig) || $.html().toLowerCase().includes(sig));
+      if (!hasContent) {
+        warnings.push({ section: 'content_promises', rule: 'unfulfilled_promise', message: check.message, severity: 'WARNING' });
+      }
+    }
+  }
+
+  return { valid: errors.length === 0, errors, warnings, data: {} };
+}
+
+/**
  * Validate FAQ section
  */
 function validateFAQ($) {
@@ -1738,7 +1851,186 @@ async function validateLogbook(slug, cruiseLine = 'rcl', isHistoric = false) {
       warnings.push({ section: 'logbook', rule: 'short_stories', message: `${shortStories} stories under 300 words`, severity: 'WARNING' });
     }
 
-    return { valid: errors.length === 0, errors, warnings, data: { storyCount: stories.length, hasPersonas, shortStories } };
+    // Narrative quality checks (cross-pollinated from port validator)
+    // Check that stories contain emotional pivot markers, sensory details, and reflection
+    let storiesWithoutEmotion = 0;
+    let storiesWithoutReflection = 0;
+    let sensoryProfile = { visual: 0, auditory: 0, tactile: 0, olfactory: 0, gustatory: 0 };
+
+    const SENSORY_PATTERNS = {
+      visual: /\b(saw|watched|looked|gazed|glimpsed|noticed|spotted|observed|stared|glanced)\b/i,
+      auditory: /\b(heard|listened|sound|noise|silence|quiet|whisper|roar|crash|echo)\b/i,
+      tactile: /\b(felt|touched|cold|warm|hot|cool|breeze|wind|rough|smooth|soft)\b/i,
+      olfactory: /\b(smell|scent|aroma|fragrance|whiff|odor|stench)\b/i,
+      gustatory: /\b(taste|tasted|flavor|sweet|salty|bitter|sour|savory|delicious)\b/i
+    };
+
+    const LESSON_MARKERS = [
+      /the lesson:/i, /what .* taught me/i, /I (learned|realized|understood|discovered)/i,
+      /looking back/i, /in retrospect/i, /the (real|true) (gift|lesson|meaning)/i,
+      /sometimes you/i, /what matters (is|was)/i
+    ];
+
+    stories.forEach(s => {
+      const text = s.markdown || '';
+      if (text.length < 100) return; // Skip very short/empty stories
+
+      // Check emotional pivot markers (EMOTIONAL_PIVOT_MARKERS defined at top of file)
+      const hasEmotion = EMOTIONAL_PIVOT_MARKERS.some(p => p.test(text));
+      if (!hasEmotion) storiesWithoutEmotion++;
+
+      // Check reflection/lesson markers
+      const hasReflection = LESSON_MARKERS.some(p => p.test(text));
+      if (!hasReflection) storiesWithoutReflection++;
+
+      // Accumulate sensory coverage across all stories
+      for (const [sense, pattern] of Object.entries(SENSORY_PATTERNS)) {
+        if (pattern.test(text)) sensoryProfile[sense]++;
+      }
+    });
+
+    const sensesUsed = Object.entries(sensoryProfile).filter(([, count]) => count > 0).map(([sense]) => sense);
+
+    if (storiesWithoutEmotion > stories.length / 2) {
+      warnings.push({ section: 'logbook', rule: 'weak_emotional_content', message: `${storiesWithoutEmotion}/${stories.length} stories lack emotional pivot markers (tears, heart reactions, whispers, etc.)`, severity: 'WARNING' });
+    }
+    if (storiesWithoutReflection > stories.length / 2) {
+      warnings.push({ section: 'logbook', rule: 'missing_reflection', message: `${storiesWithoutReflection}/${stories.length} stories lack lesson/reflection markers ("I learned", "looking back", etc.)`, severity: 'WARNING' });
+    }
+    if (sensesUsed.length < 3) {
+      warnings.push({ section: 'logbook', rule: 'limited_sensory_detail', message: `Logbook stories only engage ${sensesUsed.length}/5 senses (${sensesUsed.join(', ') || 'none'}). Aim for 3+ senses across stories.`, severity: 'WARNING' });
+    }
+
+    // ── v3.010 Logbook spine validation (7 required sections) ──
+    const REQUIRED_SPINE_SECTIONS = [
+      { pattern: /full\s+disclosure/i, label: 'Full Disclosure' },
+      { pattern: /crew\s+(and|&)\s+staff/i, label: 'The Crew and Staff' },
+      { pattern: /embark|disembark/i, label: 'Embarkation & Disembarkation' },
+      { pattern: /real\s+talk/i, label: 'The Real Talk' },
+      { pattern: /accessibility\s+(on|at)\s+the\s+seas?/i, label: 'Accessibility on the Seas' },
+      { pattern: /female\s+crewmate/i, label: "A Female Crewmate's Perspective" },
+      { pattern: /closing\s+thoughts?/i, label: 'Closing Thoughts' }
+    ];
+
+    const allStoryText = stories.map(s => s.markdown || s.title || '').join(' ');
+    const allHeaders = stories.map(s => s.title || s.section || '').join(' ');
+    const spineDetected = [];
+    const spineMissing = [];
+
+    for (const sec of REQUIRED_SPINE_SECTIONS) {
+      if (sec.pattern.test(allHeaders) || sec.pattern.test(allStoryText)) {
+        spineDetected.push(sec.label);
+      } else {
+        spineMissing.push(sec.label);
+      }
+    }
+
+    if (spineMissing.length > 0) {
+      warnings.push({
+        section: 'logbook',
+        rule: 'spine_sections_missing',
+        message: `Logbook missing ${spineMissing.length} spine section(s): ${spineMissing.join(', ')}`,
+        severity: 'WARNING'
+      });
+    }
+
+    // ── v3.010 Disclosure type validation (A/B/C) ──
+    const DISCLOSURE_TYPES = {
+      A: /type[- ]?a|sailed|firsthand|personal experience/i,
+      B: /type[- ]?b|research[- ]based|haven't sailed|not yet visited/i,
+      C: /type[- ]?c|mixed|partial experience/i
+    };
+
+    let disclosureType = null;
+    for (const [type, pattern] of Object.entries(DISCLOSURE_TYPES)) {
+      if (pattern.test(allStoryText) || pattern.test(allHeaders)) {
+        disclosureType = type;
+        break;
+      }
+    }
+
+    if (!disclosureType) {
+      warnings.push({
+        section: 'logbook',
+        rule: 'missing_disclosure_type',
+        message: 'No disclosure type (A/B/C) detected. Logbook should declare if stories are firsthand (A), research-based (B), or mixed (C).',
+        severity: 'WARNING'
+      });
+    }
+
+    // ── v3.010 No emojis in logbook ──
+    const emojiPattern = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{200D}\u{20E3}]/gu;
+    let storiesWithEmojis = 0;
+    stories.forEach(s => {
+      const text = s.markdown || '';
+      if (emojiPattern.test(text)) storiesWithEmojis++;
+    });
+
+    if (storiesWithEmojis > 0) {
+      errors.push({
+        section: 'logbook',
+        rule: 'no_emojis',
+        message: `${storiesWithEmojis} logbook story/stories contain emoji characters. Logbook entries must use prose, not emojis.`,
+        severity: 'BLOCKING'
+      });
+    }
+
+    // ── v3.010 Female crewmate validation ──
+    let hasFemaleCrewmate = false;
+    let femaleCrewmateNamed = false;
+    let femaleCrewmateLocation = false;
+
+    stories.forEach(s => {
+      const text = s.markdown || '';
+      const title = s.title || '';
+      if (/female\s+crewmate/i.test(title) || /female\s+crewmate/i.test(text)) {
+        hasFemaleCrewmate = true;
+        // Check if named (a proper noun after "crewmate" or a name pattern)
+        if (/crewmate['']?s?\s+perspective.*?[A-Z][a-z]+/i.test(text) || /\bher name\b|\bnamed\s+[A-Z]/i.test(text) || /\b(she|her)\b.*\b(from|based in|lives in|hails from)\b/i.test(text)) {
+          femaleCrewmateNamed = true;
+        }
+        // Check for home location
+        if (/\b(from|based in|lives in|hails from|hometown|home country)\b/i.test(text)) {
+          femaleCrewmateLocation = true;
+        }
+      }
+    });
+
+    if (!hasFemaleCrewmate) {
+      warnings.push({
+        section: 'logbook',
+        rule: 'missing_female_crewmate',
+        message: "No 'A Female Crewmate's Perspective' section found in logbook stories",
+        severity: 'WARNING'
+      });
+    } else {
+      if (!femaleCrewmateNamed) {
+        warnings.push({
+          section: 'logbook',
+          rule: 'female_crewmate_unnamed',
+          message: 'Female crewmate section exists but crewmate does not appear to be named',
+          severity: 'WARNING'
+        });
+      }
+      if (!femaleCrewmateLocation) {
+        warnings.push({
+          section: 'logbook',
+          rule: 'female_crewmate_no_location',
+          message: 'Female crewmate section exists but no home location mentioned',
+          severity: 'WARNING'
+        });
+      }
+    }
+
+    return {
+      valid: errors.length === 0, errors, warnings,
+      data: {
+        storyCount: stories.length, hasPersonas, shortStories, sensesUsed,
+        storiesWithoutEmotion, storiesWithoutReflection,
+        spineDetected, spineMissing, disclosureType,
+        storiesWithEmojis, hasFemaleCrewmate, femaleCrewmateNamed, femaleCrewmateLocation
+      }
+    };
 
   } catch (e) {
     errors.push({ section: 'logbook', rule: 'missing_file', message: `Logbook JSON not found: ${logbookPath}`, severity: 'BLOCKING' });
@@ -2246,6 +2538,230 @@ function validateExternalReviewFindings($, html) {
   return { valid: errors.length === 0, errors, warnings, data };
 }
 
+// =============================================================================
+// STANDARDS v3.010 CROSS-POLLINATION CHECKS
+// =============================================================================
+
+/**
+ * Validate Service Worker registration (MOBILE_STANDARDS v1.000)
+ */
+function validateServiceWorkerShip(html) {
+  const warnings = [];
+  const hasSWRegister = html.includes('serviceWorker.register') || html.includes('serviceWorker');
+
+  if (!hasSWRegister) {
+    warnings.push({
+      section: 'service_worker',
+      rule: 'missing_sw_registration',
+      message: 'No Service Worker registration found. Add navigator.serviceWorker.register(\'/sw.js\') for offline support.',
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: true, errors: [], warnings, data: { hasServiceWorker: hasSWRegister } };
+}
+
+/**
+ * Validate canonical URL format (must be absolute https://cruisinginthewake.com/...)
+ */
+function validateCanonicalURLShip($) {
+  const errors = [];
+  const canonical = $('link[rel="canonical"]').attr('href') || '';
+
+  if (!canonical) {
+    errors.push({
+      section: 'canonical',
+      rule: 'missing_canonical',
+      message: 'Missing <link rel="canonical"> tag',
+      severity: 'BLOCKING'
+    });
+  } else if (!canonical.startsWith('https://cruisinginthewake.com/')) {
+    errors.push({
+      section: 'canonical',
+      rule: 'invalid_canonical_format',
+      message: `Canonical URL must be absolute https://cruisinginthewake.com/ format, found "${canonical}"`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings: [], data: { canonical } };
+}
+
+/**
+ * Validate answer-line and key-facts presence (ICP-Lite / ship standard)
+ */
+function validateAnswerLineKeyFactsShip($) {
+  const errors = [];
+  const hasAnswerLine = $('.answer-line').length > 0 || $('[class*="answer-line"]').length > 0;
+  const hasKeyFacts = $('.key-facts').length > 0 || $('[class*="key-facts"]').length > 0;
+
+  if (!hasAnswerLine) {
+    errors.push({
+      section: 'content_structure',
+      rule: 'missing_answer_line',
+      message: 'Missing answer-line element. Every ship page needs a quick one-line answer.',
+      severity: 'BLOCKING'
+    });
+  }
+
+  if (!hasKeyFacts) {
+    errors.push({
+      section: 'content_structure',
+      rule: 'missing_key_facts',
+      message: 'Missing key-facts element. Every ship page needs a key facts summary.',
+      severity: 'BLOCKING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings: [], data: { hasAnswerLine, hasKeyFacts } };
+}
+
+// =============================================================================
+// v2.5 VALIDATION FUNCTIONS (Port Validator Principle Import)
+// v2.4 VALIDATION FUNCTIONS (Principle Import)
+// =============================================================================
+
+/**
+ * Validate ship images for placeholders and duplicates
+ * Imported from validate-port-page-v2.js pattern
+ */
+async function validateShipImages(filepath, cruiseLine, slug) {
+  const errors = [];
+  const warnings = [];
+
+  const imgDirs = [
+    join(PROJECT_ROOT, 'assets', 'ships', cruiseLine),
+    join(PROJECT_ROOT, 'assets', 'img', 'ships', slug)
+  ];
+
+  let imageFiles = [];
+  let imgDir = null;
+
+  for (const dir of imgDirs) {
+    if (existsSync(dir)) {
+      imgDir = dir;
+      try {
+        const files = await readdir(dir);
+        imageFiles = files.filter(f =>
+          f.toLowerCase().includes(slug.replace(/-/g, '')) ||
+          f.toLowerCase().includes(slug)
+        ).filter(f => f.endsWith('.webp') || f.endsWith('.jpg') || f.endsWith('.png'));
+      } catch (e) {
+        // Skip unreadable directories
+      }
+      break;
+    }
+  }
+
+  if (!imgDir || imageFiles.length === 0) {
+    return { valid: true, errors, warnings, data: { checked: false } };
+  }
+
+  // Check each image for placeholder hash
+  let placeholderCount = 0;
+  const placeholderImages = [];
+
+  for (const imgFile of imageFiles) {
+    const imgPath = join(imgDir, imgFile);
+    try {
+      const imgBuffer = readFileSync(imgPath);
+      const hash = createHash('md5').update(imgBuffer).digest('hex');
+      if (PLACEHOLDER_HASHES.has(hash)) {
+        placeholderCount++;
+        placeholderImages.push(imgFile);
+      }
+    } catch (e) {
+      // Skip unreadable files
+    }
+  }
+
+  if (placeholderCount > 0) {
+    errors.push({
+      section: 'ship_images',
+      rule: 'placeholder_images_detected',
+      message: `${placeholderCount} placeholder image(s) detected: ${placeholderImages.slice(0, 3).join(', ')}${placeholderCount > 3 ? '...' : ''}. Each ship must have unique images.`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  // Check for images with identical file sizes (potential duplicates)
+  const sizeGroups = {};
+  for (const imgFile of imageFiles) {
+    const imgPath = join(imgDir, imgFile);
+    try {
+      const stats = await stat(imgPath);
+      if (!sizeGroups[stats.size]) sizeGroups[stats.size] = [];
+      sizeGroups[stats.size].push(imgFile);
+    } catch (e) { /* skip */ }
+  }
+
+  const duplicateSizeGroups = Object.entries(sizeGroups)
+    .filter(([, files]) => files.length > 2)
+    .map(([, files]) => files);
+
+  if (duplicateSizeGroups.length > 0) {
+    const totalSuspicious = duplicateSizeGroups.reduce((acc, g) => acc + g.length, 0);
+    warnings.push({
+      section: 'ship_images',
+      rule: 'potential_duplicate_images',
+      message: `${totalSuspicious} images have identical file sizes, may be duplicates/placeholders`,
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0, errors, warnings,
+    data: { checked: true, total_ship_images: imageFiles.length, placeholder_images: placeholderCount, potential_duplicates: duplicateSizeGroups.length > 0 }
+  };
+}
+
+/**
+ * Validate template remnants (Careful Not Clever principle)
+ */
+function validateTemplateRemnants($, html) {
+  const errors = [];
+  const warnings = [];
+  const found = [];
+  const bodyText = $('body').text();
+
+  for (const rule of TEMPLATE_REMNANT_PATTERNS) {
+    if (rule.pattern.test(bodyText) || rule.pattern.test(html)) {
+      const match = bodyText.match(rule.pattern) || html.match(rule.pattern);
+      found.push(rule.label);
+      errors.push({
+        section: 'template_remnants',
+        rule: 'placeholder_content',
+        message: `Template remnant found: ${rule.label}${match ? ` ("${match[0].substring(0, 40)}")` : ''}`,
+        severity: 'BLOCKING'
+      });
+    }
+  }
+
+  return { valid: errors.length === 0, errors, warnings, data: { found, count: found.length } };
+}
+
+/**
+ * Validate accessibility keyword presence (from port validator rubric)
+ */
+function validateAccessibilityKeywords($) {
+  const errors = [];
+  const warnings = [];
+  const fullText = $('body').text().toLowerCase();
+  const accessibilityKeywords = ['wheelchair', 'mobility', 'accessible', 'accessibility', 'special needs', 'disability', 'ada'];
+  const accessibilityMentions = accessibilityKeywords.filter(kw => fullText.includes(kw));
+
+  if (accessibilityMentions.length < 1) {
+    warnings.push({
+      section: 'accessibility_content',
+      rule: 'missing_accessibility_keywords',
+      message: 'No accessibility keywords found in page content (wheelchair, mobility, accessible, etc.)',
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings, data: { accessibilityMentions, count: accessibilityMentions.length } };
+}
+
 async function validateShipPage(filepath) {
   const relPath = relative(PROJECT_ROOT, filepath);
   const slug = basename(filepath, '.html');
@@ -2301,10 +2817,24 @@ async function validateShipPage(filepath) {
     // v2.3 external review findings
     const externalReviewResult = validateExternalReviewFindings($, html);
 
+    // Content-promise-vs-delivery (cross-pollinated from venue validator S06)
+    const contentPromisesResult = validateContentPromises($);
+
+    // v3.010 standards cross-pollination checks
+    const serviceWorkerResult = validateServiceWorkerShip(html);
+    const canonicalResult = validateCanonicalURLShip($);
+    const answerLineResult = validateAnswerLineKeyFactsShip($);
+
+    // v2.5 principle import validations
+    // v2.4 principle import validations
+    const templateRemnantResult = validateTemplateRemnants($, html);
+    const accessibilityKeywordResult = validateAccessibilityKeywords($);
+
     // Async validations (pass cruiseLine for correct data paths)
     const logbookResult = await validateLogbook(slug, cruiseLine, isHistoric);
     const videoResult = await validateVideos(slug, cruiseLine, isHistoric, isTBN);
     const articlesResult = await validateArticles();
+    const shipImageResult = await validateShipImages(filepath, cruiseLine, slug);
 
     // Calculate preliminary score for discoverability checks
     const preliminaryErrors = [
@@ -2318,7 +2848,11 @@ async function validateShipPage(filepath) {
       ...htmlStructureResult.errors, ...viewportResult.errors,
       ...contentPurityResult.errors, ...shipStatsResult.errors,
       ...diningResult.errors, ...wordCountResult.errors,
-      ...externalReviewResult.errors
+      ...externalReviewResult.errors, ...contentPromisesResult.errors,
+      ...canonicalResult.errors, ...answerLineResult.errors,
+      ...voiceQualityResult.errors,
+      ...templateRemnantResult.errors, ...shipImageResult.errors,
+      ...accessibilityKeywordResult.errors
     ];
     const preliminaryWarnings = [
       ...analyticsResult.warnings, ...soliDeoGloriaResult.warnings,
@@ -2331,7 +2865,11 @@ async function validateShipPage(filepath) {
       ...htmlStructureResult.warnings, ...viewportResult.warnings,
       ...contentPurityResult.warnings, ...shipStatsResult.warnings,
       ...diningResult.warnings, ...wordCountResult.warnings,
-      ...externalReviewResult.warnings
+      ...externalReviewResult.warnings, ...contentPromisesResult.warnings,
+      ...serviceWorkerResult.warnings,
+      ...voiceQualityResult.warnings,
+      ...templateRemnantResult.warnings, ...shipImageResult.warnings,
+      ...accessibilityKeywordResult.warnings
     ];
     const preliminaryScore = Math.max(0, 100 - (preliminaryErrors.length * 10) - (preliminaryWarnings.length * 2));
 
@@ -2354,7 +2892,13 @@ async function validateShipPage(filepath) {
       ...diningResult.errors, ...wordCountResult.errors,
       ...printButtonResult.errors,
       ...searchIndexResult.errors, ...shipAtlasResult.errors,
-      ...externalReviewResult.errors
+      ...externalReviewResult.errors,
+      ...contentPromisesResult.errors,
+      ...canonicalResult.errors,
+      ...answerLineResult.errors,
+      ...voiceQualityResult.errors,
+      ...templateRemnantResult.errors, ...shipImageResult.errors,
+      ...accessibilityKeywordResult.errors
     );
 
     // Collect warnings
@@ -2372,7 +2916,12 @@ async function validateShipPage(filepath) {
       ...diningResult.warnings, ...wordCountResult.warnings,
       ...printButtonResult.warnings,
       ...searchIndexResult.warnings, ...shipAtlasResult.warnings,
-      ...externalReviewResult.warnings
+      ...externalReviewResult.warnings,
+      ...contentPromisesResult.warnings,
+      ...serviceWorkerResult.warnings,
+      ...voiceQualityResult.warnings,
+      ...templateRemnantResult.warnings, ...shipImageResult.warnings,
+      ...accessibilityKeywordResult.warnings
     );
 
     // Calculate score
@@ -2405,6 +2954,14 @@ async function validateShipPage(filepath) {
       ship_atlas: shipAtlasResult.data
     };
     results.external_review = externalReviewResult.data;
+    results.service_worker = serviceWorkerResult.data;
+    results.canonical = canonicalResult.data;
+    results.answer_line_key_facts = answerLineResult.data;
+
+    // v2.5 data
+    results.template_remnants = templateRemnantResult.data;
+    results.ship_images = shipImageResult.data;
+    results.accessibility_keywords = accessibilityKeywordResult.data;
 
   } catch (error) {
     results.blocking_errors.push({ section: 'parse', rule: 'file_read', message: `Failed to parse: ${error.message}`, severity: 'BLOCKING' });
@@ -2424,7 +2981,7 @@ function printResults(results, options) {
     return results.valid;
   }
 
-  console.log(`\n${colors.bold}${colors.cyan}Ship Page Validation Report - ITW-SHIP-002 v2.0${colors.reset}`);
+  console.log(`\n${colors.bold}${colors.cyan}Ship Page Validation Report - ITW-SHIP-002 v2.5${colors.reset}`);
   console.log('='.repeat(80));
   console.log();
 
@@ -2520,7 +3077,7 @@ async function main() {
     if (options.jsonOutput) {
       console.log(JSON.stringify(results, null, 2));
     } else {
-      console.log(`\n${colors.bold}${colors.cyan}Ship Page Batch Validation - ITW-SHIP-002 v2.0${colors.reset}`);
+      console.log(`\n${colors.bold}${colors.cyan}Ship Page Batch Validation - ITW-SHIP-002 v2.5${colors.reset}`);
       console.log('='.repeat(80));
 
       let passed = 0, failed = 0, totalErrors = 0, totalWarnings = 0;

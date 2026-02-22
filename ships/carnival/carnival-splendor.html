@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <!--
 ╔═══════════════════════════════════════════════════════════════════════════════╗
 ║ Soli Deo Gloria — To God Alone Be the Glory                                  ║
@@ -259,6 +259,37 @@
     }
 }
   </script>
+
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -270,7 +301,7 @@
   <header class="hero-header ship-page" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="lazy"/>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel logbook wordmark" decoding="async" loading="eager" fetchpriority="high"/>
 </div>
       <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
@@ -390,49 +421,49 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/carnival-splendor_01.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Splendor cruise ship at sea showing the unique Concordia-class vessel" loading="lazy">
+              <img src="/assets/ships/carnival-splendor_01.webp" alt="Carnival Splendor cruise ship at sea showing the unique Concordia-class vessel" loading="lazy">
               <figcaption class="tiny">Carnival Splendor - the only Concordia-class ship in Carnival's fleet</figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/carnival-splendor_02.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Splendor pool deck area with multiple pools" loading="lazy">
+              <img src="/assets/ships/carnival-splendor_02.webp" alt="Carnival Splendor pool deck area with multiple pools" loading="lazy">
               <figcaption class="tiny">Pool deck featuring the iconic main pool area</figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/carnival-splendor_03.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Splendor Cloud 9 Spa the largest in the fleet" loading="lazy">
+              <img src="/assets/ships/carnival-splendor_03.webp" alt="Carnival Splendor Cloud 9 Spa the largest in the fleet" loading="lazy">
               <figcaption class="tiny">Cloud 9 Spa - the largest spa facility in Carnival's fleet</figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/carnival-splendor_04.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Splendor docked at Sydney Australia homeport" loading="lazy">
+              <img src="/assets/ships/carnival-splendor_04.webp" alt="Carnival Splendor docked at Sydney Australia homeport" loading="lazy">
               <figcaption class="tiny">Carnival Splendor at her Sydney, Australia homeport</figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/carnival-splendor_05.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Splendor grand atrium lobby area" loading="lazy">
+              <img src="/assets/ships/carnival-splendor_05.webp" alt="Carnival Splendor grand atrium lobby area" loading="lazy">
               <figcaption class="tiny">Grand atrium with stunning European-inspired design</figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/carnival-splendor_06.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Splendor Serenity adults-only retreat" loading="lazy">
+              <img src="/assets/ships/carnival-splendor_06.webp" alt="Carnival Splendor Serenity adults-only retreat" loading="lazy">
               <figcaption class="tiny">Serenity adults-only retreat area</figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/carnival-splendor_07.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Splendor balcony stateroom interior" loading="lazy">
+              <img src="/assets/ships/carnival-splendor_07.webp" alt="Carnival Splendor balcony stateroom interior" loading="lazy">
               <figcaption class="tiny">Spacious balcony stateroom with ocean views</figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/carnival-splendor_08.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Splendor sailing in the South Pacific from Sydney" loading="lazy">
+              <img src="/assets/ships/carnival-splendor_08.webp" alt="Carnival Splendor sailing in the South Pacific from Sydney" loading="lazy">
               <figcaption class="tiny">Sailing the South Pacific from Sydney, Australia</figcaption>
             </figure>
           </div>
@@ -525,7 +556,7 @@
     </section>
 
     <!-- Features & Dining -->
-    <section class="card">
+    <section class="card" id="dining-card">
       <h2><img id="dining-hero" class="card-hero"
              src="/assets/img/Cordelia_Empress_Food_Court.webp"
              alt="Carnival Splendor dining venue" loading="lazy"/>
@@ -564,7 +595,7 @@ Features & Dining</h2>
     </section>
 
     <!-- Videos -->
-    <section class="card" id="videos">
+    <section class="card" id="video-highlights">
       <h2>Carnival Splendor Videos</h2>
       <p>Ship tours, cabin walkthroughs, and passenger experiences aboard Carnival Splendor.</p>
       <div id="videos-container" class="videos-grid" data-ship="carnival-splendor" aria-live="polite">
@@ -573,7 +604,7 @@ Features & Dining</h2>
     </section>
 
     <!-- Deck Plans -->
-    <section class="card">
+    <section class="card" id="deck-plans">
       <h2>Carnival Splendor Deck Plans</h2>
       <figure>
         <img src="/assets/ship-map.png" alt="Carnival Splendor simplified deck plan preview" loading="lazy"/>
@@ -713,10 +744,10 @@ Features & Dining</h2>
       <section class="card quick-tools" style="padding: 1rem;">
         <h3 style="margin: 0 0 0.75rem; font-size: 1rem; color: #083041;">Planning Tools</h3>
         <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
-          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Ship Size Atlas</a></li>
-          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Budget Calculator</a></li>
-          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Drink Package Calculator</a></li>
-          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Port Day Planner</a></li>
+          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none;">Ship Size Atlas</a></li>
+          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none;">Budget Calculator</a></li>
+          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none;">Drink Package Calculator</a></li>
+          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none;">Port Day Planner</a></li>
         </ul>
       </section>
 
@@ -855,7 +886,89 @@ Features & Dining</h2>
       if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
     }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
   })();
-  </script>  <!-- Navigation Dropdown Script -->
+  </script>
+
+  <!-- ===== JS Module: First Look Carousel ===== -->
+  <script>
+  function initFirstLook(){
+    const el=document.getElementById('photo-swiper');
+    if(!el||typeof Swiper==='undefined') return;
+    new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
+  </script>
+
+  <!-- ===== JS Module: Ship Logbook ===== -->
+  <script>
+  function initShipLogbook(){
+    const c=document.getElementById('logbook-container');
+    if(!c) return;
+    fetch('/assets/data/logbook/carnival/carnival-splendor.json')
+      .then(r=>r.json()).then(d=>{
+        if(d.stories) c.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h4>'+s.title+'</h4><p class="logbook-meta">'+s.persona_label+' · '+s.author.name+'</p><p>'+s.markdown.split(\'\\n\\n\')[0].replace(/\*\*/g,\'\')+'</p></article>').join('');
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initShipLogbook); else initShipLogbook();
+  </script>
+
+  <!-- ===== JS Module: Video Loader ===== -->
+  <script>
+  function initVideos(){
+    const w=document.getElementById('video-wrapper');
+    if(!w) return;
+    fetch('/assets/data/videos/carnival/carnival-splendor.json')
+      .then(r=>r.json()).then(d=>{
+        let vids=[];
+        if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
+        else if(Array.isArray(d.videos)) vids=d.videos;
+        if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
+        new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();
+  </script>
+
+  <!-- ===== JS Module: Ship Stats ===== -->
+  <script>
+  function initStats(){
+    const el=document.querySelector('[data-ship-stats]')||document.getElementById('stats-container');
+    if(!el) return;
+    fetch('/ships/carnival/assets/carnival-splendor-stats.json')
+      .then(r=>r.json()).then(d=>{
+        if(d&&typeof d==='object'){const entries=Object.entries(d).filter(([k])=>!k.startsWith('_'));
+          el.innerHTML='<dl class="stats-grid">'+entries.map(([k,v])=>'<div class="stat-item"><dt>'+k+'</dt><dd>'+v+'</dd></div>').join('')+'</dl>';}
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initStats); else initStats();
+  </script>
+
+  <!-- ===== JS Module: Dining Loader ===== -->
+  <script>
+  function initDining(){
+    const el=document.getElementById('dining-container');
+    if(!el) return;
+    fetch('/ships/carnival/assets/carnival-splendor-dining.json')
+      .then(r=>r.json()).then(d=>{
+        if(Array.isArray(d)){el.innerHTML=d.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');}
+        else if(d.venues) el.innerHTML=d.venues.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initDining); else initDining();
+  </script>
+
+  <!-- ===== JS Module: Live Tracker ===== -->
+  <script>
+  function initLiveTracker(){
+    const el=document.getElementById('live-tracker');
+    if(!el) return;
+    const imo=el.getAttribute('data-imo')||'9398917';
+    const url='https://www.myshiptracking.com/vessels/carnival-splendor-imo-'+imo;
+    el.innerHTML='<a href="'+url+'" target="_blank" rel="noopener" class="tracker-link">Track Carnival Splendor Live Position →</a>';
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initLiveTracker); else initLiveTracker();
+  </script>
+
+  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
 
 

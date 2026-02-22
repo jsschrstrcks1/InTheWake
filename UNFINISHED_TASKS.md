@@ -97,9 +97,9 @@
 
 ### P2 Tasks — From Competitor Analysis
 
-#### 🟡 [Y] Vanilla Story Replacement (~20-24 stories remaining)
-**Status:** CORRECTED 2026-02-13 — original estimate of 157 ships / 1,570 stories was wrong. Actual scope: only 44 vanilla stories across 13 ships before this session. 20 replaced on 2026-02-13.
-**Priority:** P2 (nearly complete) — remaining backlog is manageable
+#### ✅ [Y] Vanilla Story Replacement — COMPLETE (2026-02-21)
+**Status:** COMPLETE — all 44 institutional/vanilla stories replaced across 13 ships.
+**Priority:** P2 — DONE
 **Lane:** 🟡 Yellow (content creation, requires quality review)
 **Strategic insight:** Template stories actively weaken site authority — "conversion dilution and trust dilution"
 **Why it matters:** Logbook stories are the soul of the site; generic stories damage the "calm authority from real experience" brand
@@ -110,6 +110,15 @@
 - [x] Oceania Vista — 2 institutional-author stories replaced
 - [x] Costa Smeralda — 3 institutional-author stories replaced
 - [x] Costa Toscana — 1 institutional-author story replaced
+**Completed 2026-02-21 (22 stories replaced):**
+- [x] Costa Favolosa — 2 institutional-author stories replaced
+- [x] Costa Firenze — 3 institutional-author stories replaced
+- [x] Costa Fortuna — 2 institutional-author stories replaced
+- [x] Costa Pacifica — 3 institutional-author stories replaced (including 2 thin-content stories)
+- [x] Explora III — 3 fleet dev team stories (2 author-only fixes, 1 full rewrite)
+- [x] Explora IV — 3 fleet dev team stories replaced (full rewrites)
+- [x] Explora V — 3 fleet dev team stories replaced (full rewrites)
+- [x] Explora VI — 3 fleet dev team stories replaced (full rewrites)
 **Already quality (no vanilla) — verified 2026-02-13:**
 - [x] Holland America (46 ships) — ALL quality
 - [x] MSC (24 ships) — ALL quality
@@ -119,12 +128,8 @@
 - [x] Celebrity (26 ships) — ALL quality
 - [x] RCL (49 ships) — ALL quality
 - [x] Regent, Seabourn, Silversea, Virgin, Cunard — ALL quality
-**Remaining (~20-24 stories across 8 ships):**
-- [ ] Costa Favolosa — 2-3 institutional-author stories
-- [ ] Costa Firenze — 3 institutional-author stories
-- [ ] Costa Fortuna — 2 institutional-author stories
-- [ ] Costa Pacifica — 3 institutional-author stories
-- [ ] Explora III-VI — 10 fleet dev team stories (4 ships, mostly future/unbuilt)
+- [x] Costa (all 8 ships) — ALL quality
+- [x] Explora Journeys (all 6 ships) — ALL quality
 **Quality story characteristics (GOOD):** Specific ship venues, real author, 400-800 words, emotional pivot, faith-scented, unique persona
 **Reference:** `admin/VANILLA-STORIES.md` for full inventory (updated 2026-02-13)
 

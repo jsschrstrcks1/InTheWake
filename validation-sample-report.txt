@@ -1,0 +1,260 @@
+================================================================================
+  10% SAMPLE VALIDATION REPORT — ALL PAGE CATEGORIES
+  Generated: 2026-02-20
+  Branch: claude/review-codebase-validators-n0YNf
+================================================================================
+
+EXECUTIVE SUMMARY
+-----------------
+  Pages sampled: 119 (10% of 1,118 total across all categories)
+  Overall pass rate: 12.6% (15 of 119)
+
+  Category        | Total | Sampled | Passed | Failed | Pass Rate
+  ----------------|-------|---------|--------|--------|----------
+  Ships           |   259 |      32 |      6 |     26 |    18.8%
+  Ports           |   387 |      39 |      0 |     39 |     0.0%
+  Venues          |   472 |      48 |      9 |     39 |    18.8%
+
+================================================================================
+  SHIP PAGE VALIDATION (32 sampled of 259)
+================================================================================
+
+Pass rate: 18.8% (6 passed, 26 failed)
+Score range: 0-86 | Average: 63.5 (excluding 2 non-ship pages scoring 0)
+
+TOP BLOCKING ERRORS (by frequency):
+  #  | Count | Rule                              | Impact
+  ---|-------|-----------------------------------|-------
+   1 |    22 | content_structure/missing_key_facts | 68.8% of sample
+   2 |    16 | images/few_images                   | 50.0%
+   3 |     9 | videos/few_videos                   | 28.1%
+   4 |     9 | videos/missing_categories           | 28.1%
+   5 |     4 | data_attr/missing_data_imo          | 12.5%
+   6 |     3 | logbook/few_stories                 | 9.4%
+   7 |     2 | content_structure/missing_answer_line| 6.3%
+
+TOP WARNINGS (by frequency):
+  #  | Count | Rule                              | Impact
+  ---|-------|-----------------------------------|-------
+   1 |    30 | logbook/spine_sections_missing      | 93.8%
+   2 |    30 | logbook/missing_female_crewmate     | 93.8%
+   3 |    28 | logbook/weak_emotional_content      | 87.5%
+   4 |    21 | sections/missing_whimsical_units    | 65.6%
+   5 |    21 | json_ld/generic_review_text         | 65.6%
+   6 |    19 | sections/missing_grid2_firstlook    | 59.4%
+   7 |    19 | word_counts/faq_too_short           | 59.4%
+   8 |    17 | discoverability/atlas_not_ready     | 53.1%
+   9 |     9 | logbook/missing_personas            | 28.1%
+  10 |     7 | service_worker/missing_registration | 21.9%
+
+PASSING SHIP PAGES (6):
+  - carnival-liberty.html     (score 82)
+  - carnival-spirit.html      (score 86)
+  - celebrity-apex.html       (score 84)
+  - koningsdam.html           (score 86)
+  - rijndam-ii.html           (score 82)
+  - veendam-ii.html           (score 82)
+
+WORST SHIP PAGES (score 0 — non-standard pages):
+  - allshipquiz.html          (quiz page, not a ship page)
+  - cunard/index.html         (cruise line index, not a ship page)
+
+KEY SHIP SHORTCOMINGS:
+  1. missing_key_facts is the #1 blocker (22/32, 68.8%). Adding a key-facts
+     element to all ship pages would convert many near-passing pages to passing.
+  2. Logbook spine sections missing on 93.8% of pages. The 7-section spine
+     (Full Disclosure, Crew & Staff, Embarkation, Real Talk, Accessibility,
+     Female Crewmate, Closing Thoughts) is almost never present.
+  3. Female crewmate perspective missing on 93.8% of pages. This is a
+     systemic content gap across all cruise lines.
+  4. Images and videos are the next biggest gaps — 50% have <8 images,
+     28% have zero videos.
+  5. The 6 passing pages score 82-86 but still carry 7-9 warnings each.
+     None reaches the 90% atlas-readiness threshold.
+
+================================================================================
+  PORT PAGE VALIDATION (39 sampled of 387)
+================================================================================
+
+Pass rate: 0.0% (0 passed, 39 failed)
+Score range: 0-76 | Average: 41.1 | Median: 62
+
+TWO TIERS OF PORT PAGES:
+  - "Nearly there" (scores 52-76): 20 pages — fail on structural omissions
+  - "Skeleton/stub" (scores 0-16):  19 pages — missing entire content sections
+
+TOP BLOCKING ERRORS (by frequency):
+  #  | Count | Rule                              | Impact
+  ---|-------|-----------------------------------|-------
+   1 |    39 | sidebar/missing_sidebar_sections    | 100.0%
+   2 |    32 | content_structure/missing_key_facts  | 82.1%
+   3 |    26 | content_structure/missing_answer_line| 66.7%
+   4 |    15 | rubric/booking_guidance              | 38.5%
+   5 |    14 | section_order/missing_required       | 35.9%
+   6 |    14 | logbook/emotional_pivot_missing      | 35.9%
+   7 |    13 | word_counts/logbook_minimum          | 33.3%
+   8 |    13 | word_counts/getting_around_minimum   | 33.3%
+   9 |    13 | word_counts/excursions_minimum       | 33.3%
+  10 |    13 | word_counts/depth_soundings_minimum  | 33.3%
+  11 |    12 | rubric/first_person_voice            | 30.8%
+  12 |    12 | images/minimum_images                | 30.8%
+  13 |    10 | hero/hero_missing                    | 25.6%
+  14 |     6 | html_integrity/js_api_typo           | 15.4%
+
+TOP WARNINGS (by frequency):
+  #  | Count | Rule                              | Impact
+  ---|-------|-----------------------------------|-------
+   1 |    39 | faq/answer_too_long                 | 100.0%
+   2 |    36 | poi_manifest/insufficient_pois      | 92.3%
+   3 |    13 | logbook/first_person_maximum         | 33.3%
+   4 |    13 | rubric/contrast_language             | 33.3%
+   5 |    13 | logbook/sensory_detail               | 33.3%
+   6 |    13 | logbook/contrast_missing             | 33.3%
+   7 |    10 | logbook/opening_hook                 | 25.6%
+   8 |     9 | content_purity/stamina_levels        | 23.1%
+
+BEST PORT PAGES (still failing):
+  - sitka.html           (score 76, 2 errors)
+  - alexandria.html      (score 76, 2 errors)
+  - ft-lauderdale.html   (score 74, 2 errors)
+  - venice.html          (score 74, 2 errors)
+
+WORST PORT PAGES (score 0 — skeleton pages):
+  - drake-passage.html   (26 errors, 8 warnings)
+  - glacier-alley.html   (21 errors, 11 warnings)
+  - guadeloupe.html      (19 errors, 8 warnings)
+  - helsinki.html        (21 errors, 8 warnings)
+  - kagoshima.html       (20 errors, 8 warnings)
+  - kona.html            (20 errors, 8 warnings)
+  - milford-sound.html   (19 errors, 8 warnings)
+  - newcastle.html       (19 errors, 8 warnings)
+  - osaka.html           (20 errors, 7 warnings)
+  - phuket.html          (18 errors, 6 warnings)
+  - port-said.html       (23 errors, 9 warnings)
+  - rhodes.html          (19 errors, 7 warnings)
+  - saguenay.html        (20 errors, 8 warnings)
+
+KEY PORT SHORTCOMINGS:
+  1. 100% fail rate. Not a single port page passes validation.
+  2. missing_sidebar_sections is universal (100%). Most pages are missing
+     "At a Glance", "Author's Note Disclaimer", and "Whimsical Units".
+  3. missing_key_facts hits 82.1% and missing_answer_line hits 66.7%.
+     These are simple structural HTML elements missing from templates.
+  4. FAQ answers universally too long (100%). Every page has FAQ answers
+     exceeding the 80-word limit, some reaching 1400+ words.
+  5. POI manifests insufficient on 92.3% — most have 0 points of interest.
+  6. 13 skeleton pages (33%) are essentially empty stubs needing full
+     content creation, not just template fixes.
+  7. js_api_typo (queryselector vs querySelector) affects 15.4% of ports.
+
+================================================================================
+  VENUE PAGE VALIDATION (48 sampled of 472)
+================================================================================
+
+Pass rate: 18.8% (9 passed, 39 failed)
+Score range: All passing or single-error failure
+
+TOP BLOCKING ERRORS (by frequency):
+  #  | Count | Rule                              | Impact
+  ---|-------|-----------------------------------|-------
+   1 |    39 | T14: js_api_typo (queryselector)    | 81.3%
+
+TOP WARNINGS (by frequency):
+  #  | Count | Rule                              | Impact
+  ---|-------|-----------------------------------|-------
+   1 |    48 | T13: Print Guide button missing     | 100.0%
+   2 |    48 | W01: No venue-specific images        | 100.0%
+   3 |    19 | T16: No Service Worker registration  | 39.6%
+
+PASSING VENUE PAGES (9 — all entertainment/neighborhood category):
+  - fast-forward.html, hiro.html, masquerade-theater.html,
+    pacifica-theater.html, shall-we-dance-lounge.html,
+    suite-enclave.html, the-attic.html, the-gift.html,
+    we-will-rock-you.html
+
+PASS/FAIL BY VENUE CATEGORY:
+  Category        | Sampled | Passed | Failed | Pass Rate
+  ----------------|---------|--------|--------|----------
+  bars            |      17 |      0 |     17 |     0.0%
+  dining          |      17 |      0 |     17 |     0.0%
+  entertainment   |      11 |      8 |      3 |    72.7%
+  activities      |       2 |      0 |      2 |     0.0%
+  neighborhoods   |       1 |      1 |      0 |   100.0%
+
+KEY VENUE SHORTCOMINGS:
+  1. A SINGLE BUG causes 100% of failures: `queryselector` instead of
+     `querySelector` (T14). This is a template-level typo. A batch
+     find-and-replace would bring pass rate from 18.8% to ~100%.
+  2. Print Guide button (T13) missing on every single page (100%).
+     This feature is completely absent from all venue templates.
+  3. Every page uses only stock/generic images (W01, 100%).
+     No venue-specific photography exists for any page.
+  4. Subdirectory pages (carnival/, msc/, ncl/, virgin/) lack
+     Service Worker registration (T16, 39.6%). Root-level pages
+     have it; subdirectory templates do not.
+  5. Semantic/content quality is strong — no S01-S06 errors.
+     The issues are purely technical and structural.
+
+================================================================================
+  CROSS-CATEGORY ANALYSIS
+================================================================================
+
+SYSTEMIC ISSUES (appear across 2+ categories):
+  1. missing_key_facts — Ships (68.8%), Ports (82.1%)
+  2. missing_answer_line — Ships (6.3%), Ports (66.7%)
+  3. queryselector typo — Ports (15.4%), Venues (81.3%)
+  4. Service Worker missing — Ships (21.9%), Venues (39.6%), Ports (7.7%)
+  5. Missing images/stock only — Ships (50%), Ports (30.8%), Venues (100%)
+
+QUICK WINS (highest impact, lowest effort):
+  1. Fix queryselector → querySelector across all venue + port templates
+     Impact: ~383 venue pages + ~60 port pages instantly fixed
+     Effort: 5 minutes (batch find-and-replace)
+
+  2. Add key-facts element to ship and port page templates
+     Impact: Fixes 22 ship errors + 32 port errors
+     Effort: 30 minutes (template modification)
+
+  3. Add answer-line element to port page templates
+     Impact: Fixes 26 port errors
+     Effort: 15 minutes (template modification)
+
+  4. Add missing sidebar sections to port pages
+     Impact: Fixes all 39 port pages' universal error
+     Effort: 1-2 hours (template + content)
+
+  5. Add Service Worker registration to venue subdirectory templates
+     Impact: Fixes ~187 venue pages' T16 warning
+     Effort: 15 minutes (template update)
+
+CONTENT GAPS (require editorial work, not code fixes):
+  - Port FAQ answers need trimming to ≤80 words (100% of ports)
+  - Port POI manifests need 10+ points of interest (92.3% of ports)
+  - Ship logbook spine sections need creation (93.8% of ships)
+  - Ship female crewmate perspectives need writing (93.8% of ships)
+  - Venue-specific images need sourcing (100% of venues)
+  - 13 skeleton port pages need full content creation
+
+================================================================================
+  PROJECTED IMPACT OF TOP 3 FIXES
+================================================================================
+
+Fix 1: queryselector → querySelector (batch replace)
+  Before: Venues 18.8% pass | Ports 0%
+  After:  Venues ~100% pass | Ports: no change in pass rate (other errors)
+
+Fix 2: Add key-facts + answer-line to ship/port templates
+  Before: Ships 18.8% pass | Ports 0%
+  After:  Ships ~56% pass   | Ports: ~10% pass (still blocked by sidebar)
+
+Fix 3: Add sidebar sections to port templates
+  Before: Ports 0%
+  After:  Ports ~51% pass (the "nearly there" tier would pass)
+
+Combined (all 3 fixes):
+  Ships: 18.8% → ~56%
+  Ports: 0% → ~51%
+  Venues: 18.8% → ~100%
+  Overall: 12.6% → ~69%
+
+=== END OF REPORT ===

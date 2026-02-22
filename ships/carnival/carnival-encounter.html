@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <!--
 Soli Deo Gloria
 All work on this project is offered as a gift to God.
@@ -267,6 +267,37 @@ if ('serviceWorker' in navigator) {
     }
 }
   </script>
+
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
 </head>
 
 <body class="page">
@@ -393,7 +424,7 @@ if ('serviceWorker' in navigator) {
 <div class="main-column">
 
     <!-- First Look Carousel -->
-    <section class="card" aria-labelledby="first-look-title">
+    <section class="card" id="first-look" aria-labelledby="first-look-title">
       <header><h2 id="first-look-title">First Look</h2></header>
       <div class="content">
         <div class="carousel">
@@ -462,7 +493,7 @@ if ('serviceWorker' in navigator) {
             <span class="stat-label">Fincantieri</span>
           </div>
         </div>
-        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--ink-mid);">
+        <p style="margin-top: 1rem; font-size: 1rem; color: var(--ink-mid);">
           <strong>IMO:</strong> 9192363 · <strong>Flag:</strong> Bahamas · <strong>Home Port:</strong> Brisbane, Australia
         </p>
       </div>
@@ -477,7 +508,7 @@ if ('serviceWorker' in navigator) {
     <section class="card" aria-labelledby="sisters-title">
       <header><h2 id="sisters-title">Grand Class Fleet</h2></header>
       <div class="content">
-        <p style="margin: 0 0 1rem; font-size: 0.9rem; color: var(--ink-mid);">
+        <p style="margin: 0 0 1rem; font-size: 1rem; color: var(--ink-mid);">
           Carnival Encounter is one of two Grand Class ships operating in Australia, both transferred from P&O Australia in 2025.
         </p>
         <div class="sister-ships">
@@ -488,7 +519,7 @@ if ('serviceWorker' in navigator) {
     </section>
 
     <!-- Dining Venues -->
-    <section class="card" aria-labelledby="dining-title">
+    <section class="card" id="dining-card" aria-labelledby="dining-title">
       <header><h2 id="dining-title"><img id="dining-hero" class="card-hero"
              src="/assets/img/Cordelia_Empress_Food_Court.webp"
              alt="Carnival Encounter dining venue" loading="lazy"/>
@@ -580,7 +611,7 @@ Dining Venues</h2></header>
                     allowfullscreen></iframe>
           </div>
         </div>
-        <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--ink-mid);">
+        <p style="margin-top: 1rem; font-size: 1rem; color: var(--ink-mid);">
           Video content coming soon. Check back for ship tours and reviews.
         </p>
       </div>
@@ -615,7 +646,7 @@ Dining Venues</h2></header>
                 title="Live position of Carnival Encounter"
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--ink-mid);">
+        <p style="margin-top: 1rem; font-size: 1rem; color: var(--ink-mid);">
           <strong>IMO:</strong> 9192363 · <strong>MMSI:</strong> 311001596 · Real-time AIS tracking via MarineTraffic
         </p>
       </div>
@@ -742,7 +773,7 @@ Dining Venues</h2></header>
     <section class="card" aria-labelledby="attribution-title">
       <header><h2 id="attribution-title">Sources & Attribution</h2></header>
       <div class="content">
-        <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.8;">
+        <ul style="margin: 0; padding-left: 1.25rem; font-size: 1rem; line-height: 1.8;">
           <li><a href="https://www.carnival.com.au/cruise-ships/carnival-encounter" target="_blank" rel="noopener">Carnival Cruise Line Australia — Official Ship Page</a></li>
           <li><a href="https://www.cruisemapper.com/ships/Carnival-Encounter-705" target="_blank" rel="noopener">CruiseMapper — Carnival Encounter Profile</a></li>
           <li><a href="https://en.wikipedia.org/wiki/Carnival_Encounter" target="_blank" rel="noopener">Wikipedia — Carnival Encounter</a></li>
@@ -798,7 +829,7 @@ Dining Venues</h2></header>
     <!-- Ship Facts -->
     <section class="card" aria-labelledby="facts-title">
       <header><h3 id="facts-title">Quick Facts</h3></header>
-      <div class="content" style="font-size: 0.9rem;">
+      <div class="content" style="font-size: 1rem;">
         <p><strong>Ship Class:</strong> Grand Class</p>
         <p><strong>Former Names:</strong> Star Princess, Pacific Encounter</p>
         <p><strong>Maiden Voyage:</strong> 2002</p>
@@ -820,10 +851,10 @@ Dining Venues</h2></header>
       <section class="card quick-tools" style="padding: 1rem;">
         <h3 style="margin: 0 0 0.75rem; font-size: 1rem; color: #083041;">Planning Tools</h3>
         <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
-          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Ship Size Atlas</a></li>
-          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Budget Calculator</a></li>
-          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Drink Package Calculator</a></li>
-          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Port Day Planner</a></li>
+          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none;">Ship Size Atlas</a></li>
+          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none;">Budget Calculator</a></li>
+          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none;">Drink Package Calculator</a></li>
+          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none;">Port Day Planner</a></li>
         </ul>
       </section>
 
@@ -876,7 +907,7 @@ Dining Venues</h2></header>
 <!-- Footer -->
 <footer class="wrap" role="contentinfo">
   <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-  <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+  <p style="margin-top: 0.5rem; font-size: 1rem;">
     <a href="/privacy.html">Privacy</a> ·
     <a href="/terms.html">Terms</a> ·
     <a href="/about-us.html">About</a> ·
@@ -922,6 +953,86 @@ Dining Venues</h2></header>
     if (!inside) closeAll();
   });
 })();
+</script>
+
+<!-- ===== JS Module: First Look Carousel ===== -->
+<script>
+function initFirstLook(){
+  const el=document.getElementById('photo-swiper');
+  if(!el||typeof Swiper==='undefined') return;
+  new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
+</script>
+
+<!-- ===== JS Module: Ship Logbook ===== -->
+<script>
+function initShipLogbook(){
+  const c=document.getElementById('logbook-container');
+  if(!c) return;
+  fetch('/assets/data/logbook/carnival/carnival-encounter.json')
+    .then(r=>r.json()).then(d=>{
+      if(d.stories) c.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h4>'+s.title+'</h4><p class="logbook-meta">'+s.persona_label+' · '+s.author.name+'</p><p>'+s.markdown.split(\'\\n\\n\')[0].replace(/\*\*/g,\'\')+'</p></article>').join('');
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initShipLogbook); else initShipLogbook();
+</script>
+
+<!-- ===== JS Module: Video Loader ===== -->
+<script>
+function initVideos(){
+  const w=document.getElementById('video-wrapper');
+  if(!w) return;
+  fetch('/assets/data/videos/carnival/carnival-encounter.json')
+    .then(r=>r.json()).then(d=>{
+      let vids=[];
+      if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
+      else if(Array.isArray(d.videos)) vids=d.videos;
+      if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
+      new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();
+</script>
+
+<!-- ===== JS Module: Ship Stats ===== -->
+<script>
+function initStats(){
+  const el=document.querySelector('[data-ship-stats]')||document.getElementById('stats-container');
+  if(!el) return;
+  fetch('/ships/carnival/assets/carnival-encounter-stats.json')
+    .then(r=>r.json()).then(d=>{
+      if(d&&typeof d==='object'){const entries=Object.entries(d).filter(([k])=>!k.startsWith('_'));
+        el.innerHTML='<dl class="stats-grid">'+entries.map(([k,v])=>'<div class="stat-item"><dt>'+k+'</dt><dd>'+v+'</dd></div>').join('')+'</dl>';}
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initStats); else initStats();
+</script>
+
+<!-- ===== JS Module: Dining Loader ===== -->
+<script>
+function initDining(){
+  const el=document.getElementById('dining-container');
+  if(!el) return;
+  fetch('/ships/carnival/assets/carnival-encounter-dining.json')
+    .then(r=>r.json()).then(d=>{
+      if(Array.isArray(d)){el.innerHTML=d.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');}
+      else if(d.venues) el.innerHTML=d.venues.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initDining); else initDining();
+</script>
+
+<!-- ===== JS Module: Live Tracker ===== -->
+<script>
+function initLiveTracker(){
+  const el=document.getElementById('live-tracker');
+  if(!el) return;
+  const imo=el.getAttribute('data-imo')||'9862030';
+  const url='https://www.myshiptracking.com/vessels/carnival-encounter-imo-'+imo;
+  el.innerHTML='<a href="'+url+'" target="_blank" rel="noopener" class="tracker-link">Track Carnival Encounter Live Position →</a>';
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initLiveTracker); else initLiveTracker();
 </script>
 
 <script src="/assets/js/dropdown.js"></script>

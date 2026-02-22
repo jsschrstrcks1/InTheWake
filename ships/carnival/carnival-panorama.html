@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
 ████████████████████████████████████████████████████████████████████████████████
-██  SOLI DEO GLORIA — To God alone be the glory                satisfies: SR1 ██
+██  Soli Deo Gloria — To God alone be the glory                satisfies: SR1 ██
 ██  All work on this project is offered as an act of worship.                 ██
 ██  "Trust in the LORD with all your heart..." — Proverbs 3:5                 ██
 ██  "Whatever you do, work heartily..." — Colossians 3:23                     ██
@@ -64,7 +64,16 @@
 
 <!-- JSON-LD: BreadcrumbList -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"Carnival","item":"https://cruisinginthewake.com/ships.html#carnival"},{"@type":"ListItem","position":4,"name":"Carnival Panorama","item":"https://cruisinginthewake.com/ships/carnival/carnival-panorama.html"}]}
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships.html"},
+    {"@type": "ListItem", "position": 3, "name": "Carnival", "item": "https://cruisinginthewake.com/ships.html#carnival"},
+    {"@type": "ListItem", "position": 4, "name": "Carnival Panorama", "item": "https://cruisinginthewake.com/ships/carnival/carnival-panorama.html"}
+  ]
+}
 </script>
 
 <!-- JSON-LD: Review -->
@@ -100,7 +109,17 @@
 
 <!-- JSON-LD: FAQPage -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where does Carnival Panorama sail from?","acceptedAnswer":{"@type":"Answer","text":"Carnival Panorama sails year-round from Long Beach, California, offering week-long Mexican Riviera itineraries to Cabo San Lucas, Mazatlán, and Puerto Vallarta."}},{"@type":"Question","name":"What class is Carnival Panorama?","acceptedAnswer":{"@type":"Answer","text":"Carnival Panorama is the third and largest Vista-class ship at 133,868 GT, built in 2019. Sister ships include Carnival Vista (2016) and Carnival Horizon (2018)."}},{"@type":"Question","name":"What is SkyRide on Carnival Panorama?","acceptedAnswer":{"@type":"Answer","text":"SkyRide is a pedal-powered aerial cycling attraction suspended 150 feet above the ocean on an 800-foot track circling the ship's top deck."}},{"@type":"Question","name":"Does Carnival Panorama have an IMAX theater?","acceptedAnswer":{"@type":"Answer","text":"Yes, Carnival Panorama features a 187-seat IMAX theater showing first-run Hollywood movies and documentaries — the first IMAX experience at sea."}},{"@type":"Question","name":"What is the Havana section on Carnival Panorama?","acceptedAnswer":{"@type":"Answer","text":"The Havana section offers Cuban-themed staterooms and suites with exclusive daytime access to the Havana Bar and Havana Pool — a tropical retreat reserved for Havana guests."}}]}
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Where does Carnival Panorama sail from?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Panorama sails year-round from Long Beach, California, offering week-long Mexican Riviera itineraries to Cabo San Lucas, Mazatlán, and Puerto Vallarta."}},
+    {"@type": "Question", "name": "What class is Carnival Panorama?", "acceptedAnswer": {"@type": "Answer", "text": "Carnival Panorama is the third and largest Vista-class ship at 133,868 GT, built in 2019. Sister ships include Carnival Vista (2016) and Carnival Horizon (2018)."}},
+    {"@type": "Question", "name": "What is SkyRide on Carnival Panorama?", "acceptedAnswer": {"@type": "Answer", "text": "SkyRide is a pedal-powered aerial cycling attraction suspended 150 feet above the ocean on an 800-foot track circling the ship's top deck."}},
+    {"@type": "Question", "name": "Does Carnival Panorama have an IMAX theater?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Carnival Panorama features a 187-seat IMAX theater showing first-run Hollywood movies and documentaries — the first IMAX experience at sea."}},
+    {"@type": "Question", "name": "What is the Havana section on Carnival Panorama?", "acceptedAnswer": {"@type": "Answer", "text": "The Havana section offers Cuban-themed staterooms and suites with exclusive daytime access to the Havana Bar and Havana Pool — a tropical retreat reserved for Havana guests."}}
+  ]
+}
 </script>
 
 <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));}</script>
@@ -156,6 +175,36 @@
     }
 }
   </script>
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
 </head>
 
 <body class="page">
@@ -166,7 +215,7 @@
 <header class="hero-header" role="banner">
   <nav class="navbar" aria-label="Site branding">
     <div class="brand">
-      <a href="/"><img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async" loading="eager"/></a>
+      <a href="/"><img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async" loading="eager" fetchpriority="high"/></a>
 </div>
   </nav>
       <!-- Mobile hamburger button -->
@@ -248,7 +297,7 @@
       <div class="photo-carousel swiper" id="photo-swiper" aria-label="Carnival Panorama photo gallery">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
-            <img src="/assets/ships/carnival/carnival-panorama-exterior.jpg" alt="Carnival Panorama at Long Beach cruise terminal" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
+            <img src="/assets/ships/carnival/carnival-panorama-exterior.jpg" alt="Carnival Panorama at Long Beach cruise terminal" loading="lazy"/>
             <p class="photo-caption">Carnival Panorama at the Long Beach cruise terminal — West Coast's flagship Fun Ship</p>
           
 
@@ -299,7 +348,7 @@ The REAL Carnival Panorama, 133,500 gross-ton cruise ship, i"
             </div>
           </div>
           <div class="swiper-slide">
-            <img src="/assets/ships/carnival-panorama-pool.webp" alt="Carnival Panorama pool deck" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
+            <img src="/assets/ships/carnival-panorama-pool.webp" alt="Carnival Panorama pool deck" loading="lazy"/>
             <p class="photo-caption">The main pool deck featuring WaterWorks water park and poolside Guy's Burger Joint</p>
           </div>
         </div>
@@ -392,12 +441,12 @@ The REAL Carnival Panorama, 133,500 gross-ton cruise ship, i"
       <p>Carnival Panorama is the third and largest of three Vista-class ships, the platform that pioneered SkyRide, IMAX, and Havana section:</p>
       <div class="sister-grid">
         <a href="/ships/carnival/carnival-vista.html" class="sister-card">
-          <img src="/assets/ships/carnival-vista-thumb.webp" alt="Carnival Panorama cruise ship at sea" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
+          <img src="/assets/ships/carnival-vista-thumb.webp" alt="Carnival Panorama cruise ship at sea" loading="lazy"/>
           <strong>Carnival Vista</strong>
           <span class="tiny">2016 · Lead Ship · Galveston</span>
         </a>
         <a href="/ships/carnival/carnival-horizon.html" class="sister-card">
-          <img src="/assets/ships/carnival-horizon-thumb.webp" alt="Carnival Panorama cruise ship at sea" loading="lazy" onerror="this.src='/assets/ships/placeholder-ship.webp'"/>
+          <img src="/assets/ships/carnival-horizon-thumb.webp" alt="Carnival Panorama cruise ship at sea" loading="lazy"/>
           <strong>Carnival Horizon</strong>
           <span class="tiny">2018 · Miami · Caribbean</span>
         </a>
@@ -587,10 +636,10 @@ Dining Venues</h2>
       <section class="card quick-tools" style="padding: 1rem;">
         <h3 style="margin: 0 0 0.75rem; font-size: 1rem; color: #083041;">Planning Tools</h3>
         <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
-          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Ship Size Atlas</a></li>
-          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Budget Calculator</a></li>
-          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Drink Package Calculator</a></li>
-          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Port Day Planner</a></li>
+          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none;">Ship Size Atlas</a></li>
+          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none;">Budget Calculator</a></li>
+          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none;">Drink Package Calculator</a></li>
+          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none;">Port Day Planner</a></li>
         </ul>
       </section>
 
@@ -871,6 +920,86 @@ Dining Venues</h2>
 
 })();
 </script>
+<!-- ===== JS Module: First Look Carousel ===== -->
+<script>
+function initFirstLook(){
+  const el=document.getElementById('photo-swiper');
+  if(!el||typeof Swiper==='undefined') return;
+  new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
+</script>
+
+<!-- ===== JS Module: Ship Logbook ===== -->
+<script>
+function initShipLogbook(){
+  const c=document.getElementById('logbook-container');
+  if(!c) return;
+  fetch('/assets/data/logbook/carnival/carnival-panorama.json')
+    .then(r=>r.json()).then(d=>{
+      if(d.stories) c.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h4>'+s.title+'</h4><p class="logbook-meta">'+s.persona_label+' · '+s.author.name+'</p><p>'+s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')+'</p></article>').join('');
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initShipLogbook); else initShipLogbook();
+</script>
+
+<!-- ===== JS Module: Video Loader ===== -->
+<script>
+function initVideos(){
+  const w=document.getElementById('video-wrapper');
+  if(!w) return;
+  fetch('/assets/data/videos/carnival/carnival-panorama.json')
+    .then(r=>r.json()).then(d=>{
+      let vids=[];
+      if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
+      else if(Array.isArray(d.videos)) vids=d.videos;
+      if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
+      new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();
+</script>
+
+<!-- ===== JS Module: Ship Stats ===== -->
+<script>
+function initStats(){
+  const el=document.querySelector('[data-ship-stats]')||document.getElementById('stats-container');
+  if(!el) return;
+  fetch('/ships/carnival/assets/carnival-panorama-stats.json')
+    .then(r=>r.json()).then(d=>{
+      if(d&&typeof d==='object'){const entries=Object.entries(d).filter(([k])=>!k.startsWith('_'));
+        el.innerHTML='<dl class="stats-grid">'+entries.map(([k,v])=>'<div class="stat-item"><dt>'+k+'</dt><dd>'+v+'</dd></div>').join('')+'</dl>';}
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initStats); else initStats();
+</script>
+
+<!-- ===== JS Module: Dining Loader ===== -->
+<script>
+function initDining(){
+  const el=document.getElementById('dining-container');
+  if(!el) return;
+  fetch('/ships/carnival/assets/carnival-panorama-dining.json')
+    .then(r=>r.json()).then(d=>{
+      if(Array.isArray(d)){el.innerHTML=d.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');}
+      else if(d.venues) el.innerHTML=d.venues.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');
+    }).catch(()=>{});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initDining); else initDining();
+</script>
+
+<!-- ===== JS Module: Live Tracker ===== -->
+<script>
+function initLiveTracker(){
+  const el=document.getElementById('live-tracker');
+  if(!el) return;
+  const imo=el.getAttribute('data-imo')||'9802384';
+  const url='https://www.myshiptracking.com/vessels/carnival-panorama-imo-'+imo;
+  el.innerHTML='<a href="'+url+'" target="_blank" rel="noopener" class="tracker-link">Track Carnival Panorama Live Position →</a>';
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initLiveTracker); else initLiveTracker();
+</script>
+
 <script src="/assets/js/dropdown.js"></script>
 
   <!-- In-App Browser Detection & Escape Banner -->

@@ -279,6 +279,22 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- JSON-LD: Review -->
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Discovery Class Ship (TBN)","brand":{"@type":"Organization","name":"Royal Caribbean International"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Discovery Class Ship (TBN) is a Discovery Class vessel from Royal Caribbean International, offering memorable cruise experiences with excellent amenities and service."}</script>
 
+  <!-- Swiper loader -->
+  <script>
+  (function(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
+
   <!-- JSON-LD: Article (editorial content signal) -->
   <script type="application/ld+json">
   {
@@ -822,6 +838,119 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   })();
   </script>
 
+
+<!-- ===== First Look init ===== -->
+  <script>
+  (function initFirstLook(){
+    function go(){
+      if(!window.__swiperReady||!window.Swiper) return setTimeout(go,120);
+      try{
+        new Swiper('.swiper.firstlook',{
+          loop:false,rewind:false,lazy:true,watchOverflow:true,
+          pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},
+          navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'},
+          a11y:{enabled:true}
+        });
+      }catch(_){}
+    }
+    go();
+  })();
+  </script>
+
+  <!-- ===== Logbook loader ===== -->
+  <script>
+  (function initShipLogbook(){
+    const mount=document.getElementById('logbook-stories'); if(!mount) return;
+    function abs(p){return (window._abs?_abs(p):p);}
+    const m=location.pathname.match(/\/ships\/([^/]+)\/([^/.]+)/i);
+    const line=(m&&m[1])||'rcl'; const slug=(m&&m[2])||'discovery-class-ship-tbn';
+    const SOURCES=[abs('/assets/data/logbook/'+line+'/'+slug+'.json')];
+    function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+      return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
+    fetchFirst().then(data=>{
+      if(!data) return;
+      const arr=data.personas||data.logbook||data.stories||data.entries||[];
+      if(!arr.length) return;
+      mount.innerHTML=arr.map(p=>'<article class="story"><h3>'+String(p.title||'').replace(/</g,'&lt;')+'</h3><p>'+String(p.body||p.content||'').replace(/</g,'&lt;')+'</p></article>').join('');
+    });
+  })();
+  </script>
+
+  <!-- ===== Video loader ===== -->
+  <script>
+  (function initVideos(){
+    const mount=document.getElementById('featuredVideos'); if(!mount) return;
+    const fallback=document.getElementById('videoFallback');
+    function abs(p){return (window._abs?_abs(p):p);}
+    const SOURCES=[abs('/assets/data/videos/rcl/discovery-class-ship-tbn.json')];
+    function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+      return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+    tryFetch().then(data=>{
+      if(!data){ if(fallback) fallback.classList.remove('hidden'); return; }
+      const arr=data.videos||data; if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
+    });
+  })();
+  </script>
+
+  <!-- ===== Stats loader ===== -->
+  <script>
+  (function initStats(){
+    const mount=document.getElementById('ship-stats'); if(!mount) return;
+    const fallbackEl=document.getElementById('ship-stats-fallback');
+    function abs(p){return (window._abs?_abs(p):p);}
+    function renderStats(obj){
+      if(!obj) return;
+      const keys=['class','entered_service','gt','guests'];
+      const labels={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests'};
+      mount.innerHTML=keys.map(k=>{
+        const val=obj[k]; if(!val) return '';
+        return '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;')+'</span></div>';
+      }).join('');
+    }
+    if(fallbackEl){ try{ const fb=JSON.parse(fallbackEl.textContent||'{}'); if(fb) renderStats(fb); }catch(_){} }
+    const SOURCES=[abs('/assets/data/ships/discovery-class-ship-tbn.json')];
+    function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+      return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+    tryFetch().then(data=>{ if(data) renderStats(data); });
+  })();
+  </script>
+
+  <!-- ===== Dining loader ===== -->
+  <script>
+  (function initDining(){
+    const mount=document.getElementById('dining-content'); if(!mount) return;
+    const sourceEl=document.getElementById('dining-data-source'); if(!sourceEl) return;
+    function abs(p){return (window._abs?_abs(p):p);}
+    let config={};
+    try{ config=JSON.parse(sourceEl.textContent||'{}'); }catch(_){}
+    if(typeof window.getShipVenues==='function'){
+      const slug=config.ship_slug||'discovery-class-ship-tbn';
+      window.getShipVenues(slug).then(result=>{
+        if(result&&result.venues&&result.venues.length){
+          mount.innerHTML='<ul class="venues-list">'+result.venues.map(v=>'<li><strong>'+String(v.name||v.slug).replace(/</g,'&lt;')+'</strong></li>').join('')+'</ul>';
+        }
+      }).catch(()=>{});
+    }
+  })();
+  </script>
+
+  <!-- ===== Live tracker ===== -->
+  <script>
+  (function initLiveTracker(){
+    const card=document.querySelector('.card.itinerary[data-imo]'); if(!card) return;
+    const imo=card.getAttribute('data-imo');
+    const container=document.getElementById('ship-tracker-container');
+    if(!imo||imo==='TBD'||!container) return;
+    const wrapper=document.createElement('div');
+    wrapper.style.cssText='width:100%;height:500px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
+    const iframe=document.createElement('iframe');
+    iframe.style.cssText='width:100%;height:100%;border:0;';
+    iframe.title='Live ship tracker for '+(card.getAttribute('data-name')||'ship');
+    iframe.setAttribute('loading','lazy');
+    iframe.src='https://www.vesselfinder.com/aismap?imo='+imo+'&zoom=10&track=true&names=true';
+    wrapper.appendChild(iframe); container.appendChild(wrapper);
+  })();
+  </script>
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>

@@ -4,39 +4,109 @@
     "generated": "2025-12-13T00:00:00Z",
     "source": "Researched from Mazatlán Tourism, cruise guides, and local sources"
   },
-
   "port_slug": "mazatlan",
   "port_name": "Mazatlán",
   "port_pin": {
-    "lat": 23.2200,
-    "lon": -106.4200,
+    "lat": 23.22,
+    "lon": -106.42,
     "label": "Mazatlán Cruise Terminal"
   },
-
   "bbox_hint": {
     "south": 23.15,
-    "west": -106.50,
-    "north": 23.30,
+    "west": -106.5,
+    "north": 23.3,
     "east": -106.35,
     "note": "Covers Centro Histórico, Golden Zone, El Faro"
   },
-
   "poi_ids": [
     "mazatlan-port",
     "centro-historico-mazatlan",
     "el-faro-mazatlan",
     "malecon-mazatlan",
     "golden-zone",
-    "cliff-divers-mazatlan"
+    "cliff-divers-mazatlan",
+    "plazuela-machado",
+    "angela-peralta-theater",
+    "cathedral-mazatlan",
+    "stone-island"
   ],
-
   "label_overrides": {
     "el-faro-mazatlan": "El Faro (world's highest lighthouse)",
     "centro-historico-mazatlan": "Centro Histórico (restored colonial)"
   },
-
+  "pois": [
+    {
+      "id": "mazatlan-port",
+      "name": "Mazatlán Cruise Terminal",
+      "lat": 23.22,
+      "lon": -106.42,
+      "type": "port"
+    },
+    {
+      "id": "centro-historico-mazatlan",
+      "name": "Centro Histórico",
+      "lat": 23.2024,
+      "lon": -106.4235,
+      "type": "district"
+    },
+    {
+      "id": "el-faro-mazatlan",
+      "name": "El Faro Lighthouse",
+      "lat": 23.1879,
+      "lon": -106.435,
+      "type": "landmark"
+    },
+    {
+      "id": "malecon-mazatlan",
+      "name": "Malecón (boardwalk)",
+      "lat": 23.21,
+      "lon": -106.428,
+      "type": "scenic"
+    },
+    {
+      "id": "golden-zone",
+      "name": "Zona Dorada (Golden Zone)",
+      "lat": 23.245,
+      "lon": -106.449,
+      "type": "beach"
+    },
+    {
+      "id": "cliff-divers-mazatlan",
+      "name": "El Mirador Cliff Divers",
+      "lat": 23.192,
+      "lon": -106.431,
+      "type": "attraction"
+    },
+    {
+      "id": "plazuela-machado",
+      "name": "Plazuela Machado",
+      "lat": 23.203,
+      "lon": -106.4225,
+      "type": "landmark"
+    },
+    {
+      "id": "angela-peralta-theater",
+      "name": "Teatro Angela Peralta",
+      "lat": 23.2028,
+      "lon": -106.4228,
+      "type": "cultural"
+    },
+    {
+      "id": "cathedral-mazatlan",
+      "name": "Catedral Basílica",
+      "lat": 23.2055,
+      "lon": -106.4215,
+      "type": "landmark"
+    },
+    {
+      "id": "stone-island",
+      "name": "Isla de la Piedra (Stone Island)",
+      "lat": 23.195,
+      "lon": -106.41,
+      "type": "beach"
+    }
+  ],
   "approximate_markers": [],
-
   "transit_routes": [
     {
       "id": "pulmonia-centro",
@@ -44,7 +114,10 @@
       "type": "taxi",
       "cost": "USD 8-12",
       "duration": "10-15 minutes",
-      "connects": ["mazatlan-port", "centro-historico-mazatlan"],
+      "connects": [
+        "mazatlan-port",
+        "centro-historico-mazatlan"
+      ],
       "note": "Open-air taxi unique to Mazatlán. Negotiate fare before boarding."
     },
     {
@@ -53,7 +126,10 @@
       "type": "taxi",
       "cost": "USD 12-18",
       "duration": "15-20 minutes",
-      "connects": ["mazatlan-port", "golden-zone"],
+      "connects": [
+        "mazatlan-port",
+        "golden-zone"
+      ],
       "note": "Beach resort area. Hotels, restaurants, beach clubs."
     },
     {
@@ -62,31 +138,46 @@
       "type": "walking",
       "cost": "Free",
       "duration": "Variable (5+ miles total)",
-      "connects": ["mazatlan-port", "malecon-mazatlan", "cliff-divers-mazatlan"],
+      "connects": [
+        "mazatlan-port",
+        "malecon-mazatlan",
+        "cliff-divers-mazatlan"
+      ],
       "note": "One of world's longest waterfront promenades. Sculptures, monuments."
     }
   ],
-
   "featured_experiences": [
     {
       "name": "Centro Histórico Walking Tour",
       "type": "cultural",
       "duration": "2-3 hours",
-      "highlights": ["Plazuela Machado", "Angela Peralta Theater", "Cathedral"],
+      "highlights": [
+        "Plazuela Machado",
+        "Angela Peralta Theater",
+        "Cathedral"
+      ],
       "note": "Beautifully restored 19th-century center. Galleries, cafes, architecture."
     },
     {
       "name": "El Faro Lighthouse Hike",
       "type": "adventure",
       "duration": "1.5-2 hours",
-      "highlights": ["157m elevation", "Panoramic views", "Photo ops"],
+      "highlights": [
+        "157m elevation",
+        "Panoramic views",
+        "Photo ops"
+      ],
       "note": "30-min hike up. Start early to avoid heat. One of world's highest."
     },
     {
       "name": "Cliff Divers at El Mirador",
       "type": "cultural",
       "duration": "30 minutes",
-      "highlights": ["50-foot dives", "Local performers", "Pacific backdrop"],
+      "highlights": [
+        "50-foot dives",
+        "Local performers",
+        "Pacific backdrop"
+      ],
       "note": "Daily performances. More intimate than Acapulco. Tips expected."
     }
   ]

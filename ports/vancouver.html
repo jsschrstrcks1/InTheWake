@@ -272,7 +272,35 @@ Soli Deo Gloria
                 <div id="logbook-btn-container"></div>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
+        <!-- FROM THE PIER -->
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Vancouver">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Gastown (Steam Clock)</span><div class="pier-detail">Walk from Canada Place — cobblestone streets, the famous steam clock</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Stanley Park Seawall</span><div class="pier-detail">Walk or bike — 10 km seawall loop, totem poles, beaches, aquarium</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min to park</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Granville Island Public Market</span><div class="pier-detail">Walk or Aquabus ferry — artisan food, craft beer, local makers</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 25 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:32%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Capilano Suspension Bridge</span><div class="pier-detail">Shuttle or taxi to North Vancouver — 140m bridge, 70m above the canyon</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 30 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Ships dock at Canada Place — the iconic white-sailed terminal in the heart of downtown. Alaska cruises depart from here. Spend extra days in Vancouver; one is not enough. Best Asian food in North America. Mountains, ocean, and city in a single frame.</p>
+</nav>
+
+      <details class="port-section" id="weather-guide" open>
             <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
               <div id="port-weather-widget"
                data-port-id="vancouver"
@@ -391,40 +419,7 @@ Soli Deo Gloria
 
           <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
             </details>
-
-
-
-
-
-<!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Vancouver">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Gastown (Steam Clock)</span><div class="pier-detail">Walk from Canada Place — cobblestone streets, the famous steam clock</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Stanley Park Seawall</span><div class="pier-detail">Walk or bike — 10 km seawall loop, totem poles, beaches, aquarium</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min to park</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Granville Island Public Market</span><div class="pier-detail">Walk or Aquabus ferry — artisan food, craft beer, local makers</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 25 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:32%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Capilano Suspension Bridge</span><div class="pier-detail">Shuttle or taxi to North Vancouver — 140m bridge, 70m above the canyon</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 30 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:40%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Ships dock at Canada Place — the iconic white-sailed terminal in the heart of downtown. Alaska cruises depart from here. Spend extra days in Vancouver; one is not enough. Best Asian food in North America. Mountains, ocean, and city in a single frame.</p>
-</nav>
-
-      </article>
+</article>
 
     <!-- First-Person Logbook Entry -->
     <article class="card logbook-entry">
@@ -678,23 +673,6 @@ Soli Deo Gloria
     <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
-  <script>
-    /* Recent Articles Rail */
-    (async function(){
-      var rail = document.getElementById('recent-rail');
-      if(!rail) return;
-      try {
-        var res = await fetch('/assets/data/articles/index.json');
-        var data = await res.json();
-        var articles = Array.isArray(data) ? data : (data.articles || []);
-        if(articles.length){
-          rail.innerHTML = articles.slice(0,5).map(function(a){
-            return '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #e0e8f0;"><h4 style="margin:0 0 .25rem;font-size:.95rem;"><a href="'+(a.url || a.path)+'">'+a.title+'</a></h4><p style="margin:0;font-size:.8rem;color:#666;">'+(a.excerpt || a.date || '')+'</p></div>';
-          }).join('');
-        }
-      } catch(e){ }
-    })();
-  </script>
 
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'vancouver';</script>
@@ -710,6 +688,7 @@ Soli Deo Gloria
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
 
   <!-- Leaflet JS for interactive maps -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

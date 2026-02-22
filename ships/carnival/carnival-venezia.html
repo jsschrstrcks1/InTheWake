@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <!--
 ╔═══════════════════════════════════════════════════════════════════════════════╗
 ║ Soli Deo Gloria — To God Alone Be the Glory                                  ║
@@ -313,6 +313,36 @@
     }
 }
   </script>
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+})();
+</script>
 </head>
 <body class="page">
   <!-- Skip Link for Accessibility -->
@@ -411,35 +441,35 @@
       <div class="photo-carousel swiper" aria-label="Carnival Venezia photo gallery">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
-            <img src="/assets/ships/carnival-venezia_01.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Venezia cruise ship exterior showing Italian-inspired design" loading="lazy"/>
+            <img src="/assets/ships/carnival-venezia_01.webp" alt="Carnival Venezia cruise ship exterior showing Italian-inspired design" loading="lazy"/>
             <p class="photo-caption">Carnival Venezia — authentic Italian heritage in the Carnival fleet</p>
           </div>
           <div class="swiper-slide">
-            <img src="/assets/ships/carnival-venezia_02.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Venezia pool deck with Venetian styling elements" loading="lazy"/>
+            <img src="/assets/ships/carnival-venezia_02.webp" alt="Carnival Venezia pool deck with Venetian styling elements" loading="lazy"/>
             <p class="photo-caption">Pool deck featuring Venetian-inspired design elements</p>
           </div>
           <div class="swiper-slide">
-            <img src="/assets/ships/carnival-venezia_03.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Venezia grand atrium with Italian décor and Murano glass accents" loading="lazy"/>
+            <img src="/assets/ships/carnival-venezia_03.webp" alt="Carnival Venezia grand atrium with Italian décor and Murano glass accents" loading="lazy"/>
             <p class="photo-caption">Grand atrium with stunning Italian architectural details</p>
           </div>
           <div class="swiper-slide">
-            <img src="/assets/ships/carnival-venezia_04.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Venezia docked at Port Canaveral Florida homeport" loading="lazy"/>
+            <img src="/assets/ships/carnival-venezia_04.webp" alt="Carnival Venezia docked at Port Canaveral Florida homeport" loading="lazy"/>
             <p class="photo-caption">Carnival Venezia at her Port Canaveral, FL homeport</p>
           </div>
           <div class="swiper-slide">
-            <img src="/assets/ships/carnival-venezia_05.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Venezia Cucina del Capitano Italian specialty restaurant" loading="lazy"/>
+            <img src="/assets/ships/carnival-venezia_05.webp" alt="Carnival Venezia Cucina del Capitano Italian specialty restaurant" loading="lazy"/>
             <p class="photo-caption">Cucina del Capitano authentic Italian dining</p>
           </div>
           <div class="swiper-slide">
-            <img src="/assets/ships/carnival-venezia_06.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Venezia Serenity adults-only retreat deck area" loading="lazy"/>
+            <img src="/assets/ships/carnival-venezia_06.webp" alt="Carnival Venezia Serenity adults-only retreat deck area" loading="lazy"/>
             <p class="photo-caption">Serenity adults-only retreat area</p>
           </div>
           <div class="swiper-slide">
-            <img src="/assets/ships/carnival-venezia_07.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Venezia balcony stateroom with elegant Venetian design touches" loading="lazy"/>
+            <img src="/assets/ships/carnival-venezia_07.webp" alt="Carnival Venezia balcony stateroom with elegant Venetian design touches" loading="lazy"/>
             <p class="photo-caption">Balcony stateroom with elegant Venetian touches</p>
           </div>
           <div class="swiper-slide">
-            <img src="/assets/ships/carnival-venezia_08.webp" onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.webp'" alt="Carnival Venezia sailing Caribbean waters from Port Canaveral" loading="lazy"/>
+            <img src="/assets/ships/carnival-venezia_08.webp" alt="Carnival Venezia sailing Caribbean waters from Port Canaveral" loading="lazy"/>
             <p class="photo-caption">Sailing the Caribbean from Port Canaveral</p>
           </div>
         </div>
@@ -456,7 +486,7 @@
              src="/assets/img/Cordelia_Empress_Food_Court.webp"
              alt="Carnival Venezia dining venue" loading="lazy"
              onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
-Dining Venues on Carnival Venezia <a href="/restaurants.html" style="font-size: 0.75rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+Dining Venues on Carnival Venezia <a href="/restaurants.html" style="font-size: 1rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
       <p class="section-intro">Explore the dining options available on Carnival Venezia, from complimentary venues to specialty restaurants.</p>
       <div class="dining-content" id="dining-content" aria-live="polite">
         <p class="tiny">Loading venue information...</p>
@@ -473,7 +503,7 @@ Dining Venues on Carnival Venezia <a href="/restaurants.html" style="font-size: 
     </section>
 
     <!-- Videos Section -->
-    <section class="card" id="videos" aria-labelledby="videos-heading">
+    <section class="card" id="video-highlights" aria-labelledby="videos-heading">
       <h2 id="videos-heading">Watch: Carnival Venezia Highlights</h2>
       <p class="small">Ship tours, cabin walkthroughs, and passenger experiences aboard Carnival Venezia.</p>
       <div class="swiper videos" aria-label="Featured video carousel">
@@ -559,11 +589,11 @@ Dining Venues on Carnival Venezia <a href="/restaurants.html" style="font-size: 
             </div>
 
             <div style="margin-top: 1.5rem; padding: 1rem; background: #f8fafc; border-radius: 8px;">
-              <p style="margin: 0; font-size: 0.9rem;"><strong>Builder:</strong> Fincantieri, Monfalcone, Italy</p>
-              <p style="margin: 0.5rem 0 0; font-size: 0.9rem;"><strong>Original Name:</strong> Costa Venezia (2019-2023)</p>
-              <p style="margin: 0.5rem 0 0; font-size: 0.9rem;"><strong>Registry:</strong> Bahamas (Nassau)</p>
-              <p style="margin: 0.5rem 0 0; font-size: 0.9rem;"><strong>Call Sign:</strong> C6GI3</p>
-              <p style="margin: 0.5rem 0 0; font-size: 0.9rem;"><strong>Homeport:</strong> Port Canaveral, Florida</p>
+              <p style="margin: 0; font-size: 1rem;"><strong>Builder:</strong> Fincantieri, Monfalcone, Italy</p>
+              <p style="margin: 0.5rem 0 0; font-size: 1rem;"><strong>Original Name:</strong> Costa Venezia (2019-2023)</p>
+              <p style="margin: 0.5rem 0 0; font-size: 1rem;"><strong>Registry:</strong> Bahamas (Nassau)</p>
+              <p style="margin: 0.5rem 0 0; font-size: 1rem;"><strong>Call Sign:</strong> C6GI3</p>
+              <p style="margin: 0.5rem 0 0; font-size: 1rem;"><strong>Homeport:</strong> Port Canaveral, Florida</p>
             </div>
           </div>
         </section>
@@ -646,7 +676,7 @@ Dining Venues on Carnival Venezia <a href="/restaurants.html" style="font-size: 
                 </p>
               </div>
             </div>
-            <p style="margin: 1rem 0 0; font-size: 0.85rem; color: var(--ink-mid);">
+            <p style="margin: 1rem 0 0; font-size: 1rem; color: var(--ink-mid);">
               Track Carnival Venezia's real-time position via AIS data on MarineTraffic.
             </p>
           </div>
@@ -750,7 +780,7 @@ Dining Venues on Carnival Venezia <a href="/restaurants.html" style="font-size: 
           <div class="card-header">
             <h2 id="facts-title">Key Facts</h2>
           </div>
-          <div class="card-body" style="font-size: 0.9rem;">
+          <div class="card-body" style="font-size: 1rem;">
             <p><strong>Original Name:</strong> Costa Venezia</p>
             <p><strong>Carnival Debut:</strong> June 15, 2023</p>
             <p><strong>Transfer From:</strong> Costa Cruises</p>
@@ -773,10 +803,10 @@ Dining Venues on Carnival Venezia <a href="/restaurants.html" style="font-size: 
       <section class="card quick-tools" style="padding: 1rem;">
         <h3 style="margin: 0 0 0.75rem; font-size: 1rem; color: #083041;">Planning Tools</h3>
         <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
-          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Ship Size Atlas</a></li>
-          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Budget Calculator</a></li>
-          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Drink Package Calculator</a></li>
-          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none; font-size: 0.9rem;">Port Day Planner</a></li>
+          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none;">Ship Size Atlas</a></li>
+          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none;">Budget Calculator</a></li>
+          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none;">Drink Package Calculator</a></li>
+          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none;">Port Day Planner</a></li>
         </ul>
       </section>
 
@@ -886,7 +916,7 @@ Dining Venues on Carnival Venezia <a href="/restaurants.html" style="font-size: 
       <div class="card-header">
         <h2>Sources & Attribution</h2>
       </div>
-      <div class="card-body" style="font-size: 0.85rem; color: var(--ink-mid);">
+      <div class="card-body" style="font-size: 1rem; color: var(--ink-mid);">
         <p>Ship specifications from Carnival Cruise Line official documentation. Historical information compiled from Costa Cruises archives, Carnival corporate announcements, and maritime registries. IMO and MMSI data verified via ITU Maritime Identification Digits database and MarineTraffic AIS records.</p>
         <p style="margin-top: 0.75rem;">Last verified: December 2025. For corrections or updates, contact the editorial team.</p>
       </div>
@@ -929,7 +959,89 @@ Dining Venues on Carnival Venezia <a href="/restaurants.html" style="font-size: 
       if(articles.length)render();else rail.innerHTML='<p class="tiny">No articles yet.</p>';
     }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
   })();
-  </script>  <!-- Navigation Dropdown Script -->
+  </script>
+
+  <!-- ===== JS Module: First Look Carousel ===== -->
+  <script>
+  function initFirstLook(){
+    const el=document.getElementById('photo-swiper');
+    if(!el||typeof Swiper==='undefined') return;
+    new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
+  </script>
+
+  <!-- ===== JS Module: Ship Logbook ===== -->
+  <script>
+  function initShipLogbook(){
+    const c=document.getElementById('logbook-container');
+    if(!c) return;
+    fetch('/assets/data/logbook/carnival/carnival-venezia.json')
+      .then(r=>r.json()).then(d=>{
+        if(d.stories) c.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h4>'+s.title+'</h4><p class="logbook-meta">'+s.persona_label+' · '+s.author.name+'</p><p>'+s.markdown.split(\'\\n\\n\')[0].replace(/\*\*/g,\'\')+'</p></article>').join('');
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initShipLogbook); else initShipLogbook();
+  </script>
+
+  <!-- ===== JS Module: Video Loader ===== -->
+  <script>
+  function initVideos(){
+    const w=document.getElementById('video-wrapper');
+    if(!w) return;
+    fetch('/assets/data/videos/carnival/carnival-venezia.json')
+      .then(r=>r.json()).then(d=>{
+        let vids=[];
+        if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
+        else if(Array.isArray(d.videos)) vids=d.videos;
+        if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
+        new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();
+  </script>
+
+  <!-- ===== JS Module: Ship Stats ===== -->
+  <script>
+  function initStats(){
+    const el=document.querySelector('[data-ship-stats]')||document.getElementById('stats-container');
+    if(!el) return;
+    fetch('/ships/carnival/assets/carnival-venezia-stats.json')
+      .then(r=>r.json()).then(d=>{
+        if(d&&typeof d==='object'){const entries=Object.entries(d).filter(([k])=>!k.startsWith('_'));
+          el.innerHTML='<dl class="stats-grid">'+entries.map(([k,v])=>'<div class="stat-item"><dt>'+k+'</dt><dd>'+v+'</dd></div>').join('')+'</dl>';}
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initStats); else initStats();
+  </script>
+
+  <!-- ===== JS Module: Dining Loader ===== -->
+  <script>
+  function initDining(){
+    const el=document.getElementById('dining-container');
+    if(!el) return;
+    fetch('/ships/carnival/assets/carnival-venezia-dining.json')
+      .then(r=>r.json()).then(d=>{
+        if(Array.isArray(d)){el.innerHTML=d.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');}
+        else if(d.venues) el.innerHTML=d.venues.map(v=>'<div class="dining-venue"><h4>'+v.name+'</h4>'+(v.description?'<p>'+v.description+'</p>':'')+'</div>').join('');
+      }).catch(()=>{});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initDining); else initDining();
+  </script>
+
+  <!-- ===== JS Module: Live Tracker ===== -->
+  <script>
+  function initLiveTracker(){
+    const el=document.getElementById('live-tracker');
+    if(!el) return;
+    const imo=el.getAttribute('data-imo')||'9319466';
+    const url='https://www.myshiptracking.com/vessels/carnival-venezia-imo-'+imo;
+    el.innerHTML='<a href="'+url+'" target="_blank" rel="noopener" class="tracker-link">Track Carnival Venezia Live Position →</a>';
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initLiveTracker); else initLiveTracker();
+  </script>
+
+  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
 
 

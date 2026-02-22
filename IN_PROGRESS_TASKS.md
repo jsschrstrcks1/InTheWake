@@ -1,7 +1,7 @@
 # In-Progress Tasks
 
 **Purpose:** Thread coordination file to prevent conflicts between concurrent Claude threads.
-**Last Updated:** 2026-02-05 (cleaned up by claude/onboard-and-audit-PvzvO)
+**Last Updated:** 2026-02-20 (Port bulk validation audit by claude/review-docs-and-repo-GnDW5)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -35,6 +35,104 @@ FORMAT:
 **Status:** Brief description of current state
 **Notes:** Any blockers or important context
 -->
+
+### Port Page Bulk Validation — Triage & Remediation
+**Thread:** `claude/review-docs-and-repo-GnDW5`
+**Started:** 2026-02-20
+**Files:** admin/validate-port-page-v2.js (read-only reference), ports/*.html (387 pages)
+**Status:** Active — Audit complete, documentation in progress, remediation planning
+
+**Audit Results (2026-02-20):**
+- **Total:** 387 port pages
+- **Passing:** 3 (beijing, cozumel, nassau)
+- **Failing:** 384
+- **Average score:** 45.1/100
+- **Score distribution:** 119 pages at 0-49, 204 at 50-69, 61 at 70-79, 0 at 80+
+
+**Root Cause Analysis:**
+The high failure rate is driven by **new v3.010 cross-pollination checks** merged from
+`claude/review-codebase-validators-n0YNf` that raised the bar significantly. These checks
+are valid per the standard but most pages were built before the standard existed.
+
+**Top 10 Blocking Errors by Impact:**
+
+| # | Rule | Pages | Category | Notes |
+|---|------|-------|----------|-------|
+| 1 | missing_sidebar_sections (At a Glance) | 381 | v3.010 sidebar spec | Most pages lack sidebar "At a Glance" grid |
+| 2 | missing_key_facts | 320 | v3.010 content structure | `.key-facts` element added as requirement |
+| 3 | missing_answer_line | 218 | v3.010 content structure | `.answer-line` one-liner added as requirement |
+| 4 | booking_guidance | 125 | rubric | Excursions missing "ship excursion"/"independent"/"guaranteed return" keywords |
+| 5 | excursions_minimum (0 words) | 112 | word counts | Section empty or too short (need 400+) |
+| 6 | emotional_pivot_missing | 111 | logbook narrative | Logbook needs heart moment |
+| 7 | missing_required_sections | 110 | section order | Missing whole sections (cruise_port, excursions, gallery) |
+| 8 | logbook_minimum (0 words) | 110 | word counts | Logbook entry under 800 words |
+| 9 | getting_around_minimum | 108 | word counts | Getting Around under 200 words |
+| 10 | first_person_minimum | 108 | logbook narrative | Logbook needs 15+ first-person pronouns |
+
+**Top 6 Warnings by Impact:**
+
+| # | Rule | Pages | Notes |
+|---|------|-------|-------|
+| 1 | answer_too_long (FAQ) | 384 | FAQ answers exceed 80-word limit |
+| 2 | insufficient_pois | 365 | POI manifest has < 10 points |
+| 3 | voice_v01 (promotional drift) | 200 | "ideal for", "must-see" language |
+| 4 | sensory_detail | 117 | Logbook needs 3+ senses |
+| 5 | first_person_maximum | 116 | Over-repetitive first-person |
+| 6 | contrast_language | 108 | Logbook needs "but"/"however" words |
+
+**Remediation Tiers (Proposed):**
+
+*Tier 1 — Template/Structural (scriptable, 200-381 pages):*
+1. Add sidebar "At a Glance" section
+2. Add `.key-facts` element
+3. Add `.answer-line` element
+
+*Tier 2 — Content Structure (100-125 pages):*
+4. Fill missing excursions sections
+5. Fill missing/short logbook entries
+6. Add missing required sections (cruise_port, gallery)
+7. Expand Getting Around sections
+
+*Tier 3 — Quality/Voice (warnings, 100-384 pages):*
+8. Trim FAQ answers to 80 words
+9. Build POI manifests
+10. Clean promotional drift language
+
+**Intentionally Left Alone:**
+- The 3 passing pages (beijing, cozumel, nassau) are not being modified
+- Voice quality warnings (V01-V06) are warnings, not blocking — tracked but not prioritized
+- POI manifest warnings require map data that doesn't exist yet
+
+**Notes:**
+- Many "failures" are new checks from cross-pollination, not regressions
+- Prior to the v3.010 checks, ~241/387 ports were passing (per Alaska Sprint notes)
+- The 3 currently passing pages are the ones that were recently hand-built to the new standard
+
+### Alaska Port Repair — Priority Sprint
+**Thread:** `claude/review-docs-and-repo-GnDW5`
+**Started:** 2026-02-19
+**Files:** ports/glacier-bay.html, ports/kodiak.html, ports/wrangell.html, ports/valdez.html, ports/homer.html, ports/petersburg.html, ports/misty-fjords.html, ports/college-fjord.html, ports/inside-passage.html, ports/denali.html, ports/fairbanks.html
+**Status:** Active — Fixing 10 failing Alaska ports one at a time. User traveling to Alaska soon.
+**Workflow:** validate → read errors → read file → fix errors + voice issues → re-validate → commit → next port
+**Standards:** PORT-PAGE-STANDARD.md (ITC v1.1), Like-a-human.md (voice V01-V06), CAREFUL.md (both layers)
+**Prior work this session:**
+- Wired Like-a-human voice checks into all 4 validators site-wide (d74174ef)
+- Broadened voice hook to fire on all content writes (74f96bc6)
+- Fixed haifa.html 90→100 (b84939f5), tracy-arm.html 84→100 (96d883c3)
+- Running total: 241/387 ports passing
+**Alaska triage (10 failing ports):**
+- [ ] glacier-bay.html (82) — 1 blocking error, 4 voice warnings
+- [ ] kodiak.html (44) — 5 errors
+- [ ] wrangell.html (38) — 6 errors
+- [ ] valdez.html (34) — 6 errors
+- [ ] homer.html (24) — 7 errors
+- [ ] petersburg.html (16) — 8 errors
+- [ ] misty-fjords.html (0) — skeleton
+- [ ] college-fjord.html (0) — skeleton
+- [ ] inside-passage.html (0) — skeleton
+- [ ] denali.html (0) — skeleton
+- [ ] fairbanks.html (0) — skeleton
+**Notes:** User emphasized: "be careful not clever, document everything so claude next can understand."
 
 ### Onboard, Audit & Backlog Execution
 **Thread:** `claude/onboard-and-audit-PvzvO`
@@ -70,6 +168,46 @@ FORMAT:
 
 **Notes:** All batch-automatable code/structural fixes have been exhausted. Remaining failures require content creation (images, editorial text, videos).
 
+### Mobile Standard v1.000 Implementation (Phases 1-3 Complete)
+**Thread:** `claude/review-codebase-validators-n0YNf`
+**Started:** 2026-02-19
+**Files:** admin/validate-mobile-readiness.js (new), admin/validate.js (modified), assets/styles.css (modified), assets/css/ship-page.css (modified), 10 port HTML files (modified), 4 HTML files (viewport meta fix)
+**Status:** Phases 1-3 COMPLETE. Browser testing at specific widths remains (requires manual browser).
+
+**Phase 1 (Complete — Validator):**
+- [x] Created `admin/validate-mobile-readiness.js` (8 checks: MOB-001 through MOB-008)
+- [x] Integrated into unified `admin/validate.js` via dynamic import (graceful degradation if absent)
+- [x] Baseline audit: 0 blocking failures, 6 pages with warnings
+
+**Phase 2 (Complete — CSS Implementation):**
+- [x] Added MOBILE HARDENING v1.000 section to assets/styles.css (before print section)
+- [x] Rules: rail reflow (979.98px), touch targets (768px), typography clamp() (480px), hero containment (480px), stats-grid collapse (360px)
+- [x] Added `.table-scroll` class and wrappers to 10 port page transport-costs-table elements
+- [x] Added tracker container mobile height to ship-page.css (350px at 480px)
+- [x] Post-implementation audit: MOB-004 warnings resolved (0 from 2), MOB-008 resolved (0 from 7)
+- [x] Desktop rendering verified unaffected (all rules inside @media max-width queries)
+
+**Phase 3 (Complete — Full Audit):**
+- [x] Ran mobile validator against all 1454 pages — **1454/1454 pass** (0 blocking)
+- [x] Fixed 4 blocking failures: missing viewport meta in ships/carnival/index.html, ports/kyoto.html, ports/falmouth-jamaica.html, ports/beijing.html (3 redirect pages + 1 fleet index)
+- [x] Spot-checked 5 of 15 brand CSS files myself (carnival, royal-caribbean, norwegian, celebrity, virgin-voyages) — all 18 lines, pure `:root` color variables. No layout, no sizing, no overflow risk.
+- [x] Removed `key-facts` from MOB-004 watch list — it's a narrow 2-column table (label + value) that never overflows; 92 of 94 ship pages use `<div>` not `<table>` anyway
+- [x] Ran existing validators on modified pages (actual results):
+  - Unified validator: 3 pages (ships/carnival/index.html, ports/aruba.html, ports/belize.html) — 3 pass
+  - Port-page-v2: 3 ports (aruba, nassau, cozumel) — 3 pass, all 100/100
+  - Ship-page: 2 ships (carnival-magic, carnival-breeze) — 2 pass, 0 errors, 7 warnings (pre-existing content)
+  - Venue-page-v2: 1 venue (basecamp) — 0 errors, 1 warning (pre-existing stock images)
+  - ICP-Lite v14: 10 ports individually — 8 pass, 2 fail (pre-existing: belize disclaimer level mismatch, st-maarten missing disclaimer). These failures predate our changes.
+- [ ] Browser testing at 360px, 375px, 390px, 412px, 768px (requires manual browser — cannot be automated)
+
+**Correction:** Commit `bb15fac3` documented inflated validator counts (13 unified, 4 ship, plus port-page-v2/venue-page-v2/ICP-Lite results that were never run). This was caught on self-audit and corrected here with actual results. No regressions were found when the validators were actually run.
+
+**362 Remaining Warnings (all inline HTML — not CSS-fixable per Standard Section 2.3):**
+- MOB-007: ~320 warnings — inline `font-size: 0.9rem` (14px) on ship page tool links
+- MOB-002: ~42 warnings — inline `width` > 480px on various elements
+
+**Notes:** Validator uses dynamic import in validate.js — if validate-mobile-readiness.js is deleted, validate.js continues to function without mobile checks. `.ship-card .thumb img` aspect-ratio rule intentionally skipped — `.thumb` class only used in 3 HTML files (6 instances), not a widespread pattern.
+
 ---
 
 ## Recently Completed (Move to COMPLETED_TASKS.md after user confirmation)
@@ -95,6 +233,7 @@ FORMAT:
 | claude/identify-maintenance-tasks-FN2lh | Doc consistency, CSS consolidation, competitor gap features | COMPLETE (merged) | 2026-01-31 |
 | claude/review-docs-codebase-IJvuW | Competitor analysis (120+), AI chorus evaluation, task update | COMPLETE | 2026-02-08 |
 | claude/onboard-and-audit-PvzvO | From the Pier (376 ports), codebase audit, doc fixes | IN PROGRESS | 2026-02-05 |
+| claude/review-codebase-validators-n0YNf | Mobile Standard v1.000 (Phases 1-3 complete, browser testing pending) | IN PROGRESS | 2026-02-19 |
 | claude/audit-venues-gD9fq | Logbook enrichment — Gentle Truth reviews | COMPLETE | 2026-01-31 |
 | claude/review-previous-work-ZMk3b | Deep audit, JPG elimination, CSS consolidation, ship-page.css rollout, guardrail, docs | COMPLETE | 2026-01-31 |
 | claude/review-onboarding-setup-01JpVFgKzWRBKvXaxcS1pC9N | Onboarding review, schema fix | COMPLETE | 2025-12-01 |
