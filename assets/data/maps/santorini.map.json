@@ -1,4 +1,10 @@
 {
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2026-02-22T00:00:00Z",
+    "source": "Researched from Greek tourism authority, CruiseCritic, and travel guides"
+  },
+
   "port_slug": "santorini",
   "port_name": "Santorini",
   "port_pin": {
@@ -6,20 +12,96 @@
     "lon": 25.4333,
     "label": "Tender Pier (Skala)"
   },
-  "poi_ids": [
-    "santorini-cruise-terminal",
-    "fira-town",
-    "oia-village",
-    "red-beach-santorini",
-    "akrotiri-ruins",
-    "santo-wines"
-  ],
+
   "bbox_hint": {
     "south": 36.32,
     "west": 25.35,
     "north": 36.48,
-    "east": 25.50
+    "east": 25.50,
+    "note": "Covers Santorini island including Fira, Oia, beaches, and caldera"
   },
-  "notes": "Ships anchor and tender. Cable car, donkey ride, or 588 steps to Fira.",
-  "generated": "2025-12-14T00:00:00Z"
+
+  "poi_ids": [
+    "santorini-cruise-terminal",
+    "fira-cable-car",
+    "fira-town",
+    "oia-village",
+    "red-beach-santorini",
+    "akrotiri-ruins",
+    "santo-wines",
+    "perissa-beach-santorini",
+    "kamari-beach-santorini",
+    "nea-kameni-volcano",
+    "ancient-thera-santorini"
+  ],
+
+  "label_overrides": {
+    "nea-kameni-volcano": "Nea Kameni (active volcano & hot springs)",
+    "akrotiri-ruins": "Akrotiri (Bronze Age Pompeii)",
+    "santo-wines": "Santo Wines (caldera-view tastings)",
+    "ancient-thera-santorini": "Ancient Thera (hilltop ruins)"
+  },
+
+  "pois": [
+    { "id": "santorini-cruise-terminal", "name": "Tender Pier (Skala)", "lat": 36.4167, "lon": 25.4333, "type": "port" },
+    { "id": "fira-cable-car", "name": "Fira Cable Car", "lat": 36.4170, "lon": 25.4310, "type": "transit" },
+    { "id": "fira-town", "name": "Fira Town", "lat": 36.4165, "lon": 25.4314, "type": "town" },
+    { "id": "oia-village", "name": "Oia Village", "lat": 36.4611, "lon": 25.3750, "type": "town" },
+    { "id": "red-beach-santorini", "name": "Red Beach", "lat": 36.3470, "lon": 25.3930, "type": "beach" },
+    { "id": "akrotiri-ruins", "name": "Akrotiri Archaeological Site", "lat": 36.3520, "lon": 25.4040, "type": "cultural" },
+    { "id": "santo-wines", "name": "Santo Wines Winery", "lat": 36.3867, "lon": 25.4611, "type": "attraction" },
+    { "id": "perissa-beach-santorini", "name": "Perissa Beach", "lat": 36.3530, "lon": 25.4730, "type": "beach" },
+    { "id": "kamari-beach-santorini", "name": "Kamari Beach", "lat": 36.3740, "lon": 25.4840, "type": "beach" },
+    { "id": "nea-kameni-volcano", "name": "Nea Kameni Volcano", "lat": 36.4060, "lon": 25.3960, "type": "nature" },
+    { "id": "ancient-thera-santorini", "name": "Ancient Thera", "lat": 36.3680, "lon": 25.4780, "type": "cultural" }
+  ],
+
+  "approximate_markers": [
+    "nea-kameni-volcano"
+  ],
+
+  "transit_routes": [
+    {
+      "id": "cable-car-to-fira",
+      "name": "Cable Car to Fira",
+      "type": "cable_car",
+      "cost": "EUR 6 one way",
+      "duration": "3 minutes",
+      "connects": ["santorini-cruise-terminal", "fira-town"],
+      "note": "Long queues when multiple ships anchor. Go early or take the 588 steps."
+    },
+    {
+      "id": "bus-to-oia",
+      "name": "Bus Fira to Oia",
+      "type": "bus",
+      "cost": "EUR 1.80",
+      "duration": "25-30 minutes",
+      "connects": ["fira-town", "oia-village"],
+      "note": "Frequent departures from Fira bus station. Standing room only on busy days."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Oia Sunset",
+      "type": "scenic",
+      "duration": "2-3 hours",
+      "highlights": ["Iconic blue domes", "Caldera sunset views", "Village exploration"],
+      "note": "Arrive early — the sunset point gets packed. Bus from Fira 25 min."
+    },
+    {
+      "name": "Caldera Catamaran Cruise",
+      "type": "adventure",
+      "duration": "Half day",
+      "highlights": ["Volcanic hot springs", "Red Beach snorkeling", "Onboard meal"],
+      "note": "Book ahead. €80-150 depending on duration and inclusions."
+    },
+    {
+      "name": "Akrotiri Archaeological Site",
+      "type": "cultural",
+      "duration": "1-2 hours",
+      "highlights": ["Bronze Age city preserved under volcanic ash", "3,600 years old"],
+      "note": "Often called the 'Pompeii of the Aegean.' €12 entry."
+    }
+  ]
 }
