@@ -537,21 +537,33 @@ else
     check_fail "data-imo attribute MISSING for live tracker"
 fi
 
-# Retired ship: logbook must have static eulogy entries (not noscript-only)
-# noscript content is invisible to JS users — retired ships need static articles
-# so ALL users see the ship's history and tribute, not an empty logbook section.
+# Retired ship: logbook must have TWO types of static eulogy entries:
+#   1. Editorial eulogy — the site's tribute to the ship (attributed to "In the Wake editorial")
+#   2. Guest experience — a named passenger's personal story (attributed to a real person)
+# Both must be static HTML, not noscript-only (invisible to JS users).
+# This is how we honour retired vessels: the ship's service AND the people who sailed her.
 if echo "$CONTENT" | grep -q "status: Retired Ship"; then
-    STATIC_LOGBOOK_COUNT=$(echo "$CONTENT" | awk '
+    STATIC_HTML=$(echo "$CONTENT" | awk '
         /<script[ >]/ { in_script=1; next }
         /<\/script/   { in_script=0; next }
         /<noscript/   { in_noscript=1; next }
         /<\/noscript/ { in_noscript=0; next }
         !in_script && !in_noscript { print }
-    ' | grep -c '<article class="story"' || echo "0")
-    if [ "$STATIC_LOGBOOK_COUNT" -gt 0 ]; then
-        check_pass "Retired ship: $STATIC_LOGBOOK_COUNT static logbook eulogy article(s) visible to all users"
+    ')
+
+    # Check 1: Editorial eulogy — the site's tribute to the ship
+    if echo "$STATIC_HTML" | grep -q 'In the Wake editorial'; then
+        check_pass "Retired ship: editorial eulogy present"
     else
-        check_fail "Retired ship: no static logbook articles — eulogy entries must not be noscript-only (invisible to JS users)"
+        check_fail "Retired ship: editorial eulogy MISSING — needs a static editorial tribute to the ship's service"
+    fi
+
+    # Check 2: Guest experience — a named passenger's personal story
+    GUEST_BYLINES=$(echo "$STATIC_HTML" | grep 'class="tiny">—' | grep -cv 'In the Wake' || echo "0")
+    if [ "$GUEST_BYLINES" -gt 0 ]; then
+        check_pass "Retired ship: guest experience story present"
+    else
+        check_fail "Retired ship: guest experience story MISSING — needs at least one named passenger's story"
     fi
 fi
 
