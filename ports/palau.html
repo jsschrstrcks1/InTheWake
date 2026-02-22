@@ -271,6 +271,34 @@ All work on this project is offered as a gift to God.
       <div id="journal-btn-container"></div>
 
       <!-- LOGBOOK ENTRY -->
+      <!-- FROM THE PIER -->
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Palau cruise port">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Koror Town Center</span><div class="pier-detail">Walk from dock — compact, tour operators at pier</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Rock Islands & Jellyfish Lake</span><div class="pier-detail">Full-day boat tour · $150–200 · book at port</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> Full day</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:85%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Diving (Two Tanks)</span><div class="pier-detail">Boat tour · $100–150 · world-class walls and channels</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🤿</span> Half day</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:70%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Ngardmau Waterfall</span><div class="pier-detail">Rental car ($50/day) or taxi · jungle hike</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 45 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:55%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Koror harbor. Currency is US Dollar. First country to ban reef-toxic sunscreen — bring mineral-based (zinc/titanium). Most experiences require boat tours.</p>
+</nav>
+
       <details class="port-section" id="logbook" open>
         <summary><h2>My Palau Day – A First-Person Account</h2></summary>
 
@@ -339,36 +367,7 @@ All work on this project is offered as a gift to God.
         <h3>Author's Note</h3>
         <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
       </section>
-
-<!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Palau cruise port">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Koror Town Center</span><div class="pier-detail">Walk from dock — compact, tour operators at pier</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Rock Islands & Jellyfish Lake</span><div class="pier-detail">Full-day boat tour · $150–200 · book at port</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> Full day</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:85%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Diving (Two Tanks)</span><div class="pier-detail">Boat tour · $100–150 · world-class walls and channels</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🤿</span> Half day</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:70%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Ngardmau Waterfall</span><div class="pier-detail">Rental car ($50/day) or taxi · jungle hike</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 45 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:55%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Koror harbor. Currency is US Dollar. First country to ban reef-toxic sunscreen — bring mineral-based (zinc/titanium). Most experiences require boat tours.</p>
-</nav>
-
-      </article>
+</article>
 
   </div><!-- end main column wrapper -->
 
@@ -472,30 +471,6 @@ All work on this project is offered as a gift to God.
   </footer>
 
   <script src="/assets/js/common.js"></script>
-
-  <script>
-    // Load recent articles
-    (async function() {
-      try {
-        const response = await fetch('/assets/data/articles/index.json');
-        const articles = await response.json();
-        const rail = document.getElementById('recent-rail');
-
-        if (rail && articles && articles.length > 0) {
-          rail.innerHTML = articles.slice(0, 5).map(article => `
-            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
-                <a href="${article.url}">${article.title}</a>
-              </h4>
-              <p style="margin: 0; font-size: 1rem; color: #666;">${article.date}</p>
-            </div>
-          `).join('');
-        }
-      } catch (err) {
-        
-      }
-    })();
-  </script>
   <!-- Navigation dropdown functionality -->
     <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
@@ -508,6 +483,7 @@ All work on this project is offered as a gift to God.
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'palau';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>

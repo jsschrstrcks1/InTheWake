@@ -428,7 +428,21 @@ Soli Deo Gloria
         </aside>
 
         <!-- FAQ SECTION - 200+ words -->
-        <details class="port-section" id="faq" open>
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+          <div class="gallery-grid">
+            </div>
+            </details>
+
+      <details class="port-section image-credits" id="credits" open>
+            <summary><h2>Image Credits</h2></summary>
+          <ul>
+            <li><strong>seychelles-clock-tower.webp:</strong> <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></li>
+          </ul>
+          <p><em>All images used with permission. Photo credits link to original sources.</em></p>
+            </details>
+
+      <details class="port-section" id="faq" open>
             <summary><h2>Frequently Asked Questions</h2></summary>
           <p><strong>Q: Where do cruise ships dock in Seychelles?</strong><br/>A: Ships dock at Port Victoria on Mahé island. Downtown Victoria is 15-20 minutes walking distance. Taxis are available immediately at the terminal exit. No tender required.</p>
 
@@ -447,23 +461,7 @@ Soli Deo Gloria
           <p><strong>Q: Is the Seychelles accessible for wheelchair users?</strong><br/>A: Partially. Victoria's main streets and the port area are reasonably accessible. Beau Vallon has a paved access point. However, many beaches require walking on sand or over rocks, and mountain trails are not wheelchair accessible. The Botanical Gardens have mostly flat paths.</p>
             </details>
 
-        <!-- GALLERY SECTION -->
-        <details class="port-section photo-gallery" id="gallery" open>
-            <summary><h2>Photo Gallery</h2></summary>
-          <div class="gallery-grid">
-            </div>
-            </details>
-
-        <!-- CREDITS SECTION -->
-        <details class="port-section image-credits" id="credits" open>
-            <summary><h2>Image Credits</h2></summary>
-          <ul>
-            <li><strong>seychelles-clock-tower.webp:</strong> <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></li>
-          </ul>
-          <p><em>All images used with permission. Photo credits link to original sources.</em></p>
-            </details>
-
-        <!-- BACK NAV -->
+        <!-- GALLERY SECTION --><!-- CREDITS SECTION --><!-- BACK NAV -->
         <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
 
       </article>
@@ -602,19 +600,9 @@ Soli Deo Gloria
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
-  <script>
-  (async function recentRail(){
-    const rail = document.getElementById('recent-rail'); if(!rail) return;
-    try {
-      const response = await fetch('/assets/data/articles/index.json');
-      const data = await response.json();
-      const items = Array.isArray(data) ? data : (data.articles || []);
-      if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) {  }
-  })();
-  </script>
   <script>window.currentPortId = 'seychelles';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
   <script src="/assets/js/whimsical-port-units.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/modules/port-map.js"></script>

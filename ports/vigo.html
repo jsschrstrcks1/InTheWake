@@ -257,6 +257,34 @@ Soli Deo Gloria
       </section>
 
     <article class="card"><h1>Vigo: My Gateway to Paradise</h1>
+      <!-- FROM THE PIER -->
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Vigo">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Old Town (Casco Vello)</span><div class="pier-detail">Walk from the port — Rúa dos Cesteiros, oyster bars on Rúa Pescadería</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Monte do Castro</span><div class="pier-detail">Walk uphill — hilltop castle ruins, panoramic views of the Ría de Vigo</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Cíes Islands (national park)</span><div class="pier-detail">Ferry from Vigo — Rodas Beach, one of the world's best. Permit required.</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">⛴️</span> 40 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Santiago de Compostela</span><div class="pier-detail">Tour bus or train — end point of the Camino de Santiago pilgrimage</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚂</span> 75 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:85%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Ships dock at the Estación Marítima in the city center. Galician oysters at Rúa Pescadería are €1 each — stand at the street stalls and eat them fresh. The Cíes Islands require advance permits (limited daily visitors). Santiago de Compostela is the big excursion.</p>
+</nav>
+
       <div class="logbook-entry">
         <p>Standing on Vigo's waterfront at dawn, watching fishing boats head out across the Ría, I thought about the Romans who settled this harbor two thousand years ago. They called it "vicus spacorum" – the small village – though they found something remarkable here: the only solar evaporation sea saltworks of its kind they'd discovered. Salt was gold in ancient times, and Vigo had the Atlantic sun and shallow waters to make it.</p>
 
@@ -504,40 +532,7 @@ Soli Deo Gloria
 
           <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
             </details>
-
-
-
-
-
-<!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Vigo">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Old Town (Casco Vello)</span><div class="pier-detail">Walk from the port — Rúa dos Cesteiros, oyster bars on Rúa Pescadería</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Monte do Castro</span><div class="pier-detail">Walk uphill — hilltop castle ruins, panoramic views of the Ría de Vigo</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Cíes Islands (national park)</span><div class="pier-detail">Ferry from Vigo — Rodas Beach, one of the world's best. Permit required.</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">⛴️</span> 40 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Santiago de Compostela</span><div class="pier-detail">Tour bus or train — end point of the Camino de Santiago pilgrimage</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚂</span> 75 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:85%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Ships dock at the Estación Marítima in the city center. Galician oysters at Rúa Pescadería are €1 each — stand at the street stalls and eat them fresh. The Cíes Islands require advance permits (limited daily visitors). Santiago de Compostela is the big excursion.</p>
-</nav>
-
-      </article>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
     <section class="page-intro" style="margin: 0 0 1rem 0;">
@@ -626,30 +621,6 @@ Soli Deo Gloria
     <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
-  <script>
-    // Load recent articles
-    (async function() {
-      try {
-        const response = await fetch('/assets/data/articles/index.json');
-        const articles = await response.json();
-        const rail = document.getElementById('recent-rail');
-
-        if (rail && articles && articles.length > 0) {
-          rail.innerHTML = articles.slice(0, 5).map(article => `
-            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
-                <a href="${article.url}">${article.title}</a>
-              </h4>
-              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
-            </div>
-          `).join('');
-        }
-      } catch (err) {
-        
-      }
-    })();
-  </script>
-
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/port-logbook-btn.js" defer></script>
@@ -661,6 +632,7 @@ Soli Deo Gloria
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'vigo';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>

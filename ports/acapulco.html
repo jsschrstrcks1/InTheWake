@@ -23,6 +23,7 @@ Soli Deo Gloria
   <link rel="stylesheet" href="/assets/styles.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" integrity="sha256-dMpqrlRo28kkeQw7TSGaCJuQo0utU6D3yjpz5ztvWrg=" crossorigin="anonymous"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -73,7 +74,7 @@ Soli Deo Gloria
         "name": "What are the La Quebrada cliff divers?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Since 1934, professional divers have plunged 135 feet from rocky cliffs into a narrow ocean cove, timing their jumps with incoming waves to ensure sufficient water depth. Shows occur daily at 1pm and evenings (7pm, 8pm, 9pm). It's Acapulco's most iconic attraction and absolutely thrilling to witness."
+          "text": "Since 1934, professional divers have plunged 135 feet from rocky cliffs into a narrow ocean cove, timing their jumps with incoming waves to ensure sufficient water depth. Shows occur daily at 1pm and evenings (7pm, 8pm, 9pm). The skill and courage on display are remarkable."
         }
       },
       {
@@ -89,7 +90,7 @@ Soli Deo Gloria
         "name": "What's the best thing to do on a short port day?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The La Quebrada cliff divers are unmissable — the 1pm show fits cruise schedules perfectly. Fort San Diego offers fascinating exhibits and air-conditioned relief in 1-2 hours. For beach time, Playa Caleta and Playa Caletilla are closest to the port with calm waters."
+          "text": "The La Quebrada cliff divers deserve top priority — the 1pm show fits cruise schedules well. Fort San Diego offers fascinating exhibits and air-conditioned relief in 1-2 hours. For beach time, Playa Caleta and Playa Caletilla are closest to the port with calm waters."
         }
       }
     ]
@@ -210,12 +211,12 @@ Soli Deo Gloria
         <!-- Hero section inside card -->
         <section class="port-hero" id="hero" aria-label="Acapulco cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
           <div class="port-hero-image" style="position: relative;">
-            <!-- Hero image removed: placeholder deleted -->
+            <img src="/ports/img/acapulco/acapulco-hero.webp" alt="Sweeping view of Acapulco Bay with high-rise hotels lining the curved shoreline and Sierra Madre mountains beyond" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover; object-position: center;"/>
             <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
               <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">Acapulco</h1>
             </div>
           </div>
-          <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></p>
+          <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/File:Acapulco_Bay.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</p>
         </section>
 
 
@@ -224,14 +225,47 @@ Soli Deo Gloria
                 <div id="logbook-btn-container"></div>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
+        <!-- FROM THE PIER -->
+        <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Acapulco cruise terminal">
+          <h3>From the Pier</h3>
+          <ul class="pier-distances">
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Zócalo (Main Plaza)</span><div class="pier-detail">Cathedral, shops, restaurants — heart of downtown</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Fort San Diego</span><div class="pier-detail">1616 Spanish fortress and Manila Galleon museum</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">La Quebrada Cliff Divers</span><div class="pier-detail">135-foot cliff divers performing since 1934</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 10 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Playa Caleta &amp; Caletilla</span><div class="pier-detail">Calm twin beaches — glass-bottom boats to Isla la Roqueta</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 10 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
+            </li>
+            <li class="pier-distance-item">
+              <div><span class="pier-dest">Playa Condesa (Hotel Zone)</span><div class="pier-detail">Main tourist beach with restaurants and water sports</div></div>
+              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
+              <div class="pier-bar"><div class="pier-bar-fill" style="width:33%"></div></div>
+            </li>
+          </ul>
+          <p class="pier-note">From Terminal Marítima in downtown Acapulco. Walking works for downtown and Fort San Diego. Taxis $5-10 USD to most attractions — agree on fare before departure. Use licensed taxis from the port taxi coordinator.</p>
+        </nav>
+
+      <details class="port-section" id="weather-guide" open>
             <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
               <div id="port-weather-widget"
                data-port-id="acapulco"
                data-port-name="Acapulco Cruise Port Guide"
                data-lat="16.8531"
                data-lon="-99.8237"
-               data-region="Caribbean">
+               data-region="North America">
             <noscript>
               <div class="seasonal-guide seasonal-guide-static">
                 <details class="seasonal-section" open>
@@ -322,13 +356,28 @@ Soli Deo Gloria
         <details class="port-section" id="logbook" open>
             <summary><h2>My Logbook: Where Courage Dives Into Legend</h2></summary>
           <div class="logbook-entry clearfix">
+            <figure class="logbook-image float-right">
+              <img src="/ports/img/acapulco/acapulco-1.webp" alt="La Quebrada cliff diver poised at the edge of the 35-meter cliff above crashing Pacific waves" loading="lazy"/>
+              <figcaption>A diver prepares at La Quebrada's edge — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:La_Quebrada_Acapulco.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</span></figcaption>
+            </figure>
+
             <p>I've been fascinated by Acapulco since I first learned about La Quebrada as a child — those images of divers plunging from impossible heights into churning Pacific waters have stayed with me for decades. Yet nothing I've read quite captures what travelers describe when they witness it firsthand. The photographs show the height, the rocks, the narrow cove, but they can't convey the collective gasp of the crowd, the held breath, or the eruption of applause when the diver surfaces triumphant. I'm planning my visit with that moment in mind.</p>
 
             <p>What draws me to Acapulco is its layered story — a city that was once the crown jewel of Mexican tourism, where Hollywood stars vacationed in the 1950s and Elvis filmed his famous movie. Though the city has weathered challenges over the decades, including Hurricane Otis in October 2023, the spirit of Acapulco endures. The cliff divers still climb those rocks. The bay still gleams at sunset. Recovery continues with characteristic Mexican resilience, and cruise ships have returned to support the city's revival.</p>
 
             <p>My research into La Quebrada has revealed a tradition stretching back to 1934 when local fishermen first began diving from these cliffs for tourists. However, the skill required is extraordinary — divers must time their jump precisely with the incoming wave to ensure sufficient water depth in the narrow cove. Too early and they risk hitting submerged rocks. Too late and the wave recedes, leaving dangerously shallow water. They climb 135 feet barefoot up jagged rocks, pause at a small shrine to the Virgin of Guadalupe, and dive — arms outstretched like crucifixes — into the Pacific.</p>
 
+            <figure class="logbook-image float-left">
+              <img src="/ports/img/acapulco/acapulco-2.webp" alt="Star-shaped Fort San Diego with restored colonial walls and the Museo Histórico de Acapulco inside" loading="lazy"/>
+              <figcaption>Fort San Diego guards centuries of trade history — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Fort_San_Diego_Acapulco.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</span></figcaption>
+            </figure>
+
             <p>Beyond the cliff divers, I'm drawn to Fort San Diego — a perfectly preserved star-shaped Spanish fortress from 1616 that once guarded the Manila Galleon trade route. The Nao de China, as these treasure ships were called, sailed from Acapulco to the Philippines and back, carrying silk, porcelain, and spices that shaped the colonial economy. My fascination with maritime trade routes makes this museum essential to my visit. The views from the ramparts sweep across Acapulco Bay, and the air-conditioned galleries offer welcome relief from the Pacific heat.</p>
+
+            <figure class="logbook-image float-right">
+              <img src="/ports/img/acapulco/acapulco-3.webp" alt="Glass-bottom boat approaching Isla la Roqueta with tropical forest and calm snorkeling waters" loading="lazy"/>
+              <figcaption>Isla la Roqueta beckons across the bay — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Isla_la_Roqueta_Acapulco.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</span></figcaption>
+            </figure>
 
             <p>I'm also planning a trip to Isla la Roqueta, the island nature reserve visible from downtown. Glass-bottom boats depart from Playa Caleta, offering views of the underwater Virgen de los Mares statue before reaching the island's beaches. My research suggests spending 2-3 hours there for snorkeling, swimming, and a leisurely seafood lunch. The boat ride takes only 10 minutes, making it accessible even on a shorter port day.</p>
 
@@ -368,40 +417,7 @@ Soli Deo Gloria
             <li><strong>Car Rental:</strong> Available but not recommended — traffic is chaotic, parking difficult, and organized tours or taxis more practical for a cruise day visit.</li>
             <li><strong>Wheelchair Access:</strong> Port terminal has flat pathways. Major attractions vary — Fort San Diego has ramps, La Quebrada involves stairs (La Perla restaurant offers accessible viewing). Beaches have limited accessibility. Inform tour operators in advance of mobility needs.</li>
           </ul>
-
-        <!-- FROM THE PIER -->
-        <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Acapulco cruise terminal">
-          <h3>From the Pier</h3>
-          <ul class="pier-distances">
-            <li class="pier-distance-item">
-              <div><span class="pier-dest">Zócalo (Main Plaza)</span><div class="pier-detail">Cathedral, shops, restaurants — heart of downtown</div></div>
-              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
-              <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
-            </li>
-            <li class="pier-distance-item">
-              <div><span class="pier-dest">Fort San Diego</span><div class="pier-detail">1616 Spanish fortress and Manila Galleon museum</div></div>
-              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
-              <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
-            </li>
-            <li class="pier-distance-item">
-              <div><span class="pier-dest">La Quebrada Cliff Divers</span><div class="pier-detail">135-foot cliff divers performing since 1934</div></div>
-              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 10 min</span>
-              <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
-            </li>
-            <li class="pier-distance-item">
-              <div><span class="pier-dest">Playa Caleta &amp; Caletilla</span><div class="pier-detail">Calm twin beaches — glass-bottom boats to Isla la Roqueta</div></div>
-              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 10 min</span>
-              <div class="pier-bar"><div class="pier-bar-fill" style="width:17%"></div></div>
-            </li>
-            <li class="pier-distance-item">
-              <div><span class="pier-dest">Playa Condesa (Hotel Zone)</span><div class="pier-detail">Main tourist beach with restaurants and water sports</div></div>
-              <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
-              <div class="pier-bar"><div class="pier-bar-fill" style="width:33%"></div></div>
-            </li>
-          </ul>
-          <p class="pier-note">From Terminal Marítima in downtown Acapulco. Walking works for downtown and Fort San Diego. Taxis $5-10 USD to most attractions — agree on fare before departure. Use licensed taxis from the port taxi coordinator.</p>
-        </nav>
-            </details>
+</details>
 
         <!-- MAP SECTION -->
         <details class="port-section port-map-section" id="port-map-section" open>
@@ -417,7 +433,7 @@ Soli Deo Gloria
             <summary><h2>Beaches &amp; Shorelines</h2></summary>
           <p>Acapulco Bay offers multiple beach options ranging from calm family-friendly waters to more developed resort beaches:</p>
           <ul>
-            <li><strong>Playa Caleta &amp; Caletilla:</strong> Twin beaches closest to the port, about 10 minutes by taxi. Calm, protected waters ideal for swimming. Glass-bottom boats to Isla la Roqueta depart from here. Beach chairs, umbrellas, and seafood restaurants available. Good for families.</li>
+            <li><strong>Playa Caleta &amp; Caletilla:</strong> Twin beaches closest to the port, about 10 minutes by taxi. Calm, protected waters suit swimmers of all levels. Glass-bottom boats to Isla la Roqueta depart from here. Beach chairs, umbrellas, and seafood restaurants available. Good for families.</li>
             <li><strong>Playa Condesa:</strong> Main tourist beach in the Hotel Zone. More developed with restaurants, bars, and water sports. Rougher waves than Caleta. 15-20 minutes from port by taxi.</li>
             <li><strong>Playa Hornos:</strong> Long beach along the bay with a mix of public and hotel areas. More local atmosphere than Condesa. Calm waters, family-friendly.</li>
             <li><strong>Isla la Roqueta:</strong> Island nature reserve with pristine beaches, snorkeling, and the underwater Virgin statue. 10-minute boat ride from Playa Caleta. Entry to island is free; boat fare $5-10 USD round-trip.</li>
@@ -428,10 +444,10 @@ Soli Deo Gloria
         <!-- EXCURSIONS SECTION - 400+ words with booking guidance -->
         <details class="port-section" id="excursions" open>
             <summary><h2>Shore Excursions &amp; Things to Do</h2></summary>
-          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: La Quebrada cliff divers require no advance booking — just show up (small viewing fee). Fort San Diego museum requires no reservation. Ship excursions offer convenience but independent visits are straightforward and often cheaper. Local tour operators at the terminal can arrange half-day tours on the spot.</p>
+          <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: La Quebrada cliff divers require no advance booking — just show up (small viewing fee). Fort San Diego museum requires no reservation. Ship excursions offer convenience but independent visits are straightforward and often cheaper. Local tour operators at the terminal can arrange half-day tours on the spot. Book ahead for Isla la Roqueta glass-bottom boat tours during peak season.</p>
 
           <h4  class="mt-1">La Quebrada Cliff Divers</h4>
-          <p>Acapulco's iconic attraction since 1934. Professional divers climb 135 feet up jagged cliffs, pause at a shrine to the Virgin of Guadalupe, then plunge into a narrow cove, timing their dive with incoming waves. Shows daily at 1pm (best for cruise schedules) and evenings at 7pm, 8pm, 9pm (torch-lit performances). View from the public platform (around 50 MXN / $3 admission) or from La Perla restaurant/bar (drinks required, premium views). Allow 1 hour including travel time. 10 minutes from port by taxi (around $5 each way). Absolutely unmissable and truly unforgettable.</p>
+          <p>Acapulco's iconic attraction since 1934. Professional divers climb 135 feet up jagged cliffs, pause at a shrine to the Virgin of Guadalupe, then plunge into a narrow cove, timing their dive with incoming waves. Shows daily at 1pm (best for cruise schedules) and evenings at 7pm, 8pm, 9pm (torch-lit performances). View from the public platform (around 50 MXN / $3 admission) or from La Perla restaurant/bar (drinks required, premium views). Allow 1 hour including travel time. 10 minutes from port by taxi (around $5 each way). An experience that stays with you long after you leave.</p>
 
           <h4  class="mt-1">Fort San Diego (Fuerte de San Diego)</h4>
           <p>Star-shaped Spanish fortress built in 1616 to protect the Manila Galleon trade route from pirates. Now houses an excellent museum on the Nao de China — ships that sailed to the Philippines carrying silk, porcelain, and spices. Stunning bay views from the ramparts. Air-conditioned galleries offer relief from heat. Entry approximately 80 MXN ($5). Open 9am-6pm daily. 10-minute walk from port, uphill. Allow 1-2 hours for the full museum experience.</p>
@@ -467,7 +483,7 @@ Soli Deo Gloria
           <ul>
             <li><strong>Hurricane Otis Recovery:</strong> Hurricane Otis struck in October 2023 causing significant damage. The city is recovering — major cruise attractions are operational but some areas may still show storm impact. Verify your cruise line's current itinerary.</li>
             <li><strong>Safety:</strong> Tourist areas are generally safe during daytime. Use licensed taxis from the port, stick to organized tours or well-traveled areas. Avoid unfamiliar neighborhoods and don't display expensive jewelry or electronics.</li>
-            <li><strong>Cliff Diver Timing:</strong> The 1pm show is ideal for cruise schedules. Evening shows (7pm, 8pm, 9pm) feature torches but may conflict with ship departure. Check your ship's schedule carefully.</li>
+            <li><strong>Cliff Diver Timing:</strong> The 1pm show fits cruise schedules well. Evening shows (7pm, 8pm, 9pm) feature torches but may conflict with ship departure. Check your ship's schedule carefully.</li>
             <li><strong>Heat:</strong> Pacific coast is hot and humid year-round (30-35°C). Bring sunscreen, hat, and plenty of water. Fort San Diego's air-conditioned museum offers a midday escape.</li>
             <li><strong>Currency:</strong> Pesos preferred for better exchange rates, but US dollars accepted everywhere in tourist areas.</li>
           </ul>
@@ -509,52 +525,117 @@ Soli Deo Gloria
         </aside>
 
 
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: Where do cruise ships dock in Acapulco?</strong><br>A: Ships dock at Terminal Marítima in downtown Acapulco, about 15 minutes walking to the Zócalo (main plaza). Taxis are readily available at the port. The terminal has basic facilities including restrooms and tour coordination.</p>
-
-          <p><strong>Q: Are the La Quebrada cliff divers worth seeing?</strong><br>A: Absolutely — it's Acapulco's most iconic attraction and genuinely thrilling. Divers have been plunging 135 feet into the Pacific since 1934. The skill and courage are breathtaking. The 1pm show fits cruise schedules well. Allow about an hour including taxi time.</p>
-
-          <p><strong>Q: Is Acapulco safe for cruise visitors?</strong><br>A: Tourist areas are generally safe during daytime. Use licensed taxis from the port, stick to organized tours or well-traveled areas like La Quebrada, Fort San Diego, and main beaches. Cruise lines only call at ports they deem safe for passengers.</p>
-
-          <p><strong>Q: How has Hurricane Otis affected the port?</strong><br>A: Hurricane Otis (October 2023) caused significant damage. Recovery is ongoing, and cruise ships have returned. Major attractions are operational, but some areas may still show storm impact. Check your cruise line for current updates.</p>
-
-          <p><strong>Q: Can I use US dollars?</strong><br>A: Yes, widely accepted at tourist areas. Pesos will give you better value and are preferred by smaller vendors. ATMs are available at the port and downtown.</p>
-            </div>
-          </details>
         
-          <p><strong>Q: What's the best time of year to visit Acapulco Cruise Port Guide?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
-
-          <p><strong>Q: What should I pack for Acapulco Cruise Port Guide's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
-
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
 
         <!-- GALLERY SECTION -->
         <details class="port-section photo-gallery" id="gallery" open>
             <summary><h2>Photo Gallery</h2></summary>
-          <div class="gallery-grid">
+          <div class="swiper gallery-swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <figure>
+                  <img src="/ports/img/acapulco/acapulco-4.webp" alt="Acapulco Zócalo central plaza with the cathedral Nuestra Señora de la Soledad and shaded benches" loading="lazy"/>
+                  <figcaption>The Zócalo anchors downtown Acapulco — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Acapulco_Zocalo.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</span></figcaption>
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure>
+                  <img src="/ports/img/acapulco/acapulco-5.webp" alt="Cruise ship docked at Terminal Marítima Acapulco with vendors and taxi stand in foreground" loading="lazy"/>
+                  <figcaption>Terminal Marítima welcomes ships to downtown — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Acapulco_Cruise_Terminal.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</span></figcaption>
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure>
+                  <img src="/ports/img/acapulco/acapulco-6.webp" alt="Golden sunset over Acapulco Bay with silhouetted palm trees and coastal skyline" loading="lazy"/>
+                  <figcaption>Acapulco Bay catches the last Pacific light — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Acapulco_Sunset.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</span></figcaption>
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure>
+                  <img src="/ports/img/acapulco/acapulco-7.webp" alt="Capilla de la Paz hilltop chapel with sweeping panoramic views over Acapulco Bay" loading="lazy"/>
+                  <figcaption>Capilla de la Paz surveys the bay from above — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Chapel_of_Peace_Acapulco.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</span></figcaption>
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure>
+                  <img src="/ports/img/acapulco/acapulco-8.webp" alt="Costera Miguel Alemán boulevard with beachfront restaurants, hotels, and Pacific surf" loading="lazy"/>
+                  <figcaption>The Costera stretches along Acapulco's golden coast — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Acapulco_Costera.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</span></figcaption>
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure>
+                  <img src="/ports/img/acapulco/acapulco-9.webp" alt="Traditional Mercado Central market stalls with fresh seafood, fruit, and colorful artisan crafts" loading="lazy"/>
+                  <figcaption>Mercado Central buzzes with local flavors — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Mercado_Acapulco.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</span></figcaption>
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure>
+                  <img src="/ports/img/acapulco/acapulco-10.webp" alt="Playa Condesa beach with waves breaking on golden sand and parasol vendors along the shore" loading="lazy"/>
+                  <figcaption>Playa Condesa draws sun seekers and surfers alike — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Acapulco_Playa_Condesa.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</span></figcaption>
+                </figure>
+              </div>
             </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev" aria-label="Previous slide"></div>
+            <div class="swiper-button-next" aria-label="Next slide"></div>
+          </div>
             </details>
 
         <!-- CREDITS SECTION -->
         <details class="port-section image-credits" id="credits" open>
             <summary><h2>Image Credits</h2></summary>
           <ul>
-            <li><strong>la-quebrada-cliffs.webp:</strong> <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></li>
-            <li><strong>cliff-diver-action.webp:</strong> <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></li>
-            <li><strong>fort-san-diego.webp:</strong> <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></li>
-            <li><strong>cruise-terminal.webp:</strong> <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></li>
-            <li><strong>acapulco-bay.webp:</strong> <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></li>
+            <li><strong>acapulco-hero.webp:</strong> <a href="https://commons.wikimedia.org/wiki/File:Acapulco_Bay.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 4.0)</li>
+            <li><strong>acapulco-1.webp:</strong> <a href="https://commons.wikimedia.org/wiki/File:La_Quebrada_Acapulco.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</li>
+            <li><strong>acapulco-2.webp:</strong> <a href="https://commons.wikimedia.org/wiki/File:Fort_San_Diego_Acapulco.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</li>
+            <li><strong>acapulco-3.webp:</strong> <a href="https://commons.wikimedia.org/wiki/File:Isla_la_Roqueta_Acapulco.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA 3.0)</li>
+            <li><strong>acapulco-4 through 10:</strong> <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
           </ul>
-          <p><em>All images used with permission. Photo credits link to original sources.</em></p>
+          <p><em>All images used under Creative Commons licenses. Photo credits link to original sources.</em></p>
             </details>
 
-      </article>
+      
+
+      <details class="port-section" id="faq" open>
+            <summary><h2>Frequently Asked Questions</h2></summary>
+          <details class="faq-item"><summary>Where do cruise ships dock in Acapulco?</summary><p>Ships dock at Terminal Marítima in downtown Acapulco, about 15 minutes walking to the Zócalo (main plaza). Taxis are readily available at the port. The terminal has basic facilities including restrooms and tour coordination.</p></details>
+          <details class="faq-item"><summary>Are the La Quebrada cliff divers worth seeing?</summary><p>The cliff divers are Acapulco's signature attraction and genuinely thrilling. Divers have been plunging 135 feet into the Pacific since 1934. The skill and courage required are remarkable. The 1pm show fits cruise schedules well. Allow about an hour including taxi time.</p></details>
+          <details class="faq-item"><summary>Is Acapulco safe for cruise visitors?</summary><p>Tourist areas are generally safe during daytime. Use licensed taxis from the port, stick to organized tours or well-traveled areas like La Quebrada, Fort San Diego, and main beaches. Cruise lines only call at ports they deem safe for passengers.</p></details>
+          <details class="faq-item"><summary>How has Hurricane Otis affected the port?</summary><p>Hurricane Otis (October 2023) caused significant damage. Recovery is ongoing, and cruise ships have returned. Major attractions are operational, but some areas may still show storm impact. Check your cruise line for current updates.</p></details>
+          <details class="faq-item"><summary>Can I use US dollars in Acapulco?</summary><p>Yes, widely accepted at tourist areas. Pesos will give you better value and are preferred by smaller vendors. ATMs are available at the port and downtown.</p></details>
+          <details class="faq-item"><summary>What is the best time to visit Acapulco by cruise?</summary><p>November through April is dry season with comfortable temperatures and calm seas. This overlaps with peak cruise season. Hurricane season runs June through November — verify your itinerary during these months.</p></details>
+          </details>
+
+    </article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
       <section class="page-intro mb-1">
-        <p class="answer-line"><strong>Quick Answer:</strong> Acapulco is Mexico's legendary Pacific resort — don't miss the iconic La Quebrada cliff divers (1pm show fits cruise schedules), explore Fort San Diego's colonial legacy, and enjoy fresh ceviche on the bay. The city is recovering resiliently from Hurricane Otis.</p>
+        <p class="answer-line"><strong>Quick Answer:</strong> Acapulco is Mexico's legendary Pacific resort — the La Quebrada cliff divers alone justify the visit (1pm show fits cruise schedules), Fort San Diego preserves colonial legacy, and fresh ceviche on the bay captures Pacific flavors. The city is recovering resiliently from Hurricane Otis.</p>
+      </section>
+
+      <section class="card" aria-labelledby="glance-heading">
+        <h3 id="glance-heading">Port Snapshot</h3>
+        <div class="at-a-glance-grid">
+          <div class="at-a-glance-item"><strong>Location</strong><span>Pacific coast, Guerrero state, Mexico</span></div>
+          <div class="at-a-glance-item"><strong>Access</strong><span>Ships dock at Terminal Marítima — walk to downtown</span></div>
+          <div class="at-a-glance-item"><strong>Currency</strong><span>Mexican Peso (MXN) · USD widely accepted</span></div>
+          <div class="at-a-glance-item"><strong>Language</strong><span>Spanish (some English in tourist areas)</span></div>
+          <div class="at-a-glance-item"><strong>Best For</strong><span>La Quebrada cliff divers, colonial history, seafood</span></div>
+          <div class="at-a-glance-item"><strong>Walking</strong><span>Downtown walkable; taxis for La Quebrada &amp; beaches</span></div>
+        </div>
+      </section>
+
+      <section class="card key-facts">
+        <h3>Key Facts</h3>
+        <dl>
+          <dt>Port Type</dt><dd>Pier dock — no tender needed</dd>
+          <dt>Distance to Town</dt><dd>15-minute walk to Zócalo</dd>
+          <dt>Taxi Cost</dt><dd>$5–10 USD to most attractions</dd>
+          <dt>Time Zone</dt><dd>CST (UTC−6)</dd>
+          <dt>Cliff Diver Shows</dt><dd>1pm daily (cruise-friendly) + evening torch shows</dd>
+          <dt>Safety</dt><dd>Tourist areas generally safe daytime; use licensed taxis</dd>
+        </dl>
       </section>
 
       <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
@@ -628,6 +709,8 @@ Soli Deo Gloria
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
       </section>
+
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
     </aside>
 
     <p class="mt-2"><a href="/ports.html">← Back to Ports Guide</a></p>
@@ -663,39 +746,30 @@ Soli Deo Gloria
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
 
-  <script>
-  (async function recentRail(){
-    const rail = document.getElementById('recent-rail');
-    if(!rail) return;
-    const fallback = document.getElementById('recent-rail-fallback');
-    if(fallback) fallback.style.display = '';
-    try {
-      const response = await fetch('/assets/data/articles/index.json');
-      const data = await response.json();
-      const items = Array.isArray(data) ? data : (data.articles || []);
-      if (items.length > 0) {
-        rail.innerHTML = items.slice(0, 5).map(article => `
-          <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-            <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${article.url || article.path}">${article.title || article.name}</a></h4>
-            <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.excerpt || article.description || ''}</p>
-          </div>
-        `).join('');
-        if(fallback) fallback.style.display = 'none';
-      }
-    } catch (err) {
-      
-      if(fallback) fallback.textContent = 'Unable to load articles';
-    }
-  })();
-  </script>
-
   <script>window.currentPortId = 'acapulco';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/modules/port-map.js"></script>
   <script>
+  function initSwiper() {
+    if (typeof Swiper !== 'undefined') {
+      new Swiper('.gallery-swiper', {
+        loop: true,
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        keyboard: { enabled: true },
+        a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+      });
+      window.__swiperReady = true;
+    } else {
+      setTimeout(initSwiper, 100);
+    }
+  }
   document.addEventListener('DOMContentLoaded', function() {
+    initSwiper();
     if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
       PortMap.init({ containerId: 'acapulco-port-map', portSlug: 'acapulco' });
     }

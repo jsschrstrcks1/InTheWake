@@ -488,17 +488,6 @@ Soli Deo Gloria
         </details>
 
         <!-- FAQ -->
-        <details class="port-section" id="faq" open>
-          <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: Where do cruise ships dock?</strong><br/>A: Ha Long International Cruise Port. Most bay exploration happens via day cruises on junk boats, which depart from various piers. Transfers are arranged by your cruise line.</p>
-          <p><strong>Q: What is the best way to see Ha Long Bay?</strong><br/>A: A day cruise on a junk boat. These tours navigate between karsts, include lunch, cave visits (Sung Sot Cave), island stops (Ti Top), and kayaking. Six to eight hours is typical. This is the essential Ha Long Bay experience.</p>
-          <p><strong>Q: Is kayaking difficult?</strong><br/>A: No. Waters are calm, currents gentle, and sit-on-top kayaks are stable. Life jackets are provided. Minimal experience needed. Guides accompany groups. Most visitors find it accessible and rewarding.</p>
-          <p><strong>Q: Can I swim in Ha Long Bay?</strong><br/>A: Yes. Ti Top Island and several other beaches offer swimming. Water is warm year-round and clear. Most day cruises include a swimming stop.</p>
-          <p><strong>Q: When is the best time to visit?</strong><br/>A: October through April (dry season) offers calm seas, clear skies, and comfortable temperatures. Avoid June through August typhoon season. March and April can be misty but hauntingly beautiful. December through February is coolest at approximately 15-20 degrees Celsius.</p>
-          <p><strong>Q: Are the caves accessible for visitors with limited mobility?</strong><br/>A: Sung Sot Cave requires climbing 100+ steps that are uneven and can be slippery. Inside paths involve more stairs. Moderate fitness required. Luon Cave is accessed by kayak only. These sites are not wheelchair accessible. Visitors with walking difficulty should discuss options with their tour operator before booking.</p>
-        </details>
-
-        <!-- GALLERY -->
         <details class="port-section photo-gallery" id="gallery" open>
           <summary><h2>Photo Gallery</h2></summary>
           <div class="gallery-grid">
@@ -541,8 +530,7 @@ Soli Deo Gloria
           </div>
         </details>
 
-        <!-- CREDITS -->
-        <details class="port-section image-credits" id="credits" open>
+      <details class="port-section image-credits" id="credits" open>
           <summary><h2>Image Credits</h2></summary>
           <ul>
             <li><strong>halong-hero.webp</strong>: Wikimedia Commons (CC BY-SA)</li>
@@ -561,7 +549,17 @@ Soli Deo Gloria
           <p><em>Images sourced from Wikimedia Commons under Creative Commons licenses.</em></p>
         </details>
 
-        <section class="port-section author-disclaimer">
+      <details class="port-section" id="faq" open>
+          <summary><h2>Frequently Asked Questions</h2></summary>
+          <p><strong>Q: Where do cruise ships dock?</strong><br/>A: Ha Long International Cruise Port. Most bay exploration happens via day cruises on junk boats, which depart from various piers. Transfers are arranged by your cruise line.</p>
+          <p><strong>Q: What is the best way to see Ha Long Bay?</strong><br/>A: A day cruise on a junk boat. These tours navigate between karsts, include lunch, cave visits (Sung Sot Cave), island stops (Ti Top), and kayaking. Six to eight hours is typical. This is the essential Ha Long Bay experience.</p>
+          <p><strong>Q: Is kayaking difficult?</strong><br/>A: No. Waters are calm, currents gentle, and sit-on-top kayaks are stable. Life jackets are provided. Minimal experience needed. Guides accompany groups. Most visitors find it accessible and rewarding.</p>
+          <p><strong>Q: Can I swim in Ha Long Bay?</strong><br/>A: Yes. Ti Top Island and several other beaches offer swimming. Water is warm year-round and clear. Most day cruises include a swimming stop.</p>
+          <p><strong>Q: When is the best time to visit?</strong><br/>A: October through April (dry season) offers calm seas, clear skies, and comfortable temperatures. Avoid June through August typhoon season. March and April can be misty but hauntingly beautiful. December through February is coolest at approximately 15-20 degrees Celsius.</p>
+          <p><strong>Q: Are the caves accessible for visitors with limited mobility?</strong><br/>A: Sung Sot Cave requires climbing 100+ steps that are uneven and can be slippery. Inside paths involve more stairs. Moderate fitness required. Luon Cave is accessed by kayak only. These sites are not wheelchair accessible. Visitors with walking difficulty should discuss options with their tour operator before booking.</p>
+        </details>
+
+        <!-- GALLERY --><!-- CREDITS --><section class="port-section author-disclaimer">
           <p><strong>Until I have sailed this port myself, these notes are soundings in another's wake.</strong> This guide draws from published accounts, fellow cruisers, and careful research — but it does not yet carry the weight of my own anchor. I am working my way through the world's cruise ports, one by one, to write what I see with my own eyes and feel with my own heart. This page awaits that day.</p>
         </section>
 
@@ -690,19 +688,9 @@ Soli Deo Gloria
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
-  <script>
-  (async function recentRail(){
-    const rail = document.getElementById('recent-rail'); if(!rail) return;
-    try {
-      const response = await fetch('/assets/data/articles/index.json');
-      const data = await response.json();
-      const items = Array.isArray(data) ? data : (data.articles || []);
-      if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0f0f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) {  }
-  })();
-  </script>
   <script>window.currentPortId = 'ha-long-bay';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
   <script src="/assets/js/whimsical-port-units.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/modules/port-map.js"></script>

@@ -185,7 +185,35 @@ Soli Deo Gloria
                 <div id="logbook-btn-container"></div>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
+        <!-- FROM THE PIER -->
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Osaka cruise terminal">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Dotonbori (Street Food)</span><div class="pier-detail">Train from terminal area · 30–45 min</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚆</span> 30–45 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:45%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Osaka Castle</span><div class="pier-detail">Train to central Osaka</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚆</span> 40 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Kyoto</span><div class="pier-detail">Train from Osaka Station · 30 min · temples, geisha district</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚆</span> 1.5 hrs total</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:75%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Nara (Deer Park & Great Buddha)</span><div class="pier-detail">Train from Osaka · 45 min</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚆</span> 2 hrs total</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:80%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Terminal is in Osaka Bay (Nankō or Tempozan), 30–45 min by train to central Osaka. Pick one day trip — Osaka itself, Kyoto, or Nara. Don't try all three.</p>
+</nav>
+
+      <details class="port-section" id="weather-guide" open>
             <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
               <div id="port-weather-widget"
                data-port-id="osaka"
@@ -368,42 +396,17 @@ Soli Deo Gloria
 
           <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
             </details>
-
-
-
-
-
-<!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Osaka cruise terminal">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Dotonbori (Street Food)</span><div class="pier-detail">Train from terminal area · 30–45 min</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚆</span> 30–45 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:45%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Osaka Castle</span><div class="pier-detail">Train to central Osaka</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚆</span> 40 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:50%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Kyoto</span><div class="pier-detail">Train from Osaka Station · 30 min · temples, geisha district</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚆</span> 1.5 hrs total</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:75%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Nara (Deer Park & Great Buddha)</span><div class="pier-detail">Train from Osaka · 45 min</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚆</span> 2 hrs total</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:80%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Terminal is in Osaka Bay (Nankō or Tempozan), 30–45 min by train to central Osaka. Pick one day trip — Osaka itself, Kyoto, or Nara. Don't try all three.</p>
-</nav>
-
-      </article>
+</article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+    <section class="card" aria-labelledby="nearby-ports-title">
+      <h3 id="nearby-ports-title">Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
+        Other ports in this region:
+      </p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+    </section>
+
       <section class="card quick-answer">
         <h2>Quick Answer</h2>
         <p><strong>Osaka</strong> is Japan's food capital – a city where <em>kuidaore</em> culture (eating yourself into ruin) is celebrated as a way of life. Walk Dotonbori's historic 1612 canal beneath towering neon, taste takoyaki where it was invented in the 1930s, explore Osaka Castle's resilient history, and venture to nearby Kyoto, Nara, or Himeji. More approachable than Tokyo, more vibrant than Kyoto, and absolutely unmissable for anyone who believes food is religion.</p>
@@ -550,7 +553,9 @@ Soli Deo Gloria
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/modules/port-map.js" defer></script>
+  <script>window.currentPortId = 'osaka';</script>
   <script src="/assets/js/nearby-ports.js" defer></script>
+  <script src="/assets/js/article-rail.js"></script>
   <script>
     if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
       PortMap.init({
@@ -574,74 +579,6 @@ Soli Deo Gloria
   </script>
 
   <!-- Recent Articles Rail Script -->
-  <script>
-  (function(){
-    "use strict";
-
-    const ARTICLES_PER_PAGE = 6;
-    let allArticles = [];
-    let currentPage = 0;
-
-    async function loadArticles(){
-      fetch('/assets/data/articles/index.json')
-        .then(r => r.ok ? r.json() : Promise.reject('Failed to load'))
-        .then(data => {
-          allArticles = (data.articles || [])
-            .filter(a => a.status === 'published')
-            .sort((a, b) => new Date(b.published) - new Date(a.published));
-          renderPage(0);
-        })
-        .catch(() => {
-          document.getElementById('recent-rail-fallback').textContent = 'Unable to load articles.';
-        });
-    }
-
-    function renderPage(page){
-      currentPage = page;
-      const start = page * ARTICLES_PER_PAGE;
-      const pageArticles = allArticles.slice(start, start + ARTICLES_PER_PAGE);
-      const totalPages = Math.ceil(allArticles.length / ARTICLES_PER_PAGE);
-
-      const container = document.getElementById('recent-rail');
-      const fallback = document.getElementById('recent-rail-fallback');
-      const navTop = document.getElementById('recent-rail-nav-top');
-      const navBottom = document.getElementById('recent-rail-nav-bottom');
-
-      if(!pageArticles.length){
-        fallback.textContent = 'No articles available.';
-        return;
-      }
-      fallback.style.display = 'none';
-
-      container.innerHTML = pageArticles.map(a => {
-        const thumb = a.thumbnail || '/assets/img/default-thumb.jpg';
-        const authorName = a.author?.name || 'Unknown';
-        const href = '/solo/' + a.slug + '.html';
-        return '<a href="' + href + '" class="rail-item" style="display:flex;gap:0.75rem;align-items:center;padding:0.5rem 0;border-bottom:1px solid #e0e8f0;text-decoration:none;color:inherit;">' +
-          '<img src="' + thumb + '" alt="" aria-hidden="true" width="56" height="56" style="border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy"/>' +
-          '<span style="display:flex;flex-direction:column;gap:0.15rem;min-width:0;">' +
-            '<strong style="font-size:0.92rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + a.title + '</strong>' +
-            '<span class="tiny" style="color:#5a7a8a;">by ' + authorName + '</span>' +
-          '</span></a>';
-      }).join('');
-
-      if(totalPages > 1){
-        const navHTML = '<div style="display:flex;justify-content:space-between;align-items:center;">' +
-          '<button type="button" onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
-          '<span class="tiny" style="color:#5a7a8a;">' + (page + 1) + ' / ' + totalPages + '</span>' +
-          '<button type="button" onclick="window.__articlesNav(' + (page + 1) + ')" ' + (page >= totalPages - 1 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">Older →</button>' +
-        '</div>';
-        navTop.innerHTML = navHTML;
-        navBottom.innerHTML = navHTML;
-        navTop.style.display = 'block';
-        navBottom.style.display = 'block';
-      }
-    }
-
-    window.__articlesNav = renderPage;
-    loadArticles();
-  })();
-  </script>
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>

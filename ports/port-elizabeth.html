@@ -236,6 +236,39 @@ Soli Deo Gloria
       <div id="logbook-btn-container"></div>
 
       <!-- WEATHER & BEST TIME TO VISIT -->
+      <!-- FROM THE PIER -->
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Port Elizabeth cruise terminal">
+  <h4>From the Pier</h4>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">City Centre</span><div class="pier-detail">Taxi &middot; 3 km from port</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 10 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Boardwalk &amp; Beachfront</span><div class="pier-detail">Taxi &middot; restaurants, shops, ocean views</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 15 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Addo Elephant National Park</span><div class="pier-detail">Tour or taxi &middot; 70 km &middot; malaria-free safari</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128656;</span> 1 hr</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:65%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Sardinia Bay</span><div class="pier-detail">Taxi &middot; pristine unspoiled beach</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">SAMREC Penguin Rescue</span><div class="pier-detail">Taxi &middot; African penguin rehabilitation centre</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Port Elizabeth Harbour, 3 km from city centre. Addo is the star attraction — 1 hour drive, guaranteed elephants, completely malaria-free. Half-day or full-day tours both work well from the cruise terminal.</p>
+</nav>
+
       <details class="port-section" id="weather-guide" open>
         <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
         <div id="port-weather-widget"
@@ -368,41 +401,7 @@ Soli Deo Gloria
           <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
           <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2026-02-01 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
-
-<!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Port Elizabeth cruise terminal">
-  <h4>From the Pier</h4>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">City Centre</span><div class="pier-detail">Taxi &middot; 3 km from port</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 10 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Boardwalk &amp; Beachfront</span><div class="pier-detail">Taxi &middot; restaurants, shops, ocean views</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Addo Elephant National Park</span><div class="pier-detail">Tour or taxi &middot; 70 km &middot; malaria-free safari</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128656;</span> 1 hr</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:65%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Sardinia Bay</span><div class="pier-detail">Taxi &middot; pristine unspoiled beach</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">SAMREC Penguin Rescue</span><div class="pier-detail">Taxi &middot; African penguin rehabilitation centre</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Port Elizabeth Harbour, 3 km from city centre. Addo is the star attraction — 1 hour drive, guaranteed elephants, completely malaria-free. Half-day or full-day tours both work well from the cruise terminal.</p>
-</nav>
-
-      </article>
+</article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
@@ -484,19 +483,9 @@ Soli Deo Gloria
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
-  <script>
-  (async function recentRail(){
-    const rail = document.getElementById('recent-rail'); if(!rail) return;
-    try {
-      const response = await fetch('/assets/data/articles/index.json');
-      const data = await response.json();
-      const items = Array.isArray(data) ? data : (data.articles || []);
-      if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) {  }
-  })();
-  </script>
   <script>window.currentPortId = 'port-elizabeth';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
   <script src="/assets/js/whimsical-port-units.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/modules/port-map.js"></script>

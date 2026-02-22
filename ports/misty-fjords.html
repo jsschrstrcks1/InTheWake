@@ -145,6 +145,22 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
 
+  <!-- Swiper CSS/JS -->
+  <script>
+  (function ensureSwiper(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok, fail){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+    }
+    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(primaryCSS);
+    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  })();
+  </script>
+
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Misty Fjords — Alaska's Yosemite"/>
@@ -257,11 +273,48 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <main class="wrap page-grid" id="main-content" role="main" tabindex="-1" style="max-width: 900px; margin: 0 auto; padding: 2rem 1rem;">
     <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
+        <section class="port-hero" id="hero" aria-label="Misty Fjords scenic cruising hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+          <div class="port-hero-image" style="position: relative;">
+            <img src="/ports/img/misty-fjords/misty-fjords-hero.webp" alt="Granite cliffs rising from misty waters in Misty Fjords National Monument" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover;"/>
+            <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+              <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 8vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">Misty Fjords</h1>
+            </div>
+          </div>
+          <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://www.flickr.com/photos/prior2prayer/6348985579/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a> (CC BY 2.0)</p>
+        </section>
 
       <h1>Misty Fjords National Monument</h1>
       <p style="font-size: 0.95rem; color: #456; margin-bottom: 0;">
         <strong>Region:</strong> Alaska &nbsp;|&nbsp; <strong>Type:</strong> Scenic Cruising &nbsp;|&nbsp; <strong>Access:</strong> Ship cruising or floatplane from Ketchikan
       </p>
+
+<!-- FROM THE PIER -->
+<nav class="from-the-pier" id="from-the-pier" aria-label="Viewing positions during Misty Fjords scenic cruising">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Forward Observation Deck</span><div class="pier-detail">Best panoramic views of approaching cliffs and waterfalls</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 2 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:3%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Promenade Deck</span><div class="pier-detail">Open-air walking deck for port-to-starboard movement</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 1 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:2%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Upper Observation Lounge</span><div class="pier-detail">Indoor viewing with panoramic windows. Good for rain</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 3 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:4%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Lower Deck (Waterline)</span><div class="pier-detail">Emphasizes cliff height. Feel the scale of the granite walls</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 3 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:4%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Misty Fjords is a scenic cruising destination — your ship does not dock. Distances below refer to walking times between viewing decks on a typical cruise ship. Arrive at your chosen viewing spot 15–20 minutes before the announced cruising time for the best position.</p>
+</nav>
 
     </article>
 
@@ -269,6 +322,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <details class="section-collapse" open>
         <summary><h2>Captain's Logbook</h2></summary>
 
+        <figure class="logbook-figure float-left" style="max-width:260px;margin:0 1.25rem 1rem 0;float:left;">
+          <img src="/ports/img/misty-fjords/misty-fjords-1.webp" alt="Granite cliffs rising from the waters of Behm Canal" loading="lazy" decoding="async" style="width:100%;border-radius:8px;"/>
+          <figcaption class="tiny" style="margin-top:0.35rem;color:#678;">Behm Canal cliffs <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/prior2prayer/6348985579/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a></span></figcaption>
+        </figure>
         <p>I woke before the announcement. Something about the stillness of the ship — a change in the engine rhythm, a slowing that you feel in your bones before your mind registers it. I pulled back the curtain and there was nothing but gray. Cloud and water and the faintest suggestion of stone, all the same pewter color, the horizon dissolved entirely. Then the cliff materialized. Not gradually but suddenly, like a wall of the earth itself had stepped forward out of the fog — 3,000 feet of wet granite rising straight from the waterline, draped in moss so green it seemed to glow against the gray. I stood there in my pajamas for a full minute with my hand on the glass, trying to comprehend the scale of it.</p>
 
         <p>I dressed fast and went topside. The forward observation deck was already half full of early risers standing at the rail in rain jackets, coffee cups steaming, binoculars raised. Nobody was talking much. There is a particular silence that Misty Fjords imposes on people — not the enforced hush of a cathedral but the involuntary quiet that comes when the landscape simply overwhelms language. We floated through Behm Canal at maybe four knots, the ship's wake the only disturbance on water so flat it looked like poured mercury. Waterfalls dropped hundreds of feet down the cliff faces, some of them thin as threads, others wide enough to hear from the deck — a steady roar that echoed between the granite walls and made the whole fjord feel like the inside of some enormous instrument.</p>
@@ -279,6 +336,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
         <p>President Carter designated this place a National Monument in 1978, protecting 2.3 million acres — one of the largest wilderness areas in the country. Standing on the deck, I understood why. There is nothing here that humans have built or improved. No roads, no structures, no cell towers, no signs. Just granite and water and forest and silence, arranged in proportions that make human engineering seem modest by comparison. They call it Alaska's Yosemite, which is fair as far as the geology goes — the sheer cliff faces invite the comparison — but Yosemite has parking lots and shuttle buses and gift shops. Misty Fjords has fog and eagles and the sound of water falling from the sky.</p>
 
+        <figure class="logbook-figure float-right" style="max-width:260px;margin:0 0 1rem 1.25rem;float:right;">
+          <img src="/ports/img/misty-fjords/misty-fjords-3.webp" alt="Waterfall cascading down a cliff face in Misty Fjords" loading="lazy" decoding="async" style="width:100%;border-radius:8px;"/>
+          <figcaption class="tiny" style="margin-top:0.35rem;color:#678;">Fjord waterfall <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/prior2prayer/6349089943/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a></span></figcaption>
+        </figure>
         <p>When the ship entered Rudyerd Bay, the cliffs tightened around us like the walls of an enormous hallway, and I felt the scale shift again. Punchbowl Cove opened to starboard — a near-perfect circle of cliff and forest surrounding a dark pool of water so still it reflected the sky. The mist hung low in the cove, drifting across the surface in wisps. Several passengers around me reached for their phones and then lowered them again, recognizing what I had already felt: some places resist the camera. They exist fully only in the moment, in the cold air on your face and the sound of dripping water and the smell of cedar and stone. You can photograph a cliff. You cannot photograph how it feels to be small beside it.</p>
 
         <div class="poignant-highlight">
@@ -293,7 +354,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
         <p>Practical notes: Bring binoculars — they transform distant white specks into mountain goats and dark shapes into bears along the shoreline. Dress warmly and expect rain; this is not a sundeck occasion. If your ship offers a narrated passage, listen — the geology and natural history add depth to what you're seeing. And if Ketchikan is on your itinerary and your budget can stretch to the floatplane ($250-350), do not hesitate. You will see one of the last truly wild places in America from the only perspective that reveals its full measure.</p>
 
-        <p>I think about Misty Fjords more often than any port where I stepped ashore. There is something about a place you cannot walk through, cannot buy a souvenir from, cannot check off a list of activities — a place that simply presents itself and asks nothing of you except attention. In a world determined to sell you experiences, Misty Fjords gives one away for free from the deck of your ship: the experience of standing in the presence of something so much older and larger than yourself that all you can do is be quiet and look.</p>
+        <p>I think about Misty Fjords more often than any port where I stepped ashore. There is something about a place you cannot walk through, cannot buy a souvenir from, cannot check off a list of activities — a place that simply presents itself and asks nothing of you except attention. In a world determined to sell you experiences, Misty Fjords gives one away for free from the deck of your ship: the experience of standing in the presence of something so much older and larger than yourself that all you can do is be quiet and look. Something shifted in me that morning among the cliffs, and it has not shifted back.</p>
       </details>
     </section>
 
@@ -503,6 +564,58 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         </aside>
 
 
+    <section id="gallery" class="card mt-2">
+      <details class="section-collapse" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="collapse-body">
+      <div class="swiper port-gallery" aria-label="Misty Fjords photo carousel">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/misty-fjords/misty-fjords-1.webp" alt="Granite cliffs and calm water in Behm Canal" loading="lazy" decoding="async">
+              <figcaption>Behm Canal <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/prior2prayer/6348985579/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/misty-fjords/misty-fjords-2.webp" alt="New Eddystone Rock volcanic plug rising from the water" loading="lazy" decoding="async">
+              <figcaption>New Eddystone Rock <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/prior2prayer/6349089943/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/misty-fjords/misty-fjords-3.webp" alt="Waterfall cascading down granite cliff in the fjords" loading="lazy" decoding="async">
+              <figcaption>Fjord waterfall <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/prior2prayer/6348985579/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/misty-fjords/misty-fjords-4.webp" alt="Misty conditions in the fjords with clouds low on the cliffs" loading="lazy" decoding="async">
+              <figcaption>Misty conditions <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/prior2prayer/6349089943/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/misty-fjords/misty-fjords-5.webp" alt="Punchbowl Cove with mirror-still water reflecting surrounding cliffs" loading="lazy" decoding="async">
+              <figcaption>Punchbowl Cove <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/prior2prayer/6348985579/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/ports/img/misty-fjords/misty-fjords-6.webp" alt="View from ship deck passing through the misty fjords" loading="lazy" decoding="async">
+              <figcaption>Ship passage through the fjords <span class="photo-credit">Photo: <a href="https://www.flickr.com/photos/prior2prayer/6349089943/" target="_blank" rel="noopener">Alaskan Dude / Flickr</a></span></figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+      </div>
+      <p class="tiny" style="margin-top: 1rem; color: #678;"><em>Images sourced from Flickr under Creative Commons licenses (CC BY 2.0, CC BY-SA 2.0).</em></p>
+        </div>
+      </details>
+    </section>
+
         <section id="faq" class="card faq mt-2">
           <details class="section-collapse" open>
             <summary><h2>Frequently Asked Questions</h2></summary>
@@ -641,24 +754,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <p class="trust-badge">&#10003; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
-  <script>
-    (async function() {
-      try {
-        const response = await fetch('/assets/data/articles/index.json');
-        const articles = await response.json();
-        const rail = document.getElementById('recent-rail');
-        if (rail && articles && articles.length > 0) {
-          rail.innerHTML = articles.slice(0, 5).map(article => `
-            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${article.url}">${article.title}</a></h4>
-              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
-            </div>
-          `).join('');
-        }
-      } catch (err) {  }
-    })();
-  </script>
-
   <script>window.currentPortId = 'misty-fjords';</script>
   <script src="/assets/js/nearby-ports.js?v=3.010.306"></script>
   <script src="/assets/js/dropdown.js"></script>
@@ -666,6 +761,27 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/whimsical-port-units.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
+  <!-- Initialize Photo Gallery Swiper -->
+  <script>
+  (function() {
+    function initSwiper() {
+      if (typeof Swiper !== 'undefined') {
+        new Swiper('.port-gallery', {
+          slidesPerView: 1,
+          spaceBetween: 20,
+          loop: true,
+          pagination: { el: '.swiper-pagination', clickable: true },
+          navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+          breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+        });
+      } else { setTimeout(initSwiper, 100); }
+    }
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initSwiper); }
+    else { initSwiper(); }
+  })();
+  </script>
+
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
 </body>

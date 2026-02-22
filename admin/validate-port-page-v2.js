@@ -215,8 +215,8 @@ const SECTION_PATTERNS = {
 const EXPECTED_MAIN_ORDER = [
   'hero', 'logbook', 'featured_images', 'cruise_port', 'getting_around',
   'map', 'beaches', 'excursions', 'history', 'cultural', 'shopping',
-  'food', 'notices', 'depth_soundings', 'practical', 'faq', 'gallery',
-  'credits', 'back_nav'
+  'food', 'notices', 'depth_soundings', 'practical', 'gallery',
+  'credits', 'faq', 'back_nav'
 ];
 
 // Required sections (cannot be skipped)
@@ -2381,14 +2381,73 @@ async function validatePOIManifest(filepath) {
   try {
     const content = readFileSync(mapPath, 'utf-8');
     const data = JSON.parse(content);
+
+    // The map module (port-map.js) renders POIs from TWO sources:
+    //   1. port_pin — always renders the cruise terminal pin
+    //   2. poi_ids — looked up in poi-index.json for lat/lon/type
+    // The pois array in the manifest is supplemental metadata.
+    // We check BOTH poi_ids resolution AND pois array count.
+
+    const poiIds = data.poi_ids || [];
     const pois = data.pois || data.points || data.markers || [];
     const poiCount = Array.isArray(pois) ? pois.length : 0;
 
-    if (poiCount < 10) {
+    // Primary check: resolved poi_ids in poi-index.json (what actually renders)
+    let resolvedCount = 0;
+    let missingIds = [];
+    const poiIndexPath = join(PROJECT_ROOT, 'assets', 'data', 'maps', 'poi-index.json');
+    if (existsSync(poiIndexPath)) {
+      try {
+        const poiIndexContent = readFileSync(poiIndexPath, 'utf-8');
+        const poiIndex = JSON.parse(poiIndexContent);
+        missingIds = poiIds.filter(id => !poiIndex[id]);
+        resolvedCount = poiIds.length - missingIds.length;
+      } catch (_) {
+        // poi-index.json parse error — fall back to pois array count
+        resolvedCount = poiCount;
+      }
+    } else {
+      resolvedCount = poiCount;
+    }
+
+    // Use the better of poi_ids resolution or pois array for the count
+    const effectivePoiCount = Math.max(resolvedCount, poiCount);
+
+    if (effectivePoiCount < 10) {
       warnings.push({
         section: 'poi_manifest',
         rule: 'insufficient_pois',
-        message: `POI manifest has ${poiCount} point(s), minimum recommended is 10`,
+        message: `Map has ${effectivePoiCount} renderable point(s) (${resolvedCount} resolved poi_ids, ${poiCount} in pois array), minimum recommended is 10`,
+        severity: 'WARNING'
+      });
+    }
+
+    // Warn about unresolved poi_ids — these won't render on the map
+    if (missingIds.length > 0) {
+      warnings.push({
+        section: 'poi_manifest',
+        rule: 'unresolved_poi_ids',
+        message: `${missingIds.length} poi_id(s) not found in poi-index.json: ${missingIds.slice(0, 5).join(', ')}${missingIds.length > 5 ? ` and ${missingIds.length - 5} more` : ''}. Map markers will not render for these.`,
+        severity: 'WARNING'
+      });
+    }
+
+    // Warn if pois data exists but poi_ids is empty (map won't show markers)
+    if (poiCount > 0 && poiIds.length === 0) {
+      warnings.push({
+        section: 'poi_manifest',
+        rule: 'pois_without_poi_ids',
+        message: `Manifest has ${poiCount} pois but no poi_ids array. Map markers rely on poi_ids referencing poi-index.json.`,
+        severity: 'WARNING'
+      });
+    }
+
+    // Warn if poi_ids exist but no pois array (data not self-contained)
+    if (poiIds.length > 0 && poiCount === 0) {
+      warnings.push({
+        section: 'poi_manifest',
+        rule: 'poi_ids_without_pois',
+        message: `Manifest has ${poiIds.length} poi_ids but no pois array. Add a pois array with coordinates for data completeness.`,
         severity: 'WARNING'
       });
     }
@@ -2397,7 +2456,7 @@ async function validatePOIManifest(filepath) {
       valid: true,
       errors,
       warnings,
-      data: { hasManifest: true, poiCount }
+      data: { hasManifest: true, poiCount, poiIdCount: poiIds.length, resolvedCount }
     };
   } catch (e) {
     warnings.push({

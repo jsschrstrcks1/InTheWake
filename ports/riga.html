@@ -243,6 +243,34 @@ Soli Deo Gloria
       </section>
 
     <article class="card"><h1>Riga: My Art Nouveau Capital</h1>
+      <!-- FROM THE PIER -->
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Riga cruise terminal">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Old Town (Vecrīga)</span><div class="pier-detail">Walk from terminal along Daugava River</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Art Nouveau District (Alberta iela)</span><div class="pier-detail">Walk northeast from old town — 800+ Jugendstil buildings</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 25 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:32%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Central Market (Zeppelin Hangars)</span><div class="pier-detail">Walk or tram — five former Zeppelin hangars full of food</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">House of the Blackheads</span><div class="pier-detail">Walk through old town — ornate guild hall, reconstructed</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 18 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Terminal along the Daugava, easy walk or quick tram to old town. Beautiful, affordable, and genuinely friendly. Medieval modesty meets Jugendstil exuberance.</p>
+</nav>
+
       <div class="logbook-entry">
         <p>When I walked off the ship along the Daugava River and entered Vecrīga – the Old Town – I felt like I'd stepped into a living museum where eight centuries whispered their stories all at once. Bishop Albert of Riga founded this place in 1201 as a base for Christianizing the Baltic region, and you can still feel that medieval gravity in the narrow cobblestone lanes, in the Gothic towers of St. Peter's Church and Riga Cathedral (the Doma), in the Three Brothers houses huddled together like they're sharing secrets from the Hanseatic League days. Every corner of this UNESCO World Heritage Site (inscribed 1997) reveals another layer of the past – medieval merchants' warehouses, guild halls, the reconstructed House of the Blackheads with its ornate stepped gable gleaming like it never fell to the bombs.</p>
 
@@ -479,40 +507,7 @@ Soli Deo Gloria
 
           <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
             </details>
-
-
-
-
-
-<!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Riga cruise terminal">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Old Town (Vecrīga)</span><div class="pier-detail">Walk from terminal along Daugava River</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Art Nouveau District (Alberta iela)</span><div class="pier-detail">Walk northeast from old town — 800+ Jugendstil buildings</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 25 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:32%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Central Market (Zeppelin Hangars)</span><div class="pier-detail">Walk or tram — five former Zeppelin hangars full of food</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">House of the Blackheads</span><div class="pier-detail">Walk through old town — ornate guild hall, reconstructed</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 18 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Terminal along the Daugava, easy walk or quick tram to old town. Beautiful, affordable, and genuinely friendly. Medieval modesty meets Jugendstil exuberance.</p>
-</nav>
-
-      </article>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
     <section class="page-intro" style="margin: 0 0 1rem 0;">
@@ -622,30 +617,6 @@ Soli Deo Gloria
     <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
-  <script>
-    // Load recent articles
-    (async function() {
-      try {
-        const response = await fetch('/assets/data/articles/index.json');
-        const articles = await response.json();
-        const rail = document.getElementById('recent-rail');
-
-        if (rail && articles && articles.length > 0) {
-          rail.innerHTML = articles.slice(0, 5).map(article => `
-            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
-                <a href="${article.url}">${article.title}</a>
-              </h4>
-              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
-            </div>
-          `).join('');
-        }
-      } catch (err) {
-        
-      }
-    })();
-  </script>
-
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/port-logbook-btn.js" defer></script>
@@ -673,6 +644,7 @@ Soli Deo Gloria
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'riga';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>

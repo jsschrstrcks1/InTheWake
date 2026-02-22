@@ -233,7 +233,35 @@ Soli Deo Gloria
         <div id="journal-btn-container"></div>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
+        <!-- FROM THE PIER -->
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Ushuaia">
+  <h4>From the Pier</h4>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Ushuaia Town Center</span><div class="pier-detail">Walk from the pier — San Mart&iacute;n Avenue, End of the World signs, chocolate shops</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 5 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">End of the World Train</span><div class="pier-detail">Taxi to station — original prisoners' railway into Tierra del Fuego National Park</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128642;</span> 20 min to station</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Tierra del Fuego National Park</span><div class="pier-detail">Bus or taxi — Lapataia Bay (Ruta 3 ends here), forest trails, Beagle Channel</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128652;</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Beagle Channel Boat Tour</span><div class="pier-detail">Catamaran from harbor — sea lions, penguins, Les Eclaireurs lighthouse</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#9972;&#65039;</span> 3 hrs</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:100%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">World's southernmost city. Ships dock in the harbor right in town. Antarctica is 600 miles south across the Drake Passage. Get your passport stamped at the "End of the World" post office. The Beagle Channel catamaran is the signature excursion.</p>
+</nav>
+
+      <details class="port-section" id="weather-guide" open>
             <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
               <div id="port-weather-widget"
                data-port-id="ushuaia"
@@ -345,36 +373,7 @@ Soli Deo Gloria
           <h4>Author's Note</h4>
           <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake — gathered from travelers I trust, charts I have studied, and the most reliable accounts I can find. I have done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I will return to these pages and correct my course.</em></p>
         </section>
-
-<!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Ushuaia">
-  <h4>From the Pier</h4>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Ushuaia Town Center</span><div class="pier-detail">Walk from the pier — San Mart&iacute;n Avenue, End of the World signs, chocolate shops</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 5 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">End of the World Train</span><div class="pier-detail">Taxi to station — original prisoners' railway into Tierra del Fuego National Park</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128642;</span> 20 min to station</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Tierra del Fuego National Park</span><div class="pier-detail">Bus or taxi — Lapataia Bay (Ruta 3 ends here), forest trails, Beagle Channel</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128652;</span> 20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Beagle Channel Boat Tour</span><div class="pier-detail">Catamaran from harbor — sea lions, penguins, Les Eclaireurs lighthouse</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#9972;&#65039;</span> 3 hrs</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:100%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">World's southernmost city. Ships dock in the harbor right in town. Antarctica is 600 miles south across the Drake Passage. Get your passport stamped at the "End of the World" post office. The Beagle Channel catamaran is the signature excursion.</p>
-</nav>
-
-      </article>
+</article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
@@ -483,19 +482,9 @@ Soli Deo Gloria
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
-  <script>
-  (async function recentRail(){
-    const rail = document.getElementById('recent-rail'); if(!rail) return;
-    try {
-      const response = await fetch('/assets/data/articles/index.json');
-      const data = await response.json();
-      const items = Array.isArray(data) ? data : (data.articles || []);
-      if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) {  }
-  })();
-  </script>
   <script>window.currentPortId = 'ushuaia';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
   <script src="/assets/js/whimsical-port-units.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/modules/port-map.js"></script>

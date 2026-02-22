@@ -241,6 +241,34 @@ Soli Deo Gloria
       </section>
 
     <article class="card"><h1>Warnemünde: My Gateway to Berlin</h1>
+      <!-- FROM THE PIER -->
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Warnemünde">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Warnemünde Lighthouse & Beach</span><div class="pier-detail">Walk from the pier — Baltic beach resort, lighthouse views, fish stands</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Rostock Old Town</span><div class="pier-detail">S-Bahn train — Hanseatic architecture, St. Mary's Church astronomical clock</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚂</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Berlin — Brandenburg Gate</span><div class="pier-detail">Express train or tour bus — German capital, 3+ hours each way</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚂</span> 3 hrs</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:100%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Berlin — Museum Island</span><div class="pier-detail">Five world-class museums on an island in the Spree — Pergamon, Neues, Bode</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚂</span> 3 hrs</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:100%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Ships dock at Warnemünde cruise terminal. Berlin is the main draw but it's a long day trip — 3+ hours each way by train. Warnemünde itself is a charming beach resort worth enjoying if Berlin feels too rushed. Fischbrötchen (fish sandwiches) at the harbor stands are essential.</p>
+</nav>
+
       <div class="logbook-entry">
         <p>We took the first train to Berlin at 7:30 a.m. and were at Brandenburg Gate by 10:15 – the city still quiet enough to feel intimate. Walked Unter den Linden to Museum Island, cried at the Pergamon Altar (even reconstructed), then Checkpoint Charlie and the East Side Gallery where the Wall still stands covered in murals. We had currywurst at Curry 36 that tasted exactly like freedom and mustard. The morning train carried us from this ancient fishing village – founded around 1200 at the mouth of the Warnow, purchased by Rostock in 1323 to guard their Hanseatic trade routes – into the heart of modern German history.</p>
       <figure class="logbook-image float-right">
@@ -445,40 +473,7 @@ Soli Deo Gloria
 
           <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
             </details>
-
-
-
-
-
-<!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Warnemünde">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Warnemünde Lighthouse & Beach</span><div class="pier-detail">Walk from the pier — Baltic beach resort, lighthouse views, fish stands</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Rostock Old Town</span><div class="pier-detail">S-Bahn train — Hanseatic architecture, St. Mary's Church astronomical clock</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚂</span> 20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Berlin — Brandenburg Gate</span><div class="pier-detail">Express train or tour bus — German capital, 3+ hours each way</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚂</span> 3 hrs</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:100%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Berlin — Museum Island</span><div class="pier-detail">Five world-class museums on an island in the Spree — Pergamon, Neues, Bode</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚂</span> 3 hrs</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:100%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Ships dock at Warnemünde cruise terminal. Berlin is the main draw but it's a long day trip — 3+ hours each way by train. Warnemünde itself is a charming beach resort worth enjoying if Berlin feels too rushed. Fischbrötchen (fish sandwiches) at the harbor stands are essential.</p>
-</nav>
-
-      </article>
+</article>
   </div>
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
     <section class="page-intro" style="margin: 0 0 1rem 0;">
@@ -588,30 +583,6 @@ Soli Deo Gloria
     <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
-  <script>
-    // Load recent articles
-    (async function() {
-      try {
-        const response = await fetch('/assets/data/articles/index.json');
-        const articles = await response.json();
-        const rail = document.getElementById('recent-rail');
-
-        if (rail && articles && articles.length > 0) {
-          rail.innerHTML = articles.slice(0, 5).map(article => `
-            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
-                <a href="${article.url}">${article.title}</a>
-              </h4>
-              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
-            </div>
-          `).join('');
-        }
-      } catch (err) {
-        
-      }
-    })();
-  </script>
-
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/port-logbook-btn.js" defer></script>
@@ -639,6 +610,7 @@ Soli Deo Gloria
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'warnemunde';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>

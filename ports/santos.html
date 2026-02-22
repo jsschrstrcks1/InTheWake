@@ -349,6 +349,27 @@ All work on this project is offered as a gift to God.
       </aside>
 
       <!-- ============ FAQ ============ -->
+      <details class="port-section" id="gallery" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper port-gallery">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+            </div>
+            <div class="swiper-slide">
+            </div>
+            <div class="swiper-slide">
+            </div>
+            <div class="swiper-slide">
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="port-section" id="credits" open>
+        <summary><h2>Image Credits</h2></summary>
+        <p>All images used on this page are sourced from free-use platforms. Hero image from <a href="https://commons.wikimedia.org/wiki/File:Santos_Brazil.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>. Additional photos from <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> and <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>. All images are used under their respective Creative Commons or free-use licenses.</p>
+      </details>
+
       <details class="port-section" id="faq" open>
         <summary><h2>Frequently Asked Questions</h2></summary>
 
@@ -428,30 +449,7 @@ All work on this project is offered as a gift to God.
       }
       </script>
 
-      <!-- ============ GALLERY ============ -->
-      <details class="port-section" id="gallery" open>
-        <summary><h2>Photo Gallery</h2></summary>
-        <div class="swiper port-gallery">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-            </div>
-            <div class="swiper-slide">
-            </div>
-            <div class="swiper-slide">
-            </div>
-            <div class="swiper-slide">
-            </div>
-          </div>
-        </div>
-      </details>
-
-      <!-- ============ CREDITS ============ -->
-      <details class="port-section" id="credits" open>
-        <summary><h2>Image Credits</h2></summary>
-        <p>All images used on this page are sourced from free-use platforms. Hero image from <a href="https://commons.wikimedia.org/wiki/File:Santos_Brazil.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>. Additional photos from <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> and <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>. All images are used under their respective Creative Commons or free-use licenses.</p>
-      </details>
-
-      <!-- ============ BACK NAV ============ -->
+      <!-- ============ GALLERY ============ --><!-- ============ CREDITS ============ --><!-- ============ BACK NAV ============ -->
       <nav class="port-section" id="back_nav" aria-label="Back navigation">
         <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
       </nav>
@@ -563,33 +561,10 @@ All work on this project is offered as a gift to God.
     <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
-  <script>
-    // Load recent articles
-    (async function() {
-      try {
-        const response = await fetch('/assets/data/articles/index.json');
-        const articles = await response.json();
-        const rail = document.getElementById('recent-rail');
-
-        if (rail && articles && articles.length > 0) {
-          rail.innerHTML = articles.slice(0, 5).map(article => `
-            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
-                <a href="${article.url}">${article.title}</a>
-              </h4>
-              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
-            </div>
-          `).join('');
-        }
-      } catch (err) {
-        
-      }
-    })();
-  </script>
-
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'santos';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>

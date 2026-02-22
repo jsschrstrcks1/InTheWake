@@ -4,7 +4,6 @@
     "generated": "2025-12-13T00:00:00Z",
     "source": "Researched from Baja California Tourism, wine region guides, cruise sources"
   },
-
   "port_slug": "ensenada",
   "port_name": "Ensenada",
   "port_pin": {
@@ -12,29 +11,102 @@
     "lon": -116.6167,
     "label": "Ensenada Cruise Terminal"
   },
-
   "bbox_hint": {
-    "south": 31.70,
-    "west": -116.70,
-    "north": 32.00,
-    "east": -116.50,
+    "south": 31.7,
+    "west": -116.7,
+    "north": 32,
+    "east": -116.5,
     "note": "Covers downtown, La Bufadora, Valle de Guadalupe"
   },
-
+  "pois": [
+    {
+      "id": "ensenada-port",
+      "name": "Ensenada Cruise Terminal",
+      "lat": 31.8667,
+      "lon": -116.6167,
+      "type": "port"
+    },
+    {
+      "id": "la-bufadora",
+      "name": "La Bufadora (blowhole)",
+      "lat": 31.718,
+      "lon": -116.726,
+      "type": "nature"
+    },
+    {
+      "id": "valle-de-guadalupe",
+      "name": "Valle de Guadalupe Wine Country",
+      "lat": 32.07,
+      "lon": -116.61,
+      "type": "district"
+    },
+    {
+      "id": "ensenada-malecon",
+      "name": "Malecón (waterfront promenade)",
+      "lat": 31.864,
+      "lon": -116.62,
+      "type": "scenic"
+    },
+    {
+      "id": "hussongs-cantina",
+      "name": "Hussong's Cantina (est. 1892)",
+      "lat": 31.8665,
+      "lon": -116.6185,
+      "type": "dining"
+    },
+    {
+      "id": "fish-market",
+      "name": "Ensenada Fish Market",
+      "lat": 31.865,
+      "lon": -116.621,
+      "type": "shopping"
+    },
+    {
+      "id": "giant-flag",
+      "name": "Giant Mexican Flag Monument",
+      "lat": 31.866,
+      "lon": -116.6195,
+      "type": "landmark"
+    },
+    {
+      "id": "riviera-cultural-center",
+      "name": "Riviera del Pacífico Cultural Center",
+      "lat": 31.863,
+      "lon": -116.616,
+      "type": "cultural"
+    },
+    {
+      "id": "primera-street",
+      "name": "Calle Primera (shopping street)",
+      "lat": 31.867,
+      "lon": -116.618,
+      "type": "shopping"
+    },
+    {
+      "id": "civic-plaza",
+      "name": "Plaza Cívica",
+      "lat": 31.8655,
+      "lon": -116.6175,
+      "type": "landmark"
+    }
+  ],
   "poi_ids": [
     "ensenada-port",
     "la-bufadora",
     "valle-de-guadalupe",
-    "ensenada-malecon"
+    "ensenada-malecon",
+    "hussongs-cantina",
+    "fish-market",
+    "giant-flag",
+    "riviera-cultural-center",
+    "primera-street",
+    "civic-plaza"
   ],
-
   "label_overrides": {
     "la-bufadora": "La Bufadora (marine blowhole)",
     "valle-de-guadalupe": "Valle de Guadalupe (wine country)"
   },
-
   "approximate_markers": [],
-
   "transit_routes": [
     {
       "id": "walk-downtown",
@@ -42,7 +114,10 @@
       "type": "walking",
       "cost": "Free",
       "duration": "5-10 minutes",
-      "connects": ["ensenada-port", "ensenada-malecon"],
+      "connects": [
+        "ensenada-port",
+        "ensenada-malecon"
+      ],
       "note": "Tourist shops near port. Walk inland for more authentic experience."
     },
     {
@@ -51,7 +126,10 @@
       "type": "taxi",
       "cost": "USD 60-80 round trip",
       "duration": "30 minutes",
-      "connects": ["ensenada-port", "la-bufadora"],
+      "connects": [
+        "ensenada-port",
+        "la-bufadora"
+      ],
       "note": "Marine geyser. Best at high tide. Vendor gauntlet to viewing platform."
     },
     {
@@ -60,31 +138,45 @@
       "type": "excursion",
       "cost": "USD 80-150",
       "duration": "4-6 hours",
-      "connects": ["ensenada-port", "valle-de-guadalupe"],
+      "connects": [
+        "ensenada-port",
+        "valle-de-guadalupe"
+      ],
       "note": "Mexico's premier wine region. 150+ wineries. Need transportation."
     }
   ],
-
   "featured_experiences": [
     {
       "name": "Valle de Guadalupe Wine Tour",
       "type": "cultural",
       "duration": "4-6 hours",
-      "highlights": ["Wine tasting", "Vineyard views", "Farm-to-table dining"],
+      "highlights": [
+        "Wine tasting",
+        "Vineyard views",
+        "Farm-to-table dining"
+      ],
       "note": "Mexico's Napa. Book ship excursion or private driver. Great restaurants."
     },
     {
       "name": "La Bufadora Blowhole",
       "type": "nature",
       "duration": "2-3 hours",
-      "highlights": ["100-foot spray", "Coastal scenery", "Vendor market"],
+      "highlights": [
+        "100-foot spray",
+        "Coastal scenery",
+        "Vendor market"
+      ],
       "note": "Check tide charts. High tide = best action. Bring cash for vendors."
     },
     {
       "name": "Fish Taco Quest",
       "type": "food",
       "duration": "2-3 hours",
-      "highlights": ["Street tacos", "Mercado Negro", "Local seafood"],
+      "highlights": [
+        "Street tacos",
+        "Mercado Negro",
+        "Local seafood"
+      ],
       "note": "Ensenada claims to have invented fish tacos. Seek local spots."
     }
   ]

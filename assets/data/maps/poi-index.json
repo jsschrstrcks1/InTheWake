@@ -2,40 +2,42 @@
   "_meta": {
     "version": "1.5.0",
     "description": "Global POI index for port maps. POIs are referenced by ID in per-port manifests.",
-    "updated": "2026-01-31",
+    "updated": "2026-02-21",
     "schema": "/schema/poi-index.schema.json",
     "counts": {
-      "aruba": 33,
-      "anchorage": 21,
+      "vancouver": 8,
+      "aruba": 32,
+      "anchorage": 27,
       "juneau": 17,
-      "ketchikan": 19,
-      "singapore": 18,
+      "ketchikan": 23,
+      "singapore": 17,
       "sydney": 12,
-      "tokyo": 13,
-      "hong-kong": 12,
+      "tokyo": 12,
+      "hong-kong": 11,
       "shanghai": 9,
       "bangkok": 8,
       "bali": 8,
       "brisbane": 7,
       "auckland": 7,
       "south-pacific": 6,
-      "cozumel": 12,
+      "cozumel": 11,
       "nassau": 8,
       "st-thomas": 7,
-      "st-maarten": 8,
+      "st-maarten": 7,
       "grand-cayman": 7,
       "cococay": 12,
-      "labadee": 7,
-      "jamaica": 8,
+      "labadee": 6,
+      "jamaica": 7,
       "curacao": 7,
       "costa-maya": 6,
-      "glacier-bay": 5,
+      "glacier-bay": 15,
       "haines": 5,
       "icy-strait-point": 5,
       "seward": 6,
-      "sitka": 6,
-      "skagway": 6,
-      "tracy-arm": 4,
+      "sitka": 13,
+      "skagway": 15,
+      "tracy-arm": 13,
+      "inside-passage": 10,
       "honolulu": 6,
       "maui": 6,
       "hilo": 5,
@@ -115,7 +117,6 @@
       "kirkwall": 6,
       "lerwick": 6,
       "waterford": 6,
-      "vancouver": 8,
       "alexandria": 5,
       "buzios": 3,
       "cape-cod": 3,
@@ -148,7 +149,17 @@
       "st-john-usvi": 3,
       "tobago": 4,
       "torshavn": 4,
-      "trinidad": 4
+      "trinidad": 4,
+      "cabo-san-lucas": 10,
+      "mazatlan": 10,
+      "zihuatanejo": 10,
+      "puerto-vallarta": 10,
+      "manzanillo": 10,
+      "huatulco": 10,
+      "ensenada": 10,
+      "acapulco": 10,
+      "hubbard-glacier": 10,
+      "endicott-arm": 9
     }
   },
   "canada-place": {
@@ -4228,7 +4239,7 @@
       "bay cruise",
       "wildlife cruise"
     ],
-    "lat": 60.0,
+    "lat": 60,
     "lon": -149.4167,
     "type": "nature",
     "geometry": "polygon",
@@ -4248,6 +4259,132 @@
     "geometry": "polygon",
     "notes": "Historic small town with shops, restaurants, galleries. Iditarod trailhead. Walking distance from dock. Very scenic waterfront.",
     "port": "seward"
+  },
+  "seward-harbor": {
+    "id": "seward-harbor",
+    "name": "Seward Small Boat Harbor",
+    "lat": 60.1065,
+    "lon": -149.4385,
+    "type": "marina",
+    "notes": "Active fishing harbor adjacent to the cruise dock. Charter fishing, kayak tours, and Kenai Fjords boat tours depart from here.",
+    "port": "seward"
+  },
+  "seward-waterfront-park": {
+    "id": "seward-waterfront-park",
+    "name": "Seward Waterfront Park",
+    "lat": 60.104,
+    "lon": -149.439,
+    "type": "park",
+    "notes": "Scenic waterfront trail connecting the cruise dock to downtown. Public art, benches, and mountain views.",
+    "port": "seward"
+  },
+  "seward-military-museum": {
+    "id": "seward-military-museum",
+    "name": "Seward Military Resort",
+    "lat": 60.102,
+    "lon": -149.433,
+    "type": "museum",
+    "notes": "Former WWII military base, now recreation area. Small museum about Seward's military history.",
+    "port": "seward"
+  },
+  "iditarod-trailhead": {
+    "id": "iditarod-trailhead",
+    "name": "Iditarod National Historic Trail",
+    "lat": 60.105,
+    "lon": -149.443,
+    "type": "historic",
+    "notes": "Mile 0 of the famous Iditarod Trail. Marker and information in downtown Seward.",
+    "port": "seward"
+  },
+  "icy-strait-beach": {
+    "id": "icy-strait-beach",
+    "name": "Icy Strait Point Beach",
+    "lat": 58.116,
+    "lon": -135.443,
+    "type": "beach",
+    "notes": "Wilderness beach for tide-pooling and beachcombing. No facilities but excellent views of Icy Strait.",
+    "port": "icy-strait-point"
+  },
+  "icy-strait-trails": {
+    "id": "icy-strait-trails",
+    "name": "Spasski River Trail",
+    "lat": 58.118,
+    "lon": -135.45,
+    "type": "nature",
+    "notes": "Easy forest trail through Tongass National Forest with old-growth spruce and wildlife viewing.",
+    "port": "icy-strait-point"
+  },
+  "point-adolphus": {
+    "id": "point-adolphus",
+    "name": "Point Adolphus",
+    "lat": 58.27,
+    "lon": -135.79,
+    "type": "scenic",
+    "notes": "Alaska's premier humpback whale viewing area. Boat tours depart from Icy Strait Point during summer.",
+    "port": "icy-strait-point"
+  },
+  "hoonah-town": {
+    "id": "hoonah-town",
+    "name": "Hoonah (town)",
+    "lat": 58.11,
+    "lon": -135.444,
+    "type": "district",
+    "notes": "Tlingit village adjacent to the port. Authentic Alaska Native community with local shops and restaurants.",
+    "port": "icy-strait-point"
+  },
+  "icy-strait-cultural-center": {
+    "id": "icy-strait-cultural-center",
+    "name": "Huna Heritage Foundation",
+    "lat": 58.114,
+    "lon": -135.442,
+    "type": "cultural",
+    "notes": "Tlingit cultural center with traditional exhibits, storytelling, and Native art demonstrations.",
+    "port": "icy-strait-point"
+  },
+  "haines-sheldon-museum": {
+    "id": "haines-sheldon-museum",
+    "name": "Sheldon Museum & Cultural Center",
+    "lat": 59.234,
+    "lon": -135.444,
+    "type": "museum",
+    "notes": "Local history museum covering Tlingit culture, Gold Rush era, and Chilkat blanket weaving traditions.",
+    "port": "haines"
+  },
+  "haines-brewing": {
+    "id": "haines-brewing",
+    "name": "Haines Brewing Company",
+    "lat": 59.232,
+    "lon": -135.446,
+    "type": "dining",
+    "notes": "Small craft brewery in a converted home. Local ales and lagers, friendly atmosphere.",
+    "port": "haines"
+  },
+  "battery-point-trail": {
+    "id": "battery-point-trail",
+    "name": "Battery Point Trail",
+    "lat": 59.226,
+    "lon": -135.435,
+    "type": "nature",
+    "notes": "Easy coastal hike with beach access and views of Lynn Canal. About 2 miles round trip from town.",
+    "port": "haines"
+  },
+  "haines-parade-ground": {
+    "id": "haines-parade-ground",
+    "name": "Fort Seward Parade Ground",
+    "lat": 59.229,
+    "lon": -135.437,
+    "type": "historic",
+    "notes": "Central green of the historic military post. Surrounded by galleries, a brewery, and the Alaska Indian Arts workshop.",
+    "port": "haines"
+  },
+  "chilkat-inlet": {
+    "id": "chilkat-inlet",
+    "name": "Chilkat Inlet",
+    "lat": 59.21,
+    "lon": -135.45,
+    "type": "scenic",
+    "notes": "Protected inlet with mountain panoramas, seal haulouts, and seasonal whale sightings.",
+    "port": "haines"
   },
   "sitka-cruise-dock": {
     "id": "sitka-cruise-dock",
@@ -5596,7 +5733,7 @@
       "Pointe Seraphine"
     ],
     "lat": 14.0161,
-    "lon": -61.0,
+    "lon": -61,
     "type": "port",
     "geometry": "point",
     "port": "st-lucia"
@@ -11754,7 +11891,7 @@
     "name": "Súðavík (Arctic Fox Centre)",
     "aliases": [],
     "lat": 66.0333,
-    "lon": -23.0,
+    "lon": -23,
     "type": "attraction",
     "geometry": "point",
     "port": "isafjordur"
@@ -11833,7 +11970,7 @@
     "id": "kuala-lumpur-port-klang",
     "name": "Port Klang Cruise Terminal",
     "aliases": [],
-    "lat": 3.0,
+    "lat": 3,
     "lon": 101.4,
     "type": "port",
     "geometry": "point",
@@ -12518,5 +12655,1826 @@
     "type": "nature",
     "geometry": "point",
     "port": "trinidad"
+  },
+  "cabo-marina": {
+    "name": "Cabo San Lucas Marina (Dock 5)",
+    "lat": 22.8905,
+    "lon": -109.9167,
+    "type": "port",
+    "port": "cabo-san-lucas"
+  },
+  "el-arco": {
+    "name": "El Arco (Land's End)",
+    "lat": 22.8761,
+    "lon": -109.8945,
+    "type": "landmark",
+    "port": "cabo-san-lucas"
+  },
+  "lovers-beach": {
+    "name": "Lover's Beach (Playa del Amor)",
+    "lat": 22.8768,
+    "lon": -109.8935,
+    "type": "beach",
+    "port": "cabo-san-lucas"
+  },
+  "divorce-beach": {
+    "name": "Divorce Beach (Pacific side)",
+    "lat": 22.8775,
+    "lon": -109.896,
+    "type": "beach",
+    "port": "cabo-san-lucas"
+  },
+  "pelican-rock": {
+    "name": "Pelican Rock (sea lion colony)",
+    "lat": 22.8782,
+    "lon": -109.8925,
+    "type": "nature",
+    "port": "cabo-san-lucas"
+  },
+  "medano-beach": {
+    "name": "Medano Beach",
+    "lat": 22.8862,
+    "lon": -109.907,
+    "type": "beach",
+    "port": "cabo-san-lucas"
+  },
+  "santa-maria-bay": {
+    "name": "Santa Maria Bay (snorkeling)",
+    "lat": 22.9005,
+    "lon": -109.8563,
+    "type": "beach",
+    "port": "cabo-san-lucas"
+  },
+  "chileno-bay": {
+    "name": "Chileno Bay (protected snorkeling)",
+    "lat": 22.9128,
+    "lon": -109.841,
+    "type": "beach",
+    "port": "cabo-san-lucas"
+  },
+  "downtown-cabo": {
+    "name": "Downtown Cabo San Lucas",
+    "lat": 22.8928,
+    "lon": -109.9128,
+    "type": "district",
+    "port": "cabo-san-lucas"
+  },
+  "marina-golden-zone": {
+    "name": "Marina Golden Zone (shopping)",
+    "lat": 22.891,
+    "lon": -109.9145,
+    "type": "shopping",
+    "port": "cabo-san-lucas"
+  },
+  "mazatlan-port": {
+    "name": "Mazatlán Cruise Terminal",
+    "lat": 23.22,
+    "lon": -106.42,
+    "type": "port",
+    "port": "mazatlan"
+  },
+  "centro-historico-mazatlan": {
+    "name": "Centro Histórico",
+    "lat": 23.2024,
+    "lon": -106.4235,
+    "type": "district",
+    "port": "mazatlan"
+  },
+  "el-faro-mazatlan": {
+    "name": "El Faro Lighthouse",
+    "lat": 23.1879,
+    "lon": -106.435,
+    "type": "landmark",
+    "port": "mazatlan"
+  },
+  "malecon-mazatlan": {
+    "name": "Malecón (boardwalk)",
+    "lat": 23.21,
+    "lon": -106.428,
+    "type": "scenic",
+    "port": "mazatlan"
+  },
+  "golden-zone": {
+    "name": "Zona Dorada (Golden Zone)",
+    "lat": 23.245,
+    "lon": -106.449,
+    "type": "beach",
+    "port": "mazatlan"
+  },
+  "cliff-divers-mazatlan": {
+    "name": "El Mirador Cliff Divers",
+    "lat": 23.192,
+    "lon": -106.431,
+    "type": "attraction",
+    "port": "mazatlan"
+  },
+  "plazuela-machado": {
+    "name": "Plazuela Machado",
+    "lat": 23.203,
+    "lon": -106.4225,
+    "type": "landmark",
+    "port": "mazatlan"
+  },
+  "angela-peralta-theater": {
+    "name": "Teatro Angela Peralta",
+    "lat": 23.2028,
+    "lon": -106.4228,
+    "type": "cultural",
+    "port": "mazatlan"
+  },
+  "cathedral-mazatlan": {
+    "name": "Catedral Basílica",
+    "lat": 23.2055,
+    "lon": -106.4215,
+    "type": "landmark",
+    "port": "mazatlan"
+  },
+  "stone-island": {
+    "name": "Isla de la Piedra (Stone Island)",
+    "lat": 23.195,
+    "lon": -106.41,
+    "type": "beach",
+    "port": "mazatlan"
+  },
+  "cruise-tender": {
+    "name": "Zihuatanejo Cruise Tender Landing",
+    "lat": 17.6383,
+    "lon": -101.5519,
+    "type": "port",
+    "port": "zihuatanejo"
+  },
+  "playa-la-ropa": {
+    "name": "Playa La Ropa",
+    "lat": 17.628,
+    "lon": -101.546,
+    "type": "beach",
+    "port": "zihuatanejo"
+  },
+  "playa-las-gatas": {
+    "name": "Playa Las Gatas",
+    "lat": 17.623,
+    "lon": -101.551,
+    "type": "beach",
+    "port": "zihuatanejo"
+  },
+  "downtown-zihuatanejo": {
+    "name": "Downtown Zihuatanejo",
+    "lat": 17.64,
+    "lon": -101.553,
+    "type": "district",
+    "port": "zihuatanejo"
+  },
+  "playa-principal": {
+    "name": "Playa Principal (town beach)",
+    "lat": 17.639,
+    "lon": -101.5515,
+    "type": "beach",
+    "port": "zihuatanejo"
+  },
+  "ixtapa": {
+    "name": "Ixtapa Resort Zone",
+    "lat": 17.665,
+    "lon": -101.6,
+    "type": "district",
+    "port": "zihuatanejo"
+  },
+  "el-centro-market": {
+    "name": "El Centro Market",
+    "lat": 17.6405,
+    "lon": -101.5535,
+    "type": "shopping",
+    "port": "zihuatanejo"
+  },
+  "museo-arqueologico": {
+    "name": "Museo Arqueológico",
+    "lat": 17.6395,
+    "lon": -101.5525,
+    "type": "cultural",
+    "port": "zihuatanejo"
+  },
+  "playa-madera": {
+    "name": "Playa Madera",
+    "lat": 17.634,
+    "lon": -101.549,
+    "type": "beach",
+    "port": "zihuatanejo"
+  },
+  "paseo-del-pescador": {
+    "name": "Paseo del Pescador (waterfront)",
+    "lat": 17.6392,
+    "lon": -101.552,
+    "type": "scenic",
+    "port": "zihuatanejo"
+  },
+  "cruise-terminal": {
+    "name": "Puerto Vallarta Cruise Terminal",
+    "lat": 20.6534,
+    "lon": -105.2253,
+    "type": "port",
+    "port": "puerto-vallarta"
+  },
+  "malecon": {
+    "name": "Malecón Boardwalk",
+    "lat": 20.6105,
+    "lon": -105.2295,
+    "type": "scenic",
+    "port": "puerto-vallarta"
+  },
+  "church-guadalupe": {
+    "name": "Our Lady of Guadalupe Church",
+    "lat": 20.6048,
+    "lon": -105.2301,
+    "type": "landmark",
+    "port": "puerto-vallarta"
+  },
+  "zona-romantica": {
+    "name": "Zona Romántica",
+    "lat": 20.594,
+    "lon": -105.231,
+    "type": "district",
+    "port": "puerto-vallarta"
+  },
+  "los-muertos-beach": {
+    "name": "Los Muertos Beach",
+    "lat": 20.5905,
+    "lon": -105.235,
+    "type": "beach",
+    "port": "puerto-vallarta"
+  },
+  "los-muertos-pier": {
+    "name": "Los Muertos Pier",
+    "lat": 20.588,
+    "lon": -105.2385,
+    "type": "landmark",
+    "port": "puerto-vallarta"
+  },
+  "marina-vallarta": {
+    "name": "Marina Vallarta",
+    "lat": 20.653,
+    "lon": -105.235,
+    "type": "shopping",
+    "port": "puerto-vallarta"
+  },
+  "rio-cuale-island": {
+    "name": "Río Cuale Island",
+    "lat": 20.601,
+    "lon": -105.229,
+    "type": "scenic",
+    "port": "puerto-vallarta"
+  },
+  "playa-conchas-chinas": {
+    "name": "Playa Conchas Chinas",
+    "lat": 20.582,
+    "lon": -105.242,
+    "type": "beach",
+    "port": "puerto-vallarta"
+  },
+  "el-centro": {
+    "name": "El Centro (downtown)",
+    "lat": 20.606,
+    "lon": -105.23,
+    "type": "district",
+    "port": "puerto-vallarta"
+  },
+  "manzanillo-cruise-terminal": {
+    "name": "Puerto de Manzanillo",
+    "lat": 19.0519,
+    "lon": -104.315,
+    "type": "port",
+    "port": "manzanillo"
+  },
+  "playa-miramar": {
+    "name": "Playa Miramar",
+    "lat": 19.08,
+    "lon": -104.34,
+    "type": "beach",
+    "port": "manzanillo"
+  },
+  "las-hadas-resort": {
+    "name": "Las Hadas Resort",
+    "lat": 19.062,
+    "lon": -104.328,
+    "type": "landmark",
+    "port": "manzanillo"
+  },
+  "el-centro-historic": {
+    "name": "El Centro (historic downtown)",
+    "lat": 19.054,
+    "lon": -104.312,
+    "type": "district",
+    "port": "manzanillo"
+  },
+  "laguna-juluapan": {
+    "name": "Laguna de Juluapán",
+    "lat": 19.065,
+    "lon": -104.325,
+    "type": "nature",
+    "port": "manzanillo"
+  },
+  "manzanillo-bay": {
+    "name": "Bahía de Manzanillo",
+    "lat": 19.05,
+    "lon": -104.32,
+    "type": "scenic",
+    "port": "manzanillo"
+  },
+  "playa-la-audiencia": {
+    "name": "Playa La Audiencia",
+    "lat": 19.058,
+    "lon": -104.331,
+    "type": "beach",
+    "port": "manzanillo"
+  },
+  "sailfish-marina": {
+    "name": "Sailfish Marina",
+    "lat": 19.053,
+    "lon": -104.316,
+    "type": "marina",
+    "port": "manzanillo"
+  },
+  "santiago-bay": {
+    "name": "Bahía de Santiago",
+    "lat": 19.07,
+    "lon": -104.335,
+    "type": "scenic",
+    "port": "manzanillo"
+  },
+  "playa-olas-altas": {
+    "name": "Playa Olas Altas",
+    "lat": 19.075,
+    "lon": -104.338,
+    "type": "beach",
+    "port": "manzanillo"
+  },
+  "huatulco-cruise-terminal": {
+    "name": "Santa Cruz Huatulco Cruise Pier",
+    "lat": 15.7692,
+    "lon": -96.1344,
+    "type": "port",
+    "port": "huatulco"
+  },
+  "santa-cruz-bay": {
+    "name": "Bahía Santa Cruz",
+    "lat": 15.768,
+    "lon": -96.133,
+    "type": "beach",
+    "port": "huatulco"
+  },
+  "tangolunda-bay": {
+    "name": "Bahía Tangolunda (resort zone)",
+    "lat": 15.765,
+    "lon": -96.09,
+    "type": "beach",
+    "port": "huatulco"
+  },
+  "la-crucecita": {
+    "name": "La Crucecita (town center)",
+    "lat": 15.773,
+    "lon": -96.128,
+    "type": "district",
+    "port": "huatulco"
+  },
+  "bahias-huatulco-national-park": {
+    "name": "Bahías de Huatulco National Park",
+    "lat": 15.75,
+    "lon": -96.12,
+    "type": "nature",
+    "port": "huatulco"
+  },
+  "copalita-eco-archaeological-park": {
+    "name": "Copalita Eco-Archaeological Park",
+    "lat": 15.78,
+    "lon": -96.08,
+    "type": "cultural",
+    "port": "huatulco"
+  },
+  "playa-entrega": {
+    "name": "Playa La Entrega (snorkeling)",
+    "lat": 15.764,
+    "lon": -96.128,
+    "type": "beach",
+    "port": "huatulco"
+  },
+  "cascadas-magicas": {
+    "name": "Cascadas Mágicas (waterfalls)",
+    "lat": 15.82,
+    "lon": -96.11,
+    "type": "nature",
+    "port": "huatulco"
+  },
+  "playa-cacaluta": {
+    "name": "Playa Cacaluta",
+    "lat": 15.74,
+    "lon": -96.15,
+    "type": "beach",
+    "port": "huatulco"
+  },
+  "bahia-san-agustin": {
+    "name": "Bahía San Agustín",
+    "lat": 15.73,
+    "lon": -96.16,
+    "type": "beach",
+    "port": "huatulco"
+  },
+  "ensenada-port": {
+    "name": "Ensenada Cruise Terminal",
+    "lat": 31.8667,
+    "lon": -116.6167,
+    "type": "port",
+    "port": "ensenada"
+  },
+  "la-bufadora": {
+    "name": "La Bufadora (blowhole)",
+    "lat": 31.718,
+    "lon": -116.726,
+    "type": "nature",
+    "port": "ensenada"
+  },
+  "valle-de-guadalupe": {
+    "name": "Valle de Guadalupe Wine Country",
+    "lat": 32.07,
+    "lon": -116.61,
+    "type": "district",
+    "port": "ensenada"
+  },
+  "ensenada-malecon": {
+    "name": "Malecón (waterfront promenade)",
+    "lat": 31.864,
+    "lon": -116.62,
+    "type": "scenic",
+    "port": "ensenada"
+  },
+  "hussongs-cantina": {
+    "name": "Hussong's Cantina (est. 1892)",
+    "lat": 31.8665,
+    "lon": -116.6185,
+    "type": "dining",
+    "port": "ensenada"
+  },
+  "fish-market": {
+    "name": "Ensenada Fish Market",
+    "lat": 31.865,
+    "lon": -116.621,
+    "type": "shopping",
+    "port": "ensenada"
+  },
+  "giant-flag": {
+    "name": "Giant Mexican Flag Monument",
+    "lat": 31.866,
+    "lon": -116.6195,
+    "type": "landmark",
+    "port": "ensenada"
+  },
+  "riviera-cultural-center": {
+    "name": "Riviera del Pacífico Cultural Center",
+    "lat": 31.863,
+    "lon": -116.616,
+    "type": "cultural",
+    "port": "ensenada"
+  },
+  "primera-street": {
+    "name": "Calle Primera (shopping street)",
+    "lat": 31.867,
+    "lon": -116.618,
+    "type": "shopping",
+    "port": "ensenada"
+  },
+  "civic-plaza": {
+    "name": "Plaza Cívica",
+    "lat": 31.8655,
+    "lon": -116.6175,
+    "type": "landmark",
+    "port": "ensenada"
+  },
+  "acapulco-cruise-terminal": {
+    "name": "Terminal Marítima Acapulco",
+    "lat": 16.8531,
+    "lon": -99.8237,
+    "type": "port",
+    "port": "acapulco"
+  },
+  "la-quebrada-cliff-divers": {
+    "name": "La Quebrada Cliff Divers",
+    "lat": 16.849,
+    "lon": -99.915,
+    "type": "attraction",
+    "port": "acapulco"
+  },
+  "fort-san-diego": {
+    "name": "Fort San Diego (Museo Histórico)",
+    "lat": 16.851,
+    "lon": -99.829,
+    "type": "cultural",
+    "port": "acapulco"
+  },
+  "isla-la-roqueta": {
+    "name": "Isla la Roqueta",
+    "lat": 16.828,
+    "lon": -99.91,
+    "type": "nature",
+    "port": "acapulco"
+  },
+  "chapel-of-peace-acapulco": {
+    "name": "Capilla de la Paz",
+    "lat": 16.845,
+    "lon": -99.858,
+    "type": "landmark",
+    "port": "acapulco"
+  },
+  "acapulco-zocalo": {
+    "name": "Zócalo (Plaza Álvarez)",
+    "lat": 16.857,
+    "lon": -99.878,
+    "type": "landmark",
+    "port": "acapulco"
+  },
+  "playa-caleta": {
+    "name": "Playa Caleta & Caletilla",
+    "lat": 16.838,
+    "lon": -99.906,
+    "type": "beach",
+    "port": "acapulco"
+  },
+  "playa-condesa": {
+    "name": "Playa Condesa (Hotel Zone)",
+    "lat": 16.858,
+    "lon": -99.866,
+    "type": "beach",
+    "port": "acapulco"
+  },
+  "costera-boulevard": {
+    "name": "Costera Miguel Alemán",
+    "lat": 16.855,
+    "lon": -99.87,
+    "type": "scenic",
+    "port": "acapulco"
+  },
+  "mercado-central": {
+    "name": "Mercado Central",
+    "lat": 16.857,
+    "lon": -99.881,
+    "type": "shopping",
+    "port": "acapulco"
+  },
+  "skagway-cruise-terminal": {
+    "name": "Skagway Cruise Terminal",
+    "lat": 59.4483,
+    "lon": -135.3145,
+    "type": "port",
+    "port": "skagway"
+  },
+  "white-pass-yukon-route": {
+    "name": "White Pass & Yukon Route Railway",
+    "lat": 59.457,
+    "lon": -135.302,
+    "type": "attraction",
+    "port": "skagway"
+  },
+  "klondike-gold-rush-nhp-vc": {
+    "name": "Klondike Gold Rush NHP Visitor Center",
+    "lat": 59.4575,
+    "lon": -135.3142,
+    "type": "cultural",
+    "port": "skagway"
+  },
+  "skagway-museum": {
+    "name": "Skagway Museum",
+    "lat": 59.4574,
+    "lon": -135.3167,
+    "type": "cultural",
+    "port": "skagway"
+  },
+  "broadway-historic-district": {
+    "name": "Broadway Street Historic District",
+    "lat": 59.458,
+    "lon": -135.314,
+    "type": "scenic",
+    "port": "skagway"
+  },
+  "jeff-smiths-parlor-museum": {
+    "name": "Jeff Smiths Parlor Museum",
+    "lat": 59.4577,
+    "lon": -135.314,
+    "type": "cultural",
+    "port": "skagway"
+  },
+  "gold-rush-cemetery": {
+    "name": "Gold Rush Cemetery",
+    "lat": 59.454,
+    "lon": -135.296,
+    "type": "landmark",
+    "port": "skagway"
+  },
+  "lower-dewey-lake-trail": {
+    "name": "Lower Dewey Lake Trail",
+    "lat": 59.455,
+    "lon": -135.305,
+    "type": "nature",
+    "port": "skagway"
+  },
+  "skagway-brewing-company": {
+    "name": "Skagway Brewing Company",
+    "lat": 59.4585,
+    "lon": -135.3135,
+    "type": "dining",
+    "port": "skagway"
+  },
+  "sitka-cruise-tender-dock": {
+    "name": "Sitka Cruise Tender Dock",
+    "lat": 57.0488,
+    "lon": -135.33,
+    "type": "port",
+    "port": "sitka"
+  },
+  "fortress-of-the-bear": {
+    "name": "Fortress of the Bear",
+    "lat": 57.028,
+    "lon": -135.365,
+    "type": "nature",
+    "port": "sitka"
+  },
+  "sitka-sound-science-center": {
+    "name": "Sitka Sound Science Center",
+    "lat": 57.049,
+    "lon": -135.3405,
+    "type": "cultural",
+    "port": "sitka"
+  },
+  "sheldon-jackson-museum": {
+    "name": "Sheldon Jackson Museum",
+    "lat": 57.0455,
+    "lon": -135.329,
+    "type": "cultural",
+    "port": "sitka"
+  },
+  "russian-bishop-house": {
+    "name": "Russian Bishop House",
+    "lat": 57.051,
+    "lon": -135.3348,
+    "type": "landmark",
+    "port": "sitka"
+  },
+  "whale-park": {
+    "name": "Whale Park",
+    "lat": 57.0538,
+    "lon": -135.348,
+    "type": "scenic",
+    "port": "sitka"
+  },
+  "castle-hill": {
+    "name": "Castle Hill",
+    "lat": 57.053,
+    "lon": -135.338,
+    "type": "landmark",
+    "port": "sitka"
+  },
+  "port-of-anchorage": {
+    "name": "Port of Anchorage",
+    "lat": 61.23,
+    "lon": -149.894,
+    "type": "port",
+    "port": "anchorage"
+  },
+  "flattop-mountain-trail": {
+    "name": "Flattop Mountain Trail",
+    "lat": 61.138,
+    "lon": -149.686,
+    "type": "nature",
+    "port": "anchorage"
+  },
+  "lake-hood-seaplane-base": {
+    "name": "Lake Hood Seaplane Base",
+    "lat": 61.183,
+    "lon": -149.962,
+    "type": "landmark",
+    "port": "anchorage"
+  },
+  "ship-creek-salmon-viewing": {
+    "name": "Ship Creek Salmon Viewing",
+    "lat": 61.2295,
+    "lon": -149.8835,
+    "type": "nature",
+    "port": "anchorage"
+  },
+  "resolution-park-captain-cook": {
+    "name": "Resolution Park Captain Cook Monument",
+    "lat": 61.2193,
+    "lon": -149.9025,
+    "type": "landmark",
+    "port": "anchorage"
+  },
+  "4th-avenue-historic-district": {
+    "name": "4th Avenue Historic District",
+    "lat": 61.217,
+    "lon": -149.881,
+    "type": "shopping",
+    "port": "anchorage"
+  },
+  "tracy-arm-entrance": {
+    "name": "Tracy Arm Entrance",
+    "lat": 57.78,
+    "lon": -133.61,
+    "type": "scenic",
+    "port": "tracy-arm"
+  },
+  "south-sawyer-glacier": {
+    "name": "South Sawyer Glacier",
+    "lat": 57.888,
+    "lon": -133.12,
+    "type": "nature",
+    "port": "tracy-arm"
+  },
+  "north-sawyer-glacier": {
+    "name": "North Sawyer Glacier",
+    "lat": 57.91,
+    "lon": -133.08,
+    "type": "nature",
+    "port": "tracy-arm"
+  },
+  "sumdum-glacier": {
+    "name": "Sumdum Glacier",
+    "lat": 57.76,
+    "lon": -133.44,
+    "type": "nature",
+    "port": "tracy-arm"
+  },
+  "harbor-seal-haul-outs": {
+    "name": "Harbor Seal Haul-outs",
+    "lat": 57.87,
+    "lon": -133.15,
+    "type": "nature",
+    "port": "tracy-arm"
+  },
+  "tracy-arm-narrows": {
+    "name": "Tracy Arm Narrows",
+    "lat": 57.82,
+    "lon": -133.4,
+    "type": "scenic",
+    "port": "tracy-arm"
+  },
+  "waterfall-alley": {
+    "name": "Waterfall Alley",
+    "lat": 57.84,
+    "lon": -133.3,
+    "type": "scenic",
+    "port": "tracy-arm"
+  },
+  "endicott-arm-junction": {
+    "name": "Endicott Arm Junction",
+    "lat": 57.75,
+    "lon": -133.55,
+    "type": "scenic",
+    "port": "tracy-arm"
+  },
+  "holkham-bay": {
+    "name": "Holkham Bay",
+    "lat": 57.74,
+    "lon": -133.6,
+    "type": "port",
+    "port": "tracy-arm"
+  },
+  "ketchikan-cruise-berths": {
+    "name": "Ketchikan Cruise Berths",
+    "lat": 55.34,
+    "lon": -131.638,
+    "type": "port",
+    "port": "ketchikan"
+  },
+  "misty-fjords-flightseeing": {
+    "name": "Misty Fjords Flightseeing",
+    "lat": 55.354,
+    "lon": -131.713,
+    "type": "nature",
+    "port": "ketchikan"
+  },
+  "deer-mountain-trail": {
+    "name": "Deer Mountain Trail",
+    "lat": 55.343,
+    "lon": -131.625,
+    "type": "nature",
+    "port": "ketchikan"
+  },
+  "tongass-historical-museum": {
+    "name": "Tongass Historical Museum",
+    "lat": 55.3388,
+    "lon": -131.6423,
+    "type": "cultural",
+    "port": "ketchikan"
+  },
+  "fish-ladder-ketchikan-creek": {
+    "name": "Fish Ladder at Ketchikan Creek",
+    "lat": 55.3425,
+    "lon": -131.634,
+    "type": "nature",
+    "port": "ketchikan"
+  },
+  "hubbard-glacier-face": {
+    "name": "Hubbard Glacier Face",
+    "lat": 60.02,
+    "lon": -139.48,
+    "type": "nature",
+    "port": "hubbard-glacier"
+  },
+  "disenchantment-bay": {
+    "name": "Disenchantment Bay",
+    "lat": 60,
+    "lon": -139.55,
+    "type": "scenic",
+    "port": "hubbard-glacier"
+  },
+  "osier-island": {
+    "name": "Osier Island",
+    "lat": 59.98,
+    "lon": -139.47,
+    "type": "nature",
+    "port": "hubbard-glacier"
+  },
+  "turner-glacier": {
+    "name": "Turner Glacier",
+    "lat": 60.04,
+    "lon": -139.35,
+    "type": "nature",
+    "port": "hubbard-glacier"
+  },
+  "haenke-island": {
+    "name": "Haenke Island",
+    "lat": 59.99,
+    "lon": -139.52,
+    "type": "nature",
+    "port": "hubbard-glacier"
+  },
+  "gilbert-point": {
+    "name": "Gilbert Point",
+    "lat": 59.95,
+    "lon": -139.58,
+    "type": "scenic",
+    "port": "hubbard-glacier"
+  },
+  "russell-fjord-entrance": {
+    "name": "Russell Fjord Entrance",
+    "lat": 59.94,
+    "lon": -139.52,
+    "type": "nature",
+    "port": "hubbard-glacier"
+  },
+  "st-elias-mountains-vista": {
+    "name": "St Elias Mountains Vista",
+    "lat": 60.03,
+    "lon": -139.6,
+    "type": "scenic",
+    "port": "hubbard-glacier"
+  },
+  "seal-colony-areas": {
+    "name": "Seal Colony Areas",
+    "lat": 60.01,
+    "lon": -139.46,
+    "type": "nature",
+    "port": "hubbard-glacier"
+  },
+  "yakutat-bay-approach": {
+    "name": "Yakutat Bay Approach",
+    "lat": 59.85,
+    "lon": -139.75,
+    "type": "port",
+    "port": "hubbard-glacier"
+  },
+  "endicott-arm-entrance": {
+    "name": "Endicott Arm Entrance",
+    "lat": 57.68,
+    "lon": -133.6,
+    "type": "scenic",
+    "port": "endicott-arm"
+  },
+  "dawes-glacier": {
+    "name": "Dawes Glacier",
+    "lat": 57.7,
+    "lon": -133.15,
+    "type": "nature",
+    "port": "endicott-arm"
+  },
+  "north-dawes-glacier": {
+    "name": "North Dawes Glacier",
+    "lat": 57.72,
+    "lon": -133.12,
+    "type": "nature",
+    "port": "endicott-arm"
+  },
+  "fords-terror-entrance": {
+    "name": "Ford's Terror Entrance",
+    "lat": 57.78,
+    "lon": -133.25,
+    "type": "nature",
+    "port": "endicott-arm"
+  },
+  "sumdum-island": {
+    "name": "Sumdum Island",
+    "lat": 57.7,
+    "lon": -133.4,
+    "type": "landmark",
+    "port": "endicott-arm"
+  },
+  "iceberg-alley": {
+    "name": "Iceberg Alley",
+    "lat": 57.69,
+    "lon": -133.25,
+    "type": "scenic",
+    "port": "endicott-arm"
+  },
+  "harbor-seal-colony": {
+    "name": "Harbor Seal Colony",
+    "lat": 57.71,
+    "lon": -133.2,
+    "type": "nature",
+    "port": "endicott-arm"
+  },
+  "waterfall-passage": {
+    "name": "Waterfall Passage",
+    "lat": 57.68,
+    "lon": -133.35,
+    "type": "scenic",
+    "port": "endicott-arm"
+  },
+  "sanford-cove": {
+    "name": "Sanford Cove",
+    "lat": 57.73,
+    "lon": -133.45,
+    "type": "nature",
+    "port": "endicott-arm"
+  },
+  "glacier-bay-entrance": {
+    "name": "Glacier Bay Entrance",
+    "lat": 58.25,
+    "lon": -136.05,
+    "type": "scenic",
+    "port": "glacier-bay"
+  },
+  "margerie-glacier": {
+    "name": "Margerie Glacier",
+    "lat": 58.97,
+    "lon": -136.96,
+    "type": "nature",
+    "port": "glacier-bay"
+  },
+  "grand-pacific-glacier": {
+    "name": "Grand Pacific Glacier",
+    "lat": 58.96,
+    "lon": -137.02,
+    "type": "nature",
+    "port": "glacier-bay"
+  },
+  "johns-hopkins-glacier": {
+    "name": "Johns Hopkins Glacier",
+    "lat": 58.82,
+    "lon": -137.12,
+    "type": "nature",
+    "port": "glacier-bay"
+  },
+  "lamplugh-glacier": {
+    "name": "Lamplugh Glacier",
+    "lat": 58.86,
+    "lon": -136.92,
+    "type": "nature",
+    "port": "glacier-bay"
+  },
+  "bartlett-cove-ranger-station": {
+    "name": "Bartlett Cove Ranger Station",
+    "lat": 58.455,
+    "lon": -135.88,
+    "type": "landmark",
+    "port": "glacier-bay"
+  },
+  "south-marble-island": {
+    "name": "South Marble Island",
+    "lat": 58.65,
+    "lon": -136.02,
+    "type": "nature",
+    "port": "glacier-bay"
+  },
+  "gloomy-knob": {
+    "name": "Gloomy Knob",
+    "lat": 58.76,
+    "lon": -136.45,
+    "type": "nature",
+    "port": "glacier-bay"
+  },
+  "reid-inlet": {
+    "name": "Reid Inlet",
+    "lat": 58.89,
+    "lon": -136.85,
+    "type": "scenic",
+    "port": "glacier-bay"
+  },
+  "tarr-inlet": {
+    "name": "Tarr Inlet",
+    "lat": 58.95,
+    "lon": -137,
+    "type": "scenic",
+    "port": "glacier-bay"
+  },
+  "yakutat-bay": {
+    "name": "Yakutat Bay Approach",
+    "lat": 59.85,
+    "lon": -139.75,
+    "type": "scenic",
+    "port": "hubbard-glacier"
+  },
+  "endicott-arm-fjord": {
+    "name": "Endicott Arm Fjord",
+    "lat": 57.7,
+    "lon": -133.4,
+    "type": "scenic",
+    "port": "endicott-arm"
+  },
+  "prince-william-sound": {
+    "id": "prince-william-sound",
+    "name": "Prince William Sound",
+    "lat": 60.65,
+    "lon": -147.8,
+    "type": "scenic",
+    "notes": "Vast protected sound with 26 named glaciers, abundant marine wildlife, and dramatic fjords. The 26 Glaciers cruise departs from Whittier.",
+    "port": "whittier"
+  },
+  "begich-towers": {
+    "id": "begich-towers",
+    "name": "Begich Towers",
+    "lat": 60.7735,
+    "lon": -148.687,
+    "type": "landmark",
+    "notes": "14-story former Army barracks housing nearly all of Whittier's 200 residents, plus a school, church, grocery store, and police station.",
+    "port": "whittier"
+  },
+  "whittier-tunnel": {
+    "id": "whittier-tunnel",
+    "name": "Anton Anderson Memorial Tunnel",
+    "lat": 60.787,
+    "lon": -148.765,
+    "type": "transport",
+    "notes": "2.5-mile single-lane passage through the Chugach Mountains — the longest combined rail and highway tunnel in North America. Traffic alternates every 30 minutes.",
+    "port": "whittier"
+  },
+  "blackstone-bay": {
+    "id": "blackstone-bay",
+    "name": "Blackstone Bay",
+    "lat": 60.63,
+    "lon": -148.63,
+    "type": "scenic",
+    "notes": "Stunning glacial bay south of Whittier with several tidewater glaciers and excellent kayaking. Accessible by boat or guided kayak tour.",
+    "port": "whittier"
+  },
+  "shotgun-cove": {
+    "id": "shotgun-cove",
+    "name": "Shotgun Cove Trail",
+    "lat": 60.78,
+    "lon": -148.66,
+    "type": "nature",
+    "notes": "Scenic coastal trail east of Whittier along Passage Canal. Easy walk with mountain and water views, accessible from the cruise port.",
+    "port": "whittier"
+  },
+  "billings-glacier": {
+    "id": "billings-glacier",
+    "name": "Billings Glacier",
+    "lat": 60.75,
+    "lon": -148.72,
+    "type": "nature",
+    "notes": "Accessible glacier near Whittier via boat shuttle and short hike across Passage Canal. One of the closest glaciers to the cruise port.",
+    "port": "whittier"
+  },
+  "phillips-cruises": {
+    "id": "phillips-cruises",
+    "name": "Phillips Cruises & Tours",
+    "lat": 60.7728,
+    "lon": -148.683,
+    "type": "marina",
+    "notes": "Primary operator of the 26 Glaciers cruise aboard high-speed catamarans. Departs from Whittier harbor for 5-6 hour tours of Prince William Sound.",
+    "port": "whittier"
+  },
+  "whittier-harbor": {
+    "id": "whittier-harbor",
+    "name": "Whittier Small Boat Harbor",
+    "lat": 60.7725,
+    "lon": -148.6845,
+    "type": "marina",
+    "notes": "Active fishing and tour boat harbor adjacent to the cruise terminal. Sea otters commonly float among the boats.",
+    "port": "whittier"
+  },
+  "valdez-cruise-terminal": {
+    "id": "valdez-cruise-terminal",
+    "name": "Valdez Cruise Terminal",
+    "lat": 61.1308,
+    "lon": -146.3483,
+    "type": "port",
+    "notes": "Small dock near downtown. Walking distance to museums and harbor.",
+    "port": "valdez"
+  },
+  "columbia-glacier": {
+    "id": "columbia-glacier",
+    "name": "Columbia Glacier",
+    "lat": 61.15,
+    "lon": -147.1,
+    "type": "scenic",
+    "notes": "Massive tidewater glacier accessible by boat tour from Valdez. Icebergs and wildlife.",
+    "port": "valdez"
+  },
+  "valdez-museum": {
+    "id": "valdez-museum",
+    "name": "Valdez Museum",
+    "lat": 61.131,
+    "lon": -146.35,
+    "type": "museum",
+    "notes": "Local history including 1964 earthquake, Gold Rush, and pipeline construction.",
+    "port": "valdez"
+  },
+  "worthington-glacier": {
+    "id": "worthington-glacier",
+    "name": "Worthington Glacier",
+    "lat": 61.17,
+    "lon": -145.75,
+    "type": "nature",
+    "notes": "Road-accessible glacier about 30 miles from Valdez. State recreation site.",
+    "port": "valdez"
+  },
+  "valdez-harbor": {
+    "id": "valdez-harbor",
+    "name": "Valdez Small Boat Harbor",
+    "lat": 61.128,
+    "lon": -146.36,
+    "type": "marina",
+    "notes": "Active fishing harbor. Charter fishing and glacier tour departures.",
+    "port": "valdez"
+  },
+  "keystone-canyon": {
+    "id": "keystone-canyon",
+    "name": "Keystone Canyon",
+    "lat": 61.08,
+    "lon": -145.98,
+    "type": "scenic",
+    "notes": "Dramatic canyon with Bridal Veil and Horsetail Falls. 12 miles from town.",
+    "port": "valdez"
+  },
+  "old-town-valdez": {
+    "id": "old-town-valdez",
+    "name": "Old Town Valdez Site",
+    "lat": 61.127,
+    "lon": -146.27,
+    "type": "historic",
+    "notes": "Memorial to the original town destroyed by 1964 earthquake. Interpretive signs.",
+    "port": "valdez"
+  },
+  "alaska-pipeline-terminal": {
+    "id": "alaska-pipeline-terminal",
+    "name": "Alaska Pipeline Terminal",
+    "lat": 61.11,
+    "lon": -146.42,
+    "type": "landmark",
+    "notes": "Southern terminus of the Trans-Alaska Pipeline. Viewable from distance.",
+    "port": "valdez"
+  },
+  "valdez-glacier": {
+    "id": "valdez-glacier",
+    "name": "Valdez Glacier",
+    "lat": 61.16,
+    "lon": -146.18,
+    "type": "nature",
+    "notes": "Accessible by hiking trail or kayak tour on Valdez Glacier Lake.",
+    "port": "valdez"
+  },
+  "shoup-bay": {
+    "id": "shoup-bay",
+    "name": "Shoup Bay State Marine Park",
+    "lat": 61.15,
+    "lon": -146.55,
+    "type": "nature",
+    "notes": "Protected bay with Shoup Glacier, sea otters, and harbor seals.",
+    "port": "valdez"
+  },
+  "wrangell-cruise-dock": {
+    "id": "wrangell-cruise-dock",
+    "name": "Wrangell Cruise Dock",
+    "lat": 56.4713,
+    "lon": -132.3767,
+    "type": "port",
+    "notes": "Direct dock in the heart of town. Walking distance to all downtown sights.",
+    "port": "wrangell"
+  },
+  "petroglyph-beach": {
+    "id": "petroglyph-beach",
+    "name": "Petroglyph Beach",
+    "lat": 56.478,
+    "lon": -132.385,
+    "type": "historic",
+    "notes": "Ancient rock carvings on the beach. Short walk north of town. Free viewing.",
+    "port": "wrangell"
+  },
+  "anan-bear-observatory": {
+    "id": "anan-bear-observatory",
+    "name": "Anan Bear Observatory",
+    "lat": 56.19,
+    "lon": -131.88,
+    "type": "nature",
+    "notes": "Premier black and brown bear viewing at salmon falls. Boat or floatplane access.",
+    "port": "wrangell"
+  },
+  "chief-shakes-island": {
+    "id": "chief-shakes-island",
+    "name": "Chief Shakes Tribal House",
+    "lat": 56.47,
+    "lon": -132.378,
+    "type": "cultural",
+    "notes": "Reconstructed Tlingit tribal house on island in harbor. Totem poles.",
+    "port": "wrangell"
+  },
+  "wrangell-museum": {
+    "id": "wrangell-museum",
+    "name": "Wrangell Museum",
+    "lat": 56.4705,
+    "lon": -132.376,
+    "type": "museum",
+    "notes": "Local history from Tlingit culture through Russian, British, and American eras.",
+    "port": "wrangell"
+  },
+  "stikine-river": {
+    "id": "stikine-river",
+    "name": "Stikine River",
+    "lat": 56.65,
+    "lon": -132.2,
+    "type": "scenic",
+    "notes": "Wild river with jet boat tours for glacier and wildlife viewing.",
+    "port": "wrangell"
+  },
+  "rainbow-falls-wrangell": {
+    "id": "rainbow-falls-wrangell",
+    "name": "Rainbow Falls Trail",
+    "lat": 56.46,
+    "lon": -132.37,
+    "type": "nature",
+    "notes": "Moderate 1-mile trail to scenic waterfall. Trailhead near cruise dock.",
+    "port": "wrangell"
+  },
+  "wrangell-harbor": {
+    "id": "wrangell-harbor",
+    "name": "Wrangell Inner Harbor",
+    "lat": 56.47,
+    "lon": -132.379,
+    "type": "marina",
+    "notes": "Working fishing harbor. Garnet sales by local kids at the dock.",
+    "port": "wrangell"
+  },
+  "garnet-ledge": {
+    "id": "garnet-ledge",
+    "name": "Garnet Ledge",
+    "lat": 56.53,
+    "lon": -132.13,
+    "type": "nature",
+    "notes": "Historic garnet mining site on the Stikine River. Kids sell garnets at the dock.",
+    "port": "wrangell"
+  },
+  "mt-dewey-trail": {
+    "id": "mt-dewey-trail",
+    "name": "Mt. Dewey Trail",
+    "lat": 56.471,
+    "lon": -132.373,
+    "type": "nature",
+    "notes": "Short hike to town overlook. Trailhead behind the museum.",
+    "port": "wrangell"
+  },
+  "petersburg-cruise-dock": {
+    "id": "petersburg-cruise-dock",
+    "name": "Petersburg Cruise Dock",
+    "lat": 56.8119,
+    "lon": -132.955,
+    "type": "port",
+    "notes": "Small dock in town center. Only small ships can dock; large ships tender.",
+    "port": "petersburg"
+  },
+  "leconte-glacier": {
+    "id": "leconte-glacier",
+    "name": "LeConte Glacier",
+    "lat": 56.83,
+    "lon": -132.35,
+    "type": "scenic",
+    "notes": "Southernmost tidewater glacier in North America. Boat tour from Petersburg.",
+    "port": "petersburg"
+  },
+  "clausen-memorial-museum": {
+    "id": "clausen-memorial-museum",
+    "name": "Clausen Memorial Museum",
+    "lat": 56.812,
+    "lon": -132.953,
+    "type": "museum",
+    "notes": "Norwegian heritage, Tlingit culture, and fishing industry history.",
+    "port": "petersburg"
+  },
+  "hammer-slough": {
+    "id": "hammer-slough",
+    "name": "Hammer Slough",
+    "lat": 56.81,
+    "lon": -132.956,
+    "type": "landmark",
+    "notes": "Iconic colorful stilt houses over tidal slough. Most photographed scene in town.",
+    "port": "petersburg"
+  },
+  "sons-of-norway-hall": {
+    "id": "sons-of-norway-hall",
+    "name": "Sons of Norway Hall",
+    "lat": 56.8115,
+    "lon": -132.954,
+    "type": "cultural",
+    "notes": "Norwegian cultural center. Rosemaling (decorative painting) throughout town.",
+    "port": "petersburg"
+  },
+  "sandy-beach-petersburg": {
+    "id": "sandy-beach-petersburg",
+    "name": "Sandy Beach Park",
+    "lat": 56.805,
+    "lon": -132.94,
+    "type": "beach",
+    "notes": "Tidal beach with views of the Wrangell Narrows and surrounding mountains.",
+    "port": "petersburg"
+  },
+  "raven-trail": {
+    "id": "raven-trail",
+    "name": "Raven Trail",
+    "lat": 56.8,
+    "lon": -132.93,
+    "type": "nature",
+    "notes": "4-mile hike with panoramic views of Frederick Sound and surrounding islands.",
+    "port": "petersburg"
+  },
+  "petersburg-harbor": {
+    "id": "petersburg-harbor",
+    "name": "Petersburg Harbor",
+    "lat": 56.811,
+    "lon": -132.956,
+    "type": "marina",
+    "notes": "One of Alaska most productive fishing harbors. Norwegian heritage fishing fleet.",
+    "port": "petersburg"
+  },
+  "mitkof-island": {
+    "id": "mitkof-island",
+    "name": "Mitkof Island",
+    "lat": 56.75,
+    "lon": -132.9,
+    "type": "nature",
+    "notes": "Island home to Petersburg. Crystal Lake, Blind River Rapids, and muskeg meadows.",
+    "port": "petersburg"
+  },
+  "blind-slough": {
+    "id": "blind-slough",
+    "name": "Blind Slough Recreation Area",
+    "lat": 56.72,
+    "lon": -132.85,
+    "type": "nature",
+    "notes": "Swan observatory and salmon viewing platform. Short drive from town.",
+    "port": "petersburg"
+  },
+  "kodiak-cruise-pier": {
+    "id": "kodiak-cruise-pier",
+    "name": "Kodiak Cruise Pier",
+    "lat": 57.79,
+    "lon": -152.4072,
+    "type": "port",
+    "notes": "Pier in downtown Kodiak. Walking distance to museums and harbor.",
+    "port": "kodiak"
+  },
+  "kodiak-refuge-visitor-center": {
+    "id": "kodiak-refuge-visitor-center",
+    "name": "Kodiak NWR Visitor Center",
+    "lat": 57.788,
+    "lon": -152.41,
+    "type": "museum",
+    "notes": "National Wildlife Refuge exhibits about Kodiak bears and island ecology.",
+    "port": "kodiak"
+  },
+  "baranov-museum": {
+    "id": "baranov-museum",
+    "name": "Baranov Museum",
+    "lat": 57.7895,
+    "lon": -152.406,
+    "type": "museum",
+    "notes": "Russian-era museum in oldest building in Alaska. Erskine House (1808).",
+    "port": "kodiak"
+  },
+  "fort-abercrombie": {
+    "id": "fort-abercrombie",
+    "name": "Fort Abercrombie State Park",
+    "lat": 57.83,
+    "lon": -152.31,
+    "type": "historic",
+    "notes": "WWII military bunkers, tide pools, whale watching. 4 miles from town.",
+    "port": "kodiak"
+  },
+  "kodiak-harbor": {
+    "id": "kodiak-harbor",
+    "name": "St. Paul Harbor",
+    "lat": 57.789,
+    "lon": -152.41,
+    "type": "marina",
+    "notes": "Active commercial fishing harbor. Alaska largest fishing fleet.",
+    "port": "kodiak"
+  },
+  "holy-resurrection-cathedral": {
+    "id": "holy-resurrection-cathedral",
+    "name": "Holy Resurrection Cathedral",
+    "lat": 57.79,
+    "lon": -152.405,
+    "type": "landmark",
+    "notes": "Russian Orthodox church (1794). Oldest parish in Alaska. Blue onion dome.",
+    "port": "kodiak"
+  },
+  "near-island-trail": {
+    "id": "near-island-trail",
+    "name": "Near Island Trail",
+    "lat": 57.787,
+    "lon": -152.398,
+    "type": "nature",
+    "notes": "Easy 2.5-mile loop with harbor and mountain views. Accessed by bridge.",
+    "port": "kodiak"
+  },
+  "pillar-mountain": {
+    "id": "pillar-mountain",
+    "name": "Pillar Mountain",
+    "lat": 57.775,
+    "lon": -152.42,
+    "type": "scenic",
+    "notes": "Drive or hike to summit for panoramic views of Kodiak and surrounding waters.",
+    "port": "kodiak"
+  },
+  "kodiak-fisheries-center": {
+    "id": "kodiak-fisheries-center",
+    "name": "Kodiak Fisheries Research Center",
+    "lat": 57.787,
+    "lon": -152.408,
+    "type": "museum",
+    "notes": "NOAA research facility with public aquarium and touch tanks.",
+    "port": "kodiak"
+  },
+  "buskin-river": {
+    "id": "buskin-river",
+    "name": "Buskin River State Recreation Site",
+    "lat": 57.76,
+    "lon": -152.48,
+    "type": "nature",
+    "notes": "Salmon fishing, bear viewing, and coastal scenery near the airport.",
+    "port": "kodiak"
+  },
+  "homer-cruise-dock": {
+    "id": "homer-cruise-dock",
+    "name": "Homer Cruise Dock",
+    "lat": 59.6016,
+    "lon": -151.4083,
+    "type": "port",
+    "notes": "Dock on Homer Spit with views of Kachemak Bay and volcanic mountains.",
+    "port": "homer"
+  },
+  "homer-spit": {
+    "id": "homer-spit",
+    "name": "Homer Spit",
+    "lat": 59.601,
+    "lon": -151.41,
+    "type": "landmark",
+    "notes": "4.5-mile natural sand spit. Shops, restaurants, charter offices, and the famous Salty Dawg Saloon.",
+    "port": "homer"
+  },
+  "kachemak-bay": {
+    "id": "kachemak-bay",
+    "name": "Kachemak Bay State Park",
+    "lat": 59.55,
+    "lon": -151.2,
+    "type": "nature",
+    "notes": "Wilderness park across the bay. Accessible by water taxi. Hiking, kayaking, and glacier viewing.",
+    "port": "homer"
+  },
+  "halibut-cove": {
+    "id": "halibut-cove",
+    "name": "Halibut Cove",
+    "lat": 59.595,
+    "lon": -151.22,
+    "type": "district",
+    "notes": "Artists colony on stilts across Kachemak Bay. Gallery walks and the Saltry restaurant.",
+    "port": "homer"
+  },
+  "alaska-islands-ocean-center": {
+    "id": "alaska-islands-ocean-center",
+    "name": "Alaska Islands & Ocean Visitor Center",
+    "lat": 59.635,
+    "lon": -151.53,
+    "type": "museum",
+    "notes": "Free federal visitor center with exhibits on marine ecosystems and wildlife.",
+    "port": "homer"
+  },
+  "bishops-beach": {
+    "id": "bishops-beach",
+    "name": "Bishops Beach",
+    "lat": 59.635,
+    "lon": -151.54,
+    "type": "beach",
+    "notes": "Accessible beach in town with tide pooling and volcanic mountain views.",
+    "port": "homer"
+  },
+  "pratt-museum": {
+    "id": "pratt-museum",
+    "name": "Pratt Museum",
+    "lat": 59.637,
+    "lon": -151.52,
+    "type": "museum",
+    "notes": "Natural history, marine ecology, and homesteading heritage of the Kachemak Bay area.",
+    "port": "homer"
+  },
+  "grewingk-glacier": {
+    "id": "grewingk-glacier",
+    "name": "Grewingk Glacier",
+    "lat": 59.57,
+    "lon": -151.05,
+    "type": "nature",
+    "notes": "Dramatic glacier in Kachemak Bay State Park. Accessible via water taxi and hiking trail.",
+    "port": "homer"
+  },
+  "homer-harbor": {
+    "id": "homer-harbor",
+    "name": "Homer Harbor",
+    "lat": 59.602,
+    "lon": -151.409,
+    "type": "marina",
+    "notes": "Commercial fishing harbor and halibut charter capital. Fresh catch daily.",
+    "port": "homer"
+  },
+  "skyline-drive-overlook": {
+    "id": "skyline-drive-overlook",
+    "name": "Skyline Drive Overlook",
+    "lat": 59.65,
+    "lon": -151.5,
+    "type": "scenic",
+    "notes": "Panoramic viewpoint above Homer with views of Kachemak Bay, glaciers, and volcanoes.",
+    "port": "homer"
+  },
+  "misty-fjords-cruising": {
+    "id": "misty-fjords-cruising",
+    "name": "Misty Fjords Scenic Cruising Area",
+    "lat": 55.6,
+    "lon": -130.65,
+    "type": "scenic",
+    "notes": "2.3 million acre wilderness with 3,000-foot granite cliffs. Cruise ships transit Behm Canal.",
+    "port": "misty-fjords"
+  },
+  "behm-canal": {
+    "id": "behm-canal",
+    "name": "Behm Canal",
+    "lat": 55.65,
+    "lon": -130.7,
+    "type": "scenic",
+    "notes": "One of the longest and deepest fjords in North America. Main waterway for scenic cruising.",
+    "port": "misty-fjords"
+  },
+  "rudyerd-bay": {
+    "id": "rudyerd-bay",
+    "name": "Rudyerd Bay",
+    "lat": 55.75,
+    "lon": -130.55,
+    "type": "scenic",
+    "notes": "Most popular viewing area. Cliffs crowd close to the ship with cascading waterfalls.",
+    "port": "misty-fjords"
+  },
+  "punchbowl-cove": {
+    "id": "punchbowl-cove",
+    "name": "Punchbowl Cove",
+    "lat": 55.73,
+    "lon": -130.52,
+    "type": "scenic",
+    "notes": "Near-circular cove with mirror-still water and dramatic cliff reflections.",
+    "port": "misty-fjords"
+  },
+  "new-eddystone-rock": {
+    "id": "new-eddystone-rock",
+    "name": "New Eddystone Rock",
+    "lat": 55.77,
+    "lon": -130.95,
+    "type": "landmark",
+    "notes": "Volcanic plug rising 237 feet from the water. Most photographed feature of the monument.",
+    "port": "misty-fjords"
+  },
+  "walker-cove": {
+    "id": "walker-cove",
+    "name": "Walker Cove",
+    "lat": 55.72,
+    "lon": -130.86,
+    "type": "scenic",
+    "notes": "Narrow inlet with towering cliff walls and waterfalls. Less visited than Rudyerd Bay.",
+    "port": "misty-fjords"
+  },
+  "nooya-lake": {
+    "id": "nooya-lake",
+    "name": "Nooya Lake",
+    "lat": 55.68,
+    "lon": -130.58,
+    "type": "nature",
+    "notes": "Remote alpine lake accessible by floatplane. Common landing site for aerial tours.",
+    "port": "misty-fjords"
+  },
+  "misty-fjords-rainforest": {
+    "id": "misty-fjords-rainforest",
+    "name": "Temperate Rainforest",
+    "lat": 55.55,
+    "lon": -130.6,
+    "type": "nature",
+    "notes": "Dense Sitka spruce and western hemlock forest. One of the most intact temperate rainforests on Earth.",
+    "port": "misty-fjords"
+  },
+  "winstanley-island": {
+    "id": "winstanley-island",
+    "name": "Winstanley Island",
+    "lat": 55.8,
+    "lon": -130.9,
+    "type": "nature",
+    "notes": "Island at the mouth of Behm Canal. Wildlife viewing and sea bird colonies.",
+    "port": "misty-fjords"
+  },
+  "misty-fjords-wildlife": {
+    "id": "misty-fjords-wildlife",
+    "name": "Wildlife Viewing Areas",
+    "lat": 55.7,
+    "lon": -130.6,
+    "type": "nature",
+    "notes": "Mountain goats on cliff faces, bald eagles, harbor seals, and black bears along shorelines.",
+    "port": "misty-fjords"
+  },
+  "college-fjord-cruising": {
+    "id": "college-fjord-cruising",
+    "name": "College Fjord Scenic Cruising Area",
+    "lat": 61.15,
+    "lon": -147.92,
+    "type": "scenic",
+    "notes": "26 named glaciers in a single passage through Prince William Sound. Ships transit slowly.",
+    "port": "college-fjord"
+  },
+  "harvard-glacier": {
+    "id": "harvard-glacier",
+    "name": "Harvard Glacier",
+    "lat": 61.22,
+    "lon": -147.85,
+    "type": "scenic",
+    "notes": "Star attraction: 1.5 miles wide, 300+ feet tall. One of few advancing glaciers. Frequent calving.",
+    "port": "college-fjord"
+  },
+  "yale-glacier": {
+    "id": "yale-glacier",
+    "name": "Yale Glacier",
+    "lat": 61.2,
+    "lon": -147.78,
+    "type": "scenic",
+    "notes": "Tidewater glacier adjacent to Harvard. Retreating but still impressive.",
+    "port": "college-fjord"
+  },
+  "smith-glacier": {
+    "id": "smith-glacier",
+    "name": "Smith Glacier",
+    "lat": 61.18,
+    "lon": -147.95,
+    "type": "scenic",
+    "notes": "Hanging glacier on the southeast wall of College Fjord. Named for Smith College.",
+    "port": "college-fjord"
+  },
+  "bryn-mawr-glacier": {
+    "id": "bryn-mawr-glacier",
+    "name": "Bryn Mawr Glacier",
+    "lat": 61.16,
+    "lon": -147.98,
+    "type": "scenic",
+    "notes": "Tidewater glacier on the southeast side. Named for Bryn Mawr College.",
+    "port": "college-fjord"
+  },
+  "wellesley-glacier": {
+    "id": "wellesley-glacier",
+    "name": "Wellesley Glacier",
+    "lat": 61.14,
+    "lon": -147.96,
+    "type": "scenic",
+    "notes": "Hanging glacier visible from the port side during approach.",
+    "port": "college-fjord"
+  },
+  "vassar-glacier": {
+    "id": "vassar-glacier",
+    "name": "Vassar Glacier",
+    "lat": 61.12,
+    "lon": -147.94,
+    "type": "scenic",
+    "notes": "One of several smaller college-named glaciers along the fjord's southeast wall.",
+    "port": "college-fjord"
+  },
+  "barry-arm": {
+    "id": "barry-arm",
+    "name": "Barry Arm",
+    "lat": 61.1,
+    "lon": -148.1,
+    "type": "scenic",
+    "notes": "Adjacent arm of Harriman Fjord with Barry Glacier. Some ships transit here as well.",
+    "port": "college-fjord"
+  },
+  "college-fjord-wildlife": {
+    "id": "college-fjord-wildlife",
+    "name": "Wildlife Viewing Areas",
+    "lat": 61.13,
+    "lon": -147.9,
+    "type": "nature",
+    "notes": "Sea otters, harbor seals on ice floes, bald eagles, Dall porpoises, and seabirds.",
+    "port": "college-fjord"
+  },
+  "harriman-fjord": {
+    "id": "harriman-fjord",
+    "name": "Harriman Fjord",
+    "lat": 61.05,
+    "lon": -148.15,
+    "type": "scenic",
+    "notes": "Adjacent fjord named for the 1899 Harriman Expedition. Additional glaciers and scenery.",
+    "port": "college-fjord"
+  },
+  "inside-passage-route": {
+    "id": "inside-passage-route",
+    "name": "Inside Passage Waterway",
+    "lat": 56.0,
+    "lon": -132.0,
+    "type": "scenic",
+    "notes": "1,000+ mile protected waterway from Seattle/Vancouver to Alaska. Sheltered by islands from Pacific swells.",
+    "port": "inside-passage"
+  },
+  "inside-passage-ketchikan": {
+    "id": "inside-passage-ketchikan",
+    "name": "Ketchikan",
+    "lat": 55.342,
+    "lon": -131.646,
+    "type": "port",
+    "notes": "First Alaska port of call. Totem poles, salmon, Creek Street. Most ships dock here.",
+    "port": "inside-passage"
+  },
+  "inside-passage-juneau": {
+    "id": "inside-passage-juneau",
+    "name": "Juneau",
+    "lat": 58.302,
+    "lon": -134.42,
+    "type": "port",
+    "notes": "Alaska state capital. Mendenhall Glacier, whale watching, helicopter tours.",
+    "port": "inside-passage"
+  },
+  "inside-passage-skagway": {
+    "id": "inside-passage-skagway",
+    "name": "Skagway",
+    "lat": 59.458,
+    "lon": -135.314,
+    "type": "port",
+    "notes": "Northern terminus. Gold Rush history, White Pass & Yukon Route railroad.",
+    "port": "inside-passage"
+  },
+  "inside-passage-glacier-bay": {
+    "id": "inside-passage-glacier-bay",
+    "name": "Glacier Bay National Park",
+    "lat": 58.7,
+    "lon": -136.2,
+    "type": "nature",
+    "notes": "Permit-required national park. 8-10 hours scenic cruising. Rangers board the ship.",
+    "port": "inside-passage"
+  },
+  "inside-passage-tracy-arm": {
+    "id": "inside-passage-tracy-arm",
+    "name": "Tracy Arm Fjord",
+    "lat": 57.85,
+    "lon": -133.6,
+    "type": "scenic",
+    "notes": "Narrow fjord with Sawyer Glaciers. Icebergs and harbor seals on ice floes.",
+    "port": "inside-passage"
+  },
+  "inside-passage-sitka": {
+    "id": "inside-passage-sitka",
+    "name": "Sitka",
+    "lat": 57.052,
+    "lon": -135.33,
+    "type": "port",
+    "notes": "Former Russian capital of Alaska. Raptor Center, totem park, Russian heritage.",
+    "port": "inside-passage"
+  },
+  "inside-passage-grenville": {
+    "id": "inside-passage-grenville",
+    "name": "Grenville Channel",
+    "lat": 53.7,
+    "lon": -129.8,
+    "type": "scenic",
+    "notes": "Narrow 45-mile passage between mainland and islands. Forest close enough to hear birdsong.",
+    "port": "inside-passage"
+  },
+  "inside-passage-lynn-canal": {
+    "id": "inside-passage-lynn-canal",
+    "name": "Lynn Canal",
+    "lat": 58.9,
+    "lon": -135.0,
+    "type": "scenic",
+    "notes": "Deepest fjord in North America (2,000+ feet). Route to Skagway and Haines.",
+    "port": "inside-passage"
+  },
+  "inside-passage-chatham-strait": {
+    "id": "inside-passage-chatham-strait",
+    "name": "Chatham Strait",
+    "lat": 57.5,
+    "lon": -134.5,
+    "type": "nature",
+    "notes": "Major whale watching corridor. Humpback whales concentrate here to feed on krill.",
+    "port": "inside-passage"
   }
 }

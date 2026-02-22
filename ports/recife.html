@@ -232,6 +232,34 @@
       <div id="journal-btn-container"></div>
 
       <!-- WEATHER & BEST TIME TO VISIT -->
+      <!-- FROM THE PIER -->
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Recife cruise terminal">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Marco Zero Square &amp; Recife Antigo</span><div class="pier-detail">Walk from terminal — you're in the historic district</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 5 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Olinda (UNESCO)</span><div class="pier-detail">Taxi &middot; 6 km north &middot; 15-20 min &middot; colonial hilltop town</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 15-20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Boa Viagem Beach</span><div class="pier-detail">Taxi &middot; 7 km south &middot; 20 min</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Casa da Cultura</span><div class="pier-detail">Taxi &middot; artisan venue in converted structure</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 10 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Porto do Recife in Recife Antigo — walk to Marco Zero. The Venice of Brazil: 50+ bridges connecting islands and peninsulas. Frevo music pulses through the streets.</p>
+</nav>
+
       <details class="port-section" id="weather-guide" open>
         <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
           <div id="port-weather-widget"
@@ -372,36 +400,7 @@
 
         <!-- BACK NAV -->
         <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-
-<!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Recife cruise terminal">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Marco Zero Square &amp; Recife Antigo</span><div class="pier-detail">Walk from terminal — you're in the historic district</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 5 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Olinda (UNESCO)</span><div class="pier-detail">Taxi &middot; 6 km north &middot; 15-20 min &middot; colonial hilltop town</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 15-20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:25%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Boa Viagem Beach</span><div class="pier-detail">Taxi &middot; 7 km south &middot; 20 min</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Casa da Cultura</span><div class="pier-detail">Taxi &middot; artisan venue in converted structure</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 10 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Porto do Recife in Recife Antigo — walk to Marco Zero. The Venice of Brazil: 50+ bridges connecting islands and peninsulas. Frevo music pulses through the streets.</p>
-</nav>
-
-      </article>
+</article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
@@ -503,19 +502,9 @@
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
-  <script>
-  (async function recentRail(){
-    const rail = document.getElementById('recent-rail'); if(!rail) return;
-    try {
-      const response = await fetch('/assets/data/articles/index.json');
-      const data = await response.json();
-      const items = Array.isArray(data) ? data : (data.articles || []);
-      if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) {  }
-  })();
-  </script>
   <script>window.currentPortId = 'recife';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
   <script src="/assets/js/whimsical-port-units.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/modules/port-map.js"></script>

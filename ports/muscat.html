@@ -227,7 +227,35 @@ Soli Deo Gloria
                 <div id="logbook-btn-container"></div>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
+        <!-- FROM THE PIER -->
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Muscat Port Sultan Qaboos">
+  <h3>From the Pier</h3>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Mutrah Souq</span><div class="pier-detail">Walk along the corniche — ~1 mile</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Sultan Qaboos Grand Mosque</span><div class="pier-detail">Taxi · 20 min · non-Muslims welcome 8–11am (not Fri)</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Royal Opera House</span><div class="pier-detail">Taxi · stunning modern Omani architecture</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Al Jalali & Al Mirani Forts</span><div class="pier-detail">Walk or taxi along corniche — 16th-century Portuguese</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 20 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Port Sultan Qaboos in Muttrah — one of the most scenic arrivals in the Middle East. Walk the corniche to the souq. Modest dress required at mosque (women: headscarf).</p>
+</nav>
+
+      <details class="port-section" id="weather-guide" open>
             <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
               <div id="port-weather-widget"
                data-port-id="muscat"
@@ -427,40 +455,7 @@ Soli Deo Gloria
 
           <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
             </details>
-
-
-
-
-
-<!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Muscat Port Sultan Qaboos">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Mutrah Souq</span><div class="pier-detail">Walk along the corniche — ~1 mile</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Sultan Qaboos Grand Mosque</span><div class="pier-detail">Taxi · 20 min · non-Muslims welcome 8–11am (not Fri)</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Royal Opera House</span><div class="pier-detail">Taxi · stunning modern Omani architecture</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Al Jalali & Al Mirani Forts</span><div class="pier-detail">Walk or taxi along corniche — 16th-century Portuguese</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Port Sultan Qaboos in Muttrah — one of the most scenic arrivals in the Middle East. Walk the corniche to the souq. Modest dress required at mosque (women: headscarf).</p>
-</nav>
-
-      </article>
+</article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
@@ -543,19 +538,9 @@ Soli Deo Gloria
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
-  <script>
-  (async function recentRail(){
-    const rail = document.getElementById('recent-rail'); if(!rail) return;
-    try {
-      const response = await fetch('/assets/data/articles/index.json');
-      const data = await response.json();
-      const items = Array.isArray(data) ? data : (data.articles || []);
-      if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) {  }
-  })();
-  </script>
   <script>window.currentPortId = 'muscat';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
   <script src="/assets/js/whimsical-port-units.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/modules/port-map.js"></script>

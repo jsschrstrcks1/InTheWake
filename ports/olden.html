@@ -587,7 +587,18 @@ Soli Deo Gloria
     <p class="soundings-disclaimer"><em>These are soundings in another's wake — gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
 
     <!-- FAQ Section -->
-    <details class="port-section" id="faq" open>
+    <section class="port-section" id="gallery">
+      <details class="section-collapse" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="section-body">
+          <p class="section-intro">Visual impressions from Olden and the Nordfjord.</p>
+          <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+          </div>
+        </div>
+      </details>
+    </section>
+
+      <details class="port-section" id="faq" open>
       <summary><h2>Frequently Asked Questions</h2></summary>
 
       <details style="margin: 0.75rem 0; padding: 0.5rem 0; border-bottom: 1px solid #e0e8f0;">
@@ -617,18 +628,7 @@ Soli Deo Gloria
 
     </details>
 
-    <!-- Photo Gallery -->
-    <section class="port-section" id="gallery">
-      <details class="section-collapse" open>
-        <summary><h2>Photo Gallery</h2></summary>
-        <div class="section-body">
-          <p class="section-intro">Visual impressions from Olden and the Nordfjord.</p>
-          <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
-          </div>
-        </div>
-      </details>
-    </section>
-  </div>
+    <!-- Photo Gallery --></div>
 
   <!-- SIDEBAR / ASIDE -->
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
@@ -774,29 +774,6 @@ Soli Deo Gloria
   </footer>
 
   <!-- SCRIPTS -->
-  <script>
-    // Load recent articles
-    (async function() {
-      try {
-        const response = await fetch('/assets/data/articles/index.json');
-        const articles = await response.json();
-        const rail = document.getElementById('recent-rail');
-
-        if (rail && articles && articles.length > 0) {
-          rail.innerHTML = articles.slice(0, 5).map(article => `
-            <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;">
-              <h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;">
-                <a href="${article.url}">${article.title}</a>
-              </h4>
-              <p style="margin: 0; font-size: 0.8rem; color: #666;">${article.date}</p>
-            </div>
-          `).join('');
-        }
-      } catch (err) {
-        
-      }
-    })();
-  </script>
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
@@ -809,6 +786,7 @@ Soli Deo Gloria
   <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'olden';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
 
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>

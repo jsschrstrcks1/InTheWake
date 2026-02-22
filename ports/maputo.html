@@ -229,7 +229,35 @@
         <div id="journal-btn-container"></div>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
+        <!-- FROM THE PIER -->
+<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Maputo cruise terminal">
+  <h4>From the Pier</h4>
+  <ul class="pier-distances">
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">CFM Railway Station</span><div class="pier-detail">Taxi &middot; stunning 1916 Eiffel-workshop building</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 10 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Downtown District</span><div class="pier-detail">Taxi &middot; 2-3 km from port</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 10-15 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Fortaleza da Maputo</span><div class="pier-detail">Taxi &middot; 18th-century Portuguese fortress</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 12 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:18%"></div></div>
+    </li>
+    <li class="pier-distance-item">
+      <div><span class="pier-dest">Seafood Venues (Mercado do Peixe)</span><div class="pier-detail">Taxi &middot; fresh seafood grilled to order</div></div>
+      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 15 min</span>
+      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+    </li>
+  </ul>
+  <p class="pier-note">Maputo Cruise Terminal in city harbor. Downtown 2-3 km by taxi (10-15 min). Use registered taxis. USD widely accepted. Stick to tourist areas.</p>
+</nav>
+
+      <details class="port-section" id="weather-guide" open>
             <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
               <div id="port-weather-widget"
                data-port-id="maputo"
@@ -351,36 +379,7 @@
         </details>
 
         <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-
-<!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Maputo cruise terminal">
-  <h4>From the Pier</h4>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">CFM Railway Station</span><div class="pier-detail">Taxi &middot; stunning 1916 Eiffel-workshop building</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 10 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Downtown District</span><div class="pier-detail">Taxi &middot; 2-3 km from port</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 10-15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:20%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Fortaleza da Maputo</span><div class="pier-detail">Taxi &middot; 18th-century Portuguese fortress</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 12 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:18%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Seafood Venues (Mercado do Peixe)</span><div class="pier-detail">Taxi &middot; fresh seafood grilled to order</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128661;</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Maputo Cruise Terminal in city harbor. Downtown 2-3 km by taxi (10-15 min). Use registered taxis. USD widely accepted. Stick to tourist areas.</p>
-</nav>
-
-      </article>
+</article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
@@ -462,19 +461,9 @@
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
-  <script>
-  (async function recentRail(){
-    const rail = document.getElementById('recent-rail'); if(!rail) return;
-    try {
-      const response = await fetch('/assets/data/articles/index.json');
-      const data = await response.json();
-      const items = Array.isArray(data) ? data : (data.articles || []);
-      if (items.length > 0) { rail.innerHTML = items.slice(0, 5).map(a => `<div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e8f0;"><h4 style="margin: 0 0 0.25rem; font-size: 0.95rem;"><a href="${a.url || a.path}">${a.title || a.name}</a></h4><p style="margin: 0; font-size: 0.8rem; color: #666;">${a.excerpt || a.description || ''}</p></div>`).join(''); }
-    } catch (err) {  }
-  })();
-  </script>
   <script>window.currentPortId = 'maputo';</script>
   <script src="/assets/js/nearby-ports.js"></script>
+  <script src="/assets/js/article-rail.js"></script>
   <script src="/assets/js/whimsical-port-units.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/modules/port-map.js"></script>
