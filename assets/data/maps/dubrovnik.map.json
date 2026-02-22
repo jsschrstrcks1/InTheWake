@@ -1,4 +1,10 @@
 {
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2025-12-14T00:00:00Z",
+    "source": "Researched from Croatia Tourism, CruiseCritic, and local guides"
+  },
+
   "port_slug": "dubrovnik",
   "port_name": "Dubrovnik",
   "port_pin": {
@@ -6,6 +12,7 @@
     "lon": 18.0847,
     "label": "Cruise Port (Gruž)"
   },
+
   "poi_ids": [
     "dubrovnik-cruise-terminal",
     "dubrovnik-old-town",
@@ -13,14 +20,78 @@
     "stradun",
     "cable-car-dubrovnik",
     "lokrum-island",
-    "banje-beach"
+    "banje-beach",
+    "pile-gate",
+    "fort-lovrijenac",
+    "war-photo-limited",
+    "buza-bar"
   ],
+
+  "pois": [
+    { "id": "dubrovnik-cruise-terminal", "lat": 42.6597, "lon": 18.0847 },
+    { "id": "dubrovnik-old-town", "lat": 42.6411, "lon": 18.1082 },
+    { "id": "dubrovnik-walls", "lat": 42.6415, "lon": 18.1075 },
+    { "id": "stradun", "lat": 42.6414, "lon": 18.1100 },
+    { "id": "cable-car-dubrovnik", "lat": 42.6420, "lon": 18.1125 },
+    { "id": "lokrum-island", "lat": 42.6275, "lon": 18.1208 },
+    { "id": "banje-beach", "lat": 42.6392, "lon": 18.1147 },
+    { "id": "pile-gate", "lat": 42.6420, "lon": 18.1065 },
+    { "id": "fort-lovrijenac", "lat": 42.6425, "lon": 18.1042 },
+    { "id": "war-photo-limited", "lat": 42.6410, "lon": 18.1095 },
+    { "id": "buza-bar", "lat": 42.6397, "lon": 18.1100 }
+  ],
+
   "bbox_hint": {
     "south": 42.62,
     "west": 18.05,
     "north": 42.67,
     "east": 18.15
   },
-  "notes": "Old Town is 3km from port. Bus, taxi, or walk along waterfront.",
-  "generated": "2025-12-14T00:00:00Z"
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "bus-to-old-town",
+      "name": "Bus to Old Town",
+      "type": "bus",
+      "cost": "€2",
+      "duration": "10–15 minutes",
+      "connects": ["dubrovnik-cruise-terminal", "pile-gate"],
+      "note": "City buses run frequently from Gruž port to Pile Gate (Old Town entrance)."
+    },
+    {
+      "id": "taxi-to-old-town",
+      "name": "Taxi to Old Town",
+      "type": "taxi",
+      "cost": "€10–15",
+      "duration": "8–10 minutes",
+      "connects": ["dubrovnik-cruise-terminal", "pile-gate"],
+      "note": "Metered taxis available at port. Agree on price before departure."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "City Walls Walk",
+      "type": "cultural",
+      "duration": "1.5–2 hours",
+      "highlights": ["2km medieval circuit", "Adriatic views", "Historic battlements"],
+      "note": "Go early morning or late afternoon to avoid heat and crowds. No shade."
+    },
+    {
+      "name": "Cable Car to Mt. Srđ",
+      "type": "scenic",
+      "duration": "1–2 hours",
+      "highlights": ["Panoramic views", "War museum", "Photo opportunities"],
+      "note": "412m summit. Views of Old Town, Lokrum Island, and Adriatic coastline."
+    },
+    {
+      "name": "Lokrum Island Day Trip",
+      "type": "nature",
+      "duration": "Half day",
+      "highlights": ["Botanical gardens", "Dead Sea lake", "Peacocks"],
+      "note": "15-minute ferry from Old Port. No overnight stays allowed."
+    }
+  ]
 }
