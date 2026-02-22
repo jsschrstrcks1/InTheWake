@@ -1,4 +1,10 @@
 {
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2026-02-22T00:00:00Z",
+    "source": "Researched from Dublin Port Company, Fáilte Ireland, and local guides"
+  },
+
   "port_slug": "dublin",
   "port_name": "Dublin",
   "port_pin": {
@@ -6,6 +12,7 @@
     "lon": -6.2100,
     "label": "Dublin Cruise Terminal"
   },
+
   "poi_ids": [
     "dublin-cruise-terminal",
     "trinity-college",
@@ -13,14 +20,78 @@
     "guinness-storehouse",
     "dublin-castle",
     "st-patricks-cathedral",
-    "grafton-street"
+    "grafton-street",
+    "kilmainham-gaol",
+    "ha-penny-bridge",
+    "st-stephens-green",
+    "merrion-square"
   ],
+
+  "pois": [
+    { "id": "dublin-cruise-terminal", "lat": 53.3500, "lon": -6.2100 },
+    { "id": "trinity-college", "lat": 53.3438, "lon": -6.2546 },
+    { "id": "temple-bar-dublin", "lat": 53.3456, "lon": -6.2643 },
+    { "id": "guinness-storehouse", "lat": 53.3419, "lon": -6.2867 },
+    { "id": "dublin-castle", "lat": 53.3428, "lon": -6.2672 },
+    { "id": "st-patricks-cathedral", "lat": 53.3397, "lon": -6.2714 },
+    { "id": "grafton-street", "lat": 53.3415, "lon": -6.2597 },
+    { "id": "kilmainham-gaol", "lat": 53.3420, "lon": -6.3100 },
+    { "id": "ha-penny-bridge", "lat": 53.3466, "lon": -6.2633 },
+    { "id": "st-stephens-green", "lat": 53.3382, "lon": -6.2592 },
+    { "id": "merrion-square", "lat": 53.3395, "lon": -6.2487 }
+  ],
+
   "bbox_hint": {
     "south": 53.33,
-    "west": -6.30,
+    "west": -6.32,
     "north": 53.36,
     "east": -6.20
   },
-  "notes": "Port is 3km from city center. Shuttle bus or taxi to Temple Bar area.",
-  "generated": "2025-12-14T00:00:00Z"
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "port-shuttle",
+      "name": "Cruise Port Shuttle",
+      "type": "bus",
+      "cost": "€5-8 return",
+      "duration": "15 minutes",
+      "connects": ["dublin-cruise-terminal", "trinity-college"],
+      "note": "Most cruise lines provide shuttle to Custom House or O'Connell Street area."
+    },
+    {
+      "id": "luas-red-line",
+      "name": "Luas Red Line Tram",
+      "type": "tram",
+      "cost": "€2-3",
+      "duration": "15-25 minutes",
+      "connects": ["temple-bar-dublin", "kilmainham-gaol"],
+      "note": "Light rail connecting city centre to Kilmainham and western suburbs."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Book of Kells & Trinity College",
+      "type": "cultural",
+      "duration": "2 hours",
+      "highlights": ["800 AD illuminated manuscript", "Long Room library", "Georgian campus"],
+      "note": "Book timed tickets ahead (€18). 15 min walk from shuttle drop-off."
+    },
+    {
+      "name": "Guinness Storehouse & Gravity Bar",
+      "type": "cultural",
+      "duration": "2-3 hours",
+      "highlights": ["Brewing history", "Pour your own pint", "360-degree city views"],
+      "note": "Book ahead (€26-30). Taxi or 25 min walk from Temple Bar."
+    },
+    {
+      "name": "Temple Bar Pub Crawl",
+      "type": "entertainment",
+      "duration": "2-4 hours",
+      "highlights": ["Live traditional music", "Local Guinness", "Cobblestone streets"],
+      "note": "Free to wander. Budget €6-8 per pint, €15-25 for pub food."
+    }
+  ]
 }

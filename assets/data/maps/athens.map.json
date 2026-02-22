@@ -1,4 +1,10 @@
 {
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2025-12-14T00:00:00Z",
+    "source": "Researched from Greece Tourism, CruiseCritic, Hellenic Ministry of Culture, and local guides"
+  },
+
   "port_slug": "athens",
   "port_name": "Athens (Piraeus)",
   "port_pin": {
@@ -6,6 +12,7 @@
     "lon": 23.6469,
     "label": "Piraeus Cruise Terminal"
   },
+
   "poi_ids": [
     "piraeus-cruise-terminal",
     "acropolis",
@@ -13,14 +20,82 @@
     "ancient-agora",
     "national-archaeological-museum",
     "syntagma-square",
-    "temple-of-zeus"
+    "temple-of-zeus",
+    "acropolis-museum",
+    "monastiraki-flea-market",
+    "piraeus-metro-station",
+    "vouliagmeni-beach"
   ],
+
+  "pois": [
+    { "id": "piraeus-cruise-terminal", "lat": 37.9408, "lon": 23.6469 },
+    { "id": "acropolis", "lat": 37.9715, "lon": 23.7257 },
+    { "id": "plaka-athens", "lat": 37.9725, "lon": 23.7295 },
+    { "id": "ancient-agora", "lat": 37.9747, "lon": 23.7222 },
+    { "id": "national-archaeological-museum", "lat": 37.9892, "lon": 23.7322 },
+    { "id": "syntagma-square", "lat": 37.9755, "lon": 23.7348 },
+    { "id": "temple-of-zeus", "lat": 37.9693, "lon": 23.733 },
+    { "id": "acropolis-museum", "lat": 37.9685, "lon": 23.7286 },
+    { "id": "monastiraki-flea-market", "lat": 37.9762, "lon": 23.7257 },
+    { "id": "piraeus-metro-station", "lat": 37.9434, "lon": 23.6434 },
+    { "id": "vouliagmeni-beach", "lat": 37.8095, "lon": 23.7840 }
+  ],
+
   "bbox_hint": {
-    "south": 37.93,
+    "south": 37.80,
     "west": 23.62,
     "north": 38.00,
-    "east": 23.75
+    "east": 23.80
   },
-  "notes": "Port is 10km from Athens center. Metro, bus, or taxi to Acropolis area.",
-  "generated": "2025-12-14T00:00:00Z"
+
+  "label_overrides": {},
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "metro-to-monastiraki",
+      "name": "Metro Line 1 to Monastiraki",
+      "type": "metro",
+      "cost": "€1.20",
+      "duration": "25 minutes",
+      "connects": ["piraeus-metro-station", "monastiraki-flea-market"],
+      "note": "Green line runs every 5-10 minutes. Exit at Monastiraki for Acropolis and Plaka."
+    },
+    {
+      "id": "taxi-to-acropolis",
+      "name": "Taxi to Acropolis Area",
+      "type": "taxi",
+      "cost": "€25-35",
+      "duration": "30-45 minutes",
+      "connects": ["piraeus-cruise-terminal", "acropolis"],
+      "note": "Insist on meter or agree on price before departing. Traffic can be heavy."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Acropolis & Parthenon",
+      "type": "cultural",
+      "duration": "2-3 hours",
+      "highlights": ["Parthenon temple", "Erechtheion Caryatids", "Propylaea gateway"],
+      "note": "Arrive at 8 AM opening. Combined ticket €30 covers 7 sites. No shade — bring water."
+    },
+    {
+      "name": "Ancient Agora Walk",
+      "type": "cultural",
+      "duration": "1.5-2 hours",
+      "highlights": ["Temple of Hephaestus", "Stoa of Attalos", "Birthplace of democracy"],
+      "note": "Included in combined ticket. Well-preserved temple and reconstructed stoa museum."
+    },
+    {
+      "name": "Plaka & Monastiraki Exploration",
+      "type": "neighborhood",
+      "duration": "2-3 hours",
+      "highlights": ["Taverna dining", "Flea market shopping", "Byzantine churches"],
+      "note": "Oldest neighborhood in Athens. Best for lunch and authentic souvenir shopping."
+    }
+  ],
+
+  "notes": "Port is 10km from Athens center. Metro, bus, or taxi to Acropolis area."
 }
