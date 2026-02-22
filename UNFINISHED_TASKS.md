@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Active task queue. Only pending work lives here.
-**Last Updated:** 2026-02-13
+**Last Updated:** 2026-02-22
 **Maintained by:** Claude AI
 
 > **Archives:**
@@ -391,6 +391,55 @@ These items were evaluated during the competitor analysis and **explicitly rejec
 ---
 
 ## 🟡 YELLOW LANE — AI Proposes, Human Approves
+
+### 🟡 [Y] "What Can I Eat?" Dining Search Tool (NEW — 2026-02-22)
+**Status:** Not started — design needed
+**Priority:** P1 — new tool, high user value
+**Lane:** 🟡 Yellow (new feature, needs design + data decisions)
+**Concept:** A cruise-line → ship → dish search tool that answers "Where can I eat [dish] on [ship]?"
+
+**User story:**
+> I'm on Royal Caribbean's Quantum of the Seas and I want escargot or filet mignon.
+> Show me every venue on board that serves it, with prices.
+
+**Requirements:**
+- [ ] **Standalone tool page** at `/tools/dining-search.html` (like Stateroom Checker but more elegant)
+- [ ] **Embedded on each ship page** as a searchable section or widget
+- [ ] **Input:** Cruise line → Ship → Dish keyword(s) (e.g., "filet", "escargot", "lobster", "sushi")
+- [ ] **Output:** All matching venues with: venue name, dish name, price (if known), meal period, included-vs-upcharge
+- [ ] **Data source:** Leverage existing 472 restaurant pages + `/assets/data/venues.json`
+- [ ] **Search behavior:** Fuzzy/partial match ("filet" matches "Filet Mignon", "Beef Filet", etc.)
+- [ ] **Filter options:** Included-in-fare vs. specialty, meal period (breakfast/lunch/dinner), cuisine type
+- [ ] **Cross-link:** Results link to individual venue pages for full menus
+
+**Design notes:**
+- More elegant than Stateroom Checker — consider card-based results with venue photos
+- Progressive disclosure: start with cruise line picker, then ship, then search
+- Mobile-first: most users will search on the ship
+- Offline-capable: pre-cache venue data for shipboard WiFi-free use
+
+**Data pipeline tasks:**
+- [ ] Audit `venues.json` for dish-level data availability (do we have menu items per venue?)
+- [ ] If menu data is sparse, create `menu-items.json` index from restaurant page content
+- [ ] Standardize dish names for searchability (normalize "Filet Mignon" / "Beef Filet" / "8oz Filet")
+- [ ] Add price data where available (many specialty restaurants list prices)
+- [ ] Map venues → ships → cruise lines for the cascade filter
+
+**UI/UX tasks:**
+- [ ] Design tool page layout (search bar + filters + results grid)
+- [ ] Design ship page widget (compact embedded version)
+- [ ] Implement autocomplete/suggestions for dish search
+- [ ] Add "Popular searches" shortcuts (lobster, sushi, steak, pizza, etc.)
+
+**Technical tasks:**
+- [ ] Create `/assets/data/menu-search-index.json` (inverted index: dish → venues → ships)
+- [ ] Create `/assets/js/dining-search.js` (search logic + UI)
+- [ ] Create `/tools/dining-search.html` (standalone page)
+- [ ] Add widget embed to ship pages
+- [ ] Add to site navigation (Tools dropdown)
+- [ ] Service worker caching for offline use
+
+---
 
 ### 🟡 [Y] Carnival Fleet Index Page Enhancement
 - [ ] (Future) CTA for booking - leave off for now
