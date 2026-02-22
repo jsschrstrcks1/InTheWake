@@ -27,13 +27,100 @@
     "lahaina-town",
     "road-to-hana",
     "maui-beaches",
-    "iao-valley"
+    "iao-valley",
+    "maui-molokini",
+    "maui-kaanapali",
+    "maui-makawao",
+    "maui-wailea",
+    "maui-paia"
+  ],
+
+  "pois": [
+    {
+      "id": "maui-cruise-dock",
+      "name": "Kahului Harbor",
+      "lat": 20.8947,
+      "lon": -156.4708,
+      "type": "port"
+    },
+    {
+      "id": "haleakala",
+      "name": "Haleakala National Park",
+      "lat": 20.7097,
+      "lon": -156.2533,
+      "type": "nature"
+    },
+    {
+      "id": "lahaina-town",
+      "name": "Lahaina Historic Town",
+      "lat": 20.8783,
+      "lon": -156.6825,
+      "type": "cultural"
+    },
+    {
+      "id": "road-to-hana",
+      "name": "Road to Hana",
+      "lat": 20.7614,
+      "lon": -155.9908,
+      "type": "nature"
+    },
+    {
+      "id": "maui-beaches",
+      "name": "Maui Beaches",
+      "lat": 20.9219,
+      "lon": -156.6939,
+      "type": "beach"
+    },
+    {
+      "id": "iao-valley",
+      "name": "Iao Valley State Park",
+      "lat": 20.8822,
+      "lon": -156.5469,
+      "type": "nature"
+    },
+    {
+      "id": "maui-molokini",
+      "name": "Molokini Crater",
+      "lat": 20.6319,
+      "lon": -156.4961,
+      "type": "nature"
+    },
+    {
+      "id": "maui-kaanapali",
+      "name": "Ka'anapali Beach",
+      "lat": 20.9275,
+      "lon": -156.6944,
+      "type": "beach"
+    },
+    {
+      "id": "maui-makawao",
+      "name": "Makawao Town",
+      "lat": 20.9217,
+      "lon": -156.3347,
+      "type": "cultural"
+    },
+    {
+      "id": "maui-wailea",
+      "name": "Wailea Beach",
+      "lat": 20.6878,
+      "lon": -156.4419,
+      "type": "beach"
+    },
+    {
+      "id": "maui-paia",
+      "name": "Paia Town",
+      "lat": 20.9033,
+      "lon": -156.3694,
+      "type": "cultural"
+    }
   ],
 
   "label_overrides": {
     "haleakala": "Haleakala (10,023ft volcano)",
     "iao-valley": "Iao Valley (half-day option)",
-    "lahaina-town": "Lahaina (check post-fire status)"
+    "lahaina-town": "Lahaina (check post-fire status)",
+    "maui-molokini": "Molokini Crater (snorkeling)",
+    "maui-makawao": "Makawao (cowboy town)"
   },
 
   "approximate_markers": [
@@ -45,9 +132,9 @@
       "id": "car-rental",
       "name": "Rental Car",
       "type": "car",
-      "cost": "USD 80-150/day",
+      "cost": "USD 50-80/day",
       "duration": "Varies",
-      "connects": ["maui-cruise-dock", "haleakala", "maui-beaches"],
+      "connects": ["maui-cruise-dock", "haleakala", "maui-beaches", "iao-valley", "maui-makawao"],
       "note": "Best way to explore Maui. Airport rentals near port. Book ahead for cruise days."
     },
     {
@@ -56,8 +143,17 @@
       "type": "bus",
       "cost": "USD 100-250",
       "duration": "Varies",
-      "connects": ["maui-cruise-dock", "haleakala", "iao-valley"],
+      "connects": ["maui-cruise-dock", "haleakala", "iao-valley", "maui-molokini"],
       "note": "Most convenient for Haleakala. Guided tours include transport and commentary."
+    },
+    {
+      "id": "maui-bus",
+      "name": "Maui Bus",
+      "type": "bus",
+      "cost": "USD 2/ride or $4 day pass",
+      "duration": "Varies",
+      "connects": ["maui-cruise-dock", "lahaina-town", "maui-kaanapali"],
+      "note": "Limited routes. Does not reach Haleakala or Road to Hana."
     }
   ],
 
@@ -67,7 +163,7 @@
       "type": "nature",
       "duration": "Full day",
       "highlights": ["10,023ft summit", "Volcanic crater", "Above the clouds"],
-      "note": "2+ hour drive. Sunrise requires separate reservation. Bring warm layers - it's cold up there!"
+      "note": "2+ hour drive. Sunrise requires separate reservation. Bring warm layers — it is cold at the top."
     },
     {
       "name": "Iao Valley",
@@ -77,11 +173,18 @@
       "note": "Short drive from Kahului. Easy walks. Good option if limited time."
     },
     {
+      "name": "Molokini Crater Snorkeling",
+      "type": "water",
+      "duration": "Half day",
+      "highlights": ["Crescent volcanic crater", "100ft visibility", "Tropical fish"],
+      "note": "Boat tour required ($80-$150). Morning departures have calmer water."
+    },
+    {
       "name": "Beach Day",
       "type": "beach",
       "duration": "Half day",
-      "highlights": ["Kaanapali", "Wailea", "Snorkeling"],
-      "note": "World-class beaches but require transport from Kahului port area."
+      "highlights": ["Ka'anapali", "Wailea", "Snorkeling at Black Rock"],
+      "note": "Excellent beaches but require transport from Kahului port area."
     }
   ]
 }
