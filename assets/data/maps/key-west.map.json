@@ -1,4 +1,10 @@
 {
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2026-02-22T00:00:00Z",
+    "source": "Researched from Key West tourism, NPS.gov, and multiple firsthand visits"
+  },
+
   "port_slug": "key-west",
   "port_name": "Key West",
   "port_pin": {
@@ -6,6 +12,15 @@
     "lon": -81.8067,
     "label": "Key West Cruise Pier"
   },
+
+  "bbox_hint": {
+    "south": 24.54,
+    "west": -81.82,
+    "north": 24.57,
+    "east": -81.79,
+    "note": "Covers Key West island — everything walkable from cruise pier"
+  },
+
   "poi_ids": [
     "key-west-pier",
     "duval-street",
@@ -13,14 +28,69 @@
     "hemingway-house",
     "southernmost-point",
     "fort-zachary-taylor",
-    "truman-little-white-house"
+    "truman-little-white-house",
+    "key-west-lighthouse",
+    "key-west-butterfly-conservatory",
+    "key-west-historic-seaport",
+    "dry-tortugas-ferry"
   ],
-  "bbox_hint": {
-    "south": 24.54,
-    "west": -81.82,
-    "north": 24.57,
-    "east": -81.79
+
+  "label_overrides": {
+    "hemingway-house": "Hemingway House (six-toed cats!)",
+    "southernmost-point": "Southernmost Point (iconic buoy)",
+    "fort-zachary-taylor": "Fort Zachary Taylor (best beach on the island)",
+    "dry-tortugas-ferry": "Dry Tortugas Ferry (not feasible on port day)"
   },
-  "notes": "Walk off ship into downtown. Everything accessible on foot.",
-  "generated": "2025-12-14T00:00:00Z"
+
+  "pois": [
+    { "id": "key-west-pier", "name": "Key West Cruise Pier", "lat": 24.5597, "lon": -81.8067, "type": "port" },
+    { "id": "duval-street", "name": "Duval Street", "lat": 24.5562, "lon": -81.8028, "type": "scenic" },
+    { "id": "mallory-square", "name": "Mallory Square", "lat": 24.5605, "lon": -81.8072, "type": "attraction" },
+    { "id": "hemingway-house", "name": "Ernest Hemingway Home & Museum", "lat": 24.5512, "lon": -81.8006, "type": "museum" },
+    { "id": "southernmost-point", "name": "Southernmost Point Buoy", "lat": 24.5465, "lon": -81.7985, "type": "scenic" },
+    { "id": "fort-zachary-taylor", "name": "Fort Zachary Taylor Beach", "lat": 24.5460, "lon": -81.8120, "type": "beach" },
+    { "id": "truman-little-white-house", "name": "Truman Little White House", "lat": 24.5528, "lon": -81.8036, "type": "museum" },
+    { "id": "key-west-lighthouse", "name": "Key West Lighthouse", "lat": 24.5508, "lon": -81.8015, "type": "attraction" },
+    { "id": "key-west-butterfly-conservatory", "name": "Butterfly Conservatory", "lat": 24.5505, "lon": -81.8056, "type": "attraction" },
+    { "id": "key-west-historic-seaport", "name": "Historic Seaport", "lat": 24.5580, "lon": -81.8020, "type": "scenic" },
+    { "id": "dry-tortugas-ferry", "name": "Dry Tortugas Ferry", "lat": 24.5610, "lon": -81.8050, "type": "transit" }
+  ],
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "walk-duval",
+      "name": "Walk Duval Street",
+      "type": "walk",
+      "cost": "Free",
+      "duration": "20 minutes end to end",
+      "connects": ["key-west-pier", "duval-street", "southernmost-point"],
+      "note": "Main drag runs from Gulf to Atlantic. Everything branches off Duval."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Mallory Square Sunset",
+      "type": "scenic",
+      "duration": "1-2 hours",
+      "highlights": ["Street performers", "Sunset celebration", "Food vendors"],
+      "note": "Non-negotiable Key West experience. Arrive 30 min before sunset."
+    },
+    {
+      "name": "Hemingway House Tour",
+      "type": "cultural",
+      "duration": "1 hour",
+      "highlights": ["Six-toed cats", "Writing studio", "1850s colonial home"],
+      "note": "$18 admission. 30-minute guided tours throughout the day."
+    },
+    {
+      "name": "Fort Zachary Taylor Beach",
+      "type": "relaxation",
+      "duration": "Half day",
+      "highlights": ["Best snorkeling beach", "Civil War fort", "Shaded picnic areas"],
+      "note": "$6 entry. Bring snorkel gear — reef right off the beach."
+    }
+  ]
 }
