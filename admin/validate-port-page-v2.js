@@ -2063,22 +2063,23 @@ function validatePrintButton($, html) {
 
 /**
  * Validate sidebar/rail sections (PORT_PAGE_STANDARD v3.010 §sidebar)
- * Port pages must have 7 sidebar sections in order:
- * Quick Answer, At a Glance, Author's Note Disclaimer, About the Author,
- * Nearby Ports, Recent Stories, Whimsical Units
+ * Port pages must have 8 sidebar sections in order:
+ * Quick Answer, At a Glance, Plan Your Visit, Author's Note Disclaimer,
+ * About the Author, Nearby Ports, Recent Stories, Whimsical Units
  */
 function validateSidebar($) {
   const errors = [];
   const warnings = [];
 
   const REQUIRED_SIDEBAR_SECTIONS = [
-    { id: 'quick-answer',    pattern: /quick.?answer|answer-line/i,        label: 'Quick Answer' },
-    { id: 'at-a-glance',     pattern: /at.a.glance|port.snapshot/i,        label: 'At a Glance' },
-    { id: 'author-note',     pattern: /author('s)?.?note|disclaimer/i,     label: "Author's Note Disclaimer" },
-    { id: 'about-author',    pattern: /about.the.author|author-card/i,     label: 'About the Author' },
-    { id: 'nearby-ports',    pattern: /nearby.ports?|other.ports/i,        label: 'Nearby Ports' },
-    { id: 'recent-stories',  pattern: /recent.stories|recent-rail/i,       label: 'Recent Stories' },
-    { id: 'whimsical-units', pattern: /whimsical.?units?|distance.?units/i, label: 'Whimsical Units' }
+    { id: 'quick-answer',       pattern: /quick.?answer|answer-line/i,            label: 'Quick Answer' },
+    { id: 'at-a-glance',        pattern: /at.a.glance|port.snapshot/i,            label: 'At a Glance' },
+    { id: 'planning-resources',  pattern: /plan.your.visit|planning.resources/i,   label: 'Plan Your Visit' },
+    { id: 'author-note',        pattern: /author('s)?.?note|disclaimer/i,         label: "Author's Note Disclaimer" },
+    { id: 'about-author',       pattern: /about.the.author|author-card/i,         label: 'About the Author' },
+    { id: 'nearby-ports',       pattern: /nearby.ports?|other.ports/i,            label: 'Nearby Ports' },
+    { id: 'recent-stories',     pattern: /recent.stories|recent-rail/i,           label: 'Recent Stories' },
+    { id: 'whimsical-units',    pattern: /whimsical.?units?|distance.?units/i,    label: 'Whimsical Units' }
   ];
 
   // Look for sidebar/rail container
