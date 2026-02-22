@@ -1,4 +1,10 @@
 {
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2026-02-22T00:00:00Z",
+    "source": "Researched from Dominica Tourism, CruiseCritic, and local guides"
+  },
+
   "port_slug": "dominica",
   "port_name": "Dominica",
   "port_pin": {
@@ -6,6 +12,7 @@
     "lon": -61.3881,
     "label": "Roseau Cruise Terminal"
   },
+
   "poi_ids": [
     "roseau-cruise-terminal",
     "trafalgar-falls",
@@ -14,14 +21,84 @@
     "morne-trois-pitons",
     "emerald-pool",
     "roseau-market",
-    "indian-river"
+    "indian-river",
+    "ti-tou-gorge",
+    "kalinago-territory",
+    "scotts-head"
   ],
-  "bbox_hint": {
-    "south": 15.25,
-    "west": -61.45,
-    "north": 15.40,
-    "east": -61.30
+
+  "pois": [
+    { "id": "roseau-cruise-terminal", "lat": 15.3017, "lon": -61.3881 },
+    { "id": "trafalgar-falls", "lat": 15.3333, "lon": -61.3500 },
+    { "id": "boiling-lake", "lat": 15.3217, "lon": -61.2950 },
+    { "id": "champagne-reef", "lat": 15.2533, "lon": -61.3733 },
+    { "id": "morne-trois-pitons", "lat": 15.3350, "lon": -61.3217 },
+    { "id": "emerald-pool", "lat": 15.3767, "lon": -61.3283 },
+    { "id": "roseau-market", "lat": 15.3000, "lon": -61.3867 },
+    { "id": "indian-river", "lat": 15.5667, "lon": -61.4617 },
+    { "id": "ti-tou-gorge", "lat": 15.3317, "lon": -61.3483 },
+    { "id": "kalinago-territory", "lat": 15.4333, "lon": -61.2950 },
+    { "id": "scotts-head", "lat": 15.2200, "lon": -61.3650 }
+  ],
+
+  "label_overrides": {
+    "morne-trois-pitons": "Morne Trois Pitons (UNESCO)",
+    "champagne-reef": "Champagne Reef (volcanic bubbles)",
+    "ti-tou-gorge": "Ti Tou Gorge (canyon swim)"
   },
-  "notes": "The Nature Island of the Caribbean. Ships dock in Roseau or tender at Portsmouth. Famous for hiking, waterfalls, and whale watching.",
-  "generated": "2025-12-15T00:00:00Z"
+
+  "bbox_hint": {
+    "south": 15.20,
+    "west": -61.48,
+    "north": 15.58,
+    "east": -61.25,
+    "note": "Covers Roseau, Morne Trois Pitons, Indian River at Portsmouth"
+  },
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "taxi-to-trafalgar",
+      "name": "Taxi to Trafalgar Falls",
+      "type": "taxi",
+      "cost": "$25-35 per car",
+      "duration": "20 minutes",
+      "connects": ["roseau-cruise-terminal", "trafalgar-falls"],
+      "note": "Most accessible waterfall. Often combined with Ti Tou Gorge."
+    },
+    {
+      "id": "taxi-to-champagne",
+      "name": "Taxi to Champagne Reef",
+      "type": "taxi",
+      "cost": "$20-30 per car",
+      "duration": "15 minutes",
+      "connects": ["roseau-cruise-terminal", "champagne-reef"],
+      "note": "Volcanic bubbles rising from sea floor. Bring snorkel gear."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Trafalgar Falls & Ti Tou Gorge",
+      "type": "nature",
+      "duration": "Half day",
+      "highlights": ["Twin waterfalls", "Canyon swim", "Hot springs"],
+      "note": "Top combo tour. Moderate energy. Water shoes essential."
+    },
+    {
+      "name": "Champagne Reef Snorkeling",
+      "type": "adventure",
+      "duration": "2-3 hours",
+      "highlights": ["Volcanic bubbles", "Coral reef", "Warm water"],
+      "note": "Unique snorkeling experience. $15-20 entry."
+    },
+    {
+      "name": "Indian River Boat Tour",
+      "type": "nature",
+      "duration": "2 hours",
+      "highlights": ["Mangrove forest", "Bird watching", "Pirates filming location"],
+      "note": "At Portsmouth. Used in Pirates of the Caribbean films."
+    }
+  ]
 }

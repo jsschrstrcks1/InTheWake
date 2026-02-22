@@ -1,4 +1,10 @@
 {
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2026-02-22T00:00:00Z",
+    "source": "Researched from St. Kitts Tourism Authority, CruiseCritic, and local guides"
+  },
+
   "port_slug": "st-kitts",
   "port_name": "St. Kitts",
   "port_pin": {
@@ -6,22 +12,93 @@
     "lon": -62.7177,
     "label": "Port Zante"
   },
+
   "poi_ids": [
     "port-zante",
     "brimstone-hill-fortress",
     "romney-manor",
-    "scenic-railway",
+    "scenic-railway-station",
     "frigate-bay",
     "basseterre-circus",
     "independence-square",
-    "mount-liamuiga"
+    "mount-liamuiga",
+    "cockleshell-beach",
+    "south-friars-beach",
+    "timothy-hill"
   ],
+
+  "pois": [
+    { "id": "port-zante", "lat": 17.3026, "lon": -62.7177 },
+    { "id": "brimstone-hill-fortress", "lat": 17.3533, "lon": -62.8300 },
+    { "id": "romney-manor", "lat": 17.3350, "lon": -62.7817 },
+    { "id": "scenic-railway-station", "lat": 17.3050, "lon": -62.7200 },
+    { "id": "frigate-bay", "lat": 17.2900, "lon": -62.6933 },
+    { "id": "basseterre-circus", "lat": 17.2967, "lon": -62.7233 },
+    { "id": "independence-square", "lat": 17.2950, "lon": -62.7217 },
+    { "id": "mount-liamuiga", "lat": 17.3700, "lon": -62.8067 },
+    { "id": "cockleshell-beach", "lat": 17.2450, "lon": -62.6533 },
+    { "id": "south-friars-beach", "lat": 17.2617, "lon": -62.6617 },
+    { "id": "timothy-hill", "lat": 17.2733, "lon": -62.6700 }
+  ],
+
+  "label_overrides": {
+    "brimstone-hill-fortress": "Brimstone Hill (UNESCO)",
+    "basseterre-circus": "The Circus (Piccadilly)",
+    "scenic-railway-station": "Scenic Railway Start"
+  },
+
   "bbox_hint": {
     "south": 17.22,
-    "west": -62.80,
+    "west": -62.85,
     "north": 17.42,
-    "east": -62.62
+    "east": -62.62,
+    "note": "Covers Basseterre, Brimstone Hill, Cockleshell Beach, Mount Liamuiga"
   },
-  "notes": "Caribbean's historic island with UNESCO Brimstone Hill fortress and scenic railway through sugar plantations.",
-  "generated": "2025-12-17T00:00:00Z"
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "taxi-to-cockleshell",
+      "name": "Shared Taxi to Cockleshell Beach",
+      "type": "taxi",
+      "cost": "$8-12 per person",
+      "duration": "20 minutes",
+      "connects": ["port-zante", "cockleshell-beach"],
+      "note": "Shared taxi from Port Zante. Killer Bee rum punch at Reggae Beach Bar."
+    },
+    {
+      "id": "taxi-to-brimstone",
+      "name": "Taxi to Brimstone Hill Fortress",
+      "type": "taxi",
+      "cost": "$50-60 round-trip",
+      "duration": "30 minutes",
+      "connects": ["port-zante", "brimstone-hill-fortress"],
+      "note": "UNESCO World Heritage Site. Allow 2-3 hours to explore. Golden hour best."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "St. Kitts Scenic Railway",
+      "type": "cultural",
+      "duration": "3 hours",
+      "highlights": ["1912 sugar railway", "Rum punch", "Local choir", "Island circumnavigation"],
+      "note": "18 miles of track plus 12 miles by bus. $149 per person. Book ahead."
+    },
+    {
+      "name": "Brimstone Hill Fortress",
+      "type": "history",
+      "duration": "2-3 hours",
+      "highlights": ["UNESCO site", "800-ft volcanic cone", "Views of Nevis", "Colonial history"],
+      "note": "$10 entry. The 'Gibraltar of the West Indies.' Best at golden hour."
+    },
+    {
+      "name": "Cockleshell Beach Day",
+      "type": "beach",
+      "duration": "Half day",
+      "highlights": ["Golden sand", "Killer Bee rum punch", "Nevis views", "Beach bars"],
+      "note": "Reggae Beach Bar for mahi tacos ($12) and legendary cocktails."
+    }
+  ]
 }

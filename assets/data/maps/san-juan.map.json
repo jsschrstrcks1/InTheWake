@@ -1,4 +1,10 @@
 {
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2026-02-22T00:00:00Z",
+    "source": "Researched from Puerto Rico Tourism, NPS.gov, CruiseCritic, and firsthand visits"
+  },
+
   "port_slug": "san-juan",
   "port_name": "San Juan",
   "port_pin": {
@@ -6,22 +12,106 @@
     "lon": -66.1057,
     "label": "Old San Juan Cruise Piers"
   },
-  "poi_ids": [
-    "cruise-piers",
-    "el-morro",
-    "san-cristobal",
-    "old-san-juan",
-    "la-fortaleza",
-    "condado-beach",
-    "el-yunque",
-    "calle-del-cristo"
-  ],
+
   "bbox_hint": {
-    "south": 18.42,
-    "west": -66.15,
+    "south": 18.30,
+    "west": -66.20,
     "north": 18.50,
-    "east": -66.05
+    "east": -65.75,
+    "note": "Covers Old San Juan, Condado, and El Yunque approach"
   },
-  "notes": "Puerto Rico's colorful capital with UNESCO-listed forts, cobblestone streets, and El Yunque rainforest.",
-  "generated": "2025-12-17T00:00:00Z"
+
+  "poi_ids": [
+    "san-juan-cruise-piers",
+    "el-morro-fortress",
+    "san-cristobal-fortress",
+    "old-san-juan-district",
+    "la-fortaleza-san-juan",
+    "condado-beach-san-juan",
+    "el-yunque-rainforest",
+    "calle-del-cristo-san-juan",
+    "paseo-de-la-princesa",
+    "bacardi-distillery",
+    "plaza-colon-san-juan"
+  ],
+
+  "label_overrides": {
+    "el-morro-fortress": "El Morro (iconic 16th-century citadel)",
+    "san-cristobal-fortress": "San Cristóbal (largest Spanish fort in the New World)",
+    "la-fortaleza-san-juan": "La Fortaleza (oldest executive mansion in use)",
+    "el-yunque-rainforest": "El Yunque (only US tropical rainforest)",
+    "bacardi-distillery": "Casa Bacardi (free tour + tastings)"
+  },
+
+  "pois": [
+    { "id": "san-juan-cruise-piers", "name": "Old San Juan Cruise Piers", "lat": 18.4655, "lon": -66.1057, "type": "port" },
+    { "id": "el-morro-fortress", "name": "Castillo San Felipe del Morro", "lat": 18.4710, "lon": -66.1240, "type": "attraction" },
+    { "id": "san-cristobal-fortress", "name": "Castillo San Cristóbal", "lat": 18.4720, "lon": -66.1110, "type": "attraction" },
+    { "id": "old-san-juan-district", "name": "Old San Juan Historic District", "lat": 18.4663, "lon": -66.1170, "type": "district" },
+    { "id": "la-fortaleza-san-juan", "name": "La Fortaleza", "lat": 18.4650, "lon": -66.1185, "type": "cultural" },
+    { "id": "condado-beach-san-juan", "name": "Condado Beach", "lat": 18.4555, "lon": -66.0720, "type": "beach" },
+    { "id": "el-yunque-rainforest", "name": "El Yunque National Forest", "lat": 18.3180, "lon": -65.7870, "type": "nature" },
+    { "id": "calle-del-cristo-san-juan", "name": "Calle del Cristo", "lat": 18.4648, "lon": -66.1175, "type": "scenic" },
+    { "id": "paseo-de-la-princesa", "name": "Paseo de la Princesa", "lat": 18.4620, "lon": -66.1160, "type": "scenic" },
+    { "id": "bacardi-distillery", "name": "Casa Bacardi Distillery", "lat": 18.4470, "lon": -66.1300, "type": "attraction" },
+    { "id": "plaza-colon-san-juan", "name": "Plaza Colón", "lat": 18.4675, "lon": -66.1115, "type": "scenic" }
+  ],
+
+  "approximate_markers": [
+    "el-yunque-rainforest"
+  ],
+
+  "transit_routes": [
+    {
+      "id": "walk-to-el-morro",
+      "name": "Walk to El Morro",
+      "type": "walk",
+      "cost": "Free",
+      "duration": "15-20 minutes",
+      "connects": ["san-juan-cruise-piers", "el-morro-fortress"],
+      "note": "Scenic walk through colonial streets with blue cobblestones."
+    },
+    {
+      "id": "taxi-to-condado",
+      "name": "Taxi to Condado Beach",
+      "type": "taxi",
+      "cost": "USD 15-20",
+      "duration": "15 minutes",
+      "connects": ["san-juan-cruise-piers", "condado-beach-san-juan"],
+      "note": "Uber/Lyft also available at competitive rates."
+    },
+    {
+      "id": "ferry-to-bacardi",
+      "name": "Cataño Ferry to Bacardi",
+      "type": "boat",
+      "cost": "USD 0.50",
+      "duration": "15 minutes",
+      "connects": ["san-juan-cruise-piers", "bacardi-distillery"],
+      "note": "Departs from Pier 2. Free Bacardi shuttle from Cataño terminal."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "El Morro Fortress Visit",
+      "type": "cultural",
+      "duration": "2 hours",
+      "highlights": ["Six-level citadel", "Atlantic views", "Kite-flying lawn", "Lighthouse"],
+      "note": "$10 admission covers both El Morro and San Cristóbal all day."
+    },
+    {
+      "name": "Old San Juan Walking Tour",
+      "type": "cultural",
+      "duration": "Half day",
+      "highlights": ["Blue cobblestones", "Colonial architecture", "La Fortaleza", "Mofongo"],
+      "note": "Best explored independently — everything walkable from cruise piers."
+    },
+    {
+      "name": "Bacardi Distillery Tour",
+      "type": "adventure",
+      "duration": "3 hours round-trip",
+      "highlights": ["Free tour", "Rum tastings", "Cataño ferry ride"],
+      "note": "Take the $0.50 ferry from Pier 2 then free Bacardi shuttle."
+    }
+  ]
 }

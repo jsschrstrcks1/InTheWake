@@ -1,4 +1,10 @@
 {
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2026-02-22T00:00:00Z",
+    "source": "Researched from BVI Tourism, CruiseCritic, and local guides"
+  },
+
   "port_slug": "tortola",
   "port_name": "Tortola",
   "port_pin": {
@@ -6,22 +12,93 @@
     "lon": -64.6167,
     "label": "Road Town Cruise Pier"
   },
+
   "poi_ids": [
-    "cruise-pier",
+    "tortola-cruise-pier",
+    "road-town-tortola",
     "cane-garden-bay",
     "the-baths-virgin-gorda",
-    "sage-mountain",
+    "sage-mountain-tortola",
     "jost-van-dyke",
-    "norman-island",
-    "road-town",
-    "smugglers-cove"
+    "smugglers-cove-tortola",
+    "brewers-bay-tortola",
+    "fort-burt-tortola",
+    "callwood-distillery",
+    "apple-bay-tortola"
   ],
+
+  "pois": [
+    { "id": "tortola-cruise-pier", "lat": 18.4167, "lon": -64.6167 },
+    { "id": "road-town-tortola", "lat": 18.4217, "lon": -64.6183 },
+    { "id": "cane-garden-bay", "lat": 18.4333, "lon": -64.6583 },
+    { "id": "the-baths-virgin-gorda", "lat": 18.4317, "lon": -64.4433 },
+    { "id": "sage-mountain-tortola", "lat": 18.4100, "lon": -64.6450 },
+    { "id": "jost-van-dyke", "lat": 18.4450, "lon": -64.7500 },
+    { "id": "smugglers-cove-tortola", "lat": 18.4417, "lon": -64.7117 },
+    { "id": "brewers-bay-tortola", "lat": 18.4283, "lon": -64.6617 },
+    { "id": "fort-burt-tortola", "lat": 18.4183, "lon": -64.6200 },
+    { "id": "callwood-distillery", "lat": 18.4333, "lon": -64.6583 },
+    { "id": "apple-bay-tortola", "lat": 18.4367, "lon": -64.6700 }
+  ],
+
+  "label_overrides": {
+    "the-baths-virgin-gorda": "The Baths (Virgin Gorda — ferry required)",
+    "jost-van-dyke": "Jost Van Dyke (Soggy Dollar Bar)",
+    "sage-mountain-tortola": "Sage Mountain (1,716 ft)"
+  },
+
   "bbox_hint": {
     "south": 18.35,
-    "west": -64.72,
+    "west": -64.76,
     "north": 18.48,
-    "east": -64.52
+    "east": -64.42,
+    "note": "Covers Tortola, Virgin Gorda (The Baths), and Jost Van Dyke"
   },
-  "notes": "British Virgin Islands capital and sailing paradise with pristine bays and easy access to The Baths.",
-  "generated": "2025-12-17T00:00:00Z"
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "ferry-to-virgin-gorda",
+      "name": "Ferry to Virgin Gorda (The Baths)",
+      "type": "ferry",
+      "cost": "$30 round trip",
+      "duration": "30 minutes",
+      "connects": ["tortola-cruise-pier", "the-baths-virgin-gorda"],
+      "note": "Road Town Ferry Terminal to Spanish Town. Then taxi to The Baths ($8/person)."
+    },
+    {
+      "id": "taxi-to-cane-garden",
+      "name": "Taxi to Cane Garden Bay",
+      "type": "taxi",
+      "cost": "$24 for 1-4 pax",
+      "duration": "20 minutes",
+      "connects": ["tortola-cruise-pier", "cane-garden-bay"],
+      "note": "Popular beach with bars and restaurants. Steep winding road."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "The Baths at Virgin Gorda",
+      "type": "nature",
+      "duration": "Half day",
+      "highlights": ["Boulder caves", "Grottoes", "Devil's Bay"],
+      "note": "#1 BVI attraction. Ferry + taxi or ship excursion $80-100."
+    },
+    {
+      "name": "Cane Garden Bay Beach Day",
+      "type": "relaxation",
+      "duration": "Half day",
+      "highlights": ["White sand", "Beach bars", "Snorkeling"],
+      "note": "Most popular Tortola beach. Callwood Rum Distillery nearby."
+    },
+    {
+      "name": "Jost Van Dyke & Soggy Dollar Bar",
+      "type": "adventure",
+      "duration": "Full day",
+      "highlights": ["Painkiller cocktail", "White Bay", "Island atmosphere"],
+      "note": "Ferry required. Home of the original Painkiller."
+    }
+  ]
 }
