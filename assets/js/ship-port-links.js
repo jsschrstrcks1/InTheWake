@@ -104,7 +104,7 @@
     },
     'explora': {
       name: 'Explora Journeys',
-      path: '/ships/explora/',
+      path: '/ships/explora-journeys/',
       bookingUrl: 'https://explorajourneys.com/ships/',
       allShipsUrl: '/ships.html'
     }

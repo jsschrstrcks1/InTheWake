@@ -42,6 +42,16 @@ if [ ! -f "$FILE" ]; then
     exit 1
 fi
 
+# Exclusion list: files that live in ships/ but are NOT ship pages
+EXCLUDED_FILES="ships/rcl/venues.html"
+BASENAME=$(echo "$FILE" | sed 's|.*/ships/|ships/|')
+for EXCL in $EXCLUDED_FILES; do
+    if [ "$BASENAME" = "$EXCL" ]; then
+        echo -e "${YELLOW}Skipped: $FILE is in the exclusion list (not a ship page)${NC}"
+        exit 0
+    fi
+done
+
 echo "============================================================================"
 echo "  Ship Page Validator — v3.010.301"
 echo "  File: $FILE"
@@ -231,6 +241,17 @@ if [ "$DUPE_CLASS_COUNT" -gt 0 ]; then
     check_warn "$DUPE_CLASS_COUNT element(s) have duplicate class attributes — second class is silently ignored"
 else
     check_pass "No duplicate class attributes"
+fi
+
+# Check footer copyright year is current
+CURRENT_YEAR=$(date +%Y)
+FOOTER_YEAR=$(echo "$CONTENT" | grep -oE '©\s*[0-9]{4}|&copy;\s*[0-9]{4}' | grep -oE '[0-9]{4}' | tail -1)
+if [ -z "$FOOTER_YEAR" ]; then
+    check_warn "No copyright year found in footer"
+elif [ "$FOOTER_YEAR" -lt "$CURRENT_YEAR" ]; then
+    check_warn "Footer copyright year ($FOOTER_YEAR) is out of date — should be $CURRENT_YEAR"
+else
+    check_pass "Footer copyright year is current ($FOOTER_YEAR)"
 fi
 
 # ============================================================================
@@ -514,6 +535,36 @@ if echo "$CONTENT" | grep -q 'data-imo='; then
     check_pass "data-imo attribute present for live tracker"
 else
     check_fail "data-imo attribute MISSING for live tracker"
+fi
+
+# Retired ship: logbook must have TWO types of static eulogy entries:
+#   1. Editorial eulogy — the site's tribute to the ship (attributed to "In the Wake editorial")
+#   2. Guest experience — a named passenger's personal story (attributed to a real person)
+# Both must be static HTML, not noscript-only (invisible to JS users).
+# This is how we honour retired vessels: the ship's service AND the people who sailed her.
+if echo "$CONTENT" | grep -q "status: Retired Ship"; then
+    STATIC_HTML=$(echo "$CONTENT" | awk '
+        /<script[ >]/ { in_script=1; next }
+        /<\/script/   { in_script=0; next }
+        /<noscript/   { in_noscript=1; next }
+        /<\/noscript/ { in_noscript=0; next }
+        !in_script && !in_noscript { print }
+    ')
+
+    # Check 1: Editorial eulogy — the site's tribute to the ship
+    if echo "$STATIC_HTML" | grep -q 'In the Wake editorial'; then
+        check_pass "Retired ship: editorial eulogy present"
+    else
+        check_fail "Retired ship: editorial eulogy MISSING — needs a static editorial tribute to the ship's service"
+    fi
+
+    # Check 2: Guest experience — a named passenger's personal story
+    GUEST_BYLINES=$(echo "$STATIC_HTML" | grep 'class="tiny">—' | grep -cv 'In the Wake' || echo "0")
+    if [ "$GUEST_BYLINES" -gt 0 ]; then
+        check_pass "Retired ship: guest experience story present"
+    else
+        check_fail "Retired ship: guest experience story MISSING — needs at least one named passenger's story"
+    fi
 fi
 
 # ============================================================================
