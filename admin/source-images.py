@@ -137,116 +137,225 @@ def is_wikimedia_reachable():
 # Port search terms  (merged from all three legacy scripts)
 # ---------------------------------------------------------------------------
 PORT_SEARCH_TERMS = {
-    # Caribbean
+    # ── Caribbean ─────────────────────────────────────────────────────────
+    "amber-cove": ["Amber Cove Dominican Republic", "Puerto Plata cruise port", "Amber Cove pool"],
     "antigua": ["St Johns Antigua harbor", "English Harbour Antigua", "Antigua cruise port"],
     "aruba": ["Oranjestad Aruba", "Aruba cruise terminal", "Eagle Beach Aruba"],
     "barbados": ["Bridgetown Barbados", "Harrison's Cave Barbados", "Carlisle Bay Barbados"],
+    "bimini": ["Bimini Bahamas beach", "Bimini islands aerial", "Bimini turquoise water"],
     "cozumel": ["Cozumel Mexico beach", "Cozumel cruise port", "San Miguel Cozumel"],
     "curacao": ["Willemstad Curacao colorful", "Curacao harbor", "Queen Emma Bridge"],
     "falmouth": ["Falmouth Jamaica", "Dunn's River Falls Jamaica", "Jamaica cruise port"],
+    "falmouth-jamaica": ["Falmouth Jamaica historic", "Falmouth cruise port Jamaica", "Water Square Falmouth"],
+    "freeport": ["Freeport Bahamas", "Lucaya beach Grand Bahama", "Port Lucaya marketplace"],
     "grand-cayman": ["George Town Grand Cayman", "Seven Mile Beach Cayman", "Stingray City"],
     "grenada": ["St Georges Grenada harbor", "Grenada spice island", "Grand Anse Beach"],
+    "harvest-caye": ["Harvest Caye Belize", "Belize cruise island", "Harvest Caye beach"],
     "nassau": ["Nassau Bahamas harbor", "Nassau cruise port", "Paradise Island Bahamas"],
+    "ocho-rios": ["Ocho Rios Jamaica", "Dunn's River Falls Ocho Rios", "Ocho Rios cruise port"],
+    "philipsburg": ["Philipsburg Sint Maarten boardwalk", "Great Bay St Maarten", "Maho Beach planes"],
+    "puerto-limon": ["Puerto Limon Costa Rica", "Limon Costa Rica harbor", "Tortuguero Costa Rica"],
+    "royal-beach-club-antigua": ["Antigua beach resort", "Fort James Beach Antigua", "Antigua turquoise water"],
+    "royal-beach-club-cozumel": ["Cozumel beach club", "Cozumel Mexico resort", "Cozumel snorkeling"],
     "san-juan": ["Old San Juan Puerto Rico", "El Morro San Juan", "San Juan cruise port"],
+    "st-croix": ["St Croix USVI", "Christiansted St Croix harbor", "Buck Island St Croix"],
+    "st-john-usvi": ["St John USVI", "Trunk Bay St John", "Virgin Islands National Park"],
     "st-lucia": ["Pitons St Lucia", "Castries harbor St Lucia", "Sugar Beach St Lucia"],
     "st-maarten": ["Philipsburg Sint Maarten", "Great Bay St Maarten", "Maho Beach planes"],
     "st-thomas": ["Charlotte Amalie harbor", "St Thomas USVI", "Magens Bay beach"],
 
-    # US Homeports & East Coast
+    # ── US Homeports & East Coast ─────────────────────────────────────────
     "baltimore": ["Baltimore Inner Harbor", "Fort McHenry Baltimore", "Maryland crabs"],
     "bar-harbor": ["Bar Harbor Maine", "Acadia National Park", "Cadillac Mountain sunrise"],
     "boston": ["Boston harbor waterfront", "Faneuil Hall Boston", "Freedom Trail Boston"],
+    "cape-liberty": ["Cape Liberty cruise port Bayonne", "Bayonne New Jersey waterfront", "Statue of Liberty New York"],
     "charleston": ["Charleston South Carolina waterfront", "Rainbow Row Charleston", "Fort Sumter"],
     "ft-lauderdale": ["Fort Lauderdale beach", "Port Everglades cruise", "Las Olas Boulevard"],
     "galveston": ["Galveston Texas beach", "Galveston cruise terminal", "The Strand Galveston"],
     "honolulu": ["Honolulu Waikiki beach", "Diamond Head Hawaii", "Aloha Tower harbor"],
+    "jacksonville": ["Jacksonville Florida skyline", "Jacksonville Beach pier", "St Johns River Jacksonville"],
     "los-angeles": ["Los Angeles cruise terminal", "Santa Monica pier", "Long Beach harbor"],
     "miami": ["Miami Beach skyline", "Port Miami cruise ships", "South Beach Miami"],
+    "mobile": ["Mobile Alabama waterfront", "USS Alabama battleship", "Mobile Bay sunset"],
     "new-orleans": ["New Orleans French Quarter", "Mississippi River steamboat", "Jackson Square"],
     "norfolk": ["Norfolk Virginia waterfront", "USS Wisconsin Norfolk", "Nauticus Norfolk"],
+    "port-canaveral": ["Port Canaveral Florida cruise", "Cocoa Beach pier", "Kennedy Space Center"],
+    "port-everglades": ["Port Everglades cruise ships", "Fort Lauderdale port", "Port Everglades aerial"],
+    "port-miami": ["Port Miami cruise terminal", "Miami cruise port aerial", "Biscayne Bay Miami"],
     "san-francisco": ["San Francisco Golden Gate", "Fisherman's Wharf San Francisco", "Alcatraz Island"],
     "seattle": ["Seattle skyline Space Needle", "Pike Place Market Seattle", "Seattle waterfront"],
     "tampa": ["Tampa Florida skyline", "Port Tampa Bay cruise", "Ybor City Tampa historic"],
 
-    # Europe — Western
+    # ── Canada ────────────────────────────────────────────────────────────
+    "montreal": ["Montreal Old Port harbor", "Notre Dame Basilica Montreal", "Montreal skyline"],
+    "vancouver": ["Vancouver Canada Place cruise", "Stanley Park Vancouver", "Vancouver skyline mountains"],
+
+    # ── Europe — Western ──────────────────────────────────────────────────
     "amsterdam": ["Amsterdam canals boats", "Rijksmuseum Amsterdam", "Anne Frank House"],
     "barcelona": ["La Sagrada Familia Barcelona", "Las Ramblas Barcelona", "Barcelona port"],
     "bordeaux": ["Bordeaux France wine", "Place de la Bourse Bordeaux", "Garonne River"],
+    "cannes": ["Cannes France Croisette", "Cannes harbor yachts", "Cannes film festival"],
     "lisbon": ["Lisbon Belem Tower", "Lisbon harbor tram", "Alfama Lisbon"],
     "marseille": ["Vieux Port Marseille", "Notre Dame de la Garde Marseille", "Calanques"],
-    "cannes": ["Cannes France Croisette", "Cannes harbor yachts", "Cannes film festival"],
+    "portimao": ["Portimao Portugal Algarve", "Praia da Rocha Portimao", "Portimao harbor"],
 
-    # Europe — Northern
+    # ── Europe — Northern ─────────────────────────────────────────────────
+    "akureyri": ["Akureyri Iceland", "Akureyri harbor church", "Godafoss waterfall Iceland"],
     "alesund": ["Alesund Norway Art Nouveau", "Aksla viewpoint Alesund", "Alesund harbor"],
     "bergen": ["Bergen Norway Bryggen", "Bergen harbor fish market", "Floyen Bergen"],
     "copenhagen": ["Nyhavn Copenhagen colorful", "Copenhagen harbor", "Tivoli Gardens"],
     "dublin": ["Dublin Ireland Temple Bar", "Ha'penny Bridge Dublin", "Trinity College Dublin"],
     "edinburgh": ["Edinburgh Castle Scotland", "Royal Mile Edinburgh", "Arthur's Seat"],
+    "honningsvag": ["Honningsvag Norway", "North Cape Nordkapp", "Honningsvag harbor Arctic"],
+    "klaipeda": ["Klaipeda Lithuania old town", "Curonian Spit Lithuania", "Klaipeda harbor"],
+    "olden": ["Olden Norway fjord", "Briksdal Glacier Olden", "Nordfjord Norway"],
     "reykjavik": ["Reykjavik Iceland harbor", "Hallgrimskirkja church", "Reykjavik colorful houses"],
+    "rostock": ["Rostock Germany harbor", "Warnemunde lighthouse", "Warnemunde beach promenade"],
     "stockholm": ["Stockholm Gamla Stan", "Stockholm harbor", "Vasa Museum Stockholm"],
 
-    # Europe — Mediterranean
+    # ── Europe — Mediterranean ────────────────────────────────────────────
     "amalfi": ["Amalfi Coast Italy", "Positano Italy colorful", "Amalfi Cathedral"],
     "athens": ["Acropolis Athens Greece", "Parthenon Athens", "Plaka Athens"],
+    "catania": ["Catania Sicily Mount Etna", "Catania fish market Sicily", "Piazza del Duomo Catania"],
     "dubrovnik": ["Dubrovnik walls Croatia", "Dubrovnik old town", "Stradun Dubrovnik"],
     "genoa": ["Genoa Italy harbor", "Via Garibaldi Genoa", "Genoa old town"],
     "gibraltar": ["Rock of Gibraltar", "Gibraltar harbor", "Gibraltar monkeys"],
+    "gijon": ["Gijon Spain beach", "Gijon old town Cimadevilla", "Gijon harbor Asturias"],
+    "hvar": ["Hvar Croatia harbor", "Hvar town fortress", "Hvar lavender fields"],
+    "la-spezia": ["La Spezia Italy harbor", "Cinque Terre Italy", "Portovenere La Spezia"],
+    "limassol": ["Limassol Cyprus harbor", "Limassol old town", "Kourion ancient Cyprus"],
     "monte-carlo": ["Monte Carlo Monaco harbor", "Casino Monte Carlo", "Monaco Grand Prix"],
     "mykonos": ["Mykonos Greece windmills", "Little Venice Mykonos", "Mykonos white buildings"],
     "naples": ["Naples harbor Vesuvius", "Naples Italy pizza", "Spaccanapoli Naples"],
+    "patmos": ["Patmos Greece monastery", "Patmos harbor Skala", "Cave of Apocalypse Patmos"],
     "rhodes": ["Rhodes medieval town", "Palace of Grand Master Rhodes", "Lindos Rhodes"],
     "rome": ["Civitavecchia port Rome", "Rome Colosseum", "Trevi Fountain Rome"],
     "santorini": ["Santorini Oia blue dome", "Santorini caldera view", "Fira Santorini"],
+    "sorrento": ["Sorrento Italy coast", "Sorrento harbor Marina Grande", "Sorrento lemon groves"],
     "venice": ["Venice Grand Canal gondola", "St Mark's Basilica Venice", "Rialto Bridge Venice"],
+    "zakynthos": ["Zakynthos Navagio Beach", "Zakynthos blue caves Greece", "Zakynthos harbor town"],
 
-    # Europe — Other
+    # ── Europe — Other ────────────────────────────────────────────────────
     "ajaccio": ["Ajaccio Corsica harbor", "Napoleon birthplace Ajaccio", "Maison Bonaparte"],
     "bodrum": ["Bodrum Turkey castle", "Bodrum harbor", "Bodrum Turkey beach"],
     "corfu": ["Corfu Greece old town", "Corfu harbor fortress", "Achilleion Palace Corfu"],
 
-    # Middle East / Africa
+    # ── Canary Islands / Atlantic Islands ─────────────────────────────────
+    "gran-canaria": ["Las Palmas Gran Canaria harbor", "Maspalomas dunes Gran Canaria", "Gran Canaria beach"],
+    "ponta-delgada": ["Ponta Delgada Azores harbor", "Sete Cidades Azores crater", "Azores Portugal"],
+    "st-helena": ["St Helena island", "Jamestown St Helena", "Napoleon exile St Helena"],
+
+    # ── Middle East ───────────────────────────────────────────────────────
+    "abu-dhabi": ["Abu Dhabi Sheikh Zayed Mosque", "Abu Dhabi skyline", "Abu Dhabi cruise terminal"],
     "alexandria": ["Alexandria Egypt harbor", "Bibliotheca Alexandrina", "Citadel of Qaitbay"],
     "dubai": ["Dubai skyline Burj Khalifa", "Dubai cruise terminal", "Palm Jumeirah aerial"],
+    "muscat": ["Muscat Oman harbor", "Sultan Qaboos Grand Mosque", "Mutrah Souq Muscat"],
+    "safaga": ["Safaga Egypt Red Sea", "Hurghada Egypt resort", "Luxor temple Egypt"],
+    "salalah": ["Salalah Oman", "Salalah frankincense Oman", "Al Baleed Salalah beach"],
 
-    # Alaska
+    # ── Africa ────────────────────────────────────────────────────────────
+    "agadir": ["Agadir Morocco beach", "Agadir Kasbah ruins", "Agadir harbor Morocco"],
+    "mauritius": ["Mauritius island beach", "Port Louis Mauritius harbor", "Le Morne Brabant Mauritius"],
+    "port-elizabeth": ["Port Elizabeth South Africa beach", "Addo Elephant Park", "Gqeberha waterfront"],
+    "seychelles": ["Seychelles beach granite rocks", "Mahe Seychelles harbor", "Anse Source d'Argent"],
+
+    # ── Alaska ────────────────────────────────────────────────────────────
     "glacier-bay": ["Glacier Bay Alaska", "Margerie Glacier", "Glacier Bay cruise ship"],
     "juneau": ["Juneau Alaska harbor", "Mendenhall Glacier Juneau", "Juneau cruise port"],
     "ketchikan": ["Ketchikan Creek Street", "Ketchikan harbor Alaska", "Totem poles Ketchikan"],
     "sitka": ["Sitka Alaska harbor", "Russian Orthodox church Sitka", "Sitka National Park"],
     "skagway": ["Skagway Alaska", "White Pass Yukon Route train", "Skagway cruise port"],
 
-    # Asia Pacific
-    "auckland": ["Auckland Sky Tower harbor", "Auckland harbor", "Auckland New Zealand skyline"],
-    "bali": ["Bali Indonesia temple", "Tanah Lot Bali", "Bali rice terraces Ubud"],
-    "bangkok": ["Grand Palace Bangkok", "Wat Arun Bangkok", "Chao Phraya River Bangkok"],
-    "brisbane": ["Brisbane Australia river", "South Bank Brisbane", "Story Bridge Brisbane"],
-    "ho-chi-minh-city": ["Ho Chi Minh City Saigon", "Notre Dame Cathedral Saigon", "Ben Thanh Market"],
+    # ── Asia — East ───────────────────────────────────────────────────────
+    "beijing": ["Beijing Great Wall China", "Forbidden City Beijing", "Temple of Heaven Beijing"],
+    "busan": ["Busan South Korea harbor", "Gamcheon Culture Village Busan", "Haeundae Beach Busan"],
+    "fukuoka": ["Fukuoka Japan harbor", "Dazaifu shrine Fukuoka", "Canal City Fukuoka"],
+    "hakodate": ["Hakodate Japan harbor night", "Mount Hakodate night view", "Hakodate morning market"],
+    "hiroshima": ["Hiroshima Peace Memorial", "Itsukushima shrine torii", "Hiroshima Japan"],
     "hong-kong": ["Victoria Harbour Hong Kong skyline", "Hong Kong harbor night", "Star Ferry Hong Kong"],
-    "maui": ["Maui Hawaii beach", "Lahaina harbor Maui", "Haleakala Maui"],
+    "kagoshima": ["Kagoshima Japan Sakurajima volcano", "Kagoshima harbor", "Sengan-en garden Kagoshima"],
+    "kyoto": ["Kyoto Japan Fushimi Inari", "Kinkaku-ji Golden Pavilion Kyoto", "Arashiyama bamboo Kyoto"],
+    "nagasaki": ["Nagasaki Japan harbor", "Nagasaki Peace Park", "Glover Garden Nagasaki"],
+    "okinawa": ["Okinawa Japan Shuri Castle", "Okinawa beach tropical", "Naha Okinawa harbor"],
+    "osaka": ["Osaka Castle Japan", "Dotonbori Osaka neon", "Osaka harbor cruise terminal"],
     "shanghai": ["Shanghai Bund skyline", "Oriental Pearl Tower Shanghai", "Yu Garden Shanghai"],
-    "singapore": ["Marina Bay Sands Singapore", "Singapore harbor skyline", "Gardens by the Bay"],
-    "sydney": ["Sydney Opera House harbor", "Sydney Harbour Bridge", "Circular Quay Sydney"],
+    "taipei": ["Taipei 101 Taiwan", "Jiufen old street Taiwan", "Keelung harbor Taiwan"],
+    "tianjin": ["Tianjin China Eye Ferris wheel", "Tianjin Italian Quarter", "Tianjin harbor cruise port"],
     "tokyo": ["Tokyo Bay Rainbow Bridge", "Senso-ji temple Tokyo", "Shibuya crossing Tokyo"],
 
-    # New Zealand
-    "akaroa": ["Akaroa New Zealand harbor", "Banks Peninsula", "Hector's dolphin Akaroa"],
+    # ── Asia — Southeast ──────────────────────────────────────────────────
+    "bali": ["Bali Indonesia temple", "Tanah Lot Bali", "Bali rice terraces Ubud"],
+    "bangkok": ["Grand Palace Bangkok", "Wat Arun Bangkok", "Chao Phraya River Bangkok"],
+    "ho-chi-minh-city": ["Ho Chi Minh City Saigon", "Notre Dame Cathedral Saigon", "Ben Thanh Market"],
+    "phuket": ["Phuket Thailand beach", "Patong Beach Phuket", "Phuket old town"],
+    "sihanoukville": ["Sihanoukville Cambodia beach", "Sihanoukville harbor", "Otres Beach Cambodia"],
+    "singapore": ["Marina Bay Sands Singapore", "Singapore harbor skyline", "Gardens by the Bay"],
 
-    # Pacific Islands
+    # ── India ─────────────────────────────────────────────────────────────
+    "mumbai": ["Gateway of India Mumbai", "Mumbai harbor skyline", "Marine Drive Mumbai"],
+
+    # ── Australia ─────────────────────────────────────────────────────────
+    "adelaide": ["Adelaide Australia city", "Adelaide Oval", "Barossa Valley wine South Australia"],
+    "brisbane": ["Brisbane Australia river", "South Bank Brisbane", "Story Bridge Brisbane"],
+    "fremantle": ["Fremantle Western Australia harbor", "Fremantle Markets", "Fremantle prison"],
+    "hobart": ["Hobart Tasmania harbor", "Salamanca Market Hobart", "Mount Wellington Hobart"],
+    "melbourne": ["Melbourne Australia skyline", "Flinders Street Station Melbourne", "Melbourne harbor"],
+    "sydney": ["Sydney Opera House harbor", "Sydney Harbour Bridge", "Circular Quay Sydney"],
+
+    # ── New Zealand ───────────────────────────────────────────────────────
+    "akaroa": ["Akaroa New Zealand harbor", "Banks Peninsula", "Hector's dolphin Akaroa"],
+    "doubtful-sound": ["Doubtful Sound New Zealand", "Doubtful Sound Fiordland", "Deep Cove Doubtful Sound"],
+    "dunedin": ["Dunedin New Zealand railway station", "Otago Peninsula wildlife", "Larnach Castle Dunedin"],
+    "lyttelton": ["Lyttelton New Zealand harbor", "Christchurch New Zealand", "Banks Peninsula Canterbury"],
+    "milford-sound": ["Milford Sound New Zealand", "Mitre Peak Milford Sound", "Fiordland National Park"],
+    "napier": ["Napier New Zealand Art Deco", "Napier harbor Hawke's Bay", "Marine Parade Napier"],
+    "picton": ["Picton New Zealand harbor", "Queen Charlotte Sound Marlborough", "Picton ferry terminal"],
+    "tauranga": ["Tauranga New Zealand harbor", "Mount Maunganui beach", "Bay of Plenty New Zealand"],
+
+    # ── Pacific Islands ───────────────────────────────────────────────────
     "airlie-beach": ["Whitsunday Islands", "Whitehaven Beach aerial", "Great Barrier Reef"],
     "aitutaki": ["Aitutaki lagoon Cook Islands", "One Foot Island", "Cook Islands beach"],
+    "bora-bora": ["Bora Bora lagoon aerial", "Mount Otemanu Bora Bora", "Bora Bora overwater bungalow"],
+    "guam": ["Guam beach tropical", "Two Lovers Point Guam", "Tumon Bay Guam"],
+    "maldives": ["Maldives overwater villa", "Maldives turquoise lagoon", "Male Maldives harbor"],
+    "palau": ["Palau Rock Islands aerial", "Jellyfish Lake Palau", "Palau Micronesia coral"],
+    "papeete": ["Papeete Tahiti harbor", "Tahiti French Polynesia beach", "Moorea island view"],
+    "saipan": ["Saipan Mariana Islands beach", "Managaha Island Saipan", "Saipan grotto diving"],
+    "suva": ["Suva Fiji harbor", "Fiji Islands beach tropical", "Suva market Fiji"],
+    "tonga": ["Tonga islands tropical", "Nuku'alofa Tonga harbor", "Tonga whale watching"],
+    "vanuatu": ["Vanuatu beach tropical", "Port Vila Vanuatu harbor", "Efate island Vanuatu"],
 
-    # Mexico
+    # ── Hawaii ────────────────────────────────────────────────────────────
+    "honolulu": ["Honolulu Waikiki beach", "Diamond Head Hawaii", "Aloha Tower harbor"],
+    "maui": ["Maui Hawaii beach", "Lahaina harbor Maui", "Haleakala Maui"],
+
+    # ── Mexico ────────────────────────────────────────────────────────────
     "manzanillo": ["Manzanillo Colima Mexico", "Manzanillo bay aerial", "Las Hadas Manzanillo"],
     "mazatlan": ["Mazatlan Mexico skyline", "Mazatlan malecon boardwalk", "Old Mazatlan historic"],
     "progreso": ["Progreso Yucatan Mexico pier", "Chichen Itza pyramid", "Merida cathedral Yucatan"],
     "zihuatanejo": ["Zihuatanejo bay Mexico", "Playa La Ropa Zihuatanejo", "Zihuatanejo fishing boats"],
 
-    # South America
-    "cartagena": ["Cartagena Colombia walled city", "Castillo San Felipe Cartagena", "Getsemani street art"],
+    # ── Central America / Panama ──────────────────────────────────────────
+    "gatun-lake": ["Gatun Lake Panama Canal", "Panama Canal locks ship", "Panama Canal aerial"],
 
-    # Antarctica
+    # ── South America ─────────────────────────────────────────────────────
+    "callao": ["Callao Peru harbor", "Lima Peru Plaza Mayor", "Miraflores Lima coast"],
+    "cartagena": ["Cartagena Colombia walled city", "Castillo San Felipe Cartagena", "Getsemani street art"],
+    "fortaleza": ["Fortaleza Brazil beach", "Praia do Futuro Fortaleza", "Fortaleza harbor Brazil"],
+    "guayaquil": ["Guayaquil Ecuador Malecon", "Guayaquil waterfront", "Iguana Park Guayaquil"],
+    "manta": ["Manta Ecuador beach", "Manta harbor Ecuador", "Montecristi Panama hats Ecuador"],
+    "puerto-madryn": ["Puerto Madryn Argentina", "Peninsula Valdes whales", "Patagonia Argentina coast"],
+    "punta-del-este": ["Punta del Este Uruguay", "La Mano sculpture Punta del Este", "Casapueblo Uruguay"],
+    "salvador": ["Salvador Bahia Brazil Pelourinho", "Salvador Brazil harbor", "Elevador Lacerda Salvador"],
+    "santos": ["Santos Brazil harbor", "Santos coffee museum", "Santos beach promenade"],
+    "valparaiso": ["Valparaiso Chile colorful hills", "Valparaiso harbor", "Valparaiso street art Chile"],
+
+    # ── Antarctica & Sub-Antarctic ────────────────────────────────────────
     "antarctica": ["Antarctica Peninsula cruise", "Emperor penguin Antarctica", "Antarctic iceberg"],
     "antarctic-peninsula": ["Antarctic Peninsula expedition", "Gentoo penguin colony", "Antarctica cruise ship"],
+    "pitcairn": ["Pitcairn Island South Pacific", "Bounty Bay Pitcairn", "Pitcairn remote island"],
+    "south-georgia": ["South Georgia island penguins", "King penguin colony South Georgia", "Grytviken South Georgia"],
+    "tristan-da-cunha": ["Tristan da Cunha island", "Edinburgh of Seven Seas", "Tristan da Cunha remote"],
 }
 
 # Image type → supplementary Flickr tags
