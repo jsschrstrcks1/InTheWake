@@ -537,6 +537,24 @@ else
     check_fail "data-imo attribute MISSING for live tracker"
 fi
 
+# Retired ship: logbook must have static eulogy entries (not noscript-only)
+# noscript content is invisible to JS users — retired ships need static articles
+# so ALL users see the ship's history and tribute, not an empty logbook section.
+if echo "$CONTENT" | grep -q "status: Retired Ship"; then
+    STATIC_LOGBOOK_COUNT=$(echo "$CONTENT" | awk '
+        /<script[ >]/ { in_script=1; next }
+        /<\/script/   { in_script=0; next }
+        /<noscript/   { in_noscript=1; next }
+        /<\/noscript/ { in_noscript=0; next }
+        !in_script && !in_noscript { print }
+    ' | grep -c '<article class="story"' || echo "0")
+    if [ "$STATIC_LOGBOOK_COUNT" -gt 0 ]; then
+        check_pass "Retired ship: $STATIC_LOGBOOK_COUNT static logbook eulogy article(s) visible to all users"
+    else
+        check_fail "Retired ship: no static logbook articles — eulogy entries must not be noscript-only (invisible to JS users)"
+    fi
+fi
+
 # ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
