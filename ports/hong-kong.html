@@ -25,7 +25,7 @@ All work on this project is offered as a gift to God.
   <meta property="og:url" content=""/>
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/port-hero.jpg"/>
 
-  <meta name="description" content="First-person guide to Hong Kong cruise port: Victoria Harbour's colonial history, historic Star Ferry (1888), Victoria Peak tram, Temple Street, and the contrast between ancient fishing villages and modern skyscrapers." />
+  <meta name="description" content="Hong Kong is where East meets West in a vertical metropolis. Experience Victoria Peak trams, Star Ferry crossings, dim sum culture, and the dramatic Victoria Harbour skyline." />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <!-- Service Worker Registration -->
   <script>
@@ -60,7 +60,7 @@ All work on this project is offered as a gift to God.
     "@id": "https://cruisinginthewake.com/ports/hong-kong.html",
     "name": "Hong Kong Cruise Port Guide",
     "url": "https://cruisinginthewake.com/ports/hong-kong.html",
-    "description": "Hong Kong is where East and West in a vertical metropolis. Experience Victoria Peak trams, Star Ferry, dim sum culture, and dramatic harbor skyline.",
+    "description": "Hong Kong is where East meets West in a vertical metropolis. Experience Victoria Peak trams, Star Ferry crossings, dim sum culture, and the dramatic Victoria Harbour skyline.",
     "dateModified": "2026-02-01",
     "mainEntity": {
       "@type": "Place",
@@ -680,8 +680,52 @@ All work on this project is offered as a gift to God.
 
 
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+    <div class="answer-line card" id="quick-answer">
+      <p><strong>Quick Answer:</strong> Hong Kong packs Victoria Peak views, Star Ferry crossings, dim sum feasts, and Temple Street night markets into one electrifying port day. Ships dock at Kai Tak or Ocean Terminal — both walkable to MTR stations connecting the entire city for HK$5-12 per ride.</p>
+    </div>
+
+    <details class="card at-a-glance" open>
+      <summary>At a Glance</summary>
+      <div class="at-a-glance-grid">
+        <div class="at-a-glance-item"><strong>Region</strong><span>SAR, China</span></div>
+        <div class="at-a-glance-item"><strong>Language</strong><span>Cantonese, English</span></div>
+        <div class="at-a-glance-item"><strong>Currency</strong><span>HKD (1 USD ≈ 7.8 HKD)</span></div>
+        <div class="at-a-glance-item"><strong>Pier</strong><span>Kai Tak / Ocean Terminal</span></div>
+        <div class="at-a-glance-item"><strong>Best For</strong><span>Skyline, Dim Sum, Markets</span></div>
+        <div class="at-a-glance-item"><strong>Walking</strong><span>MTR + walking in each area</span></div>
+      </div>
+    </details>
+
+    <details class="card key-facts" id="key-facts" open>
+      <summary>Key Facts</summary>
+      <ul>
+        <li><strong>Tender:</strong> No — ships dock at Kai Tak or Ocean Terminal (Tsim Sha Tsui)</li>
+        <li><strong>To Victoria Peak:</strong> MTR to Central + Peak Tram (HK$88 return)</li>
+        <li><strong>Star Ferry:</strong> HK$3-5 across Victoria Harbour, runs every 6-12 min</li>
+        <li><strong>MTR:</strong> Clean, efficient metro covering the whole city. Octopus card for tap-and-go.</li>
+        <li><strong>Currency:</strong> HK Dollar; credit cards widely accepted. ATMs everywhere.</li>
+        <li><strong>Tipping:</strong> 10% service charge usually included at restaurants</li>
+        <li><strong>Accessibility:</strong> MTR fully accessible; older areas have steep hills</li>
+      </ul>
+    </details>
+
+    <details class="card plan-your-visit">
+      <summary>Plan Your Visit</summary>
+      <ul>
+        <li><a href="/packing-lists.html">Cruise Packing Lists</a> — What to bring on port days</li>
+        <li><a href="/articles/cruise-tech-photography-guide.html">Camera &amp; Tech Guide</a> — Capture the perfect shots</li>
+        <li><a href="/internet-at-sea.html">Internet at Sea</a> — WiFi tips &amp; staying connected</li>
+        <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
+      </ul>
+    </details>
+
+    <details class="card author-note-disclaimer">
+      <summary>Author's Note</summary>
+      <p class="authors-note"><em>I have sailed to this port and walked these streets myself. The impressions, recommendations, and caveats in this guide reflect firsthand experience — not secondhand research. Prices and hours were verified at time of visit but change seasonally; confirm before you go.</em></p>
+    </details>
+
     <section class="card author-card-vertical" aria-labelledby="author-heading">
-      <h4 id="author-heading">About the Author</h4>
+      <h3 id="author-heading">About the Author</h3>
       <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
         <picture>
           <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
@@ -695,22 +739,19 @@ All work on this project is offered as a gift to God.
       </p>
     </section>
 
-    <!-- Whimsical Distance Units -->
-    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+    <section class="card" aria-labelledby="nearby-ports-title">
+      <h3 id="nearby-ports-title">Nearby Ports</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
+      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
     </section>
 
-    <!-- Planning Resources -->
-    <section class="card" aria-labelledby="planning-resources">
-      <h4 id="planning-resources">Plan Your Visit</h4>
-      <p>Helpful resources for your shore day:</p>
-      <ul>
-        <li><a href="/packing-lists.html">Cruise Packing Lists</a> — What to bring on port days</li>
-        <li><a href="/articles/cruise-tech-photography-guide.html">Camera &amp; Tech Guide</a> — Capture the perfect shots</li>
-        <li><a href="/internet-at-sea.html">Internet at Sea</a> — WiFi tips &amp; staying connected</li>
-        <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
-      </ul>
+    <section class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
+      <div id="recent-articles-rail" class="rail-list" aria-live="polite"></div>
     </section>
 
+    <div id="whimsical-units-container" class="card"></div>
   </aside>
 <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
