@@ -1,4 +1,10 @@
 {
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2026-02-22T00:00:00Z",
+    "source": "Researched from Tourism Corporation Bonaire, CruiseCritic, and local guides"
+  },
+
   "port_slug": "bonaire",
   "port_name": "Bonaire",
   "port_pin": {
@@ -6,20 +12,93 @@
     "lon": -68.2655,
     "label": "Kralendijk Cruise Pier"
   },
+
   "poi_ids": [
     "bonaire-cruise-terminal",
     "klein-bonaire-island",
     "1000-steps-beach",
     "salt-pyramids-bonaire",
     "flamingo-sanctuary",
-    "karels-beach-bar"
+    "karels-beach-bar",
+    "fort-oranje-bonaire",
+    "lac-bay-bonaire",
+    "hilma-hooker-wreck",
+    "washington-slagbaai",
+    "te-amo-beach"
   ],
+
+  "pois": [
+    { "id": "bonaire-cruise-terminal", "lat": 12.1443, "lon": -68.2655 },
+    { "id": "klein-bonaire-island", "lat": 12.1517, "lon": -68.3100 },
+    { "id": "1000-steps-beach", "lat": 12.2100, "lon": -68.3567 },
+    { "id": "salt-pyramids-bonaire", "lat": 12.0700, "lon": -68.2450 },
+    { "id": "flamingo-sanctuary", "lat": 12.0800, "lon": -68.2500 },
+    { "id": "karels-beach-bar", "lat": 12.1450, "lon": -68.2650 },
+    { "id": "fort-oranje-bonaire", "lat": 12.1467, "lon": -68.2667 },
+    { "id": "lac-bay-bonaire", "lat": 12.1000, "lon": -68.2267 },
+    { "id": "hilma-hooker-wreck", "lat": 12.1583, "lon": -68.2783 },
+    { "id": "washington-slagbaai", "lat": 12.2700, "lon": -68.3900 },
+    { "id": "te-amo-beach", "lat": 12.1383, "lon": -68.2750 }
+  ],
+
+  "label_overrides": {
+    "klein-bonaire-island": "Klein Bonaire (snorkeling)",
+    "flamingo-sanctuary": "Pekelmeer Flamingos",
+    "washington-slagbaai": "Washington Slagbaai NP"
+  },
+
   "bbox_hint": {
     "south": 12.00,
     "west": -68.45,
     "north": 12.30,
-    "east": -68.15
+    "east": -68.15,
+    "note": "Covers Kralendijk, Klein Bonaire, 1000 Steps, Lac Bay, Washington Slagbaai"
   },
-  "notes": "Walk-off pier into Kralendijk. Klein Bonaire water taxi 30 min intervals. Golf cart rental popular for exploring. World-class snorkeling.",
-  "generated": "2025-12-14T00:00:00Z"
+
+  "approximate_markers": [],
+
+  "transit_routes": [
+    {
+      "id": "water-taxi-klein",
+      "name": "Water Taxi to Klein Bonaire",
+      "type": "ferry",
+      "cost": "$25 round-trip",
+      "duration": "15 minutes",
+      "connects": ["bonaire-cruise-terminal", "klein-bonaire-island"],
+      "note": "Departs every 30 minutes from town pier. Best snorkeling on the island."
+    },
+    {
+      "id": "drive-to-1000-steps",
+      "name": "Drive to 1000 Steps Beach",
+      "type": "car",
+      "cost": "$45-60/day golf cart",
+      "duration": "15 minutes",
+      "connects": ["bonaire-cruise-terminal", "1000-steps-beach"],
+      "note": "North coast scenic drive. Actually 67 limestone steps to the water."
+    }
+  ],
+
+  "featured_experiences": [
+    {
+      "name": "Klein Bonaire Snorkeling",
+      "type": "adventure",
+      "duration": "3-4 hours",
+      "highlights": ["No Name Beach", "Sea turtles", "Crystal-clear water", "Coral reef"],
+      "note": "$25 water taxi. Bring your own gear or rent for $15-20/day."
+    },
+    {
+      "name": "Flamingo Sanctuary & Salt Flats",
+      "type": "nature",
+      "duration": "2 hours",
+      "highlights": ["Pink flamingos", "Salt pyramids", "Historic slave huts", "Photography"],
+      "note": "Free roadside viewing. Bring binoculars. Southern coast drive."
+    },
+    {
+      "name": "Shore Diving Circuit",
+      "type": "adventure",
+      "duration": "Full day",
+      "highlights": ["85+ marked sites", "Hilma Hooker wreck", "100+ ft visibility", "470+ fish species"],
+      "note": "$45/year diver marine park fee. Yellow stones mark each site."
+    }
+  ]
 }
