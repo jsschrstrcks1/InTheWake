@@ -116,6 +116,7 @@ Soli Deo Gloria
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" integrity="sha256-dMpqrlRo28kkeQw7TSGaCJuQo0utU6D3yjpz5ztvWrg=" crossorigin="anonymous"/>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -480,6 +481,24 @@ Soli Deo Gloria
           <p>All images on this page are used under Creative Commons or free-use licenses. Hero image and featured images sourced from <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> and <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a>. Specific photographer attributions are noted in individual image captions throughout the page.</p>
         </details>
 
+
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/lombok/lombok-hero.webp" alt="Lombok skyline and cityscape" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/lombok/lombok-harbor.webp" alt="Lombok harbor and waterfront" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
       <details class="port-section" id="faq" open>
           <summary><h2>Frequently Asked Questions</h2></summary>
           <p><strong>Q: Where do cruise ships dock in Lombok?</strong><br/>A: Lembar Port on the southwest coast, about 22 km (30 min drive) from Senggigi Beach. It is a working commercial port with basic facilities. Taxis and tour operators meet arriving ships at the terminal. The port itself has limited amenities, so plan to head into town or to attractions promptly after disembarking.</p>
@@ -640,5 +659,22 @@ Soli Deo Gloria
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous" onload="window.__swiperReady=true"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

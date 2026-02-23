@@ -393,7 +393,43 @@ Soli Deo Gloria
       </details>
 
       <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-    </article>
+    
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/taipei/taipei-hero.webp" alt="Taipei skyline and cityscape" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/taipei/taipei-harbor.webp" alt="Taipei harbor and waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/taipei/taipei-landmark.webp" alt="Taipei iconic landmark" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/taipei/taipei-attraction-1.webp" alt="Taipei popular attraction" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/taipei/taipei-attraction-2.webp" alt="Taipei cultural highlight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/taipei/taipei-food.webp" alt="Local cuisine in Taipei" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/taipei/taipei-street.webp" alt="Street scene in Taipei" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/taipei/taipei-panorama.webp" alt="Panoramic view of Taipei" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
+</article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
@@ -589,5 +625,21 @@ Soli Deo Gloria
 
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

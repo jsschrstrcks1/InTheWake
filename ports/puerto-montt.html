@@ -164,7 +164,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
   <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-  </head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" integrity="sha256-dMpqrlRo28kkeQw7TSGaCJuQo0utU6D3yjpz5ztvWrg=" crossorigin="anonymous"/>
+</head>
   <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -528,6 +529,42 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           </section>
 
           <!-- FAQ Section -->
+
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/puerto-montt/puerto-montt-hero.webp" alt="Puerto Montt skyline and cityscape" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/puerto-montt/puerto-montt-harbor.webp" alt="Puerto Montt harbor and waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/puerto-montt/puerto-montt-landmark.webp" alt="Puerto Montt iconic landmark" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/puerto-montt/puerto-montt-attraction-1.webp" alt="Puerto Montt popular attraction" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/puerto-montt/puerto-montt-attraction-2.webp" alt="Puerto Montt cultural highlight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/puerto-montt/puerto-montt-food.webp" alt="Local cuisine in Puerto Montt" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/puerto-montt/puerto-montt-street.webp" alt="Street scene in Puerto Montt" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/puerto-montt/puerto-montt-panorama.webp" alt="Panoramic view of Puerto Montt" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
           <details class="port-section" id="faq" open>
             <summary><h2>Frequently Asked Questions</h2></summary>
             <div class="faq-list">
@@ -744,5 +781,22 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     });
   </script>
   <script src="/assets/js/article-rail.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous" onload="window.__swiperReady=true"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

@@ -113,6 +113,7 @@ Soli Deo Gloria
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" integrity="sha256-dMpqrlRo28kkeQw7TSGaCJuQo0utU6D3yjpz5ztvWrg=" crossorigin="anonymous"/>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -534,6 +535,42 @@ Soli Deo Gloria
           </ul>
         </details>
 
+
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/salalah/salalah-hero.webp" alt="Salalah skyline and cityscape" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/salalah/salalah-harbor.webp" alt="Salalah harbor and waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/salalah/salalah-landmark.webp" alt="Salalah iconic landmark" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/salalah/salalah-attraction-1.webp" alt="Salalah popular attraction" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/salalah/salalah-attraction-2.webp" alt="Salalah cultural highlight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/salalah/salalah-food.webp" alt="Local cuisine in Salalah" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/salalah/salalah-street.webp" alt="Street scene in Salalah" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/salalah/salalah-panorama.webp" alt="Panoramic view of Salalah" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
       <details class="port-section" id="faq" open>
           <summary><h2>Frequently Asked Questions</h2></summary>
           <p><strong>Q: Where do cruise ships dock in Salalah?</strong><br/>A: Salalah Port, an industrial container facility about 20 km from the city center. There is no dedicated cruise terminal. Taxi fare to town runs about 5-8 OMR ($13-21). The pier is flat and accessible for passengers with mobility needs, though surfaces may be uneven.</p>
@@ -665,5 +702,22 @@ Soli Deo Gloria
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous" onload="window.__swiperReady=true"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

@@ -522,6 +522,42 @@ Soli Deo Gloria
           <p><em>Images sourced from Wikimedia Commons under Creative Commons licenses.</em></p>
         </details>
 
+
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/guayaquil/guayaquil-hero.webp" alt="Guayaquil skyline and cityscape" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/guayaquil/guayaquil-harbor.webp" alt="Guayaquil harbor and waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/guayaquil/guayaquil-landmark.webp" alt="Guayaquil iconic landmark" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/guayaquil/guayaquil-attraction-1.webp" alt="Guayaquil popular attraction" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/guayaquil/guayaquil-attraction-2.webp" alt="Guayaquil cultural highlight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/guayaquil/guayaquil-food.webp" alt="Local cuisine in Guayaquil" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/guayaquil/guayaquil-street.webp" alt="Street scene in Guayaquil" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/guayaquil/guayaquil-panorama.webp" alt="Panoramic view of Guayaquil" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
       <details class="port-section" id="faq" open>
           <summary><h2>Frequently Asked Questions</h2></summary>
           <p><strong>Q: Is Guayaquil safe for cruise passengers visiting independently?</strong><br/>A: Yes, tourist areas like Malecón 2000, Las Peñas, and Parque Seminario are safe during daylight hours. Guayaquil underwent major urban renewal in the 2000s, improving security significantly. Stick to main tourist zones, use Uber or official taxis, and avoid isolated areas after dark. The city has worked hard to shed its former reputation.</p>
@@ -741,5 +777,21 @@ Soli Deo Gloria
 
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

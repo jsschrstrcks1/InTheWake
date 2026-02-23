@@ -548,6 +548,42 @@ All work on this project is offered as a gift to God.
         </ul>
       </details>
 
+
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/freeport/freeport-hero.webp" alt="Freeport skyline and cityscape" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/freeport/freeport-harbor.webp" alt="Freeport harbor and waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/freeport/freeport-landmark.webp" alt="Freeport iconic landmark" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/freeport/freeport-attraction-1.webp" alt="Freeport popular attraction" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/freeport/freeport-attraction-2.webp" alt="Freeport cultural highlight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/freeport/freeport-food.webp" alt="Local cuisine in Freeport" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/freeport/freeport-street.webp" alt="Street scene in Freeport" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/freeport/freeport-panorama.webp" alt="Panoramic view of Freeport" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
       <details class="port-section" id="faq" open>
         <summary><h2>Frequently Asked Questions</h2></summary>
         <p><strong>Q: What's the best beach near Freeport cruise port?</strong><br/>A: Gold Rock Beach in Lucayan National Park is stunning with white sand and clear turquoise water. It is about 30 minutes by taxi ($40-50 round trip). Deadman's Reef near Port Lucaya offers excellent snorkeling closer to port, about 10 minutes from the terminal.</p>
@@ -739,5 +775,21 @@ All work on this project is offered as a gift to God.
 
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

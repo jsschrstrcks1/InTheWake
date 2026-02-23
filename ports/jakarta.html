@@ -55,7 +55,8 @@ ITW-Lite v3.010 | ICP-Lite v1.4
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
   <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-  </head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" integrity="sha256-dMpqrlRo28kkeQw7TSGaCJuQo0utU6D3yjpz5ztvWrg=" crossorigin="anonymous"/>
+</head>
   <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -297,6 +298,42 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <div id="port-map" class="port-map" style="height: 400px"></div>
           </section>
 
+
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/jakarta/jakarta-hero.webp" alt="Jakarta skyline and cityscape" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/jakarta/jakarta-harbor.webp" alt="Jakarta harbor and waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/jakarta/jakarta-landmark.webp" alt="Jakarta iconic landmark" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/jakarta/jakarta-attraction-1.webp" alt="Jakarta popular attraction" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/jakarta/jakarta-attraction-2.webp" alt="Jakarta cultural highlight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/jakarta/jakarta-food.webp" alt="Local cuisine in Jakarta" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/jakarta/jakarta-street.webp" alt="Street scene in Jakarta" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/jakarta/jakarta-panorama.webp" alt="Panoramic view of Jakarta" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
           <details class="port-section" id="faq" open>
             <summary><h2>FAQs</h2></summary>
             <div class="faq-list">
@@ -415,5 +452,22 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     });
   </script>
   <script src="/assets/js/article-rail.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous" onload="window.__swiperReady=true"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

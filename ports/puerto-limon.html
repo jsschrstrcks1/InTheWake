@@ -530,6 +530,42 @@ Soli Deo Gloria
           </ul>
         </details>
 
+
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/puerto-limon/puerto-limon-hero.webp" alt="Puerto Limon skyline and cityscape" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/puerto-limon/puerto-limon-harbor.webp" alt="Puerto Limon harbor and waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/puerto-limon/puerto-limon-landmark.webp" alt="Puerto Limon iconic landmark" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/puerto-limon/puerto-limon-attraction-1.webp" alt="Puerto Limon popular attraction" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/puerto-limon/puerto-limon-attraction-2.webp" alt="Puerto Limon cultural highlight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/puerto-limon/puerto-limon-food.webp" alt="Local cuisine in Puerto Limon" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/puerto-limon/puerto-limon-street.webp" alt="Street scene in Puerto Limon" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/puerto-limon/puerto-limon-panorama.webp" alt="Panoramic view of Puerto Limon" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
       <details class="port-section" id="faq" open>
           <summary><h2>Frequently Asked Questions</h2></summary>
           <p><strong>Q: Is Puerto Limón worth visiting on a cruise?</strong><br/>A: Absolutely — if you go beyond the port itself. Puerto Limón is your gateway to Costa Rica's Caribbean rainforest: sloths at rescue centers, Tortuguero's jungle canals, zip-line canopy tours, and vibrant Afro-Caribbean culture. The excursions are the point, not the town.</p>
@@ -739,5 +775,21 @@ Soli Deo Gloria
 
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

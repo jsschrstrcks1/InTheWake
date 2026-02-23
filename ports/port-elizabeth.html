@@ -122,6 +122,7 @@ Soli Deo Gloria
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" integrity="sha256-dMpqrlRo28kkeQw7TSGaCJuQo0utU6D3yjpz5ztvWrg=" crossorigin="anonymous"/>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -401,6 +402,42 @@ Soli Deo Gloria
           <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
           <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2026-02-01 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
         </aside>
+
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/port-elizabeth/port-elizabeth-hero.webp" alt="Port Elizabeth skyline and cityscape" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/port-elizabeth/port-elizabeth-harbor.webp" alt="Port Elizabeth harbor and waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/port-elizabeth/port-elizabeth-landmark.webp" alt="Port Elizabeth iconic landmark" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/port-elizabeth/port-elizabeth-attraction-1.webp" alt="Port Elizabeth popular attraction" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/port-elizabeth/port-elizabeth-attraction-2.webp" alt="Port Elizabeth cultural highlight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/port-elizabeth/port-elizabeth-food.webp" alt="Local cuisine in Port Elizabeth" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/port-elizabeth/port-elizabeth-street.webp" alt="Street scene in Port Elizabeth" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/port-elizabeth/port-elizabeth-panorama.webp" alt="Panoramic view of Port Elizabeth" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
 </article>
     </div>
 
@@ -498,5 +535,22 @@ Soli Deo Gloria
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous" onload="window.__swiperReady=true"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

@@ -580,6 +580,21 @@ Soli Deo Gloria
           Until I have sailed this port myself, these notes are soundings in another's wake; carefully curated and edited to meet our standards. We believe they are helpful for planning, and marked for revision once I've logged my own steps ashore.
         </p>
       </aside>
+
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/endicott-arm/endicott-arm-hero.webp" alt="Endicott Arm skyline and cityscape" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
 <details class="port-section faq-section" id="faq" open>
             <summary><h2 id="faq-title">Frequently Asked Questions</h2></summary>
             <div class="collapse-body">
@@ -789,5 +804,21 @@ Soli Deo Gloria
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

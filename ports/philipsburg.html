@@ -383,8 +383,37 @@ All work on this project is offered as a gift to God.
       <!-- FAQ SECTION -->
       <details class="port-section photo-gallery" id="gallery" open>
         <summary><h2>Photo Gallery</h2></summary>
-        <div class="gallery-grid">
+                <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/philipsburg/philipsburg-hero.webp" alt="Philipsburg skyline and cityscape" loading="lazy"/>
             </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/philipsburg/philipsburg-harbor.webp" alt="Philipsburg harbor and waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/philipsburg/philipsburg-landmark.webp" alt="Philipsburg iconic landmark" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/philipsburg/philipsburg-attraction-1.webp" alt="Philipsburg popular attraction" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/philipsburg/philipsburg-attraction-2.webp" alt="Philipsburg cultural highlight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/philipsburg/philipsburg-food.webp" alt="Local cuisine in Philipsburg" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/philipsburg/philipsburg-street.webp" alt="Street scene in Philipsburg" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/philipsburg/philipsburg-panorama.webp" alt="Panoramic view of Philipsburg" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
       </details>
 
       <details class="port-section image-credits" id="credits" open>
@@ -586,5 +615,21 @@ All work on this project is offered as a gift to God.
 
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

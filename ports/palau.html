@@ -367,6 +367,42 @@ All work on this project is offered as a gift to God.
         <h3>Author's Note</h3>
         <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
       </section>
+
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/palau/palau-hero.webp" alt="Palau skyline and cityscape" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/palau/palau-harbor.webp" alt="Palau harbor and waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/palau/palau-landmark.webp" alt="Palau iconic landmark" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/palau/palau-attraction-1.webp" alt="Palau popular attraction" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/palau/palau-attraction-2.webp" alt="Palau cultural highlight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/palau/palau-food.webp" alt="Local cuisine in Palau" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/palau/palau-street.webp" alt="Street scene in Palau" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/palau/palau-panorama.webp" alt="Panoramic view of Palau" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
 </article>
 
   </div><!-- end main column wrapper -->
@@ -502,5 +538,21 @@ All work on this project is offered as a gift to God.
 
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

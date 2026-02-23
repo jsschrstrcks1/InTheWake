@@ -117,6 +117,7 @@ Soli Deo Gloria
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" integrity="sha256-dMpqrlRo28kkeQw7TSGaCJuQo0utU6D3yjpz5ztvWrg=" crossorigin="anonymous"/>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -302,6 +303,42 @@ Soli Deo Gloria
         <div id="port-map" style="height: 350px; border-radius: 8px; margin: 1rem 0;"></div>
         <p class="map-note" style="font-size: 0.85rem; color: #666; text-align: center;">Tap markers to explore St. John</p>
       </section>
+
+
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/st-john-usvi/st-john-usvi-hero.webp" alt="St John Usvi skyline and cityscape" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/st-john-usvi/st-john-usvi-harbor.webp" alt="St John Usvi harbor and waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/st-john-usvi/st-john-usvi-landmark.webp" alt="St John Usvi iconic landmark" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/st-john-usvi/st-john-usvi-attraction-1.webp" alt="St John Usvi popular attraction" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/st-john-usvi/st-john-usvi-attraction-2.webp" alt="St John Usvi cultural highlight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/st-john-usvi/st-john-usvi-food.webp" alt="Local cuisine in St John Usvi" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/st-john-usvi/st-john-usvi-street.webp" alt="Street scene in St John Usvi" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/st-john-usvi/st-john-usvi-panorama.webp" alt="Panoramic view of St John Usvi" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
 
       <details class="port-section faq-section" id="faq" open>
         <summary><h2>Frequently Asked Questions</h2></summary>
@@ -495,5 +532,22 @@ Soli Deo Gloria
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous" onload="window.__swiperReady=true"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

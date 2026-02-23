@@ -320,7 +320,22 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <p class="pier-note">Gateway to Kenai Fjords National Park. Town walkable. Exit Glacier is a short ride. Many passengers continue to Anchorage or Denali by bus or train.</p>
 </nav>
 
-    </article>
+    
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/seward/seward-hero.webp" alt="Seward skyline and cityscape" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
+</article>
 
     <section id="logbook" class="card logbook-entry">
           <details class="section-collapse" open>
@@ -930,5 +945,21 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

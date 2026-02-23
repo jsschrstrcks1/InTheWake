@@ -404,8 +404,37 @@ Soli Deo Gloria
     <!-- ========== FAQ ========== -->
     <details class="port-section photo-gallery" id="gallery" open>
       <summary><h2>Photo Gallery</h2></summary>
-      <div class="gallery-grid">
+              <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/gijon/gijon-hero.webp" alt="Gijon skyline and cityscape" loading="lazy"/>
             </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/gijon/gijon-harbor.webp" alt="Gijon harbor and waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/gijon/gijon-landmark.webp" alt="Gijon iconic landmark" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/gijon/gijon-attraction-1.webp" alt="Gijon popular attraction" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/gijon/gijon-attraction-2.webp" alt="Gijon cultural highlight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/gijon/gijon-food.webp" alt="Local cuisine in Gijon" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/gijon/gijon-street.webp" alt="Street scene in Gijon" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/gijon/gijon-panorama.webp" alt="Panoramic view of Gijon" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
     </details>
 
       <details class="port-section image-credits" id="credits" open>
@@ -746,5 +775,21 @@ Soli Deo Gloria
 
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>
