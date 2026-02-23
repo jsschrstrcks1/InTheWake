@@ -325,7 +325,22 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <p class="pier-note">Ships dock at Port Chilkoot. Haines is small and walkable — downtown is 0.5 miles, Fort Seward 0.75 miles. Shuttles run $2–5, taxis $15–25, car rentals $80–120/day. This is one of Alaska's most underrated ports — fewer crowds than Juneau or Skagway, more wildlife.</p>
 </nav>
 
-    </article>
+    
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/haines/haines-hero.webp" alt="Haines skyline and cityscape" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
+</article>
 
     <section id="logbook" class="card logbook-entry">
           <details class="section-collapse" open>
@@ -870,5 +885,21 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

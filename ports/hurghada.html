@@ -132,6 +132,7 @@ Soli Deo Gloria
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
   <link rel="canonical" href="https://cruisinginthewake.com/ports/hurghada.html"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" integrity="sha256-dMpqrlRo28kkeQw7TSGaCJuQo0utU6D3yjpz5ztvWrg=" crossorigin="anonymous"/>
 </head>
 <body class="page">
       <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -462,6 +463,42 @@ Soli Deo Gloria
             </ul>
           </details>
 
+
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/hurghada/hurghada-hero.webp" alt="Hurghada skyline and cityscape" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/hurghada/hurghada-harbor.webp" alt="Hurghada harbor and waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/hurghada/hurghada-landmark.webp" alt="Hurghada iconic landmark" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/hurghada/hurghada-attraction-1.webp" alt="Hurghada popular attraction" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/hurghada/hurghada-attraction-2.webp" alt="Hurghada cultural highlight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/hurghada/hurghada-food.webp" alt="Local cuisine in Hurghada" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/hurghada/hurghada-street.webp" alt="Street scene in Hurghada" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/hurghada/hurghada-panorama.webp" alt="Panoramic view of Hurghada" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
       <details class="port-section" id="faq" open>
             <summary><h2>Frequently Asked Questions</h2></summary>
             <p><strong>Q: What currency do I need in Hurghada?</strong><br/>A: The Egyptian Pound (EGP) is the local currency. US dollars and euros are widely accepted in tourist areas, but you will get better rates exchanging to pounds. ATMs are available at the port and in the Sigala marina district.</p>
@@ -724,5 +761,22 @@ Soli Deo Gloria
   <script type="module" src="/assets/js/port-weather.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/port-logbook-btn.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous" onload="window.__swiperReady=true"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

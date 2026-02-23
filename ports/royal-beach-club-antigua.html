@@ -122,6 +122,7 @@ Soli Deo Gloria
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" integrity="sha256-dMpqrlRo28kkeQw7TSGaCJuQo0utU6D3yjpz5ztvWrg=" crossorigin="anonymous"/>
 </head>
 <body class="page">
 
@@ -369,6 +370,42 @@ Soli Deo Gloria
         </details>
 
         <p class="mt-2"><a href="/ports/antigua.html">← See Current Antigua Port Guide</a> · <a href="/ports.html">All Ports</a></p>
+
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/royal-beach-club-antigua/royal-beach-club-antigua-hero.webp" alt="Royal Beach Club Antigua skyline and cityscape" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/royal-beach-club-antigua/royal-beach-club-antigua-harbor.webp" alt="Royal Beach Club Antigua harbor and waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/royal-beach-club-antigua/royal-beach-club-antigua-landmark.webp" alt="Royal Beach Club Antigua iconic landmark" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/royal-beach-club-antigua/royal-beach-club-antigua-attraction-1.webp" alt="Royal Beach Club Antigua popular attraction" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/royal-beach-club-antigua/royal-beach-club-antigua-attraction-2.webp" alt="Royal Beach Club Antigua cultural highlight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/royal-beach-club-antigua/royal-beach-club-antigua-food.webp" alt="Local cuisine in Royal Beach Club Antigua" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/royal-beach-club-antigua/royal-beach-club-antigua-street.webp" alt="Street scene in Royal Beach Club Antigua" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/royal-beach-club-antigua/royal-beach-club-antigua-panorama.webp" alt="Panoramic view of Royal Beach Club Antigua" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
 </article>
     </div>
 
@@ -510,4 +547,21 @@ Soli Deo Gloria
   </script>
   <script type="module" src="/assets/js/port-weather.js"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous" onload="window.__swiperReady=true"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body></html>

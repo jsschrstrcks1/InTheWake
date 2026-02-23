@@ -516,6 +516,42 @@ Soli Deo Gloria
         <p><em>Images sourced from Wikimedia Commons under Creative Commons licenses.</em></p>
       </details>
 
+
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/manta/manta-hero.webp" alt="Manta skyline and cityscape" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/manta/manta-harbor.webp" alt="Manta harbor and waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/manta/manta-landmark.webp" alt="Manta iconic landmark" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/manta/manta-attraction-1.webp" alt="Manta popular attraction" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/manta/manta-attraction-2.webp" alt="Manta cultural highlight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/manta/manta-food.webp" alt="Local cuisine in Manta" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/manta/manta-street.webp" alt="Street scene in Manta" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/manta/manta-panorama.webp" alt="Panoramic view of Manta" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
       <details class="port-section" id="faq" open>
         <summary><h2>Frequently Asked Questions</h2></summary>
         <p><strong>Q: When is the best time to see humpback whales in Manta?</strong><br/>A: June through September is peak humpback whale season when whales migrate from Antarctica to Ecuador's warm coastal waters to breed and calve. Tours run daily from Manta's harbor with high success rates for sightings. July and August offer the best chances.</p>
@@ -736,5 +772,21 @@ Soli Deo Gloria
 
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>

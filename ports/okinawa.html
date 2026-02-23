@@ -65,6 +65,7 @@ Soli Deo Gloria
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" integrity="sha256-dMpqrlRo28kkeQw7TSGaCJuQo0utU6D3yjpz5ztvWrg=" crossorigin="anonymous"/>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -253,6 +254,42 @@ Soli Deo Gloria
         <p class="map-note" style="font-size: 0.85rem; color: #666; text-align: center;">Tap markers to explore Okinawa</p>
       </section>
 
+
+        <details class="port-section photo-gallery" id="gallery" open>
+            <summary><h2>Photo Gallery</h2></summary>
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/ports/img/okinawa/okinawa-hero.webp" alt="Okinawa skyline and cityscape" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/okinawa/okinawa-harbor.webp" alt="Okinawa harbor and waterfront" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/okinawa/okinawa-landmark.webp" alt="Okinawa iconic landmark" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/okinawa/okinawa-attraction-1.webp" alt="Okinawa popular attraction" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/okinawa/okinawa-attraction-2.webp" alt="Okinawa cultural highlight" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/okinawa/okinawa-food.webp" alt="Local cuisine in Okinawa" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/okinawa/okinawa-street.webp" alt="Street scene in Okinawa" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/ports/img/okinawa/okinawa-panorama.webp" alt="Panoramic view of Okinawa" loading="lazy"/>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev" aria-label="Previous slide"></div>
+          <div class="swiper-button-next" aria-label="Next slide"></div>
+        </div>
+        </details>
+
       <details class="port-section faq-section" id="faq" open>
         <summary><h2>Frequently Asked Questions</h2></summary>
         <details class="faq-item"><summary>Where do ships dock?</summary><p>Naha Cruise Terminal, 10-15 minute walk to Kokusai Street shopping area. Taxi or monorail to other attractions.</p></details>
@@ -406,5 +443,22 @@ Soli Deo Gloria
   <script>if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') { PortMap.init({ containerId: 'port-map', portSlug: 'okinawa' }); }</script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous" onload="window.__swiperReady=true"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGallery() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+            a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
+          });
+        } else { setTimeout(initGallery, 100); }
+      }
+      initGallery();
+    });
+  </script>
 </body>
 </html>
