@@ -544,8 +544,10 @@ fi
 # This is how we honour retired vessels: the ship's service AND the people who sailed her.
 if echo "$CONTENT" | grep -q "status: Retired Ship"; then
     STATIC_HTML=$(echo "$CONTENT" | awk '
+        /<script[ >]/ && /<\/script/ { next }
         /<script[ >]/ { in_script=1; next }
         /<\/script/   { in_script=0; next }
+        /<noscript/ && /<\/noscript/ { next }
         /<noscript/   { in_noscript=1; next }
         /<\/noscript/ { in_noscript=0; next }
         !in_script && !in_noscript { print }
