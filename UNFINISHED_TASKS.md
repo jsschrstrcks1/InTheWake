@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Active task queue. Only pending work lives here.
-**Last Updated:** 2026-02-13
+**Last Updated:** 2026-02-22
 **Maintained by:** Claude AI
 
 > **Archives:**
@@ -391,6 +391,100 @@ These items were evaluated during the competitor analysis and **explicitly rejec
 ---
 
 ## 🟡 YELLOW LANE — AI Proposes, Human Approves
+
+### 🟡 [Y] "What Can I Eat?" Dining Search Tool (NEW — 2026-02-22)
+**Status:** Not started — design needed
+**Priority:** P1 — new tool, high user value
+**Lane:** 🟡 Yellow (new feature, needs design + data decisions)
+**Concept:** A cruise-line → ship → dish search tool that answers "Where can I eat [dish] on [ship]?"
+
+**User story:**
+> I'm on Royal Caribbean's Quantum of the Seas and I want escargot or filet mignon.
+> Show me every venue on board that serves it, with prices.
+
+**Requirements:**
+- [ ] **Standalone tool page** at `/tools/dining-search.html` (like Stateroom Checker but more elegant)
+- [ ] **Embedded on each ship page** as a searchable section or widget
+- [ ] **Input:** Cruise line → Ship → Dish keyword(s) (e.g., "filet", "escargot", "lobster", "sushi")
+- [ ] **Output:** All matching venues with: venue name, dish name, price (if known), meal period, included-vs-upcharge
+- [ ] **Data source:** Leverage existing 472 restaurant pages + `/assets/data/venues.json`
+- [ ] **Search behavior:** Fuzzy/partial match ("filet" matches "Filet Mignon", "Beef Filet", etc.)
+- [ ] **Filter options:** Included-in-fare vs. specialty, meal period (breakfast/lunch/dinner), cuisine type
+- [ ] **Cross-link:** Results link to individual venue pages for full menus
+
+**Design notes:**
+- More elegant than Stateroom Checker — consider card-based results with venue photos
+- Progressive disclosure: start with cruise line picker, then ship, then search
+- Mobile-first: most users will search on the ship
+- Offline-capable: pre-cache venue data for shipboard WiFi-free use
+
+**Data pipeline tasks:**
+- [ ] Audit `venues.json` for dish-level data availability (do we have menu items per venue?)
+- [ ] If menu data is sparse, create `menu-items.json` index from restaurant page content
+- [ ] Standardize dish names for searchability (normalize "Filet Mignon" / "Beef Filet" / "8oz Filet")
+- [ ] Add price data where available (many specialty restaurants list prices)
+- [ ] Map venues → ships → cruise lines for the cascade filter
+
+**UI/UX tasks:**
+- [ ] Design tool page layout (search bar + filters + results grid)
+- [ ] Design ship page widget (compact embedded version)
+- [ ] Implement autocomplete/suggestions for dish search
+- [ ] Add "Popular searches" shortcuts (lobster, sushi, steak, pizza, etc.)
+
+**Technical tasks:**
+- [ ] Create `/assets/data/menu-search-index.json` (inverted index: dish → venues → ships)
+- [ ] Create `/assets/js/dining-search.js` (search logic + UI)
+- [ ] Create `/tools/dining-search.html` (standalone page)
+- [ ] Add widget embed to ship pages
+- [ ] Add to site navigation (Tools dropdown)
+- [ ] Service worker caching for offline use
+
+---
+
+### 🟡 [Y] Stateroom Checker — Embed on Individual Ship Pages (NEW — 2026-02-22)
+**Status:** Not started — design needed
+**Priority:** P1 — high user value, leverages existing 270 exception files
+**Lane:** 🟡 Yellow (new feature, needs design decisions)
+**Concept:** Expand the Stateroom Sanity Check from a standalone tool (`/stateroom-check.html`) to an embedded widget on every ship page, so users can check their cabin without leaving the ship page they're already reading.
+
+**Current state:**
+- Standalone tool at `/stateroom-check.html` works for all ships
+- 270 ship-specific exception files in `/assets/data/staterooms/`
+- Ship pages currently link to the tool via nav dropdown — users must leave the page
+
+**User story:**
+> I'm reading about Royal Caribbean's Anthem of the Seas and I've just been assigned cabin 8342.
+> I want to check it right here on the ship page without navigating away.
+
+**Requirements:**
+- [ ] **Embedded widget section** on each ship page (collapsible card, "Check Your Cabin" heading)
+- [ ] **Pre-populated ship selection** — widget already knows which ship the user is on
+- [ ] **Input:** Cabin number only (ship is implicit from the page context)
+- [ ] **Output:** Same pastoral guidance as standalone tool — obstructed views, connecting doors, noise warnings, accessibility notes
+- [ ] **Standalone tool stays** — embedded widget is additive, not a replacement
+- [ ] **Lazy-loaded** — only loads exception data when user expands the section or enters a cabin number
+
+**Design notes:**
+- Simpler than standalone: no cruise-line/ship cascade needed (ship is known)
+- Single input field + "Check" button, inline results below
+- Collapsible by default to avoid page bloat (expand on click)
+- Same pastoral tone as standalone ("Here's what you should know about this cabin...")
+- Mobile-first: cabin number input should be numeric keyboard on mobile
+
+**Technical tasks:**
+- [ ] Extract core checker logic from `stateroom-check.html` into reusable `/assets/js/stateroom-widget.js`
+- [ ] Create ship page widget HTML template (section with input + results area)
+- [ ] Widget reads ship slug from page context (data attribute or URL) to load correct exception file
+- [ ] Lazy-load exception JSON only when widget is activated (not on page load)
+- [ ] Add widget section to ship page template (after Quick Facts, before Dining)
+- [ ] Roll out to all 298 ship pages
+- [ ] Ensure offline/PWA support (cache exception files for shipboard use)
+
+**Data considerations:**
+- 270 of 298 ships already have exception files — 28 ships may need stub files or a "no known issues" fallback
+- [ ] Audit which ships lack exception files and create stubs or handle gracefully
+
+---
 
 ### 🟡 [Y] Carnival Fleet Index Page Enhancement
 - [ ] (Future) CTA for booking - leave off for now
