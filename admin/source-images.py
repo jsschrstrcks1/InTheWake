@@ -31,6 +31,7 @@ Usage:
 
 import argparse
 import csv
+import hashlib
 import json
 import os
 import random
@@ -410,9 +411,15 @@ def flickr_feed_search(tags):
     return []
 
 
-def flickr_search_port(port_slug, queries):
+def flickr_search_port(port_slug, queries, used_urls=None):
     """Try multiple Flickr tag combos to find a usable port image.
+
+    Args:
+        used_urls: set of URLs already downloaded for this port (to avoid duplicates).
     Returns (large_url, photographer, photo_link) or (None, None, None)."""
+    if used_urls is None:
+        used_urls = set()
+
     # Build diverse tag sets from queries
     tag_sets = []
     for query in queries:
@@ -421,7 +428,7 @@ def flickr_search_port(port_slug, queries):
         if len(words) >= 2:
             tag_sets.append(f"{words[0]},{words[-1]}")
 
-    # Deduplicate
+    # Deduplicate tag sets
     seen = set()
     unique = []
     for t in tag_sets:
@@ -440,7 +447,7 @@ def flickr_search_port(port_slug, queries):
         if not items:
             continue
 
-        for item in items[:5]:
+        for item in items[:10]:
             media_url = item.get("media", {}).get("m", "")
             if not media_url:
                 continue
@@ -453,6 +460,10 @@ def flickr_search_port(port_slug, queries):
             large_url = (media_url
                          .replace("_m.jpg", "_b.jpg")
                          .replace("_m.png", "_b.png"))
+
+            # Skip photos already used for this port
+            if large_url in used_urls:
+                continue
 
             author_raw = item.get("author", "")
             match = re.search(r'\("(.+?)"\)', author_raw)
@@ -689,8 +700,14 @@ def find_missing_images(port_slug):
 
 
 def find_ports_needing_images(min_needed=1):
-    """Scan all port HTML files and return slugs that need images."""
+    """Scan all port HTML files and return slugs that need images.
+
+    Includes ports where:
+    - HTML references images that are missing on disk, OR
+    - The port has fewer than 8 images and has search terms configured
+    """
     ports = []
+    seen = set()
     for html_file in sorted(PORTS_DIR.glob("*.html")):
         slug = html_file.stem
         if slug == "index":
@@ -698,6 +715,14 @@ def find_ports_needing_images(min_needed=1):
         missing = find_missing_images(slug)
         if len(missing) >= min_needed:
             ports.append((slug, missing))
+            seen.add(slug)
+        elif slug not in seen and slug in PORT_SEARCH_TERMS:
+            existing = count_existing_images(slug)
+            if existing < 8:
+                # Port has search terms but HTML doesn't reference images yet;
+                # source_port() will generate standard filenames.
+                ports.append((slug, []))
+                seen.add(slug)
     return ports
 
 
@@ -765,15 +790,24 @@ def source_port(port_slug, dry_run=False, flickr_only=False, max_images=20):
     img_dir.mkdir(parents=True, exist_ok=True)
 
     downloaded = 0
+    used_urls = set()     # Track URLs to avoid duplicate downloads within a port
+    used_hashes = set()   # Track content hashes to catch identical images from different URLs
+
+    # Pre-compute hashes of existing images so we don't download duplicates of them
+    for existing_file in img_dir.glob("*.webp"):
+        used_hashes.add(hashlib.md5(existing_file.read_bytes()).hexdigest())
 
     for img_name in missing[:max_images]:
         queries = build_queries(port_slug, img_name)
         print(f"    → {img_name}")
 
         # --- Strategy 1: Flickr public feed ---
-        url, photographer, photo_link = flickr_search_port(port_slug, queries)
+        url, photographer, photo_link = flickr_search_port(port_slug, queries,
+                                                           used_urls=used_urls)
 
         if url:
+            used_urls.add(url)
+
             if dry_run:
                 print(f"      DRY RUN: Would download from {photographer}")
                 downloaded += 1
@@ -786,6 +820,18 @@ def source_port(port_slug, dry_run=False, flickr_only=False, max_images=20):
 
             if download_image(url, temp_path):
                 if convert_to_webp(temp_path, final_path):
+                    # Content-hash dedup: reject images identical to ones already saved
+                    file_hash = hashlib.md5(final_path.read_bytes()).hexdigest()
+                    if file_hash in used_hashes:
+                        print(f"      ⊘ Skipped (duplicate content of existing image)")
+                        final_path.unlink()
+                        attr_json = final_path.parent / f"{final_path.name}.attr.json"
+                        if attr_json.exists():
+                            attr_json.unlink()
+                        RATE.between_images()
+                        continue
+
+                    used_hashes.add(file_hash)
                     save_attr_json(final_path, photo_link, photographer,
                                    "Flickr (verify license)", "Flickr public feed")
                     rel_path = f"/ports/img/{port_slug}/{img_name}"
@@ -817,6 +863,15 @@ def source_port(port_slug, dry_run=False, flickr_only=False, max_images=20):
 
                 if download_image(wiki_url, temp_path):
                     if convert_to_webp(temp_path, final_path):
+                        # Content-hash dedup for Wikimedia too
+                        file_hash = hashlib.md5(final_path.read_bytes()).hexdigest()
+                        if file_hash in used_hashes:
+                            print(f"      ⊘ Skipped (duplicate content of existing image)")
+                            final_path.unlink()
+                            RATE.between_images()
+                            continue
+
+                        used_hashes.add(file_hash)
                         license_str = wiki_info.get("license", "CC")
                         author = wiki_info.get("author", "Unknown")
                         source = wiki_info.get("commons_url", wiki_url)
