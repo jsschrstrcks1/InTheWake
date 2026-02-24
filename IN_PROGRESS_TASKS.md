@@ -49,17 +49,41 @@ FORMAT:
 - **Average score:** 45.1/100
 - **Score distribution:** 119 pages at 0-49, 204 at 50-69, 61 at 70-79, 0 at 80+
 
-**Current Status (2026-02-24, verified post-Session 5 by `claude/port-validation-review-Zd2lY`):**
+**Current Status (2026-02-24, verified post-Session 6 by `claude/port-validation-review-Zd2lY`):**
 - **Total:** 387 port pages
-- **Passing:** 39 (10.1%)
-- **Failing:** 348
-- **Dead links only (would otherwise pass):** 216 ports — link to nonexistent ship pages or footer nav targets
-- **Score 0 (content skeletons):** 129 ports — need full content creation
+- **Passing:** 214 (55.3%)
+- **Failing:** 173
+- **Score 0 (content skeletons):** ~129 ports — need full content creation
 - **Image-blocked (score 24-76):** 3 ports (santos, callao, catania) — need image files on disk
-- **Why 255→39:** Session 5 added `dead_internal_links` BLOCKING check. 216 ports link to ship pages (`/ships/hal/*.html` etc.) and footer nav (`/about/`, `/contact/`) that don't exist on disk. Links were always broken; validator now catches them.
+- **Why 39→214:** Session 6 fixed 1,019 dead ship links (wrong path prefixes hal/ncl/virgin), 277 Oceania filename prefixes, and climate-inappropriate activities across 17+ ports.
+- **Session 6 fixes (this session):**
+  - Fixed 1,019 dead ship links across 303 ports (hal→holland-america-line, ncl→norwegian, virgin→virgin-voyages)
+  - Fixed 277 Oceania filename prefixes across 106 ports (oceania-vista→vista etc.)
+  - Fixed tropical activities (Beach/Snorkeling) in 17 cold-water ports (Alaska, Nordic, Scottish)
+  - Fixed "City Walking" in 4 scenic-only ports (endicott-arm, hubbard-glacier, tracy-arm, norwegian-fjords)
+  - Fixed duplicate HTML IDs in seward, sitka, skagway (from-the-pier), whittier, endicott-arm (gallery)
+  - Fixed Glacier Bay: wrong tender indicator → scenic cruising, relative gallery image paths → absolute
+  - Fixed Inside Passage: "some of some of" typo
+  - Fixed Misty Fjords/College Fjord: "From the Pier" → "Best Viewing Spots", "shore day" → "scenic cruising day"
+  - Fixed Fairbanks: corrected Gold Rush date from 1898 Klondike to 1902 Felix Pedro strike
+  - Added 4 new validator checks: climate_inappropriate_activities, duplicate_html_ids, gallery_credit_diversity, city_walking_in_non_city
+  - All 11 core Alaska ports PASS (94-98/100)
+  - Fact-checked depth_soundings in 3 ports (valparaiso, gran-canaria, palau)
 - **Session 5 fixes:** Dead `/stories/` links in 9 ports, 2 new validator checks, softened unverifiable claims in 3 ports
 - **Session 4 fixes:** seychelles (32→88), palau (18→90), valparaiso (16→88), gran-canaria (10→92), praia (28→84)
 - **Session 3 fixes:** lautoka (78→90), mystery-island (76→88), christchurch (64→90), mombasa (48→92), corinto (46→90), goa (26→86)
+
+**Structural Issues Discovered (Session 6 — ready for batch fix):**
+
+| Issue | Scope | Fix Complexity | Validator Check |
+|---|---|---|---|
+| Dual `<h1>` tags (hero + content) | 302 ports | Simple sed | Planned: `multiple_h1` |
+| Orphaned FAQ weather Q&As (outside accordion) | 146 ports | Medium (node script) | Planned: `faq_orphaned_questions` |
+| Generic noscript weather placeholders | 224 ports | High (per-port data) | Planned: `generic_noscript_weather` |
+| Generic "skyline and cityscape" alt text | 106 ports | Medium (per-port) | Planned: `generic_alt_text` |
+| Duplicate HTML sections (author card etc.) | 104 ports | Medium (dedup script) | Already added: `duplicate_html_ids` |
+| "City Walking" in non-city scenic ports | 6 ports | Simple sed | Already added: `city_walking_in_non_city` |
+| Relative image paths (should be absolute) | ~6 ports | Simple sed | Planned: `relative_image_paths` |
 
 **Batch Fix Applied (2026-02-24):**
 Script: `admin/batch-fix-port-structure.cjs` applied to 275 ports:
@@ -130,31 +154,25 @@ are valid per the standard but most pages were built before the standard existed
 - Prior to the v3.010 checks, ~241/387 ports were passing (per Alaska Sprint notes)
 - The 3 currently passing pages are the ones that were recently hand-built to the new standard
 
-### Alaska Port Repair — Priority Sprint
-**Thread:** `claude/review-docs-and-repo-GnDW5`
+### Alaska Port Repair — Priority Sprint (COMPLETE)
+**Thread:** `claude/review-docs-and-repo-GnDW5` → `claude/port-validation-review-Zd2lY`
 **Started:** 2026-02-19
-**Files:** ports/glacier-bay.html, ports/kodiak.html, ports/wrangell.html, ports/valdez.html, ports/homer.html, ports/petersburg.html, ports/misty-fjords.html, ports/college-fjord.html, ports/inside-passage.html, ports/denali.html, ports/fairbanks.html
-**Status:** Active — Fixing 10 failing Alaska ports one at a time. User traveling to Alaska soon.
-**Workflow:** validate → read errors → read file → fix errors + voice issues → re-validate → commit → next port
-**Standards:** PORT-PAGE-STANDARD.md (ITC v1.1), Like-a-human.md (voice V01-V06), CAREFUL.md (both layers)
-**Prior work this session:**
-- Wired Like-a-human voice checks into all 4 validators site-wide (d74174ef)
-- Broadened voice hook to fire on all content writes (74f96bc6)
-- Fixed haifa.html 90→100 (b84939f5), tracy-arm.html 84→100 (96d883c3)
-- Running total: 241/387 ports passing
-**Alaska triage (10 failing ports):**
-- [ ] glacier-bay.html (82) — 1 blocking error, 4 voice warnings
-- [ ] kodiak.html (44) — 5 errors
-- [ ] wrangell.html (38) — 6 errors
-- [ ] valdez.html (34) — 6 errors
-- [ ] homer.html (24) — 7 errors
-- [ ] petersburg.html (16) — 8 errors
-- [ ] misty-fjords.html (0) — skeleton
-- [ ] college-fjord.html (0) — skeleton
-- [ ] inside-passage.html (0) — skeleton
-- [ ] denali.html (0) — skeleton
-- [ ] fairbanks.html (0) — skeleton
-**Notes:** User emphasized: "be careful not clever, document everything so claude next can understand."
+**Completed:** 2026-02-24
+**Files:** All 11 core Alaska ports + 8 extended Alaska ports
+**Status:** COMPLETE — All 11 core Alaska ports PASS validation (94-98/100)
+**Final scores:**
+- [x] glacier-bay.html (96/100) — Fixed tender indicator, gallery paths
+- [x] kodiak.html (98/100) — Fixed tropical activities
+- [x] wrangell.html (98/100) — Fixed tropical activities
+- [x] valdez.html (98/100) — Fixed tropical activities
+- [x] homer.html (98/100) — Fixed tropical activities
+- [x] petersburg.html (98/100) — Fixed circular geography, tropical activities
+- [x] misty-fjords.html (96/100) — Fixed "From the Pier" heading, shore day text
+- [x] college-fjord.html (96/100) — Fixed "From the Pier" heading, shore day text
+- [x] inside-passage.html (96/100) — Fixed "some of some of" typo
+- [x] denali.html (94/100)
+- [x] fairbanks.html (94/100) — Fixed Gold Rush date error
+**Deep review findings documented above in "Structural Issues Discovered" table.**
 
 ### Onboard, Audit & Backlog Execution
 **Thread:** `claude/onboard-and-audit-PvzvO`
