@@ -2972,6 +2972,391 @@ async function validatePOIManifest(filepath) {
   }
 }
 
+// =============================================================================
+// WEATHER WIDGET INTEGRITY CHECK (Caribbean Deep Dive — Session 7)
+// =============================================================================
+
+/**
+ * Validate weather widget data attributes:
+ * - data-lat and data-lon must not both be "0" (null island — off West Africa)
+ * - data-region should match the port's actual geographic region
+ */
+function validateWeatherWidget($) {
+  const errors = [];
+  const warnings = [];
+
+  const widget = $('#port-weather-widget');
+  if (widget.length === 0) {
+    return { valid: true, errors, warnings, data: { hasWidget: false } };
+  }
+
+  const lat = widget.attr('data-lat') || '';
+  const lon = widget.attr('data-lon') || '';
+  const region = widget.attr('data-region') || '';
+  const portId = widget.attr('data-port-id') || '';
+
+  // Check for null-island coordinates (0, 0)
+  const latNum = parseFloat(lat);
+  const lonNum = parseFloat(lon);
+  if (lat === '0' && lon === '0') {
+    errors.push({
+      section: 'weather_widget',
+      rule: 'null_island_coordinates',
+      message: `Weather widget has data-lat="0" data-lon="0" (null island off West Africa). Must use actual port coordinates.`,
+      severity: 'BLOCKING'
+    });
+  } else if (isNaN(latNum) || isNaN(lonNum)) {
+    errors.push({
+      section: 'weather_widget',
+      rule: 'invalid_coordinates',
+      message: `Weather widget has non-numeric coordinates: lat="${lat}", lon="${lon}"`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  // Region validation: map known port slugs to expected regions
+  const CARIBBEAN_SLUGS = new Set([
+    'antigua', 'aruba', 'barbados', 'belize', 'bermuda', 'bimini',
+    'bonaire', 'bridgetown', 'cartagena', 'cococay', 'costa-maya',
+    'cozumel', 'curacao', 'dominica', 'falmouth', 'freeport',
+    'grand-cayman', 'grand-turk', 'grenada', 'guadeloupe',
+    'half-moon-cay', 'harvest-caye', 'isla-roatan', 'key-west',
+    'kralendijk', 'labadee', 'martinique', 'montego-bay', 'nassau',
+    'ocho-rios', 'ocean-cay', 'perfect-day-cococay', 'philipsburg',
+    'port-au-prince', 'progreso', 'puerto-plata', 'rincon',
+    'roseau', 'samana', 'san-juan', 'santa-marta', 'scarborough',
+    'st-barts', 'st-croix', 'st-john-usvi', 'st-kitts', 'st-lucia',
+    'st-maarten', 'st-thomas', 'st-vincent', 'tobago', 'tortola',
+    'trinidad', 'turks-and-caicos', 'virgin-gorda', 'willemstad',
+    'amber-cove', 'puerto-limon', 'colon', 'la-romana',
+    'george-town', 'castries', 'basseterre', 'kingstown',
+    'road-town', 'charlotte-amalie', 'christiansted', 'frederiksted',
+    'cockburn-town', 'gustavia', 'marigot', 'pointe-a-pitre',
+    'fort-de-france', 'st-johns-antigua', 'port-of-spain',
+    'royal-beach-club-nassau', 'royal-beach-club-antigua',
+    'royal-beach-club-cozumel',
+  ]);
+
+  if (portId && region) {
+    if (CARIBBEAN_SLUGS.has(portId) && region !== 'Caribbean') {
+      errors.push({
+        section: 'weather_widget',
+        rule: 'wrong_region',
+        message: `Caribbean port "${portId}" has data-region="${region}" (expected "Caribbean")`,
+        severity: 'BLOCKING'
+      });
+    }
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: { hasWidget: true, lat, lon, region, portId }
+  };
+}
+
+// =============================================================================
+// JSON-LD GEO COORDINATES STRUCTURE CHECK (Caribbean Deep Dive — Session 7)
+// =============================================================================
+
+/**
+ * Validate JSON-LD GeoCoordinates beyond basic parse checking:
+ * - If a "geo" object exists, verify latitude/longitude are present and in range
+ * - Detect structural issues like missing closing braces that cause
+ *   dateModified to be injected inside the geo object
+ */
+function validateJsonLdGeoCoordinates($) {
+  const errors = [];
+  const warnings = [];
+
+  const jsonldScripts = $('script[type="application/ld+json"]');
+
+  jsonldScripts.each((i, elem) => {
+    try {
+      const content = $(elem).html();
+      const data = JSON.parse(content);
+
+      // Recursively search for geo objects
+      function checkGeo(obj, path) {
+        if (!obj || typeof obj !== 'object') return;
+
+        if (obj['@type'] === 'GeoCoordinates' || (obj.geo && obj.geo['@type'] === 'GeoCoordinates')) {
+          const geo = obj['@type'] === 'GeoCoordinates' ? obj : obj.geo;
+          const geoPath = obj['@type'] === 'GeoCoordinates' ? path : path + '.geo';
+
+          if (geo.latitude === undefined || geo.longitude === undefined) {
+            errors.push({
+              section: 'jsonld_geo',
+              rule: 'missing_coordinates',
+              message: `JSON-LD GeoCoordinates at ${geoPath} missing latitude or longitude`,
+              severity: 'BLOCKING'
+            });
+          } else {
+            const lat = parseFloat(geo.latitude);
+            const lon = parseFloat(geo.longitude);
+
+            if (isNaN(lat) || lat < -90 || lat > 90) {
+              errors.push({
+                section: 'jsonld_geo',
+                rule: 'latitude_out_of_range',
+                message: `JSON-LD latitude ${geo.latitude} at ${geoPath} is out of range (-90 to 90)`,
+                severity: 'BLOCKING'
+              });
+            }
+            if (isNaN(lon) || lon < -180 || lon > 180) {
+              errors.push({
+                section: 'jsonld_geo',
+                rule: 'longitude_out_of_range',
+                message: `JSON-LD longitude ${geo.longitude} at ${geoPath} is out of range (-180 to 180)`,
+                severity: 'BLOCKING'
+              });
+            }
+          }
+
+          // Check for contamination: dateModified should not be inside geo
+          if (geo.dateModified) {
+            errors.push({
+              section: 'jsonld_geo',
+              rule: 'contaminated_geo_object',
+              message: `JSON-LD GeoCoordinates at ${geoPath} contains "dateModified" — likely a malformed JSON structure (missing closing brace)`,
+              severity: 'BLOCKING'
+            });
+          }
+        }
+
+        // Recurse into nested objects
+        for (const key of Object.keys(obj)) {
+          if (typeof obj[key] === 'object' && obj[key] !== null) {
+            checkGeo(obj[key], `${path}.${key}`);
+          }
+        }
+      }
+
+      checkGeo(data, 'root');
+    } catch (e) {
+      // Parse errors already caught by validateICPLite — skip here
+    }
+  });
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: { checkedBlocks: jsonldScripts.length }
+  };
+}
+
+// =============================================================================
+// AUTHOR CONSISTENCY CHECK (Caribbean Deep Dive — Session 7)
+// =============================================================================
+
+/**
+ * Detect contradiction between "haven't visited" disclaimers and
+ * first-person logbook narratives with vivid experiential detail.
+ *
+ * A page should NOT simultaneously claim "I haven't visited this port"
+ * and present a detailed first-person "My Visit to X" logbook.
+ */
+function validateAuthorConsistency($) {
+  const errors = [];
+  const warnings = [];
+
+  const bodyText = $('body').text();
+
+  // Detect "haven't visited" disclaimer patterns
+  const notVisitedPatterns = [
+    /soundings in another('s|s) wake/i,
+    /haven.t visited this port/i,
+    /not firsthand experience/i,
+    /awaiting the day I can verify them firsthand/i,
+    /until I have sailed this port myself/i
+  ];
+
+  let hasNotVisitedDisclaimer = false;
+  for (const pattern of notVisitedPatterns) {
+    if (pattern.test(bodyText)) {
+      hasNotVisitedDisclaimer = true;
+      break;
+    }
+  }
+
+  // Detect first-person logbook narrative indicators
+  const logbookHeading = $('h2, h3').filter((_, el) => {
+    const text = $(el).text();
+    return /my (visit|experience|day|time|trip) (to|in|at|on)/i.test(text);
+  });
+
+  const hasFirstPersonLogbook = logbookHeading.length > 0;
+
+  // Also check for vivid first-person experiential content in the logbook section
+  const logbookSection = $('[id*="logbook"], .logbook-section, details:has(h2:contains("My"))');
+  let hasVividFirstPerson = false;
+  if (logbookSection.length > 0) {
+    const logbookText = logbookSection.text();
+    const vividPatterns = [
+      /I stepped/i,
+      /I walked/i,
+      /I watched/i,
+      /I could (see|hear|smell|feel|taste)/i,
+      /the (driver|guide|captain|bartender|waiter) (told|said|pointed|explained)/i,
+    ];
+    const matches = vividPatterns.filter(p => p.test(logbookText));
+    hasVividFirstPerson = matches.length >= 2;
+  }
+
+  if (hasNotVisitedDisclaimer && (hasFirstPersonLogbook || hasVividFirstPerson)) {
+    warnings.push({
+      section: 'author_consistency',
+      rule: 'disclaimer_logbook_contradiction',
+      message: 'Page has "haven\'t visited" disclaimer but also contains first-person logbook narrative. These contradict each other — either remove the disclaimer or clarify the logbook is illustrative.',
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: true,
+    errors,
+    warnings,
+    data: {
+      hasNotVisitedDisclaimer,
+      hasFirstPersonLogbook,
+      hasVividFirstPerson
+    }
+  };
+}
+
+// =============================================================================
+// MEXICAN PORT REVOLUTION DAY NOTICE CHECK (Caribbean Deep Dive — Session 7)
+// =============================================================================
+
+/**
+ * Mexican ports MUST include a Revolution Day (November 20) notice
+ * per CODEBASE_GUIDE.md port creation checklist item #7.
+ * Checks for the notice in the Important Notices / Special Notices section.
+ */
+function validateMexicanPortNotices($, html) {
+  const errors = [];
+  const warnings = [];
+
+  const MEXICAN_PORT_SLUGS = new Set([
+    'cozumel', 'costa-maya', 'progreso', 'cabo-san-lucas', 'ensenada',
+    'mazatlan', 'puerto-vallarta', 'huatulco', 'zihuatanejo',
+    'manzanillo', 'acapulco',
+  ]);
+
+  // Extract port slug from canonical URL
+  const canonical = $('link[rel="canonical"]').attr('href') || '';
+  const slugMatch = canonical.match(/\/ports\/([^/.]+)/);
+  const slug = slugMatch ? slugMatch[1] : '';
+
+  if (!slug || !MEXICAN_PORT_SLUGS.has(slug)) {
+    return { valid: true, errors, warnings, data: { isMexicanPort: false } };
+  }
+
+  // Check for Revolution Day notice
+  const hasRevolutionDay = /revolution day/i.test(html) || /november 20/i.test(html);
+
+  if (!hasRevolutionDay) {
+    warnings.push({
+      section: 'mexican_port_notices',
+      rule: 'missing_revolution_day',
+      message: `Mexican port "${slug}" missing Revolution Day (November 20) notice. Per CODEBASE_GUIDE.md port checklist item #7, all Mexican ports must include this.`,
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: true,
+    errors,
+    warnings,
+    data: { isMexicanPort: true, slug, hasRevolutionDay }
+  };
+}
+
+// =============================================================================
+// SEASONAL DATA SANITY CHECK (Caribbean Deep Dive — Session 7)
+// =============================================================================
+
+/**
+ * Validate that peak/low season designations are meteorologically sensible.
+ * Caribbean and hurricane-zone ports should NOT list Jun-Nov as peak season
+ * (that's hurricane season). Peak cruise season is typically Dec-Apr.
+ */
+function validateSeasonalData($, html) {
+  const errors = [];
+  const warnings = [];
+
+  // Hurricane-zone port slugs where summer should NOT be peak season
+  const HURRICANE_ZONE_SLUGS = new Set([
+    // Eastern Caribbean
+    'antigua', 'barbados', 'dominica', 'grenada', 'guadeloupe', 'martinique',
+    'st-barts', 'st-kitts', 'st-lucia', 'st-maarten', 'st-vincent',
+    'philipsburg',
+    // USVI / BVI
+    'st-thomas', 'st-croix', 'st-john-usvi', 'tortola', 'virgin-gorda',
+    // Western Caribbean
+    'cozumel', 'costa-maya', 'grand-cayman', 'isla-roatan', 'belize',
+    'harvest-caye', 'progreso',
+    // Jamaica / Hispaniola
+    'falmouth', 'montego-bay', 'ocho-rios', 'labadee', 'puerto-plata',
+    // Bahamas
+    'nassau', 'freeport', 'bimini', 'cococay', 'half-moon-cay',
+    'grand-turk', 'perfect-day-cococay',
+    // Southern Caribbean
+    'aruba', 'bonaire', 'curacao', 'trinidad', 'tobago',
+    // Puerto Rico
+    'san-juan',
+    // Royal Beach Clubs
+    'royal-beach-club-nassau', 'royal-beach-club-antigua',
+  ]);
+
+  const HURRICANE_MONTHS = new Set(['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov']);
+
+  // Extract port slug
+  const canonical = $('link[rel="canonical"]').attr('href') || '';
+  const slugMatch = canonical.match(/\/ports\/([^/.]+)/);
+  const slug = slugMatch ? slugMatch[1] : '';
+
+  if (!slug || !HURRICANE_ZONE_SLUGS.has(slug)) {
+    return { valid: true, errors, warnings, data: { isHurricaneZone: false } };
+  }
+
+  // Seasonal data is inside <noscript> — Cheerio doesn't parse noscript content
+  // as regular DOM, so use regex on raw HTML to extract peak season months.
+  const peakMatch = html.match(/cruise-season-high[^>]*>.*?season-months">([^<]+)</s);
+  if (!peakMatch) {
+    return { valid: true, errors, warnings, data: { isHurricaneZone: true, hasPeakData: false } };
+  }
+
+  const peakText = peakMatch[1].trim();
+  const peakMonths = peakText.split(',').map(m => m.trim());
+
+  // Count how many peak months fall in hurricane season
+  const hurricaneMonthsInPeak = peakMonths.filter(m => HURRICANE_MONTHS.has(m));
+
+  if (hurricaneMonthsInPeak.length >= 3) {
+    errors.push({
+      section: 'seasonal_data',
+      rule: 'peak_season_in_hurricane_season',
+      message: `Hurricane-zone port "${slug}" lists ${hurricaneMonthsInPeak.join(', ')} as peak season. Caribbean peak cruise season is Dec-Apr; Jun-Nov is hurricane season.`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: {
+      isHurricaneZone: true,
+      hasPeakData: true,
+      peakMonths,
+      hurricaneMonthsInPeak
+    }
+  };
+}
+
 async function validatePortPage(filepath) {
   const relPath = relative(PROJECT_ROOT, filepath);
   const results = {
@@ -3046,6 +3431,13 @@ async function validatePortPage(filepath) {
     const canonicalResult = validateCanonicalURL($);
     const poiManifestResult = await validatePOIManifest(filepath);
 
+    // Session 7 — Caribbean deep dive findings
+    const weatherWidgetResult = validateWeatherWidget($);
+    const jsonLdGeoResult = validateJsonLdGeoCoordinates($);
+    const authorConsistencyResult = validateAuthorConsistency($);
+    const mexicanNoticesResult = validateMexicanPortNotices($, html);
+    const seasonalDataResult = validateSeasonalData($, html);
+
     // Collect all errors
     results.blocking_errors.push(...siteIntegrationResult.errors);
     results.blocking_errors.push(...analyticsResult.errors);
@@ -3069,6 +3461,9 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...sdgPositionResult.errors);
     results.blocking_errors.push(...canonicalResult.errors);
     results.blocking_errors.push(...multipleH1Result.errors);
+    results.blocking_errors.push(...weatherWidgetResult.errors);
+    results.blocking_errors.push(...jsonLdGeoResult.errors);
+    results.blocking_errors.push(...seasonalDataResult.errors);
 
     // Collect all warnings
     results.warnings.push(...analyticsResult.warnings);
@@ -3103,6 +3498,11 @@ async function validatePortPage(filepath) {
     results.warnings.push(...genericAltResult.warnings);
     results.warnings.push(...relativePathsResult.warnings);
     results.warnings.push(...orphanedFAQResult.warnings);
+    results.warnings.push(...weatherWidgetResult.warnings);
+    results.warnings.push(...jsonLdGeoResult.warnings);
+    results.warnings.push(...authorConsistencyResult.warnings);
+    results.warnings.push(...mexicanNoticesResult.warnings);
+    results.warnings.push(...seasonalDataResult.warnings);
 
     // Collect info
     results.info.push(...logbookResult.info);
@@ -3148,6 +3548,11 @@ async function validatePortPage(filepath) {
     results.sdg_position = sdgPositionResult.data;
     results.canonical = canonicalResult.data;
     results.poi_manifest = poiManifestResult.data;
+    results.weather_widget = weatherWidgetResult.data;
+    results.jsonld_geo = jsonLdGeoResult.data;
+    results.author_consistency = authorConsistencyResult.data;
+    results.mexican_notices = mexicanNoticesResult.data;
+    results.seasonal_data = seasonalDataResult.data;
 
   } catch (error) {
     results.blocking_errors.push({
