@@ -49,13 +49,15 @@ FORMAT:
 - **Average score:** 45.1/100
 - **Score distribution:** 119 pages at 0-49, 204 at 50-69, 61 at 70-79, 0 at 80+
 
-**Current Status (2026-02-24, verified post-Session 4 by `claude/port-validation-review-Zd2lY`):**
+**Current Status (2026-02-24, verified post-Session 5 by `claude/port-validation-review-Zd2lY`):**
 - **Total:** 387 port pages
-- **Passing:** 255 (65.9%)
-- **Failing:** 132
+- **Passing:** 39 (10.1%)
+- **Failing:** 348
+- **Dead links only (would otherwise pass):** 216 ports — link to nonexistent ship pages or footer nav targets
 - **Score 0 (content skeletons):** 129 ports — need full content creation
 - **Image-blocked (score 24-76):** 3 ports (santos, callao, catania) — need image files on disk
-- **All content-fixable ports now PASS** — remaining failures require content creation or images
+- **Why 255→39:** Session 5 added `dead_internal_links` BLOCKING check. 216 ports link to ship pages (`/ships/hal/*.html` etc.) and footer nav (`/about/`, `/contact/`) that don't exist on disk. Links were always broken; validator now catches them.
+- **Session 5 fixes:** Dead `/stories/` links in 9 ports, 2 new validator checks, softened unverifiable claims in 3 ports
 - **Session 4 fixes:** seychelles (32→88), palau (18→90), valparaiso (16→88), gran-canaria (10→92), praia (28→84)
 - **Session 3 fixes:** lautoka (78→90), mystery-island (76→88), christchurch (64→90), mombasa (48→92), corinto (46→90), goa (26→86)
 

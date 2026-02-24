@@ -1,7 +1,7 @@
 # Port Page Validation Progress
 **Soli Deo Gloria**
 
-**Validation Date:** 2026-02-24 (verified after Session 3 fixes)
+**Validation Date:** 2026-02-24 (verified after Session 5 dead-link check)
 **Validator:** `admin/validate-port-page-v2.js`
 **Standards:** ITC v1.1 + LOGBOOK_ENTRY_STANDARDS v2.300 + ICP-Lite v1.4
 **Total Ports:** 387
@@ -9,18 +9,43 @@
 
 ---
 
-## Validation Summary (Verified 2026-02-24, post-Session 4)
+## Validation Summary (Verified 2026-02-24, post-Session 5)
 
 | Status | Count | Percentage |
 |--------|-------|------------|
-| PASS (0 blocking errors) | 255 | 65.9% |
+| PASS (0 blocking errors) | 39 | 10.1% |
+| FAIL (dead links only, 1 error) | 216 | 55.8% |
 | FAIL (content skeletons, score 0) | 129 | 33.3% |
 | FAIL (image-blocked, score 24-76) | 3 | 0.8% |
 | **TOTAL** | **387** | **100.0%** |
 
+**Why the drop from 255 → 39:** Session 5 added a `dead_internal_links` BLOCKING check. 216 ports that previously passed now fail because they link to ship pages (`/ships/hal/*.html`, etc.) or footer nav targets (`/about/`, `/contact/`) that don't exist on disk. These links were always broken — the validator just wasn't checking them before.
+
 ---
 
 ## Session Log
+
+### Session 5: Technical Debt Cleanup (2026-02-24)
+Branch: `claude/port-validation-review-Zd2lY`
+
+**Approach:** Self-assessment revealed two categories of technical debt from Sessions 3-4. Fixed both honestly.
+
+**1. Dead `/stories/` links fixed (9 port files):**
+- Replaced hardcoded `/stories/` sidebar links with dynamic `recent-rail` pattern (cozumel canonical ref)
+- Fixed ports: praia, mombasa, luanda, yangon, sihanoukville, port-moresby, durban
+- Fixed footer `/stories/` → `/articles.html` in: praia, durban, lautoka, mindelo, hurghada
+
+**2. Two new BLOCKING validator checks added to `validate-port-page-v2.js`:**
+- `dead_internal_links`: Resolves all internal `<a href>` against filesystem (with `.html` extension fallback)
+- `hardcoded_story_links`: Flags any sidebar links to `/stories/` (must use dynamic `recent-rail` instead)
+- Impact: 255 → 39 PASS (216 ports correctly flagged for broken ship/nav links)
+
+**3. Unverifiable claims softened in AI-written depth_soundings (3 ports):**
+- valparaiso, gran-canaria, palau: Replaced specific unverifiable numbers with approximate language
+- Retained well-known facts (Chile 1818, Panama Canal 1914, etc.)
+- Added `<!-- FACT-CHECK NEEDED -->` HTML comments to all three sections
+
+**Honest accounting:** The PASS count dropped dramatically because the dead link check exposed pre-existing broken links across 216 ports. These ports link to ship pages that don't exist on disk. The links were always broken — the validator just wasn't checking them.
 
 ### Session 4: Continued Careful Fixes (2026-02-24)
 Branch: `claude/port-validation-review-Zd2lY`
@@ -39,7 +64,7 @@ Image-blocked ports confirmed (cannot PASS without image files):
 - **callao** (34): 1 image on disk, needs 11
 - **catania** (24): 1 image on disk, needs 11
 
-All fixable content-based ports are now PASS. Remaining 132 failures = 129 skeletons (score 0) + 3 image-blocked.
+All fixable content-based ports were PASS at this point (before Session 5 dead-link check). Remaining 132 failures = 129 skeletons (score 0) + 3 image-blocked.
 
 ### Session 3: Careful Fixes (2026-02-24)
 Branch: `claude/port-validation-review-Zd2lY`
@@ -69,6 +94,13 @@ Branch: `claude/port-validation-review-Zd2lY`
 - **Note:** This was a "clever" batch approach. Future work should be one-at-a-time.
 
 ---
+
+## Dead-Link-Only Failures (216 ports, need ship pages or nav targets)
+
+These ports have good content but fail because they link to pages that don't exist:
+- **Ship pages:** `/ships/hal/*.html`, `/ships/ncl/*.html`, `/ships/celebrity/*.html`, etc.
+- **Footer nav:** `/about/`, `/contact/`, `/newsletter/`
+- **Fix options:** Create the missing ship pages, or remove/update the broken links
 
 ## Image-Blocked Ports (3 ports, cannot PASS without image files)
 
@@ -103,5 +135,5 @@ These pages have sidebar and basic structure but are missing all content section
 
 ---
 
-**Last Updated:** 2026-02-24 (Session 4 — 255 PASS verified)
+**Last Updated:** 2026-02-24 (Session 5 — 39 PASS after dead-link check added)
 **Updated By:** Claude (Session: claude/port-validation-review-Zd2lY)
