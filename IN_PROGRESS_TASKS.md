@@ -37,17 +37,24 @@ FORMAT:
 -->
 
 ### Port Page Bulk Validation — Triage & Remediation
-**Thread:** `claude/review-docs-and-repo-GnDW5`
+**Thread:** `claude/review-docs-and-repo-GnDW5` → continued by `claude/port-validation-review-Zd2lY`
 **Started:** 2026-02-20
 **Files:** admin/validate-port-page-v2.js (read-only reference), ports/*.html (387 pages)
-**Status:** Active — Audit complete, documentation in progress, remediation planning
+**Status:** Active — Tier 1 structural remediation in progress
 
-**Audit Results (2026-02-20):**
+**Audit Results (2026-02-20, original baseline):**
 - **Total:** 387 port pages
 - **Passing:** 3 (beijing, cozumel, nassau)
 - **Failing:** 384
 - **Average score:** 45.1/100
 - **Score distribution:** 119 pages at 0-49, 204 at 50-69, 61 at 70-79, 0 at 80+
+
+**Current Status (2026-02-24, verified by `claude/port-validation-review-Zd2lY`):**
+- **Total:** 387 port pages
+- **Passing:** 95
+- **Failing:** 292
+- **Near-passing (60-88):** 27 ports — primary remediation targets
+- **Score 0 (skeletons):** ~133 ports — long-tail, not this sprint
 
 **Root Cause Analysis:**
 The high failure rate is driven by **new v3.010 cross-pollination checks** merged from
