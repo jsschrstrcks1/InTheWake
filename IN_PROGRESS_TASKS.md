@@ -49,14 +49,14 @@ FORMAT:
 - **Average score:** 45.1/100
 - **Score distribution:** 119 pages at 0-49, 204 at 50-69, 61 at 70-79, 0 at 80+
 
-**Current Status (2026-02-24, post-targeted-fixes, verified by `claude/port-validation-review-Zd2lY`):**
+**Current Status (2026-02-24, verified post-careful-fixes by `claude/port-validation-review-Zd2lY`):**
 - **Total:** 387 port pages
-- **Passing:** 244 (+57 from batch fix, +75 from targeted manual fixes across 7 commits)
-- **Failing:** 143
-- **Pass rate:** 63% (up from 44% post-batch, 29% at start of session, 0.8% at original baseline)
-- **Score 0 (content skeletons):** 129 ports — need full content creation (logbook, excursions, cruise_port sections)
-- **Score 10-78 (need content writing):** 14 ports — logbook word counts, missing sections, not structurally fixable
+- **Passing:** 247 (63.8%)
+- **Failing:** 140
+- **Score 0 (content skeletons):** 129 ports — need full content creation
+- **Score 10-48 (partial content):** 11 ports — need manual content writing
 - **All structural fixes exhausted** — remaining failures require genuine content creation
+- **Session 3 fixes:** lautoka (78→90), mystery-island (76→88), christchurch (64→90) — one at a time, careful
 
 **Batch Fix Applied (2026-02-24):**
 Script: `admin/batch-fix-port-structure.cjs` applied to 275 ports:
