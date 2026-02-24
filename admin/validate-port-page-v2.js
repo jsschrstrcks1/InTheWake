@@ -2160,13 +2160,12 @@ function validateClimateActivities($, html) {
   const slugMatch = canonical.match(/\/ports\/([^/.]+)/);
   const slug = slugMatch ? slugMatch[1] : '';
 
-  if (!slug || !COLD_WATER_SLUGS.has(slug)) {
+  if (!slug) {
     return { valid: true, errors, warnings, data: {} };
   }
 
   // Activity labels may be inside <noscript> which cheerio doesn't parse as DOM.
   // Use regex on raw HTML to extract activity labels from the weather widget.
-  const TROPICAL_ACTIVITIES = ['Beach', 'Snorkeling', 'Surfing', 'Scuba'];
   const activityLabelRegex = /class="activity-label">([^<]+)</g;
   const activityLabels = [];
   let match;
@@ -2174,15 +2173,38 @@ function validateClimateActivities($, html) {
     activityLabels.push(match[1].trim());
   }
 
-  const badActivities = activityLabels.filter(a =>
-    TROPICAL_ACTIVITIES.some(t => a.toLowerCase().includes(t.toLowerCase()))
-  );
+  // Check for tropical activities in cold-water ports
+  if (COLD_WATER_SLUGS.has(slug)) {
+    const TROPICAL_ACTIVITIES = ['Beach', 'Snorkeling', 'Surfing', 'Scuba'];
+    const badActivities = activityLabels.filter(a =>
+      TROPICAL_ACTIVITIES.some(t => a.toLowerCase().includes(t.toLowerCase()))
+    );
 
-  if (badActivities.length > 0) {
+    if (badActivities.length > 0) {
+      warnings.push({
+        section: 'weather_activities',
+        rule: 'climate_inappropriate_activities',
+        message: `Cold-water port "${slug}" lists tropical activities: ${badActivities.join(', ')}. Likely template copy-paste error.`,
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  // Check for "City Walking" in scenic-cruise / non-city ports
+  const SCENIC_ONLY_SLUGS = new Set([
+    'endicott-arm', 'hubbard-glacier', 'tracy-arm', 'glacier-bay',
+    'misty-fjords', 'college-fjord', 'inside-passage', 'glacier-alley',
+    'norwegian-fjords', 'drake-passage', 'antarctic-peninsula',
+    'south-shetland-islands', 'chilean-fjords', 'strait-of-magellan',
+    'doubtful-sound', 'milford-sound', 'gatun-lake',
+    'komodo', 'dravuni', 'bora-bora', 'moorea',
+  ]);
+
+  if (SCENIC_ONLY_SLUGS.has(slug) && activityLabels.includes('City Walking')) {
     warnings.push({
       section: 'weather_activities',
-      rule: 'climate_inappropriate_activities',
-      message: `Cold-water port "${slug}" lists tropical activities: ${badActivities.join(', ')}. Likely template copy-paste error.`,
+      rule: 'city_walking_in_non_city',
+      message: `Scenic port "${slug}" lists "City Walking" but has no city. Likely template copy-paste error.`,
       severity: 'WARNING'
     });
   }
