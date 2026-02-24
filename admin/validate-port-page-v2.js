@@ -2058,6 +2058,136 @@ function validatePrintButton($, html) {
 }
 
 // =============================================================================
+// DEAD INTERNAL LINKS CHECK
+// =============================================================================
+
+/**
+ * Validate that all internal links (href starting with /) resolve to real files.
+ * External links (http/https) are skipped.
+ * Anchor-only links (#...) are skipped.
+ * Links to directories (ending with /) check for index.html inside.
+ */
+function validateInternalLinks($, filepath) {
+  const errors = [];
+  const warnings = [];
+  const deadLinks = [];
+
+  const allLinks = $('a[href]');
+  allLinks.each((_, el) => {
+    const href = $(el).attr('href');
+    if (!href) return;
+
+    // Skip external links, anchors, mailto, tel, javascript
+    if (href.startsWith('http://') || href.startsWith('https://')) return;
+    if (href.startsWith('#')) return;
+    if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+
+    // Normalize: strip query string and hash
+    const cleanHref = href.split('?')[0].split('#')[0];
+    if (!cleanHref || cleanHref === '/') return;
+
+    // Resolve path relative to project root
+    const resolvedPath = join(PROJECT_ROOT, cleanHref);
+
+    // Check if file exists (with common web server URL patterns)
+    if (!existsSync(resolvedPath)) {
+      // If it ends with /, check for index.html
+      if (cleanHref.endsWith('/')) {
+        const indexPath = join(resolvedPath, 'index.html');
+        if (existsSync(indexPath)) return;
+      }
+      // Check with .html extension (web servers often strip it)
+      if (!cleanHref.endsWith('.html') && existsSync(resolvedPath + '.html')) return;
+      deadLinks.push(cleanHref);
+    }
+  });
+
+  // Deduplicate
+  const uniqueDeadLinks = [...new Set(deadLinks)];
+
+  if (uniqueDeadLinks.length > 0) {
+    errors.push({
+      section: 'links',
+      rule: 'dead_internal_links',
+      message: `${uniqueDeadLinks.length} dead internal link(s): ${uniqueDeadLinks.slice(0, 5).join(', ')}${uniqueDeadLinks.length > 5 ? ` and ${uniqueDeadLinks.length - 5} more` : ''}`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: { deadLinks: uniqueDeadLinks, totalLinks: allLinks.length }
+  };
+}
+
+// =============================================================================
+// RECENT STORIES PATTERN CHECK
+// =============================================================================
+
+/**
+ * Validate that the Recent Stories sidebar section uses the dynamic recent-rail
+ * pattern instead of hardcoded story links.
+ *
+ * Correct pattern requires:
+ * - An element matching id="recent-rail" (the dynamic container)
+ * - No hardcoded <a href="/stories/..."> links anywhere in the sidebar
+ */
+function validateRecentStoriesPattern($) {
+  const errors = [];
+  const warnings = [];
+
+  const sidebar = $('aside, .sidebar, .rail, .right-rail, .col-2');
+  if (sidebar.length === 0) {
+    // No sidebar — other validators handle this
+    return { valid: true, errors, warnings, data: {} };
+  }
+
+  const sidebarHtml = sidebar.html() || '';
+
+  // Check for hardcoded /stories/ links in the sidebar
+  const hardcodedStoryLinks = [];
+  sidebar.find('a[href^="/stories/"]').each((_, el) => {
+    hardcodedStoryLinks.push($(el).attr('href'));
+  });
+
+  if (hardcodedStoryLinks.length > 0) {
+    errors.push({
+      section: 'sidebar',
+      rule: 'hardcoded_story_links',
+      message: `Recent Stories section has ${hardcodedStoryLinks.length} hardcoded /stories/ link(s) instead of dynamic recent-rail. Use id="recent-rail" with class="rail-list" for JS-populated content.`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  // If Recent Stories section exists (by text/class), check it uses the rail pattern
+  const hasRecentStoriesSection = /recent.stories|recent-rail/i.test(sidebarHtml);
+  const hasDynamicRail = sidebar.find('#recent-rail, [id*="recent-rail"]').length > 0;
+
+  if (hasRecentStoriesSection && !hasDynamicRail && hardcodedStoryLinks.length === 0) {
+    // Section exists but no dynamic rail and no hardcoded links — structural issue
+    warnings.push({
+      section: 'sidebar',
+      rule: 'recent_stories_no_rail',
+      message: 'Recent Stories section found but missing id="recent-rail" dynamic container',
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: {
+      hasRecentStoriesSection,
+      hasDynamicRail,
+      hardcodedStoryLinks: hardcodedStoryLinks.length
+    }
+  };
+}
+
+// =============================================================================
 // STANDARDS v3.010 CROSS-POLLINATION CHECKS
 // =============================================================================
 
@@ -2518,6 +2648,10 @@ async function validatePortPage(filepath) {
     const siteIntegrationResult = await validateSiteIntegration(filepath);
     const htmlIntegrityResult = validateHTMLIntegrity($, html);
 
+    // Dead link and pattern checks
+    const internalLinksResult = validateInternalLinks($, filepath);
+    const recentStoriesResult = validateRecentStoriesPattern($);
+
     // v3.010 standards cross-pollination checks
     const sidebarResult = validateSidebar($);
     const swiperFallbackResult = validateSwiperFallback($, html);
@@ -2544,6 +2678,8 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...collapsibleResult.errors);
     results.blocking_errors.push(...printButtonResult.errors);
     results.blocking_errors.push(...htmlIntegrityResult.errors);
+    results.blocking_errors.push(...internalLinksResult.errors);
+    results.blocking_errors.push(...recentStoriesResult.errors);
     results.blocking_errors.push(...sidebarResult.errors);
     results.blocking_errors.push(...answerLineResult.errors);
     results.blocking_errors.push(...sdgPositionResult.errors);
@@ -2566,6 +2702,8 @@ async function validatePortPage(filepath) {
     results.warnings.push(...fromThePierResult.warnings);
     results.warnings.push(...printButtonResult.warnings);
     results.warnings.push(...htmlIntegrityResult.warnings);
+    results.warnings.push(...internalLinksResult.warnings);
+    results.warnings.push(...recentStoriesResult.warnings);
     results.warnings.push(...sidebarResult.warnings);
     results.warnings.push(...swiperFallbackResult.warnings);
     results.warnings.push(...serviceWorkerResult.warnings);
@@ -2605,6 +2743,8 @@ async function validatePortPage(filepath) {
     results.unique_names = uniqueNamesResult.data;
     results.from_the_pier = fromThePierResult.data;
     results.print_button = printButtonResult.data;
+    results.internal_links = internalLinksResult.data;
+    results.recent_stories = recentStoriesResult.data;
     results.site_integration = siteIntegrationResult.data;
     results.html_integrity = htmlIntegrityResult.data;
     results.sidebar = sidebarResult.data;
