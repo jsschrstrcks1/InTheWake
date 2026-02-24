@@ -2123,6 +2123,164 @@ function validateInternalLinks($, filepath) {
 }
 
 // =============================================================================
+// CLIMATE-INAPPROPRIATE ACTIVITIES CHECK
+// =============================================================================
+
+/**
+ * Detect tropical activity recommendations (Beach, Snorkeling) on cold-water
+ * ports. These are template copy-paste errors from the batch fix script.
+ *
+ * Uses the port's latitude from JSON-LD or a known cold-water region list.
+ * Ports above 50°N or in known sub-arctic regions should not list Beach or
+ * Snorkeling as activities.
+ */
+function validateClimateActivities($, html) {
+  const errors = [];
+  const warnings = [];
+
+  // Known cold-water / sub-arctic port slugs (no Beach or Snorkeling)
+  const COLD_WATER_SLUGS = new Set([
+    'glacier-bay', 'kodiak', 'wrangell', 'valdez', 'homer', 'petersburg',
+    'misty-fjords', 'college-fjord', 'inside-passage', 'denali', 'fairbanks',
+    'juneau', 'ketchikan', 'sitka', 'skagway', 'haines', 'seward', 'whittier',
+    'anchorage', 'icy-strait-point', 'tracy-arm', 'endicott-arm',
+    'hubbard-glacier', 'glacier-alley', 'dutch-harbor', 'nome',
+    'norwegian-fjords', 'geiranger', 'flam', 'olden', 'alesund',
+    'tromso', 'honningsvag', 'stavanger', 'bergen',
+    'isafjordur', 'akureyri', 'reykjavik',
+    'torshavn', 'lerwick', 'kirkwall',
+    'antarctica', 'antarctic-peninsula', 'south-shetland-islands',
+    'drake-passage', 'cape-horn', 'ushuaia', 'punta-arenas',
+    'chilean-fjords', 'strait-of-magellan',
+    'svalbard', 'nuuk', 'qaqortoq',
+  ]);
+
+  // Try to extract port slug from canonical URL or page URL
+  const canonical = $('link[rel="canonical"]').attr('href') || '';
+  const slugMatch = canonical.match(/\/ports\/([^/.]+)/);
+  const slug = slugMatch ? slugMatch[1] : '';
+
+  if (!slug || !COLD_WATER_SLUGS.has(slug)) {
+    return { valid: true, errors, warnings, data: {} };
+  }
+
+  // Activity labels may be inside <noscript> which cheerio doesn't parse as DOM.
+  // Use regex on raw HTML to extract activity labels from the weather widget.
+  const TROPICAL_ACTIVITIES = ['Beach', 'Snorkeling', 'Surfing', 'Scuba'];
+  const activityLabelRegex = /class="activity-label">([^<]+)</g;
+  const activityLabels = [];
+  let match;
+  while ((match = activityLabelRegex.exec(html)) !== null) {
+    activityLabels.push(match[1].trim());
+  }
+
+  const badActivities = activityLabels.filter(a =>
+    TROPICAL_ACTIVITIES.some(t => a.toLowerCase().includes(t.toLowerCase()))
+  );
+
+  if (badActivities.length > 0) {
+    warnings.push({
+      section: 'weather_activities',
+      rule: 'climate_inappropriate_activities',
+      message: `Cold-water port "${slug}" lists tropical activities: ${badActivities.join(', ')}. Likely template copy-paste error.`,
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: true, errors, warnings, data: { slug, activities: activityLabels } };
+}
+
+// =============================================================================
+// DUPLICATE SIDEBAR SECTIONS CHECK
+// =============================================================================
+
+/**
+ * Detect duplicate sidebar sections — e.g. "Plan Your Visit" appearing twice,
+ * or duplicate id="planning-resources" in the HTML.
+ */
+function validateDuplicateSections($, html) {
+  const errors = [];
+  const warnings = [];
+
+  // Check for duplicate IDs
+  const idCounts = {};
+  $('[id]').each((_, el) => {
+    const id = $(el).attr('id');
+    if (id) idCounts[id] = (idCounts[id] || 0) + 1;
+  });
+
+  const dupeIds = Object.entries(idCounts).filter(([id, count]) => count > 1);
+  if (dupeIds.length > 0) {
+    const dupeList = dupeIds.map(([id, count]) => `${id} (×${count})`).join(', ');
+    warnings.push({
+      section: 'html_structure',
+      rule: 'duplicate_html_ids',
+      message: `Duplicate HTML id attributes found: ${dupeList}`,
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: true, errors, warnings, data: { duplicateIds: dupeIds } };
+}
+
+// =============================================================================
+// GALLERY PHOTO CREDIT DIVERSITY CHECK
+// =============================================================================
+
+/**
+ * Detect gallery sections where >50% of photo credits link to the same URL.
+ * This suggests placeholder images reusing the same source photo, or
+ * copy-paste errors in attribution.
+ */
+function validateGalleryCreditDiversity($) {
+  const errors = [];
+  const warnings = [];
+
+  const gallerySection = $('#gallery, .gallery, .photo-gallery, [id*="gallery"]');
+  if (gallerySection.length === 0) {
+    return { valid: true, errors, warnings, data: {} };
+  }
+
+  const creditUrls = [];
+  gallerySection.find('.photo-credit a[href]').each((_, el) => {
+    creditUrls.push($(el).attr('href'));
+  });
+
+  if (creditUrls.length < 3) {
+    return { valid: true, errors, warnings, data: { creditCount: creditUrls.length } };
+  }
+
+  // Count URL frequency
+  const urlCounts = {};
+  for (const url of creditUrls) {
+    urlCounts[url] = (urlCounts[url] || 0) + 1;
+  }
+
+  const uniqueUrls = Object.keys(urlCounts).length;
+  const maxCount = Math.max(...Object.values(urlCounts));
+
+  // Flag if >50% of credits use the same URL, or if only 1-2 unique URLs for 4+ images
+  if (creditUrls.length >= 4 && uniqueUrls <= 2) {
+    warnings.push({
+      section: 'gallery',
+      rule: 'gallery_credit_low_diversity',
+      message: `Gallery has ${creditUrls.length} photo credits but only ${uniqueUrls} unique source URL(s) — possible placeholder images or copy-paste attribution`,
+      severity: 'WARNING'
+    });
+  } else if (maxCount > creditUrls.length * 0.5 && creditUrls.length >= 4) {
+    const topUrl = Object.entries(urlCounts).sort((a, b) => b[1] - a[1])[0][0];
+    warnings.push({
+      section: 'gallery',
+      rule: 'gallery_credit_low_diversity',
+      message: `Gallery: ${maxCount}/${creditUrls.length} photo credits link to same URL (${topUrl.substring(0, 60)}...)`,
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: true, errors, warnings, data: { uniqueUrls, totalCredits: creditUrls.length } };
+}
+
+// =============================================================================
 // RECENT STORIES PATTERN CHECK
 // =============================================================================
 
@@ -2652,6 +2810,11 @@ async function validatePortPage(filepath) {
     const internalLinksResult = validateInternalLinks($, filepath);
     const recentStoriesResult = validateRecentStoriesPattern($);
 
+    // Content quality checks (Session 5 — Alaska sprint findings)
+    const climateActivitiesResult = validateClimateActivities($, html);
+    const duplicateSectionsResult = validateDuplicateSections($, html);
+    const galleryCreditResult = validateGalleryCreditDiversity($);
+
     // v3.010 standards cross-pollination checks
     const sidebarResult = validateSidebar($);
     const swiperFallbackResult = validateSwiperFallback($, html);
@@ -2710,6 +2873,9 @@ async function validatePortPage(filepath) {
     results.warnings.push(...faqAnswerLengthResult.warnings);
     results.warnings.push(...sdgPositionResult.warnings);
     results.warnings.push(...poiManifestResult.warnings);
+    results.warnings.push(...climateActivitiesResult.warnings);
+    results.warnings.push(...duplicateSectionsResult.warnings);
+    results.warnings.push(...galleryCreditResult.warnings);
 
     // Collect info
     results.info.push(...logbookResult.info);
