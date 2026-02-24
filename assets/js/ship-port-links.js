@@ -38,7 +38,7 @@
     },
     'ncl': {
       name: 'Norwegian Cruise Line',
-      path: '/ships/ncl/',
+      path: '/ships/norwegian/',
       bookingUrl: 'https://www.ncl.com/cruise-ships/',
       allShipsUrl: '/ships.html'
     },
@@ -50,7 +50,7 @@
     },
     'hal': {
       name: 'Holland America Line',
-      path: '/ships/hal/',
+      path: '/ships/holland-america-line/',
       bookingUrl: 'https://www.hollandamerica.com/en_US/cruise-ships.html',
       allShipsUrl: '/ships.html'
     },
@@ -62,7 +62,7 @@
     },
     'virgin': {
       name: 'Virgin Voyages',
-      path: '/ships/virgin/',
+      path: '/ships/virgin-voyages/',
       bookingUrl: 'https://www.virginvoyages.com/ships',
       allShipsUrl: '/ships.html'
     },
