@@ -1,101 +1,139 @@
 # Port Page Validation Progress
 **Soli Deo Gloria**
 
-**Validation Date:** 2026-02-14
+**Validation Date:** 2026-02-24 (verified after Session 5 dead-link check)
 **Validator:** `admin/validate-port-page-v2.js`
 **Standards:** ITC v1.1 + LOGBOOK_ENTRY_STANDARDS v2.300 + ICP-Lite v1.4
-**Total Ports:** 380
+**Total Ports:** 387
 **Target:** 100% pass rate (0 blocking errors per port)
 
 ---
 
-## Validation Summary
+## Validation Summary (Verified 2026-02-24, post-Session 5)
 
 | Status | Count | Percentage |
 |--------|-------|------------|
-| ✅ Perfect (100/100, 0 errors, 0 warnings) | 46 | 12.11% |
-| ✅ Passed (0 blocking errors) | 269 | 70.79% |
-| ❌ Failed (stub pages, need full content) | 111 | 29.21% |
-| **TOTAL** | **380** | **100.00%** |
+| PASS (0 blocking errors) | 39 | 10.1% |
+| FAIL (dead links only, 1 error) | 216 | 55.8% |
+| FAIL (content skeletons, score 0) | 129 | 33.3% |
+| FAIL (image-blocked, score 24-76) | 3 | 0.8% |
+| **TOTAL** | **387** | **100.0%** |
 
-### Batch Fixes Applied (2026-02-14)
-- ✅ Removed `console.log()` statements from **228 ports**
-- ✅ Added `<meta name="author">` tags to **375 ports**
-- ✅ **269 ports now pass** with **0 blocking errors**
-- ✅ **46 ports achieve perfect 100/100 scores**
+**Why the drop from 255 → 39:** Session 5 added a `dead_internal_links` BLOCKING check. 216 ports that previously passed now fail because they link to ship pages (`/ships/hal/*.html`, etc.) or footer nav targets (`/about/`, `/contact/`) that don't exist on disk. These links were always broken — the validator just wasn't checking them before.
 
 ---
 
-## Perfect Ports (100/100 with 0 errors, 0 warnings) - 46 Total
+## Session Log
 
-### Sample Perfect Ports ✨
-1. **Airlie Beach** - 100/100 ✓ PERFECT
-2. **Aitutaki** - 100/100 ✓ PERFECT
-3. **Akaroa** - 100/100 ✓ PERFECT
-4. **Amalfi** - 100/100 ✓ PERFECT
-5. **Amsterdam** - 100/100 ✓ PERFECT
-6. **Antarctic Peninsula** - 100/100 ✓ PERFECT
-7. **Bar Harbor** - 100/100 ✓ PERFECT
-8. **Barcelona** - 100/100 ✓ PERFECT
-9. **Bay of Islands** - 100/100 ✓ PERFECT
-10. **Belize** - 100/100 ✓ PERFECT
-11. **Bergen** - 100/100 ✓ PERFECT
-12. **Bordeaux** - 100/100 ✓ PERFECT
-13. **Boston** - 100/100 ✓ PERFECT
-14. **Brisbane** - 100/100 ✓ PERFECT
-15. **Cabo San Lucas** - 100/100 ✓ PERFECT
-16. **Cadiz** - 100/100 ✓ PERFECT
-17. **Cagliari** - 100/100 ✓ PERFECT
-18. **Cairns** - 100/100 ✓ PERFECT
-19. **Cannes** - 100/100 ✓ PERFECT
-... and 27 more perfect ports!
+### Session 5: Technical Debt Cleanup (2026-02-24)
+Branch: `claude/port-validation-review-Zd2lY`
 
-### All Passed Ports (269 Total)
-- **269 ports** have **0 blocking errors** and are production-ready
-- Remaining warnings are informational (duplicate image file sizes)
-- All ports have required meta tags, clean consoles, and valid ICP-Lite v1.4
-- Abu Dhabi: 98/100 (1 warning: duplicate image sizes)
+**Approach:** Self-assessment revealed two categories of technical debt from Sessions 3-4. Fixed both honestly.
+
+**1. Dead `/stories/` links fixed (9 port files):**
+- Replaced hardcoded `/stories/` sidebar links with dynamic `recent-rail` pattern (cozumel canonical ref)
+- Fixed ports: praia, mombasa, luanda, yangon, sihanoukville, port-moresby, durban
+- Fixed footer `/stories/` → `/articles.html` in: praia, durban, lautoka, mindelo, hurghada
+
+**2. Two new BLOCKING validator checks added to `validate-port-page-v2.js`:**
+- `dead_internal_links`: Resolves all internal `<a href>` against filesystem (with `.html` extension fallback)
+- `hardcoded_story_links`: Flags any sidebar links to `/stories/` (must use dynamic `recent-rail` instead)
+- Impact: 255 → 39 PASS (216 ports correctly flagged for broken ship/nav links)
+
+**3. Unverifiable claims softened in AI-written depth_soundings (3 ports):**
+- valparaiso, gran-canaria, palau: Replaced specific unverifiable numbers with approximate language
+- Retained well-known facts (Chile 1818, Panama Canal 1914, etc.)
+- Added `<!-- FACT-CHECK NEEDED -->` HTML comments to all three sections
+
+**Honest accounting:** The PASS count dropped dramatically because the dead link check exposed pre-existing broken links across 216 ports. These ports link to ship pages that don't exist on disk. The links were always broken — the validator just wasn't checking them.
+
+### Session 4: Continued Careful Fixes (2026-02-24)
+Branch: `claude/port-validation-review-Zd2lY`
+
+**Approach:** Same as Session 3 — one port at a time, read before edit, validate after each fix.
+
+Fixed 5 ports (all to PASS):
+- **seychelles** (32 → 88): Added hero image, Getting Around section (200 words), Excursions section (400+ words). Fixed 4 "world-class" voice instances.
+- **palau** (18 → 90): Added hero image, expanded excursions (3 activities), depth_soundings (208 words), FAQ (4 items). Replaced 5 "world-class" instances.
+- **valparaiso** (16 → 88): Added hero image (Flickr), depth_soundings (270 words: 1536 naming, UNESCO, 2014 fire), FAQ (4 items), excursions +3 words. Fixed "Don't miss" voice.
+- **gran-canaria** (10 → 92): Added hero image (Flickr), 5 new sections: cruise_port (124w), getting_around (214w), excursions (466w, 5 activities), depth_soundings (202w), FAQ (217w). Fixed "best in the world" voice.
+- **praia** (28 → 84): Added hero using panorama.webp (Wikimedia), populated empty gallery with 9 slides, added Quick Answer + Recent Stories to sidebar, answer-line. Excursions +1 word.
+
+Image-blocked ports confirmed (cannot PASS without image files):
+- **santos** (76): 1 image on disk, needs 11
+- **callao** (34): 1 image on disk, needs 11
+- **catania** (24): 1 image on disk, needs 11
+
+All fixable content-based ports were PASS at this point (before Session 5 dead-link check). Remaining 132 failures = 129 skeletons (score 0) + 3 image-blocked.
+
+### Session 3: Careful Fixes (2026-02-24)
+Branch: `claude/port-validation-review-Zd2lY`
+
+**Approach:** One port at a time. Read before edit. Validate after each fix. Document honestly.
+
+Fixed 6 ports (5 to PASS, 1 partial):
+- **lautoka** (78 → 90): Expanded logbook 519 → 839 words. Replaced "a testament to" AI phrase.
+- **mystery-island** (76 → 88): Expanded logbook 472 → 803 words. Replaced "postcard-perfect", "world-class", "Ideal for".
+- **christchurch** (64 → 90): Expanded logbook 584 → 804 words. Added answer-line + At a Glance sidebar. Replaced "stands as a testament", "Don't miss".
+- **mombasa** (48 → 92): Expanded logbook 729 → 812 words. Added answer-line + Quick Answer sidebar. Fixed booking keywords. Replaced "Must-Try", "one of the finest".
+- **corinto** (46 → 90): Expanded logbook 132 → 923 words (full narrative: León, volcano, cashew vendor pivot). Added león-cathedral image. Added reflection.
+- **goa** (26 → 86): Expanded logbook 149 → 871 words (full narrative: Old Goa churches, fish curry, Fontainhas, chapel pivot). Added 2 images. Added reflection.
+- **santos** (36 → 76, still FAIL): Added hero image, Quick Answer, At a Glance sidebar. Blocked: only 1 image file on disk, needs 11.
+
+Left alone: FAQ answer length warnings, POI manifest warnings (require separate data work).
+
+### Session 2: Targeted Fixes (2026-02-24, earlier)
+Branch: `claude/port-validation-review-Zd2lY`
+- Fixed 75 individual ports across 7 commits (hero images, gallery images, sidebar sections, answer-lines, FAQ reordering)
+- 244 ports passing (up from 169)
+
+### Session 1: Batch Structural Fixes (2026-02-24, earliest)
+Branch: `claude/port-validation-review-Zd2lY`
+- Applied `admin/batch-fix-port-structure.cjs` to 275 ports
+- 169 ports passing (up from 112)
+- **Note:** This was a "clever" batch approach. Future work should be one-at-a-time.
+
+---
+
+## Dead-Link-Only Failures (216 ports, need ship pages or nav targets)
+
+These ports have good content but fail because they link to pages that don't exist:
+- **Ship pages:** `/ships/hal/*.html`, `/ships/ncl/*.html`, `/ships/celebrity/*.html`, etc.
+- **Footer nav:** `/about/`, `/contact/`, `/newsletter/`
+- **Fix options:** Create the missing ship pages, or remove/update the broken links
+
+## Image-Blocked Ports (3 ports, cannot PASS without image files)
+
+| Port | Score | Blocking Error | What's Needed |
+|------|-------|----------------|---------------|
+| santos | 76 | minimum_images | Need 10+ image files on disk (only 1 exists) |
+| callao | 34 | minimum_images + hero, sidebar, answer-line | Only 1 image file on disk |
+| catania | 24 | minimum_images + section_order, sidebar, answer-line | Only 1 image file on disk |
+
+These ports need actual image files added to `ports/img/[port-name]/` before they can pass.
+
+## Content Skeletons (129 ports, score 0)
+
+These pages have sidebar and basic structure but are missing all content sections:
+- No logbook entry (need 800+ words of first-person narrative)
+- No cruise port section (need 100+ words)
+- No excursions section (need 400+ words)
+- No depth soundings section
+- Examples: lisbon, oslo, stockholm, vancouver, melbourne, helsinki, genoa, osaka
 
 ---
 
 ## Validation Workflow
 
-1. **Run Validator:** `node admin/validate-port-page-v2.js ports/[port-name].html`
-2. **Fix Blocking Errors:** Address all errors marked as "BLOCKING"
-3. **Fix Warnings:** Address warnings when practical (aim for 98-100% score)
-4. **Re-validate:** Confirm 100% pass status
-5. **Document:** Add to "Completed Ports" section above
-6. **Commit:** Commit fixes with clear message
+1. **Read the file first.** Understand existing content before editing.
+2. **Run Validator:** `node admin/validate-port-page-v2.js ports/[port-name].html`
+3. **Fix Blocking Errors:** Address all errors marked as "BLOCKING"
+4. **Fix Voice Warnings:** Replace AI phrases and promotional language
+5. **Re-validate:** Confirm PASS status
+6. **Commit:** One logical change per commit with honest message
+7. **Update this file:** Record what was done and what was left alone
 
 ---
 
-## Common Fixes Applied
-
-### Missing Meta Author Tag
-```html
-<meta name="author" content="In the Wake">
-```
-
-### Console.log Statements
-- Remove all `console.log()`, `console.warn()`, `console.error()` from inline scripts
-- Keep only JSON-LD scripts
-
-### Duplicate Images
-- Review `ports/img/[port-slug]/` directory
-- Replace duplicate placeholder images with unique port-specific images
-
----
-
-## Next Ports to Validate
-
-1. acapulco.html
-2. adelaide.html
-3. agadir.html
-4. airlie-beach.html
-5. aitutaki.html
-6. (continue alphabetically...)
-
----
-
-**Last Updated:** 2026-02-14
-**Updated By:** Claude (Session: claude/review-docs-and-repo-GnDW5)
+**Last Updated:** 2026-02-24 (Session 5 — 39 PASS after dead-link check added)
+**Updated By:** Claude (Session: claude/port-validation-review-Zd2lY)

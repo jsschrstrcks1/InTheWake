@@ -269,7 +269,7 @@ All work on this project is offered as a gift to God.
       <!-- HERO SECTION -->
       <section class="port-hero" id="hero" aria-label="St. Maarten cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
         <div class="port-hero-image" style="position: relative;">
-            <!-- Hero image removed: placeholder deleted -->
+            <img src="img/philipsburg/philipsburg-hero.webp" alt="Philipsburg Great Bay with cruise ships docked and the colorful Dutch Caribbean waterfront of St. Maarten" loading="eager" fetchpriority="high" style="width: 100%; display: block;">
           <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
             <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">St. Maarten</h1>
           </div>
@@ -444,6 +444,28 @@ All work on this project is offered as a gift to God.
 
 
   <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+
+      <section class="page-intro mb-1">
+        <p class="answer-line"><strong>Quick Answer:</strong> Philipsburg is St. Maarten's capital with duty-free shopping and dual-nation culture. Enjoy Great Bay Beach, Front Street, Maho Beach plane spotting, and Caribbean-Dutch heritage.</p>
+      </section>
+      <section class="card" aria-labelledby="glance-heading">
+        <h4 id="glance-heading">At a Glance</h4>
+        <div class="at-a-glance-grid">
+          <div class="at-a-glance-item"><strong>Country</strong><span>Sint Maarten (Dutch) / Saint-Martin (French)</span></div>
+          <div class="at-a-glance-item"><strong>Language</strong><span>Dutch, English, French</span></div>
+          <div class="at-a-glance-item"><strong>Currency</strong><span>Netherlands Antillean Guilder (ANG) / USD widely accepted</span></div>
+          <div class="at-a-glance-item"><strong>Best Time</strong><span>December-April (dry season)</span></div>
+        </div>
+      </section>
+      <section class="card key-facts">
+        <h3>Key Facts</h3>
+        <dl>
+          <dt>Port</dt><dd>Dr. A.C. Wathey Cruise Facility, Great Bay</dd>
+          <dt>Tender</dt><dd>No — ships dock at pier</dd>
+          <dt>Walking Distance</dt><dd>Front Street and Great Bay Beach (5 min)</dd>
+          <dt>Must-Know</dt><dd>Two nations, one island — duty-free shopping on both sides</dd>
+        </dl>
+      </section>
     <section class="card author-card-vertical" aria-labelledby="author-heading">
       <h4 id="author-heading">About the Author</h4>
       <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
@@ -468,9 +490,11 @@ All work on this project is offered as a gift to God.
       <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
     </section>
 
-    <section class="card">
-      <h4>Recent Articles</h4>
-      <div id="recent-rail"></div>
+    <section class="card" aria-labelledby="recent-rail-title">
+      <h4 id="recent-rail-title">Recent Stories</h4>
+      <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
     </section>
 
     <!-- Whimsical Distance Units -->
@@ -550,20 +574,27 @@ All work on this project is offered as a gift to God.
         </div>
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
+
+      <section class="card" aria-labelledby="planning-resources-sidebar">
+        <h3 class="tiny" id="planning-resources-sidebar">Plan Your Visit</h3>
+        <ul class="tiny">
+          <li><a href="/packing-lists.html">Cruise Packing Lists</a> — What to bring on port days</li>
+          <li><a href="/articles/cruise-tech-photography-guide.html">Photography &amp; Tech Guide</a> — Capture the perfect shots</li>
+          <li><a href="/internet-at-sea.html">Internet at Sea</a> — WiFi tips &amp; staying connected</li>
+          <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
+        </ul>
+      </section>
+      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+        <h3>Author's Note</h3>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+          These are soundings in another's wake — research-based notes from trusted sources, not firsthand experience. I haven't visited this port yet. Verify details before your voyage, and if you've been here, I'd love to hear your story.
+        </p>
+      </aside>
 </aside>
 
 
     <!-- Planning Resources -->
-    <section class="card" aria-labelledby="planning-resources">
-      <h2 id="planning-resources">Plan Your Visit</h2>
-      <p>Helpful resources for your shore day:</p>
-      <ul>
-        <li><a href="/packing-lists.html">Cruise Packing Lists</a> — What to bring on port days</li>
-        <li><a href="/articles/cruise-tech-photography-guide.html">Photography &amp; Tech Guide</a> — Capture the perfect shots</li>
-        <li><a href="/internet-at-sea.html">Internet at Sea</a> — WiFi tips &amp; staying connected</li>
-        <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
-      </ul>
-    </section>
+    
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
     <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
