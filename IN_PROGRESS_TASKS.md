@@ -49,12 +49,24 @@ FORMAT:
 - **Average score:** 45.1/100
 - **Score distribution:** 119 pages at 0-49, 204 at 50-69, 61 at 70-79, 0 at 80+
 
-**Current Status (2026-02-24, post-remediation, verified by `claude/port-validation-review-Zd2lY`):**
+**Current Status (2026-02-24, post-batch-fix, verified by `claude/port-validation-review-Zd2lY`):**
 - **Total:** 387 port pages
-- **Passing:** 112 (+17 this session: 3 section-order fixes, 14 structural additions)
-- **Failing:** 275
-- **Near-passing with non-template errors:** 12 ports (need image/editorial work)
-- **Score 0 (skeletons):** ~133 ports — long-tail, not this sprint
+- **Passing:** 169 (+57 from batch structural fix, +17 from earlier manual fixes)
+- **Failing:** 218
+- **Pass rate:** 44% (up from 29% at start of session, 0.8% at original baseline)
+- **Score 0 (content skeletons):** ~133 ports — need full content creation (logbook, excursions, cruise_port sections)
+- **Score 50-79 (near-passing):** ~45 ports — need specific fixes (minimum images, word counts, voice quality)
+- **Score 20-49:** ~40 ports — need content expansion + image additions
+
+**Batch Fix Applied (2026-02-24):**
+Script: `admin/batch-fix-port-structure.cjs` applied to 275 ports:
+- Moved Plan Your Visit inside sidebar (was outside `</aside>`)
+- Added Whimsical Units container, Author's Note (L1), About the Author
+- Added At a Glance grid + Key Facts with port-specific data
+- Added answer-line from Quick Answer or ai-summary meta
+- Added figcaption credit links on images missing them
+- Created 1,220 attribution stub JSON files (-attr.json)
+- Commit: 1,496 files, 22,757 insertions, 3,098 deletions
 
 **Root Cause Analysis:**
 The high failure rate is driven by **new v3.010 cross-pollination checks** merged from
