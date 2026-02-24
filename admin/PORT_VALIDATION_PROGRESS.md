@@ -13,10 +13,20 @@
 
 | Status | Count | Percentage |
 |--------|-------|------------|
-| ✅ Passed (0 blocking errors) | 169 | 43.67% |
-| ❌ Failed (content skeletons, score 0) | ~133 | 34.37% |
-| ❌ Failed (near-passing, score 20-79) | ~85 | 21.96% |
+| ✅ Passed (0 blocking errors) | 244 | 63.05% |
+| ❌ Failed (content skeletons, score 0) | 129 | 33.33% |
+| ❌ Failed (score 10-78, need content) | 14 | 3.62% |
 | **TOTAL** | **387** | **100.00%** |
+
+### Targeted Port Fixes (2026-02-24) — Manual Remediation Session 2
+Thread: `claude/port-validation-review-Zd2lY`
+- ✅ Fixed **75 individual ports** across 7 commits (hero images, gallery images, sidebar sections, answer-lines, FAQ reordering)
+- ✅ **244 ports now pass** (up from 169 post-batch → +75 from targeted fixes)
+- ✅ Pass rate: **63%** (up from 44%)
+- ✅ All image references verified against disk (olden fake filename issue caught and fixed)
+- ✅ Self-audit conducted for validator gaming (CLAUDE.md line 609-616)
+- ❌ 14 remaining failures need content writing (logbook word count, missing sections)
+- ❌ 129 score-0 skeleton ports need full content creation
 
 ### Batch Fixes Applied (2026-02-24) — Structural Remediation
 - ✅ Applied `admin/batch-fix-port-structure.cjs` to **275 ports** (1,645 changes)
@@ -57,8 +67,8 @@
 19. **Cannes** - 100/100 ✓ PERFECT
 ... and 27 more perfect ports!
 
-### All Passed Ports (169 Total)
-- **169 ports** have **0 blocking errors** and are production-ready
+### All Passed Ports (244 Total)
+- **244 ports** have **0 blocking errors** and are production-ready
 - Remaining warnings are informational (FAQ answer length, POI count, voice quality)
 - All passing ports have required meta tags, clean consoles, and valid ICP-Lite v1.4
 - Note: Port count increased from 380 to 387 due to new pages; validator v2 has stricter checks than original
@@ -93,9 +103,9 @@
 
 ---
 
-## Remaining Work (218 Failing Ports)
+## Remaining Work (143 Failing Ports)
 
-### Content Skeletons (~133 ports, score 0)
+### Content Skeletons (129 ports, score 0)
 These pages have a sidebar and basic structure but are missing entire content sections:
 - No logbook entry (need 800+ words of first-person narrative)
 - No cruise port section (need 100+ words)
@@ -103,12 +113,26 @@ These pages have a sidebar and basic structure but are missing entire content se
 - No depth soundings section
 Examples: lisbon, oslo, stockholm, vancouver, melbourne, helsinki, genoa, osaka
 
-### Near-Passing (~85 ports, score 20-79)
-These pages have content but need specific fixes:
-- Minimum image count (11 required, some have 6-7)
-- Word count minimums in specific sections
-- Voice quality issues (V01-V06 warnings promoted to errors on some)
-- Missing required sections (hero, cruise_port, gallery)
+### Failing with Content (14 ports, score 10-78)
+These pages have content but need writing/content fixes that cannot be automated:
+- **lautoka (78)**: Logbook 519/800 words
+- **mystery-island (76)**: Logbook 472/800 words
+- **portimao (84)**: Now PASS (fixed 2026-02-24)
+- **christchurch (54)**: Logbook 584/800 words
+- **mombasa (48)**: Logbook 729/800 words + answer-line + booking guidance
+- **abu-dhabi (48)**: Now PASS (fixed 2026-02-24)
+- **luanda (48)**: Now PASS (fixed 2026-02-24)
+- **maldives (48)**: Now PASS (fixed 2026-02-24)
+- **corinto (46)**: Logbook 132/800 words + reflection missing
+- **santos (36)**: Only 1 image, needs substantial content
+- **callao (34)**: Only 1 image, needs substantial content
+- **seychelles (32)**: Missing getting_around + excursions sections
+- **praia (28)**: No hero image file on disk
+- **goa (26)**: Logbook 149/800 words + missing sections
+- **catania (24)**: Only 1 image, needs substantial content
+- **palau (18)**: Missing depth_soundings + faq sections
+- **valparaiso (16)**: Missing depth_soundings + faq sections
+- **gran-canaria (10)**: Missing 5 entire sections
 
 ### Batch Fix Script
 The script `admin/batch-fix-port-structure.cjs` can be re-run on any port page.
