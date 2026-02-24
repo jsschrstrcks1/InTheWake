@@ -49,11 +49,11 @@ FORMAT:
 - **Average score:** 45.1/100
 - **Score distribution:** 119 pages at 0-49, 204 at 50-69, 61 at 70-79, 0 at 80+
 
-**Current Status (2026-02-24, verified by `claude/port-validation-review-Zd2lY`):**
+**Current Status (2026-02-24, post-remediation, verified by `claude/port-validation-review-Zd2lY`):**
 - **Total:** 387 port pages
-- **Passing:** 95
-- **Failing:** 292
-- **Near-passing (60-88):** 27 ports — primary remediation targets
+- **Passing:** 112 (+17 this session: 3 section-order fixes, 14 structural additions)
+- **Failing:** 275
+- **Near-passing with non-template errors:** 12 ports (need image/editorial work)
 - **Score 0 (skeletons):** ~133 ports — long-tail, not this sprint
 
 **Root Cause Analysis:**
