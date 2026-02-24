@@ -67,23 +67,26 @@ FORMAT:
   - Fixed Misty Fjords/College Fjord: "From the Pier" → "Best Viewing Spots", "shore day" → "scenic cruising day"
   - Fixed Fairbanks: corrected Gold Rush date from 1898 Klondike to 1902 Felix Pedro strike
   - Added 4 new validator checks: climate_inappropriate_activities, duplicate_html_ids, gallery_credit_diversity, city_walking_in_non_city
+  - Fixed dual h1 tags in 130 ports (hero `<h1>` → `<p>`)
+  - Fixed orphaned FAQ questions in 22 ports (108 Q&As converted to `<details><summary>` accordion)
+  - Added 5 more validator checks: multiple_h1 (BLOCKING), faq_orphaned_questions, generic_noscript_weather, generic_alt_text, relative_image_paths
   - All 11 core Alaska ports PASS (94-98/100)
   - Fact-checked depth_soundings in 3 ports (valparaiso, gran-canaria, palau)
 - **Session 5 fixes:** Dead `/stories/` links in 9 ports, 2 new validator checks, softened unverifiable claims in 3 ports
 - **Session 4 fixes:** seychelles (32→88), palau (18→90), valparaiso (16→88), gran-canaria (10→92), praia (28→84)
 - **Session 3 fixes:** lautoka (78→90), mystery-island (76→88), christchurch (64→90), mombasa (48→92), corinto (46→90), goa (26→86)
 
-**Structural Issues Discovered (Session 6 — ready for batch fix):**
+**Structural Issues Discovered (Session 6) — batch fix progress:**
 
-| Issue | Scope | Fix Complexity | Validator Check |
+| Issue | Scope | Status | Validator Check |
 |---|---|---|---|
-| Dual `<h1>` tags (hero + content) | 302 ports | Simple sed | Planned: `multiple_h1` |
-| Orphaned FAQ weather Q&As (outside accordion) | 146 ports | Medium (node script) | Planned: `faq_orphaned_questions` |
-| Generic noscript weather placeholders | 224 ports | High (per-port data) | Planned: `generic_noscript_weather` |
-| Generic "skyline and cityscape" alt text | 106 ports | Medium (per-port) | Planned: `generic_alt_text` |
-| Duplicate HTML sections (author card etc.) | 104 ports | Medium (dedup script) | Already added: `duplicate_html_ids` |
-| "City Walking" in non-city scenic ports | 6 ports | Simple sed | Already added: `city_walking_in_non_city` |
-| Relative image paths (should be absolute) | ~6 ports | Simple sed | Planned: `relative_image_paths` |
+| Dual `<h1>` tags (hero + content) | 130 ports | FIXED | BLOCKING: `multiple_h1` |
+| Orphaned FAQ weather Q&As (outside accordion) | 22 ports | FIXED (108 Q&As → accordion) | WARNING: `faq_orphaned_questions` |
+| Generic noscript weather placeholders | 224 ports | Validator added | WARNING: `generic_noscript_weather` |
+| Generic "skyline and cityscape" alt text | 106 ports | Validator added | WARNING: `generic_alt_text` |
+| Duplicate HTML sections (author card etc.) | 104 ports | Validator added | WARNING: `duplicate_html_ids` |
+| "City Walking" in non-city scenic ports | 6 ports | Validator added | WARNING: `city_walking_in_non_city` |
+| Relative image paths (should be absolute) | ~6 ports | Validator added | WARNING: `relative_image_paths` |
 
 **Batch Fix Applied (2026-02-24):**
 Script: `admin/batch-fix-port-structure.cjs` applied to 275 ports:
