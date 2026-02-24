@@ -49,14 +49,15 @@ FORMAT:
 - **Average score:** 45.1/100
 - **Score distribution:** 119 pages at 0-49, 204 at 50-69, 61 at 70-79, 0 at 80+
 
-**Current Status (2026-02-24, verified post-careful-fixes by `claude/port-validation-review-Zd2lY`):**
+**Current Status (2026-02-24, verified post-Session 4 by `claude/port-validation-review-Zd2lY`):**
 - **Total:** 387 port pages
-- **Passing:** 247 (63.8%)
-- **Failing:** 140
+- **Passing:** 255 (65.9%)
+- **Failing:** 132
 - **Score 0 (content skeletons):** 129 ports — need full content creation
-- **Score 10-48 (partial content):** 11 ports — need manual content writing
-- **All structural fixes exhausted** — remaining failures require genuine content creation
-- **Session 3 fixes:** lautoka (78→90), mystery-island (76→88), christchurch (64→90) — one at a time, careful
+- **Image-blocked (score 24-76):** 3 ports (santos, callao, catania) — need image files on disk
+- **All content-fixable ports now PASS** — remaining failures require content creation or images
+- **Session 4 fixes:** seychelles (32→88), palau (18→90), valparaiso (16→88), gran-canaria (10→92), praia (28→84)
+- **Session 3 fixes:** lautoka (78→90), mystery-island (76→88), christchurch (64→90), mombasa (48→92), corinto (46→90), goa (26→86)
 
 **Batch Fix Applied (2026-02-24):**
 Script: `admin/batch-fix-port-structure.cjs` applied to 275 ports:

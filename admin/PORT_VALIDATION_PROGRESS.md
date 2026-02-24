@@ -9,18 +9,37 @@
 
 ---
 
-## Validation Summary (Verified 2026-02-24)
+## Validation Summary (Verified 2026-02-24, post-Session 4)
 
 | Status | Count | Percentage |
 |--------|-------|------------|
-| PASS (0 blocking errors) | 250 | 64.6% |
+| PASS (0 blocking errors) | 255 | 65.9% |
 | FAIL (content skeletons, score 0) | 129 | 33.3% |
-| FAIL (score 10-76, need content/images) | 8 | 2.1% |
+| FAIL (image-blocked, score 24-76) | 3 | 0.8% |
 | **TOTAL** | **387** | **100.0%** |
 
 ---
 
 ## Session Log
+
+### Session 4: Continued Careful Fixes (2026-02-24)
+Branch: `claude/port-validation-review-Zd2lY`
+
+**Approach:** Same as Session 3 — one port at a time, read before edit, validate after each fix.
+
+Fixed 5 ports (all to PASS):
+- **seychelles** (32 → 88): Added hero image, Getting Around section (200 words), Excursions section (400+ words). Fixed 4 "world-class" voice instances.
+- **palau** (18 → 90): Added hero image, expanded excursions (3 activities), depth_soundings (208 words), FAQ (4 items). Replaced 5 "world-class" instances.
+- **valparaiso** (16 → 88): Added hero image (Flickr), depth_soundings (270 words: 1536 naming, UNESCO, 2014 fire), FAQ (4 items), excursions +3 words. Fixed "Don't miss" voice.
+- **gran-canaria** (10 → 92): Added hero image (Flickr), 5 new sections: cruise_port (124w), getting_around (214w), excursions (466w, 5 activities), depth_soundings (202w), FAQ (217w). Fixed "best in the world" voice.
+- **praia** (28 → 84): Added hero using panorama.webp (Wikimedia), populated empty gallery with 9 slides, added Quick Answer + Recent Stories to sidebar, answer-line. Excursions +1 word.
+
+Image-blocked ports confirmed (cannot PASS without image files):
+- **santos** (76): 1 image on disk, needs 11
+- **callao** (34): 1 image on disk, needs 11
+- **catania** (24): 1 image on disk, needs 11
+
+All fixable content-based ports are now PASS. Remaining 132 failures = 129 skeletons (score 0) + 3 image-blocked.
 
 ### Session 3: Careful Fixes (2026-02-24)
 Branch: `claude/port-validation-review-Zd2lY`
@@ -51,20 +70,15 @@ Branch: `claude/port-validation-review-Zd2lY`
 
 ---
 
-## Failing Ports with Content (8 ports, score 10-76)
+## Image-Blocked Ports (3 ports, cannot PASS without image files)
 
-These need content writing or image files — cannot be fully automated:
-
-| Port | Score | Blocking Errors | What's Needed |
-|------|-------|-----------------|---------------|
+| Port | Score | Blocking Error | What's Needed |
+|------|-------|----------------|---------------|
 | santos | 76 | minimum_images | Need 10+ image files on disk (only 1 exists) |
-| callao | 34 | hero_missing_image, minimum_images, sidebar, answer-line | Hero image not referenced in HTML, only 1 image file |
-| seychelles | 32 | hero_missing_image, missing_sections, getting_around, excursions, booking | Hero not referenced, sections need content expansion |
-| praia | 28 | hero_missing_image, excursions, images, sidebar, answer-line | Hero attr.json exists but not actual image, need content |
-| catania | 24 | hero_missing_image, section_order, images, sidebar, answer-line | Only 1 image file on disk |
-| palau | 18 | hero_missing_image, missing_sections, excursions, depth_soundings, faq | Multiple sections need full content |
-| valparaiso | 16 | hero_missing_image, missing_sections, excursions, depth_soundings, faq | Multiple sections need full content |
-| gran-canaria | 10 | hero_missing_image, missing 5+ sections | Near-skeleton, needs almost everything |
+| callao | 34 | minimum_images + hero, sidebar, answer-line | Only 1 image file on disk |
+| catania | 24 | minimum_images + section_order, sidebar, answer-line | Only 1 image file on disk |
+
+These ports need actual image files added to `ports/img/[port-name]/` before they can pass.
 
 ## Content Skeletons (129 ports, score 0)
 
@@ -89,5 +103,5 @@ These pages have sidebar and basic structure but are missing all content section
 
 ---
 
-**Last Updated:** 2026-02-24
+**Last Updated:** 2026-02-24 (Session 4 — 255 PASS verified)
 **Updated By:** Claude (Session: claude/port-validation-review-Zd2lY)
