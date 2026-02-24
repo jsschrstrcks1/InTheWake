@@ -2303,6 +2303,198 @@ function validateGalleryCreditDiversity($) {
 }
 
 // =============================================================================
+// MULTIPLE H1 CHECK
+// =============================================================================
+
+/**
+ * Pages should have exactly one <h1> element. Multiple h1 tags harm SEO and
+ * accessibility. Common cause: hero overlay text using h1 alongside content h1.
+ */
+function validateMultipleH1($) {
+  const errors = [];
+  const warnings = [];
+
+  const h1Count = $('h1').length;
+  if (h1Count > 1) {
+    errors.push({
+      section: 'html_structure',
+      rule: 'multiple_h1',
+      message: `Page has ${h1Count} <h1> elements — should have exactly 1. Fix: change decorative hero text to <p>.`,
+      severity: 'BLOCKING'
+    });
+  } else if (h1Count === 0) {
+    warnings.push({
+      section: 'html_structure',
+      rule: 'missing_h1',
+      message: 'Page has no <h1> element — every page should have exactly one.',
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: h1Count <= 1, errors, warnings, data: { h1Count } };
+}
+
+// =============================================================================
+// GENERIC NOSCRIPT WEATHER PLACEHOLDER CHECK
+// =============================================================================
+
+/**
+ * Detect generic "Varies by season" placeholder text in the noscript weather
+ * widget. These should be replaced with port-specific weather data.
+ */
+function validateNoscriptWeather($, html) {
+  const errors = [];
+  const warnings = [];
+
+  const GENERIC_PATTERNS = [
+    'Varies by season',
+    'Variable conditions',
+    'Seasonal variation',
+  ];
+
+  const glanceValues = [];
+  const glanceRegex = /class="glance-value">([^<]+)</g;
+  let match;
+  while ((match = glanceRegex.exec(html)) !== null) {
+    glanceValues.push(match[1].trim());
+  }
+
+  const genericCount = glanceValues.filter(v =>
+    GENERIC_PATTERNS.some(p => v.includes(p))
+  ).length;
+
+  if (genericCount >= 3 && glanceValues.length > 0) {
+    warnings.push({
+      section: 'weather_widget',
+      rule: 'generic_noscript_weather',
+      message: `Weather widget has ${genericCount}/${glanceValues.length} generic placeholder values ("Varies by season"). Replace with port-specific data.`,
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: true, errors, warnings, data: { genericCount, total: glanceValues.length } };
+}
+
+// =============================================================================
+// GENERIC ALT TEXT CHECK
+// =============================================================================
+
+/**
+ * Detect images with generic template alt text that doesn't describe the actual
+ * photo content. Common offender: "skyline and cityscape" used on non-city ports.
+ */
+function validateGenericAltText($) {
+  const errors = [];
+  const warnings = [];
+
+  const GENERIC_ALT_PATTERNS = [
+    'skyline and cityscape',
+    'Scenic attraction along',
+    'Natural beauty of',
+    'Harbor scene along',
+    'Scenic landmark along',
+  ];
+
+  const badAlts = [];
+  $('img[alt]').each((_, el) => {
+    const alt = $(el).attr('alt') || '';
+    for (const pattern of GENERIC_ALT_PATTERNS) {
+      if (alt.includes(pattern)) {
+        badAlts.push(alt.substring(0, 60));
+        break;
+      }
+    }
+  });
+
+  if (badAlts.length > 0) {
+    warnings.push({
+      section: 'images',
+      rule: 'generic_alt_text',
+      message: `${badAlts.length} image(s) have generic template alt text: "${badAlts[0]}..."`,
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: true, errors, warnings, data: { genericAlts: badAlts.length } };
+}
+
+// =============================================================================
+// RELATIVE IMAGE PATHS CHECK
+// =============================================================================
+
+/**
+ * Detect images using relative paths (e.g., src="img/...") instead of absolute
+ * paths (e.g., src="/ports/img/..."). Relative paths may break depending on
+ * URL routing.
+ */
+function validateRelativeImagePaths($) {
+  const errors = [];
+  const warnings = [];
+
+  const relativeImages = [];
+  $('img[src]').each((_, el) => {
+    const src = $(el).attr('src') || '';
+    if (src.startsWith('img/') || src.startsWith('./img/')) {
+      relativeImages.push(src.substring(0, 60));
+    }
+  });
+
+  if (relativeImages.length > 0) {
+    warnings.push({
+      section: 'images',
+      rule: 'relative_image_paths',
+      message: `${relativeImages.length} image(s) use relative paths (e.g., "${relativeImages[0]}"). Use absolute paths (/ports/img/...).`,
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: true, errors, warnings, data: { relativeImages: relativeImages.length } };
+}
+
+// =============================================================================
+// ORPHANED FAQ QUESTIONS CHECK
+// =============================================================================
+
+/**
+ * Detect FAQ Q&A content that sits outside the accordion <details> wrapper.
+ * These are weather-related Q&As injected by the batch script that ended up
+ * after the closing </details> tag.
+ */
+function validateOrphanedFAQQuestions($, html) {
+  const errors = [];
+  const warnings = [];
+
+  // Look for <p><strong>Q: patterns in the raw HTML that come after </details>
+  // but before </section> in the FAQ area
+  const faqSection = html.match(/<section[^>]*id="faq"[^>]*>([\s\S]*?)<\/section>/i);
+  if (!faqSection) {
+    return { valid: true, errors, warnings, data: {} };
+  }
+
+  const faqHtml = faqSection[1];
+  // Find the last </details> in the FAQ section
+  const lastDetailsClose = faqHtml.lastIndexOf('</details>');
+  if (lastDetailsClose === -1) {
+    return { valid: true, errors, warnings, data: {} };
+  }
+
+  // Check for Q: patterns after the last </details>
+  const afterAccordion = faqHtml.substring(lastDetailsClose);
+  const orphanedQs = (afterAccordion.match(/<p><strong>Q:/g) || []).length;
+
+  if (orphanedQs > 0) {
+    warnings.push({
+      section: 'faq',
+      rule: 'faq_orphaned_questions',
+      message: `${orphanedQs} FAQ question(s) found outside the accordion wrapper. These render as unstyled loose paragraphs.`,
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: true, errors, warnings, data: { orphanedQs } };
+}
+
+// =============================================================================
 // RECENT STORIES PATTERN CHECK
 // =============================================================================
 
@@ -2837,6 +3029,13 @@ async function validatePortPage(filepath) {
     const duplicateSectionsResult = validateDuplicateSections($, html);
     const galleryCreditResult = validateGalleryCreditDiversity($);
 
+    // Session 6 — structural quality checks
+    const multipleH1Result = validateMultipleH1($);
+    const noscriptWeatherResult = validateNoscriptWeather($, html);
+    const genericAltResult = validateGenericAltText($);
+    const relativePathsResult = validateRelativeImagePaths($);
+    const orphanedFAQResult = validateOrphanedFAQQuestions($, html);
+
     // v3.010 standards cross-pollination checks
     const sidebarResult = validateSidebar($);
     const swiperFallbackResult = validateSwiperFallback($, html);
@@ -2869,6 +3068,7 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...answerLineResult.errors);
     results.blocking_errors.push(...sdgPositionResult.errors);
     results.blocking_errors.push(...canonicalResult.errors);
+    results.blocking_errors.push(...multipleH1Result.errors);
 
     // Collect all warnings
     results.warnings.push(...analyticsResult.warnings);
@@ -2898,6 +3098,11 @@ async function validatePortPage(filepath) {
     results.warnings.push(...climateActivitiesResult.warnings);
     results.warnings.push(...duplicateSectionsResult.warnings);
     results.warnings.push(...galleryCreditResult.warnings);
+    results.warnings.push(...multipleH1Result.warnings);
+    results.warnings.push(...noscriptWeatherResult.warnings);
+    results.warnings.push(...genericAltResult.warnings);
+    results.warnings.push(...relativePathsResult.warnings);
+    results.warnings.push(...orphanedFAQResult.warnings);
 
     // Collect info
     results.info.push(...logbookResult.info);
