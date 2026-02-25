@@ -3674,6 +3674,14 @@ function printResults(results, options) {
       console.log(`  Window Pane (V04): ${results.voice_quality?.window_pane_violations || 0}`);
       console.log(`  Warmth Violations (V05): ${results.voice_quality?.warmth_violations || 0}`);
       console.log(`  Corporate Filler (V06): ${results.voice_quality?.corporate_filler || 0}`);
+      console.log(`  Authenticity Risk (V07): ${results.voice_quality?.authenticity_risk || 'low'}`);
+      if (results.voice_quality?.authenticity_signals?.length > 0) {
+        for (const signal of results.voice_quality.authenticity_signals) {
+          console.log(`    → ${signal}`);
+        }
+      }
+      console.log(`  Authority Positive (V08): ${results.voice_quality?.authority_positive ? 'needs more concrete details' : 'ok'}`);
+      console.log(`  Fairness Balance (V09): ${results.voice_quality?.fairness_balance ? 'absolutes outweigh context' : 'ok'}`);
       console.log(`  Total Findings: ${results.voice_quality?.totalFindings || 0}`);
     }
     console.log();
