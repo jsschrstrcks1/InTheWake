@@ -12,6 +12,9 @@
  *   V04  Window Pane violations (overwrought prose, rhythm tricks)
  *   V05  Warmth violations (forced anecdotes, emotional stacking, slang)
  *   V06  Corporate filler (inflated abstractions, buzzwords)
+ *   V07  Authenticity risk (sentence predictability, transition density, specificity)
+ *   V08  Authority First positive (concrete details present: prices, times, distances)
+ *   V09  Fairness Rule balance (absolutes vs contextual qualifiers)
  *
  * Usage (ESM):
  *   import { validateVoiceQuality } from './lib/voice-quality-checks.js';
