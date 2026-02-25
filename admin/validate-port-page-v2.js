@@ -2197,7 +2197,6 @@ function validateClimateActivities($, html) {
     'norwegian-fjords', 'drake-passage', 'antarctic-peninsula',
     'south-shetland-islands', 'chilean-fjords', 'strait-of-magellan',
     'doubtful-sound', 'milford-sound', 'gatun-lake',
-    'komodo', 'dravuni', 'bora-bora', 'moorea',
   ]);
 
   if (SCENIC_ONLY_SLUGS.has(slug) && activityLabels.includes('City Walking')) {
