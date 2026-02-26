@@ -451,6 +451,24 @@ Soli Deo Gloria
         </details>
       </details>
 
+      <!-- INTERACTIVE PORT MAP -->
+      <details class="port-section port-map-section" id="port-map-section" open>
+        <summary><h3>Newcastle Port Map</h3></summary>
+        <p class="map-intro">Interactive map showing cruise terminal and Newcastle attractions. Click any marker for details.</p>
+        <div id="newcastle-port-map" class="port-map-container" role="application" aria-label="Interactive map of Newcastle port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=55.007&mlon=-1.450#map=11/54.96/-1.55" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('newcastle-port-map')._portMap?.fitBounds(document.getElementById('newcastle-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+      </details>
+
       <!-- EXCURSIONS SECTION -->
       <details class="port-section" id="excursions" open>
         <details class="section-collapse" open>
@@ -642,24 +660,6 @@ Soli Deo Gloria
         <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
         <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
       </section>
-
-      <!-- Interactive Port Map -->
-      <details class="port-section port-map-section" id="port-map-section" open>
-        <summary><h3>Newcastle Port Map</h3></summary>
-        <p class="map-intro">Interactive map showing cruise terminal and Newcastle attractions. Click any marker for details.</p>
-        <div id="newcastle-port-map" class="port-map-container" role="application" aria-label="Interactive map of Newcastle port and points of interest">
-          <noscript>
-            <p style="padding: 2rem; text-align: center; color: #678;">
-              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=55.007&mlon=-1.450#map=11/54.96/-1.55" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-            </p>
-          </noscript>
-        </div>
-        <div class="port-map-actions">
-          <button type="button" class="btn btn-secondary" onclick="document.getElementById('newcastle-port-map')._portMap?.fitBounds(document.getElementById('newcastle-port-map')._portMap.getBounds())">
-            Reset View
-          </button>
-        </div>
-      </details>
 
       <!-- Nearby Ports Rail -->
       <section class="card" aria-labelledby="nearby-ports-title">
