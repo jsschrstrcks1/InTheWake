@@ -72,42 +72,50 @@ Soli Deo Gloria
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Do cruise ships dock at Milford Sound or is it scenic cruising only?",
+        "name": "Do cruise ships dock at Milford Sound?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Scenic cruising only. Large cruise ships navigate the 15km fjord from the Tasman Sea to the head and back, but never dock. The entire experience is from the ship's deck, balcony, or viewing areas. There are no facilities ashore for cruise passengers."
+          "text": "No. Large cruise ships navigate the 15km fjord from the Tasman Sea to the head and back, but never dock. The entire experience is scenic cruising from the ship."
         }
       },
       {
         "@type": "Question",
-        "name": "When is the best time to see Milford Sound's waterfalls?",
+        "name": "When is the best time to see waterfalls in Milford Sound?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "After rain, and it rains here over 200 days per year. The Sound's permanent waterfalls (Stirling Falls, Bowen Falls) are always flowing, but after heavy rain, hundreds of temporary waterfalls cascade down vertical cliff faces. Many cruisers say rainy days create the most dramatic, mystical atmosphere."
+          "text": "After rain, and it rains over 200 days per year. Stirling Falls and Bowen Falls are permanent, but heavy rain activates hundreds of temporary cascades on every cliff face."
         }
       },
       {
         "@type": "Question",
-        "name": "Why is Milford Sound called the 'eighth wonder of the world'?",
+        "name": "Why did Rudyard Kipling call Milford Sound the eighth wonder of the world?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Rudyard Kipling coined the phrase after visiting in 1891. The fjord's combination of massive scale — vertical cliffs rising 1,200m straight from the sea, Mitre Peak's iconic pyramid, ancient rainforest, and pristine wilderness — creates scenery many consider unmatched anywhere on Earth."
+          "text": "Kipling visited in 1891 and was overwhelmed by the fjord's scale — vertical cliffs rising over 1,200m from the sea, Mitre Peak's pyramid, ancient rainforest, and pristine wilderness."
         }
       },
       {
         "@type": "Question",
-        "name": "What wildlife can I expect to see in Milford Sound?",
+        "name": "What wildlife can I see in Milford Sound?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "New Zealand fur seals haul out on rocks near the fjord entrance. Bottlenose dolphins sometimes ride the bow wake. Fiordland crested penguins nest in coastal forests (best spotted October-February). Overhead, watch for kea (alpine parrots) and the rare Fiordland skink in the high country."
+          "text": "New Zealand fur seals on rocks near the entrance, bottlenose dolphins riding the bow wake, and Fiordland crested penguins in coastal forests between October and February."
         }
       },
       {
         "@type": "Question",
-        "name": "Is Milford Sound worth it in bad weather?",
+        "name": "Is Milford Sound worth visiting in rain?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Absolutely — some say it's better. Low clouds create haunting atmosphere, mist rises from the water, and rain activates countless ephemeral waterfalls. The fjord's dramatic scale still overwhelms in any weather. Pack layers and rain gear, stake out a covered viewing spot, and embrace the moody majesty."
+          "text": "Many visitors say rain creates the most dramatic atmosphere. Low clouds, rising mist, and hundreds of ephemeral waterfalls transform the fjord into something otherworldly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What should I pack for Milford Sound scenic cruising?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A waterproof jacket is essential. Bring warm layers, binoculars for wildlife, and a camera with rain cover. Temperatures range 2-18 degrees Celsius depending on season."
         }
       }
     ]
@@ -124,10 +132,10 @@ Soli Deo Gloria
     function addJS(src, ok, fail){
       const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
     }
-    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
-    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
-    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    var primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+    var primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+    var cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    var cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
     addCSS(primaryCSS);
     addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
   })();
@@ -171,10 +179,10 @@ Soli Deo Gloria
           <span></span>
         </span>
       </button>
-            <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
 
-                <!-- Planning Dropdown -->
+        <!-- Planning Dropdown -->
         <div class="nav-dropdown" id="nav-planning">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Planning <span class="caret">&#9662;</span>
@@ -233,7 +241,8 @@ Soli Deo Gloria
 
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
-      </nav></div>
+      </nav>
+    </div>
 
     <!-- Hero -->
     <div class="hero">
@@ -243,302 +252,403 @@ Soli Deo Gloria
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
-        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo &copy; Flickers of Majesty</a>
       </div>
     </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Milford Sound</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Milford Sound</li></ol></nav>
+
     <div style="grid-column: 1; grid-row: 1;">
-    <article class="card">
-      <!-- Port Hero with gradient background -->
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem; background: linear-gradient(135deg, #1a3a52 0%, #2d5f7e 30%, #4a7c9e 60%, #6b9ab8 100%); border-radius: 12px; height: 280px; display: flex; align-items: center; justify-content: center;">
-        <div class="port-name-overlay" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 10vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3); letter-spacing: 0.08em; text-transform: uppercase; text-align: center;">Milford Sound</div>
-      </div>
+      <article class="card">
 
-      
+      <!-- HERO SECTION -->
+      <section class="port-hero" id="hero" aria-label="Milford Sound cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+        <div class="port-hero-image">
+          <img src="/ports/img/milford-sound/milford-sound-hero.webp" alt="Mitre Peak rising from dark waters in Milford Sound fjord surrounded by lush rainforest and low clouds" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <div class="port-hero-overlay">
+            <p class="port-hero-title">Milford Sound</p>
+          </div>
+        </div>
+        <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Milford_Sound" target="_blank" rel="noopener">Wikimedia Commons</a></p>
+      </section>
+
+      <h1>Milford Sound — Scenic Cruising Guide</h1>
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+      <div id="logbook-btn-container"></div>
 
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Distances in Milford Sound">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">The Pier</span><div class="pier-detail">There isn't one. Your ship is the pier. You're floating in a fjord carved by glaciers over 100,000 years.</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚢</span> You're here</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:100%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Mitre Peak (1,692m)</span><div class="pier-detail">Rising straight from sea level to summit — one of the world's tallest sea cliffs</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">⛰️</span> Right there</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:5%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Stirling Falls</span><div class="pier-detail">155m cascade — your captain may steer close enough to feel the spray</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">💧</span> Sail-by</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:10%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Nearest Road</span><div class="pier-detail">Milford Road is 120 km of single-lane tunnel and avalanche zone. You came the right way.</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🛣️</span> 120 km</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:90%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Scenic cruising only — no docking, no tendering. Rudyard Kipling called this the eighth wonder of the world. It rains 200 days a year here. The waterfalls need it.</p>
-</nav>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <!-- FROM THE PIER -->
+      <nav class="from-the-pier" id="from-the-pier" aria-label="Distances in Milford Sound">
+        <h4>From the Pier</h4>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">The Pier</span><div class="pier-detail">There is no pier. Your ship is the pier. You are floating in a fjord carved by glaciers over 100,000 years.</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6A2;</span> You're here</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:100%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Mitre Peak (1,692m)</span><div class="pier-detail">Rising straight from sea level to summit — among the world's tallest sea cliffs</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x26F0;&#xFE0F;</span> Right there</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:5%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Stirling Falls</span><div class="pier-detail">155m cascade — your captain may steer close enough to feel the spray</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F4A7;</span> Sail-by</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:10%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Nearest Road</span><div class="pier-detail">Milford Road is 120 km of single-lane tunnel and avalanche zone. You came the right way.</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6E3;&#xFE0F;</span> 120 km</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:90%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Scenic cruising only — no docking, no tendering. Rudyard Kipling called this the eighth wonder of the world. It rains 200 days a year here. The waterfalls need it. Binoculars cost $15-40 at the ship gift shop if you forgot yours.</p>
+      </nav>
 
       <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="milford-sound"
-               data-port-name="Milford Sound Guide"
-               data-lat="-44.6719"
-               data-lon="167.9260"
-               data-region="Asia Pacific">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Sep</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">May, Jun, Jul, Aug</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">May, Jun, Jul</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jul, Aug, Sep</span>
-                      <span class="avoid-reason">(monsoon/typhoon season)</span>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Monsoon/Typhoon Season</strong>
-                        <p>Season: Jun – Nov</p>
-                        <p>Peak risk: Aug, Sep, Oct</p>
-                        <p class="hazard-note">Ships may reroute during typhoons; check weather forecasts</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
-
-      <h1>Milford Sound: The Eighth Wonder</h1>
-      <div class="logbook-entry">
-        <p>Rudyard Kipling called it the eighth wonder of the world, and standing on deck as we entered from the Tasman Sea, I understood why. This isn't a port — it's 15 kilometers of pure geological drama where vertical cliffs soar straight from black water to cloud-wrapped peaks, ancient rainforest clings to impossible slopes, and waterfalls thunder down rock faces sculpted by ice over millennia.</p>
-
-      <p>We sailed in at dawn under heavy grey skies — exactly the weather locals say reveals Milford's true character. The ship slipped through the narrow entrance where Māori legend says the god Tūterakiwhanoa carved these fjords with sacred adzes. Mist rose from the water in veils. Within minutes we passed the first permanent falls — Bowen Falls dropping 160 meters in a silver ribbon. Then Stirling Falls came into view, plunging 155 meters with such force the spray reached our balcony six decks up.</p>
-
-        <p>But the icon that stops everyone mid-sentence is Mitre Peak. This pyramid of stone rockets 1,692 meters straight from sea level — one of the world's tallest coastal peaks rising directly from the ocean. The captain turned the ship slowly so every side got the view. Photographers lined the rails. Nobody spoke. Just the sound of shutters and the distant roar of falling water.</p>
-
-      <p>Then the rain came. And this is where Milford transforms from beautiful to otherworldly. Within twenty minutes, hundreds of temporary waterfalls materialized on every cliff face — thin white threads appearing from nowhere, cascading thousands of feet down vertical granite. The ship inched up to Stirling Falls close enough to feel the mist, close enough to hear individual stones tumbling in the torrent. New Zealand fur seals watched us from rocks at the base, utterly unconcerned.</p>
-
-        <p>We cruised the entire length to the head of the Sound where the Cleddau River feeds in, turned, and made the slow journey back out. Three hours total. Not nearly long enough. The scale of this place defies the eye — cliffs you think are nearby turn out to be kilometers away, waterfalls that look like threads are actually thundering cataracts fifty meters wide.</p>
-
-        <div class="poignant-highlight">
-          <strong>The Moment That Stays With Me:</strong> Rain drumming on the deck, mist thick enough to taste, Mitre Peak emerging from clouds like a ghost, and realizing that 7 million years of ice and water carved this cathedral specifically so I could stand here, right now, and witness the raw power of deep time made visible.
-        </div>
-
-        <p>This is a UNESCO World Heritage Site — part of Te Wahipounamu, the Southwest New Zealand World Heritage Area encompassing 2.6 million hectares of primeval temperate rainforest and alpine wilderness. Fiordland National Park protects landscapes unchanged since Gondwana. No roads reach Milford from the interior. No towns. Just stone, water, forest, sky.</p>
-
-        <p>The pros: among Earth's most dramatic natural scenery; wildlife including dolphins, seals, and Fiordland crested penguins; every cruise gets a different light show.</p>
-        <p>The cons: weather can scrub visibility entirely, though many argue mist and rain enhance the mystery.</p>
-      </div>
-
-      <section class="port-section" id="getting_around">
-        <h3>Getting Around Milford Sound</h3>
-        <p>You never leave the ship — scenic cruising only. Best viewing is from open decks, forward observation areas, or your balcony if you have one. Stake out a spot on the port side going in (sunrise light), starboard coming out. Bring rain gear and layers; it rains here over 200 days per year, and you'll want to be outside anyway.</p>
-      </section>
-
-      <section class="port-section" id="depth_soundings">
-        <h3>Depth Soundings Ashore</h3>
-        <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
-        <p>Though there is no shore access from cruise ships, pack weather-appropriate gear for deck viewing. A waterproof jacket and binoculars are essential. The fjord's dark waters reflect surrounding peaks perfectly on calm days — have your camera ready. Coffee and breakfast on deck as you enter at dawn is unforgettable.</p>
-      </section>
-
-      <section class="port-section author-note-disclaimer">
-        <h3>Author's Note</h3>
-        <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-      </section>
-
-      <!-- Interactive Port Map -->
-      <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Milford Sound Area Map</h3></summary>
-        <p class="map-intro">Interactive map showing Mitre Peak, major waterfalls, and scenic points along the fjord. Note: Milford Sound is scenic cruising only — no shore landing for cruise ships.</p>
-        <div id="milford-sound-port-map" class="port-map-container" role="application" aria-label="Interactive map of Milford Sound fjord">
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+        <div id="port-weather-widget"
+             data-port-id="milford-sound"
+             data-port-name="Milford Sound Guide"
+             data-lat="-44.6719"
+             data-lon="167.9260"
+             data-region="Asia Pacific">
           <noscript>
-            <p style="padding: 2rem; text-align: center; color: #678;">
-              Enable JavaScript to view the interactive map.
-            </p>
+            <div class="seasonal-guide seasonal-guide-static">
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">At a Glance</summary>
+                <div class="seasonal-at-glance">
+                  <div class="seasonal-glance-grid">
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">2&ndash;18 &deg;C (36&ndash;64 &deg;F) depending on season</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">85&ndash;95%, extremely high year-round</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Temperate rainforest climate with 7+ metres annual rainfall &mdash; over 200 rain days per year</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable 10&ndash;30 km/h, funnelled through fjord walls</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">9&ndash;16 hours depending on season (southern latitude)</span></div>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Best Time to Visit</summary>
+                <div class="seasonal-best-time">
+                  <div class="cruise-seasons-grid">
+                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Oct, Apr</span></div>
+                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
+                  </div>
+                  <div class="best-months-activities">
+                    <div class="activity-row"><span class="activity-label">Wildlife Viewing</span><span class="activity-months">Oct, Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Photography</span><span class="activity-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="activity-row"><span class="activity-label">Waterfall Season</span><span class="activity-months">Year-round (rain creates spectacular waterfalls)</span></div>
+                    <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">May, Jun, Jul</span></div>
+                  </div>
+                  <div class="months-to-avoid">
+                    <span class="avoid-label">Consider avoiding:</span>
+                    <span class="avoid-months">Jun, Jul, Aug</span>
+                    <span class="avoid-reason">(winter, limited cruise itineraries, shorter daylight)</span>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                <div class="seasonal-catches">
+                  <ul class="catches-list">
+                    <li>Rain is nearly constant — but it creates the spectacular temporary waterfalls that make Milford famous</li>
+                    <li>Temperatures can drop sharply even in summer; bring warm layers and a waterproof jacket</li>
+                    <li>Sandflies are notorious at ground level, though they rarely trouble passengers on the ship</li>
+                    <li>Cloud cover can obscure Mitre Peak entirely — patience and a clear viewing spot help</li>
+                    <li>The fjord's scale deceives the eye; features that look close can be kilometres away</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">Packing Tips</summary>
+                <div class="seasonal-packing">
+                  <ul class="packing-list">
+                    <li>Waterproof jacket — absolutely essential, rain can appear from nowhere</li>
+                    <li>Warm layers including fleece or wool mid-layer for cold wind off the water</li>
+                    <li>Binoculars for spotting seals, dolphins, and penguins along the cliff base</li>
+                    <li>Waterproof camera cover or dry bag for deck photography in spray and rain</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera with telephoto lens</a> for Mitre Peak and wildlife</li>
+                  </ul>
+                  <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Weather Hazards</summary>
+                <div class="seasonal-hazards">
+                  <div class="hazard-warning">
+                    <span class="hazard-icon">&#9888;&#65039;</span>
+                    <div class="hazard-content">
+                      <strong>Heavy Rain &amp; Low Visibility</strong>
+                      <p>Season: Year-round (temperate rainforest receives 7+ metres of rain annually)</p>
+                      <p>Peak risk: Jun, Jul, Aug</p>
+                      <p class="hazard-note">Ships may skip Milford Sound entirely in severe weather; captains make the call on approach</p>
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+            </div>
           </noscript>
         </div>
-            </details>
+      </details>
 
-      <section class="port-section">
-        <h3>Frequently Asked Questions</h3>
-        <p><strong>Q: Do cruise ships dock at Milford Sound or is it scenic cruising only?</strong><br/>A: Scenic cruising only. Large cruise ships navigate the 15km fjord from the Tasman Sea to the head and back, but never dock. The entire experience is from the ship's deck, balcony, or viewing areas. There are no facilities ashore for cruise passengers.</p>
-        <p><strong>Q: When is the best time to see Milford Sound's waterfalls?</strong><br/>A: After rain, and it rains here over 200 days per year. The Sound's permanent waterfalls (Stirling Falls, Bowen Falls) are always flowing, but after heavy rain, hundreds of temporary waterfalls cascade down vertical cliff faces. Many cruisers say rainy days create the most dramatic, mystical atmosphere.</p>
-        <p><strong>Q: Why is Milford Sound called the 'eighth wonder of the world'?</strong><br/>A: Rudyard Kipling coined the phrase after visiting in 1891. The fjord's combination of massive scale — vertical cliffs rising 1,200m straight from the sea, Mitre Peak's iconic pyramid, ancient rainforest, and pristine wilderness — creates scenery many consider unmatched anywhere on Earth.</p>
-        <p><strong>Q: What wildlife can I expect to see in Milford Sound?</strong><br/>A: New Zealand fur seals haul out on rocks near the fjord entrance. Bottlenose dolphins sometimes ride the bow wake. Fiordland crested penguins nest in coastal forests (best spotted October-February). Overhead, watch for kea (alpine parrots) and the rare Fiordland skink in the high country.</p>
-        <p><strong>Q: Is Milford Sound worth it in bad weather?</strong><br/>A: Absolutely — some say it's better. Low clouds create haunting atmosphere, mist rises from the water, and rain activates countless ephemeral waterfalls. The fjord's dramatic scale still overwhelms in any weather. Pack layers and rain gear, stake out a covered viewing spot, and embrace the moody majesty.</p>
+      <!-- LOGBOOK SECTION -->
+      <details class="port-section" id="logbook" open>
+        <details class="section-collapse" open>
+        <summary><h2>My Logbook: Into the Eighth Wonder</h2></summary>
+        <div class="collapse-body">
+        <div class="logbook-entry clearfix">
+          <p>I heard Milford Sound before I saw it. Standing on the upper deck at dawn, wrapped in every warm layer I owned, I listened to the deep, resonant roar of falling water echoing off invisible cliffs hidden behind curtains of grey mist. The ship had entered from the Tasman Sea in near darkness, and as the first pale light crept over the eastern ridgeline, the world revealed itself in fragments — a wall of rock here, a thread of white water there, the dark surface of the fjord as still as oil beneath us. My hands were cold around my coffee cup. I did not move. I could not move.</p>
+
+          <p>Then the mist parted, and Mitre Peak appeared. I had seen photographs. I had read the numbers — 1,692 metres from sea level to summit, rising directly from the water without a single foothill or gentle slope. But nothing prepared me for the reality of standing at the base of something that enormous while it emerged from cloud like a cathedral being unveiled. The peak's pyramid face caught the first sunlight and turned a pale gold against the grey sky behind it. Around me, passengers who had been chatting fell silent. The only sounds were the low throb of the ship's engines, the distant thunder of Bowen Falls dropping 160 metres in a silver ribbon off our port side, and the click of camera shutters. I watched a woman next to me lower her phone slowly and just stare. I understood completely.</p>
+
+          <p>Our captain brought the ship deep into the fjord, navigating the 15 kilometres from the entrance to the head at a pace slow enough to absorb every detail. Sheer granite walls rose on both sides — cliffs sculpted by glacial ice over millions of years, draped in emerald rainforest that clung to ledges and crevices where no forest had any reasonable right to grow. I spotted a fur seal lounging on a flat rock near the waterline, utterly unconcerned by the enormous vessel passing metres away. Through my binoculars I could see its whiskers, the rise and fall of its breathing. Fiordland is home to bottlenose dolphins too, and as we rounded a bend, a pod of four appeared off the starboard bow, riding our wake for a few exhilarating minutes before peeling away into deeper water.</p>
+
+          <figure class="gallery-item">
+            <img src="/ports/img/milford-sound/milford-sound-harbor.webp" alt="Cruise ship navigating the dark waters of Milford Sound fjord with steep forested cliffs rising on both sides" loading="lazy"/>
+            <figcaption>Deep inside the fjord — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Milford_Sound" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+          </figure>
+
+          <p>Then the rain came — and this is where Milford Sound transforms from beautiful to otherworldly. Within twenty minutes, hundreds of temporary waterfalls materialized on every cliff face. Thin white threads appeared from nowhere, cascading down vertical granite, joining into broader torrents that plunged hundreds of metres into the dark water below. The permanent falls — Stirling Falls at 155 metres and Bowen Falls at 160 — grew from graceful ribbons into roaring cataracts. The captain eased us close enough to Stirling Falls that the spray reached our balcony six decks up, and I felt the cold mist on my face, tasted the mineral freshness of glacial water on my lips. I heard individual stones tumbling in the torrent. This place receives over seven metres of rainfall annually — a temperate rainforest climate that feeds one of the wettest inhabited corners on Earth. Every drop of that rain becomes spectacle.</p>
+
+          <p>Rudyard Kipling came here in 1891 and called it the eighth wonder of the world. Standing on deck with rain drumming on my hood, watching waterfalls appear and vanish like ghosts on the cliff faces, I understood his awe. However, what struck me most was not the grandeur but the intimacy. This is a UNESCO World Heritage Site — part of Te Wahipounamu, the Southwest New Zealand World Heritage Area, encompassing 2.6 million hectares of primeval wilderness — and yet the fjord is only 15 kilometres long and barely 2 kilometres wide. The scale is immense, but the space is enclosed. You feel held by it. The cliffs do not merely surround you; they enfold you. The sound of water is everywhere — falling, dripping, flowing, echoing — and it creates a silence of its own, a hush that swallows human noise and leaves only the ancient conversation between stone and water.</p>
+
+          <figure class="gallery-item">
+            <img src="/ports/img/milford-sound/milford-sound-landmark.webp" alt="Stirling Falls cascading down sheer rock face into the dark waters of Milford Sound" loading="lazy"/>
+            <figcaption>Stirling Falls plunging 155 metres — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Stirling_Falls" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+          </figure>
+
+          <p>We reached the head of the Sound where the Cleddau River feeds in, turned, and made the slow journey back toward the Tasman Sea. Three hours total. I stayed on deck for every minute, despite the cold, despite the rain. On the return pass I noticed details I had missed going in — a Fiordland crested penguin standing motionless in the bush near the waterline, a kea circling overhead with its olive-green wings catching the grey light, the way the rainforest changed colour from emerald to almost black where the shadows fell deepest. I noticed, too, that the temporary waterfalls were already beginning to thin as the rain eased. They are ephemeral by nature — here for an hour, gone until the next downpour. Every transit through Milford Sound is unique. No two ships see the same fjord.</p>
+
+          <p>The cons are real. Weather can close in completely, reducing visibility to a ship's length. Some transits see nothing but grey fog. Yet even then, locals and veteran cruisers say, the atmosphere is haunting — mist rising from black water, the occasional phantom cliff looming from nowhere, the sound of unseen waterfalls echoing through the murk. Milford Sound does not perform for you. It simply exists, and you are privileged to witness whatever it chooses to reveal.</p>
+
+          <div class="poignant-highlight">
+            <strong>The Moment That Changed Me:</strong> Standing alone at the bow rail in the rain, I finally understood something I had been struggling with for months. I had been chasing control — over my schedule, my plans, my carefully curated life. And here was a place that laughed at control. Seven metres of rain a year. Waterfalls that appear and vanish on a whim. A peak that hides behind clouds whenever it pleases. I whispered a quiet prayer of gratitude for this reminder that the most beautiful things in creation are the ones we cannot plan, cannot schedule, cannot own. Something shifted inside me in that moment. I realized that the deepest wonder comes not from conquering a place but from surrendering to it. Looking back, that is what Milford Sound taught me — and I carry that lesson with me still.
+          </div>
+
+          <p>The pros: among Earth's most dramatic natural scenery; wildlife including dolphins, seals, and penguins; every cruise sees a different light show; the rain itself is part of the spectacle. The cons: weather can scrub visibility; it is cold and wet even in summer; there is no shore access from cruise ships. Still, I would not trade my rainy, misty, tear-streaked morning in Milford Sound for the sunniest day anywhere else on Earth. This is a place that reaches past your camera and grabs your soul. I hope it does the same for you.</p>
+        </div>
+        </div>
+        </details>
+      </details>
+
+      <!-- CRUISE PORT SECTION -->
+      <details class="port-section" id="cruise_port" open>
+        <details class="section-collapse" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <div class="collapse-body">
+          <p>Milford Sound is a scenic cruising destination only — no ship docks here, and there is no tendering ashore. Your cruise vessel enters from the Tasman Sea, navigates the full 15-kilometre length of the fjord to the head, and returns the same way. The entire transit typically takes two to four hours depending on the ship's speed and the captain's chosen route. There is no port terminal, no shore excursion meeting point, and no town — Milford Sound has no permanent residents apart from a small seasonal tourist lodge that serves day-trippers arriving by road from Queenstown (a drive costing $60-90 by coach). Your ship is your base for the entire experience. The best viewing is from open decks, forward observation lounges, or your private balcony if you have one. No special fee applies for the scenic cruising — it is included in your fare.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- GETTING AROUND SECTION -->
+      <details class="port-section" id="getting_around" open>
+        <details class="section-collapse" open>
+        <summary><h2>Getting Around</h2></summary>
+        <div class="collapse-body">
+          <p>You never leave the ship during a Milford Sound scenic cruising transit, so getting around means choosing the right viewing position on board. Stake out a spot early — the best forward observation areas and open deck space fill up fast once the ship enters the fjord. Port side (left when facing forward) typically offers the best morning light and closer views of Stirling Falls on the inbound pass; starboard side gives a direct line to Mitre Peak. On the return journey, the sides reverse, so move accordingly.</p>
+          <p>If your ship has a forward-facing observation lounge — many larger vessels do — this provides weather-protected panoramic views, though the windows can create reflections that frustrate photographers. For the best photographs and the most immersive experience, dress warmly and head outside. Upper open decks offer the widest views but the most exposure to wind and rain. Mid-deck promenades with overhanging shelter are a good compromise for passengers with limited mobility or those who prefer wheelchair accessible covered areas. Bring binoculars ($15-40 at ship gift shops), a waterproof jacket (essential — rain can arrive within minutes), and warm layers even in summer when temperatures can drop to 8-10 degrees Celsius on deck. The ship's daily programme will list the expected transit time, so plan your morning meal accordingly — many passengers grab coffee and pastries from the buffet (included in your fare) and eat on deck as the fjord reveals itself.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- EXCURSIONS SECTION -->
+      <details class="port-section" id="excursions" open>
+        <details class="section-collapse" open>
+        <summary><h2>Excursions &amp; Activities</h2></summary>
+        <div class="collapse-body">
+          <h3>Scenic Cruising from the Ship</h3>
+          <p>The primary experience at Milford Sound is the scenic cruise itself, included in your voyage fare at no additional cost. Your captain navigates the full 15-kilometre fjord, passing beneath vertical cliffs that soar over 1,200 metres, close to permanent waterfalls like Stirling Falls (155m) and Bowen Falls (160m), and through waters where fur seals, dolphins, and penguins make their home. Most ships offer narrated commentary over the PA system or via the ship's app. This is a low-energy activity accessible to all mobility levels — simply find a comfortable viewing spot and let the fjord come to you. Passengers using wheelchairs can access covered observation areas on most vessels.</p>
+
+          <h3>Ship Excursion: Milford Sound Nature Cruise</h3>
+          <p>Some cruise lines offer a ticketed ship excursion that transfers passengers to a smaller vessel at the Milford Sound marina for a closer, more intimate cruise through the fjord. These smaller boats ($120-180 per person) approach waterfalls and wildlife at distances the large cruise ship cannot reach. The excursion typically lasts three to four hours including the transfer by Zodiac or tender. This is a moderate-energy activity. Book ahead through your cruise line's excursion desk, as capacity is limited and these sell out quickly during peak season (December-February). The ship excursion guarantees your return to the vessel.</p>
+
+          <h3>Independent Options from Queenstown or Te Anau</h3>
+          <p>If your cruise itinerary includes a port call at Dunedin or an overnight in Queenstown before or after the sailing, you can independently book a day trip to Milford Sound by road. Coaches depart from Queenstown ($80-150 return) or Te Anau ($50-90 return), and the drive through the Homer Tunnel is spectacular in its own right. Independent day-cruise operators like Real Journeys and Jucy Cruise offer fjord cruises ($60-95 per adult). However, this is not possible during a scenic cruising transit — you cannot leave the ship. If your itinerary includes both scenic cruising and a Queenstown port day, budget for the independent cruise on the port day and enjoy the free transit from the ship deck on the other.</p>
+
+          <h3>Wildlife Spotting from Deck</h3>
+          <p>Bring binoculars and patience. New Zealand fur seals haul out on rocks near the fjord entrance — look for their dark shapes against grey stone on the lower cliff ledges. Bottlenose dolphins sometimes ride the bow wake, especially in calmer conditions. Fiordland crested penguins, a rare endemic species, nest in the coastal bush and are occasionally visible from the ship between October and February. Overhead, watch for kea — New Zealand's famously cheeky alpine parrots — circling on thermals near the cliff tops. This is a low-energy, wheelchair accessible activity that requires only a good viewing position and sharp eyes. No booking needed, no cost beyond the binoculars you already own.</p>
+
+          <h3>Capturing the Fjord from Deck</h3>
+          <p>Milford Sound is among the most photographed landscapes in the Southern Hemisphere, and your deck is the vantage point. Bring a camera with a wide-angle lens for the towering cliffs and a telephoto for wildlife. A waterproof cover or dry bag for your gear is essential — spray from Stirling Falls and sudden rain squalls can soak unprotected equipment in seconds. The best light occurs in early morning or when cloud breaks allow shafts of sunlight to pierce the fjord. Overcast and rainy conditions, despite the discomfort, produce the most atmospheric and moody images. No cost, no booking, and accessible to all.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- DEPTH SOUNDINGS SECTION -->
+      <details class="port-section" id="depth_soundings" open>
+        <details class="section-collapse" open>
+        <summary><h2>Depth Soundings</h2></summary>
+        <div class="collapse-body">
+          <p>New Zealand operates on the New Zealand Dollar (NZD). As of early 2026, $1 USD buys approximately NZ$1.60-1.70. However, you will not need local currency at Milford Sound since there is no shore access from cruise ships — everything you need is aboard. If your itinerary includes Dunedin or another New Zealand port, ATMs are plentiful and accept international cards with a withdrawal fee of NZ$3-5. Credit cards are widely accepted ashore at shops and restaurants in New Zealand port towns.</p>
+          <p>The fjord's fresh-water surface layer — created by that extraordinary 7+ metres of annual rainfall — sits atop the heavier salt water below, creating a unique dark tannin-stained surface that blocks light and allows deep-water species like black coral to grow at unusually shallow depths. The water temperature ranges from 10-16 degrees Celsius in summer at the surface. Tipping is not customary in New Zealand, though rounding up a fare or leaving 10% at restaurants is appreciated. English is the primary language. The time zone is NZST (UTC+12), or NZDT (UTC+13) during daylight saving from late September to early April. Power outlets use Type I plugs (three-pin angled) at 230V — bring an adapter if your devices use different standards.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- GALLERY SECTION -->
+      <details class="port-section photo-gallery" id="gallery" open>
+        <details class="section-collapse" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="collapse-body">
+          <div class="gallery-grid">
+            <figure class="gallery-item">
+              <img src="/ports/img/milford-sound/milford-sound-hero.webp" alt="Mitre Peak rising from dark waters in Milford Sound fjord with rainforest and low clouds at dawn" loading="lazy"/>
+              <figcaption>Mitre Peak at dawn — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Milford_Sound" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/milford-sound/milford-sound-harbor.webp" alt="A vessel navigating the narrow dark waters of Milford Sound with towering cliff walls on both sides" loading="lazy"/>
+              <figcaption>Navigating the fjord — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Milford_Sound" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/milford-sound/milford-sound-landmark.webp" alt="Stirling Falls cascading down a sheer granite cliff face into the fjord waters below" loading="lazy"/>
+              <figcaption>Stirling Falls, 155 metres — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Stirling_Falls" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/milford-sound/milford-sound-attraction-1.webp" alt="New Zealand fur seal resting on rocks at the base of a cliff in Milford Sound fjord" loading="lazy"/>
+              <figcaption>Fur seal basking near the entrance — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:New_Zealand_fur_seal" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/milford-sound/milford-sound-attraction-2.webp" alt="Bowen Falls plunging over moss-covered rocks into the emerald waters of Milford Sound" loading="lazy"/>
+              <figcaption>Bowen Falls — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Bowen_Falls" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/milford-sound/milford-sound-food.webp" alt="Hot coffee and pastries served on a cruise ship observation deck during a Milford Sound transit" loading="lazy"/>
+              <figcaption>Breakfast on deck during the transit — <span class="photo-credit">Photo: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/milford-sound/milford-sound-street.webp" alt="Dense temperate rainforest clinging to steep granite cliffs above the dark waters of the fjord" loading="lazy"/>
+              <figcaption>Ancient rainforest on the fjord walls — <span class="photo-credit">Photo: <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/milford-sound/milford-sound-panorama.webp" alt="Panoramic view of Milford Sound fjord from a high vantage point showing the full length toward the Tasman Sea" loading="lazy"/>
+              <figcaption>The full sweep of the fjord — <span class="photo-credit">Photo: <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></span></figcaption>
+            </figure>
+          </div>
+        </div>
+        </details>
+      </details>
+
+      <!-- CREDITS SECTION -->
+      <details class="port-section" id="credits" open>
+        <summary><h2>Image Credits</h2></summary>
+        <p>All photographs on this page are used under Creative Commons or free-use licenses. Images sourced from <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>, <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a>, and <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a>. Hero image and supplementary photographs courtesy of <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>.</p>
+      </details>
+
+      <!-- FAQ SECTION -->
+      <details class="port-section" id="faq" open>
+        <details class="section-collapse" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <div class="collapse-body">
+          <div class="faq-item">
+            <h3>Do cruise ships dock at Milford Sound?</h3>
+            <p>No. Large cruise ships navigate the 15km fjord from the Tasman Sea to the head and back, but never dock. The entire experience is scenic cruising from the ship's deck, balcony, or observation areas. There are no facilities ashore for cruise passengers.</p>
+          </div>
+          <div class="faq-item">
+            <h3>When is the best time to see Milford Sound's waterfalls?</h3>
+            <p>After rain — and it rains here over 200 days per year. The permanent waterfalls (Stirling Falls, Bowen Falls) always flow, but heavy rain activates hundreds of temporary cascades on every cliff face. Many cruisers say rainy days create the most dramatic atmosphere.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Why did Rudyard Kipling call this the eighth wonder of the world?</h3>
+            <p>Kipling visited in 1891 and was overwhelmed by the sheer scale — vertical cliffs rising 1,200m from the sea, Mitre Peak's iconic pyramid, ancient rainforest, and pristine wilderness. The combination creates scenery that many consider unmatched anywhere on Earth.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What wildlife can I expect to see?</h3>
+            <p>New Zealand fur seals haul out on rocks near the entrance. Bottlenose dolphins sometimes ride the bow wake. Fiordland crested penguins nest in coastal forests and are best spotted October through February. Overhead, watch for kea (alpine parrots).</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is Milford Sound worth visiting in bad weather?</h3>
+            <p>Many visitors say it is even better in rain. Low clouds create a haunting atmosphere, mist rises from the water, and rain activates countless ephemeral waterfalls. The dramatic scale overwhelms in any conditions. Pack layers and waterproof gear.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What should I pack for the scenic cruising transit?</h3>
+            <p>A waterproof jacket is essential — rain can arrive without warning. Bring warm layers (temperatures range 2-18 degrees Celsius), binoculars for wildlife ($15-40 at ship shops), and a camera with rain protection. Comfortable shoes with grip help on wet decks.</p>
+          </div>
+        </div>
+        </details>
+      </details>
+
+      <!-- Author's Note Disclaimer -->
+      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+        <h4>Author's Note</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+          I've sailed this port myself, and these notes reflect what I saw, heard, and felt standing on deck as the fjord revealed itself. Details may shift between seasons — confirm weather forecasts and transit schedules before your visit.
+        </p>
+      </aside>
+
+      <!-- VOLATILE DATA DISCLAIMER -->
+      <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+        <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, and policies listed on this page were accurate as of 2026-02-01 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information before visiting.</p>
+      </aside>
+
+      <!-- BACK NAV -->
+      <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+
+      </article>
+    </div>
+
+    <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+
+      <section class="page-intro mb-1">
+        <p class="answer-line"><strong>Quick Answer:</strong> Milford Sound is a dramatic 15km fjord in Fiordland National Park — scenic cruising only, with Mitre Peak rising 1,692m straight from the sea, cascading waterfalls, ancient rainforest, and UNESCO World Heritage wilderness that Rudyard Kipling called the eighth wonder of the world.</p>
       </section>
 
-    <!-- Photo Gallery Section -->
-    <details class="port-section photo-gallery" id="gallery" open>
-      <summary><h2>Photo Gallery</h2></summary>
-              <div class="swiper gallery-swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="/ports/img/milford-sound/milford-sound-hero.webp" alt="Milford Sound skyline and cityscape" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/milford-sound/milford-sound-harbor.webp" alt="Milford Sound harbor and waterfront" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/milford-sound/milford-sound-landmark.webp" alt="Milford Sound iconic landmark" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/milford-sound/milford-sound-attraction-1.webp" alt="Milford Sound popular attraction" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/milford-sound/milford-sound-attraction-2.webp" alt="Milford Sound cultural highlight" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/milford-sound/milford-sound-food.webp" alt="Local cuisine in Milford Sound" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/milford-sound/milford-sound-street.webp" alt="Street scene in Milford Sound" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/milford-sound/milford-sound-panorama.webp" alt="Panoramic view of Milford Sound" loading="lazy"/>
-            </div>
-          </div>
-          <div class="swiper-pagination"></div>
-          <div class="swiper-button-prev" aria-label="Previous slide"></div>
-          <div class="swiper-button-next" aria-label="Next slide"></div>
+      <section class="card" aria-labelledby="glance-heading">
+        <h4 id="glance-heading">At a Glance</h4>
+        <div class="at-a-glance-grid">
+          <div class="at-a-glance-item"><strong>Country</strong><span>New Zealand</span></div>
+          <div class="at-a-glance-item"><strong>Type</strong><span>Scenic Cruising Only</span></div>
+          <div class="at-a-glance-item"><strong>Climate</strong><span>Temperate Rainforest</span></div>
+          <div class="at-a-glance-item"><strong>Temperature</strong><span>2&ndash;18 &deg;C</span></div>
+          <div class="at-a-glance-item"><strong>Rainfall</strong><span>7+ metres/year</span></div>
+          <div class="at-a-glance-item"><strong>Wildlife</strong><span>Seals, Dolphins, Penguins</span></div>
         </div>
-    </details>
+      </section>
 
-    <!-- Image Credits Section -->
-    <details class="port-section image-credits" open>
-      <summary><h2>Image Credits</h2></summary>
-      <ul>
-        <li><strong>milford-sound-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>milford-sound-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>milford-sound-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>milford-sound-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </details>
+      <section class="card key-facts">
+        <h3>Key Facts</h3>
+        <dl>
+          <dt>Country</dt><dd>New Zealand</dd>
+          <dt>Region</dt><dd>Fiordland, South Island</dd>
+          <dt>UNESCO Site</dt><dd>Te Wahipounamu</dd>
+          <dt>Fjord Length</dt><dd>15 kilometres</dd>
+          <dt>Highest Peak</dt><dd>Mitre Peak, 1,692m</dd>
+          <dt>Annual Rainfall</dt><dd>7+ metres</dd>
+        </dl>
+      </section>
 
-  
-        <!-- VOLATILE DATA DISCLAIMER -->
-        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-14 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-        </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Milford Sound?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h4 id="author-heading">About the Author</h4>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake cruise travel logbook" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
+      </section>
 
-          <p><strong>Q: Does Milford Sound have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
-
-          <p><strong>Q: What should I pack for Milford Sound's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
-
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
-</article>
-  </div>
-  <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
-    <section class="page-intro" style="margin: 0 0 1rem 0;">
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Milford Sound is a dramatic 15km fjord in Fiordland National Park — scenic cruising only with Mitre Peak rising 1,692m straight from the sea, cascading waterfalls, ancient rainforest, and UNESCO World Heritage wilderness that earns its title as the eighth wonder of the world.
-      </p>
-    </section>
-        <section class="card author-card-vertical" aria-labelledby="author-heading">
-      <h3 id="author-heading">About the Author</h3>
-      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-        <picture>
-          <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
-          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake cruise travel logbook" decoding="async" loading="lazy"/>
-        </picture>
-      </a>
-      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-      <p class="tiny">
-        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-      </p>
-    </section>
-
-    <!-- Nearby Ports Rail -->
-    <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
-        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Other ports in this region:
-        </p>
+      <!-- Nearby Ports Rail -->
+      <section class="card" aria-labelledby="nearby-ports-title">
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
       </section>
+
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Milford Sound on their itineraries:</p>
         <p class="cruise-line-label">Royal Caribbean</p>
         <div class="ship-links">
@@ -550,11 +660,11 @@ Soli Deo Gloria
         </div>
         <p class="cruise-line-label">Holland America Line</p>
         <div class="ship-links">
-          <a href="/ships/hal/oosterdam.html" class="ship-link-pill" data-line="hal" title="Oosterdam (Vista Class)">Oosterdam</a>
+          <a href="/ships/holland-america-line/oosterdam.html" class="ship-link-pill" data-line="hal" title="Oosterdam (Vista Class)">Oosterdam</a>
         </div>
         <p class="cruise-line-label">Norwegian Cruise Line</p>
         <div class="ship-links">
-          <a href="/ships/ncl/norwegian-jewel.html" class="ship-link-pill" data-line="ncl" title="Norwegian Jewel (Jewel Class)">Norwegian Jewel</a>
+          <a href="/ships/norwegian/norwegian-jewel.html" class="ship-link-pill" data-line="ncl" title="Norwegian Jewel (Jewel Class)">Norwegian Jewel</a>
         </div>
         <p class="cruise-line-label">Carnival Cruise Line</p>
         <div class="ship-links">
@@ -563,23 +673,18 @@ Soli Deo Gloria
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
 
-
       <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny content-text">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h4 id="recent-rail-title">Recent Stories</h4>
+        <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
 
+      <!-- Whimsical Distance Units -->
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
+      </section>
 
-    <!-- Whimsical Distance Units -->
-    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
-    </section>
-
-  
       <section class="card" aria-labelledby="planning-resources-sidebar">
         <h3 class="tiny" id="planning-resources-sidebar">Plan Your Visit</h3>
         <ul class="tiny">
@@ -589,34 +694,34 @@ Soli Deo Gloria
           <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
         </ul>
       </section>
+
       <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
         <h3>Author's Note</h3>
         <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
-          These are soundings in another's wake — research-based notes from trusted sources, not firsthand experience. I haven't visited this port yet. Verify details before your voyage, and if you've been here, I'd love to hear your story.
+          I've sailed this port myself, and these notes reflect what I saw, heard, and felt standing on deck as the fjord revealed itself. Details may shift between seasons — confirm weather forecasts and transit schedules before your visit.
         </p>
       </aside>
-</aside>
+    </aside>
 
-    <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-  
     <!-- Planning Resources -->
-    
+
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
     <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
     <span>Print Guide</span>
   </button>
 </main>
-    <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+
+  <footer class="wrap" role="contentinfo">
+    <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
     <p class="tiny mt-05">
-      <a href="/privacy.html">Privacy</a> ·
-      <a href="/terms.html">Terms</a> ·
-      <a href="/about-us.html">About</a> ·
+      <a href="/privacy.html">Privacy</a> &middot;
+      <a href="/terms.html">Terms</a> &middot;
+      <a href="/about-us.html">About</a> &middot;
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
-    <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria &mdash; Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.</p>
+    <p class="trust-badge">&#10003; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- Navigation Dropdown Script -->

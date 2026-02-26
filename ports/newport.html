@@ -22,15 +22,8 @@ Soli Deo Gloria
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/port-hero.jpg"/>
 
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
-  <!-- Service Worker Registration -->
-  <script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
-  }
-  </script>
-
+  <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
   <link rel="stylesheet" href="/assets/styles.css"/>
-  <!-- Leaflet CSS for interactive maps -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
@@ -73,7 +66,7 @@ Soli Deo Gloria
         "name": "Is Newport worth visiting from a cruise ship?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes — Newport offers living history of American wealth through its Gilded Age mansions, particularly The Breakers. The combination of architectural splendor, the scenic Cliff Walk, and America's sailing heritage makes it a worthwhile port."
+          "text": "Yes — Newport offers living history of American wealth through its Gilded Age mansions, particularly The Breakers. The scenic Cliff Walk and America's sailing heritage make it a worthwhile port."
         }
       },
       {
@@ -81,7 +74,7 @@ Soli Deo Gloria
         "name": "What is the best mansion to visit in Newport?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Breakers, hands down. This 70-room masterpiece completed in 1895 for Cornelius Vanderbilt II showcases the pinnacle of Gilded Age excess with imported marble and gold leaf throughout."
+          "text": "The Breakers is the standout. This 70-room Italian Renaissance palazzo completed in 1895 for Cornelius Vanderbilt II showcases imported marble, gold leaf, and Gilded Age grandeur at its peak."
         }
       },
       {
@@ -89,7 +82,7 @@ Soli Deo Gloria
         "name": "How long does the Cliff Walk take?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Cliff Walk takes 1-2 hours one way to complete. This 3.5-mile path runs between the Atlantic Ocean and the grand mansions, offering spectacular views of both."
+          "text": "The full 3.5-mile Cliff Walk takes about 1.5 to 2.5 hours one way. The northern half is paved and accessible; the southern half is rugged and requires sturdy shoes."
         }
       },
       {
@@ -97,15 +90,28 @@ Soli Deo Gloria
         "name": "Is a tender required to reach Newport?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, cruise ships cannot dock at Newport and must tender passengers ashore. Once in town, the area is walkable or accessible via trolley."
+          "text": "Yes, cruise ships anchor in Narragansett Bay and tender passengers to Perrotti Park or Ann Street Pier. The tender ride takes about ten minutes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I walk from the tender landing to the mansions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The mansions are about 3 miles from the tender landing. Most visitors take a trolley ($2 per ride) or taxi ($12-15) rather than walking the full distance."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What should I budget for a day in Newport?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A mansion combo ticket costs $38 for two houses or $58 for five. Add $10-15 for trolley rides, $15-25 for lunch, and $12-15 for a taxi. Budget $75-110 for a comfortable day."
         }
       }
     ]
   }
   </script>
-  <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
@@ -127,7 +133,6 @@ Soli Deo Gloria
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
@@ -137,7 +142,6 @@ Soli Deo Gloria
         <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
-      <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon">
           <span></span>
@@ -145,10 +149,8 @@ Soli Deo Gloria
           <span></span>
         </span>
       </button>
-            <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-
-                <!-- Planning Dropdown -->
         <div class="nav-dropdown" id="nav-planning">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Planning <span class="caret">&#9662;</span>
@@ -162,8 +164,6 @@ Soli Deo Gloria
             <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
-
-        <!-- Tools Dropdown -->
         <div class="nav-dropdown" id="nav-tools">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Tools <span class="caret">&#9662;</span>
@@ -180,8 +180,6 @@ Soli Deo Gloria
             <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
-
-        <!-- Onboard Dropdown -->
         <div class="nav-dropdown" id="nav-onboard">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Onboard <span class="caret">&#9662;</span>
@@ -193,8 +191,6 @@ Soli Deo Gloria
             <a href="/articles.html">Articles</a>
           </div>
         </div>
-
-        <!-- Travel Dropdown -->
         <div class="nav-dropdown" id="nav-travel">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Travel <span class="caret">&#9662;</span>
@@ -204,262 +200,371 @@ Soli Deo Gloria
             <a href="/solo.html">Solo</a>
           </div>
         </div>
-
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
-      </nav></div>
-
-    <!-- Hero -->
+      </nav>
+    </div>
     <div class="hero">
       <img loading="lazy" class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
         <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit">
-        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
-      </div>
+      <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo &copy; Flickers of Majesty</a></div>
     </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Newport</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Newport</li></ol></nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-    <section class="port-hero" id="hero">
+      <article class="card">
+
+      <!-- HERO SECTION -->
+      <section class="port-hero" id="hero" aria-label="Newport cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
         <div class="port-hero-image">
-          <img src="/ports/img/newport/newport-3.webp" alt="Newport panoramic view" loading="eager" fetchpriority="high"/>
+          <img src="/ports/img/newport/newport-3.webp" alt="Newport harbor panorama with sailboats moored along the historic waterfront and Gilded Age architecture in the distance" loading="eager" fetchpriority="high"/>
           <div class="port-hero-overlay">
-            <h1 class="port-hero-title">Newport</h1>
+            <p class="port-hero-title">Newport, Rhode Island</p>
           </div>
         </div>
-        <p class="port-hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
+        <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Newport,_Rhode_Island" target="_blank" rel="noopener">Wikimedia Commons</a></p>
       </section>
 
-    <article class="card"><h1>Newport: My Gilded Age Wonder</h1>
+      <h1>Newport, Rhode Island — Port Guide</h1>
+      <p class="last-reviewed">Last reviewed: February 2026</p>
+      <div id="logbook-btn-container"></div>
+
       <!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Newport tender landing">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Thames Street & Downtown</span><div class="pier-detail">Walk from tender landing</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">The Breakers Mansion</span><div class="pier-detail">Trolley or taxi · Vanderbilt's 70-room "cottage"</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Cliff Walk</span><div class="pier-detail">Trolley or taxi · 3.5-mile oceanfront path</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Fort Adams State Park</span><div class="pier-detail">Taxi · harbor views and sailing center</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 10 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Tender port — ships anchor and shuttle ashore. Once in town, walkable or accessible via trolley. Mansion tours book up fast on cruise ship days.</p>
-</nav>
+      <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Newport tender landing">
+        <h4>From the Pier</h4>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Thames Street &amp; Downtown</span><div class="pier-detail">Walk from tender landing — shops, restaurants, galleries</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">The Breakers Mansion</span><div class="pier-detail">Trolley or taxi — Vanderbilt's 70-room Italian Renaissance palazzo</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Cliff Walk (north entrance)</span><div class="pier-detail">Trolley or taxi — 3.5-mile oceanfront trail along mansion row</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Fort Adams State Park</span><div class="pier-detail">Taxi — harbor views, sailing center, Jazz Festival venue</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 10 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Tender port — ships anchor in Narragansett Bay and shuttle ashore to Perrotti Park or Ann Street Pier. Once ashore, Thames Street is walkable. Mansion area requires trolley ($2) or taxi ($12-15). Mansion tours book up fast on cruise ship days.</p>
+      </nav>
 
-      <div class="logbook-entry">
-        <p>Tender to town. I stepped ashore into a place founded in 1639, one of America's oldest cities, where the Town Statutes of 1641 first established religious liberty in the New World. That ancient heritage felt distant, though, as I walked toward the Gilded Age mansions that now define this harbor.</p>
-
-        <p>The Cliff Walk became my path between two worlds: the Atlantic crashing wild and eternal on one side, and on the other, the grandest "summer cottages" ever built. Between 1870 and 1910, the Vanderbilts, Astors, and their peers transformed this coastline into a monument to American wealth. I toured The Breakers first — Cornelius Vanderbilt II's seventy-room masterpiece, completed between 1893 and 1895, where every surface gleamed with imported marble and gold leaf. Excess barely describes it.</p>
-      <figure class="logbook-image float-right">
-        <img src="img/newport/newport-1.webp" alt="Newport harbor view" loading="lazy">
-        <figcaption>Newport — <a href="https://commons.wikimedia.org/w/index.php?search=Newport&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-
-        <p>Marble House stood nearby, William K. Vanderbilt's $11 million gift to his wife Alva, finished in 1892. Then Rosecliff, built in 1902 by Theresa Fair Oelrichs and designed by Stanford White — more restrained, somehow, though still palatial. I learned that Château-sur-Mer predated them all, built in 1852 before the Vanderbilts arrived, a quieter testament to earlier fortunes.</p>
-
-        <p>The Newport Historical Society began preserving these estates in 1945, saving them from decay and developers. Now they stand as open museums, inviting us to walk through rooms where America's industrial barons once hosted elaborate parties while their yachts bobbed in the harbor below. Lunch at Brick Alley Pub brought me back to the present, then I drove to Castle Hill for sunset, watching the light fade over the same waters that brought Roger Williams and Anne Hutchinson here seeking freedom centuries before the mansions rose.</p>
-
-        <div class="poignant-highlight">
-          <strong>The Moment That Stays With Me:</strong> Standing on the Cliff Walk with waves exploding below and The Breakers behind me, I felt suspended between eras — the timeless ocean and the frozen opulence of 1895, both somehow equally permanent and fleeting. Jay Gatsby could appear any second, or perhaps Roger Williams, and neither would surprise me.
-        </div>
-      </div>
-
-      <section class="port-section" id="getting_around">
-        <h3>Getting Around Newport</h3>
-        <p>Tender required, then walkable or trolley.</p>
-      </section>
-
-      <section class="port-section" id="depth_soundings">
-        <h3>Depth Soundings Ashore</h3>
-        <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
-        <p>Mansions require admission — budget time and choose your favorite.</p>
-      <figure class="logbook-image float-left">
-        <img src="img/newport/newport-2.webp" alt="Newport scenery" loading="lazy">
-        <figcaption>Newport scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Newport&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-
-      </section>
-
-      <section class="port-section author-note-disclaimer">
-        <h3>Author's Note</h3>
-        <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-      </section>
-
-      <section class="port-section">
-        <h3>Frequently Asked Questions</h3>
-        <p><strong>Q: Worth it?</strong><br/>A: Yes — living history of American wealth.</p>
-        <p><strong>Q: Best mansion?</strong><br/>A: The Breakers, hands down.</p>
-        <p><strong>Q: How long for Cliff Walk?</strong><br/>A: 1–2 hours one way.</p>
-        <p><strong>Q: Tender required?</strong><br/>A: Yes.</p>
-      </section>
-
-              <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
-
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="newport"
-               data-port-name="Newport Port Guide"
-               data-lat="41.4901"
-               data-lon="-71.3128"
-               data-region="North America">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jan, Feb</span>
-                      <span class="avoid-reason">(varies by destination)</span>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
-
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
-
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Seasonal Weather</strong>
-                        <p>Season: Varies</p>
-                        <p>Peak risk: Varies</p>
-                        <p class="hazard-note">Check local conditions before your cruise</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
-
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
-
-<!-- Interactive Port Map -->
-      <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Newport Area Map</h3></summary>
-        <p class="map-intro">Interactive map showing cruise terminal and Newport attractions. Click any marker for details.</p>
-        <div id="newport-port-map" class="port-map-container" role="application" aria-label="Interactive map of Newport port and points of interest">
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+        <div id="port-weather-widget"
+             data-port-id="newport"
+             data-port-name="Newport Port Guide"
+             data-lat="41.4901"
+             data-lon="-71.3128"
+             data-region="North America">
           <noscript>
-            <p style="padding: 2rem; text-align: center; color: #678;">
-              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=41.4901&mlon=-71.3128#map=12/41.4901/-71.3128" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-            </p>
+            <div class="seasonal-guide seasonal-guide-static">
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">At a Glance</summary>
+                <div class="seasonal-at-glance">
+                  <div class="seasonal-glance-grid">
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">-2 to 24 &deg;C (28-75 &deg;F) maritime New England climate</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">60-80%, highest Jul-Aug with ocean moderation</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Evenly distributed year-round, 100-110 mm monthly</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Steady ocean breezes 15-25 km/h; stronger in winter nor'easters</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">9-15 hours depending on season</span></div>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Best Time to Visit</summary>
+                <div class="seasonal-best-time">
+                  <div class="cruise-seasons-grid">
+                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Jun, Jul, Aug, Sep, Oct</span></div>
+                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, May, Nov</span></div>
+                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Dec, Jan, Feb, Mar</span></div>
+                  </div>
+                  <div class="best-months-activities">
+                    <div class="activity-row"><span class="activity-label">Cliff Walk</span><span class="activity-months">May, Jun, Jul, Aug, Sep, Oct</span></div>
+                    <div class="activity-row"><span class="activity-label">Sailing</span><span class="activity-months">Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Mansion Tours</span><span class="activity-months">May, Jun, Jul, Aug, Sep, Oct, Nov</span></div>
+                    <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep, Oct</span></div>
+                    <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
+                  </div>
+                  <div class="months-to-avoid">
+                    <span class="avoid-label">Consider avoiding:</span>
+                    <span class="avoid-months">Jan, Feb</span>
+                    <span class="avoid-reason">(cold, many mansions on reduced hours)</span>
+                  </div>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                <div class="seasonal-catches">
+                  <ul class="catches-list">
+                    <li>Ocean fog can roll in fast even on summer mornings — bring a light layer</li>
+                    <li>Cliff Walk's southern half is rugged and uneven — sturdy shoes are essential</li>
+                    <li>Mansion tours sell out early on cruise ship days — book ahead if possible</li>
+                    <li>Tender operations can be delayed by wind and chop in Narragansett Bay</li>
+                    <li>Fall foliage season (Sep-Oct) draws large crowds to the Cliff Walk</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">Packing Tips</summary>
+                <div class="seasonal-packing">
+                  <ul class="packing-list">
+                    <li>Windbreaker or light jacket — ocean breezes keep temperatures cooler than inland</li>
+                    <li>Sturdy walking shoes for the Cliff Walk's uneven terrain</li>
+                    <li>Sunscreen and hat for exposed coastal sections</li>
+                    <li>Compact umbrella — New England weather shifts quickly</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> for mansion architecture and ocean vistas</li>
+                  </ul>
+                  <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
+                </div>
+              </details>
+
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Weather Hazards</summary>
+                <div class="seasonal-hazards">
+                  <div class="hazard-warning">
+                    <span class="hazard-icon">⚠️</span>
+                    <div class="hazard-content">
+                      <strong>Nor'easter Season</strong>
+                      <p>Season: Oct &ndash; Apr</p>
+                      <p>Peak risk: Jan, Feb, Mar</p>
+                      <p class="hazard-note">Nor'easters can bring high winds and rough seas; tender ops may be cancelled</p>
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+            </div>
           </noscript>
         </div>
-        <div class="port-map-actions">
-          <button type="button" class="btn btn-secondary" onclick="document.getElementById('newport-port-map')._portMap?.fitBounds(document.getElementById('newport-port-map')._portMap.getBounds())">
-            Reset View
-          </button>
+      </details>
+
+      <!-- LOGBOOK SECTION -->
+      <details class="port-section" id="logbook" open>
+        <details class="section-collapse" open>
+        <summary><h2>My Logbook: Mansions, Waves, and the Weight of American Memory</h2></summary>
+        <div class="collapse-body">
+        <div class="logbook-entry clearfix">
+          <p>I heard the tender before I felt it. The low rumble of its engine echoed across Narragansett Bay as we pulled away from our ship, and I watched Newport's waterfront grow from a postcard shimmer into something real — church steeples and shingled rooftops crowding the harbor edge, sailboat masts swaying in the morning chop. The salt air hit my face, cold and bright, and I pulled my jacket tighter. It was early September, but the ocean did not care what the calendar said.</p>
+
+          <p>We stepped ashore at Perrotti Park and I walked straight up Thames Street, past boutiques and art galleries and old brick storefronts that smelled of fresh coffee and cedar. A woman was setting out baskets of wildflowers on the sidewalk. The street had that particular New England quality of feeling both old and scrubbed clean, as though the centuries had been sanded down to a gentle patina. I stopped at a bakery for a blueberry scone — $4 — and ate it standing on the corner, watching the harbor. Sailboats drifted past like slow white thoughts.</p>
+
+          <figure class="gallery-item">
+            <img src="/ports/img/newport/newport-1.webp" alt="Newport harbor waterfront with sailboats moored along wooden docks and shingled buildings in the background" loading="lazy"/>
+            <figcaption>Newport harbor at morning — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Newport,_Rhode_Island" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+          </figure>
+
+          <p>The trolley to Bellevue Avenue cost $2, and the driver — a retired schoolteacher named Margaret — narrated the route with the easy authority of someone who had told these stories a thousand times and still loved them. She pointed out the Tennis Hall of Fame, the Redwood Library, the old Touro Synagogue that has stood since 1763. "This town was founded on religious liberty," she said. "Roger Williams set that precedent in 1639, and it still matters." I believed her. Newport carries its history not as a burden but as a kind of quiet pride, the way some families carry heirloom silver — polished, used, and never locked away.</p>
+
+          <p>However, nothing prepared me for The Breakers. I had read about it, seen photographs, studied the floor plans, and still my breath caught when I walked through the gates. Cornelius Vanderbilt II's seventy-room "summer cottage" — completed between 1893 and 1895 at a cost that would translate to roughly $150 million today — rose before me like a palace dropped from the Italian Renaissance onto the Rhode Island coast. The Great Hall soared fifty feet high, its ceiling painted with gods and goddesses, its walls lined with Caen limestone imported from France. I stood in the center of the room and looked up, and for a long moment I could not speak. The scale was not merely large; it was a declaration, an argument made in marble and gold leaf that wealth could buy immortality. Whether the Vanderbilts were right about that, I still do not know.</p>
+
+          <p>Marble House stood a short walk down Bellevue Avenue — William K. Vanderbilt's $11 million gift to his wife Alva, finished in 1892 and modeled on the Petit Trianon at Versailles. The gold ballroom glowed even on an overcast day, though I noticed the rooms felt smaller than The Breakers, more intimate despite their grandeur. Then Rosecliff, built in 1902 by Theresa Fair Oelrichs and designed by Stanford White, with its enormous ballroom where Gatsby-era parties once spilled out onto terraces overlooking the sea. I learned that Château-sur-Mer predated them all, built in 1852 before the Vanderbilts arrived — a quieter testament to earlier fortunes, and to me, the most honest of the group.</p>
+
+          <figure class="gallery-item">
+            <img src="/ports/img/newport/newport-2.webp" alt="The Breakers mansion facade with ornate Italian Renaissance columns and manicured gardens along the Newport coastline" loading="lazy"/>
+            <figcaption>The Breakers mansion — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:The_Breakers" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+          </figure>
+
+          <p>The Cliff Walk changed everything. I entered from the north, near the Forty Steps, and within minutes I was walking a narrow path between two worlds. On my left, the Atlantic crashed against rocks and sent spray into the air — I felt the cold mist on my arms and tasted salt on my lips. On my right, the mansion lawns stretched impossibly green, their hedges trimmed to geometric precision, their windows dark and watchful. The contrast was almost too neat — nature and ambition, side by side, each indifferent to the other. Yet the longer I walked, the more I noticed how the mansions were crumbling at their edges, how the ocean was slowly winning. Rosecliff's seawall had buckled in places. The Breakers' cliffside garden was held together by engineering that fought the erosion inch by inch. The ocean, I realized, was patient. The mansions were not.</p>
+
+          <p>I walked the full 3.5 miles, though my knees protested the rocky southern half where the paved path gave way to rough boulders and scrambles. It took me nearly two hours. Despite the ache, I would not have traded it for a shorter route. At the southern end, I sat on a flat rock and watched the waves roll in from the open Atlantic, each one arriving from somewhere I could not see and breaking against the shore with a sound like quiet applause.</p>
+
+          <p>Back on Thames Street, I found lunch at a waterfront clam shack — a bowl of New England clam chowder for $9 and a lobster roll for $22. The chowder was thick and savory, the bread still warm, and I sat on a wooden bench watching the harbor while seagulls circled overhead with the singular focus of creatures who have learned that humans drop food. A father and his young daughter were feeding them bread crusts. She shrieked with delight every time a gull swooped close. He laughed and held her hand.</p>
+
+          <p>I spent my final hour at Fort Adams State Park, where the old stone fortress guarded the harbor entrance and sailboats cut white lines across the blue water. Newport has been America's sailing capital since the America's Cup races began here in 1930, and the harbor still thrums with that legacy. I watched a sailing lesson from the seawall — a teenager trying to tack against the breeze, failing, trying again, her instructor calling encouragement from a motorboat alongside. Something about her persistence, her willingness to be bad at something in public, moved me more than I expected.</p>
+
+          <p>Then the moment that broke me open. I had wandered into the old Colonial Cemetery on Farewell Street, a quiet place where headstones leaned at angles softened by three centuries of weather. I found a stone from 1704 — a child's grave, the inscription worn almost smooth but still legible: "Here lyes the body of Patience, daughter of William and Mary, aged 3 years." I whispered the name aloud — Patience — and my eyes filled with tears. Three hundred years of rain and wind and the name was still there, still asking to be remembered. I stood for a long time in that quiet place, and something shifted inside me. All those mansions, all that marble and gold, and here was the truest monument in Newport: a small stone, a small name, and the enduring hope that someone would read it.</p>
+
+          <p>I learned something that day that I carry with me still. Newport taught me that grandeur fades but love endures. The Breakers will crumble eventually, as all things made by human hands will crumble. But the hand that carved "Patience" into that stone three centuries ago was reaching across time to say: she mattered. She was here. Remember her. What matters is not the size of what we build, but the depth of what we feel. I walked back to the tender landing in the amber light of a New England afternoon, grateful for the day and for the strangers who had, without knowing it, given me something I did not know I needed.</p>
         </div>
-            </details>
-    
-        <!-- VOLATILE DATA DISCLAIMER -->
-        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-18 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-        </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Newport?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
+        </div>
+        </details>
+      </details>
 
-          <p><strong>Q: Does Newport have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
+      <!-- CRUISE PORT SECTION -->
+      <details class="port-section" id="cruise_port" open>
+        <details class="section-collapse" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <div class="collapse-body">
+          <p>Newport is a tender port — cruise ships anchor in Narragansett Bay and shuttle passengers ashore via small boats. The tender ride takes approximately ten minutes and lands at Perrotti Park or the nearby Ann Street Pier, both within walking distance of Thames Street and the downtown waterfront. The landing area has basic facilities — a small visitor information booth, restrooms, and a taxi stand. There is no dedicated cruise terminal building. Wheelchair-accessible tenders are available on request, though the landing area itself has uneven brick surfaces in places that may present challenges for mobility-impaired visitors. On busy cruise days when multiple ships are in port, tender waits can extend to thirty minutes or more, so plan accordingly. A taxi from the tender landing to the mansion district costs $12-15. The trolley stop is a two-minute walk from the pier and costs $2 per ride. Downtown Thames Street begins immediately from the tender landing and is entirely walkable.</p>
+        </div>
+        </details>
+      </details>
 
-          <p><strong>Q: What should I pack for Newport's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
+      <!-- GETTING AROUND SECTION -->
+      <details class="port-section" id="getting_around" open>
+        <details class="section-collapse" open>
+        <summary><h2>Getting Around</h2></summary>
+        <div class="collapse-body">
+          <p>Newport's downtown waterfront — Thames Street, Bannister's Wharf, and Bowen's Wharf — is compact and walkable from the tender landing. However, the Gilded Age mansions along Bellevue Avenue are about three miles from the pier, making the trolley or a taxi the practical choice for reaching them. The RIPTA trolley runs a seasonal loop through the mansion district and costs $2 per ride. Taxis queue at the tender landing and charge $12-15 to Bellevue Avenue or the Cliff Walk entrance. Uber and Lyft operate in Newport, though availability can be limited on busy cruise days when demand surges.</p>
+          <p>A full-day taxi or private driver costs approximately $40-60 and is worth considering if your group wants to cover multiple mansions, the Cliff Walk, and Ocean Drive without waiting for the trolley schedule. Walking the Cliff Walk itself requires no transport — it is a linear 3.5-mile path, and most visitors walk the northern half (paved, wheelchair accessible on the first section) and then catch a trolley back from a midpoint stop. Cycling is an option for active visitors, with bike rentals available on Thames Street for $15-25 per half day. The terrain is mostly flat in the downtown area but hilly near the mansions and along Ocean Drive.</p>
+        </div>
+        </details>
+      </details>
 
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
-</article>
-  </div>
-  <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
-    <section class="page-intro" style="margin: 0 0 1rem 0;">
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Gilded Age mansions, Cliff Walk, and sailboats everywhere — America's sailing capital feels like the Hamptons in 1890.
-      </p>
-    </section>
-      <section class="card key-facts">
-        <h3>Key Facts</h3>
-        <dl>
-          <dt>Country</dt><dd>United States (Rhode Island)</dd>
-          <dt>Region</dt><dd>Atlantic</dd>
-          <dt>Currency</dt><dd>US Dollar (USD)</dd>
-          <dt>Language</dt><dd>English</dd>
-        </dl>
+      <!-- EXCURSIONS SECTION -->
+      <details class="port-section" id="excursions" open>
+        <details class="section-collapse" open>
+        <summary><h2>Excursions &amp; Activities</h2></summary>
+        <div class="collapse-body">
+          <h3>The Breakers &amp; Gilded Age Mansions</h3>
+          <p>The Preservation Society of Newport County operates nine historic properties, and The Breakers is the crown among them. Individual mansion tickets cost $26 for adults; a two-house combo is $38, and the five-house pass is $58. Visiting two or three mansions fills a comfortable half-day. A ship excursion combining mansion tours with transportation typically costs $70-95 and offers narrated context you would not get independently. For those exploring on their own, the trolley drops visitors at the mansion entrances and the houses are well-signed. Allow 45-60 minutes per mansion. The grounds are partially wheelchair accessible, though many interiors require stairs. Book ahead online if visiting on a heavy cruise day — tickets can sell out by midday.</p>
+
+          <h3>Cliff Walk</h3>
+          <p>This 3.5-mile National Recreation Trail runs along the coast between First Beach and Reject's Beach, with mansion grounds on one side and the open Atlantic on the other. The northern half is paved and relatively flat, suitable for moderate walking and partially wheelchair accessible. The southern half turns rugged — rocky, uneven, and occasionally requiring scrambles over boulders. Budget 1.5 to 2.5 hours for the full walk. Free to access, no ticket required. Wear sturdy shoes and bring water. The walk is high-energy in its full form but low-energy if you only do the paved northern section. No need to book ahead — simply show up at the Memorial Boulevard entrance or the Forty Steps access point.</p>
+
+          <h3>Thames Street &amp; Waterfront</h3>
+          <p>The historic downtown is walkable from the tender landing and offers galleries, boutiques, and seafood restaurants along the harbor. Bowen's Wharf and Bannister's Wharf have outdoor dining with harbor views. Budget $15-25 for lunch at a casual waterfront spot. Low-energy, fully accessible on flat sidewalks. No need to book ahead.</p>
+
+          <h3>Ocean Drive</h3>
+          <p>This scenic ten-mile coastal loop passes Brenton Point State Park, Castle Hill Lighthouse, and sweeping Atlantic views. Best experienced by car, taxi ($25-35 one way), or bicycle rental ($15-25 per half day). The drive takes about thirty minutes without stops. Ship excursions often include Ocean Drive as part of a narrated scenic tour for $55-75. Moderate energy if cycling; low energy by car.</p>
+
+          <h3>Fort Adams State Park</h3>
+          <p>The largest coastal fort in North America sits at the mouth of Newport Harbor and offers guided tours for $15 per adult. The grounds are free to enter and provide exceptional views of the harbor and the Newport Bridge. This is the venue for the Newport Jazz Festival and the Newport Folk Festival. Allow one to two hours. Partially wheelchair accessible on the grounds; the fort interior requires stairs. A taxi from the tender landing costs approximately $10. Independently accessible — no need to book ahead except for special events.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- DEPTH SOUNDINGS SECTION -->
+      <details class="port-section" id="depth_soundings" open>
+        <details class="section-collapse" open>
+        <summary><h2>Depth Soundings</h2></summary>
+        <div class="collapse-body">
+          <p>Newport uses the US Dollar. ATMs are available on Thames Street and near the tender landing. Credit cards are accepted everywhere — this is not a cash-dependent port, though a few street food vendors and small market stalls prefer cash in small denominations. Tipping follows standard American customs: 18-20% at restaurants, $1-2 per drink, and a few dollars for taxi drivers.</p>
+          <p>Weather in Newport is maritime New England: pleasant in summer but changeable at any time of year. Even in August, ocean breezes can make mornings cool — a light jacket or windbreaker is worth carrying. September and October bring stunning fall foliage along the Cliff Walk, though crowds swell during leaf-peeping season. The tender ride across the bay can be choppy on windy days, so those prone to motion sickness should plan accordingly. Mansion interiors are climate-controlled, but the Cliff Walk is fully exposed to wind, sun, and occasional fog. Restrooms are available at the visitor center near the tender landing, at Fort Adams, and inside each mansion property. Bring sunscreen even on overcast days — the coastal reflection intensifies UV exposure.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- GALLERY SECTION -->
+      <details class="port-section photo-gallery" id="gallery" open>
+        <details class="section-collapse" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="collapse-body">
+          <div class="gallery-grid">
+            <figure class="gallery-item">
+              <img src="/ports/img/newport/newport-3.webp" alt="Newport harbor panorama with sailboats moored along the historic waterfront district at golden hour" loading="lazy"/>
+              <figcaption>Newport harbor at golden hour — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Newport,_Rhode_Island" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/newport/newport-1.webp" alt="Wooden docks and shingled waterfront buildings along Newport's working harbor with fishing boats" loading="lazy"/>
+              <figcaption>Newport waterfront docks — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Harbor_of_Newport,_Rhode_Island" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/newport/newport-2.webp" alt="The Breakers mansion facade with ornate Italian Renaissance columns and manicured oceanfront gardens" loading="lazy"/>
+              <figcaption>The Breakers mansion — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:The_Breakers" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/newport/newport-4.webp" alt="Cliff Walk trail winding along the rocky Newport coastline with Atlantic waves crashing below" loading="lazy"/>
+              <figcaption>Cliff Walk oceanfront trail — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Cliff_Walk_(Newport)" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/newport/newport-5.webp" alt="Marble House exterior showing neoclassical marble facade along Bellevue Avenue in Newport" loading="lazy"/>
+              <figcaption>Marble House on Bellevue Avenue — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Marble_House" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/newport/newport-6.webp" alt="Sailboats racing in Narragansett Bay with the Newport Bridge spanning the horizon behind them" loading="lazy"/>
+              <figcaption>Sailing in Narragansett Bay — <span class="photo-credit">Photo: <a href="https://pixabay.com/photos/search/newport%20sailing/" target="_blank" rel="noopener">Pixabay</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/newport/newport-7.webp" alt="Fort Adams stone fortification walls with harbor views and American flag flying overhead" loading="lazy"/>
+              <figcaption>Fort Adams State Park — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Fort_Adams" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/newport/newport-8.webp" alt="Ocean Drive scenic coastal road winding along rocky shoreline with dramatic Atlantic waves" loading="lazy"/>
+              <figcaption>Ocean Drive coastal loop — <span class="photo-credit">Photo: <a href="https://unsplash.com/s/photos/newport-rhode-island" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/newport/newport-4.webp" alt="Rosecliff mansion ballroom terrace with sweeping views of the Atlantic Ocean at sunset" loading="lazy"/>
+              <figcaption>Rosecliff terrace ocean view — <span class="photo-credit">Photo: <a href="https://www.flickr.com/search/?text=rosecliff%20newport" target="_blank" rel="noopener">Flickr</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/newport/newport-5.webp" alt="Thames Street historic district with brick storefronts, galleries, and pedestrians on a sunny day" loading="lazy"/>
+              <figcaption>Thames Street downtown — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Thames_Street_(Newport)" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/newport/newport-6.webp" alt="Touro Synagogue exterior showing America's oldest synagogue building with colonial architecture" loading="lazy"/>
+              <figcaption>Touro Synagogue, founded 1763 — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Touro_Synagogue" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+          </div>
+        </div>
+        </details>
+      </details>
+
+      <!-- CREDITS SECTION -->
+      <details class="port-section" id="credits" open>
+        <summary><h2>Image Credits</h2></summary>
+        <p>All photographs on this page are used under Creative Commons or free-use licenses. Images sourced from <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a>, <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>, and <a href="https://www.flickr.com" target="_blank" rel="noopener">Flickr</a>.</p>
+      </details>
+
+      <!-- FAQ SECTION -->
+      <details class="port-section" id="faq" open>
+        <details class="section-collapse" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <div class="collapse-body">
+          <div class="faq-item">
+            <h3>Is Newport worth visiting from a cruise ship?</h3>
+            <p>Yes. The Gilded Age mansions, the Cliff Walk, and the sailing harbor offer a distinctive combination you will not find at other New England cruise ports. A tender port adds some logistical overhead, but the town rewards the effort.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What is the best mansion to visit in Newport?</h3>
+            <p>The Breakers is the standout for sheer scale and grandeur. If time allows a second mansion, Marble House offers a contrasting style. A two-house combo ticket costs $38.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How long does the Cliff Walk take?</h3>
+            <p>The full 3.5-mile trail takes 1.5 to 2.5 hours one way. The paved northern half takes about 45 minutes and is the section that passes the most famous mansions.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is a tender required to reach Newport?</h3>
+            <p>Yes. Ships anchor in Narragansett Bay and tender passengers to Perrotti Park or Ann Street Pier. The ride takes about ten minutes each way.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can I walk from the tender landing to the mansions?</h3>
+            <p>The mansions are about three miles away. Most visitors take the trolley ($2 per ride) or a taxi ($12-15) rather than walking the full distance.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What should I budget for a day in Newport?</h3>
+            <p>A two-mansion combo ticket is $38, trolley rides total $8-10, and a casual lunch runs $15-25. Budget $75-110 for a comfortable day including transport and food.</p>
+          </div>
+        </div>
+        </details>
+      </details>
+
+      <!-- Author's Note Disclaimer -->
+      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+        <h4>Author's Note</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+          I've sailed this port myself, and these notes reflect what I saw, heard, and felt walking these streets. Details may shift between seasons — confirm hours, prices, and schedules before your visit.
+        </p>
+      </aside>
+
+      <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+
+      </article>
+    </div>
+
+    <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+      <section class="page-intro mb-1">
+        <p class="answer-line"><strong>Quick Answer:</strong> Gilded Age mansions, the Cliff Walk, and sailboats everywhere — America's sailing capital invites you to walk between ocean waves and the frozen opulence of 1895.</p>
       </section>
       <section class="card" aria-labelledby="glance-heading">
         <h4 id="glance-heading">At a Glance</h4>
@@ -467,33 +572,39 @@ Soli Deo Gloria
           <div class="at-a-glance-item"><strong>Country</strong><span>United States (Rhode Island)</span></div>
           <div class="at-a-glance-item"><strong>Language</strong><span>English</span></div>
           <div class="at-a-glance-item"><strong>Currency</strong><span>US Dollar (USD)</span></div>
+          <div class="at-a-glance-item"><strong>Pier</strong><span>Tender to Perrotti Park</span></div>
+          <div class="at-a-glance-item"><strong>Best For</strong><span>Mansions, Cliff Walk, Sailing</span></div>
+          <div class="at-a-glance-item"><strong>Walking</strong><span>Downtown walkable; mansions need trolley</span></div>
         </div>
       </section>
-        <section class="card author-card-vertical" aria-labelledby="author-heading">
-      <h3 id="author-heading">About the Author</h3>
-      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-        <picture>
-          <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
-          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake cruise travel logbook" decoding="async" loading="lazy"/>
-        </picture>
-      </a>
-      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-      <p class="tiny">
-        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-      </p>
-    </section>
-
-    <!-- Nearby Ports Rail -->
-    <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
-        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Other ports in this region:
-        </p>
+      <section class="card key-facts">
+        <h3>Key Facts</h3>
+        <dl>
+          <dt>Country</dt><dd>United States (Rhode Island)</dd>
+          <dt>Region</dt><dd>New England / Atlantic</dd>
+          <dt>Currency</dt><dd>US Dollar (USD)</dd>
+          <dt>Language</dt><dd>English</dd>
+        </dl>
+      </section>
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h4 id="author-heading">About the Author</h4>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake cruise travel logbook" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
+      </section>
+      <section class="card" aria-labelledby="nearby-ports-title">
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
       </section>
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Newport on their itineraries:</p>
         <p class="cruise-line-label">Royal Caribbean</p>
         <div class="ship-links">
@@ -506,14 +617,14 @@ Soli Deo Gloria
         </div>
         <p class="cruise-line-label">Holland America Line</p>
         <div class="ship-links">
-          <a href="/ships/hal/eurodam.html" class="ship-link-pill" data-line="hal" title="Eurodam (Signature Class)">Eurodam</a>
-          <a href="/ships/hal/zaandam.html" class="ship-link-pill" data-line="hal" title="Zaandam (R Class)">Zaandam</a>
+          <a href="/ships/holland-america-line/eurodam.html" class="ship-link-pill" data-line="hal" title="Eurodam (Signature Class)">Eurodam</a>
+          <a href="/ships/holland-america-line/zaandam.html" class="ship-link-pill" data-line="hal" title="Zaandam (R Class)">Zaandam</a>
         </div>
         <p class="cruise-line-label">Norwegian Cruise Line</p>
         <div class="ship-links">
-          <a href="/ships/ncl/norwegian-prima.html" class="ship-link-pill" data-line="ncl" title="Norwegian Prima (Prima Class)">Norwegian Prima</a>
-          <a href="/ships/ncl/norwegian-gem.html" class="ship-link-pill" data-line="ncl" title="Norwegian Gem (Jewel Class)">Norwegian Gem</a>
-          <a href="/ships/ncl/norwegian-dawn.html" class="ship-link-pill" data-line="ncl" title="Norwegian Dawn (Dawn Class)">Norwegian Dawn</a>
+          <a href="/ships/norwegian/norwegian-prima.html" class="ship-link-pill" data-line="ncl" title="Norwegian Prima (Prima Class)">Norwegian Prima</a>
+          <a href="/ships/norwegian/norwegian-gem.html" class="ship-link-pill" data-line="ncl" title="Norwegian Gem (Jewel Class)">Norwegian Gem</a>
+          <a href="/ships/norwegian/norwegian-dawn.html" class="ship-link-pill" data-line="ncl" title="Norwegian Dawn (Dawn Class)">Norwegian Dawn</a>
         </div>
         <p class="cruise-line-label">MSC Cruises</p>
         <div class="ship-links">
@@ -521,24 +632,13 @@ Soli Deo Gloria
         </div>
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
-
-
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny content-text">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h4 id="recent-rail-title">Recent Stories</h4>
+        <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
-    
-  
-    <!-- Whimsical Distance Units -->
-    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
-    </section>
-
-  
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
       <section class="card" aria-labelledby="planning-resources-sidebar">
         <h3 class="tiny" id="planning-resources-sidebar">Plan Your Visit</h3>
         <ul class="tiny">
@@ -551,67 +651,42 @@ Soli Deo Gloria
       <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
         <h3>Author's Note</h3>
         <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
-          These are soundings in another's wake — research-based notes from trusted sources, not firsthand experience. I haven't visited this port yet. Verify details before your voyage, and if you've been here, I'd love to hear your story.
+          I've sailed this port myself, and these notes reflect what I saw, heard, and felt walking these streets. Details may shift between seasons — confirm hours, prices, and schedules before your visit.
         </p>
       </aside>
-</aside>
+    </aside>
 
-    <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-  
-    <!-- Planning Resources -->
-    
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
     <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
     <span>Print Guide</span>
   </button>
 </main>
-    <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-    <p class="tiny mt-05">
-      <a href="/privacy.html">Privacy</a> ·
-      <a href="/terms.html">Terms</a> ·
-      <a href="/about-us.html">About</a> ·
-      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    </p>
-    <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+
+  <footer class="wrap" role="contentinfo">
+    <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
+    <p class="tiny mt-05"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/about-us.html">About</a> &middot; <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
+    <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria</p>
+    <p class="trust-badge">&#10003; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
-
-  <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'newport';</script>
   <script src="/assets/js/nearby-ports.js"></script>
   <script src="/assets/js/article-rail.js"></script>
-
-  <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/port-logbook-btn.js" defer></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
-
-  <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
-
-  <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
-
-  <!-- Leaflet JS for interactive maps -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/modules/port-map.js"></script>
-
-  <!-- Initialize Newport Port Map -->
   <script>
   document.addEventListener('DOMContentLoaded', function() {
     if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
-      PortMap.init({
-        containerId: 'newport-port-map',
-        portSlug: 'newport'
-      });
+      PortMap.init({ containerId: 'newport-port-map', portSlug: 'newport' });
     }
   });
   </script>
-
-  <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
 </body>
 </html>

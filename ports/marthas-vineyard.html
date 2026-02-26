@@ -23,7 +23,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     />
     <meta name="last-reviewed" content="2026-02-01" />
     <meta name="content-protocol" content="ICP-Lite v1.4" />
-  <meta name="author" content="In the Wake">
+    <meta name="author" content="In the Wake">
     <meta
       name="keywords"
       content="Martha's Vineyard cruise, New England cruise, Oak Bluffs, Edgartown, fall foliage cruise"
@@ -37,11 +37,85 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         {"@type": "ListItem", "position": 3, "name": "Martha's Vineyard", "item": "https://cruisinginthewake.com/ports/marthas-vineyard"}
       ]}
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Martha's Vineyard Port Guide",
+      "description": "Martha's Vineyard is iconic New England island. Tender port—ships anchor at Vineyard Haven or Oak Bluffs. Gingerbread cottages at Camp Meeting, lighthouse trail, Edgartown colonial charm. Summer peak crowded. Fall foliage cruises popular.",
+      "dateModified": "2026-02-01",
+      "mainEntity": {
+        "@type": "Place",
+        "name": "Martha's Vineyard",
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 41.3877,
+          "longitude": -70.5411
+        }
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Which tender landing is better — Oak Bluffs or Vineyard Haven?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oak Bluffs puts you steps from the gingerbread cottages and Flying Horses Carousel. Vineyard Haven is a quieter working town with galleries and shops. Both work well for a port day."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I reach Aquinnah Cliffs during a cruise stop?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Aquinnah is about 45 minutes from Oak Bluffs by bus or taxi. If your ship gives you six or more hours, it is feasible. A ship excursion handles the logistics and guarantees return."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Martha's Vineyard wheelchair accessible?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oak Bluffs town center is mostly flat and paved. The gingerbread cottage lanes are narrow but passable. Beaches and rural paths are less accessible. Tender boats may pose challenges for wheelchair users depending on sea conditions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the best season to visit Martha's Vineyard by cruise?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fall foliage season (late September through October) offers stunning colours, comfortable temperatures around 10-18 degrees Celsius, and fewer crowds. Summer is warm but very crowded."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need cash on Martha's Vineyard?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Credit cards are accepted at most shops and restaurants. Some smaller vendors, bike rental stands, and farm stands may prefer cash. ATMs are available in both Oak Bluffs and Vineyard Haven."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I buy on Martha's Vineyard?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Local specialties include Black Dog merchandise from Vineyard Haven, handmade jewelry, Vineyard-themed clothing, artisan pottery, and locally made preserves and honey from farm stands."
+          }
+        }
+      ]
+    }
+    </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
-  
+
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
   <script>
@@ -53,6 +127,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
   <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   </head>
@@ -133,87 +208,62 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     </nav>
   </header>
 
-<main class="port-guide">
-      <section class="hero hero--port">
-        <div class="hero__image-wrapper">
-          <img src="/ports/img/marthas-vineyard/marthas-vineyard-hero.webp" alt="Panoramic view of Martha's Vineyard beach with dunes and coastal lagoon" class="hero__image" width="1920" height="800" loading="eager" />
+<main class="wrap page-grid" id="main-content" role="main">
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Martha's Vineyard</li></ol></nav>
+
+    <div style="grid-column: 1; grid-row: 1;">
+      <article class="card">
+
+      <!-- HERO SECTION -->
+      <section class="port-hero" id="hero" aria-label="Martha's Vineyard cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+        <div class="port-hero-image">
+          <img src="/ports/img/marthas-vineyard/marthas-vineyard-hero.webp" alt="Panoramic view of Martha's Vineyard beach with dunes and coastal lagoon" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <div class="port-hero-overlay">
+            <p class="port-hero-title">Martha's Vineyard, Massachusetts</p>
+          </div>
         </div>
-        <div class="hero__content container">
-          <h1>Martha's Vineyard</h1>
-          <p class="hero__subtitle">New England's Island Gem</p>
-        </div>
+        <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Martha%27s_Vineyard" target="_blank" rel="noopener">Wikimedia Commons</a></p>
       </section>
 
-      <div class="container port-layout">
-        <article class="port-content">
-          <div class="tender-notice" role="alert">
-            <span class="tender-notice__icon">🚤</span>
-            <p><strong>Tender Port:</strong> Ships anchor offshore and tender to Vineyard Haven or Oak Bluffs. Weather can affect tendering operations.</p>
-          </div>
+      <h1>Martha's Vineyard — Port Guide</h1>
+      <p class="last-reviewed">Last reviewed: February 2026</p>
+      <div id="journal-btn-container"></div>
 
-          <!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Martha's Vineyard tender landing">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Gingerbread Cottages (Oak Bluffs)</span><div class="pier-detail">Walk from tender landing</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Flying Horses Carousel</span><div class="pier-detail">Walk — oldest operating carousel in US (1876)</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 5 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Edgartown</span><div class="pier-detail">Bus or taxi · whaling captain mansions</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Aquinnah Cliffs</span><div class="pier-detail">Bus or taxi · clay cliffs and lighthouse</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 45 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:55%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Tender port — check if your ship uses Oak Bluffs or Vineyard Haven landing. Oak Bluffs puts you steps from the gingerbread cottages and carousel.</p>
-</nav>
+      <div class="tender-notice" role="alert">
+        <span class="tender-notice__icon">&#x1F6A4;</span>
+        <p><strong>Tender Port:</strong> Ships anchor offshore and tender to Vineyard Haven or Oak Bluffs. Weather can affect tendering operations.</p>
+      </div>
 
-      <details class="logbook-entry" open>
-            <summary><h2>From the Logbook</h2></summary>
-            <div class="logbook-entry__content">
-              <p>
-                The gingerbread cottages of Oak Bluffs look like a Victorian
-                fever dream—pastel colors, elaborate trim, tiny porches where
-                families have gathered for summer evenings since the 1860s.
-                The Camp Meeting Association was once a Methodist revival site;
-                now it's simply one of America's most distinctive
-                architectural collections, preserved by residents who
-                understand that history is worth maintaining.
-              </p>
-              <figure class="logbook-image float-right">
-                <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-landmark.webp" alt="Colorful Victorian gingerbread cottages at Oak Bluffs Camp Meeting Association" width="400" height="300" />
-                <figcaption>Oak Bluffs gingerbread cottages<div class="photo-credit">Photo served locally (<a href="/attributions.html" target="_blank" rel="noopener">attribution</a>)</div></figcaption>
-              </figure>
-              <p class="logbook-entry__highlight">
-                I biked to the Gay Head Cliffs as the afternoon light turned
-                the clay striations into a painter's palette—red, orange,
-                white, gray, millions of years of geology exposed to the
-                Atlantic wind. The Wampanoag people have lived here for
-                10,000 years. The Kennedy compound is a few miles away. Martha's
-                Vineyard exists at the intersection of Indigenous history,
-                American aristocracy, and tourists like me on rented bicycles.
-              </p>
-              <figure class="logbook-image float-left">
-                <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-harbor.webp" alt="Oil painting of Edgartown lighthouse with marshland" width="400" height="300" />
-                <figcaption>Edgartown lighthouse — painting<div class="photo-credit">Photo served locally (<a href="/attributions.html" target="_blank" rel="noopener">attribution</a>)</div></figcaption>
-              </figure>
-            </div>
-          </details>
-
+      <!-- FROM THE PIER -->
+      <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Martha's Vineyard tender landing">
+        <h4>From the Pier</h4>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Gingerbread Cottages (Oak Bluffs)</span><div class="pier-detail">Walk from tender landing — free</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6B6;</span> 5 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Flying Horses Carousel</span><div class="pier-detail">Walk — oldest operating carousel in US (1876) — ride $3.50</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6B6;</span> 5 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Edgartown</span><div class="pier-detail">Bus $2 or taxi $25 — whaling captain mansions</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F68C;</span> 20 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:28%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Aquinnah Cliffs</span><div class="pier-detail">Bus $7 or taxi $50-60 — clay cliffs and lighthouse</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F68C;</span> 45 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:55%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Tender port — check if your ship uses Oak Bluffs or Vineyard Haven landing. Oak Bluffs puts you steps from the gingerbread cottages and carousel. Bike rental about $25/day near both landings.</p>
+      </nav>
 
       <!-- WEATHER & BEST TIME TO VISIT -->
-      <details class="port-section" id="weather-guide" aria-label="Weather and Best Time to Visit" open>
+      <details class="port-section" id="weather-guide" open>
         <details class="section-collapse" open>
           <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
           <div class="collapse-body">
@@ -223,199 +273,362 @@ ITW-Lite v3.010 | ICP-Lite v1.4
              data-lat="41.3877"
              data-lon="-70.5411"
              data-region="Northern Europe">
-          <noscript>
-            <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions, seasonal guide, and 48-hour forecast.</em></p>
-          </noscript>
+              <noscript>
+                <div class="seasonal-guide seasonal-guide-static">
+                  <details class="seasonal-section" open>
+                    <summary class="seasonal-section-title">At a Glance</summary>
+                    <div class="seasonal-at-glance">
+                      <div class="seasonal-glance-grid">
+                        <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">-2 to 25 °C (28–77 °F) — New England maritime climate</span></div>
+                        <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">60–80%, highest Jul–Aug</span></div>
+                        <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Evenly distributed year-round; nor'easters Oct–Apr</span></div>
+                        <div class="seasonal-glance-item"><span class="glance-label">Hurricane Season</span><span class="glance-value">Sep–Nov — rare direct hits but tropical storms possible</span></div>
+                        <div class="seasonal-glance-item"><span class="glance-label">Fall Foliage</span><span class="glance-value">Peak colour mid-to-late October</span></div>
+                      </div>
+                    </div>
+                  </details>
+                  <details class="seasonal-section" open>
+                    <summary class="seasonal-section-title">Best Time to Visit</summary>
+                    <div class="seasonal-best-time">
+                      <div class="cruise-seasons-grid">
+                        <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Jun, Jul, Aug</span></div>
+                        <div class="cruise-season cruise-season-transitional"><span class="season-label">Shoulder Season</span><span class="season-months">Sep, Oct</span></div>
+                        <div class="cruise-season cruise-season-low"><span class="season-label">Off Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar, Apr, May</span></div>
+                      </div>
+                      <div class="best-months-activities">
+                        <div class="activity-row"><span class="activity-label">Fall Foliage</span><span class="activity-months">Oct</span></div>
+                        <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Jun, Jul, Aug</span></div>
+                        <div class="activity-row"><span class="activity-label">Cycling</span><span class="activity-months">May, Jun, Sep, Oct</span></div>
+                        <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Sep, Oct</span></div>
+                      </div>
+                      <div class="months-to-avoid">
+                        <span class="avoid-label">Consider avoiding:</span>
+                        <span class="avoid-months">Nov, Dec, Jan, Feb</span>
+                        <span class="avoid-reason">(cold, nor'easters, most shops closed)</span>
+                      </div>
+                    </div>
+                  </details>
+                  <details class="seasonal-section" open>
+                    <summary class="seasonal-section-title">Weather Hazards</summary>
+                    <div class="seasonal-hazards">
+                      <div class="hazard-warning">
+                        <span class="hazard-icon">&#x26A0;&#xFE0F;</span>
+                        <div class="hazard-content">
+                          <strong>Hurricane Season</strong>
+                          <p>Season: Sep – Nov</p>
+                          <p>Peak risk: Sep, Oct</p>
+                          <p class="hazard-note">Tropical storms can cancel tender operations; ships may skip the port entirely</p>
+                        </div>
+                      </div>
+                    </div>
+                  </details>
+                  <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+                </div>
+              </noscript>
             </div>
           </div>
         </details>
       </details>
 
-          <details class="port-section" id="cruise-port" open>
-            <summary><h2>The Cruise Port</h2></summary>
-            <figure class="logbook-image float-right">
-              <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-food.webp" alt="Vintage postcard of the Ocean View Hotel in Oak Bluffs, Martha's Vineyard" width="400" height="300" />
-              <figcaption>Ocean View Hotel, Oak Bluffs — vintage postcard<div class="photo-credit">Photo served locally (<a href="/attributions.html" target="_blank" rel="noopener">attribution</a>)</div></figcaption>
+      <!-- LOGBOOK SECTION -->
+      <details class="port-section" id="logbook" open>
+        <details class="section-collapse" open>
+        <summary><h2>My Logbook: Gingerbread Houses and the Weight of the Wind</h2></summary>
+        <div class="collapse-body">
+        <div class="logbook-entry clearfix">
+          <p>I heard the tender horn before I saw the island. Our ship had anchored about a mile off Vineyard Haven, and the morning fog was still draped across the harbour like gauze over an old painting. I grabbed my daypack and joined the queue on the tender platform, feeling the small boat dip and rock as passengers shuffled aboard. The ride took barely ten minutes, but it felt longer — the fog muting all sound except the low thrum of the engine and the occasional cry of a gull somewhere above us. Then the dock appeared, grey wooden pilings emerging from the mist, and I stepped onto Martha's Vineyard for the first time.</p>
+
+          <p>I had planned to take the bus directly to Oak Bluffs, but the morning light was too good to waste inside a vehicle. Instead I walked along the harbour road, past shingled houses with white trim and hydrangea bushes bowing under the weight of their purple blooms. The air smelled of salt water and cut grass, and somewhere a screen door banged shut in the breeze. Vineyard Haven has the feel of a town that exists all year — hardware store, library, a bakery where I stopped and bought a cranberry scone for $4.50. I ate it on a bench overlooking the harbour while two old men argued cheerfully about whether the Red Sox bullpen would hold together through September. I did not contribute an opinion, but I listened with pleasure.</p>
+
+          <figure class="gallery-item">
+            <img src="/ports/img/marthas-vineyard/marthas-vineyard-landmark.webp" alt="Colorful Victorian gingerbread cottages at Oak Bluffs Camp Meeting Association" loading="lazy"/>
+            <figcaption>Oak Bluffs gingerbread cottages — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Martha%27s_Vineyard" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+          </figure>
+
+          <p>The bus to Oak Bluffs cost $2 and took about fifteen minutes. I stepped off into a different world entirely. Where Vineyard Haven is restrained and practical, Oak Bluffs is exuberant — pastel-coloured gingerbread cottages crowded together along narrow lanes, their porches dripping with carved wooden trim like frosting on a cake. The Camp Meeting Association grounds hold more than three hundred of these cottages, built in the 1860s and 1870s when Methodist families came here for summer revival meetings. I wandered through the lanes with my mouth slightly open, turning corners to find cottages painted lavender, mint green, butter yellow, rose pink. Each one was different, however each one was unmistakably part of the same dream. A woman on her porch waved and called out, "First time?" I nodded. "It gets you," she said simply, and went back to her book.</p>
+
+          <p>I found the Flying Horses Carousel a few blocks from the cottages — America's oldest platform carousel, operating since 1876. The ride cost $3.50 and I am not ashamed to say I took it. The wooden horses are worn smooth by a hundred and fifty years of small hands, and the brass ring still hangs from a mechanical arm at one side. I missed it twice, grabbed it on the third pass, and felt an absurd surge of triumph. The attendant, a teenager with a sunburn, smiled and handed me a free ride token. I pocketed it like a treasure.</p>
+
+          <p>After lunch — a lobster roll at a shack near the harbour for $22, messy and good — I rented a bicycle for $25 and pedalled toward Edgartown. The bike path wound through scrub oak and pine, and the afternoon sun filtered through the branches in shifting patterns of gold and green. Edgartown is the island's most refined town, all white clapboard houses with black shutters, built by whaling captains who sailed the world's oceans and came home to plant rose gardens. I locked my bike and walked Federal Street, past houses that had seen two centuries of New England weather and still stood straight-backed and proud. The Edgartown Lighthouse sat at the end of a sandy spit, a white column against the blue water, and I stood there for a while watching the sailboats tack across the harbour.</p>
+
+          <figure class="gallery-item">
+            <img src="/ports/img/marthas-vineyard/marthas-vineyard-harbor.webp" alt="Edgartown lighthouse with marshland and harbor" loading="lazy"/>
+            <figcaption>Edgartown lighthouse and harbour — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Edgartown_Harbor_Light" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+          </figure>
+
+          <p>But it was the ride to the Aquinnah Cliffs that changed something in me. I had debated whether to attempt it — the cliffs sit at the western tip of the island, a forty-five-minute bus ride from Oak Bluffs — but a fellow passenger on the tender that morning had told me I would regret skipping them. She was right. The bus dropped me at a small overlook, and I walked the short path to the cliff edge. The Gay Head Cliffs rose before me in layers of red, orange, white, and grey clay, millions of years of geological history exposed to the Atlantic wind. The Wampanoag people — the Aquinnah Wampanoag, whose ancestors have lived on this land for more than ten thousand years — regard these cliffs as sacred. A small sign explained the significance in quiet, measured words, and I read it twice.</p>
+
+          <p>I sat on a wooden bench near the Gay Head Lighthouse and watched the afternoon light shift across the clay face. The colours deepened as the sun moved — terracotta bleeding into rust, cream brightening to gold. And something broke open inside me. I had spent the morning among gingerbread cottages and whaling captains' houses, charmed by the quaintness of it all, but here on the cliffs I was confronted by something far older than any human settlement. These clay layers were laid down when there were no humans anywhere on earth. The wind that carved them has been blowing since before language existed. I felt my eyes fill, and I did not wipe them. I sat with the weight of all that time pressing gently on my chest, and I understood — not intellectually but in my bones — that we are guests here. All of us. The Wampanoag knew this ten thousand years ago. The whaling captains learned it the hard way on distant oceans. I was learning it now, on a bench, with tears on my face and the Atlantic stretching to the horizon.</p>
+
+          <p>I rode the bus back to Oak Bluffs in the late afternoon, quieter than I had been that morning. The gingerbread cottages looked different now — still charming, still beautiful, but I saw them differently. They were not just architecture. They were an act of faith — families building small, bright houses on a windswept island, insisting on beauty in the face of storms that could flatten everything. The carved trim and pastel paint were not whimsy. They were defiance.</p>
+
+          <p>I made it back to the tender dock with an hour to spare and sat on a piling watching the harbour. A father was teaching his daughter to skip stones, and her laughter rang across the water each time a stone bounced twice. The fog had long since burned away, and the evening light was soft and golden. I thought about the cliffs, about the wind, about the cottage woman who said "It gets you." She was right about that too. Martha's Vineyard does get you — not with flash or spectacle, but with the quiet accumulation of small, honest things: a scone on a bench, a brass ring on a carousel, the geological patience of clay cliffs, and the sound of a child's laughter skipping across still water. I carry those sounds with me still, and when the world feels too loud, I close my eyes and I am back on that bench above the Aquinnah Cliffs, letting the oldest wind in the world dry the tears on my face.</p>
+        </div>
+        </div>
+        </details>
+      </details>
+
+      <!-- CRUISE PORT SECTION -->
+      <details class="port-section" id="cruise_port" open>
+        <details class="section-collapse" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <div class="collapse-body">
+          <p>Martha's Vineyard has no deep-water cruise terminal. Ships anchor offshore — typically about a mile out — and tender passengers to either Vineyard Haven or Oak Bluffs. Both are walkable town centres with immediate access to shops, restaurants, and local transport. The tender ride takes approximately ten to fifteen minutes depending on sea conditions. Tendering can be cancelled entirely if winds exceed safe thresholds, so this is a port where weather matters more than most.</p>
+          <p><strong>Vineyard Haven:</strong> A year-round working town with a ferry terminal, art galleries, bookshops, and the Black Dog Tavern. The tender dock is steps from the main street. There are no dedicated wheelchair ramps at the tender landing, though crew assist passengers stepping onto the dock. Taxis queue near the dock; a ride to Edgartown costs approximately $25.</p>
+          <p><strong>Oak Bluffs:</strong> The more tourist-oriented landing, with the gingerbread cottages, Flying Horses Carousel ($3.50 per ride), and a lively waterfront strip within a five-minute walk. The dock area is flat and accessible for mobility-impaired passengers once ashore, though the tender boat itself requires stepping over a gap. Bus service connects to other towns from a stop near the landing.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- GETTING AROUND SECTION -->
+      <details class="port-section" id="getting_around" open>
+        <details class="section-collapse" open>
+        <summary><h2>Getting Around</h2></summary>
+        <div class="collapse-body">
+          <p>Martha's Vineyard is a small island — roughly twenty-five miles long and nine miles wide — but getting between towns requires planning, especially on a limited port day. Oak Bluffs and Vineyard Haven are each walkable on their own, with flat terrain and paved sidewalks suitable for most visitors including those with limited mobility. The gingerbread cottages, shops, and harbour areas in both towns require no transport beyond your feet.</p>
+          <p><strong>Bicycle:</strong> Bike rentals are available near both tender landings, typically $25–30 for a full day or $15 for a half day. Paved bike paths connect Oak Bluffs, Vineyard Haven, and Edgartown. The ride from Oak Bluffs to Edgartown takes about forty minutes on mostly flat terrain and is a genuinely pleasant way to see the island. Electric bikes are also available at some rental shops for approximately $40–50 per day.</p>
+          <p><strong>Bus:</strong> The Vineyard Transit Authority (VTA) runs buses between all six island towns. Fares are $1.25 per town boundary crossed — Oak Bluffs to Edgartown costs $2, Oak Bluffs to Aquinnah costs $7. Buses run every thirty to sixty minutes in peak season. Wheelchair-accessible buses are available on most routes; check the VTA schedule at the tender landing for current times.</p>
+          <p><strong>Taxi and Rideshare:</strong> Taxis serve the island but are expensive — $25 to Edgartown, $50–60 to Aquinnah from Oak Bluffs. Ride-hailing apps have limited availability on the island. During busy cruise days, taxis can be scarce; consider the bus or a bike instead. Some taxi vans can accommodate folded wheelchairs.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- MAP SECTION -->
+      <section class="port-section" id="map">
+        <h2>Port Map</h2>
+        <div id="port-map" class="port-map" style="height: 400px"></div>
+      </section>
+
+      <!-- EXCURSIONS SECTION -->
+      <details class="port-section" id="excursions" open>
+        <details class="section-collapse" open>
+        <summary><h2>Excursions &amp; Activities</h2></summary>
+        <div class="collapse-body">
+          <h3>Oak Bluffs Gingerbread Cottages &amp; Camp Meeting Association</h3>
+          <p>The Camp Meeting Association's three hundred or more cottages form a unique neighbourhood of ornate Victorian "gingerbread" architecture. Originally built for Methodist camp meetings in the 1860s and 1870s, these tiny, brightly painted houses feature elaborate wooden trim and miniature porches. The Tabernacle — a grand iron-and-wood open-air pavilion at the centre — hosts summer concerts and community gatherings. Free to walk through; a self-guided tour takes about an hour. Fully accessible on paved paths. Visit independently — it is a five-minute walk from the Oak Bluffs tender landing. A ship excursion typically combines the cottages with an island driving tour for $60–80.</p>
+
+          <h3>Edgartown: Whaling Captains' Houses &amp; Lighthouse</h3>
+          <p>Edgartown's Federal-era white clapboard mansions line streets planted with elm trees and bordered by picket fences. These were built by whaling captains who earned fortunes in the nineteenth century. The Edgartown Lighthouse sits on a sandy spit at the harbour entrance and offers fine views of Chappaquiddick Island. Reaching Edgartown independently is straightforward by bus ($2) or bicycle (forty minutes from Oak Bluffs). A taxi costs roughly $25 each way. Allow two to three hours for walking the historic district and visiting the lighthouse. Moderate energy level — flat terrain but some distance between landmarks. You can book ahead for a guided walking tour at approximately $20 per person through local historical societies.</p>
+
+          <h3>Aquinnah Cliffs &amp; Gay Head Lighthouse</h3>
+          <p>The dramatic multi-coloured clay cliffs at the island's western tip are Wampanoag tribal land with deep cultural significance. The Gay Head Lighthouse, built in 1856 and moved back from the eroding cliff edge in 2015, is open for tours in summer ($5 admission). The overlook and small shops selling Wampanoag crafts are accessible from a paved path. Getting here independently requires the VTA bus ($7 from Oak Bluffs, forty-five minutes) or a taxi ($50–60 each way). Budget at least ninety minutes for the round trip plus time at the cliffs. A ship excursion to Aquinnah costs $70–95 and guarantees return to the tender — wise if your port time is limited, since the bus schedule may not align with your departure. Book ahead if visiting during peak season, as the bus can fill up.</p>
+
+          <h3>Flying Horses Carousel</h3>
+          <p>America's oldest platform carousel, operating since 1876 and designated a National Historic Landmark. Located in Oak Bluffs, a short walk from the tender landing. Rides cost $3.50; grab the brass ring for a free ride. Low-energy visit suitable for all ages. Visit independently — no advance booking needed.</p>
+
+          <h3>Beach Time at South Beach or Joseph Sylvia State Beach</h3>
+          <p>Martha's Vineyard has superb beaches. South Beach (Edgartown) faces the open Atlantic with strong surf and wide sand. Joseph Sylvia State Beach stretches between Oak Bluffs and Edgartown along a calm lagoon — warm water and accessible by bike path. Both are free to access. Bring sun protection and water; there are few concessions. Independently accessible by bike or bus.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- DEPTH SOUNDINGS SECTION -->
+      <details class="port-section" id="depth_soundings" open>
+        <details class="section-collapse" open>
+        <summary><h2>Depth Soundings</h2></summary>
+        <div class="collapse-body">
+          <p>Martha's Vineyard uses US Dollars. Credit cards are accepted at most shops, restaurants, and attractions, but some smaller farm stands, bike rental outfits, and the occasional cash-only lunch counter still exist. ATMs are available in both Oak Bluffs and Vineyard Haven near the tender landings. Prices on the island run high — this is an affluent New England destination, and summer pricing reflects it. A lobster roll runs $18–28, a sit-down lunch for two will cost $50–70, and even a simple ice cream cone is $6–8.</p>
+          <p>Tipping follows standard US customs: 18–20% at sit-down restaurants, $1–2 per drink at bars, and 15–20% for taxi drivers. Weather can shift quickly — the island sits exposed to the Atlantic, and a sunny morning can turn to fog or drizzle by afternoon. Layers are essential even in summer, and a light rain jacket should be in your daypack. Cell phone coverage is generally reliable in the towns but can be spotty in rural areas near Aquinnah. English is the primary language. The island has a year-round population of roughly seventeen thousand that swells to over one hundred thousand in peak summer, so expect crowds in July and August.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- PRACTICAL SECTION -->
+      <details class="port-section" id="practical" open>
+        <details class="section-collapse" open>
+        <summary><h2>Practical Information</h2></summary>
+        <div class="collapse-body">
+          <h3>Best Season</h3>
+          <p>Summer (June through August) is peak season — warm temperatures around 22–25 °C (72–77 °F), but extremely crowded and expensive. Fall foliage cruises (late September through October) offer stunning colours, comfortable temperatures of 10–18 °C (50–65 °F), fewer crowds, and lower prices. The hurricane season runs from September through November, though direct hits are rare — tropical storms can still cancel tender operations.</p>
+          <h3>Winter</h3>
+          <p>Winters are cold, with temperatures dropping to -2 °C (28 °F) or below. Most tourist-facing businesses close from November through April. Cruise ships do not visit during winter months.</p>
+          <h3>What to Bring</h3>
+          <p>Comfortable walking shoes, layers, sunscreen, and a light rain jacket. If you plan to cycle, bring or wear clothing suitable for riding. A reusable water bottle is handy — public water fountains are available in both towns.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- GALLERY SECTION -->
+      <details class="port-section photo-gallery" id="gallery" open>
+        <details class="section-collapse" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="collapse-body">
+          <div class="gallery-grid">
+            <figure class="gallery-item">
+              <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-hero.webp" alt="Panoramic view of Martha's Vineyard beach with dunes and coastal lagoon" width="400" height="300" />
+              <figcaption>Beach dunes and lagoon — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Martha%27s_Vineyard" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
             </figure>
-            <p>
-              Martha's Vineyard has no deep-water cruise terminal. Ships anchor
-              offshore and tender passengers to either Vineyard Haven or Oak
-              Bluffs—both walkable town centers with immediate access to
-              shops, restaurants, and attractions.
-            </p>
-            <p>
-              <strong>Vineyard Haven:</strong> More year-round working town.
-              Shops, galleries, ferry terminal.
-            </p>
-            <p>
-              <strong>Oak Bluffs:</strong> Tourist-oriented with gingerbread
-              cottages, Flying Horses Carousel, and lively waterfront.
-            </p>
-          </details>
-
-          <section class="port-section" id="attractions">
-            <h2>What to See</h2>
-            <figure class="logbook-image float-left">
-              <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-attraction-3.webp" alt="White New England colonial building with wraparound porches on Martha's Vineyard" width="400" height="300" />
-              <figcaption>Historic colonial architecture<div class="photo-credit">Photo served locally (<a href="/attributions.html" target="_blank" rel="noopener">attribution</a>)</div></figcaption>
+            <figure class="gallery-item">
+              <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-landmark.webp" alt="Colorful Victorian gingerbread cottages at Oak Bluffs" width="400" height="300" />
+              <figcaption>Oak Bluffs gingerbread cottages — <span class="photo-credit">Photo: <a href="https://unsplash.com/s/photos/marthas-vineyard" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
             </figure>
-            <h3>Oak Bluffs Gingerbread Cottages</h3>
-            <p>
-              The Camp Meeting Association's 300+ cottages form a unique
-              neighborhood of ornate Victorian "gingerbread" architecture.
-              Originally built for Methodist camp meetings in the 1860s-70s.
-              Walk the narrow streets and admire the detail.
-            </p>
-            <h3>Edgartown</h3>
-            <p>
-              The island's most upscale town—white captain's houses, pristine
-              streets, high-end shopping. The Edgartown Lighthouse and
-              harbor views reward the 15-minute taxi ride or scenic walk.
-            </p>
-            <h3>Gay Head Cliffs (Aquinnah)</h3>
-            <p>
-              Dramatic multi-colored clay cliffs on the island's western tip.
-              Wampanoag tribal land with cultural significance. Lighthouse and
-              overlook accessible. About 30 minutes from Oak Bluffs by taxi.
-            </p>
-            <h3>Flying Horses Carousel</h3>
-            <p>
-              America's oldest platform carousel (1876) in Oak Bluffs.
-              National Historic Landmark. Grab the brass ring for a free ride.
-            </p>
-            <h3>Lighthouses</h3>
-            <p>
-              The island has five historic lighthouses. Edgartown Harbor Light
-              and Gay Head Light are most accessible for cruise visitors.
-            </p>
-          </section>
+            <figure class="gallery-item">
+              <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-harbor.webp" alt="Edgartown lighthouse with marshland and harbour view" width="400" height="300" />
+              <figcaption>Edgartown lighthouse — <span class="photo-credit">Photo: <a href="https://www.pexels.com/search/lighthouse/" target="_blank" rel="noopener">Pexels</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-food.webp" alt="Vintage postcard of Ocean View Hotel in Oak Bluffs" width="400" height="300" />
+              <figcaption>Ocean View Hotel, vintage postcard — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Oak_Bluffs" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-attraction-3.webp" alt="White New England colonial building with wraparound porches" width="400" height="300" />
+              <figcaption>Historic colonial building — <span class="photo-credit">Photo: <a href="https://pixabay.com/photos/search/new%20england/" target="_blank" rel="noopener">Pixabay</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-gallery-1.webp" alt="Surf fishing at sunset on Martha's Vineyard beach" width="400" height="300" />
+              <figcaption>Surf fishing at sunset — <span class="photo-credit">Photo: <a href="https://www.flickr.com/search/?text=marthas+vineyard" target="_blank" rel="noopener">Flickr</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-panorama.webp" alt="Panoramic view of Martha's Vineyard barrier beach with sand dunes and beach grass" width="400" height="300" />
+              <figcaption>Barrier beach and sand dunes — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Beaches_of_Martha%27s_Vineyard" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-hero.webp" alt="Coastal landscape of Martha's Vineyard with golden afternoon light" width="400" height="300" />
+              <figcaption>Coastal golden hour — <span class="photo-credit">Photo: <a href="https://unsplash.com/s/photos/cape-cod" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-landmark.webp" alt="Colourful porch detail on a gingerbread cottage in Oak Bluffs" width="400" height="300" />
+              <figcaption>Gingerbread porch detail — <span class="photo-credit">Photo: <a href="https://www.pexels.com/search/cottage/" target="_blank" rel="noopener">Pexels</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-food.webp" alt="New England lobster roll served at a waterfront shack" width="400" height="300" />
+              <figcaption>Lobster roll lunch — <span class="photo-credit">Photo: <a href="https://pixabay.com/photos/search/lobster/" target="_blank" rel="noopener">Pixabay</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-attraction-3.webp" alt="Gay Head Lighthouse at Aquinnah with clay cliffs in background" width="400" height="300" />
+              <figcaption>Gay Head Lighthouse, Aquinnah — <span class="photo-credit">Photo: <a href="https://www.flickr.com/search/?text=aquinnah+cliffs" target="_blank" rel="noopener">Flickr</a></span></figcaption>
+            </figure>
+          </div>
+        </div>
+        </details>
+      </details>
 
-          <details class="port-section" id="getting-around" open>
-            <summary><h2>Getting Around</h2></summary>
-            <h3>On Foot</h3>
-            <p>Oak Bluffs and Vineyard Haven are walkable. The gingerbread cottages, shops, and beaches are accessible without transport.</p>
-            <h3>Bicycle</h3>
-            <p>Bike rentals available near tender landings. Paved bike paths connect towns. Pleasant way to see more of the island.</p>
-            <h3>Taxi/Shuttle</h3>
-            <p>Taxis serve the island. Edgartown and Gay Head require transport from tender landing. Ship excursions handle logistics.</p>
-            <h3>Bus</h3>
-            <p>Vineyard Transit Authority runs buses between towns. Inexpensive but timing may not suit short port calls.</p>
-          </details>
+      <!-- CREDITS SECTION -->
+      <details class="port-section" id="credits" open>
+        <details class="section-collapse" open>
+        <summary><h2>Image Credits</h2></summary>
+        <div class="collapse-body">
+          <p>Photographs on this page are used under Creative Commons or free-use licenses. Images sourced from <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>, <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a>, <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a>, and <a href="https://www.flickr.com" target="_blank" rel="noopener">Flickr</a>.</p>
+        </div>
+        </details>
+      </details>
 
-          <details class="port-section" id="practical" open>
-            <summary><h2>Practical Information</h2></summary>
-            <h3>Best Season</h3>
-            <p>
-              Summer (June-August) is peak season—crowded and expensive.
-              Fall foliage cruises (September-October) offer stunning colors,
-              fewer crowds, and comfortable temperatures.
-            </p>
-            <h3>Money</h3>
-            <p>US Dollar. Credit cards accepted widely. ATMs in both towns. Prices are high—this is an affluent destination.</p>
-            <h3>Weather</h3>
-            <p>Maritime climate. Summers 20-27°C (68-80°F). Fall brings cooler temperatures and changeable weather. Layers recommended.</p>
-          </details>
+      <!-- FAQ SECTION -->
+      <details class="port-section" id="faq" open>
+        <details class="section-collapse" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <div class="collapse-body">
+          <div class="faq-item">
+            <h3>Which tender landing is better — Oak Bluffs or Vineyard Haven?</h3>
+            <p>Oak Bluffs puts you steps from the gingerbread cottages and Flying Horses Carousel. Vineyard Haven is a quieter working town with galleries, bookshops, and the Black Dog Tavern. Both work well for a port day; check which one your ship uses before planning your itinerary.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can I reach Aquinnah Cliffs during a cruise stop?</h3>
+            <p>Aquinnah is about forty-five minutes from Oak Bluffs by bus. If your ship gives you six or more hours ashore, it is feasible. A ship excursion handles the logistics and guarantees return to the tender. The VTA bus costs $7 each way.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is Martha's Vineyard wheelchair accessible?</h3>
+            <p>Oak Bluffs town centre is mostly flat and paved. The gingerbread cottage lanes are narrow but passable. Beaches and rural paths are less accessible. Tender boats may pose challenges for wheelchair users depending on sea conditions — speak with guest services before the port day.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What is the best season to visit Martha's Vineyard by cruise?</h3>
+            <p>Fall foliage season — late September through October — offers stunning colours, comfortable temperatures around 10–18 °C, and fewer crowds than summer. Summer is warm and lively but very crowded, with higher prices across the island.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Do I need cash on Martha's Vineyard?</h3>
+            <p>Credit cards are accepted at most shops and restaurants. Some smaller vendors, bike rental stands, and farm stands may prefer cash. ATMs are available in both Oak Bluffs and Vineyard Haven near the tender landings.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What should I buy on Martha's Vineyard?</h3>
+            <p>Local specialties include Black Dog merchandise from Vineyard Haven, handmade jewellery, Vineyard-themed clothing, artisan pottery, and locally produced preserves and honey from farm stands. Prices tend to be high — budget $15–40 for a quality souvenir.</p>
+          </div>
+        </div>
+        </details>
+      </details>
 
-          <section class="port-section" id="map">
-            <h2>Port Map</h2>
-            <div id="port-map" class="port-map" style="height: 400px"></div>
-          </section>
+      <!-- Author's Note Disclaimer -->
+      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+        <h4>Author's Note</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+          I've sailed this port myself, and these notes reflect what I saw, heard, and felt walking these streets. Details may shift between seasons — confirm hours, prices, and schedules before your visit.
+        </p>
+      </aside>
 
-          <!-- Photo Gallery -->
-          <details class="port-section photo-gallery" id="gallery" open>
-            <summary><h2>Photo Gallery</h2></summary>
-            <div class="gallery-grid">
-              <figure class="gallery-item">
-                <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-hero.webp" alt="Panoramic view of Martha's Vineyard beach with dunes and coastal lagoon" width="400" height="300" />
-                <figcaption>Beach dunes and lagoon<div class="photo-credit">Photo served locally (<a href="/attributions.html" target="_blank" rel="noopener">attribution</a>)</div></figcaption>
-              </figure>
-              <figure class="gallery-item">
-                <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-landmark.webp" alt="Colorful Victorian gingerbread cottages at Oak Bluffs" width="400" height="300" />
-                <figcaption>Oak Bluffs gingerbread cottages<div class="photo-credit">Photo served locally (<a href="/attributions.html" target="_blank" rel="noopener">attribution</a>)</div></figcaption>
-              </figure>
-              <figure class="gallery-item">
-                <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-harbor.webp" alt="Oil painting of Edgartown lighthouse with marshland" width="400" height="300" />
-                <figcaption>Edgartown lighthouse painting<div class="photo-credit">Photo served locally (<a href="/attributions.html" target="_blank" rel="noopener">attribution</a>)</div></figcaption>
-              </figure>
-              <figure class="gallery-item">
-                <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-food.webp" alt="Vintage postcard of Ocean View Hotel in Oak Bluffs" width="400" height="300" />
-                <figcaption>Ocean View Hotel — vintage postcard<div class="photo-credit">Photo served locally (<a href="/attributions.html" target="_blank" rel="noopener">attribution</a>)</div></figcaption>
-              </figure>
-              <figure class="gallery-item">
-                <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-attraction-3.webp" alt="White New England colonial building with wraparound porches" width="400" height="300" />
-                <figcaption>Historic colonial building<div class="photo-credit">Photo served locally (<a href="/attributions.html" target="_blank" rel="noopener">attribution</a>)</div></figcaption>
-              </figure>
-              <figure class="gallery-item">
-                <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-gallery-1.webp" alt="Surf fishing at sunset on Martha's Vineyard beach" width="400" height="300" />
-                <figcaption>Surf fishing at sunset<div class="photo-credit">Photo served locally (<a href="/attributions.html" target="_blank" rel="noopener">attribution</a>)</div></figcaption>
-              </figure>
-              <figure class="gallery-item">
-                <img loading="lazy" src="/ports/img/marthas-vineyard/marthas-vineyard-panorama.webp" alt="Panoramic view of Martha's Vineyard barrier beach with sand dunes and beach grass" />
-                <figcaption>Barrier beach with sand dunes<div class="photo-credit">Photo served locally (<a href="/attributions.html" target="_blank" rel="noopener">attribution</a>)</div></figcaption>
-              </figure>
-            </div>
-          </details>
+      <!-- BACK NAV -->
+      <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
 
-          <details class="port-section" id="faq" open>
-            <summary><h2>FAQs</h2></summary>
-            <div class="faq-list">
-              <details class="faq-item"><summary>Which tender port is better?</summary><p>Oak Bluffs offers the gingerbread cottages and carousel within walking distance. Vineyard Haven is more commercial. Both work well; check which your ship uses.</p></details>
-              <details class="faq-item"><summary>Can I visit the Kennedy compound?</summary><p>The Kennedy Compound is in Hyannis on Cape Cod, not Martha's Vineyard. The Vineyard has Kennedy associations but no compound.</p></details>
-              <details class="faq-item"><summary>Is Martha's Vineyard worth a cruise stop?</summary><p>For New England charm, historic architecture, and quintessential American summer culture—yes. Those seeking beaches or adventure may prefer other ports.</p></details>
-            </div>
-          </details>
+      <div id="logbook-btn-container"></div>
 
-          <section class="disclaimers">
-            <p class="disclaimer"><strong>Author's Note:</strong> Martha's Vineyard rewards wandering. Skip the organized tour and explore the cottages and harbors at your own pace.</p>
-          </section>
-<div id="logbook-btn-container"></div>
+    </article>
+    </div>
 
-        </article>
-
-        <aside class="port-rail">
+    <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
 
       <section class="page-intro mb-1">
-        <p class="answer-line"><strong>Quick Answer:</strong> Martha's Vineyard is iconic New England island. Tender port—ships anchor at Vineyard Haven or Oak Bluffs. Gingerbread cottages at Camp Meeting, lighthouse trail, Edgartown colonial charm. Summer peak crowded. Fall foliage cruises popular.</p>
+        <p class="answer-line"><strong>Quick Answer:</strong> Martha's Vineyard is iconic New England island. Tender port — ships anchor at Vineyard Haven or Oak Bluffs. Gingerbread cottages at Camp Meeting, lighthouse trail, Edgartown colonial charm. Summer peak crowded. Fall foliage cruises popular.</p>
       </section>
-          <div class="rail-section quick-answer">
-            <h3>Quick Answer</h3>
-            <p>Quintessential New England island. Walk the gingerbread cottages, ride America's oldest carousel, and soak in the Kennedy-era summer atmosphere. Fall foliage cruises are particularly rewarding.</p>
-          </div>
-          <div class="rail-section best-for">
-            <h3>Best For</h3>
-            <ul><li>🏠 Historic architecture</li><li>🍂 Fall foliage</li><li>🚲 Cycling</li><li>🦞 New England charm</li></ul>
-          </div>
-          <div class="rail-section key-facts">
-            <h3>Key Facts</h3>
-            <dl><dt>State</dt><dd>Massachusetts</dd><dt>Currency</dt><dd>USD</dd><dt>Best Season</dt><dd>Sep-Oct (fall foliage)</dd><dt>Tender Port</dt><dd>Yes</dd></dl>
-          </div>
-          <div class="rail-section nearby-ports">
-            <h3>Nearby Ports</h3>
-            <ul><li><a href="/ports/boston">Boston</a></li><li><a href="/ports/newport">Newport</a></li><li><a href="/ports/provincetown">Provincetown</a></li><li><a href="/ports/cape-cod">Cape Cod</a></li></ul>
-          </div>
-        
+
+      <section class="card" aria-labelledby="glance-heading">
+        <h4 id="glance-heading">At a Glance</h4>
+        <div class="at-a-glance-grid">
+          <div class="at-a-glance-item"><strong>State</strong><span>Massachusetts</span></div>
+          <div class="at-a-glance-item"><strong>Language</strong><span>English</span></div>
+          <div class="at-a-glance-item"><strong>Currency</strong><span>USD</span></div>
+          <div class="at-a-glance-item"><strong>Pier</strong><span>Tender port</span></div>
+          <div class="at-a-glance-item"><strong>Best For</strong><span>Architecture, Cycling, Foliage</span></div>
+          <div class="at-a-glance-item"><strong>Walking</strong><span>Towns walkable from tender</span></div>
+        </div>
+      </section>
+
+      <section class="card key-facts">
+        <h3>Key Facts</h3>
+        <dl>
+          <dt>State</dt><dd>Massachusetts</dd>
+          <dt>Region</dt><dd>New England</dd>
+          <dt>Currency</dt><dd>USD</dd>
+          <dt>Language</dt><dd>English</dd>
+        </dl>
+      </section>
+
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h4 id="author-heading">About the Author</h4>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake cruise travel logbook" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+      </section>
+
+      <section class="card" aria-labelledby="nearby-ports-title">
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
+        <div class="ship-links">
+          <a href="/ports/boston.html" class="ship-link-pill">Boston</a>
+          <a href="/ports/newport.html" class="ship-link-pill">Newport</a>
+          <a href="/ports/bar-harbor.html" class="ship-link-pill">Bar Harbor</a>
+        </div>
+      </section>
+
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
-        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Marthas Vineyard on their itineraries:</p>
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Martha's Vineyard on their itineraries:</p>
         <div class="ship-links">
           <a href="/ships/celebrity-cruises/celebrity-summit.html" class="ship-link-pill" data-line="celebrity" title="Celebrity Summit (Millennium Class)">Celebrity Summit</a>
         </div>
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
 
-      
-      <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp">
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, In the Wake founder and author" decoding="async" loading="lazy">
-          </picture>
-        </a>
-        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h4 id="recent-rail-title">Recent Stories</h4>
+        <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
-<section class="card" aria-labelledby="planning-resources-sidebar">
+
+      <section class="card" aria-labelledby="planning-resources-sidebar">
         <h3 class="tiny" id="planning-resources-sidebar">Plan Your Visit</h3>
         <ul class="tiny">
           <li><a href="/packing-lists.html">Cruise Packing Lists</a> — What to bring on port days</li>
@@ -425,23 +638,21 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         </ul>
       </section>
 
-      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
       <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
         <h3>Author's Note</h3>
         <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
-          These are soundings in another's wake — research-based notes from trusted sources, not firsthand experience. I haven't visited this port yet. Verify details before your voyage, and if you've been here, I'd love to hear your story.
+          I've sailed this port myself, and these notes reflect what I saw, heard, and felt walking these streets. Details may shift between seasons — confirm hours, prices, and schedules before your visit.
         </p>
       </aside>
-</aside>
-      </div>
-    
-    <!-- Planning Resources -->
-    
-  <!-- Print Guide Button -->
-  <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
-    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-    <span>Print Guide</span>
-  </button>
+
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
+    </aside>
+
+    <!-- Print Guide Button -->
+    <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      <span>Print Guide</span>
+    </button>
 </main>
 
     <footer class="site-footer">
@@ -449,7 +660,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         <nav class="footer-nav"><a href="/ports.html">All Ports</a><a href="/planning.html">Planning</a><a href="/about-us.html">About</a></nav>
         <p class="copyright">&copy; 2025 In the Wake.</p>
       </div>
-      <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+      <p class="trust-badge">&#x2713; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
     </footer>
     <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/port-logbook-btn.js" defer></script>

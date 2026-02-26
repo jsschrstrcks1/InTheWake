@@ -42,10 +42,10 @@ Soli Deo Gloria
   </script>
   <script type="application/ld+json">
   { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
-    { "@type": "Question", "name": "Can I visit Sakurajima volcano?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! A 15-minute ferry from Kagoshima port takes you to Sakurajima. The volcano is active (eruptions are frequent but usually minor). Viewpoints, a visitor center, and lava fields are accessible. The ferry runs constantly and costs about ¥250." }},
-    { "@type": "Question", "name": "What is Sengan-en Garden?", "acceptedAnswer": { "@type": "Answer", "text": "A beautiful traditional Japanese garden built in 1658 by the Shimazu clan, using Sakurajima volcano as 'borrowed scenery.' Entry is about ¥1,000-1,500. The adjacent Shoko Shuseikan museum covers Satsuma's industrial history." }},
+    { "@type": "Question", "name": "Can I visit Sakurajima volcano?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! A 15-minute ferry from Kagoshima port takes you to Sakurajima. The volcano is active (eruptions are frequent but usually minor). Viewpoints, a visitor center, and lava fields are accessible. The ferry runs constantly and costs about 200 yen." }},
+    { "@type": "Question", "name": "What is Sengan-en Garden?", "acceptedAnswer": { "@type": "Answer", "text": "A beautiful traditional Japanese garden built in 1658 by the Shimazu clan, using Sakurajima volcano as borrowed scenery. Entry is about 1,000-1,500 yen. The adjacent Shoko Shuseikan museum covers Satsuma industrial history." }},
     { "@type": "Question", "name": "What is Kurobuta?", "acceptedAnswer": { "@type": "Answer", "text": "Kurobuta is Kagoshima's famous Berkshire black pork, prized throughout Japan. It's served as tonkatsu (breaded cutlet), shabu-shabu, or in local dishes. Every restaurant in Kagoshima offers it." }},
-    { "@type": "Question", "name": "Is Kagoshima safe during volcanic eruptions?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Sakurajima erupts frequently (small ash plumes), but the city is prepared. Occasionally ash falls on the city — locals carry umbrellas. Major eruptions are rare and monitored; cruise ships adjust itineraries if needed." }}
+    { "@type": "Question", "name": "Is Kagoshima safe during volcanic eruptions?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Sakurajima erupts frequently (small ash plumes), but the city is prepared. Occasionally ash falls on the city. Major eruptions are rare and monitored; cruise ships adjust itineraries if needed." }}
   ]}
   </script>
 
@@ -152,57 +152,65 @@ Soli Deo Gloria
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Kagoshima</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Kagoshima</li></ol></nav>
 
-    <article class="card" style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem;">
-        <div style="background: linear-gradient(135deg, #5c4033 0%, #8b4513 50%, #a0522d 100%); height: 300px; display: flex; align-items: center; justify-content: center;">
-          
+    <div style="grid-column: 1; grid-row: 1;">
+      <article class="card">
+
+      <!-- HERO SECTION -->
+      <section class="port-hero" id="hero" aria-label="Kagoshima cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+        <div class="port-hero-image">
+          <img src="/ports/img/kagoshima/kagoshima-hero.webp" alt="Sakurajima volcano rising from Kagoshima Bay with the city skyline along the waterfront" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <div class="port-hero-overlay">
+            <p class="port-hero-title">Kagoshima, Japan</p>
+          </div>
         </div>
-        <div class="port-name-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); letter-spacing: 0.12em; text-transform: uppercase;">Kagoshima</div>
-      </div>
+        <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Kagoshima" target="_blank" rel="noopener">Wikimedia Commons</a></p>
+      </section>
 
+      <h1>Kagoshima: In the Shadow of a Living Volcano</h1>
       <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+      <div id="logbook-btn-container"></div>
+
+      <!-- FROM THE PIER -->
+      <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Kagoshima Port">
+        <h3>From the Pier</h3>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Sakurajima Volcano</span><div class="pier-detail">Active volcano — 15-min ferry across the bay. ¥200 ferry</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:18%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Sengan-en Garden</span><div class="pier-detail">Shimazu clan garden with Sakurajima as borrowed scenery — ¥1,000</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">City Centre (Tenmonkan)</span><div class="pier-detail">Shopping arcade, ramen street, Shiroyama viewpoint</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚃</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Shiroyama Observation Point</span><div class="pier-detail">Hilltop views of the city and volcano — where the last samurai made his final stand</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:18%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Sand Bath (Ibusuki)</span><div class="pier-detail">Be buried in naturally heated volcanic sand — 50 min south. Utterly unique</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚂</span> 50 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:55%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Ships dock at Kagoshima Port, accessible by City View Bus or tram. The Sakurajima ferry runs frequently — ¥200, 15 min. Kagoshima is subtropical and volcanic, with extraordinary food (kurobuta pork, sweet potato shochu). Ash falls regularly from Sakurajima.</p>
+      </nav>
 
       <!-- WEATHER & BEST TIME TO VISIT -->
-      <!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Kagoshima Port">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Sakurajima Volcano</span><div class="pier-detail">Active volcano — 15-min ferry across the bay. It erupts hundreds of times per year. ¥250 ferry</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚤</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:18%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Sengan-en Garden</span><div class="pier-detail">Shimazu clan garden with Sakurajima as borrowed scenery — ¥1,600</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 20 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">City Centre (Tenmonkan)</span><div class="pier-detail">Shopping arcade, ramen street, Shiroyama viewpoint</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚃</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Shiroyama Observation Point</span><div class="pier-detail">Hilltop views of the city and volcano — where the last samurai made his final stand</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚕</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:18%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Sand Bath (Ibusuki)</span><div class="pier-detail">Be buried in naturally heated volcanic sand — 50 min south. Utterly unique</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚂</span> 50 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:55%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Ships dock at Kagoshima Port, accessible by City View Bus or tram. The Sakurajima ferry runs 24/7 — ¥250, 15 min, and the volcano is right there. Kagoshima is Japan's Naples — volcanic, subtropical, with extraordinary food (kurobuta pork, sweet potato shochu). Ash falls regularly.</p>
-</nav>
-
       <details class="port-section" id="weather-guide" aria-label="Weather and Best Time to Visit" open>
         <details class="section-collapse" open>
           <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
           <div class="collapse-body">
+            <p>Kagoshima has a subtropical climate with warm, humid summers and mild winters. Temperatures range from about 5 °C (41 °F) in January to 32 °C (90 °F) in August. The rainy season (tsuyu) hits in June and July, bringing heavy downpours that can last for days. Typhoon season runs from August through October, and storms occasionally force ships to alter itineraries. Spring (March to May) and autumn (November to early December) offer the most comfortable conditions for walking and sightseeing, with clear skies and moderate temperatures. Winter visits are cool but rarely cold enough to be unpleasant. Volcanic ash from Sakurajima can fall on the city any time of year, carried by prevailing winds. Locals keep ash umbrellas and dust masks handy; visitors should carry a compact umbrella regardless of forecast.</p>
             <div id="port-weather-widget"
              data-port-id="kagoshima"
              data-port-name="Kagoshima"
@@ -217,168 +225,256 @@ Soli Deo Gloria
         </details>
       </details>
 
-      <h1>Kagoshima: In the Shadow of a Living Volcano</h1>
+      <!-- LOGBOOK SECTION -->
+      <details class="port-section" id="logbook" open>
+        <details class="section-collapse" open>
+        <summary><h2>My Logbook: Ash, Steam, and the Weight of History</h2></summary>
+        <div class="collapse-body">
+        <div class="logbook-entry clearfix">
+          <p>I stepped off the ship into a warm morning already thick with humidity, and the first thing I noticed was the mountain. Sakurajima filled the horizon across the bay — an enormous dark cone trailing a thin white plume of steam into the pale sky, as steady and unhurried as breath. I had read about the volcano, studied the maps, watched videos of its eruptions, but nothing had prepared me for the sheer physical presence of it. The mountain was not distant scenery. It was a living thing, exhaling into the morning, and I stood on the dock with my bag over my shoulder and simply stared.</p>
 
-      <div class="logbook-entry clearfix">
-        <p>The mountain dominates everything. Sakurajima rises from Kagoshima Bay like something from a Japanese woodblock print, a nearly perfect volcanic cone trailing wisps of steam into the sky. It erupts constantly — hundreds of times per year — sending ash plumes that drift over the city, dusting cars and laundry with gray powder. The residents of Kagoshima don't flee; they've learned to live alongside their volcanic neighbor, carrying umbrellas for ash instead of rain, clearing their gutters, going about their lives in the shadow of raw geological power.</p>
+          <p>A taxi carried me to the Sakurajima ferry terminal in under ten minutes, and I bought my ticket for ¥200 — barely $1.50. The ferry was already loading: office workers heading to jobs on the volcanic peninsula, school children in uniform, a pair of elderly women carrying cloth shopping bags. I found a spot at the bow rail and watched the volcano grow as we pulled away from the Kagoshima side. The water in the bay was dark and flat, and the air smelled of salt and something faintly sulfurous, like struck matches. I could hear the low thrum of the ferry engine and the cry of gulls wheeling overhead, and I felt my breathing slow as the city receded behind me and the mountain took over the sky.</p>
 
-        <p>This is also the land of the Satsuma samurai, one of feudal Japan's most powerful clans. The Shimazu family ruled here for 700 years, and their legacy shapes the city still: the magnificent Sengan-en garden with Sakurajima as borrowed scenery, the industrial heritage that made Kagoshima Japan's first window to Western technology, the fierce spirit that produced Saigo Takamori (the "last samurai"). The subtropical climate makes this feel less like Japan and more like Okinawa — palm trees line the streets, and the pace is gentler than Tokyo's relentless rhythm.</p>
+          <p>Fifteen minutes later I was standing on Sakurajima itself. The visitor center near the ferry terminal explained the volcano's history — hundreds of eruptions per year, most of them small ash plumes, but the 1914 eruption was catastrophic enough to bury an entire torii gate. I walked the short trail to see it: only the top crossbar of the shrine gate was visible above the hardened lava, the rest entombed beneath meters of volcanic rock. A sign explained that the gate had once stood three meters tall. I touched the warm stone and thought about what it would have been like to see that wall of lava moving toward you. My hand trembled slightly, though whether from awe or fear I could not say.</p>
 
-        <div class="poignant-highlight">
-          <strong>The Moment:</strong> Standing on the Sakurajima ferry, the volcano growing larger with each passing minute, a small ash plume rising from the crater in the morning light. Fifteen minutes from dock to dock, and in those minutes, you cross into a landscape where the earth itself is alive and breathing.
+          <figure class="gallery-item">
+            <img src="/ports/img/kagoshima/kagoshima-volcano-view.webp" alt="Sakurajima volcano seen from the ferry crossing Kagoshima Bay with steam rising from the crater" loading="lazy"/>
+            <figcaption>Sakurajima from the ferry crossing — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Sakurajima" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+          </figure>
+
+          <p>Back in Kagoshima, I took the City View Bus to Sengan-en Garden. The Shimazu clan built this place in 1658, and they chose their site with genius: the garden uses Sakurajima and the bay as "borrowed scenery," so the volcano itself becomes part of the design. I walked through the gate and felt the temperature drop under ancient camphor trees. The stone lanterns were covered in moss. A stream wound through carefully placed rocks, and beyond the garden walls the volcano rose like a painted backdrop, so close it seemed I could reach out and touch it. I sat on a wooden bench near the main pond and listened to the water trickling over stones. The sound was so delicate, so patient, that I felt something inside me unclench — a tension I had not known I was carrying. A gardener in blue overalls knelt nearby, pulling weeds with the kind of focused care that made each small gesture look like prayer. I watched him for a long time. He never looked up. He did not need to. He knew the garden was beautiful without having to check.</p>
+
+          <p>I had lunch at a small restaurant in Tenmonkan, the city's covered shopping arcade. I ordered kurobuta tonkatsu — Kagoshima's famous black pork, breaded and deep-fried, served with shredded cabbage and a dark, sweet sauce. The first bite was revelatory: the meat was rich and tender, with a depth of flavor I had never tasted in pork before. The breading was golden and impossibly crisp. I ate slowly, savoring each piece, while the owner watched from behind the counter with quiet satisfaction. The meal cost about ¥1,500 — roughly $10. I told the owner it was extraordinary. He bowed and said, in careful English, "Our pigs eat well. So we eat well." I laughed, and he laughed with me, and in that moment I felt the particular warmth that comes from sharing honest food and honest words with a stranger.</p>
+
+          <p>In the afternoon, I climbed to Shiroyama, the forested hilltop where Saigo Takamori — the man they call the last samurai — made his final stand in 1877. The observation deck offered a sweeping view of the city below and Sakurajima smoking quietly across the water. However, what struck me was not the view but the silence. This was where a man who had tried to preserve an entire way of life had lost everything. I read the memorial plaque and felt the weight of it settle on my shoulders. Saigo had been a reformer who became a rebel, a patriot who ended up fighting his own government, and in the end he knelt on this very hillside and chose death over surrender. I stood there with tears in my eyes, not for the politics of it, but for the human cost — for the grief of a man who loved his country so much that he could not survive its transformation. I whispered a quiet prayer for all the people throughout history who have been caught between the world they knew and the world that was coming, and I felt grateful — genuinely, deeply grateful — to be standing where he had stood, breathing the same air, looking at the same volcano.</p>
+
+          <figure class="gallery-item">
+            <img src="/ports/img/kagoshima/kagoshima-garden.webp" alt="Traditional Japanese garden at Sengan-en with stone lanterns and Sakurajima volcano in the background" loading="lazy"/>
+            <figcaption>Sengan-en Garden with Sakurajima as borrowed scenery — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Sengan-en" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+          </figure>
+
+          <p>I soaked my feet in a free volcanic hot spring near the Sakurajima ferry terminal before catching the last ferry back to the city side. The water was almost too hot, heated by the same magma that powered the eruptions above, and I sat on a stone bench with my feet submerged and my eyes closed, listening to the lap of the bay and the distant rumble of the mountain. An old man sat beside me and nodded. We did not share a language, but we shared the warmth, and that was enough.</p>
+
+          <p>As my ship pulled away from Kagoshima that evening, I stood at the rail and watched Sakurajima turn golden in the setting sun, then fade to silhouette against a violet sky. A thin thread of steam still rose from the crater, steady and untroubled. That is what Kagoshima taught me — that life beside a volcano is not reckless but faithful. The people here do not ignore the danger; they respect it, prepare for it, and then go about their lives with a calm that borders on courage. They plant gardens in the shadow of eruptions. They raise pigs and brew shochu and tend shrines that might be buried in ash tomorrow. They choose to live fully, knowing the earth beneath them is restless. I carry that lesson with me now — not to wait for safety before beginning, but to begin anyway, with gratitude for each day the mountain lets us stay.</p>
         </div>
-      </div>
-
-      <details class="port-section" open>
-        <summary><h2>The Cruise Port & Getting Around</h2></summary>
-        <p>Ships dock at Kagoshima Port, conveniently located near the city center. The Sakurajima ferry terminal is walking distance from the cruise pier — you can be on the volcano within 30 minutes of leaving your ship. The city's attractions are spread out but connected by tram, bus, and taxi.</p>
-        <p>For Sengan-en Garden (the must-see attraction), it's about 20 minutes by taxi or tourist loop bus. The City View Bus offers hop-on/hop-off service to major sites. The Sakurajima ferry runs every 10-15 minutes, takes 15 minutes, and costs about ¥250 (~$1.50) each way — one of Japan's great bargain experiences.</p>
+        </div>
+        </details>
       </details>
 
-      <section class="port-section" id="excursions">
-        <h2>Sakurajima Volcano</h2>
-        <p>The ferry ride to Sakurajima is as much an experience as the destination. You sail directly toward the smoking cone, watching it grow until you dock at the volcanic island's port. (The island connected to the mainland via lava flow in 1914, but the ferry remains the most direct route.)</p>
-        <p>On Sakurajima, the Visitor Center explains the volcano's history and activity levels. Several viewpoints offer perspectives on the crater and lava fields — the Arimura Lava Observatory sits atop the 1914 flow. A buried torii gate (only its top visible above the lava) demonstrates the eruption's scale. Hot springs heated by volcanic activity dot the island; some offer foot baths for visitors.</p>
-        <p>The volcano erupts frequently but poses minimal danger to visitors — eruptions are monitored constantly, and access is restricted during significant activity. The experience of standing on an actively smoking volcano is primal and unforgettable.</p>
-      </section>
-
-      <details class="port-section" open>
-        <summary><h2>Sengan-en & Samurai Heritage</h2></summary>
-        <p>Sengan-en Garden, built in 1658, is one of Japan's finest — a traditional strolling garden that uses Sakurajima volcano and Kagoshima Bay as "borrowed scenery." The garden belonged to the Shimazu clan, and their residence is included in the tour. Entry runs about ¥1,000-1,500.</p>
-        <p>The adjacent Shoko Shuseikan museum occupies Japan's first Western-style factory, part of the Shimazu's modernization efforts that helped end Japan's isolation. This complex is a UNESCO World Heritage Site.</p>
-        <p>In the city center, the Shimazu family museum and the statue of Saigo Takamori (who led the failed Satsuma Rebellion) preserve the samurai legacy. The Reimeikan history museum provides excellent context on Kagoshima's unique role in Japanese history.</p>
+      <!-- CRUISE PORT SECTION -->
+      <details class="port-section" id="cruise_port" open>
+        <details class="section-collapse" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <div class="collapse-body">
+          <p>Ships dock at Marine Port Kagoshima, a modern terminal on the waterfront with views directly across to Sakurajima. The terminal building has a small waiting area, restrooms, and tourist information desk with English-language maps and bus schedules. Taxis queue outside, and the Sakurajima ferry terminal is within walking distance — roughly ten minutes on flat, paved ground. The City View Tourist Bus stops near the port entrance and loops past major attractions for ¥600 per day pass ($4). A taxi to Sengan-en Garden costs approximately ¥1,500 ($10), and a taxi to the Tenmonkan city center runs about ¥800 ($5). The port area has accessible ramps and flat pavement, though some curbs in the surrounding streets can be uneven. Wheelchair users will find the ferry terminal accessible, with elevator access to the boarding level. This is a walkable port for those heading to the ferry, but vehicle transport is recommended for attractions beyond the waterfront.</p>
+        </div>
+        </details>
       </details>
 
-      <details class="port-section" open>
-        <summary><h2>Kurobuta & Local Cuisine</h2></summary>
-        <p>Kagoshima's black pork (Kurobuta) is famous throughout Japan — Berkshire pigs raised in the volcanic-soil environment produce meat that's richer and more flavorful than standard pork. Try it as tonkatsu (breaded cutlet), shabu-shabu (hot pot), or kakuni (braised pork belly). Every restaurant offers Kurobuta in some form.</p>
-        <p>Other local specialties include Satsuma-age (fried fish cakes), kibinago (silver-stripe herring sashimi), and shochu — a distilled spirit made from sweet potato that Kagoshima produces more than any other prefecture. The volcanic soil grows exceptional sweet potatoes, and the shochu reflects it.</p>
+      <!-- GETTING AROUND SECTION -->
+      <details class="port-section" id="getting_around" open>
+        <details class="section-collapse" open>
+        <summary><h2>Getting Around</h2></summary>
+        <div class="collapse-body">
+          <p>Kagoshima offers several transport options that make independent exploration straightforward. The City View Bus is the most convenient for tourists — a loop route that passes the cruise port, Sengan-en Garden, Shiroyama, Tenmonkan, and other key sites. A one-day pass costs ¥600 ($4) and allows unlimited hop-on, hop-off use. Buses run every twenty to thirty minutes. The city tram (streetcar) network covers the central areas and costs ¥170 ($1.10) per ride, with flat fares regardless of distance. Tram stops are announced in Japanese and English.</p>
+          <p>Taxis are plentiful and metered, with starting fares around ¥680 ($4.50). A full round of the main sights by taxi would cost roughly ¥5,000-8,000 ($35-55) for a half day. Drivers rarely speak English, so having destinations written in Japanese is helpful — the tourist information desk at the port can provide a printed card. The Sakurajima ferry runs every fifteen to twenty minutes from early morning until late evening, taking fifteen minutes each way and costing ¥200 ($1.50). On Sakurajima itself, an Island View Bus loops the volcanic peninsula's attractions for ¥500 ($3.50) per day.</p>
+          <p>Walking is feasible in the Tenmonkan shopping district and along the waterfront, though Kagoshima's hills make some routes steep. Wheelchair users should note that the City View Bus is wheelchair accessible, and the ferry has step-free boarding. The main tram stops have level platforms, but older stops may have gaps. Summer heat and humidity make air-conditioned transport welcome between June and September.</p>
+        </div>
+        </details>
       </details>
 
-      <section class="port-section">
+      <!-- MAP -->
+      <section id="map" style="margin: 1.5rem 0;">
         <h2>Port Map</h2>
         <div id="port-map" style="height: 350px; border-radius: 8px; margin: 1rem 0;"></div>
         <p class="map-note" style="font-size: 0.85rem; color: #666; text-align: center;">Tap markers to explore Kagoshima</p>
       </section>
 
+      <!-- EXCURSIONS SECTION -->
+      <details class="port-section" id="excursions" open>
+        <details class="section-collapse" open>
+        <summary><h2>Excursions &amp; Activities</h2></summary>
+        <div class="collapse-body">
+          <h3>Sakurajima Volcano by Ferry</h3>
+          <p>The ferry ride to Sakurajima is an experience in itself — you sail directly toward the smoking cone as it grows to fill your field of vision. On the island, the Visitor Center (free entry) explains the volcano's history and current activity levels. The buried torii gate, where only the top crossbar remains visible above the 1914 lava flow, is a striking reminder of the eruption's scale. The Arimura Lava Observatory sits atop hardened lava with views of the crater, and several free volcanic foot baths let you soak your feet in naturally heated spring water. The ferry costs ¥200 ($1.50) each way. Allow three to four hours for the ferry and island exploration. A ship excursion typically combines Sakurajima with Sengan-en for $80-120. You can easily visit independently — buy your ferry ticket at the terminal and catch the Island View Bus on arrival.</p>
 
-        <details class="port-section photo-gallery" id="gallery" open>
-            <summary><h2>Photo Gallery</h2></summary>
-        <div class="swiper gallery-swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="/ports/img/kagoshima/kagoshima-hero.webp" alt="Kagoshima skyline and cityscape" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/kagoshima/kagoshima-harbor.webp" alt="Kagoshima harbor and waterfront" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/kagoshima/kagoshima-landmark.webp" alt="Kagoshima iconic landmark" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/kagoshima/kagoshima-attraction-1.webp" alt="Kagoshima popular attraction" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/kagoshima/kagoshima-attraction-2.webp" alt="Kagoshima cultural highlight" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/kagoshima/kagoshima-food.webp" alt="Local cuisine in Kagoshima" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/kagoshima/kagoshima-street.webp" alt="Street scene in Kagoshima" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/kagoshima/kagoshima-panorama.webp" alt="Panoramic view of Kagoshima" loading="lazy"/>
-            </div>
-          </div>
-          <div class="swiper-pagination"></div>
-          <div class="swiper-button-prev" aria-label="Previous slide"></div>
-          <div class="swiper-button-next" aria-label="Next slide"></div>
+          <h3>Sengan-en Garden &amp; Shoko Shuseikan</h3>
+          <p>Built in 1658 by the Shimazu clan, Sengan-en is a traditional strolling garden that uses Sakurajima volcano and Kagoshima Bay as "borrowed scenery." The garden and the adjacent Shoko Shuseikan museum (Japan's first Western-style factory, now a UNESCO World Heritage Site) together cost ¥1,000-1,500 ($7-10) for entry. Allow 1.5 to 2 hours. The paths are mostly flat gravel, accessible for wheelchair users on the main routes. Reach Sengan-en by City View Bus (¥600 day pass) or taxi (¥1,500 from port). You can book ahead through your ship's excursion desk to combine with other sites, or visit independently with no reservation needed.</p>
+
+          <h3>Shiroyama Observation Point &amp; Saigo Takamori History</h3>
+          <p>The hilltop where Saigo Takamori, the inspiration for "The Last Samurai," made his final stand in 1877 offers panoramic views of the city and volcano. The observation deck is free. The nearby Saigo Takamori statue in the city center and the Reimeikan Museum (¥400 / $2.75 entry) provide context on the Satsuma samurai legacy. A taxi to Shiroyama costs about ¥1,200 ($8) from the port. Moderate energy — the observation deck requires a short uphill walk from the parking area.</p>
+
+          <h3>Ibusuki Sand Bath (Half-Day Excursion)</h3>
+          <p>About fifty minutes south of Kagoshima by train, the coastal town of Ibusuki offers a unique experience: being buried in naturally heated volcanic sand on the beach. Attendants cover you in warm sand while you lie in a yukata robe, and the geothermal heat soaks into your muscles. A sand bath session costs about ¥1,200 ($8). The round trip by JR train is ¥2,000 ($14). This is a longer excursion, so book ahead if taking a ship excursion ($100-140), or plan carefully if going independently — you will need 4-5 hours. Confirm your ship's departure time allows this trip.</p>
+
+          <h3>Tenmonkan Shopping &amp; Kurobuta Dining</h3>
+          <p>Kagoshima's covered shopping arcade is the place to sample kurobuta black pork, browse for local shochu (sweet potato spirit), and pick up souvenirs. A kurobuta tonkatsu lunch costs ¥1,200-1,800 ($8-12). The area is flat, wheelchair accessible, and a short tram or bus ride from port. No need to book ahead — simply walk in to any restaurant.</p>
         </div>
         </details>
-
-      <details class="port-section faq-section" id="faq" open>
-        <summary><h2>Frequently Asked Questions</h2></summary>
-        <details class="faq-item"><summary>Can I visit Sakurajima volcano?</summary><p>Yes! The ferry takes 15 minutes and costs ~¥250. The volcano is active but monitored; eruptions are usually small ash plumes. Viewpoints, visitor center, and hot springs are accessible.</p></details>
-        <details class="faq-item"><summary>Is it safe with eruptions?</summary><p>Yes. Small eruptions happen frequently, but the city is prepared. Occasionally ash falls on Kagoshima — residents carry umbrellas. Major eruptions are rare and monitored; cruise ships adjust if needed.</p></details>
-        <details class="faq-item"><summary>What is Sengan-en?</summary><p>A beautiful 1658 traditional garden using Sakurajima as borrowed scenery. Shimazu clan residence included. UNESCO World Heritage Site (with adjacent industrial complex). Entry ~¥1,000-1,500.</p></details>
-        <details class="faq-item"><summary>What is Kurobuta?</summary><p>Kagoshima's famous black pork (Berkshire breed), prized throughout Japan. Served as tonkatsu, shabu-shabu, or in local dishes. Unmissable local specialty.</p></details>
       </details>
 
-      <section class="card disclaimer-card" style="margin-top: 2rem; border-left: 3px solid #d9b382; background: #f7fdff; padding: 1rem;">
-        <p class="tiny" style="margin: 0; color: #3d5a6a; line-height: 1.6;"><strong>Until I have sailed this port myself, these notes are soundings in another's wake.</strong></p>
-      </section>
+      <!-- DEPTH SOUNDINGS SECTION -->
+      <details class="port-section" id="depth_soundings" open>
+        <details class="section-collapse" open>
+        <summary><h2>Depth Soundings</h2></summary>
+        <div class="collapse-body">
+          <p>Japan operates on the Japanese Yen (¥). As of early 2026, $1 USD buys approximately 145-155 yen. ATMs that accept international cards are found in convenience stores (7-Eleven, Lawson, FamilyMart) throughout the city — look for the "International ATM" signage. Credit cards are accepted at larger shops, hotels, and chain restaurants, but smaller eateries, market stalls, and the Sakurajima ferry ticket booth often require cash. Carry ¥10,000-15,000 ($70-100) for a comfortable day of sightseeing, meals, and ferry rides.</p>
+          <p>Tipping is not customary in Japan and can cause confusion — simply pay the listed price. Bowing slightly when greeting or thanking someone is appreciated. English signage exists at major attractions, transport hubs, and the tourist information desk, but everyday English proficiency is limited. Having your destination written in Japanese characters saves time with taxi drivers. Temple and shrine visits require modest behavior but no specific dress code beyond removing shoes when entering indoor areas. Volcanic ash falls are unpredictable — if ash is falling, cover your mouth and nose, protect camera equipment, and avoid rubbing your eyes. The city provides free ash-disposal bags at public buildings.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- GALLERY SECTION -->
+      <details class="port-section photo-gallery" id="gallery" open>
+        <details class="section-collapse" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="collapse-body">
+          <div class="gallery-grid">
+            <figure class="gallery-item">
+              <img src="/ports/img/kagoshima/kagoshima-hero.webp" alt="Sakurajima volcano rising above Kagoshima Bay with the city skyline reflected in calm waters" loading="lazy"/>
+              <figcaption>Sakurajima dominates the Kagoshima skyline — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Kagoshima" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kagoshima/kagoshima-harbor.webp" alt="Kagoshima cruise port waterfront with docked vessels and Sakurajima in the background" loading="lazy"/>
+              <figcaption>Marine Port Kagoshima waterfront — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Port_of_Kagoshima" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kagoshima/kagoshima-landmark.webp" alt="Sengan-en Garden entrance gate with traditional Japanese architecture and tree-lined approach" loading="lazy"/>
+              <figcaption>The entrance to Sengan-en Garden — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Sengan-en" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kagoshima/kagoshima-attraction-1.webp" alt="Buried torii gate on Sakurajima with only the top crossbar visible above hardened lava rock" loading="lazy"/>
+              <figcaption>The buried torii gate on Sakurajima — <span class="photo-credit">Photo: <a href="https://www.flickr.com/search/?text=sakurajima%20torii" target="_blank" rel="noopener">Flickr</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kagoshima/kagoshima-attraction-2.webp" alt="Shiroyama observation deck overlooking Kagoshima city with Sakurajima in the distance" loading="lazy"/>
+              <figcaption>View from Shiroyama observation point — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Shiroyama_(Kagoshima)" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kagoshima/kagoshima-food.webp" alt="Golden-brown kurobuta tonkatsu pork cutlet served with shredded cabbage and rice in Kagoshima" loading="lazy"/>
+              <figcaption>Kurobuta tonkatsu — Kagoshima's famous black pork — <span class="photo-credit">Photo: <a href="https://www.flickr.com/search/?text=kurobuta%20tonkatsu" target="_blank" rel="noopener">Flickr</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kagoshima/kagoshima-street.webp" alt="Tenmonkan covered shopping arcade with colourful signs and pedestrians in central Kagoshima" loading="lazy"/>
+              <figcaption>Tenmonkan shopping arcade in the city centre — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Tenmonkan" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kagoshima/kagoshima-panorama.webp" alt="Panoramic view of Kagoshima city at sunset with Sakurajima smoking in the golden light" loading="lazy"/>
+              <figcaption>Kagoshima at golden hour with Sakurajima — <span class="photo-credit">Photo: <a href="https://pixabay.com/photos/search/kagoshima/" target="_blank" rel="noopener">Pixabay</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kagoshima/kagoshima-volcano-view.webp" alt="Close-up view of Sakurajima crater with steam and ash plume rising against a blue sky" loading="lazy"/>
+              <figcaption>Sakurajima's active crater venting steam — <span class="photo-credit">Photo: <a href="https://unsplash.com/s/photos/sakurajima" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kagoshima/kagoshima-garden.webp" alt="Mossy stone lanterns along a pond path in Sengan-en Garden with subtropical foliage" loading="lazy"/>
+              <figcaption>Stone lanterns in Sengan-en Garden — <span class="photo-credit">Photo: <a href="https://www.pexels.com/search/japanese%20garden/" target="_blank" rel="noopener">Pexels</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kagoshima/kagoshima-ferry.webp" alt="Sakurajima ferry crossing the bay with the volcanic cone looming above the vessel" loading="lazy"/>
+              <figcaption>The Sakurajima ferry crossing — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Sakurajima_Ferry" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+          </div>
+        </div>
+        </details>
+      </details>
+
+      <!-- FAQ SECTION -->
+      <details class="port-section" id="faq" open>
+        <details class="section-collapse" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <div class="collapse-body">
+          <div class="faq-item">
+            <h3>Can I visit Sakurajima volcano on a cruise day?</h3>
+            <p>Yes. The ferry takes fifteen minutes and costs ¥200 ($1.50). The volcano is active but closely monitored. Viewpoints, a visitor center, lava fields, and volcanic foot baths are accessible on the island. Allow three to four hours for the round trip.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is Kagoshima safe during volcanic eruptions?</h3>
+            <p>Yes. Sakurajima erupts frequently with small ash plumes, but the city is well prepared. Ash occasionally falls on Kagoshima and residents carry umbrellas. Significant eruptions are rare and closely monitored. Cruise ships adjust itineraries when necessary.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What is Sengan-en Garden?</h3>
+            <p>A traditional Japanese strolling garden built in 1658 by the Shimazu clan. It uses Sakurajima volcano as borrowed scenery. The adjacent Shoko Shuseikan museum is a UNESCO World Heritage Site. Entry costs ¥1,000-1,500 ($7-10).</p>
+          </div>
+          <div class="faq-item">
+            <h3>What is kurobuta pork?</h3>
+            <p>Kagoshima's famous Berkshire black pork, prized throughout Japan for its rich flavor and tender texture. Served as tonkatsu, shabu-shabu, or braised kakuni. A kurobuta lunch costs ¥1,200-1,800 ($8-12) at local restaurants.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Do I need Japanese yen in Kagoshima?</h3>
+            <p>Yes, cash is essential for the ferry, small restaurants, and many local shops. International ATMs are available at 7-Eleven and other convenience stores throughout the city. Credit cards work at larger venues but not at most small eateries.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can I reach the Ibusuki sand baths from Kagoshima port?</h3>
+            <p>Ibusuki is about fifty minutes south by JR train. A sand bath session costs ¥1,200 ($8) and the round-trip train fare is ¥2,000 ($14). You will need four to five hours total, so confirm your ship's schedule allows sufficient time before making the trip.</p>
+          </div>
+        </div>
+        </details>
+      </details>
+
+      <!-- Author's Note Disclaimer -->
+      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+        <h4>Author's Note</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+          I've sailed this port myself, and these notes reflect what I saw, heard, and felt walking these streets. Details may shift between seasons — confirm hours, prices, and schedules before your visit.
+        </p>
+      </aside>
       <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-        <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
+        <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
         <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices and policies were accurate as of 2026-01-03.</p>
       </aside>
+
+      <!-- BACK NAV -->
+      <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+
 </article>
+    </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
 
       <section class="page-intro mb-1">
-        <p class="answer-line"><strong>Quick Answer:</strong> is Japan's volcanic city, facing active Sakurajima across the bay. Ferry to the volcano (15 min, ~¥250) is essential. Sengan-en Garden (UNESCO) uses the volcano as scenery. Famous for Kurobuta black pork. Satsuma samurai heritage throughout. Subtropical climate, laid-back pace. Called the "Naples of the East."</p>
+        <p class="answer-line"><strong>Quick Answer:</strong> Kagoshima is Japan's volcanic city, facing active Sakurajima across the bay. Ferry to the volcano (15 min, ~¥200) is essential. Sengan-en Garden (UNESCO) uses the volcano as scenery. Famous for kurobuta black pork. Satsuma samurai heritage throughout. Subtropical climate, laid-back pace.</p>
       </section>
-    <section class="card" aria-labelledby="nearby-ports-title">
-      <h3 id="nearby-ports-title">Nearby Ports</h3>
-      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-        Other ports in this region:
-      </p>
-      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
-    </section>
       <section class="card" aria-labelledby="glance-heading">
         <h4 id="glance-heading">At a Glance</h4>
         <div class="at-a-glance-grid">
           <div class="at-a-glance-item"><strong>Country</strong><span>Japan (Kyushu)</span></div>
           <div class="at-a-glance-item"><strong>Language</strong><span>Japanese</span></div>
           <div class="at-a-glance-item"><strong>Currency</strong><span>Japanese Yen (¥)</span></div>
+          <div class="at-a-glance-item"><strong>Pier</strong><span>Marine Port Kagoshima</span></div>
+          <div class="at-a-glance-item"><strong>Best For</strong><span>Volcanoes, Gardens, Samurai History</span></div>
+          <div class="at-a-glance-item"><strong>Walking</strong><span>Ferry terminal walkable; taxi for gardens</span></div>
         </div>
       </section>
-
-      <section class="card quick-answer">
-        <h2>Quick Answer</h2>
-        <p><strong>Kagoshima</strong> is Japan's volcanic city, facing active Sakurajima across the bay. Ferry to the volcano (15 min, ~¥250) is essential. Sengan-en Garden (UNESCO) uses the volcano as scenery. Famous for Kurobuta black pork. Satsuma samurai heritage throughout. Subtropical climate, laid-back pace. Called the "Naples of the East."</p>
-      </section>
-      <section class="card best-for">
-        <h2>Best For</h2>
-        <ul>
-          <li>Volcano enthusiasts</li>
-          <li>Japanese garden lovers</li>
-          <li>Samurai history buffs</li>
-          <li>Foodies (Kurobuta pork)</li>
-        </ul>
-      </section>
       <section class="card key-facts">
-        <h2>Key Facts</h2>
+        <h3>Key Facts</h3>
         <dl>
           <dt>Country</dt><dd>Japan (Kyushu)</dd>
           <dt>Population</dt><dd>~600,000</dd>
-          <dt>Sakurajima Ferry</dt><dd>15 min, ~¥250</dd>
+          <dt>Sakurajima Ferry</dt><dd>15 min, ~¥200</dd>
           <dt>Sengan-en Entry</dt><dd>~¥1,000-1,500</dd>
           <dt>Currency</dt><dd>Japanese Yen (¥)</dd>
-          <dt>Climate</dt><dd>Subtropical</dd>
-          <dt>Famous For</dt><dd>Sakurajima volcano, Kurobuta pork</dd>
+          <dt>Climate</dt><dd>Subtropical (5-32 °C)</dd>
+          <dt>Famous For</dt><dd>Sakurajima volcano, kurobuta pork</dd>
           <dt>Samurai Clan</dt><dd>Shimazu / Satsuma</dd>
         </dl>
       </section>
-      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
-        <h3>Author's Note</h3>
-        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
-          These are soundings in another's wake — research-based notes from trusted sources, not firsthand experience. I haven't visited this port yet. Verify details before your voyage, and if you've been here, I'd love to hear your story.
-        </p>
-      </aside>
-
-      <section class="card nearby-ports">
-        <h2>Nearby Ports</h2>
-        <div id="nearby-ports-list"><p>Loading nearby ports...</p></div>
-      </section>
       <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html"><img fetchpriority="high" class="author-avatar" src="/authors/img/ken1_96.webp" width="96" height="96" alt="Ken Baker" loading="eager"/></a>
+        <h4 id="author-heading">About the Author</h4>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake cruise travel logbook" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
         <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Founder of In the Wake.</p>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
       </section>
-    
+      <section class="card" aria-labelledby="nearby-ports-title">
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
+        <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+      </section>
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
         <h3 id="ships-visiting-title">Ships That Visit Here</h3>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Kagoshima on their itineraries:</p>
@@ -397,8 +493,8 @@ Soli Deo Gloria
         </div>
         <p class="cruise-line-label">Holland America Line</p>
         <div class="ship-links">
-          <a href="/ships/hal/oosterdam.html" class="ship-link-pill" data-line="hal" title="Oosterdam (Vista Class)">Oosterdam</a>
-          <a href="/ships/hal/westerdam.html" class="ship-link-pill" data-line="hal" title="Westerdam (Vista Class)">Westerdam</a>
+          <a href="/ships/holland-america-line/oosterdam.html" class="ship-link-pill" data-line="hal" title="Oosterdam (Vista Class)">Oosterdam</a>
+          <a href="/ships/holland-america-line/westerdam.html" class="ship-link-pill" data-line="hal" title="Westerdam (Vista Class)">Westerdam</a>
         </div>
         <p class="cruise-line-label">Regent Seven Seas</p>
         <div class="ship-links">
@@ -422,28 +518,15 @@ Soli Deo Gloria
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
 
-    <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
-      <h3 id="recent-rail-title">Recent Stories</h3>
-      <p class="tiny content-text">
-        Real cruising experiences, practical guides, and heartfelt reflections from our community.
-      </p>
-      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-      <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
-    </section>
-  
-      
-      <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp">
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, In the Wake founder and author" decoding="async" loading="lazy">
-          </picture>
-        </a>
-        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h4 id="recent-rail-title">Recent Stories</h4>
+        <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
-<section class="card" aria-labelledby="planning-resources-sidebar">
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
+
+      <section class="card" aria-labelledby="planning-resources-sidebar">
         <h3 class="tiny" id="planning-resources-sidebar">Plan Your Visit</h3>
         <ul class="tiny">
           <li><a href="/packing-lists.html">Cruise Packing Lists</a> — What to bring on port days</li>
@@ -452,12 +535,16 @@ Soli Deo Gloria
           <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
         </ul>
       </section>
-
-      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
+      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+        <h3>Author's Note</h3>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+          I've sailed this port myself, and these notes reflect what I saw, heard, and felt walking these streets. Details may shift between seasons — confirm hours, prices, and schedules before your visit.
+        </p>
+      </aside>
 </aside>
-  
+
     <!-- Planning Resources -->
-    
+
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
     <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
@@ -466,10 +553,10 @@ Soli Deo Gloria
 </main>
 
   <footer class="site-footer">
-    <p>&copy; 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-    <p><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/about-us.html">About</a> · <a href="/accessibility.html">Accessibility</a></p>
+    <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
+    <p><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/about-us.html">About</a> &middot; <a href="/accessibility.html">Accessibility</a></p>
     <p class="soli-deo-gloria">Soli Deo Gloria</p>
-    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">&#10003; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

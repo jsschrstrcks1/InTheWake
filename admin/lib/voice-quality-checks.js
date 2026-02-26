@@ -12,6 +12,9 @@
  *   V04  Window Pane violations (overwrought prose, rhythm tricks)
  *   V05  Warmth violations (forced anecdotes, emotional stacking, slang)
  *   V06  Corporate filler (inflated abstractions, buzzwords)
+ *   V07  Authenticity risk (sentence predictability, transition density, specificity)
+ *   V08  Authority First positive (concrete details present: prices, times, distances)
+ *   V09  Fairness Rule balance (absolutes vs contextual qualifiers)
  *
  * Usage (ESM):
  *   import { validateVoiceQuality } from './lib/voice-quality-checks.js';
@@ -152,6 +155,112 @@ const CORPORATE_FILLER_PATTERNS = [
   { pattern: /\bsecond to none\b/gi, label: '"second to none" — inflated', severity: 'warning' },
 ];
 
+// =============================================================================
+// V07: AUTHENTICITY RISK (Sentence predictability, transition density)
+// From Like-a-human.md → "Authenticity Risk (Internal Only)"
+// Detects template-heavy content that passes pattern checks but reads as AI slop.
+// =============================================================================
+
+/**
+ * Score authenticity risk based on quantitative signals.
+ * Returns { risk: 'low'|'medium'|'high', signals: string[], score: number }
+ */
+function assessAuthenticityRisk(text) {
+  const signals = [];
+  let score = 0; // Higher = more AI-sounding
+
+  const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 10);
+  if (sentences.length < 5) return { risk: 'low', signals: ['too few sentences to assess'], score: 0 };
+
+  // 1. Sentence starter repetition — templated content starts sentences the same way
+  const starters = sentences.map(s => s.trim().split(/\s+/).slice(0, 2).join(' ').toLowerCase());
+  const starterCounts = {};
+  for (const s of starters) { starterCounts[s] = (starterCounts[s] || 0) + 1; }
+  const maxRepeat = Math.max(...Object.values(starterCounts));
+  const repeatRatio = maxRepeat / sentences.length;
+  if (repeatRatio > 0.25) {
+    const topStarter = Object.entries(starterCounts).sort((a, b) => b[1] - a[1])[0];
+    signals.push(`${Math.round(repeatRatio * 100)}% of sentences start with "${topStarter[0]}"`);
+    score += repeatRatio > 0.4 ? 3 : 2;
+  }
+
+  // 2. Transition word density — too many transitions = over-structured
+  const transitionWords = text.match(/\b(however|moreover|furthermore|additionally|consequently|nevertheless|therefore|thus|hence|meanwhile|subsequently|accordingly|likewise|similarly|in addition|as a result|on the other hand|in contrast|for instance|for example)\b/gi) || [];
+  const transitionDensity = transitionWords.length / (sentences.length || 1);
+  if (transitionDensity > 0.3) {
+    signals.push(`High transition density: ${transitionWords.length} transitions in ${sentences.length} sentences`);
+    score += transitionDensity > 0.5 ? 3 : 2;
+  }
+
+  // 3. Section length uniformity — suspiciously similar paragraph lengths
+  const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 50);
+  if (paragraphs.length >= 4) {
+    const lengths = paragraphs.map(p => p.split(/\s+/).length);
+    const mean = lengths.reduce((a, b) => a + b, 0) / lengths.length;
+    const variance = lengths.reduce((sum, l) => sum + Math.pow(l - mean, 2), 0) / lengths.length;
+    const cv = Math.sqrt(variance) / (mean || 1); // coefficient of variation
+    if (cv < 0.15 && mean > 30) {
+      signals.push(`Suspiciously uniform paragraph lengths (CV: ${cv.toFixed(2)}, avg: ${Math.round(mean)} words)`);
+      score += 2;
+    }
+  }
+
+  // 4. Specificity density — authentic content has concrete details
+  const specifics = (text.match(/\$\d|USD|\d+\s*(min|hour|mile|km|block|meter|feet|ft)\b|\d{1,2}:\d{2}\s*(am|pm|a\.m\.|p\.m\.)/gi) || []).length;
+  const specificityRatio = specifics / (sentences.length || 1);
+  if (specificityRatio < 0.05 && sentences.length > 20) {
+    signals.push(`Low specificity: only ${specifics} concrete details in ${sentences.length} sentences`);
+    score += 2;
+  }
+
+  const risk = score >= 5 ? 'high' : score >= 3 ? 'medium' : 'low';
+  return { risk, signals, score };
+}
+
+// =============================================================================
+// V08: AUTHORITY FIRST — POSITIVE CHECK
+// From Like-a-human.md → "Authority First Rule"
+// "At least one specific, concrete detail is present"
+// =============================================================================
+
+const CONCRETE_DETAIL_PATTERNS = [
+  /\$\d+/,                                          // Dollar amounts
+  /\d+\s*(min(ute)?s?|hours?|hr)\b/i,              // Time references
+  /\d+\s*(miles?|km|kilometers?|blocks?|feet|ft|meters?|m)\b/i, // Distance
+  /\d{1,2}:\d{2}\s*(am|pm|a\.m\.|p\.m\.)/i,        // Specific times
+  /\d+\s*%/,                                         // Percentages
+  /\b(opened?|built|founded|established)\s+in\s+\d{4}\b/i, // Historical dates
+];
+
+// =============================================================================
+// V09: FAIRNESS RULE — CONTEXT vs ABSOLUTES
+// From Like-a-human.md → "Fairness Rule"
+// "Replace absolutes with context, hype with comparison"
+// =============================================================================
+
+const ABSOLUTE_PATTERNS = [
+  /\balways\b/gi,
+  /\bnever\b/gi,
+  /\beveryone\b/gi,
+  /\bno one\b/gi,
+  /\beverything\b/gi,
+  /\bnothing\b/gi,
+];
+
+const CONTEXT_PATTERNS = [
+  /\bcompared to\b/gi,
+  /\brather than\b/gi,
+  /\bwhereas\b/gi,
+  /\bunlike\b/gi,
+  /\bfor this (price|budget|size|type)\b/gi,
+  /\bgiven (the|its|that)\b/gi,
+  /\bin (my|our) experience\b/gi,
+  /\btypically\b/gi,
+  /\busually\b/gi,
+  /\btends to\b/gi,
+  /\bdepending on\b/gi,
+];
+
 
 // =============================================================================
 // MAIN VALIDATION FUNCTION
@@ -263,6 +372,71 @@ export function validateVoiceQuality(text, options = {}) {
     }
   }
 
+  // --- V07: Authenticity Risk ---
+  let authenticityResult = null;
+  if (!skipChecks.has('V07')) {
+    authenticityResult = assessAuthenticityRisk(text);
+    if (authenticityResult.risk === 'high') {
+      allFindings.push({
+        check: 'V07',
+        label: `High authenticity risk: ${authenticityResult.signals.join('; ')}`,
+        severity: 'warning',
+        count: authenticityResult.score,
+        sample: authenticityResult.signals[0] || 'multiple signals'
+      });
+    } else if (authenticityResult.risk === 'medium') {
+      allFindings.push({
+        check: 'V07',
+        label: `Medium authenticity risk: ${authenticityResult.signals.join('; ')}`,
+        severity: 'info',
+        count: authenticityResult.score,
+        sample: authenticityResult.signals[0] || 'moderate signals'
+      });
+    }
+  }
+
+  // --- V08: Authority First (positive) — concrete details present ---
+  if (!skipChecks.has('V08') && wordCount >= 500) {
+    let concreteDetailCount = 0;
+    for (const pattern of CONCRETE_DETAIL_PATTERNS) {
+      const matches = text.match(new RegExp(pattern.source, pattern.flags + (pattern.flags.includes('g') ? '' : 'g')));
+      if (matches) concreteDetailCount += matches.length;
+    }
+    if (concreteDetailCount < 3) {
+      allFindings.push({
+        check: 'V08',
+        label: `Only ${concreteDetailCount} concrete detail(s) found (prices, times, distances). Authority requires specific, verifiable details.`,
+        severity: 'warning',
+        count: 1,
+        sample: `${concreteDetailCount} concrete details in ${wordCount} words`
+      });
+    }
+  }
+
+  // --- V09: Fairness Rule — absolutes vs context ---
+  if (!skipChecks.has('V09') && wordCount >= 500) {
+    let absoluteCount = 0;
+    let contextCount = 0;
+    for (const pattern of ABSOLUTE_PATTERNS) {
+      const matches = text.match(pattern);
+      if (matches) absoluteCount += matches.length;
+    }
+    for (const pattern of CONTEXT_PATTERNS) {
+      const matches = text.match(pattern);
+      if (matches) contextCount += matches.length;
+    }
+    // Flag when absolutes far outweigh context-providing language
+    if (absoluteCount > 10 && contextCount < 2) {
+      allFindings.push({
+        check: 'V09',
+        label: `${absoluteCount} absolute claims with only ${contextCount} contextual qualifiers. Fairness Rule: replace absolutes with context.`,
+        severity: 'warning',
+        count: 1,
+        sample: `${absoluteCount} absolutes, ${contextCount} qualifiers`
+      });
+    }
+  }
+
   // --- Categorize findings into errors / warnings / info ---
   for (const f of allFindings) {
     const entry = {
@@ -304,7 +478,11 @@ export function validateVoiceQuality(text, options = {}) {
       authority_violations: byCategoryCount['V03'] || 0,
       window_pane_violations: byCategoryCount['V04'] || 0,
       warmth_violations: byCategoryCount['V05'] || 0,
-      corporate_filler: byCategoryCount['V06'] || 0
+      corporate_filler: byCategoryCount['V06'] || 0,
+      authenticity_risk: authenticityResult?.risk || 'not assessed',
+      authenticity_signals: authenticityResult?.signals || [],
+      authority_positive: byCategoryCount['V08'] || 0,
+      fairness_balance: byCategoryCount['V09'] || 0
     }
   };
 }
@@ -320,5 +498,9 @@ export const VOICE_CHECKS = {
   UNQUALIFIED_SUPERLATIVE_PATTERNS,
   WINDOW_PANE_PATTERNS,
   WARMTH_VIOLATION_PATTERNS,
-  CORPORATE_FILLER_PATTERNS
+  CORPORATE_FILLER_PATTERNS,
+  CONCRETE_DETAIL_PATTERNS,
+  ABSOLUTE_PATTERNS,
+  CONTEXT_PATTERNS,
+  assessAuthenticityRisk
 };
