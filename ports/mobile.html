@@ -427,6 +427,24 @@ Soli Deo Gloria
         </details>
       </details>
 
+      <!-- INTERACTIVE PORT MAP -->
+      <details class="port-section port-map-section" id="port-map-section" open>
+        <summary><h3>Mobile Port Map</h3></summary>
+        <p class="map-intro">Interactive map showing cruise terminal and Mobile attractions. Click any marker for details.</p>
+        <div id="mobile-port-map" class="port-map-container" role="application" aria-label="Interactive map of Mobile port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=30.6954&mlon=-88.0399#map=12/30.6954/-88.0399" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('mobile-port-map')._portMap?.fitBounds(document.getElementById('mobile-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+      </details>
+
       <!-- EXCURSIONS & ACTIVITIES SECTION -->
       <details class="port-section" id="excursions" open>
         <details class="section-collapse" open>
@@ -637,24 +655,6 @@ Soli Deo Gloria
         </p>
       </aside>
     </aside>
-
-    <!-- Interactive Port Map -->
-    <details class="port-section port-map-section" id="port-map-section" open>
-      <summary><h3>Mobile Area Map</h3></summary>
-      <p class="map-intro">Interactive map showing cruise terminal and Mobile attractions. Click any marker for details.</p>
-      <div id="mobile-port-map" class="port-map-container" role="application" aria-label="Interactive map of Mobile port and points of interest">
-        <noscript>
-          <p style="padding: 2rem; text-align: center; color: #678;">
-            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=30.6954&mlon=-88.0399#map=12/30.6954/-88.0399" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-          </p>
-        </noscript>
-      </div>
-      <div class="port-map-actions">
-        <button type="button" class="btn btn-secondary" onclick="document.getElementById('mobile-port-map')._portMap?.fitBounds(document.getElementById('mobile-port-map')._portMap.getBounds())">
-          Reset View
-        </button>
-      </div>
-    </details>
 
     <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
 
