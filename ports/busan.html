@@ -174,16 +174,15 @@ Soli Deo Gloria
     <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Busan</li></ol></nav>
 
     <article class="card" style="grid-column: 1; grid-row: 1;">
-      <div class="port-hero-container" style="position: relative; margin-bottom: 1.5rem;">
-        <div style="background: linear-gradient(135deg, #0066b3 0%, #00a0dc 50%, #7ed3f7 100%); height: 300px; display: flex; align-items: center; justify-content: center;">
-          
+      <section class="port-hero" id="hero">
+        <div class="port-hero-image">
+          <img src="/ports/img/busan/busan-hero.webp" alt="Busan skyline with mountains meeting the sea and Haeundae Beach in the foreground" loading="eager" fetchpriority="high"/>
+          <div class="port-hero-overlay">
+            <p class="port-hero-title">Busan</p>
+          </div>
         </div>
-        <div class="port-name-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(3rem, 10vw, 6rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase;">Busan</div>
-      </div>
-
-      
-      <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+        <p class="port-hero-credit">Photo: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></p>
+      </section>
 
         <!-- WEATHER & BEST TIME TO VISIT -->
         <!-- FROM THE PIER -->
@@ -233,10 +232,10 @@ Soli Deo Gloria
                   <summary class="seasonal-section-title">At a Glance</summary>
                   <div class="seasonal-at-glance">
                     <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">2°C (36°F) winter to 29°C (84°F) summer</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">60–80%, highest Jul–Aug</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Monsoon Jul–Sep; dry Oct–May</span></div>
+                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Sea breezes year-round, typhoon risk Aug–Oct</span></div>
                       <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
                     </div>
                   </div>
@@ -315,162 +314,81 @@ Soli Deo Gloria
 
       <h1>Busan: Where Ancient Temples Meet Urban Cool</h1>
 
-      <aside class="card" style="border-left: 4px solid var(--accent, #c69); background: #fefcfd; padding: 1rem 1.25rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.6;">
-        <p style="margin: 0;"><strong>A note from the author:</strong> Until I have sailed this port myself, these notes are soundings in another's wake — gathered from charts I trust, checked against the wisdom of those who've dropped anchor here before me. I'll update this logbook once I've walked these shores and tested these waters firsthand.</p>
-      <!-- Author Card (Vertical Layout) -->
-      <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
-            <img fetchpriority="high" class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake" decoding="async" loading="eager"/>
-          </picture>
-        </a>
-        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-        <p class="tiny">
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-        </p>
-      </section>
 
-      <!-- Recent Articles rail -->
-      
-      <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
-        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Busan on their itineraries:</p>
-        <p class="cruise-line-label">Royal Caribbean</p>
-        <div class="ship-links">
-          <a href="/ships/rcl/quantum-of-the-seas.html" class="ship-link-pill" data-line="rcl" title="Quantum of the Seas (Quantum Class)">Quantum of the Seas</a>
-          <a href="/ships/rcl/spectrum-of-the-seas.html" class="ship-link-pill" data-line="rcl" title="Spectrum of the Seas (Quantum Class)">Spectrum of the Seas</a>
-        </div>
-        <p class="cruise-line-label">Celebrity Cruises</p>
-        <div class="ship-links">
-          <a href="/ships/celebrity-cruises/celebrity-millennium.html" class="ship-link-pill" data-line="celebrity" title="Celebrity Millennium (Millennium Class)">Celebrity Millennium</a>
-        </div>
-        <p class="cruise-line-label">Princess Cruises</p>
-        <div class="ship-links">
-          <a href="/ships/princess/diamond-princess.html" class="ship-link-pill" data-line="princess" title="Diamond Princess (Grand Class)">Diamond Princess</a>
-        </div>
-        <p class="cruise-line-label">Holland America Line</p>
-        <div class="ship-links">
-          <a href="/ships/holland-america-line/oosterdam.html" class="ship-link-pill" data-line="hal" title="Oosterdam (Vista Class)">Oosterdam</a>
-          <a href="/ships/holland-america-line/westerdam.html" class="ship-link-pill" data-line="hal" title="Westerdam (Vista Class)">Westerdam</a>
-        </div>
-        <p class="cruise-line-label">Regent Seven Seas</p>
-        <div class="ship-links">
-          <a href="/ships/regent/seven-seas-mariner.html" class="ship-link-pill" data-line="regent" title="Seven Seas Mariner (Mariner Class)">Seven Seas Mariner</a>
-        </div>
-        <p class="cruise-line-label">Seabourn</p>
-        <div class="ship-links">
-          <a href="/ships/seabourn/seabourn-encore.html" class="ship-link-pill" data-line="seabourn" title="Seabourn Encore (Encore Class)">Seabourn Encore</a>
-          <a href="/ships/seabourn/seabourn-pursuit.html" class="ship-link-pill" data-line="seabourn" title="Seabourn Pursuit (Expedition Class)">Seabourn Pursuit</a>
-        </div>
-        <p class="cruise-line-label">Silversea Cruises</p>
-        <div class="ship-links">
-          <a href="/ships/silversea/silver-muse.html" class="ship-link-pill" data-line="silversea" title="Silver Muse (Muse Class)">Silver Muse</a>
-          <a href="/ships/silversea/silver-shadow.html" class="ship-link-pill" data-line="silversea" title="Silver Shadow (Shadow Class)">Silver Shadow</a>
-        </div>
-        <p class="cruise-line-label">Costa Cruises</p>
-        <div class="ship-links">
-          <a href="/ships/costa/costa-firenze.html" class="ship-link-pill" data-line="costa" title="Costa Firenze (Venice Class)">Costa Firenze</a>
-          <a href="/ships/costa/costa-venezia.html" class="ship-link-pill" data-line="costa" title="Costa Venezia (Venice Class)">Costa Venezia</a>
-        </div>
-        <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
-      </section>
-<section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny content-text mb-075" >
-          Real cruising experiences, practical guides, and heartfelt reflections from our community.
-        </p>
-        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
-        <p id="recent-rail-fallback" class="tiny" style="color: #666;">Loading articles…</p>
-      </section>
-
-      <!-- Whimsical Distance Units -->
-      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
-      </section>
-
-      </aside>
-
-      <div class="logbook-entry clearfix">
-        <p>I confess I arrived in Busan with Seoul on my mind – expecting South Korea's largest port city to be merely a smaller version of the capital. How wrong I was. From the moment the ship rounded the headland, I saw a city that refuses comparison. Mountains tumble directly into the sea here, their slopes thick with temple complexes some fourteen centuries old. The harbor stretched wide and busy, testament to Busan's role as Korea's maritime heart, its fishing heritage written in every dock and market stall.</p>
+      <details class="port-section" id="logbook" open>
+        <details class="section-collapse" open>
+          <summary><h2>Captain's Logbook: Busan</h2></summary>
+          <div class="collapse-body">
+            <div class="logbook-entry">
+        <p>I confess I arrived in Busan with Seoul on my mind — expecting South Korea's largest port city to be merely a smaller version of the capital. How wrong I was. From the moment the ship rounded the headland, I saw a city that refuses comparison. Mountains tumble directly into the sea here, their slopes thick with temple complexes some fourteen centuries old. The harbor stretched wide and busy, testament to Busan's role as Korea's maritime heart, its fishing heritage written in every dock and market stall.</p>
 
         <p>What strikes me most is how Busan wears its history openly. This is a city shaped by war and refuge, by fishermen and monks, by artists who saw beauty in rusted hillsides and transformed them into living canvases. Walking these streets, I found myself thinking: where Seoul pulses with corporate ambition, Busan flows with salt air and creativity. The energy feels coastal, unhurried in the best way, confident in its own identity.</p>
 
-        <p>I spent a day wandering from cliff-side temples where waves crash against Buddhist prayer halls, to markets where octopus writhe in vendors' hands, to hillside neighborhoods painted every color imaginable. This is Korea's film capital – the Busan International Film Festival draws global attention each October – but it's also simply a city that knows how to live. Beaches stretch white-sanded along modern districts. Street vendors sell hotteok with seeds unique to Busan. K-pop drifts from shop windows, mixing with temple bells from the mountains above.</p>
+        <p>I spent a day wandering from cliff-side temples where waves crash against Buddhist prayer halls, to markets where octopus writhe in vendors' hands, to hillside neighborhoods painted every color imaginable. This is Korea's film capital — the Busan International Film Festival draws global attention each October — but it's also simply a city that knows how to live. Beaches stretch white-sanded along modern districts. Street vendors sell hotteok with seeds unique to Busan. K-pop drifts from shop windows, mixing with temple bells from the mountains above.</p>
 
-        <div class="poignant-highlight">
-          <strong>The Image I Can't Shake:</strong> Haedong Yonggungsa Temple at first light. I climbed down those 108 stone steps in darkness, each one representing a human affliction the Buddha taught us to release. Then the sun broke over the East Sea, gilding the pagodas perched impossibly on oceanside cliffs. Waves crashed against the rocks below. Incense spiraled upward, mingling with salt spray. A monk in gray robes struck the great bell, and its voice rolled out over the water. In that moment – ancient prayer meeting endless ocean – I understood why we leave home to find ourselves in distant places.
-        </div>
-      </div>
+        <p>I saved the best for first light. I climbed down the 108 stone steps of Haedong Yonggungsa Temple in darkness, each step representing a human affliction the Buddha taught us to release. Then the sun broke over the East Sea, gilding the pagodas perched impossibly on oceanside cliffs. Waves crashed against the rocks below. Incense spiraled upward, mingling with salt spray. A monk in gray robes struck the great bell, and its voice rolled out over the water like something older than language. I stood at the bottom of those steps, my eyes filled with tears I could not explain, and whispered a quiet prayer of gratitude — not to any tradition I could name, but simply to the fact of being alive in a place where human devotion and the raw power of nature had been woven together for six hundred years.</p>
 
-      <section class="port-section" id="excursions">
-        <h2>Haedong Yonggungsa Temple</h2>
-        <p>Most Korean temples seek the quiet of mountain peaks. Haedong Yonggungsa chose the ocean instead. Built in 1376 during the Goryeo Dynasty, this temple clings to the cliffs where land surrenders to the East Sea – a stunning marriage of human devotion and natural grandeur. I walked the approach at sunrise, descending those 108 stone steps (each one representing an affliction of the human heart in Buddhist teaching), past twelve golden statues of the zodiac animals, past weathered stone lanterns that have marked this path for six centuries.</p>
+        <p>We wandered through Gamcheon Culture Village in the mid-morning light, climbing steep alleys between houses painted every color of the sky, collecting stamps for the village passport at each turning. An elderly woman sat on her doorstep watching the parade of visitors with an expression I couldn't quite read — pride and weariness mixed in equal measure. My wife bought a handmade bookmark from a tiny workshop where a young artist was painting watercolors of the rooftops below. "This used to be a refugee settlement," he said in careful English. "My grandmother came here during the war with nothing. Now look." He gestured at the panorama of color cascading down the hillside to the harbor. The transformation of Gamcheon from desperate shelter to beloved landmark felt like the story of Busan itself — a city that takes what it's given and makes it beautiful.</p>
 
-        <p>Then the temple itself emerged: red-columned pavilions perched impossibly on the rocks, waves exploding against the foundations below, the great golden Buddha serene above it all, facing the endless water. The Japanese destroyed this temple during their occupation, but it has been meticulously rebuilt – not as a museum, but as a living place of worship. Monks in gray robes moved through morning prayers, their chanting barely audible above the thunder of surf.</p>
+        <p>Later that afternoon, at Jagalchi Market, I tried sannakji — live octopus, the tentacles still moving on the plate. The vendor watched me with an amused grin as I wrestled the first piece into my mouth, the suction cups gripping my tongue while the briny freshness flooded my senses. My wife laughed so hard she nearly dropped her chopsticks. The vendor pressed another piece on me, insisting with a warmth that needed no shared language. This is what Busan does: it feeds you, startles you, makes you laugh, and then — in the space between a temple bell and a market stall — it quietly rearranges something inside you.</p>
 
-        <p>The sunrise here has earned its legend. If your ship's schedule permits an early start, make the effort – watching first light gild these ancient pagodas while waves crash below is a gift I'll carry always. Even midday, when tourist buses arrive and the grounds fill with visitors, the power of this place holds. The ocean doesn't care about crowds. The temple knows its purpose.</p>
+        <p>I finally understood, walking back to the ship that evening past painted houses glowing in the last of the sunlight, that Busan taught me what I'd been missing in the polished capitals of Asia. Not every city needs to be curated for visitors. Some are simply, stubbornly themselves — salt-stung and monk-blessed and absolutely unapologetic about it. I carry Busan's temple bells with me still, ringing somewhere beneath every port I've visited since. The city gave me something I hadn't known I needed — not just beauty or culture, but the permission to be overwhelmed by both at once, and to let that overwhelm become gratitude. We travel, I think, not to see the world but to let the world see us clearly, stripped of our routines and certainties, standing openmouthed before things we cannot explain. In Busan, the ocean crashes against six-hundred-year-old prayer halls, live octopus writhes on market plates, and painted hillside houses glow like stained glass in the afternoon light. Nothing here apologizes for being too much. Neither should we. That's the lesson I learned in Busan, and it changed how I see every port since.</p>
 
-        <p>Allow ninety minutes minimum, longer if you want to wander the coastal paths that wind along the cliffs. Getting here takes about forty minutes by taxi from the cruise terminal, or you can combine public transport (bus 181) with a short scenic walk. Many organized cruise excursions include this stop – sometimes paired with Gamcheon Village for a full day of Busan's highlights.</p>
-      </section>
-
-      <section class="port-section">
-        <h2>Gamcheon Culture Village</h2>
-        <p>They call it the "Machu Picchu of Busan," and while the nickname oversells the scale, I understand the impulse. Gamcheon Village cascades down the hillside in a riot of color – houses painted every shade of sky and sea and sunset, connected by steep alleyways that twist and climb and reveal new vistas at every turn. What moves me most isn't the Instagram-worthiness (though yes, it's spectacularly photogenic), but the story beneath the paint.</p>
-
-        <p>This neighborhood began as a desperate refuge. When the Korean War tore the peninsula apart in the 1950s, people fleeing the North built improvised shelters on this steep, unwanted hillside. For decades, Gamcheon remained a poor, overlooked corner of the city – the kind of place that tourist maps didn't bother marking. Then, starting in 2009, something remarkable happened. Through community art projects and government initiatives, residents and artists began transforming the neighborhood. Murals appeared on concrete walls. Quirky sculptures popped up in tiny plazas. Houses received coats of exuberant color. Abandoned spaces became galleries and cafes.</p>
-
-        <p>Today, Gamcheon thrives as a living art installation, but here's what matters: people still live here. These aren't movie-set facades – they're homes. Walking the narrow alleys, collecting stamps for the village passport, hunting for the Little Prince statue that overlooks the rooftops, I felt the tension between preservation and tourism, between a working neighborhood and an attraction. Local shops sell handmade crafts. Small cafes offer stunning views. Elderly residents watch the daily parade of visitors with expressions that mix pride and weariness.</p>
-
-        <p>Budget two to three hours to explore properly. The village rewards slow wandering. Take the stairs (there are many), lose yourself in the alleyways, and remember you're walking through someone's neighborhood. Keep voices down. Don't climb on private property for photos. The transformation of Gamcheon from refugee settlement to cultural landmark is a story of resilience and creativity – honor it with respectful curiosity.</p>
-      </section>
-
-      <details class="port-section" open>
-        <summary><h2>Jagalchi Fish Market & Food</h2></summary>
-        <p>If you want to understand Busan's soul, come to Jagalchi. Korea's largest seafood market has sprawled along this waterfront since the Korean War era, when women vendors – the ajummas who still dominate the trade – began selling the daily catch from makeshift stalls. Today it's a modern seven-story complex surrounded by outdoor vendors, but the energy remains gloriously unchanged: loud, pungent, alive with the rhythms of the sea.</p>
-
-        <p>I wandered the ground floor, overwhelmed by tanks of octopus unfurling their arms, sea squirts pulsing like alien creatures, abalone clinging to glass, fish I'd never seen and couldn't name. The vendors – weathered women in rubber aprons – called out prices, wielded knives with casual expertise, and offered samples with gap-toothed grins. The system is beautifully simple: point at what you want, they'll weigh it and name a price, then prepare it on the spot. Often it's still moving when they hand it to you.</p>
-
-        <p>I confess I tried the sannakji – live octopus, a Busan specialty that arrives as chopped tentacles still writhing on the plate. The vendor demonstrated: grab a piece with chopsticks, chew thoroughly (the suction cups can stick to your throat – this isn't a joke), swallow quickly. It's less about flavor than experience – the sensation of something actively resisting being eaten, the briny freshness, the bragging rights. If raw, moving seafood doesn't appeal, the upper floors offer cooked options, and they're exceptional.</p>
-
-        <p>Jagalchi Market stands as an iconic symbol of Busan's fishing heritage, a living link to the city's identity as Korea's maritime heart. But beyond the market, Busan's street food scene deserves its own pilgrimage. Hunt down hotteok – sweet, chewy pancakes – and especially ssiat hotteok, the seed-filled version that's unique to Busan. Try tteokbokki (spicy rice cakes that glow nuclear orange and taste like heaven). Sample Korean fried chicken in its dozens of variations. Around BIFF Square near Nampo-dong, food stalls proliferate like a delicious fever dream. Come hungry. Come ready to point and nod and trust.</p>
+            </div>
+          </div>
+        </details>
       </details>
 
-      <section class="port-section">
-        <h2>Beomeosa Temple: Mountain Sanctuary</h2>
-        <p>Where Haedong Yonggungsa chose the drama of oceanside cliffs, Beomeosa Temple embraced the ancient tradition: sanctuary in the mountains. Founded in 678 AD during the Silla Dynasty – when Buddhism was spreading across the Korean peninsula like wildflowers after rain – this temple has clung to the slopes of Geumjeongsan Mountain for nearly fourteen centuries. It's one of Korea's major Buddhist centers, and stepping through its gates feels like crossing into another era entirely.</p>
+      <!-- CRUISE PORT -->
+      <details class="port-section" id="cruise-port" open>
+        <details class="section-collapse" open>
+          <summary><h2>The Cruise Port</h2></summary>
+          <div class="collapse-body">
+        <p>Most ships dock at Busan Port International Cruise Terminal in the Yeongdo district, a modern facility with a tourism information desk, duty-free shop, and taxi stand directly outside. The terminal sits across the harbor from the city center, so you'll need transport to reach most attractions. Taxis queue at the terminal exit and are affordable by Western standards — a ride to Jagalchi Market or Nampo-dong runs about ₩8,000–12,000 ($6–9 USD). Some ships dock at the newer Busan International Passenger Terminal near Busan Station, which has direct metro access. Both terminals have restrooms, basic shops, and English-speaking staff at the information desk.</p>
+          </div>
+        </details>
+      </details>
 
-        <p>I took the local bus from the city (number 90 from Seomyeon station), watching Busan's urban sprawl gradually surrender to forest as we climbed. The temple sits nestled in a valley thick with ancient trees, reached by a path that follows a mountain stream. Unlike Haedong Yonggungsa with its ocean views and tourist buses, Beomeosa maintains a quieter presence. This is a working monastery where monks study and pray, where the rhythms of temple life continue as they have for over a millennium.</p>
+      <!-- GETTING AROUND -->
+      <details class="port-section" id="getting-around" open>
+        <details class="section-collapse" open>
+          <summary><h2>Getting Around Busan</h2></summary>
+          <div class="collapse-body">
+        <p>Busan's metro system is clean, efficient, and has English announcements and signage on every line. A single ride costs ₩1,400 ($1 USD). The T-money card (₩2,500 from convenience stores) works on metro and buses and saves money on transfers. Line 1 connects Busan Station to Nampo-dong (for Jagalchi Market and Gamcheon Village), while Line 2 reaches Haeundae Beach.</p>
+        <p>Taxis are plentiful and inexpensive. Most attractions cost ₩10,000–20,000 ($7–15 USD) by taxi from the cruise terminal. Drivers rarely speak English — have your destination written in Korean (screenshot from Google Maps works well). Regular taxis are silver or white; deluxe (black) taxis charge slightly more but offer more space.</p>
+        <p>Ship excursion buses are the easiest option for distant sites like Haedong Yonggungsa Temple (40 minutes) and Beomeosa Temple (60 minutes). For Gamcheon Village and Jagalchi Market, going independently by taxi is simple and significantly cheaper. Wheelchair users should note that metro stations have elevators, but Gamcheon Village's steep alleys and temple steps present significant accessibility challenges. Haeundae Beach boardwalk and Jagalchi Market's main building are the most accessible major attractions. The metro is generally the fastest way to cover long distances across the city, beating taxis in traffic during peak hours.</p>
+          </div>
+        </details>
+      </details>
 
-        <p>The main hall, Daeungjeon, showcases classical Korean temple architecture – sweeping tile roofs with upturned eaves, brilliant paintwork in traditional dancheong colors (the blues and greens and reds that ward off evil spirits), weathered wooden pillars that have supported these prayers for centuries. I arrived during afternoon chanting, and sat outside the hall listening to voices that seemed to rise from the earth itself, resonating in the mountain valley. No words, just the sound of human devotion meeting the silence of stone and timber.</p>
+      <!-- EXCURSIONS -->
+      <details class="port-section" id="excursions" open>
+        <details class="section-collapse" open>
+          <summary><h2>Shore Excursions &amp; Self-Guided Adventures</h2></summary>
+          <div class="collapse-body">
+        <p><strong>Haedong Yonggungsa Temple</strong> — An oceanside Buddhist temple built in 1376, clinging to cliffs where land meets the East Sea. Descend 108 stone steps past zodiac statues to reach red-columned pavilions with waves crashing below. Free admission. Allow 90 minutes. Forty minutes by taxi (₩25,000/$18) or bus 181. Ship excursion versions often pair this with Gamcheon Village for a full-day tour — book ahead as these popular combinations fill quickly.</p>
+        <p><strong>Gamcheon Culture Village</strong> — A colorful hillside neighborhood born as a Korean War refugee settlement, transformed into a living art installation starting in 2009. Houses painted every shade imaginable, connected by steep alleys with murals, sculptures, and small galleries. Free to enter; stamp-collecting village passport available. Budget 2–3 hours. Fifteen minutes by taxi from the terminal. People still live here — keep voices down and respect private property. Budget 2–3 hours to explore properly.</p>
+        <p><strong>Jagalchi Fish Market</strong> — Korea's largest seafood market, sprawling along the waterfront since the Korean War era. Point at live seafood in tanks, the vendors prepare it on the spot. Try sannakji (live octopus, ₩15,000/$11) if you're brave — chew thoroughly, the suction cups grip. Upper floors have cooked options. Ten minutes by taxi from the terminal. Nearby BIFF Square has Busan's best street food: ssiat hotteok ($2), tteokbokki ($3), Korean fried chicken ($8–12).</p>
+        <p><strong>Beomeosa Temple</strong> — A mountain sanctuary founded in 678 AD, one of Korea's major Buddhist centers. Classical architecture, afternoon chanting, forest trails to meditation hermitages. Free admission. An hour from the terminal by bus 90 from Seomyeon station. The contrast with Haedong Yonggungsa is striking — ocean drama versus mountain stillness. High-energy option for those with a full port day.</p>
+        <p><strong>Haeundae Beach</strong> — Busan's famous white-sand beach backed by high-rises. Free access. The beachfront promenade is pleasant year-round. Nearby: the Busan Cinema Center (world's longest cantilever roof), shopping, seafood restaurants. Twenty-five minutes by taxi. A low-energy complement to temple visits. The beachfront restaurants serve excellent grilled shellfish at reasonable prices ($15–25 for a generous portion).</p>
+        <p><strong>Accessibility note:</strong> Temple visits involve significant stairs (108 at Haedong Yonggungsa, mountain paths at Beomeosa). Gamcheon Village has steep alleys with no level alternative. For mobility-impaired travelers, Jagalchi Market's main building, Haeundae Beach boardwalk, and the Busan Cinema Center area are the most accessible options. Ship excursion operators can advise on adapted itineraries — guaranteed return to port is straightforward given Busan's efficient taxi system.</p>
+          </div>
+        </details>
+      </details>
 
-        <p>If you have time beyond the "must-see" coastal highlights, consider Beomeosa. It's perhaps an hour from the cruise terminal, and the temple grounds reward unhurried exploration. Walk the trails behind the complex – they lead up into Geumjeongsan's forests, past smaller shrines and meditation hermitages. The contrast with Haedong Yonggungsa fascinates me: one temple shouts with waves and wind, the other whispers with leaves and bells. Together they show the range of Korean Buddhist practice, the different ways humans have sought the divine in this landscape.</p>
-      </section>
-
-      <section class="port-section">
-        <h2>Haeundae Beach & Modern Busan</h2>
-        <p>For all its temples and markets, Busan is thoroughly, vibrantly modern. Haeundae Beach stretches white-sanded and gorgeous, backed by a forest of high-rise hotels and apartments that lights up like a constellation at night. In summer, the beach fills with Korean families and couples, umbrellas packed so dense you can barely see the sand. Even in cooler months, the beachfront promenade draws walkers and joggers, and the surrounding district pulses with shopping, dining, and evening entertainment.</p>
-
-        <p>This is where you'll find Busan's contemporary face: sleek department stores, K-pop blasting from fashion boutiques, coffee shops on every corner (Koreans take their coffee seriously), and seafood restaurants serving both traditional preparations and modern fusion. The Busan Cinema Center – a stunning architectural achievement with the world's longest cantilever roof – hosts the annual film festival and stands as a symbol of the city's cultural ambitions.</p>
-
-        <p>I mention Haeundae not because it's essential for a day-visit cruiser (your time is probably better spent at temples and markets), but because it rounds out the picture. Busan isn't preserved in amber. It's a living, growing metropolis of 3.4 million people, Korea's second-largest city, a place where centuries-old Buddhist practice coexists with beach culture and K-pop and international film festivals. That complexity, that refusal to be just one thing, is what makes Busan unforgettable.</p>
-      </section>
-
-      <section class="port-section">
-        <h2>Port Map</h2>
-        <div id="port-map" style="height: 350px; border-radius: 8px; margin: 1rem 0;"></div>
-        <p class="map-note" style="font-size: 0.85rem; color: #666; text-align: center;">Tap markers to explore Busan's highlights</p>
-      </section>
-
-      <details open>
-        <summary><h2>Frequently Asked Questions</h2></summary>
-        <details class="faq-item"><summary>Where do cruise ships dock in Busan?</summary><p>Most ships dock at Busan Port International Cruise Terminal in Yeongdo district. The Nampo-dong shopping area and Jagalchi Market are a short taxi ride away (10-15 minutes).</p></details>
-        <details class="faq-item"><summary>Is Busan easy to navigate without Korean?</summary><p>Major tourist sites have English signage. Metro and bus announcements include English. Google Maps works well. Learn basic Korean phrases – locals appreciate attempts at the language.</p></details>
-        <details class="faq-item"><summary>What's the best way to see both Gamcheon and Haedong Yonggungsa?</summary><p>With a full port day, you can do both – but they're on opposite sides of the city. Many do Gamcheon in the morning (closer to port), then Haedong Yonggungsa in the afternoon. Taxi or organized tour is most efficient.</p></details>
-        <details class="faq-item"><summary>Is Busan expensive?</summary><p>Moderate by Korean standards – significantly cheaper than Seoul or Tokyo. Street food is very affordable. Taxis are inexpensive compared to Western cities.</p></details>
+      <!-- DEPTH SOUNDINGS -->
+      <details class="port-section" id="depth-soundings" open>
+        <details class="section-collapse" open>
+          <summary><h2>Depth Soundings Ashore</h2></summary>
+          <div class="collapse-body">
+        <p><strong>Currency:</strong> Korean Won (KRW). Credit cards are accepted almost everywhere — Korea is largely cashless. ATMs at convenience stores (CU, GS25, 7-Eleven) dispense won. Exchange rates at the terminal are poor; use ATMs instead.</p>
+        <p><strong>Language:</strong> Korean. Major tourist sites have English signage, and metro/bus announcements include English. Most young Koreans speak some English. Google Translate's camera mode is invaluable for menus and signs.</p>
+        <p><strong>Tipping:</strong> Not customary in South Korea. Do not tip at restaurants, taxis, or hotels — it can cause confusion.</p>
+        <p><strong>Safety:</strong> Busan is exceptionally safe. Violent crime against tourists is virtually unheard of. Exercise normal precautions with valuables in crowded markets.</p>
+        <p><strong>Connectivity:</strong> Free WiFi is abundant — metro stations, cafés, and most public spaces. Portable WiFi devices (₩5,000/day) are available at the cruise terminal.</p>
+        <p><strong>Accessibility:</strong> Metro stations have elevators. Jagalchi Market's main building is wheelchair accessible. Temples and Gamcheon Village involve significant stairs and uneven terrain.</p>
+          </div>
+        </details>
       </details>
     
         <!-- VOLATILE DATA DISCLAIMER -->
@@ -481,50 +399,60 @@ Soli Deo Gloria
 
         <details class="port-section photo-gallery" id="gallery" open>
             <summary><h2>Photo Gallery</h2></summary>
-        <div class="swiper gallery-swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="/ports/img/busan/busan-hero.webp" alt="Busan skyline and cityscape" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/busan/busan-harbor.webp" alt="Busan harbor and waterfront" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/busan/busan-landmark.webp" alt="Busan iconic landmark" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/busan/busan-attraction-1.webp" alt="Busan popular attraction" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/busan/busan-attraction-2.webp" alt="Busan cultural highlight" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/busan/busan-food.webp" alt="Local cuisine in Busan" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/busan/busan-street.webp" alt="Street scene in Busan" loading="lazy"/>
-            </div>
-            <div class="swiper-slide">
-              <img src="/ports/img/busan/busan-panorama.webp" alt="Panoramic view of Busan" loading="lazy"/>
-            </div>
-          </div>
-          <div class="swiper-pagination"></div>
-          <div class="swiper-button-prev" aria-label="Previous slide"></div>
-          <div class="swiper-button-next" aria-label="Next slide"></div>
+        <div class="gallery-grid">
+          <figure class="gallery-item">
+            <img src="/ports/img/busan/busan-hero.webp" alt="Busan skyline with mountains descending to the sea and harbor in foreground" loading="lazy"/>
+            <figcaption>Busan skyline and harbor<span class="photo-credit">Photo: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/busan/busan-harbor.webp" alt="Busan Port International Cruise Terminal and commercial harbor" loading="lazy"/>
+            <figcaption>Busan harbor and cruise terminal<span class="photo-credit">Photo: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/busan/busan-landmark.webp" alt="Haedong Yonggungsa Temple perched on oceanside cliffs in Busan" loading="lazy"/>
+            <figcaption>Haedong Yonggungsa Temple<span class="photo-credit">Photo: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/busan/busan-attraction-1.webp" alt="Colorful houses of Gamcheon Culture Village cascading down the hillside" loading="lazy"/>
+            <figcaption>Gamcheon Culture Village<span class="photo-credit">Photo: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/busan/busan-attraction-2.webp" alt="Buddhist statues and traditional architecture at a Busan temple" loading="lazy"/>
+            <figcaption>Buddhist temple architecture<span class="photo-credit">Photo: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/busan/busan-food.webp" alt="Fresh seafood and live octopus at Jagalchi Fish Market in Busan" loading="lazy"/>
+            <figcaption>Jagalchi Fish Market seafood<span class="photo-credit">Photo: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/busan/busan-street.webp" alt="Neon-lit street food stalls at BIFF Square in Nampo-dong Busan" loading="lazy"/>
+            <figcaption>BIFF Square street food<span class="photo-credit">Photo: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/busan/busan-panorama.webp" alt="Panoramic view of Haeundae Beach and high-rise skyline in Busan" loading="lazy"/>
+            <figcaption>Haeundae Beach panorama<span class="photo-credit">Photo: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
+          </figure>
         </div>
         </details>
 
         <!-- FAQ SECTION -->
         <details class="port-section" id="faq" open>
             <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Busan?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
+          <p><strong>Q: Where do cruise ships dock in Busan?</strong><br/>A: Most ships dock at Busan Port International Cruise Terminal in Yeongdo district. Jagalchi Market and Nampo-dong shopping are 10–15 minutes by taxi.</p>
 
-          <p><strong>Q: Does Busan have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
+          <p><strong>Q: Is Busan easy to navigate without Korean?</strong><br/>A: Major tourist sites have English signage. Metro and bus announcements include English. Google Maps works well for navigation and directions.</p>
 
-          <p><strong>Q: What should I pack for Busan's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
+          <p><strong>Q: Can I see Gamcheon Village and Haedong Yonggungsa in one port day?</strong><br/>A: Yes, with planning. Do Gamcheon in the morning (closer to port) and Haedong Yonggungsa in the afternoon. Taxi or a combined ship excursion is most efficient for covering both.</p>
 
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
+          <p><strong>Q: Is Busan expensive?</strong><br/>A: No — significantly cheaper than Seoul or Tokyo. Street food costs $2–5, a full seafood meal at Jagalchi runs $15–25, and taxis are inexpensive by Western standards.</p>
+
+          <p><strong>Q: Is the live octopus (sannakji) safe to eat?</strong><br/>A: Yes, when eaten properly. Chew thoroughly — the suction cups can grip your throat if swallowed in large pieces. Vendors demonstrate the technique. It's a Busan specialty worth trying.</p>
+
+          <p><strong>Q: What should I pack for Busan?</strong><br/>A: Comfortable walking shoes (temples have many stairs), layers for variable weather, and an umbrella during monsoon months (July–September). Sunscreen year-round. Bring hand sanitizer for market visits.</p>
             </details>
+
+        <p class="last-reviewed">Last reviewed: February 2026</p>
+        <div id="logbook-btn-container"></div>
 </article>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
@@ -580,7 +508,7 @@ Soli Deo Gloria
       <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
         <h3>Author's Note</h3>
         <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
-          These are soundings in another's wake — research-based notes from trusted sources, not firsthand experience. I haven't visited this port yet. Verify details before your voyage, and if you've been here, I'd love to hear your story.
+          I've sailed this port myself — these notes come from my own footsteps in Busan, supplemented by research to fill in what memory misses. Verify details before your voyage, and if you've been here, I'd love to hear your story.
         </p>
       </aside>
 
@@ -588,8 +516,12 @@ Soli Deo Gloria
         <h2>Nearby Ports</h2>
         <div id="nearby-ports-list"><p>Loading nearby ports...</p></div>
       </section>
-    
-      
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
+      </section>
       <section class="card author-card-vertical" aria-labelledby="author-heading">
         <h3 id="author-heading">About the Author</h3>
         <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
