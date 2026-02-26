@@ -22,13 +22,8 @@ Soli Deo Gloria
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/port-hero.jpg"/>
 
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
-  <script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
-  }
-  </script>
+  <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" integrity="sha256-dMpqrlRo28kkeQw7TSGaCJuQo0utU6D3yjpz5ztvWrg=" crossorigin="anonymous"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <link rel="stylesheet" href="/assets/css/components/port-map.css"/>
 
@@ -56,6 +51,20 @@ Soli Deo Gloria
       "name": "Hamburg",
       "geo": {"@type": "GeoCoordinates", "latitude": 53.542, "longitude": 9.990}
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "Where do cruise ships dock in Hamburg?", "acceptedAnswer": {"@type": "Answer", "text": "Cruise ships dock at Hamburg Cruise Center, with terminals in HafenCity and Altona. HafenCity is more central and within walking distance of major attractions."}},
+      {"@type": "Question", "name": "What is the Speicherstadt and why is it significant?", "acceptedAnswer": {"@type": "Answer", "text": "Speicherstadt is the world's largest warehouse district, a UNESCO World Heritage Site built between 1883 and 1927 with stunning red-brick Gothic Revival buildings."}},
+      {"@type": "Question", "name": "How do I get from the cruise terminal to Hamburg city center?", "acceptedAnswer": {"@type": "Answer", "text": "From HafenCity terminal walk 15-20 minutes, or take U3 from Baumwall station. From Altona terminal use the shuttle bus to Altona train station then S-Bahn."}},
+      {"@type": "Question", "name": "What currency is used in Hamburg?", "acceptedAnswer": {"@type": "Answer", "text": "Hamburg uses the Euro (EUR). Credit cards are widely accepted but cash is useful for smaller vendors and the Fischmarkt."}},
+      {"@type": "Question", "name": "Is Hamburg walkable from the cruise port?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, from HafenCity terminal. Speicherstadt is 5 minutes away, the Elbphilharmonie 10 minutes, and the city center about 20 minutes on flat terrain."}},
+      {"@type": "Question", "name": "What is the best way to get around Hamburg on a port day?", "acceptedAnswer": {"@type": "Answer", "text": "The Hamburg CARD (about 11 EUR per day) covers all public transport including U-Bahn, S-Bahn, buses, and harbour ferries, plus discounts at attractions. Harbour ferry line 62 is both transport and a scenic cruise."}}
+    ]
   }
   </script>
 
@@ -150,39 +159,40 @@ Soli Deo Gloria
   <main class="wrap page-grid" id="main-content" role="main">
     <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Hamburg</li></ol></nav>
 
-  <div style="grid-column: 1; grid-row: 1;">
-    <article class="card">
-      <!-- Hero Section -->
+    <div style="grid-column: 1; grid-row: 1;">
+      <article class="card">
+
+      <!-- HERO SECTION -->
       <section class="port-hero" id="hero" aria-label="Hamburg cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
-        <div class="port-hero-image" style="position: relative;">
-          <img src="/ports/img/hamburg/hamburg-1.webp" alt="AIDAsol cruise ship docked at Hamburg Cruise Center with industrial port cranes and container ships in the background" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover;"/>
-          <div class="port-hero-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 1.5rem 1rem; background: linear-gradient(transparent, rgba(0,0,0,0.7));">
-            <h1 class="port-hero-title" style="color: white; margin: 0; font-size: 2.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Hamburg</h1>
+        <div class="port-hero-image">
+          <img src="/ports/img/hamburg/hamburg-1.webp" alt="AIDAsol cruise ship docked at Hamburg Cruise Center with industrial port cranes and container ships in the background" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <div class="port-hero-overlay">
+            <p class="port-hero-title">Hamburg</p>
           </div>
         </div>
-        <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
+        <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Port_of_Hamburg" target="_blank" rel="noopener">Wikimedia Commons</a></p>
       </section>
 
+      <h1>Hamburg, Germany &mdash; Port Guide</h1>
       <p class="last-reviewed">Last reviewed: February 2026</p>
       <div id="journal-btn-container"></div>
 
-      <!-- WEATHER & BEST TIME TO VISIT -->
       <!-- FROM THE PIER -->
       <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Hamburg cruise terminal">
-        <h3>From the Pier</h3>
+        <h4>From the Pier</h4>
         <ul class="pier-distances">
           <li class="pier-distance-item">
-            <div><span class="pier-dest">Speicherstadt</span><div class="pier-detail">UNESCO red-brick warehouse district with Miniatur Wunderland, coffee museum. Walking distance from HafenCity</div></div>
+            <div><span class="pier-dest">Speicherstadt</span><div class="pier-detail">UNESCO red-brick warehouse district with Miniatur Wunderland and coffee museum. Walking distance from HafenCity</div></div>
             <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6B6;</span> 15 min</span>
             <div class="pier-bar"><div class="pier-bar-fill" style="width:12%"></div></div>
           </li>
           <li class="pier-distance-item">
-            <div><span class="pier-dest">Elbphilharmonie</span><div class="pier-detail">Concert hall on the harbour with free Plaza viewing platform and stunning architecture</div></div>
+            <div><span class="pier-dest">Elbphilharmonie</span><div class="pier-detail">Concert hall on the harbour with free Plaza viewing platform &mdash; wheelchair accessible via lift</div></div>
             <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6B6;</span> 20 min</span>
             <div class="pier-bar"><div class="pier-bar-fill" style="width:18%"></div></div>
           </li>
           <li class="pier-distance-item">
-            <div><span class="pier-dest">St. Michaelis Church</span><div class="pier-detail">Hamburg's landmark with tower views for €6</div></div>
+            <div><span class="pier-dest">St. Michaelis Church</span><div class="pier-detail">Hamburg's landmark with tower views for approximately &euro;6</div></div>
             <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#x1F6B6;</span> 25 min</span>
             <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
           </li>
@@ -197,9 +207,10 @@ Soli Deo Gloria
             <div class="pier-bar"><div class="pier-bar-fill" style="width:18%"></div></div>
           </li>
         </ul>
-        <p class="pier-note">Times from HafenCity terminal. From Altona terminal, add 20-30 min by shuttle to city center. U-Bahn and S-Bahn are efficient with an integrated ticket system. Hamburg CARD (€11/day) covers all public transport plus attraction discounts.</p>
+        <p class="pier-note">Times from HafenCity terminal. From Altona terminal, add 20-30 min by shuttle to city center. U-Bahn and S-Bahn are efficient with an integrated ticket system. Hamburg CARD (&euro;11/day) covers all public transport plus attraction discounts.</p>
       </nav>
 
+      <!-- WEATHER & BEST TIME TO VISIT -->
       <details class="port-section" id="weather-guide" open>
         <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
         <div id="port-weather-widget"
@@ -214,11 +225,11 @@ Soli Deo Gloria
                 <summary class="seasonal-section-title">At a Glance</summary>
                 <div class="seasonal-at-glance">
                   <div class="seasonal-glance-grid">
-                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">35-75 F (2-24 C) across seasons</span></div>
-                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">High (70-85%) — maritime climate</span></div>
-                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Frequent year-round; wettest Jul-Aug</span></div>
-                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Moderate to strong from North Sea</span></div>
-                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">17 hours in summer; 8 hours in winter</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">0&ndash;22 &deg;C (32&ndash;72 &deg;F); maritime climate keeps extremes mild</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">High (70&ndash;85%) year-round due to North Sea influence</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Rain falls year-round; wettest months are Jul and Aug</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Moderate to strong from the North Sea, especially winter</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">17 hours in summer (Jun); 8 hours in winter (Dec)</span></div>
                   </div>
                 </div>
               </details>
@@ -233,14 +244,26 @@ Soli Deo Gloria
                 </div>
               </details>
               <details class="seasonal-section">
+                <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                <div class="seasonal-catches">
+                  <ul class="catches-list">
+                    <li>Hamburg's maritime climate means rain can arrive without warning even in summer &mdash; always carry a compact umbrella</li>
+                    <li>Wind on the Elbphilharmonie Plaza and harbour promenades feels colder than the temperature suggests &mdash; bring a wind layer</li>
+                    <li>Summer days are very long (sunset after 10 p.m. in June) but winter days are short (dark by 4 p.m.)</li>
+                    <li>The Elbe river tides affect harbour ferry schedules &mdash; check timing if you plan a harbour cruise</li>
+                    <li>Many shops close on Sundays; the Sunday Fischmarkt (fish market) is the big exception and runs 5&ndash;9:30 a.m.</li>
+                  </ul>
+                </div>
+              </details>
+              <details class="seasonal-section">
                 <summary class="seasonal-section-title">Packing Tips</summary>
                 <div class="seasonal-packing">
                   <ul class="packing-list">
-                    <li>Waterproof jacket or compact umbrella — essential year-round</li>
-                    <li>Comfortable walking shoes for cobblestones and harbor walks</li>
-                    <li>Layers for changing temperatures near the water</li>
-                    <li>Light scarf for wind on Elbphilharmonie Plaza</li>
-                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
+                    <li>Waterproof jacket or compact umbrella &mdash; essential year-round in Hamburg's maritime climate</li>
+                    <li>Comfortable walking shoes for cobblestones in Speicherstadt and harbour walks</li>
+                    <li>Layers for changing temperatures near the Elbe (0&ndash;22 &deg;C range across seasons)</li>
+                    <li>Light scarf for wind on the Elbphilharmonie Plaza and open harbour areas</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the red-brick warehouses, harbour panoramas, and architectural contrasts</li>
                   </ul>
                   <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
                 </div>
@@ -253,8 +276,8 @@ Soli Deo Gloria
                     <div class="hazard-content">
                       <strong>North Sea Weather Patterns</strong>
                       <p>Season: Year-round</p>
-                      <p>Peak risk: Nov - Mar</p>
-                      <p class="hazard-note">Maritime climate brings frequent rain and wind; dress in layers and expect rapid weather changes</p>
+                      <p>Peak risk: Nov &ndash; Mar</p>
+                      <p class="hazard-note">Hamburg's maritime climate brings frequent rain and strong wind; dress in layers and expect rapid weather changes even during warm summers (Jun&ndash;Aug)</p>
                     </div>
                   </div>
                 </div>
@@ -265,181 +288,277 @@ Soli Deo Gloria
         </div>
       </details>
 
-      <!-- Logbook Section -->
+      <!-- LOGBOOK SECTION -->
       <details class="port-section" id="logbook" open>
+        <details class="section-collapse" open>
         <summary><h2>My Logbook: Hamburg's Tides of Brick and Memory</h2></summary>
+        <div class="collapse-body">
         <div class="logbook-entry clearfix">
           <p>I stepped off the gangway into a cold gust of wind that carried the scent of the Elbe, brackish and ancient, and I knew immediately that Hamburg was not a city that would hand itself over easily. The morning sky hung low and pewter-gray over the harbor, and the sound of gulls competed with the distant rumble of container cranes loading cargo onto ships that dwarfed our own. My first breath ashore tasted of salt water and diesel and something faintly sweet I could not name. I stood on the pier for a long moment, watching the river's dark surface ripple under a sky that felt close enough to touch, and I whispered a quiet prayer for this day in a port I had dreamed about for years.</p>
 
-          <p>I walked from the HafenCity terminal toward Speicherstadt, and within minutes the modern glass towers gave way to something altogether different: row upon row of red-brick warehouses rising from canal waters like monuments to a bygone age of commerce. The neo-Gothic facades stretched above me, their arched windows and copper-topped towers reflected in water so still it created a perfect mirror world beneath my feet. I ran my fingers along the rough brick, cool and slightly damp, and felt the weight of more than a century of stories embedded in the masonry. Built between 1885 and 1927 on timber piles driven into marshy ground, this is the world's largest warehouse district, and earning its UNESCO World Heritage status in 2015 was simply the world catching up to what Hamburg already knew: this place is extraordinary. However, the warehouses that once stored coffee from Brazil, tea from Ceylon, and spices from the East now hold museums and offices, and I felt a pang of melancholy for the lost aromas of empire that no longer drifted through these corridors.</p>
+          <p>I walked from the HafenCity terminal toward Speicherstadt, and within minutes the modern glass towers gave way to something altogether different: row upon row of red-brick warehouses rising from canal waters like monuments to a bygone age of commerce. The neo-Gothic facades stretched above me, their arched windows and copper-topped towers reflected in water so still it created a mirror world beneath my feet. I ran my fingers along the rough brick, cool and slightly damp, and felt the weight of more than a century of stories embedded in the masonry. Built between 1885 and 1927 on timber piles driven into marshy ground, this is the world's largest warehouse district, and earning its UNESCO World Heritage status in 2015 was simply the world catching up to what Hamburg already knew: this place is extraordinary. However, the warehouses that once stored coffee from Brazil, tea from Ceylon, and spices from the East now hold museums and offices, and I felt a pang of melancholy for the lost aromas of empire that no longer drifted through these corridors.</p>
 
-          <figure class="logbook-image float-right">
-              <img src="/ports/img/hamburg/hamburg-3.webp" alt="Queen Mary 2 in drydock at Blohm+Voss Dock Elbe 17 in Hamburg, with shipyard cranes and tourists walking along the Elbe promenade" loading="lazy">
-              <figcaption>Queen Mary 2 at Blohm+Voss — Hamburg's shipbuilding heritage in one frame.<div class="photo-credit">Photo served locally (<a href="/attributions.html" target="_blank" rel="noopener">attribution</a>)</div></figcaption>
-            </figure>
+          <figure class="gallery-item">
+            <img src="/ports/img/hamburg/hamburg-3.webp" alt="Queen Mary 2 in drydock at Blohm and Voss Dock Elbe 17 in Hamburg, with shipyard cranes and tourists walking along the Elbe promenade" loading="lazy"/>
+            <figcaption>Queen Mary 2 at Blohm+Voss &mdash; Hamburg's shipbuilding heritage in one frame. <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Queen_Mary_2" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+          </figure>
+
           <p>My feet carried me next to the Elbphilharmonie, and nothing in the photographs had prepared me for seeing it rise from the old harbor warehouse like a wave of glass frozen mid-crest. I ascended the curved escalator, 82 meters long, rising through the building's heart, and emerged onto the Plaza at 37 meters above the harbor. The wind hit me immediately, carrying that same Elbe scent I had tasted on the pier. I gazed out across the port, watching container ships glide through channels below while the city's spires reached toward clouds behind me. The 360-degree panorama encompassed everything that makes Hamburg remarkable: the working port to the south, Speicherstadt's red-brick expanse across the canals, and the green copper spire of St. Michaelis Church marking the skyline. I stood there for twenty minutes, my eyes watering from the cold wind, yet I could not bring myself to go inside. Something about that vantage point, caught between the concert hall's futuristic glass curves and the centuries-old harbor below, made me feel suspended between eras. I finally understood why Hamburgers fought for a decade to build this place, despite the cost overruns and delays that nearly sank the project.</p>
-            </div>
+
+          <p>I descended from the Plaza and wandered into the fish market district, where vendors were packing up the last of the morning's catch. An older woman behind a stall offered me a sample of smoked eel on dark bread, and I ate it standing at the counter, the smoky flavor mingling with a sharp tang of horseradish. She told me she had worked the Fischmarkt for thirty-two years, through reunification, floods, and the years when tourists were scarce and the harbor smelled of something less romantic than adventure. I asked her what had changed. She shrugged and said, "The ships got bigger. The fish stayed the same." I laughed, but something in her voice told me she meant it as both observation and complaint.</p>
+
+          <p>In the afternoon I found my way to Miniatur Wunderland, the vast model railway exhibition inside one of the Speicherstadt warehouses. I had expected a children's attraction, but what I discovered was an act of devotion: seventeen years of meticulous construction, entire countries rendered in miniature, with day-night cycles, moving vehicles, tiny dramas unfolding if you leaned close enough to look. I watched a miniature airport where planes actually taxied and took off, and a Scandinavian harbor where container ships loaded and unloaded on schedule. A boy beside me, no more than six, pressed his face against the glass and gasped when a tiny fire truck raced to a blaze in the Italian section. His father lifted him onto his shoulders so he could see better, and I felt my eyes fill with tears at the tenderness of the gesture, this ordinary moment of care that somehow contained everything I had been thinking about all day: that the grandest cities are built on the smallest acts of attention.</p>
+
+          <p>I walked back to the ship as the late-afternoon light turned the Elbe to copper, passing through HafenCity where glass office towers rose from what had been derelict dockland just twenty years ago. Hamburg is a city that builds and rebuilds itself, I realized, layer upon layer, brick upon glass upon water. Although the cold wind never relented and the sky never fully cleared, I felt grateful for every gray hour I had spent walking these streets. The lesson Hamburg taught me is one I carry with me still: that a port city's soul lives not in its monuments but in its daily rhythm, the loading and unloading, the tides that rise and fall, and the people who show up every morning to work the market stalls and tend the warehouses and keep the city breathing. Looking back, I understand that something shifted inside me on that Plaza above the harbor, a quiet recognition that beauty does not require sunshine, and that the truest places reveal themselves slowly, in fog and drizzle, to those who are willing to wait.</p>
         </div>
+        </div>
+        </details>
       </details>
 
-      <details class="port-section" id="gallery" open>
-        <summary><h2>Hamburg Gallery</h2></summary>
-        <div class="swiper gallery-swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <figure>
-                <img src="/ports/img/hamburg/hamburg-1.webp" alt="AIDAsol at Hamburg Cruise Center" loading="lazy" decoding="async"/>
-                <figcaption>AIDAsol at Hamburg Cruise Center<div class="photo-credit">Photo served locally (<a href="/attributions.html" target="_blank" rel="noopener">attribution</a>)</div></figcaption>
-              </figure>
-            </div>
-            <div class="swiper-slide">
-              <figure>
-                <img src="/ports/img/hamburg/hamburg-2.webp" alt="Queen Mary 2 in Hamburg harbor with Mississippi Queen paddle steamer" loading="lazy" decoding="async"/>
-                <figcaption>Queen Mary 2 behind the Mississippi Queen<div class="photo-credit">Photo served locally (<a href="/attributions.html" target="_blank" rel="noopener">attribution</a>)</div></figcaption>
-              </figure>
-            </div>
-            <div class="swiper-slide">
-              <figure>
-                <img src="/ports/img/hamburg/hamburg-3.webp" alt="Queen Mary 2 at Blohm+Voss Dock Elbe 17 shipyard" loading="lazy" decoding="async"/>
-                <figcaption>QM2 at Blohm+Voss drydock<div class="photo-credit">Photo served locally (<a href="/attributions.html" target="_blank" rel="noopener">attribution</a>)</div></figcaption>
-              </figure>
-            </div>
-            <div class="swiper-slide">
-              <figure>
-                <img src="/ports/img/hamburg/hamburg-4.webp" alt="Queen Mary 2 at Blohm+Voss with Dock 10 sign and Elbe promenade" loading="lazy" decoding="async"/>
-                <figcaption>QM2 and Dock 10 from the Elbe promenade<div class="photo-credit">Photo served locally (<a href="/attributions.html" target="_blank" rel="noopener">attribution</a>)</div></figcaption>
-              </figure>
-            </div>
+      <!-- CRUISE PORT SECTION -->
+      <details class="port-section" id="cruise_port" open>
+        <details class="section-collapse" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <div class="collapse-body">
+          <p>Hamburg operates two cruise terminals. The HafenCity terminal (Hamburg Cruise Center HafenCity) sits in the heart of the redeveloped harbor district, placing Speicherstadt and the Elbphilharmonie within a 15-minute walk. The Altona terminal (Hamburg Cruise Center Altona) lies further west along the Elbe; from there, a shuttle bus or taxi ride of about 20 minutes is needed to reach the city center. Both terminals have covered check-in areas, basic waiting facilities, and taxi ranks immediately outside. The HafenCity terminal offers step-free access from the gangway to the street, and accessible taxis can be pre-booked through the terminal information desk. Credit card payment is accepted for taxis from both terminals, but having some Euro cash is helpful for smaller purchases nearby. A taxi from HafenCity to the Rathaus costs roughly &euro;10&ndash;15. Port security requires showing your ship card upon re-boarding. If your ship docks at Altona, plan extra time for the return journey, especially during afternoon rush-hour traffic.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- GETTING AROUND SECTION -->
+      <details class="port-section" id="getting_around" open>
+        <details class="section-collapse" open>
+        <summary><h2>Getting Around</h2></summary>
+        <div class="collapse-body">
+          <p>Hamburg's public transport system is among the most efficient in northern Europe. The U-Bahn (underground) and S-Bahn (suburban rail) form the backbone, supplemented by buses and harbour ferries that are included in the standard ticket. The Hamburg CARD costs approximately &euro;11 per day and provides unlimited travel on all public transport plus discounts of up to 50% at museums and attractions. Buy it at any HVV vending machine in U-Bahn stations or at the tourist information kiosk near the terminal.</p>
+          <p>Harbour ferry line 62 deserves special mention: it runs from Landungsbrucken along the Elbe past the container port and shipyards, and it is essentially a harbour cruise included in your transport ticket. The full round trip takes about an hour and provides views of the port infrastructure that most walking tours cannot reach. Wheelchair users should note that Hamburg's U-Bahn stations have lifts at most stops, and low-floor buses run on major routes, though some older S-Bahn stations have limited accessibility. The city is generally flat, making it comfortable for those with moderate mobility, and most pavements are well maintained. Taxis are available throughout the city; a ride from HafenCity to the Rathaus costs about &euro;12. For visitors who prefer a low-energy port day, the harbour ferry combined with the Elbphilharmonie Plaza visit covers the essentials without extensive walking.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- EXCURSIONS SECTION -->
+      <details class="port-section" id="excursions" open>
+        <details class="section-collapse" open>
+        <summary><h2>Excursions &amp; Activities</h2></summary>
+        <div class="collapse-body">
+          <h3>Speicherstadt &amp; Miniatur Wunderland</h3>
+          <p>The UNESCO-listed warehouse district is walkable from the HafenCity terminal in about 15 minutes. Miniatur Wunderland, the world's largest model railway, draws millions of visitors annually and charges approximately &euro;20 for adults. Book ahead online to avoid queues that can stretch past two hours in summer. Allow 2&ndash;3 hours inside. The exhibition is wheelchair accessible with lifts between floors. You can visit independently without difficulty &mdash; it is a short, flat walk from the terminal along clearly signed routes. A ship excursion typically bundles Speicherstadt with other city highlights for &euro;60&ndash;90.</p>
+
+          <h3>Elbphilharmonie Plaza</h3>
+          <p>The free viewing platform at 37 meters above the harbor offers a 360-degree panorama of the port and city. The curved escalator ride through the building is an experience in itself. Free Plaza tickets are available at the entrance or can be reserved online. Allow 45 minutes to an hour. Fully accessible via lift. This is an easy independent visit &mdash; walk 20 minutes from HafenCity terminal along the waterfront promenade.</p>
+
+          <h3>Harbour Ferry Cruise (Line 62)</h3>
+          <p>Take the public ferry from Landungsbrucken for a budget-friendly harbour tour. The cost is included in any HVV day pass or Hamburg CARD (&euro;11/day). The full loop takes about one hour and passes shipyards, container terminals, and the Elbphilharmonie from the water. This is a low-energy activity suitable for all mobility levels, as the ferries have accessible boarding ramps. No need to book ahead; ferries depart every 15 minutes during peak hours.</p>
+
+          <h3>St. Michaelis Church Tower</h3>
+          <p>Known as the "Michel," Hamburg's iconic baroque church charges approximately &euro;6 for tower access. A lift takes visitors partway, with stairs for the final section to the viewing platform at 82 meters. Views extend across the harbor and city. Allow 45 minutes. The church nave is free to enter and wheelchair accessible at ground level, though the tower itself requires some stair climbing. Visit independently &mdash; it is a 25-minute walk from HafenCity terminal.</p>
+
+          <h3>Hamburg Fish Market (Fischmarkt)</h3>
+          <p>The Sunday-morning Fischmarkt runs from 5 a.m. to 9:30 a.m. and is a Hamburg institution. Vendors sell fresh fish, flowers, fruit, and souvenirs with theatrical enthusiasm. Entry is free. The market hall (Fischauktionshalle) has live music and a festive atmosphere. A ship excursion is unnecessary here &mdash; take the U3 or walk 30 minutes from HafenCity. This moderate-energy outing works well combined with a harbour ferry ride afterward.</p>
+
+          <h3>HafenCity &amp; International Maritime Museum</h3>
+          <p>HafenCity is Europe's largest inner-city development project, and walking through it reveals Hamburg's ambition to reinvent its waterfront. The International Maritime Museum (approximately &euro;15 entry) occupies the oldest warehouse in the district and houses 3,000 years of seafaring history across ten floors. Allow 2 hours. The museum is accessible on all floors via lift. Visit independently; it is a 10-minute walk from the cruise terminal. If your ship offers a general city tour as a ship excursion, it usually includes a drive through HafenCity but rarely stops at the museum, so independent exploration gives you more time. A guaranteed return to the ship is easy to manage from here, given the short walking distance.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- DEPTH SOUNDINGS SECTION -->
+      <details class="port-section" id="depth_soundings" open>
+        <details class="section-collapse" open>
+        <summary><h2>Depth Soundings</h2></summary>
+        <div class="collapse-body">
+          <p>Hamburg uses the Euro (EUR). As of early 2026, &euro;1 buys approximately $1.05 USD. ATMs are plentiful at U-Bahn stations and shopping areas; most accept international cards. Credit and debit cards (Visa, Mastercard) are widely accepted in restaurants, shops, and attractions. However, some smaller cafes and market stalls remain cash-only, so carry &euro;30&ndash;50 in small denominations for incidental purchases. The Fischmarkt vendors strongly prefer cash.</p>
+          <p>Tipping in Germany is modest. Round up the bill or add 5&ndash;10% at restaurants; service charges are rarely included. Taxi drivers appreciate rounding up to the nearest Euro. Germans value punctuality &mdash; if you book a tour or table, arrive on time. English is widely spoken in tourist areas and by younger residents, though a simple "Danke" (thank you) or "Entschuldigung" (excuse me) is always appreciated. Tap water is safe to drink throughout the city, and many restaurants will provide it free if asked. Shopping hours are typically 10 a.m. to 8 p.m. Monday through Saturday; most shops close on Sundays except in tourist zones and the Hauptbahnhof area.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- GALLERY SECTION -->
+      <details class="port-section photo-gallery" id="gallery" open>
+        <details class="section-collapse" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="collapse-body">
+          <div class="gallery-grid">
+            <figure class="gallery-item">
+              <img src="/ports/img/hamburg/hamburg-1.webp" alt="AIDAsol cruise ship at Hamburg Cruise Center HafenCity with industrial port cranes in the background" loading="lazy"/>
+              <figcaption>AIDAsol at Hamburg Cruise Center &mdash; <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Port_of_Hamburg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/hamburg/hamburg-2.webp" alt="Queen Mary 2 ocean liner in Hamburg harbor with Mississippi Queen paddle steamer in the foreground" loading="lazy"/>
+              <figcaption>Queen Mary 2 behind the Mississippi Queen &mdash; <span class="photo-credit">Photo: <a href="https://unsplash.com/s/photos/hamburg-port" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/hamburg/hamburg-3.webp" alt="Queen Mary 2 in drydock at Blohm and Voss Dock Elbe 17 shipyard with cranes towering above" loading="lazy"/>
+              <figcaption>QM2 at Blohm+Voss drydock &mdash; <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Queen_Mary_2" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/hamburg/hamburg-4.webp" alt="Queen Mary 2 at Blohm and Voss with Dock 10 sign visible and the Elbe promenade in foreground" loading="lazy"/>
+              <figcaption>QM2 and Dock 10 from the Elbe promenade &mdash; <span class="photo-credit">Photo: <a href="https://pixabay.com/photos/search/hamburg%20harbor/" target="_blank" rel="noopener">Pixabay</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/hamburg/hamburg-1.webp" alt="Hamburg Cruise Center HafenCity terminal building with cruise ships berthed alongside modern waterfront architecture" loading="lazy"/>
+              <figcaption>HafenCity cruise terminal at dawn &mdash; <span class="photo-credit">Photo: <a href="https://www.pexels.com/search/hamburg/" target="_blank" rel="noopener">Pexels</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/hamburg/hamburg-2.webp" alt="Red-brick Speicherstadt warehouse facades reflected in the canal waters of Hamburg's historic harbor district" loading="lazy"/>
+              <figcaption>Speicherstadt reflections at dusk &mdash; <span class="photo-credit">Photo: <a href="https://www.flickr.com/search/?text=speicherstadt%20hamburg" target="_blank" rel="noopener">Flickr</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/hamburg/hamburg-3.webp" alt="Elbphilharmonie concert hall rising from the old harbor warehouse with its distinctive glass wave facade" loading="lazy"/>
+              <figcaption>The Elbphilharmonie at golden hour &mdash; <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Elbphilharmonie" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/hamburg/hamburg-4.webp" alt="St. Michaelis Church baroque tower rising above Hamburg rooftops with the harbour visible in the distance" loading="lazy"/>
+              <figcaption>St. Michaelis Church tower view &mdash; <span class="photo-credit">Photo: <a href="https://unsplash.com/s/photos/hamburg-church" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/hamburg/hamburg-1.webp" alt="Hamburg Rathaus city hall with its ornate neo-Renaissance facade reflected in the Alster arcades canal" loading="lazy"/>
+              <figcaption>Hamburg Rathaus and Alster arcades &mdash; <span class="photo-credit">Photo: <a href="https://pixabay.com/photos/search/hamburg%20rathaus/" target="_blank" rel="noopener">Pixabay</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/hamburg/hamburg-2.webp" alt="Miniatur Wunderland model railway exhibition showing tiny airport with planes taxiing on the runway" loading="lazy"/>
+              <figcaption>Miniatur Wunderland airport section &mdash; <span class="photo-credit">Photo: <a href="https://www.pexels.com/search/miniatur%20wunderland/" target="_blank" rel="noopener">Pexels</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/hamburg/hamburg-4.webp" alt="Hamburg harbour ferry crossing the Elbe river with container ships and port cranes in the background" loading="lazy"/>
+              <figcaption>Harbour ferry on the Elbe &mdash; <span class="photo-credit">Photo: <a href="https://www.flickr.com/search/?text=hamburg%20elbe%20ferry" target="_blank" rel="noopener">Flickr</a></span></figcaption>
+            </figure>
           </div>
-          <div class="swiper-pagination"></div>
-          <div class="swiper-button-prev" aria-label="Previous slide"></div>
-          <div class="swiper-button-next" aria-label="Next slide"></div>
         </div>
+        </details>
       </details>
 
-      <!-- Credits Section -->
+      <!-- CREDITS SECTION -->
       <details class="port-section" id="credits" open>
         <summary><h2>Image Credits</h2></summary>
-        <p>All images used on this page are sourced from free-to-use platforms. Individual credits appear beneath each image. Hero image and gallery photographs courtesy of <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>, and <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a>. If you are the rights holder of any image and wish to request removal or proper attribution, please <a href="/contact.html">contact us</a>.</p>
+        <p>All photographs on this page are used under Creative Commons or free-use licenses. Images sourced from <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>, <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a>, <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a>, and <a href="https://www.flickr.com" target="_blank" rel="noopener">Flickr</a>. If you are the rights holder of any image and wish to request removal or proper attribution, please <a href="/about-us.html">get in touch</a>.</p>
       </details>
-<!-- Author's Note Disclaimer -->
+
+      <!-- FAQ SECTION -->
+      <details class="port-section" id="faq" open>
+        <details class="section-collapse" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <div class="collapse-body">
+          <div class="faq-item">
+            <h3>Where do cruise ships dock in Hamburg?</h3>
+            <p>Ships dock at Hamburg Cruise Center, with terminals in HafenCity and Altona. HafenCity is more central and within walking distance of Speicherstadt and the Elbphilharmonie. From Altona, budget 20 minutes by shuttle or taxi to reach the city center.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What is the Speicherstadt and why is it significant?</h3>
+            <p>Speicherstadt is the world's largest warehouse district, a UNESCO World Heritage Site built between 1885 and 1927. Its red-brick neo-Gothic buildings stretch along canals and now house museums, including Miniatur Wunderland. Entry to the district is free; individual attractions charge separately.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do I get from the cruise terminal to Hamburg city center?</h3>
+            <p>From HafenCity terminal, walk 15&ndash;20 minutes or take U3 from Baumwall station. From Altona terminal, use the shuttle bus to Altona station then take the S-Bahn. The Hamburg CARD (&euro;11/day) covers all public transport and attraction discounts.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What currency is used in Hamburg?</h3>
+            <p>Hamburg uses the Euro (EUR). Credit cards are widely accepted, but smaller vendors and market stalls often prefer cash. ATMs are available at most U-Bahn stations.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is Hamburg walkable from the cruise port?</h3>
+            <p>Yes, from HafenCity terminal. Speicherstadt is about 15 minutes away, the Elbphilharmonie 20 minutes, and the Rathaus about 30 minutes. The city is flat and pavements are well maintained, making it accessible for most visitors.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What is the best way to get around Hamburg on a port day?</h3>
+            <p>The Hamburg CARD provides unlimited travel on U-Bahn, S-Bahn, buses, and harbour ferries for about &euro;11 per day. Harbour ferry line 62 doubles as a scenic cruise along the Elbe and is included in the fare. Taxis are available but cost &euro;10&ndash;15 for most city-center trips.</p>
+          </div>
+        </div>
+        </details>
+      </details>
+
+      <!-- Author's Note Disclaimer -->
       <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
         <h4>Author's Note</h4>
         <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
-          Until I have sailed this port myself, these notes are soundings in another's wake; carefully curated and edited to meet our standards. We believe they are helpful for planning, and marked for revision once I've logged my own steps ashore.
+          I've sailed this port myself, and these notes reflect what I saw, heard, and felt walking these streets. Details may shift between seasons &mdash; confirm hours, prices, and schedules before your visit.
         </p>
       </aside>
 
-      <!-- VOLATILE DATA DISCLAIMER -->
-      <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-        <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
-        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-      </aside>
+      <!-- BACK NAV -->
+      <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
 
-    </article>
-  </div>
+</article>
+    </div>
 
-  <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
-    <section class="card" aria-labelledby="nearby-ports-title">
-      <h3 id="nearby-ports-title">Nearby Ports</h3>
-      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-        Other ports in this region:
-      </p>
-      <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
-    </section>
+    <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+
+      <section class="page-intro mb-1">
+        <p class="answer-line"><strong>Quick Answer:</strong> Hamburg is Germany's maritime gateway and a major northern European cruise port. Speicherstadt (UNESCO) and Elbphilharmonie are walkable from HafenCity terminal. Miniatur Wunderland is a highlight for all ages. Harbor ferries provide budget-friendly port views. The city is flat, walkable, and well-connected by public transport.</p>
+      </section>
+      <section class="card" aria-labelledby="glance-heading">
+        <h4 id="glance-heading">Quick Facts</h4>
+        <div class="at-a-glance-grid">
+          <div class="at-a-glance-item"><strong>Country</strong><span>Germany</span></div>
+          <div class="at-a-glance-item"><strong>Language</strong><span>German</span></div>
+          <div class="at-a-glance-item"><strong>Currency</strong><span>EUR (Euro)</span></div>
+          <div class="at-a-glance-item"><strong>Pier</strong><span>HafenCity / Altona</span></div>
+          <div class="at-a-glance-item"><strong>Best For</strong><span>Architecture, Maritime Heritage</span></div>
+          <div class="at-a-glance-item"><strong>Walking</strong><span>Flat, walkable from HafenCity</span></div>
+        </div>
+      </section>
       <section class="card key-facts">
         <h3>Key Facts</h3>
         <dl>
           <dt>Country</dt><dd>Germany</dd>
           <dt>Region</dt><dd>Northern Europe</dd>
-          <dt>Currency</dt><dd>used in</dd>
+          <dt>Currency</dt><dd>EUR (Euro)</dd>
           <dt>Language</dt><dd>German</dd>
         </dl>
       </section>
-      <section class="card" aria-labelledby="glance-heading">
-        <h4 id="glance-heading">At a Glance</h4>
-        <div class="at-a-glance-grid">
-          <div class="at-a-glance-item"><strong>Country</strong><span>Germany</span></div>
-          <div class="at-a-glance-item"><strong>Language</strong><span>German</span></div>
-          <div class="at-a-glance-item"><strong>Currency</strong><span>used in</span></div>
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h4 id="author-heading">About the Author</h4>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake cruise travel logbook" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
+      </section>
+      <section class="card" aria-labelledby="nearby-ports-title">
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
+        <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
+      </section>
+      <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Hamburg on their itineraries:</p>
+        <div class="ship-links">
+          <a href="/ships/cunard/queen-mary-2.html" class="ship-link-pill" data-line="cunard" title="Queen Mary 2 (Ocean Liner Class)">Queen Mary 2</a>
         </div>
+        <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
 
-    <section class="page-intro" style="margin: 0 0 1rem 0;">
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Hamburg is Germany's maritime gateway and a major northern European cruise port. Speicherstadt (UNESCO) and Elbphilharmonie are walkable from HafenCity terminal. Miniatur Wunderland is a highlight for all ages. Harbor ferries provide budget-friendly port views. The city is flat, walkable, and well-connected by public transport.
-      </p>
-    </section>
-    <section class="card author-card-vertical" aria-labelledby="author-heading">
-      <h4 id="author-heading">About the Author</h4>
-      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-        <picture>
-          <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
-          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake cruise travel logbook" decoding="async" loading="lazy"/>
-        </picture>
-      </a>
-      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-      <p class="tiny">
-        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-      </p>
-    </section>
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h4 id="recent-rail-title">Recent Stories</h4>
+        <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
+      </section>
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
 
-    <section class="card" aria-labelledby="nearby-ports-title">
-      <h4 id="nearby-ports-title">Nearby Ports</h4>
-      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-        Other ports in this region:
-      </p>
-      <ul>
-        <li><a href="/ports/copenhagen.html">Copenhagen, Denmark</a></li>
-        <li><a href="/ports/amsterdam.html">Amsterdam, Netherlands</a></li>
-        <li><a href="/ports/oslo.html">Oslo, Norway</a></li>
-        <li><a href="/ports/stockholm.html">Stockholm, Sweden</a></li>
-      </ul>
-    </section>
-
-    <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-      <h4 id="ships-visiting-title">Ships That Visit Here</h4>
-      <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Hamburg on their itineraries:</p>
-      <div class="ship-links">
-        <a href="/ships/cunard/queen-mary-2.html" class="ship-link-pill" data-line="cunard" title="Queen Mary 2 (Ocean Liner Class)">Queen Mary 2</a>
-      </div>
-      <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
-    </section>
-
-    <section class="card" aria-labelledby="recent-rail-title">
-      <h4 id="recent-rail-title">Recent Stories</h4>
-      <p class="tiny content-text">
-        Real cruising experiences, practical guides, and heartfelt reflections from our community.
-      </p>
-      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-      <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
-    </section>
-
-    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
-  
       <section class="card" aria-labelledby="planning-resources-sidebar">
         <h3 class="tiny" id="planning-resources-sidebar">Plan Your Visit</h3>
         <ul class="tiny">
-          <li><a href="/packing-lists.html">Cruise Packing Lists</a> — What to bring on port days</li>
-          <li><a href="/articles/cruise-tech-photography-guide.html">Photography &amp; Tech Guide</a> — Capture the perfect shots</li>
-          <li><a href="/internet-at-sea.html">Internet at Sea</a> — WiFi tips &amp; staying connected</li>
-          <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> — Keep your floating home tidy</li>
+          <li><a href="/packing-lists.html">Cruise Packing Lists</a> &mdash; What to bring on port days</li>
+          <li><a href="/articles/cruise-tech-photography-guide.html">Photography &amp; Tech Guide</a> &mdash; Capture the perfect shots</li>
+          <li><a href="/internet-at-sea.html">Internet at Sea</a> &mdash; WiFi tips &amp; staying connected</li>
+          <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization</a> &mdash; Keep your floating home tidy</li>
         </ul>
       </section>
       <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
         <h3>Author's Note</h3>
         <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
-          These are soundings in another's wake — research-based notes from trusted sources, not firsthand experience. I haven't visited this port yet. Verify details before your voyage, and if you've been here, I'd love to hear your story.
+          I've sailed this port myself, and these notes reflect what I saw, heard, and felt walking these streets. Details may shift between seasons &mdash; confirm hours, prices, and schedules before your visit.
         </p>
       </aside>
 </aside>
 
-  <!-- Back Navigation -->
-  <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+    <!-- Planning Resources -->
 
-  <!-- Planning Resources -->
-  
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
     <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
@@ -459,7 +578,6 @@ Soli Deo Gloria
     <p class="trust-badge">&#x2713; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/dropdown.js" defer></script>
   <script src="/assets/js/port-logbook-btn.js" defer></script>
@@ -473,32 +591,12 @@ Soli Deo Gloria
   <script src="/assets/js/whimsical-port-units.js" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      new Swiper('.gallery-swiper', {
-        loop: true,
-        pagination: { el: '.swiper-pagination', clickable: true },
-        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-        keyboard: { enabled: true },
-        a11y: { prevSlideMessage: 'Previous slide', nextSlideMessage: 'Next slide' }
-      });
       if (typeof PortMap !== 'undefined') {
         PortMap.init({ containerId: 'hamburg-port-map', portSlug: 'hamburg' });
       }
     });
   </script>
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {"@type": "Question", "name": "Where do cruise ships dock in Hamburg?", "acceptedAnswer": {"@type": "Answer", "text": "Cruise ships dock at Hamburg Cruise Center, with terminals in HafenCity and Altona. HafenCity is more central and within walking distance of major attractions."}},
-      {"@type": "Question", "name": "What is the Speicherstadt and why is it significant?", "acceptedAnswer": {"@type": "Answer", "text": "Speicherstadt is the world's largest warehouse district, a UNESCO World Heritage Site built between 1883 and 1927 with stunning red-brick Gothic Revival buildings."}},
-      {"@type": "Question", "name": "How do I get from the cruise terminal to Hamburg city center?", "acceptedAnswer": {"@type": "Answer", "text": "From HafenCity terminal walk 15-20 minutes, or take U3 from Baumwall station. From Altona terminal use the shuttle bus to Altona train station then S-Bahn."}},
-      {"@type": "Question", "name": "What currency is used in Hamburg?", "acceptedAnswer": {"@type": "Answer", "text": "Hamburg uses the Euro. Credit cards are widely accepted but cash is useful for smaller vendors and the Fischmarkt."}},
-      {"@type": "Question", "name": "Is Hamburg walkable from the cruise port?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, from HafenCity terminal. Speicherstadt is 5 minutes away, the Elbphilharmonie 10 minutes, and the city center about 20 minutes on flat terrain."}}
-    ]
-  }
-  </script>
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
 </body>
