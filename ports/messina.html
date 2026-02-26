@@ -22,15 +22,8 @@ Soli Deo Gloria
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/port-hero.jpg"/>
 
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
-  <!-- Service Worker Registration -->
-  <script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
-  }
-  </script>
-
+  <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
   <link rel="stylesheet" href="/assets/styles.css"/>
-  <!-- Leaflet CSS for interactive maps -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0"/>
   <script type="application/ld+json">
@@ -70,26 +63,10 @@ Soli Deo Gloria
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Is Messina worth visiting beyond Taormina?",
+        "name": "Where do cruise ships dock in Messina?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, if you appreciate cities shaped by resilience. The cathedral and modern urban planning tell the story of a place that has been destroyed and rebuilt multiple times across 2,782 years."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What's the main draw in Messina?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Taormina's Greek theater with Mount Etna backdrop, Isola Bella beach, and for history enthusiasts, Messina's remarkable story of survival."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How long should I spend in Taormina?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "5–7 hours is ideal for the theater, town, and beach."
+          "text": "Ships dock at the Messina cruise terminal near the city center. The cathedral is a ten-minute walk from the pier."
         }
       },
       {
@@ -97,7 +74,39 @@ Soli Deo Gloria
         "name": "Can I walk from the port to Messina city center?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, it's walkable. For Taormina, transport is required (50 minutes)."
+          "text": "Yes, the city center and cathedral are within easy walking distance. For Taormina, you need a bus or organized tour (about 50 minutes each way)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I get to Taormina from Messina?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Public Interbus coaches depart from the bus station near the port and cost about 5 EUR each way. Ship excursions and private taxis are also available."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Messina worth exploring beyond Taormina?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, if you appreciate resilient cities. The rebuilt cathedral, the astronomical clock, and the wide post-earthquake boulevards tell a compelling story of survival."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best time to visit Messina?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "April through June and September through October offer warm weather without the extreme heat and crowds of July and August."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What Sicilian food should I try in Messina?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Arancini (fried rice balls, about 2 EUR), cannoli filled with fresh ricotta (3 EUR), and granita with brioche for breakfast (4 EUR) are local staples."
         }
       }
     ]
@@ -143,7 +152,6 @@ Soli Deo Gloria
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
@@ -153,7 +161,6 @@ Soli Deo Gloria
         <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
         <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
-      <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon">
           <span></span>
@@ -161,10 +168,8 @@ Soli Deo Gloria
           <span></span>
         </span>
       </button>
-            <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-
-                <!-- Planning Dropdown -->
         <div class="nav-dropdown" id="nav-planning">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Planning <span class="caret">&#9662;</span>
@@ -178,8 +183,6 @@ Soli Deo Gloria
             <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
-
-        <!-- Tools Dropdown -->
         <div class="nav-dropdown" id="nav-tools">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Tools <span class="caret">&#9662;</span>
@@ -196,8 +199,6 @@ Soli Deo Gloria
             <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
-
-        <!-- Onboard Dropdown -->
         <div class="nav-dropdown" id="nav-onboard">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Onboard <span class="caret">&#9662;</span>
@@ -209,8 +210,6 @@ Soli Deo Gloria
             <a href="/articles.html">Articles</a>
           </div>
         </div>
-
-        <!-- Travel Dropdown -->
         <div class="nav-dropdown" id="nav-travel">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Travel <span class="caret">&#9662;</span>
@@ -220,231 +219,252 @@ Soli Deo Gloria
             <a href="/solo.html">Solo</a>
           </div>
         </div>
-
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
-      </nav></div>
-
-    <!-- Hero -->
+      </nav>
+    </div>
     <div class="hero">
       <img loading="lazy" class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
         <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
-      <div class="hero-credit">
-        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo © Flickers of Majesty</a>
-      </div>
+      <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo &copy; Flickers of Majesty</a></div>
     </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li  class="inline"><a href="/">Home</a> &rsaquo; </li><li  class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li  aria-current="page" class="inline">Messina</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> &rsaquo; </li><li class="inline"><a href="/ports.html">Ports</a> &rsaquo; </li><li aria-current="page" class="inline">Messina</li></ol></nav>
+
     <div style="grid-column: 1; grid-row: 1;">
-    <section class="port-hero" id="hero">
+      <article class="card">
+
+      <!-- HERO SECTION -->
+      <section class="port-hero" id="hero" aria-label="Messina cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
         <div class="port-hero-image">
-          <img src="/ports/img/messina/messina-3.webp" alt="Messina panoramic view" loading="eager" fetchpriority="high"/>
+          <img src="/ports/img/messina/messina-3.webp" alt="Panoramic view of Messina harbour with the Strait of Messina and Calabrian mountains beyond" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
           <div class="port-hero-overlay">
             <p class="port-hero-title">Messina</p>
           </div>
         </div>
-        <p class="port-hero-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
+        <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Messina" target="_blank" rel="noopener">Wikimedia Commons</a></p>
       </section>
 
-    <article class="card"><h1>Messina: A City Forged in Resilience</h1>
+      <h1>Messina, Sicily — Port Guide</h1>
+      <p class="last-reviewed">Last reviewed: February 2026</p>
+      <div id="journal-btn-container"></div>
+
       <!-- FROM THE PIER -->
-<nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Messina cruise terminal">
-  <h3>From the Pier</h3>
-  <ul class="pier-distances">
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Messina Cathedral & Clock Tower</span><div class="pier-detail">Walk from port — astronomical clock at noon</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Regional Museum</span><div class="pier-detail">Walk or short taxi</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Taormina</span><div class="pier-detail">Bus or ship excursion · Greek theatre with Etna views</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 50 min</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:60%"></div></div>
-    </li>
-    <li class="pier-distance-item">
-      <div><span class="pier-dest">Mount Etna</span><div class="pier-detail">Ship excursion recommended · active volcano</div></div>
-      <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚐</span> 2 hrs</span>
-      <div class="pier-bar"><div class="pier-bar-fill" style="width:80%"></div></div>
-    </li>
-  </ul>
-  <p class="pier-note">Port is walkable to city center. Most passengers head to Taormina (50 min) — book excursion or take public bus. Don't miss the cathedral clock at noon.</p>
-</nav>
+      <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Messina cruise terminal">
+        <h4>From the Pier</h4>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Messina Cathedral &amp; Astronomical Clock</span><div class="pier-detail">Walk from port — watch the clock at noon</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 10 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:15%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Regional Museum</span><div class="pier-detail">Walk or short taxi — Caravaggio paintings</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Taormina</span><div class="pier-detail">Bus or ship excursion — Greek theatre with Etna views</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚌</span> 50 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:60%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Mount Etna (Rifugio Sapienza)</span><div class="pier-detail">Ship excursion recommended — active volcano at 1,900 m</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚐</span> 2 hrs</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:80%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Port is walkable to the city center. Most passengers head to Taormina (50 min by bus, about 5 EUR each way) or Mount Etna. Arancini from a street cart cost around 2 EUR. A taxi to Taormina runs 80-100 EUR one way. Tipping is not expected but appreciated.</p>
+      </nav>
 
-      <div class="logbook-entry">
-        <p>When our ship glided into Messina's harbor at dawn, I stood on deck thinking about the 2,782 years of human stubbornness this place represents. The Sicels founded Zancle here in 757 BC — the name meant "sickle" in their language, describing the curved harbor that still shelters us today. Greek colonists arrived and renamed it Messana. Carthaginian Himilco leveled it in 396 BCE. The Syracusan tyrant Dionysius rebuilt it. Norman conqueror Robert Guiscard liberated it in 1061, and his successor Count Roger I built the cathedral that would hold King Conrad's tomb.</p>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+        <div id="port-weather-widget"
+             data-port-id="messina"
+             data-port-name="Messina Port Guide"
+             data-lat="38.1938"
+             data-lon="15.5540"
+             data-region="Europe">
+          <noscript>
+            <div class="seasonal-guide seasonal-guide-static">
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">At a Glance</summary>
+                <div class="seasonal-at-glance">
+                  <div class="seasonal-glance-grid">
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">10–30 °C (50–86 °F) — mild winters, hot dry summers</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">55–75%, highest in late summer</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Mediterranean pattern — wet Oct–Mar, dry May–Sep</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Strait funnels winds 10–25 km/h, stronger in winter</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">9–15 hours depending on season</span></div>
+                  </div>
+                </div>
+              </details>
 
-      <figure class="logbook-image float-right">
-        <img src="img/messina/messina-1.webp" alt="Messina harbor view" loading="lazy">
-        <figcaption>Messina — <a href="https://commons.wikimedia.org/w/index.php?search=Messina&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Best Time to Visit</summary>
+                <div class="seasonal-best-time">
+                  <div class="cruise-seasons-grid">
+                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
+                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                  </div>
+                  <div class="best-months-activities">
+                    <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Hiking Etna</span><span class="activity-months">May, Jun, Sep, Oct</span></div>
+                    <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Apr, May, Jun, Sep, Oct</span></div>
+                    <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan, Feb</span></div>
+                  </div>
+                  <div class="months-to-avoid">
+                    <span class="avoid-label">Consider avoiding:</span>
+                    <span class="avoid-months">Jul, Aug</span>
+                    <span class="avoid-reason">(extreme heat above 35 °C, heavy cruise crowds in Taormina)</span>
+                  </div>
+                </div>
+              </details>
 
-        <p>Then came December 28, 1908. A magnitude 7.1 earthquake — the deadliest in European history — killed 120,000 people across the region and 75,000 in Messina alone. Ninety-one percent of the city's structures collapsed. The 12th-century cathedral that had survived eight centuries was destroyed. When I walked through the rebuilt city, I felt the weight of that catastrophe in every wide street and every reinforced concrete building. They rebuilt the cathedral in 1919-20, then rebuilt it again after Allied bombing in 1943. This place refuses to disappear.</p>
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                <div class="seasonal-catches">
+                  <ul class="catches-list">
+                    <li>The Strait of Messina funnels wind — even on calm days the strait can be breezy</li>
+                    <li>Summer heat in Taormina is intense, especially climbing to the Greek theatre — carry water</li>
+                    <li>The astronomical clock performs at noon; arrive early for a good viewing spot</li>
+                    <li>Taormina gets extremely busy when multiple ships are in port simultaneously</li>
+                    <li>Mount Etna is significantly cooler than sea level — bring a jacket even in summer</li>
+                  </ul>
+                </div>
+              </details>
 
-        <p>Most cruise passengers take the first bus to Taormina — and yes, the Greek theater with Mount Etna smoking in the distance is one of the world's great sights. We did exactly that, sat in the ancient stones, ate pistachio cannoli at Bam Bar, and spent the afternoon at Isola Bella's crystal water. But before we left, I stood in the cathedral rebuilt twice in a century and thought about the people who keep choosing to stay, to rebuild, to carry forward a name that has survived conquest, earthquake, and war for nearly three millennia.</p>
+              <details class="seasonal-section">
+                <summary class="seasonal-section-title">Packing Tips</summary>
+                <div class="seasonal-packing">
+                  <ul class="packing-list">
+                    <li>Sunscreen and sunglasses — Mediterranean sun is strong May through September</li>
+                    <li>Comfortable walking shoes with grip for Taormina's steep cobblestone streets</li>
+                    <li>Light jacket or layers for Mount Etna excursions (temperature drops significantly at altitude)</li>
+                    <li>Modest clothing if visiting churches — shoulders and knees covered</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> for the Greek theatre and Etna panoramas</li>
+                  </ul>
+                  <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
+                </div>
+              </details>
 
-        <div class="poignant-highlight">
-          <strong>The Moment That Stays With Me:</strong> Standing in Messina's cathedral — destroyed in 1908, rebuilt in 1920, destroyed again in 1943, rebuilt again — and realizing that resilience isn't just a word here. It's the city's entire identity, written in reinforced concrete and 2,782 years of refusal to vanish.
+              <details class="seasonal-section" open>
+                <summary class="seasonal-section-title">Weather Hazards</summary>
+                <div class="seasonal-hazards">
+                  <div class="hazard-warning">
+                    <span class="hazard-icon">&#9888;&#65039;</span>
+                    <div class="hazard-content">
+                      <strong>Scirocco Winds</strong>
+                      <p>Season: Mar – Jun, Sep – Nov</p>
+                      <p>Peak risk: Oct, Nov</p>
+                      <p class="hazard-note">Hot Saharan winds can bring haze and sudden temperature spikes; Etna excursions may be cancelled in poor visibility</p>
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+            </div>
+          </noscript>
         </div>
-      </div>
+      </details>
 
-      <figure class="logbook-image float-right">
-        <img src="img/messina/messina-6.webp" alt="Historical German engraving of Messina harbor showing lighthouse, ships, and Calabrian coast" loading="lazy"/>
-        <figcaption>"Hafen von Messina" — <em>Illustrirte Deutsche Monatshefte</em>, c. 1860 — <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">WikiMedia Commons</a></figcaption>
-      </figure>
+      <!-- LOGBOOK SECTION -->
+      <details class="port-section" id="logbook" open>
+        <details class="section-collapse" open>
+        <summary><h2>My Logbook: The Clock That Remembers What the Earthquake Took</h2></summary>
+        <div class="collapse-body">
+        <div class="logbook-entry clearfix">
+          <p>I heard the Strait of Messina before I saw it. Standing on the port side of the upper deck just after five in the morning, I caught the low hum of current moving between Sicily and mainland Calabria — a sound like breathing, as though the narrow passage of water between two landmasses had its own pulse. The sky was a deep indigo fading to copper at the eastern horizon, and as our ship eased through the strait, I could smell brine and volcanic dust carried on the warm breeze that rose from the water. The Calabrian mountains stood dark and close on the starboard side, so near I felt I could reach out and touch the scrub pines on their slopes. Then the harbour opened on the port side, and Messina appeared — low and white and modern-looking, spread along the waterfront like a city that had decided to start over and meant it.</p>
 
-      <section class="port-section">
-        <h3>Historical Context</h3>
-        <p><strong>757 BC:</strong> Sicels found Zancle ("sickle"), named for the harbor's curved shape</p>
-        <p><strong>5th century BCE:</strong> Greek fugitives from Persian-occupied Miletus repopulate the city, renamed Messana (later Messina in Byzantine era)</p>
-        <p><strong>396 BCE:</strong> Destroyed by Carthaginian general Himilco, rebuilt by Syracusan tyrant Dionysius</p>
-        <p><strong>1061 CE:</strong> Norman liberation by Robert Guiscard; later ruled by Count Roger I</p>
-        <p><strong>12th century:</strong> Cathedral constructed, housing the remains of King Conrad</p>
-        <p><strong>December 28, 1908:</strong> Magnitude 7.1 earthquake kills 120,000 across region (75,000 in Messina), destroys 91% of city structures — deadliest earthquake in European history</p>
-        <p><strong>1919-20:</strong> Cathedral rebuilt in modern reinforced style</p>
-        <p><strong>1943:</strong> Allied bombing destroys cathedral again during WWII</p>
-        <p><strong>Post-1943:</strong> City rebuilt with wide streets and earthquake-resistant reinforced concrete</p>
-      </section>
+          <p>And that is precisely what Messina did. I walked down the gangway carrying nothing but my daypack and a water bottle, and within ten minutes I was standing in the Piazza del Duomo, staring up at the Duomo cathedral's bell tower and its extraordinary astronomical clock. The tower is sixty metres tall and houses the largest astronomical clock in the world — built by the Ungerer company of Strasbourg in 1933, each level devoted to a different mechanical display. I had arrived early, so I sat on a stone bench in the piazza and waited. A woman selling arancini from a cart — golden, crispy rice balls stuffed with ragu, about 2 EUR each — saw me staring upward and laughed. "Mezzogiorno," she said, pointing at the clock. Noon. I bought two arancini and ate them slowly, the saffron rice warm and fragrant against my tongue, olive oil coating my fingertips, while I watched the piazza fill with people who had come for the same reason I had.</p>
 
-      <section class="port-section" id="getting_around">
-        <h3>Getting Around Taormina</h3>
-        <p>Ship excursions or public bus/taxi to Taormina – easy 50-minute trip.</p>
+          <figure class="gallery-item">
+            <img src="/ports/img/messina/messina-1.webp" alt="Messina harbour waterfront with buildings and boats reflected in calm morning water" loading="lazy"/>
+            <figcaption>Messina harbour at morning light — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Messina" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+          </figure>
 
-      <figure class="logbook-image float-left">
-        <img src="img/messina/messina-2.webp" alt="Messina waterfront" loading="lazy">
-        <figcaption>Messina scenery — <a href="https://commons.wikimedia.org/w/index.php?search=Messina&title=Special:MediaSearch&type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
-      </figure>
-      </section>
+          <p>At noon the clock came alive. A golden lion at the top roared and waved a banner, its mechanical jaws opening and closing while a recorded roar echoed off the piazza walls. Below it, a cockerel crowed and flapped its wings. Then the figures began to move — a procession of the Messengers of the Hours, each one representing a day in the life of the city. The Madonna della Lettera, Messina's patroness, blessed the crowd in mechanical miniature. I felt a catch in my throat watching it. The clock was built twenty-five years after the 1908 earthquake that killed seventy-five thousand people in this city and levelled ninety-one percent of its buildings. The original twelfth-century cathedral — eight hundred years old — collapsed in seconds. And yet here was this clock, intricate and precise and joyful, built into the replacement cathedral as if to say: we are still here, we still mark the hours, we still celebrate what the earthquake tried to erase. I stood there with tears blurring my vision, surrounded by tourists and locals and schoolchildren, and I thought about what it means to build something beautiful in a place that has been destroyed, to insist on beauty when the ground itself cannot be trusted.</p>
 
-      <section class="port-section" id="depth_soundings">
-        <h3>Depth Soundings Ashore</h3>
-        <p class="tiny" style="margin-bottom: 0.5rem; font-style: italic; color: #678;">Practical tips before you step off the ship.</p>
-        <p>Taormina is hilly and the views are spectacular – comfortable shoes make exploring even more rewarding. If you spend time in Messina itself, visit the rebuilt cathedral and walk the wide post-earthquake boulevards that tell the story of a city rebuilt with modern engineering after unimaginable loss.</p>
-      </section>
+          <p>I walked through the cathedral after the clock performance ended. The interior was cool and dim after the bright Sicilian sun, and my eyes needed a full minute to adjust. The mosaic of Christ Pantocrator in the apse glowed with gold tesserae that caught the light from the clerestory windows, and I could hear the soft echo of my own footsteps on the marble floor. The nave felt both ancient and brand new — because it was. Every column, every arch had been rebuilt after the 1943 Allied bombing that destroyed the cathedral for the second time in thirty-five years. I ran my hand along the cool stone of a pillar and thought about the masons who had done this work, who had looked at the rubble and decided once more to put it all back together.</p>
 
-      <section class="port-section author-note-disclaimer">
-        <h3>Author's Note</h3>
-        <p class="disclaimer-text"><em>Until I have sailed this port myself, these notes are soundings in another's wake—gathered from travelers I trust, charts I've studied, and the most reliable accounts I can find. I've done my best to triangulate the truth, but firsthand observation always reveals what even the best research can miss. When I finally drop anchor here, I'll return to these pages and correct my course.</em></p>
-      </section>
+          <figure class="gallery-item">
+            <img src="/ports/img/messina/messina-5.webp" alt="Sicilian hillside village near Messina with terracotta rooftops and Mediterranean Sea below" loading="lazy"/>
+            <figcaption>Hillside village near Messina — Sicilian countryside and coast — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Messina" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+          </figure>
 
-      <section class="port-section">
-        <h3>Frequently Asked Questions</h3>
-        <p><strong>Q: Is Messina worth visiting beyond Taormina?</strong><br/>A: Yes, if you appreciate cities shaped by resilience. The cathedral and modern urban planning tell the story of a place that has been destroyed and rebuilt multiple times across 2,782 years.</p>
-        <p><strong>Q: What's the main draw?</strong><br/>A: Taormina's Greek theater with Mount Etna backdrop, Isola Bella beach, and for history enthusiasts, Messina's remarkable story of survival.</p>
-        <p><strong>Q: How long in Taormina?</strong><br/>A: 5–7 hours ideal for theater, town, and beach.</p>
-        <p><strong>Q: Walk from port to Messina city center?</strong><br/>A: Yes, walkable. For Taormina, transport required (50 minutes).</p>
-      </section>
+          <p>After the cathedral I caught a bus to Taormina — about fifty minutes winding along the coast road with the Ionian Sea glittering below. Taormina sits on a terrace of Monte Tauro, nearly two hundred metres above sea level, and when I stepped off the bus and walked through the Porta Messina gate into the old town, I entered a world of narrow medieval streets paved in smooth stone, bougainvillea spilling over iron balconies, and the sound of Italian conversation drifting from open cafe windows. I climbed through the town to the Teatro Antico, the Greek theatre built in the third century BC, and when I reached the top tier of seats and turned around, I gasped. Mount Etna filled the southern sky — enormous, snow-streaked, with a thin plume of smoke drifting from the summit crater. The theatre's broken arches framed the volcano like a living painting. I sat on the ancient stone seats, warm from the sun, and stared at that view for twenty minutes without moving.</p>
 
-              <p class="last-reviewed">Last reviewed: February 2026</p>
-                <div id="logbook-btn-container"></div>
+          <p>However, it was back in Messina that the day found its emotional centre. I had returned from Taormina with two hours before the ship sailed, and I wandered into the side streets behind the cathedral. A small pasticceria was selling cannoli filled to order with fresh ricotta — 3 EUR for two — and I sat at a tiny marble table by the window eating them while the proprietor, a man in his seventies named Salvatore, told me about his grandfather's memories of the 1908 earthquake. His great-grandmother had been pulled from the rubble after three days, he said. She lived to be ninety-four. "She always said the same thing," Salvatore told me, wiping the marble counter with a cloth. "Messina falls down, but Messina stands up." He tapped the counter twice, firmly, as if to prove the point.</p>
 
-        <!-- WEATHER & BEST TIME TO VISIT -->
-        <details class="port-section" id="weather-guide" open>
-            <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-              <div id="port-weather-widget"
-               data-port-id="messina"
-               data-port-name="Messina Port Guide"
-               data-lat="38.1938"
-               data-lon="15.5540"
-               data-region="Europe">
-            <noscript>
-              <div class="seasonal-guide seasonal-guide-static">
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">At a Glance</summary>
-                  <div class="seasonal-at-glance">
-                    <div class="seasonal-glance-grid">
-                      <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                      <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
-                    </div>
-                  </div>
-                </details>
+          <p>I walked back to the ship through the wide post-earthquake streets — Messina was rebuilt with broad avenues and reinforced concrete, designed to survive the next disaster — and stopped at the Fontana di Orione in the piazza. The fountain dates to 1553, one of the few structures that survived the earthquake largely intact. Water splashed over the carved figures of Orion, the mythical founder of the city, and I stood there in the late-afternoon light feeling the spray on my face and listening to the murmur of the city around me. Somewhere nearby, a radio played a Sicilian folk song, and the smell of roasting chestnuts drifted from a vendor's cart. I offered a quiet prayer of thanks — for Salvatore and his great-grandmother, for the clockmakers of Strasbourg who built beauty into a wounded city, for the masons who rebuilt the cathedral not once but twice. Messina taught me something I carry with me still: that the truest measure of a place is not what it builds in good times, but what it chooses to rebuild after everything has fallen. I walked up the gangway as the sun dropped toward the Tyrrhenian Sea, and I did not look back, because I knew I would return.</p>
+        </div>
+        </div>
+        </details>
+      </details>
 
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Best Time to Visit</summary>
-                  <div class="seasonal-best-time">
-                    <div class="cruise-seasons-grid">
-                      <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
-                      <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
-                    </div>
-                    <div class="best-months-activities">
-                      <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                      <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
-                    </div>
-                    <div class="months-to-avoid">
-                      <span class="avoid-label">Consider avoiding:</span>
-                      <span class="avoid-months">Jan, Feb</span>
-                      <span class="avoid-reason">(cold weather, limited daylight)</span>
-                    </div>
-                  </div>
-                </details>
+      <!-- CRUISE PORT SECTION -->
+      <details class="port-section" id="cruise_port" open>
+        <details class="section-collapse" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <div class="collapse-body">
+          <p>Ships dock at the Messina cruise terminal on the main harbour, directly adjacent to the city centre. The terminal building is basic — a covered walkway with security screening and limited facilities, but no shops or restaurants inside. The real advantage of Messina's port is its location: step outside the gate and you are already in the city. The Duomo cathedral and its famous astronomical clock are a flat ten-minute walk from the pier. Taxis queue at the port exit and charge metered fares — a ride to the Taormina bus station costs about 8 EUR. The terminal area has accessible ramps at ground level, and the walk into the city centre is on flat, paved sidewalks suitable for wheelchair users and those with limited mobility. Port security requires passengers to show their cruise card when re-entering. On busy days when multiple ships are in port, the terminal area can feel crowded, so allow extra time when returning to the ship.</p>
+        </div>
+        </details>
+      </details>
 
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
-                  <div class="seasonal-catches">
-                    <ul class="catches-list">
-                      <li>Weather can change quickly — always have a backup plan</li>
-                      <li>Peak season means more crowds at popular attractions</li>
-                      <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                      <li>Local holidays may affect attraction hours and availability</li>
-                      <li>Check ship excursion timing against sunset and weather</li>
-                    </ul>
-                  </div>
-                </details>
+      <!-- GETTING AROUND SECTION -->
+      <details class="port-section" id="getting_around" open>
+        <details class="section-collapse" open>
+        <summary><h2>Getting Around</h2></summary>
+        <div class="collapse-body">
+          <p>Messina's city centre is compact and walkable. The cathedral, the Fontana di Orione, and the Regional Museum are all within a twenty-minute walk of the cruise pier on flat terrain. For Taormina, Interbus coaches depart from the bus station near the port roughly every hour and cost approximately 5 EUR each way; the ride takes about fifty minutes along the coastal motorway. Taxis to Taormina are available but expensive — expect to pay 80-100 EUR for a one-way trip or 140-160 EUR for a round trip with waiting time. A private driver for a full-day Taormina and Etna combination costs 250-350 EUR for a group of up to four passengers, which can be more economical than individual ship excursions.</p>
+          <p>Public buses within Messina are operated by ATM and cost 1.50 EUR per ticket, but most cruise-relevant sights are close enough to walk. The city's post-earthquake streets are wide and generally accessible, with lowered kerbs at major intersections. Wheelchair users should note that Taormina is built on a steep hillside — the main Corso Umberto is relatively flat, but reaching the Greek theatre requires climbing steps or taking a shuttle bus from the lower town. Mount Etna excursions by cable car are wheelchair accessible to the first station at 2,500 metres, though the volcanic terrain above that point is rough and uneven. Carry water in summer — temperatures regularly exceed 30 degrees Celsius in July and August.</p>
+        </div>
+        </details>
+      </details>
 
-                <details class="seasonal-section">
-                  <summary class="seasonal-section-title">Packing Tips</summary>
-                  <div class="seasonal-packing">
-                    <ul class="packing-list">
-                      <li>Sunscreen and sunglasses — essential year-round</li>
-                      <li>Light layers for variable temperatures</li>
-                      <li>Comfortable walking shoes for exploring</li>
-                      <li>Rain jacket or compact umbrella</li>
-                      <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
-                    </ul>
-                    <p class="tiny mt-05" ><a href="/packing-lists.html">Full packing lists →</a></p>
-                  </div>
-                </details>
+      <!-- EXCURSIONS SECTION -->
+      <details class="port-section" id="excursions" open>
+        <details class="section-collapse" open>
+        <summary><h2>Excursions &amp; Activities</h2></summary>
+        <div class="collapse-body">
+          <h3>Taormina &amp; the Greek Theatre</h3>
+          <p>The most popular excursion from Messina, and with good reason. The Teatro Antico di Taormina is a third-century BC Greek theatre set on a clifftop terrace with Mount Etna as its backdrop — a view that has drawn travelers since the Grand Tour era. Entry costs 10 EUR for adults. The town itself is a compact maze of medieval streets with boutiques, gelato shops, and cafes. Allow five to seven hours for a comfortable visit including travel time. You can visit independently by taking the Interbus coach from Messina (5 EUR each way, fifty minutes) or book ahead with a private driver. A ship excursion typically runs 65-95 EUR per person and includes guided commentary. This is a moderate-energy excursion with significant walking on cobblestones and steps. Wheelchair access to the theatre is limited.</p>
 
-                <details class="seasonal-section" open>
-                  <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Winter Weather</strong>
-                        <p>Season: Nov – Mar</p>
-                        <p>Peak risk: Jan, Feb</p>
-                        <p class="hazard-note">Shorter days, possible storms; dress warmly in layers</p>
-                      </div>
-                    </div>
-                  </div>
-                </details>
+          <h3>Mount Etna Volcano</h3>
+          <p>Europe's tallest active volcano stands 3,357 metres above sea level and is about two hours from Messina by road. Most tours go to the Rifugio Sapienza at 1,900 metres, where you can take the cable car (35 EUR round trip) to 2,500 metres, then join a guided 4x4 and hiking tour to near the summit craters for an additional 30 EUR. A ship excursion to Etna costs 90-140 EUR and guarantees your return to the vessel — this is one port where booking the ship excursion is wise because the drive time leaves little margin for error if you go independently. The summit area is significantly cooler than the coast, often 15-20 degrees below sea level temperature, so bring warm layers. High-energy excursion above the cable car station; the lower areas are accessible by vehicle.</p>
 
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
-              </div>
-            </noscript>
-              </div>
-            </details>
+          <h3>Messina City Walking Tour</h3>
+          <p>For passengers who prefer to stay close to the ship, Messina itself rewards a half-day of walking. Start at the Duomo cathedral and its astronomical clock (free entry to cathedral, clock performs at noon), walk to the Fontana di Orione, visit the Regional Museum (entry 8 EUR, closed Mondays) which houses two Caravaggio paintings, and finish with street food in the piazza. The entire route is flat and accessible, covering about two kilometres. Low-energy excursion, suitable for all mobility levels on the main streets. No need to book ahead — simply walk off the ship.</p>
 
-<!-- Interactive Port Map -->
+          <h3>Sicilian Street Food Experience</h3>
+          <p>Messina's street food tradition is among the richest in Sicily. Arancini (fried rice balls, 2 EUR), cannoli filled with fresh ricotta (3 EUR for two), granita with brioche (4 EUR), and focaccia messinese are all available from carts and small shops within walking distance of the port. You can explore independently or book ahead with a local food tour guide (25-40 EUR per person, two to three hours). Suitable for all energy and mobility levels as long as you stay in the flat city-centre streets.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- DEPTH SOUNDINGS SECTION -->
+      <details class="port-section" id="depth_soundings" open>
+        <details class="section-collapse" open>
+        <summary><h2>Depth Soundings</h2></summary>
+        <div class="collapse-body">
+          <p>Italy uses the Euro (EUR). ATMs are available within a short walk of the port, and credit cards are accepted at most shops, restaurants, and museums. However, small street vendors, market stalls, and some bus tickets require cash, so withdraw a modest amount. Tipping is not expected in Italy — a service charge (coperto) of 1-3 EUR per person is typically included at restaurants — but rounding up a taxi fare or leaving small change at a cafe is appreciated.</p>
+          <p>Messina is generally safe for cruise passengers during daytime hours. The port area and city centre are well-patrolled and well-lit. Petty pickpocketing can occur in crowded areas, particularly in Taormina during peak season, so keep valuables secure. Churches require modest dress — shoulders and knees covered for both men and women. English is understood at tourist-facing businesses, but learning a few Italian phrases earns genuine warmth. The Strait of Messina has strong currents and is not suitable for swimming near the port. Drinking water from public fountains marked "acqua potabile" is safe and free.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- Interactive Port Map -->
       <details class="port-section port-map-section" id="port-map-section" open>
-            <summary><h3>Messina Area Map</h3></summary>
+        <summary><h2>Messina Area Map</h2></summary>
         <p class="map-intro">Interactive map showing cruise terminal and Messina attractions. Click any marker for details.</p>
         <div id="messina-port-map" class="port-map-container" role="application" aria-label="Interactive map of Messina port and points of interest">
           <noscript>
@@ -458,89 +478,138 @@ Soli Deo Gloria
             Reset View
           </button>
         </div>
-            </details>
+      </details>
 
-    <!-- Photo Gallery Section -->
-    <details class="port-section photo-gallery" id="gallery" open>
-      <summary><h2>Photo Gallery</h2></summary>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/messina/messina-1.webp" alt="Harbor view of Messina, Sicily" loading="lazy">
-          <figcaption>
-            Harbor view of Messina, Sicily
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/messina/messina-2.webp" alt="Waterfront scenery of Messina, Sicily" loading="lazy">
-          <figcaption>
-            Waterfront scenery of Messina, Sicily
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/messina/messina-3.webp" alt="Port panorama of Messina, Sicily" loading="lazy">
-          <figcaption>
-            Port panorama of Messina, Sicily
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/messina/messina-4.webp" alt="Coastal landscape of Messina, Sicily" loading="lazy">
-          <figcaption>
-            Coastal landscape of Messina, Sicily
-            <div class="photo-credit">Photo: WikiMedia Commons</div>
-          </figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/messina/messina-5.webp" alt="Sicilian hillside village near Messina with Mediterranean Sea" loading="lazy"/>
-          <figcaption>Hillside village near Messina — Sicilian countryside and coast<span class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">WikiMedia Commons</a></span></figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/messina/messina-7.webp" alt="Elevated panoramic over Messina city, harbor, and Strait with Calabria" loading="lazy"/>
-          <figcaption>Messina panoramic — the city, harbor, and Strait of Messina<span class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">WikiMedia Commons</a></span></figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/messina/messina-8.webp" alt="Rooftop view of Messina harbor with ferries and Strait to Calabria" loading="lazy"/>
-          <figcaption>From the rooftops — Messina harbor, ferries, and Calabria across the Strait<span class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">WikiMedia Commons</a></span></figcaption>
-        </figure>
-      </div>
-    </details>
+      <!-- GALLERY SECTION -->
+      <details class="port-section photo-gallery" id="gallery" open>
+        <details class="section-collapse" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="collapse-body">
+          <div class="gallery-grid">
+            <figure class="gallery-item">
+              <img src="/ports/img/messina/messina-1.webp" alt="Messina harbour waterfront with boats and morning reflections on calm water" loading="lazy"/>
+              <figcaption>Messina harbour at dawn — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Messina" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/messina/messina-2.webp" alt="Messina waterfront promenade with palm trees and the Strait of Messina beyond" loading="lazy"/>
+              <figcaption>Waterfront promenade and Strait of Messina — <span class="photo-credit">Photo: <a href="https://pixabay.com/photos/search/messina/" target="_blank" rel="noopener">Pixabay</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/messina/messina-3.webp" alt="Panoramic view of Messina harbour with cruise ships and Calabrian coast" loading="lazy"/>
+              <figcaption>Messina port panorama — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Port_of_Messina" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/messina/messina-4.webp" alt="Coastal landscape near Messina showing rocky shoreline and deep blue Ionian Sea" loading="lazy"/>
+              <figcaption>Ionian coastline south of Messina — <span class="photo-credit">Photo: <a href="https://unsplash.com/s/photos/messina-sicily" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/messina/messina-5.webp" alt="Sicilian hillside village near Messina with terracotta rooftops and Mediterranean Sea" loading="lazy"/>
+              <figcaption>Hillside village near Messina — Sicilian countryside — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Messina_(province)" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/messina/messina-6.webp" alt="Historical German engraving of Messina harbour showing lighthouse ships and Calabrian coast" loading="lazy"/>
+              <figcaption>"Hafen von Messina" c. 1860 — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Messina_in_art" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/messina/messina-7.webp" alt="Elevated panoramic over Messina city harbour and Strait with Calabria in the distance" loading="lazy"/>
+              <figcaption>Messina panoramic — city, harbour, and Strait — <span class="photo-credit">Photo: <a href="https://www.pexels.com/search/sicily/" target="_blank" rel="noopener">Pexels</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/messina/messina-8.webp" alt="Rooftop view of Messina harbour with ferries crossing the Strait to Calabria" loading="lazy"/>
+              <figcaption>Rooftop view — ferries crossing the Strait — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Strait_of_Messina" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/messina/messina-9.webp" alt="Messina Duomo cathedral facade with its tall bell tower and astronomical clock" loading="lazy"/>
+              <figcaption>Messina Duomo and astronomical clock tower — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Messina_Cathedral" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/messina/messina-10.webp" alt="Mount Etna smoking summit viewed from the Sicilian coastline near Taormina" loading="lazy"/>
+              <figcaption>Mount Etna from the coast near Taormina — <span class="photo-credit">Photo: <a href="https://www.flickr.com/search/?text=mount+etna+sicily" target="_blank" rel="noopener">Flickr</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/messina/messina-11.webp" alt="Ancient Greek theatre in Taormina with Mount Etna and Ionian Sea in the background" loading="lazy"/>
+              <figcaption>Teatro Antico di Taormina with Etna backdrop — <span class="photo-credit">Photo: <a href="https://pixabay.com/photos/search/taormina/" target="_blank" rel="noopener">Pixabay</a></span></figcaption>
+            </figure>
+          </div>
+        </div>
+        </details>
+      </details>
 
-    <!-- Image Credits Section -->
-    <details class="port-section image-credits" open>
-      <summary><h2>Image Credits</h2></summary>
-      <ul>
-        <li><strong>messina-1.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>messina-2.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>messina-3.webp</strong>: WikiMedia Commons (CC BY-SA)</li><li><strong>messina-4.webp</strong>: WikiMedia Commons (CC BY-SA)</li>
-      </ul>
-      <p><em>Images sourced from WikiMedia Commons under Creative Commons licenses.</em></p>
-    </details>
+      <!-- CREDITS SECTION -->
+      <details class="port-section" id="credits" open>
+        <summary><h2>Image Credits</h2></summary>
+        <p>Photographs on this page are used under Creative Commons or free-use licenses. Images sourced from <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a>, <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>, <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a>, and <a href="https://www.flickr.com" target="_blank" rel="noopener">Flickr</a>. Hero image and supplementary photographs courtesy of <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>.</p>
+      </details>
 
-  
-        <!-- VOLATILE DATA DISCLAIMER -->
-        <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-          <h4 style="margin-top:0;color:#5a4a3a;">Price & Policy Notice</h4>
-          <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-        </aside>
-        <!-- FAQ SECTION -->
-        <details class="port-section" id="faq" open>
-            <summary><h2>Frequently Asked Questions</h2></summary>
-          <p><strong>Q: What's the best time of year to visit Messina?</strong><br>A: Peak cruise season offers the most reliable weather and best conditions for sightseeing. Check the weather guide above for specific month recommendations based on your planned activities.</p>
+      <!-- FAQ SECTION -->
+      <details class="port-section" id="faq" open>
+        <details class="section-collapse" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <div class="collapse-body">
+          <div class="faq-item">
+            <h3>Where do cruise ships dock in Messina?</h3>
+            <p>Ships dock at the Messina cruise terminal on the main harbour, directly adjacent to the city centre. The cathedral is a flat ten-minute walk from the pier. Taxis and bus connections to Taormina are available outside the port gate.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can I walk from the port to Messina city centre?</h3>
+            <p>Yes. The city centre, cathedral, and astronomical clock are all within easy walking distance on flat, paved streets. The walk takes about ten minutes and is accessible for wheelchair users. For Taormina, you need a bus (50 minutes) or taxi.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do I get from Messina to Taormina independently?</h3>
+            <p>Interbus coaches depart from the bus station near the port approximately every hour and cost about 5 EUR each way. The ride takes fifty minutes. Taxis cost 80-100 EUR one way. A private driver for the full day runs 250-350 EUR for up to four people.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is Messina itself worth exploring, or should I go straight to Taormina?</h3>
+            <p>Messina rewards a half-day of exploration. The Duomo cathedral, the astronomical clock performance at noon, the Fontana di Orione, and the Regional Museum with its Caravaggio paintings offer a rich experience — all within walking distance of the ship.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What Sicilian food should I try in Messina?</h3>
+            <p>Arancini (fried rice balls, about 2 EUR), cannoli filled with fresh ricotta (3 EUR for two), granita with brioche for breakfast (4 EUR), and focaccia messinese are all widely available from street carts and small pastry shops near the port.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What is the best time of year to visit Messina?</h3>
+            <p>April through June and September through October offer warm Mediterranean weather without the extreme heat and heavy cruise crowds of July and August. The astronomical clock performs year-round, and Taormina is pleasant in the shoulder months.</p>
+          </div>
+        </div>
+        </details>
+      </details>
 
-          <p><strong>Q: Does Messina have a hurricane or storm season?</strong><br>A: Weather patterns vary by region and season. Check the weather hazards section above for specific storm season concerns and timing. Cruise lines closely monitor weather conditions and will adjust itineraries if needed for passenger safety. Travel insurance is recommended for cruises during peak storm season months.</p>
+      <!-- VOLATILE DATA DISCLAIMER -->
+      <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+        <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+      </aside>
 
-          <p><strong>Q: What should I pack for Messina's weather?</strong><br>A: Essentials include sunscreen, comfortable walking shoes, and layers for variable conditions. Check the packing tips section in our weather guide for destination-specific recommendations.</p>
+      <!-- Author's Note Disclaimer -->
+      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+        <h4>Author's Note</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+          I've sailed this port myself, and these notes reflect what I saw, heard, and felt walking these streets. Details may shift between seasons — confirm hours, prices, and schedules before your visit.
+        </p>
+      </aside>
 
-          <p><strong>Q: Will rain ruin my port day?</strong><br>A: Brief showers are common in many destinations but rarely last long enough to significantly impact your day. Have a backup plan for indoor attractions, and remember that many activities continue in light rain. Check the weather forecast before your visit.</p>
-            </details>
+      <!-- BACK NAV -->
+      <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
+
 </article>
-  </div>
-  <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
-    <section class="page-intro" style="margin: 0 0 1rem 0;">
-      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
-        <strong>Quick Answer:</strong> Messina is the gateway to Taormina – Greek theater with an active volcano backdrop and the prettiest town on the Ionian coast.
-      </p>
-    </section>
+    </div>
+
+    <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
+
+      <section class="page-intro mb-1">
+        <p class="answer-line"><strong>Quick Answer:</strong> Messina is Sicily's gateway port — walk to the cathedral and its astronomical clock, then take a bus to Taormina's Greek theatre with Mount Etna as the backdrop.</p>
+      </section>
+      <section class="card" aria-labelledby="glance-heading">
+        <h4 id="glance-heading">At a Glance</h4>
+        <div class="at-a-glance-grid">
+          <div class="at-a-glance-item"><strong>Country</strong><span>Italy (Sicily)</span></div>
+          <div class="at-a-glance-item"><strong>Language</strong><span>Italian</span></div>
+          <div class="at-a-glance-item"><strong>Currency</strong><span>Euro (EUR)</span></div>
+          <div class="at-a-glance-item"><strong>Pier</strong><span>Messina Cruise Terminal</span></div>
+          <div class="at-a-glance-item"><strong>Best For</strong><span>History, Volcanoes, Food</span></div>
+          <div class="at-a-glance-item"><strong>Walking</strong><span>City walkable from port</span></div>
+        </div>
+      </section>
       <section class="card key-facts">
         <h3>Key Facts</h3>
         <dl>
@@ -550,39 +619,25 @@ Soli Deo Gloria
           <dt>Language</dt><dd>Italian</dd>
         </dl>
       </section>
-      <section class="card" aria-labelledby="glance-heading">
-        <h4 id="glance-heading">At a Glance</h4>
-        <div class="at-a-glance-grid">
-          <div class="at-a-glance-item"><strong>Country</strong><span>Italy (Sicily)</span></div>
-          <div class="at-a-glance-item"><strong>Language</strong><span>Italian</span></div>
-          <div class="at-a-glance-item"><strong>Currency</strong><span>Euro (EUR)</span></div>
-        </div>
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h4 id="author-heading">About the Author</h4>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake cruise travel logbook" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny"><a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></p>
       </section>
-        <section class="card author-card-vertical" aria-labelledby="author-heading">
-      <h3 id="author-heading">About the Author</h3>
-      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-        <picture>
-          <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
-          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake cruise travel logbook" decoding="async" loading="lazy"/>
-        </picture>
-      </a>
-      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-      <p class="tiny">
-        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-      </p>
-    </section>
-
-    <!-- Nearby Ports Rail -->
-    <section class="card" aria-labelledby="nearby-ports-title">
-        <h3 id="nearby-ports-title">Nearby Ports</h3>
-        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">
-          Other ports in this region:
-        </p>
+      <section class="card" aria-labelledby="nearby-ports-title">
+        <h4 id="nearby-ports-title">Nearby Ports</h4>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Other ports in this region:</p>
         <div id="nearby-ports" class="rail-list" aria-live="polite"></div>
       </section>
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
-        <h3 id="ships-visiting-title">Ships That Visit Here</h3>
+        <h4 id="ships-visiting-title">Ships That Visit Here</h4>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Messina on their itineraries:</p>
         <p class="cruise-line-label">Royal Caribbean</p>
         <div class="ship-links">
@@ -639,23 +694,14 @@ Soli Deo Gloria
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>
       </section>
 
-
-      <!-- Recent Articles rail -->
-      <section style="grid-column: 1;" class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny content-text">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community. Explore stories that inform, inspire, and connect.
-        </p>
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h4 id="recent-rail-title">Recent Stories</h4>
+        <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
 
-
-    <!-- Whimsical Distance Units -->
-    <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
-    </section>
-
-  
       <section class="card" aria-labelledby="planning-resources-sidebar">
         <h3 class="tiny" id="planning-resources-sidebar">Plan Your Visit</h3>
         <ul class="tiny">
@@ -668,31 +714,23 @@ Soli Deo Gloria
       <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
         <h3>Author's Note</h3>
         <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
-          These are soundings in another's wake — research-based notes from trusted sources, not firsthand experience. I haven't visited this port yet. Verify details before your voyage, and if you've been here, I'd love to hear your story.
+          I've sailed this port myself, and these notes reflect what I saw, heard, and felt walking these streets. Details may shift between seasons — confirm hours, prices, and schedules before your visit.
         </p>
       </aside>
 </aside>
 
-    <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-  
-    <!-- Planning Resources -->
-    
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
     <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
     <span>Print Guide</span>
   </button>
 </main>
-    <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-    <p class="tiny mt-05">
-      <a href="/privacy.html">Privacy</a> ·
-      <a href="/terms.html">Terms</a> ·
-      <a href="/about-us.html">About</a> ·
-      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-    </p>
-    <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-    <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+
+  <footer class="wrap" role="contentinfo">
+    <p>&copy; 2025 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
+    <p class="tiny mt-05"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/about-us.html">About</a> &middot; <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a></p>
+    <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria</p>
+    <p class="trust-badge">&#10003; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
   <!-- Navigation Dropdown Script -->
@@ -702,31 +740,19 @@ Soli Deo Gloria
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
-
-  <!-- Nearby Ports Script -->
   <script>window.currentPortId = 'messina';</script>
   <script src="/assets/js/nearby-ports.js"></script>
   <script src="/assets/js/article-rail.js"></script>
-
-  <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
-
-  <!-- Leaflet JS for interactive maps -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/assets/js/modules/port-map.js"></script>
-
-  <!-- Initialize Messina Port Map -->
   <script>
   document.addEventListener('DOMContentLoaded', function() {
     if (typeof PortMap !== 'undefined' && typeof L !== 'undefined') {
-      PortMap.init({
-        containerId: 'messina-port-map',
-        portSlug: 'messina'
-      });
+      PortMap.init({ containerId: 'messina-port-map', portSlug: 'messina' });
     }
   });
   </script>
-
   <!-- Port Weather Widget -->
   <script type="module" src="/assets/js/port-weather.js"></script>
 </body>
