@@ -316,6 +316,24 @@ Soli Deo Gloria
         </details>
       </details>
 
+      <!-- INTERACTIVE PORT MAP -->
+      <details class="port-section port-map-section" id="port-map-section" open>
+        <summary><h3>Okinawa Port Map</h3></summary>
+        <p class="map-intro">Interactive map showing cruise terminal and Okinawa attractions. Click any marker for details.</p>
+        <div id="okinawa-port-map" class="port-map-container" role="application" aria-label="Interactive map of Okinawa port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=26.212&mlon=127.672#map=12/26.21/127.67" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('okinawa-port-map')._portMap?.fitBounds(document.getElementById('okinawa-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+      </details>
+
       <!-- EXCURSIONS SECTION -->
       <details class="port-section" id="excursions" open>
         <details class="section-collapse" open>
@@ -337,13 +355,6 @@ Soli Deo Gloria
           <p>The Kerama Islands, a thirty-minute to one-hour ferry ride from Naha, offer pristine coral reefs and frequent sea turtle sightings. Half-day snorkel tours from Naha cost 5,000–8,000 yen ($34–55) and typically depart at 8:30 or 9:00 a.m. Diving requires certification and advance booking. The ferry terminal at Tomari Port is about ten minutes by taxi from the cruise terminal. This is a high-energy activity. Book ahead through a local operator — same-day availability is not guaranteed, especially in peak season from March through November.</p>
         </div>
         </details>
-      </details>
-
-      <!-- PORT MAP -->
-      <details class="port-section" id="port-map-section" open>
-        <summary><h2>Port Map</h2></summary>
-        <div id="port-map" style="height: 350px; border-radius: 8px; margin: 1rem 0;"></div>
-        <p class="map-note" style="font-size: 0.85rem; color: #666; text-align: center;">Tap markers to explore Okinawa</p>
       </details>
 
       <!-- DEPTH SOUNDINGS SECTION -->
