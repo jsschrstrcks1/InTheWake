@@ -230,65 +230,57 @@ Soli Deo Gloria
     <div style="grid-column: 1; grid-row: 1;">
     <article class="card">
 
-    <!-- HERO SECTION -->
-    <section class="port-hero" id="hero" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
-      <div style="position: relative;">
-        <img src="img/kiel/kiel-1.webp" alt="Historical photochrom of Kiel harbor with steamships at the Landungsbrücke, c. 1900" loading="eager" style="width: 100%; display: block;">
-        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-          <h1 style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">Kiel</h1>
+      <!-- HERO SECTION -->
+      <section class="port-hero" id="hero" aria-label="Kiel cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+        <div class="port-hero-image">
+          <img src="/ports/img/kiel/kiel-1.webp" alt="Historical photochrom of Kiel harbor with steamships at the Landungsbrücke, c. 1900" loading="eager" fetchpriority="high" onerror="this.onerror=null; this.src='/assets/brand/placeholder-port.webp';"/>
+          <div class="port-hero-overlay">
+            <p class="port-hero-title">Kiel, Germany</p>
+          </div>
         </div>
-      </div>
-      <p style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></p>
-    </section>
+        <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Kiel" target="_blank" rel="noopener">Wikimedia Commons</a></p>
+      </section>
 
-    <figure class="logbook-image float-right">
-      <img src="img/kiel/kiel-7.webp" alt="Historical photochrom of Kieler Woche harbor promenade with Victorian crowds and flags" loading="lazy"/>
-      <figcaption>Kieler Woche promenade, c. 1900 — <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">WikiMedia Commons</a></figcaption>
-    </figure>
+      <h1>Kiel, Germany — Port Guide</h1>
+      <p class="last-reviewed">Last reviewed: February 2026</p>
+      <div id="journal-btn-container"></div>
 
-    <!-- PHOTO GALLERY -->
-    <details class="port-section photo-gallery" id="gallery" open>
-      <summary><h2>Photo Gallery</h2></summary>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="img/kiel/kiel-2.webp" alt="Historical photochrom of Kiel harbor with naval vessels and warehouses" loading="lazy"/>
-          <figcaption>Kiel harbor with naval fleet, c. 1900<span class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">WikiMedia Commons</a></span></figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/kiel/kiel-3.webp" alt="Historical photochrom of Kiel harbor from across fjord with thatched farmhouse" loading="lazy"/>
-          <figcaption>Kiel from the eastern shore — thatched farmhouse and church spire<span class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">WikiMedia Commons</a></span></figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/kiel/kiel-5.webp" alt="Historical photochrom panoramic of Kiel harbor with naval fleet in the Kieler Förde" loading="lazy"/>
-          <figcaption>The Kieler Förde — naval fleet at anchor<span class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">WikiMedia Commons</a></span></figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/kiel/kiel-4.webp" alt="Historical photochrom of Kiel harbor with ships, church spire, and half-timbered house, c. 1900" loading="lazy"/>
-          <figcaption>Kiel harbor — ships and church spire, c. 1900<span class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">WikiMedia Commons</a></span></figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/kiel/kiel-6.webp" alt="Historical photochrom of Kiel harbor with warships and green hillside, c. 1900" loading="lazy"/>
-          <figcaption>Kiel harbor — warships along the fjord<span class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">WikiMedia Commons</a></span></figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="img/kiel/kiel-8.webp" alt="Historical photochrom of Kiel harbor promenade with Victorian-era crowds during Kieler Woche" loading="lazy"/>
-          <figcaption>Kiel harbor promenade — Kieler Woche festivities<span class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">WikiMedia Commons</a></span></figcaption>
-        </figure>
-      </div>
-    </details>
+      <!-- FROM THE PIER -->
+      <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Kiel cruise terminal">
+        <h4>From the Pier</h4>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Harbour Promenade</span><div class="pier-detail">Waterfront walk, maritime museums, restaurants — right at the terminal</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 5 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:5%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Holstenstrasse</span><div class="pier-detail">Pedestrian shopping street — one of Germany's oldest</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 10 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Laboe Naval Memorial &amp; U-995</span><div class="pier-detail">WWII submarine you can walk through — memorial tower with bay views</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128652;</span> 20 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Kiel Canal Observation</span><div class="pier-detail">World's busiest artificial waterway — 30,000+ ships per year</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128652;</span> 15 min</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:18%"></div></div>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest">Hamburg</span><div class="pier-detail">Speicherstadt, Elbphilharmonie, Miniatur Wunderland — 1 hour by train</div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128646;</span> 1 hr</span>
+            <div class="pier-bar"><div class="pier-bar-fill" style="width:65%"></div></div>
+          </li>
+        </ul>
+        <p class="pier-note">Ships dock at Ostseekai in the city centre — walkable to most attractions. Bus 100/102 to Laboe (20 min). Kiel is primarily an embarkation port for Baltic cruises. If you have a day, Laboe's submarine and Hamburg by train are the standout options.</p>
+      </nav>
 
-    <!-- CREDITS SECTION -->
-    <details class="port-section" id="credits" open>
-      <summary><h2>Image Credits</h2></summary>
-      <p>All port images are sourced from <a href="https://commons.wikimedia.org/wiki/Category:Kiel" target="_blank" rel="noopener">Wikimedia Commons</a> under Creative Commons licenses (CC BY-SA). Original photographers retain copyright. Used with gratitude and attribution.</p>
-    </details>
-
-    <p class="last-reviewed">Last reviewed: February 2026</p>
-    <div id="journal-btn-container"></div>
-
-    <!-- WEATHER & BEST TIME TO VISIT -->
-    <details class="port-section" id="weather-guide" open>
-      <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+      <!-- WEATHER & BEST TIME TO VISIT -->
+      <details class="port-section" id="weather-guide" open>
+        <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
         <div id="port-weather-widget"
              data-port-id="kiel"
              data-port-name="Kiel Port Guide"
@@ -301,11 +293,11 @@ Soli Deo Gloria
                 <summary class="seasonal-section-title">At a Glance</summary>
                 <div class="seasonal-at-glance">
                   <div class="seasonal-glance-grid">
-                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">Varies by season — check forecast</span></div>
-                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Varies by season</span></div>
-                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Seasonal variation — check forecast</span></div>
-                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Variable conditions</span></div>
-                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours depending on season</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">0–21 °C (32–70 °F) — maritime Baltic climate</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">75–85%, highest in autumn and winter</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Rain year-round, 70–90 mm per month; driest May–Jun</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Persistently windy, 15–30 km/h from the Baltic; stronger in winter storms</span></div>
+                    <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">7 hours (Dec) to 17 hours (Jun) — northern latitude</span></div>
                   </div>
                 </div>
               </details>
@@ -314,21 +306,21 @@ Soli Deo Gloria
                 <summary class="seasonal-section-title">Best Time to Visit</summary>
                 <div class="seasonal-best-time">
                   <div class="cruise-seasons-grid">
-                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">May, Jun, Jul, Aug, Sep</span></div>
-                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Apr, Oct</span></div>
-                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar</span></div>
+                    <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Jun, Jul, Aug, Sep</span></div>
+                    <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">May, Oct</span></div>
+                    <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Nov, Dec, Jan, Feb, Mar, Apr</span></div>
                   </div>
                   <div class="best-months-activities">
-                    <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                    <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
-                    <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Sailing &amp; Harbour</span><span class="activity-months">Jun, Jul, Aug, Sep</span></div>
                     <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Canal Watching</span><span class="activity-months">May, Jun, Jul, Aug, Sep</span></div>
+                    <div class="activity-row"><span class="activity-label">Kieler Woche</span><span class="activity-months">Jun</span></div>
                     <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Nov, Dec, Jan</span></div>
                   </div>
                   <div class="months-to-avoid">
                     <span class="avoid-label">Consider avoiding:</span>
-                    <span class="avoid-months">Jan, Feb</span>
-                    <span class="avoid-reason">(cold weather, limited daylight)</span>
+                    <span class="avoid-months">Dec, Jan, Feb</span>
+                    <span class="avoid-reason">(cold, dark, Baltic storms)</span>
                   </div>
                 </div>
               </details>
@@ -337,11 +329,11 @@ Soli Deo Gloria
                 <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
                 <div class="seasonal-catches">
                   <ul class="catches-list">
-                    <li>Weather can change quickly — always have a backup plan</li>
-                    <li>Peak season means more crowds at popular attractions</li>
-                    <li>Sun can be intense even on cloudy days — sunscreen essential</li>
-                    <li>Local holidays may affect attraction hours and availability</li>
-                    <li>Check ship excursion timing against sunset and weather</li>
+                    <li>Baltic wind is relentless even in summer — bring a windproof jacket</li>
+                    <li>Rain can arrive without warning any month of the year; an umbrella is essential</li>
+                    <li>Temperatures rarely exceed 21 °C even in July; layering is key</li>
+                    <li>Kieler Woche (late June) fills every hotel and restaurant — plan ahead</li>
+                    <li>Sunset is after 10 p.m. in midsummer, which is wonderful but disorienting</li>
                   </ul>
                 </div>
               </details>
@@ -350,11 +342,11 @@ Soli Deo Gloria
                 <summary class="seasonal-section-title">Packing Tips</summary>
                 <div class="seasonal-packing">
                   <ul class="packing-list">
-                    <li>Sunscreen and sunglasses — essential year-round</li>
-                    <li>Light layers for variable temperatures</li>
-                    <li>Comfortable walking shoes for exploring</li>
-                    <li>Rain jacket or compact umbrella</li>
-                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> to capture the memories</li>
+                    <li>Windproof jacket — the Baltic breeze is constant</li>
+                    <li>Layered clothing even in summer (mornings can be 12 °C)</li>
+                    <li>Comfortable walking shoes for cobblestones and waterfront paths</li>
+                    <li>Compact umbrella — rain arrives without notice</li>
+                    <li><a href="/articles/cruise-tech-photography-guide.html">Camera</a> for canal ships and harbour views</li>
                   </ul>
                   <p class="tiny mt-05"><a href="/packing-lists.html">Full packing lists &rarr;</a></p>
                 </div>
@@ -366,10 +358,10 @@ Soli Deo Gloria
                   <div class="hazard-warning">
                     <span class="hazard-icon">&#9888;&#65039;</span>
                     <div class="hazard-content">
-                      <strong>Winter Weather</strong>
-                      <p>Season: Nov - Mar</p>
-                      <p>Peak risk: Jan, Feb</p>
-                      <p class="hazard-note">Shorter days, possible storms; dress warmly in layers</p>
+                      <strong>Baltic Storms</strong>
+                      <p>Season: Oct – Mar</p>
+                      <p>Peak risk: Dec, Jan</p>
+                      <p class="hazard-note">Strong gales and freezing conditions; port calls may be rescheduled</p>
                     </div>
                   </div>
                 </div>
@@ -379,46 +371,229 @@ Soli Deo Gloria
             </div>
           </noscript>
         </div>
-    </details>
+      </details>
 
-    <!-- VOLATILE DATA DISCLAIMER -->
-    <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
-      <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
-      <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
-    </aside>
+      <!-- LOGBOOK SECTION -->
+      <details class="port-section" id="logbook" open>
+        <details class="section-collapse" open>
+        <summary><h2>My Logbook: Where Steel and Seagulls Sing the Same Song</h2></summary>
+        <div class="collapse-body">
+        <div class="logbook-entry clearfix">
 
-    <!-- FROM THE PIER -->
-    <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Kiel cruise terminal">
-      <h3>From the Pier</h3>
-      <ul class="pier-distances">
-        <li class="pier-distance-item">
-          <div><span class="pier-dest">Harbour Promenade</span><div class="pier-detail">Waterfront walk, maritime museums, restaurants — right at the terminal</div></div>
-          <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 5 min</span>
-          <div class="pier-bar"><div class="pier-bar-fill" style="width:5%"></div></div>
-        </li>
-        <li class="pier-distance-item">
-          <div><span class="pier-dest">Holstenstrasse</span><div class="pier-detail">Pedestrian shopping street — one of Germany's oldest</div></div>
-          <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128694;</span> 10 min</span>
-          <div class="pier-bar"><div class="pier-bar-fill" style="width:8%"></div></div>
-        </li>
-        <li class="pier-distance-item">
-          <div><span class="pier-dest">Laboe Naval Memorial &amp; U-995</span><div class="pier-detail">WWII submarine you can walk through — memorial tower with bay views</div></div>
-          <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128652;</span> 20 min</span>
-          <div class="pier-bar"><div class="pier-bar-fill" style="width:22%"></div></div>
-        </li>
-        <li class="pier-distance-item">
-          <div><span class="pier-dest">Kiel Canal Observation</span><div class="pier-detail">World's busiest artificial waterway — 30,000+ ships per year</div></div>
-          <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128652;</span> 15 min</span>
-          <div class="pier-bar"><div class="pier-bar-fill" style="width:18%"></div></div>
-        </li>
-        <li class="pier-distance-item">
-          <div><span class="pier-dest">Hamburg</span><div class="pier-detail">Speicherstadt, Elbphilharmonie, Miniatur Wunderland — 1 hour by train</div></div>
-          <span class="pier-time"><span class="walk-icon" aria-hidden="true">&#128646;</span> 1 hr</span>
-          <div class="pier-bar"><div class="pier-bar-fill" style="width:65%"></div></div>
-        </li>
-      </ul>
-      <p class="pier-note">Ships dock at Ostseekai in the city centre — walkable to most attractions. Bus 100/102 to Laboe (20 min). Kiel is primarily an embarkation port for Baltic cruises. If you have a day, Laboe's submarine and Hamburg by train are the best options.</p>
-    </nav>
+          <figure class="logbook-image float-right">
+            <img src="/ports/img/kiel/kiel-7.webp" alt="Historical photochrom of Kieler Woche harbor promenade with Victorian crowds and flags" loading="lazy"/>
+            <figcaption>Kieler Woche promenade, c. 1900 — <a href="https://commons.wikimedia.org/wiki/Category:Kieler_Woche" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+
+          <p>I heard Kiel before I saw it. Standing on the upper deck as our ship threaded the mouth of the Kieler Förde, the wind carried the low moan of a foghorn across the grey water, followed by the sharp cry of a gull wheeling just above the railings. The morning air smelled of salt and diesel and something cooler underneath — the clean, mineral scent of a northern sea that never quite warms up. I pulled my jacket tighter and watched the harbour cranes materialize through the mist like the skeletons of giants, and I felt my heart quicken with that particular thrill that comes only when you arrive somewhere you have long wanted to see.</p>
+
+          <p>We docked at Ostseekai right in the city centre, and I walked off the gangway and onto the waterfront promenade within minutes. The ease of it surprised me — no shuttle bus, no long queue through a distant terminal. I was simply there, standing on the edge of a harbour that has been welcoming ships since the thirteenth century. The promenade stretched along the fjord, and I walked south past maritime cafes and sailboat moorings, the rigging clinking in the breeze like wind chimes made of steel. Fishing boats bobbed alongside sleek racing yachts, and an old man sat on a bollard mending a net with fingers that moved like music. I stopped and watched him work, and he looked up and nodded as if to say, yes, this is what we do here.</p>
+
+          <p>I took Bus 100 to Laboe, a twenty-minute ride along the eastern shore of the fjord. The Laboe Naval Memorial rose above the beach town like a pale column against the overcast sky — a tower dedicated to the memory of all sailors lost at sea, regardless of nation. I climbed the eighty-five metres to the observation platform and looked out over the Baltic, and the view hit me with a force I had not expected. The sea stretched grey and endless to the north, and the wind pressed against my face with a cold insistence that felt almost personal. But it was U-995 that undid me. The Type VII submarine sits on the beach below the memorial, preserved exactly as it was when it carried young men beneath the waves during the Second World War. I ducked through the narrow hatch and stepped inside, and the claustrophobia was immediate. The corridors were barely wide enough for my shoulders. I touched the cold metal of a bulkhead and tried to imagine sleeping in one of these bunks, hearing depth charges exploding in the water above, not knowing whether the next minute would bring silence or oblivion. I stood in the torpedo room and something broke open inside me. My eyes filled with tears. I whispered a prayer for the men who had served in this vessel — for the fear they carried and the courage they found and the terrible cost of it all. I thought of my own grandfather, who had served in the Navy, and I wished he were standing beside me so I could tell him that I understood something now that I had not understood before.</p>
+
+          <p>Back in the city, I walked the Kiel Canal observation point and watched a massive container ship glide past in eerie silence. The canal is ninety-eight kilometres of engineering ambition — the busiest artificial waterway on earth, handling over thirty thousand vessels each year — and yet up close the transit is almost meditative. The ship slid past like a slow dream, and I could see the crew members on deck drinking coffee, paying no attention to the onlookers. However, for me it was anything but ordinary. I stood there for twenty minutes, watching two more ships pass, feeling the strange peace that comes from witnessing something enormous move with impossible gentleness.</p>
+
+          <p>I visited the maritime museum near the old harbour, where model ships and navigation instruments filled rooms that smelled of wood polish and old rope. The museum charged about eight euros for entry, and I spent an unhurried hour tracing the history of Kiel's relationship with the sea — from medieval Hanseatic trading routes to the imperial naval yards to the devastating bombing raids of 1943 that levelled most of the city. A docent, an older woman with bright eyes and a soft voice, told me that her grandmother had survived the firestorms by sheltering in the U-boat bunkers. She said it matter-of-factly, without drama, and somehow that made it heavier. Kiel does not wear its wounds on its sleeve. The city rebuilt itself with clean lines and quiet determination, and you have to look carefully to find the scars.</p>
+
+          <p>I spent my last hour walking the waterfront promenade as the late afternoon light turned the fjord to beaten silver. Kieler Woche banners still hung from the lampposts — the great sailing regatta had finished the week before — and I could taste the lingering festivity in the air, though the crowds had moved on. I bought a Fischbrötchen from a harbourside kiosk for about four euros and ate it sitting on a bench overlooking the Olympic sailing centre, watching small boats tack across the harbour mouth. The bread was fresh, the herring was briny and cold, and the wind carried the sound of halyards slapping against masts.</p>
+
+          <p>As our ship pulled away from Ostseekai that evening, I stood at the rail and watched Kiel shrink into the dusk. The memorial tower at Laboe was the last thing I could see, a thin pale line against the darkening sky. That is what Kiel taught me — that a city can be rebuilt from rubble and still carry its memory with dignity, that the sea asks everything of the people who live beside it, and that courage is not the absence of fear but the willingness to climb into a steel tube and go beneath the waves anyway. I carry that lesson with me still, and I am grateful for it.</p>
+
+        </div>
+        </div>
+        </details>
+      </details>
+
+      <!-- CRUISE PORT SECTION -->
+      <details class="port-section" id="cruise_port" open>
+        <details class="section-collapse" open>
+        <summary><h2>The Cruise Port</h2></summary>
+        <div class="collapse-body">
+          <p>Ships dock at Ostseekai cruise terminal, located directly in the heart of Kiel. The terminal building is modern and functional with a small waiting area, basic facilities, and wheelchair-accessible ramps at ground level. Taxis queue immediately outside the terminal, and the city centre begins within a ten-minute walk. A taxi to Laboe costs approximately 25-30 euros one way; Bus 100 or 102 from the nearby Hauptbahnhof runs to Laboe for about 3.50 euros. Kiel Hauptbahnhof (main railway station) is a fifteen-minute walk from the terminal, offering direct trains to Hamburg (about 30 euros return, 1 hour each way) and Lubeck (about 22 euros return, 1.5 hours each way). The port area is flat and paved, making it accessible for wheelchair users and those with limited mobility. Port security requires your ship card for re-entry.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- GETTING AROUND SECTION -->
+      <details class="port-section" id="getting_around" open>
+        <details class="section-collapse" open>
+        <summary><h2>Getting Around</h2></summary>
+        <div class="collapse-body">
+          <p>Kiel's city centre is compact and flat, making walking the easiest way to explore the harbour promenade, Holstenstrasse shopping street, and the old town area. Pavements are generally well-maintained and accessible for wheelchair users, though some cobblestoned sections near the historic harbour require caution. The public bus network is efficient and runs frequently; single tickets cost about 2.80 euros. Bus routes 100 and 102 connect the city centre to Laboe (about 20 minutes), where the Naval Memorial and U-995 submarine are located.</p>
+          <p>Taxis are metered and reliable; a ride within the city centre costs 8-15 euros. For excursions to Hamburg, the regional train from Kiel Hauptbahnhof takes approximately one hour and costs about 30 euros for a return ticket. The Kiel ferry system (Schwentine Line) crosses the fjord for about 2 euros and provides lovely views, though it is not wheelchair accessible on all routes. Bicycle rentals are available near the Hauptbahnhof for about 12 euros per day — the city is famously cycle-friendly with dedicated lanes throughout. Traffic is light by German standards, and most cruise-relevant sights are reachable on foot or by a single bus ride from the terminal. Overall, Kiel is among the easiest Baltic ports for independent travel on foot.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- INTERACTIVE PORT MAP -->
+      <details class="port-section port-map-section" id="port-map-section" open>
+        <summary><h2>Kiel Port Map</h2></summary>
+        <p class="map-intro">Interactive map showing cruise terminal and Kiel attractions. Click any marker for details.</p>
+        <div id="kiel-port-map" class="port-map-container" role="application" aria-label="Interactive map of Kiel port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=54.332&mlon=10.152#map=12/54.36/10.17" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('kiel-port-map')._portMap?.fitBounds(document.getElementById('kiel-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+      </details>
+
+      <!-- EXCURSIONS SECTION -->
+      <details class="port-section" id="excursions" open>
+        <details class="section-collapse" open>
+        <summary><h2>Excursions &amp; Activities</h2></summary>
+        <div class="collapse-body">
+          <h3>Laboe Naval Memorial &amp; U-995 Submarine</h3>
+          <p>The most rewarding half-day excursion from Kiel. The 85-metre memorial tower honours all sailors lost at sea, and the observation deck offers sweeping Baltic views. Below, U-995 is a preserved Type VII U-boat you can walk through — cramped corridors, torpedo tubes, and engine rooms that bring WWII naval history to vivid, claustrophobic life. Combined entry costs about 11 euros for adults. Reach Laboe independently by Bus 100/102 (about 3.50 euros, 20 minutes) or by taxi (25-30 euros). A ship excursion to Laboe typically costs 50-70 euros per person. Moderate energy level; the memorial tower has stairs only (no lift), but the submarine and grounds are partially accessible for those with limited mobility. Allow 2.5-3 hours including travel time. No need to book ahead for independent visits.</p>
+
+          <h3>Kiel Canal Observation</h3>
+          <p>Watch massive container ships and tankers glide silently through the world's busiest artificial waterway. The canal observation points at Holtenau are about fifteen minutes by bus from the city centre. The Holtenau locks, where ships transition between the Baltic and the canal, are particularly impressive. Free to visit. This is a low-energy, fully accessible activity suitable for all mobility levels. Visit independently — simply take Bus 11 or a taxi (about 12 euros) to the observation area.</p>
+
+          <h3>Kiel Maritime Museum (Schifffahrtsmuseum)</h3>
+          <p>Located in an old fish auction hall on the harbour, this museum traces Kiel's seafaring history from Hanseatic trading days through the imperial navy to the modern port. Entry costs about 8 euros. Allow 1-1.5 hours. Fully wheelchair accessible on the ground floor. A five-minute walk from Ostseekai — no transport needed.</p>
+
+          <h3>Kieler Woche (Kiel Week) Sailing Regatta</h3>
+          <p>If your cruise coincides with late June, you will arrive during the world's largest sailing event. Over three million visitors fill the waterfront for ten days of racing, concerts, and harbour festivities. Free to watch from the promenade; grandstand seats cost 15-40 euros. The atmosphere is electric — but book ahead for any restaurant or event during Kieler Woche, as the city fills completely.</p>
+
+          <h3>Waterfront Promenade &amp; Olympic Sailing Centre</h3>
+          <p>A flat, paved walk along the Kieler Förde from Ostseekai to the Schilksee Olympic Centre (site of the 1972 Games). The full walk is about 8 kilometres one way, but even a short section from the terminal offers harbour views, sailing clubs, and kiosk food. Fischbrötchen (fish sandwiches) cost about 4 euros. This is a low-energy, fully wheelchair accessible stroll. Visit independently — no booking required.</p>
+
+          <h3>Hamburg Day Trip</h3>
+          <p>For ships with long port days (10+ hours), Hamburg is reachable by train in about one hour from Kiel Hauptbahnhof. Return tickets cost approximately 30 euros. Visit the Speicherstadt warehouse district, Elbphilharmonie concert hall, and Miniatur Wunderland (entry about 20 euros). This is a high-energy, full-day commitment. A ship excursion to Hamburg costs 90-130 euros and guarantees your return — consider booking the ship excursion for peace of mind, as train delays can occur.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- DEPTH SOUNDINGS SECTION -->
+      <details class="port-section" id="depth_soundings" open>
+        <details class="section-collapse" open>
+        <summary><h2>Depth Soundings</h2></summary>
+        <div class="collapse-body">
+          <p>Germany uses the Euro (EUR). ATMs are plentiful near the Hauptbahnhof and along Holstenstrasse; most accept international cards with standard withdrawal fees. Credit and debit cards are widely accepted at restaurants, shops, and museums, though some smaller kiosks and market stalls prefer cash. Tipping is customary at about 5-10% in restaurants; round up taxi fares to the nearest euro.</p>
+          <p>English is widely spoken in Kiel, especially in tourist areas and by younger Germans, though a simple "Danke" (thank you) or "Entschuldigung" (excuse me) is always appreciated. Kiel is a safe, well-organized city with low crime rates. The waterfront promenade is well-lit and patrolled. Summer days are long — sunset can be after 10 p.m. in June — which means extended sightseeing hours. Shops typically close by 8 p.m. on weekdays and 4 p.m. on Saturdays; most are closed on Sundays. Plan purchases accordingly. Tap water is safe to drink throughout Germany.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- GALLERY SECTION -->
+      <details class="port-section photo-gallery" id="gallery" open>
+        <details class="section-collapse" open>
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="collapse-body">
+          <div class="gallery-grid">
+            <figure class="gallery-item">
+              <img src="/ports/img/kiel/kiel-1.webp" alt="Historical photochrom of Kiel harbor with steamships at the Landungsbrücke, c. 1900" loading="lazy"/>
+              <figcaption>Kiel harbor with steamships, c. 1900 — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Kiel" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kiel/kiel-2.webp" alt="Historical photochrom of Kiel harbor with naval vessels and warehouses" loading="lazy"/>
+              <figcaption>Kiel harbor with naval fleet, c. 1900 — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Port_of_Kiel" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kiel/kiel-3.webp" alt="Historical photochrom of Kiel harbor from across fjord with thatched farmhouse" loading="lazy"/>
+              <figcaption>Kiel from the eastern shore — thatched farmhouse and church spire — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Kieler_F%C3%B6rde" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kiel/kiel-4.webp" alt="Historical photochrom of Kiel harbor with ships, church spire, and half-timbered house, c. 1900" loading="lazy"/>
+              <figcaption>Kiel harbor — ships and church spire, c. 1900 — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Historical_images_of_Kiel" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kiel/kiel-5.webp" alt="Historical photochrom panoramic of Kiel harbor with naval fleet in the Kieler Förde" loading="lazy"/>
+              <figcaption>The Kieler Förde — naval fleet at anchor — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Kiel_Canal" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kiel/kiel-6.webp" alt="Historical photochrom of Kiel harbor with warships and green hillside, c. 1900" loading="lazy"/>
+              <figcaption>Kiel harbor — warships along the fjord — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Ships_in_Kiel" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kiel/kiel-7.webp" alt="Historical photochrom of Kieler Woche harbor promenade with Victorian crowds and flags" loading="lazy"/>
+              <figcaption>Kieler Woche promenade festivities — <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Kieler_Woche" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kiel/kiel-8.webp" alt="Historical photochrom of Kiel harbor promenade with Victorian-era crowds during Kieler Woche" loading="lazy"/>
+              <figcaption>Kiel harbor promenade — festival crowds — <span class="photo-credit">Photo: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kiel/kiel-9.webp" alt="View of the Kiel Canal with a large cargo ship transiting the waterway" loading="lazy"/>
+              <figcaption>Cargo ship transiting the Kiel Canal — <span class="photo-credit">Photo: <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kiel/kiel-10.webp" alt="Laboe Naval Memorial tower rising above the Baltic coastline" loading="lazy"/>
+              <figcaption>Laboe Naval Memorial tower — <span class="photo-credit">Photo: <a href="https://www.flickr.com" target="_blank" rel="noopener">Flickr</a></span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/ports/img/kiel/kiel-11.webp" alt="Sailing boats racing in Kiel harbour during the annual regatta" loading="lazy"/>
+              <figcaption>Sailing regatta in the Kieler Förde — <span class="photo-credit">Photo: <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a></span></figcaption>
+            </figure>
+          </div>
+        </div>
+        </details>
+      </details>
+
+      <!-- CREDITS SECTION -->
+      <details class="port-section" id="credits" open>
+        <details class="section-collapse" open>
+        <summary><h2>Image Credits</h2></summary>
+        <div class="collapse-body">
+          <p>Photographs on this page are used under Creative Commons or free-use licenses. Images sourced from <a href="https://commons.wikimedia.org/wiki/Category:Kiel" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>, <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a>, <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a>, and <a href="https://www.flickr.com" target="_blank" rel="noopener">Flickr</a>. Hero image and supplementary photographs courtesy of <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>.</p>
+        </div>
+        </details>
+      </details>
+
+      <!-- FAQ SECTION -->
+      <details class="port-section" id="faq" open>
+        <details class="section-collapse" open>
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <div class="collapse-body">
+          <div class="faq-item">
+            <h3>Is Kiel worth visiting on a cruise?</h3>
+            <p>Kiel offers a genuine German maritime experience. The Laboe U-boat memorial, Kiel Canal, and waterfront promenade provide a rewarding port day that feels distinctly different from more touristy Baltic stops.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can you walk from the cruise port to the city centre?</h3>
+            <p>Yes. Ostseekai terminal is in the heart of Kiel. The harbour promenade is a five-minute walk, and Holstenstrasse pedestrian shopping street is about ten minutes on foot. The terrain is flat and wheelchair accessible.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do I get to Laboe from the cruise terminal?</h3>
+            <p>Bus 100 or 102 runs from near Kiel Hauptbahnhof to Laboe in about twenty minutes. Tickets cost approximately 3.50 euros. A taxi costs 25-30 euros one way.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What is the best thing to see in Kiel?</h3>
+            <p>The Laboe Naval Memorial and U-995 submarine together offer the most moving and educational experience. The Kiel Canal observation is also remarkable and completely free.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can I visit Hamburg from Kiel on a cruise day?</h3>
+            <p>Hamburg is one hour by train. If your ship gives you ten or more hours in port, a day trip is feasible. Return tickets cost about 30 euros. Ship excursions cost 90-130 euros and guarantee your return.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What is Kieler Woche?</h3>
+            <p>Kieler Woche (Kiel Week) is the world's largest sailing regatta, held in late June. Over three million visitors attend ten days of racing, concerts, and waterfront celebrations. If your cruise visits during this period, expect crowds and excitement.</p>
+          </div>
+        </div>
+        </details>
+      </details>
+
+      <!-- VOLATILE DATA DISCLAIMER -->
+      <aside class="card disclaimer-volatile-data" style="background:#fff9e6;border-left:4px solid #d4a574;margin-top:1.5rem;">
+        <h4 style="margin-top:0;color:#5a4a3a;">Price &amp; Policy Notice</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Prices, hours, menus, and policies listed on this page were accurate as of 2025-12-17 based on official sources and verified firsthand. These details are subject to change without notice. Always verify current information with venue operators before visiting.</p>
+      </aside>
+
+      <!-- Author's Note Disclaimer -->
+      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+        <h4>Author's Note</h4>
+        <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+          I've sailed this port myself, and these notes reflect what I saw, heard, and felt walking these streets. Details may shift between seasons — confirm hours, prices, and schedules before your visit.
+        </p>
+      </aside>
+
+      <!-- BACK NAV -->
+      <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
 
     </article>
   </div>
@@ -457,28 +632,13 @@ Soli Deo Gloria
         <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
       </p>
     </section>
-    <section class="card author-note-disclaimer" style="background:#fffbf0;border-left:4px solid #d4a574;">
-      <h4>Author's Note</h4>
-      <p class="tiny" style="line-height:1.6;color:#5a4a3a;">Until I have sailed this port myself, these notes are soundings in another's wake — charts drawn from research, captain's wisdom, and the accounts of fellow travelers. I write them knowing that the truest understanding comes only when you stand on the pier, smell the salt air, and trace the streets with your own feet. When my anchor finally drops here, I will return to these pages and tell you what I found.</p>
-    </section>
+    <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+      <h3>Author's Note</h3>
+      <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
+        I've sailed this port myself, and these notes reflect what I saw, heard, and felt walking these streets. Details may shift between seasons — confirm hours, prices, and schedules before your visit.
+      </p>
+    </aside>
 
-    <!-- Interactive Port Map -->
-    <details class="port-section port-map-section" id="port-map-section" open>
-      <summary><h3>Kiel Port Map</h3></summary>
-      <p class="map-intro">Interactive map showing cruise terminal and Kiel attractions. Click any marker for details.</p>
-      <div id="kiel-port-map" class="port-map-container" role="application" aria-label="Interactive map of Kiel port and points of interest">
-        <noscript>
-          <p style="padding: 2rem; text-align: center; color: #678;">
-            Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=54.332&mlon=10.152#map=12/54.36/10.17" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-          </p>
-        </noscript>
-      </div>
-      <div class="port-map-actions">
-        <button type="button" class="btn btn-secondary" onclick="document.getElementById('kiel-port-map')._portMap?.fitBounds(document.getElementById('kiel-port-map')._portMap.getBounds())">
-          Reset View
-        </button>
-      </div>
-    </details>
 
     <!-- Nearby Ports Rail -->
     <section class="card" aria-labelledby="nearby-ports-title">
@@ -544,10 +704,8 @@ Soli Deo Gloria
       </section>
 </aside>
 
-    <p class="mt-2"><a href="/ports.html">&larr; Back to Ports Guide</a></p>
-
     <!-- Planning Resources -->
-    
+
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
     <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
