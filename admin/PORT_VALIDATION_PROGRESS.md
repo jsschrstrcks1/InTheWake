@@ -25,6 +25,45 @@
 
 ## Session Log
 
+### Session 9: Score-0 Content Skeleton Rebuilds (2026-02-27)
+Branch: `claude/port-validation-review-Zd2lY`
+
+**Trigger:** User asked to resume validating port pages, targeting score-0 pages first.
+
+**Approach:** Read each file, identify all blocking errors, rebuild one section at a time, validate after each fix. 62 ports identified at score 0 via background validation sweep.
+
+**Fixes Applied (4 ports rebuilt from 0 to PASS):**
+
+1. **oslo** (0 → 86 PASS, commit `c032569a`):
+   - Hero: `<p>` → `<h1>` with `.port-hero-overlay` class
+   - Logbook: wrapped in `<details id="logbook">`, emotional pivot (SeaCity crew quarters), reflection
+   - Added: cruise-port (179w), getting-around expanded (113→280w), excursions (514w), depth-soundings (239w)
+   - Fixed: Key Facts "Caribbean" → "Scandinavia / Northern Europe", gallery credits linked, voice violations
+
+2. **stockholm** (0 → 86 PASS, commit `7d68697d`):
+   - Hero: gradient div → proper `<section class="port-hero">` with image
+   - Logbook: wrapped in `<details id="logbook">`, emotional pivot (Vasa Museum), reflection
+   - Added: cruise-port (155w), getting-around expanded (82→213w), excursions (470w), depth-soundings (236w)
+   - Fixed: gallery credits linked, "must-see" → "standout", short alt text
+
+3. **vancouver** (0 → 86 PASS, commit `293a9d38`):
+   - Major restructure: consolidated 3 separate articles into 1 proper article
+   - Hero: gradient div → proper section with image
+   - Logbook: wrote 826-word entry (Stanley Park, Granville Island, Capilano, Gastown, Grouse Mountain)
+   - Added: cruise-port (159w), getting-around (206w), excursions (403w), depth-soundings (225w)
+   - Fixed: Swiper gallery → gallery-grid, consolidated duplicate FAQ sections, added Quick Answer sidebar
+
+4. **southampton** (0 → 88 PASS, commit `ea7d0921`):
+   - Hero: fixed credit attribution, `<p>` → `<h1>` title
+   - Logbook: wrapped in `<details id="logbook">`, expanded to 807w (New Forest paragraph adding contrast language)
+   - Emotional pivot: SeaCity Museum Titanic crew quarters (eyes filled, something shifted)
+   - Added: cruise-port (148w), getting-around expanded (209w), excursions (446w), depth-soundings (269w)
+   - Fixed: gallery credits linked, removed 5 generic weather FAQ items, Key Facts "Caribbean" → "British Isles / Western Europe", "slots" gambling false positive, "one of the finest" voice violation
+
+**Common pattern across all 4 ports:** Score-0 skeleton pages share a template with gradient hero div (no image), no `<details>` wrappers for section detection, no cruise-port/excursions/depth-soundings sections, duplicate generic FAQ, unlinked gallery credits, and wrong Key Facts region.
+
+**Remaining:** 58 score-0 ports still need rebuilding from the same skeleton template.
+
 ### Session 8: Activity Research & Scenic Port Fixes (2026-02-25)
 Branch: `claude/port-validation-review-Zd2lY`
 
@@ -200,7 +239,7 @@ These pages have sidebar and basic structure but are missing all content section
 - No cruise port section (need 100+ words)
 - No excursions section (need 400+ words)
 - No depth soundings section
-- Examples: lisbon, oslo, stockholm, vancouver, melbourne, helsinki, genoa, osaka
+- Examples: lisbon, melbourne, helsinki, osaka, halifax, split, tallinn, valencia
 
 ---
 
@@ -257,5 +296,5 @@ Many ports still have multiple gallery photos crediting the same generic URL (e.
 
 ---
 
-**Last Updated:** 2026-02-25 (Session 8 — Activity research, scenic port fixes, label corrections)
+**Last Updated:** 2026-02-27 (Session 9 — Score-0 skeleton rebuilds: oslo, stockholm, vancouver, southampton)
 **Updated By:** Claude (Session: claude/port-validation-review-Zd2lY)
