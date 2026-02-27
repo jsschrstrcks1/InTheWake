@@ -2,170 +2,134 @@
 
 > Branch: `claude/explore-venue-photos-OeAgM`
 > Date: 2026-02-27
-> Status: **Planning**
+> Status: **Phase 1 complete** (script, config, CSS, directories built)
 
 ---
 
 ## Goal
 
-Take rough photos you've taken of specific cruise ship venues, clean them up (crop, resize, convert to WebP), and integrate them as:
+Take rough photos of specific cruise ship venues, process them through a computational photography pipeline (straighten, perspective correct, auto-level, white balance, subject-aware crop, sharpen), and integrate as:
 1. **Card thumbnails** on the Explore Venues page (`restaurants.html`) — replacing generic stock images
-2. **Section images** on individual venue HTML pages — replacing the repeated stock photos
+2. **Section images** on individual venue HTML pages — in the Overview section with proper attribution
+
+---
+
+## Decisions Made
+
+| Question | Decision |
+|----------|----------|
+| Photo credit | "Photo © Flickers of Majesty" |
+| Originals in repo? | No — only processed WebP committed. Originals/.gitignore'd |
+| Processing toolkit | OpenCV + Pillow (smart defaults + per-photo config overrides) |
+| Workflow | Smart defaults → you review → we refine per-photo config → re-process |
+| Card aspect ratio | 16:9 (matches `.item-card-image { aspect-ratio: 16/9 }`) |
+| Output sizes | 720w (card thumbnail), 1200w (venue page section) |
 
 ---
 
 ## Current State
 
-### Explore page (`restaurants.html`)
-- Venue cards are rendered **dynamically** by `assets/js/restaurants-dynamic.js`
-- Card images are chosen from a `VENUE_IMAGES` map (slug → image path)
-- Currently **9 generic stock photos** cycle across all 472 venues:
-  - `formal-dining.webp`, `buffet.webp`, `cocktail-lounge.webp`, `cocktail.webp`, `croissant.webp`, `hotdog.webp`, `italian.webp`, `pizza.webp`, `sushi.webp`, `tacos.webp`, `bar-lounge.webp`
-- Fallback: `formal-dining.webp` for any unmapped slug
+### What's built (Phase 1 — complete)
 
-### Individual venue pages (e.g., `restaurants/chops.html`)
-- Images appear as **decorative watermarks** (`opacity: .08`) behind Logbook and FAQ sections
-- Use the same stock photos (e.g., `formal-dining.webp`, `bar-lounge.webp`)
-- No prominent venue-specific hero or section images exist today
+| File | Status | Purpose |
+|------|--------|---------|
+| `admin/process-venue-photos.py` | ✅ Built | Full processing pipeline with OpenCV + Pillow |
+| `assets/images/restaurants/venue-photo-config.json` | ✅ Built | Per-photo override config (wonderland pre-seeded) |
+| `assets/images/restaurants/originals/` | ✅ Created | Staging dir for raw photos (.gitignore'd) |
+| `assets/images/restaurants/photos/venues/` | ✅ Created | Output dir for processed WebP files |
+| `assets/images/restaurants/previews/` | ✅ Created | Before/after preview dir (.gitignore'd) |
+| `assets/styles.css` (`.venue-photo`) | ✅ Added | CSS for venue photo figures in page content |
+| `.gitignore` | ✅ Updated | Excludes originals/ and previews/ |
 
-### Image standards
-- **All WebP** — 0 JPG/JPEG in the project (enforced since 2026-01-31)
-- No placeholder images allowed (BLOCKING ERROR per skill-rules.json)
-- Proper `alt` text required (WCAG AA)
-- `loading="lazy"` on below-fold images, `decoding="async"` standard
+### Processing pipeline capabilities
 
----
+1. **Auto-straighten** — Hough line detection → median angle → rotation correction
+2. **Perspective correction** — Vertical line analysis → keystone fix
+3. **Auto-levels** — Histogram stretch (0.5% clip on each end)
+4. **White balance** — Gray-world algorithm
+5. **Warmth shift** — Configurable cool↔warm color temperature
+6. **Noise reduction** — Bilateral filter (edge-preserving)
+7. **Subject-aware smart crop** — Edge density + color saturation + center bias → 16:9
+8. **Brightness/contrast/saturation** — Per-photo PIL adjustments
+9. **Sharpening** — Unsharp mask after resize
+10. **WebP export** — Quality 82, method 6
 
-## Implementation Plan
+### Per-photo config overrides
 
-### Phase 1: Photo Processing Pipeline
-
-**Step 1.1 — Receive & inventory the photos**
-- You'll add your rough photos to a staging directory (suggest: `assets/images/restaurants/originals/`)
-- I'll inventory them: map each photo to a venue slug, note aspect ratio, quality issues
-
-**Step 2.2 — Build a processing script**
-Create `admin/process-venue-photos.py` that:
-- Reads from `assets/images/restaurants/originals/`
-- For each photo:
-  - **Crops** to 16:9 aspect ratio (matching `.item-card-image { aspect-ratio: 16/9 }`)
-  - **Resizes** to 2 variants:
-    - `720w` — card thumbnail (360px card × 2x retina = 720px)
-    - `1200w` — full-width section image for venue pages
-  - **Converts** to WebP (quality 82, matching project's existing `convert_to_webp.py` settings)
-  - **Outputs** to `assets/images/restaurants/photos/venues/` with naming: `{venue-slug}-720w.webp`, `{venue-slug}-1200w.webp`
-- Generates a manifest JSON listing processed photos and their venue mappings
-
-**Step 1.3 — Manual review checkpoint**
-- Before going further, you review the processed photos
-- Adjust crop, brightness, rotation if needed
-- Re-run script on adjusted originals
-
-### Phase 2: Integrate into Explore Page (restaurants.html)
-
-**Step 2.1 — Update `VENUE_IMAGES` map in `restaurants-dynamic.js`**
-- For each venue that has a real photo, add/update its entry:
-  ```js
-  'chops': '/assets/images/restaurants/photos/venues/chops-720w.webp',
-  ```
-- Venues without real photos keep their current generic image mapping
-- No structural changes to the card rendering logic needed — just data changes
-
-**Step 2.2 — Add srcset for retina support (optional enhancement)**
-- Currently the card `<img>` has no `srcset`
-- Could add `srcset` with `720w` and `360w` variants for bandwidth savings
-- **Decision point**: do this now or defer? Suggest defer — it requires modifying `createVenueCard()` and is a separate concern
-
-### Phase 3: Integrate into Individual Venue Pages
-
-**Step 3.1 — Replace decorative watermarks with real section images**
-For each venue that has a real photo, update its HTML page:
-
-**Current pattern** (decorative watermark):
-```html
-<section class="card" id="logbook">
-  <img src="/assets/images/restaurants/photos/formal-dining.webp" alt="" aria-hidden="true"
-       style="position:absolute;inset:0;margin:auto;opacity:.08;max-width:60%;pointer-events:none">
-```
-
-**New pattern** (real venue photo as section image):
-```html
-<section class="card" id="overview">
-  <!-- Venue Photo -->
-  <figure class="venue-photo">
-    <img src="/assets/images/restaurants/photos/venues/chops-1200w.webp"
-         alt="Interior of Chops Grille steakhouse on Royal Caribbean"
-         width="1200" height="675" loading="lazy" decoding="async"/>
-    <figcaption class="tiny muted">Photo by Ken Baker · Chops Grille aboard [Ship Name]</figcaption>
-  </figure>
-```
-
-**Key decisions:**
-- Place the real photo in the **Overview section** (top of page, most visible)
-- Keep the watermark images in Logbook/FAQ as they are (decorative, low opacity)
-- Use `<figure>` + `<figcaption>` for proper semantics and attribution
-- Write real, descriptive alt text per venue (not generic)
-
-**Step 3.2 — Add minimal CSS for `.venue-photo`**
-Add to `assets/styles.css` (or a new `assets/css/venue-photo.css`):
-```css
-.venue-photo {
-  margin: 0 0 1.5rem;
-  border-radius: 10px;
-  overflow: hidden;
-}
-.venue-photo img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.venue-photo figcaption {
-  padding: 0.5rem 0;
-  text-align: center;
+Any parameter can be overridden per venue in `venue-photo-config.json`:
+```json
+{
+  "wonderland": {
+    "warmth": 0.15,
+    "saturation": 1.08,
+    "crop_bias": "center",
+    "brightness": 1.05,
+    "straighten_override": -1.5,
+    "crop_override": [10, 5, 80, 90]
+  }
 }
 ```
 
-**Step 3.3 — Update meta tags**
-For each modified venue page:
-- Update `last-reviewed` and `dateModified` to today's date
-- Update `og:image` and `twitter:image` to use the real photo URL
+### Usage
 
-### Phase 4: Validation & Cleanup
+```bash
+# List originals and their processing status
+python3 admin/process-venue-photos.py --list
 
-- Run venue validator: `node admin/validate-venue-page-v2.js --batch restaurants/`
-- Spot-check 3 modified pages visually
-- Verify no broken images
-- Commit and push
+# Process all photos (batch)
+python3 admin/process-venue-photos.py
 
----
+# Process single photo
+python3 admin/process-venue-photos.py --photo wonderland
 
-## File Changes Summary
+# Generate before/after preview for review
+python3 admin/process-venue-photos.py --preview
 
-| File | Change Type | Description |
-|------|-------------|-------------|
-| `admin/process-venue-photos.py` | **NEW** | Photo processing script (crop, resize, WebP convert) |
-| `assets/images/restaurants/originals/` | **NEW DIR** | Raw photos staging area |
-| `assets/images/restaurants/photos/venues/` | **NEW DIR** | Processed venue-specific photos |
-| `assets/js/restaurants-dynamic.js` | **EDIT** | Update `VENUE_IMAGES` entries for venues with real photos |
-| `assets/styles.css` or new CSS | **EDIT** | Add `.venue-photo` styles |
-| `restaurants/{venue}.html` (×N) | **EDIT** | Add `<figure>` with real photo, update dates, update og:image |
+# Show current config
+python3 admin/process-venue-photos.py --config
+```
 
 ---
 
-## What I Need From You
+## Remaining Phases
 
-1. **The photos** — Add your rough photos to the repo (or tell me where they are). Any format is fine (JPG, PNG, HEIC) — the script will convert.
-2. **Venue mapping** — Which photo goes with which venue? (e.g., "this one is Chops on Oasis of the Seas")
-3. **Ship names** — For the figcaptions, which ship were you on when you took each photo?
-4. **Crop preferences** — Any specific framing you want preserved? The default will be center-crop to 16:9.
+### Phase 2: Process first photo (Wonderland)
+
+**Waiting on:** Photo file placed in `assets/images/restaurants/originals/wonderland.jpg`
+
+Once placed:
+1. Run `python3 admin/process-venue-photos.py --photo wonderland --preview`
+2. Review the before/after preview
+3. Adjust config if needed, re-run
+4. When happy, proceed to integration
+
+### Phase 3: Integrate into Explore Page
+
+Update `VENUE_IMAGES` map in `assets/js/restaurants-dynamic.js`:
+```js
+'wonderland': '/assets/images/restaurants/photos/venues/wonderland-720w.webp',
+```
+
+### Phase 4: Integrate into Venue Page
+
+Update `restaurants/wonderland.html`:
+- Add `<figure class="venue-photo">` in the Overview section
+- Credit: "Photo © Flickers of Majesty · Wonderland aboard [Quantum Class ship]"
+- Alt text: descriptive, venue-specific
+- Update `last-reviewed`, `dateModified`, `og:image`, `twitter:image`
+
+### Phase 5: Repeat for additional photos
+
+As more photos come in, repeat Phases 2-4 per venue.
 
 ---
 
-## Open Questions
+## First photo: Wonderland
 
-1. **Photo credit format**: "Photo by Ken Baker" or "Photo by Flickers of Majesty" or something else?
-2. **Do you want the originals committed to the repo?** They'll be larger files. Alternative: only commit the processed WebP versions.
-3. **Python dependencies**: The processing script will need `Pillow` (PIL). Is that acceptable, or should I use a different approach (e.g., `cwebp` CLI tool)?
+- **Ship:** Quantum Class
+- **Subject:** Restaurant entrance — throne chair, red rose sculpture, "Wonderland" signage
+- **Credit:** Photo © Flickers of Majesty
+- **Config:** Slight warmth (+0.15), gentle saturation boost (+1.08)
 
 ---
 
