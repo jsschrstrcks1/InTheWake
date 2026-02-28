@@ -780,14 +780,15 @@ function validateSectionOrder($) {
       });
     }
 
-    // Accept credits from multiple free image sources
+    // Accept credits from multiple free image sources and project photography
     const creditLink = heroSection.find(`
       a[href*="commons.wikimedia.org"],
       a[href*="wikimedia"],
       a[href*="unsplash.com"],
       a[href*="pexels.com"],
       a[href*="pixabay.com"],
-      a[href*="flickr.com"]
+      a[href*="flickr.com"],
+      a[href*="flickersofmajesty.com"]
     `.replace(/\s+/g, ''));
     if (!creditLink.length) {
       errors.push({
