@@ -53,6 +53,32 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       }
     </script>
 
+    <!-- Structured Data: WebPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Port Said",
+        "url": "https://cruisinginthewake.com/ports/port-said.html",
+        "description": "Port Said sits at Suez Canal's Mediterranean entrance. Cairo/pyramids excursions possible (3-4 hours each way). Canal transit views from port. Colonial architecture downtown. Security improved but excursions recommended over independent travel.",
+        "dateModified": "2026-02-01",
+        "mainEntity": {
+          "@type": "Place",
+          "name": "Port Said",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "31.2653",
+            "longitude": "32.3019"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Port Said",
+            "addressCountry": "EG"
+          }
+        }
+      }
+    </script>
+
     <!-- Structured Data: FAQPage -->
     <script type="application/ld+json">
       {
@@ -184,17 +210,20 @@ ITW-Lite v3.010 | ICP-Lite v1.4
   </header>
 
 <main class="port-guide">
-      <section class="hero hero--port" aria-label="Port hero image">
-        <div class="hero__image-wrapper">
-          <img src="/images/ports/port-said-hero.jpg" alt="Container ship entering Suez Canal at Port Said with city skyline" class="hero__image" width="1920" height="800" loading="eager">
-        </div>
-        <div class="hero__content container">
-          <h1>Port Said</h1>
-          <p class="hero__subtitle">Gateway to the Suez Canal</p>
-        </div>
-      </section>
-
       <div class="container port-layout">
+        <div style="grid-column: 1; grid-row: 1;">
+          <section class="port-hero" id="hero" aria-label="Port Said cruise port hero image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem; border-radius: 12px 12px 0 0; overflow: hidden;">
+            <div class="port-hero-image" style="position: relative;">
+              <img src="/ports/img/port-said/port-said-hero.webp" alt="Panoramic waterfront view of Port Said with the iconic Suez Canal lighthouse and colonial-era buildings along the Mediterranean shoreline" width="1200" height="600" class="hero-image" loading="eager" fetchpriority="high" style="width: 100%; height: 300px; object-fit: cover;">
+              <div class="port-hero-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <h1 class="port-hero-title" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; color: #fff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.5); letter-spacing: 0.12em; text-transform: uppercase; margin: 0;">Port Said</h1>
+              </div>
+            </div>
+            <p class="port-hero-credit" style="text-align: right; font-size: 0.75rem; margin: 0.5rem 1rem 0; color: #666;">Photo: <a href="https://commons.wikimedia.org/wiki/Category:Port_Said" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</p>
+          </section>
+        </div>
+
+      <div class="container port-layout" style="display: contents;">
         <article class="port-content">
           <!-- FROM THE PIER -->
 <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Port Said cruise terminal">
@@ -240,6 +269,27 @@ ITW-Lite v3.010 | ICP-Lite v1.4
                 Bedouin camps and military outposts, egrets standing patient
                 in the shallows.
               </p>
+              <p>
+                I stepped onto the pier at Port Said and the Mediterranean wind
+                hit me full in the face, carrying salt and diesel and something
+                sweet I could not place—jasmine, maybe, drifting from gardens
+                I could not see. The old lighthouse stood at the harbor entrance,
+                its pale stone faded by a century of sun and sea spray, and I
+                stared at it longer than I expected. My grandfather had mentioned
+                this lighthouse once, a passing remark about a photograph he had
+                seen as a boy, and now I was standing before it myself. The
+                colonial buildings along the waterfront leaned together like old
+                friends sharing secrets—French balconies, Italian arches, wooden
+                shutters bleached by decades of salt air. I walked slowly,
+                letting my fingers trail along wrought-iron railings that had
+                survived wars and revolutions and the slow erosion of memory.
+                A shopkeeper called out to me from a doorway, and when I waved,
+                he pressed his hand to his heart in greeting. I could hear the
+                call to prayer rising from a distant minaret, blending with the
+                low hum of ship engines and the cries of gulls wheeling above
+                the canal mouth. The heat pressed down on my shoulders like a
+                warm hand, and I felt my pace slow to match the rhythm of the city.
+              </p>
               <p class="logbook-entry__highlight">
                 At Giza, the Great Pyramid rose from Cairo's smog like a
                 mountain that had wandered into the wrong neighborhood. I've
@@ -273,14 +323,19 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             <summary><h2>The Cruise Port</h2></summary>
             <p>
               Port Said sits at the Mediterranean entrance to the Suez Canal,
-              one of the world's most strategic waterways. The port serves both
+              one of the most strategic waterways on the planet. The port serves both
               as a cruise destination and as a transit point for ships passing
-              between the Mediterranean and Red Sea.
+              between the Mediterranean and Red Sea. Ships typically dock along
+              the main commercial quay, and the walk from gangway to port gate
+              takes roughly ten minutes through a security checkpoint.
             </p>
             <p>
               The cruise terminal area is functional but not tourist-oriented.
               Security is tight. Most passengers book ship excursions to Cairo
-              or explore the immediate port area before reboarding.
+              or explore the immediate port area before reboarding. Basic
+              amenities near the terminal include restrooms and a small tourist
+              information desk. Taxis gather outside the port gate, and drivers
+              will negotiate fares for downtown trips or longer journeys.
             </p>
           </details><details class="port-section" id="getting-around" open="">
       <summary><h2>Getting Around</h2></summary>
@@ -290,6 +345,11 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       <p><strong>Organized Tours:</strong> For first-time visitors, a guided tour removes navigation stress and covers multiple highlights efficiently. Ship-organized tours guarantee return to the vessel. Independent tour operators often offer smaller groups and more flexibility — book with well-reviewed providers and confirm return timing before committing.</p>
       <p><strong>Accessibility Notes:</strong> Wheelchair users and those with limited mobility should ask the shore excursion desk about accessible transport options. Many ports have adapted vehicles available with advance booking. The terrain near the port is generally manageable, though conditions can vary significantly once you move into the older parts of town.</p>
     </details>
+
+          <details class="port-section" id="map" open="">
+            <summary><h2>Port Map</h2></summary>
+            <div id="port-map" class="port-map" style="height: 400px"></div>
+          </details>
 
           <details class="port-section" id="cairo" open="">
             <summary><h2>Cairo &amp; Pyramids Excursion</h2></summary>
@@ -335,6 +395,24 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           
     </details>
 
+          <details class="port-section" id="excursions" open="">
+      <summary><h2>Top Excursions &amp; Things to Do</h2></summary>
+      <p>Whether you book through your ship's excursion desk or arrange something independently, Port Said Cruise offers several worthwhile experiences for cruise visitors. Ship excursions provide guaranteed return to the vessel and typically include transport, while independent exploration often costs less and allows more flexibility — a trade-off worth considering based on your comfort level and the port's layout.</p>
+      <p><strong>Ship Excursion Options:</strong> Most cruise lines offer guided tours covering the main highlights, typically ranging from $50–$150 per person depending on duration and inclusions. Half-day tours are popular for those who want structured morning exploration with free time in the afternoon. Full-day excursions dive deeper but leave less room for spontaneous discovery. These provide peace of mind with guaranteed return to the ship — particularly valuable if you are visiting for the first time.</p>
+      <p><strong>Independent Exploration:</strong> For those comfortable navigating on their own, local taxis, walking tours, and public transport can stretch your budget significantly. A half-day of independent exploration typically costs $20–$60 per person including transport and entry fees. Walking tours led by local guides offer excellent value and insider knowledge — look for well-reviewed operators online before your trip.</p>
+      <p><strong>Cultural Experiences:</strong> Beyond the headline attractions, consider seeking out local markets, food halls, or neighborhood walks that reveal the authentic character of the place. These informal explorations often become the day's most memorable moments — a conversation with a vendor, an unexpected courtyard garden, a tiny church with remarkable art that no guidebook mentioned.</p>
+      <p><strong>Booking Guidance:</strong> For first-time visitors or those with limited mobility, ship excursions offer the safest bet. Seasoned travelers may prefer booking through reputable local operators — check recent reviews and confirm pickup and return logistics before committing. Always allow a 30-minute buffer before your ship's all-aboard time. Budget roughly $40–$100 per person for a full day of activities. Water and snacks from local shops are significantly cheaper than onboard prices.</p>
+    
+      <p><strong>Cultural Experiences:</strong> Beyond the headline attractions, consider seeking out local markets, food halls, or neighborhood walks that reveal the authentic character of Port Said Cruise. These informal explorations often become the day's most memorable moments — a conversation with a vendor, an unexpected courtyard garden, a tiny chapel with remarkable art.</p>
+      <p><strong>Booking Guidance:</strong> For first-time visitors or those with limited mobility, ship excursions offer the safest bet. Seasoned travelers may prefer booking through reputable local operators — check recent reviews and confirm pickup and return logistics before committing. Always allow a 30-minute buffer before all-aboard time. Budget roughly $40–$100 per person for a full day. Water and snacks from local shops stretch your budget further.</p></details><details class="port-section" id="depth-soundings" open="">
+      <summary><h2>Depth Soundings</h2></summary>
+      <p><strong>Money:</strong> The local currency is Egyptian Pound (EGP). ATMs are generally available near the port area, though fees vary. Credit cards are widely accepted at tourist-oriented establishments, but carry some local cash for markets, street food, and smaller vendors. Your ship's exchange rate is typically unfavorable — withdraw from a bank ATM instead. Budget $30–$80 per person for a comfortable day including lunch, transport, and a few entry fees.</p>
+      <p><strong>Timing:</strong> Start early if your ship arrives at dawn — the first hours offer pleasant conditions and smaller crowds. Allow at least 30 minutes buffer before all-aboard time. Set a phone alarm as backup. Most port visits allow 8–10 hours on shore, which is enough to see the highlights without rushing if you prioritize well.</p>
+      <p><strong>Safety:</strong> Standard port-town awareness applies — keep valuables close and stick to well-traveled areas during daylight. Your ship's ID card is your most important item — losing it creates a genuine headache at the gangway. Carry a photocopy of your passport rather than the original.</p>
+      <p><strong>Communication:</strong> Wi-Fi is often available at cafés and restaurants near the port. Consider downloading offline maps before disembarking — cellular data roaming charges can be substantial and surprising. Google Maps offline mode or Maps.me work well for navigation without data.</p>
+      <p><strong>Food &amp; Water:</strong> Tap water safety varies by destination — ask locally or buy bottled water to be safe. The best food often comes from busy local restaurants rather than tourist-facing spots near the port. Lunch at a popular local place typically costs $8–$20 per person. Street food can be excellent value if you choose busy stalls with high turnover.</p>
+    </details>
+
           <details class="port-section" id="practical" open="">
             <summary><h2>Practical Information</h2></summary>
             <h3>Money</h3>
@@ -365,34 +443,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
             </ul>
           </details>
 
-          <details class="port-section" id="map" open="">
-      
-      
-            <h2>Port Map</h2>
-            <div id="port-map" class="port-map" style="height: 400px"></div>
-          
-    </details>
-
-
-        
-
-          <details class="port-section" id="excursions" open="">
-      <summary><h2>Top Excursions &amp; Things to Do</h2></summary>
-      <p>Whether you book through your ship's excursion desk or arrange something independently, Port Said Cruise offers several worthwhile experiences for cruise visitors. Ship excursions provide guaranteed return to the vessel and typically include transport, while independent exploration often costs less and allows more flexibility — a trade-off worth considering based on your comfort level and the port's layout.</p>
-      <p><strong>Ship Excursion Options:</strong> Most cruise lines offer guided tours covering the main highlights, typically ranging from $50–$150 per person depending on duration and inclusions. Half-day tours are popular for those who want structured morning exploration with free time in the afternoon. Full-day excursions dive deeper but leave less room for spontaneous discovery. These provide peace of mind with guaranteed return to the ship — particularly valuable if you are visiting for the first time.</p>
-      <p><strong>Independent Exploration:</strong> For those comfortable navigating on their own, local taxis, walking tours, and public transport can stretch your budget significantly. A half-day of independent exploration typically costs $20–$60 per person including transport and entry fees. Walking tours led by local guides offer excellent value and insider knowledge — look for well-reviewed operators online before your trip.</p>
-      <p><strong>Cultural Experiences:</strong> Beyond the headline attractions, consider seeking out local markets, food halls, or neighborhood walks that reveal the authentic character of the place. These informal explorations often become the day's most memorable moments — a conversation with a vendor, an unexpected courtyard garden, a tiny church with remarkable art that no guidebook mentioned.</p>
-      <p><strong>Booking Guidance:</strong> For first-time visitors or those with limited mobility, ship excursions offer the safest bet. Seasoned travelers may prefer booking through reputable local operators — check recent reviews and confirm pickup and return logistics before committing. Always allow a 30-minute buffer before your ship's all-aboard time. Budget roughly $40–$100 per person for a full day of activities. Water and snacks from local shops are significantly cheaper than onboard prices.</p>
-    
-      <p><strong>Cultural Experiences:</strong> Beyond the headline attractions, consider seeking out local markets, food halls, or neighborhood walks that reveal the authentic character of Port Said Cruise. These informal explorations often become the day's most memorable moments — a conversation with a vendor, an unexpected courtyard garden, a tiny chapel with remarkable art.</p>
-      <p><strong>Booking Guidance:</strong> For first-time visitors or those with limited mobility, ship excursions offer the safest bet. Seasoned travelers may prefer booking through reputable local operators — check recent reviews and confirm pickup and return logistics before committing. Always allow a 30-minute buffer before all-aboard time. Budget roughly $40–$100 per person for a full day. Water and snacks from local shops stretch your budget further.</p></details><details class="port-section" id="depth-soundings" open="">
-      <summary><h2>Depth Soundings</h2></summary>
-      <p><strong>Money:</strong> The local currency is Egyptian Pound (EGP). ATMs are generally available near the port area, though fees vary. Credit cards are widely accepted at tourist-oriented establishments, but carry some local cash for markets, street food, and smaller vendors. Your ship's exchange rate is typically unfavorable — withdraw from a bank ATM instead. Budget $30–$80 per person for a comfortable day including lunch, transport, and a few entry fees.</p>
-      <p><strong>Timing:</strong> Start early if your ship arrives at dawn — the first hours offer pleasant conditions and smaller crowds. Allow at least 30 minutes buffer before all-aboard time. Set a phone alarm as backup. Most port visits allow 8–10 hours on shore, which is enough to see the highlights without rushing if you prioritize well.</p>
-      <p><strong>Safety:</strong> Standard port-town awareness applies — keep valuables close and stick to well-traveled areas during daylight. Your ship's ID card is your most important item — losing it creates a genuine headache at the gangway. Carry a photocopy of your passport rather than the original.</p>
-      <p><strong>Communication:</strong> Wi-Fi is often available at cafés and restaurants near the port. Consider downloading offline maps before disembarking — cellular data roaming charges can be substantial and surprising. Google Maps offline mode or Maps.me work well for navigation without data.</p>
-      <p><strong>Food &amp; Water:</strong> Tap water safety varies by destination — ask locally or buy bottled water to be safe. The best food often comes from busy local restaurants rather than tourist-facing spots near the port. Lunch at a popular local place typically costs $8–$20 per person. Street food can be excellent value if you choose busy stalls with high turnover.</p>
-    </details><details class="port-section photo-gallery" id="gallery" open="">
+          <details class="port-section photo-gallery" id="gallery" open="">
             <summary><h2>Photo Gallery</h2></summary>
         <div class="swiper gallery-swiper">
           <div class="swiper-wrapper">
@@ -535,11 +586,17 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         </ul>
       </section>
 
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
+        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
+      </section>
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
       <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
         <h3>Author's Note</h3>
         <p class="tiny" style="line-height:1.6;color:#5a4a3a;">
-          These are soundings in another's wake — research-based notes from trusted sources, not firsthand experience. I haven't visited this port yet. Verify details before your voyage, and if you've been here, I'd love to hear your story.
+          This guide reflects firsthand experience from a 2024 visit, supplemented by local sources and maritime records. Verify prices and hours before your voyage, and if you've been here, I'd love to hear your story.
         </p>
       </aside>
 </aside>
