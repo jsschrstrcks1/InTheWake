@@ -174,6 +174,8 @@
     'sonic-odyssey': '/assets/images/restaurants/photos/venues/sonic-odyssey-720w.webp',
     'music-hall': '/assets/images/restaurants/photos/venues/music-hall-720w.webp',
     'two70': '/assets/images/restaurants/photos/venues/two70-720w.webp',
+    'diamond-lounge': '/assets/images/restaurants/photos/venues/crown-lounge-720w.webp',
+    'the-grande': '/assets/images/restaurants/photos/venues/grande-720w.webp',
     '_default': '/assets/images/restaurants/photos/formal-dining.webp'
   };
 
