@@ -21,6 +21,24 @@ const SECTION_ORDER = [
   'gallery', 'credits', 'faq', 'back-nav'
 ];
 
+// Map alternate IDs to canonical SECTION_ORDER IDs
+const ID_ALIASES = {
+  'map': 'port-map-section',
+  'port-map': 'port-map-section',
+  'featured-image': 'featured-images',
+  'featured_images': 'featured-images',
+  'weather': 'weather-guide',
+  'cruise_port': 'cruise-port',
+  'getting_around': 'getting-around',
+  'depth_soundings': 'depth-soundings',
+  'getting-there': 'getting-around',
+  'back-to-ports': 'back-nav',
+};
+
+function getCanonicalId(id) {
+  return ID_ALIASES[id] || id;
+}
+
 function fixPort(filepath) {
   const html = fs.readFileSync(filepath, 'utf8');
   const slug = path.basename(filepath, '.html');
@@ -28,16 +46,25 @@ function fixPort(filepath) {
 
   const $ = cheerio.load(html, { decodeEntities: false });
 
-  // Collect all port sections within the article/card
-  const article = $('article.card, .card').first();
-  if (!article.length) return null;
+  // Search within the main article card for sections
+  const mainContent = $('article.card, .card').first();
+  if (!mainContent.length) return null;
 
-  // Find all details/section elements with IDs that are in our order list
+  // Find all details/section/div elements with IDs that are in our order list
+  // Only keep the first occurrence of each canonical ID
   const sections = [];
-  article.find('details[id], section[id]').each(function() {
-    const id = $(this).attr('id') || '';
+  const seenCanonical = new Set();
+  mainContent.find('details[id], section[id], div[id]').each(function() {
+    const rawId = $(this).attr('id') || '';
+    const id = getCanonicalId(rawId);
     if (SECTION_ORDER.includes(id)) {
-      sections.push({ id, el: $(this), html: $.html($(this)) });
+      if (!seenCanonical.has(id)) {
+        seenCanonical.add(id);
+        sections.push({ id, rawId, el: $(this), html: $.html($(this)) });
+      } else {
+        // Remove duplicate sections
+        $(this).remove();
+      }
     }
   });
 
@@ -61,16 +88,24 @@ function fixPort(filepath) {
     return SECTION_ORDER.indexOf(a.id) - SECTION_ORDER.indexOf(b.id);
   });
 
-  // Reorder: place each section after the previous one
-  for (let i = 1; i < sorted.length; i++) {
-    const prev = $(`#${sorted[i - 1].id}`);
-    const curr = $(`#${sorted[i].id}`);
-    if (prev.length && curr.length) {
-      prev.after(curr);
+  // Use a string-based approach: capture each section's outerHTML,
+  // find the first section as anchor, remove all others, then insert in order.
+  // This avoids cheerio's after() stack overflow on large files.
+  const firstSectionInDOM = sections[0];
+  const anchor = $(`#${firstSectionInDOM.rawId}`);
+  if (!anchor.length) return null;
+
+  // Detach all sections except the first one found in DOM
+  for (const sec of sections) {
+    if (sec.rawId !== firstSectionInDOM.rawId) {
+      $(`#${sec.rawId}`).remove();
     }
   }
 
-  changes.push(`Reordered: ${sorted.map(s => s.id).join(' → ')}`);
+  // Now insert all sorted sections. Replace anchor with sorted[0], then chain.
+  anchor.replaceWith(sorted.map(s => s.html).join('\n'));
+
+  changes.push(`Reordered: ${sorted.map(s => s.rawId).join(' → ')}`);
 
   if (changes.length > 0) {
     fs.writeFileSync(filepath, $.html());
