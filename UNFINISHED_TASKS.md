@@ -1,7 +1,7 @@
 # Unfinished Tasks
 
 **Purpose:** Active task queue. Only pending work lives here.
-**Last Updated:** 2026-02-22
+**Last Updated:** 2026-03-02
 **Maintained by:** Claude AI
 
 > **Archives:**
@@ -25,6 +25,128 @@
 | Files with `<style>` | 25 |
 | ICP-Lite coverage | 1,232/1,238 (99.5%) — 6 remaining are article fragments without `<head>` |
 | Soli Deo Gloria coverage | 1,238/1,238 (100%) |
+
+---
+
+## 🚢 Port Content Repair Queue (Session 12 — 2026-03-02)
+
+**Context:** Session 12 identified 88 ports that contained identical template filler inserted by batch scripts. Template filler was removed and the validator was updated with a `template_filler_detected` BLOCKING check. These 77 ports now need real, port-specific content written.
+
+**Current validation:** 310/387 PASS (80.1%). The 77 failing ports need content for 1-3 sections each.
+
+**What each port typically needs:**
+- **Cruise Port section** (100+ words): Where ships dock, terminal facilities, distance to town, specific cruise lines that call here
+- **Getting Around section** (200+ words): Walking distances, specific taxi fares, bus routes, shuttle info for THIS port
+- **Excursions section** (400+ words): Specific tours, activities, booking advice, prices — all port-specific
+
+**Priority tiers:**
+
+### Tier 1: High-traffic ports (fix first — readers will notice)
+Ports that likely get significant traffic and need quality content:
+
+| Port | Missing sections | Notes |
+|------|-----------------|-------|
+| copenhagen.html | cruise-port, getting-around, excursions | Major European hub |
+| riga.html | cruise-port, getting-around, excursions | Popular Baltic port |
+| tallinn.html | cruise-port, getting-around, excursions | Popular Baltic port |
+| split.html | cruise-port, getting-around, excursions | Major Adriatic port |
+| rhodes.html | cruise-port, getting-around, excursions | Popular Greek island |
+| phuket.html | cruise-port, getting-around, excursions | Major Asian port |
+| san-diego.html | cruise-port, getting-around, excursions | Major US port |
+| valencia.html | cruise-port, getting-around, excursions | Growing Med port |
+| stavanger.html | cruise-port, getting-around, excursions | Popular Norwegian port |
+| malaga.html | cruise-port, getting-around, excursions | Major Spanish port |
+| victoria-bc.html | cruise-port, getting-around, excursions | Major PNW port |
+| st-petersburg.html | cruise-port, getting-around, excursions | Major Russian port |
+| port-everglades.html | cruise-port, getting-around, excursions | Major US homeport |
+| port-miami.html | cruise-port, getting-around, excursions | Major US homeport |
+| portland.html | cruise-port, getting-around, excursions | US/Canada port |
+
+### Tier 2: Medium-traffic ports
+
+| Port | Missing sections |
+|------|-----------------|
+| cairns.html | cruise-port, getting-around, excursions |
+| cannes.html | cruise-port, getting-around, excursions |
+| cartagena.html | cruise-port, getting-around, excursions |
+| casablanca.html | cruise-port, getting-around, excursions |
+| charleston.html | cruise-port, getting-around, excursions |
+| corfu.html | cruise-port, getting-around, excursions |
+| goa.html | emotional pivot/filler removed from logbook |
+| halifax.html | excursions |
+| manila.html | cruise-port, getting-around, excursions |
+| osaka.html | cruise-port, getting-around, excursions |
+| panama-canal.html | cruise-port, getting-around, excursions |
+| penang.html | cruise-port, getting-around, excursions |
+| porto.html | cruise-port, getting-around, excursions |
+| recife.html | cruise-port, getting-around, excursions |
+| taormina.html | cruise-port, getting-around, excursions |
+| trieste.html | cruise-port, getting-around, excursions |
+| villefranche.html | cruise-port, getting-around, excursions |
+| warnemunde.html | cruise-port, getting-around, excursions |
+| zeebrugge.html | cruise-port, getting-around, excursions |
+
+### Tier 3: Lower-traffic / specialized ports
+
+| Port | Missing sections |
+|------|-----------------|
+| callao.html | cruise-port, excursions |
+| catania.html | cruise-port, getting-around, excursions |
+| cephalonia.html | cruise-port, getting-around, excursions |
+| charlottetown.html | cruise-port, getting-around, excursions |
+| cherbourg.html | cruise-port, getting-around, excursions |
+| chilean-fjords.html | cruise-port, getting-around, excursions |
+| colon.html | cruise-port, getting-around, excursions |
+| durban.html | cruise-port, excursions |
+| falmouth.html | logbook filler removed |
+| kusadasi.html | logbook filler removed |
+| la-spezia.html | cruise-port, getting-around |
+| papeete.html | cruise-port, getting-around, excursions |
+| ponta-delgada.html | getting-around, excursions |
+| port-arthur.html | getting-around, excursions |
+| port-elizabeth.html | cruise-port, getting-around, excursions |
+| port-said.html | getting-around, excursions |
+| puerto-montt.html | getting-around |
+| punta-arenas.html | cruise-port, getting-around, excursions |
+| punta-del-este.html | getting-around, excursions |
+| ravenna.html | cruise-port, getting-around, excursions |
+| roatan.html | cruise-port only |
+| rotorua.html | cruise-port, logbook needs ~20 more words |
+| royal-beach-club-antigua.html | cruise-port, getting-around, excursions |
+| saguenay.html | cruise-port, getting-around, excursions |
+| saint-john.html | cruise-port, getting-around, excursions |
+| santa-marta.html | getting-around, excursions |
+| scotland.html | cruise-port, getting-around, excursions |
+| sihanoukville.html | logbook filler removed |
+| south-pacific.html | cruise-port, getting-around, excursions |
+| south-shetland-islands.html | cruise-port, getting-around, excursions |
+| st-croix.html | getting-around, excursions |
+| st-john-usvi.html | cruise-port, getting-around, excursions |
+| strait-of-magellan.html | cruise-port, getting-around, excursions |
+| sydney-ns.html | cruise-port, getting-around, excursions |
+| tangier.html | cruise-port, getting-around, excursions |
+| tauranga.html | getting-around |
+| tender-ports.html | excursions (needs tender-specific content) |
+| tobago.html | getting-around, excursions |
+| torshavn.html | getting-around, excursions |
+| trinidad.html | getting-around, excursions |
+| tunis.html | cruise-port, getting-around, excursions |
+| ushuaia.html | cruise-port, getting-around, excursions |
+| vigo.html | cruise-port, getting-around, excursions |
+| waterford.html | cruise-port, getting-around, excursions |
+| zadar.html | cruise-port, getting-around, excursions |
+
+### Approach for repairs
+
+Each port's content must be **port-specific** — no generic templates. Research-backed content with:
+- Real terminal names and facilities
+- Real distances, taxi fares, bus routes
+- Real excursion names, operators, approximate prices
+- Real local tips that could only apply to THIS port
+
+**Estimated effort:** ~5-10 ports per session if hand-written with web research. At that pace, completing all 77 ports would take 8-15 sessions.
+
+**Alternative:** Prioritize Tier 1 (15 ports) and mark Tier 3 as "content stub" pages that are honest about being incomplete rather than pretending to have content they don't have.
 
 ---
 
