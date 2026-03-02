@@ -112,7 +112,7 @@ The sandbox egress policy may block direct `curl`/`WebFetch` to `commons.wikimed
 
 - **Do NOT use a placeholder image.** Placeholder images are a BLOCKING ERROR on any page.
 - Omit the image entirely or hide the image container for that entity.
-- Mark in `UNFINISHED_TASKS.md`: "NEEDS REAL IMAGE – all free sources searched, nothing found."
+- Mark in `admin/UNFINISHED_TASKS.md`: "NEEDS REAL IMAGE – all free sources searched, nothing found."
 
 ---
 

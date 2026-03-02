@@ -388,7 +388,6 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 
 ## Uncategorized Pending Items
 
-- [ ] User decision needed: deploy Amazon affiliate links or keep ad-free positioning?
 - [ ] Standardize carousel markup to `<figure>` pattern across all lines
 - [ ] `staleIfErrorTimestamped` strategy for FX API caching
 - [ ] `warmCalculatorShell` predictive prefetch
@@ -458,9 +457,9 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 
 - `.claude/audits/competitor-*.md` — Competitor analyses
 - `.claude/archive/` — Historical audit summaries
-- `COMPLETED_TASKS.md` — Finished work archive
-- `IN_PROGRESS_TASKS.md` — Currently active threads
-- `CAREFUL.md` — Integrity guardrail
+- `admin/COMPLETED_TASKS.md` — Finished work archive
+- `admin/IN_PROGRESS_TASKS.md` — Currently active threads
+- `admin/CAREFUL.md` — Integrity guardrail
 - `admin/claude/CLAUDE.md` — Complete project guide
 
 ---

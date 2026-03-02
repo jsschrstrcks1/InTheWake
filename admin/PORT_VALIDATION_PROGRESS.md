@@ -70,7 +70,7 @@ The 100% pass rate was inflated. Of 387 ports:
 
 **Results: 387 → 310 PASS (80.1%)**
 
-The 77 ports now failing need real, port-specific content written for their cruise-port, getting-around, and excursions sections. See UNFINISHED_TASKS.md for the full repair queue.
+The 77 ports now failing need real, port-specific content written for their cruise-port, getting-around, and excursions sections. See admin/UNFINISHED_TASKS.md for the full repair queue.
 
 **Honest assessment of what's better:**
 - 25 ports are genuinely better for readers (real narratives, real details)

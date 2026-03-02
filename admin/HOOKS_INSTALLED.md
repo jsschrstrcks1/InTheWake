@@ -17,9 +17,9 @@
 - **Blocking:** No (informational only)
 
 **Task files updated:**
-- `UNFINISHED_TASKS.md` - Queue of pending tasks
-- `IN_PROGRESS_TASKS.md` - Thread coordination
-- `COMPLETED_TASKS.md` - Archive of finished work
+- `admin/UNFINISHED_TASKS.md` - Queue of pending tasks
+- `admin/IN_PROGRESS_TASKS.md` - Thread coordination
+- `admin/COMPLETED_TASKS.md` - Archive of finished work
 
 ## Generated Files
 

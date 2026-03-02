@@ -365,7 +365,7 @@ cat .claude/skill-rules.json | jq '.skills | keys'
 ## Support
 
 **Documentation:**
-- FOM Merge Plan: `/FOM_MERGE_PLAN.md`
+- FOM Merge Plan: `/admin/FOM_MERGE_PLAN.md`
 - Skill Rules: `/.claude/skill-rules.json`
 - ITW-Lite Philosophy: Embedded in skill-rules.json notes section
 

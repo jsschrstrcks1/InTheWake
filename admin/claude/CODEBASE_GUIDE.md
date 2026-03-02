@@ -28,11 +28,8 @@ InTheWake/
 ├── _headers                        # Netlify cache headers
 ├── .htaccess                       # Apache cache headers
 ├── nginx-cache-headers.conf        # nginx cache headers
-├── UNFINISHED_TASKS.md            # Main task tracker (APPEND-ONLY)
-├── CONSOLIDATED_TASK_LIST_2025_11_23.md  # Priority-sorted tasks
-├── PERFORMANCE_OPTIMIZATIONS_COMPLETED.md  # Performance work docs
-├── CACHE_HEADERS_README.md        # Cache configuration docs
-├── SESSION_AUDIT_2025_11_23.md    # Latest audit report
+├── admin/UNFINISHED_TASKS.md       # Main task tracker (APPEND-ONLY)
+├── admin/CONSOLIDATED_TASK_LIST_2025_11_23.md  # Priority-sorted tasks
 │
 ├── ships/                          # Ship pages (298 across 15 lines)
 │   ├── index.html                 # Ships hub (NOT ships.html)
@@ -822,7 +819,7 @@ dropdownToggle.addEventListener('mouseleave', () => {
 TYPE: Brief summary (50 chars or less)
 
 Detailed explanation of changes and why they were necessary.
-Reference any related tasks or issues from UNFINISHED_TASKS.md.
+Reference any related tasks or issues from admin/UNFINISHED_TASKS.md.
 ```
 
 **Types:**
@@ -983,7 +980,7 @@ python3 comprehensive_site_audit.py
 7. `/standards/ports-standards.md` - Port page standards
 
 **Task Management:**
-8. `/UNFINISHED_TASKS.md` - Main task tracker (APPEND-ONLY)
+8. `/admin/UNFINISHED_TASKS.md` - Main task tracker (APPEND-ONLY)
 9. `/admin/FIVE_ARTICLE_CATEGORIES.md` - Article structure
 
 ### External Resources
@@ -1021,7 +1018,7 @@ python3 comprehensive_site_audit.py
 10. [ ] Update `fleet_index.json` (increment version)
 11. [ ] Test HTML validation
 12. [ ] Test accessibility (Lighthouse 100)
-13. [ ] Update UNFINISHED_TASKS.md (mark ship complete)
+13. [ ] Update admin/UNFINISHED_TASKS.md (mark ship complete)
 14. [ ] Commit with clear message: `FEAT: Add <Ship Name> ship page`
 
 ### Adding a New Port Page
@@ -1039,7 +1036,7 @@ python3 comprehensive_site_audit.py
 10. [ ] Test HTML validation
 11. [ ] Test accessibility
 12. [ ] Update Port Logbook database (if not already listed)
-13. [ ] Update UNFINISHED_TASKS.md (mark port complete)
+13. [ ] Update admin/UNFINISHED_TASKS.md (mark port complete)
 14. [ ] Commit: `FEAT: Add <Port Name> port page`
 
 ### Writing a Solo Travel Article
@@ -1058,7 +1055,7 @@ python3 comprehensive_site_audit.py
 11. [ ] Include Article schema (JSON-LD)
 12. [ ] Test HTML validation
 13. [ ] Test accessibility
-14. [ ] Update UNFINISHED_TASKS.md (mark article complete)
+14. [ ] Update admin/UNFINISHED_TASKS.md (mark article complete)
 15. [ ] Commit: `FEAT: Add <Article Title> solo travel article`
 
 ---
@@ -1139,7 +1136,7 @@ python3 comprehensive_site_audit.py
 `/assets/ships/<slug>.webp` (and `<slug>1.webp`, `<slug>2.webp`, etc.)
 
 **Main task tracker:**
-`/UNFINISHED_TASKS.md` (APPEND-ONLY)
+`/admin/UNFINISHED_TASKS.md` (APPEND-ONLY)
 
 **Main standards:**
 `/standards/main-standards.md`

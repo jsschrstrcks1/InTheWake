@@ -712,7 +712,7 @@ The low score is driven by missing ICP-Lite protocol elements (FAQ, fit-guidance
       - "The Widower's First Christmas Without Her" (Grandeur, Jewel)
       - "Grandpa's Last Alaska" (Radiance)
 
-11. **Update UNFINISHED_TASKS.md**
+11. **Update admin/UNFINISHED_TASKS.md**
     - Change status from ❌ NOT CREATED to ⚠️ DRAFTED - NEEDS TECHNICAL WORK
     - Add checklist items:
       - [ ] Add H1/dek, fit-guidance, FAQ

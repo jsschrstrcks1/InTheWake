@@ -1,6 +1,6 @@
 # Competitor Gap Analysis: Whatsinport
 
-**Extracted from:** UNFINISHED_TASKS.md
+**Extracted from:** admin/UNFINISHED_TASKS.md
 **Date:** 2026-02-08
 
 ---

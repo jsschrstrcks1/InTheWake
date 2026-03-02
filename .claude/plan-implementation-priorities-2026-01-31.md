@@ -26,8 +26,8 @@ The project has 7,858 files across 587 directories, 380 port pages, 293+ ship pa
 
 **Tasks:**
 1. Fix `admin/claude/CLAUDE.md`: Update ICP-Lite v1.0 → v1.4, port count 147 → 374+, priorities section
-2. Fix `claude.md` (root): Fix `admin/UNFINISHED-TASKS.md` reference → `UNFINISHED_TASKS.md`, verify ship page count
-3. Update `IN_PROGRESS_TASKS.md` with current active work
+2. Fix `claude.md` (root): Fix `admin/UNFINISHED-TASKS.md` reference → `admin/UNFINISHED_TASKS.md`, verify ship page count
+3. Update `admin/IN_PROGRESS_TASKS.md` with current active work
 4. Clean up stale remote branches (all 7 can be deleted)
 
 **Estimated scope:** 1 session (30 min)

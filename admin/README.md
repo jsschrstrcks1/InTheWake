@@ -253,4 +253,4 @@ Potential future additions to this directory:
 
 ---
 
-**For questions or issues with these tools, refer to the session logs or UNFINISHED_TASKS.md**
+**For questions or issues with these tools, refer to the session logs or admin/UNFINISHED_TASKS.md**
